@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B42C982DA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B683FC982EA
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 11:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADE5110E5AA;
-	Sun, 20 Sep 2026 11:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0745510E5C6;
+	Sun, 20 Sep 2026 11:06:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bb3ke8de";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rr+wSu4J";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBE110E573
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0905910E595
  for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 11:05:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6108060AB1;
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EB5B4481A;
  Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C71EC2BD00;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B31EC4AF0D;
  Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789902348;
- bh=HTqwxsoDW+GEiKMw2vob+DK+lRuaIjBeMDVIQ5kYLkM=;
+ bh=7lbo0tmJuCrfVNuusObRSYRQ3LhsPSY4no0HnM72Pbs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=bb3ke8dej6t0QfTVIxvP2ZVnXbwgoG8XWSxK0bIB6AsZS7J0eZdtp1dTgOb/1klwo
- UqrFjbS2IRwVBlb4Q0EGUdt8JlXde+8TleGkBp8IOBPf+nsxLLpGUfZHpKNDGV7RFB
- ISUY8a/cj8pV/7r4H/P2jIMtxgS/czHYpQpcYMF5Kqrw2LdGlrzlAXuKimFBUXn2ws
- 6Pza/ukQRNv4twKQryCwE/5bq0tun5HlgAFuTsrH7PPEvh31zSHSkwTv/eLgy+Qpgc
- ivGw8m5CythWqkoPR5LWK2WKkolwYpECM5OkjgVmgVdhify6hZ5g1gFY5nq+2SXzWr
- Bpw3hrCYmFc5w==
+ b=rr+wSu4JRTa5r4N6QfKiPsW/FPJYUmDdCo17tRMPBcSRvYQQajE0oRTTqrhI0M6LR
+ W8pQ4rre72wnBJsWIu3FXNg7WWrBxImcqQfVXpxIDnGb6cuXtem8+KODimp5kTxxVP
+ s4csUaeqszDtYRHbfkX0Ge0eaZqrCJBTADOPWDOTU73J7tuEdhdux0r5PGqS/s/q3R
+ B65Z7qCSfE2N+wda6JTBn4EHV+djRuMuI22V7r86odXmHsUZBFv0AfmHYW5c3Y/O4Q
+ bOzkOaERJVWed0h9FbN16z3yF/pfBddWZ+6fkCgKBn4y/WxIMhnMqScnR//UROZhuq
+ pCmqvQ12X+qkA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 08E33C982DA;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 1901EC982E6;
  Sun, 20 Sep 2026 11:05:48 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 20 Sep 2026 13:05:53 +0200
-Subject: [PATCH 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
- into common
+Date: Sun, 20 Sep 2026 13:05:54 +0200
+Subject: [PATCH 11/11] arm64: dts: qcom: sdm845-google-crosshatch: Add
+ display panel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-crosshatch-panel-v1-10-de6e9512da96@ixit.cz>
+Message-Id: <20260920-crosshatch-panel-v1-11-de6e9512da96@ixit.cz>
 References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
 In-Reply-To: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -57,21 +57,21 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2078; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2261; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=puhYBKAvcXrkzyBsz4dN1R4eP/UpYe/4QMTawDDkgQ8=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqr74JVEiz5zQ0X52ozV/QHxD0RPEohfVwfMJ2N
- fdXIiuroWiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaq++CQAKCRBgAj/E00kg
- cmLpD/9unZMFCRNiOwDCmS6g5x4zNaqo+BCoje8/YDwVoUgmsuU/QYKoMpQm8ol9/W/kluikFjL
- lmuftUd1pL+B7aFPf083xkQFODkEEV3uLFV/m2340y334wxT1KEVVh75sOiqE5GbQDiuK+yzlFN
- CyRdNt3MCxlacz0xzPnhvDSPhsTChucXV+CWd2w8azTiyaGbxY5x+BtpClM8HGAAmeU9IYtFalX
- 8FuFyeqDx8bG5QlfInDNhMc0LFHIEukJJD6J3892iwpIo867Fl4ZSUiR8DfC3rJ3JaavTL49jmO
- y6qGi930z6BHG1+51vs8zn8ivQjqE8Q/VKsyPiw0G8xMmMNQHQ5+6/rGWP2gZfaEGjPZI9GTTWd
- NJTuqj6e8Ke/HvdhtrBGVASBGc4Zpbv7xNLzlbWAH4NL7Fg86XMsjbhzNTmwpa8qjoQyrNljcSB
- O3n0vZQcu8CnP+r74CSoSJgPKGLIfNMILfy/APGPuVrsuegzCwB8BD8ZDrhGqvpcTlT2zPfND6x
- KYFIBQVwxFYJ/S31jgQq3C9G+sx4jjAy3eQVulr3nQ8nq2MK0r0Ff1T5TV53JgVV1cg8gZIx1Hs
- dACeeO8uZuY6MDz+I2D8mEnTCLMZRXth1q4GETz8iTKZekJ5lfLrcKSeHt92aRdBeSiLbcL+Oy3
- 284ew0QdCasew9Q==
+ bh=YKxaEQ83IRvBzliLWTENjXhw/HISL/i0Wy+mkQdH9Sw=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqr74JMGGtOVCy+5FmoktcbR/n4ppXAal2NLO7R
+ q10RdQV1ueJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaq++CQAKCRBgAj/E00kg
+ ctW1D/0TCMNB42Yv7b+MJDGzmZ0Oxcssb79dlYpAQ+BCITQeP6KXWWqM++CKKDcxuzimZQntcot
+ hElxWayU7FXW5IgSzTUyWcOEU5mA9RTa3Xh7Wc9hwbvJqzN0Ar7zGwhqee5B0FG2gjDfYRDKspe
+ Dbg4OyeBs7YrzLXIdry4nNrOqOCyERtswgI0BvFXRhygqdWLL1jgjPWJHAHStscXCMDVgBecgZG
+ SWkOuzD1bMYlP60TJQb+pmC5T7XjLLKBTo5R8/u0Pg01jmPVyr1RQR0uPST43iYnM8Rpr3sOYUh
+ HHSAXTw/jYKrMBtLFpE8ojO4QhVCNsHacx/Dy+GZe7DDmrSBmIM9yht6A5uI2//4qehI/+egl2+
+ 2pCzlZygnYGm1CWnyNP4woTypaIXqwCPY3lJZqfDX8Ocw8tra8nHGotNOT7b048aOt3X10p6d3b
+ +X+qyPOMh9CKtmR3qGckBTBFnIJIt/umOQ4FPtAhf4uxxoOOhuCuXVatVEraSLBeKYENyY4gKpF
+ 7SOpJKzmmEF8pD2EMw+c4oEf9Yrm8TmlN/y14L9ESwX6oVtDaePTMGJkttvJ5Os8KA3fumfQVzY
+ yttTbP1S4ZgXzgST9o8b1Q3M01OqhWNmAHzR2xNS2pnYad9ghqWcohcshrVqcjURLarORXtALiv
+ GTbDSZxYnvvN/Cw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -94,85 +94,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Heidelberg <david@ixit.cz>
 
-Both devices share the pinctrl configuration.
+Wire up the Samsung AMB630QY01 AMOLED panel on the Pixel 3 XL and drop
+the MDSS/DISPCC disables that kept simple-framebuffer alive.
 
+Assisted-by: LLM
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ .../boot/dts/qcom/sdm845-google-crosshatch.dts     | 60 +++++++++++++++++++---
+ 1 file changed, 52 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..a000c75494f1c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -61,29 +61,11 @@ &mdss_dsi0_out {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+index 2a81ca1d00b1b..3b788757b7303 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+@@ -10,27 +10,71 @@ / {
  };
  
- &mdss_dsi0_phy {
- 	vdds-supply = <&vdda_mipi_dsi0_pll>;
- 
- 	status = "okay";
+ &battery {
+ 	charge-full-design-microamp-hours = <3480000>;
+ 	voltage-min-design-microvolt = <3600000>;
+ 	voltage-max-design-microvolt = <4400000>;
  };
  
--&tlmm {
--	panel_default: panel-default-state {
--		reset-pins {
--			pins = "gpio6";
--			function = "gpio";
--			drive-strength = <8>;
--			bias-disable;
--		};
--
--		te-pins {
--			pins = "gpio12";
--			function = "mdp_vsync";
--			drive-strength = <2>;
--			bias-pull-down;
--		};
--	};
+-&dispcc {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
 -};
 -
- &wifi {
- 	qcom,calibration-variant = "Google_blueline";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index f1379857e2742..d54cb47cdf95b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -473,16 +473,32 @@ &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
+ &framebuffer0 {
+ 	width = <1440>;
+ 	height = <2960>;
+ 	stride = <(1440 * 4)>;
  };
  
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
-+	panel_default: panel-default-state {
-+		reset-pins {
-+			pins = "gpio6";
-+			function = "gpio";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
+-&mdss {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
++&ibb {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-over-current-protection;
++	regulator-pull-down;
++	regulator-soft-start;
++};
 +
-+		te-pins {
-+			pins = "gpio12";
-+			function = "mdp_vsync";
-+			drive-strength = <2>;
-+			bias-pull-down;
++&lab {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-soft-start;
++	regulator-pull-down;
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vdda_mipi_dsi0_1p2>;
++
++	status = "okay";
++
++	panel@0 {
++		compatible = "samsung,s6e3ha8-amb630qy01";
++		reg = <0>;
++
++		vdd3-supply = <&vreg_l14a_1p8>;
++		vci-supply = <&vreg_l28a_3p0>;
++		vddpos-supply = <&lab>;
++		vddneg-supply = <&ibb>;
++
++		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&panel_default>;
++		pinctrl-names = "default";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
 +		};
 +	};
++};
 +
- 	nfc_default: nfc-default-state {
- 		enable-pins {
- 			pins = "gpio25";
- 			function = "gpio";
- 			drive-strength = <2>;
- 			bias-pull-down;
- 		};
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++	qcom,te-source = "mdp_vsync_e";
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vdda_mipi_dsi0_pll>;
++
++	status = "okay";
+ };
  
+ &wifi {
+ 	qcom,calibration-variant = "Google_crosshatch";
+ };
 
 -- 
 2.55.0
