@@ -4,63 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 299C9C982D0
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 07:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B42C982CC
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 09:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64FA210E1E8;
-	Sun, 20 Sep 2026 07:58:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z5PR/uUu";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA3D910E1E8
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 07:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789891107; x=1821427107;
- h=message-id:subject:from:to:cc:in-reply-to:references:
- content-transfer-encoding:mime-version:date;
- bh=KOXK+o2G2gHE2Us6HrzG5xy4fAPI4zxkTHPO/AxMwhw=;
- b=Z5PR/uUuk1yyUiJWyBsf+iaF3cdGVWMxxz06sME0suGLQapY5bd5dbos
- iJIoepXOf8GbSk1292HYi/iUNoi+irVS7LoYfjRMh+bCoZqPkBF9fp0On
- 03lZ0nwbDR0N87Z4FACK0lmDjzHMMJ/WEogsCruVHvEIIysgFD3pa7M0X
- x+syGDYRP56CBKXeU6U7aoIE8vaQ+iRTVeQBW7NBiqNSL0xvGyKVKVieN
- K/NvrFOxMlKHPY/iIVJPcRVTyjeowqBpyd0rv8KVIMiPucvwlfJkxueVw
- 3+qTQ747o2+A65JfHn92g2cArem9PmgLTXg+EFk1LaMZ1RrteN/ucL51B g==;
-X-CSE-ConnectionGUID: 3rh2P6EcSomTObql9he4tA==
-X-CSE-MsgGUID: y+qHMJWhTlC5Yc8pOiX/nQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="100995503"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; d="scan'208";a="100995503"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 00:58:26 -0700
-X-CSE-ConnectionGUID: rMJR/O46QlSaxKYvWq20rg==
-X-CSE-MsgGUID: EM7vkLlOTw6Oq5RYB3tdzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="3239618"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.80])
- ([10.245.244.80])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 00:58:24 -0700
-Message-ID: <28c15950733eb5a26133858dc0d70276fb5c8d41.camel@linux.intel.com>
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- christian.koenig@amd.com, ray.huang@amd.com, nat@pixelcluster.dev, 
- matthew.auld@intel.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <d55151eb-4b81-41c7-927e-96635c1f6b7f@amd.com>
-References: <20260915154804.605772-1-christian.koenig@amd.com>
- <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
- <d55151eb-4b81-41c7-927e-96635c1f6b7f@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBAB10E174;
+	Sun, 20 Sep 2026 09:18:23 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C3C10E174;
+ Sun, 20 Sep 2026 09:18:20 +0000 (UTC)
+X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:42612d84-1e3c-4e25-b768-c423ce21bcbc, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:ecfdb6ef14b8cd681db867337ac55f37,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+ 5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+ A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3685ee60b4d411f19a56ed5b684f684d-20260920
+X-User: yanglinlin@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yanglinlin@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 2144921555; Sun, 20 Sep 2026 17:18:16 +0800
+From: Linlin Yang <yanglinlin@kylinos.cn>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, harry.wentland@amd.com, austin.zheng@amd.com,
+ jun.lei@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ Linlin Yang <yanglinlin@kylinos.cn>, k2ci <kernel-bot@kylinos.cn>
+Subject: [PATCH] drm/amd/display: fix __udivdi3 link error in UTM QoS model
+Date: Sun, 20 Sep 2026 17:18:07 +0800
+Message-Id: <20260920091807.667682-1-yanglinlin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2026 08:04:38 +0200
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,88 +60,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-16 at 16:58 +0530, Arunpravin Paneer Selvam wrote:
->=20
->=20
-> On 9/16/2026 3:14 PM, Thomas Hellstr=C3=B6m wrote:
-> > On Tue, 2026-09-15 at 17:48 +0200, Christian K=C3=B6nig wrote:
-> > > The blunt reality is that I don't have time to look into patches
-> > > or
-> > > bugs
-> > > any more as it would be necessary. The same counts for Ray.
-> > >=20
-> > > Natalie has been working on the dmem cgroup patches for TTM and
-> > > agreed
-> > > to take over looking more into TTM.
-> > >=20
-> > > Arun is working in my team and already maintaining AMDs VRAM
-> > > backend
-> > > for
-> > > TTM and the underlying buddy allocator.
-> > >=20
-> > > Add Thomas as reviewer as well, better to have more eyes on that
-> > > component.
-> > >=20
-> > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > ---
-> > > =C2=A0=C2=A0MAINTAINERS | 5 +++--
-> > > =C2=A0=C2=A01 file changed, 3 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 5b5a4e4b35cf..b6e58a138501 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -9140,10 +9140,11 @@
-> > > F:	drivers/gpu/drm/drm_privacy_screen*
-> > > =C2=A0=C2=A0F:	include/drm/drm_privacy_screen*
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0DRM TTM SUBSYSTEM
-> > > -M:	Christian Koenig <christian.koenig@amd.com>
-> > > -M:	Huang Rui <ray.huang@amd.com>
-> > > +M:	Natalie Vock <nat@pixelcluster.dev>
-> > > +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
-> > > =C2=A0=C2=A0R:	Matthew Auld <matthew.auld@intel.com>
-> > > =C2=A0=C2=A0R:	Matthew Brost <matthew.brost@intel.com>
-> > > +R:	Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > > =C2=A0=C2=A0L:	dri-devel@lists.freedesktop.org
-> > > =C2=A0=C2=A0S:	Maintained
-> > > =C2=A0=C2=A0T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> > Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> >=20
-> > @Natalie, @Arun Do you have a presence on dri-devel IRC? If so,
-> > Nicks?
-> >=20
-> > Also what is your stance on merging pages to TTM?
-> > 1) Requiring an explicit maintainer ack, or
-> > 2) an R-B from one of the reviewers/maintainers and no concerns
-> > raised
-> > within reasonable time?
-> > 3) drm-misc as default merge repo?
-> Hi Thomas,
->=20
-> I am not currently on dri-devel IRC, but I will set up an OFTC
-> account=20
-> and follow up with my nick shortly.
->=20
-> Regarding the merge process, my preference would also be option 2,
-> i.e.=20
-> a Reviewed-by from one of the reviewers/maintainers with no concerns=20
-> raised within a reasonable timeframe.
-> For larger or more significant changes, I think a closer maintainer=20
-> review before merging would be good.
-> I will also try my best to review patches on time so this rarely
-> happens.
->=20
-> Using drm-misc as the default merge repository sounds good to me as
-> well.
+When building amdgpu for 32-bit x86 (CONFIG_X86_32), modpost fails
+with:
 
-Thanks, Arun,
-/Thomas
+  ERROR: modpost: drivers/gpu/drm/amd/amdgpu/amdgpu.ko: symbol
+  '__udivdi3' undefined!
 
+The UTM QoS helpers dchub_v2_get_sop_total_available_bandwidth_KBps()
+and dchub_v2_is_qos_bandwidth_supported_by_sop() divide a 64-bit
+bandwidth product by 100 using the native '/' operator. On 32-bit
+targets GCC lowers this to a __udivdi3() libgcc call, which the
+kernel does not link into modules.
 
->=20
-> Thanks,
-> Arun.
-> >=20
-> > Thanks,
-> > Thomas
+Replace the raw divisions with div_u64(), the kernel's standard
+64-bit division helper.
+
+Fixes: 7f7d7ea1fa51 ("drm/amd/display: Add new sources for DCN6")
+Reported-by: k2ci <kernel-bot@kylinos.cn>
+Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
+---
+ .../bounding_boxes/utm_qos_model_dchub_v2.h   | 23 +++++++++++--------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+index ebca5ddda284..39df427a9ee7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h
+@@ -3,6 +3,7 @@
+ // Copyright 2025 Advanced Micro Devices, Inc.
+ #ifndef UTM_QOS_MODEL_DCHUB_V2_H
+ #define UTM_QOS_MODEL_DCHUB_V2_H
++#include <linux/math64.h>
+ #include "utm_qos_model_types.h"
+ 
+ struct utm_qos_model_dchub_memory_path_latency_v2 {
+@@ -63,22 +64,22 @@ static inline void dchub_v2_get_sop_total_available_bandwidth_KBps(
+ 	uint64_t dram_available_bandwidth_KBps_urgent;
+ 	uint64_t fabric_available_bandwidth_KBps_urgent;
+ 
+-	dram_available_bandwidth_KBps_nominal = (uint64_t) sop->uclk_khz
++	dram_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_nominal / 100;
+-	dram_available_bandwidth_KBps_urgent = (uint64_t) sop->uclk_khz
++			* socbb->dram_derate_percent_nominal, 100);
++	dram_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->uclk_khz
+ 			* socbb->dram_channel_count
+ 			* socbb->dram_channel_width_bytes
+ 			* socbb->dram_transactions_per_clock
+-			* socbb->dram_derate_percent_urgent / 100;
+-	fabric_available_bandwidth_KBps_nominal = (uint64_t) sop->fclk_khz
++			* socbb->dram_derate_percent_urgent, 100);
++	fabric_available_bandwidth_KBps_nominal = div_u64((uint64_t)sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_nominal / 100;
+-	fabric_available_bandwidth_KBps_urgent = (uint64_t) sop->fclk_khz
++			* socbb->fabric_derate_percent_nominal, 100);
++	fabric_available_bandwidth_KBps_urgent = div_u64((uint64_t)sop->fclk_khz
+ 			* socbb->fabric_datapath_to_dcn_data_return_bytes
+-			* socbb->fabric_derate_percent_urgent / 100;
++			* socbb->fabric_derate_percent_urgent, 100);
+ 
+ 	total_available_bandwidth->nominal_bandwidth_KBps =
+ 			dram_available_bandwidth_KBps_nominal < fabric_available_bandwidth_KBps_nominal ?
+@@ -112,9 +113,11 @@ static inline bool dchub_v2_is_qos_bandwidth_supported_by_sop(
+ 	nominal_available_bandwidth_KBps = available_bandwidth.nominal_bandwidth_KBps;
+ 	urgent_available_bandwidth_KBps = available_bandwidth.urgent_bandwidth_KBps;
+ 
+-	if ((nominal_available_bandwidth_KBps * nominal_utm_budget_percent / 100) < qos_bandwidth->nominal_bandwidth_KBps)
++	if (div_u64(nominal_available_bandwidth_KBps * nominal_utm_budget_percent, 100) <
++			qos_bandwidth->nominal_bandwidth_KBps)
+ 		return false;
+-	else if ((urgent_available_bandwidth_KBps * urgent_utm_budget_percent / 100) < qos_bandwidth->urgent_bandwidth_KBps)
++	else if (div_u64(urgent_available_bandwidth_KBps * urgent_utm_budget_percent, 100) <
++			qos_bandwidth->urgent_bandwidth_KBps)
+ 		return false;
+ 	else
+ 		return true;
+-- 
+2.25.1
+
