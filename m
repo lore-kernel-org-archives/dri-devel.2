@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D5EC982DA
-	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 23:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28145C982D8
+	for <dri-devel@archiver.kernel.org>; Sun, 20 Sep 2026 23:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84BC310E2C2;
-	Sun, 20 Sep 2026 23:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDC910E2C4;
+	Sun, 20 Sep 2026 23:02:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EsHfcD0j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YWGT2cfg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3E910E2C2
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:00:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA8110E2C4
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:02:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4D864601F9
- for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:00:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879691F000FF;
- Sun, 20 Sep 2026 23:00:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 402194074E
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:02:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79471F000FF;
+ Sun, 20 Sep 2026 23:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789945241;
- bh=tOs7j+ExQBfm30Uw7majLZ+AeNJn/Hm52Q761lMfXKM=;
+ s=k20260515; t=1789945342;
+ bh=KJuZJlPFVQ47PNxIUEMxDPt2XC76j36WVwiEcIYDtDI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EsHfcD0j5fZbrDxXoUuZLaII0pwziiT/rPsSqPzuB+v8b1ggtOLPtYC/XCvm9NbHG
- pv7t2AvmAN2c3vTEWlr4UBmK2OQ6D81ixT5SqftFsytnKzRoCr+R6KpyLo9g4PeTlx
- +68p3BmCknr/sEjaQ7iCz0PcpVoOcXTw2t9ZxRI92bUVBKTEUPi8QsM++Y0lbKi1GA
- 4khl4IWdaURZeskEXcW5KALkwnOWRxoleSQO2ratjIDdh55I7UlW4fcJgKc4rcKOwz
- G++k87OGq4vN2KlwL8NH/Uy4QhP1iDlqvK0UPRYBj2LoBCBkFosU0DRvlo494rpseb
- NNqcA6NkRK53A==
+ b=YWGT2cfgEel34pBwAiN+wC4wNJYGULCJf63rlPev7HVPr/EZMoVFa38UFVgV79Iev
+ pyEHCPU2ePgstVnqe/Lzmx2Xc3KzfIDCjlZEwFW35XWeMJa23Brw/rLFCkrAHiP8+3
+ mSahodT4q22AxwM4cGIzW1CUhG+nBfslOiBmYt2x7ZFTtQjyzSZMLdLA9Hdy7GUZcY
+ i71F1ULO5m4/Al12DY9LzNX0t1PsGTlqxtmfwj2204nVEMC6UtP/1BhSvzU5+GvEWz
+ g2HUnz/9h2XvpRD9WWbzU++fQtdzCK32SEdpH+cP/ji8Jub9zJ8lYPiZv+FFvyNV2y
+ 0EG6FTaHDI9kw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 17/18] dt-bindings: display: ste,mcde: Deprecate EPOD
- supply
+Subject: Re: [PATCH v3 14/18] misc: sram: Enable runtime PM
 To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org,
- dmaengine@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-17-9352be6b86b1@kernel.org>
+Cc: dmaengine@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, vkoul@kernel.org,
+ conor+dt@kernel.org
+In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-14-9352be6b86b1@kernel.org>
 References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-17-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-14-9352be6b86b1@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 23:00:40 +0000
-Message-Id: <20260920230040.879691F000FF@smtp.kernel.org>
+Date: Sun, 20 Sep 2026 23:02:21 +0000
+Message-Id: <20260920230221.A79471F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,69 +61,82 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] drm/mcde: DT ABI breakage drops legacy power support
-- [Medium] dt-bindings: ste,mcde: missing power source requirement
+- [High] misc: sram: Missing pm_runtime_get_sync() in sysfs read/write paths
+- [Medium] misc: sram: Hardware initialization is not restored after runtim=
+e resume
 --
 
-commit 789856cac8c2df0e09f5a48ab8bacf3e0a2e001e
+commit b2dc9fd44cd639efd34dbecb064c4f1f3097e1eb
 Author: Linus Walleij <linusw@kernel.org>
 
-dt-bindings: display: ste,mcde: Deprecate EPOD supply
+    misc: sram: Enable runtime PM
+   =20
+    Enable runtime PM for generic SRAM devices after probe has initialized
+    the SRAM mappings and partitions.
+   =20
+    This lets SRAM devices with attached power domains be managed through
+    runtime PM references from their consumers.
 
-This commit makes epod-supply optional and marks it as deprecated. It=20
-instructs the MCDE to use its power domain instead.
-
-> diff --git a/Documentation/devicetree/bindings/display/ste,mcde.yaml b/Do=
-cumentation/devicetree/bindings/display/ste,mcde.yaml
-> index 05e7e4ebc8820..ee34b65dd13bf 100644
-> --- a/Documentation/devicetree/bindings/display/ste,mcde.yaml
-> +++ b/Documentation/devicetree/bindings/display/ste,mcde.yaml
-> @@ -39,7 +39,8 @@ properties:
->      maxItems: 1
-> =20
->    epod-supply:
-> -    description: a phandle to the EPOD regulator
-> +    description: a phandle to the legacy EPOD regulator
-> +    deprecated: true
-
-[Severity: Critical]
-The dt-binding deprecates epod-supply in favor of generic power-domains. If
-companion driver changes in this series completely drop parsing of
-epod-supply and rely solely on pm_runtime to power the hardware, could this
-break existing device trees?
-
-Older Device Tree Blobs (DTBs) lack the power-domains property. Because
-epod-supply is no longer parsed, the core will not attach the device to the
-power domain, and the driver will fail to turn on the hardware.
-
-Could accessing unpowered display registers cause a synchronous external
-abort or silent display failure?
-
-Would it be possible to maintain legacy fallback logic in the driver or
-dynamically map the regulator to the power domain in the core, rather than
-breaking existing DTBs?
+> diff --git a/drivers/misc/sram.c b/drivers/misc/sram.c
+> index c8990e83a65a2..7f19dca7b818e 100644
+> --- a/drivers/misc/sram.c
+> +++ b/drivers/misc/sram.c
 
 [ ... ]
-> @@ -103,7 +104,6 @@ required:
->    - interrupts
->    - clocks
->    - clock-names
-> -  - epod-supply
->    - vana-supply
+
+> @@ -425,6 +426,10 @@ static int sram_probe(struct platform_device *pdev)
+>  			goto err_free_partitions;
+>  	}
 > =20
->  additionalProperties: false
+> +	ret =3D devm_pm_runtime_set_active_enabled(&pdev->dev);
+
+[Severity: High]
+Does this code allow sysfs read/write paths to access unpowered MMIO hardwa=
+re?
+
+Since runtime PM is now enabled, the SRAM device can be suspended by its
+attached power domain. If userspace accesses the exported sysfs bin
+attributes, sram_read() and sram_write() perform MMIO accesses without
+waking the device:
+
+drivers/misc/sram.c:sram_read() {
+	...
+	mutex_lock(&part->lock);
+	memcpy_fromio(buf, part->base + pos, count);
+	mutex_unlock(&part->lock);
+	...
+}
+
+Will this cause an asynchronous external abort and crash the system if the
+hardware is accessed while suspended?
 
 [Severity: Medium]
-Since epod-supply is being removed from the required list to transition to
-power-domains, should power-domains be added to the required list, or
-perhaps an anyOf block used to enforce that at least one power source is
-provided?
+Will hardware state be lost and not restored on resume?
 
-The MCDE hardware requires a power source to function. Without either
-epod-supply or power-domains in the required properties, it seems a device
-tree omitting both would silently pass schema validation, allowing
-incomplete hardware descriptions to be accepted.
+Earlier in sram_probe(), hardware initialization is performed:
+
+drivers/misc/sram.c:sram_probe() {
+	...
+	if (config && config->init) {
+		ret =3D config->init();
+	...
+}
+
+If the device is attached to a PM domain that powers it down, waking it up
+will turn on the power but will not re-apply the config->init() callback
+(such as atmel_securam_wait) because the driver lacks a runtime_resume
+callback.
+
+Can this lead to hardware faults or data corruption if the RAM is accessed
+before it is ready?
+
+> +	if (ret)
+> +		goto err_free_partitions;
+> +
+>  	if (sram->pool)
+>  		dev_dbg(sram->dev, "SRAM pool: %zu KiB @ 0x%p\n",
+>  			gen_pool_size(sram->pool) / 1024, sram->virt_base);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-ux500-powe=
-r-domains-v7-1-v3-0-9352be6b86b1@kernel.org?part=3D17
+r-domains-v7-1-v3-0-9352be6b86b1@kernel.org?part=3D14
