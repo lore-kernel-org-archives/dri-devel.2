@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86966C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ABEFC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D729D10E197;
-	Mon, 21 Sep 2026 18:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 732C910E34F;
+	Mon, 21 Sep 2026 18:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gOdnZbI2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XGB9J7l3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F353510E197
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:26:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBBA610E34F
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:29:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 76DAC60008;
- Mon, 21 Sep 2026 18:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982FA1F000FF;
- Mon, 21 Sep 2026 18:26:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9655F439A0;
+ Mon, 21 Sep 2026 18:29:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A7C1F000FF;
+ Mon, 21 Sep 2026 18:29:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790015194;
- bh=W0aH694xxaoojSNRYyLlLh44l7vy/hpaF+r9VEUSMgs=;
+ s=k20260515; t=1790015361;
+ bh=H62gcGWcKbrWTMkCd01zYMB7sv2iKehtP20WLbKlyIs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gOdnZbI2dOxrwDHL+p++DOOeat1WGShjE280jRHpCna79izreHHhkFfbd6Yu0ZUwA
- 3DLFoG8Ls+PthHGygAO09tGQx11rHskmffxGXNeZECfj9KSheghbFiGVXeHwNkSxBU
- t/4uEtItd7ETB+h9H28iOVPy/QpHWOUzCKR3nmX3lvQvA9eerFdalY/luJJc4Ghvrc
- DTuL34TaoUhthWPYIgDtczKEJcrVHV1crNqaaW4qZJkKlaZ+65THYHSVBRnMU0PoRb
- /FfLZsmK8oSOLtATBhVWTZJEHeqTyvrVjyQN9mIfXoE1PTirI2qDxu429ToyvuS/PY
- 9hI+W0JtfMziw==
+ b=XGB9J7l3gJREfd1Qyl8enfohbQD20I1vJdBiXfoF0uwrIJ3bWBPwrpVDcJyP4S8co
+ ag5+ahJTnQOa2CMFQleiMxg9BTkj3RhML5jkYUKEpERbx4eQuW6IliiHSpRlhTpjcg
+ /fPynkQMx4C01qvCjYL2IjLDwjLPEN47xeylnSdok1nBzBPn4+zObvivXOG4+NHMFQ
+ IM9QCu2ftE/qgR33maeYHQFdEyDGLFx6BIViw4Aaa5/JTbO9CxeRNY6l1bRAEgCP6V
+ IbQ8+d6YEEW4CbGMQ5tFiFwILsVnvKSaEwVs/fOwZPvC8MYJeW1ILdpV4Ph6/WJMAH
+ wiifybudk+ehg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952
- compatible
+Subject: Re: [PATCH v3 18/19] dt-bindings: input: touchscreen: goodix: Add
+ binding for GT970
 To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: lee@kernel.org, dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260921-msm8952-initial-support-v3-12-b96fd3fe298b@mainlining.org>
+Cc: conor+dt@kernel.org, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ linux-clk@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com,
+ mfd@lists.linux.dev
+In-Reply-To: <20260921-msm8952-initial-support-v3-18-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-12-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-18-b96fd3fe298b@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 18:26:33 +0000
-Message-Id: <20260921182633.982FA1F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 18:29:20 +0000
+Message-Id: <20260921182920.F3A7C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,63 +63,51 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: clock: missing msm8952 in constraints conditional b=
-lock
+- [Medium] input: touchscreen: goodix: incomplete GT970 support causes conf=
+ig length mismatch
 --
 
-commit 08e2cd81c0f804c9a9db2e8d8d60babe26ca3d55
+commit fb8dc3b0be08be515a9f9b03de04ea7da115bf6f
 Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
+dt-bindings: input: touchscreen: goodix: Add binding for GT970
 
-Document the rpmcc found on MSM8952.
+This commit adds the goodix,gt970 compatible string to the DT binding.
+It specifies that the GT970 should fall back to the goodix,gt911
+compatible string to use the GT911 driver configuration.
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Do=
-cumentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-> --- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-> @@ -56,6 +56,11 @@ properties:
->                - qcom,rpmcc-shikra
->            - const: qcom,rpmcc-qcm2290
->            - const: qcom,rpmcc
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.y=
+aml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+> index a26a54d63a1c0..4be2c137abd7c 100644
+> --- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+> @@ -14,21 +14,26 @@ allOf:
+> =20
+>  properties:
+>    compatible:
+[ ... ]
 > +      - items:
 > +          - enum:
-> +              - qcom,rpmcc-msm8952
-> +          - const: qcom,rpmcc-msm8976
-> +          - const: qcom,rpmcc
+> +              - goodix,gt970
+> +          - const: goodix,gt911
 
 [Severity: Medium]
-Does qcom,rpmcc-msm8952 also need to be added to the allOf conditional
-block that enforces the xo clock constraints?
+Will this require a corresponding driver change to work correctly?
 
-Because qcom,rpmcc-msm8952 falls back to qcom,rpmcc-msm8976, it shares the
-same xo clock requirement. Currently, qcom,rpmcc-msm8976 is listed in the
-conditional block:
+When the driver probes the device, it uses goodix_get_chip_data() to choose
+configuration parameters based on the hardware ID read from the device, rat=
+her
+than the DT compatible string.
 
-Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml:
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              ...
-              - qcom,rpmcc-msm8974
-              - qcom,rpmcc-msm8976
-              ...
-    then:
-      properties:
-        clocks:
-          items:
-            - description: xo clock
+Because "970" is missing from the goodix_chip_ids[] array in
+drivers/input/touchscreen/goodix.c, it appears the driver will ignore this =
+DT
+fallback and apply the generic 240-byte configuration instead of GT911's
+186-byte configuration.
 
-Should qcom,rpmcc-msm8952 be added to this enum list? When running
-dt_binding_check on a device tree containing the qcom,rpmcc-msm8952
-compatible string, the clock constraints will not be enforced.
-
-> =20
->    '#clock-cells':
->      const: 1
+Could this incorrect configuration length cause the driver to read or write
+past the end of the configuration registers?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-msm8952-in=
-itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D12
+itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D18
