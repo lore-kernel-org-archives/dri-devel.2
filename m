@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D95C982F0
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70892C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B003E10E737;
-	Mon, 21 Sep 2026 13:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73ECC10E765;
+	Mon, 21 Sep 2026 13:39:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aIjujm3B";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YtY2iFJ5";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 237D910E729
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:39:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A97FB10E765
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:39:38 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49b912d37b6so14023475e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:39:32 -0700 (PDT)
+ 5b1f17b1804b1-49e721b5503so29858295e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:39:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789997970; x=1790602770; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789997977; x=1790602777; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
- b=aIjujm3Bu3/GnWY3JmYByHHl9uuIj4y8nz4kC1hYe/8TClh9kVlwIiDppfrFrUy9Wo
- Pyd6SV2Hv2G4CrO9dPI8geDv2qst/ePryJ6yEWIwIBp9Br9GBEIKs89I4yQjL6OyfL7N
- Ico47LTou/7C5h4BnA+T8KIlfNFAOa9idDgl5gC11QNRW7vfD67165IsmQCTkmBHNmC0
- 0PbSDXXXPa2cid2iNcxLTN1KRkPllX/ZfqM6UJoQ2TgaAn0dvXDGKQ8Qf1YdxLKB2dN5
- QdecrIdmxgTcvM8lm2yUjLbPMB5emCL+InME8TkQoc+RrBvVFOzARaw+8tM8cUEnSyD9
- oi3g==
+ bh=LfiQtDTMXplRc+HRsAYVyvIssf+oWzUZ0qqIFwpPEw8=;
+ b=YtY2iFJ5wHE4GUctoczWYLK5nw+P9hNeP9nlrRpZ+L2LcPiEDyRWmwOxJ7sfV2/FT8
+ FHcivDDEPlWNiSZzYrJjMtXQshOY4IXR73eeY1Kw6IhLuJY7aQLFwkSMnXVN3wTSW2k2
+ 5cOrBQ8LVbKDxxWm0NX3M2iAhygs7mxUsaTb8ozvjiB9KoTd1X7t0Mt1HwvlUJ6gRcGc
+ duuQLraDPTXfZ9ZdoxYb/kzaNNkhfx1ecR5Ku9DUCbGUgFJ8NfQH00lZt2hyRDkSV7ql
+ ESo9mukq+fQSisMR91JbsSJCg0wRFmSyrumP/c/An+vhPxALlkmWgbPfdKfqrtKwDL+c
+ Zr0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789997970; x=1790602770;
+ d=1e100.net; s=20260707; t=1789997977; x=1790602777;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
- b=iuYjVtds9Cn6zZXxTJd01CIHZZF10wLqxA2OitIsRxuH1yqqj+AudOJSI1kK+kkugw
- e1ZmOBY99vNVwCnLbpTR3DCdEX+909kmzPBV7UAOMptHlEyO7wVl4yNeA0OCaB5T73ls
- zJuJcA+bVjIFfwJz5mjMUTAVUtfpgHsTtbO1cS28y5shK0FS133NJJf+UQ+eCjt1oxG4
- X7Oti4TwILmRaUg04vfEJVHITIGowFPpK8ZUAHLeyoL8XMgbERAGZWu5jSqn+LT5GP+D
- 1WaK/O4OfQvsnrmO+WsOVS2HaergSWZqeTiNTE9DP0cEQlm8HAQlWWEth9ZMd+5L3Wsa
- VkJg==
+ bh=LfiQtDTMXplRc+HRsAYVyvIssf+oWzUZ0qqIFwpPEw8=;
+ b=UMier5w6Y4RaiazK0NvfjYysuBgHQ0yaS3ZksXrjKcMiWImi5FbQJ9sVD7m9aiD1oS
+ TTxw/kZFSu1pfm0UluQLffRKAuxluprDqPplt2ayeOlwEWlvYpGHvPe79zfONUmLzYkB
+ 6YJSVVmoCmH4WZgQ6erHMGEvTyD+i5NyH0J5pkhDVSDj2mteYqEuVYjuUsUiOcBxonuC
+ U0SRjFqlgtd0yqLezsVuinq5sr3StaATK+clbUWA3JqKcEUtb101DnwElWrYYX5Nx2MG
+ eCP5iX9nwEAHhE1SpiDB7pO45oIcwd3+XvcL1u+0w2AcgV7AcIAsa95MtXMZSX1exN31
+ sHgg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwP3OunpQRXazW0I3d7+gX6lK8orQcVCesy85gNtGBfM8IgCzuIkzC9FfxAOHPFFLGosm97uvda7yg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lgL3b85sAVyKR9cmN6fKiB4GIQ42FTL4jHH8XNqBnYQz+dGuaL
- 5mthlAG31IAhGyFp7iKnlyqxzzTVWe0Dl6LPKY7g3J4A910M4ALjyOQK
-X-Gm-Gg: AYBFou2LMU+lA+1EAiIqTteiykydlwrrOzC34wEtmvi69tbGraRr1KYOIii61cegusd
- 4uSY2F+MyJII8RMLCS9idmZ++GaUKlxNKdXplYzYQeuMayzcTkZ9Kzta1sW7jHGCyWa03YzRXL/
- Sd0wnVZPYgPxhWnIwDHtV9WJj6hhj2r2TxTpjPYNi/fHphxBPLzcVEm/I64XgKrz2nuMHABNic0
- r1yq7ADhYZZ+njBVgVMBJ3s8JOdlp/nsis+Huoip8m5yfcYkqrSRbYjfMt6V9kux5tJZRiSEJVM
- whELkw6P7VJkXoNu0aVkyl4pwbS9cgu5V6PcRajzPXpMRhhVJAQaB95tXpt3AdBYoYS4gCUhAGY
- 2qfaYfehaZvWmEgqj1+Om7ju963odw2jLYrFSNp2lqqcTl1z12oYRrlR9gFzucGCW9Vv2dNTzoG
- ybKnx9k+WVsOzQU7aT6xJ3dLgRolhRHChGifamzygh2pkW/PuSGkS7Nh5PxmB6FBNrduVU9q2ZD
- lynljBK1QSFOYL3EvRaIiqBicjN3Tc3UCLodaeCIeKMjIRBV6GB50i/M3uQ7qf7GPC5sGcZdltv
- r5H4j80PPDwXlAx8mjyyW7ENxcqZUg==
-X-Received: by 2002:a05:600c:c0c3:10b0:49e:823a:9dec with SMTP id
- 5b1f17b1804b1-49fc5a10b5fmr145292005e9.3.1789997970323; 
- Mon, 21 Sep 2026 06:39:30 -0700 (PDT)
+ AKwUvByCVVmY3SwPGnk5CfanTQdI6Liy/s5JaJ0H2+UN9QZE0J25SBsD9lkPrh0JuIF6gYHHWPC7p8hcm2U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mFskHMXta8HQXtUAnqSGpYsii/M8JJ+9RYeKWJDEBWF2/CFzl3
+ gi98AvwMSp7pc6Vv2/o8Y5epKVaulG0f5KglFNf0mUg3RUdMpHruAklD
+X-Gm-Gg: AYBFou2sJSRneQx9JC+L5B0CMg/47z5IuR+C7eCnuiPDiHN5aW3OWhOXrrOTU/kp/vH
+ JexbHmq2FdEz56kC5szgGztAphd8JUveU2J95ZeoxwVK28jcWuuMhPCRLnemS+VpKFI7Sw7KKY+
+ 8JVg/hogyUnd7cSUgK8lEcNqGfbFUyc80ekd+eZKuCOt4E9+vq3jHhmldRob1u8K/2ctNvfWool
+ FcfUsHfC+oZoy4h74jp264NhWRwvgFBmWU0CGcQcRySENw8caGNfj4UlsuIPg7MZ4lO4RFwiRgS
+ Gzaa19Z1V3gYkVFLRadpFXdg+6SnToFJqEyLw1iuUf3K9UJ5qhmirrmk9vyRkm2h3fYo9b/+0oT
+ L1ljztXviWlmDZejEhmPnL/4w8t9F3UOPiFAlE8kRtsQgkHRJawcE2fo9dhjXDQ4bkvXsR1wt5k
+ hZ2Z5h0BHBi0XkbMwDfr0ZWuHacSK2MrnooXa0BL4MGNcv8Uy04dI+Yr5OsnwAU4dTg9ReefIFD
+ Xy6DNUnvGcPWUInh8ZJ4r8y2U2UOOajNwWHN3KZuRiPMQ7IjpBLUD/hETgX7PvQaYWshjf0a9IG
+ kHbAZ73bCdaDB4vx9LYbBG3EbfvZX9GiOQKH8KZc
+X-Received: by 2002:a05:600c:c493:b0:49e:74b6:740f with SMTP id
+ 5b1f17b1804b1-49fc573603amr145209165e9.17.1789997977065; 
+ Mon, 21 Sep 2026 06:39:37 -0700 (PDT)
 Received: from 127.0.0.1localhost (82-132-213-26.dab.02.net. [82.132.213.26])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.27
+ 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 06:39:29 -0700 (PDT)
+ Mon, 21 Sep 2026 06:39:35 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
@@ -83,9 +83,9 @@ Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
  Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
  Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-Subject: [PATCH v6 03/13] block: always adjust bi_offset on bio_advance_iter
-Date: Mon, 21 Sep 2026 14:38:47 +0100
-Message-ID: <f3c6132b313e7bc6e237e1a16ae8750be5988a40.1789997898.git.asml.silence@gmail.com>
+Subject: [PATCH v6 05/13] block: add dma-buf support for raw bdev
+Date: Mon, 21 Sep 2026 14:38:49 +0100
+Message-ID: <eafcbbf7e75e75e98d0791b843fae0f2423a4ecd.1789997898.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1789997898.git.asml.silence@gmail.com>
 References: <cover.1789997898.git.asml.silence@gmail.com>
@@ -106,73 +106,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Extend bio_no_advance_iter() iteration to also increment the offset.
-It's not currently needed because the currently listed request types
-don't have a buffer, but will be useful once we add bios backed by
-dma-buf, which don't have a bvec but work with a single range.
+Add a simple proxy implementation of init_dma_buf_io_ctx() forwarding
+the call to a new struct block_device_operations operation. Also reject
+dma-buf backed iterators for buffered IO.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
+[pavel: reject dma-buf without O_DIRECT]
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- drivers/md/dm-io-rewind.c |  6 ++++--
- include/linux/bio.h       | 12 ++++++++----
- 2 files changed, 12 insertions(+), 6 deletions(-)
+ block/fops.c           | 22 +++++++++++++++++++++-
+ include/linux/blkdev.h |  2 ++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-io-rewind.c b/drivers/md/dm-io-rewind.c
-index 04f3fc8aeb6f..b22719c6411c 100644
---- a/drivers/md/dm-io-rewind.c
-+++ b/drivers/md/dm-io-rewind.c
-@@ -113,10 +113,12 @@ static inline void dm_bio_rewind_iter(const struct bio *bio,
- 	iter->bi_sector -= bytes >> 9;
+diff --git a/block/fops.c b/block/fops.c
+index 09fa42f8d8fa..0252d26969a4 100644
+--- a/block/fops.c
++++ b/block/fops.c
+@@ -782,7 +782,8 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
  
- 	/* No advance means no rewind */
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size += bytes;
--	else
-+		iter->bi_offset -= bytes;
-+	} else {
- 		dm_bvec_iter_rewind(bio->bi_io_vec, iter, bytes);
-+	}
+ 	if (iocb->ki_flags & IOCB_DIRECT) {
+ 		ret = blkdev_direct_write(iocb, from);
+-		if (ret >= 0 && iov_iter_count(from)) {
++		if (ret >= 0 && iov_iter_count(from) &&
++		    !iov_iter_is_dmabuf_map(from)) {
+ 			ret = direct_write_fallback(iocb, from, ret,
+ 					blkdev_buffered_write(iocb, from));
+ 			need_sync = true;
+@@ -795,6 +796,9 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 			need_sync = true;
+ 		}
+ 	} else {
++		if (unlikely(iov_iter_is_dmabuf_map(from)))
++			return -EOPNOTSUPP;
++
+ 		/*
+ 		 * Take i_rwsem and invalidate_lock to avoid racing with
+ 		 * set_blocksize changing i_blkbits/folio order and punching
+@@ -850,6 +854,8 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 		if (ret < 0 || !count)
+ 			goto reexpand;
+ 	}
++	if (unlikely(iov_iter_is_dmabuf_map(to)))
++		return -EOPNOTSUPP;
+ 
+ 	/*
+ 	 * Take i_rwsem and invalidate_lock to avoid racing with set_blocksize
+@@ -953,6 +959,19 @@ static int blkdev_mmap_prepare(struct vm_area_desc *desc)
+ 	return generic_file_mmap_prepare(desc);
  }
  
- /**
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 17944e44b584..892ca469c570 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -113,11 +113,13 @@ static inline void bio_advance_iter(const struct bio *bio,
- {
- 	iter->bi_sector += bytes >> 9;
++static int blkdev_init_dma_buf_io_ctx(struct file *file,
++				      struct dma_buf_io_ctx *ctx)
++{
++	struct block_device *bdev = file_bdev(file);
++	struct gendisk *disk = bdev->bd_disk;
++
++	if (!(file->f_flags & O_DIRECT))
++		return -EINVAL;
++	if (!disk->fops->init_dma_buf_io_ctx)
++		return -EOPNOTSUPP;
++	return disk->fops->init_dma_buf_io_ctx(bdev, ctx);
++}
++
+ const struct file_operations def_blk_fops = {
+ 	.open		= blkdev_open,
+ 	.release	= blkdev_release,
+@@ -971,6 +990,7 @@ const struct file_operations def_blk_fops = {
+ 	.fallocate	= blkdev_fallocate,
+ 	.uring_cmd	= blkdev_uring_cmd,
+ 	.fop_flags	= FOP_BUFFER_RASYNC | FOP_DONTCACHE,
++	.init_dma_buf_io_ctx = blkdev_init_dma_buf_io_ctx,
+ };
  
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size -= bytes;
--	else
-+		iter->bi_offset += bytes;
-+	} else {
- 		bvec_iter_advance(bio->bi_io_vec, iter, bytes);
- 		/* TODO: It is reasonable to complete bio with error here. */
-+	}
- }
+ static __init int blkdev_init(void)
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index d003a9d2d1f6..2d5c30823aab 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1599,6 +1599,8 @@ struct block_device_operations {
+ 	/* returns the length of the identifier or a negative errno: */
+ 	int (*get_unique_id)(struct gendisk *disk, u8 id[16],
+ 			enum blk_unique_id id_type);
++	int (*init_dma_buf_io_ctx)(struct block_device *,
++				   struct dma_buf_io_ctx *);
+ 	struct module *owner;
+ 	const struct pr_ops *pr_ops;
  
- /* @bytes should be less or equal to bvec[i->bi_idx].bv_len */
-@@ -127,10 +129,12 @@ static inline void bio_advance_iter_single(const struct bio *bio,
- {
- 	iter->bi_sector += bytes >> 9;
- 
--	if (bio_no_advance_iter(bio))
-+	if (bio_no_advance_iter(bio)) {
- 		iter->bi_size -= bytes;
--	else
-+		iter->bi_offset += bytes;
-+	} else {
- 		bvec_iter_advance_single(bio->bi_io_vec, iter, bytes);
-+	}
- }
- 
- void __bio_advance(struct bio *, unsigned bytes);
 -- 
 2.54.0
 
