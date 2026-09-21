@@ -4,71 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039D1C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 21:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A358CC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 21:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49B4710E37B;
-	Mon, 21 Sep 2026 21:20:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 108A410E010;
+	Mon, 21 Sep 2026 21:24:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="ErRE0zur";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bbdLrFGq";
 	dkim-atps=neutral
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3979110E37B
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 21:19:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
- MIME-Version:Date:Message-ID:content-disposition;
- bh=g1ST6U2BpQn/s3D8UpgYd2KCtTjj3ldN0h2dyB/bZ1Q=; b=ErRE0zursoMY+UMyjDwlvee3Ni
- KA0G6w/m3ydbimYpQQUck96YqgySKBEOmHmVTKRDnOSBjXwLk823Iyzn19FH5wIRNyOd8lHCcCOKF
- P4e0/xf7B99zvFBls/UtyMwxWMPlkopEgNqDz2HBzZ+BN0XiC2bQLmA9ey2luseNU9pagmqqvcRBg
- X5WL28iC9i3rfIjgzKuHTOMbAZBQXwEdIErvGXDZfX/f15ftDFp1bId1GIvg6+M9qgvuceibqnwk3
- gV7hSE5AohGjlJ+NEsDquVHADVHT9YX5Kzbjm+P60e79A2ZT0irlax3JIJfDcRd7sn2BOJDrjfqsg
- 6x4VUOpQ==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
- by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
- (envelope-from <logang@deltatee.com>) id 1x8lQX-0000000F5FQ-0Kc5;
- Mon, 21 Sep 2026 15:19:54 -0600
-Message-ID: <9e868c06-be53-436c-a78d-790ed2b91c3e@deltatee.com>
-Date: Mon, 21 Sep 2026 15:19:40 -0600
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB12410E5CD
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 21:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=jxJF3fS5c8FFBcAG4E5WFTTUrHSp3009n8pVxYWxBYo=; b=bbdLrFGqihBB8lsW7HAabvqGcG
+ c0fEEb1cYpaTNg0/OSaXmpyIbn5NGrrBG/6jG1WGFL72Og4BgZG31f9sAlraVEBUe3h4uD51ZNmx2
+ BEqErbv7t1G7l17DYTrm5vDsBVtAsMeP7IRFBmrFaxG+/Rg5cFlLoIqvK6J79t6SlM1UP7lrrRZZd
+ vQDBW7SvIhO/hi9/LVSdYChgjUZUKyJKMnsA8D4afybfBX3JgrdoNqmby5fqzYpCJzJoHSuoLDz0d
+ JhMR1z4e/AEN3zCQoxiQQFL1+KeNzcy9odRHVZuOXYn2o8848ZxohoIaBu8psE75BLQmJCh42MMUW
+ GJBZsqvQ==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x8lVF-005Iwu-J9; Mon, 21 Sep 2026 23:24:45 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/2] drm/v3d: Skip perfmon serialization when it cannot be
+ observed
+Date: Mon, 21 Sep 2026 18:24:30 -0300
+Message-Id: <20260921-v3d-quick-exit-perfmon-serialize-v1-0-e58aea1075e2@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
- <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-11-ca0828ab697c@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
- gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
- ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH v7 11/19] PCI/P2PDMA: Log detailed ACS routing diagnostics
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQqDMBBG4avIrB3QlKrxKuIixN92UKMmVqTi3
+ Zu6fJvvnRTgBYHq5CSPXYLMLkaeJmTfxr3A0sUmlaki0yrn/dHx+hE7MA7ZeIHvp9nxnzGjfME
+ aGpWFsc+qpMgsHr0c96Jpr+sH3r43DXIAAAA=
+X-Change-ID: 20260921-v3d-quick-exit-perfmon-serialize-9e9e8ceac587
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1932; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=zLKjzznR0xj/cbaWObIrL0XLDtZEhh+U379U/nBTCvI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqsaCYgaYIzFkD8kvWzcbWNDMxFvWIkyvms5IES
+ SjxAkA6wNWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCarGgmAAKCRA/8w6Kdoj6
+ qqKzB/0eOWQOs0vRhmKmqYw8HOuVtUcaAi6UAwJINOHzMctwqDgtOspCDl69NTIqd7wBsdP10Pr
+ 0KtWUVJM1DzNEEsT8PJ3G9qSZ7QjH7/0BzUVYNT3iO05UCLeT1nBKKBw1RFZC0pdSUStejFbbtv
+ HvcZiBUkQ3wx9yun5/GfIHRgc4CK1uFEQ4ls0c5GHGWwizmRT/yBSQ80nnZY1nGH5tNIUL0zFRT
+ zNuMaLAOqNNFfxbG9CXVHRdFTTN4GNjmvDDp0AKPNlPcqRraWFNWME3aU2z/ZfI/rU8LkQtXn45
+ 20UZIH5SMxh4WhqgsPS/HnP0gSYPp47U1RpNgANtltH5cMnE
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,23 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The V3D core has a single set of performance counters. So that a perfmon
+only counts the jobs it is attached to, a job carrying a non-global
+perfmon waits for every job still in flight, and while it is in flight
+every later job waits for it. Knowing what is in flight requires every
+job to merge its finished fence into a per-queue accumulator.
 
+That accumulator is maintained unconditionally, so a client pays a fence
+merge on every job even when no dependency can ever be built out of it.
+This series turns the bookkeeping off in the two cases where that holds:
 
-On 2026-09-20 05:41, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> When P2PDMA rejects a mapping, existing warnings identify only the final
-> ACS or host-bridge result. They omit topology, live controls, divergence
-> ports, cache state, and intermediate routing decisions.
-> 
-> Emit debug-level messages for verbose calculations and cache lookups.
-> Report both paths, decoded ACS controls, directional decisions, host
-> fallback, and the final mapping. This keeps incidental unsupported probes
-> quiet while allowing the diagnostics to be enabled when needed.
-> 
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+  1. No perfmon is alive on the device, which is the common case since
+     perfmons only exist while userspace runs a performance query;
 
-Looks good to me:
+  2. A global perfmon is set and the job carries no perfmon of its own.
+     A global perfmon counts concurrent activity from every job, so
+     nothing has to wait. Jobs carrying their own perfmon stay tracked,
+     since the global perfmon may be cleared before they run and only
+     one of them can be programmed in the HW at a time.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Both share the same trade-off: a job that goes unrecorded never carries a
+perfmon, so the only cost is that the first job measured after tracking
+resumes may overlap it. Considering the use cases of performance monitors
+and that it will only affect the first job, it's a reasonable compromise
+to make for the average case.
+
+Best regards,
+- Maíra
+
+---
+Maíra Canal (2):
+      drm/v3d: Skip perfmon serialization while the device has no perfmon
+      drm/v3d: Skip perfmon serialization while a global perfmon is set
+
+ drivers/gpu/drm/v3d/v3d_drv.h     |  7 +++++++
+ drivers/gpu/drm/v3d/v3d_perfmon.c |  8 ++++++--
+ drivers/gpu/drm/v3d/v3d_submit.c  | 19 ++++++++++++-------
+ 3 files changed, 25 insertions(+), 9 deletions(-)
+---
+base-commit: 402491eefc5ea9a40e19b08dccf0c045aec4efc2
+change-id: 20260921-v3d-quick-exit-perfmon-serialize-9e9e8ceac587
+
