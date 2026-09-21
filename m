@@ -4,72 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33223C982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:06:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 795BFC982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3AC10E351;
-	Mon, 21 Sep 2026 07:06:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D323210E354;
+	Mon, 21 Sep 2026 07:06:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oIGWPfNv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dzVJCakb";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 849DF10E1B0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:06:02 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id CB902C2C652;
- Mon, 21 Sep 2026 07:06:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BC2FD60339;
- Mon, 21 Sep 2026 07:06:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 79EEC10328ED0; 
- Mon, 21 Sep 2026 09:05:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789974357; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=lc3Q5bHjC9Y5EjOyv/5Amr9ZepClgh/msjX52TvdD9I=;
- b=oIGWPfNvDSRbuhkeQtz7bxBJxWZYBW2cPZXT+UaEDez5iBFH2fF/5qtRmniX5pWZGz8E3K
- q74f2AJxyvO54Nw2fgwxH0oY7iv3GFATtVa9GXDdxGNpeQhgcdnuS6q/aZMlIuCUtu+/sb
- 4iQ+/XyCd2B1VnpR+ZPSGkDM+9JVT+5mDsBCyziy25sxPBu9ZcbPg0GoNguKP1G05ucFLL
- BMFC/U3CxdZw/9Kl6afCteUQDoNtTYjQ7SnsgvWqFB0O14Y0n8Bh2fmJ6XlJf9nitdwE1Z
- dm61Uq7NAkZqZJzwTtkc5Gro/DbLRu4zBMjgv+5b5LNTZXEZV46O9KlQTh9fTg==
-Mime-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9576F10E354
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:06:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CD9F6021A
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:06:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C391F00893
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789974390;
+ bh=dS669YdL4HWYJMFHFuqUiLwJ+dBe/E6NjwQ/Nk/pJzY=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=dzVJCakbVvndGYTPoffC9/BBzOjv0OuuLWyNhM2cqnoeUPz+j3kaKJOg2Ng3Ulpi/
+ OUwKJDf/XbLgq/xbydxb4tVHHGEjq4K5NX4NTSzi7ekOAtUXh93zNeNQcirNdMSQC/
+ qgwtyW/is7d9DkFEp3EkoYTh/aG0fqU6Z1ZbLEgZGDyMQkSD4sEopBD++gKCIhxyp5
+ oevnUHQJOTp1ymFFvrgXGZeYcyNVXl2p9idu7/cguSIfBl5ukTlUM0D6t0uX+y9QuK
+ oor95CfEQRpTCnYlC5qMzeXmFazG6QZVe8mtQJ66H1OOMS+yz7TCLtTUULjPcxYQ3k
+ S9JoC0Hct48Vg==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b5e4f1b846so2959447e87.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 00:06:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwiyzZFkydU9pKGa1xAW+BePhM/WwWVNHMZTuW+Imrokst/w4UZ67xeytVjGkvyLVfuqMkErhqRoq0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ml245DUKsPGL5mRdlX4y1PWLUdhKE6hXLUR5tw9/HdKMtZ6C3+
+ XG35Rl8PyjqSlNQAU+taenou+ROW6UbBzoI8+l8S6fxO9CQrUzUJXvIsrLCY4NZPLD4M27wERPX
+ RoAu56C6hCA5pCPGtzAI9dWE3i+afG5Y=
+X-Received: by 2002:a05:6512:23a7:b0:5b6:1a7c:aa1a with SMTP id
+ 2adb3069b0e04-5b8c197cf88mr3053851e87.50.1789974389058; Mon, 21 Sep 2026
+ 00:06:29 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-18-9352be6b86b1@kernel.org>
+ <20260920230526.D9E331F000FF@smtp.kernel.org>
+In-Reply-To: <20260920230526.D9E331F000FF@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 21 Sep 2026 09:06:16 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkazAsBWPD9vhh_N4fgsohDARUZLb72HMpfV4ZJvVs+6A@mail.gmail.com>
+X-Gm-Features: AcwNN1WdHGAFgi49VdletBEx39eGC37Zp4G66DB5ah7Aob95Mw3hiURMbaajIF4
+Message-ID: <CAD++jLkazAsBWPD9vhh_N4fgsohDARUZLb72HMpfV4ZJvVs+6A@mail.gmail.com>
+Subject: Re: [PATCH v3 18/18] ARM: dts: ux500: Remove DB8500 EPOD regulators
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, 
+ dmaengine@vger.kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 09:05:40 +0200
-Message-Id: <DLKSY3W6CGW1.3C0J6DHKV8P2Z@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v11 13/74] drm/bridge: Fix NULL deref in
- drm_bridge_add() for legacy bridges
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Dave Stevenson"
- <dave.stevenson@raspberrypi.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai" <wens@kernel.org>,
- "Samuel Holland" <samuel@sholland.org>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Raphael Gallais-Pou"
- <rgallaispou@gmail.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Algea Cao" <algea.cao@rock-chips.com>, "Daniel
- Stone" <daniels@collabora.com>, "Liu Ying" <victor.liu@nxp.com>, "Phong LE"
- <ple@baylibre.com>, "Helge Deller" <deller@gmx.de>, <kernel@collabora.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-rockchip@lists.infradead.org>, <linux-fbdev@vger.kernel.org>,
- "Sashiko" <sashiko-bot@kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Cristian Ciocaltea"
- <cristian.ciocaltea@collabora.com>
-X-Mailer: aerc 0.22.0
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
- <ap_Tr_Viqy29f515@houat>
-In-Reply-To: <ap_Tr_Viqy29f515@houat>
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,69 +73,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 8, 2026 at 11:24 AM CEST, Maxime Ripard wrote:
-> On Tue, Sep 01, 2026 at 09:50:37PM +0300, Cristian Ciocaltea wrote:
->> Legacy bridge drivers that embed struct drm_bridge in a zero-initialized
->> allocation, rather than obtaining it from devm_drm_bridge_alloc(), never
->> run INIT_LIST_HEAD() on bridge->list, leaving next and prev NULL.
->> list_empty() compares next against &bridge->list, so it reports such a
->> list head as non-empty.  list_del_init() therefore runs and dereferences
->> the NULL pointers, panicking the kernel during probe.  Only builds with
->> CONFIG_DEBUG_LIST survive, with a list corruption report.
->>
->> This affects rk3066_hdmi and the i.MX8 LDB bridges, which still embed a
->> bridge in a devm_kzalloc()'d struct.
->>
->> Initialize the list head when it is found to be NULL, so that the bridge
->> ends up with a valid empty list head and list_del_init() is only reached
->> for bridges that can actually be linked.
->>
->> Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges=
-")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://lore.kernel.org/all/20260731175016.C5D591F00AC4@smtp.ker=
-nel.org/
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/drm_bridge.c | 9 ++++++++-
->>  1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
->> index 2c457ad74f3b..a8b6df5c13ea 100644
->> --- a/drivers/gpu/drm/drm_bridge.c
->> +++ b/drivers/gpu/drm/drm_bridge.c
->> @@ -453,9 +453,16 @@ void drm_bridge_add(struct drm_bridge *bridge)
->>  	 * If the bridge was previously added and then removed, it is now
->>  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will b=
-e
->>  	 * corrupted when adding this bridge to bridge_list below.
->> +	 *
->> +	 * Legacy drivers that allocate the bridge with kzalloc() rather than
->> +	 * devm_drm_bridge_alloc() leave list.next NULL. Such a bridge cannot
->> +	 * be on any list, and list_del_init() would dereference NULL, so
->> +	 * initialize the list head first.
+On Mon, Sep 21, 2026 at 1:05=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+
+> Will removing the v-ape-supply property cause regressions in the
+> ux500-msp-i2s driver?
 >
-> "legacy" bridges are ambigous and was also used for non-atomic bridges.
-> That being said, it's now *required* that bridges use
-> devm_drm_bridge_alloc() instead of kzalloc, and we warn in
-> drm_bridge_add if it hasn't.
+> Looking at sound/soc/ux500/ux500_msp_dai.c:ux500_msp_drv_probe(), it
+> unconditionally requests this regulator:
 >
-> So I don't think we should merge this patch.
+>         drvdata->reg_vape =3D devm_regulator_get(&pdev->dev, "v-ape");
+>         if (IS_ERR(drvdata->reg_vape)) {
+>
+> Will this missing supply cause the regulator framework to fall back to a
+> dummy regulator (emitting a warning) or return an error and break the
+> driver probe entirely?
 
-I agree.
+Ooops I'll add a patch removing that so the driver just uses the power
+domain.
 
-I theory all drivers are be already using devm_drm_bridge_alloc() by now.
-
-In practice rk3066_hdmi is actually still using kzalloc, it should be fixed
-to use devm_drm_bridge_alloc(). Are you OK with doing it in v12?
-
-By "i.MX8 LDB" I guess you mean fsl-ldb.c, which was converted in
-9c399719cfb9 ("drm: convert many bridge drivers from devm_kzalloc() to
-devm_drm_bridge_alloc() API").
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Yours,
+Linus Walleij
