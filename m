@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31877C982EE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56C0C982ED
 	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:54:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38D8410EAA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72EE310EAC3;
 	Mon, 21 Sep 2026 15:54:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="asM16uei";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Jgz6DvBO";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AABF610EA72;
- Mon, 21 Sep 2026 15:53:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790006013; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C11A10EA83;
+ Mon, 21 Sep 2026 15:53:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790006029; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=mhxCIXPZ/+yEWUs1KgkZV/vPnjfe7MnmXqHd3FK9x+cOipio3AmrlBcvB623LhMN5Ee+IioCcYq+8mOPzQ9uJrJxg24Yv/otVDnPAZ4SIr6IRAtzue/HL4ZEjq4+xSylwUzGnCHVDuF2IXXtC/jqcye6GYmFbW0pacWgmjHQIzg=
+ b=bucFePsIG3sHaaq/2CBWDuM6TEQB5ZUvSiVK4L87uB8k+NTxy+ifG1BiI8b4jqBlbXCNYrQDmCA/4OGZvHfYxCui3ll5076Kw9Pybc26IofFFJAlIpftObLG2oOywgrWVuvUAZaPUKTEjZhkc9qVXqXJRdtyOTZhjyQ7I+cg+9I=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790006013;
+ s=zohoarc; t=1790006029;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=7klLKTxAqVvbufalhg35HG2HNYZ1gcqMNTnMqVx0mHY=; 
- b=NW3OjKIFNJPYSqRYjjDTpZIeT4IE4hY60OuBMDKc3ZHjU388vwZtknP7N4QwyaAmGYIAnaXxsh/3bXoVMclnGIETLsYEdXNXaAorN229eE+fgiZoxGBvZBJQ06L1Xh5GlY2Ge/E3eAQE6OjjFt0xt4BCunbTbgmWSdLux3Mowsw=
+ bh=1N1AnyMnsM3RPCrD9BtF496M7LSPX+hpmo/Y3tqyskA=; 
+ b=iu3kjXMKrd5USM8jXxUw4CupgHeqjWdNt+Y9RDnUzADslvyhTk3jhiWYx3CZdpkEtPp1OD0R3Krt0Ixe8pasvpUlq+Y41zSNN62JwhWldKEe0CWNv0hJy1WutJTuN9LhFTsrXVJVPUUozy1zm0TUsIWuZq2TxVHcOIEmraV+eEY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790006013; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790006029; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=7klLKTxAqVvbufalhg35HG2HNYZ1gcqMNTnMqVx0mHY=;
- b=asM16ueiap+8yleJX486m23IDB91JBay041dbXpcDeJ/7nc2/i3hj+SS107jzWyW
- keL71rS8GRFqp6ndLhaG4cifBJggDHseN1xiG7ezsg2trvX7WdLrDD7pMBxZPIofX0S
- /9wl8xIW2JWWkEO1cqISCDU+sEzA8hosb7wWDlzw=
-Received: by smtp.zohomail.com with SMTPS id 1790006011932527.0501784463283;
- Mon, 21 Sep 2026 08:53:31 -0700 (PDT)
+ bh=1N1AnyMnsM3RPCrD9BtF496M7LSPX+hpmo/Y3tqyskA=;
+ b=Jgz6DvBOy9K+i2RfOAOPfYf7p6Y5KWJ1d4xUkaPCAHzfCYATKkhhFEz2coekjKsq
+ pp87lncyTbEAsYCTjfRS7KVQQb1SMPsHoxZYEo3Qrl+ZltRJCRpZdwvnFwMSU2V39dY
+ qzCVkuN7ulHwQJzmRYiR6hkfDv0aM0zLuFYZw5ts=
+Received: by smtp.zohomail.com with SMTPS id 1790006028396815.1028205617608;
+ Mon, 21 Sep 2026 08:53:48 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 21 Sep 2026 17:51:42 +0200
-Subject: [PATCH RFC 16/25] drm/edid: Parse QMS TFR min/max flags from HDMI SCDS
+Date: Mon, 21 Sep 2026 17:51:45 +0200
+Subject: [PATCH RFC 19/25] drm/connector: hdmi: Add QMS to VTEM EMP generation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vrr-limiter-uapi-v1-16-2fcd7d011646@collabora.com>
+Message-Id: <20260921-vrr-limiter-uapi-v1-19-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
@@ -80,77 +80,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI has two flags in the SCDS EDID extension that signal which minimum
-and maximum refresh rate the sink wishes to use when doing QMS ("Quick
-Media Switching").
-
-How to parse these flags, and what they do, has been learned from the
-publicly available libdisplay-info source code.
-
-Add the definitions of where in the byte they are, the code for checking
-for them, as well as two new booleans in drm_hdmi_info to store the
-result.
+If userspace indicates that QMS is desired, set the QMS related fields
+in the VTEM EMP struct based on the connector state.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_edid.c  |  6 ++++++
- include/drm/drm_connector.h | 12 ++++++++++++
- include/drm/drm_edid.h      |  2 ++
- 3 files changed, 20 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 5a7d3b7e65da..4fe754328b1c 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6332,6 +6332,12 @@ static void drm_parse_vrr_info(struct drm_display_info *info, const u8 *hf_scds)
- 	if (!range->max_vfreq)
- 		range->max_vfreq = (FIELD_GET(DRM_EDID_VRR_MAX_UPPER_MASK, hf_scds[9]) << 8) |
- 				    hf_scds[10];
-+
-+	if (pld_len < 12)
-+		return;
-+
-+	info->hdmi.qms_tfr_min = !!(hf_scds[11] & DRM_EDID_QMS_TFR_MIN);
-+	info->hdmi.qms_tfr_max = !!(hf_scds[11] & DRM_EDID_QMS_TFR_MAX);
- }
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 7dbd678cf061..7237070fc9ee 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -897,7 +897,15 @@ static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connecto
+ 		return 0;
+ 	}
  
- /* Sink Capability Data Structure */
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index c97cf0625fda..8439c82db905 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -389,6 +389,18 @@ struct drm_hdmi_info {
+-	vtem->game_vrr_en = true;
++	if (conn_state->hdmi.qms_enabled) {
++		vtem->game_vrr_en = false;
++		vtem->qms_en = true;
++		vtem->next_tfr = conn_state->hdmi.qms_tfr_byte;
++	} else {
++		vtem->game_vrr_en = true;
++		vtem->qms_en = false;
++		vtem->next_tfr = 0;
++	}
  
- 	/** @qms_capable: The sink supports Quick Media Switching */
- 	bool qms_capable;
-+
-+	/**
-+	 * @qms_tfr_min: If set, the sink uses 24/1.001Hz as its minimum rate
-+	 * for QMS. If unset, @drm_display_info.monitor_range.min_vfreq is used.
-+	 */
-+	bool qms_tfr_min;
-+
-+	/**
-+	 * @qms_tfr_max: If set, @drm_display_info.monitor_range.max_vfreq is
-+	 * used by the sink as its maximum rate for QMS. If unset, 60Hz is used.
-+	 */
-+	bool qms_tfr_max;
- };
+ 	vtem->m_const = !vrr->dynamic;
  
- /**
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index f1e2052cb08b..d339acd9ee52 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -269,6 +269,8 @@ struct detailed_timing {
- #define DRM_EDID_VRR_MAX_UPPER_MASK		0xc0
- #define DRM_EDID_VRR_MAX_LOWER_MASK		0xff
- #define DRM_EDID_VRR_MIN_MASK			0x3f
-+#define DRM_EDID_QMS_TFR_MIN			(1 << 4)
-+#define DRM_EDID_QMS_TFR_MAX			(1 << 5)
- 
- /* DSC specific */
- #define DRM_EDID_DSC_10BPC			(1 << 0)
 
 -- 
 2.55.0
