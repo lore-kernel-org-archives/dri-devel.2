@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF336C982EE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E660C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3FB310E2AB;
-	Mon, 21 Sep 2026 13:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F23410E843;
+	Mon, 21 Sep 2026 13:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZXq9tdu7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mp1S23D7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E363410E836;
- Mon, 21 Sep 2026 13:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789999079; x=1821535079;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=X4CIZgjHO+2VErvGmXm3RXicCWQqYRcidFvptKdOGZQ=;
- b=ZXq9tdu7fOPLyqdnoZttRvtzPrOTGayCh2ckggw2nZVbePZXQnCvJ2aK
- sr7tG3cw0BahpnWUzugk0KP4uL1rkR2e4tStfY+TbEkVcxgPUq6++WL5G
- i8w+h5fPs1cjZ2vt/pfe/pRELgQyIkf6etZ7eNbE21ZaXF6yLNeQkCq7D
- dw2qhRFUw6+wNsFAS3BJJ4eWjpppMLVlC1/P4ugUlSNk7Vw81s8iQw/2Y
- d/Upork3oiVMDXPoiuAivZIKdlYJSULneODVNrRJBj2R5oDUESEJK7a7G
- N8jsjZapiOUgP+lBjL8YmrzNlzYiktkEy4nbGreA0KiqAUPMCY5f910eM w==;
-X-CSE-ConnectionGUID: eygLn6lQQWSEW/xHqiPP/w==
-X-CSE-MsgGUID: 1gDiNpmAQvqIsjjkOlEMnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90379513"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="90379513"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 06:57:58 -0700
-X-CSE-ConnectionGUID: nqRK0NXaTM2/w38HemOK1A==
-X-CSE-MsgGUID: qeLthCnqTnyTD5B7vyXXzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272824849"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.155])
- ([10.245.244.155])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 06:57:56 -0700
-Message-ID: <49da6f28a4ba582d32ac6cdccd6dea65d75eefbf.camel@linux.intel.com>
-Subject: Re: [PATCH v2] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Szymon =?UTF-8?Q?Aceda=C5=84ski?= <accek@invisiblethingslab.com>, 
- intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, rodrigo.vivi@intel.com, 
- maarten.lankhorst@linux.intel.com, hch@lst.de, bob.beckett@collabora.com, 
- dri-devel@lists.freedesktop.org, marmarek@invisiblethingslab.com, 
- xen-devel@lists.xenproject.org, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 15:57:49 +0200
-In-Reply-To: <20260916173030.3223833-1-accek@invisiblethingslab.com>
-References: <20260916173030.3223833-1-accek@invisiblethingslab.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D37810E7EE
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:58:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 79424600C8;
+ Mon, 21 Sep 2026 13:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05EB61F000FF;
+ Mon, 21 Sep 2026 13:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789999103;
+ bh=QteMOKNqp9usRKtIPXBEWzrfEOAUeF6CeCuBZEhLIG4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Mp1S23D7dRKeGuOEUZPUKhZOwC+5p/JaBnIzo1kM2V+y2ZAdEYAHg1/ToqmMi6b+5
+ H4T7dx0CmbaUi/pfWK7+ZUsjZFY9tbEAM+jjou6bEgSGU+b1/gGC8UOjrfgjou02Wk
+ X8i1PwwAKO+uJXi7NmM9tZVBCDlR+pktQmhLZtlfI/dyGztiRDBn9b89ce/b38UDY9
+ vEKEoLcJmVLGVv1kuW7heGDvgq+z5yABWbTeDwC2rKB7qon/Y2x9bLKOkiqbBXWHNY
+ EbzLkC+1gcR89OnqPUQCOMJzdrMvZlGokOWdZU1YjAo7XL+PwBKRdwwzmX3NUVqmyf
+ jdZ2I1liLkN+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 06/13] nvme-pci: implement dma-buf backed requests
+To: "Pavel Begunkov" <asml.silence@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Date: Mon, 21 Sep 2026 13:58:22 +0000
+Message-Id: <20260921135823.05EB61F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,91 +53,220 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-09-16 at 19:30 +0200, Szymon Aceda=C5=84ski wrote:
-> Fix display corruption on Xen PV dom0, where DMA buffers are not
-> guaranteed machine-contiguous, in which case bounce buffering kicks
-> in, breaking xe's memory coherency assumptions.
->=20
-> Apply the same workaround i915 carries in i915_sg_segment_size()
-> since
-> commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
->=20
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
-> GPUs")
-> Reported-by: Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com>
-> Closes:
-> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
-> Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
-> Link:
-> https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/=C2=A0#
-> i915 counterpart
-> Cc: Christoph Hellwig <hch@lst.de>
-> Cc: Robert Beckett <bob.beckett@collabora.com>
-> Cc: stable@vger.kernel.org=C2=A0# v6.8+
-> Signed-off-by: Szymon Aceda=C5=84ski <accek@invisiblethingslab.com>
-> ---
-> v2:
-> =C2=A0- Imperative language in the commit message (Thomas Hellstr=C3=B6m)
-> =C2=A0- CC the authors of the original i915 workaround (Thomas Hellstr=C3=
-=B6m)
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] nvme: deadlock in nvme_dev_disable() during device removal
+- [High] nvme: illegal use of single-mapping sync API on sg-mapped dmabuf
+- [High] nvme: heap buffer overflow in nvme_dma_buf_io_map()
+- [High] nvme: memory leak of dmabuf map in unmap path
+- [High] nvme: controller reset permanently breaks dmabuf registrations
+--
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+commit 1bee4d32dec1291a7dc832efe4620264ba2425af
+Author: Pavel Begunkov <asml.silence@gmail.com>
 
+nvme-pci: implement dma-buf backed requests
 
->=20
-> =C2=A0drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
-> =C2=A01 file changed, 19 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-> index 290ca62..341fa93 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_bo.h
-> @@ -9,6 +9,8 @@
-> =C2=A0#include <drm/drm_prime.h>
-> =C2=A0#include <drm/ttm/ttm_tt.h>
-> =C2=A0
-> +#include <xen/xen.h>
+Enable BIO_DMABUF_MAP backed requests. On registration we map the
+dma-buf and store it as a prp list, which is then used to initialise
+requests. All attached contexts are stored in a new list dmabuf_ctxs,
+and additions/removals are synchronised with dmabuf_lock.
+
+> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+> index a953c0697f994..5a45710a1daf2 100644
+> --- a/drivers/nvme/host/pci.c
+> +++ b/drivers/nvme/host/pci.c
+
+[ ... ]
+
+> @@ -865,6 +876,140 @@ static void nvme_free_descriptors(struct request *r=
+eq)
+> +static void nvme_dmabuf_map_sync_for_cpu(struct nvme_dev *nvme_dev,
+> +		struct request *req)
+> +{
+
+[ ... ]
+
+> +	while (length > 0) {
+> +		dma_sync_single_for_cpu(dev, dma_list[map_idx++],
+> +					NVME_CTRL_PAGE_SIZE, dma_dir);
+> +		length -=3D NVME_CTRL_PAGE_SIZE;
+> +	}
+> +}
+
+[Severity: High]
+Does this code unlawfully use the single-mapping sync API on an sg-mapped
+address?
+
+The dmabuf memory is mapped using dma_buf_map_attachment() which uses
+dma_map_sg(). The driver then illegally syncs sub-pages of this scatterlist
+using dma_sync_single_for_cpu() in nvme_dmabuf_map_sync_for_cpu() and
+dma_sync_single_for_device() in nvme_dmabuf_map_sync_for_device().
+
+This violates the DMA API. On platforms with SWIOTLB, this can crash or
+cause silent data corruption because the bounce buffer metadata expects the
+exact original dma_addr_t and size mapped by the sg API, not piecemeal
+chunks.
+
 > +
-> =C2=A0#include "xe_bo_types.h"
-> =C2=A0#include "xe_ggtt.h"
-> =C2=A0#include "xe_macros.h"
-> @@ -574,6 +576,23 @@ static inline unsigned int
-> xe_sg_segment_size(struct device *dev)
-> =C2=A0	struct scatterlist __maybe_unused sg;
-> =C2=A0	size_t max =3D BIT_ULL(sizeof(sg.length) * 8) - 1;
-> =C2=A0
-> +	/*
-> +	 * For Xen PV guests pages aren't contiguous in DMA
-> (machine) address
-> +	 * space.=C2=A0 The DMA API takes care of that both in
-> dma_alloc_* (by
-> +	 * calling into the hypervisor to make the pages contiguous)
-> and in
-> +	 * dma_map_* (by bounce buffering).=C2=A0 But xe (like i915, see
-> commit
-> +	 * 78a07fe777c4) ignores the coherency aspects of the DMA
-> API and thus
-> +	 * can't cope with bounce buffering actually happening, so
-> add a hack
-> +	 * here to force small allocations and mappings when running
-> in PV
-> +	 * mode on Xen.
-> +	 *
-> +	 * Note this will still break if bounce buffering is
-> required for other
-> +	 * reasons, like confidential computing hypervisors or PCIe
-> root ports
-> +	 * with addressing limitations.
-> +	 */
-> +	if (xen_pv_domain())
-> +		return PAGE_SIZE;
+> +static void nvme_dmabuf_map_sync_for_device(struct nvme_dev *nvme_dev,
+> +		struct request *req)
+> +{
+
+[ ... ]
+
+> +	while (length > 0) {
+> +		dma_sync_single_for_device(dev, dma_list[map_idx++],
+> +					   NVME_CTRL_PAGE_SIZE, dma_dir);
+> +		length -=3D NVME_CTRL_PAGE_SIZE;
+> +	}
+> +}
+
+[ ... ]
+
+> +static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx =
+*ctx)
+> +{
+> +	unsigned nr_entries =3D ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
+> +	struct nvme_dma_buf_io_ctx *nvme_ctx =3D ctx->dev_priv;
+> +	struct dma_buf_attachment *attach =3D nvme_ctx->attach;
+> +	unsigned long tmp, i =3D 0;
+> +	struct nvme_dmabuf_map *map;
+> +	struct scatterlist *sg;
+> +	struct sg_table *sgt;
+> +	int ret;
 > +
-> =C2=A0	max =3D min_t(size_t, max, dma_max_mapping_size(dev));
-> =C2=A0
-> =C2=A0	/*
->=20
-> base-commit: baafc300cd079a5210c1e70e5ea3d93518e40b38
+> +	dma_resv_assert_held(ctx->dmabuf->resv);
+> +
+> +	map =3D kmalloc_flex(*map, dma_list, nr_entries);
+> +	if (!map)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	sgt =3D dma_buf_map_attachment(attach, ctx->dir);
+> +	if (IS_ERR(sgt)) {
+> +		ret =3D PTR_ERR(sgt);
+> +		sgt =3D NULL;
+> +		goto err;
+> +	}
+> +
+> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
+> +		dma_addr_t dma_addr =3D sg_dma_address(sg);
+> +		unsigned long sg_len =3D sg_dma_len(sg);
+> +
+> +		if (sg_len % NVME_CTRL_PAGE_SIZE) {
+> +			ret =3D -EINVAL;
+> +			goto err;
+> +		}
+> +		while (sg_len) {
+> +			map->dma_list[i++] =3D dma_addr;
+> +			dma_addr +=3D NVME_CTRL_PAGE_SIZE;
+> +			sg_len -=3D NVME_CTRL_PAGE_SIZE;
+> +		}
+
+[Severity: High]
+Can an attacker controlling the dmabuf size trigger a heap buffer overflow
+here?
+
+In nvme_dma_buf_io_map(), nr_entries is calculated as
+ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE, truncating down if the size is
+unaligned. The flex array map is allocated for nr_entries.
+
+The sg_table returned by the exporter covers the rounded-up size. The loop
+iterates based on sg_len and writes unconditionally to map->dma_list. If
+size was unaligned, sg_len will exceed the truncated calculated size,
+causing the loop to write past the end of the kmalloc_flex allocation.
+
+> +	}
+> +
+> +	ret =3D dma_buf_io_init_map(ctx, &map->base, sgt);
+> +	if (ret)
+> +		goto err;
+> +	map->nr_entries =3D nr_entries;
+> +	map->sgt =3D sgt;
+> +	return &map->base;
+> +err:
+> +	if (sgt)
+> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+> +	kfree(map);
+> +	return ERR_PTR(ret);
+> +}
+> +
+> +static void nvme_dma_buf_io_unmap(struct dma_buf_io_ctx *ctx,
+> +		struct dma_buf_io_map *map_base)
+> +{
+> +	struct nvme_dma_buf_io_ctx *nvme_ctx =3D ctx->dev_priv;
+> +	struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(map_base);
+> +
+> +	dma_resv_assert_held(ctx->dmabuf->resv);
+> +
+> +	dma_buf_unmap_attachment(nvme_ctx->attach, map->sgt, ctx->dir);
+> +}
+
+[Severity: High]
+Does this code leak the memory of the map structure and percpu data on every
+unmap operation?
+
+nvme_dma_buf_io_map() allocates the map structure using kmalloc_flex().
+The framework calls dev_ops->unmap (nvme_dma_buf_io_unmap) when the map is
+released. nvme_dma_buf_io_unmap() unmaps the attachment but fails to call
+kfree(map) and percpu_ref_exit(&map->refs).
+
+[ ... ]
+
+> +static void nvme_pci_remove_dmabuf(struct nvme_dev *dev)
+> +{
+> +	struct nvme_dma_buf_io_ctx *ctx, *tmp;
+> +
+> +	mutex_lock(&dev->dmabuf_lock);
+> +	list_for_each_entry_safe(ctx, tmp, &dev->dmabuf_ctxs, list) {
+> +		dma_buf_io_detach(ctx->ctx);
+> +		dma_buf_detach(ctx->ctx->dmabuf, ctx->attach);
+> +		list_del_init(&ctx->list);
+> +	}
+> +	mutex_unlock(&dev->dmabuf_lock);
+> +}
+
+[Severity: High]
+Does this permanently break dmabuf registrations across transient
+transport resets?
+
+During a transient controller reset (e.g. from an IO timeout),
+nvme_dev_disable() calls nvme_pci_remove_dmabuf(). This permanently
+detaches the dmabuf and marks the context's maps as killed.
+
+The NVMe controller resets and comes back online, but the userspace
+registered buffers are permanently destroyed and will return -ENODEV. This
+breaks the intended transparency of NVMe resets, causing IO submissions
+using registered dmabufs to fail unrecoverably until userspace re-registers
+them.
+
+[ ... ]
+
+> @@ -3316,6 +3633,8 @@ static void nvme_dev_disable(struct nvme_dev *dev, =
+bool shutdown)
+>  	struct pci_dev *pdev =3D to_pci_dev(dev->dev);
+>  	bool dead;
+> =20
+> +	nvme_pci_remove_dmabuf(dev);
+> +
+>  	mutex_lock(&dev->shutdown_lock);
+
+[Severity: Critical]
+Could this sequence result in an ABBA deadlock preventing device recovery?
+
+nvme_dev_disable() calls nvme_pci_remove_dmabuf(dev) before calling
+nvme_cancel_tagset(). nvme_pci_remove_dmabuf() calls dma_buf_io_detach()
+which blocks waiting for all active dmabuf IOs to complete.
+
+Since the device is dead or resetting, the hardware won't complete the IOs.
+The IOs must be aborted by nvme_cancel_tagset(), but the thread is
+permanently blocked waiting for them. This was not resolved in subsequent
+patches in the series.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789997898.gi=
+t.asml.silence@gmail.com?part=3D6
