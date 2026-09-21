@@ -4,75 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FAD9C982EA
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 03:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF924C982DA
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 03:37:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF6E410E067;
-	Mon, 21 Sep 2026 03:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4E2F10E069;
+	Mon, 21 Sep 2026 03:36:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="X75U2bih";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fTftj8+U";
 	dkim-atps=neutral
-Received: from mail-m16023653221.xmail.ntesmail.com
- (mail-m16023653221.xmail.ntesmail.com [160.236.53.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89ABD10E067
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 03:07:45 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4e80fdd69;
- Mon, 21 Sep 2026 11:07:39 +0800 (GMT+08:00)
-Message-ID: <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
-Date: Mon, 21 Sep 2026 11:07:38 +0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012047.outbound.protection.outlook.com
+ [40.93.195.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7B910E069
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 03:36:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sx7Utdfo//81f8n85XYVR0HYhulhF4ByPuHaynOLh03QdCgTuI8xN5cqQoX0g5VJZzTL12WhETz1w+i5w20SbS7NtBMROzGqfSdeXdQpcf9Suhg9MTQNXbpJtOb8NtWnF8/Z/cRA5rnPW3tmTI/FvR0mq2pZftwiti9C9eHrT4ZAhXmlILbADU0Ni+e6LZVIqjTwLwq3hUCof7aB63hW5orbh6oM9ExCjXyZ4OB0Riu7YirQ7n1ys+J8lGGxJrRKlyVHfw8yzdZi2nzt4Z75E75EcPDvtsPAnQ+r9mFgntmlNf/bWq/TkQCkItOYCpIxYTx9wV6k0O3LBT8jahji+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cShGOt0PrgrVHYjx3SP20dejM2Zd5XxLECPi9APP9GM=;
+ b=jD/GrNIki0f1Fayo02n6ke4K0ebVEQjmX8e4t42FsDwgs4E0iQ7dFmQhshfFleZ3qvIuAkRGoeg6ffYhIIQzF+QDSUEfOu+vGoDA4kKY7rB5imGwcVikGe81TUcRZ+7giLfLS3KHFxBEjzrJXeZcPhIimpPJdJOYLcigZG882Xrp/Yje9jzpAO4jkVBdaIuhhtiNvb+qMhlX0z0FbPBejryB0GtDlTj95yswrVBRCaMiLpLtQiBz9S+Q/fKaO9tG8MZRGPNbK5LekIEfHVeMoVzPq3fGJyYt0dv9KsSkbSdfP5N/+NknhJZkMYif8jipngFHz0xnZApnSxCFEwBkOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cShGOt0PrgrVHYjx3SP20dejM2Zd5XxLECPi9APP9GM=;
+ b=fTftj8+Uyo0gRFoLe4CqVatj/z41BCyPhi2DVGheLakyHHxbTRdr0fYrO+AA1jMGRwnZj8zwBTII+5PumdAYttA4DlWDEDimKdcj3TawkMqzH73Kor4jzbLH8P4bcJumfmhJFTl+Ygq82w6GqkojZXZfzH7f4qDXVVL8PfTXc3bVrTMz/mZfuwiOQP0OTCYaym+/lDRiqR2KIhNBOj/fDyOC4L//Y6XM3Htp09hSJmQcfe1v1SQgrKcqptq/FoXZCR/lSOG4Jk7l9CqewVnt4rg7H+HkFmq2HC2f/bvGnlFuueufRTOp32EWKBe9miVLb4PQ9EtKvsC03+/vHdoq4Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB8179.namprd12.prod.outlook.com (2603:10b6:510:2b8::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 03:36:54 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 03:36:54 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 12:36:50 +0900
+Message-Id: <DLKOI7QW5M8O.II2G717YJDB7@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Filipe Xavier" <felipeaggger@gmail.com>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Filipe Xavier" <felipe_life@live.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2] rust: impl_flags: add conversions for raw flag
+ representations
+References: <20260920-add-from-raw-conversions-v2-1-cef8e6e23ae2@gmail.com>
+In-Reply-To: <20260920-add-from-raw-conversions-v2-1-cef8e6e23ae2@gmail.com>
+X-ClientProxiedBy: TY6PR01CA0036.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bd::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
- panel_bridge
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa
- <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa0c1eefae103a8kunme73f8a94967023
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTR9DVhgfTBpPQkhLT0xDTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=X75U2bih9s1RNl4gfzClJThJySNIjM4kfsKgyjGvKrzGJiFZ2Bwbo3pJPtYca+j/pFYEeq37etQ+OwaS06uBvJwGOmMLXeP6lj8vSUlfLQggrDNilTsa2Uo3+y44fskT/5MTWhtT594XHIv6GphMsqSfSI/V9qtKQ2IakciJ8m0=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=HFBDIScTYbc3MGtJrgl0/GYEHYmGNpTutJZEvykLwwM=;
- h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB8179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1766a0c7-256e-486d-2365-08df179194c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: O3OQrRPdkwGXUX4DE31+TUxEViIR4BA78eKnhu3vBlYntL9gAv5SqAckPiNwLeX9n5r9Ikg993ez+EwPtTiuxQc0z67FgKZPrx1E0g1UpUi7q5YLTXBPZAh0gBUHzxyTqGd2/YwECa/GFYDm3/s5jO3lX0dShoxbkvXxl3XTGYW73KvfVYCrLU3LF1HD7CUSnyE9fCvgA9cQhDAnGe3hAlKt9dpu7ZCQZMJyk4lRPrxmIuXVa7g++tR2dXpH8ND8RF+DzKJhxjvy/UrBoowu5wcpFBXMzdVi39utMtixCj1nY8tef1UPs/faGsunyDWZAd6BuJu9ggrbmwcbR042ZymKZa3Zs68LpHZ+kKe7C/fn1Tj2yEqIQtJMVQhT9wbgWAwFMkPmoqJ/yDTr11b4iRAZFMJxlMkZqsDwCded/kfKr0+dQKB4IxE1hlIsNQpQErQpd3H0wWtwsyr9q028Qx6zTZzDULwCEaQrZZ6YYb2ya6/MREMPa5oGPSmeK8Snd0rxOGeFNw8GOsYCQp9N9WRoG3K/3+CVyExZThwZ7kh9xwvfskInPyRaFiowtSbm1QlGWvCz0JJ4UbE+OGfAqLCkluuaJb387KOx8G3/LRE3WFcjkg7jrCg0mZ67McmC+fkYXaRaRg0jOjUK39sQ61xiYjNLxlPeVtaPrc4rReg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dm5uczlheHNoenAxQ05FVjZqSmpleWt5Wk03YkFFd3pjOGJrUzNjUHpPOXFL?=
+ =?utf-8?B?SlAvSVJGSVorMXFTZXBGZW9HeDVUc3k2ZzBXRFdnSXpibW1zZHVtWnFvSjcz?=
+ =?utf-8?B?SEZzSFlVQnZ4ZFNzQjlCVEw1MXh1MGZzR0hBRzBDeS82UlpsQjZUWVpjSytH?=
+ =?utf-8?B?ZFBvZm9kYi9jSlBTZkVVT21wamRPaTQ4d09EZ3VycXhCUVcxK3lzNm4yWFhQ?=
+ =?utf-8?B?djNRQW8xWmlxcTZYQ0crd093bTFSZERkN2dUdTQ1K3pkRitKRTkzM2JaS0N1?=
+ =?utf-8?B?VlAxdUtTemw0SHM2bXdkbGk0a1N2OXFUNHpyamsxaU1mQ3hlY1JOQTdjb1Rr?=
+ =?utf-8?B?RUxvUG5WZTVsUGk1Zm1OZTRsMzNteDdLVEw5VjFDV0xiVUFyMUt5QUJEUlVk?=
+ =?utf-8?B?dzk4K1d5M3ZSZUxtUytIVU9xdEZLaVdmamxFVExlcmQ1WXhBOEhwUFZ4Qnp2?=
+ =?utf-8?B?K0FPaWw0NkR1ZjgvUlphODloelZaSEd1RDI1T2pvUCtSZXpPNHJwS2wvZHJs?=
+ =?utf-8?B?ZklBdzJFZ0ZiOG9RLy9RUlQybUMyQ1RKN0NQaXVZQTJCZWh5SmlvN3pxbTdD?=
+ =?utf-8?B?RkZib1BTVlI5c1pkMFFnb2pqcGhyTVE1MDJIMFlCZCtEQVNjZ3ozakFyL0lm?=
+ =?utf-8?B?U2NRSW5ZTmRsMmg0T3ZicUo4eklOcWg3RGg1bUNPMWNqdXhXZmJLOEV2WUxj?=
+ =?utf-8?B?NWJlYWZtcDZ4T3c5U1ZKYVVRZmZYUUlZZWphVEpBekt5TVBEdjUweWhUcVFn?=
+ =?utf-8?B?WFBCakpSV1lkL3M5ODViMW1hRTZHZVFQb0w3dmg2MHVPZ010dFd1K1VYbFJu?=
+ =?utf-8?B?UzlMbUY2aStqdzJtb1pralp5eDc1cFJkWnZwNlNOakk3M25kQXB4RHIzcVcz?=
+ =?utf-8?B?cXViVU5ld0N4YVgzRXdtWlNNc2tRaTZNUjhaZ3lpWWNBanJYM2tKeDZlc3U1?=
+ =?utf-8?B?UmtnaStnRkZwS2NiOUxlbVZGZllETFExRGNzamxqeWl4TU9uZWRGejl6WXZI?=
+ =?utf-8?B?Mnh4N0J5d2E1OWtGd1gzbVhYNW4vZ0FXUGFURWtUYnJKWkw5UllvRFRtZWha?=
+ =?utf-8?B?bUc1SGxuLzdRM0lSTGZjME1tRlk0UURFYVM1RXNoMHQzWHB0eWpPRDYxQUdD?=
+ =?utf-8?B?SE9YaWRjbkZMSk12UkpLUGVmVDNjMGEvc0NuN0ErQnJZeHJid0VwTi9NUjdK?=
+ =?utf-8?B?V3hKbm5ZT2pyMmRpa0RJUjhKcmtDdWZDa0hMc0U0QlJMR2ErQ1BmVFkyWkM5?=
+ =?utf-8?B?SElQYTBsd1BLM01VR2hzSmh4MEMrMk5pUmN4c1ZmZzdEYnNRR2hSQjVpTk5E?=
+ =?utf-8?B?OXhYZU5mcThyWXJ1R0RaM2JtNXdBRlZHQ0lkeFYvK2NVNGpPRHFocnFKUEt0?=
+ =?utf-8?B?NHdCZmhuUERXbk1YRFNBQ3hnZzMvNGhjakcySjV4YUZhZU8vYUhhdThwdVJQ?=
+ =?utf-8?B?SlhRVHEwSWYrTUdYYVJST0ZvaVRpM0d4cW9tRCtmRGlSQ3VPcEYraCtWUEJC?=
+ =?utf-8?B?c0tmWEhkK3VVOXl0RUloYnhLZlpYL1JYMXpMWERSK0x1aG0rY1ZycnY5SzB1?=
+ =?utf-8?B?RCt0d0JmSGdyUk10WlR1ODRjMktrcGVuS3lRdFZ2OW9XWmxQS0xlTzAwa3Jx?=
+ =?utf-8?B?OW9BTFpFN3RtRDFFUnNBTlY5YUJaNEMyS0Z4cm5HelM4OGYxSEtWZEFFRnBw?=
+ =?utf-8?B?dDN0RXZQMURrcC9XN0VKZzd5aVMrVnFia1R6ckZWTVVvbHBoeVJiZHUrc3JY?=
+ =?utf-8?B?Y05jNE5EWTBTZFM1dWxBdlVvWE53bHdNaitPZk1rMFR6NEVXVUU5c1g1b2xh?=
+ =?utf-8?B?VzJaZ20zeWkvWFowOUN1QkRQbUtRSFJnS08wcWIvLzltUVU4SGcrc2dmQmxu?=
+ =?utf-8?B?VHhFK0FuYS8yaURNZ05oQk1CeFRjM1pZQTJlem93TjZxUU9JQWFybzJiUmp6?=
+ =?utf-8?B?bnRuMWtmci9aZGxWaXZpUzFCckFXd2l0bnZRQU1VSStFMjBIUGp1MC9IcVNJ?=
+ =?utf-8?B?OUhRWXBSbERyMkZoTXV5eXYwekVoRUIzQ1MxWUZEUjhaZjJtNy9SRWkrMFYz?=
+ =?utf-8?B?eWNnL21PajJyQ0FFVGk1akk3Tno0SFVqNm1mYXF3eWFwYjhYd1NZeWJDdDk2?=
+ =?utf-8?B?dkc5czhMYmt4UU1mK3FlR0ZsRWtOQnFPUGZwK2xBdGpkTUxSc3RaSkNIYmZT?=
+ =?utf-8?B?cDFXVDVyOFJ2dWp2UlJRNTZHMkpzeUVTem1QUi94RVlROWNjdmFUUElKb0to?=
+ =?utf-8?B?THROZXdNQzNPdTFYT2RVUGRzcldPdGtyUVJiaFpBaTNmUktCUkhiRGZydDdm?=
+ =?utf-8?B?cGpMUmpUMmEyTUk3R2FrOGhKbU4wSFd4ajNOdGlDWEtDNUtSbWtEZWRCaEdV?=
+ =?utf-8?Q?q5Rre3wTBmRHIfk7KwLIW+6Fn7L5ta0Z/7RyLIkSQVc1r?=
+X-MS-Exchange-AntiSpam-MessageData-1: UTf+0DuAl/ldTQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1766a0c7-256e-486d-2365-08df179194c5
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 03:36:54.6486 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XZca91Raig7MqBk+EkEK7/23azGgOh1lRiSYn7d1A8/CAtkt7ZGFKbj6/uS62zy/+0mwgTJPbAHgxTlELG/SuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8179
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,255 +146,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+On Mon Sep 21, 2026 at 4:18 AM JST, Filipe Xavier wrote:
+> Extend the impl_flags! macro to support conversions between generated fla=
+g
+> types and raw C/UAPI integers. Implement TryFrom<Repr> for individual fla=
+gs
+> (exact variant match) and flag sets (rejecting unknown bits), along with =
+an
+> unsafe from_raw() constructor for flag sets. Additionally, add BitOr and
+> BitOrAssign implementations between the raw representation and flag types=
+.
 
-On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
-> Now a panel_bridge is automatically created for every drm_panel and the
-> panel-bridge API is just a deprecated wrapper to access it.
-> 
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge using of_drm_get_bridge_by_endpoint().
-> 
-> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
-> of putting the bridge reference. This is not easily done in the remove path
-> due to the different probe paths of the user drivers, so add a devm action
-> to ensure the reference is put only when it was taken.
-> 
-> Assisted-by: opencode:deepseek-v4-flash-0731
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->   drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
->   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 +++++++++++++---------
->   drivers/gpu/drm/exynos/exynos_dp.c                 | 36 ++-----------------
->   drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
->   include/drm/bridge/analogix_dp.h                   |  1 -
->   5 files changed, 25 insertions(+), 62 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/bridge/analogix/Kconfig
-> index da156fd15764..5672d83cb4a1 100644
-> --- a/drivers/gpu/drm/bridge/analogix/Kconfig
-> +++ b/drivers/gpu/drm/bridge/analogix/Kconfig
-> @@ -33,7 +33,6 @@ config DRM_ANALOGIX_DP
->   	depends on DRM
->   	depends on OF
->   	select DRM_DISPLAY_DP_AUX_BUS
-> -	select DRM_PANEL
->   
->   config DRM_ANALOGIX_ANX7625
->   	tristate "Analogix Anx7625 MIPI to DP interface support"
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 18e76d1e78e1..6df6963740d2 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -29,7 +29,6 @@
->   #include <drm/drm_device.h>
->   #include <drm/drm_edid.h>
->   #include <drm/drm_of.h>
-> -#include <drm/drm_panel.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   
-> @@ -1567,15 +1566,6 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
->   	if (ret)
->   		goto err_unregister_aux;
->   
-> -	if (dp->plat_data->panel) {
-> -		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
-> -								       dp->plat_data->panel);
-> -		if (IS_ERR(dp->plat_data->next_bridge)) {
-> -			ret = PTR_ERR(dp->plat_data->next_bridge);
-> -			goto err_unregister_aux;
-> -		}
-> -	}
-> -
->   	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->   	if (ret) {
->   		DRM_ERROR("failed to create bridge (%d)\n", ret);
-> @@ -1647,6 +1637,11 @@ struct drm_dp_aux *analogix_dp_get_aux(struct analogix_dp_device *dp)
->   }
->   EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
->   
-> +static void analogix_dp_put_bridge(void *data)
-> +{
-> +	drm_bridge_put(data);
-> +}
-> +
->   static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->   {
->   	struct analogix_dp_device *dp = to_dp(aux);
-> @@ -1655,14 +1650,25 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->   	int ret;
->   
->   	/*
-> -	 * If drm_of_find_panel_or_bridge() returns -ENODEV, there may be no valid panel
-> -	 * or bridge nodes. The driver should go on for the driver-free bridge or the DP
-> -	 * mode applications.
-> +	 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
-> +	 * valid panel or bridge nodes. The driver should go on for the
-> +	 * driver-free bridge or the DP mode applications.
->   	 */
-> -	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, port, 0,
-> -					  &plat_data->panel, &plat_data->next_bridge);
-> -	if (ret && ret != -ENODEV)
-> -		return ret;
-> +	plat_data->next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node,
-> +							       port, 0);
-> +	if (IS_ERR(plat_data->next_bridge)) {
-> +		if (PTR_ERR(plat_data->next_bridge) == -ENODEV)
-> +			plat_data->next_bridge = NULL;
-> +		else
-> +			return PTR_ERR(plat_data->next_bridge);
-> +	}
-> +
-> +	if (plat_data->next_bridge) {
-> +		ret = devm_add_action_or_reset(dp->dev, analogix_dp_put_bridge,
-> +					       plat_data->next_bridge);
-> +		if (ret)
-> +			return ret;
-> +	}
->   
->   	return component_add(dp->dev, plat_data->ops);
->   }
-> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
-> index e1c9e2946b8a..82c238829921 100644
-> --- a/drivers/gpu/drm/exynos/exynos_dp.c
-> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
-> @@ -26,7 +26,6 @@
->   #include <drm/drm_crtc.h>
->   #include <drm/drm_encoder.h>
->   #include <drm/drm_of.h>
-> -#include <drm/drm_panel.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/exynos_drm.h>
-> @@ -147,7 +146,6 @@ static const struct component_ops exynos_dp_ops = {
->   static int exynos_dp_probe(struct platform_device *pdev)
->   {
->   	struct device *dev = &pdev->dev;
-> -	struct device_node *np;
->   	struct exynos_dp_device *dp;
->   
->   	dp = devm_kzalloc(&pdev->dev, sizeof(struct exynos_dp_device),
-> @@ -163,18 +161,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
->   	 */
->   	platform_set_drvdata(pdev, dp);
->   
-> -	/* This is for the backward compatibility. */
-> -	np = of_parse_phandle(dev->of_node, "panel", 0);
-> -	if (np) {
-> -		dp->plat_data.panel = of_drm_find_panel(np);
-> -
-> -		of_node_put(np);
-> -		if (IS_ERR(dp->plat_data.panel))
-> -			return PTR_ERR(dp->plat_data.panel);
-> -
-> -		goto out;
-> -	}
-> -
-
-TIP: In my WIP v3 patch series, I use of_drm_find_panel() together with 
-devm_drm_panel_bridge_add() to maintain this backward compatibility. But 
-I also think this old approach should be deprecated now. Shall we add 
-some notes in the commit message to mention the deprecation of this method?
-
->   	if (of_get_display_timings(dev->of_node)) {
->   		dp->plat_data.next_bridge = devm_drm_of_display_mode_bridge(dp->dev,
->   									dp->dev->of_node,
-> @@ -189,19 +175,11 @@ static int exynos_dp_probe(struct platform_device *pdev)
->   	dp->plat_data.power_off = exynos_dp_poweroff;
->   	dp->plat_data.ops = &exynos_dp_ops;
->   
-> -out:
->   	dp->adp = analogix_dp_probe(dev, &dp->plat_data);
-> -	if (IS_ERR(dp->adp)) {
-> -		/*
-> -		 * The driver core does not invoke remove() for failed probes,
-> -		 * so release the probe-time panel reference here.
-> -		 */
-> -		if (dp->plat_data.panel)
-> -			drm_panel_put(dp->plat_data.panel);
-> +	if (IS_ERR(dp->adp))
->   		return PTR_ERR(dp->adp);
-> -	}
->   
-> -	if (dp->plat_data.panel || dp->plat_data.next_bridge)
-> +	if (dp->plat_data.next_bridge)
->   		return component_add(&pdev->dev, &exynos_dp_ops);
->   	else
->   		return analogix_dp_finish_probe(dp->adp);
-> @@ -209,16 +187,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
->   
->   static void exynos_dp_remove(struct platform_device *pdev)
->   {
-> -	struct exynos_dp_device *dp = platform_get_drvdata(pdev);
-> -
-> -	/*
-> -	 * Release the probe-time reference from of_drm_find_panel(). If bind
-> -	 * ran, the panel_bridge holds a second reference that devm cleanup
-> -	 * will release when the bridge is destroyed after remove() returns.
-> -	 */
-> -	if (dp->plat_data.panel)
-> -		drm_panel_put(dp->plat_data.panel);
-> -
->   	component_del(&pdev->dev, &exynos_dp_ops);
->   }
->   
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> index 587e60232ec7..071d31aa5288 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> @@ -28,7 +28,6 @@
->   #include <drm/drm_bridge_connector.h>
->   #include <drm/bridge/analogix_dp.h>
->   #include <drm/drm_of.h>
-> -#include <drm/drm_panel.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   
-> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct platform_device *pdev)
->   {
->   	struct rockchip_dp_device *dp = platform_get_drvdata(pdev);
->   
-> -	/*
-> -	 * Release the probe-time reference from of_drm_find_panel(). If bind
-> -	 * ran, the panel_bridge holds a second reference that devm cleanup
-> -	 * will release when the bridge is destroyed after remove() returns.
-> -	 */
-> -	if (dp->plat_data.panel)
-> -		drm_panel_put(dp->plat_data.panel);
-> -
->   	component_del(&pdev->dev, &rockchip_dp_component_ops);
->   }
->   
-> diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-> index 0e0b87abee59..6033137b651e 100644
-> --- a/include/drm/bridge/analogix_dp.h
-> +++ b/include/drm/bridge/analogix_dp.h
-> @@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
->   
->   struct analogix_dp_plat_data {
->   	enum analogix_dp_devtype dev_type;
-> -	struct drm_panel *panel;
->   	struct drm_bridge *next_bridge;
->   	struct drm_encoder *encoder;
->   	struct drm_connector *connector;
-> 
-
-I apply this patch series with the related one[0], and the eDP work well 
-on my RK3576 board.
-
-Tested-by: Damon Ding <damon.ding@rock-chips.com>
-
-In my patch series for Analogix DP HPD support, Heiko also pointed out 
-that devm_drm_of_get_bridge()(deprecated now) can be used to get the 
-panel bridge directly, and the redundant &analogix_dp_plat_data.panel 
-can be removed[1]. Since your patch series already contains these 
-optimizations, I will rebase my patch series on top of yours for 
-subsequent updates.
-
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-
-[0] 
-https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
-[1] https://lore.kernel.org/all/5609825.iZASKD2KPV@diego/
-
+This does 3 different things and would be much more comfortable to
+review if split into 3 distinct patches.
