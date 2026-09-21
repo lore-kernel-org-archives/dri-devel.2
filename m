@@ -4,99 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 334E6C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 14:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4934DC982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 14:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6593A10E082;
-	Mon, 21 Sep 2026 14:34:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D24710E107;
+	Mon, 21 Sep 2026 14:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="MKEwlCrv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AZS5BWYg";
 	dkim-atps=neutral
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
- [74.125.229.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA91110E082
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 14:34:33 +0000 (UTC)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f1744fso5044107e87.2
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:34:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1790001272; x=1790606072;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=up7la13N5P698qqLdVjKevYqSqg9Pb2eoFO9uiD7Mlg=;
- b=MKEwlCrvlO7JXXcb+sBdsm8Q2rgleihAyjDLa95lXaf9lVFZHB7nlsf/91bvjseowO
- SlUuhIUxvNePMMSzjP89syVye/+07E2NdqAcNZKihIKIVUp3P/8rrBYuuds1KKJ+PzB+
- 3DRQo4W+NnneQB+9jg66ZdrMdy93YW5UkmxHc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790001272; x=1790606072;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=up7la13N5P698qqLdVjKevYqSqg9Pb2eoFO9uiD7Mlg=;
- b=klzj2G0eXTcpja5nEHuJzf7z1ehdLD1VRr2Zu5b+iCpr52ZXAW2HfiquLPIUjyBAzS
- jFCpUGmN4jQwO9+VcE8KdIZGmH1y4cVK3/zCbNAyawURYsyuZ5oyFH9Wu9uG1YSJmHC7
- 3xt0f+0l6j6EjHsRxKVbUGX4pqoi9tQchvFeM5Z/o4aPIokKISH8FmLT9EXjNTmot3YP
- K7yeAR63AuizQecPfNpiy4JVsCERdXdXpwo9CBbQgSby6/UjmYStU/N7xPrSwAwH5lfA
- FS76Yl+z+hq8hrMhGrvm8s3CObTsDoY7lLDX3tSyNrxwolmVeW558wYQh0esFf5xpwHj
- Vnww==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxW0D8FhiLfkLjYOFI0Md3BqefUi0DBJfE2nPaQfbZAoc0345klXcGAjP0GnavDIWw+sg5UK37umHc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kPulgpvk2z4nx1MIHS6FFlCTNjmEaCJ/l/KaLV40Qb0bfMflqx
- ZEKBc8rQsfkjnVNP4iCWtgG5aQexPcJIMsvv0HiJEX6kVjUJhj6yQ2oUC37I5YxLJLsNwBQ7rcq
- DpJFv7Q==
-X-Gm-Gg: AYBFou0dP8PgpxylNiNfiNfy4z4Jxtv/ufT9Ag6Ah6jQ0xsWUKRTS6xCjERHMux1db+
- LCdxgQWtGmVwEFcMzxAXxefEDgUhL4XN5KeuSXhBrACSfH8alXkY30JaTkAXGx3ESkB5D1LaZLK
- sb0X7K7gtY86RbpXDBsTbTGWuZYwNmngbp5nBmY5P3cJvN/aeVlaF9mS7z4nb6tBwg0nK79ne7R
- /naW4G7ipN/tqUT0EC9hk8p8bPZUNG9U2QfsSZSwqFApd038OfjkHJyIOsX/55YWtsqJ0kw6b4H
- zBNVV9dKblyVwOjiUM7i2M9CTBTzAi9+Egu6p5lomjg1syKdA4D3Jsrfb7n1GXEX+uEBzWUmtwR
- zK2u6wNHvVkuKzXjLxTZoj0vXaaKgrB0+Kbi/5WseMRChKjbZZaMq6o9rn46HFfpgacSnNUvC53
- 7YRitKWM3oaA5eSJxoxcqxiiFu1ou0sRc2iFNS6wHhx0BBsGn4PohhdV4L4DoZ5AlwlTVxL51Ir
- p1wpSVVPpS3fg/0yhK0Ql3Xz12q2UwZNePgodQ=
-X-Received: by 2002:a05:6512:1384:b0:5b6:183c:5c98 with SMTP id
- 2adb3069b0e04-5b8c194e143mr3525027e87.54.1790001271665; 
- Mon, 21 Sep 2026 07:34:31 -0700 (PDT)
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com.
- [74.125.229.204]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8c85c8833sm1978254e87.63.2026.09.21.07.34.27
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Sep 2026 07:34:28 -0700 (PDT)
-Received: by mail-lf2-f12.google.com with SMTP id
- 2adb3069b0e04-5b5e4f17452so2451112e87.3
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:34:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBw44Zog8nO5zkFa7qo+FQsile7D/WEsvz80iQNUfc1xMiFMpd/SmPAUuvCIWQEpHDYgyNxOjowGFts=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:33c6:b0:5b6:177f:b86e with SMTP id
- 2adb3069b0e04-5b8c18055camr3271431e87.19.1790001266246; Mon, 21 Sep 2026
- 07:34:26 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 406CE10E107
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 14:49:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 07A364183D;
+ Mon, 21 Sep 2026 14:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D581F000FF;
+ Mon, 21 Sep 2026 14:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790002144;
+ bh=/Lkgz98kmoNVfPiZtUjlz1I7ZL706Byj55J2FNtyPqQ=;
+ h=From:To:Cc:Subject:Date;
+ b=AZS5BWYgcRs9dqkQfvQ6iimxVWMS0upWyGswZHtnACOlJPQp6vXIN4W+cmjg3N59a
+ U0FN3eQ5R/r5/4dF5pqTEC4HteALSLwC/BzUm50j968a9Kioq54AhdIyJDi2fucnSg
+ vwcxd98mb0Mg9TXXEgvG8WS4ptgAeJ8qJtjLUUj1OuW6JEVB/NNjvyiP8qG/0WarOI
+ 1xMgtBCoN6azE2ESjlDpM4qNAzdTNXkg1g2ugnpVngq7rQi0SuI3CC2OfZYqznaPqr
+ ZluZjb7lwcLlweCWQ1w0Nj2ujGhRoIHX7XE/xrFKXoKry43DqzFBuRu/qBTE4euDms
+ LnvETXcMVA0HA==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, christian.koenig@amd.com,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: [RFC PATCH v7 00/13] coco: guest: Add a shared-granule allocator for
+ host-shared memory
+Date: Mon, 21 Sep 2026 20:18:34 +0530
+Message-ID: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20260918120515.595782-3-srinivas.kandagatla@oss.qualcomm.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 21 Sep 2026 07:34:13 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V1wkKjXi06HDKtmCZfBSF-mrUphFSUHZHz182Lv55GGw@mail.gmail.com>
-X-Gm-Features: AcwNN1XkYY9zKiJQugffglLcLBvktTTAOkyuKYc5ncbh4pswEfbFSP6yXWFImyw
-Message-ID: <CAD=FV=V1wkKjXi06HDKtmCZfBSF-mrUphFSUHZHz182Lv55GGw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] drm/panel-edp: add CSOT MNE007QB1-1 entry
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Abel Vesa <abelvesa@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,51 +69,192 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Fri, Sep 18, 2026 at 5:05=E2=80=AFAM Srinivas Kandagatla
-<srinivas.kandagatla@oss.qualcomm.com> wrote:
->
-> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
-> The panel identifies as CSW 0x1465 over eDP AUX and is not in
-> edp_panels[] today, so probe falls back to conservative timings.
->
-> EDID, read over the panel's DP AUX DDC bus:
->
->   00 ff ff ff ff ff ff 00 0e 77 65 14 00 00 00 00
->   00 23 01 04 a5 1e 13 78 07 37 3a a3 55 4d 9c 25
->   0c 50 55 00 00 00 01 01 01 01 01 01 01 01 01 01
->   01 01 01 01 01 01 35 3c 80 a0 70 b0 23 40 30 20
->   66 00 2d bc 10 00 00 18 00 00 00 fd 00 1e 3c 4a
->   4a 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
->   53 4f 54 20 54 33 0a 20 20 20 20 20 00 00 00 fc
->   00 4d 4e 45 30 30 37 51 42 31 2d 31 0a 20 01 6a
->
->   70 20 79 02 00 20 00 0c 40 8b f6 65 14 00 00 00
->   00 00 19 00 21 00 1d c8 0b 5d 07 80 07 b0 04 00
->   3d 7a 54 cc 94 99 66 52 0f 02 35 54 00 80 00 80
->   00 80 12 78 26 00 09 02 00 00 00 00 00 01 00 00
->   22 00 14 0f 5a 02 05 7f 07 9f 00 2f 00 1f 00 af
->   04 22 00 05 00 05 00 81 00 15 74 1a 00 00 03 51
->   1e 3c 00 00 00 00 00 00 3c 00 00 00 00 8d 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 11 90
->
->   Manufacturer: CSW
->   Model: 0x1465
->   Made in: 2025
->   Display Product Name: 'MNE007QB1-1'
->   ASCII String: 'CSOT T3'
->   DTD 1: 1920x1200 60.006199 Hz 16:10 (302 mm x 189 mm)
->
-> Datasheet was not available, so timings are not datasheet-derived.
-> The delay_200_500_e50 preset matches the sibling CSOT MNE007QB/QS
-> entries already in the file.
->
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+This series tightens the alignment requirements for buffers that are shared
+between confidential-computing guests and the host, and adds a common
+allocator for host-shared memory.
 
-Pushed to drm-misc-next:
+When a guest runs with private memory, buffers shared with the hypervisor
+are not only accessed by the guest. They are also accessed by the host
+kernel, and the host may manage the corresponding shared/private state at a
+granularity larger than the guest page size.
 
-[2/3] drm/panel-edp: add CSOT MNE007QB1-1 entry
-      commit: 8a43738e56d9eb76a573cabab4c9c0e73eab23b2
+This matters for CCA systems where the Realm stage-2 mappings managed by
+the RMM can still operate at 4K granularity, while the non-secure host may
+manage the IPA state change at a larger page size, for example 64K. In that
+case, allowing a guest to convert and share only a 4K subrange of a
+host-managed granule is unsafe.
+
+Architectures such as Arm can detect incorrect accesses to Realm physical
+address space PFNs through GPC faults. However, relying on that as the only
+line of defence is fragile and can still lead to kernel crashes. The risk
+is especially visible for shared buffers that are later mmapped into
+userspace, such as guest_memfd or dma-buf backed allocations. Once
+userspace can access the mapping, the kernel cannot guarantee that
+applications will only touch the intended 4K region rather than the whole
+host page mapped into their address space. Those userspace addresses may
+also be passed back into the kernel and accessed through the linear map,
+resulting in a GPC fault.
+
+To avoid this, host-shared buffers must satisfy two constraints:
+
+  - the address must be aligned to the CoCo shared-granule size
+  - the size must be a multiple of that granule size
+
+The series adds a common CoCo shared-memory layer for enforcing these
+constraints. It provides shared-granule geometry and range-validation
+helpers, byte-oriented private/shared transition helpers, and
+alloc_cc_shared_pages() with a node-aware variant. The allocator rounds a
+request to the architecture shared granule, allocates suitably aligned
+contiguous pages, transitions the complete allocation to shared state, and
+returns the transitioned size alongside the page.
+
+The corresponding free helper restores the complete allocation to private
+state before returning it to the buddy allocator. If private state cannot
+be restored safely, the allocation is deliberately leaked rather than
+returning potentially shared memory for unrelated use. Since a
+private-to-shared transition may modify memory contents, __GFP_ZERO is
+applied after the transition.
+
+The generic shared-granule size defaults to PAGE_SIZE. For arm64 CCA, the
+series queries the host IPA state change alignment through the Realm Host
+Interface, caches it during Realm initialization, and exposes it through
+the arm64 memory-encryption operations.
+
+The common allocator is used for host-shared allocations whose backing is
+owned by an individual caller:
+
+  - GIC ITS command queues and tables
+  - dma-direct allocations backed by CMA or the page allocator
+  - backing allocations for the CoCo atomic DMA pools
+  - dma-buf system_cc_shared heap allocations
+
+Hyper-V users of set_memory_encrypted() and set_memory_decrypted() are not
+changed by this series. Those paths are not currently used by the arm64 CCA
+code path, and therefore are not part of the arm64 CCA IPA state change
+alignment problem addressed here.
+
+NOTE: I have not added explicit MAINTAINERS entries for mm/cc_shared.c and
+include/linux/cc_shared.h, as I am unsure whether we need a separate section
+for common CoCo-related files. I will add the entries based on feedback.
+
+The series is based on:
+  - https://lore.kernel.org/all/20260921053807.354802-1-aneesh.kumar@kernel.org
+
+Changes from v6:
+https://lore.kernel.org/all/20260904103452.1197239-1-aneesh.kumar@kernel.org
+* Add a common allocator and geometry/transition helpers for CoCo host-shared
+  memory.
+* Convert GIC ITS, dma-direct, atomic DMA pools, and the dma-buf
+  system_cc_shared heap to the common allocator.
+* Limit dma-buf scatterlist entries to the requested buffer size so rounded
+  backing is not exposed to importers.
+
+Changes from v5:
+https://lore.kernel.org/all/20260706060432.1375570-1-aneesh.kumar@kernel.org
+* Rebased to latest kernel
+* Drop patch arm64: realm: Move Realm memory encryption ops to RSI code
+
+Changes from v4:
+https://lore.kernel.org/all/20260427063108.909019-1-aneesh.kumar@kernel.org
+* Rename the helpers to use CoCo terminology
+  (mem_cc_shared_granule_size() / mem_cc_align_to_shared_granule() instead of
+  mem_decrypt_granule_size() / mem_decrypt_align()).
+* Use __DMA_ATTR_ALLOC_CC_SHARED to pass CoCo shared allocation requirements
+  down to CMA-based allocation helpers.
+* Add validation for restricted DMA pools to reject pools that are not aligned
+  to the shared granule size.
+* Add dma-buf system heap handling for cc-shared buffers.
+* Split the previous combined DMA/SWIOTLB/ITS change into smaller subsystem
+  patches covering ITS, DMA direct, SWIOTLB, restricted DMA pools, dma-buf
+  system heap, and arm64 Realm support.
+* Rework arm64 Realm support by moving Realm memory encryption ops into RSI
+  code and exposing the CCA shared granule size through arm64_mem_crypt_ops.
+
+Changes from v3:
+https://lore.kernel.org/all/20260309102625.2315725-1-aneesh.kumar@kernel.org
+* Fix build error reported by kernel test robot <lkp@intel.com>
+
+Changes from v2:
+https://lore.kernel.org/all/20251221160920.297689-1-aneesh.kumar@kernel.org
+* Rebase to latest kernel
+* Consider swiotlb always decrypted and don't align when allocating from swiotlb.
+
+Changes from v1:
+* Rename the helper to mem_encrypt_align
+* Improve the commit message
+* Handle DMA allocations from contiguous memory
+* Handle DMA allocations from the pool
+* swiotlb is still considered unencrypted. Support for an encrypted swiotlb pool
+  is left as TODO and is independent of this series.
+
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: christian.koenig@amd.com
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joerg Roedel (AMD) <joro@8bytes.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: iommu@lists.linux.dev
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-mm@kvack.org
+
+
+Aneesh Kumar K.V (Arm) (13):
+  arm64: realm: Add RHI helper to query IPA state change alignment
+  mm: Add an allocator for CoCo shared memory
+  arm64: realm: Expose the CCA shared granule size through mem_encrypt
+    ops
+  irqchip/gic-v3-its: Resolve the default NUMA node explicitly
+  irqchip/gic-v3-its: Allocate shared tables using CoCo shared memory
+    allocator
+  dma-contiguous: Accept an explicit minimum alignment
+  dma-pool: Allocate CoCo atomic pools using CoCo shared memory
+    allocator
+  dma-direct: Align CoCo shared DMA allocations to the shared granule
+    size
+  swiotlb: Align shared IO TLB pools to the shared granule size
+  swiotlb: Reject misaligned restricted DMA pools for CoCo guests
+  dma-buf: system_heap: Limit scatterlist entries to the buffer size
+  dma-buf: system_heap: Allocate shared buffers using CoCo shared memory
+    allocator
+  swiotlb: Make rounded shared pool capacity allocatable
+
+ MAINTAINERS                          |   1 +
+ arch/arm/mm/dma-mapping.c            |   5 +-
+ arch/arm64/include/asm/mem_encrypt.h |   1 +
+ arch/arm64/mm/mem_encrypt.c          |  13 +-
+ drivers/dma-buf/heaps/system_heap.c  | 126 +++++++++-----------
+ drivers/firmware/arm_rmm/rsi.c       |  58 +++++++++
+ drivers/iommu/dma-iommu.c            |   2 +-
+ drivers/irqchip/irq-gic-v3-its.c     |  43 +++----
+ include/linux/arm-rsi-cmds.h         |  10 ++
+ include/linux/arm-smccc-rhi.h        |  25 ++++
+ include/linux/arm-smccc-rsi.h        |   7 ++
+ include/linux/cc_shared.h            |  39 ++++++
+ include/linux/dma-map-ops.h          |  10 +-
+ kernel/dma/contiguous.c              |  33 +++--
+ kernel/dma/direct.c                  |  55 +++++++--
+ kernel/dma/ops_helpers.c             |   2 +-
+ kernel/dma/pool.c                    |  23 +++-
+ kernel/dma/swiotlb.c                 |  81 +++++++++----
+ kernel/kexec_file.c                  |   3 +-
+ mm/Makefile                          |   1 +
+ mm/cc_shared.c                       | 172 +++++++++++++++++++++++++++
+ 21 files changed, 552 insertions(+), 158 deletions(-)
+ create mode 100644 include/linux/arm-smccc-rhi.h
+ create mode 100644 include/linux/cc_shared.h
+ create mode 100644 mm/cc_shared.c
+
+-- 
+2.43.0
+
