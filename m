@@ -4,75 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25046C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 03:41:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 203C6C982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 03:49:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4241210E091;
-	Mon, 21 Sep 2026 03:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B6910E1B8;
+	Mon, 21 Sep 2026 03:49:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="H0ECfCTQ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="N9usyesI";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49C0D10E138
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 03:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1789962072; bh=0ctTpDh6nncQDElIa4hbocs1J5cFYwpao8cQucIrK5M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=H0ECfCTQkQML6l+axoKMv/h/+P7KEPmwqkRYgAzJH/mXZIqAt1wor+xDMMkDyjiJ0gs4/wzNy8Uohgm2IXaL6npbEVeFn8/nTyrCg01Q7JPtldxnKbL1vf34av9nlmWVViuL0/jdtMm0auS8c/NSdEEoajg0gusjYJfVMvOj94IU9rn0BD+e1utrcWFR62+4yVkTImk83awP/ZedSLIyy8Axdr3R0epfUZH6ec9nUWxwg+zmK4txdJ6crAtxyq6LLbngBiW38gMukaX/CAzMzNYSughbHBTRCHHWhIwQeiBSKHdccQt0JohJiGFqDx1Z9XNLnxrPZoY1DEsCTSWT7g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1789962072; bh=6vOSpQCOIQyeSVx+3YyqV1XhnerZ40bVup5cXIcXlYA=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=kZpJo44YxXjmHVFe8DA40Xb2K9mRVLQJ1+60jAk9ECbrpSaXh6BUAuCz8nYyHnNNqhdKpcxDHU3ZVuSS7+dcZJGqusx3hgfUIeAxzC2opolydlBqsiqV8krRniv5nD/6wkA47JP6e1R9x3R38R8VZPY8JY/srJpx+kqpcnjtR6uUUc1MFJmCQtjuK/MrSEefGQK918St7lRRlBUqJD6aeTvKKDHtmyOEZqUeEkdV5TCzzl+8e4FeHcu/5Jqj/s1UnPPtuHc9681J+Sw5oYMp3ZWpRTnfuLN5RfQgRgM6aPR3hC4rJ6zKL7oEkTp/IzylT4jr2/1VQt1BaTteV3Bp1w==
-X-YMail-OSG: iLdJ.Y0VM1kHPbyDvjyeYZ5lEi4zmDt__x4XBG3iKk1AZb_Np3liUuhylSIYkCY
- RncPyJdsUSHvFan2HzLpL0As4HqsB5ijCrhZ_E6iYHgP20pkIhFpok7OVTZStrIH.4FmyWCdDgPZ
- Ua7rybD.OP2_TECSt6RptJSvCQRcSMc8nkXu3SDP8.FnN2qRyVjmu1QxgC9krnE7Sw4e67ujCWL1
- DY3movmt3OHeZY97z5gy0msmWl3rD41vd.HBp.Qd86F0.t1rRxhwKKtQAxY9isZvED6zeEuUCrux
- ku3b7mt3LjB4ECJmJCTGl0skHo_HlCJ2kuJmx7QVZ565ZNmLipxsclUQFiuNCUNEFEvnVSeWKjU3
- VOZE8tXcitpFbMP_ZbjwrgP3_6jmF90w6_nM1_ODSznY7kgZeg5qyEnDMorHIdA.KdJQ998pPnl8
- ikSA6RPXkfANI3Vsgs59xcKUqxgIdAnefyR7SKxr4xUv9EN4qDEhg4lJxs986ArJelsS7EO5f6zR
- ZV7oxdi6m3kg7bqZprnbSvO74R9jX7Ak2oMudeVLDYkxQMNF3qIL1M_GPksBmRPh.JEZrGvoASdO
- Muq.heY0H25LppsSZgqTehxSTwL1T08BanLLJVLQYHZxDZY9LGu6Xwv2rlNpyhJcjP3rMGBFyaOz
- EH6oaK19F6WAoBILv9WwCyNCttyLvUI698L_pgRWmFagXqJel.ugqkIKc9ILfYpKc7uw08u0DeHh
- 8TwiDOYRO7DNkwFfglwhffKyGxbcwsbTlVcY8FU5cKFqO0mEaXbqhYjJb4UZWS.XsPBYwrwzWFb6
- v57_NWwuKtV8AveTNyZjNEkLQx9i58UQ8YmbztoYc7GzRDgIcU9C5O17SwvKTHDnzsokfCilugbh
- kYm7OX3Fa3UOo1bFROfv6DQfHi_9NcU6eMenWCqpwz3CYWqweEibtc5QAifGnjzikh5anYLnLJ6Z
- Oj4a3iT0x2kQIiR15phW1tmHIMf_a167dbZykIqGaIbiAaJeNAhH_UBRYUNxJHbxUlk_NpYfNc._
- BeTGA_nuy5aBec4M0e7KqsiscVrDAGoZl_CoVT1ckm8S3WO.5DsjzscnV2KGyJ1U.KPI5Ty5VOum
- XLwmD2d8AT_kzgYM4VVTYwRRmaHAMXL2_9DCDeF8Sj8sJn9KanBs7tJbnogaNJ_V2fIXI5xGNkop
- sxqn7kt_jCpt3wo5pTR6C5CAKZ2YmmqXZt.5rV3Ad.iAv9whxx2bA7P4HQVYABQgkszAS.2dPru7
- IcaJHJWB1aDFjA2n8FJQIZfBX_qolPoKzY9PIBzWTaeYg2pUU8L5Yh4a4DTlx2mQKtpITba8WnjX
- nPLO5F6zC1U6Dbea9n_e7.G_Uj_RkU_sNit2K.r0L1ymb_lZziZiuwaLR1ryUnhH7yBOGoLlQ_C8
- gHFsPWjL5Uru7GPYPtCWScz24s2LDyMQi99ZPQxTnY5ty2YZo497nvbyCbTDyyHIHLJ015iSdW89
- eJaNYPuRYji3CgQ0TNFpR6Bl1ebTZ_m8St7Uxf3xUzbVGJCDiSEHsolOGly6hktRCya_RXxrhMPH
- mXneug5AnGhcS99IFBLQHod3nHaYJi4v8wxRQH995hFEH1SGFuOCfHC1O1ZzY35vCCr05eZMOktT
- sIKsROtka6wVKR29pTXJRzl2anFFNhsGL99No_tq6XpdGszNcgPJjU_Z74HpxQSOzyVOSgvncCK4
- SkAgOmBLTxXiBe9L3oFgZq5c7eBBTyuXyUJQUTAOqZvOCQ3MiZO_aX0Sd9jPegN3GIffFulkQXsu
- MQplqzc9083u2sB4vw9R9fh8H58fX3crpe4z6XUkdJ6IRP5MaLWBPdW72A5yj4OpzTmkKjiR1QOR
- DcejCTB73.o2m_PU3Kbitt_Dz1RryUBMMrbulD8HkQ41m2WOC69OgfCgJz4CGmu2i_wVxWQB.L85
- SCbkamlLny2sLROjbLr7MKdsZh7mK8H_cTHTEaDvqGuldShxFS0Vbvz3twrc8YTSLkDtwRLZUxzg
- z9GYh01qX
-X-Sonic-MF: <capitain_jack@yahoo.com>
-X-Sonic-ID: 438b5e4a-0fd5-4f06-a5e6-068f31fad115
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Mon, 21 Sep 2026 03:41:12 +0000
-Received: from dip36.lsn.bf1.yahoo.com ([67.195.177.45])
- by hello (SMTP) with SMTP ID 020c9b03da3867fb74b31d320d5549f2;
- Mon, 21 Sep 2026 03:41:08 +0000 (UTC)
-From: Daniel Ramos <capitain_jack@yahoo.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Daniel Ramos <capitain_jack@yahoo.com>
-Subject: Re: [PATCH v3 0/3] drm/amd/display: HDMI 1.4 3D output (frame packing,
- top-and-bottom, side-by-side)
-Date: Mon, 21 Sep 2026 00:41:04 -0300
-Message-ID: <20260921034104.1021664-1-capitain_jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
-References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013014.outbound.protection.outlook.com
+ [40.93.196.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C8410E1B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 03:49:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tMKi54UfRtyV3F70KtwQgM+/M90MaQCdo3ipiFWeOE8vayt/X2WJDxO9Ce+TRQkCV/NHSr2VxixRTf1cpXV0igP3GG6/qZOAv8pxovFSIKSouCxvCr7I2mOouSTecXEPmc59elVj4uRorTJOBaK+j+2I3G7Ymh70XhNeHfBnrzONIk2fpwckZNF4dEtQTZHNbO48e9kMDuVTVyfirm+xI5Z7XAdzNZTqQhzDkrwBA8bnT67kmlpVZaiav4gCq/Xp4SbveZv4gEBDKVJIrXLSpCOZrCN/f7ACSFTWwOWzerYTD9yrLi4+na36QU9mDywpnKf5C0y8rgOYXftsAN2PUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8eJWmTCkrntGjFW3Ic4fja/afXjLTV95OQADUpUAqnI=;
+ b=hJ8kXULb3RY19XeRXge4InJyATfTN8DrzK1iXl5MNs81UqWIDaA0hlYaFjptvgyxu6BHLcXT+n3YTQmm1VMFb4MlCfz5YqUjvB+/rlDwccMNGy5Bomqc0y87+MP2YdHYXoKYoL9vv+ovsAqVzu+BZTJQZ/LfciwTo7Ala+Q6sTw76BXmeHhMOV8chdyG4juAaD/w34C1PBNuduV3uN3OuL4KpEGQPVgVm7Yt5KtCUFzST4KjsDgNYe4WFvh4nUig/qa77ZKlWi6IrPZJ/CF0f05UC+zpPtx25J+gcuNis8thcD15VV7iVn5KVz6u+iJR9bd2MAd366qPZcd2P58glw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8eJWmTCkrntGjFW3Ic4fja/afXjLTV95OQADUpUAqnI=;
+ b=N9usyesIGKeQVqyFYOzCBzwSma9XCxyqIM++kTqjUqotwlRnMFFAQmHiUYvv6uskqbgBm5PBjuKdBqKDvjMFVCA/f/50Sl2iVi649f/LXCSqlARCw7+kvcBxZir5PVKTxTZzFLILD4/3yXio166mWlxglSbosWMr+DaVQAJqgvfL/cG2+byGq7kTDq/C8AFOJ+3wv7pH8uxGD9lzHJriPyLa2f3CpVHhXSkcTm24/6j8MxRjyIZ4//Mg+ZMjegtyxFyBuPM5dchLJOsnncwurgB8SafVOo230DG23KghvVfvYSdHb5DPvCQrHoOCZ0wMxXeWTLTLqSsG8G/92sGY/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB9067.namprd12.prod.outlook.com (2603:10b6:510:1f5::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 03:48:56 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 03:48:56 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+To: dakr@kernel.org, Matteo Kloiber <kernel@matt3o12.de>
+Cc: aliceryhl@google.com, ojeda@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ abdiel.janulgue@gmail.com, daniel.almeida@collabora.com, robin.murphy@arm.com,
+ a.hindborg@kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260913210828.125655-2-kernel@matt3o12.de>
+References: <20260913210828.125655-2-kernel@matt3o12.de>
+Subject: Re: [PATCH v2 1/2] gpu: nova-core: declare unlimited DMA max segment
+ size
+Message-Id: <178996228310.999062.10377951387828615492.b4-ty@b4>
+Date: Mon, 21 Sep 2026 12:44:43 +0900
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: OS3P301CA0034.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:604:21e::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB9067:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97456bf0-8d1e-46c4-d94b-08df179342e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|7416014|1800799024|10070799003|376014|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: dascAdnAWI+tLznWhgLwYyXNgMZdV3tEEXMJ7EU5qVanlDyhXG945fe1RmoTeCP1lwX3RQzX0g00qeqR2s0TqRlQOGugXlNz8C1DxSZvvR5JSno8bE8/nLBWfqpBMTLwEvh6+305q949JP7PQBx9pXtqboaXw9qveD8fNGsWkeyDi7jfjZlH7Ci69CTqsD+1MTPEGP5DVe/fbKANiNe+XpORZP87JirnJYuPjJo1C2D5/2qZIxtekXLAJDBDGm3Yt69oQkcR3dk0iqhECPqXarNB6C2ULSoS4OWwvUegXVHy4D9Ov1P6dUK6Q6gy7yQ1sfqKKvnGHoINTBTIp3cpmddhRA8MDkL4eAmDER/Lw4ToGe3aC3p8fLM0fJELRDBDqLg5rUNIoBKF7a1uYkvxNzljzbVRrbvZg28MQL0Wl65fiZQdE/o8Kq6In18XALbwvSjB2oMvfnGfqacf9pd+FZgBydQYO+k7D16vPUE2rXK3bRoUhTN/BitQfWahD9DWZskMiSDY/z+HBS7tgrF1uUP/lykzQYBve5idZDmPmWVYOcb4063m4YkubTFzeBwTUHpoglk031YJ8NZ/+8TcXiyDvrsPZC9OGWJl0VRHw/tiF3r8oNiap9pruiFKU/NdOiZwcGXPlkC6Jfg0Sbq1x9PtLd6Kb7m0/navlyA/AbE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(7416014)(1800799024)(10070799003)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlhlNkpvaTdvQXZnVjhYMkYxc2JMK0NVRlQvODQ3TmlkcUdDZDJuaitBNVFq?=
+ =?utf-8?B?b1RYTDQrYlozSVhHZVp0K0ppVnhlbkYxeXJySXVIajdLSUUrREdmZmhlZW1n?=
+ =?utf-8?B?amZzU3NIbDdjOUVBeGhIZ1o4bW9hZDVSSklHREJyVm9GZ25ORTZrRW93TExP?=
+ =?utf-8?B?VzFkY241RUIyMlRRSlBONlhVZTI4TWtqaXRueGVOcFRRUGFIc25pbmtxL1Jj?=
+ =?utf-8?B?ekczOXZ5T0ttU0hsa3BuOVBlTC8zelZvK1diTGppSTdyV3M3NDZaSDFDWERX?=
+ =?utf-8?B?anIvbXJFbmJ5b0lnRTcyajhybVJHbm9QMWpPektPOEFOLzl2dnYzOTNlNU1a?=
+ =?utf-8?B?OHkvRzFKYUJLTk42N1hwZHVpN1VMcDRJSC9HN2xVemUrSVZzZW1yOW1LaUJI?=
+ =?utf-8?B?T2xwMzIrdHJGSmhoMzUwU0dMSUxWY2dnSzNOdm44RmMwOUtnQVc4N1ZQRGFF?=
+ =?utf-8?B?V2ZDeEZROGpRY2w0bDk1MWx3eU5NWnBxRi9PQVN5dXFEZDRLN0dKZHdxNFI0?=
+ =?utf-8?B?QkQ0MTNJU0hpTkM4ZTdabFJqbmdmMFBlTGhlQmJ0VCtPSjVVeGVMTnZHcEM4?=
+ =?utf-8?B?Wktmb2NhUzdIdUl4L2lVeS96NGJ0TkxYb2M2RUkrcnErMWVJNEZUN3lyb25M?=
+ =?utf-8?B?YllITjM5aTRHL2VyM0Qreml4QUQ0eE5KMmUzOTlPc1Q3clZxSGZHd0dCUFJB?=
+ =?utf-8?B?cGJoc2h1TmpQWFJFclJ2elQxNENxak82Wm5jRW9Kb25qbjRQbDZQZUtkdEFY?=
+ =?utf-8?B?OUxuMlJ5a2xuUFVHOWQvaUFlQjNLVFBWTG9MTUJTaFZWbzhicElOU2hCajNS?=
+ =?utf-8?B?UTA1c0JESXV3TndKaDdJOFNIVWJqUk1oTXQyUlpTc3hleXgySitadlh0TTEx?=
+ =?utf-8?B?MW53ZEx0MlNZeld1WFRvYjdnUFdWZzB6WkxyNEVjc3IvRUM1Rjc4aCtVeWJn?=
+ =?utf-8?B?K1RYRjhMQ3Uzb0kxejJsZkVncEZ1L1VqQ2JxSWVqcWVHSnZnY2ZGOVltWVlj?=
+ =?utf-8?B?bUpaODkxZzkwS0V3QTFEL0d6TklhTmR2Mm9lWlFKS0NVZDRSSU1WcHlFNExE?=
+ =?utf-8?B?RmhkM2hPZmFkbmwxb3kvMW5ubStCaXdLUU50ZzJyZEtNOWhmazRHRHEzN1Nr?=
+ =?utf-8?B?b1lEMTlSQytMUEJrTDlMYTRESTErRFVlbGZYT1k1UjVxZlF0eEErM1M2OUlm?=
+ =?utf-8?B?VCtOWXRDb01LeW8wUjU2YTNDMDFCV3MwSHlieXI4elhtMGVBeGd4QmJXYVlT?=
+ =?utf-8?B?UklxTTJURkNpeHI2NERSRmxLWTRBdjVzdGdldnk3U0VMa0FrVUE2VnhRSm9u?=
+ =?utf-8?B?TGRQTXJTTWFodDduUUdzZFdOSWtkTzlBVFRtKy83cWJJbnRiaVFYSlh0ZGF1?=
+ =?utf-8?B?K0cxbjkxbDk4bWFPRFM1OURabGZRNFVXNjVJSU1xWGVHUnBrTlViRUVKWG55?=
+ =?utf-8?B?Z3JkWllkZ1BQY1FEVWJ4MjE0b2VJVFhZVTJnTjRKRm1RR0VrRlFtMGZLV21y?=
+ =?utf-8?B?MFQ3cWtDUDZmRjJrbnVFVUVFS294UWoxOTVpTitwWldYaHpzU2p3QXhzRlBC?=
+ =?utf-8?B?QnhBNjl3TTBjazg5c25vbWxLTkVVQ0MvRFFMSGVMTE95RGdDL1FmdWcreUJw?=
+ =?utf-8?B?T3E4aml0Yys5aVh1Um8zeWllaWVheW4xYlZxaWtCOGdMeHp1OGxCMmxpMS9T?=
+ =?utf-8?B?ekdYN0RjTWtZZHJGYVRWU1ovM3UrWnJtSUw2V0drSGI0Q295Q2swK2FoNVlk?=
+ =?utf-8?B?TlIvZS9JY0IzVEdDTU9sOHJ0YitrT1dzVWZCb2dYd0kwb1JjSVFpbGdWaEt4?=
+ =?utf-8?B?R2Zad3NuN3N2WHdIOEQzU0Z6RXUrR3ZQRlg0OHJDZzNFWkkyM2RmOEtFTWlO?=
+ =?utf-8?B?MFRlV2tkR2wvL2txUFlZTzZnQUd2dDV6V2JrWWdGNnp2RERQVnVSRlRjVGFH?=
+ =?utf-8?B?S044eWFEMENISTJkY3l0dlltY3lJNmxicXJ6UXIyQUVvOXQ1bzd2NUVURURP?=
+ =?utf-8?B?eFZzRUxTcmRndk1La2VsNzNSZWFJa0pwNldoaGVrUHZqNGRTWXdObXVEUkxD?=
+ =?utf-8?B?YmtSclQyNWxVSDRJWG5BUWlyYldqemtKdUttaFdxMDc0YmVYZjBOZG85NkZs?=
+ =?utf-8?B?cGlXVVRpeS9XU0JWVzQ0Njh6N2dYYWlYck9nNEdsdElJVXMxSXh2WDJnWHRF?=
+ =?utf-8?B?RHJlOVNaZ2UwSitSNGZORW1ZWHlIZ3o2bnM4bTZXSVliVjJwV051dUswZUwx?=
+ =?utf-8?B?a2tPVnVONFVEYjlQQ2UyMFhyeGdSUno2ZFF4aXc1QWJQZVBaT1hLYTc5a0Zl?=
+ =?utf-8?B?TUdrdXBOSm0wTmJURk81R2hLVDcwV2diZmc4MWc0SzJ5VE95UEltUmRNVk9x?=
+ =?utf-8?Q?PhtJD2zwrmtl4z4cRAM8/6F1bvBMUSUcTcYmWgtGPjvFe?=
+X-MS-Exchange-AntiSpam-MessageData-1: Refz71kNDjNlpg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97456bf0-8d1e-46c4-d94b-08df179342e9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 03:48:56.1525 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vKqOw9x6ohJyU/2Xy1qDG/qBgeof2DfiL2ViqRzIdEwAMeD4Z5oDmyfI0CF7LLIb9R10MO4T2Tt+PX5IvIG83g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9067
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,88 +141,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Adrian, Harry, Alex, others,
+On Sun, 13 Sep 2026 23:08:27 +0200, Matteo Kloiber wrote:
+> The PCI default max_seg_size is 64 KiB. nova-core never raises it, so
+> mapping the GSP firmware image (~60 MiB) as a scatter-gather table
+> triggers a DMA-API debug warning when contiguous pages coalesce into
+> segments that exceed the default:
+> 
+>   DMA-API: nova-core 0000:00:03.0: mapping sg segment longer than
+>   device claims to support [len=62914560] [max=65536]
+> 
+> [...]
 
-A word of introduction, since this is my first mail to this list: I am Dani=
-el Ramos, and I come from the consumer side of this hardware rather than fr=
-om driver development. I keep a pair of Sony BRAVIA 3D televisions from 201=
-1/2012 fully alive (KDL-46EX725 and KDL-46HX855, the sony-bravia-linux proj=
-ect, https://github.com/danielcamposramos/sony-bravia-linux), including the=
- 3D panels Sony no longer ships software for, and that generation's end-of-=
-service is documented for the right-to-repair movement on its own consumer-=
-rights wiki page (https://consumerrights.wiki/w/Sony_BRAVIA_pre-Android_Lin=
-ux_TVs_(2011-2012)). That work goes upstream first: frame-packing SEI suppo=
-rt I pushed is merged in HandBrake (#8100, https://github.com/HandBrake/Han=
-dBrake/pull/8100), my stereo serving profiles are merged in Universal Media=
- Server (#6330, https://github.com/UniversalMediaServer/UniversalMediaServe=
-r/pull/6330), and open threads are running at FFmpeg (https://code.ffmpeg.o=
-rg/FFmpeg/FFmpeg/issues/24530), mpv (https://github.com/mpv-player/mpv/issu=
-es/18489) and MKVToolNix (https://codeberg.org/mbunkus/mkvtoolnix/issues/63=
-09). I also maintain the CC0 awesome-stereoscopy index (https://github.com/=
-danielcamposramos/awesome-stereoscopy), created because the field had no cu=
-rated list.
+Applied to drm-rust-next, thanks and congrats on your first kernel patch! :)
 
-On the gap this series closes: the DRM core has carried HDMI 1.4 stereo mod=
-es and the vendor-infoframe helpers for years, i915, vc4 and nouveau all al=
-low stereo (nouveau wired frame packing in 2017), and amdgpu DC has been th=
-e one major driver refusing it ever since DC landed, with nobody closing it=
- in nearly a decade. It still justifies closing. The televisions these mode=
-s exist for were sold by the millions between 2010 and 2016, they are the s=
-ame hardware class Adrian tests against (his JVC is a 3D projector where mi=
-ne are 3D TVs), and every one of them works today as a full 3D monitor the =
-moment it receives the standard signal, as the runs below show. With Valve'=
-s upcoming Steam Frame (https://store.steampowered.com/hardware/steamframe)=
- putting stereo displays back into a mainstream gaming stack, wiring a mode=
-rn open driver to the HDMI 1.4 3D signal is as much a longevity fix for tha=
-t installed base as a new feature.
+[1/2] gpu: nova-core: declare unlimited DMA max segment size
+      commit: 6bd5eaeb9827ca7ba953b68fb27948fdb3e40630
 
-Independent confirmation of this approach on older DCN hardware and a consu=
-mer-TV sink, plus a boundary record that matches your patch 3's diagnosis.
-
-Hardware here is a Renoir APU (0000:0b:00.0, DCN 2.1, Display Core 3.2.369,=
- Debian 7.0 kernel) driving a Sony KDL-46HX855 from 2012, whose HDMI 1.4b-c=
-lass EDID advertises side-by-side half and top-and-bottom over a 7-VIC mask=
- and frame packing on five VICs. The coverage is complementary to yours: yo=
-urs runs DCN 3.2.1 into a JVC projector behind an HDFury, mine runs DCN 2.1=
- straight into a living-room television.
-
-With the equivalent wiring here (stereo_allowed allowed on HDMI connectors,=
- the vendor infoframe attached to the stream's hfvsif packet when the mode =
-carries DRM_MODE_FLAG_3D_*, timing_3d_format deliberately left at NONE), si=
-de-by-side half 1920x1080@60 makes the set switch itself into 3D with no re=
-mote input, and a software-rendered disparity pattern reads in depth throug=
-h the TV's own glasses. The mode probe goes from 22 modes with zero stereo =
-to 51 modes with 29 stereo-flagged.
-
-Frame packing shows the boundary your patch 3 fixes, observed independently=
-: without the CRTC_STEREO_DOUBLE expansion the sink entered 3D on a valid F=
-P VSIF while DC scanned the un-doubled 1080-line 74.25 MHz timing against t=
-he 2205-line plane, which is signal pass and picture black. With the stream=
- mode expanded (1920/2750 horizontal active and total, 2205/2250 vertical, =
-148.5 MHz for 1080p24 FP) the same television both switched itself into 3D =
-and displayed the full two-eye picture through the AMD link.
-
-A cross-vendor control on the same sink: stock nouveau on a GA106 drives th=
-is television into 3D in the same 1920x1080@24 frame-packing mode, so the E=
-DID and the sink behavior are proven independently of the AMD path.
-
-On your DCC note: our test buffers are dumb buffers without DCC, so I canno=
-t speak to that wedge; every flip with a plain buffer completed, which is a=
-t least consistent with the failure being DCC-specific.
-
-Logs, the DRM test tool, and the two reference deltas (built for the 7.0 tr=
-ee, kept as a DCN 2.1 port in case an older-generation follow-up is wanted)=
- are public at https://github.com/danielcamposramos/sony-bravia-linux: run =
-records and verdicts are in tools/stereo-modeset/ and the patches are in do=
-cs/upstream/.
-
-Happy to run anything specific on this APU and television combination if it=
- helps the review.
-
-Tested-by: Daniel Ramos <capitain_jack@yahoo.com>
-
-Disclosure per Documentation/process/coding-assistants.html (https://docs.k=
-ernel.org/process/coding-assistants.html): prepared with AI assistance, dir=
-ected and hardware-verified by me end to end; the assisting models were LLM=
- Kimi K3 (Codex CLI), LLM GPT 5.6 Sol (Codex CLI) and LLM Claude Opus 5 (Cl=
-aude Code CLI).
+Patch 2 has triggered more discussion as hoped, so let's see where this goes
+first.
