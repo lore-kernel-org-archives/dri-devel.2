@@ -4,58 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B81C982EE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B4CC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B20E10E746;
-	Mon, 21 Sep 2026 13:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF91310E754;
+	Mon, 21 Sep 2026 13:09:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F3Df/y33";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="hF4AAInx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D848110E38D;
- Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789996142; x=1821532142;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DSkP4dIu/pAL0lozl8yDKmqnPoVZHzwdsPzAjBlFNVU=;
- b=F3Df/y33zJwm0vkgyDUgvlDCeSyQOSk52CDmx53Ph7fvCMKJGWKahKjZ
- swLKufDbH8YicYwKCgcTePBO+1rQZj6WfMJIdNkZw6bazQJ1hI7PatEfb
- +GGugbq6IBBY6ZhmFUbwd3rSCuljaoM/5m2oqaW0qtHsAwqGz/CLGB3PB
- OhRClkf4PXjKneDieZDMYwSHeIGnwZ+4VAqoEMMqp0/7QwtZQqh86466N
- fCfolUhx/ptOM4LNJoEuBTs0A46yZND7+a6FG74A0Kxj7VhsRzCNAMDR7
- 3X9BkgCG+0OZVXTSPQXGWHEzA/Clshq3QQ3BGRYYyA3R6pzQ2b0HeYFFE Q==;
-X-CSE-ConnectionGUID: gD+XgrPBSm6I7sM6IWLICQ==
-X-CSE-MsgGUID: 4r9WtbvDScqR5rnl80mmuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101855956"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="101855956"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 06:09:01 -0700
-X-CSE-ConnectionGUID: tAvPE3mARoK1yADwmL8bbw==
-X-CSE-MsgGUID: GU5cyfctQjW2vdOAhmTcvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3678313"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa011.fm.intel.com with ESMTP; 21 Sep 2026 06:09:00 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- ankit.k.nautiyal@intel.com, adarsh.g.m@intel.com,
- Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH libdrm 1/2] xf86drmMode: add drmModeGetCrtcList() to enumerate
- available CRTCs
-Date: Mon, 21 Sep 2026 18:37:45 +0530
-Message-Id: <20260921130747.2557722-2-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260921130747.2557722-1-arun.r.murthy@intel.com>
-References: <20260921130747.2557722-1-arun.r.murthy@intel.com>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 656BA10E746
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1789996120;
+ bh=Q3DyB+NGw+9JvjJpyqPnaRX8BQWBsWV2/fUz4fZ0JzM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hF4AAInxfCog6b0R2jfBsu5AcZxeld1cJg2tAh7nQbbp2UPJfvXIol+4u/zxOsuTq
+ G2Btw97N8TFPPg3p8lcAXVlX4Ws1RT/wTLMHt7ijYNLo5DV97Y1WZVJRZd11TiA6Wv
+ eP3mQk/yh2FBTrMBhvnynVkS3f0CuTA9LhCg6R2lG5kew8fziK3dja/SLdtNMby7sG
+ DMq29UpYeDpCD91u/HQK8g9veOrikvI9D39wLqG3kWEjuJTX6bNtNxTvbzSmKAb7rp
+ aXtPEqNABH51INgehXpfu+EZHlKHE5rOiJ7tUzSblRG0SVeXliGEjBi7vaJqqqRUQt
+ wXb7KsjGKQhyA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hpNp60jf6z4w1l;
+ Mon, 21 Sep 2026 23:08:29 +1000 (AEST)
+Message-ID: <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
+Date: Mon, 21 Sep 2026 14:08:47 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260911214200.33793-1-matt@ozlabs.org>
+ <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
+ <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
+ <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
+ <20260915072002.GD13683@unreal>
+ <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+ <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+ <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,252 +78,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drmModeGetResources() tells the system capability and not runtime
-availability of the hardware resource.
-DRM_IOCTL_MODE_GETCRTC only tells userspace which CRTCs are enabled
-through KMS, not which are active in hardware. A pipe can be actively
-scanning out without being enabled through the KMS state, so relying on
-GETCRTC alone would report such a CRTC as free and assignable when it is
-not.
+Hi both,
 
-An active pipe keeps its vblank running, so reading the CRTC's vblank
-sequence reveals the active pipes: an active pipe's counter keeps
-advancing while an inactive pipe's does not. For every CRTC that GETCRTC
-reports as free, sample the vblank via drmCrtcGetSequence() across a
-single short wait and, if it advanced, flag the entry as driver_active
-and exclude it from count_available.
+On 16/09/2026 15:19, Christian König wrote:
+> On 9/15/26 16:22, Matt Evans wrote:
+>> Hi Christian,
+>>
+>> On 15/09/2026 12:13, Christian König wrote:
+>>> On 9/15/26 09:20, Leon Romanovsky wrote:
+>>>> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
+>>>>> Hi Leon,
+>>>>>
+>>>>> On 14/09/2026 12:54, Leon Romanovsky wrote:
+>>>>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
+>>>>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
+>>>>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
+>>>>>>>>> Expand the VFIO DMABUF revocation state to three states:
+>>>>>>>>> Not revoked, temporarily revoked, and permanently revoked.
+>>>>>>>>
+>>>>>>>> The thing is that "temporarily revoked" is actually the standard
+>>>>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
+>>>>>>>> for VFIO.
+>>>>>>>
+>>>>>>> I think temporarily revokes here means it is revoked from a dmabuf
+>>>>>>> perspective
+>>>>>>
+>>>>>> My guess is that this is more of a "change owner" operation than a
+>>>>>> revoke operation.
+>>>>>>
+>>>>>> The main issue here is that we have to guess the semantics instead of
+>>>>>> having a properly named and documented operation.
+>>>>>
+>>>>> Apologies if the cover letter for the series and patch commit message (which
+>>>>> cover this) are unclear about the motivations and semantics.  On the commit
+>>>>> message, can you suggest clarifications:
+>>>>>
+>>>>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
+>>>>> ranges previously delegated to a subordinate client process: by
+>>>>> revoking, the driver process can ensure that the loaned resources are
+>>>>> made inaccessible when the client is deemed "done".  The original
+>>>>> DMABUF is defunct, and BAR resources can then be safely re-exported
+>>>>> for use by new clients."
+>>>>>
+>>>>> Given what I'll explain below, do give suggestions please.  There is more
+>>>>> context in the cover letter (the volume of which I didn't think appropriate
+>>>>> for the commit message).
+>>>>
+>>>> 1. Do not mix "driver" and "client" in the same description. For a
+>>>> non-native English speaker, "driver" has a very specific meaning in the
+>>>> context of the Linux kernel.
+>>>
+>>> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
+>>>
+>>> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
+>>
+>> :)  I see where the quote can be clearer.  FWIW the "driver process" was
+>> referring to a userspace driver (which is a legitimate use of the D-word
+>> with VFIO, but still).  I'll clarify that, and will indicate this
+>> mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
+>>
+>>>> 2. Explain the lifecycle in the commit message, and why "revoke", which
+>>>> is effectively what the importer does, is not sufficient.
+>>>>
+>>>> 3. The more you put in the cover letter, the less likely people are to
+>>>> read it.
+>>>>
+>>>> 4. Commit messages should describe the patches themselves, since they
+>>>> are what remains visible in the git log, unlike the cover letter.
+>>>>
+>>>> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
 
-The list is allocated by drmModeGetCrtcList() and released with the new
-drmModeFreeCrtcList(). Both symbols are exported via core-symbols.txt.
+Leon, please see *** below.
 
-The helper is a thin wrapper over the standard KMS uAPI, so it works
-identically on i915, xe and any other KMS driver.
+>>>
+>>> +1
+>>
+>> I don't follow here, sorry.  Would you please elaborate?
+>>
+>> Currently VFIO uses the priv->revoked flag to track whether
+>> it-the-exporter had previously done dma_buf_invalidate_mappings() on a
+>> buffer and is now causing all .attach requests to fail.  Do you mean
+>> that (even without this series) you want to call that concept
+>> priv->reclaimed instead?
+> 
+> That sounds like a permanent revoke. 
 
-Assisted-by: Claude:claude-opus-4.7
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- core-symbols.txt |   2 +
- xf86drmMode.c    | 123 +++++++++++++++++++++++++++++++++++++++++++++++
- xf86drmMode.h    |  38 +++++++++++++++
- 3 files changed, 163 insertions(+)
+Not quite; the priv->revoked flag tracks temporary periods of
+inaccessibility.  An example is VFIO resetting a function; the BAR
+mappings as seen by the CPU and DMABUFs made from the BARs are all made
+inaccessible before the reset, and made accessible again after the reset.
 
-diff --git a/core-symbols.txt b/core-symbols.txt
-index 766c342d..a14add40 100644
---- a/core-symbols.txt
-+++ b/core-symbols.txt
-@@ -119,6 +119,7 @@ drmModeDirtyFB
- drmModeFormatModifierBlobIterNext
- drmModeFreeConnector
- drmModeFreeCrtc
-+drmModeFreeCrtcList
- drmModeFreeEncoder
- drmModeFreeFB
- drmModeFreeFB2
-@@ -133,6 +134,7 @@ drmModeGetConnector
- drmModeGetConnectorCurrent
- drmModeGetConnectorTypeName
- drmModeGetCrtc
-+drmModeGetCrtcList
- drmModeGetEncoder
- drmModeGetFB
- drmModeGetFB2
-diff --git a/xf86drmMode.c b/xf86drmMode.c
-index 5b5d7053..224212bb 100644
---- a/xf86drmMode.c
-+++ b/xf86drmMode.c
-@@ -35,6 +35,7 @@
- #include <dirent.h>
- #include <unistd.h>
- #include <errno.h>
-+#include <time.h>
- 
- #define memclear(s) memset(&s, 0, sizeof(s))
- 
-@@ -383,6 +384,128 @@ drm_public drmModeCrtcPtr drmModeGetCrtc(int fd, uint32_t crtcId)
- 	return r;
- }
- 
-+drm_public drmModeCrtcListPtr drmModeGetCrtcList(int fd)
-+{
-+	drmModeResPtr res;
-+	drmModeCrtcListPtr list;
-+	uint64_t *seq0 = NULL;
-+	char *probe = NULL;
-+	int need_probe = 0;
-+	int i;
-+
-+	res = drmModeGetResources(fd);
-+	if (!res)
-+		return NULL;
-+
-+	list = drmMalloc(sizeof(*list));
-+	if (!list)
-+		goto err_res;
-+
-+	list->count = res->count_crtcs;
-+	list->count_available = 0;
-+
-+	if (res->count_crtcs) {
-+		list->crtcs = drmMalloc(res->count_crtcs * sizeof(*list->crtcs));
-+		if (!list->crtcs)
-+			goto err_list;
-+		seq0 = drmMalloc(res->count_crtcs * sizeof(*seq0));
-+		probe = drmMalloc(res->count_crtcs * sizeof(*probe));
-+		if (!seq0 || !probe)
-+			goto err_probe;
-+	}
-+
-+	for (i = 0; i < res->count_crtcs; i++) {
-+		drmModeCrtcInfoPtr info = &list->crtcs[i];
-+		drmModeCrtcPtr crtc = drmModeGetCrtc(fd, res->crtcs[i]);
-+
-+		info->crtc_id = res->crtcs[i];
-+		info->index = i;
-+
-+		if (!crtc) {
-+			/* Unreadable CRTC: report as busy so callers don't grab it. */
-+			info->in_use = 1;
-+			continue;
-+		}
-+
-+		info->buffer_id = crtc->buffer_id;
-+		if (crtc->mode_valid) {
-+			info->in_use = 1;
-+			info->width = crtc->width;
-+			info->height = crtc->height;
-+			info->mode = crtc->mode;
-+		} else {
-+			/*
-+			 * GETCRTC only tells us which pipes are enabled through
-+			 * KMS, not which are active in hardware. A pipe can be
-+			 * active (scanning out) without being enabled here, and
-+			 * an active pipe keeps its vblank counter advancing.
-+			 * Snapshot the vblank sequence now and re-check it below
-+			 * to find such active pipes.
-+			 */
-+			uint64_t ns;
-+
-+			if (!drmCrtcGetSequence(fd, info->crtc_id, &seq0[i], &ns)) {
-+				probe[i] = 1;
-+				need_probe = 1;
-+			}
-+		}
-+
-+		drmModeFreeCrtc(crtc);
-+	}
-+
-+	/*
-+	 * One shared wait covers every candidate: an active pipe keeps
-+	 * advancing its vblank counter, an inactive pipe does not. 50ms
-+	 * crosses at least one vblank down to ~24Hz.
-+	 */
-+	if (need_probe) {
-+		struct timespec ts = { .tv_sec = 0, .tv_nsec = 50000000 };
-+
-+		nanosleep(&ts, NULL);
-+
-+		for (i = 0; i < res->count_crtcs; i++) {
-+			uint64_t seq1, ns;
-+
-+			if (!probe[i])
-+				continue;
-+			if (drmCrtcGetSequence(fd, list->crtcs[i].crtc_id,
-+					       &seq1, &ns))
-+				continue;
-+			if (seq1 != seq0[i])
-+				list->crtcs[i].driver_active = 1;
-+		}
-+	}
-+
-+	for (i = 0; i < res->count_crtcs; i++) {
-+		if (!list->crtcs[i].in_use && !list->crtcs[i].driver_active)
-+			list->count_available++;
-+	}
-+
-+	drmFree(probe);
-+	drmFree(seq0);
-+	drmModeFreeResources(res);
-+	return list;
-+
-+err_probe:
-+	drmFree(probe);
-+	drmFree(seq0);
-+	drmFree(list->crtcs);
-+err_list:
-+	drmFree(list);
-+err_res:
-+	drmModeFreeResources(res);
-+	return NULL;
-+}
-+
-+drm_public void drmModeFreeCrtcList(drmModeCrtcListPtr ptr)
-+{
-+	if (!ptr)
-+		return;
-+
-+	drmFree(ptr->crtcs);
-+	drmFree(ptr);
-+}
-+
- drm_public int drmModeSetCrtc(int fd, uint32_t crtcId, uint32_t bufferId,
- 		   uint32_t x, uint32_t y, uint32_t *connectors, int count,
- 		   drmModeModeInfoPtr mode)
-diff --git a/xf86drmMode.h b/xf86drmMode.h
-index 2a7156db..c634333b 100644
---- a/xf86drmMode.h
-+++ b/xf86drmMode.h
-@@ -147,6 +147,30 @@ typedef struct _drmModeCrtc {
- 
- } drmModeCrtc, *drmModeCrtcPtr;
- 
-+/**
-+ * Per-CRTC availability information, produced by drmModeGetCrtcList().
-+ */
-+typedef struct _drmModeCrtcInfo {
-+	uint32_t crtc_id;   /**< KMS object id of the CRTC */
-+	int index;          /**< Index in drmModeRes.crtcs[]; usable for vblank high-crtc bits */
-+	int in_use;         /**< Non-zero if userspace has a mode set on this CRTC */
-+	int driver_active;  /**< Non-zero if the CRTC is active in hardware (its
-+			     *   vblank is running) even though it is not enabled
-+			     *   through KMS. GETCRTC only reports enabled pipes;
-+			     *   reading the vblank counter reveals active pipes,
-+			     *   which must not be treated as free. */
-+	uint32_t buffer_id; /**< FB currently scanned out, 0 if none */
-+	uint32_t width, height; /**< Active mode resolution, 0 when not in use */
-+	drmModeModeInfo mode;   /**< Active mode; valid only when in_use is set */
-+} drmModeCrtcInfo, *drmModeCrtcInfoPtr;
-+
-+typedef struct _drmModeCrtcList {
-+	int count;                /**< Total number of CRTCs on the device */
-+	int count_available;      /**< CRTCs that are free and assignable (neither
-+				   *   in_use nor driver_active) */
-+	drmModeCrtcInfoPtr crtcs; /**< Array of 'count' CRTC entries */
-+} drmModeCrtcList, *drmModeCrtcListPtr;
-+
- typedef struct _drmModeEncoder {
- 	uint32_t encoder_id;
- 	uint32_t encoder_type;
-@@ -317,6 +341,20 @@ extern int drmModeDirtyFB(int fd, uint32_t bufferId,
-  */
- extern drmModeCrtcPtr drmModeGetCrtc(int fd, uint32_t crtcId);
- 
-+/**
-+ * Enumerate every CRTC on the device and report which ones are available.
-+ *
-+ * Convenience wrapper around drmModeGetResources() + drmModeGetCrtc() intended
-+ * for compositors that need to discover free CRTCs. The returned list must be
-+ * released with drmModeFreeCrtcList(). Returns NULL on error.
-+ */
-+extern drmModeCrtcListPtr drmModeGetCrtcList(int fd);
-+
-+/**
-+ * Free a list previously returned by drmModeGetCrtcList().
-+ */
-+extern void drmModeFreeCrtcList(drmModeCrtcListPtr ptr);
-+
- /**
-  * Set the mode on a crtc crtcId with the given mode modeId.
-  */
--- 
-2.25.1
+>> Or do you mean that you don't like the words "temporary"/"permanent" and
+>> are looking for another name for a temporarily unavailable buffer?  (If
+>> so, I find "not revoked", "reclaimed", "revoked" much less clear than
+>> not/temp/perm revoked, as such names give no hint as to what to expect.
+>> But I may have misunderstood what you're getting at.)
+> 
+> Yeah it's pretty much the naming I would clarify.
+> 
+> The original idea of notifying the importer that it need to re-create the mapping was resource reclaim.
+
+I feel the (existing) VFIO function reset sequenece is a counterexample,
+as the resource isn't being reclaimed/repurposed but users are "held
+off" for a period of time across the reset.  (It's then the same
+resource that a later access can touch.)
+
+> But when you have some IOCTL or sysfs or whatever to disable a DMA-buf permanently I would call that revoke.
+
+I see where you're coming from now, thanks.
+
+If we were to just call VFIO's "permanently inacessible" state _revoked_
+and "temporarily inaccessible" _reclaimed_, then it doesn't help clarity
+unfortunately.  Those words are ~synonymous and don't convey permanent
+vs momentary.
+
+***
+
+Leon, would you please explain this comment #5?  Were you suggesting
+that (even ignoring this patch!) you want to rename priv->revoked to
+priv->reclaimed?  If so, why?  (For context, this patch's state =
+TEMP_REVOKED is identical to the existing revoked = true.)
+
+In short:  TEMP_${X} vs PERM_${X} most clearly highlights the
+meaning/behaviour of the current + new state, regardless of whether
+X=REVOKED or X=RECLAIMED.  Although I prefer to use the exisitng
+"revoked" I'm not wed to it, but mixing both "reclaimed" & "revoked"
+makes the distinction (and semantics, expectations of what can happen
+next) much less clear.
+
+> I'm still not 100% sure what a temporary revoke should be. If you have some IOCTL/sysfs/whatever to temporary say to importers "You can't use that resource" then that most likely won't fly.
+
+This patch only provides an ioctl action to "make this inacessible
+forever".  There is no direct userspace manipulation to/from the
+temporarily-inacessible state, nor need for that.
+
+The only things that lead to a temporary revoke (as a side effect) are
+the preexisting VFIO reset ioctls etc.
+
+State is an enum, but this isn't a complex FSM, just an extra "sticky"
+state.  And to labour the point, the new temp/perm distinction is only
+about VFIO's internal tracking of why it revoked the buffer using the
+existing mechanisms (meaning, whether it permits un-revoke); it does not
+change the importer.
+
+>> From the importer side, there is no change from this patch: they might
+>> observe an invalidate_mappings() and find attach() of a given buffer now
+>> fails, same as before this patch.  This is only about guaranteeing the
+>> impossibility of an importer ever being able to re-attach in future.
+> 
+> That sounds reasonable.
+> 
+> When a resource becomes unavailable you seriously need completely destroy it, re-create it and then import it again into other drivers which want to use it should it ever become available again.
+
+Yep, quite.
+
+Thanks,
+
+
+Matt
+
+PS: I should've rebased (eyeballed master and didn't spot the tiny
+conflict), so no Sashiko review on v6; I want to resolve this for a v7 soon.
+
+> 
+> Regards,
+> Christian.
+> 
+>>
+>>
+>> Thanks,
+>>
+>>
+>> Matt
+>>
+>>
+>> PS:  A hypothetical alternative way of doing what this patch is doing is
+>> instead to have:
+>>
+>>  - existing priv->revoked
+>>  - new 	    priv->revoked_flag_is_immutable
+>>
+>> Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
+>> sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
+>> prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
+>> For example, a reset doing `move(true); reset; move(false);` can make
+>> all DMABUFs available to attach again, except for those marked
+>> immutably-revoked.  (That is equivalent to this new "permanent" state.)
+>>
+>>
+> 
 
