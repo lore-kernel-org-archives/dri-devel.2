@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0830BC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 14:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E17FC982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 640A510E3D1;
-	Mon, 21 Sep 2026 14:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6730210E05A;
+	Mon, 21 Sep 2026 15:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gVsjKXmw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S4E3DtfF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32AC210E76B
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 14:51:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD6010E05A
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 15:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790002267; x=1821538267;
+ t=1790003003; x=1821539003;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=dZEwI7g4dYES7aErZZpGKM/HppoAmrsp+BlvEEDOJ7k=;
- b=gVsjKXmwhmd22ExP7vWolc71lBSe4Ixu/FD6zkeibScp+Pfjsyu2PULH
- Pg6yuVw7FTiWPLFxX+suiQWDoC/PipnZ/JHP0EW8qOQJhtBkFiXG6smEn
- 1RDZmxCBTAZm/j9G3ZVZZ19W+Uo3pFSFomhnIj5lXdXWsjwnyQ2P0y5PI
- IKmdSKSMzsp0G45erpPCLum6y5lXacyXntCMnxW8Qxxt3l5OmVlsvXSFu
- OieYJSpZDPtmNHcrob/y4O8LnpECBKG+sRZ8L8PBwLkWqGlZjYeQXrZD2
- sbR1Ow3i8mhXs22opXjkGMn7MsYNMF1Q1yy9/ljnncHvWzzQ8JT9Up5+L w==;
-X-CSE-ConnectionGUID: zOM6ho/gS8mLAWQykTYmpQ==
-X-CSE-MsgGUID: 4HJUZCfZRPeuU513zPNFbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1022995"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="1022995"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 07:50:18 -0700
-X-CSE-ConnectionGUID: FXg7ZlbpSJehyE9nPrXfHQ==
-X-CSE-MsgGUID: 7AC8FencRbitjVrOOKL8OA==
+ bh=IbeDwZ+7oz9OB+PaSKVwiska41rwL948uzX5PD1ESew=;
+ b=S4E3DtfFGzoSNUjFmDedNjTHDX6dtXiunws1U41RFTi3GJUxI/1yQjGH
+ wu1pwMu87lrZRJr0vZMUDNVUmtp9dTYvx+ZibjDze6wdTRTOMGmITgF/E
+ C4mKrwwP1J7ODAxrCpWC6AEB7xXXqLXWB/G9K1sSXdGeJxECIewqhTXuC
+ ak37iGt8N+jgdxQrn1Kq3UABygAaqs6clAQhKmGucbBoAoHDWx1/i/fhC
+ Smi0T2qGouAP3GA0YmG7fEiRO4yFUYzmzDPPT68yIyZuWOJUUmwHFvbb6
+ ChVV9pTVgXBrWx1czxUmPqokuBL0LmBDJheyPdk63qJh1nW2ZseQpK26Z w==;
+X-CSE-ConnectionGUID: k1Clc4GSTMapznlECy+jZg==
+X-CSE-MsgGUID: QgYAFJlOQxikdWupCPTS1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90390349"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="90390349"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 07:56:28 -0700
+X-CSE-ConnectionGUID: xMT0kHaQTQyFmtHCXQakDA==
+X-CSE-MsgGUID: QPCnh7EXTtiC7vJpJiW+Bg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3727613"
-Received: from slopesdx-mobl.gar.corp.intel.com (HELO [10.246.16.95])
- ([10.246.16.95])
+   d="scan'208";a="3985532"
+Received: from eoghanoc-mobl1.ger.corp.intel.com (HELO [10.245.112.245])
+ ([10.245.112.245])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 07:50:17 -0700
-Message-ID: <e4754250-8d0f-45db-982a-cc0b64c0aa47@linux.intel.com>
-Date: Mon, 21 Sep 2026 16:50:13 +0200
+ 21 Sep 2026 07:56:26 -0700
+Message-ID: <ac09bf4a-2b65-421a-a5f6-87c5a89ba734@linux.intel.com>
+Date: Mon, 21 Sep 2026 16:56:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] accel/ivpu: Use separate flag for job timeout
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
+To: Karol Wachowski <karol.wachowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com, Jakub Pawlak <jakub.pawlak@intel.com>,
+ stable@vger.kernel.org
 References: <20260914084301.894028-1-karol.wachowski@linux.intel.com>
- <20260914085805.09BF61F000FF@smtp.kernel.org>
 Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260914085805.09BF61F000FF@smtp.kernel.org>
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20260914084301.894028-1-karol.wachowski@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,68 +76,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14-Sep-26 10:58, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+On 2026-09-14 10:43 AM, Karol Wachowski wrote:
+> From: Jakub Pawlak <jakub.pawlak@intel.com>
 > 
-> Pre-existing issues:
-> - [High] Lockless `xa_load` without RCU read lock and RCU-deferred freeing leads to a potential Use-After-Free of `file_priv`.
-> --
-> 
-> commit 267f0542c58f023dad2c373ec173ea2fa96d1b24
-> Author: Jakub Pawlak <jakub.pawlak@intel.com>
-> 
-> accel/ivpu: Use separate flag for job timeout
->      
 > Use separate flag to mark a job timeout as a reason
 > of starting context_abort_work. This allows to distinguish
 > engine reset reason and clearly adjust reset procedure flow.
 > 
->> diff --git a/drivers/accel/ivpu/ivpu_mmu.c b/drivers/accel/ivpu/ivpu_mmu.c
->> index 41efd8985fa67..b2025274f91de 100644
->> --- a/drivers/accel/ivpu/ivpu_mmu.c
->> +++ b/drivers/accel/ivpu/ivpu_mmu.c
-> [ ... ]
->> @@ -964,7 +964,6 @@ void ivpu_mmu_irq_evtq_handler(struct ivpu_device *vdev)
->>   		file_priv = xa_load(&vdev->context_xa, ssid);
->>   		if (file_priv) {
->>   			if (!READ_ONCE(file_priv->has_mmu_faults)) {
->> -				atomic_set(&vdev->faults_detected, 1);
->>   				ivpu_mmu_dump_event(vdev, event);
->>   				WRITE_ONCE(file_priv->has_mmu_faults, true);
->>   			}
+> The flag is cleared in ivpu_prepare_for_reset(), which every
+> recovery and suspend path already funnels through, so that the
+> state is clean after recovery.
 > 
-> [Severity: High]
-> This is a pre-existing issue, but is it possible for file_priv to be freed
-> concurrently while it is being accessed here?
-> 
-> xa_load() internally acquires and releases rcu_read_lock(), so the returned
-> file_priv pointer is unprotected once xa_load() returns.
-> 
-> If a userspace application triggers an MMU fault and immediately closes the
-> file descriptor, could ivpu_postclose() drop the last reference and invoke
-> file_priv_release() before the hardware event queue is processed?
-> 
-> If file_priv_release() erases the entry from the xarray via xa_erase_irq()
-> and frees it synchronously via kfree(), does this lead to a use-after-free
-> when ivpu_mmu_irq_evtq_handler() subsequently accesses
-> file_priv->has_mmu_faults?
-> 
+> Cc: <stable@vger.kernel.org> # v7.1+
+> Fixes: ade00a6c903f ("accel/ivpu: Perform engine reset instead of device recovery on TDR")
 
-Thanks for the review.
+Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
 
-Right, the race is real: xa_load() returns file_priv without
-any protection, and the entry can be erased and the object freed before
-has_mmu_faults is updated.
+> Signed-off-by: Jakub Pawlak <jakub.pawlak@intel.com>
+> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+> ---
+> Changes in v2:
+>   - add Cc: tag
+>   - link to v1: https://lore.kernel.org/dri-devel/20260914082800.892044-1-karol.wachowski@linux.intel.com/T/#u
+> ---
+>   drivers/accel/ivpu/ivpu_drv.c | 3 ++-
+>   drivers/accel/ivpu/ivpu_drv.h | 2 +-
+>   drivers/accel/ivpu/ivpu_job.c | 7 +++----
+>   drivers/accel/ivpu/ivpu_mmu.c | 1 -
+>   drivers/accel/ivpu/ivpu_pm.c  | 1 +
+>   5 files changed, 7 insertions(+), 7 deletions(-)
 
-However, this is pre-existing and orthogonal to this patch: v2 only
-removes atomic_set(&vdev->faults_detected, 1) from that block, so it
-neither introduces nor worsens the race.
-
-I will address it in a separate patch, with a proper Fixes: tag and
-Cc: stable@vger.kernel.
-
-At the same time I would like to proceed with this patch.
-
-Thanks,
-Karol
 
