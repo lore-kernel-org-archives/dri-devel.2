@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E919C982FA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E71DC982ED
 	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8B110EA6C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAFD10EA46;
 	Mon, 21 Sep 2026 15:53:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NWS8s+//";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ddZwLhNz";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC9E10EA4F;
- Mon, 21 Sep 2026 15:53:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790005973; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41CB210EA46;
+ Mon, 21 Sep 2026 15:53:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790005979; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=KwU0MvN9TIqpzV48EIVHG5F1HhDllVYkeXB3229n+SkrqogUBlq6S9Xe00OwHtVFBuXJj/uJO4J+/6r2Ag/1bwjSCFTtc6O4WjUjKoB9a9N6vOp+ytK6c2FICBGElS3vVciYhJVKSlnX3flUc0EzeOKPVl9sgnrJ+1vsGAi//m4=
+ b=JKwzUMbfxHQlGe/yNuKoHW9nf6Q0mAZtxOCgaXBRmARIhBVnMdwTkWrZCuuIUonC0Lfe2TfJ0BNdEP6HzXLKeMU8bSpYTkFm0pjDVLpTGIlzn/2ByAvNFHzyXp96lqgOWqtYS+aqeWCUIAp7g8tOQWhf0N2YZE1RAknclb5lU3A=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790005973;
+ s=zohoarc; t=1790005979;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=; 
- b=PbqlYUF+Zvl3FGv7ItmwO2PiaxxqZiPWWKmb4fQ7kiyIXS4/V+d+VV3ZDsX0AtICpZopEzKL+vwmKoe5LoxOGevpk+T46LG3JAjNb/Tr2x1+U8/8Mc6Xh3/vQmYSRHyxFBFyaYzTaJPkkAYqcjzH2GvYkIRnZ74Td727/a63BaI=
+ bh=RCTNkmpiPL3Ra0ipjPKJl1ubfsMjpTQk6YfOLEZoGhI=; 
+ b=BSZvTTyoWSgKb3s04MrP2MNVo5RIgsBhCrYD7D0IpDPYeOq+L2Z/chVXRw4/YT3BJXOn3/wNS2a+5BWTyMhOJJZ4cvrtodewkSMhQpEJr56tlZv83lk+vpjK3jTOoko2ZgF3bd/mJ5TZNFeZdNQp1Eqtithr4w0PhQ93jql/+mg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005973; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005979; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=;
- b=NWS8s+//mfEFTrVR4p3kwSFSobcD+KUYqBd+Ckn1TlqEtQyMPU+FzLo51YECtZTN
- /o08VKT+AmRYkEay4XR8R0tPkQdU80OZIYY1E+bazrEX42TbQFjHrAkPO2xh6Dp7MFV
- mBHjUVK5v+ruHKeIfLt9Dzm68w9K9Q43oeDk2S0k=
-Received: by smtp.zohomail.com with SMTPS id 1790005971883349.0752585694669;
- Mon, 21 Sep 2026 08:52:51 -0700 (PDT)
+ bh=RCTNkmpiPL3Ra0ipjPKJl1ubfsMjpTQk6YfOLEZoGhI=;
+ b=ddZwLhNzqWf6wD2hET1tRSxvLxp5nhVwL+oNjnYjeypbyEWOuOwR9OuTWQx7xbeC
+ ydfnY3gG8EXraA7ywSp4OuySvdcft8BT3jClXhSw0EYqXUrc2wfUkmEL/i/+hgklufh
+ OIQExfyKQExrHTSnJU3f5RSw23K0zsIfrLp4vKBk=
+Received: by smtp.zohomail.com with SMTPS id 179000597774875.93524699372142;
+ Mon, 21 Sep 2026 08:52:57 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 21 Sep 2026 17:51:35 +0200
-Subject: [PATCH RFC 09/25] drm/connector: Add drm_display_info_is_vrr_capable
+Date: Mon, 21 Sep 2026 17:51:36 +0200
+Subject: [PATCH RFC 10/25] drm/rockchip: dw_hdmi_qp: Add VRR support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vrr-limiter-uapi-v1-9-2fcd7d011646@collabora.com>
+Message-Id: <20260921-vrr-limiter-uapi-v1-10-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
@@ -80,63 +80,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a function to return whether a sink, as described by a
-drm_display_info struct, is capable of receiving VRR signals.
+Register the vrr_capable property on the connector for RK3588, where VRR
+is implemented.
 
-For HDMI sinks, this can just check the HDMI specific vrr_capable field,
-which is set by the EDID parsing code. For other types of displays, the
-generally agreed-upon method appears to be to check whether the monitor
-range's minimum frequency is above 0.
+In the encoder's atomic_check callback, the vrr_capable property, if
+present, is then set to true if the sink supports VRR.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 19 +++++++++++++++++++
- include/drm/drm_connector.h     |  2 ++
- 2 files changed, 21 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index d94c86bfed86..fc7d9fcf9d9f 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1378,6 +1378,25 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 9c4cf68d79d5..2b9432aa8c54 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -192,6 +192,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 					 struct drm_crtc_state *crtc_state,
+ 					 struct drm_connector_state *conn_state)
+ {
++	struct drm_connector *connector = conn_state->connector;
+ 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
+ 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
+ 	union phy_configure_opts phy_cfg = {};
+@@ -238,6 +239,10 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
+ 	}
+ 
++	if (connector->vrr_capable_property)
++		drm_connector_set_vrr_capable_property(connector,
++			drm_display_info_is_vrr_capable(&connector->display_info));
++
+ 	return ret;
  }
- EXPORT_SYMBOL(drm_display_info_set_bus_formats);
  
-+/**
-+ * drm_display_info_is_vrr_capable - Check whether sink is VRR capable
-+ * @info: pointer to a &struct drm_display_info representing the sink
-+ *
-+ * Check whether the sink supports variable refresh rate signals.
-+ *
-+ * Returns:
-+ * - true if variable refresh rate is supported by the sink
-+ * - false otherwise
-+ */
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info)
-+{
-+	if (info->is_hdmi)
-+		return info->hdmi.vrr_capable;
-+
-+	return info->monitor_range.min_vfreq > 0;
-+}
-+EXPORT_SYMBOL(drm_display_info_is_vrr_capable);
-+
- /* Optional connector properties. */
- static const struct drm_prop_enum_list drm_scaling_mode_enum_list[] = {
- 	{ DRM_MODE_SCALE_NONE, "None" },
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 6e431eb81705..b18684d039d5 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1072,6 +1072,8 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
- 				     const u32 *formats,
- 				     unsigned int num_formats);
+@@ -515,6 +520,7 @@ struct rockchip_hdmi_qp_cfg {
+ 	unsigned int port_ids[MAX_HDMI_PORT_NUM];
+ 	const struct rockchip_hdmi_qp_ctrl_ops *ctrl_ops;
+ 	const struct dw_hdmi_qp_phy_ops *phy_ops;
++	bool supports_vrr;
+ };
  
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info);
+ static const struct rockchip_hdmi_qp_cfg rk3576_hdmi_cfg = {
+@@ -534,6 +540,7 @@ static const struct rockchip_hdmi_qp_cfg rk3588_hdmi_cfg = {
+ 	},
+ 	.ctrl_ops = &rk3588_hdmi_ctrl_ops,
+ 	.phy_ops = &rk3588_hdmi_phy_ops,
++	.supports_vrr = true,
+ };
+ 
+ static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
+@@ -695,6 +702,13 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
+ 
++	if (cfg->supports_vrr) {
++		ret = drm_connector_attach_vrr_capable_property(connector);
++		if (ret)
++			return dev_err_probe(hdmi->dev, ret,
++					     "Failed to attach 'vrr_capable' property\n");
++	}
 +
- /**
-  * struct drm_connector_tv_margins - TV connector related margins
-  *
+ 	return 0;
+ }
+ 
 
 -- 
 2.55.0
