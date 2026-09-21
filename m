@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C4B3C982F7
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1147C982FA
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF1F910E3DE;
-	Mon, 21 Sep 2026 18:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCE010E498;
+	Mon, 21 Sep 2026 18:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="umHpaTur";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZN9YXJj0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A34710E197;
- Mon, 21 Sep 2026 18:19:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E2C10E34F;
+ Mon, 21 Sep 2026 18:19:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 97B924514A;
- Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51E4EC4AF0F;
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B3754518A;
+ Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 840BDC4DDED;
  Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790014753;
- bh=X7DSqOwmAcxIiCt2+nXcHu33pKG6YdQi8ZCCjwBSaI4=;
+ bh=68xt0rCfMk3htQ+CNQtRlu7SHWfHYk23uy9xMNYUavE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=umHpaTurTr9vk3pM8b035xwH/vbJkvVWqsZnRGFwz5xW6leqUBj0k8+3w8QdlAQZn
- DC6zkZZvQchCseNTY7L6+3Ta3NuHcHzOfcHgSCAaXrV4ozuAn+JXT0WCrmdwgSoACd
- jMHVpMRSmr/E41XP10AWhglrbClfLQo224q3Hsg7vrCJZ+ZGOutK3HFhLaN9aBifj+
- sCLEhGXAamAosOhf85LEatdjUimvq8fPF97eILjzYErQc+XUfUrJO70bwK3fKcHqA+
- fJ09dM2lN7PmhmdX1I90g5TA/636L2aMbX6NKWIksQ4VRqPxZw6ayPTnhs5nPqYuGt
- hD23DJeU+TlDg==
+ b=ZN9YXJj0fGFK6AUFhbXnWFffp0y4s82+p4PsgoN4dL7FEpM58cnItW0FjJWCFTb5p
+ WCxkqlLsg7XjXD87ZgHI3yITT2lDrWl6AQc8BCFQVuM5JJ5gIGTROPmrm1esLcmUcr
+ 3O8vjFObtUv8k9DsRf7np2VF8VAeUzPGkwBdDR6fT3yU8x35s3GmuF5+EIgp8Wozdj
+ Ekjuj9Rsuh+JXIn8Mg0GgbW215FORK+cVQ1fAmclGhCuMwq09d7xcexNayeX21VKL9
+ I3Ag1XEhaiJAx/Us+MVoXbh89TMGK7LpxYX3alLDlHPoOtdD6CiCXGmJ69gIfEB1A9
+ T9KLc0rg+3x4g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2A3F9C982E6;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5EB22C982ED;
  Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Mon, 21 Sep 2026 21:19:02 +0300
-Subject: [PATCH v3 11/19] dt-bindings: firmware: qcom,scm: Document MSM8952 SCM
+Date: Mon, 21 Sep 2026 21:19:04 +0300
+Subject: [PATCH v3 13/19] drm: msm: mdp5: Add MDP5 configuration for
+ MSM8952
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-msm8952-initial-support-v3-11-b96fd3fe298b@mainlining.org>
+Message-Id: <20260921-msm8952-initial-support-v3-13-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 In-Reply-To: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -76,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, 
  linux-input@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=1326;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=2908;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=OEY+8HQ+THyf1oFhHKgv6oxkhWtr6anAPLLMMsQ2ZwA=;
- b=8h2g1OsNVLQZ5G58JlmRNcIUzDJtJFplX7XTNAQKmEmnFCkJLkP35NBDD13XTbe68Xy3K/Sxe
- b7LmDiQhaBlDlh2nqG8YNRFGaVYsF9sg3PIH2TStKZvnx21T3Ei3Zhk
+ bh=iJr3V7WxoPjZJBrBl5G8abT5fWMjrLqAWAzBrQzyHX8=;
+ b=dAS28igLGe744nahp/4sICanJ2FQZrszQF6q52UAZfRPDa5au5ffnkdHIc4IJsPXsPKDAGLnm
+ qeBmlBArIMbCk7AUsZKnMWIPMuW0C4oTIIcSAnLZdfmvVx0i9IoO+tv
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -104,41 +105,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the scm compatible for msm8952 SoC.
+Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 81 ++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-index ecee5aef65a7..40a267c54b00 100644
---- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-+++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-@@ -45,6 +45,7 @@ properties:
-           - qcom,scm-msm8660
-           - qcom,scm-msm8916
-           - qcom,scm-msm8937
-+          - qcom,scm-msm8952
-           - qcom,scm-msm8953
-           - qcom,scm-msm8960
-           - qcom,scm-msm8974
-@@ -153,6 +154,7 @@ allOf:
-               - qcom,scm-msm8660
-               - qcom,scm-msm8916
-               - qcom,scm-msm8937
-+              - qcom,scm-msm8952
-               - qcom,scm-msm8953
-               - qcom,scm-msm8960
-               - qcom,scm-msm8974
-@@ -199,6 +201,7 @@ allOf:
-               - qcom,scm-msm8226
-               - qcom,scm-msm8916
-               - qcom,scm-msm8937
-+              - qcom,scm-msm8952
-               - qcom,scm-msm8953
-               - qcom,scm-msm8974
-               - qcom,scm-msm8976
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+index 7c91fc1915f3..d34c94d6f7e2 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+@@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config = {
+ 	.max_clk = 360000000,
+ };
+ 
++static const struct mdp5_cfg_hw msm8952_config = {
++	.name = "msm8952",
++	.mdp = {
++		.count = 1,
++		.base = { 0x0 },
++		.caps = MDP_CAP_SMP |
++			0,
++	},
++	.smp = {
++		.mmb_count = 8,
++		.mmb_size = 8192,
++		.clients = {
++			[SSPP_VIG0] = 1, [SSPP_DMA0] = 4,
++			[SSPP_RGB0] = 7, [SSPP_RGB1] = 8,
++		},
++	},
++	.ctl = {
++		.count = 3,
++		.base = { 0x01000, 0x01200, 0x01400 },
++		.flush_hw_mask = 0xffffffff,
++	},
++	.pipe_vig = {
++		.count = 1,
++		.base = { 0x04000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_SCALE | MDP_PIPE_CAP_CSC |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_rgb = {
++		.count = 2,
++		.base = { 0x14000, 0x16000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP |
++				MDP_PIPE_CAP_DECIMATION,
++	},
++	.pipe_dma = {
++		.count = 1,
++		.base = { 0x24000 },
++		.caps = MDP_PIPE_CAP_HFLIP | MDP_PIPE_CAP_VFLIP,
++	},
++	.pipe_cursor = {
++		.count = 1,
++		.base = { 0x440DC },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			MDP_PIPE_CAP_CURSOR	|
++			0,
++	},
++	.lm = {
++		.count = 2,
++		.base = { 0x44000, 0x47000 },
++		.instances = {
++				{ .id = 0, .pp = 0, .dspp = 0,
++				  .caps = MDP_LM_CAP_DISPLAY, },
++				{ .id = 3, .pp = -1, .dspp = -1,
++				  .caps = MDP_LM_CAP_WB },
++			     },
++		.nb_stages = 8,
++		.max_width = 2048,
++		.max_height = 0xFFFF,
++	},
++	.dspp = {
++		.count = 1,
++		.base = { 0x54000 },
++
++	},
++	.pp = {
++		.count = 3,
++		.base = { 0x70000, 0x70800, 0x72000 },
++	},
++	.intf = {
++		.base = { 0x00000, 0x6a800 },
++		.connect = {
++			[0] = INTF_DISABLED,
++			[1] = INTF_DSI,
++		},
++	},
++	.max_clk = 320000000,
++};
++
+ static const struct mdp5_cfg_hw msm8x53_config = {
+ 	.name = "msm8x53",
+ 	.mdp = {
+@@ -1017,6 +1097,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+ 	{ .revision = 9, .config = { .hw = &msm8x94_config } },
+ 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
+ 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
++	{ .revision = 12, .config = { .hw = &msm8952_config } },
+ 	{ .revision = 14, .config = { .hw = &msm8937_config } },
+ 	{ .revision = 15, .config = { .hw = &msm8917_config } },
+ 	{ .revision = 16, .config = { .hw = &msm8x53_config } },
 
 -- 
 2.55.0
