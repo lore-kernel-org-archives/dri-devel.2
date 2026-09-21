@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E37C982F7
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF54C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B782510E7D3;
-	Mon, 21 Sep 2026 18:19:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E90A310E82F;
+	Mon, 21 Sep 2026 18:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KzdMzOkN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QmWp52f7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913AE10E634;
- Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1CF10E34F;
+ Mon, 21 Sep 2026 18:19:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 15A22449DF;
+ by sea.source.kernel.org (Postfix) with ESMTP id E08AF45178;
  Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 80C21C4AF65;
- Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F9D8C4AF0E;
+ Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790014752;
- bh=ctHaSGcvyw3H8wQm3ii/7WZwBxWZ9vwphTZ5+6+nWy4=;
+ s=k20201202; t=1790014753;
+ bh=uQxBZuhyzSRvVDvx4PG5/I0odnbN9g2l43BKI3W/H7I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=KzdMzOkNOyXx50B/mZAp4Sr3zCItKvax/K+/7to3JTSZmuEkg1Fo6IXp/QiZJKhLE
- XlfgK9Fx7h8GzEkjNVF5OzQqudxluLBsMXvjSLn+TjAUMgNcJwXhR0wCWb5c3UD0t3
- zmQluwH/ZBvdatwRj30JuTC7k1/JI3j2yEBULT08SuwWm23olKKXxHCNqH+h8F6PtJ
- /KFiKIboebz8ab6lnzRlvfqJN7KkfD0qVeE1ECPHB3EKJlEtcer86q+5SOXnOO3+OR
- PjS79Zr/bqC8g6O8LB9V3V0I8k9tX/YXyQ73mkP8a3mg1GoDES2DbVC/CaGIRCMzn4
- CIDWTjE8Chbjg==
+ b=QmWp52f79J9r9i7HjwALgvUJBvBJzUUTNhnafqlpSTNK653PQHaoeV24sI725vUHB
+ sQB8TIpxT1UXb5bvzYAr1WeKvxakBaYCg/qApgC+/y+doXqeoxsrrqMypHKoiBuQIS
+ f1ANayemXiBWyGLXVyeE6Ro4Wce6BrE/ctExV+3n3Rw9PuuF2ibUJNTUW9/jNCEbvT
+ zTBZDsyUVX4YQbM8WvDrrzdQxpL+3/XtFR1sywL7i0bY4D1JEfh/IJwWlQ9plc1olw
+ ZxZbuKCKss2WWmLLS0XjsibKFLgnYUhW4KJ33ZCmWLR1PFXh/7rJ43HZC5/1K4Zkus
+ cvN9pRkCFfDiA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 604E0C982FA;
- Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 439E6C982FB;
+ Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Mon, 21 Sep 2026 21:18:56 +0300
-Subject: [PATCH v3 05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
+Date: Mon, 21 Sep 2026 21:19:03 +0300
+Subject: [PATCH v3 12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952
+ compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
+Message-Id: <20260921-msm8952-initial-support-v3-12-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 In-Reply-To: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -76,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, 
  linux-input@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=845;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=uQuDsY7sKCtxhxupdBeZKbofdc/eOc+AEju250sV/h8=;
- b=5bo6Glg8xIDB0IqcOMpsjfx6TEdUNtAcAjWM6/Eh4Z25sWgteEFdun/P28zIXLJvbvsvxvCxQ
- F2N2run4UfSBrJoz80bZGUEy3gF9319Y08wgeBv0AX3+8jRewNt1abb
+ bh=CHNYHQsphKuLRM8ear9uJQ14PqO0HMwJNgURPd6NrV8=;
+ b=PEp+BwfKYQUrAQIcgVk3NGd8VQhuG4/ZuLc1L3bk6bGK9kDA9TN5L9SKfaW7UpZgsCanXP/IY
+ HMP3UZ9sfQ1CdAX+ULyy+UkLjKCluSLqsyYjJbKuIc4elbdkOKHyUrt
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -104,26 +105,29 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Document the compatible string for the SDHCI controller on the
-MSM8952 platform.
+Document the rpmcc found on MSM8952.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-index 69bd44e65ad7..9d4409c958fa 100644
---- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-+++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-@@ -26,6 +26,7 @@ properties:
-               - qcom,ipq4019-sdhci
-               - qcom,ipq8074-sdhci
-               - qcom,msm8226-sdhci
-+              - qcom,msm8952-sdhci
-               - qcom,msm8953-sdhci
-               - qcom,msm8974-sdhci
-               - qcom,msm8976-sdhci
+diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+index 17332aa55886..aa532f208f5a 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+@@ -56,6 +56,11 @@ properties:
+               - qcom,rpmcc-shikra
+           - const: qcom,rpmcc-qcm2290
+           - const: qcom,rpmcc
++      - items:
++          - enum:
++              - qcom,rpmcc-msm8952
++          - const: qcom,rpmcc-msm8976
++          - const: qcom,rpmcc
+ 
+   '#clock-cells':
+     const: 1
 
 -- 
 2.55.0
