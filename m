@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2929C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A879C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:50:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D066310E259;
-	Mon, 21 Sep 2026 10:49:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB9910E2A7;
+	Mon, 21 Sep 2026 10:50:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k9JxHvno";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UcX6tmUA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD0710E259
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:49:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4BC10E2A7
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:50:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789987796;
- bh=8HGmYYTimqOZltofTGZFoBtBIJCOaKgX9a3Ha8IBIXg=;
+ s=mail; t=1789987837;
+ bh=68NLUXOEIXuYDBcJ7zcNhtWLrarGvDK32OF98eIfGsQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=k9JxHvnoPMspFXdQfXdP8ZRHl65gZ4etVK8KmFdXnG2MsjlpJr1FlSoinc2YzVZrc
- o05WLf2JfqyBNNbaX2+wowquNmDG5VJAPbB7VMevuxFeFXDcNK5L/5chdblLbfSSF8
- D6Dx/lc4rmBIPrIN2gpf36xwSHsco4pLJBOuSbWiue7HBRqMcqv26vljyN1Lq/Sx4V
- Hvcdd8JxPVVftiuH4yoPxI5FPLY5XIZ9o2QfewMGvTvE/LM/awraQWd82uKkcL4iiO
- 9LfnJGGsc5pO1olfoVUrfzZYmV7HqVJLRUoDfz/zNLlVfu43HT2oN8pMUYUAeB+tie
- eMpjxfhIRFwIQ==
+ b=UcX6tmUAEqfVdowNIKO1iQR701AzVYVufXfzy1JZZeSazkGil9SsK6kF5SMKwK32k
+ 4A746F37NK8HAueTnW7DkM7SWG3DEOE3OePEMPITd6GlWFneK1VdMYIw9FjS/mU5Of
+ +wByuYQxVY1dzYDp4qxq03fC9k5qd0ACHriOsYtfs0q6/ydze9ZVTC1fqd6sbx7crP
+ H16f4z3QJufyZviuXvOCdQwfRu9/RSB+Ih57yzS5l942rct6eTt+Wu4T2qUAP4pqFI
+ 7nqbF/I7gzWLuxW1P7+QTGK6n2QrZAPGQamWMqraBXjjGeECy3SxN786ouq3yX+fNB
+ W7d+5RkxKdNPg==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EA41B17E020C;
- Mon, 21 Sep 2026 12:49:55 +0200 (CEST)
-Message-ID: <900a42ef-6c1a-4c6e-859a-453947934368@collabora.com>
-Date: Mon, 21 Sep 2026 12:49:55 +0200
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 16E4817E020C;
+ Mon, 21 Sep 2026 12:50:37 +0200 (CEST)
+Message-ID: <f39a4af7-9322-434e-9350-40c6970e8f7f@collabora.com>
+Date: Mon, 21 Sep 2026 12:50:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: display: panel: Add Novatek NT51021
+Subject: Re: [PATCH v4 3/3] MAINTAINERS: Add myself and Ryan Brue as
+ maintainers of NT51021 panel driver
 To: Nickolay Goppen <setotau@mainlining.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
@@ -48,13 +49,12 @@ To: Nickolay Goppen <setotau@mainlining.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>,
  Alexey Minnekhanov <alexeymin@minlexx.ru>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
 References: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
- <20260917-qcom-novatek-nt51021-panels-v4-1-30afbc35d70c@mainlining.org>
+ <20260917-qcom-novatek-nt51021-panels-v4-3-30afbc35d70c@mainlining.org>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260917-qcom-novatek-nt51021-panels-v4-1-30afbc35d70c@mainlining.org>
+In-Reply-To: <20260917-qcom-novatek-nt51021-panels-v4-3-30afbc35d70c@mainlining.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,21 +73,34 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 9/17/26 14:51, Nickolay Goppen wrote:
-> Novatek NT51021 is a display driver IC that can drive DSI panel. It
-> is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
-> panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
-> Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
-> panel, which also has a resolution of 1200x1920, but 8 inches size. It is
-> found in Xiaomi Mi Pad 4. And also it's present in the BOE-TV101WUM-NM0.
-> It's found in Amazon Fire HD 10 (2017).
-> 
-> Add the bindings for display driver for the IC, with support added
-> for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Where's the commit description?
+
+Regards,
+Angelo
+
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
+>   MAINTAINERS | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7291238bc09f..743c785b4558 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8354,6 +8354,13 @@ S:	Maintained
+>   F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>   F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
+>   
+> +DRM DRIVER FOR NOVATEK NT51021 PANELS
+> +M:	Ryan Brue <ryanbrue.dev@gmail.com>
+> +M:	Nickolay Goppen <setotau@mainlining.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> +F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> +
+>   DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
+>   M:	Lyude Paul <lyude@redhat.com>
+>   M:	Danilo Krummrich <dakr@kernel.org>
+> 
 
