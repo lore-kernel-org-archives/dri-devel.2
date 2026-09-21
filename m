@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43FCC982FF
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9240BC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6890710EBE0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C15510EBE2;
 	Tue, 22 Sep 2026 08:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h2QVWxh9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EXzUnAFe";
 	dkim-atps=neutral
-Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 175AD10E4A0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:14:38 +0000 (UTC)
-Received: by mail-wm2-f7.google.com with SMTP id
- 5b1f17b1804b1-49fd4ea3409so5010835e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:14:38 -0700 (PDT)
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com
+ [74.125.225.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821F010E3C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:33:36 +0000 (UTC)
+Received: by mail-wr2-f11.google.com with SMTP id
+ ffacd0b85a97d-486e4e15deaso1203765f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790014476; x=1790619276; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790015615; x=1790620415; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=8njTdDuR2VjcLI0zLlnQh6RcubDIwEA0WzrR3t+nYKc=;
- b=h2QVWxh9HL6o4eUMCCvWci6K4e7pM3SpRqb8qN98WY1C5kCNFh/zaVi56s/geiFLYb
- owTtXH2YOZ3Ka35lfVt0BYx/29CJTKjVNkw/4DgFtH9lIMbT+JoA/czMJeYTXuR6fgoF
- KeaA2Uq019Oc+M7QJs85KLspTDXqL5nb41YkkdLyXwLo55OLbrXd3oM9ZfBT42v6yHFf
- WPUGz7+e3ZjWlN4Wkl2mPL2MjJ5wyXp+lPEG8SuD9Kjs8Fiy6VnHEx907YndjsfwOigK
- 1KDrUwy6FaD07N2vhJ7JekijEhBhlWTEl3rPjQ7iUF9KTDH2NzhGiZo3RNqDEDJwF73B
- 9XSA==
+ bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
+ b=EXzUnAFePWiL0c0CYPcPYx/w3ML7RiKfT3ULyHykr/HvAzVfrwVYaCqqbG9ZFePps2
+ mNCBj4pGjJ1/PEKYXXBYYLF1C+IZQ6BXiji4NSoBmDgZVtHtuwkQ+641seUQQtX9zxD2
+ wgi0GIBU72/3/JvTEpKOv+wK42wk+CJos0bgHUZBju6nZMDImX9XoFbWRy+nD5sHxTJp
+ KbdzACc5kp00RqCPxGnYhVfTv2qZj2rJrNnbaOsySJzzNj6a2BihX5jUshe+k26w9VC3
+ AGCMW99L3F3p1DX3cTK3aYJ2EjbxLRdRAipJrBhquUY/C4C+jJiHuxm9dboLzvO7+OGo
+ q2gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790014476; x=1790619276;
+ d=1e100.net; s=20260707; t=1790015615; x=1790620415;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=8njTdDuR2VjcLI0zLlnQh6RcubDIwEA0WzrR3t+nYKc=;
- b=k46RtNhBfZKBTBgmG1fsOD7YY9Qp0U3VGvERtM8uXYUqdszglKCI2Aih/k0DGOc2jX
- qWh4Px9eQ1BpGwg+Fqc0MB5cvlX/eWctjlHLutlP8mcidU0M0iQthzMyysuj8W7lKhuC
- 6X2xq0unHgQdLj222fo94RNYXpkb4UJWqtUmzxXDIrvMMogVePZ8bqlIEUfZ7NVhQ5oG
- DHAkwODH31q522yD9ur222h/jAEcLGiY2UeqQjKJvU2naYRAV8Y61ldVtBvl6Xgtq6BN
- P7OGFnZmBaGsT1NERDCF748Fn1AgoHIG0DqMQ7AcDKOkvW2c+urQ2vIO86fpPXhXt4CG
- uDWw==
+ bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
+ b=zhqQjt6A9HT05cf6DhnjxZ9KigMYj6yR9/d6tsfiYhrRx7MyuK5GB1L0m5Ld4S8wVN
+ vo7M+4MqevsZTwTWmQ2656javyVd7FxZcXodM8GPT/CzbuOTERfwuCJIty3SGZzrS0HF
+ KOzmeT3oi2uN6qrY0jmtBLrsam+/ScNs/Tto6NlPrnch1sksfL3BwbWQstuIsj2XBdHl
+ zU2XuxPutwElrBx0UZw2JACam8gyjIOb04n920+ejgd04bMT5NqCk7e7c3jDN2NcylEr
+ mL+ez8qzGKponNs/+406C7XoD9FldZC5ta9gn5nvMsbhkSTDp4/pKqUfl9yVyOLwnRzO
+ trag==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwBeh6OEd6MaH0isQOtS03FbrkMky30OPFnuqA5ttcqf+xEEERkHOqzqA+vGiN2kboFoCPhjlQTTew=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lEAk2cLI/zMaqSrV3D7ucOZkh5wHupAofcBf+ZfONT7UFDQTpd
- MXMq1G8VQwRDpGFwot7LOt9symrcHAcJkdy5cb2d546R/BpTHhyhGAVA
-X-Gm-Gg: AYBFou0vJZ1x6LYDi6LSf/qG2krinsAycxwg02nPQQwr8//04PT5Q4ps1Fz5lh9I48S
- ZT5bZWGm9dREexI2aSxPePt4CilYAfX6ZwX373KEfY1Qb0bdDFw3xosfk3iisovQCB2OzhlRX4y
- Vv2gU0DPYCpbk+GBkaM/I/RReCdm5S61OYxknQJYO0lmU5BgvW8en8LRgM6gWz61R9lKgS9tk88
- 1l54WG/LDyv/oP14XDQaUvpfbNn+Wxa5ONRQ3uFCp6COZPayG5fWUmTSDhqbHNw+e4btqiqplt4
- 6/iDVp7gkBif2X4ASurewcqm0vv3MPYgvpP6Dz2InhlEXXM9VG5l5ZpRcxo4v6BvjmodVcMffQS
- hoKSCQx0jhT1KZUjyDiIeuiYt35uWKKrByie0VJ6eePi0efHv7KzL2vRmPPk3JUcHhLqgpWtpqJ
- IFSTncpmzR4W4XACBQ4PcNl2mA4Bf+0WYnny2l6fBAuOjJ0IMvrTMBqqJITR9LbQEdbv1X1h1Id
- l+Kjsr2NBhf306E
-X-Received: by 2002:a05:600c:4f8c:b0:49f:c18a:61c8 with SMTP id
- 5b1f17b1804b1-49fc573f858mr164351925e9.29.1790014476102; 
- Mon, 21 Sep 2026 11:14:36 -0700 (PDT)
+ AKwUvBy4HhojQSk9Sshvv6YPpJvHGWNFZkUJTlg3159vVXtVXpyVShHOIo9z4McgyRkGhfV/jfqVu1elZIU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ntWB1sNOZqaYeQY1vHOqDAUrKr26OeH/iKQVhP2dzIMDZ+roB6
+ LUokNm1HvwCsiqLspMbj8XW9NUPp7QPVPPj0ftVXma/irmdYZaAHA/cC
+X-Gm-Gg: AYBFou3NlZkYAE4sR0LZ2r/uyKgYxey272taX74evmOqpa3Gm6V4j24Cuo2PFmWHhwI
+ JnWrJSF09hQql4VADh7FvVtwe6VKdMGHFjgrnbg55N7BL0xERYfijJBbP7NkHUCI6NhBPVJN7aW
+ Xzk9cOXbxFh79nbrNPZu3cmjcqySttEGdixRB/OFtb4ZOKbtiLW7hWXBkZxXbitT/XzjM99/I9N
+ J6CM3TUyKAh9RwO0MVJliuL2jIcEjhJsuvRd2TAuf5G6YvdGMj9cb50ys6/yeHfs873z+5tN/t2
+ 7GhQ/FWiP8K1bFpXQvEDQvoS0EtMAyPAARU8r7q4R0jqAXhq4WD5FRMzyH3Ob8aefLDu9LxYLlh
+ c6XcSYq/5BwqnVzBYiksz/3nZCnVrwA3NnGCLXmGDueZv9jxtMszE1lfneVltOt/PDwqXHV0qyr
+ rQM3zTweIos+mOr954hMoqB1hzBqnOkkn0mU00udcflgyfQOERzNZ+wDhFxJ9B+niN/kuHG2Hh3
+ gnVOI9Zk2si1hvK
+X-Received: by 2002:a05:6000:2584:b0:487:27f6:a4d5 with SMTP id
+ ffacd0b85a97d-48727f6a645mr11933217f8f.37.1790015614392; 
+ Mon, 21 Sep 2026 11:33:34 -0700 (PDT)
 Received: from gbox.chicasongroup.com ([197.210.105.26])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fd8a636d1sm10754875e9.0.2026.09.21.11.14.33
+ ffacd0b85a97d-4872456ee4esm23679114f8f.21.2026.09.21.11.33.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 11:14:35 -0700 (PDT)
+ Mon, 21 Sep 2026 11:33:32 -0700 (PDT)
 From: UgwuRhema <hikarialiyev@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: Andy Shevchenko <andy@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: fbtft: fbtft-bus: remove space before close
+Subject: [PATCH v2] staging: fbtft: fbtft-bus: remove space before close
  parenthesis
-Date: Mon, 21 Sep 2026 18:13:50 +0000
-Message-ID: <20260921181350.89925-1-hikarialiyev@gmail.com>
+Date: Mon, 21 Sep 2026 18:33:12 +0000
+Message-ID: <20260921183313.92795-1-hikarialiyev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,15 +91,19 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Fix checkpatch.pl errors regarding prohibited spaces before closing
-parentheses in fbtft-bus.c.
+parentheses in fbtft-bus.c while retaining trailing commas required
+by macro definitions.
 
 Signed-off-by: UgwuRhema <hikarialiyev@gmail.com>
+---
+v2: Keep trailing commas in define_fbtft_write_reg invocations to prevent
+    preprocessor build errors from missing macro arguments.
 ---
  drivers/staging/fbtft/fbtft-bus.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff1..409770891 100644
+index 30e436ff1..38697992f 100644
 --- a/drivers/staging/fbtft/fbtft-bus.c
 +++ b/drivers/staging/fbtft/fbtft-bus.c
 @@ -62,9 +62,9 @@ out:									      \
@@ -106,10 +111,10 @@ index 30e436ff1..409770891 100644
  EXPORT_SYMBOL(func);
  
 -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8,)
  define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
 -define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16,)
  
  void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
  {
