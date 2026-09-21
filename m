@@ -4,68 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B36C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769A6C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78EC310E2F1;
-	Mon, 21 Sep 2026 06:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D963410E296;
+	Mon, 21 Sep 2026 06:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fkpZp60f";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="d5Oq2jhz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5AEB10E225;
- Mon, 21 Sep 2026 06:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789973511; x=1821509511;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=SUr2x92m0kq0N82NhWMY7MpEDbdPZzPwC/maMFz4Ze0=;
- b=fkpZp60f9QlIPcg1M+UjUF416OkSdtv+AgInHpWkz/rNxYzrJseBX5uD
- Qa06f7tkcyRxtxhwk1tCpPKzpEYB3xaxUZvUcsBoe9UwLK6bsF9XhBwvR
- MK2HmPF1Tuw573Pk2Q2cOh/E7usCJ1OVuIFMyarsWpeQ9J2bqUBPQz7w1
- ThrU53QQ0rv73LQCN5J7kysz+QwbqQhwvJOTzTA5HCBxWfyFLkYzhANol
- 0r5GVLh0zxrB0bkNhfYF/0rbFAeOx2H7uxe8lvjFpAtmuYYgrdxUzATsd
- SXBuADm662Ugde6U+lRKnCLLSgNkNw+fJofygEedneO3drsz8IINw6sQz Q==;
-X-CSE-ConnectionGUID: jnRkyxj8SuCj38qSrKXI7w==
-X-CSE-MsgGUID: NRDi+pkxQQSedHbN0WngOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="94292574"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="94292574"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:51:50 -0700
-X-CSE-ConnectionGUID: nWKMdSgDRYO74M9Q0HEw1Q==
-X-CSE-MsgGUID: MqvGeTRZRrGzuqZuk+UK/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272683213"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.142])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:51:48 -0700
-Content-Type: text/plain; charset="utf-8"
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673DC10E296;
+ Mon, 21 Sep 2026 06:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789973663;
+ bh=QEh0q3uEMIX1mo/52T36jIlKSddmIRSljaq9S029FCc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=d5Oq2jhzqSavoIa2/RuhNufR2OhSU0XML8V1G9HuyLNosd5/kiNPnlm/As6IpS0sw
+ 09jkeV3N3i1Xoa09zgttty2D0LpR/t3IOVGFqJvNckEAfTQxnJYJxwGp8VD5SeMZWA
+ ZRdhmhuJaPK/hStrCodYFl66GUCrTsfSkwlOEFbMz35KLPI7z5/6niQI+Ha4E7YBAg
+ 5q9A/1dM3ApASyK3KWJfZJIMBAQJhifrllSJxCFeGRs28Phi/nvltPRIoiPZ+1geDa
+ QeYy8DYjgJ5sDT8S2qpC6eP8owag8DDYRkkT06mUPT3Z+8bDWcdKb5bad/4gex1Bcv
+ G535tqaamzuHg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A48B017E087F;
+ Mon, 21 Sep 2026 08:54:22 +0200 (CEST)
+Date: Mon, 21 Sep 2026 08:54:19 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ steven.price@arm.com, liviu.dudau@arm.com, adrian.larumbe@collabora.com,
+ kamil.konieczny@linux.intel.com, samitolvanen@google.com
+Subject: Re: [PATCH i-g-t v2] tests/panthor: skip sparse VM_BIND tests
+ before v1.9
+Message-ID: <20260921085419.01a5699c@fedora-21.home>
+In-Reply-To: <20260920-b4-panthor_version_sparse-v2-1-fa395c125eb1@collabora.com>
+References: <20260920-b4-panthor_version_sparse-v2-1-fa395c125eb1@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
- <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
- <178972632228.60564.16756848994208751058@jlahtine-mobl>
- <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-To: Jani Nikula <jani.nikula@intel.com>, Maarten Lankhorst <dev@lankhorst.se>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Date: Mon, 21 Sep 2026 09:51:45 +0300
-Message-ID: <178997350548.20141.1094942452589748749@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,92 +64,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Quoting Maarten Lankhorst (2026-09-18 17:24:39)
-> Hello,
->=20
->=20
-> On 9/18/26 12:12, Joonas Lahtinen wrote:
-> > Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
-> >>
-> >> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
-> >>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
-> >>>> Hey,
-> >>> Hi Maarten,
-> >>>
-> >>>> Yeah the problem was similar, I believe neither check should exist,
-> >>>> instead the caller should give this information like the comment men=
-tions.
-> >>>
-> >>> Any update here? Maybe I have been left out on reposts. Any chance th=
-is
-> >>> gets in before the LTS of this year gets out?
-> >>
-> >> Side question, there was a bunch of sashiko issues against v4 - have=20
-> >> those been addressed?
-> >>
-> >> As today it is the first time I see patch 7/7 which is a bit of a scar=
-y=20
-> >> one. I have to ask how much does Intel commit to fixing out any=20
-> >> potential breakage given the status of i915?
-> >=20
-> > I'd say there is very close to zero chance of accepting patch 7. And
-> > that would take massive functional and performance validation efforts
-> > done by the person wanting the patch to get merged.
-> >=20
->=20
-> I don't mind taking the responsibility to debug and troubleshoot if thing=
-s break.
-> Patch 7/7 fixes a real bug that is hard to trigger otherwise, but can mos=
-t definitely
-> happen.
->=20
-> I believe it should be treated it as any other fix, merge it and when the=
-re are
-> bug reports, solve those.
->
-> Most of my energy and work is going to other projects now, so I won't be =
-able to do
-> the entire validation in advance.
+On Sun, 20 Sep 2026 17:59:09 -0700
+Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
 
-For a patch with such potential to cause breakage (functional and
-performance), we really need the validation efforts up front.
+> Sparse VM_BIND support was introduced with Panthor DRM driver version
+> 1.9. If a driver isn't advertising support for v1.9, skip the sparse
+> VM_BIND subtests.
+> 
+> Use the advertised driver version rather than probing for EINVAL, since
+> EINVAL may also indicate a uAPI regression rather than lack of support for
+> sparse VM_BIND.
+> 
+> Add a shared macro igt_require_panthor_version() to check the version in
+> case other Panthor tests would like to use it in the future.
+> 
+> The Panthor version macro wraps the igt_require_f() macro so that we can
+> clear the last errno. The last errno is irrelevant to the version check
+> but __igt_skip_check() will still print it like this:
+> 
+>   Starting subtest: vm_bind_sparse
+>   Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
+>   Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
+>   Requires Panthor version 1.9 or newer
+>   Last errno: 2, No such file or directory
+>   Subtest vm_bind_sparse: SKIP (0.000s)
+> 
+> This makes the log noisier than it already is. So set the errno to 0 to
+> suppress that line. Skipping the test will now print:
+> 
+>   Starting subtest: vm_bind_sparse
+>   Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
+>   Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
+>   Requires Panthor version 1.9 or newer
+>   Subtest vm_bind_sparse: SKIP (0.000s)
+> 
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> ---
+> Changes in v2:
+> - check for version at each subtest
+> - make version check available to all panthor tests
+> - use macro to suppress printing the last error
+> - Link to v1: https://lore.kernel.org/r/20260915-b4-panthor_version_sparse-v1-1-7ac10b75e631@collabora.com
+> ---
+>  lib/igt_panthor.c          | 14 ++++++++++++++
+>  lib/igt_panthor.h          | 18 ++++++++++++++++++
+>  tests/panthor/panthor_vm.c | 18 ++++++++++++++++++
+>  3 files changed, 50 insertions(+)
+> 
+> diff --git a/lib/igt_panthor.c b/lib/igt_panthor.c
+> index 11d8ec342..0f8c408d5 100644
+> --- a/lib/igt_panthor.c
+> +++ b/lib/igt_panthor.c
+> @@ -385,3 +385,17 @@ void igt_panthor_free_bo(int fd, struct panthor_bo *bo)
+>  
+>  	gem_close(fd, bo->handle);
+>  }
+> +
+> +bool __igt_panthor_driver_version_at_least(int fd, int major, int minor)
 
-> I will definitely ensure CI is clean and passing,
-> it's how I came across this bugfix in the first place.
->=20
-> If bug reports come in and point to this patch, I will be able to take a =
-look and
-> solve the reported issues, but I won't be able to hunt for them in advanc=
-e.
+Any reason for this __ prefix? Looks like a legitimate helper to call
+if we ever end up with tests that need to do things differently based
+on the driver version, and __ prefixes are generally used when you want
+to reflect the fact some helpers are not meant to be called directly.
 
-I think somebody will actually need to run real workloads on such kernel
-across a few HW generations.
+With the __ prefix removed, this is
 
-Couple of browser based GPU benchmarks and video transcode benchmarks
-would be a good start.
+`Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>`
 
-> It's only a few weeks until the -rc cutoff, so we can make it part of the=
- next cycle.
+> +{
+> +	drmVersionPtr version = drmGetVersion(fd);
+> +	bool supported;
+> +
+> +	igt_assert(version);
+> +	supported = version->version_major > major ||
+> +		    (version->version_major == major &&
+> +		     version->version_minor >= minor);
+> +	drmFreeVersion(version);
+> +
+> +	return supported;
+> +}
+> diff --git a/lib/igt_panthor.h b/lib/igt_panthor.h
+> index ba4a9bf1e..626e5d525 100644
+> --- a/lib/igt_panthor.h
+> +++ b/lib/igt_panthor.h
+> @@ -37,6 +37,24 @@ void igt_panthor_group_submit_simple(int fd, uint32_t group_handle,
+>  				     uint32_t stream_size, uint32_t syncobj_handle,
+>  				     int err);
+>  uint64_t igt_panthor_get_first_core(uint64_t cores_present);
+> +bool __igt_panthor_driver_version_at_least(int fd, int major, int minor);
+> +
+> +/**
+> + * igt_require_panthor_version:
+> + * @fd: device file descriptor
+> + * @major: required Panthor major version
+> + * @minor: required Panthor minor version
+> + *
+> + * Require the Panthor version to be at least the requested version.
+> + */
+> +#define igt_require_panthor_version(fd, major, minor) do { \
+> +	/* igt_require_f() reports errno through __igt_skip_check(); */ \
+> +	/* clear it since errno is unrelated to the version check. */ \
+> +	errno = 0; \
+> +	igt_require_f(__igt_panthor_driver_version_at_least(fd, major, minor), \
+> +		      "Requires Panthor version %d.%d or newer\n", \
+> +		      major, minor); \
+> +} while (0)
+>  
+>  static inline void igt_panthor_vm_bind(int fd, uint32_t vm_id, uint32_t bo_handle,
+>  				       uint64_t va, uint64_t size, uint32_t flags, int err)
+> diff --git a/tests/panthor/panthor_vm.c b/tests/panthor/panthor_vm.c
+> index 9011df25e..bd8f14ecb 100644
+> --- a/tests/panthor/panthor_vm.c
+> +++ b/tests/panthor/panthor_vm.c
+> @@ -293,6 +293,7 @@ int igt_main() {
+>  		uint32_t vm_id;
+>  		uint64_t map_size = SZ_4K * 4;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -306,6 +307,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -321,6 +323,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -336,6 +339,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -351,6 +355,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -366,6 +371,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -382,6 +388,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -402,6 +409,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -422,6 +430,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -442,6 +451,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -463,6 +473,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -483,6 +494,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -503,6 +515,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -524,6 +537,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -545,6 +559,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -566,6 +581,7 @@ int igt_main() {
+>  		uint64_t map_size = SZ_2M * 3;
+>  		const int INITIAL_VA = SZ_4M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -585,6 +601,7 @@ int igt_main() {
+>  		uint64_t map_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - (SZ_2M * 3);
+>  		const int INITIAL_VA = SZ_512M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> @@ -599,6 +616,7 @@ int igt_main() {
+>  		uint64_t unmap_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - map_size;
+>  		const int INITIAL_VA = SZ_512M;
+>  
+> +		igt_require_panthor_version(fd, 1, 9);
+>  		igt_panthor_vm_create(fd, &vm_id, 0);
+>  		igt_assert(vm_id != 0);
+>  
+> 
+> ---
+> base-commit: 970700a95acd74bb987287d10147b5f23380519b
+> change-id: 20260915-b4-panthor_version_sparse-5fbd31cc0d5d
+> 
+> Best regards,
 
-Definitely not a fan of sending such a patch to mainline under the holiday
-season without any testing.
-
-Regards, Joonas
-
-> > And yes, there would also need to be commitment to fix any fallout by
-> > that same person in weekly -rc cadence. So please raise your hand, whoe=
-ver
-> > wants to volunteer.
-> >=20
-> > There's already the earlier much smaller patch about vblank that needs
-> > to get reviewes and acceptance and it hasn't been able to be driven
-> > to completion.
-> >=20
-> > So projecting from that, I don't exactly expect patch like 7 in this
-> > series to get merged in any near future without somebody really stepping
-> > forward and signing to do all the validation and and perf regression
-> > testing.
-> >=20
-> > Regards, Joonas
-> Kind regards,
-> ~Maarten Lankhorst
