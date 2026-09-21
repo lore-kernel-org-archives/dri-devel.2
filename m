@@ -4,77 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44123C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 807B3C982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BDB810E4D4;
-	Mon, 21 Sep 2026 13:27:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2A110E61C;
+	Mon, 21 Sep 2026 13:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gSVwtMYm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VONd5b5H";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A0810E4D4
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789997265; x=1821533265;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=4nmoxw2ZHQofaj8EJj1UInlqle9eASAx4yPihU0NGKE=;
- b=gSVwtMYm9u8/TvRU/wBpgudO9Ehtse7UBnIlKa8lG/1MTfjZbfpLPAYx
- +aTSirdYG17fXPQsa0/CjgrNyG/2X5D9OnBuZMgRyh7GC/W3sQjkpkIGU
- g6QLJyJmTibkQa/yAdOMti5XmDK2iK91IcxklHYPijov10qlzhNnRrN9r
- QPcsnXXeQddQ7n3JVC1wcMShUVIGW9iEjmqWcOPIvfjSrUOBmCJ1d0l6V
- iF77jyoMenpeXvXfcJsGVxrTw+9aPFgSVd49KTGQlDpaoeECgqVOF99kr
- DFdn1/SNN6GImu1J0DYU3ib1Zik14r9xJYBcVwhmYYcsI2nAoBo5iBpGG g==;
-X-CSE-ConnectionGUID: OvIccIGAQIm5LKxZw0Od6Q==
-X-CSE-MsgGUID: xiuYTrTCTXWSRz40Ug/ogg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="89434443"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="89434443"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 06:27:44 -0700
-X-CSE-ConnectionGUID: 5cCwDP5/TEOO04pH4+JPkA==
-X-CSE-MsgGUID: YiaHkgBaTpKNVdfgWlxTsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="269165565"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.155])
- ([10.245.244.155])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 06:27:38 -0700
-Message-ID: <51ddde08ece4ca9dc277d799b3ea4f1f3cdf7e10.camel@linux.intel.com>
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Christoph Hellwig <hch@lst.de>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson	 <alex@shazbot.org>, Ankit Agrawal
- <ankita@nvidia.com>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>, Randy
- Dunlap <rdunlap@infradead.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- linux-pci@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,  Tushar Dave
- <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-Date: Mon, 21 Sep 2026 15:27:36 +0200
-In-Reply-To: <20260921131055.GP11599@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260918121500.GV13683@unreal>
- <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
- <20260918170524.GH11599@ziepe.ca>
- <f9ced8cab6eb929a5f65d789fe6922458c6f3396.camel@linux.intel.com>
- <20260921131055.GP11599@ziepe.ca>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6E10E61C
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:39:19 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49b912d391aso20184535e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:39:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789997958; x=1790602758; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=s6kgf6V3xUR//WctRXY84w9DzTYgF20+bN2plXCsnYg=;
+ b=VONd5b5HS2MTNfwYDZ5Gnkvdb2sqkBOdpxjbtDrvk5n2jQY38M43W51nwN/XCfaGJh
+ i5xKbLvgQhdzEyMmuM9ltrL6LZD1SUhbhOgSTnGEisMJJXREsLN8fa4Rmr58R+92WGr7
+ IpVw+rny2zD6ADXPJtty/9TaVIZlUQkUxUKQmuAlAFDpcyYxiVEctiM797cYsCVNqxrR
+ K23w8DmTF3FaLdPymUv3vUN80DlvOW4yPesrGMyJHBj/fGjxdpTQDE9+5g0DxwZ3jB/x
+ T4NPOq4uHzhnSYNiXRacEhLnisj5kLtegkZxVuMiSLB4Tudmp9lRmilczwYv9JRzX/7Y
+ sIcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789997958; x=1790602758;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=s6kgf6V3xUR//WctRXY84w9DzTYgF20+bN2plXCsnYg=;
+ b=mHIPyjtvLIBsH0pJna5owR4LrntrxellGcF2uWYiRVfMMaDuZfgWHC1JJUD8Umh77i
+ WYTwiTh5FJetFrAi21uk0zEyjpVZcQ4iGwNJUvvejie84/M+h83rEyBMqPLIqkyVxPAi
+ YWWknKx/JThWgBB8bpSnef3Bn2ev7fGeLayJu6hZ1eqbyCAl5jIXf2iKGz2Sf3Pouso+
+ oHzN5YL/2qFr3hETi/Y1A5tPXi5Kv8Zs62uzGEUXUepkhMQrOAZT9lIX/Fm42MZffUZZ
+ elMz0msaA2v25epPd9VsNK+yxtgMk9GHXxlwgGvypU4ge2S+a+LYSr+5hU2oRBHE5wZR
+ 5gnQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzTo66JkyMRm+agJPbobloG7wKGdf9S/95Y0Vn+IpFhWoLES9BRbz+h3h8ppYaayC9ODMPDMrM6XVY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mcoVmap/uKk+9Ya2euRypf4EMIZ8I/sdoGklKo7lbNQq1PeBbM
+ JhHqiMtPaTyUgyGRC9G75lUazOlqL4SSUqcimn0nvzGC0SGZDypAR6wY
+X-Gm-Gg: AYBFou1g8P7Wflci09Y8Se/yJqNW/x7Ee5gb82FKl2uoD9sNByHOxeRSHsyF20UQvF8
+ DUB6ldjTIMkz8tpAbDFNtKNTQ6wHmMd3Ac8BsrXm1KzVhFscZZ0AQ7W0+8DmfLKQtAERo8jpcpt
+ iEAI/waZrbhvepNHki6wYL1tes+mtr8YBaQcLu4UUiadiPI4p6n4f+kC7QGXqLvLzOEs8IW9pLY
+ dyIDTALvBY7bat3oRuxxINoT6P4RHjHW3TeJXV3RwiYdmnGnyJfCGreSl2VLYG0dPA6sQivPDaB
+ HO6Ld2mf4eilgaA+d7RN4pAfSH5Jv/nqOWbDKyCgKSai7CVbobR4QRlDuumyoyD8YJMGgLJ3JUk
+ e7F6107XipWbbBOuxtYE5lSSp5+bVz0qkittZnCpSyYiItrthRpu/dIP+XHQVEZ9bT7I9dJZIQg
+ PzXgIXi+zEe82oSdRL4aTsTK2xm0pcEDpEz6YycMdzkG+GGWh9L+USPByD1zuYCuHR8Detc+FGO
+ UMk5/2O/ZEXx8wffTXgsov/uO5Bn2yEAZqwoWC36bMmEeDuyEVAqV/KLG9PfJXOEM9K5it1WfWm
+ bgxN/JXRM5yJFyoEsmGdjj0fUxyWuQ==
+X-Received: by 2002:a05:600c:1989:b0:49e:8184:f617 with SMTP id
+ 5b1f17b1804b1-49fc573610cmr163288645e9.22.1789997957649; 
+ Mon, 21 Sep 2026 06:39:17 -0700 (PDT)
+Received: from 127.0.0.1localhost (82-132-213-26.dab.02.net. [82.132.213.26])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Sep 2026 06:39:16 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: linux-block@vger.kernel.org
+Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>,
+ Phil Cayton <phil.cayton@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+Subject: [PATCH v6 00/13] Add dmabuf read/write via io_uring
+Date: Mon, 21 Sep 2026 14:38:44 +0100
+Message-ID: <cover.1789997898.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,77 +103,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-21 at 10:10 -0300, Jason Gunthorpe wrote:
-> On Mon, Sep 21, 2026 at 08:40:41AM +0200, Thomas Hellstr=C3=B6m wrote:
-> > On Fri, 2026-09-18 at 14:05 -0300, Jason Gunthorpe wrote:
-> > > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellstr=C3=B6m wrote=
-:
-> > > >=20
-> > > > 1) Xe attachment check if pci_p2pdma_distance() returns OK for
-> > > > the
-> > > > path. Then Xe always sets up dma-addresses using
-> > > > dma_map_resource().=20
-> > >=20
-> > > Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> > > dma_map_resource() like this was never "allowed".
-> > >=20
-> > > We've fixed things so these hacks are not needed, the drivers
-> > > need to
-> > > move over to things like dma_buf_phys_vec_to_sgt() and the hmm
-> > > helpers
-> > > to use the DMA API correctly.
-> > >=20
-> > > > 1a) Let's say the importer (Xe) has ATS enabled, and the
-> > > > exporter
-> > > > is
-> > > > supposed to map dma_addresses.
-> > > > In between there is a switch that allows direct traffic.
-> > > > Now with your patch series, How would the exporter know that Xe
-> > > > has
-> > > > ATS
-> > > > enabled and therefore should return IOVA mappings rather than
-> > > > the
-> > > > BUS
-> > > > addresses representing the shortcut.
-> > >=20
-> > > The thing that does the DMA map must be aware of what PCI TLPs
-> > > the
-> > > PCIe initiator will use to compute the proper P2P mapping mode.
-> > >=20
-> > > ATS always needs an IOVA but that still doesn't mean the P2P will
-> > > work.
-> > >=20
-> > > > It seems to me that a pci-device settable flag "ATS always
-> > > > enabled"
-> > > > should be enough to fix both issues?
-> > >=20
-> > > It should be be per-mapping to support the NIC workflow that
-> > > isn't a
-> > > global operation.
-> >=20
-> > OK. It looked to me from the series like the NIC workflow was to
-> > adapt
-> > its ATS settings per mapping depending on the p2p mapping type
-> > returned
-> > rather than vice versa. If so it would just clear "ATS always
-> > enabled".
-> >=20
-> > Admittedly a per-mapping flag would be more flexible, but also
-> > would
-> > require changed internal APIs?
->=20
-> Ah you didn't send this to the list, was it intentional?
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a number of changes. Later it was brough back up
+to life by Tushar and Vishal.
 
-No, Just hit the wrong reply-button. +lists again.
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to glue it together, count requests, manage
+lifetime and implement invalidation.
 
->=20
-> mlx5 has both cases, some DMA is flexable and can do either, some is
-> non-ATS only.
+Tushar, William, Phil did a lot of testing and experimentation on various
+devices with previous versions of the patch set, and I've received lots
+of help from Anuj, Kanchan and Nitesh with investigations, testing, and
+patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
+showed:
 
-OK.
+STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
 
->=20
-> Jason
+# Patch set structure:
+- Patches 1-2 introduce internal API and infrastructure mediating
+  io_uring and target subsystem / devices
+- Patches 3-5: block layer support + prep patches
+- Patches 6-8 implement NVMe support
+- Patches 9-13 add io_uring support and uapi.
 
-Thanks,
-Thomas
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v5
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v5
+
+The patches are based on Jens' for-next. Also available as a branch:
+git: https://github.com/isilence/linux.git rw-dmabuf-v6
+url: https://github.com/isilence/linux/tree/rw-dmabuf-v6
+
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
+
+v6: - remove fences and wait on invalidation synchronously
+    - report all map requests are detached earlier, outside of wq
+    - handle nvme removal
+    - gate nvme_free_descriptors() on iod->nr_descriptors 
+    - fix error handling in nvme_rq_setup_dmabuf_map() 
+    - fix iov_iter_alignment()
+    - relax the 1G io_uring registered dma-buf limit
+    - fix type overflow issue in bio split
+    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
+    - harden block checks against dma-buf + buffered io
+
+v5: - Reject dma-buf with buffered IO for raw bdev
+    - Add lim->max_segments bio splitting
+    - Add bio_iov_iter_set() helper
+    - Fix io_uring uapi validation
+    - Other minor changes
+    NVMe:
+    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
+      into its own prep patch.
+    - Convert segment walk loops to do-while.
+    - Drop adjacent segment coalescing logic.
+    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
+    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
+    - Factor SGL vs PRP decision making into a helper.
+
+v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
+    - Add sgl support from Anuj
+    - Move it under drivers/dma-buf/ and rename
+    - Fix mis-sized allocations
+    - Fix io_uring re-import mishandling
+    - Drop map before io_uring "task work"
+    - Move blk-mq callback to block_device_operations
+    - Convert bio flag to REQ_OP*
+    - Other small changes
+
+v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
+    - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
+
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
+
+Anuj Gupta (2):
+  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+  nvme-pci: add SGL support for the dmabuf path
+
+Pavel Begunkov (11):
+  dma-buf: introduce initial file I/O infrastructure
+  iov_iter: add iterator type for dmabuf maps
+  block: always adjust bi_offset on bio_advance_iter
+  block: introduce dma map backed bio type
+  block: add dma-buf support for raw bdev
+  nvme-pci: implement dma-buf backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add uncloneable regbuf flag
+  io_uring/rsrc: add regbuf import flags
+  io_uring/rsrc: add dmabuf backed registered buffers
+
+ block/bio.c                    |  15 +-
+ block/blk-merge.c              |  45 +++
+ block/fops.c                   |  24 +-
+ drivers/dma-buf/Makefile       |   2 +-
+ drivers/dma-buf/dma-buf-io.c   | 219 +++++++++++++++
+ drivers/md/dm-io-rewind.c      |   6 +-
+ drivers/nvme/host/core.c       |  12 +
+ drivers/nvme/host/nvme.h       |   2 +
+ drivers/nvme/host/pci.c        | 484 ++++++++++++++++++++++++++++++++-
+ include/linux/bio.h            |  21 +-
+ include/linux/blk-mq.h         |   7 +
+ include/linux/blk_types.h      |  14 +-
+ include/linux/blkdev.h         |   2 +
+ include/linux/bvec.h           |   3 +-
+ include/linux/dma-buf-io.h     | 113 ++++++++
+ include/linux/fs.h             |   2 +
+ include/linux/io_uring_types.h |   5 +
+ include/linux/uio.h            |  11 +
+ include/uapi/linux/io_uring.h  |  31 ++-
+ io_uring/io_uring.c            |   3 +-
+ io_uring/rsrc.c                | 274 ++++++++++++++++---
+ io_uring/rsrc.h                |  45 ++-
+ io_uring/rw.c                  |   6 +-
+ lib/iov_iter.c                 |  29 +-
+ 24 files changed, 1295 insertions(+), 80 deletions(-)
+ create mode 100644 drivers/dma-buf/dma-buf-io.c
+ create mode 100644 include/linux/dma-buf-io.h
+
+-- 
+2.54.0
+
