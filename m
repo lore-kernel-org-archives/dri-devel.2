@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B610C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 16:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60738C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 16:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6C610E233;
-	Mon, 21 Sep 2026 16:16:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C7B10EAB7;
+	Mon, 21 Sep 2026 16:17:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wj6vV4gW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XmBCw4ow";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE5C810E233
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 16:16:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3500810EAB7
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 16:17:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F12B860120;
- Mon, 21 Sep 2026 16:16:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0AB1F000FF;
- Mon, 21 Sep 2026 16:16:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AD39D60120;
+ Mon, 21 Sep 2026 16:17:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442411F000FF;
+ Mon, 21 Sep 2026 16:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790007416;
- bh=OV8mH8fcvwUQXaq/WcT/lqfgA3XD2C0A7MvVYAUdge0=;
+ s=k20260515; t=1790007477;
+ bh=E7D9KP3EtEzoMUVIKXv+hJkuWMfOtNwDc6jaxq1salQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wj6vV4gWbolRlbg5cvOXrCexbfeUAaDSD/RL8/ZELmI30WvjdzMiSaTV5J9QzgZva
- PrqxqrU4aAywML6PPJxq3N6VafvYRxc4d3T/U2zWjy62NYYS0SSVmEfvB6lOCmCkuA
- lDaKSKxSMRlsbf3ZOLeabXIjNwFj6axwTvsyyc4ReBlh2M4uyt2d3BS6PGeGWBKuCT
- phO7uqKavZL/Pm3vOgE7gQvNXxW7VwvyrLnl3qNiq2gm76qEAs6BT4gLmn7KxrwM6+
- 3SyVpACG7a+/UHjzp9PyHgz5sdeeuXUPGnUeeS0lr8NsOGqc4KcGRHu0RykEEenh1s
- 6wkpuNZQNssGA==
+ b=XmBCw4owg9gjlR5KX7xuvKOaTCeXTThu2fxDvG1UZH4dzHIgzTkueU6GZUeEqzT7K
+ RwLG+XWnaUlL3NOkWgyLLIsOhsNMy0Q3L8OKoy/+560qQHAPCfBRsx51e3d0L9OErR
+ lxZVhKE1GolYFVEWr3HliFAteeblCTzyALV6zJ2L/crTSl4cbIttBq1a5qbyKdekNS
+ 5vNAkfhuMtoTyzzKVSZkotoNTyqvSy7XAFzxcQj/mgbGjswhgGYUBr6VNHdNmZ0Jjg
+ unyI4JYWHge09Ulsrze3fOZC1F+wATxv8NLDfZyLvmBegvzq22zpXndutUnpPZtPGv
+ pLghKpSjVDe4Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 11/25] drm/rockchip: vop2: Enable VRR
+Subject: Re: [PATCH RFC 14/25] drm: Implement VRR rate limiting
 To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260921-vrr-limiter-uapi-v1-11-2fcd7d011646@collabora.com>
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-14-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-11-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-14-2fcd7d011646@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 16:16:56 +0000
-Message-Id: <20260921161656.7F0AB1F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 16:17:56 +0000
+Message-Id: <20260921161757.442411F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,164 +59,200 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] drm/rockchip: vop2: VRR stretching breaks on commits without events
-- [High] drm/rockchip: vop2: VRR functionality missing in RK3576 ISR
-- [High] drm/rockchip: vop2: Cannot disable VRR due to vrr_enabled guard
-- [High] drm/rockchip: vop2: vop2_vp_set_vrr_vtotal fails to restore base v=
-total
+- [High] drm: integer overflow and implicit sign conversion in VRR vsync pa=
+cing
+- [Medium] drm: missing initialization of VRR accumulator cur_err on rate t=
+ransitions
+- [Medium] drm: fixed VRR target rates bypass sink's max_vfreq capability c=
+heck
+- [Low] drm: redundant check_mul_overflow and unused limit_d in VRR limits =
+validation
 --
 
-commit dc9e1b8fad941cfe2c30467e7788b4889403d827
+commit d061573186c289ab886bdae3285afbec3f7304ae
 Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date:   Mon Sep 21 15:51:37 2026 +0000
 
-    drm/rockchip: vop2: Enable VRR
-   =20
-    Use the new VRR state tracking to handle VRR front porch adjustment.
-   =20
-    To avoid indenting too deeply, refactor the vblank handling into its own
-    function while at it, where scope-based cleanup helpers for the lock can
-    be used.
+    drm: Implement VRR rate limiting
 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index bfb3841425687..e79081c044378 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+    Currently, VRR is allowed to use the entire range advertised by the
+    sink's EDID. Userspace may find it desirable, however, to limit this
+    range, or set a fixed target rate entirely. The latter is mainly useful
+    for multimedia playback applications, where judder can be avoided by
+    matching the content's frame rate precisely.
+
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
+u/drm/display/drm_hdmi_state_helper.c
+> index 33d0c94916430..7dbd678cf0612 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 [ ... ]
-> @@ -2011,6 +2012,25 @@ static void vop2_crtc_atomic_begin(struct drm_crtc=
- *crtc,
->  	vop2->ops->setup_overlay(vp);
+> @@ -1046,6 +1047,39 @@ static int hdmi_calculate_vtotal(const struct drm_=
+display_mode *mode,
+>  	return 0;
 >  }
 > =20
-> +static void vop2_vp_set_vrr_vtotal(struct vop2_video_port *vp, unsigned =
-int vtotal)
+> +static int hdmi_validate_vrr_limits(struct drm_crtc_state *crtc_state, u=
+16 vrr_min)
 > +{
-> +	const u32 mask =3D RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL |
-> +			 RK3568_VP_DSP_VTOTAL_VS_END__IMD;
+> +	struct drm_crtc_vrr_state *vrr_state =3D &crtc_state->vrr_state;
+> +	const struct drm_display_mode *mode =3D &crtc_state->mode;
+> +	u32 limit_d;
+> +	int ret;
 > +
-> +	if (!vtotal) {
-> +		vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END,
-> +				    RK3568_VP_DSP_VTOTAL_VS_END__IMD, 0);
-> +		return;
+> +	/* No limiter, don't need to validate, but reset the error */
+> +	if (!drm_crtc_helper_vrr_is_fixed_rate(vrr_state)) {
+> +		vrr_state->per_frame_err =3D 0;
+> +		return 0;
 > +	}
+> +
+> +	/* Don't allow rates equal to or below the minimum VRR rate / 1.001 */
+> +	if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
+> +			 vrr_min * 1000, 1001) < 0)
+> +		return -EINVAL;
+> +
+> +	if (check_mul_overflow(mode->crtc_htotal, vrr_state->vrr_min_n, &limit_=
+d))
+> +		return -ERANGE;
 
-[Severity: High]
-When VRR is disabled, this early return clears the IMD bit but skips
-restoring the DSP_VTOTAL bits.
+[Severity: Low]
+Is the limit_d variable ever used after being assigned in this overflow che=
+ck?
 
-Because RK3568_VP_DSP_VTOTAL_VS_END is also used for normal base timing,
-could leaving the DSP_VTOTAL field at its previous max_vtotal value corrupt
-the base display timing and leave the refresh rate permanently stretched?
-
-[ ... ]
-> @@ -2029,6 +2049,11 @@ static void vop2_crtc_atomic_flush(struct drm_crtc=
- *crtc,
-> =20
->  	spin_lock_irq(&crtc->dev->event_lock);
-> =20
-> +	if (crtc_state->vrr_enabled) {
-> +		if (drm_crtc_helper_vrr_flush(crtc_state))
-> +			vop2_vp_set_vrr_vtotal(vp, crtc_state->vrr_state.cur_vtotal);
-> +	}
-
-[Severity: High]
-If userspace disables VRR, crtc_state->vrr_enabled will be false, and this
-condition will skip calling drm_crtc_helper_vrr_flush().
-
-Since drm_crtc_helper_vrr_flush() is designed to handle the !vrr_enabled ca=
-se
-and return a 0 vtotal to disable VRR in hardware, doesn't guarding it here
-trap the display hardware in VRR mode?
+Also, doesn't hdmi_calculate_vtotal() duplicate the exact same
+mode->crtc_htotal * rate_n check immediately below, making this check
+redundant?
 
 > +
->  	if (crtc->state->event) {
->  		WARN_ON(drm_crtc_vblank_get(crtc));
-[ ... ]
-> @@ -2371,6 +2396,30 @@ static irqreturn_t rk3576_vp_isr(int irq, void *da=
-ta)
->  	return ret;
->  }
-> =20
-> +static void vop2_vp_handle_vblank(struct vop2_video_port *vp)
-> +{
-> +	struct drm_crtc *crtc =3D &vp->crtc;
-> +	struct vop2 *vop2 =3D vp->vop2;
-> +	u32 val;
+> +	ret =3D hdmi_calculate_vtotal(&crtc_state->mode, vrr_state->vrr_min_n,
+> +				    vrr_state->vrr_min_d, &vrr_state->base_vtotal,
+> +				    &vrr_state->denom, &vrr_state->per_frame_err);
+
+[Severity: Medium]
+When userspace changes the fixed VRR target rate or switches from dynamic
+to fixed VRR, does this state transition leave the old cur_err
+accumulator value intact?
+
+If the new denom is significantly smaller than the old one, could a
+disproportionately large carried-over cur_err take thousands of frames
+to drain, causing a persistent frame rate artifact (stuck at
+base_vtotal + 1) for several seconds?
+
+> +	if (ret)
+> +		return ret;
 > +
-> +	guard(spinlock)(&crtc->dev->event_lock);
+> +	if (vrr_state->base_vtotal < mode->crtc_vtotal)
+> +		return -EINVAL;
 > +
-> +	if (!vp->event)
-> +		return;
-
-[Severity: High]
-This early return bypasses the VRR vsync adjustment when no event is attach=
-ed
-to the commit.
-
-If a compositor issues a commit without a vblank event (such as a cursor
-update), drm_crtc_helper_vrr_flush() shrinks vtotal to base_vtotal, but the
-subsequent vblank interrupt will hit this return and skip restoring the
-hardware vtotal to max_vtotal.
-
-Could this cause VRR frame stretching to fail for subsequent idle frames?
-
-> +
-> +	val =3D vop2_readl(vop2, RK3568_REG_CFG_DONE);
-> +
-> +	if (!(val & BIT(vp->id))) {
-> +		drm_crtc_send_vblank_event(crtc, vp->event);
-> +		vp->event =3D NULL;
-> +		drm_crtc_vblank_put(crtc);
-> +
-> +		if (crtc->state->vrr_enabled)
-> +			if (drm_crtc_helper_vrr_vsync(crtc->state))
-> +				vop2_vp_set_vrr_vtotal(vp, crtc->state->vrr_state.cur_vtotal);
-
-[Severity: High]
-Similar to the logic in atomic_flush, preventing drm_crtc_helper_vrr_vsync()
-from running when VRR is disabled might miss the transition update.
-
-Is it intentional to skip the vsync helper when vrr_enabled is false?
-
-> +	}
+> +	return 0;
 > +}
-> +
->  static irqreturn_t vop2_isr(int irq, void *data)
->  {
->  	struct vop2 *vop2 =3D data;
-> @@ -2402,18 +2451,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
+[ ... ]
+> @@ -1112,25 +1151,64 @@ static int hdmi_validate_vrr(struct drm_connector=
+ *connector,
 > =20
->  			if (irqs & VP_INT_FS_FIELD) {
->  				drm_crtc_handle_vblank(crtc);
-> -				spin_lock(&crtc->dev->event_lock);
-> -				if (vp->event) {
-> -					u32 val =3D vop2_readl(vop2, RK3568_REG_CFG_DONE);
+>  	vrr_state->vic =3D drm_match_cea_mode(mode);
+> =20
+> -	if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > =
+0) {
+> -		drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
+> -			    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
+> -		return -EINVAL;
+> -	}
 > -
-> -					if (!(val & BIT(vp->id))) {
-> -						drm_crtc_send_vblank_event(crtc, vp->event);
-> -						vp->event =3D NULL;
-> -						drm_crtc_vblank_put(crtc);
-> -					}
-> -				}
-> -				spin_unlock(&crtc->dev->event_lock);
-> -
-> +				vop2_vp_handle_vblank(vp);
->  				ret =3D IRQ_HANDLED;
->  			}
+> -	ret =3D hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
+> -				    &vrr_state->base_vtotal, NULL, NULL);
+> +	ret =3D hdmi_validate_vrr_limits(new_crtc_state, min_vfreq_n);
+>  	if (ret) {
+> -		drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret)=
+);
+> +		drm_dbg_kms(dev, "Invalid VRR fixed target rate: %pe\n", ERR_PTR(ret));
+>  		return ret;
+>  	}
+> =20
+> -	/*
+> -	 * Even at its fastest, it can't go faster than the mode, so
+> -	 * clamp to avoid imprecisely rounded mode_refresh values we
+> -	 * can't do anything about from ruining our day.
+> -	 */
+> -	vrr_state->base_vtotal =3D max(vrr_state->base_vtotal, mode->crtc_vtota=
+l);
+> +	if (!is_fixed) {
+
+[Severity: Medium]
+If a userspace DRM client requests a fixed VRR target rate, does wrapping
+the capability checks in if (!is_fixed) cause the driver to silently
+bypass validating against the monitor's max_vfreq?
+
+If the monitor's EDID advertises a max_vfreq strictly lower than the
+mode's refresh rate, couldn't userspace improperly exceed the sink's
+hardware capabilities?
+
+> +		vrr_state->dynamic =3D true;
+> +
+> +		if (vrr_state->vrr_min_n) {
+> +			if (!vrr_state->vrr_min_d)
+> +				return -EINVAL;
+[ ... ]
+> diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc=
+_helper.c
+> index 4ffb3b0b78780..c46de778df309 100644
+> --- a/drivers/gpu/drm/drm_crtc_helper.c
+> +++ b/drivers/gpu/drm/drm_crtc_helper.c
+[ ... ]
+> @@ -889,10 +908,21 @@ bool drm_crtc_helper_vrr_vsync(struct drm_crtc_stat=
+e *crtc_state)
+>  	struct drm_crtc_vrr_state *vrr =3D &crtc_state->vrr_state;
+>  	u16 old_vtotal =3D vrr->cur_vtotal;
+> =20
+> -	if (!crtc_state->vrr_enabled)
+> +	if (!crtc_state->vrr_enabled) {
+>  		vrr->cur_vtotal =3D 0;
+> -	else
+> +		vrr->cur_err =3D 0;
+> +	} else if (drm_crtc_helper_vrr_is_fixed_rate(vrr)) {
+> +		if (vrr->cur_err * 2 >=3D vrr->denom) {
 
 [Severity: High]
-This refactors vop2_isr() to use the new vop2_vp_handle_vblank() function
-which includes the VRR updates.
+Since vrr->cur_err is an int and vrr->denom is a u32, can this
+cause an implicit sign conversion bug?
 
-Looking at rk3576_vp_isr() earlier in this file, it still uses the old inli=
-ne
-vblank event handling and was not updated to use vop2_vp_handle_vblank().
+When userspace sets a fixed VRR rate where per_frame_err < denom / 2,
+cur_err becomes negative after vrr->cur_err -=3D vrr->denom executes.
 
-Does this mean VRR functionality is completely missing on RK3576 platforms,=
- as
-the hardware will never stretch frames without the vsync helper?
+Because vrr->denom is a u32, won't C integer promotion rules implicitly
+cast the negative int to a massive u32, causing this check to be
+unconditionally true every frame thereafter?
+
+> +			vrr->cur_err -=3D vrr->denom;
+> +			vrr->cur_vtotal =3D vrr->base_vtotal + 1;
+> +		} else {
+> +			vrr->cur_vtotal =3D vrr->base_vtotal;
+> +		}
+> +
+> +		vrr->cur_err +=3D vrr->per_frame_err;
+> +	} else {
+>  		vrr->cur_vtotal =3D vrr->max_vtotal;
+> +	}
+[ ... ]
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index df37f4ebb58ed..00e9df02f3d5e 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -71,6 +71,9 @@ struct drm_crtc_vrr_state {
+>  	u32 vrr_min_d;
+>  	u32 vrr_max_n;
+>  	u32 vrr_max_d;
+> +	u32 denom;
+> +	u32 per_frame_err;
+> +	int cur_err;
+
+[Severity: High]
+Does declaring cur_err as an int while denom is a u32 cause the
+signed/unsigned comparison flaw in drm_crtc_helper_vrr_vsync()?
+
+>  	u16 base_vtotal;
+>  	bool dynamic;
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-vrr-limite=
-r-uapi-v1-0-2fcd7d011646@collabora.com?part=3D11
+r-uapi-v1-0-2fcd7d011646@collabora.com?part=3D14
