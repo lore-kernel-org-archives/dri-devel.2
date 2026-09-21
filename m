@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C12C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657A7C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9B110E3EF;
-	Mon, 21 Sep 2026 15:06:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C21B210E879;
+	Mon, 21 Sep 2026 15:08:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lOrHKfrb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aZb+4j4+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D08A310E3EF;
- Mon, 21 Sep 2026 15:06:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7304C10E3D2;
+ Mon, 21 Sep 2026 15:08:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B56DC43CA1;
- Mon, 21 Sep 2026 15:06:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3C91F000FF;
- Mon, 21 Sep 2026 15:06:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 92C67600C8;
+ Mon, 21 Sep 2026 15:08:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922D21F000FF;
+ Mon, 21 Sep 2026 15:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790003215;
- bh=/ziQ3NW1LSgwDZe9di4b6yJwonh0oLPcxYpWPZN+JqI=;
+ s=k20260515; t=1790003313;
+ bh=9TmjMGDTZLmhGHy1jeBXvh1rXJH717aBKG34mJksDgE=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=lOrHKfrbJ7ahQcwnnVS4kIP0s3GNfPmgrb5Y5k4SU7coJMk/sM3m7J5uNTGZy+lmM
- 0ObsoCjw2DRp/0lyLYnfcxU5EmuG93OuYOzlVfvf45toocfFbh4FwxEJo+VtL/R1aL
- 4bdqbNGArvBVflbHpdfdKJold/G/S1evziVMvUrmrwd9/HWcrOmWCfgIRgW4TgKDhl
- wOjKrBLFmkAyh1M4z1ir11oAIaYm+pGCodpG6qgf8l5jKu/0b4akexj8ufqRvrmecn
- JZJoeuDKeXgS5XDwMUZfo3fzsaIEKAFekB2/UC5fJhjcYEIHwCREyGJc4DbF7qyvhJ
- sB0WK9InErSzA==
-Message-ID: <0e6f063b7e128c3713b68d217342f9f8@kernel.org>
-Date: Mon, 21 Sep 2026 15:06:52 +0000
+ b=aZb+4j4+OEWOE4VyDKl4afl8agNHzGeV4p+zI+BQvAX0/I8owT1oRDJw2glrNe72y
+ DQzbASxzCYYsmB8hlA9196jbLcM89nSmWVSYU7v1zBocI8GAYTE2PEXv3UUQsUoY/G
+ VLrZNq4TrzYGFvxMntWnki2G9GV+R7A/bI9Vho9DdX8rWEYe4HWGTNsuMsR9QW5b5O
+ RkyhjjbdUKVhNtTrBUOROUGRuD2pqYCo/ISyQ9V7trih7T3dgM8/YdxPg6Gk83TBa5
+ hmDuUlJyr3+/Su5WAh6+6t4L20vNOfPSzMswtVQTTSAka2FzjOXQT6zdq/MfQvDA63
+ j8qAwZZ+VAgjQ==
+Message-ID: <77aa7ff935567f8f6e8a0f74fd276b95@kernel.org>
+Date: Mon, 21 Sep 2026 15:08:29 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 02/19] drm: of: remove now unnecessary forward
- declarations
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-2-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-2-83afb4f1a707@bootlin.com>
+Subject: Re: [PATCH v3 04/19] drm/bridge: panel: move all code to drm_panel.c
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-4-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-4-83afb4f1a707@bootlin.com>
 Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
@@ -87,11 +86,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026 15:45:26 +0200, Luca Ceresoli wrote:
-> These forward declarations are now redundant after having moved
-> drm_of_find_panel_or_bridge():
-> 
->  * struct drm_panel is not referenced in this file
+On Wed, 16 Sep 2026 15:45:28 +0200, Luca Ceresoli wrote:
+> Work is in progress for every drm_panel to embed a drm_bridge, replacing
+> the panel_bridge entirely. However most of the panel_bridge code will be
+> reused for the drm_bridge embedded into the drm_panel, so just move the
+> code there.
 > 
 > 
 > [ ... ]
