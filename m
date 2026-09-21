@@ -4,43 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2922C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B31C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4AE510E175;
-	Mon, 21 Sep 2026 18:18:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE8A810E435;
+	Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ocZ2ukdp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C8UP2HhT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB2E10E175
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:18:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 28286407FD;
- Mon, 21 Sep 2026 18:18:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDAF41F000FF;
- Mon, 21 Sep 2026 18:18:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790014712;
- bh=M7ateVFiPALYwzw8bgmJ2hJXH17NKXukdZYVGyvKoeE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ocZ2ukdpA/V+uSlpeWimTGVyXhUgRcNabCk3mSAWwhIGwsdqzgKo3HIu4+kPU+TVS
- 8uIqHDVSuvVOkhv9W8+kGlVhF5e0FrsIjhDiDq93E56kAs/RTiBD49vXZDS6Nqe6nS
- iW8f0YjQxwoWQoX0xk8XkEK9mvLLrBOA1fEr+moD/8XQ69DOc7YfDJFtX9iv1Q3zdj
- 6RIDj7VQU6PIEOrJuoe+d6tLR/ejEOlM9B0MkI1uxSHaD+M+sv7qrO5ywQ44/v2IMa
- aP3rvlxIO5KsWNrW7JcsmaXZ9nNAeBmy89CzFYP3+wzUvEwnbbSSvnrPlAoVis6mRt
- ii8EbbL1YIZ2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] staging: fbtft: fbtft-bus: remove space before close
- parenthesis
-To: UgwuRhema <hikarialiyev@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260921181350.89925-1-hikarialiyev@gmail.com>
-References: <20260921181350.89925-1-hikarialiyev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 18:18:31 +0000
-Message-Id: <20260921181831.DDAF41F000FF@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0FA10E197;
+ Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 718F3447A1;
+ Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 13BC2C2BCF6;
+ Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790014752;
+ bh=z/SlYdPV3JRXBJJoCnExC5/YQjozcYeHEwt6sapibcc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=C8UP2HhTUIPPU5beEpky3RUNEuSzbhAhwAa8X4IELtB+uE5M8H6NsrjKql9OjGdsm
+ ATzgQUQKLLc/nkBIIBnKqNF8R7WH/F2oHqKGTmRIGlaWGjvVkFtGBSjIEuBhs/pWnS
+ cenhSOYpoCXaF2hiH8yRIaHlsgN8Vbse9wpKWdo6on0/J96TBaoczMDpuZvZqrsKQ0
+ MhoB3b318khLfbCNxqeksU6db1CkCmSIr0V8jvxSnqPaLh+VVFgg9q6+cCXo2eicFN
+ Skcs+QDhV+16X87gOJrSVNr1HsbE179qNTRMQ18h8Y1CEFdro3+52Ny1EStsTE5Vif
+ ug1fZhaujMmKA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DBB72C982ED;
+ Mon, 21 Sep 2026 18:19:11 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay
+ <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Mon, 21 Sep 2026 21:18:52 +0300
+Subject: [PATCH v3 01/19] dt-bindings: clock: qcom: Add MSM8952 global
+ clock controller
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-msm8952-initial-support-v3-1-b96fd3fe298b@mainlining.org>
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+In-Reply-To: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-input@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=10258;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6yamRkkc/1prVGfyRPwK42y2ZFPSTA+V8diWvp5gE08=;
+ b=9Wy1PQ//ghj2qdhC/NRmtQJMES4zkNB3t/Gwnodh2akLIraAO8rVLnRARGDpfhLL6g+1RscfI
+ tzCmh4g1xajCpuB4i+JL+82eeChu011C4ryQpelSHSWQG4GccnnTr0m
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,54 +99,317 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: muzafferkadir@mainlining.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] staging/fbtft: build failure due to missing macro argument
---
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-commit b334de9ec8bff5176150c0abed3949be6aea7f81
-Author: UgwuRhema <hikarialiyev@gmail.com>
+Add a device tree binding to describe clocks, resets and power domains
+provided by the global clock controller on MSM8952 SoC.
 
-staging: fbtft: fbtft-bus: remove space before close parenthesis
+MSM8952 GCC driver is mainly based on MSM8939 GCC driver.
 
-This commit removes spaces before closing parentheses in fbtft-bus.c to fix
-warnings from checkpatch.pl.
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ .../bindings/clock/qcom,gcc-msm8952.yaml           |  65 +++++++
+ include/dt-bindings/clock/qcom,gcc-msm8952.h       | 215 +++++++++++++++++++++
+ 2 files changed, 280 insertions(+)
 
-> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fb=
-tft-bus.c
-> index 30e436ff19e4c..409770891c548 100644
-> --- a/drivers/staging/fbtft/fbtft-bus.c
-> +++ b/drivers/staging/fbtft/fbtft-bus.c
-> @@ -62,9 +62,9 @@ out:									      \
->  }                                                                       =
-      \
->  EXPORT_SYMBOL(func);
-> =20
-> -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-> +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+new file mode 100644
+index 000000000000..035f2f7451cd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Global Clock & Reset Controller on MSM8952
++
++maintainers:
++  - Muzaffer Kadir <muzafferkadir@mainlining.org>
++
++description: |
++  Qualcomm global clock control module provides the clocks, resets and power
++  domains on MSM8952.
++
++  See also:
++    include/dt-bindings/clock/qcom,gcc-msm8952.h
++
++properties:
++  compatible:
++    enum:
++      - qcom,gcc-msm8952
++
++  clocks:
++    items:
++      - description: XO source
++      - description: Always-on XO source
++      - description: DSI phy instance 0 dsi clock
++      - description: DSI phy instance 0 byte clock
++
++  power-domains:
++    items:
++      - description: CX power domain
++
++required:
++  - compatible
++  - clocks
++  - power-domains
++  - '#power-domain-cells'
++
++allOf:
++  - $ref: qcom,gcc.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
++    #include <dt-bindings/clock/qcom,gcc-msm8952.h>
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++
++    clock-controller@1800000 {
++        compatible = "qcom,gcc-msm8952";
++        reg = <0x01800000 0x80000>;
++        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
++                 <&rpmcc RPM_SMD_XO_A_CLK_SRC>,
++                 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
++                 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>;
++        power-domains = <&rpmpd RPMPD_VDDCX>;
++        #clock-cells = <1>;
++        #reset-cells = <1>;
++        #power-domain-cells = <1>;
++    };
++...
+diff --git a/include/dt-bindings/clock/qcom,gcc-msm8952.h b/include/dt-bindings/clock/qcom,gcc-msm8952.h
+new file mode 100644
+index 000000000000..5b5c38a9f4dd
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,gcc-msm8952.h
+@@ -0,0 +1,215 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright 2020 Linaro Limited
++ * Copyright 2026 Muzaffer Kadir <muzafferkadir@mainlining.org>
++ */
++
++#ifndef _DT_BINDINGS_CLK_MSM_GCC_8952_H
++#define _DT_BINDINGS_CLK_MSM_GCC_8952_H
++
++#define GPLL0						0
++#define GPLL0_VOTE					1
++#define GPLL3						2
++#define GPLL3_EARLY					3
++#define GPLL4						4
++#define GPLL4_VOTE					5
++#define GPLL6						6
++#define GPLL6_VOTE					7
++#define CAMSS_TOP_AHB_CLK_SRC				8
++#define APSS_AHB_CLK_SRC				9
++#define CSI0_CLK_SRC					10
++#define CSI1_CLK_SRC					11
++#define GFX3D_CLK_SRC					12
++#define VFE0_CLK_SRC					13
++#define BLSP1_QUP1_I2C_APPS_CLK_SRC			14
++#define BLSP1_QUP1_SPI_APPS_CLK_SRC			15
++#define BLSP1_QUP2_I2C_APPS_CLK_SRC			16
++#define BLSP1_QUP2_SPI_APPS_CLK_SRC			17
++#define BLSP1_QUP3_I2C_APPS_CLK_SRC			18
++#define BLSP1_QUP3_SPI_APPS_CLK_SRC			19
++#define BLSP1_QUP4_I2C_APPS_CLK_SRC			20
++#define BLSP1_QUP4_SPI_APPS_CLK_SRC			21
++#define BLSP1_UART1_APPS_CLK_SRC			22
++#define BLSP1_UART2_APPS_CLK_SRC			23
++#define CCI_CLK_SRC					24
++#define CAMSS_GP0_CLK_SRC				25
++#define CAMSS_GP1_CLK_SRC				26
++#define JPEG0_CLK_SRC					27
++#define MCLK0_CLK_SRC					28
++#define MCLK1_CLK_SRC					29
++#define CSI0PHYTIMER_CLK_SRC				30
++#define CSI1PHYTIMER_CLK_SRC				31
++#define CPP_CLK_SRC					32
++#define CRYPTO_CLK_SRC					33
++#define GP1_CLK_SRC					34
++#define GP2_CLK_SRC					35
++#define GP3_CLK_SRC					36
++#define BYTE0_CLK_SRC					37
++#define ESC0_CLK_SRC					38
++#define MDP_CLK_SRC					39
++#define PCLK0_CLK_SRC					40
++#define VSYNC_CLK_SRC					41
++#define PDM2_CLK_SRC					42
++#define SDCC1_APPS_CLK_SRC				43
++#define SDCC2_APPS_CLK_SRC				44
++#define USB_HS_SYSTEM_CLK_SRC				45
++#define VCODEC0_CLK_SRC					46
++#define GCC_BLSP1_AHB_CLK				47
++#define GCC_BLSP1_QUP1_I2C_APPS_CLK			48
++#define GCC_BLSP1_QUP1_SPI_APPS_CLK			49
++#define GCC_BLSP1_QUP2_I2C_APPS_CLK			50
++#define GCC_BLSP1_QUP2_SPI_APPS_CLK			51
++#define GCC_BLSP1_QUP3_I2C_APPS_CLK			52
++#define GCC_BLSP1_QUP3_SPI_APPS_CLK			53
++#define GCC_BLSP1_QUP4_I2C_APPS_CLK			54
++#define GCC_BLSP1_QUP4_SPI_APPS_CLK			55
++#define GCC_BLSP1_UART1_APPS_CLK			56
++#define GCC_BLSP1_UART2_APPS_CLK			57
++#define GCC_BOOT_ROM_AHB_CLK				58
++#define GCC_CAMSS_CCI_AHB_CLK				59
++#define GCC_CAMSS_CCI_CLK				60
++#define GCC_CAMSS_CSI0_AHB_CLK				61
++#define GCC_CAMSS_CSI0_CLK				62
++#define GCC_CAMSS_CSI0PHY_CLK				63
++#define GCC_CAMSS_CSI0PIX_CLK				64
++#define GCC_CAMSS_CSI0RDI_CLK				65
++#define GCC_CAMSS_CSI1_AHB_CLK				66
++#define GCC_CAMSS_CSI1_CLK				67
++#define GCC_CAMSS_CSI1PHY_CLK				68
++#define GCC_CAMSS_CSI1PIX_CLK				69
++#define GCC_CAMSS_CSI1RDI_CLK				70
++#define GCC_CAMSS_CSI_VFE0_CLK				71
++#define GCC_CAMSS_GP0_CLK				72
++#define GCC_CAMSS_GP1_CLK				73
++#define GCC_CAMSS_ISPIF_AHB_CLK				74
++#define GCC_CAMSS_JPEG0_CLK				75
++#define GCC_CAMSS_JPEG_AHB_CLK				76
++#define GCC_CAMSS_JPEG_AXI_CLK				77
++#define GCC_CAMSS_MCLK0_CLK				78
++#define GCC_CAMSS_MCLK1_CLK				79
++#define GCC_CAMSS_MICRO_AHB_CLK				80
++#define GCC_CAMSS_CSI0PHYTIMER_CLK			81
++#define GCC_CAMSS_CSI1PHYTIMER_CLK			82
++#define GCC_CAMSS_AHB_CLK				83
++#define GCC_CAMSS_TOP_AHB_CLK				84
++#define GCC_CAMSS_CPP_AHB_CLK				85
++#define GCC_CAMSS_CPP_CLK				86
++#define GCC_CAMSS_VFE0_CLK				87
++#define GCC_CAMSS_VFE0_AHB_CLK				88
++#define GCC_CAMSS_VFE0_AXI_CLK				89
++#define GCC_CRYPTO_AHB_CLK				90
++#define GCC_CRYPTO_AXI_CLK				91
++#define GCC_CRYPTO_CLK					92
++#define GCC_OXILI_GMEM_CLK				93
++#define GCC_GP1_CLK					94
++#define GCC_GP2_CLK					95
++#define GCC_GP3_CLK					96
++#define GCC_MDSS_AHB_CLK				97
++#define GCC_MDSS_AXI_CLK				98
++#define GCC_MDSS_BYTE0_CLK				99
++#define GCC_MDSS_ESC0_CLK				100
++#define GCC_MDSS_MDP_CLK				101
++#define GCC_MDSS_PCLK0_CLK				102
++#define GCC_MDSS_VSYNC_CLK				103
++#define GCC_MSS_CFG_AHB_CLK				104
++#define GCC_OXILI_AHB_CLK				105
++#define GCC_OXILI_GFX3D_CLK				106
++#define GCC_PDM2_CLK					107
++#define GCC_PDM_AHB_CLK					108
++#define GCC_PRNG_AHB_CLK				109
++#define GCC_SDCC1_AHB_CLK				110
++#define GCC_SDCC1_APPS_CLK				111
++#define GCC_SDCC2_AHB_CLK				112
++#define GCC_SDCC2_APPS_CLK				113
++#define GCC_GTCU_AHB_CLK				114
++#define GCC_JPEG_TBU_CLK				115
++#define GCC_MDP_TBU_CLK					116
++#define GCC_SMMU_CFG_CLK				117
++#define GCC_VENUS_TBU_CLK				118
++#define GCC_VFE_TBU_CLK					119
++#define GCC_USB2A_PHY_SLEEP_CLK				120
++#define GCC_USB_HS_AHB_CLK				121
++#define GCC_USB_HS_SYSTEM_CLK				122
++#define GCC_VENUS0_AHB_CLK				123
++#define GCC_VENUS0_AXI_CLK				124
++#define GCC_VENUS0_VCODEC0_CLK				125
++#define GCC_APSS_TCU_CLK				126
++#define GCC_GFX_TCU_CLK					127
++#define GCC_BIMC_GFX_CLK				128
++#define GCC_BIMC_GPU_CLK				129
++#define GCC_MSS_Q6_BIMC_AXI_CLK				130
++#define GCC_GFX_TBU_CLK					131
++#define GCC_CPP_TBU_CLK					132
++#define USB_FS_SYSTEM_CLK_SRC				133
++#define USB_FS_IC_CLK_SRC				134
++#define GCC_USB_FS_AHB_CLK				135
++#define GCC_USB_FS_IC_CLK				136
++#define GCC_USB_FS_SYSTEM_CLK				137
++#define GCC_VENUS0_CORE0_VCODEC0_CLK			138
++#define GCC_VENUS0_CORE1_VCODEC0_CLK			139
++#define GCC_OXILI_TIMER_CLK				140
++#define GCC_USB_HS_PHY_CFG_AHB_CLK			141
++#define CSI2_CLK_SRC					142
++#define GCC_CAMSS_CSI2_AHB_CLK				143
++#define GCC_CAMSS_CSI2_CLK				144
++#define GCC_CAMSS_CSI2PHY_CLK				145
++#define GCC_CAMSS_CSI2PIX_CLK				146
++#define GCC_CAMSS_CSI2RDI_CLK				147
++#define SDCC1_ICE_CORE_CLK_SRC				148
++#define GCC_SDCC1_ICE_CORE_CLK				149
++#define BLSP2_QUP1_I2C_APPS_CLK_SRC			150
++#define BLSP2_QUP1_SPI_APPS_CLK_SRC			151
++#define BLSP2_QUP2_I2C_APPS_CLK_SRC			152
++#define BLSP2_QUP2_SPI_APPS_CLK_SRC			153
++#define BLSP2_QUP3_I2C_APPS_CLK_SRC			154
++#define BLSP2_QUP3_SPI_APPS_CLK_SRC			155
++#define BLSP2_QUP4_I2C_APPS_CLK_SRC			156
++#define BLSP2_QUP4_SPI_APPS_CLK_SRC			157
++#define BLSP2_UART1_APPS_CLK_SRC			158
++#define BLSP2_UART2_APPS_CLK_SRC			159
++#define GCC_BLSP2_AHB_CLK				160
++#define GCC_BLSP2_QUP1_I2C_APPS_CLK			161
++#define GCC_BLSP2_QUP1_SPI_APPS_CLK			162
++#define GCC_BLSP2_QUP2_I2C_APPS_CLK			163
++#define GCC_BLSP2_QUP2_SPI_APPS_CLK			164
++#define GCC_BLSP2_QUP3_I2C_APPS_CLK			165
++#define GCC_BLSP2_QUP3_SPI_APPS_CLK			166
++#define GCC_BLSP2_QUP4_I2C_APPS_CLK			167
++#define GCC_BLSP2_QUP4_SPI_APPS_CLK			168
++#define GCC_BLSP2_UART1_APPS_CLK			169
++#define GCC_BLSP2_UART2_APPS_CLK			170
++#define VFE1_CLK_SRC					171
++#define GCC_CAMSS_VFE1_CLK				172
++#define GCC_CAMSS_VFE1_AHB_CLK				173
++#define GCC_CAMSS_VFE1_AXI_CLK				174
++#define GCC_CAMSS_CSI_VFE1_CLK				175
++#define MCLK2_CLK_SRC					176
++#define GCC_CAMSS_MCLK2_CLK				177
++#define GCC_VFE1_TBU_CLK				178
++#define GCC_IPA_TBU_CLK					179
++#define GCC_CAMSS_CPP_AXI_CLK				180
++
++/* Indexes for GDSCs */
++#define VENUS_GDSC				0
++#define MDSS_GDSC				1
++#define JPEG_GDSC				2
++#define VFE0_GDSC				3
++#define VFE1_GDSC				4
++#define OXILI_GX_GDSC				5
++#define VENUS_CORE0_GDSC			6
++#define VENUS_CORE1_GDSC			7
++#define CPP_GDSC				8
++
++/* Indexes for Resets */
++#define GCC_CRYPTO_BCR				0
++#define GCC_USB_FS_BCR				1
++#define GCC_USB_HS_BCR				2
++#define GCC_QUSB2_PHY_BCR			3
++#define GCC_USB2_HS_PHY_ONLY_BCR		4
++#define GCC_SDCC1_BCR				5
++#define GCC_SDCC2_BCR				6
++#define GCC_MDSS_BCR				7
++#define GCC_CAMSS_MICRO_BCR			8
++#define GCC_MSS_BCR				9
++
++#endif
 
-[Severity: Low]
-Does this cause a build failure? The macro define_fbtft_write_reg is
-defined to take exactly 4 parameters:
+-- 
+2.55.0
 
-#define define_fbtft_write_reg(func, buffer_type, data_type, modifier)
 
-Removing the trailing comma means the macro is now invoked with only 3
-arguments, which violates C preprocessor rules and results in a fatal
-compiler error.
-
->  define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
-> -define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-> +define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
-
-[Severity: Low]
-Does this also cause a preprocessor error for the same reason? The 4th
-argument is missing here as well.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921181350.8992=
-5-1-hikarialiyev@gmail.com?part=3D1
