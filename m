@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F20C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DB45C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F11110E142;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587FB10E235;
 	Mon, 21 Sep 2026 10:46:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QtMqXf/2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LdsBzRI0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A6A10E286
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A07810E286
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:46:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A1BCB4075D;
+ by sea.source.kernel.org (Postfix) with ESMTP id D2C9A4401F;
  Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7800FC2BCB3;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A8F2DC2BD01;
  Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1789987585;
- bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=QtMqXf/2sMT8V5aRhAJoeRwqp86qhIVowYoIV6r70QdpURnKYsjFK6JM5YoqOT1lx
- we8wl2bs185Petkx3fko+2tsLF9JVekRjA+DJjLrWfDHEoUmhqSH1sgKpvSV90jmAf
- hFKx3pXp7na9HipxbRim4vtl8uiUJ+TkHErMFiowRR+qddkf5+s9fOAGL056RVxHCh
- QVgVzvwrm/5UkKGdo87fDwB/6mueysngSAI0lGoIAD3PjG8fAW1luvrS+/r4l165bl
- t3HWDQimbFvsjqYXCT6wwCLCpIimHmU/Jmmy/VoEEHJt+ySd/rd6ZnEPMW/6w94+a4
- m65voZpOeSbmg==
+ bh=n5z+D92Tf4v9853MGiqmofw4VuQ92a5uY5YoXMvv1HM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=LdsBzRI0poE8Pac0jEJIHy0xETKGcgs1X8jPzVOnpRfMcsuHEjlyFUlEfsLlUDlCt
+ 5faZuG06K6sLYL6OGHiNsX1YWrAVf2xVLUEqXAn/WdkLwXgOBwOjrCnGDd4Cwu56IA
+ O9mOK5DLy0Ae9IPfVExTbpdu33pimXfmoir++82S/O4ke8aW89N0kww/P/liEWgrBm
+ FCYy/isODMU5FP+UrQrNreRPb8r+vSAgG7g4rKilfxSSq/feA0ZPtzKNbZkgBaJsZa
+ bNQn/v2oMGR02gQfymrJCi/fJXVD8yEXMmOSlMqobbRVQPZOYYNxrbswIvxu9QNZwg
+ 5yyr0peM+B8lA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 473B9C982EE;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 90C3AC982F1;
  Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v4 0/4] backlight: qcom-wled: Fix OVP IRQ imbalance and
- start from the hardware state
-Date: Mon, 21 Sep 2026 12:46:21 +0200
-Message-Id: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+Date: Mon, 21 Sep 2026 12:46:25 +0200
+Subject: [PATCH v4 4/4] backlight: qcom-wled: Read back the programmed
+ brightness at probe
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Nyw6CMBQE0F8xXXtNXwJ15X8YF6W9yPWFUsRX+
- HcLLtTEGJeTzJy5s4A1YWCz0Z3V2FKgah+DHo+YK+1+hUA+Zia5TLjhGRxdtYPzFj3k1m22tCo
- bKLyZpprLVE0Vi8tDjQVdBnWxfOZwytfomp7qGyWFpqqvw20r+t7vh1aAAKe912hzb3k6pws1E
- 3djvd/KN0Ho74IEDjb63kil0KhPQf0hqCj4xBRoMq0yLV5C13UPinWQCUoBAAA=
-X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+Message-Id: <20260921-qcom-wled-backlight-v4-4-bab8c7ef73cb@ixit.cz>
+References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+In-Reply-To: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
  Kiran Gunda <quic_kgunda@quicinc.com>, 
@@ -55,24 +52,23 @@ To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
- stable@vger.kernel.org
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2942; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6134; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr++Qskohu/NoPUViM/Xnk4ZG3uJpJuUybj5
- yyYXTm1AsOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/gAKCRBgAj/E00kg
- cpH9EACra0QFYoHrS1Yjszh/axxwX/h6rI35LsVlMTojnr38RvSmntCUM3j4CeQJLiXp/2jFlyl
- KsENmnXSftVWoCAvvrFrMu+zAG1W+/BeX9LsjDkToTqv6JL9TJ06IBMQA9Dep8jcf/DAdpf5S1u
- bA+Xs/XRP4wsHoar3vZeFjlIrpNLJwStYokEcC6fjm5RM3xH3lOp5Lwo/MZJSjdsglMHJuvHwfH
- NMgQA4eXKMR9nsVAYeOkSCBSna/DmJxYTIbOQ7TYABSN5dYYXphi++t49lRnWAix7uNA9seCbbh
- 6u/EdmWUUQ1hZnTT3o3ezcR1c0UBd6Y1P+fANrRhTfEwD+Mp1cr9LvCWYwW4ZVQGiBpeBQsPpas
- D7R/wmFqgFTmf03DM02XKvnseeZ00sk+wDM3Lb8ZUzBGqoOSFwU38g+NxSfiJQOS16qggWNIDPP
- 468gVzzN9JKu3y0eD+nGVy5S4eG5WEujnasCrpqSGAS+6SDYXEW4gIPdUc5LzMDni/t6qxA4uMz
- xaYdN/aVqngpUneD1F0MDGFsFDrKqI+iFcORfWK1r5TMHKvBRXXs+iomkxosx0xtDZfOZdaBzLg
- xUX/j3y2i0z7tnO21jkrK84rJQ8e0/1Opu1xv0YoFdgoQqBXQ5kIWsjIfFcQ4GewGRr79eA60Ha
- tfxlKl0In9XBo8Q==
+ bh=Vd0mK0QtPcwQRIQctDNdJy4/aT9MYS6AbqA9R9Lgs7M=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr/SPXXhzir5slfNf//B0RQVNzZfsL8bCu40
+ sNHQe0OfyqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/wAKCRBgAj/E00kg
+ cohSD/43ZwcZK12PiDRqLFQ1BSQj/qpvka/d9RpoDqvnRgqK4kf2y0NM4dS2TQK/FdW5WZ+/Yi6
+ y31aalt+YjK/Bq+IGnkO6rBIQHuRhNA6r3pDZKFVV2t0IG8sYVENY97njnDu2/NTvsBQ3UsSv4j
+ pK9l2rU88hLobLSxO1zzEYAUrApOR/ibpYipJ12A7jwGrVUeJNF5eKYaLAudIO7AZv+B7UUms/h
+ ssYYHA8EeTaukyFUvWw8PDd0KJsuEHa8GqolTOJxdQND6CJdl5Lx0Mlg7jWry/2wZZmtxPMjVBR
+ JBZBXFs+8EeMXM9QapCVLV/aIgVeO+xUcOoQbMyQBMauFfXF0e/YDW/PR7Qhk4SlpHW8TMCvPWg
+ ZYbG23sGon4Qo54P9PNe9IAQuwaHXq3eQJWZxkmfL0ExRhPhas0EUGledpjCjvTuiOOSNBnl4jW
+ E6VPMZpoTLa1X5wUymOunEKw1tq8BWTDaw8Ic0mdjY0UhOahKxEhQ9AhiaJxPa9nouVdKZJnGSt
+ rRS1pntI1oWsfwPcJClyNmXPLt51XZygdR1JLCUo65JPn5rqBWvMQLba4eXLY7xSCSKNToM1/2K
+ BJMD71JkHf15/fCsvsPbv1dPF0z71Z2d1YZZTa5AoRBjjg6sTfUal+29YX7AOYBax7jxN95Hlzv
+ F3B9oCckP7WZJdg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -93,69 +89,206 @@ Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The qcom-wled OVP interrupt is enabled at probe whenever the module is
-already on, but the driver still believes the backlight is off, so the
-first brightness update re-enables the interrupt and trips "Unbalanced
-enable for IRQ". sdm845-mainline has carried a workaround for years and
-Joel posted a flag-based version last October [1], which Konrad and
-Daniel asked to be replaced by something that does not track the IRQ
-state by hand.
+From: David Heidelberg <david@ixit.cz>
 
-Patch 1 is the drvdata fix I said I would drop after v3. The objection
-was that it stored the wrong object, not that the fix was wrong, so it
-is back with the right one stored.
+Since the previous change wled_probe() seeds wled->brightness from
+MOD_EN, but with default-brightness rather than the level the hardware
+is actually driving, so a backlight left lit by the bootloader still
+visibly steps on the first update, and actual_brightness reports the
+last value written rather than what the panel shows.
 
-Patch 2 is unrelated too and fell out of writing the readback: the WLED3
-brightness register stride has been one byte instead of two since the
-2019 restructuring, so multi-string pm8941 boards only program one
-string correctly. Untested, I have no WLED3 board; it restores what
-pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
+Add wled_read_brightness(), which returns 0 when MOD_EN is clear and
+otherwise reads the brightness register the matching
+wledN_set_brightness() writes: the first enabled string on WLED3 and
+WLED4, the selected modulator on WLED5. Use it to seed both
+wled->brightness and the initial backlight property, and expose it as
+backlight_ops.get_brightness so that actual_brightness reflects the
+hardware too.
 
-[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
+A module that is enabled with the brightness registers at zero, which
+wled4_setup() and wled_auto_string_detection() can leave behind on a
+cold boot, now reads back as off. The OVP interrupt is then armed by the
+first brightness update rather than from probe, which is what happens
+on every other board where the module starts out disabled.
 
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Assisted-by: LLM
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-Changes in v4:
-- I applied the 0x10 fix too late, now it's fixed in the right commit.
-  (Konrad)
-- Right object stored in the drvdata. (Konrad)
-- Set the drvdata next to the other wled fields instead  of next to the
-  backlight device registration.
-- Reworded the drvdata commit, the NULL dereference is in wled_remove(),
-  the driver has no PM callbacks.
-- Link to v3: https://patch.msgid.link/20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz
+ drivers/video/backlight/qcom-wled.c | 74 +++++++++++++++++++++++++++++++------
+ 1 file changed, 63 insertions(+), 11 deletions(-)
 
-Changes in v3:
-- Fix typo 0x10 != 0b10. (Sashiko)
-- Added fix for a unrelated issue, but since reported as critical, let's
-  squeeze it:
-  Missing platform_set_drvdata() in wled_probe() leads to a guaranteed NULL pointer dereference in wled_remove().
-  (Sashiko)
-- Link to v2: https://patch.msgid.link/20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index 3ce3bade3b8dd..ca350f320e177 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -285,16 +285,60 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
+ 		  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
+ 		  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB;
+ 
+ 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
+ 			       &v, sizeof(v));
+ 	return rc;
+ }
+ 
++static int wled_read_brightness(struct wled *wled)
++{
++	u16 addr, mask;
++	__le16 v;
++	u32 val;
++	int rc;
++
++	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
++			 &val);
++	if (rc < 0)
++		return rc;
++
++	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
++		return 0;
++
++	switch (wled->version) {
++	case 3:
++		addr = wled->sink_addr +
++		       WLED3_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
++		mask = WLED3_SINK_REG_BRIGHT_MAX;
++		break;
++	case 4:
++		addr = wled->sink_addr +
++		       WLED4_SINK_REG_BRIGHT(wled->cfg.enabled_strings[0]);
++		mask = WLED3_SINK_REG_BRIGHT_MAX;
++		break;
++	case 5:
++		addr = wled->sink_addr + (wled->cfg.mod_sel == MOD_A ?
++					  WLED5_SINK_REG_MOD_A_BRIGHTNESS_LSB :
++					  WLED5_SINK_REG_MOD_B_BRIGHTNESS_LSB);
++		mask = WLED5_SINK_REG_BRIGHT_MAX_15B;
++		break;
++	default:
++		dev_err(wled->dev, "Invalid WLED version\n");
++		return -EINVAL;
++	}
++
++	rc = regmap_bulk_read(wled->regmap, addr, &v, sizeof(v));
++	if (rc < 0)
++		return rc;
++
++	return min_t(u32, le16_to_cpu(v) & mask, wled->max_brightness);
++}
++
+ static void wled_ovp_work(struct work_struct *work)
+ {
+ 	struct wled *wled = container_of(work,
+ 					 struct wled, ovp_work.work);
+ 	enable_irq(wled->ovp_irq);
+ }
+ 
+ static int wled_module_enable(struct wled *wled, int val)
+@@ -475,16 +519,28 @@ static int wled_update_status(struct backlight_device *bl)
+ 	wled->brightness = brightness;
+ 
+ unlock_mutex:
+ 	mutex_unlock(&wled->lock);
+ 
+ 	return rc;
+ }
+ 
++static int wled_get_brightness(struct backlight_device *bl)
++{
++	struct wled *wled = bl_get_data(bl);
++	int rc;
++
++	mutex_lock(&wled->lock);
++	rc = wled_read_brightness(wled);
++	mutex_unlock(&wled->lock);
++
++	return rc;
++}
++
+ static int wled4_cabc_config(struct wled *wled, bool enable)
+ {
+ 	int i, j, rc;
+ 	u8 val;
+ 
+ 	for (i = 0; i < wled->cfg.num_strings; i++) {
+ 		j = wled->cfg.enabled_strings[i];
+ 
+@@ -1646,25 +1702,25 @@ static int wled_configure_ovp_irq(struct wled *wled,
+ 	if (!wled->brightness)
+ 		disable_irq(wled->ovp_irq);
+ 
+ 	return 0;
+ }
+ 
+ static const struct backlight_ops wled_ops = {
+ 	.update_status = wled_update_status,
++	.get_brightness = wled_get_brightness,
+ };
+ 
+ static int wled_probe(struct platform_device *pdev)
+ {
+ 	struct backlight_properties props;
+ 	struct backlight_device *bl;
+ 	struct wled *wled;
+ 	struct regmap *regmap;
+-	u32 mod_en;
+ 	u32 val;
+ 	int rc;
+ 
+ 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
+ 	if (!regmap) {
+ 		dev_err(&pdev->dev, "Unable to get regmap\n");
+ 		return -EINVAL;
+ 	}
+@@ -1729,41 +1785,37 @@ static int wled_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
+ 
+ 	val = WLED_DEFAULT_BRIGHTNESS;
+ 	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
+ 
+ 	/*
+-	 * The module may already be enabled, either by a bootloader that left
+-	 * the backlight lit or by the setup above. Record that, so that the
+-	 * first brightness update does not enable an already enabled module,
+-	 * and so that the OVP irq is armed from probe rather than from that
+-	 * first update.
++	 * The module may already be lit, either by the bootloader or by the
++	 * setup above. Start from what the hardware is driving, so that the
++	 * first brightness update does not step the brightness.
+ 	 */
+-	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
+-			 &mod_en);
++	rc = wled_read_brightness(wled);
+ 	if (rc < 0)
+ 		return rc;
+ 
+-	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
+-		wled->brightness = val;
++	wled->brightness = rc;
+ 
+ 	rc = wled_configure_short_irq(wled, pdev);
+ 	if (rc < 0)
+ 		return rc;
+ 
+ 	rc = wled_configure_ovp_irq(wled, pdev);
+ 	if (rc < 0)
+ 		return rc;
+ 
+ 	memset(&props, 0, sizeof(struct backlight_properties));
+ 	props.type = BACKLIGHT_RAW;
+-	props.brightness = val;
++	props.brightness = wled->brightness ?: val;
+ 	props.max_brightness = wled->max_brightness;
+ 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
+ 					    &pdev->dev, wled,
+ 					    &wled_ops, &props);
+ 	return PTR_ERR_OR_ZERO(bl);
+ };
+ 
+ static void wled_remove(struct platform_device *pdev)
 
-Changes in v2:
-- Add a fix for the WLED3 brightness register stride.
-- Add patch reading the programmed brightness back via
-  backlight_ops.get_brightness. (Konrad)
-- Note the brightness readback is done in the follow-up to the first
-  patch.
-- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
-
----
-David Heidelberg (4):
-      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
-      backlight: qcom-wled: Fix WLED3 brightness register stride
-      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
-      backlight: qcom-wled: Read back the programmed brightness at probe
-
- drivers/video/backlight/qcom-wled.c | 89 +++++++++++++++++++++++++++++++------
- 1 file changed, 76 insertions(+), 13 deletions(-)
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260908-qcom-wled-backlight-fd9574027353
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+-- 
+2.55.0
 
 
