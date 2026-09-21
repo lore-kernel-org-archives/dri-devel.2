@@ -4,92 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3733FC98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C43FCC982FF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFB510EBB5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6890710EBE0;
 	Tue, 22 Sep 2026 08:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p6MX86H+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h2QVWxh9";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83B9410E19E
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:48:26 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747eefae4so11286025ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 19:48:26 -0700 (PDT)
+Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 175AD10E4A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:14:38 +0000 (UTC)
+Received: by mail-wm2-f7.google.com with SMTP id
+ 5b1f17b1804b1-49fd4ea3409so5010835e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:14:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790045306; x=1790650106; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=273RPbWG7jPvSKiSM2cb6VF23JcSKRk4gJRjLYycPbI=;
- b=p6MX86H+IhobqWqjlQeZcEmcNYiq0XMKsDFAum3kiq6LHI/bC7iXJyNrbT9u8B2cr2
- RittpuWNHQrkBQ4hoDCaolzlBxa+LFH23CBtAlr7H15cL/b9oBA5ys+cdcOtT6P0jweF
- ckaJL5n2DWkfoLI7DoE/fRiaCkSFQzPt6SE1cM4rzVvUeJOJWAVn8dBrWBTNGyUSlHiV
- j3y9mCsx/eYJzAMhTslWwqlmfAle5IoDsE/9/W8ovJzWdc42wy01iXgeFLGKfxxDKLfw
- dup9Gzm5vgHQjSiCDyrF8VHjWZfbV4nh8phxEkCKQYrGk2uiFyMCiH/gz7vInTg5QLST
- IWKQ==
+ d=gmail.com; s=20251104; t=1790014476; x=1790619276; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8njTdDuR2VjcLI0zLlnQh6RcubDIwEA0WzrR3t+nYKc=;
+ b=h2QVWxh9HL6o4eUMCCvWci6K4e7pM3SpRqb8qN98WY1C5kCNFh/zaVi56s/geiFLYb
+ owTtXH2YOZ3Ka35lfVt0BYx/29CJTKjVNkw/4DgFtH9lIMbT+JoA/czMJeYTXuR6fgoF
+ KeaA2Uq019Oc+M7QJs85KLspTDXqL5nb41YkkdLyXwLo55OLbrXd3oM9ZfBT42v6yHFf
+ WPUGz7+e3ZjWlN4Wkl2mPL2MjJ5wyXp+lPEG8SuD9Kjs8Fiy6VnHEx907YndjsfwOigK
+ 1KDrUwy6FaD07N2vhJ7JekijEhBhlWTEl3rPjQ7iUF9KTDH2NzhGiZo3RNqDEDJwF73B
+ 9XSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790045306; x=1790650106;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=273RPbWG7jPvSKiSM2cb6VF23JcSKRk4gJRjLYycPbI=;
- b=yoToo+ZhtXGttFoBxQzUn6DJXWMA8cDD6HNNctKy/GXBq9hexrhgFruchsJGs8n/DR
- nGsLZZz0F0OlK4j1dMum9EXZPoN2W/y92n+lpRL84vaxQtw6wxwvWjPWRr3w1UxjZJZz
- eCN2f4LrKgcrKzEblW6tAlZiXGcU3JPP4Sg5i72RyI29X8xySh7KSuL/NxpmI/xHDzEp
- djoUuNbGx+P2mI6LyIXB3cmLxg9nPCKholUTo0pk1Cf2U0ydLOawSf2FEnSurauVybgn
- G9hg8L9jYPurT3B490xdnNLANhfZjQ/g28lKUQnZLoutpvVGbFH52z8A60J/3LVYh3ap
- omRA==
+ d=1e100.net; s=20260707; t=1790014476; x=1790619276;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8njTdDuR2VjcLI0zLlnQh6RcubDIwEA0WzrR3t+nYKc=;
+ b=k46RtNhBfZKBTBgmG1fsOD7YY9Qp0U3VGvERtM8uXYUqdszglKCI2Aih/k0DGOc2jX
+ qWh4Px9eQ1BpGwg+Fqc0MB5cvlX/eWctjlHLutlP8mcidU0M0iQthzMyysuj8W7lKhuC
+ 6X2xq0unHgQdLj222fo94RNYXpkb4UJWqtUmzxXDIrvMMogVePZ8bqlIEUfZ7NVhQ5oG
+ DHAkwODH31q522yD9ur222h/jAEcLGiY2UeqQjKJvU2naYRAV8Y61ldVtBvl6Xgtq6BN
+ P7OGFnZmBaGsT1NERDCF748Fn1AgoHIG0DqMQ7AcDKOkvW2c+urQ2vIO86fpPXhXt4CG
+ uDWw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxMAx8G+J1CKR9hcTBLla907hK4KaOfU6Zpfm9HkfyJk7YdxFEk6M7NbaOSGu317NC6acCdxxF5MKo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lpP9bbbx++Y5VMQ7AWgJfjkCDLbfLlgy3XfnAHUuj5n00xCqAc
- ZscoEWdvWL/t566tA6zPRJfk0liK2ijeHSokzbBtwefbGABtuyGVQC/q
-X-Gm-Gg: AYBFou2KP9CHiQ6hTokgSWGxxx+iWzCAuFP4RRB+1PQTiHlu4kiKr/vxegFtYLnUBWD
- lvG1sGj8OCCvXX4zU9wHo5O2pDlF8hfd8zJBAR5II7bX1SWVHuW7FkrIeHKBVlJ7BLFVi5DIGeC
- ah77XjYe9MvE+CUMXzm2PR3n8RSVOT84xv7DkmtmSY4xhNG5bP2b0EmA20CIZ1gmI1GppT64otF
- qMOuUJMuimSBzl+cN80HmF6kU62AcWNbmyiK+eLpHiOImjGgQgRGce03+rTW8iXkH60czoKjgfJ
- 6G7NK4z+HCvQV5dQ3wRxnx4BtB8bsXWtKFhpZwLYzTwoJCjoZe8VOE+qXFKyflM8LMz+svkVpLZ
- zC3jHyedLm49kaMXo2hWOik8tCsWxjvgEcaCnKRXXpcAw7pSpoZ+Z58BvZk9LLCE602cMXXn0wU
- +QBDGKgtsE89O9r/4whIvemJRt40Y1WfGpL8B5UYLkTkSnuzQF9l6UGjuQXE/sDIOzoO5BPA==
-X-Received: by 2002:a17:902:e54d:b0:2df:42af:2fab with SMTP id
- d9443c01a7336-2df59a5a817mr14138975ad.34.1790045305892; 
- Mon, 21 Sep 2026 19:48:25 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+ AKwUvBwBeh6OEd6MaH0isQOtS03FbrkMky30OPFnuqA5ttcqf+xEEERkHOqzqA+vGiN2kboFoCPhjlQTTew=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lEAk2cLI/zMaqSrV3D7ucOZkh5wHupAofcBf+ZfONT7UFDQTpd
+ MXMq1G8VQwRDpGFwot7LOt9symrcHAcJkdy5cb2d546R/BpTHhyhGAVA
+X-Gm-Gg: AYBFou0vJZ1x6LYDi6LSf/qG2krinsAycxwg02nPQQwr8//04PT5Q4ps1Fz5lh9I48S
+ ZT5bZWGm9dREexI2aSxPePt4CilYAfX6ZwX373KEfY1Qb0bdDFw3xosfk3iisovQCB2OzhlRX4y
+ Vv2gU0DPYCpbk+GBkaM/I/RReCdm5S61OYxknQJYO0lmU5BgvW8en8LRgM6gWz61R9lKgS9tk88
+ 1l54WG/LDyv/oP14XDQaUvpfbNn+Wxa5ONRQ3uFCp6COZPayG5fWUmTSDhqbHNw+e4btqiqplt4
+ 6/iDVp7gkBif2X4ASurewcqm0vv3MPYgvpP6Dz2InhlEXXM9VG5l5ZpRcxo4v6BvjmodVcMffQS
+ hoKSCQx0jhT1KZUjyDiIeuiYt35uWKKrByie0VJ6eePi0efHv7KzL2vRmPPk3JUcHhLqgpWtpqJ
+ IFSTncpmzR4W4XACBQ4PcNl2mA4Bf+0WYnny2l6fBAuOjJ0IMvrTMBqqJITR9LbQEdbv1X1h1Id
+ l+Kjsr2NBhf306E
+X-Received: by 2002:a05:600c:4f8c:b0:49f:c18a:61c8 with SMTP id
+ 5b1f17b1804b1-49fc573f858mr164351925e9.29.1790014476102; 
+ Mon, 21 Sep 2026 11:14:36 -0700 (PDT)
+Received: from gbox.chicasongroup.com ([197.210.105.26])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df5d02eb4fsm1636465ad.37.2026.09.21.19.48.25
+ 5b1f17b1804b1-49fd8a636d1sm10754875e9.0.2026.09.21.11.14.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 19:48:25 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Minas Harutyunyan <hminas@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Damon Ding <damon.ding@rock-chips.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: Inochi Amaoto <inochiama@gmail.com>, linux-ide@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: [RFC PATCH 1/5] phy: core: Use EOPNOTSUPP for disabled blob return
- value
-Date: Tue, 22 Sep 2026 10:47:16 +0800
-Message-ID: <20260922024724.191412-2-inochiama@gmail.com>
+ Mon, 21 Sep 2026 11:14:35 -0700 (PDT)
+From: UgwuRhema <hikarialiyev@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: Andy Shevchenko <andy@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: fbtft: fbtft-bus: remove space before close
+ parenthesis
+Date: Mon, 21 Sep 2026 18:13:50 +0000
+Message-ID: <20260921181350.89925-1-hikarialiyev@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922024724.191412-1-inochiama@gmail.com>
-References: <20260922024724.191412-1-inochiama@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 22 Sep 2026 08:40:51 +0000
@@ -108,235 +89,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, the phy subsystem uses ENOSYS for dummy blob functions,
-it does not reflect the function state correctly. As kernel already
-has EOPNOTSUPP for disabled blob function, replace ENOSYS with
-EOPNOTSUPP for a clear return value.
+Fix checkpatch.pl errors regarding prohibited spaces before closing
+parentheses in fbtft-bus.c.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Signed-off-by: UgwuRhema <hikarialiyev@gmail.com>
 ---
- include/linux/phy/phy.h | 52 ++++++++++++++++++++---------------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
+ drivers/staging/fbtft/fbtft-bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index ea47975e288a..3e84b54a4b03 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -314,14 +314,14 @@ static inline int phy_pm_runtime_get(struct phy *phy)
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff1..409770891 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -62,9 +62,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
  {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_pm_runtime_get_sync(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline void phy_pm_runtime_put(struct phy *phy)
-@@ -332,35 +332,35 @@ static inline int phy_pm_runtime_put_sync(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_init(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_exit(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_power_on(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_power_off(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
-@@ -368,7 +368,7 @@ static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- #define phy_set_mode(phy, mode) \
-@@ -397,35 +397,35 @@ static inline int phy_reset(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_calibrate(struct phy *phy)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_notify_connect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_notify_disconnect(struct phy *phy, int index)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_notify_state(struct phy *phy, union phy_notify state)
- {
- 	if (!phy)
- 		return 0;
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_configure(struct phy *phy,
-@@ -434,7 +434,7 @@ static inline int phy_configure(struct phy *phy,
- 	if (!phy)
- 		return 0;
- 
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
-@@ -443,12 +443,12 @@ static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- 	if (!phy)
- 		return 0;
- 
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline int phy_get_bus_width(struct phy *phy)
- {
--	return -ENOSYS;
-+	return -EOPNOTSUPP;
- }
- 
- static inline void phy_set_bus_width(struct phy *phy, int bus_width)
-@@ -458,12 +458,12 @@ static inline void phy_set_bus_width(struct phy *phy, int bus_width)
- 
- static inline struct phy *phy_get(struct device *dev, const char *string)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *devm_phy_get(struct device *dev, const char *string)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *devm_phy_optional_get(struct device *dev,
-@@ -476,7 +476,7 @@ static inline struct phy *devm_of_phy_get(struct device *dev,
- 					  struct device_node *np,
- 					  const char *con_id)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *devm_of_phy_optional_get(struct device *dev,
-@@ -490,7 +490,7 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
- 						   struct device_node *np,
- 						   int index)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline void of_phy_put(struct phy *phy)
-@@ -507,27 +507,27 @@ static inline void devm_phy_put(struct device *dev, struct phy *phy)
- 
- static inline struct phy *of_phy_get(struct device_node *np, const char *con_id)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *of_phy_simple_xlate(struct device *dev,
- 					      const struct of_phandle_args *args)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *phy_create(struct device *dev,
- 				     struct device_node *node,
- 				     const struct phy_ops *ops)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy *devm_phy_create(struct device *dev,
- 					  struct device_node *node,
- 					  const struct phy_ops *ops)
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline void phy_destroy(struct phy *phy)
-@@ -543,7 +543,7 @@ static inline struct phy_provider *__of_phy_provider_register(
- 	struct phy * (*of_xlate)(struct device *dev,
- 				 const struct of_phandle_args *args))
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline struct phy_provider *__devm_of_phy_provider_register(struct device
-@@ -551,7 +551,7 @@ static inline struct phy_provider *__devm_of_phy_provider_register(struct device
- 	struct phy * (*of_xlate)(struct device *dev,
- 				 const struct of_phandle_args *args))
- {
--	return ERR_PTR(-ENOSYS);
-+	return ERR_PTR(-EOPNOTSUPP);
- }
- 
- static inline void of_phy_provider_unregister(struct phy_provider *phy_provider)
 -- 
 2.55.0
 
