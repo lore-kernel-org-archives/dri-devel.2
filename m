@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AEF0C982EE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:34:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D839C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B72BF10E2BD;
-	Mon, 21 Sep 2026 18:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFD8988C11;
+	Mon, 21 Sep 2026 18:37:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LTOq6PM4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Eo57eAbt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8137C10E2BD
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:34:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D73488C11
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:37:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BCA0660008;
- Mon, 21 Sep 2026 18:34:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFBD1F000FF;
- Mon, 21 Sep 2026 18:34:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CD5FB416F8;
+ Mon, 21 Sep 2026 18:37:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6E31F000FF;
+ Mon, 21 Sep 2026 18:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790015670;
- bh=K4nLHz9z6IQcGHmWPtSRGWzAX0Kugw/YmY22EH4TG4U=;
+ s=k20260515; t=1790015842;
+ bh=ndQUE6YHU2ixXOwk4QYgdxWp4lpHVDloKpYUcVkUmWg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LTOq6PM4Loabuc4O1F5tiDkMymp923XxpCeXQVC3Ws1Wh+dVWju63c3jIr/bjfko2
- o29Fbf1Me9nKgxu+hrpmzZ+n2Y0Xyy9l5SPmJd6pvqy/N1+rSrtFYegX1TcADLU59N
- CtxuHex76kAXhFKDdNju2kSA/6QG382zkaKzHIxdrohNZENt7oW2rtYtmVUsDthOSX
- LSnEZu5gGgTPPWcTUdt2hSofd/bAEUZvGD3ZeIzfmcxTzOJdezmdLsoL+rM0ZknDku
- mOoi5ICWkT0GTosv/hzygADQuXkw52WgMGDt1VQKBzCG3z7WqAQGS56/uhLVzRVgR6
- LYK1YzkmWuzmg==
+ b=Eo57eAbtiFX4ZzqmWE/Z33h3nunHgHkkZ6DQFtAnGAvAng8yIqNtM1bWC88ZPz2BD
+ YWVjEgVgCz9ZB/+nLKc4YqVxwoE9NNSqPZAGrG7ExgQaR728juur+h62BpqOMv2lLj
+ LLU3Hk3cXx4wDozjCECiyyh6dkc7nMggQRGvRFfydszEVDdjkEDlWqdZanI9yHiaXH
+ ZpGWNlapXzwnPunCyo5HhpUsTjn/HqsKyXIlQaAgKDYm8zmeab7U/kKQwGgHmqx7Nw
+ 0zhJFmTjvbPFLISssFFV7cNzqKg/9Q2QV15Vr4aClz0FVnneTUa9q0YNejcVYsGVg3
+ nqAi4uCT9QZgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 17/19] arm64: dts: qcom: Add initial support for MSM8952
+Subject: Re: [PATCH v3 19/19] arm64: dts: qcom: generalmobile-shamrock: new
+ device
 To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org,
- linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com,
- conor+dt@kernel.org
-In-Reply-To: <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
+Cc: dri-devel@lists.freedesktop.org, dmitry.torokhov@gmail.com,
+ linux-clk@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org,
+ lee@kernel.org, robh@kernel.org, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260921-msm8952-initial-support-v3-19-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-19-b96fd3fe298b@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 18:34:29 +0000
-Message-Id: <20260921183429.DAFBD1F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 18:37:21 +0000
+Message-Id: <20260921183722.2F6E31F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +61,19 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: cpu cooling devices bound to 'hot' instead of 'p=
-assive' trip points
---
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+>=20
+> Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed
+> similar to L9300. Downstream reference is [1].
+>=20
+> [1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
+/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
+>=20
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-commit b31c2ca10f75d0572d43b7d8403a096fd44b8429
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
-arm64: dts: qcom: Add initial support for MSM8952
-
-Adds initial device tree support for the MSM8952 SoC, porting it from a
-downstream reference and adding calculation support for qfprom nodes.
-
-Link: https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
-/cm-14.1/arch/arm/boot/dts/qcom/msm8952.dtsi
-Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
-ear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi
-Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
-ear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
-
-> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
-qcom/msm8952.dtsi
-> new file mode 100644
-> index 0000000000000..fa343271a0249
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
-
-[ ... ]
-
-> @@ -0,0 +1,2696 @@
-
-[ ... ]
-
-> +		cpu4-thermal {
-> +			polling-delay-passive =3D <250>;
-> +
-> +			thermal-sensors =3D <&tsens 5>;
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip =3D <&cpu4_alert1>;
-> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-
-[Severity: High]
-Does this cooling map bind to the hot trip point instead of the passive one?
-
-The Linux thermal subsystem's default step_wise governor ignores hot and
-critical trip points for cooling devices. Binding CPU frequency cooling
-devices to cpu4_alert1 (which is defined as type hot) completely prevents
-thermal throttling.=20
-
-Under sustained CPU load, the system will keep heating up until it hits the
-critical trip point and undergoes a hard, uncontrolled thermal shutdown.=20
-Should this bind to cpu4_alert0 instead?
-
-> +				};
-> +			};
-> +
-> +			trips {
-> +				cpu4_alert0: trip-point0 {
-> +					temperature =3D <75000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "passive";
-> +				};
-> +
-> +				cpu4_alert1: trip-point1 {
-> +					temperature =3D <85000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-
-[ ... ]
-
-> +		cpu0-3-thermal {
-> +			polling-delay-passive =3D <250>;
-> +
-> +			thermal-sensors =3D <&tsens 9>;
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip =3D <&cpu0_alert1>;
-> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-
-[Severity: High]
-Similarly for the little core cluster, does this also incorrectly bind to t=
-he
-hot trip point cpu0_alert1? This will prevent thermal throttling on these
-cores as well.
-
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-msm8952-in=
-itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D17
+itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D19
+
