@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EBB5C982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 09:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D174C982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 09:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5E210E1C1;
-	Mon, 21 Sep 2026 09:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D718110E379;
+	Mon, 21 Sep 2026 09:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="cXz9wXrl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KeZa9kF4";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 815BE10E1C1
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 09:09:36 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 1926E1A0F78;
- Mon, 21 Sep 2026 09:09:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DF36360339;
- Mon, 21 Sep 2026 09:09:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A4AD01032918E; 
- Mon, 21 Sep 2026 11:09:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1789981770; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=gtewFrFoLI46IIrkL35plATPEcqBACBHV+ul81kZFSU=;
- b=cXz9wXrlOGUl3ndYbo+mmrZ0yX9qtyAQy2hzLflJbyzuK02fEsHXyfIg18KSJQQm0cS6B2
- UPREV+GDJVI0DIbKjz8VSluidzD+RnWMZvxhOCPszOg9+d0PsbsoQ49yT/knebrIZYTpH1
- 0wWaslpyICzBgKYCq7xDrutvECbOtm06RqtV9zQNfgKb6/w7DZEohsD7bWb7PeVl1M5WLN
- WOR5EBUg34QMMTfhmjxWVfK9hm9QXDrbVz29tI/dgRP1+YG8R8k8rT6T7hyfkEOdjOZxVt
- OXBbdmcZV8+oBGlETjQbfdpRDzH03uo4WUntnaUdCNNoneSaY1Oqc/UXlYJK4A==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: inki.dae@samsung.com, jagan@amarulasolutions.com, 
- m.szyprowski@samsung.com, Li Youhong <dayou5941@163.com>
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
- jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Li Youhong <liyouhong@kylinos.cn>
-In-Reply-To: <20260904014958.1572918-1-dayou5941@163.com>
-References: <20260904014958.1572918-1-dayou5941@163.com>
-Subject: Re: [PATCH v2] drm/bridge: samsung-dsim: fix TE GPIO lifetime for
- host attach
-Message-Id: <178998176147.99293.14109429375573506716.b4-ty@b4>
-Date: Mon, 21 Sep 2026 11:09:21 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DF610E379
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 09:16:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 498D7600C8;
+ Mon, 21 Sep 2026 09:16:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7441F000FF;
+ Mon, 21 Sep 2026 09:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789982160;
+ bh=woltRsvOk10ngnTKMXDYD8xZgeTRov8hYNzf6xS6K/k=;
+ h=From:Subject:Date:To:Cc;
+ b=KeZa9kF4KNlzAJqv2zAu0PZ/qFeaV9YX3YM0jx8vdjpeAqXnBbN7MiBHtRtQ8xEmq
+ c4h2qX7A/Psa3xgUyG9p9Yz96kDc4RDWqv3Is9XE/4Q0+UlmsMdjBeNB7lnkmVUTqi
+ GhgjmbS81N66rkK6UGPTiAyswli1EcALcKWz6olCBS/lQm9sdbmhkDpoo0B5ivYv/D
+ RHDFLRmxmqvQfSTsc0V2OYKuD8UyOm0jYZ0UXGPcjREzHQjMG22kcuKFQnVPa4uoiU
+ zsa0PmvokxQDj38eRVW5jJNujaV0Q53Cc0AUZwigjsWq4vUuAOu5WZ9kclE1G30Epp
+ CSu79qR3qxWlA==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/2] Fix Gemini TVE200 interrupt triggering
+Date: Mon, 21 Sep 2026 11:15:53 +0200
+Message-Id: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bkE3Kuor0SFzrT1koSFB+Pek4
+ wzMvBA5CEcYqxcCJ4ly+gK6rmDdF78xii0MpKhTA2nc+BAveCcmpdDJg7111BqmvnEGSncFLvp
+ /TnPOH0FyuINjAAAA
+X-Change-ID: 20260921-gemini-tve200-fix-7df25be273fb
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +65,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Rising-edge IRQ triggering can stall TVE200 interrupt delivery on the
+D-Link DIR-685, causing vblank and page-flip timeouts and delayed fbcon
+startup.
 
-On Fri, 04 Sep 2026 09:49:58 +0800, Li Youhong wrote:
-> When the Exynos DSI driver was generalized into samsung-dsim, the TE
-> GPIO acquisition was switched from gpiod_get_optional() to
-> devm_gpiod_get_optional() while keeping the matching gpiod_put() calls.
-> That combination is wrong for a managed descriptor.
-> 
-> However, dropping the puts and keeping the managed get is also wrong:
-> samsung_dsim_register_te_irq() runs from the DSI host attach callback,
-> and host detach/reattach can happen without destroying the device that
-> owns the managed action. A second attach would then request the GPIO
-> again without having released it.
-> 
-> [...]
+Set the interrupt to level-high in gemini.dtsi and correct the binding
+example. The updated attached device tree supplies the correct trigger
+type, leaving the DRM driver unchanged.
 
-Applied, thanks!
+Level-high operation was verified on the DIR-685 with cold and warm boots.
 
-[1/1] drm/bridge: samsung-dsim: fix TE GPIO lifetime for host attach
-      commit: ada667890773e033d2f40dc94176e3beb930b516
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (2):
+      dt-bindings: display: faraday,tve200: Use a level-high interrupt
+      ARM: dts: gemini: Use a level-high interrupt for TVE200
+
+ Documentation/devicetree/bindings/display/faraday,tve200.yaml | 2 +-
+ arch/arm/boot/dts/gemini/gemini.dtsi                          | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260921-gemini-tve200-fix-7df25be273fb
 
 Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+--  
+Linus Walleij <linusw@kernel.org>
 
