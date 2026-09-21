@@ -4,51 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 128C9C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D24C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A6C010E436;
-	Mon, 21 Sep 2026 15:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD4B10E556;
+	Mon, 21 Sep 2026 15:09:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a37yIKpR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sujw36x3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFA110E3D2;
- Mon, 21 Sep 2026 15:09:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58BC210E556
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 15:09:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BCA04600C8;
- Mon, 21 Sep 2026 15:09:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B120E1F000FF;
- Mon, 21 Sep 2026 15:09:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CE031600C8;
+ Mon, 21 Sep 2026 15:09:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265871F000FF;
+ Mon, 21 Sep 2026 15:09:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790003375;
- bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
+ s=k20260515; t=1790003389;
+ bh=nIZxJGv0gpdWASD983DlGMxCIOhoLxPrF1ci5YJjVPY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=a37yIKpR7CmkgDvDOsMGCXKWaNcNsStWl6fHm32Bkxy2yk9jYr+PMY5/xrmyUplbq
- oJi7fzUcqK7fwPQNuR7INp2S4DAQMogLZEAGYG2G0nIsaBHLyh0hQTsKIBqYH4y9e2
- NiEC53Fw/gEJuaPz1dH9NjbXatVo0vMpWDnWYu/LQM/ogXGTJdGnXEGJxLxfYGmLy9
- vG3D7eKr+u2KYDr0dj1QaFLrY2qLH3vEdi/zGXA1aIc9sibhgdKyltS3FANi3Rf8s0
- mWPnKly3hK7QVeNUm0Yat1qCFtJuW8ZjBai4YLTG+r1kiobG6ZTGifJsi0t9NIHapg
- lBUG6/S0xvAXg==
-Date: Mon, 21 Sep 2026 17:09:32 +0200
+ b=Sujw36x3YKSU0M3MPnA1Rmc7FJlAc4M0XlfvqouKUow3v91GQVn/eJ4LV8Cy+sshr
+ ABSkmAv/m534G0+kU6OowlAI86wf/++qJ1LT/ybDWHNf61bZpZyct53qR0ZniklGUk
+ bpgwk/rd4QipXHu7R+PdXJo/IIUiGfJTbfh21RrgxhFPX/sP92ffStsT62yGk0cLRo
+ DyHlqxZL863JWY3D3/r99nyBg54eH8nxTgfa793zWMpahD6eerKQ1zc1pfW0F8RfI2
+ tKDd/otqHkeRc6r4CRJop7XiOOQNHvBpR0DfiQtKl83IxuN58I2uzV1b8ps9VZf5PC
+ xVAcBbzFEjIJQ==
+Date: Mon, 21 Sep 2026 17:09:44 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
- allocation failure
-Message-ID: <arFIqOl-H6DYQ2k_@quoll>
-References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@redhat.com, 
+ bhelgaas@google.com, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH] PCI/VGA: fix inverted vga_tryget() return check and
+ clear removed pci_dev
+Message-ID: <arFItwNGp3_Sw3LC@quoll>
+References: <20260919222629.3798073-1-benquike@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260919222629.3798073-1-benquike@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,32 +59,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Sun, 20 Sep 2026 01:17:10 +0800, Guangshuo Li wrote:
-> mock_context_alloc() creates ce->ring before allocating and pinning the
-> context timeline. mock_ring() initializes the ring reference count and
-> returns the initial reference to the context.
+On Sat, 19 Sep 2026 22:26:29 +0000, Hui Peng wrote:
+> Fix two issues in drivers/pci/vgaarb.c:
 > 
-> If intel_timeline_create() fails, mock_context_alloc() returns without
-> dropping the ring reference. The same leak occurs when
-> mock_timeline_pin() fails after the timeline has been created. Since
-> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
-> the later context teardown does not release the ring.
+> 1. In vga_arb_device_init() / vga_arbiter_From_pci_dev(), vga_tryget()
+>    returns 0 on success and a negative errno on failure, so checking if
+>    (!vga_tryget(...)) is inverted and skips unlocking on success.
+> 2. In vga_arbiter_del_pci_device(), clear any open vga_arb_user_init
+>    priv->target references pointing to the removed pci_dev so subsequent
+>    writes or close() on /dev/vga_arbiter do not dereference a freed
+>    pci_dev.
 > 
-> Drop the initial ring reference with kref_put() on both failure paths.
-> When the reference count reaches zero, intel_ring_free() releases the
-> ring VMA and frees the ring allocation. Clear ce->ring after dropping
-> the reference to avoid retaining a stale pointer.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Fixes: 1d38fe6ee6a8 ("PCI/VGA: Move vgaarb to drivers/pci")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
 
 
 You sent multiple independent patches, to multiple independent
