@@ -4,126 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A2D8C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 11:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DF3C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 11:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9FB810E3AF;
-	Mon, 21 Sep 2026 11:39:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA7D10E404;
+	Mon, 21 Sep 2026 11:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r8Yo1Ybz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GyOpsBhq";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011026.outbound.protection.outlook.com
- [40.93.194.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECE110E39D
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAB610E39D
  for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:39:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e+uuqm1MvB7pu+OVMpNmkkuC1tII4BxvzrchHrbAvJL3AiUbVxEHJcd+B7shpA7SFvlxUbu0OTjtbe//dx/rbdxOI63ua/T7Snhvj41hvmRBfwKPwXiNvMJrEio6CFafjsdcT7TK0Bxmyzz6wNrxZ/SsC074o+MJbZUq0jzMXQTbAvoU/lmA5GcxjrfUofh7nR5Zb6DhiF5wCMLtiW8ZBmm7gmGTa/PlMRWwyqfaf1dR3wFXiEtj+HavU+aaEDjd5UJ8FBtudmfozS909z9QdzYgOxmMfJMHPoeWPOI+2qLXD/U2KaXEtGI8d6j/Nw4oBJWQng7hKj9wFN+hIXK1WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=66KepX9Z5jUi04isJpreWsmSCcErhxqROKcwok9uAR8=;
- b=oT+pWlHfcr3OG166EyT4EyugacIMo1PCt1SaFqN5ewT+R4x0FO6mSu3gqkIzh4GmPffcxnKjxsxEiyAN3KRdMQXpfMFzXyXQrQANtBz98kSkKBBdTc8Ik3TF7kxY1LVUoTR/E/tPSSNOVBoXpozL9rka4gzixmBOLm2rHJzeGX3HybgBzf5TqXzhCn4IzNG2Q9oe0OLW7BJVQRubFKzLBzid6vk5XdJgKsE2TMSvfoFt5AdMgDwUZAT7axPDLgt12j+LGXV33fYXmIQJmg2oKZZHnW/KBqbNewrxXTPuxxm/9iffSqfJ7C5KSCIQVXn4oHZ2jX0mwHIOL0U4+XRzpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=66KepX9Z5jUi04isJpreWsmSCcErhxqROKcwok9uAR8=;
- b=r8Yo1YbzxW77a/Ks/JzS0BVMhNcoeSHDpa1u/usRBFKNRWXHdrU0JKC48R1vVsGjiwswS/VUNde5hlldMnjRf/xynHqYPvCaLLlMN9SxYHFHCsH4at+od48mQreutM1nnh0TqhgzJQ5fVuSoZD/z8OIfR+oeA2cxxyv3q10cB1k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by PH7PR12MB7185.namprd12.prod.outlook.com (2603:10b6:510:201::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 11:39:26 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 11:39:26 +0000
-Message-ID: <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
-Date: Mon, 21 Sep 2026 13:39:22 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
- dmabuf->ops->vmap()
-To: Janghyuck Kim <janghyuck.kim@samsung.com>, sumit.semwal@linaro.org,
- phasta@kernel.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
- <20260921100946.353521-1-janghyuck.kim@samsung.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260921100946.353521-1-janghyuck.kim@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0219.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49b912d822dso19700695e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 04:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789990767; x=1790595567; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AqNF5JZ6UPtOMyOPCzIVZh05aJF/SoOQw4MLana8W40=;
+ b=GyOpsBhqKcXvtKHvU/57UA714D+5m6FNY7l/swTdaY2nrHKKLNPZBiimbld0M8fsu7
+ kg4hRf+gjwepN/Lsx66M6IxO3z959Oy6R7+yc7kchvJZO22H+iqX8T7njNW/27evd/MQ
+ J3Z/2skuP3KGI33UDm1cTPpjHZYX00w3RTfFyYa7t07ULeuKz9UBA2yvrmhVEMMPTVPz
+ KKYgHsvD2z+CinReXUFg1L35kdZSrpzNJet+qo4cN5TpQAmlcIT80OeNEXDjK/oMb+Gp
+ 4KZeSdmaJmiQ+8VGapi0Tx5NfuKmvOG/ItyP6efwbY23PSz6e4V8pqOVLdSTaDIJngtU
+ idaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789990767; x=1790595567;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=AqNF5JZ6UPtOMyOPCzIVZh05aJF/SoOQw4MLana8W40=;
+ b=xW/8SmocrlXR2CC80u530KXGoB5TiHRg0wbYxea+WdVyzB3fQnkkOcbnfpS/hE6fTz
+ kJsg3+V/Gy9t5hpEZBvkKxgQnUGAPgTzS2Y8trjBVSPUMKIuPX8ajkptcZl9mNXkb1Za
+ xrvlC/jphrEL/8GeX0nsDkdGmss5sMCw/UvknP2oFHnczcNsZ9o5YaLLo2dbOSkQ0L7H
+ pIA7HQd7BKDI1kctHdquI5R9KfFW1ePFu4TSNTReAXK7KxTIoQIPu7QaqWNG7GtLZnWm
+ rotmFpKed9RpyDlMhJTA2jISWasLrR4v7ho5/BC5fv1D62nxEF22ZvZrJnlrZFb4bolS
+ saXw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzRdrKxtVujgRlkhve1E2CwgFe4fr8Yfn9p31lvle09Trv1MMuaiqxrxFMH0jjjrMZs4Vn6Z/JhTG4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nItLvprs4kDnC0zAAU+g1v0pPLP+AGAaXJf4ga8uzbZOo45C1i
+ CQO9mqanhj4CXfTvlaeiL1YHFTzkMTEXmxVQLZuRV7u+F5wKlxEeoPHa
+X-Gm-Gg: AYBFou3jUCaH7pFvYS++Om7JibgYVQzGdrJIROet9Q0UknSYj3ggvV2Vr9qr0cFSW1X
+ Ju21vhj9b8IZZISOmWrjO9wu3gp4rtuX5Nn4UF4Wi9DEVToG5OT5ZOXoaawnGBe3Z9PhZNi+ANI
+ kdCxDwhWtsPw/jkN9MVv/2ls+qnzBn7BHUHt6vfLs2YmG/WGJPyWjdlpT0R74LzQzVkIG6hWBZM
+ vToo5Z+VLE9ULFKNvIC1e8rsBXftUMOGuS043bgFdiltLN5L1VT2JwJGu7VNqdTj0vcfV+vvoBJ
+ sEoXpmfI7ZDPmywNFtyO+i6r0VVx/qc0EFdg3Pp4UXvPGcH/ZUPK5DCl+xTZ9DFrxlt5tt3u9Ey
+ 8/qGEkkjt6sBugTMvIek8+nEVVe+NUW5Z87zFfvl9Gf4UfAOOgGZK8t4qmU0lat/afnhD2iQtFu
+ 8d0gYSib4lv3rwNkPm1i+9kMvQ+4AuyVfl+33dx7mmc8cWl9qffOa2Mu79y5HmvjYliW8=
+X-Received: by 2002:a05:600c:1c05:b0:49c:edfa:15a with SMTP id
+ 5b1f17b1804b1-49fc56af038mr172418205e9.13.1789990767340; 
+ Mon, 21 Sep 2026 04:39:27 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fc57547easm244273865e9.3.2026.09.21.04.39.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Sep 2026 04:39:26 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add compatible
+ for mt8167
+Date: Mon, 21 Sep 2026 13:38:55 +0200
+Message-ID: <20260921113914.779393-2-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921113914.779393-1-l.scorcia@gmail.com>
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|PH7PR12MB7185:EE_
-X-MS-Office365-Filtering-Correlation-Id: 021ee676-e6cb-47b2-8ed6-08df17d4fd45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|10067099003|6133799003|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: BPRQPzX9tbSI7G0QJuczFtgBzmV9Z1ESmbT0NiuvtPqGk2pvZkU/dRhcQ+TXpqFeZqfwimNoO2KCkKB+aJvCntVtAgJxT447gAmxtZZRHjzoWZCs5W8zCiWKI6SvEudJcNxDuBXluq2u7Oc5TxEI0lzFWbIDPH0/wHAzI+fSBDtg1dedKQBgSzzNvOOzjfPq+ovnazh6vz6gykQBTyt53zf1edHlSqqfpbLKsKJEE2THwXCVWcYqrfLPxOBcuEPwCqwbiPyju437Bm0YgTgPP5qVet08iDhvckS4IP488bCaAo3/3hAYRYZQzJ7p6iryf+RgXibqeYWG9A5Oa0jvDHV/EjaZ/7TDcWmst/dEReQxVDGhDCHGs7vhjTNLacA1b+PD9GVlBuJwv4GP5HRbUiMbHAo3Ghd5rxpBWqtzentvQKqhoBtBm9x/ts0AUN15POV6GaUDGRRgjFUAuTpk2Y02HXRE3wskHrFKHz0r9iQE6Ae2+E0YdUW1AIY6Xky52AiZM1xksoQfTcSQiDrSd7blT4I4ncBzRjRa1CX35f9PpvxLvoiRLrP3UdjPBY0un3ymKTbBHyBqoAr0cfUezrphGzdrAUHs/HopjR1+xqJIBA17KWzc1wbJx6z9i/aCxfd5d+BY0/YSjl0Xrs72+t31gB/DID6H5xa30Rd/BIQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0Z4dUlGRUh0V2htL1RXYUUza1V1bDZ1M3M2UmxpaUZ0a05DZVV3M0VDYzVs?=
- =?utf-8?B?SjEwelR2MjMxZklvRDArcnlubm1yOW9NSUI4QWU4ektUQWNWbmdXOGN5Q3BI?=
- =?utf-8?B?ZWQ5VGZqZXNTOUlSaStjL1d1U3U4RlpBSlF2Y21CeWdWVFl3THl5YlF5UEtR?=
- =?utf-8?B?ZFlYa0tXR29Rd0FrVkczMzVjUXNMcUdXaEgybzd6dkJYS2gxNHhTa3JUdVVy?=
- =?utf-8?B?RVVDZHh3R2MvMmVyVTFHVVZLZzNYY3hBOHg2bk5EMmFkd01CcXJjcjgrNUoz?=
- =?utf-8?B?ZWxud0Iwc2pkTERiUXFMZytDVTh5Wk9sNU44WDg3UlhmekVIb1VJRzRwT2U5?=
- =?utf-8?B?Z2o2Z2twYmNLSG0rWXB6TEZGd1hxcWVXczdTbVJXZDd2bTA0MThiNXc0TW9y?=
- =?utf-8?B?bkpFUkFxeENkaHR1c1ZCa2RnQ1laQWRQM2NUNE9ka0hsZ014bldxQXhEVzNK?=
- =?utf-8?B?MGozVThIa253bFlBSm82aGw3Q09JOU9hNW04Y3BSVkd2UjNOaDRUdEFKelRk?=
- =?utf-8?B?VEhldnZlczlmZjhGdE52Um96U2QzRFRxYkFHUkRqL1JQeG9yZU9sUHBFUk93?=
- =?utf-8?B?bWtIMlVYd05DOUttMlFEalBDbXM0VU1UL1pmdUkxRDl0Rk5UL2VTa09kbXUz?=
- =?utf-8?B?cXo3dG5OdW9PaGNPemI4ODlxcnNlUlJYNEFrZFV6K2lTd0ZqSXV5WlFIYlFa?=
- =?utf-8?B?SEpkMTRvU05MeG9oci91RExMTGQvSUp0YWtrOVhoSkh2T1Rnbjg3MkxFcnVw?=
- =?utf-8?B?ZStkcXFuWEJreTdCa0xjbkFadUVMNTJLLzVPQzlRS0orRGtFVUhlWFNoMGhN?=
- =?utf-8?B?WUFadjRseVVEUUpTZU1waDlFcFNQM0c5SnZZSEhUYXBFYjc1Z1dDSDFwNmVk?=
- =?utf-8?B?Ny9XelJCcGJhQngzQkpTVVNTa1JjUTU3Z2w5Y0NBUlJqQWRHaktCN0NQcUsw?=
- =?utf-8?B?S1lpUWZEZVJ1aXBQM1owdk5EZStzMmF2eTErUHBJUm92azRFWDlCZnlJZWpT?=
- =?utf-8?B?Y3YrL0J4ZVM3eGpZbHF0OTUvYWNkMFlHRHoyYzl1TWR4dzJrTG01d2YrejAz?=
- =?utf-8?B?eHoyM1h4Vjg2aHNZbXAxRkcwNThPMFNNakgzc3AyZUlnQ25BUjE3elBaV29O?=
- =?utf-8?B?ZzNjbHBQaUpRVzR1UjZlVDlUeHBNWGo3M0RNUE1YbkMvdzNXRWtoT0Z3d0N5?=
- =?utf-8?B?anVyR0pLRlBiK09LV3Rxcm40RVphVnB1Sk1rdW5TT3M1UHF1VVIxU05XVFZP?=
- =?utf-8?B?eEk4TnFONnAzd3VIc1lQNThWSGpSWGRuaE5ZSmczZWludnRERHJqcngzemRQ?=
- =?utf-8?B?NExxZlB6NVgwN2pHTWgweDA1a2lKMWwzNU1zUktxajErTEFrQ09wNThaR243?=
- =?utf-8?B?SVpGT09KSGRMbm1rQnRZVnhOMWt5cTVjczRiQnA1RkxDbERGdFFwcDkxSkpu?=
- =?utf-8?B?S2lHS0FBY0pNM04yQ3crUTJRTlVnb0FYQzk3QkpNdXlUWVd5Mjk2MlpybHRu?=
- =?utf-8?B?cERxNHFraTNhTGJoQk84eE8zdzg1T1pFN0cwQTRRRlFyQmRzc0hEbGNBOXZ1?=
- =?utf-8?B?bXJRcXRXeXJCTEI3bGE1bUZmNU5iVlgrNU9iOTdvVWlKd2JuejlWelBaMzhp?=
- =?utf-8?B?cDlzdlM2SHhXbmZNMndnNHhRbzJBQVhqVm42aFdrWXdXdGNrUEtPZFRxd3RF?=
- =?utf-8?B?ZWlYZzNEVUVKTlhJYlNvVmMwTFVRUmdjS2plL3dUTFZsMjNCbVhJanJ5d3R2?=
- =?utf-8?B?SVBHUE03NWJJVmYwZHVZKzVxaWRMK3RmaDdOVFJpbnF2MEVjYVdJVkE1YXB1?=
- =?utf-8?B?MEwzRll3UXZMNEFyTTlUQUJsdmZnQWFTVlhmVzNPamlZRU8wS2ZHRzNXZ2Zl?=
- =?utf-8?B?TkV0RkwvS1l0eDBNbXlqNklJMFRQSG9rU2pMelZpMXEzWXhoL3RsTnZ4NXU0?=
- =?utf-8?B?bUt6NnlaL2RMM2MwYWtNTGJiRXZKWFpXZ0pEV2FuNXQ2MTMrV0FrRHhNQTRa?=
- =?utf-8?B?bVFEekhPOG1XZ0JQRDJ0Mk01ZGU1dWQyb3RwZ2RaR0E1QlIrOU5sOWpMVGlH?=
- =?utf-8?B?ZGc2UytzcWFxYzBzWlFLNTV5dVVyYndON1ZUSjRZNVVLcXVJc0lwRTIyR084?=
- =?utf-8?B?QlcvS1hOM1JkeSt0N0NQTyt3bGhCZDAwRVdHNFc4b0ZpK004SE5vWWJrc1Fz?=
- =?utf-8?B?NEZGU3p5Snc1MUVWUUJib0tEWlNlSjh1bVZHdlZxQy94eWFlN1p5TGdRdzho?=
- =?utf-8?B?L3A4aHlJTHY3T2pDN2s4U1lvVzJrejVzM2x3UHMxbGRCMjRLaU5ISDNQdUFn?=
- =?utf-8?Q?ZU9nMxUt+dENKYadOw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 021ee676-e6cb-47b2-8ed6-08df17d4fd45
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:39:26.1323 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DY4LrVUeBMJMUD2o2APAP7Wbdwb7pQpzOUm2brO9QT9DCkBSvatHnEHnQK/FQNyx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7185
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,80 +101,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/21/26 12:09, Janghyuck Kim wrote:
-> dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
-> into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
-> evidence of a violated invariant or a driver bug -- it's an ordinary
-> runtime failure of a fallible operation, no different from any other
-> allocation-shaped kernel API that can return an error. The dma-buf
-> core has no visibility into what a given exporter's vmap()
-> implementation considers a normal failure versus an internal bug;
-> that distinction, if it matters at all, belongs to the exporter, not
-> to this generic passthrough.
+MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
+one can be routed to a DPI display while the other is wired to the HDMI
+block. They are not compatible with any other device, so add a new
+compatible to describe them in the device tree.
 
-Well not quite, apart from some not so relevant HW workarounds the vmap callback is mostly used for fbdev emulation.
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
+ 1 file changed, 1 insertion(+)
 
-> -ENOMEM is a concrete, easily reproduced example of this. Page
-> allocation on the vmap()/vmalloc() path can fail purely because the
-> calling task has a fatal signal pending: should_reclaim_retry() in
-> mm/page_alloc.c intentionally gives up reclaim and returns false
-> once fatal_signal_pending(current) is true, so that a task that is
-> already being killed (e.g. by a userspace low-memory killer) isn't
-> stuck retrying reclaim on its way out. The resulting -ENOMEM from
-> dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
-> the exporter -- and it is far from the only way ops->vmap() can
-> legitimately fail (an exporter may just as well refuse to vmap a
-> buffer for other, unrelated reasons of its own).
-> 
-> This is exactly the kind of condition Documentation/process/coding-style.rst
-> warns against for WARN*():
-> 
->     WARN*() must not be used for a condition that is expected to
->     trigger easily, for example, by user space actions.
-> 
-> A failing vmap() is reachable purely by driving the system into low
-> memory and then issuing an ioctl that happens to map a dma-buf -- no
-> driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
-> and on panic_on_warn kernels into an outright panic, doesn't help
-> debugging; it just turns an otherwise-recoverable error into a fatal
-> one.
-
-WOW STOP! A driver allowing to vmap() through an IOCTL is a major no-go!
-
-vmap() on a DMA-buf has very very limited use cases which should mostly only be trigger able as superuser.
-
-At least on 32bit system you can otherwise trivially exhaust the vmap area of the kernel and that is even worse than a simple WARN_ON_ONCE().
-
-Regards,
-Christian.
-
-> 
-> Drop the WARN_ON_ONCE() and simply propagate the error, consistent
-> with how other allocation-failure paths in the kernel are handled.
-> The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
-> both still return the negative errno from dmabuf->ops->vmap() to the
-> caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
-> on panic_on_warn kernels) is removed.
-> 
-> Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
-> ---
->  drivers/dma-buf/dma-buf.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 36cdc342627e..252495761a21 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
->         BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
-> 
->         ret = dmabuf->ops->vmap(dmabuf, &ptr);
-> -       if (WARN_ON_ONCE(ret))
-> +       if (ret)
->                 return ret;
-> 
->         dmabuf->vmap_ptr = ptr;
-> --
-> 2.34.1
-> 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+index eb4f276e8dc4..6cd96a5cd4ae 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+@@ -21,6 +21,7 @@ properties:
+       - enum:
+           - mediatek,mt2701-dpi
+           - mediatek,mt7623-dpi
++          - mediatek,mt8167-dpi
+           - mediatek,mt8173-dpi
+           - mediatek,mt8183-dpi
+           - mediatek,mt8186-dpi
+-- 
+2.43.0
 
