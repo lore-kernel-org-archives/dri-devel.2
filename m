@@ -4,59 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE925C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F20C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 077EE10E10E;
-	Mon, 21 Sep 2026 10:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F11110E142;
+	Mon, 21 Sep 2026 10:46:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SkFc3WrE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QtMqXf/2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD4310E10E
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:43:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789987395; x=1821523395;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=HrgUTYm+rQYlaefjTDnzVgQ/IOugymTnai8JLExScwo=;
- b=SkFc3WrECGyXN1/mrImH/OT/YZtYU+cc/uyRJIN2Lk6DuMJWlIBtCQ9i
- CYPGR+5jxdO61Xocd8vR/LnsLiZ8elGYWogMYA0xdMU4Cs1OAvKKo9z7T
- WYXHpL10wvNKItkYXdNoFgUw5H8vTffi2ReX3RqdMcG0tOgNAGhls5P8V
- MBlj9qLTffjEyU+QsyBQc/uuqYrCyu0pmxpJG33vV6STcQvcgFl2HJ/7P
- epbs4GyKhrDxBJrsDP8fQcdE7UeIFWsj+almLMPNaqNuedc3v39pkAbYq
- CiJP5Q0TSaxi8YIgFyrB8knuudC9sUPsbBopc4/uOnQ4ipZY57J4VAzBr Q==;
-X-CSE-ConnectionGUID: FJt9jjR+RRuEwrX8P92S2Q==
-X-CSE-MsgGUID: gb3fjfUxRyaYJoE9R4tmFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="995471"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="995471"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 03:43:14 -0700
-X-CSE-ConnectionGUID: znoIhxjORJWJFEc2a2LaUQ==
-X-CSE-MsgGUID: 8ojwJ6voTL2BfIN5PbF4qg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272759840"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.180])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 03:43:12 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hui Peng <benquike@gmail.com>, airlied@redhat.com, sean@poorly.run,
- tzimmermann@suse.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/udl: reject short USB EDID control transfers and
- fix URB init cleanup
-In-Reply-To: <20260919223511.3889061-1-benquike@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260919223511.3889061-1-benquike@gmail.com>
-Date: Mon, 21 Sep 2026 13:43:09 +0300
-Message-ID: <e53ce901a913d9b660d682d8206a2167770c02b4@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A6A10E286
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A1BCB4075D;
+ Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7800FC2BCB3;
+ Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1789987585;
+ bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=QtMqXf/2sMT8V5aRhAJoeRwqp86qhIVowYoIV6r70QdpURnKYsjFK6JM5YoqOT1lx
+ we8wl2bs185Petkx3fko+2tsLF9JVekRjA+DJjLrWfDHEoUmhqSH1sgKpvSV90jmAf
+ hFKx3pXp7na9HipxbRim4vtl8uiUJ+TkHErMFiowRR+qddkf5+s9fOAGL056RVxHCh
+ QVgVzvwrm/5UkKGdo87fDwB/6mueysngSAI0lGoIAD3PjG8fAW1luvrS+/r4l165bl
+ t3HWDQimbFvsjqYXCT6wwCLCpIimHmU/Jmmy/VoEEHJt+ySd/rd6ZnEPMW/6w94+a4
+ m65voZpOeSbmg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 473B9C982EE;
+ Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v4 0/4] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Date: Mon, 21 Sep 2026 12:46:21 +0200
+Message-Id: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Nyw6CMBQE0F8xXXtNXwJ15X8YF6W9yPWFUsRX+
+ HcLLtTEGJeTzJy5s4A1YWCz0Z3V2FKgah+DHo+YK+1+hUA+Zia5TLjhGRxdtYPzFj3k1m22tCo
+ bKLyZpprLVE0Vi8tDjQVdBnWxfOZwytfomp7qGyWFpqqvw20r+t7vh1aAAKe912hzb3k6pws1E
+ 3djvd/KN0Ho74IEDjb63kil0KhPQf0hqCj4xBRoMq0yLV5C13UPinWQCUoBAAA=
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2942; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr++Qskohu/NoPUViM/Xnk4ZG3uJpJuUybj5
+ yyYXTm1AsOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/gAKCRBgAj/E00kg
+ cpH9EACra0QFYoHrS1Yjszh/axxwX/h6rI35LsVlMTojnr38RvSmntCUM3j4CeQJLiXp/2jFlyl
+ KsENmnXSftVWoCAvvrFrMu+zAG1W+/BeX9LsjDkToTqv6JL9TJ06IBMQA9Dep8jcf/DAdpf5S1u
+ bA+Xs/XRP4wsHoar3vZeFjlIrpNLJwStYokEcC6fjm5RM3xH3lOp5Lwo/MZJSjdsglMHJuvHwfH
+ NMgQA4eXKMR9nsVAYeOkSCBSna/DmJxYTIbOQ7TYABSN5dYYXphi++t49lRnWAix7uNA9seCbbh
+ 6u/EdmWUUQ1hZnTT3o3ezcR1c0UBd6Y1P+fANrRhTfEwD+Mp1cr9LvCWYwW4ZVQGiBpeBQsPpas
+ D7R/wmFqgFTmf03DM02XKvnseeZ00sk+wDM3Lb8ZUzBGqoOSFwU38g+NxSfiJQOS16qggWNIDPP
+ 468gVzzN9JKu3y0eD+nGVy5S4eG5WEujnasCrpqSGAS+6SDYXEW4gIPdUc5LzMDni/t6qxA4uMz
+ xaYdN/aVqngpUneD1F0MDGFsFDrKqI+iFcORfWK1r5TMHKvBRXXs+iomkxosx0xtDZfOZdaBzLg
+ xUX/j3y2i0z7tnO21jkrK84rJQ8e0/1Opu1xv0YoFdgoQqBXQ5kIWsjIfFcQ4GewGRr79eA60Ha
+ tfxlKl0In9XBo8Q==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +89,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 19 Sep 2026, Hui Peng <benquike@gmail.com> wrote:
-> In drivers/gpu/drm/udl/ (udl_drv.c, udl_edid.c), check that
-> usb_control_msg() returns the full 2-byte response in
-> udl_read_edid_block() before copying read_buff[1], and clean up
-> allocated URBs if udl_Driver initialization fails.
+The qcom-wled OVP interrupt is enabled at probe whenever the module is
+already on, but the driver still believes the backlight is off, so the
+first brightness update re-enables the interrupt and trips "Unbalanced
+enable for IRQ". sdm845-mainline has carried a workaround for years and
+Joel posted a flag-based version last October [1], which Konrad and
+Daniel asked to be replaced by something that does not track the IRQ
+state by hand.
 
-One change per patch please.
+Patch 1 is the drvdata fix I said I would drop after v3. The objection
+was that it stored the wrong object, not that the fix was wrong, so it
+is back with the right one stored.
 
->
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-> index 1922988625eb..239a6983f49f 100644
-> --- a/drivers/gpu/drm/udl/udl_drv.c
-> +++ b/drivers/gpu/drm/udl/udl_drv.c
-> @@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
->  		return PTR_ERR(udl);
->  
->  	r = drm_dev_register(&udl->drm, 0);
-> -	if (r)
-> +	if (r) {
-> +		udl_drop_usb(udl);
->  		return r;
-> +	}
->  
->  	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
->  
-> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
-> index af4cff2a7c51..b7c462436573 100644
-> --- a/drivers/gpu/drm/udl/udl_edid.c
-> +++ b/drivers/gpu/drm/udl/udl_edid.c
-> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
->  		if (ret < 0) {
->  			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
->  			goto err_drm_dev_exit;
-> -		} else if (ret < 1) {
-> +		} else if (ret != 2) {
->  			ret = -EIO;
->  			drm_err(dev, "Read EDID byte %zu failed\n", i);
->  			goto err_drm_dev_exit;
+Patch 2 is unrelated too and fell out of writing the readback: the WLED3
+brightness register stride has been one byte instead of two since the
+2019 restructuring, so multi-string pm8941 boards only program one
+string correctly. Untested, I have no WLED3 board; it restores what
+pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
 
--- 
-Jani Nikula, Intel
+[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v4:
+- I applied the 0x10 fix too late, now it's fixed in the right commit.
+  (Konrad)
+- Right object stored in the drvdata. (Konrad)
+- Set the drvdata next to the other wled fields instead  of next to the
+  backlight device registration.
+- Reworded the drvdata commit, the NULL dereference is in wled_remove(),
+  the driver has no PM callbacks.
+- Link to v3: https://patch.msgid.link/20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz
+
+Changes in v3:
+- Fix typo 0x10 != 0b10. (Sashiko)
+- Added fix for a unrelated issue, but since reported as critical, let's
+  squeeze it:
+  Missing platform_set_drvdata() in wled_probe() leads to a guaranteed NULL pointer dereference in wled_remove().
+  (Sashiko)
+- Link to v2: https://patch.msgid.link/20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz
+
+Changes in v2:
+- Add a fix for the WLED3 brightness register stride.
+- Add patch reading the programmed brightness back via
+  backlight_ops.get_brightness. (Konrad)
+- Note the brightness readback is done in the follow-up to the first
+  patch.
+- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
+
+---
+David Heidelberg (4):
+      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
+
+ drivers/video/backlight/qcom-wled.c | 89 +++++++++++++++++++++++++++++++------
+ 1 file changed, 76 insertions(+), 13 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
