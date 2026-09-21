@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 428E9C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E919C982FA
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B178F10E943;
-	Mon, 21 Sep 2026 15:53:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8B110EA6C;
+	Mon, 21 Sep 2026 15:53:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="eoObOOP2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NWS8s+//";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C3F10EA21;
- Mon, 21 Sep 2026 15:53:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790005967; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC9E10EA4F;
+ Mon, 21 Sep 2026 15:53:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790005973; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=eXCGYJemu4BVEiqC5856QnRCmHqKrEkFRxM0YUtesxCydeXdKQPq9fJXqcKdysNNd1q5f9oHd6alHOvOWKnkVxafl+gT+czPlez0JpXNaDktwrIW4GrLCAashst6cEJY9n3SfR2pWMtNmuzrWyqZuT9UaVjwk4MSZjUsaw5H6tw=
+ b=KwU0MvN9TIqpzV48EIVHG5F1HhDllVYkeXB3229n+SkrqogUBlq6S9Xe00OwHtVFBuXJj/uJO4J+/6r2Ag/1bwjSCFTtc6O4WjUjKoB9a9N6vOp+ytK6c2FICBGElS3vVciYhJVKSlnX3flUc0EzeOKPVl9sgnrJ+1vsGAi//m4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790005967;
+ s=zohoarc; t=1790005973;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=NrH1BPLpuLOqQDQpOONb+r82Ea0xWENpicF6PhqY/S8=; 
- b=LBgNiCsPouf5SGKErMhoq7Bl/06lEezg5d0KulEtR6QJRS166y3Obn3fHWs1reLiKPxKZMN5EQcHfDBdSXENZaeFDOrTYM4b7LU1HBnEJGn2kOXoJZS5lGyIgxdW0VGzXEwitNR8yt89f570y5GXYNoI3Gi7hZNZyLo5veqlQsE=
+ bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=; 
+ b=PbqlYUF+Zvl3FGv7ItmwO2PiaxxqZiPWWKmb4fQ7kiyIXS4/V+d+VV3ZDsX0AtICpZopEzKL+vwmKoe5LoxOGevpk+T46LG3JAjNb/Tr2x1+U8/8Mc6Xh3/vQmYSRHyxFBFyaYzTaJPkkAYqcjzH2GvYkIRnZ74Td727/a63BaI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005967; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005973; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=NrH1BPLpuLOqQDQpOONb+r82Ea0xWENpicF6PhqY/S8=;
- b=eoObOOP2Dc5eRhtDEA2ShosHM7hJxzu2HeIFqOlzIQExUrtPWD/UdiB0t2dDRNfw
- gpUucXuH46qfDDPYyQMBuq4n4AMDGVkcIQQWzUGtfCJtRVUsndEnQGCFdf4bN+qY/hM
- iF5/yDj8eu6yLjPmcZMZihVDmn/Zvr92ihZu/Hsk=
-Received: by smtp.zohomail.com with SMTPS id 17900059663881006.9027491955;
- Mon, 21 Sep 2026 08:52:46 -0700 (PDT)
+ bh=A37lvk2K4kvKDIjEQaFWtxje/hLDqdNIP4aYihLpCOA=;
+ b=NWS8s+//mfEFTrVR4p3kwSFSobcD+KUYqBd+Ckn1TlqEtQyMPU+FzLo51YECtZTN
+ /o08VKT+AmRYkEay4XR8R0tPkQdU80OZIYY1E+bazrEX42TbQFjHrAkPO2xh6Dp7MFV
+ mBHjUVK5v+ruHKeIfLt9Dzm68w9K9Q43oeDk2S0k=
+Received: by smtp.zohomail.com with SMTPS id 1790005971883349.0752585694669;
+ Mon, 21 Sep 2026 08:52:51 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 21 Sep 2026 17:51:34 +0200
-Subject: [PATCH RFC 08/25] drm/bridge: synopsys: Add VTEM EMP support
+Date: Mon, 21 Sep 2026 17:51:35 +0200
+Subject: [PATCH RFC 09/25] drm/connector: Add drm_display_info_is_vrr_capable
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vrr-limiter-uapi-v1-8-2fcd7d011646@collabora.com>
+Message-Id: <20260921-vrr-limiter-uapi-v1-9-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
@@ -80,110 +80,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Derek Foreman <derek.foreman@collabora.com>
+Add a function to return whether a sink, as described by a
+drm_display_info struct, is capable of receiving VRR signals.
 
-Add code to pack and schedule VTEM EMPs.
+For HDMI sinks, this can just check the HDMI specific vrr_capable field,
+which is set by the EDID parsing code. For other types of displays, the
+generally agreed-upon method appears to be to check whether the monitor
+range's minimum frequency is above 0.
 
-Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 50 +++++++++++++++++++++++++++-
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.h |  1 +
- 2 files changed, 50 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_connector.c | 19 +++++++++++++++++++
+ include/drm/drm_connector.h     |  2 ++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index c9568aea98dc..3315082d4475 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -673,6 +673,15 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index d94c86bfed86..fc7d9fcf9d9f 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1378,6 +1378,25 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
  }
+ EXPORT_SYMBOL(drm_display_info_set_bus_formats);
  
-+static int dw_hdmi_qp_bridge_clear_vtem_emp(struct drm_bridge *bridge)
++/**
++ * drm_display_info_is_vrr_capable - Check whether sink is VRR capable
++ * @info: pointer to a &struct drm_display_info representing the sink
++ *
++ * Check whether the sink supports variable refresh rate signals.
++ *
++ * Returns:
++ * - true if variable refresh rate is supported by the sink
++ * - false otherwise
++ */
++bool drm_display_info_is_vrr_capable(const struct drm_display_info *info)
 +{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++	if (info->is_hdmi)
++		return info->hdmi.vrr_capable;
 +
-+	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_EMP_VTEM_TX_EN, PKTSCHED_PKT_EN);
-+
-+	return 0;
++	return info->monitor_range.min_vfreq > 0;
 +}
++EXPORT_SYMBOL(drm_display_info_is_vrr_capable);
 +
- static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-@@ -775,6 +784,42 @@ static int dw_hdmi_qp_bridge_write_spd_infoframe(struct drm_bridge *bridge,
- 	return 0;
- }
+ /* Optional connector properties. */
+ static const struct drm_prop_enum_list drm_scaling_mode_enum_list[] = {
+ 	{ DRM_MODE_SCALE_NONE, "None" },
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 6e431eb81705..b18684d039d5 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1072,6 +1072,8 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+ 				     const u32 *formats,
+ 				     unsigned int num_formats);
  
-+static int dw_hdmi_qp_bridge_write_vtem_emp(struct drm_bridge *bridge,
-+					    const u8 *buffer, size_t len)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+	u32 val, i;
++bool drm_display_info_is_vrr_capable(const struct drm_display_info *info);
 +
-+	if (len != HDMI_INFOFRAME_SIZE(VTEM)) {
-+		dev_err(hdmi->dev, "unsupported vtem emp packet size of %zu\n", len);
-+		return -EINVAL;
-+	}
-+
-+	val = buffer[1] << 8 | buffer[2] << 16;
-+	dw_hdmi_qp_write(hdmi, val, PKT_EMP_VTEM_CONTENTS0);
-+
-+	val = buffer[3] | buffer[4] << 8;
-+	dw_hdmi_qp_write(hdmi, val, PKT_EMP_VTEM_CONTENTS1);
-+
-+	val = buffer[8] << 8 | buffer[9] << 16 | buffer[10] << 24;
-+	dw_hdmi_qp_write(hdmi, val, PKT_EMP_VTEM_CONTENTS2);
-+
-+	val = buffer[11] | buffer[12] << 8 | buffer[13] << 16;
-+	dw_hdmi_qp_write(hdmi, val, PKT_EMP_VTEM_CONTENTS3);
-+
-+	/*
-+	 * The remaining registers need to explicitly be rewritten even if they
-+	 * stay at 0, as per the hardware documentation.
-+	 */
-+	for (i = PKT_EMP_VTEM_CONTENTS4; i <= PKT_EMP_VTEM_CONTENTS7; i += 4)
-+		dw_hdmi_qp_write(hdmi, 0, i);
-+
-+	dw_hdmi_qp_mod(hdmi, PKTSCHED_EMP_VTEM_TX_EN, PKTSCHED_EMP_VTEM_TX_EN,
-+			PKTSCHED_PKT_EN);
-+
-+	return 0;
-+}
-+
- static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- 						   const u8 *buffer, size_t len)
- {
-@@ -1000,6 +1045,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.hdmi_write_hdr_drm_infoframe = dw_hdmi_qp_bridge_write_hdr_drm_infoframe,
- 	.hdmi_clear_spd_infoframe = dw_hdmi_qp_bridge_clear_spd_infoframe,
- 	.hdmi_write_spd_infoframe = dw_hdmi_qp_bridge_write_spd_infoframe,
-+	.hdmi_clear_vtem_emp = dw_hdmi_qp_bridge_clear_vtem_emp,
-+	.hdmi_write_vtem_emp = dw_hdmi_qp_bridge_write_vtem_emp,
- 	.hdmi_clear_audio_infoframe = dw_hdmi_qp_bridge_clear_audio_infoframe,
- 	.hdmi_write_audio_infoframe = dw_hdmi_qp_bridge_write_audio_infoframe,
- 	.hdmi_audio_startup = dw_hdmi_qp_audio_enable,
-@@ -1118,7 +1165,8 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- 			   DRM_BRIDGE_OP_HDMI |
- 			   DRM_BRIDGE_OP_HDMI_AUDIO |
- 			   DRM_BRIDGE_OP_HDMI_HDR_DRM_INFOFRAME |
--			   DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME;
-+			   DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME |
-+			   DRM_BRIDGE_OP_HDMI_VTEM_EMP;
- 	if (!hdmi->no_hpd)
- 		hdmi->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 	hdmi->bridge.of_node = pdev->dev.of_node;
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.h
-index c07847e8d7dd..6ce87064a267 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.h
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.h
-@@ -210,6 +210,7 @@
- #define PKTSCHED_AVI_TX_EN				BIT(13)
- #define PKTSCHED_VSI_TX_EN				BIT(12)
- #define PKTSCHED_EMP_CVTEM_TX_EN			BIT(10)
-+#define PKTSCHED_EMP_VTEM_TX_EN				BIT(9)
- #define PKTSCHED_AMD_TX_EN				BIT(8)
- #define PKTSCHED_GCP_TX_EN				BIT(3)
- #define PKTSCHED_AUDS_TX_EN				BIT(2)
+ /**
+  * struct drm_connector_tv_margins - TV connector related margins
+  *
 
 -- 
 2.55.0
