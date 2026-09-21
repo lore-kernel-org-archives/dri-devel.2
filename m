@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FEDC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD62C982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6145910E786;
-	Mon, 21 Sep 2026 13:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D64210E7B0;
+	Mon, 21 Sep 2026 13:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VHLqp1qd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EFfYTK69";
 	dkim-atps=neutral
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
  [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB0A10E791
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:39:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8EEE10E79A
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:40:03 +0000 (UTC)
 Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49d1ca5b0d6so22259955e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:39:59 -0700 (PDT)
+ 5b1f17b1804b1-49ccf3ca626so14795755e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:40:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789997998; x=1790602798; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1789998002; x=1790602802; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0usqXOyq3o4rQ+AIVUUfsp1gP3m25NdfBnNXnNuf6eU=;
- b=VHLqp1qd3xGgmU418y4SJN2r0tUSnSgHPu8tuXXc52pV0E16nrkM1UvhGm3suqJpuK
- XjScEveILj7dTouFvK7PWvgqIo4xudvQdnFd7wCtf7A57iaXf73jU19PJBa1UeJAqK6P
- t3eaUMP+sWqBFNHWjbF2mZ775G8jugnWFlf0eDuJUCqoffdYaNmXOhmzEWMUwPqzxkDJ
- Lnu5Y4OjSgRvz5uCwej2JW8MNieZ3Tw8fBQSATAN+VAHNNJ5zmuyk5SvJvFsRaHXHv93
- 8ly/MrveCHVg50WyNQNNafM9unu/5fDRHO+R32ypYBbc/ovCw4kW5XjMSzDtur1gAYhS
- smxQ==
+ bh=/FMRvm1BaZ6kTlzIVu1IAGTERBBcZPL0byDe3SvrYcY=;
+ b=EFfYTK690ZOnxvE0++MfJDdkj3vqnlivcq3+jFqrzFfEgTACSpZgCqPoZi2E3QckUz
+ PS81yl5lhJAjntUKelq36oIvd0DR6/aUq3dUhoJS5AiH4M4AjJuXuxRxDtwvqKtPmG+4
+ pRlV+1eviOQAv15q8GBAzZneOHDGXxhPrkS7NiSqrpoc4h9zUhfMXDS5ms0HyBRpWn8v
+ R78GI2PG9cZCrsyRM4ZbFtk55GqUpZLJFR1+DNJvyb7evYLZEXViRO3o7+IBbs7gf7pm
+ rOwvTWKPMs3MD5WNFpew/LrLOz+WOWuN7vKPRVXMvGC0tl0M0WQiaF4EmJOsX73tNy04
+ Am9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789997998; x=1790602798;
+ d=1e100.net; s=20260707; t=1789998002; x=1790602802;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0usqXOyq3o4rQ+AIVUUfsp1gP3m25NdfBnNXnNuf6eU=;
- b=EJtYjjLRUUGc+UD+DWethYVD3ctQyUZjUnLRDaT0/wd1MvajW4AAYNbGwdsrm/KLbO
- UfVyYWsha1cqlDGo35hVBpJDTHMFkO7wuykWo7Hf419HCtcEFEAj3W/LIMrgrwSvRuQI
- vP0dANATZ3l5uNAQJgrZcy+gmSVyKxs3HdNBLJYUUMPwUB9cYr4kM4O4xU/dRBTEFDCa
- 2MnHtx/ThnUip+6rW+o1ETl21hbcmMZZH4NL0feBnYlbCJ5v+pa9LkvCA6ccous3D8RH
- pC4s4+vIiSpR8+04sN6umiSfxhGOAQKi2YDRO1K0IkiFzIottdU7pSH8BeT1CL6Sey+4
- Xgag==
+ bh=/FMRvm1BaZ6kTlzIVu1IAGTERBBcZPL0byDe3SvrYcY=;
+ b=iOI8yXgfH8YBK6IOPYVFhwG1USV1golKrSAYSLv2pWVYdcMY0VLMQijfh311EjlL7D
+ cStVSllCSOa2ZiNsywXAZVe1TDeC02UZpnX+4M613Vm/rZreQSSdZU5NacwtWt3mlkBg
+ RgmtoDK6aal/n5/htg/pY2wEFiGzpuAuBpR56oWZX+cQWUB51Mhbp9M9oK4Gje7CLY2p
+ 0RowZ2nP5s3xYiveMm+nXrcKSVp8O/jPNR42/CXhcsIee5ePTroPOFXvey+8qbgQDbr2
+ GoHc82EVcbCrc61HTfDsPt6pWRwSyw3u05zq50xr1LddTbW2FbS7ob+ysHaaTFdPYpgm
+ TP1w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw7GWDMla/xCxXHYUtvg/aVjsIgX736+0wROe8kl+LWblaFUg91BcQoxTvzfPnZbwMiaLtUebJnLRE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l3iV2P3ynHRbn7951v6OUymRznjXYW/nmf09bWfS4iXhbQNudy
- 0sMU2zDbXWE+Nq2n6CFIUOxsBYk3TPJoXiMeX3e2cIJpf3WDQJUed/0n
-X-Gm-Gg: AYBFou0fgUH3CAVHo1zjpb6RaH2rhxo746TGeuJO78rUrD/h91GBkpU8HwbtOmV5YJ+
- IiaTfGzNA0l1PAR4OHjAWSJy476Mz6BGrlCOz38LKiWQhaWoxBu3jHkxud/Zcsizlp4yz7NnJT/
- 0JmEezHh9CX95WZrX7xxr5bXgb1qKb//xjWPbo+OfZHyD30UGt1+eY+IJrwEalbWVjMcgRDY0BV
- rZD1x9550n6f8joI0HR9vcvRSmHiIpVJwxj0Lxxe5zOI2gpicKLVPsp6vE2uJCB5hXpc2R2A1+k
- D5wJaM9mFssTzNspLFahgmjMLF+G6BqgzqkanyQPT8Yei8fF0r79dBkRdZo3pp0fdpnzr516U4v
- N2sgprdN3TRZVEhIgL6Z2rrZEwSGSswfulJYjJ1qsXGBa+ElIpWwhFLrX0NwEQwE+8i8MV6loTY
- fBAEkOK3BOUh2qWXkXE3T2/RA8B7kW+rt6Awg/LCu9ysjUYCDq9Ohpxx/Y4ro47BcZf0UVVMFzs
- ZHl++9V2UF7ZEe+O3XKh2tYHKyiDDR1v73wIMnDvnuWXYRLv8J/miXDbjUTrzFOd2iceKXmmp8e
- jGXkH4DfZxQkV/CQJop9PMy/V8B3Fp0Cb0v1thAS
-X-Received: by 2002:a05:600c:34c8:b0:49e:732e:6b79 with SMTP id
- 5b1f17b1804b1-49fc574eff6mr149861745e9.32.1789997998153; 
- Mon, 21 Sep 2026 06:39:58 -0700 (PDT)
+ AKwUvBz0LJrbtzGsp79IWP6C7AUmi8zlvCOboFsxpxLd24EUMg6havjEHVmOLIdBfmDjGcjxmRuQYnPPEOw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nwp5+Ai/yNNtBx7pTI2kSWMlt9bJ6pQpYk6z2cDUx2W4klyM+1
+ BPfgkQhv4BoB6iEyn0xdOuwcne+lX2uw95FqjHJp8Jsy4ubhM/nkrM59
+X-Gm-Gg: AYBFou2I1PLMkPR6BBybxwU7eWZqxWivQGSsoVvusrRddfzjZC/aa7RNxNV6AIQd18T
+ uTHSGUBRfglQHJyqyncTtG3QL0kNalOO6QrbLrGlyIW/Y5sr3JciN1ZULyGph/yu5/A5Ydvm69G
+ jtQ1JrLZQ7eRLS9yURW1/ZxEKBHu0MHKGbuQ7VtRVaBhOilpcKULlH7cpvaavFAQu7L4oMXyaeJ
+ WNnxeaoc6ZLJpwASwIhpSRuoPQ2gBcUqcqDeK6GXoQcuISpqkw6S0uHDnY7oXfz//qSOZPP1CMc
+ 2zDDBOCsm7W9RHlxwmC0b8gToXJIzPoyc572wbH53j0G2XrbDDE/pp78YDIv2cg26YEHI7AY6FZ
+ u3Bysn+Hlk0AEEUIko2ZZ89y+I1X5DYL/xrQhj2nMXdaqJNZ4xvwxvR/NXsWu5ZrY+G3oXgWRBw
+ 95p0mmJYakMZIM+rH77/MYQkPOinFMRD5HFzPnMoq/ORCoGoShbPpqGest0aolsVuqasAhdfKTd
+ 5CE8F0J+MVBrzD8zrTihO2vAurgAnfzXcMbJXrSx0zDwzQC8O3a23153XO6t0P4P+whPSHghM6u
+ M1tctGDqYWqSKsv3bNt1h0jX4f+13A==
+X-Received: by 2002:a05:600c:3107:b0:49c:ff9f:f6b6 with SMTP id
+ 5b1f17b1804b1-49fc5669346mr153997265e9.6.1789998002057; 
+ Mon, 21 Sep 2026 06:40:02 -0700 (PDT)
 Received: from 127.0.0.1localhost (82-132-213-26.dab.02.net. [82.132.213.26])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.55
+ 5b1f17b1804b1-49fc585920fsm617171605e9.4.2026.09.21.06.39.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 06:39:57 -0700 (PDT)
+ Mon, 21 Sep 2026 06:40:01 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
@@ -83,9 +83,9 @@ Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
  Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
  Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-Subject: [PATCH v6 11/13] io_uring/rsrc: add uncloneable regbuf flag
-Date: Mon, 21 Sep 2026 14:38:55 +0100
-Message-ID: <9b71636a03f2345bcc09127d77eb6b294a1d0938.1789997898.git.asml.silence@gmail.com>
+Subject: [PATCH v6 12/13] io_uring/rsrc: add regbuf import flags
+Date: Mon, 21 Sep 2026 14:38:56 +0100
+Message-ID: <a7b154185897c7cd23de143f5bd834ef73cd7723.1789997898.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1789997898.git.asml.silence@gmail.com>
 References: <cover.1789997898.git.asml.silence@gmail.com>
@@ -106,49 +106,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It's hard to implement cloning if the internal structure needs to be
-mutable and/or relies on other ring resources. In preparation to such
-buffer types, add a flag indicating that the buffer can't be cloned. It
-might be possible to add cloning in the future for them, but that would
-likely need reallocating the structure and reacquiring resources in case
-by case manner.
+We'll have special registered buffer types that can't be used with all
+opcodes and need special handling. Add separate flags to control
+registered buffer import, which will be used to specify what kind of
+buffers the caller can handle.
 
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- io_uring/rsrc.c | 5 +++++
- io_uring/rsrc.h | 3 ++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ io_uring/rsrc.c |  8 ++++----
+ io_uring/rsrc.h | 24 ++++++++++++++++++++----
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
 diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 83a7ad9f5bc7..0b526b094dc9 100644
+index 0b526b094dc9..79e3c686ecc1 100644
 --- a/io_uring/rsrc.c
 +++ b/io_uring/rsrc.c
-@@ -1434,6 +1434,11 @@ static int io_clone_buffers(struct io_ring_ctx *ctx, struct io_ring_ctx *src_ctx
- 		if (!src_node) {
- 			dst_node = NULL;
- 		} else {
-+			if (src_node->buf->flags & IO_REGBUF_F_UNCLONEABLE) {
-+				io_rsrc_data_free(ctx, &data);
-+				return -ENOMEM;
-+			}
-+
- 			dst_node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
- 			if (!dst_node) {
- 				io_rsrc_data_free(ctx, &data);
+@@ -1298,9 +1298,9 @@ inline struct io_rsrc_node *io_find_buf_node(struct io_kiocb *req,
+ 	return NULL;
+ }
+ 
+-int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
++int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
+ 			u64 buf_addr, size_t len, int ddir,
+-			unsigned issue_flags)
++			unsigned issue_flags, unsigned import_flags)
+ {
+ 	struct io_rsrc_node *node;
+ 
+@@ -1709,9 +1709,9 @@ static int io_kern_bvec_size(struct iovec *iov, unsigned nr_iovs,
+ 	return 0;
+ }
+ 
+-int io_import_reg_vec(int ddir, struct iov_iter *iter,
++int __io_import_reg_vec(int ddir, struct iov_iter *iter,
+ 			struct io_kiocb *req, struct iou_vec *vec,
+-			unsigned nr_iovs, unsigned issue_flags)
++			unsigned nr_iovs, unsigned issue_flags, unsigned import_flags)
+ {
+ 	struct io_rsrc_node *node;
+ 	struct io_mapped_ubuf *imu;
 diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index 9ef88383b363..73d7b1ebf0b6 100644
+index 73d7b1ebf0b6..351995b61e68 100644
 --- a/io_uring/rsrc.h
 +++ b/io_uring/rsrc.h
-@@ -26,7 +26,8 @@ struct io_rsrc_node {
- };
+@@ -62,12 +62,28 @@ int io_rsrc_data_alloc(struct io_rsrc_data *data, unsigned nr);
  
- enum {
--	IO_REGBUF_F_KBUF		= 1,
-+	IO_REGBUF_F_KBUF		= 1 << 0,
-+	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
- };
+ struct io_rsrc_node *io_find_buf_node(struct io_kiocb *req,
+ 				      unsigned issue_flags);
+-int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
++int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
+ 			u64 buf_addr, size_t len, int ddir,
+-			unsigned issue_flags);
+-int io_import_reg_vec(int ddir, struct iov_iter *iter,
++			unsigned issue_flags, unsigned import_flags);
++int __io_import_reg_vec(int ddir, struct iov_iter *iter,
+ 			struct io_kiocb *req, struct iou_vec *vec,
+-			unsigned nr_iovs, unsigned issue_flags);
++			unsigned nr_iovs, unsigned issue_flags,
++			unsigned import_flags);
++
++static inline int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
++				    u64 buf_addr, size_t len, int ddir,
++				    unsigned issue_flags)
++{
++	return __io_import_reg_buf(req, iter, buf_addr, len, ddir, issue_flags, 0);
++}
++
++static inline int io_import_reg_vec(int ddir, struct iov_iter *iter,
++				    struct io_kiocb *req, struct iou_vec *vec,
++				    unsigned nr_iovs, unsigned issue_flags)
++{
++	return __io_import_reg_vec(ddir, iter, req, vec, nr_iovs, issue_flags, 0);
++}
++
+ int io_prep_reg_iovec(struct io_kiocb *req, struct iou_vec *iv,
+ 			const struct iovec __user *uvec, size_t uvec_segs);
  
- struct io_mapped_ubuf {
 -- 
 2.54.0
 
