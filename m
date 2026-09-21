@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DD1C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 414C2C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:53:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E35710E550;
-	Mon, 21 Sep 2026 13:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FD010E0C7;
+	Mon, 21 Sep 2026 13:53:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g23cqlN+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OEAE+tHa";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D9E10E550
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:50:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF79C10E0C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:53:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0BECE600C8;
- Mon, 21 Sep 2026 13:50:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828441F000FF;
- Mon, 21 Sep 2026 13:50:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DDADC600C8;
+ Mon, 21 Sep 2026 13:53:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B591F000FF;
+ Mon, 21 Sep 2026 13:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1789998606;
- bh=P4NUHOxH2aeSHDVJqGsUr0BE+Jo/nTG/+xG9c4sXpK4=;
+ s=k20260515; t=1789998792;
+ bh=FD/KVAs3j3UCY4l3pKDtYfQ0rDY2bI4dxQ+grUK7i+Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g23cqlN+Hi7G3gA8YRnTOEkP7rajyIhMMCWHCvPO7BQUBi/rwD0WDWhe0zMUDAbXt
- ymBGx93ULF0mwGXIg3IHEtfMb8idjBx6AXPuFBmaDCrx0+IzHRRKmUEK3vaZDJvlBg
- IVuOzR2rmicrXQd5elktRvvjTiwKZcavK+8EAd3u+f+43DUYvKHPx16mJkSpmVy4ut
- rlucug4ED5SiTFeWmmaIHx5Xx/INGv/pGsIr9bsT80OjEUn3sxNubKMvTM0wPTfT18
- /3fIs1NSN1w/RF91QoR8xxv1NPFu2me++ZaYbWhhb1tuI/8V3M7RgB9kDrZn3JEe/y
- ir9G2m+NywP5w==
+ b=OEAE+tHaNmTAtNqbMKrIt5xps41+cXIkejdQey6Z7FyVSz9fuY6frjQXsBHqPcM5K
+ xR7mAT7zEA5X7mgHmJSewx/WBjpfQlpoEDpUvjQ1fsMn5M4YQ+7kIaEy7f1anhTpQO
+ ks34kiXCIjNqgWWviktLkoZkBYgyeo8RMNA8DsKTZ0xN3WLwXq2rQ4GQ4SaOJaa+KG
+ V0yCVo6o54n0PzHNCAFpbpV/ZdjXbjZeHx/yOsKwxEFaZC/XoCpfHeVKKJp335nckI
+ aCRegp1YwRkE668xP9kpBIk11+77YSeInHZO5OX+z7MgK2Oqw7HU6qB1vj81vSvfJW
+ /m7FXW0ANq4kw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 05/13] block: add dma-buf support for raw bdev
+Subject: Re: [PATCH v6 11/13] io_uring/rsrc: add uncloneable regbuf flag
 To: "Pavel Begunkov" <asml.silence@gmail.com>
 Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <eafcbbf7e75e75e98d0791b843fae0f2423a4ecd.1789997898.git.asml.silence@gmail.com>
+In-Reply-To: <9b71636a03f2345bcc09127d77eb6b294a1d0938.1789997898.git.asml.silence@gmail.com>
 References: <cover.1789997898.git.asml.silence@gmail.com>
- <eafcbbf7e75e75e98d0791b843fae0f2423a4ecd.1789997898.git.asml.silence@gmail.com>
+ <9b71636a03f2345bcc09127d77eb6b294a1d0938.1789997898.git.asml.silence@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 13:50:06 +0000
-Message-Id: <20260921135006.828441F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 13:53:11 +0000
+Message-Id: <20260921135312.69B591F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,88 +57,54 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] block: blkdev_read_iter() discards partial direct read success f=
-or dma-bufs
-- [Low] block: dmabuf error paths skip iov_iter_reexpand() teardown
+- [Medium] io_uring: incorrect error code -ENOMEM for uncloneable buffers
 --
 
-commit 1ef88ba1be9691ca9af0098196766a3034d434e9
+commit 09226c4686b3c73a879519b5ef4315732d82b7f5
 Author: Pavel Begunkov <asml.silence@gmail.com>
 
-    block: add dma-buf support for raw bdev
-   =20
-    Add a simple proxy implementation of init_dma_buf_io_ctx() forwarding
-    the call to a new struct block_device_operations operation. Also reject
-    dma-buf backed iterators for buffered IO.
+io_uring/rsrc: add uncloneable regbuf flag
 
-> diff --git a/block/fops.c b/block/fops.c
-> index 641621db700f8..15fe5e39c68aa 100644
-> --- a/block/fops.c
-> +++ b/block/fops.c
+It's hard to implement cloning if the internal structure needs to be
+mutable and/or relies on other ring resources. In preparation to such
+buffer types, add a flag indicating that the buffer can't be cloned.
 
-[ ... ]
-
-> @@ -783,7 +783,8 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, =
-struct iov_iter *from)
-> =20
->  	if (iocb->ki_flags & IOCB_DIRECT) {
->  		ret =3D blkdev_direct_write(iocb, from);
-> -		if (ret >=3D 0 && iov_iter_count(from)) {
-> +		if (ret >=3D 0 && iov_iter_count(from) &&
-> +		    !iov_iter_is_dmabuf_map(from)) {
->  			ret =3D direct_write_fallback(iocb, from, ret,
->  					blkdev_buffered_write(iocb, from));
->  			need_sync =3D true;
-> @@ -796,6 +797,9 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, =
-struct iov_iter *from)
->  			need_sync =3D true;
->  		}
->  	} else {
-> +		if (unlikely(iov_iter_is_dmabuf_map(from)))
-> +			return -EOPNOTSUPP;
-                        ^^^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-At the start of blkdev_write_iter(), iov_iter_truncate() restricts the I/O
-length and tracks the truncated amount in shorted. By returning directly he=
-re,
-does this bypass the iov_iter_reexpand() call at the end of the function,
-leaving the iterator incorrectly truncated?
-
-> +
->  		/*
->  		 * Take i_rwsem and invalidate_lock to avoid racing with
->  		 * set_blocksize changing i_blkbits/folio order and punching
-
-[ ... ]
-
-> @@ -851,6 +855,8 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, s=
-truct iov_iter *to)
->  		if (ret < 0 || !count)
->  			goto reexpand;
->  	}
-> +	if (unlikely(iov_iter_is_dmabuf_map(to)))
-> +		return -EOPNOTSUPP;
-                ^^^^^^^^^^^^^^^^^^
+> diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+> index 83a7ad9f5bc78..0b526b094dc9e 100644
+> --- a/io_uring/rsrc.c
+> +++ b/io_uring/rsrc.c
+> @@ -1434,6 +1434,11 @@ static int io_clone_buffers(struct io_ring_ctx *ct=
+x, struct io_ring_ctx *src_ctx
+>  		if (!src_node) {
+>  			dst_node =3D NULL;
+>  		} else {
+> +			if (src_node->buf->flags & IO_REGBUF_F_UNCLONEABLE) {
+> +				io_rsrc_data_free(ctx, &data);
+> +				return -ENOMEM;
 
 [Severity: Medium]
-If a partial O_DIRECT read using a dma-buf iterator successfully reads data=
- and
-advances ki_pos in the preceding direct I/O path, could this check
-unconditionally return -EOPNOTSUPP? Does this overwrite the successful byte
-count (ret > 0) with an error and hide the read data from userspace?
+Is -ENOMEM the correct error code to return from io_clone_buffers() for this
+case? Returning -ENOMEM for an unsupported operation (cloning an explicitly
+uncloneable buffer) might be misleading, as it usually signifies a transient
+out-of-memory condition.
 
-[Severity: Low]
-Similar to blkdev_write_iter(), if this returns directly, does it bypass the
-goto reexpand path, leaving the iterator incorrectly truncated if
-iov_iter_truncate() was called earlier in blkdev_read_iter()?
+If a user registers an uncloneable buffer and subsequently attempts to clone
+the buffer table via the IORING_REGISTER_CLONE_BUFFERS operation, robust
+userspace applications encountering -ENOMEM might enter a back-off and retry
+loop. This could potentially lead to infinite stalls rather than aborting t=
+he
+unsupported operation. Would an error code like -EOPNOTSUPP or -EINVAL be
+more appropriate to indicate that the buffer type simply doesn't support
+cloning?
 
-> =20
->  	/*
->  	 * Take i_rwsem and invalidate_lock to avoid racing with set_blocksize
+> +			}
+> +
+>  			dst_node =3D io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
+>  			if (!dst_node) {
+>  				io_rsrc_data_free(ctx, &data);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789997898.gi=
-t.asml.silence@gmail.com?part=3D5
+t.asml.silence@gmail.com?part=3D11
