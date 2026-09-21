@@ -4,126 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43540C982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF91C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88EDE10E33B;
-	Mon, 21 Sep 2026 06:56:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B22210E025;
+	Mon, 21 Sep 2026 06:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GabOPv6u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGHpVfrU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JuzSjmQg";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010009.outbound.protection.outlook.com
- [52.101.193.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A309C10E340
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:56:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IEFKCk1nFywOLlILUWOqu0HtQP3PF5MDXunddDZkBkELPWkKTeZUm7ezjMZ/gAN+4Q5XE65C4dUrRWjloGMTcmNaHyzjKg9hD2OKbUJfXYiAOqin5HDR8ts4r01Oql0CnfCc26uJ19E6TpAif2tXZwb4NKB0JC5b134OgI83/225BnnTvDDKL5IkiDR26V7+ZvWn5p/n3skgf7jq+IHIdzFyIsiVHtwR83DK84dxjDR2XheFaPFhXgcsl5v0A93vP+ez/JNEgImtO+VQvirVesF/OAYysKItgawURE0xvrj+Pd3VRfoVUOdwKBsQ3Bdjs2OYW4FvWXZnFd+U4oK0fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vRwqtyZpIlxH12E59U8j851c8nLUyhNFObHrQX129QE=;
- b=nKR73mL8v/ozmDiy4US1HPsyLBJwVKYUexFxHV5adrd6e1DJTKvrXwqvH4WPGpQdKFYLmkD1k40gSlbMT1QdcNSILlAT2M7WPQ2vCAV1cAjZIGREB++X8986vWvQKpLsM0TcQDK7bGxvjHySe5eKoR8ku/StarpMKUxPuBg0cXIBD+MnWwNn8cLuTX/is/O5taNWlDJK3+4Hq40haHa1AqqI/UCEo+OqI0BU8cibCx3+23nBhnjFRuLdkwxtyfgl5jnywlUTe2a/iQpiONUOi8gXQ97wkyIRz+Aevz1oXE9sfXHywWhpRp2cipThMjTlhmRfM9NpoDAXosze/3L7zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vRwqtyZpIlxH12E59U8j851c8nLUyhNFObHrQX129QE=;
- b=GabOPv6uNecGhmWEFJS03tzkICaZRS8fmPD1hyd6T/LKdp5VNQ9cOfh76oQogFoHoq7RSob2EEno9wu2qTn8+bE3WBwt6qGu2TfcHoZoUACmop8JeOZCj/LHdC44J0EvcWw8+DogrHzxzu3M1SWutawP0TwiyDOgWQ+6OvyZevQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7811.namprd12.prod.outlook.com (2603:10b6:806:34f::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 06:56:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Mon, 21 Sep 2026
- 06:56:10 +0000
-Message-ID: <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
-Date: Mon, 21 Sep 2026 08:56:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, kraxel@redhat.com,
- vivek.kasireddy@intel.com, sumit.semwal@linaro.org
-Cc: robert.mader@collabora.com, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6711710E1E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:57:08 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68L4Jmic002450
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:57:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ sxxN/THrSyRW5wXS4Y0iUrjV5rVX5I/Bsxrc5z1M8nw=; b=BGHpVfrUtTxhFFtp
+ 4B27Q2Ji+0WJwK/KVGNyE2Gzik2MkkhFo472YSf1+Ykrv7g1LqSbw9yhzRixDJL5
+ NQXACOg54oXeU37fMrFlE0vhB5MVBdyeX9qxDZytw8cvKjgvP2T5D9L2vziWdBP9
+ nyquOaTjq591p2UxjCdD3LOjW9RitYDhY3hy9lHi06VcBL3pbHt5lawtD7DB1oIN
+ YybbmHWpnPEn1UYG7EteILBzC05Zf0ui4myHZnS5Smbqrb0mDNuNwUWVTZqwHZp2
+ Q4MqaqoWhOJOLc7aDWGaQGIKuzlK+gkLzpbGHJCwkuiDejNomLRaGuDzKD8j5ZSc
+ vIyyPQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtwf5gg1j-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:57:07 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-cc51591102fso3967098a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 23:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789973826; x=1790578626;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=sxxN/THrSyRW5wXS4Y0iUrjV5rVX5I/Bsxrc5z1M8nw=;
+ b=JuzSjmQgTZ1Z81jneIRxU5U4RejoeckG5WmsleL1y1pybb78iE1psFQVHeG6M0XTSb
+ v/bh+EcdKbpSRoowXDqgD6pMb48MXWPh1iJrJgvoWzPEPl/ip+HagZtdZ3XUn7fRKIvy
+ 0S1ewbZ+GY9HAHvn9CkS74x5b8PGLKe9+zVGraopNqVT7Bf4u2FD/O5TFDqRJTC3gFfz
+ 5jalRHEnihi3LbE5CWXkTbCq/C60jVQFcopy6yWm1rod+3897fMF2zj4FdBv0R6mCPll
+ 3mV3kiRojJliU1Is8HW3giXw5+5yUSxjNoXvpVivQzdCvOVkpQesYjIPs7GE5uk/Yucf
+ zg4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789973826; x=1790578626;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sxxN/THrSyRW5wXS4Y0iUrjV5rVX5I/Bsxrc5z1M8nw=;
+ b=t6yPZVtsTUwN3x1xnYpPinq22rpv+8YlAvhL+zu1tKK2mZ+5NKj2EI0RzVvYD+5GCf
+ KRPNwyP4zd9/eydVunj9wU9g+NGkR1E4NUgptQ7l0oZ4DVksOxRQ/76JRmUfvvtF+EfT
+ XJnkScXWPIoTz6dLXnd7NO2qA+OFA0lkH4ng/nEbo+lX5xjkfEodgneQX7R8SqKopeFU
+ rKyfabYIPduij1sNfz/EvIZKe78p3UTzbOnSHUxzX2bE9LAzDMAfX/TYQV2NDwOkDSbP
+ 7KbKdoQX0zoNUkhlH7dX4aKNnDvSB9hbQyRiecaMLf/kz5Veo9rZ2meTeY5aXLDvfSSS
+ 6Jtw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwbAk5yqqUSwe95e+iEF/u5lZ8pGa8i/ARIe2yNpi2a9xgzm+lOTTj/GSeivpAnC+89MMASN5MT9q4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mlXqZg5e4NltLLjcVgkaIEAnWazYueNjSKcy7xFtw5LQai2Toa
+ GGwcm1zyafCqL9VM8D1oCgK7ZHAF4aBSC6QbE3a4d+5gdAuUdBqg35ivNDYUq3eBU/zPxsirbbX
+ 8+f/dmJL6mkAlvnWwTryxrdNVfW8rQLCFvSSEe3GChF1ixEZOTIS08cG6Lss+rrggsfBftZA=
+X-Gm-Gg: AYBFou3iqfKcLbpp3lAJLz5iD8031FU/agXJ3heKry27ZMRGwsN2sXn1G1gYxA9YdDI
+ CNfw3BVBcD3DV4SCUEwBgbFXZ6IPIzUdLcRiRV5Onsl1lSQkPWv9/l5rnbDp7lKZDlhe+U7sb+F
+ JES+Fs74ylwTSvOxILOzfKLxVEdXI27S87HM1WkcdgR1XKgLUwIGH/QKCU4BsbQIWgWXUvuEpJr
+ VCOoma1LtscTeH1JkM8JWUamzmOsKhIeWCSmWiBf22wOBaqVvzp2oNeCqAAq83y33eeGRFWkoeX
+ PxhmXZI7ivP2rOB1CWLANrn8AdAW0AhpJDeODIs1RBhFVh8nOb1DoJ+PXqB1MluW13+ICpTiW/7
+ p/rHDH7S+wdUBJd2B6llSmiOJ5MS7vg==
+X-Received: by 2002:a05:6a21:e0a2:b0:3dd:a196:9074 with SMTP id
+ adf61e73a8af0-3dda196a6a2mr8758760637.62.1789973826132; 
+ Sun, 20 Sep 2026 23:57:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:e0a2:b0:3dd:a196:9074 with SMTP id
+ adf61e73a8af0-3dda196a6a2mr8758747637.62.1789973825773; 
+ Sun, 20 Sep 2026 23:57:05 -0700 (PDT)
+Received: from [192.168.1.7] ([106.222.232.197])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33c33186490sm14551450eec.18.2026.09.20.23.56.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 20 Sep 2026 23:57:05 -0700 (PDT)
+Message-ID: <a5a4abe4-17a4-4ee3-a213-a9e136e31648@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 12:26:54 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7811:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5d71c47-fb3d-4902-fda8-08df17ad6b08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: isTtF52ATaDY7n04I1W8dkmysccSmmUdvrGZC+EqqwL9yNK84AyY2coE3vV7QBRH/F0exXAgCwNQgmrd09+Hq8PcKJA7fQceVogUZa+k5cwHluECb9cklKqL6CQrbBu5oQcRa2S0jO0Uw4PRgPhALr8goG1GD4spoNzq5OMldvTGlmETqHBjEPmge4TVagyP/rWpTqqR2dtoF0NZJMdzHG/307HqE8DUm668hd8M5sf9LFmtpnp0bqNdSj5xh8imDzrF2+0NXe3q6LFAlDHRkKYQLMKySkp4qYKDwKIZlF4PKuCwss7EtNN1SGZi1XvarCzyWVd6JPyqgeePbD0WBy08ahplxiisXX+d+/qG+V/pzzVFlqHteBXKVxb+u5jQ3Ty7PSrSZBtdN2uKXte5RTDKDYar0lDsHCao5nhf6xqZXoEnuZad5PMRIIH4lhhRaP9EblEj0vHKsuctl0j/+58/+tTJonIJX886We4dYTZ7vqy3FtXGiqhJqwZrhH5cFpi5iDTbW0vkFRX36l2QtdbpArFtcawiy9JeW1lvJim7E3GYnQPDLCzB078vheoQdjijkrqthvZ3lqw+YXctyq2RWByw2vNfrb6BSYAiskDVEOHQRfkktSpO22LbQMm1Sbv7Aucj1NQkSlIacPGsJzuLQYwQPRKpS+VGSE1pm/I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEJRazdNRkVaNmFObW54QktmTEpWeWNwT1VtUU91cmtrdXRmamVtb0dINHhC?=
- =?utf-8?B?VjBNZGJ5ODVqUWU0QVVuV1lnMno1bEpWV1Nsak10VVhwNHFGcm8vNmpPa2ZL?=
- =?utf-8?B?enlPSmRhRUEyQnpidjkreGdWYTM4S3J1dGFOa3diMmJyYXM5MTlodENDTVhK?=
- =?utf-8?B?N25BM1N6T0FXSHJsRVozM3ZTMHBhZFpPZE1PSW5vMTNiUmlHa3EydDl4MWxG?=
- =?utf-8?B?TDN6OGM1VGh3Nyt3Z1g4YkRkME9UbHRnMXovRzVBQWxQYzNoY09xRUVRZGxF?=
- =?utf-8?B?Yk1qRnRxZWFaMG1zV0xjQ2FGRW00UFk0SE53S3NMTVpLR256WHhjT1FmaTVE?=
- =?utf-8?B?RytaR2NnclFxY1MxUG1URnRneWtyYS9oMjN3a0JGd0hESUR4ODNidVNHSk9C?=
- =?utf-8?B?TzFSNW1SRFIvSEs1R1JObEROSjlwK0tnU3Z1Q3FKUEtmcTZKT2ZWQ2xjY294?=
- =?utf-8?B?bDh1RldQNytxNSszeXh4b1dXcWk0MXJRRlU5ZWoxa1ZLUXBoNi9wcmU3U1Y1?=
- =?utf-8?B?L3l4Vis3bStWeGVmbUpaQzV3TWg0Q2tCck5FTXFBZGdHeTJ1bmthRlkwMFRi?=
- =?utf-8?B?RW5aWFpTd09NaVZWUUNFY3d1VzlMSks5VjBNd3hzMzRrZmhJZE5BNDViOVlU?=
- =?utf-8?B?M2xEaDNZbFp6KzQrK0hkUlNrWTRMSjMyVUhLL1dQeHdiTmI4NFJzbjh2K3Iw?=
- =?utf-8?B?dzQ3SVJrU0gvZStxcFF3WE1Vby9SbG9pYmNyZkRBVWFoa3ZhcWFyM2hIc3Vj?=
- =?utf-8?B?MXZyVmlQSlN6QUQwRVgzODRXSVowcEJuUDhJYlRnbHAvbTVsdlFDOTc0cFp5?=
- =?utf-8?B?LzcweTRKNHFjK0FVVVJSWkxiZnllZHRvOTEwd29xYlJUSDBDa2dQYStmZk9q?=
- =?utf-8?B?dVNOOTNIWkk2R1pxYnlwM1lRU2NZdVVJbStPUVg2TUpNRWpTUUNCZVNLNTY1?=
- =?utf-8?B?QmFHTmY4OGNYcXRwSHgrZ0lZWm55OG13cHZUYkprTlFDMUhQa25pODluK1hq?=
- =?utf-8?B?L3F3RFF5dy9UeFRGMHRrNWtJWnVIQ3VuWkJ1UTZvMjU0dHdaSHJ3cDQvbDhj?=
- =?utf-8?B?WGE4cHhGQStpUEpSVU0vRXh1aWtVd2VSZ0xxZ3JpZWxBbnlQTnN5V2hUMkxY?=
- =?utf-8?B?eDlDQ2xJWWlJdlJQUTZSY3RwWnI4ZmJ6cEpzeU5hazdJL3BSdUlmZHpWaHVt?=
- =?utf-8?B?UDVhcjdrSm9zYVNRZ1VxUlJiOVR3em9aU0JnUlRnZm5DRGpONlo5MnByTVpH?=
- =?utf-8?B?NzJpblJnSFZkYm8zVFdXZjdhQTZlb3BadXFxWmxnMW1ZVGJjMEZuQ3J6aU9N?=
- =?utf-8?B?VzgzNEorZFFjYU9pUVUvREJhWTBkZWFhTjNMV0l6NkhTa0hWV1daOUFnUHJH?=
- =?utf-8?B?TmlKdlVZOCtvK3lLdFQrbHdwUjJocFN1a0l0NzF0eVpUZlpXSVdObjBHZzc4?=
- =?utf-8?B?MEIxL2pCSU81UmpONDhaRXBrVGkrZlA5OEJ1bGJPNU55ZGlCR0dZb1YxZnlz?=
- =?utf-8?B?bE1nS29MaHh4UG5RWkxGdHJhN1JId2Rnd0E1NnlhenFqU0tRKyt1eE5iYTZH?=
- =?utf-8?B?eklpTjU0L1hQMWpuTy9sRjErSGs3emdmNE1la3FQVlNEVXRNUUtieFpCNzZq?=
- =?utf-8?B?VmpGd1JZczZkeVg3c1NjNW5SMHhlSUJIZ1krMVppcnIrWnpjMnpXbW9FUjQ3?=
- =?utf-8?B?SmNOdXpEckNzcVlud01kWVNhVVUvQnd6OEd2UDdYN3hVTG5Jam0yNi9valVN?=
- =?utf-8?B?M2MwRkFmaGNUbEhTd1pvb3loU0Fsb0RDTGtITWc2aUxjaWxVVW95Wm5HQ243?=
- =?utf-8?B?bWRGWXBGSnNVRjZYRU81MXI2OE1heFNVbzA2OFZ4Q0pVRDU2VjkzMFA0YUhB?=
- =?utf-8?B?M0k0RS9RUlM4eG9qaEp2YmJBMkR5cGllOXRKSWFLTkQwVkZndUR4SExrTkxa?=
- =?utf-8?B?SDBKZkZXRzc2bzI2R1c4K1l5SlZrcDFqdlg1SHJQS2oxRTZjcUhHdEJhYlpt?=
- =?utf-8?B?YlFJQkhDSW9IWDR3RTlid3d5U08yaXFjYkFHdEJZNzlyOGdyNEZxQURxbmJx?=
- =?utf-8?B?a09rKzJVU2RoMHhjcHNVUG15bkk4dXdYaDJyaDJ2UTlScjMvTXNvV09BQVVN?=
- =?utf-8?B?UFFpZ0VvcWJHdTc0VUJNdTVSOThKanFDR1o5dWovNjdDQUUxUWVRcFBvZDdm?=
- =?utf-8?B?MFR4STdRRnAzYzRaVVhMUnNCa2FtcmZDREd3ODZVaU02Y1M4TG0wV09UMmRk?=
- =?utf-8?B?QURRUHlNWHdPWnJEZzE4a2U2dHAzeEt2S0FhYVhNV0lTdm0xeUxWMEFya0RK?=
- =?utf-8?Q?FMMMBCqjEcC09FjNCP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5d71c47-fb3d-4902-fda8-08df17ad6b08
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:56:10.3819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eIcx934EtdOrWME51IiUO5jWOh6oe6l2PBgAD76tTv+c95rq5Matx0iPtM8MMTxd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7811
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/17] dt-bindings: phy: qcom,edp-phy: Document Nord eDP
+ PHY
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Ritesh Kumar
+ <ritesh.kumar@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-1-e25c073cf1b6@oss.qualcomm.com>
+ <evvgtf6b46zqpolvybz6xfklakgoyv2llnvawrblgz6np7viza@gtmqflkwwmgk>
+Content-Language: en-GB
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+In-Reply-To: <evvgtf6b46zqpolvybz6xfklakgoyv2llnvawrblgz6np7viza@gtmqflkwwmgk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=SJLXx+vH c=1 sm=1 tr=0 ts=6ab0d543 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=u/G8viX4uCBxjZ048G+IxQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JS77pFG_HBBnnPoPU-kA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: aRdeQweXC5GzXZRrMMf0ut6YmRAZ8iy5
+X-Proofpoint-ORIG-GUID: aRdeQweXC5GzXZRrMMf0ut6YmRAZ8iy5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA5OCBTYWx0ZWRfX5ChOXJ3VtMdZ
+ JbIgu2hynt9ddziCj/+Yvsjpn6b4o2zMcEnudhZueLa/qVZwTrr9vJ2dg7S7htjuEZBSl4JdxEK
+ vhURVvn2TX2FfHsWqw6yBytAjTl0jvg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA5OCBTYWx0ZWRfX1+XZ+mo6NPFt
+ UU8QZtSzdze2z5UOwJJ1WztumsPmaVGDajHhE+8LsFBn1he8I9lqYj5Mdz7K9n1y8/9ulMpdH2+
+ 9FfazQqqqf8/zh+mmV1IhVnp5NX9A0VZXwD/JWfOKQ8ZEqvuCNwaqRbGVQNiYuVnVvySpgzw8EM
+ 5U5x+dj57YQEgjZAhjDpLSFnKzBy3Bao221vlLvkC6oLZP3ASGWu7Gq5v52JTRy8PdP54t5AEXg
+ Lz3nCu/HVbSruT1+k7zu4oL1Hgiuq7iJxH3MOZnxkyExtJNI66cRCqjGShDjIs8JywNJ5AfxaSD
+ WRPvqwN7122uy0wthv3jQsUSNtWCLObIKtNQzZUSEGCZKaTNfJDiHIAUCZcugfcF8AcGvuirzh1
+ YrRDuDct3ufRkvEaJEF7OTnSZsUdpKBNOnOss5cs+jCRcu9dRm5F7FA21QC86vNXuA9GITXzKmf
+ tPj5zRtVvKs9fPmOZaA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210098
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,120 +162,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/19/26 02:42, Jiakai Xu wrote:
-> Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> default") raised the default size_limit_mb from 64 to INT_MAX.  With
-> 4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1 TB
-> of pinned memory) now makes the two per-page pointer arrays in
-> init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns and
-> fails when the requested size exceeds INT_MAX bytes (WARN_ON_ONCE in
-> __kvmalloc_node_noprof), which is trivially triggerable from
-> unprivileged users through the UDMABUF_CREATE ioctls:
-> 
->   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
->   Call Trace:
->    udmabuf_create
->    udmabuf_ioctl_create_list
-> 
-> Restore a reasonable default limit of 256 MB, which is the value
-> proposed in the RFC discussion that led to commit 44e9eb5a7621
 
-That is way to low, we want to allocate multiple gigabytes using that API.
+On 9/14/2026 4:59 AM, Dmitry Baryshkov wrote:
+> On Fri, Sep 11, 2026 at 09:06:32PM +0530, Nabige Aala wrote:
+>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>
+>> Add the compatible for the eDP PHY found on the Qualcomm Nord SoC.
+>>
+>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+> Does it use ref clock?
 
-Please make that (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT.
+Yes, it is using the ref clock.
 
-That should allow to allocate a bit below 1TiB again without triggering the issue.
+[PATCH v2 1/3] arm64: dts: qcom: nord: Add display subsystem nodes - 
+Shawn Guo 
+<https://lore.kernel.org/all/20260920091930.2215803-2-shengchao.guo@oss.qualcomm.com/>
 
-Regards,
-Christian.
-
-> ("dma-buf/udmabuf: Disable the size limit by default") and comfortably
-> covers the 8K video use cases cited there, while keeping the
-> kvmalloc() request far below its threshold.  The limit remains
-> runtime-tunable via the size_limit_mb module parameter for setups
-> that need more.
-> 
-> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-> Assisted-by: OpenCode:DeepSeek-V4-Flash
-> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-> ---
-> V1 -> V2:
-> - Instead of adding a pgcnt check in udmabuf_create(), restore a
->   reasonable default size limit (256 MB), as suggested by Christian
->   König.
-> - Drop the second Fixes tag; the regression is solely due to
->   44e9eb5a7621.
-> - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
->   not shipped in any released kernel yet.
-> 
-> V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
-> ---
->  drivers/dma-buf/udmabuf.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..4d90c2cb14225 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -20,9 +20,9 @@ static int list_limit = 1024;
->  module_param(list_limit, int, 0644);
->  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
-> 
-> -static int size_limit_mb = INT_MAX;
-> +static int size_limit_mb = 256;
->  module_param(size_limit_mb, int, 0644);
-> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
-> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
-> 
->  struct udmabuf {
->         pgoff_t pagecount;
-> --
-> 2.34.1
-> 
-> --
-> Below is the crash report:
-> ------------[ cut here ]------------
-> WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full)
-> Tainted: [W]=WARN, [L]=SOFTLOCKUP
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-> RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-> RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-> R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-> FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-> DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-> PKRU: 80000000
-> Call Trace:
->  <TASK>
->  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
->  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
->  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
->  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
->  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
->  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
->  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x590d6d
-> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-> RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-> R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
->  </TASK>
-> ---[ end trace 0000000000000000 ]---
-> ---
-> 
-
+>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+>> index 0bf8bf4f66ac..91d7a5c8e19a 100644
+>> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
+>> @@ -19,6 +19,7 @@ properties:
+>>       oneOf:
+>>         - enum:
+>>             - qcom,glymur-dp-phy
+>> +          - qcom,nord-dp-phy
+>>             - qcom,sa8775p-edp-phy
+>>             - qcom,sc7280-edp-phy
+>>             - qcom,sc8180x-edp-phy
+>>
+>> -- 
+>> 2.34.1
+>>
