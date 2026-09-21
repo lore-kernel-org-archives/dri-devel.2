@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F83C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 14:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BCFC982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 14:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4B5C10E35B;
-	Mon, 21 Sep 2026 14:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCF0610E3BF;
+	Mon, 21 Sep 2026 14:49:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="avX+lq+F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A1qRWRjl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E845310E35B
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 14:49:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAE410E161
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 14:49:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D09B940385;
- Mon, 21 Sep 2026 14:49:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AFFD1F0089A;
- Mon, 21 Sep 2026 14:49:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C5997600C8;
+ Mon, 21 Sep 2026 14:49:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DCA1F000FF;
+ Mon, 21 Sep 2026 14:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790002168;
- bh=AgD4D7h4EfSsMTxEOq8ADKWRNeWiq2+KsY/R5C+YQNM=;
+ s=k20260515; t=1790002176;
+ bh=NUhVS/70oe+xVDq7uGuyK6On8HV25TTU2SaXV4Mxt0M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=avX+lq+FEOvHDH2Ka+90xabX+/3XfcNlbMJOgo8hQbVT7KtytJirI2WAK3ZkdU+A2
- dhOvEYZsoG4EK7R7gE/4hye/lvQQedFCROIZN1l6Ld90l61kqkUYnN03fFNFiaYeNw
- xYhBUCcKknnZvHXKI7GHaDux6pUgVHLc0uY4qpQE1aVbJbF6TcenTqDGPVxMhfNzEU
- A5n9MGaMcMz9ytuyWSYbK8Q+RhhbKuySFp6CYcloHxaLPeHMEykf8QuR+nfpaHndMC
- eMeu0po3UwytgA8nKwZWgmhH5E9118kfO7P0hK8BFGlTQZgTXiEdpTbbrdUfSBmXiV
- vdTOxKBQ5YG6g==
+ b=A1qRWRjl1RV2uS6/gMaLuJ2pewyPR4lUHdxCKfj6tWJ7rGg/GojHBKVpQxQjMXmS7
+ lY/S//7gau/68XfSGzMXBxaEMlB4ozHdEDhscfQu8EZpTtDlYz4eNXG2JKnXNuWtAu
+ BesJL1+xMU8cIT7oCt0WaP8iyHhp83v3hmLLmamhE4RaEwCPOItgvTeld9nqcMfBzd
+ fg42y/fS6NwDQZ9GpZazOkEimF6PsA6coMmQZM1qB6Wvq/kXB7yjuyaV4YKO3pKgR5
+ P/F300kBVcQYxP0VTJLVWehPnUpnJzr/xmVPpj5xMqxWRog4njX/mK/wons75YlO+s
+ PhP5XTRddPZlw==
 From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
 To: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
@@ -45,10 +45,10 @@ Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
  Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  linux-media@vger.kernel.org, linux-mm@kvack.org
-Subject: [RFC PATCH v7 03/13] arm64: realm: Expose the CCA shared granule size
- through mem_encrypt ops
-Date: Mon, 21 Sep 2026 20:18:37 +0530
-Message-ID: <20260921144847.501151-4-aneesh.kumar@kernel.org>
+Subject: [RFC PATCH v7 04/13] irqchip/gic-v3-its: Resolve the default NUMA
+ node explicitly
+Date: Mon, 21 Sep 2026 20:18:38 +0530
+Message-ID: <20260921144847.501151-5-aneesh.kumar@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260921144847.501151-1-aneesh.kumar@kernel.org>
 References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
@@ -69,129 +69,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CCA guests must align shared/private memory transitions to the IPA state
-change alignment reported by the host. This alignment can be larger than
-PAGE_SIZE, so transitioning only a PAGE_SIZE-sized subrange may leave
-part of the host-managed granule in the wrong state.
+alloc_pages_node() resolves NUMA_NO_NODE to numa_mem_id() internally. In
+preparation for switching ITS allocations to the CoCo shared memory
+allocator, resolve the default node explicitly in its_alloc_pages().
 
-Cache the RHI-reported alignment during Realm initialization and expose
-it through the arm64 memory encryption operations. Implement
-arch_cc_shared_granule_size() so the common CoCo shared-memory allocator
-uses the same constraint. Use PAGE_SIZE when no suitable backend is
-registered.
-
-The common cc_make_shared() and cc_make_private() wrappers validate both
-the base and size against the architecture's shared granule size. Remove
-the PAGE_SIZE-only address checks from the lower-level arm64 transition
-hooks so that range validation remains in the common wrappers.
+The CoCo shared memory allocator interprets NUMA_NO_NODE as a request to
+apply the current task's memory policy. Passing numa_mem_id() instead
+preserves the existing nearest-memory-node placement across the
+allocator switch. This patch does not change the current allocation
+behavior.
 
 Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- arch/arm64/include/asm/mem_encrypt.h |  1 +
- arch/arm64/mm/mem_encrypt.c          | 13 +++++++++++--
- drivers/firmware/arm_rmm/rsi.c       | 13 ++++++++++++-
- 3 files changed, 24 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-gic-v3-its.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/mem_encrypt.h b/arch/arm64/include/asm/mem_encrypt.h
-index ef8b8463e52b..32064338c9b0 100644
---- a/arch/arm64/include/asm/mem_encrypt.h
-+++ b/arch/arm64/include/asm/mem_encrypt.h
-@@ -10,6 +10,7 @@ struct device;
- struct arm64_mem_crypt_ops {
- 	int (*encrypt)(unsigned long addr, int numpages);
- 	int (*decrypt)(unsigned long addr, int numpages);
-+	size_t (*shared_granule_size)(void);
- };
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index e9807af23537..ac5507acb1a0 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -32,6 +32,7 @@
+ #include <linux/set_memory.h>
+ #include <linux/slab.h>
+ #include <linux/syscore_ops.h>
++#include <linux/topology.h>
  
- int arm64_mem_crypt_ops_register(const struct arm64_mem_crypt_ops *ops);
-diff --git a/arch/arm64/mm/mem_encrypt.c b/arch/arm64/mm/mem_encrypt.c
-index ee3c0ab04384..e6c059d20595 100644
---- a/arch/arm64/mm/mem_encrypt.c
-+++ b/arch/arm64/mm/mem_encrypt.c
-@@ -16,6 +16,7 @@
- #include <linux/bug.h>
- #include <linux/compiler.h>
- #include <linux/err.h>
-+#include <linux/cc_shared.h>
- #include <linux/mm.h>
+ #include <linux/irqchip.h>
+ #include <linux/irqchip/arm-gic-v3.h>
+@@ -236,7 +237,7 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
  
- #include <asm/mem_encrypt.h>
-@@ -33,7 +34,7 @@ int arm64_mem_crypt_ops_register(const struct arm64_mem_crypt_ops *ops)
- 
- int set_memory_encrypted(unsigned long addr, int numpages)
+ static struct page *its_alloc_pages(gfp_t gfp, unsigned int order)
  {
--	if (likely(!crypt_ops) || WARN_ON(!PAGE_ALIGNED(addr)))
-+	if (likely(!crypt_ops))
- 		return 0;
- 
- 	return crypt_ops->encrypt(addr, numpages);
-@@ -42,9 +43,17 @@ EXPORT_SYMBOL_GPL(set_memory_encrypted);
- 
- int set_memory_decrypted(unsigned long addr, int numpages)
- {
--	if (likely(!crypt_ops) || WARN_ON(!PAGE_ALIGNED(addr)))
-+	if (likely(!crypt_ops))
- 		return 0;
- 
- 	return crypt_ops->decrypt(addr, numpages);
- }
- EXPORT_SYMBOL_GPL(set_memory_decrypted);
-+
-+size_t arch_cc_shared_granule_size(void)
-+{
-+	if (likely(!crypt_ops) || !crypt_ops->shared_granule_size)
-+		return PAGE_SIZE;
-+
-+	return crypt_ops->shared_granule_size();
-+}
-diff --git a/drivers/firmware/arm_rmm/rsi.c b/drivers/firmware/arm_rmm/rsi.c
-index 883f6091ff95..b59099d1f318 100644
---- a/drivers/firmware/arm_rmm/rsi.c
-+++ b/drivers/firmware/arm_rmm/rsi.c
-@@ -18,6 +18,7 @@
- #include <asm/pgtable.h>
- 
- static struct realm_config config;
-+static size_t ipa_state_change_alignment = PAGE_SIZE;
- 
- unsigned long prot_ns_shared;
- EXPORT_SYMBOL(prot_ns_shared);
-@@ -154,9 +155,17 @@ static int realm_set_memory_decrypted(unsigned long addr, int numpages)
- 	return ret;
+-	return its_alloc_pages_node(NUMA_NO_NODE, gfp, order);
++	return its_alloc_pages_node(numa_mem_id(), gfp, order);
  }
  
-+static size_t realm_shared_granule_size(void)
-+{
-+	if (is_realm_world())
-+		return ipa_state_change_alignment;
-+	return PAGE_SIZE;
-+}
-+
- static const struct arm64_mem_crypt_ops realm_crypt_ops = {
- 	.encrypt = realm_set_memory_encrypted,
- 	.decrypt = realm_set_memory_decrypted,
-+	.shared_granule_size = realm_shared_granule_size,
- };
- 
- static int realm_register_memory_enc_ops(void)
-@@ -166,7 +175,7 @@ static int realm_register_memory_enc_ops(void)
- 
- /* we need an aligned struct for rsi_host_call. slab is not yet ready */
- static struct rsi_host_call hostconf_call __initdata;
--static unsigned long __maybe_unused __init get_ipa_state_change_alignment(void)
-+static unsigned long __init get_ipa_state_change_alignment(void)
- {
- 	long ret;
- 	unsigned long shared_granule_size;
-@@ -217,6 +226,8 @@ void __init arm64_rsi_init(void)
- 		return;
- 	if (WARN_ON(rsi_get_realm_config(lm_alias(&config))))
- 		return;
-+
-+	ipa_state_change_alignment = get_ipa_state_change_alignment();
- 	prot_ns_shared = __phys_to_pte_val(BIT(config.ipa_bits - 1));
- 
- 	if (arm64_ioremap_prot_hook_register(realm_ioremap_hook))
+ static void its_free_pages(void *addr, unsigned int order)
 -- 
 2.43.0
 
