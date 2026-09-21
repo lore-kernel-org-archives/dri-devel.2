@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E71DC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:53:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC12C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 15:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAFD10EA46;
-	Mon, 21 Sep 2026 15:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9CB10EA92;
+	Mon, 21 Sep 2026 15:53:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ddZwLhNz";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="fcrE2OXr";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CB210EA46;
- Mon, 21 Sep 2026 15:53:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790005979; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C295D10EA49;
+ Mon, 21 Sep 2026 15:53:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790005985; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=JKwzUMbfxHQlGe/yNuKoHW9nf6Q0mAZtxOCgaXBRmARIhBVnMdwTkWrZCuuIUonC0Lfe2TfJ0BNdEP6HzXLKeMU8bSpYTkFm0pjDVLpTGIlzn/2ByAvNFHzyXp96lqgOWqtYS+aqeWCUIAp7g8tOQWhf0N2YZE1RAknclb5lU3A=
+ b=MkvctPEgN/opcclJ7AbrHT0NUw5PyfmjTlw1EVX0+A9iCip/vCP3fTYIf4WeCcAmxdjPIfeki2VQrDQYcGZdVseNywFZQf87igLM7iofK+RpNwQExbBpkQ/GBA7eppgMrgnKur3C8we3HtOKWDzWZ/1qkMBPJkuFt9XdZSVZ+ME=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790005979;
+ s=zohoarc; t=1790005985;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=RCTNkmpiPL3Ra0ipjPKJl1ubfsMjpTQk6YfOLEZoGhI=; 
- b=BSZvTTyoWSgKb3s04MrP2MNVo5RIgsBhCrYD7D0IpDPYeOq+L2Z/chVXRw4/YT3BJXOn3/wNS2a+5BWTyMhOJJZ4cvrtodewkSMhQpEJr56tlZv83lk+vpjK3jTOoko2ZgF3bd/mJ5TZNFeZdNQp1Eqtithr4w0PhQ93jql/+mg=
+ bh=y/u3vmta3+dbrofrUmndHlgFpIUmssOjUpr8W2OjIi4=; 
+ b=bqmI9sT7fNW9pKNoXHo6CGSAoz+HKc8xaQoLIMQjPz0JPYYdbgzRXXDQEkWFL5dFKj4xcPPJK7300o+RNR3Dkuk6CA5coRlKJsIKeKBuUMqEz60Fn9jkiHfxAfvXzAiI3r+GCfuQ6WW78Fdpj0n39jjCY4kIEhUbCEJvrFZ0zA0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005979; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790005985; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=RCTNkmpiPL3Ra0ipjPKJl1ubfsMjpTQk6YfOLEZoGhI=;
- b=ddZwLhNzqWf6wD2hET1tRSxvLxp5nhVwL+oNjnYjeypbyEWOuOwR9OuTWQx7xbeC
- ydfnY3gG8EXraA7ywSp4OuySvdcft8BT3jClXhSw0EYqXUrc2wfUkmEL/i/+hgklufh
- OIQExfyKQExrHTSnJU3f5RSw23K0zsIfrLp4vKBk=
-Received: by smtp.zohomail.com with SMTPS id 179000597774875.93524699372142;
- Mon, 21 Sep 2026 08:52:57 -0700 (PDT)
+ bh=y/u3vmta3+dbrofrUmndHlgFpIUmssOjUpr8W2OjIi4=;
+ b=fcrE2OXrBcW4dbZejVZKBloogh6hW3A6feRsFGFcBd4A5tiB57BqLjkWHwbBuKiN
+ l6DmQrYGZiaHpBxaeZ8bYc85y0Bq9FNES1a+GcgVJu/iywyvc+9urb8Clkp/lIp9gzr
+ 1TfyNvvK3GIlrrm9T1WjiL8RsRhKhSn4zUtBDa7M=
+Received: by smtp.zohomail.com with SMTPS id 179000598377154.95688948710904;
+ Mon, 21 Sep 2026 08:53:03 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 21 Sep 2026 17:51:36 +0200
-Subject: [PATCH RFC 10/25] drm/rockchip: dw_hdmi_qp: Add VRR support
+Date: Mon, 21 Sep 2026 17:51:37 +0200
+Subject: [PATCH RFC 11/25] drm/rockchip: vop2: Enable VRR
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-vrr-limiter-uapi-v1-10-2fcd7d011646@collabora.com>
+Message-Id: <20260921-vrr-limiter-uapi-v1-11-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 In-Reply-To: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
 To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
@@ -80,70 +80,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Register the vrr_capable property on the connector for RK3588, where VRR
-is implemented.
+Use the new VRR state tracking to handle VRR front porch adjustment.
 
-In the encoder's atomic_check callback, the vrr_capable property, if
-present, is then set to true if the sink supports VRR.
+To avoid indenting too deeply, refactor the vblank handling into its own
+function while at it, where scope-based cleanup helpers for the lock can
+be used.
 
+Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 62 ++++++++++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  9 ++++
+ 2 files changed, 59 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9c4cf68d79d5..2b9432aa8c54 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -192,6 +192,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 					 struct drm_crtc_state *crtc_state,
- 					 struct drm_connector_state *conn_state)
- {
-+	struct drm_connector *connector = conn_state->connector;
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
- 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	union phy_configure_opts phy_cfg = {};
-@@ -238,6 +239,10 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
- 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e79081c04437 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_crtc_helper.h>
+ #include <linux/debugfs.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_flip_work.h>
+@@ -2011,6 +2012,25 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
+ 	vop2->ops->setup_overlay(vp);
+ }
  
-+	if (connector->vrr_capable_property)
-+		drm_connector_set_vrr_capable_property(connector,
-+			drm_display_info_is_vrr_capable(&connector->display_info));
++static void vop2_vp_set_vrr_vtotal(struct vop2_video_port *vp, unsigned int vtotal)
++{
++	const u32 mask = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL |
++			 RK3568_VP_DSP_VTOTAL_VS_END__IMD;
 +
++	if (!vtotal) {
++		vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END,
++				    RK3568_VP_DSP_VTOTAL_VS_END__IMD, 0);
++		return;
++	}
++
++	/* Value is 13 bits at most, saturate it if too large */
++	if (vtotal > RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16)
++		vtotal = RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL >> 16;
++
++	vop2_vp_update_bits(vp, RK3568_VP_DSP_VTOTAL_VS_END, mask,
++			    vtotal << 16 | RK3568_VP_DSP_VTOTAL_VS_END__IMD);
++}
++
+ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
+ 				   struct drm_atomic_commit *state)
+ {
+@@ -2029,6 +2049,11 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
+ 
+ 	spin_lock_irq(&crtc->dev->event_lock);
+ 
++	if (crtc_state->vrr_enabled) {
++		if (drm_crtc_helper_vrr_flush(crtc_state))
++			vop2_vp_set_vrr_vtotal(vp, crtc_state->vrr_state.cur_vtotal);
++	}
++
+ 	if (crtc->state->event) {
+ 		WARN_ON(drm_crtc_vblank_get(crtc));
+ 		vp->event = crtc->state->event;
+@@ -2371,6 +2396,30 @@ static irqreturn_t rk3576_vp_isr(int irq, void *data)
  	return ret;
  }
  
-@@ -515,6 +520,7 @@ struct rockchip_hdmi_qp_cfg {
- 	unsigned int port_ids[MAX_HDMI_PORT_NUM];
- 	const struct rockchip_hdmi_qp_ctrl_ops *ctrl_ops;
- 	const struct dw_hdmi_qp_phy_ops *phy_ops;
-+	bool supports_vrr;
- };
- 
- static const struct rockchip_hdmi_qp_cfg rk3576_hdmi_cfg = {
-@@ -534,6 +540,7 @@ static const struct rockchip_hdmi_qp_cfg rk3588_hdmi_cfg = {
- 	},
- 	.ctrl_ops = &rk3588_hdmi_ctrl_ops,
- 	.phy_ops = &rk3588_hdmi_phy_ops,
-+	.supports_vrr = true,
- };
- 
- static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
-@@ -695,6 +702,13 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
- 
-+	if (cfg->supports_vrr) {
-+		ret = drm_connector_attach_vrr_capable_property(connector);
-+		if (ret)
-+			return dev_err_probe(hdmi->dev, ret,
-+					     "Failed to attach 'vrr_capable' property\n");
-+	}
++static void vop2_vp_handle_vblank(struct vop2_video_port *vp)
++{
++	struct drm_crtc *crtc = &vp->crtc;
++	struct vop2 *vop2 = vp->vop2;
++	u32 val;
 +
- 	return 0;
++	guard(spinlock)(&crtc->dev->event_lock);
++
++	if (!vp->event)
++		return;
++
++	val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
++
++	if (!(val & BIT(vp->id))) {
++		drm_crtc_send_vblank_event(crtc, vp->event);
++		vp->event = NULL;
++		drm_crtc_vblank_put(crtc);
++
++		if (crtc->state->vrr_enabled)
++			if (drm_crtc_helper_vrr_vsync(crtc->state))
++				vop2_vp_set_vrr_vtotal(vp, crtc->state->vrr_state.cur_vtotal);
++	}
++}
++
+ static irqreturn_t vop2_isr(int irq, void *data)
+ {
+ 	struct vop2 *vop2 = data;
+@@ -2402,18 +2451,7 @@ static irqreturn_t vop2_isr(int irq, void *data)
+ 
+ 			if (irqs & VP_INT_FS_FIELD) {
+ 				drm_crtc_handle_vblank(crtc);
+-				spin_lock(&crtc->dev->event_lock);
+-				if (vp->event) {
+-					u32 val = vop2_readl(vop2, RK3568_REG_CFG_DONE);
+-
+-					if (!(val & BIT(vp->id))) {
+-						drm_crtc_send_vblank_event(crtc, vp->event);
+-						vp->event = NULL;
+-						drm_crtc_vblank_put(crtc);
+-					}
+-				}
+-				spin_unlock(&crtc->dev->event_lock);
+-
++				vop2_vp_handle_vblank(vp);
+ 				ret = IRQ_HANDLED;
+ 			}
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index ffcb39c130aa..fdb2030e3ad4 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -655,6 +655,9 @@ enum dst_factor_mode {
+ 
+ #define RK3588_VP_DSP_CTRL__GAMMA_UPDATE_EN		BIT(22)
+ 
++#define RK3568_VP_DSP_VTOTAL_VS_END__DSP_VTOTAL		GENMASK(28, 16)
++#define RK3568_VP_DSP_VTOTAL_VS_END__IMD		BIT(15)
++
+ #define RK3588_VP_CLK_CTRL__DCLK_OUT_DIV		GENMASK(3, 2)
+ #define RK3588_VP_CLK_CTRL__DCLK_CORE_DIV		GENMASK(1, 0)
+ 
+@@ -810,6 +813,12 @@ static inline void vop2_vp_write(struct vop2_video_port *vp, u32 offset, u32 v)
+ 	regmap_write(vp->vop2->map, vp->data->offset + offset, v);
  }
  
++static inline void vop2_vp_update_bits(struct vop2_video_port *vp, u32 offset,
++				       u32 mask, u32 v)
++{
++	regmap_update_bits(vp->vop2->map, vp->data->offset + offset, mask, v);
++}
++
+ static inline u32 vop2_readl(struct vop2 *vop2, u32 offset)
+ {
+ 	u32 val;
 
 -- 
 2.55.0
