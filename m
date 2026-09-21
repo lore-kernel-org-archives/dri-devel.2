@@ -4,64 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B4CC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC7EC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF91310E754;
-	Mon, 21 Sep 2026 13:09:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6439C10E449;
+	Mon, 21 Sep 2026 13:12:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="hF4AAInx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F59WnyoV";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656BA10E746
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1789996120;
- bh=Q3DyB+NGw+9JvjJpyqPnaRX8BQWBsWV2/fUz4fZ0JzM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hF4AAInxfCog6b0R2jfBsu5AcZxeld1cJg2tAh7nQbbp2UPJfvXIol+4u/zxOsuTq
- G2Btw97N8TFPPg3p8lcAXVlX4Ws1RT/wTLMHt7ijYNLo5DV97Y1WZVJRZd11TiA6Wv
- eP3mQk/yh2FBTrMBhvnynVkS3f0CuTA9LhCg6R2lG5kew8fziK3dja/SLdtNMby7sG
- DMq29UpYeDpCD91u/HQK8g9veOrikvI9D39wLqG3kWEjuJTX6bNtNxTvbzSmKAb7rp
- aXtPEqNABH51INgehXpfu+EZHlKHE5rOiJ7tUzSblRG0SVeXliGEjBi7vaJqqqRUQt
- wXb7KsjGKQhyA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hpNp60jf6z4w1l;
- Mon, 21 Sep 2026 23:08:29 +1000 (AEST)
-Message-ID: <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
-Date: Mon, 21 Sep 2026 14:08:47 +0100
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE1D210E449
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:12:11 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ 41be03b00d2f7-cc1cea50dc1so1748729a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:12:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1789996331; x=1790601131; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
+ b=F59WnyoVLnlT0SJ8jPJ0OohzjyaCrOQC9pD4pJ0MbB/dmVlvxsmgwBWuvqDWZ3Jr73
+ ePyb32n3ipsaxNBXagPsxvMXQs3eBkTbHK19NHVeosz836O+HTuN1nsJziZSiLiRJX0H
+ gZ/IJQWz+AH6em3H5TfyzCCWV8gYS3vLwEuzYLXKLJazOnXigdbv3fngIjGXUWyL7xBr
+ ImSghp8Dealgl0Gx+sKFN9wUyV7bFznBF9/ku9B7IH41WWBMWlLJxppjm0CJBJTQL5Gg
+ 9Wy2sdp2nMbWCPXSzuZp6rIZpZ6mWBkdP8ZlcUg5SSh620pqsFVUv3pL186QDuR8VeQT
+ FJNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789996331; x=1790601131;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ig7/HqBzfoSVv6fdudTalNiMgAfFIlYLiYgMPPiaeeI=;
+ b=rgRHyLixGladT59NxuwN+1GmC0kUXCPJmsz3sfpM9YFlWDfqKfu889Ls1A+xxYkwWM
+ 0ljttGL2SzhJ/b3xPbNBfO7+RELPhrfW/7bAV4B7+sddIgwiINZkmMMN89+8l/Im67Bd
+ 4/1EeL6QErmsozHy+8a9CrY9+SN3Q2FYJcSU9D44SaJw0jy2dx1AKTaXNoVLi9G6VQ+Z
+ E+AiPEPZROBzjwgDA1XSavwicMAMqI8ESDtroatuubxeY1wJzw7c32/r2J++rspQDJSE
+ M+uv3pjpijR6pZcAW7msWFKqoJ1XKCI8X+K5Dq7x6t26VJbtnwL2UGKcFgKzqYLYyWyq
+ r6uQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzSb/BvX6ujZ5pq886c6slONRY0hZk9AkJAowg3qtKM4NnDAVU5n2MXH763X7oZyG9TXc3cX30Uqhc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++msXXZK4FEAs5lXzD6IbSvMbaXFTOkt8dC/a3csit0QG1sCznem
+ 54m365w/Se2b5agHRMulLWoaQzDiYTc5hOkARwX3ENI0IAJWNQLYJtzI5Vpa8leDr1RaBQ==
+X-Gm-Gg: AYBFou25IpYU9G0BGCKKXxRw/iE8rzgtHNwM1ALnsb6NiIrHtPGfyIdAP1D/YkOoFdt
+ 7O1tSpy3Xp6BPNNw1VBALB86mM/zSJ5FOab1XlbBKB3Z3DejhgD0gtgGcf1NVOmQN1WyGTLlCig
+ 7sokPM2k92leNYOw29s7ZA21Ij/MfY4zQSaGP45EwmsIV1oQ6zDkJujSDPVbi5RMwzD+qpRYH4l
+ B4+dAbWHFVkKCZhOXIumIwNKx7j+U9Otntgudsp8FGYOkLw7OuWD4aneIcwOaYtURyAtU45oCJH
+ KUKsYNVSisx0prqtlRdzThBWbUiCJjYwyKWVw6nKFKI5/ogBrd+d70GEAefn59O13M6qDpiEEPa
+ mHfL4tscReqPKRQVSk51TShxZuEXfrbXCXHLY5d+z4x2yiJ3Js/R/TNyhks14M4c73IH5ahRf8w
+ Ccne9b/CbR2Amp8zYe1f04TiKjapipwe4GDyd0vUNiKsJshdVYN8vl+9MibQj/cpl4
+X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b64 with SMTP id
+ 98e67ed59e1d1-39e6c6a5438mr8799720a91.46.1789996330968; 
+ Mon, 21 Sep 2026 06:12:10 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a063bcecc6sm80447a91.12.2026.09.21.06.12.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Sep 2026 06:12:07 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "Nancy.Lin" <nancy.lin@mediatek.com>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/mediatek: fix ovl adaptor platform device leak
+Date: Mon, 21 Sep 2026 21:11:56 +0800
+Message-ID: <20260921131156.403652-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
- <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
- <20260915072002.GD13683@unreal>
- <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
- <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
- <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,193 +92,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi both,
+mtk_drm_probe() creates an OVL adaptor platform device with
+platform_device_register_data() when the display pipeline requires the
+OVL adaptor.
 
-On 16/09/2026 15:19, Christian König wrote:
-> On 9/15/26 16:22, Matt Evans wrote:
->> Hi Christian,
->>
->> On 15/09/2026 12:13, Christian König wrote:
->>> On 9/15/26 09:20, Leon Romanovsky wrote:
->>>> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
->>>>> Hi Leon,
->>>>>
->>>>> On 14/09/2026 12:54, Leon Romanovsky wrote:
->>>>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
->>>>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
->>>>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
->>>>>>>>> Expand the VFIO DMABUF revocation state to three states:
->>>>>>>>> Not revoked, temporarily revoked, and permanently revoked.
->>>>>>>>
->>>>>>>> The thing is that "temporarily revoked" is actually the standard
->>>>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
->>>>>>>> for VFIO.
->>>>>>>
->>>>>>> I think temporarily revokes here means it is revoked from a dmabuf
->>>>>>> perspective
->>>>>>
->>>>>> My guess is that this is more of a "change owner" operation than a
->>>>>> revoke operation.
->>>>>>
->>>>>> The main issue here is that we have to guess the semantics instead of
->>>>>> having a properly named and documented operation.
->>>>>
->>>>> Apologies if the cover letter for the series and patch commit message (which
->>>>> cover this) are unclear about the motivations and semantics.  On the commit
->>>>> message, can you suggest clarifications:
->>>>>
->>>>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
->>>>> ranges previously delegated to a subordinate client process: by
->>>>> revoking, the driver process can ensure that the loaned resources are
->>>>> made inaccessible when the client is deemed "done".  The original
->>>>> DMABUF is defunct, and BAR resources can then be safely re-exported
->>>>> for use by new clients."
->>>>>
->>>>> Given what I'll explain below, do give suggestions please.  There is more
->>>>> context in the cover letter (the volume of which I didn't think appropriate
->>>>> for the commit message).
->>>>
->>>> 1. Do not mix "driver" and "client" in the same description. For a
->>>> non-native English speaker, "driver" has a very specific meaning in the
->>>> context of the Linux kernel.
->>>
->>> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
->>>
->>> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
->>
->> :)  I see where the quote can be clearer.  FWIW the "driver process" was
->> referring to a userspace driver (which is a legitimate use of the D-word
->> with VFIO, but still).  I'll clarify that, and will indicate this
->> mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
->>
->>>> 2. Explain the lifecycle in the commit message, and why "revoke", which
->>>> is effectively what the importer does, is not sufficient.
->>>>
->>>> 3. The more you put in the cover letter, the less likely people are to
->>>> read it.
->>>>
->>>> 4. Commit messages should describe the patches themselves, since they
->>>> are what remains visible in the git log, unlike the cover letter.
->>>>
->>>> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
+If a later initialization step fails, the probe error path releases
+the DRM resources without unregistering the already registered OVL
+adaptor device. The normal remove path likewise leaves the device
+registered after the DRM driver is unbound.
 
-Leon, please see *** below.
+Keep track of whether the OVL adaptor was successfully registered and
+unregister it on probe failure. Also recover the platform device from
+the stored DDP component device and unregister it during normal
+removal.
 
->>>
->>> +1
->>
->> I don't follow here, sorry.  Would you please elaborate?
->>
->> Currently VFIO uses the priv->revoked flag to track whether
->> it-the-exporter had previously done dma_buf_invalidate_mappings() on a
->> buffer and is now causing all .attach requests to fail.  Do you mean
->> that (even without this series) you want to call that concept
->> priv->reclaimed instead?
-> 
-> That sounds like a permanent revoke. 
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Not quite; the priv->revoked flag tracks temporary periods of
-inaccessibility.  An example is VFIO resetting a function; the BAR
-mappings as seen by the CPU and DMABUFs made from the BARs are all made
-inaccessible before the reset, and made accessible again after the reset.
+Fixes: 0d9eee9118b7 ("drm/mediatek: Add drm ovl_adaptor sub driver for MT8195")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
->> Or do you mean that you don't like the words "temporary"/"permanent" and
->> are looking for another name for a temporarily unavailable buffer?  (If
->> so, I find "not revoked", "reclaimed", "revoked" much less clear than
->> not/temp/perm revoked, as such names give no hint as to what to expect.
->> But I may have misunderstood what you're getting at.)
-> 
-> Yeah it's pretty much the naming I would clarify.
-> 
-> The original idea of notifying the importer that it need to re-create the mapping was resource reclaim.
-
-I feel the (existing) VFIO function reset sequenece is a counterexample,
-as the resource isn't being reclaimed/repurposed but users are "held
-off" for a period of time across the reset.  (It's then the same
-resource that a later access can touch.)
-
-> But when you have some IOCTL or sysfs or whatever to disable a DMA-buf permanently I would call that revoke.
-
-I see where you're coming from now, thanks.
-
-If we were to just call VFIO's "permanently inacessible" state _revoked_
-and "temporarily inaccessible" _reclaimed_, then it doesn't help clarity
-unfortunately.  Those words are ~synonymous and don't convey permanent
-vs momentary.
-
-***
-
-Leon, would you please explain this comment #5?  Were you suggesting
-that (even ignoring this patch!) you want to rename priv->revoked to
-priv->reclaimed?  If so, why?  (For context, this patch's state =
-TEMP_REVOKED is identical to the existing revoked = true.)
-
-In short:  TEMP_${X} vs PERM_${X} most clearly highlights the
-meaning/behaviour of the current + new state, regardless of whether
-X=REVOKED or X=RECLAIMED.  Although I prefer to use the exisitng
-"revoked" I'm not wed to it, but mixing both "reclaimed" & "revoked"
-makes the distinction (and semantics, expectations of what can happen
-next) much less clear.
-
-> I'm still not 100% sure what a temporary revoke should be. If you have some IOCTL/sysfs/whatever to temporary say to importers "You can't use that resource" then that most likely won't fly.
-
-This patch only provides an ioctl action to "make this inacessible
-forever".  There is no direct userspace manipulation to/from the
-temporarily-inacessible state, nor need for that.
-
-The only things that lead to a temporary revoke (as a side effect) are
-the preexisting VFIO reset ioctls etc.
-
-State is an enum, but this isn't a complex FSM, just an extra "sticky"
-state.  And to labour the point, the new temp/perm distinction is only
-about VFIO's internal tracking of why it revoked the buffer using the
-existing mechanisms (meaning, whether it permits un-revoke); it does not
-change the importer.
-
->> From the importer side, there is no change from this patch: they might
->> observe an invalidate_mappings() and find attach() of a given buffer now
->> fails, same as before this patch.  This is only about guaranteeing the
->> impossibility of an importer ever being able to re-attach in future.
-> 
-> That sounds reasonable.
-> 
-> When a resource becomes unavailable you seriously need completely destroy it, re-create it and then import it again into other drivers which want to use it should it ever become available again.
-
-Yep, quite.
-
-Thanks,
-
-
-Matt
-
-PS: I should've rebased (eyeballed master and didn't spot the tiny
-conflict), so no Sashiko review on v6; I want to resolve this for a v7 soon.
-
-> 
-> Regards,
-> Christian.
-> 
->>
->>
->> Thanks,
->>
->>
->> Matt
->>
->>
->> PS:  A hypothetical alternative way of doing what this patch is doing is
->> instead to have:
->>
->>  - existing priv->revoked
->>  - new 	    priv->revoked_flag_is_immutable
->>
->> Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
->> sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
->> prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
->> For example, a reset doing `move(true); reset; move(false);` can make
->> all DMABUFs available to attach again, except for those marked
->> immutably-revoked.  (That is equivalent to this new "permanent" state.)
->>
->>
-> 
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index c86a3f54f35b..d176e6496aa7 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -1060,7 +1060,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 	struct mtk_mmsys_driver_data *mtk_drm_data;
+ 	struct device_node *node;
+ 	struct component_match *match = NULL;
+-	struct platform_device *ovl_adaptor;
++	struct platform_device *ovl_adaptor = NULL;
+ 	int ret;
+ 	int i;
+ 
+@@ -1205,6 +1205,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ err_pm:
+ 	pm_runtime_disable(dev);
+ err_node:
++	if (ovl_adaptor)
++		platform_device_unregister(ovl_adaptor);
+ 	of_node_put(private->mutex_node);
+ 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
+ 		of_node_put(private->comp_node[i]);
+@@ -1214,9 +1216,15 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ static void mtk_drm_remove(struct platform_device *pdev)
+ {
+ 	struct mtk_drm_private *private = platform_get_drvdata(pdev);
++	struct device *ovl_adaptor_dev;
+ 	int i;
+ 
++	ovl_adaptor_dev =
++		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev;
++
+ 	component_master_del(&pdev->dev, &mtk_drm_ops);
++	if (ovl_adaptor_dev)
++		platform_device_unregister(to_platform_device(ovl_adaptor_dev));
+ 	pm_runtime_disable(&pdev->dev);
+ 	of_node_put(private->mutex_node);
+ 	for (i = 0; i < DDP_COMPONENT_DRM_ID_MAX; i++)
+-- 
+2.43.0
 
