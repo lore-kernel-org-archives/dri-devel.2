@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2A47C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 16:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA16C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 16:13:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4116210E1EC;
-	Mon, 21 Sep 2026 16:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87DB610E3DA;
+	Mon, 21 Sep 2026 16:13:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IQ7xIKnF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZ/cGskp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A286410E1EC
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 16:09:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D89C10E3DA
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 16:13:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 196DB60142;
- Mon, 21 Sep 2026 16:09:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B5591F00893;
- Mon, 21 Sep 2026 16:09:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3E9C060120;
+ Mon, 21 Sep 2026 16:13:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA67C1F000FF;
+ Mon, 21 Sep 2026 16:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790006946;
- bh=43wGuqNUgv/BxGYm40N1io0SBUrViO8jBw+tg3JGMko=;
+ s=k20260515; t=1790007218;
+ bh=kWycQo4lM37PmR9oSUCMti9DpXfU2bQjMV2vOrsgPIc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IQ7xIKnFhLuFND965h938MU3OlJAiI357BmtNw/AiyOY5wrUXp2tuaA16SP1A70w3
- i/66KYYACm+oCOlYnA6e+HLhO94FLCyVXtRdno3k3lDHN2yTLx1pitCUp/ChPh+7vE
- brxfD/2Fcwc5vLwjiKvc6Rj9NOprNWSiBtDS1bUwGj6O8jHUi1i+yTQDxyJMUvh2CQ
- Lf/rmzVAeyVifIM1VTG3X4R5MoLnVffXoltheowPmKto3gP4ktHexvZbATv9mrzrI2
- QWhD01XdYOIihyyJ6KUxcwfaM+Mr/MM8qlcDQoKYUPBJAYHSleym6F7SxW/ROj5NTa
- IvDjx1JHYevFg==
+ b=DZ/cGskp9qP7sif3jWgYjtpBsE5g8LpqH5pKoAe9Rw65YQXjVal3MDOuLrgRcaKRA
+ +d3VgoMijtsqcweC2HFh4kS4//Vw/scPY8V0yDj+lj89/1BXyI3YzOMm//CEeYql1l
+ faINk9IG56IJlmXokgcvIIpnWab8l/X0Hh0Va3eZ7AaJS4r1CoxfhueZsWujPeDIlJ
+ Cvk5SdrMQjC10F0d+KMWOVc3wZ6aQawyIKL9/oww37f5IQ+XLu2dwGhezFxhuF0Mrp
+ MyMlSGfsskUm/D9OzMT3RYwKcOauBORYoijCPbya3j2Z8ZgWs1BivdU8jxCJcXWzFx
+ E4nFcALJ62O6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 10/25] drm/rockchip: dw_hdmi_qp: Add VRR support
+Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
 To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260921-vrr-limiter-uapi-v1-10-2fcd7d011646@collabora.com>
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
 References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-10-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 16:09:06 +0000
-Message-Id: <20260921160906.9B5591F00893@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 16:13:37 +0000
+Message-Id: <20260921161337.CA67C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,61 +59,52 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/rockchip: State mutation in atomic_check breaks DRM semantics
+- [Medium] drm: VTEM infoframe not cleared when switching to non-VRR sink
 --
 
-commit 0a43e1780a534b1f1de17fd89eca1b9b3bc5f434
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+commit 5a4e1a050c5d27ea6b13e207c2d853adeb273ef9
+Author: Derek Foreman <derek.foreman@collabora.com>
 
-drm/rockchip: dw_hdmi_qp: Add VRR support
+drm/connector: hdmi: Add VTEM EMP generation
 
-This commit registers the vrr_capable property on the connector for RK3588
-and sets it during the encoder's atomic_check callback.
+This commit adds VTEM EMP generation to enable variable refresh rate
+signalling over HDMI. The infoframes are generated if the sink supports VRR.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 9c4cf68d79d50..2b9432aa8c542 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
+u/drm/display/drm_hdmi_state_helper.c
+> index d555483996874..33d0c94916430 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 [ ... ]
-
-> @@ -238,6 +239,10 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_=
-encoder *encoder,
->  		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
+> @@ -1494,6 +1548,12 @@ int drm_atomic_helper_connector_hdmi_update_infofr=
+ames(struct drm_connector *con
+>  			goto out;
 >  	}
 > =20
-> +	if (connector->vrr_capable_property)
-> +		drm_connector_set_vrr_capable_property(connector,
-> +			drm_display_info_is_vrr_capable(&connector->display_info));
+> +	if (info->hdmi.vrr_capable)
+> +		ret =3D write_or_clear_infoframe(connector,
+> +					&funcs->vtem, "VTEM",
+> +					&old_conn_state->hdmi.infoframes.vtem,
+> +					&new_conn_state->hdmi.infoframes.vtem);
 > +
+>  out:
+>  	mutex_unlock(&connector->hdmi.infoframes.lock);
+>  	return ret;
 
 [Severity: Medium]
-Does mutating global connector state here break DRM semantics?
+What happens if a VRR-capable sink is disconnected and replaced by a non-VRR
+sink?
 
-The atomic_check callback is strictly required to be side-effect free, as
-it is used for speculative TEST_ONLY commits. Calling
-drm_connector_set_vrr_capable_property() synchronously mutates global,
-visible connector state (the property array). This permanently leaks
-proposed or temporary state into the visible global state.
+If info->hdmi.vrr_capable becomes false, the guard in
+drm_atomic_helper_connector_hdmi_update_infoframes() evaluates to false and
+skips write_or_clear_infoframe() for VTEM.
 
-Additionally, can this property update be entirely skipped in some paths?
-Looking earlier in dw_hdmi_qp_rockchip_encoder_atomic_check():
+This means the hardware is never commanded to clear the VTEM infoframe via
+funcs->clear_infoframe(), leading to stale VTEM packets being continuously
+transmitted to a sink that does not support them.
 
-    if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
-        s->output_bpc =3D=3D conn_state->hdmi.output_bpc &&
-        s->bus_format =3D=3D ingest_fmt)
-        return 0;
-
-If the format is unchanged, the function returns early. This means the
-update will be skipped completely. Since userspace typically queries=20
-connector properties upon hotplug, deferring this property update to=20
-atomic_check means userspace may read a stale (false) capability during=20
-its initial probe and mistakenly conclude VRR is unsupported.
-
->  	return ret;
->  }
+Could this cause a hardware state mismatch and potential compliance issues?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-vrr-limite=
-r-uapi-v1-0-2fcd7d011646@collabora.com?part=3D10
+r-uapi-v1-0-2fcd7d011646@collabora.com?part=3D6
