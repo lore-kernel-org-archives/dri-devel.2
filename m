@@ -4,57 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C3B6C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F4AC982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58BA010E05D;
-	Mon, 21 Sep 2026 10:21:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC2A10E023;
+	Mon, 21 Sep 2026 10:29:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="m01RtQig";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Y8K3qTHC";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33D9F10E4BB
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:21:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1789986071;
- bh=uw5pdRN2Q9JJj2+CbK1XOe8tJnBuwe3/GQzFs3S+ECE=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=m01RtQigaCGmATt3Z2RO+l2X3jp6emasy4I7DqrplE+e2RosUCFD10dMp2AviNqgF
- CgRL9VAzG34cRLpnhKETmKpvh7tqDrrWrklo486vc8A7FcQFsR/A2WqIvW11KZnPLR
- QZvz89UsDAdHgnB80XALmbEbX6MZAkmC8aT2ymc+lHhK2C8NRUBS9sUL4lKZG4aiAD
- o+f09zXHEypzLxAYdSFPm73tA8UiDgFytinUCifu7xAggNaqcCEgLHIHkOgyeEVM6L
- QeY8HY3C5i5Q+FujPosjf7l9UxTcLI4Sb9jBfuZ04qFfrVXKLcTEbzi+Jtkw5a8n0P
- vEtd2aLg3S1Wg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 49F6217E03B6;
- Mon, 21 Sep 2026 12:21:10 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: linux-mediatek@lists.infradead.org, 
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260918175736.355305-1-l.scorcia@gmail.com>
-References: <20260918175736.355305-1-l.scorcia@gmail.com>
-Subject: Re: (subset) [PATCH 0/4] Add support for the mt8167 display pipeline
-Message-Id: <178998607025.21155.9680834242820851509.b4-ty@b4>
-Date: Mon, 21 Sep 2026 12:21:10 +0200
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A293210E023;
+ Mon, 21 Sep 2026 10:29:32 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68L7csqV1943936; Mon, 21 Sep 2026 11:29:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=A
+ dfKd3OpJhYuGuPouoCLeQGoC1E0KgvcmTJpMq73Z4c=; b=Y8K3qTHC/chh1lxBI
+ ziq86TcePEerPRaLDpaKPIbjtqwanptc/RmrPOADW+eBxLP2EiJM/P4Dsyi83j60
+ tQ1Uo/PN+NJQ4mbdwz4VmpmGAGL9jIzg528B5LW938Y/rDrBjvoUEpmJmJLqi7g8
+ CK0WwGjSMXyxLTiX4CF+nPQIE8mAJQo9ICS312nVR4DpAmuBjD+kQQNXE7zaXmrF
+ eOAqAOKoxjEbgu+djPW2Y8zmgV7INYXU4B8/LFldQGpV1s5u3yTtOGOpYxIhBMBb
+ 213sDeQJvs3KU+n7AZ3Ai2rT0xHkVZ3GGHJe58SiMPOSf6/nC53j8Sif2S/savrz
+ YqVjA==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq1dxa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Sep 2026 11:29:11 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 21 Sep
+ 2026 11:29:07 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260918-b4-submitjob_tracepoint-v2-1-d9b104de07b8@imgtec.com>
+References: <20260918-b4-submitjob_tracepoint-v2-1-d9b104de07b8@imgtec.com>
+Subject: Re: [PATCH v2] drm/imagination: Add job type info to
+ pvr_job_submit_fw trace event
+Message-ID: <178998654775.160053.17042385965289272906.b4-ty@b4>
+Date: Mon, 21 Sep 2026 15:59:07 +0530
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
+X-Originating-IP: [172.25.128.225]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE1MSBTYWx0ZWRfX3Hlu2fAF35CA
+ +XvdVRRnBateNT/zJ19jdqmHms1YpXNf+qiMQC4NKLN3zG6Rel3b8ut0MSsqqK53gdY1I4IiZL1
+ YlTEjP9VMaPxngFHk9DW2HlgoQFzQVCEk+xOcmDgELRvOJlKbpJ5YsXNnjUPJpBkzJoAPJXeh/q
+ TAH4wsF9ulj/K3nVV6rOofl3ubn+ZoCTgpcxeiyxZJfdk38IF9IDjk198DsPRZ4Tk2I8MLkWbc7
+ Et8/JUY6IvH4ljWyEivxEKVc+OTA9OCxTek1xXJZZM/tTht1Jbv5/AuBjnzjiYe+RwE/StqPh1N
+ P7/ZTrbDCIXPHhp5Bdtz8bnNtdUFjcudhDXIV1c+RXB83KWW/ggl5S2kHOXvX6lsctCDJZjoww6
+ BzCo0ng16zbPrapncEpnfWDyu733QR3Js06jM9fjzoCp+H0HN3Y3cZKh5hRq1n6OdLCxJq3Vi4M
+ L4kUYoKgksQYKl9+Sng==
+X-Proofpoint-ORIG-GUID: iMSI4Zy_93EtvDKa2Zxo3Kul1E4hFxZs
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab106f7 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=R08nAzAhPX1NFywbOXUA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: iMSI4Zy_93EtvDKa2Zxo3Kul1E4hFxZs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE1MSBTYWx0ZWRfX06mKX9/VX89X
+ HxskzFgun+qmZRNoP8z1Pssjdo743wgZxWg0cO/nRohEsTFYQFtWqyFLqlI42T+SMMYlGhjcNb+
+ Fyku9yhCt9JRyMazF2haixHEL7LIb80=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,25 +93,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 18 Sep 2026 19:55:24 +0200, Luca Leonardo Scorcia wrote:
-> This series adds support for (almost) all display blocks of mt8167.
-> This SoC supports a DSI or DPI display and has HDMI output via a second
-> DPI block wired to the HDMI phy.
-> 
-> All the hard work was already upstreamed in the past, now all that's left
-> is some glue. In the first two patches we add support for the DPI output
-> blocks. In the third one we describe all the possible combinations of the
-> SoC display pipeline and in the last one we add the required nodes to the
-> SoC dtsi.
-> 
-> [...]
+On Fri, 18 Sep 2026 09:56:34 +0530, Brajesh Gupta wrote:
+> Update trace event pvr_job_submit_fw to additionally capture and display
+> type of the submitted job to easily map events as per type.
 
-Applied to v7.3-next/soc, thanks!
+Applied to drm-misc-next, thanks!
 
-[3/4] soc: mediatek: mt8167-mmsys: add routes for all display paths
-      commit: ae0968038f994d6e275f5dc94a27325ee751fe58
+[1/1] drm/imagination: Add job type info to pvr_job_submit_fw trace event
+      commit: 402491eefc5ea9a40e19b08dccf0c045aec4efc2
 
-Cheers,
-Angelo
+Best regards,
+-- 
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
 
