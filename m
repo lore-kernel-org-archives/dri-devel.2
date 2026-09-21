@@ -4,48 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E04AC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 20:01:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FB41C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 20:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3249D10E084;
-	Mon, 21 Sep 2026 20:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43AAA10EA83;
+	Mon, 21 Sep 2026 20:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZIlEf1vB";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="MWuX8Icz";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11E9510E084
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 20:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=CSPJIsvNlMvdmn6uXKZViopTtoSgZJPrxMs/p+WHsnw=; b=ZIlEf1vBhG/BIYcOIMpcp2PaFV
- asP5GSsBbPrEGg5NVDwX42rXhiMB7bl3PVGpvtbp9SZtn1ocAv/jvAHVS542rj99/zsrldWoIAGDe
- 9Vjjz0GLDNOaqKh90G/wVUMG/YWRKI/s2DCdIKu2xijEMwoPgvZPNRN7nt5IW1k6/Nn+sNpkpCWb8
- wC02JTIDNyDXN6n4yqJgLSy6nXzu+Rlz7tl2kicFPeldrNYyB/8aY+ifvqeMRcCjlO9dO/kS5DOrF
- pQ1L4sOZn94QybfY7K1dZsdMPQPEk/TKjfLxu2ywsHtNCPRwPvYG2G982xFr8r1JkL+/GmgVqFpcB
- 4JJNDuAw==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x8kCs-005H41-T0; Mon, 21 Sep 2026 22:01:43 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: mwen@igalia.com,
-	Erick Karanja <karanja99erick@gmail.com>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/v3d: Restrict v3d_perfmon_stop_locked() to
- v3d_perfmon.c
-Date: Mon, 21 Sep 2026 17:00:15 -0300
-Message-ID: <179002073423.3089763.10777877946256735963.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921190014.38231-1-karanja99erick@gmail.com>
-References: <20260921190014.38231-1-karanja99erick@gmail.com>
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15D1310EA83
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 20:05:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=DK/qrJt0Ap9dv8WpV7Wvu69ob6X/ds9pDh5dhWphwkg=; b=MWuX8IczTBvONmG/xlPQD0jiXo
+ lwn0eAfVBfG4Na2wPqrsAR3Vig+h5m9Z+jcLcQ8g/pL4KjoVq75I8t5Uz9wcrvVbCETfAKKGJFv9s
+ UWHIAAlgndWq+Kha33Ydvo+UyD0YqOBSB0tOxiZKalaKgOVuoN++XYy0dRrT5feo/D7gPYIHgxtKO
+ WwCOBe+9hheeBow8IXtzwF+Ux+IaQ6rCIL6at0s6HDwoHvShO5X1n8EEhPct6hgaAZL43dTIxVE8C
+ 2i74d+K7cxY0gdvmWRxWxbgCoJkpyQio+LAZy3MGsKNIa9N1SV3OKkMb/CHP0Mf4tOBU+BYOd9n13
+ yObNM5MA==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1x8kGk-0000000F4Yk-1hRC;
+ Mon, 21 Sep 2026 14:05:43 -0600
+Message-ID: <0ab682be-9b58-48aa-88e9-d21edaac19d5@deltatee.com>
+Date: Mon, 21 Sep 2026 14:05:18 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+ <20260920-fix-p2p-acs-v4-0-v7-2-ca0828ab697c@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-2-ca0828ab697c@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
+ gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
+ ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v7 02/19] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,17 +86,22 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Mon, 21 Sep 2026 22:00:14 +0300, Erick Karanja wrote:
-> v3d_perfmon_stop_locked() is only used within v3d_perfmon.c.
-> Make the function file-local and remove its declaration from v3d_drv.h.
+
+On 2026-09-20 05:41, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
+> pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> direction can unnecessarily force P2PDMA through the host bridge.
 > 
+> Evaluate Request Redirect for client Requests and Completion Redirect for
+> provider read Completions. Continue treating enabled Egress Control
+> conservatively as a Request redirect.
+> 
+> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-Applied with checkpatch fixes, thanks! Please, always verify for checkpatch
-issues before submitting patches.
+Still looks good:
 
-[1/1] drm/v3d: Restrict v3d_perfmon_stop_locked() to v3d_perfmon.c
-      commit: 8ef59ee794076e2b58cff357b12de2ba5d441271
-
-Best regards,
-- Maíra
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
