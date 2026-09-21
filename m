@@ -4,56 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0993BC982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC85AC982DE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D5A10E352;
-	Mon, 21 Sep 2026 07:30:40 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296BE10E352
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:30:37 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
- by APP-03 (Coremail) with SMTP id rQCowAA3Pz0W3bBqLVZECA--.3651S2;
- Mon, 21 Sep 2026 15:30:31 +0800 (CST)
-Message-ID: <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 15:30:30 +0800
-In-Reply-To: <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-8-a0987203069@gmail.com>
- <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
- <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32A8B10E35A;
+	Mon, 21 Sep 2026 07:40:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="p1x3Rkxa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hPO34yjX";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B032810E147
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:40:41 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68L79sgY1096065
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:40:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ RXBm8BbIlNlS9kij4DyUUNrfUO/dqmeuJb9GLNDGhLA=; b=p1x3Rkxa/Ri6FZmM
+ swaVj3mjJj1KVPn2xk0A9rf15aEH7VumO78sNYkHdG9Jxv5CZDq6k7x7YZngk1YE
+ +ItJUGiXVT3z+pIHQXeqRtoYV/YTlnMLbVa2xUzM3UmrVrYqoaWWRII9YE6w1soD
+ bEeODR9EJoiRQ3e+QLtCiaiXWGseqodbd3A6p2gsd4ctBk2dvQx7oom+VugiPa9W
+ ff2SREqjxxDqeq3BgthSa70YPo37OVTQnTzq1uuxCs5lXfavekiGjabfpaIJOxtc
+ QMUYk7VCyI9C7enFvmn4F8jZXDgNKH6xVSL2qmFAP+upuLhzKvHH/BuxeymaiHGq
+ JOlAXQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtysw05r8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 07:40:40 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93bfab40895so20972685a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 00:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1789976440; x=1790581240;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=RXBm8BbIlNlS9kij4DyUUNrfUO/dqmeuJb9GLNDGhLA=;
+ b=hPO34yjX7Hzq2lW5kUOMq5pVbTjc50CNSbcQI4PjTwekP4PnbpiBM/Pgilw6VCvGLW
+ zIFcWV3U2hf0plyavPMhSlS5eThfe9dHy1XIoYgRWR/sDmUcstbJjTe3aCCEpFFmVqQy
+ elByy2gTmwc4KiD3ryO0zdbl6kllEX7SSA1bZ5vASY4IQBqB6F8gAssxZIBaen8IDUzU
+ smed8Fb3pEjojh9g9J+GJH85YtBdRSTtkFDHnZ98U2+OhtmOsEZKc0FaP2rfrTA00XlG
+ GgE0B6B3HnxbF4lvFodpqNv91YQOdex4tRZlja+VoLOIEJpP4t2L4M3C3wm/YxLgZWfr
+ ZFsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789976440; x=1790581240;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RXBm8BbIlNlS9kij4DyUUNrfUO/dqmeuJb9GLNDGhLA=;
+ b=hsgI6K/ZRs7/aPOrgDjhCUBYM7HJ8QXDxpeK3gPmdrLEzV2gmRzS6RPDqBO77Lcba4
+ lWnShbP0eSiRjUHBCwd+GT0trEag8L6FKJbOxaGFbp0Z7BSGIne9Rqqm5HHjCdu6FV8M
+ bWepfqrwB4YkOg0AvPfeaz2kMgJ8UvE8smL2eKquxthpkEwr6dzbxZOZdaRlEjYrPjzq
+ 0Dhx99dQN3dJCB7o8YBgX2dTE4wtLd/lNX1+VUIXYkTCz7P3tjcjXhMjOM0VOSvGd4s6
+ 4f/3xveO+qOjA9ZFUL/dNnvokU+WCtBn0HPUO832C2AMJ+lrZES1Jmi7Cobsb+eTHYAI
+ hLKg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx6/mdwko+/v/fiCn22/Bewq86hpsPBCEb4btDogtOKTYsuc+uMp8gpf/ioKJSxd/4qSnpohgjchsw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nPguEQ5cfXp2eXvP2IXmsY01ugRAnt//rzGvROrF4LkA/BLu/4
+ Lx4hSJ1FIvBDQGgUBN56xBzL7ncAjL6xU0AZAXZSyyhA8Uu9MBW2pLAYz1Ohlk/jp6mRvjE2qXE
+ n7lDuScwZUPrETPF4grw3PZcFLJ3GlnDEl5eJFnIV5iHv2+vR6SfCLwMNhOJgfpGDAKSC/SI=
+X-Gm-Gg: AYBFou1iR4qqcC1MAbUvGEV2yUZHdgEky5kddzLbSnes5Y2zqgp3ciCVFaxxzfbNOKf
+ fMPQlCV+P5sJCb4GAxo6qU30Aw4HIVbcPQHObmSFKnkVkSjdxN/ifeTMWu9+d+PzOMDl2Lqp+el
+ djjNdeYhLs6y3rQKJnjuELqN/NJLx3JRfViAWteoMIqPzvsQlhjjL6jsDKCCKHr2uRcgPObZZQY
+ 1Uv+YSqB1ONdmQpIwLjBbOsBJFBFrc6OwWLRdPeR+HdiZ1gkyVCCxUUT6yIFfqGkvzK6NPGIMCn
+ rLTrdVnN3CctcvN21tln4xqhNdLiK3aU4xs+EzIbv9D+dfVqIa3GcS7V3r7LQQla13RBWohn/cJ
+ 7aUquQ1WsOkpHWCAoaFXMhg==
+X-Received: by 2002:a05:620a:4803:b0:939:b8da:1242 with SMTP id
+ af79cd13be357-93bf518f649mr907436985a.0.1789976439789; 
+ Mon, 21 Sep 2026 00:40:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4803:b0:939:b8da:1242 with SMTP id
+ af79cd13be357-93bf518f649mr907434085a.0.1789976439390; 
+ Mon, 21 Sep 2026 00:40:39 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6aa67d821efsm3775171a12.10.2026.09.21.00.40.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Sep 2026 00:40:38 -0700 (PDT)
+Message-ID: <1eca3b55-fce3-4a39-9e0d-2c6d1fcd6a86@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 09:40:35 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAA3Pz0W3bBqLVZECA--.3651S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw43uFWrXry3Jw47Zr4xJFb_yoW5GrW7pF
- 4DtFWUKFs5X3yIka4IyFyqga4Yv3W7t395Jry8G34jvrs8ta9rWFy8Jr95Za4DWrWxGF4S
- vF4v939xCryUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxU2VbyDUUUU
-X-Originating-IP: [112.94.103.44]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/a5xx: don't read the GPMU registers on GPUs
+ without a GPMU
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ AngeloGioacchino Del Regno <kholk11@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260920-a5xx-no-gpmu-v1-1-714200254f76@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260920-a5xx-no-gpmu-v1-1-714200254f76@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEwOSBTYWx0ZWRfX5z35P4LnqTVE
+ DQHaZbEsUOP8IpfoQyhSqAX604kG1xNKOeATysDUJ7j0XgUzR7fY8z5auA8GnBUQ4URRtf1hZXk
+ eV70b/XeXgl08zZpGDwUFlDuKkabfpAHd9VlNZZiMz2/xxerlWW5/UwfO47Kf0GQiaQASLIZ9a+
+ wwtFFjK+I4Jzlektgx6qvG+6y1vHwz63iVbp/p/yVlALwEWh4XsurtwXdVuBLyCS8eYXfCGZu9B
+ Gld+tn/Cv0fItVMT4Ob247JjooakKZdelkh8c9/YnnZzqkzY0Ya7g/IkDHG1AvCAi1ccpgcdW+7
+ IqhMX0W9Kys0pPwZh6oJ9R/NnkWLw5lDo4LdUSlVBs6uox9AFrMBxKKRFbmh2kKbtTctTPqY0w5
+ 2QASufRmh0NbuL1Zoil+ot/VhBIDyLuOUjN5UL/3zlug2pLvyKU3p/ASpdZ8pghqldjr1n4/ruD
+ B+PfCM6e6vjlEZPXNiA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEwOSBTYWx0ZWRfX6IC8rTv9eevH
+ 7pblk22IwzcZvjEmUrFLGP7yIgmxNl+D+GgdveFihzxBJwEH2XltV7stRuwvZUjZBj2hYDLMRH2
+ BoTkrLShf3Lv4Is7qT8bIh3mjWjZmDk=
+X-Proofpoint-ORIG-GUID: 2c95Pj7kRMfDARP_cBgaW7jqwtieT9ln
+X-Proofpoint-GUID: 2c95Pj7kRMfDARP_cBgaW7jqwtieT9ln
+X-Authority-Analysis: v=2.4 cv=W7etxhWk c=1 sm=1 tr=0 ts=6ab0df78 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=nNp-cgRbjtXmMSB73TMA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210109
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +153,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 10:43 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> Icenowy Zheng =E6=96=BC 2026/9/18 =E4=B8=8B=E5=8D=88 01:52 =E5=AF=AB=E9=
-=81=93:
-> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
-> > > VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so
-> > > disabling
-> > > the primary plane on DC8200-family hardware actually leaves the
-> > > framebuffer enable bit instead of clearing it.
-> > >=20
-> > > This bug predates this series: it was carried over unchanged from
-> > > vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
-> > > introduce per-variant hardware ops table" split the DC8200-
-> > > specific
-> > > implementation out into vs_dc8200.c.
-> > >=20
-> > > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
-> > > Verisilicon
-> > > display controllers")
-> > Maybe it'd be better to fix this before adding DC variant
-> > abstraction,
-> > for easier backporting.
-> >=20
-> > Thanks,
-> > Icenowy
-> Makes sense. Should I send it as a standalone patch targeting
-> drm-misc-fixes (separate from this series), or do you have a
-> different preference for how to split it?
+On 9/20/26 1:08 PM, Dmitry Baryshkov wrote:
+> Only a530/a540 have a GPMU.  On the other a5xx parts, reading the
+> 0xa800-0xac60 GPMU aperture during a crashdump resets the board -- on
+> sda660 (a512) a GPU hang thus reboots the SoC instead of recovering.
+> 
+> Split the GPMU block into its own array and collect it only when a GPMU
+> is present.
+> 
+> Fixes: e20c9284c8f2 ("drm/msm/adreno: Add support for Adreno 510 GPU")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 49 ++++++++++++++++++++++++++++++++---
+>  1 file changed, 46 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index 5d96b8f63156..3974aaf6fd33 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1337,9 +1337,14 @@ static const u32 a5xx_registers[] = {
+>  	0xE800, 0xE806, 0xE810, 0xE89A, 0xE8A0, 0xE8A4, 0xE8AA, 0xE8EB,
+>  	0xE900, 0xE905, 0xEB80, 0xEB8F, 0xEBB0, 0xEBB0, 0xEC00, 0xEC05,
+>  	0xEC08, 0xECE9, 0xECF0, 0xECF0, 0xEA80, 0xEA80, 0xEA82, 0xEAA3,
+> -	0xEAA5, 0xEAC2, 0xA800, 0xA800, 0xA820, 0xA828, 0xA840, 0xA87D,
+> -	0XA880, 0xA88D, 0xA890, 0xA8A3, 0xA8D0, 0xA8D8, 0xA8E0, 0xA8F5,
+> -	0xAC60, 0xAC60, ~0,
+> +	0xEAA5, 0xEAC2, ~0,
+> +};
+> +
+> +/* GPMU registers, only valid on parts with a GPMU (a530/a540) */
+> +static const u32 a5xx_gpmu_registers[] = {
+> +	0xA800, 0xA800, 0xA820, 0xA828, 0xA840, 0xA87D, 0xA880, 0xA88D,
+> +	0xA890, 0xA8A3, 0xA8D0, 0xA8D8, 0xA8E0, 0xA8F5, 0xAC60, 0xAC60,
+> +	~0,
+>  };
 
-Maybe it's better to just make it the 2nd patch in this patchset, just
-after the binding change.
+I'm not sure if there are holes in these ranges in the hw, but msm-3.18
+(8998 kernel) simply has:
 
-Waiting for something into drm-misc-fixes again will need another fixes
-pull and another RC back merge, which can consume weeks and miss the
-current merging window.
+0xA800-0xA8FF
+and
+0xAC60-0xAC60
 
-In addition, it's possible that `drm/verisilicon: introduce per-variant
-hardware ops table` also gets backported for a more clean primary plane
-atomic_update disabling fix.
+(both ranges inclusive)
 
-Thanks,
-Icenowy
-
-> >=20
-> > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> > > ---
-> > > =C2=A0=C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
-> > > =C2=A0=C2=A01 file changed, 2 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > index f72da10295e1b..25b5906a1c5fc 100644
-> > > --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> > > @@ -70,8 +70,8 @@ static void
-> > > vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int
-> > > out
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0static void vs_dc8200_primary_plane_disable_ex(struct vs_=
-dc
-> > > *dc,
-> > > unsigned int output)
-> > > =C2=A0=C2=A0{
-> > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> > > +			=C2=A0 VSDC_FB_CONFIG_EX_FB_EN);
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	vs_dc8200_plane_commit(dc, output);
-> > > =C2=A0=C2=A0}
-
+Konrad
