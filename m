@@ -4,135 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB4CC982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:47:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B36C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:51:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA80910E24F;
-	Mon, 21 Sep 2026 06:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78EC310E2F1;
+	Mon, 21 Sep 2026 06:51:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Uts87KyO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zmhlwuUF";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yHzCPONA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BnJK3Bo3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fkpZp60f";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCA810E24F
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:47:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 627141F7BC;
- Mon, 21 Sep 2026 06:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789973268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NVGB9kYWuaDyxu5DT7vqAtvl8Ee4kNOAm7KX4EHo8dg=;
- b=Uts87KyOCT/ML4TSa2VVCjCQJIyjXHEVsZY8r6qcM9V1VPnKQ3qiilzVBib5R7o5IO0IRP
- xjs/Ju93K1a/G/3dX8z/iiMhM+VC6NqIzS9Zouz6B7RfwxbB6V46uiT1wmjFB+cmbsOewI
- gG5j6Owa0qSvfwkbxYgrSKcbSB/UmYc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789973268;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NVGB9kYWuaDyxu5DT7vqAtvl8Ee4kNOAm7KX4EHo8dg=;
- b=zmhlwuUFQLorZeqUFEpPWgu1R+noDr72wDWHoBc70rCz1UDNKYEmbbmcHVppJyltB7MTZ+
- nDGfn18oCcOh0yAg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yHzCPONA;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BnJK3Bo3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1789973264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NVGB9kYWuaDyxu5DT7vqAtvl8Ee4kNOAm7KX4EHo8dg=;
- b=yHzCPONASkUajtapmqZTRILfhh3CIu1MgyrPl21N381Vpxam4Pe1Ago0jd1wqkNU4+40k+
- TPCXA4c0Qul+TxpLm+sq0Scb5G8rKyOFYm3aROh+phgCCzfhx8+b7hsfkVhYcGptsNpLCe
- +NLr/HvjQnaOurdj1QeoQ8d5Wt+ABZI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1789973264;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=NVGB9kYWuaDyxu5DT7vqAtvl8Ee4kNOAm7KX4EHo8dg=;
- b=BnJK3Bo3ztYGJV4kQf1OlVwzf8YFHanJrhnFiEavxb8mWxnEYUrXm14GfeUwhD3VCR2X3h
- PGlFqSRAa0MuKfCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1310413793;
- Mon, 21 Sep 2026 06:47:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mrGINw/TsGqMRQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 21 Sep 2026 06:47:44 +0000
-Message-ID: <23e010c3-45aa-48fd-ac30-5aa3e0fcb847@suse.de>
-Date: Mon, 21 Sep 2026 08:47:43 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5AEB10E225;
+ Mon, 21 Sep 2026 06:51:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789973511; x=1821509511;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=SUr2x92m0kq0N82NhWMY7MpEDbdPZzPwC/maMFz4Ze0=;
+ b=fkpZp60f9QlIPcg1M+UjUF416OkSdtv+AgInHpWkz/rNxYzrJseBX5uD
+ Qa06f7tkcyRxtxhwk1tCpPKzpEYB3xaxUZvUcsBoe9UwLK6bsF9XhBwvR
+ MK2HmPF1Tuw573Pk2Q2cOh/E7usCJ1OVuIFMyarsWpeQ9J2bqUBPQz7w1
+ ThrU53QQ0rv73LQCN5J7kysz+QwbqQhwvJOTzTA5HCBxWfyFLkYzhANol
+ 0r5GVLh0zxrB0bkNhfYF/0rbFAeOx2H7uxe8lvjFpAtmuYYgrdxUzATsd
+ SXBuADm662Ugde6U+lRKnCLLSgNkNw+fJofygEedneO3drsz8IINw6sQz Q==;
+X-CSE-ConnectionGUID: jnRkyxj8SuCj38qSrKXI7w==
+X-CSE-MsgGUID: NRDi+pkxQQSedHbN0WngOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="94292574"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="94292574"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2026 23:51:50 -0700
+X-CSE-ConnectionGUID: nWKMdSgDRYO74M9Q0HEw1Q==
+X-CSE-MsgGUID: MqvGeTRZRrGzuqZuk+UK/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272683213"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.142])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2026 23:51:48 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/tiny: fix VRAM/EDID/transfer bounds in bochs,
- gm12u320, pixpaper, and sharp-memory
-To: Hui Peng <benquike@gmail.com>, hansg@kernel.org, simona@ffwll.ch,
- airlied@redhat.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260919223513.3889412-1-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260919223513.3889412-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 627141F7BC
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FREEMAIL_TO(0.00)[gmail.com,kernel.org,ffwll.ch,redhat.com];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.com:url];
- DKIM_TRACE(0.00)[suse.de:+]
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+ <178972632228.60564.16756848994208751058@jlahtine-mobl>
+ <43a77431-f24e-4e26-890b-d60b1844f028@lankhorst.se>
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: Jani Nikula <jani.nikula@intel.com>, Maarten Lankhorst <dev@lankhorst.se>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Date: Mon, 21 Sep 2026 09:51:45 +0300
+Message-ID: <178997350548.20141.1094942452589748749@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,176 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-I suggest to put that LLM away for a bit and rather try to get one of 
-these drivers to work. Once you have that, try to make a test case for 
-one of these "problems". And when that is ready, we can see how to fix it.
-
-Best regards
-Thomas
-
-Am 20.09.26 um 00:35 schrieb Hui Peng:
-> Fix framebuffer size, EDID extension count, and transfer buffer bounds
-> checks across drivers/gpu/drm/tiny/ (bochs.c, gm12u320.c, pixpaper.c,
-> and sharp-memory.c).
+Quoting Maarten Lankhorst (2026-09-18 17:24:39)
+> Hello,
+>=20
+>=20
+> On 9/18/26 12:12, Joonas Lahtinen wrote:
+> > Quoting Tvrtko Ursulin (2026-09-18 12:44:43)
+> >>
+> >> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+> >>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+> >>>> Hey,
+> >>> Hi Maarten,
+> >>>
+> >>>> Yeah the problem was similar, I believe neither check should exist,
+> >>>> instead the caller should give this information like the comment men=
+tions.
+> >>>
+> >>> Any update here? Maybe I have been left out on reposts. Any chance th=
+is
+> >>> gets in before the LTS of this year gets out?
+> >>
+> >> Side question, there was a bunch of sashiko issues against v4 - have=20
+> >> those been addressed?
+> >>
+> >> As today it is the first time I see patch 7/7 which is a bit of a scar=
+y=20
+> >> one. I have to ask how much does Intel commit to fixing out any=20
+> >> potential breakage given the status of i915?
+> >=20
+> > I'd say there is very close to zero chance of accepting patch 7. And
+> > that would take massive functional and performance validation efforts
+> > done by the person wanting the patch to get merged.
+> >=20
+>=20
+> I don't mind taking the responsibility to debug and troubleshoot if thing=
+s break.
+> Patch 7/7 fixes a real bug that is hard to trigger otherwise, but can mos=
+t definitely
+> happen.
+>=20
+> I believe it should be treated it as any other fix, merge it and when the=
+re are
+> bug reports, solve those.
 >
-> Fixes: 77b8cabf3d52 ("drm/gm12u320: Move driver to drm/tiny")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-> index e2d957e51505..19d0af677321 100644
-> --- a/drivers/gpu/drm/tiny/bochs.c
-> +++ b/drivers/gpu/drm/tiny/bochs.c
-> @@ -422,6 +422,8 @@ static int bochs_primary_plane_helper_atomic_check(struct drm_plane *plane,
->   						   struct drm_atomic_commit *state)
->   {
->   	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_framebuffer *fb = new_plane_state->fb;
-> +	struct bochs_device *bochs = to_bochs_device(plane->dev);
->   	struct drm_crtc *new_crtc = new_plane_state->crtc;
->   	struct drm_crtc_state *new_crtc_state = NULL;
->   	int ret;
-> @@ -438,6 +440,9 @@ static int bochs_primary_plane_helper_atomic_check(struct drm_plane *plane,
->   	else if (!new_plane_state->visible)
->   		return 0;
->   
-> +	if (fb && (u64)fb->pitches[0] * fb->height > bochs->fb_size)
-> +		return -EINVAL;
-> +
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
-> index 4ad074337af0..9dfbfc6bb1b6 100644
-> --- a/drivers/gpu/drm/tiny/gm12u320.c
-> +++ b/drivers/gpu/drm/tiny/gm12u320.c
-> @@ -268,12 +268,18 @@ static void gm12u320_copy_fb_to_blocks(struct gm12u320_device *gm12u320)
->   	x2 = gm12u320->fb_update.rect.x2;
->   	y1 = gm12u320->fb_update.rect.y1;
->   	y2 = gm12u320->fb_update.rect.y2;
-> -	vaddr = gm12u320->fb_update.src_map.vaddr; /* TODO: Use mapping abstraction properly */
-> +
-> +	ret = drm_gem_fb_vmap(fb, &gm12u320->fb_update.src_map, NULL);
-> +	if (ret) {
-> +		GM12U320_ERR("drm_gem_fb_vmap err: %d\n", ret);
-> +		goto put_fb;
-> +	}
-> +	vaddr = gm12u320->fb_update.src_map.vaddr;
->   
->   	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
->   	if (ret) {
->   		GM12U320_ERR("drm_gem_fb_begin_cpu_access err: %d\n", ret);
-> -		goto put_fb;
-> +		goto vunmap_fb;
->   	}
->   
->   	src = vaddr + y1 * fb->pitches[0] + x1 * 4;
-> @@ -311,6 +317,8 @@ static void gm12u320_copy_fb_to_blocks(struct gm12u320_device *gm12u320)
->   	}
->   
->   	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +vunmap_fb:
-> +	drm_gem_fb_vunmap(fb, &gm12u320->fb_update.src_map);
->   put_fb:
->   	drm_framebuffer_put(fb);
->   	gm12u320->fb_update.fb = NULL;
-> @@ -418,6 +426,7 @@ static void gm12u320_fb_mark_dirty(struct drm_framebuffer *fb,
->   	} else {
->   		struct drm_rect *rect = &gm12u320->fb_update.rect;
->   
-> +		gm12u320->fb_update.src_map = *map;
->   		rect->x1 = min(rect->x1, dirty->x1);
->   		rect->y1 = min(rect->y1, dirty->y1);
->   		rect->x2 = max(rect->x2, dirty->x2);
-> @@ -583,8 +592,17 @@ static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
->   	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
->   	struct drm_rect rect;
->   
-> -	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
-> +	if (!state->fb) {
-> +		gm12u320_stop_fb_update(to_gm12u320(pipe->crtc.dev));
-> +		return;
-> +	}
-> +
-> +	if (drm_atomic_helper_damage_merged(old_state, state, &rect)) {
->   		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
-> +	} else if (old_state->fb != state->fb) {
-> +		drm_rect_init(&rect, 0, 0, state->fb->width, state->fb->height);
-> +		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
-> +	}
->   }
->   
->   static const struct drm_simple_display_pipe_funcs gm12u320_pipe_funcs = {
-> diff --git a/drivers/gpu/drm/tiny/pixpaper.c b/drivers/gpu/drm/tiny/pixpaper.c
-> index d02ac26d007c..475e92c3410e 100644
-> --- a/drivers/gpu/drm/tiny/pixpaper.c
-> +++ b/drivers/gpu/drm/tiny/pixpaper.c
-> @@ -865,7 +865,7 @@ static void pixpaper_plane_atomic_update(struct drm_plane *plane,
->   	struct drm_shadow_plane_state *shadow_plane_state =
->   		to_drm_shadow_plane_state(plane_state);
->   	struct drm_crtc *crtc = plane_state->crtc;
-> -	struct pixpaper_panel *panel = to_pixpaper_panel(crtc->dev);
-> +	struct pixpaper_panel *panel = to_pixpaper_panel(plane->dev);
->   
->   	struct drm_device *drm = &panel->drm;
->   	struct drm_framebuffer *fb = plane_state->fb;
-> @@ -875,6 +875,9 @@ static void pixpaper_plane_atomic_update(struct drm_plane *plane,
->   	__le32 *src_pixels = NULL;
->   	struct pixpaper_error_ctx err = { .errno_code = 0 };
->   
-> +	if (!crtc || !fb)
-> +		return;
-> +
->   	if (!drm_dev_enter(drm, &idx))
->   		return;
->   
-> diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
-> index 7efd7b567f3b..b365e7549666 100644
-> --- a/drivers/gpu/drm/tiny/sharp-memory.c
-> +++ b/drivers/gpu/drm/tiny/sharp-memory.c
-> @@ -595,6 +595,9 @@ static int sharp_memory_probe(struct spi_device *spi)
->   		smd->vcom_mode = SHARP_MEMORY_SOFTWARE_VCOM;
->   		smd->sw_vcom_signal = kthread_run(sharp_memory_sw_vcom_signal_thread,
->   						  smd, "sw_vcom_signal");
-> +		if (IS_ERR(smd->sw_vcom_signal))
-> +			return dev_err_probe(dev, PTR_ERR(smd->sw_vcom_signal),
-> +					     "Failed to start sw_vcom_signal thread\n");
->   
->   	} else if (!strcmp("external", vcom_mode_str)) {
->   		smd->vcom_mode = SHARP_MEMORY_EXTERNAL_VCOM;
-> @@ -616,15 +619,21 @@ static int sharp_memory_probe(struct spi_device *spi)
->   	ret = sharp_memory_pipe_init(drm, smd, sharp_memory_formats,
->   				     ARRAY_SIZE(sharp_memory_formats),
->   				     NULL);
-> -	if (ret)
-> +	if (ret) {
-> +		if (smd->sw_vcom_signal)
-> +			kthread_stop(smd->sw_vcom_signal);
->   		return dev_err_probe(dev, ret, "Failed to initialize display pipeline.\n");
-> +	}
->   
->   	drm_plane_enable_fb_damage_clips(&smd->plane);
->   	drm_mode_config_reset(drm);
->   
->   	ret = drm_dev_register(drm, 0);
-> -	if (ret)
-> +	if (ret) {
-> +		if (smd->sw_vcom_signal)
-> +			kthread_stop(smd->sw_vcom_signal);
->   		return dev_err_probe(dev, ret, "Failed to register drm device.\n");
-> +	}
->   
->   	drm_client_setup(drm, NULL);
->   
+> Most of my energy and work is going to other projects now, so I won't be =
+able to do
+> the entire validation in advance.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+For a patch with such potential to cause breakage (functional and
+performance), we really need the validation efforts up front.
 
+> I will definitely ensure CI is clean and passing,
+> it's how I came across this bugfix in the first place.
+>=20
+> If bug reports come in and point to this patch, I will be able to take a =
+look and
+> solve the reported issues, but I won't be able to hunt for them in advanc=
+e.
 
+I think somebody will actually need to run real workloads on such kernel
+across a few HW generations.
+
+Couple of browser based GPU benchmarks and video transcode benchmarks
+would be a good start.
+
+> It's only a few weeks until the -rc cutoff, so we can make it part of the=
+ next cycle.
+
+Definitely not a fan of sending such a patch to mainline under the holiday
+season without any testing.
+
+Regards, Joonas
+
+> > And yes, there would also need to be commitment to fix any fallout by
+> > that same person in weekly -rc cadence. So please raise your hand, whoe=
+ver
+> > wants to volunteer.
+> >=20
+> > There's already the earlier much smaller patch about vblank that needs
+> > to get reviewes and acceptance and it hasn't been able to be driven
+> > to completion.
+> >=20
+> > So projecting from that, I don't exactly expect patch like 7 in this
+> > series to get merged in any near future without somebody really stepping
+> > forward and signing to do all the validation and and perf regression
+> > testing.
+> >=20
+> > Regards, Joonas
+> Kind regards,
+> ~Maarten Lankhorst
