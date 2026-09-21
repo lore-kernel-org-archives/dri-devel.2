@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE278C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09A2C982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 06:33:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09AE310E232;
-	Mon, 21 Sep 2026 06:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B68C10E241;
+	Mon, 21 Sep 2026 06:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wtk5edny";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ro57mYWB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF47A10E1E0;
- Mon, 21 Sep 2026 06:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1789972260; x=1821508260;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
- b=Wtk5edny4RduoWLcZxji1Oinn7JvOrHt/fpj1g75iCkUJkXoBeSY0w6m
- 7cnz7TrmmxffWzbv7ogfQw4Ai9gMlWPupli+UyaWFGu0c17j7FDmDyd+5
- 44V8lhBL5+0c78EqsuWTyL/lP29rBwcfZ/OvZFfLwgEHrCkW5fLbSSzk+
- hIn8TmsoaTHJzFMfDInTdao+N951/4X7vksy0WnOrhcz90KNrXD/+Ld/9
- Jub3oM+zeSIbw5Z11o+A7LhhTkS+sfvSnQHQdb+q2V+I0CPARtIKwswcf
- iLtikAPbBBWGOE/pKqBeJLYU9pmdW/wuBsF/B1NKEHgbw9OPz8fJrXPRT w==;
-X-CSE-ConnectionGUID: KzO6NTyJQoCJbpB2shnidA==
-X-CSE-MsgGUID: B42YPWZzR3iyFxmQPaYJFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="971839"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="971839"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:30:59 -0700
-X-CSE-ConnectionGUID: WdnO2D4rQri/9a2FF6dXig==
-X-CSE-MsgGUID: nX8TpcC+Q0+GS22QJVfQWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="300460814"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.142])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2026 23:30:56 -0700
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1957C10E14B;
+ Mon, 21 Sep 2026 06:33:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 085A060142;
+ Mon, 21 Sep 2026 06:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D4D1F000FF;
+ Mon, 21 Sep 2026 06:33:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789972390;
+ bh=Gs0ogbLjaOerJvtQD6LY+dIL5ZerBmaywmvWiFZF2Z8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ro57mYWBluUBZyPaNmyl9rd9UwkRmwER4XJlHmQdQ5F7KwVPA31xAEsS+AxvzFHD5
+ 0DpFtjoVp9Tjh/PLjHCOUycBGaQY8ndnWtMEskYw8CGuwg6V8FrW2+wXfxh/GcUUct
+ wJ8pqu0m/KGv5ybRwmHT/MRQotvJJ4zvgtZ/XJiDiAISqtD6rFI4OqMehP9DqJP0UV
+ 2oDbXnkwDtfclck89TwDDT4GkKZTiMZm5fS3abExakPXv44hCB2B/P/iJS526wO81L
+ 45UNASOvssR0YT+C0USgxxXvgeEmGrxtGRFbh+9mSkqAmVz+DxEXnUqj4Jy82MiQvr
+ bljce+yCs1Xrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/pagemap: Drop ratelimiting from dev_unhold_work
+ debug trace
+To: "Varun Gupta" <varun.gupta@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260921062648.1166903-2-varun.gupta@intel.com>
+References: <20260921062648.1166903-2-varun.gupta@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
-References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
-Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context allocation
- failure
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: stable@vger.kernel.org
-To: Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>,
- Guangshuo Li <lgs201920130244@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 09:30:49 +0300
-Message-ID: <178997224953.20141.15039837012698810465@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Date: Mon, 21 Sep 2026 06:33:09 +0000
+Message-Id: <20260921063310.89D4D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,71 +53,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Quoting Guangshuo Li (2026-09-19 20:17:10)
-> mock_context_alloc() creates ce->ring before allocating and pinning the
-> context timeline. mock_ring() initializes the ring reference count and
-> returns the initial reference to the context.
->=20
-> If intel_timeline_create() fails, mock_context_alloc() returns without
-> dropping the ring reference. The same leak occurs when
-> mock_timeline_pin() fails after the timeline has been created. Since
-> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
-> the later context teardown does not release the ring.
->=20
-> Drop the initial ring reference with kref_put() on both failure paths.
-> When the reference count reaches zero, intel_ring_free() releases the
-> ring VMA and frees the ring allocation. Clear ce->ring after dropping
-> the reference to avoid retaining a stale pointer.
->=20
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->=20
-> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
-> Cc: stable@vger.kernel.org
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/pagemap: CPU stall re-introduced by unbounded drm_dbg() loop
+--
 
-We're not going to put Fixes and especially not Cc stable in
-for selftests.
+commit ea1ff5e58f9772cc1eaec3db21133d24e24bd4f0
+Author: Varun Gupta <varun.gupta@intel.com>
 
-You should use onion teardown idiom instead of duplicating code.
+drm/pagemap: Drop ratelimiting from dev_unhold_work debug trace
 
-Commit message also reeks of LLM generation as an average developer
-doesn't need "explain to me like I have never programmed before".
+This commit reverts the use of drm_dbg_ratelimited back to drm_dbg in
+drm_pagemap_dev_unhold_work to avoid "callbacks suppressed" notifications
+from the kernel's ratelimiting subsystem.
 
-Regards, Joonas
-
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915=
-/gt/mock_engine.c
-> index 79741f043f03..fa4368730d33 100644
-> --- a/drivers/gpu/drm/i915/gt/mock_engine.c
-> +++ b/drivers/gpu/drm/i915/gt/mock_engine.c
-> @@ -170,6 +170,8 @@ static int mock_context_alloc(struct intel_context *c=
-e)
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index c66c58f85c345..743988036a5f8 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -1102,7 +1102,7 @@ static void drm_pagemap_dev_unhold_work(struct work=
+_struct *work)
+>  		struct drm_device *drm =3D dev_hold->drm;
+>  		struct module *module =3D drm->driver->fops->owner;
 > =20
->         ce->timeline =3D intel_timeline_create(ce->engine->gt);
->         if (IS_ERR(ce->timeline)) {
-> +               kref_put(&ce->ring->ref, intel_ring_free);
-> +               ce->ring =3D NULL;
->                 kfree(ce->engine);
->                 return PTR_ERR(ce->timeline);
->         }
-> @@ -178,6 +180,8 @@ static int mock_context_alloc(struct intel_context *c=
-e)
->         if (err) {
->                 intel_timeline_put(ce->timeline);
->                 ce->timeline =3D NULL;
-> +               kref_put(&ce->ring->ref, intel_ring_free);
-> +               ce->ring =3D NULL;
->                 return err;
->         }
-> =20
-> --=20
-> 2.43.0
->
+> -		drm_dbg_ratelimited(drm, "Releasing reference on provider device and m=
+odule.\n");
+> +		drm_dbg(drm, "Releasing reference on provider device and module.\n");
+
+[Severity: Medium]
+Does this code re-introduce a serial console bottleneck and potential CPU s=
+tall
+during teardown?
+
+When tearing down an unbounded number of DRM pagemaps,
+drm_pagemap_dev_unhold_work() iterates over the entire
+drm_pagemap_unhold_list. If DRM debugging is enabled, drm_dbg() is now
+called for every single entry unconditionally.
+
+If the goal is to prevent the "callbacks suppressed" warning from the
+ratelimiting subsystem, would it be better to drop the repetitive log
+entirely, or perhaps log once outside the loop, rather than reverting
+the CPU stall fix?
+
+>  		drm_dev_put(drm);
+>  		module_put(module);
+>  		kfree(dev_hold);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921062648.1166=
+903-2-varun.gupta@intel.com?part=3D1
