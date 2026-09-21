@@ -4,105 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90733C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF336C982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C0110E829;
-	Mon, 21 Sep 2026 13:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3FB310E2AB;
+	Mon, 21 Sep 2026 13:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sKLwOJg6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZXq9tdu7";
 	dkim-atps=neutral
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
- [74.125.228.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B657E10E829
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:57:18 +0000 (UTC)
-Received: by mail-ed2-f12.google.com with SMTP id
- 4fb4d7f45d1cf-6a60590a85cso5615495a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:57:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789999037; x=1790603837; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
- b=sKLwOJg6z9jH6cNNINQ/UdJqMS/pZD+4njbPCNx60JqbiAOi21BXL78vkKxmuHLGu4
- RrLukmgD2c7/VMMIDOeLbyz0bvusneHE57gaY1lQK4Mu2Gbxhxqaqk7MjnQKnWhUqfc4
- KLWPFhSwH3MbRGmk3b3/yNRvWgV1d5mHIA7hRZHDaipK61P6HcdOQg8KQVbWjkjU2394
- mF+wk9OU9jAcRsHsp8q2TrqzOKJ+OCni9O+wG/XwDHXcEuxyZugH0b1cSImjy15tgYg0
- u2UDd8cbdaVmPUtxYR9i6TE41U1G17LHLOTDmoDQ/R/bJBYKa+DiagFdVTKMoaFQA5F/
- qmbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789999037; x=1790603837;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ofpT4h/xZOk97T1LnY16xox+YwsLCtjUsNXPXQGc7Q0=;
- b=MGaJfZ9HT0/MTzLsO4wC4KyOyk4UQBBb6fo7nhhwrtdcCtfWBmMxEhJH7YiUa2LKN3
- yAAzvuBlCbMwLycn+tKz1yHeU2aVoRVyKcirH4W6e+qhIJHXYoOQuYpzBOZ4cdd7ip3Z
- qkGawpa9he/6/M8q/JWo1dby74mcomHLzg2HMj8rXQUyRXfk+o/aN9rUzeIr2py/+QtQ
- vBpdwFsxkUFLQo+rKxHgwtFFEIF7m8CL1Zv+i3QTKZfHr649ElntmM/834DRLnOMs4rk
- JA0UFF4u60nLJEB0QkGUnvWqN1hFs4oWDiYkVhz8RNrJXoh0uAujArmROnzSjMHLj3JI
- mSEA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxWAwPitPoRNLISul4bqybTvWZUP+eWbwylo79bqGE1oBXx87OtJg2M+YgmOWOPQgUXo5Pz+8Z8Y9s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ko7Vj+TB3v9HYuPs00HJPjDym91YxzUbFB6oVQ0rMNPSoeTGv6
- EvaYYOzRa70wDza4tRLAGc0+8DcemQ3R8oG4lpPVikOXgZ0vMtb/6ZBX
-X-Gm-Gg: AYBFou1ju9GN+Kw4lEZrn/6gPS7ASLZek/MizOQ42qJnvDuUFzdVh5dsFk/ZPRTKBtx
- unUFfzL8nXrc5JC4FvDeEpMO+2SmjGJ7GkP8xa23a6OVD9+j/5m7nmlVdNC7dSqNU1Y9N3zvrrt
- 9kEhGRVEDkBc2lKtgzS5eGSylqGgOThPdmBnno/Ds6UIFqcrgtJmZE1DN3nhbW4sayd1uESeU+e
- 5skwaaFfjATzc+RbbxtbBnaEbBnbXFmxLucEQGq/mRIm3easLtL0TSvnSjs+9kVn0JnlbZSer3P
- O3wjiMjhr8JuRZbDcPAEKCIDndFzfPaWutEZPe9jc++us8do+hLL3T+eKHA+2F1EnFtpPkru7+p
- A3SoaxKUCw86kj1YleK/E86RKz3CGC9LrCfdrXPldt0GenrjJ9YpOWJTaIxapMHpVFkUnPYg2bq
- P2rczhpV6BXjl7b+5U7PdLH9Q1pAkfyF26NKncBo9E3JvxbQXzZUg/4Yg2QbJzEimL/dK6CCXAc
- Ou/kFZTifre9smb7TXkbUmv0NL8BvChxPmzuyovmMz9lSKzId+cFAr7oUiH6riHe7+GoAuNNqnI
- FDN2/9F8vxyfx0ZiZW9ee0DTh5OrdDXSapNc
-X-Received: by 2002:a05:6402:210f:b0:6a9:aead:4e98 with SMTP id
- 4fb4d7f45d1cf-6aa577f5cfdmr8215865a12.1.1789999036894; 
- Mon, 21 Sep 2026 06:57:16 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6aa67e0d3c5sm4446691a12.22.2026.09.21.06.57.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Sep 2026 06:57:14 -0700 (PDT)
-Message-ID: <a8b01e56-bc86-412b-862c-d6a3efef2e6d@gmail.com>
-Date: Mon, 21 Sep 2026 14:57:05 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E363410E836;
+ Mon, 21 Sep 2026 13:57:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789999079; x=1821535079;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=X4CIZgjHO+2VErvGmXm3RXicCWQqYRcidFvptKdOGZQ=;
+ b=ZXq9tdu7fOPLyqdnoZttRvtzPrOTGayCh2ckggw2nZVbePZXQnCvJ2aK
+ sr7tG3cw0BahpnWUzugk0KP4uL1rkR2e4tStfY+TbEkVcxgPUq6++WL5G
+ i8w+h5fPs1cjZ2vt/pfe/pRELgQyIkf6etZ7eNbE21ZaXF6yLNeQkCq7D
+ dw2qhRFUw6+wNsFAS3BJJ4eWjpppMLVlC1/P4ugUlSNk7Vw81s8iQw/2Y
+ d/Upork3oiVMDXPoiuAivZIKdlYJSULneODVNrRJBj2R5oDUESEJK7a7G
+ N8jsjZapiOUgP+lBjL8YmrzNlzYiktkEy4nbGreA0KiqAUPMCY5f910eM w==;
+X-CSE-ConnectionGUID: eygLn6lQQWSEW/xHqiPP/w==
+X-CSE-MsgGUID: 1gDiNpmAQvqIsjjkOlEMnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90379513"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="90379513"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 06:57:58 -0700
+X-CSE-ConnectionGUID: nqRK0NXaTM2/w38HemOK1A==
+X-CSE-MsgGUID: qeLthCnqTnyTD5B7vyXXzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="272824849"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.155])
+ ([10.245.244.155])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 06:57:56 -0700
+Message-ID: <49da6f28a4ba582d32ac6cdccd6dea65d75eefbf.camel@linux.intel.com>
+Subject: Re: [PATCH v2] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Szymon =?UTF-8?Q?Aceda=C5=84ski?= <accek@invisiblethingslab.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, rodrigo.vivi@intel.com, 
+ maarten.lankhorst@linux.intel.com, hch@lst.de, bob.beckett@collabora.com, 
+ dri-devel@lists.freedesktop.org, marmarek@invisiblethingslab.com, 
+ xen-devel@lists.xenproject.org, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 15:57:49 +0200
+In-Reply-To: <20260916173030.3223833-1-accek@invisiblethingslab.com>
+References: <20260916173030.3223833-1-accek@invisiblethingslab.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
- infrastructure
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
- <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
- <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
- <8285ede8-bebb-403a-8a37-b9987cd37a8f@gmail.com>
- <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,64 +74,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/6/26 08:29, Christian König wrote:
-> On 8/5/26 12:59, Pavel Begunkov wrote:
->> On 8/5/26 09:27, Christian König wrote:
-> 
->>>> +
->>>> +    dma_resv_lock(dmabuf->resv, NULL);
->>>> +    ctx->dev_ops->unmap(ctx, map);
->>>> +    dma_resv_unlock(dmabuf->resv);
->>>> +
->>>> +    dma_fence_put(&fence->base);
->>>
->>> You should probably set map->fence to NULL after that.
->>
->> The map is freed two lines below, but I can add it as
->> a defensive measure.
-> 
-> In that case it's ok, I've just haven't seen the kfree(map) below.
-> 
->> ...
->>>> +    ret = dma_resv_reserve_fences(dmabuf->resv, 1);
->>>> +    if (WARN_ON_ONCE(ret)) {
->>>> +        struct dma_fence *fence = &map->fence->base;
->>>> +
->>>> +        dma_fence_get(fence);
->>>> +        percpu_ref_kill(&map->refs);
->>>> +        dma_fence_wait(fence, false);
->>>> +        dma_fence_put(fence);
->>>> +        return;
->>>> +    }
->>>> +
->>>> +    dma_resv_add_fence(dmabuf->resv, &map->fence->base,
->>>> +               DMA_RESV_USAGE_KERNEL);
->>>
->>> That sequence is clearly incorrect!
->>>
->>> The fence must be created after dma_resv_reserve_fences(), otherwise you definately have an illegal memory operation here.
->>
->> I'm not sure what you mean, can you elaborate? I only cared about
->> pre-allocating it to avoid allocations here. We add / signal the fence
->> only once, no reuse. The map is going to be killed here, and if we
->> create a new map, it'll have its own fence.
->>
->> I can move the dma_fence_init() call here if that makes a difference?
-> 
-> Yeah that is a good start, but you might need a bit more.
-> 
-> Here is a summary of the usual procedure you need to follow when implementing a dma_fence backend:
-> 
-> 1. Allocate your operation object, in this case here it's your mapping I think.
-> 2. Prepare your operation, including all memory allocations.
-> 3. Call dma_resv_reserve_fences() to reserve a fence slot.
-> 4. Allocate and init your dma_fence object.
+On Wed, 2026-09-16 at 19:30 +0200, Szymon Aceda=C5=84ski wrote:
+> Fix display corruption on Xen PV dom0, where DMA buffers are not
+> guaranteed machine-contiguous, in which case bounce buffering kicks
+> in, breaking xe's memory coherency assumptions.
+>=20
+> Apply the same workaround i915 carries in i915_sg_segment_size()
+> since
+> commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
+>=20
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
+> GPUs")
+> Reported-by: Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com>
+> Closes:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
+> Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
+> Link:
+> https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/=C2=A0#
+> i915 counterpart
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Robert Beckett <bob.beckett@collabora.com>
+> Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> Signed-off-by: Szymon Aceda=C5=84ski <accek@invisiblethingslab.com>
+> ---
+> v2:
+> =C2=A0- Imperative language in the commit message (Thomas Hellstr=C3=B6m)
+> =C2=A0- CC the authors of the original i915 workaround (Thomas Hellstr=C3=
+=B6m)
 
-Looks I forgot it reply here, sorry for that. I killed dma fences in
-v6 in favour of synchronous waiting, it turned to be less trouble even
-outside of these fencing rules as I can rely on dma-resv lock less in
-the code.
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
--- 
-Pavel Begunkov
 
+>=20
+> =C2=A0drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
+> =C2=A01 file changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> index 290ca62..341fa93 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.h
+> +++ b/drivers/gpu/drm/xe/xe_bo.h
+> @@ -9,6 +9,8 @@
+> =C2=A0#include <drm/drm_prime.h>
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> =C2=A0
+> +#include <xen/xen.h>
+> +
+> =C2=A0#include "xe_bo_types.h"
+> =C2=A0#include "xe_ggtt.h"
+> =C2=A0#include "xe_macros.h"
+> @@ -574,6 +576,23 @@ static inline unsigned int
+> xe_sg_segment_size(struct device *dev)
+> =C2=A0	struct scatterlist __maybe_unused sg;
+> =C2=A0	size_t max =3D BIT_ULL(sizeof(sg.length) * 8) - 1;
+> =C2=A0
+> +	/*
+> +	 * For Xen PV guests pages aren't contiguous in DMA
+> (machine) address
+> +	 * space.=C2=A0 The DMA API takes care of that both in
+> dma_alloc_* (by
+> +	 * calling into the hypervisor to make the pages contiguous)
+> and in
+> +	 * dma_map_* (by bounce buffering).=C2=A0 But xe (like i915, see
+> commit
+> +	 * 78a07fe777c4) ignores the coherency aspects of the DMA
+> API and thus
+> +	 * can't cope with bounce buffering actually happening, so
+> add a hack
+> +	 * here to force small allocations and mappings when running
+> in PV
+> +	 * mode on Xen.
+> +	 *
+> +	 * Note this will still break if bounce buffering is
+> required for other
+> +	 * reasons, like confidential computing hypervisors or PCIe
+> root ports
+> +	 * with addressing limitations.
+> +	 */
+> +	if (xen_pv_domain())
+> +		return PAGE_SIZE;
+> +
+> =C2=A0	max =3D min_t(size_t, max, dma_max_mapping_size(dev));
+> =C2=A0
+> =C2=A0	/*
+>=20
+> base-commit: baafc300cd079a5210c1e70e5ea3d93518e40b38
