@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4974C982EE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E37C982F7
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A57B610E2FF;
-	Mon, 21 Sep 2026 18:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B782510E7D3;
+	Mon, 21 Sep 2026 18:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FjzzYvId";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KzdMzOkN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53CA210E3DE;
- Mon, 21 Sep 2026 18:19:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 913AE10E634;
+ Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BAB744952;
- Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1138FC4AF0E;
- Mon, 21 Sep 2026 18:19:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 15A22449DF;
+ Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80C21C4AF65;
+ Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790014754;
- bh=vAFIOZywJ3Cf6QH20r/UhBzUAEPsdRIi9SW9imqskR8=;
+ s=k20201202; t=1790014752;
+ bh=ctHaSGcvyw3H8wQm3ii/7WZwBxWZ9vwphTZ5+6+nWy4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=FjzzYvIdv4mz7WtH84SsnUC0ZTLkzYBWqROlEHiYWK9OPyaY9/CKyk4GbrbWKdadT
- GqEjWfEJ+5jwxYRF3FKoptb/S0Kaq6WjumuEPJBcojho3FnvmKadV3niN0+SOdYvd6
- KbZ0GRkilqiFyAGRuCoP5vFV8VppyTDoiC6Nq09ASP6qCgxmZGbTo7uRgN4XI7+frH
- qZ0L0Ip+rDH4cpujXG9K8+F5fTRfBqu74z4LdmKMlbV7xRyzdk77lmZgrD/LhOtL6A
- 53AoHd6Pk6Wq4JC50iAuqQ08zkGfUGo/tUOQ3jQ/NsS1LIvrvZ/qj8EOsrGJ5kSNm1
- XX4pMwogm/IIw==
+ b=KzdMzOkNOyXx50B/mZAp4Sr3zCItKvax/K+/7to3JTSZmuEkg1Fo6IXp/QiZJKhLE
+ XlfgK9Fx7h8GzEkjNVF5OzQqudxluLBsMXvjSLn+TjAUMgNcJwXhR0wCWb5c3UD0t3
+ zmQluwH/ZBvdatwRj30JuTC7k1/JI3j2yEBULT08SuwWm23olKKXxHCNqH+h8F6PtJ
+ /KFiKIboebz8ab6lnzRlvfqJN7KkfD0qVeE1ECPHB3EKJlEtcer86q+5SOXnOO3+OR
+ PjS79Zr/bqC8g6O8LB9V3V0I8k9tX/YXyQ73mkP8a3mg1GoDES2DbVC/CaGIRCMzn4
+ CIDWTjE8Chbjg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EAA83C982ED;
- Mon, 21 Sep 2026 18:19:13 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 604E0C982FA;
+ Mon, 21 Sep 2026 18:19:12 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay
  <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Mon, 21 Sep 2026 21:19:09 +0300
-Subject: [PATCH v3 18/19] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+Date: Mon, 21 Sep 2026 21:18:56 +0300
+Subject: [PATCH v3 05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-msm8952-initial-support-v3-18-b96fd3fe298b@mainlining.org>
+Message-Id: <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 In-Reply-To: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +76,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org, 
  linux-input@vger.kernel.org, Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=1586;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790014748; l=861;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=7Oq7rS5EzM26Gux3h9WgKT4CbZy8lSOyKUpp4zcOUuY=;
- b=5GNutjokBiTs7aasmJJm6UC3BS8bSmyr/ejrMAdp/A7QMobG7W8nu3jKLq8jr3hqtf3F9Azi4
- X+TrEwDyGrDDqR42DoAb7uezNKegEQOwSc3QOhC1Ex/mwFnXZxA9EOR
+ bh=uQuDsY7sKCtxhxupdBeZKbofdc/eOc+AEju250sV/h8=;
+ b=5bo6Glg8xIDB0IqcOMpsjfx6TEdUNtAcAjWM6/Eh4Z25sWgteEFdun/P28zIXLJvbvsvxvCxQ
+ F2N2run4UfSBrJoz80bZGUEy3gF9319Y08wgeBv0AX3+8jRewNt1abb
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -105,60 +104,26 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+Document the compatible string for the SDHCI controller on the
+MSM8952 platform.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
- 
-   reg:
-     enum: [ 0x5d, 0x14 ]
+diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+index 69bd44e65ad7..9d4409c958fa 100644
+--- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
++++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+@@ -26,6 +26,7 @@ properties:
+               - qcom,ipq4019-sdhci
+               - qcom,ipq8074-sdhci
+               - qcom,msm8226-sdhci
++              - qcom,msm8952-sdhci
+               - qcom,msm8953-sdhci
+               - qcom,msm8974-sdhci
+               - qcom,msm8976-sdhci
 
 -- 
 2.55.0
