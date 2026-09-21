@@ -4,75 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E0BC982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E9BEC982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 07:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85EB210E47E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E6710E4D7;
 	Mon, 21 Sep 2026 07:00:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RolktL9x";
+	dkim=pass (2048-bit key; secure) header.d=asseily.com header.i=@asseily.com header.b="R8/lS5qD";
 	dkim-atps=neutral
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com
- [74.125.227.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F5F510E869
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 22:35:11 +0000 (UTC)
-Received: by mail-pj2-f41.google.com with SMTP id
- d9443c01a7336-2d91a931f66so11951725ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 19 Sep 2026 15:35:11 -0700 (PDT)
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
+ [74.125.224.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB1410E0D9
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 04:01:25 +0000 (UTC)
+Received: by mail-yx2-f13.google.com with SMTP id
+ 00721157ae682-85d45ae011aso17992997b3.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 20 Sep 2026 21:01:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789963284; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GzUSMKyWb9Ncojpa4H5opGaWKaoQ7zLcRB7gSMepiX3FNkzTNF+4uE3l1wT4fqYuhV
+ uy/a+Nb5L0VAqr0oKe9JZD53OrFubFLpQzETF20JCBZCse1rtBYoUH1wFLOQaVX+VIe0
+ NSqHZkK5S7uYeNEEUFZTU7qq5OUHCrOIiRx0T5Q3lKAmMEnP30EeePRC0tZQ5H3zrSlI
+ D1hWrF+NgQfxVoBeQcktmfjjKi2X/cI2ii/rPxL4NysNqHjEnS6GpXiWRAFXfdiUhFjr
+ bpFYyGzZX5wDlUHTrDfs/pk/6Z3AJeRWBvkC4CNJhSvbtppyb2j7x3q5QdSmjvaRjkrA
+ Hf/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=xjZ/julrVPkOc1J+viodVRzYcF9y3okE/px0LcKIV1E=;
+ fh=2g1uKHtZDQa78zl1uuedfCSTLgiabuP6D/ZJ/HW2ov8=;
+ b=GinCFxmuHVOnMAbBUCXWSSrKf4KPubQdl93HC22CFGxzsPftFGveQCSAVl4OOHG4e0
+ GBLFjAYKqjk96dypN1rROu+WYoa4BsHaMDXjmdq5gGSja8woVLo++V265iGghzrTU5Fk
+ mOMXJ7pvDsjrCKAoOZzXGgOUrmqP8pNjNAAuE9cvpWE5Cq1Oz/w3RTz/tHm1ENt6gA/Z
+ O/um43G2CKF3VCpBxF2DAp9C6hUxT6xvnjr/mdG8DrwgexuWLQkXRUKKcBa7u/A5vhKC
+ jspx21cXZtd0uzVSqqgqBXPJ2IGsg7kt5KTLFTN9E31tVjAMCdFPv6/9R0WXbgk6N9C1
+ kZ2Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789857311; x=1790462111; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7QY4l784EYoqdUGrD39yyvJt2inDbru1rDCO3703wPU=;
- b=RolktL9xJ17Q3jrkd26lR6MsHuc0LPGgkksq30+SbKD2LKie6ra21qYwVL7Kyw9tBT
- ISJKGYy/ZNXUXdc149f+rT+iV3bsvCBinIUgCpD2H5CwkQAIgdwb2/Ci19OMPSWvOnZe
- 7LTdVe58e2uGHBohg5Ez/fjJbqWlIGMXSMfxz2V01EtvUfgCN+mBWYwSM+ZQq5U6zWKD
- 7hh0L9HLYTBFohvhX7Av8+S+gnhYCI/leo2KKlBA0x3Wu/cIA2w/8qejVzjS0iZJ6GnO
- Ld4dbp06Q1uEEV0Kdue7bavqWMRJzC5e9I/WL0yCReQ0ZEUst5Kx34X+6Xgyun1JFNl9
- laBQ==
+ d=asseily.com; s=google; t=1789963284; x=1790568084; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xjZ/julrVPkOc1J+viodVRzYcF9y3okE/px0LcKIV1E=;
+ b=R8/lS5qDTLJdkZMY6ZcCmkR2qdCsLP+kkqziyLgDQxchrIuOWgHvEeJHovH3a8yHvC
+ mbdtvg4kUkWLL6y9qsZCMoZWiuRtyOxbzlenJ72O35do8wBw5l3wMzihyMmCF+QshDiL
+ s8O7ikewOSTHikJC5BgfygZor8BX9tHyskLXebPlJWr7jSE1qJg2KFGDS9U/sM3u7q4L
+ +ciGPXFiI7RG92Y4zhW4RbXTbxNz7GBo0qrNV3ToJbHV38iDVIfofgLrAxgFmEQnd/q7
+ E24CqVu1kELt2t0agqByVon2wCvxyQ1Namqji7Yvyg25Kqrecx21369Sx9TF17ERgjIt
+ GQJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789857311; x=1790462111;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7QY4l784EYoqdUGrD39yyvJt2inDbru1rDCO3703wPU=;
- b=Aq+av9oCAedYAEz0anef9dvKOKBulF3WMgLQVPmt++2EvTJe5IKO+sN5d3fEtypIfi
- ZsUeT7lsWrZwzqWww+modT3YVRe/rRk/jTEumg11jZ+b06dlCeGrj3iI8rdpbLf48jx1
- qYQQ2FfnBWpTbFNg3dE8RvUeQDXzVOBJRF2D32ropSvKdghVlZCRh0/0V02uRZxkDLoL
- fQe5dwFn/umwH81z+zEPA11jKmFAguedJtCgKMgBnLcH68Bz1zscuQj7p/GQYWDw8AAZ
- nCF0ca5WmIxSkHnoJVd1zAlYFoG4q8FhFvN09JH12napagKeXvThnig++YJaIjjej1AI
- WfYQ==
-X-Gm-Message-State: AFuF++kIFU2glNo/rR9JrP/vrzu/knyVpGqXnJ2j3Lu7iMZutRWFkFh9
- dUQPwmVHPTgyu7Cl0nPg9+YW0tRxr5WGj15h7y4uv9VEGJobBncHJpjW
-X-Gm-Gg: AYBFou3dqOhOCaKYkLGtReOwHbXA0sbBu614EYcWLjVaQPz8CK8kNSdjMEtXe97kfpz
- uSZU7gQApbFNNHBYIm+9Fc07mnQngKst1iJ5Oeg6jYhT4UlClJO6xeXmCWGlveSC9M12HQUN8vf
- qgxJT6YlxUaqvOYYQ+Krg7zA8plT188hOYqiSNa3qCtPGauK036B1EBW1QHppSotN6ehmL+qUHE
- rww4CC+kHtWdziYUIUmzjbUQHOvwyMV2tLntG5q+hmbZ5uUFaQ0giLrHv/LrNra2viU7hbhZq3B
- rernn7At/bJrXz+80Ze48l9Pvy2vxvdllNZ8UDSE/f/+7h60Lfrghhozo/i1cqaH7HuOkVo/8P+
- NRSoTZu7SaYvva4uRYxL9ImCouJ5w5M/gqy5gGn9gtouO+zdHrk+lV+uwJQ8LwHfSkhSaJgMlk5
- 7aFeoPgJKF+LZYoVk1mYQ8Y2vL4ImnodSWbYzyvCVSfYk5/dyYh1xl8DO+yjVHERIvIyN8cZ2A8
- m37TeRDD7BsEkqP4zKMVXWbyAQYV3dKaf0nliPufu2jAZp91XgQDz2MoH949SKm3JwPoWHfJYgh
- DEGMwZli2E1bhIbpN2/cew==
-X-Received: by 2002:a17:903:3c4f:b0:2dd:ad74:6d1e with SMTP id
- d9443c01a7336-2ddbe4726a8mr69623095ad.27.1789857311009; 
- Sat, 19 Sep 2026 15:35:11 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com
- (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ddc16b471fsm13290885ad.3.2026.09.19.15.35.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 19 Sep 2026 15:35:10 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: rubenru09@aol.com, tzimmermann@suse.de, simona@ffwll.ch, airlied@redhat.com
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/gud: fix bulk_len divide-by-zero, connector bitmap OOB,
- and short USB reads
-Date: Sat, 19 Sep 2026 22:35:10 +0000
-Message-ID: <20260919223510.3888975-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+ d=1e100.net; s=20260707; t=1789963284; x=1790568084;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=xjZ/julrVPkOc1J+viodVRzYcF9y3okE/px0LcKIV1E=;
+ b=AEZCL+ISsd2NqxyH/kwD8ynaGIoW7Lum4W1sOoXdOMJSmR06OR7nsVfEd6KN2Qly+N
+ eYJxfjFfXbPLczjlCFR77NA1LT1mz67uUDQ+RVA9jBwqt+c8yZVsTcguRdBEjw3wz21S
+ /VGAS+lK9csrp3CB/XHnXbgWXngS4v6J4M4KACUGlzOryihgaD6NMpsaEmG59ZRnNRKR
+ Wi8RZ5/s6hrAIXiRdnrg68F+LMVkDdcERNLncxDzjVE1xDPUhgNDhlzTo5HruXVD7/pM
+ S+k0Km0+7H8CWTh33HHGD5aQFgyAAuBi/ip3wMQYIsBLgZr8hobAIUH4bDuWZYI8jNLl
+ Jg6A==
+X-Gm-Message-State: AFuF++lKoAhZpd2FOyMNGVJ3Ys0pGBsjnuoLwmmMhBqJ8nk7W6aZbnPa
+ PV0XOl2Mupf+3wt8Mto/88lKntb0XQXMVkGEfqPtJpYMkiLZPkyLTSzopWQtkxpt7U8l+XSOWAb
+ Eb9jKoZYOjtOwD77008uxN6Qilc+qNeJd4dWq5LlgDA==
+X-Gm-Gg: AYBFou0ZCtthm6y6IQNLfidwoTl12aJMLz+VC96KuFYSH/3A0hAsE672qn66rXlQs1J
+ RRvgKDXWVfhvK/pYCBJR7Gi1MUEqafkIdPY4/BrbEVZ93pZ2KnbN9ew+FJMBtB8IccEIsmraiaE
+ hoTHfh12yTsivvG3QkF8hldGWDnMle0Bh11Py6f72GerbX5AE3XnVVUlPNycPWFNSJ712rnPa+i
+ kKVb6Nyspx4LkBaXIQNQytx9fTnMvEy+1+fSRpD8Wy/KbjeZMaBpDC0nXEBKs83Ly3RHhOGIMrn
+ 40vfMejeGcM5rje0jlQSoUBHn0tA53a0bpxk1b9tAOARvnNBiLYuH6ZkpQiJCGFhQrGdkqG+NzK
+ pBBtejCvOT+EbUw==
+X-Received: by 2002:a05:690c:399:b0:861:d4d3:513f with SMTP id
+ 00721157ae682-897309026ffmr30935537b3.6.1789963284391; Sun, 20 Sep 2026
+ 21:01:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Karl Asseily <karl@asseily.com>
+Date: Mon, 21 Sep 2026 07:01:13 +0300
+X-Gm-Features: AcwNN1W2OTb_bnWhs7bjrZIJS80bxGDyPde2uFnaGYEf3coenjPKVVz3VTNjHgo
+Message-ID: <CA+gvwboeDa1jj65eaGER2CqxnOWxt4s+OqXRB9Svdz9QG1Hh4Q@mail.gmail.com>
+Subject: Re: [PATCH v10 00/21] Synopsys DisplayPort Controller improvements
+ for Rockchip platforms
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, Andy Yan <andyshrk@163.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 21 Sep 2026 07:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,177 +101,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In drivers/gpu/drm/gud/ (gud_drv.c, gud_pipe.c, gud_connector.c), ensure
-gdrm->bulk_len >= max_pitch so lines = bulk_len / pitch cannot be 0 in
-gud_flush_damage(), cap num_connectors to GUD_CONNECTORS_MAX, and reject
-short USB control transfers in gud_usb_get().
+Hi Sebastian,
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index 8141c3a1e30a..1bf0495bf43f 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -569,7 +569,7 @@ static int gud_connector_add_properties(struct gud_device *gdrm, struct gud_conn
- 			continue; /* not a DRM property */
- 
- 		property = gud_connector_property_lookup(connector, prop);
--		if (drm_WARN_ON(drm, IS_ERR(property)))
-+		if (drm_WARN_ON(drm, IS_ERR_OR_NULL(property)))
- 			continue;
- 
- 		state_val = gud_connector_tv_state_val(prop, &gconn->initial_tv_state);
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 3a1b9e2a2eaa..f69b0e6e2ee0 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -328,7 +328,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
- 		seq_puts(m, " none");
- 	seq_puts(m, "\n");
- 
--	if (gdrm->compression) {
-+	if (gdrm->compression && gdrm->stats_actual_length) {
- 		u64 remainder;
- 		u64 ratio = div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_length,
- 					  &remainder);
-@@ -427,6 +427,8 @@ static void gud_free_buffers_and_mutex(void *data)
- {
- 	struct gud_device *gdrm = data;
- 
-+	vfree(gdrm->shadow_buf);
-+	gdrm->shadow_buf = NULL;
- 	vfree(gdrm->compress_buf);
- 	gdrm->compress_buf = NULL;
- 	sg_free_table(&gdrm->bulk_sgt);
-@@ -443,7 +445,7 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	struct usb_endpoint_descriptor *bulk_out;
- 	struct gud_display_descriptor_req desc;
- 	struct device *dev = &intf->dev;
--	size_t max_buffer_size = 0;
-+	size_t max_buffer_size = 0, max_pitch = 0;
- 	struct gud_device *gdrm;
- 	struct drm_device *drm;
- 	struct device *dma_dev;
-@@ -495,6 +497,10 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 		put_device(dma_dev);
- 	} else {
- 		dev_warn(dev, "buffer sharing not supported"); /* not an error */
-+	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
-+	    drm->mode_config.max_width < drm->mode_config.min_width ||
-+	    drm->mode_config.max_height < drm->mode_config.min_height)
-+		return -EINVAL;
- 	}
- 
- 	/* Mode config init */
-@@ -523,7 +529,7 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	num_formats_dev = ret;
- 	for (i = 0; i < num_formats_dev; i++) {
- 		const struct drm_format_info *info;
--		size_t fmt_buf_size;
-+		size_t fmt_buf_size, fmt_pitch;
- 		u32 format;
- 
- 		format = gud_to_fourcc(formats_dev[i]);
-@@ -562,8 +568,9 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 			break;
- 		}
- 
--		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
--			       drm->mode_config.max_height;
-+		fmt_pitch = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width);
-+		fmt_buf_size = fmt_pitch * drm->mode_config.max_height;
-+		max_pitch = max(max_pitch, fmt_pitch);
- 		max_buffer_size = max(max_buffer_size, fmt_buf_size);
- 
- 		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
-@@ -588,9 +595,13 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 
- 	if (desc.max_buffer_size)
- 		max_buffer_size = le32_to_cpu(desc.max_buffer_size);
-+	if (max_buffer_size < max_pitch)
-+		max_buffer_size = max_pitch;
- 	/* Prevent a misbehaving device from allocating loads of RAM. 4096x4096@XRGB8888 = 64 MB */
- 	if (max_buffer_size > SZ_64M)
- 		max_buffer_size = SZ_64M;
-+	if (max_buffer_size < max_pitch)
-+		return -EINVAL;
- 
- 	gdrm->bulk_pipe = usb_sndbulkpipe(interface_to_usbdev(intf), usb_endpoint_num(bulk_out));
- 	gdrm->bulk_len = max_buffer_size;
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index 5ef887d8485a..1f08226b23b2 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -156,10 +156,14 @@ static int gud_prep_flush(struct gud_device *gdrm, struct drm_framebuffer *fb,
- 			  struct drm_format_conv_state *fmtcnv_state)
- {
- 	u8 compression = gdrm->compression;
-+	unsigned int block_width = drm_format_info_block_width(format, 0);
- 	struct iosys_map dst;
- 	void *vaddr, *buf;
- 	size_t pitch, len;
- 
-+	if (block_width > 1)
-+		rect->x1 = ALIGN_DOWN(rect->x1, block_width);
-+
- 	pitch = drm_format_info_min_pitch(format, 0, drm_rect_width(rect));
- 	len = pitch * drm_rect_height(rect);
- 	if (len > gdrm->bulk_len)
-@@ -327,7 +331,7 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
- {
- 	struct drm_format_conv_state fmtcnv_state = DRM_FORMAT_CONV_STATE_INIT;
- 	const struct drm_format_info *format;
--	unsigned int i, lines;
-+	unsigned int i, lines, block_width;
- 	size_t pitch;
- 	int ret;
- 
-@@ -335,12 +339,21 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
- 	if (format->format == DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_format)
- 		format = gdrm->xrgb8888_emulation_format;
- 
-+	block_width = drm_format_info_block_width(format, 0);
-+	if (block_width > 1)
-+		damage->x1 = ALIGN_DOWN(damage->x1, block_width);
-+
- 	/* Split update if it's too big */
- 	pitch = drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
- 	lines = drm_rect_height(damage);
- 
-+	if (!pitch || !lines)
-+		return;
-+
- 	if (gdrm->bulk_len < lines * pitch)
- 		lines = gdrm->bulk_len / pitch;
-+	if (!lines)
-+		return;
- 
- 	for (i = 0; i < DIV_ROUND_UP(drm_rect_height(damage), lines); i++) {
- 		struct drm_rect rect = *damage;
-@@ -399,6 +412,13 @@ static int gud_fb_queue_damage(struct gud_device *gdrm, struct drm_framebuffer *
- 
- 	mutex_lock(&gdrm->damage_lock);
- 
-+	if (gdrm->shadow_buf && gdrm->fb &&
-+	    (fb->pitches[0] != gdrm->fb->pitches[0] || fb->height != gdrm->fb->height)) {
-+		vfree(gdrm->shadow_buf);
-+		gdrm->shadow_buf = NULL;
-+		gud_clear_damage(gdrm);
-+	}
-+
- 	if (!gdrm->shadow_buf) {
- 		gdrm->shadow_buf = vcalloc(fb->pitches[0], fb->height);
- 		if (!gdrm->shadow_buf) {
-@@ -562,8 +582,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
- 			goto out;
- 		}
- 
--		req->properties[num_properties + i].prop = cpu_to_le16(prop);
--		req->properties[num_properties + i].val = cpu_to_le64(val);
-+		req->properties[num_properties].prop = cpu_to_le16(prop);
-+		req->properties[num_properties].val = cpu_to_le64(val);
- 		num_properties++;
- 	}
- 
+I run an RK3588 board with native DP out of usbdp_phy0 and have been
+carrying parts of this series locally. Patches 3, 6 and 8 are on it and
+they fixed real problems for me, so thanks for those.
+
+The board is a custom RK3588 design, not upstream - DP0 is wired DP-only,
+four lanes, no USB-C alt mode, so it is the native DP configuration your
+changelog note refers to.
+
+Two things that may be useful to you, one of them a correction to an
+assumption in the v10 changelog.
+
+1. System sleep is not broken on this platform
+
+The changelog gives "system sleep is broken on recent Rockchip platforms"
+as part of the reason for leaving the system sleep callbacks out. That is
+not what I see here: S3 suspend and resume are reliable on this board.
+What was broken was DP specifically, and only because the controller was
+never reconfigured on the way back.
+
+With no system sleep handling, after an S3 with a DisplayPort monitor
+attached and working beforehand:
+
+  - DW_DP_HPD_STATUS returns a stale value that reads as asserted, and
+    does not change when the sink's mains lead is pulled and replaced.
+    The register is not backed by a configured controller.
+  - Every AUX transaction therefore clears the HPD guard and then times
+    out.
+  - The threaded HPD interrupt is never re-armed, so no hot-plug event is
+    delivered at all. Replugging the monitor produces silence.
+  - The connector settles at disconnected - the outcome of the failed
+    probe rather than a statement about the cable - and the display stays
+    dark until the machine is rebooted.
+
+Unbinding and rebinding the DP device on the live machine recovers it
+completely, with nothing touched at the monitor end.
+
+2. Your runtime PM work already contains the fix
+
+I had been carrying a local patch against the pre-series driver that
+masks the interrupt on suspend and re-runs dw_dp_init_hw() plus
+enable_irq() on resume. It has held for twelve deep-suspend cycles, with
+the display coming back on its own every time.
+
+Reading patch 14, that is what dw_dp_runtime_resume() already does -
+clocks, hpd_sw_sel/hpd_sw_cfg, dw_dp_init_hw(), enable_irq(), and the
+110 ms settle. And dw_dp_runtime_suspend() is the disable_irq() half.
+
+So on top of your series the whole thing may be as small as adding the
+system sleep pair to the ops you already have:
+
+    static const struct dev_pm_ops dw_dp_pm_ops = {
+            RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend,
+                           dw_dp_rockchip_runtime_resume, NULL)
+            SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+                                pm_runtime_force_resume)
+    };
+
+To be explicit about what I have and have not tested: those twelve cycles
+were with my own hand-rolled callbacks against the pre-series driver, not
+with the above on top of your series. I have not tested that, and my
+patch is not worth sending - it collides with patch 15 and targets a
+probe path you have since restructured.
+
+What I can offer is hardware. This board reproduces the failure reliably
+and S3 is dependable on it, so if you write the system sleep ops I am
+happy to test them and report back.
+
+One other offer, unrelated: this board also appears to be a reliable
+source of AUX transaction timeouts, which is the path patch 6 addresses.
+I have not captured a clean trace yet. If one would be useful, tell me
+what you would want in it and I will produce it.
+
+Karl Asseily
