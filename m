@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EAAAC982EE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:22:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB6FC982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354A610E3FF;
-	Mon, 21 Sep 2026 18:22:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314D810E94F;
+	Mon, 21 Sep 2026 18:22:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GofDL9sR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sugr0xNE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5D510E3FF
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:22:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1106710E94F
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:22:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4E9BF4017F;
- Mon, 21 Sep 2026 18:22:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E19A1F000FF;
- Mon, 21 Sep 2026 18:22:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A0A960120;
+ Mon, 21 Sep 2026 18:22:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C8A1F000FF;
+ Mon, 21 Sep 2026 18:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790014949;
- bh=11RwB3c6QWVY/+H6SRJm2EfWY6ZRPTbVLBQktL1ZFR4=;
+ s=k20260515; t=1790014955;
+ bh=8z0Khtr9SLyyYYCR3JHm6j0Y3dIZ4BkGyb5xmji4O5U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GofDL9sR1hfGUzQSJsyAwBtWkgbbWwIW+NOliA+1w20eYG+TelwjvsXa8+PiGYobr
- CaZuyelQk8VGAtwzb+jv9wQGVoYzxrUsZdqkKrqouOzKMq8UZeD9eLjBmMMWaziI10
- 0uwaW0V+G0HsskTeW2nOX4ETWG9TyPCnPCnGFqb858nYig8jwUZjATAmBBDi2z+ISF
- q5eSo94bhLaqNAmmd2xw17R9GsJmbi/RFKl70jDelzuG4aOBSd9RusiQ0FE7uwprWF
- 0UlOCuPrBP5C2RlzN8jIFvwGya16Hp2gmYX++A4ESkxCUjccD5RkeNKzNCQYvXj9fz
- pFZznom5eLdgQ==
+ b=Sugr0xNEps7tfVMvLPzGhgdMHBPEH0nb/d474o65souoSfKUQQ3bWlQeAqsjeTRrj
+ xVgAKBIo02dhF0ycc1SzboJVvJ5kWPHZYVomkPM1V6NyOJ4fgc+iRxNL0z4BPOOPJq
+ sxlsqglzjkVwOHaDFR4b50gM8gUtbvO+8jZlONBewG3oteC7ZvqQ1mhWPDU3U6ZifI
+ yq23OziXjrcJ2nlvwMe52EjuQWFLc5zaVuZCGQxrvpomvgKmHLidcKDceBA631ejbD
+ CRCOc9Tc6FYv0cz6tXtpS4GPFe4C0efNBTMMWjH2aoe/NilBWENiP6QBN/ijJj3ds8
+ tsEHTBoGDf+6w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952
- IOMMU to SMMUv2 compatibles
+Subject: Re: [PATCH v3 14/19] soc: qcom: ubwc: Add UBWC config for MSM8952
 To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- mfd@lists.linux.dev, linux-clk@vger.kernel.org, lee@kernel.org,
- linux-input@vger.kernel.org
-In-Reply-To: <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+Cc: dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org,
+ robh@kernel.org
+In-Reply-To: <20260921-msm8952-initial-support-v3-14-b96fd3fe298b@mainlining.org>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-14-b96fd3fe298b@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 18:22:28 +0000
-Message-Id: <20260921182228.9E19A1F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 18:22:34 +0000
+Message-Id: <20260921182234.B2C8A1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,15 +62,15 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 > From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 >=20
-> Add MSM8952 compatible string with "qcom,msm-iommu-v2" as fallback
-> for the MSM8952 IOMMU which is compatible with Qualcomm's secure
-> fw "SMMU v2" implementation.
+> MSM8952 uses Adreno 405 and predates ubwc just like MSM8939.
 >=20
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-msm8952-in=
-itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D8
+itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D14
 
