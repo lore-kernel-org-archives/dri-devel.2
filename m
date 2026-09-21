@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C21C982E6
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 17:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17BEAC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5EAB10E12F;
-	Mon, 21 Sep 2026 17:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C304710E06D;
+	Mon, 21 Sep 2026 18:16:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZuiPcNx4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O3r8zX3r";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9162310E12F
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 17:49:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D683A10E06D
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:16:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 28C0C41355;
- Mon, 21 Sep 2026 17:49:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3051F000FF;
- Mon, 21 Sep 2026 17:49:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 90A0F43F8B;
+ Mon, 21 Sep 2026 18:16:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5761F000FF;
+ Mon, 21 Sep 2026 18:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790012979;
- bh=ljunNeE8kPEp4/5uzgfcM5oIGquaBg60ldIjslW4ZUc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZuiPcNx4PAM6dGL5xgpIbZN8P/pusIrHqbCzRcbyGPoMB4uCQWh7B3clhEpL5uaPX
- Rknv9tBOBlDN7uhcLWD1FeIgbP5Ee8H/G+AdgrPP52SNao7yy7r/Jl4Ghy7Sy7jGTg
- MTl30nSDaPMg22X4p9euZL/WKCL6uy50/QjAZjJhOwjPKdWWnZYW35uorw6Va5r8qS
- 2grqfFL3iziF72m400A+El80ZbfXTswoZOIE0gu9mnTVaXvRGNdfNLhlLTD7MLkzo3
- AZ1FuFkISXLz3QJo3Wr+rz801/k2Ctl9mS3x7yok5iz03/1nvTJ+2u8hwa1JxhKtCL
- IAUPdzx0tOgRQ==
-Date: Mon, 21 Sep 2026 12:49:37 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Artur Weber <aweber.kernel@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Andrew Davis <afd@ti.com>,
- Kiran Gunda <quic_kgunda@quicinc.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Aleksandrs Vinarskis <alex@vinarskis.com>, Lee Jones <lee@kernel.org>,
- Steffen Trumtrar <kernel@pengutronix.de>
-Subject: Re: [PATCH] dt-bindings: leds: Use consistent indentation in the
- example
-Message-ID: <179001297680.1073319.11422853930402434820.robh@kernel.org>
-References: <20260913123301.100129-2-krzysztof.kozlowski@oss.qualcomm.com>
+ s=k20260515; t=1790014588;
+ bh=l4EJvxSj/BJsRSgpyFNvCVzIpp4EruN23HflkMWdmXY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=O3r8zX3rRAdTh0tZ7rs6DQexuLgO9QK0vtOA6kKeN8MadLlRZl/xbGDhgQW1w9lLr
+ RIMwyajFNVsPe+RnDMMptexa7Z+k3f+aK8i6Wlj37NMZ8VtcfTGeDp8IJNnoMqI8nf
+ 23lATnS4SrmJdOkZpjKxmuDOeI3HwfpP3FYOgOLS4l1JlEoQ74ksPe2EPombWAmaub
+ i0BPGA2SU2TmTWn+l8hwAesNTCiAzu0AJTgWPzfgXmjRD4GY6zCyoW8sQAgFR2JOfZ
+ cSYaC5nq11ykUAUAqGSBD9FbdPahivlPZaQYvxyGMz4EVzYyXb85FpKYMU9aRTh/h8
+ ObdTOs2AVvpyA==
+Message-ID: <7e555045eff532576b56daa4e023be1b@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: christian.koenig@amd.com, ray.huang@amd.com, matthew.auld@intel.com,
+ matthew.brost@intel.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ natalie.vock@gmx.de, mhocko@kernel.org, roman.gushchin@linux.dev,
+ shakeel.butt@linux.dev, muchun.song@linux.dev,
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v8] cgroup/dmem: implement dmem.high soft limit with
+ proactive reclaim
+Date: Mon, 21 Sep 2026 08:13:47 -1000
+In-Reply-To: <20260921-feature-dmem-high-v8-1-6371fa83d6c3@gmail.com>
+References: <20260921-feature-dmem-high-v8-1-6371fa83d6c3@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913123301.100129-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,24 +64,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello,
 
-On Sun, 13 Sep 2026 14:33:02 +0200, Krzysztof Kozlowski wrote:
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../leds/backlight/lm3630a-backlight.yaml     | 52 +++++++++----------
->  .../leds/backlight/lp855x-backlight.yaml      | 18 +++----
->  .../bindings/leds/backlight/qcom-wled.yaml    |  2 +-
->  .../bindings/leds/leds-consumer.yaml          | 14 ++---
->  .../devicetree/bindings/leds/leds-lp50xx.yaml | 12 ++---
->  .../devicetree/bindings/leds/leds-lp5860.yaml | 12 ++---
->  .../devicetree/bindings/leds/nxp,pca963x.yaml | 24 ++++-----
->  7 files changed, 67 insertions(+), 67 deletions(-)
-> 
+On Mon, Sep 21, 2026 at 03:02:48PM +0800, Qiliang Yuan wrote:
+> The dmem cgroup v2 controller only provides a hard "max" limit, which
+> fails allocations outright once a cgroup's device memory usage hits
+> its quota.  GPU-bound AI workloads need smoother over-subscription: a
+> soft limit that applies backpressure through reclaim before the hard
+> limit is hit.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+That's not how max behaves. A max hit makes TTM evict and retry before the
+allocation fails, and since 747c4bb450ad ("cgroup/dmem: Add reclaim
+callback for lowering max below current usage") lowering max reclaims as
+well. So the premise doesn't hold, and the patch doesn't show a concrete
+case where max reclaim falls short and high would help. Without that,
+there isn't enough justification for adding a new interface file.
 
+Thanks.
+
+--
+tejun
