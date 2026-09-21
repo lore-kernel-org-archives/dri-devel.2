@@ -4,66 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 330B4C982D8
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 00:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19192C982EA
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 01:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB8E10E02A;
-	Mon, 21 Sep 2026 00:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260EF10E08B;
+	Mon, 21 Sep 2026 01:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="TuX7DGwg";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="IHIK46gf";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56C2010E02A
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 00:59:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1789952362; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=lL1jVEPuBqJBYKaejbSGzPwWM6IcPOo60xT8cuJH3icSrIFbFT+SXQTCkRQtJ1VO+1LDHyWBPvpfz4gkVKvB7whpBaNA75Fiyep1PLPu5xLZWPSs5e8DjxXWkZRIJbIqGpqDHXBDH/eXC5dn9ICW1hMSk6l5imq6WYfGhtm8ykE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1789952362;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3uOE6/WbMU3Rw0wv+VLv145VBkxclKWWaSO5Z0wsDOU=; 
- b=VmZJJyF7PdUdxDz5fgdAM1pf/48zd7QmiznK28KVcw28EwOOTrV1FSEVHl4+I0vuqB+fXu/eiESmoJeMt6LIYXwPuI2hMGHWO78XCPwE2SdvFMzPONuPrQC8Z/ql5RHNVcSTrnmXgvAGkWkkfpIaSJhMHJRwyjOKMtT1ammrXKI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789952362; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=3uOE6/WbMU3Rw0wv+VLv145VBkxclKWWaSO5Z0wsDOU=;
- b=TuX7DGwgQQg6VVfVb/QZd+I6/2rnGezsu9HGXJT2OXYWji+wJTQD2fz+vlWnXG4Y
- W1JJTrtbW3cg+RkoFT4/IqXpN3W3+PpDDjYdBqq/azfnMO6zTzuW3FXEv7Wg10hup6N
- gLtsxRcL7/zZHM2pk/BVQ16vKSMUjeg5s5o/SnwI=
-Received: by smtp.zohomail.com with SMTPS id 178995236151042.39333842971428;
- Sun, 20 Sep 2026 17:59:21 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Sun, 20 Sep 2026 17:59:09 -0700
-Subject: [PATCH i-g-t v2] tests/panthor: skip sparse VM_BIND tests before v1.9
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Mon, 21 Sep 2026 01:49:03 UTC
+Received: from mail-m81231.netease.com (mail-m81231.netease.com [47.88.81.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0882410E08B;
+ Mon, 21 Sep 2026 01:49:02 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4e7d76d60;
+ Mon, 21 Sep 2026 09:43:53 +0800 (GMT+08:00)
+Message-ID: <5d20a638-25e6-43c4-92d4-769795274441@rock-chips.com>
+Date: Mon, 21 Sep 2026 09:43:52 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] drm/connector: report out-of-band IRQ_HPD events
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Nikita Travkin <nikita@trvn.ru>, Yongxing Mou
+ <yongxing.mou@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Francesco Dolcini <francesco@dolcini.it>, Abel Vesa <abelvesa@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com>
+ <20260920-hpd-irq-events-v5-1-ff1de0090c72@oss.qualcomm.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260920-hpd-irq-events-v5-1-ff1de0090c72@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-b4-panthor_version_sparse-v2-1-fa395c125eb1@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NWwqDMBBFtyLz3SmJNkr75T6KSB6jBqyRiYQWc
- e9NXUE/7+vcHSKxpwiPYgem5KMPSxblpQA76WUk9C5rKEVZi7tUaG646mWbAveJ+Ffv46o5Eqr
- BuEpaK5xykPcr0+DfJ/sJHkfcoMv25OMW+HM+JnmGf8CTRImNtlKYRlFdydaGedYmsL7a8ILuO
- I4vgSVJwM0AAAA=
-X-Change-ID: 20260915-b4-panthor_version_sparse-5fbd31cc0d5d
-To: igt-dev@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, boris.brezillon@collabora.com, 
- steven.price@arm.com, liviu.dudau@arm.com, adrian.larumbe@collabora.com, 
- kamil.konieczny@linux.intel.com, samitolvanen@google.com, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8313;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=Szy9Y8+zjtogDh+1jJnaGXQzpIa+Pa/KVMGWmfShe4E=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkbGpOXvC7xOPhnpvSrlKeJrTOfBW4xOFKWzDb94nFRh
- o3VYs/4OkpZGMS4GGTFFFnO2hv1iFe9N9Kd/78ZZg4rE8gQBi5OAZgIcwfD/4DbGxI1dTRy918T
- 7/FgZdqvfOfPikR7m4qVjR0Su6JfdTH84fTw1jn3YNGqmVe+HlrWzeYrs+2rrUDWpac3rS8vWFq
- yhhUA
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+X-HM-Tid: 0aa0c1a2485f03a7kunm0e7abd9d1180559
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTRoeVk8ZQx9NTEpMHh5KTFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=IHIK46gfMRLJpRNrWeplzBntM+mO0RdmckEzCJNEBZ+F7opFtoPfxGPbo7cUe+BNtDB904Wyj1Cl6Lse5LGtEGit5lwvmYrqwnoUFXOMQko3cRBdaGXj7wDU3+nl09MRfVGCZySt7RKk1nrKXx/oIoSDik4DuX0kPk7gYhWku9U=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=zst6fN7pWmc5OUBu4zIIe1VCiSN25Y4xHpm/CHEdYtQ=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,255 +90,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sparse VM_BIND support was introduced with Panthor DRM driver version
-1.9. If a driver isn't advertising support for v1.9, skip the sparse
-VM_BIND subtests.
+Hi Dmitry,
 
-Use the advertised driver version rather than probing for EINVAL, since
-EINVAL may also indicate a uAPI regression rather than lack of support for
-sparse VM_BIND.
+On 9/20/2026 11:01 PM, Dmitry Baryshkov wrote:
+> The DisplayPort standard defines a special kind of events called IRQ.
+> These events are used to notify DP Source about the events on the Sink
+> side. It is extremely important for DP MST handling, where the MST
+> events are reported through this IRQ.
+> 
+> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> events are reported through the bits in the AltMode VDOs.
+> 
+> Rename drm_connector_oob_hotplug_event() to drm_connector_dp_oob_status()
+> and extend its interface to report IRQ events to the DisplayPort Sink
+> drivers.
+> 
+> Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c          | 20 ++++++++++++--------
+>  drivers/usb/typec/altmodes/displayport.c | 23 +++++++++++++++--------
+>  include/drm/drm_connector.h              | 21 +++++++++++++++++++--
+>  3 files changed, 46 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 8b4baed060f3..5d4945ea1e95 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -3672,20 +3672,24 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+>  }
+>  
+>  /**
+> - * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+> + * drm_connector_dp_oob_status - Report out-of-band hotplug event to DisplayPort connector
+>   * @connector_fwnode: fwnode_handle to report the event on
+>   * @status: hot plug detect logical state
+> + * @event: additional event reported by the sink without changing the HPD state
+> + * (or in addition to such a change).
+>   *
+> - * On some hardware a hotplug event notification may come from outside the display
+> - * driver / device. An example of this is some USB Type-C setups where the hardware
+> - * muxes the DisplayPort data and aux-lines but does not pass the altmode HPD
+> - * status bit to the GPU's DP HPD pin.
+> + * In some cases when DisplayPort signals are being routed through the USB
+> + * Type-C port the hotplug event notifications come from outside of the display
+> + * driver / device. In this case hardware muxes the DisplayPort data and
+> + * AUX-lines but does not pass the altmode HPD status bit to the GPU's DP HPD
+> + * pin.
+>   *
+>   * This function can be used to report these out-of-band events after obtaining
+>   * a drm_connector reference through calling drm_connector_find_by_fwnode().
+>   */
+> -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+> -				     enum drm_connector_status status)
+> +void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
+> +				 enum drm_connector_status status,
+> +				 enum drm_connector_dp_event event)
+>  {
+>  	struct drm_connector *connector;
+>  
+> @@ -3698,7 +3702,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+>  
+>  	drm_connector_put(connector);
+>  }
+> -EXPORT_SYMBOL(drm_connector_oob_hotplug_event);
+> +EXPORT_SYMBOL(drm_connector_dp_oob_status);
+>  
+>  /**
+>   * drm_connector_get_color_format - Return connector color format of @conn_state
+> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
+> index 51c92dd887ab..344a13c2a296 100644
+> --- a/drivers/usb/typec/altmodes/displayport.c
+> +++ b/drivers/usb/typec/altmodes/displayport.c
+> @@ -187,9 +187,11 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
+>  				dp->pending_irq_hpd = true;
+>  		}
+>  	} else {
+> -		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+> +		drm_connector_dp_oob_status(dp->connector_fwnode,
+>  						hpd ? connector_status_connected :
+> -						      connector_status_disconnected);
+> +						      connector_status_disconnected,
+> +						(hpd && irq_hpd) ? DRM_CONNECTOR_DP_IRQ_HPD :
+> +								   DRM_CONNECTOR_NO_EXTRA_STATUS);
 
-Add a shared macro igt_require_panthor_version() to check the version in
-case other Panthor tests would like to use it in the future.
+The CI is complaining about the alignment issue here. 
+I think this needs to be fixed?
 
-The Panthor version macro wraps the igt_require_f() macro so that we can
-clear the last errno. The last errno is irrelevant to the version check
-but __igt_skip_check() will still print it like this:
+>  		dp->hpd = hpd;
+>  		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+>  		if (hpd && irq_hpd) {
+> @@ -211,8 +213,11 @@ static int dp_altmode_configured(struct dp_altmode *dp)
+>  	 * configuration is complete to signal HPD.
+>  	 */
+>  	if (dp->pending_hpd) {
+> -		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+> -						connector_status_connected);
+> +		drm_connector_dp_oob_status(dp->connector_fwnode,
+> +						connector_status_connected,
+> +						dp->pending_irq_hpd ?
+> +						DRM_CONNECTOR_DP_IRQ_HPD :
+> +						DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  		sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+>  		dp->pending_hpd = false;
+>  		if (dp->pending_irq_hpd) {
+> @@ -396,8 +401,9 @@ static int dp_altmode_vdm(struct typec_altmode *alt,
+>  			dp->data.status = 0;
+>  			dp->data.conf = 0;
+>  			if (dp->hpd) {
+> -				drm_connector_oob_hotplug_event(dp->connector_fwnode,
+> -								connector_status_disconnected);
+> +				drm_connector_dp_oob_status(dp->connector_fwnode,
+> +								connector_status_disconnected,
+> +								DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  				dp->hpd = false;
+>  				sysfs_notify(&dp->alt->dev.kobj, "displayport", "hpd");
+>  			}
+> @@ -844,8 +850,9 @@ void dp_altmode_remove(struct typec_altmode *alt)
+>  	typec_altmode_put_plug(dp->plug_prime);
+>  
+>  	if (dp->connector_fwnode) {
+> -		drm_connector_oob_hotplug_event(dp->connector_fwnode,
+> -						connector_status_disconnected);
+> +		drm_connector_dp_oob_status(dp->connector_fwnode,
+> +						connector_status_disconnected,
+> +						DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  
+>  		fwnode_handle_put(dp->connector_fwnode);
+>  	}
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c61345e6fb08..906aaefca7e1 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -91,6 +91,22 @@ enum drm_connector_status {
+>  	connector_status_unknown = 3,
+>  };
+>  
+> +/**
+> + * enum drm_connector_dp_event - additional events sent by the sink /
+> + * display together or in replacement of the HPD status changes.
+> + */
+> +enum drm_connector_dp_event {
+> +	/**
+> +	 * @DRM_CONNECTOR_NO_EXTRA_STATUS: No additional status reported.
+> +	 */
+> +	DRM_CONNECTOR_NO_EXTRA_STATUS,
+> +	/**
+> +	 * @DRM_CONNECTOR_DP_IRQ_HPD: DisplayPort Sink has sent the
+> +	 * IRQ_HPD (either by the HPD short pulse or via the AltMode event).
+> +	 */
+> +	DRM_CONNECTOR_DP_IRQ_HPD,
+> +};
+> +
+>  /**
+>   * enum drm_connector_registration_state - userspace registration status for
+>   * a &drm_connector
+> @@ -2703,8 +2719,9 @@ drm_connector_is_unregistered(struct drm_connector *connector)
+>  		DRM_CONNECTOR_UNREGISTERED;
+>  }
+>  
+> -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+> -				     enum drm_connector_status status);
+> +void drm_connector_dp_oob_status(struct fwnode_handle *connector_fwnode,
+> +				 enum drm_connector_status status,
+> +				 enum drm_connector_dp_event event);
+>  enum drm_connector_color_format
+>  drm_connector_get_color_format(const struct drm_connector_state *conn_state);
+>  const char *drm_get_connector_type_name(unsigned int connector_type);
+> 
 
-  Starting subtest: vm_bind_sparse
-  Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
-  Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
-  Requires Panthor version 1.9 or newer
-  Last errno: 2, No such file or directory
-  Subtest vm_bind_sparse: SKIP (0.000s)
-
-This makes the log noisier than it already is. So set the errno to 0 to
-suppress that line. Skipping the test will now print:
-
-  Starting subtest: vm_bind_sparse
-  Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
-  Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
-  Requires Panthor version 1.9 or newer
-  Subtest vm_bind_sparse: SKIP (0.000s)
-
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
-Changes in v2:
-- check for version at each subtest
-- make version check available to all panthor tests
-- use macro to suppress printing the last error
-- Link to v1: https://lore.kernel.org/r/20260915-b4-panthor_version_sparse-v1-1-7ac10b75e631@collabora.com
----
- lib/igt_panthor.c          | 14 ++++++++++++++
- lib/igt_panthor.h          | 18 ++++++++++++++++++
- tests/panthor/panthor_vm.c | 18 ++++++++++++++++++
- 3 files changed, 50 insertions(+)
-
-diff --git a/lib/igt_panthor.c b/lib/igt_panthor.c
-index 11d8ec342..0f8c408d5 100644
---- a/lib/igt_panthor.c
-+++ b/lib/igt_panthor.c
-@@ -385,3 +385,17 @@ void igt_panthor_free_bo(int fd, struct panthor_bo *bo)
- 
- 	gem_close(fd, bo->handle);
- }
-+
-+bool __igt_panthor_driver_version_at_least(int fd, int major, int minor)
-+{
-+	drmVersionPtr version = drmGetVersion(fd);
-+	bool supported;
-+
-+	igt_assert(version);
-+	supported = version->version_major > major ||
-+		    (version->version_major == major &&
-+		     version->version_minor >= minor);
-+	drmFreeVersion(version);
-+
-+	return supported;
-+}
-diff --git a/lib/igt_panthor.h b/lib/igt_panthor.h
-index ba4a9bf1e..626e5d525 100644
---- a/lib/igt_panthor.h
-+++ b/lib/igt_panthor.h
-@@ -37,6 +37,24 @@ void igt_panthor_group_submit_simple(int fd, uint32_t group_handle,
- 				     uint32_t stream_size, uint32_t syncobj_handle,
- 				     int err);
- uint64_t igt_panthor_get_first_core(uint64_t cores_present);
-+bool __igt_panthor_driver_version_at_least(int fd, int major, int minor);
-+
-+/**
-+ * igt_require_panthor_version:
-+ * @fd: device file descriptor
-+ * @major: required Panthor major version
-+ * @minor: required Panthor minor version
-+ *
-+ * Require the Panthor version to be at least the requested version.
-+ */
-+#define igt_require_panthor_version(fd, major, minor) do { \
-+	/* igt_require_f() reports errno through __igt_skip_check(); */ \
-+	/* clear it since errno is unrelated to the version check. */ \
-+	errno = 0; \
-+	igt_require_f(__igt_panthor_driver_version_at_least(fd, major, minor), \
-+		      "Requires Panthor version %d.%d or newer\n", \
-+		      major, minor); \
-+} while (0)
- 
- static inline void igt_panthor_vm_bind(int fd, uint32_t vm_id, uint32_t bo_handle,
- 				       uint64_t va, uint64_t size, uint32_t flags, int err)
-diff --git a/tests/panthor/panthor_vm.c b/tests/panthor/panthor_vm.c
-index 9011df25e..bd8f14ecb 100644
---- a/tests/panthor/panthor_vm.c
-+++ b/tests/panthor/panthor_vm.c
-@@ -293,6 +293,7 @@ int igt_main() {
- 		uint32_t vm_id;
- 		uint64_t map_size = SZ_4K * 4;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -306,6 +307,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -321,6 +323,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -336,6 +339,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -351,6 +355,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -366,6 +371,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -382,6 +388,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -402,6 +409,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -422,6 +430,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -442,6 +451,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -463,6 +473,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -483,6 +494,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -503,6 +515,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -524,6 +537,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -545,6 +559,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -566,6 +581,7 @@ int igt_main() {
- 		uint64_t map_size = SZ_2M * 3;
- 		const int INITIAL_VA = SZ_4M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -585,6 +601,7 @@ int igt_main() {
- 		uint64_t map_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - (SZ_2M * 3);
- 		const int INITIAL_VA = SZ_512M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-@@ -599,6 +616,7 @@ int igt_main() {
- 		uint64_t unmap_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - map_size;
- 		const int INITIAL_VA = SZ_512M;
- 
-+		igt_require_panthor_version(fd, 1, 9);
- 		igt_panthor_vm_create(fd, &vm_id, 0);
- 		igt_assert(vm_id != 0);
- 
-
----
-base-commit: 970700a95acd74bb987287d10147b5f23380519b
-change-id: 20260915-b4-panthor_version_sparse-5fbd31cc0d5d
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
-
+Best, 
+Chaoyi
