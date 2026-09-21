@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0258FC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:46:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A21C982E1
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 10:49:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE6E10E00F;
-	Mon, 21 Sep 2026 10:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D42810E286;
+	Mon, 21 Sep 2026 10:49:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QQIBwaew";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="f6Y+EDzE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD28410E235
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:46:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D592360142;
- Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7C924C2BCB8;
- Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1789987585;
- bh=xN+UJbgsVFesEQgRsqdbzmzNFifNC0e3F6BbeYRcHRo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=QQIBwaewbfGLu24MQDGBZJhuZI5r+ZZksRv/HLEWMfxUbtTOTptCi14jk5NcXEDtW
- VaeT+UWY7g6uVDkncKZVEagOaSVLejPjp1vMuL8JSZ3NxmCl4i7Mw6/ik5JhUwsQJ4
- hSYShHiiLu1XhZRCejmaj57ca+bV5muUL5Ri0uJFlYQO+AK/+9jLpgi/L652zPJJPf
- /v9HoegRKO2L6Ylqw0tag6wE8BFUcSgP77DeXbYA9UZYDZEwNnPje8WqcIHTQrf12+
- anlPN8OPeghs4vdmxCe8nJ3UR0MUA8OfrKkaaVp6w6kU3029g90Atu/kKqkVmrlaD9
- 0WBf8j4XqPjFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 5B728C982E1;
- Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 21 Sep 2026 12:46:22 +0200
-Subject: [PATCH v4 1/4] backlight: qcom-wled: Fix NULL pointer dereference
- in wled_remove()
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9856E10E286
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 10:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1789987782;
+ bh=jcQ0uXCTQN6WFOE+Jcx1zQyWym5Bv44C6LobbdOSxxE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=f6Y+EDzEKTe5O68Ni67Q2wB9Fs0lexT5YJDL9btkq5KPtqIwQQPVrf0QZKaSWEtSV
+ 8RKuOF2gk0eGIXr6coKQZuVjfPZvnt3RW7HhcLxyu870oHSepRmhJVolVTXRPMQcP6
+ aVvmE9o4r7cU6i+A+x0NbcoYCcMYmxSUlt2HyCLZ7c90XDXBD4Vw4w02gEkH4b3/L3
+ 11xxy3asNsHFhz2ksOm3CfTRS4Ihuu1T8bJL4LvNASKDvx2IQeYS/wuPNrphQVYyp5
+ 8UF/W6a223fSoHKLIPS5wuP7q/gHsHSPk3klzsRTcKvAn1y3tD1VDvCkyM8oJom796
+ gXPFyPkTn1Bcw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8750017E020C;
+ Mon, 21 Sep 2026 12:49:41 +0200 (CEST)
+Message-ID: <ba4fe17c-ee29-4739-a14e-87b39e5efcc5@collabora.com>
+Date: Mon, 21 Sep 2026 12:49:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>,
+ Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
+ <20260917-qcom-novatek-nt51021-panels-v4-2-30afbc35d70c@mainlining.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260917-qcom-novatek-nt51021-panels-v4-2-30afbc35d70c@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-qcom-wled-backlight-v4-1-bab8c7ef73cb@ixit.cz>
-References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
-In-Reply-To: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1208; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=+dZaRJRtQ4v3SzBsEJavUDVtILbeFcbE2ljB22hvcJI=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr/4lkhyZPqySJGz8AbmEdnqgIJmewQv2Vg8
- UJPRD7QvBSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/wAKCRBgAj/E00kg
- cqdgEACW4JkRf6Isv9QBPQ23EC6GzduH57OWTfvtjLxLPCjceEaSPsrzUHJT9Oy2U5NYJwlZ8Ih
- LbTJS2rNlynQzdPCbqcJEIIwu5KUKLVPJykGUsxclL6gdFXEhcdec7YLRrKMyY6TqxkW6v/cHXQ
- R4EMHQ9SMCh49+sJE7LdtcZ+y+Z0hqL0XXZuaaXYbj2crc39hI4uxtbuf4gNzIAZm6UW/uDEWma
- 2fojatxwgf+iXwVUxRyisb70+zwk/L4yR0JHZIUb3+F0+HqwAHbRA2aqMq5stkwWFH1STmscsua
- /h0FdqK2MtuoFJYpc/sAtq5Okn09o5lqBqqvJQSoHpgjt61KKsBGXMPrUm9LSjmNooroaTeurDB
- UvJCK3mElpGpDxK5tzkRofhdYjBvfONap1EEYAE3M1Ww3HVqiFECjLj0XtwPR9BGuykdezorZ84
- JzCiFjK85ZPU/SduLIumAcsodjnP7py6jwoKN6o4lYfZM3i6z7NIzckd7s1mNyV2y7N1jg3BLru
- oJKifmcvVRtdOYwAuigCfxdAeetAvoV4rZL1EuvQyhac1cgkDjwyDKMBbdKf/M8SIxdv+c56Js0
- b4gfr9vDcu10RMj0wGw0D42DlblpaR9lF0KEIj9fhuZK2m7DSW1D7okZK2DlmJA6eCF+soNV54o
- w9bufxI8ObtEL4A==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +68,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+On 9/17/26 14:51, Nickolay Goppen wrote:
+> Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+> panels used in Xiaomi Mi Pad 4, Mi Pad 4 Plus (xiaomi-clover)
+> and Amazon Fire HD 10 (2017) (amazon-suez) tablets.
+> 
+> NT51021-based panels also support content-adaptive brightness control by
+> generating a PWM signal for backlight driver IC. Content adaptation
+> means that content grey level scale can be increased while
+> simultaneously decreasing brightness of the backlight to achieve
+> same perceived brightness. This makes the power consumption of
+> backlight be reduced with keeping acceptable display quality.
+> 
+> Both panels are very similar, differences are only in init sequence
+> and resolution.
+> 
+> The register sequence of the TV101WUM-NM0 is the BOE branch of
+> init_lcm_registers() in drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/
+> in the Fire OS 3.18 tree, command for command, with only a 120 ms wait
+> after sleep-out added where the vendor waits its trailing 5 ms.
+> The 0x8f 0xa5 and 0x8f 0x00 that bracket it are the vendor's command
+> interface selection, sent on every board that is not an early proto or
+> HVT unit.
+> 
+> It is much shorter than boe_tv101wum_nx0_init() because this module is
+> left on its own factory trim. NT51021 R8CH selects whether V1/V14, gamma
+> and HAOP come from the panel's OTP memory or from control registers, and
+> the 0x8c 0x80 here leaves all three on OTP, where the NX0's 0x8e
+> switches
+> them to registers so that the three pages of gamma it then writes take
+> effect. So the absent gamma is deliberate rather than an omission, and
+> the differing 0x8c is its consequence. CABC is likewise untouched
+> because
+> the vendor drives it over I2C from the backlight path. What is left is
+> 0xc0 and 0xc8, which the public NT51021 specification does not describe;
+> everything else this sequence touches carries the same value as the
+> other
+> two panels, including the terminal resistor, TP_SYNC, the MIPI Rx drive
+> strength and all three test modes.
+> 
+> The timings are the vendor's lcm_get_params(): hsync 1, hbp 32, hfp 110,
+> vsync 1, vbp 14, vfp 11, so htotal 1343 and vtotal 1946. The pixel clock
+> follows the vendor's PLL_CLOCK = 490, which after DDR is 980 Mbps per
+> lane and over four lanes at 24bpp is 163.33 MHz, so 62.5 Hz. The
+> bootloader leaves the MIPI TX PLL at that rate: read back before the
+> kernel touches it, this board's PLL decodes to exactly 980 Mbps per
+> lane, so the panel is already there when the kernel takes over.
+> 
+> The front porch is the vendor's declared 110 rather than the smaller
+> value its own DSI driver ends up running. That driver also sets
+> clk_lp_per_line_enable, which makes ddp_dsi_config() overwrite HFP_WC
+> after the declared timing is programmed, shrinking it to leave just
+> enough room to take the clock lane to LP and back. That is a
+> controller-side workaround rather than a panel property, and it
+> contradicts the cont_clock = 1 set beside it, which disables the very LP
+> transition it makes room for. Mainline mtk_dsi handles the clock lane
+> itself, so the panel's declared timing is the right thing to carry here.
+> 
+> The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock = 1 rather than
+> burst, so make mode_flags per variant instead of fixed in probe(). The
+> two existing panels keep the flags they had. Burst was also tried on
+> this hardware and worked, but the vendor configuration is the one the
+> module is characterised for.
+> 
+> The physical size is the datasheet active area, 216.576 x 135.36 mm,
+> which measures 216 x 135 on the glass. The vendor's declared a
+> physical_width = 136 and physical_height = 221, which appears to be an
+> error. The size of the test unit was physically measured. 1200/136 and
+> 1920/221 disagree by 1.5%.
+> 
+> The vendor's bootloader and kernel both carry a second register sequence
+> for the Innolux module this board second-sources against, selected from
+> two board ID straps. No Innolux unit was available, so that sequence is
+> left out rather than carried untested; however, the Innolux part number
+> was identified as "P101KDA-AB0", should someone with that glass need to
+> upstream support in the future.
+> 
+> Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
+> at 62.5 Hz across a cold boot, display off and on cycles and a
+> suspend/resume, with the MIPI TX PLL reading back at the intended rate
+> every time.
+> 
+> Assisted-by: LLM
+> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 (2017), boe,tv101wum-nm0
+> Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 
-wled_probe() doesn't set the driver data for the platform device.
-As a result, platform_get_drvdata() in wled_remove() will return NULL,
-and the first dereference of it crashes on unbind.
+Though I would've preferred to see the commands put in arrays instead of
+multiple function calls with all of those values, the only improvement
+would be slightly lower code size... and I don't think it's worth it to
+request a v5 for just that.
 
-Set the platform device driver data in wled_probe().
+After all, it's anyway the same "mess" of unknown data going out to the
+panel's DriverIC - be it in one form or the other, it's not changing much.
 
-Cc: stable@vger.kernel.org
-Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/video/backlight/qcom-wled.c | 1 +
- 1 file changed, 1 insertion(+)
+So
 
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 650dd95f06ef5..2281007bdd459 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -1675,16 +1675,17 @@ static int wled_probe(struct platform_device *pdev)
- 	}
- 
- 	wled = devm_kzalloc(&pdev->dev, sizeof(*wled), GFP_KERNEL);
- 	if (!wled)
- 		return -ENOMEM;
- 
- 	wled->regmap = regmap;
- 	wled->dev = &pdev->dev;
-+	platform_set_drvdata(pdev, wled);
- 
- 	wled->version = (uintptr_t)of_device_get_match_data(&pdev->dev);
- 	if (!wled->version) {
- 		dev_err(&pdev->dev, "Unknown device version\n");
- 		return -ENODEV;
- 	}
- 
- 	mutex_init(&wled->lock);
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
--- 
-2.55.0
-
-
+Cheers,
+Angelo
