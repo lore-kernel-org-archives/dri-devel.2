@@ -4,113 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F328C982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 12:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE9BC982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 12:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DC010E75E;
-	Mon, 21 Sep 2026 12:43:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3BB910E151;
+	Mon, 21 Sep 2026 12:46:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RjNhQMW0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IVxajd3/";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDV/uRKt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hPcGt4xK";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC31710E151
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:43:32 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B9D10E151
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:46:22 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68LAdmEd227824
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:43:32 GMT
+ 68LAdvEU3818642
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:46:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=; b=RjNhQMW0qXvCl9e7
- TSqSjkDCMfDvn3tLw3Cir5ZYA42nfF6E17HauGaX61Fj0ylBQweO2l6cu7Ja1ckf
- bTkYPxta1GMCaU3pKkI2VxKH3oak+zv+0Td9/U1IMNUWo9PGFgsaXdK0JbDAjy8E
- 9WUe4FSN44FrQeReNOrusu4zefIi2DGS7SlM93UNUJZ92ubgeva2ZyevUEOjxHgm
- 1KotCQAkWGKs8y5QQHk3iqcJBOR/BwzySMjwYrff7wXQWAIWtINpjTKMkhDJSjpT
- vrUr230c/RwSaC9P6ePBdhDIZFQVeApKVBjMFEfHcYYTAeFF6AZOdcpBgQs4XRUb
- HmK6/g==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu17grxd1-1
+ IGEBVkSl804Lbjet5Iqv9xkjaomkmKa7knvOOohRepM=; b=FDV/uRKtPIY5Te0O
+ /bQLtP7WCvqplyZdNh/yoW+2tP/GxJRj2pu/B6Bsl0tycX9TtwpAkZ2N0+iOYQKl
+ JoIpLSfJsY+e7FBiFpYhQMo6g3XgQhIwE1nJh3JJb9MfQWsyWEC67O1f35xHuyZX
+ z9qj1VvujtNw6wroAqLSizpGFKgzMfc5UYFj9zFzgjqJMMEnIgx1EYa5V6PwjB2a
+ eidrXvUd6D9+bsRQYXBngget4ljibpHdqFk+dqh8Azy7g4c/vHo0NXQIrO3go1Ax
+ kN0Go5GB7uylS/SACc7SzmeISBCOdGJhbq82oCS0UvZ4gOSftSsIEswUdfChrIa7
+ CyqGeQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq79ap35-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:43:32 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2db8c152622so27555375ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 05:43:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789994611; cv=none;
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 12:46:21 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-cbe77d6864dso6490a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 05:46:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789994781; cv=none;
  d=google.com; s=arc-20260327;
- b=HUbzM7HNUNl2sTPon0etU7Grmi3NpgHhiYtnG9A4XAh7kouSiba9jEwBoMVLVcV67y
- m7E8efSA+DptuXjvWd66AdWLuxbmSZ10kiPGAMx1B9qG9KaRzot2cGfVofpOGv42C0rG
- kN5T+/nCwmI5uyjivpseRLgNfzVs2yVc7Q3Xs4ALhJQY4mGpgoK1uS2Txl7xHvmnzRhF
- OKTNg88Wet/bOYdYJz+HhVgRvUSFf78CJU8UwOny+cQ2vRPDLShXnZP61v/4ore/0foI
- lxXhw4UAiVzduTQmALmvtTT+rgcSp0ZxCe1snBdjPbIpn46lgtOSiLvv2KdK0Bj54nsQ
- gftA==
+ b=ZjjF+2sjQP+viphOpyZe7+9GIaMnVb1cOsVP8P3AnZZqsyyP+rysEp6u3zE2DYuCNC
+ PDMgmzIPlLZQz1IeLIrlIVpRD5E0p4pRTOTIWpu40MCdpqeZVZk4IgF+gk6XJTdhNzME
+ CX9P1nIUHDd+VzruQnGigMD3fAhuz+sD85VE/wXU/c3XWZJPkQdYBhMxxQfIFsZ3kEwh
+ 8VO7kbW5mhaQcBsYmHukonTqspM5Ah/lT/jMAA1rXIPa6Rh1oIL+klJUUebh7XDymh6g
+ sC5SskaEjxVTXPooS3CPz7iJSZSjAuyGnr/7JDFebyvSPxVkeq68uAe6vnWQ+bYYIL5x
+ E7pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
- fh=2AqM8kfN7k33/iUwOuvFWoEEB7s00+aWNjO2QE2OQ7o=;
- b=cM80v7tAQLmakW2dOzY9HRxrs37ItgCY60utFRGml/v6QjExST0gMyJWFqeRhqB33P
- u4W9hrBaJd091Rc1h1BXcxk+jdJlYwFU6y5dDl3uy5jgGftUqaE4z7A2NQ0qzg3nEswX
- mNTFRYCW7Bh1/W/I2wgCW20sh10D5N8hJ26D301jNXRYwrUpGP+PI4iOxNFL22vj3s3T
- zTgD2D6KD8PDEnMfhkPTbL6W3uRvRMD5vQQrlTLEIJ+/AroJrkJL/7pAPdUo4Qlovlec
- dmRr4Upmcsxbn+yOZGYqpVfR/jzzi9ZV1QE2rAkIJb+s23I9iPTZTV+Eb/QPDAk3z/+L
- rMuQ==; darn=lists.freedesktop.org
+ bh=IGEBVkSl804Lbjet5Iqv9xkjaomkmKa7knvOOohRepM=;
+ fh=TPAkwQs76C8O1ygCaJN2yEeRSVoEjWkQJcFoC4bG5Z8=;
+ b=FrnVhXTIZpwlkxsWdrQ55ITv2Y2UGqRRsOYekGtLsk1P+exI0HVjHfYPTleOqzPa26
+ f98mX7mmqPyPNAdGbVRSyJNpbfsq0VwNtF424U1EoH/+e7Gt3Q50zbjcdfmkwqJFMfnP
+ 7koqobqTPe65cjUueUDqt3VPGvH/4ammzed7yV6wdM42wl2+o3xPMFrIDD9D9wVtJJ1o
+ OYoheML7cpaAsEBgiYQFMePNFBNsIt1+x8skI1U4Dng7DaIfQL0ErGERo/77/S2FnKdU
+ 3rW/CLpksgq2ewFWnGmclWiB6Uyy/QZ3N8tDJZnAQ7QEHY+tjSyIMFJCLCEsRI0o4l/2
+ NEiw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1789994611; x=1790599411;
+ d=oss.qualcomm.com; s=google; t=1789994781; x=1790599581;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
- b=IVxajd3/30Qm6f7Xb6bQ93o0vEheA9jzY195SF414mlr7lGHrrP9XlsaHEJCj5TPh6
- Vorp+53HFW0d8E8GIUogsawIFwSPlIKVDcHNInrMJCytTlSMwlSctTZkp9JtuBvUpXj7
- BaED/qYxxo1cNp7tsOZ16YiipOVLfzyQCWJdl/nq7stesp+M7Sn6VCm8Bgt2VqqxczGD
- qakD9VVXfX5oDQ6/A8rFcIVdwUcHUxcC6ocq05iEpiP3Vxu0LNZ6Ien/uRxm543s0VV8
- hGfIZtyuT+1UrSj4A7Aah3Ev3TcJvMhynkZ68WPZBrXjrv/UV/XbZi8Gnpo7Skd1xV/h
- 5J6Q==
+ bh=IGEBVkSl804Lbjet5Iqv9xkjaomkmKa7knvOOohRepM=;
+ b=hPcGt4xKDtBwZsvxfjvd4JazHOaV1MRbKpwB7Onv10zBGv02Edx2YnQ1ivNaOS2Ds7
+ tNSjguYz0SZwK+iLDUQqXvw04uisDqjux6/YiJ/l3uPL5uGx470N+2bDqJ4ZXrgafpj6
+ YgZA+Pn68RSRix4WvKgsEGY9wPTrFVotZaVWpvraMKaw/Shjrxc9bd5H7MkzbXUwerSo
+ wvGq2d15khJYmxfQslYxP+ICpLgTJcjLfdtP7jDVPHt0QjpiTum9Vdvy2dvPReNYEdSB
+ HApbW7YPhaP9QmJcWKpFGMKs16YymlG28lh1UVMFw6jI78khUws7e4tx0kSezNjTc0yo
+ vRYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789994611; x=1790599411;
+ d=1e100.net; s=20260707; t=1789994781; x=1790599581;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=YTc4eaTqTCWWXmcCsM9hd8rF0EjF2lDAr6pE9wv6n6k=;
- b=wIPO1e/oABmdYtLwvqA54L4ZQlekzlGqxCCZTWyUw1u/x65IktEIYweHR0HqD+Zg00
- NEhCb3T8njgD3iZ1UkJ2ePavDrVXmRzpCUcppkrxj2SDOVaT2rMakvLKgFp5lOWhJXLr
- SgseZoaMYaSGgRtFfdNHk+7qA5parWsfmPRLgS3HsSlFyqtEMdTdQg0zbpkmW/qSHcV7
- DeHFc8qenWCuReoV65c+jVkcQINhsk9G5gexu5V0APhc2YiAVbJIu0ZeFEw+dT68xRGm
- kXu6fhhQvBozhh8Sk5ay27i4G/5OQzTkpmSqKh6T2P42XuNSVOK0IXLVK1qHPm9DFl1H
- xgUQ==
+ bh=IGEBVkSl804Lbjet5Iqv9xkjaomkmKa7knvOOohRepM=;
+ b=kQr0yHXmqCvfw1eSjJKO+NC1FjlzI/WIe9zqaY9GSVMoaiystTjOE/S5urxHzmSWY+
+ 0xKiK++I/9tUFUO6vbhPp1Fq67SSKKqbsfLAvd6FevJwU/T1jB5IiGDbje3Sas8vYfBn
+ lFNI0Lu7Um5oLRNcEnSPydGYg06nLdovU1i9Wo9SB96pmU5t0U357+mJoXYaQl1ilf7T
+ EkBqamfdjahRWI3yPM92JyJbkeRqtaP+CxQ/jodnUnu6vyZoY7pmLclbIwlvwIUH30tc
+ cwfkAeChGz3Dmz+36LvDfZI+K75CORfBvWOL3Jd4f5r5rhXbk2vHjBNYtirLuGngXktf
+ Sn9g==
 X-Forwarded-Encrypted: i=1;
- AKwUvByJh9d/pWWkVrZSma+EzAIPHmnbxiKk1FwGcslanM0PIbI6fzGZ3QWAy/1XVYbVDpRLqCPecjj0/bk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mWsqbCsK0xv98cAkHRBinNEbGmtADAMMTesntmgL2UITyTAKvI
- mkKJlFVbdMhKPh/m3XMJkC3P7Sp9zhjvihaMHLDLYaM5WjQnBN/kT50bGLIFjgElfeGk+I+c7zs
- o11HBFh2Da5nU1YYtsbLlJys36hhiFtLtobs8pqJaT/WDicZQ+scruBs3kO/3BlkDAhGP8glWBP
- aSCyGdVOtCQsbOyEXa+z0lBsfLO/OWDiWPZZUIN78lIhFP8A==
-X-Gm-Gg: AYBFou1DN1nXItbdtnBEssOsDUnxyR+gPeqiuzkzKbKGnUAnbbjlAgOZRK5joxtDasJ
- lFNRq6x4wqy00dlZGwC7y1ogU4LqNb/GOPVNGFUP8zXOWOl8O6jPYZ6012xVZm2UQqtd+1p9omB
- w+QfO3q9Joa/WpcmlY7zOEDkujndIqfAVCi1z99DTLneunYDM5EESjt/UOPw==
-X-Received: by 2002:a17:903:2349:b0:2dd:c100:424e with SMTP id
- d9443c01a7336-2ddc10044e2mr89288795ad.50.1789994611237; 
- Mon, 21 Sep 2026 05:43:31 -0700 (PDT)
-X-Received: by 2002:a17:903:2349:b0:2dd:c100:424e with SMTP id
- d9443c01a7336-2ddc10044e2mr89288245ad.50.1789994610661; Mon, 21 Sep 2026
- 05:43:30 -0700 (PDT)
+ AKwUvBxs2fP7+kZRmD/Qc9bhnur9kvuG270JKGIH2lEnWw/j4a6lk9UtCKtr3RFU0IBgqky62zkGJqgwjms=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nM12cbPh9rI3Z4ABivAiP8mRBrt1ZLvbNLzJxYpdX/OEvCt/1b
+ EvPDxxogrz7iXvpCsisJGQyzSeN+77smXPO7/QD/N//CzOAVJsQAvifcTirBhqOyyUGWIvdmfos
+ ElK2ZmpW7WQRdrdeTbIqCWjiYoNdRxnASHYvi/xojUu6sTTgqCipDRFP79xqOie4N0rUnAASPkK
+ nDzKVt4K1EQhsyreNwEiF8B+UWonlaQWuR8xyduuJFhDHECA==
+X-Gm-Gg: AYBFou39j8UMfycJAnuvBPMekRWUd8ebZkWu32h157A3CQpcFUVr3ZP1MAUxYDn3Cvw
+ 2eFDhklsB1Nfbtxd37fS7aqZWEjUBglxrvTaAD1fvFKWlcDcKn+7/ltLnBzP13nH0ocaCVo9zxC
+ 2NCMXQJNT2yIrPXj5Ae2XvAVrZr9YxiqG6YkBCahGHnbYDGXsWQzcg18o0Cw==
+X-Received: by 2002:a05:6a21:6f87:b0:3dd:a197:edea with SMTP id
+ adf61e73a8af0-3dda197f85emr11235073637.57.1789994780994; 
+ Mon, 21 Sep 2026 05:46:20 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6f87:b0:3dd:a197:edea with SMTP id
+ adf61e73a8af0-3dda197f85emr11235017637.57.1789994780421; Mon, 21 Sep 2026
+ 05:46:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260915104328.45901-1-gahing@gahingwoo.com>
- <20260915104328.45901-11-gahing@gahingwoo.com>
-In-Reply-To: <20260915104328.45901-11-gahing@gahingwoo.com>
+In-Reply-To: <20260915104328.45901-1-gahing@gahingwoo.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 14:43:19 +0200
-X-Gm-Features: AcwNN1XRM4Zpoe9SV6Ox1cb4qr0Qhj7z7Tg6kKrM_v7MoPDIacNjWOamn5qOldA
-Message-ID: <CAPx+jO_MFkUrzRDnuoqn_yKntRc_NqPs=0nda6wC_xgb+Fy7bw@mail.gmail.com>
-Subject: Re: [PATCH v13 10/14] pmdomain: rockchip: cycle optional power-domain
- resets on power-on
+Date: Mon, 21 Sep 2026 14:46:07 +0200
+X-Gm-Features: AcwNN1X9mUUfG00OJyVIt6nOyuDWy2ZSHbWKT6BOlwyDwHXMMZbGC4tmToAM-O4
+Message-ID: <CAPx+jO8EixqfXmrD8zkMkJe_B+2AATo=YNFJraAdE_O9X4KM-w@mail.gmail.com>
+Subject: Re: [PATCH v13 00/14] accel/rocket: RK3576 NPU (RKNN) enablement
 To: Jiaxing Hu <gahing@gahingwoo.com>
 Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
@@ -126,34 +124,32 @@ Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: YaJzL7yMHn4QqvCR3culG8VfQQMH_4n2
-X-Authority-Analysis: v=2.4 cv=IewSymqa c=1 sm=1 tr=0 ts=6ab12674 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab1271d cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=9GNsruGHAAAA:8 a=EUspDBNiAAAA:8
- a=xnVI1lRHtBAIIYlgu6QA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
- a=gf-oSkQAjqHFJRp-GQfY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfXy3daOWNZdAJM
- HNvFN+iFWg5u7+hRGRsg0Jp/3MzNdtEHVwPWKLMEJB8KWYcZtmQXkwOFw+U2GCqf2lyRWHAVm1Y
- GL3rwWveCr6Tk5UFgGGvXdK51Rqiqn/XRgWKAkTMyJNdDFH+/hvFo0PUd3uNRGWhs2QEnEQ5ViE
- LCZB5haXWn5vM7gYJZg98CzCykNEeA78s7exMlV0Jj/CJ8zCD3cJvpnEuH9Jg80RtX+XLv5+yJ4
- KOvXPQtHE0mHrrJDt0lsBUYPzV7HYyOPA1euSE/Rkow+6GdA/A+XwTuU/IQ6kXUcdSql0aFyCQu
- tRvMjk+l/5fXAqJ4jAiC8NcZirezF99k1EGIqBMqCdPaIkq36BbJUEgTZUWpYTcZ2IVNBZOb6i0
- cTF4AJ42BzcZimw/l1hemYiO6WKUnMmrojcl9W88oULpd7NAXoYa/40mRxhhXkaSRWNG4H9hcsA
- q1pd/Ei0Y6AoVJQw1ig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX+FKEhWLSGC7u
- /OCl7X0D9/W0lVGOX327m+3t2uDI4UrRPgNChxainBYU48YjYKOWsIUwDGzCYci8e9KHPUA1l0f
- 3QEHinJFOoJ4gFJsbsPQfTJmLJP+2JI=
-X-Proofpoint-ORIG-GUID: YaJzL7yMHn4QqvCR3culG8VfQQMH_4n2
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=9GNsruGHAAAA:8 a=uuLM8HNXhctW1a4qv2gA:9
+ a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=gf-oSkQAjqHFJRp-GQfY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4NSBTYWx0ZWRfX8HuX4XmBK/ZW
+ CR+km7vKj5pa+HMEgRtUpEwO23bGGMZKz74jZuAxwe+QqVYEXr6si0qRJUlClSbU3iUQ/JlZGCK
+ r6cwByPTd4B5fhnl6TRDLlTYr7iMRho=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4NSBTYWx0ZWRfXwSurli5PqxRq
+ A+Senl/RmkbjVLmoLtvKwNI1NBHiboMB5syjeT7YgWNCjEaSiCPum+srFD/WrmRaq939bt8r8hS
+ PH+QYe/6G+t7YbsifD++4xFhCmvd6OFxZeYdfckeBU+/5Hf29UTvofcp4zXFoh3XG7U+9VDtv7/
+ zFFKpVNVqufcHGqlGgsg0jm7tWrE6Z2wzRs7QMtvoO/Ku/Qmk6AKdm+Cb4mGM3kmEvT12h3Vvp/
+ CeBwhkPKIn4SpKpW1D4/QwHjL5/a36QPEf+OUj0OZ2r8i9TcNLfAkY6C0h2og4um1a9IHEoHuxG
+ 24gH4KOIRs1CGc4MuTd+b1HbLXLyH1UVsQb5QYNSA9MqZGquhgs+jNdGz2JopUObR9CyMA89wj3
+ BuedOO18mw7OGMWi4ZA4aO5fJ8phvHsIS3nxX0VZP4m1aY1lnghgh2cjoSs0IvqoIZhO4xlYeuI
+ WPLhEwHaA6Y8upDB8Dg==
+X-Proofpoint-ORIG-GUID: QbtHgw1VWN_qajYjGpZO3a8JX8aySVuK
+X-Proofpoint-GUID: QbtHgw1VWN_qajYjGpZO3a8JX8aySVuK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210182
+ spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210185
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,139 +165,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 12:45=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> =
+On Tue, Sep 15, 2026 at 12:43=E2=80=AFPM Jiaxing Hu <gahing@gahingwoo.com> =
 wrote:
 >
-> Some Rockchip domains come out of power-on with their bus interface in an
-> undefined state. On the RK3576 NPU this shows up as a hang on the first
-> register access after the domain is switched on, and pulsing the domain's
-> resets at this point clears it.
+> This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+> only. The RK3576 carries two cores of the same RKNN block, wired up
+> differently. Two extra convolution buffer clocks, two power domains per
+> core, one reset where the RK3588 has two, no NPU SRAM rail, and a
+> PC_TASK_CON that packs the task number into sixteen bits, not twelve.
 >
-> Take the domain node's resets if it has any, and pulse them between
-> releasing idle and restoring QoS. The resets are optional, so domains tha=
-t
-> do not list any are unaffected.
 
-Please drop the below from the commit message, the above is clear
-enough I think!
+[...]
 
+> Igor Paunovic (1):
+>   accel/rocket: request the core clocks by name
 >
-> The cycle goes before the settle delay 9/14 adds, not after it. A domain
-> that asks for both is asking to settle before the QoS registers answer, a=
-nd
-> a reset deasserted after the delay would leave nothing between the deasse=
-rt
-> and rockchip_pmu_restore_qos(). On RK3576 PD_NPU0 and PD_NPU1 ask for bot=
-h,
-> and the reset they cycle is SRST_A_RKNN0/1_BIU, the bus interface those Q=
-oS
-> writes go through.
+> Jiaxing Hu (13):
+>   accel/rocket: take the completion register writes under job_lock
+>   accel/rocket: wait for a running IRQ handler before resetting a core
+>   accel/rocket: let the core suspend after a reset
+>   accel/rocket: factor the completion tail out of the IRQ handler
+>   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+>   dt-bindings: power: rockchip: allow resets in a power domain node
+>   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+>   pmdomain: rockchip: add optional per-domain power-on settle delay
+>   pmdomain: rockchip: cycle optional power-domain resets on power-on
+>   accel/rocket: select the per-core clock and reset counts from match
+>     data
+>   accel/rocket: add RK3576 NPU (RKNN) support
+>   arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+>   arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
 >
-> It only runs when the domain actually changes state: rockchip_pd_power()
-> returns early when the hardware already reads the state being asked for. =
-A
-> bootloader that leaves the NPU powered would therefore skip both this and
-> the delay, which is why 9/14 gives RK3576_PD_NPU need_regulator and force=
-s
-> the domain off at probe.
+>  .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+>  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+>  .../power/rockchip,power-controller.yaml      |   8 +
+>  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+>  drivers/accel/rocket/rocket_core.c            |  32 +++-
+>  drivers/accel/rocket/rocket_core.h            |  11 +-
+>  drivers/accel/rocket/rocket_device.c          |   7 +-
+>  drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+>  drivers/accel/rocket/rocket_drv.h             |   2 +
+>  drivers/accel/rocket/rocket_job.c             | 151 +++++++++++++++---
+>  drivers/pmdomain/rockchip/pm-domains.c        |  83 +++++++---
+>  12 files changed, 456 insertions(+), 63 deletions(-)
 >
-> No in-tree DTS puts resets in a power-domain node today, so every other
-> Rockchip SoC takes the optional get's NULL and is unchanged.
 >
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-
-Kind regards
-Uffe
-
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 39988efd8..6cc8d6efd 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -19,6 +19,7 @@
->  #include <linux/of_clk.h>
->  #include <linux/clk.h>
->  #include <linux/delay.h>
-> +#include <linux/reset.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/mfd/syscon.h>
-> @@ -103,6 +104,7 @@ struct rockchip_pm_domain {
->         struct clk_bulk_data *clks;
->         struct device_node *node;
->         struct regulator *supply;
-> +       struct reset_control *resets;
->  };
->
->  struct rockchip_pmu {
-> @@ -688,6 +690,21 @@ static int rockchip_pd_power(struct rockchip_pm_doma=
-in *pd, bool power_on)
->                 if (ret < 0)
->                         goto out;
->
-> +               /*
-> +                * Optional: some domains need their resets cycled once p=
-ower
-> +                * is on. This goes BEFORE the settle delay, not after: a
-> +                * domain that asks for both is asking to settle before t=
-he
-> +                * QoS registers answer, and a reset deasserted after the
-> +                * delay would leave nothing between it and the QoS write=
-s.
-> +                * On RK3576 the reset being cycled is the NPU core's bus
-> +                * interface, which is what those writes go through.
-> +                */
-> +               if (pd->resets) {
-> +                       reset_control_assert(pd->resets);
-> +                       usleep_range(10, 20);
-> +                       reset_control_deassert(pd->resets);
-> +               }
-> +
->                 /* Some domains need to settle before the QoS registers a=
-nswer. */
->                 if (pd->info->delay_us)
->                         udelay(pd->info->delay_us);
-> @@ -861,6 +878,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->         if (error)
->                 goto err_put_clocks;
->
-> +       pd->resets =3D of_reset_control_array_get_optional_exclusive(node=
-);
-> +       if (IS_ERR(pd->resets)) {
-> +               error =3D dev_err_probe(pmu->dev, PTR_ERR(pd->resets),
-> +                                     "%pOFn: failed to get resets\n", no=
-de);
-> +               pd->resets =3D NULL;
-> +               goto err_unprepare_clocks;
-> +       }
-> +
->         pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
->                                                  NULL);
->
-> @@ -931,6 +956,7 @@ static int rockchip_pm_add_one_domain(struct rockchip=
-_pmu *pmu,
->         clk_bulk_unprepare(pd->num_clks, pd->clks);
->  err_put_clocks:
->         clk_bulk_put(pd->num_clks, pd->clks);
-> +       reset_control_put(pd->resets);
->         return error;
->  }
->
-> @@ -949,6 +975,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
-chip_pm_domain *pd)
->
->         clk_bulk_unprepare(pd->num_clks, pd->clks);
->         clk_bulk_put(pd->num_clks, pd->clks);
-> +       reset_control_put(pd->resets);
->
->         /* protect the zeroing of pm->num_clks */
->         mutex_lock(&pd->pmu->mutex);
+> base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
 > --
 > 2.43.0
 >
+
+I assume it's fine for me to pick up patch7, 9 and 10 from this series
+and funnel them via my pmdomain tree. If not, please let me know!
+
+Kind regards
+Uffe
