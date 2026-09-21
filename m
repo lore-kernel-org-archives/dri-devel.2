@@ -4,127 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C98EBC982DE
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 09:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E8B1C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 09:25:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D5A710E4E9;
-	Mon, 21 Sep 2026 09:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74D2310E579;
+	Mon, 21 Sep 2026 09:25:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WeVj8K+y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DsuIwllZ";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011027.outbound.protection.outlook.com [52.101.52.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC34910E30F;
- Mon, 21 Sep 2026 09:19:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SdoM9KjY9zczFgntUcNXOXHIU+IVRdhrWDpSamuvHsw4DxsubPVuGAOaLW5wS9Ikld8hEr8pmqQEYUSPkz/w2ud7pVSdgtHjpqjvtbKvkOeHq0bjte2n+SOP5hfPkXqZV5fN/DNxcITlNyJ3tyw34vToh03di0MZM7ft4buG8OYkAcLUdnmjQM3MiRsaZYznHlowFNTZpnwQJhRLSJ0jEvTSFbA/OJtE6sIOZjH9rRebmxGelNEIaD3bNUlH3wY+l62oHcorAx1Kle+1LC9NeKpigZnxBTZgJ3AiOFDhrktwC6wlBNLlVMu/FxVaYtml53PpxGQtHFb1uLkz0UGPkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V64/QqjARKTagelFmImKLQiuUEynnP1besOQ03oDse0=;
- b=Ce1lrIWU7XKCYRWcfSe7aZO8tnN536ytHXcuKol4np0/LENrh76yQ7MF8MWVjrlbzAtX1MHLInsFICxq+Bsj6aALzTAcgZOHpVVnlFRFU3gb4NKQzvaQHXSZeH5zY/Ha8Jl+YRWeWSp7BWqHBADfmYF6L6eOVZOxlkQ3/4QenORWJH3QYc5UaZs9aWP73A43DTRq+pcHkM7lEkQn4hN9rd+iJICy6QHHNw9koozyhIpGJG4gfENQeLr2cvwMGCipQfOmAmqapmHOQmrOIQ1O7a9X91EczlB05GGqOPpHLq6hXHzSPmHXjwilZ/eiAY48MKcQOM1UHD+rGJvORdLx4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V64/QqjARKTagelFmImKLQiuUEynnP1besOQ03oDse0=;
- b=WeVj8K+ysxxsALJpkRk866yP9xKJZMp6KGHPgfMOBxdfwSQsuYCBQxTnQ28YdprHceMXcnp8LtsiMkNzc8mJXSzkXOoNt5pqDf/fH6rz4ERcuGNy89SD/EZsOjNJhN2Nt6UYbkW8DEj/9Uboiig9gaWgrogFVIdgRQEOFbEXhbw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB7144.namprd12.prod.outlook.com (2603:10b6:303:21b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 09:19:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Mon, 21 Sep 2026
- 09:19:11 +0000
-Message-ID: <5e0949d4-85a2-4519-9e3e-a1b01ae58f46@amd.com>
-Date: Mon, 21 Sep 2026 11:19:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/2] DRM standardized memory stats
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Ludovico de Nittis <ludovico.denittis@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260917120444.86471-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0026.namprd13.prod.outlook.com
- (2603:10b6:208:256::31) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f723f46-1b43-4976-0b91-08df17c16607
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|366016|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: i++nsqZF90kd2BYOyKvkPvMvhKxq+FqcgpjdY+aTrfz4lrw8xctFYXwxAtgC7vv0u4rl5O7tp2tuu/EYmtLOG7hhBlzLzpjCMbXT153VQhblXNo8t/KSVbseWb83gCGpogMssY/z65dNNEHhuxrmlWJ275LpBuQwU4IPFSdLKKCF3eu+UtD9njGQPEhehlr+j1+29lVAQrFFhAuMP6NxA/vdd8jjJ7iZFnPB/dFsBTOOu2C9cZPmH4FXSPZtzSNWLr7zGwm9qwdaZ53kqTRue8mglTd+R9zYoqBURVrMOypgg6Ti7JLiRrCb4SCmTYixwvtcod5sE0ag14W3Hbi38FMpziFDKcXU6GPKW2ECnCVL1vkTtfWIP6/5IzKVCeRtFG291B0SKaEJAJJ1SdFst5TFU8XleR1JaTqoFWrEJeIolFKBy3oxTF7oVD2m8as9+3Vk9x/Q0M1uibNL51hylD4X472XBZOdXSOjZMFkHv/eDdYLnPRNvHgmKlgq3cfwCoeWqL4J81zPHXh/HD6AhZGn7utM4NPJN+CoGN1WEHP8bOTLfj8O4V6Dbzf7/DHpoRdd7eBdQYat3fZ/jeOMrtRBCezGTQOHGTlLk0jj144VnsoxLOrgeJKfl5nU0c0/clRu/0Rlvt05qJVkTv35738gNssGTUccib3VKn4m+0Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUl0Z00xczVmY3djQTFLQ3V5a3pBeGxnZTdpQ0YvclNUdzk5bkpxVnY1UnU5?=
- =?utf-8?B?YXE4WnhobmhXbUZaMksvRElHQllVck1lM29kMG9ManFxRVRCWk5LZW5LMllQ?=
- =?utf-8?B?ZUowTGdoaEtMd3JnRjBGdW9JL1FGN2d6R1piQXUvNmxUdmoxUFBTVWZRMzFI?=
- =?utf-8?B?NHlVNmYzODJxTzYrWjhJb2tpcy9aeDJPSVFiWTZEaHpzRWVtR1JXeGwwNW9h?=
- =?utf-8?B?Q3hxZTl3d2VjWGVBdE5kSjgraTdJelRZcVVaMVUySWRnQ0ZXSGMvTzJrL2xR?=
- =?utf-8?B?NDhwTmhyWHdHbjZBUzliM3l1M3lIL2FHbmpQUjBXbkhiVDd4MFUxVHlsdUph?=
- =?utf-8?B?dlpwUXB0dTl5bkVWVThNZUdKM2N0dVNuajlSYWI3UkF4VXdGWmF3WC9UUEFo?=
- =?utf-8?B?bExGRWxXSjhHc253NlVpRWM1alprcnFoeHpPV1FSNVFoQ0pEYTgrSG1GTEVQ?=
- =?utf-8?B?eXozYmw2bm1jNWJ2YmNzb1lEUjFNT1NJcDBwa0x0cFhYaTVITW5VTVZPcVln?=
- =?utf-8?B?amxwSVg5ODB4UnVaTjV4aldwVDF1RFczVHRxMllkOVhybFNCcDhFZUYyd3Vo?=
- =?utf-8?B?SVlsT2ZIWXhISmhoUGI2WkRYUUgxRVoxYVE0aTZNRHZ5d3VNVi83YUwxTU5K?=
- =?utf-8?B?UVdHNGQ5MytwajkzQnMwbDkwbHRVeTZrMnVTb0dpbzNaZ2F5UDlrSGVtQmR6?=
- =?utf-8?B?WHZvSVJST3F0czRpbU9PYUkwSmoza3NwTDN2dVRYQlFrbzcraTdrZE5aVzky?=
- =?utf-8?B?Y1hrNmw2a1VxY0gxaTd1eXlPZmlVQ05hZVRwMHlkam1PeUUyQUdWY3NvcmtW?=
- =?utf-8?B?dmtPNWQxUWxMSEFoa0wwL3NoMFpQSEd6ZW44VXZDMVZ2NzgwSUpmMkhaUjBh?=
- =?utf-8?B?djdhVU9jSGU2Njl1Yy9oZ1VJMHM3UVFvaXRCMnRjQVpVZDBQT2N3ZEVOUDNU?=
- =?utf-8?B?SEtpNFFaSDhBQ0JLOGdlaVlxdzgvWUNBZmM5dWFIM1p0bDVJK0tSRzRJL2Fv?=
- =?utf-8?B?OVYxVzhONDRXZlNadmFBL2xDZzZ0MGZSbEw2cXk5bmpCNFZiZ01KTkRIQ2Va?=
- =?utf-8?B?UEw5QVZydFNqQk5zSjlKZ0xiWGYremh0SFdWUVUwamlBMFZMNFpRbHZzZDQz?=
- =?utf-8?B?MHp2OGlqQ2l5ejY3TTRSRlBwalFOY1BJeG41SDNNMVlwV2t6V01kQzF5Q2NQ?=
- =?utf-8?B?RXZDaXVjdklEUVh1TEdIWUNFbU9RcTZzcWdnS0MyQzZCdVNMcUp6cXhtUG5i?=
- =?utf-8?B?SjJYa3R5NzZQRmpNbGNRUS9odkR2MU44S2NjN3g4S0lvbHNmdDRYdUNUWnpY?=
- =?utf-8?B?SjdvaGVQeWl3MlhuMkN6TGo0T054UktoY0VoMjBSdXdwcE1FSWtVRnFYd1Fa?=
- =?utf-8?B?THptVGI1Vlg4VDhwM1A1OVY5WldzQmZtSU8wbWxYOWl4ckZYdlVVM2FCYXNa?=
- =?utf-8?B?VTJHYzh5NDZpS0E3MldUSE5Ubng3Z3YwWHpKbWtOaDNJZElTOFFUN1VHODZr?=
- =?utf-8?B?QzVmdXkxZEVKbmJtOFhUL1psRlpTekZ1RjJNRVFqeE5lN2pHVFZta2ZMUlhp?=
- =?utf-8?B?QVVXak0rbEVYdFZTdndJSkErV0t5c0gxMUlXbGY1NndodmcrYjd6UzhYeUZ5?=
- =?utf-8?B?eUs5ZG9NNXVNZ0hLZ1lGblk1SVg2QW1JZGtlcVBhVGZMYVNWZnk3WCt2WVBI?=
- =?utf-8?B?TnVsSXVyVUp2b3B4ZEt0cEdlNnBBS1lUTXl5VjN4RTF0TElYU0dWbEVpNDAv?=
- =?utf-8?B?YmZtK282Wmg5K3FDMENoVkpsc3YyTzFqSVJhNkxqaFdoQ1B3b2oxclM1V1Rj?=
- =?utf-8?B?OVp2aEdHaEROU2hwaFNGZDU2OWYySmlYUlJYd3ZTQUVqNFNZeGxoVWpjZ2RU?=
- =?utf-8?B?T1hBdFQwOTl4QkNxYXJqK2xsMzBUVzZXYTZaaDlKZytVc0NyUjRUZUwyVzJS?=
- =?utf-8?B?ZTF3SGpVMDVIUE5rS1J5ZVhtVXlCOE5LVEprRDZUcGJIbEZBdG5SZ2tTcW0x?=
- =?utf-8?B?TGpkWmRUU3l1cTh5VXNJTTNhWWJRRGo0MzBxWkhMZTMxL2NPRythblU5UUpM?=
- =?utf-8?B?MmRPTXFUOStHdEVRM25TcTNscW5BOWxSNmlRZ2loVHlIREdXZ1YyQm1DbXl1?=
- =?utf-8?B?dUVvNEkwaFd1ck90cDhuckFVT2hwMmxpMld1a1ZnR3lKczFLWmRZUElGcDEw?=
- =?utf-8?B?NVE4bk00YTZueUlqQmVjR2hJcXZkQmtNTjNtVXJWTmxjSDVsNmhXQk1jMWtr?=
- =?utf-8?B?WUhCTUVMVnhabHZ2WFprVzhjREVaRG9GdXNGT0N5MmFpbHpvSTRabUJJcGJs?=
- =?utf-8?Q?Wqj9uCfGs8XYWgK2n8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f723f46-1b43-4976-0b91-08df17c16607
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 09:19:11.9159 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NUkw4Q5QqhzZHZQRa4nrtbP4WLfmFbk6hMN4thwNB1+U1X2CJWw5DieLBUEedMot
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7144
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64FB410E579
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 09:25:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F76042A77
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 09:25:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6EF1F000FF;
+ Mon, 21 Sep 2026 09:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1789982747;
+ bh=2Cd10CePkTuSMxI6AYRVgSZdt92AtPEsss1i0CcFz0A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DsuIwllZQAkVgYVs+HkJo5LLr0hDRu6xMNzliiK7nv6BpqeHGpwsTOk43fobKCboC
+ 5GrOLAWlpNzMpgJA8OlIM/gvUIi0yWh4drOExrV1ChIxVgeNg1CuMbcFI5zvJdPk22
+ 1TvYcM9J9oJyUWlcHYz2R5vUGVd/DYMVEdXW54+d6OJplIYVTX41p4H4CTT8BEnYBb
+ hurD8pf2vnGis0/JiSjWBQW1mpHyRLdLA7FRsh9h1OkeBpIcfo9f6prquRULI1FqM6
+ rPv8Zp482OWDViQOiksB8AFTpVkit8uOMpeO/5Kk7zhET8lP1c56c2bvlu3T1ee1v3
+ /y8cJrCQjwbBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: gemini: Use a level-high interrupt for
+ TVE200
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
+ <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:25:46 +0000
+Message-Id: <20260921092546.9F6EF1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,79 +55,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/17/26 14:04, Tvrtko Ursulin wrote:
-> Re-floating a simple idea (this time with more Cc) born from an user interest to
-> be able to correctly size the swap space during OS installation, based on the
-> size of the VRAM a discrete GPU might have. And to be able to do it in a vendor
-> agnostic way.
-> 
-> Idea is to expose a standardized scheme in sysfs, under the DRM class card, and
-> under a new 'memstat' directory. Such as, example from amdgpu:
-> 
-> /sys/class/drm/card1/memstat/
-> ├── gtt
-> │   ├── total_mb
-> │   └── used_mb
-> └── vram
->     ├── total_mb
->     └── used_mb
-> 
-> Or with concrete numbers:
-> 
-> $ grep -Hr . /sys/class/drm/card1/memstat/
-> /sys/class/drm/card1/memstat/vram/total_mb:1024
-> /sys/class/drm/card1/memstat/vram/used_mb:445
-> /sys/class/drm/card1/memstat/gtt/total_mb:7394
-> /sys/class/drm/card1/memstat/gtt/used_mb:71
-> 
-> Drivers need to implement a simple DRM driver level callback which needs to
-> report a stable list of interesting memory regions and their respective stats.
-> The region names then become sub-directory names under the new 'memstat'
-> directory, with each region exposing the total size and the current usage.
-> 
-> Similar data can already be queried if the dmem cgroup controller is enabled,
-> also only for the participating drivers, by querying the root cgroup. But
-> perhaps sysfs is easier, or perhaps it is too much code for too little benefit.
-> I am curious to hear any opinions.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/tve200: IRQ storm / state machine corruption from level-trigge=
+red IRQ
+--
 
-The implementation can be polished a bit but I seriously like the idea to standardize that.
+commit c7049bfa3bb673960be589c51d1114e71aa6a360
+Author: Linus Walleij <linusw@kernel.org>
 
-amdgpu already exposes the information as non-standard sysfs files and adds a bit more, e.g. CPU visible VRAM size, VRAM vendor etc...
+ARM: dts: gemini: Use a level-high interrupt for TVE200
 
-I'm wondering if those shouldn't be added as well and the existing sysfs files then implemented as symlinks.
+TVE200's interrupt is configured as rising-edge. On the D-Link DIR-685,
+this can stop interrupt delivery after the first vertical interrupt,
+causing vblank and page-flip timeouts and delaying framebuffer console
+startup. The vertical interrupt can remain pending after acknowledgment. Use
+level-high triggering so the pending condition is delivered again without
+requiring another edge.
 
-Regards,
-Christian.
+> diff --git a/arch/arm/boot/dts/gemini/gemini.dtsi b/arch/arm/boot/dts/gem=
+ini/gemini.dtsi
+> index 23e68e17ffbbd..d8f64fea0a79d 100644
+> --- a/arch/arm/boot/dts/gemini/gemini.dtsi
+> +++ b/arch/arm/boot/dts/gemini/gemini.dtsi
+> @@ -445,7 +445,7 @@ dma-controller@67000000 {
+>  		display-controller@6a000000 {
+>  			compatible =3D "cortina,gemini-tvc", "faraday,tve200";
+>  			reg =3D <0x6a000000 0x1000>;
+> -			interrupts =3D <13 IRQ_TYPE_EDGE_RISING>;
+> +			interrupts =3D <13 IRQ_TYPE_LEVEL_HIGH>;
 
-> 
-> Cc: Maíra Canal <mcanal@igalia.com>
-> Cc: Ludovico de Nittis <ludovico.denittis@collabora.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> 
-> Tvrtko Ursulin (2):
->   drm: Allow drivers to report standardized memory stats
->   drm/amdgpu: Wire up DRM memory stats reporting
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  40 +++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  37 +++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   3 +
->  drivers/gpu/drm/drm_drv.c                  |  10 ++
->  drivers/gpu/drm/drm_sysfs.c                | 123 +++++++++++++++++++++
->  include/drm/drm_device.h                   |  19 ++++
->  include/drm/drm_drv.h                      |   8 ++
->  include/drm/drm_file.h                     |   9 ++
->  include/drm/drm_sysfs.h                    |   4 +
->  11 files changed, 248 insertions(+), 13 deletions(-)
-> 
+[Severity: High]
+Does configuring this as a level-high interrupt break the driver's state
+machine logic in tve200_irq()?
 
+The driver assumes each interrupt corresponds to an exact hardware event and
+blindly toggles the TVE200_CTRL trigger condition between VSYNC and VAI:
+
+drivers/gpu/drm/tve200/tve200_display.c:tve200_irq() {
+    ...
+		/* We have an actual start of vsync */
+		if (!(val & TVE200_VSTSTYPE_BITS)) {
+			drm_crtc_handle_vblank(&priv->pipe.crtc);
+			/* Toggle trigger to start of active image */
+			val |=3D TVE200_VSTSTYPE_VAI;
+		} else {
+			/* Toggle trigger back to start of vsync */
+			val &=3D ~TVE200_VSTSTYPE_BITS;
+		}
+    ...
+}
+
+If the hardware delays deasserting the interrupt line, the level-high
+configuration causes the interrupt controller to immediately re-invoke the
+handler.
+
+The software state machine then incorrectly interprets this spurious
+level-triggered re-fire as the next sequential hardware event, repeatedly
+reversing the trigger condition and potentially causing an IRQ storm or
+dropped vblank events.
+
+>  			resets =3D <&syscon GEMINI_RESET_TVC>;
+>  			clocks =3D <&syscon GEMINI_CLK_GATE_TVC>,
+>  				 <&syscon GEMINI_CLK_TVC>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-gemini-tve=
+200-fix-v1-0-8be03ac2a8f7@kernel.org?part=3D2
