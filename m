@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C7FC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AEF0C982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 18:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16C410E0C9;
-	Mon, 21 Sep 2026 18:33:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B72BF10E2BD;
+	Mon, 21 Sep 2026 18:34:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l9cggEwm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LTOq6PM4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA6C10E0C9;
- Mon, 21 Sep 2026 18:33:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8137C10E2BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:34:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 81B7460008;
- Mon, 21 Sep 2026 18:33:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDD11F000FF;
- Mon, 21 Sep 2026 18:33:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BCA0660008;
+ Mon, 21 Sep 2026 18:34:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFBD1F000FF;
+ Mon, 21 Sep 2026 18:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790015604;
- bh=5nxDQ/4UntL2urb45XOKI69w5u7JlAvfbWn6zqpqiv0=;
+ s=k20260515; t=1790015670;
+ bh=K4nLHz9z6IQcGHmWPtSRGWzAX0Kugw/YmY22EH4TG4U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l9cggEwmsf70Rbt4pViug11tDr4UdjlgeyM/bLDJUHzP1Jflg6qoSJzfOd3eF450v
- J+y+25Xk+lKC2eYoF7W276RfeCUb84Kkdu5S2/KurEgucNf5uemWjqCOJhn6Ya+TJo
- 7bhTIyy6XO2DG2CEaPDnIbG7kdzacLPovtd/HUg4Ta7hiEr536z+32dtWlXfhIF362
- VRQgKCbWfZ8+z5/Jitz1h50GxAZkze2WF6wdoX905wyQAuWx1SOFB038oxjZ+PWCSA
- 5AbSgWTY9kxqU4X53izDnPC/337TUKCbnLgxfgR8woL0HfI9rqSKuQlwbj4iq/OEgw
- 6I0VmaH6RTObw==
+ b=LTOq6PM4Loabuc4O1F5tiDkMymp923XxpCeXQVC3Ws1Wh+dVWju63c3jIr/bjfko2
+ o29Fbf1Me9nKgxu+hrpmzZ+n2Y0Xyy9l5SPmJd6pvqy/N1+rSrtFYegX1TcADLU59N
+ CtxuHex76kAXhFKDdNju2kSA/6QG382zkaKzHIxdrohNZENt7oW2rtYtmVUsDthOSX
+ LSnEZu5gGgTPPWcTUdt2hSofd/bAEUZvGD3ZeIzfmcxTzOJdezmdLsoL+rM0ZknDku
+ mOoi5ICWkT0GTosv/hzygADQuXkw52WgMGDt1VQKBzCG3z7WqAQGS56/uhLVzRVgR6
+ LYK1YzkmWuzmg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] drm/xe: Capture devcoredump on TLB invalidation
- timeout
-To: =?utf-8?b?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260921182121.308217-2-talesam@gmail.com>
-References: <20260921182121.308217-1-talesam@gmail.com>
- <20260921182121.308217-2-talesam@gmail.com>
+Subject: Re: [PATCH v3 17/19] arm64: dts: qcom: Add initial support for MSM8952
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org,
+ linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com,
+ conor+dt@kernel.org
+In-Reply-To: <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 18:33:23 +0000
-Message-Id: <20260921183324.0DDD11F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 18:34:29 +0000
+Message-Id: <20260921183429.DAFBD1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +62,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/xe: MMIO access without PM reference in devcoredump on TLB tim=
-eout
+- [High] arm64: dts: qcom: cpu cooling devices bound to 'hot' instead of 'p=
+assive' trip points
 --
 
-commit a463de937c804fe9be7ed86bfbfa297e4f35c466
-Author: Tales A. Mendon=C3=A7a <talesam@gmail.com>
+commit b31c2ca10f75d0572d43b7d8403a096fd44b8429
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+arm64: dts: qcom: Add initial support for MSM8952
 
-drm/xe: Capture devcoredump on TLB invalidation timeout
+Adds initial device tree support for the MSM8952 SoC, porting it from a
+downstream reference and adding calculation support for qfprom nodes.
 
-This commit adds xe_devcoredump_gt() to capture the GuC log and CT state
-for GT-level hangs that are not tied to a specific queue or job. It then
-hooks this capture mechanism into the TLB invalidation timeout path. This
-helps in diagnosing firmware stalls where the invalidation request was
-consumed but the ack was delayed.
+Link: https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
+/cm-14.1/arch/arm/boot/dts/qcom/msm8952.dtsi
+Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
+ear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi
+Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
+ear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8952.dtsi
+> new file mode 100644
+> index 0000000000000..fa343271a0249
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
 
-> diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_=
-devcoredump.c
-> --- a/drivers/gpu/drm/xe/xe_devcoredump.c
-> +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
 [ ... ]
-> @@ -323,40 +318,44 @@ static void devcoredump_snapshot(struct xe_devcored=
-ump *coredump,
->  				 struct xe_gt *gt,
->  				 struct xe_exec_queue *q,
->  				 struct xe_sched_job *job)
->  {
+
+> @@ -0,0 +1,2696 @@
+
 [ ... ]
->  	/* keep going if fw fails as we still want to save the memory and SW da=
-ta */
-> -	CLASS(xe_force_wake, fw_ref)(gt_to_fw(q->gt), XE_FORCEWAKE_ALL);
-> +	CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+
+> +		cpu4-thermal {
+> +			polling-delay-passive =3D <250>;
+> +
+> +			thermal-sensors =3D <&tsens 5>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu4_alert1>;
+> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 
 [Severity: High]
-If this capture path is reached without holding a PM runtime reference, does
-acquiring the forcewake here attempt MMIO accesses while the device is in a
-low-power state? Accessing MMIO registers when the device has entered
-autosuspend (D3cold) typically causes unhandled PCIe errors or system
-crashes.
+Does this cooling map bind to the hot trip point instead of the passive one?
+
+The Linux thermal subsystem's default step_wise governor ignores hot and
+critical trip points for cooling devices. Binding CPU frequency cooling
+devices to cpu4_alert1 (which is defined as type hot) completely prevents
+thermal throttling.=20
+
+Under sustained CPU load, the system will keep heating up until it hits the
+critical trip point and undergoes a hard, uncontrolled thermal shutdown.=20
+Should this bind to cpu4_alert0 instead?
+
+> +				};
+> +			};
+> +
+> +			trips {
+> +				cpu4_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				cpu4_alert1: trip-point1 {
+> +					temperature =3D <85000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
 
 [ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tl=
-b_inval.c
-> --- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-> +++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
-[ ... ]
-> @@ -90,13 +98,27 @@ static void xe_tlb_inval_fence_timeout(struct work_st=
-ruct *work)
->  			"TLB invalidation fence timeout, seqno=3D%d recv=3D%d",
->  			fence->seqno, tlb_inval->seqno_recv);
-> =20
-> +		timedout_seqno =3D fence->seqno;
+
+> +		cpu0-3-thermal {
+> +			polling-delay-passive =3D <250>;
 > +
->  		fence->base.error =3D -ETIME;
->  		xe_tlb_inval_fence_signal(fence);
+> +			thermal-sensors =3D <&tsens 9>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu0_alert1>;
+> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
 
 [Severity: High]
-Can this sequence drop the last PM runtime reference before the devcoredump
-is captured?
+Similarly for the little core cluster, does this also incorrectly bind to t=
+he
+hot trip point cpu0_alert1? This will prevent thermal throttling on these
+cores as well.
 
-Looking at xe_tlb_inval_fence_signal(), it calls xe_tlb_inval_fence_fini()
-which drops the PM runtime reference (xe_pm_runtime_put). If this was the
-last active reference, the device could begin autosuspending.
-
->  	}
->  	if (!list_empty(&tlb_inval->pending_fences))
->  		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->fence_tdr,
->  				   timeout_delay);
-> +	seqno_recv =3D tlb_inval->seqno_recv;
->  	spin_unlock_irq(&tlb_inval->pending_lock);
-> +
-> +	/*
-> +	 * Capture the GuC log and CT state so the firmware side of the hang
-> +	 * can be inspected; there is no queue or job to blame here. Must be
-> +	 * outside pending_lock as the capture takes sleeping locks, hence
-> +	 * @seqno_recv is sampled above while the lock is still held.
-> +	 */
-> +	if (timedout_seqno)
-> +		xe_devcoredump_gt(tlb_inval_to_gt(tlb_inval),
-> +				  "TLB invalidation fence timeout, seqno=3D%d recv=3D%d",
-> +				  timedout_seqno, seqno_recv);
-
-Since the PM reference was dropped earlier in the loop, would this call to
-xe_devcoredump_gt() proceed without holding one? If the thread gets
-preempted long enough for the autosuspend delay to expire, the forcewake
-operation inside devcoredump_snapshot() might hit the hardware while it is
-unpowered.
+> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921182121.3082=
-17-1-talesam@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-msm8952-in=
+itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D17
