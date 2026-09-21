@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9240BC982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C54DC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C15510EBE2;
-	Tue, 22 Sep 2026 08:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D29D10E463;
+	Tue, 22 Sep 2026 08:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EXzUnAFe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nrcHFDT3";
 	dkim-atps=neutral
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com
- [74.125.225.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821F010E3C7
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:33:36 +0000 (UTC)
-Received: by mail-wr2-f11.google.com with SMTP id
- ffacd0b85a97d-486e4e15deaso1203765f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:33:36 -0700 (PDT)
+Received: from mail-pz2-f25.google.com (mail-pz2-f25.google.com
+ [74.125.228.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA00510E34F
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:16:06 +0000 (UTC)
+Received: by mail-pz2-f25.google.com with SMTP id
+ 41be03b00d2f7-cc1cebad4aeso2571492a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790015615; x=1790620415; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
- b=EXzUnAFePWiL0c0CYPcPYx/w3ML7RiKfT3ULyHykr/HvAzVfrwVYaCqqbG9ZFePps2
- mNCBj4pGjJ1/PEKYXXBYYLF1C+IZQ6BXiji4NSoBmDgZVtHtuwkQ+641seUQQtX9zxD2
- wgi0GIBU72/3/JvTEpKOv+wK42wk+CJos0bgHUZBju6nZMDImX9XoFbWRy+nD5sHxTJp
- KbdzACc5kp00RqCPxGnYhVfTv2qZj2rJrNnbaOsySJzzNj6a2BihX5jUshe+k26w9VC3
- AGCMW99L3F3p1DX3cTK3aYJ2EjbxLRdRAipJrBhquUY/C4C+jJiHuxm9dboLzvO7+OGo
- q2gA==
+ d=gmail.com; s=20251104; t=1790014566; x=1790619366; darn=lists.freedesktop.org;
+ h=message-id:date:content-transfer-encoding:content-type:mime-version
+ :cc:to:subject:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=sp7CkkCFTfRQKPl6kzZrbuCRgTVE+fbWFxi07HmMuWo=;
+ b=nrcHFDT3192U/96+Bpv0MRuOAO7LiwNK63FBerpxAjKlf+FO4DsbM8cuJgOo5KBn8K
+ 1I/h308CTJtvtuZjAs1ns3FBwbPZCpJY9cv6G/QkysgM/KfNdEVKNRESao+yF6BqItmi
+ u5vpe0KgKCpAf5HkRc2ziTFnB1SZBnI/8cEpnEpxYs7cvWQxzv5/7CWPPglADiHJ4pS8
+ 5+rZYXhme/fWYGx63Uh3H/+pOf5ZMT1HtFCrpQKm8BQ35ngdFpWmnt3zqqHCPKR6Zmbs
+ cvvb5f4b1GYxutoelvMjn57M6dsU4Pe3mH8b3fQn/2wZV8BiEN1agElqj1+ou4sD3pHk
+ pgcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790015615; x=1790620415;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8qwDua38LIyW1TawgxN9o1m0hOow5CaSBoRxma0znMA=;
- b=zhqQjt6A9HT05cf6DhnjxZ9KigMYj6yR9/d6tsfiYhrRx7MyuK5GB1L0m5Ld4S8wVN
- vo7M+4MqevsZTwTWmQ2656javyVd7FxZcXodM8GPT/CzbuOTERfwuCJIty3SGZzrS0HF
- KOzmeT3oi2uN6qrY0jmtBLrsam+/ScNs/Tto6NlPrnch1sksfL3BwbWQstuIsj2XBdHl
- zU2XuxPutwElrBx0UZw2JACam8gyjIOb04n920+ejgd04bMT5NqCk7e7c3jDN2NcylEr
- mL+ez8qzGKponNs/+406C7XoD9FldZC5ta9gn5nvMsbhkSTDp4/pKqUfl9yVyOLwnRzO
- trag==
+ d=1e100.net; s=20260707; t=1790014566; x=1790619366;
+ h=message-id:date:content-transfer-encoding:content-type:mime-version
+ :cc:to:subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=sp7CkkCFTfRQKPl6kzZrbuCRgTVE+fbWFxi07HmMuWo=;
+ b=IC0DO4Q60WqkBxgkBKCZsuSCk9J/9M5zxeTaLr1LT5ahAvdMnzYohCHOR5yxEDw3VU
+ 3TbE7VJspCNImjiDjob6j7kURAHdHBkR7P3O2QA6LbFzqWR3l2ZBmVxaoP+Bcc/3IoZv
+ Eveg5+bXR+Uwmmn0QbvhRwHnZJWt/vJXf8yoDNElPtyhA9+dM6PQP5WunLaF4ky27F5m
+ 83qYPKo5LwRRBPTgIZrPoVLpPQgtUYokBGC1hgqGh1KE8H7irZv8uNgbs8vYpvMi+rmK
+ 9gCepdM4AMq4JagXBDNt6TJU/9tNaT7xaSUMwdekzytPdz9emZCyDJJ8zVxFAxfiF1cI
+ NQYw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy4HhojQSk9Sshvv6YPpJvHGWNFZkUJTlg3159vVXtVXpyVShHOIo9z4McgyRkGhfV/jfqVu1elZIU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ntWB1sNOZqaYeQY1vHOqDAUrKr26OeH/iKQVhP2dzIMDZ+roB6
- LUokNm1HvwCsiqLspMbj8XW9NUPp7QPVPPj0ftVXma/irmdYZaAHA/cC
-X-Gm-Gg: AYBFou3NlZkYAE4sR0LZ2r/uyKgYxey272taX74evmOqpa3Gm6V4j24Cuo2PFmWHhwI
- JnWrJSF09hQql4VADh7FvVtwe6VKdMGHFjgrnbg55N7BL0xERYfijJBbP7NkHUCI6NhBPVJN7aW
- Xzk9cOXbxFh79nbrNPZu3cmjcqySttEGdixRB/OFtb4ZOKbtiLW7hWXBkZxXbitT/XzjM99/I9N
- J6CM3TUyKAh9RwO0MVJliuL2jIcEjhJsuvRd2TAuf5G6YvdGMj9cb50ys6/yeHfs873z+5tN/t2
- 7GhQ/FWiP8K1bFpXQvEDQvoS0EtMAyPAARU8r7q4R0jqAXhq4WD5FRMzyH3Ob8aefLDu9LxYLlh
- c6XcSYq/5BwqnVzBYiksz/3nZCnVrwA3NnGCLXmGDueZv9jxtMszE1lfneVltOt/PDwqXHV0qyr
- rQM3zTweIos+mOr954hMoqB1hzBqnOkkn0mU00udcflgyfQOERzNZ+wDhFxJ9B+niN/kuHG2Hh3
- gnVOI9Zk2si1hvK
-X-Received: by 2002:a05:6000:2584:b0:487:27f6:a4d5 with SMTP id
- ffacd0b85a97d-48727f6a645mr11933217f8f.37.1790015614392; 
- Mon, 21 Sep 2026 11:33:34 -0700 (PDT)
-Received: from gbox.chicasongroup.com ([197.210.105.26])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4872456ee4esm23679114f8f.21.2026.09.21.11.33.31
+ AKwUvBx3aWgZyxBGaHmoKHeKHyan2ShzwAA9tsN4JNnU3K0wQyhHfwmiNkqg1xcDvbc9k9uzlVhchuoJmaA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNlyrYTqUlcWMQG/0u/ofyRCgOsPrKe8sWjdCogCKSLm4n+DVH
+ WfV63Kq6RHW/BLVpL70S5Wf7DxKqBPjtXQ33Gt/zjlRbyZeTFNthw8dm
+X-Gm-Gg: AYBFou21gtWeFjEgkQeIldkzCKSaBshwBZvLKobhX2Ezgg3DnTB8HGT9ik6h14AWxv0
+ xZPSqHvxt9vdRX52crH3SEhOsNwONUkzJz8xC0SvvU35zuxWm2ayR0n8d1d6fek6BTona1KSkYH
+ nM8gWncNmwiStimpUShj/RapRQIuXw9f0gzkc0xBCR1yseTYpoKAYf6usGe3D6MMCcV9W+DuL/O
+ 5tyu3aKU3lzlZ+yxH2PxOkzj3DkwaPdHCrw3NgcQKJy/PEVeqPxUMmrTuFCgyuQKU4xZ/TYuzow
+ N8/MGS5leBXwy2+YkLV7/t/RI1sF41xnMt91Vu4fT9aca41/AnyoktgW4xRA1KgjquHkmAsdz32
+ xRMmnh7iXn5qwahLJeyqkXFt4tXAFnS1Qvqjbe8LKHPUI+wb4ymlFrREeV93/MNbwqBW8uBWFGG
+ brKCM+xeQ1ORxQOTjQ8KaJ8ep/vERwaMLyigk3t7KVT1gVfm+elSFHpyhEH9z2OVW0UMtIxPvLk
+ +qiA5/YDgEtN5Nxd3wZW6o=
+X-Received: by 2002:a05:6a20:1605:b0:3dd:a197:cf26 with SMTP id
+ adf61e73a8af0-3dda197d7dcmr12001110637.74.1790014565989; 
+ Mon, 21 Sep 2026 11:16:05 -0700 (PDT)
+Received: from SANGHOON. ([1.220.132.212]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc72ae8eae3sm3902549a12.14.2026.09.21.11.16.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 11:33:32 -0700 (PDT)
-From: UgwuRhema <hikarialiyev@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: Andy Shevchenko <andy@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] staging: fbtft: fbtft-bus: remove space before close
- parenthesis
-Date: Mon, 21 Sep 2026 18:33:12 +0000
-Message-ID: <20260921183313.92795-1-hikarialiyev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Mon, 21 Sep 2026 11:16:05 -0700 (PDT)
+From: Sang-Hoon Choi <csh0052@gmail.com>
+Subject: [PATCH] drm/tegra: initialize channel context before publishing it
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Date: Tue, 22 Sep 2026 03:15:59 +0900
+Message-ID: <179001455907.44752.8291506500067688174.idr-bug-37@gmail.com>
 X-Mailman-Approved-At: Tue, 22 Sep 2026 08:40:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,34 +89,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix checkpatch.pl errors regarding prohibited spaces before closing
-parentheses in fbtft-bus.c while retaining trailing commas required
-by macro definitions.
 
-Signed-off-by: UgwuRhema <hikarialiyev@gmail.com>
+tegra_drm_ioctl_channel_open() stores a new context in fpriv->contexts
+before setting context->client and initializing context->mappings.
+Another thread sharing the DRM file can guess the context ID and issue
+CHANNEL_MAP before CHANNEL_OPEN returns. For example, the first allocated
+ID in an empty context array is 1. The mapping path can then dereference
+an uninitialized client pointer or use the mappings array before it has
+been initialized. CHANNEL_CLOSE can also free the context before the open
+path finishes writing those fields.
+
+Initialize the fields before xa_alloc() makes the context visible to the
+other channel ioctls.
+
+Fixes: d7c591bc1a3f ("drm/tegra: Implement new UAPI")
+Reported-by: Changyul Lee <lcy8047@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Sang-Hoon Choi <csh0052@gmail.com>
 ---
-v2: Keep trailing commas in define_fbtft_write_reg invocations to prevent
-    preprocessor build errors from missing macro arguments.
----
- drivers/staging/fbtft/fbtft-bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Found during source review at mainline
+5dd1818b15d98d4a20806cd00b1b40320b06004f. The affected source is unchanged
+at 93f51579e7df248780214094418f205253383cc5.
 
-diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff1..38697992f 100644
---- a/drivers/staging/fbtft/fbtft-bus.c
-+++ b/drivers/staging/fbtft/fbtft-bus.c
-@@ -62,9 +62,9 @@ out:									      \
- }                                                                             \
- EXPORT_SYMBOL(func);
- 
--define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8,)
- define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
--define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16,)
- 
- void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
- {
--- 
-2.55.0
+The modified uapi.o compiled in an x86 allmodconfig build. I have not
+tested this on Tegra hardware and do not have a runtime sanitizer trace.
+This concerns the UAPI guarded by CONFIG_DRM_TEGRA_STAGING.
 
+ drivers/gpu/drm/tegra/uapi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
+index c0ac6b45f..1dec2f0ab 100644
+--- a/drivers/gpu/drm/tegra/uapi.c
++++ b/drivers/gpu/drm/tegra/uapi.c
+@@ -135,14 +135,14 @@ int tegra_drm_ioctl_channel_open(struct drm_device *drm, void *data, struct drm_
+ 		}
+ 	}
+ 
++	context->client = client;
++	xa_init_flags(&context->mappings, XA_FLAGS_ALLOC1);
++
+ 	err = xa_alloc(&fpriv->contexts, &args->context, context, XA_LIMIT(1, U32_MAX),
+ 		       GFP_KERNEL);
+ 	if (err < 0)
+ 		goto put_memctx;
+ 
+-	context->client = client;
+-	xa_init_flags(&context->mappings, XA_FLAGS_ALLOC1);
+-
+ 	args->version = client->version;
+ 	args->capabilities = 0;
+ 
