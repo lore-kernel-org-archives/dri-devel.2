@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32446C982E1
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 11:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 658A3C982ED
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 11:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98BE810E031;
-	Mon, 21 Sep 2026 11:39:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE35B10E39D;
+	Mon, 21 Sep 2026 11:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AhavPE5s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OGYYIYbr";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D73510E031
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:39:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E26CB10E39D
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:39:30 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccead2aecso13563655e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 04:39:26 -0700 (PDT)
+ 5b1f17b1804b1-49e79a408deso15980015e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 04:39:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789990765; x=1790595565; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=bJjHs4K3u+gvdjbfOs0Xg8GRiY9vzGbZiOJ805s9gPE=;
- b=AhavPE5s/s9Do2dRNN62rmFmLxvsXV7NDF9tluS0IP53KkX044RU6cLy0ELcZ3oJmR
- Q/fa+xtNTHQil2WUzfMwHuprCV/eowgLArV+/gWejVesUD0U2WMlC32XRHcQ3fmulMSI
- 8dOzFQS4OQE8I3agB2jWNd7bhqC15lLLFsoIgSTr1ybnAER9kmYWfYtIgF2X+0aqgfSH
- VP84rzOmmf5cgEdkGH9KkHT3hPCyo34BiUbiFhlrRYLzeDvfXau6bAEuhxiEkKxGl+gr
- l7AGxxJSHqzhih4iRMZwx0FmwmjMAXxg+1UG6sa0nYWNFaYXmv/F5Ga91zk/eaAGlZd6
- WNZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789990765; x=1790595565;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1789990769; x=1790595569; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bJjHs4K3u+gvdjbfOs0Xg8GRiY9vzGbZiOJ805s9gPE=;
- b=yfFClQqS+W3PHAAQQdPcR3kCdZiVXymL2jcKbmwfI+q8rL/wVbagMXR79XCd/FLUyu
- R0M5ouON5O8OXLJxKwX8mgqZlRVUKpW3fUNxKmYRW4a36VUkJL/f8O82UeHyMpqHNAo3
- wksc1dBuShdtTHJo/JuUwHUHbEciXCKF2q1Fb5EMQcANWuKNHTr95p/rTeVBAjjduKfd
- Vqw1DiyYnHVbIT7wsw3a7OCuf/meFjKR6Os6zOT+SHWNsZoI7OJOpffudqDbTRcMEsvU
- gI63rbFnCn3oIJQ+qzLD3S04I2I4JRLmD7IQZaSsjttQKroE1vQZJLIA3ivrNlXbVxtE
- wkMg==
+ bh=h4/riDOncgRUhzR5epGdXHOZl5OnvQAmiqOQ7MptE7w=;
+ b=OGYYIYbrlv334BfQARyJOoI0oJyhxNnrSOE44NjDHTQAEm9EPcDKjWH/tjZg/Q3wK7
+ 8D+4cwuU72RsojJeUcGafvVjRQ7EOtBw2gA12ElNlHl7gTcoxdbysGBcPdLXiEWAuBqK
+ nkgk0RIcKhr2CrGbh8Ts/t0VWgBwEmJWnS77gpi67f6B9rv0/7IrUQJ24q1NYbPPgrbo
+ kf+UxDPxNhAWPuHlhtHuKA33qK44fYL3vxtl8AA/E3QGidK8wIENYjxjAFIaTZhFpxmp
+ TznYg9/45pn3HygLtGQsgHx4eizPQU3elXEw78gLVwQJAWkpVZH67/1FSQEZCrIk8+Y5
+ Gw7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1789990769; x=1790595569;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=h4/riDOncgRUhzR5epGdXHOZl5OnvQAmiqOQ7MptE7w=;
+ b=mxqW2RkUb+87EHzUM3DqgnaIGTW86G55MbigdmSlT/nb3R88n5inioKteW7tBWFs4M
+ 4uhkiBlrUIPzrYiySNfJs0Bj24vCxybpapq/9lpWJKvoFg3+dnV2rQii1sbSdRnvzEaB
+ zaDAB+jRbv3ddqiZObDWUdDiZmwLJiAfTQC+56Amj6lFzT5JR02JRwXSYAEzckZ/98sU
+ 1IGSGB0+myILIFYIgaRRLVtvXdj6wsoVHEEpdF59hu4uJZdzvD1Be2OZGFb4V5eISGsD
+ /K6rrFGLhjJY72xDT2fvYZXXXuNALy8BedP1SBCufo985mXruvNeZegBVVD1Fuf8Jwvs
+ 5peA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz0CMdQBSAkHk+ROi4RJByyecyvdF/4wuZ3W1mOBfszkrD+rZ0xtJVC+Lj0y6skTWILY+qv0P/Ci/8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mimJXY7fl0zrsceahNmyBo91KFpEaFSW8H05InHw5AMoI/5ZIb
- qFBBT2U50ePDf4sQKandJ8rj+ytxK+azfbNV/aWrsJgBTf24Z3J3wYE1
-X-Gm-Gg: AYBFou3EFy1f2NrsSJRdJw4U9ZKBpXNXiuV9kfND/QXcx9STwZl9x/dTylHzBFz6ElA
- MJX5Zqm62Q+NkJUGrHEorTCs+xNiJLgmgoi7uEr+0TAPqg2NivFK7ifsk9XDKO9HO7pRAz1hkZJ
- L1vZYpKsG1CwIbfxgsy/aIwCur7+b2oSnR7gLKf0hl1uYKyWEi0ebiJCDW0Cx79mTs7NovaRQuf
- ChZH1j3lfG6fTmrubII/wmJv8uV7oYK3Kyv41PbNsip4Za/4jAvXWvgRDsyxyX+nMtYBv6i2pwE
- U086wr1URQOWPnMTkV94COzfbr1qVhD5T6cJ1s7mNJT+8qIBsMsYlQeLY1Qq2j+4tDZiahoTZZQ
- EB4sLlDLvwF+b7AXTPuFYzt26okCJ86RcTCSnBGFsBcx23M1tYwjsX87qdvGy41Lfsx4NHj0qAK
- Pg7hukxgSGoPkVHFZmBE/3GPoLNoCjFSRaTqFEK29q5mipVBm0MSz7apYDbNV/Do2cv+k26YqSW
- YQvtA==
-X-Received: by 2002:a05:600c:3b8e:b0:49f:bc43:9e96 with SMTP id
- 5b1f17b1804b1-49fc57144aamr185348875e9.8.1789990765124; 
- Mon, 21 Sep 2026 04:39:25 -0700 (PDT)
+ AKwUvBy/Gc1Epg9mGL1OBSsW47OgezLoe2g4gtaShspLpiCKOoG7edF86eAeiuNMrI4K8oWS8+50tLRhKV8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k0urrj23NeCXyLov4U6V/dJhYVDygynaH9Jzxiz4uO3aY0O8yI
+ lAHU9/gWX1c3ziVsgb2aRSed8fKH62uRcTAu8CV2FfZZbvAG6YgFpsw2
+X-Gm-Gg: AYBFou1Rmqopstn8ELU5bUN0RpOQ1zMDTE3SD/eiWoJK+P9QjeZaYBMqpYUr8vRUPb2
+ rMlocWLIfTx02yG6w6v+JsVazAdfV5Mtb9casFCiTHhp5F5b8dVxDC0MPOLY7ty0ZkXq43R4N4e
+ aojADK73PZpv0e2PjZvF7CYzAU42ZMR4Q3dWyv0indE+IaDHwU4tOOrgKlROGhpnlZnhQz+3iJd
+ JkYqnbVooR8mYvbDfHgn9pCvf/uGFn9DngZRohMbdUuLOqAH1wqpUkHc2NTOhgy8x5JgO+lJfiu
+ u/d29AgthwBzOcbBK9TFR0G8n/67jNoOJipkYS2hdH9qVofWfdasztonnVKlsRrZ0Msv4Nqlh9D
+ SioVsDE0z3IZonQ7ay5Xu5T00jb/isp/k+VvfDU1eTk9yx34AlLZT6bmPBsltVd4uxgGSVseBpB
+ O6cLzU5v+27rDr+fqsiZF5Y9BEFdNcG7IBIcE9KgEWL6kgTWM0IlJctFhD4G5RlO86WfE=
+X-Received: by 2002:a05:600c:46cf:b0:49c:de80:b833 with SMTP id
+ 5b1f17b1804b1-49fc5687b6cmr156358075e9.2.1789990769221; 
+ Mon, 21 Sep 2026 04:39:29 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fc57547easm244273865e9.3.2026.09.21.04.39.23
+ 5b1f17b1804b1-49fc57547easm244273865e9.3.2026.09.21.04.39.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 04:39:24 -0700 (PDT)
+ Mon, 21 Sep 2026 04:39:28 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
@@ -72,15 +73,17 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 0/4] Add support for the mt8167 display pipeline
-Date: Mon, 21 Sep 2026 13:38:54 +0200
-Message-ID: <20260921113914.779393-1-l.scorcia@gmail.com>
+ Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 2/4] drm/mediatek: Add support for mt8167 Digital Parallel
+ Interface
+Date: Mon, 21 Sep 2026 13:38:56 +0200
+Message-ID: <20260921113914.779393-3-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921113914.779393-1-l.scorcia@gmail.com>
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,52 +101,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for (almost) all display blocks of mt8167.
-This SoC supports a DSI or DPI display and has HDMI output via a second
-DPI block wired to the HDMI phy.
+Add support for the two DPI blocks found in the mt8167 SoCs. One of them
+can be routed to a DPI connector and another is directly connected to the
+HDMI IP.
 
-All the hard work was already upstreamed in the past, now all that's left
-is some glue. In the first two patches we add support for the DPI output
-blocks. In the third one we describe all the possible combinations of the
-SoC display pipeline and in the last one we add the required nodes to the
-SoC dtsi.
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/gpu/drm/mediatek/mtk_dpi.c     | 23 +++++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c |  2 ++
+ 2 files changed, 25 insertions(+)
 
-The final outputs of the display pipeline in the SoC dtsi are
-intentionally left not connected to allow board dts to specify their
-own output node.
-
-I said almost all display blocks because HDMI output is not included in
-this patch. I have it tested and working at all supported resolutions, but
-since it needs some fixes in clocks and a new phy driver, I will send it
-in a separate series.
-
-The series has been tested on a Lenovo Smart Clock 2 (DSI), a Xiaomi Mi
-Smart Clock 2 (DSI), and a Sony Playstation Classic Mini (HDMI via DPI).
-Unfortunately I couldn't find an actual device using a DPI display, but
-since DPI1-HDMI works, I feel confident saying that the clocks divisors
-are correct.
-
-Changes in v2:
-- Fixed some copy-and-paste error in MMSYS routes spotted by Sashiko [2].
-
-Initial version: [1]
-
-[1] https://lore.kernel.org/linux-mediatek/20260918175736.355305-1-l.scorcia@gmail.com/
-[2] https://sashiko.dev/#/message/20260918180358.81A1D1F000FF%40smtp.kernel.org
-
-Luca Leonardo Scorcia (4):
-  dt-bindings: display: mediatek: dpi: Add compatible for mt8167
-  drm/mediatek: Add support for mt8167 Digital Parallel Interface
-  soc: mediatek: mt8167-mmsys: add routes for all display paths
-  arm64: dts: mediatek: mt8167: Add DRM nodes
-
- .../display/mediatek/mediatek,dpi.yaml        |   1 +
- arch/arm64/boot/dts/mediatek/mt8167.dtsi      | 369 ++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_dpi.c            |  23 ++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   2 +
- drivers/soc/mediatek/mt8167-mmsys.h           | 193 ++++++++-
- 5 files changed, 579 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
+index 0e4f430de983..9012adeb63d0 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dpi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
+@@ -1114,6 +1114,10 @@ static const struct mtk_dpi_factor dpi_factor_mt2701[] = {
+ 	{ 64000, 4 }, { 128000, 2 }, { U32_MAX, 1 }
+ };
+ 
++static const struct mtk_dpi_factor dpi_factor_mt8167[] = {
++	{ 64000, 16 }, { 74250, 8 }, { 160000, 4 }, { U32_MAX, 2 }
++};
++
+ static const struct mtk_dpi_factor dpi_factor_mt8173[] = {
+ 	{ 27000, 48 }, { 84000, 24 }, { 167000, 12 }, { U32_MAX, 6 }
+ };
+@@ -1163,6 +1167,24 @@ static const struct mtk_dpi_conf mt2701_conf = {
+ 	.csc_enable_bit = CSC_ENABLE,
+ };
+ 
++static const struct mtk_dpi_conf mt8167_conf = {
++	.dpi_factor = dpi_factor_mt8167,
++	.num_dpi_factor = ARRAY_SIZE(dpi_factor_mt8167),
++	.reg_h_fre_con = 0xe0,
++	.max_clock_khz = 150000,
++	.output_fmts = mt8173_output_fmts,
++	.num_output_fmts = ARRAY_SIZE(mt8173_output_fmts),
++	.pixels_per_iter = 1,
++	.is_ck_de_pol = true,
++	.swap_input_support = true,
++	.support_direct_pin = true,
++	.dimension_mask = HPW_MASK,
++	.hvsize_mask = HSIZE_MASK,
++	.channel_swap_shift = CH_SWAP,
++	.yuv422_en_bit = YUV422_EN,
++	.csc_enable_bit = CSC_ENABLE,
++};
++
+ static const struct mtk_dpi_conf mt8183_conf = {
+ 	.dpi_factor = dpi_factor_mt8183,
+ 	.num_dpi_factor = ARRAY_SIZE(dpi_factor_mt8183),
+@@ -1342,6 +1364,7 @@ static void mtk_dpi_remove(struct platform_device *pdev)
+ 
+ static const struct of_device_id mtk_dpi_of_ids[] = {
+ 	{ .compatible = "mediatek,mt2701-dpi", .data = &mt2701_conf },
++	{ .compatible = "mediatek,mt8167-dpi", .data = &mt8167_conf },
+ 	{ .compatible = "mediatek,mt8173-dpi", .data = &mt8173_conf },
+ 	{ .compatible = "mediatek,mt8183-dpi", .data = &mt8183_conf },
+ 	{ .compatible = "mediatek,mt8186-dpi", .data = &mt8186_conf },
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index c86a3f54f35b..64c87221d931 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -802,6 +802,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
+ 	  .data = (void *)MTK_DPI },
+ 	{ .compatible = "mediatek,mt8167-dsi",
+ 	  .data = (void *)MTK_DSI },
++	{ .compatible = "mediatek,mt8167-dpi",
++	  .data = (void *)MTK_DPI },
+ 	{ .compatible = "mediatek,mt8173-dpi",
+ 	  .data = (void *)MTK_DPI },
+ 	{ .compatible = "mediatek,mt8183-dpi",
 -- 
 2.43.0
 
