@@ -4,105 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C79C982F7
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:09:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B81C982EE
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC1D10E739;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B20E10E746;
 	Mon, 21 Sep 2026 13:09:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="h8uMBFCQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F3Df/y33";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E063510E6FF
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 956f58d0204a3-66f943b286fso2487879d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1789996141; x=1790600941; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
- b=h8uMBFCQRT1CbBC4iLlFfTLHsJIGlrWAN2zLHRdjJc9gJrqPdS8YcJ9BnKFwu73kYj
- 0wmvMfYRHCfPLyGXY2NC85vPFPxxKt/JF+UtcmL5UeyQhLeDPJu0VgN03I2v3X/aiuEY
- Xh06s3/Fq9DzaVUQ/fCb6XoUvjc8gdQIq9VIkNO5fay41RzHu5nTSJuzHW0s1C9oEh8o
- zm+ipgTvRPmztGWK9Sj+y4Lm3qJHlGxmtzmuhBHvDONAAzJYCPbX/BOLsB8GMTABxoDf
- snnRz0Y0CFKj/xDAtxWYcpVaUquhxzx85rtKFRc4R3J5cneiLInmYsyWbi7neB72r2KY
- O1ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789996141; x=1790600941;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=/I4CnabOFJ3V+cBV+khghf4ltJkhcHX6gZAKyxfIiuU=;
- b=ebTUWlYF2HKA/bwTfJndqbVOSpMXrXrtr9puOaoxH60l4iFeAByFgR9fQoK0ZOF1nb
- OpV4C8oqQdAIUEOwYt9QAsq594BM69FsrKdLqKq9NNzFLz+oZH3mpAIPhP45Q1scaVF2
- 0HV/3/B5fGFz8YQkXyhfCYz4/AIz4iCgOR0DO7yORc1x3daYBBoE2LurBUHphExthGbB
- IcAD1LT0CmFUP5dCK1wg2HaVJBDGK1KwNkeIp0/bsqB+8mAK47TlVXOqPPqm3zvyfufH
- 7Aouz2n9S89CA8wfpJ8t5ZWpHYcDwFev8tgJeix8T5JZg0uC8ez3iKsjYMU9Kv0WE8fi
- UrZA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByl4HaQvnQhsTrqcVEN+GK9C310lpY1lswZM1rpRDB9x8EeFS1AZMhfx4oWEh9xR6Ww1HEKIJRO5Xc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++koN42Ijh+scICiVCpmP6UohHQZKxd7PepIo0MEfeFR9zMqE1iv
- pnuHwiUb97wfi3MEaVQkZsWG8RCtuVAsOtlIBxcY8rh2slGh9p6Oe+K/gye1f09xO8Q=
-X-Gm-Gg: AYBFou0uFpH9u2H6PTZIQnmaq6NzPsl9aeTx+y4tnkDIqnZl/GWfOCXPJ9ldpe9sCVO
- l5CCv+/LpRH+f29DcsPi6LicIychPHfdIINsxHL32nTP7WM0hTgMVjGFYRe8exnwvsxy2yuNsYL
- YXZbDfYpdJyU5JVBZkz+HiauPpjAJZP84DlpgHvCwDqMXgyxJ02mnqARd6rJs7K3vzaGw+VMMod
- qnTJH+MZhs3NfaRnNotnHWXFXfI9MlKXb8M2KVK6nnK4OAT+0w/M3QUsTaXk0relddxswYiFt6+
- Fba1Xij7HF+3dAmD0l23jbjC18PYXtOQxIPW8j7WVo1T8+fofb+uphURyK1eCtoTsQG3/ko6CaN
- 3tA4swUn0sOSpmG5jr++ZdPa8CTNa5n18Hzvxm/D//QtUbZ6WANBUnvpVRxR4FG4sC7feB+ejzm
- gK725gnXQwfBGEpCSw6+Ap5u0Ti9uaBzdlVuFg/4ECz/CibHrDWMP/lY3O2oIK7savS/o+zN9vX
- Si3lYRDPNhkn6h/dj6gZ7G/iiWxGehKeIDeza3DG9cmt7LD7uFDEqQI
-X-Received: by 2002:a05:690e:11ca:b0:672:a52c:db25 with SMTP id
- 956f58d0204a3-672a52ce30bmr1843524d50.109.1789996140490; 
- Mon, 21 Sep 2026 06:09:00 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91260aa1db7sm67720106d6.44.2026.09.21.06.08.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 06:08:59 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1x8dlS-00000006Jlj-41LR;
- Mon, 21 Sep 2026 10:08:58 -0300
-Date: Mon, 21 Sep 2026 10:08:58 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christoph Hellwig <hch@lst.de>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- kvm@vger.kernel.org
-Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
- direct peer-to-peer route
-Message-ID: <20260921130858.GO11599@ziepe.ca>
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
- <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
- <20260918121500.GV13683@unreal>
- <b517070d0b9236b03962fcba649faffcacda23eb.camel@linux.intel.com>
- <20260918170524.GH11599@ziepe.ca>
- <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D848110E38D;
+ Mon, 21 Sep 2026 13:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1789996142; x=1821532142;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DSkP4dIu/pAL0lozl8yDKmqnPoVZHzwdsPzAjBlFNVU=;
+ b=F3Df/y33zJwm0vkgyDUgvlDCeSyQOSk52CDmx53Ph7fvCMKJGWKahKjZ
+ swLKufDbH8YicYwKCgcTePBO+1rQZj6WfMJIdNkZw6bazQJ1hI7PatEfb
+ +GGugbq6IBBY6ZhmFUbwd3rSCuljaoM/5m2oqaW0qtHsAwqGz/CLGB3PB
+ OhRClkf4PXjKneDieZDMYwSHeIGnwZ+4VAqoEMMqp0/7QwtZQqh86466N
+ fCfolUhx/ptOM4LNJoEuBTs0A46yZND7+a6FG74A0Kxj7VhsRzCNAMDR7
+ 3X9BkgCG+0OZVXTSPQXGWHEzA/Clshq3QQ3BGRYYyA3R6pzQ2b0HeYFFE Q==;
+X-CSE-ConnectionGUID: gD+XgrPBSm6I7sM6IWLICQ==
+X-CSE-MsgGUID: 4r9WtbvDScqR5rnl80mmuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101855956"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; d="scan'208";a="101855956"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 06:09:01 -0700
+X-CSE-ConnectionGUID: tAvPE3mARoK1yADwmL8bbw==
+X-CSE-MsgGUID: GU5cyfctQjW2vdOAhmTcvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="3678313"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa011.fm.intel.com with ESMTP; 21 Sep 2026 06:09:00 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ ankit.k.nautiyal@intel.com, adarsh.g.m@intel.com,
+ Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH libdrm 1/2] xf86drmMode: add drmModeGetCrtcList() to enumerate
+ available CRTCs
+Date: Mon, 21 Sep 2026 18:37:45 +0530
+Message-Id: <20260921130747.2557722-2-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260921130747.2557722-1-arun.r.murthy@intel.com>
+References: <20260921130747.2557722-1-arun.r.murthy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9656f2f9-2e39-4007-b065-3b763b53c6de@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,106 +72,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 08:43:49AM +0200, Christian König wrote:
-> On 9/18/26 19:05, Jason Gunthorpe wrote:
-> > On Fri, Sep 18, 2026 at 03:42:28PM +0200, Thomas Hellström wrote:
-> >>
-> >> 1) Xe attachment check if pci_p2pdma_distance() returns OK for the
-> >> path. Then Xe always sets up dma-addresses using dma_map_resource(). 
-> > 
-> > Open coding pci_p2pdma_distance() in drivers is a hack. Using
-> > dma_map_resource() like this was never "allowed".
-> > 
-> > We've fixed things so these hacks are not needed, the drivers need to
-> > move over to things like dma_buf_phys_vec_to_sgt() and the hmm helpers
-> > to use the DMA API correctly.
-> 
-> That is a completely broken approach as well since it limits the
-> exported resources to addresses the CPU can reach.
+drmModeGetResources() tells the system capability and not runtime
+availability of the hardware resource.
+DRM_IOCTL_MODE_GETCRTC only tells userspace which CRTCs are enabled
+through KMS, not which are active in hardware. A pipe can be actively
+scanning out without being enabled through the KMS state, so relying on
+GETCRTC alone would report such a CRTC as free and assignable when it is
+not.
 
-Yes, of course it does. The DMA API only works on phy_addr_t. If you
-have a struct p2pdma_provider * then you have a phys_addr_t for it.
+An active pipe keeps its vblank running, so reading the CRTC's vblank
+sequence reveals the active pipes: an active pipe's counter keeps
+advancing while an inactive pipe's does not. For every CRTC that GETCRTC
+reports as free, sample the vblank via drmCrtcGetSequence() across a
+single short wait and, if it advanced, flag the entry as driver_active
+and exclude it from count_available.
 
-If the exporter knows it is working with a MMIO mapping on a PCI
-device it gets to acquire a p2pdma_provider and use the helper.
+The list is allocated by drmModeGetCrtcList() and released with the new
+drmModeFreeCrtcList(). Both symbols are exported via core-symbols.txt.
 
-None of this is suposed to solve your "resources the CPU cannot reach"
-problem, that has nothing to do with DMA API or P2P. It is not broken
-just because it doesn't solve every problem.
+The helper is a thin wrapper over the standard KMS uAPI, so it works
+identically on i915, xe and any other KMS driver.
 
-> Christoph Hellwig is right that drivers should never use that stuff
-> directly, not even through that dma_buf_phys_vec_to_sgt() function.
+Assisted-by: Claude:claude-opus-4.7
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ core-symbols.txt |   2 +
+ xf86drmMode.c    | 123 +++++++++++++++++++++++++++++++++++++++++++++++
+ xf86drmMode.h    |  38 +++++++++++++++
+ 3 files changed, 163 insertions(+)
 
-Hellwig's point was that the subsystem needs a mapping helper that
-goes from the subsystem address representation to the HW
-representation and hides these details from the drivers.
+diff --git a/core-symbols.txt b/core-symbols.txt
+index 766c342d..a14add40 100644
+--- a/core-symbols.txt
++++ b/core-symbols.txt
+@@ -119,6 +119,7 @@ drmModeDirtyFB
+ drmModeFormatModifierBlobIterNext
+ drmModeFreeConnector
+ drmModeFreeCrtc
++drmModeFreeCrtcList
+ drmModeFreeEncoder
+ drmModeFreeFB
+ drmModeFreeFB2
+@@ -133,6 +134,7 @@ drmModeGetConnector
+ drmModeGetConnectorCurrent
+ drmModeGetConnectorTypeName
+ drmModeGetCrtc
++drmModeGetCrtcList
+ drmModeGetEncoder
+ drmModeGetFB
+ drmModeGetFB2
+diff --git a/xf86drmMode.c b/xf86drmMode.c
+index 5b5d7053..224212bb 100644
+--- a/xf86drmMode.c
++++ b/xf86drmMode.c
+@@ -35,6 +35,7 @@
+ #include <dirent.h>
+ #include <unistd.h>
+ #include <errno.h>
++#include <time.h>
+ 
+ #define memclear(s) memset(&s, 0, sizeof(s))
+ 
+@@ -383,6 +384,128 @@ drm_public drmModeCrtcPtr drmModeGetCrtc(int fd, uint32_t crtcId)
+ 	return r;
+ }
+ 
++drm_public drmModeCrtcListPtr drmModeGetCrtcList(int fd)
++{
++	drmModeResPtr res;
++	drmModeCrtcListPtr list;
++	uint64_t *seq0 = NULL;
++	char *probe = NULL;
++	int need_probe = 0;
++	int i;
++
++	res = drmModeGetResources(fd);
++	if (!res)
++		return NULL;
++
++	list = drmMalloc(sizeof(*list));
++	if (!list)
++		goto err_res;
++
++	list->count = res->count_crtcs;
++	list->count_available = 0;
++
++	if (res->count_crtcs) {
++		list->crtcs = drmMalloc(res->count_crtcs * sizeof(*list->crtcs));
++		if (!list->crtcs)
++			goto err_list;
++		seq0 = drmMalloc(res->count_crtcs * sizeof(*seq0));
++		probe = drmMalloc(res->count_crtcs * sizeof(*probe));
++		if (!seq0 || !probe)
++			goto err_probe;
++	}
++
++	for (i = 0; i < res->count_crtcs; i++) {
++		drmModeCrtcInfoPtr info = &list->crtcs[i];
++		drmModeCrtcPtr crtc = drmModeGetCrtc(fd, res->crtcs[i]);
++
++		info->crtc_id = res->crtcs[i];
++		info->index = i;
++
++		if (!crtc) {
++			/* Unreadable CRTC: report as busy so callers don't grab it. */
++			info->in_use = 1;
++			continue;
++		}
++
++		info->buffer_id = crtc->buffer_id;
++		if (crtc->mode_valid) {
++			info->in_use = 1;
++			info->width = crtc->width;
++			info->height = crtc->height;
++			info->mode = crtc->mode;
++		} else {
++			/*
++			 * GETCRTC only tells us which pipes are enabled through
++			 * KMS, not which are active in hardware. A pipe can be
++			 * active (scanning out) without being enabled here, and
++			 * an active pipe keeps its vblank counter advancing.
++			 * Snapshot the vblank sequence now and re-check it below
++			 * to find such active pipes.
++			 */
++			uint64_t ns;
++
++			if (!drmCrtcGetSequence(fd, info->crtc_id, &seq0[i], &ns)) {
++				probe[i] = 1;
++				need_probe = 1;
++			}
++		}
++
++		drmModeFreeCrtc(crtc);
++	}
++
++	/*
++	 * One shared wait covers every candidate: an active pipe keeps
++	 * advancing its vblank counter, an inactive pipe does not. 50ms
++	 * crosses at least one vblank down to ~24Hz.
++	 */
++	if (need_probe) {
++		struct timespec ts = { .tv_sec = 0, .tv_nsec = 50000000 };
++
++		nanosleep(&ts, NULL);
++
++		for (i = 0; i < res->count_crtcs; i++) {
++			uint64_t seq1, ns;
++
++			if (!probe[i])
++				continue;
++			if (drmCrtcGetSequence(fd, list->crtcs[i].crtc_id,
++					       &seq1, &ns))
++				continue;
++			if (seq1 != seq0[i])
++				list->crtcs[i].driver_active = 1;
++		}
++	}
++
++	for (i = 0; i < res->count_crtcs; i++) {
++		if (!list->crtcs[i].in_use && !list->crtcs[i].driver_active)
++			list->count_available++;
++	}
++
++	drmFree(probe);
++	drmFree(seq0);
++	drmModeFreeResources(res);
++	return list;
++
++err_probe:
++	drmFree(probe);
++	drmFree(seq0);
++	drmFree(list->crtcs);
++err_list:
++	drmFree(list);
++err_res:
++	drmModeFreeResources(res);
++	return NULL;
++}
++
++drm_public void drmModeFreeCrtcList(drmModeCrtcListPtr ptr)
++{
++	if (!ptr)
++		return;
++
++	drmFree(ptr->crtcs);
++	drmFree(ptr);
++}
++
+ drm_public int drmModeSetCrtc(int fd, uint32_t crtcId, uint32_t bufferId,
+ 		   uint32_t x, uint32_t y, uint32_t *connectors, int count,
+ 		   drmModeModeInfoPtr mode)
+diff --git a/xf86drmMode.h b/xf86drmMode.h
+index 2a7156db..c634333b 100644
+--- a/xf86drmMode.h
++++ b/xf86drmMode.h
+@@ -147,6 +147,30 @@ typedef struct _drmModeCrtc {
+ 
+ } drmModeCrtc, *drmModeCrtcPtr;
+ 
++/**
++ * Per-CRTC availability information, produced by drmModeGetCrtcList().
++ */
++typedef struct _drmModeCrtcInfo {
++	uint32_t crtc_id;   /**< KMS object id of the CRTC */
++	int index;          /**< Index in drmModeRes.crtcs[]; usable for vblank high-crtc bits */
++	int in_use;         /**< Non-zero if userspace has a mode set on this CRTC */
++	int driver_active;  /**< Non-zero if the CRTC is active in hardware (its
++			     *   vblank is running) even though it is not enabled
++			     *   through KMS. GETCRTC only reports enabled pipes;
++			     *   reading the vblank counter reveals active pipes,
++			     *   which must not be treated as free. */
++	uint32_t buffer_id; /**< FB currently scanned out, 0 if none */
++	uint32_t width, height; /**< Active mode resolution, 0 when not in use */
++	drmModeModeInfo mode;   /**< Active mode; valid only when in_use is set */
++} drmModeCrtcInfo, *drmModeCrtcInfoPtr;
++
++typedef struct _drmModeCrtcList {
++	int count;                /**< Total number of CRTCs on the device */
++	int count_available;      /**< CRTCs that are free and assignable (neither
++				   *   in_use nor driver_active) */
++	drmModeCrtcInfoPtr crtcs; /**< Array of 'count' CRTC entries */
++} drmModeCrtcList, *drmModeCrtcListPtr;
++
+ typedef struct _drmModeEncoder {
+ 	uint32_t encoder_id;
+ 	uint32_t encoder_type;
+@@ -317,6 +341,20 @@ extern int drmModeDirtyFB(int fd, uint32_t bufferId,
+  */
+ extern drmModeCrtcPtr drmModeGetCrtc(int fd, uint32_t crtcId);
+ 
++/**
++ * Enumerate every CRTC on the device and report which ones are available.
++ *
++ * Convenience wrapper around drmModeGetResources() + drmModeGetCrtc() intended
++ * for compositors that need to discover free CRTCs. The returned list must be
++ * released with drmModeFreeCrtcList(). Returns NULL on error.
++ */
++extern drmModeCrtcListPtr drmModeGetCrtcList(int fd);
++
++/**
++ * Free a list previously returned by drmModeGetCrtcList().
++ */
++extern void drmModeFreeCrtcList(drmModeCrtcListPtr ptr);
++
+ /**
+  * Set the mode on a crtc crtcId with the given mode modeId.
+  */
+-- 
+2.25.1
 
-Look at what he built in nvme around biovec.
-
-The dma_buf_phys_vec_to_sgt() is the dmabuf version of the same idea,
-the subystem provides the mapping helper. We can try to do better, but
-better is not making the exporters touch the mapping algorithm.
-
-Ultimately I want to see something in lib/ handle this with a
-non-scatterlist datastructure, but there is a huge gulf between where
-dmabuf is now and it being able to work with a non-scatterlist
-datastructure.
-
-Look, it is easy to complain you don't like how it looks, but this
-stuff is hard there are lots of competing concerns, if you have a
-better idea now is a good time to present it. Maybe if you look
-closely you will appreciate how much work has gone into even getting
-things this far.
-
-> >> It seems to me that a pci-device settable flag "ATS always enabled"
-> >> should be enough to fix both issues?
-> > 
-> > It should be be per-mapping to support the NIC workflow that isn't a
-> > global operation.
-> 
-> I just realized what you guys are doing and I'm not sure if the
-> Linux PCI subsystem should support such hacks at all.
-
-I don't know how to respond to that. It is spec complaint, it is
-shipping in enormous volumes, of course Linux needs to support the HW
-that exists.
-
-> Basically from the point of view of the TA the NIC has ATS enabled
-> all the time, but has a per request option to use translated
-> addresses directly without previously translating and caching them
-> using ATS, correct?
-
-Yep. Very few devices in the world can use ATS for every single
-operation. Many have this split operating model. Some even only use
-ATS for DMA flows that are faultable.
-
-Mostly the OS can't tell what the device is doing and doesn't
-care. The P2P routing is the main issue and we have hacked around it
-in our systems till now. Leon is trying to fix it. Thomas needs it
-fixed too for Xe. So what's the issue here?
-
-DMABUF needs to learn how to do interconnect specific behaviors. PCI
-is an interconnect, it has lots and lots of crazy rules. An
-importer/exporter that chooses to use PCI for their DMA should have a
-way to exchange PCI specific information.
-
-So should UALink and all the other zoo of options we have now. It
-cannot be completely generic and meet everyones needs.
-
-Can we focus on that instead of arguing if the PCI craziness should
-exist or not?
-
-> If yes than that is extremely questionable behavior, I'm not sure if
-> that is covered by the PCIe spec.
-
-Spec doesn't say anything about when a device has to translated vs
-untranslated. The ATS flags only say translated is allowed to be used.
-
-> ATS is meant to be an optimization which moves the TLB from the root
-> complex (TA) into the devices at the cost of TLB invalidation
-> complexity. But what you do here is abusing that functionality as
-> far as I can see.
-
-ATS is for alot more than that, and there is no abuse here.
-
-Jason
