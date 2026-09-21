@@ -4,91 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E91FC982ED
-	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:44:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E37EC982E6
+	for <dri-devel@archiver.kernel.org>; Mon, 21 Sep 2026 13:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 394E810E154;
-	Mon, 21 Sep 2026 13:44:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ECEF10E162;
+	Mon, 21 Sep 2026 13:45:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DSrn0v4h";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="etzqVq9P";
 	dkim-atps=neutral
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
- [74.125.228.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 039E510E154
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:44:07 +0000 (UTC)
-Received: by mail-ed2-f12.google.com with SMTP id
- 4fb4d7f45d1cf-6a9984f9a59so4267927a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 06:44:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1789998245; x=1790603045; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NkeBIcnXDbJI7xttPPj+BDZba0zlv1qCEuppUmdh2T8=;
- b=DSrn0v4htpB+/lts1ufbX52UBddTf+3Y/R4pByKuz3AE1PgI3lUenvvQAi/CltO3l8
- PvVF8srLrTcoj0JCmBc4HXRHJuaF5vetVyWR05Pq5H2zljdGNGe1Kmwp56e2q3L/6kWw
- kzmJMcTsyIPpU0ks59mbrQhFfhi4W0Nyr1SYcpeqCYBfwm2KInEs+599ffFMb5vVYohx
- v6DKRPCrGLWo72fT2q0ZT6xxOG2RewsaLJVkfubO82uaK6S5bBuOgQd98q9zRzIqRucz
- 5xEpHCDJRk5tCjdGz9E4IsZEBr0Klp0M8NNDZB5yng80jxrafIKPTufONVR/OYzYH34L
- 5OTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1789998245; x=1790603045;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NkeBIcnXDbJI7xttPPj+BDZba0zlv1qCEuppUmdh2T8=;
- b=uuFs+BIOYRfEWEbiHqVTVw3LTIcLG68jT78fXKnGDVzfcK2C+j0F+PRFWLaL7gMzXl
- XOu/ZO8flQNaBL/5ioF8Sm8aTf5b3VakSKW3WzINoDPICiJeZpFrpF31sOoAWNQZM8RW
- 0YAxYpbBwbbuSo7kq+0IZA8rHrToU5orI2OjoGnTSrEP+Hr0fhCKa6Gwh2YegfwxaCIs
- fx3QQVP5sMooteUBXDyv6winuAkdFv9cqVoO4r/nqymFs5rn/c7KqYHHCnGOksQL7Hlz
- tq/sFi+YVb89lRpr45hOBXO1FwRUtf42lymsjfeDJ7+OqBGp4vL1HKpuyi8QJld2cRHp
- pOtg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzL7jxmKZvCYyDKjRKj2ZTdcYPgFDiJhv5CM1chQwXClpA0UmsQn0+iieBixtvNgMFPCVamhnSeq6g=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nLXPPNGp/YfMiagcS3YY2BJLiM5sPim3k/669chquyx9tTG5xn
- 1f2x7itZNWXbgMXJjWcYCIXiakFyI2zrEEwAUkDec6UynPYNwBSjCh/J
-X-Gm-Gg: AYBFou03I5noMuBrPEmSSwCSZP5EQr9bK0ItoBqw+Lh7yoiIOIO2hMTLoS0xGGw4PGm
- qRg8rgaBjkAuMXXEUKnN65QnSa8PxkzluYzCR/P5Ik1HmSgadUpQU/WeCKfxYgzQ7D3E7a3qzqL
- ZnOiobQSXnDPEFlrqEo0OU+1kJuyVrIQKL1vSk9RqxQbY4zReZ849qXyu6iN4XX9s12ATJhPJWr
- m7M7u+QpEmp2uXaQ2lnz8Np0a+h5gNS6MZxBGcTFiTxuTAxUfpy3eqwCi4auK5Q36kWHZWR/J4S
- NKuwjSXMSM/zdKXYe7K4lgkufjAhQOQdye2WXAerhqCbOma0uRTuDW5MBu8VNvmuHUtv7YNYyc6
- dSrcSunquILf6M2a8hXhg0ehIpPZcJ3VtxMwhgOLrFt3rrypTlym+3e3Z2bRCchOSq3QnCSlKr4
- AhjI2mJu4gSiHOzJ9ozbOJj3JiGLWl4ebbuRT5yZHtLCpRLrwOLOjMLTquy3McdjLPXxziEhq0H
- Wa4En0eni0cG4iLsPybGkwOOOUrtr31PnwIbcSztLffS8qcJdvzX0zdfCYFxKmHl41u/6dw4sJZ
- CGf/NuhvU92jdxCjTIID6v7vu1wPYfKszMm8Uw==
-X-Received: by 2002:a05:6402:2355:b0:6a1:4458:7f2d with SMTP id
- 4fb4d7f45d1cf-6aa53104448mr8100478a12.5.1789998245342; 
- Mon, 21 Sep 2026 06:44:05 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6aa67e0d3c5sm4417232a12.22.2026.09.21.06.44.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Sep 2026 06:44:04 -0700 (PDT)
-Message-ID: <b3e1db34-45c8-4723-8d09-eabc28bb0988@gmail.com>
-Date: Mon, 21 Sep 2026 14:44:00 +0100
-MIME-Version: 1.0
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9255510E3EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 13:45:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=djnuV1AOadUobG4IksZeGxCS0VCMlch7zv6lAHKMLNdUIZZ42Ysr2iBCHsY03S/cBKSAZxOqZZnXHcmBReZCUySeWhcUFQeOyrDAfcABxp3JbG6W18gzGyQYjq3wFW9OIomGwuctXL43kTPiZhFTsAlzbaAN+I8hgFtOzcHJdJmON3wLRazIQjwGbWoPxtn5ptrFsF0NALO9vgX/amjo2BxDG1h10iX1B7amcNxh+hiKG+vjUy4KUl5Hg5kAzxGY/XRcEeSgtuGp5z5Wq8YMfs2RhdIkphjOtrq0DlIW8s3vZ9/m6WqV8w/y6NOtBA6skCuCNJr9qE8tm2hSQxJipQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OVLkAE5OwDXEmuXiGiHbczxkiKYrAm2GXVlIezS0eo0=;
+ b=Q0pIA8R0sn7/jgfM8Onh+uG8apER+AFPLRmOCkV3jeIGaLmL2Re65drIEVKeaPnxsL0WWTVcjevJEcCkrVLaRRpbgoDobQCaAKFuNO4vkMaYULCCfGR6J6xNDqJrV2fLnRcY6MS6sHnHSZmH8NMJE0TEdQEO7zE5mPPbrtkgXWUlDAWk6pv8J53KeqO49kSplDRbaOv97N2bgflrtrJKdB31pjZ9DaZWYOWDtZO0I/MED5YoK1jvKnJzLK/JSBngRFBR7HXALUKHttIHTNFFaYgzAgowAywnphziV2MHlgwWDs8TFnpeigiP44rNctCJBdImDdsdjV0LheIEHRHHIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OVLkAE5OwDXEmuXiGiHbczxkiKYrAm2GXVlIezS0eo0=;
+ b=etzqVq9P3pLyH86PHjfHZlSDtOe7fMx+kNQ8mDswE+vsatGPT/CjK52wzc06OaZa07O47OWjYK1Wu3OjJgx40m0ojJiRx5tEkihF/xCcJYaLWjrt3bgCTdUO6ig+vxvk3G85IezzAu4cBuc+2BBEHed+YLQ9A4S7x9qwIc1BGbw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PHXPR12MB999234.namprd12.prod.outlook.com (2603:10b6:510:3ce::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 13:45:36 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 13:45:35 +0000
+Message-ID: <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
+Date: Mon, 21 Sep 2026 15:45:28 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/16] dma-buf: introduce initial file I/O
- infrastructure
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: axboe@kernel.dk, kbusch@kernel.org, hch@lst.de, sagi@grimberg.me,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- viro@zeniv.linux.org.uk, brauner@kernel.org, akpm@linux-foundation.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, nj.shetty@samsung.com,
- joshi.k@samsung.com, anuj20.g@samsung.com, tushar.gohad@intel.com,
- william.power@intel.com, phil.cayton@intel.com, jgg@nvidia.com
-References: <cover.1785596451.git.asml.silence@gmail.com>
- <ff5dccf71e8c03d62797352c4bb5fbb7c6c759c8.1785596451.git.asml.silence@gmail.com>
- <20260808074245.85757-1-sidong.yang@furiosa.ai>
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+To: Jason Gunthorpe <jgg@nvidia.com>, Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260911214200.33793-10-matt@ozlabs.org>
+ <20260913165244.GW13683@unreal> <20260914113647.GL3968357@nvidia.com>
+ <20260914115456.GY13683@unreal>
+ <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
+ <20260915072002.GD13683@unreal>
+ <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+ <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+ <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+ <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
+ <20260921132208.GA1507824@nvidia.com>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260808074245.85757-1-sidong.yang@furiosa.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260921132208.GA1507824@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0372.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::18) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PHXPR12MB999234:EE_
+X-MS-Office365-Filtering-Correlation-Id: 827d43b5-ba3b-4061-6f7d-08df17e69cdc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: COrQN6sgNWcpRdXYSj+kTOIyZ7vETnaBp6Xxk31IBQ3Sy7M1f9DrM8XxS4w82cVAoW0s2SyBJ4H9BBhUk9n1hRqYUYSFXrfijjeHqn9ov53yIKp97GEdngPRmT3SyGYYzKuXr9E6srPfs2OWWAqAw6dIbTJYCQxaPk+lWiScnLUDfMowpZ8G1HHWFiyrrL6A+E8QQj3Ioe1i2WIrMam4Fhbaum/0gXCQ+dZFsMYVq6HoKCXC/mee7iMxbDh5iMCqD4macYjbZZCatxZVVx/UX+xwaVbKMR2yUHxe8n5h0rDB6YR2vJ51TIh+2lKvtx276B6FG3nZHkuhgRJePK9INIo9rd2+5HmB7t0ZAFz/P19DY5tn9cm6D5U3hBxv4KPWVRVhYJd6P90JPdqgHfrt1/covAGW5hSmsNrPR6NPQ1xNvbe8XzgxaAHYLXApB1QVUJNRnK1aqsV9vsKIzJZ8P3yGqhao5HR5LKGfUpW80Z/x0Mg++692A+LM9pd3AWyDlfuSNGilzTapHhgik+wX8LtNL6p/cmcdLxLPth0ywjs+ObZ5OF+0JO9i+awPbK1e4UXpu5UfVHiTp2/WNtIA9Kj6WUaKb04BlZ77AlyWajxwnMz8wr0NtMRKymLFKV7fEswbFed/2BC/BO0HUFOZHsS0PqBQC82mUUADDieQ0xk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3h3Tmd5c1BNczBtNG5RN29nRys4WDltc0crQndaTEhrT3BNVElTNStrcFZV?=
+ =?utf-8?B?YXJXQmZ5RFk5WmlmSEg1Mkd5RDV0ZmdJT3ZheGMrMW5lZmNRWEV5Z2JMRjFG?=
+ =?utf-8?B?K1k5VFI1d1l0UkVhWkV3MkJmSEhGQmtVck1UMVkyV0tNemRYK05oVTVYZHR4?=
+ =?utf-8?B?QmJVcXhlaXFoRVdwZGlCbVAwUHZUb3A0eVhCWGxrcFpPSkREeWUxSFUwT3J5?=
+ =?utf-8?B?UGJTcjN0aStVeklObytlclJ6SWxPQmErVG5WK0RmV1p3enpoOFpFREtHdnVq?=
+ =?utf-8?B?bzdoNVVPMEdQQnpla1dUUHVoMERGVFZ2RjV4VCtUZ1l2aWtXVnMwSWJQa0g5?=
+ =?utf-8?B?amdaR00xbk1FK2tHQmg0M3RQNEZoRDZQYUxrM2w3RWRyVERTOUN6cnlvQVlr?=
+ =?utf-8?B?OTBSYVZ1ZnFINmR3TG1XNURRTWRiMjAzVVlweHoxK2ZnRDRvS2FyaFczMEs4?=
+ =?utf-8?B?M2lWRk1TeUQ0ejQ2bFV3bGpZbTdaaXZyWlZEaW1MdkJLaEdEcHljYno2ZXRy?=
+ =?utf-8?B?bTdneU1RejY1NUg1WEcwRVV6YkRXOElsaVdtSFlpd1l0bms5d0R1ckxNaU5T?=
+ =?utf-8?B?eFlwemtNaVE5di9jbUw5NmRSVUlreXBsMHoxTGxoblpTd3ZyeU1zVXlHZUVM?=
+ =?utf-8?B?ZGxOcTc4Rk1sNjlhME9DZURVVndlVUFIODhKTnVHbWszSWhVTUZuSjlGZExz?=
+ =?utf-8?B?Ympac1RoczEweFVmSFhQN2xWWTNwQ0ppSEZDdnY2MC9pR1NxRWZSWEUxa0wv?=
+ =?utf-8?B?eVlkaklWalNzTnJ2NldxdUcwY0wzV0hVZmpBWmhwSXI5bVRvTDBTZ04wTHVV?=
+ =?utf-8?B?SXk5dk8yYjR3SW54bnlzcTdRYTV1TnVJZk0xdzNUOVFMMnA1aHVJVzRaZ3lz?=
+ =?utf-8?B?L3UyMGFoWlREYjQ0bUdYSWRISmpTRGpDbXhYcldVYmJCQlFhWXFDMk9rWFJj?=
+ =?utf-8?B?a2lWRDBRcVRGaW5NVXZObmVManpkRm1naGxtaDZhbWFqS2NPREh0VzluYlBG?=
+ =?utf-8?B?U1BabWdVUzRCendDQzZIcGRLSUYwdmFoOVd5amJGa1hrV1lpc2cxdkJ0NU13?=
+ =?utf-8?B?dmxLcU1FSFVabFZzbGhwZkJIWmx6aEl6bTBzM0c5NVMwTVNrSjVXdHdJQnhu?=
+ =?utf-8?B?N2psMUlKZGVHNWEyMjBZWU9vY1lHV1FQNStaUy9uNXFHLzIwVE5nTzhQZnZo?=
+ =?utf-8?B?aDMrOWxnTXhaL2s4MFh5OGJWQ3BWQ3BUbm5MZnhjemRHOG43cmtuak9XYnBl?=
+ =?utf-8?B?M2hEVjNiTzdwZC9HM2RCS2RNeEF3L1RQWlVXT2VIWjZJRVFUVWwrUkZJMTBZ?=
+ =?utf-8?B?UHNHTmVoTzVFZFpEL0hWbVpFWFhKQk52ZjRiS3dTaXVpU0NYSGFrSDRldHBl?=
+ =?utf-8?B?VFlyOEJoeUhmdzBCb2lWVHVBd1R6enFsQVl3RytDY2dOMXFPcFZBeHVOaGFp?=
+ =?utf-8?B?dzVFMHZycEg0amVYZWVGWU1NRktLYU80bzRRdDFNT04yNkFrSmJDN3dhZm5z?=
+ =?utf-8?B?bTNVZWZOcE4rWXluQ3FtZDNWdnM5U2JMWllpR2FDMnZlRHVrbExUWi9KQlkx?=
+ =?utf-8?B?cHUyLzJ6aXFEazFJQjdnNFFGWDZXV3Q4Z1A0RXltdG4vVEtISWFFeTc4MHJv?=
+ =?utf-8?B?ZVZoY3NDMzI0eWhQVFpvT25pUkJUUDJDc1phOUVkb09MZmFpVmxabXg0VW9m?=
+ =?utf-8?B?SmduRnlrU1p3MUZFNXVRdGZ0Ym9Ca0ZlS1VkVTNTUTI5akJQczZ4bzRyalR4?=
+ =?utf-8?B?VFc0VmVISlgzY0dXZU9pWUF0MVhScThSTVg1WDRTeUtzL2N6b2NJM1ROUUFh?=
+ =?utf-8?B?a3RDcTZVSlBPbzU0OTZtTG41TUs5SUE1RFNKV0FBN1FZTFZHQ2lpbmQ3VVFW?=
+ =?utf-8?B?TkltOTlJWjQ4dnF2STVua3doditMMCtYQmRaZzg0YjhSMTNQaDZEU09QV0tG?=
+ =?utf-8?B?OXNsU0YvZldEYUJEQ1cwQWVQVGpqYWU2V08rYkE5UCtVVjJObHUveGJlNGZq?=
+ =?utf-8?B?WEdCTkhHMThpSlFCTkZMd215ZWtLejM5Q1NPTmF3dTJmMWhpa1JoTVpPMTIz?=
+ =?utf-8?B?a3dRK0s4RmJsckFwREdWcHVZSDRlK1pxRmZGK1VlZjBOQXRXczNIbmFwbmNU?=
+ =?utf-8?B?Q2s5MTZoT1RoYUxERVU3S0Z3R25RV0RVMzlPSGFlQldYUmdXTExYU05OcEZy?=
+ =?utf-8?B?T0JEVHc0MlVuQXpSSGc3YU5lRU1ScWZwbCsxS3AwMXc5VXh2a1RPVllDdFdD?=
+ =?utf-8?B?WlNiKzRBSys4c1ZVQ0dkL09JNGUvUFMwVTlsWUZTZWFVa0dDSlNSNkFvUUZG?=
+ =?utf-8?Q?C28ce6LYUMY67eX+32?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 827d43b5-ba3b-4061-6f7d-08df17e69cdc
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 13:45:35.9010 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aUyvwWbb0rjwJbiaLYjDok3EEkGQcfR47n7KOso6vsz9EwAhJG8TOadOksFMS5E+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999234
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,19 +154,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/8/26 08:42, Sidong Yang wrote:
-> On 8/1/26 16:46, Pavel Begunkov wrote:
->> +	if (dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
->> +				  true, 0) < 0) {
->> +		dma_resv_unlock(dmabuf->resv);
->> +		goto retry;
->> +	}
+On 9/21/26 15:22, Jason Gunthorpe wrote:
+> On Mon, Sep 21, 2026 at 02:08:47PM +0100, Matt Evans wrote:
 > 
-> Shouldn't this be <= 0? With a zero timeout dma_resv_wait_timeout()
-> returns 0 for a still pending fence; only -ERESTARTSYS is negative.
+>> Not quite; the priv->revoked flag tracks temporary periods of
+>> inaccessibility.  An example is VFIO resetting a function; the BAR
+>> mappings as seen by the CPU and DMABUFs made from the BARs are all made
+>> inaccessible before the reset, and made accessible again after the
+>> reset.
+> 
+> From the importer perspective this is a permanent revoke.
 
-You're right, and this chunk is gone in v6
+Yes, exactly that.
 
--- 
-Pavel Begunkov
+> The right way to view this flow is VFIO permanently revokes the DMABUF
+> FD. Then instead of forcing a new FD to be obtained it replaces the
+> existing FD with a working one.
+
+Well that is a little bit problematic. It could result in a race when you have multiple importers.
+
+> From an importer perspective it sees the revoke happen and then that's
+> it, the dmabuf never does anything further. The importer has to unmap
+> and start from scratch, get a FD and map it.
+
+It could also be possible to wait for the reset to finish before giving out a new mapping.
+
+> That VFIO re-used the FD to make a new live export isn't visible to
+> the importer at all.
+> 
+> I think that is where this "temporary revoke" language gets confusing.
+> 
+> Call it "VFIO reuses the FD to create a new live mapping" is clearer
+> than calling it "temporarily revoke" which sounds too much like move.
+
+I would avoid that and just re-create the DMA-buf fd from scratch. The extra overhead is negligible and one way state transmissions are usually much easier to handle.
+
+Christian.
+
+> 
+> Jason
 
