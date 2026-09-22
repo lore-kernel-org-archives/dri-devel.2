@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A9C3C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:53:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3282EC98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8522610EE90;
-	Tue, 22 Sep 2026 21:53:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA7010EE92;
+	Tue, 22 Sep 2026 21:53:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="W8RsBE+C";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="nQDV7CsQ";
 	dkim-atps=neutral
 Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
  [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DEE10EE84
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:53:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3D4510EE92
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790114011; bh=4E+t1EY4JVvXu/VvFDxQtqUwdr1Waxsri61crfiCJNQ=;
+ t=1790114025; bh=NVaWs4zBKL323Ekmtc+JE+yof11LKPeYjUbwqN++Tzw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=W8RsBE+C8VegYTp8Qse5GOewb7d5ENZtZ2zaFyq/ImgWpgdpLO2KVFK/ng334g6SLvhOzVjmsQbWkK8rDTE96/6h++2QxZdCJeiXOY8Yt5ueekGyU3BeSBP+rnWK7vPnX0oIzsxmXrGtfOBJLMuJr3Z6yx3W3h0yEiYWFFIsGTnSsIumzZK8nXT9b3KKjhsFcghaBhhoJ2RUb4rcSVKGIZ8+Lb0p+1qGSUEYQgDKoos75brjA1cYPDrQLeIwaBMV3Zk2vK6MQFOabw9r2NTW160kVI5OBpyATuasgtvfTv6Rf5bMzjNUaqjoFpNXtbjIvHoOJxNhZL15hZT0hTK2jw==
+ b=nQDV7CsQHmaLYDkkWDpLLqIUvBVbHx6EKxo9tp4hBm7SYDziXj/hUNGewmSoZpSk/v9ttMsDJifE27YDhWzfpws0bejTVxxKXTvTrSv1uc7xFMyKpmSgI0snHyga/QqPvboMdowfz6KPKmz4gi0rArtGXDkxM6C0fA4E/g35EzE1KWLXnKvBk2n/sIE2qxnHBi6geaimhQLAu7pV0uMy2iUiY2gI7wcvYAKCFOo65B1ZvaIL7QFLaNQRye2i2smDTklyweJVdFqfh63Snhb4FdXCEL3CfPiW7jisE0WDHnfDOnVGpqytscEiJj4fLOtOs0AYKAu+R+99GWMym+2VEg==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790114011; bh=tuSj9mGCHHO4u1IwrQe2rS/DDcpOYnbihGcXp3U43oh=;
+ t=1790114025; bh=pRq9UB4oHREKdzeQHa8BpbWMwrcG/dWIDAKw8S+xikQ=;
  h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=XIiDLWMRB+AhCPnHAHJOGre1bfTxrQijhU4NimN4oKm8Gr26xsflhwYVWDohkmRG+pDU9RPl5FDLM/GjuuDSBc3+FHo/KMOSfrrX+EbvT0SKgVtgbFZPrYJ9phz4jnus5iKwCElqCzrJAiXzAnL98zAdAmJyprqz/XaePHtytCpzTsfwXKrH6lpggAJ3KGA/wEJ3BkI8QXFye2iqDCBvxJ8i896S8tuNvvg36DntRwOaOwxhYZbrUgdyrulo5QrEmxLPPhp/7hDZENggc92EoDgRPt30YzveV87Twt4awBpuQChd5JfWpql4I3W+hGv147biw0MjP4ji9/D56Njw0w==
-X-YMail-OSG: Gq0c7B4VM1ntUYtDj2t5p0fO80swuX.NVsq5sXB86baDCIkQDxyvTsamug3zLSG
- kD18FRMCEuxUiG7dS06MGirQ0V0PS._YPwlY8geQS4LYKGNT6dbIJ_vOvAwRulgZrjr676SHQcXd
- RXcGeCdI8wq6IL2nQ2Suc.EfIslHeh10xONaQVfx8vXiVJJ0TKX5EGAbplyxfz8DLXjVs2kWHh3i
- lYolPmV1R.sPkpvsSUJYHjBQE7w9cXkRXpy7uCRyXoJjwDoLxTznS.RtCIpLZZjTf0rBW8axuv6N
- UyiZnDgYDQOCIrmRgU8if_DHCQbRkX_76soLgsrsZhIXBaw3J.fswKKS6ye0PLsAd2clmUBbvJGy
- LCN4o47GzeIzPNMCimRl65DADQ7WpN66AOYzKuak4veervrPHaUFLdG6VCHGmYh_SRFK_C2nWmBn
- SfSfgYuV1jt9Ewaqu6ZNjz62.jrmpnvcmuG_64kwGGHLeev_1caC9JyGETv5lqBg57JblDqe9mr6
- n6hdUEcxvSRN6i1.h0MtOEviKbZqj1qZ2D.RTvDMVjGMzGnzroEYrpD1_VH046vmjGVE7DBOg8J3
- Dr3QoxBn64ibIF7fKbtpCkdHKeF6jMKDLH0sJIDyY_g_s2DxY6KSUS.2OobJLp7wmreTIZUBKFiL
- T.unIuH97cTMbkaF1nDVsk0ilZbQENBn_WAslblf.FN0Uv9bvsceUfDUpuJQaxXNDbho.FvCSQZo
- KF5m9rUkpnIyC2nzo099oJVI6xuqhQZrPUKef.51tGGyomHHURtlkZ93ijQef39sInCyzV35T9np
- iiZkajg2ad1W5edfA.yuEOkoZnRQLokkHzh59LZs9YdXAkEJ0kXzu_0FNVlybl46.ximM6KqLLAs
- z8x1lOJYgn9ojPtAnJEkpTpyyF5PCfWnpghWM38qjbnke1IbVtwZgRVNMj_oxd_3cTJSTPigDl7d
- KYuECJlap6OpEJDrMhTrsiW2HMJVx0wQK3nmYZrIo2SNoapM3k0T.uSkPLNP5ynkhoEo0EQ29._l
- 5mLjRdGeBokdRSVExr_JRhtlxeBKaU_cXzRwbc.huKbn1JMjh8tN8V_Oz_FtddD6BhpJwGfk.rPn
- FmXHHtQRdE2L4DJeSBwCDI1th2ftNwpDqZfdsFmzE58gDzaCmSV8E4MtCLLzWLAb6yf5jycln0Lh
- l_x6WPpzixfC3U7Zndp4wZ2efK4qHvrltPP_57.NV7mYGqk242x825KYHGkao1_kbfwInYIUEJSI
- VnsCr2xYNrY7N802tcvijOaICTrSUIKPuSrLzofwvMUGoQiXDoTiXR8m7t8WtlMfyzvJPHAcWDn9
- RMq3fSLIfnWedKhqkP8OT6XWYO8keHC9DGYVCUigzXv_G..NPib1.stFlEGdQqJlgAG.aOlj5Raj
- zH2lcsZgM.H5608x7fPSW4lvLGHizJVxjV3L6vEDyGixZskhvBAg22QH1xWovjonViNcs4pHrOsI
- J9g970c01bNINoFGwv_h5lUEATjCx68.IwNXsEMzQHIXdo3WCkLV2h7hLSaIqJSnJflQ9qzEVuA0
- yI5yYH.Xv_rQ9tUF8dpp.NDwYkzAGVw50TzCJmwGhswzHCfNN5zYwyRH3Kbx6dG5AE46.cEOeWB5
- UH5IHHiWfdyqt.D_U2BCwaz6A08isdSY_AL5X7Tr4mLY199WR6TcgJwV139h6bqT3yXagMTGIoOq
- E5SxEDWrhu5AcJRJ81E8lNPbXNa1zR7ipOntF2gSE3bWB6IlWoyTiM_dQwvkNVoMoCmb_ym4bmDM
- 3TvuTYt43LqzRkA4eksKw8vh9Fi8nmKAsxAc0Drz_NCNg4CoDnOIIQzWR7l9VUgKTC0DZx_qbp90
- _S8i7Tq8WYs5XP1xgfjDIP.yZKEPznGusB.Z3Tmhkc_anB6r9I6V.Wh5PUSX7sTRKHx031oO85lk
- 7FiyUJk4PB5Fre8z2lRpAosbqHjMxMKG9OuoHb3xgZGG2GxZbo12oo6VwR70HaSqoDyanpFIlDyp
- 21nt7yLkKsielpVAoSZVOp7Pv9lYyvA--
+ b=MYpZv9SufsrFazM7UwmbGLNah/irl61yIRCVzjmYKGsoHM2vVTeQ4P+aRpkhLGhLwIbIAofRHqH2R/lBR9ahUT1tNl2woHQoJYFrmGlmQ1IhTzo1q7eIEC9vfvg7zDLQFmmhEDtpzPv9AzAv68o7UD/f3xVDSF/Us+by/d/grofvWKfTnhMwhdjplD1/Celv+IoaQFRB2yIpuGWWmVcyOLIX9/bxG4eX0SET4PfjztCHuDbSCpOjW4rWQ4gBb2iy+uSCvyvDtQhEGkB9MUtVJ4ZY4D5Y5+PNssbQn95Cw27aqjpnUPHJb/dvRwNxtrjAcuNy5n9YiTrYbJ3qlFPYwQ==
+X-YMail-OSG: CkIzVCYVM1kGH44IiWbDDYu4XHXNIvZXKec1HrvIcgJmELjKrKNYK8bB5Uajq6I
+ 4.gN6B1hIakpqfXZJIppf.hCmI2JY1sUtUOJemx0BVNO7q_AWVNrUrVNdod8dnCsJboGRyC5xeeE
+ KsxdRrIE1oQxvVWAMb1kbdFmuAVAu0CLyQdpeM1nzr2n3bZUikVxPNnbXSUVLeZzINkRs1N7Qk3_
+ 3_1XA9E.DOHeg91AoC.dqCnwL6DzACPe5Ew5x9z6CscxrkQOhDtdOYO85SvWVvT9c2U4T75pMCYx
+ 4xHnRvVIuSMcxshjh9_f449HPk_MH8.TzFww8FaUGbcESmJapTm5P2jkBIWj1s..7V0R3h69oXBu
+ 5fC5MmuaoT.KhZXATp3whxNa_i_IbLYCP9kPdgk.5qAoiXGu555FSw1xt40G7W5qx4nFoV0b5rLr
+ l45u2EBfmEpXumPpbQTntLZqr86q_QoOGDkece_wsHwLcKgoSuLsixCq3zEs4FpAaHvRDIAHYSoE
+ CRi.s0iBYTeH9aGmBne686x0fxq8tr1ZQnmIeHbPi6e_vh.vMSta_G54vF8ExnD2A8lrE_q6RW__
+ bzn0c_.A54TRE48MSGm5nX7qM1M3sf1x5cMnWLeXYE6O9iaCq7nHKjgkD7k9ZjDA7AImTD5ERN7Z
+ GDPyUonUlR5WDhnxsVErtsXCDezilj_rB0FWcjoGP2NjMho82zor64.9gXGg_t2MGKQDCAOztDEj
+ 2lzq32RhQpvK4xxi_IRmfq65wsCbDZJpMs7R44yuwm_S39xyGMPDkajgOQ4VrQz58r1ZTfVihbrT
+ 74G_sMeHhsAZnM_BnDMxb20HsXx2wNBhWCCXtVsZ8KvVyfmSlmUv9L_4YcW4XEhxn.fugWHTcrGL
+ EbvMrlneAL4yYIRViui.V087LtjYwocqbwlYfI_Ufx7P8SrZLHxiWvbuj4OuoCuJUyfGfzfca5OC
+ fVJB17DOlSskWQBmV5fSVM6ok2alJDLIfNNre6oqMCqaMZI_U.7xc4eX2TQybyPJ4hqx_kghD4y6
+ wXfGEFYj9kxML5ct_9HoGQLZLyhSINpOWudK7x5h3RG0YpkpGQk2DKetq15MdernVOYCqC.ay8vb
+ 7Cv0gDtLVFEtwg4Hg9CAATxhSzlNudKqyMMLTHvs35.RBbY5G91AkZvPFLJqr9yO8zpWTaK2yYgo
+ uL2eS5smWw5vuAcxfp6astYuSN5oOfM8sH5kSo78WZQn1UKz1CSw6vIre4u5vzB5IJdDAW6FQYHH
+ CDdHjElugzP0LpX4pk6rGzZSuEWSHF.kaz39Xw42kM15GUHiGwA8m2AWaLUsbCyCrifuLp5dSKea
+ g6mofAoXOeDY4cAQqpsBIOYWIIfbPOXBqajGbqlNG_sQY7x0DKUBttXox5wkbcTrqul22.XddpC_
+ .Y6o1stqdt.fUV3k0XdmDUoO6mikvX87LOhMZk_pZFmnaIjtr36E_yGggMPvhfLKRsLH7DXy3Trq
+ fOJouG08Y6_SB7PNBFUS0eQn_kNKYN4qaGiKpAS_EBvmUH7XEYZC3uI1KZ7ddKUZnntL0wAm7hjt
+ 3w1ljF7K4GKPe14rPhKympaUSJRRs8wS41QU5FB2CQf9RThyJnnZHiI2.Zsh2HcAuak0vduxVhVL
+ 8ddMnYDdkSsXKrm0_X3j8LA_AO__r9DNA6G0IxOYe6EdXmy8ZXaOpO6WOM5KpEUHiQvFt.1nDQwe
+ Hht8O1Ij.L5pbAp6u.xfqAOZ0sr_h6jrD3vloQxdnFY2LyDHuMg1CmjAdydURtL486OR74JzRdUp
+ .Ffw8mPHBdCS5xGtfFfJVCOqY2K1E7.ZNeiCC7GNWpcyWZ8CKmuJIJLZp3iaC_I.Saag4uhWAqnu
+ MkdJG2K7oxR_95HjbdI2vwwhUP.hHRZt5UIQl1lFYL5qINVziqR9KrdxxHCe7yq_5Gh1X2f9jC5e
+ .knmAtPqS8I5r225ZdDkP6QgGbojarMbE5y2yHWvC5YizJLse4A73CjutVCyRu5CO_yp3XYwq_x5
+ Q0vO608zoZ_WPwl.vWmLRbVB5xmaURuk-
 X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 86ff367c-0dfb-403c-9db8-c24727c86d51
+X-Sonic-ID: a4dc0f60-4fb2-4191-963f-f82f3d4953f2
 Received: from sonic.gate.mail.ne1.yahoo.com by
  mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Tue, 22 Sep 2026 21:53:31 +0000
-Received: from dip33.lsn.bf1.yahoo.com ([67.195.177.42])
- by hello (SMTP) with SMTP ID a34e68627d724ee34c25b40bae8a8d59;
- Tue, 22 Sep 2026 21:53:24 +0000 (UTC)
+ Tue, 22 Sep 2026 21:53:45 +0000
+Received: from dip68.lsn.bf1.yahoo.com ([67.195.177.77])
+ by hello (SMTP) with SMTP ID 98779d167a59bfbe653b3ebdee112417;
+ Tue, 22 Sep 2026 21:53:42 +0000 (UTC)
 From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nouveau@lists.freedesktop.org, lyude@redhat.com, dakr@kernel.org,
  Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Subject: [PATCH v2 1/3] drm/nouveau: select HDMI deep-color link depth
-Date: Tue, 22 Sep 2026 18:53:15 -0300
-Message-ID: <20260922215317.611388-2-Capitain_Jack@yahoo.com>
+Subject: [PATCH 1/6] drm/nouveau: add NVC57D output CSC and clamp range methods
+Date: Tue, 22 Sep 2026 18:53:31 -0300
+Message-ID: <20260922215336.612239-2-Capitain_Jack@yahoo.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922215317.611388-1-Capitain_Jack@yahoo.com>
-References: <20260922215317.611388-1-Capitain_Jack@yahoo.com>
+In-Reply-To: <20260922215336.612239-1-Capitain_Jack@yahoo.com>
+References: <20260922215336.612239-1-Capitain_Jack@yahoo.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,231 +87,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Nouveau currently initializes the output depth from the EDID basic display
-parameters and does not expose a max bpc property on HDMI connectors.  As a
-result, HDMI deep-color modes advertised by the VSDB are never selected.
+Import the HEAD_SET_CLAMP_RANGE_{GREEN,RED_BLUE} and HEAD_SET_OCSC1*
+method definitions from NVIDIA's open-gpu-kernel-modules clc57d.h.
 
-Attach an 8..16 max bpc property.  Select 10, 12 or 16 bpc only when
-the sink advertises the corresponding RGB 4:4:4 deep-color mode and the
-resulting TMDS character rate fits the existing link limit.  Program the
-matching head output-resource depth on NVDisplay.
+These program the head's final colour conversion stage on Turing and
+later display classes: OCSC1 converts the RGB pipeline output into
+limited-range RGB or YCbCr, and the clamp ranges bound the resulting
+codes.  They are needed to output anything other than full-range RGB.
 
-Share the existing TMDS bandwidth helper with the atomic check so the depth
-selection observes both sink and GPU limits.
+No functional change.
 
 Signed-off-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 70 ++++++++++++++++++++-
- drivers/gpu/drm/nouveau/dispnv50/headc37d.c |  6 ++
- drivers/gpu/drm/nouveau/dispnv50/headc57d.c |  6 ++
- drivers/gpu/drm/nouveau/dispnv50/headca7d.c |  6 ++
- drivers/gpu/drm/nouveau/nouveau_connector.c |  9 ++-
- drivers/gpu/drm/nouveau/nouveau_connector.h |  1 +
- 6 files changed, 93 insertions(+), 5 deletions(-)
+ .../drm/nouveau/include/nvhw/class/clc57d.h   | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index add19d479ebe..028512f8767b 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -374,11 +374,26 @@ nv50_outp_atomic_check_view(struct drm_encoder *encoder,
- 	return 0;
- }
- 
-+/* Pixel clock on the link.  Frame packing sends both eyes, doubling the mode
-+ * clock; drm_mode_set_crtcinfo() applies the same doubling to crtc_clock, but
-+ * only once the head's atomic check has run.
-+ */
-+static unsigned int
-+nv50_outp_link_clock(const struct drm_display_mode *mode)
-+{
-+	if ((mode->flags & DRM_MODE_FLAG_3D_MASK) == DRM_MODE_FLAG_3D_FRAME_PACKING)
-+		return mode->clock * 2;
-+
-+	return mode->clock;
-+}
-+
- static void
--nv50_outp_atomic_fix_depth(struct drm_encoder *encoder, struct drm_crtc_state *crtc_state)
-+nv50_outp_atomic_fix_depth(struct drm_encoder *encoder, struct drm_crtc_state *crtc_state,
-+			   struct drm_connector_state *conn_state)
- {
- 	struct nv50_head_atom *asyh = nv50_head_atom(crtc_state);
- 	struct nouveau_encoder *nv_encoder = nouveau_encoder(encoder);
-+	struct drm_connector *connector = conn_state->connector;
- 	struct drm_display_mode *mode = &asyh->state.adjusted_mode;
- 	unsigned int max_rate, mode_rate;
- 
-@@ -398,6 +413,36 @@ nv50_outp_atomic_fix_depth(struct drm_encoder *encoder, struct drm_crtc_state *c
- 			asyh->or.bpc -= 2;
- 		}
- 		break;
-+	case DCB_OUTPUT_TMDS:
-+		if (!connector->display_info.is_hdmi)
-+			break;
-+
-+		max_rate = nouveau_connector_get_tmds_link_bandwidth(connector);
-+		asyh->or.bpc = 8;
-+
-+		if (conn_state->max_requested_bpc >= 16 &&
-+		    connector->display_info.edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_48) {
-+			mode_rate = DIV_ROUND_UP(nv50_outp_link_clock(mode) * 16, 8);
-+			if (mode_rate <= max_rate)
-+				asyh->or.bpc = 16;
-+		}
-+
-+		if (asyh->or.bpc == 8 && conn_state->max_requested_bpc >= 12 &&
-+		    connector->display_info.edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36) {
-+			mode_rate = DIV_ROUND_UP(nv50_outp_link_clock(mode) * 12, 8);
-+			if (mode_rate <= max_rate)
-+				asyh->or.bpc = 12;
-+		}
-+
-+		if (asyh->or.bpc == 8 && conn_state->max_requested_bpc >= 10 &&
-+		    connector->display_info.edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30) {
-+			mode_rate = DIV_ROUND_UP(nv50_outp_link_clock(mode) * 10, 8);
-+			if (mode_rate <= max_rate)
-+				asyh->or.bpc = 10;
-+		}
-+
-+		conn_state->max_bpc = asyh->or.bpc;
-+		break;
- 	default:
- 		break;
- 	}
-@@ -422,7 +467,7 @@ nv50_outp_atomic_check(struct drm_encoder *encoder,
- 		asyh->or.bpc = connector->display_info.bpc;
- 
- 	/* We might have to reduce the bpc */
--	nv50_outp_atomic_fix_depth(encoder, crtc_state);
-+	nv50_outp_atomic_fix_depth(encoder, crtc_state, conn_state);
- 
- 	return 0;
- }
-@@ -1776,6 +1821,27 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 
- 	switch (nv_encoder->dcb->type) {
- 	case DCB_OUTPUT_TMDS:
-+		switch (asyh->or.bpc) {
-+		case 16:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_BPP_48_444;
-+			break;
-+		case 12:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_BPP_36_444;
-+			break;
-+		case 10:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_BPP_30_444;
-+			break;
-+		case 8:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_BPP_24_444;
-+			break;
-+		case 6:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_BPP_18_444;
-+			break;
-+		default:
-+			depth = NV837D_SOR_SET_CONTROL_PIXEL_DEPTH_DEFAULT;
-+			break;
-+		}
-+
- 		if (disp->disp->object.oclass != NV50_DISP &&
- 		    nv_connector->base.display_info.is_hdmi)
- 			nv50_hdmi_enable(encoder, nv_crtc, nv_connector, state, mode, hda);
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/headc37d.c b/drivers/gpu/drm/nouveau/dispnv50/headc37d.c
-index 2bcb3790fc10..f42d6642d6e0 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/headc37d.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/headc37d.c
-@@ -39,6 +39,12 @@ headc37d_or(struct nv50_head *head, struct nv50_head_atom *asyh)
- 	 *     improved later for deep colour etc.
- 	 */
- 	switch (asyh->or.depth) {
-+	case 9:
-+		depth = 8;
-+		break;
-+	case 8:
-+		depth = 7;
-+		break;
- 	case 6: depth = 5; break;
- 	case 5: depth = 4; break;
- 	case 2: depth = 1; break;
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/headc57d.c b/drivers/gpu/drm/nouveau/dispnv50/headc57d.c
-index 3f8ba495de8f..f1e9f02d177c 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/headc57d.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/headc57d.c
-@@ -52,6 +52,12 @@ headc57d_or(struct nv50_head *head, struct nv50_head_atom *asyh)
- 	 *     improved later for deep colour etc.
- 	 */
- 	switch (asyh->or.depth) {
-+	case 9:
-+		depth = 8;
-+		break;
-+	case 8:
-+		depth = 7;
-+		break;
- 	case 6: depth = 5; break;
- 	case 5: depth = 4; break;
- 	case 2: depth = 1; break;
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/headca7d.c b/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-index 678cbc78ca9f..437633ff7807 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/headca7d.c
-@@ -35,6 +35,12 @@ headca7d_or(struct nv50_head *head, struct nv50_head_atom *asyh)
- 	int ret;
- 
- 	switch (asyh->or.depth) {
-+	case 9:
-+		depth = NVCA7D_HEAD_SET_CONTROL_OUTPUT_RESOURCE_PIXEL_DEPTH_BPP_48_444;
-+		break;
-+	case 8:
-+		depth = NVCA7D_HEAD_SET_CONTROL_OUTPUT_RESOURCE_PIXEL_DEPTH_BPP_36_444;
-+		break;
- 	case 6:
- 		depth = NVCA7D_HEAD_SET_CONTROL_OUTPUT_RESOURCE_PIXEL_DEPTH_BPP_30_444;
- 		break;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b..b452e73f03f1 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -298,6 +298,9 @@ nouveau_conn_attach_properties(struct drm_connector *connector)
- 		drm_object_attach_property(&connector->base, dev->mode_config.
- 					   dvi_i_subconnector_property, 0);
- 
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_HDMIA)
-+		drm_connector_attach_max_bpc_property(connector, 8, 16);
-+
- 	/* Add overscan compensation options to digital outputs. */
- 	if (disp->underscan_property &&
- 	    (connector->connector_type == DRM_MODE_CONNECTOR_DVID ||
-@@ -1101,8 +1104,8 @@ nouveau_connector_get_modes(struct drm_connector *connector)
- 	return ret;
- }
- 
--static unsigned
--get_tmds_link_bandwidth(struct drm_connector *connector)
-+unsigned int
-+nouveau_connector_get_tmds_link_bandwidth(struct drm_connector *connector)
- {
- 	struct nouveau_connector *nv_connector = nouveau_connector(connector);
- 	struct nouveau_encoder *nv_encoder = nv_connector->detected_encoder;
-@@ -1168,7 +1171,7 @@ nouveau_connector_mode_valid(struct drm_connector *connector,
- 		max_clock = 400000;
- 		break;
- 	case DCB_OUTPUT_TMDS:
--		max_clock = get_tmds_link_bandwidth(connector);
-+		max_clock = nouveau_connector_get_tmds_link_bandwidth(connector);
- 		break;
- 	case DCB_OUTPUT_ANALOG:
- 		max_clock = nv_encoder->dcb->crtconf.maxfreq;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bc..6623b5e17796 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -216,6 +216,7 @@ extern int nouveau_duallink;
- extern int nouveau_hdmimhz;
- 
- void nouveau_conn_attach_properties(struct drm_connector *);
-+unsigned int nouveau_connector_get_tmds_link_bandwidth(struct drm_connector *connector);
- void nouveau_conn_reset(struct drm_connector *);
- struct drm_connector_state *
- nouveau_conn_atomic_duplicate_state(struct drm_connector *);
+diff --git a/drivers/gpu/drm/nouveau/include/nvhw/class/clc57d.h b/drivers/gpu/drm/nouveau/include/nvhw/class/clc57d.h
+index d4bad2da3e56..ed9de61c5655 100644
+--- a/drivers/gpu/drm/nouveau/include/nvhw/class/clc57d.h
++++ b/drivers/gpu/drm/nouveau/include/nvhw/class/clc57d.h
+@@ -334,6 +334,12 @@
+ #define NVC57D_HEAD_SET_CRC_CONTROL_CRC_DURING_SNOOZE                           9:9
+ #define NVC57D_HEAD_SET_CRC_CONTROL_CRC_DURING_SNOOZE_DISABLE                   (0x00000000)
+ #define NVC57D_HEAD_SET_CRC_CONTROL_CRC_DURING_SNOOZE_ENABLE                    (0x00000001)
++#define NVC57D_HEAD_SET_CLAMP_RANGE_GREEN(a)                                    (0x00002238 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_CLAMP_RANGE_GREEN_LOW                                   11:0
++#define NVC57D_HEAD_SET_CLAMP_RANGE_GREEN_HIGH                                  27:16
++#define NVC57D_HEAD_SET_CLAMP_RANGE_RED_BLUE(a)                                 (0x0000223C + (a)*0x00000400)
++#define NVC57D_HEAD_SET_CLAMP_RANGE_RED_BLUE_LOW                                11:0
++#define NVC57D_HEAD_SET_CLAMP_RANGE_RED_BLUE_HIGH                               27:16
+ #define NVC57D_HEAD_SET_OLUT_CONTROL(a)                                         (0x00002280 + (a)*0x00000400)
+ #define NVC57D_HEAD_SET_OLUT_CONTROL_INTERPOLATE                                0:0
+ #define NVC57D_HEAD_SET_OLUT_CONTROL_INTERPOLATE_DISABLE                        (0x00000000)
+@@ -352,4 +358,32 @@
+ #define NVC57D_HEAD_SET_CONTEXT_DMA_OLUT_HANDLE                                 31:0
+ #define NVC57D_HEAD_SET_OFFSET_OLUT(a)                                          (0x0000228C + (a)*0x00000400)
+ #define NVC57D_HEAD_SET_OFFSET_OLUT_ORIGIN                                      31:0
++#define NVC57D_HEAD_SET_OCSC1CONTROL(a)                                         (0x0000229C + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1CONTROL_ENABLE                                     0:0
++#define NVC57D_HEAD_SET_OCSC1CONTROL_ENABLE_DISABLE                             (0x00000000)
++#define NVC57D_HEAD_SET_OCSC1CONTROL_ENABLE_ENABLE                              (0x00000001)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C00(a)                                 (0x000022A0 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C00_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C01(a)                                 (0x000022A4 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C01_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C02(a)                                 (0x000022A8 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C02_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C03(a)                                 (0x000022AC + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C03_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C10(a)                                 (0x000022B0 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C10_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C11(a)                                 (0x000022B4 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C11_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C12(a)                                 (0x000022B8 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C12_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C13(a)                                 (0x000022BC + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C13_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C20(a)                                 (0x000022C0 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C20_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C21(a)                                 (0x000022C4 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C21_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C22(a)                                 (0x000022C8 + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C22_VALUE                              20:0
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C23(a)                                 (0x000022CC + (a)*0x00000400)
++#define NVC57D_HEAD_SET_OCSC1COEFFICIENT_C23_VALUE                              20:0
+ #endif // _clC57d_h
 -- 
 2.53.0
 
