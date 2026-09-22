@@ -4,69 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 786BFC982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 23:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45DD6C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 23:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B440610E4C5;
-	Tue, 22 Sep 2026 23:16:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F6B10EE9F;
+	Tue, 22 Sep 2026 23:23:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Yx3HZM8y";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="EAoQOvxi";
 	dkim-atps=neutral
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C86EE10EEB2
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 23:16:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790118974; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7D410EE9F
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 23:23:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790119409; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=n1llWulrYEIajR7IuM3qosDEMUQeCV7BGxsVK8gaFOxPkUo4f4mKqEigC4ADV/XB+cmpOaYSRtRTLKv2wcLzor9v/WgH63c1uZEuTz0ZqdP1ajiTc1m2P5B+PZA4sQypflJBm4qreuMRn8Jz+Ele9r05Tu3enAhS8CQ3kl6JoAk=
+ b=nhWvax1F9xTG5I/m8hTeEsAkdXE079fqQ7MtGS+HXxmnpuHI0YlKU0s41C4ly58VksTmfiLaTgpyFT0AggVwYHzIDb72fkFRDsvTmaxtWXsRiGZrL0I5vfgDGqHpZN9GQZ6fEKjBYEZ6W9uXapnFQEDeIE1W/5sU6MAj/YpyI28=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790118974;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=vhoc42pCqHiQewv5L6Ecg/vqH9ZIuVDppghiEGTI8KU=; 
- b=BYhCsoHVolXDo4zaX3NgCuFJ/iqllm2gj4NlEwopI985mTq7mYlLS3L4wt4EBF0wx63tDsbO2O7jcfwKYZ5aE1pMYw+ND6MlWy9JSM4O3+93iaIJblqptpskfxyrq06m8WvSbqKxgd+c7/e/pVzfYsbvSuB/4O0DTYrVu4U0zXQ=
+ s=zohoarc; t=1790119409;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=c+CKVAXKvF3QH2XbDhGfJoZluYlA2vvQfpVP+/rBZdc=; 
+ b=mdrEzFGq817nqEdqOxvt4ATdXMQDM60MITqU3GCJc0SVM3XnjYPOkwS+6Pdqu3ELHz/RBdUFlK9nhSw13feKGkIExmp8h99ys8ORR2XT7msPgZNt6OjabofR3XbGIVbnW/KWquvV7VP5bJUhX8tKK+kS+gYa57CjB71hiYw5J1M=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790118974; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790119409; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=vhoc42pCqHiQewv5L6Ecg/vqH9ZIuVDppghiEGTI8KU=;
- b=Yx3HZM8yUTKZo4pSaZayKXxhsC15q2csGUKJLRsAg5sIS4ns3HtCZOp9rrRsB8X1
- +rln+LaGk+cRQY8AUz6XBbZ+NqryQe9hYkygCGfPVNylV4QZMLpN/0hC0B/+EIBisHn
- W6uul6ZX4EcHApBkAntY9vaY5/rSEvz8N+K/cgTA=
-Received: by smtp.zohomail.com with SMTPS id 1790118972361369.87324403281946; 
- Tue, 22 Sep 2026 16:16:12 -0700 (PDT)
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=c+CKVAXKvF3QH2XbDhGfJoZluYlA2vvQfpVP+/rBZdc=;
+ b=EAoQOvxiCJJovxMhdeoAAY3ZWIOQJ7fNXaeqmHUaq2QJrixlvcgTyxqutu4FzSLV
+ xc8j4beiioOA6eQM+CY5aWf+H/2NJLjabYbSo2QNrqvlGF97SKCXImS4bPVxvdlwgm4
+ hWRKD0ihxWF2dM/0icTVjRigvDKGW5yglCK4ALwc=
+Received: by smtp.zohomail.com with SMTPS id 1790119407034940.7269783412032;
+ Tue, 22 Sep 2026 16:23:27 -0700 (PDT)
+Date: Tue, 22 Sep 2026 16:23:26 -0700
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Tue, 22 Sep 2026 16:16:08 -0700
-Subject: [PATCH] drm/tyr: gpu_info: zero out new/unused fields
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v1 04/27] drm/panthor: Add 64-bit GPU_ID decoding for v15
+ GPUs
+Message-ID: <arMN7pGrDoPJq0kX@um790>
+References: <20260922204535.2850094-1-karunika.choo@arm.com>
+ <20260922204535.2850094-5-karunika.choo@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAIBRG4a3EHSeUhGVbiYgev3YnGkoRhXtPG
- n6Dc16KCIxIffFSwMWRvcuoy4LWfXYWgrdskpVUlZZSLI2wxzmxM356ELww7QoFKD13mnJ2BBi
- +/+UwpvQBobu/imIAAAA=
-X-Change-ID: 20260922-b4-gpu_info_zero-f7ce6ee69a89
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, karunika.choo@arm.com, 
- boris.brezillon@collabora.com, laura.nao@collabora.com, 
- steven.price@arm.com, liviu.dudau@arm.com, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1442;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=rA7Q97uhEejy46pnz3jpCfb75C7irewmrdSSzlhAAzo=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmbeay3hOy4bM72xm6W/M93Dww8W4vmiaQlCUxk536nb
- 7pNqoe9o5SFQYyLQVZMkeWsvVGPeNV7I935/5th5rAygQxh4OIUgIncr2P4p6yzQtwpTd0sZvbD
- xv0pRzrfR5gfK1n25vLc1A9qx129cxn+GYTsYJH3fM3i+jxdwHimmXPqr4Oxt0739uq9NZ2WMtG
- fEQA=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922204535.2850094-5-karunika.choo@arm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.95.26
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +76,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If a new field is added to the struct drm_panthor_gpu_info in the panthor
-uapi, Tyr must initialize this field or it will cause a compile error.
+On Tue, Sep 22, 2026 at 09:44:58PM +0100, Karunika Choo wrote:
+> Mali v15 exposes a 64-bit GPU_ID register with a different field layout
+> from earlier GPUs.
+> 
+> Add the register definitions and decoding helpers for the new format,
+> read GPU_WIDE_ID when the compatibility value indicates a v15 GPU, and
+> populate both the cached GPU_ID fields and the uAPI gpu_wide_id field.
+> 
+> This allows userspace and the driver to identify v15 GPUs correctly.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+> ---
+> v1:
+> - Decode selected GPU_ID format after checking compatibility value.
+> - Document GPU_DISCOVER and GPU_CONTROL register offset differences
+>   between GPUs.
+> - Fix mask generation in panthor_gpu_discover_regs.h
+> 
+>  .../drm/panthor/panthor_gpu_discover_regs.h   | 19 +++++++++
+>  drivers/gpu/drm/panthor/panthor_hw.c          | 42 +++++++++++++++----
+>  include/uapi/drm/panthor_drm.h                | 13 ++++++
+>  3 files changed, 65 insertions(+), 9 deletions(-)
+>  create mode 100644 drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> new file mode 100644
+> index 0000000000000..e6bfe1fe2c68a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> @@ -0,0 +1,19 @@
+> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> +/* Copyright 2026 ARM Limited. All rights reserved. */
+> +
+> +#ifndef __PANTHOR_GPU_DISCOVER_REGS_H__
+> +#define __PANTHOR_GPU_DISCOVER_REGS_H__
+> +
+> +#include <linux/bits.h>
+> +
+> +#define GPU_WIDE_ID					0x0
+> +#define   GPU_WIDE_COMPAT				0xF
+> +#define   GPU_WIDE_ARCH_MAJOR(x)			(((x) & GENMASK_U64(63, 56)) >> 56)
+> +#define   GPU_WIDE_ARCH_MINOR(x)			(((x) & GENMASK_U64(55, 48)) >> 48)
+> +#define   GPU_WIDE_ARCH_REV(x)				(((x) & GENMASK_U64(47, 40)) >> 40)
+> +#define   GPU_WIDE_PROD_MAJOR(x)			(((x) & GENMASK_U64(39, 32)) >> 32)
+> +#define   GPU_WIDE_VER_MAJOR(x)				(((x) & GENMASK_U64(23, 16)) >> 16)
+> +#define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
+> +#define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
+> +
+> +#endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 2143e57d48106..40012ba7e23ca 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -8,6 +8,7 @@
+>  
+>  #include "panthor_device.h"
+>  #include "panthor_gpu.h"
+> +#include "panthor_gpu_discover_regs.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_hw.h"
+>  #include "panthor_pwr.h"
+> @@ -296,18 +297,41 @@ static int panthor_hw_bind_device(struct panthor_device *ptdev)
+>  static int panthor_hw_gpu_id_init(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu_id *gpu_id = &ptdev->gpu_id;
+> -	ptdev->gpu_info.gpu_id = gpu_read(ptdev->iomem, GPU_ID);
+> +	u32 gpu_id32 = gpu_read(ptdev->iomem, GPU_ID);
+>  
+> -	if (!ptdev->gpu_info.gpu_id)
+> +	if (!gpu_id32)
+>  		return -ENXIO;
+>  
+> -	gpu_id->arch_major = GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->arch_minor = GPU_ARCH_MINOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->arch_rev = GPU_ARCH_REV(ptdev->gpu_info.gpu_id);
+> -	gpu_id->prod_major = GPU_PROD_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_major = GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_minor = GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_status = GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
+> +	if (GPU_ARCH_MAJOR(gpu_id32) == GPU_WIDE_COMPAT) {
+> +		/*
+> +		 * GPU_DISCOVER register block always starts at offset zero,
+> +		 * so does the GPU_CONTROL register block on pre-v15 GPUs.
+> +		 */
+> +		void __iomem *discover = ptdev->iomem;
+> +		u64 gpu_id64 = gpu_read64(discover, GPU_WIDE_ID);
+> +		if (!gpu_id64)
+> +			return -ENXIO;
+> +
+> +		ptdev->gpu_info.gpu_wide_id = gpu_id64;
+> +
+> +		gpu_id->arch_major = GPU_WIDE_ARCH_MAJOR(gpu_id64);
+> +		gpu_id->arch_minor = GPU_WIDE_ARCH_MINOR(gpu_id64);
+> +		gpu_id->arch_rev = GPU_WIDE_ARCH_REV(gpu_id64);
+> +		gpu_id->prod_major = GPU_WIDE_PROD_MAJOR(gpu_id64);
+> +		gpu_id->ver_major = GPU_WIDE_VER_MAJOR(gpu_id64);
+> +		gpu_id->ver_minor = GPU_WIDE_VER_MINOR(gpu_id64);
+> +		gpu_id->ver_status = GPU_WIDE_VER_STATUS(gpu_id64);
+> +	} else {
+> +		ptdev->gpu_info.gpu_id = gpu_id32;
+> +
+> +		gpu_id->arch_major = GPU_ARCH_MAJOR(gpu_id32);
+> +		gpu_id->arch_minor = GPU_ARCH_MINOR(gpu_id32);
+> +		gpu_id->arch_rev = GPU_ARCH_REV(gpu_id32);
+> +		gpu_id->prod_major = GPU_PROD_MAJOR(gpu_id32);
+> +		gpu_id->ver_major = GPU_VER_MAJOR(gpu_id32);
+> +		gpu_id->ver_minor = GPU_VER_MINOR(gpu_id32);
+> +		gpu_id->ver_status = GPU_VER_STATUS(gpu_id32);
+> +	}
+>  
+>  	return 0;
+>  }
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index a2ff0f4ec6915..843a0b40e1d36 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -376,6 +376,19 @@ struct drm_panthor_gpu_info {
+>  
+>  	/** @gpu_features: Bitmask describing supported GPU-wide features */
+>  	__u64 gpu_features;
+> +
+> +	/**
+> +	 * @gpu_wide_id: 64-bit GPU ID for v15 and later GPUs. @gpu_id is 0 when
+> +	 * this is populated.
+> +	 */
+> +	__u64 gpu_wide_id;
+> +#define DRM_PANTHOR_WIDE_ARCH_MAJOR(x)		(((x) >> 56) & 0xff)
+> +#define DRM_PANTHOR_WIDE_ARCH_MINOR(x)		(((x) >> 48) & 0xff)
+> +#define DRM_PANTHOR_WIDE_ARCH_REV(x)		(((x) >> 40) & 0xff)
+> +#define DRM_PANTHOR_WIDE_PRODUCT_MAJOR(x)	(((x) >> 32) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
+>  };
 
-To pre-emptively avoid compile errors, use ..pin_init::zeroed() to zero
-out all new fields added to this struct. Tyr can subsequently change the
-initialization as necessary. Also use it instead of manually zeroing out
-existing fields at the end of the struct.
+This patch is meant to pre-emptively prevent a compile failure for tyr
+that sashiko-bot pointed out will happen from this patch (or anything
+similar :))
 
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/gpu.rs | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+https://lore.kernel.org/rust-for-linux/20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com/T/#u
 
-diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-index 592b8bb16eba..e1b04a0c5159 100644
---- a/drivers/gpu/drm/tyr/gpu.rs
-+++ b/drivers/gpu/drm/tyr/gpu.rs
-@@ -74,10 +74,8 @@ pub(crate) fn new(io: &IoMem<'_>) -> Self {
-                 io.read(TILER_PRESENT_HI).into_raw(),
-             ),
-             core_features: io.read(CORE_FEATURES).into_raw(),
--            // Padding must be zero.
--            pad: 0,
--            //GPU_FEATURES register is not available; it was introduced in arch 11.x.
--            gpu_features: 0,
-+            // Zero unsupported and newly added UAPI fields.
-+            ..pin_init::zeroed()
-         })
-     }
- 
 
----
-base-commit: e1a9f41b896f0d57eb1165dd8a4c7446be6af638
-change-id: 20260922-b4-gpu_info_zero-f7ce6ee69a89
-
-Best regards,
--- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
-
+>  
+>  /**
+> -- 
+> 2.43.0
+> 
