@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B52BC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 09:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A834FC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 09:35:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556CD10E6A8;
-	Tue, 22 Sep 2026 09:35:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C767910E6B3;
+	Tue, 22 Sep 2026 09:35:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WunSJF4r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cN9Uh1qn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE8810E697;
- Tue, 22 Sep 2026 09:35:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790069722; x=1821605722;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=qnDF93QjcAKgkMEa8QZJDiYcG6EYGErzkklEZ/hYGnY=;
- b=WunSJF4rVQuJ1stjjzficaL/l0DV2FhLV9gqc4gJE4k9Jvlho+2SM+Dt
- 5KGGSP9g0LxML20/etCfY07E+g6Ot27iHWIqwmaSGLkB/r3E1TvDBTap5
- 248YwU78rdxYgLLO7l64jua5kcTzzMDWJARe4/G1ScuXonwVwv+m6enkl
- mqcXHao8ZZIxtnmKNPKCuKgZTCN1oNRoFQNy1AwkdK/2SKq7LhSY4mGmp
- +/mi5hGCHebtYGmCULYUAreFOf35okcmsHFVt34+wsfGCpdpREoMJWZd8
- /ufwy2BejxcFZCjVJxXDLUrnqN5BB4p6kH56jwfVYnunl9yyEXwOp4jiC g==;
-X-CSE-ConnectionGUID: R5peXyH+Rj2csdsG5v+BKQ==
-X-CSE-MsgGUID: 338Ua2BQSAWXeACbye0Vaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89790828"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="89790828"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 02:35:22 -0700
-X-CSE-ConnectionGUID: qNBjKUdvT1Gtp3PsDCWBeg==
-X-CSE-MsgGUID: lqp1fhNLTnyN5vWYnna0xA==
-X-ExtLoop1: 1
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.71])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2026 02:35:19 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Xiao Lu <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, lyude@redhat.com,
- David.Francis@amd.com, Xiao Lu <xiaolu.xie@intel.com>
-Subject: Re: [PATCH v2 0/2] drm/dp/mst: fix MST payload PBN accounting
-In-Reply-To: <20260922092647.2263962-1-xiaolu.xie@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B663510E6B3;
+ Tue, 22 Sep 2026 09:35:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 893CF40948;
+ Tue, 22 Sep 2026 09:35:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5F71F000FF;
+ Tue, 22 Sep 2026 09:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790069729;
+ bh=i/YmOC0ZkiWQT8Oub82T35sLAq9/nsr14gn5IuQdzJg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cN9Uh1qnZ5/OANAAqrTeFmxVMfzoKFSizom1JZ+fir1tvgE69dsjuY0Lykrjr2q1P
+ u7vZ84FlN913PuuyVZhqGTYvxzpuPX7kpiadhTjLw2DNXuWWq96qtmm7ScrQQs1rMs
+ 10jP+oxyHrIPELdjmAYJv8jp3Mwe82TJJHmxTlkJxuYhhwfewvpZpG1/vgRzSt9Wfy
+ 0J79am/0+dcGQcdf55ojt2jRKqryVwxGm1OKl60anNt/7L73ShAwWefMLJ23wcxc0q
+ Lev6GG14pfLglbLJX0EqArBlrT5k8A5Squaqj59RAx7nuhewnFXGa2Abf+TPqHpEQw
+ SUdDtpunnWZGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request
+ to use actual video bandwidth
+To: "Xiao Lu" <xiaolu.xie@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260922092647.2263962-2-xiaolu.xie@intel.com>
 References: <20260922092647.2263962-1-xiaolu.xie@intel.com>
-Date: Tue, 22 Sep 2026 12:35:16 +0300
-Message-ID: <29cbe9a712812effa11c3e8f9c830a0fda9eb7ed@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+ <20260922092647.2263962-2-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 09:35:28 +0000
+Message-Id: <20260922093529.4F5F71F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +54,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026, Xiao Lu <xiaolu.xie@intel.com> wrote:
-> v2: Send the two related patches together as a series, as requested
-> by Jani. No code changes from v1.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/i915/dp: Timeslot accounting mismatch and WARN_ON due to unali=
+gned slots
+--
 
-I bounced this series to intel-xe@lists.freedesktop.org as well, since
-the display code is shared with xe, and we want to run xe CI on it too.
+commit 42ac7363ce1083ef4680462acc3e4eec1ddf8e96
+Author: Xiao Lu <xiaolu.xie@intel.com>
+Subject: drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual vid=
+eo bandwidth
 
-MAINTAINERS should indicate this. For future reference, please send
-Intel display patches to both intel-xe and intel-gfx mailing lists.
+This commit modifies intel_dp_mtp_tu_compute_config() to separate the actual
+video bandwidth (raw_pbn) from the aligned PBN used for hardware TU
+programming. It passes raw_pbn to drm_dp_atomic_find_time_slots() so that t=
+he
+MST core allocates payload bandwidth reflecting true stream requirements ra=
+ther
+than incorporating link-rate-specific TU granularity.
 
-Thanks,
-Jani.
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 0c362784afe4a..31e846aadcf6c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+[ ... ]
+> @@ -397,7 +398,21 @@ int intel_dp_mtp_tu_compute_config(struct intel_dp *=
+intel_dp,
+> =20
+>  			slots =3D drm_dp_atomic_find_time_slots(state, &intel_dp->mst.mgr,
+>  							      connector->mst.port,
+> -							      dfixed_trunc(pbn));
+> +							      raw_pbn);
 
->
-> This series fixes two related issues in MST payload bandwidth
-> accounting that together caused 4K@60Hz to fail alongside two
-> 1080p@60Hz displays in a 3-display MST daisy-chain topology
-> (PS8650 hub -> ViewSonic VP2468 x2 -> Lenovo Pro 27UD-10).
->
-> Patch 1 fixes the PBN value passed in the ALLOCATE_PAYLOAD sideband
-> request. The driver was using a TU-aligned PBN (e.g. 537) instead of
-> the actual video stream bandwidth (e.g. 496 for 1080p@59.94Hz),
-> inflating the requested PBN and causing -ENOSPC failures for
-> configurations that should fit within the available link bandwidth.
->
-> Patch 2 tracks the allocated_pbn returned in the ALLOCATE_PAYLOAD
-> reply, and uses it alongside @pbn for bandwidth limit checks. This
-> ensures that any per-hop capacity constraints from intermediate MST
-> branches are correctly reflected in the source-side bandwidth check.
->
-> Xiao Lu (2):
->   drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual video bandwidth
->   drm/dp/mst: track allocated_pbn from ALLOCATE_PAYLOAD reply
->
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 24 ++++++++++++++----
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   | 24 +++++++++++------
->  include/drm/display/drm_dp_mst_helper.h       | 10 +++++++
->  3 files changed, 46 insertions(+), 12 deletions(-)
+[Severity: High]
+Does this cause a timeslot accounting mismatch and a kernel warning?
 
--- 
-Jani Nikula, Intel
+By passing raw_pbn to drm_dp_atomic_find_time_slots() in
+intel_dp_mtp_tu_compute_config(), the function calculates and returns an
+unaligned VCPI timeslot allocation. However, the Intel TX hardware requires
+timeslots to be aligned (e.g., to a 4-slot boundary for a 1-lane link).
+
+Because the returned slots is unaligned, it diverges from the hardware-alig=
+ned
+dp_m_n.tu. This leads to two issues:
+
+1. The boundary check immediately following this call:
+
+    if (slots > mst_state->total_avail_slots)
+        slots =3D -EINVAL;
+
+incorrectly uses the unaligned slots value rather than checking the final
+aligned remote_tu that is actually programmed into the hardware. This might
+bypass the availability check for streams that exceed link capacity when
+aligned.
+
+2. The assertion further down in the function:
+
+    drm_WARN_ON(display->drm, slots !=3D crtc_state->dp_m_n.tu);
+
+will falsely and reliably trigger a kernel stack trace on any successful
+modeset where alignment padding was applied (like on a 1-lane or 2-lane link
+where 4 / lane_count alignment changes the raw TU count).
+
+Additionally, this mismatch between the downstream branch device's DPCD
+payload table (receiving the unaligned VCPI slot count) and the Intel TX
+(transmitting the padded TU count) violates Bspec synchronization requireme=
+nts
+and risks payload corruption.
+
+> +
+> +			drm_dbg_kms(display->drm,
+> +				    "MST TU %s pipe %c: clock=3D%d lanes=3D%d bpp=3D%d link_bpp=3D%d=
+ fec=3D%d\n",
+> +				    connector->base.name,
+> +				    pipe_name(to_intel_crtc(crtc_state->uapi.crtc)->pipe),
+> +				    crtc_state->port_clock, crtc_state->lane_count,
+> +				    fxp_q4_to_int(bpp_x16), fxp_q4_to_int(link_bpp_x16),
+> +				    crtc_state->fec_enable);
+> +			drm_dbg_kms(display->drm,
+> +				    "MST TU %s: overhead=3D%d raw_pbn=3D%d pbn=3D%d pbn_div=3D%d tu=
+=3D%d slots=3D%d full_pbn=3D%d\n",
+> +				    connector->base.name,
+> +				    remote_bw_overhead, raw_pbn,
+> +				    dfixed_trunc(pbn), dfixed_trunc(mst_state->pbn_div),
+> +				    remote_tu, slots, connector->mst.port->full_pbn);
+> =20
+>  			/* TODO: Check this already in drm_dp_atomic_find_time_slots(). */
+>  			if (slots > mst_state->total_avail_slots)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922092647.2263=
+962-1-xiaolu.xie@intel.com?part=3D1
