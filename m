@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66803C982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B00F7C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 373D210E73F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A79710E65E;
 	Tue, 22 Sep 2026 06:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="R5FOoYa4";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="ute7qoKt";
 	dkim-atps=neutral
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E818C10E73F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E713F10E35D
  for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:17:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
  Reply-To:Content-ID:Content-Description;
- bh=3ek7mJzGL/9yBolrQvEtoJoyM66ZQqkeJgFGLDJjQUc=; t=1790057854; x=1791267454; 
- b=R5FOoYa4N2Livn0rJLRfa22PsIXURyH5ZWOIB2HEUVahqMhbOKK2vkoowhdXoI1tCoMTYet2JvE
- T80lEfO0HIXD3bLIrxd6yAm/3CoV4rFC58PS1BeNdkqR2hmk4PqGv3tIdN6qiz3AXenBjBehyWzsT
- Vj1Q1Y8Dg6PxjKNEWIJDNSZMCQwNXSd0GkfmwH0ubX9vUFBagmx3fKkWlFzLl6+VuYZiXx6DSDNRW
- TBMtl64LcBN5K5jGaUDZ/Lap/gVXdilNa0UGOUwLqoyLxlGdnvBU9yi6/n4O9oIULOYUghCeAG9tM
- 9JphbU6bIU/4vNgsUlpWxa/BvtkRHqJreeCQ==;
+ bh=HXDSp/hZMea/g/uCBirxGqC15DoS4eWxIXlEZsOk6QI=; t=1790057854; x=1791267454; 
+ b=ute7qoKtC38ukxKhB19AlHhuyEWBhssWO6YUOojBjPN/sL0g2W9eeHWcjUAErR77MG9uLu7CKRU
+ Y/49iSLmmogHK6h17qAx8lFVfWS2CLmfBkCVtgEkhRi8RoV0ASAdqboV3YlgkqfJ0L/KkblNvgaO4
+ aJ86cIwXQ5lWsy2Elfss7/OxqdJYXHuWDWg9GeTZET2XFh9c29vQrkt3onPgBnE/ZZHmshn4zGnxV
+ JmvWsQWsXfsTMXx7t6/j1c7pV8pB/QFcyiact6U7wrCMX28evrl7ggArfu7tPHdxoqYG3urCYm7iB
+ ibN53Ib1mmoyQz/WJDK5azfc0k2W7rNa7M2w==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 22 Sep 2026 08:17:04 +0200
-Subject: [PATCH RFC 7/9] drm/bridge: tc358762: make LPTXTIMECNT
- configurable
+Date: Tue, 22 Sep 2026 08:17:00 +0200
+Subject: [PATCH RFC 3/9] dt-bindings: display: bridge: tc358762: Add some
+ missing properties
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b2-panel-via-bridge-v1-7-45ff36b364cf@kemnade.info>
+Message-Id: <20260922-b2-panel-via-bridge-v1-3-45ff36b364cf@kemnade.info>
 References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
 In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -52,13 +52,13 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
  Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.16.1-dev-53874
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1753; i=andreas@kemnade.info; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1304; i=andreas@kemnade.info; 
  h=from:subject:message-id;
- bh=0ao++1qEowCnecwI5jgyBfK+9SvJvTxqa1J5MX+7yTk=; 
- b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBP3lnEYsDT8vnSsiYtbS3mP8PS81sUrzv3za2F6J
- pKQe0Oyo5SFQYyLQVZMkeWXtYLbJ5VnucFTI+xh5rAygQxh4OIUgIlYVzD8z/v7h3F2sIHUllv8
- rt1WPpz/t8t11GvJch68G2S+Y09kIsM/09uFbS+CY2L583ncJjGEHvrma3XS+VvX43NvNmt/Voz
- gAwA=
+ bh=FgdE4S79rUwu02PcPAK2OqiniqhAhf0hXGN4VJbaZeI=; 
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBMM2DiZ03boOdxYssnOlrXzoYTQNc4jdorbZzBEb
+ Ph7Syu2o5SFQYyLQVZMkeWXtYLbJ5VnucFTI+xh5rAygQxh4OIUgIlMmsPwv3j75NqyZU4uYTM/
+ bpa4duPmRqM/X27bJc5cpV3H1vlEo4Xhv1/773nhOX9bsifymHyqcFLIYXne+Jx9evHkjKS+i2E
+ F3AA=
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,63 +76,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On the Epson Moverio BT-200, reading back registers does not work with the
-default value, so make it configurable. Real meaning of this value is not
-known from public sources.
+The TC358762 can act as an SPI master with two CS for controlling DPI
+slave devices. Add a spi subnode for that.
+Add a property to describe number of DSI data lanes. If two lanes
+are used, an external clock is required.
 
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+There is the LPTXTIMECNT register which needs to be set to a non-standard
+value on Epson Moverio BT-200, add a property for it. I know nothing about
+it besides the required value.
 ---
- drivers/gpu/drm/bridge/tc358762.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../bindings/display/bridge/toshiba,tc358762.yaml          | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 1bea89fb03a8..194785bff997 100644
---- a/drivers/gpu/drm/bridge/tc358762.c
-+++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -15,6 +15,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of_graph.h>
-+#include <linux/property.h>
- #include <linux/regulator/consumer.h>
- #include <linux/spi/spi.h>
+diff --git a/Documentation/devicetree/bindings/display/bridge/toshiba,tc358762.yaml b/Documentation/devicetree/bindings/display/bridge/toshiba,tc358762.yaml
+index 6c1de0b21722..0e380f2a56e6 100644
+--- a/Documentation/devicetree/bindings/display/bridge/toshiba,tc358762.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/toshiba,tc358762.yaml
+@@ -44,6 +44,20 @@ properties:
+     required:
+       - port@1
  
-@@ -101,8 +102,6 @@
- 
- #define IDREG			0x04A0 /* Chip and Revision ID */
- 
--#define LPX_PERIOD		3
--
- struct tc358762 {
- 	struct device *dev;
- 	struct drm_bridge bridge;
-@@ -112,6 +111,7 @@ struct tc358762 {
- 	struct spi_controller *spi;
- 	bool pre_enabled;
- 	int error;
-+	u32 lpx_period;
- 	bool use_vtg;
- };
- 
-@@ -246,7 +246,7 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
- 	tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
- 	tc358762_write(ctx, PPI_D0S_ATMR, 0);
- 	tc358762_write(ctx, PPI_D1S_ATMR, 0);
--	tc358762_write(ctx, PPI_LPTXTIMECNT, LPX_PERIOD);
-+	tc358762_write(ctx, PPI_LPTXTIMECNT, ctx->lpx_period);
- 
- 	if (ctx->use_vtg) {
- 		struct videomode vm = { 0 };
-@@ -367,6 +367,9 @@ static int tc358762_parse_dt(struct tc358762 *ctx)
- 	if (IS_ERR(ctx->reset_gpio))
- 		return PTR_ERR(ctx->reset_gpio);
- 
-+	ctx->lpx_period = 3;
-+	device_property_read_u32(dev, "toshiba,lptxtimecnt", &ctx->lpx_period);
++  spi:
++    $ref: /schemas/spi/spi-controller.yaml#
++    unevaluatedProperties: false
 +
- 	return 0;
- }
- 
++  dsi-lanes:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2]
++
++  toshiba,lptxtimecnt:
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  clocks:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
 
 -- 
 2.47.3
