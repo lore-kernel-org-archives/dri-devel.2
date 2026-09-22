@@ -4,73 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC2EFC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E4FC982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 108F410ED7B;
-	Tue, 22 Sep 2026 15:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A75210ED86;
+	Tue, 22 Sep 2026 15:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="GSm4x/DT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MOZRs49W";
 	dkim-atps=neutral
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B6E10ED7B
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:44:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
- MIME-Version:Date:Message-ID:content-disposition;
- bh=CWnSk7EHPwZAKsC2qnExgWJIw09V8t9KapKe+fGyacY=; b=GSm4x/DTZBhqYrTlypLXxe4dWy
- 9y0sKMPb064RvrGUTmasLfAtfG82W1NGKWo/+xT03P6Oh8PevDkvjUF+Chntkj38pPm6H5lSpW00n
- 14O4Dpzm0kR1kCBBt6AmxVZk4MZUVOwj5r2wnDpgZW8eoYS9DAM7xK79NREGkU6auzxdUBhjGuiJU
- ijdiVxaHh9h2MKQWZntFWWZPJw+ThxEHQC72rUwJ+Nmhz3sNlRxYQuIQDNpuRwFiwZMJQ5hWueLbT
- h4CWHqhJq+VkZA3OU+lTvTGaBB/oZn2MtwfwF77vBEpGxIfjjB8HIJOzz6yj/Om+EkgOwRsWHoW3c
- 3sCFOc9A==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
- by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
- (envelope-from <logang@deltatee.com>) id 1x92fD-0000000FjgX-1I9v;
- Tue, 22 Sep 2026 09:44:12 -0600
-Message-ID: <be735e17-0948-4940-a6c9-862466f986b3@deltatee.com>
-Date: Tue, 22 Sep 2026 09:43:56 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Chaitanya Kulkarni <kch@nvidia.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
- <20260920-fix-p2p-acs-v4-0-v7-15-ca0828ab697c@nvidia.com>
- <85bb90f0-5a02-4e35-9ed6-ad7e67c1c0d8@deltatee.com>
- <20260922092754.GC563127@unreal>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260922092754.GC563127@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
- gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
- ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH v7 15/19] PCI/P2PDMA: Document TLP-class routing
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 619B410ED86
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:46:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 95A9F60A82;
+ Tue, 22 Sep 2026 15:46:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2721F000FF;
+ Tue, 22 Sep 2026 15:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790091966;
+ bh=2r60q6MV4Vb/zDmNz7kJ+IpAVoH+E8DVf3NXcC+v7xs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MOZRs49WovyOctj9aHhNVXMiFAgQvX+gl8zY6Bs9yT3cVgGjZ9IC3R+OYQWA4mpaY
+ /TcJqPNcDm6KpsxZnAL9su5jyUtcI78qgCbnttW/n/fuEN/ZLMKRCP+fFO165WHB++
+ GAQWipylKZJezOOtdKD9QKHM3si635KuOxi6EfcJID0g5wctjkLn69DoMzfb6tBY8E
+ rHxK12mvU2wdXjgzsIibZnaIrmCMQVyqOiG1Xco6Ura+jPBrjGTr0q4kGKgo+B/saP
+ B9eRfzKc3VM4s554P56qtLoOQIweYOmVCAxo7Uy+fICY/KoxHeyvX04EKUPMljWp92
+ qOU4amehl1NDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: unmap GART dma pages before free
+To: "Michail Tatas" <michail.tatas@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <arKhDFCSoPDNYaxX@michalis-linux>
+References: <arKhDFCSoPDNYaxX@michalis-linux>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 15:46:05 +0000
+Message-Id: <20260922154606.2C2721F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +52,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/amdgpu: NULL pointer dereference in amdgpu_gart_table_ram_allo=
+c error path
+--
 
+commit cffcb1919743d55f9dc644f758abf99d4187be7c
+Author: Michail Tatas <michail.tatas@gmail.com>
 
-On 2026-09-22 03:27, Leon Romanovsky wrote:
-> On Mon, Sep 21, 2026 at 04:16:56PM -0600, Logan Gunthorpe wrote:
->>
->>
->> On 2026-09-20 05:41, Leon Romanovsky wrote:
->>> +A path is bus addressable only where both directions route directly, so with
->>> +nothing enabled every class is.
->>
->> I don't understand the sentence.
-> 
-> I tried to say that we need both Requests and Completions route
-> directly.
-> 
-> Claude suggested something like that:
-> ---------------------------------------------------------------------------
-> Combining the two tables gives the mapping type: a class is bus addressable
-> when its Request and its Completions both route directly, a blocked Request
-> is not supported because Translation Blocking rejects the Address Type
-> wherever the Request is addressed, and anything else goes through the host
-> bridge. With no ACS control set anywhere, every class routes directly.
-> ---------------------------------------------------------------------------
+drm/amdgpu: unmap GART dma pages before free
 
-That's much more understandable. Thanks.
+This commit unmaps the GART dma pages before freeing them to avoid leaving
+the device writing to freed memory.
 
-Logan
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_gart.c
+> index c4c21dbbbdbf8..780fb01530e69 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+[ ... ]
+> @@ -209,6 +209,8 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device =
+*adev)
+>  error_resv:
+>  	amdgpu_bo_unreserve(bo);
+>  error:
+> +	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.ta=
+ble_size,
+> +		       DMA_BIDIRECTIONAL);
+
+[Severity: High]
+Can this cause a NULL pointer dereference during memory pressure?
+
+If memory allocation fails earlier in amdgpu_gart_table_ram_alloc(),
+sg is set to NULL and execution jumps to the error label:
+
+	sg =3D kmalloc_obj(*sg);
+	if (!sg) {
+		ret =3D -ENOMEM;
+		goto error;
+	}
+
+The new dma_unmap_page() call unconditionally accesses sg->sgl at the error
+label. If the execution arrived here due to the allocation failure above,
+dereferencing sg->sgl will crash.
+
+Additionally, if sg_alloc_table() fails, sg is allocated but sg->sgl may be
+uninitialized when accessed here.
+
+>  	amdgpu_bo_unref(&bo);
+>  	if (sg) {
+>  		sg_free_table(sg);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/arKhDFCSoPDNYaxX@mi=
+chalis-linux?part=3D1
