@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE1B0C98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EB1CC98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33B1410EE6F;
-	Tue, 22 Sep 2026 20:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E27810EE70;
+	Tue, 22 Sep 2026 20:58:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l4IiCKPf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M3VaUaxU";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A16D10EE6F
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:57:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 097E110EE70
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:58:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D2614600D4;
- Tue, 22 Sep 2026 20:57:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6934D1F000FF;
- Tue, 22 Sep 2026 20:57:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 833E3600D4;
+ Tue, 22 Sep 2026 20:58:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC3E1F000FF;
+ Tue, 22 Sep 2026 20:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790110676;
- bh=jT69s10MQH+FGtD0wB9lDHVuM8jG8TfrHvCeU1k+JI4=;
+ s=k20260515; t=1790110682;
+ bh=L3fML1K9BkJZ/m4xdBlEA6lO7QL51Dx8OE31w/IjCWc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l4IiCKPffaCWZ/lGuZCV0fAkfa6OCJWYzyl5Gb3Mcf54F48EBpS6sH/M+BMI2j8ui
- P6Wmcff8vKv0OEKKUqKIg5OQwTxBOZA44w1ycY1iqqgc01WSZ8P+oDxMa3A4OsbjW+
- Ff6zXWW4hdlrKbhxVwhN95QeOKmLMGWfVtot7T/lxPjNu8uXT6gsvU9uq3u8IDkUq7
- qv2z3fZVsfh5uHDEUrnNwziOAGcyiLVjTQQPyi/oDunQIqsXdvn+p+yMhKTObBkX9T
- ty4wxMJJO4xCsYoUPBSt/Y1iE+OLd58w2Oj0y8Tn9o6GDyuhVlSkfnhqUY+yePud0P
- YIXSrFomIc+1w==
+ b=M3VaUaxUBrvA3Iw0BT/kvC/PbDdeDENqV3gHtHZeUE0XBr5hD8lSj0D16JKL6CbUc
+ KP4zIB/VNswD/3Mtr7j4Uv9I7ne4CziBX+CwOkko8/zhnlBTpfWZtLu32mn14rK5SN
+ lquo76RhbTf0kKFLN9cxpW8BjrvwSUOOVjSpCYMmBuqwijZvCEsW0FqoIkPhRIH3EK
+ +mFaxV3rRigi3WfThtk7m6Ex0OpnnMsjrY5Hqxe03FsbuhfHs/3rBlvvsHyFyHAKu/
+ ox1SL9vn37RogUuwBH3ZOQiIy9qIC80fbUHeTVE2XrB94qWIUse5Zv77h7qEHo+334
+ fKj9KBHCcFKpA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 13/27] drm/panthor: Add AM_PARTITION_CONTROL support
+Subject: Re: [PATCH v1 14/27] drm/panthor: Add AM message helpers
 To: "Karunika Choo" <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-14-karunika.choo@arm.com>
+In-Reply-To: <20260922204535.2850094-15-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-14-karunika.choo@arm.com>
+ <20260922204535.2850094-15-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 20:57:56 +0000
-Message-Id: <20260922205756.6934D1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 20:58:01 +0000
+Message-Id: <20260922205802.1AC3E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,248 +57,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] pm: Unsafe shared IRQ handling without Runtime PM validation
-- [High] drm/panthor: CPU soft lockup risk in partition_state_wait()
-- [Medium] pm: Hardware power leak due to pm_runtime_put_noidle() on teardo=
-wn paths
-- [Medium] drm/panthor: OPEN_WINDOW command issued without waiting for hard=
-ware reset
-- [Medium] drm/panthor: TOCTOU race in window_open() and window_close()
-- [Medium] drm/panthor: Type mismatch passing resource_size_t to %llx forma=
-t specifier
-- [Low] drm/panthor: Missing NULL check for devm_kasprintf() string allocat=
-ion
+- [High] Hardware race condition in panthor_am_msg_send() allows mailbox ov=
+erwrite
+- [Medium] gpu_read64() unspecified evaluation order in panthor_am_msg_read=
+()
 --
 
-commit aae06968ea5bf0c6d7a668bdeb14d91ee2943a9e
+commit f795794def90956d30543ae04795a4ad4e76dd7e
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Add AM_PARTITION_CONTROL support
+drm/panthor: Add AM message helpers
 
-Mali v15 AM GPUs expose AM_PARTITION_CONTROL blocks to manage partition
-access windows. Add a panthor arbitration platform driver and wire it into
-Kconfig and the panthor build.
+This commit adds a shared helper layer for the AM_MESSAGE registers used by
+v15 GPUs. It defines message IDs, register accessors, and a FIFO-backed
+sending mechanism with spinlock serialization.
 
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.=
-c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
+> diff --git a/drivers/gpu/drm/panthor/panthor_am_msg.h b/drivers/gpu/drm/p=
+anthor/panthor_am_msg.h
 > new file mode 100644
-> index 0000000000000..09342245a47d1
+> index 0000000000000..fc1e3f1051fe5
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_drv.c
-
+> +++ b/drivers/gpu/drm/panthor/panthor_am_msg.h
 [ ... ]
-
-> +int panthor_arbitration_parse_resource(struct device *dev,
-> +				       const struct fwnode_handle *child,
-> +				       struct panthor_arbitration_resource *res)
+> +static inline u64 panthor_am_msg_read(struct panthor_am_msg *msg)
 > +{
-
-[ ... ]
-
-> +	if (!fwnode_property_present(child, DT_ID)) {
-> +		dev_warn(dev, "Missing '%s' property in %s@%llx", DT_ID, name,
-> +			 res->res.start);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret =3D fwnode_property_read_u32(child, DT_ID, &res->id);
-> +	if (ret) {
-> +		dev_warn(dev, "Malformed '%s' property in %s@%llx", DT_ID, name,
-> +			 res->res.start);
-
-[Severity: Medium]
-Will passing res->res.start (a resource_size_t) to a %llx format specifier
-corrupt the variadic stack arguments on 32-bit builds?
-
-[ ... ]
-
-> +static int panthor_arbitration_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D panthor_partition_control_init(adev);
-> +	if (ret)
-> +		goto err_term_pc;
-> +
-> +	ret =3D of_platform_populate(dev->of_node, NULL, NULL, dev);
-> +	if (ret)
-> +		goto err_depopulate;
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, PANTHOR_PM_AUTOSUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	return 0;
-> +
-> +err_depopulate:
-> +	of_platform_depopulate(dev);
-> +
-> +err_term_pc:
-> +	panthor_partition_control_term(adev);
-> +	pm_runtime_put_noidle(dev);
-> +	return ret;
-
-[Severity: Medium]
-Does using pm_runtime_put_noidle() here leave the hardware permanently
-powered on during a probe failure?
-
-Since devres cleanup will invoke pm_runtime_disable() and cancel any pending
-PM operations, using put_noidle instead of put_sync_suspend() drops the usa=
-ge
-count but doesn't schedule an idle check.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_partition_contro=
-l.c b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-> new file mode 100644
-> index 0000000000000..e6fbf5e58b51a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c
-
-[ ... ]
-
-> +static int partition_state_wait(struct panthor_partition_control *pc, u3=
-2 state)
-> +{
-> +	u32 partition_state;
-> +
-> +	return read_poll_timeout_atomic(partition_state_get, partition_state,
-> +					partition_state =3D=3D state,
-> +					PART_REG_POLL_SLEEP_US,
-> +					PART_STATE_TRANSITION_TIMEOUT_US,
-> +					false, pc);
+> +	return gpu_read64(msg->iomem, AM_INCOMING_MESSAGE0);
 > +}
 
-[Severity: High]
-Can read_poll_timeout_atomic() trigger CPU soft lockups if it busy-waits for
-up to 5 seconds?
-
-The PART_STATE_TRANSITION_TIMEOUT_US macro is set to 5,000,000 (5 seconds).
-The atomic variant disables preemption and uses udelay(). Since callers run
-in a sleepable context, should this use read_poll_timeout() instead?
-
-[ ... ]
-
-> +static int window_close(struct panthor_partition_control *pc)
-> +{
-> +	/* Partition already closed. */
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_RESET)
-> +		return 1;
-> +
-> +	guard(spinlock_irqsave)(&pc->lock);
-
 [Severity: Medium]
-Is there a time-of-check to time-of-use (TOCTOU) race here since the
-hardware state is checked before the pc->lock is acquired?
+Could the unspecified evaluation order of the bitwise OR in gpu_read64()
+cause hardware side-effect issues here?
+
+Looking at gpu_read64() in panthor_device_io.h:
+
+static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+{
+	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+}
+
+The C standard leaves the evaluation order of bitwise OR operands unspecifi=
+ed.
+
+If reading AM_INCOMING_MESSAGE0 has side effects (like clearing an interrupt
+or popping a message queue), could the compiler evaluating the upper word
+read before the lower word read lead to corrupted data or desynchronized
+hardware state?
 
 [ ... ]
-
-> +static int window_open(struct panthor_partition_control *pc, u8 aw_id)
+> +static inline int panthor_am_msg_retry(struct panthor_am_msg *msg)
 > +{
-> +	if (aw_id >=3D AM_ARB_MAX_AW_COUNT)
+> +	u64 message;
+> +
+> +	guard(spinlock_irqsave)(&msg->lock);
+> +
+> +	if (kfifo_is_empty(&msg->send_fifo))
+> +		return 0;
+> +
+> +	if (panthor_am_msg_pending(msg))
+> +		return -EBUSY;
+
+[Severity: High]
+Is it possible for a race condition to occur with the hardware status update
+here?
+
+If the workqueue executes rapidly after a previous write,
+panthor_am_msg_pending() might read as not busy due to hardware or internal
+firmware propagation delays.
+
+If the hardware status hasn't updated yet, could this cause the software to
+overwrite the previous message in the mailbox?
+
+> +
+> +	/* FIFO should never be empty at this point */
+> +	if (!kfifo_get(&msg->send_fifo, &message))
 > +		return -EINVAL;
 > +
-> +	if (partition_state_get(pc) =3D=3D PART_STATE_WINDOW_OPEN) {
-> +		u8 cur_aw =3D partition_aw_get(pc);
+> +	panthor_am_msg_write(msg, message);
 > +
-> +		if (cur_aw =3D=3D aw_id)
-> +			return 0;
+> +	/* There are still messages in the FIFO, notify caller to retry again */
+> +	if (!kfifo_is_empty(&msg->send_fifo))
+> +		return -EAGAIN;
 > +
-> +		dev_warn(pc->dev,
-> +			 "%s: OPEN_WINDOW(%u): Already opened for aw=3D%u, state=3D%u. Closin=
-g...",
-> +			 pc->name, aw_id, cur_aw, partition_state_get(pc));
+> +	return 0;
+> +}
 > +
-> +		window_close(pc);
+> +static inline int panthor_am_msg_send(struct panthor_am_msg *msg, u64 me=
+ssage)
+> +{
+> +	guard(spinlock_irqsave)(&msg->lock);
+> +
+> +	/*
+> +	 * If there already is a pending message in the FIFO or the outgoing
+> +	 * message is still not read by the receipient, add to the FIFO.
+> +	 */
+> +	if (!kfifo_is_empty(&msg->send_fifo) || panthor_am_msg_pending(msg)) {
+
+[Severity: High]
+Similar to panthor_am_msg_retry(), could back-to-back calls to
+panthor_am_msg_send() fail to observe the busy state from a preceding write?
+
+If a CPU sends a message and another CPU (or the same CPU) immediately
+acquires the lock to send a second message, the hardware status might
+falsely read as 0.
+
+Could this cause the second message to overwrite the first message in the
+hardware mailbox before the firmware has processed it, leading to lost
+messages?
+
+> +		if (!kfifo_put(&msg->send_fifo, message))
+> +			return -ENOSPC;
+> +
+> +		/*
+> +		 * return -EBUSY to indicate to the caller to schedule work to
+> +		 * retry sending messages in the FIFO.
+> +		 */
+> +		return -EBUSY;
 > +	}
 > +
-> +	guard(spinlock_irqsave)(&pc->lock);
-
-[Severity: Medium]
-Similar to window_close(), we check the hardware state locklessly before
-acquiring pc->lock. Can concurrent calls observe the state incorrectly?
-
+> +	/* We are free to write to AM_OUTGOING_MESSAGE */
+> +	panthor_am_msg_write(msg, message);
 > +
-> +	gpu_write(pc->iomem, AM_PART_COMMAND,
-> +		  AM_PART_SET_COMMAND(PART_CMD_OPEN_WINDOW) | AM_PART_SET_WINDOW(aw_id=
-));
-
-[Severity: Medium]
-Does window_close() ensure the hardware has reached PART_STATE_RESET before
-we issue the OPEN_WINDOW command here?
-
-If window_close() asynchronously processes the close command, sending an op=
-en
-command immediately to the exact same register might create a race conditio=
-n,
-potentially causing a PART_INVALID_COMMAND fault.
-
-[ ... ]
-
-> +static irqreturn_t partition_irq_raw_handler(int irq, void *data)
-> +{
-> +	struct panthor_partition_control *pc =3D data;
-> +	u32 status;
-> +
-> +	status =3D gpu_read(pc->iomem, AM_PART_IRQ_STATUS);
-> +	if (!status)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Since this handler is registered with IRQF_SHARED, could reading from the
-hardware register without Runtime PM validation cause issues?
-
-Other devices on the same interrupt line can trigger this handler. If the
-device is runtime-suspended, this unconditional read could result in a bus
-fault or return garbage data. Should this use pm_runtime_get_if_active()
-first?
-
-[ ... ]
-
-> +static int partition_control_init(struct panthor_arbitration *adev,
-> +				   const struct fwnode_handle *child)
-> +{
-
-[ ... ]
-
-> +	pc =3D devm_kzalloc(dev, sizeof(*pc), GFP_KERNEL);
-> +	if (!pc)
-> +		return -ENOMEM;
-> +
-> +	name =3D devm_kasprintf(dev, GFP_KERNEL, "pc%d", res.id);
-> +
-> +	iomem =3D devm_ioremap_resource(dev, &res.res);
-
-[Severity: Low]
-Is there a missing NULL check for the name allocation here?
-
-If devm_kasprintf() fails, name will be NULL, which is later passed to
-another devm_kasprintf() for the IRQ name.
-
-[ ... ]
-
-> +	irqdata =3D irq_get_irq_data(irq);
-> +	if (irqdata)
-> +		irq_flags =3D irqd_get_trigger_type(irqdata);
-> +
-> +	ret =3D devm_request_irq(
-> +		dev, irq, partition_irq_raw_handler, irq_flags | IRQF_SHARED,
-> +		devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), pc);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-The irq is requested here, but it doesn't seem to be saved into pc->irq.
-
-Without storing it, panthor_partition_control_suspend() cannot call
-synchronize_irq() during power down, which risks suspending the hardware
-while an interrupt is mid-flight.
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D13
+094-1-karunika.choo@arm.com?part=3D14
