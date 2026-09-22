@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5EF2C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 05:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B133DC982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 05:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0381F10EB74;
-	Tue, 22 Sep 2026 05:50:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B6210E396;
+	Tue, 22 Sep 2026 05:51:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nqcb4nfH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="luK6prjI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A0B610EB74;
- Tue, 22 Sep 2026 05:50:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E00A10E396;
+ Tue, 22 Sep 2026 05:51:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 16FD44051C;
- Tue, 22 Sep 2026 05:50:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1EEB1F000FF;
- Tue, 22 Sep 2026 05:50:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 19D3E60213;
+ Tue, 22 Sep 2026 05:51:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A05B1F000FF;
+ Tue, 22 Sep 2026 05:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790056223;
- bh=vOTie0+bTokL5o1+xIpv4XGcWyX1H7gpSNZI8uLHn74=;
+ s=k20260515; t=1790056298;
+ bh=7R+lnbAktUO7NXOwBpWPHGUmWdVJ2uApbShhbKIFqFc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Nqcb4nfHw5SXt5XF1Z16oJCtGAOyw0vFfShJ2fPUCUVep9XDZoNpZVCLcbIG7JSJP
- t1e/IZe5voXRMVsKJiEMICgCiqizrs11SU7kp8KzvL0eK4nzr7SBun6Fdi82cWDK/J
- Ykfzg7ccyeObYKzO2W1/giRl7YRsHOfpZkpZMT0HM6F+5RnktDPouYsYc+DMooNlBH
- nY/SjAxol6zzN5ZY18Pe0oYwMxqqb064qHZu0eyMsh8QeNUrrCylKPWud50vPXNAJe
- MU9eqEJ/GNjOUJfpO0rVThSmuFXVlHoqf3Scjc1mhls2+wjaR5tdRYgvctLxQ69wmB
- iP5YvUPKejYmw==
+ b=luK6prjIUL0HdRlWV2YXcJ6per3dxGchw207zWCyiCuYfNs/cxL/7H/O6sMOBNz/X
+ 0t3uHK5cURoMsWlwozD0BMpI6kfceTlKfnDRDfx3LaDLpt8Mioej1L03Di1djYHxNA
+ SKDO8qoWGczIxdHF5l1XBh1SwWSKimANYXM0F1RrNC5M4Cj8aesvqm9lzV7+1n4ZZ1
+ EMF8PnQoRgVoLCVLmPoUmnB5vIQ8eZ1L1uPf5cpzk1W26yFUaCCq6NfyOL7UxElkSF
+ HTdcCpTf1Ra2PvPW5v2HXpfq8Q3gh62ds4gzfi5HChE34iVkhP7DZlftliYecp86Y4
+ iZTEOoL4k9FDQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 07/12] mm/hmm: migrate collection in HMM pagewalk -
- pmd level
+Subject: Re: [PATCH v14 08/12] mm/hmm: add lazy MMU mode support for
+ migration in HMM pagewalk
 To: mpenttil@redhat.com
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260922053421.4092027-8-mpenttil@redhat.com>
+In-Reply-To: <20260922053421.4092027-9-mpenttil@redhat.com>
 References: <20260922053421.4092027-1-mpenttil@redhat.com>
- <20260922053421.4092027-8-mpenttil@redhat.com>
+ <20260922053421.4092027-9-mpenttil@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 05:50:22 +0000
-Message-Id: <20260922055022.C1EEB1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 05:51:38 +0000
+Message-Id: <20260922055138.9A05B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +58,66 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] mm: set_pmd_migration_entry() uses wrong subpage for >2MB foli=
-os
-- [High] mm: pmd_folio() dereferences bogus pointer for non-present PMD lea=
-f entries
-- [High] mm: unreachable device-private PMD branch causes infinite fault lo=
-ops
+- [High] mm: missing TLB flush on hmm_vma_handle_pte error path during migr=
+ation
 --
 
-commit 191891c0dfbd0707d81f83e9fa9b79a00e1693ac
+commit cabe68b53951d20b6fe5d611bd88bef73ab4ed62
 Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
-mm/hmm: migrate collection in HMM pagewalk - pmd level
+mm/hmm: add lazy MMU mode support for migration in HMM pagewalk
 
-Implement hmm_vma_handle_migrate_prepare_pmd() for HMM pagewalk migration.
-It makes migration decisions, possibly splits folios, and inserts migration
-pmds.
+This commit adds calls to lazy_mmu_mode_enable() and lazy_mmu_mode_disable()
+while performing migration in the HMM pagewalk paths.
 
 > diff --git a/mm/hmm.c b/mm/hmm.c
-> index b3b79d13c7978..a1459bd34c04e 100644
+> index a1459bd34c04e..a67a23e545512 100644
 > --- a/mm/hmm.c
 > +++ b/mm/hmm.c
-> @@ -552,8 +552,100 @@ static int hmm_vma_handle_migrate_prepare_pmd(const=
- struct mm_walk *walk,
+
 [ ... ]
-> +	if (pmd_trans_huge(*pmdp)) {
-> +		if (!(minfo & MIGRATE_VMA_SELECT_SYSTEM))
-> +			goto out;
-> +
-> +		folio =3D pmd_folio(*pmdp);
+
+> @@ -1178,6 +1184,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>  		flush_tlb_range(walk->vma, start, addr);
 
 [Severity: High]
-Does this code handle non-present PMD leaf entries correctly?
+Does this skip a necessary TLB flush on the error path during migration?
 
-When pmd_trans_huge() is called, it can return true for non-present PMD leaf
-entries like migration or device-private swap entries because they have the
-huge bit set. If that happens, this path will unconditionally call
-pmd_folio(), which can produce a bogus struct page pointer because swap
-metadata is interpreted as a PFN. Could this lead to an invalid memory acce=
-ss
-if userspace triggers HMM migration on memory regions with these entries?
+If hmm_range_fault() with migration enabled successfully unmaps a page in t=
+he
+loop of hmm_vma_walk_pmd(), and then in the next loop iteration (for the sa=
+me
+PMD), hmm_vma_handle_pte() encounters a page requiring a fault, it drops the
+PTE lock and returns an error:
 
-> +		if (is_huge_zero_folio(folio))
-> +			return hmm_pfns_fill(start, end, hmm_vma_walk, 0);
-> +
-> +	} else if (!pmd_present(*pmdp)) {
+hmm_vma_walk_pmd() {
+        ...
+        for (; addr < end; addr +=3D PAGE_SIZE, ptep++, hmm_pfns++) {
+                r =3D hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, hmm_p=
+fns);
+                if (r) {
+                        /* hmm_vma_handle_pte() did pte_unmap() / pte_unmap=
+_unlock */
+                        return r;
+                }
+        ...
+}
 
-[Severity: High]
-Is this branch actually reachable for device-private PMDs?
+Because the loop terminates with an immediate return, it completely bypasses
+the flush_tlb_range() check shown below. Could this leave stale TLB entries
+mapping old physical pages despite the page tables pointing to migration
+entries, potentially causing data corruption if writes to the old page are
+lost?
 
-According to the MM subsystem guide, pmd_present() returns true for
-non-present PMD leaf entries, which includes device-private entries. That
-would make !pmd_present(*pmdp) evaluate to false. If device-private PMDs
-bypass the huge PMD check and fail this condition, they will fall through to
-the final else block and return -EBUSY. Returning -EBUSY causes the outer
-walk_page_range() loop in hmm_range_fault_locked() to retry the same address
-indefinitely. Can this cause a denial of service via an infinite loop?
-
-> +		const softleaf_t entry =3D softleaf_from_pmd(*pmdp);
-[ ... ]
-> +	if (thp_migration_supported() &&
-> +	    (migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
-> +	    (IS_ALIGNED(start, HPAGE_PMD_SIZE) &&
-> +	     IS_ALIGNED(end, HPAGE_PMD_SIZE))) {
-> +		struct page_vma_mapped_walk pvmw =3D {
-> +			.ptl =3D hmm_vma_walk->ptl,
-> +			.address =3D start,
-> +			.pmd =3D pmdp,
-> +			.vma =3D walk->vma,
-> +		};
-> +
-> +		hmm_pfn[0] |=3D HMM_PFN_MIGRATE | HMM_PFN_COMPOUND;
-> +
-> +		r =3D set_pmd_migration_entry(&pvmw, folio_page(folio, 0));
-
-[Severity: Critical]
-Will this use the correct subpage for folios larger than 2MB?
-
-For file-backed folios that are larger than PMD size (e.g., 1GB), they can
-be mapped by multiple PMDs. Using folio_page(folio, 0) always evaluates to
-the head page of the large folio, regardless of which 2MB chunk the PMD
-actually maps. Since set_pmd_migration_entry() uses page_to_pfn() on the
-provided page, all PMD migration entries for the large folio might encode
-the PFN of the head chunk. Upon migration restoration, could this silently
-corrupt data by mapping all PMDs to the first 2MB chunk's physical memory?
-Would it be safer to use pmd_page(*pmdp) here to get the specific subpage?
-
-> +		if (r) {
-> +			hmm_pfn[0] &=3D ~(HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
-> +			r =3D -ENOENT;  // fallback
+> =20
+>  	if (hmm_vma_walk->ptelocked) {
+> +		lazy_mmu_mode_disable();
+>  		pte_unmap_unlock(ptep - 1, hmm_vma_walk->ptl);
+>  		hmm_vma_walk->ptelocked =3D false;
+>  	} else {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922053421.4092=
-027-1-mpenttil@redhat.com?part=3D7
+027-1-mpenttil@redhat.com?part=3D8
