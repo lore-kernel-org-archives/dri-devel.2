@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E8AC98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:59:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 839BFC982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8FC410EE73;
-	Tue, 22 Sep 2026 20:59:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB6D210EE75;
+	Tue, 22 Sep 2026 20:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X1sVwmHn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P48wmHZM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C972010EE73
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:59:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63A910EE75
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:59:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 94EAB418A0;
- Tue, 22 Sep 2026 20:59:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5648C1F000FF;
- Tue, 22 Sep 2026 20:59:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8837743441;
+ Tue, 22 Sep 2026 20:59:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCDA1F000FF;
+ Tue, 22 Sep 2026 20:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790110749;
- bh=yqld41u7Ov/CSxYFoU8dMtpwVeoLVbG11l+WX5KXcMw=;
+ s=k20260515; t=1790110790;
+ bh=nCqCiBd47wBWC5Eb0XdKdzzGD05QG1ZYd0Q4poNzVY4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X1sVwmHnDMaT8eTTiriutAY5ji81n13PBXkNU7oabi/5WH8UNEt5qRB14y0xBXLOV
- nHBDigjH7zV001m3TA7qp9i0yRVVzecUu73OHZUjO+Rf0pzjJ4JnaYEHm+G1kEGlWf
- X9WK4+9Co9ZGrCRIvvSCEdpZ9M8SFLkQBdRnhZrh83bU1e92xfavqHf+cqOKFa8b7M
- 0+O43B9loL42W6QMvk9HXoWdyHNcjFPQkQd8FsP96tLqBSgNRwftGh66K2DF5+Y9mf
- lAihIbxywPOCKCi5CtZbUBq5FjInjHYd9viaMvER71BeP6GEw8PAD6oQHeTWPsowsK
- UicekGaXj4H0Q==
+ b=P48wmHZM7k+446b+3Osy676EU49hn8UX5azs1IuBS6kGD9d2Lq7O9IQGDKAnNMt+n
+ VG89quOZOraBFNpxPfvokuivzEV8BJyV+LOe8MYkKhQjUFewq1hGZ8Ns3MfjcvIgAq
+ kKq8rTvYj6H+X3/W+VAiNZ+SbnSWjeVQY9+D+S7/3o4jKTXKNAJNASzzGuXZaWlDtU
+ 2Rvd2rdIKTwvMiJ6Jga8UQuJAHCtY9GuKaHgC6KTawb9gc6yMJqmMvslylYvjTRE3X
+ xgEjeLJbJ39/juOCDOADEuwGv4flJKS+BtJX3WdKvIXswLjiVFYJGfwyhPl2RL36/a
+ LQxeR/hNJk+2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 11/27] drm/panthor: Add AM_SYSTEM platform driver
+Subject: Re: [PATCH v1 12/27] dt-bindings: gpu: panthor: Document
+ panthor-arbitration bindings
 To: "Karunika Choo" <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-12-karunika.choo@arm.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260922204535.2850094-13-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-12-karunika.choo@arm.com>
+ <20260922204535.2850094-13-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 20:59:08 +0000
-Message-Id: <20260922205909.5648C1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 20:59:49 +0000
+Message-Id: <20260922205950.1CCDA1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,131 +59,106 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] gpu: out-of-bounds 64-bit access on 32-bit AM_SYS_IRQ registers
-- [High] pm: missing clock re-enablement in panthor_system_suspend() error =
-path
-- [Medium] driver: missing MODULE_DEVICE_TABLE prevents module autoloading
-- [Medium] pm: missing hibernation callbacks in panthor_system_pm_ops
+- [Low] dt-bindings: hardcoded driver-specific node name 'panthor-arbitrati=
+on'
+- [Low] dt-bindings: missing const constraints on #address-cells and #size-=
+cells
 --
 
-commit c920f013092a669426d1524348fe769140c7f85d
+commit 5958d9241a2d1add1102ff00e882946446a4e494
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Add AM_SYSTEM platform driver
+dt-bindings: gpu: panthor: Document panthor-arbitration bindings
 
-This commit introduces a small AM_SYSTEM platform driver for Mali v15 AM
-systems. It provides GPU-wide control, managing shared clock and regulator
-resources, and performs the initial GPU reset sequence during probe.
+Mali 5th-Gen AM GPUs expose arbitration registers outside the GPU node.
+The arbitration device contains partition-control and resource-group
+register blocks used to grant, yield, and close access windows.
 
-> diff --git a/drivers/gpu/drm/panthor/system/panthor_system_drv.c b/driver=
-s/gpu/drm/panthor/system/panthor_system_drv.c
+Document partition and resource-group child nodes, each with its own
+register range, interrupt and hardware ID.
+
+> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbit=
+ration.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitr=
+ation.yaml
 > new file mode 100644
+> index 0000000000000..9ea2b4bb9a344
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/system/panthor_system_drv.c
+> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.=
+yaml
+
 [ ... ]
-> +static int __panthor_system_reset(struct panthor_system *sdev, u32 cmd)
-> +{
-> +	u64 val;
-> +
-> +	/* Clear stale RESET_COMPLETED IRQs before issuing reset */
-> +	gpu_write64(sdev->iomem, AM_SYS_IRQ_CLEAR, AM_SYS_IRQ_RESET_COMPLETED);
 
-[Severity: High]
-Does this code perform an out-of-bounds access? The AM_SYS_IRQ registers
-such as AM_SYS_IRQ_CLEAR (at 0x4C) appear to be 32-bit registers. Using
-gpu_write64 splits the access across two 32-bit registers, which might
-clobber the adjacent register at 0x50 with the upper 32 bits.
+> +properties:
+> +  $nodename:
+> +    const: panthor-arbitration
 
-> +
-> +	gpu_write(sdev->iomem, AM_SYS_COMMAND, cmd);
-> +
-> +	return read_poll_timeout(gpu_read64, val,
-> +				 (val & AM_SYS_IRQ_RESET_COMPLETED),
-> +				 AM_SYS_RESET_SLEEP_US, AM_RESET_TIMEOUT_US, false,
-> +				 sdev->iomem, AM_SYS_IRQ_RAWSTAT);
+[Severity: Low]
+Does this enforce an invalid, driver-specific naming convention on all
+devicetrees using this hardware?
 
-[Severity: High]
-Can this similarly cause unintended side-effects? AM_SYS_IRQ_RAWSTAT (at
-0x40) is also a 32-bit register. Using gpu_read64 will read from both
-0x40 and 0x44, which might not be safe for hardware registers.
+Any devicetree author attempting to instantiate this hardware must use the
+Linux-specific driver name panthor-arbitration to pass schema validation.
+This violates the DT specification requirement for generic,
+hardware-reflective naming.=20
 
-> +}
-> +
-> +static int panthor_system_reset(struct panthor_system *sdev)
-> +{
-> +	int ret;
-> +
-> +	ret =3D __panthor_system_reset(sdev, AM_SYS_CMD_SOFT_RESET);
-> +	if (ret) {
-> +		dev_err(sdev->dev, "SOFT_RESET failed, attempting HARD_RESET");
-> +
-> +		ret =3D __panthor_system_reset(sdev, AM_SYS_CMD_HARD_RESET);
-> +		if (ret) {
-> +			dev_err(sdev->dev, "HARD_RESET failed");
-> +			return -EIO;
-> +		}
-> +	}
-> +
-> +	gpu_write64(sdev->iomem, AM_SYS_IRQ_CLEAR, AM_SYS_IRQ_RESET_COMPLETED);
-
-[Severity: High]
-As mentioned above, should this use the 32-bit gpu_write instead of
-gpu_write64 to avoid clobbering the register at 0x50?
+Could this be changed to use a generic term like arbitrator or
+gpu-arbitrator instead of incorporating the DRM driver name?
 
 > +
-> +	return 0;
-> +}
+> +  compatible:
+> +    const: arm,mali-gen5-am-arbitration
 > +
-> +static int panthor_system_suspend(struct device *dev)
-> +{
-> +	struct panthor_system *sdev =3D dev_get_drvdata(dev);
+> +  "#address-cells": true
 > +
-> +	panthor_system_clk_suspend(sdev);
-> +	return panthor_system_regulator_suspend(sdev);
+> +  "#size-cells": true
 
-[Severity: High]
-What happens if the regulator suspension fails? The function will return
-the error directly, but the clock has already been suspended.=20
+[Severity: Low]
+Should these cell-count properties have a strict const constraint matching
+the hardware, such as const: 1 as shown in the examples, rather than just
+true?
 
-The PM core might interpret the error to mean the device is still in the
-RPM_ACTIVE state, but the hardware is physically unclocked. Could this
-cause bus faults or system crashes on subsequent accesses?=20
+Without a strict constraint, the schema allows arbitrary integers for cell
+counts. This weakens schema validation for child nodes' reg array dimension=
+s,
+and a device tree with incorrectly sized reg properties might silently pass
+the dt_binding_check.
 
-Should the clock be re-enabled in the error path?
+> +
+> +  ranges: true
 
-> +}
 [ ... ]
-> +static const struct dev_pm_ops panthor_system_pm_ops =3D {
-> +	.suspend =3D pm_runtime_force_suspend,
-> +	.resume =3D pm_runtime_force_resume,
-> +	.runtime_suspend =3D panthor_system_suspend,
-> +	.runtime_resume =3D panthor_system_resume,
-> +};
 
-[Severity: Medium]
-Does this code handle hibernation correctly? The panthor_system_pm_ops
-structure manually assigns .suspend and .resume but leaves the hibernation
-callbacks (.freeze, .thaw, .poweroff, .restore) undefined.=20
+> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-syste=
+m.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+> index f0689bb8f05a2..a027dc5f4f890 100644
+> --- a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
+> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
 
-During system hibernation or hybrid sleep, the PM core might skip freezing
-or restoring the device. Should this use DEFINE_RUNTIME_DEV_PM_OPS or
-SYSTEM_SLEEP_PM_OPS to wire all required sleep callbacks?
+[ ... ]
+
+> @@ -41,6 +41,15 @@ properties:
+> =20
+>    dma-coherent: true
+> =20
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+
+[Severity: Low]
+Similar to the arbitration bindings, should these cell-count properties also
+be defined with strict const constraints?
+
+Allowing arbitrary integers weakens schema validation for child nodes' reg
+array dimensions.
 
 > +
-> +static const struct of_device_id panthor_system_dt_match[] =3D {
-> +	{ .compatible =3D "arm,mali-gen5-am-system" },
-> +	{}
-> +};
-
-[Severity: Medium]
-Is the MODULE_DEVICE_TABLE declaration missing here? Without exporting
-the match table via MODULE_DEVICE_TABLE(of, panthor_system_dt_match),
-the module will not have the necessary aliases generated, which prevents
-udev from automatically loading the module when the compatible hardware
-is detected.
+> +  ranges: true
+> +
+> +  panthor-arbitration:
+> +    $ref: arm,mali-gen5-am-arbitration.yaml#
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D11
+094-1-karunika.choo@arm.com?part=3D12
