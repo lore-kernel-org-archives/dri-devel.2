@@ -4,108 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A496EC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 13:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1083EC982FF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 13:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A94E610E712;
-	Tue, 22 Sep 2026 13:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F30210E437;
+	Tue, 22 Sep 2026 13:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="cFGOYQJ4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sfU4IZyv";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF0410E4DC
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 13:33:44 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccfd61ecaso36622205e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:33:44 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B2610E437
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 13:37:17 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f56039dso546918566b.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:37:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1790084022; x=1790688822; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pi/ltDl53G+OLOHtz8yJJRdSjnsGwK1VjOjXk5caKu4=;
- b=cFGOYQJ4AqyJ5g5RMcTQ0Q1NFfCMi/mV89vBdfkyCkf4U/9TSTRcKvIqnb/u7GZ8SD
- 6snwYDpQW1Riozol/G18H8kMLZx1XxWM4j5yehDaGgtH5V2eI1Jmt+kktpXlHSLw0SVy
- lV5gXY4WYY9uM2OLtwMIAGyhxbjLin5ED7OPx8Sqrqx5/SdrIVkroi9AUel4rj3zsOI7
- uHo8zKexaJxFjYRWOac/gpxE9U6gEolkoBCkEkYdv20u32+w/jYWBb0ygkDORakqO8PT
- 3YkT4fImVNW2hKswQflDDtrLu0MziS3b+sH83ZFgmGoLQK8+LgP+gwJXcnv5htZK/aK9
- 1m0A==
+ d=gmail.com; s=20251104; t=1790084236; x=1790689036; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
+ b=sfU4IZyvnauKOFssQN+MCKsag/LFUXhcjlBTCldxE2odJK3rtWjEBbvs9hr7JdH7Mo
+ AhAXc7kZbEUVZBzfiu7GSI6HEfi67bINtOQwTm2jZ0kvtd8IxgnB3IAiqHKHoScYF0om
+ gYu75pvvi8YUvngetPqsT0t/T3EannKA/e+QD4C1pBzy5hj/zik3C5aB6PUOYUPawOrD
+ 6POgVclEdCtYHnmtc70G3a1VJSGdOpja62D0NFkXL/pQQo/C7o/N2imHYKfHIQnJxQ5O
+ /usmkW0eApcNJau8Wkt5AySm2yeIeN4KQEaqUY0t5ZXXl7orpuTup4XOs/UeTFhPW7nu
+ hlqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790084022; x=1790688822;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pi/ltDl53G+OLOHtz8yJJRdSjnsGwK1VjOjXk5caKu4=;
- b=uC3AyVVeChhbma+OzKS02dxxj/iBYx0Le/fooENkPMiCFbL59QOVng58hcc+HQq+dW
- bEZZfXMtHd1uFLqZMAaIyf/bRrQFtwpBLvpH7U9E5Pv2LzfMGj4B2rlpcck+zqQMMfpS
- wucVnf2Y+pBHzpq4S6d6jKH7PCkSaOD6omIuDIOiqRf3p878fdqPOrOJYWScCuRU/mnN
- 0Wh6drUg4gx7PDl9P63k4XtxLT2V/u6xTUapaussGt8KTUVORdKOUpPKMPeDb9fYxEjJ
- CSyTvmHk39DJRj5rEifLaMUaaGGDyrrdGwMC4BlsWlxlZSyhsvOVt4p7QkLE7afLAxog
- dgyw==
+ d=1e100.net; s=20260707; t=1790084236; x=1790689036;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
+ b=yZHOcrBHtTW2Fp2+LvnDT4FKxRRl7f4sW7hpQPIUfX2cU6IUe/w0lPkd56/X5+sNyz
+ ihQ+zGGD4SFoHdoxQ0EsV2jY/Ar1Wtdi/XElUIk1Zjlk5RYvZ3NEDhFeP8htDFiCgmrs
+ 4Pw5KvIWzlKbW/sRGtfluc/5w+heu9XyfQhu2h/BNhNKNT3AW8jM4eBFVAPXAlN55tXj
+ hlxuvoZ5ZL3vD+Bk+tuHJkvST4BO5Ubnc0s/FH5bu8SZKniGw9Gd5nH2oBZLadQUS+BX
+ i7TFIWDuxgwbfC4+wQwRCi3hrvfzPJzH2xiTlEMcD1eicIm2SmwI9j3E+nH7tVSYGUrp
+ gK2g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx5/2WnG+z0j4EFVkFHSNwDHfbooBY8O0cgDwlQrZHSE6Na0Q+8b5yNU/rzz0Z+WoVEsOm2ezgrbnY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mqJuViV1mbQ46ij1j3raIxgfCbw61pZUYDEAkFGTbqxokoxG0M
- nPWg91iOVVZYq0ZE16JSmcUGsZy3G7yPccd4grSd0FQFHOKMpemjgDxuwMO1cIsW1nc=
-X-Gm-Gg: AYBFou33YdcKRW1X9Yyh68zoROyvrVH9iby2jBrbrkZBf7Bv+8IujD8iOucojWWz3l3
- ljzxekNR4PuU46k94cWmd98o3r8J8PQQZUSsh2YBfT5gSZW36WZLfKrnXZuYdJaIurIxjZ1LOb0
- 12OcukLLY+QEb6+2yWt3a5mHYg2A6YkYbaF0TYHjIm7bVmhUIGY/OykG6QoVKy0wwDMyp1khlNW
- 7iifS5vQCz5VKcPrkZRYufBLghJmHISSirL0ja7Sa/juGnfewvtizrVnCZzalAK66F24avI641x
- OjvHtpjuX5kioy4+lbU1HyOI+OvoHbtFt0sm30ZQeSVvyzbcSp66qDRYNle51R6Fmn6NR8eKfgt
- VsXVRiTSSdunTRYaxpyhkDuqaR2AC5SBZ8IJQGCZUTx9Hf19db+M6oqZ3RNY/heb75k+qbGULSJ
- EvZqDxDZNwIYq4jqvibM5vYWKU13BPiMKApQxriQ6Ek6paN8HNpw/oZInBf+T6ZglrBa1SsgSj+
- kQ6wDSs7F+b+/iIY4i75VapABpEI7S/EwUMTqGk+Moutzbdk6kJpJYAl0Gy3gB3iLLRgdFbDfup
- T1F2hQ==
-X-Received: by 2002:a05:600c:3f07:b0:49e:7caa:e7b2 with SMTP id
- 5b1f17b1804b1-49fc5756f60mr190416265e9.29.1790084022220; 
- Tue, 22 Sep 2026 06:33:42 -0700 (PDT)
-Received: from zovi.suse.cz
- (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
- [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ AKwUvBwqhuQKup2Hquega7yLdxS441uctHsZ6LIfNO1+dg66VP5gDD7zUjnNWESc155OZi+E6ZuZoSlaAlQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n22fv8/jJTYrvOTnQS3yq6NIJShrQ1C/43399OOEDNDVZ7MsON
+ dyQjBbn6jiikPdtt5vxeb5iWHbOXR7/DbnfUAeUPC95X7NSn1cFzsZEg
+X-Gm-Gg: AYBFou2x2p2zkVCP4ShPFAYbzdlNjxBHiIf0VWW/ygyj74e9iCOk6k+xD0nIwGW2UqP
+ vnQIRFGQmOBgHb9psnpZukVBiOxmFAgqIKotfzaEE/bedOlBQKsMgdx6+++KQKIQG5BYpaUNLww
+ +uFlD7wYyUQF3c1RJVSIo8WwxKN+HKqTcA8/6ioCU8xKd+WcZNrtUCLJr1VL2SqXDIBJ01MXEPV
+ 8DInwXZlwjJ6DCkNizdvGMJfq3SBLByBldsoFN536G2FKswOAFp9o33nYRex43H1joVz1cTMtPw
+ Yw+AQQ6+yy3cPRil+gf/Lu7mnVk6gtHvIIySjES1Ji0k/9f6fShzX/CEw155m0W5aQhA9m3VcKY
+ Eh6VVyph7th3Lv7BRVAVOtEorZkqAsUWKJ0gvixirXLlT7E/J9IBENrhpgAxOyHum+JnYoxBrOg
+ 9UVh9t2LQ+y/6vnlgLG3RHER+ZIXlmihvS9h0kzbDAcWuOLLuPRMjJP87Fp2lz7AtwB2yq21ycw
+ MoIoRiW8hLsSqMo7xx/9NsMkt5tK411o/76FoCxreknRFXW4D/c1EuzT3ZV7nyrBIH5sYzHtHDe
+ yg9Im3Wbvqkjql45xYWMXyKcWqgW
+X-Received: by 2002:a17:907:6d18:b0:c29:448b:f5d0 with SMTP id
+ a640c23a62f3a-c2a15b86ed4mr1180156066b.33.1790084235477; 
+ Tue, 22 Sep 2026 06:37:15 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-213-196.dab.02.net. [82.132.213.196])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdace76e8sm70243845e9.1.2026.09.22.06.33.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 06:33:41 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rudolf Marek <r.marek@assembler.cz>,
- Andi Shyti <andi.shyti@kernel.org>, Chris Snook <chris.snook@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
- Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>
-Cc: linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] drivers: Replace __MODULE_STRING() with __stringify()
-Date: Tue, 22 Sep 2026 15:32:22 +0200
-Message-ID: <20260922-module-string-v1-2-c18766690185@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922-module-string-v1-0-c18766690185@suse.com>
-References: <20260922-module-string-v1-0-c18766690185@suse.com>
+ a640c23a62f3a-c2aa9b14925sm14081966b.19.2026.09.22.06.37.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2026 06:37:14 -0700 (PDT)
+Message-ID: <d39a6dd7-cb5a-43d6-8dcb-16eb9fc95b4d@gmail.com>
+Date: Tue, 22 Sep 2026 14:37:08 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 06/13] nvme-pci: implement dma-buf backed requests
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
+ <20260922132016.GA30684@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260922132016.GA30684@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,708 +111,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__MODULE_STRING() has been an alias for __stringify() since "[PATCH]
-MODULE_PARM support for older modules" [1] in 2002-12. That change also
-moved it to the graveyard section at the end of linux/module.h
+Hi Christoph,
 
-Replace the remaining uses of __MODULE_STRING() with __stringify() in
-preparation for its removal.
+On 9/22/26 14:20, Christoph Hellwig wrote:
+> On Mon, Sep 21, 2026 at 02:38:50PM +0100, Pavel Begunkov wrote:
+>> Enable BIO_DMABUF_MAP backed requests. On registration we map the
+> 
+> This is now REQ_DMABUF.
 
-Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
----
- drivers/comedi/comedi_fops.c                          |  5 +++--
- drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
- drivers/hwmon/fschmd.c                                |  3 ++-
- drivers/hwmon/nct7904.c                               |  5 +++--
- drivers/hwmon/sch56xx-common.c                        |  3 ++-
- drivers/hwmon/w83793.c                                |  5 +++--
- drivers/i2c/busses/i2c-kempld.c                       |  3 ++-
- drivers/net/ethernet/atheros/atl1e/atl1e_param.c      |  9 +++++----
- drivers/net/ethernet/atheros/atlx/atl1.c              |  3 ++-
- drivers/net/ethernet/atheros/atlx/atl2.c              | 11 ++++++-----
- drivers/net/ethernet/intel/e1000/e1000_param.c        | 15 ++++++++-------
- drivers/net/ethernet/intel/e1000e/param.c             | 16 ++++++----------
- drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c |  7 ++++---
- drivers/platform/cznic/turris-omnia-mcu-watchdog.c    |  3 ++-
- drivers/rtc/rtc-ds1374.c                              |  3 ++-
- drivers/thunderbolt/tb.c                              |  3 ++-
- drivers/thunderbolt/tunnel.c                          |  5 +++--
- drivers/tty/serial/8250/8250_platform.c               |  3 ++-
- drivers/usb/atm/speedtch.c                            | 15 ++++++++-------
- drivers/usb/atm/usbatm.c                              | 17 +++++++++--------
- 20 files changed, 76 insertions(+), 61 deletions(-)
+Will change
 
-diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-index c09bbe04be6c..05d14839c5a6 100644
---- a/drivers/comedi/comedi_fops.c
-+++ b/drivers/comedi/comedi_fops.c
-@@ -29,6 +29,7 @@
- #include <linux/io.h>
- #include <linux/uaccess.h>
- #include <linux/compat.h>
-+#include <linux/stringify.h>
- 
- #include "comedi_internal.h"
- 
-@@ -82,14 +83,14 @@ unsigned int comedi_default_buf_size_kb = CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB;
- module_param(comedi_default_buf_size_kb, uint, 0644);
- MODULE_PARM_DESC(comedi_default_buf_size_kb,
- 		 "default asynchronous buffer size in KiB (default "
--		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
-+		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
- 
- unsigned int comedi_default_buf_maxsize_kb =
- 	CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB;
- module_param(comedi_default_buf_maxsize_kb, uint, 0644);
- MODULE_PARM_DESC(comedi_default_buf_maxsize_kb,
- 		 "default maximum size of asynchronous buffer in KiB (default "
--		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
-+		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
- 
- static DEFINE_MUTEX(comedi_board_minor_table_lock);
- static struct comedi_device
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index d4664ed468b2..36009bb02c25 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -31,6 +31,7 @@
- 
- #include <linux/console.h>
- #include <linux/export.h>
-+#include <linux/stringify.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -54,7 +55,7 @@ static int drm_fbdev_overalloc = CONFIG_DRM_FBDEV_OVERALLOC;
- module_param(drm_fbdev_overalloc, int, 0444);
- MODULE_PARM_DESC(drm_fbdev_overalloc,
- 		 "Overallocation of the fbdev buffer (%) [default="
--		 __MODULE_STRING(CONFIG_DRM_FBDEV_OVERALLOC) "]");
-+		 __stringify(CONFIG_DRM_FBDEV_OVERALLOC) "]");
- 
- /*
-  * In order to keep user-space compatibility, we want in certain use-cases
-diff --git a/drivers/hwmon/fschmd.c b/drivers/hwmon/fschmd.c
-index 019fc32bf318..df9418a86c83 100644
---- a/drivers/hwmon/fschmd.c
-+++ b/drivers/hwmon/fschmd.c
-@@ -35,6 +35,7 @@
- #include <linux/miscdevice.h>
- #include <linux/uaccess.h>
- #include <linux/kref.h>
-+#include <linux/stringify.h>
- 
- /* Addresses to scan */
- static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
-@@ -43,7 +44,7 @@ static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+	__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- enum chips { fscpos, fscher, fscscy, fschrc, fschmd, fschds, fscsyl };
- 
-diff --git a/drivers/hwmon/nct7904.c b/drivers/hwmon/nct7904.c
-index 976b8a008e44..04e1a8e6db37 100644
---- a/drivers/hwmon/nct7904.c
-+++ b/drivers/hwmon/nct7904.c
-@@ -23,6 +23,7 @@
- #include <linux/i2c.h>
- #include <linux/hwmon.h>
- #include <linux/watchdog.h>
-+#include <linux/stringify.h>
- 
- #define VENDOR_ID_REG		0x7A	/* Any bank */
- #define NUVOTON_ID		0x50
-@@ -113,12 +114,12 @@
- static int timeout;
- module_param(timeout, int, 0);
- MODULE_PARM_DESC(timeout, "Watchdog timeout in minutes. 1 <= timeout <= 255, default="
--			__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
-+			__stringify(WATCHDOG_TIMEOUT) ".");
- 
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--			__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+			__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- static const unsigned short normal_i2c[] = {
- 	0x2d, 0x2e, I2C_CLIENT_END
-diff --git a/drivers/hwmon/sch56xx-common.c b/drivers/hwmon/sch56xx-common.c
-index a385aae3bb0f..febb8ba7dc2c 100644
---- a/drivers/hwmon/sch56xx-common.c
-+++ b/drivers/hwmon/sch56xx-common.c
-@@ -18,13 +18,14 @@
- #include <linux/watchdog.h>
- #include <linux/uaccess.h>
- #include <linux/slab.h>
-+#include <linux/stringify.h>
- #include "sch56xx-common.h"
- 
- /* Insmod parameters */
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+	__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- #define SIO_SCH56XX_LD_EM	0x0C	/* Embedded uController Logical Dev */
- #define SIO_UNLOCK_KEY		0x55	/* Key to enable Super-I/O */
-diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
-index c6ef04c69856..e1f2708b5db6 100644
---- a/drivers/hwmon/w83793.c
-+++ b/drivers/hwmon/w83793.c
-@@ -34,6 +34,7 @@
- #include <linux/notifier.h>
- #include <linux/reboot.h>
- #include <linux/jiffies.h>
-+#include <linux/stringify.h>
- 
- /* Default values */
- #define WATCHDOG_TIMEOUT 2	/* 2 minute default timeout */
-@@ -57,13 +58,13 @@ static int timeout = WATCHDOG_TIMEOUT;	/* default timeout in minutes */
- module_param(timeout, int, 0);
- MODULE_PARM_DESC(timeout,
- 	"Watchdog timeout in minutes. 2<= timeout <=255 (default="
--				__MODULE_STRING(WATCHDOG_TIMEOUT) ")");
-+				__stringify(WATCHDOG_TIMEOUT) ")");
- 
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout,
- 	"Watchdog cannot be stopped once started (default="
--				__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+				__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- /*
-  * Address 0x00, 0x0d, 0x0e, 0x0f in all three banks are reserved
-diff --git a/drivers/i2c/busses/i2c-kempld.c b/drivers/i2c/busses/i2c-kempld.c
-index 9b4c7cba62b6..d0438960c272 100644
---- a/drivers/i2c/busses/i2c-kempld.c
-+++ b/drivers/i2c/busses/i2c-kempld.c
-@@ -13,6 +13,7 @@
- #include <linux/i2c.h>
- #include <linux/delay.h>
- #include <linux/mfd/kempld.h>
-+#include <linux/stringify.h>
- 
- #define KEMPLD_I2C_PRELOW	0x0b
- #define KEMPLD_I2C_PREHIGH	0x0c
-@@ -66,7 +67,7 @@ struct kempld_i2c_data {
- static unsigned int bus_frequency = KEMPLD_I2C_FREQ_STD;
- module_param(bus_frequency, uint, 0);
- MODULE_PARM_DESC(bus_frequency, "Set I2C bus frequency in kHz (default="
--				__MODULE_STRING(KEMPLD_I2C_FREQ_STD)")");
-+				__stringify(KEMPLD_I2C_FREQ_STD)")");
- 
- static int i2c_bus = -1;
- module_param(i2c_bus, int, 0);
-diff --git a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-index 6b1d6df8da97..ff3423a4dc2e 100644
---- a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-+++ b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/netdevice.h>
-+#include <linux/stringify.h>
- 
- #include "atl1e.h"
- 
-@@ -181,7 +182,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Ddescription Count",
- 			.err  = "using default of "
--				__MODULE_STRING(ATL1E_DEFAULT_TX_DESC_CNT),
-+				__stringify(ATL1E_DEFAULT_TX_DESC_CNT),
- 			.def  = ATL1E_DEFAULT_TX_DESC_CNT,
- 			.arg  = { .r = { .min = ATL1E_MIN_TX_DESC_CNT,
- 					 .max = ATL1E_MAX_TX_DESC_CNT} }
-@@ -200,7 +201,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Memory size of rx buffer(KB)",
- 			.err  = "using default of "
--				__MODULE_STRING(ATL1E_DEFAULT_RX_MEM_SIZE),
-+				__stringify(ATL1E_DEFAULT_RX_MEM_SIZE),
- 			.def  = ATL1E_DEFAULT_RX_MEM_SIZE,
- 			.arg  = { .r = { .min = ATL1E_MIN_RX_MEM_SIZE,
- 					 .max = ATL1E_MAX_RX_MEM_SIZE} }
-@@ -220,7 +221,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Interrupt Moderate Timer",
- 			.err  = "using default of "
--				__MODULE_STRING(INT_MOD_DEFAULT_CNT),
-+				__stringify(INT_MOD_DEFAULT_CNT),
- 			.def  = INT_MOD_DEFAULT_CNT,
- 			.arg  = { .r = { .min = INT_MOD_MIN_CNT,
- 					 .max = INT_MOD_MAX_CNT} }
-@@ -239,7 +240,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Speed/Duplex Selection",
- 			.err  = "using default of "
--				__MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR),
-+				__stringify(MEDIA_TYPE_AUTO_SENSOR),
- 			.def  = MEDIA_TYPE_AUTO_SENSOR,
- 			.arg  = { .r = { .min = MEDIA_TYPE_AUTO_SENSOR,
- 					 .max = MEDIA_TYPE_10M_HALF} }
-diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-index 98a4d089270e..aef5de6287dc 100644
---- a/drivers/net/ethernet/atheros/atlx/atl1.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-@@ -56,6 +56,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/string.h>
-+#include <linux/stringify.h>
- #include <linux/tcp.h>
- #include <linux/timer.h>
- #include <linux/types.h>
-@@ -198,7 +199,7 @@ static void atl1_check_options(struct atl1_adapter *adapter)
- 			.type = range_option,
- 			.name = "Interrupt Moderator Timer",
- 			.err = "using default of "
--				__MODULE_STRING(DEFAULT_INT_MOD_CNT),
-+				__stringify(DEFAULT_INT_MOD_CNT),
- 			.def = DEFAULT_INT_MOD_CNT,
- 			.arg = {.r = {.min = MIN_INT_MOD_CNT,
- 					.max = MAX_INT_MOD_CNT} }
-diff --git a/drivers/net/ethernet/atheros/atlx/atl2.c b/drivers/net/ethernet/atheros/atlx/atl2.c
-index 5560d5cc3169..853d2e1eb954 100644
---- a/drivers/net/ethernet/atheros/atlx/atl2.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl2.c
-@@ -29,6 +29,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/string.h>
-+#include <linux/stringify.h>
- #include <linux/tcp.h>
- #include <linux/timer.h>
- #include <linux/types.h>
-@@ -2921,7 +2922,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Bytes of Transmit Memory */
- 	opt.type = range_option;
- 	opt.name = "Bytes of Transmit Memory";
--	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_TX_MEMSIZE);
-+	opt.err = "using default of " __stringify(ATL2_DEFAULT_TX_MEMSIZE);
- 	opt.def = ATL2_DEFAULT_TX_MEMSIZE;
- 	opt.arg.r.min = ATL2_MIN_TX_MEMSIZE;
- 	opt.arg.r.max = ATL2_MAX_TX_MEMSIZE;
-@@ -2939,7 +2940,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Receive Memory Block Count */
- 	opt.type = range_option;
- 	opt.name = "Number of receive memory block";
--	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_RXD_COUNT);
-+	opt.err = "using default of " __stringify(ATL2_DEFAULT_RXD_COUNT);
- 	opt.def = ATL2_DEFAULT_RXD_COUNT;
- 	opt.arg.r.min = ATL2_MIN_RXD_COUNT;
- 	opt.arg.r.max = ATL2_MAX_RXD_COUNT;
-@@ -2960,7 +2961,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Interrupt Moderate Timer */
- 	opt.type = range_option;
- 	opt.name = "Interrupt Moderate Timer";
--	opt.err = "using default of " __MODULE_STRING(INT_MOD_DEFAULT_CNT);
-+	opt.err = "using default of " __stringify(INT_MOD_DEFAULT_CNT);
- 	opt.def = INT_MOD_DEFAULT_CNT;
- 	opt.arg.r.min = INT_MOD_MIN_CNT;
- 	opt.arg.r.max = INT_MOD_MAX_CNT;
-@@ -2973,7 +2974,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Flash Vendor */
- 	opt.type = range_option;
- 	opt.name = "SPI Flash Vendor";
--	opt.err = "using default of " __MODULE_STRING(FLASH_VENDOR_DEFAULT);
-+	opt.err = "using default of " __stringify(FLASH_VENDOR_DEFAULT);
- 	opt.def = FLASH_VENDOR_DEFAULT;
- 	opt.arg.r.min = FLASH_VENDOR_MIN;
- 	opt.arg.r.max = FLASH_VENDOR_MAX;
-@@ -2986,7 +2987,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* MediaType */
- 	opt.type = range_option;
- 	opt.name = "Speed/Duplex Selection";
--	opt.err = "using default of " __MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR);
-+	opt.err = "using default of " __stringify(MEDIA_TYPE_AUTO_SENSOR);
- 	opt.def = MEDIA_TYPE_AUTO_SENSOR;
- 	opt.arg.r.min = MEDIA_TYPE_AUTO_SENSOR;
- 	opt.arg.r.max = MEDIA_TYPE_10M_HALF;
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_param.c b/drivers/net/ethernet/intel/e1000/e1000_param.c
-index f4154ca7fcb4..5faf6d6280c8 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_param.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_param.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright(c) 1999 - 2006 Intel Corporation. */
- 
-+#include <linux/stringify.h>
- #include "e1000.h"
- 
- /* This is the only thing that needs to be changed to adjust the
-@@ -259,7 +260,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(E1000_DEFAULT_TXD),
-+				__stringify(E1000_DEFAULT_TXD),
- 			.def  = E1000_DEFAULT_TXD,
- 			.arg  = { .r = {
- 				.min = E1000_MIN_TXD,
-@@ -287,7 +288,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 			.type = range_option,
- 			.name = "Receive Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(E1000_DEFAULT_RXD),
-+				__stringify(E1000_DEFAULT_RXD),
- 			.def  = E1000_DEFAULT_RXD,
- 			.arg  = { .r = {
- 				.min = E1000_MIN_RXD,
-@@ -354,7 +355,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Transmit Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_TIDV),
-+			.err  = "using default of " __stringify(DEFAULT_TIDV),
- 			.def  = DEFAULT_TIDV,
- 			.arg  = { .r = { .min = MIN_TXDELAY,
- 					 .max = MAX_TXDELAY }}
-@@ -372,7 +373,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Transmit Absolute Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_TADV),
-+			.err  = "using default of " __stringify(DEFAULT_TADV),
- 			.def  = DEFAULT_TADV,
- 			.arg  = { .r = { .min = MIN_TXABSDELAY,
- 					 .max = MAX_TXABSDELAY }}
-@@ -390,7 +391,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Receive Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_RDTR),
-+			.err  = "using default of " __stringify(DEFAULT_RDTR),
- 			.def  = DEFAULT_RDTR,
- 			.arg  = { .r = { .min = MIN_RXDELAY,
- 					 .max = MAX_RXDELAY }}
-@@ -408,7 +409,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Receive Absolute Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_RADV),
-+			.err  = "using default of " __stringify(DEFAULT_RADV),
- 			.def  = DEFAULT_RADV,
- 			.arg  = { .r = { .min = MIN_RXABSDELAY,
- 					 .max = MAX_RXABSDELAY }}
-@@ -426,7 +427,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Interrupt Throttling Rate (ints/sec)",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_ITR),
-+			.err  = "using default of " __stringify(DEFAULT_ITR),
- 			.def  = DEFAULT_ITR,
- 			.arg  = { .r = { .min = MIN_ITR,
- 					 .max = MAX_ITR }}
-diff --git a/drivers/net/ethernet/intel/e1000e/param.c b/drivers/net/ethernet/intel/e1000e/param.c
-index 3132d8f2f207..c6f400e6cdea 100644
---- a/drivers/net/ethernet/intel/e1000e/param.c
-+++ b/drivers/net/ethernet/intel/e1000e/param.c
-@@ -4,6 +4,7 @@
- #include <linux/netdevice.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/stringify.h>
- 
- #include "e1000.h"
- 
-@@ -238,8 +239,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Transmit Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_TIDV),
-+			.err  = "using default of " __stringify(DEFAULT_TIDV),
- 			.def  = DEFAULT_TIDV,
- 			.arg  = { .r = { .min = MIN_TXDELAY,
- 					 .max = MAX_TXDELAY } }
-@@ -258,8 +258,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Transmit Absolute Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_TADV),
-+			.err  = "using default of " __stringify(DEFAULT_TADV),
- 			.def  = DEFAULT_TADV,
- 			.arg  = { .r = { .min = MIN_TXABSDELAY,
- 					 .max = MAX_TXABSDELAY } }
-@@ -278,8 +277,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Receive Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_RDTR),
-+			.err  = "using default of " __stringify(DEFAULT_RDTR),
- 			.def  = DEFAULT_RDTR,
- 			.arg  = { .r = { .min = MIN_RXDELAY,
- 					 .max = MAX_RXDELAY } }
-@@ -301,8 +299,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Receive Absolute Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_RADV),
-+			.err  = "using default of " __stringify(DEFAULT_RADV),
- 			.def  = DEFAULT_RADV,
- 			.arg  = { .r = { .min = MIN_RXABSDELAY,
- 					 .max = MAX_RXABSDELAY } }
-@@ -324,8 +321,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Interrupt Throttling Rate (ints/sec)",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_ITR),
-+			.err  = "using default of " __stringify(DEFAULT_ITR),
- 			.def  = DEFAULT_ITR,
- 			.arg  = { .r = { .min = MIN_ITR,
- 					 .max = MAX_ITR } }
-diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-index 81fc5a6e3221..6a1a6678bd1a 100644
---- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-+++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-@@ -7,7 +7,8 @@
-  */
- 
- #include "pch_gbe.h"
--#include <linux/module.h>	/* for __MODULE_STRING */
-+#include <linux/module.h>
-+#include <linux/stringify.h>
- 
- #define OPTION_UNSET   -1
- #define OPTION_DISABLED 0
-@@ -440,7 +441,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(PCH_GBE_DEFAULT_TXD),
-+				__stringify(PCH_GBE_DEFAULT_TXD),
- 			.def  = PCH_GBE_DEFAULT_TXD,
- 			.arg  = { .r = { .min = PCH_GBE_MIN_TXD,
- 					 .max = PCH_GBE_MAX_TXD } }
-@@ -456,7 +457,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
- 			.type = range_option,
- 			.name = "Receive Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(PCH_GBE_DEFAULT_RXD),
-+				__stringify(PCH_GBE_DEFAULT_RXD),
- 			.def  = PCH_GBE_DEFAULT_RXD,
- 			.arg  = { .r = { .min = PCH_GBE_MIN_RXD,
- 					 .max = PCH_GBE_MAX_RXD } }
-diff --git a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-index 3ad146ec1d80..daabd88eb913 100644
---- a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-+++ b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-@@ -9,6 +9,7 @@
- #include <linux/device.h>
- #include <linux/i2c.h>
- #include <linux/moduleparam.h>
-+#include <linux/stringify.h>
- #include <linux/types.h>
- #include <linux/units.h>
- #include <linux/watchdog.h>
-@@ -25,7 +26,7 @@ MODULE_PARM_DESC(timeout, "Watchdog timeout in seconds");
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--			   __MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+			   __stringify(WATCHDOG_NOWAYOUT) ")");
- 
- static int omnia_wdt_start(struct watchdog_device *wdt)
- {
-diff --git a/drivers/rtc/rtc-ds1374.c b/drivers/rtc/rtc-ds1374.c
-index 8c247215d611..2ed6777e7035 100644
---- a/drivers/rtc/rtc-ds1374.c
-+++ b/drivers/rtc/rtc-ds1374.c
-@@ -26,6 +26,7 @@
- #include <linux/workqueue.h>
- #include <linux/slab.h>
- #include <linux/pm.h>
-+#include <linux/stringify.h>
- #ifdef CONFIG_RTC_DRV_DS1374_WDT
- #include <linux/fs.h>
- #include <linux/ioctl.h>
-@@ -381,7 +382,7 @@ MODULE_PARM_DESC(wdt_margin, "Watchdog timeout in seconds (default 32s)");
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default ="
--		__MODULE_STRING(WATCHDOG_NOWAYOUT)")");
-+		__stringify(WATCHDOG_NOWAYOUT)")");
- 
- static const struct watchdog_info ds1374_wdt_info = {
- 	.identity       = "DS1374 Watchdog",
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 47753a5c0f2e..a2459e44e320 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -11,6 +11,7 @@
- #include <linux/delay.h>
- #include <linux/pm_runtime.h>
- #include <linux/platform_data/x86/apple.h>
-+#include <linux/stringify.h>
- 
- #include "tb.h"
- #include "tb_regs.h"
-@@ -47,7 +48,7 @@ static unsigned int asym_threshold = TB_ASYM_THRESHOLD;
- module_param_named(asym_threshold, asym_threshold, uint, 0444);
- MODULE_PARM_DESC(asym_threshold,
- 		"threshold (Mb/s) when to Gen 4 switch link symmetry. 0 disables. (default: "
--		__MODULE_STRING(TB_ASYM_THRESHOLD) ")");
-+		__stringify(TB_ASYM_THRESHOLD) ")");
- 
- /**
-  * struct tb_cm - Simple Thunderbolt connection manager
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 7e8284575dff..ad4916748789 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -11,6 +11,7 @@
- #include <linux/list.h>
- #include <linux/ktime.h>
- #include <linux/string_helpers.h>
-+#include <linux/stringify.h>
- 
- #include "tunnel.h"
- #include "tb.h"
-@@ -89,12 +90,12 @@ static int dprx_timeout = TB_DPRX_TIMEOUT;
- module_param(dprx_timeout, int, 0444);
- MODULE_PARM_DESC(dprx_timeout,
- 		 "DPRX capability read timeout in ms, -1 waits forever (default: "
--		 __MODULE_STRING(TB_DPRX_TIMEOUT) ")");
-+		 __stringify(TB_DPRX_TIMEOUT) ")");
- 
- static unsigned int dma_credits = TB_DMA_CREDITS;
- module_param(dma_credits, uint, 0444);
- MODULE_PARM_DESC(dma_credits, "specify custom credits for DMA tunnels (default: "
--                __MODULE_STRING(TB_DMA_CREDITS) ")");
-+		 __stringify(TB_DMA_CREDITS) ")");
- 
- static bool bw_alloc_mode = true;
- module_param(bw_alloc_mode, bool, 0444);
-diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
-index af946d12e764..e060e0427fc9 100644
---- a/drivers/tty/serial/8250/8250_platform.c
-+++ b/drivers/tty/serial/8250/8250_platform.c
-@@ -16,6 +16,7 @@
- #include <linux/moduleparam.h>
- #include <linux/once.h>
- #include <linux/platform_device.h>
-+#include <linux/stringify.h>
- 
- #include <linux/serial_8250.h>
- 
-@@ -382,6 +383,6 @@ module_param_hw(share_irqs, bool, other, 0644);
- MODULE_PARM_DESC(share_irqs, "Share IRQs with other non-8250/16x50 devices (unsafe)");
- 
- module_param(nr_uarts, uint, 0644);
--MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __MODULE_STRING(CONFIG_SERIAL_8250_NR_UARTS) ")");
-+MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __stringify(CONFIG_SERIAL_8250_NR_UARTS) ")");
- 
- MODULE_ALIAS_CHARDEV_MAJOR(TTY_MAJOR);
-diff --git a/drivers/usb/atm/speedtch.c b/drivers/usb/atm/speedtch.c
-index 9d28c652bcd8..95cd8ce99a64 100644
---- a/drivers/usb/atm/speedtch.c
-+++ b/drivers/usb/atm/speedtch.c
-@@ -19,6 +19,7 @@
- #include <linux/moduleparam.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
-+#include <linux/stringify.h>
- #include <linux/timer.h>
- #include <linux/types.h>
- #include <linux/usb/ch9.h>
-@@ -77,31 +78,31 @@ static unsigned int num_ModemOption;
- module_param(altsetting, uint, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(altsetting,
- 		"Alternative setting for data interface (bulk_default: "
--		__MODULE_STRING(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
--		__MODULE_STRING(DEFAULT_ISOC_ALTSETTING) ")");
-+		__stringify(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
-+		__stringify(DEFAULT_ISOC_ALTSETTING) ")");
- 
- module_param(dl_512_first, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(dl_512_first,
- 		 "Read 512 bytes before sending firmware (default: "
--		 __MODULE_STRING(DEFAULT_DL_512_FIRST) ")");
-+		 __stringify(DEFAULT_DL_512_FIRST) ")");
- 
- module_param(enable_isoc, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(enable_isoc,
- 		"Use isochronous transfers if available (default: "
--		__MODULE_STRING(DEFAULT_ENABLE_ISOC) ")");
-+		__stringify(DEFAULT_ENABLE_ISOC) ")");
- 
- module_param(sw_buffering, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(sw_buffering,
- 		 "Enable software buffering (default: "
--		 __MODULE_STRING(DEFAULT_SW_BUFFERING) ")");
-+		 __stringify(DEFAULT_SW_BUFFERING) ")");
- 
- module_param(BMaxDSL, uint, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(BMaxDSL,
--		"default: " __MODULE_STRING(DEFAULT_B_MAX_DSL));
-+		"default: " __stringify(DEFAULT_B_MAX_DSL));
- 
- module_param(ModemMode, byte, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(ModemMode,
--		"default: " __MODULE_STRING(DEFAULT_MODEM_MODE));
-+		"default: " __stringify(DEFAULT_MODEM_MODE));
- 
- module_param_array(ModemOption, byte, &num_ModemOption, S_IRUGO);
- MODULE_PARM_DESC(ModemOption, "default: 0x10,0x00,0x00,0x00,0x20");
-diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
-index 7b0c791399ea..d4052d206e00 100644
---- a/drivers/usb/atm/usbatm.c
-+++ b/drivers/usb/atm/usbatm.c
-@@ -64,6 +64,7 @@
- #include <linux/signal.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
-+#include <linux/stringify.h>
- #include <linux/timer.h>
- #include <linux/wait.h>
- #include <linux/kthread.h>
-@@ -103,26 +104,26 @@ static unsigned int snd_buf_bytes = UDSL_DEFAULT_SND_BUF_SIZE;
- module_param(num_rcv_urbs, uint, S_IRUGO);
- MODULE_PARM_DESC(num_rcv_urbs,
- 		 "Number of urbs used for reception (range: 0-"
--		 __MODULE_STRING(UDSL_MAX_RCV_URBS) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_RCV_URBS) ")");
-+		 __stringify(UDSL_MAX_RCV_URBS) ", default: "
-+		 __stringify(UDSL_DEFAULT_RCV_URBS) ")");
- 
- module_param(num_snd_urbs, uint, S_IRUGO);
- MODULE_PARM_DESC(num_snd_urbs,
- 		 "Number of urbs used for transmission (range: 0-"
--		 __MODULE_STRING(UDSL_MAX_SND_URBS) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_SND_URBS) ")");
-+		 __stringify(UDSL_MAX_SND_URBS) ", default: "
-+		 __stringify(UDSL_DEFAULT_SND_URBS) ")");
- 
- module_param(rcv_buf_bytes, uint, S_IRUGO);
- MODULE_PARM_DESC(rcv_buf_bytes,
- 		 "Size of the buffers used for reception, in bytes (range: 1-"
--		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
-+		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
-+		 __stringify(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
- 
- module_param(snd_buf_bytes, uint, S_IRUGO);
- MODULE_PARM_DESC(snd_buf_bytes,
- 		 "Size of the buffers used for transmission, in bytes (range: 1-"
--		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_SND_BUF_SIZE) ")");
-+		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
-+		 __stringify(UDSL_DEFAULT_SND_BUF_SIZE) ")");
- 
- 
- /* receive */
+> Sashiko had a few comments, which I think are correct - if we use
+> dma_map_sg to map the data, we need to use the sync_sg APIs to
+> transfer ownership.  That only matters on non-coherent architectures
+> with MMU, but we need to get it right.
 
+I've seen that and fixed everything locally that should be fixed,
+apart from the sync. I wonder what we can do about that? I can
+somehow replace it with the sg variant for now, but sync'ing the
+entire possibly multi-GB mapping for, let's say, a 512B I/O, sounds
+not wise. And I can think of another place that does mix sync_single
+with sgs.
+
+> And the reset deadlock also looks plausible.
 -- 
-2.55.0
+Pavel Begunkov
+
