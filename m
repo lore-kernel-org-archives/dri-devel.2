@@ -4,81 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0095C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAAAC982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF4E310E612;
-	Tue, 22 Sep 2026 08:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42CD310E179;
+	Tue, 22 Sep 2026 08:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="FGUyk9MH";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="bWymhEoA";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F22EE10E612
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:08:02 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 767EA4E40ED6;
- Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 468C860580;
- Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4056C1032925B; 
- Tue, 22 Sep 2026 10:07:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790064477; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=zcp8tcZsfdsmxUcen5sJupr/nyZnxY5fTXf1NQWKnsw=;
- b=FGUyk9MHJzJ0m0z8YAThEo2DOBHDLTsuC25rLZr2qIfJay2Q0I+gVCvTxsv2nvY/dDnJb9
- IgXAUJLDLFyWtCu0gq4m+hX3dLL+xecsNJ8WJa5QPeWS1Zy6AUoS89OPdFALC8X5Qo/SYt
- P+8Axb3+Z77DYvypZw+Bo1A5RcA0P5rB/gomubC1yCw1+sui5hmFk5wLv6D9zSGNbH/9I3
- BDo6gZcaNWSmUaB3MSGwrUc50FkG95rYvnEytrHx7tFcZXjfqgUddfJurME6kZVkekBte7
- SOpxzk5wN3ckVBb+KRlg6NycfNY3+6MfShb4b9lHPUZw9BG8DyTys0vA4UWL/w==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 10:07:36 +0200
-Message-Id: <DLLOW2ROGP6L.3GTVT76VYPGAU@bootlin.com>
-Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
- panel_bridge
-Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
- <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-To: "Damon Ding" <damon.ding@rock-chips.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Neil Armstrong" <neil.armstrong@linaro.org>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
- "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
- "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
- "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
- <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
- <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
-In-Reply-To: <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DB710EA5C
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:11:20 +0000 (UTC)
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20260922081119epoutp01190ef5ca6a42561757c53a3786b80f5c~XlldnEoUZ0110601106epoutp01C
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:11:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20260922081119epoutp01190ef5ca6a42561757c53a3786b80f5c~XlldnEoUZ0110601106epoutp01C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1790064679;
+ bh=ppb5NdBs58x4r+h1AiWGI65C0tz0hajebc59pJdtVVc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=bWymhEoAbXtMJqxPf+9fH0OCAuU1sL6J65djBskJZ5xl5XsgNwYDQM0O4pf0F9023
+ oS/t8w4ur7A/VSkeP71iTgqCQS0otXuu+9pMnuJFEGKVrJg4HJRwtyCAhBu12eD23Y
+ PLEmbliDWWmf4uuYlrLcuH3Le7/aCOK+8ZQmU3eo=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+ epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+ 20260922081118epcas2p48387828cf8cdea44e389d9b98ab5d0aa~XlldX3Q_n2333523335epcas2p4h;
+ Tue, 22 Sep 2026 08:11:18 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.199]) by
+ epsnrtp02.localdomain (Postfix) with ESMTP id 4hpt8k2zyFz2SSKg; Tue, 22 Sep
+ 2026 08:11:18 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+ epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24~XllcgHZFi1436814368epcas2p1l;
+ Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
+Received: from KORCO090182.samsungds.net (unknown [12.80.211.164]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260922081117epsmtip24ae96a6810c6b9b73c7ba684ea9201e7~Xllcb-Xjs2973429734epsmtip2z;
+ Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
+Date: Tue, 22 Sep 2026 17:11:14 +0900
+From: Janghyuck Kim <janghyuck.kim@samsung.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: sumit.semwal@linaro.org, phasta@kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
+ dmabuf->ops->vmap()
+Message-ID: <arI4IlBCtaIgirFs@KORCO090182.samsungds.net>
+MIME-Version: 1.0
+In-Reply-To: <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
+X-CMS-MailID: 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+ boundary="----2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
+References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
+ <20260921100946.353521-1-janghyuck.kim@samsung.com>
+ <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,64 +81,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Damon,
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
 
-On Mon Sep 21, 2026 at 8:34 AM CEST, Damon Ding wrote:
-> On 9/21/2026 11:07 AM, Damon Ding wrote:
->> Hi Luca,
->>
->> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
->>> Now a panel_bridge is automatically created for every drm_panel and the
->>> panel-bridge API is just a deprecated wrapper to access it.
->>>
->>> Update and simplify the code by just getting a reference to the
->>> already-existing bridge using of_drm_get_bridge_by_endpoint().
->>>
->>> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take ca=
-re
->>> of putting the bridge reference. This is not easily done in the remove
->>> path
->>> due to the different probe paths of the user drivers, so add a devm
->>> action
->>> to ensure the reference is put only when it was taken.
->>>
->>> Assisted-by: opencode:deepseek-v4-flash-0731
->>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->>> ---
->>> =C2=A0 drivers/gpu/drm/bridge/analogix/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
->>> =C2=A0 drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 ++++++++=
-++++
->>> +---------
->>> =C2=A0 drivers/gpu/drm/exynos/exynos_dp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +
->>> +-----------------
->>> =C2=A0 drivers/gpu/drm/rockchip/analogix_dp-rockchip.c=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 9 -----
->>> =C2=A0 include/drm/bridge/analogix_dp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 1 -
->>> =C2=A0 5 files changed, 25 insertions(+), 62 deletions(-)
->>>
->
-> [snip]
->
->>> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct
->>> platform_device *pdev)
->>> =C2=A0 {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct rockchip_dp_device *dp =3D platfo=
-rm_get_drvdata(pdev);
->
-> The above unused &rockchip_dp_device could be also remved.
+On 2026-09-21 13:39, Christian König wrote:
+> On 9/21/26 12:09, Janghyuck Kim wrote:
+> > dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
+> > into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
+> > evidence of a violated invariant or a driver bug -- it's an ordinary
+> > runtime failure of a fallible operation, no different from any other
+> > allocation-shaped kernel API that can return an error. The dma-buf
+> > core has no visibility into what a given exporter's vmap()
+> > implementation considers a normal failure versus an internal bug;
+> > that distinction, if it matters at all, belongs to the exporter, not
+> > to this generic passthrough.
+> 
+> Well not quite, apart from some not so relevant HW workarounds the vmap callback is mostly used for fbdev emulation.
+> 
+Fair point about fbdev being the historical motivation. However,
+->vmap() is not limited to fbdev; for example, the mainline CMA dma-buf
+heap calls vmap() and explicitly returns -ENOMEM when the mapping cannot
+be established.
 
-Ah, indeed!
+More generally, ->vmap() is a fallible callback whose API allows it to
+return an error. The exact reason for failure is exporter-specific, so I
+don't think the dma-buf core should treat every ->vmap() failure as an
+exporter bug and unconditionally WARN on it.
 
-I guess I can keep your review tags if applying this patch with only this
-line removed. Correct?
+The fatal_signal_pending() case is simply one concrete example of how
+vmap() can fail under memory pressure without indicating a driver bug.
+> > -ENOMEM is a concrete, easily reproduced example of this. Page
+> > allocation on the vmap()/vmalloc() path can fail purely because the
+> > calling task has a fatal signal pending: should_reclaim_retry() in
+> > mm/page_alloc.c intentionally gives up reclaim and returns false
+> > once fatal_signal_pending(current) is true, so that a task that is
+> > already being killed (e.g. by a userspace low-memory killer) isn't
+> > stuck retrying reclaim on its way out. The resulting -ENOMEM from
+> > dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
+> > the exporter -- and it is far from the only way ops->vmap() can
+> > legitimately fail (an exporter may just as well refuse to vmap a
+> > buffer for other, unrelated reasons of its own).
+> > 
+> > This is exactly the kind of condition Documentation/process/coding-style.rst
+> > warns against for WARN*():
+> > 
+> >     WARN*() must not be used for a condition that is expected to
+> >     trigger easily, for example, by user space actions.
+> > 
+> > A failing vmap() is reachable purely by driving the system into low
+> > memory and then issuing an ioctl that happens to map a dma-buf -- no
+> > driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
+> > and on panic_on_warn kernels into an outright panic, doesn't help
+> > debugging; it just turns an otherwise-recoverable error into a fatal
+> > one.
+> 
+> WOW STOP! A driver allowing to vmap() through an IOCTL is a major no-go!
+> 
+> vmap() on a DMA-buf has very very limited use cases which should mostly only be trigger able as superuser.
+> 
+> At least on 32bit system you can otherwise trivially exhaust the vmap area of the kernel and that is even worse than a simple WARN_ON_ONCE().
+Fair point. To be clear, I'm not arguing that an unprivileged ioctl
+should be allowed to trigger vmap() without appropriate access control.
+If a driver exposes that, I agree that it should be addressed in the
+driver.
 
-Luca
+My point is separate: even a legitimate, one-off vmap() may fail under
+memory pressure, and such a failure does not by itself indicate driver
+misbehaviour. The fatal_signal_pending() case is one example where
+memory allocation may give up rather than continue reclaim.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+I'll drop the "no driver misbehaviour required" wording, since I agree
+it could be read as endorsing unrestricted ioctl-triggered vmap, which
+wasn't my intention.
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Drop the WARN_ON_ONCE() and simply propagate the error, consistent
+> > with how other allocation-failure paths in the kernel are handled.
+> > The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
+> > both still return the negative errno from dmabuf->ops->vmap() to the
+> > caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
+> > on panic_on_warn kernels) is removed.
+> > 
+> > Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
+> > ---
+> >  drivers/dma-buf/dma-buf.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 36cdc342627e..252495761a21 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
+> >         BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
+> > 
+> >         ret = dmabuf->ops->vmap(dmabuf, &ptr);
+> > -       if (WARN_ON_ONCE(ret))
+> > +       if (ret)
+> >                 return ret;
+> > 
+> >         dmabuf->vmap_ptr = ptr;
+> > --
+> > 2.34.1
+> > 
+> 
+> 
+
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
+Content-Type: text/plain; charset="utf-8"
+
+
+------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_--
