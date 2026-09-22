@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4721CC982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:58:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA077C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 749C310E811;
-	Tue, 22 Sep 2026 06:58:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3102010E41C;
+	Tue, 22 Sep 2026 06:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JftsdkfD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aD3VuPBw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE0710E41C;
- Tue, 22 Sep 2026 06:58:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 575AB10E41C;
+ Tue, 22 Sep 2026 06:58:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3AC7660234;
- Tue, 22 Sep 2026 06:57:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363FB1F000FF;
- Tue, 22 Sep 2026 06:57:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2072240F53;
+ Tue, 22 Sep 2026 06:58:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464761F000FF;
+ Tue, 22 Sep 2026 06:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790060278;
- bh=EUhdkfTfZYkwV1OMbcAcC6Pw5pH0JpuT7NkR4uZdKPc=;
+ s=k20260515; t=1790060293;
+ bh=7LMHGTG0pfOz+99DNL3UsTjXGEHrS6iAVQiir8GxRDk=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=JftsdkfDUeoe7XikNfywfFBvp2aJTpTnEv9wPYh1I/6gXECPMaLgqWgeQfdQHlYUU
- i/TbsEzzct7jm56kCKmJ0tWA1ypE958tuvSp91KHOI0+1afhdOMNOjLozs78MvopHo
- SVnzPLIPxc8dQCVXJPprD7nvslYc8xU5fRwA6RrbTivk5IfZsZpVK+0VVyk8vXNUG+
- 3AVspVri2r9QHBRskn29ScBE2kcH7Kt+knwYB5tjlXfiWQQQRQoN8Qt1WClc+CSwlB
- MQLhOFKJM13m8XT5XyF1/VT4M01hyF0TRa0GoF6KpQLQ1PKyCvjI67eRmBva08atlk
- AfMHWYL56HNFw==
-Message-ID: <fcdb76ee38c6ab63727d8f526a2f9208@kernel.org>
-Date: Tue, 22 Sep 2026 06:57:55 +0000
+ b=aD3VuPBw4uRmaDcJos/m085O1jdB/WoHyTw8oxovEuJzzWNHRpglu227cxnBR5loB
+ HuctMQz3HXVdgKjbrB/hssfTOZDPp+9a/J5SDPtKQCZBmPYBsgmo782+ZTh/+mhqgQ
+ +K51sbSy1crQsx1l5fT1LFHCwzqDJveo+zepTPVymKjYD9vk6nlRDnDsRnD47hrzIC
+ EDMMEOnlH7DvDdIAf6dQvGo2VTdytXs8eLach8HxyBhadOxgzDSPDDfLu8QhLtdzlj
+ FjfNhCd5QQkFV59ZPqwzhb9L7CZFUrlfEBVYSqAekd0cyTAPBcDR4w9CcalN1StCY6
+ wg1C7LHNozKwg==
+Message-ID: <a1e4e49bb1c7cc8395c66a9bc6d1a1b6@kernel.org>
+Date: Tue, 22 Sep 2026 06:58:09 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 07/19] drm/panel: deprecate panel-bridge APIs
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-7-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-7-83afb4f1a707@bootlin.com>
+Subject: Re: [PATCH v3 08/19] drm/todo: add entry for removing the
+ panel_bridge API
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-8-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-8-83afb4f1a707@bootlin.com>
 Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
@@ -86,13 +87,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026 15:45:31 +0200, Luca Ceresoli wrote:
-> Now that a drm_bridge is embedded into every drm_panel, the panel_bridge =
-is
-> not needed anymore. Its APIs are just accessing the embedded drm_bridge
-> transparently.
+On Wed, 16 Sep 2026 15:45:32 +0200, Luca Ceresoli wrote:
+> Now that a drm-bridge is embedded into every drm_panel during the panel
+> creation, the panel_bridge does not really exist anymore. Its API has been
+> deprecated and kept until drivers convert to the bridge API.
 >=20
-> Deprecate them all, encouraging to use the drm_bridge API.
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 >=20
 > [ ... ]
 
