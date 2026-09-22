@@ -4,68 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8594EC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20011C98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A052010E0D2;
-	Tue, 22 Sep 2026 12:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A62110E6FC;
+	Tue, 22 Sep 2026 12:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TCdu6C7h";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fdT6TSPt";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0458810E0D2;
- Tue, 22 Sep 2026 12:53:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790081625; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=KTndc6JZaRZHwnEIOsJVOKmqMnPoyD0yJUj7daOPlmBUXrYCLC7sXrwHhSQE/M1j0SelAcsyof5PD3lQS0w0CQBr9yUNEWhUGag6v95l7NXo+BzIQ8Gce1U7JIP5hgSyjCQ/1LXPWKv2jxbgTyp2dNeb1Sm2ibtztE+5DPc8Ji4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790081625;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8VjNl0wa/Nxv7LlY9fTplz72WoCM/sa6XfRLdYqoWf4=; 
- b=iQEHTfp1vj8knug37pUf8qyg1jsi2Ik8q0L8i491jEO0OnRutlTdUNwhENof8gUq8voCE7STLUVB+/PzLLd95UmcLL1pBDYWthMysH2QgI55DWtF7mVJ2RQmP/Ftc/qBYmbCmCsjRTmZAL2aFbbo/cWYijsVLzEewVy1YHXAVg4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790081625; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=8VjNl0wa/Nxv7LlY9fTplz72WoCM/sa6XfRLdYqoWf4=;
- b=TCdu6C7hW2pYijD6VGCaiC+wv5MqeYa3Fx6j1IxMBPJkKRSEEGQpJJdhmINCvJ3i
- zeMSbdPSbjZu51N/DttLQ5WTW3C38NdLEbu+/1NqKFSdt/fldM1iQ5G47a4IkHlsXrr
- x/iihlM9thTLVL5I1AkmxN9YehFWKw8QVIzXhiUI=
-Received: by smtp.zohomail.com with SMTPS id 1790081623916135.24430513639902; 
- Tue, 22 Sep 2026 05:53:43 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Leo Li <sunpeng.li@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 03/25] drm/atomic-helper: Set mode_changed on
- vrr_enabled change
-Date: Tue, 22 Sep 2026 14:53:36 +0200
-Message-ID: <XpLMHDHXSDOKXXVsZyU9Pg@collabora.com>
-In-Reply-To: <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-3-2fcd7d011646@collabora.com>
- <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010001.outbound.protection.outlook.com [52.101.201.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A8CE10E6FC
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:54:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q3J1ittVGrjCIPEi1KH3BO1K5eo1dFFx9rFoyFp+n8uje/OCjjs4AVPNdspVf5d6MeoCT34ip3jxuv5gEQBIj3xHQ3x2gKrm6jGPwBIThPYhUQOoOKGLKkS68AvO4mru1smxAiamdRMRX6c/u4LX+askp6YrRaboVwy+z33gXeCBARzFUZHsxFljJqpc6/gBxYo6eQq9Vh6FF0z/KDtlARSUSJeLgiK0OEbUhpyZ2uBDlALRwezs6FevbE/nfijmHL7oaoHKkjTP08KR05KcXGoZUBwKLa9TAg8HScUwevMPgi+/Lc9HtKSzY8nXJ5YCMa9IFoGQy3bhgmDJsQgFxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WynCK7i7VNcnkYpfa8Gg16EWNRFCsoReR0SLXstCy7k=;
+ b=MgHahxkPNkroobd3n5YLzdVMKcpx1nYFu81eNeyAe5xgMmotVPi6bR9gNYjk7z+SUnigdR0hiTIzb0zXikXxJkTRFBFPulIfTR2/KQVesY60U3AwGS4zAhvTxQ66ou1PSI0ch94zybOO2vfDdQc7FinSMeqQ49M33LrFq4NSeJTu4enTeAIYCxfdckh+mZml54a/bKdQ+dXMNKycq/j55OO29hfc/7+xwF+ztco01MceCRT4TIouCvHRtGpzTLqweddhHzQqz8f9alZnI9EMfJFWW4qXgsyYyVBLISxzUICslso0ciep6b/mpLDQyFwCwpMpJPy6zvqeQOwcuHST0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WynCK7i7VNcnkYpfa8Gg16EWNRFCsoReR0SLXstCy7k=;
+ b=fdT6TSPtEWgDCj1Lbo3SNhmUJDBlE6oLSyxL/N9uZdZM0DiFqaqU5K0ny/Y1S2fKVl42BvNycWhl0jKHOQyfyTpsOsdDLrv8KegNIYBJ3KeuVrFVoegq5MY+2vBYysPPLxipc09+xFYh1RaA9B38Cw9dUBatvaRKT57DlEwslByQcqKGYzyrp1ghDpEV49VDEOQDQltmR1xOQxlbCbployf+emUedTtFOH3Lb9ajEk/saViUcO8FoLjAoAhiLhac0+Hm++H3ugSGRsIYIc9mMXpLhwaQE2iSCGc/F2domN09Fg2wc7sUMJ22Ry3BD8LIyKRz3wxaNG0m2Pzc9gZ4pw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DM4PR12MB6301.namprd12.prod.outlook.com
+ (2603:10b6:8:a5::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Tue, 22 Sep
+ 2026 12:54:23 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 12:54:23 +0000
+Date: Tue, 22 Sep 2026 09:54:21 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Message-ID: <20260922125421.GE1507824@nvidia.com>
+References: <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
+ <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+ <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+ <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
+ <20260921132208.GA1507824@nvidia.com>
+ <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
+ <20260921134924.GB1507824@nvidia.com>
+ <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
+ <20260922124137.GD1507824@nvidia.com>
+ <20260922124637.GG563127@unreal>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922124637.GG563127@unreal>
+X-ClientProxiedBy: BY3PR05CA0015.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::20) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DM4PR12MB6301:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38370f15-c254-4ccd-a894-08df18a8a07c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 8NVeu638W8+9OCrWDx3tmNINCTcL2ol3s1WcvstGhHXGeAnvn4OtZRIyAggKcsQUoD5mjN0B7M8iWN981lXqmVpmzUUOK2bdyoEPVaoCbN0XFpUUa6vM6fyu6PtyC6Wini/pejqI0Hw6C+fP10z5wq2aAIMDv5xOKzXfsWdo89dJ48KaeOBQkW1P0r6tZG9GjY/FbVB2bzUKYjTVPOa7HY5Hn/IdV0EgP+y1RzyC4M+oBOot6suUfpLLLShSxKGN5lC+CG3gW45Hmzkedgb4yC2sCYmZgOvg3b8O/WnZW1e6bbNvry/Ea52W3ajAPz65T5zmg/XywTG5hKJd5KaqKCHCCoEN1n+Fo6aGLAvlpnlRNyWk4RKqagqBOamBZwXUMymwJw4FHlULSFX/X1MxsxI76VZDy6lFy9MjyXbmqqh3HllI/qUBc52rbABN2++TM4v5xuCIA/uxvv8J2jZ/nFuG7EZHLo27o1eBPFbfKQ30qPUuxKp4uelF3X32WrUwX+jVmwWDyMFsS01OeMzH5P6JfABVrZI8dWrUuNXVRB7eCtKavEcYE3mKbOQSNtME0H4OZJKvLqMhy4+/7gxL1uXHNJeWPjECdIpubW6I/+dcAZVlpAnjcRTDpjHx3a1rDqo0D2Ee+Z5z4dgSGVOf4rbsKcYBwbdj1OFzDhrdW0c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3hHN2hoL2svL0xOaGhuSnMxMHE1VDY3eTZQZHFsTnJ3Z1MyT0Q4SStrK0g1?=
+ =?utf-8?B?cHJ3RU1qNllTa2UrUEkrakl1aFJrUEhVTE15U1FxbStLcVJzSm1UOURUeGR4?=
+ =?utf-8?B?ZmJVYzgrdnhLMGd2ZVpEMFIwZTNaWnAxSWI1a0pBZitYOVVWWTVrS05xT3Jn?=
+ =?utf-8?B?MnEwQUxBUFZsOTQyZ2ZXZ0pGUDFoUWhTWEN1R0V0TzJvQjVKZ09KWHBjWDlL?=
+ =?utf-8?B?TVVPaDZzdjU3clZLNjdJbCtkN01SUjVSM1F1eVMvWlE4NENEOVRrRXlVZm1i?=
+ =?utf-8?B?R2dsQ3VBZ2xYbHpOcDR6a3Z4QWJMU0JPL29QaFpMRitSOVNYMksrSGN4dkNP?=
+ =?utf-8?B?VUR3dlM4aGNVbUxCU0Y5QmJOUDlUeTdhaTIweHIwQ09WL2lQZVh0MWxuNStk?=
+ =?utf-8?B?cU0rMkZRQVFjTzc2a3ZvYWhSb3FySkJRYWx3cjdQNlc0VzVHMG1EczFFaHhr?=
+ =?utf-8?B?MzR2MUdyNXlRWVFpMUZQV0hzeXpFb2crNFJFMkdGRzBuMEdqWStCVFh2UmV5?=
+ =?utf-8?B?SjBJaUpqSEs3L1J5U3NKdzY2TjhjL2JUT0JuSE9HS3N1by92OFcvYTNLY2lC?=
+ =?utf-8?B?cC9mWTBFYXlnY1lINjVaaVpTOHRLTG0xSFcwRSt3V3FHd3hpS2s2YXRhTEFT?=
+ =?utf-8?B?Uk0wMkEyM0ZzbXpUakVTVVU2RHJSTmJ4blMzTytWTDFKQXB4eXB0dTVYaCtG?=
+ =?utf-8?B?V0x3LzE1TVBaTjl5d1YyZ2lqSWFjbHV0aFNheVJxSUIxUzN1REdORmZkQkJX?=
+ =?utf-8?B?THkxSkZqR1AvLzNxUFVTd01pM1EvcDQyTTR2TGZuQTBWTjh5dmJsdVdDa2NW?=
+ =?utf-8?B?TENGVkZkaDBlSG55TDBDRGhaVUh3ZHNwamsvdUNsVVBqNVVvZ2hsYjRtNFBu?=
+ =?utf-8?B?eE8zVjM1U0JBKzI2M0pZSjRHd1ozR3NUbDExRW8xdDlhQ2h5dkVOeVRCY3JL?=
+ =?utf-8?B?Sjh4eWRjOXVNRUt3d2F5M3FrODlBanhLNjFFcHNWcVd3T0FWRmsyQzh5VW1C?=
+ =?utf-8?B?SVVpQlQwRWhmWHl5MUdoaktDL3VIL3JxVDBLbUhpWk1vdTJHYkF1ZFN4WGZH?=
+ =?utf-8?B?M1VMMWRzSGF2Ym8zaWFQR3VLQU9tNUFhaG0yb0N4RGVCOGZwSWJEbzhZMDJu?=
+ =?utf-8?B?bVdtL0NnZ3JXWXZzNWRldk5YMHMwVVpFZWxTM3VZSTlkeGJqb2FwcmJJMXlq?=
+ =?utf-8?B?OXY0THFER0ordmxuZ0k4ZVVwUStkMzNpNzMyTVYxS0h5N0tRdjB2enh0RnVM?=
+ =?utf-8?B?T3F5eDQzNEVHbDNNRjdXV24ybUZRVXp6dzlHZUJFck5vYkF4eHNtQmJKN0Zj?=
+ =?utf-8?B?cDlONUl0dVpDMjZZem9WQkl2aGtYZUswUjBqSVhYZ3VtTVY0dkVDTEN0a01q?=
+ =?utf-8?B?QXVTMnFwR3VEQXp5OVY2OHN5enpKYnBCYzdZL0s4VkMxNzdGNzlxTXlVeHpo?=
+ =?utf-8?B?UDMwMFRlYnBnQkdxaTlReWM0bEpBR2QxZmZSRHNzRnczWFNPeTBRRCtXa2Rh?=
+ =?utf-8?B?Y0lYRmZJa01WWDRvRlk5OUplaFlzUDd4M0kyR05BNUI4K2FFRy9sUzhXVTJI?=
+ =?utf-8?B?eVJkeWhzSGJVQzBud3V1VDg4eW5rMHNneFBVS1Q5QlRvK1IyaWRXdXg3RHhD?=
+ =?utf-8?B?bkF1WXMrWm80cVdSN3NIYk9ONXc5YmpGSXM3VTFIdENXZTVzeFNtV21xODRl?=
+ =?utf-8?B?akxpZVFjeWJaYUlVTk9QbXZKcGRkRUgzMGdndk1iclgybEk2M2NWbVJHM1p2?=
+ =?utf-8?B?cGNDMUFyTVFEMTFNd3F0VEhlUERweDhPZEhiNjF6YXdldnZ3MWNSL3FYWHJi?=
+ =?utf-8?B?Zk9ScDhGNGhMb2gxdUVBUnd6U1g1ajBpN0l5L3lYaGV4REVLZHRYZlZQajNN?=
+ =?utf-8?B?NjRqaTlnZTRteTJETkxkYUNUeTFwVjNKakZZWUFxUnBQV1EycS9iOW9xSVRE?=
+ =?utf-8?B?YjZ1dm12VGZTQ0hxcS9lZzJTU0xIZTZxM2dQR2Jyb1lMWHRsVDlqNEVVb3JW?=
+ =?utf-8?B?ZHA5eHlxV29aN0cvM3RIYzVQbjZKamxwYVcvSlVLZWJYNXlEODg5a0xTSFFy?=
+ =?utf-8?B?SHBtdGpYRnowbGR3ZUtlL21MZG9VcnlMaUlacm9LZVlBRStib040N0tlcDNP?=
+ =?utf-8?B?YU9pcENqMy8wMGIzR3dWT2pQZG9wdmdYSHZTblF0a1NnL1lEZ0k4SFhOanlR?=
+ =?utf-8?B?SUVoMnJwak9iZjl5UitKM0xVM0cxREFrcWMrR1NaVGtMdm5idnRMYjBxZnd2?=
+ =?utf-8?B?NEs5ZmhxcldLMm9vZStZbkZMbGpSN2cvOFlpRy91eWtPOENtUkY3Wkl5QjJ4?=
+ =?utf-8?Q?smxubeJJ80rielEZ20?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38370f15-c254-4ccd-a894-08df18a8a07c
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 12:54:23.6888 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6RQAcQQIoJ029OBBPcOvE0X/Sr5cSycgwj5dgVPbq8G7sIgynbXQ/h6tnbywnjAv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6301
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,72 +156,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, 21 September 2026 23:59:11 Central European Summer Time Leo Li wrote:
-> Hi Nicholas,
-> 
-> Thanks for sending this out. I'm looking into an amdgpu implementation
-> and had some comments along the way. Will reply inline on respective
-> patches.
-> 
-> On 2026-09-21 11:51, Nicolas Frattaroli wrote:
-> > A change in whether VRR is enabled or not on a CRTC will be of interest
-> > to any VRR implementation, as they may need to recalculate certain
-> > internal state in response. So far, this was handled ad-hoc in the
-> > drivers that implement VRR.
+On Tue, Sep 22, 2026 at 03:46:37PM +0300, Leon Romanovsky wrote:
+> On Tue, Sep 22, 2026 at 09:41:37AM -0300, Jason Gunthorpe wrote:
+> > On Mon, Sep 21, 2026 at 04:09:18PM +0200, Christian König wrote:
+> > > >> I would avoid that and just re-create the DMA-buf fd from
+> > > >> scratch. The extra overhead is negligible and one way state
+> > > >> transmissions are usually much easier to handle.
+> > > > 
+> > > > Yeah, maybe we should have done that. Might be too late now.
+> > > 
+> > > It's already uAPI? 
 > > 
-> > Handle this in the common DRM atomic core by setting the mode_changed
-> > flag when this occurs. The rationale for using mode_changed is that VRR
-> > is deeply intertwined with the current mode with regards to its timing.
-> > Consequently, any component that cares about a mode change is likely
-> > also going to care about VRR being enabled/disabled.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/drm_atomic_helper.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> > index 9d006f98413a..0664d5779282 100644
-> > --- a/drivers/gpu/drm/drm_atomic_helper.c
-> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> > @@ -694,6 +694,12 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
-> >  			new_crtc_state->active_changed = true;
-> >  		}
-> >  
-> > +		if (old_crtc_state->vrr_enabled != new_crtc_state->vrr_enabled) {
-> > +			drm_dbg_atomic(dev, "[CRTC:%d:%s] VRR changed\n",
-> > +				       crtc->base.id, crtc->name);
-> > +			new_crtc_state->mode_changed = true;
-> > +		}
-> > +
+> > Yeah, but Matt is making some changes here so maybe new stuff can
+> > avoid this. I'm not sure.
 > 
-> I don't think this is the case for all hardware, at least not for amdgpu.
-> The parts in HW that adjust vtotal can be programmed without requiring
-> bandwidth recalculations or reprogramming of pipes.
+> Jason, the proposed semantics is not UAPI yet.
 
-Thanks for pointing this out. I was already unsure of this patch before,
-and I don't think Rockchip requires these recalculations either. Originally
-I added this when I looked at the i915 code iirc and saw them setting it.
+What I'm talking about is, the revoke/unrevoke flow for a single FD
+was added from the start. For example vfio_pci_ioctl_reset() does it:
 
-I think in the commit message I also conflate needing to know about VRR
-being changed with needing to do a full modeset (which is what mode_changed
-basically means).
++       vfio_pci_dma_buf_move(vdev, true);
+        ret = pci_try_reset_function(vdev->pdev);
++       if (__vfio_pci_memory_enabled(vdev))
++               vfio_pci_dma_buf_move(vdev, false);
+        up_write(&vdev->memory_lock);
 
-I'll drop this patch on the next revision.
+The false restores the exsting dmabuf fds back to normal operation.
 
-Kind regards,
-Nicolas Frattaroli
+Matt's version is one that defeates the above false so once revoked it
+stays revoked forever.
 
-> 
-> - Leo
-> 
-> >  		if (new_crtc_state->enable != has_connectors) {
-> >  			drm_dbg_atomic(dev, "[CRTC:%d:%s] enabled/connectors mismatch (%d/%d)\n",
-> >  				       crtc->base.id, crtc->name,
-> > 
-> 
-> 
-
-
-
-
+Jason
