@@ -4,105 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E38C982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E41C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3407810E827;
-	Wed, 23 Sep 2026 07:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F7210EF54;
+	Wed, 23 Sep 2026 07:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="iARAx8Qy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gm44LA/R";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id BEA1E10E507;
- Tue, 22 Sep 2026 17:14:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78D071595;
- Tue, 22 Sep 2026 10:14:31 -0700 (PDT)
-Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 50FAF3FA32;
- Tue, 22 Sep 2026 10:14:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1790097275; bh=SNK4rrwFvjnxcdknL2hsc20bUzMvwr6CIipWYMszSzs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iARAx8Qyk1413VBr4PC7dGwIhlrToaTnagZ6dPlvezmqEddDjaVkHLgBTgS5wWhxt
- NG3MjS+xmLq1vZyn83oVsYzSt8u9iMTTXB3k+0eeRFDj4F3gou8popZy7lpyXeDKr4
- SHUdvtaZmDDnMdNPXUZnhs8extIVv21cyFM4/8oM=
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Date: Tue, 22 Sep 2026 18:12:35 +0100
-Subject: [PATCH v3 7/9] mm/kasan: use hw_pte_t for the early shadow PTE table
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com
+ [74.125.230.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367E910ECCD
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 22:56:01 +0000 (UTC)
+Received: by mail-qk2-f12.google.com with SMTP id
+ af79cd13be357-93910a0cb7cso32074685a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:56:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790117760; x=1790722560; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=zOb7x4ygb83hEYoABya/SQC3FYbUHL3RXKH7jN2xAeM=;
+ b=gm44LA/R6b94VQs+mZ6iZ9XWoDBvUSZCZuthO8ul017NaTJ/0ze+eNT7nyVc+b6VFk
+ 1UmowNK85jyEmrgxUci1JhpsZlfxGoGxkvcBjmCGizzF96K/pN2R/JK9rCF7vguVgcNz
+ cN3YMKj1LEWrsXCv5KEXU39IgrX5Qz52aMoWnuGdyRqFZASJoTGRRmcdRi3pK9nFr2N5
+ HEOBrvTk0HJaYzih2qRBAfFkV18gKQi/9TE1OM3IOhJncw2DAASffuDc15kNK9H/74Tf
+ xhzNVIqHz9hD02H4SERov7EuYLwhPF8nq/jjDHBw/uDZjTBd0xGBd1qMLpnulqh5UvVd
+ yDaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790117760; x=1790722560;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zOb7x4ygb83hEYoABya/SQC3FYbUHL3RXKH7jN2xAeM=;
+ b=qfrncb0nOR94L8BHKsgl4eEIP0MaweTt7e37h+tVdvfKJCLEcmAQntXt2waS+sTtSx
+ 5MEvul2o3+FKjd7NVPK7Ag4LKdBABerg6qsO+oiuzokZa/sUYpS/lbxbmJQJAPfIwRYb
+ BHG4j7+9XUg730LaGjEHrv48/hikzaJozBNBdVjhvsUMnUDx1xPfysaMsMYwPWWBsi/c
+ q3BFiu06Cn+EcjjQ/TmHg1LLcEE2rb0P7lnUDSH42J6fW9hhQrZV06YvbGgtdpyDiJp8
+ 1ew5m28Unk99M98NFiK/SXUnsC90p6etL7H2sBak7pGAtf9HW35nsXgQ0V5pByhWrZyB
+ k7GA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwmOK2vxx5i2N/PPtOslLT/QkWVwx3X7frMVkq86Mw+byjND4x4+9tS0+z0NVX+WoTCg23N763YtnU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++meXbQibxbhb7UOXctGjMoMbD12UcYCz6K0rKM9vHMlPXMVbDKB
+ dXG90ouBOCO0zupzvj7sPJpFowKds9/TIu0/ngcR3lEKJGRcvoMeSLkQ
+X-Gm-Gg: AYBFou177KLb2q03kyKvnCKv4bWQpif9qKgR7Lw9KwQ42LfJP95Ta5ZEp6KMdl6aICo
+ zDiUZRAGp3K9rSNwvDRHqj2cAtYaTD8cjCycbrFj+wvatBGZS0kGSdwXTgw10hil1RZuhnjtLFy
+ Sg7J42GocOots82VYCW4phR0xDUmuE6Wn5/asBragKk/BLZctvVHzU/NnIMzeuQVB5ujQPihPjq
+ yK5b6qdT+k+uN51V2r53BLvQcPyChVL5Vb4QvGvkp9sS+TewUkhFhovHbhybcpYL2hQcQ6Cfwke
+ BGuM9ytX1Ons72l8MhTMEFp+mwJIfklwpFXehT89SsoLwu3goFrzqA4rvkVJla9Vw5iN5fmJ3Fv
+ 1jqUPlgAasa2Y0jvXUMZUB/Mwo352m1cWZQrQqVdyEScpOeA2BguCqRmLVCHHLM+ATIv2PeS1Zd
+ Pfxh1b1ge+iIHJ9PuKKcT9DN9aHER74NOQODFzG38OXwPyOHdhUnjnBhyDkvObjXA6bu0Yf903P
+ dlOjx1tJlAHf1K9bkYpn9sLuQPVRZNMGCIYMTTd1RBAiA==
+X-Received: by 2002:a05:620a:450c:b0:939:1d67:2231 with SMTP id
+ af79cd13be357-93c251fc75emr141927585a.34.1790117759919; 
+ Tue, 22 Sep 2026 15:55:59 -0700 (PDT)
+Received: from holowork.lan (static-68-235-46-62.cust.tzulo.com.
+ [68.235.46.62]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-9140c417be4sm8201596d6.22.2026.09.22.15.55.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 15:55:59 -0700 (PDT)
+From: Fabio Piparo <holofermes@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Amit Barzilai <amit.barzilai22@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Fabio Piparo <holofermes@gmail.com>
+Subject: [PATCH v2] drm/ssd130x: Set the address window in
+ ssd132x_clear_screen()
+Date: Tue, 22 Sep 2026 18:54:45 -0400
+Message-ID: <20260922225445.1525837-1-holofermes@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-pte0-v3-7-5670b8cb9059@arm.com>
-References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
-In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
- Alexander Potapenko <glider@google.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
- kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,70 +93,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kasan_early_shadow_pte is a complete PTE table rather than a software
-PTE value. Declare and define its elements as hw_pte_t so the object uses
-the PTE table storage type.
+ssd132x_clear_screen() writes a full screen of data without setting
+the column and row ranges first, unlike ssd130x_clear_screen(). The
+clear is not reachable today: the plane disable returns before it,
+and the encoder is powered down by then.
 
-Read the first element through ptep_get(), which returns the software PTE
-value expected by note_page_pte(), instead of accessing hw_pte_t storage
-directly. This also uses the accessor selected by the architecture.
+Factor the range commands into ssd132x_set_col_range() and
+ssd132x_set_row_range() and use them from ssd132x_update_rect() and
+ssd132x_clear_screen().
 
-No architecture selects ARCH_HAS_HW_PTE_T at this point, so the storage
-representation remains unchanged.
-
-Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Assisted-by: LLM
+Signed-off-by: Fabio Piparo <holofermes@gmail.com>
 ---
 Changes since v1:
-- Use software PTE value terminology.
+- Drop the Fixes tag and the stable Cc: the path is unreachable, so
+  this is a cleanup (per Amit Barzilai, Javier Martinez Canillas).
+- Factor the range commands into ssd132x_set_col_range() and
+  ssd132x_set_row_range(), used by update_rect and clear_screen
+  (per Amit Barzilai, naming per Javier Martinez Canillas).
 
-Changes since RFC v1:
-- Update the description for the architecture opt-in model.
----
- include/linux/kasan.h | 2 +-
- mm/kasan/init.c       | 2 +-
- mm/ptdump.c           | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+The helpers do not keep the programmed range the way the ssd130x
+ones do. That skip would change the commands sent on every update
+on the SSD1325 and SSD1327, which I cannot test, so this v2 keeps
+the wire traffic identical. Easy to add as a follow-up if wanted.
 
-diff --git a/include/linux/kasan.h b/include/linux/kasan.h
-index bf233bde68c7e..ff41949c0ac08 100644
---- a/include/linux/kasan.h
-+++ b/include/linux/kasan.h
-@@ -51,7 +51,7 @@ typedef unsigned int __bitwise kasan_vmalloc_flags_t;
- #endif
- 
- extern unsigned char kasan_early_shadow_page[PAGE_SIZE];
--extern pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
-+extern hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
- extern pmd_t kasan_early_shadow_pmd[MAX_PTRS_PER_PMD];
- extern pud_t kasan_early_shadow_pud[MAX_PTRS_PER_PUD];
- extern p4d_t kasan_early_shadow_p4d[MAX_PTRS_PER_P4D];
-diff --git a/mm/kasan/init.c b/mm/kasan/init.c
-index 30c5266eaf37e..9bbc2a41d23f0 100644
---- a/mm/kasan/init.c
-+++ b/mm/kasan/init.c
-@@ -64,7 +64,7 @@ static inline bool kasan_pmd_table(pud_t pud)
- 	return false;
+Compile-tested only; the clear path cannot run on hardware today.
+
+v1: https://lore.kernel.org/dri-devel/20260817152500.703770-1-holofermes@gmail.com/
+
+ drivers/gpu/drm/solomon/ssd130x.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index 324467ae930..8cbf1875448 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -415,6 +415,20 @@ static int ssd130x_set_page_range(struct ssd130x_device *ssd130x,
+ 	return 0;
  }
- #endif
--pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
-+hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
- 	__bss_pgtbl;
  
- static inline bool kasan_pte_table(pmd_t pmd)
-diff --git a/mm/ptdump.c b/mm/ptdump.c
-index 376880071ca2a..8f19f20be3c44 100644
---- a/mm/ptdump.c
-+++ b/mm/ptdump.c
-@@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk *walk,
++static int ssd132x_set_col_range(struct ssd130x_device *ssd130x,
++				 u8 col_start, u8 cols)
++{
++	return ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE,
++				 col_start, col_start + cols - 1);
++}
++
++static int ssd132x_set_row_range(struct ssd130x_device *ssd130x,
++				 u8 row_start, u8 rows)
++{
++	return ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE,
++				 row_start, row_start + rows - 1);
++}
++
+ /* Set page and column start address for page addressing mode */
+ static int ssd130x_set_page_pos(struct ssd130x_device *ssd130x,
+ 				u8 page_start, u8 col_start)
+@@ -896,13 +910,12 @@ static int ssd132x_update_rect(struct ssd130x_device *ssd130x,
+ 	 * the second byte are SEG2 (D1[3:0]) and SEG3 (D1[7:4]) and so on.
+ 	 */
+ 
+-	/* Set column start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, col, col + columns - 1);
++	/* Set address range for horizontal addressing mode */
++	ret = ssd132x_set_col_range(ssd130x, col, columns);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* Set row start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, row, row + rows - 1);
++	ret = ssd132x_set_row_range(ssd130x, row, rows);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1052,9 +1065,18 @@ static void ssd132x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
  {
- 	struct ptdump_state *st = walk->private;
+ 	unsigned int columns = DIV_ROUND_UP(ssd130x->width, SSD132X_SEGMENT_WIDTH);
+ 	unsigned int height = ssd130x->height;
++	int ret;
  
--	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
-+	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
+ 	memset(data_array, 0, columns * height);
  
- 	walk->action = ACTION_CONTINUE;
- 
-
++	ret = ssd132x_set_col_range(ssd130x, 0, columns);
++	if (ret < 0)
++		return;
++
++	ret = ssd132x_set_row_range(ssd130x, 0, height);
++	if (ret < 0)
++		return;
++
+ 	/* Write out update in one go since horizontal addressing mode is used */
+ 	ssd130x_write_data(ssd130x, data_array, columns * height);
+ }
 -- 
-2.47.3
+2.43.0
 
