@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 247B1C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A433C98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 586A910EE6C;
-	Tue, 22 Sep 2026 20:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A293310EE6D;
+	Tue, 22 Sep 2026 20:57:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IkeTx1yy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cdw5UoUB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF90010EE6C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:56:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C5710EE6D
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:57:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B8CDF4029D;
- Tue, 22 Sep 2026 20:56:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1DE1F000FF;
- Tue, 22 Sep 2026 20:56:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A436D600D4;
+ Tue, 22 Sep 2026 20:56:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4F21F000FF;
+ Tue, 22 Sep 2026 20:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790110598;
- bh=N5Aew1QGpcGcgAL56cWdmFKQOzCE8HnWBXPBVpQMGY0=;
+ s=k20260515; t=1790110619;
+ bh=HAh9LZv8xo70XHeQk0X4i3/eqGqVF063Y7O8uqnuLkE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IkeTx1yy3ISSpJjMrAsgbJZKGW5yO38MIePUCBsLPsnjaC0OsXXeZVgqUBFa0mbyg
- jJtzD865/zvxEk7wcZy+HbzSSbgp1uLlw6POWG9oYpsyDVEAec3dKNuxIPPXN/tUCM
- 0/kPsRb+/JsuNfJrgNpIDarciirVU1Cpt929bX2tsjLi095by8MIFU6N3jIi6PB41s
- q3BeEQttvDUqVFamN2Mbb+/rEw+PK4d0nMYIkOWdtSQJQ7KVDndpOYKw57L2N0kVKa
- X97DhHF2K6rBWcDVWyRpneMoFAsNq3bgtcxSKN0fllMUVTHKVmoEJMpZOS08bgfwn1
- IRvrqLPXDagTQ==
+ b=Cdw5UoUBInuskJ2N8QawyP9QnzP5CIfhxLZ0p2Vrl/q0k7XSoUroxyIdQP0c2jFEa
+ lKoNjMhaCtPaU88qyTskQaK+DjRAqj5ZYC6fi9sE38nMFS0g9GConfBEu3zhb6Aw3E
+ Scphpn9BXPsg0k08jLP7YJSHPQQWZQxqhd0Fu4KmDNhxZw4G3sEwzzQZpXFouMF/bw
+ naCWukx5kJiS0pXIxHuE2DwLeQqU72hACyMqWo+NfGf7fetRHP3qGNyKbk73DU9lCD
+ W4kqfrdo3B6paCx8IYrKdWd8pR7QT5EoH01JYwxSkCmbW6cV7CxKnBAUGyF9xk3CzP
+ EJpzwbaAD+SMA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 15/27] drm/panthor: Add AM_RESOURCE_GROUP support
+Subject: Re: [PATCH v1 03/27] drm/panthor: Parse and store GPU_ID fields
 To: "Karunika Choo" <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-16-karunika.choo@arm.com>
+In-Reply-To: <20260922204535.2850094-4-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-16-karunika.choo@arm.com>
+ <20260922204535.2850094-4-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 20:56:38 +0000
-Message-Id: <20260922205638.7B1DE1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 20:56:58 +0000
+Message-Id: <20260922205659.3C4F21F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,128 +57,55 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Runtime PM handling missing in shared IRQ handler
-- [High] Missing synchronize_irq() during runtime suspend
-- [High] CPU busy-loop in message retry workqueue
-- [Medium] Missing NULL pointer checks for devm_kasprintf allocations
-- [Low] Uninitialized irq field in panthor_resource_group
+- [Low] drm/panthor: diagnostic info loss in GPU ID log
 --
 
-commit 97f87eba41075ad8e7f232b378d4561b841f68e5
+commit 18159d0a7677f6cb80f96ffd38fefa04603df0e5
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Add AM_RESOURCE_GROUP support
+drm/panthor: Parse and store GPU_ID fields
+   =20
+Prepare for Mali v15 by expanding GPU_ID to 64 bits and caching fields
+during initialization.
 
-Add resource-group probing for the arbitration device, including MMIO
-resources, IRQ handling, per-AW AM message helpers, handshake
-negotiation, and retry work for deferred outgoing messages. Hook
-resource groups into arbitration init, teardown, and runtime PM.
-
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c=
- b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_resource_group.c
-> @@ -0,0 +1,323 @@
-[ ... ]
-> +static void rg_retry_messages(struct work_struct *work)
-> +{
-[ ... ]
-> +	if (retry)
-> +		queue_work(rg->wq, &rg->msg_retry_work);
-
-[Severity: High]
-Could this sequence lead to a CPU busy-loop? If the hardware has pending
-messages and panthor_am_msg_retry() returns -EBUSY or -EAGAIN, this will
-immediately requeue the work. Because it is an ordered workqueue and no
-delay is specified, does this cause the worker thread to monopolize the
-CPU at 100% until the hardware processes the messages?
-
-[ ... ]
-> +static irqreturn_t rg_irq_raw_handler(int irq, void *data)
-> +{
-> +	struct panthor_resource_group *rg =3D data;
-> +	unsigned long message_mask;
-> +	u32 status;
-> +	u8 aw_id;
-> +
-> +	status =3D gpu_read(rg->iomem, AM_RG_IRQ_STATUS);
-> +	if (!status)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Is it safe to perform this MMIO read without verifying device activity?
-Since the IRQ is registered with IRQF_SHARED, this handler can be invoked
-by other devices on the same line while this device is in runtime suspend.
-
-If the device is powered down, the read will typically return ~0u, which
-bypasses the !status check and could result in spurious processing of 16
-pending messages. Should this use pm_runtime_get_if_active() to verify
-the device is awake before accessing hardware?
-
-[ ... ]
-> +int panthor_resource_group_suspend(struct panthor_arbitration *adev)
-> +{
-> +	for (int i =3D 0; i < AM_ARB_MAX_RG_COUNT; i++) {
-> +		struct panthor_resource_group *rg =3D adev->rg[i];
-> +
-> +		if (!rg)
-> +			continue;
-> +
-> +		rg_irq_suspend(rg);
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this suspend sequence need to wait for in-flight interrupts? The IRQ
-is masked at the device level, but since it is registered as IRQF_SHARED,
-rg_irq_raw_handler() might still be executing concurrently on another CPU.
-Should there be a synchronize_irq() call here to prevent the device from
-powering down while the handler is still running?
-
-[ ... ]
-> +static int resource_group_init(struct panthor_arbitration *adev,
-> +			       const struct fwnode_handle *child)
-> +{
-[ ... ]
-> +	rg =3D devm_kzalloc(dev, sizeof(*rg), GFP_KERNEL);
-> +	if (!rg)
-> +		return -ENOMEM;
-> +
-> +	name =3D devm_kasprintf(dev, GFP_KERNEL, "rg%d", res.id);
-
-[Severity: Medium]
-Could name be NULL here under memory pressure? devm_kasprintf() isn't
-checked for allocation failure before being passed into functions expecting
-valid strings, like devm_alloc_ordered_workqueue() below.
-
-[ ... ]
-> +	irq =3D fwnode_irq_get(child, 0);
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq, "%s: Failed to get IRQ", name);
-> +
-> +	irqdata =3D irq_get_irq_data(irq);
-> +	if (irqdata)
-> +		irq_flags =3D irqd_get_trigger_type(irqdata);
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panth=
+or/panthor_hw.c
+> index 4c96573b649a1..2143e57d48106 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -245,13 +245,13 @@ static int panthor_hw_info_init(struct panthor_devi=
+ce *ptdev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	major =3D GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
+> -	minor =3D GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
+> -	status =3D GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
+> +	major =3D ptdev->gpu_id.ver_major;
+> +	minor =3D ptdev->gpu_id.ver_minor;
+> +	status =3D ptdev->gpu_id.ver_status;
+> =20
+>  	drm_info(&ptdev->base,
+>  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+> -		 get_gpu_model_name(ptdev), ptdev->gpu_info.gpu_id >> 16,
+> +		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
+>  		 major, minor, status);
 
 [Severity: Low]
-Should the retrieved IRQ number be stored in rg->irq here? The local irq
-variable is populated and used for requesting the interrupt, but it doesn't
-appear to be assigned to the structure field for future use.
+Does this unintentionally drop the architecture major, minor, and revision
+values from the printed GPU ID?
 
-> +
-> +	ret =3D devm_request_irq(
-> +		dev, irq, rg_irq_raw_handler, irq_flags | IRQF_SHARED,
-> +		devm_kasprintf(dev, GFP_KERNEL, "panthor-%s-irq", name), rg);
+Since ptdev->gpu_info.gpu_id >> 16 contains more than just the product majo=
+r,
+replacing it with only ptdev->gpu_id.prod_major causes an information loss =
+in
+the boot logs.=20
 
-[Severity: Medium]
-Similar to the earlier devm_kasprintf() call, could this inner allocation
-fail and pass a NULL device name to devm_request_irq()?
+For unknown GPUs, this makes it harder to identify the unsupported hardware
+because it will log as id 0x2 instead of id 0xa002 (if arch=3D10, prod=3D2).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D15
+094-1-karunika.choo@arm.com?part=3D3
