@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A163C98306
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55446C98308
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED0C910E84D;
-	Tue, 22 Sep 2026 08:01:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C9410E918;
+	Tue, 22 Sep 2026 08:01:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XAE+Z9PF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YK46PFug";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3957C10E45B
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:34 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49d1331ce1bso2265855e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:34 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB6610E61F
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:36 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49fbca514f8so2712755e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790064093; x=1790668893; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790064095; x=1790668895; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
- b=XAE+Z9PF0GtINVZpVH7ML9447K7vbaI37mGwpThbACVpntGYiYIwGn6NxXeDtcXT+V
- Iu8NCgDpJXWTBaEroRyx93NA4QORJ6v1oC8KgyrV2qig5aB/FZbCmpJuHTFioQeqMgU2
- S/RKoV/WoQ7itF0q0bELa7S1qHWOpR8i8kStop8QSLvc6AZbKZT0zWCvupeDmePXk/W1
- UF1ekgdFadltp90ZaC14JSsH/7H7ns3fjH/UceZJ4lpqptwCAL9XLs0ntPg5msynShao
- H89WBH9rtvSk/IUsrS2LNMzYnMHjAF2vPCGO3Qg0KaZB1ihLIGuYVYUbDbxYsfXKZCvM
- VRcg==
+ bh=C/lMPPdyVDY8UDcv/G9hmnqUs4LxNskElZuOnfztMlQ=;
+ b=YK46PFug3HFjaUDXJUue+pJ0BesUku4nvuXDJHVkqotbO6R2jAnY/97OCuzWDWTBz+
+ SE2c2yK++eWMkkCRvTW4GfHwLp8XiFgHuf6SxBTNb4zldIZv169/LIXfb1UGocqejSKJ
+ JFIJJmwE39g9jJcy8icOOOY8t+LlxCAUGqhJOCL2lExUNpAfPvtfuVNM+G+IUoE2R649
+ MlMRYzeCIH0zxy/Vy1a9Sq+Ngr8lPIPegk5cHLJEBFiex29gvpksUZKPVS8sCrYAKLmp
+ LShn8J+U69aIWioCrllp8Hdopeftw+Cq/P/DEBusMpAstPccro0CA050wYXuw0X28qRz
+ viHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790064093; x=1790668893;
+ d=1e100.net; s=20260707; t=1790064095; x=1790668895;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
- b=Xxhqlmczff1GW9ATd0O78vg45s9Yw1vvcwlPKypSOB2dF1luBFdnLaRIDzMV8heGJy
- gHXkQg81Kt0JFXWR5l5bGhjPFnZihTkdZCuslUVAhs98FWBO5avkUAj3SP5pI8EU4oCd
- Ka2Q/joDV3FEWos61ucapVNKUfVk7D9EurDhnEibUTxxOqkSvqOZhoI73bTRqPhsOVi1
- 5s5q5NVt+4Oc9M5mChUZ6hinf9ds18bMntXfw1SMnj58XryRBMLINRHr/g3GsdXy9QsN
- qNEdabuZaJh/q6C4D+axmAQq3TBAuxlid7BaehLknv4vUWnaZJKkplkR3iyiySOShdwL
- 5SJQ==
+ bh=C/lMPPdyVDY8UDcv/G9hmnqUs4LxNskElZuOnfztMlQ=;
+ b=Ef64k1zJ4drYmneR5l8sMIqNl0Vh1HgP31AIRRDnIYByToCPv6EhdA+w/gP9APYpDe
+ K+OxVOnSt4bpN7CClT01nzU2K/20gRkdrjV1KTRd0Fvw95IxpkE1Osy2PyZcjjr5IPK3
+ BhE4iZNoSYa41BzVPjJVlU/l12SPyv7eVX0f/DFgIz7+fRdtYW+veaFxPbEyuqCNgLap
+ WkjsBWEt3Y4vfgN1xuMvL4XHySgpjzYZAtIO1q9Usg1fm30kr84iityFmdy597VEXXZD
+ UkEOrehl0RDHhKZxSeVd5qrOZo1A6nWM93V8UjfVQHW6ntksL2qLcBGyI2rSBmovCYfM
+ hKTw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxAgLUHp7PMFIKVP25AHGxK79J04VuS1ljdJeCnzMhzsvzzXZaaEnQXcTU6Bajljc/6cMKwMQpoCUM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lkt93IokOyIwjYK+emHEkhw+LqvuAkImkc3bWjzPKdXXk9cMHR
- +Ja4CCFHdRAWTGlbVC6Jtd6OVXWuyeIiE2DhsVXDkgdqIhyUWrTla1nX
-X-Gm-Gg: AYBFou00YO9prbfcs4otRI0uL16pECCwhRTVoYRNS73rUsKO2TdIfeOrlVJ7bKqT22C
- /3hak3Iw1WJvlQWY8RAfex8MZIwKc+iNIqN1qQg3zV95p/gQ9imxBOcLqOHRqC8edirCUufI0vY
- SCHb4kiu4Sv3oRcJZ1uZZEG5WsEqL2lXU9Z92lPchl0zq25Y+NtFuD591O+jY+/cXcJpCYJ5yEx
- Nuu6fJ5LvPXppIQ3bn9gJF/SRQ2ocT4GxdVp+9KDhfWmx160Th8/Syfk9sXD1m9EnSqj928Lzwr
- 9epXFlMm/7P3AAGsJuuRRzsFv+vAQ5K4RSym44lS3ysMgFNJHsfeKVjBfJ1UTi3tuYDUTBLDz7C
- W0Y+EsVUR9QdHOyliNAAhiDbRAYlmYL+ZSk9km7fTsD4X6p1OMbXaUPtnM9XsuCGpiqwd02K8jX
- X6YDC1k1KmYqkOM3nWavwvE+i0S9wEhUZf0oMC2I9/4GNSDKqK7rjHEu/wGYSkfe82nDj4lVyvE
- G3b6bZXJLso5UeBW+iZtghoeSePgBKxoJZqt3F+L9fKCxupoXp4JtuxF5Z4ajZRmqrqKVtd8oqf
- fVI=
-X-Received: by 2002:a05:600c:3b99:b0:49e:6683:d227 with SMTP id
- 5b1f17b1804b1-49fc7bbfe4bmr199176535e9.0.1790064092385; 
- Tue, 22 Sep 2026 01:01:32 -0700 (PDT)
+ AKwUvBw63v10qtQ40i5nMO2Ln/+Kuyz5hUbpmNAmzz8bGqEZtpoK+YQfa12LnGNiVoapZi6m/7OeL0OIGtY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m0kUYOCQsgAL/nFPIkp3vwjcgPAtF1V3+DHHUDyktI3kw5nOXS
+ ofiP0RLbZya4Rw/JjBxdbEBKhEjjnXWqVZkdmJZzIi9BNn7VdWvZQ9UB
+X-Gm-Gg: AYBFou3nTLj/N+u6XIhzGDfUnDGDwCbvuwH4tulSgEkJMBCpj7npIvFUxeok0Fsp2g4
+ qkX7SyinJZh3PCEnFDEObovWaMASReLmoyyCW5z1hHt7RHX6iT/pISIOFWJTeiNYkcXV6Po2e57
+ HMzEIsNGNKa0sbbQ87UuuFoeAwxYCYcWgmJPo3EWMVZfjta/TZx4W6NExO1qjRCjRSFRmbgkm+9
+ gBBq89AXCCZT5cstXjyM6dlmP7tXSjp+OxbPVZUCB+BdRMuxBNwpzXcFJycAYNxbMzkZBneXoaf
+ DwiwpLXuilS9aXGQFp/hEbThuKPdYRZx6TmVJJtYzX0B6cT89fUiqK/v6/vPpBDM59RNm9jjFRd
+ ZGuesZmRVJsKBiR+vHQOw3RcYJv6zcPdNZ2tY2Jj51NctpGCbe/nwDTStelMDtQ9xTf12aYWqEz
+ 4WuVLjv0gjeD9sc3KB5IDrrxQDl7x1ue6vo73AXUqfpilAhk54/O3zax3Pg0Vp5RoXi/kkRZfrs
+ ODwSsprG7/7O+Jyte+ZAYiABSQML+Z3KoZ37J7qmBXhORerZ+iIjBLMiIKtNuOClf1x1YBDU3o+
+ hu3c2BrwrlBTbQ==
+X-Received: by 2002:a05:600c:354e:b0:49e:479b:c13b with SMTP id
+ 5b1f17b1804b1-49fc7dff668mr165633455e9.1.1790064095154; 
+ Tue, 22 Sep 2026 01:01:35 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu.
  [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.31
+ 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 01:01:31 -0700 (PDT)
+ Tue, 22 Sep 2026 01:01:34 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>
@@ -80,9 +80,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 05/11] accel/rocket: request the core clocks by name
-Date: Tue, 22 Sep 2026 10:01:08 +0200
-Message-ID: <20260922080114.44662-6-royalnet026@gmail.com>
+Subject: [PATCH v2 07/11] arm64: dts: rockchip: rk3588: add an OPP table for
+ the NPU
+Date: Tue, 22 Sep 2026 10:01:10 +0200
+Message-ID: <20260922080114.44662-8-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -103,88 +104,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+The NPU compute clock is driven by the firmware, which only accepts one of
+the rates in its own PVTPLL table: 300, 400, 500, 600, 700, 800, 900 and
+1000 MHz through the PVTPLL, plus 200 MHz off GPLL. Anything else comes
+back as SCMI_INVALID_PARAMETERS, and that refusal never reaches the caller:
+the clock framework does not look at what the clock's set_rate returns, so
+clk_set_rate() reports success and the clock stays where it was. The table
+therefore has to name those rates exactly rather than describe a range.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+200 MHz is included even though the vendor table stops at 300, because
+mainline pins the cores there with assigned-clock-rates, the firmware's
+table names 200 MHz exactly, on its GPLL path, and that is the rate the
+NPU boots and idles at. Its voltage is the same 700 mV the vendor uses for
+300 MHz, so it is conservative.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+The voltages are the vendor's, and the upper half of the table matches the
+GPU table in this file step for step: 700 MHz at 700 mV, 800 at 750, 900 at
+800, 1000 at 850. There is no PVTM or binning here, for the same reason the
+GPU table has none: mainline uses conservative worst-case voltages instead
+of per-chip nvmem data.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+The table is marked opp-shared and referenced from all three cores. They
+have one clock and one supply between them and cannot be scaled
+independently, and that is what opp-shared describes: one table for one
+clock, the way a CPU cluster shares its table.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+The full SoC range is described rather than a per-board subset, so that a
+board which cannot cool the upper rates drops them in its own .dts with a
+/delete-node/ on the OPP it does not want. A board may only delete OPPs
+that way, never invent intermediate ones: a rate that is not in the
+firmware's table is refused by the firmware, but the kernel never learns
+of it, so an invented OPP would be refused while the kernel went on
+reporting it as set.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
+rk3588j.dtsi does not include this file; it carries its own derated tables
+for the CPU clusters and the GPU, and it gets no NPU table here. That is
+deliberate. The J part is rated lower than the rates in this table and none
+of it can be measured on the hardware this was written on, so inventing a
+derated NPU table would be guessing. Its NPU node stays disabled, so
+nothing binds and the cooling map added later in this series is simply
+never resolved.
 
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Assisted-by: LLM sparse checkpatch
+The same rates and voltages were arrived at independently by Nicolas
+Dufresne in a proof of concept that was never posted to the list; his
+version differs in that it marks 200 MHz as opp-suspend and drops the
+assigned-clock-rates pins.
+Link: https://gitlab.collabora.com/nicolas/linux/-/commits/rock5b-npu-poc-4
+
+Assisted-by: LLM checkpatch dtbs_check
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
-Same diff and the same message text (his copy re-wraps the lines) as
-01/14 of Jiaxing Hu's RK3576 series, which carries this patch as well;
-whichever lands first, the other drops it. The trailers differ: Jiaxing
-asked me to drop his Signed-off-by from my own posting of it, as he did
-not pass this copy along, and Assisted-by is added because an LLM helped
-with the checks on this v2.
+v2:
+- opp-shared, and the table referenced from all three cores (Nicolas).
+- The opp-suspend paragraph is gone. In the v1 thread I said v2 would
+  argue that the driver already puts the device back at its boot rate;
+  that is again driver behaviour used as a devicetree argument, which is
+  what Nicolas objected to, so I am not making it. Whether opp-suspend
+  at 200 MHz describes the hardware is a question for the DT
+  maintainers, in the cover letter.
+- "give a driver nowhere to return to" is gone for the same reason.
+- The paragraph on the table being inert until the driver patch is
+  gone (Nicolas).
+- New: the firmware's refusal of a rate is not reported back through the
+  clock framework. Found by reading clk_change_rate() in drivers/clk/clk.c
+  after a test that requested a rate outside the table.
 
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi | 54 ++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba645a..5dd260bacbff6 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
+index b5d630d2c879f..59ecaef5101da 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
+@@ -151,6 +151,48 @@ opp-1000000000 {
+ 			opp-microvolt = <850000 850000 850000>;
+ 		};
+ 	};
++
++	npu_opp_table: opp-table-npu {
++		compatible = "operating-points-v2";
++		opp-shared;
++
++		opp-200000000 {
++			opp-hz = /bits/ 64 <200000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-500000000 {
++			opp-hz = /bits/ 64 <500000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-600000000 {
++			opp-hz = /bits/ 64 <600000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-700000000 {
++			opp-hz = /bits/ 64 <700000000>;
++			opp-microvolt = <700000 700000 850000>;
++		};
++		opp-800000000 {
++			opp-hz = /bits/ 64 <800000000>;
++			opp-microvolt = <750000 750000 850000>;
++		};
++		opp-900000000 {
++			opp-hz = /bits/ 64 <900000000>;
++			opp-microvolt = <800000 800000 850000>;
++		};
++		opp-1000000000 {
++			opp-hz = /bits/ 64 <1000000000>;
++			opp-microvolt = <850000 850000 850000>;
++		};
++	};
+ };
  
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
+ &cpu_b0 {
+@@ -188,3 +230,15 @@ &cpu_l3 {
+ &gpu {
+ 	operating-points-v2 = <&gpu_opp_table>;
+ };
++
++&rknn_core_0 {
++	operating-points-v2 = <&npu_opp_table>;
++};
++
++&rknn_core_1 {
++	operating-points-v2 = <&npu_opp_table>;
++};
++
++&rknn_core_2 {
++	operating-points-v2 = <&npu_opp_table>;
++};
 -- 
 2.43.0
 
