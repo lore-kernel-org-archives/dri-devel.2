@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A066C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B24C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B818410EBA7;
-	Tue, 22 Sep 2026 06:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E90210EBC0;
+	Tue, 22 Sep 2026 06:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aiZ+PbTP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iVem6NK5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8056E10EB8D;
- Tue, 22 Sep 2026 06:59:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9200F10EBBA;
+ Tue, 22 Sep 2026 06:59:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5AEDE42A89;
- Tue, 22 Sep 2026 06:59:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C8A1F000FF;
- Tue, 22 Sep 2026 06:59:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D36866020F;
+ Tue, 22 Sep 2026 06:59:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09AD1F00893;
+ Tue, 22 Sep 2026 06:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790060372;
- bh=M301KG+Yn2DPBFpyXd5yWuZOKhpIbr1GRV9O2ajFsG8=;
+ s=k20260515; t=1790060386;
+ bh=fWS6VemCJQZVIwP1tf2Y6qbGjMYyL6clHJEnGhczC3U=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=aiZ+PbTPgJGbXcZlADTpqJYNp41C5ZZ7GqNlt2I/HhsbhwezCOltkNIJvgNuDpQCO
- ZOTB4sa7VawsPaFWE8d5ZSgZY8OdVSWa/R3obpbi2Ca/bwN4v1pCGyaQVVTUtt74FG
- Wu+hbvpEfaE4hWmoMBPLSK+ezCu/Lawb/VA1JQeVVQyV76IOxH62JmQ3jfCRslUCCx
- OaF2VVxkgtLPCwVwNybSaPXGE1C9OMKiPckyx6T1mciPmivusb+SsxrwMCU/Yg7f4J
- 7teSXT4/m1DgSRROwZQvysEOiKuL+wrUn508OvPqeIJvJcZ3+951GuuFdAWKEpe7sY
- euwT19TIVVt3g==
-Message-ID: <e90f4eb03768e503215c0607774b15cf@kernel.org>
-Date: Tue, 22 Sep 2026 06:59:28 +0000
+ b=iVem6NK51SNQhuNU9/3VNzRt45Nh3hNfislWZtoOmfE7THXCD16zsAGGUJgyOvFt3
+ wdVD0fsrMS30UjrIMWvrKGGrljlPWS1gvpZkoQdsI4LQXmrxXcI4N3FY1DVJmb9dos
+ mZZqj+HRrg/38SaP7uFPmaDFMG/vuTnQ2niRfpcJGsnMtUme52+dU/Uhc0H3g8gxnN
+ LClGSi9TVUnwnihRHh/2BhAl0BENTLXhQ7LaucgwzwSe8KJhqox1Td+JU+pskfqrdF
+ b+/tQn8QyMXE1vyTktB6dkSUcqcYHR0zXRjWPFjHNZf1iW3+3GcQZz5+ywLVPz/YJ4
+ z8N+D4jV4n2yg==
+Message-ID: <b55e64b4e64d9d39c2417b9713623697@kernel.org>
+Date: Tue, 22 Sep 2026 06:59:43 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 10/19] drm/bridge: waveshare-dsi: don't create a
- panel_bridge
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-10-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-10-83afb4f1a707@bootlin.com>
+Subject: Re: [PATCH v3 11/19] drm/mcde: dsi: remove unused includes
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-11-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-11-83afb4f1a707@bootlin.com>
 Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
@@ -87,12 +86,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 16 Sep 2026 15:45:34 +0200, Luca Ceresoli wrote:
-> Now a panel_bridge is automatically created for every drm_panel and the
-> panel-bridge API is just a deprecated wrapper to access it.
+On Wed, 16 Sep 2026 15:45:35 +0200, Luca Ceresoli wrote:
+> The helpers are included but unused.
 > 
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge using of_drm_get_bridge_by_endpoint().
+> However symbols from drm_atomic_helper.h are used, and were previously
+> available as a side effect of drm_atomic_helper.h including
+> drm_atomic_state_helper.h. Add drm_atomic_state_helper.h.
 > 
 > [ ... ]
 
