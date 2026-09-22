@@ -4,139 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A288C98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 305D2C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE9610EC7E;
-	Tue, 22 Sep 2026 12:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8635510EA4E;
+	Tue, 22 Sep 2026 12:10:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="X920EZ83";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZvlFX0Jr";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vzXWCjGe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Sq9bK5VC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i01rFyrL";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cTped5bN";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7016D10EA4E;
- Tue, 22 Sep 2026 12:08:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A396121AA9;
- Tue, 22 Sep 2026 12:08:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790078930; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rLRc8zl8aqIxSR1VL/Mye3FkV1bGaBSyopMMs4u2HOE=;
- b=X920EZ83Fd0OKixtr/YnbBwrTBiE+9Im6QA4ji7vnX7qJii1sCf9knSAq1lHbOquttejTs
- BDBvRd2I9j3PF4+hGW0ln9i6IvwuioUCYAcuC7Nhe60frkq54/S9Iwqf2C3tHcRRB44huI
- EW8/wKeNUt3Yrq1By3j7CfkZPXXHd0M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790078930;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rLRc8zl8aqIxSR1VL/Mye3FkV1bGaBSyopMMs4u2HOE=;
- b=ZvlFX0JruSP2fMYR8Nv4PoRXy9BDQbo2JAm9KV8bLpsVOcFkAG87sY5VbeTr7BPmHRzsWE
- aSnosGmvXlb59aCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790078926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rLRc8zl8aqIxSR1VL/Mye3FkV1bGaBSyopMMs4u2HOE=;
- b=vzXWCjGegunU2ndkjp+KSguebUpNlXX1IXO2ZdoiyFsCnNmbGPm30TY4UsDvEUVoU7grTQ
- l6T4GrVMjimYdCsCiTWQ21QkHaCd4CRK+4DJbUyzkwh1hImgeKXQNW8tLW0Rt/EehrAouh
- NZzriGK9nUX6xkbk3OfvGqTlmdMj67s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790078926;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=rLRc8zl8aqIxSR1VL/Mye3FkV1bGaBSyopMMs4u2HOE=;
- b=Sq9bK5VCZ719j8QiitEP/6aQ8cfNdnrOkXKBoOSw8Rs2BZoLJ+Nw3STraBJUFx7yS0O885
- hgZBqHLwklzm3/Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B8F01132D3;
- Tue, 22 Sep 2026 12:08:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0CYOHM1vsmr5GwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 12:08:45 +0000
-Message-ID: <a6efb08e-c88c-4f3b-ab40-2b56eb27bbeb@suse.de>
-Date: Tue, 22 Sep 2026 14:08:45 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5121010EA4E
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:10:53 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68MBPZ9q2869443
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:10:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=; b=i01rFyrLz8Io7eud
+ ZDHIioglcZTF0Sri/5VWhE2RsAQ192uXjBkODwYl8QZqw2A2ex8I/WFnfC4KG0Ad
+ 88440la7uJRDqxeXHjkqwL6T9A15948QmHnVIOIy5II9NWrOFGqkrMeW01JxHlzK
+ JTbrnnr0ttguVzFe15ntBpGDSUPxHlYNPgmpG/4tjVuJKYfBiySPl0NhJPYqj/dl
+ 86dhfYA8sfMUbqyuJ5N5snars3PxjRvchmMWmV/m22Iv2Wq1DN3wW1KPftiFJCM/
+ gmvHHLphfDoF7GaH0q4X69oBpTSNycyAAAeWL4/HBARNpwodMq0B3h/9yckTqsbg
+ zRgIfw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guj111v1t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:10:52 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2df375fb9b2so34036385ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 05:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790079052; x=1790683852;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=;
+ b=cTped5bNLlwiH77F4bULaJgvgsxvRMgRiTL5CE8VRxcYy3Viycy2ZtrEDQNRG8xYGe
+ nUJIGoL7YJBYyI9tAUeeCXE/p+eWhDyLi1qBSY0bR6Y1PQ+5u2BwdsOD8yZntqPt9NSk
+ ieSDcgkFb4/PfPh0xQ4fHpsLzQl7J/c28xr/HaAy5hxMRPuDXbqgyrg1/YEcNnUZZZ7g
+ lz1taE/J5aUkh7aT6bpdew3VRjpimWq001SsyTveqnNgfr8NrJtOi0mooE0mx4nivQ9V
+ bGYx1tLkLIPcjGjTnrhstkw1Vd0jueUiP1TjeaxHo7gvfU7eBlNYGDPpU5CL5Zxs8osR
+ c1OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790079052; x=1790683852;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=;
+ b=NrIDcZiSMb+KWUPlQGX7w5BTFGWg0jTHR9qgXIedXLC4o/KT1Zt4bG6VR6haZf/s3M
+ w9hpVPG4/bVHtGTqnbgQQwIax09ItgQNUaOsXbfosd9tu4Kad17Hylledpi8s04wGwtN
+ V71SLQfMpMHMNI+REVRf+FRo1IBBHmRn32jQ1lFD6xyDLkZqvnApwJZnDaJRgZh18XQ/
+ N/VYEBHVGFRKlNuOHI71YRzfUW79/yh15qzEJmldYMrCq8Kw+oDGC69tpz58HO/n8g5Z
+ 67W8b2kAxbBgAp3i5q438cTpC0pT0eFxucadGGxWF/wnBu2TTKSSTF+Xv+eNzBc+cYMK
+ 2J/Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwddiSOQy9t4TdahUlKZZhpTD4/j1eLtN5bivAigfkC77gSnvd5C1tC4o5Yuw7PkZJNOkKvceBVnlc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++na3wUevDQCEwd9CW7FAZop3kickCqDwWIhCnLx0ErKS1fDeYWo
+ dLXTaj+66/kXGcTgOBJ3u45ZJVHbAaPkLFzO0HchnzJU+KRDfmFzNGyiCGo6kodU4kY6HFCvvJF
+ 4mOA59eluI37iKF4O76SHMgnYqREx3vsfzeS5BgAkq8OqRabrrWBB5vO9Q6DzTKs2AwISazs=
+X-Gm-Gg: AYBFou0DSXoKEe39fhvr5lavERWSRbCyblTnEamOoHgArvV/OOsmvJD6Q8GgmfC4tJi
+ TLdIPyeDpNeRoLe11ZKqUN9honH4WxNpV2z0XV59HwWAXP75DwGcybCBASRdTYOvr6kuqUQOUJe
+ 6jyoX/MQXEfQHzk81VCUogYFR4pKgC94fGLqQD/vHPgPKpt5y7dgEh3DH8YAg982Upkp6CGdWOn
+ T+sPhcKppIvPMi3QnzEMrS458vL9+jrhSIZ8gSZExWvpKVW5zDPOJpxiKhqAi+/hItUEaXSiDY6
+ sRbH1C513JK8kdac2cvlaAjOJ6tBzQwh02eWOoCoGNks2qh5u/KWDmt/iJSFcaKuWihWtofQwyp
+ 3zSYh/4T8ULHnPioc4r5gFVxjTPpQza/7HJXmebHxb6VgfGBeIUlVktANijRtUvTNR95exdq9T7
+ gW41MjDzHPtVZQljAMpg==
+X-Received: by 2002:a17:903:28f:b0:2db:8c12:6b03 with SMTP id
+ d9443c01a7336-2df609ad83fmr11047215ad.8.1790079051448; 
+ Tue, 22 Sep 2026 05:10:51 -0700 (PDT)
+X-Received: by 2002:a17:903:28f:b0:2db:8c12:6b03 with SMTP id
+ d9443c01a7336-2df609ad83fmr11046765ad.8.1790079050851; 
+ Tue, 22 Sep 2026 05:10:50 -0700 (PDT)
+Received: from [10.79.116.160]
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-33e612c9ca7sm6295940eec.17.2026.09.22.05.10.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2026 05:10:50 -0700 (PDT)
+Message-ID: <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 17:40:43 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/14] drm: add connector backlight (LUMINANCE)
- infrastructure
-To: Javier Martinez Canillas <javierm@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>,
- David Herrmann <dh.herrmann@gmail.com>,
- Mario Limonciello <superm1@kernel.org>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-5-mario.limonciello@amd.com>
- <xlv1ecelecm9.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Subject: Re: [PATCH v3] dma-buf: system_heap: Set allocation orders for larger
+ page sizes
+To: Juan Yescas <jyescas@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Cc: baohua@kernel.org, dmitry.osipenko@collabora.com, jaewon31.kim@samsung.com,
+ surenb@google.com, kaleshsingh@google.com
+References: <20250417201913.2393655-1-jyescas@google.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <xlv1ecelecm9.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,amd.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,kernel.org,gmail.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,lists.freedesktop.org,kernel.org];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid]
+From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+In-Reply-To: <20250417201913.2393655-1-jyescas@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: A656BZGmbB9k3LclpLNLQ_UA2YUkLLva
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE3NiBTYWx0ZWRfX4A/zA3Hghlvh
+ kGWe5ve7XsBJMygPIG6MwDddBGlwYpzHyGWnKa9cJVy1lvQ8q3gdONrkwUV0xr01oeM4nXioDKq
+ Y4gjfVpLFQjDMlKdFUfUQjt56AHpyxM=
+X-Proofpoint-ORIG-GUID: A656BZGmbB9k3LclpLNLQ_UA2YUkLLva
+X-Authority-Analysis: v=2.4 cv=atQnmiZV c=1 sm=1 tr=0 ts=6ab2704c cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1XWaLZrsAAAA:8 a=F0MHshuycdHDXIU-fbcA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE3NiBTYWx0ZWRfX9yjY+qShqj5f
+ 4+ZJI4AVcZNAogvK/8n2Je2qzNanwqRwzep9spwkI10JXjoJas69ecCQ5ye4m2xtiCRROTIZmL0
+ Kn2Ap9+MxvBEeTWmyAplMvXKUhXpZDHiZ9HvKOtmIknbvr/hmRJdu/8N3UFVRnU0IST0yGr1CJT
+ frZnbcwcjG/YNSm1MXQgTXHwEoRZTfKM34SayGTFUJNdALnl70hqzFobEZxl/YIzF6C45VQQE29
+ AFfwAgqE/kzixq2jbCL1FKwYHAtEcGEQ6qp51ik3k9/Ge9BLiP+hSgfxoot0iXq5XDyhJQxVwZI
+ rrfnTHFuhpjNYgrTQtZ5lkfmxRy49tVIGDgt+43pHlw/dLDxr61Vl/sgneqHeNJJu5ufKIejft4
+ cDge2W3vuK51gzQBlCQkkkGh+HAY7GECTyAobRijHCvFo89CCCcXw5IQTeBTKH6FK9GZXSyCU6T
+ cYkWjEAtAuEtNqCzRCQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220176
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,85 +152,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 4/18/2025 1:49 AM, Juan Yescas wrote:
+> This change sets the allocation orders for the different page sizes
+> (4k, 16k, 64k) based on PAGE_SHIFT. Before this change, the orders
+> for large page sizes were calculated incorrectly, this caused system
+> heap to allocate from 2% to 4% more memory on 16KiB page size kernels.
+> 
+> This change was tested on 4k/16k page size kernels.
+> 
+> Signed-off-by: Juan Yescas <jyescas@google.com>
+> Acked-by: John Stultz <jstultz@google.com>
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> ---
+> 
+> Changes in v2:
+>   - Add John's Acked-by tag.
+>   - Add TJ's Reviewed-by tag
+>   - Use dma-buf: system_heap: in the subject since this is specific to the
+>     system heap, as per TJ.
+>   - Remove extra space in if statement.
+> 
+> Changes in v3:
+>   - Remove defines for the orders as per Christian.
+>   - Update the order array for 64k page sizes as per TJ
+> 
+>  drivers/dma-buf/heaps/system_heap.c | 21 ++++++++++++++++++---
+>  1 file changed, 18 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+> index 26d5dc89ea16..8c10c0f2b473 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/module.h>
+>  #include <linux/scatterlist.h>
+> +#include <linux/sizes.h>
+>  #include <linux/slab.h>
+>  #include <linux/vmalloc.h>
+>  
+> @@ -44,14 +45,28 @@ struct dma_heap_attachment {
+>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+>  				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+>  				| __GFP_COMP)
+> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+>  /*
+>   * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
+>   * to match with the sizes often found in IOMMUs. Using order 4 pages instead
+>   * of order 0 pages can significantly improve the performance of many IOMMUs
+>   * by reducing TLB pressure and time spent updating page tables.
+> + *
+> + * Note: When the order is 0, the minimum allocation is PAGE_SIZE. The possible
+> + * page sizes for ARM devices could be 4K, 16K and 64K.
+> + */
+> +#if (PAGE_SIZE == SZ_64K)
+> +static gfp_t order_flags[] = {HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> +/* 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE = 1MiB */
+> +static const unsigned int orders[] = {20 - PAGE_SHIFT, 0};
+> +#else
+> +static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> +/*
+> + * 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE = 1MiB
+> + * 64KiB allocs are calculated with (2 ^ (16 - PAGE_SHIFT)) * PAGE_SIZE = 64KiB
+>   */
+> -static const unsigned int orders[] = {8, 4, 0};
+> +static const unsigned int orders[] = {20 - PAGE_SHIFT, 16 - PAGE_SHIFT, 0};
+> +#endif
+> +
+>  #define NUM_ORDERS ARRAY_SIZE(orders)
+>  
+>  static struct sg_table *dup_sg_table(struct sg_table *table)
+> @@ -318,7 +333,7 @@ static struct page *alloc_largest_available(unsigned long size,
+>  	int i;
+>  
+>  	for (i = 0; i < NUM_ORDERS; i++) {
+> -		if (size <  (PAGE_SIZE << orders[i]))
+> +		if (size < (PAGE_SIZE << orders[i]))
+>  			continue;
+>  		if (max_order < orders[i])
+>  			continue;
 
-Am 22.09.26 um 13:42 schrieb Javier Martinez Canillas:
-> Mario Limonciello <mario.limonciello@amd.com> writes:
->
->> Backlight brightness is a property of a display, and thus of a DRM
->> connector, yet it has historically only been controllable through the
->> separate backlight sysfs interface. Add a generic, backend-agnostic
->> per-connector LUMINANCE range property so brightness can be driven
->> through the atomic modeset path like any other connector state.
->>
->> A struct drm_backlight is embedded in every connector and initialized by
->> the core; drivers do not allocate it. A driver links a backend (today a
->> backlight_device, in the future DDC/CI, MIPI-DCS, ...) with
->> drm_backlight_link(), which creates the connector's LUMINANCE property
-> The infrastructure is meant to be backend-agnostic but drm_backlight_link()
-> which creates the connector's LUMINANCE property is backend specific. Maybe
-> would be better to not call drm_backlight to the DRM core helpers since it
-> conflates the backlight subsystem specific helpers, and the ones that are
-> supposed to be backend-agnostic.
->
-> Maybe drm_brightness or drm_luminance would be more suitable? That way would
-> be clear what is generic infra to handle the LUMINANCE property and what is
-> specific to drivers using a backlight device.
->
-> In fact, I think that would be better if you split this patch in the DRM core
-> helpers and another patch that adds the backlight specific helpers on top. It
-> would also be useful to have an example of a "native" backend, for drivers that
-> have a trivial brightness management.
->
-> For example, many small I2C or SPI display panels just send a few commands over
-> the bus to change the backlight brightness. Those may have their own get/set
-> luminance callbacks and register their own struct drm_backlight_funcs.
->
-> Because right now seems to me that this drm_backlight infrastructure is mixing
-> the two layers and we have a leaky abstraction.
->
->> with the backend's range. The property value is staged into the atomic
->> connector state and only pushed to the hardware from the commit/enable
->> path, via a workqueue so that slow backends never stall a commit. DPMS
->> off drives the backlight to 0 and DPMS on restores the committed value.
->>
->> The property range is per-connector (created from the backend's
->> max_brightness), so multiple panels no longer share and corrupt a single
->> device-wide range. drm_backlight_link() also carries the legacy-sysfs
->> takeover accounting used by the client capability added in a later patch.
->>
->> The whole feature is guarded by CONFIG_DRM_BACKLIGHT (which depends on,
->> rather than selects, BACKLIGHT_CLASS_DEVICE) so DRM does not pull the
->> backlight subsystem into the kernel when it is not wanted.
->>
-> If we had a good separation between the drm_backlight core helpers and the
-> backlight subsystem then this dependency wouldn't be needed. Drivers would
-> use depend on CONFIG_DRM_BACKLIGHT to use the drm_backlight helpers and use
-> BACKLIGHT_CLASS_DEVICE dependent helpers, to be used as set/get callbacks.
->
-> Since DRM drivers that register a backlight device already depend on this
-> Kconfig symbol, no additional dependencies will be needed. And drivers that
-> only use the CONFIG_DRM_BACKLIGHT (with a different backend), won't need to
-> depend on CONFIG_DRM_BACKLIGHT.
->
-> In general, I think is preferable to have good helper functions that could
-> be reused by drivers, instead of having mid-layers such as drm_backlight_link().
+Hello Juan,
+I've posted a respin of the patch by extending upon your work,
+Can you please review?
+Aplogies for adding signed-off by, will drop it in v2.
 
-I want to second what Javier says here. I raise the same points in my 
-rant about DRM design.
-
-Best regards
-Thomas
-
-
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+Link -
+https://lore.kernel.org/all/20260921-dma_buf_improvement-v1-1-23d82e771dec@oss.qualcomm.com/
 
 
