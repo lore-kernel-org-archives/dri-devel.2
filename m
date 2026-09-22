@@ -4,72 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A16C98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 22:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 887D2C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 22:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6AAE10E045;
-	Tue, 22 Sep 2026 22:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D530D10E775;
+	Tue, 22 Sep 2026 22:26:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="KM/kjqE9";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="PZof6QkN";
 	dkim-atps=neutral
 Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
  [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F38310E045
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 22:07:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474B010E86F
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 22:26:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790114852; bh=WcJByba6MyvV/TMFfCQD/Jr6A3Ty5Jk0RdTpSOqmFVU=;
+ t=1790115985; bh=+r8yPFqL5aIhm/SxqAziLA06xIGTqZPDmQKrBhgzqs4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=KM/kjqE9IOhoot8ZEO4Z83HeEBAYnD6qyai/Fl3KUrHgIhzuJqsNHr9MVmGVdFFk6uAV2kouTHNnwSLq83LeRybuvy9U+OFo7yPjdFC46qg/EEALJq6oosZd1OwpZsKgRrBIU359UbFFFOkp0Ry6TbH6rvgViYStpBheW9rZUAH+4EiRrl/LXL3vndX1gK2W6gQl4kUTsrj+P123UVWHC1eI5FLcbPm87QJuFSHcxesSOdUu1SfhxsWPeJ8ZFysC1TWSLFAzFcp7B3Twt05bZRxBJO3QXdlE78U1PuIXxH6qPjVtshfrcmhjzOrlTCaR+yo7Ohksnzv4cR3NTha2lA==
+ b=PZof6QkNixvGB0paHnh9riarLJf4S+CedYw1L8ZhSWZy5bATChMroB1cWK3ri9Ixcr/Afujqdx6XNOwcAmkyFgXaVblEV8A6fxYy/8cXjojCUuV4QwdiR0TovlbLwHsKxSYhbUee1c5quo5oUi0lXJ/MrKu2/XEGmwHMlq7UzOiSu3kDv4/3wBgfwE9RTh7bRvAJtYRn0Nxm52WzIK9nqg4tsH7KR4nLk0VY67O7YFdynCdIp4T8l9g1Tog9zJ5rrkmXtmZkXiLakJNoti3O3vSAGgUy14o8P3NFUFJGphYBHQpWLZaw4i9kR8rulOYumrKI/EqG5iEsnbbvZTOFJA==
 X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790114852; bh=i3COsfOeBxY4kPti/yYCYAGBNXBux/ADzQHKRtYyuQC=;
+ t=1790115985; bh=Kj/JqCUSxXeX/US6vLPCl378HZ7jGUwe2C+cvJAJzmK=;
  h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=hq7zXsBvUIWlWZfl3HV5gxVBEF0Sej279EEqHqkAyhomxx7XXZZ1cNjbpG8BX6DycZU9eVgPkZa5yEwlBXSjMomRAAFC7mmk/Shelx4v3GHRZdmHHsbuR1RxBcdpex5wdHGMVUIQmEHH2KdfMs/l5iHMbPqaNqxipSiabpJPRFcAvMGoBSy8lnCyil1T4ba+rBDLGYy/00W7KxWsqzVP4DPd8T43WrA/HugwbOMO/i8F5UF9YrYwS81H8iq58v8EjEYbj2d/Dfc6TMASBrJC2CCUDAID+wGVIVx4tsJ7YapDTRBTj2HmkOI1biACxm+esaW5jC7TDHnreIQ1WXQAjQ==
-X-YMail-OSG: ECHyt.8VM1lfiAHC5JWaGuvxjctgNxEwdb0z2QEfQ3PQ_vHPcGi9ELaI.kT5ZoA
- jzHb7GnIkQB_6LGhFkH4o63iz.O5AQQhwOmCixYGO4m63BAEQEJx.CvxC4rSR8gYuSwPNKDgm6o8
- JHgYmoslcCSBt0EfMOKJyINYm0I2NRIm_dqI0cziw1_gNasH112UTzRwilbXBo61Pf4xCmHMJ1mf
- HsZEEA3SY2SNKOFOx.pOzwWKXqe.E.Li.guSzYeDrizc3BPLEt3KLbsOqSLbv7tYwv4itakoWuPZ
- 1Y4lq1qQiPiNq5S3ijGnerzJdTc2bAOQuXZw9Jsn7_8hkWveyiwEKtKjPD_3YQR0ClVCy8JZuhX2
- XFTWIrxx6UKKO_EJ0FFE_RWFIXWr2d1aj0o5dli2_fB950zdvb3HBuCHF59nMMiytdThVJVuZzqi
- 6_mi8DMflib_ZyP5owRw293SRFSHAMkRuWJX8WTNApS.ukcQHD_4ZbSb8i2_zBTV4EKf6KNqZxYu
- NFrdTrkN4gJDW3OqVw8u7Z_YgGGD9Dnv5Ia6GZiPkPtLcn0dB0F4fDEJdcbI51X4wrmLrVQmn3D3
- VAR77I1c2Al.5Prh7qjiornaNiM_HgsoymU2U1CKMASsETKpXx1D6fnQsGULhwKhUjkGvNqbMpBu
- 7diXSPVxQOZthRsJK.StxMJ0gpTwWIZNThsA3sOlfHlvrax4uE86yMJ_Dv3_xv7wBAvy_ONGsQAz
- IQBjI2Lnrw7ds63_yW77pfQ.DZ3V2W.0W40ZjG60W1x._5iN0eRGbsyFBQKgbiFczVEkPcykFRpc
- 4TmQh6XlUQS230sK0IycRmSE88HijIK0dWIH44.sSuLjdMyk9B8gqng2YF3c0Wa_E4R8XHHc32oW
- K5Dk0fn5zQZstQ1lZlduBGKsLVFaGnWZBL7bnh1jQHgBiHnW1tzKEcWDDNNyU0CXLfxxhV3sCL2C
- yYcjKZOcFgTL02W2KOdTFUCRRPRINryyzLBbYd1ysDtJpRqKCUrIIR_PqyIqhY5_gQTyeRXfdCCr
- hhKDqecfpQ0XVSVb9qwS8HT6QoQZlMI.wzH9EwuQW6LlXUh6AFZ9Yf.x7A8yZhp9xXiEp0ax20CL
- .tB.Fd2tPu9nq89rhC_eGVOYbcglBXxh99yjqm8zs.JCTXylzOYCOe9ubcdcjK9RIxxd_UCuwRpS
- EHIbC0T3.d9W_77YCpX0RVH9OzHfEuK3dWopTU5GmR9z_eOE6OFnN7A9oOtqWPa9Omj1Kkgw_8sd
- 49w9a._n.RQrCbeQoT10ltDeoORTrlced0pZycSsokqPzat2Heubhn_dRhfYK386hFpTxkdriWR8
- eLPXJ9BWWHnoTWAHGKZcPsIC3zUs13R_wm._bsYwVaw.ewkOFWXQ7VlL8ZUlkKygkkCkww0uMBJx
- QOr6uG4O1revldpl2D7NtMcYt1gufi4Q.DZtk3aeAmHV9M6VHe8dfwRG.qjGOcNBCkcrPS_tH8TJ
- CpA.nccaJ5fmFZumJYc3PA8hcN2WeMNMBF3a4n8KQrYIZMA0YKKM.6qQbwugY5CZ5CWH9GE75D6q
- 5LAujUtqYgJifBRH9LUljeUlc4ZgcoKmg0II525kH.2if5TixO2y.A_anhWwrO.1cGR9bfnjqFtq
- TnmKxdW4Q3UZtQ2_7bPls_1h0BOo3eOoClpHBVPWFkZe5ZbA0bspmoT1LUxguMKRiDnnxQBadz85
- KiSNWqsj5iZ5n86pm7Pf6ZpGl__FOFBEkPWPnl2hteEI_SQz8aBD6Hvq9KEw7cjiiW387LSlgk.g
- 4L4Jes9p0YbO3czV9a7np1zLHfse5KiQiku_qwIaBU_A7JyybGOGUttVHpDx_zE6anuBtxd_suIh
- _6X9IN6EmVFCZUohITBsSyp8K_1jMa2byOV8DOCKCgNRESpbM.7yCC2zSOUNx_kw3s06YIn.DF0s
- 9Oyj6dMIew.75QUbb6yz_5hzfpy8zOjMgx3YSTRYVdnoJ3CO0W.hWV0TL9VSFWobRSc6PhKit2bs
- GjTeTB9YMao2yYLFAMNjnoixt_kdj3yvx
+ b=YMBduTsgzNQS8K0kygubpfJX/3DJYSjOlb5W3pGJb8eR8zbBOjimv+st5/RUiV4DHq+ZFeF4a/J01tG6JPV9qt0+Ykg4CjYGD0PyhDKTpiq1mHCmOwBUv8hTm55CR2tw1knpvN2W47nh/guqSHWyK82WIOGNklUPPCGXphJbe7QBhsW/CeqYBHWQmIcT9rqQRs3WDail78LHnNtiDyJ2841XMQFkzw8/Yqo41mQ9xSbNozXetTNjcA+2cn0ry0t7u7uQqiRXogRW3jflc3z1PsSvJa/Gd1qeVAWP0SICZhtWFS4dLQOzW8lcpHvAKDMTqyqO66Vg7d1KGj9T5Wn1xQ==
+X-YMail-OSG: XYQ4_TgVM1mxt90gm0Z_zcWMtHA4LaksYibw0c3i_yt3YmbOf9XbRCJWWAAe0Yz
+ i6Q9uTXX49F0s311Kq8W6ASToGnUg.wmfHFP.F_b5PpvvmsxWvjiJtMBP5j9gbyztFd3DJ8YKYrT
+ GUrHUX2wMdem7Kl8fh0MdGq6epoAImiEFRMBqXpfCEDPwUBAorsDZts15zjAYzq1dRhzMyZSNJx0
+ 70ZokSmFYEEMQHv8B5QvFb9bKOXA0JJLxt0tNJIN6JkaqJ40P3peY2mE6eN6NU_wj1mPHMSod698
+ nHCAQak2En57wSdgVWVE52Gl.y43B_qVySLg5QeaEoGkkVHmgBDIMkge0qd4Eja_mFBodWLtbkuZ
+ duV37f3DH4kdbSxatWr7d3gFFtbpbU2BEIuz3PHtQsValpfIYcKH5T_u1t1S5znQQIsPK62AyVvZ
+ LEz5Sl9KwJSmmufGv0dd0B36sqRgYAlvDGlLHYWqInexkmVLqDWQMgR5Dv7G0BjA1Pe330ptPuLr
+ uMwRu.i.ePDdyUxzC56RcSSaB6e6fYj5S6Y4172hGuNarp2CJtUGtWUWx161sj.Dv93ENRwLN8qn
+ Z3aRNVvAfe9VZJOKHoz7jCy1k.HkwDbQ_Y1Gsx6VjUeK9Xowjr_90qIm5BVT_Dlu5DjkoDQY4a70
+ xAopcOkxwgql59w3woW4uhPCY6TDfrMRmr5Hf9o1DXxc5k02s8iJ6PH8LTvvDpfkCYapB1E8RHQc
+ wWkoF9Yw3VBu291c.TbJ6RU2EP4WAwM4agqS10MfyXyq1XKAd7tSwwVONN.v2izbem4b8WTvAFqu
+ 6aRu_6X4So99UdspvZGWwXw_RdQSPxtoL1qHZkG.EfveAwbHQbhcUCn8U9yA7IvxeQgzhfs_eiaX
+ O_L5WETvoG0U0LN2l0HpcKxA1puAWhO5vZVwuOB1BG5tgOvbCtw9Bmwlcvd8unVD8uj33kENlqHX
+ Jx2s9hZpAgRjZVJQuomU2pDLJV45nCR2G_LP2FQkBoPr7YKqZOGScMiuElq.OKQ1uGQOQzx22Ojc
+ jymZiU2VsQI3M7GsT8RtAXym.4jj1xx5VaMAjFUOizS3rFISCYI9z5r7Hdz2vC5ZIIcmQrJYx0hb
+ bKuAKjwIdz08aOSaJvNAOevH7Ga4egserQ_W4R6BO3IWqYXukRYLzO2rc0no7TwcNqFHJOEiElkc
+ e20I7oS3sI3eLMobtQGTZHXmoXnHyA4BW8vO5v7S2Zkfxl1DQH2Pm0bgILYQJK.YUS.ETEwFV38i
+ l6UT9zO33dEgurdavUp3AkgB6Ew2iSlMEgPGHnX9ISNJR5P9KOoU0EXEEXhuv6PmHX9ZLJ7wH9ll
+ Uyf3x83E_3BX6rUYecG3_VnNdsMwaOH4yqJuLJKYB..HyBRhzl882QiVSjoR5AVqiMQH6mrwaK0j
+ sFmeUWS5xU1LM54XQfn5yTqPiG0O5DlKuJFth52lXsYSoup8W3CQeS57cBIF4qerwwqdiN5WJ.vZ
+ riMjFnUAWka7kwYckgWYFn4P.1e4ndIudUIG5atBLh12UkgQrMMxyxDrCGuU39eGeJ4U6iAMiGq2
+ cM_XlXzyclFY8b2bSC4UWfYPLNAJkzpGAVgMzonMy0ixi1_Zno7nC9iOOC2rMWKcgmpR53ulxkhv
+ vLlq8RP2JbkV4ugA.to_eE.iBAtHUuZMsBRvTpb5pXGyDbciQ4NC31jN4nUGAWXHP5IhKVHA72y9
+ ZR.J3xhDbJ4dj79pEUg3EBpmmz6Eivs3Ce4efaboa5t0J.DpCoX5.GV_0se0rKeRrOJmbWi58RWA
+ CKHu6de2TF5HWw7KR85zL2kq4sS1nQzFYNLVTd0G1EwmXYVk08HZ7D11VfBxOcU_dv1W_v7yOoed
+ .SJIng1llHnHKQFi5rZB4bU1yybHKQxB9DVtVYIxhLRhqg5OQ2TQMu.S4WqrxMmch1cRGVVuEJOz
+ 4It8hCR.ts4PaMEf0yeWQ7VhECtMWvibxGCEPJyIZyExsb69qGxCVKY7ifLEadNvG7v.SI0kawPc
+ JA4EhTbvsQIXPZgOEBhLb98.N3sqs.Hw-
 X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: d920672e-8c60-4fe1-9539-3d051986dd61
+X-Sonic-ID: b0dbab7f-a6e5-49ee-9833-57582a32675a
 Received: from sonic.gate.mail.ne1.yahoo.com by
  mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Tue, 22 Sep 2026 22:07:32 +0000
-Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
- by hello (SMTP) with SMTP ID ea3c48c2031bb6baacfd54f3becdc753;
- Tue, 22 Sep 2026 22:07:27 +0000 (UTC)
+ Tue, 22 Sep 2026 22:26:25 +0000
+Received: from dip84.lsn.bf1.yahoo.com ([67.195.177.93])
+ by hello (SMTP) with SMTP ID 0cd2206dbccef9b797cd29a89bceac90;
+ Tue, 22 Sep 2026 22:26:22 +0000 (UTC)
 From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org, lyude@redhat.com, dakr@kernel.org,
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ lyude@redhat.com, dakr@kernel.org,
  Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Subject: Re: [PATCH 0/3] drm/nouveau: HDMI Deep Color link depth (30/36/48 bpp)
-Date: Tue, 22 Sep 2026 19:07:23 -0300
-Message-ID: <20260922220723.649977-1-Capitain_Jack@yahoo.com>
+Subject: Re: [PATCH 1/3] drm/nouveau: select HDMI deep-color link depth
+Date: Tue, 22 Sep 2026 19:26:18 -0300
+Message-ID: <20260922222618.709711-1-Capitain_Jack@yahoo.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922192132.114546-1-Capitain_Jack@yahoo.com>
+In-Reply-To: <20260922193903.DE3BB1F000FF@smtp.kernel.org>
 References: <20260922192132.114546-1-Capitain_Jack@yahoo.com>
+ <20260922192132.114546-2-Capitain_Jack@yahoo.com>
+ <20260922193903.DE3BB1F000FF@smtp.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,16 +90,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-None of these compliance gaps were introduced by the series; they were already there, and the series exists to patch exactly that.
-Before it, nouveau sent 8-bpc output with a depth-less GCP to sinks declaring Deep Color, and full-range RGB on CE formats without signalling it.
-The SCDC gate compared the pixel clock because, without Deep Color, the pixel clock was the character rate; the series made that no longer true, so v2 gates on the character rate.
-The missing 30-bpp GCP arm was v1 not yet covering the whole gap: it followed NVIDIA's own reference rule, which only declares 36 bpp. v2 encodes 30, 36 and 48 bpp per HDMI 1.4b 6.5.3, and the 10-bit path is now bench-tested on the same sink.
-The HDMI-A-only attach is closed in the follow-on colour format series, which also brings limited-range RGB and YCbCr.
-Our own bench logs found one more, frame packing rated at the per-eye clock, and v2 fixes that too.
-The current implementation is the one breaking the HDMI specs; we're attempting to medicine that disease.
-
-v2: https://lore.kernel.org/dri-devel/20260922215317.611388-1-Capitain_Jack@yahoo.com/
-Colour format series: https://lore.kernel.org/dri-devel/20260922215336.612239-1-Capitain_Jack@yahoo.com/
+Thank you, this one was right, and it helped.
+The SCDC gate half was already fixed in v2, but the second half was not: v2 still passes the pixel clock as khz to nvif_outp_hdmi().
+On GSP boards that value is ignored, which is why our GA106 bench never showed it, and why the v2 cover letter's claim that the pixel clock is correct there only holds for GSP.
+Without GSP, gm200_sor_hdmi_scdc() derives tmds.high_speed from it, and that sets the SOR scrambler, the 1/40 clock ratio and the clock divider.
+So when Deep Color pushes the character rate past 340 MHz while the pixel clock stays under it, v2 would tell the sink to scramble at 1/40 while the SOR stays at 1/10.
+The next revision passes the TMDS character rate there; it is ready, and will go out once the maintainers have had a chance to look at v2.
+The max bpc attach on DVI connectors is handled in the colour format series, where patch 6 closes this report.
 
 AI partners were leveraged in the production of this work.
 
