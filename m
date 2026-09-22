@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6CBC98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:49:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78231C98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C134010E50D;
-	Tue, 22 Sep 2026 19:49:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5D7110EE5A;
+	Tue, 22 Sep 2026 19:50:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="foIrbrCo";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="g4cwaddM";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58E5B10E50D
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:49:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790106536; cv=none; 
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4308710EE54
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:50:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790106651; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=MlPBaavk29ZezJmOyPaHh2WVaQ/XgRa3z4yDCD7Bi6IuFbtAwbHvAGgueUkb5E7nN1l+6fgfst7tzHJunIu41pIyv3s7vnZh0cfubkifxd5sFU3w0jggPtFfDRw0ZZMCXprLo13cxVrnpKLkxROIzjF2uX4qntfUX9oMouXHI1Q=
+ b=C6UMJ0g70qPdjXQYBY5vGSIsnl7uJv9ZAUkIkKTyqLLm6mel3h5ve5zQW/QfWpg7GNdSL7svjBfgVSZ9cxg//mkj5I6EAV4m80Su+Xx9gkuLOh1k1s1dIPGmo/vSB0XpiwwCA/0+6VizdzCN9AKA5nlh20pc14XFQxYn0YgJIfs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790106536;
+ s=zohoarc; t=1790106651;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=fN4E694cv3ODeRMa+28gkiMvY1YDqV4H4WuCsqs10B8=; 
- b=HR1ftkVMnUWznJXKEEfR2O3H9RR046f2qT7ftc8Nq5YhKVlgHTeku/0J69DvwgZPCseXjPsjn5Gp+dto8iQiYgyoF/LYoo4TMWmJp0Wi0h0orta3hRuRGVH7W17f3UBvp8NGoLVcLML5zLiWXBveCnrp0NwIonmqCKW/7MmTQyc=
+ bh=7kRrFNaa0VL0AJwl+dtEwA1iZbYUSRM7gtSXJLbDmIQ=; 
+ b=TgfUuJwpNpqvbspXB2VirQF1L4fMvc9TnSkmmpiXuEFvwICXpL61EGXTzjw0n9bUQ0Eb37x81sXfnJoH4PYKZ/eSJ1DUAkOz5sUTNFv+CE//EHm1e/HSwwasp0/rjjG8sMd9VPaCXTRptoENKYvg/euxfHz/9loCc9LKQ5FhDFM=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790106536; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790106651; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=fN4E694cv3ODeRMa+28gkiMvY1YDqV4H4WuCsqs10B8=;
- b=foIrbrCoI7GWAFHuCwD/4LB5NitoLJQI1dFapEo14sNeD/7kP5hp7TpFBUPA6nyD
- jfHRiP7zJT4uZc/tDMnwtYwPBBAbdxBN+4zv7tJdSd/AKPy3AOsE3Biw2gIpSg9gpz4
- DzzD8hnZt6nS9TATgdThKDmVf+D+DOFdWXvMXsAo=
-Received: by smtp.zohomail.com with SMTPS id 1790106535786519.7385543340581;
- Tue, 22 Sep 2026 12:48:55 -0700 (PDT)
-Date: Tue, 22 Sep 2026 20:48:49 +0100
+ bh=7kRrFNaa0VL0AJwl+dtEwA1iZbYUSRM7gtSXJLbDmIQ=;
+ b=g4cwaddMGLisPIAM7kq3MqaH5Ygsxr3jnuGNsRnMeErReTpde9xMO2fEafEGbJ5m
+ dIJxgjtTaRvCkPYdhR1v4XRLyqD0xyNSWdRhV9gQi905c+HCL2EMu91tDDYlozTzM46
+ NtvLs9DDsaewQYxmfzF7l7CR43ifDXqp6967jwOs=
+Received: by smtp.zohomail.com with SMTPS id 1790106650436526.1793456892476;
+ Tue, 22 Sep 2026 12:50:50 -0700 (PDT)
+Date: Tue, 22 Sep 2026 20:50:44 +0100
 From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
@@ -52,17 +52,17 @@ Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 01/16] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <arFQG1AYMXlRgmJS@sobremesa>
+Subject: Re: [PATCH v9 05/16] drm/panfrost: Consolidate device clock
+ management and reset
+Message-ID: <arGH9jPcHhDqZSIH@sobremesa>
 References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
- <20260912-claude-fixes-v9-1-e588feaa61ef@collabora.com>
- <20260914103646.6f1b7246@fedora-21.home>
+ <20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
+ <20260914104500.6e32c6cd@fedora-21.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260914103646.6f1b7246@fedora-21.home>
+In-Reply-To: <20260914104500.6e32c6cd@fedora-21.home>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.95.26
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,199 +80,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14.09.2026 10:36, Boris Brezillon wrote:
-> On Sat, 12 Sep 2026 00:28:02 +0100
+On 14.09.2026 10:45, Boris Brezillon wrote:
+> On Sat, 12 Sep 2026 00:28:06 +0100
 > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
 > 
-> > Since the moment we call drm_dev_register() the device should be in a
-> > position to accept jobs, so it's best if the shrinker is already
-> > initialized by then.
+> > Gather all clock enables and disables into a single function to avoid
+> > repetitions between driver init/fini and device resume/suspend, since
+> > these clocks are always handled in bulk.
 > > 
-> > On top of that, make shrinker functions take an panfrost_device pointer
-> > like other functions in the same sequence and rename them accordingly.
-> > 
-> > Essentially mimic the init/fini behaviour in Panthor.
+> > Also do clk (un)prepares and dis/enables at the same time, since the
+> > clk_prepare_* family of functions can simply increase the refcnt of
+> > an already prepared clock.
 > > 
 > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 > 
 > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 > 
-> One remark below.
+> Two nits below.
 > 
 > > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
-> >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++----------
-> >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
-> >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
-> >  5 files changed, 28 insertions(+), 27 deletions(-)
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------------
+> >  1 file changed, 52 insertions(+), 66 deletions(-)
 > > 
 > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index 485349faf251..05c40d5a20b5 100644
+> > index b3a53504bd01..2fcbd223204c 100644
 > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  	if (err)
-> >  		goto out_job;
+> > @@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_device *pfdev)
+> >  	reset_control_assert(pfdev->rstc);
+> >  }
 > >  
-> > -	panfrost_gem_init(pfdev);
-> > +	err = panfrost_gem_init(pfdev);
+> > -static int panfrost_clk_init(struct panfrost_device *pfdev)
+> > +static int panfrost_clk_enable(struct panfrost_device *pfdev, bool enable_ace_clock)
 > 
-> It feels weird to have the GEM subsystem initialized last when you
-> consider the fact other subsystems might want to allocate GEMs in their
-> _init() function. I know it's where the panfrost_gem_init() is right
-> now, and that ultimately it doesn't prevent anyone from allocating
-> GEMs, but I think it would make sense have this called before any of
-> the other subsystem init functions, still.
+> I don't want to have a flag added for each new clock we decide to keep
+> enabled on RPM suspend, so how about s/enable_ace_clock/on_resume/?
+> Also, since it's enabling more than one clk, I'd go
+> s/panfrost_clk_enable/panfrost_clks_enable/.
 
-I think we discussed having panfrost_gem_init() be called before the other
-subsystem init functions, but then I checked panthor and saw it's also being
-called right after all the others there too. I think you're right that it's
-best to initialise gem first, because I wonder whether other subsystem init
-functions creating GEMs when the mount point for huge page-backed objects
-hasn't been created yet could lead to some sort of trouble.
+I agree with you. I was thinking if new clocks also had different needs in the future,
+maybe we could pass an array of option clocks but at this point it's pure make-believe.
 
-However, given how much this patch series has already grown, I believe it'd
-be best to leave this change for a later one.
-
+> >  {
+> >  	int err;
+> > +
+> > +	err = clk_prepare_enable(pfdev->clock);
 > > +	if (err)
-> > +		goto out_perfcnt;
-> >  
-> >  	return 0;
+> > +		return err;
 > > +
-> > +out_perfcnt:
-> > +	panfrost_perfcnt_fini(pfdev);
-> >  out_job:
-> >  	panfrost_jm_fini(pfdev);
-> >  out_mmu:
-> > @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  
-> >  void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  {
-> > +	panfrost_gem_fini(pfdev);
-> >  	panfrost_perfcnt_fini(pfdev);
-> >  	panfrost_jm_fini(pfdev);
-> >  	panfrost_mmu_fini(pfdev);
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > index 96a66d673ba6..9882a3ede75f 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
-> >  	if (err < 0)
-> >  		goto err_out1;
-> >  
-> > -	err = panfrost_gem_shrinker_init(&pfdev->base);
-> > -	if (err)
-> > -		goto err_out2;
-> >  
-> >  	return 0;
-> >  
-> > -err_out2:
-> > -	drm_dev_unregister(&pfdev->base);
-> >  err_out1:
-> >  	pm_runtime_disable(pfdev->base.dev);
-> >  	panfrost_device_fini(pfdev);
-> > @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
-> >  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
-> >  
-> >  	drm_dev_unregister(&pfdev->base);
-> > -	panfrost_gem_shrinker_cleanup(&pfdev->base);
-> >  
-> >  	pm_runtime_get_sync(pfdev->base.dev);
-> >  	pm_runtime_disable(pfdev->base.dev);
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> > index 3a7fce428898..f39c0f50ed4f 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> > @@ -15,20 +15,24 @@
-> >  #include "panfrost_gem.h"
-> >  #include "panfrost_mmu.h"
-> >  
-> > -void panfrost_gem_init(struct panfrost_device *pfdev)
-> > +int panfrost_gem_init(struct panfrost_device *pfdev)
-> >  {
-> > -	int err;
-> > +	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
-> > +		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > +	err = clk_prepare_enable(pfdev->bus_clock);
+> > +	if (err)
+> > +		goto disable_clock;
 > > +
-> > +		if (drm_gem_get_huge_mnt(&pfdev->base))
-> > +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> > +		else if (err)
-> > +			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> > +				 err);
+> > +	if (enable_ace_clock) {
+> > +		err = clk_prepare_enable(pfdev->bus_ace_clock);
+> > +		if (err)
+> > +			goto disable_bus_clock;
 > > +	}
-> >  
-> > -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-> > -	    !panfrost_transparent_hugepage)
-> > -		return;
-> > +	return panfrost_gem_shrinker_init(pfdev);
+> > +
+> > +	return 0;
+> > +
+> > +disable_bus_clock:
+> > +	clk_disable_unprepare(pfdev->bus_clock);
+> > +disable_clock:
+> > +	clk_disable_unprepare(pfdev->clock);
+> > +
+> > +	return err;
 > > +}
-> >  
-> > -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-> > -	if (drm_gem_get_huge_mnt(&pfdev->base))
-> > -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-> > -	else if (err)
-> > -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-> > -			 err);
-> > +void panfrost_gem_fini(struct panfrost_device *pfdev)
-> > +{
-> > +	panfrost_gem_shrinker_fini(pfdev);
-> >  }
-> >  
-> >  #ifdef CONFIG_DEBUG_FS
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> > index 79d4377019e9..5c823cdbd980 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> > @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
-> >  	return container_of(node, struct panfrost_gem_mapping, mmnode);
-> >  }
-> >  
-> > -void panfrost_gem_init(struct panfrost_device *pfdev);
-> > +int panfrost_gem_init(struct panfrost_device *pfdev);
-> > +void panfrost_gem_fini(struct panfrost_device *pfdev);
-> >  
-> >  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
-> >  
-> > @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
-> >  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
-> >  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
-> >  
-> > -int panfrost_gem_shrinker_init(struct drm_device *dev);
-> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
-> >  
-> >  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
-> >  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > index 2fe967a90bcb..fefae87535d6 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-> > @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-> >   *
-> >   * This function registers and sets up the panfrost shrinker.
-> >   */
-> > -int panfrost_gem_shrinker_init(struct drm_device *dev)
-> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
-> >  {
-> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> > -
-> >  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
-> >  	if (!pfdev->shrinker)
-> >  		return -ENOMEM;
-> > @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
-> >   *
-> >   * This function unregisters the panfrost shrinker.
-> >   */
-> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
-> >  {
-> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
-> > -
-> >  	if (pfdev->shrinker)
-> >  		shrinker_free(pfdev->shrinker);
-> >  }
-> > 
+> > +
+> > +static void panfrost_clk_disable(struct panfrost_device *pfdev, bool disable_ace_clock)
+> 
+> Similarly, I'd go s/disable_ace_clock/on_suspend/ and
+> s/panfrost_clk_disable/panfrost_clks_disable/.
+
+Noted.
 
 Adrian Larumbe
