@@ -4,56 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A74C982FD
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 01:28:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1DCC982FD
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 01:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 275D510E0A0;
-	Tue, 22 Sep 2026 01:28:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1449810E03A;
+	Tue, 22 Sep 2026 01:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="W0odU1OO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZxWRQpYH";
 	dkim-atps=neutral
-Received: from mail-m81144.xmail.ntesmail.com (mail-m81144.xmail.ntesmail.com
- [156.224.81.144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA1A10E0A0
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:28:13 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4ea47cc08;
- Tue, 22 Sep 2026 09:28:05 +0800 (GMT+08:00)
-Message-ID: <86d0a09c-f1e1-4310-aa39-6526268bdc76@rock-chips.com>
-Date: Tue, 22 Sep 2026 09:28:03 +0800
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC2FA10E117
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:54:30 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c67e5292faso1588547e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:54:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790042069; x=1790646869; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+ b=ZxWRQpYHXv7D8mmt5aMooyFMBDyDm96y2X3ZjqM3kFAg6OVPVmoFRblFg4Ze18AIYj
+ JIWjfN7DXMBbdQ3yuAx2qu1Uz7G+7NzuNXMSxlHQFeOfkFsauhI4w268jZqk4Ezia7wP
+ cw7tKKUYYkC9gjtI7kzttut7pFiAAP3GjY5gdNsPF30WAFaPSW/XYA+U5rnxdkqJyiYw
+ wBNqoH0SwR53V0Eb4RDoYBpcmn4AV7P7MZLcvkeJ85fgpH2Wc7b8MBPtl0M2CFmFDI6C
+ fgVDpd1CnlgNjazkFnSsg8vobzBHeOnUgOc2Znlgi/iPmmBkq+/KBzMTp2QWN3Hjrsuc
+ ebYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790042069; x=1790646869;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+ b=J2eIloIJLiaLWsc36PnTz8JdOYllU8CosPua7SZU7KB6voxU8upCCodw1NLK3RiYql
+ 89FnzQBVYI8SH51TcawlagqXUeVggi9eke3lBHDuY7Ll4jSrtQYZ+Roy35DMA1vHVxVt
+ LHizpB+aIYsKcqyx+zmGagiBgsfFLo6BC0tvcoPnlm7/TtXhDWbhnO/WmcSUWajWHWdH
+ 55mDfiX1fRxRcSYWtIdWDgrbruvgA70XM6hfYt6OM2oFwFMBMDixlJMvw0mYC4t/3pDW
+ 0lDMMb7Td9GxFNYVUzdYywv2+vRUXxlrhdRYq0Bk5gJpFWD2viJu0jg+0bIepeZ5P3Ay
+ Y2lQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwQTT8xSaloZh5JtO5jPJh4hxoxI3g+ZLRiwr6V0nOex+9yb3eeq9cxtRDP3z8yuq2Xd/Yp+QS11g4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mCMwgv4K6SgKkKz255LtDxaDSzIO/Z5bYWTRstrSsKt/4y0/y9
+ xUx6TKdxVqrzXedYAkZMG7EHClEBTffDaRZP1AUDNh9BzJl1oaMT4TKI
+X-Gm-Gg: AYBFou3rTVFLZHA+2bQd5PqcprZmW73mNUnaxPUl8SSV9yLc3+OzsThRZ84s+q5WRZQ
+ 6sIn81hI291wp/ItZIrFF8sr2Ak6GvcufhBCVWhoEWjSWMBl+sB4eZ9w2xS9K7SLYoSD2Q7Mi8p
+ YpYACffH572i/ijSq9FTjCFKxvcCcCId+Qwk0P11GCecdhI85hjiGDQDcyPjKUhwHP7m26Yt2Tl
+ gRBLvZOlLDXy5AqoCo+vQSInoca0SmI3+t7XUqcyjC76G0JF8AklL4x486MrkrVX6DmKe/g35y/
+ 5AmfwuqZ6jm+tQ7XYMB7Qgr6hBwWU+EdS/xtuWZGXUkVQZPCE11vDNYLSJa6CEhnzIlMAGI5Tnj
+ l1ffYms6BFpl5RguUoK+9oVtUWAfDYQWC7fkFS2Le8DtppSwx3yDEvFUOyBUNK6p/s1mIZflQuX
+ X0xIfJ8YUgeq/jFKHBUpJOsFcuiZVHZo/s2FR2AxEnxDBz0HKdNrv3CwxBgeXymz3unY1lzV0kC
+ +SvfEDvjciToX5mNdeYmrmVAcT0FthePiXtxCNf
+X-Received: by 2002:a05:6122:3281:b0:5bf:8955:a8ce with SMTP id
+ 71dfb90a1353d-5c9b58fa150mr7030545e0c.1.1790042069444; 
+ Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2804:5698:1029:f600:548c:a202:2a24:b2c2])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9e7d09aa0sm314462e0c.10.2026.09.21.18.54.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <superm1@kernel.org>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Subject: [PATCH] drm/amdgpu/gfx6: fix firmware leak on teardown
+Date: Mon, 21 Sep 2026 22:54:10 -0300
+Message-ID: <20260922015411.116292-1-williandossantosdeoliveira287@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 09/14] pmdomain: rockchip: add optional per-domain
- power-on settle delay
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>,
- royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260915104328.45901-1-gahing@gahingwoo.com>
- <20260915104328.45901-10-gahing@gahingwoo.com> <15844283.tv2OnDr8pf@phil>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <15844283.tv2OnDr8pf@phil>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c6ba2f2d03a7kunmeb9776bc9d1cf
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSk4eVkxDGR9JGEoYHUhCTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=W0odU1OOloYr55qtR7C7tVj3QAyYPL77i/h4ftBbKvQbI3quKMF5KR+1/q1L6P/K/JX8O6nCNzM53G0WqUmyiLvn/yBNzFcM8m8+KlASYIQ18AARR77yMJC5J/mQMpDGdfyoYrFpsjaJBgVfNbWDNJolVVt1Llx0m7JRklgsMiE=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=bEMNftgPUsUp/chMEhUbfGL5eAcx9DDwnaTufeKfD2w=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,47 +93,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Heiko, Jiaxing,
+The firmware requested in gfx_v6_0_init_microcode() is not released
+when the GFX block is torn down, leaking the firmware resources.
 
-On 9/22/2026 6:06 AM, Heiko Stuebner wrote:
-> Hi,
-> 
-> Am Dienstag, 15. September 2026, 12:43:23 Mitteleuropäische Sommerzeit schrieb Jiaxing Hu:
->> The RK3576 NPU domains need a short settle time after the idle request is
->> released before the registers behind the domain answer. Without it the QoS
->> writes that rockchip_pmu_restore_qos() issues land while the domain is
->> still coming up, and the NPU throws an async SError on the first cold
->> power-on.
-> 
-> are you really really sure, this is the fault of the domain itself?
-> 
-> The regulator also can just need a longer time to bring up the power.
-> Looking at [0], it seems I actually encountered the same thing back
-> on the RK3588.
-> 
-> Only difference is, on RK3588 a fan5355-type regulator normally does
-> provide the npu supply, while on your board it comes from the main pmic.
-> 
-> Can you please try the following:
-> - set your power-domain regulator to always-on in the DT (so it stays
->   on even when the domain gets turned off)
-> - try to reproduce your SError issue and see if it still appears
-> 
-> 
-> And for the other case, look through the pmic datasheet to find the
-> enable-time values and do something similar for the RK806.
-> 
-> 
+Add gfx_v6_0_free_microcode() and call it from gfx_v6_0_sw_fini()
+to release the PFP, ME, CE and RLC firmware.
 
-Thank you for your attention to this series.
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Providing some background here: this delay is required by the pmdomain
-design itself, rather than being dependent on the external RK806 state. 
-Taking the NPU as an example, after its pmdomain is powered on, some 
-internal preparation is needed, which takes approximately 15us. 
-And during this period, the QOS registers *must* not be accessed, 
-otherwise it will cause a hang.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 95e939363db6..a5553d181d97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -322,6 +322,14 @@ static const u32 verde_rlc_save_restore_register_list[] =
+ 	0x00000000
+ };
+ 
++static void gfx_v6_0_free_microcode(struct amdgpu_device *adev)
++{
++	amdgpu_ucode_release(&adev->gfx.pfp_fw);
++	amdgpu_ucode_release(&adev->gfx.me_fw);
++	amdgpu_ucode_release(&adev->gfx.ce_fw);
++	amdgpu_ucode_release(&adev->gfx.rlc_fw);
++}
++
+ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
+ {
+ 	const char *chip_name;
+@@ -3254,6 +3262,7 @@ static int gfx_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
+ 
+ 	amdgpu_gfx_rlc_fini(adev);
++	gfx_v6_0_free_microcode(adev);
+ 
+ 	return 0;
+ }
 -- 
-Best, 
-Chaoyi
+2.47.3
+
