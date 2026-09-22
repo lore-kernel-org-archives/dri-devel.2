@@ -4,56 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95944C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 03:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C4BC982DF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 03:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A332F10E524;
-	Tue, 22 Sep 2026 03:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F7D10E520;
+	Tue, 22 Sep 2026 03:24:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="WHsDsWt0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BpMJC8Sy";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC5110E524;
- Tue, 22 Sep 2026 03:08:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790046514; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=RrB978wScXs9iSrZOO1nRdUbVB6bf6fJuTze2rhnRmxL8WsxbWHQqefT3M1Q2QAJY84WpTZOyadqGRPOQBP4bsciliz7mRK3WW28X30WYtSjtQM29K2EW8sNLozi5O0vGNPJbFDJeYqs9WDS6uF6KnxkY1vQLmirvXZp1YOFRo8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790046514;
- h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=6BV4+6rgsOvQNz5synrlXOC46LAjc6YISArfVG1qGcY=; 
- b=HpDZhVNm622QiVDWP0CN7Md4zkKMKyfEVTBPehs66HGo4ao6C+oez9zzHp1e9h2BQdB52ahEgnE//NnjLePQH/c4kZCY21GfXss9CKn2asxdXhKQ6dOdNfYu43R9POXmAThyxJBTzjZ+TlQMm0H/5d07At/D2fj6LySHMpQeB24=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790046514; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To:Cc;
- bh=6BV4+6rgsOvQNz5synrlXOC46LAjc6YISArfVG1qGcY=;
- b=WHsDsWt0KvcCbzEsFJx3WeNuc1pH7vZ7jf+a70k4slCwKA6LljCFX28hVnqPmvKR
- o8ne4iEIWVMMeCGI3kH6/QKvUkGYxU1ucw0XhK0GPz1gpOXCHKocHn/mUoP1+Ad2SwW
- 2CYcW868hk0J24eBqO+tzYXe9wG0pBbxO4u1mZkE=
-Received: by smtp.zohomail.com with SMTPS id 1790046513340494.0176577767853;
- Mon, 21 Sep 2026 20:08:33 -0700 (PDT)
-Date: Mon, 21 Sep 2026 20:08:32 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- boris.brezillon@collabora.com, steven.price@arm.com,
- liviu.dudau@arm.com, adrian.larumbe@collabora.com, samitolvanen@google.com
-Subject: Re: [PATCH i-g-t v2] tests/panthor: skip sparse VM_BIND tests before
- v1.9
-Message-ID: <arHxMAOmIUUBZCEe@um790>
-References: <20260920-b4-panthor_version_sparse-v2-1-fa395c125eb1@collabora.com>
- <20260921152240.4j6paghgr3vktbuv@kamilkon-DESK.igk.intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C837E10E520
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 03:24:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A0D8C60210;
+ Tue, 22 Sep 2026 03:24:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2327F1F000FF;
+ Tue, 22 Sep 2026 03:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790047440;
+ bh=Ii3qyc0w1aYDJN77yU+YWW/365rbaC06cgQrcopc6Fc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=BpMJC8SyVUJOti0rK1Ie6MGWeuSoqdfPyKzTiQwdBRdYY4EI/SNW39IKeIQjIE3cC
+ VA4qzmdOIj+qc6zlDqH1lojF/6QtemOwrf7+HI1ZQg54dPX48Lg7HyWvEo+bGWWWbU
+ f+2oMo7f8ZRROQdvOJyhC316ig3XBt30r0S5qm726aq4SYYUOyl980MuUUHamYp7Lb
+ UAPG/mTuzYQlgL7v/fxhCT1fFstwC6c22j4CJhNHD+CrbVMibx5bphuSm6FK3kIiVp
+ RdzXvvrPKH4I6L5aexGN64U1ZUyNlI71UeUyUT/s2VFwc/X3aS6MPTty+IAOB2OqK2
+ T3JK08iR/TlSw==
+Message-ID: <f0db06a2-08e4-4013-96cb-c6754f673126@kernel.org>
+Date: Tue, 22 Sep 2026 12:23:54 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921152240.4j6paghgr3vktbuv@kamilkon-DESK.igk.intel.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.25.6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/5] ata: libahci_platform: Adapt the return value
+ changed for disabled blob
+To: Inochi Amaoto <inochiama@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Minas Harutyunyan <hminas@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ Longbin Li <looong.bin@gmail.com>
+References: <20260922024724.191412-1-inochiama@gmail.com>
+ <20260922024724.191412-3-inochiama@gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260922024724.191412-3-inochiama@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,126 +79,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 05:22:40PM +0200, Kamil Konieczny wrote:
-> Hi Deborah,
-> On 2026-09-20 at 17:59:09 -0700, Deborah Brouwer wrote:
+On 9/22/26 11:47, Inochi Amaoto wrote:
+> Check EOPNOTSUPP for disabled helper function as the change in phy core.
 > 
-> I have one more nit, see below, and an ask for you or other
-> panthor developers to look into igt work item on gitlab:
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  drivers/ata/libahci_platform.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> gputop does not work with the panthor kernel driver
-> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/work_items/209
+> diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+> index 6e072d681341..3e8ddbeb49b3 100644
+> --- a/drivers/ata/libahci_platform.c
+> +++ b/drivers/ata/libahci_platform.c
+> @@ -371,11 +371,11 @@ static int ahci_platform_get_phy(struct ahci_host_priv *hpriv, u32 port,
+>  
+>  	rc = PTR_ERR(hpriv->phys[port]);
+>  	switch (rc) {
+> -	case -ENOSYS:
+> +	case -EOPNOTSUPP:
+>  		/* No PHY support. Check if PHY is required. */
+>  		if (of_property_present(node, "phys")) {
+>  			dev_err(dev,
+> -				"couldn't get PHY in node %pOFn: ENOSYS\n",
+> +				"couldn't get PHY in node %pOFn: EOPNOTSUPP\n",
 
-Sure, I was able to reproduce this gputop problem today and will send
-a fix separately.
+I do not see the point in printing an error code name. Instead, let's make the
+error message more sensible. Something like:
 
-> 
-> > Sparse VM_BIND support was introduced with Panthor DRM driver version
-> > 1.9. If a driver isn't advertising support for v1.9, skip the sparse
-> > VM_BIND subtests.
-> > 
-> > Use the advertised driver version rather than probing for EINVAL, since
-> > EINVAL may also indicate a uAPI regression rather than lack of support for
-> > sparse VM_BIND.
-> > 
-> > Add a shared macro igt_require_panthor_version() to check the version in
-> > case other Panthor tests would like to use it in the future.
-> > 
-> > The Panthor version macro wraps the igt_require_f() macro so that we can
-> > clear the last errno. The last errno is irrelevant to the version check
-> > but __igt_skip_check() will still print it like this:
-> > 
-> >   Starting subtest: vm_bind_sparse
-> >   Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
-> >   Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
-> >   Requires Panthor version 1.9 or newer
-> >   Last errno: 2, No such file or directory
-> >   Subtest vm_bind_sparse: SKIP (0.000s)
-> > 
-> > This makes the log noisier than it already is. So set the errno to 0 to
-> > suppress that line. Skipping the test will now print:
-> > 
-> >   Starting subtest: vm_bind_sparse
-> >   Test requirement not met in function __igt_unique____real_main10, file ../tests/panthor/panthor_vm.c:296:
-> >   Test requirement: __igt_panthor_driver_version_at_least(fd, 1, 9)
-> >   Requires Panthor version 1.9 or newer
-> >   Subtest vm_bind_sparse: SKIP (0.000s)
-> > 
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > ---
-> > Changes in v2:
-> > - check for version at each subtest
-> > - make version check available to all panthor tests
-> > - use macro to suppress printing the last error
-> > - Link to v1: https://lore.kernel.org/r/20260915-b4-panthor_version_sparse-v1-1-7ac10b75e631@collabora.com
-> > ---
-> >  lib/igt_panthor.c          | 14 ++++++++++++++
-> >  lib/igt_panthor.h          | 18 ++++++++++++++++++
-> >  tests/panthor/panthor_vm.c | 18 ++++++++++++++++++
-> >  3 files changed, 50 insertions(+)
-> > 
-> > diff --git a/lib/igt_panthor.c b/lib/igt_panthor.c
-> > index 11d8ec342..0f8c408d5 100644
-> > --- a/lib/igt_panthor.c
-> > +++ b/lib/igt_panthor.c
-> > @@ -385,3 +385,17 @@ void igt_panthor_free_bo(int fd, struct panthor_bo *bo)
-> >  
-> >  	gem_close(fd, bo->handle);
-> >  }
-> > +
-> > +bool __igt_panthor_driver_version_at_least(int fd, int major, int minor)
-> > +{
-> > +	drmVersionPtr version = drmGetVersion(fd);
-> > +	bool supported;
-> > +
-> > +	igt_assert(version);
-> > +	supported = version->version_major > major ||
-> > +		    (version->version_major == major &&
-> > +		     version->version_minor >= minor);
-> > +	drmFreeVersion(version);
-> > +
-> > +	return supported;
-> > +}
-> > diff --git a/lib/igt_panthor.h b/lib/igt_panthor.h
-> > index ba4a9bf1e..626e5d525 100644
-> > --- a/lib/igt_panthor.h
-> > +++ b/lib/igt_panthor.h
-> > @@ -37,6 +37,24 @@ void igt_panthor_group_submit_simple(int fd, uint32_t group_handle,
-> >  				     uint32_t stream_size, uint32_t syncobj_handle,
-> >  				     int err);
-> >  uint64_t igt_panthor_get_first_core(uint64_t cores_present);
-> > +bool __igt_panthor_driver_version_at_least(int fd, int major, int minor);
-> > +
-> > +/**
-> > + * igt_require_panthor_version:
-> > + * @fd: device file descriptor
-> > + * @major: required Panthor major version
-> > + * @minor: required Panthor minor version
-> > + *
-> > + * Require the Panthor version to be at least the requested version.
-> > + */
-> > +#define igt_require_panthor_version(fd, major, minor) do { \
-> 
-> Can you make it a function in test? Macro seems an overkill.
-> Also, it could be moved to library when there will be more
-> users in other tests.
-> 
-> Regards,
-> Kamil
-> 
-> > +	/* igt_require_f() reports errno through __igt_skip_check(); */ \
-> > +	/* clear it since errno is unrelated to the version check. */ \
-> > +	errno = 0; \
-> > +	igt_require_f(__igt_panthor_driver_version_at_least(fd, major, minor), \
-> > +		      "Requires Panthor version %d.%d or newer\n", \
-> > +		      major, minor); \
-> > +} while (0)
-> >  
-> >  static inline void igt_panthor_vm_bind(int fd, uint32_t vm_id, uint32_t bo_handle,
-> >  				       uint64_t va, uint64_t size, uint32_t flags, int err)
-> > diff --git a/tests/panthor/panthor_vm.c b/tests/panthor/panthor_vm.c
-> > index 9011df25e..bd8f14ecb 100644
-> > --- a/tests/panthor/panthor_vm.c
-> > +++ b/tests/panthor/panthor_vm.c
-> > @@ -293,6 +293,7 @@ int igt_main() {
-> [cut]
+	dev_err(dev, "Node %pOFn: PHY not supported\n", node);
+
+Or
+
+	dev_err(dev, "PHY not supported on node %pOFn\n", node);
+
+>  				node);
+>  			break;
+>  		}
+
+
+-- 
+Damien Le Moal
+Western Digital Research
