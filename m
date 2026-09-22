@@ -4,105 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 809FDC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 09:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FA85C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 09:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EC7810E66A;
-	Tue, 22 Sep 2026 09:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2214D10E68A;
+	Tue, 22 Sep 2026 09:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="uSqmGk3t";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="ejtlHug+";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B72810E68A
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 09:52:49 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ccfd61ecaso34270775e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:52:49 -0700 (PDT)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4D510E68A
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 09:58:23 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49b912e4b11so21399555e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:58:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790070768; x=1790675568;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
- b=uSqmGk3t/jofgbo9QMR9O7qrsOf6ak67ZVONB/pseJeDtf+ifoI0Ayl836kloOhfko
- JUmzFEJzGd1GOyeJl5zwEl1gpGFnm11pM2XCT6vK7wd6I5iHqAzqf+S42MsxDOYZ6U7l
- 9A7dArVBToBLVvMPbqsxThCeApzbLUb8I7gdHvqdS5eBxjlTIko1sHbQn8ZPeVYeGWCf
- utTMeIV6GUgGBZBQSkCtAQBK0jQ1+b0D0/Nx9KxmIfWOs3M1Fc6eny8SDdydLk7fCFEf
- 5sF90dk4xf0BIUHUwcdsXyCEjEW5z/pHDD3KkAIfJTptiOTUzUYhG2ZkOd+TXWjdNV/S
- Pacg==
+ d=suse.com; s=google; t=1790071102; x=1790675902; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=nZUNZdA2VreC5ZuzVVTaU77y9kWQRV4FmcQNBHWyLvk=;
+ b=ejtlHug+1jLFLZqDms89lHW9hpD9ex61M2cSYsgCKxQBcAYJCgsSKCzsqwmhWKZ+nx
+ v1Ujog7mBvmj25WC0Nt4vAlXLDGKHgCEXw1wo1frmTpn5Sid29GNqAC0Fj9AyJbZpb9l
+ X9cyy56MrAquPreHjF7N/UTExDG/yCIDP2vah4MRkipulaTuEFQeFsk7gmw7P04rCGlh
+ lvYYu24CXRYb3cxA/QdUOHb6eqjzMyXRjpKvmZ1ZwH9cc3AztnlHyzvYnkx72sx4hFhp
+ OK6B/gAsPgTQnuC9fIZYa2npe/OUhgHvzv6+EwFehOCEw4qSvWezM9kna2rl+rlacZ2P
+ bKKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790070768; x=1790675568;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
- b=ldl5By4fvip2Mixj1zBY9GotiCuyDT9zjKUpBDvzxvb6TCEAJAjOyladw3xVw+BLXn
- bsLYslG64cAI6pMR7G0xgCKVKPIlVqDX0hU0/FM801m88xcGD615iOenXkipHRUPvLgE
- m+Y538Go5ujdeDBXACkcVCDPvxVEnZ8+8Ove7w3J/F5CtI1ZV4WMFaE337hNkDBJEFY1
- KLf3XduAdgQQacU3G1FyK0yKW7fPHTq4lKbBqEHh56EuGe1jzLzDYwvCg213R2cGdLYd
- 3rJYGsBsYrV4nJLOr5ATdJclrpuEiNISAMNEAUklnOhMu2P7kYzYFmXcsS7NfJveIpD0
- BbgA==
+ d=1e100.net; s=20260707; t=1790071102; x=1790675902;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=nZUNZdA2VreC5ZuzVVTaU77y9kWQRV4FmcQNBHWyLvk=;
+ b=G4WYnUQAntKFo/wCXbKB6sQn1ApZ6+f1hmTGxxbRtCmeHf4QC7gRDGUQs/tjOLTPs8
+ aJGxGi6VEsPm+/8A/o/NpGp4W8q4VZAcBA9WtosDfTyjFwTlk+73bbpdMNim+MuLlwIx
+ wsp9LPrLF4CSeVQxe8AdSE+79NedjjUyn6fsYMVTGJQrImUk9mdRJcevBLvBEG1tufMC
+ XVgI60ui3q+EbjotIBWI7eZzAiqfOlRyaSpq2xzhUVI6N1+kRwpeUlUp5F61oSxSN0t9
+ mP45iundYhy8HfERbVmAJmjE+8WY5Ir8hIqvwlIvAVHqqleshi+aOcbfuIFbNcU0+6Hh
+ nutQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBykSN1Eor4Xn8q4Cat2zGWb5p76TBXKleCYTY2cnI38wB3JQcuI3HKU4GnVUOzft7na1pBQ+uWmDn8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kjT6Bvg9ppiBfdZ3Pr7LmdHvFgX1NAMuTtQ598V1vzbhY4j2Uh
- uL0GpbPLqUmpGtTZR37dIYN/bDF9zwPVbAae4h0M7/FWHKzProdA1d19OuvBKt7MoLs=
-X-Gm-Gg: AYBFou0QFTX42S3V1JJK5BO3B/zNjqPFnabRsGty70Sel0e8BCmlKRy72HSaqC15mNO
- 2U5RQl7fpbc1gyouL032Eg6RpHy0HUnEESWQfhsWp4JGebRa4rcorOFjovXCOCOJ+iBsyfP57a6
- aKFASCuJhj/WbUmTBkhLxnzpf52imzFjItiklCuo7KVLRV+StiinHjNb9KDqSYAfOSLqzZ4neis
- DNpNGnRU60KPLSTsHLiAs/BpdQYlno4kS/Vzp6S0kEOFA+nuZoqYV6Fz8U0u3PoSZ36a54k8zXc
- pgah4qdkzEdSpOWFdsDPAlV3EJ8ITAQkHZ/yU6CrTDi9VtJo/YIz3c2rrTnpHcZqK5/qKFvcV2q
- yK23tjR+yeaaxD4NzwL9l5SPrC2mqmhIzAkXGF6NYGbYJmtl3rczFDdaGVdVBTHG3fAFXTpUpEb
- i3rx9hhtR5ZTdyJxDI07DUwpXtsW8H5uLWvx/YjQVW54wQhY72usxshYewAqxrAE8rl5pZKwMPV
- 5wPipLVuMo+BDRLYelZlOrYDdI8yzuRpaE7FSORvDFyz/e5sMvC5Wy8Nd+tLPBjsgli7Oj//mM5
- XXXRj7k1DpVRZQmCSFt5uB4H6p4TLIMFSclRbcZDoxygNlbFY08X5S7YQ4s=
-X-Received: by 2002:a05:600c:46cf:b0:49c:de80:b833 with SMTP id
- 5b1f17b1804b1-49fc5687b6cmr202804085e9.2.1790070767607; 
- Tue, 22 Sep 2026 02:52:47 -0700 (PDT)
-Received: from aspen.lan
- (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
+ AKwUvBwaqtYnkv/X692RibJJ4yl3iPEiNtFM7+Ehj1z52SbEAsbmiDMuXC1OWU2PYh8JY/GbbhFiCjp/ktc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nkzy1YC+dH8DBDLzdTwX6bBt/7fmKqGlQ98TU/VYFZCPTAlRky
+ kHZFSXEMeGCzPg/h0J9j0La8GXgK9AMwEMk3nVyHnMdyvhZ1Jxmacj4r4peF8MzYAFI=
+X-Gm-Gg: AYBFou0U7KO0cJrq97L/Aq8me6vU2/0c7rHecfk81MQSteB14f8/raNx0pN9Oc6ht+0
+ nZblZ+BAaTWs6eFYVE+s3kIn80P89wTBrYlQK8AA1KEhflz7gqZCeFYVqHiNDLx1JdAhLL7Jr/h
+ Mjsk0bAXnJOktCoZwR1QV3gi+V+hJYxTBNzxFWUOkPb8EGjE0SmhOvg46q6Mr4BjwcRuoIj4JVF
+ KAmhsikYzcbpzIlcfMGGD/+4a2MvDzOuJVlWLQ/2lJI+hXCZgJkAx77n7lQeFvpyCTqrMogGgfq
+ vJurU2kjSWDC3oGJfi0/KDSML3sDdiqrDG6WWogmY9Djm6xFeLaIPXU2ubfUi8CmC1KHfxs7aNz
+ cycwZtRfTvgBuDtdmiIf4IBliToS5vgskS6sipS+q+WD8iJbB97+BqbUdN92RPXmLf5yHTrQVWb
+ UJB2dFpWp674Q7aBDYqsW1JPyKnsBQX/svA9cz75kqhvEdXgV0E2N/Mi/RkEpJBw1XRGHunCS9f
+ D1UEGiT+mmVlHEbrJT5yhT8bkR4kR3cOEc+8hS6HIGG0HScv6cCC+d09mar/JVrJB95rbps7Go7
+ Ct3BgFK/WgVB232ajzKFbAth+CZVU9FOmaORnIXA
+X-Received: by 2002:a05:600c:a0a:b0:49e:84bf:6110 with SMTP id
+ 5b1f17b1804b1-49fc56dbb49mr199597855e9.6.1790071101618; 
+ Tue, 22 Sep 2026 02:58:21 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdaa9dbd6sm42235115e9.2.2026.09.22.02.52.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 02:52:46 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:52:44 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: kavakliyigitcan@gmail.com
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Henrik Rydberg <rydberg@bitmath.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-input@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC 02/10] backlight: add Kinetic KTD3136 driver
-Message-ID: <arJP7AMM5DqNoc8e@aspen.lan>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
- <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
+ 5b1f17b1804b1-49fdab0c240sm27108755e9.4.2026.09.22.02.58.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2026 02:58:21 -0700 (PDT)
+Message-ID: <2bf82e0b-a032-4ee7-8d93-c5604222723d@suse.com>
+Date: Tue, 22 Sep 2026 11:58:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] Bring includes in linux/kmod.h up to date
+To: petr.pavlu@suse.com
+Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
+ Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov
+ <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+ drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
+ greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+ linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+References: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,248 +138,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 11, 2026 at 11:50:59AM +0300, YİĞİTCAN KAVAKLI via B4 Relay wrote:
->  obj-$(CONFIG_BACKLIGHT_LM3630A)		+= lm3630a_bl.o
-> diff --git a/drivers/video/backlight/ktd3136-backlight.c b/drivers/video/backlight/ktd3136-backlight.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..a8ebe3b23c99f3ada9f45c60688f8b8c78d72def
-> --- /dev/null
-> +++ b/drivers/video/backlight/ktd3136-backlight.c
-> @@ -0,0 +1,262 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Kinetic Technologies KTD3136 3-Channel LED Backlight Driver
-> + *
-> + * Copyright (C) 2026
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/property.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#define KTD3136_REG_DEV_ID		0x00
-> +#define KTD3136_REG_SW_RESET		0x01
-> +#define KTD3136_REG_MODE		0x02
-> +#define KTD3136_REG_CONTROL		0x03
-> +#define KTD3136_REG_RATIO_LSB		0x04
-> +#define KTD3136_REG_RATIO_MSB		0x05
-> +#define KTD3136_REG_PWM			0x06
-> +#define KTD3136_REG_STATUS		0x0A
-> +
-> +#define KTD3136_DEV_ID_VAL		0x18
-> +#define KTD3136_DEV_ID_VAL2		0x19
-> +
-> +#define KTD3136_MODE_ON			0xC9	/* Boost ON, 3 channels enabled */
-> +#define KTD3136_MODE_STANDBY		0x98	/* Standby mode */
-> +#define KTD3136_CONTROL_LINEAR		0x02	/* Linear dimming mapping */
-> +#define KTD3136_PWM_DEFAULT		0x1B	/* Default PWM/boost frequency */
-> +
-> +#define KTD3136_DEFAULT_MAX_BRIGHTNESS	2047	/* 11-bit resolution */
-> +#define KTD3136_DEFAULT_BRIGHTNESS	2047
-> +
-> +struct ktd3136_data {
-> +	struct i2c_client *client;
-> +	struct backlight_device *bd;
-> +	struct gpio_desc *enable_gpio;
-> +	struct regulator *vin;
-> +	/* Protects chip registers and state */
-> +	struct mutex lock;
-> +	bool is_enabled;
-> +};
-> +
-> +static int ktd3136_write(struct ktd3136_data *chip, u8 reg, u8 val)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(chip->client, reg, val);
-> +	if (ret < 0)
-> +		dev_err(&chip->client->dev, "failed to write reg 0x%02x: %d\n", reg, ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ktd3136_read(struct ktd3136_data *chip, u8 reg)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_read_byte_data(chip->client, reg);
-> +	if (ret < 0)
-> +		dev_err(&chip->client->dev, "failed to read reg 0x%02x: %d\n", reg, ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ktd3136_power_on(struct ktd3136_data *chip)
-> +{
-> +	int ret;
-> +
-> +	if (chip->is_enabled)
-> +		return 0;
-> +
-> +	if (chip->enable_gpio) {
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 1);
-> +		/* Allow oscillator and internal logic to stabilize */
-> +		usleep_range(2000, 3000);
-> +	}
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_CONTROL, KTD3136_CONTROL_LINEAR);
-> +	if (ret < 0)
-> +		goto err_off;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_PWM, KTD3136_PWM_DEFAULT);
-> +	if (ret < 0)
-> +		goto err_off;
-> +
-> +	chip->is_enabled = true;
-> +	return 0;
-> +
-> +err_off:
-> +	if (chip->enable_gpio)
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
-> +	return ret;
-> +}
-> +
-> +static void ktd3136_power_off(struct ktd3136_data *chip)
-> +{
-> +	if (!chip->is_enabled)
-> +		return;
-> +
-> +	ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_STANDBY);
-> +
-> +	if (chip->enable_gpio)
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
+On 9/11/26 4:46 PM, Petr Pavlu wrote:
+> The usermode helper declarations were previously provided by linux/kmod.h
+> but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
+> moved them to linux/umh.h in 2017. Add explicit includes of linux/umh.h to
+> files that use usermode helpers and remove linux/kmod.h where it is no
+> longer needed.
+> 
+> Also add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
+> 
+> Finally, clean up linux/kmod.h so that it includes only the headers that it
+> actually requires, importantly removing the compat linux/umh.h include.
+> 
+> This cleanup is motivated by trying to reduce the preprocessed size of
+> linux/module.h, which includes linux/kmod.h. linux/module.h appears in
+> roughly 15k #include directives across the kernel. This makes it a "hot"
+> header, so it should avoid pulling in unnecessary definitions. Note that
+> this series doesn't immediately improve the situation, since most of the
+> files included by linux/kmod.h are, for now, also included by
+> linux/module.h through other paths.
+> 
+> Apologies for the wide distribution. Acked-bys are appreciated.
 
-Why does this powering off leave the regulator active?
+I've queued the series on modules-next for 7.4-rc1.
 
-
-> +
-> +	chip->is_enabled = false;
-> +}
-> +
-> +static int ktd3136_update_status(struct backlight_device *bd)
-> +{
-> +	struct ktd3136_data *chip = bl_get_data(bd);
-> +	int brightness = backlight_get_brightness(bd);
-> +	int ret = 0;
-> +	u8 lsb, msb;
-> +
-> +	mutex_lock(&chip->lock);
-> +
-> +	if (backlight_is_blank(bd) || brightness == 0) {
-> +		ktd3136_power_off(chip);
-> +		goto out;
-> +	}
-> +
-> +	ret = ktd3136_power_on(chip);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	lsb = brightness & 0x07;
-> +	msb = (brightness >> 3) & 0xFF;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_LSB, lsb);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_MSB, msb);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_ON);
-> +
-> +out:
-> +	mutex_unlock(&chip->lock);
-> +	return ret;
-> +}
-> +
-> +static const struct backlight_ops ktd3136_backlight_ops = {
-> +	.options = BL_CORE_SUSPENDRESUME,
-> +	.update_status = ktd3136_update_status,
-> +};
-> +
-> +static int ktd3136_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct backlight_properties props;
-> +	struct ktd3136_data *chip;
-> +	int ret, val;
-> +	u32 def_brightness = KTD3136_DEFAULT_BRIGHTNESS;
-> +	u32 max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
-> +
-> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +	if (!chip)
-> +		return -ENOMEM;
-> +
-> +	chip->client = client;
-> +	mutex_init(&chip->lock);
-> +
-> +	chip->vin = devm_regulator_get_optional(dev, "vin");
-> +	if (IS_ERR(chip->vin)) {
-> +		ret = PTR_ERR(chip->vin);
-> +		if (ret != -ENODEV)
-> +			return dev_err_probe(dev, ret, "Failed to get vin regulator\n");
-> +		chip->vin = NULL;
-> +	}
-> +
-> +	if (chip->vin) {
-> +		ret = regulator_enable(chip->vin);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Failed to enable vin regulator\n");
-> +	}
-
-Why is the regulator managed here rather than in the power_on/off functions?
-
-Also, you need to keep track of the regulator state. You must "put" the
-regulator before allowing devm to clean it up (handling the regulator
-state in power_on/off would solve this).
-
-
-> +
-> +	chip->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(chip->enable_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(chip->enable_gpio),
-> +				     "Failed to get enable GPIO\n");
-> +
-> +	if (chip->enable_gpio)
-> +		usleep_range(2000, 3000);
-> +
-> +	val = ktd3136_read(chip, KTD3136_REG_DEV_ID);
-> +	if (val < 0)
-> +		return dev_err_probe(dev, val, "Failed to read device ID\n");
-> +
-> +	if (val != KTD3136_DEV_ID_VAL && val != KTD3136_DEV_ID_VAL2) {
-> +		dev_err(dev, "Unknown device ID: 0x%02x\n", val);
-> +		return -ENODEV;
-> +	}
-> +
-> +	dev_info(dev, "Kinetic KTD3136 detected (ID: 0x%02x)\n", val);
-
-Remove this. Happy noises are still noise!
-
-
-> +
-> +	device_property_read_u32(dev, "max-brightness", &max_brightness);
-> +	if (max_brightness > KTD3136_DEFAULT_MAX_BRIGHTNESS)
-> +		max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
-> +
-> +	device_property_read_u32(dev, "default-brightness", &def_brightness);
-> +	if (def_brightness > max_brightness)
-> +		def_brightness = max_brightness;
-> +
-> +	memset(&props, 0, sizeof(props));
-> +	props.type = BACKLIGHT_RAW;
-> +	props.max_brightness = max_brightness;
-> +	props.brightness = def_brightness;
-
-The scale property needs to be set here.
-
-
-Daniel.
+-- 
+Thanks,
+Petr
