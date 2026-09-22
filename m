@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44601C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 05:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C3D8C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 05:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83D8C10E2C8;
-	Tue, 22 Sep 2026 05:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5FBB10E332;
+	Tue, 22 Sep 2026 05:19:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OXXjzh0Y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OkmS6u0R";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C22610E2C8
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 05:18:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6CA110E332
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 05:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790054281; x=1821590281;
+ t=1790054356; x=1821590356;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=VRiMTxOBCVZxzWF1mtaVlOQ7SyIG0U4+48q01LCJKOA=;
- b=OXXjzh0YGVRiVYEXbJ1pvoWcCKteypGaqhfH4KE3tmX/qgESBV2U92/Z
- zLVFUocFuPIMKUG5UT4N4tjblX5k9MSOuFODxK/XfPoMiL9sArp+NzwQ1
- M7pNIqL3+9ZMJbhldjNTYEGOnz/kbFAfdOxUKvVU7geXe+knEoFodulVf
- 0N0zZaUZEKh9bJjpAVyL5GlpvbzPRaAWiq8sYoX3prdn5yrUvI/N3rOhs
- ucvrTVJ81DYVROskRqXuhX+Sxi+oQIsLBZ/83YFOGUd5Wgi0s6oHTRM0m
- QrlyCkHKrfW6BDHSk1raBjv8OjXWMUNPZWzTIhh8erJ9OAEIDRJTbBqNR Q==;
-X-CSE-ConnectionGUID: gPwPjx7eTHO7CpTHBCSD8g==
-X-CSE-MsgGUID: 128gmSHUTz+wjqu/1iiR6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1128812"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="1128812"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 22:18:00 -0700
-X-CSE-ConnectionGUID: 640UYqKTSsi+2/V6MjZr0w==
-X-CSE-MsgGUID: pqdgCWUzQbqv6alauCHvuQ==
+ bh=zdl7LTbrE6Odor9mhv+R0GnHXjJy0viZprZ3P8Knk54=;
+ b=OkmS6u0RCvIK1o2W2iM20xHuCAHfQ8f6DQ+hum+ibJNSP1N4Ry382MaY
+ 7HAa40cAVpZbC/Dbuw2k6x3XDH74Qq3j8bsDKpW014WHCgvDM3vBPWcfH
+ oCIyNW1ozia7PiYXy/0RRaw+xBSG67FraCmOKU2657KzeqN9ccKxfJOns
+ x9f4xnQ4dMioJgirpr3rGI12VW0QLeMqz56xz0p2gujBcql09JnhSTxym
+ 9C+du9Yvb0GcRrSkne9OPRSLRq/9xpSdUGFgvcXYT3XuLEIe19j6AysSs
+ st9lyb3p0swHU0WiegKFQ5vtSiaV8ereEo+u2haHiUwSsRPS5vmBfz7/V A==;
+X-CSE-ConnectionGUID: qH6e9OBJTq69ywbKIQ9UlA==
+X-CSE-MsgGUID: bqGPBje9RUig14sLuAgMDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89547151"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; d="scan'208";a="89547151"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 22:19:15 -0700
+X-CSE-ConnectionGUID: BeFMwsghQcm9EzuX/h8h2g==
+X-CSE-MsgGUID: SGPMMS8ZS8K9/TioZrnv1A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; d="scan'208";a="271511815"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 22:17:59 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="4281544"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 22:19:16 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 22:17:59 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ 15.2.2562.46; Mon, 21 Sep 2026 22:19:15 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 21 Sep 2026 22:17:59 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.29) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ 15.2.2562.46 via Frontend Transport; Mon, 21 Sep 2026 22:19:14 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.52) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 22:17:58 -0700
+ 15.2.2562.46; Mon, 21 Sep 2026 22:19:15 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z63OzIdPgn0liLXkxNYU/waHrwMTS7QHBxyyfCafQ1iM0dvj2NBiMYFLz9h9Mxj1rzjnQbS+WFgfal7WSxrQpFlHMenPk/v/jK/EAiWNU4BoABfH72mOyphYa7mx1pvnD0WqxemhlmhCNaNxGZ5jkTNFVimjVidWMTUp0rqOWkO8t7T7UJpa51CGFPgE3jvhZfnJgb3fifR175bw8RZxFdrlHslq5OBiNcAfRv6W/0ii4lYN8RbTwCnyu7xtiFQ6AjXW8BV+jcyBgjsiUC2okZb0WDw+3hdPfpstYvffryLAWncqsfe3N9PoLhHqkJ8SyjrA9Y1tUX/D8ybHWnOPyg==
+ b=HYEpbUlUX2Yjs57b+1ps6spNbni7qeK3rktbVGu7v0cmX6DRW6oMFZvdW+YxTVDZ6DHCXirjdTBDQbqGd8MZP5UXMmq7UsC5h7Alg4KXybfJGBfwM9Vs10bUFIi8caWY90cDmUo6T2M46keZTk9BU+/I8UsK0wsJCJaa3BXoNNCPcnK5rSWZmsP2HCmMTJ4bkdMal8wlFeyAh5Or9hV+dgBd6vNSo9VVTQJSfAj0s8joUOYLMfKCB5myYgr4jf/IZ7l9f63+Skc/fF7BFcOOKtjxDAeUXj6Eri9M2Tnz+/vOd35kLEV++sDcqDCaJZPAK4SDvesao8r1WF1DegKUGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vkMU2q8ZIUoAvO3C3t0yulS110puK3YYB2k4UZo5Ngw=;
- b=WPkKpB7FKiFPHsmPTnI/aDwj1dBz2ihP+XWkyICkiO+zgEGAuNikCvENw11v7LY1ZDOxZi54R3DTVM9PxqJ6y79x+0Os31nNm/uLkghmNSwlsh7UkB6LLHlzpIKsenVnyTV/cAXZQNIdf2lxOW3ErnL16cfKcq6gb1uU5Ek4xI3YwN6rfAtiTMWcpwMCRpZ3oSmsRbbM9I1aPHHi1dGGaiPuB46sSs4hHcVgv/Rbw/H2YiIy9/QPexCCOHuKw0J0n+JnAMwRby+33agH8bjVaTsQo4aex1VOvrNKDyCK/Po/tpvcA3nTsZum/AQ5KBY/qNIFlYU0+KZ9PBuz1l+DuA==
+ bh=ZDcNGFXYqosfno2KTrSWi/y1xdmbpQ41FG8lvFENg8I=;
+ b=SWG/cKMRZDSdpGR4J62B0kQLVApgyTlRJQLmv6LH6l25OEm4hM/wIxR8KXi3c9ppFVFgHqDtNnUsyNnDIVDrlIyUWSF3qHPKFoa7saDxMlXYxTbHYQRazkBz0OVgz+tDM5Ae0XylVzmrXLuOJ7NgNBXYg9T82n77hFelccH3u+1gMFsiPoBpy6ZwvxJYGi+QpySGlqJoByrqngNxP9S+nWY2r+aSWy2M5uOARQftB1fevxOeLAHzQF8CWnbHZZEkQ+EPTiEsgtrxEdnkZSCBaRZPA6AY33s0bPY0DamQ+9q/7NQuOlneIiYODUJEPNDdrbXKDE604RkxUeE60iwieA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -68,30 +68,27 @@ Received: from IA0PR11MB7185.namprd11.prod.outlook.com (2603:10b6:208:432::20)
  by IA0PR11MB8302.namprd11.prod.outlook.com (2603:10b6:208:482::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 05:17:50 +0000
+ 2026 05:19:13 +0000
 Received: from IA0PR11MB7185.namprd11.prod.outlook.com
  ([fe80::9f37:cb81:5463:300e]) by IA0PR11MB7185.namprd11.prod.outlook.com
  ([fe80::9f37:cb81:5463:300e%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 05:17:50 +0000
+ 05:19:12 +0000
 From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Jiakai Xu
- <xujiakai24@mails.ucas.ac.cn>, "kraxel@redhat.com" <kraxel@redhat.com>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>
-CC: "robert.mader@collabora.com" <robert.mader@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-Thread-Topic: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-Thread-Index: AQHdR8/Ka7Jds4c1EUGL2fKq+gaV6LbYnOwAgAC/otA=
-Date: Tue, 22 Sep 2026 05:17:49 +0000
-Message-ID: <IA0PR11MB71850CE89762EE05B36B7DCEF8832@IA0PR11MB7185.namprd11.prod.outlook.com>
-References: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
- <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
-In-Reply-To: <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+CC: Gerd Hoffmann <kraxel@redhat.com>, Robert Mader
+ <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>
+Subject: RE: [PATCH v1 2/2] udmabuf: Add mlock accounting for udmabuf
+ pages/folios
+Thread-Topic: [PATCH v1 2/2] udmabuf: Add mlock accounting for udmabuf
+ pages/folios
+Thread-Index: AQHdOQ5nSG/fDnCEd0CaxK5EtQ1eDbbYvOWAgAC+lWA=
+Date: Tue, 22 Sep 2026 05:19:11 +0000
+Message-ID: <IA0PR11MB718502111B354D893D71FA0CF8832@IA0PR11MB7185.namprd11.prod.outlook.com>
+References: <20260831060210.1713177-1-vivek.kasireddy@intel.com>
+ <20260831060210.1713177-3-vivek.kasireddy@intel.com>
+ <77b5fa08-6c95-4f9d-a12e-5ddca3c1c1e0@amd.com>
+In-Reply-To: <77b5fa08-6c95-4f9d-a12e-5ddca3c1c1e0@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -100,60 +97,60 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: IA0PR11MB7185:EE_|IA0PR11MB8302:EE_
-x-ms-office365-filtering-correlation-id: d300d646-c76e-48db-df72-08df1868d8a1
+x-ms-office365-filtering-correlation-id: e3450c87-43fa-47c7-bcda-08df1869097d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|4143699003|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: ljXm2UOOGeJVyq4pwq3Ho10oX7uHb9ugO3f5zr9J/kXG9jDxnQLzgcRWugA0DucLi4thh1P3JWPe7hn8ZIIm7PmU7rLJvJert/uFqHx78MjSF6sG5oBBXqB+vmHybuhGmdlLUdZrH7jZTaoWHFGLimmGxqpjVi7PMIK0+Yw8TW5iMmF2qrKGgS/gbMrZ4LYxSsKLixisr6q2iVPPLuaZflWIKKMEeLaMX9oGMbUDT96OPAZDw4ZHfYIl58AqblAc7WJStjBAXDhumsEogKFYxGLwBdSqLyjUOfAydWA5h0Jst38zdVe4YUBTCYWEKNFTRschwCRtxx96eDgTID+lg5Po0bGqDb657xb0wbBdQ3vww9oycd+sL6QNlc8T28QMRlzDwVgFclVJ5MZ8xx8N9ohjjFQ+bmcV6tG6ik1w9o34If83P+UTdq8PlJqs/O7TT0fj22MyDLSgmCl+zAhDbnqGR8w+5asWu0POdfWt+KZvspyesnvAuF4F6EWBeXZbEJJIMeX9ge5DyiCjPoyRWjCf+9Xp38idxUO590tCMy6JOLOtzEAm7wvv78Q4jgrJfwFqk3U/ERKbzeAxJCQhkF1zdENctEHNIwPTKlyD+6AqlzUQl88HCAzjpiGMrDT+HKCav3++YX71E5CnQwXISWKQhlQlgOnA1//9rOL/uPYpEh/Ld2uD8zWuvuxB+N5N
+ ARA:13230040|376014|366016|1800799024|23010399003|4143699003|5023799004|56012099006|11063799006|10067099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: N4d2A8+A2b1QfCmroyDxEjfy2n34vQmyNTNo1BLjeM9lNlefOJCoMNe/sTcn6eqehyqUkcQxWUW724HK5YmvR/h1FwkRNQWOw1vS2LJgBESvZ5v9P5uxMDk/QQWaYP8gnOfZfKKnQ9V5T1sDVVl3kHFgG1kOuYBN8sJ/v0hqELJ4wce/uNrBSk2hInHOvJr45eWEtA8WbR68UMl3bD80ot+kYQkhxvmPUiqDW/GrG+/cMdwAi8nzbVPG+1QIUs4m7nP282cYFTqkthsXdfMSU5UeYSLJhf053w9OMZfoExEr4vS1Ar1XZQP2G9/1lNTk2sF4heu7LsQxGD3RYlJdlxQO20pDB0zWrN42/eEwWk++HMLZkHNUxKCmzWky/UofKODN9CHpoPivqnyAS6lVj5tApS+4QVeRV0zWMrpgfLnToikiQ0vs8T2r79EDuyEqPTY9IwI6Bf7F6kNcf0BAoQ8qjyDC6xr9EWbShW7B+rHM4diNfCrX76BGPGKVLCEi+cuxCdx5ETLu6d1PK/Q2VBYBgB2LwRzajE6BAqrjxW88jxKREc/66exyF3fcqO4Eeljy6Kjp5otDrvLlxJmDxVgkhtrr3191D8zdaqAOm219ZGTE8CXE2kxaKYXg3rLg+oLg8tHXdmtqavC16LTW6XG+ruGwrBCZhmkIYu22jo50LRimQ3InjdrKhN8/Zjaktm8hoFkRIeVduaCXnywXUHoIhQJHTxTvAqjsEoGj3jY=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:IA0PR11MB7185.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(38070700021);
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(5023799004)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?/eyDIVAkrdt//muwnILct0k++5l79P3SHQKh9pWDTgkzN2nJZFkQ20waTB?=
- =?iso-8859-1?Q?vYQHRV/YfwBwL7Cj/+RuO2aODhrG6UQSRvJZF/dNeNOkFIs2JHiMNtRn6U?=
- =?iso-8859-1?Q?2FZAj1yq8QP6ob9+1dPIPVGYiuEkk2nRma4lP0P5gl2W9RJSVBWXr5qA2t?=
- =?iso-8859-1?Q?CE2fjNsph0pOE2dvYcSDUga3wqGqmX2KDUBL2ldIN8YYDOlpJPOXjzIHMu?=
- =?iso-8859-1?Q?po734n3CHwFm2p27dTLbRvSqSYEyknTuhq8ZUrmG+mxJhUqu64IecgXh6D?=
- =?iso-8859-1?Q?PmxAEunDkQQtALWzsEAgZRrPSwiOgp99Oya7mvhOXBWDwKiFHIg1fSkoRC?=
- =?iso-8859-1?Q?8ozBdbhq1NQ7E37Jad9s2TvlLD/5HeLgc+HvqORPjcPVdilGffN51U9K6o?=
- =?iso-8859-1?Q?b85ql9Regp1Fn10h0zOCPTZVXV97sDri+Ex8Ey6HbH1DtJ+5W6fcZnYFiZ?=
- =?iso-8859-1?Q?kP/86Zdatj3u9KkPTj5rYYE8Zx9yNvZlYGYm4/YStc1Erm7vf3v2CbRmcl?=
- =?iso-8859-1?Q?8nuRiKRdTA/M1jjKM2HvLJvo75akd4cgfgeDtkxu/U4/QNALj2gP3ZnjNn?=
- =?iso-8859-1?Q?VpQPResmKrSiZiGYdn/EIpIREGJk78X/nbMha/a11/OMFXDutI5o4m8ZSh?=
- =?iso-8859-1?Q?qIWjaQbmCGKLrhKlWMUKNOaceytu5cG+F4q7SYaRgrHnmLrThCXXYIN22N?=
- =?iso-8859-1?Q?ki96t8T25lab/9Gz2ZIMsYqxUDGHDwGDTu/hFZANIGcXq48WKh8229pQRN?=
- =?iso-8859-1?Q?t4Jv3U8rf0hFje9uvM8sPzh6uNWfFkEZM162oOhXS4OmK0bYScXbSQTh9q?=
- =?iso-8859-1?Q?x9o0WXh1WCOCWJlHj35vr8Gwh7e/FUkPJQf6w7ARxUQ+NxNRn0aISDDIkM?=
- =?iso-8859-1?Q?eviEtNaif3sExmWR7t8oSi9Np4bCBMIvFdxJdlsdKWaXF4N+cBkqje2up2?=
- =?iso-8859-1?Q?9ysXIWQsI+vpWthpDMJfpDnSqgsgfhYD8SKQ5uwpuLQzzLhKy6/AJsB9qZ?=
- =?iso-8859-1?Q?KpQOlFuDOn5x73GHILZ5uqiUrGgxVFfkVbTR1w65L3LaIWClfnz05cmovg?=
- =?iso-8859-1?Q?FD3jdEI2RHT6Ut+vbj5qHuvE1fYFgiKQEHo7v0KwYYUqhY3Er7Hu/fLsKg?=
- =?iso-8859-1?Q?gxi/VZdD+fmhuTsPb2JP9BMOqo/pwnM8b98I3vBCLNuodIwB2Ep+82f739?=
- =?iso-8859-1?Q?ykqnkBMg02ml2J69wRpoMZzkAyg8ym1O9AYcxfVzgr0IeNd0E7rPuYeuFz?=
- =?iso-8859-1?Q?SzdqAY4LnDBC1xLUSpZJnzV2PsXLaQn/FEvgU9vTx+vgUEl1xs5FFJgj7i?=
- =?iso-8859-1?Q?xmmS0fCu9FbNtvIqME7scoDOKY/xLUlFHipQkOlWjpV+tWwXR1RhUJvbAR?=
- =?iso-8859-1?Q?Q2YNyn9zdOK+AVygoxsxfmiJGLdb1YtkmwU8cBduk6GnaxeeFrGEMy5BL7?=
- =?iso-8859-1?Q?648/i4tVaomr3bDtR178yK3FBuXf/dil6kQZdVXgFhQ5gVGyTAyTS1t49l?=
- =?iso-8859-1?Q?D5A19SDg08I/n/yiq+sxVRHwduS7iqnSqdpvgFrTPWyrZ8U9d9ewyq16A6?=
- =?iso-8859-1?Q?ueXTYAT+c1Trj04VY/P44J7+F4VnYB6Xf5867VJIsW+dlH9HIiSWbGcpEM?=
- =?iso-8859-1?Q?Hl1vFlZxsF74lxAaPqVI5n8PyZa8nT0dZBHs0NFZTb4rZX7YPLir9UUefO?=
- =?iso-8859-1?Q?0yJIW55PXHVctjQD7+0gOLYdNPmPJHh/7JDXenMenAhhj8EIdV0br1JDuN?=
- =?iso-8859-1?Q?d1S4Z/x8eGccdv+BNmqiqsHJZwg6K9U/pp9+1nzEs1xYH2IRbtEpk4NEVk?=
- =?iso-8859-1?Q?v/KShPKo3w=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?TL/b93pfgnyUjcXC33aVmwms5UGASohw/silmRnPpxhzpv4BYhR8/tRbXd?=
+ =?iso-8859-1?Q?U0y0UjaDzU7rBfAmzhihXHsspZGm4sUQg6zFSXIDt4KYrkTIX97Cs7Rrhv?=
+ =?iso-8859-1?Q?mvNLRymdtAOqRg8lM41X6zB7FkMdz0p0fMpdWNyKkA0Dk/PQgMO70a4mQZ?=
+ =?iso-8859-1?Q?ePvSnnKL/fN/UyEleLHWCnnNnzU/uvedrXf7jvQ+vvLSpN7/BLC896jd4C?=
+ =?iso-8859-1?Q?OQTOUFVO2cEtTC4GcbRjjSJp5hNEm5n34oYWwtlNT7ueZTGniKm2onfifB?=
+ =?iso-8859-1?Q?2s8HIEKEioPALSivILmwMei3jB/a9D3YU5qLhezGjb0c7T9gYswC7gf5RR?=
+ =?iso-8859-1?Q?ulAk01gwcFEyL68HX1Q+xoPnkBMfHiazs2hwrlMCwWhndCya6IWlkMrAmu?=
+ =?iso-8859-1?Q?Ot8IVSIr8cHTKD94AIhQwJEfV8BvXmiQicK1lqO1wzc57z7t5NF0ynygNG?=
+ =?iso-8859-1?Q?O9ETpG1cK9A0Bv4ZaXxqYHJN6aWyqfH9G+Ti3TiV8rm8wg+wuR1MuVCpub?=
+ =?iso-8859-1?Q?m4hBejAAMN3ys5EtNKBn+TE3mpy78AlrzDKz+zcwxKZS+OAb2u59z0MOWG?=
+ =?iso-8859-1?Q?kSGnyIh5N+c8LfzQponNBZ54U+32+4uCPn2fu7ocQd9c0xsMyKtB72rzN3?=
+ =?iso-8859-1?Q?PcQcTssD8IMJtDV48JLv9H1pFx2dOFjIrnkM14xmRIdPbAf4dr5kpqz/vd?=
+ =?iso-8859-1?Q?T5v1sipY0jLafLGbD5yuwCIdx9gBBzXoG/x7Q7CV0CqDTuGovAY8Ags147?=
+ =?iso-8859-1?Q?AYuHsri6K6l1UVdcUSTk6WhWHypaUVA11ByQ+CwCTLX5afFhpVxH4pI4eq?=
+ =?iso-8859-1?Q?K6ukb2BMztUaYqSc61lvS75X4YL0d98aqyNgyk3HLE6zXUzU7/bqCjrjOK?=
+ =?iso-8859-1?Q?kRnR+cQhOPQ6eSrdsSOAOxo2KF43xb0teVHglFWzFFpQEn62n1PwME5LK3?=
+ =?iso-8859-1?Q?CbxgGHch1gKu9kUF2/XfVB/OOWO2LqQzyiqKoYSag9l83PCwuSlDmv9bgL?=
+ =?iso-8859-1?Q?p1MCZdbZBXh3D0g4Nxkz9GKBFvD4G8MN0QBsy9JyXKfLirqAVv2+/fUn26?=
+ =?iso-8859-1?Q?rBQhRCMc1YcIGiIJKkOGiwYnWV0ygLD72XnN+MBe7/xpR6JeUK50LWRQ1Q?=
+ =?iso-8859-1?Q?RRd/AeycYl3W+8YMIw0Fjb4WUMvI3Tu5rkTxXROXAg9A+Ni0O4po1BLYwg?=
+ =?iso-8859-1?Q?bSzm30s8EPp5qwvruJUg3THV+RYKLwwxb2wJlj500t3smbI5BLKfM3+IEI?=
+ =?iso-8859-1?Q?yzRnFCb6b2ezCJgFeIZjJCnsK1SHqyLtLaZxzL3+QaOm3b9O7avs1bMD63?=
+ =?iso-8859-1?Q?K5A85pPpSLP4fph+0Y5tMKVVZ0+G4pg6Id0v1K2JTaYec+AQ+sLcuTxJoi?=
+ =?iso-8859-1?Q?apuuBzpOvE0ap3VWnSJ+eR3CNaKY1MXjUC2dHiyk1aZIic0WJw5zC7R6oO?=
+ =?iso-8859-1?Q?ex4/fug/AtaySzPBxf7QBBbHVDE76rmzCHSzpdMWiJCGZlsN457zLHdWmt?=
+ =?iso-8859-1?Q?LNzfo/BX7miFTg1kzV5pA/RQwQ/UCfCBAz7Lmq/32fD3QALOvU/ACuBu62?=
+ =?iso-8859-1?Q?kVy2nl9Dplc4J5LtKoq+RkjuEsaTFjlgmHwp5AO5acDo/Xakhm/lKQ6tJr?=
+ =?iso-8859-1?Q?FF5bOSrDB89GB8jCRDfMjCLV4C39Pdroc3Hyjmp6RcP6YAp0O7l+ak+8bo?=
+ =?iso-8859-1?Q?gF2ZCBm/3ODPyRVPiFHhXvarXqudyak+UmMGZrUrHuBGydSkqQyl4i+D85?=
+ =?iso-8859-1?Q?0PXRqC8X1SjuoFyqM7chhM53euPgE89riw+yIPeLc7AG17ROaK+Ws1VmNA?=
+ =?iso-8859-1?Q?VqjEGGARMw=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: odADnJsHt2//CB5UVo50q17VBZ4KqQLPVgPSgZBD8bGlqBWt8Iesnd438IxsraxX2Nb5X75PncNoophxDa00TlCFgIy/DzqdJDKmkz2W4IgcW3L6sRsI9hVgvCgo9phPP2euQP1FGbCmlYKTWtFkZID6X7kjl5032j5H6PzOoXZCrGXFzGH0CXKm2/XaNz+4ikpJqXN/PGWevHlX0vSEkG70YR/b6joPsaGZMHCRt1uYRYuvbc1zY+/R5kvt5MbSezH2Mrh7suqWrAlTTyMlMWnzE9h3w5aYmHJgxaJsp2vJkdfaRWIHNKzgr0qQHHBAW7v6V4r8jMItRTmdSpGcnA==
+X-Exchange-RoutingPolicyChecked: eDuNedft4wLBdhW9PKyTxTPkhkaur2s4t467I3APSnsjSBisa4/pQ9IO1tsHv+OTruYvrwmJvAnTzZq3qtGPGZwW9RJRKG2oDBcrv/WRaqBpH9HpLhReuAG6Xiau4EHCy3flhopCydC1HhICP/sBJ77tL5Ih5XHxPQKqHY58PIhvRD/E8y1JUXYLMliwyO5WqN2ktK3Oxw0MeqLHXHe+CC8bOT+vINjUbohiORUAYWt32CqH2dEWCy42lYefyVopNBFYjc4kmgeN/Nbp6PCI825iKtTeZ8oR2NCBvGVYjE9sJwNcGi/W4D+uM08Aea/IAszzC4Wn9Tv1QS3fM02LYA==
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7185.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d300d646-c76e-48db-df72-08df1868d8a1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 05:17:49.9828 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3450c87-43fa-47c7-bcda-08df1869097d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 05:19:11.9133 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iUCI3zry3ed3sLcwhVbJwL9Pu8ovhB3OfGVaQi/ynUzk9IhSlu9a7Yzx8ecdEaZgJb8Ec9TVQO1OkUnFmJ403qmDx1qJq+mccYEaU62GzsA=
+X-MS-Exchange-CrossTenant-userprincipalname: zNCSLqzMFtrSJnkog5SlqA4zHU8AkumyqpJUxipKjRpg/r7QiZOYy+EnJ+WOy9n6+6p/U4PsOI6LWYp/U1Y0fI78YmIUGBoh5oJP7flTqXY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB8302
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -173,173 +170,122 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Christian,
 
-> Subject: Re: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable
-> default size limit
+> Subject: Re: [PATCH v1 2/2] udmabuf: Add mlock accounting for
+> udmabuf pages/folios
 >=20
-> On 9/19/26 02:42, Jiakai Xu wrote:
-> > Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> > default") raised the default size_limit_mb from 64 to INT_MAX.  With
-> > 4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1
-> TB
-> > of pinned memory) now makes the two per-page pointer arrays in
-> > init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns
-> and
-> > fails when the requested size exceeds INT_MAX bytes
-> (WARN_ON_ONCE in
-> > __kvmalloc_node_noprof), which is trivially triggerable from
-> > unprivileged users through the UDMABUF_CREATE ioctls:
+> On 8/31/26 08:00, Vivek Kasireddy wrote:
+> > Since udmabuf allows users to pin pages in memory, which is a vital
+> > resource, we need to ensure that unprivileged users cannot abuse
+> > this feature to exhaust system memory. To address this, introduce
+> > mlock accounting for udmabuf pages/folios. This change ensures that
+> > the number of pages/folios pinned by udmabuf is tracked and limited
+> > based on the user's mlock limits.
 > >
-> >   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021
-> __kvmalloc_node_noprof
-> >   Call Trace:
-> >    udmabuf_create
-> >    udmabuf_ioctl_create_list
+> > If an unprivileged user/process exceeds their mlock limit, no pages
+> > are pinned and EPERM is returned to the user. Note that, privileged
+> > users/processes (CAP_IPC_LOCK capable) are exempt from this limit,
+> > allowing them to pin pages without any restriction.
 > >
-> > Restore a reasonable default limit of 256 MB, which is the value
-> > proposed in the RFC discussion that led to commit 44e9eb5a7621
+> > Earlier, there was a 64 MB default limit on the size of udmabuf
+> > allocations, but it was removed in commit 44e9eb5a7621
+> > ("dma-buf/udmabuf: Disable the size limit by default") which left
+> > open the possibility that unpriviledged users could pin unbounded
+> > amount of memory. This change makes the limit dynamic, by invoking
+> > user_shm_lock() to check the mlock limit for unprivileged users.
 >=20
-> That is way to low, we want to allocate multiple gigabytes using that
-> API.
-I am wondering, what is the use-case that would require pinning multiple
-Gigabytes of memory via udmabuf?
+> That makes no sense at all and would create a massive problems.
+>=20
+> The mlock limit is per process, but udmabuf is represented by a file
+> descriptor which can move between processes.
+>=20
+> So this here can be trivially abused to account the allocation to one
+> process while accounting the free to another process and overflowing
+> the mlock housekeeping.
+The goal is to have the mlock accounting be tied to the exporters since the=
+y
+are the ones that pin the pages/folios. As Sashiko identified, this patch d=
+oesn't
+quite do that but once fixed, both alloc and free accounting would be attri=
+buted
+to the exporter. Would this idea not work?
 
 Thanks,
 Vivek
 
 >=20
-> Please make that (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) <<
-> PAGE_SHIFT.
->=20
-> That should allow to allocate a bit below 1TiB again without triggering
-> the issue.
+> What could potentially work is to grab a reference to the cred structure
+> of the allocating task, but that is also not the nicest thing to do.
 >=20
 > Regards,
 > Christian.
 >=20
-> > ("dma-buf/udmabuf: Disable the size limit by default") and
-> comfortably
-> > covers the 8K video use cases cited there, while keeping the
-> > kvmalloc() request far below its threshold.  The limit remains
-> > runtime-tunable via the size_limit_mb module parameter for setups
-> > that need more.
 > >
+> > Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+> > Cc: Gerd Hoffmann <kraxel@redhat.com>
+> > Cc: "Christian K=F6nig" <christian.koenig@amd.com>
+> > Cc: Robert Mader <robert.mader@collabora.com>
+> > Cc: Xaver Hugl <xaver.hugl@kde.org>
 > > Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
 > default")
-> > Assisted-by: OpenCode:DeepSeek-V4-Flash
-> > Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 > > ---
-> > V1 -> V2:
-> > - Instead of adding a pgcnt check in udmabuf_create(), restore a
-> >   reasonable default size limit (256 MB), as suggested by Christian
-> >   K=F6nig.
-> > - Drop the second Fixes tag; the regression is solely due to
-> >   44e9eb5a7621.
-> > - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
-> >   not shipped in any released kernel yet.
-> >
-> > V1: https://lore.kernel.org/all/20260918013434.1849135-1-
-> xujiakai24@mails.ucas.ac.cn/
-> > ---
-> >  drivers/dma-buf/udmabuf.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >  drivers/dma-buf/udmabuf.c | 16 +++++++++++++---
+> >  1 file changed, 13 insertions(+), 3 deletions(-)
 > >
 > > diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> > index df6dd00462423..4d90c2cb14225 100644
+> > index 7c4339130eff..e78947f01656 100644
 > > --- a/drivers/dma-buf/udmabuf.c
 > > +++ b/drivers/dma-buf/udmabuf.c
-> > @@ -20,9 +20,9 @@ static int list_limit =3D 1024;
-> >  module_param(list_limit, int, 0644);
-> >  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit.
-> Default is 1024.");
+> > @@ -203,9 +203,10 @@ static __always_inline int
+> init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+> >  	return 0;
+> >  }
 > >
-> > -static int size_limit_mb =3D INT_MAX;
-> > +static int size_limit_mb =3D 256;
-> >  module_param(size_limit_mb, int, 0644);
-> > -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> megabytes. Default is INT_MAX.");
-> > +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> megabytes. Default is 256.");
+> > -static __always_inline void deinit_udmabuf(struct udmabuf *ubuf)
+> > +static __always_inline void deinit_udmabuf(struct udmabuf *ubuf,
+> pgoff_t pgcnt)
+> >  {
+> >  	unpin_all_folios(ubuf);
+> > +	user_shm_unlock(pgcnt << PAGE_SHIFT, current_ucounts());
+> >  	kvfree(ubuf->pages);
+> >  }
 > >
-> >  struct udmabuf {
-> >         pgoff_t pagecount;
-> > --
-> > 2.34.1
+> > @@ -217,7 +218,7 @@ static void release_udmabuf(struct dma_buf
+> *buf)
+> >  	if (ubuf->sg)
+> >  		put_sg_table(dev, ubuf->sg, ubuf->sg_dir);
 > >
-> > --
-> > Below is the crash report:
-> > ------------[ cut here ]------------
-> > WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0:
-> syz.5.27938/167363
-> > Modules linked in:
-> > CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L
-> 7.3.0-rc2 #1 PREEMPT(full)
-> > Tainted: [W]=3DWARN, [L]=3DSOFTLOCKUP
-> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-
-> 1 04/01/2014
-> > RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> > Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85
-> 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31=
- db
-> e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> > RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> > RAX: 0000000000000100 RBX: 0000000000000000 RCX:
-> 0000008000000000
-> > RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> > RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> > R10: 0000000000000006 R11: 0000000000000002 R12:
-> 0000008000000000
-> > R13: 00000000000028c0 R14: 0000001000000000 R15:
-> 0000008000000000
-> > FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000)
-> knlGS:0000000000000000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4:
-> 0000000000752ef0
-> > DR0: 0000000000000000 DR1: 0000000000000000 DR2:
-> 0000000000006000
-> > DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7:
-> 0000000000000400
-> > PKRU: 80000000
-> > Call Trace:
-> >  <TASK>
-> >  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-
-> buf/udmabuf.c:193 [inline]
-> >  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:386
-> >  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:465 [inline]
-> >  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:496
-> >  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
-> >  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597
-> [inline]
-> >  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/fs/ioctl.c:583
-> >  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > RIP: 0033:0x590d6d
-> > Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89=
- f7 48
-> 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff
-> 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> > RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX:
-> 0000000000000010
-> > RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> > RDX: 00002000000023c0 RSI: 0000000040187542 RDI:
-> 000000000000000a
-> > RBP: 00007fc89ae45010 R08: 0000000000000000 R09:
-> 0000000000000000
-> > R10: 0000000000000000 R11: 0000000000000216 R12:
-> 00007fc89ae45640
-> > R13: 000000000000000b R14: 0000000000528d40 R15:
-> 00007fc89ae25000
-> >  </TASK>
-> > ---[ end trace 0000000000000000 ]---
-> > ---
+> > -	deinit_udmabuf(ubuf);
+> > +	deinit_udmabuf(ubuf, ubuf->pagecount);
+> >  	kfree(ubuf);
+> >  }
 > >
+> > @@ -385,6 +386,15 @@ static long udmabuf_create(struct miscdevice
+> *device,
+> >  	if (!pgcnt)
+> >  		goto err_noinit;
+> >
+> > +	if (!user_shm_lock(pgcnt << PAGE_SHIFT, current_ucounts())) {
+> > +		pr_warn_once("%s: User not permitted to pin more than
+> %lu KB "
+> > +			     "of memory, either increase ulimits -l, or "
+> > +			     "obtain CAP_IPC_LOCK capability\n", current-
+> >comm,
+> > +			     rlimit(RLIMIT_MEMLOCK) >> 10);
+> > +		ret =3D -EPERM;
+> > +		goto err_noinit;
+> > +	}
+> > +
+> >  	ret =3D init_udmabuf(ubuf, pgcnt);
+> >  	if (ret)
+> >  		goto err;
+> > @@ -441,7 +451,7 @@ static long udmabuf_create(struct miscdevice
+> *device,
+> >  	return ret;
+> >
+> >  err:
+> > -	deinit_udmabuf(ubuf);
+> > +	deinit_udmabuf(ubuf, pgcnt);
+> >  err_noinit:
+> >  	kfree(ubuf);
+> >  	kvfree(folios);
 
