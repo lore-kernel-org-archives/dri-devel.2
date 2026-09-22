@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08542C98307
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:53:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB82C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 498A210E72F;
-	Tue, 22 Sep 2026 15:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25FF510E733;
+	Tue, 22 Sep 2026 15:53:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="QvrQ7z5j";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="SnMCTWvG";
 	dkim-atps=neutral
 Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazolkn19013076.outbound.protection.outlook.com
- [52.103.35.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77EE610E72E;
- Tue, 22 Sep 2026 15:53:05 +0000 (UTC)
+ (mail-swedencentralazolkn19013077.outbound.protection.outlook.com
+ [52.103.35.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8314B10E724;
+ Tue, 22 Sep 2026 15:53:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WdoyVto3OtxeP7Soz+fwTHVsPnM7k5rTIVnastSAxuP4ZKF5rNi7XW603wnO6iomJoVRS+UrRoXbGWpa0VIM8I4vo9JESRGsvESgnznKbY4Kb9+w0iAzslj9BDICxHWSyN5pEkwFbmAvLRq8nDgY7D7ZJfj5pwDdHQkKVEiO02nC2QwWUnMsOelTP5+tRBRK0n2n1/0qn9W871TzrOzPqsDIm1dL3kRRJqM6DQa27zHaGP1+jHz9QxN9ou10D2sIRn+g87aHrpRGE5qLErDGZgvpvhbTK74FDmML1umYtkFHNTIuedp+ARsufM8mBjelAbXeEWWx671atdxLDPorHg==
+ b=cMudwO/tQxP5QM50xHRTxFkgMD8tQek9LlLpx+42oZkNlRsuyLceJvpJpNQ7Nni05/e4nWN0xR7LMSh6GUMCssqOYhG9s3Ls5+C9VV5hC3cOTwTT0XDFYD/NPe9RyffTicunJGLSCcQh3s2iWyfFaNBI7S5q7XGdpG0UhHKKPngazTeO/zBPRLQB3z5pWZuPvIp21MOvDULHf241v/LhfY5w4pkCB+SnJ06rznr97st8wMRjGVtpiS76ffoZtfvnyXs9nn1EMqWFFgkoYF6aE6X8sNlWkgr6N2GJ7RR/7FJJE4v0FYTKhVDqU6RsdeFsE7QyMfcX1nsNXiartY8+XQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iiGJPu6XQOXTxP2MsGsxLsyYmBsdWUADwVunufnDBHM=;
- b=J/LKQOtk56dae7k3ogwpS3y1Lpeya3M98i2aSUSTXqcaWuK8/EJlevm7dWS2Nsltv6LPD2+7MzrCe2PQGYfwyyNIqavj8NZTQAjhkmXkegA7BZxsaYHBKaHERVqcSATmKjd3TErTROjQxl5cYUHXGM0ixC/mHaPZNO8RMBhIlr1Hz4fWQyRyIEAQrfo7z2bzB6y1w4gBvEPQb/lmGc9PkRadg0HVdk9+pecbLmNSlMjXcVHHQjOiV9dU57ZVnTqhKdv6Rup499oO5mUOGqf4xV5H4ykx/5RFm1puawWCW2xLvuVwmmJ6+eX/vhrJD1Gvr0fF5oCtpnnNTgYETN91gQ==
+ bh=zVOThFB2rO0F6mzi2SAwTMtbakFPYaRGKixZKaFKjbo=;
+ b=YgYWdMGlj/5qZqiQLvcx89UgYvwN6MalazoJcwwAzCxHLYqlabmj3IAZVa+7bUlFEfeGixqMzqzxNQO/+VJErgSkrl5Uj/gAii03ylKyaj6f784vCZ+b6wCMmdQslu3T3J01ECfS/E93mM0WPIWZxESNepAMTrKChIQRpMX0ssVjNYSHRYKFaRwNqiReTdrsveiX3Pp/tXNpx+ByIcPXTfYhCdA9BFpcPhzw3Q9VA22cKyu6IlthjzVlVYEvGEa0FL5IQR4IAuo8WJPqgR/9kHIxGm49KLdt3TMn+h00Sk8FLYG/047pQy2Qk/sHSepBQfQEUM1Mk09acTrBSpp6fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiGJPu6XQOXTxP2MsGsxLsyYmBsdWUADwVunufnDBHM=;
- b=QvrQ7z5j58Kvqe4OczZHlOs5B7xetahXe6pn1b/F5a0mlERXr1MzWm/MdwNvsbyI7KXLD0my0a2YanzyFzvskzmDd4cdwuPZxFPwiE2Cx5NiASvXClCZLQO0+BuWAbg3H6xo0t3riQkhgF9gYIbgGl+jysjs5tDFuDLOLYUyWtWMK1FfXBKHW2R47OQ1y4ljVMSZQ+pCSp89D2BI3mTWPJ4h1+zWUGNC4VDUiCsot1o/d2SQC9odhVKHnz3/KR6futFn7lRMgnKTcaUIq5NG8z+IOs6+DaiRSPrFxnZQJMBZw3gbFEdf1yRxQerFbKAiqLA5nmlngB3hDF6UTIcJnA==
+ bh=zVOThFB2rO0F6mzi2SAwTMtbakFPYaRGKixZKaFKjbo=;
+ b=SnMCTWvG5UjUttHrEIV3zkLRDJBtSLCuc0xmXYiYAlGN4b6vVt6FeaLJHbuUcHTMSeSp88x3zZDIkWgLo9Lqc5mhar4cYsYc/UM+Mc4/4Dr71obhtN5rHn26WvjHHSlLFqgaTK+5pSJkokCEkkyCtfgZdQj3S2H0YFcHBI2kXW+ZwOSsn+6GNrWtztxUNSkJSxBGGHh7avPZYOzD+k+0NdjjR7Oslwj4VLl2tUPkbHQtT7Ssa9Ki+WUZ6dC2XjnObHLjbuREokOp/rW29iZQyijJhMNLLVrL8f1XE7caH0IalX9gZBw82MzL968Ted96LNYwgFxDUtwerpwgqRh1sg==
 Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
  by DU0PR03MB8743.eurprd03.prod.outlook.com (2603:10a6:10:3ca::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 15:53:02 +0000
+ 2026 15:53:44 +0000
 Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
  ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
  ([fe80::2ce4:f394:cc5e:6d48%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 15:53:02 +0000
+ 15:53:44 +0000
 From: Arthur Liberman <arthur_liberman@hotmail.com>
 To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
@@ -48,14 +48,15 @@ CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
  =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
  "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-Subject: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST DPMS-off
-Thread-Topic: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST
- DPMS-off
-Thread-Index: AQHdSqpyDHSPp/UimkiniOvaO+3aFg==
-Date: Tue, 22 Sep 2026 15:53:01 +0000
-Message-ID: <DB9PR03MB7388900446938D7712613C9A8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+Subject: [PATCH 2/3] drm/amd/display: skip destructive HPD verify on live links
+Thread-Topic: [PATCH 2/3] drm/amd/display: skip destructive HPD verify on live
+ links
+Thread-Index: AQHdSqqLs3qmfrPHkU2kT+TseJt1sQ==
+Date: Tue, 22 Sep 2026 15:53:43 +0000
+Message-ID: <DB9PR03MB7388AD5607A0A66DF2D477EB8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
 References: <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
-In-Reply-To: <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+ <DB9PR03MB7388900446938D7712613C9A8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+In-Reply-To: <DB9PR03MB7388900446938D7712613C9A8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -64,55 +65,55 @@ msip_labels:
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|DU0PR03MB8743:EE_
-x-ms-office365-filtering-correlation-id: 3a0f1232-4ea5-423a-1d3f-08df18c19526
-x-ms-exchange-slblob-mailprops: 7qh87CJt6y1mqZO6407WRLxlypE3k+ejehlpddLZeYJhp5aubD9h6XX7qv92vhRR2lbpUfJaQrOPNn9F/juObYyF1rBd0ev505acuHwCm9T6NMfzWi+PI7QG33I3vRudu+wLaMjwpkqlsSHHp75tH4oD0GVaV8850n2IGfESpK3pD8xMLTRLJIcICqRkC+yrtiohy58KosQAQZHXbIb1iRPABiM+qLCol4R3VaA5DUV1TA72r4cRCCPdDdOeMJYNX2X0YU38m6GgdEcJ6xbBwUL35cYYInC8GNDjEC0ROgDhoSNj426WMWrVnTAUlu+C2lVdsl/U6b7jtrfJLEy0BMTlROF60U/shDfvYlr7fydTZuYVBc89QEyNDEy3VPARYFhBEu5GSHHpBAQ+d3P//zBH2j5meYUOsG+AN/1OQL3w3sUe+u0oBA/6qFjD7iTxN2s/y7W/xHCj/PdUdfa8KPCw+HSfMtJFDFvzKpYABYTEep3R0IiMkrorv6kWw/YGKqNyB+BHyBFJ4o8zC0bbL9ZQOyaAZqQub0vMCUuEU1HEA/TJGoB7L2qeTQRJoXIozg5rjr+eSGb+WdxGc4I9Cs8v4VJMgKA3Rsmzsu7GaGhzPWBtrM/LlvMJx1OnwOec9H4DIsZHe7F4jDtjm4u7C1WnfoatNfvxHS2ZqVPOBnuGNjj941ViR3SLPGlVTuT7+MGEwC0cBG2tYkSPA944h7ZLk9Fgv1UkSaal3SLF+Awyj48u+Htq6KompQMxaXDa
+x-ms-office365-filtering-correlation-id: 7ea8b395-4588-4ea4-df43-08df18c1ae39
+x-ms-exchange-slblob-mailprops: 7qh87CJt6y1mqZO6407WRLxlypE3k+ejgg6l51BPge5KM5lH1zU4/CeobfR+IxPYRe+/Dxv62ry9Xq13KF+RxW/oaEI4GZPKeyT8NH78Bv9aSaDJ9XN+XGbEi6AR5rVsHbH1BynjbjRGkLQXd0pganIhBTJLgZsSC2/cCXH7fCCe6HiUYkPx21ou7BXiuCycXyu2JUumBmHVjQo6vHHDP02Q07OLTfsNK+CvrJgSkK9UBhyJoCxnIxjLpaTFE1j36OHHKclexXbZATGYCrJOtXSCsd2S0F2Mna2dj7TsTna0CCP1qk8e4YyFDHDqWxSfxuheWos7zK5080Yq4eUUBtbfDPbk0dHLPElzF3RepVbQBg+bZWAf78JyLwFbyWscoR1WZ2ebcEurhuXMzLD+yoiUSiRv1FfSr+e+coaS/0jjJ4a3uTN2fbsSs14BSErl52JQ9pFVFGQPSILlsYplMWWgLZDdx4p/Mpl6D1BH+0RUiwRzunBnY7LL7H7aA93w3Zo4mRK5agJxs5bbQ66TKfjsfFQaLO7LEO/4a9w7S2pYYUjJZ792bhluyxKhFZCCxaZXjor5kxFQybTwnEARjJ6LIrlGPDSa+4Xj5JIouZwpdkuNA3vfZsTxBNwDclq8ewZpsShgbKk/BKLz9/njfO7eVYKeXmD6NVVaaxss09nChP1OYdoO8iHp5N9vkqRTbaRZzO90ok2HKbVulZHMhWaXftM4k6XZjWTcLpQLHW3fgHSXZ5h5GjLJlw6H7msA
 x-microsoft-antispam: BCL:0;
- ARA:14566002|8062599012|19110799012|12121999013|8060799015|51005399006|25010399006|15080799012|37011999003|31061999003|15030799006|41001999006|24021099003|40105399003|2607281247196008|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?4Qbi4GN3Zj90KFG8WfjD32XEElVb7oJb6JwxN54GvrwuYEmyjWNmXQiof4?=
- =?iso-8859-1?Q?axgQUXSZPbXOWslqUHigPiouXbjFttCgXrU46QmoH7/CkDIPgP/PL4h/0F?=
- =?iso-8859-1?Q?zp/TnteaamnEIdx3jSrTLuMQcU881hON8VjGldyzOsRO2iLSvmYV93z9UQ?=
- =?iso-8859-1?Q?Dx/i2ngagihAjT5RJUgXtaay8+eztRWmMKoNl3bSIXIQ/frTRSk5/LIQFG?=
- =?iso-8859-1?Q?uP7YChTLMY+BFQcwiYHOKyhdUXeX4D/LDYY2s8VmmaFzT0II2ZdNC4Y3BU?=
- =?iso-8859-1?Q?agRTn8OVTnJiJMxt9XWGQ3bzRUfM7zGFOnZ0IhFcZLb5rlVwaWhlPyTl8S?=
- =?iso-8859-1?Q?/o/1IRIOnpEJW0vH10uf9v0TBNqmtFN4ZKjtFMKau1Rs1Q7hmIXluNw6Mw?=
- =?iso-8859-1?Q?c7vE149Pr0r5W577mAD8UevYGeQgZ5XrWaJV4PrQ5W4T9R2DvEAJw4sGV9?=
- =?iso-8859-1?Q?iNQ8jid5OAmqsFSlmEb2iaBKwDtKwzLIp/tTxmLFJw8Mb14QcnEIRupBp7?=
- =?iso-8859-1?Q?cK7kUrugtmhBIS/ERmh5fEu9EILpNCnSLwC8mRcxgCxi6+kPm2ktHg/H2k?=
- =?iso-8859-1?Q?2EweBsNtWcSoDnD0uTuPSzNNV3qgbYxWOiHWyHqaH9N260xtiApnfBZHzo?=
- =?iso-8859-1?Q?drvdb1UWkvMqRzOwY27J62FaRS8R5FpatUUWDNHoaXpV1ucT44i1mJ2tF9?=
- =?iso-8859-1?Q?gYwZqYQa+qUM/t2Yws5l2KvEmySQ5ph1TAJyHWT7/xX+a2QOCUk2yXkmoW?=
- =?iso-8859-1?Q?o+qMRKGiEsFpFS18IMvVaZTw9497Q3FGy6xbdFjJCN84wTPxTt1zbiNm00?=
- =?iso-8859-1?Q?DoBFfsnX5R3LWWIWwFFPl1EmsyD+HnjKO9RqIGW+nWUnChnqcqPOBWcA+p?=
- =?iso-8859-1?Q?xV60DXsbFT0b9JYBUr9AxgUB62jcl0Ece8ZrkL8Ly7gUlEnv8K5QeV2xc7?=
- =?iso-8859-1?Q?h9Oa9xbRpEzR3jP7CQuIKfO1+UFiBuVPW/hTVcEdpMUFgKnLPnYYiSUhtB?=
- =?iso-8859-1?Q?PqbMb8LWO+NehpK/sL5HupIh4POFQ8vi9UM+7BJ+3JePRsN8H2QSYjndoi?=
- =?iso-8859-1?Q?2Q+U6qJDq2E5O4NzYypxAcYcXBy5gjsFB8DWuCacZp7G?=
+ ARA:14566002|8062599012|19110799012|8060799015|51005399006|25010399006|15080799012|37011999003|31061999003|15030799006|21061999006|24021099003|40105399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?lmnQysAIs5x78KrzVHdvRG6e0iQwLzyGoL5ji48v22MeTFakOJphkFn3M3?=
+ =?iso-8859-1?Q?ulnyES3B10R0Lc6LaU1s/ggZa7eV7wS5twwucwU+R0LKeA3rLEe1kcm7w4?=
+ =?iso-8859-1?Q?JX5ssexTpfZfwoEtuDC+UeN4fCb73TG61QFB8UZ5O2am+x5NI9vlcTArpQ?=
+ =?iso-8859-1?Q?vQmDFdx1iKwDFhguzd0FmuROWZYVLYNq+JqE+J8jtE4rcvb0Oh21+7kOLj?=
+ =?iso-8859-1?Q?WmsBep4ELO26F6JAI0dapfrHLQlkds4YRGyoihd8DkdBaNaQZEB/QpA6QX?=
+ =?iso-8859-1?Q?6RHuy3ZPjHjoEG0NnA8OGln7eOztqJzVNbk585lD0n3IYVO3Vo9V4g0/N4?=
+ =?iso-8859-1?Q?QaBberb+XxW8by5/1wBSdIJnQwv+P3r8SepDozFkW+8MPr4RrawRi4FWS3?=
+ =?iso-8859-1?Q?ze5Ao2wrrNa6TV/5CUtfVIlpQeIRNZ4Sqqvkp3bbc+DYHgPrY15VN8W+I1?=
+ =?iso-8859-1?Q?MExrnApUNv4gvspM+kfLgVO+4kD/Y05gmNNWpFCNwywSvSYeyq3D9JV2pu?=
+ =?iso-8859-1?Q?G+FBryi3DUAbZE9kO9Vq6AXdSWvLi0Ska8Mzz1dL00jx827m18Y8HSWMie?=
+ =?iso-8859-1?Q?OmRMFI4U/ZLQfEkAbHgPcYtekdzWz2Hu3s6La5VxFjVq9FYI3QeuN1nAJP?=
+ =?iso-8859-1?Q?urwOS2KvDFBnl/4vIS6MBqNj9pBY1osHKMmkYiXIy3Y0/FSBDVjYTv5VXu?=
+ =?iso-8859-1?Q?XhzaQpdzHFBwJIuiswN6amlkJq95bWnNlxAPQXQZqvFTaohQAqxFh+fhM9?=
+ =?iso-8859-1?Q?PB0YQw9+LComzHyvLUwjKIz+h7qD1y9YNqWDTmERFK1QM16YJQjsneFXS2?=
+ =?iso-8859-1?Q?rDgNel/7H85JFpsnKPEBkOBcCIqGKvnbtmT5+JrF+0VEy8Ac8dZebtEm3N?=
+ =?iso-8859-1?Q?SDQMoi8rVojvBnSzDFlV5aXf5sNZ1nkQGaoGPVoEgFH5ht2SkZOG0VYSQx?=
+ =?iso-8859-1?Q?cBdvOVXc5l8Htol+/3eDdNj3oECjHikycPEbOmvSYSN/PSvpZ3cbTHaBIg?=
+ =?iso-8859-1?Q?LCog0pScEO809N9e/+bgcOTGloOcNU+81O5iqXHv3e0hG54Vo/KAEkfoX6?=
+ =?iso-8859-1?Q?yJDDfIqWReRb4KGX529eEMY=3D?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?3+rTKhgOz7D7GvbuXhTDBR8fPpZpiUlXFfEt6DNpxLSOF/v3UJT/qjLLz1?=
- =?iso-8859-1?Q?djbcGxta3nMGhJHfOrM1tyT4oWaxbp9gJA454qqPMl56hvcXUga7ZvSCyi?=
- =?iso-8859-1?Q?dc0ExifcrHm4TknKOHzryvJhPQ5tw3zMVgEPG9ziB4BLj738UcQfmu7Yey?=
- =?iso-8859-1?Q?qlEeKcHjgVpduwjarOlro/yPDNVyJJnErpWWk8GLN7uYJklZscpBUrEH3F?=
- =?iso-8859-1?Q?Kh1x6MC8GnzlWKSLGynmB1o1fTbDlZn1G+KUI0ReeEY76mlB76mlITqyca?=
- =?iso-8859-1?Q?g2myoVf/eH82Yi2TwgFq2daR3jPJ+2IIh8oB89JJUbzwJ5I6+72bxic9oO?=
- =?iso-8859-1?Q?KoymEBJPIDeflONwMB5HMiJPEc9sF64WfdiPjQ6gQ2COntpde/MWXOnBI4?=
- =?iso-8859-1?Q?+FFNpE2uG6cH4uZMdVEDSPYlLrcBLvLoQJtsmYB6Oba0Rq3xsqxxbacpls?=
- =?iso-8859-1?Q?VSBmjTZMddU1pYXNZQt9ERzm7ErCXP13dATf7Xt9ckupT4HzWznCjiTBzG?=
- =?iso-8859-1?Q?QASmT9oRmC7+cY0qzKY3ZrPJB5J5g+36AUHqgaBoDyjuJhnP0t4on4A0w2?=
- =?iso-8859-1?Q?nktrW06nPLBIO2ctWjwdcuXsM2EfcFvkYcoAfILZ1dy0TrFwDtAZDMIT3b?=
- =?iso-8859-1?Q?aMfnbc6y3X1eTIirGIKTXk22WRcdplQKnNMwkAcwWgMt//gOLkew+9ZoaI?=
- =?iso-8859-1?Q?gY9unlT0dNbFEPHiiYBghg7FDjh5hy+YvHLqEBQ9aqrj/I+8DU4+v0h5uh?=
- =?iso-8859-1?Q?rkG0Jr57hz/jj+m6DcY62CUfdnlGmcivtu3dx88D5uRDkdQVckbuhsb2Yr?=
- =?iso-8859-1?Q?Z55deWuzWDUEwFt3JQUYOCpi0OQaTZzroQyByLiXXZIsEsCuCo4AQ04Xjh?=
- =?iso-8859-1?Q?LXEN3ssugMgLS8iy2j4PSyPtNeEqRKRRMH64Dn700TE3e7+N/3ik3envYP?=
- =?iso-8859-1?Q?6za1/NbaUa43y8UVTKHO8AY0Izgi/MzWCN2tDwSFjgtrfSklYUg6r0S+wZ?=
- =?iso-8859-1?Q?4H1PmEOAytLhEnW0Obp6hRVbOzbIgOz7EA5GEKA82ZxOystvAWLjvGE4bS?=
- =?iso-8859-1?Q?N3imWrG7LCEZuhZz8mwBY4a9h7mrTlkkQLM4WjNEyIVW7gQHmBG2AdyefI?=
- =?iso-8859-1?Q?geewRLk0H80K64g1wLjVBCv2Qf3+F5dLN3rkmmvKS59dqC+QSZV1Cay5KK?=
- =?iso-8859-1?Q?Bs7q5j+6U6SqxC9WpqxoE+XuPrl6weWZ2bW4sGBiC5O9uMAGxtM7dVHprJ?=
- =?iso-8859-1?Q?rXXt8HWJIKUhnV5YPJWrkQwi3QIRCdKFNwu6p9R9CVGvg5EcNIljEWOLCV?=
- =?iso-8859-1?Q?78oweanNTg/z9Z4u/Pd6ZaWZ9m01Pd6ymqHBd5ThNokMe1/LKanSE41hHH?=
- =?iso-8859-1?Q?a83aAW0+SBgusDSzFoI4ZlXaaTFCDfr+14DOeEFtsaLiBZpZgbl3PcAekZ?=
- =?iso-8859-1?Q?mBFxYphDnajhLesb?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?VfgZY+j6bPZJBIjd776udNueffZFHIm3D5szezs6voJmT/mtb9SsC/tiTf?=
+ =?iso-8859-1?Q?rVmgM1nJJyoXu9z5F3NmiCLlFj4iN3FGXFcnS6jauupqDhBlFDXY2/OlSa?=
+ =?iso-8859-1?Q?42RZqLwscY95jDnmcwpusg7jjWUglpRWwAS6JbRQfLkXqCY0TeTQ/p2ENg?=
+ =?iso-8859-1?Q?3oGYdbofRBAYxsxZPzZl+Uj6cM9xx/R9C5MVLINCCZ7l2PvzZURx6IjR+e?=
+ =?iso-8859-1?Q?0CpZ6PhigvTdZwZ+LOnpHixlKJx8M9XxB99NWiFHc8+pS2f/zc+3Hdc06A?=
+ =?iso-8859-1?Q?AHM7Qw/J7TlzVugEg/bfU7q+JhLP6wq+tVxgAhWArpXgD5HI31a7KNaKmb?=
+ =?iso-8859-1?Q?4rAtk0FQo2Ip418ocenN6jsphDCwrgiBkoC7sOPdLo0MSyWG9jJVFeyZs1?=
+ =?iso-8859-1?Q?3/uzTb5PdovyEK3nD3UABRMraKC08gV+E97hSUefIgeJvnj/eOxhFs02Pa?=
+ =?iso-8859-1?Q?AQ4EmDSi2cd0sDsGh99S5xgrCCyw3q/Y11aQIooHJRgHLCwpymb4ULRF0V?=
+ =?iso-8859-1?Q?aIEFq4RieJxwGce4cXJBM3ZCOgEhtj+Uy9rAoio4SyUnMDV+WHudVc5B1v?=
+ =?iso-8859-1?Q?64SrVxuoaH/CWURT0UEwH9h0t8B2r7sFEAMWLd4jx8FxSB47nXftYWblkf?=
+ =?iso-8859-1?Q?TgCXxH4VFLrdxJQz6sJEfiqJDZEAHyNCn2zIV6rbh5/5fWAN1AEmVWQt6p?=
+ =?iso-8859-1?Q?tEtW6Xdr5sh1n+lclh7ZkjL6HRsxz6sk547Hom6B6Oi5hUeK7P0QIXb6Me?=
+ =?iso-8859-1?Q?u008tnUATUnFsUmqrQKdVSn4wenkL5/wJpaIDnO3mfsOlD8ENAxEK7Dx3j?=
+ =?iso-8859-1?Q?IwAEUrUNPohZlee++nYSmGpZUDamyrLAG5jts2ytQICW+/dELzbFPfit4o?=
+ =?iso-8859-1?Q?nThUmPASHKONEiStpKq2+KVPISBTjoVP+6wW21u5U2PUG23REC8kzy0zaG?=
+ =?iso-8859-1?Q?ZtymxeDKCwsReECymJv1zvoSvJNRGWN0NCZPlj39nHy+LuymRbVB9yxGMu?=
+ =?iso-8859-1?Q?rnZNjLiJ4MkUm9JwWqfxo1iATHCSzrm1FwVpu2M+staHR2X/bynldFVnDU?=
+ =?iso-8859-1?Q?mqVkS+tr9MkgK0ILj4ldV1WosiW49xB9qgZsQH2TqtOr8N4GNfAclXwRSv?=
+ =?iso-8859-1?Q?sx4VLQ33sr7xCRkmS9YCtyelSAhQdvioyrC7SmvRqz/JOWn1Dy1lzoaeE9?=
+ =?iso-8859-1?Q?zIbxzMuULVLEinkcPfGlFG1Qq7VAbr/lRyF/31opp18oxtCb7lvYGbPDF/?=
+ =?iso-8859-1?Q?8kjkGXG7tXez+ZIFppmxDmXWInU9kQghwoc5k64Xk1tw+5BKN9/xg2uL4g?=
+ =?iso-8859-1?Q?I2dyqjZyPJK1fxHG6i280exrP/wuf6dJlYxTIKlmutD4SHRM8D+6GMSfLG?=
+ =?iso-8859-1?Q?+/+gYvDsDod+q5bsPhfq2fGVk8kRGn6AD0bmz2bSfWNwfBQ3VuO/ymrSbm?=
+ =?iso-8859-1?Q?bO4BWhtJ9d9sFjDg?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
@@ -120,8 +121,8 @@ X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0f1232-4ea5-423a-1d3f-08df18c19526
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:53:01.9486 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ea8b395-4588-4ea4-df43-08df18c1ae39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:53:44.0049 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
@@ -141,103 +142,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From dff1f3ce5f313dc88503c1da01c959638b7d42e4 Mon Sep 17 00:00:00 2001=0A=
-Message-ID: <dff1f3ce5f313dc88503c1da01c959638b7d42e4.1790083445.git.arthur=
+From 242fdfdef877fd756a789b1bba8323fb1de0b594 Mon Sep 17 00:00:00 2001=0A=
+Message-ID: <242fdfdef877fd756a789b1bba8323fb1de0b594.1790083445.git.arthur=
 _liberman@hotmail.com>=0A=
 In-Reply-To: <cover.1790083445.git.arthur_liberman@hotmail.com>=0A=
 References: <cover.1790083445.git.arthur_liberman@hotmail.com>=0A=
 From: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
-Date: Mon, 21 Sep 2026 01:41:20 +0300=0A=
-Subject: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST DPMS-off=
+Date: Mon, 21 Sep 2026 01:41:29 +0300=0A=
+Subject: [PATCH 2/3] drm/amd/display: skip destructive HPD verify on live=
 =0A=
+ links=0A=
 =0A=
-dc_stream_get_status() and dc_stream_get_status_const() load=0A=
-stream->ctx with no NULL check. HPD detect of an MST daisy-chain=0A=
-reaches them from link_set_all_streams_dpms_off_for_link() through=0A=
-dc_commit_updates_for_stream(). On 6.13 that oopsed when the first=0A=
-full update released current_state and the next loop iteration passed=0A=
-the cleared pipe stream:=0A=
+Destructive link-cap verify DPMS-offs every live stream from the HPD=0A=
+worker via dc_commit_updates_for_stream(). DP takes that path unless=0A=
+the link is embedded, training is skipped, or dpcd_caps.is_mst_capable=0A=
+is set.=0A=
 =0A=
-  BUG: unable to handle page fault for address: 0000000000006460=0A=
-  RIP: dc_stream_get_status=0A=
-  Call Trace:=0A=
-    update_planes_and_stream_v1=0A=
-    dc_commit_updates_for_stream=0A=
-    link_set_all_streams_dpms_off_for_link=0A=
-    link_detect=0A=
-    handle_hpd_irq_helper=0A=
+detect_link_and_local_sink() re-reads DPCD before=0A=
+verify_link_capability(). Switching input or powering off an MST=0A=
+daisy-chain while the CRTCs are still on can clear is_mst_capable,=0A=
+so the MST exemption no longer applies and detect takes the=0A=
+destructive path before MST rediscovery.=0A=
 =0A=
-Commit 1561782686cc ("drm/amd/display: fix link_set_dpms_off=0A=
-multi-display MST corner case") caches those pointers before the=0A=
-loop, so the loop no longer re-reads the cleared pipe_ctx. The=0A=
-helpers still oops if a caller passes NULL.=0A=
+Keep the non-destructive verify while the link still has DPMS-on=0A=
+master pipes. Userspace will disable the CRTCs; a later detect can=0A=
+train.=0A=
 =0A=
-Return NULL when stream is NULL, and skip a NULL cached entry in=0A=
-the DPMS-off loop.=0A=
-=0A=
-Fixes: 09f609c34fc8 ("drm/amd/display: Fix driver load crash in amdgpu_dm")=
-=0A=
+Fixes: c282d9512cdd ("drm/amd/display: factor out dp detection link trainin=
+g and mst top detection")=0A=
 Cc: stable@vger.kernel.org=0A=
 Assisted-by: Cursor:xai-grok-4.6=0A=
 Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
 ---=0A=
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 14 ++++++++++++--=0A=
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c |  7 +++++++=0A=
- 2 files changed, 19 insertions(+), 2 deletions(-)=0A=
+ .../drm/amd/display/dc/link/link_detection.c    | 17 ++++++++++++++++-=0A=
+ 1 file changed, 16 insertions(+), 1 deletion(-)=0A=
 =0A=
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_stream.c=0A=
-index 8d3aacc7b96c..e5134c103bdb 100644=0A=
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c=0A=
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c=0A=
-@@ -267,14 +267,24 @@ struct dc_stream_state *dc_copy_stream(const struct d=
-c_stream_state *stream)=0A=
- struct dc_stream_status *dc_stream_get_status(=0A=
- 	struct dc_stream_state *stream)=0A=
- {=0A=
--	struct dc *dc =3D stream->ctx->dc;=0A=
-+	struct dc *dc;=0A=
-+=0A=
-+	if (!stream)=0A=
-+		return NULL;=0A=
-+=0A=
-+	dc =3D stream->ctx->dc;=0A=
- 	return dc_state_get_stream_status(dc->current_state, stream);=0A=
- }=0A=
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers=
+/gpu/drm/amd/display/dc/link/link_detection.c=0A=
+index 12fd4fd24a90..66fb3bc06a1f 100644=0A=
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c=0A=
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c=0A=
+@@ -960,13 +960,28 @@ static bool should_verify_link_capability_destructive=
+ly(struct dc_link *link,=0A=
+ 					link);=0A=
  =0A=
- const struct dc_stream_status *dc_stream_get_status_const(=0A=
- 	const struct dc_stream_state *stream)=0A=
- {=0A=
--	struct dc *dc =3D stream->ctx->dc;=0A=
-+	struct dc *dc;=0A=
+ 	if (dc_is_dp_signal(link->local_sink->sink_signal)) {=0A=
++		struct pipe_ctx *pipes[MAX_PIPES];=0A=
++		uint8_t active_count =3D 0;=0A=
 +=0A=
-+	if (!stream)=0A=
-+		return NULL;=0A=
-+=0A=
-+	dc =3D stream->ctx->dc;=0A=
- 	return dc_state_get_stream_status(dc->current_state, stream);=0A=
- }=0A=
+ 		max_link_cap =3D dp_get_max_link_cap(link);=0A=
+ 		destrictive =3D true;=0A=
  =0A=
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/=
-drm/amd/display/dc/link/link_dpms.c=0A=
-index 48b086d15ab0..17cb831ce8c4 100644=0A=
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c=0A=
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c=0A=
-@@ -177,6 +177,13 @@ void link_set_all_streams_dpms_off_for_link(struct dc_=
-link *link)=0A=
- 		streams[i] =3D pipes[i]->stream;=0A=
- =0A=
- 	for (i =3D 0; i < count; i++) {=0A=
-+		/* A full update can release current_state and NULL remaining=0A=
-+		 * pipe streams. MST daisy-chains have multiple streams on one=0A=
-+		 * link, so skip any that disappeared mid-loop.=0A=
++		/*=0A=
++		 * Destructive verify DPMS-off's every live stream via=0A=
++		 * dc_commit_updates_for_stream() on the HPD worker. That=0A=
++		 * races MST teardown (input switch / power-off while the=0A=
++		 * displays are still on) and can NULL remaining pipe streams.=0A=
++		 * Keep the non-destructive path until userspace disables the=0A=
++		 * CRTCs; a later detect can train.=0A=
 +		 */=0A=
-+		if (!streams[i])=0A=
-+			continue;=0A=
++		link_get_master_pipes_with_dpms_on(link, link->dc->current_state,=0A=
++						   &active_count, pipes);=0A=
 +=0A=
- 		stream_update.stream =3D streams[i];=0A=
- 		dc_commit_updates_for_stream(link->ctx->dc, NULL, 0,=0A=
- 				streams[i], &stream_update,=0A=
+ 		if (link->dc->debug.skip_detection_link_training ||=0A=
+ 				dc_is_embedded_signal(link->local_sink->sink_signal) ||=0A=
+ 				(link->ep_type =3D=3D DISPLAY_ENDPOINT_USB4_DPIA &&=0A=
+-				!link->dc->config.enable_dpia_pre_training)) {=0A=
++				!link->dc->config.enable_dpia_pre_training) ||=0A=
++				active_count) {=0A=
+ 			destrictive =3D false;=0A=
+ 		} else if (link_dp_get_encoding_format(&max_link_cap) =3D=3D=0A=
+ 				DP_8b_10b_ENCODING) {=0A=
 -- =0A=
 2.55.0=0A=
 =0A=
