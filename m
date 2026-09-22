@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2725DC982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0095C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC5A10E8B0;
-	Tue, 22 Sep 2026 08:03:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF4E310E612;
+	Tue, 22 Sep 2026 08:08:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pkk8hJkz";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="FGUyk9MH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5845B10E8B0
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:03:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 627286053E;
- Tue, 22 Sep 2026 08:03:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1991F000FF;
- Tue, 22 Sep 2026 08:03:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790064230;
- bh=iz5ZvXuN69BjPyv2G6HIms6qrpA+v8co7aU/JAxPMNE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Pkk8hJkz+KwRWDTWURSLDurufWOnqDbYDUTIZvYXp9jfWOkdjCM/lvETnNtDoI+LS
- weuk7KILNbiDpsCFZUmltc1Xv7VITIdVF1H2oDuxtlrKssjRaAsgmNRV2hAr5C4SeQ
- bZ/80zCO8tXpnUnlLHyelefCFy8yEvMbmP9VMlwSO1DLccj29DgxZ7QexRl8x2wU7k
- fTdqHnUv9AVXxk5dnorcXIFA8Peq7IgJWCVjlGznMMm05cuXM6uyfS9EWxIwApJwpK
- DXsQ17/1MOkMBuP4zJ74q36cN6eF1s7VZkd7lMrYU+rofAevR3gfQLNsSR3/mGgEhl
- sgglkuVP99KSA==
-Date: Tue, 22 Sep 2026 09:03:40 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: linuszeng@tencent.com
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Maarten Lankhorst <dev@lankhorst.se>, 
- Maxime Ripard <mripard@kernel.org>, Natalie Vock <nat@pixelcluster.dev>,
- Tejun Heo <tj@kernel.org>, 
- Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
- Oscar Salvador <osalvador@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>,
- Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, 
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 0/6] mm: memcontrol: implement the memsw limit on cgroup v2
-Message-ID: <arI2So8-IHlUjuv0@gremlin>
-References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22EE10E612
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:08:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 767EA4E40ED6;
+ Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 468C860580;
+ Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 4056C1032925B; 
+ Tue, 22 Sep 2026 10:07:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1790064477; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=zcp8tcZsfdsmxUcen5sJupr/nyZnxY5fTXf1NQWKnsw=;
+ b=FGUyk9MHJzJ0m0z8YAThEo2DOBHDLTsuC25rLZr2qIfJay2Q0I+gVCvTxsv2nvY/dDnJb9
+ IgXAUJLDLFyWtCu0gq4m+hX3dLL+xecsNJ8WJa5QPeWS1Zy6AUoS89OPdFALC8X5Qo/SYt
+ P+8Axb3+Z77DYvypZw+Bo1A5RcA0P5rB/gomubC1yCw1+sui5hmFk5wLv6D9zSGNbH/9I3
+ BDo6gZcaNWSmUaB3MSGwrUc50FkG95rYvnEytrHx7tFcZXjfqgUddfJurME6kZVkekBte7
+ SOpxzk5wN3ckVBb+KRlg6NycfNY3+6MfShb4b9lHPUZw9BG8DyTys0vA4UWL/w==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 10:07:36 +0200
+Message-Id: <DLLOW2ROGP6L.3GTVT76VYPGAU@bootlin.com>
+Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
+ panel_bridge
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+To: "Damon Ding" <damon.ding@rock-chips.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Neil Armstrong" <neil.armstrong@linaro.org>, "Robert Foss"
+ <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
+ "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
+ "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
+ <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
+ <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
+ <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+In-Reply-To: <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +94,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hello Damon,
 
-For one of several possible reasons this mail has triggered an AI
-detector script.
+On Mon Sep 21, 2026 at 8:34 AM CEST, Damon Ding wrote:
+> On 9/21/2026 11:07 AM, Damon Ding wrote:
+>> Hi Luca,
+>>
+>> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
+>>> Now a panel_bridge is automatically created for every drm_panel and the
+>>> panel-bridge API is just a deprecated wrapper to access it.
+>>>
+>>> Update and simplify the code by just getting a reference to the
+>>> already-existing bridge using of_drm_get_bridge_by_endpoint().
+>>>
+>>> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take ca=
+re
+>>> of putting the bridge reference. This is not easily done in the remove
+>>> path
+>>> due to the different probe paths of the user drivers, so add a devm
+>>> action
+>>> to ensure the reference is put only when it was taken.
+>>>
+>>> Assisted-by: opencode:deepseek-v4-flash-0731
+>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>>> ---
+>>> =C2=A0 drivers/gpu/drm/bridge/analogix/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>>> =C2=A0 drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 ++++++++=
+++++
+>>> +---------
+>>> =C2=A0 drivers/gpu/drm/exynos/exynos_dp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +
+>>> +-----------------
+>>> =C2=A0 drivers/gpu/drm/rockchip/analogix_dp-rockchip.c=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 9 -----
+>>> =C2=A0 include/drm/bridge/analogix_dp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 1 -
+>>> =C2=A0 5 files changed, 25 insertions(+), 62 deletions(-)
+>>>
+>
+> [snip]
+>
+>>> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct
+>>> platform_device *pdev)
+>>> =C2=A0 {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct rockchip_dp_device *dp =3D platfo=
+rm_get_drvdata(pdev);
+>
+> The above unused &rockchip_dp_device could be also remved.
 
-Note that, while we are fine with AI assistance, it is kernel
-policy that you must disclose this with an Assisted-by tag like:
+Ah, indeed!
 
-Assisted-by: LLM
+I guess I can keep your review tags if applying this patch with only this
+line removed. Correct?
 
-See https://docs.kernel.org/process/coding-assistants.html
-
-It is also kernel policy that you must fully understand and take
-responsibility for every patch that you send.
-
-See https://docs.kernel.org/process/generated-content.html most
-notably:
-
-        If tools permit you to generate a contribution automatically, expect
-        additional scrutiny in proportion to how much of it was generated.
-
-        As with the output of any tooling, the result may be incorrect or
-        inappropriate. You are expected to understand and to be able to
-        defend everything you submit. If you are unable to do so, then do
-        not submit the resulting changes.
-
-        If you do so anyway, maintainers are entitled to reject your series
-        without detailed review.
-
-In general, if you are a newcomer to mm, we expect you to do smaller work
-before moving on to larger changes, so you build understanding of both the
-technical aspects of mm and how we do things.
+Luca
 
 --
-Cheers, Lorenzo
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
