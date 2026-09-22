@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C29E5C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39019C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:17:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2343F10EC82;
-	Tue, 22 Sep 2026 12:16:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83E6510EC85;
+	Tue, 22 Sep 2026 12:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J9BrPANg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hYeIFFE+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C46310EC82;
- Tue, 22 Sep 2026 12:16:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A26F610EC85
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:17:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0C95B60DF7;
- Tue, 22 Sep 2026 12:16:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344941F000FF;
- Tue, 22 Sep 2026 12:16:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4897D43E82
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:17:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF5C1F0089C
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790079391;
- bh=wFKgmThc37/WLmBFYUHY1bxEhAWR1QO0X6AW0mvtgCc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=J9BrPANgAu6ASZVesjOJ5VaN1CVDXPa9HlhArGOgPlNcLAag3UxS7c1BzG5UA4WsY
- wcI1ONC2lSsrTkDMHceGaAyeaFQYwEgBjCI+r+wNW9gMowsJjmQIuG68uZlaRY6HKN
- MdNBy9+u7r9vaLoAw9Kc8uaRbmWVc3K16Qd4F/qMr6LibbZmNAshU6/V9HvtfsCtlM
- uuDNeOg/c8zyww1RsTshpCjIMSomLfqok84f6Q085BlD/dSlXFUhU3eRKqMRc9hBv3
- N5u3lB3MccftgwHBjmpI97PGfywJUn4Kipcwag2Mibrt78dYgpMSlf/YTJIJNfk+FX
- b6KzJqzYbijbA==
-Date: Tue, 22 Sep 2026 14:16:28 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-Message-ID: <arJwOSq6-oSywTK6@houat>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
- <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
+ s=k20260515; t=1790079434;
+ bh=yTxnbSiAz/ON6hMopB3NB3+oXSxRjwZpBmdV0YxRmss=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=hYeIFFE+UckDo7eRQGCMqyMbVRk0RsKmaSBK5lJuoIsqZcU4u2weY4f8eh2+QWCtw
+ GxJNLRlnyvRUiMLcF7eRXvVKb6VPHXGS+4vOXis/ljhS/LeYFKcRUupCaUPEKDrO6g
+ zJdLOGTl6UL9HE6vYYgTy8Im8fR4v8kbFBx0l5FoZtEQ79qICjW45aDZe+/oRWiNbA
+ 938/bnQc0CJcBF1wqKYgaGXY96Gc3k7yYxrrUSmVvD2OlfSzjzEEB1MYxza5+H9+pk
+ WvQ/AZzVZ/S1zGKcJ07O/Lzn3lGwEzmKVdvMKJhCOSE0fsuZ50VoG6A3u01yCkSDlx
+ Q7zNNXyxspA4w==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b5e4f1e428so1383901e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 05:17:14 -0700 (PDT)
+X-Gm-Message-State: AFuF++nRFJctEawbqPMbO61lRQPQOgvprA5hJ8DhxEYTHCciQUZLL9YP
+ 2KkMCPETe6C7mDprb+hCst8HaisPBj0O7E3EWv/0pnmz2XRf6NEmYF7ndSM4pefDsjm0JhN/glF
+ qNazu4IFr/M3nbbkEUmNa7/zLas1vp4U=
+X-Received: by 2002:a05:6512:3ca9:b0:5b8:9a95:e259 with SMTP id
+ 2adb3069b0e04-5b8d295e4afmr834266e87.27.1790079432863; Tue, 22 Sep 2026
+ 05:17:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="5lb7fldev2bfc7fs"
-Content-Disposition: inline
-In-Reply-To: <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
+References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
+ <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+ <20260921092546.9F6EF1F000FF@smtp.kernel.org>
+In-Reply-To: <20260921092546.9F6EF1F000FF@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 14:16:59 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnMvzC2wmWiLY1aVDHqG39ZiJv2FyCg4-V93APpjihpRQ@mail.gmail.com>
+X-Gm-Features: AclHuK-bjk8vEyyJGB6e_jRIydjSMNUQ5bfkMux8cNhlhOVbt-7gvd6Cmxs_sAA
+Message-ID: <CAD++jLnMvzC2wmWiLY1aVDHqG39ZiJv2FyCg4-V93APpjihpRQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: gemini: Use a level-high interrupt for
+ TVE200
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, 
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +71,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Sep 21, 2026 at 11:25=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
---5lb7fldev2bfc7fs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-MIME-Version: 1.0
+> [Severity: High]
+> Does configuring this as a level-high interrupt break the driver's state
+> machine logic in tve200_irq()?
 
-On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
->=20
->=20
-> On 9/22/26 03:33, Javier Martinez Canillas wrote:
-> > Hello Mario,
-> >=20
-> > On Tue, Sep 8, 2026 at 6:41=E2=80=AFAM Mario Limonciello
-> > <mario.limonciello@amd.com> wrote:
-> > >=20
-> > > At Display Next Hackfest 2026 we reviewed progress moving brightness
-> > > control into the DRM connector properties.
-> > >=20
-> > > There is a range LUMINANCE property that will default to 0->0.
-> > > Once a driver attaches a backlight it will be updated to 1->max.
-> > > If the panel supports the minimum backlight turning off the display
-> > > the range can later be updated to 0->max instead of 1->max.
-> > >=20
-> > > The legacy sysfs interface is synchronized with the DRM connector.
-> > > When a compositor using this feature is loaded, sysfs writes are disa=
-bled
-> > > to prevent legacy tools from going out of sync with the compositor.
-> > >=20
-> >=20
-> > I don't think I agree with the direction of this series. The main
-> > issue for me is that if the sysfs interface is disabled, then I don't
-> > understand the value of doing all the hops between the DRM and
-> > backlight subsystems...
->=20
-> The reason for all the hops is that users can switch between compositors
-> that support this and don't.  If you're in a compositor that supports it
-> that compositor will want to affirm it's in control.  If you're in a
-> compositor without support then you should still have a way to change
-> things, and that's what the sysfs interface exists for.
+Nope.
 
-Couldn't we make a sysfs write trigger an atomic commit then? That way,
-it would always go through the atomic commit path, no matter whether
-you're on a "legacy" compositor or not.
+Tested on hardware.
 
-It would also somewhat untangle the uapi from the backlight subsystem,
-because it's only really relevant for panels. For all the other use
-cases, you might want to control the brightness but you have no matching
-backlight device.
-
-> > IMO when a driver sets the DRIVER_CONNECTOR_LUMINANCE feature and the
-> > client advertise the DRM_CLIENT_CAP_LUMINANCE capability, then the DRM
-> > driver should be in full control of the brightness control and not go
-> > through the backlight subsystem at all.
->=20
-> OK but so let's say I start at 100% brightness.  I open up Kwin, I change
-> the luminance property to 0%.  Let's pretend that backlight subsystem
-> doesn't get updated.
->=20
-> Then I log into Xorg + Xfce.  The luminance property should be left at 0%,
-> the brightness subsystem is 100%.
-
-Make backlight read the current property then.
-
-The way I see it, you're trying to untangle multiple issues at once, and
-I'm not sure it's the best strategy here. I'd start with the luminance
-property itself that wouldn't involve the backlight framework itself
-(DDC/CI or MIPI-DCS sound like obvious candidates here), and once it's
-in, I would figure out the relationship between backlight and that property.
-
-Maxime
-
---5lb7fldev2bfc7fs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarJxlAAKCRAnX84Zoj2+
-dh71AX9ZyMKS8LP70Gd+k878qeHmm87a9k0p0dEK3+a8XsSKPZyhRXAiyejTfFXW
-Pq0xG20BgLZA9iv4OGIoi7s8LDC++1HLpxyy3hnYKIkAxXp7k6BYRkT5to4Mnwtp
-aKlGsYwXwA==
-=ZtaM
------END PGP SIGNATURE-----
-
---5lb7fldev2bfc7fs--
+Yours,
+Linus Walleij
