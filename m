@@ -4,47 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18295C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3008C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 232A510E3F3;
-	Tue, 22 Sep 2026 06:35:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hwcKkz/m";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE72A10E3F3
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:35:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=hB6olPrEKV3fDF3gk5JJycD+cvzOXy2XILdEkSxynjg=; b=hwcKkz/m/mf/JlGKfAurnHJnOV
- TAcdbbVu0BJxh8CxtP7sC4S5DV94R1WpNV1lQA+oxehYo3xkEqlfuMQUj4sq/z5OG6lcqu7NrXIgw
- SLJn0CiztNID8FrNMKPQm8NNLVEZUtlpNZqUzEyzXXFoLCMxw/bhHiLTfHH8rUPuZwFO/nrWOnDxL
- nl0fO3wP3htsk6bq/iSGjz16yZQgD4Xpw/p/QmdfxPkZCKE+3TJU3cOUW35bE8vcIgrny6kLpptMG
- pGoGWbFdqSEl1/6lt+1JwCadEPp8hTe6bvwuI+bMSVjQBnxiku/aFplnW5IEkr7RYs5ODGzMF5g1T
- MSOk0CJQ==;
-Received: from [159.147.214.108] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x8u6I-005TUo-4e; Tue, 22 Sep 2026 08:35:33 +0200
-Message-ID: <ec0f9569d1b780394ef291d67b360629ca737c3e.camel@igalia.com>
-Subject: Re: [PATCH 1/2] drm/v3d: Skip perfmon serialization while the
- device has no perfmon
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Date: Tue, 22 Sep 2026 08:35:23 +0200
-In-Reply-To: <20260921-v3d-quick-exit-perfmon-serialize-v1-1-e58aea1075e2@igalia.com>
-References: <20260921-v3d-quick-exit-perfmon-serialize-v1-0-e58aea1075e2@igalia.com>
- <20260921-v3d-quick-exit-perfmon-serialize-v1-1-e58aea1075e2@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F09110E659;
+	Tue, 22 Sep 2026 06:38:59 +0000 (UTC)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4168910E659
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:38:58 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ 71dfb90a1353d-5c7e8a17839so752982e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 23:38:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790059137; x=1790663937;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=pE43WIP/B8Af0zd1OEayR+RwR/Tk1IZvZVkio3avLM0=;
+ b=ym0MnNn7r/d1YdsAp52NJ4iz2sIcwOcCwHlW55Ix3qBaJcc5Ltw5GNQPrtDKEHSame
+ 4jpet/U5qJ+CC5m+vmG+L5z/t4fE9OkMCpqD4VorWeztHrhPB1/wCowVsuoBGj4RvAb3
+ qtHCpPJ2C+CZ5WCJwmj0+WoE8Aj2ib/PN5ss4kCfRH1Ny1UPv9yy3ymFf99L1KbnKSHL
+ iZsFD+4lppJYjIk/q3V3regA5IfsG4x+Z5CXPGk/WKW+pA/FIPCzNqVD+v7KbKadEW5W
+ IFyoGx6I4JqLcqL5pqVMbl04KoUqAz54ycGR+RSFI3+l1qXXuoNJZ8Sm4i12TEuqopde
+ PAVA==
+X-Gm-Message-State: AFuF++lkF3ZOG4Sz+zP3LtWNmvTNVWgF16/CyEHNCejZC+VtBpE7RQs+
+ LqDUdvWHTDXGVtMiYnLMMVDoeQDzqUBVQVMfBUy0Nl+bARPPds0fvfLdrSFMZBc57ws=
+X-Gm-Gg: AYBFou396OCVxxJMaEOO7csUWHISLso6gfKkOSP8W6i833ZGjz05mFfkfy50AjqojF6
+ V6AqZpGP0GC9ZOvaHSi6jT6X0kDQHYplGVxZSTFXRmegSOjEtIw4iDHpGzq8elLfq/NC0dW+PFF
+ cJqJw0gIvGOnwQ0lEfDfjxWVvYlR2id2Mu1L26LuO/gQ7zO5gWgZm8vxmFtnRp4vW7UAhAnf0MQ
+ O1AnB1GD518YTPsY824Rxl7wtGH61LeVJjArFiAM8rhG+17ErdTI0ttFf5Y9rRDvWOyQe8w23lH
+ 9cLvT/vATp0xrQPM9r5p/k2ZqPBC6MkWHUlJKv0c5IqDOxeBixdFNH7+Vhh40EOym7fezgCYynF
+ NoXbYDtTNYptiVYA4J8vf5DbstAGov3t5pewnox+O+vW00cN2CXHsNmJm8KqCq3MHj43B65o5Ft
+ 29u+JfhkCwhxoFoJNwqKPJvgoqpIv8NKidzo5OBS1nmmdDOW+7egzCR1tIFHN7Cj28mZOWJXroX
+ 7NNWSxA4MrEL4hErjeYPqnOgYOAFA20hyncBn0X
+X-Received: by 2002:a05:6102:418e:b0:7a1:f2b4:dae0 with SMTP id
+ ada2fe7eead31-7aaa02f27e7mr1496053137.13.1790059136909; 
+ Mon, 21 Sep 2026 23:38:56 -0700 (PDT)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com.
+ [209.85.221.176]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7ab18447b24sm779015137.10.2026.09.21.23.38.56
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Sep 2026 23:38:56 -0700 (PDT)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-5c83fbd23a5so552636e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 23:38:56 -0700 (PDT)
+X-Received: by 2002:a67:e886:0:b0:7a6:3df6:ac95 with SMTP id
+ ada2fe7eead31-7aaa080ecc4mr1420444137.35.1790059136564; Mon, 21 Sep 2026
+ 23:38:56 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260910181918.31551-1-marek.vasut+renesas@mailbox.org>
+ <20260910181918.31551-4-marek.vasut+renesas@mailbox.org>
+ <90a90fbd-63e7-4f85-ae8c-335b664e485c@mailbox.org>
+In-Reply-To: <90a90fbd-63e7-4f85-ae8c-335b664e485c@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Sep 2026 08:38:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVjAv56=91_xXTTErAfS1brS7-s-4ZPHWB=eCpoF_KwEg@mail.gmail.com>
+X-Gm-Features: AclHuK-rpqNNs63WVNzxtY1Too0qJAazs_ikggL609BMVbx2GdHhFI8yN8r-DE4
+Message-ID: <CAMuHMdVjAv56=91_xXTTErAfS1brS7-s-4ZPHWB=eCpoF_KwEg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek
+ IL79600A-based panels
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,146 +93,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-El lun, 21-09-2026 a las 18:24 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Every job merges its finished fence into the per-queue accumulator so
-> that a job carrying a perfmon can later depend on everything still in
-> flight. This is a (relatively high) cost that every job pays before
-> it is submitted.
->=20
-> Perfmons only exist while userspace runs a performance query, so the
-> common case is a client paying that on every job for a dependency
-> that is
-> never actually added, increasing the submission latency.
->=20
-> Address this situation by counting the number of perfmons alive on
-> the
-> device and returning early while that count is zero. This means that
-> if
-> no perfmon exists, v3d_serialize_for_perfmon() will bail out
-> immediately.
->=20
-> Jobs submitted while no perfmon is alive stay unaccounted and may
-> overlap
-> the first measured job. The count returns to zero whenever the last
-> perfmon is destroyed, so that window reopens on every measurement
-> cycle.
-> Closing it would mean merging a fence on every submission for the
-> lifetime of the device, so it is a reasonable compromise for the
-> average
-> use case.
->=20
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h=C2=A0=C2=A0=C2=A0=C2=A0 | 7 +++++++
-> =C2=A0drivers/gpu/drm/v3d/v3d_perfmon.c | 8 ++++++--
-> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c=C2=A0 | 7 +++++++
-> =C2=A03 files changed, 20 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h
-> b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 79ef20c89ff2..cd544af8d8c8 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> @@ -84,6 +84,8 @@ struct v3d_queue_state {
-> =C2=A0 * This way, only events related to a specific submission will be
-> counted.
-> =C2=A0 */
-> =C2=A0struct v3d_perfmon {
-> +	struct v3d_dev *v3d;
-> +
-> =C2=A0	/* Tracks the number of users of the perfmon, when this
-> counter reaches
-> =C2=A0	 * zero the perfmon is destroyed.
-> =C2=A0	 */
-> @@ -184,6 +186,11 @@ struct v3d_dev {
-> =C2=A0		/* Perfmon currently programmed in HW (or NULL if
-> none). */
-> =C2=A0		struct v3d_perfmon *active;
-> =C2=A0
-> +		/* Number of perfmons alive on this device. Jobs are
-> not
-> +		 * serialized if the number is zero.
-> +		 */
-> +		atomic_t nperfmons;
-> +
+Hi Marek,
 
-Maybe we should also amend the comment for the last_hw_fence field, to
-make it explicit that last fence tracking is only accurate while
-nperfmons > 0?
+On Mon, 21 Sept 2026 at 22:32, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 9/10/26 8:18 PM, Marek Vasut wrote:
+> > The Ilitek IL79600A display controller is similar to the ILI9882T and can
+> > be supported within the existing `panel-ilitek-ili9882t.c` driver.
+> >
+> > This patch extends the ILI9882T driver to handle IL79600A-based panels,
+> > such as the 10" Raspberry Pi Touch Display 2. The IL79600A uses a similar
+> > command sequence and initialization flow, with minor differences in power
+> > supply configuration and timing.
+> >
+> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-> =C2=A0		/* Finished fence of the most recently submitted job
-> that
-> =C2=A0		 * opened a serialization window (i.e. a job with a
-> non-global
-> =C2=A0		 * perfmon attached).
-> diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> index 07dab7fb3060..359334616bd8 100644
-> --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> @@ -217,8 +217,10 @@ void v3d_perfmon_get(struct v3d_perfmon
-> *perfmon)
-> =C2=A0
-> =C2=A0void v3d_perfmon_put(struct v3d_perfmon *perfmon)
-> =C2=A0{
-> -	if (perfmon && refcount_dec_and_test(&perfmon->refcnt))
-> +	if (perfmon && refcount_dec_and_test(&perfmon->refcnt)) {
-> +		atomic_dec(&perfmon->v3d->perfmon_state.nperfmons);
-> =C2=A0		kfree(perfmon);
-> +	}
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void v3d_perfmon_hw_start(struct v3d_dev *v3d, struct
-> v3d_perfmon *perfmon)
-> @@ -434,13 +436,15 @@ int v3d_perfmon_create_ioctl(struct drm_device
-> *dev, void *data,
-> =C2=A0		perfmon->counters[i] =3D req->counters[i];
-> =C2=A0
-> =C2=A0	perfmon->ncounters =3D req->ncounters;
-> +	perfmon->v3d =3D v3d;
-> =C2=A0
-> =C2=A0	refcount_set(&perfmon->refcnt, 1);
-> +	atomic_inc(&v3d->perfmon_state.nperfmons);
-> =C2=A0
-> =C2=A0	ret =3D xa_alloc(&v3d_priv->perfmons, &id, perfmon,
-> xa_limit_32b,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GFP_KERNEL);
-> =C2=A0	if (ret < 0) {
-> -		kfree(perfmon);
-> +		v3d_perfmon_put(perfmon);
-> =C2=A0		return ret;
-> =C2=A0	}
-> =C2=A0
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c
-> b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 834d52030979..bc3c43fd4fd9 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -357,6 +357,10 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit
-> *submit, u32 perfmon_id)
-> =C2=A0 *
-> =C2=A0 * We don't serialize the jobs when using a global perfmon as it's
-> expected to
-> =C2=A0 * track concurrent activity from all jobs.
-> + *
-> + * Keeping track of the in-flight jobs costs a fence merge per job,
-> so it is
-> + * only done while at least one perfmon is alive. Jobs submitted
-> while no
-> + * perfmon exists go untracked and may overlap the first measured
-> job.
-> =C2=A0 */
-> =C2=A0static int
-> =C2=A0v3d_serialize_for_perfmon(struct v3d_job *job)
-> @@ -368,6 +372,9 @@ v3d_serialize_for_perfmon(struct v3d_job *job)
-> =C2=A0
-> =C2=A0	lockdep_assert_held(&v3d->sched_lock);
-> =C2=A0
-> +	if (!atomic_read(&v3d->perfmon_state.nperfmons))
-> +		return 0;
-> +
-> =C2=A0	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-> =C2=A0		is_global_perfmon =3D !!v3d->global_perfmon;
-> =C2=A0
->=20
+> > V2: No change
+> > V3: - Rename ILI79600A to IL79600A, there is really no ILI anymore, just IL
+>
+> Is there anything missing in this patchset or can it be applied ?
 
+I don't know: I think you should start doing cover letters ;-)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
