@@ -4,137 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 617ECC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:56:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D51C98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:57:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC72410EE48;
-	Tue, 22 Sep 2026 19:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9C010EE51;
+	Tue, 22 Sep 2026 19:57:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="UUSb6C5q";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="Q3nH38P7";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021138.outbound.protection.outlook.com [52.101.95.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 811E810EE48
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:56:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XogQcQ/Zy+WwnyyxAl+dKf/9BvPUl+IIUrSU5+MLM6SUKVkk/3rlwtKoI3rxU1Q+Op2TnJxKPQoHwTH6LuYzLTQv18sm5jedw+vhasnVsauUIQhobM5XhP577nHIPAmJmSPXzOJ+N5EkJ5KqCeoOH4TPvGf7ScVXXbxj+HrLw8VBHoETWNPIo76U9wPb01CU8qVALcQuoCNRTwsM0P6Q8niX51TivK7GRbV2XYJItuvYiKoTJEl1dyicKU2ir+uTD7cr0OlieSWB3YeTPmFPbm88WUrc33e9e2970iXEE7E9dbxQE2yXM6xtlQ+g/Mf684la+QGQKz26zf6zwtQq/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
- b=BaPpSAVXpF2QYnu1D4hLL7Jgnu9cm1cfJCs9/qadl9cH8kAFLpkD06nEfh4acEZkkazmFIz4xqQ1deuO/C+5MMM8ISGwsZwI1L/x4AV+0uiuKlukkat5rbbnzm9NC5ygmxsUtN6bi4HwPvyE89NZehdQtx+f0yK7EDVBqvRPUhYuzx+9k4V7xYDnpuc+ubo0pWEASXbRD332ASM0BV2Xbs5NcgIV/26V98grLJUkSztzVZF+r/k/MHuti4qXFlUQwJPjNGlXKm95zjPhpUmlTirAVXOtb+ErfmTtyhxh/MasXemRp2d/e9t3EwT+5oMeko2mEQWrLfBN5C5bmAx+sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
- b=UUSb6C5qYkaFnYAjbzrvWU4nA2aNPNVOl6k3S8cXzyiz4ql3NJ3z/m1eZjseaWr7k1UasmiPckS8/xLVNdvCtXicSqANoFBAyTE/9t7hdtGZw0YQzMXXXNlTIgLvfFJsiSpPmDwvsYY0wIIwxBIVXCALq5y0yJcRxLuslbpf1g0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB8942.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 19:56:48 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 19:56:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 20:56:47 +0100
-Message-Id: <DLM3Z2E1V1J2.4VUZLWQVEQTT@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Laura Nao" <laura.nao@collabora.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Lyude Paul"
- <lyude@redhat.com>, "Thomas Gleixner" <tglx@kernel.org>, "Anna-Maria
- Behnsen" <anna-maria@linutronix.de>, "John Stultz" <jstultz@google.com>,
- "Stephen Boyd" <sboyd@kernel.org>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <kernel@collabora.com>, "Deborah Brouwer" <deborah.brouwer@collabora.com>
-Subject: Re: [PATCH 7/9] rust: time: add arch_timer_get_rate wrapper
-X-Mailer: aerc 0.22.0
-References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
- <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
-In-Reply-To: <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
-X-ClientProxiedBy: LO4P123CA0579.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:276::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CFB10EE51;
+ Tue, 22 Sep 2026 19:57:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1790107042; x=1790711842; i=w_armin@gmx.de;
+ bh=lUdjrgZaJzfqhGj+CZN4gVxm1gbrnsp7WHgXh1rIN7c=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=Q3nH38P7FiqPSIwijIqpJl4qV/w8EGNAi7QaGskWYTaZ/95LruwLqxCd78yBTMKQ
+ moghfXNreGJiicMMCIeYg2qMpKg3GdbTA4mNes9B1RKHZ7ktZMke3y1Flt+OKAhSH
+ ItVQCa1txDmEAiUjQZYL4NBOzezgzfbms79zkIyC6z40o0yYbACeCI1xIdkZ7vXOR
+ 478n9IGSWR54cHZ3iGQY3Oik+9+fJ8LWknH8f3SHvtGjIet4EySSJOQdjOXn+ZLqw
+ wJKHpYci6wXMFj3I1GFrsx5XsouSiO+V1UG+qbv7Ysy4yU3DPPaHRb4MNnjg2Il3k
+ pMJQqt3QE3ia+ooZkQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N0G1d-1wnhmo2wGV-00vygm; Tue, 22
+ Sep 2026 21:57:21 +0200
+Message-ID: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
+Date: Tue, 22 Sep 2026 21:57:19 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56787703-5741-4c16-3a91-08df18e3a358
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|22082099003|18002099003|10067099003|56012099006|4143699003|3023799007|921020|6133799003;
-X-Microsoft-Antispam-Message-Info: L0+B3S7ogzUehDkUhOlMVX1zLY58g1+HpleXNGPALcUMIHyhK2Ui0G2043ZrZlq27SUBuqDKTbHTJfw5g5KKr90iviobYgFT8HCNHPFaprAZEL1a1Nna0bYdL+7DZLytUfYjkMEIaYCs+fp8fY2jTGbtnZ8eAIlIXMiOb54s4yl+FX66b22+Ph8xkzhR6sHdO4JpwJIT40AEN7s2wAJWekxZTETjbKr9jOqcPpMua2gXjTNHMYRUvcgENX0DlfyjX2YrTyCtRj4wit4PGiQV6ndZVVSvtQkOQGo6edDDqItOwCjkTyYwsRlrQ+hsOtD86qRGwG+wP9L1czIP59BSpFBj/IGe9JYZliQTibc9r5uVam4o3ZpWnTmBrH+jhDhcHVSa4LPHtkzE5cjihq1V2VDYxqdYru/IY2GTVcMZwSCOze0cpjKoeh1MRW4n+7zOwyDpD+hKen4EqZmhJhwCR7zFPxAmZk0zmCNnqIJYJl/BFeYjubYbju7eWp4NA6Vc2wiBCxRrpN7wBH8PKKfWoViFkXFRY7HricHA/ZMvIWB9OZXilxg2oEnfK6dCGOtGAj+qDwhhfc4mX8D7I3hbXRkzpZAB5FRjdAAKewd1jdmuk3R+0qUfGIQ/m+g/3AZfRquOioujl+eEmicckvtkH0Rw8QwYudJ9iqoqVI9yev9rt01RTvmgzWe3VEGLibNIAbn82z82hqQj1Bk0oqS2cw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(3023799007)(921020)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVh2RTFyRk1GTTJ3LzhpK0o3NDkwbG5WWWhRbjZvT3U2aXRLNmdqTlRkd0E0?=
- =?utf-8?B?U2hmdnptQmllMmdUajVndXBtZW93QXFwRmszSmNvYkRvb00wU096cDdBdldv?=
- =?utf-8?B?ZnhzV29qckdLUFU1eDdtbDZ3Y1NmZU5TUWN4QkdRZ0gyV0xUekdzUlJxb29m?=
- =?utf-8?B?eEFOSWF0UWN4YTJIcWdWTDVlQ081V0ptTjhaSFMwSjZrRDdaL2dKNjhrc1RR?=
- =?utf-8?B?SjRIRkNuSUVxTXpVbWVHMjJrNGYySW5GWEowaVl0cEdpVUQrbEFBZ2hlU0t2?=
- =?utf-8?B?NFV6L24zMlBNRlo4T3N2TGJGeU5zbGNXUXJoRGNBKzRlWHAzNGIweGFWanhZ?=
- =?utf-8?B?akNxNnpPQS9kaUU5aXdqZC9TdVhCQVBsa0w5WTdudFl5dnM3RHc5b05CU0RD?=
- =?utf-8?B?RVh6bVc0YTJuL2g2UmdDcW9UWHNqQms5YlRrU2NqZlBhdmYwYnNuRmZxYXE0?=
- =?utf-8?B?MVJkcit1MmdkWmlROS9wWmpJZ2dlTW1RRFJ5eGRGbHY3MTBOQWcrenJtaVNu?=
- =?utf-8?B?WkczWHVFOG5YVHB2WTdQdVNaUmg2ZDM0M1BoM3B5M2RHYURzOEZqcTkydnE5?=
- =?utf-8?B?VlBUWEk2L081OVdsa284NlVLMG5Oc3F0eGVTcy95UExnT2pTL2Q5TmdCU1V2?=
- =?utf-8?B?S3owazNieTRpTW53c3grSXpudVlFY0w5OHV3TW5MeVNFa2pTZkUwMDRRVC9y?=
- =?utf-8?B?TFRCek9BNXJNSzlyS0pEZmp6Qk5kNU5PbzlMTTIyR2laazVEemZDS0x6ZEVS?=
- =?utf-8?B?NGpyRFRJV0ZraUY5RG5oMkFJMm1iaGk0cVJ3MHUzSmUwRFJTamVLNTkzRExh?=
- =?utf-8?B?ODFXc3ZWOTFjRTgvOFZOa0lTRkJUZWw2Yy9lZ3Z5d3JKT1BLREEvWUVOVllh?=
- =?utf-8?B?ZWJnbGpKbDFCUFh6YmtNOVVLTUJWdzZ5V1lqN2FEOCt0aFZ0OGR3dHdhTVg1?=
- =?utf-8?B?a1RGQXBuOWV2NWtVaExrcitjUHRCcmJmcDhERjh4ZUtzRytERFpZN2pjUWk0?=
- =?utf-8?B?VkdwWUZlbll1MUY1RjN2WWoyMGpDeHgzVENRUUpBcU8ydURCdnFyK0lwU2My?=
- =?utf-8?B?RTdTeU4xZDdaMDB0Z0xkdzlwL1FNWHJ5bkNvZGlsTWNBWFJ0ckhnRENkMGU3?=
- =?utf-8?B?VWxTZGlzN2xVbmErVms0Q203Tkx0Q2JGdXVYY0Jwb1h3dExrUUZSMGpDcTY2?=
- =?utf-8?B?bmtBKzF0aVpLaHRWYTdpMGYyaEVwN0w0VkZqa3QzdiszL2FHNDZNYTVLVlI3?=
- =?utf-8?B?MnY3NTRJWlVtYzhCVTBzNTJOSFExSGR6YnJFc1pFcnQ2dGFldCtHUzNjLzlo?=
- =?utf-8?B?YjM4ekRPa0pkSUdNdmpFN0hoWUlDbFNBWUdDeEd4cE1BSGR3a3p3SlRTblBp?=
- =?utf-8?B?bUc5dUFZRnkyOVpQMzVKZGxxb2FJM2FjOFFWT05MOTVwY0VsQVMydEI0Q1RB?=
- =?utf-8?B?cWRDSzBwdUUwVkNCaURKNitQK1liaGc3MGFxbTd3Zm1xdTE5anpyMUV3bGFi?=
- =?utf-8?B?c1JnMGRZMmtjQm1VZCtpZnZLUFQ0QzJLTjVvaDUzdFFhaGNnU3d2K3Yxc1ov?=
- =?utf-8?B?dm5nV0tKMmQvbkplM3N2VXZlUjdLbkh1ZjVYV1YvM2NXeXJaQ244MjdJRHhl?=
- =?utf-8?B?K3hRMVZhMG5NZm1zbWlhTlVjVy94emJNR05VT2dqT2xwRjVqb0JLWlJ2VnFH?=
- =?utf-8?B?MUFtZWZDaTllVVpjM0pIcnlHcDBKZitFWFRKVWpHOStEbXEvclNYMFZLUHVs?=
- =?utf-8?B?S2h1b2o3ZTBRSGU3clA3VmR1V0wzdU5QUkFOdktNdmpZK3U4Z3owamZaSUNN?=
- =?utf-8?B?ZG1xSCsyTWhpWG9vR1lQazA0Vm9pZUlLeTdGYUZ1clo1MnJhdUdtM0xsckJr?=
- =?utf-8?B?bGZSa2plUGV6SGVNcDRtTks2N20xRVA5Z1NoMlROWnNjUE90SEs0NDhRRGR6?=
- =?utf-8?B?RzVZcW5nS21kWVhPZ0FIRngySHRaMmlTVzlrRTNGM0V3aitVTjJiZ2JpR3dD?=
- =?utf-8?B?WVdZTitpbDg1OHhmUWxycG1nbUM4bVdjTUdBMUZ6OUVlck5acG85R0ZxNk9R?=
- =?utf-8?B?VGRhcE1UMnF6NWVuWUF5VDI0VGpKOEU4M3JDM0xNUEVpaXVveTB6eW5DVU1E?=
- =?utf-8?B?SXdFL1ZpNEZVTmF6clpFTC8zelpLRU92NVpnVEx3dlVjUlZVQXVxWXdHQ3pX?=
- =?utf-8?B?cnVtN09GZUY5WnpLRUsxMFc5R1BPTWc3RjlkQmtCRWh0bW9MT1hxREkyTWVk?=
- =?utf-8?B?RlNUSndaZHBXNEQ1WnlxL2NCTVZBeVgwOEkrZk9KYUJLS3NKSXZDbFVGdFpK?=
- =?utf-8?Q?knpQ4LMMfRBZ1fZQBw?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56787703-5741-4c16-3a91-08df18e3a358
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:56:48.7632 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hq9mW4WTKwOslkHpgeHxBPnXMMOIE8ZW4CWKd4joe91wpVAexjB6H5ceMLTeOq/vKrvgTVp4rIpzh+I/35+hjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8942
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux@weissschuh.net" <linux@weissschuh.net>,
+ "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
+ <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+ <62d7da838e7042df8456e76190db792093065b57@intel.com>
+ <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
+ <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com>
+ <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:DJjjhzJDv8/qqyn2q0PQQ9fzXlULLkpabRwG4Kn6xVvc3cn4W3q
+ hmebeIApgD0nPHvWojpnL7UFoLBMPvZH9ZiOecw3l02nvRrbaumPLA1OvGcQ6HYytx7gWUj
+ DCQbHO7maI36AgrTuWNqOy9O1xPBGF8EMdN1c2eYkELsibI1tl1xTZ1+DNPSyxWxUBE9HUA
+ gf95mrxJ41oQmG5m1a4Og==
+UI-OutboundReport: notjunk:1;M01:P0:fy0f+RFzDeo=;9Ghb8np9aCDwxhlLmFb+4wWbpFS
+ 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
+ zrU+bcacErcutgVuQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,98 +192,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 15, 2026 at 11:57 AM BST, Laura Nao wrote:
-> From: Deborah Brouwer <deborah.brouwer@collabora.com>
->
-> Provide a safe Rust wrapper for arch_timer_get_rate().
->
-> The Rust binding calls a C helper that returns 0 when the ARM
-> architectural timer is not available or not yet initialized. Map this to
-> Option<u32> to make the absence of a valid rate explicit to Rust callers.
->
-> This allows Rust drivers to query the system timer frequency and
-> select appropriate time sources when programming hardware timeouts.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
-> ---
->  rust/helpers/time.c |  6 ++++++
->  rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++++
->  2 files changed, 36 insertions(+)
->
-> diff --git a/rust/helpers/time.c b/rust/helpers/time.c
-> index 32f495970493..70fda31bd758 100644
-> --- a/rust/helpers/time.c
-> +++ b/rust/helpers/time.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
-> =20
-> +#include <clocksource/arm_arch_timer.h>
+Am 18.09.26 um 15:03 schrieb Alex Deucher:
 
-The header is from arm_arch_timer. I wonder if we want this to be exported =
-from
-somewhere like kernel::arch::arm::time?
+> On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.i=
+ntel.com> wrote:
+>> On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
+>>> Hi,
+>>>
+>>> On 16-Sep-26 09:16, Jani Nikula wrote:
+>>>> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+>>>>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
+>>>>>
+>>>>>> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.=
+com> wrote:
+>>>>>>> GPU people heads up!!
+>>>>>>>
+>>>>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>>>>>>>
+>>>>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>>>>> index 12e4a41bf1f0..50305630f533 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>>>>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>>>>>>>>>>          # ACPI_VIDEO's dependencies must also be selected.
+>>>>>>>>>>          select INPUT if ACPI
+>>>>>>>>>>          select ACPI_VIDEO if ACPI
+>>>>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>>>>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
+>>>>>>>>> The change below makes sense, but this one looks like it should =
+remain
+>>>>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
+>>>>>>>>>
+>>>>>>>>> Alex
+>>>>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary b=
+ecause
+>>>>>>>> ACPI-WMI depended on it in the past.
+>>>>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 an=
+ymore.
+>>>>>>> Hi all,
+>>>>>>>
+>>>>>>> Could more GPU people besides Alex take a look on this. I'd want t=
+o make
+>>>>>>> progress with this series within this cycle but would prefer to ha=
+ve Acks
+>>>>>>> from GPU side.
+>>>>>> I share the same concern with Alex. It seems to me we could now end=
+ up
+>>>>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
+>>>>>> e.g. backlight on a lot of platforms.
+>>>>>>
+>>>>>> I think the safer option might be to go for:
+>>>>>>
+>>>>>>     depends on X86_PLATFORM_DEVICES || !X86
+>>>>>>
+>>>>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in d=
+rm.
+>>>>>>
+>>>>>> The alternative is to find out, and handle the fallout, if any.
+>>>>>>
+>>>>>>
+>>>>>> BR,
+>>>>>> Jani.
+>>>>> Alright, should i leave the original "select X86_PLATFORM_DEVICES if=
+ ..." statements
+>>>>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES |=
+| !X86" everywhere?
+>>>> There are some places that depends on X86_PLATFORM_DEVICES. I think i=
+t's
+>>>> almost always a mistake to have some places select and some places
+>>>> depends on, and select should anyway be used with care. I'd go for
+>>>> depends on.
+>>> I'm a bit late to the party here, sorry.
+>>>
+>>> Note that X86_PLATFORM_DEVICES is an option which enables / disables
+>>> a menu and does nothing more.
+>>>
+>>> Enabling it or depending on it by itself does nothing.
+>>>
+>>> The select used to be there since it must be selected to be able
+>>> to select ACPI_WMI (which is no longer the case after this series).
+>>>
+>>> To depends on in XE was probably copy pasted from the existing
+>>> select-s and then changed to a depends and already was a completely
+>>> no-op since depending on ACPI_WMI was enough as that itself
+>>> dependend on ACPI_WMI.
+>>>
+>>> As for X86_PLATFORM_DEVICES being needed for some backlight
+>>> interfaces, depending on it by itself does not result in those
+>>> interfaces being there. That requires enabling the actual drivers
+>>> providing those interfaces.
+>>>
+>>> And I don't think that the GPU drivers should start depending
+>>> on those since that will become very unyielding.
+>>>
+>>> TL;DR: I believe Armin's original patch is fine and this is
+>>> a welcome cleanup / simplification of the DRM drivers Kconfig
+>>> bits.
+>> Your explanation makes sense, thanks.
+> Yeah, sounds good.  Thanks!
+>
+> Alex
 
-Best,
-Gary
+Nice, i suppose we can apply this series as-is then?
 
->  #include <linux/delay.h>
->  #include <linux/ktime.h>
->  #include <linux/timekeeping.h>
-> @@ -38,3 +39,8 @@ __rust_helper void rust_helper_udelay(unsigned long use=
-c)
->  {
->  	udelay(usec);
->  }
-> +
-> +__rust_helper u32 rust_helper_arch_timer_get_rate(void)
-> +{
-> +	return arch_timer_get_rate();
-> +}
-> diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-> index 6c0a5e8090d0..6c48ce21984a 100644
-> --- a/rust/kernel/time.rs
-> +++ b/rust/kernel/time.rs
-> @@ -423,6 +423,36 @@ fn div(self, rhs: Self) -> Self::Output {
->      }
->  }
-> =20
-> +/// Returns the ARM architecture timer frequency in Hz, if available.
-> +///
-> +/// This function queries the system-wide ARM architecture timer frequen=
-cy.
-> +/// The architecture timer provides a consistent time source across all =
-CPU cores.
-> +///
-> +/// Returns `None` if:
-> +/// - The ARM architecture timer is not available (`CONFIG_ARM_ARCH_TIME=
-R` not enabled)
-> +/// - The timer rate is zero (not initialized)
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// use kernel::time::arch_timer_get_rate;
-> +///
-> +/// if let Some(rate) =3D arch_timer_get_rate() {
-> +///     // Use `rate`.
-> +/// }
-> +/// ```
-> +pub fn arch_timer_get_rate() -> Option<u32> {
-> +    // SAFETY: The C helper is available in all configs; it calls
-> +    // `arch_timer_get_rate()`, which falls back to an inline stub retur=
-ning 0
-> +    // when CONFIG_ARM_ARCH_TIMER is disabled.
-> +    let rate =3D unsafe { bindings::arch_timer_get_rate() };
-> +    if rate =3D=3D 0 {
-> +        None
-> +    } else {
-> +        Some(rate)
-> +    }
-> +}
-> +
->  impl Delta {
->      /// A span of time equal to zero.
->      pub const ZERO: Self =3D Self { value: 0 };
+Thanks,
+Armin Wolf
 
-
+>> BR,
+>> Jani.
+>>
+>>
+>> --
+>> Jani Nikula, Intel
