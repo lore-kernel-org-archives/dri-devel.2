@@ -4,95 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B83B3C98306
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:50:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1230FC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:50:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22A2D10EBFB;
-	Tue, 22 Sep 2026 08:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD5510E42C;
+	Tue, 22 Sep 2026 08:50:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fXluHjNR";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="YJp1MjoR";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7205D10E42C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790067011;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=E6yt8HPyksGEz/v/VIt69U9kjpWwNRnopqqhP0gILys=;
- b=fXluHjNRomIj1L+9GYrmIojPQ2/M0UIiyUgc5B4zEKVwgvAxhXRjlZqGfMUYfJMGtc8RsI
- wwJByFqA7yijX05mIB5f0PK4PtVgqb5G4pMxM8nIZujLm5pzaM5X/6yALt7wPzFLuP5Zys
- czuxPho052XBgTJUqqIO2sRm/F4CZ9c=
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-367-WFONz-O9MD6dzfCzE5P0TQ-1; Tue, 22 Sep 2026 04:50:10 -0400
-X-MC-Unique: WFONz-O9MD6dzfCzE5P0TQ-1
-X-Mimecast-MFC-AGG-ID: WFONz-O9MD6dzfCzE5P0TQ_1790067009
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2dd188e16a2so43404025ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:50:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790067009; x=1790671809;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=E6yt8HPyksGEz/v/VIt69U9kjpWwNRnopqqhP0gILys=;
- b=K4IecvhvMT2+UnmJs/l9tMB8EEceU6OECvOVa6h2XRmWnI/ylmeCbdgGZfiqZ2yNkD
- lFy+TqSCk7feRcDYyPcFVCDB923+GBPnP5EmOV1fqg0qdwnBOi6NMn0Nwjvc7pQlFwHh
- vzS5uOBWn8hs+IwnoONTlvIfH2ehhXWz8rwt23U+KX0cwozvyoixejj/WelF1t2yykGj
- ormQXVcK+TGJTcojZBY3NrzbC+QCKtex2IC3fm+yDClTam0MtD+7LvjMbxC0foCvrhUk
- jhPxssBR8wfEt0zuWA1/AelljbTr3CFwBEtJ6AGAOSrjrtaoksK4rsyXIjzt+uz0ZRH7
- Igwg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy8fsJbDSXtWnryu1SQnbAR0EVbnrB3BPCmDW4YMQkSufg8YOAAVDSePERerUV8ag+OzuA6s7xAZdw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m3DDUzQwpVqGD9skw3MFJOTzL14yn64k/+l4b9ZDmEZw/AU2pb
- 4v/n73fC5pWqG+ZUETVzLPdK8W4WRdbHQdJB4i0YCwh47aKQ5i9Va4KQQvNIMf8BjaxWGF+Czo2
- 7IWpQpP1NEnQHQ5/OY09L76xv/xQCEv8lHHOhrv/9DkHSuyDZnF3M8/uSs2kFsOVc7Kx3RZUAti
- s+IhA5YWVIXSD6enFzCCGiUDb8e13UYVonnFXRHgQ3Ga7g
-X-Gm-Gg: AYBFou0bdInNKErQH3g1z1dIRevADcWyQmu1Nn3myzKwxUcol2TJRSZla5Pl0wJzkd4
- sC50FOfc2YOCF4E5GtPUYeT8A82+iEwyFOcW/CYHZLQPXJkubj0mIcKLMFW5h6dMTppBZ1eoULY
- hBl+6PMfPp6jD6NMi3Tmi56OWqwwjQtGzt9T21k5FEWxq8Nxqp8lkewoOd
-X-Received: by 2002:a17:902:d4d1:b0:2dd:3ddf:b876 with SMTP id
- d9443c01a7336-2df6087db56mr5516365ad.0.1790067009048; 
- Tue, 22 Sep 2026 01:50:09 -0700 (PDT)
-X-Received: by 2002:a17:902:d4d1:b0:2dd:3ddf:b876 with SMTP id
- d9443c01a7336-2df6087db56mr5516135ad.0.1790067008659; Tue, 22 Sep 2026
- 01:50:08 -0700 (PDT)
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch
+ [185.70.43.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 187A110E42C
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:50:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail2; t=1790067040; x=1790326240;
+ bh=E9NNd/hqIo8h2Ae3BVu7MmGQh7O49JFHokGLTTnK7vI=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=YJp1MjoRNPPRgAwoDey61j7Tk7iOXvFdgrIAqisfsLJlSfdQ3M73MN0hiSPliLZLl
+ x97UT5usS4+82v2KvPvPVoRV/Z/ppuv7r4Xpi2Ywg99v6A8l2ayTfvH9+ApmJroxmW
+ r57QVUc6643QnFWNuuR/LOb5fzXn8rMQmU23e5ezTa0h3gT9QRdRspMwLHo0/VA0Yq
+ S/wzC/ccTpR2Nmlz4ZlFHGBeRERW1bpRT0LjZW0LJ1qjCnn1btuX4WEnp+U5Df7dZP
+ 6/ZIZ3WVP4ezTFrOfg2qFagqa96iYHv06bA6WFS91QyAkYHSzWNW0mcMaDmp2k3E5j
+ y6kuB/ePWcLoA==
+X-Pm-Submission-Id: 4hpv235Vj3z2ScdY
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH] rust: DmaFence: Remove static lifetime
+Date: Tue, 22 Sep 2026 11:50:32 +0300
+Message-ID: <20260922085033.57008-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260922083631.444614-2-phasta@kernel.org>
+References: <20260922083631.444614-2-phasta@kernel.org>
 MIME-Version: 1.0
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
-In-Reply-To: <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Tue, 22 Sep 2026 10:49:55 +0200
-X-Gm-Features: AcwNN1WukuNNSk2ai1J1udE9KGrF1By_6QZnzs1WKDgfz3h81hw6hXJu7g_SbpQ
-Message-ID: <CAFOAJEdFPrwHZV5y1E_u_Wd6oE_viPsPztxYW6PRZHJ-zdPFMQ@mail.gmail.com>
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>, 
- David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>, 
- Mario Limonciello <superm1@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: nBmEadUrCswuc49Cj8cclyiF1f6c2y1WcuBJRZw9KZQ_1790067009
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,76 +68,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 10:24=E2=80=AFAM Thomas Zimmermann <tzimmermann@sus=
-e.de> wrote:
->
-> Hi Mario
->
-> Am 08.09.26 um 06:40 schrieb Mario Limonciello:
-> > So far backlights have only been controlled via sysfs. However, sysfs i=
-s
-> > not a proper user-space API for runtime modifications, and never was
-> > intended to provide such. The DRM drivers are now prepared to provide
-> > such a backlight link so user-space can control backlight via DRM
-> > connector properties. This allows us to employ the same access-manageme=
-nt
-> > we use for mode-setting.
-> >
-> > This patch adds a few kernel-internal backlight helpers so we can modif=
-y
-> > backlights from within DRM, a brightness-changed notification, and a
-> > per-device takeover count so that legacy sysfs writes can be inhibited
-> > (-EBUSY) while a luminance-aware DRM client is in control.
-> >
-> > Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
-> >
-
-[...]
-
-> > @@ -150,6 +153,13 @@ static ssize_t bl_power_store(struct device *dev, =
-struct device_attribute *attr,
-> >       struct backlight_device *bd =3D to_backlight_device(dev);
-> >       unsigned long power, old_power;
-> >
-> > +     /* A luminance-aware DRM client has taken over this backlight; th=
-e
-> > +      * legacy sysfs interface is disabled until the last such client
-> > +      * goes away.
-> > +      */
-> > +     if (atomic_read(&bd->drm_takeover) > 0)
-> > +             return -EBUSY;
-> > +
-> >       rc =3D kstrtoul(buf, 0, &power);
-> >       if (rc)
-> >               return rc;
-> > @@ -214,6 +224,13 @@ static ssize_t brightness_store(struct device *dev=
-,
-> >       struct backlight_device *bd =3D to_backlight_device(dev);
-> >       unsigned long brightness;
-> >
-> > +     /* A luminance-aware DRM client has taken over this backlight; th=
-e
-> > +      * legacy sysfs interface is disabled until the last such client
-> > +      * goes away.
-> > +      */
-> > +     if (atomic_read(&bd->drm_takeover) > 0)
-> > +             return -EBUSY;
->
-> Can you really do that?  AFAIU sysfs is now a de-facto uapi for backlight=
-s.
-
-And regardless if this can be done or not, I belive that would be
-better if this is something that drivers decide to do and just return
--EBUSY from their struct backlight_ops..update_status.
-
-Ideally the sysfs interface should continue to be work as Thomas said
-and a write could trigger a mode set for example, but I don't know if
-that is feasible to do due locking.
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+On Tue, 22 Sep 2026 10:36:32 +0200=0D
+Philipp Stanner <phasta@kernel.org> wrote:=0D
+=0D
+> A FenceCallbackRegistration can stem from another party than the one=0D
+> that has created a Fence. Should that party forget the registration=0D
+> object (for example through a refcount cycle) and then unload the=0D
+> module, a fence signaling would run into the unloaded module, causing=0D
+> UAF bugs.=0D
+> =0D
+> So far, this has been solved by demanding that the payload data of the=0D
+> registration object demanding static lifetime.=0D
+> =0D
+> It turns out, however, that this is harmful because the static lifetime=0D
+> bubbles up to all users, ultimately potentially causing a large amount=0D
+> of driver data to be static, which renders the lifetime obsolete.=0D
+> =0D
+> Solve this issue instead through an unsafe requirement which demands=0D
+> that the user does not forget the registration object. This is also the=0D
+> solution chosen by ScopedWork.=0D
+=0D
+Makes sense.=0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+=0D
+> =0D
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
+> ---=0D
+>  rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----=0D
+>  1 file changed, 12 insertions(+), 4 deletions(-)=0D
+> =0D
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs=0D
+> index 18a43e1bb442..c3fa68c4df86 100644=0D
+> --- a/rust/kernel/dma_buf/dma_fence.rs=0D
+> +++ b/rust/kernel/dma_buf/dma_fence.rs=0D
+> @@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {=0D
+>  ///     }=0D
+>  /// }=0D
+>  /// ```=0D
+> -pub trait FenceCallback: Send + 'static {=0D
+> +pub trait FenceCallback: Send {=0D
+>      /// Called when the fence is signaled.=0D
+>      ///=0D
+>      /// This is called from the fence signaling path, which may be in in=
+terrupt=0D
+> @@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {=0D
+>  /// When this object is dropped, the callback is automatically removed i=
+f it=0D
+>  /// hasn't been called yet.=0D
+>  #[pin_data(PinnedDrop)]=0D
+> -pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {=0D
+> +pub struct FenceCallbackRegistration<T: FenceCallback> {=0D
+>      #[pin]=0D
+>      callback_foreign: Opaque<bindings::dma_fence_cb>,=0D
+>      callback: ManuallyDrop<T>,=0D
+> @@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> =
+{=0D
+>      /// On success the callback is pinned in place and will fire when th=
+e fence=0D
+>      /// signals. On `AlreadySignaled` the callback is returned to the ca=
+ller so=0D
+>      /// that owned resources can be reclaimed.=0D
+> -    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
+CallbackError<T>> + 'a=0D
+> +    ///=0D
+> +    /// # Safety=0D
+> +    ///=0D
+> +    /// `callback` must not be forgotten.=0D
+> +    pub unsafe fn new<'a>(=0D
+> +        fence: &'a Fence,=0D
+> +        callback: T,=0D
+> +    ) -> impl PinInit<Self, CallbackError<T>> + 'a=0D
+>      where=0D
+>          T: 'a,=0D
+>      {=0D
+> @@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
+extOps> {=0D
+>  ///=0D
+>  /// let cb_data =3D CallbackData { };=0D
+>  /// let waiting_fence =3D ARef::from(fence.as_fence());=0D
+> -/// let cb_reg =3D FenceCallbackRegistration::new(&waiting_fence, cb_dat=
+a);=0D
+> +/// // SAFETY: `cb_data`'s content is not forgotten.=0D
+> +/// let cb_reg =3D unsafe { FenceCallbackRegistration::new(&waiting_fenc=
+e, cb_data) };=0D
+>  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;=0D
+>  ///=0D
+>  /// // TODO signalling guards=0D
+> -- =0D
+> 2.55.0=0D
+> =0D
