@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340D8C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1935EC98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9A910E00C;
-	Tue, 22 Sep 2026 21:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF8910EE81;
+	Tue, 22 Sep 2026 21:14:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OkuXBMos";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nBIH9SaQ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F67E10E00C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:12:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6E7110EE81
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:14:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DC4D601F1;
- Tue, 22 Sep 2026 21:12:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039B51F00893;
- Tue, 22 Sep 2026 21:12:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 08171600D4;
+ Tue, 22 Sep 2026 21:14:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB381F000FF;
+ Tue, 22 Sep 2026 21:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790111565;
- bh=WlFXFjbTLcZpTmWgFz3WDFRUYuOSY94hjkqsKSon8qc=;
+ s=k20260515; t=1790111670;
+ bh=qSWI5o7r4QNxL9k/y1jrIX7uqaymnVef0J/nkEozhI4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OkuXBMospK6Vy7zLn30pG1151C2z8mdxVAgnTjCH03V6wq/eewotEW83bVFP7NGIY
- VWhq80eH9+oV+ageHCYcAtEjurva4foOfEqI4HkYTJX9YeUT/0CiinHGPzfq92sD7K
- aOga5Emc6qrn4nz7Jk5SkCZuDMt3m3Hum7QZ25vk0Gfvgo0dJZadZ1VS9sAPCgvf72
- pD8sKXaVsGiAqsbpWYTnxKewshpdOq9eenBLgjO/lj6Do3jOXfek6r5N0MM1GQB09F
- DRIOke9OoQarPgq88vWi9Utq4Nl5RqAcuqgj4J85rAbAN5egB/a6balvsQheEqZBmR
- 43nvRT2cWkSLA==
+ b=nBIH9SaQ7UaZC4E5sEguPhDTmJjxUQ/fHSchRH6OA17xlHoBJAHA+5/U098/snthK
+ 8P2/KhOeoOVJS1jJT4olbaBGvPAxLxjTPJ4S1nTSvc7J04D3bGftpl4Tq7tFxPUBa3
+ MJpEC4msEHBPK3VO5bVcU8fymNpdzSHTIB+fJt6CfRISF3lGBTKQZOp9N6kw2YVQ3E
+ OxkjdAM0vvH0IuiBJYqOt5vIAVodIyvpSfsIjhVFnue8SvnGjzHWhtFV53eLmW3nze
+ kwzEqG1iogUcRixa7ZxtLyO4LpIri/JnZiG8doC6FuP6eZCczw2mqhKAc48OSWz54T
+ w5yS86xqnNyCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 26/27] drm/panthor: Prevent missed post-yield cleanup
- due to reset
+Subject: Re: [PATCH v1 25/27] drm/panthor: Tolerate access-window loss
+ during HW waits
 To: "Karunika Choo" <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-27-karunika.choo@arm.com>
+In-Reply-To: <20260922204535.2850094-26-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-27-karunika.choo@arm.com>
+ <20260922204535.2850094-26-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 21:12:44 +0000
-Message-Id: <20260922211245.039B51F00893@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 21:14:30 +0000
+Message-Id: <20260922211430.9FB381F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +60,198 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm: scheduler deadlock on reset due to missed post-reset hooks
-- [High] drm: failed reset bypasses device unplug due to AW state transition
-- [High] drm: TOCTOU race in reset causes invalid MMIO access
+- [High] panthor: false success returned when hardware waits are interrupte=
+d by AW loss
+- [High] panthor: firmware events dropped or IRQ livelock on AW loss
+- [High] panthor: threads block for full timeout duration on AW loss due to=
+ missing wakeups
 --
 
-commit c5cc732c23a490baff27bd3657a378e7ad65a4e4
+commit 4e7abd3f16aae357d6bd8c91a0c0d4c8218b1fcc
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Prevent missed post-yield cleanup due to reset
+drm/panthor: Tolerate access-window loss during HW waits
 
-With v15 GPUs, FW can yield GPU access at any point. This commit introduces
-pre_reset and post_reset helpers for panthor_aw which marks a granted AW as
-reset-active, aiming to prevent a race condition between reset and FW yield
-from suppressing post-yield cleanup.
+The patch handles access window (AW) loss during hardware waits to prevent
+false hardware timeouts or recoveries. It uses panthor_aw_has_gpu_access
+to suppress timeout handling once access is revoked.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_aw.c b/drivers/gpu/drm/panth=
-or/panthor_aw.c
-> index 9ebb23eadfec5..7ef13db4acf50 100644
-> --- a/drivers/gpu/drm/panthor/panthor_aw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_aw.c
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
+or/panthor_fw.c
+> index 1449d9a66302e..b4c234f3d3ea4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1140,9 +1140,10 @@ static int panthor_fw_start(struct panthor_device =
+*ptdev)
+>  	gpu_write(fw->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+> =20
+>  	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
+> -				ptdev->fw->booted,
+> +				(ptdev->fw->booted ||
+> +				 !panthor_aw_has_gpu_access(ptdev)),
+>  				msecs_to_jiffies(1000))) {
+> -		if (!ptdev->fw->booted &&
+> +		if (!ptdev->fw->booted && panthor_aw_has_gpu_access(ptdev) &&
+>  		    !(gpu_read(fw->irq.iomem, INT_STAT) & JOB_INT_GLOBAL_IF))
+>  			timedout =3D true;
+>  	}
+
+[Severity: High]
+Does this code silently fail to boot but return success? If the AW is lost
+during the wait, panthor_aw_has_gpu_access() returns false, preventing
+timedout from being set to true. As a result, panthor_fw_start() returns
+success even though the firmware is not actually booted.
+
+Additionally, because there is no wakeup mechanism triggered upon AW loss,
+will this thread stall in wait_event_timeout() for the full 1000ms duration
+when AW access is revoked?
+
 [ ... ]
-> @@ -579,5 +588,36 @@ bool panthor_aw_has_gpu_access(struct panthor_device=
- *ptdev)
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
+hor/panthor_gpu.c
+> index e6e970e9b59d3..25fe7c77f8763 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -376,7 +377,8 @@ int panthor_gpu_flush_caches(struct panthor_device *p=
+tdev,
+>  				msecs_to_jiffies(100))) {
+>  		scoped_guard(spinlock, &ptdev->gpu->reqs_lock) {
+>  			if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) !=3D =
+0 &&
+> -			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_CO=
+MPLETED))
+> +			    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) &
+> +			      GPU_IRQ_CLEAN_CACHES_COMPLETED) && panthor_aw_has_gpu_access(pt=
+dev))
+>  				ret =3D -ETIMEDOUT;
+>  			else
+>  				ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+
+[Severity: High]
+Can this deceive callers into assuming caches were successfully flushed?
+If AW is lost, the timeout error is suppressed and the pending request flag
+is cleared, causing panthor_gpu_flush_caches() to return 0. This could cause
+divergence if callers proceed assuming the flush completed in the hardware.
+
+Also, wait_event_timeout() lacks an AW check in the condition and has no
+associated wakeup on AW loss, which will cause a 100ms stall.
+
 [ ... ]
-> +void panthor_aw_pre_reset(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_aw *aw =3D ptdev->aw;
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/pant=
+hor/panthor_pwr.c
+> index cc2e01595f23b..2a0feb0b39ece 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -122,7 +123,8 @@ static int panthor_pwr_reset(struct panthor_device *p=
+tdev, u32 reset_cmd)
+>  				msecs_to_jiffies(PWR_RESET_TIMEOUT_MS))) {
+>  		guard(spinlock_irqsave)(&ptdev->pwr->reqs_lock);
+> =20
+> -		if (reset_pending(ptdev) && !reset_irq_raised(ptdev)) {
+> +		if (reset_pending(ptdev) && !reset_irq_raised(ptdev) &&
+> +		    panthor_aw_has_gpu_access(ptdev)) {
+>  			drm_err(&ptdev->base, "RESET timed out (0x%x)", reset_cmd);
+>  			return -ETIMEDOUT;
+>  		}
+
+[Severity: High]
+Is the thread blocked for the full PWR_RESET_TIMEOUT_MS when AW is lost?
+The wait_event_timeout() lacks an AW check in its condition, and without a
+corresponding wakeup mechanism for AW loss, it appears this will stall
+the thread unnecessarily in panthor_pwr_reset().
+
+[ ... ]
+
+> @@ -266,9 +268,14 @@ static int panthor_pwr_domain_transition(struct pant=
+hor_device *ptdev, u32 cmd,
+> =20
+>  	panthor_pwr_write_command(ptdev, pwr_cmd, mask);
+> =20
+> -	ret =3D gpu_read64_poll_timeout(pwr->iomem, ready_reg, val, (mask & val=
+) =3D=3D expected_val,
+> +	ret =3D gpu_read64_poll_timeout(pwr->iomem, ready_reg, val,
+> +				      ((mask & val) =3D=3D expected_val ||
+> +				       !panthor_aw_has_gpu_access(ptdev)),
+>  				      100, timeout_us);
+>  	if (ret) {
+> +		if (!panthor_aw_has_gpu_access(ptdev))
+> +			return 0;
 > +
-> +	if (!aw)
-> +		return;
-> +
-> +	panthor_aw_state_try_set(ptdev->aw, PANTHOR_AW_STATE_GPU_GRANTED,
-> +				 PANTHOR_AW_STATE_RESET_ACTIVE);
-> +}
-> +
-> +void panthor_aw_post_reset(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_aw *aw =3D ptdev->aw;
-> +
-> +	if (!aw)
-> +		return;
-> +
-> +	panthor_aw_state_try_set(aw, PANTHOR_AW_STATE_RESET_ACTIVE,
-> +				 PANTHOR_AW_STATE_GPU_GRANTED);
-> +
-> +	if (!panthor_aw_is_open(aw))
-> +		panthor_aw_schedule_post_yield_work(aw);
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> index ea35c5e1d87b4..86eb4e9a61789 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -138,18 +138,27 @@ static void panthor_device_reset_work(struct work_s=
-truct *work)
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return;
+
+[Severity: High]
+Does returning success here break the power domain transition sequence?
+If the AW arbiter revokes access before the transition finishes, this will
+return 0 even though the hardware power domain transition failed to complet=
+e.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
+nthor/panthor_sched.c
+> index 60b2417deb81b..e13553ec97ec9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -1886,6 +1886,9 @@ void panthor_sched_report_fw_events(struct panthor_=
+device *ptdev, u32 events)
+> =20
+>  	guard(spinlock)(&ptdev->scheduler->events_lock);
 > =20
 > +	if (!panthor_aw_has_gpu_access(ptdev))
-> +		goto out_clear_pending;
+> +		return;
+> +
 
 [Severity: High]
-If a GPU reset is scheduled (e.g., due to a job timeout), and just before
-panthor_device_reset_work() runs, the firmware yields the GPU, this check
-returns false and causes a jump to out_clear_pending.
+Could this early return cause an IRQ livelock or dropped firmware events?
 
-Since out_clear_pending clears the reset.pending flag but skips calling
-panthor_sched_post_reset(), does this leave the scheduler's tick work and
-firmware watchdog permanently deadlocked, causing all jobs to hang forever
-without recovery?
+If a hardware interrupt occurs and panthor_job_irq_handler() successfully
+clears the interrupt from the hardware, but then AW access is lost, this
+returns early. The cleared events would be permanently dropped.
 
-Additionally, does this introduce a Time-Of-Check to Time-Of-Use (TOCTOU)
-race condition?
+If AW access is lost before the hardware is cleared in the IRQ handler,
+the interrupt remains asserted but this function ignores it, which may cause
+the threaded IRQ handler to enter an infinite loop.
 
-If an IRQ fires after panthor_aw_has_gpu_access(ptdev) is checked but before
-panthor_aw_pre_reset(ptdev) is called, changing the state to STOPPED_IDLE,
-panthor_aw_pre_reset() will silently fail to update the state since it
-ignores the return value of panthor_aw_state_try_set().
+[ ... ]
 
-Will this allow the reset sequence to continue against unpowered MMIO,
-leading to bus faults because GPU access has been revoked?
-
-> +
->  	panthor_sched_pre_reset(ptdev);
-> +	panthor_aw_pre_reset(ptdev);
->  	panthor_fw_pre_reset(ptdev, true);
->  	panthor_mmu_pre_reset(ptdev);
-> +
->  	panthor_hw_soft_reset(ptdev);
-> +
->  	panthor_hw_l2_power_on(ptdev);
->  	panthor_mmu_post_reset(ptdev);
->  	ret =3D panthor_fw_post_reset(ptdev);
-> -	atomic_set(&ptdev->reset.pending, 0);
-> +	panthor_aw_post_reset(ptdev);
->  	panthor_sched_post_reset(ptdev, ret !=3D 0);
-> +
-> +out_clear_pending:
-> +	atomic_set(&ptdev->reset.pending, 0);
->  	drm_dev_exit(cookie);
+> @@ -2059,6 +2062,8 @@ static int csgs_upd_ctx_apply_locked(struct panthor=
+_device *ptdev,
+>  		csg_iface =3D panthor_fw_get_csg_iface(ptdev, csg_id);
 > =20
-> -	if (ret) {
-> +	if (ret && panthor_aw_has_gpu_access(ptdev)) {
+>  		ret =3D panthor_fw_csg_wait_acks(ptdev, csg_id, req_mask, &acked, 100);
+> +		if (ret && !panthor_aw_has_gpu_access(ptdev))
+> +			ret =3D 0;
+> =20
 
 [Severity: High]
-If the MCU fails to boot during reset, panthor_fw_post_reset() will return =
-an
-error. Then panthor_aw_post_reset() executes and, seeing the window is not
-open, calls panthor_aw_schedule_post_yield_work() which transitions the AW
-state to PANTHOR_AW_STATE_GPU_STOPPED.
+Does this override the timeout error with success, causing the scheduler to
+erroneously assume the firmware processed the CSG state change?
 
-Since the state is now GPU_STOPPED, panthor_aw_has_gpu_access() will evalua=
-te
-to false. Will this completely bypass the device unplug operation, leaving a
-broken device registered and accessible?
+Also, panthor_fw_csg_wait_acks() relies on panthor_fw_wait_acks() which uses
+wait_event_timeout(). Since this is called in a loop while holding the
+scheduler lock, will the lack of AW wakeups cause compounded delays
+(N * 100ms) that block the entire scheduler?
 
->  		panthor_device_unplug(ptdev);
->  		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device u=
-nusable.");
->  	}
+[ ... ]
+
+Regarding panthor_job_irq_handler() in drivers/gpu/drm/panthor/panthor_fw.c:
+
+static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
+{
+    ...
+	if (!ptdev->fw->booted && (status & JOB_INT_GLOBAL_IF))
+		ptdev->fw->booted =3D true;
+    ...
+}
+
+[Severity: Medium]
+This is a pre-existing issue, but does this logic spuriously set the firmwa=
+re
+state to booted on an AW loss? When AW access is lost, the MMIO read for the
+interrupt status will return 0xFFFFFFFF, which has JOB_INT_GLOBAL_IF set.
+This would incorrectly flag the firmware as booted during early execution.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D26
+094-1-karunika.choo@arm.com?part=3D25
