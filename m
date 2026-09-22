@@ -4,85 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13567C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C4BC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487E210E06E;
-	Wed, 23 Sep 2026 07:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1E910E828;
+	Wed, 23 Sep 2026 07:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="C/1PHKYu";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SBP5DIfa";
 	dkim-atps=neutral
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com
- [74.125.229.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E5010E976
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:01:32 +0000 (UTC)
-Received: by mail-dl2-f43.google.com with SMTP id
- a92af1059eb24-14373bcc010so269181c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 13:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790107291; x=1790712091;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7z70TQXn4poqOPaKrCAHTGIhbFu9qXKNqmozdXBkBPA=;
- b=C/1PHKYuYru5K5nv7I1y/xrCNrZU3r0fspIQk/wrvJshDjk4vZIw0GFQCpBKToBr1b
- Ft2rzXkaQUR2i7UbGyT/7NYlQTgzlbPKAWrwOqMol8CzBDWgGHWPiyH9Pw+VayZSJh8H
- /GFDgac0AxHXCUHRL5Ww/S/ayF7ECUfkirtAEZ+QqPZDNr3dHcgg38wrEO4ktH6pckTu
- rnVJd9LJMjzA/M9PNRB8DR0BtahjO72j/aaw8KD7Nh8WiF2ZrgkDorOO+ZO+yQsCuJmx
- 2u3ZZtrfBknUah6JefiLUAbkcnmMVSXe4Ab+5OZaTgl7Yah+G8bEab1fj7gtPCGX3WuD
- hMkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790107291; x=1790712091;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7z70TQXn4poqOPaKrCAHTGIhbFu9qXKNqmozdXBkBPA=;
- b=ZK1FVofOVYgtxiIFjlgWSDgqs12+/tLjH1zT9ZFf4yrTVDGxxmW55Q0yVfHFGveoxJ
- GTw/QVRDBy4h4BS34gQ2zszm6fuEMTo1wtdO2yJ8mWEh9kfLiW7o19FzPsW8Wrmn4stH
- atJiCGvdeS02bPAw767Ov4x0ZJcAjjG1mNp4ZqKGwJwIyZDehpUCoZ4a6/ANzn9+8EuL
- bM1kPUu9oNIE0OlXOQzvApg7DhpGHAAYQxTNOrkHNhyCXIDyHNRLqtmgmJRGeUZqKDoD
- XKBltNoL9k7hhLMgsrqLc12HV0Pq3dyPIwidzzJ1qq5xny25BGwo3jfIIPpUCK+WqA6S
- AWtQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwf+ZvwrHl4AoI6TWDtVcECj8DZGHNO6fl7A9ZUWBb6kydBcN8HCdXc2hfiZReYLR1QMYTgSmjKvxQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kSkdrfVgc22txrYBu4p9UKWgGynJ5ZRRLutm0F8xQaB/ZTp35/
- xrF7+kb/uu5wrkI1/ZzxSt23LT/BBGhSBdJKiDB36ZM4A+zAQvcO9+ZLpakcwvL4nzA=
-X-Gm-Gg: AYBFou0lAz6v29EhZC8qrLDaEYPz5NraSzzsS+CwltnEzXmprRag7QD0WaFO0jb/nni
- 5VbORPJrLkudtXelrz6rrq6ro6ZwI0q0euxwj3UNZbvfVozcXaQZIAiixXVvi2zUyrPsl9jDYcc
- c4rdrO6C7eXqgy7ofHQwezjEnhtyd3b5tYOZdRIWVRpAiNK+8a0Dg0Y+NwZ75/ChmjiCyVpLvDw
- 981lqEKQ8WwGUIcWnVIg6odVVPvx/jgb2YnAGZj1bacVnS33MoAFfcBYjl1bGjoadFbnsanOQDC
- n+0OPMGPiG1Fqg0lHbnciG96sFSOHqq+DqmizexdbJAB/YtMvSw+k7n7yyZ3lpczYWFBur3DMFb
- 880u/hW44ZtPNoKn/gmH/3q6bt+lXLMom7vJLnYN6wtiqvOkvmWUD228/CDkZUtH3qfRoyzsT8Z
- ulEhuyJ1FNJcqCGXGimZHoAUe/6j68sqyScj6O+qY3pOzZrRAN8yV8+IEToUzzJI79U4HAJMF4f
- SUrW+VqqozJtluRPEE8EZhDUIeLMLmBOg3LqnpK4Di74PheMCy77vlaBv1ggldIiQIcGVg=
-X-Received: by 2002:a05:701b:4247:20b0:143:297c:82e1 with SMTP id
- a92af1059eb24-144f931bbf3mr446013c88.33.1790107291150; 
- Tue, 22 Sep 2026 13:01:31 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144f982089fsm602138c88.5.2026.09.22.13.01.29
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 22 Sep 2026 13:01:30 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Johan Hovold <johan+linaro@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>
-Subject: [PATCH 6.1.y] drm/msm/dp: Drop aux devices together with DP controller
-Date: Tue, 22 Sep 2026 16:01:26 -0400
-Message-ID: <20260922200127.27433-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0D1F410E4F6;
+ Tue, 22 Sep 2026 17:14:07 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E2F91576;
+ Tue, 22 Sep 2026 10:14:04 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF53A3FA32;
+ Tue, 22 Sep 2026 10:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097247; bh=ycUddICsfxEifMnQljPG5LJ+QAfshpGj42pAhJYJWAs=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=SBP5DIfa3nHM7wg1pyznXr/QOoBKyjohtWTUL8njVjJ2HZJ7Dx+/2lyN5lNkmMRzt
+ MkKJj6bY+fLt8c5gDKfHKPh91F5Et1R0ROJrwOWzqHfSea49QFldK5bBAeUeM9p2Ca
+ sZJWLtBML/JGGl2eO59i8Nq/hvCyVDsIRYBYPmlc=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:12:33 +0100
+Subject: [PATCH v3 5/9] mm: convert PTE table entry to pte
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0-v3-5-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,115 +119,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
+The non-MMU stub receives hw_pte_t but returns a software PTE value. It
+has no attached PTE that requires ptep_get(), so convert only the stored
+entry through __pte_from_hw().
 
-[ Upstream commit a7bfb2ad2184a1fba78be35209b6019aa8cc8d4d ]
-
-Using devres to depopulate the aux bus made sure that upon a probe
-deferral the EDP panel device would be destroyed and recreated upon next
-attempt.
-
-But the struct device which the devres is tied to is the DPUs
-(drm_dev->dev), which may be happen after the DP controller is torn
-down.
-
-Indications of this can be seen in the commonly seen EDID-hexdump full
-of zeros in the log, or the occasional/rare KASAN fault where the
-panel's attempt to read the EDID information causes a use after free on
-DP resources.
-
-It's tempting to move the devres to the DP controller's struct device,
-but the resources used by the device(s) on the aux bus are explicitly
-torn down in the error path. The KASAN-reported use-after-free also
-remains, as the DP aux "module" explicitly frees its devres-allocated
-memory in this code path.
-
-As such, explicitly depopulate the aux bus in the error path, and in the
-component unbind path, to avoid these issues.
-
-Fixes: 2b57f726611e ("drm/msm/dp: fix aux-bus EP lifetime")
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Patchwork: https://patchwork.freedesktop.org/patch/542163/
-Link: https://lore.kernel.org/r/20230612220106.1884039-1-quic_bjorande@quicinc.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-[ Backport to 6.1.y: the source change is unchanged; refresh context
-  around the older DP bridge layout. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
-Hi Greg, Sasha, and MSM DRM maintainers,
+Changes since v1:
+- Explain why the NOMMU stub does not use ptep_get().
+- Use software PTE value terminology.
+---
+ include/linux/hugetlb.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I am continuing backporting CVEs still missing from 6.1.y.
-This fix is inherited by v6.6 and every later mainline release, but 6.1.y
-still has the affected code. The target-specific adjustment is described
-in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-Thanks,
-Artem Dinaburg
-
-CVE: CVE-2023-53851
-
-Build: This patch was included in an x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-It produced vmlinux and modules with no new warnings or errors.
-
-AI assistance: An LLM helped find, adapt, and validate this
-backport; I reviewed the patch and test output.
-
- drivers/gpu/drm/msm/dp/dp_display.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 5beb727f8437f9..ddd0279bc8963a 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -322,6 +322,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 
- 	kthread_stop(dp->ev_tsk);
- 
-+	of_dp_aux_depopulate_bus(dp->aux);
-+
- 	dp_power_client_deinit(dp->power);
- 	dp_unregister_audio_driver(dev, dp->audio);
- 	dp_aux_unregister(dp->aux);
-@@ -1535,11 +1537,6 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
- 	}
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 0d2101facaa50..637fc863d3687 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1278,7 +1278,8 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+ #ifdef CONFIG_MMU
+ 	return ptep_get(ptep);
+ #else
+-	return *ptep;
++	/* No attached PTE that requires ptep_get(). */
++	return __pte_from_hw(*ptep);
+ #endif
  }
  
--static void of_dp_aux_depopulate_bus_void(void *data)
--{
--	of_dp_aux_depopulate_bus(data);
--}
--
- static int dp_display_get_next_bridge(struct msm_dp *dp)
- {
- 	int rc;
-@@ -1568,12 +1565,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 		of_node_put(aux_bus);
- 		if (rc)
- 			goto error;
--
--		rc = devm_add_action_or_reset(dp->drm_dev->dev,
--						of_dp_aux_depopulate_bus_void,
--						dp_priv->aux);
--		if (rc)
--			goto error;
- 	} else if (dp->is_edp) {
- 		DRM_ERROR("eDP aux_bus not found\n");
- 		return -ENODEV;
-@@ -1597,6 +1588,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 
- error:
- 	if (dp->is_edp) {
-+		of_dp_aux_depopulate_bus(dp_priv->aux);
- 		disable_irq(dp_priv->irq);
- 		dp_display_host_phy_exit(dp_priv);
- 		dp_display_host_deinit(dp_priv);
+
 -- 
-2.39.5
+2.47.3
 
