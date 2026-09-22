@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01914C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB22C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:27:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35ED510EC4C;
-	Tue, 22 Sep 2026 10:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D05010E6AE;
+	Tue, 22 Sep 2026 10:27:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="XJmWhawP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kVVGX+OY";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 577C610EC54
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 10:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=7+4D1ZWujrVYGEarDtTZ0KiIPF0wvGcfoxM/2VYhpL8=; t=1790072343; x=1791281943; 
- b=XJmWhawPGUHSJFCwwaVDWYjpMEFHnm+s7jVG7hB/HSREMjd5N/dem5OVxpoA8BTk9RVefIPtMy2
- FXBIIrhbYQpQEWVcCpk3dX5lZlL2hrIISABg0pE3UFzeygoqowHM4682jIrHMoo+F6GJm7wYeHf+0
- h5wJVZBgR0ExsAQb6yUNT4cLgDQto+dZTqZkSlfPpkHkOq1vTV82TMgDLC1iD6R35bdxweU7J0IdJ
- ZcSAHxIbS7vJ6JGwRn/nEpXjpXTxNxFILp7Rr5riTi52PrU2xcGMJIKAtcM1mLsFcNbvYBu0sOtGZ
- 2nWASip2IGRuAdc/FfvcjhJjYaUJn1bs5Yiw==;
-Date: Tue, 22 Sep 2026 12:18:45 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-Message-ID: <20260922121845.1cb6cca0@kemnade.info>
-In-Reply-To: <arJDcpvQlIMIGJaP@monoceros>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
- <20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
- <arJDcpvQlIMIGJaP@monoceros>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFFD310E6AE;
+ Tue, 22 Sep 2026 10:27:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D812460200;
+ Tue, 22 Sep 2026 10:27:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5870D1F000FF;
+ Tue, 22 Sep 2026 10:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790072841;
+ bh=dKrHXYtcSPic1yyH/8gIcbUHVwe6uz4bOTP3sL2MwCE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kVVGX+OYwC3LzCX2oc/Zd/NdUyMNI/+L07aLaZV4y/xo8tStD4O51wb9DUKFOboo/
+ CKibq6d0XanGRIPNlNwCrA2uwNbo9s0VzkK87AgQhjM6H2ynEMzlc4pSGfIxK4xnqt
+ df4ZWA9EGBg2E40ZlByPyTGq1Ay4vT5kE5Sdp5e9ZpKOQE9ezqbPM9TE69BC7R4bDS
+ 4Hj3j7zhBFfzrluG8zUgOo4gBzmPr5xKIXRcno+iUsin6I3xL6n05AvH4r26t5kbvc
+ KRUWIIaIew6gZT8lKxWwhGeCCk9l1jXZyvtOHTVMmi5QTbf0DT99CVO/Ww/xDUMrmD
+ 5GYDCtSK+LMsQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/15] drm/xe: Send wedged notification from a worker
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260922101721.1583542-8-arvind.yadav@intel.com>
+References: <20260922101721.1583542-1-arvind.yadav@intel.com>
+ <20260922101721.1583542-8-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 10:27:20 +0000
+Message-Id: <20260922102721.5870D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,197 +53,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026 11:13:36 +0200
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] xe: TOCTOU race in xe_device_declare_wedged() overwrites recover=
+y method
+--
 
-> Hallo Andreas,
->=20
-> On Tue, Sep 22, 2026 at 08:16:59AM +0200, Andreas Kemnade wrote:
-> > diff --git a/drivers/gpu/drm/panel/panel-epson-bt200.c b/drivers/gpu/dr=
-m/panel/panel-epson-bt200.c
-> > new file mode 100644
-> > index 000000000000..c26a4f8ae15e
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/panel/panel-epson-bt200.c
-> > @@ -0,0 +1,251 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +#include <linux/backlight.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mod_devicetable.h> =20
->=20
-> Please don't include <linux/mod_devicetable.h>. You can rely on
-> <linux/spi/spi.h> to provide of_device_id and spi_device_id; or if you
-> prefer full iwyu include <linux/device-id/of.h> and <.../spi.h>.
->=20
-> > +#include <linux/spi/spi.h>
-> > +
-> > +#include <drm/drm_connector.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_panel.h>
-> > +#include <drm/drm_print.h>
-> > +#include <drm/drm_probe_helper.h>
-> > +
-> > +static const struct drm_display_mode default_mode =3D {
-> > +	.clock			=3D 41600,	/* kHz */
-> > +#if 0 =20
->=20
-> huh, upstream code isn't supposed to have #if 0 blocks.
->=20
-correct, this will go away latest in the first non-rfc series.
+commit 8a75aea67f604c5a996849e643c64617844ddad3
+Author: Arvind Yadav <arvind.yadav@intel.com>
+Subject: drm/xe: Send wedged notification from a worker
 
-> > +	/* values matching struct omap_video_timings in vendor kernel */
-> > +	.hdisplay		=3D 960,
-> > +	.hsync_start		=3D 960 + 176,
-> > +	.hsync_end		=3D 960 + 176 + 20,
-> > +	.htotal			=3D 960 + 176 + 20 + 86,
-> > +#else
-> > +	/* values from what is writted to LCDCTRL on vendor kernel */
-> > +	.hdisplay		=3D 960,
-> > +	.hsync_start		=3D 960 + 33,
-> > +	.hsync_end		=3D 960 + 33 + 20,
-> > +	.htotal			=3D 960 + 33 + 20 + 86,
-> > +#endif
-> > +	.vdisplay		=3D 540,
-> > +	.vsync_start		=3D 540 + 9,
-> > +	.vsync_end		=3D 540 + 9 + 3,
-> > +	.vtotal			=3D 540 + 9 + 3 + 12,
-> > +	.flags			=3D 0,
-> > +};
-> > +
-> > +struct bt200_panel {
-> > +	struct drm_panel panel;
-> > +	struct spi_device *spi;
-> > +};
-> > +
-> > +static int bt200_panel_write(struct bt200_panel *ctx, u8 addr, u8 data)
-> > +{
-> > +	u8 val[2];
-> > +
-> > +	val[0] =3D addr;
-> > +	val[1] =3D data;
-> > +
-> > +	return spi_write(ctx->spi, val, sizeof(val));
-> > +}
-> > +
-> > +static inline struct bt200_panel *panel_to_bt200(struct drm_panel *pan=
-el)
-> > +{
-> > +	return container_of(panel, struct bt200_panel, panel);
-> > +}
-> > +
-> > +static int bt200_disable(struct drm_panel *panel)
-> > +{
-> > +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
-> > +
-> > +	bt200_panel_write(ctx, 0x0A, 0);
-> > +	return 0;
-> > +}
-> > +
-> > +static int bt200_unprepare(struct drm_panel *panel)
-> > +{
-> > +	return 0;
-> > +}
-> > +
-> > +/* found this table in vendor kernel */
-> > +static struct {
-> > +	u8 addr;
-> > +	u8 data;
-> > +} lcddr_init[] =3D {
-> > +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
-> > +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
-> > +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
-> > +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
-> > +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
-> > +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
-> > +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
-> > +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
-> > +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
-> > +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
-> > +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
-> > +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
-> > +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
-> > +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
-> > +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
-> > +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
-> > +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
-> > +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
-> > +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
-> > +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
-> > +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
-> > +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
-> > +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
-> > +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
-> > +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
-> > +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
-> > +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
-> > +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
-> > +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
-> > +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
-> > +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
-> > +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
-> > +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
-> > +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
-> > +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
-> > +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
-> > +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
-> > +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
-> > +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
-> > +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
-> > +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
-> > +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
-> > +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
-> > +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
-> > +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
-> > +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
-> > +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
-> > +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
-> > +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00} =20
->=20
-> Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
-> preferred form of the work for making modifications to it".
->=20
-Well, this are address / data pairs. so probably the more
-preferred form would be symbolic names. I did not manage to get u-boot sour=
-ces
-from Epson either. So I think it would be even harder to get anything here.
-And since these things are very old, maybe more information
-does not even exist anymore.
-So how to progress here?
+This commit moves the wedged event to a sleepable device worker to allow
+isolation work to complete before userspace is notified. It updates the
+wedge bookkeeping to rescan the GT state on later declarations and tracks
+the last reported method to avoid lost updates.
 
-> I guess {0x0A, 0x00} disables the display, so taking over an enabled
-> display setup by the bootloader doesn't work as is.
->=20
-The factory bootloader seems only to reset things. It seems not
-to initialize anything regarding display.
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
+e.c
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
 
-Until just a few months my preferred way of booting this device
-was to boot vendor kernel, reprogram boot order temporarily,
-go through more recent u-boot and boot linux. During this procedure,
-the bridge setup was left intact. I just read things back to check
-if values are already set and happlily reinitialized display itself.
-No issue found doing it that way.
+[ ... ]
 
-[...]
-> > +MODULE_DEVICE_TABLE(spi, bt200_ids);
-> > +
-> > +static struct spi_driver bt200_driver =3D {
-> > +	.probe =3D bt200_probe,
-> > +	.remove =3D bt200_remove,
-> > +	.id_table =3D bt200_ids,
-> > +	.driver =3D {
-> > +		.name =3D "panel-bt200",
-> > +		.of_match_table =3D bt200_of_match,
-> > +		.suppress_bind_attrs =3D true, =20
->=20
-> Why suppress bind attrs?
->=20
-That was not intentional, maybe I had something in mind that
-it is common practice is certain areas, but not for panels.
+> @@ -1435,14 +1482,22 @@ void xe_device_declare_wedged(struct xe_device *x=
+e)
+>  		 */
+>  		if (xe->wedged.mode =3D=3D XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET)
+>  			xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_NONE);
+>  	}
+> +
+> +	/* Re-scan GT submission state on every declaration. */
+> +	for_each_gt(gt, xe, id)
+> +		xe_gt_declare_wedged(gt);
+> +
+> +	/* If no wedge recovery method is set, use default */
+> +	if (!READ_ONCE(xe->wedged.method))
+> +		xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_REBIND |
+> +					    DRM_WEDGE_RECOVERY_BUS_RESET);
 
-Regards,
-Andreas
+[Severity: Medium]
+Is there a Time-of-Check to Time-of-Use (TOCTOU) race condition here in
+xe_device_declare_wedged()?
+
+If multiple threads invoke xe_device_declare_wedged() concurrently (for
+example, during simultaneous GT hangs), could Thread A evaluate the
+!READ_ONCE(xe->wedged.method) condition as true, get preempted, and then
+allow Thread B to successfully set a specific method like
+DRM_WEDGE_RECOVERY_NONE?
+
+If Thread A then resumes, it seems it would unconditionally call
+xe_device_set_wedged_method() with the default REBIND | BUS_RESET flags,
+silently overwriting Thread B's legitimately set method.
+
+Does this check-and-set sequence need atomic protection, such as cmpxchg,
+to prevent concurrent threads from overwriting a newly set recovery method
+with the default fallback?
+
+> +
+> +	if (!atomic_read(&xe->wedged.stopping) &&
+> +	    (first ||
+> +	     READ_ONCE(xe->wedged.method) !=3D
+> +	     READ_ONCE(xe->wedged.reported_method)))
+> +		queue_work(xe->unordered_wq, &xe->wedged.work);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922101721.1583=
+542-1-arvind.yadav@intel.com?part=3D7
