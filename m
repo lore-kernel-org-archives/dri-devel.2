@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD3DEC982FF
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6C42C98305
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B08410E639;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39AE810E63E;
 	Tue, 22 Sep 2026 08:01:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jWhYfh1X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Je304Rnk";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54F4A10E61F
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:29 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e82ea30faso2294725e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:29 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2310E635
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:36 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4843178b1c8so405664f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790064088; x=1790668888; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790064095; x=1790668895; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qmb5ZYsqks7WEIdeRWH6smgklDya3V2PeA5rJDQKGQU=;
- b=jWhYfh1XuNAitFvWf/XODS7XpjT7s8xSIhvJ+xLd6xigjQJlxyn4Gsdncs6q0ANbZb
- RJJ/edgJ/GQ3gdqYmaAk96n0ePZwNVblFrONL/oVz1Hp2klx460tPZL+SDsjd8CxItX4
- 7hGXY6WHDC55pmsuLFPlqXE4ipW7cmZZVtp3zV7QNuS44BNTX7zIhgBp0sHsXVzkTy06
- ep96gPmWzOTX3AmHIW47cX2Z1gpbrcihxVr8Y/XrNOorOpkKdl4+ef1c5sdwKe/4mypG
- DNs26OP7AGgVdKVDcdpfRtmRvT+bqMs6cz6QJHG0WfnIOw3jXrvA2A4MBqlAah/BKobW
- 15nQ==
+ bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
+ b=Je304RnkalQi3nuB6/hBnbucLM4T18VC08d760pe7Us6D6X4jE8AuXLBm0qERSKcNd
+ OZ8mEnyV4+ZxV3MrKfpzjrjh33ql+i1WOMz3EEqpoIG1zetwTU9B9jAmd2cFehqyfe1R
+ +rz2beaBpr1NQy8tXLKtJsUlQEXXF23GJCVLzeq+5lfxqExzftjaWNC2xGu4dIK9AtXm
+ iaaTy0OVlXoS0rV1mijwAQHqDZF0ZqNftl0NdHWJgMtOufOtHXc7P3ZEsaJ+8ExOHFVv
+ KchE1scCs8JlVWywis1T5De7vVO9vp0dbCI/Ecekq/436D39ORr4Si1UKXK8VvN3aq1I
+ Tf3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790064088; x=1790668888;
+ d=1e100.net; s=20260707; t=1790064095; x=1790668895;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=qmb5ZYsqks7WEIdeRWH6smgklDya3V2PeA5rJDQKGQU=;
- b=E2xTy+c3QtQRdesjKFh28fRvXJvM4u3sCw7b2e8nQKPZOvS0Pm6n0ATJxR/ZOqFfpt
- KZMligCGHseBmhseBjA8H2RcLCCqbdMlIcHEVidSWmHLwx4FudraUvoMT71/xumSGHsR
- xncMEI6efPLjDSblhPq6Px2X4hupWw1NTOLLeL8DWRJLfq42yEQiaYLpsJJtZpwHQtuw
- Rm15IbH7HEfGuJ608o1VI0hT8T32JNQnqtt4RlYLsQhEpqLq6JWB0bK6QFSCezlt2/Jp
- TzNG48hV8ycGrxYXMKouTgDx/YVod+/3ZgkpBER/IjHFGWRbTSX7Hayh48S2ayu3lVMB
- Rplg==
+ bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
+ b=qMA86KJL3gZySpbfySrYKiB+K2kipFVTQ5ECm0DuOpiCytvjC4KfG7KGIJCNhyOWZV
+ PlK9qS/Tmh5N9vlH+0yZBir9IHK4cIydE/GZhiepC1wLuScfaHkruMOCPlm2F1MK/JtT
+ l5aPbYADjhDHvyGAVU8mRcj6zkMdB52nx87zQJRokhHLEsmLcemMM0NXrv3aam5aZTft
+ Dj60GytzTg8oR/8weYcSo+TYidmkilCcA8Z/lpZ1JjbTsTxlU7eNYUwyoWmEQqQSm77x
+ n2CeOAMUrub/nw+JZLHpwuAXtpPurf1ybcGvvjmJGRfXZaSHLz5+gocnguRT3msXvImX
+ M32Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxmOYmPN4s+TvverrteD6xeRE32Njmp2TcpCZZNBu3SoeQa3RmCkOWUlXOpIPGI0G++763JI7yYmD8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lq7NPH5bVLIlmApeKCDx8p9IQq3Zes/s3ieTok9dCQAOfp9q1k
- /mFUWKeSBb1IlTYwkx2jcPJ1RVqVMlXo7le8WDvbDSFphMlHR3+HbYRp
-X-Gm-Gg: AYBFou0PXk8fHiykcZ2rmCYQy3/PR0p6y7OTYRbE/SW3USwryfQdwCiMB67Bj2T8Zoa
- IvJjz1iSJeQsGbBQOgIVuPt7kouV1BAJj6a/LyVZtRF6k5zIVwTthI5+AjuHk++mqWNBfRM7vEl
- oO8cFF6X7P+fCDFKWfMr2trZDpaxvRvIX4Yt2xuVNlkGLfnJa0uo5xRgiQMYb+WtHhga8pO+x0P
- Hk6ULNWtZOOIUFhbrfozi2vp6T0tBljJqvZIBHIxN5AyTF47McQaGh1TziG8me4SyNxoW1b4X1o
- yvF05ktp7J5R4WTDDnmuaRwrVJ6jof5Xdd3YgGTVMUJyJAIlectiyIdIbvqwRBTSULa/P+EMdT0
- 4a8cHqsD7/1CcIkUImHQBvygVMqyK4kJneYU6GsIz0gTmYUW/FtFHawJsRckMHhlLHPG7mhcyew
- A13a/1LtNSkpwtYJHRzQsQuhWWiu5+wOew4yRn2WBp2k9B0FfrjyFBQ9PDJJnQgdEOreIzXjL5E
- 10tPgwrpE+97jy7ToXT7dP0bjeDlz1TTmo8TN6esUfOfaIm5xbjk1T7HjfNEO10Gz3k3cOSFGEl
- 7dY=
-X-Received: by 2002:a05:600c:354e:b0:49e:479b:c13b with SMTP id
- 5b1f17b1804b1-49fc7dff668mr165624765e9.1.1790064085766; 
- Tue, 22 Sep 2026 01:01:25 -0700 (PDT)
+ AKwUvBzIngBoLhorWHn2ov0idBvQhXNpgL2pGQWH0PRVrSjLddFn11EZvzJK38QoJamaBJKVZGesopTeHN0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m8BxR0An0PtZ6LqkAM793f5KU2dl38et5uRvx+9WXbnr36IH68
+ ttGv92t3ul4uMqgfE3RfXqI9j0MlvKMJmyIZDoSFjui3BecaBVIdhKHN
+X-Gm-Gg: AYBFou0cLkogROQ/YtEKdqRbIl9Z1xxnTd7uSAUPds/i+Q1RZs0zs5nJfdsf2Qvtji1
+ iCY9KTfDJnYNSbPfuZ5DgD3akK0HU/uPCiuYgPSAauOGd+PSa5X8/Y5TB8nYlrD8eC4f1ImwDqM
+ zd8WF0knp5xIHcqgTx2WAMIrHUWGsFCGN6iCJdV3U/VBHCnSixhTjyRrysAecLa6fUIDkYSbQLx
+ kcQQNQ2ld1DP9zt0Z1sywwHE7U+bNU4K7QFpGWScWbaqKR7bs03xi43iYCtigwzJudO3HX6iRuQ
+ 09lW8UaZCZY7ho0Rsq07gXCxjUCAguj50J031r4InSkwrVli14cVB8ONR4LiKYacZjm1bB2TgVS
+ 7KbxqImGjefMo9sfht3oeomV1MJE73jUCgyvP4Ts2WDsSP/+QIvKDbCq+m1pDSripty6rmy+XOx
+ OFi2mKvqbJ3ntKR3NZt/aH1SuDrBP8JpMDWJuYIa0vHsPi5xPCaDfz6k7JoMf7ujOvDxy2XMD1X
+ i/SCHQhx3L00F+NdNoordAQKpFmSFXdy10PsvBkDRVk35XIwdINL0SzmvQV3y9Ei4EWCXMX16k3
+ /Bw=
+X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id
+ 5b1f17b1804b1-49fc7f2bdc8mr199260285e9.2.1790064093776; 
+ Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu.
  [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.24
+ 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 01:01:25 -0700 (PDT)
+ Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>
@@ -80,10 +80,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 01/11] accel/rocket: search every core slot when a core is
- removed
-Date: Tue, 22 Sep 2026 10:01:04 +0200
-Message-ID: <20260922080114.44662-2-royalnet026@gmail.com>
+Subject: [PATCH v2 06/11] dt-bindings: npu: rockchip: allow DVFS and thermal
+ properties
+Date: Tue, 22 Sep 2026 10:01:09 +0200
+Message-ID: <20260922080114.44662-7-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -104,112 +104,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_remove() decrements rdev->num_cores for each core it removes,
-while find_core_for_dev() searches slots 0 to num_cores - 1. Unbinding
-the cores in the order they were bound therefore loses the last one: by
-the time it is removed the search range has already shrunk past its
-slot, so find_core_for_dev() returns -1 and rocket_remove() gives up
-without doing anything.
+The three NPU cores on the RK3588 are fed by a single clock and a single
+supply, and the firmware accepts a fixed set of rates for that clock.
+Describing those rates as an operating-points-v2 table is what lets a
+driver scale the NPU instead of leaving it at whatever rate the bootloader
+set, so allow the property on the core node.
 
-num_cores never reaches zero, rocket_device_fini() never runs, and the
-file-scoped rdev keeps pointing at a device that is going away. Binding
-the cores again starts from that stale count, because rocket_probe()
-takes rdev->num_cores as the slot to fill. On an RK3588, which describes
-three cores, the second round lands on slots 1, 2 and 3 while rdev->cores
-was allocated with room for three:
+Throttling the NPU from a thermal zone needs a core node to be usable as
+a cooling device, so allow #cooling-cells too.
 
-  rocket fdab0000.npu: Rockchip NPU core 1 version: 1179210309
-  rocket fdac0000.npu: Rockchip NPU core 2 version: 1179210309
-  rocket fdad0000.npu: Rockchip NPU core 3 version: 1179210309
+The OPP table belongs on every core, with opp-shared: the cores have no
+clock of their own, and one shared table for one shared clock is the same
+shape a CPU cluster uses. #cooling-cells goes on one core only, the one a
+thermal zone's cooling map names, because the cores cannot be throttled
+independently. Naming one representative node for a shared frequency
+domain is the established shape, as in "Cpufreq cooling device on CPU0"
+in Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
 
-The write to rdev->cores[3] is past the end of the array.
+The schema cannot enforce which core carries #cooling-cells, because all
+three cores share a compatible string and a node name pattern, so that
+stays a devicetree convention. That is the same situation as for CPU
+cooling, where cpus.yaml does not restrict #cooling-cells to cpu@0
+either.
 
-Nothing in tree reads the core array often enough to notice, so the
-overrun is silent today. It turned up while testing a devfreq series on
-top of this, where a worker walks every core a few times a second, and
-UBSAN caught the first bool it read out of the overrun entry:
+The example gains #cooling-cells; the operating-points-v2 property is
+exercised by the RK3588 devicetree later in this series.
 
-  UBSAN: invalid-load in drivers/accel/rocket/rocket_devfreq.c:47:10
-  load of value 5 is not a valid value for type '_Bool'
-  Workqueue: devfreq_wq devfreq_monitor
-
-Record how many slots were allocated and search all of them. Every core
-is then found on removal, num_cores reaches zero, the device is torn down
-and a later bind starts from a clean rdev.
-
-This does not make unbinding a single core out of several work: probe
-still takes num_cores as the slot to fill, and rocket_open() still
-reaches for cores[0] whether or not anything is there. The fourth patch
-takes care of both.
-
-Found by unbinding and rebinding all three cores on an Orange Pi 5 Plus.
-With this applied the cores land in slots 0, 1 and 2 every time, whichever
-order they are bound in, and the shared supply goes back to a single user
-after each round.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse checkpatch
+Assisted-by: LLM checkpatch dt_binding_check
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Jiaxing Hu <gahing@gahingwoo.com> # RK3576, two cores
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, 3 cores
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-Two paragraphs changed from the standalone posting, which this series
-supersedes: the one on unbinding a single core now points at patch 4
-instead of saying what is left, and the round counts are dropped from
-the last one. Posting:
-https://lore.kernel.org/r/20260904125936.26234-1-royalnet026@gmail.com
-The two Tested-by tags are from that thread. The round counts were
-taken on a kernel that carried the use-after-free fixed in 8/11; they
-were re-measured with the whole series applied, see the notes on patch
-4 and the cover letter. The single-core unbind and rocket_open() cases
-in that paragraph are 2/2 of the lifecycle series, now rebased into
-this one as patch 4:
-https://lore.kernel.org/r/20260731064933.12548-3-royalnet026@gmail.com
+v2: the text on where the properties go is rewritten for opp-shared on
+all three cores, following Nicolas Dufresne's review of v1 3/7. The
+only change to the schema file is the wording of the #cooling-cells
+description; the constraints and the example are unchanged. Conor, your
+Ack is kept on that basis; please say if it no longer holds.
 
- drivers/accel/rocket/rocket_device.c | 2 ++
- drivers/accel/rocket/rocket_device.h | 1 +
- drivers/accel/rocket/rocket_drv.c    | 2 +-
- 3 files changed, 4 insertions(+), 1 deletion(-)
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-index 46e6ee1e72c5f..efd004194c1af 100644
---- a/drivers/accel/rocket/rocket_device.c
-+++ b/drivers/accel/rocket/rocket_device.c
-@@ -31,6 +31,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
- 		if (of_device_is_available(core_node))
- 			num_cores++;
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a4903cd1..beba1896156f5 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -42,6 +42,13 @@ properties:
+       - const: npu
+       - const: pclk
  
-+	rdev->max_cores = num_cores;
++  "#cooling-cells":
++    description:
++      Present on one core only, the first, which stands for the shared NPU
++      clock as a cooling device. The other cores have no clock of their own
++      and cannot be throttled independently of it.
++    const: 2
 +
- 	rdev->cores = devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_KERNEL);
- 	if (!rdev->cores)
- 		return ERR_PTR(-ENOMEM);
-diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-index ce662abc01d3d..c62d567010696 100644
---- a/drivers/accel/rocket/rocket_device.h
-+++ b/drivers/accel/rocket/rocket_device.h
-@@ -19,6 +19,7 @@ struct rocket_device {
+   interrupts:
+     maxItems: 1
  
- 	struct rocket_core *cores;
- 	unsigned int num_cores;
-+	unsigned int max_cores;
- };
+@@ -50,6 +57,8 @@ properties:
  
- struct rocket_device *rocket_device_init(struct platform_device *pdev,
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 8bbbce594883e..2bcfe4ab3c68f 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -223,7 +223,7 @@ static int find_core_for_dev(struct device *dev)
- {
- 	struct rocket_device *rdev = dev_get_drvdata(dev);
+   npu-supply: true
  
--	for (unsigned int core = 0; core < rdev->num_cores; core++) {
-+	for (unsigned int core = 0; core < rdev->max_cores; core++) {
- 		if (dev == rdev->cores[core].dev)
- 			return core;
- 	}
++  operating-points-v2: true
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -100,6 +109,7 @@ examples:
+         clocks = <&cru ACLK_NPU0>, <&cru HCLK_NPU0>,
+                  <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_ROOT>;
+         clock-names = "aclk", "hclk", "npu", "pclk";
++        #cooling-cells = <2>;
+         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
+         iommus = <&rknn_mmu_0>;
+         npu-supply = <&vdd_npu_s0>;
 -- 
 2.43.0
 
