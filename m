@@ -4,79 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C406AC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07CF6C982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA3E10EF5E;
-	Wed, 23 Sep 2026 07:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15FB610EF4D;
+	Wed, 23 Sep 2026 07:55:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s6ImteZH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PtS3oanv";
 	dkim-atps=neutral
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com
- [74.125.228.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6014110EEA2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 02:25:40 +0000 (UTC)
-Received: by mail-pz2-f40.google.com with SMTP id
- 41be03b00d2f7-cc5256c2a4bso260880a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:25:40 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
+ [74.125.227.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7025988EBA
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 14:46:49 +0000 (UTC)
+Received: by mail-vs2-f12.google.com with SMTP id
+ 71dfb90a1353d-5c83397eeeeso2721485e0c.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 07:46:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790130340; x=1790735140; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
- b=s6ImteZH/chSRpWVM/ZxnB0/3J362Vwzx7MKrbofMV2UPpuZp0YMiOCGLj/UqCsXd9
- U4JJ/UYqL5hMyIQEm5zUwFyVgbuXdrfxlT276E/aole3R82aFIguXUVUHX6q+i3Jez17
- P0fzTNK9REat8dcX9vwGKnQ/0AeRVXEZ92GlhE+fheG+5IOzb01rG7J16tbHn1Bulatg
- PKXck/jev6pjAL/XcUJy0D/O0JhjTbQZBiuhmBXFFa1DkT2XfBIw4c9bpEJzD+SfKE99
- WVbGt9r29IzaaOQjsycMBUU+B3tgTjz3pUHZdvIktRqYqpgRUJZlrmbJ3WreP5Um6saV
- ZfbQ==
+ d=gmail.com; s=20251104; t=1790088408; x=1790693208; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=W9UBxJeTMVvi9qsnlU006JDfJHWsecdWJRKILfadoLk=;
+ b=PtS3oanv+sLX9/4geUwaZLZ1X0HG81DP3k/xq5IKp6zSuvlPca44xW/4pAd3gjVrNg
+ rNADgtuzqZnxZtFIgUePOBjBNdS9ixiz/3b3jf3SVn/FnYqapmXmZacOMuNOZZr4qlXP
+ A5mAv5XteP/bns/kWvoDat4gIg0tZNMBA3ATk4EhYzfv6I59ko6YxHA0Jcqyp7TZStKP
+ 1MaGTPj0koF+LR4eR74Ij+Zpf3+8PrkFRsd1TmtaAfiGmmq5EaUiNJZbPQyeuPU3WWAP
+ AqxvAAljcgLgBfgILGGjTUXRce8D6mQBGAqt1nTbINcUZwqO0rFHZMgmp59d+gBqe0OW
+ Gc7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790130340; x=1790735140;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
- b=LKdd0ZDeaJgvZUkgI2r2Bdj3x8yyZlwos764DbZgg0JP+pnlvXqmETAFawrXq60Dsg
- peZABdPisxcJEVuFQnZgw4TT7X2bTtZupf6sBkKWtR3etuXDz6xlUdWykK7HsEIzSOS2
- JM8NKWs0NBeksbWkQ71KRhvT/fGdpO47Ns4Dcqc4fX3ha4nQOPcT1FpF19PqjlO6f2rj
- lVaosCx0GvfJ6v/Jwle8rFuCfj9wAtByaefnBco+fQmbVJvBKozsZpfmpu5ik5WBA2wL
- wPjUSpYZUnmN9qGbvtWtirF3XNtLc4Dv9I88RAxxFlEwfK6ltxjYSkixAA1Cq6PRjaC+
- jNGw==
+ d=1e100.net; s=20260707; t=1790088408; x=1790693208;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=W9UBxJeTMVvi9qsnlU006JDfJHWsecdWJRKILfadoLk=;
+ b=1yxMJzwsms+7qHyeH3q2KhIvYkiaOxzbC3rhh6r6dYi2TujRp941a9YMC43Fm47to8
+ EhdkWxbKp9fAqYX6TX2GssTEthuNQE+KGH6gvDHq7olj+pt3TmoBckXRm9xDjW1A7j84
+ HUiHW6gBRSQjxmQt8N16MLrTQNEOpjgQzk7/lG4z9qUV4pb2bT2H7DwRTRmCI9bwcbsa
+ zztN1oGhWkH5XIGNsEY8wMpvZOhDautyCHmZiWYQtlP9hC53h0BdP2swmJnBuMDg1eNA
+ niWyKpNQ4JezXFYHcJRaj9DaLruKQ3L8U7bZRSYoAysIjhTnSvnNquKzWtvKAcSfd9Ry
+ 5ldw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+/HsExQpf5QLfWqtU8KLxPl/gTVVyDwAx7CI+n6gcobOuhbgU/YjtYYJfjKx5T9EoE+SKzdacHYg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kCQpHg6BjqgLEQv/A232LpoyjzP+XeIhqtv0yGb3SmsMDNm3pu
- Ug7OVPC9a8/tPq1mcc4T/bUk4adn0pshLqia54x/QON1p6Edw6FERXdr
-X-Gm-Gg: AYBFou0pGi6AcdP03fGI0NTc2y8pcMzXfbaUdc3ZXKynmqa1jWs3kDlM46TVoFWJl6T
- o/heFypnNOFKGUFu3ABSZKCcgQntJAjPxwSA1Z3UB7ALgRQQZcmfDp1+1Xh79JCjJCbjFyUNxvw
- YwTmurmps4+gcqrFSRwOI4NttPkRWcPijoKOR3qbDd8ry8vnnqxf6djp5ZUtjVPNKzYIz/OB9A4
- zYAC3i1XZToWIqXMJkNvbuBCrJGHvZnbIzTCFRXFRXFIl8BnrO8iX3An91BFyF0+CFlKK0yLL04
- Wt/Je3cLcMxhaL9kWM2XdwSd/FlfgIP6odsQqHK0MAnygUJ/HpYqWKNCq9ztxF+6HIA9xA3B69v
- Q0IL2OeWOFhOOrPFF7rBrKKJwNtj9sOkaTtjcAw77fEKJrH9n1CE4kLMHMfyTg+L30T3k7lVfxV
- Dsn2g+VSsWhTBiPDGOBIdi651O8p4mz0HYbs3Y4OCihJa22QNsllzzNit/cYRhmbW94sKjgnv3l
- n0s73XtmPr2DRkqp3WcHPZYhRpa2CS/kXSHezSEO/449xcWCBMprD/sqpwKxKL6
-X-Received: by 2002:a05:6a21:730b:b0:3dd:a195:fa16 with SMTP id
- adf61e73a8af0-3ddf82fd6d6mr1278376637.59.1790130339718; 
- Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-Received: from k1832-XPC7A-R57-GD.tailc99621.ts.net
- ([2407:c800:5a41:af7:fd99:3ec2:4e58:1374])
+ AKwUvBx2UqgLE3N/8/nMVAruSaMBFmjk5x8rrvQ73gEhEO2q09yLe7odr/auE0kiNoj3VupLIfd8mRYMknA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mMnWeOA9CMdsEFeh4gFL38vHhhYsuW2qMi8naC0J5K8mNsHuJY
+ 1FADNUb4ZxnK+XjtWGbTV8MAkd5WLHQSjJt1jWCOCnIMnUn0xDC/Hs2D
+X-Gm-Gg: AYBFou0MSHQe71Vo3yd1moUiRQMDHAflei0xu1175SJNgHzSLaWGkGKW1pkIm3y54+l
+ KnR4iwHTSZBMSPUFJRI0OPO1DgCzEfDUMMiKlcQ4JWAvQgNRBuJuXVtjo61Ye9BWZ2iAanXcEG3
+ 7mjtnTQLTbBMwsUbvnZASsyCWNGae4HEcZVY7Tolf5cEpPgzr4BC+rIU5us2qv8Z5KO1tN/mzsB
+ MM3IRLtkHNIFGjmHwndX8ClWANaBWU4I8jbU3x4LQmRofbosOXJVTQ2/eHg/3UGlqMczYytdzyk
+ rgNlrACjWcYkOjWPu2jqpB+85GF0HzTpmR3TImNQ72krtURs+joibyrbPYovfFXkTJH5YjXwiHm
+ P8K4ypVsczG93JR5L+y3UvC12m3GAni+CCxq2jA36ztPWP2W4lz3AFlGizvl+s25XKqdCcdzzsK
+ 57Pqoidi12SYVfeDZArBhs4rhDTy+Ccl/2PsHuWW7IxDH/mXrRCFVKmEGp15Spl6sDWirxN3prv
+ /uRlTb2pF19f/bgVi4SEs4sVD8k8oPse74wS0I79BLiq46Vz+33YI0NFuGrvb0=
+X-Received: by 2002:a05:6122:3486:b0:5c9:a60b:e5a3 with SMTP id
+ 71dfb90a1353d-5c9b59abe8amr9299758e0c.14.1790088408127; 
+ Tue, 22 Sep 2026 07:46:48 -0700 (PDT)
+Received: from lord.bigscale.net ([170.246.210.5])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc75f40839csm309403a12.30.2026.09.22.19.25.37
+ a1e0cc1a2514c-9850d661d77sm2017067241.7.2026.09.22.07.46.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-From: Keita Morisaki <kmta1236@gmail.com>
-To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Keita Morisaki <kmta1236@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
-Date: Wed, 23 Sep 2026 11:24:51 +0900
-Message-ID: <20260923022451.3346675-1-kmta1236@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tue, 22 Sep 2026 07:46:47 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
+ stuart.summers@intel.com, julia.filipchuk@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@intel.com, navonjohnlukose@gmail.com,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [PATCH v6 1/3] drm/xe: Capture devcoredump on TLB invalidation timeout
+Date: Tue, 22 Sep 2026 11:46:32 -0300
+Message-ID: <20260922144634.55130-2-talesam@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922144634.55130-1-talesam@gmail.com>
+References: <20260922144634.55130-1-talesam@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,49 +97,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-median3() is meant to return the median of three values, but its last
-compare-and-swap step swaps b and c instead of a and b. When c is
-smaller than both a and b, it returns max(a, b) instead of min(a, b).
-For example, median3(2, 3, 1) returns 3 instead of 2.
+TLB invalidation timeouts currently leave no record of the firmware
+state behind: there is no exec queue or job to blame, so nothing calls
+xe_devcoredump() and the GuC log content at the time of the hang is
+lost.
 
-_do_calc_rc_params() always passes 0 as the first argument, and the
-second argument is never below 12. So whenever the third argument is
-negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
-is set to the second argument instead of 0.
+Add xe_devcoredump_gt(), a variant of xe_devcoredump() for hangs that
+are not tied to an exec queue or job. It captures the GuC log and CT
+state of the affected GT, reusing the existing snapshot machinery and
+the "only first snapshot" policy, and hook it up to the TLB invalidation
+timeout path.
 
-Fix this by swapping a and b in the last step, as intended.
+This was instrumental in diagnosing GuC TLB invalidation ack stalls on
+ARL (see Link), where the invalidation request is consumed from the H2G
+CTB immediately but the ack G2H only arrives ~2.3s later, after the
+timeout has already fired.
 
-Note that this change does not affect valid DSC configurations. The
-third argument is negative only when bits per pixel exceeds the
-uncompressed rate of the colour format:
-
- - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
-
- - 2 * bpc for 4:2:2
-
- - 1.5 * bpc for 4:2:0
-
-Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_devcoredump.c | 46 ++++++++++++++++-------------
+ drivers/gpu/drm/xe/xe_devcoredump.h | 15 +++++++---
+ drivers/gpu/drm/xe/xe_tlb_inval.c   | 35 ++++++++++++++++++++++
+ 3 files changed, 71 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-index b8fc27a5361e..657173d8081c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
- 	if (b > c)
- 		swap(b, c);
- 	if (a > b)
--		swap(b, c);
-+		swap(a, b);
- 
- 	return b;
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index b918f046ae1..ab681b14886 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -74,11 +74,6 @@ static struct xe_device *coredump_to_xe(const struct xe_devcoredump *coredump)
+ 	return container_of(coredump, struct xe_device, devcoredump);
  }
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+ 
+-static struct xe_guc *exec_queue_to_guc(struct xe_exec_queue *q)
+-{
+-	return &q->gt->uc.guc;
+-}
+-
+ static ssize_t __xe_devcoredump_read(char *buffer, ssize_t count,
+ 				     ssize_t start,
+ 				     struct xe_devcoredump *coredump)
+@@ -325,40 +320,44 @@ static void xe_devcoredump_deferred_snap_work(struct work_struct *work)
+ }
+ 
+ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
++				 struct xe_gt *gt,
+ 				 struct xe_exec_queue *q,
+ 				 struct xe_sched_job *job)
+ {
+ 	struct xe_devcoredump_snapshot *ss = &coredump->snapshot;
+-	struct xe_guc *guc = exec_queue_to_guc(q);
++	struct xe_guc *guc = &gt->uc.guc;
+ 	const char *process_name = "no process";
+ 	bool cookie;
+ 
+ 	ss->snapshot_time = ktime_get_real();
+ 	ss->boot_time = ktime_get_boottime();
+ 
+-	if (q->vm && q->vm->xef) {
++	if (q && q->vm && q->vm->xef) {
+ 		process_name = q->vm->xef->process_name;
+ 		ss->pid = q->vm->xef->pid;
+ 	}
+ 
+ 	strscpy(ss->process_name, process_name);
+ 
+-	ss->gt = q->gt;
++	ss->gt = gt;
+ 	INIT_WORK(&ss->work, xe_devcoredump_deferred_snap_work);
+ 
+ 	/* keep going if fw fails as we still want to save the memory and SW data */
+-	CLASS(xe_force_wake, fw_ref)(gt_to_fw(q->gt), XE_FORCEWAKE_ALL);
++	CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+ 
+ 	cookie = dma_fence_begin_signalling();
+ 
+ 	ss->guc.log = xe_guc_log_snapshot_capture(&guc->log, true);
+ 	ss->guc.ct = xe_guc_ct_snapshot_capture(&guc->ct);
+-	ss->ge = xe_guc_exec_queue_snapshot_capture(q);
+-	if (job)
+-		ss->job = xe_sched_job_snapshot_capture(job);
+-	ss->vm = xe_vm_snapshot_capture(q->vm);
+ 
+-	xe_engine_snapshot_capture_for_queue(q);
++	if (q) {
++		ss->ge = xe_guc_exec_queue_snapshot_capture(q);
++		if (job)
++			ss->job = xe_sched_job_snapshot_capture(job);
++		ss->vm = xe_vm_snapshot_capture(q->vm);
++
++		xe_engine_snapshot_capture_for_queue(q);
++	}
+ 
+ 	queue_work(system_dfl_wq, &ss->work);
+ 
+@@ -366,19 +365,24 @@ static void devcoredump_snapshot(struct xe_devcoredump *coredump,
+ }
+ 
+ /**
+- * xe_devcoredump - Take the required snapshots and initialize coredump device.
+- * @q: The faulty xe_exec_queue, where the issue was detected.
+- * @job: The faulty xe_sched_job, where the issue was detected.
++ * __xe_devcoredump - Take the required snapshots and initialize coredump device.
++ * @gt: The GT where the issue was detected.
++ * @q: The faulty xe_exec_queue, where the issue was detected, may be NULL for
++ *     hangs that are not tied to an exec queue (e.g. TLB invalidation
++ *     timeouts); in that case only the GT-level state (GuC log and CT state)
++ *     is captured.
++ * @job: The faulty xe_sched_job, where the issue was detected, may be NULL.
+  * @fmt: Printf format + args to describe the reason for the core dump
+  *
+  * This function should be called at the crash time within the serialized
+  * gt_reset. It is skipped if we still have the core dump device available
+  * with the information of the 'first' snapshot.
+  */
+-__printf(3, 4)
+-void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const char *fmt, ...)
++__printf(4, 5)
++void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
++		      struct xe_sched_job *job, const char *fmt, ...)
+ {
+-	struct xe_device *xe = gt_to_xe(q->gt);
++	struct xe_device *xe = gt_to_xe(gt);
+ 	struct xe_devcoredump *coredump = &xe->devcoredump;
+ 	va_list varg;
+ 
+@@ -396,7 +400,7 @@ void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const cha
+ 	coredump->snapshot.reason = kvasprintf(GFP_ATOMIC, fmt, varg);
+ 	va_end(varg);
+ 
+-	devcoredump_snapshot(coredump, q, job);
++	devcoredump_snapshot(coredump, gt, q, job);
+ 
+ 	drm_info(&xe->drm, "Xe device coredump has been created\n");
+ 	drm_info(&xe->drm, "Check your /sys/class/drm/card%d/device/devcoredump/data\n",
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.h b/drivers/gpu/drm/xe/xe_devcoredump.h
+index 5391a80a4d1..bc4800b3a3f 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.h
++++ b/drivers/gpu/drm/xe/xe_devcoredump.h
+@@ -11,15 +11,17 @@
+ struct drm_printer;
+ struct xe_device;
+ struct xe_exec_queue;
++struct xe_gt;
+ struct xe_sched_job;
+ 
+ #ifdef CONFIG_DEV_COREDUMP
+-void xe_devcoredump(struct xe_exec_queue *q, struct xe_sched_job *job, const char *fmt, ...);
++void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
++		      struct xe_sched_job *job, const char *fmt, ...);
+ int xe_devcoredump_init(struct xe_device *xe);
+ #else
+-static inline void xe_devcoredump(struct xe_exec_queue *q,
+-				  struct xe_sched_job *job,
+-				  const char *fmt, ...)
++static inline void __xe_devcoredump(struct xe_gt *gt, struct xe_exec_queue *q,
++				    struct xe_sched_job *job,
++				    const char *fmt, ...)
+ {
+ }
+ 
+@@ -29,6 +31,11 @@ static inline int xe_devcoredump_init(struct xe_device *xe)
+ }
+ #endif
+ 
++#define xe_devcoredump(_q, _job, _fmt, ...) \
++	__xe_devcoredump((_q)->gt, _q, _job, _fmt, ##__VA_ARGS__)
++#define xe_devcoredump_gt(_gt, _fmt, ...) \
++	__xe_devcoredump(_gt, NULL, NULL, _fmt, ##__VA_ARGS__)
++
+ void xe_print_blob_ascii85(struct drm_printer *p, const char *prefix, char suffix,
+ 			   const void *blob, size_t offset, size_t size);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
+index dd1030de9ab..f7d6640d345 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval.c
++++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
+@@ -5,6 +5,7 @@
+ 
+ #include <drm/drm_managed.h>
+ 
++#include "xe_devcoredump.h"
+ #include "xe_device_types.h"
+ #include "xe_force_wake.h"
+ #include "xe_gt_stats.h"
+@@ -29,6 +30,12 @@
+ 
+ #define FENCE_STACK_BIT		DMA_FENCE_FLAG_USER_BITS
+ 
++/* The frontend is only ever embedded in a GT */
++static struct xe_gt *tlb_inval_to_gt(struct xe_tlb_inval *tlb_inval)
++{
++	return container_of(tlb_inval, struct xe_gt, tlb_inval);
++}
++
+ static void xe_tlb_inval_fence_fini(struct xe_tlb_inval_fence *fence)
+ {
+ 	if (WARN_ON_ONCE(!fence->tlb_inval))
+@@ -73,6 +80,7 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
+ 	struct xe_device *xe = tlb_inval->xe;
+ 	struct xe_tlb_inval_fence *fence, *next;
+ 	long timeout_delay = tlb_inval->ops->timeout_delay(tlb_inval);
++	int timedout_seqno = 0, seqno_recv = 0;
+ 
+ 	tlb_inval->ops->flush(tlb_inval);
+ 
+@@ -90,13 +98,40 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
+ 			"TLB invalidation fence timeout, seqno=%d recv=%d",
+ 			fence->seqno, tlb_inval->seqno_recv);
+ 
++		if (!timedout_seqno) {
++			/*
++			 * Hold a PM reference across the capture below. Every
++			 * pending fence holds one, so the device is awake
++			 * here, but signalling them may drop the last
++			 * reference and let it autosuspend before the
++			 * snapshot touches the hardware.
++			 */
++			xe_pm_runtime_get_noresume(xe);
++		}
++
++		timedout_seqno = fence->seqno;
++
+ 		fence->base.error = -ETIME;
+ 		xe_tlb_inval_fence_signal(fence);
+ 	}
+ 	if (!list_empty(&tlb_inval->pending_fences))
+ 		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->fence_tdr,
+ 				   timeout_delay);
++	seqno_recv = tlb_inval->seqno_recv;
+ 	spin_unlock_irq(&tlb_inval->pending_lock);
++
++	/*
++	 * Capture the GuC log and CT state so the firmware side of the hang
++	 * can be inspected; there is no queue or job to blame here. Must be
++	 * outside pending_lock as the capture takes sleeping locks, hence
++	 * @seqno_recv is sampled above while the lock is still held.
++	 */
++	if (timedout_seqno) {
++		xe_devcoredump_gt(tlb_inval_to_gt(tlb_inval),
++				  "TLB invalidation fence timeout, seqno=%d recv=%d",
++				  timedout_seqno, seqno_recv);
++		xe_pm_runtime_put(xe);
++	}
+ }
+ 
+ /**
 -- 
-2.43.0
+2.55.0
 
