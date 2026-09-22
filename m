@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD068C982FF
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8594EC982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C0910E02F;
-	Tue, 22 Sep 2026 12:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A052010E0D2;
+	Tue, 22 Sep 2026 12:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBQqvV5I";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TCdu6C7h";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F79C10E02F
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:46:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1FACF40748;
- Tue, 22 Sep 2026 12:46:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C44D1F000FF;
- Tue, 22 Sep 2026 12:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790081202;
- bh=vlNJMjJNJtuYUwJ6hjN6VVFtsO/8YcI81Stq8tii+WQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hBQqvV5ICsYllg261MfYuphG3h6WkPbZKDyufD9/q9DTxX8jpr+ElXNmwioPCz5yM
- 1witd8EDmwQ8iTS4hOmWc8mah/fzkNgIeCTKxQ7NlUdVuOUUDSo1qyFe2uUVtyooF3
- /WNLE98K/4kF8tlsdfxvmMfoBgWMLrWXp/Gdc1ontFZJZbFt+kYfskbspQYRtynxVT
- L+kIsDU1TsBGTd4vwaba3vCmq/1mIdZrNZTHvxCjoVwuRMBfqDh6kx9b+hPkL86KJ9
- /B1b22H547VJCMI3l72LQcJLZGddxE4FyF4mJDy/WZc/KgZOojmGB8CrHbaJWy2eZ2
- h+ZAnIioIleIQ==
-Date: Tue, 22 Sep 2026 15:46:37 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Message-ID: <20260922124637.GG563127@unreal>
-References: <20260915072002.GD13683@unreal>
- <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
- <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
- <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
- <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
- <20260921132208.GA1507824@nvidia.com>
- <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
- <20260921134924.GB1507824@nvidia.com>
- <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
- <20260922124137.GD1507824@nvidia.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0458810E0D2;
+ Tue, 22 Sep 2026 12:53:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790081625; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=KTndc6JZaRZHwnEIOsJVOKmqMnPoyD0yJUj7daOPlmBUXrYCLC7sXrwHhSQE/M1j0SelAcsyof5PD3lQS0w0CQBr9yUNEWhUGag6v95l7NXo+BzIQ8Gce1U7JIP5hgSyjCQ/1LXPWKv2jxbgTyp2dNeb1Sm2ibtztE+5DPc8Ji4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790081625;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=8VjNl0wa/Nxv7LlY9fTplz72WoCM/sa6XfRLdYqoWf4=; 
+ b=iQEHTfp1vj8knug37pUf8qyg1jsi2Ik8q0L8i491jEO0OnRutlTdUNwhENof8gUq8voCE7STLUVB+/PzLLd95UmcLL1pBDYWthMysH2QgI55DWtF7mVJ2RQmP/Ftc/qBYmbCmCsjRTmZAL2aFbbo/cWYijsVLzEewVy1YHXAVg4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790081625; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=8VjNl0wa/Nxv7LlY9fTplz72WoCM/sa6XfRLdYqoWf4=;
+ b=TCdu6C7hW2pYijD6VGCaiC+wv5MqeYa3Fx6j1IxMBPJkKRSEEGQpJJdhmINCvJ3i
+ zeMSbdPSbjZu51N/DttLQ5WTW3C38NdLEbu+/1NqKFSdt/fldM1iQ5G47a4IkHlsXrr
+ x/iihlM9thTLVL5I1AkmxN9YehFWKw8QVIzXhiUI=
+Received: by smtp.zohomail.com with SMTPS id 1790081623916135.24430513639902; 
+ Tue, 22 Sep 2026 05:53:43 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Leo Li <sunpeng.li@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 03/25] drm/atomic-helper: Set mode_changed on
+ vrr_enabled change
+Date: Tue, 22 Sep 2026 14:53:36 +0200
+Message-ID: <XpLMHDHXSDOKXXVsZyU9Pg@collabora.com>
+In-Reply-To: <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-3-2fcd7d011646@collabora.com>
+ <75b82a61-fe82-4597-bfb5-3c717fbb0dda@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922124137.GD1507824@nvidia.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,25 +81,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 09:41:37AM -0300, Jason Gunthorpe wrote:
-> On Mon, Sep 21, 2026 at 04:09:18PM +0200, Christian König wrote:
-> > >> I would avoid that and just re-create the DMA-buf fd from
-> > >> scratch. The extra overhead is negligible and one way state
-> > >> transmissions are usually much easier to handle.
-> > > 
-> > > Yeah, maybe we should have done that. Might be too late now.
+On Monday, 21 September 2026 23:59:11 Central European Summer Time Leo Li wrote:
+> Hi Nicholas,
+> 
+> Thanks for sending this out. I'm looking into an amdgpu implementation
+> and had some comments along the way. Will reply inline on respective
+> patches.
+> 
+> On 2026-09-21 11:51, Nicolas Frattaroli wrote:
+> > A change in whether VRR is enabled or not on a CRTC will be of interest
+> > to any VRR implementation, as they may need to recalculate certain
+> > internal state in response. So far, this was handled ad-hoc in the
+> > drivers that implement VRR.
 > > 
-> > It's already uAPI? 
+> > Handle this in the common DRM atomic core by setting the mode_changed
+> > flag when this occurs. The rationale for using mode_changed is that VRR
+> > is deeply intertwined with the current mode with regards to its timing.
+> > Consequently, any component that cares about a mode change is likely
+> > also going to care about VRR being enabled/disabled.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_atomic_helper.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index 9d006f98413a..0664d5779282 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -694,6 +694,12 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+> >  			new_crtc_state->active_changed = true;
+> >  		}
+> >  
+> > +		if (old_crtc_state->vrr_enabled != new_crtc_state->vrr_enabled) {
+> > +			drm_dbg_atomic(dev, "[CRTC:%d:%s] VRR changed\n",
+> > +				       crtc->base.id, crtc->name);
+> > +			new_crtc_state->mode_changed = true;
+> > +		}
+> > +
 > 
-> Yeah, but Matt is making some changes here so maybe new stuff can
-> avoid this. I'm not sure.
+> I don't think this is the case for all hardware, at least not for amdgpu.
+> The parts in HW that adjust vtotal can be programmed without requiring
+> bandwidth recalculations or reprogramming of pipes.
 
-Jason, the proposed semantics is not UAPI yet.
+Thanks for pointing this out. I was already unsure of this patch before,
+and I don't think Rockchip requires these recalculations either. Originally
+I added this when I looked at the i915 code iirc and saw them setting it.
 
-Matt only added the new struct in this patch.
-https://lore.kernel.org/all/20260911214200.33793-10-matt@ozlabs.org/#Z31include:uapi:linux:vfio.h
+I think in the commit message I also conflate needing to know about VRR
+being changed with needing to do a full modeset (which is what mode_changed
+basically means).
 
-Thanks
+I'll drop this patch on the next revision.
+
+Kind regards,
+Nicolas Frattaroli
 
 > 
-> Jason
+> - Leo
+> 
+> >  		if (new_crtc_state->enable != has_connectors) {
+> >  			drm_dbg_atomic(dev, "[CRTC:%d:%s] enabled/connectors mismatch (%d/%d)\n",
+> >  				       crtc->base.id, crtc->name,
+> > 
+> 
+> 
+
+
+
+
