@@ -4,68 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAAAC982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 011A9C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:12:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42CD310E179;
-	Tue, 22 Sep 2026 08:11:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A89110E44E;
+	Tue, 22 Sep 2026 08:12:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="bWymhEoA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jmrz/OuT";
 	dkim-atps=neutral
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23DB710EA5C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:11:20 +0000 (UTC)
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20260922081119epoutp01190ef5ca6a42561757c53a3786b80f5c~XlldnEoUZ0110601106epoutp01C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:11:19 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20260922081119epoutp01190ef5ca6a42561757c53a3786b80f5c~XlldnEoUZ0110601106epoutp01C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1790064679;
- bh=ppb5NdBs58x4r+h1AiWGI65C0tz0hajebc59pJdtVVc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bWymhEoAbXtMJqxPf+9fH0OCAuU1sL6J65djBskJZ5xl5XsgNwYDQM0O4pf0F9023
- oS/t8w4ur7A/VSkeP71iTgqCQS0otXuu+9pMnuJFEGKVrJg4HJRwtyCAhBu12eD23Y
- PLEmbliDWWmf4uuYlrLcuH3Le7/aCOK+8ZQmU3eo=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
- 20260922081118epcas2p48387828cf8cdea44e389d9b98ab5d0aa~XlldX3Q_n2333523335epcas2p4h;
- Tue, 22 Sep 2026 08:11:18 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.38.199]) by
- epsnrtp02.localdomain (Postfix) with ESMTP id 4hpt8k2zyFz2SSKg; Tue, 22 Sep
- 2026 08:11:18 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
- epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24~XllcgHZFi1436814368epcas2p1l;
- Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
-Received: from KORCO090182.samsungds.net (unknown [12.80.211.164]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260922081117epsmtip24ae96a6810c6b9b73c7ba684ea9201e7~Xllcb-Xjs2973429734epsmtip2z;
- Tue, 22 Sep 2026 08:11:17 +0000 (GMT)
-Date: Tue, 22 Sep 2026 17:11:14 +0900
-From: Janghyuck Kim <janghyuck.kim@samsung.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: sumit.semwal@linaro.org, phasta@kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: don't WARN_ON_ONCE() on a failing
- dmabuf->ops->vmap()
-Message-ID: <arI4IlBCtaIgirFs@KORCO090182.samsungds.net>
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD72C10E44E
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:12:50 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-48436686a40so358050f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:12:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790064769; x=1790669569; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=60x8O/YrRot0F50Ltg76B2oYgHHgxNBmBw6ELDymd/c=;
+ b=Jmrz/OuTRuqkJPux77vMWUMEywfjvF/ISPDLq/C71ynKqz+I9N7y4yaTiipacFy0Q/
+ qHW2OQA77oaTTSIIHlg92e+L9k4zdNEY49W+Yxi1Uan7Gab0Fjr8jbD3vZIDcGAP+Y7F
+ l4g05dHaGEVnw/1nMAlorQcnh2O5VjVeT22jGVjymlxwAe3mZd9HeaGyfIjvNZ7H0QKf
+ Sp9KNiWcdUAEuEt+zwBMNwa1MgfIxfzOsU5ha4+uLya4QfNYbzySBIW0qbhGF6aTJZKn
+ O6qXCwEHAzTqVcwqFo12NkePVejM6YFIBizp+qiDRArYGb/oId2H0htJeB46Mp5/CvXa
+ 9/nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790064769; x=1790669569;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=60x8O/YrRot0F50Ltg76B2oYgHHgxNBmBw6ELDymd/c=;
+ b=KoaVcrN7MNMQMqHxkM6W8rtBVbzjUmVwk45yu+vXPVU3ZzziCisVuedNwwPTG7uptW
+ LmyNyBEb/a/4wnM6lM915dgQBJJsLOuhKBJO5BvbK+tiSfhqFnMXAbaSl4ZiDn/xIz/g
+ 8zWRInijjrXB9uQ9fqFwvpd2RyHxPChn2e7PcWxJJJItQZaLg+1zw/NjQe+ZZhS3b/dd
+ R37qcFn4imzWS8VqO792nFWis5lzKHuVEg0R9dHkOnUazBMtQ/9SyOT+P4VrdiuZRjfs
+ lsb4n+6cSTy8ZvXE5N9A8C7GqSqhAMelX5bJaBSzarTlDYu0D6w2G7V+KQ4hSu6O/rWs
+ BUxQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzzFXzU7vFRnH0ZdbhwlG4O7s21JCgDjJPKm7BOWfFO7JEHFUjmtmuGPo7aOznDRsuryU6GneoG8T8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kviEaYQSmEXi2qRTJKtRJwzofmYiWCBicCDQ1xdwIS8QstKlpc
+ wmPOT1RaB83g48FuAJZD5GCunam8R5mHGk50bCb/Ye6ZonPrVPSOPjh1
+X-Gm-Gg: AYBFou0tbxoAZo2MQeczPA3hLXfHnogLo7cGOXUSqCaJSw6ZVGTV6gdKISe+2ylNI4a
+ tG0oJ6qChahvr7oIVpJPIbiCksT+rWr6K5WQhtStnQzNpdedKW7j1VuOWWw7iFRX38mdaF2n95E
+ HhG84DKLqONB4xTGXxuJcg5cQt41JJDFTSC+TgOQJDytEENqelxEDG5tl0wh6o0zCf636fLiKZU
+ hY+11eTMMI+qjySm29m4jiExhd1FEABcSnnBSKH2GGv1Kw7kCVXwFD5SsvSq5fJbKRR6pDQX1Wq
+ vN7aMtl7MpF2Qi9QTOp8qicwT1uDe9cSZf8yOvvWCC63h0syBzasgOIuVtPwREvvsgS79Ljmga+
+ bqMFuWLm86w5ImCN4GgsK04lnUnwWNRLLq/vavFV7QErU9ADNBqbcOBgVDNOwR8gA+4me4LEwnw
+ r2fuDTL8tFHeEdoZ+VbE59Us//RELRVGKTLvn0Ao2HxLE4t04YA6Ki9o3P1V7JbBIUNw/TjUH/2
+ TyXH87nN+lTxGpazejb2kyvT3jTp6IvdjfC/cmyNE4aSqHujBXoaGAVUXTGEKTbRSU7D7eTN+gQ
+ hIySFiMBNdJwAg==
+X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id
+ 5b1f17b1804b1-49fc7f2bdc8mr199991445e9.2.1790064769228; 
+ Tue, 22 Sep 2026 01:12:49 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu.
+ [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fdad6306esm34086575e9.15.2026.09.22.01.12.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 01:12:48 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Guangshuo Li <lgs201920130244@gmail.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] accel/rocket: fix shared-device lifecycle on probe
+ failure and unbind
+Date: Tue, 22 Sep 2026 10:12:41 +0200
+Message-ID: <20260922081241.46091-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260812130311.8252-1-royalnet026@gmail.com>
+References: <20260731064933.12548-1-royalnet026@gmail.com>
+ <20260812130311.8252-1-royalnet026@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
-X-CMS-MailID: 20260922081117epcas2p1cf1d6776edabec5931a622c385accc24
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
- boundary="----2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d
-References: <CGME20260921101238epcas2p39bec3831b3cbaaa71de0ece7b7f7329d@epcas2p3.samsung.com>
- <20260921100946.353521-1-janghyuck.kim@samsung.com>
- <1bd9bcfc-4b4f-4235-8073-585197b29727@amd.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,118 +97,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: inline
+Hi Tomeu,
 
-On 2026-09-21 13:39, Christian König wrote:
-> On 9/21/26 12:09, Janghyuck Kim wrote:
-> > dma_buf_vmap() escalates any non-zero return from dmabuf->ops->vmap()
-> > into a WARN_ON_ONCE(). But a failing vmap() is not, by itself,
-> > evidence of a violated invariant or a driver bug -- it's an ordinary
-> > runtime failure of a fallible operation, no different from any other
-> > allocation-shaped kernel API that can return an error. The dma-buf
-> > core has no visibility into what a given exporter's vmap()
-> > implementation considers a normal failure versus an internal bug;
-> > that distinction, if it matters at all, belongs to the exporter, not
-> > to this generic passthrough.
-> 
-> Well not quite, apart from some not so relevant HW workarounds the vmap callback is mostly used for fbdev emulation.
-> 
-Fair point about fbdev being the historical motivation. However,
-->vmap() is not limited to fbdev; for example, the mainline CMA dma-buf
-heap calls vmap() and explicitly returns -ENOMEM when the mapping cannot
-be established.
+A status update on this series.
 
-More generally, ->vmap() is a fallible callback whose API allows it to
-return an error. The exact reason for failure is exporter-specific, so I
-don't think the dma-buf core should treat every ->vmap() failure as an
-exporter bug and unconditionally WARN on it.
+2/2 now travels as patch 4 of the DVFS v2 series, as v3, rebased onto
+the slot fixes it builds on:
+https://lore.kernel.org/r/20260922080114.44662-5-royalnet026@gmail.com
+Its commit message shows the crash it fixes, and the notes under ---
+list what changed since v2. Jiaxing, v3 changes the code you reviewed
+here: the scheduler list is checked for allocation failure and freed
+when only one core is live, and the patch sits on the slot fixes before
+it. So I did not carry your Reviewed-by; a look at the new version
+would be welcome.
 
-The fatal_signal_pending() case is simply one concrete example of how
-vmap() can fail under memory pressure without indicating a driver bug.
-> > -ENOMEM is a concrete, easily reproduced example of this. Page
-> > allocation on the vmap()/vmalloc() path can fail purely because the
-> > calling task has a fatal signal pending: should_reclaim_retry() in
-> > mm/page_alloc.c intentionally gives up reclaim and returns false
-> > once fatal_signal_pending(current) is true, so that a task that is
-> > already being killed (e.g. by a userspace low-memory killer) isn't
-> > stuck retrying reclaim on its way out. The resulting -ENOMEM from
-> > dmabuf->ops->vmap() is expected behaviour in that case, not a bug in
-> > the exporter -- and it is far from the only way ops->vmap() can
-> > legitimately fail (an exporter may just as well refuse to vmap a
-> > buffer for other, unrelated reasons of its own).
-> > 
-> > This is exactly the kind of condition Documentation/process/coding-style.rst
-> > warns against for WARN*():
-> > 
-> >     WARN*() must not be used for a condition that is expected to
-> >     trigger easily, for example, by user space actions.
-> > 
-> > A failing vmap() is reachable purely by driving the system into low
-> > memory and then issuing an ioctl that happens to map a dma-buf -- no
-> > driver misbehaviour required. Turning that into a WARN_ON_ONCE(),
-> > and on panic_on_warn kernels into an outright panic, doesn't help
-> > debugging; it just turns an otherwise-recoverable error into a fatal
-> > one.
-> 
-> WOW STOP! A driver allowing to vmap() through an IOCTL is a major no-go!
-> 
-> vmap() on a DMA-buf has very very limited use cases which should mostly only be trigger able as superuser.
-> 
-> At least on 32bit system you can otherwise trivially exhaust the vmap area of the kernel and that is even worse than a simple WARN_ON_ONCE().
-Fair point. To be clear, I'm not arguing that an unprivileged ioctl
-should be allowed to trigger vmap() without appropriate access control.
-If a driver exposes that, I agree that it should be addressed in the
-driver.
+1/2 is not in that series. It builds on Guangshuo Li's "accel/rocket:
+clear rdev on device init failure", which is not in drm-misc-next yet:
+https://lore.kernel.org/r/20260708062845.716487-1-lgs201920130244@gmail.com
+I will resend 1/2 on top of it once that one is in.
 
-My point is separate: even a legitimate, one-off vmap() may fail under
-memory pressure, and such a failure does not by itself indicate driver
-misbehaviour. The fatal_signal_pending() case is one example where
-memory allocation may give up rather than continue reclaim.
-
-I'll drop the "no driver misbehaviour required" wording, since I agree
-it could be read as endorsing unrestricted ioctl-triggered vmap, which
-wasn't my intention.
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Drop the WARN_ON_ONCE() and simply propagate the error, consistent
-> > with how other allocation-failure paths in the kernel are handled.
-> > The dma_buf_vmap_unlocked()/dma_buf_vmap() contract is unchanged:
-> > both still return the negative errno from dmabuf->ops->vmap() to the
-> > caller. Only the WARN_ON_ONCE() splat (and, transitively, the panic
-> > on panic_on_warn kernels) is removed.
-> > 
-> > Signed-off-by: Janghyuck Kim <janghyuck.kim@samsung.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index 36cdc342627e..252495761a21 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -1670,7 +1670,7 @@ int dma_buf_vmap(struct dma_buf *dmabuf, struct iosys_map *map)
-> >         BUG_ON(iosys_map_is_set(&dmabuf->vmap_ptr));
-> > 
-> >         ret = dmabuf->ops->vmap(dmabuf, &ptr);
-> > -       if (WARN_ON_ONCE(ret))
-> > +       if (ret)
-> >                 return ret;
-> > 
-> >         dmabuf->vmap_ptr = ptr;
-> > --
-> > 2.34.1
-> > 
-> 
-> 
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_
-Content-Type: text/plain; charset="utf-8"
-
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_63062_--
+Thanks,
+Igor
