@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 064A0C982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC2EFC982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A1410E6D0;
-	Tue, 22 Sep 2026 15:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 108F410ED7B;
+	Tue, 22 Sep 2026 15:44:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L87tZLu3";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="GSm4x/DT";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 804C010ED78
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:38:56 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e7bcb94d3so29765755e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:38:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790091535; x=1790696335; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=F5jxz2R7aklALF1c07VlaANJo82uSjv4mznBGg6lztU=;
- b=L87tZLu3ZYlqt4tEAkAXNgnaM4AUUqvzjfnJSHnw+84IzWskxIm10bzJxsGnuuAXbD
- AoDFGDGaB5eX603sNycEvZ0vJKekCfHt15TspRnHo39r99dy6brc6ab9dchmiehO7nkf
- JI1ud3iU50XGVQV3fjlE1Eh6aDdXx6HIUa8QBssAlY7pT1TTeJ2YikQ3oD3Go84q27iq
- CB/JR+LkPSQUIRwIf5OpuXL23a/j4auZ3AZuACNkQ8nLCoqHh/oIBy2KYa8P32Mm1lCF
- 23mXPXikyLzg7CE78QzOPm5gZOPwMOL+C7Tt59XyP40L48bXzZfo7bNdVi+rNRiEvzdu
- vUgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790091535; x=1790696335;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=F5jxz2R7aklALF1c07VlaANJo82uSjv4mznBGg6lztU=;
- b=jH5ZZrkZbY/by8Ql73rrPOTMRDNHcFr6RysIM4p+xG38kK9x49eIV4eCfy3iDxSqTl
- 4JzAc1zHxHGpQgZW5t06n/BgBDXz0A4gfZVFgjKkIHpxS/ttJO+SMOSU2vGvdDpkzT6/
- /RYLr65BkM4Yzr5HbekBXvaQLaaBR7llYIfaKzc/z2xlUp5hWDJvxeuTkgDyTpSI5qlB
- ZgFj1bS20Qv2vI2TZtVS3rGmhtqZxunTn9rKaLR9oUVgoEiG2NHj4THaqw+5Tb9aragx
- LZAdJBm4D8ALH/P9diragB3QGMSeSRPaooFJPTKLVjIA/5UOLS9k7k5HhxCd3SgbQzH3
- H8QQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz3UEHp/vEHVYFI+vKqzk2zPkyn9MBo5fAPa6K3hyRYwspB9nWoyaXKaiSnd1M2qA3k7nAaxhLftj0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kud3lNLg+Cuc6S1ZOaMeNln4gzTpebZFz8OanBDWw3WpJWJ5+t
- Ql7/6fm+X6L/UmuNjGPNEwUxgJ4RlyMq5RwqVvyOcAa5mImLQtqlbZ9o
-X-Gm-Gg: AYBFou2A8yJz4C7K0SxqHIMXqqtbBD2ydynvuIeCYszypd7RFzHq1SveDgIWlRHMIOc
- y7V5B3c7lHDvULKlgUMWX9DDHv38G3pMtlkZLNF8uYwoK/cs3y3V8wwkd4Yem/S4ScG4OXdnDjT
- 8r1orm7yezDz/Uamh+QmTdMisbpbDk0pWaVrlflmBXtnRp7dlZR9iEXko8IKe8WbnC5sO8+6CmK
- Fv6HR5CYXP5/aXXAp4UjQcjD1ZQ0s2iP3+sOghcBeWh3zHB61MMCFGU25ub2uRsodyS7U/qgFb8
- jW6SWNR6PPzfOdm4wxCVwMxrigK3UWPTQz1wvOR1oB5NHeBnQ5kC10lAePPKHmMnKs+Xqg69867
- gQsWIlvKG+y884wj3p7q3duFBa+KozDHbQPon6bAUFb370bcEygDvA3YvcFq1NzkEfMQNdOhMI0
- 9c+A3HK8UiIVXR/sPk6w74BG5zgRFOsqPC+NuIa2rc8S3asTVotyIA+6VoTWAhA/3/kuctCojRY
- lumoQDJuU9lSO7i2Bmxh71rEvUQXkKXbZ83gWMB0WcQPoc=
-X-Received: by 2002:a05:600c:468c:b0:49d:16df:8521 with SMTP id
- 5b1f17b1804b1-49fc56811dcmr212862655e9.4.1790091534593; 
- Tue, 22 Sep 2026 08:38:54 -0700 (PDT)
-Received: from michalis-linux (adsl-75.176.58.251.tellas.gr. [176.58.251.75])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48862786f40sm5410966f8f.27.2026.09.22.08.38.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 08:38:53 -0700 (PDT)
-Date: Tue, 22 Sep 2026 18:38:52 +0300
-From: Michail Tatas <michail.tatas@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: unmap GART dma pages before free
-Message-ID: <arKhDFCSoPDNYaxX@michalis-linux>
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40B6E10ED7B
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:44:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=CWnSk7EHPwZAKsC2qnExgWJIw09V8t9KapKe+fGyacY=; b=GSm4x/DTZBhqYrTlypLXxe4dWy
+ 9y0sKMPb064RvrGUTmasLfAtfG82W1NGKWo/+xT03P6Oh8PevDkvjUF+Chntkj38pPm6H5lSpW00n
+ 14O4Dpzm0kR1kCBBt6AmxVZk4MZUVOwj5r2wnDpgZW8eoYS9DAM7xK79NREGkU6auzxdUBhjGuiJU
+ ijdiVxaHh9h2MKQWZntFWWZPJw+ThxEHQC72rUwJ+Nmhz3sNlRxYQuIQDNpuRwFiwZMJQ5hWueLbT
+ h4CWHqhJq+VkZA3OU+lTvTGaBB/oZn2MtwfwF77vBEpGxIfjjB8HIJOzz6yj/Om+EkgOwRsWHoW3c
+ 3sCFOc9A==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1x92fD-0000000FjgX-1I9v;
+ Tue, 22 Sep 2026 09:44:12 -0600
+Message-ID: <be735e17-0948-4940-a6c9-862466f986b3@deltatee.com>
+Date: Tue, 22 Sep 2026 09:43:56 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Chaitanya Kulkarni <kch@nvidia.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+ <20260920-fix-p2p-acs-v4-0-v7-15-ca0828ab697c@nvidia.com>
+ <85bb90f0-5a02-4e35-9ed6-ad7e67c1c0d8@deltatee.com>
+ <20260922092754.GC563127@unreal>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260922092754.GC563127@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com,
+ gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org,
+ ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v7 15/19] PCI/P2PDMA: Document TLP-class routing
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,40 +86,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_gart_table_ram_alloc() maps the GART dma pages
-and neither the error path nor amdgpu_gart_table_ram_free()
-unmaps those pages before freeing them, which could leave
-the device writing to freed memory.
 
-Fix by unmapping the GART dma pages before freeing them.
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 4 ++++
- 1 file changed, 4 insertions(+)
+On 2026-09-22 03:27, Leon Romanovsky wrote:
+> On Mon, Sep 21, 2026 at 04:16:56PM -0600, Logan Gunthorpe wrote:
+>>
+>>
+>> On 2026-09-20 05:41, Leon Romanovsky wrote:
+>>> +A path is bus addressable only where both directions route directly, so with
+>>> +nothing enabled every class is.
+>>
+>> I don't understand the sentence.
+> 
+> I tried to say that we need both Requests and Completions route
+> directly.
+> 
+> Claude suggested something like that:
+> ---------------------------------------------------------------------------
+> Combining the two tables gives the mapping type: a class is bus addressable
+> when its Request and its Completions both route directly, a blocked Request
+> is not supported because Translation Blocking rejects the Address Type
+> wherever the Request is addressed, and anything else goes through the host
+> bridge. With no ACS control set anywhere, every class routes directly.
+> ---------------------------------------------------------------------------
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index c4c21dbbbdbf..780fb01530e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -209,6 +209,8 @@ int amdgpu_gart_table_ram_alloc(struct amdgpu_device *adev)
- error_resv:
- 	amdgpu_bo_unreserve(bo);
- error:
-+	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.table_size,
-+		       DMA_BIDIRECTIONAL);
- 	amdgpu_bo_unref(&bo);
- 	if (sg) {
- 		sg_free_table(sg);
-@@ -240,6 +242,8 @@ void amdgpu_gart_table_ram_free(struct amdgpu_device *adev)
- 		amdgpu_bo_unreserve(adev->gart.bo);
- 	}
- 	amdgpu_bo_unref(&adev->gart.bo);
-+	dma_unmap_page(&adev->pdev->dev, sg_dma_address(sg->sgl), adev->gart.table_size,
-+		       DMA_BIDIRECTIONAL);
- 	sg_free_table(sg);
- 	kfree(sg);
- 	p = virt_to_page(adev->gart.ptr);
--- 
-2.43.0
+That's much more understandable. Thanks.
 
+Logan
