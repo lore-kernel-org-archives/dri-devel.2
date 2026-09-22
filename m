@@ -4,65 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7E5C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38DA6C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A0110EB82;
-	Tue, 22 Sep 2026 06:46:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 475EC10EBC3;
+	Tue, 22 Sep 2026 06:48:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ecUmEAjP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YfDA3CJP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD6410EB87;
- Tue, 22 Sep 2026 06:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790059605; x=1821595605;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=yPlIafrpnAyWQ6dzKtmbn4aRjT+0Imp8WqIlko9zOJM=;
- b=ecUmEAjPcCA4f1FVERg5pIRdNiUmu6Zlw70fUkj9fjYqtFJhwuZsUh40
- 6xg79Zi3ZqKZFZAFWT6SyCXWXIGvC+l4bIrdqFXWlO7G4g2W9u0p4K3uK
- npZOlo7uFIPzxiSCzcz3poXEl7ie6f15Lbw/izigUyp6ZAa0bIHbgGnrM
- JJQihbujDGQELBAgdQvg7TnHXkc0/S2k48pgmNknmwrK2D25LQbrpbp7X
- iJMwGhQyK12gg1AjK49Z6LkjZhk/k4qcQ90bsFwexo5DnPm9KxLAPUhK6
- XaDDkvtDkGxwCu2ybq3xVa0BUGdruZ8e+ROV77Y9fkLibAVBmDcY7xuEB Q==;
-X-CSE-ConnectionGUID: FkRbRT6qQ5yi6NwziM8dkg==
-X-CSE-MsgGUID: Qgjl7xiOSMGhJ/6loI0tkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116155749"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="116155749"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 23:46:44 -0700
-X-CSE-ConnectionGUID: 2NX+KT+/ROaGkJ9fn/2s3Q==
-X-CSE-MsgGUID: P3NALla7T9C4U/dsO9+pqg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="273168760"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.25])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 23:46:42 -0700
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE3BE10EBBC
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:48:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7867C42A57;
+ Tue, 22 Sep 2026 06:48:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2651D1F000FF;
+ Tue, 22 Sep 2026 06:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790059694;
+ bh=DFZ4AH8NrD9uS7BzuKBlUQTFfMHVHBHZfW2TghtrT5c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YfDA3CJPtfEsyMVSUuK3BObRIN6DiY+rON8aWNCzRgVdJNy/d0Jcnk1dc29QbjE/p
+ h3+m70YLeNi9qVBaMa6tDw7rZF2I7dvCO5LeN3OCKLpDN/Yq6aj/WuA/1UGp/1DZu6
+ 9glAiiVfETwyU8Nj8KfgqGK3yJXBlxhYrYiYItSD8z+6mzGOM6b6kN4GFs1HFsL4rJ
+ TxDNJYUk/EEFkoV7yBWvoxS4Cxf4T3bGu+Y+7uLcN5qpvcnctlDqlec5BOV/RqksNd
+ QIyUIh5LvtoVajqPwplwd9L8lmJqHYyQKBem93ybw+o4XKLO5qvP0aJvXng6oq4P89
+ /lzPqYIwkGmuA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] pci/vgaarb: pass a data pointer to be used in the
+ decode callback
+To: "Dave Airlie" <airlied@gmail.com>
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260922064111.2468741-1-airlied@gmail.com>
+References: <20260922064111.2468741-1-airlied@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
-References: <20260630223946.2107382-1-jia.yao@intel.com>
- <20260630225349.984AB1F000E9@smtp.kernel.org>
- <178290749714.224587.15234445443946207851@jlahtine-mobl>
- <178292444166.273574.16738251742448073960@jlahtine-mobl>
- <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
-Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Roper,
- Matthew D" <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-To: "Yao, Jia" <jia.yao@intel.com>,
- "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-Date: Tue, 22 Sep 2026 09:46:39 +0300
-Message-ID: <179005959984.27165.4749331452130832177@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+Date: Tue, 22 Sep 2026 06:48:13 +0000
+Message-Id: <20260922064814.2651D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,42 +54,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Quoting Yao, Jia (2026-09-21 20:33:03)
-> Hi @Lahtinen, Joonas,
->=20
-> The key is LSC_CHICKEN_BIT_0 is a global register.
->=20
-> Even we use per-client,  we should consider the following cases:
->=20
-> 1. Should conflicting configurations within a client be rejected?
-> I recommend the first setting should be latched.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/loongson: missed vga_client_register API conversion breaks build
+--
 
-From uAPI perspective it would be simpler to set this at the DRM client
-level at once. However we don't seem to have such uAPI in active use
-currently (all drm_noop) so you'd have to compare the complexity between
-indirectly setting it at DRM client level by first created context or
-adding such an uAPI to set it explicitly per client.
+commit 53a905b209a5cf4aa1aeb17a42069c191d47a151
+Author: Dave Airlie <airlied@redhat.com>
 
-> 2. Should conflicting configurations across different clients be rejected?
-> I think the latter setting can cover previous one.
+pci/vgaarb: pass a data pointer to be used in the decode callback
 
-DRM clients need to be indepenent from the driver perspective,
-we can't do that.
+This commit updates the vga_client_register() API to accept a void *data
+pointer, which is then passed to the decode callback. It also updates
+various DRM drivers and VFIO to pass and use this new private data pointer.
 
-The whole point of making it per DRM client is that given the
-impacted SKU only has 1 CCS engine. We have the address space
-matching requirement between CCS and RCS, so when both CCS and
-RCS are running, we know they belong to the same DRM client and
-thus they will not conflict with the WA mode. And if only one of
-them is running, there can be no conflict either as it's just one
-context.
+[ ... ]
 
-> Even like this, still can't cover all the race condition.
+> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
+> index 97129a1bbb7df..71a364669eaf8 100644
+> --- a/include/linux/vgaarb.h
+> +++ b/include/linux/vgaarb.h
+> @@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
+>  void vga_set_default_device(struct pci_dev *pdev);
+>  int vga_remove_vgacon(struct pci_dev *pdev);
+>  int vga_client_register(struct pci_dev *pdev,
+> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
+> +		unsigned int (*set_decode)(void *data, bool state),
+> +		void *data);
 
-Which race conditions do you think would remain? We definitely
-have to eliminate any race conditions to land this.
+[Severity: Low]
+Does this API change break the build for the loongson DRM driver?
 
-Regards, Joonas
+It looks like the conversion of vga_client_register() missed lsdc_pci_probe=
+()
+in drivers/gpu/drm/loongson/lsdc_drv.c:
+
+drivers/gpu/drm/loongson/lsdc_drv.c:lsdc_pci_probe() {
+    ...
+	vga_client_register(pdev, lsdc_vga_set_decode);
+    ...
+}
+
+The callback lsdc_vga_set_decode() also still expects a struct pci_dev *
+rather than void *data.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922064111.2468=
+741-1-airlied@gmail.com?part=3D1
