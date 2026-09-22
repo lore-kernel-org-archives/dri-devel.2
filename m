@@ -4,75 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1300BC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94B9C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B0510EF3D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0EC710EF56;
 	Wed, 23 Sep 2026 07:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sYJRKOs5";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uyMUOZj6";
 	dkim-atps=neutral
-Received: from mail-pj2-f17.google.com (mail-pj2-f17.google.com
- [74.125.227.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA1510EB3C
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:41:07 +0000 (UTC)
-Received: by mail-pj2-f17.google.com with SMTP id
- d9443c01a7336-2db1ca06a25so26929655ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790066467; x=1790671267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=5S8QifYjw9f9mPH34m2yhxskNbv7W3w5nVN3WfjvwaU=;
- b=sYJRKOs5jdqWAVDxSix/oQLeHwT2ID98ebZFzMfz5oQy5BlPSwiLyDliyaOWy8qrMT
- 3oYzsCmwtO3CC2KDMWHZr7BZ4DPUhiglRgBY1EzTa7YtRUsnu4pu4vzwKvqDRgqmwYys
- W0pSyRKTS+ByAmhB2iDmPZAWgAvwS5LCh1Yn6OaKT1q0cTvJMwvR6xv/Dkult4UL26yi
- 0VWCTLRCPi4n7aHJHSfdYYfPI1zfCVtb4yxgS/tG5iac1VaZ0mQotkZ7nvz5i5IkPJjz
- QTzF1cPkcH32Yu5mkYgEX2qNKXePJ7RbK7uLV9SE5JKfpdcymJMtsf5KguSOwkMitA9s
- CHVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790066467; x=1790671267;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5S8QifYjw9f9mPH34m2yhxskNbv7W3w5nVN3WfjvwaU=;
- b=x3ATMGoLPjGX6S/t3KUgXJgGs6/r6bEgePCwV4RWkGOldhAf//hRd/wMnSlbqgZ+km
- 0JCO7FQThQj3g4DLS82dBYG1nzdp5f5rdOaY2/HnLFT+UNqO3b1CdGveyN5cQd13/+Ca
- /VDjoDS7CLnRrd5g8wiNS7Cmsq5gRkU+IBMYydNHJyH/d5V4b1ufsOlTr1AntiBPERaM
- G436AX3RPgYpDd9V/Qd7CbGWMSlOIpgggLlhUNxA7Pjbs06JgDkUqYQ9I57OLRh2Y3uq
- puQ6vmdxw0kWvRoOqb0U7fhBvbPxzEHHbP6BMd5EQmR7UoTdvA3LjioYa/4iJRNrv8LY
- j+5Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy7ZCHstYM5Cja+1ymXbCGn6y/rEEZcl5my7y/+cIawFAkuxJvkSYqSvg0mttRiLRMcXSQuuqxP2mA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kaif0LLFiq6piGCAatbif2unJZBYlLta1PbCJsoAqGAbkSgafd
- wHjzgXLnQauCqPB9rFCkDqhFHla+Bay3yjWCMyY9pmyqfZG8elzxa4Rh
-X-Gm-Gg: AYBFou0czZw8KaU4ns8s2xl9qEAHPBk/ehPeEiHh88hel0csIHFBZ4qarVau0hUVo3e
- aLUwpm6b2fmTbM15SsXWzCbOMRW4zv9Lq8PbOyAGxkPFVauZLPpqE8pOram3FlyV8Sqen6wLCmv
- vKRzqZN/6ZMA1+YW3Q6KXzwS8QWeejgcTrnBmOmFYUIpJYetFG84q3zsp2IAucPM2CRWyyY+zR7
- iptngfLRRrD5CtRCpVYkye3Uc021UJVbvP+Vdeu8H5YGI86zmDpkV40041IuuYjIbJMkoT7IHTB
- IMWEOy8ADZkbxBTPLBqyxed/zqynHJUjTRp4EhtZdkuK8b3/2Muve0xBW1bnA+SHLQd75Ysdz1F
- PZiWFINzYaoln8KmFAGhDAL/J4QmnnfllVfdE/SLj3kDAORdUlUjFqAUE+LxbVIIEKpx4qypcHF
- 3tQiw1sbaz9JUCK7zwrlRoxzxQbeHv3M7PsRoC6J8Y5vXz5iMRsqFOeKrIyfnnqGSa/F9Mbw==
-X-Received: by 2002:a17:903:3846:b0:2dd:3ddf:b895 with SMTP id
- d9443c01a7336-2df609b1ca2mr4568265ad.3.1790066466503; 
- Tue, 22 Sep 2026 01:41:06 -0700 (PDT)
-Received: from fedora ([111.223.30.23]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df5d0308f5sm6089835ad.43.2026.09.22.01.41.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 01:41:06 -0700 (PDT)
-From: Sajal Gupta <sajal2005gupta@gmail.com>
-To: rubenru09@aol.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, noralf@tronnes.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sajal Gupta <sajal2005gupta@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/gud: don't keep a connector without a CRTC as
- connector_state
-Date: Tue, 22 Sep 2026 14:10:08 +0530
-Message-ID: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 79B3D10E4F6;
+ Tue, 22 Sep 2026 17:14:21 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B61A1576;
+ Tue, 22 Sep 2026 10:14:17 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D30003F86C;
+ Tue, 22 Sep 2026 10:14:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097261; bh=m1/Zj1kl1r4NT70p2V5vARYiyafZNwoUEY016kfXI6M=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=uyMUOZj6R5njDUnUE0WViDRG203+0ImQf8L3e4R3tvNeiQX8hthSWT3MmAozquZCC
+ MtaevHRyysWE/QOR2DnQlqNWb2SZ0tKdXvT/wq71vEr+9CY6J3c/VDmp9lE+PtmgLq
+ I6LApZTWohZd2n0AKddZqBwhz/kVnU82kKMdtcjU=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:12:34 +0100
+Subject: [PATCH v3 6/9] mm: add hw_pte_val for HW PTE storage
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0-v3-6-5670b8cb9059@arm.com>
+References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,38 +119,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the 'for_each_new_connector_in_state()' loop finishes without
-hitting the break, connector_state is left pointing at the last
-connector visited, which has no CRTC, instead of
-staying NULL.
+Atomic PTE updates need an lvalue for the bits stored in an HW PTE.
+pte_val() only accepts a SW PTE value, so it cannot operate directly on
+a distinct hw_pte_t.
 
-That skips the "if (!connector_state)" fallback below the loop, which
-looks up the active connector when the state contains none. The
-function then carries on with a connector that is not driven.
+Add hw_pte_val() to expose the underlying pte_val() lvalue. Access the
+wrapper's __pte member when hw_pte_t is distinct, and use pte_val()
+directly when it remains an alias of pte_t.
 
-Fix by resetting connector_state to NULL for each connector visited that
-has no CRTC, so that it is NULL when none was found and the fallback runs.
-
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260902123254.36987-1-sajal2005gupta@gmail.com?part=1
-Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
- drivers/gpu/drm/gud/gud_pipe.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- Moved from the arm64 series to generic series as it makes more sense
+  to add this in generic with all other changes. Usually we only add
+  code where its get used. But this whole series wouldn't get used
+  until an arch started using HW PTEs.
+---
+ include/linux/pgtable_types.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index aa7792966287..5aa5ac2f3727 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -507,6 +507,7 @@ int gud_plane_atomic_check(struct drm_plane *plane,
- 	for_each_new_connector_in_state(state, connector, connector_state, i) {
- 		if (connector_state->crtc)
- 			break;
-+		connector_state = NULL;
- 	}
+diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+index d6c5a7548550b..ee4eace5c3e1c 100644
+--- a/include/linux/pgtable_types.h
++++ b/include/linux/pgtable_types.h
+@@ -9,9 +9,13 @@
+ #ifdef CONFIG_ARCH_HAS_HW_PTE_T
+ typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+ #define __pte_from_hw(pte)	((pte).__pte)
++
++#define hw_pte_val(x)  pte_val((x).__pte)
+ #else
+ #define hw_pte_t pte_t
+ #define __pte_from_hw(pte)	(pte)
++
++#define hw_pte_val(x)  pte_val(x)
+ #endif
+ 
+ #endif /* !__ASSEMBLY__ */
 
- 	/*
---
-2.55.0
+-- 
+2.47.3
 
