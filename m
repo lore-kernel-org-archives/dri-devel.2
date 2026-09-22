@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395FEC982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96DB3C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:09:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6295D10E41B;
-	Tue, 22 Sep 2026 06:02:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C580710E8A3;
+	Tue, 22 Sep 2026 06:09:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WKFWodGF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y+5spUnM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2C910E41B
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790056967; x=1821592967;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=kGrUP8lQtbXqNkfszgaCdmZayGooSU84mNcC1IzyPvQ=;
- b=WKFWodGFr9hwb8fMuC5QFy59pUh62BGViSiN17VE3rSzrDQj8P5fRpDI
- 1vHPcSsRYf//CCDxC7gZmv2OpKGBau2ujp/uEX8P/KQ1GM3TcUyh+Mgs7
- Mae7Y4awdvjfOMH7e1EWtTKtXqltkaUb9RsdTmiiVAl0P9FFhfhrdGmPI
- ZM67RIQLwT6CuV/Xbx6mcu4bOUjTtVhI0WDUYGUvnlU0Ulbp7BS8NPMo8
- K+yUqr+srGOYxDy1UAhBRAtCYp/x1CjOKxRwf6fxgBGCcfbr4R9rKIynp
- OcetRgFQtp3aDyNdsOMlWZPGBkLTIRDDX1cuH+xNHYfadcwOf36VeS5WK Q==;
-X-CSE-ConnectionGUID: 5FWVrUSORcqlKzs5pR9WMA==
-X-CSE-MsgGUID: k8pLLT9jQ6m1qCNoWuT7wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1134729"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="1134729"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 23:02:46 -0700
-X-CSE-ConnectionGUID: uP2g1mAtS5W8rKM5ycBvjQ==
-X-CSE-MsgGUID: j/2Iqo2cQYiYzRmpQt/klg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; d="scan'208";a="272182660"
-Received: from jfedorov-mobl2.ccr.corp.intel.com (HELO [10.245.80.122])
- ([10.245.80.122])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2026 23:02:42 -0700
-Message-ID: <10240e7e-858b-4283-b7cb-d4af2459a341@linux.intel.com>
-Date: Tue, 22 Sep 2026 08:02:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Use separate flag for job timeout
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, Jakub Pawlak <jakub.pawlak@intel.com>,
- stable@vger.kernel.org
-References: <20260914084301.894028-1-karol.wachowski@linux.intel.com>
- <ac09bf4a-2b65-421a-a5f6-87c5a89ba734@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <ac09bf4a-2b65-421a-a5f6-87c5a89ba734@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E063D10E73F;
+ Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7E3B941FA7;
+ Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9771F000FF;
+ Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790057378;
+ bh=oOBGis0SBghtHwpG23pIumyQMyfBIbbwM40vF06zwBg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Y+5spUnMpxluPet75ChP+a6xHbyEvTeu0d8XlVB4l38BxoIwW1pkmo0o6GlQNqheK
+ gwc8F5qN6POUsWKd3wvZcwy8zNOZAbRI+M5XtM4sUko9AwHh2p/TVvuKF8d9F/cJkA
+ nS98eLAdhXXdAtnLrf/QlRka7Z2fZurJe9us+c8EEvUQNHxbEKghec6ymN/kddSle5
+ XZc+K7IVJYs7sumpAZfmr7aKYjA8DUowflAJlN0Ejn6/MHrP8mFrqXyArbLv5tH3tF
+ EtySiJqcNFyvp9H/QLwEY5zW64syrzThy9dbL5a1kGQjRRxR9lDsBxqfPxcyAwk+A7
+ E//LI1mCya1CQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 11/12] lib/test_hmm: add a new testcase for the
+ migrate on fault
+To: mpenttil@redhat.com
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260922053421.4092027-12-mpenttil@redhat.com>
+References: <20260922053421.4092027-1-mpenttil@redhat.com>
+ <20260922053421.4092027-12-mpenttil@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 06:09:37 +0000
+Message-Id: <20260922060938.2B9771F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,43 +54,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 21-Sep-26 16:56, Dawid Osuchowski wrote:
-> On 2026-09-14 10:43 AM, Karol Wachowski wrote:
->> From: Jakub Pawlak <jakub.pawlak@intel.com>
->>
->> Use separate flag to mark a job timeout as a reason
->> of starting context_abort_work. This allows to distinguish
->> engine reset reason and clearly adjust reset procedure flow.
->>
->> The flag is cleared in ivpu_prepare_for_reset(), which every
->> recovery and suspend path already funnels through, so that the
->> state is clean after recovery.
->>
->> Cc: <stable@vger.kernel.org> # v7.1+
->> Fixes: ade00a6c903f ("accel/ivpu: Perform engine reset instead of 
->> device recovery on TDR")
-> 
-> Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mm: test_hmm: UAF due to concurrent unmaps during migration
+--
 
-Thanks, applied to drm-misc-fixes.
+commit 561fbddf4a910a84fca4e2648f745dbccb247398
+Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
-> 
->> Signed-off-by: Jakub Pawlak <jakub.pawlak@intel.com>
->> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
->> ---
->> Changes in v2:
->>   - add Cc: tag
->>   - link to v1: https://lore.kernel.org/dri- 
->> devel/20260914082800.892044-1-karol.wachowski@linux.intel.com/T/#u
->> ---
->>   drivers/accel/ivpu/ivpu_drv.c | 3 ++-
->>   drivers/accel/ivpu/ivpu_drv.h | 2 +-
->>   drivers/accel/ivpu/ivpu_job.c | 7 +++----
->>   drivers/accel/ivpu/ivpu_mmu.c | 1 -
->>   drivers/accel/ivpu/ivpu_pm.c  | 1 +
->>   5 files changed, 7 insertions(+), 7 deletions(-)
-> 
+lib/test_hmm: add a new testcase for the migrate on fault
 
+This commit enhances the hmm test driver (lib/test_hmm) with a new test
+case for migrate on fault. It adds a new ioctl and test code to fault and
+migrate anonymous memory to device private memory.
+
+> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+> index cd88e8177d0ab..b39522c05d832 100644
+> --- a/lib/test_hmm.c
+> +++ b/lib/test_hmm.c
+[ ... ]
+> @@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirro=
+r,
+>  		break;
+>  	}
+> =20
+> -	ret =3D dmirror_do_fault(dmirror, range);
+> +	/* update device page table after migration */
+> +	if (!migrate)
+> +		ret =3D dmirror_do_fault(dmirror, range);
+> =20
+>  	mutex_unlock(&dmirror->mutex);
+>  out:
+
+[Severity: High]
+Does skipping the page table update here leave us vulnerable to concurrent
+unmaps during migration?
+
+When migrate is true, the dmirror->mutex is dropped here without verifying
+the final sequence or updating the device page table. This opens a race
+window.
+
+[ ... ]
+> @@ -1377,6 +1387,114 @@ static int dmirror_migrate_to_device(struct dmirr=
+or *dmirror,
+>  	return ret;
+>  }
+> =20
+> +static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_rang=
+e *range)
+> +{
+> +	struct migrate_vma *migrate =3D range->migrate;
+> +	int ret;
+> +
+> +	mmap_read_lock(dmirror->notifier.mm);
+> +
+> +	/* Fault-in pages for migration */
+> +	ret =3D dmirror_range_fault(dmirror, range);
+[ ... ]
+> +	pr_debug("Migrating from sys mem to device mem\n");
+> +
+> +	dmirror_migrate_alloc_and_copy(migrate, dmirror);
+> +	migrate_vma_pages(migrate);
+> +	dmirror_migrate_finalize_and_map(migrate, dmirror);
+> +	migrate_vma_finalize(migrate);
+
+[Severity: High]
+Can this sequence lead to a use-after-free of device pages if a concurrent
+unmap occurs after we dropped the mutex in dmirror_range_fault()?
+
+While mmap_read_lock() is held here, a concurrent madvise(MADV_DONTNEED)
+could still execute (since it only requires the read lock or per-VMA lock)
+and clear the newly installed migration PTEs, triggering the MMU interval
+notifier.
+
+Since the interval notifier invalidation would see an empty dmirror->pt (as
+we haven't mapped the pages yet), it would take no action.=20
+
+Then, dmirror_migrate_finalize_and_map() inserts the newly allocated device
+pages into dmirror->pt blindly, without re-checking
+mmu_interval_read_retry().=20
+
+When migrate_vma_finalize() runs, it would fail to map the device page into
+the CPU page table because the migration PTE is gone, dropping the final
+reference and freeing the page while it is still mapped in the device
+page table.
+
+> +out:
+> +	mmap_read_unlock(dmirror->notifier.mm);
+> +	return ret;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922053421.4092=
+027-1-mpenttil@redhat.com?part=3D11
