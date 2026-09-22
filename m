@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E6FC982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7E5C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDF610E7BE;
-	Tue, 22 Sep 2026 06:41:40 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [207.211.30.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A12110E7BE
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:41:38 +0000 (UTC)
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-399-CicNOXX2MUOiY2Pznp7E1Q-1; Tue,
- 22 Sep 2026 02:41:35 -0400
-X-MC-Unique: CicNOXX2MUOiY2Pznp7E1Q-1
-X-Mimecast-MFC-AGG-ID: CicNOXX2MUOiY2Pznp7E1Q_1790059293
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3B9B31805A3C; Tue, 22 Sep 2026 06:41:33 +0000 (UTC)
-Received: from dreadlord.lan (unknown [10.67.32.53])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 7079F1956041; Tue, 22 Sep 2026 06:41:25 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- kvm@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Dave Airlie <airlied@redhat.com>,
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] pci/vgaarb: pass a data pointer to be used in the decode
- callback
-Date: Tue, 22 Sep 2026 16:41:11 +1000
-Message-ID: <20260922064111.2468741-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A0110EB82;
+	Tue, 22 Sep 2026 06:46:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ecUmEAjP";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD6410EB87;
+ Tue, 22 Sep 2026 06:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790059605; x=1821595605;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=yPlIafrpnAyWQ6dzKtmbn4aRjT+0Imp8WqIlko9zOJM=;
+ b=ecUmEAjPcCA4f1FVERg5pIRdNiUmu6Zlw70fUkj9fjYqtFJhwuZsUh40
+ 6xg79Zi3ZqKZFZAFWT6SyCXWXIGvC+l4bIrdqFXWlO7G4g2W9u0p4K3uK
+ npZOlo7uFIPzxiSCzcz3poXEl7ie6f15Lbw/izigUyp6ZAa0bIHbgGnrM
+ JJQihbujDGQELBAgdQvg7TnHXkc0/S2k48pgmNknmwrK2D25LQbrpbp7X
+ iJMwGhQyK12gg1AjK49Z6LkjZhk/k4qcQ90bsFwexo5DnPm9KxLAPUhK6
+ XaDDkvtDkGxwCu2ybq3xVa0BUGdruZ8e+ROV77Y9fkLibAVBmDcY7xuEB Q==;
+X-CSE-ConnectionGUID: FkRbRT6qQ5yi6NwziM8dkg==
+X-CSE-MsgGUID: Qgjl7xiOSMGhJ/6loI0tkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116155749"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="116155749"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 23:46:44 -0700
+X-CSE-ConnectionGUID: 2NX+KT+/ROaGkJ9fn/2s3Q==
+X-CSE-MsgGUID: P3NALla7T9C4U/dsO9+pqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; d="scan'208";a="273168760"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.25])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2026 23:46:42 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: QWY_qujDgK2KVft1prEDNIWy0A0XWtQVWw0Buw2JNc8_1790059293
-X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
-content-type: text/plain; charset=WINDOWS-1252; x-default=true
+In-Reply-To: <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
+References: <20260630223946.2107382-1-jia.yao@intel.com>
+ <20260630225349.984AB1F000E9@smtp.kernel.org>
+ <178290749714.224587.15234445443946207851@jlahtine-mobl>
+ <178292444166.273574.16738251742448073960@jlahtine-mobl>
+ <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
+Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
+ Wa_22013059131
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Roper,
+ Matthew D" <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+To: "Yao, Jia" <jia.yao@intel.com>,
+ "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>,
+ "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Date: Tue, 22 Sep 2026 09:46:39 +0300
+Message-ID: <179005959984.27165.4749331452130832177@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,263 +78,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Dave Airlie <airlied@redhat.com>
+Quoting Yao, Jia (2026-09-21 20:33:03)
+> Hi @Lahtinen, Joonas,
+>=20
+> The key is LSC_CHICKEN_BIT_0 is a global register.
+>=20
+> Even we use per-client,  we should consider the following cases:
+>=20
+> 1. Should conflicting configurations within a client be rejected?
+> I recommend the first setting should be latched.
 
-This changes the vgaarb client API so that the user can pass a
-private data pointer into the register that will get used in
-the decode callback.
+From uAPI perspective it would be simpler to set this at the DRM client
+level at once. However we don't seem to have such uAPI in active use
+currently (all drm_noop) so you'd have to compare the complexity between
+indirectly setting it at DRM client level by first created context or
+adding such an uAPI to set it explicitly per client.
 
-This allows a bunch of pdev conversions in the drivers, and lets
-some future vfio cleanups be nicer.
+> 2. Should conflicting configurations across different clients be rejected?
+> I think the latter setting can cover previous one.
 
-I'd like to merge this via the drm next tree but also fine with
-it going via pci.
+DRM clients need to be indepenent from the driver perspective,
+we can't do that.
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
- drivers/gpu/drm/i915/display/intel_vga.c   |  7 ++++---
- drivers/gpu/drm/nouveau/nouveau_vga.c      |  6 +++---
- drivers/gpu/drm/radeon/radeon_device.c     |  7 +++----
- drivers/pci/vgaarb.c                       | 13 +++++++++----
- drivers/vfio/pci/vfio_pci_core.c           |  9 +++++----
- include/linux/vgaarb.h                     |  8 +++++---
- 7 files changed, 32 insertions(+), 24 deletions(-)
+The whole point of making it per DRM client is that given the
+impacted SKU only has 1 CCS engine. We have the address space
+matching requirement between CCS and RCS, so when both CCS and
+RCS are running, we know they belong to the same DRM client and
+thus they will not conflict with the WA mode. And if only one of
+them is running, there can be no conflict either as it's just one
+context.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 62b5b4a23f17..1344b2b1bd16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1435,10 +1435,10 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_de=
-vice *adev)
-  * Enable/disable vga decode (all asics).
-  * Returns VGA resource flags.
-  */
--static unsigned int amdgpu_device_vga_set_decode(struct pci_dev *pdev,
-+static unsigned int amdgpu_device_vga_set_decode(void *data,
- =09=09bool state)
- {
--=09struct amdgpu_device *adev =3D drm_to_adev(pci_get_drvdata(pdev));
-+=09struct amdgpu_device *adev =3D (struct amdgpu_device *)data;
-=20
- =09amdgpu_asic_set_vga_state(adev, state);
- =09if (state)
-@@ -4208,7 +4208,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- =09 * ignore it
- =09 */
- =09if ((adev->pdev->class >> 8) =3D=3D PCI_CLASS_DISPLAY_VGA)
--=09=09vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-+=09=09vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, adev);
-=20
- =09px =3D amdgpu_device_supports_px(adev);
-=20
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i91=
-5/display/intel_vga.c
-index 4966fd7eea92..0889edb36190 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -283,9 +283,10 @@ void intel_vga_disable(struct intel_display *display)
- =09intel_de_posting_read(display, vga_reg);
- }
-=20
--static unsigned int intel_vga_set_decode(struct pci_dev *pdev, bool enable=
-_decode)
-+static unsigned int intel_vga_set_decode(void *data, bool enable_decode)
- {
--=09struct intel_display *display =3D to_intel_display(pdev);
-+=09struct intel_display *display =3D (struct intel_display *)data;
-+=09struct pci_dev *pdev =3D to_pci_dev(display->drm->dev);
- =09unsigned int decodes =3D VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
-=20
- =09drm_dbg_kms(display->drm, "%s VGA decode due to VGA arbitration\n",
-@@ -331,7 +332,7 @@ void intel_vga_register(struct intel_display *display)
- =09 * then we do not take part in VGA arbitration and the
- =09 * vga_client_register() fails with -ENODEV.
- =09 */
--=09ret =3D vga_client_register(pdev, intel_vga_set_decode);
-+=09ret =3D vga_client_register(pdev, intel_vga_set_decode, display);
- =09drm_WARN_ON(display->drm, ret && ret !=3D -ENODEV);
- }
-=20
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouvea=
-u/nouveau_vga.c
-index 29a801124e56..6662e30466f2 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -9,9 +9,9 @@
- #include "nouveau_vga.h"
-=20
- static unsigned int
--nouveau_vga_set_decode(struct pci_dev *pdev, bool state)
-+nouveau_vga_set_decode(void *data, bool state)
- {
--=09struct nouveau_drm *drm =3D pci_get_drvdata(pdev);
-+=09struct nouveau_drm *drm =3D (struct nouveau_drm *)data;
- =09struct nvif_object *device =3D &drm->client.device.object;
-=20
- =09if (drm->client.device.info.family =3D=3D NV_DEVICE_INFO_V0_CURIE &&
-@@ -103,7 +103,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
- =09=09return;
- =09pdev =3D to_pci_dev(dev->dev);
-=20
--=09vga_client_register(pdev, nouveau_vga_set_decode);
-+=09vga_client_register(pdev, nouveau_vga_set_decode, drm);
-=20
- =09/* don't register Thunderbolt eGPU with vga_switcheroo */
- =09if (pci_is_thunderbolt_attached(pdev))
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeo=
-n/radeon_device.c
-index 9523240110a6..cf8a6bd00c77 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1076,10 +1076,9 @@ void radeon_combios_fini(struct radeon_device *rdev)
-  * Enable/disable vga decode (all asics).
-  * Returns VGA resource flags.
-  */
--static unsigned int radeon_vga_set_decode(struct pci_dev *pdev, bool state=
-)
-+static unsigned int radeon_vga_set_decode(void *data, bool state)
- {
--=09struct drm_device *dev =3D pci_get_drvdata(pdev);
--=09struct radeon_device *rdev =3D dev->dev_private;
-+=09struct radeon_device *rdev =3D (struct radeon_device *)data;
- =09radeon_vga_set_state(rdev, state);
- =09if (state)
- =09=09return VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
-@@ -1431,7 +1430,7 @@ int radeon_device_init(struct radeon_device *rdev,
- =09/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- =09/* this will fail for cards that aren't VGA class devices, just
- =09 * ignore it */
--=09vga_client_register(rdev->pdev, radeon_vga_set_decode);
-+=09vga_client_register(rdev->pdev, radeon_vga_set_decode, rdev);
-=20
- =09if (rdev->flags & RADEON_IS_PX)
- =09=09runtime =3D true;
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 3de05aee7859..3e58b2c05c85 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -51,7 +51,8 @@ struct vga_device {
- =09unsigned int mem_norm_cnt;=09/* normal MEM count */
- =09bool bridge_has_one_vga;
- =09bool is_firmware_default;=09/* device selected by firmware */
--=09unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
-+=09unsigned int (*set_decode)(void *data, bool decode);
-+=09void *set_decode_data;
- };
-=20
- static LIST_HEAD(vga_list);
-@@ -935,6 +936,7 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * vga_client_register - register or unregister a VGA arbitration client
-  * @pdev: PCI device of the VGA client
-  * @set_decode: VGA decode change callback
-+ * @data: private data to pass to callback
-  *
-  * Clients have two callback mechanisms they can use.
-  *
-@@ -956,15 +958,18 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * Returns: 0 on success, -ENODEV on failure
-  */
- int vga_client_register(struct pci_dev *pdev,
--=09=09unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
-+=09=09unsigned int (*set_decode)(void *data, bool decode),
-+=09=09void *data)
- {
- =09unsigned long flags;
- =09struct vga_device *vgadev;
-=20
- =09spin_lock_irqsave(&vga_lock, flags);
- =09vgadev =3D vgadev_find(pdev);
--=09if (vgadev)
-+=09if (vgadev) {
- =09=09vgadev->set_decode =3D set_decode;
-+=09=09vgadev->set_decode_data =3D data;
-+=09}
- =09spin_unlock_irqrestore(&vga_lock, flags);
- =09if (!vgadev)
- =09=09return -ENODEV;
-@@ -1464,7 +1469,7 @@ static void vga_arbiter_notify_clients(void)
- =09spin_lock_irqsave(&vga_lock, flags);
- =09list_for_each_entry(vgadev, &vga_list, list) {
- =09=09if (vgadev->set_decode) {
--=09=09=09new_decodes =3D vgadev->set_decode(vgadev->pdev,
-+=09=09=09new_decodes =3D vgadev->set_decode(vgadev->set_decode_data,
- =09=09=09=09=09=09=09 new_state);
- =09=09=09vga_update_device_decodes(vgadev, new_decodes);
- =09=09}
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_c=
-ore.c
-index 6757054e9d87..b04ce3ded08c 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -162,9 +162,10 @@ static inline void vfio_pci_core_debugfs_init(struct v=
-fio_pci_core_device *vdev)
-  * has no way to get to it and routing can be disabled externally at the
-  * bridge.
-  */
--static unsigned int vfio_pci_set_decode(struct pci_dev *pdev, bool single_=
-vga)
-+static unsigned int vfio_pci_set_decode(void *data, bool single_vga)
- {
--=09struct vfio_pci_core_device *vdev =3D dev_get_drvdata(&pdev->dev);
-+=09struct vfio_pci_core_device *vdev =3D data;
-+=09struct pci_dev *pdev =3D vdev->pdev;
- =09struct pci_dev *tmp =3D NULL;
- =09unsigned char max_busnr;
- =09unsigned int decodes;
-@@ -2159,10 +2160,10 @@ static int vfio_pci_vga_init(struct vfio_pci_core_d=
-evice *vdev)
- =09if (ret)
- =09=09return ret;
-=20
--=09ret =3D vga_client_register(pdev, vfio_pci_set_decode);
-+=09ret =3D vga_client_register(pdev, vfio_pci_set_decode, vdev);
- =09if (ret)
- =09=09return ret;
--=09vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
-+=09vga_set_legacy_decoding(pdev, vfio_pci_set_decode(vdev, false));
- =09return 0;
- }
-=20
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index 97129a1bbb7d..71a364669eaf 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
- void vga_set_default_device(struct pci_dev *pdev);
- int vga_remove_vgacon(struct pci_dev *pdev);
- int vga_client_register(struct pci_dev *pdev,
--=09=09unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
-+=09=09unsigned int (*set_decode)(void *data, bool state),
-+=09=09void *data);
- #else /* CONFIG_VGA_ARB */
- static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
- =09=09unsigned int decodes)
-@@ -59,7 +60,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
- =09return 0;
- }
- static inline int vga_client_register(struct pci_dev *pdev,
--=09=09unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
-+=09=09unsigned int (*set_decode)(void *data, bool state),
-+=09=09void *data)
- {
- =09return 0;
- }
-@@ -97,7 +99,7 @@ static inline int vga_get_uninterruptible(struct pci_dev =
-*pdev,
-=20
- static inline void vga_client_unregister(struct pci_dev *pdev)
- {
--=09vga_client_register(pdev, NULL);
-+=09vga_client_register(pdev, NULL, NULL);
- }
-=20
- #endif /* LINUX_VGA_H */
---=20
-2.54.0
+> Even like this, still can't cover all the race condition.
 
+Which race conditions do you think would remain? We definitely
+have to eliminate any race conditions to land this.
+
+Regards, Joonas
