@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E94B9C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A6D0C982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0EC710EF56;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B5910E833;
 	Wed, 23 Sep 2026 07:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uyMUOZj6";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="igT401m5";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 79B3D10E4F6;
- Tue, 22 Sep 2026 17:14:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id C687110E507;
+ Tue, 22 Sep 2026 17:13:28 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B61A1576;
- Tue, 22 Sep 2026 10:14:17 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B1CBF1595;
+ Tue, 22 Sep 2026 10:13:24 -0700 (PDT)
 Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D30003F86C;
- Tue, 22 Sep 2026 10:14:07 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 742013F86C;
+ Tue, 22 Sep 2026 10:13:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1790097261; bh=m1/Zj1kl1r4NT70p2V5vARYiyafZNwoUEY016kfXI6M=;
+ t=1790097208; bh=A5NzDbD1noDwzYUVi8ldHdR4UZ15jpqj+KvUR0EDrHw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=uyMUOZj6R5njDUnUE0WViDRG203+0ImQf8L3e4R3tvNeiQX8hthSWT3MmAozquZCC
- MtaevHRyysWE/QOR2DnQlqNWb2SZ0tKdXvT/wq71vEr+9CY6J3c/VDmp9lE+PtmgLq
- I6LApZTWohZd2n0AKddZqBwhz/kVnU82kKMdtcjU=
+ b=igT401m5Ukd+3+6wB+UgkDK63LspXcTemyvQIbaw1+BgwuYsVHrX2DMhqhgHk3LXY
+ kHy/IQiBkermaVeOcybtnCdoQu7KcLnO6cNeXQ+B00DQhjxLMdA8FG5xp3QHrnYKlq
+ HpbAzdd9QkzACrgJ3YINIW0HcgeXtIyLmi4yHh8c=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Date: Tue, 22 Sep 2026 18:12:34 +0100
-Subject: [PATCH v3 6/9] mm: add hw_pte_val for HW PTE storage
+Date: Tue, 22 Sep 2026 18:12:30 +0100
+Subject: [PATCH v3 2/9] mm: rename pointers to software PTE values as
+ ptentp
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-pte0-v3-6-5670b8cb9059@arm.com>
+Message-Id: <20260922-pte0-v3-2-5670b8cb9059@arm.com>
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
 In-Reply-To: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,43 +120,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Atomic PTE updates need an lvalue for the bits stored in an HW PTE.
-pte_val() only accepts a SW PTE value, so it cannot operate directly on
-a distinct hw_pte_t.
+Some interfaces use pte_t * for a software PTE value rather than for an
+entry stored in a PTE table. These pointers must remain pte_t * when
+pointers to PTE table storage are converted to hw_pte_t *.
 
-Add hw_pte_val() to expose the underlying pte_val() lvalue. Access the
-wrapper's __pte member when hw_pte_t is distinct, and use pte_val()
-directly when it remains an alias of pte_t.
+Rename these parameters in the install_pte callback,
+write_protect_page(), and guard_install_set_pte() to ptentp. The later
+Coccinelle conversion skips pointers named ptentp, allowing it to convert
+the remaining PTE table pointers without changing these interfaces.
 
+Some functions already use ptentp for such pointers, including:
+- madvise_folio_pte_batch()
+- folio_pte_batch_flags()
+No need to rename them.
+
+This patch only renames parameters and makes no functional change.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
-Changes in v3:
-- Moved from the arm64 series to generic series as it makes more sense
-  to add this in generic with all other changes. Usually we only add
-  code where its get used. But this whole series wouldn't get used
-  until an arch started using HW PTEs.
----
- include/linux/pgtable_types.h | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes since v1:
+- Rewrite the subject and description to distinguish software PTE
+  values from PTE table storage.
 
-diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-index d6c5a7548550b..ee4eace5c3e1c 100644
---- a/include/linux/pgtable_types.h
-+++ b/include/linux/pgtable_types.h
-@@ -9,9 +9,13 @@
- #ifdef CONFIG_ARCH_HAS_HW_PTE_T
- typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
- #define __pte_from_hw(pte)	((pte).__pte)
-+
-+#define hw_pte_val(x)  pte_val((x).__pte)
- #else
- #define hw_pte_t pte_t
- #define __pte_from_hw(pte)	(pte)
-+
-+#define hw_pte_val(x)  pte_val(x)
- #endif
+Changes since RFC v1:
+- Update the description for the architecture opt-in conversion.
+---
+ include/linux/pagewalk.h | 2 +-
+ mm/ksm.c                 | 4 ++--
+ mm/madvise.c             | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+index b41d7265c01bc..c34d826c5e4a2 100644
+--- a/include/linux/pagewalk.h
++++ b/include/linux/pagewalk.h
+@@ -89,7 +89,7 @@ struct mm_walk_ops {
+ 		       struct mm_walk *walk);
+ 	void (*post_vma)(struct mm_walk *walk);
+ 	int (*install_pte)(unsigned long addr, unsigned long next,
+-			   pte_t *ptep, struct mm_walk *walk);
++			   pte_t *ptentp, struct mm_walk *walk);
+ 	enum page_walk_lock walk_lock;
+ };
  
- #endif /* !__ASSEMBLY__ */
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 624f37975e129..2a4f19fe0f696 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+ }
+ 
+ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+-			      pte_t *orig_pte)
++			      pte_t *ptentp)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+@@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+ 
+ 		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+ 	}
+-	*orig_pte = entry;
++	*ptentp = entry;
+ 	err = 0;
+ 
+ out_unlock:
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 73c2901b9adbf..dd75a673e108f 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1113,12 +1113,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+ }
+ 
+ static int guard_install_set_pte(unsigned long addr, unsigned long next,
+-				 pte_t *ptep, struct mm_walk *walk)
++				 pte_t *ptentp, struct mm_walk *walk)
+ {
+ 	unsigned long *nr_pages = (unsigned long *)walk->private;
+ 
+ 	/* Simply install a PTE marker, this causes segfault on access. */
+-	*ptep = make_pte_marker(PTE_MARKER_GUARD);
++	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+ 	(*nr_pages)++;
+ 
+ 	return 0;
 
 -- 
 2.47.3
