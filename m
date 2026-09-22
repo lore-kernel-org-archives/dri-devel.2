@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A433C98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E9D9C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 20:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A293310EE6D;
-	Tue, 22 Sep 2026 20:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9D7910EE6E;
+	Tue, 22 Sep 2026 20:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cdw5UoUB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KxAOfnY9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C5710EE6D
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:57:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C37210EE6E
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 20:57:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A436D600D4;
- Tue, 22 Sep 2026 20:56:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4F21F000FF;
- Tue, 22 Sep 2026 20:56:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 008E341247;
+ Tue, 22 Sep 2026 20:57:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9374B1F000FF;
+ Tue, 22 Sep 2026 20:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790110619;
- bh=HAh9LZv8xo70XHeQk0X4i3/eqGqVF063Y7O8uqnuLkE=;
+ s=k20260515; t=1790110655;
+ bh=aE4VN3PaEhS2/labyEAErQSWe0WL0wa79CAuXQb0A/w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Cdw5UoUBInuskJ2N8QawyP9QnzP5CIfhxLZ0p2Vrl/q0k7XSoUroxyIdQP0c2jFEa
- lKoNjMhaCtPaU88qyTskQaK+DjRAqj5ZYC6fi9sE38nMFS0g9GConfBEu3zhb6Aw3E
- Scphpn9BXPsg0k08jLP7YJSHPQQWZQxqhd0Fu4KmDNhxZw4G3sEwzzQZpXFouMF/bw
- naCWukx5kJiS0pXIxHuE2DwLeQqU72hACyMqWo+NfGf7fetRHP3qGNyKbk73DU9lCD
- W4kqfrdo3B6paCx8IYrKdWd8pR7QT5EoH01JYwxSkCmbW6cV7CxKnBAUGyF9xk3CzP
- EJpzwbaAD+SMA==
+ b=KxAOfnY9KXXkIx6oafSb0rk5URIzMOqF2YRgZrCWfe+3P0+2QZxKv0ycqrxOwosKd
+ 37TdAQ5goeM4JFhjJyp1I5U3zjVufvkPMRvVd8Ni4Tovz4CdMb42O05unSLWRQ5tea
+ APNKhCNuWG+mzc2N6hBItPg2BQnoQ8ow/XIK2iA4EYcXaE4TxeXuv/7UditupL9/an
+ 8XF6v/fZKIBybGoGB9fOryo5LTfWPXCw8qOPdGcflGDmYtczUoRUKTjYbm5RD2F1Y5
+ T0KJq1wB8aMo1ofZooOWfhE0lMGtIpufORfEVIZp5kEcjFFO/Nkt/xdQ9lCT2SHEGO
+ wyuHovlLkodMw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 03/27] drm/panthor: Parse and store GPU_ID fields
+Subject: Re: [PATCH v1 18/27] dt-bindings: gpu: panthor: Document AW
+ assignment DT property
 To: "Karunika Choo" <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-4-karunika.choo@arm.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260922204535.2850094-19-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-4-karunika.choo@arm.com>
+ <20260922204535.2850094-19-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 20:56:58 +0000
-Message-Id: <20260922205659.3C4F21F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 20:57:35 +0000
+Message-Id: <20260922205735.9374B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,53 +61,52 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/panthor: diagnostic info loss in GPU ID log
+- [Low] dt-bindings: gpu: software resource policy in device tree
 --
 
-commit 18159d0a7677f6cb80f96ffd38fefa04603df0e5
+commit c9c432471efad1a2abcbaf062de9fa8ddb5708c3
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Parse and store GPU_ID fields
+dt-bindings: gpu: panthor: Document AW assignment DT property
    =20
-Prepare for Mali v15 by expanding GPU_ID to 64 bits and caching fields
-during initialization.
+Introduce arm,access-window-mask property to allow partitions to define
+the assigned access windows at probe time.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panth=
-or/panthor_hw.c
-> index 4c96573b649a1..2143e57d48106 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -245,13 +245,13 @@ static int panthor_hw_info_init(struct panthor_devi=
-ce *ptdev)
->  	if (ret)
->  		return ret;
+> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbit=
+ration.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitr=
+ation.yaml
+> index 9ea2b4bb9a344..4e7933829e2be 100644
+> --- a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.=
+yaml
+> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.=
+yaml
+> @@ -52,6 +52,15 @@ patternProperties:
+>            Hardware partition control index. Must identify a partition pr=
+esent on
+>            the GPU and be unique among this device's partition nodes.
 > =20
-> -	major =3D GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
-> -	minor =3D GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
-> -	status =3D GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
-> +	major =3D ptdev->gpu_id.ver_major;
-> +	minor =3D ptdev->gpu_id.ver_minor;
-> +	status =3D ptdev->gpu_id.ver_status;
-> =20
->  	drm_info(&ptdev->base,
->  		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
-> -		 get_gpu_model_name(ptdev), ptdev->gpu_info.gpu_id >> 16,
-> +		 get_gpu_model_name(ptdev), ptdev->gpu_id.prod_major,
->  		 major, minor, status);
+> +      arm,access-window-mask:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        maximum: 0xffff
+> +        default: 0
+> +        description:
+> +          Initial access window assignment mask. Bit N selects global
+> +          access window ID N. Masks must be disjoint across partitions.
+> +          If omitted, no access windows are assigned by default.
+> +
 
 [Severity: Low]
-Does this unintentionally drop the architecture major, minor, and revision
-values from the printed GPU ID?
+Does this new property improperly introduce software policy into the
+hardware description bindings?
 
-Since ptdev->gpu_info.gpu_id >> 16 contains more than just the product majo=
-r,
-replacing it with only ptdev->gpu_id.prod_major causes an information loss =
-in
-the boot logs.=20
+Encoding dynamic resource assignment with arm,access-window-mask in the
+device tree dictates software policy rather than describing pure hardware
+topology.=20
 
-For unknown GPUs, this makes it harder to identify the unsupported hardware
-because it will log as id 0x2 instead of id 0xa002 (if arch=3D10, prod=3D2).
+This restricts the kernel's flexibility to dynamically assign resources
+based on runtime workloads, as it forces an initial hardcoded allocation
+upon driver probe.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D3
+094-1-karunika.choo@arm.com?part=3D18
