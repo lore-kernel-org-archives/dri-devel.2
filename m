@@ -4,52 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B819C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 18:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCBD6C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 627E910E5FB;
-	Tue, 22 Sep 2026 18:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D588B10E2BB;
+	Tue, 22 Sep 2026 19:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="mk6JemS/";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YQ6kksDO";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Tue, 22 Sep 2026 18:17:24 UTC
-Received: from mta1.migadu.com (out-42.mta1.migadu.com [95.215.58.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 896C210E5FB
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 18:17:24 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=2yklJXh1jDhjZosVDlDIrp4aXiVIg5PtSRAofTMK6Zo=; 
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790101042; v=1; x=1790705842;
- b=mk6JemS/cGZl63P24vGGZSuQWkZXEMI9cU+3oFqEyLxvA9bydhN2xQuraI99lWj9Yic3GWML
- D7sslXlMxyEX5HjtaLnv5JM9NCdFoGUglIvb+ICd7u5lgHsVFQvMWCYna4HazkhHP6efov54+mR
- ajWyJZlA4QQVxMumrJHAIJwf0AtrtenH+DCik+7M7L/DoW5Y0xLIlXzh/y8FdfJ/778AiVeACv4
- 39ryS5Sun4nvQ1blRgFKFiXY4V5adIt8YlZSCARoJYY2bBdAES78lwMiRY36zE2csIC90qq2L3w
- xR6MJsW9O3SlvRv+Yih4RyhXuf+ZiPuHSw5SsIkXltHWQ==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id ab83d78d1a42a1f1;
- Tue, 22 Sep 2026 18:11:18 +0000
-X-Mizu-Trace-ID: ab83d78d1a42a1f1
-X-Migadu-Flow: FLOW_OUT
-Mime-Version: 1.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9EDE10E2BB
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790104760;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/N7wXk7BVSM3SAsyNtWbX2CBIRAf2KG5eLQuiIHE1x8=;
+ b=YQ6kksDOWzipWRjOJadS0OHdNBavZBgNiZaeeD2250jEUVLUsE/bCTk9WiOEY75sHLrufv
+ H25tabJGYZxwi3EvNGXibdx/i2ap9qWvluP0+/dnrI+R+YSgLTRkbr1WENlf91KorDtbog
+ ia/nMNfvxM+ltu3ohrzI3htjL3GbBIY=
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-414-AG1RLoYQOQ-N2io8AGticA-1; Tue, 22 Sep 2026 15:19:18 -0400
+X-MC-Unique: AG1RLoYQOQ-N2io8AGticA-1
+X-Mimecast-MFC-AGG-ID: AG1RLoYQOQ-N2io8AGticA_1790104758
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-785827e6073so77054137.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:19:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790104758; x=1790709558;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/N7wXk7BVSM3SAsyNtWbX2CBIRAf2KG5eLQuiIHE1x8=;
+ b=rJSUcU0C+lT7HmjgeqWfWUynaemYKLXgwn0acgFD4pQ1//u6klCjGTU+KrEWxIGEZQ
+ SynPzmQ5wKJYt0aIzaa7hUTh7JiTcFM18HhEv68pr0yVHV9KBbRrcsuIKSsMqvNlGU0d
+ ATQl1p1foTDAu7SljhcZNSGuUt0HEn6dQLhwSO3RPaHzmc/WgsCr+eSTP8StwUmK87Nh
+ g+F34kBlwV9MqA0z4FBpuMaF6wAlDtrFxOGd0RBB+UmVPcuogYF/xOEMiFrIZ3z4yiJD
+ tKbTOq8zw4lb7Xhp59GbIAfIz1IqZa2CuRXk5iVzT4tZt8ovbdciY3E7xxOLoT6PkMYC
+ s+IQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByS+KM73Gst+jtCtBJ5qq01KspmW07WcemZ4dQG74+9pcbf1y9fiSQuAXpNxmY4Y5hWt9wpQvfiGew=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nsYoSdbXRMRsi0vzJ2EAEG3hpf9R8if7M8d86iI8IllBBffc2V
+ /osix/Rs2kbM72hvO4inBqexn59Iu11iNtmubRjTpcoz4EmF6CUQTxmhpK4a+OxiW8AHC8hK95+
+ TjeSaxzXr7nxLUq6Li7wwDs4jTMcXrTpiEpUiywzMC/bqx+AOgR7b2WSprs0evazer7FhBw==
+X-Gm-Gg: AYBFou0W/wpzAVN6QjxaEO8SC476cbxlCDPZC8voAEWfF30vUZMFSwVzs5B7crhY+t9
+ dN3hnTDI8tec2QASdwTxxoElj6gVVwATFxDJJyCM8jtRruvcMG3FBjcilE/FNlHBFo3vSg6uB09
+ d9uuMqfHF/f0sXhcJYpGNjmoYtWNHUFp9u22ircWV2QIoY3kZw4+UYTC5X+j4J3Tl3bZcXUqagE
+ ch/gDC4MyfarDNvjXnU1R4rGcBwkh2NAaQr9Npl3LgqtSnufTbsWRozTnbNdUNfKxgAbiPWISEp
+ x0ctWaXzvxiiIPwk2W7hpEoX47I/C0d/4n7b2xkuyBAXI23b6xbB6L9aeeJpg2PSp6FjNTE=
+X-Received: by 2002:a05:6102:54a5:b0:7a6:cd3d:4990 with SMTP id
+ ada2fe7eead31-7ac1b1f5230mr528628137.1.1790104757831; 
+ Tue, 22 Sep 2026 12:19:17 -0700 (PDT)
+X-Received: by 2002:a05:6102:54a5:b0:7a6:cd3d:4990 with SMTP id
+ ada2fe7eead31-7ac1b1f5230mr528584137.1.1790104757360; 
+ Tue, 22 Sep 2026 12:19:17 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7abf02ef491sm851218137.0.2026.09.22.12.19.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 12:19:16 -0700 (PDT)
+Message-ID: <a1a6f4726f715259e29951933ca2279edab16073.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/dp/mst: reject DPCD read/write on ports with ddps=0
+From: lyude@redhat.com
+To: Xiao Lu <xiaolu.xie@intel.com>, dri-devel@lists.freedesktop.org
+Cc: David.Francis@amd.com, jani.nikula@linux.intel.com
+Date: Tue, 22 Sep 2026 15:19:16 -0400
+In-Reply-To: <20260922032632.1255353-1-xiaolu.xie@intel.com>
+References: <a854ea37b4329d767d04eb0ef7975492aeac0038.camel@redhat.com>
+ <20260922032632.1255353-1-xiaolu.xie@intel.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: dSpPCdX6l70629Ki8-NBx23p61msbf1-xXg6C9npeXU_1790104758
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 20:11:13 +0200
-Message-Id: <DLM1Q8SJMXVA.5DQFQM21KJ82@cknow-tech.com>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm: rockchip: add drm_plane_create_blend_mode_property
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Johan Jonker" <jbx6244@gmail.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260909-blend-v2-1-37e27af4faee@gmail.com>
-In-Reply-To: <20260909-blend-v2-1-37e27af4faee@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,81 +99,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Sep 9, 2026 at 11:20 PM CEST, Johan Jonker wrote:
-> A validate_blend_mode_for_alpha_formats() function was added that
-> fills the kernel log with warnings for Rockchip VOP version 1 SoCs.
-> Add a drm_plane_create_blend_mode_property() function as fix.
-> VOP version 1 doesn't support blending with a pixel alpha background
-> layer, only with a constant alpha. Advertise blending capability with
-> DRM_MODE_BLEND_PIXEL_NONE.
+Sounds great to me! Then this patch is:
 
-On a 7.3-rc1 kernel without this patch, I saw the following:
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Rock64 (RK3328):
-```sh
-root@rock64-test:~# dmesg --level 4 | grep PLANE
-[    7.567004] rockchip-drm display-subsystem: [drm] [PLANE:35:plane-0] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    7.567083] rockchip-drm display-subsystem: [drm] [PLANE:38:plane-1] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    7.567132] rockchip-drm display-subsystem: [drm] [PLANE:42:plane-2] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-```
+Are you able to push this upstream or would you rather I push it?
 
-RockPro64 (RK3399):
-```sh
-root@rockpro64:~# dmesg --level 4 | grep PLANE
-[    5.695597] rockchip-drm display-subsystem: [drm] [PLANE:35:plane-0] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    5.695636] rockchip-drm display-subsystem: [drm] [PLANE:38:plane-1] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    5.695665] rockchip-drm display-subsystem: [drm] [PLANE:42:plane-2] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    5.695692] rockchip-drm display-subsystem: [drm] [PLANE:45:plane-3] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    5.695718] rockchip-drm display-subsystem: [drm] [PLANE:48:plane-4] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-[    5.695745] rockchip-drm display-subsystem: [drm] [PLANE:51:plane-5] pix=
-el format with alpha exposed but blend mode not setup. Please fix.
-```
-
-And on a (7.3-rc4) kernel *with* this patch, those warnings were gone.
-Thanks! Feel free to include
-
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock64, RockPro64
-
-Cheers,
-  Diederik
-
-> Signed-off-by: Johan Jonker <jbx6244@gmail.com>
-> ---
->
-> Changed V2:
-> Add comment line
-> ---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/dr=
-m/rockchip/rockchip_drm_vop.c
-> index 0090d8ff0c79..0bc5b606f021 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-> @@ -1850,6 +1850,8 @@ static void vop_plane_add_properties(struct drm_pla=
-ne *plane,
->  	if (flags)
->  		drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
->  						   DRM_MODE_ROTATE_0 | flags);
-> +	drm_plane_create_blend_mode_property(plane,
-> +					     BIT(DRM_MODE_BLEND_PIXEL_NONE));
->  }
-> =20
->  static int vop_create_crtc(struct vop *vop)
->
-> ---
-> base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-> change-id: 20260909-blend-c89d2c9f6984
->
+On Tue, 2026-09-22 at 11:26 +0800, Xiao Lu wrote:
+> On ..., Lyude Paul wrote:
+> > I wonder if it's possible to introduce some sort of ddps check
+> > within
+> > drm_dp_send_dpcd_read/drm_dp_send_dpcd_write() that happens under a
+> > lock which we also acquire during CSN handling...
+>=20
+> Thank you for the detailed explanation. I understand the proposed
+> approach =E2=80=94 holding a dedicated lock around the ddps check and the
+> queue_tx call, with the same lock held on the CSN ack side, so the
+> ddps value used in the check always reflects the last ack'd CSN.
+>=20
+> That said, after looking at this more carefully, I think the current
+> v2 change is sufficient for the following reasons:
+>=20
+> 1. The only paths that issue REMOTE_DPCD_READ/WRITE to downstream
+> =C2=A0=C2=A0 ports without first verifying ddps are triggered during conn=
+ector
+> =C2=A0=C2=A0 probing in the driver's add_connector callback (e.g.
+> =C2=A0=C2=A0 intel_dp_mst_read_decompression_port_dsc_caps() in i915/xe),=
+ which
+> =C2=A0=C2=A0 is called from drm_dp_mst_link_probe_work(). This probe work=
+ fires
+> =C2=A0=C2=A0 when the MST hub UFP is first connected, on topology resume,=
+ and
+> =C2=A0=C2=A0 on each CSN reception. The race window =E2=80=94 a downstrea=
+m port gets
+> =C2=A0=C2=A0 unplugged between the ddps check and the actual AUX transact=
+ion
+> =C2=A0=C2=A0 during a probe =E2=80=94 is extremely narrow in practice.
+>=20
+> 2. Our primary goal with this change is to eliminate unnecessary
+> =C2=A0=C2=A0 REMOTE_DPCD_READ transactions that cause lighting delay at l=
+ink
+> =C2=A0=C2=A0 training time, rather than strict spec enforcement. We belie=
+ve the
+> =C2=A0=C2=A0 vast majority of MST hubs already handle reads/writes to unp=
+lugged
+> =C2=A0=C2=A0 downstream ports gracefully. DP v2.1b Table 2-199 describes =
+the
+> =C2=A0=C2=A0 DPCD_FAIL NAK with bad-param for such cases, and implementin=
+g this
+> =C2=A0=C2=A0 response in hub firmware should not impose significant burde=
+n on
+> the
+> =C2=A0=C2=A0 hub.
+>=20
+> In summary, this is an optimization to improve latency rather than a
+> correctness fix, and we consider the risk of the narrow race window
+> acceptable.
+>=20
 > Best regards,
-
+> Xiao Lu
 
