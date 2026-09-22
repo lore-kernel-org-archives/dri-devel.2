@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA28EC982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCBFC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 258D810EC35;
-	Tue, 22 Sep 2026 10:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 869F710EC4F;
+	Tue, 22 Sep 2026 10:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TzFLh9ua";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Swqvf3MJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0F410E6C1;
- Tue, 22 Sep 2026 10:28:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80BF10EC41;
+ Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 44A48400E8;
- Tue, 22 Sep 2026 10:28:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000E41F000FF;
- Tue, 22 Sep 2026 10:28:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9737842D99;
+ Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EC81F000FF;
+ Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790072883;
- bh=Jy5kGophIVujwoeUqnqMDz6m+cBQGP+RWjzN4gWBIAg=;
+ s=k20260515; t=1790073026;
+ bh=jmdK/h1nAPyOJG6ZtdSP5Dmy6QYJeYHFDDCJutgljvw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TzFLh9uauEdkfkvAAzB99FhpI8LbmE3Eb0zCWLOEc+luZK4sYMW7PuwqE15scXhaL
- ml730tiAjWbJUOsjlvCDnh2uU92Xrj+NsF90tN6R3PbUQpBU7NcHsPSAmPQHccPywj
- gM4rwGwuHhpPecRvbVlQvHk/62xvOnvYtpMGBEW3KoFNNz5TUAzkw1s+FXpoWT5jMg
- jxWtA7wrMl9QHgoHyiilXvzDRivbfqfX67znxTJH0fhGiJq2Nh2T9qHF9/rr95gPH5
- 1enLVtPJdVsxUL/da0kII/OpNJ6KcLJNwIJI+PWqNmRUQtofX6WxHy22C0khjB+iPt
- MSd91lzA0ZIaw==
+ b=Swqvf3MJ1AzkI9d/keQNDp5Nq2m5cMB+omvahPPz84MQ/HqtutXVnmV6zXquWXVTy
+ szuY53j4Uz94Thjm9OyBstySyBxaqKonOO6m/m4xa8oHfID0T+CNt6cAQheLU2eZx+
+ tgoxp5KJ4s4dPtt26ohAbyU236GqNSY8JZBt2pV7vlaSy0zprb09a6HTpA2TZYfBCw
+ l6tK7HsgkBJi4k8CcvjPNHvnj69k6hM5red5aeaTj93OM8sLbJC3aFEBLA0AdAGfwm
+ J7rtcac9NKzsGpCt046OJy0tPvVwxI84x6RaPrrZcx0tSdHPpEkpTtFPncsEk5y6Dj
+ XoD2x9jM/xh7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/15] drm/xe: Protect device I/O with DRM device SRCU
+Subject: Re: [PATCH v2 09/15] drm/xe: Invalidate existing VRAM mappings on
+ wedge
 To: "Arvind Yadav" <arvind.yadav@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922101721.1583542-5-arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260922101721.1583542-10-arvind.yadav@intel.com>
 References: <20260922101721.1583542-1-arvind.yadav@intel.com>
- <20260922101721.1583542-5-arvind.yadav@intel.com>
+ <20260922101721.1583542-10-arvind.yadav@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:28:02 +0000
-Message-Id: <20260922102803.000E41F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:30:25 +0000
+Message-Id: <20260922103026.41EC81F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,75 +58,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/xe: hardware forcewake drop outside IO protection in send_tlb_=
-inval_ggtt()
+- [High] drm/xe: dma-buf VRAM mappings are not invalidated on device wedge
+- [High] drm/xe: PAT aliasing violation by mapping GFP_KERNEL dummy page as=
+ WC
 --
 
-commit e9f023cf84d9700d7a5ded726d95cff381241557
+commit c757615e833a0d49b9d8ef7258c5d9bef1106610
 Author: Arvind Yadav <arvind.yadav@intel.com>
 
-drm/xe: Protect device I/O with DRM device SRCU
+drm/xe: Invalidate existing VRAM mappings on wedge
 
-This commit introduces wrappers around DRM device SRCU to protect device
-I/O operations. It blocks new access during PCI recovery or when the
-device is wedged, and drains existing hardware users to safely isolate
-the device.
+This commit introduces a mechanism to drain active CPU faults and invalidate
+all tracked VRAM mappings when a device wedges. Subsequent faults use a per=
+-BO
+dummy page, preventing valid PTEs from keeping access to VRAM.
 
-> diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c b/drivers/gpu/drm/xe/x=
-e_guc_tlb_inval.c
-> --- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-
-[ ... ]
-
-> @@ -86,8 +84,13 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tl=
-b_inval, u32 seqno)
->  	} else if (xe_device_uc_enabled(xe)) {
->  		struct xe_mmio *mmio =3D &gt->mmio;
-> =20
-> -		if (IS_SRIOV_VF(xe))
-> +		if (xe_device_io_get(xe, &io_idx))
-> +			return -ECANCELED;
-> +
-> +		if (IS_SRIOV_VF(xe)) {
-> +			xe_device_io_put(io_idx);
->  			return -ECANCELED;
-> +		}
-> =20
->  		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
->  		if (xe->info.platform =3D=3D XE_PVC || GRAPHICS_VER(xe) >=3D 20) {
-> @@ -99,6 +102,8 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tl=
-b_inval, u32 seqno)
->  			xe_mmio_write32(mmio, GUC_TLB_INV_CR,
->  					GUC_TLB_INV_CR_INVALIDATE);
->  		}
-> +
-> +		xe_device_io_put(io_idx);
+> CPU mappings created before a device wedge can keep valid PTEs and
+> continue accessing VRAM. Mapping new faults to a dummy page does not
+> replace these existing mappings.
+>=20
+> Use the common device I/O SRCU gate to wait for active CPU faults to
+> finish. Then invalidate all tracked VRAM mappings. Faults starting
+> after the wedge use the per-BO dummy page.
 
 [Severity: High]
-Does this code drop the I/O protection before the scoped forcewake destruct=
-or
-runs?
+Can mapping the dummy page cause a Machine Check Exception or SIGBUS?
 
-The CLASS(xe_force_wake, fw_ref) macro creates a scoped guard whose destruc=
-tor
-executes when leaving the block. Because xe_device_io_put(io_idx) is called
-explicitly right before the closing brace, the I/O protection is released
-before the forcewake destructor runs.
+When CPU faults occur on a VRAM BO after the device wedges, they trigger
+xe_bo_vm_dummy_page():
 
-If PCI error recovery or wedge isolation disables the device immediately af=
-ter
-xe_device_io_put() returns, the automatically executing fw_ref destructor w=
-ill
-perform MMIO writes on a disabled device. This could trigger a PCI Advanced
-Error Reporting (AER) fault and crash the system.
+drivers/gpu/drm/xe/xe_bo.c:xe_bo_vm_dummy_page() {
+    ...
+	page =3D alloc_page(GFP_KERNEL | __GFP_ZERO);
+    ...
+	return vmf_insert_pfn_prot(vma, vmf->address, pfn,
+				   vma->vm_page_prot);
+}
 
->  	}
+This allocates a standard system RAM page using GFP_KERNEL (which has
+Write-Back caching) and maps it into userspace using the VMA's original
+vma->vm_page_prot. For VRAM mappings, vma->vm_page_prot contains Write-Comb=
+ine
+(WC) bits.
+
+Does mapping a WB page as WC create a conflicting PAT alias on x86?
+track_pfn_insert() may reject this for RAM pages, leading to a SIGBUS, or if
+bypassed, a hardware MCE.
+
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 7902ce3fe0127..73dcd397dc13c 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -4155,6 +4155,26 @@ void xe_bo_runtime_pm_release_mmap_offset(struct x=
+e_bo *bo)
+>  	list_del_init(&bo->vram_userfault_link);
+>  }
 > =20
->  	return -ECANCELED;
+> +/**
+> + * xe_bo_wedged_invalidate_mmaps - Invalidate CPU mappings backed by VRAM
+> + * @xe: xe device instance
+> + *
+> + * The caller must drain the common device I/O gate before calling this
+> + * function. Remove all tracked VRAM mappings so later faults map the
+> + * per-BO dummy page.
+> + */
+> +void xe_bo_wedged_invalidate_mmaps(struct xe_device *xe)
+> +{
+> +	struct xe_bo *bo, *next;
+> +
+> +	mutex_lock(&xe->mem_access.vram_userfault.lock);
+> +	list_for_each_entry_safe(bo, next,
+> +				 &xe->mem_access.vram_userfault.list,
+> +				 vram_userfault_link)
+> +		xe_bo_runtime_pm_release_mmap_offset(bo);
+
+[Severity: High]
+Does this code miss active dma-buf CPU mappings?
+
+xe_bo_runtime_pm_release_mmap_offset() only unmaps the VMA node associated
+with the DRM device file (drm_vma_node_unmap()). It doesn't seem to clear
+dma-buf mappings, which are tracked under
+bo->ttm.base.dma_buf->file->f_mapping.
+
+If a userspace application exports a VRAM BO as a dma-buf and maps it, would
+it retain CPU access to VRAM after the device wedges? Accessing VRAM on a
+wedged device can cause PCIe hangs or system crashes.=20
+
+Could a call to dma_buf_invalidate_mappings() be required here, similar to
+how it is handled in xe_bo_move_notify()?
+
+> +	mutex_unlock(&xe->mem_access.vram_userfault.lock);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922101721.1583=
-542-1-arvind.yadav@intel.com?part=3D4
+542-1-arvind.yadav@intel.com?part=3D9
