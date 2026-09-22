@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57F65C98304
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66803C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8695910E6C7;
-	Tue, 22 Sep 2026 06:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 373D210E73F;
+	Tue, 22 Sep 2026 06:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VqrIcQhR";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="R5FOoYa4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E5D410E6C7
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:16:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E702D43942;
- Tue, 22 Sep 2026 06:16:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CC01F000FF;
- Tue, 22 Sep 2026 06:16:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1790057779;
- bh=/vXLc3KmiHI0BdjyOF1vVkIbnWkhf1p3DV15kYagOYA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VqrIcQhRzoFpQ4mdwFaOO4d2ucIiLTQfGR+B0kTVhDNUqpSJ27VbNBj2ECshiJrti
- /WZtLKuX1Mr2jtnAeLuwPrFkWIgy5zGnGcUXFxgsuxYek8xiN5A5S0Luntdw1VvKga
- UjcTyJz9HRL2pp93ewAu7I/ul0GE68KgWqKt1CA0=
-Date: Tue, 22 Sep 2026 08:16:16 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Damon Ding <damon.ding@rock-chips.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-ide@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [RFC PATCH 1/5] phy: core: Use EOPNOTSUPP for disabled blob
- return value
-Message-ID: <2026092236-breeze-educator-0f6b@gregkh>
-References: <20260922024724.191412-1-inochiama@gmail.com>
- <20260922024724.191412-2-inochiama@gmail.com>
- <2026092256-shading-gratify-835a@gregkh>
- <arIZX-0aMQiabxJd@inochi.infowork>
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E818C10E73F
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=3ek7mJzGL/9yBolrQvEtoJoyM66ZQqkeJgFGLDJjQUc=; t=1790057854; x=1791267454; 
+ b=R5FOoYa4N2Livn0rJLRfa22PsIXURyH5ZWOIB2HEUVahqMhbOKK2vkoowhdXoI1tCoMTYet2JvE
+ T80lEfO0HIXD3bLIrxd6yAm/3CoV4rFC58PS1BeNdkqR2hmk4PqGv3tIdN6qiz3AXenBjBehyWzsT
+ Vj1Q1Y8Dg6PxjKNEWIJDNSZMCQwNXSd0GkfmwH0ubX9vUFBagmx3fKkWlFzLl6+VuYZiXx6DSDNRW
+ TBMtl64LcBN5K5jGaUDZ/Lap/gVXdilNa0UGOUwLqoyLxlGdnvBU9yi6/n4O9oIULOYUghCeAG9tM
+ 9JphbU6bIU/4vNgsUlpWxa/BvtkRHqJreeCQ==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Tue, 22 Sep 2026 08:17:04 +0200
+Subject: [PATCH RFC 7/9] drm/bridge: tc358762: make LPTXTIMECNT
+ configurable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arIZX-0aMQiabxJd@inochi.infowork>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b2-panel-via-bridge-v1-7-45ff36b364cf@kemnade.info>
+References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ hns@goldelico.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.16.1-dev-53874
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1753; i=andreas@kemnade.info; 
+ h=from:subject:message-id;
+ bh=0ao++1qEowCnecwI5jgyBfK+9SvJvTxqa1J5MX+7yTk=; 
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBP3lnEYsDT8vnSsiYtbS3mP8PS81sUrzv3za2F6J
+ pKQe0Oyo5SFQYyLQVZMkeWXtYLbJ5VnucFTI+xh5rAygQxh4OIUgIlYVzD8z/v7h3F2sIHUllv8
+ rt1WPpz/t8t11GvJch68G2S+Y09kIsM/09uFbS+CY2L583ncJjGEHvrma3XS+VvX43NvNmt/Voz
+ gAwA=
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,41 +76,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 02:10:01PM +0800, Inochi Amaoto wrote:
-> On Tue, Sep 22, 2026 at 07:35:19AM +0200, Greg Kroah-Hartman wrote:
-> > On Tue, Sep 22, 2026 at 10:47:16AM +0800, Inochi Amaoto wrote:
-> > > Currently, the phy subsystem uses ENOSYS for dummy blob functions,
-> > > it does not reflect the function state correctly. As kernel already
-> > > has EOPNOTSUPP for disabled blob function, replace ENOSYS with
-> > > EOPNOTSUPP for a clear return value.
-> > > 
-> > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > > ---
-> > >  include/linux/phy/phy.h | 52 ++++++++++++++++++++---------------------
-> > >  1 file changed, 26 insertions(+), 26 deletions(-)
-> > 
-> > Based on the other patches in this series, this patch now breaks the
-> > users, right?  Shouldn't this all happen at once?
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> 
-> It will break, and the change should happen at one. But I think
-> the affect should be limited as it only affect a special edge
-> case: build kernel with CONFIG_GENERIC_PHY disabled. So the
-> break should be limited.
-> 
-> IIRC I was told to seperate the patch into small part so each
-> maintainer can take its own. Is it fine to squash these patches
-> into one in this a case?
+On the Epson Moverio BT-200, reading back registers does not work with the
+default value, so make it configurable. Real meaning of this value is not
+known from public sources.
 
-You can't break bisection of the tree, so if it all has to happen in one
-commit, that's required.
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+---
+ drivers/gpu/drm/bridge/tc358762.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-But really, why is this needed at all?  Who will benefit from this
-change?
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 1bea89fb03a8..194785bff997 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -15,6 +15,7 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+ #include <linux/of_graph.h>
++#include <linux/property.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/spi/spi.h>
+ 
+@@ -101,8 +102,6 @@
+ 
+ #define IDREG			0x04A0 /* Chip and Revision ID */
+ 
+-#define LPX_PERIOD		3
+-
+ struct tc358762 {
+ 	struct device *dev;
+ 	struct drm_bridge bridge;
+@@ -112,6 +111,7 @@ struct tc358762 {
+ 	struct spi_controller *spi;
+ 	bool pre_enabled;
+ 	int error;
++	u32 lpx_period;
+ 	bool use_vtg;
+ };
+ 
+@@ -246,7 +246,7 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 	tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
+ 	tc358762_write(ctx, PPI_D0S_ATMR, 0);
+ 	tc358762_write(ctx, PPI_D1S_ATMR, 0);
+-	tc358762_write(ctx, PPI_LPTXTIMECNT, LPX_PERIOD);
++	tc358762_write(ctx, PPI_LPTXTIMECNT, ctx->lpx_period);
+ 
+ 	if (ctx->use_vtg) {
+ 		struct videomode vm = { 0 };
+@@ -367,6 +367,9 @@ static int tc358762_parse_dt(struct tc358762 *ctx)
+ 	if (IS_ERR(ctx->reset_gpio))
+ 		return PTR_ERR(ctx->reset_gpio);
+ 
++	ctx->lpx_period = 3;
++	device_property_read_u32(dev, "toshiba,lptxtimecnt", &ctx->lpx_period);
++
+ 	return 0;
+ }
+ 
 
-thanks,
+-- 
+2.47.3
 
-greg k-h
