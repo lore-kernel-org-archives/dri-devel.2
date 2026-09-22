@@ -4,146 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594D9C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:23:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE581C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 12:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 613E010E3F8;
-	Tue, 22 Sep 2026 12:23:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1176410E1BE;
+	Tue, 22 Sep 2026 12:25:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yBG74wlv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="inL/amZd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fAd/pp9J";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G4Z6tJBy";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="g1EMx2NH";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF3E89DA9;
- Tue, 22 Sep 2026 12:23:25 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 83B5E1FB5D;
- Tue, 22 Sep 2026 12:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790079803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=lvKlOCqZMbqn6LWSZQqs6CKgHMgQ7e2lx3beQ5aW97A=;
- b=yBG74wlvSXIh9kx6mg1LeemTkuEMvH+OcYr+STuGXCHvNq0E2tUbYXrLyULj+aLrDe4KGY
- K0KV8j1QkUM+71TYY+2U/LwlgIYpINMNO5Fyr30XLUof3vmpKKRmP0R/7pQv6GCzEetqGg
- CUuDObJVc2UMBSdDSwk12NitZVcSF30=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790079803;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=lvKlOCqZMbqn6LWSZQqs6CKgHMgQ7e2lx3beQ5aW97A=;
- b=inL/amZdyllB6xcE0kNv3UU6/3+bVcwEE/J893QEkCoIfnjYPoZ5dbBe3TI9Q2PS32lJ4H
- 61I6BzbZe252eLBQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="fAd/pp9J";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G4Z6tJBy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790079799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=lvKlOCqZMbqn6LWSZQqs6CKgHMgQ7e2lx3beQ5aW97A=;
- b=fAd/pp9JJcBRM4+Ufz3HY5A2q2toMvXa8Q1WdYN2c8tMTSbX3lKjY7Wr2/jc4c7y8UEEZu
- o1GwMKFepG5FZCTbgtakohNE3mmJ3W39idK7+j0Xaf1zL/FG/cbYk5SvIqoArDW4lLLtvY
- 6Nnr0uxTr2S1hmauDZ4UkIzMgwyWpyI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790079799;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=lvKlOCqZMbqn6LWSZQqs6CKgHMgQ7e2lx3beQ5aW97A=;
- b=G4Z6tJBymGwuWoZZC7g4Yfi13gjCyiv+1U4WDE6ufFrQ82Z5GSHrQ29zW64+Q7Zf+tAImv
- c4eIt+HIcopbdoCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6BF9136D9;
- Tue, 22 Sep 2026 12:23:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4HK6IjZzsmrmKwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Sep 2026 12:23:18 +0000
-Message-ID: <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de>
-Date: Tue, 22 Sep 2026 14:23:17 +0200
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B9910E6E0
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:25:07 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e6c0fce17so21219665e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 05:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1790079906; x=1790684706; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Z0UH5f4Xwx0eHqEEdAgzMEXfye5CzpFBUkt22qJELao=;
+ b=g1EMx2NHfVWs8pDd4hQYQo3szxAMrQbN1rEc7DKVei04dq9WOPnxdjerKAJGOucTS0
+ EY/yxaA5qX6eqfEs0AA3lMxK6Er8l8uZg/tCG4tsUDjwiUjHlLUF2dZ/Pq8Au3MTOuDZ
+ 1iKOGviAJfw5cKWurnk6YWQbtjT7KUYkrmftRqudgGAcpXOq2L2+Z8f/rJh+UZgdz/LX
+ SWCmv5krwSo6ZLteVSscBULRHV1Zj0SJit2Z+lHgxcgELVaArhCm0i+pLdvRiA3ei9hX
+ RICn8oPekC+or/cLa9ZyjCrh5bG6nFMspfkVil2B4JgujqXF7+EaxRsJDDV5pWH7yjBq
+ SQJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790079906; x=1790684706;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z0UH5f4Xwx0eHqEEdAgzMEXfye5CzpFBUkt22qJELao=;
+ b=cFE8jmqJSkHGt3f6BxHlnD2nY9y9jmgZn1RziIARxBDGPstDD4qAJHQDWMxZCuC0bm
+ iuuT0yYYMpez2QvRv5KWgP1yV2/RtDDYwsmWCEZACJdtLEj5MrSS3wkndpCH+nwA6PoY
+ D/y3oEiwosd7lwN2DGVqP9X4XfIlfshHMy44sHwXw6wX1TleEy/pgMpLRSuIUDvvnhib
+ 8IKNSp1U7jMYEPQvPI59pz9OAWHXEeHN+3SgP1+lirZ3J7j6dOTDyZhJ7lgd7OS4xjR2
+ TQ+yghRtmVC/e6/DNjD+4H3Oemp8o6wia7LSwvzkiBYq6UESyp2PKh31CkjSwOyhmm9P
+ eWmA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxOmm0iSqpBKiUifnZoBnSH2ldmloJLpkluqCd4Va4rNskn8Wu8r+hLCFnDEqZBXNk6qVRbvSUQ1TY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kt+JTm/1jc8eeZx4pB9sNKe+FVoJk0pggEFnwrwRIdOH3EWW37
+ qvwKk+YPhGon5l4EkQvXKUld2LAcGGivGfGNN2vZ6+HpyRxsgke3QO1ZtrzgDfZiWBs=
+X-Gm-Gg: AYBFou1MAAvIhhy33MhSpF2dtR0XKy3ERWXEWpSKS8gnS7NxhB4zR72Ctq/qaATNMvc
+ oHF5Ms/aVfZiFhR2S0YqzkZ1lT14+KXtYxj+301sR7mRYLLaiPy6CxBuKDetCP4JP98v8bzhnT7
+ rWumq+BWraq/KWJl2ZvmG5EoQsdVkpNwSRfHugzdKPf6wGBNkyzddWNEUqQLIEjCGGe6eSez7iH
+ W0TYjA//u0YEqrz5haUX4sbWGWF8DiLJE2XbMEOjKNydiljMp7l8Fd/0xdzFJHmnXrDsL+ThMCn
+ b/abh/3PuZdm+14KOPbHpgsNSgagZfJPuCZP7KgiXCVsFEBSWHifHUkQAzHGubRNoNpnJb7o+AE
+ fa5NNe0MvHenLjLFGps6RwA2qEJYHzkW7+mhfui575KVblm7lxJGvVLCmtkopq3a2HrSzKsGu23
+ Prq2dElIi/KEHNVaec+pscdyhd9hwBxG+UcVuAjVBrgIjN+YeSUkdVp8HzxHvgH7nngTUxeNeUh
+ MPczrQMgIdtidK+WG1B/HbkUNV9sFO1k97ouaK4eV6MqgDi1T9RLXUarYd38y8lxvR6cNf1JMDl
+ pS6kBZDG9l3hN6mTux5c91FxnlKsyqpmERkrkwwk
+X-Received: by 2002:a05:600c:1f95:b0:49e:7862:c09e with SMTP id
+ 5b1f17b1804b1-49fc57238b8mr181860835e9.14.1790079905892; 
+ Tue, 22 Sep 2026 05:25:05 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fdad40b4dsm48644925e9.10.2026.09.22.05.25.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Sep 2026 05:25:05 -0700 (PDT)
+Message-ID: <d7bdb421-4c65-4133-95fa-ecf3ea2b7374@suse.com>
+Date: Tue, 22 Sep 2026 14:25:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-To: Maxime Ripard <mripard@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
- <32f96551-358b-4874-8fd1-a685b02853e1@amd.com> <arJwOSq6-oSywTK6@houat>
+Subject: Re: [PATCH 0/6] Remove the error-injection.h include from
+ linux/module.h
+To: Jens Axboe <axboe@kernel.dk>, Jakub Kicinski <kuba@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Simon Horman <horms@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Francois Dugast
+ <francois.dugast@intel.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-api@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <arJwOSq6-oSywTK6@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 83B5E1FB5D
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[redhat.com,lists.freedesktop.org,amd.com,ffwll.ch,linux.intel.com,gmail.com,kernel.org];
- MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.com:url, suse.de:dkim, suse.de:mid,
- amd.com:email]
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,87 +112,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 9/11/26 5:04 PM, Petr Pavlu wrote:
+> linux/module.h appears in roughly 15k #include directives across the
+> kernel. This makes it a "hot" header, so it should avoid pulling in
+> unnecessary definitions.
+> 
+> The header currently includes linux/error-injection.h to obtain the
+> definition of `struct error_injection_entry`. However, this is unnecessary
+> because the type is only referenced in the file as a pointer, for which an
+> incomplete type is sufficient.
+> 
+> Add explicit includes of linux/error-injection.h to files that use the
+> ALLOW_ERROR_INJECTION() macro and currently rely on it being provided
+> indirectly via linux/module.h. Then remove the linux/error-injection.h
+> include from linux/module.h.
+> 
+> The first five patches can go through their respective trees if preferred.
+> The final patch depends on the preceding cleanups.
 
-Am 22.09.26 um 14:16 schrieb Maxime Ripard:
-> On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
->>
->> On 9/22/26 03:33, Javier Martinez Canillas wrote:
->>> Hello Mario,
->>>
->>> On Tue, Sep 8, 2026 at 6:41 AM Mario Limonciello
->>> <mario.limonciello@amd.com> wrote:
->>>> At Display Next Hackfest 2026 we reviewed progress moving brightness
->>>> control into the DRM connector properties.
->>>>
->>>> There is a range LUMINANCE property that will default to 0->0.
->>>> Once a driver attaches a backlight it will be updated to 1->max.
->>>> If the panel supports the minimum backlight turning off the display
->>>> the range can later be updated to 0->max instead of 1->max.
->>>>
->>>> The legacy sysfs interface is synchronized with the DRM connector.
->>>> When a compositor using this feature is loaded, sysfs writes are disabled
->>>> to prevent legacy tools from going out of sync with the compositor.
->>>>
->>> I don't think I agree with the direction of this series. The main
->>> issue for me is that if the sysfs interface is disabled, then I don't
->>> understand the value of doing all the hops between the DRM and
->>> backlight subsystems...
->> The reason for all the hops is that users can switch between compositors
->> that support this and don't.  If you're in a compositor that supports it
->> that compositor will want to affirm it's in control.  If you're in a
->> compositor without support then you should still have a way to change
->> things, and that's what the sysfs interface exists for.
-> Couldn't we make a sysfs write trigger an atomic commit then? That way,
-> it would always go through the atomic commit path, no matter whether
-> you're on a "legacy" compositor or not.
->
-> It would also somewhat untangle the uapi from the backlight subsystem,
-> because it's only really relevant for panels. For all the other use
-> cases, you might want to control the brightness but you have no matching
-> backlight device.
-
-I suggested to treat these backlight changes like display-hotplug 
-events. When it happens, we'd send a uevent to user space, so it can 
-update its internal state.  Such an event could then come from any 
-source besides backlight's sysfs.   Compositors could also implement 
-policies that are currently implicit in this series, such as brightness 
-of 0 means "display off".  This is likely something a compositor should 
-track.
-
-Would that work?
-
-Best regards
-Thomas
-
-
->
->>> IMO when a driver sets the DRIVER_CONNECTOR_LUMINANCE feature and the
->>> client advertise the DRM_CLIENT_CAP_LUMINANCE capability, then the DRM
->>> driver should be in full control of the brightness control and not go
->>> through the backlight subsystem at all.
->> OK but so let's say I start at 100% brightness.  I open up Kwin, I change
->> the luminance property to 0%.  Let's pretend that backlight subsystem
->> doesn't get updated.
->>
->> Then I log into Xorg + Xfce.  The luminance property should be left at 0%,
->> the brightness subsystem is 100%.
-> Make backlight read the current property then.
->
-> The way I see it, you're trying to untangle multiple issues at once, and
-> I'm not sure it's the best strategy here. I'd start with the luminance
-> property itself that wouldn't involve the backlight framework itself
-> (DDC/CI or MIPI-DCS sound like obvious candidates here), and once it's
-> in, I would figure out the relationship between backlight and that property.
->
-> Maxime
+Thanks for the Reviewed-by and Acked-by tags so far. They cover the
+majority of the changes, so I plan to pick up this series on
+modules-next at the end of the week. Acked-by tags from the relevant
+maintainers on the remaining patches are still appreciated.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Petr
