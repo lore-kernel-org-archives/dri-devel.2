@@ -4,76 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC6F7C982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 22:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC470C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 22:40:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2271D10E4B8;
-	Tue, 22 Sep 2026 22:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 204E210E86F;
+	Tue, 22 Sep 2026 22:40:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jrdq+H0T";
+	dkim=pass (2048-bit key; unprotected) header.d=fb.com header.i=@fb.com header.b="seaPKjeh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77EF710E4B8
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 22:38:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 13F9A4167D;
- Tue, 22 Sep 2026 22:38:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E2658C2BCF5;
- Tue, 22 Sep 2026 22:38:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790116730;
- bh=0Aqe28z8QGQo4XbEFhqrQmVqEe04FzqL1C5imTxDlJU=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=jrdq+H0TUHPV81Y2fKNcK3bmYgy/aQYouyJcWLCiE+PBY77dc/6CWcxTgvgjCvFbG
- RLssQlOGQVxFHrpxwMxLHRVLNv3wr+ZddCWxFrMNp29sHLSCwpimLF7TnpfUankNc2
- mx3tvE/YqfmhdB8VLjYurCsbOgeEFgDKmnHYCPRU5sJA4DELQf7xyum5EgsIsEwOgb
- 0PBvhbDHmeu/xRHolVlV4/+E1UXA1hgI39KPkQ1i3coDvjZP45KvGTdsY6N7UVcYLf
- k/+VkogBtnZSg9UojukEp40CmqZdhmgLxAg0KWNFmj8xNq+A3IpE1ClEIcgQtxYDZX
- I/uForgGrvptw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id BD960C982FE;
- Tue, 22 Sep 2026 22:38:49 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 23 Sep 2026 00:38:35 +0200
-Subject: [PATCH] misc: fastrpc: Don't fail probe when the SDSP memory
- assign fails
+X-Greylist: delayed 515 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Sep 2026 22:40:18 UTC
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A668010ECCD
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 22:40:18 +0000 (UTC)
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+ by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68MKGo4V3257133;
+ Tue, 22 Sep 2026 15:31:15 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ pps82601-s2048-2026-q3; bh=rUhSNgh6xkKzXRfnZvkgqfgLgmgpRqFkkByHS
+ L6xMEI=; b=seaPKjehH1RDWeePDVQJYK6wLy6QHRZgifY6NHGbTUGRubuNZP/V8
+ s7AShxnO4HGnk6fpqhLevZ6qA/L3GGZyMAbhUcXmsU3RNTpmQUs5NUuN1zmEOhCZ
+ CMWMkIHRpM4SRYu8hoYRxBoXhZTvqT+3mAe2YEQyoP/ek5SDnjAS3bQ9M/cbIygB
+ 5VpJb88J+zhgQS5XSgULrWCeJY2/TfqRIuWau3b1R2eqr5rWnNpIOhZSOpMf5gUZ
+ yk6rtg8IvZLUTuNAqspoag4cFm35jBaGayo4PCSbMFgqgEVIh3PHqUpQVh4zeB6Y
+ kLObp6tTde3zWy2hzFktu6KeyrlW4lA4Q==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by m0089730.ppops.net (PPS) with ESMTPS id 4gv0ju8y7u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 22 Sep 2026 15:31:15 -0700 (PDT)
+Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1c::1b) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Tue, 22 Sep 2026 22:31:12 +0000
+Date: Tue, 22 Sep 2026 15:31:07 -0700
+From: Alex Mastro <amastro@fb.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: Leon Romanovsky <leon@kernel.org>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Matt Evans <matt@ozlabs.org>, Alex Williamson
+ <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Message-ID: <arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com>
+References: <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
+ <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+ <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
+ <20260921132208.GA1507824@nvidia.com>
+ <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
+ <20260921134924.GB1507824@nvidia.com>
+ <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
+ <20260922124137.GD1507824@nvidia.com>
+ <20260922124637.GG563127@unreal>
+ <20260922125421.GE1507824@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-fastrpc-fail-slow-v1-1-f3f6fabba6e3@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw5AQBBF0a1IjXVC+wRbEQNKoUSQrvZJxN41R
- i9n8O4FQoZJoPAuMLSz8DI7hL4HONRzT4pbZ9CBToNcR6qrxZoV3fKkZFoOFbeYRTmGaZYguN9
- qqOPza5bVb9makdC+IbjvB2r/TIt1AAAA
-X-Change-ID: 20260923-fastrpc-fail-slow-4dc839c1685c
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Xingjing Deng <micro6947@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- stable@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2927; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=LVflJZ/2wlziXXcgkjmUlvyrIA4JxMm8+0Fb6m1yJ2E=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqswN4Ww4Isn3b4+WGISIldgE1WYUqWK/0/8UBi
- M1hUa64M8eJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarMDeAAKCRBgAj/E00kg
- cp2GD/9xpT04KcafxxzzzuuUOJgWk8Dnw017e+ML+4eNZ+x96udDkrJ26VRQ1lqKDPFSdP42hvq
- DgNVELWCJuJJ5l3F3vTfxDCzCicDK9d6lTYEw4RKO0UNgcXIEWxGadAAlmBZZT1V0P06eSCCqSE
- YqqIgcAduy0/GxU4M+cxUrmQ0TWf1eSPT2pTdEwCod6NqoDQ0D5vEWzfro8lAsunNTwDmgMwknO
- S8K+CDjufT1hgQy0ivffOW9IttgJy7Y5kdmuInnuJFZxQoxdYvuh7wzBFTfPXMOZYDyHG7xwO6U
- cdcaqYCqvsnLhpLiNps6PeX2Vgcz1ViuTxKLC868vOpikeML6yZPMnaJVd+rOnsTm55S+101J8x
- umLUQCiVFMhdOL9Pr0dQlOmAP9h9ML3/BaMuiR6CXsneIX4OYPhdggHikBRfGDqNXrbWIawmab2
- nQxixDbyzWBYEcbngxE5XVGSSD5s6P14hiiAwModMGE5ZDfyTa4gZwf4J1T7G2xS6tLvYDFN6IC
- nPj+e4wvyJVFFgRdf9HhuH6QqdTnvutEKoaUfO0iZkDi+kfvpVaLoxqqY2FQ7X8H5IuPKy3JF1I
- hp8JnhKU0rnCifDri+E9poYZhSRLKZP+EuQwp8DI9kuoKadNnsKMxeDlORXdgBcvudyqej0k+MV
- N3R0Vi7dj8ywbOA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922125421.GE1507824@nvidia.com>
+X-Originating-IP: [2620:10d:c0a8:1c::1b]
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMiBTYWx0ZWRfXzPLaS+iN4E2w
+ QW6c6EwXWytTAhiErmyUqlGtHjZg5ZdIGlcmGWYZZIaTVuUhwB6VQJoqghSJ/UZbyfo3bAf/0J3
+ ZAO+/0ziTQ27AfdCYPj19uTXwA/Zau8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMiBTYWx0ZWRfX2afZujD+u/e9
+ cIsEbY+FF7vFGgU3AzwIxbf6qiDAiDFmdWVp7nKUi1thq66Sk6frp3ZWI7drWX3jnGpg33SSz9H
+ HJ24rffthstCHVGzgQ0aus8P1XGRjZ0WQA3Yj/cw8Dd17S777ubA8MOIuLG9/vVrtF4XQsyd9zL
+ SNScG//fTzXlVN3yAmLZ1MKTqykzTJiHxiG6UtI/wIemZ6IoMDd1CZNATO0XvxZYqoCYE1LCaUW
+ 6BPsokPPvH/OXBL5pVRQp3WLEuM7pkna86h1S0Gf7GUAngqPSDonj0OwgJusFJl9GQh/7CdgXyI
+ Ou9baaLG6m3BNHLI+n/WgoUeBkLIlEwAoVSo/4+hqN0tKsUKvhn72vvj3ae2xB4dlGJO3eLxfA8
+ 6xnSE42Vxyw8T/pBeohgAUeZfzMPOvDbiBiqy7hCAbGJbxyrdUOuBbrgVgZCTQd55o2CB/+GIg1
+ 6oWEKbCfVKNORGfGeeA==
+X-Proofpoint-ORIG-GUID: j5N__OZvBdBCOoLpPpSZEXOVCzD292Fn
+X-Authority-Analysis: v=2.4 cv=Is2L47/g c=1 sm=1 tr=0 ts=6ab301b3 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=855S8uPTkML1Oy45N9_h:22 a=wdxqxBYYAAAA:20
+ a=9ZocRCB3nw8SPkWSbdcA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=O8hF6Hzn-FEA:10 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: j5N__OZvBdBCOoLpPpSZEXOVCzD292Fn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,83 +108,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+Hello!
 
-A failed qcom_scm_assign_mem() aborts fastrpc_rpmsg_probe(). On SDM845 this
-turns every SLPI subsystem restart into an endless probe failure loop:
+On Mon, Sep 21, 2026 at 10:22:08AM -0300, Jason Gunthorpe wrote:
+> On Mon, Sep 21, 2026 at 02:08:47PM +0100, Matt Evans wrote:
+>
+> > Not quite; the priv->revoked flag tracks temporary periods of
+> > inaccessibility.  An example is VFIO resetting a function; the BAR
+> > mappings as seen by the CPU and DMABUFs made from the BARs are all made
+> > inaccessible before the reset, and made accessible again after the
+> > reset.
+>
+> From the importer perspective this is a permanent revoke.
+...
+> From an importer perspective it sees the revoke happen and then that's
+> it, the dmabuf never does anything further. The importer has to unmap
+> and start from scratch, get a FD and map it.
 
- remoteproc3: crash detected in slpi: type fatal error
- remoteproc3: remote processor slpi is now up
- qcom_scm firmware:scm: Assign memory protection call failed -22
- qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: probe with driver qcom,fastrpc failed with error -22
- qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22
+That may be true for iommufd, but from what I can tell, already-imported
+vfio-pci dma-buf can be resurrected after VFIO_DEVICE_RESET by other dynamic
+importers (e.g. mlx5). That seems to be the case today, without this series. I
+clanked together a toy program and accompanying bpftrace script demonstrating
+this [1][2].
 
-The first assign succeeds and hands the reserved region to the VMIDs
-described in qcom,vmids. qcom_scm_assign_mem() reports the resulting
-owner set back through @srcvm, but the driver discards it, and nothing
-reverses the assignment in fastrpc_rpmsg_remove(). When the glink
-channel is re-announced after a subsystem restart, probe passes
-src_perms = BIT(QCOM_SCM_VMID_HLOS) again, which no longer describes the
-region, and the firmware rejects the call with -EINVAL.
+The program
+1. exports a vfio-pci dma-buf
+2. imports the dma-buf with ibv_reg_dmabuf_mr()
+3. VFIO_DEVICE_RESET
+4. ibv_advise_mr(PREFETCH|FLUSH) on the original MR. It succeeds, triggering
+	mlx5_ib_advise_mr_prefetch
+	 -> pagefault_dmabuf_mr
+	 -> ib_umem_dmabuf_map_pages
+	 -> dma_buf_map_attachment
+	 -> vfio_pci_dma_buf_map
+5. re-importing the original dma-buf fd to create a new MR also succeeds.
 
-At that point the region is already assigned, and HLOS is part of the
-destination VMID list, so both the host and the DSP keep access. Failing
-the probe only removes /dev/fastrpc-sdsp and makes the remote reopen the
-channel, repeating the cycle indefinitely. Warn and continue instead
+So I empathize with Matt's contention that the _existing_ behavior that the
+priv->revoked flag represents is actually "temporarily revoked": the importer
+can use the same dma-buf again, later, without having to re-import it!
 
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Fixes: 6a502776f4a4 ("misc: fastrpc: check qcom_scm_assign_mem() return in rpmsg_probe")
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Tracking the current owner set so the re-assign is issued with the
-correct source VMIDs is a separate fix, but I assume it would make sense
-to keep that to someone with more knowledge of fastrpc.
+What are we missing?
 
-I aim here to reverting into usable state again which can be also
-backported.
+On Tue, Sep 22, 2026 at 09:54:21AM -0300, Jason Gunthorpe wrote:
+> On Tue, Sep 22, 2026 at 03:46:37PM +0300, Leon Romanovsky wrote:
+> > On Tue, Sep 22, 2026 at 09:41:37AM -0300, Jason Gunthorpe wrote:
+> > > On Mon, Sep 21, 2026 at 04:09:18PM +0200, Christian König wrote:
+> > > > >> I would avoid that and just re-create the DMA-buf fd from
+> > > > >> scratch. The extra overhead is negligible and one way state
+> > > > >> transmissions are usually much easier to handle.
+> > > > > 
+> > > > > Yeah, maybe we should have done that. Might be too late now.
+> > > > 
+> > > > It's already uAPI? 
+> > > 
+> > > Yeah, but Matt is making some changes here so maybe new stuff can
+> > > avoid this. I'm not sure.
+> > 
+> > Jason, the proposed semantics is not UAPI yet.
+> 
+> What I'm talking about is, the revoke/unrevoke flow for a single FD
+> was added from the start. For example vfio_pci_ioctl_reset() does it:
+> 
+> +       vfio_pci_dma_buf_move(vdev, true);
+>         ret = pci_try_reset_function(vdev->pdev);
+> +       if (__vfio_pci_memory_enabled(vdev))
+> +               vfio_pci_dma_buf_move(vdev, false);
+>         up_write(&vdev->memory_lock);
+> 
+> The false restores the exsting dmabuf fds back to normal operation.
 
-Tested on Pixel 3 and 3 XL.
----
- drivers/misc/fastrpc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The toy progam sequence above shows that both of the following are the case
+today before this series:
+- an already-imported dma-buf fd can come back to life after a reset.
+- an already-exported dma-buf fd can be re-imported after a reset.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 90fd669636ec1..41943a3d496af 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2590,17 +2590,19 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 
- 		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
- 		if (!err) {
- 			src_perms = BIT(QCOM_SCM_VMID_HLOS);
- 
- 			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
- 				    data->vmperms, data->vmcount);
- 			if (err)
--				goto err_free_data;
-+				dev_warn(rdev,
-+					 "assign memory to SDSP failed: %d\n",
-+					 err);
- 		}
- 
- 	}
- 
- 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
- 	data->secure = secure_dsp;
- 	data->soc_data = soc_data;
- 	data->poll_mode_supported = soc_data->poll_mode_supported ||
+This series doesn't intend to change the behavior of either. Is the confusion
+about whether the current behavior is intentional and/or desirable? If the
+answer to both is "no", then IMO this series paves the way nicely towards making
+PERM_REVOKED the only supported semantic later.
 
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260923-fastrpc-fail-slow-4dc839c1685c
+[1] https://github.com/opsound/vfio-tools/blob/9744d0f17edd67ad8eb21134ff75cdc2d0678bbc/vfio_dmabuf_reset.c
+[2] https://github.com/opsound/vfio-tools/blob/9744d0f17edd67ad8eb21134ff75cdc2d0678bbc/vfio_dmabuf_reset.bt
 
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+Alex
