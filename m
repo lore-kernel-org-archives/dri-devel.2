@@ -4,67 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1D7C982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5BA8C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 15:34:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC1210ECC2;
-	Tue, 22 Sep 2026 15:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15DFE10ED84;
+	Tue, 22 Sep 2026 15:34:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dc6duuug";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QGO92bOF";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 465EA10ECC2;
- Tue, 22 Sep 2026 15:27:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790090822; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Myif/PNyMXUnkRgDKqLcox5iJF5e7V8oMQjn5MkgqQcF93CAJGgHwDb30szTrF2EB2f2dtsOuWMokM9pxj1/3bvPMk9Ylr06qQIufsZ3SKwl9RpLzxM2Ac+57B81pQyXv6wY35P9GuDtIX/n/2h8gE9oNVyjkpt0EqGFi3KkthM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790090822;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=T56DLp6EDZvMJducyX5eXxcY81Xx5bfBfBpjulakHeo=; 
- b=B2KVTyXBt2ftgVLn+I7vYbrwD4LChQQqf0gjmzA1jvPlBCD5TKGDsGovi53R/82fbpdC50khB2fCRm7xOfXlrcCKnU8RvMmebgmIn4hh8wxJFKP7rmuIhMY1YlZI62zHYqZI85EfIwZt+posTV8YumaVBJtma1ZysZ3nL9r83e8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790090822; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=T56DLp6EDZvMJducyX5eXxcY81Xx5bfBfBpjulakHeo=;
- b=dc6duuugsNFnFFvjjciYjvFC/tQxbd16Gs6MqbCDailWEysxfhXROvSHLELdKY12
- wQzU/lCSScoc61GMrWMr7GvicySYptOITHtyska0nSJSFc0AjDcHWDOYW+XmaUDKhso
- HU3K+6HU20HWZQMNHCom80bGbFYJlxL13WAbwkRY=
-Received: by smtp.zohomail.com with SMTPS id 1790090820807532.2535788313991;
- Tue, 22 Sep 2026 08:27:00 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Leo Li <sunpeng.li@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-Date: Tue, 22 Sep 2026 17:26:53 +0200
-Message-ID: <VERVf-aJRRKsBOI_3dpScg@collabora.com>
-In-Reply-To: <0226527e-ee38-40ab-a2a8-1ae62013b950@amd.com>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <0226527e-ee38-40ab-a2a8-1ae62013b950@amd.com>
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
+ [74.125.228.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C90AC10ED78
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 15:34:35 +0000 (UTC)
+Received: by mail-ed2-f12.google.com with SMTP id
+ 4fb4d7f45d1cf-6a6056ac81fso7690732a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:34:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790091274; x=1790696074; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
+ b=QGO92bOFAMkrs4+BxDDZGsfJCNxWeIvGz/aNlCF8X4h4ezZdWLpL7X6X6xBIK861+T
+ YK/JLve0ihRD/MlI9UdmzMZL0ASzrYIVbZK5KGAVF2BJDsz+9vB4JDmEQPbWyLdtIigR
+ Diqr/WbmW54ewg769klUknmfITJwTjKUduqXMA15zDqdesua4OVgMSb5EPltN4xqkBNf
+ uiLDsa9Vx6Xv2AFZz2xMzMJqlOPzF28ZpB6Uc5wGal2XiasFiUz0IBwQnmgeFQXCYEgz
+ hw3rZnCc11fFjmgemxfB13VcKFcWYZQQgxGI2HMu367m9atDJeiR5F7rP6kKZ61YlqDa
+ ftlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790091274; x=1790696074;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KqNXgwrnC6/yf8ldr9VODDt8z7mpX7HYSVueoRJSAsQ=;
+ b=coNPtXItc6nA1ZdwW90LtcDR5JHW3wPfgLAB5ZXG/kQnDRW3jpIzJf2Leos7ssS5Q1
+ H5EmHyZnUIj+ZIOE0c7GYg074mKrzjp7xI1l9OyN+oNSgocI4JcZdPeqYCXaRHDARgC0
+ pRA5ZhUuyR69XF/3HcxWirN/Cu+hfVxu6Mv8AkNqLSxiz4R+yeHDxKa9j1SNuEsdWWc3
+ hhrlMV1Le9c9aT1f65nuoMvrOofA11leMATyx5a3FkwL4QlTNaI3BzyVC/Tjiv2hLyI6
+ QX+GMX3hiNY8YyFdj7MJENW1WEdkNKx6YBWgNle0PZpp0c8i2NFzuwV20ztzC8UtZH/n
+ Sl7w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw8NydMZMevblpNxOikRGZJFmFih03r/rzYphe4xrGHBQorEc8yr5N4qly9xBK8P0Q2byZHvD+WqJI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ny24E62URZJlVUMqxHdriwovBeyfSEpjmWiEDvAFWdrhlRoqer
+ TBIiwbyq+QDXDJ/IBLmAlI8EP521esc6PtPG1hPZyegYnIaRJ4OxS/b1
+X-Gm-Gg: AYBFou0aRXMCgBsEwTZhgbSfCN9ytCDRRplTJw/ewnXIpmV7yXyIkO8uRpzlqjY6o7l
+ +5jbreK89nk/VHmM6en5m3mzs99dt6O0febGrknHma2ti1nNzevTjjwaoaybaD466WwA6yttVZy
+ N2UzCS5tYPqMBXro0x9diWAtllbS0c5LnW6PYIx4Z5utssuFL/tS3LGP+uErsvmaPfqTcegO65T
+ s6B84RsR8thV1CYkD2epCXs61X0gex975h4xMxkvsPfhP8VrPdEAb1jjpJdeUS0oNNRvPnkG9Eu
+ hgyHd05nIIBflQKQQvc+t6bURmxCH6v7CbtGLQ9Z9KWDZ2kATXm3iknDbrVEOWYtmfU76W01uLE
+ RyjoZfio37RDnxLC9xXZA9bqub7bdHx2gpholZ4qjuFrnJ72GRmfFYNa73304Ug2RXEwzWsVZ47
+ XvrBodm0laCwg7QVJiYmuRjyDQSBCNoRQrOhMb9E4eOcwEWdyIFBLtSg38NoiCCGm8FGSDHWQry
+ vtbSUiUfWid8/8=
+X-Received: by 2002:a05:6402:13d0:b0:6aa:a01e:f177 with SMTP id
+ 4fb4d7f45d1cf-6aaa01ef223mr3266486a12.21.1790091273890; 
+ Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
+Received: from bbzr-mini (cool-t.fvds.ru. [103.137.251.133])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6aaa450c4basm1272517a12.20.2026.09.22.08.34.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 08:34:33 -0700 (PDT)
+From: Vadim Nikitushkin <bub4z0r@gmail.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, christian.koenig@amd.com,
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+ skainsworth@gmail.com, Vadim Nikitushkin <bub4z0r@gmail.com>
+Subject: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving their
+ bulk_move range
+Date: Tue, 22 Sep 2026 18:33:34 +0300
+Message-ID: <20260922153334.136648-1-bub4z0r@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026092253-dimness-unethical-2515@gregkh>
+References: <2026092253-dimness-unethical-2515@gregkh>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,322 +94,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tuesday, 22 September 2026 00:23:30 Central European Summer Time Leo Li wrote:
-> 
-> On 2026-09-21 11:51, Nicolas Frattaroli wrote:
-> > Userspace may wish to set a target frame rate for the Variable Refresh
-> > Rate mechanism. There are multiple possible ways such a target could be
-> > communicated.
-> > 
-> > It's desirable for userspace to not only set a fixed target, but a
-> > target range within which VRR may operate. This is because even if a
-> > sink advertises a certain range as supported, said range may not be the
-> > ideal range to use, as numbers on the extreme end of the range may
-> > induce flickering or other glitches.
-> > 
-> > There's four choices to how one bracketing value for the target range
-> > could be communicated:
-> > 1. Target frame rate in something like millihertz
-> > 2. Target frame period in something like usecs
-> > 3. Target vtotal value
-> > 4. Target frame rate as a fraction expressed by two integers
-> > 
-> > Choice 1 is unpleasant as it would introduce some amount of rounding to
-> > common broadcast framerates like 24/1.001, which seems minor except that
-> > exact matches to standard framerates would rely on making all userspace
-> > and kernel agree on a specific method of rounding. This is sure to go
-> > wrong, so is disqualified.
-> > 
-> > Choice 2 has the same problem as 1, with the added complication that
-> > the EDID's VRR range is expressed in frames per second, and other HDMI
-> > features express things in frames per second as well, which would
-> > require possibly imprecise computations.
-> > 
-> > Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
-> > also modify the vtotal value. Additionally, it has the same drawbacks of
-> > choice 2 and 1.
-> > 
-> > Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
-> > example, is expressed as nominator=24000 and denominator=1001. As there
-> > is both a minimum and a maximum, there are 4 properties in total: two
-> > numerators, and two denominators. A fixed rate with no variability is
-> > expressed by setting the minimum fractional and the maximum fractional
-> > properties to the same value.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/drm_atomic_uapi.c | 24 +++++++++++++++++++++
-> >  drivers/gpu/drm/drm_connector.c   | 45 +++++++++++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/drm_crtc.c        |  8 +++++++
-> >  drivers/gpu/drm/drm_mode_config.c | 20 +++++++++++++++++
-> >  include/drm/drm_crtc.h            |  4 ++++
-> >  include/drm/drm_mode_config.h     | 45 +++++++++++++++++++++++++++++++++++++++
-> >  6 files changed, 146 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> > index 1eebcf6f5e05..c9eb01d740b3 100644
-> > --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> > @@ -420,6 +420,22 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
-> >  		return ret;
-> >  	} else if (property == config->prop_vrr_enabled) {
-> >  		state->vrr_enabled = val;
-> > +	} else if (property == config->prop_vrr_min_numerator) {
-> > +		if (val > U32_MAX)
-> > +			return -EINVAL;
-> > +		state->vrr_state.vrr_min_n = val;
-> > +	} else if (property == config->prop_vrr_min_denominator) {
-> > +		if (val > U32_MAX)
-> > +			return -EINVAL;
-> > +		state->vrr_state.vrr_min_d = val;
-> > +	} else if (property == config->prop_vrr_max_numerator) {
-> > +		if (val > U32_MAX)
-> > +			return -EINVAL;
-> > +		state->vrr_state.vrr_max_n = val;
-> > +	} else if (property == config->prop_vrr_max_denominator) {
-> > +		if (val > U32_MAX)
-> > +			return -EINVAL;
-> > +		state->vrr_state.vrr_max_d = val;
-> >  	} else if (property == config->degamma_lut_property) {
-> >  		const size_t elem_size = sizeof(struct drm_color_lut);
-> >  		u64 lut_size;
-> > @@ -505,6 +521,14 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
-> >  		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
-> >  	else if (property == config->prop_vrr_enabled)
-> >  		*val = state->vrr_enabled;
-> > +	else if (property == config->prop_vrr_min_numerator)
-> > +		*val = state->vrr_state.vrr_min_n;
-> > +	else if (property == config->prop_vrr_min_denominator)
-> > +		*val = state->vrr_state.vrr_min_d;
-> > +	else if (property == config->prop_vrr_max_numerator)
-> > +		*val = state->vrr_state.vrr_max_n;
-> > +	else if (property == config->prop_vrr_max_denominator)
-> > +		*val = state->vrr_state.vrr_max_d;
-> >  	else if (property == config->degamma_lut_property)
-> >  		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
-> >  	else if (property == config->ctm_property)
-> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> > index fc7d9fcf9d9f..5c07bd221977 100644
-> > --- a/drivers/gpu/drm/drm_connector.c
-> > +++ b/drivers/gpu/drm/drm_connector.c
-> > @@ -2579,6 +2579,51 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-> >   *
-> >   *	The driver may place further restrictions within these minimum
-> >   *	and maximum bounds.
-> > + *
-> > + * VRR Limiter/Target Properties
-> > + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > + *
-> > + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
-> > + * through which userspace can control the desired range of refresh rates in
-> > + * which VRR is allowed to operate. Each rate is expressed as a
-> > + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
-> > + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
-> > + *
-> > + * If the minimum and maximum rate are set to the same value (and not 0), they
-> > + * are understood as a fixed target rate. This is especially useful for media
-> > + * playback, where the content's frame rate is both constant and known in
-> > + * advance. In such cases, a refresh rate that is not an integer multiple of the
-> > + * content's frame rate will introduce judder, since not every frame is
-> > + * displayed for the same amount of time. A modeset of the display with a
-> > + * compatible rate may in those cases be either undesirable or impossible, but
-> > + * the rate can still effectively be reached through VRR.
-> > + *
-> > + * .. _VRR-MIN-NUMERATOR:
-> > + *
-> > + * "VRR_MIN_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MIN_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-> > + *	zero, it must be non-zero.
-> > + *	Otherwise, must also be zero.
-> > + *
-> > + * .. _VRR-MAX-NUMERATOR:
-> > + *
-> > + * "VRR_MAX_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MAX_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-> > + *	zero, it must be non-zero. Otherwise, must also be zero.
-> >   */
-> 
-> If VRR_MIN_NUMERATOR == 0 && VRR_MAX_NUMERATOR > 0, do we interpret that as
-> vrr limiting is disabled?
+commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
 
-You can picture VRR limiting as always being active, but with a limit rational
-of 0 it uses the display's limit as per the EDID, which is what unlimited game
-mode is. So with how it's implemented right now in hdmi_validate_vrr(), your
-example would set a maximum target, but leave the minimum at whatever the
-display defaults to.
+ttm_tt_swapout() returns the number of pages swapped out on success and
+a negative error code on failure; for a populated ttm it never returns
+zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
+walk on swapout failure") moved the bulk_move bookkeeping in
+ttm_bo_swapout_cb() under "if (!ret)", so the
+ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
+pair is now skipped on every successful swapout. The equivalent change
+for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
+infinite LRU walk on backup failure") tests "lret > 0", which is what
+was intended here as well.
 
-Now that I'm thinking through this, a possible problem is that
-drm_crtc_helper_vrr_is_fixed_rate() operates on the user supplied limits, but
-if the display supplied lower limit is equal to the user supplied upper limit,
-then we have a fixed rate scenario without recognising it as such. I think I
-need to have a ponder on what the least surprising behaviour for userspace
-is in that instance. The display limit stuff gets a bit complex due to
-CinemaVRR and QMS TFRmin/TFRmax.
+Before b2ed01e7ad3d the resource was taken off the bulk_move before the
+swapout; since then a swapped-out resource stays inside its BO's
+bulk_move range (and on the manager LRU) although it is unevictable.
+When it is later freed or the BO leaves the bulk_move
+(ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+ttm_resource_del_bulk_move() skips it because of its
+!ttm_resource_unevictable() guard, so a range endpoint in pos->first /
+pos->last is left pointing at freed memory. The next
+ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
+is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
+"list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+dereference in ttm_resource_manager_next() -- minutes to hours after a
+hibernation, or at process exit / reboot following one. Samuel
+Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+dangling cursor; the missing removal at swapout time is the reason it
+dangles.
 
-I'll improve the documentation on the next revision to make the meanings more
-explicit.
+Testing the condition for success restores the removal. On an AMD
+Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
+a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+crashed 5 of 18 hibernation cycles; a function profile of one
+hibernation showed 336 ttm_tt_swapout() calls and zero
+ttm_resource_del_bulk_move_unevictable() calls. With this change the
+removal happens for every swapped-out resource and 12 further cycles
+were clean.
 
-> >  
-> >  /**
-> > diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> > index 63ead8ba6756..9244fbf97029 100644
-> > --- a/drivers/gpu/drm/drm_crtc.c
-> > +++ b/drivers/gpu/drm/drm_crtc.c
-> > @@ -322,6 +322,14 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
-> >  					   config->prop_out_fence_ptr, 0);
-> >  		drm_object_attach_property(&crtc->base,
-> >  					   config->prop_vrr_enabled, 0);
-> > +		drm_object_attach_property(&crtc->base,
-> > +					   config->prop_vrr_min_numerator, 0);
-> > +		drm_object_attach_property(&crtc->base,
-> > +					   config->prop_vrr_min_denominator, 0);
-> > +		drm_object_attach_property(&crtc->base,
-> > +					   config->prop_vrr_max_numerator, 0);
-> > +		drm_object_attach_property(&crtc->base,
-> > +					   config->prop_vrr_max_denominator, 0);
-> 
-> Would it be better to let vendors attach these properties themselves? That way,
-> they will only exist if supported. Otherwise, I'm not sure what would be the
-> expected behavior if they're attached, but not supported.
+Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
+Cc: stable@vger.kernel.org # v7.1+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
+[ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+  ("drm/ttm: apply the swapout bulk_move fix to the intended condition"):
+  upstream 3db7d7d58341 was applied to the "if (ret)" after
+  ttm_resource_try_charge() in ttm_bo_alloc_at_place() instead of the
+  "if (!ret)" after ttm_tt_swapout() in ttm_bo_swapout_cb(), and
+  fcfe64715b42 restored the former and changed the latter. 7.2.y has no
+  ttm_resource_try_charge() (dmem cgroup charging is 7.3 material), so
+  neither commit applies on its own; the net effect of the two is the
+  single hunk below, which is the change the changelog describes. ]
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hmmm, yeah. For some background context, an earlier version of my code had
-these as part of the connector properties, and I intended to just make it
-mandatory for any HDMI state helper using driver that implements VRR to also
-implement limiters because there's no hardware limitation that'd prevent this
-iirc. But now that it's part of the general CRTC properties, this definitely
-shouldn't be attached for CRTCs that don't do VRR, and definitely also not
-for those that don't have the limiting code as part of their code paths.
-
-Thanks for the responses!
-
-Kind regards,
-Nicolas Frattaroli
-
-> 
-> - Leo
-> >  	}
-> >  
-> >  	return 0;
-> > diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> > index 48a56f23dadb..da967d60f832 100644
-> > --- a/drivers/gpu/drm/drm_mode_config.c
-> > +++ b/drivers/gpu/drm/drm_mode_config.c
-> > @@ -535,6 +535,26 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
-> >  		return -ENOMEM;
-> >  	dev->mode_config.prop_vrr_enabled = prop;
-> >  
-> > +	prop = drm_property_create_range(dev, 0, "VRR_MIN_NUMERATOR", 0, U32_MAX);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	dev->mode_config.prop_vrr_min_numerator = prop;
-> > +
-> > +	prop = drm_property_create_range(dev, 0, "VRR_MIN_DENOMINATOR", 0, U32_MAX);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	dev->mode_config.prop_vrr_min_denominator = prop;
-> > +
-> > +	prop = drm_property_create_range(dev, 0, "VRR_MAX_NUMERATOR", 0, U32_MAX);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	dev->mode_config.prop_vrr_max_numerator = prop;
-> > +
-> > +	prop = drm_property_create_range(dev, 0, "VRR_MAX_DENOMINATOR", 0, U32_MAX);
-> > +	if (!prop)
-> > +		return -ENOMEM;
-> > +	dev->mode_config.prop_vrr_max_denominator = prop;
-> > +
-> >  	prop = drm_property_create(dev,
-> >  			DRM_MODE_PROP_BLOB,
-> >  			"DEGAMMA_LUT", 0);
-> > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> > index 9d58158af459..df37f4ebb58e 100644
-> > --- a/include/drm/drm_crtc.h
-> > +++ b/include/drm/drm_crtc.h
-> > @@ -67,6 +67,10 @@ struct drm_crtc_vrr_state {
-> >  	u8 vic;
-> >  	u16 cur_vtotal;
-> >  	u16 max_vtotal;
-> > +	u32 vrr_min_n;
-> > +	u32 vrr_min_d;
-> > +	u32 vrr_max_n;
-> > +	u32 vrr_max_d;
-> >  	u16 base_vtotal;
-> >  	bool dynamic;
-> >  };
-> > diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> > index 084517beb924..c8d5286f9267 100644
-> > --- a/include/drm/drm_mode_config.h
-> > +++ b/include/drm/drm_mode_config.h
-> > @@ -702,6 +702,51 @@ struct drm_mode_config {
-> >  	 */
-> >  	struct drm_property *prop_vrr_enabled;
-> >  
-> > +	/**
-> > +	 * @prop_vrr_min_numerator: Default atomic CRTC property to indicate the
-> > +	 * numerator of a numerator/denominator variable refresh rate minimum
-> > +	 * target frame rate.
-> > +	 *
-> > +	 * If not zero, @prop_vrr_min_numerator divided by
-> > +	 * @prop_vrr_min_denominator must result in a frame rate above the
-> > +	 * sink's minimum VRR rate.
-> > +	 */
-> > +	struct drm_property *prop_vrr_min_numerator;
-> > +
-> > +	/**
-> > +	 * @prop_vrr_min_denominator: Default atomic CRTC property to indicate
-> > +	 * the denominator of a numerator/denominator variable refresh rate
-> > +	 * minimum target frame rate.
-> > +	 *
-> > +	 * If @prop_vrr_min_numerator is set, @prop_vrr_min_denominator must not
-> > +	 * be 0, and @prop_vrr_min_numerator divided by @prop_vrr_min_denominator
-> > +	 * must result in a frame rate above the minimum VRR rate.
-> > +	 */
-> > +	struct drm_property *prop_vrr_min_denominator;
-> > +
-> > +	/**
-> > +	 * @prop_vrr_max_numerator: Default atomic CRTC property to indicate the
-> > +	 * numerator of a numerator/denominator variable refresh rate maximum
-> > +	 * target frame rate range.
-> > +	 *
-> > +	 * The fraction expressed by this property divided by its corresponding
-> > +	 * denominator must be equal to or greater than the value of
-> > +	 * @prop_vrr_min_numerator.
-> > +	 */
-> > +	struct drm_property *prop_vrr_max_numerator;
-> > +
-> > +	/**
-> > +	 * @prop_vrr_max_denominator: Default atomic CRTC property to indicate
-> > +	 * the denominator of a numerator/denominator variable refresh rate
-> > +	 * maximum target frame rate range.
-> > +	 *
-> > +	 * If @prop_vrr_max_numerator is set, @prop_vrr_max_denominator must not
-> > +	 * be 0, and @prop_vrr_max_numerator divided by @prop_vrr_max_denominator
-> > +	 * must result in a frame rate equal to or above @prop_vrr_min_numerator
-> > +	 * divided by @prop_vrr_min_denominator.
-> > +	 */
-> > +	struct drm_property *prop_vrr_max_denominator;
-> > +
-> >  	/**
-> >  	 * @dvi_i_subconnector_property: Optional DVI-I property to
-> >  	 * differentiate between analog or digital mode.
-> > 
-> 
-> 
-
-
-
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bcd76f6..ca6fc5c 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -1178,7 +1178,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
+ 
+ 	if (ttm_tt_is_populated(tt)) {
+ 		ret = ttm_tt_swapout(bdev, tt, swapout_walk->gfp_flags);
+-		if (!ret) {
++		if (ret > 0) {
+ 			spin_lock(&bdev->lru_lock);
+ 			ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
+ 			ttm_resource_move_to_lru_tail(bo->resource);
+-- 
+2.53.0
 
