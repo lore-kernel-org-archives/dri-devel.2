@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB22C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA28EC982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D05010E6AE;
-	Tue, 22 Sep 2026 10:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258D810EC35;
+	Tue, 22 Sep 2026 10:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kVVGX+OY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TzFLh9ua";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFFD310E6AE;
- Tue, 22 Sep 2026 10:27:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0F410E6C1;
+ Tue, 22 Sep 2026 10:28:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D812460200;
- Tue, 22 Sep 2026 10:27:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5870D1F000FF;
- Tue, 22 Sep 2026 10:27:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 44A48400E8;
+ Tue, 22 Sep 2026 10:28:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000E41F000FF;
+ Tue, 22 Sep 2026 10:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790072841;
- bh=dKrHXYtcSPic1yyH/8gIcbUHVwe6uz4bOTP3sL2MwCE=;
+ s=k20260515; t=1790072883;
+ bh=Jy5kGophIVujwoeUqnqMDz6m+cBQGP+RWjzN4gWBIAg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kVVGX+OYwC3LzCX2oc/Zd/NdUyMNI/+L07aLaZV4y/xo8tStD4O51wb9DUKFOboo/
- CKibq6d0XanGRIPNlNwCrA2uwNbo9s0VzkK87AgQhjM6H2ynEMzlc4pSGfIxK4xnqt
- df4ZWA9EGBg2E40ZlByPyTGq1Ay4vT5kE5Sdp5e9ZpKOQE9ezqbPM9TE69BC7R4bDS
- 4Hj3j7zhBFfzrluG8zUgOo4gBzmPr5xKIXRcno+iUsin6I3xL6n05AvH4r26t5kbvc
- KRUWIIaIew6gZT8lKxWwhGeCCk9l1jXZyvtOHTVMmi5QTbf0DT99CVO/Ww/xDUMrmD
- 5GYDCtSK+LMsQ==
+ b=TzFLh9uauEdkfkvAAzB99FhpI8LbmE3Eb0zCWLOEc+luZK4sYMW7PuwqE15scXhaL
+ ml730tiAjWbJUOsjlvCDnh2uU92Xrj+NsF90tN6R3PbUQpBU7NcHsPSAmPQHccPywj
+ gM4rwGwuHhpPecRvbVlQvHk/62xvOnvYtpMGBEW3KoFNNz5TUAzkw1s+FXpoWT5jMg
+ jxWtA7wrMl9QHgoHyiilXvzDRivbfqfX67znxTJH0fhGiJq2Nh2T9qHF9/rr95gPH5
+ 1enLVtPJdVsxUL/da0kII/OpNJ6KcLJNwIJI+PWqNmRUQtofX6WxHy22C0khjB+iPt
+ MSd91lzA0ZIaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/15] drm/xe: Send wedged notification from a worker
+Subject: Re: [PATCH v2 04/15] drm/xe: Protect device I/O with DRM device SRCU
 To: "Arvind Yadav" <arvind.yadav@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260922101721.1583542-8-arvind.yadav@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260922101721.1583542-5-arvind.yadav@intel.com>
 References: <20260922101721.1583542-1-arvind.yadav@intel.com>
- <20260922101721.1583542-8-arvind.yadav@intel.com>
+ <20260922101721.1583542-5-arvind.yadav@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:27:20 +0000
-Message-Id: <20260922102721.5870D1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:28:02 +0000
+Message-Id: <20260922102803.000E41F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +59,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] xe: TOCTOU race in xe_device_declare_wedged() overwrites recover=
-y method
+- [High] drm/xe: hardware forcewake drop outside IO protection in send_tlb_=
+inval_ggtt()
 --
 
-commit 8a75aea67f604c5a996849e643c64617844ddad3
+commit e9f023cf84d9700d7a5ded726d95cff381241557
 Author: Arvind Yadav <arvind.yadav@intel.com>
-Subject: drm/xe: Send wedged notification from a worker
 
-This commit moves the wedged event to a sleepable device worker to allow
-isolation work to complete before userspace is notified. It updates the
-wedge bookkeeping to rescan the GT state on later declarations and tracks
-the last reported method to avoid lost updates.
+drm/xe: Protect device I/O with DRM device SRCU
 
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
+This commit introduces wrappers around DRM device SRCU to protect device
+I/O operations. It blocks new access during PCI recovery or when the
+device is wedged, and drains existing hardware users to safely isolate
+the device.
+
+> diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c b/drivers/gpu/drm/xe/x=
+e_guc_tlb_inval.c
+> --- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
 
 [ ... ]
 
-> @@ -1435,14 +1482,22 @@ void xe_device_declare_wedged(struct xe_device *x=
-e)
->  		 */
->  		if (xe->wedged.mode =3D=3D XE_WEDGED_MODE_UPON_ANY_HANG_NO_RESET)
->  			xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_NONE);
+> @@ -86,8 +84,13 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tl=
+b_inval, u32 seqno)
+>  	} else if (xe_device_uc_enabled(xe)) {
+>  		struct xe_mmio *mmio =3D &gt->mmio;
+> =20
+> -		if (IS_SRIOV_VF(xe))
+> +		if (xe_device_io_get(xe, &io_idx))
+> +			return -ECANCELED;
+> +
+> +		if (IS_SRIOV_VF(xe)) {
+> +			xe_device_io_put(io_idx);
+>  			return -ECANCELED;
+> +		}
+> =20
+>  		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
+>  		if (xe->info.platform =3D=3D XE_PVC || GRAPHICS_VER(xe) >=3D 20) {
+> @@ -99,6 +102,8 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tl=
+b_inval, u32 seqno)
+>  			xe_mmio_write32(mmio, GUC_TLB_INV_CR,
+>  					GUC_TLB_INV_CR_INVALIDATE);
+>  		}
+> +
+> +		xe_device_io_put(io_idx);
+
+[Severity: High]
+Does this code drop the I/O protection before the scoped forcewake destruct=
+or
+runs?
+
+The CLASS(xe_force_wake, fw_ref) macro creates a scoped guard whose destruc=
+tor
+executes when leaving the block. Because xe_device_io_put(io_idx) is called
+explicitly right before the closing brace, the I/O protection is released
+before the forcewake destructor runs.
+
+If PCI error recovery or wedge isolation disables the device immediately af=
+ter
+xe_device_io_put() returns, the automatically executing fw_ref destructor w=
+ill
+perform MMIO writes on a disabled device. This could trigger a PCI Advanced
+Error Reporting (AER) fault and crash the system.
+
 >  	}
-> +
-> +	/* Re-scan GT submission state on every declaration. */
-> +	for_each_gt(gt, xe, id)
-> +		xe_gt_declare_wedged(gt);
-> +
-> +	/* If no wedge recovery method is set, use default */
-> +	if (!READ_ONCE(xe->wedged.method))
-> +		xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_REBIND |
-> +					    DRM_WEDGE_RECOVERY_BUS_RESET);
-
-[Severity: Medium]
-Is there a Time-of-Check to Time-of-Use (TOCTOU) race condition here in
-xe_device_declare_wedged()?
-
-If multiple threads invoke xe_device_declare_wedged() concurrently (for
-example, during simultaneous GT hangs), could Thread A evaluate the
-!READ_ONCE(xe->wedged.method) condition as true, get preempted, and then
-allow Thread B to successfully set a specific method like
-DRM_WEDGE_RECOVERY_NONE?
-
-If Thread A then resumes, it seems it would unconditionally call
-xe_device_set_wedged_method() with the default REBIND | BUS_RESET flags,
-silently overwriting Thread B's legitimately set method.
-
-Does this check-and-set sequence need atomic protection, such as cmpxchg,
-to prevent concurrent threads from overwriting a newly set recovery method
-with the default fallback?
-
-> +
-> +	if (!atomic_read(&xe->wedged.stopping) &&
-> +	    (first ||
-> +	     READ_ONCE(xe->wedged.method) !=3D
-> +	     READ_ONCE(xe->wedged.reported_method)))
-> +		queue_work(xe->unordered_wq, &xe->wedged.work);
->  }
+> =20
+>  	return -ECANCELED;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922101721.1583=
-542-1-arvind.yadav@intel.com?part=3D7
+542-1-arvind.yadav@intel.com?part=3D4
