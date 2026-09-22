@@ -4,83 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69728C982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A0FFC98305
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E451610EAFB;
-	Tue, 22 Sep 2026 08:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B0710EBEC;
+	Tue, 22 Sep 2026 08:40:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jbh67QFb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnFpp6YI";
 	dkim-atps=neutral
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
- [74.125.228.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD18510E923
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 18:21:37 +0000 (UTC)
-Received: by mail-pz2-f12.google.com with SMTP id
- 41be03b00d2f7-cc1cea4bfd1so2257850a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 11:21:37 -0700 (PDT)
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
+ [74.125.228.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2FA10E19E
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:48:23 +0000 (UTC)
+Received: by mail-pz2-f41.google.com with SMTP id
+ d2e1a72fcca58-85f0fc1fd8eso2520449b3a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 19:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790014897; x=1790619697; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=t5C60HPZR/rNmiGwq1B9UVhzPLHogeM3gvrGsjqTw14=;
- b=Jbh67QFbY4Dw7LnP21gGE/ZGUUiz+rfU4c6l9TwtO7MzDobf5iigpuEGPbIjgR8gWg
- zj33rzcwJwu26FaD/D6lh1UqESZmjt9uYKxZeCyXni/As9uJpkqHmLnKOt4eCZT5r4Zq
- 1Wm+7FOHs1Tgq7BY/zCgTP1E2YetHb4x0oVKgAL1GDqRbyNUtT6c1zuh4iSEovs0yuLG
- KNqvmxFUj5qSJ6mdY01b9oan1wmFjdkdmBd181SWBVfjzcX+YCLOMplfahgRu+95f4H9
- R4CXQBq9aQJz6KhrktSnsss5GAps0BjMv7071RuEW+vwptXOXMFzKa8mffgSG2nopmuW
- RoIg==
+ d=gmail.com; s=20251104; t=1790045303; x=1790650103; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
+ b=bnFpp6YIXVRr+yF/8F8FfHMMKsKfXhQja5GeDXAL8ZAYjfVlFm7qv2d5tMH3ziMZAB
+ /PeMh6+e7VHtkYIsktIKjcyaf0l3+P0eAfPNtGCFCv4XKYS4/N8T6+1VN6Pnkl+PxYOH
+ WXXAMYId9B1ns/bJ88RZldLRE30NViQuWt6O1CFWLpvHyVXqR/fXSKB69X3kvqBZ33DB
+ DhGNGwld3JJu58Se0esZM9dxFzsxMN8cCac7KAlWx9BmJAvmHaPbh0/a34VhWufPgLNL
+ GB87rDkUPZdyZScgv4yc83NQypEM5isOGXapMbnFFmPRUVc+EfpTpjVutNs2LmhafaIZ
+ Sstw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790014897; x=1790619697;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=t5C60HPZR/rNmiGwq1B9UVhzPLHogeM3gvrGsjqTw14=;
- b=1vqGjC8sQMf/X+GklRrxY4E3sIZTl7KpyJpFBm3tZZgbUJVKl8BrDpDnSPbOkaFUc5
- FfZqBTdSLhfMF9TAswDW5O3J8OalF9r4XgauNlCPBrAMvnz4ZZH7O7TpdlFDo3RbBL48
- iGa1bShiAJ5wPt5lRZcUJN5ma4RwIKl6DlCldqTfEgtC2jYTPgMb16NajbumGXk4KyJI
- GccGvLa0xG/66KMPqMwM4cT3GZCbhUUmuuXwKT5dcqcFGLfKlP65nTHehwKMwTw/4Amc
- gEj6iuD8ml0dVZssAKhogqRtsTQqPus1KUA7RSOeUP/gqK8ledGSL9theAETA678VjZT
- jShA==
+ d=1e100.net; s=20260707; t=1790045303; x=1790650103;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
+ b=UoqVLowx/tj9V245QTKK0MVrnvMPSAPJ5mKNpzAX2uJRbMEtntpuHPPePFGT9xQoLa
+ UzGCEgglhSjloWk4Zm3qGC7pLEVPyrjTFYg11PWumji8sNPu/19Ov4e6/qcSyYSBVTfY
+ FcY9Eitthp+S3MysiPvDuNjWJyywsK2P27/ObgnDrBDwqKn7/57eGwWnpstqmpycD5TS
+ XZe2EwBTEkkUI9ZPDbFaZ3c+ZGqWnXgRCpjS2qwMQgDUw+iwiGDKOtY7fT2/fOnW9z6J
+ 3ZC41L/AmqrZF1mzGTxe5Dvu5w8hZglvPU5gs4PLJRDbEKCh/aZaMqqO0YUGd4J1CLrm
+ EofA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByxjEcqTmQYBpxoiCqy0VYvzuF2Ym6l0pOuoAKtNk3fVvKL3rs9B8RmIMwP+FhbZfsyWKscuZFzC6c=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mNmS3mq08CPfgD51whGjMWQL7qq9Rb85EJl3UBHPF5UHzdb2I1
- /ip/pmLbbga81ltV7qLkM7zmutJvF/9IdPUeblzrvtyiPvzNvb08330P
-X-Gm-Gg: AYBFou1zXr2c0ZfEo/6S1iWrusruEFpH7od7Lac1kyPmCcLTp0TrF/zP+lm9d0nbnHV
- g+9VSEnQ71pjDwK8FRom6sAGjlt21DLgEkz+oqChBwCkCWBb4CkmEccfx9iTTuCApTr/Hi5gI0r
- PBMig5Ma2pVPmonr+Zshu3iXY5e1MLH/AdoSeTMaU9aZHbSt4uACbnYG2NR9jY+bH/EwMeR2ERP
- Qk0VGRhYt30wCnRK3zKpbW9JhsGrf5kSL6ik9Ev0MAKQyLJ/0/MWFFK8DGHhROMj6GcDnZOev6m
- To8J1WDHbTEs4LL1xP/z/qHocKevu3pIkRwzc4EJfE1vqwsB8Yhiv0n2vs+GVn6g9eMIae93cnS
- AEqBQlwOVOE5Y24u6C+0QpfVtaDXFuOik95Lt7mf0hV5icxdr9d6dIJh+GrvGZPR7SzaCbC3Uka
- lPrqqKyZzORruwvM0XPl5LkUflJzuDhqdVpotGuoc6i6/bYFuqNmFxJiSWeDfzHvpjaHoKQ33iZ
- HXphbk8V08QiOUhftpHySW4pPXh4xTS8uPy5c6/jKlyd9PcdlWQdPfWO5MmbTU6
-X-Received: by 2002:a05:6a21:4688:b0:3dd:a196:3094 with SMTP id
- adf61e73a8af0-3dda1963396mr12453782637.68.1790014897143; 
- Mon, 21 Sep 2026 11:21:37 -0700 (PDT)
-Received: from lord.bigscale.net ([170.246.211.25])
+ AKwUvBya27Z+lyngs8p/Z/M6j5Ofs1Wu5xVUUZgTaUYGGtPzWF83fusMVHfN5vgr65hKKoro9Yc7TvQU4kk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mcnFNk+WMVfLQi5NiKG3CGeK5yPA+Npe7L4p5VtQ98UavlOmc3
+ yAVPAw+D7FKSBIf4QEi3CRsysk/omBCaS4l2u47GVVXGSMEEt74iUEz7
+X-Gm-Gg: AYBFou09Y06rBoHf7hiu5GcnEBKW+cRCHKzNTfe7LK0gY5i96iKImGGnYZOoUGxfFOo
+ qTRxKlGFljp5Xs7z8la9d6PeMzip66jjblgbcpwzV9pja8YpRcU6abLS2vgz0adOx++hze7NvET
+ 67xZYXDQ5IDB3ILluixiv/tFNGoHauajZZI4fc8aTGTsN9ig/d/CKGPh2EHraHWJ6uBsXp1zKc8
+ Dm9yXAHXr0DaifF72CfS05Ao6q9JT65uWEGdth3XBsP502VTw+7AyUHBMrtEZESxfq5tGARYBBS
+ shSQ9y5ib9rqMhq3N7nMPCZtyb25zSYbU3L89s3sOQ0BnZkXOn1mEtXObXpXYqk5EQgLp+eciY6
+ GYJjvAZD/wsmoN70flQbPxesLY+K3Ncef0ZmbnzKEk8yVFedA5Fsvs2LqGkxoPEAxlvJx7Icluh
+ +7bLzzCz7KX4dayJhvKM+P8VwOLH7tPGAeh/En78jnOwnVaIykzXIPNBI/nsNPXdBOpazqjg2y9
+ c/t+yA=
+X-Received: by 2002:a05:6a21:6282:b0:3dd:a197:7362 with SMTP id
+ adf61e73a8af0-3dda1977457mr14288897637.59.1790045302885; 
+ Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144d55e8954sm38587021c88.14.2026.09.21.11.21.34
+ 41be03b00d2f7-cc756a18d4fsm115091a12.11.2026.09.21.19.48.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 11:21:36 -0700 (PDT)
-From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.brost@intel.com, daniele.ceraolospurio@intel.com,
- stuart.summers@intel.com, julia.filipchuk@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- jani.nikula@intel.com, navonjohnlukose@gmail.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Subject: [PATCH v5 2/3] drm/xe: Log when a timed out TLB invalidation ack
- finally arrives
-Date: Mon, 21 Sep 2026 15:21:20 -0300
-Message-ID: <20260921182121.308217-3-talesam@gmail.com>
+ Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Minas Harutyunyan <hminas@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: Inochi Amaoto <inochiama@gmail.com>, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
+ Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: [RFC PATCH 0/5] phy: core: Use EOPNOTSUPP for disabled blob return
+ value
+Date: Tue, 22 Sep 2026 10:47:15 +0800
+Message-ID: <20260922024724.191412-1-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921182121.308217-1-talesam@gmail.com>
-References: <20260921182121.308217-1-talesam@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 22 Sep 2026 08:40:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,110 +106,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a TLB invalidation fence times out we log the timeout, but if the
-ack for that seqno later shows up there is no record of it, making it
-impossible to tell from logs whether the ack was lost forever or merely
-(very) late.
+Currently, the phy subsystem uses ENOSYS for dummy blob functions,
+it does not reflect the function state correctly. As kernel already
+has EOPNOTSUPP for disabled blob function, replace ENOSYS with
+EOPNOTSUPP for a clear return value.
 
-Track the most recent timed out seqno and log how late its ack arrives,
-relative to both the original request and the moment the fence was
-signaled with -ETIME.
+Inochi Amaoto (5):
+  phy: core: Use EOPNOTSUPP for disabled blob return value
+  ata: libahci_platform: Adapt the return value changed for disabled
+    blob
+  usb: dwc2: Adapt the return value changed for disabled blob
+  usb: dwc3: core: Adapt the return value changed for disabled blob
+  drm: bridge: analogix/dp: Adapt the return value changed for disabled
+    blob
 
-On ARL with GuC 70.53.0 this shows the acks are never lost: they
-consistently arrive ~2.3s after the request, tens of milliseconds after
-the TDR has already signaled the fence:
+ drivers/ata/libahci_platform.c                |  4 +-
+ .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
+ drivers/usb/dwc2/platform.c                   |  2 +-
+ drivers/usb/dwc3/core.c                       |  4 +-
+ include/linux/phy/phy.h                       | 52 +++++++++----------
+ 5 files changed, 32 insertions(+), 32 deletions(-)
 
-  TLB invalidation fence timeout, seqno=10992 recv=10991
-  TLB invalidation late ack: seqno=10992 recv=10992,
-    request-to-ack=2314ms, timeout-to-ack=45ms
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/xe/xe_tlb_inval.c       | 19 +++++++++++++++++++
- drivers/gpu/drm/xe/xe_tlb_inval_types.h | 17 +++++++++++++++++
- 2 files changed, 36 insertions(+)
-
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
-index 737cff3664f..d865265c743 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
-@@ -14,6 +14,7 @@
- #include "xe_guc_tlb_inval.h"
- #include "xe_mmio.h"
- #include "xe_pm.h"
-+#include "xe_printk.h"
- #include "xe_tlb_inval.h"
- #include "xe_trace.h"
- 
-@@ -99,6 +100,11 @@ static void xe_tlb_inval_fence_timeout(struct work_struct *work)
- 			fence->seqno, tlb_inval->seqno_recv);
- 
- 		timedout_seqno = fence->seqno;
-+		if (!tlb_inval->timedout_seqno) {
-+			tlb_inval->timedout_seqno = fence->seqno;
-+			tlb_inval->timedout_inval_time = fence->inval_time;
-+			tlb_inval->timedout_time = ktime_get();
-+		}
- 
- 		fence->base.error = -ETIME;
- 		xe_tlb_inval_fence_signal(fence);
-@@ -229,6 +235,7 @@ void xe_tlb_inval_reset(struct xe_tlb_inval *tlb_inval)
- 	else
- 		pending_seqno = tlb_inval->seqno - 1;
- 	WRITE_ONCE(tlb_inval->seqno_recv, pending_seqno);
-+	tlb_inval->timedout_seqno = 0;
- 
- 	list_for_each_entry_safe(fence, next,
- 				 &tlb_inval->pending_fences, link)
-@@ -457,6 +464,18 @@ void xe_tlb_inval_done_handler(struct xe_tlb_inval *tlb_inval, int seqno)
- 
- 	WRITE_ONCE(tlb_inval->seqno_recv, seqno);
- 
-+	if (tlb_inval->timedout_seqno &&
-+	    xe_tlb_inval_seqno_past(tlb_inval, tlb_inval->timedout_seqno)) {
-+		ktime_t now = ktime_get();
-+
-+		xe_warn(xe,
-+			"TLB invalidation late ack: seqno=%d recv=%d, request-to-ack=%lldms, timeout-to-ack=%lldms",
-+			tlb_inval->timedout_seqno, seqno,
-+			ktime_ms_delta(now, tlb_inval->timedout_inval_time),
-+			ktime_ms_delta(now, tlb_inval->timedout_time));
-+		tlb_inval->timedout_seqno = 0;
-+	}
-+
- 	list_for_each_entry_safe(fence, next,
- 				 &tlb_inval->pending_fences, link) {
- 		trace_xe_tlb_inval_fence_recv(xe, fence);
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval_types.h b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-index d77be1aedc9..80d2019fa20 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-@@ -112,6 +112,23 @@ struct xe_tlb_inval {
- 	 * @pending_lock: protects @pending_fences and updating @seqno_recv.
- 	 */
- 	spinlock_t pending_lock;
-+	/**
-+	 * @timedout_seqno: seqno of the most recent timed out TLB
-+	 * invalidation, 0 if none. Used to measure how late the ack for a
-+	 * timed out invalidation actually arrives. Protected by
-+	 * @pending_lock.
-+	 */
-+	int timedout_seqno;
-+	/**
-+	 * @timedout_inval_time: request time of @timedout_seqno. Protected by
-+	 * @pending_lock.
-+	 */
-+	ktime_t timedout_inval_time;
-+	/**
-+	 * @timedout_time: time @timedout_seqno was signaled with -ETIME.
-+	 * Protected by @pending_lock.
-+	 */
-+	ktime_t timedout_time;
- 	/**
- 	 * @fence_tdr: schedules a delayed call to xe_tlb_fence_timeout after
- 	 * the timeout interval is over.
--- 
+--
 2.55.0
 
