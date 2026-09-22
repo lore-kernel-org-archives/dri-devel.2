@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0507CC982FD
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 03:07:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95944C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 03:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10D5110E4D9;
-	Tue, 22 Sep 2026 03:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A332F10E524;
+	Tue, 22 Sep 2026 03:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="BM00JLWa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="WHsDsWt0";
 	dkim-atps=neutral
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A32210E4D9;
- Tue, 22 Sep 2026 03:07:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790046452; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC5110E524;
+ Tue, 22 Sep 2026 03:08:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790046514; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=U3SPNg/Bw0xcHKwmYIk2Y6pE7IdYaNEkyjiqee4uX0ul1UN3j+hOzbjG3IenIRL0qnoJOuuGM07PhWLuNa7s2msdCwJ1w6BHIAiJKo/TOE6Bndhoxy92Eb/pbA26LelGXXnvpGeiWH4c3kYwd1weV/8q1sthZveGXsNs4ISbIYs=
+ b=RrB978wScXs9iSrZOO1nRdUbVB6bf6fJuTze2rhnRmxL8WsxbWHQqefT3M1Q2QAJY84WpTZOyadqGRPOQBP4bsciliz7mRK3WW28X30WYtSjtQM29K2EW8sNLozi5O0vGNPJbFDJeYqs9WDS6uF6KnxkY1vQLmirvXZp1YOFRo8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790046452;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+fpg1d/NamgqsCtl4Q7NJWmweqWVeBnErwgnlwYObVE=; 
- b=KVK7IWps3KC/ONtVI1euBXKsDMRWi+A4j8yvkrVB7trjnjZne4p82zzbc1wAzSORu1a6E5IZ2/QYr/Gr0fULPuGkm/bqBimps1/Oq060ITDJTdkcwr+X4gUN9ABC+hcE7KB62FIym34zKWXsxb37qSr/vjjV2glw+bLBcc0evug=
+ s=zohoarc; t=1790046514;
+ h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=6BV4+6rgsOvQNz5synrlXOC46LAjc6YISArfVG1qGcY=; 
+ b=HpDZhVNm622QiVDWP0CN7Md4zkKMKyfEVTBPehs66HGo4ao6C+oez9zzHp1e9h2BQdB52ahEgnE//NnjLePQH/c4kZCY21GfXss9CKn2asxdXhKQ6dOdNfYu43R9POXmAThyxJBTzjZ+TlQMm0H/5d07At/D2fj6LySHMpQeB24=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790046452; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790046514; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=+fpg1d/NamgqsCtl4Q7NJWmweqWVeBnErwgnlwYObVE=;
- b=BM00JLWa5JH6OJys1Wkpk+MLVu0Q4Iw4IqfM7NKZi7RUIrmzrAzFqi1iJyOAiAA0
- iZsOs3u7+lp5Cj8LTA0N5R/7ZjuPgwACzPl5Ha/d5qZ9eC5ON7Mh8Zc6BHfaQt3vNl1
- FaSHnE8S0lfPebZVJo9HQTDToSqi9ltnYxQpqos4=
-Received: by smtp.zohomail.com with SMTPS id 1790046450608194.92046002144752; 
- Mon, 21 Sep 2026 20:07:30 -0700 (PDT)
-Date: Mon, 21 Sep 2026 20:07:30 -0700
+ h=Date:Date:From:From:To:To:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To:Cc;
+ bh=6BV4+6rgsOvQNz5synrlXOC46LAjc6YISArfVG1qGcY=;
+ b=WHsDsWt0KvcCbzEsFJx3WeNuc1pH7vZ7jf+a70k4slCwKA6LljCFX28hVnqPmvKR
+ o8ne4iEIWVMMeCGI3kH6/QKvUkGYxU1ucw0XhK0GPz1gpOXCHKocHn/mUoP1+Ad2SwW
+ 2CYcW868hk0J24eBqO+tzYXe9wG0pBbxO4u1mZkE=
+Received: by smtp.zohomail.com with SMTPS id 1790046513340494.0176577767853;
+ Mon, 21 Sep 2026 20:08:33 -0700 (PDT)
+Date: Mon, 21 Sep 2026 20:08:32 -0700
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- steven.price@arm.com, liviu.dudau@arm.com,
- adrian.larumbe@collabora.com, kamil.konieczny@linux.intel.com,
- samitolvanen@google.com
+To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ boris.brezillon@collabora.com, steven.price@arm.com,
+ liviu.dudau@arm.com, adrian.larumbe@collabora.com, samitolvanen@google.com
 Subject: Re: [PATCH i-g-t v2] tests/panthor: skip sparse VM_BIND tests before
  v1.9
-Message-ID: <arHw8hRfy4iVW__E@um790>
+Message-ID: <arHxMAOmIUUBZCEe@um790>
 References: <20260920-b4-panthor_version_sparse-v2-1-fa395c125eb1@collabora.com>
- <20260921085419.01a5699c@fedora-21.home>
+ <20260921152240.4j6paghgr3vktbuv@kamilkon-DESK.igk.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921085419.01a5699c@fedora-21.home>
+In-Reply-To: <20260921152240.4j6paghgr3vktbuv@kamilkon-DESK.igk.intel.com>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.25.6
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,9 +69,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 08:54:19AM +0200, Boris Brezillon wrote:
-> On Sun, 20 Sep 2026 17:59:09 -0700
-> Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
+On Mon, Sep 21, 2026 at 05:22:40PM +0200, Kamil Konieczny wrote:
+> Hi Deborah,
+> On 2026-09-20 at 17:59:09 -0700, Deborah Brouwer wrote:
+> 
+> I have one more nit, see below, and an ask for you or other
+> panthor developers to look into igt work item on gitlab:
+> 
+> gputop does not work with the panthor kernel driver
+> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/work_items/209
+
+Sure, I was able to reproduce this gputop problem today and will send
+a fix separately.
+
 > 
 > > Sparse VM_BIND support was introduced with Panthor DRM driver version
 > > 1.9. If a driver isn't advertising support for v1.9, skip the sparse
@@ -128,21 +137,6 @@ On Mon, Sep 21, 2026 at 08:54:19AM +0200, Boris Brezillon wrote:
 > >  }
 > > +
 > > +bool __igt_panthor_driver_version_at_least(int fd, int major, int minor)
-> 
-> Any reason for this __ prefix? Looks like a legitimate helper to call
-> if we ever end up with tests that need to do things differently based
-> on the driver version, and __ prefixes are generally used when you want
-> to reflect the fact some helpers are not meant to be called directly.
-> 
-> With the __ prefix removed, this is
-> 
-> `Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>`
-
-Thank you for your review. Would you mind looking at v3 too, I made some
-substantive changes.
-https://lore.kernel.org/igt-dev/20260921-b4-panthor_version_sparse-v3-1-c0af288ca073@collabora.com/T/#u
-
-> 
 > > +{
 > > +	drmVersionPtr version = drmGetVersion(fd);
 > > +	bool supported;
@@ -174,6 +168,14 @@ https://lore.kernel.org/igt-dev/20260921-b4-panthor_version_sparse-v3-1-c0af288c
 > > + * Require the Panthor version to be at least the requested version.
 > > + */
 > > +#define igt_require_panthor_version(fd, major, minor) do { \
+> 
+> Can you make it a function in test? Macro seems an overkill.
+> Also, it could be moved to library when there will be more
+> users in other tests.
+> 
+> Regards,
+> Kamil
+> 
 > > +	/* igt_require_f() reports errno through __igt_skip_check(); */ \
 > > +	/* clear it since errno is unrelated to the version check. */ \
 > > +	errno = 0; \
@@ -189,153 +191,4 @@ https://lore.kernel.org/igt-dev/20260921-b4-panthor_version_sparse-v3-1-c0af288c
 > > --- a/tests/panthor/panthor_vm.c
 > > +++ b/tests/panthor/panthor_vm.c
 > > @@ -293,6 +293,7 @@ int igt_main() {
-> >  		uint32_t vm_id;
-> >  		uint64_t map_size = SZ_4K * 4;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -306,6 +307,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -321,6 +323,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -336,6 +339,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -351,6 +355,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -366,6 +371,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -382,6 +388,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -402,6 +409,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -422,6 +430,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -442,6 +451,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -463,6 +473,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -483,6 +494,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -503,6 +515,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -524,6 +537,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -545,6 +559,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -566,6 +581,7 @@ int igt_main() {
-> >  		uint64_t map_size = SZ_2M * 3;
-> >  		const int INITIAL_VA = SZ_4M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -585,6 +601,7 @@ int igt_main() {
-> >  		uint64_t map_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - (SZ_2M * 3);
-> >  		const int INITIAL_VA = SZ_512M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > @@ -599,6 +616,7 @@ int igt_main() {
-> >  		uint64_t unmap_size = ALIGN_DOWN(UINT64_MAX, SZ_2M) - map_size;
-> >  		const int INITIAL_VA = SZ_512M;
-> >  
-> > +		igt_require_panthor_version(fd, 1, 9);
-> >  		igt_panthor_vm_create(fd, &vm_id, 0);
-> >  		igt_assert(vm_id != 0);
-> >  
-> > 
-> > ---
-> > base-commit: 970700a95acd74bb987287d10147b5f23380519b
-> > change-id: 20260915-b4-panthor_version_sparse-5fbd31cc0d5d
-> > 
-> > Best regards,
-> 
+> [cut]
