@@ -4,98 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1083EC982FF
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 13:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2C4C982FF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 13:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F30210E437;
-	Tue, 22 Sep 2026 13:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C144C10E70B;
+	Tue, 22 Sep 2026 13:40:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sfU4IZyv";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="XEd5ezKq";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51B2610E437
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 13:37:17 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c254f56039dso546918566b.3
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 06:37:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790084236; x=1790689036; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
- b=sfU4IZyvnauKOFssQN+MCKsag/LFUXhcjlBTCldxE2odJK3rtWjEBbvs9hr7JdH7Mo
- AhAXc7kZbEUVZBzfiu7GSI6HEfi67bINtOQwTm2jZ0kvtd8IxgnB3IAiqHKHoScYF0om
- gYu75pvvi8YUvngetPqsT0t/T3EannKA/e+QD4C1pBzy5hj/zik3C5aB6PUOYUPawOrD
- 6POgVclEdCtYHnmtc70G3a1VJSGdOpja62D0NFkXL/pQQo/C7o/N2imHYKfHIQnJxQ5O
- /usmkW0eApcNJau8Wkt5AySm2yeIeN4KQEaqUY0t5ZXXl7orpuTup4XOs/UeTFhPW7nu
- hlqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790084236; x=1790689036;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3SSB6/4UTXtVP9h0KYT7VpnYQgkILrKgn1VnZQd7YA4=;
- b=yZHOcrBHtTW2Fp2+LvnDT4FKxRRl7f4sW7hpQPIUfX2cU6IUe/w0lPkd56/X5+sNyz
- ihQ+zGGD4SFoHdoxQ0EsV2jY/Ar1Wtdi/XElUIk1Zjlk5RYvZ3NEDhFeP8htDFiCgmrs
- 4Pw5KvIWzlKbW/sRGtfluc/5w+heu9XyfQhu2h/BNhNKNT3AW8jM4eBFVAPXAlN55tXj
- hlxuvoZ5ZL3vD+Bk+tuHJkvST4BO5Ubnc0s/FH5bu8SZKniGw9Gd5nH2oBZLadQUS+BX
- i7TFIWDuxgwbfC4+wQwRCi3hrvfzPJzH2xiTlEMcD1eicIm2SmwI9j3E+nH7tVSYGUrp
- gK2g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwqhuQKup2Hquega7yLdxS441uctHsZ6LIfNO1+dg66VP5gDD7zUjnNWESc155OZi+E6ZuZoSlaAlQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n22fv8/jJTYrvOTnQS3yq6NIJShrQ1C/43399OOEDNDVZ7MsON
- dyQjBbn6jiikPdtt5vxeb5iWHbOXR7/DbnfUAeUPC95X7NSn1cFzsZEg
-X-Gm-Gg: AYBFou2x2p2zkVCP4ShPFAYbzdlNjxBHiIf0VWW/ygyj74e9iCOk6k+xD0nIwGW2UqP
- vnQIRFGQmOBgHb9psnpZukVBiOxmFAgqIKotfzaEE/bedOlBQKsMgdx6+++KQKIQG5BYpaUNLww
- +uFlD7wYyUQF3c1RJVSIo8WwxKN+HKqTcA8/6ioCU8xKd+WcZNrtUCLJr1VL2SqXDIBJ01MXEPV
- 8DInwXZlwjJ6DCkNizdvGMJfq3SBLByBldsoFN536G2FKswOAFp9o33nYRex43H1joVz1cTMtPw
- Yw+AQQ6+yy3cPRil+gf/Lu7mnVk6gtHvIIySjES1Ji0k/9f6fShzX/CEw155m0W5aQhA9m3VcKY
- Eh6VVyph7th3Lv7BRVAVOtEorZkqAsUWKJ0gvixirXLlT7E/J9IBENrhpgAxOyHum+JnYoxBrOg
- 9UVh9t2LQ+y/6vnlgLG3RHER+ZIXlmihvS9h0kzbDAcWuOLLuPRMjJP87Fp2lz7AtwB2yq21ycw
- MoIoRiW8hLsSqMo7xx/9NsMkt5tK411o/76FoCxreknRFXW4D/c1EuzT3ZV7nyrBIH5sYzHtHDe
- yg9Im3Wbvqkjql45xYWMXyKcWqgW
-X-Received: by 2002:a17:907:6d18:b0:c29:448b:f5d0 with SMTP id
- a640c23a62f3a-c2a15b86ed4mr1180156066b.33.1790084235477; 
- Tue, 22 Sep 2026 06:37:15 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-196.dab.02.net. [82.132.213.196])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2aa9b14925sm14081966b.19.2026.09.22.06.37.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Sep 2026 06:37:14 -0700 (PDT)
-Message-ID: <d39a6dd7-cb5a-43d6-8dcb-16eb9fc95b4d@gmail.com>
-Date: Tue, 22 Sep 2026 14:37:08 +0100
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76BFC10E70B
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 13:40:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790084418; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=QIkrARGJmxfhdMefGZsdjXrGO/URbswRmscA6iq0Yl1/WQ5OCJEWMLNIHzpLdNQal7YgCOk9kmQfvb2ChAqDg8YEk5vJvmQzxkMTDht77cOwvfBl4PZWYb8nUm9CBAL1gu195eIdgWL37HFemEvwp0rRlfnBI2UPgfW2Agxoigw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790084418;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=elHEN+T4qLUN/ZJgFC2dcWpkOLWVH6EAQ0hRhXlVtlA=; 
+ b=LZ0uOMzz6vQw7CBsxqIBJbbiwphETdk+V5PQje3NljYpU/9y7wXNkRcJ3q5IimWGaBqJDoleZ5/ORcabvsMQFP6T4nsbnK2Ys3jGW2jdhcRqRSasJovllTCOhNkGOW31yV6GUgGreMvpk5SXG8q277D+aV+GoOPTBBDWHD5ktWc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790084418; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=elHEN+T4qLUN/ZJgFC2dcWpkOLWVH6EAQ0hRhXlVtlA=;
+ b=XEd5ezKq9bV9CG5cMnyj7i+Fh1UsxBVhgbU8PUaIP+EDU/zJpJuY0Nchdiijn4Gn
+ CZrD094W8oeJ4r9t3z/2/z0N1wApiW2GSilDbiHao5vPkriL2eliEg4j08XY5HZWR20
+ /kCXbSmfCyuwXgKYRm8AKgLW6mBeYG+z5iTr1EvQ=
+Received: by smtp.zohomail.com with SMTPS id 1790084418184517.6641931371963;
+ Tue, 22 Sep 2026 06:40:18 -0700 (PDT)
+Message-ID: <e60fdbae-293c-484a-bf3f-2d8b2d136b7e@collabora.com>
+Date: Tue, 22 Sep 2026 15:40:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/13] nvme-pci: implement dma-buf backed requests
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <e80c3b1e0de004eaca6c51a2a86115ac9ed36381.1789997898.git.asml.silence@gmail.com>
- <20260922132016.GA30684@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260922132016.GA30684@lst.de>
+Subject: Re: [PATCH v1 2/2] udmabuf: Add mlock accounting for udmabuf
+ pages/folios
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, Xaver Hugl <xaver.hugl@kde.org>
+References: <20260831060210.1713177-1-vivek.kasireddy@intel.com>
+ <20260831060210.1713177-3-vivek.kasireddy@intel.com>
+ <77b5fa08-6c95-4f9d-a12e-5ddca3c1c1e0@amd.com>
+ <IA0PR11MB718502111B354D893D71FA0CF8832@IA0PR11MB7185.namprd11.prod.outlook.com>
+ <a6e77fdd-52b9-4701-a677-c984ce534c42@amd.com>
+Content-Language: en-US, de-DE, en-GB
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <a6e77fdd-52b9-4701-a677-c984ce534c42@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,29 +72,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christoph,
+Hi,
 
-On 9/22/26 14:20, Christoph Hellwig wrote:
-> On Mon, Sep 21, 2026 at 02:38:50PM +0100, Pavel Begunkov wrote:
->> Enable BIO_DMABUF_MAP backed requests. On registration we map the
-> 
-> This is now REQ_DMABUF.
+On 22.09.26 09:33, Christian König wrote:
+> On 9/22/26 07:19, Kasireddy, Vivek wrote:
+>> Hi Christian,
+>>
+>>> Subject: Re: [PATCH v1 2/2] udmabuf: Add mlock accounting for
+>>> udmabuf pages/folios
+>>>
+>>> On 8/31/26 08:00, Vivek Kasireddy wrote:
+>>>> Since udmabuf allows users to pin pages in memory, which is a vital
+>>>> resource, we need to ensure that unprivileged users cannot abuse
+>>>> this feature to exhaust system memory. To address this, introduce
+>>>> mlock accounting for udmabuf pages/folios. This change ensures that
+>>>> the number of pages/folios pinned by udmabuf is tracked and limited
+>>>> based on the user's mlock limits.
+>>>>
+>>>> If an unprivileged user/process exceeds their mlock limit, no pages
+>>>> are pinned and EPERM is returned to the user. Note that, privileged
+>>>> users/processes (CAP_IPC_LOCK capable) are exempt from this limit,
+>>>> allowing them to pin pages without any restriction.
+>>>>
+>>>> Earlier, there was a 64 MB default limit on the size of udmabuf
+>>>> allocations, but it was removed in commit 44e9eb5a7621
+>>>> ("dma-buf/udmabuf: Disable the size limit by default") which left
+>>>> open the possibility that unpriviledged users could pin unbounded
+>>>> amount of memory. This change makes the limit dynamic, by invoking
+>>>> user_shm_lock() to check the mlock limit for unprivileged users.
+>>> That makes no sense at all and would create a massive problems.
+>>>
+>>> The mlock limit is per process, but udmabuf is represented by a file
+>>> descriptor which can move between processes.
+>>>
+>>> So this here can be trivially abused to account the allocation to one
+>>> process while accounting the free to another process and overflowing
+>>> the mlock housekeeping.
+>> The goal is to have the mlock accounting be tied to the exporters since they
+>> are the ones that pin the pages/folios. As Sashiko identified, this patch doesn't
+>> quite do that but once fixed, both alloc and free accounting would be attributed
+>> to the exporter. Would this idea not work?
+> Most likely not, no.
+>
+> First of all this is trivially circumvent-able, you just need to create a child process which allocates and exports the memory and then gives the fd back to the parent and dies.
+>
+> The result would be that you have accounted to the mlock limit of the child process (which is now dead) and then a dangling reference to the cred structure of a dead process. Both are most likely no-gos for this.
+>
+> Then the second problem is that you often have processes which allocates the memory on behalves of another process (display servers for example do that).
+>
+> The fundamental issue is that Linux doesn't have a way to track file descriptors as they move from process to process and so if your file descriptor represents more than just a standard file on a file system you run into tons of trouble with resource management.
+>
+> Regards,
+> Christian.
 
-Will change
+I'd like to quickly chime in on what we IMHO would optimally want (from 
+a userspace perspective). Some context:
 
-> Sashiko had a few comments, which I think are correct - if we use
-> dma_map_sg to map the data, we need to use the sync_sg APIs to
-> transfer ownership.  That only matters on non-coherent architectures
-> with MMU, but we need to get it right.
+1. Unprivileged users by default don't have access to /dev/udmabuf
 
-I've seen that and fixed everything locally that should be fixed,
-apart from the sync. I wonder what we can do about that? I can
-somehow replace it with the sg variant for now, but sync'ing the
-entire possibly multi-GB mapping for, let's say, a 512B I/O, sounds
-not wise. And I can think of another place that does mix sync_single
-with sgs.
+2. Since https://github.com/systemd/systemd/pull/33738 systemd grants 
+uaccess to graphical users - i.e. if I'm not mistaken only the users 
+currently owning drm master should be able to use udmabuf (or something 
+similar)
 
-> And the reset deadlock also looks plausible.
--- 
-Pavel Begunkov
+3. When owning drm master one can probably already DDoS the system in 
+various ways - so probably not really worth to try to hard to defend 
+against.
 
+4. An exception here would be sandboxed apps - e.g. flatpaks. Such apps 
+get udabuf access if they also have dri device access 
+(https://github.com/flatpak/flatpak/pull/6158). Preventing these apps 
+from pinning unlimited amounts of memory would be great - however I 
+guess this would require mlock accounting on the level of cgroups. Is 
+that realistic to have by any means?
+
+Best regards,
+
+Robert
+
+>> Thanks,
+>> Vivek
+>>
+>>> What could potentially work is to grab a reference to the cred structure
+>>> of the allocating task, but that is also not the nicest thing to do.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+>>>> Cc: Gerd Hoffmann <kraxel@redhat.com>
+>>>> Cc: "Christian König" <christian.koenig@amd.com>
+>>>> Cc: Robert Mader <robert.mader@collabora.com>
+>>>> Cc: Xaver Hugl <xaver.hugl@kde.org>
+>>>> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
+>>> default")
+>>>> ---
+>>>>   drivers/dma-buf/udmabuf.c | 16 +++++++++++++---
+>>>>   1 file changed, 13 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+>>>> index 7c4339130eff..e78947f01656 100644
+>>>> --- a/drivers/dma-buf/udmabuf.c
+>>>> +++ b/drivers/dma-buf/udmabuf.c
+>>>> @@ -203,9 +203,10 @@ static __always_inline int
+>>> init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+>>>>   	return 0;
+>>>>   }
+>>>>
+>>>> -static __always_inline void deinit_udmabuf(struct udmabuf *ubuf)
+>>>> +static __always_inline void deinit_udmabuf(struct udmabuf *ubuf,
+>>> pgoff_t pgcnt)
+>>>>   {
+>>>>   	unpin_all_folios(ubuf);
+>>>> +	user_shm_unlock(pgcnt << PAGE_SHIFT, current_ucounts());
+>>>>   	kvfree(ubuf->pages);
+>>>>   }
+>>>>
+>>>> @@ -217,7 +218,7 @@ static void release_udmabuf(struct dma_buf
+>>> *buf)
+>>>>   	if (ubuf->sg)
+>>>>   		put_sg_table(dev, ubuf->sg, ubuf->sg_dir);
+>>>>
+>>>> -	deinit_udmabuf(ubuf);
+>>>> +	deinit_udmabuf(ubuf, ubuf->pagecount);
+>>>>   	kfree(ubuf);
+>>>>   }
+>>>>
+>>>> @@ -385,6 +386,15 @@ static long udmabuf_create(struct miscdevice
+>>> *device,
+>>>>   	if (!pgcnt)
+>>>>   		goto err_noinit;
+>>>>
+>>>> +	if (!user_shm_lock(pgcnt << PAGE_SHIFT, current_ucounts())) {
+>>>> +		pr_warn_once("%s: User not permitted to pin more than
+>>> %lu KB "
+>>>> +			     "of memory, either increase ulimits -l, or "
+>>>> +			     "obtain CAP_IPC_LOCK capability\n", current-
+>>>> comm,
+>>>> +			     rlimit(RLIMIT_MEMLOCK) >> 10);
+>>>> +		ret = -EPERM;
+>>>> +		goto err_noinit;
+>>>> +	}
+>>>> +
+>>>>   	ret = init_udmabuf(ubuf, pgcnt);
+>>>>   	if (ret)
+>>>>   		goto err;
+>>>> @@ -441,7 +451,7 @@ static long udmabuf_create(struct miscdevice
+>>> *device,
+>>>>   	return ret;
+>>>>
+>>>>   err:
+>>>> -	deinit_udmabuf(ubuf);
+>>>> +	deinit_udmabuf(ubuf, pgcnt);
+>>>>   err_noinit:
+>>>>   	kfree(ubuf);
+>>>>   	kvfree(folios);
