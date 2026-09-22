@@ -4,44 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96DB3C982FE
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEB93C982FE
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 06:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C580710E8A3;
-	Tue, 22 Sep 2026 06:09:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0A8E10EB85;
+	Tue, 22 Sep 2026 06:11:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y+5spUnM";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="BknPp55r";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E063D10E73F;
- Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7E3B941FA7;
- Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9771F000FF;
- Tue, 22 Sep 2026 06:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790057378;
- bh=oOBGis0SBghtHwpG23pIumyQMyfBIbbwM40vF06zwBg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y+5spUnMpxluPet75ChP+a6xHbyEvTeu0d8XlVB4l38BxoIwW1pkmo0o6GlQNqheK
- gwc8F5qN6POUsWKd3wvZcwy8zNOZAbRI+M5XtM4sUko9AwHh2p/TVvuKF8d9F/cJkA
- nS98eLAdhXXdAtnLrf/QlRka7Z2fZurJe9us+c8EEvUQNHxbEKghec6ymN/kddSle5
- XZc+K7IVJYs7sumpAZfmr7aKYjA8DUowflAJlN0Ejn6/MHrP8mFrqXyArbLv5tH3tF
- EtySiJqcNFyvp9H/QLwEY5zW64syrzThy9dbL5a1kGQjRRxR9lDsBxqfPxcyAwk+A7
- E//LI1mCya1CQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 11/12] lib/test_hmm: add a new testcase for the
- migrate on fault
-To: mpenttil@redhat.com
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260922053421.4092027-12-mpenttil@redhat.com>
-References: <20260922053421.4092027-1-mpenttil@redhat.com>
- <20260922053421.4092027-12-mpenttil@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 06:09:37 +0000
-Message-Id: <20260922060938.2B9771F000FF@smtp.kernel.org>
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915CA10EB82;
+ Tue, 22 Sep 2026 06:11:52 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68M5QK2m091855; Tue, 22 Sep 2026 07:11:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=8X7CkusW0IfB/2rTSn/EA15
+ auoWZN8aQINjTfeKtdq4=; b=BknPp55rouYhdGiL2w+MeinGwLdVPAnEZhfrNP3
+ 4O1CV/3PM7f69OBCgWOAklfx91JS9lI5RSXaSqVlbp8KnxBAt5JqrkWxqEjD7Ksp
+ Y3xP8AxtxFU08vmnxerehiQ+NCXFy81oiiaCgJidH8vpJl3LdovC9XUtNlMypqVp
+ a8DIVfLdu6X5ZQ2szu9f/+uU0H4VL6gMnER732+M5IHftxflnWnl9Z7oS7JWbuZK
+ q+tzg9GS+4woKOFnAnnInH8N9+8yYVC0zm89SBEtkjpff/O1SSBU7S0Q18xscY+x
+ 4Aa6JI1goSq/RqCe00676zWTVqXAt9aanvPtYPiykYo4IxQ==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq249s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 22 Sep 2026 07:11:43 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
+ 2026 07:11:41 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 22 Sep 2026 09:11:28 +0300
+Subject: [PATCH v4] drm/imagination: Fix parameter validation in
+ pvr_fw_object_destroy()
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260922-fix-null-pointer-dereference-v4-1-6c7369b83437@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAA8csmoC/43OwQ7CIAwG4FcxnMVAUQRPvofx4FiZNcoMzEVj9
+ u7CPKjxoIce/rT5/t5ZwkiY2GpyZxF7StSGHObTCXP7XWiQU50zAwFaGAnc05WHy/HIzy2FDiO
+ vMaLPExxycMZKOYfaGsMycc4ruo78ZvvM6VId0HXFLBd7Sl0bb2N/L8vdn1W95JJ7bSvwHu0Cx
+ JpOTYdu5toTK109vDQr1A8NsiaV8d5W2hux+NLUmwa/flPlN2HtUius9VJ/aMMwPABfy7TAdwE
+ AAA==
+X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+ "Alexandru Dadu" <alexandru.dadu@imgtec.com>,
+ Donald Robson <donald.robson@imgtec.com>,
+ Sarah Walker <sarah.walker@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790057501; l=2989;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=dTPBRt1/cBuUzzuTU5LVCE6TjlRw01N5hVVOsf87m2w=;
+ b=2XlUJ2Vb7JqvHPL9ERsDjyC1akbLDPyDuPFBoecrQeO7csovYOHX392U/acOU0D9kaGt4Z68L
+ pjOEWwY+F6UDy2S+YtkuMqdU3zHd6JLLBwQAo9AJgADxtLJI/zYaGxI
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.5.88]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX0QHVrlyohn0/
+ X7syzwWn6H8EBarQqwvcISTt6yeo4Un+dhDZ+4Xe3NJWm8sQo7sU8wm50L09uAFjsXpmygVV+fD
+ 1HjbgnsIJ5ehDSeQNyZD6PAXQlL6dRLUk7FY4xJhIz/J6ojHZrTu7NlfVMmcAcPsEW1B8vswTE8
+ /pDn6mfzL4X4UAJrntYfESntRdEb2YW/Zku4OztEAV4WKNypaTJ0MSqZknZk1kbgSxwKA1RUQID
+ t+9KqzP3Vh4xbaozO86RczCNzqxkAkq5/zVBHGWWAHHkV81zi7TMtN9YVxYT0vyo/KbIoWDGo3k
+ mkbdOs0xS/sERcGOYDmCsX3h/yH0rgjJfKu2ag48b0OKYkHXfr3/QYBuUrIOnuIseLGsDZhS5hd
+ yAALzHDOoeiHW8Y3HFBn0Vn61jLc68qAnD3opsw3X8ZJYakCmN1UHJrBJPll5Z8PJ6E+AJLoX3M
+ ThKXfV/TJ0dXw87nm5Q==
+X-Proofpoint-ORIG-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab21c1f cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=craggXHLatwVVKPEDpEA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX6ZRSPOKtllPW
+ 0nqOD7BolWSCPfx2jmkVQn7AaiHmD3mfYILjF4CgjYEJ5tUGu31vnGBQpKZSOGzy2P+AVVdKlRS
+ nqtgwJsJ/T1or8XiwOmJUjJ2md+pVJI=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,100 +102,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mm: test_hmm: UAF due to concurrent unmaps during migration
---
+Fix parameter validation to avoid possible NULL pointer dereference from
+pvr_fw_object_destroy() when handling allocation failures.
 
-commit 561fbddf4a910a84fca4e2648f745dbccb247398
-Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
+Sashiko report:
+If pvr_gem_object_create() fails in
+pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
+NULL before jumping to the error cleanup path.
+The cleanup path then calls pvr_fw_object_destroy().
 
-lib/test_hmm: add a new testcase for the migrate on fault
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
+Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v4:
+- Move the structs declarations after the early return to fix V3.
+- Added kfree() to the early return path.
+- Link to v3: https://patch.msgid.link/20260922-fix-null-pointer-dereference-v3-1-f099763ed676@imgtec.com
 
-This commit enhances the hmm test driver (lib/test_hmm) with a new test
-case for migrate on fault. It adds a new ioctl and test code to fault and
-migrate anonymous memory to device private memory.
+Changes in v3:
+- Skimed the commit message removing redundant information.
+- Refactored the parameter validation to return early.
+- Link to v2: https://patch.msgid.link/20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com
 
-> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-> index cd88e8177d0ab..b39522c05d832 100644
-> --- a/lib/test_hmm.c
-> +++ b/lib/test_hmm.c
-[ ... ]
-> @@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirro=
-r,
->  		break;
->  	}
-> =20
-> -	ret =3D dmirror_do_fault(dmirror, range);
-> +	/* update device page table after migration */
-> +	if (!migrate)
-> +		ret =3D dmirror_do_fault(dmirror, range);
-> =20
->  	mutex_unlock(&dmirror->mutex);
->  out:
+Changes in v2:
+- Commit message and cover letter updates.
+- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
 
-[Severity: High]
-Does skipping the page table update here leave us vulnerable to concurrent
-unmaps during migration?
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Donald Robson <donald.robson@imgtec.com>
+To: Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_fw.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-When migrate is true, the dmirror->mutex is dropped here without verifying
-the final sequence or updating the device page table. This opens a race
-window.
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..39d70f51f126 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1425,6 +1425,14 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
+  */
+ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ {
++	if (!fw_obj)
++		return;
++
++	if (!fw_obj->gem) {
++		kfree(fw_obj);
++		return;
++	}
++
+ 	struct pvr_gem_object *pvr_obj = fw_obj->gem;
+ 	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
+ 	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
+@@ -1439,8 +1447,7 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ 			return;
+ 	}
+ 
+-	if (fw_obj->gem)
+-		pvr_gem_object_put(fw_obj->gem);
++	pvr_gem_object_put(fw_obj->gem);
+ 
+ 	kfree(fw_obj);
+ }
 
-[ ... ]
-> @@ -1377,6 +1387,114 @@ static int dmirror_migrate_to_device(struct dmirr=
-or *dmirror,
->  	return ret;
->  }
-> =20
-> +static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_rang=
-e *range)
-> +{
-> +	struct migrate_vma *migrate =3D range->migrate;
-> +	int ret;
-> +
-> +	mmap_read_lock(dmirror->notifier.mm);
-> +
-> +	/* Fault-in pages for migration */
-> +	ret =3D dmirror_range_fault(dmirror, range);
-[ ... ]
-> +	pr_debug("Migrating from sys mem to device mem\n");
-> +
-> +	dmirror_migrate_alloc_and_copy(migrate, dmirror);
-> +	migrate_vma_pages(migrate);
-> +	dmirror_migrate_finalize_and_map(migrate, dmirror);
-> +	migrate_vma_finalize(migrate);
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260812-fix-null-pointer-dereference-2c891142d988
 
-[Severity: High]
-Can this sequence lead to a use-after-free of device pages if a concurrent
-unmap occurs after we dropped the mutex in dmirror_range_fault()?
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
-While mmap_read_lock() is held here, a concurrent madvise(MADV_DONTNEED)
-could still execute (since it only requires the read lock or per-VMA lock)
-and clear the newly installed migration PTEs, triggering the MMU interval
-notifier.
-
-Since the interval notifier invalidation would see an empty dmirror->pt (as
-we haven't mapped the pages yet), it would take no action.=20
-
-Then, dmirror_migrate_finalize_and_map() inserts the newly allocated device
-pages into dmirror->pt blindly, without re-checking
-mmu_interval_read_retry().=20
-
-When migrate_vma_finalize() runs, it would fail to map the device page into
-the CPU page table because the migration PTE is gone, dropping the final
-reference and freeing the page while it is still mapped in the device
-page table.
-
-> +out:
-> +	mmap_read_unlock(dmirror->notifier.mm);
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922053421.4092=
-027-1-mpenttil@redhat.com?part=3D11
