@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF9AAC98302
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340D8C982FA
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 21:12:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BFA10EE80;
-	Tue, 22 Sep 2026 21:07:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C9A910E00C;
+	Tue, 22 Sep 2026 21:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTH6taDp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OkuXBMos";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBAC10EE80
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:07:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F67E10E00C
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:12:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 83EEF601FA;
- Tue, 22 Sep 2026 21:07:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E901F000FF;
- Tue, 22 Sep 2026 21:07:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DC4D601F1;
+ Tue, 22 Sep 2026 21:12:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039B51F00893;
+ Tue, 22 Sep 2026 21:12:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790111266;
- bh=rCv+R6mnJbGOunFBHISCPcf9/Fs7kALfLW0t+PZckV4=;
+ s=k20260515; t=1790111565;
+ bh=WlFXFjbTLcZpTmWgFz3WDFRUYuOSY94hjkqsKSon8qc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FTH6taDprK2DQ+gSvPpH87Et0D+DXODGtAI3C0OfRJXNkmApnitgbIL70ShgTREin
- HXRJRAa/ImFMu7D2ijmI9v1bRHqE7BUVDak3STArMma3Ff23RHasTxmF2JG8erkItd
- flX6WgCcOA1dHZa+gcqomjrntiyfYF8XTbiRGOicHg721eEAiC1AzZPVAnwR8RaJ2b
- 7KVOA28SMSV5SrP3/9j2eFHYb3RSMwef/cfG55LGADPZiqX8Sw8JDqUkYAerrFuRgM
- mzwDcDjf0D0PgU4iYt+uLKACE0SeGySjxMEGD8COCSChAfyr/lyYlGMpz4k8cgnoQy
- MrtvRqHOXgTWw==
+ b=OkuXBMospK6Vy7zLn30pG1151C2z8mdxVAgnTjCH03V6wq/eewotEW83bVFP7NGIY
+ VWhq80eH9+oV+ageHCYcAtEjurva4foOfEqI4HkYTJX9YeUT/0CiinHGPzfq92sD7K
+ aOga5Emc6qrn4nz7Jk5SkCZuDMt3m3Hum7QZ25vk0Gfvgo0dJZadZ1VS9sAPCgvf72
+ pD8sKXaVsGiAqsbpWYTnxKewshpdOq9eenBLgjO/lj6Do3jOXfek6r5N0MM1GQB09F
+ DRIOke9OoQarPgq88vWi9Utq4Nl5RqAcuqgj4J85rAbAN5egB/a6balvsQheEqZBmR
+ 43nvRT2cWkSLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 21/27] drm/panthor: Request AW to yield GPU access on
- idle
+Subject: Re: [PATCH v1 26/27] drm/panthor: Prevent missed post-yield cleanup
+ due to reset
 To: "Karunika Choo" <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922204535.2850094-22-karunika.choo@arm.com>
+In-Reply-To: <20260922204535.2850094-27-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-22-karunika.choo@arm.com>
+ <20260922204535.2850094-27-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 21:07:45 +0000
-Message-Id: <20260922210746.10E901F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 21:12:44 +0000
+Message-Id: <20260922211245.039B51F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,129 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] gpu: back-to-back command writes and untracked YIELD_IDLE cause sp=
-urious resets
+- [High] drm: scheduler deadlock on reset due to missed post-reset hooks
+- [High] drm: failed reset bypasses device unplug due to AW state transition
+- [High] drm: TOCTOU race in reset causes invalid MMIO access
 --
 
-commit fadb8e77c6f0f320ae209ccd68ac1719dfdd7041
+commit c5cc732c23a490baff27bd3657a378e7ad65a4e4
 Author: Karunika Choo <karunika.choo@arm.com>
 
-drm/panthor: Request AW to yield GPU access on idle
-   =20
-v15 GPU introduces a YIELD_IDLE command/interrupt to signal an access
-window to relinquish GPU access as soon as it is idle. With FW v2, the
-GPU is immediately yielded when it detects the GPU is idle and the
-YIELD_IDLE interrupt is raised.
+drm/panthor: Prevent missed post-yield cleanup due to reset
 
-For latency and CPU scheduling reasons, we want to avoid constantly
-yielding the GPU the moment it goes idle when there is only a singular
-access window requesting access. As such, we only send YIELD_IDLE when:
+With v15 GPUs, FW can yield GPU access at any point. This commit introduces
+pre_reset and post_reset helpers for panthor_aw which marks a granted AW as
+reset-active, aiming to prevent a race condition between reset and FW yield
+from suppressing post-yield cleanup.
 
-- The GPU is granted to an access window and there are other access
-  windows requesting GPU access.
-- A new GPU_REQUEST was received and the currently active access window
-  was the singular requesting AW.
-
+> diff --git a/drivers/gpu/drm/panthor/panthor_aw.c b/drivers/gpu/drm/panth=
+or/panthor_aw.c
+> index 9ebb23eadfec5..7ef13db4acf50 100644
+> --- a/drivers/gpu/drm/panthor/panthor_aw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_aw.c
 [ ... ]
-
-> diff --git a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sche=
-d.c b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
-> index df0785a80442c..df58fcc56e375 100644
-> --- a/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
-> +++ b/drivers/gpu/drm/panthor/arbitration/panthor_arbitration_sched.c
-> @@ -347,6 +347,10 @@ static int arb_sched_next_locked(struct panthor_arbi=
-tration_sched *sched)
+> @@ -579,5 +588,36 @@ bool panthor_aw_has_gpu_access(struct panthor_device=
+ *ptdev)
+[ ... ]
+> +void panthor_aw_pre_reset(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_aw *aw =3D ptdev->aw;
+> +
+> +	if (!aw)
+> +		return;
+> +
+> +	panthor_aw_state_try_set(ptdev->aw, PANTHOR_AW_STATE_GPU_GRANTED,
+> +				 PANTHOR_AW_STATE_RESET_ACTIVE);
+> +}
+> +
+> +void panthor_aw_post_reset(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_aw *aw =3D ptdev->aw;
+> +
+> +	if (!aw)
+> +		return;
+> +
+> +	panthor_aw_state_try_set(aw, PANTHOR_AW_STATE_RESET_ACTIVE,
+> +				 PANTHOR_AW_STATE_GPU_GRANTED);
+> +
+> +	if (!panthor_aw_is_open(aw))
+> +		panthor_aw_schedule_post_yield_work(aw);
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
+anthor/panthor_device.c
+> index ea35c5e1d87b4..86eb4e9a61789 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -138,18 +138,27 @@ static void panthor_device_reset_work(struct work_s=
+truct *work)
+>  	if (!drm_dev_enter(&ptdev->base, &cookie))
+>  		return;
 > =20
->  	arb_sched_grant_locked(sched);
-> =20
-> +	if (sched->phase =3D=3D ARB_SCHED_PHASE_GRANTED &&
-> +	    !kfifo_is_empty(&sched->queue))
-> +		panthor_arbitration_notify_yield_idle(to_adev(sched), aw_id);
+> +	if (!panthor_aw_has_gpu_access(ptdev))
+> +		goto out_clear_pending;
 
 [Severity: High]
-Does this sequence cause back-to-back command writes that can trigger spuri=
-ous
-resets?
+If a GPU reset is scheduled (e.g., due to a job timeout), and just before
+panthor_device_reset_work() runs, the firmware yields the GPU, this check
+returns false and causes a jump to out_clear_pending.
 
-When multiple AWs are queued, arb_sched_next_locked() grants the GPU to one
-AW, which writes the PART_CMD_OPEN_WINDOW command to the hardware register =
-via
-arb_sched_grant_locked(), and then immediately issues PART_CMD_YIELD_IDLE h=
-ere
-without waiting for the hardware to process the window state.
+Since out_clear_pending clears the reset.pending flag but skips calling
+panthor_sched_post_reset(), does this leave the scheduler's tick work and
+firmware watchdog permanently deadlocked, causing all jobs to hang forever
+without recovery?
 
-The immediate write to the same register can physically overwrite the
-PART_CMD_OPEN_WINDOW command before the hardware processes it. If the hardw=
-are
-instead rejects PART_CMD_YIELD_IDLE (for example, because it's still in the
-PART_STATE_WINDOW_OPENING state), it raises PART_INVALID_COMMAND.
+Additionally, does this introduce a Time-Of-Check to Time-Of-Use (TOCTOU)
+race condition?
 
-Because panthor_arbitration_notify_yield_idle() eventually calls yield_idle=
-(),
-which uses an untracked command write:
+If an IRQ fires after panthor_aw_has_gpu_access(ptdev) is checked but before
+panthor_aw_pre_reset(ptdev) is called, changing the state to STOPPED_IDLE,
+panthor_aw_pre_reset() will silently fail to update the state since it
+ignores the return value of panthor_aw_state_try_set().
 
-drivers/gpu/drm/panthor/arbitration/panthor_partition_control.c:yield_idle(=
-) {
-	...
-	partition_command_write_untracked(
-		pc, AM_PART_SET_COMMAND(PART_CMD_YIELD_IDLE));
-	...
-}
+Will this allow the reset sequence to continue against unpowered MMIO,
+leading to bus faults because GPU access has been revoked?
 
-The pc->last_cmd remains set to the previously tracked command
-(PART_CMD_OPEN_WINDOW). The IRQ handler partition_handle_invalid_cmd() then
-mistakenly believes the PART_CMD_OPEN_WINDOW command failed, sees the state=
- is
-not PART_STATE_RESET or fully open, and resets the scheduler.
+> +
+>  	panthor_sched_pre_reset(ptdev);
+> +	panthor_aw_pre_reset(ptdev);
+>  	panthor_fw_pre_reset(ptdev, true);
+>  	panthor_mmu_pre_reset(ptdev);
+> +
+>  	panthor_hw_soft_reset(ptdev);
+> +
+>  	panthor_hw_l2_power_on(ptdev);
+>  	panthor_mmu_post_reset(ptdev);
+>  	ret =3D panthor_fw_post_reset(ptdev);
+> -	atomic_set(&ptdev->reset.pending, 0);
+> +	panthor_aw_post_reset(ptdev);
+>  	panthor_sched_post_reset(ptdev, ret !=3D 0);
+> +
+> +out_clear_pending:
+> +	atomic_set(&ptdev->reset.pending, 0);
+>  	drm_dev_exit(cookie);
+> =20
+> -	if (ret) {
+> +	if (ret && panthor_aw_has_gpu_access(ptdev)) {
 
-Can we wait for the hardware to process PART_CMD_OPEN_WINDOW or for the win=
-dow
-state to settle before sending PART_CMD_YIELD_IDLE?
+[Severity: High]
+If the MCU fails to boot during reset, panthor_fw_post_reset() will return =
+an
+error. Then panthor_aw_post_reset() executes and, seeing the window is not
+open, calls panthor_aw_schedule_post_yield_work() which transitions the AW
+state to PANTHOR_AW_STATE_GPU_STOPPED.
+
+Since the state is now GPU_STOPPED, panthor_aw_has_gpu_access() will evalua=
+te
+to false. Will this completely bypass the device unplug operation, leaving a
+broken device registered and accessible?
+
+>  		panthor_device_unplug(ptdev);
+>  		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device u=
+nusable.");
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D21
+094-1-karunika.choo@arm.com?part=3D26
