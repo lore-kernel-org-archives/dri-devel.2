@@ -4,44 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCBFC982F1
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFE7C982F1
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 10:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869F710EC4F;
-	Tue, 22 Sep 2026 10:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 472E710EC50;
+	Tue, 22 Sep 2026 10:30:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Swqvf3MJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gVRMHA5b";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E80BF10EC41;
- Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9737842D99;
- Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EC81F000FF;
- Tue, 22 Sep 2026 10:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790073026;
- bh=jmdK/h1nAPyOJG6ZtdSP5Dmy6QYJeYHFDDCJutgljvw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Swqvf3MJ1AzkI9d/keQNDp5Nq2m5cMB+omvahPPz84MQ/HqtutXVnmV6zXquWXVTy
- szuY53j4Uz94Thjm9OyBstySyBxaqKonOO6m/m4xa8oHfID0T+CNt6cAQheLU2eZx+
- tgoxp5KJ4s4dPtt26ohAbyU236GqNSY8JZBt2pV7vlaSy0zprb09a6HTpA2TZYfBCw
- l6tK7HsgkBJi4k8CcvjPNHvnj69k6hM5red5aeaTj93OM8sLbJC3aFEBLA0AdAGfwm
- J7rtcac9NKzsGpCt046OJy0tPvVwxI84x6RaPrrZcx0tSdHPpEkpTtFPncsEk5y6Dj
- XoD2x9jM/xh7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/15] drm/xe: Invalidate existing VRAM mappings on
- wedge
-To: "Arvind Yadav" <arvind.yadav@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260922101721.1583542-10-arvind.yadav@intel.com>
-References: <20260922101721.1583542-1-arvind.yadav@intel.com>
- <20260922101721.1583542-10-arvind.yadav@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:30:25 +0000
-Message-Id: <20260922103026.41EC81F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA2310EC50;
+ Tue, 22 Sep 2026 10:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790073054; x=1821609054;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=rVx1Ga7x8BB7Zg2M0CRdnA2F5rr3KdLyeWxelvYMHFw=;
+ b=gVRMHA5bL4bJxQ944N3HDOPPD/iX9M3byoW4Km6Me5YupaVIuXniP+qU
+ VgbxpqzynxQDJ6yzsnl8vvrhqDI7YcwnvyBLb3+TaldpeKO4Fxiy0RFDP
+ bmKDhRvtTeohPccgRrwof9Au+mpc26OD+ZSPoHRQIhdyV3zSCx6ZGusjp
+ zvos5sLXh8ee9WEu4T0Nz3psXCZDZI6EPDveJOtIWEvi8MN7CO1fMWEHw
+ GW0fcfH777LiywZ8PIv9v8NaUEsDIePlZMvNKZicP3+/TKB9892Z83QVJ
+ Ehm4d+c1B2s1NsgDeRWKEStDKRi0YIxX3n8LsLfVNIXSi3fD0qIDsbqol g==;
+X-CSE-ConnectionGUID: oE+ujCVnRdOBLTARBWv5Rg==
+X-CSE-MsgGUID: mNdXrcR7Sb23lXyi3DBr7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1164182"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1164182"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 03:30:53 -0700
+X-CSE-ConnectionGUID: Kz5491BaRBSQ0kKLpKPzIg==
+X-CSE-MsgGUID: bONz6f9cQtSVZtD98Mi9kQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="4062790"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa012.fm.intel.com with ESMTP; 22 Sep 2026 03:30:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id 1ACFC99; Tue, 22 Sep 2026 12:30:45 +0200 (CEST)
+Date: Tue, 22 Sep 2026 12:30:45 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, brgl@kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev
+Subject: Re: [PATCH v8 3/5] drm/xe/i2c: use
+ device_create_managed_software_node()
+Message-ID: <arJY1TMBIZCy8E7n@black.igk.intel.com>
+References: <20260716-swnode-remove-on-dev-unreg-v8-0-5c2b8cc38c28@oss.qualcomm.com>
+ <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,104 +80,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/xe: dma-buf VRAM mappings are not invalidated on device wedge
-- [High] drm/xe: PAT aliasing violation by mapping GFP_KERNEL dummy page as=
- WC
---
+On Thu, Jul 16, 2026 at 02:31:38PM +0200, Bartosz Golaszewski wrote:
+> This driver intentionally uses the fine-grained approach to creating
+> platform devices. It assigns a software node as the primary firmware
+> node of the device it creates. Ahead of improving the reference counting
+> of platform device software nodes, switch to using
+> device_create_managed_software_node(). This way, we create a dynamic
+> software node whose life-time is tied to the device to which it's
+> assigned.
+> 
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-commit c757615e833a0d49b9d8ef7258c5d9bef1106610
-Author: Arvind Yadav <arvind.yadav@intel.com>
+What happened to this one? I can see the commit 0f485f88656a
+("drm/xe/i2c: use device_create_managed_software_node()"), but not the
+code change?
 
-drm/xe: Invalidate existing VRAM mappings on wedge
+There is no revert and there are no other commits touching this part
+of the driver, so it's as if the patch was never actually applied?
 
-This commit introduces a mechanism to drain active CPU faults and invalidate
-all tracked VRAM mappings when a device wedges. Subsequent faults use a per=
--BO
-dummy page, preventing valid PTEs from keeping access to VRAM.
+Thanks,
 
-> CPU mappings created before a device wedge can keep valid PTEs and
-> continue accessing VRAM. Mapping new faults to a dummy page does not
-> replace these existing mappings.
->=20
-> Use the common device I/O SRCU gate to wait for active CPU faults to
-> finish. Then invalidate all tracked VRAM mappings. Faults starting
-> after the wedge use the per-BO dummy page.
-
-[Severity: High]
-Can mapping the dummy page cause a Machine Check Exception or SIGBUS?
-
-When CPU faults occur on a VRAM BO after the device wedges, they trigger
-xe_bo_vm_dummy_page():
-
-drivers/gpu/drm/xe/xe_bo.c:xe_bo_vm_dummy_page() {
-    ...
-	page =3D alloc_page(GFP_KERNEL | __GFP_ZERO);
-    ...
-	return vmf_insert_pfn_prot(vma, vmf->address, pfn,
-				   vma->vm_page_prot);
-}
-
-This allocates a standard system RAM page using GFP_KERNEL (which has
-Write-Back caching) and maps it into userspace using the VMA's original
-vma->vm_page_prot. For VRAM mappings, vma->vm_page_prot contains Write-Comb=
-ine
-(WC) bits.
-
-Does mapping a WB page as WC create a conflicting PAT alias on x86?
-track_pfn_insert() may reject this for RAM pages, leading to a SIGBUS, or if
-bypassed, a hardware MCE.
-
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 7902ce3fe0127..73dcd397dc13c 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -4155,6 +4155,26 @@ void xe_bo_runtime_pm_release_mmap_offset(struct x=
-e_bo *bo)
->  	list_del_init(&bo->vram_userfault_link);
->  }
-> =20
-> +/**
-> + * xe_bo_wedged_invalidate_mmaps - Invalidate CPU mappings backed by VRAM
-> + * @xe: xe device instance
-> + *
-> + * The caller must drain the common device I/O gate before calling this
-> + * function. Remove all tracked VRAM mappings so later faults map the
-> + * per-BO dummy page.
-> + */
-> +void xe_bo_wedged_invalidate_mmaps(struct xe_device *xe)
-> +{
-> +	struct xe_bo *bo, *next;
+> ---
+>  drivers/gpu/drm/xe/xe_i2c.c | 22 ++++++++--------------
+>  drivers/gpu/drm/xe/xe_i2c.h |  1 -
+>  2 files changed, 8 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+> index 3d80eafb9a1318996d10db11e14af4cfde07ba55..af6e973e5e68125a9c006bb646447ca6e377a6e6 100644
+> --- a/drivers/gpu/drm/xe/xe_i2c.c
+> +++ b/drivers/gpu/drm/xe/xe_i2c.c
+> @@ -93,13 +93,8 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  {
+>  	struct pci_dev *pci = to_pci_dev(i2c->drm_dev);
+>  	struct platform_device *pdev;
+> -	struct fwnode_handle *fwnode;
+>  	int ret;
+>  
+> -	fwnode = fwnode_create_software_node(xe_i2c_adapter_properties, NULL);
+> -	if (IS_ERR(fwnode))
+> -		return PTR_ERR(fwnode);
+> -
+>  	/*
+>  	 * Not using platform_device_register_full() here because we don't have
+>  	 * a handle to the platform_device before it returns. xe_i2c_notifier()
+> @@ -107,10 +102,14 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  	 * platform_device_register_full() is done.
+>  	 */
+>  	pdev = platform_device_alloc(adapter_name, pci_dev_id(pci));
+> -	if (!pdev) {
+> -		ret = -ENOMEM;
+> -		goto err_fwnode_remove;
+> -	}
+> +	if (!pdev)
+> +		return -ENOMEM;
 > +
-> +	mutex_lock(&xe->mem_access.vram_userfault.lock);
-> +	list_for_each_entry_safe(bo, next,
-> +				 &xe->mem_access.vram_userfault.list,
-> +				 vram_userfault_link)
-> +		xe_bo_runtime_pm_release_mmap_offset(bo);
+> +	ret = device_create_managed_software_node(&pdev->dev,
+> +						  xe_i2c_adapter_properties,
+> +						  NULL);
+> +	if (ret)
+> +		goto err_pdev_put;
+>  
+>  	if (i2c->adapter_irq) {
+>  		struct resource res;
+> @@ -123,8 +122,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  	}
+>  
+>  	pdev->dev.parent = i2c->drm_dev;
+> -	platform_device_set_fwnode(pdev, fwnode);
+> -	i2c->adapter_node = fwnode;
+>  	i2c->pdev = pdev;
+>  
+>  	ret = platform_device_add(pdev);
+> @@ -135,8 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  
+>  err_pdev_put:
+>  	platform_device_put(pdev);
+> -err_fwnode_remove:
+> -	fwnode_remove_software_node(fwnode);
+>  
+>  	return ret;
+>  }
+> @@ -144,7 +139,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  static void xe_i2c_unregister_adapter(struct xe_i2c *i2c)
+>  {
+>  	platform_device_unregister(i2c->pdev);
+> -	fwnode_remove_software_node(i2c->adapter_node);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+> index 425d8160835f4648891ff75f2a9c06284241710e..b28229f056c5a664e1d41dc0cc1978782fe1c2f1 100644
+> --- a/drivers/gpu/drm/xe/xe_i2c.h
+> +++ b/drivers/gpu/drm/xe/xe_i2c.h
+> @@ -30,7 +30,6 @@ struct xe_i2c_endpoint {
+>  };
+>  
+>  struct xe_i2c {
+> -	struct fwnode_handle *adapter_node;
+>  	struct platform_device *pdev;
+>  	struct i2c_adapter *adapter;
+>  	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
+> 
+> -- 
+> 2.47.3
 
-[Severity: High]
-Does this code miss active dma-buf CPU mappings?
-
-xe_bo_runtime_pm_release_mmap_offset() only unmaps the VMA node associated
-with the DRM device file (drm_vma_node_unmap()). It doesn't seem to clear
-dma-buf mappings, which are tracked under
-bo->ttm.base.dma_buf->file->f_mapping.
-
-If a userspace application exports a VRAM BO as a dma-buf and maps it, would
-it retain CPU access to VRAM after the device wedges? Accessing VRAM on a
-wedged device can cause PCIe hangs or system crashes.=20
-
-Could a call to dma_buf_invalidate_mappings() be required here, similar to
-how it is handled in xe_bo_move_notify()?
-
-> +	mutex_unlock(&xe->mem_access.vram_userfault.lock);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922101721.1583=
-542-1-arvind.yadav@intel.com?part=3D9
+-- 
+heikki
