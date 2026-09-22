@@ -4,48 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF252C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2486DC98308
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6F6010E831;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D951E10E83F;
 	Wed, 23 Sep 2026 07:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="kOBmIAdi";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HIIxexSc";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B3110EEA9;
- Wed, 23 Sep 2026 05:34:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=6z
- WbfjpldiZxBL0YQHqBVtVULlH+Wk1oV9YZGupl4Us=; b=kOBmIAdiRmfP6VO/yO
- g1NftJZlHX4h0XnjqT+YHcwwJz6g1FXBydKdMXWBCXiTwOszP/WMXY0JV8ND/hyj
- MrjHqKy3F4xD8qHoieR5mGoudY623tcSnzHFkNeHxD6RFjGN+WisrdA1rVFpNM8o
- BB5r9DzOzj/g+hP2rpFic156I=
-Received: from fedora (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wDXn7xHZLNqxW8YAQ--.56158S2; 
- Wed, 23 Sep 2026 13:31:52 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Xizhe Tang <xizheTang2005@163.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Only send AS SDP when VRR is enabled or PR !async
-Date: Wed, 23 Sep 2026 13:29:37 +0800
-Message-ID: <20260923052937.22817-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A926810E4F6;
+ Tue, 22 Sep 2026 17:13:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A82B1576;
+ Tue, 22 Sep 2026 10:12:58 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 153903F86C;
+ Tue, 22 Sep 2026 10:12:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790097182; bh=6fGlC+l7ZOTUAPb0qf6/jbMAeDqXx74X21kDAUYsIyk=;
+ h=From:Subject:Date:To:Cc:From;
+ b=HIIxexScPs77FEWrL1zKfh489AcYGH+eosy1rJu4q8Qx0Y5qygcZGRibDPK9zayy2
+ bMswKnuZyeg7Xdl5EiA/OMueeXhZkIg42q52ZYMsGuSW+3VibDu/Td+mjExBEv2p1H
+ 6o6egoaJbq6J6Irg6+9TyJTuwzBdadX5XN/qqY9E=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Subject: [PATCH v3 0/9] mm: distinguish HW PTE pointers from SW PTE value
+ pointers
+Date: Tue, 22 Sep 2026 18:12:28 +0100
+Message-Id: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDXn7xHZLNqxW8YAQ--.56158S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3tr1rGF18ZFWDKFyfuryDZFb_yoWkKw13pF
- WxWasYyr4kJFyS9397ZF4IvFyrurs3J3y5GFn5K3y3Z3Z8Aw1ftrWfKFyj9FW7Crs3X3W0
- vrZ0gr90kw4DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRVOJUUUUUU=
-X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbCwgiyCmqzZEgWuwAA3q
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPy2smoC/y2NwQ6DIBAFf8XsuZgFqxVP/Y/GA8W1YoIaENPG+
+ O8F2+Mk8+bt4MkZ8tBkOzjajDfzFKG4ZKAHNb2ImS4yCBQVSn5ly0rIKl3XfVlK0d0kRHVx1Jv
+ 3mXm0P/bhOZJe0zYZg/Hr7D7nzyaS909iwbFAFDmP+bqUjLPglVW5msZg78rZXM8W2uM4vgCpy
+ qqtAAAA
+X-Change-ID: 20260914-pte0-6c88f5592d79
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
+ kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,220 +123,568 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Panther Lake eDP panels that advertise VRR in their EDID but run at a fixed
-refresh rate start receiving an Adaptive-Sync SDP since commit 6a1712052859
-("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async"), and at
-least one such panel renders a vertically streaked image from the very first
-modeset at boot.
+Hi,
 
-intel_vrr_possible() only tests crtc_state->vrr.flipline, and flipline is
-programmed for fixed refresh rate too:
+pte_t currently describes both a software PTE value and an element stored
+in a PTE table. Consequently, pte_t * can point either to a software PTE
+value, often a stack copy, or to a PTE-table slot. The compiler cannot
+distinguish these cases. A value pointer can therefore be passed to an
+interface that expects table storage, while table storage can be read by
+direct dereference instead of the architecture accessor.
 
-	intel_vrr_compute_fixed_rr_timings():
-		/* For fixed rr,  vmin = vmax = flipline */
-		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+This series begins a staged conversion at the PTE level. It introduces
+hw_pte_t as the element type for PTE-table storage and converts generic
+MM to use hw_pte_t *. Software PTE values remain pte_t. Interfaces that
+intentionally return a value through pte_t *, such as install_pte,
+remain value interfaces; the relevant parameters are named ptentp to
+make that distinction explicit.
 
-That fallback is unconditional, which is the part that worries me:
-intel_vrr_compute_config() calls intel_vrr_compute_fixed_rr_timings() for every
-non-interlaced mode as soon as uapi.vrr_enabled is false, and on display version
->= 30 intel_vrr_always_use_vrr_tg() is true, so crtc_state->vrr.flipline ends up
-non-zero for every pipe on every PTL machine, whether or not the sink can do VRR
-at all. intel_vrr_possible() is thus neither a capability check nor a "does this
-link need the SDP" check; in practice it degenerates into a platform check.
+The generic definition aliases hw_pte_t to pte_t unless an architecture
+selects ARCH_HAS_HW_PTE_T, which enables a distinct generic wrapper named
+__hw_pte_t. Some architectures define pgtable_t in headers parsed before
+the generic hw_pte_t typedef is visible. The structure tag allows those
+headers to define pgtable_t as struct __hw_pte_t * without creating an
+include-order dependency. This is required when converting s390, m68k,
+powerpc and sparc.
 
-So on a fixed-rr link that merely *could* do VRR, intel_dp_needs_as_sdp() now
-returns true, and intel_dp_compute_as_sdp() takes the "else" branch and programs
-the SDP in DP_AS_SDP_AVT_FIXED_VTOTAL mode (`operation mode: 1` in the state
-dump) while the link is not running variable refresh at all. The state dump says
-`vrr: no, fixed rr: yes` on both kernels and `crtc_state->vrr.enable` is false on
-both, so the AS SDP is being sent on a link that cannot use what it carries.
+No architecture selects ARCH_HAS_HW_PTE_T in this series, so the
+representation and behavior of every architecture are preserved. ptep_get()
+keeps its existing READ_ONCE() semantics and converts the stored element
+through __pte_from_hw(). An architecture can later select the option and
+convert its PTE interfaces to make the distinction compiler-enforced.
+Architecture PTE implementations and most architecture code are
+deliberately left for those later opt-in conversions.
 
-On this machine that leaves no upside to weigh against the corruption: the
-compositor runs this panel at a fixed refresh rate, and no refresh-rate option
-I can select in Plasma 6.7.5 makes the AS SDP useful here. The panel renders it
-as a corrupted image instead.
+Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
+complete PTE tables use hw_pte_t whether or not they are currently
+linked into a page-table hierarchy, while software PTE values use
+pte_t. The distinction between complete but unlinked tables and
+hardware-reachable tables was raised during discussion and remains an
+important point for review.
 
-Restore vrr.enable as the terminal condition, but keep the Panel Replay part of
-the commit: the aux-less-ALPM branch added by the same commit is the one that
-genuinely needs an AS SDP on a non-VRR link, so it is left untouched.
+PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
+converted in later series after the PTE boundary is agreed, avoiding the
+PMD-specific cases that made an all-level conversion difficult to
+review.
 
-Note that the VRR half of the commit's rationale - "if a feature enabling AS SDP
-gets turned on later (after modeset), the guardband might not be sufficient and
-may need to increase, triggering a full modeset" - does not seem to require this:
-toggling VRR from userspace already forces a full modeset through
+Most mechanical pointer conversions were generated with the Coccinelle
+script included below, then audited and fixed by hand.
 
-	intel_vrr_check_modeset():
-		if (new_crtc_state->uapi.vrr_enabled != old_crtc_state->uapi.vrr_enabled)
-			new_crtc_state->uapi.mode_changed = true;
+This series does not add a second ptep_get_once() accessor and does not
+remove or replace STRICT_MM_TYPECHECKS.
 
-so intel_dp_compute_as_sdp() will run again at that point either way. If the
-intent was instead to avoid that modeset for the optimized guardband, would it
-make sense to gate on the state that actually needs it (PSR / panel replay /
-LOBF) rather than on "VRR possible", which is true for every fixed-refresh eDP
-panel with a VRR-capable EDID?
+The design discussion is available at [1]; while the original idea came
+from [2].
 
-Note the scope of this change, because it is narrower than it may look: on a
-fixed refresh rate it restores the gate, but while VRR is actually active it is
-a no-op. intel_vrr_possible() is only `crtc_state->vrr.flipline != 0`, and
-flipline is assigned by all three timing branches - intel_vrr_compute_vrr_timings()
-and intel_vrr_compute_cmrr_timings() set it to vmin,
-intel_vrr_compute_fixed_rr_timings() to crtc_vtotal - so with Adaptive Sync =
-"Always" the first branch runs and crtc_state->vrr.enable is already true.
-Swapping the predicate therefore cannot change anything on that path, and that is
-exactly the setting under which this machine corrupts.
-The other case this hunk cannot fix is the non-atomic update window in
-the #FIXME.
+I've the patches here [3] for arm64 conversion which I used to find
+usages in generic code which I missed during development.
 
-I measured the control on this machine: with Adaptive Sync = "Always" on 7.1.13,
-VRR is genuinely active (`vrr: yes, fixed rr: no, vmin: 2016, vmax: 8064`), the
-mask is `0xe`, the AS SDP is transmitted, and the panel is clean. On 7.2.x that same
-setting corrupts - though not on every attempt: it has produced clean, self-healing and
-permanently streaked wakes here, in no fixed order.
+[1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
+[2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
+[3] https://lore.kernel.org/all/20260914-pte0_arm-v1-0-bb53b663e396@arm.com 
 
-On that path the two kernels should put the same bytes on the wire: both set
-HB2 = 0x02 (7.1 hardcodes it, 7.2 has `as_sdp->revision = 0x2`), both set
-db[0] = DYNAMIC_VTOTAL, and 7.2's extra db[7..8] carry `coasting_vtotal`, which
-is 0 here because this sink does not advertise PR async video timing (the dump
-says `coasting vtotal: 0`, and panel replay is disabled on every modeset). The
-state dumps do not agree textually - 7.1's printer says "AS_SDP, revision 0" and
-7.2's says "Adaptive-Sync, revision 2" - but that is the printer plus a struct
-field 7.1 never assigns, not a difference in the packet.
+Testing:
+Testing was performed with and without the series on both x86_64 and
+arm64. KUnit and the MM kselftests produced matching before-and-after
+results problems or regressions. Fastpath performance testing was also
+completed on arm64. No regression was found.
 
-So this looks like a second regression outside the payload, and it behaves like an
-ordering problem rather than a wrong value: on this machine the same kernel and the
-same Adaptive Sync setting have produced a corrupted wake and a clean wake whose DRM
-core state, read back from debugfs, is identical line for line. The 7.2 code itself
-names the candidate - the new cdclk->tc clock crossing, which the #FIXME above
-intel_dp_compute_as_sdp() says can transiently send a corrupted packet because the
-update is not atomic.
+Thanks,
+Usama
 
-This patch does not fix that and does not claim to. What it does is take the AS SDP
-away from the fixed-refresh link, and with it the one thing a non-atomic update can
-corrupt there. The update stays non-atomic, and on a link that genuinely runs VRR -
-where crtc_state->vrr.enable is already true, so the predicate is untouched - this
-hunk changes nothing at all. That configuration is the linked report's open
-question, not something this patch settles.
-
-I have since built and tested this hunk. On v7.2.6-200.fc44.x86_64 I rebuilt
-only xe.ko from the 7.2.6 tree with this single-line change, signed it, and
-loaded it in place of the distribution module. The kernel, firmware, compositor
-and panel are identical to the failing case - the module is the only variable -
-so this is a same-kernel A/B rather than a kernel-version comparison. With the
-stock module the first modeset at boot streaks the panel; with this hunk the first
-modeset is clean. Six further suspend/resume cycles on the same kernel, under the same
-test, did not reproduce it either. The loaded module is identified by build-id rather
-than assumed, because vermagic matches for any build of the same kernel.
-
-Mechanically confirmed on the same machine: with this hunk
-intel_dp_needs_as_sdp() is false at a fixed refresh rate, so
-intel_dp_compute_as_sdp() returns before
-infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC), and the
-AS SDP disappears from the state dump.
-
-Scope, stated plainly because the hunk is deliberately narrow: while VRR is
-actually active crtc_state->vrr.enable is already true, so this change is a
-no-op on that path. It removes the fixed-refresh trigger only. I have not yet
-re-tested the Always case under this hunk, and since the hunk cannot affect it I
-would rather leave that to its own bisect than fold it in here. The non-atomic
-window in the #FIXME above intel_dp_compute_as_sdp() is likewise untouched; the
-AS SDP payload and revision are identical between the good 7.1.13 and the bad
-7.2.x here, so whatever else is wrong on that path is not the predicate.
-
-Regression evidence (identical hardware, identical firmware, identical
-compositor - only the kernel differs):
-
-  hardware
-    LENOVO 21VG, BIOS SWCN20WW 2026-04-01
-    00:02.0 Intel Panther Lake [Arc B390] 8086:b080 rev 04, subsystem 17aa:8099
-    integrated display version 30.00 stepping B0, driver: xe 1.1.0 (in-tree)
-    DMC i915/xe3lpd_dmc.bin v2.36, GuC 70.72.1 (identical on both kernels)
-    treated as VRR-capable by the driver: the EDID range-limits descriptor says
-    30..120 Hz, and the log prints "VRR capable: yes" for eDP-1. That is what
-    makes the terminal condition below true.
-    Fedora 44, Plasma 6.7.5 / kwin 6.7.5 (Wayland). The comparison below uses
-    Adaptive Sync = "Never", which is why `drm.debug=0xe` prints `vrr: no, fixed
-    rr: yes` for every modeset of those two boots. The third capture is 7.1.13
-    with Adaptive Sync = "Always", where the link really is variable: `vrr: yes,
-    fixed rr: no, vmin: 2016, vmax: 8064`.
-
-  7.1.13 (clean) vs 7.2.4 (streaked), full drm.debug=0xe state dump, first
-  modeset at [3.62] / [3.71] respectively. The only difference in the entire
-  dump is the infoframe enable mask:
-
-    good:  audio: 0, infoframes: 0, infoframes enabled: 0x4   (VSC only)
-    bad:   audio: 0, infoframes: 0, infoframes enabled: 0xc   (VSC + AS SDP)
-
-
-  and the corresponding programmed SDP (bad kernel only, present in all five of
-  its modesets; zero occurrences on the good kernel at this setting):
-
-    bad:   DP SDP: Adaptive-Sync, revision 2, length 9
-             vtotal: 2016
-             target rr: 0
-             duration increase ms: 0
-             duration decrease ms: 0
-             operation mode: 1        (= DP_AS_SDP_AVT_FIXED_VTOTAL)
-             target rr divider: 1.000
-             coasting vtotal: 0
-
-  The mask difference is one single bit in every state dump of both boots, not
-  just the first modeset:
-
-    good:  infoframes enabled: 0x0 (1x), 0x4 (1x), 0x6 (4x)
-    bad:   infoframes enabled: 0x0 (1x), 0xc (1x), 0xe (4x)
-    -> bad == good | 0x8 in every non-zero case, and 0x8 = BIT(3) =
-       DP_SDP_ADAPTIVE_SYNC
-
-  Nothing else in the state dump differs where the link is concerned: linetime 67
-  (60 Hz) / linetime 34 (120 Hz), ips linetime 0, joiner no, splitter disabled,
-  fec disabled, enhanced framing enabled, sdp split disabled, DSC off (the log
-  says "DP link limits: pixel clock 390950 kHz DSC off" and "DSC-support: no";
-  "has_dsc: yes" is only a capability line), dp m_n (lanes 4; data_m 7117029,
-  data_n 8388608, link_m 474468, link_n 524288, tu 64, identical on both
-  kernels), port clock 432000, pipe src 3072x1920+0+0, pixel rate 390950,
-  framestart delay 1, MSA timing delay 0, set context latency 0, vtotal 2016,
-  vsync start 90, vsync end 84. vmin 2016, vmax 2016, flipline 2016 and
-  guardband 91 are identical in the 60 Hz modeset of both kernels, so none of
-  the VRR timing fields can account for the difference either.
-
-  The two captured boots contain no error at all: no FIFO underrun, no
-  pipe/atomic update *ERROR*, no PSR or DSB timeouts. Across the 64 boots
-  retained in the journal there is exactly one FIFO underrun (a late one in a
-  single 7.2.5 boot) and no DSB/PSR-idle errors. The pixels arrive intact and the
-  image is readable, which is consistent with line timing being disturbed rather
-  than the scanout source being wrong.
-
-  Things already ruled out on this machine:
-    - xe.enable_psr=0, xe.enable_psr=1, xe.enable_psr2_sel_fetch=0, xe.enable_dc=0,
-      xe.enable_panel_replay=0 all still corrupt (one boot each)
-    - no out-of-tree/akmod/dkms driver involved, firmware identical
-    - not the #9097/#9012 signature (those run 2-3 FIFO underruns per boot)
-    - still present in v7.2.5, v7.2.6 and current mainline: both
-      intel_dp_needs_as_sdp() and intel_vrr_possible() are unchanged, so stable
-      point releases are not expected to fix this on their own.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
-Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, fixed refresh rate
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Retitle the series
+- Moved hw_pte_val() adding helper to generic series
+- Link to v2: https://patch.msgid.link/20260903103002.1091859-1-usama.anjum@arm.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3115,8 +3115,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
- 
--	return intel_vrr_possible(crtc_state);
-+	return crtc_state->vrr.enable;
- }
- 
- static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
---
-2.47.0
+Changes in v2:
+- Name the generic wrapper structure __hw_pte_t so architectures can
+  forward-declare it before the generic typedef is visible.
+- Use software PTE value terminology consistently
+- Fold the prerequisite header includes into the generic storage
+  conversion
+- Explain why the NOMMU stub converts the stored entry without
+  ptep_get().
+- Rebase onto mm-new and rerun the Coccinelle conversion.
+- Link to v1: https://lore.kernel.org/all/20260806083926.1807279-1-usama.anjum@arm.com 
+
+Changes in v1:
+- Add ARCH_HAS_HW_PTE_T so architectures can opt in to a distinct
+  PTE-table storage type.
+- Define the distinct hw_pte_t wrapper and its conversion helpers in
+  generic code instead of requiring each architecture to define them.
+- Read hw_pte_t through READ_ONCE() before converting it to pte_t.
+- Drop the previous mremap patch in favour of [a]. Apply [a] first if
+  it is not already present.
+- Drop the previous two dead-code conversion patches; the affected
+  code was cleaned up separately in [b] and [c].
+- Link to RFC: https://lore.kernel.org/all/20260727164715.2866609-1-usama.anjum@arm.com 
+
+[a] https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
+[b] https://lore.kernel.org/all/20260730111316.3672672-1-usama.anjum@arm.com
+[c] https://lore.kernel.org/all/20260730094501.3002718-1-usama.anjum@arm.com
+
+---
+// SPDX-License-Identifier: GPL-2.0-only
+///
+/// Rename raw PTE pointer types to hardware PTE pointer types.
+///
+/// This is a mechanical type rename. It converts common declarations,
+/// function parameters, prototypes, return types and casts from "pte_t *"
+/// to "hw_pte_t *". Plain "pte_t" objects are intentionally left unchanged.
+/// Pointers named "ptentp" refer to temporary software PTE values and are
+/// intentionally ignored in all modes.
+/// Re-run in context mode afterwards to audit remaining raw pte_t pointers
+/// and cases that need hand conversion, such as trace macros and mixed
+/// declarations.
+///
+/// Confidence: Moderate
+// Options: --no-includes --include-headers
+
+virtual patch
+virtual report
+virtual context
+
+@local_decl depends on patch@
+identifier x != ptentp;
+@@
+- pte_t *x;
++ hw_pte_t *x;
+
+@local_decl_init depends on patch@
+identifier x != ptentp;
+expression e;
+@@
+- pte_t *x = e;
++ hw_pte_t *x = e;
+
+@param_proto depends on patch@
+identifier f;
+identifier x != ptentp;
+type R;
+@@
+R f(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+
+@param_proto_unnamed depends on patch@
+identifier f;
+type R;
+@@
+R f(...,
+- pte_t *
++ hw_pte_t *
+,...);
+
+@param_def depends on patch@
+identifier f;
+identifier x != ptentp;
+type R;
+@@
+R f(...,
+- pte_t *x
++ hw_pte_t *x
+,...)
+{ ... }
+
+@ret_proto depends on patch@
+identifier f;
+parameter list ps;
+@@
+- pte_t *
++ hw_pte_t *
+  f(ps);
+
+@ret_def depends on patch@
+identifier f;
+parameter list ps;
+@@
+- pte_t *
++ hw_pte_t *
+  f(ps)
+{ ... }
+
+@struct_member depends on patch@
+identifier S;
+identifier x != ptentp;
+@@
+struct S {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+
+@union_member depends on patch@
+identifier x != ptentp;
+@@
+union {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+
+@union_member_in_struct depends on patch@
+identifier S;
+identifier x != ptentp;
+@@
+struct S {
+...
+union {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+...
+};
+
+@fnptr_struct_member depends on patch@
+identifier S,f;
+identifier x != ptentp;
+type R;
+@@
+struct S {
+...
+R (*f)(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+...
+};
+
+@fnptr_typedef_pte_fn_t depends on patch@
+identifier x != ptentp;
+@@
+typedef int (*pte_fn_t)(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+
+@cast depends on patch@
+expression e;
+@@
+- (pte_t *)e
++ (hw_pte_t *)e
+
+@remaining_decl depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+* pte_t *x@p;
+
+@remaining_decl_init depends on context || report@
+identifier x != ptentp;
+expression e;
+position p;
+@@
+* pte_t *x@p = e;
+
+@remaining_param_proto depends on context || report@
+identifier f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *x@p
+,...);
+
+@remaining_param_proto_unnamed depends on context || report@
+identifier f;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *@p
+,...);
+
+@remaining_param_def depends on context || report@
+identifier f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *x@p
+,...)
+{ ... }
+
+@remaining_ret_proto depends on context || report@
+identifier f;
+parameter list ps;
+position p;
+@@
+* pte_t *f@p(ps);
+
+@remaining_ret_def depends on context || report@
+identifier f;
+parameter list ps;
+position p;
+@@
+* pte_t *f@p(ps)
+{ ... }
+
+@remaining_struct_member depends on context || report@
+identifier S;
+identifier x != ptentp;
+position p;
+@@
+struct S {
+...
+* pte_t *x@p;
+...
+};
+
+@remaining_union_member depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+union {
+...
+* pte_t *x@p;
+...
+};
+
+@remaining_union_member_in_struct depends on context || report@
+identifier S;
+identifier x != ptentp;
+position p;
+@@
+struct S {
+...
+union {
+...
+* pte_t *x@p;
+...
+};
+...
+};
+
+@remaining_fnptr_struct_member depends on context || report@
+identifier S,f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+struct S {
+...
+R (*f)(...,
+* pte_t *x@p
+,...);
+...
+};
+
+@remaining_fnptr_typedef_pte_fn_t depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+typedef int (*pte_fn_t)(...,
+* pte_t *x@p
+,...);
+
+---
+
+To: Andrew Morton <akpm@linux-foundation.org>
+To: David Hildenbrand <david@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: Michal Hocko <mhocko@suse.com>
+To: Xu Xin <xu.xin16@zte.com.cn>
+To: Chengming Zhou <chengming.zhou@linux.dev>
+To: Jann Horn <jannh@google.com>
+To: Muchun Song <muchun.song@linux.dev>
+To: Oscar Salvador <osalvador@suse.de>
+To: Pedro Falcato <pfalcato@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+To: Will Deacon <will@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+To: Nick Piggin <npiggin@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: Rik van Riel <riel@surriel.com>
+To: Harry Yoo <harry@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+To: Chris Li <chrisl@kernel.org>
+To: Kairui Song <kasong@tencent.com>
+To: Kemeng Shi <shikemeng@huaweicloud.com>
+To: Nhat Pham <nphamcs@gmail.com>
+To: Baoquan He <baoquan.he@linux.dev>
+To: Barry Song <baohua@kernel.org>
+To: Youngjun Park <youngjun.park@lge.com>
+To: Uladzislau Rezki <urezki@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Andrii Nakryiko <andrii@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: Martin KaFai Lau <martin.lau@linux.dev>
+To: Song Liu <song@kernel.org>
+To: Yonghong Song <yonghong.song@linux.dev>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Emil Tsalapatis <emil@etsalapatis.com>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Ingo Molnar <mingo@redhat.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+To: Ian Rogers <irogers@google.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: James Clark <james.clark@linaro.org>
+To: SJ Park <sj@kernel.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+To: Jan Kara <jack@suse.cz>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+To: John Hubbard <jhubbard@nvidia.com>
+To: Peter Xu <peterx@redhat.com>
+To: Leon Romanovsky <leon@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Nico Pache <nico.pache@linux.dev>
+To: Ryan Roberts <ryan.roberts@arm.com>
+To: Dev Jain <dev.jain@arm.com>
+To: Usama Arif <usama.arif@linux.dev>
+To: Kiryl Shutsemau <kas@kernel.org>
+To: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+To: Alexander Potapenko <glider@google.com>
+To: Andrey Konovalov <andreyknvl@gmail.com>
+To: Dmitry Vyukov <dvyukov@google.com>
+To: Vincenzo Frascino <vincenzo.frascino@arm.com>
+To: Miaohe Lin <linmiaohe@huawei.com>
+To: Naoya Horiguchi <nao.horiguchi@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Rakie Kim <rakie.kim@sk.com>
+To: Byungchul Park <byungchul@sk.com>
+To: Gregory Price <gourry@gourry.net>
+To: Ying Huang <ying.huang@linux.alibaba.com>
+To: Alistair Popple <apopple@nvidia.com>
+To: Dennis Zhou <dennis@kernel.org>
+To: Tejun Heo <tj@kernel.org>
+To: Christoph Lameter <cl@gentwo.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+To: Qi Zheng <qi.zheng@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+To: Axel Rasmussen <axelrasmussen@google.com>
+To: Yuanchu Xie <yuanchu@google.com>
+To: Wei Xu <weixugc@google.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Juergen Gross <jgross@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+To: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-arch@vger.kernel.org
+Cc: linux-trace-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-perf-users@vger.kernel.org
+Cc: damon@lists.linux.dev
+Cc: kasan-dev@googlegroups.com
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+
+---
+Muhammad Usama Anjum (9):
+      mm: introduce hw_pte_t for PTE table storage
+      mm: rename pointers to software PTE values as ptentp
+      mm: use hw_pte_t for generic PTE table storage
+      mm: convert PTE table entries in ptep_get()
+      mm: convert PTE table entry to pte
+      mm: add hw_pte_val for HW PTE storage
+      mm/kasan: use hw_pte_t for the early shadow PTE table
+      drm/i915: use hw_pte_t for PTE range callbacks
+      xen: use hw_pte_t for PTE range callbacks
+
+ MAINTAINERS                                        |  1 +
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  4 +--
+ drivers/gpu/drm/i915/i915_mm.c                     |  4 +--
+ drivers/xen/gntdev.c                               |  2 +-
+ drivers/xen/privcmd.c                              |  2 +-
+ drivers/xen/xenbus/xenbus_client.c                 |  2 +-
+ drivers/xen/xlate_mmu.c                            |  4 +--
+ fs/hugetlbfs/inode.c                               |  3 +-
+ fs/proc/task_mmu.c                                 | 33 ++++++++++----------
+ include/asm-generic/hugetlb.h                      | 15 ++++-----
+ include/asm-generic/pgalloc.h                      |  6 ++--
+ include/asm-generic/tlb.h                          |  5 +--
+ include/linux/hugetlb.h                            | 53 +++++++++++++++++--------------
+ include/linux/kasan.h                              |  2 +-
+ include/linux/mm.h                                 | 26 ++++++++--------
+ include/linux/page_table_check.h                   | 10 ++++--
+ include/linux/pagewalk.h                           | 10 +++---
+ include/linux/pgtable.h                            | 81 +++++++++++++++++++++++++-----------------------
+ include/linux/pgtable_types.h                      | 23 ++++++++++++++
+ include/linux/rmap.h                               |  2 +-
+ include/linux/swapops.h                            |  6 ++--
+ include/linux/vmalloc.h                            |  4 +--
+ include/trace/events/xen.h                         | 10 +++---
+ kernel/bpf/arena.c                                 |  9 +++---
+ kernel/events/core.c                               |  3 +-
+ mm/Kconfig                                         |  3 ++
+ mm/damon/ops-common.c                              |  2 +-
+ mm/damon/ops-common.h                              |  2 +-
+ mm/damon/vaddr.c                                   | 20 ++++++------
+ mm/debug_vm_pgtable.c                              |  2 +-
+ mm/filemap.c                                       |  4 +--
+ mm/gup.c                                           |  9 +++---
+ mm/highmem.c                                       | 15 ++++-----
+ mm/hmm.c                                           |  6 ++--
+ mm/huge_memory.c                                   |  4 +--
+ mm/hugetlb.c                                       | 60 ++++++++++++++++++-----------------
+ mm/hugetlb_vmemmap.c                               | 13 ++++----
+ mm/internal.h                                      | 16 +++++-----
+ mm/kasan/init.c                                    | 14 ++++-----
+ mm/kasan/shadow.c                                  |  6 ++--
+ mm/khugepaged.c                                    | 50 ++++++++++++++++++------------
+ mm/ksm.c                                           | 11 ++++---
+ mm/madvise.c                                       | 18 ++++++-----
+ mm/mapping_dirty_helpers.c                         |  4 +--
+ mm/memory-failure.c                                |  6 ++--
+ mm/memory.c                                        | 78 +++++++++++++++++++++++-----------------------
+ mm/mempolicy.c                                     |  4 +--
+ mm/migrate.c                                       |  4 +--
+ mm/migrate_device.c                                |  4 +--
+ mm/mincore.c                                       |  4 +--
+ mm/mlock.c                                         |  4 +--
+ mm/mprotect.c                                      | 19 ++++++------
+ mm/mremap.c                                        |  4 +--
+ mm/page_table_check.c                              |  4 +--
+ mm/pagewalk.c                                      |  9 +++---
+ mm/percpu.c                                        |  2 +-
+ mm/pgtable-generic.c                               | 20 ++++++------
+ mm/ptdump.c                                        |  4 +--
+ mm/rmap.c                                          |  6 ++--
+ mm/sparse-vmemmap.c                                | 22 ++++++-------
+ mm/swap_state.c                                    |  3 +-
+ mm/swapfile.c                                      |  5 +--
+ mm/userfaultfd.c                                   | 32 ++++++++++---------
+ mm/util.c                                          |  2 +-
+ mm/vmalloc.c                                       | 11 ++++---
+ mm/vmscan.c                                        |  6 ++--
+ 66 files changed, 457 insertions(+), 375 deletions(-)
+---
+base-commit: ead700ca770c82167af32622cf8b68c9f87c3c7c
+change-id: 20260914-pte0-6c88f5592d79
+
+Best regards,
+--  
+Usama
 
