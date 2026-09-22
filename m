@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6C42C98305
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB94C982FF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:01:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39AE810E63E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB91F10E61F;
 	Tue, 22 Sep 2026 08:01:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Je304Rnk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n79EOzb1";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2310E635
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:36 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4843178b1c8so405664f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:36 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3A510E61F
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 08:01:42 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49cfbdac7a1so1756535e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 01:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790064095; x=1790668895; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790064101; x=1790668901; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
- b=Je304RnkalQi3nuB6/hBnbucLM4T18VC08d760pe7Us6D6X4jE8AuXLBm0qERSKcNd
- OZ8mEnyV4+ZxV3MrKfpzjrjh33ql+i1WOMz3EEqpoIG1zetwTU9B9jAmd2cFehqyfe1R
- +rz2beaBpr1NQy8tXLKtJsUlQEXXF23GJCVLzeq+5lfxqExzftjaWNC2xGu4dIK9AtXm
- iaaTy0OVlXoS0rV1mijwAQHqDZF0ZqNftl0NdHWJgMtOufOtHXc7P3ZEsaJ+8ExOHFVv
- KchE1scCs8JlVWywis1T5De7vVO9vp0dbCI/Ecekq/436D39ORr4Si1UKXK8VvN3aq1I
- Tf3w==
+ bh=k8SSEreitnBFuEXQj3F3dce2S1yQFmhptrw7zyYrACU=;
+ b=n79EOzb1AM8H1XuePdxE0FCaSNQNnnDFcIRc4jF7mX3gDFUOZ5TqeI1Eh0F7bJXQcS
+ 68CHNStCnvMsA1g2FeZ6XhgyXu9pn38UQcK4Q/5D3LwGTRl5r85Csa6KsA0Mewln09rs
+ kSeaeT1I5IWKfhezjmCDGWr2ja2xkMam3bRU4Ah93T3B6VKUODJu8oCVPm0BxD+GGTfI
+ 6qUp3MsSXBzdqCLzO1enHXpfVQ1IL/0CJ5hDrnmp+rGDtgOwxhPVPPg0coSEpGZL6w7e
+ uU/oLcdek9XAHO77XU6vXxSIsae2XI9KII68Yp13aDobr+a8uv5vVUHLQ+2Qq/cfI8ye
+ xPnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790064095; x=1790668895;
+ d=1e100.net; s=20260707; t=1790064101; x=1790668901;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
- b=qMA86KJL3gZySpbfySrYKiB+K2kipFVTQ5ECm0DuOpiCytvjC4KfG7KGIJCNhyOWZV
- PlK9qS/Tmh5N9vlH+0yZBir9IHK4cIydE/GZhiepC1wLuScfaHkruMOCPlm2F1MK/JtT
- l5aPbYADjhDHvyGAVU8mRcj6zkMdB52nx87zQJRokhHLEsmLcemMM0NXrv3aam5aZTft
- Dj60GytzTg8oR/8weYcSo+TYidmkilCcA8Z/lpZ1JjbTsTxlU7eNYUwyoWmEQqQSm77x
- n2CeOAMUrub/nw+JZLHpwuAXtpPurf1ybcGvvjmJGRfXZaSHLz5+gocnguRT3msXvImX
- M32Q==
+ bh=k8SSEreitnBFuEXQj3F3dce2S1yQFmhptrw7zyYrACU=;
+ b=pymbZhAxzr5ln6Fd9bJxmcyEbIjkKR7DgJ7FbGz8RX9l/9HQfBXqUnQLOFdgCGe72j
+ XVMtDIA8UaCmPtJrTNBrAbX5RZTmgqVFw6TaX6+CXzFxdwgyb9fbrGj4wykh3jHgknmA
+ 6no+CnrFlZzo36YySXTZKJ4yD1Vg8tiqe7j4OXpon9arPblnk0Dp0B7cLbFisUHBVOOZ
+ pOB7AaGSiqP1AFQIQlqLjudlm4y0T7KVgN76fNkLqLJerLWLQf7W3cczRBwpmN+JYl1N
+ gvdqlHhTOWzZT2M2a6RLdSA74KRVMzsyo+qSSAKsXMeUFB7pti7Wx6cJKEzt5KEuc+og
+ 09Yg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzIngBoLhorWHn2ov0idBvQhXNpgL2pGQWH0PRVrSjLddFn11EZvzJK38QoJamaBJKVZGesopTeHN0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m8BxR0An0PtZ6LqkAM793f5KU2dl38et5uRvx+9WXbnr36IH68
- ttGv92t3ul4uMqgfE3RfXqI9j0MlvKMJmyIZDoSFjui3BecaBVIdhKHN
-X-Gm-Gg: AYBFou0cLkogROQ/YtEKdqRbIl9Z1xxnTd7uSAUPds/i+Q1RZs0zs5nJfdsf2Qvtji1
- iCY9KTfDJnYNSbPfuZ5DgD3akK0HU/uPCiuYgPSAauOGd+PSa5X8/Y5TB8nYlrD8eC4f1ImwDqM
- zd8WF0knp5xIHcqgTx2WAMIrHUWGsFCGN6iCJdV3U/VBHCnSixhTjyRrysAecLa6fUIDkYSbQLx
- kcQQNQ2ld1DP9zt0Z1sywwHE7U+bNU4K7QFpGWScWbaqKR7bs03xi43iYCtigwzJudO3HX6iRuQ
- 09lW8UaZCZY7ho0Rsq07gXCxjUCAguj50J031r4InSkwrVli14cVB8ONR4LiKYacZjm1bB2TgVS
- 7KbxqImGjefMo9sfht3oeomV1MJE73jUCgyvP4Ts2WDsSP/+QIvKDbCq+m1pDSripty6rmy+XOx
- OFi2mKvqbJ3ntKR3NZt/aH1SuDrBP8JpMDWJuYIa0vHsPi5xPCaDfz6k7JoMf7ujOvDxy2XMD1X
- i/SCHQhx3L00F+NdNoordAQKpFmSFXdy10PsvBkDRVk35XIwdINL0SzmvQV3y9Ei4EWCXMX16k3
- /Bw=
-X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id
- 5b1f17b1804b1-49fc7f2bdc8mr199260285e9.2.1790064093776; 
- Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
+ AKwUvBwWnra3zk8evqB/5n/aFQdKWD5gb90zuaAClehfERvbdMWBv5EngDNg4rbnl7oXHRSEwysbdGTeKNk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lsuo1cbze91jzrgC68+8AXEp8+Lg7fEqfFXTAD+f3z+Blj7tTt
+ +Zd0hE6E1qvnvSIc5SgioxAJaZFUKmJFyIA+xQhdfZEo8+EUUSqjfXOL
+X-Gm-Gg: AYBFou2KB0IFPQG3NRLAHOaiIvjRceTUonyczcQc3yoF66cIJURBRZ8nkcIxCcuujTR
+ jy2PmYMgMm2V1jRCTXCBSO7HxCwU+or047KBIeIJ7f9GSfgHcUG1gzQxSx6v49OuvN9F4yRzF8a
+ 0YwMMZ5UjT6tfal4qJiKeLuYjsHIYPyY45YaK6rHPuCDb/kRwP/6mh4wNqjJpKNDl5GsxSMFDNW
+ X6aUo0UUdqsYG8VE53Y/YGh5gGezSozGPMLd29dH6aVu1qJcJeLwqkr/vw/l4p8YOF9Pb19O88E
+ k/2dCirkd3wEm/+wlXMHPkoXbu00ZIETC8gsUE00Z0gnBsYnY0tvqfe+50dfhTN+wPt0iVFB2Xd
+ G+BG4BOPhX34U2aaQ8viLMBZ7rKVrRQbJA5OXDBb4XZ/Ra4HWksg3MV1noBlWeRqFU7px2eyayJ
+ s6+GE6Or18S+39z6/HhPyfwglVULiHideW+nCyVYm+4Gm+P5O7ZGlgTqFtsPgx4AxAO74U+SIRV
+ QciJ5SiJ+bo+mcKBur2ELACo3amfpeYUF4hKICK/w4BZIs5Lcw8eO6jvYfMDxM+AOPT3Qr46wWm
+ RnI=
+X-Received: by 2002:a05:600c:6992:b0:49b:9241:7ff0 with SMTP id
+ 5b1f17b1804b1-49fc7b7a756mr226941795e9.0.1790064100738; 
+ Tue, 22 Sep 2026 01:01:40 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu.
  [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.32
+ 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
+ Tue, 22 Sep 2026 01:01:40 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>
@@ -80,10 +80,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 06/11] dt-bindings: npu: rockchip: allow DVFS and thermal
- properties
-Date: Tue, 22 Sep 2026 10:01:09 +0200
-Message-ID: <20260922080114.44662-7-royalnet026@gmail.com>
+Subject: [PATCH v2 11/11] arm64: dts: rockchip: rk3588: add passive cooling to
+ the NPU thermal zone
+Date: Tue, 22 Sep 2026 10:01:14 +0200
+Message-ID: <20260922080114.44662-12-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -104,80 +104,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The three NPU cores on the RK3588 are fed by a single clock and a single
-supply, and the firmware accepts a fixed set of rates for that clock.
-Describing those rates as an operating-points-v2 table is what lets a
-driver scale the NPU instead of leaving it at whatever rate the bootloader
-set, so allow the property on the core node.
+The NPU zone has had only a critical trip at 115 degrees, which is a
+shutdown and not a cooling policy. Now that the NPU can be throttled by
+capping its clock, give the zone a passive trip and a cooling map, in the
+same shape and at the same temperatures as the GPU zone right above it:
+85 degrees with 2 degrees of hysteresis, and a 100 ms passive polling
+delay.
 
-Throttling the NPU from a thermal zone needs a core node to be usable as
-a cooling device, so allow #cooling-cells too.
+The #cooling-cells property goes on rknn_core_0, the first of the three
+core nodes, as the one node that stands for the shared clock as a cooling
+device. The other two cores have no clock of their own and cannot be
+throttled independently of it.
 
-The OPP table belongs on every core, with opp-shared: the cores have no
-clock of their own, and one shared table for one shared clock is the same
-shape a CPU cluster uses. #cooling-cells goes on one core only, the one a
-thermal zone's cooling map names, because the cores cannot be throttled
-independently. Naming one representative node for a shared frequency
-domain is the established shape, as in "Cpufreq cooling device on CPU0"
-in Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
+The cooling map is inert until the driver registers a cooling device:
+thermal_of_should_bind() only resolves a map entry once a matching cdev
+appears, so this patch on its own changes nothing but the trip point. On a
+board that leaves the NPU disabled the passive trip has no cooling device
+to act on and only changes the polling rate above 85 degrees, as the GPU
+zone's trip already does on a board without the GPU.
 
-The schema cannot enforce which core carries #cooling-cells, because all
-three cores share a compatible string and a node name pattern, so that
-stays a devicetree convention. That is the same situation as for CPU
-cooling, where cpus.yaml does not restrict #cooling-cells to cpu@0
-either.
+The thermal path itself has not been exercised on the board this was
+written on. Reaching 85 degrees on an NPU workload with the fan curve here
+has not been possible, so what is verified is that the zone parses and
+binds, not that throttling engages at temperature.
 
-The example gains #cooling-cells; the operating-points-v2 property is
-exercised by the RK3588 devicetree later in this series.
-
-Assisted-by: LLM checkpatch dt_binding_check
+Assisted-by: LLM checkpatch dtbs_check
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-v2: the text on where the properties go is rewritten for opp-shared on
-all three cores, following Nicolas Dufresne's review of v1 3/7. The
-only change to the schema file is the wording of the #cooling-cells
-description; the constraints and the example are unchanged. Conor, your
-Ack is kept on that basis; please say if it no longer holds.
+v2: commit message only: wording for the shared table, and a sentence
+on boards that leave the NPU disabled. The diff is unchanged.
 
- .../bindings/npu/rockchip,rk3588-rknn-core.yaml        | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-index caca2a4903cd1..beba1896156f5 100644
---- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-+++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-@@ -42,6 +42,13 @@ properties:
-       - const: npu
-       - const: pclk
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e07869..c3d22b08f415b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1162,6 +1162,7 @@ rknn_core_0: npu@fdab0000 {
+ 		clock-names = "aclk", "hclk", "npu", "pclk";
+ 		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>;
+ 		assigned-clock-rates = <200000000>;
++		#cooling-cells = <2>;
+ 		resets = <&cru SRST_A_RKNN0>, <&cru SRST_H_RKNN0>;
+ 		reset-names = "srst_a", "srst_h";
+ 		power-domains = <&power RK3588_PD_NPUTOP>;
+@@ -3212,17 +3213,31 @@ map0 {
+ 		};
  
-+  "#cooling-cells":
-+    description:
-+      Present on one core only, the first, which stands for the shared NPU
-+      clock as a cooling device. The other cores have no clock of their own
-+      and cannot be throttled independently of it.
-+    const: 2
+ 		npu_thermal: npu-thermal {
+-			polling-delay-passive = <0>;
++			polling-delay-passive = <100>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsadc 6>;
+ 
+ 			trips {
++				npu_alert: npu-alert {
++					temperature = <85000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
 +
-   interrupts:
-     maxItems: 1
- 
-@@ -50,6 +57,8 @@ properties:
- 
-   npu-supply: true
- 
-+  operating-points-v2: true
+ 				npu_crit: npu-crit {
+ 					temperature = <115000>;
+ 					hysteresis = <0>;
+ 					type = "critical";
+ 				};
+ 			};
 +
-   power-domains:
-     maxItems: 1
++			cooling-maps {
++				map0 {
++					trip = <&npu_alert>;
++					cooling-device =
++						<&rknn_core_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 	};
  
-@@ -100,6 +109,7 @@ examples:
-         clocks = <&cru ACLK_NPU0>, <&cru HCLK_NPU0>,
-                  <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_ROOT>;
-         clock-names = "aclk", "hclk", "npu", "pclk";
-+        #cooling-cells = <2>;
-         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
-         iommus = <&rknn_mmu_0>;
-         npu-supply = <&vdd_npu_s0>;
 -- 
 2.43.0
 
