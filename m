@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A0FFC98305
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32FA3C982FF
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 08:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52B0710EBEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4DC10EBEB;
 	Tue, 22 Sep 2026 08:40:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnFpp6YI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KVWpKFuS";
 	dkim-atps=neutral
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
- [74.125.228.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2FA10E19E
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:48:23 +0000 (UTC)
-Received: by mail-pz2-f41.google.com with SMTP id
- d2e1a72fcca58-85f0fc1fd8eso2520449b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 19:48:23 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6580C10E19E
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 02:48:34 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ d9443c01a7336-2d747ee1f38so37091555ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 21 Sep 2026 19:48:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790045303; x=1790650103; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
- b=bnFpp6YIXVRr+yF/8F8FfHMMKsKfXhQja5GeDXAL8ZAYjfVlFm7qv2d5tMH3ziMZAB
- /PeMh6+e7VHtkYIsktIKjcyaf0l3+P0eAfPNtGCFCv4XKYS4/N8T6+1VN6Pnkl+PxYOH
- WXXAMYId9B1ns/bJ88RZldLRE30NViQuWt6O1CFWLpvHyVXqR/fXSKB69X3kvqBZ33DB
- DhGNGwld3JJu58Se0esZM9dxFzsxMN8cCac7KAlWx9BmJAvmHaPbh0/a34VhWufPgLNL
- GB87rDkUPZdyZScgv4yc83NQypEM5isOGXapMbnFFmPRUVc+EfpTpjVutNs2LmhafaIZ
- Sstw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790045303; x=1790650103;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1790045314; x=1790650114; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
- b=UoqVLowx/tj9V245QTKK0MVrnvMPSAPJ5mKNpzAX2uJRbMEtntpuHPPePFGT9xQoLa
- UzGCEgglhSjloWk4Zm3qGC7pLEVPyrjTFYg11PWumji8sNPu/19Ov4e6/qcSyYSBVTfY
- FcY9Eitthp+S3MysiPvDuNjWJyywsK2P27/ObgnDrBDwqKn7/57eGwWnpstqmpycD5TS
- XZe2EwBTEkkUI9ZPDbFaZ3c+ZGqWnXgRCpjS2qwMQgDUw+iwiGDKOtY7fT2/fOnW9z6J
- 3ZC41L/AmqrZF1mzGTxe5Dvu5w8hZglvPU5gs4PLJRDbEKCh/aZaMqqO0YUGd4J1CLrm
- EofA==
+ bh=26rOLZ6VAdNb1QMWubw0rV33TxsyOkNQWkVFzg0YEAw=;
+ b=KVWpKFuSFKZB/HdHm0z9OZgY5Qu0TbyIngRe0knOewfKp8q/mm43LXht236lMrdhUb
+ yueMfVuasToILpGTu6ebZdjmpaTjCAAvouZ8CmRXnKF63yMw/8gvXrm9Y74Q1NkDA344
+ cpTjLkqAeFadRbuV9fyudeSoFYQpCKmpWqUc/+JMprFP32YRKkLWScastpBgknn6VeLw
+ VsfM9NGgM3DgQ7kZN1G9tnm2HlOkiOA3yuDnpBJOo5dkOMVRbnd3V3izxna/Mocv97A1
+ oOB/j/9OtU2MKuN6j8FHQUddseRyypr4djPUZT093+3jX4O4ctmFaxzez6R0kcs59JDk
+ 10qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790045314; x=1790650114;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=26rOLZ6VAdNb1QMWubw0rV33TxsyOkNQWkVFzg0YEAw=;
+ b=TPoctCLPkJ5CTpbSP2ieDkz/PJZSwcdut2REW6238uacav7ao4LN3MxKwrfHY1Zi35
+ eSHg9CMjg0O2h0U3iZDmNdVeeCUG4GYR9BUnVpnbegzlD94Pz4+9SRYBIqQqH6KsXkRi
+ l6PuLCRoEKXZ/mtiTIkxwMaROO0jv2nNpUMVMAQlVPKuOQVLl27k5TP9IJP1KaOens+U
+ oKEJgZG8QRw88r/i3ywVzClCUttw5phNr3hjw2btsxNrf/lwi0K79UqODsy/+h47Clc7
+ 9vaG/5JxUiDtAVrnU7BBRYbXBLCO7ajZsih2cH3yCzVpm7hB3bcYhyUgdUgm769lxRLr
+ 3z/g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBya27Z+lyngs8p/Z/M6j5Ofs1Wu5xVUUZgTaUYGGtPzWF83fusMVHfN5vgr65hKKoro9Yc7TvQU4kk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mcnFNk+WMVfLQi5NiKG3CGeK5yPA+Npe7L4p5VtQ98UavlOmc3
- yAVPAw+D7FKSBIf4QEi3CRsysk/omBCaS4l2u47GVVXGSMEEt74iUEz7
-X-Gm-Gg: AYBFou09Y06rBoHf7hiu5GcnEBKW+cRCHKzNTfe7LK0gY5i96iKImGGnYZOoUGxfFOo
- qTRxKlGFljp5Xs7z8la9d6PeMzip66jjblgbcpwzV9pja8YpRcU6abLS2vgz0adOx++hze7NvET
- 67xZYXDQ5IDB3ILluixiv/tFNGoHauajZZI4fc8aTGTsN9ig/d/CKGPh2EHraHWJ6uBsXp1zKc8
- Dm9yXAHXr0DaifF72CfS05Ao6q9JT65uWEGdth3XBsP502VTw+7AyUHBMrtEZESxfq5tGARYBBS
- shSQ9y5ib9rqMhq3N7nMPCZtyb25zSYbU3L89s3sOQ0BnZkXOn1mEtXObXpXYqk5EQgLp+eciY6
- GYJjvAZD/wsmoN70flQbPxesLY+K3Ncef0ZmbnzKEk8yVFedA5Fsvs2LqGkxoPEAxlvJx7Icluh
- +7bLzzCz7KX4dayJhvKM+P8VwOLH7tPGAeh/En78jnOwnVaIykzXIPNBI/nsNPXdBOpazqjg2y9
- c/t+yA=
-X-Received: by 2002:a05:6a21:6282:b0:3dd:a197:7362 with SMTP id
- adf61e73a8af0-3dda1977457mr14288897637.59.1790045302885; 
- Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+ AKwUvByrGjOMccBuHnIOfLCXPsn3WTXQr2bbOIQRmtXC60dXoCPLFvu0FYkHudv8yyFaW5pib3KIpV3uog8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++knjBf2X0dV6Ikh8NlYgDBd8+OvPijYWlYiBYLvzmiTfqUURyV3
+ p8fkDWc4Oc0h3K+dHKwgTwYkoA4QmnLfug+Z+aw5EE9QpZZj/jzep9rk
+X-Gm-Gg: AYBFou2xd9T7gS0VjstRf6DV1NUOl++ALDn6QiZQA0yu1NDJTcNTLhkKD7WerIjDksy
+ LcRK8DHQ6OnKHA9JfGUMzX5yUmUvYViVF413fAc2SUtDf+wA/CRNWvjHx+u6LpDckiklkjjcUXp
+ k4IiW6L/Ng1hhM4x9LEZdJd6Ffcjy0dGQGw+jaqSoi1TISDGc4hTAd/8P45PpMILNRS4HfhwcjH
+ wxQ1BgHPkM2f4UcWg5e/J2FiIfDdVHFd0Sc4kqk3B/SwuFjUS+7tyqlhyaIxC76lptICEw3cMoW
+ 8dDJLSEwsRPf2zfXj5RsoSkGR4nzQlK2FzopWbjGF+0DFeT+9URI8b5niw4RYmJzf7uL5dVJ+6o
+ aQj5/Ao9tsjyPvGuMoqmhL/fgm1LK9wPwTC+0vPZAmg8jt7/E+pt95LdUI888Ipyc7XgBZUB830
+ el5tvyJxW8T1h8T/Ho9LrpAMhTfedi1GVXTvrZ6WxIgQbmDbtfGVrrhb3Qjj740Iwu+jdF2Q==
+X-Received: by 2002:a17:902:c402:b0:2d7:3f6e:5cb9 with SMTP id
+ d9443c01a7336-2ddb1b7a04cmr194077855ad.8.1790045313882; 
+ Mon, 21 Sep 2026 19:48:33 -0700 (PDT)
 Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc756a18d4fsm115091a12.11.2026.09.21.19.48.22
+ d9443c01a7336-2df5d06808csm1648645ad.83.2026.09.21.19.48.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+ Mon, 21 Sep 2026 19:48:33 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
  Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -83,11 +83,13 @@ Cc: Inochi Amaoto <inochiama@gmail.com>, linux-ide@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
  Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: [RFC PATCH 0/5] phy: core: Use EOPNOTSUPP for disabled blob return
- value
-Date: Tue, 22 Sep 2026 10:47:15 +0800
-Message-ID: <20260922024724.191412-1-inochiama@gmail.com>
+Subject: [RFC PATCH 4/5] usb: dwc3: core: Adapt the return value changed for
+ disabled blob
+Date: Tue, 22 Sep 2026 10:47:19 +0800
+Message-ID: <20260922024724.191412-5-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922024724.191412-1-inochiama@gmail.com>
+References: <20260922024724.191412-1-inochiama@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 22 Sep 2026 08:40:51 +0000
@@ -106,27 +108,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, the phy subsystem uses ENOSYS for dummy blob functions,
-it does not reflect the function state correctly. As kernel already
-has EOPNOTSUPP for disabled blob function, replace ENOSYS with
-EOPNOTSUPP for a clear return value.
+Check EOPNOTSUPP for disabled helper function as the change in phy core.
 
-Inochi Amaoto (5):
-  phy: core: Use EOPNOTSUPP for disabled blob return value
-  ata: libahci_platform: Adapt the return value changed for disabled
-    blob
-  usb: dwc2: Adapt the return value changed for disabled blob
-  usb: dwc3: core: Adapt the return value changed for disabled blob
-  drm: bridge: analogix/dp: Adapt the return value changed for disabled
-    blob
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ drivers/usb/dwc3/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/ata/libahci_platform.c                |  4 +-
- .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
- drivers/usb/dwc2/platform.c                   |  2 +-
- drivers/usb/dwc3/core.c                       |  4 +-
- include/linux/phy/phy.h                       | 52 +++++++++----------
- 5 files changed, 32 insertions(+), 32 deletions(-)
-
---
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c59..6d253810c71f 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1588,7 +1588,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
+ 		dwc->usb2_generic_phy[i] = devm_phy_get(dev, phy_name);
+ 		if (IS_ERR(dwc->usb2_generic_phy[i])) {
+ 			ret = PTR_ERR(dwc->usb2_generic_phy[i]);
+-			if (ret == -ENOSYS || ret == -ENODEV)
++			if (ret == -EOPNOTSUPP || ret == -ENODEV)
+ 				dwc->usb2_generic_phy[i] = NULL;
+ 			else
+ 				return dev_err_probe(dev, ret, "failed to lookup phy %s\n",
+@@ -1605,7 +1605,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
+ 		dwc->usb3_generic_phy[i] = devm_phy_get(dev, phy_name);
+ 		if (IS_ERR(dwc->usb3_generic_phy[i])) {
+ 			ret = PTR_ERR(dwc->usb3_generic_phy[i]);
+-			if (ret == -ENOSYS || ret == -ENODEV)
++			if (ret == -EOPNOTSUPP || ret == -ENODEV)
+ 				dwc->usb3_generic_phy[i] = NULL;
+ 			else
+ 				return dev_err_probe(dev, ret, "failed to lookup phy %s\n",
+-- 
 2.55.0
 
