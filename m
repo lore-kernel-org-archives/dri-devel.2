@@ -4,86 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCBD6C982FA
-	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E175C98302
+	for <dri-devel@archiver.kernel.org>; Tue, 22 Sep 2026 19:21:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D588B10E2BB;
-	Tue, 22 Sep 2026 19:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E67D10E517;
+	Tue, 22 Sep 2026 19:21:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YQ6kksDO";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="BQKQhs37";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9EDE10E2BB
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:19:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790104760;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/N7wXk7BVSM3SAsyNtWbX2CBIRAf2KG5eLQuiIHE1x8=;
- b=YQ6kksDOWzipWRjOJadS0OHdNBavZBgNiZaeeD2250jEUVLUsE/bCTk9WiOEY75sHLrufv
- H25tabJGYZxwi3EvNGXibdx/i2ap9qWvluP0+/dnrI+R+YSgLTRkbr1WENlf91KorDtbog
- ia/nMNfvxM+ltu3ohrzI3htjL3GbBIY=
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-414-AG1RLoYQOQ-N2io8AGticA-1; Tue, 22 Sep 2026 15:19:18 -0400
-X-MC-Unique: AG1RLoYQOQ-N2io8AGticA-1
-X-Mimecast-MFC-AGG-ID: AG1RLoYQOQ-N2io8AGticA_1790104758
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-785827e6073so77054137.1
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 12:19:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790104758; x=1790709558;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/N7wXk7BVSM3SAsyNtWbX2CBIRAf2KG5eLQuiIHE1x8=;
- b=rJSUcU0C+lT7HmjgeqWfWUynaemYKLXgwn0acgFD4pQ1//u6klCjGTU+KrEWxIGEZQ
- SynPzmQ5wKJYt0aIzaa7hUTh7JiTcFM18HhEv68pr0yVHV9KBbRrcsuIKSsMqvNlGU0d
- ATQl1p1foTDAu7SljhcZNSGuUt0HEn6dQLhwSO3RPaHzmc/WgsCr+eSTP8StwUmK87Nh
- g+F34kBlwV9MqA0z4FBpuMaF6wAlDtrFxOGd0RBB+UmVPcuogYF/xOEMiFrIZ3z4yiJD
- tKbTOq8zw4lb7Xhp59GbIAfIz1IqZa2CuRXk5iVzT4tZt8ovbdciY3E7xxOLoT6PkMYC
- s+IQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByS+KM73Gst+jtCtBJ5qq01KspmW07WcemZ4dQG74+9pcbf1y9fiSQuAXpNxmY4Y5hWt9wpQvfiGew=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nsYoSdbXRMRsi0vzJ2EAEG3hpf9R8if7M8d86iI8IllBBffc2V
- /osix/Rs2kbM72hvO4inBqexn59Iu11iNtmubRjTpcoz4EmF6CUQTxmhpK4a+OxiW8AHC8hK95+
- TjeSaxzXr7nxLUq6Li7wwDs4jTMcXrTpiEpUiywzMC/bqx+AOgR7b2WSprs0evazer7FhBw==
-X-Gm-Gg: AYBFou0W/wpzAVN6QjxaEO8SC476cbxlCDPZC8voAEWfF30vUZMFSwVzs5B7crhY+t9
- dN3hnTDI8tec2QASdwTxxoElj6gVVwATFxDJJyCM8jtRruvcMG3FBjcilE/FNlHBFo3vSg6uB09
- d9uuMqfHF/f0sXhcJYpGNjmoYtWNHUFp9u22ircWV2QIoY3kZw4+UYTC5X+j4J3Tl3bZcXUqagE
- ch/gDC4MyfarDNvjXnU1R4rGcBwkh2NAaQr9Npl3LgqtSnufTbsWRozTnbNdUNfKxgAbiPWISEp
- x0ctWaXzvxiiIPwk2W7hpEoX47I/C0d/4n7b2xkuyBAXI23b6xbB6L9aeeJpg2PSp6FjNTE=
-X-Received: by 2002:a05:6102:54a5:b0:7a6:cd3d:4990 with SMTP id
- ada2fe7eead31-7ac1b1f5230mr528628137.1.1790104757831; 
- Tue, 22 Sep 2026 12:19:17 -0700 (PDT)
-X-Received: by 2002:a05:6102:54a5:b0:7a6:cd3d:4990 with SMTP id
- ada2fe7eead31-7ac1b1f5230mr528584137.1.1790104757360; 
- Tue, 22 Sep 2026 12:19:17 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7abf02ef491sm851218137.0.2026.09.22.12.19.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 12:19:16 -0700 (PDT)
-Message-ID: <a1a6f4726f715259e29951933ca2279edab16073.camel@redhat.com>
-Subject: Re: [PATCH v2] drm/dp/mst: reject DPCD read/write on ports with ddps=0
-From: lyude@redhat.com
-To: Xiao Lu <xiaolu.xie@intel.com>, dri-devel@lists.freedesktop.org
-Cc: David.Francis@amd.com, jani.nikula@linux.intel.com
-Date: Tue, 22 Sep 2026 15:19:16 -0400
-In-Reply-To: <20260922032632.1255353-1-xiaolu.xie@intel.com>
-References: <a854ea37b4329d767d04eb0ef7975492aeac0038.camel@redhat.com>
- <20260922032632.1255353-1-xiaolu.xie@intel.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
+ [34.2.64.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66C3810E517
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:21:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790104899; bh=nDOfxoTgfCt/MAClno9vSr5ImwJy4en6RIMi/TVJbfI=;
+ h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To;
+ b=BQKQhs37J50RNsrRe3N+w9tyvjTzYBb8BCju5fvGctcTwDP6ILhBYNYZ0lCptVUYsKV0+F7eYMJCZJuZnU1OH9EkY3Y9ji0Y2OxL3NJJ7U804L4j5HtcaIfkNXyebm3XS7RHPQGogtnUh7G6WtpLxCPsHEdBPu39jcEYVfhrPZkHgZYpbGSFiQ67roy2ePjUZxcEL1fH+msRvzpL5Ggu1PtI3X7UQt9r4O7Ik0dMOhs7M0UgYHWid+sgN8pnW15xfyKSpBZTIz+iXUhshgIJZj0FH/4xFijMGTtXZ/l/XHWPvBCvot3BtfgnRUqzqu9iJsmVnSSd7Fb/XFFDD2uysw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790104899; bh=4Ftxh7RoFDFM9fCoONlDy0OYlgXLKeTzcM/6DwdBhHu=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=ujXgWySJiec640YFXKUWCn5jaoPmLPzGONL118tzTOWdM0rREV9GiwgQlN/mZyhpIqvtoy8mycCglIrsT96t9UAhNF5RjxZZ7zguwX6XjCvvluPx2zubkRV4fEDvdxl9iOatfzuWzJTc411n8eiSn365XiLz47eHTsaTU/6lRf63kdS0yfc+QXZ89BUTXT2BvXBGspirAQYMGScwb8X1rzq2VNhm7r9q9tgrmWsUMX9a7I8xYGe7E4/f6kRZU4NSDt/J5pUt45jmj041ja1wGGxehkFeR2QcfhSQ+CqlmD0A59EcjXxQUnBtQtnFubffSZwp9K7STqrLcM4acWsdXA==
+X-YMail-OSG: omQoRu0VM1nn7plvZ2UVsm5PQfK.hv9aC6roGq.11HpygY7D1jT9mKsaAfWQK7t
+ K0_25yPw.UHD_uRdUA57adfT.c4suelni4ObFYeW8jtF_7oW_RkhTvQMSIgAcIDH.NKQjAjjdTUl
+ ZxNUWeQDx9lW10DC5HGeu4pQ4g8_plhDedTotOZTM0bCHkxjrqp23M4rnyb.JDMQ3Whs5x.2cP5G
+ no6cF7ql_NLUIoTkzrUuV3PRQg44REP6hPLI0kL26PqIYpUtr0wHPiVP56NJn4uwnqsJVqwS.res
+ hEX4.0uVxSngP_mrtN6DdSOt0jExFkg9ZhekPYOKCzgKKgRPxsboTr9Ab.pJMtjvi4HDjOjMOAOz
+ TE2F_nwAUrqYnhuSa4Lyvnf73M8d0QDE.37ENzpWgxpK8is58EOelOVyeXeN72JjMEHZH4OWDX4c
+ sNUmzqLMcBVtPEUPl0vzHetx96gNiaN6IbTbxHbtf8Nd4XFAQMndYwPscUltJVtTDCsz0qhprrlH
+ xIMSDhVs5WqolGvLFj7BjuhbBmCuRG6Ceys1jbKWOjIngVXeX19QzyOCZrU6DFKYiqc_24FS4wFp
+ tRCI9GZddrOhWXIrp8.3ChNl6PmGoetYHXaGpUUBplcRj2MbwZYZxfpQJDnq79w45lhX1YuFFxTY
+ StEvo7_utXufK2hUICdx.snM5Bc74tV1Tkx7VI..INBvvryR0jvK1TNCvvGnQj5ODYK63ZAGIkmL
+ prSnR2B5ibXk8fcaSSYLE5O7WNVyQfkPW3L3g4RYzqeFlhnPqHbQ5dWNSHk_LTJpQ7En6Cj1jk61
+ xe5Vi9czSmvk.nFGUYYSp10W3fAH9YENXSUOLy.RuPeGAi4viBTdu1hkTxJ2l6JJJWHRVuT13CkS
+ R6EyOc9sRJOrDvF6xUVL0oYYtaQfLjUhl2SohBqpOSrYfKFbhdIG0ZaWXsF11GbzZ29Ofwayjz.x
+ ko9vyIKDz_hV4bfdoDTKPIjxOiANaDj.YPqw2U2F9_PlS9cwry_1sv_UiuD28IzqdPpT.LpbRmFQ
+ 3eURCo0KXC_waSW41hGQhE6M2Y4upvWkoVu9YUg5u1qNtWW2rrlnlrekf89YN_oymIxPMKe97vVC
+ flWwWDeQXKBhnbRmRxpC1Gat5_PlzE354ZD4vJ.EQQABU2Kz1WjZOMedfLTewvRgP7GUbhjx5SRg
+ 2SSPnFs7BmIhW0nCRUMN_gfQsKJQdu5ffDf9R5YyFZJCWU69tDN.IIycbt8L0HD2dhN0bsgsimXF
+ Txf4ApE8keA0ikJFkmimjiGX6B4VudsjR4YhWU0.HYOJ05R82z3cyNaYPrp_iCfrQJxX0cmOHmK4
+ gNPRj4z83JGY3lQowm9q8OAUisxvNLP9e7cS4nGxNgGndquHyNIsI4vm3aDrTnfQen9OJGbr4ly6
+ GtDpUfR_AQKWn.SiGJAb7LnUAIbFOcuRKiurh8YxA2sfFDlEWbtLV0mkv_jf7MeqMVUtm8ghpz3L
+ VxOcOfp2XVRKEIlJCaStGOq.Ukn2ZAkKE_cDIlQGrRQV9WfA0FmKMVRValRvR.6PvrxOjXObw86K
+ Tqoe0DUb3bylwgMXlw6VJvNPa7TS0i.5rbhRDmKS4WHEVQz5u6PDW5gCN.WOHfNvy0D7Ttux93ub
+ WQOWgVPkMN9hiZYhvduO7tKpKQ8XFC6NvfMnPq52udr5qJlsYilsmZLJyT5XPryqT3WcG4jeGzZe
+ gh5__20WXLr6pFF9j.mz1S0f5Ikd4VKqXttAqv._q.Y5ZMnYpJd0WGC32fZ9RNlD8fMUrG_AVhfX
+ zmtjaqjRS3xzT7sC6r.9DDQT35VcujGs4Shfi9CcXqx6sPPd7K.cTZ_gcxIw6gaSFslK8wEfTvAw
+ WY2eAba_a7dpNj8SI5AqJFPrPzTvECOQsydzdrbYEGVeIrApK2V.9H1AJzOyEyCYr7MBQ9v0bWXK
+ JkhD9WOPQx2g1T.KvGiqz5xx0TGquiQpSS2m4sVM3ltE1VRNWHwcBcpnLucLS2ki_.JHzurLzVZJ
+ lgRON2g--
+X-Sonic-MF: <Capitain_Jack@yahoo.com>
+X-Sonic-ID: c3f4c507-9aeb-4c38-9b54-cb5466943159
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-101 with HTTP;
+ Tue, 22 Sep 2026 19:21:39 +0000
+Received: from dip49.lsn.bf1.yahoo.com ([67.195.177.58])
+ by hello (SMTP) with SMTP ID a114298d351310ec48bd21743ed80317;
+ Tue, 22 Sep 2026 19:21:36 +0000 (UTC)
+From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org, lyude@redhat.com, dakr@kernel.org,
+ Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+Subject: [PATCH 0/3] drm/nouveau: HDMI Deep Color link depth (30/36/48 bpp)
+Date: Tue, 22 Sep 2026 16:21:29 -0300
+Message-ID: <20260922192132.114546-1-Capitain_Jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dSpPCdX6l70629Ki8-NBx23p61msbf1-xXg6C9npeXU_1790104758
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+References: <20260922192132.114546-1-Capitain_Jack.ref@yahoo.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,63 +86,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sounds great to me! Then this patch is:
+This series wires up HDMI Deep Color on nouveau.  The connector gains the
+"max bpc" property, the atomic check selects a link depth that both the
+sink EDID (HDMI VSDB DC_30/36/48) and the TMDS character-rate budget
+admit, the head is programmed for 30/36/48 bpp RGB, and the TMDS General
+Control Packet carries the matching CD/PP fields.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Patch 3 is what makes the link physically work on GSP boards.  The
+GV100-class GCP writers emitted a depth-less packet, and on GSP systems
+the HDMI audio enable runs after the display commit and emits it again,
+erasing the deep-color declaration (sor->disp->func->gsp.hdmi_gcp).  The
+proprietary NVIDIA stack performs the same audio operation and then
+rebuilds the GCP from the committed head depth.  Threading CD/PP through
+the OUTP HDMI ctrl method (patch 2), caching them on the ior, and writing
+them with a 0x00ffffff mask gives nouveau the same ordering; the mask also
+keeps generation-specific bits sharing the register intact (GB20x
+SB1_CTRL).
 
-Are you able to push this upstream or would you rather I push it?
+Tested on a GA106 (RTX 3060) driving a Sony KDL-46HX855 (HDMI 1.4 sink,
+EDID DC_30/DC_36, 225 MHz TMDS ceiling): 1920x1080p60 RGB at 36 bpp,
+i.e. a 222.75 MHz character rate.  Without the series the sink rejects
+the modeset with an incompatible-signal OSD; with it the set accepts the
+signal, reports a 12-bit input, and renders correctly.  30 bpp follows
+the same code paths.
 
-On Tue, 2026-09-22 at 11:26 +0800, Xiao Lu wrote:
-> On ..., Lyude Paul wrote:
-> > I wonder if it's possible to introduce some sort of ddps check
-> > within
-> > drm_dp_send_dpcd_read/drm_dp_send_dpcd_write() that happens under a
-> > lock which we also acquire during CSN handling...
->=20
-> Thank you for the detailed explanation. I understand the proposed
-> approach =E2=80=94 holding a dedicated lock around the ddps check and the
-> queue_tx call, with the same lock held on the CSN ack side, so the
-> ddps value used in the check always reflects the last ack'd CSN.
->=20
-> That said, after looking at this more carefully, I think the current
-> v2 change is sufficient for the following reasons:
->=20
-> 1. The only paths that issue REMOTE_DPCD_READ/WRITE to downstream
-> =C2=A0=C2=A0 ports without first verifying ddps are triggered during conn=
-ector
-> =C2=A0=C2=A0 probing in the driver's add_connector callback (e.g.
-> =C2=A0=C2=A0 intel_dp_mst_read_decompression_port_dsc_caps() in i915/xe),=
- which
-> =C2=A0=C2=A0 is called from drm_dp_mst_link_probe_work(). This probe work=
- fires
-> =C2=A0=C2=A0 when the MST hub UFP is first connected, on topology resume,=
- and
-> =C2=A0=C2=A0 on each CSN reception. The race window =E2=80=94 a downstrea=
-m port gets
-> =C2=A0=C2=A0 unplugged between the ddps check and the actual AUX transact=
-ion
-> =C2=A0=C2=A0 during a probe =E2=80=94 is extremely narrow in practice.
->=20
-> 2. Our primary goal with this change is to eliminate unnecessary
-> =C2=A0=C2=A0 REMOTE_DPCD_READ transactions that cause lighting delay at l=
-ink
-> =C2=A0=C2=A0 training time, rather than strict spec enforcement. We belie=
-ve the
-> =C2=A0=C2=A0 vast majority of MST hubs already handle reads/writes to unp=
-lugged
-> =C2=A0=C2=A0 downstream ports gracefully. DP v2.1b Table 2-199 describes =
-the
-> =C2=A0=C2=A0 DPCD_FAIL NAK with bad-param for such cases, and implementin=
-g this
-> =C2=A0=C2=A0 response in hub firmware should not impose significant burde=
-n on
-> the
-> =C2=A0=C2=A0 hub.
->=20
-> In summary, this is an optimization to improve latency rather than a
-> correctness fix, and we consider the risk of the narrow race window
-> acceptable.
->=20
-> Best regards,
-> Xiao Lu
+Scope and non-goals, so nobody has to guess:
+
+- Only RGB is selected.  YCbCr output additionally needs a connector
+  color-format selection path that nouveau does not have today, plus AVI
+  InfoFrame colorspace/range handling and format-aware bandwidth and
+  packing.  That is the next series, building on the DRM connector
+  color-format property work.
+- 48 bpp (16 bpc) is implemented from DC_48, BPP_48_444 and GCP CD=7 but
+  is untested: the bench has no DC_48 sink.  It might enable professional
+  16-bit displays; the mechanism is the same, but we do not own the
+  hardware to test or claim it.
+- HDR might benefit: HDR10's baseline transport is 10-bpc YCbCr 4:2:2
+  carried in a 12-bpc container, and link-depth failures feature in HDR
+  reports.  The transport mechanism is the same, but we do not have
+  hardware to test or claim native HDR here (static metadata and
+  colorspace are separate pieces nouveau does not yet emit for HDMI).
+
+For context: on this same bench the installed proprietary NVIDIA driver
+(615.71.09, hdmi_deepcolor=Y, max_output_color_depth=10) caps this sink
+at 10 bpc by default policy, while Windows on the same card reports
+12 bpc.  A companion one-line default-cap change for the open NVIDIA
+kernel modules is being submitted to its own repository as the
+closed-source counterpart of this series.
+
+AI partners were leveraged in the production of this work.
+
+Daniel Campos Ramos (3):
+  drm/nouveau: select HDMI deep-color link depth
+  drm/nouveau: pass HDMI GCP deep-color state through NVIF
+  drm/nouveau: program HDMI deep-color GCP fields
+
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       | 80 +++++++++++++++++--
+ drivers/gpu/drm/nouveau/dispnv50/headc37d.c   |  6 ++
+ drivers/gpu/drm/nouveau/dispnv50/headc57d.c   |  6 ++
+ drivers/gpu/drm/nouveau/dispnv50/headca7d.c   |  6 ++
+ drivers/gpu/drm/nouveau/include/nvif/if0012.h |  3 +
+ drivers/gpu/drm/nouveau/include/nvif/outp.h   |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c   |  9 ++-
+ drivers/gpu/drm/nouveau/nouveau_connector.h   |  1 +
+ drivers/gpu/drm/nouveau/nvif/outp.c           |  7 +-
+ .../gpu/drm/nouveau/nvkm/engine/disp/gb202.c  | 12 +--
+ .../gpu/drm/nouveau/nvkm/engine/disp/gv100.c  |  4 +-
+ .../gpu/drm/nouveau/nvkm/engine/disp/ior.h    |  2 +
+ .../gpu/drm/nouveau/nvkm/engine/disp/tu102.c  |  4 +-
+ .../gpu/drm/nouveau/nvkm/engine/disp/uoutp.c  |  6 ++
+ 14 files changed, 128 insertions(+), 20 deletions(-)
+
+-- 
+2.53.0
 
