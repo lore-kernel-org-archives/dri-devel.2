@@ -4,97 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD7FC9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:07:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E72EC9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DEE810EFE9;
-	Wed, 23 Sep 2026 12:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8475810EFEC;
+	Wed, 23 Sep 2026 12:11:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ETQq6E0d";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SCOGI/Nf";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cWn7Kznp";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD95510EFE5
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:07:11 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 956f58d0204a3-66e4aac929eso772492d50.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 05:07:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790165231; cv=none;
- d=google.com; s=arc-20260327;
- b=Hqd82FmNTV1EnBdwB7Q0WB/zka6L510aBDpgoI7VDp3goGypatl5T9QZZs8+ZACBwn
- 7O1oVm3K/uvVQr/YioW8cS8ol2+SnwyOjkEAeZqaX2wj/5KJELaneD3LKiwW9PUdwD0x
- TZ7M16KuxUyqfbpig1RSD9QFMmrtoOIlzQ6/tPaXxXfns2RNWCmofqf7aIcB652uvjDa
- khRUP0JIl5rMXva2u+XpgwpsHlRiXLHfSefUGcnPyuutaK2uYr/161pd1+QlmiV3FY4g
- /qN47/yltWhRS0ONKDOneIYDX1IVuzjyDNw25rurdE519bjq+SXXeeMsYFldGWnkCYkW
- cp+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
- :from:dkim-signature;
- bh=zpU/XY8e48Q2+0PRyBjZnlyv3POmacflBmWvv14mODs=;
- fh=iWB8eoZaEtFUfyS8gCVuwN5Nh5L4hc6WcwwIs2fTYdY=;
- b=Zcat130go6hDbK1/AoXgAO1NnYN0BfJycWKKd+pez2hWn+pR7kBFl92xU6akQwkE5d
- XLV1FySE6lHEKVJ8S7SiCuFL8FipcJ4+gpK+DzmpZ0oeCNTSGzsT5TkBOuTucE/FhbKb
- RjydUF7d0Tz3LvxYEP5StK5hHPjIW5MZm730pav0wtRKDCGVw28LiUdE9YXrQKcNjrrI
- e90mdvtP5IqjCUxbj6kfkLfxtx0tesw0XbcB2N8aTwDrunXmBobS2bGjs06smf271P90
- tDPCYtpjkMhqEKjUsAC4Td7FyIlI9tAKzDJ6RoUboV1j35wfXZNHLsJZ6y4GqXua9o6z
- bPqA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFD3E10EFDC
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:11:17 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68NBbTqr3413818
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:11:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=8A0MKVbKWmnlKbzQw920PSpP
+ eoOO0tpdgW2Ug9tAy0I=; b=SCOGI/NfAWRAzhh7yBTj8bqPb5Iyp90UuKn+E4DO
+ 6Fwcdm1hrjLMfKkZb9S5sRywkXQpkV5FzrE7gpGfK8U2FxZ5AGTn7FOcPQI+q1vZ
+ 3EOpN/KXOlzGso2YnsPnrk2cE2Oc6ptH7Ok3wcT8M0e2doxQ4niTbsAXP+gVkL0D
+ L+6gueUd9RDWgJwOkLsL85fjblNDciYggzKkTLY76kiPoWTFgiVTXwRcDRJpYSDB
+ csPZ5Nt8SCgXjVAn06+3O6eiydCq1+xgqLDBxfJ7uAOuv6+xUb4XdPOs95GeGADh
+ ZIln7ZkzAW8FgFSFSySNrKi/aRbIg2L/38ZLMmGQWOM1QQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n1vsc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:11:16 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-7989d8ef4a6so252438137.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 05:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790165231; x=1790770031; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=zpU/XY8e48Q2+0PRyBjZnlyv3POmacflBmWvv14mODs=;
- b=ETQq6E0dUCKBsZqbLAKpk3oVqyYWPAAOTlvS40FIGPc6CZ1PJtHAC/TYPPQMHYAEbq
- kOIfPv1k0wvuP91muP8xMRh0XFPc4amdseELmJNcOLIiP8/iaZ8bPo58YuwaYDh8vYMY
- FUrrDIIF8pGhXKXU7jNsmacVihYvFLFg40wjZWedhsUXg9iCjxFhaS9B79ql1C2yWK29
- 5ULzNlHIxx3LsNgCNlwrBvnJIOuCZzLPe5JWbJBtwAgSJA1lnsSXYLgPhcelP7aNz0bW
- 3gAdSkTbhBW9maGnFN/2P3M5G27Pd94hzDuxoBdFk+A3DidveMWGQPLiAdNOrUaQJbIp
- PGLQ==
+ d=oss.qualcomm.com; s=google; t=1790165476; x=1790770276;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=8A0MKVbKWmnlKbzQw920PSpPeoOO0tpdgW2Ug9tAy0I=;
+ b=cWn7KznpF1A8mxPcuLB9QzSIG85bSIJsTOOLHDbAWffIfqMaX7pNNJ51KVb/efaCQJ
+ k/lerJ7KpyRqKr6mlP4YZkQRwnRsq02tY6q1A4vZe3UL29WDSplp0vS8f+yGi6jbqCYU
+ GqnXBdppLA9qwv9WZNgHealPOwhplxExRi1U7KUFkFIy4pfVDKADGz3N2suy0OVPXKzZ
+ I0kpMKX4n7UyGHt+AZb5Openhdynbn0Uk0GQYtxVYQz2vs6XqiyAjf67p/XjyQbCdHg4
+ OXNoJzP+NygpaHrg2yzL5PRLnn/MR+Kc6If2aE83+NV4/CDvZU0lkCKafyHtRIqE1ZRI
+ CGLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790165231; x=1790770031;
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zpU/XY8e48Q2+0PRyBjZnlyv3POmacflBmWvv14mODs=;
- b=D37ZhcRD8FOqvQG3fJFvBqNYMNRV+yE55KFnLCEk2FreaIY+nrRSUCMz61PK7J89zD
- Pc2cgd26fKOp6IGroJfFI/rPhTsI+lvWQTZEjkF9cpLucu4aeiqOfEYFxTXeQcA1ijPI
- TNa0J6aH2YYaIoaxBL+OmFNqPbDQwu1g6WsTcWqSBEV3A9Vi2RBWQOZr1PmDbuZQ7yYw
- o5/lUrY6NUZLo3oC6RiFTzyJkO424SusOMcJABIN706NLbYgk0QKb8NfOQEPoEZDeocs
- WRTkP0/XaJ68suWOqH5er6bHK6tr93aRk4ndmJ7M3qqp+qSzcdtpiMrriq4e6ZDhZlB3
- PUPw==
+ d=1e100.net; s=20260707; t=1790165476; x=1790770276;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=8A0MKVbKWmnlKbzQw920PSpPeoOO0tpdgW2Ug9tAy0I=;
+ b=gfnNm5+fnv3+q37HC4bPBDCYbp/xfC+xYnSLmjx9H5dYxwvNEchkaLto96srPpAJnG
+ 8WXgVCRQT8v7WeNt5uZh6sIywMaF7PU8kbHIicPeoX4e8w9hpPdTAcUpghiCOA0PEmrq
+ gIrimZYBEPC/s61nQwyIgRsxSw5JBSUSkIhsjZKekLQ/nDzSpXfcgdL1XCM4gYDW4wBD
+ gi4aZOHjVw5z0V2gNn6sIqW+vnKXj76zMD56pKTuGP50j7iU3vRQpncZKhqmf4+mA4mG
+ eTHt4776CIWKZ4muCwj/GhywA4qcgUKb3czKAv5SBpeEdMLhyAwJi+opagg2EUvumlhj
+ 4VfQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx/3Hb9THe+dj+qv44wiBCE/d18DOoQiodO2lgBjymR7WlBC0UVLDOnFOmmHuTBZef/elO6xpaV93k=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kWWk4+Bp+GZH6V4qUpqJbYsU35ouA82XSBFLkCeBtd4/sWAJoL
- 5L5/Tn9hi0FtozliDUUtXtrtRDZUZ2rxcw7gsAkMp+7B9p/1TSoYoGWOKKvubdB7cfrb+KqebWP
- YEaFp4DBMQz+zH0OICbQPVS4X16Rprl8=
-X-Gm-Gg: AYBFou2J4JkbhSbKtFWbOM1n+c3wYsfLcRz3aNhoydFBlnTQFANVrGBHkiRxYJyoS3R
- /978d+tBYdCR+gzYfRcDIAlt8a4NcZyllOKgZID13GHDZoEs/sZwPAhbsnPrxmA32HoYJRHwmXS
- G07KMM7fjgAz14+5RpclY1Fk6j7GiUhF6yrtZjTqh/Drh/4Mp6OEIaHVhYZrHq45uJVT6Sg4tVr
- t5XLHk791MFVt3kfzHhFrpLybBjDZjeAdyH6hC1L9JeYecn8XmjjbxtQuibcV5Z/a43jncTP9JR
- syh+RsCsXa3ylQq6zb3fR+QgErqebGnAhpCydo8lC9e86JL7Rdz3bJTPk70Rb3rbhDIwxMxOp8n
- U9AD+KKc=
-X-Received: by 2002:a05:690e:4384:b0:671:3b0a:824 with SMTP id
- 956f58d0204a3-672d57d6d11mr847519d50.42.1790165227328; Wed, 23 Sep 2026
- 05:07:07 -0700 (PDT)
-Received: from 101988054943 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 05:07:04 -0700
-Received: from 101988054943 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 05:07:04 -0700
-From: Aldo Ariel <qwe.aldo@gmail.com>
-In-Reply-To: <20260809132514.421679-1-qwe.aldo@gmail.com>
-References: <20260809132514.421679-1-qwe.aldo@gmail.com>
+ AKwUvBxgGfVk9FEEaN4n7cXhoHYbxHxUtFyGk3nR5iEfBsjHulXg271aAhS4iBgB4+jwlomRh5CyJVdHG/g=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lkMYBP2FOEEhbk/LiViXWQs0863uSxXT1hi/9SJv6Sl8W4gyVd
+ gGMwtB1Ly4VGjTurOoj5G+ZjNl1e5nqLDFWqUSnKA68KymmSGBJppDK7Tchko80/Al2Gw1cD0lh
+ 8XpnBZrEjjSTy+3bQg29F60c2iL8t766KSXkmxMSqk1gLMU6iBJz42PhZ0dLUruBNw+sZKzg=
+X-Gm-Gg: AYBFou2dwCZOv5XsdzBrgWQI5kTCq/ewyfo5hSC+EwqEVN4sBNFuAhrr93ahvTIlFO3
+ s2rx2rgVRy1YTGl2yv1ntlxzC5HdsN0e5H2mMSzNGedOGgkYSQCTgUoVyDo+o4bftXvMJn//8oc
+ yztKBbIvHN4MEduETyBXp5gKgb5HAbLeXxu55LZ8Sl2LRNXGSvXuwsfYPl+8PeI1WEC/j38j/tr
+ SxLeQYO+6TOksJQRIIEh/RnyhGhRZwfy3W9G8LY1xEJs07luoQ76TivAj+ULYwBOEQFw0HvESeU
+ L9O50WbCGkpeLfJXFdeTOLLJCQ8k8nezAEmrszQuh3+zo/ak2rnaQveBg0lRA1FADJcDSCNKxPD
+ m2WdYf7fZi+HUl5PSdARpo8JViO3Pe+z8/MWIp6zii3tae2mS/FAi9NuoP5yibMh/7vQy0KUAID
+ Za3SxGGUF0525k
+X-Received: by 2002:a05:6102:2c82:b0:7a7:198a:c2c6 with SMTP id
+ ada2fe7eead31-7ac1ea99e8fmr1676862137.36.1790165475655; 
+ Wed, 23 Sep 2026 05:11:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:2c82:b0:7a7:198a:c2c6 with SMTP id
+ ada2fe7eead31-7ac1ea99e8fmr1676817137.36.1790165475048; 
+ Wed, 23 Sep 2026 05:11:15 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b8d8590237sm555422e87.69.2026.09.23.05.11.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 05:11:12 -0700 (PDT)
+Date: Wed, 23 Sep 2026 15:11:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 01/15] drm/msm/a6xx: Honor perfmode_bw threshold on A8x
+Message-ID: <yfpkgdcf3c366giiec6p4bjoutwepvtkjf3yushbgzeqe4uygw@pnddu3mbsmlb>
+References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
+ <20260923-hawi-gpu-v1-1-0c3c79a1a470@oss.qualcomm.com>
 MIME-Version: 1.0
-Date: Wed, 23 Sep 2026 05:07:04 -0700
-X-Gm-Features: AclHuK-58wn5g3d8ztI9Ghj-cBrDeCaoJg0rvfYiYY-rd0knaQKL3ToQHNyiLiU
-Message-ID: <CAP48HfvqpeMhxJZwzcjXo9akVvV5WU6nN4xVuNaAvX07q2OBEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: reject SURFACE_DMA commands smaller than body
- + suffix
-To: zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="00000000000076d850065c255293"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-hawi-gpu-v1-1-0c3c79a1a470@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX7O8TWJAfY+en
+ op+Dn3tRYr1tVZ7J5f+pU0bfUT170i9HSefOrKlVwDOepLA8OBzUZYKXXIw5dJLubkdG/zLfOA3
+ jTEBxEGL5cuJPRhV4xRp1u6GmmJjGws=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX0hzeSadi4a5k
+ 90mX122aR5ez+TpxahHvd8DFeXzjOH2jmO7qqv40Jq7EM1Db7eVjrhVdHe2D/vkKmUEspw8BDOw
+ Uw/lkUh7/DJ3roSwU02W1KpEUBnAMatVzBl844/TAtwc87BDgbDhI6818WdicKTFwfLDmKdaSme
+ siKESVLRWq1QooYh8G9zM305f2w8OfYIgXqDdEkYusKlleqUGx7nRO1j+NrlBDC8CerIGNzPUFL
+ quzsC3MPQoT+RUGLr9mAcHcIvc8oq+49KVJalY7n01VLbDjnXocbFtwpsVkM19lWju0OMrPayvC
+ upJJ1Yf4myQXxGTMRPTbLU86dR1Y4ApWvuH9np9gINXAN2zEpkv8VQV26Z7wEi9gBx0O47vSbwI
+ aVsDXeY+m6q6dULeN8wPDX+EtasvBo6du2O6j8T70QBIyd8Jg/+ePGxD4++qhoS+WRj0IHbXD9F
+ 5xBbue/9XOXzXKlhVCA==
+X-Proofpoint-ORIG-GUID: 4831Gi_r9iiSp3I-qVu_84rDHKlrdev5
+X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3c1e4 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=YJv5aonfaXPMDC4gfg4A:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: 4831Gi_r9iiSp3I-qVu_84rDHKlrdev5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230048
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,173 +157,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000076d850065c255293
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Zack,
-
-Gentle ping on this one -- vmw_cmd_dma() still dereferences the suffix
-without checking that header->size is large enough to contain it.
-A DRM_AUTH client can reach this from execbuf.
-
-Any feedback?
-
-Thanks,
-Aldo
-
-On Sun, Aug 09, 2026 10:25 AM, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-wrote:
-
-> vmw_cmd_dma() locates the SVGA3dCmdSurfaceDMASuffix at the end of the
-> command and dereferences it:
->
->         suffix = (SVGA3dCmdSurfaceDMASuffix *)((unsigned long) &cmd->body +
->                                                header->size -
-> sizeof(*suffix));
->         if (unlikely(suffix->suffixSize != sizeof(*suffix))) {
->
-> header->size comes straight from userspace through DRM_IOCTL_VMW_EXECBUF
-> (DRM_RENDER_ALLOW) and is only bounded from above: vmw_cmd_check()
-> rejects header->size > SVGA_CMD_MAX_DATASIZE and commands that do not fit
-> the buffer, and struct vmw_cmd_entry carries no per-command minimum size.
-> There is no lower bound. When header->size is smaller than sizeof(*suffix)
-> the pointer arithmetic underflows and the read of suffix->suffixSize is an
-> out-of-bounds read ahead of the command; when it is smaller than the body
-> plus the suffix, the body accesses that follow are out of bounds as well.
->
-> Reject the command before computing the suffix pointer when header->size
-> cannot hold both the fixed body and the trailing suffix.
->
-> Found by a syzkaller instance fuzzing the vmwgfx command stream:
->
->   BUG: KASAN: vmalloc-out-of-bounds in vmw_cmd_dma+0x508/0x5b0
->   Read of size 4 ...
->    vmw_cmd_dma+0x508/0x5b0 drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
->    vmw_execbuf_process+0xd06/0x35f0
->    vmw_execbuf_ioctl+0x1cc/0x5a0
->
-> Fixes: cbd75e97a525 ("drm/vmwgfx: Make sure user-space can't DMA across
-> buffer object boundaries v2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On Wed, Sep 23, 2026 at 03:55:41PM +0530, Akhil P Oommen wrote:
+> Instead of voting ACV for all bw corners for A8x GPU, restrict it to BW
+> votes above the perfmode_bw threshold, similar to the A7x GPUs.
+> 
+> Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-> b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-> index 6b921db2dcd2..02eb383f91b5 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-> @@ -1524,6 +1524,12 @@ static int vmw_cmd_dma(struct vmw_private *dev_priv,
->         bool dirty;
->
->         cmd = container_of(header, typeof(*cmd), header);
-> +
-> +       if (unlikely(header->size < sizeof(cmd->body) + sizeof(*suffix))) {
-> +               VMW_DEBUG_USER("Invalid SURFACE_DMA command size.\n");
-> +               return -EINVAL;
-> +       }
-> +
->         suffix = (SVGA3dCmdSurfaceDMASuffix *)((unsigned long) &cmd->body +
->                                                header->size -
-> sizeof(*suffix));
->
-> --
-> 2.43.0
->
->
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 8 ++++++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 +++++
+>  2 files changed, 11 insertions(+), 2 deletions(-)
+> 
 
---00000000000076d850065c255293
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-<html><body><div dir=3D"auto">Hi Zack,<br><br>Gentle ping on this one -- vm=
-w_cmd_dma() still dereferences the suffix<br>without checking that header-&=
-gt;size is large enough to contain it.<br>A DRM_AUTH client can reach this =
-from execbuf.<br><br>Any feedback?<br><br>Thanks,<br>Aldo</div></body></htm=
-l><br><div class=3D"gmail_extra"><div>On Sun, Aug 09, 2026 10:25 AM, Aldo A=
-riel Panzardo &lt;<a href=3D"mailto:qwe.aldo@gmail.com">qwe.aldo@gmail.com<=
-/a>&gt; wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">vmw_cmd_dma() locates the =
-SVGA3dCmdSurfaceDMASuffix at the end of the<br>
-command and dereferences it:<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 suffix =3D (SVGA3dCmdSurfaceDMASuffix *)((unsig=
-ned long) &amp;cmd-&gt;body +<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0header-&gt;size - sizeof(*suffix));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (unlikely(suffix-&gt;suffixSize !=3D sizeof(=
-*suffix))) {<br>
-<br>
-header-&gt;size comes straight from userspace through DRM_IOCTL_VMW_EXECBUF=
-<br>
-(DRM_RENDER_ALLOW) and is only bounded from above: vmw_cmd_check()<br>
-rejects header-&gt;size &gt; SVGA_CMD_MAX_DATASIZE and commands that do not=
- fit<br>
-the buffer, and struct vmw_cmd_entry carries no per-command minimum size.<b=
-r>
-There is no lower bound. When header-&gt;size is smaller than sizeof(*suffi=
-x)<br>
-the pointer arithmetic underflows and the read of suffix-&gt;suffixSize is =
-an<br>
-out-of-bounds read ahead of the command; when it is smaller than the body<b=
-r>
-plus the suffix, the body accesses that follow are out of bounds as well.<b=
-r>
-<br>
-Reject the command before computing the suffix pointer when header-&gt;size=
-<br>
-cannot hold both the fixed body and the trailing suffix.<br>
-<br>
-Found by a syzkaller instance fuzzing the vmwgfx command stream:<br>
-<br>
-=C2=A0 BUG: KASAN: vmalloc-out-of-bounds in vmw_cmd_dma+0x508/0x5b0<br>
-=C2=A0 Read of size 4 ...<br>
-=C2=A0 =C2=A0vmw_cmd_dma+0x508/0x5b0 drivers/gpu/drm/vmwgfx/vmwgfx_<wbr>exe=
-cbuf.c<br>
-=C2=A0 =C2=A0vmw_execbuf_process+0xd06/0x3<wbr>5f0<br>
-=C2=A0 =C2=A0vmw_execbuf_ioctl+0x1cc/0x5a0<br>
-<br>
-Fixes: cbd75e97a525 (&quot;drm/vmwgfx: Make sure user-space can&#39;t DMA a=
-cross buffer object boundaries v2&quot;)<br>
-Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable@vger=
-.kernel.org</a><br>
-Signed-off-by: Aldo Ariel Panzardo &lt;<a href=3D"mailto:qwe.aldo@gmail.com=
-" target=3D"_blank">qwe.aldo@gmail.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/vmwgfx/<wbr>vmwgfx_execbuf.c | 6 ++++++<br>
-=C2=A01 file changed, 6 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_execbuf.c b/drivers/gpu/drm=
-/vmwgfx/vmwgf<wbr>x_execbuf.c<br>
-index 6b921db2dcd2..02eb383f91b5 100644<br>
---- a/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_execbuf.c<br>
-+++ b/drivers/gpu/drm/vmwgfx/vmwgf<wbr>x_execbuf.c<br>
-@@ -1524,6 +1524,12 @@ static int vmw_cmd_dma(struct vmw_private *dev_priv,=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool dirty;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 cmd =3D container_of(header, typeof(*cmd), head=
-er);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(header-&gt;size &lt; sizeof(cmd-&g=
-t;body) + sizeof(*suffix))) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0VMW_DEBUG_USER(&quo=
-t;Invalid SURFACE_DMA command size.\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 suffix =3D (SVGA3dCmdSurfaceDMASuffix *)((unsig=
-ned long) &amp;cmd-&gt;body +<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0header-&gt;size - sizeof(*suffix));<br>
-<br>
--- <br>
-2.43.0<br>
-<br>
-</blockquote></div></div>
 
---00000000000076d850065c255293--
+-- 
+With best wishes
+Dmitry
