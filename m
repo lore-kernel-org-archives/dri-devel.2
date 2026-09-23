@@ -4,91 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43CA0C98314
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00329C98311
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC98F10F21F;
-	Wed, 23 Sep 2026 22:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8853F10F226;
+	Wed, 23 Sep 2026 22:36:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nXSFu0oQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TUvDDKkJ";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC73910F205
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:57 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- 71dfb90a1353d-5c83397eeeeso999445e0c.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:57 -0700 (PDT)
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com
+ [74.125.231.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5250B10F205
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:36:00 +0000 (UTC)
+Received: by mail-oo2-f41.google.com with SMTP id
+ 006d021491bc7-6d13d47b7caso775507eaf.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202957; x=1790807757; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
- b=nXSFu0oQEFoxi6i4hrPMCuyEHbw0amaSY6jb7B50w7FGJzjmZVr0QIvqwkSCf3baWY
- kktII8DmMAG3ux2sE+r/k1AaKs9658bDTUXDNTey/dWkmBwMlFuhzYi4uB3MSmve1sWl
- gAW6u685aEe5FK4wBvVSvmqdx/bUyxbivMWc+3EH6BkTeKjOKQ4aXEvOenUIzL0uJ1x7
- T9f1IyRsvxYVoulZVdwbIRmRJgbXM57E7X9oUwmnLWXwwIFYxaEvmYsk9WqacHTDHzRf
- /Ge+QgI2naw+D+ommJA6reZHnsbWb5h1sfZRzCCElkumaJKKlgS93tks8MJSOOwWKzFt
- RdZA==
+ d=gmail.com; s=20251104; t=1790202959; x=1790807759; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=PbzqrnjzKAFhQJbhVTbeWbKw4m89KGxEej/0OysEvUY=;
+ b=TUvDDKkJi4LLScVx4IfbOVWbIkTE+CoPR43hhSLNodaQVp/U5W4IR/sekBXUHbmujB
+ 9yrxBiOncSU1g8WlutMmsmjyjP3sF1H/1tohgdDX46aev6AA2Yw4Ib5CZr66RUQTCNEM
+ vdveQMmGQ0+1W/47bLofYGx/JN5UKBwDRaRTSNUHrkt4jRm/dfwEzeAZ3U/2a/N2blFM
+ rWAlzecljQ/1N/EYY2PZbVgKV7fD2X2bJOs97xDjNKFss21Ui+NJt1zxHr0hv7LFBcfF
+ cnDF1cXqyA+fps085OaJzb6PsSBUm6h8jciCGgzqCjQG6BojPwQwXPlQs/jSGOerItr1
+ JrKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202957; x=1790807757;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1790202959; x=1790807759;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
- b=KBwIITvFwOGPBo421bvAqQ37vp7/nSWOBfKPFih1YUXhFUuxMJ1n/bf4BFotYHRGhT
- kaMwVwOnCysQrr1A0G7rXPDToJENJZYzeOkLt/iSqyZkb5osYhcHZxwobHuPcciWUh/E
- I1wNpab5tqW1u3QtodsVMjUQ8TA4l/cUwCixCfccX9/fNBC6MANP+4NGsdPVPumbZk4n
- TXaFhnwkjtTluD2VaphCS2/1BspSdGFHpfvybJfTNkXchmKvRRF4DChQLwaRDuM+eF+F
- u8Vy4S+1C9x7r2l+ERHZ3bt2ce2z0jbKJwh7wieJ95y3oJoH+CrTn0sl2WHwvkb5Ras0
- YPfA==
+ bh=PbzqrnjzKAFhQJbhVTbeWbKw4m89KGxEej/0OysEvUY=;
+ b=BdMMC5laG8D+8wbzbagCsHu6QgsKUQx0QlXSEgIOQY/2eDlRruegmKgfnxW+yU5foz
+ bXml+p9gNYz8bBjy/EEzzRTj4PcAvOH0qo4W22nWD2BeLeNPucQPgXJqE+a+DYidjba+
+ akPx30HLUklm0C+yHQRFvgnwF4JfvEveo+S4J3d/GORLA8TXrfVjxtqh0fu17dkXEwyx
+ tsP9e7yV4kRaRK1PVvkcbcK5nu8nQjMlqV2cq7W53heA4AnnXUTz94C06UxcmqRgaXQF
+ ilfUYN8jg/zvDFJYA1+X0kGVA9D0dpmy8To8LPUCE7dZbD4XrfjnMvI/RTglYUd/c7MN
+ s1hQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwkQDUKTorWfpegImSCsNH3uJTCHhB9ePq9/KKWYnZ6alQXrIrP4zcqDUKB6XNQpyUbkheEuixMOog=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lcpY0va9jBnoRaCI9SRqECbDh/+l7FsMgMDdj6yIYKrjI6l8rA
- orPodjbHq01bXfOtteTRxQM5SqJCkZi82DDaQlPJfttzfjbxMI/fvYA=
-X-Gm-Gg: AYBFou1J/nx60rhNxjLXSec5NzqpS7Q+K8VZTJSVHZ38yEchGUGYF1q9sEnC02i3Yu/
- a6lfQCQgqUcI/wzyXZgQNKjtqFxxZZ95rt9MuZHu0k5jl9f5ed1Yc21KRRI8bL69pU44HoVXSnU
- +m2EYwk+x8XU0ejnGNyFN8dvGj6VDKiMCueo6pOe0AZfn3sspMXeRK5aEZQ5ZQ/b5H6CA8zEk8c
- fk6CbcytdnFkd+4QK+dQzq6k3KHLgPMMjNBdVOxgqFhDY9bmlZgIsMWTRvF24kllGe8hQajM/Nc
- rei6adUErKoBFg60zM9Xv1Vwgt5xO6a1vh6Q3mNfuenVQedxQrBtzYTdqWBGhDLwjlam6PHRK/V
- CF15fD9PGQ6cwlhRjl9pXroUsxQOQMgs6z2foI+z1WJ1LNfuWC5Y6cPGDnerLprsGr+Cai6uvLw
- 1AiFKrN3qsfRyScCMZ/oRje3HfVxGn+vcDJ9pJrjlR4FddVzdCUQzY/2b9VQRJTpi8cqbFSIGkz
- r7RiSx+gNdNJVpM90oLJfyF/zdsEu3dnF5DXzHonpaTtMTYQQ==
-X-Received: by 2002:a05:6122:198d:b0:5c9:82a1:a6a3 with SMTP id
- 71dfb90a1353d-5cb08753a03mr590726e0c.6.1790202956828; 
- Wed, 23 Sep 2026 15:35:56 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.51
+ AKwUvBz3YAZ53H1Xlm9ruYx6SoSrYYtoJzJ/pQeHJQS1ycYVRq76Y9SuC3qyC66PMZ16J7+T6fSA4yGaB2M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kEt2SK4VLu8MCqSLNgWjVYABZuLB20SmW6UP44v9uNo73On8rU
+ REu7v7HG2pXZt/kKA3h2jvTo9F3lSYUYvDkZSRM03rZRjv7uj5nKfohW
+X-Gm-Gg: AYBFou0iwenk8RpZVvxhQvT4lvInGFBRBIGFyvZqRzUIQfMn7926r7PNm7dB5PACxFc
+ EhymRR4sprBJGWavSbFD63cGSCEaGLtXNhkI8LvGIR9HnLbzC6dimS2JN+3pUYZAYjV8oPJ6eWD
+ vEdzSzWQH5Bn5gbpkcFFk5jmjNFjOhOSRC5bDh+gZ+zssxqoNvauK+7fg7Cg2tzfTNjJwZIXYBb
+ l1lLsBc2WrXArDaNG0ZbckcZL5Otg+NE9TmyHis5o5P1lR/2or0IRFc6Rq5WS2iGqkc86YC11SQ
+ NvG222L83Pw7L4L/eHexpSfQgAoHWGSobQZNmoGTtu5NQyIe8swUCH9PDRiVsOfRPHnr0bRzNZp
+ K7f5+p4inXKYYE0d8na7B5CNT+DlTMqZSS1lOB6kSBbUxOh3YniomyI6AQGCKMwn1nwUluuG5jK
+ Mnw6vVy7cp2Tf0WZu7OE3rrR6H/MbT7th/jut2sPs53LmkDMn2PIjSAPUPb4qwZWUpGKKHmWIgL
+ VFxcyZTh9Ml/GFB7/I2CKab/PJyN08kjfLBGD2aKYSoUu94LO+IhYu97BbLMxBvsDd8nulrUHM/
+ UWa8FTwXbM9Hmy47+S6uJuK+VDoBww==
+X-Received: by 2002:a05:6820:308d:b0:6c6:c098:ef02 with SMTP id
+ 006d021491bc7-6d4416aaaadmr692907eaf.62.1790202959287; 
+ Wed, 23 Sep 2026 15:35:59 -0700 (PDT)
+Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
- Brigham Campbell <me@brighamcampbell.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jori Koolstra <jkoolstra@xs4all.nl>,
- Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
- Controller
-Date: Wed, 23 Sep 2026 19:35:13 -0300
-Message-ID: <b961c25f0b67968b6ef891f2dd3527508a374261.1790200427.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790200427.git.nico.antinori.7@gmail.com>
-References: <cover.1790200427.git.nico.antinori.7@gmail.com>
+ Wed, 23 Sep 2026 15:35:58 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Wed, 23 Sep 2026 16:34:59 -0600
+Subject: [PATCH v11 35/38] dyndbg: Ignore additional arguments from pr_fmt
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260923-dd-cmap-part2-clean-v11-35-9b6c217fdf2f@gmail.com>
+References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>, Philipp Hahn <phahn-oss@avm.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=7362;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=sb5nCjjrIibpgdLQnqeF7S++ij+NJzKv3uYGW3XCW5U=;
+ b=Tbq+HZ9TUIxM2hUZr7Ey3Fz/NAVfDnI5XBD2AWCpbqgIZK74qzZyIivfn1m5gI+T4MVAzm2XO
+ A5aDYo9EIiRAoeV/jBa4DYD7aVBUKKQeOQw6vPjFXhpEiH6YnXuW4P/
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,121 +120,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+From: Philipp Hahn <phahn-oss@avm.de>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+pr_fmt can be used to add a common prefix to any output from a module:
+	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+
+But adding additional arguments breaks dynamic debug:
+> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |                                                  ^
+> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
+> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
+> |
+> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
+> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
+> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
+> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> note: in expansion of macro ‘pr_debug_ratelimited’
+> |         pr_debug_ratelimited("%s", "Hello world!");
+> |         ^~~~~~~~~~~~~~~~~~~~
+
+Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
+any additional argument, which `pr_fmt` might add.
+
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+[pr_fmt change on test_dynamic_debug_submod instead of parent]
+Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-Notes:
-- Patch series based on 7.3-rc1
-- Carried "Reviewed-by: Krzysztof Kozlowski <...>" from v3 since this
-  patch did not change.
+v11:
+. update golden record hashes for FT_modprobe_w_param tests after
+  comma-token and native classmap attachment fixes.
 
- .../bindings/display/chipwealth,ch1115.yaml   | 81 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 83 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+v10:
+. pass raw fmt to DEFINE_DYNAMIC_DEBUG_METADATA in pr_debug_ratelimited().
+---
+ include/linux/dynamic_debug.h                      |  2 +-
+ include/linux/printk.h                             |  2 +-
+ lib/test_dynamic_debug.c                           |  4 ++--
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 26 +++++++++++-----------
+ 4 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-new file mode 100644
-index 000000000000..6b037c40242e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Chipwealth CH1115 Display Controller
-+
-+maintainers:
-+  - Nicolás Antinori <nico.antinori.7@gmail.com>
-+
-+description:
-+  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
-+  panels.
-+
-+  https://datasheet4u.com/download/1576606/CH1115.html
-+
-+allOf:
-+  - $ref: panel/panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: chipwealth,ch1115
-+
-+  reg:
-+    maxItems: 1
-+
-+  chipwealth,inverted:
-+    type: boolean
-+    description:
-+      Display pixels are inverted, i.e. 0 is white and 1 is black.
-+
-+  chipwealth,offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 63
-+    default: 0
-+    description:
-+      Display start line offset. Specifies the vertical alignment and row shift
-+      along the Y-coordinate.
-+
-+  width-mm: true
-+  height-mm: true
-+  flip-horizontal: true
-+  flip-vertical: true
-+  panel-timing: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - width-mm
-+  - height-mm
-+  - panel-timing
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        display@3c {
-+            compatible = "chipwealth,ch1115";
-+            reg = <0x3c>;
-+            width-mm = <12>;
-+            height-mm = <8>;
-+            chipwealth,offset = <8>;
-+            panel-timing {
-+                clock-frequency = <0>;
-+                hactive = <88>;
-+                vactive = <48>;
-+                hfront-porch = <0>;
-+                hback-porch = <0>;
-+                hsync-len = <0>;
-+                vsync-len = <0>;
-+                vfront-porch = <0>;
-+                vback-porch = <0>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 73acf72c01f6..16a4a7a158ab 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -331,6 +331,8 @@ patternProperties:
-     description: ChipOne
-   "^chipspark,.*":
-     description: ChipSPARK
-+  "^chipwealth,.*":
-+    description: Chip Wealth Technology, Ltd.
-   "^chongzhou,.*":
-     description: Shenzhen Chongzhou Electronic Technology Co., Ltd
-   "^chrontel,.*":
---
-2.47.3
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 5b5f5bb31c48..f411a7636cf1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -359,7 +359,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 		dump_stack();					\
+ }
+ 
+-#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
++#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
+ 	static struct _ddebug  __aligned(8)			\
+ 	__section("__dyndbg_descs") name = {			\
+ 		.modname = DDEBUG_MODNAME,			\
+diff --git a/include/linux/printk.h b/include/linux/printk.h
+index f594c1266bfd..5d701952e739 100644
+--- a/include/linux/printk.h
++++ b/include/linux/printk.h
+@@ -742,7 +742,7 @@ do {									\
+ 	static DEFINE_RATELIMIT_STATE(_rs,				\
+ 				      DEFAULT_RATELIMIT_INTERVAL,	\
+ 				      DEFAULT_RATELIMIT_BURST);		\
+-	DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));		\
++	DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt);		\
+ 	if (DYNAMIC_DEBUG_BRANCH(descriptor) &&				\
+ 	    __ratelimit(&_rs))						\
+ 		__dynamic_pr_debug(&descriptor, pr_fmt(fmt), ##__VA_ARGS__);	\
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 666b447b3740..aaf8aad481a0 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -23,7 +23,7 @@
+  * the usage clearer.
+  */
+ #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
+-  #define pr_fmt(fmt) "test_dd_submod: " fmt
++  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
+ #else
+   #define pr_fmt(fmt) "test_dd: " fmt
+ #endif
+@@ -323,7 +323,7 @@ static int __init test_dynamic_debug_init(void)
+ 
+ static void __exit test_dynamic_debug_exit(void)
+ {
+-	pr_debug("exited\n");
++	pr_debug_ratelimited("exited\n");
+ }
+ 
+ module_init(test_dynamic_debug_init);
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 5de726254d91..c06c16cacb70 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -581,40 +581,40 @@ function GOLDEN_RECORDS {
+ #K= e11c22649735cedb6c30321378100e11 FT_classmap_inheritance.2
+ #K= 5d0f3701517aa3a461c8887c332bdb42 FT_classmap_inheritance.3
+ #K= d39188ded831453d90d77390546b314d FT_classmap_inheritance.4
+-#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
++#K= 62b6803edf43519186d6185bebf34352 FT_classmap_inheritance.5
+ #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.1
+ #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.2
+-#K= 11032ef17569bd151c3806527a2428be FT_modprobe_w_param.3
++#K= 20d8a1fac0330f1b5cc582ce93792d58 FT_modprobe_w_param.3
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.4
+-#K= 942e62ca24809cad666c5725aeb14376 FT_modprobe_w_param.5
++#K= 3c19dd83b330a9d59901281aaa3bacf8 FT_modprobe_w_param.5
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.6
+-#K= fe1aadca4b2b4165d8d5c98e973f9e4b FT_modprobe_w_param.7
++#K= 86b7a18d7a692187aa0b7cc0b6886e77 FT_modprobe_w_param.7
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.8
+ #K= 535ab526b24a7214de41d92e94bbd52c FT_modprobe_w_param.9
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.10
+-#K= 7c02282dcfb73eb5ffb9629ce63360e5 FT_modprobe_w_param.11
++#K= 64f91218760ca86d28a4b9b2d23849fb FT_modprobe_w_param.11
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.12
+-#K= b0942decc84dae237019bc2877ff02e7 FT_modprobe_w_param.13
++#K= 03bad8f76b3587c2e8bdb9df43110a5e FT_modprobe_w_param.13
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.14
+-#K= efe8e3b8080c3310708b7505d60f7703 FT_modprobe_w_param.15
++#K= 04b59fe2db45bc6bb314e9102b92dd64 FT_modprobe_w_param.15
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.16
+ #K= d682c98ced7d31f1555ab474a9ebe253 FT_modprobe_w_param.17
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.18
+ #K= 362ab2e7e5f5e3ede8b69645c64fb987 FT_modprobe_w_param.19
+ #K= 362ab2e7e5f5e3ede8b69645c64fb987 FT_modprobe_w_param.20
+-#K= 4f539816f9cc9fb9dd4a032138e3abde FT_modprobe_w_param.21
++#K= 3377abfe07b0cdfbd4610a8f76f7efc3 FT_modprobe_w_param.21
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.22
+-#K= 20659d16ffb5b18475e83602223216d1 FT_modprobe_w_param.23
++#K= 453ce2741d6e7343a272c71ed392f14c FT_modprobe_w_param.23
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.24
+-#K= 0b24971fb1018c38353141f8fcb9cbdc FT_modprobe_w_param.25
++#K= 82d34927171a53fbef691cc84ff9e09f FT_modprobe_w_param.25
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.26
+ #K= 66eb387a95512f679eb5cad4168b0992 FT_modprobe_w_param.27
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.28
+-#K= 7df05523f4d61917fd7659357eeec1bc FT_modprobe_w_param.29
++#K= abbd3c12a631089b3df7b18f43c50b05 FT_modprobe_w_param.29
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.30
+-#K= a75600ac4e129f4315c5a50ad3a3103c FT_modprobe_w_param.31
++#K= f099c58f5109edb80f53550664ba5bfc FT_modprobe_w_param.31
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.32
+-#K= f43ccce73ac2b0e1529312af66a4ddfe FT_modprobe_w_param.33
++#K= 756aacc01af3b95f86404e7bc06ba9b6 FT_modprobe_w_param.33
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.34
+ #K= 4819f715ba485c493afb455542f7ab8c FT_modprobe_w_param.35
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.36
+
+-- 
+2.55.0
 
