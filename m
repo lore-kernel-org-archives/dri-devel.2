@@ -4,109 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2486DC98308
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1782CC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D951E10E83F;
-	Wed, 23 Sep 2026 07:54:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418FE10EF5C;
+	Wed, 23 Sep 2026 07:55:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HIIxexSc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cr6x2FcC";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id A926810E4F6;
- Tue, 22 Sep 2026 17:13:02 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A82B1576;
- Tue, 22 Sep 2026 10:12:58 -0700 (PDT)
-Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 153903F86C;
- Tue, 22 Sep 2026 10:12:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1790097182; bh=6fGlC+l7ZOTUAPb0qf6/jbMAeDqXx74X21kDAUYsIyk=;
- h=From:Subject:Date:To:Cc:From;
- b=HIIxexScPs77FEWrL1zKfh489AcYGH+eosy1rJu4q8Qx0Y5qygcZGRibDPK9zayy2
- bMswKnuZyeg7Xdl5EiA/OMueeXhZkIg42q52ZYMsGuSW+3VibDu/Td+mjExBEv2p1H
- 6o6egoaJbq6J6Irg6+9TyJTuwzBdadX5XN/qqY9E=
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Subject: [PATCH v3 0/9] mm: distinguish HW PTE pointers from SW PTE value
- pointers
-Date: Tue, 22 Sep 2026 18:12:28 +0100
-Message-Id: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35E5110E00B
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:27:33 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49cd38e0e5dso4280405e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 17:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790123251; x=1790728051; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
+ b=Cr6x2FcChIFQBgXTfUoQ5dn79vzYAEoLlAPUZ6vwHjj0jywJs62bIOLiyo24u1lZS3
+ kAr0DI9IeYI+5lUs8G8d1rmEHA7wvs1vu8G61Z9g0XIEE82/Bqsz4iC2tw29HTwrkMIS
+ gUoweexHKmV4Zp6nm0yKs3EvqQ0fCiQ6w55ngf2Qa6UqZPFoMtNYQxBWSFvpmJhB/rEK
+ vN8n/EdInvxvN7m22dsDbnJ0T4NYJ1rstxBiavJD2n0AIRfZhd2lFnRUTGhS54CaSvRU
+ tWBqPJjr+LVNiBA1vXmaWCZ+blPRtey3A6ClyygCDs0GwD9W/i1v62fSpqMOdHXRbJLs
+ cXKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790123251; x=1790728051;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
+ b=OK3fEcKEr90iYSVWt8fcKJtZW9chKGClBQ5nK0tQt/89j9uzppT9knUDuMrFALtER8
+ REWGE1r3NNfgqzeG+/NmQquuV1H9vrFVe+yLzylbklD7jURjwt69XrTAYkGrkWtnZ/Ew
+ 6R5fKbP54hnbyrrSZ/hiPOFL/g72pAGWTmn4kfyoMDkvioXKYNID36krx47HR+M8TnK3
+ FKlDq8/qzo74BlKH2nEdHNOgtLN7ZE61dEoQ5QBrEf/2wKu3btNd+8VxX2YcXmeCTobl
+ UQ747Kv/b0r7uKVAxwaBv8/0cznorhennNHfBZLnCW/N9SSeU27qcARVmrtz3YJqlnJr
+ +Yzw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxQVGZ6a0aF5xWhfjsYXSNSeDEY6yLG4EgbO7yknA46oH/mbjuojtvfM4rsh2z7kajA9KsMj6LaKRA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++njhabuTrVmdfNJ7W84KlaecswF9yOIUBx/Vuy1uPpKjvGIVPpd
+ oEuy5Ps3bzJBZS59Lxkj/7PijMI75846GCBckxZL6p/BnTtD7USjZ4wD
+X-Gm-Gg: AYBFou28lT4KwESyiZMoqb8FN8x/cLPZv0AZRhN+UCrrukrhhjExoYfMaQ+DOy3Xybo
+ O/pPo9NvPF7Wl5yrgoOv3kBcevIjx+D2zVlYCxCRNrtphy5lcA6tyP+2sC+ffIYpdE8KedMo/c1
+ x+Pk+Kh/BK9mFKkvC46A/0aaDWDxInpYCipXvfyoiTDDSk+28jYL7nUaqk3M2qjSPJm7FCA2tYb
+ SgDgWr9hK9RZbY3IlF7AAtRLC/wWWiGbjKfHTSd5FoOiLcKGt3UZ/fl+eTwM+NC1OZASaEfcjMw
+ 81F2PYRZ3BzkT8rsSqp2BJZmLQ2U2T0NuPdyERn/o4qNKOZTRwaE1rao2xv585cGWAh2aMPEO8U
+ nXWAUOvtE3NbEP3Qy8yyL+LTmHOj8uWfDcldnSoMmY4HwEBix7SHWLgoBx8Lqe/UNRc16zv5seW
+ lKIffE42pupJOztljtBHy+3j4FHyar5rCU9gSUGZAa9m6dJ9WTHZN1HfpthfZWLEghLgiviCU=
+X-Received: by 2002:a05:600c:19d2:b0:49c:cee0:e7c1 with SMTP id
+ 5b1f17b1804b1-49fdf1370bcmr9734545e9.16.1790123251286; 
+ Tue, 22 Sep 2026 17:27:31 -0700 (PDT)
+Received: from NBLK-WAX9X ([78.175.157.66]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48868889337sm2229702f8f.34.2026.09.22.17.27.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 17:27:30 -0700 (PDT)
+From: =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x despite
+ AMD VSDB
+Date: Wed, 23 Sep 2026 03:27:18 +0300
+Message-ID: <20260923002718.5915-1-atailhan2006@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPy2smoC/y2NwQ6DIBAFf8XsuZgFqxVP/Y/GA8W1YoIaENPG+
- O8F2+Mk8+bt4MkZ8tBkOzjajDfzFKG4ZKAHNb2ImS4yCBQVSn5ly0rIKl3XfVlK0d0kRHVx1Jv
- 3mXm0P/bhOZJe0zYZg/Hr7D7nzyaS909iwbFAFDmP+bqUjLPglVW5msZg78rZXM8W2uM4vgCpy
- qqtAAAA
-X-Change-ID: 20260914-pte0-6c88f5592d79
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Pedro Falcato <pfalcato@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, SJ Park <sj@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
- Alexander Potapenko <glider@google.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev, 
- kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,566 +94,82 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-pte_t currently describes both a software PTE value and an element stored
-in a PTE table. Consequently, pte_t * can point either to a software PTE
-value, often a stack copy, or to a PTE-table slot. The compiler cannot
-distinguish these cases. A value pointer can therefore be passed to an
-interface that expects table storage, while table storage can be read by
-direct dereference instead of the architecture accessor.
+I am investigating an issue where HDMI FreeSync
+is not exposed for a Samsung S22C31x monitor on
+an AMD Picasso/Raven 2 GPU, although the monitor
+advertises an AMD FreeSync range in its EDID and
+VRR works under Windows.
 
-This series begins a staged conversion at the PTE level. It introduces
-hw_pte_t as the element type for PTE-table storage and converts generic
-MM to use hw_pte_t *. Software PTE values remain pte_t. Interfaces that
-intentionally return a value through pte_t *, such as install_pte,
-remain value interfaces; the relevant parameters are named ptentp to
-make that distinction explicit.
+Hardware/software:
 
-The generic definition aliases hw_pte_t to pte_t unless an architecture
-selects ARCH_HAS_HW_PTE_T, which enables a distinct generic wrapper named
-__hw_pte_t. Some architectures define pgtable_t in headers parsed before
-the generic hw_pte_t typedef is visible. The structure tag allows those
-headers to define pgtable_t as struct __hw_pte_t * without creating an
-include-order dependency. This is required when converting s390, m68k,
-powerpc and sparc.
+* GPU: 03:00.0 VGA compatible controller [0300]:
+Advanced Micro Devices, Inc. [AMD/ATI] Picasso/Raven 2
+[Radeon Vega Series / Radeon Vega Mobile Series]
+[1002:15d8] (rev c2)
+* Kernel: 7.2.5-200.fc44
+* Compositor: Sway (Wayland)
+* Monitor: Samsung S22C31x
+* Connector: HDMI-A-1
+* EDID serial: H9DX100210
+* Kernel command line includes: amdgpu.freesync_video=1
 
-No architecture selects ARCH_HAS_HW_PTE_T in this series, so the
-representation and behavior of every architecture are preserved. ptep_get()
-keeps its existing READ_ONCE() semantics and converts the stored element
-through __pte_from_hw(). An architecture can later select the option and
-convert its PTE interfaces to make the distinction compiler-enforced.
-Architecture PTE implementations and most architecture code are
-deliberately left for those later opt-in conversions.
+Observed:
 
-Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
-complete PTE tables use hw_pte_t whether or not they are currently
-linked into a page-table hierarchy, while software PTE values use
-pte_t. The distinction between complete but unlinked tables and
-hardware-reachable tables was raised during discussion and remains an
-important point for review.
+* swaymsg -t get_outputs reports "Adaptive sync: disabled" for HDMI-A-1.
+* Adaptive sync remains disabled at both 1920x1080@60 Hz and 1920x1080@75 Hz.
+* The same monitor exposes and enables FreeSync under Windows.
 
-PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
-converted in later series after the PTE boundary is agreed, avoiding the
-PMD-specific cases that made an all-level conversion difficult to
-review.
+The EDID contains the following AMD Vendor-Specific Data Block:
 
-Most mechanical pointer conversions were generated with the Coccinelle
-script included below, then audited and fixed by hand.
+Vendor-Specific Data Block (AMD), OUI 00-00-1A:
+    Version: 1
+    Feature Caps: 0x01
+    Minimum Refresh Rate: 48 Hz
+    Maximum Refresh Rate: 75 Hz
+    Flags 1.x: 0x00
 
-This series does not add a second ptep_get_once() accessor and does not
-remove or replace STRICT_MM_TYPECHECKS.
+The HDMI VSDB therefore appears to advertise a 48-75 Hz FreeSync range.
 
-The design discussion is available at [1]; while the original idea came
-from [2].
+There is also this message in dmesg:
 
-I've the patches here [3] for arm64 conversion which I used to find
-usages in generic code which I missed during development.
+amdgpu 0000:03:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
 
-[1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
-[2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
-[3] https://lore.kernel.org/all/20260914-pte0_arm-v1-0-bb53b663e396@arm.com 
+I believe this is the -EINVAL path from
+drm_hdmi_vendor_infoframe_from_display_mode() for this timing and
+is probably unrelated to the FreeSync issue.
 
-Testing:
-Testing was performed with and without the series on both x86_64 and
-arm64. KUnit and the MM kselftests produced matching before-and-after
-results problems or regressions. Fastpath performance testing was also
-completed on arm64. No regression was found.
+The part I am currently investigating is amdgpu_dm_update_freesync_caps().
+
+For HDMI, the driver calls parse_hdmi_amd_vsdb(), which
+on this DCN configuration goes through the DMUB path:
+
+parse_hdmi_amd_vsdb()
+  -> parse_edid_cea()
+     -> parse_edid_cea_dmub()
+        -> dm_edid_parser_send_cea()
+           -> output->amd_vsdb.freesync_supported
+
+If the DMUB parser returns freesync_supported == 0,
+the driver does not expose the connector as VRR capable.
+
+What makes this interesting is that the DRM EDID parser also
+contains the corresponding AMD VSDB information in
+connector->display_info.amd_vsdb, while the DMUB result
+does not result in FreeSync being exposed.
+
+I am wondering about the following:
+
+1. Is the AMD VSDB layout above expected to be accepted by
+the DMUB EDID parser, particularly with
+Feature Caps 0x01, Flags 1.x == 0x00, and no MCCS VCP code byte?
+
+2. If the DMUB parser rejects this form of AMD VSDB, should amdgpu_dm
+fall back to the software-parsed connector->display_info.amd_vsdb
+when determining FreeSync capability?
+
+I have a working kernel tree and can run diagnostic tests
+or test a small patch. I can also provide drm.debug
+output or DMUB-related traces if useful.
 
 Thanks,
-Usama
-
----
-Changes in v3:
-- Retitle the series
-- Moved hw_pte_val() adding helper to generic series
-- Link to v2: https://patch.msgid.link/20260903103002.1091859-1-usama.anjum@arm.com
-
-Changes in v2:
-- Name the generic wrapper structure __hw_pte_t so architectures can
-  forward-declare it before the generic typedef is visible.
-- Use software PTE value terminology consistently
-- Fold the prerequisite header includes into the generic storage
-  conversion
-- Explain why the NOMMU stub converts the stored entry without
-  ptep_get().
-- Rebase onto mm-new and rerun the Coccinelle conversion.
-- Link to v1: https://lore.kernel.org/all/20260806083926.1807279-1-usama.anjum@arm.com 
-
-Changes in v1:
-- Add ARCH_HAS_HW_PTE_T so architectures can opt in to a distinct
-  PTE-table storage type.
-- Define the distinct hw_pte_t wrapper and its conversion helpers in
-  generic code instead of requiring each architecture to define them.
-- Read hw_pte_t through READ_ONCE() before converting it to pte_t.
-- Drop the previous mremap patch in favour of [a]. Apply [a] first if
-  it is not already present.
-- Drop the previous two dead-code conversion patches; the affected
-  code was cleaned up separately in [b] and [c].
-- Link to RFC: https://lore.kernel.org/all/20260727164715.2866609-1-usama.anjum@arm.com 
-
-[a] https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
-[b] https://lore.kernel.org/all/20260730111316.3672672-1-usama.anjum@arm.com
-[c] https://lore.kernel.org/all/20260730094501.3002718-1-usama.anjum@arm.com
-
----
-// SPDX-License-Identifier: GPL-2.0-only
-///
-/// Rename raw PTE pointer types to hardware PTE pointer types.
-///
-/// This is a mechanical type rename. It converts common declarations,
-/// function parameters, prototypes, return types and casts from "pte_t *"
-/// to "hw_pte_t *". Plain "pte_t" objects are intentionally left unchanged.
-/// Pointers named "ptentp" refer to temporary software PTE values and are
-/// intentionally ignored in all modes.
-/// Re-run in context mode afterwards to audit remaining raw pte_t pointers
-/// and cases that need hand conversion, such as trace macros and mixed
-/// declarations.
-///
-/// Confidence: Moderate
-// Options: --no-includes --include-headers
-
-virtual patch
-virtual report
-virtual context
-
-@local_decl depends on patch@
-identifier x != ptentp;
-@@
-- pte_t *x;
-+ hw_pte_t *x;
-
-@local_decl_init depends on patch@
-identifier x != ptentp;
-expression e;
-@@
-- pte_t *x = e;
-+ hw_pte_t *x = e;
-
-@param_proto depends on patch@
-identifier f;
-identifier x != ptentp;
-type R;
-@@
-R f(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-
-@param_proto_unnamed depends on patch@
-identifier f;
-type R;
-@@
-R f(...,
-- pte_t *
-+ hw_pte_t *
-,...);
-
-@param_def depends on patch@
-identifier f;
-identifier x != ptentp;
-type R;
-@@
-R f(...,
-- pte_t *x
-+ hw_pte_t *x
-,...)
-{ ... }
-
-@ret_proto depends on patch@
-identifier f;
-parameter list ps;
-@@
-- pte_t *
-+ hw_pte_t *
-  f(ps);
-
-@ret_def depends on patch@
-identifier f;
-parameter list ps;
-@@
-- pte_t *
-+ hw_pte_t *
-  f(ps)
-{ ... }
-
-@struct_member depends on patch@
-identifier S;
-identifier x != ptentp;
-@@
-struct S {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-
-@union_member depends on patch@
-identifier x != ptentp;
-@@
-union {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-
-@union_member_in_struct depends on patch@
-identifier S;
-identifier x != ptentp;
-@@
-struct S {
-...
-union {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-...
-};
-
-@fnptr_struct_member depends on patch@
-identifier S,f;
-identifier x != ptentp;
-type R;
-@@
-struct S {
-...
-R (*f)(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-...
-};
-
-@fnptr_typedef_pte_fn_t depends on patch@
-identifier x != ptentp;
-@@
-typedef int (*pte_fn_t)(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-
-@cast depends on patch@
-expression e;
-@@
-- (pte_t *)e
-+ (hw_pte_t *)e
-
-@remaining_decl depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-* pte_t *x@p;
-
-@remaining_decl_init depends on context || report@
-identifier x != ptentp;
-expression e;
-position p;
-@@
-* pte_t *x@p = e;
-
-@remaining_param_proto depends on context || report@
-identifier f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *x@p
-,...);
-
-@remaining_param_proto_unnamed depends on context || report@
-identifier f;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *@p
-,...);
-
-@remaining_param_def depends on context || report@
-identifier f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *x@p
-,...)
-{ ... }
-
-@remaining_ret_proto depends on context || report@
-identifier f;
-parameter list ps;
-position p;
-@@
-* pte_t *f@p(ps);
-
-@remaining_ret_def depends on context || report@
-identifier f;
-parameter list ps;
-position p;
-@@
-* pte_t *f@p(ps)
-{ ... }
-
-@remaining_struct_member depends on context || report@
-identifier S;
-identifier x != ptentp;
-position p;
-@@
-struct S {
-...
-* pte_t *x@p;
-...
-};
-
-@remaining_union_member depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-union {
-...
-* pte_t *x@p;
-...
-};
-
-@remaining_union_member_in_struct depends on context || report@
-identifier S;
-identifier x != ptentp;
-position p;
-@@
-struct S {
-...
-union {
-...
-* pte_t *x@p;
-...
-};
-...
-};
-
-@remaining_fnptr_struct_member depends on context || report@
-identifier S,f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-struct S {
-...
-R (*f)(...,
-* pte_t *x@p
-,...);
-...
-};
-
-@remaining_fnptr_typedef_pte_fn_t depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-typedef int (*pte_fn_t)(...,
-* pte_t *x@p
-,...);
-
----
-
-To: Andrew Morton <akpm@linux-foundation.org>
-To: David Hildenbrand <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-To: Vlastimil Babka <vbabka@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-To: Michal Hocko <mhocko@suse.com>
-To: Xu Xin <xu.xin16@zte.com.cn>
-To: Chengming Zhou <chengming.zhou@linux.dev>
-To: Jann Horn <jannh@google.com>
-To: Muchun Song <muchun.song@linux.dev>
-To: Oscar Salvador <osalvador@suse.de>
-To: Pedro Falcato <pfalcato@suse.de>
-To: Arnd Bergmann <arnd@arndb.de>
-To: Will Deacon <will@kernel.org>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-To: Nick Piggin <npiggin@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Rik van Riel <riel@surriel.com>
-To: Harry Yoo <harry@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-To: Chris Li <chrisl@kernel.org>
-To: Kairui Song <kasong@tencent.com>
-To: Kemeng Shi <shikemeng@huaweicloud.com>
-To: Nhat Pham <nphamcs@gmail.com>
-To: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-To: Youngjun Park <youngjun.park@lge.com>
-To: Uladzislau Rezki <urezki@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Andrii Nakryiko <andrii@kernel.org>
-To: Eduard Zingerman <eddyz87@gmail.com>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-To: Martin KaFai Lau <martin.lau@linux.dev>
-To: Song Liu <song@kernel.org>
-To: Yonghong Song <yonghong.song@linux.dev>
-To: Jiri Olsa <jolsa@kernel.org>
-To: Emil Tsalapatis <emil@etsalapatis.com>
-To: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: Ingo Molnar <mingo@redhat.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-To: Mark Rutland <mark.rutland@arm.com>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-To: Ian Rogers <irogers@google.com>
-To: Adrian Hunter <adrian.hunter@intel.com>
-To: James Clark <james.clark@linaro.org>
-To: SJ Park <sj@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Jan Kara <jack@suse.cz>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-To: John Hubbard <jhubbard@nvidia.com>
-To: Peter Xu <peterx@redhat.com>
-To: Leon Romanovsky <leon@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: Nico Pache <nico.pache@linux.dev>
-To: Ryan Roberts <ryan.roberts@arm.com>
-To: Dev Jain <dev.jain@arm.com>
-To: Usama Arif <usama.arif@linux.dev>
-To: Kiryl Shutsemau <kas@kernel.org>
-To: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-To: Alexander Potapenko <glider@google.com>
-To: Andrey Konovalov <andreyknvl@gmail.com>
-To: Dmitry Vyukov <dvyukov@google.com>
-To: Vincenzo Frascino <vincenzo.frascino@arm.com>
-To: Miaohe Lin <linmiaohe@huawei.com>
-To: Naoya Horiguchi <nao.horiguchi@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Rakie Kim <rakie.kim@sk.com>
-To: Byungchul Park <byungchul@sk.com>
-To: Gregory Price <gourry@gourry.net>
-To: Ying Huang <ying.huang@linux.alibaba.com>
-To: Alistair Popple <apopple@nvidia.com>
-To: Dennis Zhou <dennis@kernel.org>
-To: Tejun Heo <tj@kernel.org>
-To: Christoph Lameter <cl@gentwo.org>
-To: Johannes Weiner <hannes@cmpxchg.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-To: Axel Rasmussen <axelrasmussen@google.com>
-To: Yuanchu Xie <yuanchu@google.com>
-To: Wei Xu <weixugc@google.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-To: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linux-arch@vger.kernel.org
-Cc: linux-trace-kernel@vger.kernel.org
-Cc: bpf@vger.kernel.org
-Cc: linux-perf-users@vger.kernel.org
-Cc: damon@lists.linux.dev
-Cc: kasan-dev@googlegroups.com
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: xen-devel@lists.xenproject.org
-Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-
----
-Muhammad Usama Anjum (9):
-      mm: introduce hw_pte_t for PTE table storage
-      mm: rename pointers to software PTE values as ptentp
-      mm: use hw_pte_t for generic PTE table storage
-      mm: convert PTE table entries in ptep_get()
-      mm: convert PTE table entry to pte
-      mm: add hw_pte_val for HW PTE storage
-      mm/kasan: use hw_pte_t for the early shadow PTE table
-      drm/i915: use hw_pte_t for PTE range callbacks
-      xen: use hw_pte_t for PTE range callbacks
-
- MAINTAINERS                                        |  1 +
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  4 +--
- drivers/gpu/drm/i915/i915_mm.c                     |  4 +--
- drivers/xen/gntdev.c                               |  2 +-
- drivers/xen/privcmd.c                              |  2 +-
- drivers/xen/xenbus/xenbus_client.c                 |  2 +-
- drivers/xen/xlate_mmu.c                            |  4 +--
- fs/hugetlbfs/inode.c                               |  3 +-
- fs/proc/task_mmu.c                                 | 33 ++++++++++----------
- include/asm-generic/hugetlb.h                      | 15 ++++-----
- include/asm-generic/pgalloc.h                      |  6 ++--
- include/asm-generic/tlb.h                          |  5 +--
- include/linux/hugetlb.h                            | 53 +++++++++++++++++--------------
- include/linux/kasan.h                              |  2 +-
- include/linux/mm.h                                 | 26 ++++++++--------
- include/linux/page_table_check.h                   | 10 ++++--
- include/linux/pagewalk.h                           | 10 +++---
- include/linux/pgtable.h                            | 81 +++++++++++++++++++++++++-----------------------
- include/linux/pgtable_types.h                      | 23 ++++++++++++++
- include/linux/rmap.h                               |  2 +-
- include/linux/swapops.h                            |  6 ++--
- include/linux/vmalloc.h                            |  4 +--
- include/trace/events/xen.h                         | 10 +++---
- kernel/bpf/arena.c                                 |  9 +++---
- kernel/events/core.c                               |  3 +-
- mm/Kconfig                                         |  3 ++
- mm/damon/ops-common.c                              |  2 +-
- mm/damon/ops-common.h                              |  2 +-
- mm/damon/vaddr.c                                   | 20 ++++++------
- mm/debug_vm_pgtable.c                              |  2 +-
- mm/filemap.c                                       |  4 +--
- mm/gup.c                                           |  9 +++---
- mm/highmem.c                                       | 15 ++++-----
- mm/hmm.c                                           |  6 ++--
- mm/huge_memory.c                                   |  4 +--
- mm/hugetlb.c                                       | 60 ++++++++++++++++++-----------------
- mm/hugetlb_vmemmap.c                               | 13 ++++----
- mm/internal.h                                      | 16 +++++-----
- mm/kasan/init.c                                    | 14 ++++-----
- mm/kasan/shadow.c                                  |  6 ++--
- mm/khugepaged.c                                    | 50 ++++++++++++++++++------------
- mm/ksm.c                                           | 11 ++++---
- mm/madvise.c                                       | 18 ++++++-----
- mm/mapping_dirty_helpers.c                         |  4 +--
- mm/memory-failure.c                                |  6 ++--
- mm/memory.c                                        | 78 +++++++++++++++++++++++-----------------------
- mm/mempolicy.c                                     |  4 +--
- mm/migrate.c                                       |  4 +--
- mm/migrate_device.c                                |  4 +--
- mm/mincore.c                                       |  4 +--
- mm/mlock.c                                         |  4 +--
- mm/mprotect.c                                      | 19 ++++++------
- mm/mremap.c                                        |  4 +--
- mm/page_table_check.c                              |  4 +--
- mm/pagewalk.c                                      |  9 +++---
- mm/percpu.c                                        |  2 +-
- mm/pgtable-generic.c                               | 20 ++++++------
- mm/ptdump.c                                        |  4 +--
- mm/rmap.c                                          |  6 ++--
- mm/sparse-vmemmap.c                                | 22 ++++++-------
- mm/swap_state.c                                    |  3 +-
- mm/swapfile.c                                      |  5 +--
- mm/userfaultfd.c                                   | 32 ++++++++++---------
- mm/util.c                                          |  2 +-
- mm/vmalloc.c                                       | 11 ++++---
- mm/vmscan.c                                        |  6 ++--
- 66 files changed, 457 insertions(+), 375 deletions(-)
----
-base-commit: ead700ca770c82167af32622cf8b68c9f87c3c7c
-change-id: 20260914-pte0-6c88f5592d79
-
-Best regards,
---  
-Usama
-
+Ata İlhan Köktürk
