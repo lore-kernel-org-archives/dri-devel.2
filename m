@@ -4,129 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E453C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE3EC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E6910F91D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8224F10F8F4;
 	Fri, 25 Sep 2026 07:30:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bK5oWCb3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cIDrb78T";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D7810F444
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACE6560200;
- Thu, 24 Sep 2026 10:22:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DC61F000FF;
- Thu, 24 Sep 2026 10:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790245340;
- bh=/kufuYs8c40R6+aOEF8XLRCigB/kXlHZjyeo0hfMBwU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bK5oWCb3icJZsdzewTtJXUj2g8+OdPY584wvobmFjH9caA6XHPZPOxLC+ENgAYis7
- FMWfW3kg0b1pKU0W7dpIcpkH9wgepYgd+Vs0xeodvPvhS2Z2eCR6zzIfxbc+F4vYn1
- crr7Q7r6oewUJpom74jt6mX2gF6IAipPmH/f96jRZvGrtuVNztKClju5BP2uHo6kW6
- 734wktJAnH1jO9c7SkfE4BGx5XUqUo3nH1YffnP3W3u3mHAJ7/dU+/pRlEDaapTJOL
- hEriCB9vp3MVrONwH7vOYcoqLNO15CHvH8FuBJLz8aDKeueJxc7YfwK4KfyNmRNl7E
- 8UCm0PUzGxdsg==
-Date: Thu, 24 Sep 2026 11:21:49 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
- simplify
-Message-ID: <arT3K71l86fUVldk@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
- <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
+ [74.125.224.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 442FA10F16C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:07:34 +0000 (UTC)
+Received: by mail-yx2-f12.google.com with SMTP id
+ 956f58d0204a3-66e4aac92dbso1216994d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:07:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790194053; x=1790798853; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=A9+ovGuYBvMVBjRl4lW40mH855ce4DQy0r96l5cCvso=;
+ b=cIDrb78TzbMDzW2j+LEa8qoG6Ti4k/U02+q/UcEDaDWTfAs3YhZOgj6IiNJ3fAjAAW
+ CSDuneBOPlJnSyTopUEFoNTSKZSFb7cssI0eRASG1FY6xfkNxABKpkW11C+TEbAANIc+
+ RbHKrXWS9UCv0Ig0ekl0WLpluD1KCSHGhC9qp7ppUJw57W99zP+tsxMv3ZTEBLTHyoVn
+ GgvYC3f50EjyGZ0YC4z/JMGtEWD4qpDMFo+HDsUxBSWPer+f30MzaymnNKA1aNn58ENX
+ c/1Cqb4dmhohHyXwM3YZGz11BH9iMxsSZTqa5q/GxfiH2hki/5viKV42OjroC0P8HGv3
+ D5MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790194053; x=1790798853;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=A9+ovGuYBvMVBjRl4lW40mH855ce4DQy0r96l5cCvso=;
+ b=lVkYq683I+LASmrP/JZUVU8mYp6L+2Fyathfu+RzzRJpApfY2Z+derfrKVmjSZ7OIC
+ pLkFcq4Pk2q4YfAty/7+Ka2hfhjFn78xWgwz1RAsAcoLiydeQd9q7qfKyiIq3Xz9FgKe
+ fnNAQVmF7H9tXuVdwFuXgm6gqfB8hf6YuXa0ZuG34zIpSiBr3/adygnXz7R1Zx9cNMRz
+ lzMLZJ0GUSKTFbAxxv3cGIWvPxv0Gaqxjsdds1VXf904ovdXa7fmKGkdYuTkQopVkycK
+ t/aH1KxLjE8z1H8lkbMPVi/tZ4eic+utGm178ndkQ1UaGRvF0PDQiIVlFXzvKsdhvW8w
+ CqKg==
+X-Gm-Message-State: AFuF++lr1sn2sJRzNEDFiZ0oRS3VZOWfN2pKMI/bQNKw/szQKItCWpgJ
+ yWhh8d2nAKAvPHC/LgJB0nye2D/JNy0SXN6pJNX9GhkStG2LH9dXhl4MD+36a/KK
+X-Gm-Gg: AYBFou1yjKaHBAT+dKGjQIt95vqTdnBC8yGPwZYh5u3VEjO2RvbEk1rrd3ubhUX1z2J
+ GuVnKlWVW5AChBWzI0SttsT4E1yQ5eOCe9xbs4dSTPDTBQNSGPIpU48NCXpR/36Ur0wXz+w3u3f
+ aPk1qr9d7q3Jn0RtVXS2aGm5SHGUEW+WdNHEi7QceFG0kVCOrmgK6YXNicNE9Pi6LPUI6v4Jws+
+ QmTSbqTfsjrf1O/g3j0Znxe8Qwg9O0+T/MqxzdVSVld55uvR+CtvKK3uCUBb/kL0tko4ypZQef2
+ YDZ/M3g0r+wrLBAyMb21XH0n1lZcHVcBwU76Q9hfTcJ6iBZznUKrGh3OLnmgJ3h1ayiiJTB6+6h
+ i3CFFJc0LbjSvQh0t+X7AxAhdOQjSkX2yY0eRaGtUBkhj4e5erStQxxo5CqLlgxuITuue3p/6cZ
+ wVszzF8iMR7X9HNSY0YwjOKbUmrfFIypcDQvxj11RuhdSU3MdgPZl3la9AWFZuPHkarpOrFej/N
+ r6N0DGAsOy3BzmZyZNM
+X-Received: by 2002:a05:690e:43cc:10b0:672:d32d:8ee with SMTP id
+ 956f58d0204a3-672ed42d6aemr182037d50.50.1790194052859; 
+ Wed, 23 Sep 2026 13:07:32 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-672d80bea23sm1221915d50.10.2026.09.23.13.07.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 13:07:32 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, kamlesh.gurudasani@gmail.com,
+ lanzano.alex@gmail.com, phil@raspberrypi.com, linux-kernel@vger.kernel.org,
+ Jonathan Frazin <frazinjonathan@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: [PATCH v2 1/2] drm/mipi-dbi: honour the plane source offset when
+ flushing
+Date: Wed, 23 Sep 2026 14:57:11 -0500
+Message-ID: <20260923195713.88-2-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923195713.88-1-frazinjonathan@gmail.com>
+References: <20260923195713.88-1-frazinjonathan@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,135 +93,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 04:06:14PM -0400, Zi Yan wrote:
-> On 17 Sep 2026, at 12:22, Lorenzo Stoakes (ARM) wrote:
->
-> > When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
-> > solely to fix a race with migration which might otherwise double-count
-> > mlock VMAs.
-> >
-> > This is unnecessary - at the point of applying folio mlock state, whether
-> > setting or clearing PG_mlocked, we know whether or not we are locking.
-> >
-> > Solve this in two ways - thread a boolean through the page table walk
-> > indicating whether a lock or unlock is being performed, and run a locking
-> > walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
-> >
-> > This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
-> > VMA_LOCKED_BIT. These are also always cleared together.
-> >
-> > Then, update folio_add_lru_vma() and mlock_folio() to check only for
-> > VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
-> > instead.
-> >
-> > Also remove the useless invocation of allow_mlock_munlock() which simply
-> > returns true if unlocking and instead rename it to allow_mlock() and only
-> > call it when locking.
-> >
-> > Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
-> > mlock_vma_folio() and folio_add_lru_vma() to simply test for
-> > VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as an
-> > unmap racing with the locking walk must still munlock folios the walk has
-> > already counted.
-> >
-> > While here, also replace some deprecated VMA flag predicates.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/folio.c    |  2 +-
-> >  mm/internal.h | 10 +++++++---
-> >  mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
-> >  mm/rmap.c     |  4 +++-
-> >  4 files changed, 30 insertions(+), 37 deletions(-)
-> >
-> > diff --git a/mm/folio.c b/mm/folio.c
-> > index 47a437e0f7fd..35e242b48870 100644
-> > --- a/mm/folio.c
-> > +++ b/mm/folio.c
-> > @@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
-> >  {
-> >  	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
-> >
-> > -	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
-> > +	if (vma_test(vma, VMA_LOCKED_BIT))
->
-> I think it is worth documenting VMA_LOCKONFAULT_BIT alone means mlock in
-> progress, like you did in munlock_vma_folio(). Just to keep the protocol
-> explicit for all the readers.
+mipi_dbi_fb_dirty() takes the damage rectangle from
+drm_atomic_helper_damage_merged(), which is expressed in framebuffer
+coordinates and already clipped to the plane's source rectangle.  It
+then passed that rectangle straight to mipi_dbi_set_window_address(),
+which is correct only while the source rectangle starts at (0,0) - i.e.
+while the framebuffer is exactly panel-sized.
 
-Well I'm not sure it's necessary here honestly, because this never checked
-VMA_LOCKED_MASK anyway, and VMA_LOCKONFAULT_BIT never made a difference.
+If a driver allows a framebuffer larger than the panel and the plane
+selects a sub-region with a non-zero src_x/src_y, the controller was
+still addressed in framebuffer coordinates, so the wrong part of the
+panel was written and an out-of-range window could be programmed.
 
-So the meaning of VMA_LOCKED_BIT here is strictly 'is it locked' and it's
-correctly handled.
+Pass the integer plane source origin down to mipi_dbi_fb_dirty() and
+subtract it when programming the column/page address.  The copy into the
+transfer buffer still uses the framebuffer-coordinate rectangle, so it
+keeps reading the correct pixels from an oversized source.  With a
+panel-sized framebuffer src_x/src_y are zero and behaviour is unchanged.
 
-And I fear that it becomes whack-a-mole - the neat thing about this change is
-that you no longer have to special case the stupid VM_SPECIAL thing, and can in
-fact do the 'normal' thing of _just checking_ VMA_LOCKED_BIT :)
+The rectangle from drm_atomic_helper_damage_merged() is clipped against
+the src rectangle's exact 16.16 fixed-point bounds, while src_x/src_y
+above are that same origin truncated to whole pixels. When the origin
+has a fractional part, the truncation can leave the rectangle's far
+edge up to a pixel past where a whole-pixel origin would place the
+panel's own width/height - and tx_buf is sized for exactly the panel,
+with no slack for that overshoot. Clamp the rectangle to the panel's
+fixed mode before using it for the window address or the transfer
+length.
 
-So I think it's better not to.
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Jonathan Frazin <frazinjonathan@gmail.com>
+---
+Changes since v1:
+- Clamp the damage rectangle to the panel's fixed mode before using it.
+  src_x/src_y are the plane source origin truncated to whole pixels, but
+  the rectangle from drm_atomic_helper_damage_merged() is clipped against
+  that origin's exact 16.16 fixed-point value - when the origin has a
+  fractional part, the rectangle's far edge could land up to a pixel past
+  where the truncated origin would place the panel's own width/height,
+  overflowing the panel-sized tx_buf. Thanks to the automated review for
+  catching this.
 
->
-> >  		mlock_new_folio(folio);
-> >  	else
-> >  		folio_add_lru(folio);
-> > diff --git a/mm/internal.h b/mm/internal.h
-> > index b2c6c9435021..84aa3e6c8bac 100644
-> > --- a/mm/internal.h
-> > +++ b/mm/internal.h
-> > @@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
-> >  static inline void mlock_vma_folio(struct folio *folio,
-> >  				struct vm_area_struct *vma)
-> >  {
-> > -	/* The VM_IO check prevents migration from double-counting during mlock. */
-> > -	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
-> > +	if (vma_test(vma, VMA_LOCKED_BIT))
->
-> Ditto.
+ drivers/gpu/drm/drm_mipi_dbi.c | 33 ++++++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
 
-Similar reasoning to above.
+diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
+index 25cf04d02..1263dce91 100644
+--- a/drivers/gpu/drm/drm_mipi_dbi.c
++++ b/drivers/gpu/drm/drm_mipi_dbi.c
+@@ -271,19 +271,35 @@ static void mipi_dbi_set_window_address(struct mipi_dbi_dev *dbidev,
+ }
+ 
+ static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
+-			      struct drm_rect *rect, struct drm_format_conv_state *fmtcnv_state)
++			      struct drm_rect *rect, unsigned int src_x, unsigned int src_y,
++			      struct drm_format_conv_state *fmtcnv_state)
+ {
+ 	struct mipi_dbi_dev *dbidev = drm_to_mipi_dbi_dev(fb->dev);
+-	unsigned int height = rect->y2 - rect->y1;
+-	unsigned int width = rect->x2 - rect->x1;
+ 	const struct drm_format_info *dst_format;
+ 	struct mipi_dbi *dbi = &dbidev->dbi;
+ 	bool swap = dbi->swap_bytes;
++	unsigned int height, width;
+ 	int ret = 0;
+ 	size_t len;
+ 	bool full;
+ 	void *tr;
+ 
++	/*
++	 * @rect is in framebuffer coordinates, clipped to the plane's src
++	 * rectangle by the damage iterator against that rectangle's exact
++	 * 16.16 fixed-point bounds. @src_x/@src_y are that same origin
++	 * truncated to whole pixels. When the origin has a fractional part,
++	 * that truncation can leave @rect's far edge up to a pixel past
++	 * where a whole-pixel @src_x/@src_y would place the panel's own
++	 * width/height -- and tx_buf is sized for exactly the panel, with no
++	 * slack for that overshoot. Clamp before using @rect for anything.
++	 */
++	rect->x2 = min_t(int, rect->x2, src_x + dbidev->mode.hdisplay);
++	rect->y2 = min_t(int, rect->y2, src_y + dbidev->mode.vdisplay);
++
++	height = rect->y2 - rect->y1;
++	width = rect->x2 - rect->x1;
++
+ 	full = width == fb->width && height == fb->height;
+ 
+ 	DRM_DEBUG_KMS("Flushing [FB:%d] " DRM_RECT_FMT "\n", fb->base.id, DRM_RECT_ARG(rect));
+@@ -298,8 +314,13 @@ static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuffer *fb,
+ 		tr = src->vaddr; /* TODO: Use mapping abstraction properly */
+ 	}
+ 
+-	mipi_dbi_set_window_address(dbidev, rect->x1, rect->x2 - 1, rect->y1,
+-				    rect->y2 - 1);
++	/*
++	 * @rect is in framebuffer coordinates and has been clipped to the plane
++	 * src rectangle by the damage iterator. The panel is addressed relative
++	 * to the src origin, so subtract it here.
++	 */
++	mipi_dbi_set_window_address(dbidev, rect->x1 - src_x, rect->x2 - 1 - src_x,
++				    rect->y1 - src_y, rect->y2 - 1 - src_y);
+ 
+ 	if (fb->format->format == DRM_FORMAT_XRGB8888)
+ 		dst_format = drm_format_info(dbidev->pixel_format);
+@@ -390,6 +411,8 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
+ 	if (drm_dev_enter(plane->dev, &idx)) {
+ 		if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
+ 			mipi_dbi_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
++					  plane_state->src_x >> 16,
++					  plane_state->src_y >> 16,
+ 					  &shadow_plane_state->fmtcnv_state);
+ 		drm_dev_exit(idx);
+ 	}
+-- 
+2.53.0
 
->
-> >  		mlock_folio(folio);
-> >  }
-> >
-> > @@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio *folio,
-> >  	 * always munlock the folio and page reclaim will correct it
-> >  	 * if it's wrong.
-> >  	 */
-> > -	if (unlikely(vma->vm_flags & VM_LOCKED))
-> > +	/*
-> > +	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
-> > +	 * mlock_vma_pages_range(). An unmap racing with the walk must still
-> > +	 * munlock folios the walk has already counted.
-> > +	 */
-
-Here it's worth mentioning, as it's specifically relying on the new
-behaviour. Although it's neatly using the VMA_LOCKED_MASK to handle both the
-locked case and the 'being locked' case :)
-
-> > +	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
-> >  		munlock_folio(folio);
-> >  }
-> >
->
-> Why I am commenting in the middle of the series? Because I am taking
-> a quiz given by LLM based on this series to get myself enough background
-> knowledge to review this series. This mlock part came up at part E
-> and I only have part F left before I can do the full review. :)
-
-Thanks! :) I really appreciate you taking the time to look at this! Sorry it's
-so large.
-
-I held this series back from last cycle to help with review load, then spent
-some time fixing various AI-discovered things, and all the patches are necessary
-(well for the most part) to get where the series needs to go.
-
-I think the change is worth it though!
-
->
-> Best Regards,
-> Yan, Zi
-
---
-Cheers, Lorenzo
