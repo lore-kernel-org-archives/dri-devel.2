@@ -4,75 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A02AC9830C
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:26:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5B3C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82B2B10E891;
-	Wed, 23 Sep 2026 12:26:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9500510F01B;
+	Wed, 23 Sep 2026 12:26:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c+OOAePR";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="DymJK7xH";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1C8A10E891
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:26:13 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- 71dfb90a1353d-5c67e53002bso576055e0c.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 05:26:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790166373; x=1790771173; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=3lfa5GPOn19zRKVJ4YVgkdAOFskUQn9deVo/jHnP1F0=;
- b=c+OOAePRzHMeL5rx2flTGmZS6VmRBqqOkb9GudLA/Hd2ZUFgvrlSqK7LD8OmL0oooH
- U/JSfWH1euJmYP1XlAUnOJunM+gBCL8O1nEkbDzXhq8d7nP4t1hycLVfPJgiFNk3o+Lo
- QtbLq76nblEvETv2nnSoX4l5wCGAUqE5W1N9MdeF9+Mf/GtuVJ/AWaKgS2V14qAUNHBD
- KhBmie83zR/JRZDdKTSA71Re63LXegLZ6KzaHMIVdeBTjONZQqa7aGGsOpvyOm1RvRI2
- 51LWnHJ7UczLDyGCcim5LmxLEg1p24y3spODiK/xgpxyI0B0hhAWpRFnwxqWaiQE16t/
- C5sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790166373; x=1790771173;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3lfa5GPOn19zRKVJ4YVgkdAOFskUQn9deVo/jHnP1F0=;
- b=hlJITm/czYSx9xPq0uvaouF1A4qCxEImAXf3mYmlxIRXWb5FpyAYO6riunnZKJS40r
- tIbVAzktcVIqkq/q9tvXJSTXTEY62eu+7G6SMVKmOwjSYoYmk4xhw4FaPqOqY8ziIjwa
- iCbwwRNWXmrkXpLDO0eZa6QfmO5EnnpjyraHtYcFM9wV+vVO7FIkUMuAclAJ4pWkmo+0
- sqjSunWXLqn7lamX9O/iMQy7/MoMfupf2QUt/lTQy8lub8qd3DMP+fOqTsi7o9ZaaE6z
- GlTwucZlWHcpZ40wg5EPdOPTIPDu9IW7t6Xfk3JrlbIGm2ZdgIh0H55swRBTZU9EIxZg
- kBog==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxio81nKX4pT85JXGHltk6DiS6bo9j+VoigrtKiujNOwDflIvu2o9YwplFdKy+vNUqn2ezRDVJoQtc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k0vaazQZznX6LiNHnBptg+TXxmqcm2Ytig+xWEoNfHUegUjWPy
- pCfDeIlZsoME1r4lGsEGBJZ0AG0eXPnmfr9T62JN7rhWsJzCgRroHa9+
-X-Gm-Gg: AYBFou0F+4GLowXAxNe7ASAnyb9Bn+A/YTt4Hi90qZrNT8LghGHed3dZWEpGinWdhRn
- fEavudSgdZRz5sfwYMRJme5/4DU9HJLDDvfDhVeWCnGSxslvQSrmCR+WXbax3SsaJ5uew/lWj/L
- FQ27xVYm5yw72NiJGRWeVuV4Oo7ZynA5elZFcGh3PATl2SFTtzm2bcOc1n3CZodxQbOE08sef1s
- cwb0J60jNOQxPAuMBhlbbuAaMVaYsH2hELAVTd9v594ZgejxMULEjCEzsO7qKqMwvUFBZkbMme5
- oe9rtGkGUWrvQXHo3AjPPyylQRC2vaaCtJnO7xinxSf6Oogc9rAkSVa5gH2XOI8bnWedqdQnAy2
- ATp34NA7W71y5KVBUEL87Z0ApRgaylVRTzlLvUNXvhCJx36uw3Dgh6HQtQDZe3RmpXTMFtSPWBm
- D8OxvftdXAMssIwcUp2OLypi+hnQcWaxpOt+0LozutbHI9VLgJEJl3Yef3o0/wRyA=
-X-Received: by 2002:a05:6122:f93:b0:5c8:228:5ea6 with SMTP id
- 71dfb90a1353d-5c9f159ab1bmr3134360e0c.5.1790166372720; 
- Wed, 23 Sep 2026 05:26:12 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f04f5b93sm3002417e0c.8.2026.09.23.05.26.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 05:26:12 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the PRIME
- core
-Date: Wed, 23 Sep 2026 09:26:01 -0300
-Message-ID: <20260923122601.438892-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 239AF10E897;
+ Wed, 23 Sep 2026 12:26:17 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68N8ZPkk2906895; Wed, 23 Sep 2026 12:25:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=v0X+Rs8szhHkgnuPcIWhAyZce3EkTz
+ TtRBKQqHEj2SY=; b=DymJK7xH6KCGN1aWSDi8yE3JeZCCm0hQdInjvaYZRKitNb
+ sl2yDuJWYD4cPHPK0u4r0N9hStfA3omtniXxpaEHynRZ9NUZdggQ7y4v9nOzT7U9
+ XpO+PxL7oe/Fbh6/+YhooIKtXBG55sR4NiT2ToMHAWFRENr3oHFXFkwslZyhFWbI
+ 1B334HuWzXx4hpfNYekKa9xlmXk6cYQIBC2BCsfeLJ0OBkoaCBbxWf7H/z4Lv2mB
+ P/Lqle8a9fS6YnXCc6Y1u7OGYFyusCvin01zNALgGbVb6TQ9tmxXkOZ3MjLGdEdC
+ M/ha62xE0Fq3/RrtNVNmohrqAIQ4+aJYTAup8uSA==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsb5ap-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 23 Sep 2026 12:25:42 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68N95f8S005144; Wed, 23 Sep 2026 12:25:41 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8rrf7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Sep 2026 12:25:41 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 68NCPd4t38732190
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Sep 2026 12:25:39 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EC5CD20065;
+ Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3B95620043;
+ Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
+Date: Wed, 23 Sep 2026 14:25:37 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH v2 0/8] mm: distinguish PTE table storage from PTE values
+Message-ID: <1401e907-04ff-4ee5-ad03-00d88531a091-agordeev@linux.ibm.com>
+References: <20260903103002.1091859-1-usama.anjum@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903103002.1091859-1-usama.anjum@arm.com>
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab3c546 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=7CQSdrXTAAAA:8 a=vUGUDSKChvK0ha46Ui4A:9 a=CjuIK1q_8ugA:10
+ a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: ev-_JLyQr-pwEqNhXTXIZA7T8jABJbLj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX3jBRFLFxLXRH
+ 41gkMIIRJm9VbqiK2YtOcXDOIZwYjrCdxtSZOW/HeORsfhOxpmJhhPEWSN2wE9YBL2VRhW6O7D2
+ Qr3To+xxPwlTw7GeQ2a8zIO36T51bHxKzdyp7yFXdKF3rEFGszcZBbYQEl+zv+QLSQa5BvzpNIK
+ C5R4wcWrvwWHRZRXWHAwBTIUpPG8PzVJkpsQifRmwR8LgilnDa74f2xP/hyPClmLnKPerI1e3/s
+ fJyE7zMlic6Rx/76z/RtAMNkCr6xtVVE5VeRNLbRnsmDb4KohBKbvJQ4ax0IiGSsSTYf9dF9DDW
+ Go51ekYyr1d3O9vLChpz5abCQojIKm+DNY8HzWZzpMyAQ8VmaL5ufL6oddQ5mv/Q189e6iBxqs6
+ q8d6mtePYNjZn9b5/f57l92H+6h3S1U9nREt1LclL5Eqc+yXvnOU5Bwtr8lGfdC+FyC20VRDqr5
+ yvBcPkksv7DCdMzUVog==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX46m1QpM8dmIH
+ lg16GCvD6ONwEeOosozSD2m/9N5Zt+i3zavCwk/jFQmzNEO3Hlv1PgshihWpld67QkuM0YD1grS
+ xDTdsyKVkLQulaYB1Dcv4/OHkUvJzFM=
+X-Proofpoint-GUID: ev-_JLyQr-pwEqNhXTXIZA7T8jABJbLj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230048
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,80 +150,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vmw_gem_object_get_sg_table() returns vmw_tt->vsgt.sgt when the buffer
-object has already been DMA mapped.  vmw_ttm_map_dma() sets that field
-to &vmw_tt->sgt, which is a member embedded inside the struct
-vmw_ttm_tt allocation and not a table of its own.
+On Thu, Sep 03, 2026 at 11:29:52AM +0100, Muhammad Usama Anjum wrote:
 
-The core owns whatever .get_sg_table returns.  drm_gem_map_dma_buf()
-takes the table and drm_gem_unmap_dma_buf() destroys it in full:
+Hi Muhammad,
 
-	dma_unmap_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC);
-	sg_free_table(sgt);
-	kfree(sgt);
+> I've the patches here [3] for arm64 conversion which I used to find
+> usages in generic code which I missed during development. These would be
+> sent separately.
+> 
+> [1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
+> [2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
+> [3] https://gitlab.arm.com/linux-arm/linux-us/-/commits/pte0_arm
 
-Both are ops of drm_gem_prime_dmabuf_ops, so the core ends up calling
-kfree() on &vmw_tt->sgt, which is not the start of an allocation.  The
-preceding sg_free_table() also destroys a scatterlist that vmwgfx still
-considers its own and frees again from vmw_ttm_unmap_dma().
+I checked [3] with s390 and also against our lazy mmu implementation and it
+looks okay.
 
-drm_gem_unmap_dma_buf() runs from dma_buf_detach(), including the
-importer's error path, so a failed import is enough to reach it:
-exporting a bound buffer with DRM_IOCTL_PRIME_HANDLE_TO_FD and
-importing it on a second DRM device with DRM_IOCTL_PRIME_FD_TO_HANDLE
-is sufficient.  Both ioctls are DRM_RENDER_ALLOW.
+However, is there a particular reason this series is against mm-new?
+Should it be against the master, it would be easier for me to try it in our CI.
 
-Observed on 6.12.101 with KASAN, as uid 65534:
+> Thanks,
+> Usama
 
-  BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0xb3/0xf0
-  Free of addr ffff888008290450 by task poc_mm04_sgtabl/321
-  CPU: 1 UID: 65534 PID: 321 Comm: poc_mm04_sgtabl Not tainted 6.12.101 #4
-   kasan_report_invalid_free+0x94/0xc0
-   check_slab_allocation+0x116/0x120
-   kfree+0x103/0x360
-   drm_gem_unmap_dma_buf+0xb3/0xf0
-   dma_buf_detach+0x165/0x510
-   drm_gem_prime_import_dev+0x33e/0x430
-  which belongs to the cache kmalloc-192 of size 192
-  The buggy address is located 80 bytes inside of
-   144-byte region [ffff888008290400, ffff888008290490)
-
-80 is offsetof(struct vmw_ttm_tt, sgt) and 144 is sizeof(struct
-vmw_ttm_tt), which identifies the freed pointer as the embedded member.
-
-Always return a table the core can own, as the other drivers do.
-Reusing the cached representation would require copying it into a
-freshly allocated sg_table, never returning the alias.
-
-Fixes: 8afa13a0583f ("drm/vmwgfx: Implement DRIVER_GEM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-index 39f8c4655..a0233729b 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-@@ -73,10 +73,13 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
- 	struct vmw_ttm_tt *vmw_tt =
- 		container_of(bo->ttm, struct vmw_ttm_tt, dma_ttm);
- 
--	if (vmw_tt->vsgt.sgt)
--		return vmw_tt->vsgt.sgt;
--
--	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
-+	/*
-+	 * Do not return &vmw_tt->sgt: the core owns what this returns and
-+	 * drm_gem_unmap_dma_buf() sg_free_table()s and kfree()s it, but that
-+	 * sg_table is embedded in the vmw_ttm_tt allocation.
-+	 */
-+	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages,
-+				     vmw_tt->dma_ttm.num_pages);
- }
- 
- static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
--- 
-2.43.0
-
+Thanks!
