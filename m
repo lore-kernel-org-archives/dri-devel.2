@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47DC0C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3793AC9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:17:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6159510F18C;
-	Wed, 23 Sep 2026 20:17:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B38B10E9AF;
+	Wed, 23 Sep 2026 20:17:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DQCRztvm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G8BZJWXH";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0AE310F18C
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:17:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 739FC10E9AF
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:17:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 593CD43E8A;
- Wed, 23 Sep 2026 20:17:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31861F000FF;
- Wed, 23 Sep 2026 20:17:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D1BA40B3C;
+ Wed, 23 Sep 2026 20:17:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A6A1F00893;
+ Wed, 23 Sep 2026 20:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790194622;
- bh=eRtaiRywiqhMpU9LfGbTexUxo0FrkcHmVxIS3Wgete8=;
+ s=k20260515; t=1790194628;
+ bh=yAjqfAW5bufm+AVogJB9WGLnr3zM55n/7TxWBu55cXw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DQCRztvmQWj49f9WN7U57ZRRBYY2FWF5J6w1eTc5qxrQOgAB7443gGx8/UfHCT88W
- wd52GHuubauUirMyd6O6Gdli2V0u113s3+VINgPfTMq7BLMKzRLqc6Cx1sjzgfx8iL
- yNDSq/Mu567HfbqA9H4PRWCZqUwU9GIfpEYcSP4fCgTWtyZ7+svt8OFR0r74MVpFN4
- Q4i2xnMSicCuiEg6NZWPktuwR8cRzufKBwxDh1V7a5VB0k9P4V20imSflwwkkfBnDi
- djObuzbabUm2c9jrtCS5mGBlfCCrrgj+xcvDaAonvVauyHr52wC14eHyerSgkqR6pV
- IZO5v/i5srlZg==
+ b=G8BZJWXH/AeQQt/z6NE8wb4XMPVGdgWGdjJmhBDRva83xstzQVZuBsx0/gKuo9unM
+ 6PeI74aIai+EKLZF7xFbBUPALi/nv4W26DYp9zzxmiJAWVGesXKjhLRZYLsyNrc2HH
+ jzz3+3vyVfnMdetDuszTdk0s2/4Fs0lj59hTKDYUzClNatqSIepaOUthBMorXz8bpE
+ 8xRzoXo4CfhBuksctE5rJZpkfpqYL5zP3HLLLG1uW5XmFsLdZJ2k5HLvze/ChdrahN
+ vnqDLEhB8c9XHF6uXGFqi6jXV2acxZMhrIbZjqr3sho3Ni9BJVvbYv+qbiwzq/fPh7
+ h+EymL7t5NJdw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] dt-bindings: display: add a device tree supplied
- boot logo
+Subject: Re: [PATCH v3 5/7] dt-bindings: display: allow the boot logo in a
+ reserved memory region
 To: "Max Pedraza" <maximpedraza@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260923201035.51007-3-maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260923201035.51007-6-maximpedraza@gmail.com>
 References: <20260923201035.51007-1-maximpedraza@gmail.com>
- <20260923201035.51007-3-maximpedraza@gmail.com>
+ <20260923201035.51007-6-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 20:17:01 +0000
-Message-Id: <20260923201701.E31861F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 20:17:07 +0000
+Message-Id: <20260923201707.E6A6A1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,115 +59,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: embedding raw image payloads in DT violates design =
-principles
-- [Low] dt-bindings: logo-rotation uses non-standard string enum instead of=
- integer
+- [Low] dt-bindings: oneOf allows partial image properties with memory-regi=
+on
 --
 
-commit 7c49827223c484baa96e766e2d19b7e319290579
+commit 9a7a18d6778dd2101e7f626e61f0b37dcf103451
 Author: Max Pedraza <maximpedraza@gmail.com>
+Subject: dt-bindings: display: allow the boot logo in a reserved memory reg=
+ion
 
-dt-bindings: display: add a device tree supplied boot logo
-
-This commit introduces a device tree binding for providing a boot logo from
-firmware, placing a "boot-logo-clut224" node under /chosen. It defines
-properties for dimensions, color lookup table, image data, positioning, and
-rotation.
+This commit allows the boot logo to be specified via a reserved memory
+region instead of inline properties, enabling the image to be shared across
+multiple device trees. It introduces a oneOf constraint intended to make
+the two methods mutually exclusive.
 
 > diff --git a/Documentation/devicetree/bindings/display/boot-logo-clut224.=
 yaml b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
-> new file mode 100644
-> index 0000000000000..9dc34717639e9
-> --- /dev/null
+> index 9dc34717639e9..a71fc09a7c071 100644
+> --- a/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
 > +++ b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
-> @@ -0,0 +1,135 @@
-[ ... ]
-> +  clut:
-> +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> +    description:
-> +      Colour lookup table, as consecutive red, green and blue bytes per =
-entry.
-> +      The number of entries is derived from the property length and must=
- not
-> +      exceed 224.
-> +    minItems: 3
-> +    maxItems: 672
-> +
-> +  data:
-> +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> +    description:
-> +      One byte per pixel, left to right and top to bottom, each byte bei=
-ng an
-> +      index into the colour lookup table. The property length must be eq=
-ual to
-> +      width multiplied by height.
-
-[Severity: Medium]
-Does this code introduce a regression by allowing large binary payloads to =
-be
-embedded directly in the device tree?
-
-The Device Tree is intended for hardware description and minimal configurat=
-ion,
-not for delivering large binary files. Embedding an uncompressed image dire=
-ctly
-via the 'data' property can permanently waste un-reclaimable kernel memory,=
- as
-the unflattened DT remains in memory indefinitely. It also risks exceeding
-bootloader DTB size limits.
-
-While follow-up work might provide a 'memory-region' alternative, the schema
-still explicitly permits and supports embedding the binary payload directly=
- via
-this property.
 
 [ ... ]
-> +  logo-offset:
-> +    $ref: /schemas/types.yaml#/definitions/int32-array
-> +    description:
-> +      X and Y displacement, in screen pixels, applied after the logo has=
- been
-> +      placed.
-> +      Mostly useful together with a centred axis, to land the logo somew=
-here
-> +      other than the middle of a panel whose usable area is not its cent=
-re.
-> +    items:
-> +      - description: X displacement
-> +        minimum: -65535
-> +        maximum: 65535
-> +      - description: Y displacement
-> +        minimum: -65535
-> +        maximum: 65535
+
+> @@ -103,10 +122,17 @@ properties:
+> =20
+>  required:
+>    - compatible
+> -  - width
+> -  - height
+> -  - clut
+> -  - data
 > +
-> +  logo-rotation:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Rotation applied to the logo before it is drawn. It turns the logo=
- and
-> +      not the screen, so a quarter turn swaps how much room the logo tak=
-es
-> +      up, but logo-position and logo-offset stay in screen pixels either
-> +      way.
-> +    enum: [none, cw, ccw, ud]
-> +    default: none
+> +# The image either lives in the device tree or in a reserved memory regi=
+on,
+> +# never both.
+> +oneOf:
+> +  - required:
+> +      - width
+> +      - height
+> +      - clut
+> +      - data
+> +  - required:
+> +      - memory-region
 
 [Severity: Low]
-Is this non-standard string enum a regression from established device tree
-conventions?
+Does this schema validation fully enforce the intended mutual exclusivity if
+partial image properties are provided?
 
-Using a custom string enum ('none', 'cw', 'ccw', 'ud') violates the establi=
-shed
-convention for rotation. Existing bindings like panel-common.yaml and
-video-interface-devices.yaml dictate using a standard integer 'rotation'
-property with degree values (0, 90, 180, 270). This custom format fragments
-parsing logic in drivers.
+If a device tree includes memory-region alongside just a few of the image
+properties (for example, accidentally including width and height but not cl=
+ut),
+the first branch of the oneOf evaluates to false. The second branch evaluat=
+es
+to true.=20
 
-[ ... ]
+Since exactly one branch is true, the overall oneOf constraint succeeds. Th=
+is
+allows invalid device trees with overlapping configurations to silently pass
+dt_binding_check.
+
+Should the schema explicitly disallow the other properties when memory-regi=
+on
+is present to prevent this?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923201035.5100=
-7-1-maximpedraza@gmail.com?part=3D2
+7-1-maximpedraza@gmail.com?part=3D5
