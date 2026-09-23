@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEF6C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 612B0C98312
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:35:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC97110F20F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF7C910F212;
 	Wed, 23 Sep 2026 22:35:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SRn7iDL9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LmO8VmP1";
 	dkim-atps=neutral
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
- [74.125.231.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9520810F1F7
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:18 +0000 (UTC)
-Received: by mail-oa2-f12.google.com with SMTP id
- 586e51a60fabf-466ccbd4773so462594fac.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:18 -0700 (PDT)
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com
+ [74.125.231.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF8410E4DF
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:34:59 +0000 (UTC)
+Received: by mail-oa2-f35.google.com with SMTP id
+ 586e51a60fabf-48f0056ef38so1076636fac.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:34:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202918; x=1790807718; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790202898; x=1790807698; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7MkNMRdspTbVvOyjj4mP3KDq+HvnZxjdiab1bd88pGA=;
- b=SRn7iDL97z+cut00rJh/6TWpSp/rc90Z1dhZVnVJIIrX+UDmdWSABUQk0Iq2l94nQ2
- yFY4BuqKIsX65CH2+0pQ3Vb+aQ7tgaRsCP6RJWHza6DAl2v/IUAg9hM9ob4uwFnvFxpt
- X/ln5uUqXFtuxRO+vo+Frd3K9l0l8qMC1y3kvvIwZHAml/jdLi5kkcIzjm1tKfMjA4OG
- km9JU3UaR9bqLqyOunuw9LLRB7dvDmASM4x3GIekrvw2SMUyF0xJ1tjMQCYQmNr9PuWJ
- E7AmNTkLXD8nR8jQzu0jl/6SnNRrShnLtyZgHORJ2ONoF1ahvghJlq8qYEof10sKsx0a
- 4sXg==
+ bh=xNViDLZP/ndw6d10bbxAPq/kQLONZJvroL/iiRclils=;
+ b=LmO8VmP15P20UoqAtq4trenpPdFs/z3GtNaaX2MMrAuMka6JsldEIYBkApmj2tt+08
+ qXUlBEwREryFv2ag9V/KCVjBDXaH5i7mM3U+tHRe4YgitCWEvxVt7VAPCVBp1t0+fUh7
+ gx3AonQ0hUMFJvpfUomRuknw3C0WK3LQjsF7+c9vcPg4dzcmKBcSr53v8Br5APSMkRg0
+ TCfExa9LeDgPQ13cexDoBhnL4R3RCcLD07gvBnbMB5FyF/tSfejZLX9D6hJAitr68C1N
+ wHlama74nPKgQn8tzMY+zioWRn9vMuS+B9E0YO+Pc/xyBcYNHzdPLsQ7I4J42Y0oUwQ4
+ 5CXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202918; x=1790807718;
+ d=1e100.net; s=20260707; t=1790202898; x=1790807698;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=7MkNMRdspTbVvOyjj4mP3KDq+HvnZxjdiab1bd88pGA=;
- b=DYdpNdOF8KYcwF3yEU3VdLKrR/rz+yRTq8AokM/s3b6oKrFPNu4bDJg+xTiTK9fyMA
- S8Uyr7OXSo+1j9FHvZxUpKTJKqUumrslDJ6GC0Mcq4VTpYUoUyJ2AKqsC6u1JREe5tZh
- l9py4fLPIr8Qre/nlNSYm2pyN7z86K1pUe/owi7GYdcct6oeHuBF03Sx/lZAMmjXVdRi
- 8WQI9ZNmEY0PB3PBq88cGpi08ooBmOY5IFOLLr3Pgg7dzLAlgbauZIkYjV1JeeH+p5Ec
- sdSynMY+6WpquOZtNPUzeeMEJ9aO0udSWpVjuPbLuO5cHpjMVOMy02mLhcTc7d7Ymmpo
- WVIQ==
+ bh=xNViDLZP/ndw6d10bbxAPq/kQLONZJvroL/iiRclils=;
+ b=PvrEsqm6OotKjD5xWD9jcUm8+D2OT053rtn6wGSqXHddr4ESa+qTDeIXKPVqA/0GlP
+ ZERB8TiWef7meMVD/duCT7TKs9Cn4ko5pjxiEikagzHhRW+0Ww7+TGJ2KTmU5onit9vW
+ kfuDQRgL2aosxLE60nRpkgYs51pGd3We+gqDtm6bZkCjW3pTJHzzCG7uWPSjCSIaXyiU
+ 5ULjwvNFhmvInXx9usPzdIWlG/pfMw36aic8neUDHTnMLLtN0Np/QFoSPcx7KfQJINW0
+ dmYOYfcUfWFH9FoeJMCxvYcWc7h9BS9VrXEIPQ/qhMgef8TU6t12W1dIpTM2o1xRVhXp
+ fTIA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxpTUu6MRtHC9grEJUXsnkURvoZgsUDNDzy3Jp6aQOcnYLYbgz/t275j1G3D3+hH7YJhmPk/go4gp0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kEHRXD15UGG3oJWpjWtH59O+iPW32xgU8yx5An2CfVebdMZw5W
- 1aJ6EpnrpupMPzNM/YIY5wCxv5MsV6epo3TG0UYZDtmwyOcfArXEzle1
-X-Gm-Gg: AYBFou2cPRaMbdMEUE8fRyuj0Y9poYAfF9xHP7oJbUJiZiKtzdyEuISMxL7PYOF+MyJ
- sVAC/H48tKSfkEMBh4zWwCOpcd8kgcQM5T0PqDQeUpleuOyr34jVQWZzty06Lmac5wi6Us+2p+w
- 3QN/M4gxLaZ6hqyl9HClxF58ZJJ9Ati61cSSQCAcmxakuaHeISF1n8PkKmuzNFZZdJLnuA6EWKf
- X+WFGxxGCu84SAnfKZW0pvh2PwTrM20McIEu0cZofXYFKMU5/n1FcslYi5sZ+52VISUpxD6D26t
- Nrq250/EuIi3LImG1hXkfqsLMA1RDU/VoqUDmOp130p3YQ2vY9lQWsXwAHKqV7GmV6ZGlbh8Il/
- Zyx3UBrR1QjYwP+0RLlip2wf+85qVobFPKQILJ0/GddK+3faIZxMufcf2PpMqOF167s8Gd6vTZK
- 8BqnvbD07gAIvkhJCrqYt5fzMTatKmD//RmwJQzufbFeCRDPQnA0OjPAW6ZR4dGBo5lKarf5CAA
- xK8qJ2cjvJQctSon/VgOVNwxsNsBEpYBbe7EME/0Ee071XvKdQnm+Nu2CVBKzT6rZ8kHV2o2Xk2
- iaXPXRzH404xM5Os6fU=
-X-Received: by 2002:a05:6870:6590:b0:48f:e290:5afd with SMTP id
- 586e51a60fabf-491ec0cb1fdmr583623fac.62.1790202917649; 
- Wed, 23 Sep 2026 15:35:17 -0700 (PDT)
+ AKwUvBzFD9TAAu+mjAYllglRczgdJLSj47Y5Fngiw2Dutr+n2OChMkEyweUyxXbgpCg+gsh78uYZsphSivw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nr37jyFepNKNV2cD+WKlmwMox87qHvu8Xe7PI9A89B/MzGQW5t
+ GuDsLAvXxeF+vriP79f2msSdQIze7EOrCyG42GjAHt+mtkDcKgn77iKa
+X-Gm-Gg: AYBFou0atr7A8v3oA1KkQRYZuqJpZo1nQPaQc30l6zk99DDqzcje7v5cBk2g0TnoLza
+ QAh0ydh/FrhoyyPZ0A+c2zOu8jA6puVpZ8fc7BhrxqfsDQoGaaijfcduKclbso72GiSxjIi5WXU
+ iUhVL1HP6O/Q2Jd2xhl0YjRRVUu7jOc7JR55DvGHgAf3alzB4FX0uFppG6PmabJQWpyL+Rh1tXe
+ sdkQZrxYvUSpB0IW3ST2vRS+SE6sshM/QrgCGdsDttjKF6hgsAqEFm1QCbuMYmYx0Rwbm5RsEXi
+ bYN2/y+esXk9xe9aqGAiMXLtwryNZgh0fyHRpQ6wkUI5oxLGRucLymkaJc+We0c9cE5pNSGkjEr
+ CwI7SI46WpK3YhUquEwk3vgUFWEb8Te9GoCU/20AL5jLE39RUi5Fp8S+iZ8Gyuo7Sc7wN74io6p
+ 6Cu6xnHhiYWp0IlNT/1BdWImvT6SuBf/XXoPSoWU+cY3DYoZGGdzMaZhyFCPjc3HrsOkOfK9YK5
+ WZCpMzLMMYmmr9+TyZsd2ZEy7APnLP1+t3gvRzcryANAhzAz6VDVyqPkPV2wUc8rGUNyNm7D/ia
+ Zz3NIl8iDwzM2sXVs/Q=
+X-Received: by 2002:a05:6870:80cc:b0:475:e2e9:4f4b with SMTP id
+ 586e51a60fabf-491e83eeaf3mr672694fac.25.1790202898430; 
+ Wed, 23 Sep 2026 15:34:58 -0700 (PDT)
 Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.15
+ 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.34.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:16 -0700 (PDT)
+ Wed, 23 Sep 2026 15:34:57 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:41 -0600
-Subject: [PATCH v11 17/38] dyndbg: replace classmap list with an
- array-slice
+Date: Wed, 23 Sep 2026 16:34:33 -0600
+Subject: [PATCH v11 09/38] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-17-9b6c217fdf2f@gmail.com>
+Message-Id: <20260923-dd-cmap-part2-clean-v11-9-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -100,11 +99,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  Jim Cromie <jim.cromie@gmail.com>, 
  Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=5766;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=1375;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=I+Xnq26sBTEovU8k68EHi/UbMNiSRxDxIqjGuZzsVq0=;
- b=qYmb/qIjTvx2Z2xKJ0hdaGoZ++bj5qRSayQs2SlUI0rpMOgmmtP8o/QD+pp0vr10imBEKm4J6
- yNiL5fpJ6GzCQ5he2TW8hnWRytO9cXguLK/YO/hTlKONu4w8Loh1PhP
+ bh=kcJmyR2ErJB3b2aUXQffOC1Yo8OFza9JdCBgcSweT8E=;
+ b=EbxJ8aNNn2N8JWyaS6BS7GNKrgNA37jjdazA0+2phkEkOMkVK1BeOeOwCsbS7bDOavlG0jg3E
+ 9f6ObqsU7WvBJArvz0Lx/Dn7IfQl791wTvtF+oh1MjjDRgkeEqKxwyh
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -122,173 +121,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Classmaps are stored in an elf section/array, but currently are
-individually list-linked onto dyndbg's per-module ddebug_table for
-operation. This is unnecessary.
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-Just like dyndbg's descriptors, classmaps are packed in compile order;
-so even with many builtin modules employing multiple classmaps, each
-modules' maps are packed contiguously, and can be treated as a
-array-start-address & array-length.
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
 
-So this drops the whole list building operation done in
-ddebug_attach_module_classes(), and removes the list-head members of
-the classmap structs.  The "select-by-modname" condition is reused to
-find the start,end of the subrange of classmaps belonging to the module.
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
+
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: RvB after SoB
----
- include/linux/dynamic_debug.h |  1 -
- lib/dynamic_debug.c           | 64 +++++++++++++++++++++++--------------------
- 2 files changed, 35 insertions(+), 30 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 85863e24ad13..02a1abdc5b3f 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -84,7 +84,6 @@ enum ddebug_class_map_type {
- };
- 
- struct ddebug_class_map {
--	struct list_head link;
- 	struct module *mod;
- 	const char *mod_name;	/* needed for builtins */
- 	const char **class_names;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 474df0dbedc1..1c0604d7e3cc 100644
+index 8682c23b5fe7..13a3d1a8c3ca 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link, maps;
-+	struct list_head link;
- 	const char *mod_name;
--	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-+	struct ddebug_class_map *classes;
-+	unsigned int num_ddebugs, num_classes;
- };
- 
- struct ddebug_query {
-@@ -149,12 +150,13 @@ static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
- }
- 
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							  const char *class_string, int *class_id)
-+							const char *class_string,
-+							int *class_id)
- {
- 	struct ddebug_class_map *map;
--	int idx;
-+	int i, idx;
- 
--	list_for_each_entry(map, &dt->maps, link) {
-+	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -235,7 +237,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
- 	struct ddebug_class_map *map = NULL;
--	int __outvar valid_class;
-+	int valid_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -1067,9 +1069,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map;
-+	struct ddebug_class_map *map = iter->table->classes;
-+	int i, nc = iter->table->num_classes;
- 
--	list_for_each_entry(map, &iter->table->maps, link)
-+	for (i = 0; i < nc; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1153,30 +1156,34 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
--static void ddebug_attach_module_classes(struct ddebug_table *dt,
--					 struct ddebug_class_map *classes,
--					 int num_classes)
-+static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
--	int i, j, ct = 0;
-+	int i, nc = 0;
- 
--	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+	/*
-+	 * Find this module's classmaps in a subrange/wholerange of
-+	 * the builtin/modular classmap vector/section.  Save the start
-+	 * and length of the subrange at its edges.
-+	 */
-+	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
--
--			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
--				  cm->mod_name, cm->base, cm->length, cm->map_type);
--
--			for (j = 0; j < cm->length; j++)
--				v3pr_info(" %d: %d %s\n", j + cm->base, j,
--					  cm->class_names[j]);
--
--			list_add(&cm->link, &dt->maps);
--			ct++;
-+			if (!nc) {
-+				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-+				dt->classes = cm;
-+			}
-+			nc++;
-+		} else if (nc) {
-+			/* end of matching classmaps */
-+			break;
- 		}
+@@ -1174,7 +1174,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
  	}
--	if (ct)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+	if (nc) {
-+		dt->num_classes = nc;
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+	}
- }
+ 	seq_putc(m, '\n');
  
- /*
-@@ -1208,10 +1215,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	dt->num_ddebugs = di->num_descs;
- 
- 	INIT_LIST_HEAD(&dt->link);
--	INIT_LIST_HEAD(&dt->maps);
- 
- 	if (di->classes && di->num_classes)
--		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
-+		ddebug_attach_module_classes(dt, di);
- 
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
-@@ -1324,8 +1330,8 @@ static void ddebug_remove_all_tables(void)
- 	mutex_lock(&ddebug_lock);
- 	while (!list_empty(&ddebug_tables)) {
- 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
--						      struct ddebug_table,
--						      link);
-+						     struct ddebug_table,
-+						     link);
- 		ddebug_table_free(dt);
- 	}
- 	mutex_unlock(&ddebug_lock);
 
 -- 
 2.55.0
