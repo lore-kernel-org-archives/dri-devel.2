@@ -4,93 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5864EC98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28245C98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF59310F0D9;
-	Wed, 23 Sep 2026 14:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8C310F0DC;
+	Wed, 23 Sep 2026 14:27:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X1hU37C1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ahSVsNsK";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9882010F0BB
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:27:05 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482e1b55da9so111297f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790173624; x=1790778424; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qUZaB+3UwVox3QuJ6fhpHcHgvKk5qs3qiEgpgLo0ESw=;
- b=X1hU37C1YjlHg10EzcP4UEPavHAKi08L6FUw7ty2UPj2+6ASAo4G7xkGQ5G1S8jZQ1
- Z0u+Un6XtVdwEhd+qqNCgg1jdyQjjLfnkxsYF/L7755IwUR2ODOkZqnaWp5ybdt9udHz
- LApzioPLqQHNx0ikaISsrQPCIYpTMoD6m8NJXWAYrYG9k+VXFht2TMW1Hjl6Vp9EaEAt
- SXBJw4XGNA9irpFFQKsiCfbwc66ZzskIaa1+6exJFljwFQHWWkMFq7a1RUXFyClsnxW6
- wLhEiXBliPJsYS5oUr3MmqSk07rP2tN9iWEVY8IkOxe1ZQKXKxUDFLWGdlzaWybYqgL/
- wZbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790173624; x=1790778424;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=qUZaB+3UwVox3QuJ6fhpHcHgvKk5qs3qiEgpgLo0ESw=;
- b=ULvKeN5Dhp9Y++5eg4vVhJfTNNXkLWVa79xsCvj3pIoNQuwT0phsQb2pm30vKZVxiz
- Lgsyr2JtkDFkDAuMLD/1512mc/80MLHjWFAiYPm50S+NtGXpyxK0USBysJC/YUpUNC7W
- hqm+T4nitHC1y3Wq6rhzZGJQMlf8L5xWKq78PzI/5zGCjiDvF7J+FFB8Lk7VJ2T3j95U
- TumBbl5RnIEKaiEYkfU0wF60ANDrKTzh0SlzDA4eql25l24GaNmKsLkmvPCoEKjBjYs7
- KooiMhDFqk4LC7YGDXNQ1C7QTPGH/oidJ1rpr+awjjXUtCQHEKiVIupe4J+t8j6+NOsc
- 2qig==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxc66mgcQmV1xGTr5ByT/ZMYZhlfceuQ8ZyEswVGHkiZjrwg/gQyUZyvtEdO8AOsSmoVorraXb2BGI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lMyp9ze6gg7aaZZiv7TyRHR/DrkaPyOWamP1eyXGp7J4++ybWN
- oBp+gYv4jeOqvmBtA2JNsT8Ca0dhM6AA3E7gOneY4QGvbiltmi9lJjf/
-X-Gm-Gg: AYBFou0eJnCDklnwGuehhsVQwiPcJsIh8gpwfCJfL0RSkHEJw7LD+hRljuGB85CTjSU
- hz+2mVjKLgNRgCzb/H6e/SA3h2BkuTG04Kr87hSpGfw/tk57jYV6s6XfcP8te2v2qlKifv3P8sp
- rgjArdsHZQDFC3ICeyiHQ9rMsheLmKM5IbLh3Nu7rCl4ipA31zWxfQ/v4Smz6LlVQd44offF8Bb
- gxI3IB7caWba7EvNeZKMoEXl5KjAiZYX9D+OkYzMP/Bj5wZ+o7fJ14TkOV47lj9ukRFx1c2bVj6
- FPPf7IhFm3YDg0WmEolLR3WBsfIUSD7Yja6I6P+U8q5naugRyFEbh3Tw93BIpdN4wVFpPb418qe
- NoW4Vmz1SaYZkOFbHkUBdEDpknZVMLuZn6DS8xxRTI3e6XmtybvrRvUg7b4GTjyFo8IPci/e4SF
- RgNHxjllX2K+w5c3u3o+BUlZ/b13g7SdPh/U0iABd9erlrnNVvSsnpJE4q/KFV05oNhLfkXroxk
- yA/PJ2eF2aFLEG0Kn4SmOAgaUQ/8pMVIb3Jl38m4DkY/+5DlTVsFBJ/Frp4YmGo+EEjl7COXDoQ
- BrOqFq+OiufaXg==
-X-Received: by 2002:a05:6000:481b:b0:487:1251:20fb with SMTP id
- ffacd0b85a97d-48867049f60mr4545566f8f.2.1790173623692; 
- Wed, 23 Sep 2026 07:27:03 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8F45001B67602CEDBE732F.dsl.pool.telekom.hu.
- [2001:4c4e:1b8f:4500:1b67:602c:edbe:732f])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4886876c64dsm7388874f8f.21.2026.09.23.07.27.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 07:27:03 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
- =?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 09/11] accel/rocket: add devfreq support
-Date: Wed, 23 Sep 2026 16:26:24 +0200
-Message-ID: <20260923142624.15791-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <arPLjz0fP_b5dseJ@rock-5b-plus>
-References: <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-10-royalnet026@gmail.com>
- <arPLjz0fP_b5dseJ@rock-5b-plus>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C28810F0D6;
+ Wed, 23 Sep 2026 14:27:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 34EBF401D5;
+ Wed, 23 Sep 2026 14:27:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56F11F00893;
+ Wed, 23 Sep 2026 14:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790173642;
+ bh=xo37cdmnh+svtcxNkd5zKazT/OKpa6V/sR3x6PQMQC8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ahSVsNsK0t4OhaxqU3UAxp4Kk63mjC304tOhgP+F9OjMH4UXQiHJYJYxB2XnKatbz
+ O6UuIypRVixa2nF6IqMZlG/+Va+/zO24O5ZGr30O5N779SJe/MCpjaXx0mPRlpuYfr
+ ijvCsTzVATTNR+BtDCQ/FuOUjm2o//9C9fGhc2q5qzOTQH2GNMkJsjk1BiNh81UPkq
+ B+4YXKzc7ldvv5dpFYKwo59ntO37l9xKXOcSogBjix0lO9A0yDDkMh6QJEs3qq2KUM
+ p/KAwPKcE4Q05wMmMnflaF4JPxvina+g0IaYkNXYJbrX8i6iRwfiKlp0NuxGu101zW
+ Njl0rUeBR31OA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is
+ enabled or PR !async
+To: "Xizhe Tang" <xizheTang2005@163.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
+References: <20260923195200.21362-1-xizheTang2005@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:27:21 +0000
+Message-Id: <20260923142721.D56F11F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,30 +54,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sidong,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915: build failure due to missing vrr qualifier for cmrr
+--
 
-On Wed, Sep 23, 2026 at 10:14:51PM +0900, Sidong Yang wrote:
-> IMHO, handling rocket_devfreq_init() error as critical error to disable core is
-> too much. How about just printing error for user?
+commit 040a3a223ae954dab43478f6da5edfc88f5ff693
+Author: Xizhe Tang <xizheTang2005@163.com>
 
-Thanks for reading this far into it. Agreed: rocket_devfreq_init() runs
-from the probe of the core that binds last, which need not be the core
-the devfreq device hangs off, so a failure there takes down one NPU core
-while the remaining cores keep running without devfreq anyway. panfrost,
-lima and panthor do fail their probe at this point, but there it is the
-whole device; msm_devfreq_init() only logs, as you suggest.
+drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or PR !async
 
-v3 will warn and carry on without devfreq. On that path the driver will
-hold no OPP table, no OPP configuration and no runtime PM references,
-the same as a board that describes no OPP table.
+This commit alters the condition for sending the Adaptive-Sync SDP by check=
+ing
+explicitly for VRR or CMRR enablement in the CRTC state. This prevents vert=
+ical
+streaking on eDP panels that advertise VRR but run at fixed refresh rates.
 
--EPROBE_DEFER stays fatal: npu-supply is first requested there, through
-dev_pm_opp_set_config(), and swallowing a deferral would leave the board
-without frequency scaling for good.
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
 
-All of this is from reading the code; nothing was run for this mail.
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..612bc2846475b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3111,7 +3111,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *=
+intel_dp,
+>  	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+>  		return true;
+> =20
+> -	return intel_vrr_possible(crtc_state);
+> +	return crtc_state->vrr.enable ||
+> +	       crtc_state->cmrr.enable;
 
-Igor
+[Severity: Low]
+Does this cause a compilation error in intel_dp_needs_as_sdp()?=20
+
+Looking at the definition of intel_crtc_state in
+drivers/gpu/drm/i915/display/intel_display_types.h, cmrr is nested inside v=
+rr:
+
+    struct intel_crtc_state {
+        ...
+        struct {
+            ...
+            /* Content Match Refresh Rate state */
+            struct {
+                bool enable;
+                u64 cmrr_n, cmrr_m;
+            } cmrr;
+        } vrr;
+        ...
+    };
+
+Because cmrr is nested, accessing it directly via crtc_state->cmrr.enable w=
+ill
+fail to compile. Should this be accessed as crtc_state->vrr.cmrr.enable
+instead, similar to how it is checked in intel_dp_compute_as_sdp() further
+down in this same file?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923195200.2136=
+2-1-xizheTang2005@163.com?part=3D1
