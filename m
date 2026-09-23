@@ -4,105 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF1FC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B6BC982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2004F10E0A8;
-	Wed, 23 Sep 2026 09:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72D0510E86B;
+	Wed, 23 Sep 2026 09:21:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="mTNvpVTl";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="hsV1VpEI";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5945B10E0A8
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:19:24 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747f01363so3988175ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 02:19:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790155164; cv=none;
- d=google.com; s=arc-20260327;
- b=nGlkpcqQ52Fb+9nngZjLmCHEQ1YpHzv35JWibq1npztBFkEFtSVcm/YNAs232y88Gv
- coS89VWV+h6pmdRG6/VZmQOKe2XDt+dSp7SW4UOMoKgpVhjhV/2pd1b0YXAAuCsrrFb8
- PckgNi7Cit3rrPue0tu3dwbpUoe+B5YOMWJJRTa+4cubtyT2LxrCfdbHGPzHBNSfyJly
- jpfy6PvSuiUzts9fzSJoGuZ4NTnpdZzHw9JvpDBnVzL7hvxfbz/G1RaI7IP1b9JwrBdt
- Vpc84Wbz8vca9sIu7T4WhgwQgydkT6SQvPZlESP+IbKWEjYMq0AwEZBQaglSivsCmBZF
- wkhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
- fh=7vxyWLTG4+Y7B3qYEU3SIf7dRUPVrdSpB0m0JPf1Xm0=;
- b=r6mkHsiNBODIUmJ0cTIqJlQ/Cxs+seMktj0P+6rm6DGly6OvfykvTZrawWbjkPksso
- H4dZs6ijukM7asQSpmZvSWQgxLm4SQ6v3qY4S6osP0hFkSQv+ae+sfgKcySdYFjnmhzO
- ycN5U68nbUVNKCFi08bpWfxGQqihZeysvlinVECjJkV0XBW1sCGnQ15/UMTDP+VUgBU+
- NAO9oOn5iGYBZSFJIKoQn0N2xjfEeKUXONHjzeorIYrWervOuE6MNCeok9R21Rp2YdDa
- L/qP4rpAE1hTx1hyjlSh007mGo/PSw3rfnZNy07d9fjhPRqrmijtIUxiFG7OZ5JWzh18
- SaKg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1790155164; x=1790759964;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
- b=mTNvpVTlIXE8cDL5y/a9H7xZDRfkd7iQ0KgOkICqDL7csyP3S/axOLeXcHRDPQpXNS
- SNuHEiTS83o50y7mmakfr760sMONdiz+jr/V73m7dRGreP/Bv43daBfcPXLE+VrB0Xgz
- DtM7oC2+JIXi5wvyMKlp9UX54A6n/cK/MA7+WrUtET4L3GY0TI0JF56fQDLiXyK7YCnz
- Ht3RqyCuXdK130asx44UydDuWbeSVJeolWDRk6LDxaMPG7roQ5ZUdtnkAe287RQhZuU6
- 3+4OvXBSd0hxK3aGaulRHdyqwgVcjN3vNlxIKkEbRf+qLukDOyMb+l13x6brZVKRt1MT
- X5Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790155164; x=1790759964;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
- b=LIxIKhvWLwq8bBFGONMeRNKTwGO+hf2lF/GH4F+80p7pkD00C4jIhxPtAz8607Ps7j
- IW6tvAzct9VgJXhPQmxinoLFcZ2HtpHz6XNSDieCtvj5JOncdQKxyqtJ3vO49BHPOlof
- N8uF1XuzZCiKdviZfWqhJLaPcqaOleXKO+4JMLd8zU+zt3bNzf3WfComOrmUUNQbZPxk
- dzlIX6o0tQFL0Y3fV4OE2841xIyiszFc5/5IEJYshUQy/GoEQQYlNw0Of/CYR+BJnvqj
- OSdN4CSGy7ogPEKh0ReLj340SRDcVSvSJfVLjy1iYIkoWvlkV5yMnKGxcSjY314uV+T7
- 3G7w==
-X-Forwarded-Encrypted: i=1;
- AKwUvByrciFDzCcm82VJ2oVlFMqUfVi0KVNI3TadRt3JRHy/Xu3OiIOYmiPcN+/b/VpPPkkbS9DPzvaH6CQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nAiavg2Dnpq6EPo3QHIc0KdwuyShEGqvj2rsb49T0Juhs34UjI
- c5m/wYVzzlYmeIOVZvuv+QsCV7p3UYjtlC+UzXGFkBYEilDFunp7dUXR44e46j8I63KZAkiP5Cx
- XOAVR+H6jz6roBdLwBGALmevTuVnntZUZOXL7Yofb+g==
-X-Gm-Gg: AYBFou328KqluyWTkTr13DUH05N8/KgLKXIg7f2xUx/ZRZoByRMozMubCQSwtpXZ6ka
- NQwFgzbMs+i4GvFDenOsOLenupwhJ46NbAYk7fGMIqrsjvo6eSx1wwvK/Y14EJRiNwFXCbMuIdS
- Mad1Al/gLiGGRBcmGk6D6V5P2gd+4/6QXZYuUFdzdr+aP/qr++dXffFBQXvcEIsoIG0ydAH7e8H
- 21PU2H+YEuFxaVIzsha4ntgNLaQrsKvdKHe7Bm1xk557RRC8u5Q5hqTS6LzfeDjUGF6sJOQKoGx
- 5yvyZoLDZ//K93qHCNcWk1wGh+ZLDdYU0luzmqEG47ZlgKG8LHZt
-X-Received: by 2002:a17:903:3c28:b0:2dd:c053:9c72 with SMTP id
- d9443c01a7336-2df69dce3f1mr16258365ad.40.1790155163811; Wed, 23 Sep 2026
- 02:19:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
- <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
-In-Reply-To: <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 23 Sep 2026 10:19:11 +0100
-X-Gm-Features: AcwNN1WcrMpUMY7WrxQBLpWPrZ8BZzqWRprFtRJhz4ki4ZfJwZKD54zFU1R2wsY
-Message-ID: <CAPj87rMT5vnYMJ-MVk2z_etH+zHK+poac17TD+Yz4SnMZFbsBA@mail.gmail.com>
-Subject: Re: [PATCH v4 09/13] drm/atomic: Add
- drm_atomic_implements_create_state() helper
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, 
- Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F177410E86B
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:21:40 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hqWgP6fWWzMlcN;
+ Wed, 23 Sep 2026 11:21:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790155297; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
+ b=hsV1VpEIcbfAY97859a01N4NfGJ1qfkYQ3qQDzvGI09N3qFlULRneVEir627XR5eolXIdw
+ 5RrkkOPWp5H54LzL4Sp4h9TtXn+DVUxJ93vxkHhohRl6y+c8A7t9HDNYWHRBwIi0fz54Gy
+ lpGV3DMWLLVkxnDIxpS0DH44l61v1dDjoGR6ZMdDJty4cyNwwq6c1xkXWW6vV9pXOe6vPA
+ /bl/H+fjLKLagm13Z3OMmuWLqS5hiQaBMtdyQphynQz305m6osjNHtIv3BN3eLNsQCeMZy
+ gUpBOavYW/2suWPmXnP0lEdKHEb0QDbhExZioHGGa/oLmVFFiEzVceATJr7GnQ==
+Message-ID: <ffad51ef7d5f20d21396c84362fbdd2ac5883116.camel@mailbox.org>
+Subject: Re: [PATCH v11 1/2] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
+ <work@onurozkan.dev>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  "Yury Norov (NVIDIA)"	
+ <yury.norov@gmail.com>, Asahi Lina <lina+kernel@asahilina.net>, Burak Emir	
+ <burak.emir@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes	
+ <joelagnelf@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+Date: Wed, 23 Sep 2026 11:21:26 +0200
+In-Reply-To: <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
+References: <20260905085343.1827305-2-phasta@kernel.org>
+ <20260905085343.1827305-3-phasta@kernel.org>
+ <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-ID: ee915ba95aed2083b9c
+X-MBO-RS-META: gc4f65s5boyqeb8nrisbs9xnw697ra6q
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,15 +77,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On Mon, 2026-09-07 at 20:14 +0200, Danilo Krummrich wrote:
+> On Sat Sep 5, 2026 at 10:53 AM CEST, Philipp Stanner wrote:
+> > +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T>=
+ {
+> > +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let guard =3D self.as_fence=
+().lock();
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Use dma_fence_test_signa=
+led_flag() instead of
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // dma_fence_is_signaled_lo=
+cked() because the C backend wants to get rid
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // of the latter.
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `guard` is valid=
+ until the `call_rcu()` below.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let signaled: bool =3D unsa=
+fe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !signaled {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_=
+err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
+>=20
+> I'm not sure we want to keep this as pr_err!().
+>=20
+> If we really want to keep warning about this I'd either make this a WARN_=
+ON() or
+> dev_warn() (we can easily store a device reference in the fence context),=
+ such
+> that it is at least clear who's the offender.
+>=20
+> My preference would be dev_warn(), as I don't think it is that bad of an =
+error
+> condition to begin with. It would be pretty odd to have a driver where a =
+DriverFence
+> drops while the corresponding GPU job is not dropped. And further it'd be=
+ pretty
+> odd if dropping the GPU job would not imply that the GPU actually stopped
+> processing the work associated with the job.
 
-On Fri, 18 Sept 2026 at 15:18, Maxime Ripard <mripard@kernel.org> wrote:
-> +bool drm_atomic_can_create_state(struct drm_device *dev);
+Yeah, it would be odd. I would not expect it to happen. But many things
+have happened which I did not expect, so =E2=80=A6 :)
 
-This is misnamed here, and fixed up in the next commit.
+>=20
+> For the same reason I also think it is a bit misleading to say "Danger of=
+ memory
+> corruption!". It's not the signaling of the fence that does prevent memor=
+y
+> corruption; it's the driver implementing a proper teardown sequence. And =
+if this
+> sequence is structurally detached from the lifetime of the DriverFence (a=
+nd Job)
+> structure, something is structurally wrong with the driver anyway.
 
-Cheers,
-Daniel
+Hypothetically, it could mean that there is a forgotten job still
+running on the GPU, which might then access freed resources through
+DMA. Sure, that would mean that the driver is fundamentally broken, but
+that's what warnings like that are about.
+
+Just to ellaborate on my thinking. I wouldn't insist on any wording.
+From my POV we can just say "=E2=80=A6 drops unsignaled.". That should be
+enough.
+
+>=20
+> Furthermore, it would be very natural to just require the generic Job typ=
+e to
+> own a DriverFence. In this case it becomes natural to either signal the f=
+ence on
+> Job completion, or just drop the Jobqueue, which does the ring teardown a=
+nd
+> subsequently drops all the Jobs, which would also imply signaling the
+> DriverFence with ECANCELED. I.e. I think the fact that the DriverFence is
+> signaled with ECANCELED if it is still unsignaled should just be an API c=
+ontract
+> and not an error condition.
+
+Yup, with the JobQueue design I have in mind this error is largely
+impossible, just as the forgetting of DriverFences is. Which is why I
+think it's a good design idea to have the JQ own the jobs, isolating
+the driver from direct fence interaction.
+
+
+P.
