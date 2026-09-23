@@ -4,77 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E19FC982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E025C98307
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B02AB89E36;
-	Wed, 23 Sep 2026 08:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A926A10E864;
+	Wed, 23 Sep 2026 08:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="DcXaoWa8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bkAGS5/T";
 	dkim-atps=neutral
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B367189E36
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:38:02 +0000 (UTC)
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-49e73659ac5so9448615e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 01:38:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790152681; x=1790757481;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kOQuxC7LVBVgFra/SLEL7xZErR13eeQQM4CHXuTiXLo=;
- b=DcXaoWa8TLWfYh9ola+ZNntjVtlfsBm4fCPMGdUpXdqA3jYEinHQrqKJa2O9q7zNFt
- 5hpneTlIu8aOZiDFHnFm70YJ1eGuW0E7Bk/cg2F+sQi0TzLPxqyw8lsZF+71DS63Gnmq
- Jcf9l7zgs3BvMrAhLII6YUeJ0tzP3pEnmii+tNF4gm0GXgr+F5ynJepeydHySCVOET9q
- QuvaQqDoAuT/w8jjIutb9GcDqa41lHmDDLhUg5aRF8wJtVECVQDwi7xSrbBB8IdaBDlV
- z8p1yp+/4/LLYwwP+rHUKR7HRKlTV1R4jLl/fb4lh47gj02IID2vW820aAnrqwqKzwvV
- x7tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790152681; x=1790757481;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kOQuxC7LVBVgFra/SLEL7xZErR13eeQQM4CHXuTiXLo=;
- b=KbKmaP8eFcQezR2hruLqJ0nPC2HIJKdjK80q0TSswL6ICkR9jXvjrZvzsbDsdkgqNd
- QAzt0vCcdBBLqi344mMRXfek6xxj+vLIC1UBHjKUlea3++cXEoSIa/kXQuebLZzlTFtH
- CihXX7sm4ykafcfrs8XxPL8vfRCKEBzA4eN+SPucys1KDZ5GbiwnzTGRtIAC8GEDmtTQ
- 8lumCAidMIfEs/9waU4RmVj2vpITBVyjWNgVetVj2fwenGBVeRir5+fyNzMtPY+4SPZB
- T9UDL66ZdOUxwb6F6m/lt/g4oZrp15d80rxpDs6QgHAFdAqoxEFBsm+/+t5siT9iwIto
- HxkA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwDyCxgnowhnrI3CfGvDEQDA9q5gGfdE939+qeatwJZObpGoKyKp9PE7oM/fsCohOBpFKFxAHImNyE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m74F7XI++4R/WriOebL7WZDS4XqKjWf6loAum4OtMjYn70vi98
- vxkTq25aiGGegKZ9gGFinNSNM5JCxMR4w2BEKpgXd7ImR/MksASLwitMXvT1s9G1yMcnUBG85ys
- +ZZD/EELqFpyx0DqDTA==
-X-Received: from wmbb24.prod.google.com ([2002:a05:600c:5898:b0:49c:ed8f:b617])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1385:b0:49f:d6b2:4dfa with SMTP id
- 5b1f17b1804b1-49fdee0b74fmr19593985e9.4.1790152680354; 
- Wed, 23 Sep 2026 01:38:00 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:37:58 +0000
-In-Reply-To: <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
-Mime-Version: 1.0
-References: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com>
- <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
-Message-ID: <arOP5iuLuj1aTiLl@google.com>
-Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
-From: Alice Ryhl <aliceryhl@google.com>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- kernel@collabora.com, Deborah Brouwer <deborah.brouwer@collabora.com>
-Content-Type: text/plain; charset="utf-8"
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E615710E7A2;
+ Wed, 23 Sep 2026 08:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790152775; x=1821688775;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=uz1OQUzl4MvqVHjsp45Hu5QYIheXxt0cRWaSi8YtNEI=;
+ b=bkAGS5/TPAMl9vbPiIwlAEA/Sw3E6jk+VyNizm3TtJ7rNO16lCKogsts
+ 36Ly+nD2nkviNIvOYGIBuxoP5bEyWDpmI9kc/bfcGOtn423GFpZAorLTn
+ KrhF71RjWsPPtIygm6YSdBEOKuk2BJqXv7xODjc+ysveChuMNEj7AQiht
+ a29c9/gIZGd7xqnQpz273M/HFEhan/DPQZfnjXWogr8ANvigOZidHdet1
+ qvWgGqdAB1SxQXZU1VBSZQgQ+dNtm2P/KUBFKovYE8ZyOeHNnLE7gYUNR
+ cocjoYAAX+LWpGvUduzvgEypPRqnjkxYCeTA9ZniXZE9oVvNm+4Coj/tQ w==;
+X-CSE-ConnectionGUID: KON1etQpSJOw46masu3OPw==
+X-CSE-MsgGUID: K941xurJS4y6CUkeyF9JRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1317691"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="1317691"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 01:39:35 -0700
+X-CSE-ConnectionGUID: JIm1BUHvRueUK/6UDRo8Hg==
+X-CSE-MsgGUID: BKv2jqpwQD+IBjU7SX78Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="273689512"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 01:39:34 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 01:39:34 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 01:39:34 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.1) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 01:39:34 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZL+tIyJN9t4UjpeVOxXk3qqX/CPrnP3EEna4Z0B3RhADRDZk2oBIT3Fgkx1zdgQ6KIePaYftPCrzU5mBJyt1LMTRmhmmPz+WFxYr0Vv1En3HnLa7UYRrqV7zL5inVxurvk63MZuy3Qpd9iiy7kZ2J3F1lpYckPF3dYoVNJr5L1q2S9wxR+VVLPnmsfWx96EuqnY2KRP0998BRd+gq3XTUbS5miXlppc6V2k7+CqU9IVr0LGi+7K09xTLVeII/GchOIhq8Lp2fldDzTsPKTbrkeJeMMOpMx7XNhGO/Y0ZW/CejYjCQUQaZwQ63Tj13I3/m3IqFrzkEopBxshFqiS3ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5/rsNJSrDCwY1o+O4qsteRBOcp+LWxeavG6s/SmfX64=;
+ b=N0Z4AnDc/fQ1Yd4ECrBas0RsruWSpOiF1Wn/CdDp3XrR3D9WwG+XjigByaxcNGUuREjxGR09z2/B1n/Rvo048ugsuLDAZD/4DV0+lKJ8kfceQPggKb+Wc+0xxpshkhXg+VgR7gn56Tl6+gavQrJvhiW+OHrbLugCm/hjJkOxh8DroYzNEtCxTEfhRuz+wQBdd2qplrwpWNQk02ubGozK2ofL4r8fO36OWrKdk440iS0vP8tQZXSwbEMLvIuBrIOM/nGitBB13rV+Wx2jgczgpHb70YLiLRNnQVjFGcmyVHhD3Lnj4PCqsYNNnN9VOSR+MVMCkUMuG9l5WUDLZUYreg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL1PR11MB5366.namprd11.prod.outlook.com (2603:10b6:208:31c::17)
+ by SJ2PR11MB7672.namprd11.prod.outlook.com (2603:10b6:a03:4cd::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 08:39:31 +0000
+Received: from BL1PR11MB5366.namprd11.prod.outlook.com
+ ([fe80::942f:90a0:fade:3848]) by BL1PR11MB5366.namprd11.prod.outlook.com
+ ([fe80::942f:90a0:fade:3848%4]) with mapi id 15.21.0406.007; Wed, 23 Sep 2026
+ 08:39:31 +0000
+Message-ID: <48830e07-7399-4d26-9130-06dcaebb3c94@intel.com>
+Date: Wed, 23 Sep 2026 14:09:24 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/pagemap: Drop ratelimiting from dev_unhold_work debug
+ trace
+To: <sashiko-reviews@lists.linux.dev>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+References: <20260921062648.1166903-2-varun.gupta@intel.com>
+ <20260921063310.89D4D1F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: "Gupta, Varun" <varun.gupta@intel.com>
+In-Reply-To: <20260921063310.89D4D1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0137.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d5::17) To BL1PR11MB5366.namprd11.prod.outlook.com
+ (2603:10b6:208:31c::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR11MB5366:EE_|SJ2PR11MB7672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11d7c86a-9ce9-40e0-3a96-08df194e3018
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: AUWNrgIgas/3zUQ1FTaUeWhdYDtJ8KS/Hhr9ab8LfTW5LsT/jTP+Ex5ivaElIyBvepzoRXXccaKGhnfa63Jvfo1nZQf0BHyAxVr/q3PhhbCR5ARrPWKzB+yUEgfGeS9FEny9NUX9X4XlLHLvEuaCiNn6H/9/ybcPmaVRCByGzBTO7UiCHnXApBgEPL9cx7YJKO4NSfDr3bNVD0zHFXs3j9XvNTRQCZBiyWvZcv7mWrFHWxrV80w1s9zTh8SiYqHwF88G1Ap2HQ+WELYK97ctbwJo0+o16e/kYTJ9WXJaInw6nR22fQRToJM7xAuifMOSpQMPLTpV1pbm/SWyaRtCVwSwF87rqlMa3wdPhYJQIgEJZvtYjq18EhPaCOMSGCOUn++D8I3ZpodXSw7+08T6WfiEdvb/XqGFYYgmPy8cTQdYDDUGVJJ/Sj/V6TtXgJO+TV0UH74Cl1lflE+tLhmZpOiQETwDUDYCZFON0fyi4C5n0xDe90GxQxQnsoHvKLNlfW9nuch4xRhHK99Rij/Qz8FTe+anNlCxGiai4ZkeUlgHGBmx2GyW2elanP22nvNEseIoKeZvXIm5assyFWP4bKLnSYZycn8V8LTtfRV/U3GQEhRDbsRaP4aHxVpCrzDdo25KHlvIwYPwZE3h4EUHTYPVkQiwU0hSsiRZPpYuOno=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR11MB5366.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUw2VXI4aE0xWFZ5Q3IycFgxYVgzNy9pL0NBbmV4cnJUNmlGR05zR0F4NDhN?=
+ =?utf-8?B?a1VLUWJqQmZDd1FHYllmVWZMT3BmOUZ4cHVkRVk2M0hBYmIvbFd4S1VKeDNu?=
+ =?utf-8?B?M2lRUGJOK25WZkxmTjlWdnJXWUxsdkZWN1VDMkk0S3BEdnh4RmJDMlpsUmM2?=
+ =?utf-8?B?UkZ6aG8rNXBmc3RFQ0MvV2ZIUlNkQVhYSXBpd3E3bGY1eW1LMkZESCtVbHA4?=
+ =?utf-8?B?RVcrTmp6TVB2Umpra0JqRWFPMkJEOTBka2FFMi9SYWswL0FYMklaUHplV0xt?=
+ =?utf-8?B?VmtidDV5VXlQcnA2bU9zcE1iM21FVWZnNjJ3N0JsazJtY3RuRE85WjhBMnBT?=
+ =?utf-8?B?QW5QSGtnMG5XcWZId3d6M2hyYWZsMDB4NThvVVIzbmR6TE1yTHVyQ0FVS05U?=
+ =?utf-8?B?RkhPWjBVa0QrZTNIdVlwcnhhaDZiSUl6QnJGcXErWjZJOWRPRWZnenQ0dis4?=
+ =?utf-8?B?ZzR5THFIMm5GY3RBck1GOWdQUjRaRWFlQ3k2emJqQTQ4NExlNFBsZHY4NDho?=
+ =?utf-8?B?SGpxWE9GWFYrSENOYU9rUjlrWjFKZFFLVnpCcTJacnFsWCt1WDdJcXlIVTdm?=
+ =?utf-8?B?cDhIMjFHTjVhS0RvaThQTlR1WnIzN0VLUE5zUmlranNOZWZMUXZybFlrVlpF?=
+ =?utf-8?B?NjhuOEI0Nlo4OURvbUxlamdnWHprb1hFbzI1ano2QzA2NHZHSVdMdVlYODhm?=
+ =?utf-8?B?TjQwUGtSemdJN3VBVkVoWjN2QVVYOXlzL05mM3pKMW5uL1RhZjR5dXhNUnBl?=
+ =?utf-8?B?YVNTS21ndkZ6WHR0cWJwYTFKb0JOUFAxWTlUY2Zwb1NQZjZzeTFPd0tmU2RY?=
+ =?utf-8?B?VHhLb1phalVUMkZGR1A3SXlndzR4THhBQ3VtTFNGYWhQc1RMRkZjR1hXY3k0?=
+ =?utf-8?B?ZHRRaTl4YmNIWk5UdzE0bEdPckYwRnkrRTJkUmlLWjV5SXdmTi8vRVNIN0dU?=
+ =?utf-8?B?cWJyTWxmc29FSWtPaVl6ZGlWMG5ZMmxsU0EzcDFPMFpCbTlvMkRmNG9HcW5C?=
+ =?utf-8?B?VXEyaEsrNmF1TzhhUEdYR3N2emdGNmQwS0NQdVlwV3VXOVNXSTc2b1hoZHZy?=
+ =?utf-8?B?ejY3ZXk4YVk4bmhqRnFrbldoREFKc0JWVVBBb0dGU29SVFo4Zy91em1pdkVQ?=
+ =?utf-8?B?aEhIWUdIUnlsaFJJa2VMV1pNYTlCRFMycnpuSGxrWUpIcHNmOU81SzJGR3pI?=
+ =?utf-8?B?RWYydTVNZUJhMzZ2RlZiTG8yQllPSmlBcEYxRG1ZdEFZaXJkS2VEOTc3VStu?=
+ =?utf-8?B?VHhmWDlMWXdqSUt0aWZGQXJ5YTdLY3hPZkUveFd6RTlhS3NpWWpuZ3lSSkZa?=
+ =?utf-8?B?REZLMEtvWFRtVzBVakdRUWNLT01ySEdDZnNHZFM3TTRDQUhJUGpjQkowK2Ez?=
+ =?utf-8?B?T0w1Vkh4SWpjYXVMOEpobEtub2RkZmJaZmdmeGZzMlMvcTd1UU80U1dqVnNj?=
+ =?utf-8?B?b2tiUVFmQXlGRzV2Q2Q1TEtQci9DdlJocTZkMGdyd2lWcW04OWdZaThiUEJ3?=
+ =?utf-8?B?bGtkdW14NUpKVHRiN0hDZnU3VzRIUytwd2lQWGowOEpTMGhlblJ2MjVlRWw1?=
+ =?utf-8?B?VDc5aHVaWVA5V3I1SGVLZDZVVmpyQmFtdXcyWVRaYkxLTEx6MzdGUWUrL1RM?=
+ =?utf-8?B?eitZNitrbTZRVkdxbkRrSnpUZU1mQ3VKOFFwSWNnNENPZ3daNjExSVVrb3E3?=
+ =?utf-8?B?OW1tczBJRnoxV3Y0K3VuektyY2lFS2FJb1YxQjF0Tm5pTm1wZXQ0OFMxVHVZ?=
+ =?utf-8?B?VDUrRHBWYjdVRmFGY0FUN0FsMVhVbUdpTVd5ek1Xdnk3K1RtbFBiN1JwS0tG?=
+ =?utf-8?B?a1VqMWp0VGJLbWpwZVE3ZjZqYW5KVmFZTTAyTm15RW1XMSt4TXByNEQxT0o3?=
+ =?utf-8?B?aytKRy9PZmo5SkNDL29KZHQ1bUdWMzFYaTN1S0tKUG9NK1M4VzFscG85cW1E?=
+ =?utf-8?B?QkVCWnpmYkRFeUVsU2l5cnNBSDZqVHZwWi9Gd2ZrSnZlTWVFNStmQVJxSnlV?=
+ =?utf-8?B?bjVXdmxqY0M5eGMwbThCUFd1UEFPU1MwKyt1ZmNXL1lXRGN3WmcvZjRQOXpO?=
+ =?utf-8?B?NzdpbmppU3hlMUdUNlBKRUZhcEN5ZDV2VE5nSldJODV5VXl4bDhCcGdmK0ZK?=
+ =?utf-8?B?R3hJN0xCVTlQdlg5SVQyUnJ4N1NDSjV2cEJTZllKU3NoK2ZibldXSkhQTm5X?=
+ =?utf-8?B?MUVkNXQvVG9wQVU2NTNzNUNySm1xT2s4c1crdlVyWmR0V3R1M3U5T0FEVXVy?=
+ =?utf-8?B?OUd4MUF4M2lKWnRyRXJVQmNJTTl5SkFHcE91MFVjL213bHpWOEZDSFRuQXU5?=
+ =?utf-8?B?SndGUnBjRE0rK2lMUGVaaWJqeGpXUDJ4aEttdlM3dXR1ampEVXFUUT09?=
+X-Exchange-RoutingPolicyChecked: zWfPc3Vn5Al/Hw7vuTNL9kY5NO2SMcpRvYPlyhpNqBuy4VhUE+sLVIHZmgZartVON7oKaCH2qxSinuIPVPv4X9g5TaJ4GYqiqGoFPn19Yf6EvlQASL/Mj4z6eXDGhBwHLsFIis3NagorQIU2XSDnfozucZmdtLHMXz56J5Y5gKmJDHJ/1vfJW8EXivaQ9+kpiOrRCLcpIGuVCupdYJotKCTJO5IhSVBg/ReYUGNJ/gVp1PzKBsX+QmClKCS65kZieE865Jp+BX1aMF9dTIBxhiZPPlLll0DU8IXioe/zKvQuWzg1ADX/DJR0aTTj7u30Hb36oMisWhUZq+ntXgQQqQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11d7c86a-9ce9-40e0-3a96-08df194e3018
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR11MB5366.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:39:31.8614 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hV65xbVNMat0NNvPFEw01HgvAebBc+RMWVLebQkVn/hkMxh5cjVSA6pXgXG3WlfBxjKrbFgub+3WruFkzILjZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7672
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,166 +171,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 10:01:11AM +0200, Laura Nao wrote:
-> The Job IRQ reports requests from the CSF firmware, including global
-> interface requests and CSG attention bits. Only the GLB bit is currently
-> handled, as it will be used to check firmware readiness. CSG bits
-> handling will be added at a later stage. The Job IRQ handler masks the
-> interrupt in the primary IRQ handler, processes pending raw status in
-> the threaded handler, clears the handled bits, and reenables the mask
-> before returning.
-> Add JobIrqEvents to hold the wait queue and the ready flag used to
-> signal firmware readiness when the GLB bit is set, and JobIrqMaskGuard
-> to ensure the Job IRQ is masked before its registration is freed.
-> 
-> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
-> ---
->  drivers/gpu/drm/tyr/fw.rs     |   1 +
->  drivers/gpu/drm/tyr/fw/irq.rs | 174 ++++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tyr/irq.rs    |   1 -
->  3 files changed, 175 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 47d25c901bd0..8162b9806c97 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -69,6 +69,7 @@
->      vm::Vm, //
->  };
->  
-> +pub(crate) mod irq;
->  mod parser;
->  
->  pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
-> diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
-> new file mode 100644
-> index 000000000000..7dd894de18cb
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw/irq.rs
-> @@ -0,0 +1,174 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! IRQ handling for the Job IRQ.
-> +//!
-> +//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
-> +#![allow(dead_code)]
-> +
-> +use kernel::{
-> +    device::Bound, //
-> +    io::Io,
-> +    irq::ThreadedRegistration,
-> +    new_waitqueue,
-> +    platform,
-> +    prelude::*,
-> +    sync::{
-> +        atomic::{
-> +            ordering,
-> +            Atomic, //
-> +        },
-> +        Arc,
-> +        WaitQueue, //
-> +    },
-> +    time::{
-> +        msecs_to_jiffies,
-> +        Msecs, //
-> +    },
-> +};
-> +
-> +use crate::{
-> +    driver::IoMem,
-> +    irq::{
-> +        TyrIrq,
-> +        TyrIrqTrait, //
-> +    },
-> +    regs::job_control::{
-> +        JOB_IRQ_CLEAR,
-> +        JOB_IRQ_MASK,
-> +        JOB_IRQ_RAWSTAT,
-> +        JOB_IRQ_STATUS, //
-> +    }, //
-> +};
-> +
-> +/// The firmware events published by the Job IRQ handler, and the queue used to announce them.
-> +#[pin_data]
-> +pub(crate) struct JobIrqEvents {
-> +    #[pin]
-> +    wait: WaitQueue,
-> +    /// Set once the firmware has signalled that the global interface is ready.
-> +    ready: Atomic<bool>,
-> +}
-> +
-> +impl JobIrqEvents {
-> +    /// Creates a new, empty set of Job IRQ events.
-> +    pub(crate) fn new() -> Result<Arc<Self>> {
-> +        Arc::pin_init(
-> +            pin_init!(JobIrqEvents {
-> +                wait <- new_waitqueue!(),
-> +                ready: Atomic::new(false),
-> +            }),
-> +            GFP_KERNEL,
-> +        )
-> +    }
-> +
-> +    /// Clears the firmware-ready state.
-> +    pub(crate) fn clear_ready(&self) {
-> +        self.ready.store(false, ordering::Relaxed);
-> +    }
-> +
-> +    /// Waits until the firmware signals readiness via the GLB IRQ bit, or the timeout expires.
-> +    pub(crate) fn wait_ready(&self, timeout_ms: Msecs) -> Result {
-> +        self.wait.wait_event_timeout(
-> +            || self.ready.load(ordering::Acquire),
-> +            msecs_to_jiffies(timeout_ms),
-> +        )?;
-> +
-> +        Ok(())
-> +    }
-> +
-> +    /// Updates state and wakes up waiters
-> +    fn signal(&self, status: u32) {
-> +        // TODO: handle other Job IRQ events (e.g. CSG attention bits) here once
-> +        // support for them is added.
-> +
-> +        // The GLB bit only signals firmware readiness once, at power up
-> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() && !self.ready.load(ordering::Relaxed) {
-> +            self.ready.store(true, ordering::Release);
-> +        }
-> +
-> +        self.wait.wake_up_all();
-> +    }
-> +}
-> +
-> +// The Job IRQ, signalling requests or notification from the MCU.
-> +pub(crate) struct JobIrq<'a> {
-> +    /// GPU MMIO register mapping.
-> +    iomem: Arc<IoMem<'a>>,
-> +    /// Firmware events signalled by this IRQ.
-> +    events: Arc<JobIrqEvents>,
-> +}
-> +
-> +/// Guard that masks the Job IRQ when dropped.
-> +///
-> +/// To mask the Job IRQ before it is freed, this guard must be stored in a field declared
-> +/// before the corresponding `ThreadedRegistration` in the struct that owns both. Since
-> +/// struct fields are dropped in declaration order, this guarantees the Job IRQ is masked
-> +/// first, and only then does `free_irq()` run and wait for any in-flight handler to
-> +/// complete.
-> +pub(crate) struct JobIrqMaskGuard<'a>(Arc<IoMem<'a>>);
-> +
-> +impl Drop for JobIrqMaskGuard<'_> {
-> +    fn drop(&mut self) {
-> +        self.0.write_reg(JOB_IRQ_MASK::zeroed());
-> +    }
-> +}
 
-I agree with sashiko's review here.
-
-This needs to happen after the free_irq() call in the destructor of
-TyrIrq. And most likely, we need an atomic along the lines of ACTIVE /
-PROCESSING / SUSPENDING in panthor_irq.
-
-Alice
+On 21-Sep-26 12:03 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] drm/pagemap: CPU stall re-introduced by unbounded drm_dbg() loop
+> --
+>
+> commit ea1ff5e58f9772cc1eaec3db21133d24e24bd4f0
+> Author: Varun Gupta <varun.gupta@intel.com>
+>
+> drm/pagemap: Drop ratelimiting from dev_unhold_work debug trace
+>
+> This commit reverts the use of drm_dbg_ratelimited back to drm_dbg in
+> drm_pagemap_dev_unhold_work to avoid "callbacks suppressed" notifications
+> from the kernel's ratelimiting subsystem.
+>
+>> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+>> index c66c58f85c345..743988036a5f8 100644
+>> --- a/drivers/gpu/drm/drm_pagemap.c
+>> +++ b/drivers/gpu/drm/drm_pagemap.c
+>> @@ -1102,7 +1102,7 @@ static void drm_pagemap_dev_unhold_work(struct work_struct *work)
+>>   		struct drm_device *drm = dev_hold->drm;
+>>   		struct module *module = drm->driver->fops->owner;
+>>   
+>> -		drm_dbg_ratelimited(drm, "Releasing reference on provider device and module.\n");
+>> +		drm_dbg(drm, "Releasing reference on provider device and module.\n");
+> [Severity: Medium]
+> Does this code re-introduce a serial console bottleneck and potential CPU stall
+> during teardown?
+This does not introduce a stall, it is handled by the WQ_UNBOUND change. 
+This log was ratelimited to
+just prevent log flooding but it in turn introduces a suppressed warning.
+> When tearing down an unbounded number of DRM pagemaps,
+> drm_pagemap_dev_unhold_work() iterates over the entire
+> drm_pagemap_unhold_list. If DRM debugging is enabled, drm_dbg() is now
+> called for every single entry unconditionally.
+>
+> If the goal is to prevent the "callbacks suppressed" warning from the
+> ratelimiting subsystem, would it be better to drop the repetitive log
+> entirely, or perhaps log once outside the loop, rather than reverting
+> the CPU stall fix?
+>
+>>   		drm_dev_put(drm);
+>>   		module_put(module);
+>>   		kfree(dev_hold);
