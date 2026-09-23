@@ -4,129 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156AAC9830E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B68C9830D
 	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3CC10F8E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC4C10F8E6;
 	Fri, 25 Sep 2026 07:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EIHX04oS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pH7Opx6b";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC3510ED47
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:47:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 07CE14353E;
- Wed, 23 Sep 2026 15:47:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D111F000FF;
- Wed, 23 Sep 2026 15:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790178432;
- bh=A9s/BYxYsxmIUd2ggYhNRz11koMa/mZl2NbZ9+ZbYI0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EIHX04oSQJKo94mpzbyGnEQxAzsufArn9Dgt95ktpFqZxe3xWv1YBsUqm4+kBAxgj
- YeOd6h9VANMyGKxodACmnSQBggFcVeQbaJ6XzAdB/bMrK3a3z5fSbzkL06oPNtVpyP
- 0iVeTcZz27Uq19vg805MtbGVQ4RDGmUIxJJSL1Q7OMXjYvaYd0CaySGe6R8SOzrTAa
- cncsHzspiOHvV3P4rHKhkz2AWVSpblm5cxABgQxwx+6lz5bCwafz575cehiQrKU3OE
- uoQkvgmHT8i4rSjwR86iyvQJTrpmbdAQsVmSOE7LaE1elZPlB9KagahIZQFEo9o+hm
- X17tS4JRWuhBQ==
-Date: Wed, 23 Sep 2026 16:46:42 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 01/40] mm/vma: fix mmap_prepare file handling, remove
- file_doesnt_need_get
-Message-ID: <arPw-ivHytA_YZTQ@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
- <CAJuCfpFe+pLusPy-xWYHp2rTP1becBb2nhX16xXd+hKD5Q+Z3g@mail.gmail.com>
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0E710E22B
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:12:10 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49e66390995so9020595e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:12:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790201528; x=1790806328; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+ b=pH7Opx6bRjVASpzqlEZgWEs3rwQHcAZbqyEjYLGAMSqIWfz7QsYlYDI3mwL0Nu+CpP
+ lk9pxc5VLXaERYhgwkEVYwYkRwDOj5XXfZk6CCyNy/nFua/mHxN8D9w5rWiGI7a02M/9
+ 29eUJ/AAguy06p5Ysp1h9HUyUCdqHeuW+/CyB7JiFJa4BgHgZK8UnZWmE9DyHNkbsM/q
+ qLmFLvPA6nDopMj4tqmbugd6wUbtszWl6SxcFSx+YK+jSbxVtlqDGVQfBe5QSj6WMn9H
+ mZoONBLCszN0Iv0NH3dJ8Ohc9t1/xYzFZJqXIzERe7If8F6RvLTItoBGolL2khDH8RuT
+ yIOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790201528; x=1790806328;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
+ b=jPljJkXQVrHyoN79h9V2DTIS7O5oH4sdkBqcOaAKowGm50z2glWx7Cxsmm0rJk73mG
+ 10G/OIrlvJkX1MSnCzbMCsbrKqRh2PiYBLhFZkvGlSyGGoA+/SObcDUzBkdaIjUTe+gA
+ UZYZAFVfyFwlCG92ypLVSmMronXqKOF43xErqcuI5NdJxlZzTUbPUZnJHJOIvTkCzhXs
+ z307N8g1YKjwSZEHe6ATARHLTHuDODWk/WWsp1ae6ZLLGBNotCaD3F/Sju1+y7dfF/vu
+ gVypGfetJf5/KpKDFRQy7Py7HMrHux4nbXTT3GqvrM2B9RWWDdG6GX7grcJcOU8HGYYQ
+ 2wyA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz+Q0zQB9C9FWwyXaCtNxAYWb4PqnqykHsIE8woPvLJybVLE/pF01411tfxoGCacdFsEIKE+/7Lws8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m1YAkCFVoSJFsV086Rt26BsOmXQwS/9zXl5mI9YTU808xOXi7t
+ mBvKurG4LwrxYHoB1IjzUvIHRIjNucy4uJ3M/QIgS2A+6asibIhUMCjv
+X-Gm-Gg: AYBFou35MWc3Whq+AWvyis/Pa5mesZyqzpEIbvZl3rbW4e+HuIMfG679mzcCuy61VBR
+ 2N8U2qtk015QE2tHqyx7heXgbdYJJg5q6XcpSjMRRVRKMOq7TvyEBWHw0hlPz9dmt8jaAct/5Pq
+ wmfOCgCd4TtRFqx/M9YCdVJ345/oSQv8gKt0xufPzZhnTgdssNGCojCHhocimhJ577xkHzvMA/B
+ B+q8J+/DZM1gdG4U8BRQg88GmaJxwTthxaxyH+i3lZCuHyE/nA6MP1pC+zvAAhvdHdTyjFLoJH7
+ Y+yEk2DP0SDhF2li5bu76GozuHpkNWtrKVCY4nJHd7SVgtQBNdvHoI83VpwykSr8td+z/8K32r4
+ Opp40+6vZOnbR6pNybaZ/VbMwg/KwGiUE5c81nlWVUduHYk5yvHah9XTBZkpm8H2epe7MM6JUFX
+ x6RywJdGFhvXqlntc/07gUKu8pYggVJBrrLfWT8SxQiCWD0mWkQDc8HECZGNnsmeINq2az7mZJ5
+ Os5DRUcAZr7WBDYMcH1mAFMoazQkeTBUbMtDUnwrYyOlfScSakBQBP24pffs5QMFR9cIC1IUMRs
+ I82RHkL2aXZvZV0sjll3eXsszaCz2UaiD5Bx86IlLypDuDQ=
+X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id
+ 5b1f17b1804b1-49fe6708b23mr9674415e9.34.1790201528357; 
+ Wed, 23 Sep 2026 15:12:08 -0700 (PDT)
+Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fe5dff204sm24977495e9.14.2026.09.23.15.12.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 15:12:07 -0700 (PDT)
+From: Conor Svensson <conor10@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an Anker
+ DP branch
+Date: Wed, 23 Sep 2026 23:07:50 +0100
+Message-ID: <20260923221018.42133-1-conor10@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpFe+pLusPy-xWYHp2rTP1becBb2nhX16xXd+hKD5Q+Z3g@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,399 +93,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 08:21:58AM -0700, Suren Baghdasaryan wrote:
-> On Thu, Sep 17, 2026 at 9:23 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > The map->file_doesnt_need_get flag is confusing and the existing
-> > implementation has holes.
-> >
-> > Drivers are permitted to change the owning file of a mapping. If they do
-> > so, they are required to take a reference on that file.
-> >
-> > The mmap() operation which ultimately invokes __mmap_region() is guaranteed
-> > to drop the refcount for the original file the mapping was made under, but
-> > this is not true for the replaced file.
-> >
-> > This has been addressed so far by tracking map->file_doesnt_need_get, which
-> > is rather poorly named and unfortunately fails to correctly track whether
-> > or not an additional put were needed in a number of cases.
-> >
-> > Make life easier by removing this flag, and instead drop the reference for
-> > both mmap_prepare and the deprecated mmap callback in a new function
-> > put_map().
-> >
-> > Track whether this needs to be done by aligning mmap_state with
-> > vm_area_desc and store the original file in the map->file field, keeping
-> > the updated file in map->vm_file.
-> >
-> > In order to have the same behaviour for both types of hooks, only drop the
-> > reference __mmap_new_file_vma() itself took in its error path, deferring
-> > the replaced file's reference to put_map().
-> >
-> > To make this work correctly, map->vm_file has to be updated before any
-> > error handling, so update __mmap_new_file_vma() and call_mmap_prepare() to
-> > set this field first.
-> >
-> > Also when mmap_prepare() changes the file and is then merged, the reference
-> > count also must be decremented, so update the logic to call put_map() in
-> > this case too.
-> >
-> > Also update __compat_vma_mmap() to manually perform this step for stacked
-> > file systems using the compatibility layer, and update
-> > compat_set_vma_from_desc() to replace vma_set_file() with a correct
-> > refcount/file update.
-> >
-> > No in-tree driver is impacted by the incorrect implementation of this
-> > currently (no driver that does this is mergeable for one), so this does not
-> > need to be a fix.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/internal.h |  1 +
-> >  mm/util.c     |  5 +++-
-> >  mm/vma.c      | 83 +++++++++++++++++++++++++++++++++++------------------------
-> >  mm/vma.h      |  6 +++--
-> >  4 files changed, 59 insertions(+), 36 deletions(-)
-> >
-> > diff --git a/mm/internal.h b/mm/internal.h
-> > index 0dca33db068f..fe576d468af4 100644
-> > --- a/mm/internal.h
-> > +++ b/mm/internal.h
-> > @@ -7,6 +7,7 @@
-> >  #ifndef __MM_INTERNAL_H
-> >  #define __MM_INTERNAL_H
-> >
-> > +#include <linux/file.h>
-> >  #include <linux/fs.h>
-> >  #include <linux/khugepaged.h>
-> >  #include <linux/mm.h>
-> > diff --git a/mm/util.c b/mm/util.c
-> > index bf0513d1d3d0..016932780925 100644
-> > --- a/mm/util.c
-> > +++ b/mm/util.c
-> > @@ -1228,8 +1228,11 @@ int __compat_vma_mmap(struct vm_area_desc *desc,
-> >
-> >         /* Perform any preparatory tasks for mmap action. */
-> >         err = mmap_action_prepare(desc);
-> > -       if (err)
-> > +       if (err) {
-> > +               if (desc->vm_file != vma->vm_file)
-> > +                       fput(desc->vm_file);
-> >                 return err;
-> > +       }
-> >         /* Update the VMA from the descriptor. */
-> >         compat_set_vma_from_desc(vma, desc);
-> >         /* Complete any specified mmap actions. */
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index 55917d097933..fa784f069da4 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -24,7 +24,8 @@ struct mmap_state {
-> >                 vm_flags_t vm_flags;
-> >                 vma_flags_t vma_flags;
-> >         };
-> > -       struct file *file;
-> > +       struct file *file;      /* mmap()-specified file. */
-> > +       struct file *vm_file;   /* May be updated by mmap_prepare. */
->
-> Overall I like the change but I think you could avoid extra churn by
-> keeping the name of `file` as is and add `struct file *orig_file`
-> instead as:
->
-> +       struct file *orig_file;   /* mmap()-specified original file. */
-> -       struct file *file;
-> +       struct file *file;      /* May be updated by mmap_prepare. */
->
-> Then many uses of map->file would stay unchanged.
+Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
+attached can leave the branch reporting a DVI downstream descriptor
+with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
+S3422DWG, this removes the native 3440x1440 mode from the connector's
+mode list even though the EDID still contains it. An explicit native
+modeline works with the same hardware state.
 
-I didn't actually want to do the churny version of this but the problem
-with doing something else is that would then contradicts what's in
-vm_area_desc:
+Ignore the derived TMDS limits only for the captured branch identity,
+firmware and downstream descriptor when EDID 1.4 identifies a digital
+DisplayPort input. Retain the raw descriptor and other mode checks.
+Do not restrict the match to a particular monitor or laptop model.
 
-struct vm_area_desc {
-	/* Immutable state. */
-	...
-	struct file *file; /* May vary from vm_file in stacked callers. */
-	...
-	/* Mutable fields. Populated with initial state. */
-	...
-	struct file *vm_file;
-	...
-};
+With otherwise matching upstream Linux 7.2.5 control/patched builds,
+the control loses native modes after USB-C reconnect, while the patched
+kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
+both USB-C ports, suspend/resume, undocking while asleep and docked boot
+pass. HDMI also works and does not activate the workaround. Periodic
+picture cycling observed on the control stops with the patch.
 
-And suddenly what is 'file' there (inherited file) is the modifiable one
-here and it's more confusing.
+The branch identity is not proven unique to this retail adapter. This
+is an experimental workaround for review, not an explanation of why the
+branch reports inconsistent capabilities. Other adapters and monitors
+have not been tested.
 
-As per the commit msg:
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
+Assisted-by: LLM
+Signed-off-by: Conor Svensson <conor10@gmail.com>
+---
+RFC: is this best handled as a branch quirk here, or in the common DP
+helpers? The captured identity and descriptor match is deliberately narrow;
+there is no monitor/laptop model restriction. The informational log marker
+is retained to show exactly when this experimental workaround executes.
+The commit introducing the underlying problem has not been identified, so
+there is no speculative Fixes tag.
 
-	Track whether this needs to be done by aligning mmap_state with
-	vm_area_desc and store the original file in the map->file field, keeping
-	the updated file in map->vm_file.
+Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
+configurations. This RFC applies the same 48 added lines to drm-tip at the
+base commit below. This drm-tip revision has not been boot-tested. The affected intel_dp.o
+compiles successfully here with no compiler warnings; strict checkpatch
+passes (human sign-off pending), and 426 predicate boundary cases pass
+with ASan/UBSan. These predicate tests are not DRM integration tests.
 
-But maybe I need to make that decision clearer there?
+Results: three USB-C reconnects, alternate USB-C port, docked s2idle
+resume plus reconnect, undock while asleep/wake/reconnect, and docked
+DisplayPort reboot all passed. HDMI also passed without activating the
+workaround. The control lost native modes and showed periodic picture
+cycling; that cycling stopped on the patched kernel. No custom modeline
+was used in either test kernel. Other hardware and higher refresh rates
+remain untested.
 
->
-> >         pgprot_t page_prot;
-> >
-> >         /* User-defined fields, perhaps updated by .mmap_prepare(). */
-> > @@ -43,8 +44,6 @@ struct mmap_state {
-> >
-> >         /* Determine if we can check KSM flags early in mmap() logic. */
-> >         bool check_ksm_early :1;
-> > -       /* If .mmap_prepare changed the file, we don't need to pin. */
-> > -       bool file_doesnt_need_get :1;
-> >  };
-> >
-> >  #define MMAP_STATE(name, mm_, vmi_, addr_, len_, pgoff_, anon_pgoff_, vma_flags_, file_) \
-> > @@ -58,6 +57,7 @@ struct mmap_state {
-> >                 .pglen = PHYS_PFN(len_),                                \
-> >                 .vma_flags = vma_flags_,                                \
-> >                 .file = file_,                                          \
-> > +               .vm_file = file_,                                       \
-> >                 .page_prot = vma_flags_to_page_prot(vma_flags_),        \
-> >         }
-> >
-> > @@ -70,7 +70,7 @@ struct mmap_state {
-> >                 .vma_flags = (map_)->vma_flags,                         \
-> >                 .pgoff = (map_)->pgoff,                                 \
-> >                 .anon_pgoff = (map_)->anon_pgoff,                       \
-> > -               .file = (map_)->file,                                   \
-> > +               .file = (map_)->vm_file,                                \
-> >                 .prev = (map_)->prev,                                   \
-> >                 .middle = vma_,                                         \
-> >                 .next = (vma_) ? NULL : (map_)->next,                   \
-> > @@ -2447,7 +2447,7 @@ void mm_drop_all_locks(struct mm_struct *mm)
-> >   */
-> >  static bool accountable_mapping(struct mmap_state *map)
-> >  {
-> > -       const struct file *file = map->file;
-> > +       const struct file *file = map->vm_file;
-> >
-> >         /*
-> >          * hugetlb has its own accounting separate from the core VM
-> > @@ -2496,7 +2496,7 @@ static void vms_abort_munmap_vmas(struct vma_munmap_struct *vms,
-> >
-> >  static void update_ksm_flags(struct mmap_state *map)
-> >  {
-> > -       map->vma_flags = ksm_vma_flags(map->mm, map->file, map->vma_flags);
-> > +       map->vma_flags = ksm_vma_flags(map->mm, map->vm_file, map->vma_flags);
-> >  }
-> >
-> >  static void set_desc_from_map(struct vm_area_desc *desc,
-> > @@ -2506,7 +2506,7 @@ static void set_desc_from_map(struct vm_area_desc *desc,
-> >         desc->end = map->end;
-> >
-> >         desc->pgoff = map->pgoff;
-> > -       desc->vm_file = map->file;
-> > +       desc->vm_file = map->vm_file;
-> >         desc->vma_flags = map->vma_flags;
-> >         desc->page_prot = map->page_prot;
-> >  }
-> > @@ -2586,6 +2586,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
-> >         return 0;
-> >  }
-> >
-> > +static bool map_same_file(struct mmap_state *map)
-> > +{
-> > +       return map->vm_file == map->file;
-> > +}
-> >
-> >  static int __mmap_new_file_vma(struct mmap_state *map,
-> >                                struct vm_area_struct *vma)
-> > @@ -2593,20 +2597,23 @@ static int __mmap_new_file_vma(struct mmap_state *map,
-> >         struct vma_iterator *vmi = map->vmi;
-> >         int error;
-> >
-> > -       vma->vm_file = map->file;
-> > -       if (!map->file_doesnt_need_get)
-> > -               get_file(map->file);
-> > +       vma->vm_file = map->vm_file;
-> > +       if (map_same_file(map))
-> > +               get_file(map->vm_file);
-> >
-> > -       if (!map->file->f_op->mmap)
-> > +       if (!map->vm_file->f_op->mmap)
-> >                 return 0;
-> >
-> >         error = mmap_file(vma->vm_file, vma);
-> > +       map->vm_file = vma->vm_file;
-> > +
-> >         if (error) {
-> >                 UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
-> >                             map->prev, map->next);
-> > -               fput(vma->vm_file);
-> > -               vma->vm_file = NULL;
-> > +               if (map_same_file(map))
-> > +                       fput(map->vm_file);
-> >
-> > +               vma->vm_file = NULL;
-> >                 vma_iter_set(vmi, vma->vm_end);
-> >                 /* Undo any partial mapping done by a device driver. */
-> >                 unmap_region(&unmap);
-> > @@ -2623,7 +2630,6 @@ static int __mmap_new_file_vma(struct mmap_state *map,
-> >                         !vma_flags_test(&map->vma_flags, VMA_MAYWRITE_BIT) &&
-> >                         vma_test(vma, VMA_MAYWRITE_BIT));
-> >
-> > -       map->file = vma->vm_file;
-> >         map->vma_flags = vma->flags;
-> >
-> >         return 0;
-> > @@ -2631,7 +2637,7 @@ static int __mmap_new_file_vma(struct mmap_state *map,
-> >
-> >  static void map_set_anon(struct mmap_state *map)
-> >  {
-> > -       map->file = NULL;
-> > +       map->vm_file = NULL;
-> >         map->vm_ops = NULL;
-> >         map->pgoff = map->addr >> PAGE_SHIFT;
-> >  }
-> > @@ -2643,7 +2649,7 @@ static bool map_is_private(const struct mmap_state *map)
-> >
-> >  static bool map_is_anon(const struct mmap_state *map)
-> >  {
-> > -       return map_is_private(map) && !map->file;
-> > +       return map_is_private(map) && !map->vm_file;
-> >  }
-> >
-> >  /*
-> > @@ -2688,7 +2694,7 @@ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
-> >         }
-> >
-> >         /* Invoke callbacks. */
-> > -       if (map->file)
-> > +       if (map->vm_file)
-> >                 error = __mmap_new_file_vma(map, vma);
-> >         else if (!is_anon)
-> >                 error = shmem_zero_setup(vma);
-> > @@ -2797,11 +2803,15 @@ static int call_mmap_prepare(struct mmap_state *map,
-> >         int err;
-> >
-> >         /* Invoke the hook. */
-> > -       err = vfs_mmap_prepare(map->file, desc);
-> > +       err = vfs_mmap_prepare(map->vm_file, desc);
-> >         if (err)
-> >                 return err;
-> >
-> > -       /* It's invalid for mmap_preprare hooks to clear vm_ops. */
-> > +       /* Update first so file refcount tracked correctly. */
-> > +       if (desc->vm_file != map->vm_file)
-> > +               map->vm_file = desc->vm_file;
-> > +
-> > +       /* It's invalid for mmap_prepare hooks to clear vm_ops. */
-> >         if (!desc->vm_ops)
-> >                 return -EINVAL;
-> >
-> > @@ -2811,10 +2821,6 @@ static int call_mmap_prepare(struct mmap_state *map,
-> >
-> >         /* Update fields permitted to be changed. */
-> >         map->pgoff = desc->pgoff;
-> > -       if (desc->vm_file != map->file) {
-> > -               map->file_doesnt_need_get = true;
-> > -               map->file = desc->vm_file;
-> > -       }
-> >         map->vma_flags = desc->vma_flags;
-> >         map->page_prot = desc->page_prot;
-> >         /* User-defined fields. */
-> > @@ -2826,7 +2832,7 @@ static int call_mmap_prepare(struct mmap_state *map,
-> >          * anonymous mappings. Rather than allowing these mappings to be odd
-> >          * outliers, simply make them truly anonymous.
-> >          */
-> > -       if (map_is_private(map) && file_is_dev_zero(map->file))
-> > +       if (map_is_private(map) && file_is_dev_zero(map->vm_file))
-> >                 map_set_anon(map);
-> >
-> >         return 0;
-> > @@ -2845,7 +2851,7 @@ static void set_vma_user_defined_fields(struct vm_area_struct *vma,
-> >   */
-> >  static bool can_set_ksm_flags_early(struct mmap_state *map)
-> >  {
-> > -       struct file *file = map->file;
-> > +       struct file *file = map->vm_file;
-> >
-> >         /* Anonymous mappings have no driver which can change them. */
-> >         if (!file)
-> > @@ -2868,6 +2874,20 @@ static bool can_set_ksm_flags_early(struct mmap_state *map)
-> >         return false;
-> >  }
-> >
-> > +static void put_map(struct mmap_state *map)
->
-> nit: maybe put_map_file() to be more specific?
+AI assistance: Codex (GPT-6) helped investigate the reported hotplug
+failure, wrote the match/limit-clearing change, prepared the predicate
+tests, collected diagnostics and drafted this message. The human reporter
+performed the physical reconnect, suspend and reboot tests and confirmed
+the visible results. The assistance arose from an extended troubleshooting
+session, rather than a single code-generation prompt.
 
-Sure will change.
+Evidence and detailed test results:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
 
->
-> > +{
-> > +       /*
-> > +        * An error occurred or the VMA was merged.
->
-> It's a bit weird that the function explains when it is being used.
-> Having an appropriate comment at the call site seems better to me.
+This is my first kernel patch submission. I'd appreciate feedback on
+whether this belongs here or in the common DP helpers, and whether the
+matching criteria are appropriate.
 
-Ack will change.
+Thanks,
+Conor
 
->
-> > +        *
-> > +        * If the file was changed by the driver (which is required to increment
-> > +        * the replacement file's reference count), drop its reference count.
-> > +        *
-> > +        * On error, the caller always drops the original file regardless.
-> > +        */
-> > +       if (map->vm_file && !map_same_file(map))
-> > +               fput(map->vm_file);
-> > +}
-> > +
-> >  static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> >                 unsigned long len, vma_flags_t vma_flags,
-> >                 unsigned long pgoff, struct list_head *uf)
-> > @@ -2922,7 +2942,10 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> >
-> >         __mmap_complete(&map, vma);
-> >
-> > -       if (have_mmap_prepare && allocated_new) {
-> > +       if (!allocated_new) {
-> > +               /* Merged, so need to drop refcount. */
-> > +               put_map(&map);
-> > +       } else if (have_mmap_prepare) {
-> >                 error = mmap_action_complete(vma, &desc.action,
-> >                                              /*is_compat=*/false);
-> >                 if (error)
-> > @@ -2936,13 +2959,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> >         if (map.charged)
-> >                 vm_unacct_memory(map.charged);
-> >  abort_munmap:
-> > -       /*
-> > -        * This indicates that .mmap_prepare has set a new file, differing from
-> > -        * desc->vm_file. But since we're aborting the operation, only the
-> > -        * original file will be cleaned up. Ensure we clean up both.
-> > -        */
-> > -       if (map.file_doesnt_need_get)
-> > -               fput(map.file);
-> > +       put_map(&map);
-> >         vms_abort_munmap_vmas(&map.vms, &map.mas_detach);
-> >         return error;
-> >  }
-> > diff --git a/mm/vma.h b/mm/vma.h
-> > index e97bd2dfa786..f15faa83f3d6 100644
-> > --- a/mm/vma.h
-> > +++ b/mm/vma.h
-> > @@ -394,8 +394,10 @@ static inline void compat_set_vma_from_desc(struct vm_area_struct *vma,
-> >
-> >         /* Mutable fields. Populated with initial state. */
-> >         vma_set_pgoff(vma, desc->pgoff);
-> > -       if (desc->vm_file != vma->vm_file)
-> > -               vma_set_file(vma, desc->vm_file);
-> > +       if (desc->vm_file != vma->vm_file) {
-> > +               fput(vma->vm_file);
-> > +               vma->vm_file = desc->vm_file;
-> > +       }
-> >         vma->flags = desc->vma_flags;
-> >         vma->vm_page_prot = desc->page_prot;
-> >
-> >
-> > --
-> > 2.55.0
-> >
+ drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
---
-Cheers, Lorenzo
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ffddf4b33..6d6767ca7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
+ 	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
+ }
+ 
++static bool
++intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
++				 const struct drm_edid *drm_edid)
++{
++	static const struct drm_dp_dpcd_ident branch = {
++		.oui = { 0x90, 0xcc, 0x24 },
++		.device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
++		.hw_rev = 0x10,
++		.sw_major_rev = 0x06,
++		.sw_minor_rev = 0x05,
++	};
++	static const u8 downstream_ports[] = {
++		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	};
++	const struct edid *edid = drm_edid_raw(drm_edid);
++
++	if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
++	    !drm_dp_is_branch(intel_dp->dpcd) || !edid)
++		return false;
++
++	/* HDMI and DVI inputs must retain their downstream limits. */
++	if (edid->version != 1 || edid->revision < 4 ||
++	    !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
++	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) != DRM_EDID_DIGITAL_TYPE_DP)
++		return false;
++
++	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
++		!memcmp(intel_dp->downstream_ports, downstream_ports,
++			sizeof(downstream_ports)) &&
++		intel_dp->dfp.min_tmds_clock == 25000 &&
++		intel_dp->dfp.max_tmds_clock == 165000;
++}
++
+ static void
+ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		    const struct drm_edid *drm_edid)
+@@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
+ 		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
+ 					   intel_dp->downstream_ports);
+ 
++	/*
++	 * Experimental workaround for the branch observed in an Anker A8388.
++	 * USB-C hotplug can expose a DVI descriptor for the DP output. The
++	 * monitor's native timing works when requested explicitly, despite
++	 * the reported 165 MHz limit. Keep the captured identity and failure
++	 * signature checks narrow until the underlying cause is understood.
++	 */
++	if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
++		intel_dp->dfp.min_tmds_clock = 0;
++		intel_dp->dfp.max_tmds_clock = 0;
++		drm_info(display->drm,
++			 "[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround\n",
++			 connector->base.base.id, connector->base.name);
++	}
++
+ 	drm_dbg_kms(display->drm,
+ 		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
+ 		    connector->base.base.id, connector->base.name,
+
+base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
+-- 
+2.55.0
+
