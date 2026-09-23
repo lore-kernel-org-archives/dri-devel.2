@@ -4,129 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B756C98326
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3342DC98328
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 977BA10F8E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B39B110F8E9;
 	Fri, 25 Sep 2026 07:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kO69tl0G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PYT5nqgE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7017510E938
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:54:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8525560AB6;
- Wed, 23 Sep 2026 15:54:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF3C1F000FF;
- Wed, 23 Sep 2026 15:53:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790178845;
- bh=wAV8stNGXVD0suD8B1a8qtsl7mm0RfyqHixhi/NZx3k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kO69tl0GVqEJBDtzXtj722GeS02r981KicvQg4cQHtdo8zYbHSuzX4xKugLSuxZ80
- hNKF+inpI1rG93f1F5QhrTtVFxLcKRCTL+snyRWCp/N/q3HEczsFeIqExmwrr7tt/Y
- BvYVVTOYIPgApkyrBXMn24Qh05xMwuFcGHVzqgJTNe/gle65zMUCXYN6+65S4HSHY7
- tGBuhIwWJ1Pazb14YseddKo0V64lXM6Wy4pe1LmUGi7p3l+GZYljbhlHPVyxqBuygF
- nqC8DLo3R+mPNhwr+2JNkPsIA6gODez9Nt0VUzmMq2DMdlQhA1/ymS6rMHMT1y9mfa
- Lr1sgEWelyeVQ==
-Date: Wed, 23 Sep 2026 16:53:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
- fields on new vma alloc
-Message-ID: <arP0oJgrgZlgtrb6@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
- <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8E3410E3E3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:44:55 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-482f6356256so493609f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790203494; x=1790808294; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tQXtWNjNigWNQlYLBO5wxwxCg1hTWjPpuHjvfkhkF8E=;
+ b=PYT5nqgEzPb7L/Rg4DJ0lAjBIzi/V9vxXIPWZh5RzbjpMfhnKrF8Gh2nlITEtKZ9y7
+ 4MgQ/ll8ads8wGD7e23XfGkJfWQD6oD9fHxQFnFzNwnxdrjsIGFkZMfogagUQvZZQ0qA
+ oafwjU/vNLilhlGt8CcEvaLLQWOybTyjfOSfhvA33rBxLRFPAoBJetEK/hu2N2W7lOD5
+ 9m8QOZvJeTkRX+DD8foWTHeiiT34MNQpXhzkeVrZLTtRiFR4ltq46w/adLQ74vpTo2PR
+ IQKTtcAuON9ChiTzbNMoZIoGnuj+8l9HfRg+pJ0VwqQ7O13enNaILNBZtfEaLoG6bxAr
+ QT3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790203494; x=1790808294;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tQXtWNjNigWNQlYLBO5wxwxCg1hTWjPpuHjvfkhkF8E=;
+ b=EhQl+wO5JgsHt2JaqDyn+rHFw6kwkPPJQTLQpjv8Dxxz70/MY0qzCWPu7pe5A2YyIr
+ ECkR0WcDXiCcvM1aFbT6DGnooxatpkBuMa6ib2MWRi9r9+k0Q44diWdU4sYL27l1+uoQ
+ xIz8i2tjluusEKc65pNPc5Ys8aOoSnGipQNWZbjxUt2tHbjT/rW6NdAKOWWPcu+9p4wq
+ Bf6qw9wus/qius9cuFBRKx0fqVgjxI8rB52Nz3qNFcBrjKGmYLP9SE8CYrndNtinC6s6
+ AO4m+G3ovhYTWB95pyEECGPWywGGTVlxigO561lq9lkaXHi7ilwCJRO9wJEz53Jeo0KX
+ P7mQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxAAsN4cehxCGDZi7L1KdjdNed8zaxeprHhsMrJy/b/eOwxVR7o0M0d/7DN9FuUy045268yITq8QJA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lC8GMaPknkYKOmRCbaYXZwrpWxF/3KULoglDtpX3IGUIlgsI0o
+ T1VVJcDB6D6eWc4fdV63YlaMUNDzYEFBVte3EH0Z1EKDLtjp+Vz67tbJ
+X-Gm-Gg: AYBFou3eEDlbS/hxH9JE/tbKzAUHDPleg5MqHnW81YkR5QSQea55VNiEE834HaPbEiF
+ O79IMHDru/YnofD/cSljmS0zfW3O2XNvZh0S6r/HqM0PMFoIq8Pq9t6XkqhMGNbSwN3dw4D4v9h
+ jIQpAsklvH0jv0Su6+D+mS3nqu92NejOfil3Vzr56LBr2FmRhDBoE7TikUgjQ5mk+PCtdN6DFVb
+ HjQXtl7hwoCU6kGfvwtcKQA+kt3msd/UGu6kKkTmvuSXUvD5vLl8Zwx+ljMY9l+riwgBuFYvojM
+ +6/73jGqP+BKf4zJBffwQlgN3jCoevq1vP6PvQviLC0+8OPAi3KWW9Yedd2DrTGGrSrTLxTRlMY
+ 2lvz84qzL7hr1DcfzRiWrU0WDVwUvP9YFhvfgppZRBgYSD4Ge+cWmq1A2UrJIflJoUyK8Wi/2bp
+ njDoFcEP9Hwzg5oZhQYydLBsHtzJjqIUQVlaPeL/UXyN8Ck8WS6ZkPSbwznOllg2pp5u039xqSW
+ Ot5q4alDuiqruLrXDfNVwwx/c50SJu28g==
+X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id
+ 5b1f17b1804b1-49fe66d05d7mr10255655e9.8.1790203494222; 
+ Wed, 23 Sep 2026 15:44:54 -0700 (PDT)
+Received: from x230 (gw1.ms-free.net. [185.243.124.10])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fe5b9c16dsm31420695e9.3.2026.09.23.15.44.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 15:44:53 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
+To: petr.vorel@gmail.com
+Cc: abelvesa@kernel.org, airlied@gmail.com, andersson@kernel.org,
+ conor+dt@kernel.org, david@ixit.cz, devicetree@vger.kernel.org,
+ devnull+david.ixit.cz@kernel.org, dri-devel@lists.freedesktop.org,
+ dsankouski@gmail.com, jesszhan0024@gmail.com, konradybcio@kernel.org,
+ krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, neil.armstrong@linaro.org, phone-devel@vger.kernel.org,
+ robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de
+Subject: Re: [PATCH 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
+Date: Thu, 24 Sep 2026 00:44:32 +0200
+Message-ID: <20260923224432.190902-1-petr.vorel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260920-crosshatch-panel-v1-10-de6e9512da96@ixit.cz>
+References: <20260920-crosshatch-panel-v1-10-de6e9512da96@ixit.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,76 +97,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 08:32:43AM -0700, Suren Baghdasaryan wrote:
-> On Thu, Sep 17, 2026 at 9:24 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > It only makes sense to manipulate VMA fields if we allocated a new VMA,
-> > rather than merged it.
-> >
-> > VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> > keeps its own, which is also what the legacy f_op->mmap path does since it
-> > never touches an existing VMA. Previously set_vma_user_defined_fields()
-> > overwrote the merged VMA's fields with those set for the new mapping. In
-> > practice these are the same values, with rare exceptions such as shmem
-> > selecting vm_ops based on whether the file has been unlinked, so no
-> > user-visible change is expected.
-> >
-> > Make this dependency explicit, and additionally constify have_mmap_prepare
-> > while we're here.
->
-> The fact that we might be overriding attributes of an existing VMA
-> that we merged with is technically a bug even if we never hit it,
-> right? If so, should we have:
->
-> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+> Both devices share the pinctrl configuration.
 
-It's not a bug, it is an in-built assumption that the state used to assess
-mergeability implies the same properties.
+LGTM.
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 
-And if it was, it'd need fixing a different way (check the field for instance)
-and would apply to the legacy mmap hook also.
+Kind regards,
+Petr
 
-This change is needed for the series though.
-
->
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-
-Thanks!
-
->
-> > ---
-> >  mm/vma.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index fa784f069da4..4b74b48c29b7 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> >  {
-> >         struct mm_struct *mm = current->mm;
-> >         struct vm_area_struct *vma = NULL;
-> > -       bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> > +       const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> >         VMA_ITERATOR(vmi, mm, addr);
-> >         const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
-> >         MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-> > @@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> >                 allocated_new = true;
-> >         }
-> >
-> > -       if (have_mmap_prepare && !map_is_anon(&map))
-> > +       if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
-> >                 set_vma_user_defined_fields(vma, &map);
-> >
-> >         __mmap_complete(&map, vma);
-> >
-> > --
-> > 2.55.0
-> >
-
---
-Cheers, Lorenzo
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
+>  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
+>  2 files changed, 16 insertions(+), 18 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+> index fa89be500fb85..a000c75494f1c 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+> @@ -61,29 +61,11 @@ &mdss_dsi0_out {
+>  };
+>  
+>  &mdss_dsi0_phy {
+>  	vdds-supply = <&vdda_mipi_dsi0_pll>;
+>  
+>  	status = "okay";
+>  };
+>  
+> -&tlmm {
+> -	panel_default: panel-default-state {
+> -		reset-pins {
+> -			pins = "gpio6";
+> -			function = "gpio";
+> -			drive-strength = <8>;
+> -			bias-disable;
+> -		};
+> -
+> -		te-pins {
+> -			pins = "gpio12";
+> -			function = "mdp_vsync";
+> -			drive-strength = <2>;
+> -			bias-pull-down;
+> -		};
+> -	};
+> -};
+> -
+>  &wifi {
+>  	qcom,calibration-variant = "Google_blueline";
+>  };
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> index f1379857e2742..d54cb47cdf95b 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> @@ -473,16 +473,32 @@ &qup_uart9_tx {
+>  	drive-strength = <2>;
+>  	bias-disable;
+>  };
+>  
+>  &tlmm {
+>  	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+>  			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+>  
+> +	panel_default: panel-default-state {
+> +		reset-pins {
+> +			pins = "gpio6";
+> +			function = "gpio";
+> +			drive-strength = <8>;
+> +			bias-disable;
+> +		};
+> +
+> +		te-pins {
+> +			pins = "gpio12";
+> +			function = "mdp_vsync";
+> +			drive-strength = <2>;
+> +			bias-pull-down;
+> +		};
+> +	};
+> +
+>  	nfc_default: nfc-default-state {
+>  		enable-pins {
+>  			pins = "gpio25";
+>  			function = "gpio";
+>  			drive-strength = <2>;
+>  			bias-pull-down;
+>  		};
+>  
+> 
