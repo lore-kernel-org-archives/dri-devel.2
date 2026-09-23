@@ -4,85 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57041C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D0B9C98311
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6828D10F221;
-	Wed, 23 Sep 2026 22:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 272CC10F227;
+	Wed, 23 Sep 2026 22:36:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l4f5pLu5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNfduyeY";
 	dkim-atps=neutral
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
- [74.125.227.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4AE10F21A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:49 +0000 (UTC)
-Received: by mail-vs2-f42.google.com with SMTP id
- 71dfb90a1353d-5c67e504d59so582826e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:49 -0700 (PDT)
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
+ [74.125.231.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5199E10F205
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:55 +0000 (UTC)
+Received: by mail-oa2-f12.google.com with SMTP id
+ 586e51a60fabf-47be948a50fso1047971fac.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202948; x=1790807748; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=bClm3tufwH8Z04BuQiDaCFYe0ZcBB/1uq3G9UCOaFoQ=;
- b=l4f5pLu5R6lNiiwE4HTM9FNN7Pt9Ci8Z+7dcayTyRe8Tl6Dy+wC5waEr5nU72lveYU
- Jy+jB1mHUr1XIz3AcOO9lcZeZs1Q8lvpmvc6khAbe5UBM3SooCtsYe5pF28c03qqBWNP
- JDkwzfnybfJbSI/I/y9ez6tYixY5I/J4aL88lagOaDhNJDAj3sf/9zHn2jpFNTH4icvL
- s66YmPfOlbrr7gPpxGvPDHrUxBN1MlICiUffnoPONPEBnyLyDvG3FmFPs4POx3MWNaY5
- 4dFOVR1xt1eIge0Bqt59/pxrNY1dgyaRqRYZPJZQSQE+dVLNRvInRjACiiP2uPX32G/T
- TBoA==
+ d=gmail.com; s=20251104; t=1790202954; x=1790807754; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tXS+8+nuFSh5Ay7yN4yk9y2BRpKd/B6vxX00DeKmizI=;
+ b=KNfduyeYHDdm2Op4Mx9AVhFYBtBOa0jYCuJyyicVDFnnOYxXRLfStkvyxgPgVzkUp5
+ osjpHkCEJz8TPWD3opxMadUt7fdiPhl3dT5L9mRgSkdq4CJF7a3cxe0hj91nnRBLat2D
+ GYMZ7XiEipfQxmXYcw1mymM0093v3yN9PlhgZWYniep3dgQRImpWo2mD4yG3EM9nn/kH
+ NmY/sfFuER4iApe/m+TbUBbX+tAr3bEw3ClbehuMYwq7FgzfY2X9CSxzPF3cw9G5Spgn
+ hG10QQWcG5kilNUel9bdp/sgM0aexGAX8QFAYo67vdrs9KXMVaLYKS40SIV7T75X4w39
+ 4Gtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202948; x=1790807748;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bClm3tufwH8Z04BuQiDaCFYe0ZcBB/1uq3G9UCOaFoQ=;
- b=oPDtugvOkpsPMGM8YvXbrQSlP21XdIKHIhVMHjcYhLfsNcnAB6on168sTQrPI9I94G
- jFrAFKmcqB7jQ13FfflGC9juDWiL7RFv4/iml3U6L1Hx1SY63aGbvCzZfghiCWx6xjvB
- uBW3kcLvEaDNLCX8WOnN0wVrzB6unIWKwaIO2h5Xav/W6yhQEF6R+OtMZ1QlZiURB6mD
- IYOpQmwCIqLVQDXuJ0uF980T/a8is3PvY9cHsbG52EUyGGtegqg5IhdOw61sk8QwjODO
- MPtgAtZgMXr9UaD2d8it6RXX6ozD0WcwJW6v4tbeCMmtI+d/XNGyIT/553Qj7+gKKJ1d
- SdKg==
+ d=1e100.net; s=20260707; t=1790202954; x=1790807754;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tXS+8+nuFSh5Ay7yN4yk9y2BRpKd/B6vxX00DeKmizI=;
+ b=VUKPYU2c414xSsTdKrLKEpG2q/eyt/yz5aqdgB/o5legYYFMuJZUPCsMCw+BnzF6Mw
+ G9+QKQXRzdTB/L32SVfxh26hxMlOPcaJUDAyS4+IR+ipL5ehFsb+hHBnS7PSiof2P92e
+ hGWOfSnnpUV3uF8cGf8lEwSZA5Vf6mopC2c7rzjgIDbjgg8uF1Zcpvp3sGFlxsPbXz2b
+ 38cKljXPoo3KteG7I2GCS4TN81om1+s4rnOZ0uIAjKAklAX1dTduVoIGAGpptFzcShNP
+ qObZecrgQch+YlIYOKW62PvYJdmOnsE8Z9p6RCnL/J4tQ8F4QJRJzVkPXnhHMcrmBLZh
+ 9ZPQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByr9RY6BKov7oq/QlBFj75bhB8jGW7Ght84bkWAx1Bqz9mTijOxrueljn3Y8n2pvkBvbUwlV9o5jBI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mznttfG5W+DS05tYw6mbUEz4FJd+2J8pjsqBmgM4X26MkGP1Dq
- CQJhOXSYZWT4NrmFNdXxGC/5MKfVl5k2d80d1QY1pBa4rbJ6+7Li8Oo=
-X-Gm-Gg: AYBFou0YM0BWdlyXQihhAQcjcvLQTr6FAnNl6YJ7xlH3xUljMfT0jG+LFr8GeUIKqWJ
- 10Ro3wj6iqz4M2FaBZtO99JG+U7cYhI6/JX3wCLH1GrP89C/cQZCGEMpnt6N5qP0r5kfHPZYMue
- Wfe3xHEhksHIF5eZkJH1/IAF5CGbmoAnNhoZ2x94KIaO+wHa+47K3tFf+avLETIXJYAJ6/co+9F
- x1uN6XdRaAId3A2PtYurC7bD6l2ZC9iv2yS36sstvJIfRtOcYtCIR8OtUR943tj8ohC09jd0B+E
- yS+wRc58Kh5A9pV1ORsA5TRUwuiZvEbqWnH5HeuI/chrqj0wkzPt4idUQYodZE55KyFmmT5EnMF
- fVNKTNfayv7t0SSZtNcQ6oxQaM/RqjA2vi6cFZAUnuHrcOxATpP6mp1cEMYsfU81xd+hgfHd/tN
- RbJzSagrKoBERLDuR5AgZyhUJLRRX7Nq903ANm4q8tuTBZt06otT6LACOtllH9PlYaShi4MNRsE
- ou5B/skuGAKOewkKjPdmKUYwSP8YXTa6FqdL9k1mLpIbKtrpw==
-X-Received: by 2002:a05:6122:29cb:b0:5c8:3870:ff73 with SMTP id
- 71dfb90a1353d-5cb09217726mr543120e0c.4.1790202948179; 
- Wed, 23 Sep 2026 15:35:48 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.23
+ AKwUvBz4DMerufKauixUNoH2u1YMNEtXvjfKmXLocZx5gYpZLTXAx0Ky7LHoYzdd6ceYCUFGl0ghWgl3T6s=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mddjkKv3WzzrzviN564HB2ZkFO7gbuykEoOE4h9V0JsPdfEvBQ
+ AJBv7nAx78ilbXm2hkW+z6pC0wZ+oStWP5zGFQv5Eat/cf3if1uDZNWP
+X-Gm-Gg: AYBFou1tCM8KTglZGYVPWd1rPWpRoFnM6rbFBE0vOcV3zVMTCMuZkp9aESsGwyoX96a
+ oEis4WbHKX4NUV3cZ3mNR00ebW1IGDrZjeP3ahowC4hCo1sU2F1o5jn0JdQgjLOxvMDKTB3+THy
+ mta9tB+Wfat2apo+gwcMKiArZRRuteLBo+/DYrfp4/M1JHzgeVy4TkVat8l0ve4e4PROrWp4CCX
+ i5H7+Euzb4abuB9+BXUv8ZvVz3W/wHQMJ56GvJrzmUmCk9lEucmYi6UMG/1O3YuJIN0eHfbDhH6
+ epSVCAXn2q9sN/i6SZMv10pLv0LnFYPODyLpoNntGEgNwwyRuyE+2DZR3aIDdBrI6/igwC3vron
+ L4Q0Wr0ypZlltC9nlAqg3JDOSeiLZCM65uPmPSFZGKaSteIcM1IGiGnS8f8ZIzQIdIlXZFHD/M7
+ daLuNCLeV032oklF9Lb2ZXKNsCSESZdXXfUA/izMm2j6R1ThuMgSZzTtETsMIHZfpE/Hixvs4g5
+ ap1Dgl35lt+oiB1d3YIOKHed0cWzwcWSQiWc0qxythgJdNkk5Z4C9uf4wifx9rYZxz/irZB24c5
+ jpzT7yK42Ys28s8ou0c=
+X-Received: by 2002:a05:6870:8125:b0:468:41ce:1675 with SMTP id
+ 586e51a60fabf-491e4f6f740mr713240fac.0.1790202954410; 
+ Wed, 23 Sep 2026 15:35:54 -0700 (PDT)
+Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:31 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
- Brigham Campbell <me@brighamcampbell.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jori Koolstra <jkoolstra@xs4all.nl>,
- Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH v5 0/3] Add support for CH1115 Controller
-Date: Wed, 23 Sep 2026 19:35:12 -0300
-Message-ID: <cover.1790200427.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ Wed, 23 Sep 2026 15:35:53 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Wed, 23 Sep 2026 16:34:57 -0600
+Subject: [PATCH v11 33/38] dyndbg: harden classmap and descriptor
+ validation
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-dd-cmap-part2-clean-v11-33-9b6c217fdf2f@gmail.com>
+References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=10514;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=WmC6lAU1CkqSfVkT7RlvESW1sm/preurH4K0P4INTpU=;
+ b=5bVfHR2K9HOWBIwVyrHaGcMg9a5/AphRF2DCn4QgeLAofTqYM0TSuKLlbhYSpFHXheqi3+YL0
+ POIXSE4cDspBzee/GKBBGRSy13yo+vJQ4Ls6I2MisWkfr2/mKE7mLMp
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,108 +121,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series add support for the CH1115 Controller [1].
-It is a monochrome dot matrix OLED controller that supports several
-interfaces such as SPI and I2C.
+Dynamic debug classmaps allow modules to _DEFINE and/or _USE multiple
+classmaps, but this requires coordination amongst the classmaps.
 
-This driver only supports the I2C interface, but all common parts could
-easily be put into a common file to be used with other interfaces.
-I only have I2C to test with.
+Previously, class validation done by DYNAMIC_DEBUG_CLASSMAP_DEFINE at
+compile-time, and ddebug_class_range_overlap() at modprobe-time, was
+incomplete, and DYNAMIC_DEBUG_CLASSMAP_USE_ had no validation. This
+could allow broken classmaps, making them harder to use well.
 
-This is the first driver I write. The work is based on the driver
-located at:
-- drivers/gpu/drm/sitronix/st7571-i2c.c
-- drivers/gpu/drm/sitronix/st7571.c
+This commit improves classmap and descriptor validation:
 
-Tested with Raspberry Pi 3b+.
+- Unify runtime overlap and bounds checking across _DEFINE'd and _USE'd
+  classmaps in ddebug_validate_class_range(), enforcing symmetry and the
+  <= 62 upper bound for both.
 
-Changelog:
+- Split runtime validation out of ddebug_add_module() into dedicated
+  helpers: ddebug_validate_classmaps() (fatal, returns boolean pass/fail)
+  and ddebug_validate_descs() (scans callsites and emits an advisory
+  warning once per unknown class_id).
 
-v5:
-General:
- - Patch series based on 7.3-rc1
-Driver:
- - Fixed KConfig dependencies (OF and BACKLIGHT_CLASS_DEVICE)
- - Initializing baclight with backlight_properties struct
- - Moved driver from drivers/gpu/drm/chipwealth to drivers/gpu/drm/tiny
- - Fixed allocation for hwbuf if width or height are not multiple of 8.
-   I was allocating less memory than needed in those cases.
- - Fixed damage rect horizontal alignment.
+- Downgrade the global WARN_ONCE in ddebug_match_desc() to a
+  pr_warn_ratelimited, since orphaned class IDs are now tracked and
+  warned about early at module load.
 
-Note: The last two fixes listed were pointed out by Sashiko in some
-occasions but when I checked them I dismissed them for false positives
-because I misunderstood them.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+v11:
+. factor runtime classmap validation out of ddebug_add_module() into
+  ddebug_validate_classmaps() and ddebug_validate_descs().
+. unify overlap and bounds checking across maps and users in
+  ddebug_validate_class_range().
 
-Note 2: Sashiko keeps complaining that i2c transfers are called in
-atomic_update callback stating that it is forbidden to call sleeping
-functions there because we are in an atomic context. AFAIK this atomic
-context is not that the kernel is in a non-sleepable state, but refers
-to the DRM way of working by doing check -> commit. In fact, the driver
-I based this driver (st7571) and others (ssd103x) do i2c transfer in an
-atomic plane update. Am I missing something?
+v10:
+. fix pr_warn_ratelimited() line wrap in ddebug_match_desc().
+---
+ lib/dynamic_debug.c                                | 92 ++++++++++++++++++----
+ lib/test_dynamic_debug.c                           | 16 ++--
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 22 +++---
+ 3 files changed, 99 insertions(+), 31 deletions(-)
 
-v4: [6]
-General:
-  - Patch series based in kernel v7.3-rc1
-Driver:
-  - Fixed nits found by Christophe JAILLET.
-  - Fixed max_width and max_height in modeset to avoid having bigger
-  framebuffers than resolution.
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index d300d44c1a82..098fd2639cb6 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -311,7 +311,8 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
+ 	/* site is class'd */
+ 	site_map = ddebug_find_map_by_class_id(di, dp->class_id);
+ 	if (!site_map) {
+-		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", dp->class_id, di->mod_name);
++		pr_warn_ratelimited("unknown class_id %d, check %s's CLASSMAP definitions\n",
++				    dp->class_id, di->mod_name);
+ 		return false;
+ 	}
+ 	/* module(-param) decides protection */
+@@ -1507,18 +1508,80 @@ static void ddebug_apply_class_users(const struct _ddebug_info *di)
+ 		__di->_vec.start = __start;				\
+ })
+ 
+-static int ddebug_class_range_overlap(struct ddebug_class_map *cm, u64 *reserved_ids)
++static bool ddebug_validate_class_range(const char *modname,
++					const char *name,
++					int base, int length,
++					u64 *reserved_ids)
+ {
+-	u64 range = (((1ULL << cm->length) - 1) << cm->base);
++	u64 range;
+ 
++	if (base < 0 || length <= 0 ||
++	    base + length > _DPRINTK_CLASS_DFLT) {
++		pr_err("module %s: base:%d len:%d (from %s) exceeds class_id limit %d\n",
++		       modname, base, length, name, _DPRINTK_CLASS_DFLT);
++		return false;
++	}
++	range = (((1ULL << length) - 1) << base);
+ 	if (range & *reserved_ids) {
+-		pr_err("[%d..%d] on %s conflicts with %llx\n", cm->base,
+-		       cm->base + cm->length - 1, cm->class_names[0],
+-		       *reserved_ids);
+-		return -EINVAL;
++		pr_err("module %s: [%d..%d] (from %s) conflicts with 0x%llx\n",
++		       modname, base, base + length - 1, name, *reserved_ids);
++		return false;
+ 	}
+ 	*reserved_ids |= range;
+-	return 0;
++	return true;
++}
++
++static bool ddebug_validate_classmaps(struct _ddebug_info *di)
++{
++	struct ddebug_class_map *cm;
++	struct ddebug_class_user *cli;
++	u64 reserved_ids = 0;
++	bool valid = true;
++	int i;
++
++	for_subvec(i, cm, di, maps)
++		if (!ddebug_validate_class_range(di->mod_name,
++						 cm->class_names[0],
++						 cm->base, cm->length,
++						 &reserved_ids))
++			valid = false;
++
++	for_subvec(i, cli, di, users) {
++		if (!cli->map) {
++			pr_err("module %s: classmap not found for user\n",
++			       di->mod_name);
++			valid = false;
++			continue;
++		}
++		if (!ddebug_validate_class_range(di->mod_name,
++						 cli->map->class_names[0],
++						 cli->map->base + cli->offset,
++						 cli->map->length,
++						 &reserved_ids))
++			valid = false;
++	}
++	return valid;
++}
++
++static void ddebug_validate_descs(struct _ddebug_info *di)
++{
++	struct _ddebug *dp;
++	u64 bad_ids = 0;
++	int i;
++
++	for (i = 0; i < di->descs.len; i++) {
++		dp = &di->descs.start[i];
++
++		if (dp->class_id == _DPRINTK_CLASS_DFLT)
++			continue;
++		if (bad_ids & (1ULL << dp->class_id))
++			continue;
++		if (!ddebug_find_map_by_class_id(di, dp->class_id)) {
++			pr_warn("module %s uses unknown class_id %d\n",
++				di->mod_name, dp->class_id);
++			bad_ids |= (1ULL << dp->class_id);
++		}
++	}
+ }
+ 
+ /*
+@@ -1530,7 +1593,6 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	struct ddebug_table *dt;
+ 	struct ddebug_class_map *cm;
+ 	struct ddebug_class_user *cli;
+-	u64 reserved_ids = 0;
+ 	int i;
+ 
+ 	if (!di->descs.len)
+@@ -1562,10 +1624,10 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	dd_set_module_subrange(i, cm, &dt->info, maps);
+ 	dd_set_module_subrange(i, cli, &dt->info, users);
+ 
+-	/* insure 2+ classmaps share the per-module 0..62 class_id space */
+-	for_subvec(i, cm, &dt->info, maps)
+-		if (ddebug_class_range_overlap(cm, &reserved_ids))
+-			goto cleanup;
++	if (!ddebug_validate_classmaps(&dt->info))
++		goto cleanup;
++
++	ddebug_validate_descs(&dt->info);
+ 
+ 	/*
+ 	 */
+@@ -1587,7 +1649,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 		 dt->info.descs.len, dt->info.mod_name);
+ 	return 0;
+ cleanup:
+-	WARN_ONCE(1, "dyndbg multi-classmap conflict in %s\n", di->mod_name);
++	pr_err("dyndbg multi-classmap conflict in %s\n", di->mod_name);
+ 	kfree(dt);
+ 	return -EINVAL;
+ }
+@@ -1674,7 +1736,7 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
+ 		mod->dyndbg_info.mod_name = mod->name;
+ 		ret = ddebug_add_module(&mod->dyndbg_info);
+ 		if (ret)
+-			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
++			pr_err("dyndbg: failed to add module %s: %d\n", mod->name, ret);
+ 		break;
+ 	case MODULE_STATE_GOING:
+ 		ddebug_remove_module(mod->name);
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index ea81c5158b13..666b447b3740 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -173,14 +173,20 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
+ #endif
+ 
+ #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
+-
+ /*
+- * in submod/drm-drivers, use the classmaps defined in top/parent
+- * module above.
++ * In submod (drm-drivers/helpers) use the classmaps defined in
++ * top/parent module above.  We _USE_() with offset, to test the
++ * non-zero case.
+  */
+-
+ DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+-DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
++/*
++ * maybe force failure of runtime sanity test of classmap.length + offset < 63
++ */
++#if !defined(DD_RUNTIME_CLASS_CHECK)
++DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 8);
++#else
++DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 55);
++#endif
+ 
+ #if defined(DD_MACRO_ARGCHECK)
+ DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 0478ef59dd0f..5de726254d91 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -576,12 +576,12 @@ function GOLDEN_RECORDS {
+ #K= c518a50ba30ba8099d0dc874a27ecf16 FT_multi_query.4
+ #K= 91838b4012c50a1dc1d9e210ba8d68f8 FT_test_classes.1
+ #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
+-#K= 2cee6842c9cdee5cb3bf50b2e3914813 FT_test_classes.3
+-#K= 81b16613f8d444485e2bc5aa4d38d024 FT_classmap_inheritance.1
+-#K= c14c8aa758e24046b3237d20e2189bf7 FT_classmap_inheritance.2
++#K= c03cd07445ca93358176130f04320ee7 FT_test_classes.3
++#K= 1489b3b72dbdfdb553cc0c6594c4face FT_classmap_inheritance.1
++#K= e11c22649735cedb6c30321378100e11 FT_classmap_inheritance.2
+ #K= 5d0f3701517aa3a461c8887c332bdb42 FT_classmap_inheritance.3
+-#K= f444ae312fcce32444c54da757d87c41 FT_classmap_inheritance.4
+-#K= 7e92245008439ee79fe2460aeaa16a9b FT_classmap_inheritance.5
++#K= d39188ded831453d90d77390546b314d FT_classmap_inheritance.4
++#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
+ #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.1
+ #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.2
+ #K= 11032ef17569bd151c3806527a2428be FT_modprobe_w_param.3
+@@ -592,11 +592,11 @@ function GOLDEN_RECORDS {
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.8
+ #K= 535ab526b24a7214de41d92e94bbd52c FT_modprobe_w_param.9
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.10
+-#K= a71670fec42b1b0646f0317180bafcc7 FT_modprobe_w_param.11
++#K= 7c02282dcfb73eb5ffb9629ce63360e5 FT_modprobe_w_param.11
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.12
+-#K= aacdbab171b374f221f0196e6e415d09 FT_modprobe_w_param.13
++#K= b0942decc84dae237019bc2877ff02e7 FT_modprobe_w_param.13
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.14
+-#K= c7eb8e25c780f58c78ed73dc1c187a02 FT_modprobe_w_param.15
++#K= efe8e3b8080c3310708b7505d60f7703 FT_modprobe_w_param.15
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.16
+ #K= d682c98ced7d31f1555ab474a9ebe253 FT_modprobe_w_param.17
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.18
+@@ -610,11 +610,11 @@ function GOLDEN_RECORDS {
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.26
+ #K= 66eb387a95512f679eb5cad4168b0992 FT_modprobe_w_param.27
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.28
+-#K= 2583cb4637bcc2ce1e93eea4222ec76c FT_modprobe_w_param.29
++#K= 7df05523f4d61917fd7659357eeec1bc FT_modprobe_w_param.29
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.30
+-#K= d592c5bf23312e705b39064c21ca68e4 FT_modprobe_w_param.31
++#K= a75600ac4e129f4315c5a50ad3a3103c FT_modprobe_w_param.31
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.32
+-#K= b44d105d151123c93cfe953bacdb573f FT_modprobe_w_param.33
++#K= f43ccce73ac2b0e1529312af66a4ddfe FT_modprobe_w_param.33
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.34
+ #K= 4819f715ba485c493afb455542f7ab8c FT_modprobe_w_param.35
+ #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.36
 
-v3: [5]
-- General:
-  - Patch series based in kernel v7.2
-- In dt-bindings:
-  - Removed "chipwealth,contrast" property (added backlight_device
-    support in driver's code)
-  - Renamed "chipwealth,invert" -> "chipwealth,inverted"
-  - Added default value to "chipwealth,offset"
-  - Removed 'status = "okay"' from example
-  - Indented example with 4 spaces as stated in the documentation [4]
-- In driver code:
-  - Added support for backlight_device
-  - Replaced drm_dev_unregister with drm_dev_unplug to cover the dt
-    overlay unload case
-  - Executing drm shutdown operations before turning off the display
-  - Checking that the width (panel-timing.hactive) and height
-    (panel-timing.vactive) parameters are greater than 0
-
-v2: [3]
-- General:
-  - Patch series based in kernel v7.2
-- In dt-bindings:
-  - Fixed linter problems
-  - Replaced first_page property with offset
-- In driver code:
-  - Fixed dst_pitch calculation
-  - Renamed file from ch1115.c to ch1115-i2c.c
-  - Support flip-vertical and flip-horizontal dt properties
-  - Fixed several things found by sashiko-ai
-
-v1: [2]
-
-[1] https://datasheet4u.com/download/1576606/CH1115.html
-[2] https://lore.kernel.org/all/cover.1786110720.git.nico.antinori.7@gmail.com/
-[3] https://lore.kernel.org/all/cover.1787321297.git.nico.antinori.7@gmail.com/
-[4] https://docs.kernel.org/devicetree/bindings/writing-schema.html#annotated-example-schema
-[5] https://lore.kernel.org/all/cover.1787973729.git.nico.antinori.7@gmail.com/
-[6] https://lore.kernel.org/all/cover.1788711082.git.nico.antinori.7@gmail.com/
-
-Nicolás Antinori (3):
-  dt-bindings: display: add Chipwealth CH1115 OLED Controller
-  drm/ch1115: add support for Chipwealth CH1115 OLED controller
-  MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
-
- .../bindings/display/chipwealth,ch1115.yaml   |  81 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  17 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/ch1115-i2c.c             | 895 ++++++++++++++++++
- 6 files changed, 1002 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
- create mode 100644 drivers/gpu/drm/tiny/ch1115-i2c.c
-
---
-2.47.3
+-- 
+2.55.0
 
