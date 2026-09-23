@@ -4,67 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC0BCC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ED75C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61C6E10F911;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F04D10F914;
 	Fri, 25 Sep 2026 07:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="W/Aw4x+l";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="lk4iTPb2";
 	dkim-atps=neutral
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 715CC10E0A1;
- Wed, 23 Sep 2026 09:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
- s=smtpauto.stravinsky;
- h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Reply-To:Content-ID:Content-Description;
- bh=SsCuNzmgxLzWx+3uyAmSPHK7VGXvDorQ27xP2xLHmRU=; b=W/Aw4x+lFhUAQTP4c1VKEhBS/V
- qQflp8IYrQAl8pv8CXmzSueYbdQlbdGtXcPdQ6DlaDUXAGXRQVGzdfG3JAIkiAF418cINcv429Tf9
- x0ddKXyg6vz556gpQ9U42oZA9RFYGH1aRVGNrbf9w5HYZUCFub35v3qmsgiBnKlKSfMIvcll254oS
- YCpye6/uqCSTorgSOcScAAxT79pJ8GFHpJPvun6H42jKJJ6NDqsPAcU4twDQX5edks3WAWRUSerMV
- QNODJ4x6htkGgcBvscwpFfG5tvqjQ9L6qGkFLrkEd5ErTwKSyQ8LkFBre7lRovikJDyL3K+WAs28c
- LYLh35Sw==;
-Received: from authenticated-user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.96) (envelope-from <leitao@debian.org>) id 1x9J7B-003ePq-0r;
- Wed, 23 Sep 2026 09:18:09 +0000
-Date: Wed, 23 Sep 2026 02:18:02 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dan Williams <djbw@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-coco@lists.linux.dev, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH 0/6] configfs: Allow the registration of const struct
- configfs_attribute
-Message-ID: <arOZOVyT_F1nUvS1@gmail.com>
-References: <bHvLFyR13nE7HUTBaSLSUZOfB-goGIQLnTtXl9nIQ_beVuvnPA2GpKpdWw-JM4MamQAdiSxOnCc_msKnwqqISw==@protonmail.internalid>
- <20260716-configfs-const-base-v1-0-c545a4053cb5@weissschuh.net>
- <87tsnh2w3d.fsf@t14s.mail-host-address-is-not-set>
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 80A3110E945
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:29:07 +0000 (UTC)
+Received: from [10.4.158.9] (unknown [4.194.122.162])
+ by linux.microsoft.com (Postfix) with ESMTPSA id C049D20B7167;
+ Wed, 23 Sep 2026 09:28:09 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C049D20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1790180898;
+ bh=zRx/KbW622lc9oNGjU0HBG2ucuK06pk04r2BRU2Rs4k=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lk4iTPb2Y7uutncKN/+j8ht7tPnRTZ6o43sCv1igw+EdAbkap5LleY6qa51nPpFa6
+ oFrn4wb6BHxvCgReQsk80Yv5Gq+s/5rQRHwDalOdArIoH0GTefNuq6TyY2rgXsVOhS
+ gNMu/nMv3dX8EIbRcFZTUFCIb4A9JF6t3XJZs7Dw=
+Message-ID: <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
+Date: Wed, 23 Sep 2026 09:28:54 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87tsnh2w3d.fsf@t14s.mail-host-address-is-not-set>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+To: Jason Gunthorpe <jgg@ziepe.ca>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, mhklinux@outlook.com
+Cc: Catalin Marinas <catalin.marinas@arm.com>, linux-coco@lists.linux.dev,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>, christian.koenig@amd.com,
+ Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Thomas Gleixner
+ <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, linux-mm@kvack.org
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org> <arKsFofudnTYpXj1@arm.com>
+ <yq5aik3w344o.fsf@kernel.org> <arOfD6syXOgQhZYA@arm.com>
+ <yq5a5wzw2ree.fsf@kernel.org> <arOspFxWZ1DjgcAr@arm.com>
+ <20260923130611.GF1540250@ziepe.ca> <yq5atsng10b2.fsf@kernel.org>
+ <20260923152124.GG1540250@ziepe.ca>
+Content-Language: en-US
+From: Kameron Carr <kameroncarr@linux.microsoft.com>
+In-Reply-To: <20260923152124.GG1540250@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,18 +72,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 04:34:46PM +0200, Andreas Hindborg wrote:
-> Thomas Weiﬂschuh <linux@weissschuh.net> writes:
+On 9/23/2026 8:21 AM, Jason Gunthorpe wrote:
+> On Wed, Sep 23, 2026 at 08:28:57PM +0530, Aneesh Kumar K.V wrote:
 > 
-> > The attribute structure defined in driver code never need to be
-> > modified. Allow them to be marked as const.
-> >
-> > Signed-off-by: Thomas Weiﬂschuh <linux@weissschuh.net>
+>> I'm also considering requiring the address passed to cc_make_shared() to
+>> be in the linear map. This is currently required by both TDX and CCA,
+>> while AMD SNP appears to support vmalloc addresses. The only user of
+>> that vmalloc support is Hyper-V VMBus GPADL setup
+>> (vmbus_establish_gpadl()). How should the generic CoCo shared-memory
+>> allocator handle this?
 > 
-> For the rust parts:
+> vmbus_establish_gpadl() is the the same wrong abstraction as the arch
+> code. Get rid of it and use vmbus_establish_gpadl_caller_decrypted():
 > 
-> Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
+> 		pdata->recv_buf = vzalloc(RECV_BUFFER_SIZE);
+> 		if (!pdata->recv_buf) {
+> 			ret = -ENOMEM;
+> 			goto fail_free_ring;
+> 		}
 > 
-> @Breno, will you take the entire series through your tree?
+> 		ret = vmbus_establish_gpadl(channel, pdata->recv_buf,
+> 					    RECV_BUFFER_SIZE, &pdata->recv_gpadl);
+> 
+> 
+> So you made an allocator that returns folios, now you just need to
+> use that allocator to implement a kvzalloc wrapper. ARM can call vmap
+> on decrypted memory with pgprot_decrypted(), right?
+> 
+> Or maybe this can use vmbus_alloc_buffer(), it already does it.
 
-Yes, I can take the whole series through my tree.
+Michael Kelley recently proposed [1] moving all ring buffer allocations
+to use vmbus_alloc_buffer(). If we move forward with this, it should
+remove the dependency on vmalloc support.
+
+
+[1] https://lore.kernel.org/all/SN6PR02MB4157B71CAC1433B04B92B700D4832@SN6PR02MB4157.namprd02.prod.outlook.com/
+
+Kameron
