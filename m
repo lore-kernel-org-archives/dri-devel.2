@@ -4,176 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB607C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:45:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7FFC9830D
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2088E10E0D6;
-	Wed, 23 Sep 2026 13:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC7210F002;
+	Wed, 23 Sep 2026 13:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="NImLnI7m";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NImLnI7m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ze9qvFjP";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011037.outbound.protection.outlook.com [52.101.70.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D18E710E0D6;
- Wed, 23 Sep 2026 13:45:36 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=kzgdyTvKhhlePou3DYFmQlpI5GOSzMn/Xu8SPWCfg9vBVRFGQxid03K7ciG8NmY8+tUz+MYLtzcfk5D18Id9hqehjMiEPKwRi4yLASAy966ElR1Zy2BQTOv+P4ZfMLm7a4UNEEtyLxYIrvnY9JnInoJT3zNAQF/0ZX0/FENlReHD7C8IHtljH4UnDa/2wMFm4DtvRNOu1Huanv7AjveJ7HD6wiyyCSbgNXj8vMwIvhCbdg9WZax2rBTaYZ2W9P0HG3ng8IkuPfEWDOhgMf5PvD7LJLigPrtdTViHZ72d2ePWYWvN/I7DQ1EUaMes1fCFrQNJqJohqP70YjAhJrNXnQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
- b=xk35mhgC24gyWrvj5H9IV/yYQucGtvPOamJCQUxofy/lghRCucN0uyKWjgXhxzCvxeAiUfAwgZrxla+lXyF6mhN+QPNOvV9R6IMBTvqw0cq7bTdEtUYQv67/843h+eTNrvFASsfK2viClttBuM4exPxf80ou0h7U0s50rbYn1gUKO9HcNY01KvJilmQbsKXEMyVr+T1x279vfYHXlX9aMpGCGTNr6dTFuvbaPwpqFTZuFKXYs6WBy+bRxZAAJfIyZCJt/Cw6QIAucFlvJ1lqorhM6x7DMbi80kgyGT9ZA9qYEwhk8DRm/p+0e0bX28b4K056BkMg3Kj9IGiL7UGmpw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
- b=NImLnI7mPzOCS5h75myRD6dJrhYj/Y8pb61WWlfOk08FUtxHCscx3oDJn5egO5woT658xGiB2tOEbTMVbcbi6ph3mDDYiA2qjvSuNRYRzRqdfIE9qlC+/cqGsnimcLLVDcNeCm5QDg8C8Ok0X4+2H9Cqc6asgus/twsBLTaTJfY=
-Received: from WA2PEPF000008A3.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d8::654)
- by DBBPR08MB10531.eurprd08.prod.outlook.com (2603:10a6:10:53d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.4; Wed, 23 Sep
- 2026 13:45:24 +0000
-Received: from WA1PEPF00009B3A.eurprd05.prod.outlook.com (2603:10a6:1d8::118)
- by WA2PEPF000008A3.outlook.office365.com (2603:10a6:1d8::654) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12
- via Frontend Transport; Wed, 23 Sep 2026 13:45:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- WA1PEPF00009B3A.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Wed, 23 Sep 2026 13:45:24 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CFc6tbN+DqR9bAcOpUhd5U6M7Q7RUV9BGGK3m1uDUl3G88awk3wbZkIUMEtEVoD5b+mpJyuYo4ThkzM/O18vTTB2yH05diNCUoxnCR6PzAd6zAe6sjujqVwqzbLfZSpBRmlaX7XN01mX1sFF/PCDrFtVgNxTVhkksyzKFJAoKXVc2dLQz68cI5czXADet2kHxLdB0RwAG8A4JIKNQ22vh7cJvtgaTzMm9J2BDX0LuHqFJpDmHmOlRw4vxjbTQQ8HW+FeNjRs/2kTIFFnnNEkCK8JjpAY43grjKB/1vVBkqsJP82tRXL+D3n54rr3SLW5UcaLzAtBE6p5ZI1m7B8buw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
- b=jNWSZAnXa1NBr9IVjgjsys9yhz7wZLeNTqADBkYdUvhNe6TsU0eG2px/iArkOYQ21o00f5SprqHsrUhgh/eG476Y9d73VAjX9Arqk7Sn1xVij1xQIbJ9Gc/isTRqDMBmtJxYT/h52ecJqhaIJw5lUqsBdyVWKgz0zfTPa7ceo+tOcwIduGe+GNYblhw83oko/QCqSMDHxhyH78pUhd4+GtCloSsUbMkr1b030fIdCDunGTloje1Oy+t7fof+sPsDg8ytEukVESEYbEFtLBJlJuy3TZ0ZNZ6xZmtA0RvwzY4tiXzWwf7DQElW80W7heL7Qh7OVrmv7FY8lQQa5CFUjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
- b=NImLnI7mPzOCS5h75myRD6dJrhYj/Y8pb61WWlfOk08FUtxHCscx3oDJn5egO5woT658xGiB2tOEbTMVbcbi6ph3mDDYiA2qjvSuNRYRzRqdfIE9qlC+/cqGsnimcLLVDcNeCm5QDg8C8Ok0X4+2H9Cqc6asgus/twsBLTaTJfY=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by DBBPR08MB5993.eurprd08.prod.outlook.com (2603:10a6:10:1f4::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 13:44:47 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0451.012; Wed, 23 Sep 2026
- 13:44:45 +0000
-Message-ID: <b9054539-2f3c-4fee-aad5-c6e725c6ea1c@arm.com>
-Date: Wed, 23 Sep 2026 14:44:40 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-2-usama.anjum@arm.com>
- <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0270.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:194::23) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+Received: from mail-dl2-f37.google.com (mail-dl2-f37.google.com
+ [74.125.229.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D96810F058
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:45:51 +0000 (UTC)
+Received: by mail-dl2-f37.google.com with SMTP id
+ a92af1059eb24-14373bcbfe5so23215c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 06:45:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790171150; cv=none;
+ d=google.com; s=arc-20260327;
+ b=TGlSwIy9148PWzYKKAOhiZ0vp4y2t0mL9Dkv96ahoyObr3gzgVYG4X2air48rSPVbU
+ SKxhu07yU6k2ERNGgsWw/d83NXxQqBCJ5xBRlQy7IIMKNsDPKNcJtdT0gg9I2hk0xrWA
+ mRw64SEwtQ8OOa2D7/l9HmTgadG5jHQM3Egfx9nFDCFIL1lnFLDtCaxkFKv+9HQ8ZpYR
+ SVdmTMHdOrLDn3J+z0/RJd9IXiv3rg+1+fZq14TZn9+fZ+PIVz0OzOHP+MRl1W0cW9Qt
+ IWu+ZrXz7RzUnpbMuWm+I/5gl0yARbsKsFHPehbm1GNeq6fd8zPl2jiWPEAi8lD8pXJE
+ QWbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=HctvDPTtuOL5MhTLFfz6tCI4gTGEFCKNG8C5WWR9dmo=;
+ fh=X6NdC1IJ7vAyFXOdETPBewHJfOq79O0lgU4oQ3dNw18=;
+ b=TXB6Oi7CYc0jxHn1Ixd0njVg5300zkSyl3cjs5ACdko6+GViCGT9Jt7WtXU+2KzeWN
+ UKDtxncDRWqpnHBvFNptnZt0V+5prtyGJ8hKDCruAdI3LuIB78ovwcakw3XAtGHgIhlI
+ uKMkudqUFLx2Y8ek2LHl0Ri0JjpN5pmAvvmyHLPdsP3Asqiyv5fonMgv4RvOxyNRHFR0
+ FtYuoo6kloYHDtTr6BUpuAWo0af5faLvKdU8zoTteEvvagTnh9zEVWTU/UHUiD4rkeXH
+ pRRZmjCFPkQehUgm99sc5urw15hNnR6m1DxRKDHYUOnJXXCKIN/Vt0OaRpD8x/yiBtLT
+ XDEg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790171150; x=1790775950; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=HctvDPTtuOL5MhTLFfz6tCI4gTGEFCKNG8C5WWR9dmo=;
+ b=Ze9qvFjPX8AFrmjTqT5lVF6NPpPq/sl5Kx0ZvG8JZeLHEvWA7UVgE1RZ9qVfNkCVN3
+ TWk/lRcd34d+ldRxwQON1nO2hmVcuBl7hWXSGks/pepDNXihhltta6CwEt0mF6oqnmX1
+ qRp5/3kISq8Z5+igKxWfmpyLXHCrDar5NLCaJpePNFL4vS0WOWoaicfW7Idzln/p63Lh
+ gftKMRfumhsX+byd7n0aj+5TkFnqSYo3HCVuNqXb2IxQB5W/5+ULBt0ulK1E7MIqhS5V
+ eGQ0g/AAwE4VZxdHND+Wf4h7Ru9dEd4tEMleInyC6SlKrls3+YoyQdLKCrNJZN21XmqU
+ 3YIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790171150; x=1790775950;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=HctvDPTtuOL5MhTLFfz6tCI4gTGEFCKNG8C5WWR9dmo=;
+ b=zuQJ+H/RX59M3c/Ry0DrCGay8zOivjI516MOBJu4WDzYWELUqPPCs7GZJEn0AivNY9
+ t86lual7XiTr2dyNDL3OuDC4Cv4Y3gcu5OGWlmpjp0QEWPvbiUENzOL77pdPlm1NGq3P
+ E+Sd+Fiq59SnjDzeSApeHpPoZMSnrqcHGRt15GXAOiHRi+ObJEzAgE1ZM9wIY7FlDTSh
+ ps5H50bjkoUoJH6MADjSD0H6kWusubhBTheiCN0gGrzngL7J/KPs7rtE58UPQO9Gim7Z
+ WenQKLc6D/aj7YekjgMuXkibS7jASUV0Git+xDsNCFTmUBfQ11jFfqRE08+JQus7UWEr
+ dszQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxIWifLwdNyJiVhGnldsVYzMmHXHHSPa0qCjTghgH2bYKtxO8U5oG8Dtd/gIhGcyzyfjdVcB/g05XE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ktrCzXRC95v+yzBrze26M6xuCkjIY6uOCdVDmopXoYwa/fo5TD
+ TFdjdV6IdoDyhW2eVN9DV3lpBRVGvVuAKQPnIrvT1MMJ2mamw9oVoI+PzW+pv3WQqztJ9bGMG2v
+ E3J4AvFQQCu7n0CEUTRcalCelb/+npSE=
+X-Gm-Gg: AYBFou0oFm6bCpdXqOi2GN8BzjBIwpJemjZzXc0JhUlahdZjnBZ22pPxm//Suwhr2ks
+ P0OAOzLzrIw/KKOq2avZ4YVmYobrzdzgCyBqnpfPyunVXIYmLAGVdyaRIKf6yzoBqHTiH2+yu++
+ DmTed5CKJsjd3krreYRuvPHeTLBSCHkYaJ/5KV3RIsPEtChTub5No8LyCxlk3uxzlShe7vzrxtn
+ 7ve7d7zWznTrLMgk34V+9dVV4ddPxF65I22A94wVlsXxlYxVw4JwFgPbmNahe9Jp8Up7/fyCi6W
+ hPQ7rPETF40KP1VOSfocCDiWKkr9AkyE+LBegP9iRSd6gZ/lefx9PBb32SGpvH8G0aC2yuXMlF0
+ cuv/4AU4IJ4omJ7SmHglS5BPKS3aF4poyuK4wKWphLg==
+X-Received: by 2002:a05:701b:4517:10b0:143:5c2a:e45f with SMTP id
+ a92af1059eb24-144f8fcc55emr4442748c88.0.1790171150250; Wed, 23 Sep 2026
+ 06:45:50 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|DBBPR08MB5993:EE_|WA1PEPF00009B3A:EE_|DBBPR08MB10531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93df322b-b665-4342-eb1a-08df1978eb26
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|7416014|1800799024|376014|366016|10067099003|11063799006|6133799003|10063799003|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info-Original: 4g1AO8kRUEFNWgcQXjh2wHWdD79yQHdGiF1pC7allufgdnec5hNaE7+LNiSCIW8Cf/LtPMWAWu+HPPgzv/h/86VenR7OgyMEAnQxSLhc6S1YXd3KbGcVG8FY+/uRwl2ul7KHXmCO3LuzTQ0SFj2AvY+ekUeNm5xr/L4a17cqmOqLpE0hAIi44FxnIq9dA3Nm+SVA/TEFMUynwqzMMF1o0R5llCURQxKQkTE1GpeGyi36kiNV9ODPLh1EN0sfuFhInnhFcKJqY+xYUmLPvsySIeInXeNZ1Z93zJhvtB2mq6Y8l5seuDc2vh5RF/SHYMEdPWXSnE5OZxSiaYpuFsg+dDvBTPyMsN0r+h+n2YCPn1GFt6ITTvfq46WkRfqb3MSjQnVdYP/zv/x0HEy6K4khd2PMP8H+vDJwOYKRmIG3Mi519jEvwQz40tAckyFi0mO4vK+baOniNWbTxmwhe8ESybU9GLHKpvs/R6GFtfYcJZB3Kt6GXZUOf1Qb2V5lvYAJGrzFdVA2+GGsUXSScGpCDpUR+Y30VQ+1KOjQc8IDrXUQVwlCBTIaYDWiZ95e9D8+FO8tuwdnNTTTyOYXynEdIkSbx1nbyf2tebLLP7inAORYQY8UD1Uaw/iqwaxO1xbT
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(10067099003)(11063799006)(6133799003)(10063799003)(18002099003)(22082099003)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: TXHaA0zYu16+wIC41/vqvbEGWbtUM6A/QEi4hfjhAZPwB7e/jDm13rcDMw/aO8Z2W08mfc3hKtaOOacLo68A26n5EL4dlA6LeleYhiC9nkQ6kXhDTJjvxh6CcSAyRIuUgCt1DIK2sXz505JdtvnA2ICEk4rkuGPM4P8kWlgrKMZpUO0UV9+9Uo3fIActyOJ5+5cyFkF9VXAiNALcv8XPHc2fVWH9PI099oOHbtbpKWEwWIu1KS07lEVj6r5JRJFjGKZlCzAiG9RixrQvT6D0eOwJ1RBKOXbzd2ZDFxeC0Qw/pt63RPvGVNaks9ZgZxO5NDYB/k+xBxN6WVE1V46ZaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB5993
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: WA1PEPF00009B3A.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 40b0c1cc-e4c7-4cb9-e70f-08df1978d2e2
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|14060799003|36860700016|82310400026|35042699022|7416014|376014|23010399003|11063799006|56012099006|10067099003|6133799003|10063799003|22082099003|18002099003|4143699003|13003099007;
-X-Microsoft-Antispam-Message-Info: xOdlt9gWQb5AmSldLIWwF39tLodl3UEFxjRIlrJ59NOw1kDi74+MXR9xlaG6aaiwXOY4cd5Jr3/wVt3bn36vacHTUeK/0KkfDzfrq2g5Yg2Iq99iBlX+SLENnYyMQSMqVsEr5bmOG7rtrTXyX6GSBc/bDOo1IUtMeKgG3vo/wz5NiZSEi8voynSqFqdUS6viavUwo+Jx+JPKABcrwcVtgmVefWaxTfeyvVpXR6O8KwclhNDzbHfqq32FrEXU0oRTy7L7iSGI0XmH1BSjsT19TjgwGIfyWko4QvIXLRZ7R7aDkpnyOK1icXyArFqJ7sd1bhVUct+dsjWy2kDp4uqvcldeRBBLL858DI2MxESGcLlE7x0xIed6CPotyGxiZLixIEAQVj3xqWHFrekI8GCaF9oIgFJHptna+7v0Ltr9p6UUGpFAa/tqPIxoqsjPoSsY74WZ92uGJZQb/psZOb9k/BWPCpKRlG8ZogiOzuXyGNPyg8rTK4JwxRX2ipiwBXMPMvMfyYc+JG1BqLhRkmKvkwhywKX+Y7UXAVJzMtiV2XcTyIBK+JU0kCtEQwjNebJv6yulaHQFyARfAftW3HoMDE5ANHaQuYWy1WSkZwCxFxTNGuCfIV+dTdbLy5dwvccbsVoESTRJOsivk1l65Y0+HbGp9ST/sv8PNzZMjjVcmVU=
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(14060799003)(36860700016)(82310400026)(35042699022)(7416014)(376014)(23010399003)(11063799006)(56012099006)(10067099003)(6133799003)(10063799003)(22082099003)(18002099003)(4143699003)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: x678kAqGeH74dlpP5SlpeeqVF/B8Jqjj7yszzQQL7Qxoeef1ZC7qYaLfodPtRt1nBDXEY1KPq1agkS4ZsvRzqw24ACv31K8NxW9wr/5QZWeG+tOpRjBinx10ZZDpZXODjAJGdgImBc2OeaCXeldNt2c0helMZ1fadIpCpL8Qj24u1s64LdFc+u3JU6c+h2SM+Ywr5biNXalC/1kXFJPUWnkX4Q0D/03BN4zFe3OZUBkyYeW43OCfJ3yir3ileqzDhBvPe1LwPl4XAEoAx2nUPBaK4IVYMJVlvdT0YSyYQU5JyZAKOx4mb47W6+TRkp4Z2nBY7tIxsfapRMxxHIlkcCh4SUi40x5LoZc74sT0G1qox30Vs2XcCQluY5Fc5+cDtApJeOw8RizKDiyv4S3QI+goVGza5E7sXuQN5CIegAOHN6TogHTWIcUMWNyFiDMg
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:45:24.0046 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93df322b-b665-4342-eb1a-08df1978eb26
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: WA1PEPF00009B3A.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10531
+References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+In-Reply-To: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Sep 2026 09:45:38 -0400
+X-Gm-Features: AcwNN1VvuVKZ728jo-o9478RCdxxAm4oEfsFVGIbnAnLjFz4EvjQl-J3APv6aG0
+Message-ID: <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>, 
+ DRI <dri-devel@lists.freedesktop.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -189,115 +111,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 23/09/2026 12:52 pm, Alexander Gordeev wrote:
-> On Thu, Sep 03, 2026 at 11:29:53AM +0100, Muhammad Usama Anjum wrote:
->> pte_t is used both for software PTE values and for entries stored in a PTE
->> table, so pte_t * does not distinguish a pointer to a software PTE
->> value from a pointer to table storage.
->>
->> Introduce hw_pte_t as the generic name for a PTE table element. Define it
->> as a macro alias of pte_t by default. When an architecture selects
->> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
->> This preserves the representation while allowing converted architectures
->> to enforce the distinction at compile time.
->>
->> Name the generic wrapper structure __hw_pte_t so architectures can
->> forward-declare it when pgtable_t must be defined before the generic
->> hw_pte_t typedef is visible. This avoids header-order dependencies.
->>
->> Keep the C type definitions behind an __ASSEMBLY__ check because
->> architecture assembly sources can include this header indirectly. Include
->> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
->> they previously obtained from that header.
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->> Changes since v1:
->> - Name the generic wrapper structure __hw_pte_t so architectures can
->>   forward-declare it, and explain why this is required.
->> - Use software PTE value terminology.
->>
->> Changes since RFC v1:
->> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
->> - Exclude the C type definitions from assembly sources.
->> - Update the description for the new opt-in model.
->> ---
->>  MAINTAINERS                   |  1 +
->>  include/linux/pgtable_types.h | 17 +++++++++++++++++
->>  mm/Kconfig                    |  3 +++
->>  3 files changed, 21 insertions(+)
->>  create mode 100644 include/linux/pgtable_types.h
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 2133aec4a2004..da60a8bdcddb5 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
->>  F:	include/linux/pagewalk.h
->>  F:	include/linux/pgalloc.h
->>  F:	include/linux/pgtable.h
->> +F:	include/linux/pgtable_types.h
->>  F:	include/linux/ptdump.h
->>  F:	include/linux/vmpressure.h
->>  F:	include/linux/vmstat.h
->> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
->> new file mode 100644
->> index 0000000000000..07da05d375c2c
->> --- /dev/null
->> +++ b/include/linux/pgtable_types.h
->> @@ -0,0 +1,17 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#ifndef _LINUX_PGTABLE_TYPES_H
->> +#define _LINUX_PGTABLE_TYPES_H
->> +
->> +#include <asm/page.h>
->> +
->> +#ifndef __ASSEMBLY__
->> +
->> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
->> +typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
->> +#else
->> +#define hw_pte_t pte_t
->> +#endif
-> 
-> I would suggest to provide __hw_pte() in this series - it is needed
-> by architectures along with __pte_from_hw() right away (as opposed
-> to when lands in arm64).
+On Wed, Sep 23, 2026 at 9:25=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> Hi all,
+>
+> After merging the drm-misc tree, today's linux-next build (x86_64
+> allmodconfig) failed like this:
+>
+> /tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c=
+:87:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_p=
+ool_create' [-Werror,-Wframe-larger-than]
+>    87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t =
+size,
+>       |
+>
+> which I am exceptionally frustrated to see was caused by commit
+>
+>   bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
+>
+> which merged the bug I originally reported in the amdgpu tree:
+>
+>   https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
+>
+> and then in the drm tree when that was sent upstream without the report
+> having been addressed in any way:
+>
+>   https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
+>
+> neither of which have had any response at all.  It really seems like
+> there is some room for improvement in your processes here, currently
+> that's three drm trees all held out of -next with the same fairly simple
+> build issue.  Can I suggest at least check to see if the code you are
+> trying to merge is in -next, the drm merge was done after amdgpu had
+> been held out of -next for several days.
 
-* __pte_from_hw() is added by 4th patch in this series.
-* __hw_pte() was added in arm64 specific series. But it has been dropped
-  because of [1] in v2 of arm64 series [2]. There is no user of it in my both series.
-  Please feel free to add it if s390 needs it.
-* hw_pte_val() was in arm64 specific series. It has since been moved to generic
-series in v3 [3].
+I sent the PR out on Thursday and you reported the issue on Friday,
+then the weekend happened.  It was investigated and fixed, however
+Dave reported a different stack frame warning yesterday so we are
+trying to make sure that is resolved as well.  In addition we've been
+trying to figure out why our clang builds did not catch it in the
+first place.  All the patches should be available momentarily.
 
-[1] https://lore.kernel.org/all/86d4aea6-4272-427e-9229-295489e068d7@arm.com
-[2] arm64 v2: https://lore.kernel.org/all/20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com 
-[3] genric v3: https://lore.kernel.org/all/20260922-pte0-v3-0-5670b8cb9059@arm.com 
-
-> 
->> +#endif /* !__ASSEMBLY__ */
->> +
->> +#endif /* _LINUX_PGTABLE_TYPES_H */
->> diff --git a/mm/Kconfig b/mm/Kconfig
->> index c1ddf59c0d71a..5f462ec6fa5e5 100644
->> --- a/mm/Kconfig
->> +++ b/mm/Kconfig
->> @@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
->>  config GUP_GET_PXX_LOW_HIGH
->>  	bool
->>  
->> +config ARCH_HAS_HW_PTE_T
->> +	bool
->> +
->>  config DMAPOOL_TEST
->>  	tristate "Enable a module to run time tests on dma_pool"
->>  	depends on HAS_DMA
->> -- 
->> 2.47.3
->>
-
-
--- 
-Thanks,
-Usama
+Alex
