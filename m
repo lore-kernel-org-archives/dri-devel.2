@@ -4,43 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FFA1C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 05:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C826AC98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 05:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC36310EF07;
-	Wed, 23 Sep 2026 05:46:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A0410EF1C;
+	Wed, 23 Sep 2026 05:53:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C7Ajeow1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dfiMSTdw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2536E10EF07
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 05:46:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B421810E403
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 05:53:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 42C99600AA;
- Wed, 23 Sep 2026 05:46:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB42D1F000FF;
- Wed, 23 Sep 2026 05:46:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D71D46020A;
+ Wed, 23 Sep 2026 05:53:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B328E1F000FF;
+ Wed, 23 Sep 2026 05:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790142381;
- bh=yqBptwhhgVgrXy6TPoP9Mz2Gk0XvfaDhSoqOArwMJ2I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=C7Ajeow1c8XbgnZP7xRJpXLk3V5jOHUvzDFNlWRdlY2yYANhbx6w2E+0HMusObBT6
- ZmeOwscLudxJZyOaZsB5+Vzx6RXHfnOoWV4X+Ebe308O553gLs1zx3PXjRDRjn/jZ7
- YORiNMSD2SfsHm2DoDrloqa588VOa4UsksNxKabvqnIcoLfxKKFt5ITaNVe5EWdzy0
- WST5vjnVkVSG8TBG1UmPSNcoXJQ3iez8c4ihbzBjJvyHqwgdEiYFeWoqwl/mv9K/w/
- p4bLDodPNTCQ33kq9gFId84ys3YdQbhOwYKHMZVQs5bPy80TE6/wBuJRPiZcjAGtEk
- gACnrClMVNuXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu/pm/powerplay: factor voltage index bounds
- check into a macro
-To: yaolu@kylinos.cn
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260923054111.209370-1-yaolu@kylinos.cn>
-References: <20260923054111.209370-1-yaolu@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 05:46:20 +0000
-Message-Id: <20260923054620.CB42D1F000FF@smtp.kernel.org>
+ s=k20260515; t=1790142817;
+ bh=NLg7eC5tmmPMhZrdk3Y2A4+KtVVGLpx4Z4IOl6QmxuU=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=dfiMSTdwFtu0GCkhWemNFDgm+eZPZTNwX9NfJANQl2p7VUL12gPuLOT5GFrp9s1/W
+ gYHsfaLK7hikvujYiuXBUn8tMKa90RN/oaYf2S0NAbKARN3nHId0g1n9dBJrUeJeqm
+ 1Q44Iafx85llSabeXDEcOdxXWocXCUP5y+CfG+SLeH3LQKK2DCfDxkDMtcFBDaOqJv
+ 3HMHpRbUUmlsMii5otr4W/LYqrG4eJChKhKMXRP42VluhoUFMzhKQPjXcnsbxGFGAB
+ eSZq2hnozQ8Ha+TQTKHYQZsH+7U8XaqMquyRiYdYscnEhoNd02LZ7qoYGMlm0AwCPg
+ wXpHkFmSzOfPQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>,
+ christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+In-Reply-To: <arKsFofudnTYpXj1@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+Date: Wed, 23 Sep 2026 11:23:27 +0530
+Message-ID: <yq5aik3w344o.fsf@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,33 +68,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] commit message: macro name mismatch PP_CHECK_VOLTAGE_INDEX vs PP_VO=
-LTAGE_INDEX_OOB
---
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-commit 3d5448c38d3504f9987ca03ae0f6fc0dcde24233
-Author: Lu Yao <yaolu@kylinos.cn>
+> On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+>> +		size_t requested, struct cc_shared_pages *mem)
+>> +{
+>> +	struct cc_shared_layout layout;
+>> +	struct page *page;
+>> +	unsigned int order;
+>> +	bool zero = gfp & __GFP_ZERO;
+>> +	int ret;
+>> +
+>> +	if (!mem)
+>> +		return -EINVAL;
+>> +
+>> +	ret = cc_shared_calc_layout(requested, &layout);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	order = get_order(layout.shared_size);
+>> +	if (order > MAX_PAGE_ORDER)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * State transitions require a linear-map address and may modify memory.
+>> +	 * Allocate from low memory and defer requested zeroing until afterwards.
+>> +	 */
+>> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
+>> +	if (nid == NUMA_NO_NODE)
+>> +		page = alloc_pages(gfp, order);
+>> +	else
+>> +		page = alloc_pages_node(nid, gfp, order);
+>> +	if (!page)
+>> +		return -ENOMEM;
+>> +
+>> +	ret = cc_make_shared(page_address(page), layout.shared_size);
+>> +	if (ret) {
+>> +		if (!cc_make_private(page_address(page), layout.shared_size))
+>> +			__free_pages(page, order);
+>> +		else
+>> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
+>> +					    layout.shared_size);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (zero)
+>> +		memset(page_address(page), 0, layout.shared_size);
+>
+> Does the memset() post sharing logic work for pKVM as well? If nothing
+> clears it, we have a small window where guest data is leaked to the
+> host.
+>
+> Is there a case where we *do not* need the memory cleared? If not, maybe
+> we can move the logic in the arch set_memory_decrypted().
+>
 
-drm/amdgpu/pm/powerplay: factor voltage index bounds check into a macro
+I don't think every architecture or platform can unconditionally zero
+memory in set_memory_decrypted(). Some callers may need to share valid
+contents with the host.
 
-This commit refactors duplicate voltage index bounds checking from SMU7 and
-Vega10 implementations into a common macro.
+Also, if zeroing is added only to the CCA implementation, the allocator
+must retain __GFP_ZERO for platforms such as pKVM. This would cause the
+memory to be zeroed twice on CCA.
 
->     Move the pattern into PP_CHECK_VOLTAGE_INDEX().
+How about extending cc_make_shared() with a flag indicating that the
+memory must be zeroed, and passing that requirement down to the
+architecture-specific implementation? The implementation could then zero
+the memory at the appropriate point: before sharing for pKVM and after
+the destructive transition for CCA.
 
-[Severity: Low]
-This isn't a bug, but the commit message mentions moving the pattern into
-PP_CHECK_VOLTAGE_INDEX(), while the code actually defines the macro as
-PP_VOLTAGE_INDEX_OOB in drivers/gpu/drm/amd/pm/powerplay/inc/pp_debug.h at
-line 58. Could the commit message be updated to reflect the actual macro
-name?
+The allocator could derive this flag from __GFP_ZERO, remove __GFP_ZERO
+before calling alloc_pages(), and let the sharing operation perform the
+requested zeroing with the correct ordering.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923054111.2093=
-70-1-yaolu@kylinos.cn?part=3D1
+-aneesh
