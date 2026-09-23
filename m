@@ -4,95 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE42C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB26C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D271910F0A5;
-	Wed, 23 Sep 2026 14:38:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8C7410F0C9;
+	Wed, 23 Sep 2026 14:40:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="EZyZwhKA";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="aBVN4BnG";
 	dkim-atps=neutral
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
- [209.85.214.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 998CE10F0A5
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:38:16 +0000 (UTC)
-Received: by mail-pl1-f226.google.com with SMTP id
- d9443c01a7336-2dd1dcdcf95so4912205ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790174296; x=1790779096;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1RXbrl4Z8UHpt9z/922SljejP35DNhP0sj8yai1raKo=;
- b=Msmnq93eB8j+gU/IByvTbOH84BhWdjYbUBFZrwg8bh+ZZByKafoGG8Y2yjGReticqc
- ipuNbpXqT4GxYp+eAb0NLjBTp1brVlxSeAPZ4pv7SZ95UfebFB0mmFsODokJzV5O9N2s
- lVfzK/emfbP/e9OyCRFfTVFr0M9Jl+uiKREy9cncEzgoYDY99upQfUBtrViAetPaiIsU
- yAofE2FRLLmblP30PGA4UQAAGnhsSQlM7QBOfgldRH+itOmBpEP/fzTUiQzSad4ZzOz6
- nxi4v//tbDdKRxB+pA3lF6OjFtmpDRGsCzMZc0+b3xJbLT6jsf7BqLPVQhGuaYybSI8M
- lEnw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByL1dv3D7Mj9Mr/lYsf7Yf+Ro5Ox/l5AcDiCuxDNEYrG+gI2vbJIArmHzxVEQ1//hPmUuBhZhB6YcY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lYyZM93MYotp7MZ/okukX9U+sWjVL5PKgtebLyTpj0P6Adq0Ed
- hX/y9kiAbczg3StGCWIjNC56jAL4IgX5kddo043LnlOEjE931yqq6uya1p3PL0XJKYp0FShlNRm
- tVRrL5StPf9/OxHBdCMI3KZqLqVKUDg5+t89sdTl0OXiRbMWrrUcHMuATS/0nAbbgG3Gwa5B2pJ
- gib3VI3V5paLmsb6CcenEuNDKOf/mvRtgtZkSJRVON9Dp2byKJuR1dAy+gd/4sC7olXBNksRVhd
- RBRntZi5g3nKq3Rdt/+
-X-Gm-Gg: AYBFou3INzazehCqOqeviOYVBz1TAljy4cwtcLv7XNsnvlett/gQGZCYQFIOgU6plT9
- qKyK19TH5U/F1tH2G0s5p1Yj1EnvwmNRc3R39bXjAfPXYLr1HKwib2on+p2YY6Q+r4RIggEhD2X
- DFBRRA+HnseSNIqZQojcGIbgg0b854L2P2ZyWH8v6b+mEdiIlmIbZndU+v05JbxJWnoXB3YSvJW
- R8c7KPNgWHz0Sia/nKffFZ6WJR08rq9KrhSkvE4tI4FoetslFpbu+HO41oby48g6mIYrlM8m6OV
- Qm78UgfBb6WkPxfXM2jMp6Dp9A8cBwwXWnqOKDSKdvKq43E/a6/rAL0bpvE+v2PK9tZvmN9tyQO
- iZnDjETBWxjqGqhU9QF6IdO6qSraTO/rH6/es3TQZpWEFHfumH7My5F9KZJj37vsC1Ho+rLsn3b
- As+O6BVe0uVxzIaHkU8b3W8c3N/lMFzdFL
-X-Received: by 2002:a17:903:22cb:b0:2df:34c0:72fc with SMTP id
- d9443c01a7336-2df60ba0de5mr37325995ad.33.1790174295954; 
- Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
- by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2df6a5e59ecsm1354435ad.33.2026.09.23.07.38.15
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-3282d5302ffso1072158eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1790174294; x=1790779094;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=1RXbrl4Z8UHpt9z/922SljejP35DNhP0sj8yai1raKo=;
- b=EZyZwhKARWB1A0XiVnpakm6vxz7JTMGHNkiFTCbL4qlCgkNq7vJjJTlNC7DlKkJYo6
- BKUG2BsEsQTeS6J900HmHy1amHdw+ksQQRmZI25ft1h/Y8IJWWp0/OAv5ma4U+t21WPt
- pOfMbLz/WIlDI8IutNGX/k5yywXEXCfzR+2P4=
-X-Forwarded-Encrypted: i=1;
- AKwUvBynlMafNdlmgUhD/pgmqWJnAVg2MvKmzrKh5oA1RX+LSlkrvJLoxVCdN6j7Nk2Uh9Ovj28xPjlSgq8=@lists.freedesktop.org
-X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
- 5a478bee46e88-33e5c8903a9mr2696485eec.7.1790174294089; 
- Wed, 23 Sep 2026 07:38:14 -0700 (PDT)
-X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
- 5a478bee46e88-33e5c8903a9mr2696422eec.7.1790174292822; Wed, 23 Sep 2026
- 07:38:12 -0700 (PDT)
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A064710F0BA
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:40:28 +0000 (UTC)
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
+ [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 230D55340225;
+ Wed, 23 Sep 2026 16:40:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1790174426;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2mTpew8ONaf4G5wFu4uNw9aKRZHtXog3nTmkTT9nJ44=;
+ b=aBVN4BnGfMB11oj4iTvw90P42N2KxP1yB1jhjGCbsndT+UKX5uCV8gza48covYg//T3IbD
+ 3FXYmVg4j1/ZSOJrAJCYTeyf3MOSQIZYyRnC008SQQGJAsRBCslopOlOnxvjE6y5QB+EMV
+ 7pFuvA/tAdDEiWkl97jWqx7uPa1jby0=
+Message-ID: <5828189c-bf26-428a-9bff-90577b0a25eb@ixit.cz>
+Date: Wed, 23 Sep 2026 16:40:25 +0200
 MIME-Version: 1.0
-References: <20260923122601.438892-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260923122601.438892-1-qwe.aldo@gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 23 Sep 2026 10:37:54 -0400
-X-Gm-Features: AclHuK9I1sPWruKdTZ2g86ZtrDjy2iD85ODd7q3CWFNwDVQGdDpeOH1SDBnweS0
-Message-ID: <CABQX2QMUUf1ETuLmvrzQ9_rsX4+KG32YAQJ-9hV3uakAyPiYrg@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
- PRIME core
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000eab773065c276e85"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: fastrpc: Don't fail probe when the SDSP memory
+ assign fails
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xingjing Deng <micro6947@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260923-fastrpc-fail-slow-v1-1-f3f6fabba6e3@ixit.cz>
+ <bac16296-42ee-4b18-b605-9ed178210f4e@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <bac16296-42ee-4b18-b605-9ed178210f4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,205 +112,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000eab773065c276e85
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 23/09/2026 10:49, Konrad Dybcio wrote:
+> On 9/23/26 12:38 AM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> A failed qcom_scm_assign_mem() aborts fastrpc_rpmsg_probe(). On SDM845 this
+>> turns every SLPI subsystem restart into an endless probe failure loop:
+>>
+>>   remoteproc3: crash detected in slpi: type fatal error
+>>   remoteproc3: remote processor slpi is now up
+>>   qcom_scm firmware:scm: Assign memory protection call failed -22
+>>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: probe with driver qcom,fastrpc failed with error -22
+>>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22
+>>
+>> The first assign succeeds and hands the reserved region to the VMIDs
+>> described in qcom,vmids. qcom_scm_assign_mem() reports the resulting
+>> owner set back through @srcvm, but the driver discards it, and nothing
+>> reverses the assignment in fastrpc_rpmsg_remove().
+> 
+> Making it do so there sounds like a better fix!
 
-On Wed, Sep 23, 2026 at 8:26=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail=
-.com> wrote:
->
-> vmw_gem_object_get_sg_table() returns vmw_tt->vsgt.sgt when the buffer
-> object has already been DMA mapped.  vmw_ttm_map_dma() sets that field
-> to &vmw_tt->sgt, which is a member embedded inside the struct
-> vmw_ttm_tt allocation and not a table of its own.
->
-> The core owns whatever .get_sg_table returns.  drm_gem_map_dma_buf()
-> takes the table and drm_gem_unmap_dma_buf() destroys it in full:
->
->         dma_unmap_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC);
->         sg_free_table(sgt);
->         kfree(sgt);
->
-> Both are ops of drm_gem_prime_dmabuf_ops, so the core ends up calling
-> kfree() on &vmw_tt->sgt, which is not the start of an allocation.  The
-> preceding sg_free_table() also destroys a scatterlist that vmwgfx still
-> considers its own and frees again from vmw_ttm_unmap_dma().
->
-> drm_gem_unmap_dma_buf() runs from dma_buf_detach(), including the
-> importer's error path, so a failed import is enough to reach it:
-> exporting a bound buffer with DRM_IOCTL_PRIME_HANDLE_TO_FD and
-> importing it on a second DRM device with DRM_IOCTL_PRIME_FD_TO_HANDLE
-> is sufficient.  Both ioctls are DRM_RENDER_ALLOW.
->
-> Observed on 6.12.101 with KASAN, as uid 65534:
->
->   BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0xb3/0xf0
->   Free of addr ffff888008290450 by task poc_mm04_sgtabl/321
->   CPU: 1 UID: 65534 PID: 321 Comm: poc_mm04_sgtabl Not tainted 6.12.101 #=
-4
->    kasan_report_invalid_free+0x94/0xc0
->    check_slab_allocation+0x116/0x120
->    kfree+0x103/0x360
->    drm_gem_unmap_dma_buf+0xb3/0xf0
->    dma_buf_detach+0x165/0x510
->    drm_gem_prime_import_dev+0x33e/0x430
->   which belongs to the cache kmalloc-192 of size 192
->   The buggy address is located 80 bytes inside of
->    144-byte region [ffff888008290400, ffff888008290490)
->
-> 80 is offsetof(struct vmw_ttm_tt, sgt) and 144 is sizeof(struct
-> vmw_ttm_tt), which identifies the freed pointer as the embedded member.
->
-> Always return a table the core can own, as the other drivers do.
-> Reusing the cached representation would require copying it into a
-> freshly allocated sg_table, never returning the alias.
->
-> Fixes: 8afa13a0583f ("drm/vmwgfx: Implement DRIVER_GEM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_gem.c
-> index 39f8c4655..a0233729b 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -73,10 +73,13 @@ static struct sg_table *vmw_gem_object_get_sg_table(s=
-truct drm_gem_object *obj)
->         struct vmw_ttm_tt *vmw_tt =3D
->                 container_of(bo->ttm, struct vmw_ttm_tt, dma_ttm);
->
-> -       if (vmw_tt->vsgt.sgt)
-> -               return vmw_tt->vsgt.sgt;
-> -
-> -       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw=
-_tt->dma_ttm.num_pages);
-> +       /*
-> +        * Do not return &vmw_tt->sgt: the core owns what this returns an=
-d
-> +        * drm_gem_unmap_dma_buf() sg_free_table()s and kfree()s it, but =
-that
-> +        * sg_table is embedded in the vmw_ttm_tt allocation.
-> +        */
-> +       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages,
-> +                                    vmw_tt->dma_ttm.num_pages);
->  }
->
->  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *ma=
-p)
-> --
-> 2.43.0
->
+Please consider this patch more like a bug report and "disaster recovery" into 
+acceptable error being provided.
 
-Thank you. Because of the influx of llm patches it's very hard to
-reason about what's valid and what's not if it comes without a
-reproducible testcase. Could you please add an igt testcase for this
-and then include the full igt results for vmwgfx before and after this
-change? Same for your other change.
+The original patch states:
 
-z
+   No hardware testing was performed.
 
---000000000000eab773065c276e85
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Thus after the patch fixing the potential issue it breaks kernel even more, 
+while intentions was probably good.
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIS0
-rNNE9P30sw+FBt+AjjeL3Lj6F3KC3ngaSJqAlgF+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkyMzE0MzgxNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKOIiln/jacE5WFE7GbKUmLkyYyO3A2kfbpawb+g
-XEFbn5agBMJYo2amjt1m0elR7ucmC6WWtUukHq7RqllngQRPq6PwSjeAZoHWefGZWlj4ALB88QQk
-PFjxWLFqxMiMZIGKgpbZBOFRRSWBv3qnKQoeahEr7VoRS9g6j/30VZ7i6vo0AiH9RWCkyekpHFiL
-u8bQ79I3PkgIdRIQ+VQSbh8hwYoTWw+ME6e4+tzz+0hQRgtgRUoa5eULIj227nyniR+nrGXnsVsP
-SmRo6KYPS8i1mh0/joQ6dGFyFlSalzsNzDUp5jTYSG2TiPwcxFqG6ybpGYSBCspyG7w4qkOKSGM=
---000000000000eab773065c276e85--
+I can clank "better" fix for this and test it, but I cannot dive into fastrpc 
+right now, so quality will be limited.
+
+David
+
+> 
+> Konrad
+
