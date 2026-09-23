@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC46C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFE5C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:22:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2BC10EB0B;
-	Wed, 23 Sep 2026 16:15:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF3610E2A8;
+	Wed, 23 Sep 2026 16:22:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="H32qTODm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T2cm1NPn";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE6A10EB0B;
- Wed, 23 Sep 2026 16:15:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790180131;
- bh=+YZYMYfkfHKc8u0yR4874R+05o+nqj6l1VuI8859FJ0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=H32qTODmipVClIL53Wo7381WHg9WChwvA5F839Tx8g7mbGRLg2iYYP4eRB/5EBS0p
- UDUuWSIpdiATPqZ2Q4/HxjXw2nCojbRVty6vHpmYiPE1QVFoeHbgrx/4CO1vHk1lDg
- Iv1hoUp1psBdRBipsET9OxmFetz48AUbI7wUV1aokyaEd++z7SVEt9bG8vIzL5+GvU
- UJ4SNCf9QUkH49IwTh2GZzBaySU5rXXlngkbLGA34Iufwl6KLTn4BTEPio5rvQs2Gx
- foINV2n7WMyPsyIErneJzLDBTNMNBB0q5/QcIw+MALj7eMrBPdFBZtN11SpA9zFZG4
- QvDwv+DONGfrg==
-Received: from fedora-32.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 717DB17E0056;
- Wed, 23 Sep 2026 18:15:31 +0200 (CEST)
-Date: Wed, 23 Sep 2026 18:15:27 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-Cc: Deborah Brouwer <deborah.brouwer@collabora.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH i-g-t] lib/igt_profiling: configure Panthor enable state
-Message-ID: <20260923181527.052f3612@fedora-32.home>
-In-Reply-To: <20260923102921.hrn45pkboeo3risn@kamilkon-DESK.igk.intel.com>
-References: <20260922-b4-gputop_panthor-v1-1-e908705bd062@collabora.com>
- <20260923102921.hrn45pkboeo3risn@kamilkon-DESK.igk.intel.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8861510E2A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:22:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 27EE242202;
+ Wed, 23 Sep 2026 16:22:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC951F000FF;
+ Wed, 23 Sep 2026 16:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790180521;
+ bh=+Vscb6nc1+PsJsBSmh8R6hPQfd7DCJSJT003TJOw19Y=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=T2cm1NPnlKDhE9+IoeJ84Aoy41jAn2wI8TrRMiJG9fFUuFLeeyT2XfkDJ4TRTfQXD
+ Xr+08drzdCz9vrdyYwcRRTGzYe04Trhixxpgi3g9hER7urSl5XAP+guGcZ+P9+HDNi
+ SF4lkEAQx/nIhyU6O6DB+g7kKhgKdsw9/WKIjFUufoW5AJUPTyjNa1vezpL+oeBFXh
+ xmmqloaCvAfCggQzCOHrUMGMRcj57iM+o3psASiQtYplewg3wbMq2poXPkXiQPX3pW
+ PWT/qcDx7bPCd+A89Khire2hBSpdL4ls11VoiTVrEBiKscRC5ceS/pkA7b+k2XRjob
+ OHLpQfabOdMaQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC v5 1/3] workqueue: Simplify unbound sysfs attribute
+ registration
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260923161251.45428-2-tvrtko.ursulin@igalia.com>
+References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
+ <20260923161251.45428-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 16:22:00 +0000
+Message-Id: <20260923162200.DFC951F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,108 +54,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 23 Sep 2026 12:29:21 +0200
-Kamil Konieczny <kamil.konieczny@linux.intel.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] workqueue: ABI breakage by renaming sysfs attr affinity_scope to a=
+ffn_scope
+--
 
-> Hi Deborah,
-> On 2026-09-22 at 20:01:20 -0700, Deborah Brouwer wrote:
-> > Currently profiling is enabled for every device by writing '1' into the
-> > appropriate sysfs node. But Panthor uses a bit mask where cycle and
-> > timestamp sampling are enabled by the first and second bits respectively.
-> > 
-> > By default assume that writing '1' will enable profiling, but then adjust
-> > the value to '3' for the Panthor driver.
-> > 
-> > Closes: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/work_items/209
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>  
-> 
-> Thank you for solving this, LGTM
-> Acked-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-> 
-> Can you ask some Panthor developer for review and/or Tested-by?
+commit 2efe6031e6371199ddd3b670919f910c5c5f043a
+Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+workqueue: Simplify unbound sysfs attribute registration
 
-> 
-> Regards,
-> Kamil
-> 
-> > ---
-> >  lib/igt_profiling.c | 23 +++++++++++++++++++++--
-> >  lib/igt_profiling.h |  1 +
-> >  2 files changed, 22 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/lib/igt_profiling.c b/lib/igt_profiling.c
-> > index e1526ad98..5c62a3fb1 100644
-> > --- a/lib/igt_profiling.c
-> > +++ b/lib/igt_profiling.c
-> > @@ -50,7 +50,10 @@ struct igt_profiled_device *igt_devices_profiled(void)
-> >  
-> >  	while ((entry = readdir(dev_dir)) != NULL) {
-> >  		char path[PATH_MAX];
-> > +		char driver_path[PATH_MAX];
-> > +		char driver_link[PATH_MAX];
-> >  		char orig_state;
-> > +		ssize_t len;
-> >  		int sysfs_fd;
-> >  
-> >  		/* All DRM device entries are symlinks to other paths within sysfs */
-> > @@ -87,7 +90,23 @@ struct igt_profiled_device *igt_devices_profiled(void)
-> >  		}
-> >  
-> >  		profiled_devices[i].syspath = strdup(path);
-> > -		profiled_devices[i++].original_state = orig_state;
-> > +		profiled_devices[i].original_state = orig_state;
-> > +		profiled_devices[i].enable_state = '1';
-> > +
-> > +		snprintf(driver_path, sizeof(driver_path), "%s/%s/device/driver",
-> > +			 SYSFS_DRM, entry->d_name);
-> > +
-> > +		len = readlink(driver_path, driver_link, sizeof(driver_link) - 1);
-> > +		if (len >= 0) {
-> > +			driver_link[len] = '\0';
-> > +
-> > +			if (strstr(driver_link, "/panthor")) {
-> > +				/* Enable both cycle and timestamp sampling. */
-> > +				profiled_devices[i].enable_state = '3';
-> > +			}
-> > +		}
-> > +
-> > +		i++;
-> >  
-> >  		close(sysfs_fd);
-> >  	}
-> > @@ -124,7 +143,7 @@ void igt_devices_configure_profiling(struct igt_profiled_device *devices, bool e
-> >  		if (sysfs_fd < 0)
-> >  			continue;
-> >  
-> > -		write(sysfs_fd, enable ? "1" : &devices[i].original_state, 1);
-> > +		write(sysfs_fd, enable ? &devices[i].enable_state : &devices[i].original_state, 1);
-> >  		close(sysfs_fd);
-> >  	}
-> >  }
-> > diff --git a/lib/igt_profiling.h b/lib/igt_profiling.h
-> > index b063d54e1..d38cc2bb6 100644
-> > --- a/lib/igt_profiling.h
-> > +++ b/lib/igt_profiling.h
-> > @@ -12,6 +12,7 @@
-> >  struct igt_profiled_device {
-> >  	char *syspath;
-> >  	char original_state;
-> > +	char enable_state;
-> >  };
-> >  
-> >  void igt_devices_configure_profiling(struct igt_profiled_device *devices, bool enable);
-> > 
-> > ---
-> > base-commit: 65f84b280be2caf8ce376295d97987a808affdee
-> > change-id: 20260922-b4-gputop_panthor-cbb78c0ffbf8
-> > 
-> > Best regards,
-> > -- 
-> > Deborah Brouwer <deborah.brouwer@collabora.com>
-> >   
+This commit simplifies the registration of unbound workqueue sysfs attribut=
+es.
+It replaces manual attribute registration loops with an attribute group
+visibility check handled by the device core. This streamlines both registra=
+tion
+and error unwinding.
 
+> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+> index 8fb31947c4c7a..a9e96329547c9 100644
+> --- a/kernel/workqueue.c
+> +++ b/kernel/workqueue.c
+
+[ ... ]
+
+> -static struct device_attribute wq_sysfs_unbound_attrs[] =3D {
+> -	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
+> -	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
+> -	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
+> -	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_stri=
+ct_store),
+> -	__ATTR_NULL,
+> +static DEVICE_ATTR_RW(nice);
+> +static DEVICE_ATTR_RW(affn_scope);
+
+[Severity: High]
+Does this change the userspace ABI by renaming the sysfs file?
+
+The previous code exposed this attribute to userspace as affinity_scope.
+Using DEVICE_ATTR_RW(affn_scope) implicitly sets the sysfs file name to
+affn_scope instead of the original affinity_scope.
+
+Will this cause userspace tools or scripts expecting to find the
+/sys/bus/workqueue/devices/*/affinity_scope file to fail?
+
+> +static DEVICE_ATTR_RW(affinity_strict);
+> +/* Avoid naming clash with the other cpumask */
+> +static struct device_attribute dev_attr_unbound_cpumask =3D
+> +	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
+> +
+> +static struct attribute *wq_sysfs_unbound_attrs[] =3D {
+> +	&dev_attr_nice.attr,
+> +	&dev_attr_unbound_cpumask.attr,
+> +	&dev_attr_affn_scope.attr,
+> +	&dev_attr_affinity_strict.attr,
+> +	NULL,
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923161251.4542=
+8-1-tvrtko.ursulin@igalia.com?part=3D1
