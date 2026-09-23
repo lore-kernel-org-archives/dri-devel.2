@@ -4,137 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5B3C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49422C9830D
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9500510F01B;
-	Wed, 23 Sep 2026 12:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0451410F02A;
+	Wed, 23 Sep 2026 12:35:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="DymJK7xH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bftMW/+h";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 239AF10E897;
- Wed, 23 Sep 2026 12:26:17 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68N8ZPkk2906895; Wed, 23 Sep 2026 12:25:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=v0X+Rs8szhHkgnuPcIWhAyZce3EkTz
- TtRBKQqHEj2SY=; b=DymJK7xH6KCGN1aWSDi8yE3JeZCCm0hQdInjvaYZRKitNb
- sl2yDuJWYD4cPHPK0u4r0N9hStfA3omtniXxpaEHynRZ9NUZdggQ7y4v9nOzT7U9
- XpO+PxL7oe/Fbh6/+YhooIKtXBG55sR4NiT2ToMHAWFRENr3oHFXFkwslZyhFWbI
- 1B334HuWzXx4hpfNYekKa9xlmXk6cYQIBC2BCsfeLJ0OBkoaCBbxWf7H/z4Lv2mB
- P/Lqle8a9fS6YnXCc6Y1u7OGYFyusCvin01zNALgGbVb6TQ9tmxXkOZ3MjLGdEdC
- M/ha62xE0Fq3/RrtNVNmohrqAIQ4+aJYTAup8uSA==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsb5ap-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 23 Sep 2026 12:25:42 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68N95f8S005144; Wed, 23 Sep 2026 12:25:41 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8rrf7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Sep 2026 12:25:41 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 68NCPd4t38732190
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 23 Sep 2026 12:25:39 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EC5CD20065;
- Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3B95620043;
- Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.224.92.206])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Wed, 23 Sep 2026 12:25:38 +0000 (GMT)
-Date: Wed, 23 Sep 2026 14:25:37 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH v2 0/8] mm: distinguish PTE table storage from PTE values
-Message-ID: <1401e907-04ff-4ee5-ad03-00d88531a091-agordeev@linux.ibm.com>
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 697BE10F000;
+ Wed, 23 Sep 2026 12:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790166921; x=1821702921;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=NUst59Nj86ONo8O+t+3UCjdvz8gS3JO/OxFem3r1dlM=;
+ b=bftMW/+hLYTjj3tn+tMWMaDJvy5pxd/xxCHfAmq0PVkF8OSGtEhozClS
+ ANQvuUY5dyG44cG8Q6aTDoFGc3w4dyW60hUU2Ej/Mwd3GhT1mkDVSaR+J
+ Jnb6nYuTCeRSPSak53IkGmgI4/F6RbjQ9ZpP53Q8XYZq8NqesP+JEClfx
+ 3BJOMRn6Sgm/Kc/tsMiuUhPDMovzS2NLF9WX/s70vwTRCGwuzZChb5w/b
+ s2e6+fFJWE0KwyOZUathwpZhE4E3Y2JL+4wLEN4iFPnIKqevkbPQ7OciG
+ Fin7X7SKfD4eRPZ4xgBM1/X+QEwa6HdvGvukquZ1b+Hf660NvJ6Q7o4YU g==;
+X-CSE-ConnectionGUID: 1wsv1qXASt+DXceuJJlpQA==
+X-CSE-MsgGUID: x3GJdX8RQMKscsdGW0wVbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101444993"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="101444993"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 05:35:05 -0700
+X-CSE-ConnectionGUID: mUSEFwBUQyGvdI447caV8A==
+X-CSE-MsgGUID: QaEsu21YSmSrACMamdgJEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4855983"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.253])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 05:35:02 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xizhe Tang <xizheTang2005@163.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Xizhe Tang <xizheTang2005@163.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is
+ enabled or PR !async
+In-Reply-To: <20260923195200.21362-1-xizheTang2005@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260923195200.21362-1-xizheTang2005@163.com>
+Date: Wed, 23 Sep 2026 15:34:59 +0300
+Message-ID: <45cd4f2b396b208b976bd946ae0efe45a1c0c09c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903103002.1091859-1-usama.anjum@arm.com>
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab3c546 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=7CQSdrXTAAAA:8 a=vUGUDSKChvK0ha46Ui4A:9 a=CjuIK1q_8ugA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: ev-_JLyQr-pwEqNhXTXIZA7T8jABJbLj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX3jBRFLFxLXRH
- 41gkMIIRJm9VbqiK2YtOcXDOIZwYjrCdxtSZOW/HeORsfhOxpmJhhPEWSN2wE9YBL2VRhW6O7D2
- Qr3To+xxPwlTw7GeQ2a8zIO36T51bHxKzdyp7yFXdKF3rEFGszcZBbYQEl+zv+QLSQa5BvzpNIK
- C5R4wcWrvwWHRZRXWHAwBTIUpPG8PzVJkpsQifRmwR8LgilnDa74f2xP/hyPClmLnKPerI1e3/s
- fJyE7zMlic6Rx/76z/RtAMNkCr6xtVVE5VeRNLbRnsmDb4KohBKbvJQ4ax0IiGSsSTYf9dF9DDW
- Go51ekYyr1d3O9vLChpz5abCQojIKm+DNY8HzWZzpMyAQ8VmaL5ufL6oddQ5mv/Q189e6iBxqs6
- q8d6mtePYNjZn9b5/f57l92H+6h3S1U9nREt1LclL5Eqc+yXvnOU5Bwtr8lGfdC+FyC20VRDqr5
- yvBcPkksv7DCdMzUVog==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX46m1QpM8dmIH
- lg16GCvD6ONwEeOosozSD2m/9N5Zt+i3zavCwk/jFQmzNEO3Hlv1PgshihWpld67QkuM0YD1grS
- xDTdsyKVkLQulaYB1Dcv4/OHkUvJzFM=
-X-Proofpoint-GUID: ev-_JLyQr-pwEqNhXTXIZA7T8jABJbLj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230048
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,25 +75,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 03, 2026 at 11:29:52AM +0100, Muhammad Usama Anjum wrote:
+On Thu, 24 Sep 2026, Xizhe Tang <xizheTang2005@163.com> wrote:
+> A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
+> refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
+> ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
+> On this panel the first modeset at boot is vertically streaked.
+>
+> intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
+> timings program flipline too:
+>
+> 	intel_vrr_compute_fixed_rr_timings():
+> 		/* For fixed rr,  vmin = vmax = flipline */
+> 		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+>
+> intel_vrr_compute_config() takes that path when VRR is not actually
+> enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
+> intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
+> intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+>
+> Gate the terminal condition on the states that consume the SDP:
+> crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
+> Leave the Panel Replay aux-less-ALPM early-return from the same commit
+> unchanged.
+>
+> CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
+> cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
+> refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
+> vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
+>
+> This is a no-op while VRR is actually active. It does not fix Adaptive
+> Sync = Always corruption, nor the non-atomic SDP update named by the
+> #FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
+>
+> Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
+> rebuilding only xe.ko with this hunk:
+>
+>   Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
+>   infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
+>   clean. This boot: six s2idle suspend/resume cycles, all clean.
+>
+>   Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
+>   infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
+>   appearance on Always is not claimed.
+>
+>   CMRR / FAVT: not tested.
+>
+> On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
+>
+>   7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
+>   7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
+>                       operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
+>
+>   Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
+>   good | BIT(3).
+>
+> Changes in v2:
+> - OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
+>   At fixed refresh v2 matches v1.
+>   v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
 
-Hi Muhammad,
+I've received a bug report, patch v1, and four (!) copies of patch v2
+within just hours.
 
-> I've the patches here [3] for arm64 conversion which I used to find
-> usages in generic code which I missed during development. These would be
-> sent separately.
-> 
-> [1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
-> [2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
-> [3] https://gitlab.arm.com/linux-arm/linux-us/-/commits/pte0_arm
+Please have more patience.
 
-I checked [3] with s390 and also against our lazy mmu implementation and it
-looks okay.
+The commit message appears to be a long-winded description of *what* the
+code does, which is mostly uninteresting and frankly difficult to
+understand, and lacks proper rationale of *why* the change is being made
+and why it might help with the issue.
 
-However, is there a particular reason this series is against mm-new?
-Should it be against the master, it would be easier for me to try it in our CI.
 
-> Thanks,
-> Usama
+BR,
+Jani.
 
-Thanks!
+
+
+>
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+> Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
+> Cc: stable@vger.kernel.org # 7.2.x
+> Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
+> Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+>  	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+>  	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+>  		return true;
+>  
+> -	return intel_vrr_possible(crtc_state);
+> +	return crtc_state->vrr.enable ||
+> +	       crtc_state->cmrr.enable;
+>  }
+>  
+>  static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> --
+> 2.47.0
+>
+
+-- 
+Jani Nikula, Intel
