@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C1B5C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:50:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5062C982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A163610E840;
-	Wed, 23 Sep 2026 08:50:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3253510E867;
+	Wed, 23 Sep 2026 08:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U0/hgMRo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2O0ZBf3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3E9E10E840
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:50:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F4A10E867
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:50:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0AD8B600AA;
- Wed, 23 Sep 2026 08:50:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719551F000FF;
- Wed, 23 Sep 2026 08:50:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AEA7043505;
+ Wed, 23 Sep 2026 08:50:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4446A1F000FF;
+ Wed, 23 Sep 2026 08:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790153419;
- bh=PaLiowRkPvkzHWsoVbcartkgXvyXnuaFcZ9i0jYYz/c=;
+ s=k20260515; t=1790153425;
+ bh=xA07KeWlMncODmg6c/1oJfrpHso4ZLALk+Af06e0HMA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U0/hgMRo6UYv/r2XsQb643tW7V+E27qu7s3bQ8vDrgSFrRCCBfnMWxMJeshHklPBI
- 12Jdt/19h/NQgPGX+6WkSEmxNWGDtPU6tt0KUBRZ4d+WToPz/iP54oAqRNBs4BrfHU
- c969O26X4IFGg3dr1mPVwVR4Bfb6X1fLOKVt8NSdjVnxO+6qNV+tRurSWckd52yfBQ
- 6A/DaavXrNNMvrocX/ENKe0am29ertVhzimvaWl7seQqQjBgDC/D4Be9VUosqKJosp
- 6DGWTLySkSdQQIWDZ8Wrzc40GADoHszai1cmPbTt1HAzyPlqBPFeMOEhKxNkmBULJa
- eqZIGlab+gXDg==
+ b=X2O0ZBf3Y2DOyTKvFac5c7zDFB036mNL+aKoVutjJD3lCIWIB8JjtCS+tyA1bw2Nh
+ NxT4X2n/1WDmlwQLBYsWCpZuzDMZ7HY7hi47zDYK3SuakUK5dKxvqGQ9bHD21zMhrK
+ 1cg44JA8mQcxQVpE29eBsGGBB2PC5Oq677V0zjjX+jD+p5ieFW6jmOjm9QZK0KUedi
+ 1ZXCN67GwNGtahOlOUtAGq2Am6E4EJd6n+RJdbel1g3eej8X7rqWho1y9ej3JtqvJD
+ 7cVuACjGnY+c9qEdSz8AcM1DbpUP3NR6nYJGTn8rdXqb+1WE2v41+fsO9X+xhLz1JZ
+ +5isfauztQCVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] dt-bindings: misc: qcom,fastrpc: deprecate
- qcom,nsessions
+Subject: Re: [PATCH v5 2/3] misc: fastrpc: move ADSP duplicate session
+ creation to the driver
 To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260923-dup-sessions-v5-3-e953133a1827@oss.qualcomm.com>
+In-Reply-To: <20260923-dup-sessions-v5-2-e953133a1827@oss.qualcomm.com>
 References: <20260923-dup-sessions-v5-0-e953133a1827@oss.qualcomm.com>
- <20260923-dup-sessions-v5-3-e953133a1827@oss.qualcomm.com>
+ <20260923-dup-sessions-v5-2-e953133a1827@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 08:50:18 +0000
-Message-Id: <20260923085019.719551F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 08:50:24 +0000
+Message-Id: <20260923085025.4446A1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,136 +59,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] of: use-after-free and double put on device tree node during itera=
-tion
-- [Medium] device: memory leak due to missing put_device() after of_find_de=
-vice_by_node()
+- [Medium] misc: fastrpc: duplicated ADSP sessions leak due to probe race c=
+ondition
 --
 
-commit 0cd61e434e0b0defac9c431333bfa40bb39df800
+commit 6af4cd918024ca72389e7e81cea29baaabd3588c
 Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+misc: fastrpc: move ADSP duplicate session creation to the driver
 
-This commit replaces of_platform_populate() with manual iteration of device
-tree child nodes to ensure context banks are fully initialised before
-fastrpc_rpmsg_probe() returns. It introduces fastrpc_cb_devices_create()
-and fastrpc_cb_devices_destroy() to handle this synchronous setup and
-teardown.
+This commit removes the qcom,nsessions DT property read from
+fastrpc_cb_init() and stops duplicating sessions at the context bank level.
+Instead, it adds a fixed loop in fastrpc_rpmsg_probe() that duplicates the
+last ADSP session FASTRPC_DUP_SESSIONS times.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index af18ff1992eed..f20d3e5ecc81f 100644
+> index f20d3e5ecc81f..b29c1fd00de28 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-[ ... ]
-> @@ -2389,37 +2389,63 @@ static int fastrpc_cb_probe(struct platform_devic=
-e *pdev)
->  	return 0;
->  }
+
+> [ ... ]
+
+> @@ -2669,6 +2658,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device=
+ *rpdev)
+>  	if (err)
+>  		goto err_deregister_fdev;
 > =20
-> -static void fastrpc_cb_remove(struct platform_device *pdev)
-> +static void fastrpc_cb_devices_destroy(struct rpmsg_device *rpdev)
->  {
-> -	struct fastrpc_channel_ctx *cctx =3D dev_get_drvdata(pdev->dev.parent);
-> -	struct fastrpc_session_ctx *sess =3D dev_get_drvdata(&pdev->dev);
-> +	struct fastrpc_channel_ctx *cctx =3D dev_get_drvdata(&rpdev->dev);
-> +	struct device *rdev =3D &rpdev->dev;
-> +	struct platform_device *pdev;
-> +	struct device_node *np;
->  	unsigned long flags;
->  	int i;
-> =20
->  	spin_lock_irqsave(&cctx->lock, flags);
-> -	for (i =3D 0; i < FASTRPC_MAX_SESSIONS; i++) {
-> -		if (cctx->session[i].sid =3D=3D sess->sid) {
-> -			cctx->session[i].valid =3D false;
-> -			cctx->sesscount--;
-> +	for (i =3D 0; i < cctx->sesscount; i++)
-> +		cctx->session[i].valid =3D false;
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
+> +	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
+> +		struct fastrpc_session_ctx *last_sess;
+> +		struct fastrpc_session_ctx *dup_sess;
+> +		unsigned long flags;
 > +
-> +	for_each_available_child_of_node(rdev->of_node, np) {
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb")) {
-> +			of_node_put(np);
-> +			continue;
->  		}
-
-[Severity: High]
-Can this result in a double-put and use-after-free on the device tree node?
-
-The for_each_available_child_of_node() macro automatically handles dropping
-the reference on the current child node at the end of each iteration via
-of_get_next_available_child(). Calling of_node_put(np) manually before
-continue causes the iterator to dereference np->sibling on the already-freed
-node, followed by a second of_node_put(np) that underflows the reference
-count.
-
-> +
-> +		pdev =3D of_find_device_by_node(np);
-> +		of_node_put(np);
-
-[Severity: High]
-Will this manual of_node_put() lead to the same use-after-free issue?
-
-Calling of_node_put(np) manually at the end of the loop body causes the same
-issue with the loop macro underflowing the reference count and accessing the
-freed node during iteration.
-
-> +		if (pdev)
-> +			of_platform_device_destroy(&pdev->dev, NULL);
+> +		spin_lock_irqsave(&data->lock, flags);
+> +		last_sess =3D &data->session[data->sesscount - 1];
+> +		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
+> +			if (data->sesscount >=3D FASTRPC_MAX_SESSIONS)
+> +				break;
+> +			dup_sess =3D &data->session[data->sesscount++];
+> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
 
 [Severity: Medium]
-Could this leak the pdev device reference?
+Can this sequence result in leaked duplicate sessions?
 
-of_find_device_by_node() acquires a device reference by incrementing its
-refcount. This reference doesn't appear to be released via put_device(&pdev=
-->dev)
-or platform_device_put(pdev) after calling of_platform_device_destroy().
+Looking at fastrpc_rpmsg_probe(), the misc device is registered via
+fastrpc_device_register() and exposed to userspace before we reach this loo=
+p.
 
->  	}
-> -	spin_unlock_irqrestore(&cctx->lock, flags);
->  }
-> =20
-> -static const struct of_device_id fastrpc_match_table[] =3D {
-> -	{ .compatible =3D "qcom,fastrpc-compute-cb" },
-> -	{ }
-> -};
-> +static int fastrpc_cb_devices_create(struct rpmsg_device *rpdev)
-> +{
-> +	struct device *rdev =3D &rpdev->dev;
-> +	struct platform_device *pdev;
-> +	struct device_node *np;
-> +	int err;
-> =20
-> -static struct platform_driver fastrpc_cb_driver =3D {
-> -	.probe =3D fastrpc_cb_probe,
-> -	.remove =3D fastrpc_cb_remove,
-> -	.driver =3D {
-> -		.name =3D "qcom,fastrpc-cb",
-> -		.of_match_table =3D fastrpc_match_table,
-> -		.suppress_bind_attrs =3D true,
-> -	},
-> -};
-> +	for_each_available_child_of_node(rdev->of_node, np) {
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb")) {
-> +			of_node_put(np);
-> +			continue;
+If a concurrent userspace application calls open() and triggers
+fastrpc_session_alloc(), it could mark the last session's used flag as true.
+
+Since this loop uses memcpy() to duplicate last_sess, wouldn't it blindly
+copy the used =3D true state into all the newly created duplicate sessions?
+
+If so, these duplicates would be permanently marked as in-use without being
+assigned to an active user context, causing them to leak and remain
+permanently unavailable.
+
 > +		}
-
-[Severity: High]
-Does this early of_node_put() cause a similar double-put and use-after-free
-during the loop iteration?
-
-Similar to fastrpc_cb_devices_destroy(), calling of_node_put(np) before
-continue will double-put the node and use-after-free np->sibling during
-the loop iteration.
-
+> +		spin_unlock_irqrestore(&data->lock, flags);
+> +	}
 > +
-> +		pdev =3D of_platform_device_create(np, NULL, rdev);
-[ ... ]
+>  	return 0;
+> =20
+>  err_deregister_fdev:
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dup-sessio=
-ns-v5-0-e953133a1827@oss.qualcomm.com?part=3D3
+ns-v5-0-e953133a1827@oss.qualcomm.com?part=3D2
