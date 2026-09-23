@@ -4,44 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71412C9830E
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDE5C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B21710E924;
-	Wed, 23 Sep 2026 15:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5959910E134;
+	Wed, 23 Sep 2026 15:40:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mpWnG9Em";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="iyouXx+j";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B4010E924
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:39:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 635B560142;
- Wed, 23 Sep 2026 15:39:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E505C1F000FF;
- Wed, 23 Sep 2026 15:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790177984;
- bh=pfZlX99sSfdyQbZWmXPgZ6I3VHdILWE2NQZFNvXleCw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mpWnG9EmGvYCObl4ywb+Px2Ykssjhe1w43jKe+sTR/71YimG7tGROdELRt1BsBEAu
- 1rJMuD/ThxL4SYWwF9cvlOVsSMJl7lH8yESDMOH89useiMeUSfAsRidp+Y1QjUanb7
- qxFhLtI8ID3mDM+dRFxiw8Z0BzUzb8ur2qu/fu5fnkUETBx1It3abM+OA1Di936zeD
- q9ubUYFhySXIax60XB+mQewk3YM6aErwupBAShFMxm9sha4vZ0V6XClQCdnP+14x49
- Tipd7Wt4ZcvO0bO2gvxHlDyKyqiyP05YBwAMkxz9K44JkZA5mONAFlccI+mJorGbOF
- 9ZDNY5nTx5akQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/amdgpu: prevent parameter-space underflow in
- nested ATOM table calls
-To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
-References: <20260923145001.1244517-1-qwe.aldo@gmail.com>
- <20260923152912.1296884-1-qwe.aldo@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 15:39:43 +0000
-Message-Id: <20260923153943.E505C1F000FF@smtp.kernel.org>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF5810E134
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:40:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1790177995;
+ bh=Pvf6utvFFy4W0lCvpXIM2zHVFitTH88Hp81cFrCEahk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iyouXx+jA+xaknvK7tvNx3mfKFDu+72K2NrM6eeU4LF9DV+5VmxR22njJv9A7ic32
+ bpNrdkvN6fL6lSIbBbYw3RNdTNIS8ieRpSodoWhuihAzFUk8/aq3S/HUEL8oCGzgv4
+ niaLMPC+ek5SV3Co7KUa7/WQUjPRnoUaZbiVOT+aR86tS2G597vqecgjH40IEr/Xb6
+ CDZOmWouOW8shnBSWJX3pR2mD924McGg0K7uN+0dfJd6HcN4qMu6JasI++X8HnhEoc
+ GAZbz9kWvywsowbJHsC0vIv2y9+zsNzzvY5IKL4wCH4gSfF680v/yoMzXkER24E7a3
+ hYyHIuiVmYJeg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hqh3h1tlnz4wB5;
+ Thu, 24 Sep 2026 01:39:43 +1000 (AEST)
+Message-ID: <e33f1d3a-1900-4bf3-9785-3af5447e7e54@ozlabs.org>
+Date: Wed, 23 Sep 2026 16:40:03 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
+Content-Language: en-GB
+To: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
+ <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
+ <20260921132208.GA1507824@nvidia.com>
+ <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
+ <20260921134924.GB1507824@nvidia.com>
+ <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
+ <20260922124137.GD1507824@nvidia.com> <20260922124637.GG563127@unreal>
+ <20260922125421.GE1507824@nvidia.com>
+ <arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com>
+ <20260922225747.GB2545495@nvidia.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260922225747.GB2545495@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,62 +77,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/amdgpu: silent bypass of oversized ATOM table execution fails =
-to abort
---
+Hi Jason, Alex,
 
-commit 6b59921539d22666969d301a49ef26fc67ab007b
-Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On 22/09/2026 23:57, Jason Gunthorpe wrote:
+> On Tue, Sep 22, 2026 at 03:31:07PM -0700, Alex Mastro wrote:
+> 
+>> So I empathize with Matt's contention that the _existing_ behavior that the
+>> priv->revoked flag represents is actually "temporarily revoked": the importer
+>> can use the same dma-buf again, later, without having to re-import
+>> it!
+> 
+> mlx5 isn't a revoking importer, it is move capable. So the above
+> sequence isn't a revoke, it is a move with an unmapped placement for a
+> while.
+> 
+> This is why "temporarily revoked" is a confusing phrase.
+> 
+> The API is such that move and revoke importers can co-exist like this
+> but they experiance a different version of things..
 
-drm/amdgpu: prevent parameter-space underflow in nested ATOM table calls
+Ahhhhh.  That was very helpful (esp. to contrast with the previous
+iommufd statement about invalidate_mappings being permanent), thank you!
 
-atom_op_calltable() invokes a child ATOM table, forwarding the parent's
-parameter space with an offset. The previous logic mixed units (dwords vs
-bytes) when subtracting the offset from the remaining capacity. This commit
-fixes the unit mismatch by converting ps_shift to bytes.
+So the worry was that the VFIO DMABUF's temp/perm state could be
+misconstrued as an implication/guarantee about the future availability
+of that DMABUF to importers, OK.  And we want the existing move(false)
+behaviour still, for dynamic importers that treat it as a move.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index 1a599d5cf6a5c..7db0118e654c0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -646,8 +646,8 @@ static void atom_op_calltable(atom_exec_context *ctx,=
- int *ptr, int arg)
->  		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
->  	else
->  		SDEBUG("   table: %d\n", idx);
-> -	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
-> -		r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->p=
-s_shift, ctx->ps_size - ctx->ps_shift);
-> +	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx) && ctx->ps_shift * 4 <=3D ct=
-x->ps_size)
-> +		r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->p=
-s_shift, ctx->ps_size - ctx->ps_shift * 4);
+> We probably should not have made it have this move compatible
+> restoration and had things more consistent. User space can't know if
+> the importer is move capable or not so it has to assume revoke and it
+> has to go and unmap things before resetting/etc.
+> >> This series doesn't intend to change the behavior of either. Is the
+confusion
+>> about whether the current behavior is intentional and/or desirable? If the
+>> answer to both is "no", then IMO this series paves the way nicely towards making
+>> PERM_REVOKED the only supported semantic later.
+> 
+> Right, I think the only concern is language.
+In that case, the VFIO-internal tracking could be:
 
-[Severity: High]
-Does this code silently skip the table execution without aborting when the
-parameter space request is oversized?
+ priv->status = VFIO_PCI_DMABUF_OK;      /* was priv->revoked = false */
+ priv->status = VFIO_PCI_DMABUF_REVOKED; /* was priv->revoked = true */
+ priv->status = VFIO_PCI_DMABUF_DEAD;
 
-Looking at atom_op_calltable(), the variable r is initialized to 0. When
-a child table requests an oversized parameter space where
-ctx->ps_shift * 4 > ctx->ps_size, the new condition prevents the call to
-amdgpu_atom_execute_table_locked(), leaving r as 0.
+The latter means that an invalidate_mappings was performed (due to a new
+userspace ioctl trigger), and that all future dma_buf_*attach() attempts
+must fail.  I'd add a comment to explain this clearly in the enum.
 
->  	if (r) {
->  		ctx->abort =3D true;
->  	}
+If that's too macabre, DEFUNCT?  (A word implying guaranteed
+permanence...).  The userspace action causing all this can IMHO be
+called REVOKE still; it's what it does.  (I'll clarify the observable
+effect from the POV of an importer in the UAPI.)
 
-This means the check above will evaluate to false, failing to abort the
-interpreter. The parent table will continue execution assuming the child
-table executed successfully, which could lead to using uninitialized
-data or skipping critical hardware setup.
+WDYT?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923152912.1296=
-884-1-qwe.aldo@gmail.com?part=3D1
+
+Matt
+
