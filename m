@@ -4,47 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A884CC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CBFC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:38:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED76810E871;
-	Wed, 23 Sep 2026 09:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A1F10E87F;
+	Wed, 23 Sep 2026 09:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o3ItPzoD";
+	dkim=pass (2048-bit key; unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.b="Fk5qHw/G";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2DF10E871
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:32:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2349243B6E;
- Wed, 23 Sep 2026 09:32:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3958D1F000FF;
- Wed, 23 Sep 2026 09:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1790155947;
- bh=xZKxB2g5t6s7oWutVd+poNFKF/UMocorFf6Xj4/w8CU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=o3ItPzoD4pV1kSOXLSL6yYbb+mr75bWhtePcrmj/UE5e8i+xV5cIKM1/52OuRox4T
- iBlT2qhep7nJOfPjwpwcGvDqMNYNpIiNMR5D/TKC5crFZ7tUwThdZ1rxcgqZVJty8u
- zxkNijfG2Lbp697wNRneLY0I26V5QdUYdIsuRHts=
-Date: Wed, 23 Sep 2026 11:29:44 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org,
- thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
- skainsworth@gmail.com
-Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
- their bulk_move range
-Message-ID: <2026092332-alkaline-overthrow-494f@gregkh>
-References: <2026092253-dimness-unethical-2515@gregkh>
- <20260922153334.136648-1-bub4z0r@gmail.com>
- <2026092320-reentry-lyricist-330b@gregkh>
- <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C5FB10E87F
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:38:38 +0000 (UTC)
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::4e])
+ (Authenticated sender: pza@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 48EA120075E;
+ Wed, 23 Sep 2026 11:38:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1790156316;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
+ b=Fk5qHw/GwqojBgyM1RAsKEQvGJucuqJl/0K53H7wYOYFLQEsSFQCBZLaR3HVk0JavRUzQx
+ BDOaWCv9djjPVI0cvvZ49K5A4QFYTv7ORPCSaPaXhoXxP56e50tVgTIGb1kUxoPXSBkBU6
+ GCCOBYj5yGEZVtjV3Q//z8UKXKQ6dMnQRALOqsH6GVAKIq3R0KOISskMJex/xso53LCkD2
+ 8WChiNSoe6Nh2+l6DMoozM1PUyZ2VajBkETLws1+HMsPxre7dgQhjbpVs3xrzTS5lTcvkP
+ yatb8pORlgr/M6vTPbAw6Yv1DjUlEc7MXRLu50JkRqGMLqdFCazS0cU8qDgf9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1790156316;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
+ b=IYeUJbujtGMKfxIRx+ZRlWuuIQglCiRl4RXQgNtwRZ1lzJsgig9Te8S+noB+NPNwJ2aMoe
+ qkOFQmxHwynWl4EnyticqudML3Cg4fqsqNoWGZgZtsEFrlGwb47pYKb+2MLS+IUdRy/3hU
+ CKj5DcbLhYlNiAD2KujUscOdJd0D9+yab3v0tiOo1nCjzg7A13suYmjV4MKKVeWmGbLYZN
+ sNQ82kWdjn0E41UhxS/zQTkM2jSu6anePzGxQ0D+PaQU11+WuiZcoeilpueNjFsMemeMB1
+ r+q565QdrZ7OOom+c1TpncU7jtTk5bz1EaI+3lUeywuAXBGt1hRvk6TKauOz5A==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790156316; a=rsa-sha256;
+ cv=none;
+ b=LhQiXJpCcP6Ida7LESO4TzKQ2rW8h48dHwyT1Easm9Mf7RsEPcNmfXqqHdFAoiiTX/wIvf
+ xuxiakYloC4ZwThB24fkXpkzk+JHi9xFYOFAUBBtPko+JddH80S0vJ1fUXlD6qGcR46v8q
+ bv7ualU7GxkuR0nc6d5vUKw/a2ibICzOZFmcBVjMA0YCXK4I7HtngA+st+QsgYxWUvB5tz
+ Aj4nujaQKReuzomiMjrPihuriCalMwTsuQA2SPdRqsnN+d1sU3JFCK+z2wBN+ssFKJRXWQ
+ sQ8ATgRmyXcxNdGZ9AdImiRfHNhU5zO1nEW5vyyCmuKhlbcuJVhFdQAhGzqOKw==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <bbecbfd1c2e465f5daa6476e8555f373a6e1bd0b.camel@pengutronix.de>
+Subject: Re: [PATCH v13 10/14] pmdomain: rockchip: cycle optional
+ power-domain resets on power-on
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, 	will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ ogabbay@kernel.org, 	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com, 
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai, 
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com, 
+ diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, 	linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, 	linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 11:38:36 +0200
+In-Reply-To: <20260915104328.45901-11-gahing@gahingwoo.com>
+References: <20260915104328.45901-1-gahing@gahingwoo.com>
+ <20260915104328.45901-11-gahing@gahingwoo.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +93,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 09:53:54AM +0200, Christian König wrote:
-> Hi Greg,
-> 
-> On 9/23/26 09:41, Greg KH wrote:
-> > On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
-> >> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
-> >>
-> >> ttm_tt_swapout() returns the number of pages swapped out on success and
-> >> a negative error code on failure; for a populated ttm it never returns
-> >> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
-> >> walk on swapout failure") moved the bulk_move bookkeeping in
-> >> ttm_bo_swapout_cb() under "if (!ret)", so the
-> >> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
-> >> pair is now skipped on every successful swapout. The equivalent change
-> >> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
-> >> infinite LRU walk on backup failure") tests "lret > 0", which is what
-> >> was intended here as well.
-> >>
-> >> Before b2ed01e7ad3d the resource was taken off the bulk_move before the
-> >> swapout; since then a swapped-out resource stays inside its BO's
-> >> bulk_move range (and on the manager LRU) although it is unevictable.
-> >> When it is later freed or the BO leaves the bulk_move
-> >> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
-> >> ttm_resource_del_bulk_move() skips it because of its
-> >> !ttm_resource_unevictable() guard, so a range endpoint in pos->first /
-> >> pos->last is left pointing at freed memory. The next
-> >> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
-> >> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
-> >> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
-> >> dereference in ttm_resource_manager_next() -- minutes to hours after a
-> >> hibernation, or at process exit / reboot following one. Samuel
-> >> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
-> >> dangling cursor; the missing removal at swapout time is the reason it
-> >> dangles.
-> >>
-> >> Testing the condition for success restores the removal. On an AMD
-> >> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
-> >> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
-> >> crashed 5 of 18 hibernation cycles; a function profile of one
-> >> hibernation showed 336 ttm_tt_swapout() calls and zero
-> >> ttm_resource_del_bulk_move_unevictable() calls. With this change the
-> >> removal happens for every swapped-out resource and 12 further cycles
-> >> were clean.
-> >>
-> >> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
-> >> Cc: stable@vger.kernel.org # v7.1+
-> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
-> >> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
-> >> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
-> >> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> >> Reviewed-by: Christian König <christian.koenig@amd.com>
-> >> Signed-off-by: Christian König <christian.koenig@amd.com>
-> >> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
-> >> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
-> > 
-> > Do not squash, send a patch series instead please.
-> 
-> in this particular case that squashing is the correct approach.
-> 
-> AMDs mail servers mangled the initial patch so badly that I had trouble applying it and ended up pushing a broken patch upstream. The squash is basically fixing that up.
+On Di, 2026-09-15 at 22:43 +1200, Jiaxing Hu wrote:
+> Some Rockchip domains come out of power-on with their bus interface in an
+> undefined state. On the RK3576 NPU this shows up as a hang on the first
+> register access after the domain is switched on, and pulsing the domain's
+> resets at this point clears it.
+>=20
+> Take the domain node's resets if it has any, and pulse them between
 
-Ok, I'll take this then, thanks for the response.
+Why 'resets' plural? The binding specifies maxItems: 1.
 
-greg k-h
+> releasing idle and restoring QoS. The resets are optional, so domains tha=
+t
+> do not list any are unaffected.
+>=20
+> The cycle goes before the settle delay 9/14 adds, not after it. A domain
+> that asks for both is asking to settle before the QoS registers answer, a=
+nd
+> a reset deasserted after the delay would leave nothing between the deasse=
+rt
+> and rockchip_pmu_restore_qos(). On RK3576 PD_NPU0 and PD_NPU1 ask for bot=
+h,
+> and the reset they cycle is SRST_A_RKNN0/1_BIU, the bus interface those Q=
+oS
+> writes go through.
+>=20
+> It only runs when the domain actually changes state: rockchip_pd_power()
+> returns early when the hardware already reads the state being asked for. =
+A
+> bootloader that leaves the NPU powered would therefore skip both this and
+> the delay, which is why 9/14 gives RK3576_PD_NPU need_regulator and force=
+s
+> the domain off at probe.
+>=20
+> No in-tree DTS puts resets in a power-domain node today, so every other
+> Rockchip SoC takes the optional get's NULL and is unchanged.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>=20
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 39988efd8..6cc8d6efd 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+[...]
+> @@ -861,6 +878,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>  	if (error)
+>  		goto err_put_clocks;
+> =20
+> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+
+This should be of_reset_control_get_optional_exclusive() if there is
+only a single reset.
+
+regards
+Philipp
