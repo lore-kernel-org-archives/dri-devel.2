@@ -4,108 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D0B9C98311
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323B6C98312
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 272CC10F227;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE8D10F22D;
 	Wed, 23 Sep 2026 22:36:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNfduyeY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rP6D1Li5";
 	dkim-atps=neutral
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com
- [74.125.231.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5199E10F205
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:55 +0000 (UTC)
-Received: by mail-oa2-f12.google.com with SMTP id
- 586e51a60fabf-47be948a50fso1047971fac.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com
+ [74.125.227.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4411E10F205
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:36:18 +0000 (UTC)
+Received: by mail-vs2-f43.google.com with SMTP id
+ 71dfb90a1353d-5c83be8db39so936732e0c.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:36:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202954; x=1790807754; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tXS+8+nuFSh5Ay7yN4yk9y2BRpKd/B6vxX00DeKmizI=;
- b=KNfduyeYHDdm2Op4Mx9AVhFYBtBOa0jYCuJyyicVDFnnOYxXRLfStkvyxgPgVzkUp5
- osjpHkCEJz8TPWD3opxMadUt7fdiPhl3dT5L9mRgSkdq4CJF7a3cxe0hj91nnRBLat2D
- GYMZ7XiEipfQxmXYcw1mymM0093v3yN9PlhgZWYniep3dgQRImpWo2mD4yG3EM9nn/kH
- NmY/sfFuER4iApe/m+TbUBbX+tAr3bEw3ClbehuMYwq7FgzfY2X9CSxzPF3cw9G5Spgn
- hG10QQWcG5kilNUel9bdp/sgM0aexGAX8QFAYo67vdrs9KXMVaLYKS40SIV7T75X4w39
- 4Gtw==
+ d=gmail.com; s=20251104; t=1790202977; x=1790807777; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Y+q03A5Ohb7HqguzXyebwt635Df1Tv/wWG8AYXnFLfM=;
+ b=rP6D1Li54IvfeHXE1uZTw8sP8/lQqS5TKQB57GbtpLISOX+epxXc0j+AjNZh5KICEd
+ asL3lLxVIFQ8zCIUkaAQ3oNJx1qbvoTveiSiyEkmY9CurlGsGmLzlOUj+vHa8NOJ9RsF
+ cU9efQn6jJQ9+9LBj9492v7rWtd5RGbcl4R9fhHqrpwnYrv2bV7BgKcERKZQvvVsvgmr
+ GSHipLs8WxzuZN61XYB9+97Tv4HIqaF5GAKg5vUSbNw9U0QgQj80YeDBLgvcc/6zbMOf
+ 5EHaLsL2z+pfnFONT1e00gvRniCAPsIIDZZewCA5fNcy9j13O88Zjvl2f7Vy2SJdUs5f
+ RNbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202954; x=1790807754;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
+ d=1e100.net; s=20260707; t=1790202977; x=1790807777;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=tXS+8+nuFSh5Ay7yN4yk9y2BRpKd/B6vxX00DeKmizI=;
- b=VUKPYU2c414xSsTdKrLKEpG2q/eyt/yz5aqdgB/o5legYYFMuJZUPCsMCw+BnzF6Mw
- G9+QKQXRzdTB/L32SVfxh26hxMlOPcaJUDAyS4+IR+ipL5ehFsb+hHBnS7PSiof2P92e
- hGWOfSnnpUV3uF8cGf8lEwSZA5Vf6mopC2c7rzjgIDbjgg8uF1Zcpvp3sGFlxsPbXz2b
- 38cKljXPoo3KteG7I2GCS4TN81om1+s4rnOZ0uIAjKAklAX1dTduVoIGAGpptFzcShNP
- qObZecrgQch+YlIYOKW62PvYJdmOnsE8Z9p6RCnL/J4tQ8F4QJRJzVkPXnhHMcrmBLZh
- 9ZPQ==
+ bh=Y+q03A5Ohb7HqguzXyebwt635Df1Tv/wWG8AYXnFLfM=;
+ b=TP8LDN9K2cg53PtItnCj+tn+OiNbqrboolFRLFaUyoxT4P6TlzZQHcxIJU26bJPIE5
+ LU4elU7CazgfNTcd+v0qVOerZ20aumaPE/nQjmlmVI4YGhTU2xlL3fQH2lUc5AcXR29k
+ OwtL5okvAezjVSQcPacsYUS7/CYxFFnzjavqwSK5Evp4yUtMIIXglZ3zzbIqWOldYsoS
+ y8I7/E8hRN9rNy1dzI82U1zRuWL+bRoXtXYwGzuIX2yAT6CjWzsy3GU2Ub4i/Ux6tP0u
+ XP9ntxtrjPbyj/7FRrP2e4VghrElftv4NwBBBFvjgqPaB1EsUC1WSjUvjVJ71rmiiG54
+ 9P4Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz4DMerufKauixUNoH2u1YMNEtXvjfKmXLocZx5gYpZLTXAx0Ky7LHoYzdd6ceYCUFGl0ghWgl3T6s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mddjkKv3WzzrzviN564HB2ZkFO7gbuykEoOE4h9V0JsPdfEvBQ
- AJBv7nAx78ilbXm2hkW+z6pC0wZ+oStWP5zGFQv5Eat/cf3if1uDZNWP
-X-Gm-Gg: AYBFou1tCM8KTglZGYVPWd1rPWpRoFnM6rbFBE0vOcV3zVMTCMuZkp9aESsGwyoX96a
- oEis4WbHKX4NUV3cZ3mNR00ebW1IGDrZjeP3ahowC4hCo1sU2F1o5jn0JdQgjLOxvMDKTB3+THy
- mta9tB+Wfat2apo+gwcMKiArZRRuteLBo+/DYrfp4/M1JHzgeVy4TkVat8l0ve4e4PROrWp4CCX
- i5H7+Euzb4abuB9+BXUv8ZvVz3W/wHQMJ56GvJrzmUmCk9lEucmYi6UMG/1O3YuJIN0eHfbDhH6
- epSVCAXn2q9sN/i6SZMv10pLv0LnFYPODyLpoNntGEgNwwyRuyE+2DZR3aIDdBrI6/igwC3vron
- L4Q0Wr0ypZlltC9nlAqg3JDOSeiLZCM65uPmPSFZGKaSteIcM1IGiGnS8f8ZIzQIdIlXZFHD/M7
- daLuNCLeV032oklF9Lb2ZXKNsCSESZdXXfUA/izMm2j6R1ThuMgSZzTtETsMIHZfpE/Hixvs4g5
- ap1Dgl35lt+oiB1d3YIOKHed0cWzwcWSQiWc0qxythgJdNkk5Z4C9uf4wifx9rYZxz/irZB24c5
- jpzT7yK42Ys28s8ou0c=
-X-Received: by 2002:a05:6870:8125:b0:468:41ce:1675 with SMTP id
- 586e51a60fabf-491e4f6f740mr713240fac.0.1790202954410; 
- Wed, 23 Sep 2026 15:35:54 -0700 (PDT)
-Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.52
+ AKwUvBzpCQBaOjtP8r2r/l0LW/GB9kj/ZgM1JcyBlmYpTznQ+4IcvYBVe2+YV5pCbgj7HJjtoCDtYS23HgI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lbV9jQlTnYEzMlW75kKNIpL4DMF3g4mhUhzGNhLGLavCfnYwDf
+ 7Ew0sLBIWG+7gTik0fbJr4QLMofGErxB6xyd/NhI4rx22ha0qZDYd1E=
+X-Gm-Gg: AYBFou1nb6fIgcAEQx7EGHMPmmwEG+5zKRD9n6xEQJ8zzgXCupYqZLtn/1D9xnDE7O2
+ B42vdKWnNA8n5VqIDD1HPNvr3JLylVfJT45MWLwDRLKpa+Q5IoBiOctIJxL/ekQ1il/DMko1DVD
+ 0EQHGf4rBO9uiJYITgTtMz7GqvkexJQYHoBlk8rGY0w3ql1jNZCQqFIOSv45yZ3hzWRMeJu6tgL
+ 6HFIyZROJLbClGZDgj/EpHha5QVPWpVaNDiU9kI5zorS2U9CtRxgWJkZjkUhikNrGcGNyQnJ1As
+ zWOQnJ9q+uUXV3nuD231lhi5PPRoSYjaVRPgmjomsFR8Z9azvLEJfM23J4//xf9oFYbd/SmZM4M
+ Gsh3al6FU3fS7L/zXxN93FEx4LqdNHssvlkZaJROwu4JfFHjsfShDVCrv4QtHjx5m0tulwtw7j6
+ UfNo8PV34XxXayP+tMH12GYmn19/KTRpGKuj+mefo8t9eL2OYFOXaC2nowPQdaisfmrKfSC9nAd
+ WflwVAAm+IpGEKokzGE4ITTUXZwGRdGKklyo8yaWpPWPiOuWg==
+X-Received: by 2002:a05:6122:4fa0:b0:5c7:ebed:1018 with SMTP id
+ 71dfb90a1353d-5cb09b03d82mr545698e0c.8.1790202977097; 
+ Wed, 23 Sep 2026 15:36:17 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:53 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:57 -0600
-Subject: [PATCH v11 33/38] dyndbg: harden classmap and descriptor
- validation
+ Wed, 23 Sep 2026 15:36:11 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Brigham Campbell <me@brighamcampbell.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jori Koolstra <jkoolstra@xs4all.nl>,
+ Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v5 2/3] drm/ch1115: add support for Chipwealth CH1115 OLED
+ controller
+Date: Wed, 23 Sep 2026 19:35:14 -0300
+Message-ID: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790200427.git.nico.antinori.7@gmail.com>
+References: <cover.1790200427.git.nico.antinori.7@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-33-9b6c217fdf2f@gmail.com>
-References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=10514;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=WmC6lAU1CkqSfVkT7RlvESW1sm/preurH4K0P4INTpU=;
- b=5bVfHR2K9HOWBIwVyrHaGcMg9a5/AphRF2DCn4QgeLAofTqYM0TSuKLlbhYSpFHXheqi3+YL0
- POIXSE4cDspBzee/GKBBGRSy13yo+vJQ4Ls6I2MisWkfr2/mKE7mLMp
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,271 +103,959 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dynamic debug classmaps allow modules to _DEFINE and/or _USE multiple
-classmaps, but this requires coordination amongst the classmaps.
+Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
 
-Previously, class validation done by DYNAMIC_DEBUG_CLASSMAP_DEFINE at
-compile-time, and ddebug_class_range_overlap() at modprobe-time, was
-incomplete, and DYNAMIC_DEBUG_CLASSMAP_USE_ had no validation. This
-could allow broken classmaps, making them harder to use well.
+Add DRM support for this chip using i2c bus.
 
-This commit improves classmap and descriptor validation:
-
-- Unify runtime overlap and bounds checking across _DEFINE'd and _USE'd
-  classmaps in ddebug_validate_class_range(), enforcing symmetry and the
-  <= 62 upper bound for both.
-
-- Split runtime validation out of ddebug_add_module() into dedicated
-  helpers: ddebug_validate_classmaps() (fatal, returns boolean pass/fail)
-  and ddebug_validate_descs() (scans callsites and emits an advisory
-  warning once per unknown class_id).
-
-- Downgrade the global WARN_ONCE in ddebug_match_desc() to a
-  pr_warn_ratelimited, since orphaned class IDs are now tracked and
-  warned about early at module load.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
-v11:
-. factor runtime classmap validation out of ddebug_add_module() into
-  ddebug_validate_classmaps() and ddebug_validate_descs().
-. unify overlap and bounds checking across maps and users in
-  ddebug_validate_class_range().
+ drivers/gpu/drm/tiny/Kconfig      |  17 +
+ drivers/gpu/drm/tiny/Makefile     |   1 +
+ drivers/gpu/drm/tiny/ch1115-i2c.c | 895 ++++++++++++++++++++++++++++++
+ 3 files changed, 913 insertions(+)
+ create mode 100644 drivers/gpu/drm/tiny/ch1115-i2c.c
 
-v10:
-. fix pr_warn_ratelimited() line wrap in ddebug_match_desc().
----
- lib/dynamic_debug.c                                | 92 ++++++++++++++++++----
- lib/test_dynamic_debug.c                           | 16 ++--
- .../selftests/dynamic_debug/dyndbg_selftest.sh     | 22 +++---
- 3 files changed, 99 insertions(+), 31 deletions(-)
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index f0e72d4b6a47..96eedc0f2750 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -36,6 +36,23 @@ config DRM_BOCHS
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index d300d44c1a82..098fd2639cb6 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -311,7 +311,8 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
- 	/* site is class'd */
- 	site_map = ddebug_find_map_by_class_id(di, dp->class_id);
- 	if (!site_map) {
--		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", dp->class_id, di->mod_name);
-+		pr_warn_ratelimited("unknown class_id %d, check %s's CLASSMAP definitions\n",
-+				    dp->class_id, di->mod_name);
- 		return false;
- 	}
- 	/* module(-param) decides protection */
-@@ -1507,18 +1508,80 @@ static void ddebug_apply_class_users(const struct _ddebug_info *di)
- 		__di->_vec.start = __start;				\
- })
- 
--static int ddebug_class_range_overlap(struct ddebug_class_map *cm, u64 *reserved_ids)
-+static bool ddebug_validate_class_range(const char *modname,
-+					const char *name,
-+					int base, int length,
-+					u64 *reserved_ids)
- {
--	u64 range = (((1ULL << cm->length) - 1) << cm->base);
-+	u64 range;
- 
-+	if (base < 0 || length <= 0 ||
-+	    base + length > _DPRINTK_CLASS_DFLT) {
-+		pr_err("module %s: base:%d len:%d (from %s) exceeds class_id limit %d\n",
-+		       modname, base, length, name, _DPRINTK_CLASS_DFLT);
-+		return false;
-+	}
-+	range = (((1ULL << length) - 1) << base);
- 	if (range & *reserved_ids) {
--		pr_err("[%d..%d] on %s conflicts with %llx\n", cm->base,
--		       cm->base + cm->length - 1, cm->class_names[0],
--		       *reserved_ids);
--		return -EINVAL;
-+		pr_err("module %s: [%d..%d] (from %s) conflicts with 0x%llx\n",
-+		       modname, base, base + length - 1, name, *reserved_ids);
-+		return false;
- 	}
- 	*reserved_ids |= range;
--	return 0;
-+	return true;
-+}
+ 	  If M is selected the module will be called bochs.
+
++config DRM_CH1115_I2C
++	tristate "DRM support for Ch1115 OLED panels (I2C BUS)"
++	depends on DRM && I2C && OF
++	select BACKLIGHT_CLASS_DEVICE
++	select DRM_CLIENT_SELECTION
++	select DRM_GEM_SHMEM_HELPER
++	select DRM_KMS_HELPER
++	select REGMAP_I2C
++	select VIDEOMODE_HELPERS
++	help
++	  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
++	  panels.
 +
-+static bool ddebug_validate_classmaps(struct _ddebug_info *di)
-+{
-+	struct ddebug_class_map *cm;
-+	struct ddebug_class_user *cli;
-+	u64 reserved_ids = 0;
-+	bool valid = true;
-+	int i;
++	  DRM Driver for Ch1115 OLED panels connected via I2C.
 +
-+	for_subvec(i, cm, di, maps)
-+		if (!ddebug_validate_class_range(di->mod_name,
-+						 cm->class_names[0],
-+						 cm->base, cm->length,
-+						 &reserved_ids))
-+			valid = false;
++	  If M is selected the module will be called ch1115-i2c.
 +
-+	for_subvec(i, cli, di, users) {
-+		if (!cli->map) {
-+			pr_err("module %s: classmap not found for user\n",
-+			       di->mod_name);
-+			valid = false;
-+			continue;
-+		}
-+		if (!ddebug_validate_class_range(di->mod_name,
-+						 cli->map->class_names[0],
-+						 cli->map->base + cli->offset,
-+						 cli->map->length,
-+						 &reserved_ids))
-+			valid = false;
-+	}
-+	return valid;
-+}
-+
-+static void ddebug_validate_descs(struct _ddebug_info *di)
-+{
-+	struct _ddebug *dp;
-+	u64 bad_ids = 0;
-+	int i;
-+
-+	for (i = 0; i < di->descs.len; i++) {
-+		dp = &di->descs.start[i];
-+
-+		if (dp->class_id == _DPRINTK_CLASS_DFLT)
-+			continue;
-+		if (bad_ids & (1ULL << dp->class_id))
-+			continue;
-+		if (!ddebug_find_map_by_class_id(di, dp->class_id)) {
-+			pr_warn("module %s uses unknown class_id %d\n",
-+				di->mod_name, dp->class_id);
-+			bad_ids |= (1ULL << dp->class_id);
-+		}
-+	}
- }
- 
- /*
-@@ -1530,7 +1593,6 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	struct ddebug_table *dt;
- 	struct ddebug_class_map *cm;
- 	struct ddebug_class_user *cli;
--	u64 reserved_ids = 0;
- 	int i;
- 
- 	if (!di->descs.len)
-@@ -1562,10 +1624,10 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	dd_set_module_subrange(i, cm, &dt->info, maps);
- 	dd_set_module_subrange(i, cli, &dt->info, users);
- 
--	/* insure 2+ classmaps share the per-module 0..62 class_id space */
--	for_subvec(i, cm, &dt->info, maps)
--		if (ddebug_class_range_overlap(cm, &reserved_ids))
--			goto cleanup;
-+	if (!ddebug_validate_classmaps(&dt->info))
-+		goto cleanup;
-+
-+	ddebug_validate_descs(&dt->info);
- 
- 	/*
- 	 */
-@@ -1587,7 +1649,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 		 dt->info.descs.len, dt->info.mod_name);
- 	return 0;
- cleanup:
--	WARN_ONCE(1, "dyndbg multi-classmap conflict in %s\n", di->mod_name);
-+	pr_err("dyndbg multi-classmap conflict in %s\n", di->mod_name);
- 	kfree(dt);
- 	return -EINVAL;
- }
-@@ -1674,7 +1736,7 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
- 		mod->dyndbg_info.mod_name = mod->name;
- 		ret = ddebug_add_module(&mod->dyndbg_info);
- 		if (ret)
--			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
-+			pr_err("dyndbg: failed to add module %s: %d\n", mod->name, ret);
- 		break;
- 	case MODULE_STATE_GOING:
- 		ddebug_remove_module(mod->name);
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index ea81c5158b13..666b447b3740 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -173,14 +173,20 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
- #endif
- 
- #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
--
- /*
-- * in submod/drm-drivers, use the classmaps defined in top/parent
-- * module above.
-+ * In submod (drm-drivers/helpers) use the classmaps defined in
-+ * top/parent module above.  We _USE_() with offset, to test the
-+ * non-zero case.
-  */
--
- DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
--DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
+ config DRM_CIRRUS_QEMU
+ 	tristate "Cirrus driver for QEMU emulated device"
+ 	depends on DRM && PCI
+diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
+index 48d30bf6152f..daf493142549 100644
+--- a/drivers/gpu/drm/tiny/Makefile
++++ b/drivers/gpu/drm/tiny/Makefile
+@@ -3,6 +3,7 @@
+ obj-$(CONFIG_DRM_APPLETBDRM)		+= appletbdrm.o
+ obj-$(CONFIG_DRM_ARCPGU)		+= arcpgu.o
+ obj-$(CONFIG_DRM_BOCHS)			+= bochs.o
++obj-$(CONFIG_DRM_CH1115_I2C)		+= ch1115-i2c.o
+ obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
+ obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
+ obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
+diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch1115-i2c.c
+new file mode 100644
+index 000000000000..cb6198a8e55b
+--- /dev/null
++++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+@@ -0,0 +1,895 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * maybe force failure of runtime sanity test of classmap.length + offset < 63
++ * DRM driver for Ch1115 panels
++ *
++ * Copyright (C) 2026 Nicolás Antinori <nico.antinori.7@gmail.com>
++ *
++ * Datasheet: https://datasheet4u.com/download/1576606/CH1115.html
++ *
++ * Based on
++ *  - drivers/gpu/drm/sitronix/st7571-i2c.c
++ *  - drivers/gpu/drm/sitronix/st7571.c
++ * Copyright (C) 2025 Marcus Folkesson <marcus.folkesson@gmail.com>
 + */
-+#if !defined(DD_RUNTIME_CLASS_CHECK)
-+DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 8);
-+#else
-+DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 55);
-+#endif
- 
- #if defined(DD_MACRO_ARGCHECK)
- DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 0478ef59dd0f..5de726254d91 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -576,12 +576,12 @@ function GOLDEN_RECORDS {
- #K= c518a50ba30ba8099d0dc874a27ecf16 FT_multi_query.4
- #K= 91838b4012c50a1dc1d9e210ba8d68f8 FT_test_classes.1
- #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
--#K= 2cee6842c9cdee5cb3bf50b2e3914813 FT_test_classes.3
--#K= 81b16613f8d444485e2bc5aa4d38d024 FT_classmap_inheritance.1
--#K= c14c8aa758e24046b3237d20e2189bf7 FT_classmap_inheritance.2
-+#K= c03cd07445ca93358176130f04320ee7 FT_test_classes.3
-+#K= 1489b3b72dbdfdb553cc0c6594c4face FT_classmap_inheritance.1
-+#K= e11c22649735cedb6c30321378100e11 FT_classmap_inheritance.2
- #K= 5d0f3701517aa3a461c8887c332bdb42 FT_classmap_inheritance.3
--#K= f444ae312fcce32444c54da757d87c41 FT_classmap_inheritance.4
--#K= 7e92245008439ee79fe2460aeaa16a9b FT_classmap_inheritance.5
-+#K= d39188ded831453d90d77390546b314d FT_classmap_inheritance.4
-+#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
- #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.1
- #K= d2e8b8c5a5b4e7b9bbe1a29460a3c07d FT_modprobe_w_param.2
- #K= 11032ef17569bd151c3806527a2428be FT_modprobe_w_param.3
-@@ -592,11 +592,11 @@ function GOLDEN_RECORDS {
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.8
- #K= 535ab526b24a7214de41d92e94bbd52c FT_modprobe_w_param.9
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.10
--#K= a71670fec42b1b0646f0317180bafcc7 FT_modprobe_w_param.11
-+#K= 7c02282dcfb73eb5ffb9629ce63360e5 FT_modprobe_w_param.11
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.12
--#K= aacdbab171b374f221f0196e6e415d09 FT_modprobe_w_param.13
-+#K= b0942decc84dae237019bc2877ff02e7 FT_modprobe_w_param.13
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.14
--#K= c7eb8e25c780f58c78ed73dc1c187a02 FT_modprobe_w_param.15
-+#K= efe8e3b8080c3310708b7505d60f7703 FT_modprobe_w_param.15
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.16
- #K= d682c98ced7d31f1555ab474a9ebe253 FT_modprobe_w_param.17
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.18
-@@ -610,11 +610,11 @@ function GOLDEN_RECORDS {
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.26
- #K= 66eb387a95512f679eb5cad4168b0992 FT_modprobe_w_param.27
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.28
--#K= 2583cb4637bcc2ce1e93eea4222ec76c FT_modprobe_w_param.29
-+#K= 7df05523f4d61917fd7659357eeec1bc FT_modprobe_w_param.29
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.30
--#K= d592c5bf23312e705b39064c21ca68e4 FT_modprobe_w_param.31
-+#K= a75600ac4e129f4315c5a50ad3a3103c FT_modprobe_w_param.31
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.32
--#K= b44d105d151123c93cfe953bacdb573f FT_modprobe_w_param.33
-+#K= f43ccce73ac2b0e1529312af66a4ddfe FT_modprobe_w_param.33
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.34
- #K= 4819f715ba485c493afb455542f7ab8c FT_modprobe_w_param.35
- #K= 0239d8c0808eef396782362613f675b0 FT_modprobe_w_param.36
-
--- 
-2.55.0
++
++#include <linux/backlight.h>
++#include <linux/bitfield.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc_helper.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_fbdev_shmem.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_probe_helper.h>
++
++#include <video/display_timing.h>
++#include <video/of_display_timing.h>
++
++#define CH1115_VAL_CLOCK_DIVIDE_RATIO(c, d)		(FIELD_PREP(GENMASK(7, 4), (c)) | \
++							 FIELD_PREP(GENMASK(3, 0), (d)))
++#define CH1115_VAL_DC_DC_OFF				0x8a
++#define CH1115_VAL_DC_DC_ON				0x8b
++#define CH1115_VAL_PRECHARGE_PERIOD			0x22
++#define CH1115_VAL_CLOCK_OSC_FREQ			0x8
++#define CH1115_VAL_CLOCK_DIV_RATIO			0x0
++#define CH1115_VAL_VCOM_DESELECT_LVL			0x20
++#define CH1115_VAL_CONTRAST				0x7f
++
++#define CH1115_PAGE_HEIGHT				8
++#define CH1115_MAX_WIDTH				128
++#define CH1115_MAX_HEIGHT				64
++#define CH1115_MAX_PAGES				7
++#define CH1115_MAX_CONTRAST				255
++
++#define CH1115_COMMAND_MODE				0x00
++#define CH1115_DATA_MODE				0x40
++
++#define CH1115_CMD_START_LINE				0x40
++#define CH1115_CMD_CONTRAST				0x81
++#define CH1115_CMD_SEG_REMAP_NORMAL			0xa0
++#define CH1115_CMD_SEG_REMAP_FLIP			0xa1
++#define CH1115_CMD_FOLLOW_RAM				0xa4
++#define CH1115_CMD_ALL_ON				0xa5
++#define CH1115_CMD_NORMAL				0xa6
++#define CH1115_CMD_INVERTED				0xa7
++#define CH1115_CMD_MUX_RATIO				0xa8
++#define CH1115_CMD_DC_DC				0xad
++#define CH1115_CMD_OFF					0xae
++#define CH1115_CMD_ON					0xaf
++#define CH1115_CMD_COM_REMAP_NORMAL			0xc0
++#define CH1115_CMD_COM_REMAP_FLIP			0xc8
++#define CH1115_CMD_OFFSET				0xd3
++#define CH1115_CMD_CLOCK_DIVIDE_RATIO			0xd5
++#define CH1115_CMD_PRECHARGE_PERIOD			0xd9
++#define CH1115_CMD_VCOM_DESELECT_LVL			0xdb
++
++#define CH1115_SET_COLUMN_LSB(c)			(0x00 | FIELD_PREP(GENMASK(3, 0), (c)))
++#define CH1115_SET_COLUMN_MSB(c)			(0x10 | FIELD_PREP(GENMASK(2, 0), (c) >> 4))
++#define CH1115_SET_PAGE(p)				(0xb0 | FIELD_PREP(GENMASK(3, 0), (p)))
++
++#define DRIVER_NAME "ch1115"
++#define DRIVER_DESC "ch1115 DRM driver"
++#define DRIVER_MAJOR 1
++#define DRIVER_MINOR 0
++
++struct ch1115_device {
++	struct drm_device dev;
++
++	struct drm_connector connector;
++	struct drm_crtc crtc;
++	struct drm_display_mode mode;
++	struct drm_encoder encoder;
++	struct drm_plane primary_plane;
++
++	struct backlight_device *bl_dev;
++
++	struct i2c_client *client;
++	struct regmap *regmap;
++
++	bool inverted;
++	bool flip_horizontal;
++	bool flip_vertical;
++	u8 contrast;
++
++	u8 pages;
++	u8 bytes_per_row;
++
++	u8 width;
++	u8 height;
++	u32 width_mm;
++	u32 height_mm;
++	u8 x_start_offset;
++	u8 y_start_offset;
++
++	u8 *hwbuf;
++	u8 *row;
++};
++
++static inline int ch1115_send_command_list(struct ch1115_device *ch1115,
++					   const u8 *cmd_list, size_t len)
++{
++	return regmap_raw_write(ch1115->regmap, CH1115_COMMAND_MODE, cmd_list, len);
++}
++
++static inline int ch1115_draw_screen(struct ch1115_device *ch1115,
++				     const u8 *data, size_t len)
++{
++	return regmap_raw_write(ch1115->regmap, CH1115_DATA_MODE, data, len);
++}
++
++static inline struct ch1115_device *drm_to_ch1115(struct drm_device *dev)
++{
++	return container_of(dev, struct ch1115_device, dev);
++}
++
++static int ch1115_set_position(struct ch1115_device *ch1115, int x, int y)
++{
++	u8 cmd_list[] = {
++		CH1115_SET_PAGE(y / CH1115_PAGE_HEIGHT),
++		CH1115_SET_COLUMN_LSB(x),
++		CH1115_SET_COLUMN_MSB(x),
++	};
++
++	return ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
++}
++
++static void ch1115_shutdown(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	struct drm_device *drm_dev = &ch1115->dev;
++
++	drm_atomic_helper_shutdown(drm_dev);
++}
++
++static int ch1115_clear_screen(struct ch1115_device *ch1115)
++{
++	int ret;
++	int y = 0;
++	char *row = ch1115->row;
++
++	for (int i = 0; i < ch1115->width; i++)
++		row[i] = 0x00;
++
++	do {
++		ret = ch1115_set_position(ch1115, ch1115->x_start_offset, y);
++		if (ret < 0)
++			return ret;
++
++		ret = ch1115_draw_screen(ch1115, row, ch1115->width);
++		if (ret < 0)
++			return ret;
++
++		y += CH1115_PAGE_HEIGHT;
++	} while (y < ch1115->height);
++
++	return 0;
++}
++
++static int ch1115_oled_init(struct ch1115_device *ch1115)
++{
++	u8 commands[] = {
++		CH1115_CMD_OFF,
++
++		CH1115_CMD_CLOCK_DIVIDE_RATIO,
++		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
++					      CH1115_VAL_CLOCK_DIV_RATIO),
++
++		CH1115_CMD_MUX_RATIO,
++		ch1115->height - 1,
++
++		CH1115_CMD_OFFSET,
++		ch1115->flip_vertical
++			? ch1115->y_start_offset
++			: CH1115_MAX_HEIGHT - ch1115->y_start_offset,
++
++		CH1115_CMD_START_LINE,
++
++		CH1115_CMD_DC_DC,
++		CH1115_VAL_DC_DC_ON,
++
++		ch1115->flip_horizontal
++			? CH1115_CMD_SEG_REMAP_FLIP
++			: CH1115_CMD_SEG_REMAP_NORMAL,
++
++		ch1115->flip_vertical
++			? CH1115_CMD_COM_REMAP_FLIP
++			: CH1115_CMD_COM_REMAP_NORMAL,
++
++		CH1115_CMD_CONTRAST,
++		ch1115->contrast,
++
++		CH1115_CMD_PRECHARGE_PERIOD,
++		CH1115_VAL_PRECHARGE_PERIOD,
++
++		CH1115_CMD_VCOM_DESELECT_LVL,
++		CH1115_VAL_VCOM_DESELECT_LVL,
++
++		CH1115_CMD_FOLLOW_RAM,
++
++		ch1115->inverted
++			? CH1115_CMD_INVERTED
++			: CH1115_CMD_NORMAL,
++	};
++
++	return ch1115_send_command_list(ch1115, commands, ARRAY_SIZE(commands));
++}
++
++static void ch1115_prepare_buffer(struct ch1115_device *ch1115,
++				  const struct iosys_map *vmap,
++				  struct drm_framebuffer *fb,
++				  struct drm_rect *rect,
++				  struct drm_format_conv_state *fmtcnv_state)
++{
++	unsigned int dst_pitch;
++	struct iosys_map dst;
++
++	dst_pitch = DIV_ROUND_UP(ch1115->width, 8);
++
++	rect->y1 = round_down(rect->y1, CH1115_PAGE_HEIGHT);
++	rect->y2 = min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT), ch1115->height);
++
++	rect->x1 = (rect->x1 / 8) * 8;
++	rect->x2 = min_t(unsigned int, DIV_ROUND_UP(rect->x2, 8) * 8, ch1115->width);
++
++	iosys_map_set_vaddr(&dst, ch1115->hwbuf + rect->y1 * dst_pitch + rect->x1 / 8);
++	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
++}
++
++static inline u8 ch1115_transform_xy(const char *p, int x, int y, u8 bytes_per_row)
++{
++	int xrest = x % 8;
++	u8 result = 0;
++
++	/*
++	 * Transforms an (x, y) pixel coordinate into a vertical 8-bit
++	 * column from the framebuffer. It calculates the corresponding byte in the
++	 * framebuffer, extracts the bit at the given x position across 8 consecutive
++	 * rows, and packs those bits into a single byte.
++	 *
++	 * Return an 8-bit value representing a vertical column of pixels.
++	 */
++
++	x = x / 8;
++	y = (y / 8) * 8;
++
++	for (int i = 0; i < 8; i++) {
++		int row_idx = y + i;
++		u8 byte = p[row_idx * bytes_per_row + x];
++		u8 bit = (byte >> xrest) & 1;
++
++		result |= (bit << i);
++	}
++
++	return result;
++}
++
++static int ch1115_fb_update_rect(struct drm_framebuffer *fb, struct drm_rect *rect)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(fb->dev);
++	char *row = ch1115->row;
++	int ret;
++
++	rect->y1 = round_down(rect->y1, CH1115_PAGE_HEIGHT);
++	rect->y2 = min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT), ch1115->height);
++
++	for (int y = rect->y1; y < rect->y2; y += CH1115_PAGE_HEIGHT) {
++		for (int x = rect->x1; x < rect->x2; x++)
++			row[x] = ch1115_transform_xy(ch1115->hwbuf, x, y, ch1115->bytes_per_row);
++
++		ret = ch1115_set_position(ch1115, ch1115->x_start_offset + rect->x1, y);
++		if (ret < 0)
++			return ret;
++
++		ret = ch1115_draw_screen(ch1115, row + rect->x1, rect->x2 - rect->x1);
++		if (ret < 0)
++			return ret;
++	}
++
++	return 0;
++}
++
++/*
++ * DRM
++ */
++DEFINE_DRM_GEM_FOPS(ch1115_fops);
++static const struct drm_driver ch1115_driver = {
++	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++
++	.name		 = DRIVER_NAME,
++	.desc		 = DRIVER_DESC,
++	.major		 = DRIVER_MAJOR,
++	.minor		 = DRIVER_MINOR,
++
++	.fops		 = &ch1115_fops,
++	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
++};
++
++/*
++ * Modeset
++ */
++static struct drm_display_mode ch1115_mode(struct ch1115_device *ch1115)
++{
++	struct drm_display_mode mode = {
++		DRM_SIMPLE_MODE(ch1115->width, ch1115->height,
++				ch1115->width_mm, ch1115->height_mm),
++	};
++
++	return mode;
++}
++
++static const struct drm_mode_config_funcs ch1115_mode_config_funcs = {
++	.fb_create = drm_gem_fb_create_with_dirty,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit,
++};
++
++static int ch1115_mode_config_init(struct ch1115_device *ch1115)
++{
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drmm_mode_config_init(dev);
++	if (ret)
++		return ret;
++
++	dev->mode_config.min_width = ch1115->width;
++	dev->mode_config.max_width = ch1115->width;
++	dev->mode_config.min_height = ch1115->height;
++	dev->mode_config.max_height = ch1115->height;
++	dev->mode_config.preferred_depth = 24;
++	dev->mode_config.funcs = &ch1115_mode_config_funcs;
++
++	return 0;
++}
++
++/*
++ * Plane
++ */
++static const struct drm_plane_funcs ch1115_primary_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	.destroy = drm_plane_cleanup,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
++};
++
++static int ch1115_primary_plane_helper_atomic_check(struct drm_plane *plane,
++						    struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc *new_crtc = new_plane_state->crtc;
++	struct drm_crtc_state *new_crtc_state = NULL;
++
++	if (new_crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
++
++	return drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
++						   DRM_PLANE_NO_SCALING,
++						   DRM_PLANE_NO_SCALING,
++						   false, false);
++}
++
++static void ch1115_primary_plane_helper_atomic_update(struct drm_plane *plane,
++						      struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
++	struct drm_framebuffer *fb = plane_state->fb;
++	struct drm_atomic_helper_damage_iter iter;
++	struct drm_device *dev = plane->dev;
++	struct drm_rect damage;
++	struct ch1115_device *ch1115 = drm_to_ch1115(plane->dev);
++	int idx;
++
++	if (!fb)
++		return;
++
++	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
++		return;
++
++	if (!drm_dev_enter(dev, &idx))
++		goto out_drm_gem_fb_end_cpu_access;
++
++	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
++	drm_atomic_for_each_plane_damage(&iter, &damage) {
++		ch1115_prepare_buffer(ch1115,
++				      &shadow_plane_state->data[0],
++				      fb, &damage,
++				      &shadow_plane_state->fmtcnv_state);
++
++		ch1115_fb_update_rect(fb, &damage);
++	}
++
++	drm_dev_exit(idx);
++
++out_drm_gem_fb_end_cpu_access:
++	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
++}
++
++static void ch1115_primary_plane_helper_atomic_disable(struct drm_plane *plane,
++						       struct drm_atomic_commit *state)
++{
++	struct drm_device *dev = plane->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(plane->dev);
++	int idx;
++
++	if (!drm_dev_enter(dev, &idx))
++		return;
++
++	ch1115_clear_screen(ch1115);
++	drm_dev_exit(idx);
++}
++
++static const struct drm_plane_helper_funcs ch1115_primary_plane_helper_funcs = {
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++	.atomic_check = ch1115_primary_plane_helper_atomic_check,
++	.atomic_update = ch1115_primary_plane_helper_atomic_update,
++	.atomic_disable = ch1115_primary_plane_helper_atomic_disable,
++};
++
++static const u64 ch1115_primary_plane_fmtmods[] = {
++	DRM_FORMAT_MOD_LINEAR,
++	DRM_FORMAT_MOD_INVALID
++};
++
++static const u32 ch1115_primary_plane_formats[] = {
++	DRM_FORMAT_XRGB8888,
++};
++
++static int ch1115_plane_init(struct ch1115_device *ch1115)
++{
++	struct drm_plane *plane = &ch1115->primary_plane;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_universal_plane_init(dev, plane, 0,
++				       &ch1115_primary_plane_funcs,
++				       ch1115_primary_plane_formats,
++				       ARRAY_SIZE(ch1115_primary_plane_formats),
++				       ch1115_primary_plane_fmtmods,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++
++	drm_plane_helper_add(plane, &ch1115_primary_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(plane);
++
++	return 0;
++}
++
++/*
++ * CRTC
++ */
++static enum drm_mode_status ch1115_crtc_mode_valid(struct drm_crtc *crtc,
++						   const struct drm_display_mode *mode)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(crtc->dev);
++
++	return drm_crtc_helper_mode_valid_fixed(crtc, mode, &ch1115->mode);
++}
++
++static const struct drm_crtc_helper_funcs ch1115_crtc_helper_funcs = {
++	.atomic_check = drm_crtc_helper_atomic_check,
++	.mode_valid = ch1115_crtc_mode_valid,
++};
++
++static const struct drm_crtc_funcs ch1115_crtc_funcs = {
++	.reset = drm_atomic_helper_crtc_reset,
++	.destroy = drm_crtc_cleanup,
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
++};
++
++static int ch1115_crtc_init(struct ch1115_device *ch1115)
++{
++	struct drm_plane *primary_plane = &ch1115->primary_plane;
++	struct drm_crtc *crtc = &ch1115->crtc;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_crtc_init_with_planes(dev, crtc, primary_plane, NULL,
++					&ch1115_crtc_funcs, NULL);
++	if (ret)
++		return ret;
++
++	drm_crtc_helper_add(crtc, &ch1115_crtc_helper_funcs);
++
++	return 0;
++}
++
++/*
++ * Encoder
++ */
++static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
++					 struct drm_atomic_commit *state)
++{
++	struct drm_device *drm = encoder->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(drm);
++
++	ch1115_oled_init(ch1115);
++
++	u8 command = CH1115_CMD_ON;
++
++	ch1115_send_command_list(ch1115, &command, 1);
++
++	backlight_enable(ch1115->bl_dev);
++}
++
++static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
++					  struct drm_atomic_commit *state)
++{
++	struct drm_device *drm = encoder->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(drm);
++
++	u8 command = CH1115_CMD_OFF;
++
++	ch1115_send_command_list(ch1115, &command, 1);
++
++	backlight_disable(ch1115->bl_dev);
++}
++
++static const struct drm_encoder_funcs ch1115_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static const struct drm_encoder_helper_funcs ch1115_encoder_helper_funcs = {
++	.atomic_enable = ch1115_encoder_atomic_enable,
++	.atomic_disable = ch1115_encoder_atomic_disable,
++};
++
++static int ch1115_encoder_init(struct ch1115_device *ch1115)
++{
++	struct drm_encoder *encoder = &ch1115->encoder;
++	struct drm_crtc *crtc = &ch1115->crtc;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_encoder_init(dev, encoder, &ch1115_encoder_funcs, DRM_MODE_ENCODER_NONE, NULL);
++	if (ret)
++		return ret;
++
++	drm_encoder_helper_add(encoder, &ch1115_encoder_helper_funcs);
++
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	return 0;
++}
++
++/*
++ * Connector
++ */
++static int ch1115_connector_get_modes(struct drm_connector *conn)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(conn->dev);
++
++	return drm_connector_helper_get_modes_fixed(conn, &ch1115->mode);
++}
++
++static const struct drm_connector_helper_funcs ch1115_connector_helper_funcs = {
++	.get_modes = ch1115_connector_get_modes,
++};
++
++static const struct drm_connector_funcs ch1115_connector_funcs = {
++	.reset = drm_atomic_helper_connector_reset,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++static int ch1115_connector_init(struct ch1115_device *ch1115)
++{
++	struct drm_connector *connector = &ch1115->connector;
++	struct drm_encoder *encoder = &ch1115->encoder;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_connector_init(dev, connector, &ch1115_connector_funcs,
++				 DRM_MODE_CONNECTOR_Unknown);
++	if (ret)
++		return ret;
++
++	drm_connector_helper_add(connector, &ch1115_connector_helper_funcs);
++
++	return drm_connector_attach_encoder(connector, encoder);
++}
++
++/*
++ * Backlight
++ */
++static int ch1115_update_bl(struct backlight_device *bdev)
++{
++	struct ch1115_device *ch1115 = bl_get_data(bdev);
++	u8 brightness = backlight_get_brightness(bdev);
++
++	ch1115->contrast = brightness;
++
++	u8 cmd_list[] = {
++		CH1115_CMD_CONTRAST,
++		brightness
++	};
++
++	return ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
++}
++
++static const struct backlight_ops ch1115_bl_ops = {
++	.update_status	= ch1115_update_bl,
++};
++
++/*
++ * I2c
++ */
++
++/* The ch1115 driver does not read registers but regmap expects a .read */
++static int ch1115_regmap_read(void *context, const void *reg_buf,
++			      size_t reg_size, void *val_buf, size_t val_size)
++{
++	return -EOPNOTSUPP;
++}
++
++static int ch1115_regmap_write(void *context, const void *data, size_t count)
++{
++	struct i2c_client *client = context;
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	int ret;
++
++	struct i2c_msg msg = {
++		.addr = ch1115->client->addr,
++		.len = count,
++		.buf = (u8 *)data,
++	};
++
++	ret = i2c_transfer(ch1115->client->adapter, &msg, 1);
++
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
++static const struct regmap_bus ch1115_regmap_bus = {
++	.read = ch1115_regmap_read,
++	.write = ch1115_regmap_write,
++};
++
++static const struct regmap_config ch1115_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++};
++
++static int ch1115_parse_dt(struct ch1115_device *ch1115)
++{
++	struct device *dev = &ch1115->client->dev;
++	struct device_node *np = dev->of_node;
++	struct display_timing dt;
++	int ret;
++	u32 val;
++
++	if (!np) {
++		dev_err(dev, "No Device Tree entry\n");
++		return -EINVAL;
++	}
++
++	ret = of_property_read_u32(np, "chipwealth,offset", &val);
++	if (ret) {
++		ch1115->y_start_offset = 0;
++	} else {
++		if (val > CH1115_MAX_HEIGHT - 1) {
++			dev_err(dev, "chipwealth,offset=%d must be [0-%d]\n",
++				val, CH1115_MAX_HEIGHT - 1);
++			return -EINVAL;
++		}
++		ch1115->y_start_offset = (u8)val;
++	}
++
++	ret = of_property_read_u32(np, "width-mm", &ch1115->width_mm);
++	if (ret) {
++		dev_err(dev, "Failed to get width-mm from DT\n");
++		return ret;
++	}
++	if (ch1115->width_mm == 0) {
++		dev_err(dev, "Invalid width-mm 0\n");
++		return -EINVAL;
++	}
++
++	ret = of_property_read_u32(np, "height-mm", &ch1115->height_mm);
++	if (ret) {
++		dev_err(dev, "Failed to get height-mm from DT\n");
++		return ret;
++	}
++	if (ch1115->height_mm == 0) {
++		dev_err(dev, "Invalid height-mm 0\n");
++		return -EINVAL;
++	}
++
++	ret = of_get_display_timing(np, "panel-timing", &dt);
++	if (ret) {
++		dev_err(dev, "Failed to get display timing from DT\n");
++		return ret;
++	}
++	if (dt.hactive.typ <= 0 || dt.hactive.typ > CH1115_MAX_WIDTH) {
++		dev_err(dev, "hactive=%d must be greater than 0 and less than %d\n",
++			dt.hactive.typ, CH1115_MAX_WIDTH);
++		return -EINVAL;
++	}
++	if (dt.vactive.typ <= 0 || dt.vactive.typ > CH1115_MAX_HEIGHT) {
++		dev_err(dev, "vactive=%d must be greater than 0 and less than %d\n",
++			dt.vactive.typ, CH1115_MAX_HEIGHT);
++		return -EINVAL;
++	}
++
++	ch1115->width = dt.hactive.typ;
++	ch1115->height = dt.vactive.typ;
++
++	ch1115->inverted = of_property_read_bool(np, "chipwealth,inverted");
++	ch1115->flip_horizontal = of_property_read_bool(np, "flip-horizontal");
++	ch1115->flip_vertical = of_property_read_bool(np, "flip-vertical");
++	ch1115->contrast = CH1115_VAL_CONTRAST;
++
++	return 0;
++}
++
++static int ch1115_probe(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115;
++	struct device *dev;
++	struct backlight_device *bl;
++	int ret;
++
++	dev = &client->dev;
++	ch1115 = devm_drm_dev_alloc(&client->dev, &ch1115_driver,
++				    struct ch1115_device, dev);
++	if (IS_ERR(ch1115))
++		return PTR_ERR(ch1115);
++
++	dev_set_name(dev, "ch1115-i2c");
++
++	i2c_set_clientdata(client, ch1115);
++
++	ch1115->client = client;
++	ch1115->regmap = devm_regmap_init(dev, &ch1115_regmap_bus,
++					  client, &ch1115_regmap_config);
++	if (IS_ERR(ch1115->regmap))
++		return dev_err_probe(dev, PTR_ERR(ch1115->regmap),
++				     "Failed to initialize regmap\n");
++
++	ret = ch1115_parse_dt(ch1115);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to parse DT\n");
++
++	ch1115->pages = DIV_ROUND_UP(ch1115->height, CH1115_PAGE_HEIGHT);
++	ch1115->bytes_per_row = DIV_ROUND_UP(ch1115->width, 8);
++	ch1115->x_start_offset = ch1115->flip_horizontal
++		? CH1115_MAX_WIDTH - ch1115->width
++		: 0;
++	ch1115->mode = ch1115_mode(ch1115);
++
++	ch1115->hwbuf = devm_kzalloc(dev,
++				     DIV_ROUND_UP(ch1115->width, 8) * ch1115->height,
++				     GFP_KERNEL);
++
++	if (!ch1115->hwbuf)
++		return -ENOMEM;
++
++	ch1115->row = devm_kzalloc(dev, ch1115->width, GFP_KERNEL);
++	if (!ch1115->row)
++		return -ENOMEM;
++
++	// Backlight
++	const struct backlight_properties bl_props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = ch1115->contrast,
++		.max_brightness = CH1115_MAX_CONTRAST,
++	};
++
++	ch1115->bl_dev = devm_backlight_device_register(dev, dev_name(dev), dev, ch1115,
++							&ch1115_bl_ops, &bl_props);
++	if (IS_ERR(bl))
++		return dev_err_probe(dev, PTR_ERR(bl),
++				     "Unable to register backlight device\n");
++
++	// DRM
++	ret = ch1115_mode_config_init(ch1115);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize mode config\n");
++
++	ret = ch1115_plane_init(ch1115);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize primary plane\n");
++
++	ret = ch1115_crtc_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize CRTC\n");
++
++	ret = ch1115_encoder_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize encoder\n");
++
++	ret = ch1115_connector_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize connector\n");
++
++	drm_mode_config_reset(&ch1115->dev);
++
++	ret = drm_dev_register(&ch1115->dev, 0);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to register DRM device\n");
++
++	drm_client_setup(&ch1115->dev, NULL);
++
++	return 0;
++}
++
++static void ch1115_remove(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	int ret;
++
++	u8 cmd_list[] = {
++		CH1115_CMD_OFF,
++
++		CH1115_CMD_ALL_ON,
++
++		CH1115_CMD_DC_DC,
++		CH1115_VAL_DC_DC_OFF,
++	};
++
++	drm_dev_unplug(&ch1115->dev);
++	drm_atomic_helper_shutdown(&ch1115->dev);
++
++	ret = ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
++	if (ret < 0)
++		dev_err(&client->dev, "Shutdown command sequence failed\n");
++}
++
++static const struct i2c_device_id ch1115_id[] = {
++	{ .name = "ch1115" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, ch1115_id);
++
++static const struct of_device_id ch1115_of_match[] = {
++	{ .compatible = "chipwealth,ch1115" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ch1115_of_match);
++
++static struct i2c_driver ch1115_i2c_driver = {
++	.driver = {
++		.name	= DRIVER_NAME,
++		.of_match_table = ch1115_of_match,
++	},
++	.probe		= ch1115_probe,
++	.remove		= ch1115_remove,
++	.shutdown	= ch1115_shutdown,
++	.id_table	= ch1115_id,
++};
++module_i2c_driver(ch1115_i2c_driver);
++
++MODULE_DESCRIPTION(DRIVER_DESC);
++MODULE_AUTHOR("Nicolás Antinori <nico.antinori.7@gmail.com>");
++MODULE_LICENSE("GPL");
+--
+2.47.3
 
