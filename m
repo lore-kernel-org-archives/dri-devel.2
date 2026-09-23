@@ -4,60 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EB8BC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF1FC982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D70710E816;
-	Wed, 23 Sep 2026 09:15:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2004F10E0A8;
+	Wed, 23 Sep 2026 09:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="QEbIjIMC";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="mTNvpVTl";
 	dkim-atps=neutral
-Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E38C10E0A1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:15:31 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=oaTRjCWZnQNokZg4Q89meVlVIFu2T26bZQvvNaVlNs8=; 
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790154930; v=1; x=1790759730;
- b=QEbIjIMCnk1sQ73gumwPQOBIS8aq/erpZ2gQABiGdIReV+nKPbhCb1JEfiQJ7Ujljjej5HQA
- Qh4qROVxBBGavLkjo+cwll/ou+ei7uMUPtTZq/TtctQ1Dm+QO3TiYmLVSjJ1jxfaIpetdUpcdcD
- j6tX9sE8sbeUiviKhMoxBaopBJcdAQtgXn0eGXu6VK/BbMF88xrtnY6KJ/6LlX++CNOEqrFoMms
- Uz1dPZVJ+Kd+RjZXz+bnvBOEEk0M7eGW7yVZ/4oUqSaaDSTdjXiARbK6F9wJ4GYmvpS84zx9A2x
- 3UqsBTY4qyCyYqbjVNPtTAC8XSXtQM94eMZP+ocw59xXA==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 342944e3381b851a;
- Wed, 23 Sep 2026 09:15:23 +0000
-X-Mizu-Trace-ID: 342944e3381b851a
-X-Migadu-Flow: FLOW_OUT
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 11:15:22 +0200
-Message-Id: <DLMKYI79QQRS.28Q4ESQ974BU@cknow-tech.com>
-Cc: "Tomeu Vizoso" <tomeu@tomeuvizoso.net>, "Oded Gabbay"
- <ogabbay@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>, "Robert Foss" <rfoss@kernel.org>,
- "Sidong Yang" <sidong.yang@furiosa.ai>, "Diederik de Haas"
- <diederik@cknow-tech.com>, "Sebastian Reichel"
- <sebastian.reichel@collabora.com>, "Jiaxing Hu" <gahing@gahingwoo.com>,
- "Nicolas Dufresne" <nicolas@ndufresne.ca>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Guangshuo Li" <lgs201920130244@gmail.com>,
- =?utf-8?q?H=C3=BCseyin_BIYIK?= <boogiepop@gmx.com>,
- <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 06/11] dt-bindings: npu: rockchip: allow DVFS and
- thermal properties
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Igor Paunovic" <royalnet026@gmail.com>, "Rob Herring" <robh@kernel.org>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-7-royalnet026@gmail.com>
- <20260922160602.GA3529337-robh@kernel.org>
- <20260923085755.16219-1-royalnet026@gmail.com>
-In-Reply-To: <20260923085755.16219-1-royalnet026@gmail.com>
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5945B10E0A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:19:24 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ d9443c01a7336-2d747f01363so3988175ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 02:19:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790155164; cv=none;
+ d=google.com; s=arc-20260327;
+ b=nGlkpcqQ52Fb+9nngZjLmCHEQ1YpHzv35JWibq1npztBFkEFtSVcm/YNAs232y88Gv
+ coS89VWV+h6pmdRG6/VZmQOKe2XDt+dSp7SW4UOMoKgpVhjhV/2pd1b0YXAAuCsrrFb8
+ PckgNi7Cit3rrPue0tu3dwbpUoe+B5YOMWJJRTa+4cubtyT2LxrCfdbHGPzHBNSfyJly
+ jpfy6PvSuiUzts9fzSJoGuZ4NTnpdZzHw9JvpDBnVzL7hvxfbz/G1RaI7IP1b9JwrBdt
+ Vpc84Wbz8vca9sIu7T4WhgwQgydkT6SQvPZlESP+IbKWEjYMq0AwEZBQaglSivsCmBZF
+ wkhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
+ fh=7vxyWLTG4+Y7B3qYEU3SIf7dRUPVrdSpB0m0JPf1Xm0=;
+ b=r6mkHsiNBODIUmJ0cTIqJlQ/Cxs+seMktj0P+6rm6DGly6OvfykvTZrawWbjkPksso
+ H4dZs6ijukM7asQSpmZvSWQgxLm4SQ6v3qY4S6osP0hFkSQv+ae+sfgKcySdYFjnmhzO
+ ycN5U68nbUVNKCFi08bpWfxGQqihZeysvlinVECjJkV0XBW1sCGnQ15/UMTDP+VUgBU+
+ NAO9oOn5iGYBZSFJIKoQn0N2xjfEeKUXONHjzeorIYrWervOuE6MNCeok9R21Rp2YdDa
+ L/qP4rpAE1hTx1hyjlSh007mGo/PSw3rfnZNy07d9fjhPRqrmijtIUxiFG7OZ5JWzh18
+ SaKg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1790155164; x=1790759964;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
+ b=mTNvpVTlIXE8cDL5y/a9H7xZDRfkd7iQ0KgOkICqDL7csyP3S/axOLeXcHRDPQpXNS
+ SNuHEiTS83o50y7mmakfr760sMONdiz+jr/V73m7dRGreP/Bv43daBfcPXLE+VrB0Xgz
+ DtM7oC2+JIXi5wvyMKlp9UX54A6n/cK/MA7+WrUtET4L3GY0TI0JF56fQDLiXyK7YCnz
+ Ht3RqyCuXdK130asx44UydDuWbeSVJeolWDRk6LDxaMPG7roQ5ZUdtnkAe287RQhZuU6
+ 3+4OvXBSd0hxK3aGaulRHdyqwgVcjN3vNlxIKkEbRf+qLukDOyMb+l13x6brZVKRt1MT
+ X5Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790155164; x=1790759964;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
+ b=LIxIKhvWLwq8bBFGONMeRNKTwGO+hf2lF/GH4F+80p7pkD00C4jIhxPtAz8607Ps7j
+ IW6tvAzct9VgJXhPQmxinoLFcZ2HtpHz6XNSDieCtvj5JOncdQKxyqtJ3vO49BHPOlof
+ N8uF1XuzZCiKdviZfWqhJLaPcqaOleXKO+4JMLd8zU+zt3bNzf3WfComOrmUUNQbZPxk
+ dzlIX6o0tQFL0Y3fV4OE2841xIyiszFc5/5IEJYshUQy/GoEQQYlNw0Of/CYR+BJnvqj
+ OSdN4CSGy7ogPEKh0ReLj340SRDcVSvSJfVLjy1iYIkoWvlkV5yMnKGxcSjY314uV+T7
+ 3G7w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByrciFDzCcm82VJ2oVlFMqUfVi0KVNI3TadRt3JRHy/Xu3OiIOYmiPcN+/b/VpPPkkbS9DPzvaH6CQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nAiavg2Dnpq6EPo3QHIc0KdwuyShEGqvj2rsb49T0Juhs34UjI
+ c5m/wYVzzlYmeIOVZvuv+QsCV7p3UYjtlC+UzXGFkBYEilDFunp7dUXR44e46j8I63KZAkiP5Cx
+ XOAVR+H6jz6roBdLwBGALmevTuVnntZUZOXL7Yofb+g==
+X-Gm-Gg: AYBFou328KqluyWTkTr13DUH05N8/KgLKXIg7f2xUx/ZRZoByRMozMubCQSwtpXZ6ka
+ NQwFgzbMs+i4GvFDenOsOLenupwhJ46NbAYk7fGMIqrsjvo6eSx1wwvK/Y14EJRiNwFXCbMuIdS
+ Mad1Al/gLiGGRBcmGk6D6V5P2gd+4/6QXZYuUFdzdr+aP/qr++dXffFBQXvcEIsoIG0ydAH7e8H
+ 21PU2H+YEuFxaVIzsha4ntgNLaQrsKvdKHe7Bm1xk557RRC8u5Q5hqTS6LzfeDjUGF6sJOQKoGx
+ 5yvyZoLDZ//K93qHCNcWk1wGh+ZLDdYU0luzmqEG47ZlgKG8LHZt
+X-Received: by 2002:a17:903:3c28:b0:2dd:c053:9c72 with SMTP id
+ d9443c01a7336-2df69dce3f1mr16258365ad.40.1790155163811; Wed, 23 Sep 2026
+ 02:19:23 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
+ <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
+In-Reply-To: <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 23 Sep 2026 10:19:11 +0100
+X-Gm-Features: AcwNN1WcrMpUMY7WrxQBLpWPrZ8BZzqWRprFtRJhz4ki4ZfJwZKD54zFU1R2wsY
+Message-ID: <CAPj87rMT5vnYMJ-MVk2z_etH+zHK+poac17TD+Yz4SnMZFbsBA@mail.gmail.com>
+Subject: Re: [PATCH v4 09/13] drm/atomic: Add
+ drm_atomic_implements_create_state() helper
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>,
+ =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, 
+ Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,19 +118,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Sep 23, 2026 at 10:57 AM CEST, Igor Paunovic wrote:
-> On Tue, Sep 22, 2026 at 11:06:02AM -0500, Rob Herring wrote:
->> On Tue, Sep 22, 2026 at 10:01:09AM +0200, Igor Paunovic wrote:
->> > Assisted-by: LLM checkpatch dt_binding_check
->>
->> Drop 'dt_binding_check'. That's expected/assumed.
->
-> Will do in v3. By the same reasoning I will drop 'dtbs_check' from the
-> two DTS patches, 07/11 and 11/11.
+Hi Maxime,
 
-Doesn't the same apply to 'checkpatch' as well?
+On Fri, 18 Sept 2026 at 15:18, Maxime Ripard <mripard@kernel.org> wrote:
+> +bool drm_atomic_can_create_state(struct drm_device *dev);
+
+This is misnamed here, and fixed up in the next commit.
 
 Cheers,
-  Diederik
-
-
+Daniel
