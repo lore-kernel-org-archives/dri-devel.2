@@ -4,49 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 532C8C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:25:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0957DC98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD3210E8CE;
-	Wed, 23 Sep 2026 13:25:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2D310E0DF;
+	Wed, 23 Sep 2026 13:30:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nv9+vQJ4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Nky7tt5q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kDgfB1G1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rekdm16k";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d/nk7Ka7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F65710E8B7;
- Wed, 23 Sep 2026 13:25:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5C1F360210;
- Wed, 23 Sep 2026 13:25:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00C91F000FF;
- Wed, 23 Sep 2026 13:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790169928;
- bh=zlWa1e2jWcfiiYfu+fJY+2gOtdAjpcg6EpsI0gyoG1M=;
- h=Date:From:To:Cc:Subject;
- b=Nv9+vQJ4X1ZPR4LjImDulZSo8D7/jmLZDpa9NesjKRqgcJH9yrUPZXyjOH1hXpFrg
- Esif4bWydfMzQOEVLOZgkL3cqqsh5VxtSKP/Lq4lc+tLG+4z3i59TzjSMQdkx7gIM/
- 6m546sdQTDrcbxXaiK7Jl8+rmgGsjdizMLCZdt1MjJOfRf5wn2El1q41PUj/fFQoTO
- FsKUuiZAIaaSukQ+n5WXssbE7bqYiBPqQD0AKafVWiCMr9snimVBjIyK37RCtyYAu8
- koaAZJ4Ba/XnQHAvezbFhEMyHKrpaDDk+aRwq2SDMSHZDOsyyqUwAJPb/stjY/oeT0
- VtmjT+x2oQHAA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 033191AC573B; Wed, 23 Sep 2026 14:25:24 +0100 (BST)
-Date: Wed, 23 Sep 2026 15:25:24 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E87A610E0DF
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:30:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3DC9D21D79;
+ Wed, 23 Sep 2026 13:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790170209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
+ b=Nky7tt5qMtEactjLDeJY9MgD+mpavC4FaPqT5HpNV/H67RWWnZZu6RpwH6HbubV/1+sIfY
+ zg5P4HZMOVibeeX5k5KPaCmNqS30JgacmJ5zYHp58pS80k1Eu+Z3HldbfjlfjDByLfBVPh
+ IFsOR4a7rZZzSMJTrKHDwHa/whJzMEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790170209;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
+ b=kDgfB1G1P1PL8fbSZjw+2Uc3QNQt/sCcM4ogSQhiBJrMHIpvIZ5Ni8xbdHWzdhbjfElkjf
+ 34CDgrPYdS4oeeCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rekdm16k;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="d/nk7Ka7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790170205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
+ b=rekdm16k3Ii9UHugUzrj25XDtseZeAPhgSHzI2niHNsjlIrDPtqY0pMZSRcUXtSwW6HINU
+ AiIOaLR8LNVl71/l2Tms68fCaR9jXbN4NLimfoBDhupL8gXyqKdWliEI4/OI9nU1qvpevQ
+ nmi6izQLUTwnu3F6mcK4RJyEq94JJnw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790170205;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
+ b=d/nk7Ka7gbDf1WCMCamnHndFpIt6NgkprWOjSiH9HxGaJjZHFOEf2NBKz59tSw1Yb7hugZ
+ s1emSLygQlBGMXCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3DF5134E8;
+ Wed, 23 Sep 2026 13:30:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mEsmKlzUs2qZKAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 23 Sep 2026 13:30:04 +0000
+Message-ID: <24cf3f9b-bc81-4f55-8ae2-416a2c46b881@suse.de>
+Date: Wed, 23 Sep 2026 15:30:04 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="u4iB4BPRsdxcH5TP"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] vt: Add cursor-size helpers
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: deller@gmx.de, jirislaby@kernel.org, simona@ffwll.ch,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
+References: <20260915123304.1027277-1-tzimmermann@suse.de>
+ <20260915123304.1027277-2-tzimmermann@suse.de>
+ <2026092347-try-railroad-7b00@gregkh>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <2026092347-try-railroad-7b00@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 3DC9D21D79
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[8];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmx.de,kernel.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org,lists.linux.dev];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.com:url];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,57 +149,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
---u4iB4BPRsdxcH5TP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Am 23.09.26 um 14:57 schrieb Greg KH:
+[...]
+>> + * Returns:
+>> + * The index of the cursor's first scanline within the character cell
+>> + */
+>> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
+>> +{
+>> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
+>> +
+>> +retry:
+>> +	switch (cursor_size) {
+>> +	case CUR_NONE:
+>> +		return cell_height;
+>> +	case CUR_UNDERLINE:
+>> +		if (cell_height < 10)
+>> +			return cell_height - 1;
+>> +		else
+>> +			return cell_height - 3;
+>> +	case CUR_LOWER_THIRD:
+>> +		return cell_height - cell_height / 3;
+>> +	case CUR_LOWER_HALF:
+>> +		return cell_height - cell_height / 2;
+>> +	case CUR_TWO_THIRDS:
+>> +		return cell_height - (cell_height * 2) / 3;
+>> +	case CUR_BLOCK:
+>> +		return 0;
+>> +	default:
+>> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
+> Can userspace trigger this?  If not, who can?
 
-Hi all,
+Yes. There's the "vt.cur_default" parameter on the kernel's command line 
+[1], and apparently there's some escape sequence. [2]  The cursor size 
+is the lowest 4 bits of that value, while
 
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+[1] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L167
+[2] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L2523
 
-/tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:8=
-7:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_poo=
-l_create' [-Werror,-Wframe-larger-than]
-   87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t si=
-ze,
-      |                      =20
+Apart from that, I just noticed that this switch should certainly handle 
+CUR_DEF without printing a warning.
 
-which I am exceptionally frustrated to see was caused by commit
 
-  bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
+>
+>> +		if (cursor_size != cursor_default_size)
+>> +			cursor_size = cursor_default_size;
+>> +		else
+>> +			cursor_size = CUR_UNDERLINE;
+> Why underline as a default?
 
-which merged the bug I originally reported in the amdgpu tree:
+This has been the default all along. It is the default value of the 
+cur_default parameter and picked up by vt when starting up a console. 
+[3] VGA BIOSes tend to default to underline as well AFAICT. Only the old 
+cursor code in fbcon falls back to full-size blocks if nothing else 
+works. Using underline harmonizes behavior across components.
 
-  https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
+[3] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L2297
 
-and then in the drm tree when that was sent upstream without the report
-having been addressed in any way:
+Best regards
+Thomas
 
-  https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
+>
+> thanks,
+>
+> greg k-h
 
-neither of which have had any response at all.  It really seems like
-there is some room for improvement in your processes here, currently
-that's three drm trees all held out of -next with the same fairly simple
-build issue.  Can I suggest at least check to see if the code you are
-trying to merge is in -next, the drm merge was done after amdgpu had
-been held out of -next for several days.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
---u4iB4BPRsdxcH5TP
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqz0zsACgkQJNaLcl1U
-h9BLTAf9EIijiMYDxEApkxScDx3f4Bi3xFEdhyaF/pQC0o575r2k4NOF7iZA3cTA
-Az6mwVvR/OYFKgiWlMud0jcrwYH8F3oPL714/AlXxlrkGQFPQlHrjo8tk+DdWJoU
-RX3gZP7VDGoNe9Ag20ZvcFUvUyPiBSp5NJENkGwaEBLzYwnmBjPluldBbHJPQ5Bh
-D/HK0N+S+HWHq1/d8Jvbo9yaUKg3ZM+hNu37MMQjCuXCLREmwpfRg5mVtBwk99aI
-jkx9SxUnZ665U0cPxMYskag0aiHxsdbDqkKXhafCLVJRooZpSGvNtDmbPSnl25rT
-9N0YB0GV4MGYCpWVkpKIJUFaoCyqTQ==
-=c41z
------END PGP SIGNATURE-----
-
---u4iB4BPRsdxcH5TP--
