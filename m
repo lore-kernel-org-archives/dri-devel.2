@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E10EC98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFDFEC9830D
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:45:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6A010F240;
-	Wed, 23 Sep 2026 22:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE52110E511;
+	Wed, 23 Sep 2026 22:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="den/QCVO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nqUs6+T1";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE06410F232
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:45:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE1810E3E3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:45:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9FD1A414FB;
- Wed, 23 Sep 2026 22:45:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE3F1F000FF;
- Wed, 23 Sep 2026 22:45:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C207601FD;
+ Wed, 23 Sep 2026 22:45:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC9A1F000FF;
+ Wed, 23 Sep 2026 22:45:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790203509;
- bh=LZlE+GmL6EuuIFtlxRYwAZArS98TNCqm7qx1WgPX/Hw=;
+ s=k20260515; t=1790203520;
+ bh=66YxT9lUqMPF04vwLu1dX3k5F5ETApE8UO9Zqjgu5a0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=den/QCVOD/qcZl/+oeQJN8alWunB4JvGTUnoEJEZqb5OPO1s1wNxlUeVTzavSM9Ao
- nYhu4g5KFMIqxj4fXQPn9FvWKKCAQ5yQlbcecsAKh11xoOXQBgdLQqWafm5MZR0R4C
- 9r9BkHHPymwrf+JbMPit1S99be+KOrXcdFkoozsvm1zlS06shg2XdxPzsbBZcBQOD2
- 1Pz/+U6+igvguL0iB7gJu8VCJ/u5H2DzHkkO0N2U8ueqYqxTSxdzAR6/IEIQYY8+RC
- O/cIS8Ihzth6B0gE3wydiqdbxL+3ZdwWC/8d+TRfeUzxZuz90VQStquuuz4GxHqILb
- zaTztCZDlZMVw==
+ b=nqUs6+T1WmLtdp96/dsWMnMqNyFrHn0Q/F+RShu4iZeBY4nVCtwvs629BZYf8H4ZW
+ LPuu890oXG4unQzZkYDr2NwIX96e3EgtMfuLk2aDJo/yyFiBwjy/ELsDmuCYzPc9mB
+ CLfxbyhnUpW837ldQ+8M601Nd40SlaDxwVCvxwHArEYnz7ZASfLvjuOrTU5o44Xsdf
+ MRqo51mGt74Vu7qXTYj95uUmgVyoBmTtPIx9gnu29Z8zgc8yc9i+Sgv0NjogIlVHxH
+ zUp7s6uRSp12Q7IMzB3HBlwoUyQW/HVkTEAf4PAX5w+G5heG1VxAXEiBgNf4A8u8Ou
+ OWn8T8SC6Fk4Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 14/38] dyndbg: Bind callsites and classmaps to
- DDEBUG_MODNAME
+Subject: Re: [PATCH v11 24/38] selftests/dyndbg: Enable FT_classmap_inheritance
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-14-9b6c217fdf2f@gmail.com>
+Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-24-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
- <20260923-dd-cmap-part2-clean-v11-14-9b6c217fdf2f@gmail.com>
+ <20260923-dd-cmap-part2-clean-v11-24-9b6c217fdf2f@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 22:45:08 +0000
-Message-Id: <20260923224509.4DE3F1F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 22:45:19 +0000
+Message-Id: <20260923224520.0FC9A1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +57,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dyndbg: classmaps for loadable modules are dropped if DDEBUG_MOD=
-NAME is overridden
+- [Medium] selftests: classmap inheritance hash check excludes submod
+- [Low] selftests: undocumented uncommenting of grammar testcase
 --
 
-commit 5e35c3cb693ea4379aa99e08e89d78671956f5c5
+commit 7d522a72bd526c1e41ef1a1e604e466e1e729843
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg: Bind callsites and classmaps to DDEBUG_MODNAME
+selftests/dyndbg: Enable FT_classmap_inheritance
    =20
-Currently, dyndbg binds KBUILD_MODNAME directly into callsite and
-classmap declarator macros.
+Exercise classmap state inheritance between supermod and submod,
+verifying that class settings and controlling parameter states propagate
+from parent classmap definitions to dependent class users upon module
+load and during runtime reconfiguration.
 
-For built-ins, KBUILD_MODNAME defaults to the basename of the source
-file. For many subsystems, this fragments what should be a single
-module into separate file basenames: kernel/power/ produces "main",
-"suspend", "hibernate", "snapshot", and "swap" when all should be
-"power". Conversely, multiple unrelated built-in files across the tree
-(init/main.c, kernel/power/main.c) all collide under "main".
+> diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/t=
+ools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> index c279c795867b6..5a805cb30e6cd 100755
+> --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+[ ... ]
+> @@ -189,7 +190,7 @@ function FT_grammar_ok {
+> =20
+>      # use 4 keywords (max 9 words inc flags)
+>      ddcmd "module foo file bar.c func buz class D2_CORE +_"	# 4 keywords
+> -    #ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 key=
+words
+> +    ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 keyw=
+ords
+
+[Severity: Low]
+Was this undocumented uncommenting of a grammar testcase intentional?
+
+It modifies the behavior of an existing, separate test in FT_grammar_ok wit=
+hout
+documenting it in the commit message.
 
 [ ... ]
-
-> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> index baf5c0853f459..85863e24ad134 100644
-> --- a/include/linux/dynamic_debug.h
-> +++ b/include/linux/dynamic_debug.h
+> @@ -291,6 +292,78 @@ function FT_basic_queries {
+>      ddcmd "file $f =3D_" "$f"
+>  }
+> =20
+> +function FT_classmap_inheritance {
 [ ... ]
-> @@ -121,7 +129,7 @@ struct ddebug_class_param {
->  	static struct ddebug_class_map __aligned(8) __used		\
->  		__section("__dyndbg_classes") _var =3D {			\
->  		.mod =3D THIS_MODULE,					\
-> -		.mod_name =3D KBUILD_MODNAME,				\
-> +		.mod_name =3D DDEBUG_MODNAME,				\
->  		.base =3D _base,						\
->  		.map_type =3D _maptype,					\
->  		.class_names =3D _var##_classnames,			\
+> +    # Real-time mathematical proof that load-time (modprobe) parameter p=
+arsing
+> +    # and runtime (sysfs write) parameter configurations are perfectly e=
+quivalent!
+> +    local hash_modprobe=3D$(slice_and_hash_ddctrl '\[test_dynamic_debug\=
+]')
+> +
+> +    # Fresh load with default parameters, then configure them dynamicall=
+y at runtime
+> +    ifrmmod test_dynamic_debug_submod
+> +    ifrmmod test_dynamic_debug
+> +    my_modprobe test_dynamic_debug
+> +    my_modprobe test_dynamic_debug_submod
+> +    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
+> +    echo 5 > /sys/module/test_dynamic_debug/parameters/p_level_num
+> +
+> +    local hash_sysfs=3D$(slice_and_hash_ddctrl '\[test_dynamic_debug\]')
 
 [Severity: Medium]
-Will this drop classmaps for loadable modules if a maintainer overrides
-DDEBUG_MODNAME?
+Does this classmap inheritance hash check exclude the submodule?
 
-When a loadable module is loaded, ddebug_module_notify() calls
-ddebug_add_module() using the module's actual load name (mod->name) to
-initialize the ddebug_table's module name.
+Because of the strict regex using escaped brackets, the grep strictly match=
+es
+the parent module's section and filters out all [test_dynamic_debug_submod]
+lines.
 
-During initialization, ddebug_attach_module_classes() attempts to match the
-classmap to the module by comparing strings:
+Consequently, the hash equivalence check only proves the parent module resp=
+onds
+correctly, ignoring the dependent submodule whose inheritance is supposedly
+being tested in FT_classmap_inheritance.
 
-lib/dynamic_debug.c:ddebug_attach_module_classes() {
-    ...
-    if (!strcmp(cm->mod_name, dt->mod_name)) {
-    ...
-}
-
-If a maintainer uses the opt-in hook (e.g., ccflags-y +=3D -DDDEBUG_MODNAME=
-=3D'"power"')
-on a loadable module whose load name is "suspend", cm->mod_name will be "po=
-wer"
-while dt->mod_name is "suspend".
-
-Since the string comparison fails, will all classmaps for the loadable modu=
-le
-be silently dropped, causing class'd pr_debug calls to lose their functiona=
-lity
-and trigger pr_warn spam on load due to unknown class IDs?
+> +    if [ "$hash_modprobe" !=3D "$hash_sysfs" ]; then
+> +        echo -e "${RED}: Load-time vs runtime parameter equivalence chec=
+k failed!${NC}"
+> +        exit $ksft_fail
+> +    else
+> +        v_echo "${GREEN}: Proven: parameter load-time (modprobe) " \
+> +            "and runtime (sysfs write) are equivalent!${NC}"
+> +    fi
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dd-cmap-pa=
-rt2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D14
+rt2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D24
