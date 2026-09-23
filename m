@@ -4,108 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79DF2C9830D
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57041C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD84E10F22A;
-	Wed, 23 Sep 2026 22:36:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6828D10F221;
+	Wed, 23 Sep 2026 22:36:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FalIwamI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l4f5pLu5";
 	dkim-atps=neutral
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE80010F217
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:45 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-6b34face6d0so185996eaf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:45 -0700 (PDT)
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4AE10F21A
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:49 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c67e504d59so582826e0c.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202945; x=1790807745; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YFfpY9RKNpyGZptjFUYIPxK+/JHfBQcKAOCTZ1dhBB8=;
- b=FalIwamIVXx+uC/MrKB2rClWvGz3WvxXnyHGAKGhGwJ+1e23oEi0m1UoaOt5Qzfayi
- 4n/B4iSxWfuLPp5VEuj5GlsUq0Q4FUVHYLkZzJs95cKjAeUFolOeflhhdnm8Oaj1r75f
- +lziPQHUaViu8lVkHbRQd2GmfWLFbyMSLHPOxoQ/eHCGrfG4nEqsyimvVYM0rZsC1Ax/
- FeMtcMt+HMQ6MdU/iN8i7NU7JEe04woz9Kmb7TrXTRwgKJeE8ZZzQPkmRX2sXPOcnCGn
- E/BK+dyCFc4IX3xUOmC6Eikn4tDPgGSFrD3oRLr9ehWwKIOKs7UMf249sxG3W7FPo+g7
- n/1g==
+ d=gmail.com; s=20251104; t=1790202948; x=1790807748; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=bClm3tufwH8Z04BuQiDaCFYe0ZcBB/1uq3G9UCOaFoQ=;
+ b=l4f5pLu5R6lNiiwE4HTM9FNN7Pt9Ci8Z+7dcayTyRe8Tl6Dy+wC5waEr5nU72lveYU
+ Jy+jB1mHUr1XIz3AcOO9lcZeZs1Q8lvpmvc6khAbe5UBM3SooCtsYe5pF28c03qqBWNP
+ JDkwzfnybfJbSI/I/y9ez6tYixY5I/J4aL88lagOaDhNJDAj3sf/9zHn2jpFNTH4icvL
+ s66YmPfOlbrr7gPpxGvPDHrUxBN1MlICiUffnoPONPEBnyLyDvG3FmFPs4POx3MWNaY5
+ 4dFOVR1xt1eIge0Bqt59/pxrNY1dgyaRqRYZPJZQSQE+dVLNRvInRjACiiP2uPX32G/T
+ TBoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202945; x=1790807745;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=YFfpY9RKNpyGZptjFUYIPxK+/JHfBQcKAOCTZ1dhBB8=;
- b=WiQbh8+MMDYhOWcxgxYm1+cbMpSXvOlkmxVSZh4ySRqSk/g7ABQ/FnbA5i7jzdlmbX
- F5ljK84uJI96/X8wYHisTxYXqnSnhfVzI3gF6KyeqX+oT/8IvzFzieyE11HzZiX0YnLe
- rxPynEi/Ne3hKlDzRf4rPdKapyCazkYn3eU8kPGdr6B6OIGdQrxAF5wLgnT8jMq8a9Na
- bGFiuR5R/4vnm32icO/DxFJZ5b1xU+bRv3PgdoXTVQQFIuoWfO/ILct1eK5JCj7P3lLt
- hnzHofihXVKQreAM7Ra5z4z4xRVWhOs0RFKL9C5rB+mVcX8+aqej6kcXcMBTcmyZnJ3o
- 1gxA==
+ d=1e100.net; s=20260707; t=1790202948; x=1790807748;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=bClm3tufwH8Z04BuQiDaCFYe0ZcBB/1uq3G9UCOaFoQ=;
+ b=oPDtugvOkpsPMGM8YvXbrQSlP21XdIKHIhVMHjcYhLfsNcnAB6on168sTQrPI9I94G
+ jFrAFKmcqB7jQ13FfflGC9juDWiL7RFv4/iml3U6L1Hx1SY63aGbvCzZfghiCWx6xjvB
+ uBW3kcLvEaDNLCX8WOnN0wVrzB6unIWKwaIO2h5Xav/W6yhQEF6R+OtMZ1QlZiURB6mD
+ IYOpQmwCIqLVQDXuJ0uF980T/a8is3PvY9cHsbG52EUyGGtegqg5IhdOw61sk8QwjODO
+ MPtgAtZgMXr9UaD2d8it6RXX6ozD0WcwJW6v4tbeCMmtI+d/XNGyIT/553Qj7+gKKJ1d
+ SdKg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzIxcE9zqgiGoSmOZVT8+E6XA0iB+YUa/2iIRAOBw8A+Du0gRW1/2Ywfb2XruCXGj329r+INdJQyiM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kjx/87HUJ8Go/x3OdFYiBZswqbUpaqReW+irU1GUszmL9qbGvZ
- g9xp3ToPdkSlqQlpSu2gG2pkd9bQ1MwHfeSt4sMdt/GqVmgyJfCrE7NO
-X-Gm-Gg: AYBFou2esdsD9O3+RbWdpG9c3IkkBgO4mpORaRkSiF789gycp40BgnafrfSNP0auTHj
- ZuYkuyNMNttUb02ZNXWarSQO69MOaftf34yf0i5iH3QypJkitXYz76e/IJPi9sPKIg3LYL7PmrS
- TlxFfpWPyqxEvM0xNbL0xHdHm6WGFROWqTL9M7jMHbf4w0WJZDxYJHoSLAk3es64iHDad533h/z
- Cc7NV0199muz9TktIMhIhzknUSb9k53nA5nnd3ktEfKWH4rxIoEM6pO7sONFd1KsVSNJAW6OLuR
- X8lkV+I151wk4IOj0PnJXMKRSVtO4uuO+QOAUF5TxLwFt4woviyKS4L5qmPztCZ7M/xhQZee+9u
- HG4Og6xmYNpftvbiYKPFGHIdlTqQpQPBKs4whRHYUZCnnoqCZzuZY5ZWw1RY+5mEa2aU/G4uuL1
- xKvfSpFdG4mg7Qy/msUjT75BMboxEmRUqLPcuPjS1rkNOzLnfiWpM1rLdJG5nb/XI4r5kGGK+Z6
- qd8PHIF+otyixrzSM25MPhqnz3cm3IPqmA40ICHHLnu6Y1BinUGXIlmiNoCPVYVK7aX4M3cRyXV
- G05ZSUuo8fgw/tqhn0rC
-X-Received: by 2002:a05:6820:4b97:b0:6b5:ec2f:3568 with SMTP id
- 006d021491bc7-6d43f4baf36mr568755eaf.25.1790202945099; 
- Wed, 23 Sep 2026 15:35:45 -0700 (PDT)
-Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.42
+ AKwUvByr9RY6BKov7oq/QlBFj75bhB8jGW7Ght84bkWAx1Bqz9mTijOxrueljn3Y8n2pvkBvbUwlV9o5jBI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mznttfG5W+DS05tYw6mbUEz4FJd+2J8pjsqBmgM4X26MkGP1Dq
+ CQJhOXSYZWT4NrmFNdXxGC/5MKfVl5k2d80d1QY1pBa4rbJ6+7Li8Oo=
+X-Gm-Gg: AYBFou0YM0BWdlyXQihhAQcjcvLQTr6FAnNl6YJ7xlH3xUljMfT0jG+LFr8GeUIKqWJ
+ 10Ro3wj6iqz4M2FaBZtO99JG+U7cYhI6/JX3wCLH1GrP89C/cQZCGEMpnt6N5qP0r5kfHPZYMue
+ Wfe3xHEhksHIF5eZkJH1/IAF5CGbmoAnNhoZ2x94KIaO+wHa+47K3tFf+avLETIXJYAJ6/co+9F
+ x1uN6XdRaAId3A2PtYurC7bD6l2ZC9iv2yS36sstvJIfRtOcYtCIR8OtUR943tj8ohC09jd0B+E
+ yS+wRc58Kh5A9pV1ORsA5TRUwuiZvEbqWnH5HeuI/chrqj0wkzPt4idUQYodZE55KyFmmT5EnMF
+ fVNKTNfayv7t0SSZtNcQ6oxQaM/RqjA2vi6cFZAUnuHrcOxATpP6mp1cEMYsfU81xd+hgfHd/tN
+ RbJzSagrKoBERLDuR5AgZyhUJLRRX7Nq903ANm4q8tuTBZt06otT6LACOtllH9PlYaShi4MNRsE
+ ou5B/skuGAKOewkKjPdmKUYwSP8YXTa6FqdL9k1mLpIbKtrpw==
+X-Received: by 2002:a05:6122:29cb:b0:5c8:3870:ff73 with SMTP id
+ 71dfb90a1353d-5cb09217726mr543120e0c.4.1790202948179; 
+ Wed, 23 Sep 2026 15:35:48 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:44 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:53 -0600
-Subject: [PATCH v11 29/38] dyndbg: control-parser: treat comma as a token
- separator
+ Wed, 23 Sep 2026 15:35:31 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Brigham Campbell <me@brighamcampbell.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jori Koolstra <jkoolstra@xs4all.nl>,
+ Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v5 0/3] Add support for CH1115 Controller
+Date: Wed, 23 Sep 2026 19:35:12 -0300
+Message-ID: <cover.1790200427.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-29-9b6c217fdf2f@gmail.com>
-References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=4314;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=BFGfVMUIUlRIm2JaJRLPto2g8rjGdT6CEXAVSmQr/a8=;
- b=d5+MQwqqnsKPmHlPuUCttE4PkQ7Wy7yoFwYejLCbxsCnQG3UvsatUX9GpXn09cb+z3WKXqaaR
- HvFmmuDzGv7B8sMzShv1xHHeYfmjW7kSdoSPA1xOTIEEw9Xy5PFUlUu
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,113 +98,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Treat comma as a token terminator, just like a space. This allows a
-user to avoid quoting hassles when spaces are otherwise needed:
+This series add support for the CH1115 Controller [1].
+It is a monochrome dot matrix OLED controller that supports several
+interfaces such as SPI and I2C.
 
- :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
+This driver only supports the I2C interface, but all common parts could
+easily be put into a common file to be used with other interfaces.
+I only have I2C to test with.
 
-Add corresponding Strategy 2 control-file fingerprinting checks to
-verify the exact control-file state of kernel/params callsites after
-commas-as-spaces, ignored-commas, and quoted-commas queries.
+This is the first driver I write. The work is based on the driver
+located at:
+- drivers/gpu/drm/sitronix/st7571-i2c.c
+- drivers/gpu/drm/sitronix/st7571.c
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- Documentation/admin-guide/dynamic-debug-howto.rst       |  4 +++-
- lib/dynamic_debug.c                                     | 17 +++++++++++++----
- .../testing/selftests/dynamic_debug/dyndbg_selftest.sh  |  4 ++--
- 3 files changed, 18 insertions(+), 7 deletions(-)
+Tested with Raspberry Pi 3b+.
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 9c2f096ed1d8..b9fbb2a12955 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -78,11 +78,12 @@ Command Language Reference
- ==========================
- 
- At the basic lexical level, a command is a sequence of words separated
--by spaces or tabs.  So these are all equivalent::
-+by spaces, tabs, or commas.  So these are all equivalent::
- 
-   :#> ddcmd file svcsock.c line 1603 +p
-   :#> ddcmd "file svcsock.c line 1603 +p"
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-+  :#> ddcmd file,svcsock.c,line,1603,+p
- 
- Command submissions are bounded by a write() system call.
- Multiple commands can be written together, separated by ``;`` or ``\n``::
-@@ -172,6 +173,7 @@ module
- 	module sunrpc
- 	module nfsd
- 	module drm*	# both drm, drm_kms_helper
-+	module,sunrpc	# with ',' as token separator
- 
- format
-     The given string is searched for in the dynamic debug format
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8eef2e7387a9..6482fd28def4 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -323,6 +323,14 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 	return nfound;
- }
- 
-+static char *skip_spaces_and_commas(const char *str)
-+{
-+	str = skip_spaces(str);
-+	while (*str == ',')
-+		str = skip_spaces(++str);
-+	return (char *)str;
-+}
-+
- /*
-  * Split the buffer `buf' into space-separated words.
-  * Handles simple " and ' quoting, i.e. without nested,
-@@ -336,8 +344,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 	while (*buf) {
- 		char *end;
- 
--		/* Skip leading whitespace */
--		buf = skip_spaces(buf);
-+		/* Skip leading whitespace and comma */
-+		buf = skip_spaces_and_commas(buf);
- 		if (!*buf)
- 			break;	/* oh, it was trailing whitespace */
- 		if (*buf == '#')
-@@ -353,7 +361,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 				return -EINVAL;	/* unclosed quote */
- 			}
- 		} else {
--			for (end = buf; *end && !isspace(*end); end++)
-+			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
- 				;
- 			if (end == buf) {
- 				pr_err("parse err after word:%d=%s\n", nwords,
-@@ -628,7 +636,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 		if (split)
- 			*split++ = '\0';
- 
--		query = skip_spaces(query);
-+		query = skip_spaces_and_commas(query);
-+
- 		if (!query || !*query || *query == '#')
- 			continue;
- 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 6f1d11828b79..a357905e3606 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -537,8 +537,8 @@ function GOLDEN_RECORDS {
- #K= 02e4fd94602e108cb89bfc70d47a5dad FT_basic_queries.5
- #K= f03a7ca7316e8db4c0e16523dc41e75d FT_basic_queries.6
- #K= c518a50ba30ba8099d0dc874a27ecf16 FT_basic_queries.7
--#K= 2b4b152bdb82e6e4a5be18ca26025895 FT_test_classes.1
--#K= 5516e3d13cba7ea4197a7fb6c033887a FT_test_classes.2
-+#K= 91838b4012c50a1dc1d9e210ba8d68f8 FT_test_classes.1
-+#K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
- #K= 2cee6842c9cdee5cb3bf50b2e3914813 FT_test_classes.3
- #K= 81b16613f8d444485e2bc5aa4d38d024 FT_classmap_inheritance.1
- #K= c14c8aa758e24046b3237d20e2189bf7 FT_classmap_inheritance.2
+Changelog:
 
--- 
-2.55.0
+v5:
+General:
+ - Patch series based on 7.3-rc1
+Driver:
+ - Fixed KConfig dependencies (OF and BACKLIGHT_CLASS_DEVICE)
+ - Initializing baclight with backlight_properties struct
+ - Moved driver from drivers/gpu/drm/chipwealth to drivers/gpu/drm/tiny
+ - Fixed allocation for hwbuf if width or height are not multiple of 8.
+   I was allocating less memory than needed in those cases.
+ - Fixed damage rect horizontal alignment.
+
+Note: The last two fixes listed were pointed out by Sashiko in some
+occasions but when I checked them I dismissed them for false positives
+because I misunderstood them.
+
+Note 2: Sashiko keeps complaining that i2c transfers are called in
+atomic_update callback stating that it is forbidden to call sleeping
+functions there because we are in an atomic context. AFAIK this atomic
+context is not that the kernel is in a non-sleepable state, but refers
+to the DRM way of working by doing check -> commit. In fact, the driver
+I based this driver (st7571) and others (ssd103x) do i2c transfer in an
+atomic plane update. Am I missing something?
+
+v4: [6]
+General:
+  - Patch series based in kernel v7.3-rc1
+Driver:
+  - Fixed nits found by Christophe JAILLET.
+  - Fixed max_width and max_height in modeset to avoid having bigger
+  framebuffers than resolution.
+
+v3: [5]
+- General:
+  - Patch series based in kernel v7.2
+- In dt-bindings:
+  - Removed "chipwealth,contrast" property (added backlight_device
+    support in driver's code)
+  - Renamed "chipwealth,invert" -> "chipwealth,inverted"
+  - Added default value to "chipwealth,offset"
+  - Removed 'status = "okay"' from example
+  - Indented example with 4 spaces as stated in the documentation [4]
+- In driver code:
+  - Added support for backlight_device
+  - Replaced drm_dev_unregister with drm_dev_unplug to cover the dt
+    overlay unload case
+  - Executing drm shutdown operations before turning off the display
+  - Checking that the width (panel-timing.hactive) and height
+    (panel-timing.vactive) parameters are greater than 0
+
+v2: [3]
+- General:
+  - Patch series based in kernel v7.2
+- In dt-bindings:
+  - Fixed linter problems
+  - Replaced first_page property with offset
+- In driver code:
+  - Fixed dst_pitch calculation
+  - Renamed file from ch1115.c to ch1115-i2c.c
+  - Support flip-vertical and flip-horizontal dt properties
+  - Fixed several things found by sashiko-ai
+
+v1: [2]
+
+[1] https://datasheet4u.com/download/1576606/CH1115.html
+[2] https://lore.kernel.org/all/cover.1786110720.git.nico.antinori.7@gmail.com/
+[3] https://lore.kernel.org/all/cover.1787321297.git.nico.antinori.7@gmail.com/
+[4] https://docs.kernel.org/devicetree/bindings/writing-schema.html#annotated-example-schema
+[5] https://lore.kernel.org/all/cover.1787973729.git.nico.antinori.7@gmail.com/
+[6] https://lore.kernel.org/all/cover.1788711082.git.nico.antinori.7@gmail.com/
+
+Nicolás Antinori (3):
+  dt-bindings: display: add Chipwealth CH1115 OLED Controller
+  drm/ch1115: add support for Chipwealth CH1115 OLED controller
+  MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
+
+ .../bindings/display/chipwealth,ch1115.yaml   |  81 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  17 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/ch1115-i2c.c             | 895 ++++++++++++++++++
+ 6 files changed, 1002 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+ create mode 100644 drivers/gpu/drm/tiny/ch1115-i2c.c
+
+--
+2.47.3
 
