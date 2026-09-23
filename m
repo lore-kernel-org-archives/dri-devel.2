@@ -4,60 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E47C982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:01:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A70CC982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 08:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8000910E832;
-	Wed, 23 Sep 2026 08:01:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DE910EF87;
+	Wed, 23 Sep 2026 08:03:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EZJvuFK3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4COAFWss";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A883D10E832
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790150457;
- bh=zXwNfcltf0fh2SEKI0ytJpBVxjyciMisHLld203veVc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=EZJvuFK3ahsw8EuGjthmeXmkXrQEb85HQDxot2lyfZDbLoFpl2Gmge0eX/pJwix/B
- /jf/ENDsN67bqmoVnlXj9nPkU6y4jxYJgg2F+wb5D/URzIczlnRM1Q3vsYMPLP2EL9
- 1ME2OKxrZDGN1p8S3flz8b9yo1ArQu7sKz46e42LIXYGWwiKNqxeB/+8WqLVfu/NSM
- YDGMD5k7XwuTuDM6ZiRktqYulpAgTovsRgB0+GWGLgkDj8r0HDN6c5nj/wdrZ+QgKC
- Zpw1vxE/LbVBStUf5RJDAeP4xjEeTDizNLWfoKGhZLRFcHsF+NCW2FUmHKalaJ13rX
- JsGJ+Kp5IRvmA==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 893D217E0803;
- Wed, 23 Sep 2026 10:00:56 +0200 (CEST)
-Date: Wed, 23 Sep 2026 10:00:49 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 06/16] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
-Message-ID: <20260923100049.6c127f3a@fedora-21.home>
-In-Reply-To: <arGhZayS8zH4y-61@sobremesa>
-References: <20260914112237.70dedb9c@fedora-21.home>
- <arGhZayS8zH4y-61@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012054.outbound.protection.outlook.com [40.107.209.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B5DB10EF66;
+ Wed, 23 Sep 2026 08:03:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lenqgBmgwcLfp/Ogk9ZF8wJsIP3SEvyoLJTqWwzjYTaRiNRitcc6RBo0zQ4gP2ko1js+7acrlxdpva2QQLpaab75A5CDqOsCVfFTgJi4YvS3jktpXMxWtve+8ZMEkXK6po6lS9x+DW6b98SGSFLOJbDyz+YWosGMuObAkLBlH352nKuGB4rsIUdvxRH/T+SL3K/7jbuOVT+C3egJGD0XgrC4axcHaZlYJlJMrWyo4w2kyz4czQevUg2scXQDPpY8WJ2bWeiqSM6gSyw/mKOYhEcvVO4eSATLUbnkIxPq7tTv1597WBszxdgFFBOykmow2PAXeOC6Ak4CQUO2zUbSSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
+ b=MqdqFSPUAOBmgy1bbvmiVmSKCO04OszTeoIRv34NY6EwAQRCHE0PxsfaV/RiOOYRlxzAKlrudAl3hXAbepQTs5Uo+TJDBU4TNzkTdr099P2cNh2eOmZLGWbirvI3rqlrfnSXo0bXDHJGtkF/AzLwTaewSVKolTnD/2GFITS+Q2yZMGu0Dwd9CGPm5AOnapXWTfoqZTOqICCi0LaGkhhYNAsnHj9kV3wHYr91du3jRIaSknc6bZip/P7SEiURdomNz8XfpON7BQtnZoFgBPwvB++8Wg2kctP99MZgfmPqUQ829PYJmHfdYsGkL27OAcBeV5pNT19uM/leaCQgVcPUCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
+ b=4COAFWss5kIw03jr4Ir5xjq/h3xyTV1oiUto3aDEymFLNXeO4uuiSXq9mRA9NZu3I9yGHnnIrgJBGT1V9UwsfA2HOZq+CbcROu4mdQqpklGvRgXXVfJTr+qJas+0mWkMbOH/Lf4n1+XNxZeprxLEhbC0Gq0DQF6dFlY2Inh5yGI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
+ 2026 08:03:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 08:03:26 +0000
+Message-ID: <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
+Date: Wed, 23 Sep 2026 10:03:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+To: Jianfeng Liu <liujianfeng1994@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Karl Mehltretter <kmehltretter@gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+ <20260923074256.9357-2-liujianfeng1994@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260923074256.9357-2-liujianfeng1994@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0315.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8419:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|5023799004|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: 9ekffflhBCx6uxh/xf32orR1uAdoiEaRJnv4FtnS+cxx520OdoACxIT2m0Gu1eradp/ABYHHXdldoUKP0P57c6Y8MCSXh6ysBHrUaazBJKeVAjuIukwKhB1uMqT80PdtMo7xq9cXVyk5/JKqBJZqfbICAmn7NAREWeTgBdKZP6AmLHpxro1oeg38DuSeoxcu4nT2S8/mVxms8cEJfN7Iop9XAGZpGwIGoGEj6pNK+fy+Iu+sd+wvhNF2B5hO+h2jzH6GhSApH/0nHxvUHcBotfb0EB6fjIMjDBnqRQtVnjjbalbO/ttz4i3qaI+fLKw029JYeaQxyL2opJeJsPN+q0FAQaX1nbucgzL/AJnlZx5Qy6fkX5L+xDy4fKTVwi6Uhf+YW0WNBQVB4Dhpa6hsq7ca9dk5+n4kXvcFCLDYhTcQGLhK5ZlMgI2T132WznwuOApSnOdBT9X4E2UCSTBdPVz+frX5y6KkDDs/yjy4o5m6ms+aey5g2HdDlH9QibPyUaejCy+2Xn19X8M4d9D9RL2AHSmaBOxk13A6vvBzZdeH7cRWjfGL1j8o9MV2kA2qdi8KKTjLUeQLA85Pcs/OgDhOBoE5q5619jkcfGsRfN2VO/nS2/svO3OxJ4AsPDmdyNAnHn2mWSbUU7+irnZDMiHwiRwt5E8HZ3P/D0GGwTs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGRidzVMOTBkZjNvWDcwSGliZXVyRVBiL3RLWTJkL1FmczNia1NuTjRTbjcx?=
+ =?utf-8?B?U1g2RVRuUjNXZ21kRDJRQms1c01EU3VSTzFkVEoyNUZVZDl0WGthRlBrY2tu?=
+ =?utf-8?B?WVkzeWFUOTNNUnZ3Y0x5Mk8wZDUrMzR6UWs0N09QTjlGZktRU0NlYSszZWlY?=
+ =?utf-8?B?QjVoeEFHcG91dURZMDcvWklZeDR5cXZ4OHkrLzFoTU5mQkpnd1ZseURWakdK?=
+ =?utf-8?B?MnRrMi9QdDM5cXNwQzlCTmh0TlhGbkJsRU1Pd0RFTCs5VVBrVmxtNHdWczFJ?=
+ =?utf-8?B?L3hVVFRoVEQyZU5kMTVkSDNtZmZmS1ZRVFN1YWZkVUhQYWJtNnFYQVJHQWRY?=
+ =?utf-8?B?R1ZSY0RoQ0ROeHhZcERMYkVmSTkrSUNpNk83VjgrWHl5M05Ed2RSQmc3Wmlh?=
+ =?utf-8?B?TndROUx5OSs0ckVZREJtNG1GMlBTdThvbWs5eFlYSE15SFRFQnJZTXJpVU5o?=
+ =?utf-8?B?K2tKVHVqK0VPOWhaZDlwb1ZSOUxjWEdZcldGenFNbVkzclFnVjBOb0MycUhT?=
+ =?utf-8?B?OFdXa1d3ZUF4bytIbG9qeVdMRkljTS9YTzI0MS90NmpKYVBtL3pMbVdCYXh1?=
+ =?utf-8?B?L2R4UFRNbzBPMkVUSjdhQjI3MkVBZHFmbnp2ME1LVXlWYUtoZEpLTGhxZVdJ?=
+ =?utf-8?B?QWxsd3J3bHl3ZDluZkNUajI2d3prZ1MxTUM3dnBTVUVyK0NhVDZueHdnRHJ2?=
+ =?utf-8?B?bjR5eFdSNmNHMkFUbkdOeEpNVlYvVkVWcWNvcU9wR3IyenlxS0QyUTVUaTdO?=
+ =?utf-8?B?dFlZVUU2cmdWQXc1SlY1UlE0NmI1NENtbDNNaUdiKzhtTG1rM0RhRDBMWTBB?=
+ =?utf-8?B?TzlKVG1HV2YwM1NpbzNIY2pqRk9iaGpsaFNDdkFDdzlPdndVb1Avd05UVkNk?=
+ =?utf-8?B?aVh2enI1Y1UrQkN2djhuSHEybWxKK3R1UW1tMzZRWHAyOUVQbWF2VDdMd3hZ?=
+ =?utf-8?B?UkFyZnViSFk4VUcvcWovSnhhQU1jakVGYXFvbnNUaWJWVVcxQXRIbVZLTUh2?=
+ =?utf-8?B?Y2RzTlZLT2FxZWhtTUlJUlROZUNPNTVGZ0R1MlB3VXRMbVFoN2ZrdkRJNHBp?=
+ =?utf-8?B?Qlh2Vmt1ZTZqN0s0a0I2UFJHYTloa0kyWk50a0Q2RXcrZ0NwOU1iYkU2UWFW?=
+ =?utf-8?B?TENWUEgxSGgwak1HaktXbUlUNXNOempid2FFUFdSNkxuZEF0N1hROUZBTWtN?=
+ =?utf-8?B?UXlrTWhzaEtia2pKREdMc0s5ai9SeTR4VjlqaXVtMkFYRnQzeTdka29DNjlF?=
+ =?utf-8?B?Z004eUZqbXFiYVRaTkhjVzNGSlBSbXlWV0hjcTFkZGszYjk2L2syeWtJTUtV?=
+ =?utf-8?B?UTFTTzl1bU9aZWttNE9jUUVEdmxITS9mbGpGYk9lbkpIQ0trWjE3K0RmUmtQ?=
+ =?utf-8?B?ZDd0UDE1S1RucHc4WFlmS0FFUzd3RFFLYVRBYUZhV2ZIY1dHZlhZcEJjdE5k?=
+ =?utf-8?B?UG9VT0psRDJYa3I3YXJkRGhzV09uOVB1TU1xdUdhK2ZZaFBSL0h6VnFTMUVN?=
+ =?utf-8?B?QktEWElZalZnZ3JWMW1XTDgzWkRaK0JNcDhuTU9OLzI1Q1VwRkpZaFNPYzdS?=
+ =?utf-8?B?THY5NTFZcmVObEo0dlFldUpvMUtPaWoyWHVaL20rZFBLZWQ5UENEbjg4NWRw?=
+ =?utf-8?B?ZHJRWFZseGZ4OHl1RDlGRk4yNGE5bTlFV0o1cDNSZjljN1RRc2NQVitGUm9x?=
+ =?utf-8?B?TXBzcmRuT1NNQWVpR1JEUEFBZk1tcEsydEZ0N3hwZFFCcFZ3c2lab1ZpTkEz?=
+ =?utf-8?B?QVd2L2pJRkhsTTdCZzVRZkpLbWR3bEpucEI0YmJ2MWdlYTVhZGRFbFJIb3l4?=
+ =?utf-8?B?QTZSbUlEb2p3aTBVVDk5VGV0N21NS2pvcUJqMCtoTTRxaWVINy9iRVd0TDUx?=
+ =?utf-8?B?enN3VHU1YjN2TDdRVTYvVUc0MzUzNkJMUFlLN0dvNkFxS1JoYU5KVWUvSWZz?=
+ =?utf-8?B?RWxGTWtzcmg2QUlGS3dNMFIvNE1DcGxZWTdXRDJxQWMwVXRoNHB2dlArQlUx?=
+ =?utf-8?B?eU40eGlST2ZTQjVtK3VSaWc1MUVJQXRNQWR6NERUbXpEMWx5MzNDcEtKUmJ5?=
+ =?utf-8?B?SUtSM2dxUTdtRjd2VzU4bEg1U3IrbG5KQ3JkWTA5Z1plUForYjNJUmpKMGJh?=
+ =?utf-8?B?YkhlNDhuTEp2YXpmSEVvb0tZS1JQN0U2WU9yOUdBR25xcGZranlobCt2Y3Zr?=
+ =?utf-8?B?dGJDOXlLdzdqekFsSkoxNWJJQXhYSzYvSkQ0d1VVa0EvbDRuOFJZbkZ1Y0I2?=
+ =?utf-8?B?S3RndUxrS21uNGV3MGZSVHg5cThjazJrbEpMR0RjL1dLZXFpNGE3QUFqRjRw?=
+ =?utf-8?Q?tUAreIR3hLYCCAjWRE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:03:26.8371 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JEMman8ulaQugxz95TQ0xYcyHXIDpICzT/FxljpBxoqrlJfyFQ6pMqIAeCLcRF2R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,209 +144,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 22 Sep 2026 20:51:48 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On 9/23/26 09:42, Jianfeng Liu wrote:
+> [Sie erhalten nicht häufig E-Mails von liujianfeng1994@gmail.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+> DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
+> default, which had the side effect of enabling the option (and with it
+> the page-stripping sg_table wrapper handed to importers) on every
+> kernel with DEBUG_KERNEL=y - i.e. virtually every distro kernel.
+> 
+> drm/msm is broken by this: it maps imported dma-bufs into the GPU's
+> own pagetables with iommu_map_sgtable(), which needs the struct page
+> of the attachment sg_table, and it fills the GEM object's page array
+> through drm_prime_sg_to_page_array().  With the debug wrapper in
+> place both silently produce garbage (the wrapper zeroes sg->length,
 
-> On 14.09.2026 11:22, Boris Brezillon wrote:
-> > On Sat, 12 Sep 2026 00:28:07 +0100
-> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> >  =20
-> > > During device probe(), failure to do a PM get() will leave the usage_=
-count
-> > > set to 0, which is the value assigned at device creation time. That m=
-eans
-> > > when the autosuspend delay expires, runtime suspend callback won't be
-> > > invoked, so the device will remain powered on forever.
-> > >=20
-> > > On top of that, failure to call PM put() during device unplug means
-> > > Panfrost device's PM usage_count increases monotonically for every new
-> > > module reload.
-> > >=20
-> > > The outcome of both of the above meant that:
-> > >=20
-> > > - Devfreq OPP transition notifications would be printed all the time,
-> > >   even when no jobs are being submitted. This quickly fills the kernel
-> > >   ring buffer with junk.
-> > > - Because MMU interrupts are only enabled when the device is reset,
-> > >   the very first job targeting the tiler heap BO after device probe()
-> > >   would always time out, since the driver's PM runtime resume callback
-> > >   would not be invoked.
-> > >=20
-> > > To fix the above:
-> > > - Manually adjust the PM refcnt at device probe and removal time.
-> > > - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down p=
-ath.
-> > > - Call pm_runtime_put_autosuspend() when device is ready to accept jo=
-bs
-> > > - Move pm_runtime_set_suspended() before panfrost_device_fini() so th=
-at
-> > >   resource unwinding happens in the opposite order as initialisation.
-> > >=20
-> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-> > > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-> > > ---
-> > >  drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
-> > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/dr=
-m/panfrost/panfrost_drv.c
-> > > index 55fc22e8d4d4..a3eff77add55 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > @@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device =
-*pdev)
-> > > =20
-> > >  	pm_runtime_set_active(pfdev->base.dev);
-> > >  	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > > +	pm_runtime_get_noresume(pfdev->base.dev);
-> > >  	pm_runtime_enable(pfdev->base.dev);
-> > >  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames=
- */
-> > >  	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > > @@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_devic=
-e *pdev)
-> > >  	if (err < 0)
-> > >  		goto err_out1;
-> > > =20
-> > > +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> > > =20
-> > >  	return 0;
-> > > =20
-> > >  err_out1:
-> > > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> > >  	pm_runtime_disable(pfdev->base.dev);
-> > > -	panfrost_device_fini(pfdev);
-> > > +	pm_runtime_put_noidle(pfdev->base.dev);
-> > >  	pm_runtime_set_suspended(pfdev->base.dev);
-> > > +	panfrost_device_fini(pfdev); =20
-> >=20
-> > Not an issue per-se, because put_noidle() is a NOP, but I think it'd be
-> > easier to reason about with this order:
-> >=20
-> > 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> >   	pm_runtime_disable(pfdev->base.dev);
-> > 	panfrost_device_fini(pfdev);
-> >   	pm_runtime_set_suspended(pfdev->base.dev);
-> > 	pm_runtime_put_noidle(pfdev->base.dev);
-> >=20
-> > This makes it clear that panfrost_device_fini() assumes the device is
-> > resumed when it's called and suspended when it returns. =20
->=20
-> Your suggestion feels more natural, which makes me wonder why I decided t=
-o move
-> panfrost_device_fini() to the end of the block.=20
->=20
-> IIRC we chatted about where to place pm_runtime_put_noidle() and pm_runti=
-me_set_suspended()
-> in panfrost_device_init() when one of the subsystem initialisations faile=
-d. My intuition
-> had been to leave them until the very bottom of it, in imitation of what =
-you hinted here,
-> but then it'd go against the notion that winding down must be done in the=
- opposite order
-> as initialisation. And so because panfrost_device_init() happens before a=
-ll the pm_runtime_*
-> incantations, I thought panfrost_device_fini() should be placed at the en=
-d in the error
-> and driver remove paths.
->=20
-> That said, I think a more intuitive init order would be one that imitates=
- what happens in
-> Panthor when runtime PM is enabled:
->=20
-> 	/* First thing done in pm_runtime_resume_and_get -> pm_runtime_get_activ=
-e -> __pm_runtime_resume */
-> 	pm_runtime_get_noresume(pfdev->base.dev);
+Interesting point, we should probably change that.
 
-Panthor is a bit different in that it doesn't use noresume/noidle() at
-all. What it does instead is teach the resume/suspend hooks about the
-uninitialized device use case, and it skips some operations when a
-resume/suspend() is done on an uninitialized dev. Panfrost, on the other
-hand, just assumes that clks are enabled manually before any of the
-subsystem _init() helpers are called. TLDR; this
-pm_runtime_get_noresume() can be moved after all the _init() without
-any downsides, and it keeps all PM related-init in just one place,
-which I find neat.
+> so the page iterator yields nothing and an uninitialized array is
+> kept).  The VM_BIND map job then fails asynchronously after userspace
+> has already enqueued GPU work referencing the mapping, which shows up
+> as an arm-smmu translation fault from UCHE, e.g.:
+> 
+>   gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+>   type=TRANSLATION source=UCHE
+> 
+> This breaks hardware video decode (clapper, chromium) on Adreno
+> systems; bisected on a Snapdragon laptop as v7.3-rc3 good,
+> v7.3-rc4 bad, culprit 143755bdabaa9.
+> 
+> Revert the default until importers that legitimately need to build
+> phys-based mappings have been converted.
 
-> =09
-> 	/* Now come subsystem initialisations */
-> 	panfrost_gpu_init(pfdev);
-> 	panfrost_mmu_init(pfdev);
-> 	panfrost_jm_init(pfdev);
-> 	panfrost_perfcnt_init(pfdev);
-> 	panfrost_gem_init(pfdev);
-> =09
-> 	/* __pm_runtime_resume -> rpm_resume first invokes the resume callback a=
-nd then
-> 	 * updates runtime status to RPM_ACTIVE. */
-> 	pm_runtime_set_active(pfdev->base.dev);
-> =09
-> 	pm_runtime_enable(ptdev->base.dev);
->         pm_runtime_mark_last_busy(pfdev->base.dev);
-> 	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> 	pm_runtime_use_autosuspend(pfdev->base.dev);
->=20
-> And then in the error and device remove path would be almost just like yo=
-u suggest.
->=20
->         pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> 	pm_runtime_disable(pfdev->base.dev);
-> 	pm_runtime_put_noidle(pfdev->base.dev);
-> 	panfrost_device_fini(pfdev);
-> 	pm_runtime_set_suspended(pfdev->base.dev);
->=20
-> The only difference is that pm_runtime_put_noidle() happens before device=
-_fini
-> because that's the same order as in __pm_runtime_suspend().
+Well that won't work like this, pointing those things out is exactly what DMABUF_DEBUG is made for.
 
-I really think we should keep the init/fini order consisten, so
-put_noidle() should be after the _fini() calls. But as I said above,
-I'd probably have get_noresume() called after all the _init() functions
-instead, since we can afford it in Panfrost, and it helps keeping all
-the PM-related calls in just one block.
+What MSM is doing here is not allowed at all and can break badly. We gave drivers 5 years to get that fixed and I'm now pushing for completely deprecating that hack.
 
->=20
-> However, that means in the commit where I move all DRM initialisation into
-> panfrost_device_init(), in order to keep things consistent, I should move
-> pm_runtime_set_suspended() to the very end of the error path.
+See patch 84335675f2223cbd25d0de7d38ecc7d40b95bd4a:
 
-It probably doesn't matter much actually, because as soon as
-pm_runtime_disable() is called, nothing can change the RPM state
-anymore. So maybe scratch all of my comments, and we stick to what you
-had. It's just a transition state anyway, so, as long as it doesn't
-regress the probe/remove logic, it's probably fine.
+Author: Simona Vetter <simona.vetter@ffwll.ch>
+Date:   Fri Jan 15 17:47:39 2021 +0100
 
->=20
-> > >  err_out0:
-> > >  	return err;
-> > >  }
-> > > @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_devi=
-ce *pdev)
-> > >  	drm_dev_unregister(&pfdev->base);
-> > > =20
-> > >  	pm_runtime_get_sync(pfdev->base.dev);
-> > > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> > > +	pm_runtime_put_noidle(pfdev->base.dev);
-> > >  	pm_runtime_disable(pfdev->base.dev); =20
-> >=20
-> > Let's keep the order consistent with the probe path:
-> >=20
-> > 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> > 	pm_runtime_disable(pfdev->base.dev);
-> > 	panfrost_device_fini(pfdev);
-> > 	pm_runtime_set_suspended(pfdev->base.dev);
-> > 	pm_runtime_put_noidle(pfdev->base.dev);
-> >=20
-> > I also think this deserves comments to explain the noresume/noidle
-> > dance (device_init/fini take care of clks internally, and when they
-> > return the device is resumed/suspended, so all we have to is update the
-> > state, and acquire a ref). =20
->=20
-> I don't mind doing this, but I think the fact we're calling noresume/noid=
-le
-> functions already implies device power-up is being handled manually rather
-> by having RPM invoke resume and suspend callbacks behind the scenes, so
-> we've no choice other than adjusting PM user counter and status ourselves.
+    dma-buf: Add debug option
 
-Fair enough.
+When MSM needs the struct page then it must import a shmemfd and not a DMA-buf. What we could do is to either fix MSM or mark it as broken.
+
+Regards,
+Christian.
+
+> 
+> Fixes: 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels")
+> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+> ---
+> 
+>  drivers/dma-buf/Kconfig | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index e4f078a326a41..b3c581ef4c987 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -43,7 +43,14 @@ config UDMABUF
+>  config DMABUF_DEBUG
+>         bool "DMA-BUF debug checks"
+>         depends on DMA_SHARED_BUFFER
+> -       default y if DEBUG_KERNEL
+> +       # NOTE: keep this default n.  The page-stripping sg_table wrapper that
+> +       # this option installs for importers breaks drivers that build a
+> +       # second-stage IOMMU mapping (phys -> iova) from the attachment sg_table
+> +       # and therefore still need the struct page, e.g. drm/msm with its
+> +       # per-process GPU pagetables.  Until those importers are fixed, making
+> +       # this default y breaks hardware video decode and GPU workloads out of
+> +       # the box on affected systems.
+> +       default n
+>         help
+>           This option enables additional checks for DMA-BUF importers and
+>           exporters. Specifically it validates that importers do not peek at the
+> --
+> 2.47.3
+> 
+
