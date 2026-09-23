@@ -4,53 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2D3C982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2663C982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:47:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A06310E356;
-	Wed, 23 Sep 2026 11:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9882D10E08D;
+	Wed, 23 Sep 2026 11:47:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JfwNsnSJ";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ceYSL3st";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 531FF10E356
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 11:23:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 89040600AA;
- Wed, 23 Sep 2026 11:23:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247491F000FF;
- Wed, 23 Sep 2026 11:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790162592;
- bh=LQ8zpcYLHlC/xHOUgHpHFt33WgSiUzGFFjBEuuxh4rM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=JfwNsnSJ7b2IUUacwbm8HxGoXi2ST5ryLkbkJoGFyg2NrcZzbBvHu+BOvzzgs2B8q
- Z9ZYRgwUSU/xXKV5mpjdp14Nf3LC9SI4oeo9xRYE9GkTQoEPs+UotwFtXz8jpg9fzE
- fBatJXDhI3YswO2favtKZbaUpakGNE0uWXbZ01m7WsYfnfgvjGEb5X4Do03dz4yrPz
- WiZJPZfKX1vaNoIcrTdE+tSwo7Ulc2pH0MJF02szyzzM8Otxm/Zg+H3sx4eUm3kEww
- IjbDz6RgvIviP+tZCBDTY8mAQJbWafG1OOLbrphrYdXFV32iIDJUuI/DFTu3AwLcpU
- ZNfzcSdhrsdJw==
-Message-ID: <385341aa-db86-4f22-851f-85c0e6a0ca89@kernel.org>
-Date: Wed, 23 Sep 2026 13:23:08 +0200
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8204310E08D;
+ Wed, 23 Sep 2026 11:47:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1790164018;
+ bh=6ZM7U7B23fZdP8KfJT13YymZsJzXrFdTfmOBL5ZqVLo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ceYSL3st+7DSoVOzMoqE6VusNMSF8XkpQfB66v67myqZlQVZMR25jlXVabewaaRfo
+ 2Ajl1A97jnOooMeeuv0TZwGb5wz+LOO96xa1MJhajqaASakgVTLKPDwY98ctVEEXhB
+ u91avSNws4UBPTPaMZXepOCSuz0urtNS7Dng+wZmR61/XLLqu1JdaCaECfr9TTX8iJ
+ CE5wOtOq6vqQHfuQnA1G6U4nS8TX18QAyGYf03bMTI2ftBVZ6O2p5IjxiucicTwJTW
+ KsGCga1KKEZBQiI+kTqFV4YnXUe9c2+cGsXtBvC4jNyLjfQGYXlE6r8Web8cp565G7
+ 1fN8ew63gP0XA==
+Message-ID: <22d31b4d-5efc-46ca-ab40-2205a77fa33d@lankhorst.se>
+Date: Wed, 23 Sep 2026 13:47:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] video/logo: Improve logo help texts
-To: Geert Uytterhoeven <geert+renesas@glider.be>, Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <024a2d7e9a6b63d261f6ca4afb1a75d4f540defa.1790154481.git.geert+renesas@glider.be>
-From: Vincent Mailhol <mailhol@kernel.org>
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+ <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+ <20260709110200.2_5Eg8xF@linutronix.de>
+ <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
+ <20260918083118.POmXtJuv@linutronix.de>
+ <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
+ <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
+ <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
 Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <024a2d7e9a6b63d261f6ca4afb1a75d4f540defa.1790154481.git.geert+renesas@glider.be>
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,82 +65,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 23/09/2026 at 11:09, Geert Uytterhoeven wrote:
-> Since commit dfa6ce636cb8faea ("video/logo: allow custom logo"), the
-> LOGO_LINUX_{MONO,VGA16,CLUT224} configuration options no longer control
-> the inclusion of the "standard" Linux logo, but the inclusion of
-> (possibly custom) logos specified through the correspondig *_FILE
-                                                ^^^^^^^^^^^^
-Typo: corresponding (missing 'n')
+Hey,
 
-> options.
+On 9/23/26 09:19, Tvrtko Ursulin wrote:
 > 
-> Adjust the one-line prompt to reflect this.
-> Add long help texts while at it.
+> On 18/09/2026 12:19, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 9/18/26 11:44, Tvrtko Ursulin wrote:
+>>>
+>>> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
+>>>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
+>>>>> Hey,
+>>>> Hi Maarten,
+>>>>
+>>>>> Yeah the problem was similar, I believe neither check should exist,
+>>>>> instead the caller should give this information like the comment mentions.
+>>>>
+>>>> Any update here? Maybe I have been left out on reposts. Any chance this
+>>>> gets in before the LTS of this year gets out?
+>>>
+>>> Side question, there was a bunch of sashiko issues against v4 - have those been addressed?
+>>>
+>>> As today it is the first time I see patch 7/7 which is a bit of a scary one. I have to ask how much does Intel commit to fixing out any potential breakage given the status of i915?
+>>>
+>>> + other maintainers FYI
+>> Patch 7/7 addresses a real issue, it just happened to be more easily found on PREEMPT_RT.
 > 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-I added some comments, but notwithstanding of these:
-
-Acked-by: Vincent Mailhol <mailhol@kernel.org>
-
-> ---
->  drivers/video/logo/Kconfig | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
+> In this case, have you pulled it out from the series and sent standalone?
 > 
-> diff --git a/drivers/video/logo/Kconfig b/drivers/video/logo/Kconfig
-> index cda15b95891ed3a8..3cb66ac88d6be0fe 100644
-> --- a/drivers/video/logo/Kconfig
-> +++ b/drivers/video/logo/Kconfig
-> @@ -19,7 +19,11 @@ config FB_LOGO_EXTRA
->  	default y if SPU_BASE
->  
->  config LOGO_LINUX_MONO
-> -	bool "Standard black and white Linux logo"
-> +	bool "Black and white Linux logo"
-> +	help
-> +	  Include a monochrome (black and white) Linux logo.
-> +	  This logo can be shown on all kinds of displays.
-> +	  Say Y to show a logo on monochrome displays.
->  
->  config LOGO_LINUX_MONO_FILE
->  	string "Monochrome logo .pbm file"
-> @@ -36,7 +40,13 @@ config LOGO_LINUX_MONO_FILE
->  	    magick source_image -compress none destination.pbm
->  
->  config LOGO_LINUX_VGA16
-> -	bool "Standard 16-color Linux logo"
-> +	bool "16-color Linux logo"
-> +	help
-> +	  Include a 16-color Linux logo.
-> +	  This logo can be shown on displays that support showing (at least)
-> +	  the standard VGA 16 color palette.
-> +	  Say Y to show a logo on color displays that are limited to less than
-> +	  256 colors.
+>> I haven't had much time to look at PREEMPT_RT lately, I'll see if I can get some time to look at
+>> sashiko, but lack of reviews have not been helping.
+>>
+>> Every time I send out revised patches, it takes a few months before I receive a response.
+>> By that time I have moved on to other projects, and finding time takes a lot of time again.
+>> If the cycle took only a few days I could finish this quickly and get it merged.
+> 
+> Sounds like Intel is not officially supporting/funding your effort. I am also helping out unfunded in my private time so cannot really promise to improve things much in terms of promptness of reviews, or even promise to review in the short term.
+> 
+> In any case it sounds like the best plan is to send the fix which applies to !PREEMPT_RT as standalone and see if anyone bites. Problem still be merging such a large change so I expect maintainer acks will be needed in any case.
 
-Maybe state that if supported, this takes precedence on the monochrome logo.
+I've sent the other fixes instead, still missing 2 r-b's:
 
->  config LOGO_LINUX_VGA16_FILE
->  	string "16-color logo .ppm file"
-> @@ -55,8 +65,13 @@ config LOGO_LINUX_VGA16_FILE
->  	      -remap drivers/video/logo/clut_vga16.ppm destination.ppm
->  
->  config LOGO_LINUX_CLUT224
-> -	bool "Standard 224-color Linux logo"
-> +	bool "224-color Linux logo"
->  	default y
-> +	help
-> +	  Include a 224-color Linux logo.
-> +	  This logo can be shown on displays that support showing a palette of
-> +	  256 or more colors.
-> +	  Say Y to show a logo on colorful displays.
+https://patchwork.freedesktop.org/series/174789/
 
-Same, if supported, it takes precedence on the two other logo types.
-
->  config LOGO_LINUX_CLUT224_FILE
->  	string "224-color logo .ppm file"
-
-
-Yours sincerely,
-Vincent Mailhol
-
+I'll send 7/7 separately, and see what happens. If nothing else, it'll be on the mailing list to pick up. I believe that a concrete goal "Fix this specific code to work with PREEMPT_RT, it's the only thing holding us back", will eventually add motivation to merge the specific fixes, or develop another solution that will be accepted.
