@@ -4,179 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365CAC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D4FC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D66510F8C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41DDB10F8C1;
 	Fri, 25 Sep 2026 07:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="iQ7F2kiQ";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GtbBBWx8";
 	dkim-atps=neutral
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E50110F0D7
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:59:30 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-532e9ad9a1eso236071cf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:59:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790179169; cv=none;
- d=google.com; s=arc-20260327;
- b=Gx7n6l0KowvWPCLoEIyPRJRPRRDkFzemLMByDwm/Sw43MiXLFyc3OMshPc5RfkynLY
- fRDBGup3DGcSvhndk8iq+a/VOeim8CLPFqctLSdE2w8pizZCOgrmYt5uwNpp2RhMlY84
- HjY1LgMQ9E5nBTi4UEQhrEXXxSbjLhdwuBLaKCDDd6mf7ObmcSBjwweXp8WGegDr4B5c
- QoCLOvS+pMqUaEWTkzwleP+iOZiCzKUU05jKuw0aaxY/TnJ1IhaGJ9qLk/qWuxdW5HAk
- nJgEoPKRRPyHUxk78OtOqsCwMtSEsFyQH1gc/WeC9UZIU1cjjDR2sC3w3Sw4a4vjXpTM
- Ty1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=h5SJVNSnlSjsq34C95HzHvRHsOZa9DdGTi/lITK1YAw=;
- fh=+Bjl63Wop8+ySFDStPew6SLVtWVja1wWFbL/lBD93OU=;
- b=qqxr8Ua2OxHkZlqW9r6XryfT7tq6jaVDTGCUclI+I84LAoT4tSFPZACeNdhWWEk3ou
- 6dnY+uY0PVp8Qj5ulgfb4+oNg6C+KYUjejVPwHPJSfquqeVtkuMQjC9ZLUYk058VfOZR
- QWGlkcmAMvgs3r29U8HNHY/UmQuHHa7fwLN//InbXVawmmGvbupn9lohzkAk9E6qqc+5
- 0S30dYLlA8aIuWov5NWhmGc4bpiAFfMjf0DiU+5yXN9T8Z0KwUIDvi9717fLtr9PSkRZ
- PW5o6+a+tOUNHrnI3gzm/L62tEWgE3+pVJSshzzgtCw8G64ZZgFgidwmyIalCz999PDB
- d/XA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790179169; x=1790783969;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=h5SJVNSnlSjsq34C95HzHvRHsOZa9DdGTi/lITK1YAw=;
- b=iQ7F2kiQakJf7w0MM2I1yQZ32YD/po58sUQoGvZMcAPWqBFzui6XY74Pa0RZq+EASY
- RHs2FzId7GumGfFvyufXPhJL/P7J/5fhEZIHofYUzPtWJPmo22dWw7dR1/nSUalg2ZpW
- ESQA1S1Y5Rq/Z++ICXLfhJ6hObqJNYRvmJ+hFueBpj5NJKO1S66nnGMYveIwcWKta/9Q
- NLy8ysPN2cRgeXb/ZLkX15UOaUEW93KXLyAJHBPuHjsuPUN82EJP09Sq/5YYjDOUqael
- SPxnCSrwtqVQyvmcX3kIxb6Tw0GqCdfSfsmfypfLisDJQL4vi6zmUVtjDxVNUZrRQ4aF
- xrZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790179169; x=1790783969;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=h5SJVNSnlSjsq34C95HzHvRHsOZa9DdGTi/lITK1YAw=;
- b=ySNDxgb/AsWmC7Fper4yq+MkN3bi+0lyrDBEeWz6ldars/kLltiD5h1kChO/yyI2PZ
- jpaFgUaaD5ySP2FcDV7yOFNfFeAFaje3jdCLUbuOiKVYmrJ5ITWxYKZYgoNdPiM516Fp
- 7hoZb+HuhMC/bOXnyHUAfJswJTj7cuNW47kDcwcTR36dCR7LjTJIVX1d+Ks6B9jLAd9b
- ni5QTKYNsqYjMX5x+UtueDy/u2jO4L+Fo/gq/c39i5FUfuNPFaVOe5mNHw0EhINiNL8J
- QdFq/JCsGMJNklwduTea0QapmcDa5O/NCoOZgPDpx9GzQ56YjZfTFJHP+R8G9z2gNnE3
- +qkg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxi77z5VPFKGcBTSe1WWydRLrQfPbOBtzevMj0bhAv/zVQL5tYK269VpYiy67CSy3KNgzRSfAkjCww=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mmRAPNprbSHXKo/qobhwEZY90Zr0lFh2A6UAW3Xc+VHRzxzAWe
- gpPUvmuPt8N47Gk8qySy094rcBsWsJbB8LIvZ8LxmYTZEmAANr1K3Q9ydfxfS56J1n+lrjWc0tS
- PtEunK6zkHiS4njNLyNJ4JVSvRSBEp4XvTog5lvW6
-X-Gm-Gg: AYBFou0zBOTHPCaiNZwC/D2d/qHWk7Kr1JX6lBW8e/M8AoJQSL2E/lBX6MD93gGgp2O
- aj1TpfoqZ2Ih35LRCf5mlOqztJrDKqn0agB+4GuL3Xh+15lhT8t6h0xs0VeBJAHBLGocHuIa/Pe
- gjxKgOPgDvcVgalo8RWSlvYohRu5Gp1UGnktqDDZJICq5xdeMFMh8f1Sx9dLjRPA/U9kw8RNctv
- lJ+rL6DnfdGM1RXI9gusXl3n4DUPpfS70gGQRgovUHrZpAgsj7ZzrIUWKFMlYQb51Jn0nXiOfKb
- pwUpGu7GMSQ0oNDuw4PxiwlekuzpN/utKIqNIFwEP5GqCJ0Qt7X1rpdsxW4cWAlZgsrdLqqDpY/
- kYB0uoh6OVrBOaiDzVQVf
-X-Received: by 2002:ac8:5989:0:b0:532:ad75:e432 with SMTP id
- d75a77b69052e-532f8ea0340mr1106341cf.8.1790179167963; Wed, 23 Sep 2026
- 08:59:27 -0700 (PDT)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B270010EFE9;
+ Wed, 23 Sep 2026 11:56:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
+ 8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=GtbBBWx8o3bPyAJuvu
+ mZ5CAfp92OTbH0OiXcS8saYWkl9/TxX7eVhvvhP7MlGjO/faZ2acic7M0pyfapc2
+ B2P9ZOXJsDO3iHShLjk0XkKn6MiUjPoQPR3ifh38jke1LDDBsahgRoQoX2XTMU9d
+ bAVVA5lD/FcdY/07NHjY25IV8=
+Received: from fedora (unknown [])
+ by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
+ _____wD3X_VzvrNqsRlYAQ--.35554S2; 
+ Wed, 23 Sep 2026 19:56:36 +0800 (CST)
+From: Xizhe Tang <xizheTang2005@163.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Xizhe Tang <xizheTang2005@163.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or
+ PR !async
+Date: Thu, 24 Sep 2026 03:51:59 +0800
+Message-ID: <20260923195200.21362-1-xizheTang2005@163.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
- <CAJuCfpFe+pLusPy-xWYHp2rTP1becBb2nhX16xXd+hKD5Q+Z3g@mail.gmail.com>
- <arPw-ivHytA_YZTQ@gremlin>
-In-Reply-To: <arPw-ivHytA_YZTQ@gremlin>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 23 Sep 2026 08:59:15 -0700
-X-Gm-Features: AclHuK-LB3FJjVej026w9dFvJtSh1nBWJXsZp4uIwz4rkW0AFsOG-iMlndIpr-4
-Message-ID: <CAJuCfpF8u=uCkqQ6+2BiOo2ufR3E-JM97ML-_Sbo4cQBfeEHuQ@mail.gmail.com>
-Subject: Re: [PATCH v3 01/40] mm/vma: fix mmap_prepare file handling,
- remove file_doesnt_need_get
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3X_VzvrNqsRlYAQ--.35554S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
+ 47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
+ yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
+X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hRUq2qzvnR+ggAA3u
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -193,473 +63,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 8:47=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> On Wed, Sep 23, 2026 at 08:21:58AM -0700, Suren Baghdasaryan wrote:
-> > On Thu, Sep 17, 2026 at 9:23=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kern=
-el.org> wrote:
-> > >
-> > > The map->file_doesnt_need_get flag is confusing and the existing
-> > > implementation has holes.
-> > >
-> > > Drivers are permitted to change the owning file of a mapping. If they=
- do
-> > > so, they are required to take a reference on that file.
-> > >
-> > > The mmap() operation which ultimately invokes __mmap_region() is guar=
-anteed
-> > > to drop the refcount for the original file the mapping was made under=
-, but
-> > > this is not true for the replaced file.
-> > >
-> > > This has been addressed so far by tracking map->file_doesnt_need_get,=
- which
-> > > is rather poorly named and unfortunately fails to correctly track whe=
-ther
-> > > or not an additional put were needed in a number of cases.
-> > >
-> > > Make life easier by removing this flag, and instead drop the referenc=
-e for
-> > > both mmap_prepare and the deprecated mmap callback in a new function
-> > > put_map().
-> > >
-> > > Track whether this needs to be done by aligning mmap_state with
-> > > vm_area_desc and store the original file in the map->file field, keep=
-ing
-> > > the updated file in map->vm_file.
-> > >
-> > > In order to have the same behaviour for both types of hooks, only dro=
-p the
-> > > reference __mmap_new_file_vma() itself took in its error path, deferr=
-ing
-> > > the replaced file's reference to put_map().
-> > >
-> > > To make this work correctly, map->vm_file has to be updated before an=
-y
-> > > error handling, so update __mmap_new_file_vma() and call_mmap_prepare=
-() to
-> > > set this field first.
-> > >
-> > > Also when mmap_prepare() changes the file and is then merged, the ref=
-erence
-> > > count also must be decremented, so update the logic to call put_map()=
- in
-> > > this case too.
-> > >
-> > > Also update __compat_vma_mmap() to manually perform this step for sta=
-cked
-> > > file systems using the compatibility layer, and update
-> > > compat_set_vma_from_desc() to replace vma_set_file() with a correct
-> > > refcount/file update.
-> > >
-> > > No in-tree driver is impacted by the incorrect implementation of this
-> > > currently (no driver that does this is mergeable for one), so this do=
-es not
-> > > need to be a fix.
-> > >
-> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > ---
-> > >  mm/internal.h |  1 +
-> > >  mm/util.c     |  5 +++-
-> > >  mm/vma.c      | 83 +++++++++++++++++++++++++++++++++++--------------=
-----------
-> > >  mm/vma.h      |  6 +++--
-> > >  4 files changed, 59 insertions(+), 36 deletions(-)
-> > >
-> > > diff --git a/mm/internal.h b/mm/internal.h
-> > > index 0dca33db068f..fe576d468af4 100644
-> > > --- a/mm/internal.h
-> > > +++ b/mm/internal.h
-> > > @@ -7,6 +7,7 @@
-> > >  #ifndef __MM_INTERNAL_H
-> > >  #define __MM_INTERNAL_H
-> > >
-> > > +#include <linux/file.h>
-> > >  #include <linux/fs.h>
-> > >  #include <linux/khugepaged.h>
-> > >  #include <linux/mm.h>
-> > > diff --git a/mm/util.c b/mm/util.c
-> > > index bf0513d1d3d0..016932780925 100644
-> > > --- a/mm/util.c
-> > > +++ b/mm/util.c
-> > > @@ -1228,8 +1228,11 @@ int __compat_vma_mmap(struct vm_area_desc *des=
-c,
-> > >
-> > >         /* Perform any preparatory tasks for mmap action. */
-> > >         err =3D mmap_action_prepare(desc);
-> > > -       if (err)
-> > > +       if (err) {
-> > > +               if (desc->vm_file !=3D vma->vm_file)
-> > > +                       fput(desc->vm_file);
-> > >                 return err;
-> > > +       }
-> > >         /* Update the VMA from the descriptor. */
-> > >         compat_set_vma_from_desc(vma, desc);
-> > >         /* Complete any specified mmap actions. */
-> > > diff --git a/mm/vma.c b/mm/vma.c
-> > > index 55917d097933..fa784f069da4 100644
-> > > --- a/mm/vma.c
-> > > +++ b/mm/vma.c
-> > > @@ -24,7 +24,8 @@ struct mmap_state {
-> > >                 vm_flags_t vm_flags;
-> > >                 vma_flags_t vma_flags;
-> > >         };
-> > > -       struct file *file;
-> > > +       struct file *file;      /* mmap()-specified file. */
-> > > +       struct file *vm_file;   /* May be updated by mmap_prepare. */
-> >
-> > Overall I like the change but I think you could avoid extra churn by
-> > keeping the name of `file` as is and add `struct file *orig_file`
-> > instead as:
-> >
-> > +       struct file *orig_file;   /* mmap()-specified original file. */
-> > -       struct file *file;
-> > +       struct file *file;      /* May be updated by mmap_prepare. */
-> >
-> > Then many uses of map->file would stay unchanged.
->
-> I didn't actually want to do the churny version of this but the problem
-> with doing something else is that would then contradicts what's in
-> vm_area_desc:
->
-> struct vm_area_desc {
->         /* Immutable state. */
->         ...
->         struct file *file; /* May vary from vm_file in stacked callers. *=
-/
->         ...
->         /* Mutable fields. Populated with initial state. */
->         ...
->         struct file *vm_file;
->         ...
-> };
->
-> And suddenly what is 'file' there (inherited file) is the modifiable one
-> here and it's more confusing.
->
-> As per the commit msg:
->
->         Track whether this needs to be done by aligning mmap_state with
->         vm_area_desc and store the original file in the map->file field, =
-keeping
->         the updated file in map->vm_file.
->
-> But maybe I need to make that decision clearer there?
+A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
+refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
+("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
+On this panel the first modeset at boot is vertically streaked.
 
-Ah, I see. The description is clear, I was just too focused on the
-churn, I guess.
-The reasoning to rename makes sense to me.
+intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
+timings program flipline too:
 
->
-> >
-> > >         pgprot_t page_prot;
-> > >
-> > >         /* User-defined fields, perhaps updated by .mmap_prepare(). *=
-/
-> > > @@ -43,8 +44,6 @@ struct mmap_state {
-> > >
-> > >         /* Determine if we can check KSM flags early in mmap() logic.=
- */
-> > >         bool check_ksm_early :1;
-> > > -       /* If .mmap_prepare changed the file, we don't need to pin. *=
-/
-> > > -       bool file_doesnt_need_get :1;
-> > >  };
-> > >
-> > >  #define MMAP_STATE(name, mm_, vmi_, addr_, len_, pgoff_, anon_pgoff_=
-, vma_flags_, file_) \
-> > > @@ -58,6 +57,7 @@ struct mmap_state {
-> > >                 .pglen =3D PHYS_PFN(len_),                           =
-     \
-> > >                 .vma_flags =3D vma_flags_,                           =
-     \
-> > >                 .file =3D file_,                                     =
-     \
-> > > +               .vm_file =3D file_,                                  =
-     \
-> > >                 .page_prot =3D vma_flags_to_page_prot(vma_flags_),   =
-     \
-> > >         }
-> > >
-> > > @@ -70,7 +70,7 @@ struct mmap_state {
-> > >                 .vma_flags =3D (map_)->vma_flags,                    =
-     \
-> > >                 .pgoff =3D (map_)->pgoff,                            =
-     \
-> > >                 .anon_pgoff =3D (map_)->anon_pgoff,                  =
-     \
-> > > -               .file =3D (map_)->file,                              =
-     \
-> > > +               .file =3D (map_)->vm_file,                           =
-     \
-> > >                 .prev =3D (map_)->prev,                              =
-     \
-> > >                 .middle =3D vma_,                                    =
-     \
-> > >                 .next =3D (vma_) ? NULL : (map_)->next,              =
-     \
-> > > @@ -2447,7 +2447,7 @@ void mm_drop_all_locks(struct mm_struct *mm)
-> > >   */
-> > >  static bool accountable_mapping(struct mmap_state *map)
-> > >  {
-> > > -       const struct file *file =3D map->file;
-> > > +       const struct file *file =3D map->vm_file;
-> > >
-> > >         /*
-> > >          * hugetlb has its own accounting separate from the core VM
-> > > @@ -2496,7 +2496,7 @@ static void vms_abort_munmap_vmas(struct vma_mu=
-nmap_struct *vms,
-> > >
-> > >  static void update_ksm_flags(struct mmap_state *map)
-> > >  {
-> > > -       map->vma_flags =3D ksm_vma_flags(map->mm, map->file, map->vma=
-_flags);
-> > > +       map->vma_flags =3D ksm_vma_flags(map->mm, map->vm_file, map->=
-vma_flags);
-> > >  }
-> > >
-> > >  static void set_desc_from_map(struct vm_area_desc *desc,
-> > > @@ -2506,7 +2506,7 @@ static void set_desc_from_map(struct vm_area_de=
-sc *desc,
-> > >         desc->end =3D map->end;
-> > >
-> > >         desc->pgoff =3D map->pgoff;
-> > > -       desc->vm_file =3D map->file;
-> > > +       desc->vm_file =3D map->vm_file;
-> > >         desc->vma_flags =3D map->vma_flags;
-> > >         desc->page_prot =3D map->page_prot;
-> > >  }
-> > > @@ -2586,6 +2586,10 @@ static int __mmap_setup(struct mmap_state *map=
-, struct vm_area_desc *desc,
-> > >         return 0;
-> > >  }
-> > >
-> > > +static bool map_same_file(struct mmap_state *map)
-> > > +{
-> > > +       return map->vm_file =3D=3D map->file;
-> > > +}
-> > >
-> > >  static int __mmap_new_file_vma(struct mmap_state *map,
-> > >                                struct vm_area_struct *vma)
-> > > @@ -2593,20 +2597,23 @@ static int __mmap_new_file_vma(struct mmap_st=
-ate *map,
-> > >         struct vma_iterator *vmi =3D map->vmi;
-> > >         int error;
-> > >
-> > > -       vma->vm_file =3D map->file;
-> > > -       if (!map->file_doesnt_need_get)
-> > > -               get_file(map->file);
-> > > +       vma->vm_file =3D map->vm_file;
-> > > +       if (map_same_file(map))
-> > > +               get_file(map->vm_file);
-> > >
-> > > -       if (!map->file->f_op->mmap)
-> > > +       if (!map->vm_file->f_op->mmap)
-> > >                 return 0;
-> > >
-> > >         error =3D mmap_file(vma->vm_file, vma);
-> > > +       map->vm_file =3D vma->vm_file;
-> > > +
-> > >         if (error) {
-> > >                 UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_e=
-nd,
-> > >                             map->prev, map->next);
-> > > -               fput(vma->vm_file);
-> > > -               vma->vm_file =3D NULL;
-> > > +               if (map_same_file(map))
-> > > +                       fput(map->vm_file);
-> > >
-> > > +               vma->vm_file =3D NULL;
-> > >                 vma_iter_set(vmi, vma->vm_end);
-> > >                 /* Undo any partial mapping done by a device driver. =
-*/
-> > >                 unmap_region(&unmap);
-> > > @@ -2623,7 +2630,6 @@ static int __mmap_new_file_vma(struct mmap_stat=
-e *map,
-> > >                         !vma_flags_test(&map->vma_flags, VMA_MAYWRITE=
-_BIT) &&
-> > >                         vma_test(vma, VMA_MAYWRITE_BIT));
-> > >
-> > > -       map->file =3D vma->vm_file;
-> > >         map->vma_flags =3D vma->flags;
-> > >
-> > >         return 0;
-> > > @@ -2631,7 +2637,7 @@ static int __mmap_new_file_vma(struct mmap_stat=
-e *map,
-> > >
-> > >  static void map_set_anon(struct mmap_state *map)
-> > >  {
-> > > -       map->file =3D NULL;
-> > > +       map->vm_file =3D NULL;
-> > >         map->vm_ops =3D NULL;
-> > >         map->pgoff =3D map->addr >> PAGE_SHIFT;
-> > >  }
-> > > @@ -2643,7 +2649,7 @@ static bool map_is_private(const struct mmap_st=
-ate *map)
-> > >
-> > >  static bool map_is_anon(const struct mmap_state *map)
-> > >  {
-> > > -       return map_is_private(map) && !map->file;
-> > > +       return map_is_private(map) && !map->vm_file;
-> > >  }
-> > >
-> > >  /*
-> > > @@ -2688,7 +2694,7 @@ static int __mmap_new_vma(struct mmap_state *ma=
-p, struct vm_area_struct **vmap,
-> > >         }
-> > >
-> > >         /* Invoke callbacks. */
-> > > -       if (map->file)
-> > > +       if (map->vm_file)
-> > >                 error =3D __mmap_new_file_vma(map, vma);
-> > >         else if (!is_anon)
-> > >                 error =3D shmem_zero_setup(vma);
-> > > @@ -2797,11 +2803,15 @@ static int call_mmap_prepare(struct mmap_stat=
-e *map,
-> > >         int err;
-> > >
-> > >         /* Invoke the hook. */
-> > > -       err =3D vfs_mmap_prepare(map->file, desc);
-> > > +       err =3D vfs_mmap_prepare(map->vm_file, desc);
-> > >         if (err)
-> > >                 return err;
-> > >
-> > > -       /* It's invalid for mmap_preprare hooks to clear vm_ops. */
-> > > +       /* Update first so file refcount tracked correctly. */
-> > > +       if (desc->vm_file !=3D map->vm_file)
-> > > +               map->vm_file =3D desc->vm_file;
-> > > +
-> > > +       /* It's invalid for mmap_prepare hooks to clear vm_ops. */
-> > >         if (!desc->vm_ops)
-> > >                 return -EINVAL;
-> > >
-> > > @@ -2811,10 +2821,6 @@ static int call_mmap_prepare(struct mmap_state=
- *map,
-> > >
-> > >         /* Update fields permitted to be changed. */
-> > >         map->pgoff =3D desc->pgoff;
-> > > -       if (desc->vm_file !=3D map->file) {
-> > > -               map->file_doesnt_need_get =3D true;
-> > > -               map->file =3D desc->vm_file;
-> > > -       }
-> > >         map->vma_flags =3D desc->vma_flags;
-> > >         map->page_prot =3D desc->page_prot;
-> > >         /* User-defined fields. */
-> > > @@ -2826,7 +2832,7 @@ static int call_mmap_prepare(struct mmap_state =
-*map,
-> > >          * anonymous mappings. Rather than allowing these mappings to=
- be odd
-> > >          * outliers, simply make them truly anonymous.
-> > >          */
-> > > -       if (map_is_private(map) && file_is_dev_zero(map->file))
-> > > +       if (map_is_private(map) && file_is_dev_zero(map->vm_file))
-> > >                 map_set_anon(map);
-> > >
-> > >         return 0;
-> > > @@ -2845,7 +2851,7 @@ static void set_vma_user_defined_fields(struct =
-vm_area_struct *vma,
-> > >   */
-> > >  static bool can_set_ksm_flags_early(struct mmap_state *map)
-> > >  {
-> > > -       struct file *file =3D map->file;
-> > > +       struct file *file =3D map->vm_file;
-> > >
-> > >         /* Anonymous mappings have no driver which can change them. *=
-/
-> > >         if (!file)
-> > > @@ -2868,6 +2874,20 @@ static bool can_set_ksm_flags_early(struct mma=
-p_state *map)
-> > >         return false;
-> > >  }
-> > >
-> > > +static void put_map(struct mmap_state *map)
-> >
-> > nit: maybe put_map_file() to be more specific?
->
-> Sure will change.
->
-> >
-> > > +{
-> > > +       /*
-> > > +        * An error occurred or the VMA was merged.
-> >
-> > It's a bit weird that the function explains when it is being used.
-> > Having an appropriate comment at the call site seems better to me.
->
-> Ack will change.
->
-> >
-> > > +        *
-> > > +        * If the file was changed by the driver (which is required t=
-o increment
-> > > +        * the replacement file's reference count), drop its referenc=
-e count.
-> > > +        *
-> > > +        * On error, the caller always drops the original file regard=
-less.
-> > > +        */
-> > > +       if (map->vm_file && !map_same_file(map))
-> > > +               fput(map->vm_file);
-> > > +}
-> > > +
-> > >  static unsigned long __mmap_region(struct file *file, unsigned long =
-addr,
-> > >                 unsigned long len, vma_flags_t vma_flags,
-> > >                 unsigned long pgoff, struct list_head *uf)
-> > > @@ -2922,7 +2942,10 @@ static unsigned long __mmap_region(struct file=
- *file, unsigned long addr,
-> > >
-> > >         __mmap_complete(&map, vma);
-> > >
-> > > -       if (have_mmap_prepare && allocated_new) {
-> > > +       if (!allocated_new) {
-> > > +               /* Merged, so need to drop refcount. */
-> > > +               put_map(&map);
-> > > +       } else if (have_mmap_prepare) {
-> > >                 error =3D mmap_action_complete(vma, &desc.action,
-> > >                                              /*is_compat=3D*/false);
-> > >                 if (error)
-> > > @@ -2936,13 +2959,7 @@ static unsigned long __mmap_region(struct file=
- *file, unsigned long addr,
-> > >         if (map.charged)
-> > >                 vm_unacct_memory(map.charged);
-> > >  abort_munmap:
-> > > -       /*
-> > > -        * This indicates that .mmap_prepare has set a new file, diff=
-ering from
-> > > -        * desc->vm_file. But since we're aborting the operation, onl=
-y the
-> > > -        * original file will be cleaned up. Ensure we clean up both.
-> > > -        */
-> > > -       if (map.file_doesnt_need_get)
-> > > -               fput(map.file);
-> > > +       put_map(&map);
-> > >         vms_abort_munmap_vmas(&map.vms, &map.mas_detach);
-> > >         return error;
-> > >  }
-> > > diff --git a/mm/vma.h b/mm/vma.h
-> > > index e97bd2dfa786..f15faa83f3d6 100644
-> > > --- a/mm/vma.h
-> > > +++ b/mm/vma.h
-> > > @@ -394,8 +394,10 @@ static inline void compat_set_vma_from_desc(stru=
-ct vm_area_struct *vma,
-> > >
-> > >         /* Mutable fields. Populated with initial state. */
-> > >         vma_set_pgoff(vma, desc->pgoff);
-> > > -       if (desc->vm_file !=3D vma->vm_file)
-> > > -               vma_set_file(vma, desc->vm_file);
-> > > +       if (desc->vm_file !=3D vma->vm_file) {
-> > > +               fput(vma->vm_file);
-> > > +               vma->vm_file =3D desc->vm_file;
-> > > +       }
-> > >         vma->flags =3D desc->vma_flags;
-> > >         vma->vm_page_prot =3D desc->page_prot;
-> > >
-> > >
-> > > --
-> > > 2.55.0
-> > >
->
-> --
-> Cheers, Lorenzo
+	intel_vrr_compute_fixed_rr_timings():
+		/* For fixed rr,  vmin = vmax = flipline */
+		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+
+intel_vrr_compute_config() takes that path when VRR is not actually
+enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
+intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
+intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+
+Gate the terminal condition on the states that consume the SDP:
+crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
+Leave the Panel Replay aux-less-ALPM early-return from the same commit
+unchanged.
+
+CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
+cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
+refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
+vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
+
+This is a no-op while VRR is actually active. It does not fix Adaptive
+Sync = Always corruption, nor the non-atomic SDP update named by the
+#FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
+
+Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
+rebuilding only xe.ko with this hunk:
+
+  Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
+  infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
+  clean. This boot: six s2idle suspend/resume cycles, all clean.
+
+  Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
+  infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
+  appearance on Always is not claimed.
+
+  CMRR / FAVT: not tested.
+
+On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
+
+  7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
+  7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
+                      operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
+
+  Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
+  good | BIT(3).
+
+Changes in v2:
+- OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
+  At fixed refresh v2 matches v1.
+  v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
+Cc: stable@vger.kernel.org # 7.2.x
+Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
+Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+ 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
+ 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+ 		return true;
+ 
+-	return intel_vrr_possible(crtc_state);
++	return crtc_state->vrr.enable ||
++	       crtc_state->cmrr.enable;
+ }
+ 
+ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+--
+2.47.0
+
