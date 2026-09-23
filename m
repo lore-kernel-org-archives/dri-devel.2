@@ -4,105 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF06C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 04:50:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6EDC98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 04:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0686710E7D9;
-	Wed, 23 Sep 2026 04:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A87D10E7D7;
+	Wed, 23 Sep 2026 04:56:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZqhvPnDo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="akS8YkeR";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1826510E06A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 04:50:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nk/rSNYMc7gVxLbrSfGLrgEhDwVko8weFGvSqGt+B5D4bmJMIUIX9mvZeKg1BoLe3MIBLkR2qi0V6HU5Mjy5ENzsWihIjx74LpCz5+IyK9PpSPsjAqq2ykctqodSIR/PBfss/0HGk6a7CU312Cq8+2uOkzoaLcAwtAFRBk6DqP6lVHBDZg/UCJpcRZD42HOlpUaRMImVUWbiP7vwKtDp+NHFvfOaOm/+Xzz+V03RT16YIc/sWd9nXf7ByXUWSuJYOQzZ+1lY9t5UhiUZ2OncNnHP2IlqQ03ErZWu+H5YI3GenYAsOcx/piM705QbxGHquEfmdD42tMqehCbuBNFKEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zU+uVd+227+xF4/+8dn+gEr+uR9xnAqyc332ULoR3ro=;
- b=TE3znwThTYi/u/RQotSg6fGXeop1Pk8pPEuXDsz1uJKbrg1iLLwc3w8lg1/Y0zXEWPZG8iADCQ8eQlnbovQuAwQTbF+7lte2Vmpwyl9aDpJ6ABGvWHogDbhxiaDvm+ov88LRTgG8BvEZapKVvDgcnx6LXmOZm/AtAAzl9pyNqJbQFLLtvc1HxnGGhfW8bPgk0uEs6EUlTI5IvPgULeIZ1AJpY2Wh5xNE01mKC818Pd0n2+PM4N71x/BWL/KRKJ92Z/Qy9NVQWZD9+e10fQF7LhOQSMURIB+4DMCc9fmavU911uO/NcnPP8+m7iifYr5ksPNqq+Z/RK8Snbui7RNIYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zU+uVd+227+xF4/+8dn+gEr+uR9xnAqyc332ULoR3ro=;
- b=ZqhvPnDohIARTcg0a3lurG/klqWgGMUEwegGiHOX252Bb15qPIdYaiNIFlljNykAde5MDVQR52BnWpXX+cPp/Ir0nL+XFHT9tPx6s2tKna7e6cnDp6E9d5A4bnZAqAQVBTTdzcIzyqs3FSoR5w6QUm7cqvobF5XPLHx1nweP1uU=
-Received: from BY3PR05CA0003.namprd05.prod.outlook.com (2603:10b6:a03:254::8)
- by SN7PR12MB7300.namprd12.prod.outlook.com (2603:10b6:806:298::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.20; Wed, 23 Sep
- 2026 04:50:27 +0000
-Received: from MWH0EPF000C6187.namprd02.prod.outlook.com
- (2603:10b6:a03:254:cafe::37) by BY3PR05CA0003.outlook.office365.com
- (2603:10b6:a03:254::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 23
- Sep 2026 04:50:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6187.mail.protection.outlook.com (10.167.249.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 04:50:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 23:50:26 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 23:50:25 -0500
-Received: from james-PlumDAP-MDS1.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49
- via Frontend Transport; Tue, 22 Sep 2026 23:50:22 -0500
-From: James Lin <PingLei.Lin@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH] drm/atomic-helper: Skip redundant disabled plane commits
-Date: Mon, 21 Sep 2026 22:30:11 +0800
-Message-ID: <20260921143049.46985-1-PingLei.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com
+ [74.125.228.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0640D10E7D7
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 04:56:06 +0000 (UTC)
+Received: by mail-pz2-f40.google.com with SMTP id
+ d2e1a72fcca58-87ac7657a24so234586b3a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 21:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790139365; x=1790744165; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=o1SOesHNHdnwoiL8FAjnK92erd43AfuOxzvjh4ET6B0=;
+ b=akS8YkeRcf4OI0YFNcxmN8/YZQpGldU4xTisCsDpUSiQKfYJztNsLyR6zXLkJWroFW
+ YBVfca3okCiXiA6usQzjWDi/2V5J8t1cHlzU/aDg7+mgwU5gNQHBxzWo22vJ3YAKZIhR
+ +Lf3Jo6D0pMj5zG1B3Tk2m4mM0jKDwGqvh2IiO9RyYPcpGgOC35eFTUQ+OYI1Vf+pFCX
+ BP65aGiyUGQSLwmH1cZwN3AsRI5GDTyB9iAugzjwgsTVFDxJjaGhBjTjIn8J6zXfRDzZ
+ F0KbYRg2bGhHhTnvA392TlkZysimqfEU8N3UwuPThgeCRq/BPwCBCUdRt+Pvfzc5huNK
+ Wrzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790139365; x=1790744165;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=o1SOesHNHdnwoiL8FAjnK92erd43AfuOxzvjh4ET6B0=;
+ b=swbZdYslXckKSgCRLpSCK46Y/Mkx6LF7qdvdtQekxuFqAegTF9A59d/0IBL5hZvczt
+ +xUhTYfJSzCGViIk6xebk+cbe52+AswzfrnOrNSwz/v3El07+L1p7Hx1J5yOBNpbUMOC
+ NLJ5wl4SRTefM0zmoBdZ5Ox4AvRfJpSm2kb1jHx2b1X8AuDfnE/Uaa/XvkNAvT8AOzsc
+ KbVukB8jSGVJTtDONK57kewY19UqD7VThbKgaKAyv+9FiWHsMVtKIfy0OGgqyifJU4az
+ 6vNzJjbfAPfna9bAkPLIV3dx8qy8lh5SZgdx3kUQDqbaUoVq0zIUyiKaH/LH0K28Ggln
+ eK4A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByPtgOdsPEDp+In90hbxtenp7m5eKs5FLItqYargEyu8LbyVrZDylKjGvGq0dtW2GLBV7y1QRJPMn0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mBcmdlpVFfPCzWqSdXjQXhIeLTsHGHkLbr7Oej3U1h4u309pVV
+ spTTsxxKF/V8/acEYRHsKbRxLu2xOaTjHLCcDz3Gng7k1xwj8VFgROLz
+X-Gm-Gg: AYBFou14k3WLY4wbFLvQm3VuRWH4Ho9MIcLJ69ewzwPEsN6DI96AR7HRT4jy7HbkSu6
+ 59USyQm87hoqYexqYANHW51h9SpyQ6ztKHFpvJDXTXLhdFu0FUznZyIygJrNVYufAh9q5dLkPYF
+ dc+qplnTtzHU487l4DnEoLcpQ/uIYquqzsnuNfGNO4CzyKzHRXjBrrykL8ekEdLUeCIX2Gfnmj5
+ FgG7mdl2dMplf0ftwcd2mCfqBqrbOjkgm8ra+EzZ0YIRa4GjssGrUH7RLj9Y3xLmLsjkkGDmk2j
+ R3S9Khx9OGp4ykyk0nN8sYKbyrCcIcNSv5SCyt/KzUVtfJPtsLSKqtO693mP8QEzYGgw2qIThVT
+ 4sfOjDyIKDGSf5UxmS3Ph6vfmG3FU4qE6bRBJUMGiHxboXRRoBQBERK5IN3W4TQOl8poXllxGsM
+ K3le87/XKFmyRyp19nG9RjXBuCPH5Qz9fexaTihRb0a/H5q6Yq79B33nphmcCUnV4g+xX5amADX
+ QAW
+X-Received: by 2002:a05:6a00:430d:b0:874:706d:9631 with SMTP id
+ d2e1a72fcca58-87d1c9b91b2mr1467960b3a.35.1790139363769; 
+ Tue, 22 Sep 2026 21:56:03 -0700 (PDT)
+Received: from localhost ([95.190.82.222]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-87d1cec2d34sm664129b3a.14.2026.09.22.21.55.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2026 21:56:03 -0700 (PDT)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	jhubbard@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Vladislav Zaharov <vladazaharova2018@gmail.com>
+Subject: [PATCH v5 0/3] gpu: nova-core: retain the GSP-RM log buffers
+Date: Wed, 23 Sep 2026 11:55:48 +0700
+Message-ID: <20260923045551.229259-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6187:EE_|SN7PR12MB7300:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc8f30e7-5c4f-4ec6-edbb-08df192e2f9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: WQWMnaXPH0qusHsKNnqKOYsQOJx7fahN/JQC721whyItj5ccnJl9YeQlcX8m+pXw389BAha7EGa93ztjs8XLU5Hq31JB/ygr/9pqShhrHcbVh7I18j790rpawHpC1+Tr7usdQvrss1fElu4cbTpjPBXKYUlxDvAAnmyyrBBP8qGxQ1ugp7JqoOFATChJP12VpCwc8wIky7GUdyKqLzxQCTO827vtWlnjatEoJg4etNErlhaGl4sfCaofrJWEEgQjxW1PgbhNR8Y9DViKB6ITOZC3LUCXorEUjiiuRajbyoblI2GdRefvSGX7otS+BDtKns48ZUWdCyyBmDOtmfKSdtcd6m7n/TTqNnbLW5k2Ya4/iKWYemfUr0Mmk6lE7jo7tUzV8ND7+2iNKTbaQggn9/S+0+EhJIyyetRQL2pAsQulLBg2HvxCceLBXiLlfBYngbZvH4nv7/1bysDY5+/icGm/w7pLs+W58MWgaRlPjoBggzL4mu+Y0/LsiMTdT97zGabQglra6vU02J9WeMsDjuJAVND3YkN3BDpme2lgY/uwEbXOKafPvGlo99ebil9ZZ1Dqmjdd3xrgxPbwwlc5V9xFK7plvJC9P+pziPo7iKVf6jVlqiBlSn2l7IAAqoB3E0dritm00ure62uHJ6dcajuQ8h+S1TSMMJSzq8VkUyPsIchXujuDYuAv5jkIn34vCYjlWbmQYTb08r4B5GdavA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZTOJylakARjW8f9nbVnCruXPMrsNfB7tl2HBnQCP+ORa9O78VF7aX6Ps6Rm6Oq9VsdvIxXTgXwKMTDhJtoTiUh8LOgCscVVtOJyhE6zQHxxVFBOXCphOiZEWwNevSwnoumSPZBW24fdBf7o2XPb7U9PMpYsfFGiyxw8dzyrYPWVbe0qSwV0Fzi10Zpbi/gqaLWTEZimRRFvoWqZbev3MsQNNKtQYMq/7uh2ccAZEWgIQ4GhWpicPFzj9B56Np1WlR4+Kh5fUfj+ggTnivCyitYMG3BNAbQOuFbAkYiQOldxwXARnsPmdk/0CaO789qzzaIBfCEjlzuZqsqrEhmReCe7kd8HjQzJeHia04sNeUbAOSkUkyk4O2XYsQrf2dInhSI4FFDneIGPgDf3X5ArYXi7YyRk4mxFqFq8FnS9dMg9tyMfcWoYxqziEQcS5M9Wj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 04:50:26.7127 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc8f30e7-5c4f-4ec6-edbb-08df192e2f9d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6187.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7300
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,30 +89,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Return early when the plane has neither a CRTC nor a
-framebuffer to avoid redundant disabled plane commits.
+The GSP-RM log buffers are exposed through debugfs, but the entries are
+owned by the Gpu that probe() builds, and the buffers themselves are DMA
+allocations that cannot outlive the device. They are therefore gone as
+soon as the GPU is unbound, and in particular as soon as probe() fails -
+which is the case todo.rst singled out, and the one where a GSP log is
+worth having.
 
-Signed-off-by: James Lin <PingLei.Lin@amd.com>
----
- drivers/gpu/drm/drm_atomic_helper.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Patch 1 gives the module data a DebugfsData that owns the debugfs root,
+replacing the static that held it. Patch 2 adds a gsp_keep_logs module
+parameter: when it is set, whatever the GSP wrote is copied into that
+same DebugfsData and exposed under a "retained" directory until the
+module is unloaded. Patch 3 drops the now completed task from todo.rst.
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 51f39edc31ed..30cc9c07f455 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -3470,6 +3470,11 @@ int drm_atomic_helper_disable_plane(struct drm_plane *plane,
- 		goto fail;
- 	}
- 
-+	if (!plane_state->crtc && !plane_state->fb) {
-+		ret = 0;
-+		goto fail;
-+	}
-+
- 	if (plane_state->crtc && plane_state->crtc->cursor == plane)
- 		plane_state->state->legacy_cursor_update = true;
- 
+Changes since v4:
+ - no longer reset the pointer to the module data; debugfs_data() takes
+   the bound device and returns a reference tied to it, rather than an
+   Option<&'static> (Gary Guo)
+ - set the pointer from the module initializer, through the binding
+   pin-init makes for the initialized _debugfs field (Gary Guo). v4 said
+   pin-init gives no access to a pinned field there, which was wrong
+ - rebase onto current drm-rust-next
+ - reword comments that no longer matched the code, and use the current
+   Assisted-by format
+
+Testing was done on top of drm-rust-next with the TLV firmware images
+installed. On a GB203:
+
+  - with gsp_keep_logs unset, no "retained" directory is created and the
+    entries disappear on unbind, as before;
+  - with gsp_keep_logs=1, retained/<BDF>/{loginit,logintr,logrm} hold
+    the contents the live entries had, all 64 KiB of each readable;
+  - binding the GPU again recreates the live entries without disturbing
+    the copies, and unbinding it a second time replaces them, leaving
+    exactly one set behind;
+  - with a failure injected after the GSP has booted, probe() fails with
+    -EINVAL, the driver stays unbound, and the logs of that attempt are
+    still readable;
+  - with a failure injected into the Registration instead, the module
+    fails to load, leaves no debugfs directory behind, and the next load
+    comes up with its directory intact;
+  - the copies are released on module unload, and repeated load/unload
+    cycles leave nothing behind.
+
+The parameter does need a value: the Rust bool param ops do not set
+KERNEL_PARAM_OPS_FL_NOARG, so a bare gsp_keep_logs is refused, where the
+C bool would have taken it.
+
+No warnings, oopses or refcount complaints in dmesg throughout. Each
+patch builds on its own; built and checked with CLIPPY=1 and
+rustfmtcheck. checkpatch --strict is clean apart from the MAINTAINERS
+note for the new file, which is already covered by the existing
+"F: drivers/gpu/nova-core/" pattern.
+
+v4: https://lore.kernel.org/nova-gpu/20260913183734.134307-1-vladazaharova2018@gmail.com/
+v3: https://lore.kernel.org/nova-gpu/20260912071842.622696-1-vladazaharova2018@gmail.com/
+
+Vladislav Zaharov (3):
+  gpu: nova-core: move the debugfs root into the module data
+  gpu: nova-core: gsp: retain the GSP-RM log buffers after unbind
+  Documentation: nova: remove completed GSP log buffer task
+
+ Documentation/gpu/nova/core/todo.rst   |  12 --
+ drivers/gpu/nova-core/gsp.rs           | 100 ++--------
+ drivers/gpu/nova-core/gsp/logbuffer.rs | 247 +++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs     | 100 ++++++++--
+ 4 files changed, 347 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/gsp/logbuffer.rs
+
+
+base-commit: e1a9f41b896f0d57eb1165dd8a4c7446be6af638
 -- 
-2.43.0
+2.55.0
 
