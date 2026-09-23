@@ -4,77 +4,193 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E799C98328
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F79C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA08410F8E1;
-	Fri, 25 Sep 2026 07:30:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 652FB10F8E4;
+	Fri, 25 Sep 2026 07:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eop+dxWj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Gr//TUr1";
 	dkim-atps=neutral
-Received: from mail-vs2-f31.google.com (mail-vs2-f31.google.com
- [74.125.227.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9633A10F558
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:30:06 +0000 (UTC)
-Received: by mail-vs2-f31.google.com with SMTP id
- 71dfb90a1353d-5c67e512ee5so786810e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790256605; x=1790861405; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GafHdzyK4yGVm8vNQl3Rr48yBibIJneXjnAJvLweW2w=;
- b=eop+dxWjYWvd1/lA+izKVKqyLMnFp++Y2aXzYo4Q7UHBAP4sfRVleKTKlT+c4By/NI
- i2HEC2/sCzH5CVVEE97lY52mSVFSDHtUFk1Fmnt8AYTRXmH/n2B+g8bRmDKAFOt1tW5R
- CC5IhfkbB9gRPK7g3KYdKk9QPbNtDh4OElBjjBb40TmddoRrbX7JdUrbVCvldV1rQK6V
- usxd+1kGEIxbkyK9HBTS4SdUXV7LMjYQD8N/wpD3nV0+PikISMT8fCLh89hqeeYfdDi9
- VNbWv0iNJ9ePEbDafIHq2Ot2QwAp92G7zdmSexfI2w5eWXiox4M0aMQGgDJ0vRFBY883
- 2d3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790256605; x=1790861405;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GafHdzyK4yGVm8vNQl3Rr48yBibIJneXjnAJvLweW2w=;
- b=EHF9kDvQzC9gHW1e30We1PqQ3dInumLmZExp7sOld6ec1MQEPdXzjbgBZkMyXyrDS8
- 5OcV9sqNPrFaDVa+ZfizoD0dspzUyxMmw36X+bGd/X/M8kG6vw+VujvR3qGOTMk7dEvX
- SU6bVDAo9gCIAQx25nAayGrlioxnWQ+RZ4uG9J64G78utUpYsY8MtpadFMHHZYFpuOcB
- EmN7M/mqwbPcAIdYh15jXCabWE3kJa3ejZyfAt/BLainzY9IW2dyM3Hw7QrMdICSALYW
- QwigDcCou/nyTyc3XU+1O1fLyHQCGqT96RqmHdR9PqP7AeK0rwPc+7OgTaRriXafOZMQ
- b5mg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzXt059bU2xwdNbt+OmijISBwp7ANny2qpu3tUPcm8y0gvEtdPTzE3KfQammjLMBL5SKdvVXhrMp3U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kAGRPX0U2lseRsyXrfgKLSPVzq6El10cgAZT/VwhGpDOABUhu3
- eXlKCUv+Ehpca2a8vwk8bS58nF6g7dbCSg6hEKSvJyOpjo9tSE5M1B/U
-X-Gm-Gg: AYBFou2fJPqCJtSepGmGUq2oHB+GPUGKo9o7hFMv9MMbHUMym/MA9qkGGsDR0BGabLP
- ghdAm4txr8WHki/0Vm5ivQh3EcbgN7p/mx/4/q6KTKizMrk73jB99aZ9GGX4tJaGqhvt/IH8eI9
- YGteAOmHqZoA7KkeqcHea6Hv4QVjceF3eEHfB2rhCyny3gZx3kiiVg2ivZhYo7S9tPmq3rMkpYP
- I2B0HDWfpbmvd3X7CNV3VKx4bGlLbaWi/E+VeGjTwc7yOYyrMBGD0C7mi23HWA/9whvhC8dy9uI
- 3dgczqGCi1gWPziAg1pbybWQYqS4jamLxRk2b4AXWQcCVX8FGJT2mgV2k9v1R2chdy7J1AWTXLU
- /CiYqzoLpuffX/mmwn2dztiLXKSjXfdI6fI7XyCdCfsJuotbFRfjKeAdCN9wZ4DdVvlV/CaBO9X
- AMZWGhaH6GXbKR6kHjXk29Bf46zmialBX0Yva5pPa1wEwFtZugxQcNQbLZvbVGXy1JjqtFjQD8w
- SrG1N9IJriUu7wQz6EE
-X-Received: by 2002:a05:6122:3d0e:b0:5c9:c60a:e9b6 with SMTP id
- 71dfb90a1353d-5cb0c149318mr1312750e0c.22.1790256605213; 
- Thu, 24 Sep 2026 06:30:05 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c9f0582b6bsm7050251e0c.18.2026.09.24.06.30.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 06:30:04 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
- <fbeltranmillalen@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
-Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a re-POST
-Date: Thu, 24 Sep 2026 10:29:52 -0300
-Message-ID: <20260924132952.25054-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011053.outbound.protection.outlook.com
+ [40.93.194.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BDA810F16C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:06:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lqGbFeO9DU6UDkplCSRBwnlShfZfw/Oak5GXwSkwXFVTpDBHHPX6LoNHTW2JeSC9aeV8GpF8a8dZjYvTnTzVn3fIFf3/fOpKHDdOsZOM67VHUhZExgsi7pAZ1SZ7+8O8kgxUjtZPYvxsxLblfbazpVrQD7+u2WW+UaEZvixYDLHQ9xsKd7OM0W68N8dbXXcLE8axY7/mD8k51f/JTVnkMHYcG8w9AaReaFerizU16v4ifIbVSZuvmecZ9hcoA0IDPyP+H9H1OfVEN8WHxqBBBk3denEYSu6GQ8Y351uQ4c6qjhw+5aRIY0e+rqK2oD9qHwYkdrPe2ozPgIujzVQQyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BOyNVeKRu/9wsHn8QCFYQsX3PWzgjdbOwqmDFBWtgG8=;
+ b=nc0ORK+AwPAxjnpKvCN24EF8XNDZv5CX3sAqdP4JAcBak9fpdWBX1y0qzSVKc9FOXNtg36pOZmyMKZMNyYUXH3BfQPoXUG33DSi3pKHNV6ghRtx9V65JXNd/z3DYwYI6Y6L6id9jKjX0V4kbkrHZvsgWWF4A4IYXismO2E5mvSYnTvhBXHPjTgTUg4PX6oU6BLg1eUckzv53ECrJawLCRxuiz+vIIB8txA0T7lf2eQK8pkjsEdRo8wBYeLFHAH+au+U6ibp6I/8taakEwDtRrXf13yOJyd0c4/oQ2+0rt8PLp+qNlQ1fukvcQWUzcraXK3xvgDJoaJCErFguRDCggg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BOyNVeKRu/9wsHn8QCFYQsX3PWzgjdbOwqmDFBWtgG8=;
+ b=Gr//TUr1kHrdmE/sv4thV+efXiTji/kJB+eXcAooL0UNQ8FunYILxMxB7JbTPIR3Qt2CzAOzh0i404obLxy2Zhndjq6mhBBN/JMZE3ajaUNu6gPaj4C//d71NGThuOs4XgVux7NCp2Vg77Iu5vNOSLrzMVuJVX8M9/he6OZQ0Ke9RGxFB8MtVvQ8Bid1K5vPWFby9VopCftjDxu/W4svHrd60URXR/sKYUl1Cp/F3u34p2woc0yn1Vh+WsCrDikkrJ7NP8mLrDfBvAWgi3x+sPbY12kg2a1tmuwcQZhrxT4CfIJkUzVPPBPkCCE+CSSkYdbThGG7DDtNpC2y8pX57g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by LV0PR12MB549960.namprd12.prod.outlook.com (2603:10b6:408:3b6::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 20:06:18 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 20:06:18 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify
+Date: Wed, 23 Sep 2026 16:06:14 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BL1PR13CA0323.namprd13.prod.outlook.com
+ (2603:10b6:208:2c1::28) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV0PR12MB549960:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d67e920-10df-40a6-5309-08df19ae2126
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|366016|376014|1800799024|10067099003|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ruHTBwpA285QO7xfQ3JaJyhxtvOsbInycmqsGfj8SUC2vxcKwLdFe8UZQpVa53EokHzBENA8me1zwnYvYMzNNbrm9yXBbsHODj6OCukQAJi1fnnhgOIqkNw2LAeGQgdcoQRCesmbjAVNvSN+BTwEq9Ia6MICyNkH6CUDkwvzcSpoX2kZBo7hj9Om5S3B5ozNCDICRcf5NPdfjaHjUoycaZMEmr5alBBvvAewKIibYOjJys0PrYmU/KZh7rizCgnifRA5yJ1IssDsL72RZMwBzR/PjPOx8N5YkbnQ4ZjatuwYZXlKzd5cOM6xbckUZdnSinlUZjKl9DUtALCfp5htPHt6IGfkA9stQFi4QIh3TYEY7Eo+YZdNuYFfDzBNKcNZopwHYsbtuImX5R3g8t9pJABHQdLkr93UHHQJYOEQvy7aON2XtqmpkjArXmvWGr4OrxpSFCws8DUuus2Jo8uUEH4Z6ZG4z38Q8hphyZKEITbXmSHRF7O/r2G+5XGToWniTIntaBG7YpEbcRRjkTv6ki7Lf2yl1zfYLoISCEwk9EJAtZ5yFgrymUbqsKYl/WbhGXeJ8wyJa3Tm2/NhRIDZIUefnM8t7d6Bjw9ePbrBAdvHY2Vg/fI8xFXfYjxWcf6eOuwyp/IjM/Nz81gFV1gVYBQr/lV4gfUqm7bfesNk+og=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ino+Wd+e2ukwsf8MskuuANxez24WHYwUiJHMMezH7BweN1ys/JiP5ndMwOe5?=
+ =?us-ascii?Q?ZkRxIuH115P29KtErLdKHqL7uLDoydRvaikB0q3pVedXyrXrCKayLa0UHeOA?=
+ =?us-ascii?Q?XDzUegrb2SVHG/jbLntrgx9gXygeSOBqRoE7pSd3q0wLgq1RwhR9hI3WNnHJ?=
+ =?us-ascii?Q?aRzWrw2JOfyIaWl/zyMePvRqipdVYmLvoVuGm8AvgK/1LA12wa+pY2eugkBa?=
+ =?us-ascii?Q?aDO79PXjBeh0iCpbhdB9PRX/Ypv7H+LQn8ZVKXfXFTaBQCDyG9upRTSLLiby?=
+ =?us-ascii?Q?1FysjOcEh+cgFe5jwG9a6zyRvecV3v5y9ZuLHyBrSWeRk+bssna35Opvhhje?=
+ =?us-ascii?Q?WyAdGpfGkFJanWb/oEIZeumdQsktnv7LtaZGRMNxeiFcaXce5gnvC8KdYeZR?=
+ =?us-ascii?Q?t/clhKiJR8dJ3Wg7cElrGRmeOnwArnri6zj7Oa9mL2ib439ErDBasyeKeMwt?=
+ =?us-ascii?Q?1whkoz+ow2fu5iLV7Xfqq0Gt8rCsGDTgX/6QHHCRoq8jOz2b4E2B7APAnCp4?=
+ =?us-ascii?Q?fZuEtRUdCBiz8+/cxeDCLxW513WdL2mPa4a8RDZe0yCjg5OpEYpdH+r0RxPY?=
+ =?us-ascii?Q?Ffi8jBr05xagfFLoOCuDJZtytZXVczNZCywyjhAIPN3WGMfs0DAxquLPA4G6?=
+ =?us-ascii?Q?iLwMvIHOBzwjwSxxke/xQYkM9XPOpQXCYt07Cc0XhLwGvKPJEOe0+z3FE38C?=
+ =?us-ascii?Q?wY4r2HWvfmCYF72h1J4jb1cAiGGAfSgTD0jBC726sY2X2PjO49D/sQNeXbwQ?=
+ =?us-ascii?Q?yiCI6coM8FdtOZ1GsTM2loYd7C0qOfe+4pCcJQszruw6MQcPRrj9WWk2ZlJ+?=
+ =?us-ascii?Q?WbcJc6hTll8EO1v+czlw7XBhRvYj34RJi4trc+zkgZhejBbheRVUeqnRYw2a?=
+ =?us-ascii?Q?cFriYjHgQsCEw1l5fXlgzuV8pLZAK6qowhzEEukgBK5bvDN8WFqBGdpq4nOX?=
+ =?us-ascii?Q?yWFsgplndMX/GH5qptGga0WhXDyA5FEW6/DgTqi+oMkg+MqIaERAS6QmaItN?=
+ =?us-ascii?Q?g4vn0zBZsaZsFI0b05BiDlJ8gq2m/GfJVrrfHtDQI8+VapW+LrWhdu5QqblM?=
+ =?us-ascii?Q?l8gSIQKsMlwXroSzJPLSSC5I177O+wQbpcYqfJYPwara9mQW3Co+YAOY/+L9?=
+ =?us-ascii?Q?HTrKrlXR/9RBM2NBxaJPgZM+irr3eYPETFA1u/e2J0Yxw7sgcaNV5WJN4y1X?=
+ =?us-ascii?Q?jExnedFEPP5KsXEgluPJeVOc8JrxjkVZnbHTaXeWcX6dOAAEQSv/T+VgP7ul?=
+ =?us-ascii?Q?f4EyVmZ99G693hi0RLcoWcD+kE5Rj34G8NfQywsDLNYgbW+Zsgdn9mHgLqoZ?=
+ =?us-ascii?Q?FuQmvu30qEehcLOaPOQEMKEyg/njWUdf551hnRtZwrPJiWRF3wNL8Xo6y2tS?=
+ =?us-ascii?Q?cb7qeeI5gtMVJs0Gk6SMVVpyhLkZCJPNmPH24lD+tRiQYih01MnWK5pUUPWl?=
+ =?us-ascii?Q?+OsY1NyRcfEoDwnd22W7eMwhe5AP0hvjwYcskKIU272v3XP1WCuwfBGbURPA?=
+ =?us-ascii?Q?rHXhGMxio0BGKKYccbtiimHH3Pui4uy0lGUCdl27P/jVCAkx1QjyuH+TGenh?=
+ =?us-ascii?Q?+WD8DsFyDHNZCBug+QoXB3Z3SXyWOetD8OaS/YfPogXXMfpzIdSeSJUeJOYx?=
+ =?us-ascii?Q?zf7Ed6o1DKKneZeDSv7EainGlHp2Rnh15lz7F+Lfv3EsGyPwEB9h2uuRUQFT?=
+ =?us-ascii?Q?gZUqIoQBzR3jTQ6+5QFCO5dIpSpnW0eiBnvmlRgfmKuw9szz?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d67e920-10df-40a6-5309-08df19ae2126
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:06:18.3971 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4Kh8g4LDR6xd/9h9xKMi2qXz2uqlRiQfuNDhZaM84x829j8oxvbA4SO7ahiv961E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB549960
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,115 +207,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On a MacBookPro14,3 (Radeon Pro 560, POLARIS11) amdgpu has never recovered
-from an ASIC reset: five attempts recorded, zero successes.  Since suspend
-to RAM goes through a reset, S3 fails the same way, and as the internal
-panel hangs off the AMD GPU the machine comes back blind.
+On 17 Sep 2026, at 12:22, Lorenzo Stoakes (ARM) wrote:
 
-The failure looks like VRAM going write-only-dead: writes are silently
-dropped while reads still work, the driver reports success at every step,
-and then it hands the SMU a pointer to a table that was never written:
+> When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_=
+BIT
+> solely to fix a race with migration which might otherwise double-count
+> mlock VMAs.
+>
+> This is unnecessary - at the point of applying folio mlock state, wheth=
+er
+> setting or clearing PG_mlocked, we know whether or not we are locking.
+>
+> Solve this in two ways - thread a boolean through the page table walk
+> indicating whether a lock or unlock is being performed, and run a locki=
+ng
+> walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+>
+> This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implie=
+s
+> VMA_LOCKED_BIT. These are also always cleared together.
+>
+> Then, update folio_add_lru_vma() and mlock_folio() to check only for
+> VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_M=
+ASK
+> instead.
+>
+> Also remove the useless invocation of allow_mlock_munlock() which simpl=
+y
+> returns true if unlocking and instead rename it to allow_mlock() and on=
+ly
+> call it when locking.
+>
+> Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
+> mlock_vma_folio() and folio_add_lru_vma() to simply test for
+> VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as a=
+n
+> unmap racing with the locking walk must still munlock folios the walk h=
+as
+> already counted.
+>
+> While here, also replace some deprecated VMA flag predicates.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/folio.c    |  2 +-
+>  mm/internal.h | 10 +++++++---
+>  mm/mlock.c    | 51 +++++++++++++++++++--------------------------------=
 
-  amdgpu_device_asic_init()  -> 0          (reports success)
-  gmc_v8_0_hw_init()         -> 0          (reports success)
-  memcpy_toio()                             (write silently discarded)
-  send_msg(0x251, ...)                      (SMU parses garbage)
-  smu7_check_fw_load_finish() -> -EINVAL -> black screen
+>  mm/rmap.c     |  4 +++-
+>  4 files changed, 30 insertions(+), 37 deletions(-)
+>
+> diff --git a/mm/folio.c b/mm/folio.c
+> index 47a437e0f7fd..35e242b48870 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct =
+vm_area_struct *vma)
+>  {
+>  	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+>
+> -	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) =3D=3D VM_LOC=
+KED))
+> +	if (vma_test(vma, VMA_LOCKED_BIT))
 
-It is not VRAM dying.  It is the framebuffer moving.
+I think it is worth documenting VMA_LOCKONFAULT_BIT alone means mlock in
+progress, like you did in munlock_vma_folio(). Just to keep the protocol
+explicit for all the readers.
 
-On this machine the Apple firmware places VRAM at MC address 0 on a cold
-boot, and gmc_v8_0_vram_gtt_location() reads MC_VM_FB_LOCATION once, at
-init, to derive vram_start.  A re-POST -- which is what an ASIC reset and
-an S3 resume both trigger -- lets the VBIOS put the framebuffer back at
-its own default instead, 0xf400_0000 here:
+>  		mlock_new_folio(folio);
+>  	else
+>  		folio_add_lru(folio);
+> diff --git a/mm/internal.h b/mm/internal.h
+> index b2c6c9435021..84aa3e6c8bac 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
+>  static inline void mlock_vma_folio(struct folio *folio,
+>  				struct vm_area_struct *vma)
+>  {
+> -	/* The VM_IO check prevents migration from double-counting during mlo=
+ck. */
+> -	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) =3D=3D VM_LOCKE=
+D))
+> +	if (vma_test(vma, VMA_LOCKED_BIT))
 
-  cold boot:   MC_VM_FB_LOCATION = 0x007f0000
-  after reset: MC_VM_FB_LOCATION = 0xf47ff400
+Ditto.
 
-gmc_v8_0_mc_program() programs the system aperture from the stale
-vram_start, but only writes MC_VM_FB_LOCATION and HDP_NONSURFACE_BASE
-under SR-IOV; on bare metal it trusts whatever the VBIOS left behind.
-While the MC is still in pass-through everything appears to work, so the
-mismatch goes unnoticed.  Then gmc_v8_0_gart_enable() sets ENABLE_L1_TLB,
-SYSTEM_ACCESS_MODE=3 and ENABLE_ADVANCED_DRIVER_MODEL, the MC starts
-checking the system aperture, and every access lands outside it -- which
-is why reads return data written before the reset, from a different
-physical place than the writes are going to.
+>  		mlock_folio(folio);
+>  }
+>
+> @@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio =
+*folio,
+>  	 * always munlock the folio and page reclaim will correct it
+>  	 * if it's wrong.
+>  	 */
+> -	if (unlikely(vma->vm_flags & VM_LOCKED))
+> +	/*
+> +	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
+> +	 * mlock_vma_pages_range(). An unmap racing with the walk must still
+> +	 * munlock folios the walk has already counted.
+> +	 */
+> +	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
+>  		munlock_folio(folio);
+>  }
+>
 
-Write the framebuffer location back when it does not match the one the
-driver is working with, which is what the SR-IOV path already does.  The
-comparison keeps this a no-op on machines where the VBIOS restores the
-same location, so nothing changes for them.
+Why I am commenting in the middle of the series? Because I am taking
+a quiz given by LLM based on this series to get myself enough background
+knowledge to review this series. This mlock part came up at part E
+and I only have part F left before I can do the full review. :)
 
-This runs after the VGA aperture has been locked out and with the display
-suspended, so the MC does not need to be stopped; only CPU access through
-the BAR could land while the FB and HDP bases disagree, so BIF_FB_EN is
-cleared around the update and re-enabled below.
-
-With this the GPU survives resets and S3: the machine has since completed
-twelve suspend/resume cycles in a single boot without a failure, and the
-restore is visible on each resume:
-
-  amdgpu 0000:01:00.0: amdgpu: FB location 0xf47ff400 does not match
-  vram_start, restoring 0x007f0000
-
-To be precise about what those cycles prove: the kernel they were run on
-also carries unrelated local patches for this machine's Thunderbolt
-controller, which fails separately.  This patch is the one that brings the
-display back -- without it the GPU never recovered from a reset at all.
-
-Tested on 6.18.49 on a MacBookPro14,3.  I have no other smu7 hardware, so
-this is only known to matter on machines whose firmware boots the GPU at a
-different framebuffer location than the VBIOS default; elsewhere the new
-branch does nothing.
-
-Signed-off-by: Francisco Beltrán Millalén <fbeltranmillalen@gmail.com>
----
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -472,14 +472,42 @@
- 	WREG32(mmMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR,
- 	       adev->mem_scratch.gpu_addr >> 12);
- 
-+	tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
-+	tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
-+
- 	if (amdgpu_sriov_vf(adev)) {
--		tmp = ((adev->gmc.vram_end >> 24) & 0xFFFF) << 16;
--		tmp |= ((adev->gmc.vram_start >> 24) & 0xFFFF);
- 		WREG32(mmMC_VM_FB_LOCATION, tmp);
- 		/* XXX double check these! */
- 		WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
- 		WREG32(mmHDP_NONSURFACE_INFO, (2 << 7) | (1 << 30));
- 		WREG32(mmHDP_NONSURFACE_SIZE, 0x3FFFFFFF);
-+	} else {
-+		u32 fb_loc = RREG32(mmMC_VM_FB_LOCATION);
-+
-+		/*
-+		 * On bare metal vram_start is the FB base found at init (see
-+		 * gmc_v8_0_vram_gtt_location()).  Normally the VBIOS put it
-+		 * there and a later re-POST puts it back in the same place.
-+		 * On MacBookPros with switchable graphics VRAM is at 0 at boot
-+		 * instead, and a re-POST (S3 resume, ASIC reset) moves it to
-+		 * the VBIOS default, away from the addresses the driver
-+		 * already uses.  Move it back.
-+		 *
-+		 * This only happens after a re-POST: the display is suspended
-+		 * and the VGA aperture has been locked out above, so there is
-+		 * no need to stop the MC.  Only CPU access through the BAR
-+		 * could land while the FB and HDP bases disagree, so block it
-+		 * here; BIF_FB_EN is enabled again below.
-+		 */
-+		if (REG_GET_FIELD(fb_loc, MC_VM_FB_LOCATION, FB_BASE) !=
-+		    REG_GET_FIELD(tmp, MC_VM_FB_LOCATION, FB_BASE)) {
-+			dev_info(adev->dev,
-+				 "FB location 0x%08x does not match vram_start, restoring 0x%08x\n",
-+				 fb_loc, tmp);
-+			WREG32(mmBIF_FB_EN, 0);
-+			WREG32(mmMC_VM_FB_LOCATION, tmp);
-+			WREG32(mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
-+		}
- 	}
- 
- 	WREG32(mmMC_VM_AGP_BASE, 0);
+Best Regards,
+Yan, Zi
