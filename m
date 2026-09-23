@@ -4,99 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D94CC98312
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 250D2C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C76510E99D;
-	Wed, 23 Sep 2026 20:05:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4062410F199;
+	Wed, 23 Sep 2026 20:05:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lW7RYjZS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="CpH4z28n";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013052.outbound.protection.outlook.com
- [40.93.201.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0568610E99D
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:05:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OD3jYXerS2209BAdm/3cvbdSznHV/fjFbXkzhLSqyc/auhqNrHlbDUQ7juK7ikvY2CfLcBCx4YvNVPNqr9KW3+U7syBdmhco+IMaixXGRny1o6Pb6vjZLh0ost4ezbQpM3nTwMSZ++MOaf9QmMFHmOgA/1CrZ/Oy26Ma0/3VkOuSHgICQoF7iZVvtkYf6pXWIB5GTurrK9K7z27D7lVx+TrCCmd3S9eOAUhCZgOmY0Uyj+/alGQ/g3jKQRLYMM0B+PW62h0QKXRbwGR6H0YdListZka7owsnu3KUezlDafReiL52PEkfvwBywagQCnnzHNA2KIvJFGILZTvZEByZxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+pCl3tFKxoWh73jWSCDk0U/TyXpWH72QGSRj49w9svs=;
- b=XngmcAYZZKnJEsl3siIRzdPIie4PgBx34tioqrtDBLmdtZrrHbjibxIE5Xlt5EEK6yiRBUeWuvv+U9PPUnTttqY6dJAOuC4atY9X8W9OR0kzWQVe5O3gl4Wh6Wp3FOGrwrO0u5hNDmM6M3oQAomqO8sTwrgF9HdWpbnTt5FfymNettrKpZOdUKcxBo5cNiRymHs4bF0J9NAf2lVEsNP+YASD/c94lFTZUWidVK9m2szemvTVwLCZj/+GTuHxX5+b1CqRuTogxsuGJXuzK0UAOT2Hfcqm1P0jxIqpyOEgp59WGDKusXEFQ307VsjoJWSbpewycbudeuhHfchSsbHAHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+pCl3tFKxoWh73jWSCDk0U/TyXpWH72QGSRj49w9svs=;
- b=lW7RYjZS/gVZPSURTv4t0mqPW3W9ruFVII6tHFvvXfsI//2pOIIHO9d1H6wSBt1GssUoYtBEIxTQyyMNcPKABbgCkbK3v45Ujv/XxZtD35FkkyoaLKcvlmOPmsyuCBNzuhkAwwhmVhwpUF/SvcoBx9DIrpJidMAgVBxJOGxiHtY=
-Received: from SJ0PR03CA0141.namprd03.prod.outlook.com (2603:10b6:a03:33c::26)
- by MN0PR12MB6053.namprd12.prod.outlook.com (2603:10b6:208:3cf::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 20:05:13 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:33c:cafe::1e) by SJ0PR03CA0141.outlook.office365.com
- (2603:10b6:a03:33c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 23
- Sep 2026 20:05:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 20:05:13 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 15:05:12 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 15:05:12 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>, Jonghyuk Kim <malhyuk97@gmail.com>
-Subject: [PATCH V1] accel/amdxdna: Preallocate hardware context schedulers
-Date: Wed, 23 Sep 2026 13:05:01 -0700
-Message-ID: <20260923200501.281208-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFB610F18C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790193949;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3Ae8Rl5S099tC0SY0KTEywfRG63UpqYux9WWg47ljxY=;
+ b=CpH4z28nLL6iibu4ohvydbY/25n4fKMjpdOqXajkwXc5O39WL9pAV5uyHFsnnuON/QWg5O
+ /Bw/NTgti341ND+1vN7fZQFpNpqZNhht57VkczoVYc+rOuiyOPB9fE1UOndclXM+lHH74Q
+ bXzWo4obVBax7PC+sLvM/Nw81HgCUPU=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-211-t7MO0V9PNAijh4LcCSkauw-1; Wed, 23 Sep 2026 16:05:48 -0400
+X-MC-Unique: t7MO0V9PNAijh4LcCSkauw-1
+X-Mimecast-MFC-AGG-ID: t7MO0V9PNAijh4LcCSkauw_1790193947
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93a05d645acso261712285a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:05:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790193947; x=1790798747;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3Ae8Rl5S099tC0SY0KTEywfRG63UpqYux9WWg47ljxY=;
+ b=eHmwzl3z6a616nibfxE6Kwua5NZC2jN4NB2NglGjgTr7zIvXCyJyJKVt9CNOiUxdMN
+ 6JrysXv8i/Z5Ewr/zwzEV1L/FqdECA6x2lwebpVcZ7aewiZCnaQpvK0Q45c3UerUv3LM
+ tIits5KXyKeF3Z+p5x/UTBEcVZmLbgrn/GIaZNODkvoMQ0/cWTiWY4YgF40ca9HJKpij
+ PPeEBSb8N2aPM4alDBjTwJkICcJ+B0ffmW8QWfsB2cj3TwYVwz7r8ELGRKIhugsHUuvz
+ ma8T/9hhjKJm0SyN8tu+L4EjmXWnF06xAZpVkDYM49vqs+ngnbuoXcKNGqLKWzBI+hTG
+ JKiw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzvTuMNOsdYAK2dfUKFmgYfQg4nLNL5907pHqaFQswP57ESlbf8+mMsaEafA3g7KDN/znvfou9uSio=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ljQFQOyEJxrKOYtzhj86g+2XXxkUe1EPEtJ2OfIEsk2Fg/yDEC
+ 2auO+drOEzZrN8hA1Ooa5sSUhBvz5DkBk2smevlSGJSgTvV0PTeObwlcX5By4Ftgu/3SL1kj80n
+ w3mWz+CXi+wYqDKCT/rCqXyHfy5EpL8erRRg9i+enrQ4+eGjwHgkf4Uk8VDB16KDA22k9qA==
+X-Gm-Gg: AYBFou30jfjQ8JOTnxwzC3PvgJAUD1FNh+Vqh5Z9iOgdo/6vXgstsh35ku2OzTyDBj2
+ D5/9BG7sZcVVJzEVHluHpJsW3HoPRVx1Degg5GKLcigaBj/SAdDqZUVlA8T+xWLbSTIIGKFyLot
+ QJr0nN0htMqToCfvpO+sIiqpI9aPEhkFO/0y5C49MrVp3c3EIfS0kf75Ol3M55vYRn9cJEH4VZi
+ 6TIHANf15114HTXHTzJtESVk6bom9BA++lqJuHpIeGOBS9SIbR/hG4eDwnXjEPeTybz5yLaPOnk
+ cwgU1wl0qr+EYvSm+fwDozvavIPmPsdAVeLSC/eWU4BfrBHGaQXzrxcAf7ikZwsJBrHSo0c=
+X-Received: by 2002:a05:620a:6ccb:b0:93c:17db:d91f with SMTP id
+ af79cd13be357-93c3479e348mr42241085a.39.1790193947468; 
+ Wed, 23 Sep 2026 13:05:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:6ccb:b0:93c:17db:d91f with SMTP id
+ af79cd13be357-93c3479e348mr42237785a.39.1790193946917; 
+ Wed, 23 Sep 2026 13:05:46 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93c24753395sm301143985a.4.2026.09.23.13.05.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 13:05:46 -0700 (PDT)
+Message-ID: <07d66ea7e0f0c7aef313b11d0881ca9170f05c77.camel@redhat.com>
+Subject: Re: [PATCH 0/6] drm/nouveau: HDMI output colour format and
+ quantization range
+From: lyude@redhat.com
+To: Daniel Campos Ramos <Capitain_Jack@yahoo.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org, dakr@kernel.org
+Date: Wed, 23 Sep 2026 16:05:45 -0400
+In-Reply-To: <20260923162348.1037898-1-Capitain_Jack@yahoo.com>
+References: <20260922215336.612239-1-Capitain_Jack@yahoo.com>
+ <c78df20bd86437dd3987053765a550b3bac0cc65.camel@redhat.com>
+ <20260923162348.1037898-1-Capitain_Jack@yahoo.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|MN0PR12MB6053:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34b2ca8d-d88f-4421-c752-08df19adfa9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|6133799003|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: zPjz7Prp4SvWFe2SHaVXdMa63SmTotnguxROBeeNJuRjGqRWf8vMvX1xHAI41iX/dazMqHseFy5EvtZIJsQ7lXnvydR9+beHCbMj8wTtO8NDxG3h/8WAPB4XZWiAKTKf6q0S8i5WH66X4L4p56N3TOUdM1XZ/zPZ1QYyLWqwEWQSrd2bLXlDzVNJbyJgZrrkC99/mO39C/ngcAqw17ESEbhlJzyazmgQOyA4NB9U3upGxkATc4pM1vwmzywBOu+Q1lUnazBes049OY1xk7AiQsW7hVYybw886yFEfmJIu7ubyFGHvBwp+n4Jf1J2CoM2PDQbjMHHneAN0rglpfdJx9SWHlSxSKcdHiGf357QC5TRgvSQ2SvSzXi3VvxDjy9JjHxwAQnhDdiNLusDRf4vxrVkxCDNh0cNTZbs620LiXCcJ+t4JnVe8qB6Ccve7XagujYE10hskgbFx5mSbjRho0WCOWh2+6fOojBVsg1Vs1H2wrjbkpWZ6abz00y4lA4j4pL0DSKAf3Iro9vxL1b4KuzS94gDNwJ39aHxPvJNm3MF6laBs6inwY+M3WoESW1jgheVCdiqDC4ON5xDfDQhBsNN9bQfajug2PczWv38Nvr/hfmhRXxy0wvpSCX0v4WPVlpSEvh5WwWfbfXz8O208SXoKo/ASgXnja8xGeQuhOg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hs2ufjbW1Oky+KDXxlsixiMI36TTb55LUa10kJNd1FjJZdmeGNU5X4pShabdFjDzRVY1zjYKwlNBI7U04Id8RRczvMj4fXt/ovTYuddab3YF4sGakF0YjYGmi2NgzVJugbaCY2txmV6wYboBdO76MGhoHFlYx+geeja3ozKKSa9OQKpOzpoy4Gi2nPh8JA58Evlg/OYRmhin681zHQEGtjAMFR8GuLMXyzIL3GXc6KekV3GNA4nNkg3tq8pL8qpRZ9Uuk/v6rHhxpAvx0XtrVnq5T2Z99kF1NqrJq4HLV3eetBdwEdbfNNC2e1mhEAH3YgTHD3RsU0MO96K/3VH0Cko65K54VuXwJm8pdRTmPbZmt4Q660YdCLRFTDyh+sOCsRPb6CAZf7LdQ4EoI1PswyY4+duSTzyyBg1pyAHvHIOSCrPvhjzR6t6cLGwEyexW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:05:13.3765 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34b2ca8d-d88f-4421-c752-08df19adfa9c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6053
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: w_QtoGSYPkERr3xoBxe7dpJ2UuUjP3cSbHIhQYNzw3Q_1790193947
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,325 +102,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hardware context scheduler fence is exposed through
-drm_syncobj_add_point(). After a hardware context is destroyed,
-userspace can still call drm_sched_fence_get_timeline_name() on the
-fence through SYNC_IOC_FILE_INFO. This results in a use-after-free
-when accessing fence->sched->name.
+Responses below:
 
-Preallocate hardware context schedulers and free them during device
-teardown instead. A destroyed hardware context no longer frees its
-scheduler, ensuring that the scheduler remains valid while its fences
-are still accessible.
+On Wed, 2026-09-23 at 13:23 -0300, Daniel Campos Ramos wrote:
+> On Wed, 2026-09-23 at 12:13 -0400, lyude@redhat.com=C2=A0wrote:
+> > You need to either tag your work with Assisted-by: if it is
+> > generated
+> > by an LLM. If you did the right thing and wrote it by hand and just
+> > used these tools for analysis, that's fine.
+> >=20
+> > FWIW, If this was entirely generated by an LLM, then this is quite
+> > a
+> > lot of work and I'm very hesitant to review this. Going off:
+> >=20
+> > https://github.com/danielcamposramos/awesome-linux-hdr
+> >=20
+> > I am very concerned just about all of the results here came out of
+> > an
+> > LLM, according to the LLM generated provenance file, which means an
+> > actual real person with experience working on this needs to go back
+> > and
+> > verify that all of this is correct. That is a lot of work, and the
+> > idea
+> > that my review comments are just going to get fed back into an LLM
+> > are
+> > not remotely encouraging to the effort of having to go through and
+> > have
+> > a real person look this over.
+>=20
+> Thank you, Lyude, both points are fair.
+>=20
+> The code was not written by hand: an AI partner wrote it under my
+> direction, and I left out the Assisted-by tag the kernel
+> documentation asks for. I will resend with it on every patch, and the
+> Deep Color series gets the same.
+> Sorry for that detail: I disclosed it in the cover letter body, but
+> the tag belongs on each patch.
+> For the record, the tools: both series were worked on inside Claude
+> Code CLI and Codex CLI by several AI partners, Moonshot's Kimi,
+> Zhipu's GLM, Anthropic's Claude, and OpenAI's GPT Astra and GPT Sol.
+>=20
+> What was mine: I found the problem on my own bench (full-range pixels
+> to a Sony without a VCDB), set the design rules (follow
+> drm_hdmi_state_helper.c, use NVIDIA's open NVKMS as the hardware
+> reference), and ran every hardware test myself, 25 configurations,
+> checking bars and levels on the set.
+>=20
+> The OCSC1 values were checked against NVKMS, not taken from the
+> model's memory; the BT.601/709/2020 re-derivation was also done with
+> the AI.
+>=20
+> On awesome-linux-hdr: it is an index of links, not the evidence for
+> this series.
+> Its provenance file names the AI partners for the source surveys; the
+> hardware results are my bench measurements, and the logs for these
+> patches are run27 and run28 in sony-bravia-linux (tools/stereo-
+> modeset).
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-Link: https://lore.kernel.org/dri-devel/20260902012712.880520-1-malhyuk97@gmail.com/
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_ctx.c | 117 +++++++++++++++++++++++--------
- drivers/accel/amdxdna/aie2_pci.c |  15 +++-
- drivers/accel/amdxdna/aie2_pci.h |   6 +-
- 3 files changed, 105 insertions(+), 33 deletions(-)
+I'm happy to look at logs if I have something specifically I would like
+to verify, but verifying the entirety of how this works from a bunch of
+logs and measurements along with knowing whether we're missing anything
+from this implementation that would lead to regressions (I already know
+we are missing some things, which I will mention below) is more or less
+the same as having to go and just do the work by hand myself. At which
+point, I would strongly prefer someone to just implement the findings
+of those results by hand.
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 164441e43940..d927c8c9d557 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -7,6 +7,7 @@
- #include <drm/drm_device.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
- #include <linux/hmm.h>
-@@ -99,9 +100,9 @@ static void aie2_job_put(struct amdxdna_sched_job *job)
- static void aie2_hwctx_stop(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx,
- 			    struct drm_sched_job *bad_job)
- {
--	drm_sched_stop(&hwctx->priv->sched, bad_job);
-+	drm_sched_stop(hwctx->priv->sched, bad_job);
- 	aie2_destroy_context(xdna->dev_handle, hwctx);
--	drm_sched_start(&hwctx->priv->sched, 0);
-+	drm_sched_start(hwctx->priv->sched, 0);
- }
- 
- static int aie2_hwctx_restart(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx)
-@@ -659,10 +660,19 @@ static void aie2_ctx_syncobj_destroy(struct amdxdna_hwctx *hwctx)
- 	drm_syncobj_put(hwctx->priv->syncobj);
- }
- 
--int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-+void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev)
- {
--	struct amdxdna_client *client = hwctx->client;
--	struct amdxdna_dev *xdna = client->xdna;
-+	int i;
-+
-+	for (i = 0; i < ndev->priv->hwctx_limit; i++)
-+		drm_sched_fini(&ndev->hwctx_sched[i]);
-+
-+	ida_destroy(&ndev->hwctx_sched_ida);
-+}
-+
-+int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
- 	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
- 		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-@@ -673,7 +683,55 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		.name = "amdxdna_js",
- 		.dev = xdna->ddev.dev,
- 	};
--	struct drm_gpu_scheduler *sched;
-+	int i, ret;
-+
-+	ndev->hwctx_sched = drmm_kcalloc(&xdna->ddev, ndev->priv->hwctx_limit,
-+					 sizeof(*ndev->hwctx_sched), GFP_KERNEL);
-+	if (!ndev->hwctx_sched)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < ndev->priv->hwctx_limit; i++) {
-+		ret = drm_sched_init(&ndev->hwctx_sched[i], &args);
-+		if (ret) {
-+			XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
-+			goto fini_sched;
-+		}
-+	}
-+
-+	ida_init(&ndev->hwctx_sched_ida);
-+
-+	return 0;
-+
-+fini_sched:
-+	while (--i >= 0)
-+		drm_sched_fini(&ndev->hwctx_sched[i]);
-+
-+	return ret;
-+}
-+
-+static struct drm_gpu_scheduler *aie2_hwctx_sched_alloc(struct amdxdna_dev_hdl *ndev)
-+{
-+	int ret;
-+
-+	ret = ida_alloc_range(&ndev->hwctx_sched_ida, 0,
-+			      ndev->priv->hwctx_limit - 1, GFP_KERNEL);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
-+
-+	return &ndev->hwctx_sched[ret];
-+}
-+
-+static void aie2_hwctx_sched_free(struct amdxdna_dev_hdl *ndev,
-+				  struct drm_gpu_scheduler *sched)
-+{
-+	ida_free(&ndev->hwctx_sched_ida, sched - ndev->hwctx_sched);
-+}
-+
-+int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-+{
-+	struct amdxdna_client *client = hwctx->client;
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
- 	struct amdxdna_hwctx_priv *priv;
- 	struct amdxdna_gem_obj *heap;
- 	int i, ret;
-@@ -683,13 +741,26 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		return -ENOMEM;
- 	hwctx->priv = priv;
- 
-+	priv->sched = aie2_hwctx_sched_alloc(ndev);
-+	if (IS_ERR(priv->sched)) {
-+		ret = PTR_ERR(priv->sched);
-+		goto free_priv;
-+	}
-+
-+	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
-+				    &priv->sched, 1, NULL);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed to initial sched entity. ret %d", ret);
-+		goto free_sched;
-+	}
-+
- 	mutex_lock(&client->mm_lock);
- 	heap = xa_load(&client->dev_heap_xa, 0);
- 	if (!heap) {
- 		XDNA_ERR(xdna, "The client dev heap object not exist");
- 		mutex_unlock(&client->mm_lock);
- 		ret = -ENOENT;
--		goto free_priv;
-+		goto free_entity;
- 	}
- 	drm_gem_object_get(to_gobj(heap));
- 	mutex_unlock(&client->mm_lock);
-@@ -722,30 +793,16 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		priv->cmd_buf[i] = abo;
- 	}
- 
--	sched = &priv->sched;
- 	mutex_init(&priv->io_lock);
- 
- 	fs_reclaim_acquire(GFP_KERNEL);
- 	might_lock(&priv->io_lock);
- 	fs_reclaim_release(GFP_KERNEL);
- 
--	ret = drm_sched_init(sched, &args);
--	if (ret) {
--		XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
--		goto free_cmd_bufs;
--	}
--
--	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
--				    &sched, 1, NULL);
--	if (ret) {
--		XDNA_ERR(xdna, "Failed to initial sched entiry. ret %d", ret);
--		goto free_sched;
--	}
--
- 	ret = aie2_hwctx_col_list(hwctx);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Create col list failed, ret %d", ret);
--		goto free_entity;
-+		goto free_cmd_bufs;
- 	}
- 
- 	ret = amdxdna_pm_resume_get_locked(xdna);
-@@ -791,10 +848,6 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	amdxdna_pm_suspend_put(xdna);
- free_col_list:
- 	kfree(hwctx->col_list);
--free_entity:
--	drm_sched_entity_destroy(&priv->entity);
--free_sched:
--	drm_sched_fini(&priv->sched);
- free_cmd_bufs:
- 	for (i = 0; i < ARRAY_SIZE(priv->cmd_buf); i++) {
- 		if (!priv->cmd_buf[i])
-@@ -805,6 +858,10 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	amdxdna_gem_unpin(heap);
- put_heap:
- 	drm_gem_object_put(to_gobj(heap));
-+free_entity:
-+	drm_sched_entity_destroy(&priv->entity);
-+free_sched:
-+	aie2_hwctx_sched_free(ndev, priv->sched);
- free_priv:
- 	kfree(priv);
- 	return ret;
-@@ -812,18 +869,20 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 
- void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
- {
-+	struct amdxdna_dev_hdl *ndev;
- 	struct amdxdna_dev *xdna;
- 	int idx;
- 
- 	xdna = hwctx->client->xdna;
-+	ndev = xdna->dev_handle;
- 
- 	XDNA_DBG(xdna, "%s sequence number %lld", hwctx->name, hwctx->priv->seq);
- 	aie2_hwctx_wait_for_idle(hwctx);
- 
- 	/* Request fw to destroy hwctx and cancel the rest pending requests */
--	drm_sched_stop(&hwctx->priv->sched, NULL);
-+	drm_sched_stop(hwctx->priv->sched, NULL);
- 	aie2_release_resource(hwctx);
--	drm_sched_start(&hwctx->priv->sched, 0);
-+	drm_sched_start(hwctx->priv->sched, 0);
- 
- 	mutex_unlock(&xdna->dev_lock);
- 	drm_sched_entity_destroy(&hwctx->priv->entity);
-@@ -834,7 +893,7 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
- 		   atomic64_read(&hwctx->job_free_cnt));
- 	mutex_lock(&xdna->dev_lock);
- 
--	drm_sched_fini(&hwctx->priv->sched);
-+	aie2_hwctx_sched_free(ndev, hwctx->priv->sched);
- 	aie2_ctx_syncobj_destroy(hwctx);
- 
- 	for (idx = 0; idx < ARRAY_SIZE(hwctx->priv->cmd_buf); idx++) {
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index daec1f6b4907..7a4314ca843b 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -503,10 +503,16 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	ndev->priv = xdna->dev_info->dev_priv;
- 	ndev->aie.xdna = xdna;
- 
-+	ret = aie2_hwctx_sched_init(ndev);
-+	if (ret)
-+		return ret;
-+
- 	for (i = 0; i < ARRAY_SIZE(npu_fw); i++) {
- 		fw_full_path = kasprintf(GFP_KERNEL, "%s%s", ndev->priv->fw_path, npu_fw[i]);
--		if (!fw_full_path)
--			return -ENOMEM;
-+		if (!fw_full_path) {
-+			ret = -ENOMEM;
-+			goto free_hwctx_sched;
-+		}
- 
- 		ret = firmware_request_nowarn(&fw, fw_full_path, &pdev->dev);
- 		kfree(fw_full_path);
-@@ -519,7 +525,7 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	if (ret) {
- 		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d",
- 			 ndev->priv->fw_path, ret);
--		return ret;
-+		goto free_hwctx_sched;
- 	}
- 
- 	ret = pcim_enable_device(pdev);
-@@ -623,6 +629,8 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	aie2_hw_stop(xdna);
- release_fw:
- 	release_firmware(fw);
-+free_hwctx_sched:
-+	aie2_hwctx_sched_fini(ndev);
- 
- 	return ret;
- }
-@@ -631,6 +639,7 @@ static void aie2_fini(struct amdxdna_dev *xdna)
- {
- 	amdxdna_pm_fini(xdna);
- 	aie2_hw_stop(xdna);
-+	aie2_hwctx_sched_fini(xdna->dev_handle);
- }
- 
- static int aie2_get_aie_status(struct amdxdna_client *client,
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index ea1dac106400..2c7019bd26b5 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -107,7 +107,7 @@ struct amdxdna_hwctx_priv {
- 	struct amdxdna_gem_obj		*heap;
- 	void				*mbox_chann;
- 
--	struct drm_gpu_scheduler	sched;
-+	struct drm_gpu_scheduler	*sched;
- 	struct drm_sched_entity		entity;
- 
- 	struct mutex			io_lock; /* protect seq and cmd order */
-@@ -152,6 +152,8 @@ struct amdxdna_dev_hdl {
- 	u32				total_col;
- 	struct amdxdna_drm_query_aie_version version;
- 	struct aie2_exec_msg_ops	*exec_msg_ops;
-+	struct drm_gpu_scheduler	*hwctx_sched;
-+	struct ida			hwctx_sched_ida;
- 
- 	/* power management and clock*/
- 	enum amdxdna_power_mode_type	pw_mode;
-@@ -294,6 +296,8 @@ int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
- /* aie2_hwctx.c */
- int aie2_hwctx_init(struct amdxdna_hwctx *hwctx);
- void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx);
-+int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev);
-+void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev);
- int aie2_hwctx_config(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
- int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
- void aie2_hwctx_suspend(struct amdxdna_client *client);
--- 
-2.34.1
+We also have someone who has been working on these features on
+nouveau's side already without the help of an LLM, and their work is
+pretty much almost complete already and handles the missing bits
+properly including:
+
+ * Implementing IMP both for atomic checking and for tile allocation on
+   some tegra platforms
+ * Implementing display bandwidth allocation. This is needed for deep
+   color with higher resolution displays, which will crash the GPU
+   otherwise upon trying to set them (which I think would be the case
+   with this patch series).
+ * Enabling DSC and FRL on HDMI (also needed for higher res HDMI
+   displays)
+
+We've already merged some of their work for this, in particular some of
+the work for fixing up blackwell and also reading HDR information from
+EDIDs. So I'm not really sure we want to use this work anyway, sorry
+about that!
+
+One last thing though: it's somewhat of a moot point now, but in the
+future: please consider just limiting your usage of LLM tooling for
+actually figuring out the details of how things work and then handle
+writing the code yourself after you go through the various openrm
+sources it points you to. If I had accepted this work, it would have
+taken a lot more time for me to actually get across the finish line and
+be comfortable with merging it then is really needed. There's a very
+hard limit as to the level of confidence anyone can have with LLM
+generated code without spending more time reviewing it then you would
+have if you wrote the code yourself, because you're now approaching
+your own code submissions from the narrow perspective of a reviewer and
+not its author.
+
+We do require people take responsibility for LLM submissions. It's easy
+to you take responsibility, but this is more complicated then just
+"yeah I'll try looking at it again if something breaks". To me, if the
+code is LLM generated, then the work in it's entirety needs to be of a
+size where the author can reasonably have the exact level of
+understanding they would have had if they wrote the code line by line
+themselves and also trudged through the actual OpenRM code they were
+looking at themselves. Otherwise, I have to be the one to do it in some
+form. And that means me taking responsibility for the possible fallout,
+and spending a _lot_ time then I would with a normal submission to get
+as close to the level of understanding as an author as I can and then
+take on the responsibility of dealing with the potential fallout of the
+changes myself, quite possibly on my own.
+
+FWIW: I think the approach that was taken recently with reverse-
+engineering how ray tracing/BVHs work on nvidia hardare is a great
+example of how these tools can be used without creating friction for
+maintainers. There was plenty of AI generated code there, but it was
+only given to us as a proof of concept with the expectation we might
+not actually use any of the code. Which meant we could try implementing
+it by hand and learn everything we can about the subject matter
+throughout that journey instead of trying to trudge through the LLM's
+code and hope very hope we don't miss or glance over anything. Just
+approaching stuff this way does genuinely provide a lot more confidence
+to maintainers, and does help to reduce the workload we have to deal
+with by making sure there's always a person reasonably in the loop.
+Otherwise we're struggling to make sure that's the case a lot more then
+before.
+
+>=20
+> I read review comments and answer them myself.
+>=20
+> Fixes will again be written with AI help, declared in each version,
+> and tested on the same bench before they go out.
+>=20
+> To make review cheaper, I can resend only patches 1 to 3 first (the
+> header, the head programming, and Broadcast RGB, which fixes the
+> visible range problem), or wait for whatever priority suits you or
+> suites better. Feel free to also include it, if you want.
+>=20
+> Daniel
 
