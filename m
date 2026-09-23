@@ -4,65 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C594C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C64C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA3B410F091;
-	Wed, 23 Sep 2026 14:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF60610F0C1;
+	Wed, 23 Sep 2026 14:19:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VWbRHlMA";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eE85QjJd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B61A10E0E9;
- Wed, 23 Sep 2026 14:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790172693; x=1821708693;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=5grS7nCtM9KyKhO/kor9IGznsy+6PeSOl65OjspMIPc=;
- b=VWbRHlMAY3OwRALXg+DwnyPZuldlylYPAtcrBW3GIlRs2pzOfet4F5eb
- muKyrC1+zjwSup05CeopnsFLBMsq8fd3ECbPJBUxpfhoenv62a/TGbya3
- RerSS7aD+8F2Mn39PsamokClrGqOsU5Zr91kMqDp0pNhVtq6Q8yDSh/v6
- NMgSLEL6O7KT+ZWHpoH+1242Qa2qbVg8j982fDg2LNDDNPXKrE+zAABhl
- evx85ofat0VEkNq3vkl7+qXWXrzT4Bnlzh6l8SYHpIJb/YKeT6vX34D56
- tmxgKm0lNWOjybaMy+b7xSBlKKq9dRaULh6mpgc4l9yBjk8dPYC4Up54T g==;
-X-CSE-ConnectionGUID: xXfciBBERhaR8fNsg6yQgg==
-X-CSE-MsgGUID: C2AKtPmrTW2EyXR4amUDrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="108369886"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="108369886"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 07:11:33 -0700
-X-CSE-ConnectionGUID: H5sZFnXuRymtbmitfpBpvQ==
-X-CSE-MsgGUID: scvGZqAgTu+v2c2qD3qSjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="278356180"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.46])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 07:11:30 -0700
-Date: Wed, 23 Sep 2026 17:11:27 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: George Karagounis <taterraster@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- George Karagounis <mail@taterr.org>
-Subject: Re: [PATCH] drm/i915/display: Split i845 and i9xx cursor updates
- into arm/noarm
-Message-ID: <arPeD2dcyUIEGGn3@intel.com>
-References: <20260919173914.111150-1-mail@taterr.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2267A10E8D2;
+ Wed, 23 Sep 2026 14:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=HqAmVeDq0Xmp4284QMBTCuecYpj+XiDlnoBOqc1mOIs=; b=eE85QjJdIrahN6yNF6+V1tMCgW
+ R0pLsiZXSh/EjcaNLKhZq2v+SVMTXxHer31bvj+lgHYzJWROqjj2THzflNz9DAqK3BesfTeRGbbdW
+ WiCdWBLQBW8urbBP79bm6GgYjjc4gOiHoBW4C0sWS6u2C/gz1q1L4q2eZoniMXAa0LG3czxMUQHsW
+ Y6hCLsWqRDUkM8JiAlruYmhljU5iOZQEfoe2mnmhmeef1894HWskKEY3y8znWAVx0H52obRGzTOMi
+ EkK4Zm5aaiq4dN9VCbRooAlgHRWKqROIBw8Mql2hjTYnHEiFYaAzfBSkAuDVMsOw+842ZdSez1xSn
+ OSgf8e4w==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9NoH-006B6q-03; Wed, 23 Sep 2026 16:18:57 +0200
+Date: Wed, 23 Sep 2026 11:18:50 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH 3/4] drm/amdgpu: don't free mapping when
+ amdgpu_vm_update_range fails
+Message-ID: <arPfyosqiB-uzL-e@quatroqueijos.cascardo.eti.br>
+References: <20260914-amdgpu_vm_fixes-v1-0-d6d835591e0f@igalia.com>
+ <20260914-amdgpu_vm_fixes-v1-3-d6d835591e0f@igalia.com>
+ <9c507259-f65c-4f18-8fc7-8e03de0c4f87@amd.com>
+ <acc1e3eb-264c-4591-9f66-5fe93b96f97f@pixelcluster.dev>
+ <aqkf0LE51mObdEJc@quatroqueijos.cascardo.eti.br>
+ <fb733813-9e4d-494a-ba60-469261340e74@amd.com>
+ <aqktL4Ui1MaIvs_j@quatroqueijos.cascardo.eti.br>
+ <a59d3421-a241-4497-9890-0b94329b94da@amd.com>
+ <arPakAXXW1TdfF0Z@quatroqueijos.cascardo.eti.br>
+ <f4c3bdb7-3b6e-49f1-9baf-36ab069faac0@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260919173914.111150-1-mail@taterr.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <f4c3bdb7-3b6e-49f1-9baf-36ab069faac0@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,176 +74,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 19, 2026 at 08:39:14PM +0300, George Karagounis wrote:
-> There was a problem with the i845 and i9xx cursor update functions
-> they handled both position updates and control/base/size updates in
-> a single armed sequence. This prevented the cursor position from
-> being updated asynchronously, which can make the cursor feel laggy
+On Wed, Sep 23, 2026 at 03:58:27PM +0200, Christian König wrote:
+> On 9/23/26 15:56, Thadeu Lima de Souza Cascardo wrote:
+> > On Tue, Sep 15, 2026 at 03:56:00PM +0200, Christian König wrote:
+> >> On 9/15/26 13:34, Thadeu Lima de Souza Cascardo wrote:
+> >>> On Tue, Sep 15, 2026 at 01:22:48PM +0200, Christian König wrote:
+> >>>> On 9/15/26 12:37, Thadeu Lima de Souza Cascardo wrote:
+> >>>>> On Tue, Sep 15, 2026 at 10:53:43AM +0200, Natalie Vock wrote:
+> >>>>>> On 9/15/26 10:33, Christian König wrote:
+> >>>>>>> On 9/14/26 22:25, Thadeu Lima de Souza Cascardo wrote:
+> >>>>>>>> If amdgpu_vm_update_range fails when called by amdgpu_vm_clear_freed,
+> >>>>>>>> the clearing of that mapping will not be attempted again. Later on, when
+> >>>>>>>> an IB tries to read that mapping, the read succeeds, leading to a
+> >>>>>>>> potential info leak, or even data corruption, if it attempts to write to
+> >>>>>>>> it.
+> >>>>>>>>
+> >>>>>>>> If the mapping is left in the freed list, then clearing will be
+> >>>>>>>> attempted again during amdgpu_cs_ioctl, which will either fail and not
+> >>>>>>>> submit the job or will succeed in clearing the mapping, preventing the
+> >>>>>>>> invalid access.
+> >>>>>>>
+> >>>>>>> Same as I replied to oushinnyo <oushinnyo@163.com>, absolutely clear NAK to that.
+> >>>>>>>
+> >>>>>>> amdgpu_vm_update_range() can only fail when the device is hot removed and we don't care about clearing page tables in that case.
+> >>>>>>
+> >>>>>> Actually, how so? The SDMA update path has lots of allocations that happen
+> >>>>>> at random points throughout the update process (think the SDMA IB being
+> >>>>>> exhausted, then vm_funcs->update() will allocate a new one and can fail on
+> >>>>>> that, or various fence allocations. Some paths allocate from the delayed IB
+> >>>>>> pool which is just regular GFP_KERNEL, why couldn't these allocations fail?
+> >>>>>>
+> >>>>>> Aside from that, the more trivial failure path that I think Thadeu is also
+> >>>>>> talking about here is that amdgpu_vm_ptes_update will call
+> >>>>>> amdgpu_vm_pt_alloc (so that happens in the middle of VM updates) and these
+> >>>>>> allocations can fail. I'm not even sure if drm_exec can save this one
+> >>>>>> because we need to be ready to drop locks and retry.
+> >>>>>>
+> >>>>>> I get that failing is unacceptable for the cases inside a pagefault handler
+> >>>>>> (though I'm not sure if anything of what I mentioned applies here, pagefault
+> >>>>>> VM updates are immediate so they get GFP_ATOMIC, but maybe the pagefault
+> >>>>>> handler could still allocate PTs?) but for anything else, failure seems like
+> >>>>>> a possibility and maybe we should think about handling it in some way.
+> >>>>>>
+> >>>>>> I'm not sure I see a problem in keeping BOs invalidated and backing off
+> >>>>>> later, since new submissions should be rejected unless the VM manages to
+> >>>>>> complete all updates successfully.
+> >>>>>>
+> >>>>>> Best,
+> >>>>>> Natalie
+> >>>>>>
+> >>>>>
+> >>>>> Thanks, Natalie, those are exactly the possible scenarios here:
+> >>>>> amdgpu_job_alloc and amdgpu_vm_pt_alloc might fail.
+> >>>>>
+> >>>>> Christian,
+> >>>>>
+> >>>>> I have started this investigation once I observed the kmemleak that is
+> >>>>> fixed by the other 3 patches. Natalie brings up the exact case where this
+> >>>>> might happen: amdgpu_vm_pt_alloc fails as all other VRAM BOs are locked as
+> >>>>> they are either ALWAYS_VALID BOs or PT BOs, thus sharing the same dma_resv.
+> >>>>
+> >>>> Yeah and on a clear there is never a single page table allocated. What could be is that temporary memory allocations fail, but we need to make sure that never happens by using the emergency reserves and/or pools.
+> >>>>> Here is a log showing up that something failed during the update:
+> >>>>> [ 3839.556311] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-12)
+> >>>>
+> >>>> That is failed memory allocation while trying to map something which we also ignore and delegate to the next CS.
+> >>>>
+> >>>
+> >>> Yep, that is a possibility as well and amdgpu_vm_bo_update is not ignoring
+> >>> the failure here and leaves the mappings in the invalids list, which the
+> >>> next CS will try to map.
+> >>>
+> >>>>>
+> >>>>> The investigation then led to a reproducer, which is able to trigger the
+> >>>>> list corruption that is mentioned in patch 4.
+> >>>>>
+> >>>>> And given the kmemleak stack trace shows amdgpu_vm_clear_freed in the stack
+> >>>>> trace, that should clearly be where the failure has happened. Looking at
+> >>>>> the function, then I noticed it ignores the return code and still removes
+> >>>>> the mappings from the list. I was able to write a second reproducer that
+> >>>>> triggers the failure, then releases some memory and demonstrate that
+> >>>>> amdgpu_cs_ioctl does not clear the freed page tables as the freed list is
+> >>>>> empty.
+> >>>>
+> >>>> Unmap/clear operations are also used in MMU notifiers who can't give an error back to higher levels but rather need to unmap the area no matter what.
+> >>>>
+> >>>> So basically that is an operation which can never fail in the first place (except for device is completely gone and then we don't care any more).
+> >>>>
+> >>>> I'm about to split the map/unmap into separate functions to make it clear that unmap operations can't fail.
+> >>>>
+> >>>> When you have a reproducer and can pinpoint where exactly the memory allocation fails that would be rather helpful here.
+> >>>>
+> >>>
+> >>> What I understand that happens in the case of clear_freed is that we are
+> >>> breaking a PDB/hugepage and descending, as the clear happened in the middle
+> >>> of the hugepage. With the specific reproducer I had to go through lengths
+> >>> of making sure that the original mapping landed on a hugepage-aligned
+> >>> address, then used CLEAR/amdgpu_vm_clear_mappings to unmap a single page in
+> >>> the middle of it.
+> >>
+> >> Yeah that is exactly the broken case I'm already working on.
+> >>
+> >> In that case the clear should just unmap the whole hugepage and not allocate new PDs.
+> >>
+> > 
+> > Agreed that we should also do this. Because my patchset does not prevent
+> > the issue and if there is no relief on memory pressure, the failure will
+> > end up in amdgpu_cs_ioctl, resulting in a submission failure.
+> > 
+> > In any case, given that other causes could still result in the similar
+> > symptoms (memory leak, list corruption), would you consider applying this
+> > patchset?
+> 
+> No, the code changed by this patch here at least is actually fully correct.
+> 
+> Regards,
+> Christian.
+> 
 
-The noarm vs. arm split has nothing to do with that. What it does is
-(slightly) reduce the amount of work we have to do inside the vblank
-evasion critical section. And in order to do the split one has to
-evaluate each an every register to confirm whether they are self
-arming or not.
+What about the other 3 patches? If there is less controversy around them, I
+can submit them as a new patchset version.
 
-And as for the cursor we can't really do that because of the mailbox
-updates being performed from the legacy cursor path. That is, when
-performing mailbox updates the non-arming registers must also be
-updated during the vblank evasion critical section or else they might
-disarm the arming that was done by a previous update in the same frame.
-The full legacy cursor fastpath would actually work fine there because
-it does both the noarm+arm inside the critical section, but the
-non-fastpath route for legacy_cursor_update==true does not so it
-would need additional changes.
+Thanks.
+Cascardo.
 
+> > 
+> >> Re-mapping the two fragments before and after the unmapped area is supposed to allocate the new PDs.
+> >>
+> >> Without that we run into tons of problems with userptrs and MMU notifiers.
+> >>
+> >> I will CC you on the patches I have so far.
+> >>
+> > 
+> > Please, do. I will be happy to test it and review it.
+> > 
+> > Thanks.
+> > Cascardo.
+> > 
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> The other reproducer that I have required that I used REPLACE instead of
+> >>> MAP in order to trigger the tlb_flush_waitlist issue. REPLACE does call
+> >>> amdgpu_vm_clear_mappings too. Notice that RADV Mesa driver uses REPLACE,
+> >>> instead of MAP, so that explains that we can see this in production.
+> >>>
+> >>> Regards.
+> >>> Cascardo.
+> >>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>>>
+> >>>>> Regards.
+> >>>>> Cascardo.
+> >>>>>
+> >>>>>>>
+> >>>>>>> Regards,
+> >>>>>>> Christian.
+> >>>>>>>
+> >>>>>>>>
+> >>>>>>>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> >>>>>>>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >>>>>>>> ---
+> >>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+> >>>>>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+> >>>>>>>>
+> >>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> index 09037df76400..5bde36754607 100644
+> >>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>>>>>>> @@ -1594,16 +1594,16 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+> >>>>>>>>   	while (!list_empty(&vm->freed)) {
+> >>>>>>>>   		mapping = list_first_entry(&vm->freed,
+> >>>>>>>>   			struct amdgpu_bo_va_mapping, list);
+> >>>>>>>> -		list_del(&mapping->list);
+> >>>>>>>>   		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+> >>>>>>>>   					   &sync, mapping->start, mapping->last,
+> >>>>>>>>   					   0, 0, 0, NULL, NULL, &f);
+> >>>>>>>> -		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> >>>>>>>>   		if (r) {
+> >>>>>>>>   			dma_fence_put(f);
+> >>>>>>>>   			goto error_free;
+> >>>>>>>>   		}
+> >>>>>>>> +		list_del(&mapping->list);
+> >>>>>>>> +		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> >>>>>>>>   	}
+> >>>>>>>>   	if (fence && f) {
+> >>>>>>>>
+> >>>>>>>
+> >>>>>>
+> >>>>
+> >>
 > 
-> To fix this i split the updates into two phases
-> 1. noarm Calculates and writes the CURPOS register immediately.
-> 2. arm Calculates and writes CURCNTR, CURBASE, and CURSIZE to
->    latch the control and memory updates at vblank
-> 
-> Also handled a hardware quirk on i9xx platforms where CURPOS requires
-> a CURBASE write to arm the update. The arm phase now writes CURBASE
-> even if only the position changed
-> 
-> This resolves two inline TODOs and improves cursor responsiveness
-> 
-> Signed-off-by: George Karagounis <mail@taterr.org>
-> ---
->  drivers/gpu/drm/i915/display/intel_cursor.c | 44 +++++++++++++++------
->  1 file changed, 33 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-> index 0673f16f6fd0..c12a7222f2f6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-> @@ -270,14 +270,27 @@ static int i845_check_cursor(struct intel_crtc_state *crtc_state,
->  	return 0;
->  }
->  
-> -/* TODO: split into noarm+arm pair */
-> +static void i845_cursor_update_noarm(struct intel_dsb *dsb,
-> +				     struct intel_plane *plane,
-> +				     const struct intel_crtc_state *crtc_state,
-> +				     const struct intel_plane_state *plane_state)
-> +{
-> +	struct intel_display *display = to_intel_display(plane);
-> +	u32 pos = 0;
-> +
-> +	if (plane_state && plane_state->uapi.visible)
-> +		pos = intel_cursor_position(crtc_state, plane_state, false);
-> +
-> +	intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
-> +}
-> +
->  static void i845_cursor_update_arm(struct intel_dsb *dsb,
->  				   struct intel_plane *plane,
->  				   const struct intel_crtc_state *crtc_state,
->  				   const struct intel_plane_state *plane_state)
->  {
->  	struct intel_display *display = to_intel_display(plane);
-> -	u32 cntl = 0, base = 0, pos = 0, size = 0;
-> +	u32 cntl = 0, base = 0, size = 0;
->  
->  	if (plane_state && plane_state->uapi.visible) {
->  		unsigned int width = drm_rect_width(&plane_state->uapi.dst);
-> @@ -289,7 +302,6 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
->  		size = CURSOR_HEIGHT(height) | CURSOR_WIDTH(width);
->  
->  		base = plane_state->surf;
-> -		pos = intel_cursor_position(crtc_state, plane_state, false);
->  	}
->  
->  	/* On these chipsets we can only modify the base/size/stride
-> @@ -301,14 +313,11 @@ static void i845_cursor_update_arm(struct intel_dsb *dsb,
->  		intel_de_write_fw(display, CURCNTR(display, PIPE_A), 0);
->  		intel_de_write_fw(display, CURBASE(display, PIPE_A), base);
->  		intel_de_write_fw(display, CURSIZE(display, PIPE_A), size);
-> -		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
->  		intel_de_write_fw(display, CURCNTR(display, PIPE_A), cntl);
->  
->  		plane->cursor.base = base;
->  		plane->cursor.size = size;
->  		plane->cursor.cntl = cntl;
-> -	} else {
-> -		intel_de_write_fw(display, CURPOS(display, PIPE_A), pos);
->  	}
->  }
->  
-> @@ -645,7 +654,21 @@ static void skl_write_cursor_wm(struct intel_dsb *dsb,
->  			   skl_cursor_ddb_reg_val(ddb));
->  }
->  
-> -/* TODO: split into noarm+arm pair */
-> +static void i9xx_cursor_update_noarm(struct intel_dsb *dsb,
-> +				     struct intel_plane *plane,
-> +				     const struct intel_crtc_state *crtc_state,
-> +				     const struct intel_plane_state *plane_state)
-> +{
-> +	struct intel_display *display = to_intel_display(plane);
-> +	enum pipe pipe = plane->pipe;
-> +	u32 pos = 0;
-> +
-> +	if (plane_state && plane_state->uapi.visible)
-> +		pos = intel_cursor_position(crtc_state, plane_state, false);
-> +
-> +	intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
-> +}
-> +
->  static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
->  				   struct intel_plane *plane,
->  				   const struct intel_crtc_state *crtc_state,
-> @@ -653,7 +676,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
->  {
->  	struct intel_display *display = to_intel_display(plane);
->  	enum pipe pipe = plane->pipe;
-> -	u32 cntl = 0, base = 0, pos = 0, fbc_ctl = 0;
-> +	u32 cntl = 0, base = 0, fbc_ctl = 0;
->  
->  	if (plane_state && plane_state->uapi.visible) {
->  		int width = drm_rect_width(&plane_state->uapi.dst);
-> @@ -666,7 +689,6 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
->  			fbc_ctl = CUR_FBC_EN | CUR_FBC_HEIGHT(height - 1);
->  
->  		base = plane_state->surf;
-> -		pos = intel_cursor_position(crtc_state, plane_state, false);
->  	}
->  
->  	/*
-> @@ -703,14 +725,12 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
->  		if (HAS_CUR_FBC(display))
->  			intel_de_write_dsb(display, dsb, CUR_FBC_CTL(display, pipe), fbc_ctl);
->  		intel_de_write_dsb(display, dsb, CURCNTR(display, pipe), cntl);
-> -		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
->  		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
->  
->  		plane->cursor.base = base;
->  		plane->cursor.size = fbc_ctl;
->  		plane->cursor.cntl = cntl;
->  	} else {
-> -		intel_de_write_dsb(display, dsb, CURPOS(display, pipe), pos);
->  		intel_de_write_dsb(display, dsb, CURBASE(display, pipe), base);
->  	}
->  }
-> @@ -1019,6 +1039,7 @@ intel_cursor_plane_create(struct intel_display *display,
->  	if (display->platform.i845g || display->platform.i865g) {
->  		cursor->max_stride = i845_cursor_max_stride;
->  		cursor->min_alignment = i845_cursor_min_alignment;
-> +		cursor->update_noarm = i845_cursor_update_noarm;
->  		cursor->update_arm = i845_cursor_update_arm;
->  		cursor->disable_arm = i845_cursor_disable_arm;
->  		cursor->get_hw_state = i845_cursor_get_hw_state;
-> @@ -1036,6 +1057,7 @@ intel_cursor_plane_create(struct intel_display *display,
->  		if (intel_scanout_needs_vtd_wa(display))
->  			cursor->vtd_guard = 2;
->  
-> +		cursor->update_noarm = i9xx_cursor_update_noarm;
->  		cursor->update_arm = i9xx_cursor_update_arm;
->  		cursor->disable_arm = i9xx_cursor_disable_arm;
->  		cursor->get_hw_state = i9xx_cursor_get_hw_state;
-> -- 
-> 2.55.0
-
--- 
-Ville Syrjälä
-Intel
