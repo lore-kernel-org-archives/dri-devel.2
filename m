@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFB5C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A578C982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9283F10EFB2;
-	Wed, 23 Sep 2026 10:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75B8B10EFB8;
+	Wed, 23 Sep 2026 10:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Trx4Xl6U";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJ3+iB0m";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZpEMNiCP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GMigsCx7";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B679E10EFB2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA18410EFB3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:42 +0000 (UTC)
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68NA2s3w2951639
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:33 GMT
+ 68NA2tdu2951771
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=; b=Trx4Xl6UZKDhwbvB
- eChrg8GkrK1mFLFBmIrEvDMVX0t8RTkR21kvIGY8qvKVyur/LyYRza4GDeDo2rvb
- KRVf4mb7VSOkjrdSOZVcjb7jpUztFUTGNn6Me+1/JYoKR7LbWvDOtdrvFGTRycsF
- eoZS4vzTGk7nAx6OgeEbho/96E44Uuk+Yh/X6rm5tpMajQtGh9XVqyL1zEp7Olr/
- BiU+ttXtpvcnSJO5KLXYmIWHpwDC3aZtr/mRZq7SN97/Nn2EIfDvuIs6hbx28oZY
- XT8bF3H5wRFYhwraK7Qh6enTlhhC/5dR3hQV1yV1NoEksWGRt6HhiLnzpcGP4Aor
- 06ChCg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv32qtbnx-1
+ YSxzJvLJkFw1613tjCAKrHc8hSHWEvo3XbcR78aSAIU=; b=ZpEMNiCP23SFaF35
+ dHmoFmXcnVgwYxAZcEDPj7oAFFOerW5soIQUuft3B1mFx/+GUmy8Jyzm442W0ppe
+ ow9Eig3AM+q8QAPCSvIp+udnt9qu4CThVBK3mre1PyGmTPllOjwwx4alljTjh7Y/
+ 3nn4vn9ISdyySVSPgW8DyhukJancDHRevyUr+YHNRMt+ycjXvkX1Ifz/LWceXQMC
+ a/lftg+bA6iUvcWlmhZgpYlJjHe62Us8KAxP4hP6FSycVB9nBq2dWmxNHQzMLWbW
+ cKZdzcu4hSqaiD0Xkt1HdOwDAQJK8BjEiQL6lXDHrFlkjp429TY4t6A6jzwadXF/
+ 5x97bQ==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv32qtbpq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:33 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-30c0d568830so1310346eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 03:27:33 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:41 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-14383177746so1322708c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 03:27:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790159253; x=1790764053;
+ d=oss.qualcomm.com; s=google; t=1790159261; x=1790764061;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=;
- b=LJ3+iB0mME1B4kXtliskq1T2BQnfxkHxaTgDqPqkLo/wUCDS1e0VUv/NkY8Wxw0Cam
- WkM8/36o/rEYsi8v7F48CgmTurC1t3RzbFjAxdVWmm+LBjHOoNMz499QAN0C4US0O3gT
- eLrOngoLj+5dO18yUuXiP1LOUNwiLn14OAnOYfyOQipnAf0L6Z/0eDFupF165XLVCCkN
- pY0GD0+yqjH9xCoI81lYHFY1w+jK421H3w0HELMAGeOyrM8LYiT3SWQMZ7Fuu7GVag5+
- JpHNkvgBZlRshcOIBc93/EOYCT1gHdT4DAO1ghux49FYQkAX7+jR7pdy82vM9TD3HmA9
- p+vQ==
+ bh=YSxzJvLJkFw1613tjCAKrHc8hSHWEvo3XbcR78aSAIU=;
+ b=GMigsCx7E8sc+ViQME5KH1ErH1T+q3fTjHxIGvgEoaHb08qpEPr0f0uIb2jojJ1Neb
+ jF6gjIbluJQ1/1zlSHPCZfq/uO2NZgEXS835xiO8DMgtYMfM1bJBKX1oy5xN3GPosDwm
+ 9jL/6JYuPkkG9123248kn3yh4J2G96KcwZY5hL9E03wF4yKzR/2vtveIT6NqrzfmIsf5
+ gvy27pFRsAMZRW2UoRvU4ZfNv0hks+6hBX5lerfNpGhdkjNYIRjsLjS+0fxG9y9nl1R8
+ 0JzQ6Ev/CEwKBBEZF05gF8rDyeYgiqPDVSTX0kQh0LTI2c2tfSYCHfQxTQ/YNb4F1WV1
+ HPaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790159253; x=1790764053;
+ d=1e100.net; s=20260707; t=1790159261; x=1790764061;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=;
- b=wjysf9PJ9z2YQfkjKZ6ir2x/FpdQOVADR+2eSf56OT7qQyuGxT+xzY+Hl8P+dArx4p
- t0Q6WDyd0W2plJR+fHAyA0pwWZ0nUBwl9DF6xiAONXCkyIp+g29JWuDwWHV/mmUtdvg/
- ZImqVH/M4uTTmURsfZm6DdGFixueo8IxITxNjHvAtNca77/5c70W2E478gBPJkjEok4F
- KTJlWruKJX4vFUB9vaLy9VKNvFlLWLJY3Lx8x22kXsCf08RGjDJyBdlmTz+AUGroyDQz
- k6QhUxHKEaIaRBf3KeFKd9oSKcKfsVUVfHTckI7EgHsvZteTO0/Ow3euVJnQfAFjOhoI
- Kziw==
+ bh=YSxzJvLJkFw1613tjCAKrHc8hSHWEvo3XbcR78aSAIU=;
+ b=Do4yH2XANQEGyOktYCVcpKn8QFnoWo265ic6VDH9CweCSCq5R3mXP5QBcRwyg8uFyI
+ eT6E/0iELzjsCG8x1+G3WIiXNhIIobk4dTsjZbY5VffK+Eam7NOiXEQvZjDMK1GTID6C
+ ayOhA7TyHD2BFjmE1L6n1PXgoY9IVNu2olQVwQE8C01Wp449Ll4F6AEHBn2PrFk7GIPu
+ r6eWg95CK+f0UK+q5wH1dlcvVAOXKhKy6qkO/TNAXGsTIdGYcun7zZU3iPH0iEnXQPl/
+ GAmpNnAMHHf39+OWTbNGY7aLroblNpnrV+iL4c8Y/7mzAOSJjB1jIyVBReAB2yaLO1Ex
+ 20AA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+TSS7EcYHHm38MYa3itvO1kW7vy278+f/ljzhD1E1QtGogzTnHkh11wYA+EOl0kT34GKHdEYvQf8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kQmeN4bDJP5XDyFPmAroC3DZgZp+xnjtMuxHVNlspSbWOq6kjU
- S8pjQ7727Vqlw87ezyye3oYPmtEwoKYNKiWFJqzpLELQcqeMqWRpm4RkGZAt6VeumpaIxAUYma3
- n1KhJPttZ6YqvhisFagmhJdtvg2qdQd2ElnVLQ47oWx8kACDNmYRXv1GyhWY7LNYGP/xkx4I=
-X-Gm-Gg: AYBFou3+3f+jaxogGDG2o+sIlu/ZKgOcT9lxOgJWan1Hk6IC5xE05Oh9lxZ6VqU4oJS
- QA74Rsj96vxjO1mP+/wQ6ltQ8q5eI2KPJkNtwMb2rN4AM73K5KMLKmhq75Z3JYivc0k5QYzb9Bn
- 6a4RQaNOOlc2gJDlxeEpbbj/7Yw4wxpXiN5RkkI8/WEMEqwUMx4bE77judWNHoG1h5ZwgOzO9o9
- BIBnIa4mweVIO9ZiMOfQlPzWk93Jt1XPsg4GaWDfgjADxDypoxKXHUWOOHSHjwyaitdxvutx9xt
- PDHA8E3hjf1z9gCh3zQrfSxD4MTYL7oThyd9fnk7vjsHfrlNxPhIH4PfloycfNq4fwkfPjmYIhe
- LXN+o6TjejWjUME3C2Wew4M4=
-X-Received: by 2002:a05:701b:4187:10b0:144:ff51:2d5f with SMTP id
- a92af1059eb24-144ff512f97mr576952c88.33.1790159252660; 
- Wed, 23 Sep 2026 03:27:32 -0700 (PDT)
-X-Received: by 2002:a05:701b:4187:10b0:144:ff51:2d5f with SMTP id
- a92af1059eb24-144ff512f97mr576909c88.33.1790159252108; 
- Wed, 23 Sep 2026 03:27:32 -0700 (PDT)
+ AKwUvByio8RO9mTwXWaN2Kkql/MLOQe5PYwWPNm6V/FlDufqU18PGUImY4FbmLocqVajWN3NLgO8FB0SE9U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lHVatSEiyIGwaoBfI+X0QuQ1jBj3OtmVstuCPEvguFICqhPYdN
+ JGOhAqLGxqCyCbzKkhWH0Gbc45o42gJzw0vv0BLDuMUc1PCmhpUfT4SJkWNRCwJguMkfZ9diMaa
+ hMHTc68MI4S3VFyCGd0v6k9SayJdLs5UI12vaQFcsEZHjYOfQPOTR+U4p68XRZ0ws99N+c1c=
+X-Gm-Gg: AYBFou375QS5TJwcYI9PxKy8k3mL77TRDGcEUptokSlUEA1T/Wyyaf9R0TZ/HR5M9/p
+ zJYQVK1JASyx6BgQeWf4us4zIjgptJqrEjJOCMY9vyuno6aCD4r3YKp8BM/wo1D44zbN0uJ1LVQ
+ N5jxA8d9PDA7EkKY+uchvoKG0oVxCUcS7W5QswsMdNKsS1t1DHk1hHx55yIFZzJsTj8BYFdCoPX
+ hWgBTnZqwKNeipFAvH19wSm3KBuRhuIzPt04Av23hgOwFYaBi0nVezxyJFPMx9EfaIRMifoiPqI
+ E185kEcBz2pixSJl6FHdVuKvaUYW0LiDJCvWlBoL4aA2XKTcZZOySKhzPc/mFvaaL9jdFS+WrtO
+ ZlgZeB6W12JuQiKrQsBsnT6U=
+X-Received: by 2002:a05:7022:e88e:b0:143:342a:3d3d with SMTP id
+ a92af1059eb24-144f8ff4706mr3217952c88.0.1790159260385; 
+ Wed, 23 Sep 2026 03:27:40 -0700 (PDT)
+X-Received: by 2002:a05:7022:e88e:b0:143:342a:3d3d with SMTP id
+ a92af1059eb24-144f8ff4706mr3217900c88.0.1790159259641; 
+ Wed, 23 Sep 2026 03:27:39 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.27.25
+ a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.27.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 03:27:31 -0700 (PDT)
+ Wed, 23 Sep 2026 03:27:39 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:51 +0530
-Subject: [PATCH 11/15] dt-bindings: display/msm: Document A845 GPU and GMU
+Date: Wed, 23 Sep 2026 15:55:52 +0530
+Subject: [PATCH 12/15] arm64: dts: qcom: hawi: Add GPU support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-11-0c3c79a1a470@oss.qualcomm.com>
+Message-Id: <20260923-hawi-gpu-v1-12-0c3c79a1a470@oss.qualcomm.com>
 References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -112,34 +111,34 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
 Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=4840;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=11088;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=Di/O0uiu9sPfgbWZQ+DWpyFRPmaRlm3RFUo2LVR7Grs=;
- b=oSIRTIhIZTWgDC4dXD32uIpXePSFy6yeSCHpm1fL/BJX72Hrv/9/RdQGTvztY59Hyg5ntcCm4
- jHdUKpXw1dgALp5yZOyf/ttjpjDm4SFkpgAu8+0TssXWGH1uhbPRZd8
+ bh=n1LHjAQGW4oKjtxsQtempMH6l83u0Jfw/aNMXgWqElU=;
+ b=pkt/7vOh1cwgeUaCAm0j872gPDIme7MloVj9UKyY99cwqUsd9LCwOmoivFxeh9QV8gx41xbtJ
+ bqWaYw5sgiAAwERu8yKpCLy7Eio6+7Uwlanw+VjmYwhI36O5kQ6rFS5
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=SJnXx+vH c=1 sm=1 tr=0 ts=6ab3a995 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=SJnXx+vH c=1 sm=1 tr=0 ts=6ab3a99d cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=0V7fMRHxbeNora9F6bUA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: TCqJAuA02e843HEnTCRIVt_ekOm-OyId
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfXyCztP6PKvH4v
- UV0u6EDbT18kEZESp2usX/zTMaXi/5II5Ma7We18de42XqVWP292DKo1RWL7jBiR3eqCR2u5oos
- grcvsfwuBLWMLJwp44/tW6h7rm6QR/I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX7j2/6Pu8Zq75
- uZWTtJtHtnF+GIRdQqtlVZ8VFySMPjA0mxHs5uxLLzTB+cJDzi3wurJepN5PCv2TXSzAVM+HkVc
- fVU0I3TLQlQ5+pT8C/jLhR9L/A1ry0Pk1IYz6KMfCeA0rdVZOwCuj3rALBumr1ocPCbWdcdtZnD
- 8ZcvA15vg/eNR24Zt5wtfPMPmD3ogJos8j2OdrIlw5Ui3xRu9d2XIoybGJqkNY/oKwOa7xf0yOt
- QABaZEZLGJjyafP+OrN6UjfGYtf0ADtb7x7XvML6nxFb4qtCOBjsuIjg6DW82LV214/M4Vlmtzg
- IKjP/4X77QPqktwpe3eiaczUxSQ1Ogg4QO5zHQ/XcU1mn9IjHvxlMbIe5BDIjmLASFZRoh/zZp+
- w7SF6sVaoD4mnWUg5VwA/PPKuUeWEyrc21GNtOSTW1Pu4AqNnxJOVvUrpKylwDSH2B4ZITSCfe4
- ZiiXAjY/3PTLa90XftA==
-X-Proofpoint-ORIG-GUID: TCqJAuA02e843HEnTCRIVt_ekOm-OyId
+ a=EUspDBNiAAAA:8 a=if0HThm8pQPrmmLXrhUA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-GUID: Yk3PHkzyHPcyPqlVE1bVyoOABgHiCABK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX2S/l2I8ffSVN
+ jUS4BlD8wO+QyQqmcpTZ23fl9zjh8LMObqcfQbWOHRIjyqnF4wHKdTirSS6o8JDTpQ83peYtvy5
+ v4HUpKwNirY/HqrchcDgbnOTFon5NMc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX7plPDhqOhaUD
+ SUmm58V0baX+z8tjCvlzCiYvNtJ1AAsj2y5zkJahmMo22bsLPZsDLafcyif3kX+98CwTJbBq47c
+ T986nwzP9GOc+XgR6gJ1uUe9JOT9Hwl9D9O1oCcNh+AYPFmtwPn/f4EMY+Yrom79wELlJIq8PMd
+ AJ2GR6Je2NXYngRY4pU/U78yMyCJakryWykNkhDZiLc+8BFlZWEOz+XGiIzhpjRsdbqClq7wsU2
+ Cz1kMedD96fB4pX0g7TP/bfit02NxRjKJROJ80Iyhjhq5i61kDHTMaTlVhxNnDlOJi2YjCaPtaX
+ SM44qDBmffdcZ0S1mYvWmO7gq7DAkI4qNuODT6ACpAdUrJFodaeDlkDCfxnlioHRH6Vd29QOqFf
+ fF0Unvi+sIlB5UKLTi08gZPK1SfYhckeEWEDfGtraomaA9G0SWcKQ2ZT6ssANfM5v1xoDgNyD1e
+ lhyMOet59kK7PN1WX9Q==
+X-Proofpoint-ORIG-GUID: Yk3PHkzyHPcyPqlVE1bVyoOABgHiCABK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
@@ -163,154 +162,377 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
+Adreno 850 is the next generation of A8x GPU present in Hawi SoC. It shares
+the ADRENO_8XX_GEN2 family and slice architecture with A840, but has many
+architectural improvements. There is a new block Matrix ALU (MALU) which
+helps to accelerate certain compute workloads. Also, there is a new Bx rail
+that powers a part of the GPU IP. GMU is now powered by a dedicated GDSC
+powered by MxG rail.
 
-Adreno 845 GPU is present in the Maili SoC which is very similar to the
-A850 GPU, except the MALU block. It has different set of power
-configurations and the GMU clock list. Document this GPU and its GMU.
+Add the GPU and GMU nodes describing the register maps, interrupts, clocks,
+power domains, IOMMU, interconnect paths and the OPP tables.
 
-Signed-off-by: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
+Assisted-by: LLM
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- .../devicetree/bindings/display/msm/gmu.yaml       | 54 ++++++++++++++--------
- .../devicetree/bindings/display/msm/gpu.yaml       |  2 +
- 2 files changed, 38 insertions(+), 18 deletions(-)
+ arch/arm64/boot/dts/qcom/hawi.dtsi | 336 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 336 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index 875fd1242528..be4feb87f274 100644
---- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-@@ -367,7 +367,7 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-850.1
-+            const: qcom,adreno-gmu-845.0
-     then:
-       properties:
-         reg:
-@@ -380,7 +380,7 @@ allOf:
-           items:
-             - description: GMU clock
-             - description: GPU CX clock
--            - description: GPU MEMNOC clock
-+            - description: GPU SMMU Vote clock
-             - description: GPU AHB clock
-             - description: GPU MXG AHB clock
-             - description: GMU HUB clock
-@@ -388,7 +388,7 @@ allOf:
-           items:
-             - const: gmu
-             - const: cxo
--            - const: memnoc
-+            - const: smmu_vote
-             - const: ahb
-             - const: mxg_ahb
-             - const: hub
-@@ -407,7 +407,7 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-x285.1
-+            const: qcom,adreno-gmu-850.1
-     then:
-       properties:
-         reg:
-@@ -418,42 +418,60 @@ allOf:
-             - const: gmu
-         clocks:
-           items:
--            - description: GPU AHB clock
-             - description: GMU clock
-             - description: GPU CX clock
-             - description: GPU MEMNOC clock
-+            - description: GPU AHB clock
-+            - description: GPU MXG AHB clock
-             - description: GMU HUB clock
--            - description: GMU RSCC HUB clock
-         clock-names:
-           items:
--            - const: ahb
-             - const: gmu
-             - const: cxo
-             - const: memnoc
-+            - const: ahb
-+            - const: mxg_ahb
-             - const: hub
--            - const: rscc
-+        power-domains:
-+          items:
-+            - description: CX power domain
-+            - description: GX power domain
-+            - description: GMU MX power domain
-+        power-domain-names:
-+          items:
-+            - const: cx
-+            - const: gx
-+            - const: gmu_mx
+diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qcom/hawi.dtsi
+index c7ae8133b9cd..351909a34286 100644
+--- a/arch/arm64/boot/dts/qcom/hawi.dtsi
++++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
+@@ -3612,6 +3612,277 @@ tcsrcc: clock-controller@3b13040 {
+ 			#reset-cells = <1>;
+ 		};
  
-   - if:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-wrapper
-+            const: qcom,adreno-gmu-x285.1
-     then:
-       properties:
-         reg:
-           items:
--            - description: GMU wrapper register space
-+            - description: Core GMU registers
-         reg-names:
-           items:
-             - const: gmu
--    else:
--      required:
--        - clocks
--        - clock-names
--        - interrupts
--        - interrupt-names
--        - iommus
--        - operating-points-v2
-+        clocks:
-+          items:
-+            - description: GPU AHB clock
-+            - description: GMU clock
-+            - description: GPU CX clock
-+            - description: GPU MEMNOC clock
-+            - description: GMU HUB clock
-+            - description: GMU RSCC HUB clock
-+        clock-names:
-+          items:
-+            - const: ahb
-+            - const: gmu
-+            - const: cxo
-+            - const: memnoc
-+            - const: hub
-+            - const: rscc
++		gpu: gpu@3d00000 {
++			compatible = "qcom,adreno-44051401", "qcom,adreno";
++			reg = <0x0 0x03d00000 0x0 0x6c000>,
++			      <0x0 0x03d9e000 0x0 0x2000>;
++			reg-names = "kgsl_3d0_reg_memory",
++				    "cx_mem";
++
++			interrupts = <GIC_ESPI 364 IRQ_TYPE_LEVEL_HIGH>;
++
++			iommus = <&adreno_smmu 0 0x0>,
++				 <&adreno_smmu 1 0x0>;
++
++			operating-points-v2 = <&gpu_opp_table>;
++
++			qcom,gmu = <&gmu>;
++			#cooling-cells = <2>;
++
++			nvmem-cells = <&gpu_speed_bin>;
++			nvmem-cell-names = "speed_bin";
++
++			interconnects = <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++			interconnect-names = "gfx-mem";
++
++			status = "disabled";
++
++			gpu_zap_shader: zap-shader {
++				memory-region = <&gpu_microcode_mem>;
++			};
++
++			gpu_opp_table: opp-table {
++				compatible = "operating-points-v2-adreno",
++					     "operating-points-v2";
++
++				/* Only applicable for SKUs with 1500 MHz Fmax */
++				opp-1500000000 {
++					opp-hz = /bits/ 64 <1500000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L5>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x01>;
++					qcom,opp-acd-level = <0x802f5ffd>;
++				};
++
++				/* Only applicable for SKUs with 1500 MHz Fmax */
++				opp-1475000000 {
++					opp-hz = /bits/ 64 <1475000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3_2>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x01>;
++					qcom,opp-acd-level = <0x802f5ffd>;
++				};
++
++				opp-1450000000 {
++					opp-hz = /bits/ 64 <1450000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3_1>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x03>;
++					qcom,opp-acd-level = <0x88285ffd>;
++				};
++
++				opp-1400000000 {
++					opp-hz = /bits/ 64 <1400000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3_0>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x03>;
++					qcom,opp-acd-level = <0x88285ffd>;
++				};
++
++				opp-1350000000 {
++					opp-hz = /bits/ 64 <1350000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L3>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x07>;
++					qcom,opp-acd-level = <0xa8295ffd>;
++				};
++
++				opp-1275000000 {
++					opp-hz = /bits/ 64 <1275000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1_1>;
++					opp-peak-kBps = <18671875>;
++					opp-supported-hw = <0x07>;
++					qcom,opp-acd-level = <0xa82a5ffd>;
++				};
++
++				opp-1201000000 {
++					opp-hz = /bits/ 64 <1201000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1_0>;
++					opp-peak-kBps = <18671875>;
++					opp-supported-hw = <0x07>;
++					qcom,opp-acd-level = <0x882b5ffd>;
++				};
++
++				opp-1126000000 {
++					opp-hz = /bits/ 64 <1126000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++					opp-peak-kBps = <16500000>;
++					opp-supported-hw = <0x07>;
++					qcom,opp-acd-level = <0xa82b5ffd>;
++				};
++
++				opp-1025000000-0 {
++					opp-hz = /bits/ 64 <1025000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++					opp-peak-kBps = <16500000>;
++					opp-supported-hw = <0x07>;
++					qcom,opp-acd-level = <0xa82b5ffd>;
++				};
++
++				/* Only applicable for SKUs with 1025 MHz Fmax */
++				opp-1025000000-1 {
++					opp-hz = /bits/ 64 <1025000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++					opp-peak-kBps = <20832031>;
++					opp-supported-hw = <0x08>;
++					qcom,opp-acd-level = <0xa82b5ffd>;
++				};
++
++				opp-951000000 {
++					opp-hz = /bits/ 64 <951000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++					opp-peak-kBps = <12449218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xa82c5ffd>;
++				};
++
++				opp-843000000 {
++					opp-hz = /bits/ 64 <843000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++					opp-peak-kBps = <12449218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xa82c5ffd>;
++				};
++
++				opp-801000000 {
++					opp-hz = /bits/ 64 <801000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2_0>;
++					opp-peak-kBps = <12449218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xa82c5ffd>;
++				};
++
++				opp-759000000 {
++					opp-hz = /bits/ 64 <759000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
++					opp-peak-kBps = <12449218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0x882d5ffd>;
++				};
++
++				opp-693000000 {
++					opp-hz = /bits/ 64 <693000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++					opp-peak-kBps = <12449218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xa82f5ffd>;
++				};
++
++				opp-636000000 {
++					opp-hz = /bits/ 64 <636000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
++					opp-peak-kBps = <10687500>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe0285ffd>;
++				};
++
++				opp-578000000 {
++					opp-hz = /bits/ 64 <578000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++					opp-peak-kBps = <8171875>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe0285ffd>;
++				};
++
++				opp-539000000 {
++					opp-hz = /bits/ 64 <539000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L2>;
++					opp-peak-kBps = <8171875>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xc02c5ffd>;
++				};
++
++				opp-500000000 {
++					opp-hz = /bits/ 64 <500000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L1>;
++					opp-peak-kBps = <8171875>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xc02c5ffd>;
++				};
++
++				opp-461000000 {
++					opp-hz = /bits/ 64 <461000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_L0>;
++					opp-peak-kBps = <8171875>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe02d5ffd>;
++				};
++
++				opp-422000000 {
++					opp-hz = /bits/ 64 <422000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++					opp-peak-kBps = <6074218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe02d5ffd>;
++				};
++
++				opp-390000000 {
++					opp-hz = /bits/ 64 <390000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0>;
++					opp-peak-kBps = <6074218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe02d5ffd>;
++				};
++
++				opp-357000000 {
++					opp-hz = /bits/ 64 <357000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D0_0>;
++					opp-peak-kBps = <6074218>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe82a5ffd>;
++				};
++
++				opp-325000000 {
++					opp-hz = /bits/ 64 <325000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
++					opp-peak-kBps = <5285156>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe82a5ffd>;
++				};
++
++				opp-274000000 {
++					opp-hz = /bits/ 64 <274000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D1_1>;
++					opp-peak-kBps = <5285156>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe82a5ffd>;
++				};
++
++				opp-222000000 {
++					opp-hz = /bits/ 64 <222000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2>;
++					opp-peak-kBps = <2136718>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xaa2a5ffd>;
++				};
++
++				opp-190000000 {
++					opp-hz = /bits/ 64 <190000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D2_1>;
++					opp-peak-kBps = <2136718>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0x8a2f5ffd>;
++				};
++
++				opp-157000000 {
++					opp-hz = /bits/ 64 <157000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D3>;
++					opp-peak-kBps = <2136718>;
++					opp-supported-hw = <0x0f>;
++					qcom,opp-acd-level = <0xe22d5ffd>;
++				};
++
++				opp-125000000 {
++					opp-hz = /bits/ 64 <125000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D3_0>;
++					opp-peak-kBps = <2136718>;
++					opp-supported-hw = <0x0f>;
++					/* ACD is disabled */
++				};
++			};
++		};
++
+ 		gxclkctl: clock-controller@3d64000 {
+ 			compatible = "qcom,hawi-gxclkctl",
+ 				     "qcom,kaanapali-gxclkctl";
+@@ -3624,6 +3895,71 @@ gxclkctl: clock-controller@3d64000 {
+ 			#power-domain-cells = <1>;
+ 		};
  
- examples:
-   - |
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index 3438eebf2fa4..a11a4dba838d 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -415,6 +415,7 @@ allOf:
-             enum:
-               - qcom,adreno-44010000
-               - qcom,adreno-44050a01
-+              - qcom,adreno-44041400
-               - qcom,adreno-44051401
-               - qcom,adreno-44070001
-     then:
-@@ -453,6 +454,7 @@ allOf:
-               - qcom,adreno-43051401
-               - qcom,adreno-44010000
-               - qcom,adreno-44050a01
-+              - qcom,adreno-44041400
-               - qcom,adreno-44051401
-               - qcom,adreno-44070001
- 
++		gmu: gmu@3d6c000 {
++			compatible = "qcom,adreno-gmu-850.1", "qcom,adreno-gmu";
++			reg = <0x0 0x03d6c000 0x0 0x32000>;
++			reg-names = "gmu";
++
++			interrupts = <GIC_ESPI 368 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_ESPI 369 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "hfi", "gmu";
++
++			clocks = <&gpucc GPU_CC_CX_GMU_CLK>,
++				 <&gpucc GPU_CC_CXO_CLK>,
++				 <&gcc GCC_GPU_GEMNOC_GFX_CLK>,
++				 <&gpucc GPU_CC_AHB_CLK>,
++				 <&gpucc GPU_CC_MXG_AHB_CLK>,
++				 <&gpucc GPU_CC_HUB_CX_INT_CLK>;
++			clock-names = "gmu",
++				      "cxo",
++				      "memnoc",
++				      "ahb",
++				      "mxg_ahb",
++				      "hub";
++
++			power-domains = <&gpucc GPU_CC_CX_GDSC>,
++					<&gxclkctl GX_CLKCTL_GX_GDSC>,
++					<&gpucc GPU_CC_MXG_GDSC>;
++			power-domain-names = "cx",
++					     "gx",
++					     "gmu_mx";
++
++			iommus = <&adreno_smmu 5 0x0>;
++
++			qcom,qmp = <&aoss_qmp>;
++
++			operating-points-v2 = <&gmu_opp_table>;
++
++			gmu_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-556000000 {
++					opp-hz = /bits/ 64 <556000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS_D3>;
++				};
++
++				opp-788000000 {
++					opp-hz = /bits/ 64 <788000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++				};
++
++				opp-825000000 {
++					opp-hz = /bits/ 64 <825000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++				};
++
++				opp-880000000 {
++					opp-hz = /bits/ 64 <880000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++				};
++
++				opp-917000000 {
++					opp-hz = /bits/ 64 <917000000>;
++					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++				};
++			};
++		};
++
+ 		gpucc: clock-controller@3d90000 {
+ 			compatible = "qcom,hawi-gpucc";
+ 			reg = <0x0 0x03d90000 0x0 0x9800>;
 
 -- 
 2.55.0
