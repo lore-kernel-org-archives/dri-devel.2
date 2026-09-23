@@ -4,69 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FB7C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7518C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E64110F184;
-	Wed, 23 Sep 2026 20:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D37710F188;
+	Wed, 23 Sep 2026 20:24:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="NSuW96iw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ohn97AMv";
 	dkim-atps=neutral
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CCB10F184
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:22:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790194958; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=lLqx2yAUq6o+M8/7F+UMx8DvBUKS2Ma9FpNQBhh87qJE+JQSU3SdiYX5AMYXTqQiZWWx+7UhAUgzPA30uNx0q5rnUicPYdvqZkLiE5g0JR7WFUUUd/QhlH+xajoa1dEvwBfZxDHxg9LUUDur6VYtrl6dpBlAA9Va+Bh1RGWGTk4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790194958;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=; 
- b=JfK7hLfSZz3pfankwaTwEop71ESoAiFtVaCdVsShUkJkOI3TQGcTPby3l+haIcyDcAYoT0nYweZQ0zotUjA+x6Nc+nr7McWYKROsWVZ0g3iaIav5LOVdiYOZf81aMHIXOk03KRw8/K4jtgNslGiuGVochgdkl0QNpS0lTEBqWaI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790194958; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=;
- b=NSuW96iwCPwTSl4mcg+Hji4Z35UcW4wIQBUE9BPLfjxRSG64yoQ8y/yT/68As0fD
- ITGj1Y6P21HeucZ3XblOF0EYLnk/lof/+uIK7jbxJRJAGc2TtG7qfXkafx26pdpSCfH
- uh/eRg4HP972fL/NkLyhYdk1jhW9EOmn26kBD6k0=
-Received: by smtp.zohomail.com with SMTPS id 1790194957839653.7404759552567;
- Wed, 23 Sep 2026 13:22:37 -0700 (PDT)
-Date: Wed, 23 Sep 2026 21:22:32 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-Message-ID: <arQzC4I98fFgVelc@sobremesa>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
- <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
- <20260914113946.69936104@fedora-21.home>
- <arGKAk8ZWGOGDWEY@sobremesa>
- <20260923091010.58b8e677@fedora-21.home>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B57610F188
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:24:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 22FF14198D;
+ Wed, 23 Sep 2026 20:24:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A851F00893;
+ Wed, 23 Sep 2026 20:24:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790195056;
+ bh=6mcVRLCQ3ft3GR8ZHTESrJhRXejsrx4RrxQ9hZpP+qs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ohn97AMvH0NnvpGtVasI2fM4NaXpFnDEksLIS8Kh8rySJNk+HpC4FNDa9BHxKadzm
+ H+L8b9rGpPjbRaPgJ+zhyWhynHdTwzwxsuRzpYLi2lan/d4vptVbulJy56Qx9uxRU8
+ gbbfaBvAfLjtHcK5e0YZqZZYtLd06u7DIFsZofrC31kzlYwxCCxGoeHiU9B4FA5bLE
+ k6VETCN6i70BbRygG2mHnlBeNc9c+2Q8WvIES69ZbRGKer82fq5kZdQh74Y5egN2vO
+ lGhtbxmtLzUAOvTjW1clE3saNeYjMQy3ypuKzht7JYm506xmbld5Vh9F/4r9J1Mf+s
+ YwQDT7gdajTew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] video: logo: add ppmtodtlogo host tool
+To: "Max Pedraza" <maximpedraza@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260923201035.51007-8-maximpedraza@gmail.com>
+References: <20260923201035.51007-1-maximpedraza@gmail.com>
+ <20260923201035.51007-8-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923091010.58b8e677@fedora-21.home>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 20:24:14 +0000
+Message-Id: <20260923202415.B5A851F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,138 +54,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> On 23.09.2026 09:10, Boris Brezillon wrote:
-> On Tue, 22 Sep 2026 20:54:11 +0100
-> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> 
-> > On 14.09.2026 11:39, Boris Brezillon wrote:
-> > > On Sat, 12 Sep 2026 00:28:11 +0100
-> > > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> > >   
-> > > > This will be of great help when testing potential races between the GPU
-> > > > reset sequence and other parts of the code accessing HW registers.
-> > > > 
-> > > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>  
-> > > 
-> > > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > > 
-> > > One comment below.
-> > >   
-> > > > ---
-> > > >  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++++++++++++
-> > > >  1 file changed, 37 insertions(+)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > > index d75566a45392..0aee1d87a7ab 100644
-> > > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > > @@ -2,6 +2,7 @@
-> > > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
-> > > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> > > >  
-> > > > +#include <linux/debugfs.h>
-> > > >  #include <linux/clk.h>
-> > > >  #include <linux/reset.h>
-> > > >  #include <linux/platform_device.h>
-> > > > @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
-> > > >  };
-> > > >  
-> > > >  #ifdef CONFIG_DEBUG_FS
-> > > > +static int reset_get(void *data, u64 *val)
-> > > > +{
-> > > > +	struct panfrost_device *pfdev =
-> > > > +		container_of(data, struct panfrost_device, base);
-> > > > +
-> > > > +	*val = atomic_read(&pfdev->reset.pending);
-> > > > +	return 0;
-> > > > +}
-> > > > +
-> > > > +static int reset_set(void *data, u64 val)
-> > > > +{
-> > > > +	struct panfrost_device *pfdev =
-> > > > +		container_of(data, struct panfrost_device, base);
-> > > > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
-> > > > +
-> > > > +	if (ret) {
-> > > > +		panfrost_device_schedule_reset(pfdev);  
-> > > 
-> > > It feels weird to schedule a reset if the device is suspended, because
-> > > a suspend/resume cycle already acts as a reset. Any particular reason
-> > > you'd want to do that? If not, I'd suggest going for:  
-> > 
-> > That's been my goal all along, for the knob to trigger a reset only when
-> > the device isn't suspended. pm_runtime_get_if_active() docs states that:
-> > 
-> > """
-> > Increment the runtime PM usage counter of @dev if its runtime PM status is
-> > %RPM_ACTIVE, in which case it returns 1. If the device is in a different
-> > state, 0 is returned. -EINVAL is returned if runtime PM is disabled for the
-> > device, in which case also the usage_count will remain unmodified.
-> > """
-> > 
-> > So (ret != 0) means the device either doesn't support RPM or else it
-> > was in the ACTIVE state. In both cases, that means the device is powered
-> > so we can proceed with the reset. However, I only decrement the usage
-> > counter when kernel RPM is enabled (ret > 1).
-> 
-> Okay, I see. Can we have a comment explaining that? Also, I think I
-> prefer an early bail out over the extra indentation level added here.
-> 
-> 	if (!ret)
-> 		return 0;
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] ppmtodtlogo: silent output corruption due to unchecked file writes
+--
 
-Will do.
+commit 4ad00a19ffae8a59e9289c4ee762366d9f29a5de
+Author: Max Pedraza <maximpedraza@gmail.com>
 
-> Oh, and we should probably make this knob inactive in the device removal
-> path (with a disable_work()?), otherwise -EINVAL will be returned as
-> soon as pm_runtime_disable() is called, and this might cause a reset to
-> be scheduled, which we probably don't want, since it would interfere
-> with our device_fini() logic.
+video: logo: add ppmtodtlogo host tool
 
-I think replacing cancel_work_sync() with disable_work_sync() in panfrost_jm_fini()
-should be enough to this end. In that case, both queue_work() and flush_work()
-will do nothing and no PM reference will be taken, so the whole thing effective
-becomes a NOP.
+This commit adds a host tool that converts a PPM image into a devicetree bo=
+ot
+logo node or a binary blob for a reserved memory region.
 
-> > 
-> > > 	if (ret <= 0)
-> > > 		return ret;
-> > > 
-> > > 	panfrost_device_schedule_reset(pfdev);
-> > > 	pm_runtime_put(pfdev->base.dev);
-> > > 	return 0;
-> > >   
-> > > > +		flush_work(&pfdev->reset.work);
-> > > > +		if (ret > 0)
-> > > > +			pm_runtime_put(pfdev->base.dev);
-> > > > +	}
-> > > > +
-> > > > +	return 0;
-> > > > +}
-> > > > +
-> > > > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-> > > > +			 reset_get, reset_set,
-> > > > +			 "0x%08llx\n");
-> > > > +
-> > > > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
-> > > > +{
-> > > > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
-> > > > +			    minor->dev, &panfrost_reset_debugfs_fops);
-> > > > +}
-> > > > +
-> > > >  void panfrost_device_debugfs_init(struct drm_minor *minor)
-> > > >  {
-> > > >  	panfrost_gem_debugfs_init(minor);
-> > > >  	panfrost_sched_debugfs_init(minor);
-> > > > +	panfrost_reset_debugfs_init(minor);
-> > > >  }
-> > > >  #endif // CONFIG_DEBUG_FS
-> > > >   
-> > 
-> > Adrian Larumbe
+> diff --git a/drivers/video/logo/ppmtodtlogo.c b/drivers/video/logo/ppmtod=
+tlogo.c
+> new file mode 100644
+> index 0000000000000..7fded9ce9ba37
+> --- /dev/null
+> +++ b/drivers/video/logo/ppmtodtlogo.c
+[ ... ]
+> +static void write_bin(void)
+> +{
+> +	put_le32(BLOB_MAGIC);
+> +	put_le32(logo_width);
+> +	put_le32(logo_height);
+> +	put_le32(logo_clutsize);
+> +	fwrite(logo_clut, 3, logo_clutsize, out);
+> +	fwrite(logo_data, 1, logo_width * logo_height, out);
 
+[Severity: Low]
+Are we missing error checks on these writes? If the tool runs under a
+disk-full condition or encounters another write error, it looks like it
+will silently produce truncated binary blobs without reporting an error or
+returning a non-zero exit status.
 
-Adrian Larumbe
+> +}
+[ ... ]
+> +int main(int argc, char *argv[])
+> +{
+[ ... ]
+> +	if (outputname)
+> +		fclose(out);
+
+[Severity: Low]
+Could failing to check the return value here ignore buffered write failures?
+If a flush fails at the end of the program, it might obscure disk space
+issues and leave a corrupted output file while still exiting with a zero
+status code.
+
+> +
+> +	fprintf(stderr, "%s: %ux%u pixels, %u colours\n", filename, logo_width,
+> +		logo_height, logo_clutsize);
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923201035.5100=
+7-1-maximpedraza@gmail.com?part=3D7
