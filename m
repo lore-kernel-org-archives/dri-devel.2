@@ -4,89 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 252C0C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3140C982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:31:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A72D910E799;
-	Wed, 23 Sep 2026 07:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAC8F10E04A;
+	Wed, 23 Sep 2026 07:31:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="bg8ZxXd0";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="rV6W5+KT";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10DEE10E812
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:19:11 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c2940ef15d3so74037666b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1790147949; x=1790752749; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ft6XgyJ5wQGlqXKRn4SVkQ1bgRUrF5cWG3Ko+MjzV64=;
- b=bg8ZxXd03rUjsV+hDTpUsj2+NDlQkroO4Q5/wkrNkFxfY5xWlQpaJLVS03DEFp6MCK
- fj+uU5vjARINTfpWNeqOfIfWzHjJYD+nVncmUx93heRofQPkLKH5K28i6Ry07Mo7ECNe
- cqeMxDMoIRsObY0GorUKTMa0yam0Ch7AXgcW4MLhppDTZmmBqVUlKHqi3GAFxpLxdQH2
- Oth6kx372xYS1ljCy3EPGJ1M+2T46Z37wxhubO6bFlFRhAqZ2LUghEG2doqd087pBTKj
- PEqP8UAExw8QMH1gwBahVyNtAqZXMdmOtcYg9hyD6nLfj0cQ7Y2mX3TGKvkUO97JiEvN
- B4Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790147949; x=1790752749;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ft6XgyJ5wQGlqXKRn4SVkQ1bgRUrF5cWG3Ko+MjzV64=;
- b=u+uh6q/vgwH0GnTcd9CNImo5/1qMwyVf2iZR8zHrS3S6ss5kcFBCrsM51w1qoUy+i0
- HCytdPVHz+BxgEtYM5uS7FmCIwkzBct6dnZhUdjeYjQM66fV6rnZ24LNNT6x7MZXI3Ba
- WNMJ8FDqeG4+TOtrGr4ESK3Nxi0yDcmu2hWXndYiZF4RTCbM9211lkChDblbgCRXQ3Pt
- xYn7tCwXM1ZgftG/D5k52cowHrK9S39m9YtPgzABQ1FHASfmm4wUY2P9hsvjmtzRfITp
- sJeenIzj54hSfTI2ap6BWn3NGdswEz/Ac9hWS9hBJwhMG9ga+vBCUUjCCKwBbpbroL15
- 3hKA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxebLRCx2uRM44Y8bD/eLXpfWpnfPPt9ZrIwDiz1oplB2szPPj50CtGRfXqmoz/P8oxmG4mKn2Boco=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mv4GJ4tS4zuYpIB0XtY8zgJmTQPBQ23gQODRGTU0YRK8jl5JHp
- 1TuISKrjRfNRpnukGOF8IVxdBIAd9uNBAhvH66r7F1ErlRGwQb2NoaYkFacBWEHaPe8=
-X-Gm-Gg: AYBFou1gXZT70Aknxbxw0fzYy2gqL7M1GkX0FABPTHpNiHyiEagyXSE0VxcpIEz5zRn
- 0eTOUCAoFza8BevLHqzbfwxMDQQUnxH6hbaHRx+gh8YDUCuzEUBmjGrXBASqlMqgQRBtz/e3oX1
- QTgEQ0n46j+b6wgOGxXBI67Lyd+b6Ec4qC1LPLqxWRrP5fDwBvkUh3IfDbEY7wX/PP/31mjxZM6
- QUyxwXVaJvk8W3S9pDmoYChEwROhyV6zu+OUvYrkDd/iD2CAZxSuMlIXcoclOM1wL2nsL1ihybO
- PAj4bZ1HYmLTNkimLF3dCYVPgRclI46IiowFMRCSpzIjDszY8MCgFJlEBGWccNCuoZNuAFu5MAA
- hsc1sI04Bp/eHiq6pF8qkDg49wLq0FogGmqvgeDvF+Wmg2P7Jo0YcZ9AvoJjIaN1kAQauX/+VvI
- K2s6ggZrwYTWr8QG5iUpx/hHYdjC/0CRkHMooyjDqAB9L9yUNoRw50Ny++TlKB6/yeSa+pDMbOM
- w/EFrcgsiTM9w==
-X-Received: by 2002:a17:907:c23:b0:c29:f5d5:5aa1 with SMTP id
- a640c23a62f3a-c2aae27ba7dmr122903466b.43.1790147948799; 
- Wed, 23 Sep 2026 00:19:08 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2aae6e3677sm56238766b.62.2026.09.23.00.19.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Sep 2026 00:19:08 -0700 (PDT)
-Message-ID: <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
-Date: Wed, 23 Sep 2026 08:19:07 +0100
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1899B10E04A
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:31:55 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hqTDk6ScQzMlcQ;
+ Wed, 23 Sep 2026 09:31:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790148710; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2ewBXp6wIK1XaqYEXypgcFPAi/4Tk0ocznfvqxVjsvA=;
+ b=rV6W5+KTK2+79LZdYwyd1E0q2jGIqRSoXUY/P/wa12dWcGjM7V8gZzExu38vzSa7j/6VBW
+ g+qBgfryRoM8H2i+BAef3QTLhpt441ZP/Mx9LU/ep3G8sR2x3R6cvs8/kcU2Tz5EHetQ9E
+ Qtq/G3KwKw2D4pTimzhkvA9N3PSCchSEvECPocGBR5ES95KsB4IU9+HqiBt6dqD2zL9N39
+ bcibPotV/BchSaOcXUFEMA8UGUwLbD/Tbi6lUOT3u7xGtsi/Lz8qnMZZKusToNCr84b//Q
+ 1g1YvkmRPjYtbO6A4BQ1ZXZd4Q8h9yth2rGMVNL6mkH8Iu8BWAhkhsHiB5ItSQ==
+Message-ID: <72697e6a5287439baa161c0c87a87fb1096a31c4.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Free the run queues at the end of
+ drm_sched_fini()
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Donggeun Yoo
+ <donggeunyoo.kernel@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Luben Tuikov
+ <ltuikov89@gmail.com>, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 09:31:45 +0200
+In-Reply-To: <f8ddff14-7800-451d-92c4-3f63ebba275d@igalia.com>
+References: <20260910121601.805032-1-donggeunyoo.kernel@gmail.com>
+ <f8ddff14-7800-451d-92c4-3f63ebba275d@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-To: Maarten Lankhorst <dev@lankhorst.se>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
- <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
- <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 49eddb90ab452209e4a
+X-MBO-RS-META: tah16iyaf5j8xmayb69acoinck8kxjzn
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,53 +69,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, 2026-09-14 at 13:11 +0100, Tvrtko Ursulin wrote:
+>=20
+> On 10/09/2026 13:16, Donggeun Yoo wrote:
+> > drm_sched_fini() frees the run queues at the top of teardown but the ar=
+ray
+> > holding them at the bottom. The early half is on the wrong side of
+> > cancel_delayed_work_sync(&sched->work_tdr), which waits for a timeout
+> > handler that can still walk sched->sched_rq[i] through
+> > drm_sched_increase_karma().
+> >=20
+> > No correct driver can be there, since every fence returned from run_job=
+()
+> > must be signaled before drm_sched_fini() is called. Free the entries ne=
+xt
+> > to the array anyway, so run-queue teardown happens in one place.
+> >=20
+> > Link: https://lore.kernel.org/dri-devel/20260910054605.634135-1-donggeu=
+nyoo.kernel@gmail.com/
+> > Assisted-by: Claude:claude-fable-5
+> > Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> > ---
+> > Targets drm-misc-next (0878e6053d01).
+> >=20
 
-On 18/09/2026 12:19, Maarten Lankhorst wrote:
-> Hey,
-> 
-> On 9/18/26 11:44, Tvrtko Ursulin wrote:
->>
->> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
->>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
->>>> Hey,
->>> Hi Maarten,
->>>
->>>> Yeah the problem was similar, I believe neither check should exist,
->>>> instead the caller should give this information like the comment mentions.
->>>
->>> Any update here? Maybe I have been left out on reposts. Any chance this
->>> gets in before the LTS of this year gets out?
->>
->> Side question, there was a bunch of sashiko issues against v4 - have those been addressed?
->>
->> As today it is the first time I see patch 7/7 which is a bit of a scary one. I have to ask how much does Intel commit to fixing out any potential breakage given the status of i915?
->>
->> + other maintainers FYI
-> Patch 7/7 addresses a real issue, it just happened to be more easily found on PREEMPT_RT.
+[=E2=80=A6]
 
-In this case, have you pulled it out from the series and sent standalone?
+>=20
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-> I haven't had much time to look at PREEMPT_RT lately, I'll see if I can get some time to look at
-> sashiko, but lack of reviews have not been helping.
-> 
-> Every time I send out revised patches, it takes a few months before I receive a response.
-> By that time I have moved on to other projects, and finding time takes a lot of time again.
-> If the cycle took only a few days I could finish this quickly and get it merged.
+Applied it. Thx.
 
-Sounds like Intel is not officially supporting/funding your effort. I am 
-also helping out unfunded in my private time so cannot really promise to 
-improve things much in terms of promptness of reviews, or even promise 
-to review in the short term.
-
-In any case it sounds like the best plan is to send the fix which 
-applies to !PREEMPT_RT as standalone and see if anyone bites. Problem 
-still be merging such a large change so I expect maintainer acks will be 
-needed in any case.
-
-Regards,
-
-Tvrtko
-
+P.
