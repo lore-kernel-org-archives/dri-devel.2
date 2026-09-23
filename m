@@ -4,82 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FEBBC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B756C98326
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 233D910F8EB;
-	Fri, 25 Sep 2026 07:30:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 977BA10F8E8;
+	Fri, 25 Sep 2026 07:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QWkewzZC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kO69tl0G";
 	dkim-atps=neutral
-Received: from mail-dl2-f22.google.com (mail-dl2-f22.google.com
- [74.125.229.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74C6710F78E
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:05:14 +0000 (UTC)
-Received: by mail-dl2-f22.google.com with SMTP id
- a92af1059eb24-14383fddae4so219716c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:05:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790283914; x=1790888714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1NmZmhgLOy/YmQC3GmGsf1VOw7I8/+ySPDXRuFIlrI8=;
- b=QWkewzZCsM1B0X4ITFkRYAO0dfNWysEX/cxDNn2oREpKquzfdtIYVjxBlyePn4e9ky
- P8y2d+mB4Hx9JApWK27xGYSS/oVa2mqNj0jS6kDtkqO6zYVvTImJeCZ5oOP1EYTVIYd1
- 6aGoPRNv2GFAYI+XZyofl/GWnk7aPqoRIgvyvvxG2bpoOKD8mBnEowLpgRPFSuMLFyED
- S5eFKdBaQIi/1XUkBF30PlhwnMrVIguJ9am06UvGAnbV4YViYaLJ0DLJAOpM09ekHnUs
- kaxOkgN4Bm3nWro//CPqTdoI05MuED34ZjF4HdHb5BZweW1llKJFjrzsmB6aoa08RjWH
- eHDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790283914; x=1790888714;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1NmZmhgLOy/YmQC3GmGsf1VOw7I8/+ySPDXRuFIlrI8=;
- b=01whG0bqwKLoEYKS/Is71b0ZzaM/YsQgv0Ld2MZKs6mD3Nrp1vtqVvj8Q3KTsnw98e
- +sc2t1+mpKqFR8nppXu4e+eFeiS7TgfUlVErt0AfNl8AV2OdNx2vvZm3Db1MM3Y6mTSA
- aoMppb/F6TXX3MHaBA9W4fnjKzW/yqLt/8G9JvoJ/qzLae8bUs48vd7cawGbWVpqNCFG
- YY3pbYSg+BBfAquNa00N/O8ddKSpbphRO6X+zpiiwLAzOr1Esu/rQ7GNQ9sh8Jg1Ao4h
- dVlaUI05WzjGlGadMS7KqbbQcCUGqnFCMQ2s7D9GOD013OPntjbRgu9Itv4pIUZsVG9L
- b1zQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzegHkGoL2IAgzMkg5b7u4TaGgOhc+JDJH7pZj7GoEIEl421iwadz6ExtrhQG2G9F2Y0FE2wP7H3xw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nRMT8FDNkwlppAdFxH8bcUy7IYqybiU7XhBEM+/PVBTYbAQDQJ
- RX47VYbtTmy3eltZWjsxxSq3/+kRPAp6AROLGinKEnu0e2QCpkC3Zbx1
-X-Gm-Gg: AYBFou0eDKXxaFB7LYEG+B5n515r8wzw9xtiE/k3bEWae7TO3XgARl8xkY51DWnpI7W
- uwvoVVgka0Qu4Q8Yrq1HUNqHSqzViWSIaL1xWEP3KuiowxcJoOqvMJn2RBCGcsVfhAXzHPr3SB9
- oAfUpkRZnfG05kzGU2m0QAJasGAw241Q7oJXtUYCrZL1AOMEI1Rv7mpZWlEDYYgC3zxbCucUQu/
- Xlw0XBEtPBmA426b2vdnA4hqNDd4qKDFSOq+jV+/epE3kEBqSQ6Ptn0+SsVo6H4e6ofzt9Osmqx
- YrUcX3GIPJZgSUZE/Fe11UPh6A5zMZZoFD7PMVSnQHFzQwtLL9WOTAmuFm7Hxjss8dzxb8USH6g
- glVuntQk2Cbgdo/Vr82Ixr1OmNl/HVe2b8anvCIuCUurkr41fka1e4wIEa+ECbf/OfqsVL9RoxG
- T9On5jvtcBg7RTBztWxt+Bw018lkhFwPsbyMmm+HELJ39ivTEijrqUxF+cK7Yyy6WBs4MeMYGg3
- VuO5SAQ7WBJbuV4cGE=
-X-Received: by 2002:a05:7022:fd09:b0:13d:974:a42d with SMTP id
- a92af1059eb24-14503fde9d8mr4585588c88.22.1790283913457; 
- Thu, 24 Sep 2026 14:05:13 -0700 (PDT)
-Received: from maclinux ([2803:c600:9110:8ba5:43a9:9b8b:ebdc:6411])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-145ac67c0ccsm1054300c88.4.2026.09.24.14.05.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 14:05:13 -0700 (PDT)
-From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?=
- <fbeltranmillalen@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
-Cc: alexdeucher@gmail.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu/gmc_v8_0: restore the FB location after a
- re-POST
-Date: Thu, 24 Sep 2026 18:04:57 -0300
-Message-ID: <20260924210457.13100-1-fbeltranmillalen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
-References: <CADnq5_PsKKiOXPuH9c8n0u8viyg0u3rTeDnPoeDBk11MP4V_hg@mail.gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7017510E938
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:54:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8525560AB6;
+ Wed, 23 Sep 2026 15:54:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF3C1F000FF;
+ Wed, 23 Sep 2026 15:53:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790178845;
+ bh=wAV8stNGXVD0suD8B1a8qtsl7mm0RfyqHixhi/NZx3k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kO69tl0GVqEJBDtzXtj722GeS02r981KicvQg4cQHtdo8zYbHSuzX4xKugLSuxZ80
+ hNKF+inpI1rG93f1F5QhrTtVFxLcKRCTL+snyRWCp/N/q3HEczsFeIqExmwrr7tt/Y
+ BvYVVTOYIPgApkyrBXMn24Qh05xMwuFcGHVzqgJTNe/gle65zMUCXYN6+65S4HSHY7
+ tGBuhIwWJ1Pazb14YseddKo0V64lXM6Wy4pe1LmUGi7p3l+GZYljbhlHPVyxqBuygF
+ nqC8DLo3R+mPNhwr+2JNkPsIA6gODez9Nt0VUzmMq2DMdlQhA1/ymS6rMHMT1y9mfa
+ Lr1sgEWelyeVQ==
+Date: Wed, 23 Sep 2026 16:53:33 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
+ fields on new vma alloc
+Message-ID: <arP0oJgrgZlgtrb6@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
+ <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,73 +143,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 11:21 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> On Thu, Sep 24, 2026 at 11:06 AM Christian König
-> <christian.koenig@amd.com> wrote:
->> On 9/24/26 15:29, Francisco Beltrán Millalén wrote:
->>>   cold boot:   MC_VM_FB_LOCATION = 0x007f0000
->>>   after reset: MC_VM_FB_LOCATION = 0xf47ff400
->>
->> Mhm, interesting I'm really wondering where those values come from.
+On Wed, Sep 23, 2026 at 08:32:43AM -0700, Suren Baghdasaryan wrote:
+> On Thu, Sep 17, 2026 at 9:24 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > It only makes sense to manipulate VMA fields if we allocated a new VMA,
+> > rather than merged it.
+> >
+> > VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+> > keeps its own, which is also what the legacy f_op->mmap path does since it
+> > never touches an existing VMA. Previously set_vma_user_defined_fields()
+> > overwrote the merged VMA's fields with those set for the new mapping. In
+> > practice these are the same values, with rare exceptions such as shmem
+> > selecting vm_ops based on whether the file has been unlinked, so no
+> > user-visible change is expected.
+> >
+> > Make this dependency explicit, and additionally constify have_mmap_prepare
+> > while we're here.
+>
+> The fact that we might be overriding attributes of an existing VMA
+> that we merged with is technically a bug even if we never hit it,
+> right? If so, should we have:
+>
+> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
 
-0x007f0000 is what amdgpu finds when it loads after a cold boot, with
-HDP_NONSURFACE_BASE = 0: the framebuffer at MC address 0.  That is what
-the platform hands over; I have no trace of who writes it before the
-kernel runs, so I can only say it comes from the Apple side.
+It's not a bug, it is an in-built assumption that the state used to assess
+mergeability implies the same properties.
 
-0xf47ff400, with HDP_NONSURFACE_BASE = 0xf4000000, is written by the
-VBIOS ASIC_Init table that amdgpu runs on resume and after a GPU reset.
-I traced the register writes across that call.  As far as I know it
-is the usual 0xF4_0000_0000 placement of Polaris boards elsewhere.
-(The "0xf400_0000" in my commit message was wrong: the MC address is
-0xF4_0000_0000.)
+And if it was, it'd need fixing a different way (check the field for instance)
+and would apply to the legacy mmap hook also.
 
->> I think the more defensive approach is to do an ASIC reset on driver
->> load and use the values the AtomBIOS init function comes up with.
-[...]
-> I agree that running asic_init
-> on boot for Macs would make sense.  I think we already have a similar
-> workaround for some other mac models, probably to work around a
-> similar issue:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a5be7ad8f5f0e067613e9197638f216f46252946
-> Maybe add your device to that existing quirk or make the quirk generic
-> for all VI boards with apple ssids?
+This change is needed for the series though.
 
-That works, thank you both.  I backported a5be7ad8f5f0 to 6.18.49,
-added this board (106b:017a rev c7) and dropped my gmc_v8_0 patch:
+>
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-- On load: "PCI CONFIG reset", "GPU posting now...", then
-  "VRAM: 2048M 0x000000F400000000 - 0x000000F47FFFFFFF", after both a
-  cold and a warm boot.  With a debug print just before the reset,
-  MC_VM_FB_LOCATION reads 0x007f0000 before it and 0xf47ff400 after.
+Thanks!
 
-- S3: 9 suspend/resume cycles (lid close and rtcwake, one of them with
-  the lid closed for about 7.5 minutes and a USB-C disk attached), each
-  followed by a few minutes of 3D load.  MC_VM_FB_LOCATION stays at
-  0xf47ff400 and no ring timeouts or VM faults were reported.  In 4 of
-  them my old patch was still in as a detector and never fired; the
-  other 5 ran without it.  The kernel also carries my unrelated PCI and
-  ACPI patches for this machine.
+>
+> > ---
+> >  mm/vma.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index fa784f069da4..4b74b48c29b7 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> >  {
+> >         struct mm_struct *mm = current->mm;
+> >         struct vm_area_struct *vma = NULL;
+> > -       bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+> > +       const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+> >         VMA_ITERATOR(vmi, mm, addr);
+> >         const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
+> >         MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
+> > @@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> >                 allocated_new = true;
+> >         }
+> >
+> > -       if (have_mmap_prepare && !map_is_anon(&map))
+> > +       if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
+> >                 set_vma_user_defined_fields(vma, &map);
+> >
+> >         __mmap_complete(&map, vma);
+> >
+> > --
+> > 2.55.0
+> >
 
-- Cost: the reset and post take 20-35 ms, and amdgpu init up to fbdev
-  takes about 0.23 s longer than before.
-
-So please consider the gmc_v8_0 patch withdrawn.  I'll send the one-line
-quirk as v2 in reply to this thread.
-
-Two things in case you prefer the generic version:
-
-- The GPU here is a Radeon Pro 555 (2 GB), not the 560 I wrote.  The
-  MacBookPro14,3 was also sold with a Pro 560.  pci.ids lists 106b:0179
-  as a Radeon Pro 560 and 106b:0160, 0166 and 0167 as the Pro 460, 455
-  and 450 (the GPUs of the 2016 MacBookPro13,3), all 1002:67ef.  I have
-  not checked those IDs on real machines, and I only have this one, so
-  I only added 017a/c7.
-
-- From reading the code, on VI the reset on load is always a PCI
-  config reset: the BACO capability is only known once the PowerPlay
-  table is parsed in hw_init, after the reset.  That is also what
-  happens here.
-
-Thanks,
-Francisco
+--
+Cheers, Lorenzo
