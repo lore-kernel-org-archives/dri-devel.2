@@ -4,101 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD6AC982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:42:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FDCDC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC47310E09C;
-	Wed, 23 Sep 2026 07:42:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FDC110E405;
+	Wed, 23 Sep 2026 07:43:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="V4zTCkTj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q+nrzhy6";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C122D10E09C
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:42:38 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4843f22dcb8so495317f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:42:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790149357; cv=none;
- d=google.com; s=arc-20260327;
- b=ESI5rdq0jJ/bHVsd1aUTuqKBvuEeq7A0AqHrI9XYwgHL7wZAQEDd951zRFskxlgMiz
- qgxIoVhTePQpssoPMxG0RRKXivEjj1urrroSRVmL+DdoxYR6+uPVNeoSF+A9g0LToCK3
- z2In0+qrRx9QlTnECBz3uICu0XgKO3HNTsOmjexhXcUCbT8hkv7XcsPO3ghDVwAmRsIW
- d8T2/YqnTwST60ITU4yJZGo72zsVg79EAIhUsVaT6Cz3Fd89MuFZJ0+Sv2cHGUJsPjzI
- UrQqXipEuO041hExxjUHrugZO27f7FZac57cliycQHSJ+6WtgXRr4W84IemWP76reVCu
- M9fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
- fh=RAVGsXFQMF81X1jR/2mMSPoP20O8rs61JWMQCoD0Mqg=;
- b=G5ik2sRPHCw9nNUQSk2wrOFo/MiMXu3Kk4eMrjJxJKorCYLeuRWRIkAtxqkJeE55F1
- eyiZuG6QJNZD3K2RMuXmaOxKhYsUvP8Q0Qh5TcACW1nS2kgp/jPXPgDmZ3aFzm9KfUh7
- PwuOPD1vcd+IfomE88Khh2BkHJE0ykrC3uirSgU9PHKLMCGUjnOmHK+cllIhL266CnwN
- fNR5fWGK0pEPCMwcf9NftjhIKMFB1iDfJJ+3g6dy4cxVldNq2sGG/R/Le6UngZE3kENo
- bjzhmQmTK+BrGVpFI3IZ5kVk1Vv+aylUqTb9/PCdEromhahoPcfFcK/PtLBox0urYHVv
- PIDg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com
+ [74.125.227.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E090310E405
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:43:17 +0000 (UTC)
+Received: by mail-pj2-f42.google.com with SMTP id
+ d9443c01a7336-2df4010a399so233135ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:43:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790149357; x=1790754157;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
- b=V4zTCkTji8NVmCmeWrbBvDZgs6Ykc8M6ww4QEMdKqTRHnVMHcII6lv+iBGoUJxgilz
- cZAYfcel4zpcZzutNIz/bKakjwACPD8h9xDNAojoqcvt8txxlKY6bWyMJbVZLwKMM0Ce
- nY/8CeZpNqn2Mcx8YaSrUpR3q8j+ec7F2Uj20u3t8GKCc0hMMGcpjUHpJ6rM5/hdP26k
- fm5lIPASyoZ5w47xmKq6/zKIAJrePZPuVDaHj0vwcDsYjJzQNr6swJwpG0QHi07dsQUw
- U9ehLSORwZtrrLeGbBpXsBlvlqhRzFI+2nHrd2cMp2ixPqPc7OyHUbmid5vxa/v145er
- 1S+w==
+ d=gmail.com; s=20251104; t=1790149397; x=1790754197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=DTfLJperzfUzEeNbOZUt7XXLJ7Q/DdPcSG6fXcqgoAo=;
+ b=Q+nrzhy6YOQfQMCv+VqX+TivIjlrhHxE0N+uXZUbkHM8FFPBKf1+4mxACCUPOcAx/r
+ xPb0vQzUcUt3tO+4LssIqSMP2MioRiDaJi2HlkDOjUc32afWAyiuXE52fk1VtG3AQrds
+ /ou0O2kHTELH96fFKWNWoXsXz66ZYok52ahfvORD/j72DrfnqtwSkmCC8mpner1HpbM3
+ /xnkAE5efowx2EDz2mse6iWHnfQK/SxUN40MxddKeSwYmj/bXej9AA1lk4P8yjNa2C9r
+ /olyvFx7Rt21tuHihyxYoyR85eU6kXUI8TF4dERj15lL8drVTRrGjzAX37CgT9JiNv4w
+ HKpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790149357; x=1790754157;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
- b=eqUQsJshSUcvu4B3WHKRdtpR3+B1DGxVNX5BnP/r+V7pQ9GLjC0uJ6n1vSyzkxm9Qi
- 14OrTaYn+3Xh6m2PS0ew3XUqJOJJPlQ4dUTmlsgRAb0sdeaigFAC/FYQ/9ZNDZItQYrG
- Crs2tN5llTo+Ee7XdgX+BV2HdhyRmbAcd4cPbxPih0OowrVqIPaVHklm8mx+oz0+/kOi
- rPzjrBgyBUGYc18ufAc8QcJG/LKamqoozj0r+X2IsH8ak80H04jKZWKiKm3OelKK96UY
- usBUsToIDOnBo8r4v0Y51a4hBu45jXUbT8nfmWjHYWw3RFgAJxOmvk8XpW4jQlaX5jIO
- Jdlw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxaNFuwHDn6yG3dzFTsJr63qYCGLgbltHynehkT6vJPsJOfcQ2FbLXl+AZ+KI9fU78HszcJsqOJ1qg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mHXj7dT2D2UTfY63tmbYZSRhqsCSaE2xRwmxHsf9g6DwHUaQbJ
- Cr5sFh1M433O9CILHiiXlzWbI0KsjwCOK+XfQg9VXeZq/8S1AA/yzZsj2lZhkCn+cGniDgW/6Cc
- VjcNZby2wnNs7etmMCJLxOrO98JR+vRRcylD5rsQw
-X-Gm-Gg: AYBFou26ag+MGt52SQ0pJ0/lJge5UtGOysBJwHSEe7pyligHTg+PqOF19LZo+RE99iV
- 48VVNbuRERo9GdrNpp7t+qJH00n7LlxRPraEyFwz+b9EF+M9vS1y1VJU/HelOjl2K/wGD/CGpWx
- RUX//Xx8TEqfcwWezv3QhFUykHZmqaRbMSujCMIXIUxVyU7+mTJxXfjK2buK/m+nQjUCZh5kcVd
- UV7G9ROvIcz175OH640U+e5xZEnhUCNuuwwldmuAPPcqGtpuJqciKPY/FWobu8UHIjiuILimQ+v
- Yl1B0+h98zPN2fhnBKxqbKrNT4awuUJ40prpY8OG2/yP3jZT92VpQQePRKpakJWJDBvrURM2Djh
- 8mOKOYncSbt3LkqaLXFOcSLOLMDjhW3s=
-X-Received: by 2002:a05:6000:178b:b0:486:f1ec:f939 with SMTP id
- ffacd0b85a97d-488670a6c46mr3157053f8f.40.1790149356616; Wed, 23 Sep 2026
- 00:42:36 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790149397; x=1790754197;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=DTfLJperzfUzEeNbOZUt7XXLJ7Q/DdPcSG6fXcqgoAo=;
+ b=AzF0BxzbVQCUoGcxqb3TSQIYueJUUKYGR9zW92Wd3ksx2CWSRW7sM8qWcka3/T5h2P
+ rTLYvyVxkk1CjeexYgQD6zal0x70+YHYiikgPXY+T+BauGFIckbrrnNE0Q4QznndLHoV
+ KMyo2XUvu8JPreQc9B0zQxQbRxAbHyOHHWUG/fSQhOx1pkRE3VGA34wVkyIExNJmMbB7
+ NltQz5Mx+WbIYW2n4uhK1OW05/TwmJ+HssDpJUwYJrFLSgm954j5oKk20os8JNjHor8a
+ fRIz5zwqhEZdWAab3X/uaSppdVNN+cJ8lG8YouVbvA685CmvQf4Cx5sH8JDtmLtRJagY
+ Ticg==
+X-Gm-Message-State: AFuF++ke6fzqzLSiaWnODW7IHy0rqpg1XKjLXvQ3xqr+yVl7bqu2kFg+
+ liBcF4fiumDE0maxxK2oFXNNaUWM+Y2h/h1me7S6kAhwgGusxVKfdH3Qrm0hOfcV
+X-Gm-Gg: AYBFou2xP/+k52Of2SZPyXzyTHYGxMHazNg38Bl8Fx/eL0gJ3RADLs6kehQQ+JAICdP
+ zoW3mR12mmo7C2MTa2Nst602z5bAk1eyqt2KU7sb0ksrdgiVy74vtclGJ2OjNm8ax5+NPYQhcoN
+ fNoyq2EAZJqUUz9Ft4Ufy6/RvuK+32IRTWKEl5vODhgOw9VHTSxb8bAWuQucBG4FyBGeqgImQUQ
+ M3hplNZI9revg/1pgE13EbGq1NW60e+0MZZsDNNXTA7jjguApV2VthAbsB60QH/Zjbvjybd6bmL
+ II52ZuAg4paQcsfmqocjpzucILULCbpyu9Vjo7o5961vIamU75gew9Kb+HBRhoVm09Mr1EWfWqm
+ zLShDz7bqmT+nQzX5LfHHMOwnNzonbGzF26f0c42rzWWuFyQznE01tslyO44gD0nqeorYjphPE1
+ bBd5GTaSy+A8wVwqEU8CM8d/6W4V6xNyUM2+J46PxAF8fdGNawa6BS6bnDOJjDSlhRcEraQYYKB
+ 57CxEuAbBvy6Q==
+X-Received: by 2002:a17:902:ec90:b0:2db:2e9e:11a4 with SMTP id
+ d9443c01a7336-2df69d1922dmr27273785ad.1.1790149397278; 
+ Wed, 23 Sep 2026 00:43:17 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2df6a5d9273sm6406785ad.50.2026.09.23.00.43.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 00:43:16 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>
+Subject: [RFC PATCH v1 0/2] Fix the v7.3-rc4 DMABUF_DEBUG regression breaking
+ drm/msm hardware video decode
+Date: Wed, 23 Sep 2026 15:42:21 +0800
+Message-ID: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
-In-Reply-To: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 23 Sep 2026 09:42:23 +0200
-X-Gm-Features: AclHuK_kOTENlrajsbD3PM-8sSHORN3Gp4PV1SmVXbX3HMVeZKOfsOHmtEYRT3c
-Message-ID: <CAH5fLghN0w908Z-MYDfmaeC7gvAB78MMT7zg599=1kU0HexkOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/tyr: gpu_info: zero out new/unused fields
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- karunika.choo@arm.com, boris.brezillon@collabora.com, laura.nao@collabora.com, 
- steven.price@arm.com, liviu.dudau@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,24 +96,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 1:16=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
->
-> If a new field is added to the struct drm_panthor_gpu_info in the panthor
-> uapi, Tyr must initialize this field or it will cause a compile error.
->
-> To pre-emptively avoid compile errors, use ..pin_init::zeroed() to zero
-> out all new fields added to this struct. Tyr can subsequently change the
-> initialization as necessary. Also use it instead of manually zeroing out
-> existing fields at the end of the struct.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Merged into drm-rust-next, thanks!
+Hardware video decode in clapper and chromium (V4L2 decoder output
+buffers imported into drm/msm for rendering and scanout) breaks on
+v7.3-rc4 with arm-smmu translation faults:
 
-With regards to sashiko bot, we should look into whether the
-MaybeZeroable that bindgen adds to structs applies on this struct. If
-so, we can remove our unsafe impl block. But it's not an issue in this
-patch.
+  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+  type=TRANSLATION source=UCHE
 
-Alice
+v7.3-rc3 works fine. Bisecting between the two points at
+143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+DEBUG_KERNEL kernels"), which fixed a dangling reference in the
+DMABUF_DEBUG default and thereby silently enabled the option - and
+with it the page-stripping sg_table wrapper that
+dma_buf_map_attachment() hands to importers - on every kernel with
+DEBUG_KERNEL=y, i.e. virtually every distro kernel.
+
+drm/msm is affected in two places. It fills the page array of
+imported GEM objects through the deprecated
+drm_prime_sg_to_page_array(), and it maps the attachment sg_table
+into the GPU's own pagetables with iommu_map_sgtable(). Both need
+the struct page of the sg_table, which the debug wrapper removes
+(and it zeroes sg->length, so the page iterator yields nothing while
+the uninitialized page array is kept, with the helper still
+returning success).
+
+When such an import is used for rendering, the VM_BIND map job then
+fails asynchronously after userspace has already enqueued GPU work
+referencing the mapping, which surfaces as the UCHE translation
+fault above instead of a clean error.
+
+Patch 1 restores the DMABUF_DEBUG default to n until msm can be
+converted to build its GPU mappings from the attachment's DMA
+addresses. Patch 2 replaces the deprecated helper in msm with an
+explicit loop that rejects page-less sg_tables at import time, so
+userspace gets a clean -EINVAL and can fall back instead of
+crashing the GPU.
+
+Tested on a Snapdragon laptop with an Adreno GPU and arm-smmu
+(v7.3-rc4):
+
+- DMABUF_DEBUG off: hardware video decode works as on v7.3-rc3
+- DMABUF_DEBUG on, without patch 2: GPU faults as above
+- DMABUF_DEBUG on, with patch 2: imports are rejected cleanly
+  ("import of dmabuf from 'videobuf2_dma_contig' rejected: sg_table
+  has no/misaligned struct page info"), no GPU faults. clapper falls
+  back to a working display path; chromium shows a black window as
+  it has no fallback for a failed zero-copy import.
+
+A full fix for DMABUF_DEBUG=y requires msm to map imported buffers
+from their DMA addresses rather than struct pages; that conversion
+is left as future work.
+
+Comments welcome.
+
+
+Jianfeng Liu (2):
+  dma-buf: keep DMABUF_DEBUG off by default
+  drm/msm: reject dma-buf imports without struct page info
+
+ drivers/dma-buf/Kconfig       |  9 ++++++++-
+ drivers/gpu/drm/msm/msm_gem.c | 31 ++++++++++++++++++++++++++++---
+ 2 files changed, 36 insertions(+), 4 deletions(-)
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+branch: fix/dmabuf-debug-msm-import
+
+-- 
+2.47.3
+
