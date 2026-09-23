@@ -4,47 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDF3C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 00:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1727EC98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 01:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F10810E6DF;
-	Wed, 23 Sep 2026 00:55:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2470810EED5;
+	Wed, 23 Sep 2026 01:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="dChKYEiW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tzTX/DGG";
 	dkim-atps=neutral
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C927710E6DF
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
- s=protonmail3; t=1790124906; x=1790384106;
- bh=Vm2eCA7uL4H0o/dCrIqyrmx7kqfE3F6P5gZC455uyCs=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=dChKYEiWUVxPgiezCY+AR4Lil0xMk2oFQF5RUQnlda2bE+KJNzvpzTO4JBXMHOsiz
- oBAyDbGlo7PXMxvR18cjWzCxHr/gYx9y2JAAcJZPyYRXfg2orhUokN0RdkLR4nrfYz
- Yo/y4E+MfffSm5gPT+jvNXCg2iVWOfwujVZbaM43RkG/VPwn5gxfe4Vf35+YCv9I/t
- OR8uDdOqbjT3OrdjALT+2TtW3ibdbjE0gQsU/ZPtZqtVHvNahboPfS3qyMkIBI3eu3
- OVkWhEFTdWqWuEYyS5i4YejQeWZaO6F/G+CwlprCEzmBtHs0Cwmf4GLPuP7UY6phix
- DqQmFeSyUw1Uw==
-Date: Wed, 23 Sep 2026 00:55:02 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Nanonej Dev <dev@nanonej.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/4] gpu: nova-core: Extract PFSP register definitions
-Message-ID: <m1qp--Csq6KPTgHYSUHPQt9tqXwClrSYXfEvfZDqI1X3pDOa1F2Zpv6yYI_9NjaybKIc8zoaveeEyXbeQ2QT0_i8ZKJzffL2zGKpSwJiG9w=@nanonej.com>
-In-Reply-To: <20260923004532.76D871F000FF@smtp.kernel.org>
-References: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v2-0-74600fc068c4@nanonej.com>
- <20260923-b4-extract-pfsp-registers-to-falcon-mod-v2-1-74600fc068c4@nanonej.com>
- <20260923004532.76D871F000FF@smtp.kernel.org>
-Feedback-ID: 32181229:user:proton
-X-Pm-Message-ID: 143ae2ab622c902f6963cfb44426611d5c99b8cb
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44F0210EED7
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 01:09:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 16BA8418F7;
+ Wed, 23 Sep 2026 01:09:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5825C2BCFF;
+ Wed, 23 Sep 2026 01:09:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790125782;
+ bh=S32UuoAEDJK5sJZgo7dLowvd0Isi4J5YM1loCKZQ7yE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=tzTX/DGGllBduxFOosGDUR9He2M0w7sx9tgHcH75thpvZxpw1a3zk8pQjv7UZ1jwt
+ jYFnP0MKifVqvPLmpeQjliOz9hZOPVpIp1BilqTije4vJ3D9pZq3HR53bpac+8arVP
+ bRrB3j3EMlsPUE/Pfx8z0bLLqnu4Dr3Xkkev8wpWKz3MMJEA+E6q2/Q6gsJRIxCm8I
+ P8y39xgg2+SRVE//oGiahak7a0VBcnXYvHWipArt11HMBxbtqJH9Fn/fPwnMlQ+mMM
+ pM0B6tlA9awDeDEK9Fay/8ignH4R2RpRFqIYwSOee4OJzGvo2ha1nQ8BJIJsPH6g8J
+ HW7EdVwks3dfQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C891AC98309;
+ Wed, 23 Sep 2026 01:09:41 +0000 (UTC)
+From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
+Date: Wed, 23 Sep 2026 03:09:27 +0200
+Subject: [PATCH v3 3/4] gpu: nova-core: falcon: Extract PFALCON2 register
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature";
- micalg=pgp-sha512;
- boundary="------2e7d01e8bc1c8b1d40be69e0904b0412062871eaa2d75d61afbb54aa78dbbf5c";
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-3-cd26aa94c021@nanonej.com>
+References: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-0-cd26aa94c021@nanonej.com>
+In-Reply-To: <20260923-b4-extract-pfsp-registers-to-falcon-mod-v3-0-cd26aa94c021@nanonej.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5383; i=dev@nanonej.com;
+ h=from:subject:message-id;
+ bh=C/nr4kTzUQcwGSPhFgQPt+Y518RKzRQGa9yNT4hu2RY=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqsybTzHFfGwc43L+iL26GzZZQGMr8a+lJMFtTr
+ M5pYzO+9jaJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCarMm0wAKCRBmh/EjChUV
+ /WCJD/0TEERIbicy571QvrisXhg7Rd85jBQ4hR6VvcJOEafXXaxmNX74cWz3XerE89D2tjcGpnW
+ WYaOM4etDSB/HYnl1+FW0OgS66UoeWIhHcDn122iyJfE90SLT2zxxX4TLjXFXoGHu8QV+CmqSk3
+ vr9PWfUpRIrrPNABVx4FVZXFzM1RhicPbZv2M5OIIgau0QXHpQ+LTqFdH/DsgeDgPLt6Cioi1yu
+ rN66aYM8RTcSd3YreUmfIry1jWP46heK5+RY5bxnYlo5lkKTWfuAdXjkqRJ+I76aM6JvQIuRAxg
+ Ucot5IM+zpvCB3XEuQeD/G6dLdBCGGTamWDHd/gv4cdWMSOvAkyyhwxtlNMrn1k8epAzfNuDrBf
+ tBkk1R25B0yFM6FpExhwqEXNoOD3dEQe3GEom1Ii8A2UHCP6TJ3g8MK4adL+8VjXUMmrae2n+NW
+ vhE4RH7sIXY0pKVf5n4AWWHPlK1Q66hV9VHbGp9Ujek/Ob1Filb/xdec8/hpUMnCozZWmklVSoM
+ LR4YzVXLk7thDXAfIYGWV1xv36vYwcDl0mFmhiutY2z2goYmet7GvejT8yGKcYEuWf8UM1/aKOG
+ HRjADln6YrlRp5wnnATXseB++MAt1T8eJxVvD7qN5gpQoHY/mYZKVxDjawgcDWQUupPtPSTchQv
+ DLycjP59Nm0I4Jg==
+X-Developer-Key: i=dev@nanonej.com; a=openpgp;
+ fpr=83B64FB07C91212F5285227D6687F1230A1515FD
+X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
+X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,124 +80,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------2e7d01e8bc1c8b1d40be69e0904b0412062871eaa2d75d61afbb54aa78dbbf5c
-Content-Type: multipart/mixed;boundary=---------------------f743ee1c8d292c01b32dda55d3dbe567
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
------------------------f743ee1c8d292c01b32dda55d3dbe567
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+Move PFALCON2 register definitions from the root regs.rs file into
+the falcon module that own them, in the existing falcon/regs.rs file.
 
-On Wednesday, September 23rd, 2026 at 02:45, sashiko-bot@kernel.org <sashi=
-ko-bot@kernel.org> wrote:
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, PBUS, PMC, PFSP and PRISCV registers: register
+definitions move to the module that interprets their service,
+visibility changes to pub(super).
 
-> Thank you for your contribution! Sashiko AI review found 2 potential iss=
-ue(s) to consider:
-> - [Medium] nova-core: PFSP registers remain pub(crate) despite commit me=
-ssage
-> - [Low] nova-core: sentence fragment in commit message
-> --
-> =
+Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+---
+ drivers/gpu/nova-core/falcon.rs      |  4 ++--
+ drivers/gpu/nova-core/falcon/regs.rs | 33 ++++++++++++++++++++++++++++-----
+ drivers/gpu/nova-core/regs.rs        | 26 --------------------------
+ 3 files changed, 30 insertions(+), 33 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index 1900d642baa1..60cbd742bad7 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -94,8 +94,8 @@ pub(crate) enum FalconSecurityModel with TryFrom<Bounded<u32, 2>> {
+ 
+ bounded_enum! {
+     /// Signing algorithm for a given firmware, used in the
+-    /// [`crate::regs::NV_PFALCON2_FALCON_MOD_SEL`] register. It is passed to the Falcon Boot ROM
+-    /// (BROM) as a parameter.
++    /// [`crate::falcon::regs::NV_PFALCON2_FALCON_MOD_SEL`] register. It is passed to the Falcon
++    /// Boot ROM (BROM) as a parameter.
+     #[derive(Debug, Copy, Clone)]
+     pub(crate) enum FalconModSelAlgo with TryFrom<Bounded<u32, 8>> {
+         /// AES.
+diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-core/falcon/regs.rs
+index ac4a02405927..205baf1b8b23 100644
+--- a/drivers/gpu/nova-core/falcon/regs.rs
++++ b/drivers/gpu/nova-core/falcon/regs.rs
+@@ -4,10 +4,35 @@
+ use kernel::io::register;
+ 
+ use crate::falcon::{
++    FalconModSelAlgo,
+     PFalcon2Registers,
+     PeregrineCoreSelect, //
+ };
+ 
++// PFALCON2
++
++register! {
++    base: PFalcon2Registers;
++
++    pub(super) NV_PFALCON2_FALCON_MOD_SEL(u32) @ 0x00000180 {
++        7:0     algo ?=> FalconModSelAlgo;
++    }
++
++    pub(super) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ 0x00000198 {
++        7:0    ucode_id => u8;
++    }
++
++    pub(super) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ 0x0000019c {
++        31:0    value => u32;
++    }
++
++    /// OpenRM defines this as a register array, but doesn't specify its size and only uses its
++    /// first element. Be conservative until we know the actual size or need to use more registers.
++    pub(super) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ 0x00000210 {
++        31:0    value => u32;
++    }
++}
++
+ // PRISCV
+ 
+ register! {
+@@ -57,16 +82,14 @@
+     }
+ }
+ 
+-// PFALCON, PFALCON2 and FUSE registers are defined in the root `regs.rs` but
+-// are part of the falcon interface, accessed by the whole falcon module. They
++// PFALCON and FUSE registers are defined in the root `regs.rs` but are
++// part of the falcon interface, accessed by the whole falcon module. They
+ // are re-exported here so falcon code can use a single `regs::` prefix.
+ // Once these families move out of the root module, these re-exports become
+ // plain definitions.
+ pub(super) use crate::regs::{
+     NV_FUSE_OPT_FPF_GSP_UCODE1_VERSION, NV_FUSE_OPT_FPF_NVDEC_UCODE1_VERSION,
+-    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE,
+-    NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID, NV_PFALCON2_FALCON_BROM_ENGIDMASK,
+-    NV_PFALCON2_FALCON_BROM_PARAADDR, NV_PFALCON2_FALCON_MOD_SEL, NV_PFALCON_FALCON_BOOTVEC,
++    NV_FUSE_OPT_FPF_SEC2_UCODE1_VERSION, NV_FUSE_OPT_FPF_SIZE, NV_PFALCON_FALCON_BOOTVEC,
+     NV_PFALCON_FALCON_CPUCTL, NV_PFALCON_FALCON_CPUCTL_ALIAS, NV_PFALCON_FALCON_DMACTL,
+     NV_PFALCON_FALCON_DMATRFBASE, NV_PFALCON_FALCON_DMATRFBASE1, NV_PFALCON_FALCON_DMATRFCMD,
+     NV_PFALCON_FALCON_DMATRFFBOFFS, NV_PFALCON_FALCON_DMATRFMOFFS, NV_PFALCON_FALCON_DMEMC,
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index 0a168b53236d..13ccfd429e05 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -21,9 +21,7 @@
+         FalconFbifMemType,
+         FalconFbifTarget,
+         FalconMem,
+-        FalconModSelAlgo,
+         FalconSecurityModel,
+-        PFalcon2Registers,
+         PFalconRegisters, //
+     },
+     mm::tlb::TlbAckMode, //
+@@ -321,30 +319,6 @@ pub(crate) fn mem_scrubbing_done(self) -> bool {
+     }
+ }
+ 
+-/* PFALCON2 */
+-
+-register! {
+-    base: PFalcon2Registers;
+-
+-    pub(crate) NV_PFALCON2_FALCON_MOD_SEL(u32) @ 0x00000180 {
+-        7:0     algo ?=> FalconModSelAlgo;
+-    }
+-
+-    pub(crate) NV_PFALCON2_FALCON_BROM_CURR_UCODE_ID(u32) @ 0x00000198 {
+-        7:0    ucode_id => u8;
+-    }
+-
+-    pub(crate) NV_PFALCON2_FALCON_BROM_ENGIDMASK(u32) @ 0x0000019c {
+-        31:0    value => u32;
+-    }
+-
+-    /// OpenRM defines this as a register array, but doesn't specify its size and only uses its
+-    /// first element. Be conservative until we know the actual size or need to use more registers.
+-    pub(crate) NV_PFALCON2_FALCON_BROM_PARAADDR(u32)[1] @ 0x00000210 {
+-        31:0    value => u32;
+-    }
+-}
+-
+ // The modules below provide registers that are not identical on all supported chips. They should
+ // only be used in HAL modules.
+ 
 
-> commit 4db1b123b08a2ccc218c14e49151c182aa9d6c36
-> Author: Antonin Malzieu Ridolfi <dev@nanonej.com>
-> =
+-- 
+2.55.0
 
-
-> gpu: nova-core: Extract PFSP register definitions
-> =
-
-
-> This commit moves the Foundation Security Processor (PFSP) register
-> definitions from the root regs module into the falcon module. It also
-> re-exports PFALCON registers to allow using a single regs:: prefix.
-> =
-
-
-> > Since PFALCON registers are defined in the root regs.rs but are
-> > also part of the falcon interface, accessed by the whole falcon
-> > module. They are re-exported in falcon/regs.rs so falcon code can use
-> > a single regs:: prefix.
-> =
-
-
-> [Severity: Low]
-> This isn't a bug, but there is a sentence fragment in the commit message=
- here.
-> The first sentence begins with the subordinating conjunction "Since" but
-> terminates with a period before reaching a main clause. Should these two
-> sentences be combined?
-> =
-
-
-> > diff --git a/drivers/gpu/nova-core/falcon/regs.rs b/drivers/gpu/nova-c=
-ore/falcon/regs.rs
-> > new file mode 100644
-> > index 0000000000000..5ccb10946ec4d
-> > --- /dev/null
-> > +++ b/drivers/gpu/nova-core/falcon/regs.rs
-> > @@ -0,0 +1,42 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +use crate::driver::NovaRegisters;
-> > +use kernel::io::register;
-> > +
-> > +// FSP (Foundation Security Processor) queue registers for Hopper/Bla=
-ckwell Chain of Trust.
-> > +// These registers manage falcon EMEM communication queues.
-> > +
-> > +register! {
-> > +    base: NovaRegisters;
-> > +
-> > +    pub(crate) NV_PFSP_QUEUE_HEAD(u32)[8] @ 0x008f2c00 {
-> =
-
-
-> [Severity: Medium]
-> The commit message states that visibility for these moved registers chan=
-ges
-> to pub(super), but the code retains pub(crate) visibility here and for t=
-he
-> other NV_PFSP_* registers below. Should this be updated to pub(super) as
-> intended?
-> =
-
-
-> [ ... ]
-> =
-
-
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-b4-extr=
-act-pfsp-registers-to-falcon-mod-v2-0-74600fc068c4@nanonej.com?part=3D1
-> =
-
-
-
-Made a small mistake during my rebase apparently, I'll fix that tommorow a=
-nd also correct the commit punctuation issue.
------------------------f743ee1c8d292c01b32dda55d3dbe567--
-
---------2e7d01e8bc1c8b1d40be69e0904b0412062871eaa2d75d61afbb54aa78dbbf5c
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqzI0sJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmc9yEM7ZU2n96y0Mc2cUqn/SctLWZNFV0Stsbqt
-a7DTphYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAABI/QEAtxYjKBpZ7fj/D41K
-HIRj4qH0jMCOrMKkrbmlsB2yJUgA/0e0EDNZYe9kL8IQNcJT4BJz6/y5Z+hS
-mf0uqBYQ9YAC
-=HJei
------END PGP SIGNATURE-----
-
-
---------2e7d01e8bc1c8b1d40be69e0904b0412062871eaa2d75d61afbb54aa78dbbf5c--
 
