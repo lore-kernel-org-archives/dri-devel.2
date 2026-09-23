@@ -4,85 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A23F5C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 21:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C9E3C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 21:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E541E10E9B0;
-	Wed, 23 Sep 2026 21:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD7F10E173;
+	Wed, 23 Sep 2026 21:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IFfLk5F+";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Dj3qaJ8v";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 172A910E9A6;
- Wed, 23 Sep 2026 21:08:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB4B10E173;
+ Wed, 23 Sep 2026 21:19:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C2D3D600AA;
- Wed, 23 Sep 2026 21:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16721F00893;
- Wed, 23 Sep 2026 21:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790197711;
- bh=oYRyYQ7jGFmso8AY6dUwDwpqY0QEPIOZBmqP3y/+Wjw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=IFfLk5F+vPh8IZNhqF0jC6aiB53HDZvSF2VK2z8f7otoMhT2JY81X0DRgu4kSZy1c
- joRyiJr0iXdIujrsXvmcilGrrlkhEL9YLIUEvmzKixvjEeFJ8vxgxkwXlAMImcgbz5
- ObT2M39E9XWkmhhoICbrZZTEJIdLs70sQZ7CLs85nDdlrYvQI58UEG0MV2Zli3ORfN
- qEGaY7uobvyPgkqQYN9MxRINi7FLvSkgqHtmHbwFsTDaPMYxN2sV8xdrPRQjkvGaFE
- AUROK5OvdNxX5Jpjfb4/VhakF9Jk6w7yYiqjrfNKsr4mXgTRJosRSZ3QC2bAL67QYd
- 6F00ow4Wk2EBQ==
-Message-ID: <49153dff-b4e0-43ac-aa82-15175fea6445@kernel.org>
-Date: Wed, 23 Sep 2026 22:08:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] firmware: qcom: scm: pass qcom_scm through the
- exported API
-To: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Russell King
- <linux@armlinux.org.uk>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jeff Johnson <jjohnson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Brian Norris <briannorris@chromium.org>,
- Govind Singh <govinds@codeaurora.org>,
- Niklas Cassel <niklas.cassel@linaro.org>, Kalle Valo <kvalo@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, Maxime Ripard <mripard@kernel.org>
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <bRb6NzJiFvNGB0X3BeiVytgZNlRv88LFlcaBwwFIFa3GtVZhn5bh9EoRRDliRtgsnlQNMddvcIPK-5HK9x7z9Q==@protonmail.internalid>
- <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by sea.source.kernel.org (Postfix) with ESMTP id A284D4197A;
+ Wed, 23 Sep 2026 21:19:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6FB1F000FF;
+ Wed, 23 Sep 2026 21:19:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1790198377;
+ bh=ph4sZt22ESkzgUHNQP4jcUPEFYrI06GxwSPvp+2Uv18=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=Dj3qaJ8vVz3tbYuKzWpNoKIDnMaryNKKSoxyHIsS+W+h6TIcoEjSKJRD3V8y/Eqmn
+ XhYpVjFwx40Qe9lJPvahTeuWdHm1VYb/4OMV3V5P56yKoK+vCq0OakJjRxkmE+/bNm
+ CqBNsU46UizbrfNkUde86RE2+JrUxrlUX0foREb0=
+Date: Wed, 23 Sep 2026 14:19:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org, David
+ Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Leon
+ Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH 00/12] [PATCH v14 00/12] migrate on fault for device pages
+Message-Id: <20260923141936.d1f9e5b85355f0bdc6a6ecd2@linux-foundation.org>
+In-Reply-To: <5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
+References: <20260922053421.4092027-1-mpenttil@redhat.com>
+ <20260922192726.90dec3c4c77b8c9063dbf218@linux-foundation.org>
+ <5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,25 +64,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 14/09/2026 13:41, Albert Esteve wrote:
->   static int spm_cpuidle_drv_probe(struct platform_device *pdev)
->   {
-> +	struct qcom_scm *scm = qcom_scm_get();
->   	int cpu, ret;
-> 
-> -	if (!qcom_scm_is_available())
-> +	if (!scm)
->   		return -EPROBE_DEFER;
+On Wed, 23 Sep 2026 08:29:34 +0300 Mika Penttil=E4 <mpenttil@redhat.com> wr=
+ote:
 
-Is this equivalent code ?
+>=20
+> >> migration). It is also tricky to code correctly. One page table walk
+> >> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+> >>
+> >> We should be able to walk the page table once, faulting
+> >> pages in as required and replacing them with migration entries if
+> >> requested.
+> > Sounds sensible.
+> >
+> >> Tested in X86-64 VM with HMM test device, passing the selftests.
+> >> For performance, the migrate throughput tests from the selftests
+> >> show similar numbers (within error margin) as unmodified kernel.
+> > But no performance benefits are demonstrated?
+>=20
+> There are no performance regressions for current tests.
+> Real benefits come if want to do migrate on fault.
+> For migrate on fault today missing pages are collected as not-present and
+> the caller has to fault them and re-run migrate_vma_setup(); folding=20
+> HMM_PFN_REQ_FAULT into the collecting walk removes that extra
+> fault+retry round-trip, dropping two page table walks. Page table walks
+> are not cheap. Not to mention simplified implementation for driver.
+> Also, the vma looked up as part of the walk is readily available for
+> migration, eliminating the need for explicit vma lookup - one more
+> performance benefit. Net effect two saved page table walks and
+> one vma lookup.
 
-Its also a bit confusing to me that the next patch adds a .available 
-field to the qcom_scm struct.
+It certainly sounds that this series will result in performance
+improvements, but have those improvements been quantified?
 
-I see where you do get drvdata but I haven't managed to find in the 
-series where the data gets set - haven't asked an LLM either - I think 
-the logic to associate the scm pointer and get it should live together 
-in one patch so that the logic is easier to find and reason about.
+> This series also addresses the vanished/reborn page table while
+> collecting problem which can crash current implementation.
 
----
-bod
+Oh.  I didn't get that message from the v14 changelogs, and crashes in
+the current implementation are not what we want.  In fact, addressing
+those is more important than speeding things up.
+
+Under what circumstances to these crashes occur?  Can/should we we fix
+those in a minimal -stable backportable fashion before moving on to speedup=
+s?
