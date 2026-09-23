@@ -4,79 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F384CC98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FB7C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCD910E377;
-	Wed, 23 Sep 2026 20:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E64110F184;
+	Wed, 23 Sep 2026 20:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="kBA+8ds1";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="NSuW96iw";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2250F10F188
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790194776; bh=L2RU3xS9583iAHdeL73lXlBipq7PbvzV0YKCYiUDPfc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=kBA+8ds145xpyoGGexuE6QGDsZ0uJRuDjQrtYCB4CR+UWE4TtYUejtJ46VHALvEu/EHqeLVQL4qZZ7Lcbb379Hm0bkg5pJEqywqx41rZwdBt535ZdI7DV5Lj1z7XsprU2mywhkxH3OPxx7m0X2ccA0fmmIcR217LLFAt7bEr6gw6po4F3O0PQQlQLMbA3yUYzeVslczxd1ROizx8Rh2FpCrYLaosogMVRm/qga+GQ0xNyg4Lp2dTWE0HdHzqEKFgX/2TnzoLObSpN2wwLqB5r+52JtMY11lbxh5bMP12EJaTHeEd+8V0StRV/JeTVkpQRbSbaYhP3eGqXta1uIUmow==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1790194776; bh=0ACvrvjsmNAVms9OpLg+TbYgVCSW8nI2oaYaD6Bk7gY=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=eUbBfUiPRvuRPQ8IdwkIq/MIxDMsgKrahyF+6f4OoyH79vwZYwiA64KTSbIULv93FgNQy66Mb/lmceTOM5wqIEIKNszdgoW+6bJQhtBD08tu2WyNARCY27zVMfOdcgFG0CCYuELzsJftAMbRbXxQczCPkLEDJSHHLw28tdX+8lsjzX1WnJAjt8nUEaHbiQkjJmPZbd5CK7p0qe8vWkWHh3+XGel+5RDwXmssfq+KygmnzQ4g/yz8/qbSIsywKcUNXMnRlT+ZFyqgAW9Y7mcrMOOj2VQbnC84wdYYEByXfU3FVNaZNAblTwWri2UaBAXMRGGwBGzEknuvoZk2RZCq1g==
-X-YMail-OSG: tff.UZ4VM1kXiOkuzBHr5raEYJ2yZv6obEKUv9Mzsz03A8KIPjrkjZPaKpB2Bom
- 552ehXfk5KBpTuXmxI.vAI_3d_Q9AmZBf1VWjpY_ZGDqSFJklrKKpUFznGitYWBfIYpn0mfQ8QDR
- TyMf6qm59QrPmexF9ALuJz7mwvusHc5mFJ0_a5EgTbf9hh2mR9Ht58x6hzDTxgseANZ3n.ZDECmo
- .FBaF269A7t7NZdTZw9moSitH1ozoPSkXALkrFC8iy0phITI8dvkcwDw3vGK54UzXb3MYouDahTT
- RR9p57qCuNFi6leBnOJpSHayoPSCdxQ3xzWviBl3PXE1ewAk_M11iV6QSL1AEA4NoYH0Z1NrqdRy
- HBfuN6w6H.SL4DUdvY0arneUw1bKtYpHLQ63fFyfmNX050uT1LJXNMLjgEcnq4OQzwFyYqaj7AWF
- lApQBj54a1uSeSVKy_zxJYf.SzDWQ4GUczCI0N7x7nflS9KosfrANHnj_rMFf_5JXT1FlAt9mxJx
- ncinAB5HBm4ri_0vCEj7uwrDxC.Xpq7JQRVdZuEKInfwhiehyaiVsflbd_LRHErum1EiqwUzJsIA
- Lebo2bkUWUNnP41sqnXG2hf09xCtMG9eX6sPhB2JjjO4zNL9WbzRg9y03ic55U10aie7drjYxXx5
- POSOIL3Poq_4zVRmBltfYcUA8SAK0bQPbAX3c.3n9mxvMPw0Beia2veHL.xwYYqhw804YKG_51vQ
- PcN0Kjni0KcPwUa.0vk0JJdQ4tsW.Np8A8BBjx9M4tdIfE9r59Yqb53cGNnzE1W5iA2oq5LbmtVx
- r9sAhBxl_f2mvV7IonQ85aWgaah9Xh8WAoih5.P7CfHqdGC6ILsPxU7Y80XZhxExp0UBScX.IqK5
- Ge23Xik4WMDtPrdblhZw91P7XTjPmNsRpa7lZzv12MfQrxeJB1q4oJOdUMixyoDfwZd2QJA70IJ_
- D.6tSuoc4PBnHd8ljVehAUmW1pMKbsFW1EJs8qwTDiJ9.Jbkuws7Yo_Vkr1x4_2BoC4qbuhravGD
- ljfQwOmpcIjZEhlPSQsbDIiGhZF6rpsfnK.gGuLZjt4YE6aNDOwxHJxm.0dDr3cHEyMEgs3dNO2h
- iv5WrAQdYi9gm.ajrBu.eIfadOeAsa6Yc7JDvZLYPOkN2lIuA9kVWGvWK.ibLHDxcQiNEkrm1zTu
- 7SfS0ivBy7yhbZcQ24aLPJYWp8yAepUHdZ9W9XPHl5OfJ8q.nw56ip8twWyjpk9C69G_Fwzt69JA
- eVYqOTrnARkU4da.DeNuRjSEj1Q2Xzqwn0dpwdxzU1zBptYKufYuMr.TQB7ioJaN6kd6MiXGGLuv
- jLwbhuB0LdRMmqSdCkMqeOgSiRk6J9Lhl71ze62H5Bktp8gRwXaUlTN3on1Ke91cYZqlRTbl8zct
- usHFZcoO08Pa8DoI.MtVlAsj1n_6Mqx59aF9u4N_wqqy4mROud.yj6zFeN6Zu72T0TUqfQXuxcwI
- XluA9KAhNHXhy8yWJsOnIqfUpv1PEp191XZUK4Pm8WuqWO03oJhfsNFH6imV35iNSLmQ8zILSNNt
- VqjHyFwgTdl90.eNNFq200kVUMS3dlqrtstF2rH6gf_LSUQ6XYGsaOWE5p3AVPyxPQu0VS3TQa5_
- n37MLx9tWCOxuts2ATZNlArlQkwPki_1hWMo4HQu95K0lzdX3bf2Yh2AUVhDDwsSVzraJ_1yOgLa
- .zG4QYyLvK93oiMmpEf9XKorP2mjwNTDueDEHdf0r00P1IDfUzEoMG_XkFjSfYBLmtmd2owHvImC
- SSRFbmDWQXACnnJ2aNym6uO4B4S2BC0Uy8NGI8Qq8Iy8cyfMJMNVwYy_p7rg.WglVqPGgh39jEUv
- c5QpBKVEVLtR0nO.L5mUc1MGpPOOO.RJdIrCQ_FGCi1tXev_mBFtiCyR_OEaB4VH5EMdN3eRzY09
- SLS1vUUkGwfXw8UQIyjalG2TUpJyJJd5PR45AcDs3zFkuuN7Vfv7.ket9rVnUrx8Q3I_Oeimhr8R
- fDIvggsa3oAc_7lwu4kFN8quBYQB3qqc3
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 3c0791d6-263d-49d9-8d65-a1734de326e1
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Wed, 23 Sep 2026 20:19:36 +0000
-Received: from dip102.lsn.bf1.yahoo.com ([67.195.177.111])
- by hello (SMTP) with SMTP ID 4e5488410736865d3e577fb2ea28783b;
- Wed, 23 Sep 2026 20:19:34 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: lyude@redhat.com,
-	dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org,
-	dakr@kernel.org
-Subject: Re: [PATCH 0/6] drm/nouveau: HDMI output colour format and
- quantization range
-Date: Wed, 23 Sep 2026 17:19:30 -0300
-Message-ID: <20260923201930.1836730-1-Capitain_Jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <07d66ea7e0f0c7aef313b11d0881ca9170f05c77.camel@redhat.com>
-References: <20260922215336.612239-1-Capitain_Jack@yahoo.com>
- <c78df20bd86437dd3987053765a550b3bac0cc65.camel@redhat.com>
- <20260923162348.1037898-1-Capitain_Jack@yahoo.com>
- <07d66ea7e0f0c7aef313b11d0881ca9170f05c77.camel@redhat.com>
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41CCB10F184
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:22:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790194958; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lLqx2yAUq6o+M8/7F+UMx8DvBUKS2Ma9FpNQBhh87qJE+JQSU3SdiYX5AMYXTqQiZWWx+7UhAUgzPA30uNx0q5rnUicPYdvqZkLiE5g0JR7WFUUUd/QhlH+xajoa1dEvwBfZxDHxg9LUUDur6VYtrl6dpBlAA9Va+Bh1RGWGTk4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790194958;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=; 
+ b=JfK7hLfSZz3pfankwaTwEop71ESoAiFtVaCdVsShUkJkOI3TQGcTPby3l+haIcyDcAYoT0nYweZQ0zotUjA+x6Nc+nr7McWYKROsWVZ0g3iaIav5LOVdiYOZf81aMHIXOk03KRw8/K4jtgNslGiuGVochgdkl0QNpS0lTEBqWaI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790194958; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=;
+ b=NSuW96iwCPwTSl4mcg+Hji4Z35UcW4wIQBUE9BPLfjxRSG64yoQ8y/yT/68As0fD
+ ITGj1Y6P21HeucZ3XblOF0EYLnk/lof/+uIK7jbxJRJAGc2TtG7qfXkafx26pdpSCfH
+ uh/eRg4HP972fL/NkLyhYdk1jhW9EOmn26kBD6k0=
+Received: by smtp.zohomail.com with SMTPS id 1790194957839653.7404759552567;
+ Wed, 23 Sep 2026 13:22:37 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:22:32 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+Message-ID: <arQzC4I98fFgVelc@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
+ <20260914113946.69936104@fedora-21.home>
+ <arGKAk8ZWGOGDWEY@sobremesa>
+ <20260923091010.58b8e677@fedora-21.home>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923091010.58b8e677@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,13 +82,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you, Lyude, for the detailed answer; it makes sense.
+> On 23.09.2026 09:10, Boris Brezillon wrote:
+> On Tue, 22 Sep 2026 20:54:11 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > On 14.09.2026 11:39, Boris Brezillon wrote:
+> > > On Sat, 12 Sep 2026 00:28:11 +0100
+> > > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> > >   
+> > > > This will be of great help when testing potential races between the GPU
+> > > > reset sequence and other parts of the code accessing HW registers.
+> > > > 
+> > > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>  
+> > > 
+> > > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > > 
+> > > One comment below.
+> > >   
+> > > > ---
+> > > >  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++++++++++++
+> > > >  1 file changed, 37 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > index d75566a45392..0aee1d87a7ab 100644
+> > > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > @@ -2,6 +2,7 @@
+> > > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> > > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> > > >  
+> > > > +#include <linux/debugfs.h>
+> > > >  #include <linux/clk.h>
+> > > >  #include <linux/reset.h>
+> > > >  #include <linux/platform_device.h>
+> > > > @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+> > > >  };
+> > > >  
+> > > >  #ifdef CONFIG_DEBUG_FS
+> > > > +static int reset_get(void *data, u64 *val)
+> > > > +{
+> > > > +	struct panfrost_device *pfdev =
+> > > > +		container_of(data, struct panfrost_device, base);
+> > > > +
+> > > > +	*val = atomic_read(&pfdev->reset.pending);
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static int reset_set(void *data, u64 val)
+> > > > +{
+> > > > +	struct panfrost_device *pfdev =
+> > > > +		container_of(data, struct panfrost_device, base);
+> > > > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+> > > > +
+> > > > +	if (ret) {
+> > > > +		panfrost_device_schedule_reset(pfdev);  
+> > > 
+> > > It feels weird to schedule a reset if the device is suspended, because
+> > > a suspend/resume cycle already acts as a reset. Any particular reason
+> > > you'd want to do that? If not, I'd suggest going for:  
+> > 
+> > That's been my goal all along, for the knob to trigger a reset only when
+> > the device isn't suspended. pm_runtime_get_if_active() docs states that:
+> > 
+> > """
+> > Increment the runtime PM usage counter of @dev if its runtime PM status is
+> > %RPM_ACTIVE, in which case it returns 1. If the device is in a different
+> > state, 0 is returned. -EINVAL is returned if runtime PM is disabled for the
+> > device, in which case also the usage_count will remain unmodified.
+> > """
+> > 
+> > So (ret != 0) means the device either doesn't support RPM or else it
+> > was in the ACTIVE state. In both cases, that means the device is powered
+> > so we can proceed with the reset. However, I only decrement the usage
+> > counter when kernel RPM is enabled (ret > 1).
+> 
+> Okay, I see. Can we have a comment explaining that? Also, I think I
+> prefer an early bail out over the extra indentation level added here.
+> 
+> 	if (!ret)
+> 		return 0;
 
-The bandwidth point is fair: my sink tops out at 225 MHz, so deep colour at higher resolutions was never exercised here.
-I withdraw both series, this one and the HDMI Deep Color series v2.
-Please treat them as a proof of concept, in the spirit of the ray tracing work, if any of it is useful.
+Will do.
 
-Where can I find the other developer's work?
-I would be glad to test it on my bench and report back with a Tested-by: a GA106 driving a Sony KDL-46HX855 (HDMI 1.4, Deep Color 30/36, no VCDB), including 12-bit frame-packed 3D at 222.75 MHz and full against limited range on a sink without a VCDB.
+> Oh, and we should probably make this knob inactive in the device removal
+> path (with a disable_work()?), otherwise -EINVAL will be returned as
+> soon as pm_runtime_disable() is called, and this might cause a reset to
+> be scheduled, which we probably don't want, since it would interfere
+> with our device_fini() logic.
 
-Daniel
+I think replacing cancel_work_sync() with disable_work_sync() in panfrost_jm_fini()
+should be enough to this end. In that case, both queue_work() and flush_work()
+will do nothing and no PM reference will be taken, so the whole thing effective
+becomes a NOP.
+
+> > 
+> > > 	if (ret <= 0)
+> > > 		return ret;
+> > > 
+> > > 	panfrost_device_schedule_reset(pfdev);
+> > > 	pm_runtime_put(pfdev->base.dev);
+> > > 	return 0;
+> > >   
+> > > > +		flush_work(&pfdev->reset.work);
+> > > > +		if (ret > 0)
+> > > > +			pm_runtime_put(pfdev->base.dev);
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> > > > +			 reset_get, reset_set,
+> > > > +			 "0x%08llx\n");
+> > > > +
+> > > > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> > > > +{
+> > > > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> > > > +			    minor->dev, &panfrost_reset_debugfs_fops);
+> > > > +}
+> > > > +
+> > > >  void panfrost_device_debugfs_init(struct drm_minor *minor)
+> > > >  {
+> > > >  	panfrost_gem_debugfs_init(minor);
+> > > >  	panfrost_sched_debugfs_init(minor);
+> > > > +	panfrost_reset_debugfs_init(minor);
+> > > >  }
+> > > >  #endif // CONFIG_DEBUG_FS
+> > > >   
+> > 
+> > Adrian Larumbe
+
+
+Adrian Larumbe
