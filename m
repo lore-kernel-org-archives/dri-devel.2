@@ -4,77 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1782CC982EA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C406AC982FA
 	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 418FE10EF5C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA3E10EF5E;
 	Wed, 23 Sep 2026 07:55:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cr6x2FcC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s6ImteZH";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35E5110E00B
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:27:33 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49cd38e0e5dso4280405e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 17:27:33 -0700 (PDT)
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com
+ [74.125.228.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6014110EEA2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 02:25:40 +0000 (UTC)
+Received: by mail-pz2-f40.google.com with SMTP id
+ 41be03b00d2f7-cc5256c2a4bso260880a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 22 Sep 2026 19:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790123251; x=1790728051; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
- b=Cr6x2FcChIFQBgXTfUoQ5dn79vzYAEoLlAPUZ6vwHjj0jywJs62bIOLiyo24u1lZS3
- kAr0DI9IeYI+5lUs8G8d1rmEHA7wvs1vu8G61Z9g0XIEE82/Bqsz4iC2tw29HTwrkMIS
- gUoweexHKmV4Zp6nm0yKs3EvqQ0fCiQ6w55ngf2Qa6UqZPFoMtNYQxBWSFvpmJhB/rEK
- vN8n/EdInvxvN7m22dsDbnJ0T4NYJ1rstxBiavJD2n0AIRfZhd2lFnRUTGhS54CaSvRU
- tWBqPJjr+LVNiBA1vXmaWCZ+blPRtey3A6ClyygCDs0GwD9W/i1v62fSpqMOdHXRbJLs
- cXKg==
+ d=gmail.com; s=20251104; t=1790130340; x=1790735140; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
+ b=s6ImteZH/chSRpWVM/ZxnB0/3J362Vwzx7MKrbofMV2UPpuZp0YMiOCGLj/UqCsXd9
+ U4JJ/UYqL5hMyIQEm5zUwFyVgbuXdrfxlT276E/aole3R82aFIguXUVUHX6q+i3Jez17
+ P0fzTNK9REat8dcX9vwGKnQ/0AeRVXEZ92GlhE+fheG+5IOzb01rG7J16tbHn1Bulatg
+ PKXck/jev6pjAL/XcUJy0D/O0JhjTbQZBiuhmBXFFa1DkT2XfBIw4c9bpEJzD+SfKE99
+ WVbGt9r29IzaaOQjsycMBUU+B3tgTjz3pUHZdvIktRqYqpgRUJZlrmbJ3WreP5Um6saV
+ ZfbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790123251; x=1790728051;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
- b=OK3fEcKEr90iYSVWt8fcKJtZW9chKGClBQ5nK0tQt/89j9uzppT9knUDuMrFALtER8
- REWGE1r3NNfgqzeG+/NmQquuV1H9vrFVe+yLzylbklD7jURjwt69XrTAYkGrkWtnZ/Ew
- 6R5fKbP54hnbyrrSZ/hiPOFL/g72pAGWTmn4kfyoMDkvioXKYNID36krx47HR+M8TnK3
- FKlDq8/qzo74BlKH2nEdHNOgtLN7ZE61dEoQ5QBrEf/2wKu3btNd+8VxX2YcXmeCTobl
- UQ747Kv/b0r7uKVAxwaBv8/0cznorhennNHfBZLnCW/N9SSeU27qcARVmrtz3YJqlnJr
- +Yzw==
+ d=1e100.net; s=20260707; t=1790130340; x=1790735140;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
+ b=LKdd0ZDeaJgvZUkgI2r2Bdj3x8yyZlwos764DbZgg0JP+pnlvXqmETAFawrXq60Dsg
+ peZABdPisxcJEVuFQnZgw4TT7X2bTtZupf6sBkKWtR3etuXDz6xlUdWykK7HsEIzSOS2
+ JM8NKWs0NBeksbWkQ71KRhvT/fGdpO47Ns4Dcqc4fX3ha4nQOPcT1FpF19PqjlO6f2rj
+ lVaosCx0GvfJ6v/Jwle8rFuCfj9wAtByaefnBco+fQmbVJvBKozsZpfmpu5ik5WBA2wL
+ wPjUSpYZUnmN9qGbvtWtirF3XNtLc4Dv9I88RAxxFlEwfK6ltxjYSkixAA1Cq6PRjaC+
+ jNGw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxQVGZ6a0aF5xWhfjsYXSNSeDEY6yLG4EgbO7yknA46oH/mbjuojtvfM4rsh2z7kajA9KsMj6LaKRA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++njhabuTrVmdfNJ7W84KlaecswF9yOIUBx/Vuy1uPpKjvGIVPpd
- oEuy5Ps3bzJBZS59Lxkj/7PijMI75846GCBckxZL6p/BnTtD7USjZ4wD
-X-Gm-Gg: AYBFou28lT4KwESyiZMoqb8FN8x/cLPZv0AZRhN+UCrrukrhhjExoYfMaQ+DOy3Xybo
- O/pPo9NvPF7Wl5yrgoOv3kBcevIjx+D2zVlYCxCRNrtphy5lcA6tyP+2sC+ffIYpdE8KedMo/c1
- x+Pk+Kh/BK9mFKkvC46A/0aaDWDxInpYCipXvfyoiTDDSk+28jYL7nUaqk3M2qjSPJm7FCA2tYb
- SgDgWr9hK9RZbY3IlF7AAtRLC/wWWiGbjKfHTSd5FoOiLcKGt3UZ/fl+eTwM+NC1OZASaEfcjMw
- 81F2PYRZ3BzkT8rsSqp2BJZmLQ2U2T0NuPdyERn/o4qNKOZTRwaE1rao2xv585cGWAh2aMPEO8U
- nXWAUOvtE3NbEP3Qy8yyL+LTmHOj8uWfDcldnSoMmY4HwEBix7SHWLgoBx8Lqe/UNRc16zv5seW
- lKIffE42pupJOztljtBHy+3j4FHyar5rCU9gSUGZAa9m6dJ9WTHZN1HfpthfZWLEghLgiviCU=
-X-Received: by 2002:a05:600c:19d2:b0:49c:cee0:e7c1 with SMTP id
- 5b1f17b1804b1-49fdf1370bcmr9734545e9.16.1790123251286; 
- Tue, 22 Sep 2026 17:27:31 -0700 (PDT)
-Received: from NBLK-WAX9X ([78.175.157.66]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48868889337sm2229702f8f.34.2026.09.22.17.27.28
+ AKwUvBw+/HsExQpf5QLfWqtU8KLxPl/gTVVyDwAx7CI+n6gcobOuhbgU/YjtYYJfjKx5T9EoE+SKzdacHYg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kCQpHg6BjqgLEQv/A232LpoyjzP+XeIhqtv0yGb3SmsMDNm3pu
+ Ug7OVPC9a8/tPq1mcc4T/bUk4adn0pshLqia54x/QON1p6Edw6FERXdr
+X-Gm-Gg: AYBFou0pGi6AcdP03fGI0NTc2y8pcMzXfbaUdc3ZXKynmqa1jWs3kDlM46TVoFWJl6T
+ o/heFypnNOFKGUFu3ABSZKCcgQntJAjPxwSA1Z3UB7ALgRQQZcmfDp1+1Xh79JCjJCbjFyUNxvw
+ YwTmurmps4+gcqrFSRwOI4NttPkRWcPijoKOR3qbDd8ry8vnnqxf6djp5ZUtjVPNKzYIz/OB9A4
+ zYAC3i1XZToWIqXMJkNvbuBCrJGHvZnbIzTCFRXFRXFIl8BnrO8iX3An91BFyF0+CFlKK0yLL04
+ Wt/Je3cLcMxhaL9kWM2XdwSd/FlfgIP6odsQqHK0MAnygUJ/HpYqWKNCq9ztxF+6HIA9xA3B69v
+ Q0IL2OeWOFhOOrPFF7rBrKKJwNtj9sOkaTtjcAw77fEKJrH9n1CE4kLMHMfyTg+L30T3k7lVfxV
+ Dsn2g+VSsWhTBiPDGOBIdi651O8p4mz0HYbs3Y4OCihJa22QNsllzzNit/cYRhmbW94sKjgnv3l
+ n0s73XtmPr2DRkqp3WcHPZYhRpa2CS/kXSHezSEO/449xcWCBMprD/sqpwKxKL6
+X-Received: by 2002:a05:6a21:730b:b0:3dd:a195:fa16 with SMTP id
+ adf61e73a8af0-3ddf82fd6d6mr1278376637.59.1790130339718; 
+ Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
+Received: from k1832-XPC7A-R57-GD.tailc99621.ts.net
+ ([2407:c800:5a41:af7:fd99:3ec2:4e58:1374])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc75f40839csm309403a12.30.2026.09.22.19.25.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Sep 2026 17:27:30 -0700 (PDT)
-From: =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
+From: Keita Morisaki <kmta1236@gmail.com>
+To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x despite
- AMD VSDB
-Date: Wed, 23 Sep 2026 03:27:18 +0300
-Message-ID: <20260923002718.5915-1-atailhan2006@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Keita Morisaki <kmta1236@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
+Date: Wed, 23 Sep 2026 11:24:51 +0900
+Message-ID: <20260923022451.3346675-1-kmta1236@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 23 Sep 2026 07:53:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,84 +94,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+median3() is meant to return the median of three values, but its last
+compare-and-swap step swaps b and c instead of a and b. When c is
+smaller than both a and b, it returns max(a, b) instead of min(a, b).
+For example, median3(2, 3, 1) returns 3 instead of 2.
 
-I am investigating an issue where HDMI FreeSync
-is not exposed for a Samsung S22C31x monitor on
-an AMD Picasso/Raven 2 GPU, although the monitor
-advertises an AMD FreeSync range in its EDID and
-VRR works under Windows.
+_do_calc_rc_params() always passes 0 as the first argument, and the
+second argument is never below 12. So whenever the third argument is
+negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
+is set to the second argument instead of 0.
 
-Hardware/software:
+Fix this by swapping a and b in the last step, as intended.
 
-* GPU: 03:00.0 VGA compatible controller [0300]:
-Advanced Micro Devices, Inc. [AMD/ATI] Picasso/Raven 2
-[Radeon Vega Series / Radeon Vega Mobile Series]
-[1002:15d8] (rev c2)
-* Kernel: 7.2.5-200.fc44
-* Compositor: Sway (Wayland)
-* Monitor: Samsung S22C31x
-* Connector: HDMI-A-1
-* EDID serial: H9DX100210
-* Kernel command line includes: amdgpu.freesync_video=1
+Note that this change does not affect valid DSC configurations. The
+third argument is negative only when bits per pixel exceeds the
+uncompressed rate of the colour format:
 
-Observed:
+ - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
 
-* swaymsg -t get_outputs reports "Adaptive sync: disabled" for HDMI-A-1.
-* Adaptive sync remains disabled at both 1920x1080@60 Hz and 1920x1080@75 Hz.
-* The same monitor exposes and enables FreeSync under Windows.
+ - 2 * bpc for 4:2:2
 
-The EDID contains the following AMD Vendor-Specific Data Block:
+ - 1.5 * bpc for 4:2:0
 
-Vendor-Specific Data Block (AMD), OUI 00-00-1A:
-    Version: 1
-    Feature Caps: 0x01
-    Minimum Refresh Rate: 48 Hz
-    Maximum Refresh Rate: 75 Hz
-    Flags 1.x: 0x00
+Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
+Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The HDMI VSDB therefore appears to advertise a 48-75 Hz FreeSync range.
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+index b8fc27a5361e..657173d8081c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
+ 	if (b > c)
+ 		swap(b, c);
+ 	if (a > b)
+-		swap(b, c);
++		swap(a, b);
+ 
+ 	return b;
+ }
 
-There is also this message in dmesg:
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.43.0
 
-amdgpu 0000:03:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
-
-I believe this is the -EINVAL path from
-drm_hdmi_vendor_infoframe_from_display_mode() for this timing and
-is probably unrelated to the FreeSync issue.
-
-The part I am currently investigating is amdgpu_dm_update_freesync_caps().
-
-For HDMI, the driver calls parse_hdmi_amd_vsdb(), which
-on this DCN configuration goes through the DMUB path:
-
-parse_hdmi_amd_vsdb()
-  -> parse_edid_cea()
-     -> parse_edid_cea_dmub()
-        -> dm_edid_parser_send_cea()
-           -> output->amd_vsdb.freesync_supported
-
-If the DMUB parser returns freesync_supported == 0,
-the driver does not expose the connector as VRR capable.
-
-What makes this interesting is that the DRM EDID parser also
-contains the corresponding AMD VSDB information in
-connector->display_info.amd_vsdb, while the DMUB result
-does not result in FreeSync being exposed.
-
-I am wondering about the following:
-
-1. Is the AMD VSDB layout above expected to be accepted by
-the DMUB EDID parser, particularly with
-Feature Caps 0x01, Flags 1.x == 0x00, and no MCCS VCP code byte?
-
-2. If the DMUB parser rejects this form of AMD VSDB, should amdgpu_dm
-fall back to the software-parsed connector->display_info.amd_vsdb
-when determining FreeSync capability?
-
-I have a working kernel tree and can run diagnostic tests
-or test a small patch. I can also provide drm.debug
-output or DMUB-related traces if useful.
-
-Thanks,
-Ata İlhan Köktürk
