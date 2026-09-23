@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CBAC9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:04:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8D4C98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2077210F118;
-	Wed, 23 Sep 2026 15:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6A710E133;
+	Wed, 23 Sep 2026 15:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eRxHkhsJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mK3vguQQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACF1810F118
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45B5A10E133
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:07:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8007241A72;
- Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39ABB1F00898;
- Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5586D600AA;
+ Wed, 23 Sep 2026 15:07:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22A61F000FF;
+ Wed, 23 Sep 2026 15:07:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790175850;
- bh=Ge6g16cNsQU9u+Vx74E1A4JoVGyNfu4QfnuB0DeO0Ik=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eRxHkhsJm/9Oap5O+FvUJKz7BRC+b+t+N4nMsJfZhvj54JKfY2jFWRXJbU4TUr9bE
- 6QPNzZi7D/iGo3yt9I+yHMQtpZRKlXhDubAPfpomg3u3vxtGLCHQvt6bwh9MF7SPd8
- 3/gYUmJZAew1JvouoXvL5Twwc0fx9YG/2CupxwW7qaEBHaoYAqEQ7xqSLxlfvFidNZ
- nOT+VMsrxuq/p3fuCa/10mVVSKscHozmEqdr2A14IoEWpCSfNj3GITsmFfBf7rntmI
- Xss+xKs5ZuRC4UCPKvnnDeQ94DlM7MrxII+K2B2GbdhOuwtXAbqRSsVuUsTUC48/dU
- H1HITbtDTzyfQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: prevent parameter-space underflow in nested
- ATOM table calls
-To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260923145001.1244517-1-qwe.aldo@gmail.com>
-References: <20260923145001.1244517-1-qwe.aldo@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 15:04:09 +0000
-Message-Id: <20260923150410.39ABB1F00898@smtp.kernel.org>
+ s=k20260515; t=1790176057;
+ bh=S/G7qAIDh4xZmy6mFlSx2HvhL7LQ+Nq2/3G033lFXPU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mK3vguQQ7BmTGYPZ5WB/w0b/RcLVfhAhweyJF9IS/rT06BdutLM5qXytakjemkrNH
+ ep5fizxiL61s4VyC8rK8zOJBMGtVdWLNS8+3ELJRVPgfjBVtSilvOBgfy6JCo1rQ07
+ 514PdNdiLctz/xk1U3RvH8GPUFwvsSVY4OMqF8sUHO1W2dm0KmkwbvRXgNcg8ynTVf
+ oINrP5nXTdeZn7uP72sYGAZuZvobLb14Hf1XYDo0UEoMnmhWtOxmn/p82RBqASIrPR
+ 4LamYgkML1c3Ty/pw0CUlv8par+lFZTOYOzlUcoHv7wpMpU2/X+VH/ZwLFa4A7ClcG
+ lRxkE2hQ42ZTw==
+Date: Wed, 23 Sep 2026 10:07:35 -0500
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] dt-bindings: panel: Add JDI NT35596S
+Message-ID: <20260923150735.GE27237-robh@kernel.org>
+References: <20260921232609.3130272-1-robh@kernel.org>
+ <20260921233127.C2F1E1F000FF@smtp.kernel.org>
+ <20260922-stress-creole-094d9e68fe6a@spud>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-stress-creole-094d9e68fe6a@spud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,71 +56,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] amdgpu: incomplete bounds check in atom_op_calltable() mixes units
---
+On Tue, Sep 22, 2026 at 07:03:29PM +0100, Conor Dooley wrote:
+> On Mon, Sep 21, 2026 at 11:31:27PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Low] dt-bindings: incorrect use of additionalProperties instead of unevaluatedProperties
+> > --
+> > 
+> > commit e0dc4d49c687f6d5568ce2c31031086acb6cd5e6
+> > Author: Rob Herring (Arm) <robh@kernel.org>
+> > 
+> > dt-bindings: panel: Add JDI NT35596S
+> > 
+> > This commit adds a new device tree binding schema for the JDI FHD
+> > NT35596S MIPI-DSI panel. It documents properties such as the DSI reg value,
+> > reset GPIO, backlight, port, and various power supplies.
+> > 
+> > > diff --git a/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35596s.yaml b/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35596s.yaml
+> > > new file mode 100644
+> > > index 0000000000000..aefc9ae5d8abd
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35596s.yaml
+> > 
+> > [ ... ]
+> > 
+> > > +allOf:
+> > > +  - $ref: panel-common.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: jdi,fhd-nt35596s
+> > 
+> > [ ... ]
+> > 
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - reset-gpios
+> > > +  - vddio-supply
+> > > +  - vddneg-supply
+> > > +  - vddpos-supply
+> > > +  - port
+> > > +
+> > > +additionalProperties: false
+> > 
+> > [Severity: Low]
+> > Does the use of additionalProperties: false here incorrectly reject standard
+> > inherited panel properties?
+> > 
+> > Because this schema references panel-common.yaml in an allOf block,
+> > additionalProperties does not traverse the $ref references. This blocks
+> > standard properties like rotation and forces the redundant declaration of
+> > properties like backlight, reset-gpios, and port just to pass static JSON
+> > schema validation during a make dt_binding_check.
+> > 
+> > Should this use unevaluatedProperties: false instead?
+> 
+> This seems to be the new thing that Sashiko whines about, any binding I
+> see with additionalProperties: false seems to get complained about.
 
-commit 6d85d4d710e40392c30bb7f8392682eb670b9185
-Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-drm/amdgpu: prevent parameter-space underflow in nested ATOM table calls
+That and needing labels to be resolved in examples it consistently gets 
+wrong. Probably need to work on the guidance...
 
-This commit attempts to prevent underflow when calculating parameter
-space for nested ATOM table calls. It adds a check to verify if the
-required shift exceeds the available size.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index 1a599d5cf6a5c..bcaeec1b057d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-
-[ ... ]
-
-> @@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx=
-, int *ptr, int arg)
->  		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
->  	else
->  		SDEBUG("   table: %d\n", idx);
-> -	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
-> +	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
-> +		if (ctx->ps_shift > ctx->ps_size) {
-
-[Severity: High]
-Does this code compare mismatched units? ctx->ps_shift appears to be
-calculated in dwords (ps / 4) in amdgpu_atom_execute_table_locked(),
-while ctx->ps_size is in bytes.
-
-If a child table requests 60 bytes (15 dwords), but only 16 bytes are
-available in ps_size, the comparison 15 > 16 evaluates to false. This
-would bypass the abort check even though the required capacity exceeds
-the available capacity.
-
-> +			ctx->abort =3D true;
-> +			return;
-> +		}
->  		r =3D amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->p=
-s_shift, ctx->ps_size - ctx->ps_shift);
-
-[Severity: High]
-Does this subtraction mix bytes and dwords, corrupting the parameter
-size passed to the child table?
-
-Following the example above where ps_shift is 15 dwords and ps_size is
-16 bytes, ctx->ps_size - ctx->ps_shift would compute to 1, while
-advancing the ctx->ps pointer by 15 dwords (60 bytes). This advances
-the pointer far past the allocated stack buffer, potentially leaving the
-code vulnerable to out-of-bounds reads and writes.
-
-> +	}
->  	if (r) {
->  		ctx->abort =3D true;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923145001.1244=
-517-1-qwe.aldo@gmail.com?part=3D1
+Rob
