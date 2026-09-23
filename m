@@ -4,43 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 016D7C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 12:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCB2C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6057C10EFF7;
-	Wed, 23 Sep 2026 12:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC5310EFFB;
+	Wed, 23 Sep 2026 13:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R2aCZeGO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bpwr/vyh";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B21D10EFFB
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 12:57:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A3CF10EFFB;
+ Wed, 23 Sep 2026 13:00:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1976240313;
- Wed, 23 Sep 2026 12:57:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314F91F000FF;
- Wed, 23 Sep 2026 12:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1790168251;
- bh=XLTp0wewpuY118fys5W1b0y8r0H8Q0XPdv/ybcdCmY4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=R2aCZeGOoimhy9ZsjHPyt7Tpj+VMRwM/K3DC6CHB4j/Gs+JUUEn87XvT95QYtpf3M
- rZrnwM/DXu/9MMSTjWJIVD7qgO71fbB+5Lym+nUxL3QGJfJsJJ6vXiuEVXo7gtAX8x
- 1CpDdnq9Zv3XetVJM+tgJDKWIIgsTknGhuK1DDxA=
-Date: Wed, 23 Sep 2026 14:57:27 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: deller@gmx.de, jirislaby@kernel.org, simona@ffwll.ch,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2 1/5] vt: Add cursor-size helpers
-Message-ID: <2026092347-try-railroad-7b00@gregkh>
-References: <20260915123304.1027277-1-tzimmermann@suse.de>
- <20260915123304.1027277-2-tzimmermann@suse.de>
+ by sea.source.kernel.org (Postfix) with ESMTP id C7AC041773;
+ Wed, 23 Sep 2026 13:00:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B789D1F000FF;
+ Wed, 23 Sep 2026 13:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790168428;
+ bh=0eaOB5XAcAd55GxCwgcmBnkX7TY60tdwa1+MAd2bYuc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Bpwr/vyh1zRJQZL9oDtbJHE4z8JxDVXBum/PKvbV9vVKQBJV4YuDhveRBW0rbC8tz
+ h3LPnY7BDM9k87AZuQrPUZpU9QxX2A6fgfutpaqAd/tbsKLtfPjMQ86J7srtTtWxCJ
+ rj7S2il2mOb1kn58l3ryfcQhLlNTTP5++/jHzr0L8gaLJOwg/y96wjwH59NA3udJQu
+ 2u/PYuvmPQKUwXfXsfXS5ZA/cikbEVUvH7OYQ1gBXo8qgPiB0iXuMjhEx4UBUjSfhE
+ s7FqV8/iDJCe5dfWV6TTSQLZcgu1h8453DZ8pterLqVc9hvV67R5m77vu8S0TvxW5a
+ NGber7hjJloTg==
+Message-ID: <6c8aa567-6ad9-4aed-a7ec-5d2cb6979384@kernel.org>
+Date: Wed, 23 Sep 2026 15:00:19 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915123304.1027277-2-tzimmermann@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/15] dt-bindings: display/msm: Document A850 GPU and GMU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
+ <20260923-hawi-gpu-v1-10-0c3c79a1a470@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260923-hawi-gpu-v1-10-0c3c79a1a470@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,102 +115,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 02:29:12PM +0200, Thomas Zimmermann wrote:
-> Cursors in the VT subsystem are blocks within a character cell that are
-> filled with the foreground color. The new helpers vc_cursor_start() and
-> vc_cursor_end() return the scanlines in which the cursor block starts rsp.
-> ends. This is compatible with VGA hardware
+On 23/09/2026 12:25, Akhil P Oommen wrote:
+> Adreno A850 GPU found in Hawi SoC belongs to the A8x family and is
+> the successor to A840. Like A840, its clocks are described in the GMU
+> node and it has the following power related updates:
+>   1. GMU is now powered via a dedicated GDSC connected to MxG rail
+>   2. An additional power rail called Bx
+
+I don't see the updated related to (2) above
+
 > 
-> In terms of cursor design, the new cursor-size helpers follow established
-> styles in fbcon. The only exception is in underline cursors for fonts with
-> a size larger than 10. The underlining dash is now one pixel closer to
-> the font-glyph data, so that the cursor looks less detached. This follows
-> the style used by vgacon.
+> Describe this GPU/GMU along with the new compatible strings.
 > 
-> Similar code in vgacon and fbcon ignores the cursor's default size stored
-> in vt.cur_default. The consoles default to full-block cursors, while vt
-> defaults to underline cursors. The new helper fall back to cur_default and
-> then underline cursors; in this order.
-> 
-> v2:
-> - export non-font interface for vgacon
-> - avoid interference from concurrent user space (Sashiko)
-> - fix function docs (Sashiko)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Helge Deller <deller@gmx.de>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/tty/vt/vt.c            | 93 ++++++++++++++++++++++++++++++++++
->  include/linux/console_struct.h |  7 +++
->  2 files changed, 100 insertions(+)
+>  .../devicetree/bindings/display/msm/gmu.yaml       | 44 ++++++++++++++++++++++
+>  .../devicetree/bindings/display/msm/gpu.yaml       |  2 +
+>  2 files changed, 46 insertions(+)
 > 
-> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-> index 57edf37495a8..5d2583cd6e79 100644
-> --- a/drivers/tty/vt/vt.c
-> +++ b/drivers/tty/vt/vt.c
-> @@ -71,6 +71,7 @@
->   * by Adam Tla/lka <atlka@pg.gda.pl>, Aug 2006
->   */
+> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+> index 9e459f12ce3f..875fd1242528 100644
+> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+> @@ -55,14 +55,18 @@ properties:
+>        - const: gmu
 >  
-> +#include <linux/compiler.h>
->  #include <linux/module.h>
->  #include <linux/types.h>
->  #include <linux/sched/signal.h>
-> @@ -264,6 +265,98 @@ unsigned int vc_font_size(const struct vc_font *font)
->  }
->  EXPORT_SYMBOL_GPL(vc_font_size);
+>    power-domains:
+> +    minItems: 2
+>      items:
+>        - description: CX power domain
+>        - description: GX power domain
+> +      - description: GMU MX power domain
 >  
-> +/*
-> + * Cursors
-> + */
+>    power-domain-names:
+> +    minItems: 2
+>      items:
+>        - const: cx
+>        - const: gx
+> +      - const: gmu_mx
+
+Your commit msg said mxg. Or mx, because this is GMU, so saying that
+it's power domain is GMU is redundant.
+
+>  
+>    iommus:
+>      maxItems: 1
+> @@ -359,6 +363,46 @@ allOf:
+>              - const: memnoc
+>              - const: hub
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,adreno-gmu-850.1
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: Core GMU registers
+> +        reg-names:
+> +          items:
+> +            - const: gmu
+> +        clocks:
+> +          items:
+> +            - description: GMU clock
+> +            - description: GPU CX clock
+> +            - description: GPU MEMNOC clock
+> +            - description: GPU AHB clock
+> +            - description: GPU MXG AHB clock
+> +            - description: GMU HUB clock
+> +        clock-names:
+> +          items:
+> +            - const: gmu
+> +            - const: cxo
+> +            - const: memnoc
+> +            - const: ahb
+
+Keep existing order. ahb is first.
+
+> +            - const: mxg_ahb
+> +            - const: hub
+> +        power-domains:
+
+Just minItems
+
+> +          items:
+> +            - description: CX power domain
+> +            - description: GX power domain
+> +            - description: GMU MX power domain
+> +        power-domain-names:
+
+minItems
+
+But OTOH you need to restrict power domains for every other variant
+> +          items:
+> +            - const: cx
+> +            - const: gx
+> +            - const: gmu_mx
 > +
-> +/**
-> + * vc_cursor_start - Calculates the cursor's first scanline within a character cell
-> + * @cell_height: The overall height of the character cell
-> + * @cursor_size: The size constant of cursor pattern
-> + *
-> + * The parameter @cell_height is the height of the character cell as
-> + * displayed by the console. The argument given in @cursor_size is one
-> + * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
-> + * For unknown values, the helper draws the default cursor or an underline
-> + * dash.
-> + *
-> + * Returns:
-> + * The index of the cursor's first scanline within the character cell
-> + */
-> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
-> +{
-> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
-> +
-> +retry:
-> +	switch (cursor_size) {
-> +	case CUR_NONE:
-> +		return cell_height;
-> +	case CUR_UNDERLINE:
-> +		if (cell_height < 10)
-> +			return cell_height - 1;
-> +		else
-> +			return cell_height - 3;
-> +	case CUR_LOWER_THIRD:
-> +		return cell_height - cell_height / 3;
-> +	case CUR_LOWER_HALF:
-> +		return cell_height - cell_height / 2;
-> +	case CUR_TWO_THIRDS:
-> +		return cell_height - (cell_height * 2) / 3;
-> +	case CUR_BLOCK:
-> +		return 0;
-> +	default:
-> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
-
-Can userspace trigger this?  If not, who can?
-
-> +		if (cursor_size != cursor_default_size)
-> +			cursor_size = cursor_default_size;
-> +		else
-> +			cursor_size = CUR_UNDERLINE;
-
-Why underline as a default?
-
-thanks,
-
-greg k-h
+>    - if:
+Best regards,
+Krzysztof
