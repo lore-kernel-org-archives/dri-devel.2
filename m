@@ -4,68 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EBAC9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB8AC9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBB010F0F2;
-	Wed, 23 Sep 2026 14:41:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B60610E095;
+	Wed, 23 Sep 2026 14:50:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Gv6B+QMS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="juJW0Oca";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62EA110F0FE;
- Wed, 23 Sep 2026 14:41:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790174432; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=e5OkvZYukIt5GiTQhW6G+Kt1c269AMGHFXpP3r7i+CLvslhzze3rX4ILzx5pTKxgBRIk4eGy2F5HaUWIQuzEmjWHV2bh0li4VAw5VV3vgx58YZezIfbSNX3mvz04KJRvYDlIcdq25Kp7+aL0OkmwqjFMeVYFhQKb9NXxvlicAf0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790174432;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=; 
- b=ddYCwNc0m34CAPczGPwkeH3AcvGPgdXzFqRZh6b8tu6HRgdBLSyoKd1k+BgSfZT8VhNkaMponBaq8nwYgKFU9o35+0FOliOdAf/BzJJOcTlQuvzxhRBhmW2NjqGnHQLHbf/tQYiFxSkyMRQDGxMi0/J9VrrjnYY0aleWunJAIL4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790174432; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=;
- b=Gv6B+QMS10z3axRJLGhhpi3sf27EvZHXCdFXjbFmfzCs9qJg3pQk9aS/Yk9UJaPi
- SLUfnU66bwh4D4qSZKNaxfUGEmDj5eTCix712HE5alCc2nZV+3gwqhIU/a8i6VS0FLY
- nyguwDqV8p9OR2I5z9STawWqE/wrdi7EY/f1vV+s=
-Received: by smtp.zohomail.com with SMTPS id 1790174426791143.0815861883815;
- Wed, 23 Sep 2026 07:40:26 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-Date: Wed, 23 Sep 2026 16:39:57 +0200
-Message-ID: <YozwdeJLQh-0GBcK9P3QvQ@collabora.com>
-In-Reply-To: <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
+ [74.125.228.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E626410E095
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:50:18 +0000 (UTC)
+Received: by mail-pz2-f41.google.com with SMTP id
+ d2e1a72fcca58-85469a34907so899252b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790175018; x=1790779818; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+9dAfw6j+gd4CFGZQW7IESgJBRKBFJ7eBXdntcdN5b4=;
+ b=juJW0OcapCbSTx5/oG3wuzIi+/r7VUoETlij5NGpeFl9GKGwPUplYM6dw2FdZNqcR7
+ wtxxhMcPu7XjRMtGL2NRgUudNq414hmZJcBSkUHsDGfx+ESIDCKQPlr31n/KfzQHjX9C
+ I7IUyqlZ57vMnavspPF5Wmb/sPMT4ZZEsUxl44ANWBwdELhEp4qEK+AM2bUejzCxCoGe
+ bCktjW9KVbAjYspJizs5lJ1tblT4XTR5kY7dcZrZmkuhihxCl6YH//DpogTGPvsA+Oka
+ 6wkQSHzkhA3Uez4lHS85dLRxITIZ9JXu0OQSxe9TtS5eIs/aKpJwcqj++WWnpH3Js71U
+ MSDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790175018; x=1790779818;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+9dAfw6j+gd4CFGZQW7IESgJBRKBFJ7eBXdntcdN5b4=;
+ b=zqW4Z1qkibQTo5u4eC7VEnvkjTOcya6XybKMKFQLfYqKtkZ/tn/eZgwR5vU7YpZ8/D
+ /pEOGf/zc4Xa9WGUNsSnuc9VbQYE3xF0yotlb2XCf4LAzEjbFufduS98CuKMi7yQokxg
+ ZrQ9KA4kd34yFw4lmwPCL0Zg4W/YTf/gWIFzcfpOOKfj1AjFv9SaYBJhPrL/kxYb2Kh4
+ UuWvF/9YpcY4fJf/m8gM6Pn/I8et47L9pLTyPY/lOZSGs5mzA5X/KHDGCsQVklZSZiIV
+ K2zxmWldVb9j0xZ1BYeOp8Og+R4BoBsUoqhA6LoQ5z7Fepjymhd+wxCOGC3JHsO11Za7
+ Ps3w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzPQWsgWSar0Zr+lKui04XGYbFxy2CphqMGYt+nWjLFw8pt+Qz0JAuPRuUXoFfnWbK/UqwDcQh6wxY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kRcTuK0nEQfJH+VA0cBYbU/guEFTP4tXREWwKIHsZ7cYSStphn
+ ByxIUg0mDTIpYG9P0aZ0qnA8oIhOnXQdc6qdZIDDF3blrc4whOceBF+2
+X-Gm-Gg: AYBFou0gAh6f2i7EyvAhiP9QOQiUrmOpJWb4r3+EswNA5td6kVRUS46jcvxHkm25u9h
+ XRzAgli5Tu0Jb2khoMnizlMxDTbJty8kZBImCba4G7Bi9kUpNyIzc3RsGwm01ktYnF655mV/Np2
+ trjh87tU3lTC4C7Q/UOun81n4PocwtJ4Lsux2GONzBudP0hUJZr0Ati/22Pc0zDXVeymQfjamS/
+ XFsjjKyeYcQtCFnipeHTTZEB0Wyk6fWEyQotWCgA/fMUQxheCvHbyImEWENeGAR9glwdwa2XplY
+ s13+f9j6Pkf4gQmjzLvidm7mJnPTdgLd0553UcbFlRDshpNvnZan+m3qPhzqlLKLef7nrsX/dry
+ dtndKCY6auoFd4PgSPg+CtpW2peqhY2y+MoJuotJ7S1SQg+wahUUbKRHChkEQCEoQ4DrwnJQBdC
+ WiOpeXJ/Q3Noy/L6ZeDmO5w8ZvkvcU50BRByFBubzLzRrHl7MfN/STQyKr84PR4PgX
+X-Received: by 2002:a05:6a00:13a6:b0:878:34d7:6987 with SMTP id
+ d2e1a72fcca58-87d1c9c6e01mr2838923b3a.53.1790175018176; 
+ Wed, 23 Sep 2026 07:50:18 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-87d1d4c483asm1453655b3a.21.2026.09.23.07.50.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 07:50:17 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/amdgpu: prevent parameter-space underflow in nested ATOM
+ table calls
+Date: Wed, 23 Sep 2026 11:50:01 -0300
+Message-ID: <20260923145001.1244517-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,68 +88,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 23 September 2026 11:51:45 Central European Summer Time Miche=
-l D=C3=A4nzer wrote:
-> On 9/21/26 17:51, Nicolas Frattaroli wrote:
-> >=20
-> > + * .. _VRR-MIN-NUMERATOR:
-> > + *
-> > + * "VRR_MIN_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MIN_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-> > + *	zero, it must be non-zero.
-> > + *	Otherwise, must also be zero.
-> > + *
-> > + * .. _VRR-MAX-NUMERATOR:
-> > + *
-> > + * "VRR_MAX_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MAX_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-> > + *	zero, it must be non-zero. Otherwise, must also be zero.
-> >   */
->=20
-> Is there a reason that DENOMINATOR must be 0 when the corresponding NUMER=
-ATOR is? 0 divided by any number is still 0.
+atom_op_calltable() invokes a child ATOM table, forwarding the
+parent's parameter space with an offset:
 
-No, I think that's an arbitrary convention I settled on and don't enforce. I
-guess it should be "Otherwise, may also be zero", because the only situation
-I'm making userspace avoid is x/0 where x !=3D 0.
+    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+        ctx->ps + ctx->ps_shift,
+        ctx->ps_size - ctx->ps_shift);
 
-> > Either way, should these rules be enforced in drm_atomic_crtc_set_prope=
-rty?
->=20
-> Or rather in atomic_check.
+ctx->ps_shift is derived from the child table's PS byte count
+(ps / 4) in amdgpu_atom_execute_table_locked(), while ctx->ps_size
+carries the remaining capacity from the parent. A malformed ATOM
+table chain in the VBIOS (or a GPU that reports corrupted table
+headers) can produce ps_shift > ps_size, underflowing the
+subtraction to a huge positive value passed as params_size to the
+recursive call. The child table then reads and writes far beyond
+the stack-allocated parameter buffer.
 
-Due to complicating factors like EDID, CinemaVRR, and QMS TFRmin/TFRmax, ch=
-ecking
-the properties for sensible values is done in the HDMI state helpers at the=
- moment.
+Reject the call when the shift exceeds the available size.
 
-If/when there is a similar mechanism for DP, we can probably factor the com=
-mon
-parts out. I really do hope all drivers (including those that don't use the=
- HDMI
-state helpers) can at least share the hdmi_validate_vrr() logic, but I have=
-n't
-factored this out into an exported function yet because I don't know how si=
-milar
-the DisplayPort-equivalent mechanisms requirements are, or how much of the =
-state
-derivation non-state-helper drivers (i.e. i915 and amdgpu) need.
-
-Kind regards,
-Nicolas Frattaroli
-
-
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f..638bd18 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
+ 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
+ 	else
+ 		SDEBUG("   table: %d\n", idx);
+-	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
++	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
++		if (ctx->ps_shift > ctx->ps_size) {
++			ctx->abort = true;
++			return;
++		}
+ 		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
++	}
+ 	if (r) {
+ 		ctx->abort = true;
+ 	}
+-- 
+2.43.0
