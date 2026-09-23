@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE8EBC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:28:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E455C982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:29:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189C210E89A;
-	Wed, 23 Sep 2026 10:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C243510EFB3;
+	Wed, 23 Sep 2026 10:29:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gfeKGD7Z";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HbDeETvQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1997A10E89A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:28:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 72B3E4048E;
- Wed, 23 Sep 2026 10:28:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7196B1F000FF;
- Wed, 23 Sep 2026 10:28:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790159314;
- bh=Tw+YzFR1Q3RDJ/ocFl7RH+C/kpA7xkpXpKPh0rT8+YE=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=gfeKGD7Zx1t68oVKPD3pJdIls6095LdyIYbLzcbi2lWu0uZc4Ag6czwUu/3rMOVvu
- 5DkKG7QVnUdoUJyu1nzlZlhO5qsE27dTDKv4KVUeUxS/0fGMmnV48ACdIVTacKhMLM
- Kp2Etb2iursi6SlXAk2q9a0Y6ZYslY12NqaBGyj2gFaxqHvu92+46mMlc5J8MMsSdD
- HGiK3yV1AdehOFvWHLjpPcT/57yOMwlxfev62t4C+oD/yqe8IWaG9c7HzZhanNfFx0
- V7SG8BRuoVDTolq0VsrAo7+8om8W5vw2V1IN/4OrxXJcM2FyWTn+Eqh0SDfkr9xU/H
- iMGeRqREn7XNA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
- Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>,
- Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org
-Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-In-Reply-To: <arOfD6syXOgQhZYA@arm.com>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org>
- <arKsFofudnTYpXj1@arm.com> <yq5aik3w344o.fsf@kernel.org>
- <arOfD6syXOgQhZYA@arm.com>
-Date: Wed, 23 Sep 2026 15:58:25 +0530
-Message-ID: <yq5a5wzw2ree.fsf@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7340A10EFB3;
+ Wed, 23 Sep 2026 10:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790159381; x=1821695381;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=jQQPVVYT59xKcv8aBpDOQ7PqlE3upfL5ySw41K5CN/o=;
+ b=HbDeETvQinL9/oEUxsGUiI0exvZV2fi/OKrqmFDt8sIfOi6dcvuEIozn
+ GBYaXlIvpXDa1RIXHA+GexQDr+rAwa66SNRKjXcn8Aw3/Q3uGZDv6vurR
+ +DNLKsMmHd8scdwfmfRnejKIP/BinDa05a/c45qy/O0WMNUGIUkWD1ajd
+ FlU/xUJnsSbO6wEKTKu3dpSSLKoe7jAp9bHLEpKfBwwUybTl/37o6NmCq
+ 62RxAnU0fDXYcprVKjHyW6HOexpEE6heP2Dnv60rRwgYiDup59HyPIb9L
+ a5c1CPJ3ojpFAQQInHPmjIMP2iTS7xeN6oVg/Vmok08or+PY+8sut432L g==;
+X-CSE-ConnectionGUID: Ps/4AHenThG4EtRNF2sasA==
+X-CSE-MsgGUID: n/AdW4WCSU2zV0KZI3FPEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90952301"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="90952301"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2026 03:29:40 -0700
+X-CSE-ConnectionGUID: 5HfouIXbR6qvdOZWp/Qr5A==
+X-CSE-MsgGUID: /vU+ntXsSxSQCUJJil5B3A==
+X-ExtLoop1: 1
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by fmviesa003-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 03:29:39 -0700
+Date: Wed, 23 Sep 2026 12:29:21 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH i-g-t] lib/igt_profiling: configure Panthor enable state
+Message-ID: <20260923102921.hrn45pkboeo3risn@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Deborah Brouwer <deborah.brouwer@collabora.com>,
+ igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260922-b4-gputop_panthor-v1-1-e908705bd062@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922-b4-gputop_panthor-v1-1-e908705bd062@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,88 +69,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
+Hi Deborah,
+On 2026-09-22 at 20:01:20 -0700, Deborah Brouwer wrote:
+> Currently profiling is enabled for every device by writing '1' into the
+> appropriate sysfs node. But Panthor uses a bit mask where cycle and
+> timestamp sampling are enabled by the first and second bits respectively.
+> 
+> By default assume that writing '1' will enable profiling, but then adjust
+> the value to '3' for the Panthor driver.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/work_items/209
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-> On Wed, Sep 23, 2026 at 11:23:27AM +0530, Aneesh Kumar K.V wrote:
->> Catalin Marinas <catalin.marinas@arm.com> writes:
->> > On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> >> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
->> >> +		size_t requested, struct cc_shared_pages *mem)
->> >> +{
->> >> +	struct cc_shared_layout layout;
->> >> +	struct page *page;
->> >> +	unsigned int order;
->> >> +	bool zero = gfp & __GFP_ZERO;
->> >> +	int ret;
->> >> +
->> >> +	if (!mem)
->> >> +		return -EINVAL;
->> >> +
->> >> +	ret = cc_shared_calc_layout(requested, &layout);
->> >> +	if (ret)
->> >> +		return ret;
->> >> +
->> >> +	order = get_order(layout.shared_size);
->> >> +	if (order > MAX_PAGE_ORDER)
->> >> +		return -EINVAL;
->> >> +
->> >> +	/*
->> >> +	 * State transitions require a linear-map address and may modify memory.
->> >> +	 * Allocate from low memory and defer requested zeroing until afterwards.
->> >> +	 */
->> >> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
->> >> +	if (nid == NUMA_NO_NODE)
->> >> +		page = alloc_pages(gfp, order);
->> >> +	else
->> >> +		page = alloc_pages_node(nid, gfp, order);
->> >> +	if (!page)
->> >> +		return -ENOMEM;
->> >> +
->> >> +	ret = cc_make_shared(page_address(page), layout.shared_size);
->> >> +	if (ret) {
->> >> +		if (!cc_make_private(page_address(page), layout.shared_size))
->> >> +			__free_pages(page, order);
->> >> +		else
->> >> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
->> >> +					    layout.shared_size);
->> >> +		return ret;
->> >> +	}
->> >> +
->> >> +	if (zero)
->> >> +		memset(page_address(page), 0, layout.shared_size);
->> >
->> > Does the memset() post sharing logic work for pKVM as well? If nothing
->> > clears it, we have a small window where guest data is leaked to the
->> > host.
->> >
->> > Is there a case where we *do not* need the memory cleared? If not, maybe
->> > we can move the logic in the arch set_memory_decrypted().
->> >
->> 
->> I don't think every architecture or platform can unconditionally zero
->> memory in set_memory_decrypted(). Some callers may need to share valid
->> contents with the host.
->
-> Is there any? That would be a bad assumptions in the caller. Most
-> set_memory_* backends don't preserve the content as they change the
-> encryption key. So properly written code shouldn't rely on this unless
-> it knows specifically it's only running on pKVM for example. The only
-> use-case I see to avoid explicit zeroing is when the caller doesn't care
-> about the page initialisation and wants to save some cycles. The
-> encryption key change would take care of the security aspect.
->
+Thank you for solving this, LGTM
+Acked-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 
-I checked this, and you are right. We cannot expect the contents to
-remain valid across sharing; set_memory_decrypted() is destructive in
-that sense. Since pKVM does not rely on memory encryption, it needs to
-zero the memory unconditionally in set_memory_decrypted() to avoid
-exposing existing guest data. Other CoCo implementations may omit the
-memset(0). We still need to zero the memory when the caller requests
-__GFP_ZERO, where the memory location is expected to be zero.
+Can you ask some Panthor developer for review and/or Tested-by?
 
-We could either zero the memory unconditionally or pass a flag to allow
-this micro-optimization. We would also need to audit all call paths to
-avoid redundant zeroing after set_memory_decrypted(). Let me know if you
-have a preference for either approach.
+Regards,
+Kamil
 
--aneesh
+> ---
+>  lib/igt_profiling.c | 23 +++++++++++++++++++++--
+>  lib/igt_profiling.h |  1 +
+>  2 files changed, 22 insertions(+), 2 deletions(-)
+> 
+> diff --git a/lib/igt_profiling.c b/lib/igt_profiling.c
+> index e1526ad98..5c62a3fb1 100644
+> --- a/lib/igt_profiling.c
+> +++ b/lib/igt_profiling.c
+> @@ -50,7 +50,10 @@ struct igt_profiled_device *igt_devices_profiled(void)
+>  
+>  	while ((entry = readdir(dev_dir)) != NULL) {
+>  		char path[PATH_MAX];
+> +		char driver_path[PATH_MAX];
+> +		char driver_link[PATH_MAX];
+>  		char orig_state;
+> +		ssize_t len;
+>  		int sysfs_fd;
+>  
+>  		/* All DRM device entries are symlinks to other paths within sysfs */
+> @@ -87,7 +90,23 @@ struct igt_profiled_device *igt_devices_profiled(void)
+>  		}
+>  
+>  		profiled_devices[i].syspath = strdup(path);
+> -		profiled_devices[i++].original_state = orig_state;
+> +		profiled_devices[i].original_state = orig_state;
+> +		profiled_devices[i].enable_state = '1';
+> +
+> +		snprintf(driver_path, sizeof(driver_path), "%s/%s/device/driver",
+> +			 SYSFS_DRM, entry->d_name);
+> +
+> +		len = readlink(driver_path, driver_link, sizeof(driver_link) - 1);
+> +		if (len >= 0) {
+> +			driver_link[len] = '\0';
+> +
+> +			if (strstr(driver_link, "/panthor")) {
+> +				/* Enable both cycle and timestamp sampling. */
+> +				profiled_devices[i].enable_state = '3';
+> +			}
+> +		}
+> +
+> +		i++;
+>  
+>  		close(sysfs_fd);
+>  	}
+> @@ -124,7 +143,7 @@ void igt_devices_configure_profiling(struct igt_profiled_device *devices, bool e
+>  		if (sysfs_fd < 0)
+>  			continue;
+>  
+> -		write(sysfs_fd, enable ? "1" : &devices[i].original_state, 1);
+> +		write(sysfs_fd, enable ? &devices[i].enable_state : &devices[i].original_state, 1);
+>  		close(sysfs_fd);
+>  	}
+>  }
+> diff --git a/lib/igt_profiling.h b/lib/igt_profiling.h
+> index b063d54e1..d38cc2bb6 100644
+> --- a/lib/igt_profiling.h
+> +++ b/lib/igt_profiling.h
+> @@ -12,6 +12,7 @@
+>  struct igt_profiled_device {
+>  	char *syspath;
+>  	char original_state;
+> +	char enable_state;
+>  };
+>  
+>  void igt_devices_configure_profiling(struct igt_profiled_device *devices, bool enable);
+> 
+> ---
+> base-commit: 65f84b280be2caf8ce376295d97987a808affdee
+> change-id: 20260922-b4-gputop_panthor-cbb78c0ffbf8
+> 
+> Best regards,
+> -- 
+> Deborah Brouwer <deborah.brouwer@collabora.com>
+> 
