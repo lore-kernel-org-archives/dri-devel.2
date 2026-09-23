@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB83C9830C
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:21:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9CAC98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3255F10F0CC;
-	Wed, 23 Sep 2026 14:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADA810F0AC;
+	Wed, 23 Sep 2026 14:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H1ZzjTwx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LyOW4owm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D8D10F0CC;
- Wed, 23 Sep 2026 14:21:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E98C810F0AC;
+ Wed, 23 Sep 2026 14:26:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5382A60210;
- Wed, 23 Sep 2026 14:21:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D9C1F00893;
- Wed, 23 Sep 2026 14:21:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A070143BB2;
+ Wed, 23 Sep 2026 14:26:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD7D1F00893;
+ Wed, 23 Sep 2026 14:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790173275;
- bh=Zpxa6lQYuSY9C6rSba8LywJv9qFzNYW6sVW2PoLYyEQ=;
+ s=k20260515; t=1790173605;
+ bh=/p92UirDNwuGH3pxSCvY41H6rcurb37wBzBH+BeVeYQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=H1ZzjTwx9VQDn2DKVVGImlT6El+ZsmwiO4Ior93AVTLtPEjCIVVnURb4+++XrFI3/
- Lwv1Pq0Jb8DrOYQtqei+lfWu9yCyqB+V5WGUBb1HHsIHDlFheOc2ztYKD1ve3EntAu
- NK5Ga5s3EVP4ku5waC3mwNyXe2cRpMBFbBMcKnN0BfkydPRXGKFIuG/SnzLqF9jx+q
- 4xWSQBCjL8TUiFF83xhlDT8h+TipZvMmmRcWkujMPbXWrOhJigeW8vIkFl03xYfopg
- Jl2Mx764fc79HxruP6L3dMh+/7pB/eL2VwrFsOn6Ld0mi5iMS8y7d/gZvbUKvyK+Ek
- OE0g4dCiA+MYA==
+ b=LyOW4owm9HKdQOnBhncWaq0yvUhega3Jl+XlulssENmFTc0HR4ibM+5YRjtz+G5Xi
+ MhDZbFQcj+aarAZU/JribYvEneVEWjVBtBjkac8NlsWfGJ5DsvZ8VNkJ70VZ8wCm1m
+ BznY9+ZaYwXX7A5tBGDC2ipQ6R5bhk22eP1sZWmJuHAVj9Zf/D4tbmQeSDPqeKeZKv
+ w/4E3f1xbLuAdxtki1O3Ut8zoX35B7Iivqil1pQkKUwoE742YK0gfwKcDX/PbRc74g
+ OHO9MpKn2AYTDEY9uVjduhLsYrfxJIviZETqMqgSbMTHO8IddfeOPlRdYEXvFU5unQ
+ AmC3S0gW4ktpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm: Provide a drm_dev_release_barrier() function
- to wait for device release callbacks
-To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260923140844.390822-2-thomas.hellstrom@linux.intel.com>
-References: <20260923140844.390822-1-thomas.hellstrom@linux.intel.com>
- <20260923140844.390822-2-thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is
+ enabled or PR !async
+To: "Xizhe Tang" <xizheTang2005@163.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260923195149.21329-1-xizheTang2005@163.com>
+References: <20260923195149.21329-1-xizheTang2005@163.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 14:21:14 +0000
-Message-Id: <20260923142114.D3D9C1F00893@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 14:26:44 +0000
+Message-Id: <20260923142645.4DD7D1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +60,46 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm: NULL pointer dereference in drm_WARN_ON_ONCE on error path
+- [Low] drm/i915: missing vrr prefix for cmrr access in intel_dp_needs_as_s=
+dp()
 --
 
-commit 5d11ff8a335cc538f36d72b0645fb2d88466a4ce
-Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-Subject: drm: Provide a drm_dev_release_barrier() function to wait for devi=
-ce release callbacks
+commit d1eecbeb3255f083df2a9a20caa676b6bc9c6e5e
+Author: Xizhe Tang <xizheTang2005@163.com>
 
-This commit adds a new drm_dev_release_barrier() function allowing drivers
-to wait until all device release callbacks have finished executing. It uses=
-=20
-a driver-owned SRCU domain to synchronize completion of release actions.
+drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or PR !async
 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 0cdc606af8d18..df32821e693ac 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-[ ... ]
-> +void drm_dev_release_barrier(const struct drm_driver *driver)
-> +{
-> +	if (drm_WARN_ON_ONCE(NULL, !driver || !driver->release_srcu))
-> +		return;
+This commit modifies the Adaptive-Sync SDP terminal condition to gate on VRR
+or CMRR enablement. This change resolves vertically streaked visuals during
+the first modeset at boot on fixed refresh rate eDP panels.
 
-[Severity: High]
-Will passing NULL as the drm parameter to drm_WARN_ON_ONCE() cause a kernel=
-=20
-panic here?
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
 
-If the warning condition is met, drm_WARN_ON_ONCE() passes the NULL pointer=
-=20
-to __drm_to_dev(), which returns NULL. This NULL pointer is then passed to=
-=20
-dev_driver_string() and dev_name().
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3111,7 +3111,8 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *=
+intel_dp,
+>  	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+>  		return true;
+> =20
+> -	return intel_vrr_possible(crtc_state);
+> +	return crtc_state->vrr.enable ||
+> +	       crtc_state->cmrr.enable;
 
-Because dev_driver_string() unconditionally dereferences the dev pointer vi=
-a=20
-READ_ONCE(dev->driver), this transforms a non-fatal warning condition into =
-an=20
-immediate kernel crash on the error path instead of gracefully returning.
+[Severity: Low]
+Will this cause a build failure when compiling intel_dp.c?
 
-Should a standard WARN_ON_ONCE() be used here instead since no drm_device i=
-s=20
-available in this context?
+Looking at the intel_crtc_state structure in intel_dp_needs_as_sdp(), cmrr =
+is
+nested inside the vrr substructure, not directly under crtc_state.
 
-> +
-> +	synchronize_srcu(driver->release_srcu);
-> +}
-> +EXPORT_SYMBOL(drm_dev_release_barrier);
+Should this be accessed as crtc_state->vrr.cmrr.enable instead, similar to
+how it is safely accessed slightly later in intel_dp_compute_as_sdp()?
+
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923140844.3908=
-22-1-thomas.hellstrom@linux.intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923195149.2132=
+9-1-xizheTang2005@163.com?part=3D1
