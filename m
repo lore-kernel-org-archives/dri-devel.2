@@ -4,67 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B6BC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A884CC982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72D0510E86B;
-	Wed, 23 Sep 2026 09:21:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED76810E871;
+	Wed, 23 Sep 2026 09:32:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="hsV1VpEI";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o3ItPzoD";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F177410E86B
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:21:40 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hqWgP6fWWzMlcN;
- Wed, 23 Sep 2026 11:21:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1790155297; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
- b=hsV1VpEIcbfAY97859a01N4NfGJ1qfkYQ3qQDzvGI09N3qFlULRneVEir627XR5eolXIdw
- 5RrkkOPWp5H54LzL4Sp4h9TtXn+DVUxJ93vxkHhohRl6y+c8A7t9HDNYWHRBwIi0fz54Gy
- lpGV3DMWLLVkxnDIxpS0DH44l61v1dDjoGR6ZMdDJty4cyNwwq6c1xkXWW6vV9pXOe6vPA
- /bl/H+fjLKLagm13Z3OMmuWLqS5hiQaBMtdyQphynQz305m6osjNHtIv3BN3eLNsQCeMZy
- gUpBOavYW/2suWPmXnP0lEdKHEb0QDbhExZioHGGa/oLmVFFiEzVceATJr7GnQ==
-Message-ID: <ffad51ef7d5f20d21396c84362fbdd2ac5883116.camel@mailbox.org>
-Subject: Re: [PATCH v11 1/2] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
- <work@onurozkan.dev>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  "Yury Norov (NVIDIA)"	
- <yury.norov@gmail.com>, Asahi Lina <lina+kernel@asahilina.net>, Burak Emir	
- <burak.emir@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes	
- <joelagnelf@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, Boris
- Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-Date: Wed, 23 Sep 2026 11:21:26 +0200
-In-Reply-To: <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
-References: <20260905085343.1827305-2-phasta@kernel.org>
- <20260905085343.1827305-3-phasta@kernel.org>
- <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2DF10E871
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:32:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2349243B6E;
+ Wed, 23 Sep 2026 09:32:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3958D1F000FF;
+ Wed, 23 Sep 2026 09:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1790155947;
+ bh=xZKxB2g5t6s7oWutVd+poNFKF/UMocorFf6Xj4/w8CU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=o3ItPzoD4pV1kSOXLSL6yYbb+mr75bWhtePcrmj/UE5e8i+xV5cIKM1/52OuRox4T
+ iBlT2qhep7nJOfPjwpwcGvDqMNYNpIiNMR5D/TKC5crFZ7tUwThdZ1rxcgqZVJty8u
+ zxkNijfG2Lbp697wNRneLY0I26V5QdUYdIsuRHts=
+Date: Wed, 23 Sep 2026 11:29:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Vadim Nikitushkin <bub4z0r@gmail.com>, stable@vger.kernel.org,
+ thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
+ skainsworth@gmail.com
+Subject: Re: [PATCH 7.2.y] drm/ttm: fix swapped-out resources never leaving
+ their bulk_move range
+Message-ID: <2026092332-alkaline-overthrow-494f@gregkh>
+References: <2026092253-dimness-unethical-2515@gregkh>
+ <20260922153334.136648-1-bub4z0r@gmail.com>
+ <2026092320-reentry-lyricist-330b@gregkh>
+ <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: ee915ba95aed2083b9c
-X-MBO-RS-META: gc4f65s5boyqeb8nrisbs9xnw697ra6q
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <32446a55-070d-4739-bd3a-d56c4b628e29@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,89 +57,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-09-07 at 20:14 +0200, Danilo Krummrich wrote:
-> On Sat Sep 5, 2026 at 10:53 AM CEST, Philipp Stanner wrote:
-> > +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T>=
- {
-> > +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let guard =3D self.as_fence=
-().lock();
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Use dma_fence_test_signa=
-led_flag() instead of
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // dma_fence_is_signaled_lo=
-cked() because the C backend wants to get rid
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // of the latter.
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `guard` is valid=
- until the `call_rcu()` below.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let signaled: bool =3D unsa=
-fe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !signaled {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_=
-err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
->=20
-> I'm not sure we want to keep this as pr_err!().
->=20
-> If we really want to keep warning about this I'd either make this a WARN_=
-ON() or
-> dev_warn() (we can easily store a device reference in the fence context),=
- such
-> that it is at least clear who's the offender.
->=20
-> My preference would be dev_warn(), as I don't think it is that bad of an =
-error
-> condition to begin with. It would be pretty odd to have a driver where a =
-DriverFence
-> drops while the corresponding GPU job is not dropped. And further it'd be=
- pretty
-> odd if dropping the GPU job would not imply that the GPU actually stopped
-> processing the work associated with the job.
+On Wed, Sep 23, 2026 at 09:53:54AM +0200, Christian König wrote:
+> Hi Greg,
+> 
+> On 9/23/26 09:41, Greg KH wrote:
+> > On Tue, Sep 22, 2026 at 06:33:34PM +0300, Vadim Nikitushkin wrote:
+> >> commit 3db7d7d583419f7b1f2e141e36418802dbb25cf8 upstream.
+> >>
+> >> ttm_tt_swapout() returns the number of pages swapped out on success and
+> >> a negative error code on failure; for a populated ttm it never returns
+> >> zero. Commit b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU
+> >> walk on swapout failure") moved the bulk_move bookkeeping in
+> >> ttm_bo_swapout_cb() under "if (!ret)", so the
+> >> ttm_resource_del_bulk_move_unevictable() / ttm_resource_move_to_lru_tail()
+> >> pair is now skipped on every successful swapout. The equivalent change
+> >> for the shrinker in commit 1d59f36e95f7 ("drm/ttm: Fix ttm_bo_shrink()
+> >> infinite LRU walk on backup failure") tests "lret > 0", which is what
+> >> was intended here as well.
+> >>
+> >> Before b2ed01e7ad3d the resource was taken off the bulk_move before the
+> >> swapout; since then a swapped-out resource stays inside its BO's
+> >> bulk_move range (and on the manager LRU) although it is unevictable.
+> >> When it is later freed or the BO leaves the bulk_move
+> >> (ttm_resource_free(), ttm_bo_set_bulk_move() via amdgpu_vm_bo_del()),
+> >> ttm_resource_del_bulk_move() skips it because of its
+> >> !ttm_resource_unevictable() guard, so a range endpoint in pos->first /
+> >> pos->last is left pointing at freed memory. The next
+> >> ttm_lru_bulk_move_tail() or ttm_resource_add_bulk_move() on that cursor
+> >> is a use-after-free, seen as the resv WARN in ttm_lru_bulk_move_add(),
+> >> "list_del corruption" in ttm_resource_move_to_lru_tail() or a NULL
+> >> dereference in ttm_resource_manager_next() -- minutes to hours after a
+> >> hibernation, or at process exit / reboot following one. Samuel
+> >> Ainsworth's analysis of drm/amd issue 5387 (see Link) identified the
+> >> dangling cursor; the missing removal at swapout time is the reason it
+> >> dangles.
+> >>
+> >> Testing the condition for success restores the removal. On an AMD
+> >> Phoenix APU (ASUS UM3406GA, gfx1103) running suspend-then-hibernate on
+> >> a 7.0.y stable kernel carrying the backport (Ubuntu 7.0.0-31) the bug
+> >> crashed 5 of 18 hibernation cycles; a function profile of one
+> >> hibernation showed 336 ttm_tt_swapout() calls and zero
+> >> ttm_resource_del_bulk_move_unevictable() calls. With this change the
+> >> removal happens for every swapped-out resource and 12 further cycles
+> >> were clean.
+> >>
+> >> Fixes: b2ed01e7ad3d ("drm/ttm: Fix ttm_bo_swapout() infinite LRU walk on swapout failure")
+> >> Cc: stable@vger.kernel.org # v7.1+
+> >> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5387
+> >> Link: https://lore.kernel.org/dri-devel/CAHYiNPa6aVacJoLOje-qZ1GyYx-9p0tN4NuP8D_eSL+UJeevXw@mail.gmail.com/
+> >> Signed-off-by: Vadim Nikitushkin <bub4z0r@gmail.com>
+> >> Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> >> Reviewed-by: Christian König <christian.koenig@amd.com>
+> >> Signed-off-by: Christian König <christian.koenig@amd.com>
+> >> Link: https://lore.kernel.org/r/20260909205028.13799-1-bub4z0r@gmail.com
+> >> [ Squashed with commit fcfe64715b425262af1b36f498f9197f3537ceed
+> > 
+> > Do not squash, send a patch series instead please.
+> 
+> in this particular case that squashing is the correct approach.
+> 
+> AMDs mail servers mangled the initial patch so badly that I had trouble applying it and ended up pushing a broken patch upstream. The squash is basically fixing that up.
 
-Yeah, it would be odd. I would not expect it to happen. But many things
-have happened which I did not expect, so =E2=80=A6 :)
+Ok, I'll take this then, thanks for the response.
 
->=20
-> For the same reason I also think it is a bit misleading to say "Danger of=
- memory
-> corruption!". It's not the signaling of the fence that does prevent memor=
-y
-> corruption; it's the driver implementing a proper teardown sequence. And =
-if this
-> sequence is structurally detached from the lifetime of the DriverFence (a=
-nd Job)
-> structure, something is structurally wrong with the driver anyway.
-
-Hypothetically, it could mean that there is a forgotten job still
-running on the GPU, which might then access freed resources through
-DMA. Sure, that would mean that the driver is fundamentally broken, but
-that's what warnings like that are about.
-
-Just to ellaborate on my thinking. I wouldn't insist on any wording.
-From my POV we can just say "=E2=80=A6 drops unsignaled.". That should be
-enough.
-
->=20
-> Furthermore, it would be very natural to just require the generic Job typ=
-e to
-> own a DriverFence. In this case it becomes natural to either signal the f=
-ence on
-> Job completion, or just drop the Jobqueue, which does the ring teardown a=
-nd
-> subsequently drops all the Jobs, which would also imply signaling the
-> DriverFence with ECANCELED. I.e. I think the fact that the DriverFence is
-> signaled with ECANCELED if it is still unsignaled should just be an API c=
-ontract
-> and not an error condition.
-
-Yup, with the JobQueue design I have in mind this error is largely
-impossible, just as the forgetting of DriverFences is. Which is why I
-think it's a good design idea to have the JQ own the jobs, isolating
-the driver from direct fence interaction.
-
-
-P.
+greg k-h
