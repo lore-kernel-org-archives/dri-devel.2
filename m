@@ -4,81 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B7FC982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD6AC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 07:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A3F210E299;
-	Wed, 23 Sep 2026 07:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC47310E09C;
+	Wed, 23 Sep 2026 07:42:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E0g4Nwf1";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="V4zTCkTj";
 	dkim-atps=neutral
-Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com
- [74.125.230.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49E0010E299
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:39:32 +0000 (UTC)
-Received: by mail-lr2-f11.google.com with SMTP id
- 38308e7fff4ca-3a49e7d0b4eso3452991fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:39:32 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C122D10E09C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:42:38 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4843f22dcb8so495317f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 00:42:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790149357; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ESI5rdq0jJ/bHVsd1aUTuqKBvuEeq7A0AqHrI9XYwgHL7wZAQEDd951zRFskxlgMiz
+ qgxIoVhTePQpssoPMxG0RRKXivEjj1urrroSRVmL+DdoxYR6+uPVNeoSF+A9g0LToCK3
+ z2In0+qrRx9QlTnECBz3uICu0XgKO3HNTsOmjexhXcUCbT8hkv7XcsPO3ghDVwAmRsIW
+ d8T2/YqnTwST60ITU4yJZGo72zsVg79EAIhUsVaT6Cz3Fd89MuFZJ0+Sv2cHGUJsPjzI
+ UrQqXipEuO041hExxjUHrugZO27f7FZac57cliycQHSJ+6WtgXRr4W84IemWP76reVCu
+ M9fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
+ fh=RAVGsXFQMF81X1jR/2mMSPoP20O8rs61JWMQCoD0Mqg=;
+ b=G5ik2sRPHCw9nNUQSk2wrOFo/MiMXu3Kk4eMrjJxJKorCYLeuRWRIkAtxqkJeE55F1
+ eyiZuG6QJNZD3K2RMuXmaOxKhYsUvP8Q0Qh5TcACW1nS2kgp/jPXPgDmZ3aFzm9KfUh7
+ PwuOPD1vcd+IfomE88Khh2BkHJE0ykrC3uirSgU9PHKLMCGUjnOmHK+cllIhL266CnwN
+ fNR5fWGK0pEPCMwcf9NftjhIKMFB1iDfJJ+3g6dy4cxVldNq2sGG/R/Le6UngZE3kENo
+ bjzhmQmTK+BrGVpFI3IZ5kVk1Vv+aylUqTb9/PCdEromhahoPcfFcK/PtLBox0urYHVv
+ PIDg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790149170; x=1790753970; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
- b=E0g4Nwf1Rcuo2gByFcM3JY6vVcE5z45qJtrPFTXEsgNDi3nc6E6BVP4O7oOYJTV7rU
- SiCR2UJgYGj+3fi/rcQXfByYt5LmRssgktVD2JoBLghtMF6pXSYXW1z/XXSbHjSUxH6P
- 3q8EzQEK/b5pa8dJ8/ww0VJ2/24RwFGwggq6GnshsBj+3/oNX2mLq1BSZCn76dmXZwu/
- S1S8vukcnrmMR1jfDLOlZ7ZYWhTQ7WSgwFyRhKAfMvQRDa2zn1a+QArBOqV4aLcGFw06
- u41bY7Su5H4WwZaZr8mRM7bXCHkOeC2NEqxcWXi3R0w75VdMTHQdkpErdOqy4Ka+Q4pv
- z9Cw==
+ d=google.com; s=20251104; t=1790149357; x=1790754157;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
+ b=V4zTCkTji8NVmCmeWrbBvDZgs6Ykc8M6ww4QEMdKqTRHnVMHcII6lv+iBGoUJxgilz
+ cZAYfcel4zpcZzutNIz/bKakjwACPD8h9xDNAojoqcvt8txxlKY6bWyMJbVZLwKMM0Ce
+ nY/8CeZpNqn2Mcx8YaSrUpR3q8j+ec7F2Uj20u3t8GKCc0hMMGcpjUHpJ6rM5/hdP26k
+ fm5lIPASyoZ5w47xmKq6/zKIAJrePZPuVDaHj0vwcDsYjJzQNr6swJwpG0QHi07dsQUw
+ U9ehLSORwZtrrLeGbBpXsBlvlqhRzFI+2nHrd2cMp2ixPqPc7OyHUbmid5vxa/v145er
+ 1S+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790149170; x=1790753970;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IzZ+cNf2z4J5z3qvFn6/NJ8ACjL3I/i0NM3vzaSh4n4=;
- b=P0vhDGFzVtEQEhbH0xO2g7FD7LBP3+14crbMKIrEsSOQxVkNA+Wsv0mchYYRxhKCe7
- dekWIJJzSf8zae7yHNYZNMNE2qxFec9+7RJrDYFACoIckStlYto0GoE0P1qP6roaJT6/
- pO50fSK4nr/GTWydQovisFnmdZHsKl3uliQkEat4LkujZSyHI7/UXIOa9PMqvP53wNoK
- CKw9Tvh5UC/3zN1qLJEC/OXwyj81JjK6cEU5U/YzMPcB3NpF7ZLrH6I8/dW8pUoEhVoI
- v0hSo35lR18LkSE/NafuWQ7hAntzFwruVEJOXDVRSjxMzpT2kI/ptE0ztcVtdGF1YZ66
- cqhg==
+ d=1e100.net; s=20260707; t=1790149357; x=1790754157;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/IJk6BwyL2t+xmXjHGLGD+TklywKkZlMfXsjfutBVv8=;
+ b=eqUQsJshSUcvu4B3WHKRdtpR3+B1DGxVNX5BnP/r+V7pQ9GLjC0uJ6n1vSyzkxm9Qi
+ 14OrTaYn+3Xh6m2PS0ew3XUqJOJJPlQ4dUTmlsgRAb0sdeaigFAC/FYQ/9ZNDZItQYrG
+ Crs2tN5llTo+Ee7XdgX+BV2HdhyRmbAcd4cPbxPih0OowrVqIPaVHklm8mx+oz0+/kOi
+ rPzjrBgyBUGYc18ufAc8QcJG/LKamqoozj0r+X2IsH8ak80H04jKZWKiKm3OelKK96UY
+ usBUsToIDOnBo8r4v0Y51a4hBu45jXUbT8nfmWjHYWw3RFgAJxOmvk8XpW4jQlaX5jIO
+ Jdlw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByFXxqsjG1Rkyjoh1FHsexWvocM98dnbNqPAYANcu1po1SWOiv9NlkWNeSQUMKc/mpQvWral7oncvQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kY+l5nvNjevIt5VXNSfpc0JtaK4ezY79goYAIxVbblWjWrJ4n8
- zoUHQsFjKTTfw9WUoCsT+jiVD/UKNpfO2jFw0hwe0SuzaHuGxNHVx3Y6
-X-Gm-Gg: AYBFou2vSyb7tenVrUVN4uQy/amT5r46zRbdEqslIYeP/s/cRhsnD/mW/SdbO23B6O+
- 7hRsnAed0sIUfsqD9ChD7SDVtaueJIr/LOn8PYiNQLV6X82+mkmOxe7D6ZRZjSabQrBWurbgBYj
- rBocs72xUxHUx4rz2kAsU0OVUsBCpCelgxn84gyH2BtiYWTQIqLNES8c2gembCz3Bv48Dd/xWB7
- n6sO00hvQHdcyvIMvVY/MTesk7SyXpIoiZH5dJfJcMI7pqBm4P7511pY4oqWFzOaQDrYWVGt3sg
- 1+P4z0oNHn9Hem4k/86ahAaH0yeXUwNBHBHy7LIifjN7nfmJRAGl5IwaB2KIHifQ3v6VW05PP5K
- 5zAUgraSHUZ5BBH5Ph2JtnMaMOaclOypmIT79SF9Irc6yfJs+D6GY9yeCOhZnRqmwTdUuxQwrIv
- xJ7uGT/9OcjoZsV/XzIjMVWbPT3U3o/QyJKhoJfGLg1sRJ3utAuFqCRvEXCvedxpmCe0xsjAXqp
- OnKJ1tXjDSlkKgF
-X-Received: by 2002:a05:6512:3996:b0:5b6:1a7c:59e8 with SMTP id
- 2adb3069b0e04-5b8d8ac9b9fmr472193e87.66.1790149170031; 
- Wed, 23 Sep 2026 00:39:30 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b8d8580568sm395754e87.34.2026.09.23.00.39.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 00:39:29 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH 5.10/5.15/6.1/6.6] drm/amdgpu/atom: Check kcalloc() for WS
- buffer in amdgpu_atom_execute_table_locked()
-Date: Wed, 23 Sep 2026 10:39:12 +0300
-Message-ID: <20260923073913.39211-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AKwUvBxaNFuwHDn6yG3dzFTsJr63qYCGLgbltHynehkT6vJPsJOfcQ2FbLXl+AZ+KI9fU78HszcJsqOJ1qg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mHXj7dT2D2UTfY63tmbYZSRhqsCSaE2xRwmxHsf9g6DwHUaQbJ
+ Cr5sFh1M433O9CILHiiXlzWbI0KsjwCOK+XfQg9VXeZq/8S1AA/yzZsj2lZhkCn+cGniDgW/6Cc
+ VjcNZby2wnNs7etmMCJLxOrO98JR+vRRcylD5rsQw
+X-Gm-Gg: AYBFou26ag+MGt52SQ0pJ0/lJge5UtGOysBJwHSEe7pyligHTg+PqOF19LZo+RE99iV
+ 48VVNbuRERo9GdrNpp7t+qJH00n7LlxRPraEyFwz+b9EF+M9vS1y1VJU/HelOjl2K/wGD/CGpWx
+ RUX//Xx8TEqfcwWezv3QhFUykHZmqaRbMSujCMIXIUxVyU7+mTJxXfjK2buK/m+nQjUCZh5kcVd
+ UV7G9ROvIcz175OH640U+e5xZEnhUCNuuwwldmuAPPcqGtpuJqciKPY/FWobu8UHIjiuILimQ+v
+ Yl1B0+h98zPN2fhnBKxqbKrNT4awuUJ40prpY8OG2/yP3jZT92VpQQePRKpakJWJDBvrURM2Djh
+ 8mOKOYncSbt3LkqaLXFOcSLOLMDjhW3s=
+X-Received: by 2002:a05:6000:178b:b0:486:f1ec:f939 with SMTP id
+ ffacd0b85a97d-488670a6c46mr3157053f8f.40.1790149356616; Wed, 23 Sep 2026
+ 00:42:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
+In-Reply-To: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Wed, 23 Sep 2026 09:42:23 +0200
+X-Gm-Features: AclHuK_kOTENlrajsbD3PM-8sSHORN3Gp4PV1SmVXbX3HMVeZKOfsOHmtEYRT3c
+Message-ID: <CAH5fLghN0w908Z-MYDfmaeC7gvAB78MMT7zg599=1kU0HexkOw@mail.gmail.com>
+Subject: Re: [PATCH] drm/tyr: gpu_info: zero out new/unused fields
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ karunika.choo@arm.com, boris.brezillon@collabora.com, laura.nao@collabora.com, 
+ steven.price@arm.com, liviu.dudau@arm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,49 +114,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+On Wed, Sep 23, 2026 at 1:16=E2=80=AFAM Deborah Brouwer
+<deborah.brouwer@collabora.com> wrote:
+>
+> If a new field is added to the struct drm_panthor_gpu_info in the panthor
+> uapi, Tyr must initialize this field or it will cause a compile error.
+>
+> To pre-emptively avoid compile errors, use ..pin_init::zeroed() to zero
+> out all new fields added to this struct. Tyr can subsequently change the
+> initialization as necessary. Also use it instead of manually zeroing out
+> existing fields at the end of the struct.
+>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-commit cc9a8e238e42c1f43b98c097995137d644b69245 upstream.
+Merged into drm-rust-next, thanks!
 
-kcalloc() may fail. When WS is non-zero and allocation fails, ectx.ws
-remains NULL while ectx.ws_size is set, leading to a potential NULL
-pointer dereference in atom_get_src_int() when accessing WS entries.
+With regards to sashiko bot, we should look into whether the
+MaybeZeroable that bindgen adds to structs applies on this struct. If
+so, we can remove our unsafe impl block. But it's not an issue in this
+patch.
 
-Return -ENOMEM on allocation failure to avoid the NULL dereference.
-
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Roman: added parentheses to the 'if' statement, matching the upstream
-commit. ]
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2025-68190
-
- drivers/gpu/drm/amd/amdgpu/atom.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index cb6eb47aab65..0a7666be1dea 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1228,10 +1228,15 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
- 	ectx.ps = params;
- 	ectx.abort = false;
- 	ectx.last_jump = 0;
--	if (ws)
-+	if (ws) {
- 		ectx.ws = kcalloc(4, ws, GFP_KERNEL);
--	else
-+		if (!ectx.ws) {
-+			ret = -ENOMEM;
-+			goto free;
-+		}
-+	} else {
- 		ectx.ws = NULL;
-+	}
- 
- 	debug_depth++;
- 	while (1) {
--- 
-2.53.0
-
+Alice
