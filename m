@@ -4,73 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BA8C9830B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F537C98304
 	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F95010E93D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F79B10E92C;
 	Wed, 23 Sep 2026 16:13:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sim9s0JP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SxLYZBwx";
 	dkim-atps=neutral
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com
- [74.125.229.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5284510E93D
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:13:08 +0000 (UTC)
-Received: by mail-dl2-f36.google.com with SMTP id
- a92af1059eb24-14373bcc010so1283681c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790179987; x=1790784787; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
- b=Sim9s0JP0QGBbDzDuaYtguK9ucojea/O2rmpP/XVq1lQOrRmgIik4LQY3zipfEynDH
- WzwaTwE0V9xOr2w0ecbp6bxbA0W2xflkgU/roitgQbO9KvFely2X7HuyO+Xua5fB2+Mj
- 9LtaEMU6UnTw+wNgDhXluValX19TLf3SqnsFsD8LMgmN/6ZLzREklgYR1LsyL3DasMsW
- RrCrYqiwnmoR6oZkPcag0gfKRCVdy6PM9eX9UXMy+DJFMD8nfB/Cu9/ENWv1oYEA5Jom
- oVFngFtVWsTjJBX0ywS/qlUXvNb5zZ7mt/9arM2ZbetCWda5sWzI7w1gLP0XaZ/mkfGn
- QSzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790179987; x=1790784787;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
- b=h9ThJxN5uBrJbj018lJkO3WTU3mhWoeymueUk5cccx6+nTuof/s19fNbuaXagJyXNz
- op5wqiW+zs30O7fRLsvMl99DtCvHEARhQKxgs6ituUGTPv4OgjAnGCJoUuYiQw6tb06a
- t0EPKHZTM1uOvySSGJDQCTg6a3Q5Hs0iClFT+0Blms+0H2l9eDUfBDKRyeSGg+kDsq82
- PB4qv//pRR3Al5eYMoqFegc+cO2AxVwwxCwUxBBnZ6CgkoQPCS7VBIVHp1KYsg9yMWRY
- /scHwfGj1R9e69OSFykxhCcM8OCAnamYvEKIeFrZ1b8DnrcR7JJpaXpWtNnCYmOzGyFo
- HocA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwbppQtsFXjrcYHxR41ntb4gC3eKGkJKMfFeSrHhKHDLGaRkwFmqkRqkjvN0IkCugoH4b0gWxKa7s0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++keNJgiSmCEinyEKaNQIFrLRJSt++PqoWSj9vtVWF+TcRoSDXMv
- 5yacqrUx5nsE1sf07imOw1RgGojEG/iNNr0BhgbL5AoKEwbaeMZ6E8qL
-X-Gm-Gg: AYBFou04/4/3hYhzWA6sFNNGq//eYZWx/p2RuJml9CMmI/ql+tlycjZ1/e7Ox/Gxo2H
- gVctojmVWMEg9g3NaBIv2sDFq7IzF4dQ9UD7S4PwIsR/B7kQCfykL2lvEo2Y6z35CScR5YFEjd+
- 2OY3WUhtErnadYVk5L6mSlNJvyMojNlpzI8AM3J2xOAUuHo3bCh7ma2Z1U7Z/v284/CVI2naRpZ
- XaT1W+T9LC9tuAkYWz8RzUiy70odPdnzP0xj/lPVRD0QL2itMqg+eQTdQJWuimpfkIGvsUe2K+V
- ntLjoMr46RF4YOtzydkEIeYLbaKEnmM/GkiFCz4K0vuIsm+YV9a6AgmW1uZpZGD6/nPYJi5BkXu
- h4NKdIhOZH4sHLH9mXLYFRLZggH5VSVdpn8bmHU9q23Eh+X4rUdEWIjZPgEWIhXkpzewfv9fLCt
- IYxnutFuEbYh06sE8x98DjJTOF3RwKs/ZKCmSYUvkIl9/gY+N2QvOJLL8oZ+oZLcg0hvGDiwZzX
- g==
-X-Received: by 2002:a05:701b:20de:20b0:145:152:b54c with SMTP id
- a92af1059eb24-1450152b7ecmr819023c88.23.1790179987346; 
- Wed, 23 Sep 2026 09:13:07 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14501794269sm992777c88.8.2026.09.23.09.13.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 09:13:06 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Wed, 23 Sep 2026 13:12:52 -0300
-Message-ID: <20260923161252.1363895-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64BAC10E93D
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:13:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=aIrQn9s9bafTu+uFiPgLvDvAAJdVYC1maxfhhoJR5Ys=; b=
+ SxLYZBwxciDru7suCzvja0GSgnEoIdBKHG+8MDvpeEORrB7KYLkR5BqrIdrRZ6ZOy950GX/kdNB5U
+ leEh2jLguvyZ6vjC7F1gIayUB1gS3LHt1b0fzv5b9yO57wX9DE021cA0mxscSvMZXatZ7o7FcOYGT
+ K+Gk6qC681YPA9zdrR5WAZu8IXwuKMnQLZuSHUkvqlQHQSPobtVRJpmFI/N2MuqksP0s/FycMmjtx
+ 98KNaIE5F5hGadNyzv3roXgCVG5qkBbvqnV4wkiZVzDSLXr7qVOLOj98TzocTIItv5mVZspTiUqD3
+ 01AmFyQ0PJNnZ1GObsTG2S/RmYWSvFg9Dg==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1x9Paa-006ECS-CK; Wed, 23 Sep 2026 18:12:56 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: linux-kernel@vger.kernel.org
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
+Subject: [RFC v5 2/3] workqueue: Add support for real-time workers
+Date: Wed, 23 Sep 2026 17:12:50 +0100
+Message-ID: <20260923161251.45428-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
+References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,49 +59,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-atom_get_src_int() and atom_put_dst() use idx as a dword index into
-the uint32_t *ps array (ctx->ps[idx]), but compare it against
-ctx->ps_size which is in bytes. A malformed ATOM table operand with
-idx between ps_size/4 and ps_size-1 passes the bounds check but
-accesses up to 3 dwords (12 bytes) beyond the stack-allocated
-parameter buffer.
+For use cases such as the DRM scheduler submitting work to the GPU on
+behalf of low latency userspace applications, where latter have sufficient
+privileges to have had successfully obtained realtime Vulkan global
+priority, competing with random background CPU load can create large
+latency spikes which gets in the way of a smooth user experience.
 
-For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
-the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
-byte offset 20, 4 bytes past the allocation.
+For these situations the existing WQ_HIGHPRI does not bring a noticeable
+improvement and a stronger hint is needed.
 
-Divide ps_size by 4 in both comparisons to match the dword indexing.
+Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
+to improve this.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260923163157.1354872-1-qwe.aldo@gmail.com?part=1
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+We use a minimum priority level since we only care about winning the
+contest against normal background CPU load.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Bradley Morgan <include@grrlz.net>
+Cc: Chia-I Wu <olv@google.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Tejun Heo <tj@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v2:
+ * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
+   affinitity. (Tejun)
+ * Fixed commit message typos. (AI)
+ * Fixed sysfs handling, max_active setting and user modified nice
+   application. (AI)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..d0a45f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -232,7 +232,7 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
- 		(*ptr)++;
- 		/* get_unaligned_le32 avoids unaligned accesses from atombios
- 		 * tables, noticed on a DEC Alpha. */
--		if (idx < ctx->ps_size)
-+		if (idx < ctx->ps_size / 4)
- 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
- 		else
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-@@ -510,7 +510,7 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
- 		idx = U8(*ptr);
- 		(*ptr)++;
- 		DEBUG("PS[0x%02X]", idx);
--		if (idx >= ctx->ps_size) {
-+		if (idx >= ctx->ps_size / 4) {
- 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
- 			return;
+v3:
+ * Fix worker->pool null pointer dereference race by moving the
+   global decrement to detach_dying_workers().
+ * Rebase for upstream changes.
+
+v4:
+ * Fixed onion unwind.
+ * Moved affinity setting to default attributes.
+
+v5:
+ * Dropped global and local limits.
+ * Documented in workqueue.rst.
+ * Added NR_WQ_ATTRIBUTES.
+ * Reverted BH handling changes.
+
+v6:
+ * Dropped separate attr->prio in favour of RTPRI_NICE_LEVEL checks. (Tejun)
+ * Reworked on top of tj/for-7.4.
+---
+ Documentation/core-api/workqueue.rst |  5 +++++
+ include/linux/workqueue.h            |  9 ++++----
+ kernel/workqueue.c                   | 33 +++++++++++++++++++++++++---
+ 3 files changed, 40 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
+index bb770f556568..24df3d87e2dd 100644
+--- a/Documentation/core-api/workqueue.rst
++++ b/Documentation/core-api/workqueue.rst
+@@ -225,6 +225,11 @@ resources, scheduled and executed.
+   each other.  Each maintains its separate pool of workers and
+   implements concurrency management among its workers.
+ 
++``WQ_RTPRI``
++  Real time priority workqueues must be created as unbound and have the strict
++  CPU affinity set.  Their worker threads use the FIFO scheduling policy with
++  the lowest priority.
++
+ ``WQ_CPU_INTENSIVE``
+   Work items of a CPU intensive wq do not contribute to the
+   concurrency level.  In other words, runnable CPU intensive
+diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
+index a283766a192a..161f71f4c264 100644
+--- a/include/linux/workqueue.h
++++ b/include/linux/workqueue.h
+@@ -374,8 +374,9 @@ enum wq_flags {
+ 	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
+ 	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
+ 	WQ_HIGHPRI		= 1 << 4, /* high priority */
+-	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
+-	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
++	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
++	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
++	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
+ 
+ 	/*
+ 	 * Per-cpu workqueues are generally preferred because they tend to
+@@ -402,8 +403,8 @@ enum wq_flags {
+ 	 *
+ 	 * http://thread.gmane.org/gmane.linux.kernel/1480396
+ 	 */
+-	WQ_POWER_EFFICIENT	= 1 << 7,
+-	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
++	WQ_POWER_EFFICIENT	= 1 << 8,
++	WQ_PERCPU		= 1 << 9, /* bound to a specific cpu */
+ 
+ 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
+ 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index e3a4ad56dae8..5cf486291af8 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -127,6 +127,7 @@ enum wq_internal_consts {
+ 	 */
+ 	RESCUER_NICE_LEVEL	= MIN_NICE,
+ 	HIGHPRI_NICE_LEVEL	= MIN_NICE,
++	RTPRI_NICE_LEVEL	= MIN_NICE - 1,
+ 
+ 	WQ_NAME_LEN		= 32,
+ 	WORKER_ID_LEN		= 10 + WQ_NAME_LEN, /* "kworker/R-" + WQ_NAME_LEN */
+@@ -3018,7 +3019,11 @@ static struct worker *create_worker(struct worker_pool *pool)
+ 			goto fail;
  		}
+ 
+-		set_user_nice(worker->task, pool->attrs->nice);
++		if (pool->attrs->nice == RTPRI_NICE_LEVEL)
++			sched_set_fifo_low(worker->task);
++		else
++			set_user_nice(worker->task, pool->attrs->nice);
++
+ 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+ 	}
+ 
+@@ -5928,8 +5933,17 @@ static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
+ 	if (!attrs)
+ 		return NULL;
+ 
+-	if (wq->flags & WQ_HIGHPRI)
++	if (wq->flags & WQ_RTPRI) {
++		attrs->nice = RTPRI_NICE_LEVEL;
++		/*
++		 * RT workqueues have strict CPU affinity for low
++		 * latency execution.
++		 */
++		attrs->affn_scope = WQ_AFFN_CPU;
++		attrs->affn_strict = true;
++	} else if (wq->flags & WQ_HIGHPRI) {
+ 		attrs->nice = HIGHPRI_NICE_LEVEL;
++	}
+ 
+ 	if (wq->flags & __WQ_ORDERED)
+ 		attrs->ordered = true;
+@@ -6115,6 +6129,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 			return NULL;
+ 	}
+ 
++	if (flags & WQ_RTPRI) {
++		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
++			         WQ_UNBOUND))
++			return NULL;
++	}
++
+ 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
+ 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
+ 		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
+@@ -7606,7 +7626,10 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
+ 	int written;
+ 
+ 	mutex_lock(&wq->mutex);
+-	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
++	if (wq->attrs->nice == RTPRI_NICE_LEVEL)
++		written = scnprintf(buf, PAGE_SIZE, "rt\n");
++	else
++		written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
+ 	mutex_unlock(&wq->mutex);
+ 
+ 	return written;
+@@ -7786,6 +7809,10 @@ static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
+ 	if (!(wq->flags & WQ_UNBOUND))
+ 		return SYSFS_GROUP_INVISIBLE;
+ 
++	/* Do not allow priority changes for RT workers. */
++	if ((wq->flags & WQ_RTPRI) && !strcmp(attr->name, "nice"))
++		return 0444;
++
+ 	return attr->mode;
+ }
+ 
 -- 
-2.43.0
+2.55.0
+
