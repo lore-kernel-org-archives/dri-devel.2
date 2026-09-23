@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA53C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C11C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D596010F8D4;
-	Fri, 25 Sep 2026 07:30:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3816A10F8D5;
+	Fri, 25 Sep 2026 07:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i12XGUT+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XXowWt4z";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 138B410E962
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 17:07:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06E210E85D
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:57:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BB0AE40227;
- Wed, 23 Sep 2026 17:07:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370A61F000FF;
- Wed, 23 Sep 2026 17:07:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 97EDE43790;
+ Wed, 23 Sep 2026 08:57:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D981F000FF;
+ Wed, 23 Sep 2026 08:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790183260;
- bh=DPNB6bW0x8y7Uu11BgHcG7CSR1tZ//UGOmZllbw9Ljw=;
+ s=k20260515; t=1790153877;
+ bh=zEbllmgiFfsLRk0pKgzNXwTCI+1F1P5ofJi8LFNISns=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=i12XGUT+ELGTRJSrycRVzqTit3D2pyM9ZR0ZSTlIa0mojim7gB9yUZwmIu+wgWYZK
- Ybyv+CV/Yh7wSmglW9QNbCpnx18TWoVPczcRHqo0Q/mnJsqjZQ3eFn2cP25qIt7fM9
- +POE/rp3vRI+Oxpo8QK9N4EfOTJ5jI0dLtJ432mM7IKfaNA3MKzBEomsWln5bFOqPN
- PxFbALYbyklQCFhfUINibcEvNCNrhcGgRwqd9F7gXGPywV48eYeWHkrJqezKwBbst0
- GSXVIWXaPeEYe4X28qZjKKxCsy9Q0ESN1tzaw+iT6CqBpO8zm4Si1SUtWVa2wxKSZ8
- vegFjunsRBTBA==
-Date: Wed, 23 Sep 2026 18:07:07 +0100
+ b=XXowWt4ziL/56y/Y94hdTEZbLLr97gz3vPYecgnU+2OLdzbRXNjVt79AFC23MY5tr
+ oTJY4tAIVUSxYNA273DbifXhFQN5PmgBpv0TsVokaKinyjXefw20slNXoVFuzwiHLS
+ F6ZYPX0Cqw7UBvBS+5fOLuIQVKaCqWPhvvdVx7EVb3HJaQ4wuHkk+WrSgfva1xzANX
+ bHdWs2TB7EVaJ4pr9L0v2ILwyY9eS00lIEN1Y7x7dNWVkC56JD9zi1iKd9QoWfdwqu
+ /X8/fzcyQTfJjStJTXhyCnJotJ5LbvBVoTP27bIDNCCQV90j0yhBvB6DJjUfHmgpLx
+ LQAT+4T8xfxRQ==
+Date: Wed, 23 Sep 2026 09:57:27 +0100
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
+To: Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
  Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
  Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
@@ -100,35 +100,32 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
  Wei Xu <weixugc@google.com>, 
  Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
- fields on new vma alloc
-Message-ID: <arQCCzmMARX81-3y@gremlin>
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>, 
+ Emil Tsalapatis <emil@etsalapatis.com>
+Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Message-ID: <arOMefPN1gxMpyx8@gremlin>
 References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
- <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
- <arP0oJgrgZlgtrb6@gremlin>
- <CAJuCfpFPPGaK-grNx9qiQOhzAXbxU+SO+95Fht1571TGREx2oQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpFPPGaK-grNx9qiQOhzAXbxU+SO+95Fht1571TGREx2oQ@mail.gmail.com>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,113 +142,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 09:09:38AM -0700, Suren Baghdasaryan wrote:
-> On Wed, Sep 23, 2026 at 8:54 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > On Wed, Sep 23, 2026 at 08:32:43AM -0700, Suren Baghdasaryan wrote:
-> > > On Thu, Sep 17, 2026 at 9:24 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> > > >
-> > > > It only makes sense to manipulate VMA fields if we allocated a new VMA,
-> > > > rather than merged it.
-> > > >
-> > > > VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> > > > keeps its own, which is also what the legacy f_op->mmap path does since it
-> > > > never touches an existing VMA. Previously set_vma_user_defined_fields()
-> > > > overwrote the merged VMA's fields with those set for the new mapping. In
-> > > > practice these are the same values, with rare exceptions such as shmem
-> > > > selecting vm_ops based on whether the file has been unlinked, so no
-> > > > user-visible change is expected.
-> > > >
-> > > > Make this dependency explicit, and additionally constify have_mmap_prepare
-> > > > while we're here.
-> > >
-> > > The fact that we might be overriding attributes of an existing VMA
-> > > that we merged with is technically a bug even if we never hit it,
-> > > right? If so, should we have:
-> > >
-> > > Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
-> >
-> > It's not a bug, it is an in-built assumption that the state used to assess
-> > mergeability implies the same properties.
->
-> Hmm. What prevents two VMAs with different vm_private_data members to
-> be merged? IIUC is_mergeable_vma() does not check vm_private_data. In
-> such a case set_vma_user_defined_fields() would override
-> vm_private_data of an existing VMA, no?
+I know everybody is very busy but I'd appreciate if people could take the time
+to have a look at this if possible!
 
-I think you're right that it should be a fix patch, I'll put it out of the
-series and send it as one.
+I asked an LLM to look at review replies per week in mm (see below), and
+clearly 7.3 is an insane cycle, which I understand.
 
-The issue here is more so vm_private_data than vm_ops. And really it's that
-vm_ops->mapped() wasn't called so you could have a refcount go to zero and
-stay at zero when it shouldn't have been, for instance.
+(And dropping the THP M, remarkably, has not resulted in a drop in review
+workload for me).
 
-But in general though if you remove mmap_prepare and ask the same question:
+However, I'd also ask people to perhaps 'give a little back' to those who
+are doing a lot of review also :) review can be thankless at the best of
+times, but having your own work sit there unreviewed for weeks while you
+are working so hard to review others' work is a little much.
 
-What prevents a merge of 2 existing VMAs that were mapped using the
-traditional mmap hook which somehow have entirely distinct vm_private_data
-and vm_ops but the same file?
+Thanks!
 
-The answer is nothing prevents that, but there's an underlying assumption
-that this state is fungible for a VMA over a given range given the same
-file.
-
-In that case, for anything where an allocation or e.g. refcount change
-occurred, then vm_ops->close() will handle the decrement, and the original
-VMA's state should suffice.
-
-But here it's a problem because you overwrite it + don't call
-vm_ops->mapped()...
-
->
-> >
-> > And if it was, it'd need fixing a different way (check the field for instance)
-> > and would apply to the legacy mmap hook also.
-> >
-> > This change is needed for the series though.
-> >
-> > >
-> > > >
-> > > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > >
-> > > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> >
-> > Thanks!
-> >
-> > >
-> > > > ---
-> > > >  mm/vma.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/mm/vma.c b/mm/vma.c
-> > > > index fa784f069da4..4b74b48c29b7 100644
-> > > > --- a/mm/vma.c
-> > > > +++ b/mm/vma.c
-> > > > @@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> > > >  {
-> > > >         struct mm_struct *mm = current->mm;
-> > > >         struct vm_area_struct *vma = NULL;
-> > > > -       bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> > > > +       const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> > > >         VMA_ITERATOR(vmi, mm, addr);
-> > > >         const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
-> > > >         MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-> > > > @@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
-> > > >                 allocated_new = true;
-> > > >         }
-> > > >
-> > > > -       if (have_mmap_prepare && !map_is_anon(&map))
-> > > > +       if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
-> > > >                 set_vma_user_defined_fields(vma, &map);
-> > > >
-> > > >         __mmap_complete(&map, vma);
-> > > >
-> > > > --
-> > > > 2.55.0
-> > > >
-> >
-> > --
-> > Cheers, Lorenzo
-
---
-Cheers, Lorenzo
+┌───────────────────┬──────┬──────┬──────┬──────┬──────┬──────┬───────┐
+│      person       │ 6.17 │ 6.18 │ 6.19 │ 7.0  │ 7.1  │ 7.2  │  7.3  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ David Hildenbrand │ 84.8 │ 70.8 │ 44.5 │ 74.7 │ 80.3 │ 85.7 │ 107.0 │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Lorenzo Stoakes   │ 50.9 │ 25.1 │ 16.0 │ 45.4 │ 35.2 │ 40.1 │ 52.1  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Mike Rapoport     │ 11.8 │ 17.7 │ 12.8 │ 17.8 │ 30.1 │ 21.0 │ 24.1  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Zi Yan            │ 17.3 │ 12.8 │ 15.0 │ 14.4 │ 10.2 │ 24.0 │ 28.7  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Vlastimil Babka   │ 15.6 │ 19.3 │ 12.5 │ 23.8 │ 17.8 │ 25.2 │ 14.7  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ SeongJae Park     │ 16.2 │ 7.7  │ 13.3 │ 23.4 │ 22.8 │ 17.0 │ 19.2  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Shakeel Butt      │ 13.0 │ 5.3  │ 11.7 │ 9.6  │ 7.2  │ 8.2  │ 14.5  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Harry Yoo         │ 10.6 │ 15.0 │ 11.7 │ 15.0 │ 10.9 │ 11.3 │ 6.8   │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Baolin Wang       │ 6.0  │ 3.0  │ 4.1  │ 7.1  │ 6.7  │ 6.4  │ 17.4  │
+├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
+│ Kiryl Shutsemau   │ 5.6  │ 3.3  │ 2.2  │ 3.0  │ 0.9  │ 2.9  │ 16.2  │
+└───────────────────┴──────┴──────┴──────┴──────┴──────┴──────┴───────┘
