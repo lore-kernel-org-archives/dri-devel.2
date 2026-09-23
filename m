@@ -4,99 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB26C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EBAC9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:41:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C7410F0C9;
-	Wed, 23 Sep 2026 14:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBB010F0F2;
+	Wed, 23 Sep 2026 14:41:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="aBVN4BnG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Gv6B+QMS";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A064710F0BA
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:40:28 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 230D55340225;
- Wed, 23 Sep 2026 16:40:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1790174426;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2mTpew8ONaf4G5wFu4uNw9aKRZHtXog3nTmkTT9nJ44=;
- b=aBVN4BnGfMB11oj4iTvw90P42N2KxP1yB1jhjGCbsndT+UKX5uCV8gza48covYg//T3IbD
- 3FXYmVg4j1/ZSOJrAJCYTeyf3MOSQIZYyRnC008SQQGJAsRBCslopOlOnxvjE6y5QB+EMV
- 7pFuvA/tAdDEiWkl97jWqx7uPa1jby0=
-Message-ID: <5828189c-bf26-428a-9bff-90577b0a25eb@ixit.cz>
-Date: Wed, 23 Sep 2026 16:40:25 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62EA110F0FE;
+ Wed, 23 Sep 2026 14:41:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790174432; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=e5OkvZYukIt5GiTQhW6G+Kt1c269AMGHFXpP3r7i+CLvslhzze3rX4ILzx5pTKxgBRIk4eGy2F5HaUWIQuzEmjWHV2bh0li4VAw5VV3vgx58YZezIfbSNX3mvz04KJRvYDlIcdq25Kp7+aL0OkmwqjFMeVYFhQKb9NXxvlicAf0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790174432;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=; 
+ b=ddYCwNc0m34CAPczGPwkeH3AcvGPgdXzFqRZh6b8tu6HRgdBLSyoKd1k+BgSfZT8VhNkaMponBaq8nwYgKFU9o35+0FOliOdAf/BzJJOcTlQuvzxhRBhmW2NjqGnHQLHbf/tQYiFxSkyMRQDGxMi0/J9VrrjnYY0aleWunJAIL4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790174432; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=;
+ b=Gv6B+QMS10z3axRJLGhhpi3sf27EvZHXCdFXjbFmfzCs9qJg3pQk9aS/Yk9UJaPi
+ SLUfnU66bwh4D4qSZKNaxfUGEmDj5eTCix712HE5alCc2nZV+3gwqhIU/a8i6VS0FLY
+ nyguwDqV8p9OR2I5z9STawWqE/wrdi7EY/f1vV+s=
+Received: by smtp.zohomail.com with SMTPS id 1790174426791143.0815861883815;
+ Wed, 23 Sep 2026 07:40:26 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
+Date: Wed, 23 Sep 2026 16:39:57 +0200
+Message-ID: <YozwdeJLQh-0GBcK9P3QvQ@collabora.com>
+In-Reply-To: <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
+ <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: Don't fail probe when the SDSP memory
- assign fails
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xingjing Deng <micro6947@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260923-fastrpc-fail-slow-v1-1-f3f6fabba6e3@ixit.cz>
- <bac16296-42ee-4b18-b605-9ed178210f4e@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <bac16296-42ee-4b18-b605-9ed178210f4e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,41 +81,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 23/09/2026 10:49, Konrad Dybcio wrote:
-> On 9/23/26 12:38 AM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> A failed qcom_scm_assign_mem() aborts fastrpc_rpmsg_probe(). On SDM845 this
->> turns every SLPI subsystem restart into an endless probe failure loop:
->>
->>   remoteproc3: crash detected in slpi: type fatal error
->>   remoteproc3: remote processor slpi is now up
->>   qcom_scm firmware:scm: Assign memory protection call failed -22
->>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: probe with driver qcom,fastrpc failed with error -22
->>   qcom,fastrpc 5c00000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: rpmsg_dev_probe: failed: -22
->>
->> The first assign succeeds and hands the reserved region to the VMIDs
->> described in qcom,vmids. qcom_scm_assign_mem() reports the resulting
->> owner set back through @srcvm, but the driver discards it, and nothing
->> reverses the assignment in fastrpc_rpmsg_remove().
-> 
-> Making it do so there sounds like a better fix!
+On Wednesday, 23 September 2026 11:51:45 Central European Summer Time Miche=
+l D=C3=A4nzer wrote:
+> On 9/21/26 17:51, Nicolas Frattaroli wrote:
+> >=20
+> > + * .. _VRR-MIN-NUMERATOR:
+> > + *
+> > + * "VRR_MIN_NUMERATOR":
+> > + *	Default &drm_crtc integer property forming the numerator of a
+> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> > + *	target rate. Set to 0 to disable.
+> > + *
+> > + * "VRR_MIN_DENOMINATOR":
+> > + *	Default &drm_crtc integer property forming the denominator of a
+> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
+> > + *	zero, it must be non-zero.
+> > + *	Otherwise, must also be zero.
+> > + *
+> > + * .. _VRR-MAX-NUMERATOR:
+> > + *
+> > + * "VRR_MAX_NUMERATOR":
+> > + *	Default &drm_crtc integer property forming the numerator of a
+> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> > + *	target rate. Set to 0 to disable.
+> > + *
+> > + * "VRR_MAX_DENOMINATOR":
+> > + *	Default &drm_crtc integer property forming the denominator of a
+> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
+> > + *	zero, it must be non-zero. Otherwise, must also be zero.
+> >   */
+>=20
+> Is there a reason that DENOMINATOR must be 0 when the corresponding NUMER=
+ATOR is? 0 divided by any number is still 0.
 
-Please consider this patch more like a bug report and "disaster recovery" into 
-acceptable error being provided.
+No, I think that's an arbitrary convention I settled on and don't enforce. I
+guess it should be "Otherwise, may also be zero", because the only situation
+I'm making userspace avoid is x/0 where x !=3D 0.
 
-The original patch states:
+> > Either way, should these rules be enforced in drm_atomic_crtc_set_prope=
+rty?
+>=20
+> Or rather in atomic_check.
 
-   No hardware testing was performed.
+Due to complicating factors like EDID, CinemaVRR, and QMS TFRmin/TFRmax, ch=
+ecking
+the properties for sensible values is done in the HDMI state helpers at the=
+ moment.
 
-Thus after the patch fixing the potential issue it breaks kernel even more, 
-while intentions was probably good.
+If/when there is a similar mechanism for DP, we can probably factor the com=
+mon
+parts out. I really do hope all drivers (including those that don't use the=
+ HDMI
+state helpers) can at least share the hdmi_validate_vrr() logic, but I have=
+n't
+factored this out into an exported function yet because I don't know how si=
+milar
+the DisplayPort-equivalent mechanisms requirements are, or how much of the =
+state
+derivation non-state-helper drivers (i.e. i915 and amdgpu) need.
 
-I can clank "better" fix for this and test it, but I cannot dive into fastrpc 
-right now, so quality will be limited.
+Kind regards,
+Nicolas Frattaroli
 
-David
-
-> 
-> Konrad
 
