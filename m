@@ -4,137 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF8AC98309
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:54:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCDAC98307
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F67210E8BA;
-	Wed, 23 Sep 2026 11:54:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 369AD10EFE6;
+	Wed, 23 Sep 2026 11:58:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="Ip/9PsmL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IipGtsLT";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5599F10E5A1;
- Wed, 23 Sep 2026 11:53:59 +0000 (UTC)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68N8ZaCq2742039; Wed, 23 Sep 2026 11:52:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=DZPR253R3+bl6LyBiXW5gQAtjY6DOY
- 80tr7PJYJoSn0=; b=Ip/9PsmLLpYTUEIiqqN7PEUCjt/tbos3gbllDcLV+dKinE
- DxM4vzFM1FgDLuHauy7zkOFHkE+8QgTu4v3UOwe3wRUssGJANSTjHJOqGP138G+T
- Nhqd4UMt93hU/7hAzMP4DnDStV7v3lAJgOZvyhZ0P+hcH1+UYg4pIU0KHQpm5t+5
- XYQiGLs519bydF3F3Ly2mUsQkpmeIheUS2Amsu7SuvxdJgo6dsqyP4V/N6M8uPwo
- Yuml8Vro5Oj2/R/nPk2G/xRZFMnqki/FTHYZUvTsblhV4A+Kj49Gi5gWyBTzSy/p
- hvCA8ghvjVyo99no8eYyGLGNv+3L5xoksFaAmS9Q==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1jk3y-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 23 Sep 2026 11:52:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68N8ILmd2892101; Wed, 23 Sep 2026 11:52:48 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gu5bkgqma-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Sep 2026 11:52:48 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 68NBqkcL49086914
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 23 Sep 2026 11:52:46 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4C3D920043;
- Wed, 23 Sep 2026 11:52:46 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8F30620040;
- Wed, 23 Sep 2026 11:52:45 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.224.92.206])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Wed, 23 Sep 2026 11:52:45 +0000 (GMT)
-Date: Wed, 23 Sep 2026 13:52:44 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-2-usama.anjum@arm.com>
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com
+ [74.125.226.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A371210EFE6
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 11:58:48 +0000 (UTC)
+Received: by mail-ua2-f12.google.com with SMTP id
+ a1e0cc1a2514c-97e97e2c7b3so515766241.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 04:58:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790164727; x=1790769527; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=LP4UJ6rcNxj5vtQd0NWw+zniHfA0ViW+8Yb9WndmdNQ=;
+ b=IipGtsLTnpku6aoZMd/acXv1a2aXWAmuAmzL2d7iSTTzKtOcEH1/yvfF22NKidslcW
+ zMTk37Qg8OhAJYE5ztt68VpsehaZGOHeu4IXVcjkMExwvVLuJV78QjvTja4ustG+9GuL
+ 7WjaLu1mX2RnJgr7h8vy+RdjiNSDRl7W+dg6ingFh4E5g43yD9NJa9AiQ0lD4S1vkZOq
+ cdG+iIWQJacIiB10KL+7FZqQiXLqogL8GV5WpE0Molz4agjJz1fRwOv6NRR/fGO2+Mur
+ EghokxhpuCECkX3SdctxKJAx3KH5AVvtU7fmAbpkfspxpxJm3/4At7Vm2yligvuM9jWH
+ n4Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790164727; x=1790769527;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LP4UJ6rcNxj5vtQd0NWw+zniHfA0ViW+8Yb9WndmdNQ=;
+ b=UIg13+XHrSyIrdDs0eWAoe9BZ7/zZrdHERdjQ9D8haXaf+2xBdqUMKQsV8NIJ40/ho
+ 04PSLjaL+X4QdsIxSy4q6aWW61Gtxld4Nq1hyX+aQLz5W1HN5bOp5WlQYGHlC05kOYof
+ S6IXwBTsQBg18qlOOpjYTJNkI13Ls6/G2xkK6Fg3Ftk4zoHrKnYpaVF1aOFuMsYnIKC+
+ Qqs2/F8vvGH++TtzMychtpJ9+Rr0culwgS8lc7mF4kqISx28FfJryL1VPPLaFGWTpf20
+ z7FTpYJ3hY87h7vOe1qdFKdc0nkUyOb7KT9AWH8KV39repDRa8LeGBZniky2TWUcQYyZ
+ hC3A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByJxbxS9CgNQV1WhxlZFPyA74nubdamQXTY9u8F4k3XfbpKqunqQzVZBJcgtpWx/b/JEKt36TBKTo4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mBSnf9go/oRNcP2aoOxOnJeG//ZiYoM1ppKF5mqQYU+CafPkKR
+ GPgU6jYn1BF0iEDDAarmP2Q6Q4zxpCDjjVUNfua+CgfczVblbnuBKsAB
+X-Gm-Gg: AYBFou20Yqcr29RnPHqVJXaFNj+9X8u8OEWa9b5oNu93AhsY5zbDUpl0zzKXTK1p5w1
+ nG8OY+SXbu8oUi8wpIPqoNulb+zFn5RyCshwrj7mGZL2e3piSs2uvQHSjqNlSxBq0QGdBEhQOCx
+ kPb+HPl4I8FNVmUv7o7NiNLeZZt0KlcKoEDOb9dkTkY+nK+4RblcqC9cyfsVA/1YTEHIL24M1lC
+ tl3u83+8fC4zb/EyzmNJ38difWFXevvmK9/FoHFfG7ztCqCm/zi1bNv+70KyjYUY6ZjCHBMjGd8
+ nsCj+sdFj7H0zKVUV3B8flebkT73C/TDGHb5MA4x7OFz0wZ062GvZcekIaYE8JN0CJZ/c5Q17HW
+ aEdW6CkeKs1m1lrkf1JePkTrOP4EClWXkPsWXliGnb54iOXemO7q9aSOM6j/HKP8jNUHhQMyBVU
+ OjbLQstgBtfYECwL6ztCswKt8RnEp00TwNio1172ooQHqiyj8LA84s4PY4jS87NB5JY8xbonTKR
+ S97FEcAC0/p
+X-Received: by 2002:a05:6102:54a5:b0:7a7:19aa:8a85 with SMTP id
+ ada2fe7eead31-7ac1d2d4823mr2262310137.32.1790164727264; 
+ Wed, 23 Sep 2026 04:58:47 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7abf5674f44sm3099961137.3.2026.09.23.04.58.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 04:58:46 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v2 RESEND] drm/vmwgfx: return an error when a shared GB
+ surface has no backup buffer
+Date: Wed, 23 Sep 2026 08:58:39 -0300
+Message-ID: <20260923115839.3363885-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903103002.1091859-2-usama.anjum@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: zkg8Yjm8buhyt1eRNhnorvj4h8bfMg31
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX6bMVOEi2qN4e
- SEAEWElqPuFcMqb6XxMSAKgTBU7nj/dCzT7pboAwFXABTdsicPgdnhSpodFJ6O+u2hg509qHfDk
- z9HbX8YO6UJxXAtAPBr1SXV/yRHUshBZqtP38jfDABopi2Q8TlICK2s09kBGBV4exDZexYbukEp
- Oxg7zWWj4bwJEOGzokpvAGkgwx6mOV9Hci2samlSyJVgEXMEqtoph/gVCurHxiAAqf0TauaVInd
- IvHSuwss6TAgfLNFvMkfvgEfm/lWIxq4QqGWZb1wZGJTR0i8Aqwb5xGBOLcMv/lOTIYdxzI8o3R
- oPxWzTJkmoTyuCze3ranpvgoRtO0j9Fwo13juJtO4WWD8YTP1C0PjcAbhZUntKNvoYTNnIcU/mO
- iX0G+Pezy0wbnkBvSeLA9ii/P51EkQzABCycAD2yGmiU5zm9dKM8qjIMLGZaPS8vA+24yUC1vPk
- rGMSqvFG6FK+7tXalcw==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab3bd91 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=7CQSdrXTAAAA:8
- a=WBsaCDucxrlOMaPtzzAA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX/Y5nhDG4vyXY
- k03GeTaIqKwMRq4AUpoHFMiSiGlDWAE+orQ24P6M5Bz7btA5rwd/KAwZVyCP0QeAkoFRkdQm8Rw
- gOzyts+JEL8Z8Grz2VhIOfiIo2KdxD0=
-X-Proofpoint-GUID: zkg8Yjm8buhyt1eRNhnorvj4h8bfMg31
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230046
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,97 +88,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 03, 2026 at 11:29:53AM +0100, Muhammad Usama Anjum wrote:
-> pte_t is used both for software PTE values and for entries stored in a PTE
-> table, so pte_t * does not distinguish a pointer to a software PTE
-> value from a pointer to table storage.
-> 
-> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> as a macro alias of pte_t by default. When an architecture selects
-> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> This preserves the representation while allowing converted architectures
-> to enforce the distinction at compile time.
-> 
-> Name the generic wrapper structure __hw_pte_t so architectures can
-> forward-declare it when pgtable_t must be defined before the generic
-> hw_pte_t typedef is visible. This avoids header-order dependencies.
-> 
-> Keep the C type definitions behind an __ASSEMBLY__ check because
-> architecture assembly sources can include this header indirectly. Include
-> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-> they previously obtained from that header.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
-> Changes since v1:
-> - Name the generic wrapper structure __hw_pte_t so architectures can
->   forward-declare it, and explain why this is required.
-> - Use software PTE value terminology.
-> 
-> Changes since RFC v1:
-> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-> - Exclude the C type definitions from assembly sources.
-> - Update the description for the new opt-in model.
-> ---
->  MAINTAINERS                   |  1 +
->  include/linux/pgtable_types.h | 17 +++++++++++++++++
->  mm/Kconfig                    |  3 +++
->  3 files changed, 21 insertions(+)
->  create mode 100644 include/linux/pgtable_types.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2133aec4a2004..da60a8bdcddb5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
->  F:	include/linux/pagewalk.h
->  F:	include/linux/pgalloc.h
->  F:	include/linux/pgtable.h
-> +F:	include/linux/pgtable_types.h
->  F:	include/linux/ptdump.h
->  F:	include/linux/vmpressure.h
->  F:	include/linux/vmstat.h
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> new file mode 100644
-> index 0000000000000..07da05d375c2c
-> --- /dev/null
-> +++ b/include/linux/pgtable_types.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _LINUX_PGTABLE_TYPES_H
-> +#define _LINUX_PGTABLE_TYPES_H
-> +
-> +#include <asm/page.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-> +typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> +#else
-> +#define hw_pte_t pte_t
-> +#endif
+vmw_gb_surface_reference_internal() rejects a surface that has no backup
+buffer by logging an error and jumping to out_bad_resource, but it never
+sets ret on that path. ret is still 0 from the earlier successful
+vmw_surface_handle_reference(), so the ioctl returns success while
+leaving the reply structure uninitialised. drm_ioctl() then copies the
+72-byte reply back to user space; on a CONFIG_INIT_STACK_NONE build that
+is an information leak of stale stack contents, and on every build user
+space is handed a "successful" reply that was never produced.
+DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so an unprivileged local
+user can reach it.
 
-I would suggest to provide __hw_pte() in this series - it is needed
-by architectures along with __pte_from_hw() right away (as opposed
-to when lands in arm64).
+Set ret to -EINVAL and, on the error paths, drop the reference that
+vmw_surface_handle_reference() took; once the ioctl fails user space no
+longer releases it via DRM_VMW_UNREF_SURFACE. The unref is guarded by
+ret so the shared success fall-through keeps the reference the caller
+still owns, and it also plugs the same leak on the drm_gem_handle_create()
+failure path.
 
-> +#endif /* !__ASSEMBLY__ */
-> +
-> +#endif /* _LINUX_PGTABLE_TYPES_H */
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c1ddf59c0d71a..5f462ec6fa5e5 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
->  config GUP_GET_PXX_LOW_HIGH
->  	bool
->  
-> +config ARCH_HAS_HW_PTE_T
-> +	bool
-> +
->  config DMAPOOL_TEST
->  	tristate "Enable a module to run time tests on dma_pool"
->  	depends on HAS_DMA
-> -- 
-> 2.47.3
-> 
+Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and reference")
+Cc: stable@vger.kernel.org
+Suggested-by: Zack Rusin <zack.rusin@broadcom.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+v2:
+ - Shortened the commit message (Zack Rusin).
+ - Also drop the reference taken by vmw_surface_handle_reference() on the
+   error paths; with the ioctl now returning an error, user space no
+   longer releases it via DRM_VMW_UNREF_SURFACE (Zack Rusin). This also
+   plugs the same pre-existing leak on the drm_gem_handle_create() path.
+
+v1: https://lore.kernel.org/all/20260808231002.67559-1-qwe.aldo@gmail.com/
+
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index bd0563741e..164886a3e6 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	srf = &user_srf->srf;
+ 	if (!srf->res.guest_memory_bo) {
+ 		DRM_ERROR("Shared GB surface is missing a backup buffer.\n");
++		ret = -EINVAL;
+ 		goto out_bad_resource;
+ 	}
+ 	metadata = &srf->metadata;
+@@ -1758,6 +1759,9 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	rep->creq.must_be_zero = 0;
+ 
+ out_bad_resource:
++	if (ret)
++		ttm_ref_object_base_unref(vmw_fpriv(file_priv)->tfile,
++					  base->handle);
+ 	ttm_base_object_unref(&base);
+ 
+ 	return ret;
+-- 
+2.43.0
+
