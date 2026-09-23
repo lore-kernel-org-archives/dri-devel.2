@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3D3C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:20:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB83C9830C
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 496F910F0CA;
-	Wed, 23 Sep 2026 14:20:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3255F10F0CC;
+	Wed, 23 Sep 2026 14:21:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lBtG1lAJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H1ZzjTwx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9A310F0C9;
- Wed, 23 Sep 2026 14:19:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D8D10F0CC;
+ Wed, 23 Sep 2026 14:21:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5283440A16;
- Wed, 23 Sep 2026 14:19:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D7A1F00893;
- Wed, 23 Sep 2026 14:19:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5382A60210;
+ Wed, 23 Sep 2026 14:21:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D9C1F00893;
+ Wed, 23 Sep 2026 14:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790173199;
- bh=n/cCmCgfiu86QXCh01/6+WMltDLl2tW980LwiQXLLso=;
+ s=k20260515; t=1790173275;
+ bh=Zpxa6lQYuSY9C6rSba8LywJv9qFzNYW6sVW2PoLYyEQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lBtG1lAJcS/jKUd5C+8TUbCJxox79/rA27+E/9dK6AZPDkBGudzyBIyAJIkya/Amc
- CMqf6w+D8s+Q7fSxAoSHwpzlKoBzXpxw8N6qaGbekDCCwwlUoQQY4FVsWQcT25oC6V
- y9p0QHNkLPEslv0+UtbFHgfqaYikX6j4fj8T8QK7BX36PvxJ8fgIpXzrWkH64oiO3c
- WWipepZdMr0esNAtRPS27TfiZoUiGo2sJ4CNiemGiqJyYOmNKid32g+oLByWlyqAXB
- a8vZhm+K/rDg5lX4pw25s7aaUMhUxfsKdIYwLtfydnn6hBZlWPvC4qWvolhj30DBJu
- UR8f1kI0/q4jw==
+ b=H1ZzjTwx9VQDn2DKVVGImlT6El+ZsmwiO4Ior93AVTLtPEjCIVVnURb4+++XrFI3/
+ Lwv1Pq0Jb8DrOYQtqei+lfWu9yCyqB+V5WGUBb1HHsIHDlFheOc2ztYKD1ve3EntAu
+ NK5Ga5s3EVP4ku5waC3mwNyXe2cRpMBFbBMcKnN0BfkydPRXGKFIuG/SnzLqF9jx+q
+ 4xWSQBCjL8TUiFF83xhlDT8h+TipZvMmmRcWkujMPbXWrOhJigeW8vIkFl03xYfopg
+ Jl2Mx764fc79HxruP6L3dMh+/7pB/eL2VwrFsOn6Ld0mi5iMS8y7d/gZvbUKvyK+Ek
+ OE0g4dCiA+MYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/xe: Don't unload the driver until all drm
- devices are freed
+Subject: Re: [PATCH 1/3] drm: Provide a drm_dev_release_barrier() function
+ to wait for device release callbacks
 To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260923140844.390822-3-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260923140844.390822-2-thomas.hellstrom@linux.intel.com>
 References: <20260923140844.390822-1-thomas.hellstrom@linux.intel.com>
- <20260923140844.390822-3-thomas.hellstrom@linux.intel.com>
+ <20260923140844.390822-2-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 14:19:58 +0000
-Message-Id: <20260923141959.00D7A1F00893@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 14:21:14 +0000
+Message-Id: <20260923142114.D3D9C1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] xe: logic mismatch in xe_device_exit wait causes indefinite unin=
-terruptible hang
+- [High] drm: NULL pointer dereference in drm_WARN_ON_ONCE on error path
 --
 
-commit b47bb26ab24e9f99fb3dd76c67cadc55ddf082fa
+commit 5d11ff8a335cc538f36d72b0645fb2d88466a4ce
 Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+Subject: drm: Provide a drm_dev_release_barrier() function to wait for devi=
+ce release callbacks
 
-drm/xe: Don't unload the driver until all drm devices are freed
+This commit adds a new drm_dev_release_barrier() function allowing drivers
+to wait until all device release callbacks have finished executing. It uses=
+=20
+a driver-owned SRCU domain to synchronize completion of release actions.
 
-This commit ensures the driver module is not unloaded until all DRM device
-references are dropped by tracking a device count. It implements a module
-unload wait mechanism using drm_dev_release_barrier() and a timeout check to
-prevent executing code from a freed module.
-
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 0cdc606af8d18..df32821e693ac 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
 [ ... ]
-
-> @@ -1501,3 +1518,28 @@ struct xe_vm *xe_device_asid_to_vm(struct xe_devic=
-e *xe, u32 asid)
-> =20
->  	return vm;
->  }
-> +
-> +/**
-> + * xe_device_exit() - Device subsystem exit function.
-> + *
-> + * Exit function to be called at module unload time.
-> + */
-> +void xe_device_exit(void)
+> +void drm_dev_release_barrier(const struct drm_driver *driver)
 > +{
-> +	/*
-> +	 * Wait for all devices to be freed. 20s is well above the typical
-> +	 * maximum dma_fence signalling time, so warn and keep waiting if
-> +	 * we're still not done by then, since it may indicate a leaked
-> +	 * xe_device reference is stalling module unload.
-> +	 */
-> +	if (!wait_var_event_timeout(&xe_device_count,
-> +				    !atomic_read(&xe_device_count),
-> +				    HZ * 20)) {
-> +		pr_warn("%s: Waiting for %d xe device(s) to be freed before unloading.=
-\n",
-> +			DRIVER_NAME, atomic_read(&xe_device_count));
-> +		wait_var_event(&xe_device_count, !atomic_read(&xe_device_count));
+> +	if (drm_WARN_ON_ONCE(NULL, !driver || !driver->release_srcu))
+> +		return;
 
-[Severity: Medium]
-The commit message mentions using a loop and printing a diagnostic every 10
-seconds to avoid an indefinite, silent hang. However, this implementation
-uses a single if block with a 20s timeout, followed by an unbounded
-wait_var_event().
+[Severity: High]
+Will passing NULL as the drm parameter to drm_WARN_ON_ONCE() cause a kernel=
+=20
+panic here?
 
-If an xe_device reference leak exists, won't this fallback to an indefinite
-uninterruptible sleep and trigger the kernel's hung task watchdog?
+If the warning condition is met, drm_WARN_ON_ONCE() passes the NULL pointer=
+=20
+to __drm_to_dev(), which returns NULL. This NULL pointer is then passed to=
+=20
+dev_driver_string() and dev_name().
 
-> +	}
+Because dev_driver_string() unconditionally dereferences the dev pointer vi=
+a=20
+READ_ONCE(dev->driver), this transforms a non-fatal warning condition into =
+an=20
+immediate kernel crash on the error path instead of gracefully returning.
+
+Should a standard WARN_ON_ONCE() be used here instead since no drm_device i=
+s=20
+available in this context?
+
 > +
-> +	/* Wait for any driver release callbacks to complete */
-> +	drm_dev_release_barrier(&regular_driver);
+> +	synchronize_srcu(driver->release_srcu);
 > +}
+> +EXPORT_SYMBOL(drm_dev_release_barrier);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923140844.3908=
-22-1-thomas.hellstrom@linux.intel.com?part=3D2
+22-1-thomas.hellstrom@linux.intel.com?part=3D1
