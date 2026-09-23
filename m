@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E51C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDDCC9830D
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E016510F205;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB37410E380;
 	Wed, 23 Sep 2026 22:36:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wi9mF0yv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XJ+7NoOl";
 	dkim-atps=neutral
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com
- [74.125.231.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03F6610F202
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:35:39 +0000 (UTC)
-Received: by mail-oo2-f41.google.com with SMTP id
- 006d021491bc7-6b1ae7166edso823994eaf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:35:38 -0700 (PDT)
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com
+ [74.125.231.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B20E10F205
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:36:02 +0000 (UTC)
+Received: by mail-oa2-f35.google.com with SMTP id
+ 586e51a60fabf-49172f18b40so407050fac.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:36:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790202938; x=1790807738; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790202961; x=1790807761; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=txroU8tpb4AveGN1UplgKFnHMl0k756Ds3MugkCIGpA=;
- b=Wi9mF0yvUOhlGpE8UwJVYw2RNg16sqr54ykQxtEcZMpmvfZpnTP/7Vu7HD91HvY4Co
- OEDHaHA81jCF4d+mDEvlwKoW86ZG/XkEZzR7QYVtaCDx2GKEKPl3FHJLyyx/2ZeuCRDH
- 94fGMLzXytOmWYrHcJErQttmUfg+bVMEInimNILYr5Vi0GuSWATz2fyTbyoP3PKL26Ol
- cdefSxs9zgOXckEWrLoUofQ0Gx/ontzEMNh7enHM0n3SbmkvNorp/iosqLW7cXyTFTnw
- gPkykejGJmqd4r8OaMiV5nVKgnDS0/FqrY1Ddds1e/SdFyO3mVi780sCtRj4v7EcltHk
- ZR5A==
+ bh=anf0fctja+VnMMprL/dVwONTSp+dELUQq5LW/V5rUuo=;
+ b=XJ+7NoOlmO38BI4a0wUKuL7HrA+5uxc7D45pneq4arQUbxejvxfSGxQcAFaxMCGtlU
+ +PBYYvdrko1GeX2ZQNswmyg1lUPfhwKYctQpI0gbOPCGHkdWju9HSZ5/8iJ+BFVTl73k
+ cHtsYQWoi+OOI14/AiSyO3nMPpIsH8Pil/0U+mYFeZzD6sGzNThTZQUI8m3QMHKtk4EK
+ u9gVLX8H8G9UXrPkg59We4AQ9TF1fQb4UylWGjKDTw7IHOvvJTr+7lgsSWfCYMJhUe2Z
+ yRPC76MkDCJu7o0rAHubEHcmfNswCHr2NWVhsfCKotBhFElhIYEYF1b49MCSdh/XwqlA
+ nJFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790202938; x=1790807738;
+ d=1e100.net; s=20260707; t=1790202961; x=1790807761;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=txroU8tpb4AveGN1UplgKFnHMl0k756Ds3MugkCIGpA=;
- b=rWo5yvJ82iIp0DZ1WoMU69wO0v90A6xrHDCx7KhKPSgUko9Pd7KGNGTJ4NEHMo1Iv5
- 7E8ytYu6WV29FuXPDDKeo7d1tOWa8L5GEox82lzaT/+ra6GzrrVYntR7aoGWw5tkh0CJ
- XgKxIjRjij2LTm5cdD7ECd7EpXGzAMt2kMoTqtLFeAyE7NbTLxe6bd/qXifutj1CqVa+
- /b/PNWm37Z+PESwupwX3wvS6+CZfIy5YKWQz6L8rhkw1mhCpe3VJa9IeP6VmI+hUhaJ+
- EWU8JfnXMdB9jjS/n4nMs85uc8F8du2P5mTo5qjxL/yv79yt1PbYCljQyqPauFm492qY
- +nUw==
+ bh=anf0fctja+VnMMprL/dVwONTSp+dELUQq5LW/V5rUuo=;
+ b=XYcyQCtCUYz4z5QgtsdD12wE1F8IOiDOaIrTV3hUy0kDJm/TpoZwoWJIcaKk0sUv0+
+ vWRmZQhyFOhsW2i4z9kstym0Tsrg7lcizKW4MEzQ3Kpjk4HKLILA9qNCyh+a7thvkNaH
+ XPTLuwHiYU+8+CBxX8LNgZqr8lw+AcQOb1gq625Qsj/wMKd/wE4TnAP0TZwDoOcOAY8n
+ YVRcMn0TVBEdu0+z942oGFlOkKDUIHLPWZIzGhQh0uOgOpRYQthdw8Sfd8+5IJTgcbGp
+ JRujZX9RIsAEUiXUZWzGFU/UXJx0qkrluTh/VymGfeN7YjWA819tl82hmvht6Ea+fSKc
+ 8GRw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBydTnyHWU6fM/aJZec2pRP/2t3FBRd0ZMqnN8oubXm1qQZo7Ld/HhE5knW2NxVsyVMHQa1v509NtVE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nqvboaTLQ2WmT94PijNPlfMr5y1ZTPR5Bw1eO8qZuneyb0ERVg
- 0o6r4J6IBQqmvZP0Rob2PmY+yWaAkTpQS8TQdr7zBeqsyslsIiZJBxZz
-X-Gm-Gg: AYBFou3kDAPG1YDqiOyJT+nK0X4ksv+/buFtkT+bzLkhno9gPFSxWWKTLt5qxmZa2/t
- nBha6Y1p09ohAJ+Z+LHFJ9k6lWjvdocTgVZLJzdIDJu/FrOFAqD4lPXpgWX8IytZYJ9V/CIb7tr
- JDHFrKsDGNd3/Twvs8QZDOLJaYu1K+V+y9jw5S9SyCFBzS/Yema+Cq73/zHl8kBRB6ek9yejEbS
- veIUFOby6TNUVSRKlr+95PTr03YAL51EaWWtiFZ2vba3UvhPJ6kZCAu+oIiLU60DKWmT8U/MDxw
- rSKfs90E7FOkcrw1tTG01rXuK2RU9YEdjmqAyDTVq4xr9hCba1vGJBAwsdnvF/PepACqAfXakSo
- GGU6zEi3kozc/6TS4iP3Eo920ZyAwI9OW3zm2d/mhgxU5k8NmkJN0jDPL4cJs6HxpR1x7SUM6Nk
- s2FBNukTHG8QjjoIbwrKD8zGQOXNv6eO2YZM8UgThedqPMsG9rI/znxBYUQEYLLr5sEkHewdy8H
- 6/p0vSIWzvZaGbiNR3j6XuIwF9LAjgfmOjGUwDJDEp/6eMYTpF/Zt7fc9iYQ+cnEkRDrRb8RWMq
- NFoJ29gFKClk0yzMwi4=
-X-Received: by 2002:a4a:ee12:0:b0:6cd:3ffc:acf9 with SMTP id
- 006d021491bc7-6d441b8251amr657309eaf.73.1790202938243; 
- Wed, 23 Sep 2026 15:35:38 -0700 (PDT)
+ AKwUvBzudkRWzlHt2EkuuixEDjib5pu7B+UYHYRqeyBcMJybpDSGwgH5SNbTlK1wYNM+eTh9I2Fx4fJXCl0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mY2++Q5vHimTQULFyk0X3/qWKseer8AOU2uDBwGFYDEVKAGjNw
+ LXXF9VNk7gY7/lYspu6VsYLa6GuAH37wqz5WUI2k+u/joHHQao8VtZuK
+X-Gm-Gg: AYBFou0BHkJdp17xXZAubhQW9a6/ANQCunsonIqQRpUuNHhqfxP2ecH3p+tnSzQBo7F
+ ErXJViAdCPpdfj5pAKV1cOhHa6UOcJung3vRF4xbdEs8wuoHRntVo8orCarc3HFFSiPj9HhzE0y
+ RGUaTApxD+IPsQNF1r/KoS5RPP7CgvXn/LNFg4GI1TnLinAPy/yKLJdCTwINsf8saxp5bqfG28Y
+ 7VgcReT6MsxowsseypeeDJ2EbNVScUT2/BiJ8gfJZwfuFXMHX7LnwzOwE2qGZ68LQwwYf8J5E/N
+ sACYOJjtgKUh/Au3+sDwJVRkq/JB4krEK9sUgEO2yulZvMjGPJkdICSDQ4tHSTV65vutZf7cJ/8
+ 7QXAnb1SDpKmTSm7y9Unp9NW8lbV3G+HJmtlpqSc3wueRJyoFg91OzQcZSGHCqUDDP5WNUu07Yj
+ 3edR/UFscMBHGVQjNIc67pv60eLdEWBIoLrM9nLAjQF/9E9vQcQnXB3cGhC5uCwMxnuc8Rxq+cZ
+ nsPyqPNMVNcrY0nR0fPNrSVm2FrHyOVYmSa4FfBlL4ErwnRMS2y51qE1Ei+lbZbGVshJcAEhmPE
+ afPiMcgptPsCvqrZ/Sge
+X-Received: by 2002:a05:6870:3912:b0:491:2ed8:3505 with SMTP id
+ 586e51a60fabf-491e2441c2dmr772232fac.0.1790202961310; 
+ Wed, 23 Sep 2026 15:36:01 -0700 (PDT)
 Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.36
+ 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:35:37 -0700 (PDT)
+ Wed, 23 Sep 2026 15:36:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:50 -0600
-Subject: [PATCH v11 26/38] dyndbg: check
- DYNAMIC_DEBUG_CLASSMAP_{DEFINE,USE_} args at compile-time
+Date: Wed, 23 Sep 2026 16:35:00 -0600
+Subject: [PATCH v11 36/38] dyndbg: add epilogue to dynamic_debug/control file
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-26-9b6c217fdf2f@gmail.com>
+Message-Id: <20260923-dd-cmap-part2-clean-v11-36-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -99,11 +98,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=3976;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=2252;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=XlwJxsMLoOEmQpSddsPPKLnRgIC9ISIuuOLCD/BSHY0=;
- b=EiptybYCzB6D9ZP87jAlknvFfrN1+LB91BbDMF60BOUBfjDrPvXh9+w10WbHf5H/XbP0syE/Y
- IJx5x2PY9QUCJnmB6hoFeKj+1H0mzvCzbpWlc8waCN4UItOiSWdLBUu
+ bh=dVCVMamiUaB96gu4NX1kujuPDVFnoxAGuPP2zSXDqA4=;
+ b=xv600zdesEVIz3KiAGz67sw1u76JqgY26LqYwDj3pdMjhveZMs8ss+XJ/RmWb/HveYQerfo24
+ I624GaaLxTQDvfT/Qvyw8uAGdpUY3zCzVd1BxwZnYRc7XkVEOPjCSdX
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,103 +120,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add __DYNAMIC_DEBUG_CLASSMAP_CHECK to implement the following
-arg-checks at compile-time:
+Add an epilogue to the control-file, to allow display of statistics
+etc, without disturbing the header.
 
-        0 <= _base < 63
-        class_names is not empty
-        class_names[0] is a string
-        class_names.length <= 32
-        (class_names.length + _base) < 63
-        dd-map-type is known value
-
-These compile-time checks will prevent several simple misuses, issuing
-obvious errors if violated.
-
-Several bad examples are ifdef DD_MACRO_ARGCHECK qualified in
-test_dynamic_debug_submod.c and will fail compilation if enabled.
+NB: epilogue lines should start with "#: " to distinguish them from
+lines describing pr_debugs (and from the header line).  No new lines
+are added here, only the place to do so.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 16 +++++++++++++++-
- lib/test_dynamic_debug.c      | 20 +++++++++++++++++---
- 2 files changed, 32 insertions(+), 4 deletions(-)
+v9:
+. update ddebug_proc_start() to return EPILOGUE_TOKEN when seeking directly to epilogue.
+---
+ lib/dynamic_debug.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 61f9fd4aa7af..26c858588eb1 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -192,6 +192,19 @@ struct ddebug_class_param {
-  * __pr_debug_cls(22, "no such class"); compiles but is not reachable
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 098fd2639cb6..88440c1f6abb 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1186,6 +1186,9 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
+  * read() call from userspace.  Takes the ddebug_lock and
+  * seeks the seq_file's iterator to the given position.
   */
- 
-+#define __DYNAMIC_DEBUG_CLASSMAP_CHECK(_clnames, _base, _mapty)		\
-+	static_assert(((_base) >= 0 && (_base) < _DPRINTK_CLASS_DFLT),	\
-+		      "_base must be in 0..62");			\
-+	static_assert(__DDEBUG_ARRAY_SIZE(_clnames) > 0,				\
-+		      "classnames array size must be > 0");		\
-+	static_assert(__DDEBUG_ARRAY_SIZE(_clnames) <= 32,			\
-+		      "classnames array size must be <= 32");		\
-+	static_assert((__DDEBUG_ARRAY_SIZE(_clnames) + (_base)) <= _DPRINTK_CLASS_DFLT, \
-+		      "_base + classnames.length must be <= 63");	\
-+	static_assert(((_mapty) >= DD_CLASS_TYPE_DISJOINT_BITS) &&	\
-+		      ((_mapty) <= DD_CLASS_TYPE_LEVEL_NUM),		\
-+		      "unknown class_map_type")
++static char ddebug_epilogue_token;
++#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
 +
- /**
-  * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
-  * @_var:   name of the classmap, exported for other modules coordinated use.
-@@ -205,6 +218,7 @@ struct ddebug_class_param {
-  */
- #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	__DYNAMIC_DEBUG_CLASSMAP_CHECK(_var##_classnames, (_base), (_mapty)); \
- 	extern struct ddebug_class_map _var;				\
- 	struct ddebug_class_map __aligned(8) __used			\
- 		__section("__dyndbg_class_maps") _var = {		\
-@@ -212,7 +226,7 @@ struct ddebug_class_param {
- 		.mod_name = DDEBUG_MODNAME,				\
- 		.base = (_base),					\
- 		.map_type = (_mapty),					\
--		.length = ARRAY_SIZE(_var##_classnames),		\
-+		.length = __DDEBUG_ARRAY_SIZE(_var##_classnames),	\
- 		.class_names = _var##_classnames,			\
- 	};								\
- 	EXPORT_SYMBOL(_var)
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 3a69cc3cae6d..01ce07001d4c 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -148,12 +148,26 @@ DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
+ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ {
+ 	struct ddebug_iter *iter = m->private;
+@@ -1201,7 +1204,9 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
+ 	dp = ddebug_iter_first(iter);
+ 	while (dp != NULL && --n > 0)
+ 		dp = ddebug_iter_next(iter);
+-	return dp;
++	if (dp)
++		return dp;
++	return n <= 1 ? EPILOGUE_TOKEN : NULL;
+ }
  
- enum cat_level_offset { Vu1 = V1 + 7, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7 };
- 
--#endif
--
-+#if defined(DD_MACRO_ARGCHECK)
  /*
-- * now add the sysfs-params
-+ * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-+ * These will break compilation.
-  */
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
-+			      "base", "plus", "classes", "length", "too-big");
-+DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
-+#endif /* DD_MACRO_ARGCHECK */
+@@ -1214,12 +1219,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 	struct ddebug_iter *iter = m->private;
+ 	struct _ddebug *dp;
+ 
++	(*pos)++;
 +
-+#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
++	if (p == EPILOGUE_TOKEN)
++		return NULL;
++
+ 	if (p == SEQ_START_TOKEN)
+ 		dp = ddebug_iter_first(iter);
+ 	else
+ 		dp = ddebug_iter_next(iter);
+-	++*pos;
+-	return dp;
++
++	if (dp)
++		return dp;
++
++	return EPILOGUE_TOKEN;
+ }
  
-+/*
-+ * now add the sysfs-params to both sub/super-mods
-+ */
- DYNAMIC_DEBUG_CLASSMAP_PARAM(disjoint_bits, p);
- DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
+ static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
+@@ -1271,6 +1284,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 			 "# filename:lineno [module]function flags format\n");
+ 		return 0;
+ 	}
++	if (p == EPILOGUE_TOKEN) {
++		/* use this soon */
++		return 0;
++	}
  
+ 	seq_printf(m, "%s:%u [%s]%s =%s \"",
+ 		   trim_prefix(dp->filename), dp->lineno,
 
 -- 
 2.55.0
