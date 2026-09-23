@@ -4,103 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A261C982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA05FC982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:52:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B161110E7EB;
-	Wed, 23 Sep 2026 09:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F162510E3C3;
+	Wed, 23 Sep 2026 09:52:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="Sz14KmrQ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="CZKCgZbG";
 	dkim-atps=neutral
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
- [74.125.227.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78CAA10E7EB
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:48:58 +0000 (UTC)
-Received: by mail-pj2-f13.google.com with SMTP id
- d9443c01a7336-2db1ca06a25so3032155ad.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 02:48:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790156938; cv=none;
- d=google.com; s=arc-20260327;
- b=Pc9EPZwo1HoqC4mtYR5u52Eqpn6sUGM/688x+n3vOCS1QZWZm+xNc4Jgd06CSbih+D
- jwIaS18nBvVeq+Ro9KkJJfSzLnJKvt3A0fB0+lRG22h1LW2AN/J+dYcnzU+42sglhYFK
- ad8Cq49+nAZc4QU+USYERYslUTczt4HKbggj+djUwdhV75nu/6evvn55+062bt30vLBg
- q+ufpGxCM/68Cwl8On7FHbHnQCZiIafqlw5RwY+v6i0NPMHmYCo/tT8ZkCd8JiNL86eJ
- 07nVtQdDlCI7SRi+/+KuCQqHF9/sMdK1z+YwuU5WO6XWspQuRP73JWpiPnt2PkT8cMwD
- 3LIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
- fh=FEBR0O0bGr6sRThIAPX8pvyIQJQ/Bw9zd5set2Eh+9M=;
- b=msRPoQsiKk2ZSbbuh+hkELxsjo2q/u2s1XoZR0Vr4oiiaEbk55aLLFPHHu79vjNrWP
- FugZZ6+cWDmnhhUAA2kmRtPdu/dstdyPWpIEeIa8zt+EjOUEmF78lEemj6dJPEnwydeS
- xeYt+WaOD51BYwINHrzL+Q7De6XO5CEBYh52QWK/659X40rLszCOes9jiKMaXZ3fVrQw
- zvUriHAodCGb6Zm2Uw1eBepDWc5hWg0y9TXCMBJ7uvtgHu6wwSwpiXuSHESIr+q0HOe1
- Bc73bJs1+5C/sCtd4jjJGSBBYz/MVKTjiNlCi9n0PglA4ZZotmWblbuiDGvLHYhNt+DP
- xQZw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1790156938; x=1790761738;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
- b=Sz14KmrQtrY1FtRoPZaM1qpL3s/UdsQ6gz7XGDEIWlu37qJNvvvN5JT4rnynsVzFZn
- aIxuIaCXgVNBA4XVYWky9J3eu7az/Z6Q2+zVxhncIrFwq/KGRAq02TE4c0vATN4wPj5K
- vDeFVkXgE2/Qfw7xV1aIovXaZ09yZ9Wkw69cMwHlZSrDXB77rmVO66+29rUHfw/uF+Cy
- yrpT8dyuicgc+MhDSlDLTKcVh5QTuHZOUv40mwxNpPppnej0VDuGHFM4tSSimPFxMpfe
- /fNJEu5ebEgNXqLeyYWGJHEWXGN7uicb7hAq41lcdtDoNE3Lb8Sb1KxDumLGCWMJ9Rkk
- ocfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790156938; x=1790761738;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
- b=Oo/SIuWZaHrRgQ769BGNxzRpC3puJmk/B9lAOyRoPHFeGBxC2dIOAOHJrIFyWqNnt9
- uoY4i5Rg6jlWYOyqReH75zoN/s2yAvJmL9F8CSFn8rw2Aw7fsxf2kd3XTD+PG+KAo/si
- sDqrvYJGprhAdQg1gtXnbE8eWhzT+N/h+an0F4tG/aUu2QO6tO35vKNTMiNIRfMA9NKy
- mcnlQDXMxW0f7NsbAl1tgMVR2TIeLoaqTUviiGEe62xTjvHi5nHE4u3IqYZVPTcpBg7I
- SXwwCDh21PrTJZINjPhdbccnCPYbilDGN1kveh1oNZIT/IeYyDpRdpw9lDil/lgGrZDX
- 9mCg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBydt+c0YjBMDdE0yUf6KXfhcfsmVww1OPieRcrJJ5v+KbmOneuCvBt/xeg+jkCqo6HC68AJyMk4Vec=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l6F94L/gDH5eXo7TFucwQILYWzQ1YZeMUo3RTeTQIySll1FT//
- GF+YOPGZ4IrEhVD3ISD9jkQUf0pGEdC0BCp4xqyp8EhGShi3sK5S8v0RyjhsvakCvPsLu+Xgl3p
- aGsfCw7UFqjqHNwwTxzybKJitnbHQFbCpMo9a7/v37g==
-X-Gm-Gg: AYBFou0QLgOoAzph4QxsnVKRo3wrevi0PlV1FGxketKPdsN00JsTZRH1XV2PbdTwun2
- 136InlTjjddfThN4+Q0ZLE548Uibubb1mgBs6a3kxfgr3i7n+gFRlkRodZv9ud2VSARLNV+n4JY
- i1Qt1qcaT5D1QrwVO/Nm/ArV+VGEC9o9Aod9UgzQ+sQsnzD7+Kv18Z83X8ZabtEteLlcg7YE2Ix
- bG9nq+uNiEkIHrazlSnScIheUTSRtAdYHpv8eYBhrzs9poN5wiLcWOPQKoZh5lDjVp3OEb/5vJj
- J1RBjVMglfqPsUYPwf2MuDz5BRAgjhAYO5BnfsITr91jrdnUL0Gc
-X-Received: by 2002:a17:902:fc4c:b0:2dd:c053:e0f7 with SMTP id
- d9443c01a7336-2df69ddf21cmr18272105ad.38.1790156937998; Wed, 23 Sep 2026
- 02:48:57 -0700 (PDT)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CE910E3C3;
+ Wed, 23 Sep 2026 09:51:59 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hqXLM2X8GzKn9j;
+ Wed, 23 Sep 2026 11:51:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1790157115;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kGmQmcU6nGcC18gst/c1lOQz4TJAHzdj/MA0mXZlKY4=;
+ b=CZKCgZbG6y8Jh6iBQuevbo4X2YLgYdqoLdnnKeV63ytkSZhkQRlEhm7ANMYuMNF/Tdk9AW
+ vuaYVsoL/ac9vOFodcOrZSxjcgxcfc7DWIh1rJ+65P2wTTaoOXEXH8iX3k2kFF4cCT77Em
+ btpAFaRXLI8ThR+pzkPiddIfIpQ6/Qrg3JhPmj1E2vjlbwJ3wgIlhT7C2fqAZZFRYHpkbu
+ xCBYiYj5xNFlg0NNGMq0bK72YlK0VNExo4bYyRLwN+9iEArDvEBS7S3oUwkGh499B+u1vg
+ TX+66Wx25gBpWNsfbCRAdPsVjKQPXo7MiK5k17yGv3ImqXFgg5enhFsAFliAmg==
+Message-ID: <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
+Date: Wed, 23 Sep 2026 11:51:45 +0200
 MIME-Version: 1.0
-References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
-In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 23 Sep 2026 10:48:45 +0100
-X-Gm-Features: AcwNN1WttT0SOIaLJgPj7L96LwZzDPPyCZ9AdYI_ydBFNIIRW4TfTa-aNf4h73Y
-Message-ID: <CAPj87rMChKiJw3YbKcmb=3UWnu1Ccs5Me3R1tisDGMEL3aMDYQ@mail.gmail.com>
-Subject: Re: [PATCH v4 00/13] drm: Add DRM_MODE_ATOMIC_RESET flag
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, 
- Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 079bfa1140171f5da20
+X-MBO-RS-META: 3rdb1snwyxz3ufm4r4fm5o4bk18hbw86
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,52 +80,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On 9/21/26 17:51, Nicolas Frattaroli wrote:
+> 
+> + * .. _VRR-MIN-NUMERATOR:
+> + *
+> + * "VRR_MIN_NUMERATOR":
+> + *	Default &drm_crtc integer property forming the numerator of a
+> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> + *	target rate. Set to 0 to disable.
+> + *
+> + * "VRR_MIN_DENOMINATOR":
+> + *	Default &drm_crtc integer property forming the denominator of a
+> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
+> + *	zero, it must be non-zero.
+> + *	Otherwise, must also be zero.
+> + *
+> + * .. _VRR-MAX-NUMERATOR:
+> + *
+> + * "VRR_MAX_NUMERATOR":
+> + *	Default &drm_crtc integer property forming the numerator of a
+> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> + *	target rate. Set to 0 to disable.
+> + *
+> + * "VRR_MAX_DENOMINATOR":
+> + *	Default &drm_crtc integer property forming the denominator of a
+> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
+> + *	zero, it must be non-zero. Otherwise, must also be zero.
+>   */
 
-On Fri, 18 Sept 2026 at 15:18, Maxime Ripard <mripard@kernel.org> wrote:
-> Userspace currently has no atomic way to bring a display pipeline back
-> to a pristine state. A compositor that wants to start from a known
-> baseline must explicitly set every property on every KMS object to its
-> default value, which requires tracking which properties exist and what
-> their defaults are. This is fragile and must be updated every time a
-> new property is added to the kernel.
->
-> This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
-> atomic ioctl. When set, the kernel fills the commit with default
-> states for all KMS objects before applying the properties supplied in
-> the request. Properties not explicitly included remain at their
-> defaults. This allows userspace to describe the desired end state
-> declaratively, without caring about the current state or the full set
-> of properties.
+Is there a reason that DENOMINATOR must be 0 when the corresponding NUMERATOR is? 0 divided by any number is still 0.
 
-Thanks for bumping this - I had the original patch in my queue to look
-at after the hackfest, but it got lost in an unfortunate tab
-explosion.
 
-I think it would be good to document more clearly that 'default
-state', generally, means 'everything disabled'. Of course stuff like
-colour properties and max_bpc and whatever will likely have different
-values (where 'default state' means 'enough to get a basic 32bpp image
-displayed if you don't care about the details'), but I think
-explicitly calling out that planes + CRTCs + connectors will all be
-disabled would be useful.
+Either way, should these rules be enforced in drm_atomic_crtc_set_property?
 
-I can't find any holes in the implementation though, and I like the
-uAPI. I'd do the same thing for Weston as for Mutter: in our
-backend->state_invalid loop where we loop through setting all
-planes/CRTCs/connectors as disabled when we aren't just issuing
-incremental state updates, we'd ignore that and go straight to the
-STATE_RESET path.
 
-I wonder if we also want some kselftests along the lines of the VKMS
-IGT test, i.e. for drm_atomic_helper_connector_hdmi_reset_tests[] to
-make sure that the assumptions hold after init -> apply different
-state -> reset state.
-
-Regardless, series is:
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-
-... with my reading-kernel-code and evaluating-uAPI hats both on.
-
-Cheers,
-Daniel
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
