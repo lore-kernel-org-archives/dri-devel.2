@@ -4,171 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C597C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 21:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB526C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 21:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDCC10F1C3;
-	Wed, 23 Sep 2026 21:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA1F10E11F;
+	Wed, 23 Sep 2026 21:52:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CVpf8q4J";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="YWIcHgJu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB7F10E9A6;
- Wed, 23 Sep 2026 21:20:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790198460; x=1821734460;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=pQvWnT/o0xngh2QKnHHDJ/olfsiW6dlTWg/z0/n+LHs=;
- b=CVpf8q4J5Obk1BXq/S43lXjwndbAVzQ0xSCHpyHBsZbXZc7QMRjKTufq
- /h64P63Ao4kL6LIJwRuxwJKjgblpYL8E///EMzB//kAe7+3CP+pvbaBgc
- gf331EOcWsc0abB5clUjWAXP7W0jst4bmQob229qRlZ5luvOnn95Up3oD
- soVKj4NOIyeLcyZhUWnIDAuZ2m6xKqd8mZXf9uUEm8Mhxd7RJ4l/ubDVS
- 5sqXt9SpZLvxLcswEx/Kxh9JlqZ1syGKnxVbIt7B+XqqosRzhgdUJ/uIU
- USCJM8q1H+3SbORWf10ZKQU9GnMGToaf2aQKqhtAGT7C4QwlkZ88k/YLK A==;
-X-CSE-ConnectionGUID: 9mlu0PFnQ6WB/f0av0aTRQ==
-X-CSE-MsgGUID: GAzpgeVZQVeRxYDg5192Cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="102299697"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; d="scan'208";a="102299697"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 14:20:57 -0700
-X-CSE-ConnectionGUID: Mwm6wTE5TmOCJTDxG8iHwg==
-X-CSE-MsgGUID: Fe+H3J0bTrS7WDPbzXPG3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; d="scan'208";a="301732842"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2026 14:20:57 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 14:20:56 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 14:20:56 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.63) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 14:20:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HaNT6C4W3k5W/IyU6mO+nLMhEAMQPG5rS8JsYGTU4SW5f9d8aLaJOWLkiiPPtsAWEYA2+eCxbi+qxjI7CxzwAuKIUDEdQwklboQyINB7pRm9IhOrTAEEzSmZjl+bGNXURH27z/GO9iCEf0mkv73TK+v+MKWuFO9pXyhuHpN7J+uCuW8jrXsDyZ8rkrbvSp/ojQKwfhVDf/Hpw5j50lH/YpCzuXC+9pf+8tW+lUJozdHw+EnCYwiAUcnoS5HtrHWalVJ9+OG78sDQLiuQy3fPIwkHprS9Z2130fZIvYMHqcTQICAZIKQnXB5o+sj4yklmDD7GWQE20MMbdgVfZoZvOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HAwqnd/Alg7VrYAcf8+gAX87SZfhNCOMmdE/wTzsXkA=;
- b=HkXCMoBVqQjfdyuNtMGddU7qhVzVEr4Z3r6x4vGMz4CPmB1LzROX4tnwLORUVp3tLfbhhOoo0ulfwSWL3pMEXdxwHRPkbjwTuYs8lJAtQ5VZuZh3sClEI5tleOPw1htPW9rEaCTWGc7sGrq2Q9hxC3mryCQhJqZTTKOW+EuZbNNaWggPeaK++d1jcGb6uHLPDxGuAnX8gKjsJx0rXWTAV0iDpSC+VGlZSULWje0GcdBWvIBzpKROUScvZXE4L445mAydtmHzeNeVAkLH8E0JUuCvpyB2iktNnR/KyCRYbuAG1r+QcrEH4jniknnfYwZ9nCGNYLVUBP9OIAgu8L2OsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB8040.namprd11.prod.outlook.com (2603:10b6:510:238::11)
- by SA3PR11MB7533.namprd11.prod.outlook.com (2603:10b6:806:306::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 21:20:53 +0000
-Received: from PH8PR11MB8040.namprd11.prod.outlook.com
- ([fe80::89bf:2274:1371:50c5]) by PH8PR11MB8040.namprd11.prod.outlook.com
- ([fe80::89bf:2274:1371:50c5%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 21:20:53 +0000
-Message-ID: <8e01832b-4a94-4f0b-86c3-71664d22a326@intel.com>
-Date: Wed, 23 Sep 2026 14:20:51 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-To: Matt Roper <matthew.d.roper@intel.com>
-CC: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>,
- "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Tvrtko
- Ursulin" <tursulin@ursulin.net>
-References: <20260630225349.984AB1F000E9@smtp.kernel.org>
- <178290749714.224587.15234445443946207851@jlahtine-mobl>
- <178292444166.273574.16738251742448073960@jlahtine-mobl>
- <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
- <179005959984.27165.4749331452130832177@jlahtine-mobl>
- <PH8PR11MB8040A8F215B997982530CE44F4832@PH8PR11MB8040.namprd11.prod.outlook.com>
- <179014632773.19856.4107893493544612438@jlahtine-mobl>
- <PH8PR11MB804034417C9C4625B7F20F2BF4822@PH8PR11MB8040.namprd11.prod.outlook.com>
- <179018246485.152778.2589066724213973485@jlahtine-mobl>
- <6e40b68c-bbfa-47b6-81e9-5076738d0abd@intel.com>
- <20260923202952.GA730830@mdroper-desk1.amr.corp.intel.com>
-Content-Language: en-US
-From: "Yao, Jia" <jia.yao@intel.com>
-In-Reply-To: <20260923202952.GA730830@mdroper-desk1.amr.corp.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0264.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0::29) To PH8PR11MB8040.namprd11.prod.outlook.com
- (2603:10b6:510:238::11)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 078EC10E11F
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 21:52:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790200324; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=C30j4qnsHAOwT8Fx65sNvAdY9yITSAddrW4Ya92eJdwmUTzDpBUtxqd0cVBcqfzFn8e6WgJiO8ilTB6ub7YivLPte6GHrnXpUYnHjfwRVHH65lB5sr9MrKMFXwmrJq2ATS+hn0ca6Jqah+P1CMxpBjNlUyXG4caW1B3LuO63Cqc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790200324;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=uOXdJTLZnP2nqLI/uIuWSrbbF84KAZB1fKnEXUgAS14=; 
+ b=D2FGyw3DBGhZz6Bu90y3wntqAFC2yHm2T1oK7KUNlgoUbPA+2CrsQ4YVHwrYpgiVhHy8P0VMaARhzGAOdJrNS6Xdd1pq1JFGKzCnzsvv9N2tlFRm94rIw6HP2GJWoKN0TsgYqgwPNwqOZl5Kzo7LBjmwQF8xJv4yS0HAV5+F+FE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790200324; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=uOXdJTLZnP2nqLI/uIuWSrbbF84KAZB1fKnEXUgAS14=;
+ b=YWIcHgJuQk8LW6UfDGZiFkqIhgh/Ggn47nLgO8ysS2C9MRHUeO5QP+c7wcF1vgb5
+ GTupkRQiVgOX+k5RIDxc3jrDEg9KEWU87MozGkskRcXgcVog+l0DguEp7zh+clKpHdN
+ GkYnToEOd2At5lmDCV4oq8NoA7P3SD6N0MTtbyeI=
+Received: by smtp.zohomail.com with SMTPS id 1790200323922277.6380951213183;
+ Wed, 23 Sep 2026 14:52:03 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:51:58 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 15/16] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+Message-ID: <arQ8G6ba8jFRwhk7@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
+ <20260914121657.2e9925c9@fedora-21.home>
+ <arLg_vX52EGl-AMN@sobremesa>
+ <20260923100849.573d4d92@fedora-32.home>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB8040:EE_|SA3PR11MB7533:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5490748-6372-46f2-be61-08df19b88c45
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|42112799006|376014|6133799003|18002099003|22082099003|11063799006|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: SEtXDvmKl3/D9Um7jhcNPcK356h2oE8P5MG5L7+VVJSGbGehn5o5utDUOEkEtQRtXMsWb+O0ao5JfpXhEmxCPlI84rAChu+ppq+XCl1fSyllaxkVsQJZRbMZvG7RiTqmibveL1wYFQysJNySKrrvNzm4uOWPebilzP2n6PHSG7nQDZX7dl+VBg0+LVhUJbUR5IeZQ9Il5iMLDraESOHoGFt/VTJIvcPb0QRjC8mIN4bTelC6OvBqIcaUDSJxvpjLtLzbE/YZj76oO7fLNOD/ssQl2lF77pUIyB521oJmfJI4UyxKRCKKSg9/2EEas2jd69JiukyPTOjLuYTaTYzpAIlk0RvKyKdxTAHviODL0jb3w8t9odyIofpAixqdCkbs4Ao0AFHOAxlCG+F0RHMRCoK1y3SCkTLi+TK6D//X5CDP2fUfZBiK7qNkuus9+TTYSY1iE2+WrAWckUF4DuLWQQ6i6vfT0B10Ne9KjjgkKNL1mHXOCnIhlDtuEG2j9C604bk1pSjDgqaWGGC88b2w+Mu6b2Sp/tG6kqoSyeERk9wnF3Aqn/v1TnEIXR3KJbZAekzzj1PDe5v1fF4rlYG5H+63+3sV1Qq/SBJXX0yAQKB3JTrNRqNsIbA08rqpxSdVcufbexOG13dRHn2vLJJCj1tEueT7HyJhNTCv+KYx1W0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB8040.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(42112799006)(376014)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHc5M3FIWk9OVWdweVlnUlY2bUFRUFFqSm84Y1l1NDRNK3QvWUZZbHdYdjdW?=
- =?utf-8?B?Z01jZVBNenRVeS92aWRzY2tiaFBFY3dSTlhMYlpIR3QzeVBmM1IzbEZ5Q3Jr?=
- =?utf-8?B?dFdvUFVmaXJSY2k1aGVBWlcveEtUSGhheW03U0Q5RWRhb3dqUkdLYXY0U2J2?=
- =?utf-8?B?YUFoYWpoTmNzUEx4eXVpcHVmK2ZhcFBkVUxuQ041cXU3US9iMlJrL0Rkbno1?=
- =?utf-8?B?NGx1L0hwREZlVEJFeU15cmVydHppcWFUaS82RW1WVzFOb1AweXpmQklKQzlM?=
- =?utf-8?B?eDh1MWYvL2taZ1R2Yi9kYVg0Z0FCS0Nrakpleld0aUZNc1h6WUgxSEs4SXpp?=
- =?utf-8?B?NXBtNktwaEE4THowbzhoZW9XTkI0RkgvUE5QVGxadk43ZE4zTHFmeDc5Y3Za?=
- =?utf-8?B?OXNHRmFQOUpsM3RtY0ZlWGJjMkFDVGhyOVNLL0w3V2tXS2hVWXFONHMvV0sw?=
- =?utf-8?B?aGxyNEpaOWRlRTBHMzhlUCs0TjhLUmxnRVdxZ3Fndm1zdEx5dHYzc2xGMmsx?=
- =?utf-8?B?SVA4eDVDNElHTDlXVkN0aTI1MXR1T3U5MEt5cjA2TDVlb25xTWsyWDFIbUQ3?=
- =?utf-8?B?dFFiVmxmSHdmWDhlRW9HbUdnd3hBQmI2WDJmd0JBcHVhaFFXcGM0UG1JUm9a?=
- =?utf-8?B?SDJvS0pVQURvUWtvSHBuYng5RFRtVnJVWnZTVHpyUXE0OVJGMG5EUmVLbE56?=
- =?utf-8?B?aCtSZ1hZTmtoVEdOOTJMOFNnV3V1MThrK0RoVG9wOHNhVzZmQm1MckkzTzlk?=
- =?utf-8?B?WDB5N0w1WXNrckhqUzRoSG1kTXlRbm9HVXJaRjlzYkNlZzNOeXhSRnU3ZU96?=
- =?utf-8?B?aHR0YkRVa2VyUkEycjdPM3pTdVF2RGhxVk5WcUhHZHhaUDA0ZW1mdndpWk5K?=
- =?utf-8?B?cTZwQ0RrcEFjODNLd0pjeXovRDdidmk0WkJoME9iUzF4d3FLOEl6aWpLcmdL?=
- =?utf-8?B?bW1JNUNydGxPM0RIbUlHaVlNNnN0YlRzWnNjcnBKeHFsZlRia1ovOTE4TG53?=
- =?utf-8?B?QnYrY01xSzY3NGhWRHJqcWRMelZMcXVSZTJnckE3UXJuVkRDV212RHJwTXFT?=
- =?utf-8?B?d1h1Z01pUzdYZG4yS25ESWFWZUJYd2k1SzZpRFFxU3c3K25LRDNlams5SU9E?=
- =?utf-8?B?RnF5a3ZWSFg0eDRQNThoMEhqS0lFZGFva2JaWXFaazBxemtVbW00VjVlN0pr?=
- =?utf-8?B?OWVnSFN6RHFrdzFGbVVKNUVyQnUzQmV2M1RyYVd0dEdGZ3lkV0hEUzd1RkJM?=
- =?utf-8?B?UE92dStPSFBYdEJGOUpINjdQVVVvdlFKY2xGYWQxOGVpdm9tLzVQRjFNUW0x?=
- =?utf-8?B?eWRNLzF2c1EveW1tL3pGV0l5TWJmQWxDclVWQXoxeENRS044RjBlWWY2MjBF?=
- =?utf-8?B?a01kV1dtc3lSSkZiUkNBdHA2bytDZVgwVmVRTXBMODBRSHE4ZEZkbzg3RjFm?=
- =?utf-8?B?UzNVWk56dEVKWW1taHdNdzdzckdWMUVsNjJTVWR5cVcydFFDQXB6VVlMUkxw?=
- =?utf-8?B?akJKY3hHMEZEbHZPMElzRXErdE53dG4xS2RRbGxxOE5ta0VhZEd0MUErNlVz?=
- =?utf-8?B?Q05NU2FFODJwOHFralY1NkYxNUpHOW1TLzUxeDZGcytnUzl3M3R2V3ZGUC9U?=
- =?utf-8?B?c2hUNHNxWHpGQ3NOZEZKVitUUHNneHl3N0x2TURXS2FtblU0Nm93bUdHMmds?=
- =?utf-8?B?cXRQQU9CZ01TTUQyNm9VTFIvVnEzSkUvelZQMEM2bW85M1dodDZnSnoxVGI3?=
- =?utf-8?B?c1ZEdVd3K1FRVGJKN1VNRy9GN2srMG1wV3pscTU0cnE5SzRQODloZ0UrNzZP?=
- =?utf-8?B?eXgvcHo2b2ZMeHdkUTNCNjlscHA5N0todWJvdjl6bUlJZi85dlVXZG5EYzlw?=
- =?utf-8?B?akV0V0dxRkRBSWVYSWhvUjZMcXdiWjVTbFhiWFJlcit6L2dhandzeVdPaDIr?=
- =?utf-8?B?Z1dCUXZyNWtIbnBSU2h0U0lOQzZqaUdsU3kwc2ZYVXd3YytERTBPOVRLRlV4?=
- =?utf-8?B?SmZxMDNOaFkvYU1oYW0rRnVGMS9nVGdQT1E0T0JqeEt6d2d6WGlWVXFHVnJ6?=
- =?utf-8?B?SUFNeG9yaEYzV2IreTEraHNEOFVnOU1oVStDUVZ3U1piWURGN29YT2hjc2RC?=
- =?utf-8?B?UlAzT2pjQndya21ZbDVaOXZ2bFZuQ0hlQ2RQWWVIMkNSc2lNYXVDSTQ3VWVa?=
- =?utf-8?B?M2NzYlc0SU40ZFZmaTFYYktRdTFzSW8xNmtRR0FmTERGdThFNDFRL1dveHVp?=
- =?utf-8?B?eUdEaVdCOXNFK0Y3RCtLOElHd0lZaG1rdi9JaGsySU4rRjdlSDBmWHB0V0Ns?=
- =?utf-8?B?Rmxsa013amc4SWNwcnpDUEM4ZjdGeTExazdkVE5DT3BrT1BKZEtYdz09?=
-X-Exchange-RoutingPolicyChecked: etqtyeyG62RJRMbx3XwPCM6JIov6FQCeDpi2OZk3RRcfzAn0X9pUdLHohUtGdvDJlqlG7LqsGBiYB3FBpgk5vH6NJLll3+UczevFZXW5faJTLjp7yust42Swg1EyGYrXXr87NBJcoLoQJzx7uAE0Y8U1uQbg1kv8BHwFg1U9W60KpfY/h3D6kRUjjrG/dlUKwSZ87Dupbyid7a2GMCz+g1QrTRfPxlZZfgF3BjLX8jEo9nLD7o1MJtZjdxNRVtWGsKleUnwBii3mr7e58XD7RICXaYtFYFREo+TTxMuicRuXWF1P1RsQCH3nB4YCJPYVgcSfsw0t+PsGoYnkZ3BXgA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5490748-6372-46f2-be61-08df19b88c45
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8040.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 21:20:53.2606 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JxL4Mhom2zRvRCWlkqORAfP4tvCwzV5t474ABsr6a1/AJSJqx/4tihtKmMtOeMYfAggO/mmWaTx64Xefljz7Aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7533
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923100849.573d4d92@fedora-32.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,176 +82,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 23.09.2026 10:08, Boris Brezillon wrote:
+> On Wed, 23 Sep 2026 02:39:10 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > > > -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> > > > +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *state)
+> > > >  {
+> > > > -	u64 gpuva;
+> > > > +	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
+> > > > +	u64 gpuva = perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> > > >  	int ret;
+> > > >  
+> > > > -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> > > > -	gpuva = pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> > > > -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> > > > -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> > > > -	gpu_write(pfdev, GPU_INT_CLEAR,
+> > > > -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> > > > -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> > > > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> > > > +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > > +		perfcnt->dump_finished = false;
+> > > > +		*state = 0;
+> > > > +
+> > > > +		if (!perfcnt->owns_as_ref) {
+> > > > +			*state = PANFROST_PERFCNT_SESSION_DEAD;
+> > > > +			return -EIO;
+> > > > +		}
+> > > > +
+> > > > +		if (perfcnt->reset_happened) {
+> > > > +			*state = PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > > +			perfcnt->reset_happened = false;
+> > > > +		}  
+> > > 
+> > > 		*state = perfcnt->state;  
+> > 
+> > I'm thinking maybe we don't need to set the ioctl output state here. Even if there was
+> > a reset, if we recovered from it and didn't lose the AS reference, we might be able to
+> > go forward as usual. In that case, counters would be measured since the latest reset
+> > rather than the last successful dump, although maybe this is not an issue.
+> 
+> I think userspace needs to know about INTERRUPTED_BY_RESET, at the very
+> least. But honestly, I'd keep it simple and propagate the state
+> regardless of the flags userspace might or might not care about.
 
-On 9/23/2026 1:29 PM, Matt Roper wrote:
-> On Wed, Sep 23, 2026 at 11:06:56AM -0700, Yao, Jia wrote:
->> On 9/23/2026 9:54 AM, Joonas Lahtinen wrote:
->>> Quoting Yao, Jia (2026-09-23 19:01:32)
->>>> Hi @Joonas Lahtinen,
->>>>
->>>> When shifting from WA option #2 to option #1,    removing a global setting ->   adding a per-context setting.  We thought it was a per-context operation.  However, due to the "weakest link" effect, this remains a global operation.
->>>> Thus, making it per-client has no effect either.  Containers will interfere with each other.
->>> They would not. On the impacted SKU, the RCS and CCS at any given time
->>> can only run workloads with matching address space. Those workloads must
->>> originate from the same DRM client as there is no address space sharing
->>> across DRM clients implemented in i915.
->>>
->>> It's only when multi-CCS SKU would need the same W/A, we would need
->>> further scheduling decision to ensure 2 CCS workloads are not competing
->>> for the global setting.
->>>
->>> With per DRM client enforcement, both RCS and CCS should be able to
->>> write the global setting without a conflict. And when a context from new
->>> DRM client is scheduled it, it should be able to program the global
->>> value to its liking as the same address space limitation guarantees the
->>> other workloads are not in the HW anymore.
->>>
->>> Regards, Joonas
->> I understand the benefit of address-space isolation.
->>
->> However, The bit 15 appears to be a global register rather than an
->> address-space-specific state.
-> That's why we're doing the special dance with INDIRECT_CTX --- by
-> re-writing the register on every context switch, we've somewhat turned a
-> global register into a per-context register.
->
-> If it were possible for two completely unrelated contexts to be running
-> at the same time (e.g., one on RCS and one on CCS), then we'd wind up
-> with a case where:
->
->   * LRC A switches in on engine X and sets the register the way it wants
->   * LRC B switches in on engine Y and changes the register to the other
->     setting, even though LRC A is still running in parallel
->
-> But fortunately that's not possible on DG2-G11.  On that platform
-> there's only a single CCS engine (so no possibility for conflicts
-> between, for example, CCS0 and CCS1).  And there's also another
-> workaround (implemented in the GuC's scheduler) that ensures that the
-> RCS and CCS engines are only allowed to run concurrently for LRCs that
-> have the same address space.  If you try to run two unrelated contexts
-> at the same on the RCS and CCS, then they'll run sequentially rather
-> than in parallel.
->
->
-> Matt
+Agreed.
 
-I see. However, if the GuC scheduler already guarantees that workloads 
-from different address spaces are serialized, why don't we use a per-VM 
-(per-address-space) setting instead of a per-client one?
+> > > > +	/*
+> > > > +	 * Here we release the reset semaphore because perfcnt should not get in the way
+> > > > +	 * of a HW reset. Besides, a legitimate reset might be issued during the wait.
+> > > > +	 */
+> > > >  	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
+> > > >  							msecs_to_jiffies(1000));
+> > > > -	if (!ret)
+> > > > -		ret = -ETIMEDOUT;
+> > > > -	else if (ret > 0)
+> > > > -		ret = 0;
+> > > > +
+> > > > +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > > +		/* Either sample finished or reset happened */
+> > > > +		if (ret > 0) {
+> > > > +			ret = perfcnt->dump_finished ? 0 :
+> > > > +			      perfcnt->owns_as_ref ? -EAGAIN : -EIO;
+> > > > +
+> > > > +		} else if (!ret) {
+> > > > +			ret = -ETIMEDOUT;
+> > > > +		}
+> > > > +
+> > > > +		if (perfcnt->reset_happened)
+> > > > +			*state |= PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > > +		if (!perfcnt->owns_as_ref)
+> > > > +			*state |= PANFROST_PERFCNT_SESSION_DEAD;
+> > > > +	}  
+> > > 
+> > > 	if (!ret)
+> > > 		return -ETIMEDOUT;  
+> > 
+> > I was doing this check inside the guard because, in the time between the completion
+> > is signalled and the semaphore locked, another reset could come right through.
+> 
+> I wouldn't worry about late signaling to be honest, the timeout is
+> 1sec, which is way more than I would expect a DUMP request to take in
+> a normal situation. Now, we might want to propagate the state in that
+> case too, so it might make sense to return ETIMEDOUT inside the
+> scoped_guard, after the state has been copied.
 
-Thanks,
+On a second thought, I agree with you. Not only is the completion timeout much longer
+than the usual sample period, but also, in the event of a timeout (and no counters being
+copied back to UM), I don't think a perfcnt user would care much about the reset state.
 
-Jia
+> > And then because I believed counter values were accumulated rather than reset between
+> > consecutive dumps, it was best to notify the user as soon as possible, even if that
+> > meant losing one legitimate frame.
+> > 
+> > > 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > 		u32 new_state = perfcnt->state;
+> > > 
+> > > 		*state |= new_state;
+> > > 		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
+> > > 			return -EIO;
+> > > 
+> > > 		perfcnt->state = 0;  
+> > 
+> > I think this should not be here, because we're already resetting the state before
+> > running the PERFCNT_SAMPLE GPU command, and also we need to check it right below.
+> 
+> I think we want to reset in both places, especially if we propagate the
+> state before the DUMP too, otherwise we might leave the
+> INTERRUPTED_BY_RESET bit behind even though we already informed
+> userspace about this event in the previous DUMP request. And yes, the
+> following test should have been on new_state instead of perfcnt->state,
+> indeed.
+> > 
+> > > 		/* If we faced a reset during our SAMPLE, the user needs to try again. */
+> > > 		if (perfcnt->state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
+> > > 			return -EAGAIN;
+> > > 	}  
+> > 
+> > The main reason I added the panfrost_perfcnt::dump_finished flag was that when a reset happens,
+> > the GPU IRQ handler might've been already running in response to a finished perfcnt sample
+> > command. However, the reset sequence might come off first and cancel the completion, leaving
+> > us with a ret > 0 despite sampling having succeeded.
+> > 
+> > I'm thinking rather than trying to sort of patch this up precariously as I did in this revision,
+> > I'll leave it the way you suggested and address the race between the GPU IRQ handler and the
+> > reset sequence in a future series.
+> 
+> Yes, that's exactly what needs to be done: reset should synchronize
+> IRQs, mask/suspend them while the reset sequence is happening, and
+> unmask them when it's done. As for the completion of a DUMP request
+> interrupted by a RESET, we want a ret > 0 (AKA no-timeout) in that
+> case, but the perfcnt::state should be updated prior to that, so that
+> this function knows exactly what to expect from this completion: if
+> SESSION_INTERRUPTED_BY_RESET is set, it's likely that the DUMP didn't
+> complete which is why I return EAGAIN in that case, but we can also have
+> a dedicated flag for DUMP_COMPLETE if you want to be accurate (when
+> set, DUMP is effective, when not set EAGAIN).
 
->
->> If the register itself is not address-space isolated,
->>
->> I'm struggling to see how address-space isolation alone resolves the
->> concern.
->>
->> Thanks,
->>
->> Jia
->>
->>>> Thanks,
->>>> Jia
->>>>> -----Original Message-----
->>>>> From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>>>> Sent: Tuesday, September 22, 2026 11:52 PM
->>>>> To: Yao, Jia <jia.yao@intel.com>; sashiko-bot@kernel.org; sashiko-
->>>>> reviews@lists.linux.dev
->>>>> Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; Roper,
->>>>> Matthew D <matthew.d.roper@intel.com>; Tvrtko Ursulin
->>>>> <tursulin@ursulin.net>
->>>>> Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
->>>>> Wa_22013059131
->>>>>
->>>>> Quoting Yao, Jia (2026-09-22 17:34:08)
->>>>>> Hi @Joonas Lahtinen,
->>>>>>
->>>>>> For RCS -> UNSET
->>>>>> For CCS
->>>>>> 1. Old compute runtime -> UNSET
->>>>>> 2. New compute runtime -> USER
->>>>>>
->>>>>> If we take there's only one compute runtime version, and priority USER >
->>>>> UNSET?  Where's the conflict come from?
->>>>>
->>>>> See below.
->>>>>
->>>>>> But if we take there's more than one compute runtime version, and their
->>>>> priority is equal,  UNSET can cover USER,  USER can cover UNSET,  even with
->>>>> two clients they could cover each other.
->>>>>
->>>>> I didn't follow this part. How does the priority come into play?
->>>>>
->>>>> We have to keep switching the mode as the DRM clients come and go.
->>>>>
->>>>>> We should take it easy.
->>>>>> Once we reached USER, set by new compute, we should latch it, for the WA
->>>>> has been implemented by USER.
->>>>>
->>>>> That won't work. If you are running two different containers, you may have
->>>>> different compute runtime versions. Also, Mesa can be submitting to CCS too
->>>>> for async compute, AFAIK.
->>>>>
->>>>> To properly cover things, we should make it into per DRM-client setting and
->>>>> switch the mode accordingly when different DRM client is run.
->>>>>
->>>>> And for the given SKU with only one CCS, as explained earlier, it should be
->>>>> already guaranteed that two different DRM clients are not active on the
->>>>> hardware at the same time due to the address space mathing requirement
->>>>> between RCS and CCS.
->>>>>
->>>>> If this needs to be extended to multi CCS SKUs, then it'd be a bigger
->>>>> implementation effort.
->>>>>
->>>>> Regards, Joonas
->>>>>
->>>>>> Thanks,
->>>>>> Jia
->>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>>>>>> Sent: Monday, September 21, 2026 11:47 PM
->>>>>>> To: Yao, Jia <jia.yao@intel.com>; sashiko-bot@kernel.org; sashiko-
->>>>>>> reviews@lists.linux.dev
->>>>>>> Cc: dri-devel@lists.freedesktop.org;
->>>>>>> intel-gfx@lists.freedesktop.org; Roper, Matthew D
->>>>>>> <matthew.d.roper@intel.com>; Tvrtko Ursulin <tursulin@ursulin.net>
->>>>>>> Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
->>>>>>> Wa_22013059131
->>>>>>>
->>>>>>> Quoting Yao, Jia (2026-09-21 20:33:03)
->>>>>>>> Hi @Lahtinen, Joonas,
->>>>>>>>
->>>>>>>> The key is LSC_CHICKEN_BIT_0 is a global register.
->>>>>>>>
->>>>>>>> Even we use per-client,  we should consider the following cases:
->>>>>>>>
->>>>>>>> 1. Should conflicting configurations within a client be rejected?
->>>>>>>> I recommend the first setting should be latched.
->>>>>>>   From uAPI perspective it would be simpler to set this at the DRM
->>>>>>> client level at once. However we don't seem to have such uAPI in
->>>>>>> active use currently (all
->>>>>>> drm_noop) so you'd have to compare the complexity between indirectly
->>>>>>> setting it at DRM client level by first created context or adding
->>>>>>> such an uAPI to set it explicitly per client.
->>>>>>>
->>>>>>>> 2. Should conflicting configurations across different clients be rejected?
->>>>>>>> I think the latter setting can cover previous one.
->>>>>>> DRM clients need to be indepenent from the driver perspective, we
->>>>>>> can't do that.
->>>>>>>
->>>>>>> The whole point of making it per DRM client is that given the
->>>>>>> impacted SKU only has 1 CCS engine. We have the address space
->>>>>>> matching requirement between CCS and RCS, so when both CCS and RCS
->>>>>>> are running, we know they belong to the same DRM client and thus
->>>>>>> they will not conflict with the WA mode. And if only one of them is
->>>>>>> running, there can be no conflict either as it's just one context.
->>>>>>>
->>>>>>>> Even like this, still can't cover all the race condition.
->>>>>>> Which race conditions do you think would remain? We definitely have
->>>>>>> to eliminate any race conditions to land this.
->>>>>>>
->>>>>>> Regards, Joonas
+I'll leave dealing with the problem of synchronisation between reset and the IRQ
+handlers to a later patch series, so in the meantime, SESSION_INTERRUPTED_BY_RESET
+should always lead to EAGAIN being returned.
+
+> > 
+> > > 	return 0;  
+> > 
+> > We still need to return -ERESTARTSYS when wait_for_completion_interruptible_timeout()
+> > is interrupted from UM.
+> 
+> Oh, absolutely.
+> 
+> >
+> > > > +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
+> > > > +{
+> > > > +	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
+> > > > +
+> > > > +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> > > > +		return;
+> > > > +
+> > > > +	lockdep_assert_held(&pfdev->reset.lock);
+> > > > +
+> > > > +	if (!perfcnt->user)
+> > > > +		return;
+> > > > +
+> > > > +	perfcnt->owns_as_ref = !panfrost_perfcnt_hw_enable(pfdev);
+> > > > +	perfcnt->reset_happened = true;
+> > > > +	complete(&perfcnt->dump_comp);  
+> > > 
+> > > 	/* All active AS are released during the MMU post_reset. */
+> > > 	perfcnt->owns_as_ref = false;  
+> > 
+> > I'm guessing this should go away as soon as I move it into panfrost_perfcnt_hw_enable().
+> 
+> If you reset it at the beginning of panfrost_perfcnt_hw_enable(), sure,
+> but I think it's easier to assume that when
+> panfrost_perfcnt_hw_enable() is called, the AS is not owned, and reset
+> it here instead.
+
+Noted.
+
+> > 
+> > > 	perfcnt->state |= PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > 	if (panfrost_perfcnt_hw_enable(pfdev))
+> > > 		perfcnt->state |= PANFROST_PERFCNT_SESSION_DEAD;
+> > > 
+> > > 	/* Unblock pending sample requests. */
+> > > 	complete(&perfcnt->dump_comp);  
+> > > > +}
+
+Adrian Larumbe
