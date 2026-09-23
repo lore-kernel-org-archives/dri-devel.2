@@ -4,44 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41281C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:18:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F384CC98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 20:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7701710F173;
-	Wed, 23 Sep 2026 20:18:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCD910E377;
+	Wed, 23 Sep 2026 20:19:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WHakZwuM";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="kBA+8ds1";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3627810F173
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:18:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1B628409C4;
- Wed, 23 Sep 2026 20:18:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24301F000FF;
- Wed, 23 Sep 2026 20:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790194689;
- bh=GFqmbSUj+aWSKdNdukwH5sUVVYAyiBvQ0a6X5heKkwI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WHakZwuMOuM4u1RgVTBMtHvJQk4KqQKJQzl5bbbybKpxTqoGtqRWQ9sJjxqP2YeiK
- R2ag1CObzyqK2GMYn2keJZAex4MmfpfUnasxd4g92/6DXTMVfi1XgJsVpqPk2/yBR4
- JY3XZ6HawTr3064ogq9rx9Z1as3imGFcQdtEMi0q5AWLsrA2Lkuk6ym6vRpW0lSWs3
- wW1UBOaZhNiQ/l6hepCY7LhiKFO7tNRIs1t4F9gKerjm7DqecjvCokjZAHa8HOtnPG
- qTM1Ls8bjtyp2O3vkdTWW10874k7hl+Lg+MRhUbvUBVW3dgGtKWXwDEjAnsietDs8L
- yIMG+IWdLALyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] drm/mipi-dbi: honour the plane source offset
- when flushing
-To: "Jonathan Frazin" <frazinjonathan@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260923195713.88-2-frazinjonathan@gmail.com>
-References: <20260923195713.88-1-frazinjonathan@gmail.com>
- <20260923195713.88-2-frazinjonathan@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 20:18:08 +0000
-Message-Id: <20260923201808.D24301F000FF@smtp.kernel.org>
+Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
+ [34.2.64.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2250F10F188
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790194776; bh=L2RU3xS9583iAHdeL73lXlBipq7PbvzV0YKCYiUDPfc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
+ b=kBA+8ds145xpyoGGexuE6QGDsZ0uJRuDjQrtYCB4CR+UWE4TtYUejtJ46VHALvEu/EHqeLVQL4qZZ7Lcbb379Hm0bkg5pJEqywqx41rZwdBt535ZdI7DV5Lj1z7XsprU2mywhkxH3OPxx7m0X2ccA0fmmIcR217LLFAt7bEr6gw6po4F3O0PQQlQLMbA3yUYzeVslczxd1ROizx8Rh2FpCrYLaosogMVRm/qga+GQ0xNyg4Lp2dTWE0HdHzqEKFgX/2TnzoLObSpN2wwLqB5r+52JtMY11lbxh5bMP12EJaTHeEd+8V0StRV/JeTVkpQRbSbaYhP3eGqXta1uIUmow==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1790194776; bh=0ACvrvjsmNAVms9OpLg+TbYgVCSW8nI2oaYaD6Bk7gY=;
+ h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
+ b=eUbBfUiPRvuRPQ8IdwkIq/MIxDMsgKrahyF+6f4OoyH79vwZYwiA64KTSbIULv93FgNQy66Mb/lmceTOM5wqIEIKNszdgoW+6bJQhtBD08tu2WyNARCY27zVMfOdcgFG0CCYuELzsJftAMbRbXxQczCPkLEDJSHHLw28tdX+8lsjzX1WnJAjt8nUEaHbiQkjJmPZbd5CK7p0qe8vWkWHh3+XGel+5RDwXmssfq+KygmnzQ4g/yz8/qbSIsywKcUNXMnRlT+ZFyqgAW9Y7mcrMOOj2VQbnC84wdYYEByXfU3FVNaZNAblTwWri2UaBAXMRGGwBGzEknuvoZk2RZCq1g==
+X-YMail-OSG: tff.UZ4VM1kXiOkuzBHr5raEYJ2yZv6obEKUv9Mzsz03A8KIPjrkjZPaKpB2Bom
+ 552ehXfk5KBpTuXmxI.vAI_3d_Q9AmZBf1VWjpY_ZGDqSFJklrKKpUFznGitYWBfIYpn0mfQ8QDR
+ TyMf6qm59QrPmexF9ALuJz7mwvusHc5mFJ0_a5EgTbf9hh2mR9Ht58x6hzDTxgseANZ3n.ZDECmo
+ .FBaF269A7t7NZdTZw9moSitH1ozoPSkXALkrFC8iy0phITI8dvkcwDw3vGK54UzXb3MYouDahTT
+ RR9p57qCuNFi6leBnOJpSHayoPSCdxQ3xzWviBl3PXE1ewAk_M11iV6QSL1AEA4NoYH0Z1NrqdRy
+ HBfuN6w6H.SL4DUdvY0arneUw1bKtYpHLQ63fFyfmNX050uT1LJXNMLjgEcnq4OQzwFyYqaj7AWF
+ lApQBj54a1uSeSVKy_zxJYf.SzDWQ4GUczCI0N7x7nflS9KosfrANHnj_rMFf_5JXT1FlAt9mxJx
+ ncinAB5HBm4ri_0vCEj7uwrDxC.Xpq7JQRVdZuEKInfwhiehyaiVsflbd_LRHErum1EiqwUzJsIA
+ Lebo2bkUWUNnP41sqnXG2hf09xCtMG9eX6sPhB2JjjO4zNL9WbzRg9y03ic55U10aie7drjYxXx5
+ POSOIL3Poq_4zVRmBltfYcUA8SAK0bQPbAX3c.3n9mxvMPw0Beia2veHL.xwYYqhw804YKG_51vQ
+ PcN0Kjni0KcPwUa.0vk0JJdQ4tsW.Np8A8BBjx9M4tdIfE9r59Yqb53cGNnzE1W5iA2oq5LbmtVx
+ r9sAhBxl_f2mvV7IonQ85aWgaah9Xh8WAoih5.P7CfHqdGC6ILsPxU7Y80XZhxExp0UBScX.IqK5
+ Ge23Xik4WMDtPrdblhZw91P7XTjPmNsRpa7lZzv12MfQrxeJB1q4oJOdUMixyoDfwZd2QJA70IJ_
+ D.6tSuoc4PBnHd8ljVehAUmW1pMKbsFW1EJs8qwTDiJ9.Jbkuws7Yo_Vkr1x4_2BoC4qbuhravGD
+ ljfQwOmpcIjZEhlPSQsbDIiGhZF6rpsfnK.gGuLZjt4YE6aNDOwxHJxm.0dDr3cHEyMEgs3dNO2h
+ iv5WrAQdYi9gm.ajrBu.eIfadOeAsa6Yc7JDvZLYPOkN2lIuA9kVWGvWK.ibLHDxcQiNEkrm1zTu
+ 7SfS0ivBy7yhbZcQ24aLPJYWp8yAepUHdZ9W9XPHl5OfJ8q.nw56ip8twWyjpk9C69G_Fwzt69JA
+ eVYqOTrnARkU4da.DeNuRjSEj1Q2Xzqwn0dpwdxzU1zBptYKufYuMr.TQB7ioJaN6kd6MiXGGLuv
+ jLwbhuB0LdRMmqSdCkMqeOgSiRk6J9Lhl71ze62H5Bktp8gRwXaUlTN3on1Ke91cYZqlRTbl8zct
+ usHFZcoO08Pa8DoI.MtVlAsj1n_6Mqx59aF9u4N_wqqy4mROud.yj6zFeN6Zu72T0TUqfQXuxcwI
+ XluA9KAhNHXhy8yWJsOnIqfUpv1PEp191XZUK4Pm8WuqWO03oJhfsNFH6imV35iNSLmQ8zILSNNt
+ VqjHyFwgTdl90.eNNFq200kVUMS3dlqrtstF2rH6gf_LSUQ6XYGsaOWE5p3AVPyxPQu0VS3TQa5_
+ n37MLx9tWCOxuts2ATZNlArlQkwPki_1hWMo4HQu95K0lzdX3bf2Yh2AUVhDDwsSVzraJ_1yOgLa
+ .zG4QYyLvK93oiMmpEf9XKorP2mjwNTDueDEHdf0r00P1IDfUzEoMG_XkFjSfYBLmtmd2owHvImC
+ SSRFbmDWQXACnnJ2aNym6uO4B4S2BC0Uy8NGI8Qq8Iy8cyfMJMNVwYy_p7rg.WglVqPGgh39jEUv
+ c5QpBKVEVLtR0nO.L5mUc1MGpPOOO.RJdIrCQ_FGCi1tXev_mBFtiCyR_OEaB4VH5EMdN3eRzY09
+ SLS1vUUkGwfXw8UQIyjalG2TUpJyJJd5PR45AcDs3zFkuuN7Vfv7.ket9rVnUrx8Q3I_Oeimhr8R
+ fDIvggsa3oAc_7lwu4kFN8quBYQB3qqc3
+X-Sonic-MF: <Capitain_Jack@yahoo.com>
+X-Sonic-ID: 3c0791d6-263d-49d9-8d65-a1734de326e1
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
+ Wed, 23 Sep 2026 20:19:36 +0000
+Received: from dip102.lsn.bf1.yahoo.com ([67.195.177.111])
+ by hello (SMTP) with SMTP ID 4e5488410736865d3e577fb2ea28783b;
+ Wed, 23 Sep 2026 20:19:34 +0000 (UTC)
+From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+To: lyude@redhat.com,
+	dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org,
+	dakr@kernel.org
+Subject: Re: [PATCH 0/6] drm/nouveau: HDMI output colour format and
+ quantization range
+Date: Wed, 23 Sep 2026 17:19:30 -0300
+Message-ID: <20260923201930.1836730-1-Capitain_Jack@yahoo.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <07d66ea7e0f0c7aef313b11d0881ca9170f05c77.camel@redhat.com>
+References: <20260922215336.612239-1-Capitain_Jack@yahoo.com>
+ <c78df20bd86437dd3987053765a550b3bac0cc65.camel@redhat.com>
+ <20260923162348.1037898-1-Capitain_Jack@yahoo.com>
+ <07d66ea7e0f0c7aef313b11d0881ca9170f05c77.camel@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,99 +89,16 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/mipi-dbi: hardware protocol violation for 0-width damage rec=
-ts
---
+Thank you, Lyude, for the detailed answer; it makes sense.
 
-commit f18906cb9ed3368767cdf7495a3f7b34e33a50c0
-Author: Jonathan Frazin <frazinjonathan@gmail.com>
-Date:   Wed Sep 23 19:57:11 2026 +0000
+The bandwidth point is fair: my sink tops out at 225 MHz, so deep colour at higher resolutions was never exercised here.
+I withdraw both series, this one and the HDMI Deep Color series v2.
+Please treat them as a proof of concept, in the spirit of the ray tracing work, if any of it is useful.
 
-    drm/mipi-dbi: honour the plane source offset when flushing
+Where can I find the other developer's work?
+I would be glad to test it on my bench and report back with a Tested-by: a GA106 driving a Sony KDL-46HX855 (HDMI 1.4, Deep Color 30/36, no VCDB), including 12-bit frame-packed 3D at 222.75 MHz and full against limited range on a sink without a VCDB.
 
-This commit updates mipi_dbi_fb_dirty() to account for the plane's source
-origin when calculating the display window address. It also clamps the dama=
-ge
-rectangle to the panel's fixed mode to prevent overshoots caused by
-fractional scaling.
-
-> diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_db=
-i.c
-> index 25cf04d029f77..1263dce91c80a 100644
-> --- a/drivers/gpu/drm/drm_mipi_dbi.c
-> +++ b/drivers/gpu/drm/drm_mipi_dbi.c
-[ ... ]
-> @@ -271,19 +271,35 @@ static void mipi_dbi_set_window_address(struct mipi=
-_dbi_dev *dbidev,
->  }
-> =20
->  static void mipi_dbi_fb_dirty(struct iosys_map *src, struct drm_framebuf=
-fer *fb,
-> -			      struct drm_rect *rect, struct drm_format_conv_state *fmtcnv_sta=
-te)
-> +			      struct drm_rect *rect, unsigned int src_x, unsigned int src_y,
-> +			      struct drm_format_conv_state *fmtcnv_state)
->  {
-[ ... ]
-> +	/*
-> +	 * @rect is in framebuffer coordinates, clipped to the plane's src
-> +	 * rectangle by the damage iterator against that rectangle's exact
-> +	 * 16.16 fixed-point bounds. @src_x/@src_y are that same origin
-> +	 * truncated to whole pixels. When the origin has a fractional part,
-> +	 * that truncation can leave @rect's far edge up to a pixel past
-> +	 * where a whole-pixel @src_x/@src_y would place the panel's own
-> +	 * width/height -- and tx_buf is sized for exactly the panel, with no
-> +	 * slack for that overshoot. Clamp before using @rect for anything.
-> +	 */
-> +	rect->x2 =3D min_t(int, rect->x2, src_x + dbidev->mode.hdisplay);
-> +	rect->y2 =3D min_t(int, rect->y2, src_y + dbidev->mode.vdisplay);
-> +
-> +	height =3D rect->y2 - rect->y1;
-> +	width =3D rect->x2 - rect->x1;
-
-[Severity: Medium]
-If drm_atomic_helper_damage_merged() clips a damage rectangle entirely to t=
-he
-fractional overshoot region (e.g., where x1 is at src_x + hdisplay and x2
-extends 1 pixel beyond it), does clamping only the far edge result in
-rect->x2 becoming equal to rect->x1, leaving width or height as 0?
-
-> =20
->  	full =3D width =3D=3D fb->width && height =3D=3D fb->height;
-> =20
->  	DRM_DEBUG_KMS("Flushing [FB:%d] " DRM_RECT_FMT "\n", fb->base.id, DRM_R=
-ECT_ARG(rect));
-> @@ -298,8 +314,13 @@ static void mipi_dbi_fb_dirty(struct iosys_map *src,=
- struct drm_framebuffer *fb,
->  		tr =3D src->vaddr; /* TODO: Use mapping abstraction properly */
->  	}
-> =20
-> -	mipi_dbi_set_window_address(dbidev, rect->x1, rect->x2 - 1, rect->y1,
-> -				    rect->y2 - 1);
-> +	/*
-> +	 * @rect is in framebuffer coordinates and has been clipped to the plane
-> +	 * src rectangle by the damage iterator. The panel is addressed relative
-> +	 * to the src origin, so subtract it here.
-> +	 */
-> +	mipi_dbi_set_window_address(dbidev, rect->x1 - src_x, rect->x2 - 1 - sr=
-c_x,
-> +				    rect->y1 - src_y, rect->y2 - 1 - src_y);
-
-[Severity: Medium]
-If width or height evaluates to 0 (as questioned above), will this calculate
-an underflowed end window coordinate where the end is strictly less than the
-start (e.g. xe < xs, due to rect->x2 - 1)?
-
-Since this is followed by a 0-length data transfer, does sending an inverted
-window address violate the MIPI DCS specification and potentially cause the
-display controller to lock up or corrupt the display state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923195713.88-1=
--frazinjonathan@gmail.com?part=3D1
+Daniel
