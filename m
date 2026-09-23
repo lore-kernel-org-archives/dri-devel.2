@@ -4,148 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1183BC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 707ACC98309
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F63910ED4F;
-	Wed, 23 Sep 2026 10:27:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC5910E88F;
+	Wed, 23 Sep 2026 10:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lXMWh7I6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dkoYeRbw";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="X8gWwXOn";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C52E310E89A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:12 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68NA31Ei4087761
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LOjyHEWtGuZjCr/VrUZ6KrtiiGIwDJckbv8O61ITjRs=; b=lXMWh7I6BCc9a1Xg
- OJ+rel88sk7wxqBiynIpx5ySBTcq4DCa9VNhXEU2qJKNLhUfXkABlKoAazX8AeUT
- FrXOy4aovigOqahx/E1Gz29P8/GpE1C0v5VxyWYuX5MZMy85WZrYY8KXb31BDt4a
- tdUQvFp0Af22WmCWF61Tn4KikvYcbdSIN2cslgo9SQ6onkfYO/fzigipkEnUVVc6
- lxm70d2xgcz5kQylT0PS7+/CDH0DZcocvp3EMw83Cy8gIFU5VoPRGQwlOvu4ci4t
- p9szL44+bo2yY6unJHOjNLVzdqlIK0mvOIBPgxVOLLJzpoR1wgDkgMJ4gCb0ysi8
- lI57dA==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux8c3vjf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:12 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-1383723dfddso1451385c88.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 03:27:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790159231; x=1790764031;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LOjyHEWtGuZjCr/VrUZ6KrtiiGIwDJckbv8O61ITjRs=;
- b=dkoYeRbwk6imYoUBOE2q6P8owlHMVSJ6NWPH75NYv5oZRdCZitkFFuWal5JGISy0Tr
- nVFqTj2bAWXzV/WZoAnDcrSlRDGcAiWxzCrgVx4kYeQIDQDTxACRkqabKWnc57ev8RzJ
- OX9/hYpX7XQh9Pi8cmmI2QPcpTKcQZhX9aLlroC2/hP/EME9+2M8HGeD3gqzPK59Ky2z
- OsUd4YL2+Wk/CKmWhSkGOSpaS2gSCz/MRvGKNvnXQaYBHjB4auNjXbqXKuiQS82U4WmL
- WMzbtRH0mtBKLyJ5bk8iXDLQBGatNLNlNDGIz7D3pxws/w9zoyFiSuD8o6kBncJCa9Pd
- TnNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790159231; x=1790764031;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LOjyHEWtGuZjCr/VrUZ6KrtiiGIwDJckbv8O61ITjRs=;
- b=YYHZBjuHyyRGLaDn3Ya2FDw7J9uPPYuMYCW5kjm3qiHCdCO3lvnMCwTUFMI4HA/MYQ
- ppephjk/wnuwfn4vMY2VtRAawOaf2Hy15LNuV8I6Z2LS5dS/cHDNNY5GMx/3eL8192pL
- oA8Q9iXjBuuihVlx85gPyJE9oDMhcrHK4l+Ju5SVld+ICGV+W4CC0Ax87w2NczCw9Csz
- xCujvXWeJclOH4NG1AplCDvxHiN+TvXFu0bSNwDihbDhZCHZUJrAemeQ+T0KmeKripga
- cyQ939ZQJDb/U6WasZmqWuQBnZDzTLDvviJCHK36vu9hhnBk//LMBoqSGd3LCgqovPbT
- 9dPQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzeU0LJNaLqDVVaXrCvZ70aave5AQEbVFOh1dkXUkb/EhYLN/QloJmluWxt4tZqlOOFlbdNQiV6Qqs=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k2bEZJL78hkamJuPcsN8JCFqSdQRzzdr1ZfKZiS1u2wB5qocVY
- KJzGj59FIlfkyI01xv5Ew+7PIC82Q1LgHoj++fyzGhq6/5tP/ADCh50+9w9jC1SBu8ZDMMYTeOb
- fjwnqY5CSuqeYdGwqElc9oY6Fdaep255NX/C5xtGbPZqpH5O4S4YYYT/yCf3XghcUgbf+Vhw=
-X-Gm-Gg: AYBFou2gAGFIVFVU4QIgCJdBOoqa8RaJTwzq8KicF4GHZRQ9pNjJKhJrewP5LLTNTX1
- 8LOLccOUqx9Ov7cVUR48oGAS8sPhICrye6Zowae+e0BySM+JnRMiSvEqENsE33C3ztQ5znT5WES
- XEc4HG2o1e5FKu8941UkljVxiKFMNZxTOeey+zHHgTdZxrU6EeTeYlk8zBwyR3otcBy3C1S0hab
- x+5qq+QaBXAMGtzJrFqTYoWTbdfYyKRs0AbjZd9E33hdAEL42xTx1kvwmlYYhwT4U9QaYnkLUpy
- V5eML+y6g007F+yMwIGCXB12s6b/suyBxQNhptnAM7N7QOcaOASoske81F5/2QFB7Ox1so1Z+pb
- yhkuiqmMxonffkKcMwU9G5P4=
-X-Received: by 2002:a05:7022:43:b0:143:5d6f:5532 with SMTP id
- a92af1059eb24-144f916f3femr3112528c88.40.1790159231117; 
- Wed, 23 Sep 2026 03:27:11 -0700 (PDT)
-X-Received: by 2002:a05:7022:43:b0:143:5d6f:5532 with SMTP id
- a92af1059eb24-144f916f3femr3112479c88.40.1790159230408; 
- Wed, 23 Sep 2026 03:27:10 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.27.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 03:27:09 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:48 +0530
-Subject: [PATCH 08/15] drm/msm/a6xx: Send THINMEM config to GMU for A850
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-8-0c3c79a1a470@oss.qualcomm.com>
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5816D10EFA3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1790159199;
+ bh=XbULw6ULJcXEN7r4HzVKK0xQN1onNLhHJdUNgVvLQ2I=;
+ h=From:To:Subject:Date:Message-Id;
+ b=X8gWwXOnt0SQ3QQ0c5Ga5ykT4dSi9wuLYGSN6vf0X3OnO1Errblkk+aL9jgBfJ3rq
+ WoSxeKYbvqhqncw80Wdd9MeINcJEsZ81fbBMqwTaGKvCsDvBqb8VgZueMZQiYH5cAm
+ XBs+fhd+LwUjtt3BnMqJxbCCJDfyaB7VB135DYdk=
+X-QQ-mid: zesmtpgz3t1790159191te5b87cc4
+X-QQ-Originating-IP: WUrZ5XmnOzoxgdtPF6VWy10ah40RwA+e8WcsItuKrhQ=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 23 Sep 2026 18:26:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14866682389088076304
+EX-QQ-RecipientCnt: 10
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=3541;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=r8Yu5tb0l7jWK4wCyJ4+Ppu+uskbOfyIKW3R4yDaSUw=;
- b=VQH6iln49RMi+LSqM9cgazdGzSBd4skt8mdl9ONuSZt9VvEUe1p6XhSpuTJAzz9ZTFJvBemuE
- 8FiFfOPDfoOBh8eVGmn4TinLbwNbifpPPDG+Yjb+7fAGE0/BSfsYO6R
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX4dMBowc2WFO6
- damF7OwiJSr3Tl9hfBqxdfcmifdQM4oLCF889k1TCh5QYN3PTP0ZBnNDPewNdpGGgK4Rq5nvJYE
- i17Fd9UQFCZ0trvZ+tC9ma5jKn3BdWOf0PtfWY/BBlNuG3E8HmzXXdYMHcA1TvWvQQLvvFJwgPL
- wLydu1EFeW92zNxK5jeM/+Oe09kMEgty6XYUeR+v644BP3rtm2wkVr53T9m01Sr+h+ME6lDT+GG
- U16msIFWaGWqrUqCGk7Ecxwt7ZZeUn2Sh5S0ITRzE6CPYoQbt7eP0VgOKu71qIHoV/ebAln/Er/
- /8fGv2qCac0JS109Wlr55v2DJsUUZyoslh+Zt4N+IL0ayrKqwOnlzTYwzD5TI9QfuwtLQ9imAnT
- nS49nJzXKSX9hqP/SboXKipwvcsv9VSXNkqbcEfehMSUKdWDxNUgPT4bN+6BloyWP48O6pHrMK2
- HUOcNfALel5pK9UsPXg==
-X-Authority-Analysis: v=2.4 cv=P9evFSAu c=1 sm=1 tr=0 ts=6ab3a980 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=uikLNib5dCET3MXmAjQA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-ORIG-GUID: KeSJybLVUrQK9NIXa0rMVXO5ZvT5Iw8Q
-X-Proofpoint-GUID: KeSJybLVUrQK9NIXa0rMVXO5ZvT5Iw8Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX9IkM0y1WBHQb
- jpwevySggapMie1Q0YlRrLapJa7Z+iDNZqgvIGIz/bwGWOoG4AMriu1TLxyn4XGQfnuQ+E42zyA
- g+KL9U2E66bEO/kjLnjs5x7JxzjD2FQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230041
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chaoyi Chen <kernel@airkyi.com>
+Subject: [PATCH] drm/display/dsc: Add YCbCr 4:2:2 and 4:2:0 computation for
+ DSC 1.2 RC parameters
+Date: Wed, 23 Sep 2026 18:26:16 +0800
+Message-Id: <20260923102616.215-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MX+1SEN3H+wAZ6YLcAduUSOcyRfX2CiPwqZuU1xrNgWlKgAjb/nWgmR3
+ 0w4kaTI2V9W9UZ84NlGyhrsSqkGborapcGHltw6MLU3bLXiSILhqrdvk46lce3wx4/7opmP
+ kEM+bKpro8UU4jok5Bm/H80HsmztX3KWIt6hcFNymNWpI2HjgPT9DUHPF40GazIULCZUd0s
+ 0Gdmr1eAtE/waGMuVeJeBW4Enrw0FyiBe+IP3HjsRLJO9rlYe/1TCK1ynvPlPO0nOpgYPeS
+ 96yTL7TVpdjyWF04R/eLO29f86hW9esui9plPMCBSfR/ff1quZgDofQa/kEirEXA3P+iIg3
+ 94L/OCJk+AKgUOdvkifZ5xwFIRhch2c9DRCqn4D+gjekCZCwKx0S5286YcfT9C2k765kDOX
+ kOqkBCQVInK3LsSzo8hv13PxAd4TTmM/br91+SfDkTPYzjuLc+v8l+AswFVxsQQGRtYzhd5
+ KduY0uY/5/AdgSF408DrxjSWV6/mvm4qvjTPY72I/4+QA+MHaa5khAVZ+UyAQoeoNIb4xE1
+ HRnP9gLvc6DLieKUpw6LfjZFTzvsuzTg9mZzrreacnWVf6pHw8Yz+1tK+q5Xm9mhyvgqNgW
+ aKWkA0ZPQBGIZUkiDKOze7VbFDLsTetHXqHFoIYJn4jA949Tmkln8IS4hivX/qwz2E22VC/
+ KgaplhNg2OmPbwyK0MmYBP1Rj5ijDV7/1KejHw96tZKjZF7oiYKK2Jf3ScdfPu2I7VBvPlc
+ OPxbL1xSq20JwAKRlhh+wzAjK7yWBKVDRJJGwQiL1AcDBwBe/SxTQoOBsMhjzwdxjWpvDNK
+ hFtSDTyzK+mw552W17Yhq1EoTLKlnc2oXXlJ3TzK77gSokII6wMvJJ+21ksQhT+pkHIjrl3
+ VSI2pym7rf2jQfzBsfD2k1Foup0HcTyVD9aBaSIhOB2swoDgJKUdxBoiLZ1nDbA0DgK7YcE
+ DBbyITccR3jo/77S5HlGpdYXyhcowzd5GnHxqBkcX8jY+UPJBWDV0145jdmeO1Ye+dvs=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,105 +77,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add HFI support for the GMU THINMEM_CFG feature and provide the
-configuration value used by the Adreno 850 GPU in the catalog.
+drm_dsc_compute_rc_parameters() still derives the rate control
+parameters that depend on native 4:2:0/4:2:2 operation using the
+DSC 1.1 model.
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Bring the helper in line with the latest DSC 1.2 reference
+implementation (C model 20211213, version 1.67):
+- Compute second_line_bpg_offset, second_line_offset_adj and
+nsl_bpg_offset for native 4:2:0.
+- Compute rbsMin for DSC 1.2 native 4:2:0/4:2:2 using the optimized
+method of the C model.
+
+Signed-off-by: Chaoyi Chen <kernel@airkyi.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  2 ++
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c     | 25 +++++++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_hfi.h     |  1 +
- 4 files changed, 29 insertions(+)
+ drivers/gpu/drm/display/drm_dsc_helper.c | 114 ++++++++++++++++++++++-
+ 1 file changed, 109 insertions(+), 5 deletions(-)
+ mode change 100644 => 100755 drivers/gpu/drm/display/drm_dsc_helper.c
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index de576816ec7c..83c6f257f478 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -2849,6 +2849,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			.gbif_cx = a850_gbif,
- 			.max_slices = 3,
- 			.gmu_chipid = 0x80b0100,
-+			.thinmem_config = 14,
- 			.bcms = (const struct a6xx_bcm[]) {
- 				{ .name = "SH0", .buswidth = 32 },
- 				{ .name = "MC0", .buswidth = 4 },
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index b50c57f427b4..43273e5f8b5b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -42,6 +42,7 @@ struct cpu_gpu_lock {
-  * @hwcg: hw clock gating register sequence
-  * @protect: CP_PROTECT settings
-  * @pwrup_reglist pwrup reglist for preemption
-+ * @thinmem_config: GMU thinmem configuration
-  */
- struct a6xx_info {
- 	const struct adreno_reglist *hwcg;
-@@ -56,6 +57,7 @@ struct a6xx_info {
- 	u32 gmu_cgc_mode;
- 	u32 prim_fifo_threshold;
- 	const struct a6xx_bcm *bcms;
-+	u32 thinmem_config;
- };
- 
- struct a6xx_gpu {
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index 186a73c0b99c..e33a2258e0f9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -888,6 +888,27 @@ static int a6xx_hfi_enable_acd(struct a6xx_gmu *gmu)
- 	return 0;
+diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+index 05996c526a8a..90b088335997
+--- a/drivers/gpu/drm/display/drm_dsc_helper.c
++++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+@@ -1300,6 +1300,59 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params
  }
- 
-+static int a6xx_hfi_send_thinmem_config(struct a6xx_gmu *gmu)
+ EXPORT_SYMBOL(drm_dsc_setup_rc_params);
+
++/**
++ * __drm_dsc_compute_buffer_offset - Compute the rate buffer offset at a given
++ * group position within a slice, following the method of the DSC 1.2 C model.
++ *
++ * @vdsc_cfg: DSC Configuration data partially filled by driver
++ * @groups_per_line: number of groups used to code each line of a slice
++ * @grpcnt: group position to compute the offset for
++ *
++ * Return: the offset value for the group @grpcnt.
++ */
++static long
++__drm_dsc_compute_buffer_offset(const struct drm_dsc_config *vdsc_cfg,
++				unsigned long groups_per_line,
++				unsigned long grpcnt)
 +{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+	const struct a6xx_info *info = adreno_gpu->info->a6xx;
-+	u32 data;
-+	int ret;
++	unsigned long grpcnt_id = DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
++					       DSC_RC_PIXELS_PER_GROUP);
++	long offset;
 +
-+	if (!info->thinmem_config)
-+		return 0;
++	if (grpcnt <= grpcnt_id)
++		offset = DIV_ROUND_UP(grpcnt * DSC_RC_PIXELS_PER_GROUP *
++				      vdsc_cfg->bits_per_pixel, 16);
++	else
++		offset = DIV_ROUND_UP(grpcnt_id * DSC_RC_PIXELS_PER_GROUP *
++				      vdsc_cfg->bits_per_pixel, 16) -
++			 (((grpcnt - grpcnt_id) *
++			   vdsc_cfg->slice_bpg_offset) >> 11);
 +
-+	/* Bits [7:4] contain the thinmem_cfg data. */
-+	data = FIELD_PREP(GENMASK(7, 4), info->thinmem_config);
++	if (grpcnt <= groups_per_line)
++		offset += grpcnt * vdsc_cfg->first_line_bpg_offset;
++	else
++		offset += groups_per_line * vdsc_cfg->first_line_bpg_offset -
++			 (((grpcnt - groups_per_line) *
++			   vdsc_cfg->nfl_bpg_offset) >> 11);
 +
-+	ret = a6xx_hfi_feature_ctrl_msg(gmu, HFI_FEATURE_THINMEM_CFG, 1, data);
-+	if (ret)
-+		DRM_DEV_ERROR(gmu->dev, "Unable to send THINMEM_CFG (%d)\n", ret);
++	if (vdsc_cfg->native_420) {
++		if (grpcnt <= groups_per_line)
++			offset -= (grpcnt * vdsc_cfg->nsl_bpg_offset) >> 11;
++		else if (grpcnt <= 2 * groups_per_line)
++			offset += (grpcnt - groups_per_line) *
++				   vdsc_cfg->second_line_bpg_offset -
++				 ((groups_per_line *
++				   vdsc_cfg->nsl_bpg_offset) >> 11);
++		else
++			offset += (grpcnt - groups_per_line) *
++				   vdsc_cfg->second_line_bpg_offset -
++				 (((grpcnt - groups_per_line) *
++				   vdsc_cfg->nsl_bpg_offset) >> 11);
++	}
 +
-+	return ret;
++	return offset;
 +}
 +
- static int a6xx_hfi_send_test(struct a6xx_gmu *gmu)
- {
- 	struct a6xx_hfi_msg_test msg = { 0 };
-@@ -993,6 +1014,10 @@ int a6xx_hfi_start(struct a6xx_gmu *gmu, int boot_state)
- 	if (ret)
- 		return ret;
- 
-+	ret = a6xx_hfi_send_thinmem_config(gmu);
-+	if (ret)
-+		return ret;
-+
- 	ret = a6xx_hfi_send_core_fw_start(gmu);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-index e10d32ce93e0..5123349a3de6 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-@@ -244,6 +244,7 @@ struct a6xx_hfi_msg_feature_ctrl {
- #define HFI_FEATURE_TDCVS		30
- #define HFI_FEATURE_DCE			31
- #define HFI_FEATURE_IFF_PCLX		32
-+#define HFI_FEATURE_THINMEM_CFG		38
- #define HFI_FEATURE_SOFT_RESET		0x10000001
- #define HFI_FEATURE_DCVS_PROFILE	0x10000002
- #define HFI_FEATURE_FAST_CTX_DESTROY	0x10000003
+ /**
+  * drm_dsc_compute_rc_parameters() - Write rate control
+  * parameters to the dsc configuration defined in
+@@ -1391,6 +1444,36 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 	else
+ 		vdsc_cfg->nfl_bpg_offset = 0;
 
--- 
-2.55.0
++	/*
++	 * According to DSC 1.2 spec in Section 4.1 if native_420 is set:
++	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
++	 * height < 8.
++	 * -second_line_offset_adj is 512 as shown by emperical values to yield best chroma
++	 * preservation in second line.
++	 * -nsl_bpg_offset is calculated as second_line_offset/slice_height -1 then rounded
++	 * up to 16 fractional bits, we left shift second line offset by 11 to preserve 11
++	 * fractional bits.
++	 */
++	if (vdsc_cfg->native_420) {
++		if (vdsc_cfg->slice_height >= 8)
++			vdsc_cfg->second_line_bpg_offset = 12;
++		else
++			vdsc_cfg->second_line_bpg_offset =
++				2 * (vdsc_cfg->slice_height - 1);
++
++		vdsc_cfg->second_line_offset_adj = 512;
++	} else {
++		vdsc_cfg->second_line_bpg_offset = 0;
++		vdsc_cfg->second_line_offset_adj = 0;
++	}
++
++	if (vdsc_cfg->native_420 && vdsc_cfg->slice_height > 2)
++		vdsc_cfg->nsl_bpg_offset =
++			DIV_ROUND_UP(vdsc_cfg->second_line_bpg_offset << 11,
++				     (vdsc_cfg->slice_height - 1));
++	else
++		vdsc_cfg->nsl_bpg_offset = 0;
++
+ 	/* Number of groups used to code the entire slice */
+ 	groups_total = groups_per_line * vdsc_cfg->slice_height;
+
+@@ -1410,7 +1493,9 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 		vdsc_cfg->scale_increment_interval =
+ 				(vdsc_cfg->final_offset * (1 << 11)) /
+ 				((vdsc_cfg->nfl_bpg_offset +
+-				vdsc_cfg->slice_bpg_offset) *
++				vdsc_cfg->slice_bpg_offset +
++				(vdsc_cfg->native_420 ?
++				 vdsc_cfg->nsl_bpg_offset : 0)) *
+ 				(final_scale - 9));
+ 	} else {
+ 		/*
+@@ -1425,10 +1510,29 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 	 * bits/pixel (bpp) rate that is used by the encoder,
+ 	 * in steps of 1/16 of a bit per pixel
+ 	 */
+-	rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
+-		DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
+-			     vdsc_cfg->bits_per_pixel, 16) +
+-		groups_per_line * vdsc_cfg->first_line_bpg_offset;
++	if (vdsc_cfg->dsc_version_minor == 2 &&
++	    (vdsc_cfg->native_420 || vdsc_cfg->native_422)) {
++		/* Optimized computation of rbsMin for DSC 1.2 */
++		unsigned long grpcnt_id =
++			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
++				     DSC_RC_PIXELS_PER_GROUP);
++		long max_offset;
++
++		max_offset = __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line, grpcnt_id);
++		max_offset = max(max_offset,
++				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
++								 groups_per_line));
++		max_offset = max(max_offset,
++				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
++								 2 * groups_per_line));
++
++		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset + max_offset;
++	} else {
++		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
++			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
++				     vdsc_cfg->bits_per_pixel, 16) +
++			groups_per_line * vdsc_cfg->first_line_bpg_offset;
++	}
+
+ 	hrd_delay = DIV_ROUND_UP((rbs_min * 16), vdsc_cfg->bits_per_pixel);
+ 	vdsc_cfg->rc_bits = (hrd_delay * vdsc_cfg->bits_per_pixel) / 16;
+--
+2.53.0
 
