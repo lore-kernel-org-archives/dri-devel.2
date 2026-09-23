@@ -4,136 +4,176 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0957DC98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:30:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB607C98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 13:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2D310E0DF;
-	Wed, 23 Sep 2026 13:30:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2088E10E0D6;
+	Wed, 23 Sep 2026 13:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Nky7tt5q";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kDgfB1G1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rekdm16k";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d/nk7Ka7";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="NImLnI7m";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NImLnI7m";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E87A610E0DF
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:30:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3DC9D21D79;
- Wed, 23 Sep 2026 13:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790170209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
- b=Nky7tt5qMtEactjLDeJY9MgD+mpavC4FaPqT5HpNV/H67RWWnZZu6RpwH6HbubV/1+sIfY
- zg5P4HZMOVibeeX5k5KPaCmNqS30JgacmJ5zYHp58pS80k1Eu+Z3HldbfjlfjDByLfBVPh
- IFsOR4a7rZZzSMJTrKHDwHa/whJzMEc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790170209;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
- b=kDgfB1G1P1PL8fbSZjw+2Uc3QNQt/sCcM4ogSQhiBJrMHIpvIZ5Ni8xbdHWzdhbjfElkjf
- 34CDgrPYdS4oeeCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rekdm16k;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="d/nk7Ka7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790170205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
- b=rekdm16k3Ii9UHugUzrj25XDtseZeAPhgSHzI2niHNsjlIrDPtqY0pMZSRcUXtSwW6HINU
- AiIOaLR8LNVl71/l2Tms68fCaR9jXbN4NLimfoBDhupL8gXyqKdWliEI4/OI9nU1qvpevQ
- nmi6izQLUTwnu3F6mcK4RJyEq94JJnw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790170205;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Hq0v5VBFDF3TXbxclB5+CyIeTc5tQ4PQXj7ReNQkIE=;
- b=d/nk7Ka7gbDf1WCMCamnHndFpIt6NgkprWOjSiH9HxGaJjZHFOEf2NBKz59tSw1Yb7hugZ
- s1emSLygQlBGMXCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3DF5134E8;
- Wed, 23 Sep 2026 13:30:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mEsmKlzUs2qZKAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 23 Sep 2026 13:30:04 +0000
-Message-ID: <24cf3f9b-bc81-4f55-8ae2-416a2c46b881@suse.de>
-Date: Wed, 23 Sep 2026 15:30:04 +0200
-MIME-Version: 1.0
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011037.outbound.protection.outlook.com [52.101.70.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D18E710E0D6;
+ Wed, 23 Sep 2026 13:45:36 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=kzgdyTvKhhlePou3DYFmQlpI5GOSzMn/Xu8SPWCfg9vBVRFGQxid03K7ciG8NmY8+tUz+MYLtzcfk5D18Id9hqehjMiEPKwRi4yLASAy966ElR1Zy2BQTOv+P4ZfMLm7a4UNEEtyLxYIrvnY9JnInoJT3zNAQF/0ZX0/FENlReHD7C8IHtljH4UnDa/2wMFm4DtvRNOu1Huanv7AjveJ7HD6wiyyCSbgNXj8vMwIvhCbdg9WZax2rBTaYZ2W9P0HG3ng8IkuPfEWDOhgMf5PvD7LJLigPrtdTViHZ72d2ePWYWvN/I7DQ1EUaMes1fCFrQNJqJohqP70YjAhJrNXnQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
+ b=xk35mhgC24gyWrvj5H9IV/yYQucGtvPOamJCQUxofy/lghRCucN0uyKWjgXhxzCvxeAiUfAwgZrxla+lXyF6mhN+QPNOvV9R6IMBTvqw0cq7bTdEtUYQv67/843h+eTNrvFASsfK2viClttBuM4exPxf80ou0h7U0s50rbYn1gUKO9HcNY01KvJilmQbsKXEMyVr+T1x279vfYHXlX9aMpGCGTNr6dTFuvbaPwpqFTZuFKXYs6WBy+bRxZAAJfIyZCJt/Cw6QIAucFlvJ1lqorhM6x7DMbi80kgyGT9ZA9qYEwhk8DRm/p+0e0bX28b4K056BkMg3Kj9IGiL7UGmpw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
+ b=NImLnI7mPzOCS5h75myRD6dJrhYj/Y8pb61WWlfOk08FUtxHCscx3oDJn5egO5woT658xGiB2tOEbTMVbcbi6ph3mDDYiA2qjvSuNRYRzRqdfIE9qlC+/cqGsnimcLLVDcNeCm5QDg8C8Ok0X4+2H9Cqc6asgus/twsBLTaTJfY=
+Received: from WA2PEPF000008A3.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d8::654)
+ by DBBPR08MB10531.eurprd08.prod.outlook.com (2603:10a6:10:53d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.4; Wed, 23 Sep
+ 2026 13:45:24 +0000
+Received: from WA1PEPF00009B3A.eurprd05.prod.outlook.com (2603:10a6:1d8::118)
+ by WA2PEPF000008A3.outlook.office365.com (2603:10a6:1d8::654) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12
+ via Frontend Transport; Wed, 23 Sep 2026 13:45:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ WA1PEPF00009B3A.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Wed, 23 Sep 2026 13:45:24 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CFc6tbN+DqR9bAcOpUhd5U6M7Q7RUV9BGGK3m1uDUl3G88awk3wbZkIUMEtEVoD5b+mpJyuYo4ThkzM/O18vTTB2yH05diNCUoxnCR6PzAd6zAe6sjujqVwqzbLfZSpBRmlaX7XN01mX1sFF/PCDrFtVgNxTVhkksyzKFJAoKXVc2dLQz68cI5czXADet2kHxLdB0RwAG8A4JIKNQ22vh7cJvtgaTzMm9J2BDX0LuHqFJpDmHmOlRw4vxjbTQQ8HW+FeNjRs/2kTIFFnnNEkCK8JjpAY43grjKB/1vVBkqsJP82tRXL+D3n54rr3SLW5UcaLzAtBE6p5ZI1m7B8buw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
+ b=jNWSZAnXa1NBr9IVjgjsys9yhz7wZLeNTqADBkYdUvhNe6TsU0eG2px/iArkOYQ21o00f5SprqHsrUhgh/eG476Y9d73VAjX9Arqk7Sn1xVij1xQIbJ9Gc/isTRqDMBmtJxYT/h52ecJqhaIJw5lUqsBdyVWKgz0zfTPa7ceo+tOcwIduGe+GNYblhw83oko/QCqSMDHxhyH78pUhd4+GtCloSsUbMkr1b030fIdCDunGTloje1Oy+t7fof+sPsDg8ytEukVESEYbEFtLBJlJuy3TZ0ZNZ6xZmtA0RvwzY4tiXzWwf7DQElW80W7heL7Qh7OVrmv7FY8lQQa5CFUjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DNv2PlrEALCBnLQsldXodP/zMuSTmALFTUFz//S+1bg=;
+ b=NImLnI7mPzOCS5h75myRD6dJrhYj/Y8pb61WWlfOk08FUtxHCscx3oDJn5egO5woT658xGiB2tOEbTMVbcbi6ph3mDDYiA2qjvSuNRYRzRqdfIE9qlC+/cqGsnimcLLVDcNeCm5QDg8C8Ok0X4+2H9Cqc6asgus/twsBLTaTJfY=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by DBBPR08MB5993.eurprd08.prod.outlook.com (2603:10a6:10:1f4::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 13:44:47 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0451.012; Wed, 23 Sep 2026
+ 13:44:45 +0000
+Message-ID: <b9054539-2f3c-4fee-aad5-c6e725c6ea1c@arm.com>
+Date: Wed, 23 Sep 2026 14:44:40 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] vt: Add cursor-size helpers
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: deller@gmx.de, jirislaby@kernel.org, simona@ffwll.ch,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
-References: <20260915123304.1027277-1-tzimmermann@suse.de>
- <20260915123304.1027277-2-tzimmermann@suse.de>
- <2026092347-try-railroad-7b00@gregkh>
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260903103002.1091859-1-usama.anjum@arm.com>
+ <20260903103002.1091859-2-usama.anjum@arm.com>
+ <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <2026092347-try-railroad-7b00@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 3DC9D21D79
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmx.de]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[8];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmx.de,kernel.org,ffwll.ch,vger.kernel.org,lists.freedesktop.org,lists.linux.dev];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.com:url];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
+In-Reply-To: <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0270.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:194::23) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|DBBPR08MB5993:EE_|WA1PEPF00009B3A:EE_|DBBPR08MB10531:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93df322b-b665-4342-eb1a-08df1978eb26
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|23010399003|7416014|1800799024|376014|366016|10067099003|11063799006|6133799003|10063799003|18002099003|22082099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info-Original: 4g1AO8kRUEFNWgcQXjh2wHWdD79yQHdGiF1pC7allufgdnec5hNaE7+LNiSCIW8Cf/LtPMWAWu+HPPgzv/h/86VenR7OgyMEAnQxSLhc6S1YXd3KbGcVG8FY+/uRwl2ul7KHXmCO3LuzTQ0SFj2AvY+ekUeNm5xr/L4a17cqmOqLpE0hAIi44FxnIq9dA3Nm+SVA/TEFMUynwqzMMF1o0R5llCURQxKQkTE1GpeGyi36kiNV9ODPLh1EN0sfuFhInnhFcKJqY+xYUmLPvsySIeInXeNZ1Z93zJhvtB2mq6Y8l5seuDc2vh5RF/SHYMEdPWXSnE5OZxSiaYpuFsg+dDvBTPyMsN0r+h+n2YCPn1GFt6ITTvfq46WkRfqb3MSjQnVdYP/zv/x0HEy6K4khd2PMP8H+vDJwOYKRmIG3Mi519jEvwQz40tAckyFi0mO4vK+baOniNWbTxmwhe8ESybU9GLHKpvs/R6GFtfYcJZB3Kt6GXZUOf1Qb2V5lvYAJGrzFdVA2+GGsUXSScGpCDpUR+Y30VQ+1KOjQc8IDrXUQVwlCBTIaYDWiZ95e9D8+FO8tuwdnNTTTyOYXynEdIkSbx1nbyf2tebLLP7inAORYQY8UD1Uaw/iqwaxO1xbT
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(10067099003)(11063799006)(6133799003)(10063799003)(18002099003)(22082099003)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: TXHaA0zYu16+wIC41/vqvbEGWbtUM6A/QEi4hfjhAZPwB7e/jDm13rcDMw/aO8Z2W08mfc3hKtaOOacLo68A26n5EL4dlA6LeleYhiC9nkQ6kXhDTJjvxh6CcSAyRIuUgCt1DIK2sXz505JdtvnA2ICEk4rkuGPM4P8kWlgrKMZpUO0UV9+9Uo3fIActyOJ5+5cyFkF9VXAiNALcv8XPHc2fVWH9PI099oOHbtbpKWEwWIu1KS07lEVj6r5JRJFjGKZlCzAiG9RixrQvT6D0eOwJ1RBKOXbzd2ZDFxeC0Qw/pt63RPvGVNaks9ZgZxO5NDYB/k+xBxN6WVE1V46ZaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB5993
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: WA1PEPF00009B3A.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 40b0c1cc-e4c7-4cb9-e70f-08df1978d2e2
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|14060799003|36860700016|82310400026|35042699022|7416014|376014|23010399003|11063799006|56012099006|10067099003|6133799003|10063799003|22082099003|18002099003|4143699003|13003099007;
+X-Microsoft-Antispam-Message-Info: xOdlt9gWQb5AmSldLIWwF39tLodl3UEFxjRIlrJ59NOw1kDi74+MXR9xlaG6aaiwXOY4cd5Jr3/wVt3bn36vacHTUeK/0KkfDzfrq2g5Yg2Iq99iBlX+SLENnYyMQSMqVsEr5bmOG7rtrTXyX6GSBc/bDOo1IUtMeKgG3vo/wz5NiZSEi8voynSqFqdUS6viavUwo+Jx+JPKABcrwcVtgmVefWaxTfeyvVpXR6O8KwclhNDzbHfqq32FrEXU0oRTy7L7iSGI0XmH1BSjsT19TjgwGIfyWko4QvIXLRZ7R7aDkpnyOK1icXyArFqJ7sd1bhVUct+dsjWy2kDp4uqvcldeRBBLL858DI2MxESGcLlE7x0xIed6CPotyGxiZLixIEAQVj3xqWHFrekI8GCaF9oIgFJHptna+7v0Ltr9p6UUGpFAa/tqPIxoqsjPoSsY74WZ92uGJZQb/psZOb9k/BWPCpKRlG8ZogiOzuXyGNPyg8rTK4JwxRX2ipiwBXMPMvMfyYc+JG1BqLhRkmKvkwhywKX+Y7UXAVJzMtiV2XcTyIBK+JU0kCtEQwjNebJv6yulaHQFyARfAftW3HoMDE5ANHaQuYWy1WSkZwCxFxTNGuCfIV+dTdbLy5dwvccbsVoESTRJOsivk1l65Y0+HbGp9ST/sv8PNzZMjjVcmVU=
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(14060799003)(36860700016)(82310400026)(35042699022)(7416014)(376014)(23010399003)(11063799006)(56012099006)(10067099003)(6133799003)(10063799003)(22082099003)(18002099003)(4143699003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: x678kAqGeH74dlpP5SlpeeqVF/B8Jqjj7yszzQQL7Qxoeef1ZC7qYaLfodPtRt1nBDXEY1KPq1agkS4ZsvRzqw24ACv31K8NxW9wr/5QZWeG+tOpRjBinx10ZZDpZXODjAJGdgImBc2OeaCXeldNt2c0helMZ1fadIpCpL8Qj24u1s64LdFc+u3JU6c+h2SM+Ywr5biNXalC/1kXFJPUWnkX4Q0D/03BN4zFe3OZUBkyYeW43OCfJ3yir3ileqzDhBvPe1LwPl4XAEoAx2nUPBaK4IVYMJVlvdT0YSyYQU5JyZAKOx4mb47W6+TRkp4Z2nBY7tIxsfapRMxxHIlkcCh4SUi40x5LoZc74sT0G1qox30Vs2XcCQluY5Fc5+cDtApJeOw8RizKDiyv4S3QI+goVGza5E7sXuQN5CIegAOHN6TogHTWIcUMWNyFiDMg
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:45:24.0046 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93df322b-b665-4342-eb1a-08df1978eb26
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: WA1PEPF00009B3A.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10531
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,78 +189,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 23.09.26 um 14:57 schrieb Greg KH:
-[...]
->> + * Returns:
->> + * The index of the cursor's first scanline within the character cell
->> + */
->> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
->> +{
->> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
+On 23/09/2026 12:52 pm, Alexander Gordeev wrote:
+> On Thu, Sep 03, 2026 at 11:29:53AM +0100, Muhammad Usama Anjum wrote:
+>> pte_t is used both for software PTE values and for entries stored in a PTE
+>> table, so pte_t * does not distinguish a pointer to a software PTE
+>> value from a pointer to table storage.
+>>
+>> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+>> as a macro alias of pte_t by default. When an architecture selects
+>> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
+>> This preserves the representation while allowing converted architectures
+>> to enforce the distinction at compile time.
+>>
+>> Name the generic wrapper structure __hw_pte_t so architectures can
+>> forward-declare it when pgtable_t must be defined before the generic
+>> hw_pte_t typedef is visible. This avoids header-order dependencies.
+>>
+>> Keep the C type definitions behind an __ASSEMBLY__ check because
+>> architecture assembly sources can include this header indirectly. Include
+>> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
+>> they previously obtained from that header.
+>>
+>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> ---
+>> Changes since v1:
+>> - Name the generic wrapper structure __hw_pte_t so architectures can
+>>   forward-declare it, and explain why this is required.
+>> - Use software PTE value terminology.
+>>
+>> Changes since RFC v1:
+>> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
+>> - Exclude the C type definitions from assembly sources.
+>> - Update the description for the new opt-in model.
+>> ---
+>>  MAINTAINERS                   |  1 +
+>>  include/linux/pgtable_types.h | 17 +++++++++++++++++
+>>  mm/Kconfig                    |  3 +++
+>>  3 files changed, 21 insertions(+)
+>>  create mode 100644 include/linux/pgtable_types.h
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 2133aec4a2004..da60a8bdcddb5 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
+>>  F:	include/linux/pagewalk.h
+>>  F:	include/linux/pgalloc.h
+>>  F:	include/linux/pgtable.h
+>> +F:	include/linux/pgtable_types.h
+>>  F:	include/linux/ptdump.h
+>>  F:	include/linux/vmpressure.h
+>>  F:	include/linux/vmstat.h
+>> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+>> new file mode 100644
+>> index 0000000000000..07da05d375c2c
+>> --- /dev/null
+>> +++ b/include/linux/pgtable_types.h
+>> @@ -0,0 +1,17 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +#ifndef _LINUX_PGTABLE_TYPES_H
+>> +#define _LINUX_PGTABLE_TYPES_H
 >> +
->> +retry:
->> +	switch (cursor_size) {
->> +	case CUR_NONE:
->> +		return cell_height;
->> +	case CUR_UNDERLINE:
->> +		if (cell_height < 10)
->> +			return cell_height - 1;
->> +		else
->> +			return cell_height - 3;
->> +	case CUR_LOWER_THIRD:
->> +		return cell_height - cell_height / 3;
->> +	case CUR_LOWER_HALF:
->> +		return cell_height - cell_height / 2;
->> +	case CUR_TWO_THIRDS:
->> +		return cell_height - (cell_height * 2) / 3;
->> +	case CUR_BLOCK:
->> +		return 0;
->> +	default:
->> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
-> Can userspace trigger this?  If not, who can?
+>> +#include <asm/page.h>
+>> +
+>> +#ifndef __ASSEMBLY__
+>> +
+>> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
+>> +typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+>> +#else
+>> +#define hw_pte_t pte_t
+>> +#endif
+> 
+> I would suggest to provide __hw_pte() in this series - it is needed
+> by architectures along with __pte_from_hw() right away (as opposed
+> to when lands in arm64).
 
-Yes. There's the "vt.cur_default" parameter on the kernel's command line 
-[1], and apparently there's some escape sequence. [2]  The cursor size 
-is the lowest 4 bits of that value, while
+* __pte_from_hw() is added by 4th patch in this series.
+* __hw_pte() was added in arm64 specific series. But it has been dropped
+  because of [1] in v2 of arm64 series [2]. There is no user of it in my both series.
+  Please feel free to add it if s390 needs it.
+* hw_pte_val() was in arm64 specific series. It has since been moved to generic
+series in v3 [3].
 
-[1] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L167
-[2] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L2523
+[1] https://lore.kernel.org/all/86d4aea6-4272-427e-9229-295489e068d7@arm.com
+[2] arm64 v2: https://lore.kernel.org/all/20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com 
+[3] genric v3: https://lore.kernel.org/all/20260922-pte0-v3-0-5670b8cb9059@arm.com 
 
-Apart from that, I just noticed that this switch should certainly handle 
-CUR_DEF without printing a warning.
+> 
+>> +#endif /* !__ASSEMBLY__ */
+>> +
+>> +#endif /* _LINUX_PGTABLE_TYPES_H */
+>> diff --git a/mm/Kconfig b/mm/Kconfig
+>> index c1ddf59c0d71a..5f462ec6fa5e5 100644
+>> --- a/mm/Kconfig
+>> +++ b/mm/Kconfig
+>> @@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
+>>  config GUP_GET_PXX_LOW_HIGH
+>>  	bool
+>>  
+>> +config ARCH_HAS_HW_PTE_T
+>> +	bool
+>> +
+>>  config DMAPOOL_TEST
+>>  	tristate "Enable a module to run time tests on dma_pool"
+>>  	depends on HAS_DMA
+>> -- 
+>> 2.47.3
+>>
 
-
->
->> +		if (cursor_size != cursor_default_size)
->> +			cursor_size = cursor_default_size;
->> +		else
->> +			cursor_size = CUR_UNDERLINE;
-> Why underline as a default?
-
-This has been the default all along. It is the default value of the 
-cur_default parameter and picked up by vt when starting up a console. 
-[3] VGA BIOSes tend to default to underline as well AFAICT. Only the old 
-cursor code in fbcon falls back to full-size blocks if nothing else 
-works. Using underline harmonizes behavior across components.
-
-[3] https://elixir.bootlin.com/linux/v7.2.6/source/drivers/tty/vt/vt.c#L2297
-
-Best regards
-Thomas
-
->
-> thanks,
->
-> greg k-h
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Usama
