@@ -4,67 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CDE5C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B34C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 15:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5959910E134;
-	Wed, 23 Sep 2026 15:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 974B110E713;
+	Wed, 23 Sep 2026 15:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="iyouXx+j";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjqqsjcK";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF5810E134
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1790177995;
- bh=Pvf6utvFFy4W0lCvpXIM2zHVFitTH88Hp81cFrCEahk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iyouXx+jA+xaknvK7tvNx3mfKFDu+72K2NrM6eeU4LF9DV+5VmxR22njJv9A7ic32
- bpNrdkvN6fL6lSIbBbYw3RNdTNIS8ieRpSodoWhuihAzFUk8/aq3S/HUEL8oCGzgv4
- niaLMPC+ek5SV3Co7KUa7/WQUjPRnoUaZbiVOT+aR86tS2G597vqecgjH40IEr/Xb6
- CDZOmWouOW8shnBSWJX3pR2mD924McGg0K7uN+0dfJd6HcN4qMu6JasI++X8HnhEoc
- GAZbz9kWvywsowbJHsC0vIv2y9+zsNzzvY5IKL4wCH4gSfF680v/yoMzXkER24E7a3
- hYyHIuiVmYJeg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hqh3h1tlnz4wB5;
- Thu, 24 Sep 2026 01:39:43 +1000 (AEST)
-Message-ID: <e33f1d3a-1900-4bf3-9785-3af5447e7e54@ozlabs.org>
-Date: Wed, 23 Sep 2026 16:40:03 +0100
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 082D310E92C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:44:11 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c67e4d9197so685146e0c.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790178250; x=1790783050; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+ b=TjqqsjcK05Q8sX4rHdSXhG0vUeyYVyIJGEGVdnSR4rrEj/s2Lrq7r9VYN8KMIH67L5
+ eeWbCinaidHXjyVgCM4cI5hPEMy3hvqgbhuoVpnncHXD1152wg5qOFAI93E2DrYhvJxg
+ YZDPbh2T6YxJwSL6HlsPYNASGIN2y+g9N09/2rTGqRMpu3p3izSNi7Hebdf8E/awooAt
+ INQBmzlqaRAbYOMfQkOS3yIwdmaD5EEH/dMcM3zrBZHpfhtfssrE/0HPgwbLsKs5Co+N
+ fNSeF0G7OjtUy/PuacMv51BK/uLB5yZpXr8JfdN/NRIcQwaAG6V75TbA2w88XYKRzxve
+ HD7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790178250; x=1790783050;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
+ b=2nLGuNio7TpqQlU69Kar4aScyuACPiQUpLsAFFE2MDCRWOu0KAEIcEsrV5tZuHgUVs
+ QGQXfLy7B+Q23/so0joYR87FVUk2Ia95z2BvfC1FnLExxYVt6bC4tNSO/Ch/Olwam8HN
+ wPerYLzDFV5SdGf4OGxTw0o070ER5lDNDCZ+XAHrBS6xtLibC4ooYG5n6GsbMkeO8iR9
+ H5oYkL76HGBVTWLEp3X27g66FenWfYdaVItVerxAZYmp8AZ4h6OVaYk3UBSb4bGG46o3
+ oHmaU+j4A3+9zZCO+OdrvBp1FOqG1OZvZCgSh5AxKqAkzI1GnRxtkjCB6JgHNzA5y4CI
+ mz+Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx4Djgs+tC+NlgnLZakaeecksB+KeYiTQhWgjHqrQ7yDOtWYoxdSi6xBtLrL5y1XG/ck3guWDsC/dg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k0U/jHpLb5UqUSRHLF4YOvBYmX00L+gR51X81zyO3OEbBKJnBz
+ +jorDKlssaDmNVWwpuPEJbpSKM8v9DoRngdxB5b+sA21as/jCP3yvDyc
+X-Gm-Gg: AYBFou3pfDqcx8B07i2E04ho4xXk8xEhB/XvGq++PrdWvPxhI9RYBSkGjam6nvUzkSe
+ erllT8s7+XIf0v1q0TgVQwr4AZf6fkok4VLzBh81d5p5fle8eb+MbKDR8d+uv1863liKbGvaG2r
+ azIi1TG4ZOLXpj5AYb2cGncGy/WUic255v12DePWZ6RpS7XTYx1al21KWmPA3s1qnUN6EcEoTy3
+ Y8TDXfhKmixLaPlFQXYMLdrSrJ3/guYZBF0j/uFUYYJI8HvDVwop86ZTpdDp5QDk0hpzgwsCnGX
+ lQB/LAlG5shfUu8cgKHlxVfzAOWdzSF7c9DGvVLv3hdDFKHcvV7q7LPd8AL8mP3On6ELGPG8zwy
+ OB2JAubIPVt87wIHe1aTEZiw6sY1Jc3o8G36BIKFWeqLhAMF6IF2U9c/QhzHDDre7OilkmkS+W1
+ UPKdHwfGKQOlOi3ewSSJfX6oGVgpQU8Cwk/gu3zVWdVMRd7TwjcOzMXeXO75Bb1tFnLos5foImv
+ 0TM2K//81dj
+X-Received: by 2002:a05:6122:400c:b0:5c9:a60c:273f with SMTP id
+ 71dfb90a1353d-5c9f16b901cmr3577780e0c.23.1790178249808; 
+ Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c9f04f02bfsm3437129e0c.7.2026.09.23.08.44.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in nested
+ ATOM table calls
+Date: Wed, 23 Sep 2026 12:43:57 -0300
+Message-ID: <20260923154357.1319689-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
- <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
- <20260921132208.GA1507824@nvidia.com>
- <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
- <20260921134924.GB1507824@nvidia.com>
- <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
- <20260922124137.GD1507824@nvidia.com> <20260922124637.GG563127@unreal>
- <20260922125421.GE1507824@nvidia.com>
- <arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com>
- <20260922225747.GB2545495@nvidia.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260922225747.GB2545495@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,61 +92,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jason, Alex,
+atom_op_calltable() invokes a child ATOM table, forwarding the
+parent's parameter space with an offset:
 
-On 22/09/2026 23:57, Jason Gunthorpe wrote:
-> On Tue, Sep 22, 2026 at 03:31:07PM -0700, Alex Mastro wrote:
-> 
->> So I empathize with Matt's contention that the _existing_ behavior that the
->> priv->revoked flag represents is actually "temporarily revoked": the importer
->> can use the same dma-buf again, later, without having to re-import
->> it!
-> 
-> mlx5 isn't a revoking importer, it is move capable. So the above
-> sequence isn't a revoke, it is a move with an unmapped placement for a
-> while.
-> 
-> This is why "temporarily revoked" is a confusing phrase.
-> 
-> The API is such that move and revoke importers can co-exist like this
-> but they experiance a different version of things..
+    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
+        ctx->ps + ctx->ps_shift,
+        ctx->ps_size - ctx->ps_shift);
 
-Ahhhhh.  That was very helpful (esp. to contrast with the previous
-iommufd statement about invalidate_mappings being permanent), thank you!
+ctx->ps_shift is in dwords (set to ps / 4 in
+amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
+remaining capacity in bytes. The subtraction therefore mixes units:
+a child table requesting 60 bytes (ps_shift = 15 dwords) with only
+16 bytes remaining would compute 16 - 15 = 1 instead of the correct
+16 - 60 = underflow.
 
-So the worry was that the VFIO DMABUF's temp/perm state could be
-misconstrued as an implication/guarantee about the future availability
-of that DMABUF to importers, OK.  And we want the existing move(false)
-behaviour still, for dynamic importers that treat it as a move.
+Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
+subtraction so the units are consistent. Abort the interpreter when
+the request exceeds the available space so the parent table does not
+continue with stale or uninitialized data.
 
-> We probably should not have made it have this move compatible
-> restoration and had things more consistent. User space can't know if
-> the importer is move capable or not so it has to assume revoke and it
-> has to go and unmap things before resetting/etc.
-> >> This series doesn't intend to change the behavior of either. Is the
-confusion
->> about whether the current behavior is intentional and/or desirable? If the
->> answer to both is "no", then IMO this series paves the way nicely towards making
->> PERM_REVOKED the only supported semantic later.
-> 
-> Right, I think the only concern is language.
-In that case, the VFIO-internal tracking could be:
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+v3: abort the interpreter (ctx->abort = true + return) when the
+    child table's parameter space exceeds the parent's remaining
+    capacity, instead of silently skipping execution (found by
+    Sashiko AI review on v2).
+v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
+    ps_size, fixing the unit mismatch (found by Sashiko AI review).
 
- priv->status = VFIO_PCI_DMABUF_OK;      /* was priv->revoked = false */
- priv->status = VFIO_PCI_DMABUF_REVOKED; /* was priv->revoked = true */
- priv->status = VFIO_PCI_DMABUF_DEAD;
+ drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-The latter means that an invalidate_mappings was performed (due to a new
-userspace ioctl trigger), and that all future dma_buf_*attach() attempts
-must fail.  I'd add a comment to explain this clearly in the enum.
-
-If that's too macabre, DEFUNCT?  (A word implying guaranteed
-permanence...).  The userspace action causing all this can IMHO be
-called REVOKE still; it's what it does.  (I'll clarify the observable
-effect from the POV of an importer in the UAPI.)
-
-WDYT?
-
-
-Matt
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f..af283cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
+ 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
+ 	else
+ 		SDEBUG("   table: %d\n", idx);
+-	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
+-		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
++	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
++		if (ctx->ps_shift * 4 > ctx->ps_size) {
++			ctx->abort = true;
++			return;
++		}
++		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
++	}
+ 	if (r) {
+ 		ctx->abort = true;
+ 	}
+-- 
+2.43.0
