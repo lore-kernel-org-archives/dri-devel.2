@@ -4,80 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CBFC982EA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5991C982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 09:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4A1F10E87F;
-	Wed, 23 Sep 2026 09:38:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2416310E4E1;
+	Wed, 23 Sep 2026 09:42:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.b="Fk5qHw/G";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="EqrxHpMU";
 	dkim-atps=neutral
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
- [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C5FB10E87F
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:38:38 +0000 (UTC)
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de
- [IPv6:2a0a:edc0:0:900:1d::4e])
- (Authenticated sender: pza@pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 48EA120075E;
- Wed, 23 Sep 2026 11:38:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
- s=20260414; t=1790156316;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
- b=Fk5qHw/GwqojBgyM1RAsKEQvGJucuqJl/0K53H7wYOYFLQEsSFQCBZLaR3HVk0JavRUzQx
- BDOaWCv9djjPVI0cvvZ49K5A4QFYTv7ORPCSaPaXhoXxP56e50tVgTIGb1kUxoPXSBkBU6
- GCCOBYj5yGEZVtjV3Q//z8UKXKQ6dMnQRALOqsH6GVAKIq3R0KOISskMJex/xso53LCkD2
- 8WChiNSoe6Nh2+l6DMoozM1PUyZ2VajBkETLws1+HMsPxre7dgQhjbpVs3xrzTS5lTcvkP
- yatb8pORlgr/M6vTPbAw6Yv1DjUlEc7MXRLu50JkRqGMLqdFCazS0cU8qDgf9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
- s=20260414; t=1790156316;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
- b=IYeUJbujtGMKfxIRx+ZRlWuuIQglCiRl4RXQgNtwRZ1lzJsgig9Te8S+noB+NPNwJ2aMoe
- qkOFQmxHwynWl4EnyticqudML3Cg4fqsqNoWGZgZtsEFrlGwb47pYKb+2MLS+IUdRy/3hU
- CKj5DcbLhYlNiAD2KujUscOdJd0D9+yab3v0tiOo1nCjzg7A13suYmjV4MKKVeWmGbLYZN
- sNQ82kWdjn0E41UhxS/zQTkM2jSu6anePzGxQ0D+PaQU11+WuiZcoeilpueNjFsMemeMB1
- r+q565QdrZ7OOom+c1TpncU7jtTk5bz1EaI+3lUeywuAXBGt1hRvk6TKauOz5A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790156316; a=rsa-sha256;
- cv=none;
- b=LhQiXJpCcP6Ida7LESO4TzKQ2rW8h48dHwyT1Easm9Mf7RsEPcNmfXqqHdFAoiiTX/wIvf
- xuxiakYloC4ZwThB24fkXpkzk+JHi9xFYOFAUBBtPko+JddH80S0vJ1fUXlD6qGcR46v8q
- bv7ualU7GxkuR0nc6d5vUKw/a2ibICzOZFmcBVjMA0YCXK4I7HtngA+st+QsgYxWUvB5tz
- Aj4nujaQKReuzomiMjrPihuriCalMwTsuQA2SPdRqsnN+d1sU3JFCK+z2wBN+ssFKJRXWQ
- sQ8ATgRmyXcxNdGZ9AdImiRfHNhU5zO1nEW5vyyCmuKhlbcuJVhFdQAhGzqOKw==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <bbecbfd1c2e465f5daa6476e8555f373a6e1bd0b.camel@pengutronix.de>
-Subject: Re: [PATCH v13 10/14] pmdomain: rockchip: cycle optional
- power-domain resets on power-on
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, 	will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
- ogabbay@kernel.org, 	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com, 
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai, 
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com, 
- diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, 	linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, 	linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 11:38:36 +0200
-In-Reply-To: <20260915104328.45901-11-gahing@gahingwoo.com>
-References: <20260915104328.45901-1-gahing@gahingwoo.com>
- <20260915104328.45901-11-gahing@gahingwoo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2196610E4E1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:42:46 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 17E0A1516;
+ Wed, 23 Sep 2026 02:42:42 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 890353F86F;
+ Wed, 23 Sep 2026 02:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1790156565; bh=ovmViFUKy6MLk0NrlYXc5n5zxje+qUS5YdjUVeCmo3A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EqrxHpMU3y3q09p7ZwC3F7pnYhUAukhhWF6HkPPmq/150OiZcTwdjrlGOeBN8pNBQ
+ ViYlHj7XxBiCoU3LYoeEyZ1FOUfVcJxbQ/TAUCtCU/Xb1Gv0B6KDlzCogBgLoCrn9N
+ 2KeYP3En8k33E1CffATf2xeYK+Rk4KTPNkAHQoT0=
+Date: Wed, 23 Sep 2026 10:42:39 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+ christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <arOfD6syXOgQhZYA@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com> <yq5aik3w344o.fsf@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5aik3w344o.fsf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,63 +66,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Di, 2026-09-15 at 22:43 +1200, Jiaxing Hu wrote:
-> Some Rockchip domains come out of power-on with their bus interface in an
-> undefined state. On the RK3576 NPU this shows up as a hang on the first
-> register access after the domain is switched on, and pulsing the domain's
-> resets at this point clears it.
->=20
-> Take the domain node's resets if it has any, and pulse them between
+On Wed, Sep 23, 2026 at 11:23:27AM +0530, Aneesh Kumar K.V wrote:
+> Catalin Marinas <catalin.marinas@arm.com> writes:
+> > On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> >> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+> >> +		size_t requested, struct cc_shared_pages *mem)
+> >> +{
+> >> +	struct cc_shared_layout layout;
+> >> +	struct page *page;
+> >> +	unsigned int order;
+> >> +	bool zero = gfp & __GFP_ZERO;
+> >> +	int ret;
+> >> +
+> >> +	if (!mem)
+> >> +		return -EINVAL;
+> >> +
+> >> +	ret = cc_shared_calc_layout(requested, &layout);
+> >> +	if (ret)
+> >> +		return ret;
+> >> +
+> >> +	order = get_order(layout.shared_size);
+> >> +	if (order > MAX_PAGE_ORDER)
+> >> +		return -EINVAL;
+> >> +
+> >> +	/*
+> >> +	 * State transitions require a linear-map address and may modify memory.
+> >> +	 * Allocate from low memory and defer requested zeroing until afterwards.
+> >> +	 */
+> >> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
+> >> +	if (nid == NUMA_NO_NODE)
+> >> +		page = alloc_pages(gfp, order);
+> >> +	else
+> >> +		page = alloc_pages_node(nid, gfp, order);
+> >> +	if (!page)
+> >> +		return -ENOMEM;
+> >> +
+> >> +	ret = cc_make_shared(page_address(page), layout.shared_size);
+> >> +	if (ret) {
+> >> +		if (!cc_make_private(page_address(page), layout.shared_size))
+> >> +			__free_pages(page, order);
+> >> +		else
+> >> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
+> >> +					    layout.shared_size);
+> >> +		return ret;
+> >> +	}
+> >> +
+> >> +	if (zero)
+> >> +		memset(page_address(page), 0, layout.shared_size);
+> >
+> > Does the memset() post sharing logic work for pKVM as well? If nothing
+> > clears it, we have a small window where guest data is leaked to the
+> > host.
+> >
+> > Is there a case where we *do not* need the memory cleared? If not, maybe
+> > we can move the logic in the arch set_memory_decrypted().
+> >
+> 
+> I don't think every architecture or platform can unconditionally zero
+> memory in set_memory_decrypted(). Some callers may need to share valid
+> contents with the host.
 
-Why 'resets' plural? The binding specifies maxItems: 1.
+Is there any? That would be a bad assumptions in the caller. Most
+set_memory_* backends don't preserve the content as they change the
+encryption key. So properly written code shouldn't rely on this unless
+it knows specifically it's only running on pKVM for example. The only
+use-case I see to avoid explicit zeroing is when the caller doesn't care
+about the page initialisation and wants to save some cycles. The
+encryption key change would take care of the security aspect.
 
-> releasing idle and restoring QoS. The resets are optional, so domains tha=
-t
-> do not list any are unaffected.
->=20
-> The cycle goes before the settle delay 9/14 adds, not after it. A domain
-> that asks for both is asking to settle before the QoS registers answer, a=
-nd
-> a reset deasserted after the delay would leave nothing between the deasse=
-rt
-> and rockchip_pmu_restore_qos(). On RK3576 PD_NPU0 and PD_NPU1 ask for bot=
-h,
-> and the reset they cycle is SRST_A_RKNN0/1_BIU, the bus interface those Q=
-oS
-> writes go through.
->=20
-> It only runs when the domain actually changes state: rockchip_pd_power()
-> returns early when the hardware already reads the state being asked for. =
-A
-> bootloader that leaves the NPU powered would therefore skip both this and
-> the delay, which is why 9/14 gives RK3576_PD_NPU need_regulator and force=
-s
-> the domain off at probe.
->=20
-> No in-tree DTS puts resets in a power-domain node today, so every other
-> Rockchip SoC takes the optional get's NULL and is unchanged.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->=20
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 39988efd8..6cc8d6efd 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-[...]
-> @@ -861,6 +878,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->  	if (error)
->  		goto err_put_clocks;
-> =20
-> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+> Also, if zeroing is added only to the CCA implementation, the allocator
+> must retain __GFP_ZERO for platforms such as pKVM. This would cause the
+> memory to be zeroed twice on CCA.
 
-This should be of_reset_control_get_optional_exclusive() if there is
-only a single reset.
+What I meant is that we change the set_memory_decrypted() contract to
+always zero, assuming that all callers need to zero the pages anyway. If
+we do have cases where zeroing is not needed, we could make it explicit
+via a flag.
 
-regards
-Philipp
+> How about extending cc_make_shared() with a flag indicating that the
+> memory must be zeroed, and passing that requirement down to the
+> architecture-specific implementation? The implementation could then zero
+> the memory at the appropriate point: before sharing for pKVM and after
+> the destructive transition for CCA.
+
+On pKVM, we want set_memory_decrypted() to zero the buffer
+before the host can access it (I guess currently relying on __GFP_ZERO
+allocations). Since no cryptographic encryption takes place, there's not
+much point in memset'ing again after the operation as the content was
+already zeroed.
+
+I don't think cc_make_shared() has the right information on how to
+safely and efficiently do the zeroing. That's only known to the
+set_memory_* backend. So you'd have to propagate the flag down.
+
+-- 
+Catalin
