@@ -4,49 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D4FC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D43CC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41DDB10F8C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D4F510F8C8;
 	Fri, 25 Sep 2026 07:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="GtbBBWx8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mCJlfOwt";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B270010EFE9;
- Wed, 23 Sep 2026 11:56:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
- 8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=GtbBBWx8o3bPyAJuvu
- mZ5CAfp92OTbH0OiXcS8saYWkl9/TxX7eVhvvhP7MlGjO/faZ2acic7M0pyfapc2
- B2P9ZOXJsDO3iHShLjk0XkKn6MiUjPoQPR3ifh38jke1LDDBsahgRoQoX2XTMU9d
- bAVVA5lD/FcdY/07NHjY25IV8=
-Received: from fedora (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wD3X_VzvrNqsRlYAQ--.35554S2; 
- Wed, 23 Sep 2026 19:56:36 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Xizhe Tang <xizheTang2005@163.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or
- PR !async
-Date: Thu, 24 Sep 2026 03:51:59 +0800
-Message-ID: <20260923195200.21362-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C63F410E826
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:14:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F2520600AA;
+ Wed, 23 Sep 2026 08:14:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 376301F000FF;
+ Wed, 23 Sep 2026 08:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790151252;
+ bh=4asDkf1r4nhSOrT7R8hAyZcEQKKYrXhZ/zPFbXlZHas=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mCJlfOwtX67y203buKELQIT2TJkfDrkJVRWjviTUThii3FIl01hNmt/2/N5niDJsO
+ pMfVhn9hKYcyv1hPNTj3q8nO0Pds6VFO+rGQe1AtibuYmlGhfEvG5fzsVNd5VZj00d
+ fkgcgDIaUfRNs16fD4U8B+bk8I0EVqFfud76K+T15hPjY5Wnzx7h17G1IEpBvKdbdT
+ fwOMBpLGIgd0Nxsna3HHhcpWKXrmzcnrf1IYhuJaw4NDIion+IMG6MmbJbYDpOjNxG
+ ds54K/vBGhy978o0s9QlAtQmkuOq1eOy+SdadnN3yilV4MeGzEJApyN21XCzbDlSMz
+ y5uiJtnDQNScw==
+Date: Wed, 23 Sep 2026 09:13:40 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Message-ID: <arOCPN02xB7mykju@gremlin>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
+ <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
+ <CAJuCfpFBichJH4OcmSHTb1rOuQBT6k5pXeua9_KgpWjDBKvsYw@mail.gmail.com>
+ <aq6kzpK7wPl3iFGe@gremlin> <aq6lW9FvL69QeA9H@gremlin>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3X_VzvrNqsRlYAQ--.35554S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
- 47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
- yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
-X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hRUq2qzvnR+ggAA3u
+In-Reply-To: <aq6lW9FvL69QeA9H@gremlin>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,87 +147,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
-refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
-("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
-On this panel the first modeset at boot is vertically streaked.
+On Sat, Sep 19, 2026 at 04:09:13PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Sat, Sep 19, 2026 at 04:05:57PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Fri, Sep 18, 2026 at 01:31:24PM -0700, Suren Baghdasaryan wrote:
+> > > On Fri, Sep 18, 2026 at 1:21 PM David Hildenbrand (Arm)
+> > > <david@kernel.org> wrote:
+> > > >
+> > > > On 9/15/26 03:08, Andrew Morton wrote:
+> > > > > On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> > > > >
+> > > > >> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+> > > > >> properties:
+> > > > >>
+> > > > >> ...
+> > > > >>
+> > > > >> It's all rather a mess.
+> > > > >>
+> > > > >> This series brings some order to things by both limiting what drivers can
+> > > > >> do with VMA flags and switching to using predicates that describe
+> > > > >> behaviour, not arbitrary flags.
+> > > > >
+> > > > > That's a lot of patches.
+> > > > >
+> > > > > Review is thin and I expect this won't improve a lot.  Lots of "no
+> > > > > functional changes" changes.
+> > > >
+> > > > I'll expect to go through all of them. Might just take a bit ;)
+> > >
+> > > ditto
+> >
+> > Thanks guys!
+>
+> Note v3 has been posted to fix a stupid bug in 1/40 + attack some very trivial
+> sashiko stuff
+>
+> https://lore.kernel.org/linux-mm/20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org/
 
-intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
-timings program flipline too:
+Just a gentle nudge on this :)
 
-	intel_vrr_compute_fixed_rr_timings():
-		/* For fixed rr,  vmin = vmax = flipline */
-		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+If you guys or anybody else has some time it'd be appreciated! (obv. the v3 as
+linked above not this v2!)
 
-intel_vrr_compute_config() takes that path when VRR is not actually
-enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
-intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
-intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+I know the series seems intimidating but most of the commits are very small and
+it's been in -next for a while.
 
-Gate the terminal condition on the states that consume the SDP:
-crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
-Leave the Panel Replay aux-less-ALPM early-return from the same commit
-unchanged.
+>
+> >
+> > >
+> > > >
+> > > > --
+> > > > Cheers,
+> > > >
+> > > > David
+> >
+> > --
+> > Cheers, Lorenzo
+>
+> --
+> Cheers, Lorenzo
 
-CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
-cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
-refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
-vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
-
-This is a no-op while VRR is actually active. It does not fix Adaptive
-Sync = Always corruption, nor the non-atomic SDP update named by the
-#FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
-
-Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
-rebuilding only xe.ko with this hunk:
-
-  Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
-  infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
-  clean. This boot: six s2idle suspend/resume cycles, all clean.
-
-  Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
-  infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
-  appearance on Always is not claimed.
-
-  CMRR / FAVT: not tested.
-
-On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
-
-  7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
-  7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
-                      operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
-
-  Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
-  good | BIT(3).
-
-Changes in v2:
-- OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
-  At fixed refresh v2 matches v1.
-  v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
-Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
----
- drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
- 
--	return intel_vrr_possible(crtc_state);
-+	return crtc_state->vrr.enable ||
-+	       crtc_state->cmrr.enable;
- }
- 
- static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
 --
-2.47.0
-
+Cheers, Lorenzo
