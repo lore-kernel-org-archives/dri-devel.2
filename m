@@ -4,42 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C824BC9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:13:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BA8C9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5041810E104;
-	Wed, 23 Sep 2026 16:13:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F95010E93D;
+	Wed, 23 Sep 2026 16:13:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PJ5GJ1Tg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Sim9s0JP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FE2010E104
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:12:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=PEXJ44NwcNySzS01JoQ6k/dFT6kwoADt44YCYe/cTkA=; b=
- PJ5GJ1TgSTukdt2f29mtcN7OvMuwmc6VCxlOBbXM+aOdD+VUG+BwvQQFZ/ocpXwj15VZFgfBQlPv2
- ZsQXfzdPTn8BQDJraz8ozBfOj0XW/+GYe9bGhoKSZnk2U0nDvQkMQQERSOxDm0bFzm4QCgznZBFxg
- LvFDjfAoY+FZ3nMmm6GlNb4HUObG4rqsp5Bbb5+IWJwxJFVLfzQW368vgW1Tzed7UwIxkVW6RyRjX
- i4oM+595b+WUSTiBx3xAZP7yNqJk7YruVoRU/oK105080PnTlIXtC6tCNNmvYhJj8xHs9vRmGhpsm
- ElZQZ/PAHOlKA814Y/mtENSw60b+HeY6Yg==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9PaY-006ECL-TM; Wed, 23 Sep 2026 18:12:54 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: linux-kernel@vger.kernel.org
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Chia-I Wu <olv@google.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
-Subject: [RFC v5 0/3] Realtime workqueues and panthor realtime submission
-Date: Wed, 23 Sep 2026 17:12:48 +0100
-Message-ID: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com
+ [74.125.229.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5284510E93D
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:13:08 +0000 (UTC)
+Received: by mail-dl2-f36.google.com with SMTP id
+ a92af1059eb24-14373bcc010so1283681c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:13:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790179987; x=1790784787; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
+ b=Sim9s0JP0QGBbDzDuaYtguK9ucojea/O2rmpP/XVq1lQOrRmgIik4LQY3zipfEynDH
+ WzwaTwE0V9xOr2w0ecbp6bxbA0W2xflkgU/roitgQbO9KvFely2X7HuyO+Xua5fB2+Mj
+ 9LtaEMU6UnTw+wNgDhXluValX19TLf3SqnsFsD8LMgmN/6ZLzREklgYR1LsyL3DasMsW
+ RrCrYqiwnmoR6oZkPcag0gfKRCVdy6PM9eX9UXMy+DJFMD8nfB/Cu9/ENWv1oYEA5Jom
+ oVFngFtVWsTjJBX0ywS/qlUXvNb5zZ7mt/9arM2ZbetCWda5sWzI7w1gLP0XaZ/mkfGn
+ QSzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790179987; x=1790784787;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sUIXWjLbTey+d3P92W9cG28EMxJiRiFjR+QNnEvmF1I=;
+ b=h9ThJxN5uBrJbj018lJkO3WTU3mhWoeymueUk5cccx6+nTuof/s19fNbuaXagJyXNz
+ op5wqiW+zs30O7fRLsvMl99DtCvHEARhQKxgs6ituUGTPv4OgjAnGCJoUuYiQw6tb06a
+ t0EPKHZTM1uOvySSGJDQCTg6a3Q5Hs0iClFT+0Blms+0H2l9eDUfBDKRyeSGg+kDsq82
+ PB4qv//pRR3Al5eYMoqFegc+cO2AxVwwxCwUxBBnZ6CgkoQPCS7VBIVHp1KYsg9yMWRY
+ /scHwfGj1R9e69OSFykxhCcM8OCAnamYvEKIeFrZ1b8DnrcR7JJpaXpWtNnCYmOzGyFo
+ HocA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwbppQtsFXjrcYHxR41ntb4gC3eKGkJKMfFeSrHhKHDLGaRkwFmqkRqkjvN0IkCugoH4b0gWxKa7s0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++keNJgiSmCEinyEKaNQIFrLRJSt++PqoWSj9vtVWF+TcRoSDXMv
+ 5yacqrUx5nsE1sf07imOw1RgGojEG/iNNr0BhgbL5AoKEwbaeMZ6E8qL
+X-Gm-Gg: AYBFou04/4/3hYhzWA6sFNNGq//eYZWx/p2RuJml9CMmI/ql+tlycjZ1/e7Ox/Gxo2H
+ gVctojmVWMEg9g3NaBIv2sDFq7IzF4dQ9UD7S4PwIsR/B7kQCfykL2lvEo2Y6z35CScR5YFEjd+
+ 2OY3WUhtErnadYVk5L6mSlNJvyMojNlpzI8AM3J2xOAUuHo3bCh7ma2Z1U7Z/v284/CVI2naRpZ
+ XaT1W+T9LC9tuAkYWz8RzUiy70odPdnzP0xj/lPVRD0QL2itMqg+eQTdQJWuimpfkIGvsUe2K+V
+ ntLjoMr46RF4YOtzydkEIeYLbaKEnmM/GkiFCz4K0vuIsm+YV9a6AgmW1uZpZGD6/nPYJi5BkXu
+ h4NKdIhOZH4sHLH9mXLYFRLZggH5VSVdpn8bmHU9q23Eh+X4rUdEWIjZPgEWIhXkpzewfv9fLCt
+ IYxnutFuEbYh06sE8x98DjJTOF3RwKs/ZKCmSYUvkIl9/gY+N2QvOJLL8oZ+oZLcg0hvGDiwZzX
+ g==
+X-Received: by 2002:a05:701b:20de:20b0:145:152:b54c with SMTP id
+ a92af1059eb24-1450152b7ecmr819023c88.23.1790179987346; 
+ Wed, 23 Sep 2026 09:13:07 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-14501794269sm992777c88.8.2026.09.23.09.13.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 09:13:06 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/amdgpu: fix ATOM parameter space index bounds check
+Date: Wed, 23 Sep 2026 13:12:52 -0300
+Message-ID: <20260923161252.1363895-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -57,81 +88,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+atom_get_src_int() and atom_put_dst() use idx as a dword index into
+the uint32_t *ps array (ctx->ps[idx]), but compare it against
+ctx->ps_size which is in bytes. A malformed ATOM table operand with
+idx between ps_size/4 and ps_size-1 passes the bounds check but
+accesses up to 3 dwords (12 bytes) beyond the stack-allocated
+parameter buffer.
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
+the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
+byte offset 20, 4 bytes past the allocation.
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues can add significant latency to the submit path.
+Divide ps_size by 4 in both comparisons to match the dword indexing.
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260923163157.1354872-1-qwe.aldo@gmail.com?part=1
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/atom.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
-
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
-
-Legend:
-
-   M = Median submit latency in us
- 95% = Percentile latency in us
-
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
-
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RTPRI, submit latency becomes completely controlled with the median of 14us
-and 95 and 98-th percentiles at 23us and 25us respectively.
-
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already required
-the userspace to have CAP_SYS_NICE, meaning access to real-time workqueues is
-effectively also guared behind this capability. 
-
-v2:
- * See patch 1 changelog.
-
-v3:
- * See patch 1 changelog + apologies for v3 following so quickly after v2.
-   I have found a race condition as I expanded the testing to a second platform.
-
-v4:
- * See patch 1 changelog.
-
-v5:
- * Rebased on top of tj/for-7.4 branch.
- * New patch in series simplifies unbound sysfs attribute handling.
- * WQ_RTPRI reworked to fold RT marker into attr->nice.
-
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Chia-I Wu <olv@google.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Tejun Heo <tj@kernel.org>
-
-Tvrtko Ursulin (3):
-  workqueue: Simplify unbound sysfs attribute registration
-  workqueue: Add support for real-time workers
-  drm/panthor: Create per queue priority workqueues
-
- Documentation/core-api/workqueue.rst    |   5 +
- drivers/gpu/drm/panthor/panthor_sched.c |  37 ++++++-
- include/linux/workqueue.h               |   9 +-
- kernel/workqueue.c                      | 131 +++++++++++++++---------
- 4 files changed, 125 insertions(+), 57 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f..d0a45f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -232,7 +232,7 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
+ 		(*ptr)++;
+ 		/* get_unaligned_le32 avoids unaligned accesses from atombios
+ 		 * tables, noticed on a DEC Alpha. */
+-		if (idx < ctx->ps_size)
++		if (idx < ctx->ps_size / 4)
+ 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
+ 		else
+ 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
+@@ -510,7 +510,7 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
+ 		idx = U8(*ptr);
+ 		(*ptr)++;
+ 		DEBUG("PS[0x%02X]", idx);
+-		if (idx >= ctx->ps_size) {
++		if (idx >= ctx->ps_size / 4) {
+ 			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
+ 			return;
+ 		}
 -- 
-2.55.0
-
+2.43.0
