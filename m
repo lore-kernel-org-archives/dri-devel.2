@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5402FC9830D
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:46:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD995C98304
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B46F010E3E3;
-	Wed, 23 Sep 2026 22:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1927610F22B;
+	Wed, 23 Sep 2026 22:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZNyFEUjq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dr3LswCz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C9010E3E3
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:46:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2D510F222
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:47:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9820C4321F;
- Wed, 23 Sep 2026 22:46:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5C71F000FF;
- Wed, 23 Sep 2026 22:46:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4056B434B3;
+ Wed, 23 Sep 2026 22:47:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F199F1F000FF;
+ Wed, 23 Sep 2026 22:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790203617;
- bh=zV7Edqh6VJLJxXbpJs0WM2q3SWyu+jjHY7Utst0DXXA=;
+ s=k20260515; t=1790203643;
+ bh=IHObVpVN7GLkzsy2GB4r3uxwfrR4h6KX4J1xjRiVKkM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZNyFEUjqK03hbyuiVsl/layy3lNQmF5cCYlYDtglYd86vcHap2Z7xnqIoI8DKZdsw
- pe0ncPcKXqB/Psg+ga4OV7hfkkcOt5w7FZ2c3fN1mwj6j/Fz9tlGax/eMSoVg+lnxO
- 3Nn+Ba3XP3dPhBieC//EqUpPPt75PjOE0T5DxmZHw3FDRol+B7kBem7bwAPKdaG4lE
- DfU13h9YehiGZS3v0sDqYBVkdxZp4camSO31CA3ZXIhLY6EBbZNg6ur7WK+pJiKHZZ
- Jg5BB+tkpFgx+F9UUUdpM5mFPZc+6V/s0Lj7blF+2BwsTXrzUyburkLCBKoU08KUyA
- y2re62EjFWNbg==
+ b=dr3LswCz2+u4fZo2FIew6BbDCRWFnuQPrUH4S6J4EjMaUL79OMzD+xuxgtTH2mefx
+ RYSDnBeV889ceMd+1tpWBSdoW2YBjGlq7g2lp63seqz/AnBwuUdExCRtBTCcB2z6M4
+ USqGodeL5h0WeBgo1tDRUep0IAwnIIdoS5Q0SiSVYi7ny/5A7q+4PA8otmtFllR16h
+ RvxGVQs9B6WKfkPkruktkfHd4vBuj4Eae8urflSAsEQX1Mr8Gae8SU8+1S3YW7OY1F
+ O1YB5EMvpHcPItfFVnUwHvvc/vjy/CZUlhq6S06uANRVWlh8ls+d6X8HtzqWYs7Ao7
+ Qy1iMOizmFGJA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 29/38] dyndbg: control-parser: treat comma as a
- token separator
+Subject: Re: [PATCH v11 31/38] dyndbg: split multi-query strings with @
 To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-29-9b6c217fdf2f@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-31-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
- <20260923-dd-cmap-part2-clean-v11-29-9b6c217fdf2f@gmail.com>
+ <20260923-dd-cmap-part2-clean-v11-31-9b6c217fdf2f@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 22:46:56 +0000
-Message-Id: <20260923224657.3F5C71F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 22:47:22 +0000
+Message-Id: <20260923224722.F199F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +59,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dyndbg: UAPI break for unquoted commas in queries
+- [Medium] dyndbg: UAPI break for boot parameters containing unquoted @
 --
 
-commit 3647cd55c26b2f7588078b414e3120a9276258a8
+commit a948e5ac96c252adcbc1059b7607e6fa7aab2b9d
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg: control-parser: treat comma as a token separator
-
-This commit updates the dynamic debug control parser to treat commas as
-token separators alongside spaces and tabs. This is intended to allow users
-to avoid shell quoting issues by substituting spaces with commas.
+dyndbg: split multi-query strings with @
+   =20
+This commit adds '@' to the existing ';' and '\n' separators for dynamic de=
+bug
+queries. This provides a more shell-friendly delimiter, reducing the need f=
+or
+quoting and escaping.
 
 > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 8eef2e7387a98..6482fd28def46 100644
+> index 6482fd28def46..636a88994a774 100644
 > --- a/lib/dynamic_debug.c
 > +++ b/lib/dynamic_debug.c
+
 [ ... ]
-> @@ -336,8 +344,8 @@ static int ddebug_tokenize(char *buf, char *words[], =
-int maxwords)
->  	while (*buf) {
->  		char *end;
+
+> @@ -622,6 +622,30 @@ static int ddebug_exec_query(char *query_string, con=
+st char *modname)
+>  	return nfound;
+>  }
 > =20
-> -		/* Skip leading whitespace */
-> -		buf =3D skip_spaces(buf);
-> +		/* Skip leading whitespace and comma */
-> +		buf =3D skip_spaces_and_commas(buf);
+> +/*
+> + * Split multi-query string on delimiters (@, ;, \n), ignoring delimiters
+> + * that appear inside single or double quoted strings.
+> + */
+> +static char *ddebug_find_delimiter(char *str, const char *delims)
+> +{
+> +	bool in_quote =3D false;
+> +	char quote_char =3D 0;
+> +
+> +	for (; *str; str++) {
+> +		if (*str =3D=3D '"' || *str =3D=3D '\'') {
+> +			if (!in_quote) {
+> +				in_quote =3D true;
+> +				quote_char =3D *str;
+> +			} else if (*str =3D=3D quote_char) {
+> +				in_quote =3D false;
+> +			}
+> +		} else if (!in_quote && strchr(delims, *str)) {
 
-[Severity: High]
-Does this introduce a UAPI regression for existing unquoted queries that
-contain commas?=20
+[Severity: Medium]
+Does this cause a regression for boot parameters with an unquoted '@' symbo=
+l?
 
-For example, if a user currently submits a query like "format a,b +p" via
-the debugfs interface, the parser would previously see three tokens: "forma=
-t",
-"a,b", and "+p".
+When a user provides a kernel parameter like dyndbg=3D"format i2c@1000 +p",
+parse_args() strips the outer double-quotes before passing the unquoted
+string down.
 
-With commas treated as separators here and in the loop below, wouldn't this
-result in four disconnected tokens: "format", "a", "b", and "+p"?
+Once ddebug_exec_queries() passes the string to ddebug_find_delimiter(), it
+will prematurely split the string at the '@' because in_quote is false,
+producing invalid queries like 'format i2c' and '1000 +p', both of which
+fail to parse.
 
->  		if (!*buf)
->  			break;	/* oh, it was trailing whitespace */
->  		if (*buf =3D=3D '#')
-> @@ -353,7 +361,7 @@ static int ddebug_tokenize(char *buf, char *words[], =
-int maxwords)
->  				return -EINVAL;	/* unclosed quote */
->  			}
->  		} else {
-> -			for (end =3D buf; *end && !isspace(*end); end++)
-> +			for (end =3D buf; *end && !isspace(*end) && *end !=3D ','; end++)
->  				;
+Could this break existing boot parameters or modprobe configurations that
+rely on the '@' symbol in format strings (e.g., matching device tree nodes)?
 
-[Severity: High]
-Because the parser now explicitly stops at commas within an unquoted string,
-existing queries containing unquoted commas will be split.
-
-Since ddebug_parse_query() expects an even number of match-spec tokens
-(checking nwords % 2 !=3D 0), won't it fail and print "expecting pairs of
-match-spec <value>"?
-
-This would break automated scripts or user commands that pass unquoted
-commas in their match arguments. Is there a way to support commas as
-separators without breaking existing unquoted comma usage?
+> +			return str;
+> +		}
+> +	}
+> +	return NULL;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dd-cmap-pa=
-rt2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D29
+rt2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D31
