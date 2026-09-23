@@ -4,137 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06545C98302
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 06:39:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 296CCC98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 06:52:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07E1C10E7FC;
-	Wed, 23 Sep 2026 06:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E93310E7FF;
+	Wed, 23 Sep 2026 06:52:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1qb9cYVU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DEjC8Jjr";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nntbtdpB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t1YbdpLI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WG/P6Su8";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FCEE10E7FC;
- Wed, 23 Sep 2026 06:39:44 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 95D931FF96;
- Wed, 23 Sep 2026 06:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790145578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=u7bqTwSJmEvWNPTJ+CYWKcE6naWtiWULFOQAh79Rnms=;
- b=1qb9cYVUBh7M55OdALbTZEOdbQWXqPTgToPAboIeTu604V5f8nrIYPK2Z4bwNy5PMWE8Ck
- TOR/f7KQDIs1QZjq13gbT8RUPfd8qpFUOoumvtqdnMfJZqNo/4QeX+8RBnKjG9KE3tDCfx
- KFI7gdmklT9r3olowIQoyPtqz8YuyGU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790145578;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=u7bqTwSJmEvWNPTJ+CYWKcE6naWtiWULFOQAh79Rnms=;
- b=DEjC8JjrULsPoe5Ct8B7jAeEW3PQgSCy24cr+6LEfdUlLLU0LRUYit8jqDPv4SKg8f2i7K
- IUPDGOLRJaRe8uDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790145574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=u7bqTwSJmEvWNPTJ+CYWKcE6naWtiWULFOQAh79Rnms=;
- b=nntbtdpB1iUnkFoDECN75ToPyiTx9LRmctNvZ96qYeXMkZYIr/RxkSg29s7QT0HE/PovWC
- 6GWvnk0uiFB/mdM72H1lr7DMUh0Wtd/uY0+ip6bo/DhFoiHAPTTBwzZGBfpglYIO1XGh8P
- F/qf+eieqqOamgt1jhex0SLk9jibtpc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790145574;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=u7bqTwSJmEvWNPTJ+CYWKcE6naWtiWULFOQAh79Rnms=;
- b=t1YbdpLIB5B03wAN/kjLAQzdGojrfTO2EaTKE+WjOtaabDmODy5PIbOXjoAg3CqV1iByDr
- X9lNek0GClQk97CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF2C2139E9;
- Wed, 23 Sep 2026 06:39:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id jDcQMyV0s2pKLwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 23 Sep 2026 06:39:33 +0000
-Message-ID: <8727cba2-aa4d-4480-9b76-a9dedc57d8ee@suse.de>
-Date: Wed, 23 Sep 2026 08:39:33 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65DDA10E7FF;
+ Wed, 23 Sep 2026 06:52:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790146334; x=1821682334;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=hTMiXPl4WbKEJ1YMTZWqxrXiBFu1K6Gg2Aq+TrT3yiQ=;
+ b=WG/P6Su8Q2J1G6j2p/pvJGk1bi8eVgHE4LNXbCnUfOLZvXqqLeMId7eq
+ wNuBo4qcWX9QzdYUbDupXsmb33aIYVuY3/554NRcXbJOLomJYFTICKM67
+ Eg2neqtbaP7jyWBZIHya5dwWs23/HTv+m0o4XvWetnuZ3fkvJH9E1vTQ/
+ Xxb2wonh3EpiQrWHrucwa77dI5KVxxOIyMAmHhqV6f4ERcbZIomrpAgT+
+ IvRq+gGW5WQE9tsLaMI6gnYmMIVHf5q4aFkJImMHQfZkbhjOQ8Si8U71T
+ RxKeD8zU9TY96YpHWMF4m8xflBmZIR/RAk6OHr4KWvXsnsWfbpQug5tUA A==;
+X-CSE-ConnectionGUID: OO0lAb5cS+OeOeaFV2a/8Q==
+X-CSE-MsgGUID: cU/T8RjWRAKSz++JCDgeUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102167908"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="102167908"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 23:52:13 -0700
+X-CSE-ConnectionGUID: K0PZ+RDiTLmTX4t+ilRhUQ==
+X-CSE-MsgGUID: 69MZ1TYBTKOhG5aDx4RwEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; d="scan'208";a="273654392"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.213])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2026 23:52:10 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
- <32f96551-358b-4874-8fd1-a685b02853e1@amd.com> <arJwOSq6-oSywTK6@houat>
- <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de> <arJ0huW356NjqpGR@houat>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <arJ0huW356NjqpGR@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; TAGGED_RCPT(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[14];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[amd.com,redhat.com,lists.freedesktop.org,ffwll.ch,linux.intel.com,gmail.com,kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, amd.com:email, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <PH8PR11MB8040A8F215B997982530CE44F4832@PH8PR11MB8040.namprd11.prod.outlook.com>
+References: <20260630223946.2107382-1-jia.yao@intel.com>
+ <20260630225349.984AB1F000E9@smtp.kernel.org>
+ <178290749714.224587.15234445443946207851@jlahtine-mobl>
+ <178292444166.273574.16738251742448073960@jlahtine-mobl>
+ <PH8PR11MB8040EFAAE8210F2C6B53AC1BF4842@PH8PR11MB8040.namprd11.prod.outlook.com>
+ <179005959984.27165.4749331452130832177@jlahtine-mobl>
+ <PH8PR11MB8040A8F215B997982530CE44F4832@PH8PR11MB8040.namprd11.prod.outlook.com>
+Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
+ Wa_22013059131
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Roper,
+ Matthew D" <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+To: "Yao, Jia" <jia.yao@intel.com>,
+ "sashiko-bot@kernel.org" <sashiko-bot@kernel.org>,
+ "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+Date: Wed, 23 Sep 2026 09:52:07 +0300
+Message-ID: <179014632773.19856.4107893493544612438@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,86 +80,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Quoting Yao, Jia (2026-09-22 17:34:08)
+> Hi @Joonas Lahtinen,
+>=20
+> For RCS -> UNSET
+> For CCS
+> 1. Old compute runtime -> UNSET
+> 2. New compute runtime -> USER
+>=20
+> If we take there's only one compute runtime version, and priority USER > =
+UNSET?  Where's the conflict come from?
 
-Am 22.09.26 um 14:35 schrieb Maxime Ripard:
-> On Tue, Sep 22, 2026 at 02:23:17PM +0200, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 22.09.26 um 14:16 schrieb Maxime Ripard:
->>> On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
->>>> On 9/22/26 03:33, Javier Martinez Canillas wrote:
->>>>> Hello Mario,
->>>>>
->>>>> On Tue, Sep 8, 2026 at 6:41 AM Mario Limonciello
->>>>> <mario.limonciello@amd.com> wrote:
->>>>>> At Display Next Hackfest 2026 we reviewed progress moving brightness
->>>>>> control into the DRM connector properties.
->>>>>>
->>>>>> There is a range LUMINANCE property that will default to 0->0.
->>>>>> Once a driver attaches a backlight it will be updated to 1->max.
->>>>>> If the panel supports the minimum backlight turning off the display
->>>>>> the range can later be updated to 0->max instead of 1->max.
->>>>>>
->>>>>> The legacy sysfs interface is synchronized with the DRM connector.
->>>>>> When a compositor using this feature is loaded, sysfs writes are disabled
->>>>>> to prevent legacy tools from going out of sync with the compositor.
->>>>>>
->>>>> I don't think I agree with the direction of this series. The main
->>>>> issue for me is that if the sysfs interface is disabled, then I don't
->>>>> understand the value of doing all the hops between the DRM and
->>>>> backlight subsystems...
->>>> The reason for all the hops is that users can switch between compositors
->>>> that support this and don't.  If you're in a compositor that supports it
->>>> that compositor will want to affirm it's in control.  If you're in a
->>>> compositor without support then you should still have a way to change
->>>> things, and that's what the sysfs interface exists for.
->>> Couldn't we make a sysfs write trigger an atomic commit then? That way,
->>> it would always go through the atomic commit path, no matter whether
->>> you're on a "legacy" compositor or not.
->>>
->>> It would also somewhat untangle the uapi from the backlight subsystem,
->>> because it's only really relevant for panels. For all the other use
->>> cases, you might want to control the brightness but you have no matching
->>> backlight device.
->> I suggested to treat these backlight changes like display-hotplug events.
->> When it happens, we'd send a uevent to user space, so it can update its
->> internal state.  Such an event could then come from any source besides
->> backlight's sysfs.   Compositors could also implement policies that are
->> currently implicit in this series, such as brightness of 0 means "display
->> off".  This is likely something a compositor should track.
->>
->> Would that work?
-> It probably would, but it would create a precedent I'm not really
-> familiar with. Hotplug events are kind of separate because it really is
-> a hardware event most of the time: you get an interrupt, and report it
-> to userspace. And it's largely outside of the properties space (except
-> maybe for things like edid).
->
-> If we start having the argument that a property changing must trigger a
-> uevent, then it means that we can expect *any* property to do so, and
-> "the compositor needs to be in control of it" can apply to many, like
-> color formats, positions, tiling, etc.
+See below.
 
-I'd explicitly not treat this like a change to the DRM property. More 
-like as if the user pressed a hardware button. The property update only 
-comes later from what ever the compositor does with the event.
+> But if we take there's more than one compute runtime version, and their p=
+riority is equal,  UNSET can cover USER,  USER can cover UNSET,  even with =
+two clients they could cover each other.
 
-Best regards
-Thomas
+I didn't follow this part. How does the priority come into play?
 
->
-> It would be a much saner design to put it behind DRM_MASTER, and
-> deprecate the sysfs interface entirely.
->
-> Maxime
+We have to keep switching the mode as the DRM clients come and go.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+> We should take it easy.
+> Once we reached USER, set by new compute, we should latch it, for the WA =
+has been implemented by USER.
 
+That won't work. If you are running two different containers, you may
+have different compute runtime versions. Also, Mesa can be submitting
+to CCS too for async compute, AFAIK.
 
+To properly cover things, we should make it into per DRM-client setting
+and switch the mode accordingly when different DRM client is run.
+
+And for the given SKU with only one CCS, as explained earlier, it should
+be already guaranteed that two different DRM clients are not active on
+the hardware at the same time due to the address space mathing
+requirement between RCS and CCS.
+
+If this needs to be extended to multi CCS SKUs, then it'd be a bigger
+implementation effort.
+
+Regards, Joonas
+
+>=20
+> Thanks,
+> Jia=20
+>=20
+> > -----Original Message-----
+> > From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Sent: Monday, September 21, 2026 11:47 PM
+> > To: Yao, Jia <jia.yao@intel.com>; sashiko-bot@kernel.org; sashiko-
+> > reviews@lists.linux.dev
+> > Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; R=
+oper,
+> > Matthew D <matthew.d.roper@intel.com>; Tvrtko Ursulin
+> > <tursulin@ursulin.net>
+> > Subject: RE: [PATCH v9] drm/i915/dg2: Add per-context control for
+> > Wa_22013059131
+> >=20
+> > Quoting Yao, Jia (2026-09-21 20:33:03)
+> > > Hi @Lahtinen, Joonas,
+> > >
+> > > The key is LSC_CHICKEN_BIT_0 is a global register.
+> > >
+> > > Even we use per-client,  we should consider the following cases:
+> > >
+> > > 1. Should conflicting configurations within a client be rejected?
+> > > I recommend the first setting should be latched.
+> >=20
+> > From uAPI perspective it would be simpler to set this at the DRM client=
+ level at
+> > once. However we don't seem to have such uAPI in active use currently (=
+all
+> > drm_noop) so you'd have to compare the complexity between indirectly
+> > setting it at DRM client level by first created context or adding such =
+an uAPI to
+> > set it explicitly per client.
+> >=20
+> > > 2. Should conflicting configurations across different clients be reje=
+cted?
+> > > I think the latter setting can cover previous one.
+> >=20
+> > DRM clients need to be indepenent from the driver perspective, we can't=
+ do
+> > that.
+> >=20
+> > The whole point of making it per DRM client is that given the impacted =
+SKU
+> > only has 1 CCS engine. We have the address space matching requirement
+> > between CCS and RCS, so when both CCS and RCS are running, we know they
+> > belong to the same DRM client and thus they will not conflict with the =
+WA
+> > mode. And if only one of them is running, there can be no conflict eith=
+er as it's
+> > just one context.
+> >=20
+> > > Even like this, still can't cover all the race condition.
+> >=20
+> > Which race conditions do you think would remain? We definitely have to
+> > eliminate any race conditions to land this.
+> >=20
+> > Regards, Joonas
