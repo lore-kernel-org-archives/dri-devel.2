@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B499C9830D
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F39C9830D
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 22:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07DA910F22E;
-	Wed, 23 Sep 2026 22:53:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B7E110F230;
+	Wed, 23 Sep 2026 22:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hEGNm4xC";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="scGfOW6F";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B03610F22E
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:53:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6446910F230
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:53:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BA2BB41ABC;
- Wed, 23 Sep 2026 22:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FA81F000FF;
- Wed, 23 Sep 2026 22:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790203998;
- bh=Rc8/RMkUyLUQbirB8h84mJPdqZ4rXMWzsxoKZyAFhTk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hEGNm4xCBLc+bwtcqJk6NVT3SFJ1vrzTsBcXfjBmdv0hhC5YYqKbobIJOXL9J66tP
- 3lhEZIn3DdqS81Bpvn0Q5onqcVTCb/51fSsQrlKPnjgUCcwyc7qJ+1BO76+VSWMqio
- jjp5O76W86gVkCV7QkJHMPfiNiHcpUg3BUeGDA1G2FhAD8C/kgtgLxMdFg2rnLjXv8
- 7oe9N6E6Flsj5CEOlCvgR6f7xtgFnCsmcYY9fgaz9xu2kDQOkze4hMNaBI3cfpa9JX
- dZnWLO3mUuRW/+Wr2a+1L7SMTuUAR9vX1tSk6WKbgcP8yUiPOZ5egVH+B/te/pah7p
- 7z93bmB5NjIrg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 32/38] dyndbg: resolve "protection" of class'd pr_debug
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-32-9b6c217fdf2f@gmail.com>
+ by sea.source.kernel.org (Postfix) with ESMTP id 35AE5417BC;
+ Wed, 23 Sep 2026 22:53:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D461F000FF;
+ Wed, 23 Sep 2026 22:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1790204021;
+ bh=ep7wns9wPyTqnmGHhjmbGEV+muuH/iLwEmgevdLFK+Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=scGfOW6FNrNiqxjD54xQajwaC+4WYqC6RG/88f1T+E4tqhorzFVBYXL1q9XvKZq/L
+ EBTL5TAFO+L4muscbIneqi/sYK9xm73Aa56lde4wfrllpbydBzL/wWnM9xNyKrubd9
+ sbmpz652ub/EEGRm8Lp6Vjcgd5QxMI1CtuS4ssq4=
+Date: Wed, 23 Sep 2026 15:53:39 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Arnd Bergmann
+ <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
+ <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Jonathan
+ Corbet <corbet@net.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
+ <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linux-pm@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>,
+ Philipp Hahn <phahn-oss@avm.de>, kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v11 00/38] dyndbg: Fix classmaps API for subsystems,
+ query extensions, selftests
+Message-Id: <20260923155339.bdc677e8e688611bcf190ad9@linux-foundation.org>
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
- <20260923-dd-cmap-part2-clean-v11-32-9b6c217fdf2f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 22:53:17 +0000
-Message-Id: <20260923225318.68FA81F000FF@smtp.kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,182 +71,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dyndbg: race during module load bypasses ABI protection permanen=
-tly
---
+On Wed, 23 Sep 2026 16:34:24 -0600 Jim Cromie <jim.cromie@gmail.com> wrote:
 
-commit c8a052c030fff7b63aa2d9e4c2dc3aa455948704
-Author: Jim Cromie <jim.cromie@gmail.com>
+> The drm subsystem has *lots* of debug statements, in 11 categories:
+> 
+>  $> git grep '\w*_dbg' drivers/gpu/drm/ | wc
+>    5663   30159  542864
 
-dyndbg: resolve "protection" of class'd pr_debug
+Methinks this regexp was overly promiscuous, but point taken.
 
-This patch implements an ABI protection mechanism for dynamically debugged
-classes by binding a controlling sysfs parameter to classmaps. If a module
-parameter is configured, it protects class'd callsites from being
-accidentally modified by un-classed wildcard queries.
+>  $> git grep 'DRM_DEBUG\w*' drivers/gpu/drm/ | wc
+>    2206   12834  202332
+> 
+> All of these are bit-tests on __drm_debug, exposed to users as
+> /sys/module/drm/parameters/debug. Many of these are done often;
+> vblank is done ~100/sec for some displays. Over the uptime of many
+> boxes, this is a lot of cpu cycles on bits that are almost always off.
 
-> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> index 636a88994a774..d300d44c1a82e 100644
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
+A __test_bit (or |) every 10ms sounds quite negligible?
 
-[ ... ]
+Especially if __drm_debug is __read_mostly.  Which it isn't, afaict. 
+Um, low-hanging fruit?
 
-> @@ -252,7 +294,28 @@ static bool ddebug_match_desc(const struct ddebug_qu=
-ery *query,
->  	    dp->lineno > query->last_lineno)
->  		return false;
-> =20
-> -	return true;
-> +	/*
-> +	 * above are all satisfied, so we can make final decisions:
-> +	 * 1- class FOO or implied class __DEFAULT__
-> +	 * 2- site.is_classed or not
-> +	 */
-> +	if (query->class_string) {
-> +		/* class FOO given, exact match required */
-> +		return (dp->class_id =3D=3D selected_class);
-> +	}
-> +	/* query class __DEFAULT__ by omission. */
-> +	if (dp->class_id =3D=3D _DPRINTK_CLASS_DFLT) {
-> +		/* un-classed site */
-> +		return true;
-> +	}
-> +	/* site is class'd */
-> +	site_map =3D ddebug_find_map_by_class_id(di, dp->class_id);
-> +	if (!site_map) {
-> +		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", d=
-p->class_id, di->mod_name);
-> +		return false;
-> +	}
-> +	/* module(-param) decides protection */
-> +	return !ddebug_class_wants_protection(site_map);
->  }
+> Dynamic-debug excels at replacing such tests with NOOPs (via static
+> keys). Classmaps was devised to bring that 0-off-cost to drm's
+> categories.
+> 
+> Classmaps-v1 went into the kernel in Sept 2022, in 2 chunks:
+>   b7b4eebdba7b..6ea3bf466ac6    # core dyndbg changes
+>   0406faf25fb1..ee7d633f2dfb    # drm adoption
+> 
+> Sadly DRM-CI found a regression during init with drm.debug=<initval>;
+> the static-keys underneath the drm-dbgs in drm.ko got enabled, but
+> those in drivers & helpers did not.
+> 
+> So in Feb 2023, it got pulled:
+> commit bb2ff6c27bc9 ("drm: Disable dynamic debug as broken")
+> 
+> Root Problem:
+> 
+> DECLARE_DYNDBG_CLASSMAP defined the classmap, but its repeated use in
+> both core and drivers violated a K&R rule "define once, refer
+> afterwards". This flaw resulted in a regression; with drm.debug=0xFF
+> boot arg, drm-core got enabled, but drivers/helpers did not.
+> 
+> This patchset replaces DECLARE_DYNDBG_CLASSMAP with:
+> - DYNAMIC_DEBUG_CLASSMAP_DEFINE (invoked once in the exporting module)
+> - DYNAMIC_DEBUG_CLASSMAP_USE (invoked repeatedly in drivers & helpers)
+> 
+> _DEFINE exports the classmap it creates (in drm.ko), and other modules
+> _USE the classmap. The _USE adds a record referencing the _DEFINEd (&
+> exported) classmap in a 2nd __dyndbg_class_users section.
+> 
+> At modprobe, dyndbg scans the new section after __dyndbg_class_maps,
+> follows the linkage to the _DEFINEr module, finds the (optional)
+> kernel-param controlling the classmap, examines its drm.debug=<initval>,
+> and applies it to the module being initialized.
+> 
+> To recapitulate the multi-module problem wo DRM involvement, we add:
+> 
+> - tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh:
+>   Alters pr_debugs in builtins and test modules,
+>   checks results against checksums of expected results
+> 
+> - lib/test_dynamic_debug.c & test_dynamic_debug_submod.c:
+>   Builds parent & _submod modules with _DEFINE and _USE inside #if/#else
+>   blocks, reproducing the 2-module scenario under selftests.
 
-[Severity: Medium]
-Does this code expose a race condition when a module is loading?
+So what I'm understanding is that this series presently has no effect
+upon DRM?
 
-Looking at ddebug_add_module(), the module is added to ddebug_tables and the
-ddebug_lock is dropped before map->controlling_param is initialized:
+What subsystems *does* it affect?
 
-lib/dynamic_debug.c:ddebug_add_module() {
-	...
-	mutex_lock(&ddebug_lock);
-	list_add_tail(&dt->link, &ddebug_tables);
-	mutex_unlock(&ddebug_lock);
-
-	if (dt->info.maps.len)
-		ddebug_apply_class_maps(&dt->info);
-	...
-}
-
-If a concurrent wildcard query (like echo -p > /proc/dynamic_debug/control)
-is processed while the lock is dropped but before ddebug_apply_class_maps()
-finishes binding the parameter, site_map->controlling_param will be NULL.
-
-This causes ddebug_class_wants_protection() to return false, bypassing the
-protection and erroneously enabling the callsites.
-
-[ ... ]
-
-> @@ -772,11 +833,14 @@ static int param_set_dyndbg_module_classes(const ch=
-ar *instr,
->  					   const struct kernel_param *kp,
->  					   const char *mod_name)
->  {
-> -	const struct ddebug_class_param *dcp =3D kp->arg;
-> -	const struct ddebug_class_map *map =3D dcp->map;
-> +	struct ddebug_class_param *dcp =3D kp->arg;
-> +	struct ddebug_class_map *map =3D dcp->map;
->  	u32 inrep, new_bits, old_bits, old_val;
->  	int rc, totct =3D 0;
-> =20
-> +	if (map && !map->controlling_param)
-> +		map->controlling_param =3D dcp;
-
-[Severity: Medium]
-Is it safe to assign map->controlling_param here without holding
-ddebug_lock or using WRITE_ONCE()?
-
-Since this shared state is accessed by concurrent queries, could this
-cause a data race?
-
-[ ... ]
-
-> @@ -1332,25 +1395,40 @@ static void ddebug_sync_classbits(const struct ke=
-rnel_param *kp, const char *mod
->  	}
->  }
-> =20
-> -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> -				      const struct ddebug_class_map *map,
-> -				      const char *mod_name)
-> +static struct ddebug_class_param *
-> +ddebug_get_classmap_kparam(const struct kernel_param *kp,
-> +			   const struct ddebug_class_map *map)
-> +{
-> +	struct ddebug_class_param *dcp;
-> +
-> +	if (kp->ops !=3D &param_ops_dyndbg_classes)
-> +		return NULL;
-> +
-> +	dcp =3D (struct ddebug_class_param *)kp->arg;
-> +	return (map =3D=3D dcp->map)
-> +		? dcp : (struct ddebug_class_param *)NULL;
-> +}
-> +
-> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> +				      struct ddebug_class_map *map,
-> +				      const char *mod_name)
->  {
-> +	struct ddebug_class_param *dcp =3D ddebug_get_classmap_kparam(kp, map);
-> =20
->  	if (dcp && dcp->map =3D=3D map) {
-> +		/*
-> +		 * Bind controlling_param to activate ABI protection in
-> +		 * ddebug_match_desc(), shielding callsites from non-class
-> +		 * wildcard (>control) queries.
-> +		 */
-> +		map->controlling_param =3D dcp;
->  		v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->bits);
->  		vpr_cm_info(map, " %s maps ", mod_name);
->  		ddebug_sync_classbits(kp, mod_name);
->  	}
->  }
-
-[Severity: Medium]
-Can the delayed assignment of map->controlling_param combined with
-ddebug_sync_classbits() result in permanent desynchronization?
-
-During the race window in ddebug_add_module() mentioned above, callsites
-can be erroneously enabled by a concurrent query. Once the module loading
-thread resumes, it binds map->controlling_param here and calls
-ddebug_sync_classbits().
-
-However, ddebug_sync_classbits() passes 0 for old_bits:
-
-lib/dynamic_debug.c:ddebug_sync_classbits() {
-	...
-	case DD_CLASS_TYPE_DISJOINT_BITS:
-		val =3D READ_ONCE(*dcp->bits);
-		new_bits =3D val;
-		v2pr_info("  %s: classbits: 0x%x\n", KP_NAME(kp), new_bits);
-		ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
-	...
-}
-
-Because old_bits is 0, the function skips resetting any class bits that are
-supposed to be off (since it sees new_bits (0) =3D=3D old_bits (0)). Doesn'=
-t this
-prevent the synchronizer from noticing and clearing the erroneously enabled
-callsites?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dd-cmap-pa=
-rt2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D32
+Sashiko had quite a bit to say.  It hasn't quite completed at present.
+	https://sashiko.dev/#/patchset/20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com
