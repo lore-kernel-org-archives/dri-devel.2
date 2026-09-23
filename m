@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8647C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE42C98302
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 14:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5250310F0E6;
-	Wed, 23 Sep 2026 14:35:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D271910F0A5;
+	Wed, 23 Sep 2026 14:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="A95S9Ufq";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="EZyZwhKA";
 	dkim-atps=neutral
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
- [209.85.219.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02DDD10F0E6
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:35:41 +0000 (UTC)
-Received: by mail-qv1-f100.google.com with SMTP id
- 6a1803df08f44-90ceab90152so1679966d6.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:35:40 -0700 (PDT)
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
+ [209.85.214.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 998CE10F0A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 14:38:16 +0000 (UTC)
+Received: by mail-pl1-f226.google.com with SMTP id
+ d9443c01a7336-2dd1dcdcf95so4912205ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790174140; x=1790778940;
+ d=1e100.net; s=20260707; t=1790174296; x=1790779096;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=KlrkpzuHSc99fgV1eSVwvPnClN91mRZKtiTqfmoYZrI=;
- b=eXTYypEy3XNnWMOJFF5OA7Fw1VUre0y7c91ySWdrySWKWLaArWIZmsuQ9dk2fOpOYE
- kcL5snXzk4v2JMTOahTXuZjzrmjXaluDShtPmzs3qoyjJNqAJAbxWuTJfoBp8i1+MsBI
- AaY+yM8Z48L1op2xLMpytniXtkZ3IglZZiKm9yFVKOHWYClLwyUqM38Q/hFQOy8AHFaw
- 4HSwhzgkGbZQO2t6GExVuavciVnycrZRlaf9bYzDFKMe+/zEhjRpGo+G73rcVQb+mIqL
- by5x9RYs9+VT1tIC0trDnqvtLewaKA0sSB+WGVJrVUoeeCxVDhANhncGuezEIxB0spM0
- wDHw==
+ bh=1RXbrl4Z8UHpt9z/922SljejP35DNhP0sj8yai1raKo=;
+ b=Msmnq93eB8j+gU/IByvTbOH84BhWdjYbUBFZrwg8bh+ZZByKafoGG8Y2yjGReticqc
+ ipuNbpXqT4GxYp+eAb0NLjBTp1brVlxSeAPZ4pv7SZ95UfebFB0mmFsODokJzV5O9N2s
+ lVfzK/emfbP/e9OyCRFfTVFr0M9Jl+uiKREy9cncEzgoYDY99upQfUBtrViAetPaiIsU
+ yAofE2FRLLmblP30PGA4UQAAGnhsSQlM7QBOfgldRH+itOmBpEP/fzTUiQzSad4ZzOz6
+ nxi4v//tbDdKRxB+pA3lF6OjFtmpDRGsCzMZc0+b3xJbLT6jsf7BqLPVQhGuaYybSI8M
+ lEnw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxt8QzORqLUpoHx2ugrZ+NeK46r6kIduG2zKas1qqPKU3o0n0K1+zghLQr+YdTfHEPNh86x40yjI98=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++n13gHN20/IyyPqpZc0+zjIWEVNdkHf0jbUzUQpeSCdrCKBTG/2
- dwZG4p5PPd6/a7s/60NFEzJOm6LTZR8099U8vV5UMKSqGtyR7R1QUNhQTbqX099JisumKnJXgUt
- 9u26kFiYJeo9ZYrUYZzVeugwvqWi2kcYG665oniCBxVh9fIAxl0EhQNwNxYHV8kq2s+NCDlr+50
- GfsB3h/w2tZl5SK9kt2ifuZ6wB/ZPt25R92JFeccshHqx4wU2iTIspxOyte5bIg5WfuU7FirYM0
- 7CgD+TPYCzxthrLib11
-X-Gm-Gg: AYBFou2ZnFXQ9J2HyHoh8YTXKtEWgZyLfewhCQitFzY70exBUboudZN6I3on2Zqesv4
- r+Wlstsx8NatiRscu4Jxy1+/QWtfSLIQcLKx8+61YrNJWLqgz1SW+/1enDkt+IhHMm5UIlkSVIz
- E4l615d3BNFzPT8gb8ADf08XQEEaEQA2Wxkdl/npebfAdhIJ3biJYV5bTgIH3TvGakWAQXYbDnr
- b4An60a9e47pMztx6slRu5RWeKRg7DT18BA0fXvSAx1apjZiCjXPquYL4zIu1rNjiIZwbw6tOWA
- a9Wl6O4PA1MWqbJl8pgUDbaR0BTI6kvQzC5FK1JP0Ks+/VBt4rjsa8ElaypusGBPgf9CzoTps5F
- L5azH2Rv1mOkHhdWdHxzWzvWBjeeaSmoY61IA0uzznYliaBVbQh1FuGlFDh/dJpxwuZ3Z+Nphw/
- uaH6GdL4hAc2CQq6+iQGlm+FKTdpWUtpsvJOA=
-X-Received: by 2002:a05:620a:1b9b:b0:93a:1b82:495a with SMTP id
- af79cd13be357-93c251c9ef9mr369536785a.37.1790174139570; 
- Wed, 23 Sep 2026 07:35:39 -0700 (PDT)
+ AKwUvByL1dv3D7Mj9Mr/lYsf7Yf+Ro5Ox/l5AcDiCuxDNEYrG+gI2vbJIArmHzxVEQ1//hPmUuBhZhB6YcY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lYyZM93MYotp7MZ/okukX9U+sWjVL5PKgtebLyTpj0P6Adq0Ed
+ hX/y9kiAbczg3StGCWIjNC56jAL4IgX5kddo043LnlOEjE931yqq6uya1p3PL0XJKYp0FShlNRm
+ tVRrL5StPf9/OxHBdCMI3KZqLqVKUDg5+t89sdTl0OXiRbMWrrUcHMuATS/0nAbbgG3Gwa5B2pJ
+ gib3VI3V5paLmsb6CcenEuNDKOf/mvRtgtZkSJRVON9Dp2byKJuR1dAy+gd/4sC7olXBNksRVhd
+ RBRntZi5g3nKq3Rdt/+
+X-Gm-Gg: AYBFou3INzazehCqOqeviOYVBz1TAljy4cwtcLv7XNsnvlett/gQGZCYQFIOgU6plT9
+ qKyK19TH5U/F1tH2G0s5p1Yj1EnvwmNRc3R39bXjAfPXYLr1HKwib2on+p2YY6Q+r4RIggEhD2X
+ DFBRRA+HnseSNIqZQojcGIbgg0b854L2P2ZyWH8v6b+mEdiIlmIbZndU+v05JbxJWnoXB3YSvJW
+ R8c7KPNgWHz0Sia/nKffFZ6WJR08rq9KrhSkvE4tI4FoetslFpbu+HO41oby48g6mIYrlM8m6OV
+ Qm78UgfBb6WkPxfXM2jMp6Dp9A8cBwwXWnqOKDSKdvKq43E/a6/rAL0bpvE+v2PK9tZvmN9tyQO
+ iZnDjETBWxjqGqhU9QF6IdO6qSraTO/rH6/es3TQZpWEFHfumH7My5F9KZJj37vsC1Ho+rLsn3b
+ As+O6BVe0uVxzIaHkU8b3W8c3N/lMFzdFL
+X-Received: by 2002:a17:903:22cb:b0:2df:34c0:72fc with SMTP id
+ d9443c01a7336-2df60ba0de5mr37325995ad.33.1790174295954; 
+ Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+ (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
  by smtp-relay.gmail.com with ESMTPS id
- af79cd13be357-93c245f978esm74104185a.0.2026.09.23.07.35.38
+ d9443c01a7336-2df6a5e59ecsm1354435ad.33.2026.09.23.07.38.15
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 23 Sep 2026 07:35:39 -0700 (PDT)
+ Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-32850005b6bso1195988eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:35:38 -0700 (PDT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-3282d5302ffso1072158eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1790174138; x=1790778938;
+ d=broadcom.com; s=google; t=1790174294; x=1790779094;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=KlrkpzuHSc99fgV1eSVwvPnClN91mRZKtiTqfmoYZrI=;
- b=A95S9Ufqdyq0FluKN4toUao3aYSXQmbo/HGtC0XVCEmfpb540QO/M7mvSqnGqVanh5
- N7ObLQmes9F3nL2yix558W8h2SiDQlKNjWvnVayU94YBzsbQQfRvAi5gaSOAOK9ZTiej
- fMZrwaqQIM9BcXLNcWmAVIFdonXsSPK1KwVFQ=
+ :content-type; bh=1RXbrl4Z8UHpt9z/922SljejP35DNhP0sj8yai1raKo=;
+ b=EZyZwhKARWB1A0XiVnpakm6vxz7JTMGHNkiFTCbL4qlCgkNq7vJjJTlNC7DlKkJYo6
+ BKUG2BsEsQTeS6J900HmHy1amHdw+ksQQRmZI25ft1h/Y8IJWWp0/OAv5ma4U+t21WPt
+ pOfMbLz/WIlDI8IutNGX/k5yywXEXCfzR+2P4=
 X-Forwarded-Encrypted: i=1;
- AKwUvByIexfsbXkAaHWTqphRwZwiZZ3pZgK0ChUoAWHMqlrbuWkvc8mhZPmIdjx8ZwkBUxBFDMljPHzaBtA=@lists.freedesktop.org
-X-Received: by 2002:a05:7300:7949:b0:328:7033:9b8c with SMTP id
- 5a478bee46e88-33e8bc73e7cmr2815620eec.6.1790174137574; 
- Wed, 23 Sep 2026 07:35:37 -0700 (PDT)
-X-Received: by 2002:a05:7300:7949:b0:328:7033:9b8c with SMTP id
- 5a478bee46e88-33e8bc73e7cmr2815595eec.6.1790174136915; Wed, 23 Sep 2026
- 07:35:36 -0700 (PDT)
+ AKwUvBynlMafNdlmgUhD/pgmqWJnAVg2MvKmzrKh5oA1RX+LSlkrvJLoxVCdN6j7Nk2Uh9Ovj28xPjlSgq8=@lists.freedesktop.org
+X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
+ 5a478bee46e88-33e5c8903a9mr2696485eec.7.1790174294089; 
+ Wed, 23 Sep 2026 07:38:14 -0700 (PDT)
+X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
+ 5a478bee46e88-33e5c8903a9mr2696422eec.7.1790174292822; Wed, 23 Sep 2026
+ 07:38:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260809132514.421679-1-qwe.aldo@gmail.com>
- <CAP48HfvqpeMhxJZwzcjXo9akVvV5WU6nN4xVuNaAvX07q2OBEQ@mail.gmail.com>
-In-Reply-To: <CAP48HfvqpeMhxJZwzcjXo9akVvV5WU6nN4xVuNaAvX07q2OBEQ@mail.gmail.com>
+References: <20260923122601.438892-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923122601.438892-1-qwe.aldo@gmail.com>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 23 Sep 2026 10:35:20 -0400
-X-Gm-Features: AclHuK8XCgHKVmYS7QbiG6C9CpOXmkEmvj5URg7eLb8I_-xOpBKy9sAIb_NR_J0
-Message-ID: <CABQX2QPxRSLS8xUZyeV4RCLJmvBZRFsJRLgBpL07hTPJ3Hn+PA@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: reject SURFACE_DMA commands smaller than body
- + suffix
-To: Aldo Ariel <qwe.aldo@gmail.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 10:37:54 -0400
+X-Gm-Features: AclHuK9I1sPWruKdTZ2g86ZtrDjy2iD85ODd7q3CWFNwDVQGdDpeOH1SDBnweS0
+Message-ID: <CABQX2QMUUf1ETuLmvrzQ9_rsX4+KG32YAQJ-9hV3uakAyPiYrg@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
+ PRIME core
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000954717065c2765b2"
+ micalg=sha-256; boundary="000000000000eab773065c276e85"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,25 +108,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000954717065c2765b2
+--000000000000eab773065c276e85
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 8:07=E2=80=AFAM Aldo Ariel <qwe.aldo@gmail.com> wro=
-te:
+On Wed, Sep 23, 2026 at 8:26=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail=
+.com> wrote:
 >
-> Hi Zack,
+> vmw_gem_object_get_sg_table() returns vmw_tt->vsgt.sgt when the buffer
+> object has already been DMA mapped.  vmw_ttm_map_dma() sets that field
+> to &vmw_tt->sgt, which is a member embedded inside the struct
+> vmw_ttm_tt allocation and not a table of its own.
 >
-> Gentle ping on this one -- vmw_cmd_dma() still dereferences the suffix
-> without checking that header->size is large enough to contain it.
+> The core owns whatever .get_sg_table returns.  drm_gem_map_dma_buf()
+> takes the table and drm_gem_unmap_dma_buf() destroys it in full:
+>
+>         dma_unmap_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC);
+>         sg_free_table(sgt);
+>         kfree(sgt);
+>
+> Both are ops of drm_gem_prime_dmabuf_ops, so the core ends up calling
+> kfree() on &vmw_tt->sgt, which is not the start of an allocation.  The
+> preceding sg_free_table() also destroys a scatterlist that vmwgfx still
+> considers its own and frees again from vmw_ttm_unmap_dma().
+>
+> drm_gem_unmap_dma_buf() runs from dma_buf_detach(), including the
+> importer's error path, so a failed import is enough to reach it:
+> exporting a bound buffer with DRM_IOCTL_PRIME_HANDLE_TO_FD and
+> importing it on a second DRM device with DRM_IOCTL_PRIME_FD_TO_HANDLE
+> is sufficient.  Both ioctls are DRM_RENDER_ALLOW.
+>
+> Observed on 6.12.101 with KASAN, as uid 65534:
+>
+>   BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0xb3/0xf0
+>   Free of addr ffff888008290450 by task poc_mm04_sgtabl/321
+>   CPU: 1 UID: 65534 PID: 321 Comm: poc_mm04_sgtabl Not tainted 6.12.101 #=
+4
+>    kasan_report_invalid_free+0x94/0xc0
+>    check_slab_allocation+0x116/0x120
+>    kfree+0x103/0x360
+>    drm_gem_unmap_dma_buf+0xb3/0xf0
+>    dma_buf_detach+0x165/0x510
+>    drm_gem_prime_import_dev+0x33e/0x430
+>   which belongs to the cache kmalloc-192 of size 192
+>   The buggy address is located 80 bytes inside of
+>    144-byte region [ffff888008290400, ffff888008290490)
+>
+> 80 is offsetof(struct vmw_ttm_tt, sgt) and 144 is sizeof(struct
+> vmw_ttm_tt), which identifies the freed pointer as the embedded member.
+>
+> Always return a table the core can own, as the other drivers do.
+> Reusing the cached representation would require copying it into a
+> freshly allocated sg_table, never returning the alias.
+>
+> Fixes: 8afa13a0583f ("drm/vmwgfx: Implement DRIVER_GEM")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_gem.c
+> index 39f8c4655..a0233729b 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -73,10 +73,13 @@ static struct sg_table *vmw_gem_object_get_sg_table(s=
+truct drm_gem_object *obj)
+>         struct vmw_ttm_tt *vmw_tt =3D
+>                 container_of(bo->ttm, struct vmw_ttm_tt, dma_ttm);
+>
+> -       if (vmw_tt->vsgt.sgt)
+> -               return vmw_tt->vsgt.sgt;
+> -
+> -       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw=
+_tt->dma_ttm.num_pages);
+> +       /*
+> +        * Do not return &vmw_tt->sgt: the core owns what this returns an=
+d
+> +        * drm_gem_unmap_dma_buf() sg_free_table()s and kfree()s it, but =
+that
+> +        * sg_table is embedded in the vmw_ttm_tt allocation.
+> +        */
+> +       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages,
+> +                                    vmw_tt->dma_ttm.num_pages);
+>  }
+>
+>  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *ma=
+p)
+> --
+> 2.43.0
+>
 
-That's not correct:
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f4f1db96bfd68b81053=
-693ba53405b6f510ac16c
+Thank you. Because of the influx of llm patches it's very hard to
+reason about what's valid and what's not if it comes without a
+reproducible testcase. Could you please add an igt testcase for this
+and then include the full igt results for vmwgfx before and after this
+change? Same for your other change.
 
 z
 
---000000000000954717065c2765b2
+--000000000000eab773065c276e85
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -219,13 +300,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEID35
-3braDRnrFyaSWwFl1kaM+PkUaPnlhcrJVuEuvs9GMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkyMzE0MzUzOFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIS0
+rNNE9P30sw+FBt+AjjeL3Lj6F3KC3ngaSJqAlgF+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDkyMzE0MzgxNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAK98uepy228BS4S5FhF8e7Bg33rxmSEA47nORbGJ
-+YUtbINixgIop7MpYry995Cyjuz18VFLkllRTEe9M3tb+136+43pEAbK6Z8d174I2lub352I1YTN
-jR0v+xdQxEy5d2Pd8jbJW4K8vfbj/XvmwJ0qnf4aA1zLKS4eyNfy1L0xwuFoO3FZn7nZC7HFKSYt
-4SGyMrQEy2atevfiklWtVoV8U67UnvRiObwQ5QWbGPkpM8nKr4Q0Zf3djo9J7v0D3XdjgFwjec+M
-iqguTUj/LrE2UyHmXXk2uWNcQoXWYOhWGV+pvgJGuFjqdi17v1oL4MZ3tr2e4xUO+D9FmwoC4YA=
---000000000000954717065c2765b2--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKOIiln/jacE5WFE7GbKUmLkyYyO3A2kfbpawb+g
+XEFbn5agBMJYo2amjt1m0elR7ucmC6WWtUukHq7RqllngQRPq6PwSjeAZoHWefGZWlj4ALB88QQk
+PFjxWLFqxMiMZIGKgpbZBOFRRSWBv3qnKQoeahEr7VoRS9g6j/30VZ7i6vo0AiH9RWCkyekpHFiL
+u8bQ79I3PkgIdRIQ+VQSbh8hwYoTWw+ME6e4+tzz+0hQRgtgRUoa5eULIj227nyniR+nrGXnsVsP
+SmRo6KYPS8i1mh0/joQ6dGFyFlSalzsNzDUp5jTYSG2TiPwcxFqG6ybpGYSBCspyG7w4qkOKSGM=
+--000000000000eab773065c276e85--
