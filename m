@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2663C982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F5AC982EA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 11:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9882D10E08D;
-	Wed, 23 Sep 2026 11:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9CF410E0D1;
+	Wed, 23 Sep 2026 11:50:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ceYSL3st";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j3QZjKt2";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8204310E08D;
- Wed, 23 Sep 2026 11:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1790164018;
- bh=6ZM7U7B23fZdP8KfJT13YymZsJzXrFdTfmOBL5ZqVLo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ceYSL3st+7DSoVOzMoqE6VusNMSF8XkpQfB66v67myqZlQVZMR25jlXVabewaaRfo
- 2Ajl1A97jnOooMeeuv0TZwGb5wz+LOO96xa1MJhajqaASakgVTLKPDwY98ctVEEXhB
- u91avSNws4UBPTPaMZXepOCSuz0urtNS7Dng+wZmR61/XLLqu1JdaCaECfr9TTX8iJ
- CE5wOtOq6vqQHfuQnA1G6U4nS8TX18QAyGYf03bMTI2ftBVZ6O2p5IjxiucicTwJTW
- KsGCga1KKEZBQiI+kTqFV4YnXUe9c2+cGsXtBvC4jNyLjfQGYXlE6r8Web8cp565G7
- 1fN8ew63gP0XA==
-Message-ID: <22d31b4d-5efc-46ca-ab40-2205a77fa33d@lankhorst.se>
-Date: Wed, 23 Sep 2026 13:47:04 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73AF510E0D1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 11:50:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 05F5940A5F;
+ Wed, 23 Sep 2026 11:50:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D332E1F000FF;
+ Wed, 23 Sep 2026 11:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790164201;
+ bh=jI0vAlJKhDmiOEB6Q23h3G6CLXMXdX46480mhO3rjOk=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=j3QZjKt2RDG++7vwN6aJe3RA7jXlLMR25KRKluo6b+e2fpyRs/pTz6vg3MeMVgz3Y
+ H/uFrc3+3pyN38Avf0YeUAxm/S/O+UYkxoG1yg2hevAJ7xtnMPU4ruJWSG/bl4vDRu
+ a2+E5u83/YxSpGaDgPepX4M+KVq5eQWV3LxaqaNvqgJ0xF/Xh37LMhSBpaanlugiGi
+ a6+IqmVFl9eTuZSg2ZqPukR9Tb5u+HfSSew9/Q5ZdNFqsJuWTV56233K9JINsg6JB4
+ SaDj00V23Bhf5UDAvsQeyU1kxlfysMR0sLQ47c99jCokiOgVXxgydYh+6zjRxefc3x
+ m/QmnRG8vSOaA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>,
+ christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 06/13] dma-contiguous: Accept an explicit minimum
+ alignment
+In-Reply-To: <arOrgRfi1k12clT7@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-7-aneesh.kumar@kernel.org>
+ <arOrgRfi1k12clT7@arm.com>
+Date: Wed, 23 Sep 2026 17:19:52 +0530
+Message-ID: <yq5a33v02nmn.fsf@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706122026.IJAiyhhw@linutronix.de>
- <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
- <20260709110200.2_5Eg8xF@linutronix.de>
- <a6c056ba-0847-4d2c-a7bd-39ac27eb15d5@lankhorst.se>
- <20260918083118.POmXtJuv@linutronix.de>
- <4c94abcc-2f0f-4454-999f-38640972dfe2@ursulin.net>
- <0ed50720-3533-4cd7-8579-0dc175a822dd@lankhorst.se>
- <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <32eb2a14-8684-4e61-98a0-882d12dddc16@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,48 +72,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-On 9/23/26 09:19, Tvrtko Ursulin wrote:
-> 
-> On 18/09/2026 12:19, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 9/18/26 11:44, Tvrtko Ursulin wrote:
->>>
->>> On 18/09/2026 09:31, Sebastian Andrzej Siewior wrote:
->>>> On 2026-07-09 13:36:57 [+0200], Maarten Lankhorst wrote:
->>>>> Hey,
->>>> Hi Maarten,
->>>>
->>>>> Yeah the problem was similar, I believe neither check should exist,
->>>>> instead the caller should give this information like the comment mentions.
->>>>
->>>> Any update here? Maybe I have been left out on reposts. Any chance this
->>>> gets in before the LTS of this year gets out?
->>>
->>> Side question, there was a bunch of sashiko issues against v4 - have those been addressed?
->>>
->>> As today it is the first time I see patch 7/7 which is a bit of a scary one. I have to ask how much does Intel commit to fixing out any potential breakage given the status of i915?
->>>
->>> + other maintainers FYI
->> Patch 7/7 addresses a real issue, it just happened to be more easily found on PREEMPT_RT.
-> 
-> In this case, have you pulled it out from the series and sent standalone?
-> 
->> I haven't had much time to look at PREEMPT_RT lately, I'll see if I can get some time to look at
->> sashiko, but lack of reviews have not been helping.
->>
->> Every time I send out revised patches, it takes a few months before I receive a response.
->> By that time I have moved on to other projects, and finding time takes a lot of time again.
->> If the cycle took only a few days I could finish this quickly and get it merged.
-> 
-> Sounds like Intel is not officially supporting/funding your effort. I am also helping out unfunded in my private time so cannot really promise to improve things much in terms of promptness of reviews, or even promise to review in the short term.
-> 
-> In any case it sounds like the best plan is to send the fix which applies to !PREEMPT_RT as standalone and see if anyone bites. Problem still be merging such a large change so I expect maintainer acks will be needed in any case.
+> On Mon, Sep 21, 2026 at 08:18:40PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> @@ -125,7 +126,8 @@ static inline int dma_contiguous_reserve_area(phys_addr_t size,
+>>  	return -ENOSYS;
+>>  }
+>>  static inline struct page *dma_alloc_from_contiguous(struct device *dev,
+>> -		size_t count, unsigned int order, bool no_warn)
+>> +		size_t count, unsigned int order, unsigned int required_order,
+>> +		bool no_warn)
+>>  {
+>>  	return NULL;
+>>  }
+>> @@ -136,7 +138,7 @@ static inline bool dma_release_from_contiguous(struct device *dev,
+>>  }
+>>  /* Use fallback alloc() and free() when CONFIG_DMA_CMA=n */
+>>  static inline struct page *dma_alloc_contiguous(struct device *dev, size_t size,
+>> -		gfp_t gfp)
+>> +		gfp_t gfp, unsigned int align_order)
+>
+> Can we not just bake the alignment further down in these functions
+> rather than getting the callers to pass the {required,align}_order?
+>
 
-I've sent the other fixes instead, still missing 2 r-b's:
+But, we need this to be conditional on CoCo shared allocations. We could
+derive that from attrs and pass attrs instead of align_order, i.e.
+something like:
 
-https://patchwork.freedesktop.org/series/174789/
 
-I'll send 7/7 separately, and see what happens. If nothing else, it'll be on the mailing list to pick up. I believe that a concrete goal "Fix this specific code to work with PREEMPT_RT, it's the only thing holding us back", will eventually add motivation to merge the specific fixes, or develop another solution that will be accepted.
+ struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
+-		unsigned int align, unsigned int required_align, bool no_warn)
++		unsigned int align, unsigned long attrs, bool no_warn)
+ {
+-	if (required_align > CONFIG_CMA_ALIGNMENT)
++	if (!dma_contiguous_resolve_alignment(attrs, &align))
+ 		return NULL;
+-	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
+ 
+ 	return cma_alloc(dev_get_cma_area(dev), count, align, no_warn);
+ }
+
+
+with
+
++static bool dma_contiguous_resolve_alignment(unsigned long attrs,
++					     unsigned int *align)
++{
++	unsigned int required_align = 0;
++
++	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
++		required_align = get_order(cc_shared_granule_size());
++	if (required_align > CONFIG_CMA_ALIGNMENT)
++		return false;
++
++	*align = min(max(*align, required_align), CONFIG_CMA_ALIGNMENT);
++	return true;
++}
++
+
+-aneesh
