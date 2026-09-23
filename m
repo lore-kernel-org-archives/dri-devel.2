@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7225FC982FA
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:26:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5821C982FA
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 10:26:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD1BC10EACF;
-	Wed, 23 Sep 2026 10:26:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29EF210EF63;
+	Wed, 23 Sep 2026 10:26:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RidMsegH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pe5nLEiC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SqfEM/dP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YL0O4TtD";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81A7410E89A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:51 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE5910ED4F
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:57 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68NA2msu3208841
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:50 GMT
+ 68NA31nT3936250
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hueBpJZSI73Jt1u8OsHLGqyaejzw3nzZoOfdwbdMyx4=; b=RidMsegHyDJOlqMk
- e0uVv769jwlF7ICnDIZcPtOmO7KGPS/L9wxSzxRh7lMkdqYpe4b03W7R/ZVTKUhE
- 0i64msJMx1guvPdHfI8uuQ4qfvGGg41orKEwAQP2DtZegZkzY1IBjBwjZymv2+Rl
- BgH2L7l9sZOPCUVVpb5/z4xoQ7aTtVngE6Awzv9PjLFF0dAanahlLwuDvlsl13XP
- lHvFt6C+doVSEZ4BDCW3IGtWzbok8bJ1sNWwLoO3FqWqsqDZzpPhK3TvdrDYth7T
- /GlwpQSYFVJFyPcrIo+mn5C76/3BYQ7bEpVvKdyEfRjtVfNQyNv7UpDjvu55tLe0
- J2U/zA==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n1gkq-1
+ mYtm1eJOTIqsmCeFZXGU6ez6pqCT+tJ1aFb8+8lzjGs=; b=SqfEM/dPwnhorwBi
+ UxbPCSqj5ZYcaKZ2Ap9I1Ae9bmaYO0LTAlW/d7YEP561DNovMjZyeSrL/YkFI51K
+ PV1/U8DIatH/RFkDXdR5gpha53dB9sYYQG/qFsIRRJwbyjWY4PtnZWCvPpcEq9MF
+ 3Y3YfzephMd2zQue0CNzj7u8YAwnEg1n2t+jEBRZgFebHIgxs3MLSSQezoJIa89+
+ qhV4uqhjolV2UEOphs8bTmB1Hpd/cnXnkUj5hpnTijBfkD702oF5o3FaF+wiU1lD
+ duX2zvqRILFd0l3BkQ1/vj3Aqe86lIVHJ8iMCrRcpvWfNGKEOVAp06Iik6x7+TT2
+ Ec8SGA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv428t846-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:50 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id
- a92af1059eb24-14364a88479so167559c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 03:26:50 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 10:26:57 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-33310847fcaso1306243eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 03:26:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790159209; x=1790764009;
+ d=oss.qualcomm.com; s=google; t=1790159216; x=1790764016;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hueBpJZSI73Jt1u8OsHLGqyaejzw3nzZoOfdwbdMyx4=;
- b=Pe5nLEiClYP/pzSOwDjYXi5Snl6hmNvOKv0BufOVvMpAiIWGL81WEFUQ/lKSf3nTHx
- E9MHANY/6OStr4HHBPmqtFs/wSTeK8hfoCvP6Sg/uPwsVlEO/WhaLY5c7DzC/W7ccFOo
- McdhfIkILHVD9a0pFrG0NF/TcQcKMkpBkwxhk9ctixzBXNo1hkKWchYBTe76mDjLKdr3
- VSK+imQhfNAIp91A5jdUR8ImnwXB7fNuMNdiXfRB815Nl6QVYSOORbyG3cuEulXTDFly
- PdxL8fzAGpnEodlxsse9GYBoNFtzwRCAozCOerrM4tT2/HSvyMgUdpw3pBVPNdwhXOeT
- n8Kg==
+ bh=mYtm1eJOTIqsmCeFZXGU6ez6pqCT+tJ1aFb8+8lzjGs=;
+ b=YL0O4TtD/Is4eRdu7lzGW0vZa/beCmwShfKIdw2Cp7+wO/LMFfycuysUqFTfRu5fml
+ nYFgQD0YVP5HLtcYUDy60OITdh4gLu03XN9vhVnjhAAP+YITqsVfDJtlKL+oXRKQ14DA
+ vVRtFpQUldivQMH9rX3DGPx0aUgW+umefQz06ZwBezbo5yj/A3vNz4rYyg4STgBbC6+R
+ PVBWwsMkVw3utyU6DYx3Qwt8miByC1sOdCFDLkBLYAaN3h7O9FHAgn1ThekOfINfc2n1
+ sIyGtIpDGWb+TZLzhYAcZLtdhEYIsqmd3RPy89y4fA9RlDKp/zA981MQEytUQJC+rwjD
+ OpSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790159209; x=1790764009;
+ d=1e100.net; s=20260707; t=1790159216; x=1790764016;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hueBpJZSI73Jt1u8OsHLGqyaejzw3nzZoOfdwbdMyx4=;
- b=2MVqMaQmQMLlyj7xvetu/9o3x8ficmNa2iqCwn7pRtqBn/wYwipfL3HiGKir8XlzpR
- 3BNoR+8xtjAiI6g79sRb/qUzdGhVxCN0gF8sT6r6K9YQHjEJJOPUm9gP7wjWJnQfuQKD
- 3H00fsticif2xYieZVOsorVCfSRpZVYi5nXklkHLKzQdPMngIJ6BSfQ7XvuVaylxG4iY
- nyWghYFHFveFDK2pt32deHjZ5YlqCoo+LB8JgzAI0WK9gPkabeyH3FVSPnuePRFYsbqD
- 06kAjE/sVOCraUqUK1s40bdHTCmEhWnfvvE845owujsF0XWshA1S2fsT63tbJlHvT3B0
- bw9g==
+ bh=mYtm1eJOTIqsmCeFZXGU6ez6pqCT+tJ1aFb8+8lzjGs=;
+ b=HugY9vfNOG1EvAGKjpr2aZ+JJeHhs17AeH75+640wjyOijqwaloMYAcaJqHZENMTzz
+ qHNnXZPv8G7F4o7czJ478EOsh8pH2gtGvtYSiTEu3TGv3LcpdEhj5iDGGNTG0+9XWwBm
+ 6x1h1VXEsyX23ffNt+lgUOSD2A+zGVaLddRWpBhju93kcqDDO+37E+B2gWkS9NQQY9m0
+ t0qCgLArN3or0S5tjfxy1ZlSXYQjjVhG4O+Z+E8eRNDsjLwf2rPW1xYrCtQWaBMwBTna
+ gGt3g3WPvNDEMk6k1CSFyORPWl8Ba51DZnBnnQ3ZKreUJNKlS/d2OyuS7tyfge60oBNh
+ Uu+A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwDV0Fw42GZj7Q4BRB9jZaOYrgn7RozjyMEiy3HeER8tGgaOVJv40RodW9POU5j7tAm6BXUiMdmcRg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ldWZGHbdfXaSczy9Nl7lDocJQ9hYNR0tjvq3rgN2HmGZakYAT7
- 0+F2Pk0pwiPdNDZlduoDF++cjPOlmSqlj6IlKjGs9tJGtLImmGfOaskvsFAHEfdTDY1JeELqIaT
- 2BNF+eQriG8HQ6ZHRnK+zfO9Zc5SHIcnmEhCVuD/2Xmo6MVVXQOrj7ChJshJUBL/LTr8X8xA=
-X-Gm-Gg: AYBFou0ZLkUkSU9hNzBWauidnpYvysDojB9drAjUP0PbgnfwCWI6abm7yajPlIVVP+G
- 45JX60Kng342LFev4qUdrlIHU4qW0fEBMZtC4Z3t+70sZE5pLFCzh4qWUVEyeHBV8v48X372kFk
- 0oop3hnHRf7c0qDjR4CkuwwxMxCRB2MI+sneBR+anQr+kJFtYaErPvd/JLvkembYmrd72iWZPOY
- JhqgOu5EMSjKzQWWK34SRtVSTYHueFbuRZwX9wRAkLpM0FQgSLpoXNHpoHHfqkI1X1sVMc4uTov
- yFRPi7pIfi0sNf2Yhqz3ee0SWKbqX135rzZNlQE3oGVLdllBbydLY5ThL/LtfjgJT5YZ1O+gZI/
- vhHo5ce+rucflUER4yAE22uo=
-X-Received: by 2002:a05:701b:4291:20b0:141:9d33:f1b8 with SMTP id
- a92af1059eb24-144ef0eca37mr2418626c88.12.1790159209262; 
- Wed, 23 Sep 2026 03:26:49 -0700 (PDT)
-X-Received: by 2002:a05:701b:4291:20b0:141:9d33:f1b8 with SMTP id
- a92af1059eb24-144ef0eca37mr2418598c88.12.1790159208743; 
- Wed, 23 Sep 2026 03:26:48 -0700 (PDT)
+ AKwUvByekWPuu9D/YOpUQDlXPwDunNyjaRn6DNI3EOzOCCuHk2wwgg+5qgrPS2SD3DiOlFap4nH8p5e1e34=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mR3bck29QQN5ogwMI6dIyswXQLTw++DW0jhjD3Pi+NqWcwNMfH
+ aCCdtKH7102GnHaiwmpldwd8lG0h3ia6PhLuu66O4rLzQ9K5KdDUCs69OVuPyrqQrduC29S7lNR
+ NMVpUctqQuGFAS3MbX7hUex9vOQXuHqcf/6HNxLLUpurN7n92FbJhRMOzYD+0ryQvLWdoP4w=
+X-Gm-Gg: AYBFou2xxaooYygQ9ZdZg2uiwnLb9YMiomX6Vdfzmwm+bCj69I1DGt7PlZ92utSMnWG
+ jS27Ag+Qrfhr6PXcJNDXhxZkUzPDAfTy8Pgn3gIGKkABY9QBt7Gl1FWOZaXIqd0BOMcCg/wbHLm
+ BdNfrdGdNsug/GVF/rJKom0nBhRFX1LWjxq2bDkg/GXrffL7YezllD7oJYAFGh3yqFJhqKu93fw
+ amHXjoeRpDvHfuUZDgYWX6WtQu8QF7qRVO3UC4hb4VLNuyo9+ALttNOh3zpB0qEMcFS79d4SxqU
+ ujhYXA4I1EE4A8ZBUyScLRiKws9sG4Onm6Yv5f9ugBHEUw4Y5P8ng//LvJ3grN4Q0VuAuxsPMyn
+ h/FNJ2u3EHcEbRDtzhXHSCYw=
+X-Received: by 2002:a05:7022:3c07:b0:144:f8a3:2eb8 with SMTP id
+ a92af1059eb24-144f9086e0cmr2388176c88.9.1790159216321; 
+ Wed, 23 Sep 2026 03:26:56 -0700 (PDT)
+X-Received: by 2002:a05:7022:3c07:b0:144:f8a3:2eb8 with SMTP id
+ a92af1059eb24-144f9086e0cmr2388140c88.9.1790159215758; 
+ Wed, 23 Sep 2026 03:26:55 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.26.40
+ a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.26.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 03:26:47 -0700 (PDT)
+ Wed, 23 Sep 2026 03:26:55 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:45 +0530
-Subject: [PATCH 05/15] drm/msm/a6xx: Add BX rail support to GMU dependency
- votes
+Date: Wed, 23 Sep 2026 15:55:46 +0530
+Subject: [PATCH 06/15] drm/msm/a6xx: Clamp MX dependency vote
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-5-0c3c79a1a470@oss.qualcomm.com>
+Message-Id: <20260923-hawi-gpu-v1-6-0c3c79a1a470@oss.qualcomm.com>
 References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -113,40 +113,41 @@ Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=2678;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=1006;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=kURPhCqwLXhWyHDPUC0FBQT0xU08pc7L+Itm6hSzjGI=;
- b=NWMeHEh6JevxUszMhW2aEo9xuwPWpJ003QMf9bmjaSM7H2sFolE7OUzs3B5B7nYc1829Pvnxt
- hBq+lahzKu8CD86SybRsANUAVOYQXh0bSvQkzX1i/KG8rgr7cH+8kxm
+ bh=y6Olh75Fc5VCdWLQG6EWVT/Oxp2EPOrAyCE8KeR1J1E=;
+ b=EsDOz8yeV+c3gpSP6baw1ovG28clMjsYZni4lG6rN/FJULX99TZzacIk8ZsJLWufpEOi+PvmV
+ 2Cw4rPd8btuCPeWaGinzZWxb2wY+olFO74PiH2SuMrA5mubIRElH2Vh
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX8R+X8rQyb868
- VFpp9nUEZR7vpc2+eiVmCjZMMU3YZd6tlybDzVTznoZbtAnETm4X80RcBE4VNxAx2yOEZPWyUFt
- zQXgMaOyvOkeXWIQiSi6YkNMc+048kM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX5uZGYfNc/cId
- qXFhlYfKfngmreEYkEe08wH38I/jk8axMC5ohnP0t/D6vHEOLu8///w0p33qf9lpQ6r2yW98V1e
- TLHpc1JFjSmgN2SozqMpEIbH/djh/izoUrXRsUUT7Jh3QyIkHQk2rg9tEx/5rCTM7l8FZ46jHF6
- M1xTXtgY5e0y3tw9cflPXrotfhAR9QwO0MImUC927+MPGRSM+flEyZ6MvJQ8/2k/mEZa0l/GZx1
- 3ZrCIHqeaJ72jor96Cb3jj3lRu9furVsLp7keXazg5hllQNfF24rl9lOv68pgBVfs2SNITaGG/p
- YWXv8ibrkiyy2t7dW8t8AyE4R10GrDVmDdZaStT0KUdHozpf2Wma82IOkD/wgDZxMkFAP75mlKl
- ietkPOLb2N70Rhs6s0mnmwmSvg+pAoe9wCVAgDVii5nlbllG7GCYPFWWAdsB5EAM6q3RET5yXVF
- +AwLP3ah0MzSZlvRC3A==
-X-Proofpoint-ORIG-GUID: amw7RgdiJof81AMwlGS8QtxwQ-RW0Qh_
-X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3a96a cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=EZdd0/mC c=1 sm=1 tr=0 ts=6ab3a971 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=55tSWijHQoufD_vR7dwA:9 a=QEXdDO2ut3YA:10
- a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: amw7RgdiJof81AMwlGS8QtxwQ-RW0Qh_
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=MBm1Spx5gLoAAc79GfsA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: p60Z5wK--rSVjNpMJT-8YN8Tvbx84jHP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX29kehr4qxlpr
+ EHZgvU8gKs1K2bxcU2fw+uYmJY9VC+vfWSyhBhethBbLccjMcjEgcH9sDRDUEsW0R2Z+zHo7LXx
+ RT22dFNJPrh02b+/QUX+RKeiWA3CbnhmqYuND8W2tlb8p6D6WGIHy797ZdOY50wrwI/sDTwEFkY
+ Z2/mLT3kuBbg7arFeO857EtBjdzOX2yKLSVyxQnjpezItCcwxRcCcMtJSuYjWrPTVgiFdYxtgdi
+ rW+XiA2Upv0Z5mH+rnA9wegOHzmhgY59mCsv7supQeoVEEB0FRSZh9hGJDgQma8TCpGnHbzUHq/
+ T/uBCnLs9L4lGCWYNMT1bvq9GnSRVZmJx8O0qkC604y2q/eq4aLgHzwh2eLlwI7YTw0Es53vIcI
+ PeW27WjIFbDP8DfiLSXcrSsYgWG6fF1fPEMsJ2f8LNZvkHZsT9YmLxxNrFrMzHZUBtZoBZGBuU4
+ VRpoS3pGxVAoZ71k7wQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX/8zp+nr9R2ji
+ 9RdgApDB262YKf//vv8ZDpOPPyOlE4dSx7hQgxiDQraZVYTb2qnD9UCEQva3WLFK8ppzNvLmwGH
+ S+mjppkYEZ/5l7kKls6H8yUrVSH90PU=
+X-Proofpoint-GUID: p60Z5wK--rSVjNpMJT-8YN8Tvbx84jHP
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230041
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609230041
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,85 +163,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some A8x targets have a third memory rail (BX) in addition to GX and MX.
-On these targets the GMU dependency vote carries a per-corner BX vote in
-bits 25:20, which otherwise default to all-ones (no BX constraint).
-Prepare BX vote field to pass this new voltage recommendation to GMU.
+In some chipsets like Hawi, the GPU arc level can exceed the highest
+available MX corner. In that case, use the highest non-zero MX vote instead
+of failing GMU initialization.
 
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 37 +++++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 0ed01ce1c5c5..2b66d6c7fd19 100644
+index 2b66d6c7fd19..14d422d7ab95 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1799,16 +1799,34 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
- 	return 0;
- }
- 
-+#define GMU_BX_MASK	GENMASK(25, 20)
-+
- static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
- 		unsigned long *freqs, int freqs_count)
- {
--	const u16 *mx;
--	size_t count;
-+	const u16 *mx, *gx = NULL, *gbx;
-+	size_t count, gx_count = 0, gbx_count = 0;
- 
- 	mx = a6xx_gmu_rpmh_read_arc("mx.lvl", &count);
- 	if (IS_ERR(mx))
- 		return PTR_ERR(mx);
- 
-+	/*
-+	 * Targets with a third memory rail (BX), in addition to GX and MX,
-+	 * expect a per-corner BX vote packed into the dependency vote. Detect
-+	 * such targets by the presence of the "gbx.lvl" RPMh resource. The BX
-+	 * corner is matched against the Gx rail level, so the "gfx.lvl" corners
-+	 * are needed as well.
-+	 */
-+	gbx = a6xx_gmu_rpmh_read_arc("gbx.lvl", &gbx_count);
-+	if (IS_ERR(gbx)) {
-+		gbx = NULL;
-+	} else {
-+		gx = a6xx_gmu_rpmh_read_arc("gfx.lvl", &gx_count);
-+		if (IS_ERR(gx))
-+			return PTR_ERR(gx);
-+	}
-+
- 	/* Fix the vote for zero frequency */
- 	votes[0] = 0xffffffff;
- 
-@@ -1816,12 +1834,27 @@ static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
+@@ -1833,7 +1833,7 @@ static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
+ 	/* Construct a vote for rest of the corners */
  	for (int i = 1; i < freqs_count; i++) {
  		unsigned int level = a6xx_gmu_get_arc_level(dev, freqs[i]);
- 		int index = a6xx_gmu_rpmh_arc_index(dev, mx, count, level, false);
-+		int bx;
+-		int index = a6xx_gmu_rpmh_arc_index(dev, mx, count, level, false);
++		int index = a6xx_gmu_rpmh_arc_index(dev, mx, count, level, true);
+ 		int bx;
  
  		if (index < 0)
- 			return index;
- 
- 		/* Construct the vote */
- 		votes[i] = (0x3fff << 14) | (index << 8) | (0xff);
-+
-+		if (!gbx)
-+			continue;
-+
-+		index = a6xx_gmu_rpmh_arc_index(dev, gx, gx_count, level, false);
-+		if (index < 0)
-+			return index;
-+
-+		/*
-+		 * Find the BX corner that satisfies that Gx level, falling
-+		 * back to the highest BX corner if none is high enough.
-+		 */
-+		bx = a6xx_gmu_rpmh_arc_index(dev, gbx, gbx_count, gx[index], true);
-+		FIELD_MODIFY(GMU_BX_MASK, &votes[i], bx);
- 	}
- 
- 	return 0;
 
 -- 
 2.55.0
