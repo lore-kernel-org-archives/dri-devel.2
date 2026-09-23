@@ -4,77 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF2ACC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BBDC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6BDC10F8D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC4E410F8CF;
 	Fri, 25 Sep 2026 07:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Orx/ngjU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mi3DgTrA";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1E210F15A
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:01:33 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 00721157ae682-85d4ddd1d91so13534047b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:01:33 -0700 (PDT)
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com
+ [74.125.224.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0311810F16C
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:07:19 +0000 (UTC)
+Received: by mail-yx2-f42.google.com with SMTP id
+ 956f58d0204a3-6729c4030f0so1343182d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:07:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790179293; x=1790784093; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=L5cBFxA21gxY4ecZu/0nuSNb0vunI24srETSPHg2T8M=;
- b=Orx/ngjUN78pQ5AeHviLnMFyd/o/3NEv88kHDYaKIIVjO/ywc8cHglpVcVuWvWzcz5
- MbF5Wd+R0tL669E+e/NMPiVKEwkv3EmjN+XN4Cl+e61+xkq/bxLgwqEfWwZ+fyaw4DY2
- hb7oU9cKLe0tsaXAaOiH8NAuhg6Yymh5QG/9feDRG00BTDxoyH6/0BhdVvEzCYqtPu0V
- Enen2GgeS6JyG1n6rXRBRa/NgtwNydU7fys9J7pGeZ7zCiFUMcqDbEgvqtlUcH7/hRTI
- 3GZtyQxzmbEs65AsdJa8UcBSEJdrkVjZWAqBeT++Cn2EWnIffLWGYzzsKYiQCq77hI6g
- 1FXw==
+ d=gmail.com; s=20251104; t=1790194039; x=1790798839; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SiHJ4k1HZVmizz1HUvNw+RWE7k7KrIF+LVqXP7p65LI=;
+ b=Mi3DgTrAUnwVJyHnYWXUIplLs5Fc0x3ZurlZsjtt65S72PNP45d6OvN7pqirYZPLDz
+ ETTkDpRmEchLc7vMaXC3zTMAm/qYzDShkyZFVIKaLz16VgeFwztqQiFHtb80+Fgxzpvg
+ WWNrQoKO2l1ccJrT3brIdN6JCjqKq6jEakbfmbanHweyUdw/3zumrR4rkzbozVZBIS5+
+ zud4kXq+y9EpfSF7PxxTIrFhy+ALULkfjbfcXrvWtwUrJkCTddcqepWSEU0j6+A31Mug
+ TaC4NOHZctwpl3Y2eDYjQWfuR/fX6tKeaWpxLiMvWrJN5ozIDTjYshbpLnxKN3n62AmE
+ zW9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790179293; x=1790784093;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=L5cBFxA21gxY4ecZu/0nuSNb0vunI24srETSPHg2T8M=;
- b=LyOuOIb9IyFAfaaBFYWCx4HpW9tWpVGNDcOQMuVqerb8UTT9wINKQmjF2IFSqboKqu
- retlFjrjCjeVtRIh4SeHUUIqxQlPhzbjt28gaTUqZab7FLW5sP+Txy06482Qff8hvLXC
- eGt1PQNm7MMdpJrmKnPKsvHfmcQitytRVBQDZ5yGJv1Wu686/9pijTYRx3zeoYHcWUqv
- acHnP4Ae6AMdiJD74Fml0SqA1k0Lh2xbkQnZ9I1rMNgY83bs4AlQxmdiwVRzI1oQp899
- M05e2QkVAEpJZark2vf/+E1BWPWSuG3bFv5fPzEWFVtWIuLUmvsZvXm+OxgIRF/OZij9
- ayMQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwL6igvyjg9h5rqpMkUzuhi0U7EGBL7lqM2UL/ItORKaNWr6gSVv3gERCM+GzHutEtqPd6uX+GjYFA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nmD2OKwB0KA3sXAYTf42YpXMTu9khD2PSs5s/vDtqkCjSzj1t8
- rda1UdwG1SA8uEYIGAMz/qrXXYXRBlyfMOzuXGlq8vsKSHGgwvEPZfRh
-X-Gm-Gg: AYBFou1gvbQqeYA9uOFRr6xsRjuS4z0rvN0G8Wyetm7ATLbUsqVhjQbULPM/nSGxDEm
- ipGYhmTFrUUEQGEU6bIlkp9hspy3Jbdrf6ksqqtyTMpxSwBBsWV1f/tH1ZaGbwfrgr81fiOXpe2
- F0aQM2JlbJug6reMyjwUZBdY72E5YkgGGk25K8GKDGoaTgh9FHkTurczwu+icwAQEl3d9e++bxC
- EigsGqtUf0xj92jh4OxEmeXpGybpS9S7dV4vy3JdMZChKnRu6gs9pxol2hj6UuCpnpK58W/BJ3B
- i6PSgzBpwyhYEFMrHsRZIkkwYjMVljXbQpA4zWbLHbt+EUdKl8eVoC78asld53w9JIsdZM1CLlF
- 9NDkaO640OA8L47FpDmx3bBYF+ykZr5cuLZX2W4BeF0pr9+LCnT77u88kxrkxPScxqLqsR4eWlr
- GlAFhtMkA1IN7eOqGHJ7fHEwnL+y9jMPtw4V6mp2k80o+JWuXMqW0pYnmQJwcw9B9B+sWnLqp9n
- n/niG2nMCBTf3XRo9uQhlKeT95l4CQoWkE=
-X-Received: by 2002:a05:690c:113:b0:8a5:c04e:12a7 with SMTP id
- 00721157ae682-8a5c05d5670mr9454857b3.31.1790179292766; 
- Wed, 23 Sep 2026 09:01:32 -0700 (PDT)
-Received: from holowork.lan (static-68-235-46-62.cust.tzulo.com.
- [68.235.46.62]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-532eb399581sm21911581cf.28.2026.09.23.09.01.31
+ d=1e100.net; s=20260707; t=1790194039; x=1790798839;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SiHJ4k1HZVmizz1HUvNw+RWE7k7KrIF+LVqXP7p65LI=;
+ b=wgMvKShPtT1DVu1e+gJ07zdsb23q//YS+/+Mduf0DYK0laBsa8ee9AxEFpK/6iJYQ0
+ 1TvHXdRLCmF9ZvE0YvHo5yYY6D/QcpdveQzLgVo+p3KgSTV5aFhwNmPHvSQnC/N+1m6O
+ p3DkQyzUrMp5KP/AFkSpbXlkMOTX78FPem03PVZf3vp+RLhv3H2/fGn+0VxXVCCEhzYk
+ yNj48kd5Km8lgvx8q1VxGOFw2+xNWfbvF1Y4Rtf4ogqcAdZ8WAjBno/NYb2OlH5QL4IP
+ jLfsFrTV/L6jV2cZIgTJLLvkI7IScANFvIFYhU3GBxnlVoWijdEwsfMGcT1pXQPqSpXU
+ L+NA==
+X-Gm-Message-State: AFuF++k+RaKNIykECY9bZq8/eFqccLezfdSphq7YM2P6dVdisPnzdIu1
+ p+yA8MrqWhMSZun9BVxZ7kkps8Ta9duiWo7q3ZaTmmfCoV+dxKs6sk6u6P1j0Efw
+X-Gm-Gg: AYBFou0Jyzqef8K/N3I5By9H5Ixh6KRvzIQNkdVPjGoWA/AVc8O02x/WRQPyQCRl0T+
+ uBIKVbwv21zB3qzCVqDrBhls6rolrPhu5muFdxTK8Tfz0R2eODZGR3RwJJvTVAcfVhA9th/1VnZ
+ NQdKXgXtXQ3S2O0j0RCP7xUnAx1BYcN7dLccrFqMktR6i/xDo4T8eBi0wCDRadqux19V/l4zsZo
+ UCS4eWu8a+o2IoSEtnM0pOt5B9Qs/kDeED5tJt5o6atghw/orT2uD5GhE9Nf8rOl3TQq6YTif7u
+ PfolNZE2w/BDNGpy07VZGm6Fxr0UFRv+7Mn2GA+A/HXbDlr1nDlFBQHE1Cbojgpflljf2jffEVb
+ lueoJjZbxoUt/a0pq6iRwefVsl0sAe+CHwI5e2OkJZR7PDHVXRWMK41QqNVngQLh3siaOjyMHaR
+ a1ILa3bwELS5S4q21IyzHa30A7j1JHbyUffrRVhVguuJg6PkeAag6JZhzDiJrQaH4mqh5eooJ7W
+ KvjVFN0XA==
+X-Received: by 2002:a05:690e:814:20b0:672:b676:c1ce with SMTP id
+ 956f58d0204a3-672ed228e6bmr187635d50.9.1790194038864; 
+ Wed, 23 Sep 2026 13:07:18 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-672d80bea23sm1221915d50.10.2026.09.23.13.07.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 09:01:31 -0700 (PDT)
-From: Fabio Piparo <holofermes@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, Fabio Piparo <holofermes@gmail.com>
-Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ Wed, 23 Sep 2026 13:07:18 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, kamlesh.gurudasani@gmail.com,
+ lanzano.alex@gmail.com, phil@raspberrypi.com, linux-kernel@vger.kernel.org,
+ Jonathan Frazin <frazinjonathan@gmail.com>
+Subject: [PATCH v2 0/2] drm/mipi-dbi: display a cropped region of an oversized
  framebuffer
-Date: Wed, 23 Sep 2026 12:00:49 -0400
-Message-ID: <20260923160049.1741651-1-holofermes@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <1f383114-e367-4b67-899b-14a393fece94@suse.de>
-References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
- <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+Date: Wed, 23 Sep 2026 14:57:10 -0500
+Message-ID: <20260923195713.88-1-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
@@ -93,26 +89,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that is exactly panel-sized, always from the origin. This series lets a client allocate a larger framebuffer and choose the displayed region via the plane source rectangle - a crop / pan with no scaling.
 
-Thanks for taking a look.
+Motivation: feeding hardware-decoded video to a small SPI panel. The video decoder emits a fixed frame size; being able to point the panel at a panel-sized window of that buffer avoids a full-frame CPU copy on every flush and lets userspace pan/centre the image.
 
-On 14.09.26 10:43, Thomas Zimmermann wrote:
-> I assume you write these frames quickly one after the other? As i2c is
-> really slow, you might write to buffers that are still being transferred
-> in the background.
->
-> Do you read back the status of the page flips? DRM should tell you when
-> it has completed transferring a frame. See [1]
+Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller in framebuffer coordinates, which is only correct while src_x/src_y are zero. It now subtracts the plane source origin.
 
-The test renders with the GPU: two dumb buffers allocated on the
-ssd130x device and shared with v3d over PRIME. It runs at 10 fps.
-Before each flip it calls glFinish(), then flips with
-DRM_MODE_PAGE_FLIP_EVENT and waits for the event before drawing into
-the other buffer. The same test drawing with the CPU instead comes out
-clean.
+Patch 2 raises mode_config.max_width/height (pinned to the panel size) on the six drm/tiny drivers that flush through the shared drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has its own flush path that does not carry the source offset.
 
-I'm happy to send the test program if it would help.
+Open question for patch 2: the six drivers each set the limits identically in their probe. This could instead be a shared helper (or folded into drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future drivers get it for free. Happy to respin that way if preferred - the per-driver form is what is shown here because it is the smaller diff and easier to review a first pass.
 
-Best regards,
-Fabio
+The min_width/min_height, the fixed mode, the connector and the mode-sized transfer buffer are all unchanged, and drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING and no repositioning, so the flushed rectangle stays bounded by the panel regardless of the framebuffer dimensions.
+
+Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both 240x320 - an oversized framebuffer is accepted and a non-zero-offset panel-sized window scans out correctly; a panel-sized framebuffer is unchanged. HX8357D was tested during the downstream review by Dave Stevenson (Cc'd). ili9486, mi0283qt and ili9163 are build-tested only.
+
+Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and in use there: https://github.com/raspberrypi/linux/pull/7589
+
+Applies to current mainline / drm-misc-next; the touched files are identical there.
+
+Changes since v1:
+- Patch 1: clamp the damage rectangle to the panel's fixed mode before
+  using it, instead of trusting it to already be panel-sized. src_x/src_y
+  are the plane source origin truncated to whole pixels, but the
+  rectangle from drm_atomic_helper_damage_merged() is clipped against
+  that origin's exact 16.16 fixed-point value - when the origin has a
+  fractional part, the rectangle's far edge could land up to a pixel past
+  where the truncated origin would place the panel's own width/height,
+  overflowing the panel-sized tx_buf. Thanks to the automated review for
+  catching this.
+- Patch 2: unchanged.
+
+Jonathan Frazin (2):
+  drm/mipi-dbi: honour the plane source offset when flushing
+  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
+    drivers
+
+ drivers/gpu/drm/drm_mipi_dbi.c        | 33 +++++++++++++++++++++++----
+ drivers/gpu/drm/tiny/hx8357d.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9163.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9341.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9486.c        |  8 +++++--
+ drivers/gpu/drm/tiny/mi0283qt.c       |  8 +++++--
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 +++++--
+ 7 files changed, 64 insertions(+), 17 deletions(-)
+
+--
+2.53.0
