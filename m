@@ -4,77 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 476E1C9830B
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:28:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDA6CC9830B
+	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 16:29:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 892F310E93E;
-	Wed, 23 Sep 2026 16:28:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9A410E941;
+	Wed, 23 Sep 2026 16:29:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRpWzDA7";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="auF5lQbs";
 	dkim-atps=neutral
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com
- [74.125.229.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B18E410E93E
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:28:54 +0000 (UTC)
-Received: by mail-dl2-f39.google.com with SMTP id
- a92af1059eb24-1438cb9b3a3so1179933c88.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 09:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790180934; x=1790785734; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iB3sCFIdT441Ve5Xr6bVNZSuT6o8nHC9HcOE4t6cLwY=;
- b=bRpWzDA7n12g0D4rLy7fGRxlA5wUrNs8OOxrH41hOplYyZAY/HFpvk9Tc61DYwBNRf
- vOq7BzuWY0Om+apv2reB6QS7OIbPMCI3V5PR1GZxuZfrjyo/MqI0jCsEFjSwtR+g6srG
- wJyluzqzJEDuvBwGIOOw9KBv/lcB+X54rK9d7+kXdtyC67YDdo9BvkuxaAKCbGRLFfUp
- Xa0mLZDASkZumAeDwK9oqFxIjunW8sey9hIrMx9vWEQpTQwEVZlUpC9VOo/yUoNYiO1n
- cZ6tduMxPA2Iwi2PsCYM5jLCm/gXhbd0sKApYRZvWDuSg3ipyXUb8BqPKXJS4wWMNVIU
- 4fDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790180934; x=1790785734;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=iB3sCFIdT441Ve5Xr6bVNZSuT6o8nHC9HcOE4t6cLwY=;
- b=B4OGSESQU7ARobON7UniRugo19GN3NJwQhBLI3ofiYyWimxyX6E2WOkwu+ZcKOMrHi
- VOg7eZCH21aDw2OABNM3lDSD8gcP0hAQTEhPS9qByXxN4YxmXbWJZAoqw3JsfUYyNICG
- IAOVlO3l3gsuVT8RJR20vlRTQKXXo95o1bGRhVE9lKx4hUtfpYBKHkpfLOPhg/CGFSet
- i+aDU9KUOCApJ6I4OzNbA5iNsy9a2s5coWqIuR306igVizEyK9L0SNW2RMyDoDxMvIF/
- nYGWjCQ2403ET/uINYhxJON+JWTt9nqCTvG325SHrvNhxlLJl5hPEHpMJ/pXSunVfuus
- 0JhA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBymWTieu+NpJO3SqtbH43yy/7haCbqb/Wz5cuzEAABYdQToOGNWfbZZHrqcP7dtpDr1/3yocgKQrs0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kOMWei/TMgyRYmCiJNDdX5GVnmlj+NiCB/VvoR30acAP59THug
- EYEXbYcxOK6gafKQAa9pdv/fDrz8/SLhlTF21j5d0WU64VPhkzaWp9Xx
-X-Gm-Gg: AYBFou0ambRYmLnDCdcUoCNvTZsJMeKjd2JYbaHrZrivVxz36EYNTHJD3mh+qHi/0h5
- wGOHb5AspLBwyWibKbFtldHUX96vl7C6/1DnxOZ4dHVK10HZ8uL99GoNrifokjyU2FopZFwhPQy
- AjvO/IS7K7tqj1rW1YdMKTp5NP27KAdctfFAEmBTHVr5WAAI8Dtn1sVR6sdvAICzhU2ZExpcJIJ
- Io3s1TqYX30zAh4lE2MqF3zIQd8WidfKHZjzLezsPL9lG/4z+e5gnML5SqW2ibMq1W/DmpP1OTG
- Vk+LppAK1SJ7YLvx3Ovnkdwu7vY0yd/dX7LY9Tkc0ySjSiAHocguGyGH5tSzJd8f21dLsvOK6FN
- IlFX+afhXB6RTclFcZulbtzLRVAEe2b7vXY6EV6Uw11kXKfYF51kPxhv31kEF7hkXDE30Qk7not
- BXh29BA4HIREnyqPN0VTT3jzVrNzIgGisRy41QhfYIpTWOz1qeWO1JSKsRg9OQWlse
-X-Received: by 2002:a05:693c:2518:b0:33c:e61:e1e5 with SMTP id
- 5a478bee46e88-33e8d9c95bcmr3116205eec.21.1790180932368; 
- Wed, 23 Sep 2026 09:28:52 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-33e939fd955sm7844052eec.1.2026.09.23.09.28.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 09:28:52 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] drm/amdgpu: fix ATOM parameter space index bounds check
-Date: Wed, 23 Sep 2026 13:28:39 -0300
-Message-ID: <20260923162839.1379927-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923163157.1354872-1-qwe.aldo@gmail.com>
-References: <20260923163157.1354872-1-qwe.aldo@gmail.com>
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD18E10E941
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 16:29:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790180985; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=eMkK9jljnaAGA3UKMIQxdtAdzQx5+mQIPuJCRKLCCWCBCRyE0fvDoFiwxlmHclMLFLJfPOsa2x4aTpj38L+lJfitYhOvqGEHSyYUNV8cQCWmoJbPwyGwhQzhuXmbJUmvZTv4kU2EjTdqsrJrcPYzicGIANMga5Q/yabK1cZ0LU4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790180985;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=; 
+ b=exCsol+Hveja4UdKkALCkt9+j5mm3NRRMmQKgxk4yE+qPBmLdbsDreQ4S37fVXQvvjt36P+rHTc0Rn/13//ImgEH2rQAev+/C8ax97wtWTlgeuOKYjkVvf5+gG6NyjPUEXLQ/FYNZDVT5R5ftQJ+SG5qgfd2RJXMb0MFgHT5fZk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790180985; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=;
+ b=auF5lQbskSRsp1waSQO0xhG3D5F2kNSrQEbxS+U3Ky0hkSrw/LvMMfAWvptm6Kq+
+ l5cJRSYI3vDAlNRy/c2Sr/iVO5bZ41kcSmLQlv7ihq4raoSNj5p/py8QZI4UNJhjUy5
+ UdMt9TqPrhY9jlQTgqjus9ILX5pCqK7e8S8bFmRo=
+Received: by smtp.zohomail.com with SMTPS id 1790180982645897.526443803996;
+ Wed, 23 Sep 2026 09:29:42 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:29:41 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tyr: use `bitfield!` instead of `register!` for
+ non-registers
+Message-ID: <arP-dat7V0Rg70ok@um790>
+References: <20260910165734.80378-1-gary@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910165734.80378-1-gary@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.142.6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,59 +69,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-atom_get_src_int() and atom_put_dst() use idx as a dword index into
-the uint32_t *ps array (ctx->ps[idx]), but compare it against
-ctx->ps_size which is in bytes. A malformed ATOM table operand with
-idx between ps_size/4 and ps_size-1 passes the bounds check but
-accesses up to 3 dwords (12 bytes) beyond the stack-allocated
-parameter buffer.
+On Thu, Sep 10, 2026 at 05:57:33PM +0100, Gary Guo wrote:
+> From: Gary Guo <gary@garyguo.net>
+> 
+> `SectionFlags` and `MMU_MEMATTR_STAGE1` are not registers themselves. Use
+> `bitfield!` directly.
+> 
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  drivers/gpu/drm/tyr/fw.rs   | 12 ++++--------
+>  drivers/gpu/drm/tyr/regs.rs | 11 +++++------
+>  2 files changed, 9 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index 7edb5eff1707..aea151ff1f93 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -14,6 +14,7 @@
+>  //! [`Section`]: crate::fw::Section
+>  
+>  use kernel::{
+> +    bitfield,
+>      device::{
+>          Bound,
+>          Device, //
+> @@ -27,7 +28,6 @@
+>      },
+>      num::Bounded,
+>      prelude::*,
+> -    register,
+>      str::CString,
+>      sync::{
+>          Arc,
+> @@ -39,8 +39,7 @@
+>  use crate::{
+>      driver::{
+>          IoMem,
+> -        TyrDrmDevice,
+> -        TyrRegisters, //
+> +        TyrDrmDevice, //
+>      },
+>      fw::parser::{
+>          FwParser,
+> @@ -101,11 +100,8 @@ fn from(value: CacheMode) -> Self {
+>      }
+>  }
+>  
+> -register! {
+> -    base: TyrRegisters;
+> -
+> -     #[allow(non_upper_case_globals)]
+> -    pub(super) SectionFlags(u32) @ 0x0 {
+> +bitfield! {
+> +    pub(super) struct SectionFlags(u32) {
+>          0:0 read => bool;
+>          1:1 write => bool;
+>          2:2 exec => bool;
+> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+> index 0c419c4e1186..6f626957a010 100644
+> --- a/drivers/gpu/drm/tyr/regs.rs
+> +++ b/drivers/gpu/drm/tyr/regs.rs
+> @@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
+>      /// This array contains 16 instances of the MMU_AS_CONTROL register page.
+>      pub(crate) mod mmu_as_control {
+>          use kernel::{
+> +            bitfield,
+>              num::Bounded,
+>              prelude::*,
+>              register, //
+> @@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
+>              }
+>          }
+>  
+> -        register! {
+> -            base: TyrRegisters;
+> -
+> +        bitfield! {
+>              /// Stage 1 memory attributes (8-bit bitfield).
+>              ///
+> -            /// This is not an actual register, but a bitfield definition used by the MEMATTR
+> -            /// register. Each of the 8 bytes in MEMATTR follows this layout.
+> -            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
+> +            /// Each of the 8 bytes in MEMATTR follows this layout.
+> +            #[allow(non_camel_case_types)]
+> +            struct MMU_MEMATTR_STAGE1(u8) {
+>                  /// Inner cache write allocation policy.
+>                  0:0     alloc_w => bool;
+>                  /// Inner cache read allocation policy.
 
-For example with ps_size = 16 bytes (4 dwords), idx = 5 passes
-the check (5 < 16) but ctx->ps[5] reads/writes the 6th dword at
-byte offset 20, 4 bytes past the allocation.
+Reviewed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Divide ps_size by 4 in both comparisons and in the diagnostic
-messages to match the dword indexing.
-
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v2: also fix the pr_info() messages to print ps_size/4 (dwords)
-    instead of ps_size (bytes), so the logged limit matches the
-    actual check (found by Sashiko AI review).
-
- drivers/gpu/drm/amd/amdgpu/atom.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..dd6c22a 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -232,10 +232,10 @@ static uint32_t atom_get_src_int(atom_exec_context *ctx, uint8_t attr,
- 		(*ptr)++;
- 		/* get_unaligned_le32 avoids unaligned accesses from atombios
- 		 * tables, noticed on a DEC Alpha. */
--		if (idx < ctx->ps_size)
-+		if (idx < ctx->ps_size / 4)
- 			val = get_unaligned_le32((u32 *)&ctx->ps[idx]);
- 		else
--			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-+			pr_info("PS index out of range: %i >= %i\n", idx, ctx->ps_size / 4);
- 		if (print)
- 			DEBUG("PS[0x%02X,0x%04X]", idx, val);
- 		break;
-@@ -510,8 +510,8 @@ static void atom_put_dst(atom_exec_context *ctx, int arg, uint8_t attr,
- 		idx = U8(*ptr);
- 		(*ptr)++;
- 		DEBUG("PS[0x%02X]", idx);
--		if (idx >= ctx->ps_size) {
--			pr_info("PS index out of range: %i > %i\n", idx, ctx->ps_size);
-+		if (idx >= ctx->ps_size / 4) {
-+			pr_info("PS index out of range: %i >= %i\n", idx, ctx->ps_size / 4);
- 			return;
- 		}
- 		ctx->ps[idx] = cpu_to_le32(val);
--- 
-2.43.0
+> 
+> base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
+> -- 
+> 2.54.0
+> 
