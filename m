@@ -4,117 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E07BC98317
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:36:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F22C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:36:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C362010F57D;
-	Thu, 24 Sep 2026 13:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D595B10F56A;
+	Thu, 24 Sep 2026 13:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="LUtgMUNL";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="oISgL3Up";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFE010F57D
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:36:02 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49b912d37b6so11812615e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:36:02 -0700 (PDT)
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com
+ [74.125.228.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5747710F580
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:36:10 +0000 (UTC)
+Received: by mail-ed2-f35.google.com with SMTP id
+ 4fb4d7f45d1cf-6a98505364aso3427795a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:36:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790256961; x=1790861761; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
- b=LUtgMUNLiosLTfN/eprb0a47L63CLJ5/ycxqjc2FgzfuilNUkFUhySiFbwoKt9ybey
- yONPuM81aBHu9ChmN9WwgGdKmdsqS17dXbo9oBb+Rg1SdgEg1paId83P52b0Bux0mqNs
- Qg26lrH+xqtSh8q8jsQpe7blzHHkDPqHAIIZAEb2cerrSZCm6yS2gK4th77V854Dbwd5
- 2vFn/EtgNgYq+F3cObxdxjK1ZlyynPY9QV+U73iu5j7QYnGe4DlacNLQ51+chuPMiiUK
- U1McRDRHoDa0jg9uf3uyjXB9VeuFINnt7pEDthHpff26obsWBw4ZUzqBkKjAWXWUlaui
- gm5w==
+ d=fairphone.com; s=fair; t=1790256969; x=1790861769; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qbis09Q+KRjx9IyPuxFMqUf7Bej9ELQ4/FObbQ4rTIM=;
+ b=oISgL3Upe/gBkZTgiW2Nsm03T3t/II8yG5Ql73QEq87PY39Cw/NhRU1hpORx3mwz9W
+ a4fyJXd5c4BIWKWlJnJ/pFiBZ9GZe8mOM1KgiLfe5xQGKsYZxVd4xOePnEJGrNOqJ02Y
+ 97N7dUYPyd2kQAT59gHW+Ryl1zDutahbE1Df+cDoPiylJvG3EM2MF+6DFUFeMHAwBa5V
+ vtMhHqaNjmsh0xfPOIKDl09T4EmoTraFCP2l16FQ1BdUs6EKSO/8/WNdQUVD0J6rZsCR
+ evNfB8ZSkvb9DnLihKjkFP39ObRVTRHre0RXy3GXaPSp4Lq1NzkwNIL5UkIrV+1Amvwi
+ NU8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790256961; x=1790861761;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
- b=zhJtBsVuDmRy1iit0Hoxddz4nLIn+MEaAd9H3YagzwUv0i8RZGgzZSbD66K4tfpCsV
- J7DmZxnoaQDjl6BLfWgBf29zl55xMbMxoCG00gIhb424rj1gRJWFWJYQ6NMlB3AetH3l
- /yZasXKiPeBWIl/BO0M8Lr+/MJy3K10WbJmDaxCig7yDBPjFeAFd3jvIFp+EvdxCnbBx
- 3IvbwmnEh9dp1uleF5KQj6uLiSW9aL0LyftTB5XIg9ptZZNW9jGMZqiIdoem2wkxVYvD
- SK/EE5wHozxMz1knskm24vHjCuschdoKo2UHuwgQSxA0pg+Nj74TmD2NSvjVxMvRO/gT
- nyfg==
+ d=1e100.net; s=20260707; t=1790256969; x=1790861769;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qbis09Q+KRjx9IyPuxFMqUf7Bej9ELQ4/FObbQ4rTIM=;
+ b=q6C50N7AdbL8Cy0+NkYjmEwhsXg8cHeg/mRI9H8V2oqD1SPbA22R/3WQ9EH/+ftCOh
+ IzO7vRpxlR8zc8AkC80dGjjUtcY3+n25lm0qmbji717maE7JTOHGK5/ZGZ0laA2rtZ94
+ ldaTqcrG9+5ElN+Oujc79wQHHjkPbyVw1trAS3Qo8U5EQ3yMx6cjJXs6SheRw+/5PfHU
+ PT4YpklFVi4PXbpXicmNjbtrcGg5+EanHgWn+hUuhcmRIu0FL4BjHzaWUxRtKGn8JCwP
+ tv7aet3jkR+4jtn7hc7XmrB8RGIQapKK6M0JA6rF5RpeKmtYdVgl1EoeBmaKn69Rc+wW
+ ljvg==
 X-Forwarded-Encrypted: i=1;
- AKwUvByp8tc5bTgK0rO7mpl1Ygrg1zLwNbQacHgIEfpBivGpyLoDgfPKq7c7qKFqmAzF70rDUa2dHCu1hyA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mTYdm5SlYv1rNkeYiQ+q5WzNhpxAge4xxYCnF4oE7bomk/RyjX
- Hqy+QXsIIECiPqQYCy+XW30s17TXBRwhUpkVVI9CI5wAL0CRV4Uoy4fCK20u4mFWIOI=
-X-Gm-Gg: AYBFou0RmErEKR2ICn7OaPct4qBtFy0AamZPIMmUcs4lJlajOYJWcHgpcF3oGmIzjU2
- NDSPhZKj1DXPKkRvpQDlg2n8OpeYmQQI87/BZu76NQ8afaEciWZ2+c3JPHtQBpFLClw4k1/BJtu
- kK+ZMw44XIqZDWunJc+ZdHqoTSlE1Yu8DeGYpdpZZhmnEWD3VTbFW/Nv3W9MJsDqedZt0bhAwyc
- OyB3QihX9HldbK1xrbVr00eRi2Y6BePQJ+65i8LX9ejV52W/laAmz/1Dch/SgGcPkYz1eA9glBC
- 3bzp1ug8LuwxgQk3ldLQIqEwjj9DpmzCEWqq7j5n5cAWNL80Nrxb/kOJ1QDdICOqxwno3iWijo0
- M228gSJuoNA3EExz7ap2LV4YQ6GZGQ0ASYyatmpeJfJI0TVjEbBs3nl66ehud9YZkNKwJg28zhi
- qbGngteYb8CH7G5Orh7ZiI04eiqYPN2Z6lqK0LFXtN0rngE01RmX18y/N2ay0X7AemshnnDE///
- t3HaUzvAwM0pNvfA8ux8410K4bi9fgj7P+TIKVQvOq0ljSiCka9Vg==
-X-Received: by 2002:a05:600c:1385:b0:49f:ce78:3567 with SMTP id
- 5b1f17b1804b1-49fe66fa5c2mr40253725e9.24.1790256960649; 
- Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a?
- ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4886877a2d5sm14384759f8f.27.2026.09.24.06.35.59
+ AKwUvBxlcxWkHRL0T2BBwga4Q/53degyXkEYJk7mSfEseTbHPtH9zerkkWSd74bp+o0nKRPKVxRpVxD9H8Y=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nMP2O56WP24hV0HwhqUdLHqB1xgzA6teLm0bRo7Pkvd5JnlLH9
+ tByEzYPpFWeFQmbehDzn47S/Fuo6ZzXuXeYJ4iBq55StNKbm+dRwVvM9+BQVxRCgjC8=
+X-Gm-Gg: AYBFou3OiTFBFgSWKXupPLCvk2uWjkh/wsfauZNx7+TldKxT6AL2QVfE19Tm5Nci1/3
+ IBBpHS+7J7r5++4CXpyqdNWF6Ke1ZY/X/r9uHFoltixlwOxUDI0Ml9QMtAO8SLBEfQKODhVJrMP
+ z29vAczJa3HEwLq0N8teQMRsgrMQmoN5diDSi/qsuI+tPuTcfwdogqlRUxtDTbFLmuoXMHd0NNq
+ 2VSwaOaBqj+i82UlVMj20rvD6uJ/066Fsl2CM2hogi8XBL0BuXA7Q7drVPPVjNt5EFiYSimQ8Zl
+ JePxsgIcC0HyvsR6jCvGrdm245cAjVV7sqiihj/KdE2Qn1SDEXzgip9pToC9EkHEUPZUvFmQJh8
+ P6aZSN32IlcEezFLjUxOYCtv+db/nf+MgUS9WMOHcm80ZhgM3ExVdZxN+UuKyQYzlzCdK1ElquJ
+ JulLU7nuVL9e6ZLWzar9wQNuDkWwDp/e16b2gW/1klMEs+GxDtCOPG8NXnVTcKd5MtNlQBCZ0Um
+ uzDwCrJcsY=
+X-Received: by 2002:a17:907:3f89:b0:c29:61b9:7b3b with SMTP id
+ a640c23a62f3a-c2ac25b1f23mr204543866b.49.1790256968563; 
+ Thu, 24 Sep 2026 06:36:08 -0700 (PDT)
+Received: from localhost ([145.15.244.233]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2aae6149e6sm294506266b.28.2026.09.24.06.36.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
-Message-ID: <3c92a2ea-c588-4bc6-8d6a-8006f595e9cf@linaro.org>
-Date: Thu, 24 Sep 2026 15:35:59 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 6/9] drm/panel: novatek-nt36672a: Add 3 panels used in
- Xiaomi phones
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Thu, 24 Sep 2026 06:36:08 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 15:36:05 +0200
+Message-Id: <DLNL4OAG2D1L.2EI2N80LMZV8N@fairphone.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm/dsi/phy: power up the digital top before
+ starting the 7nm PLL
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Jonathan Marek" <jonathan@marek.ca>,
+ "Val Packett" <val@packett.cool>, "Bjorn Andersson" <andersson@kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260924-dsi-7nm-pll-digtop-v1-1-c2b24c8e218d@oss.qualcomm.com>
+In-Reply-To: <20260924-dsi-7nm-pll-digtop-v1-1-c2b24c8e218d@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,229 +95,260 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/17/26 18:43, Alexey Minnekhanov wrote:
-> Add support for 3 panels used in 2 Xiaomi smartphones, all based on
-> Qualcomm SDM636/660 SoC:
-> 
-> * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
->    exact model string is unknown
-> * Tianma TL063FVMC43-02  for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
-> * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
-> 
-> They all are DSI video mode panels using Novatek NT36672A controller,
-> so they can share almost exactly the same init/off sequences with
-> minimal differences between variants. This allows to avoid a lot of
-> code duplication.
-> 
-> Co-developed-by: Richard Acayan <mailingradian@gmail.com>
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-> 
-> ---
-> v2: sort compatible strings alphabetically in of_device_id
-> ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 166 +++++++++++++++++++++++++
->   1 file changed, 166 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> index a445c8067aa5f..d356348d39608 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -357,6 +357,90 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
->   	msleep(60); /* 0x3C = 60ms delay */
->   }
->   
-> +static void lavender_tulip_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	/*
-> +	 * This function supports 3 similar panels with minimal differences
-> +	 * in their init sequences. We assume base to be lavender-tianma
-> +	 * panel, and 2 variations (lavender-shenchao and tulip) are handled as
-> +	 * differences to base.
-> +	 */
-> +	const struct device_node *node = dev_of_node(&dsi_ctx->dsi->dev);
-> +	bool is_shenchao = of_device_is_compatible(node, "shenchao,fhdplus-video");
-> +	bool is_tulip = of_device_is_compatible(node, "tianma,tl063fvmc43-02");
-> +
-> +	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x96);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
-> +	else
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x10);
-> +	else
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x01);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x31);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x31);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xe4);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa9, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xaa, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xae, 0x8a);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0xfa);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-> +
-> +	if (is_shenchao)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 80);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-> +	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +
-> +	if (is_tulip) {
-> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
-> +	} else {
-> +		/* lavender tianma + shenchao specific part */
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
-> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00b8);
-> +	}
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +}
-> +
-> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	dsi_ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +}
-> +
->   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
->   	.clock		= 161331,
->   
-> @@ -389,6 +473,85 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
->   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
->   };
->   
-> +/* common for both lavender-tianma and lavender-shenchao panels */
-> +static const struct drm_display_mode lavender_panel_default_mode = {
-> +	.clock		= (1080 + 90 + 2 + 120) * (2340 + 10 + 3 + 8) * 60 / 1000,
-> +
-> +	.hdisplay	= 1080,
-> +	.hsync_start	= 1080 + 90,
-> +	.hsync_end	= 1080 + 90 + 2,
-> +	.htotal		= 1080 + 90 + 2 + 120,
-> +
-> +	.vdisplay	= 2340,
-> +	.vsync_start	= 2340 + 10,
-> +	.vsync_end	= 2340 + 10 + 3,
-> +	.vtotal		= 2340 + 10 + 3 + 8,
-> +
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
-> +static const struct nt36672a_panel_desc shenchao_lavender_panel_desc = {
-> +	.display_mode = &lavender_panel_default_mode,
-> +
-> +	.width_mm = 67,
-> +	.height_mm = 145,
-> +
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	.send_init_cmds = lavender_tulip_init_cmds,
-> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-> +};
-> +
-> +static const struct nt36672a_panel_desc tianma_lavender_panel_desc = {
-> +	.display_mode = &lavender_panel_default_mode,
-> +
-> +	.width_mm = 67,
-> +	.height_mm = 145,
-> +
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	.send_init_cmds = lavender_tulip_init_cmds,
-> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-> +};
-> +
-> +static const struct drm_display_mode tianmaplus_e7t_tulip_mode = {
-> +	.clock		= (1080 + 100 + 28 + 120) * (2280 + 10 + 3 + 8) * 60 / 1000,
-> +
-> +	.hdisplay	= 1080,
-> +	.hsync_start	= 1080 + 100,
-> +	.hsync_end	= 1080 + 100 + 28,
-> +	.htotal		= 1080 + 100 + 28 + 120,
-> +
-> +	.vdisplay	= 2280,
-> +	.vsync_start	= 2280 + 10,
-> +	.vsync_end	= 2280 + 10 + 3,
-> +	.vtotal		= 2280 + 10 + 3 + 8,
-> +
-> +	.width_mm = 68,
-> +	.height_mm = 143,
-> +
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
-> +static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
-> +	.display_mode = &tianmaplus_e7t_tulip_mode,
-> +
-> +	.width_mm = 68,
-> +	.height_mm = 143,
-> +
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	/* tulip panel uses almost the same init/deinit sequences as lavender */
-> +	.send_init_cmds = lavender_tulip_init_cmds,
-> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-> +};
-> +
->   static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
->   {
->   	struct device *dev = &pinfo->link->dev;
-> @@ -465,7 +628,10 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
->   }
->   
->   static const struct of_device_id panel_nt36672a_match[] = {
-> +	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
->   	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
-> +	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
-> +	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
->   	{ },
->   };
->   MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
-> 
+Hi Dmitry,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Thu Sep 24, 2026 at 2:51 AM CEST, Dmitry Baryshkov wrote:
+> dsi_pll_7nm_vco_prepare() de-asserts PLL_SHUTDOWNB and starts the PLL,
+> but leaves the PHY digital top powered down; only dsi_7nm_phy_enable()
+> sets DIGTOP_PWRDN_B.  The PLL cannot lock in that state.  This went
+> unnoticed for as long as the PLL was only ever prepared from the DSI
+> host's enable path, after the PHY had been enabled.
+>
+> Since commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for
+> pixel clocks") the clock framework enables the PHY PLL on its own while
+> applying the DT's assigned-clock-parents from of_clk_set_defaults(), at
+> probe time, before the PHY has been touched.  The lock fails, the failed
+> enable leaves the pixel clock with an unbalanced enable count, and the
+> retries on every probe attempt stall the boot for tens of seconds:
+>
+>   DSI PLL(0) lock failed, status=3D0x00000000
+>   PLL(0) lock failed
+>   dsi0_phy_pll_out_dsiclk already disabled
+>   WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x244/0x24c
+>    clk_core_disable
+>    __clk_set_parent_after
+>    clk_core_set_parent_nolock
+>    clk_set_parent
+>    of_clk_set_defaults
+>    platform_probe
+>
+> CMN_CTRL_0 reads 0x20 at the failing attempt: PLL_SHUTDOWNB set,
+> DIGTOP_PWRDN_B clear.  Setting DIGTOP_PWRDN_B alone makes the same PLL
+> lock, with no rate change and no other register touched.
+>
+> Power up the digital top together with the PLL bias, and power it down
+> again with it.  The normal enable path is unaffected: dsi_7nm_phy_enable(=
+)
+> holds the bias reference and writes CMN_CTRL_0 in full anyway.
 
-Thanks,
-Neil
+FWIW the same fix seems to help on the 10nm with this error on bootup
+
+[    0.503085] msm_dsi_phy ae94400.phy: [drm:dsi_pll_10nm_vco_prepare] *ERR=
+OR* DSI PLL(0) lock failed, status=3D0x00000000
+[    0.503168] msm_dsi_phy ae94400.phy: [drm:dsi_pll_10nm_vco_prepare] *ERR=
+OR* PLL(0) lock failed
+
+I've also ported more commits from 7nm to 10nm locally, will send them
+soon, since anyway they should be good fixes and code quality
+improvements
+
+drm/msm/dsi_phy_10nm: Protect PHY_CMN_CLK_CFG0 updated from driver side
+drm/msm/dsi_phy_10nm: Protect PHY_CMN_CLK_CFG1 against clock driver
+drm/msm/dsi_phy_10nm: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk=
+ source
+drm/msm/dsi_phy_10nm: Define PHY_CMN_CLK_CFG[01] bitfields and simplify sav=
+ing
+drm/msm/dsi_phy_10nm: Define PHY_CMN_CTRL_0 bitfields
+drm/msm/dsi_phy_10nm: Fix reading zero as PLL rates when unprepared
+
+Unfortunately some other warnings/errors still persist on bootup that I
+can't figure out... maybe you have some idea?
+
+If not, I don't want to bring this thread too much offtopic :)
+
+[    1.197104] ------------[ cut here ]------------
+[    1.197113] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO no=
+t set
+[    1.197134] WARNING: drivers/clk/clk-divider.c:145 at divider_recalc_rat=
+e+0xac/0xd4, CPU#0: kworker/u32:0/12
+[    1.197150] Modules linked in:
+[    1.197160] CPU: 0 UID: 0 PID: 12 Comm: kworker/u32:0 Not tainted 7.2.0-=
+00088-gddc402c24fff #86 PREEMPTLAZY=20
+[    1.197166] Hardware name: Fairphone 4 (DT)
+[    1.197170] Workqueue: events_unbound deferred_probe_work_func
+[    1.197181] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=
+=3D--)
+[    1.197186] pc : divider_recalc_rate+0xac/0xd4
+[    1.197190] lr : divider_recalc_rate+0xac/0xd4
+[    1.197195] sp : ffff8000800b2720
+[    1.197197] x29: ffff8000800b2720 x28: ffff0000858b9080 x27: 00000000000=
+00000
+[    1.197204] x26: ffff0000859eb5c0 x25: 0000000000000000 x24: 00000000072=
+a88a0
+[    1.197211] x23: ffff000080394c10 x22: ffff0000859eac00 x21: ffff000080a=
+9fe00
+[    1.197217] x20: 0000000072a88a00 x19: ffff000084c92400 x18: fffffffffff=
+e9898
+[    1.197224] x17: 000000040044ffff x16: 045000f2b5503510 x15: fffffffffff=
+e9848
+[    1.197232] x14: 0000000000000050 x13: 0a74657320746f6e x12: 204f52455a5=
+f574f
+[    1.197238] x11: ffffd97c73dedd58 x10: 00000000000001fa x9 : ffffd97c73d=
+edd58
+[    1.197245] x8 : 3fffffffffffefff x7 : ffffd97c73e45d58 x6 : 00000000000=
+00000
+[    1.197251] x5 : 0000000000000001 x4 : 0000000000000000 x3 : 00000000fff=
+fffff
+[    1.197257] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000801=
+c0000
+[    1.197265] Call trace:
+[    1.197268]  divider_recalc_rate+0xac/0xd4 (P)
+[    1.197275]  clk_divider_recalc_rate+0x58/0x80
+[    1.197279]  clk_recalc+0x74/0xc0
+[    1.197287]  clk_calc_subtree+0x50/0x80
+[    1.197293]  clk_calc_subtree+0x68/0x80
+[    1.197298]  clk_calc_new_rates+0x1a8/0x208
+[    1.197305]  clk_calc_new_rates+0x12c/0x208
+[    1.197311]  clk_calc_new_rates+0x12c/0x208
+[    1.197316]  clk_calc_new_rates+0x12c/0x208
+[    1.197323]  clk_calc_new_rates+0x12c/0x208
+[    1.197329]  clk_calc_new_rates+0x18c/0x208
+[    1.197335]  clk_core_set_rate_nolock+0xc0/0x2d0
+[    1.197340]  clk_set_rate+0x38/0x14c
+[    1.197344]  _set_opp+0x140/0x5c0
+[    1.197352]  dev_pm_opp_set_rate+0x110/0x2f4
+[    1.197358]  dsi_link_clk_set_rate_6g+0x44/0x100
+[    1.197366]  msm_dsi_host_power_on+0xb8/0x99c
+[    1.197371]  dsi_mgr_bridge_pre_enable+0x19c/0x3c0
+[    1.197376]  drm_atomic_bridge_call_pre_enable+0x40/0x54
+[    1.197384]  drm_atomic_bridge_chain_pre_enable+0xe0/0x14c
+[    1.197390]  drm_atomic_helper_commit_encoder_bridge_pre_enable+0xb4/0xf=
+c
+[    1.197399]  drm_atomic_helper_commit_modeset_enables+0x28/0x58
+[    1.197406]  msm_atomic_commit_tail+0x1ac/0x55c
+[    1.197412]  commit_tail+0xa4/0x1a0
+[    1.197416]  drm_atomic_helper_commit+0x178/0x1a0
+[    1.197421]  drm_atomic_commit+0x8c/0xd0
+[    1.197427]  drm_client_modeset_commit_atomic+0x214/0x280
+[    1.197434]  drm_client_modeset_commit_locked+0x60/0x178
+[    1.197442]  drm_client_modeset_commit+0x2c/0x60
+[    1.197448]  __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x84/0x8=
+c
+[    1.197456]  drm_fb_helper_set_par+0x58/0x74
+[    1.197462]  fbcon_init+0x4c0/0x4e4
+[    1.197470]  visual_init+0xb4/0x104
+[    1.197478]  do_bind_con_driver.isra.0+0x1c4/0x360
+[    1.197483]  do_take_over_console+0x1c0/0x214
+[    1.197487]  do_fbcon_takeover+0x78/0xf4
+[    1.197493]  fbcon_fb_registered+0x17c/0x1e8
+[    1.197498]  do_register_framebuffer+0x19c/0x250
+[    1.197504]  register_framebuffer+0x28/0x50
+[    1.197509]  __drm_fb_helper_initial_config_and_unlock+0x324/0x5a0
+[    1.197516]  drm_fb_helper_initial_config+0x38/0x44
+[    1.197523]  drm_fbdev_client_hotplug+0x7c/0xd4
+[    1.197529]  drm_client_register+0x58/0x9c
+[    1.197535]  drm_fbdev_client_setup+0xa4/0x1c0
+[    1.197540]  drm_client_setup+0xac/0xe0
+[    1.197546]  msm_drm_kms_post_init+0x28/0x40
+[    1.197552]  msm_drm_init+0x15c/0x1d4
+[    1.197558]  msm_drm_bind+0x48/0x60
+[    1.197562]  try_to_bring_up_aggregate_device+0x16c/0x1e0
+[    1.197569]  __component_add+0xa4/0x170
+[    1.197574]  component_add+0x14/0x20
+[    1.197579]  dsi_dev_attach+0x20/0x38
+[    1.197585]  dsi_host_attach+0x140/0x158
+[    1.197591]  mipi_dsi_attach+0x2c/0x50
+[    1.197596]  hx83112a_probe+0xec/0x1bc
+[    1.197601]  mipi_dsi_drv_probe+0x1c/0x28
+[    1.197606]  really_probe+0xbc/0x2c0
+[    1.197612]  __driver_probe_device+0x118/0x16c
+[    1.197618]  driver_probe_device+0x3c/0x120
+[    1.197623]  __device_attach_driver+0xa4/0x108
+[    1.197628]  bus_for_each_drv+0x84/0xe4
+[    1.197633]  __device_attach+0x9c/0x1a0
+[    1.197639]  device_initial_probe+0x54/0x5c
+[    1.197644]  bus_probe_device+0x34/0x98
+[    1.197649]  device_add+0x5c4/0x7dc
+[    1.197654]  mipi_dsi_device_register_full+0xd8/0x168
+[    1.197659]  mipi_dsi_host_register+0xb8/0x178
+[    1.197663]  msm_dsi_host_register+0x3c/0x60
+[    1.197668]  msm_dsi_manager_register+0x148/0x220
+[    1.197673]  dsi_dev_probe+0x18c/0x220
+[    1.197679]  platform_probe+0x80/0xac
+[    1.197686]  really_probe+0xbc/0x2c0
+[    1.197691]  __driver_probe_device+0x118/0x16c
+[    1.197697]  driver_probe_device+0x3c/0x120
+[    1.197703]  __device_attach_driver+0xa4/0x108
+[    1.197708]  bus_for_each_drv+0x84/0xe4
+[    1.197713]  __device_attach+0x9c/0x1a0
+[    1.197718]  device_initial_probe+0x54/0x5c
+[    1.197723]  bus_probe_device+0x34/0x98
+[    1.197729]  deferred_probe_work_func+0x88/0xc0
+[    1.197734]  process_one_work+0x150/0x280
+[    1.197743]  worker_thread+0x18c/0x2e0
+[    1.197748]  kthread+0x11c/0x13c
+[    1.197754]  ret_from_fork+0x10/0x20
+[    1.197761] ---[ end trace 0000000000000000 ]---
+[    1.197768] ------------[ cut here ]------------
+[    1.197769] dsi0_phy_pll_out_dsiclk: Zero divisor and CLK_DIVIDER_ALLOW_=
+ZERO not set
+[    1.197785] WARNING: drivers/clk/clk-divider.c:145 at divider_recalc_rat=
+e+0xac/0xd4, CPU#0: kworker/u32:0/12
+
+Regards
+Luca
+
+>
+> Fixes: 1ef7c99d145c ("drm/msm/dsi: add support for 7nm DSI PHY/PLL")
+> Fixes: acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel =
+clocks")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> Single fix for the DSI PLL lock failure and the clk_core_disable() WARN
+> seen at probe on SM8150/SM8250/SM8350/SC8180X since the dispcc-sm8250
+> pixel clock sources gained CLK_OPS_PARENT_ENABLE.  The clock framework
+> now enables the PHY PLL while applying assigned-clock-parents, before the
+> PHY driver has powered up the PHY's digital top, and the PLL cannot lock
+> without it.
+>
+> Found by forcing the missing bit on a failing boot: CMN_CTRL_0 read 0x20
+> at the failed attempt, and setting DIGTOP_PWRDN_B alone made the same
+> PLL lock.  Verified on QRB5165 RB5 and SM8350 HDK with the current DTs,
+> and with the link clock sources moved into the driver; the fix is
+> independent of that series and makes it unnecessary as a fix.
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/=
+msm/dsi/phy/dsi_phy_7nm.c
+> index 5d805a797abd..7bacc1031187 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> @@ -413,7 +413,8 @@ static void dsi_pll_disable_pll_bias(struct dsi_pll_7=
+nm *pll)
+>  	} /* else: =3D=3D 0 */
+> =20
+>  	data =3D readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+> -	data &=3D ~DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+> +	data &=3D ~(DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
+> +		  DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB);
+>  	writel(0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+>  	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+>  	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
+> @@ -433,7 +434,8 @@ static void dsi_pll_enable_pll_bias(struct dsi_pll_7n=
+m *pll)
+>  	}
+> =20
+>  	data =3D readl(pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+> -	data |=3D DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+> +	data |=3D DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
+> +		DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+>  	writel(data, pll->phy->base + REG_DSI_7nm_PHY_CMN_CTRL_0);
+> =20
+>  	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+>
+> ---
+> base-commit: a15fac810c76397ec9f62a6fc26c4d7ab6e238a7
+> change-id: 20260924-dsi-7nm-pll-digtop-9939220a453a
+>
+> Best regards,
+> -- =20
+> With best wishes
+> Dmitry
+
+
