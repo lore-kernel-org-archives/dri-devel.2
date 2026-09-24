@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62658C98326
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A32C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A48A110F90C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7BB710F90F;
 	Fri, 25 Sep 2026 07:30:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FQ6SLDR2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eJuC4NkO";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9069810F22E
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:51:15 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-488615e6cfcso150066f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:51:15 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C2310E960
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:44:37 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-398c066106cso1032596a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 23:44:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790203874; x=1790808674; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790232277; x=1790837077; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
- b=FQ6SLDR2w5y0Q/8vxb9oRf1TKZg1S5D5Vq2khSqN1RXRhoxCaSxZrmrVe+mALRt77k
- XmNE9cZeKo8KU6qjpqEK5K5R1l2kqtic4QyGof+6BvYHeMUN+z79x8OAuML/qAxG8OKk
- zWOCLiMGjWIP4C1DO9k2M5M2G3n9V701a9dRrozHTG9HrSJLZ/QeTWT2mNN6x+915Ffh
- HKH81JV6O054vZvNj2/V0dEcEn0Um1q4AX9H8x10ZhTnobu4DQPwKOd2iasljHyK14+A
- cK3L7ebzl2H9gDZqfcHaeWf3dS7bARb0121YnYnJb9Xk+rqxwY71ZEJYyOPQK0xpUrZr
- umNg==
+ bh=lbB99fzKqqncd9v0PrpyQHGW/pl7V8ppi+GHfHAQQBo=;
+ b=eJuC4NkOEPqY3kYYu1NXFhqU9E+hrefJ97e0cXgbyU8DcGzM2bdJufAuQ9B7MsiS0U
+ PDronVwK55YOjMjIrsrkpB2IrppxFFLl5RethLrovdy/YLXNCLDIpPfaWjGgWD9A/qkP
+ xAtmDwbE3sdGWEduMCdS8/GeRepDom5RbOwxBnQ0oLfXEHzx1SDpDWcdMkgeu2OSduz7
+ qc0hiyJOh2G04qvR4uwUAl9xdqhd1dgwqXX5JUJx68PDwBMCMdPEn7rynMjjH+XaSG2o
+ GZQphP9jf1tn/4MmsRopnSyWJQ9RTKtlx5mZbwFZorkxUMl6jdwR9GikrC2hKwsxI7Ba
+ FsUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790203874; x=1790808674;
+ d=1e100.net; s=20260707; t=1790232277; x=1790837077;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
- b=RtXK/aHJMBbI6v5KsP5yvztBwizR16dR8h7oIz3rV1jBsdaz7zR1JKMb2BU8zm7gMZ
- mlduhn/ttdsRWVqCAw13UbdYId7iZ+RrnEaGuaLpUoex3pW3012BFVXBHhXRULp75wtJ
- BaNIW10EvrxpmLIack9myN1AMPXEqR417tfzdOeHlevh306HvYJklrEW5ijsTyGVqYie
- nyoI0Qgc98HqlYOVeK/aiAiWuyJB2Dbb/KFpg1Pe3k5METBo9pAzXAUAnNFhNB5bMmox
- OH2CCuuzwj9AmCpRBLUfaqmF/tFP6wA33BZGOnjQjCOHEK2DXDoYR42xb0RJvRvQ3cnO
- lxdw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBybKjcf6dkIGH+dabR+p05geXT/NP1qo2sk9THSBGSsL7/7rSOv9SRTSDZ19iWmHzmiiFO0UjwkQ/A=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lkvFyHtnejvMyxaUHkTEj6EYYYewbahLm573ce9wcWcMIj+Up3
- c9CRZZPl/349XGCF5h5JZjWPs8nx1vyadQm73Jw4e/rR2lvLGC+XVVvG
-X-Gm-Gg: AYBFou3JtL7WXum/m4MQxbEJpNKTV43HHRK8eIUGPp4CVDckzs/1m6eBUep+KAZtyfm
- UCPMExcoST44RSKb5voxIikSPlon9254KmO+yHr+1tock1Tq59C2xa1sDeI/MC3qkYB5g+c6A6P
- DRAlOiwboah/jOc53CkhDiwgo1LEBJSu+MY68gc1DUHr/HwCurDlVm5JFDzf6H6YlWC/gW1BfkU
- lwPPAs8O3c6LwfsgoDqzto7WbrcvVFBHohs6c/S3dylCkf7JrifiABa0VKfRw0qDgDZxBDp6zUb
- qNxmpHVomtQ1rVB+3HhYOlPOM0ersERBpMec68lFcwXhf7wvMOw7jR5ipMFjNV3NkUSNTSAd8Bm
- cPxwE9PP4C87stD9M8S7Zg5ktXbMmRUz8OF4a+j1pXcD9f1jDW/oFb3qh/d3y281L6FULtIRKHZ
- YVcucb0AQ9YAHv/yyOcbHbvbcHSqH/UVvkT7w1nUHtorNuTNEmt+zxOHz+lf/BenbprqX1ePdL4
- 4NFoNN2wCdPjeE5C5bev39dwLOW8jSX8w==
-X-Received: by 2002:a05:600d:8642:10b0:49f:c305:f4ce with SMTP id
- 5b1f17b1804b1-49fe6705708mr6898435e9.16.1790203873928; 
- Wed, 23 Sep 2026 15:51:13 -0700 (PDT)
-Received: from x230 (gw1.ms-free.net. [185.243.124.10])
+ bh=lbB99fzKqqncd9v0PrpyQHGW/pl7V8ppi+GHfHAQQBo=;
+ b=C3dq1mczGD7CQ0DrlnAI8nERfyiDmhXo2vneUZvXQklrClB4uwDxhDePQjIjvN7pTy
+ GakBeD130AvPNCQ6MwzB1yvwAXduKQgGv0cmeDDlYvZfgJWjejCrRnVckRlGD+QeBvve
+ AoBt+s15Hp2S0VfMMUqoB3mRN6H8+D6JADKhlHOnBrcYfnckubjTlNnDiM4g7hO4v2LQ
+ nPikhLOi0zcOdwn4bJrhjmn2Q/JWd9O2euYiSBmsVvwnTzzh7tASdsumiYcqKsQFVU3V
+ bBq9Wk4aCC8yLkhhKleGxw+VEXeUnVpAWs+QKI68wSOnieL2QrMy68XvZm04jEK4HfYf
+ 9Aqw==
+X-Gm-Message-State: AFuF++kUENsS8VxDaVwIFDq3/a16V8hoEG+dWxSu2AoGasIubrgl5NVX
+ gKU6Ta+UNOR9hFpQLGJhz6AMtTHLn8n56F0ybMGyzJZSjfeNOCMz9q0F
+X-Gm-Gg: AYBFou12vwGQDncwFPQs72JgQeFWD1vyiO8DieCvKyQKKQ/kJ2sMLlWJHyBbRwumjQN
+ wBE1gzEOMbZMQGmRBzydhvtOKqZXN05CuSyuYQkw8SMfzbwLNoJ9SDdCDYWwgxBnIg0pSfF2iZy
+ AfrXHGrtC8xsgeze2jsIzloR0qBIeoYq69qJmYkx2vYu9R0p5V/3pDpoUp7lxW9CwW+ztWebqEh
+ fzCijjG23+/syd+MPcw4Eqb3L7+6IgawJa7lbRYwVbrvtTpAOBMCA7L4ktgq0ob3mIOBeyarsKJ
+ NbRnvLNstnh9GoPD5YS3aeW+8buBXmEEoG5h+ZF8gQiazbhyQDbsbCE7rwUECSJDEnbsMTmzGbY
+ Q7lCiTLiKKn3SpA1qujb9eqXgXlfE1cXRJuZS8Ow8XM2j2U0y02GpDDhyxxOHpXjcdtwq1HC7hs
+ UdbHWIwjWCUH+seN1TGHg1UMtDOc8EpWTn45zugxw2dQAFWUm2haw3E3NfTWP24iPLdJEPctHb+
+ r6Cr+qVZ5ltat+v2aMje8k1OKykGF8G5xJxpjVkVLGawxZRYWlZ9KjcKLwc2HI/G3PywcFYD8ln
+ NdtnrI6Ygw==
+X-Received: by 2002:a17:90a:d603:b0:39e:6c68:1550 with SMTP id
+ 98e67ed59e1d1-3a098969ba9mr1148247a91.24.1790232276784; 
+ Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-488682673bdsm9822109f8f.2.2026.09.23.15.51.10
+ 98e67ed59e1d1-3a0972efa0bsm2960830a91.8.2026.09.23.23.44.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:51:12 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: devnull+david.ixit.cz@kernel.org
-Cc: abelvesa@kernel.org, airlied@gmail.com, andersson@kernel.org,
- conor+dt@kernel.org, david@ixit.cz, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dsankouski@gmail.com,
- jesszhan0024@gmail.com, konradybcio@kernel.org, krzk+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, phone-devel@vger.kernel.org, robh@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, Petr Vorel <petr.vorel@gmail.com>
-Subject: Re: [PATCH 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
-Date: Thu, 24 Sep 2026 00:51:07 +0200
-Message-ID: <20260923225107.191388-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
-References: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
+ Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: jani.nikula@linux.intel.com, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 1/2] drm/udl: reject short USB control transfers in
+ udl_read_edid_block()
+Date: Thu, 24 Sep 2026 06:44:33 +0000
+Message-ID: <20260924064434.2541959-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924064434.2541959-1-benquike@gmail.com>
+References: <20260919223511.3889061-1-benquike@gmail.com>
+ <20260924064434.2541959-1-benquike@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
@@ -97,15 +95,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-...
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-...
->  static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
-> -	{ .compatible = "samsung,s6e3ha8" },
-> +	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
-> +	{ .compatible = "samsung,s6e3ha8-amb577px01" },
+In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
+read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
+Currently the short-transfer check tests ret < 1 instead of ret != 2, so
+if a short USB control transfer returns 1 byte, read_buff[1] is not
+written by usb_control_msg() and retains the previous iteration's byte (or
+uninitialized kmalloc(2) memory on the first iteration), which is then
+copied into buf[i].
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Change the check from ret < 1 to ret != 2 so any short USB control
+transfer fails with -EIO.
 
-Kind regards,
-Petr
+Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
+emulating a DisplayLink UDL USB device: on the unfixed kernel, when
+usb_control_msg() returned 1 byte for an EDID read (short transfer),
+udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
+data into the EDID buffer; whereas with this fix applied, ret != 2
+correctly fails with -EIO and prevents EDID buffer corruption.
+
+Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split out as patch 1/2 as requested by Jani Nikula.
+- Added testing details in QEMU on short USB EDID control transfers.
+
+ drivers/gpu/drm/udl/udl_edid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
+index af4cff2a7c51..b7c462436573 100644
+--- a/drivers/gpu/drm/udl/udl_edid.c
++++ b/drivers/gpu/drm/udl/udl_edid.c
+@@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
+ 		if (ret < 0) {
+ 			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
+ 			goto err_drm_dev_exit;
+-		} else if (ret < 1) {
++		} else if (ret != 2) {
+ 			ret = -EIO;
+ 			drm_err(dev, "Read EDID byte %zu failed\n", i);
+ 			goto err_drm_dev_exit;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
