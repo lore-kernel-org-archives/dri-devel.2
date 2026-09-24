@@ -4,132 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0682C98304
-	for <dri-devel@archiver.kernel.org>; Wed, 23 Sep 2026 23:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1AFC98304
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 00:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4151210E1A1;
-	Wed, 23 Sep 2026 23:24:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED5010E4D5;
+	Thu, 24 Sep 2026 00:10:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HmUrYRvg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="IYdpj11J";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4583F10E1A1;
- Wed, 23 Sep 2026 23:24:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nDLXCz16OsE+0efu+EyFBybZLuFSahJFc4/bDk79RxYCYQPbwysV3um3TTwW5q9ywKKL6Jw9GSVTdQ04SOya0Ww6f9cxeymIrUg2oUcJvqPyqgnwHla5RyPj/SE8sXCSgqKDjjAbmCbvswdSDpzxUEE9CGoCriiM+XUDdwWJtz0UoPj9Vwl6VgqyxiddqDEVR9sf4PtdpNXuw8VeHYA87vYQ17mz6r4wq65edmqMxeCnMpTOYxePTaEuDRettNh2MNXCLiltOHcTGlv6XlMlRm3Gunm5GjdBOL5/VoE2cDk2XdpcoxLbcL+C3xZrfbSnHipmntz/nXeKgWF1dmq8Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YjzSfbmot2oLMR17gLjpFaXvIDEfhHfrbP2NjaI53xk=;
- b=sUz56jvXePh/XsppY3TXC0mmuOsrLzcVP4tAoCFxy8vE3liVeA5FQiaJPbTDVrB/hNAom5Fitp7h1kYJyvRHDGpLR+zdDgnsh6bQk1XqS7N+EeuhyK8XQ8/3gZYukxuCLrUozdrpD/hMpWLXyQpQ0ZFoAXhe1VchCcGlIVmmlQ5d2ocL98urOYYr2RwxlQ/N8ovM5u4LcuvzeJjO89DOpgX4lxUsyPryAcAZs6FM5UdEsNMU0AR8l9F1RHpxyNMwuUw1tLYHoPIbW6pht5zusF2vqVX6cMp4daJqJ/wS2EHYGYuH5DhQ569/gfIaKeEsCx8/NQ+ez1248yatbCJ8dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YjzSfbmot2oLMR17gLjpFaXvIDEfhHfrbP2NjaI53xk=;
- b=HmUrYRvgt+ygrgPq768kdvb2ehxENAa71QKkQSiINAJAJju0aMR53Q9TN4wlg11ooW8T6e2FphzrOSatrChw1vXC2c0WjV6lAD8q3L/ub19jcuwyG8Uk/DSfRs6I9VOtoZINkHkPbwKXAFBpFylh7EFfny615GVnVddkCYAxIHV82iO4HutRXMM/vZCpqwGWs+fKiN+JOkDEGyr+IgGvf2SAo1bProGhYABeZCynAqoJpMlkqtBZQkTeX2s7ERN0kiq5wMvZ5PZk/rZxawHbHl2TvQnQaxshzltSiYsbyIFdDJ2Cc0CsViWNZO9OMv279OFtG2yEqVRexcbgCWYOiw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by MN0PR12MB5858.namprd12.prod.outlook.com
- (2603:10b6:208:379::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 23:24:03 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 23:24:03 +0000
-Date: Wed, 23 Sep 2026 20:24:02 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6596210E4A4
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 00:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790208649;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zQq8mahuuqrFopJghWcTwTNWIgqjB8mu7IEWM1TnLbs=;
+ b=IYdpj11Jlb6NkP1oYpLkTcneXGzMc/pjKioFaaTs6ilZnosPz0KmoA0qljHa4kRYTYg6s5
+ iMp1YBcxjBn3Sw48m1nB+m4ZU3nu9CtnBa/LnDAOuUpWzCcEzFp3DMVsAEMAem67kSDalo
+ tiXQau2HMBIwUcJimp6IjD1f0kP0jaw=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-694-mr6L5U0tOGmoNePH-dlEfQ-1; Wed, 23 Sep 2026 20:10:47 -0400
+X-MC-Unique: mr6L5U0tOGmoNePH-dlEfQ-1
+X-Mimecast-MFC-AGG-ID: mr6L5U0tOGmoNePH-dlEfQ_1790208646
+Received: by mail-lj1-f199.google.com with SMTP id
+ 38308e7fff4ca-3a58e0ec77eso7000391fa.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 17:10:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790208646; x=1790813446;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zQq8mahuuqrFopJghWcTwTNWIgqjB8mu7IEWM1TnLbs=;
+ b=O3ifi+47h6nub4/aYnIfbXvhBpaDqcc8YbhkuKmGue56fKafGRtkW5adQ52YU85Fvh
+ rQGS/Rs7pAHdYrZRDy+kOay4bFbJfwBqNoec6B8kqv1pwHq0VAvufwXHcdbHQ3TwNnr0
+ 7dZovoCVetrHmlDxjayVbvx5XyrYhTCuO83dXiRa/q81gMHp86TI5tZmq9oT0QioC4ML
+ 50Ojz2Q0ynQnbyfwBAvEiR47MxW96OPbRHQiSwY14+8l/rZymXi5+sQzFHTJR1X+m84W
+ zYy0ms0lxYVQws9Tra8XIunpuVqbY55o8wdvAfp3d0DVU3bLYcYpNGLD4SvmmPd8Avnn
+ AUAA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwMct6OYerIrfq4Gbb4EdwcVFbxGToziDKj6rgMPkfAukRtaus8Eu1JFLKDFSkEnDFhq8RgjPVLBqE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lT0wY4C9iIoGa4TRsDxvbpAsxdYt1BFVcnaO9AN2PfKzDvm/IR
+ aLrelr1Z4t/DVGAFJqDehj0q2cZmMi+vyu9eiVQq6Epodnb6cAsPwyHsUZ/k0JJz5dTLwlGcvWT
+ bKsS/3OKCmsRXmIMIqeLKE7WSn5z3PeQ6UWs1uv7KuokiuKWdqcBqPXcxEPZbUY//RfYM
+X-Gm-Gg: AYBFou2xRL4mirmEL9Rpf4HYpEQcQ/ayQIiYKePldyUKBxGZnysQNj/il1C0rzq5iOU
+ fHARwiT1mBHEvUtW+IHMk/mHdb9f/PW3okLv+XQPkt0XHfIDs3DZFhp2gd9KkAXZJuj9lSJA7bX
+ AHtHDuOgjFCIY9gfJK1O3nNbqb/uijqSVoGGKu5qm7aAfkl1HPVhCCFvgAL9Nu21R6si2K0yZpY
+ fLvXEZ4Bp3m+jSxKyoe5dIYJ+QxQvCBsQFxKAS9gP9r1ZJymSHE8G/aCaE43AqJGA70eezH4ion
+ UpTjdqfZ+zcSIDVXN2zkMF7F4u3dhxZfhxdrnn3wxuw/pSh0LmjXmh7L5gzDOCpmsG1l8QmlZG5
+ NFU/lhq9GBamAScggc0VDdW10oxNh6Oo=
+X-Received: by 2002:a05:6512:6cf:b0:5b6:184c:7daa with SMTP id
+ 2adb3069b0e04-5b8df09deddmr250422e87.51.1790208646146; 
+ Wed, 23 Sep 2026 17:10:46 -0700 (PDT)
+X-Received: by 2002:a05:6512:6cf:b0:5b6:184c:7daa with SMTP id
+ 2adb3069b0e04-5b8df09deddmr250403e87.51.1790208645639; 
+ Wed, 23 Sep 2026 17:10:45 -0700 (PDT)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b8d8552dafsm963966e87.7.2026.09.23.17.10.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Sep 2026 17:10:44 -0700 (PDT)
+Message-ID: <63211ea4-9eae-4241-8926-9e81334c5f7a@redhat.com>
+Date: Thu, 24 Sep 2026 03:10:43 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] [PATCH v14 00/12] migrate on fault for device pages
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
  Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
  Matthew Brost <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH 00/12] [PATCH v14 00/12] migrate on fault for device pages
-Message-ID: <20260923232402.GI2545495@nvidia.com>
 References: <20260922053421.4092027-1-mpenttil@redhat.com>
  <20260922192726.90dec3c4c77b8c9063dbf218@linux-foundation.org>
  <5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
  <20260923141936.d1f9e5b85355f0bdc6a6ecd2@linux-foundation.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
 In-Reply-To: <20260923141936.d1f9e5b85355f0bdc6a6ecd2@linux-foundation.org>
-X-ClientProxiedBy: BN9PR03CA0480.namprd03.prod.outlook.com
- (2603:10b6:408:139::35) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MN0PR12MB5858:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdc4d60c-df77-4178-f896-08df19c9c16c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|23010399003|366016|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: jc0vaactrFZ3IQbDQ8ctm8cMZgLjHRdcmqxzz6aDkWqDlWZHoi3H573U7NC7x/oiCz+jhLHWY5C2iWjnfCLVNOGyp3mT61SxtBOMQ8VCO5OM51/csUIF0PotHVCn1b9FrR00grfme+dC7IWcHzYuMNTdpH96H3WdIcJjNaUvn9o8z68bEVnC8hhwVpyB1ecw64xnQ/FO7WOQnNDS86/Wt7THzCliCz+way7JI1MiSa04TkSougoicnoyIioNW9bKLBDFp2N39h98HO1HpYZqOJ3WBlkS/Ds9DUBb2w/GG0nKhc/ZlkDLmAwZPyPDccCSSgGQiQ4YEE4P/Ep9tx+dyaH89DNKRYGBa3n+ecPOZjT3S7Br58a69X5lVTbEoIaLu3U73kCE1IKNssZwaKwoD5On2n33Cxz74FL+b/GB+MD9uAYmhZ5/7k5iZ5XXLteqhul91zYdBJVzYT3KmEUfiJuhukDAY1AlqVDN4ZEa5MjzDhbJxjH8blzY91m0V3bfoAr1U3gmao2ayy38UtfcTQskmxPthY0QIOxDxypfkWtPOVgbrIu0WahMYI4/w/FLWaH1RVD3WUJwYQcF1DBZVm5gjtuHGcQdXK3CnyhAQf+sNx+H7dtQrtTYWBAGCOvjDVaZrFGsfh/FNgb4mEinCwakJHgHvF427AuXQ9uOtKQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWhWUElkVjdrODFMa1cxWktsMVNpSTdiQzk3MFp5OFE4MHB0L1ZCcDI1WWps?=
- =?utf-8?B?R1YyVnd3SzB5S0QrUmFrdUhQRjlsN2ZIVDdqZFRqeCtZOFEvTUZzYjhMOXV3?=
- =?utf-8?B?S0Rpci9lYmZIdGpubndzQThRZG1TeWcyTU5URU1rbDQyUGV5eTk5dnI0c21J?=
- =?utf-8?B?TGUwZVBOVTZyS1Z2d29yVC9wR2s2TzdYWEZ2ampxOXBLRUluNzdFMDBtM2FL?=
- =?utf-8?B?dDY5dEFvTm4xblZENThtaHcrMWFtSzNTQ0FleWVSZ0hqQXNiMy8wNTZiajVM?=
- =?utf-8?B?VU1TMnlVcnZwRjUrblV2Z3FjSG04dXFtSGhDeDFjSFhMN0N5bEgrbjZ1cG9S?=
- =?utf-8?B?dnFvc0JKYldZTy9OSFVlSy9qaFRQaW0yK1kzd3U3cmJFTkhnZ0lVMVZ0dFNJ?=
- =?utf-8?B?Y1o4blhIWlFQUGYwMjFTZ3JBam9zQkQ0Z2lkVXo3RmswdzNKQVJIRXdNZ1V0?=
- =?utf-8?B?Q1FsOFZHbEdINlYrbFFaWUhsSkZkNDZnSHJkeURCaVJpdjZpNHVVRlMwU214?=
- =?utf-8?B?bWhiNHJxTzUwREt5dWNRYWVmY01uZFcrbjltOVcxeDlMUDB2QUVXeC96amdv?=
- =?utf-8?B?LzZrTzBiZjNRUlZqK3BOTEo5OFZzSUFNRmhvSkVQcENkd1Avb3JQRDRudk5h?=
- =?utf-8?B?ZjAvY1hFV1ZnOERqTWZzUlAzY25NYXlFbUdwMW9wY2tNRm1LOE9JRWFzSk5w?=
- =?utf-8?B?MllNYWhYOUZxR2hoaExBSWd1UFpOSmhyV1ljMWJnb3YyUDJvekwvMzgrVk9R?=
- =?utf-8?B?RTBnQ2dPbElMN2dWU3JGWmZxdm1zTmxIcHVyM2NYN2gzbkwvVXRMcG16bDFE?=
- =?utf-8?B?WHhHaHhkZVBZbXVuY1Z1MU5TVk9LQWJjY1lYMWFKdnk0dU1OZEV6ck1EY3NK?=
- =?utf-8?B?cGpDejR5cm1jTHliWko1VE9mK1JoTENncVNUbDBLeG8xNEN3bm5MQWVtaFhN?=
- =?utf-8?B?ODRSVENDbU9MdDlVK0w1ajRBNWVGd09yRHVrVmprU1B2bHl1K3haSzRmeVUr?=
- =?utf-8?B?ZUZ1Z0J6Vk9jSDR4cExJb20wSHV4ejhFb1Q2Z0Y5bXhsdnZ6b1B5Q2YwMUpI?=
- =?utf-8?B?YWV5Ris3U0tSSUNtaWFYa3VLNlZrWUxhTFpzbkM1VUxrMzR3NENsbmg1eTR2?=
- =?utf-8?B?cEhIS3FWdVgrczZQSm51Q1F3U2YvUWhOUHpqK0U1NjBIWFZjbFU1Y3cwMXRG?=
- =?utf-8?B?N1JydllwWTI1eThUdFd0Z3J4ZnVPTU40UDNHSWNnZ0lZZ3lsUEZORXBwM0Yx?=
- =?utf-8?B?WnhFSk5IR24wbHZxZlMrUVFpaEQwNVd0THowNytDaTBLQkVSY2xhR2ZsQXk2?=
- =?utf-8?B?Ync4aS9yalByb2dNaVZVYVU2cksrWkJUMlVTVWsxOW84WTBtSk9GdmVIektM?=
- =?utf-8?B?ME1qenYzNWhvUkVGVmF2WUdSNWdGM0hSeHlUcDVPRHpoS1YxQUJBamJRN0hE?=
- =?utf-8?B?bmtSa2xkL3BxcVVQZEJNRTlyVFZOWTAzcWhvMUNqOC9ndFU2djFGcnk5WHdB?=
- =?utf-8?B?cCtzYnNBY1JBN3NRQ2JnU1drUjczNUxWUzJZOGpHak5QTmhENlJYbWNRdUJB?=
- =?utf-8?B?VytKTEtpR1RKSU5CQ3cvN0tLbDhzMllzL0llQWtzaFIvZDR5aHFJWTZld2V1?=
- =?utf-8?B?Q0FYdXJoS0ZVenhVK2lBZEczVi9PRGlOKzBaQlFjZ3VkMVdQYmRzNkVJOEpR?=
- =?utf-8?B?VTVocnhteGJ5ZmlSZEJIMWlxeUFnZjdBMXNwall5WmVZQW1sVFNPb0ZUT21J?=
- =?utf-8?B?TXY5ZW1SeUttbmRCNjZLWjNwS2NqbVpQQVU2NHI1dkdjekxjZWtyQzZKK0tu?=
- =?utf-8?B?VlZoUkZmZzhVQWtxMWM3d25kWHFDenI3bWI0LzlLRXpZamx5NU9IYytQa0Rs?=
- =?utf-8?B?Umd6ZjdJZUpIKzZMVmtkSUtXcitKbU92UnhXS0ZXY2IvMEZiSXV4ZlZMaFNT?=
- =?utf-8?B?QkZDODJIZTNUSlNwd1NRK2NsSktjVmpXN1VOREhNbmF5YjNyd3YyNS9YKzJw?=
- =?utf-8?B?U1JXSFVqcUsxdmlMQXVBRm4wUTcxUG56NmQ0NGVYUDFIdVdsdjB2OGVvblUw?=
- =?utf-8?B?bzZ6VE01ZE5LT0wxYkFaTzB1T2dtekRPZDM2cHRQR3N1dnlqWFVBSHRwMmlW?=
- =?utf-8?B?a1YwZGRwY2YxeC9PK0doRjBrdmQ0dXNtMGFPb2pMamdjbUx3SkVaL1F3K2da?=
- =?utf-8?B?Q3Z4WW1WQzFUUmNxdHBadUJVdGdJWlBHRk9Ta0Q5UUlPc3J5MjMrWDR1Mzhm?=
- =?utf-8?B?akh5WHNiTWVTNjJ3V2paZWxEQXZBZzkxQjFBaWhieUhkNGxMSlVXYm0vMjRL?=
- =?utf-8?Q?2/+DIUilJGy6+w6/9N?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdc4d60c-df77-4178-f896-08df19c9c16c
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 23:24:03.5248 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FNAiTUmpiu+GlG1R9CiA5XKKWuSdtdhbUDvNS58zMk4PxJRxzEj0ziM6YVNgZXLh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5858
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8lXiA6kPD8ZY2nljYQyYI_eDrK4T_MaGQl02FPNr79M_1790208646
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,47 +112,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 02:19:36PM -0700, Andrew Morton wrote:
+
+On 9/24/26 00:19, Andrew Morton wrote:
+
 > On Wed, 23 Sep 2026 08:29:34 +0300 Mika Penttilä <mpenttil@redhat.com> wrote:
-> 
-> > 
-> > >> migration). It is also tricky to code correctly. One page table walk
-> > >> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
-> > >>
-> > >> We should be able to walk the page table once, faulting
-> > >> pages in as required and replacing them with migration entries if
-> > >> requested.
-> > > Sounds sensible.
-> > >
-> > >> Tested in X86-64 VM with HMM test device, passing the selftests.
-> > >> For performance, the migrate throughput tests from the selftests
-> > >> show similar numbers (within error margin) as unmodified kernel.
-> > > But no performance benefits are demonstrated?
-> > 
-> > There are no performance regressions for current tests.
-> > Real benefits come if want to do migrate on fault.
-> > For migrate on fault today missing pages are collected as not-present and
-> > the caller has to fault them and re-run migrate_vma_setup(); folding 
-> > HMM_PFN_REQ_FAULT into the collecting walk removes that extra
-> > fault+retry round-trip, dropping two page table walks. Page table walks
-> > are not cheap. Not to mention simplified implementation for driver.
-> > Also, the vma looked up as part of the walk is readily available for
-> > migration, eliminating the need for explicit vma lookup - one more
-> > performance benefit. Net effect two saved page table walks and
-> > one vma lookup.
-> 
+>
+>>>> migration). It is also tricky to code correctly. One page table walk
+>>>> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+>>>>
+>>>> We should be able to walk the page table once, faulting
+>>>> pages in as required and replacing them with migration entries if
+>>>> requested.
+>>> Sounds sensible.
+>>>
+>>>> Tested in X86-64 VM with HMM test device, passing the selftests.
+>>>> For performance, the migrate throughput tests from the selftests
+>>>> show similar numbers (within error margin) as unmodified kernel.
+>>> But no performance benefits are demonstrated?
+>> There are no performance regressions for current tests.
+>> Real benefits come if want to do migrate on fault.
+>> For migrate on fault today missing pages are collected as not-present and
+>> the caller has to fault them and re-run migrate_vma_setup(); folding 
+>> HMM_PFN_REQ_FAULT into the collecting walk removes that extra
+>> fault+retry round-trip, dropping two page table walks. Page table walks
+>> are not cheap. Not to mention simplified implementation for driver.
+>> Also, the vma looked up as part of the walk is readily available for
+>> migration, eliminating the need for explicit vma lookup - one more
+>> performance benefit. Net effect two saved page table walks and
+>> one vma lookup.
 > It certainly sounds that this series will result in performance
 > improvements, but have those improvements been quantified?
-> 
-> > This series also addresses the vanished/reborn page table while
-> > collecting problem which can crash current implementation.
-> 
+
+Yes I think Alistair mentioned those walks showed clearly in perf traces
+in his experiments, and that served as a motivation for this series
+
+
+>
+>> This series also addresses the vanished/reborn page table while
+>> collecting problem which can crash current implementation.
 > Oh.  I didn't get that message from the v14 changelogs, and crashes in
 > the current implementation are not what we want.  In fact, addressing
 > those is more important than speeding things up.
+>
+> Under what circumstances to these crashes occur?  Can/should we we fix
+> those in a minimal -stable backportable fashion before moving on to speedups?
 
-Yeah, what is this about?
+It is about races between concurrent MADV_DONTNEED and collecting, where the
+collecting arrays overflow if page table is cleared, recycled and reinstantiated
+as large page.
+I am not sure if there is minimal fix to all the corner cases,
+or would it be more like the approach in this series.
 
-The series still has lots of sashiko remarks, are they legit?
+--Mika
 
-Jason
