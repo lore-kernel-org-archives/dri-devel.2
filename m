@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B53EC98318
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:40:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39719C98321
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7665310E565;
-	Thu, 24 Sep 2026 18:40:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8695410E4EA;
+	Thu, 24 Sep 2026 18:40:26 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC1510E565
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7189F10F70D
  for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:40:19 +0000 (UTC)
 Received: from local by pidgin.makrotopia.org with esmtpsa
  (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768) (Exim 4.100)
- (envelope-from <daniel@makrotopia.org>) id 1x9oMa-000000007Gh-3ehi;
- Thu, 24 Sep 2026 18:40:08 +0000
-Date: Thu, 24 Sep 2026 19:40:05 +0100
+ (envelope-from <daniel@makrotopia.org>) id 1x9oMU-000000007GV-1R2Y;
+ Thu, 24 Sep 2026 18:40:02 +0000
+Date: Thu, 24 Sep 2026 19:39:58 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -33,14 +33,12 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Pin-yen Lin <treapking@chromium.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: [PATCH v7 01/14] drm/bridge: it6505: quiesce event sources and work
- on remove()
-Message-ID: <6f2f7bd3e6b259266bde53b3396a1ef87633bc85.1790275151.git.daniel@makrotopia.org>
-References: <cover.1790275151.git.daniel@makrotopia.org>
+Subject: [PATCH v7 00/14] drm/bridge: it6505: DP audio support + shared-DAI
+ hw_params fix
+Message-ID: <cover.1790275151.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1790275151.git.daniel@makrotopia.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,113 +54,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-struct it6505 is freed by devres right after remove() returns, but
-remove() cancels none of the driver's work items, so link_works,
-hdcp_wait_ksv_list, hdcp_work and extcon_wq can still run afterwards
-and dereference freed memory. Cancelling alone would not be enough:
-the threaded IRQ and the extcon notifier stay live until devres
-teardown and can requeue the works.
+Revive HDMI/DP audio support for the it6505, originally posted by
+Jiaxin Yu [1], rebased onto current -next with the review feedback
+addressed: &client->dev is gone (the driver gained it6505->dev) and
+"#sound-dai-cells" has since been added by commit 325af1bef5b9
+("dt-bindings: display: bridge: it6505: Add #sound-dai-cells").
 
-Unregister the extcon notifier and disable the IRQ first, then cancel
-all work. Make it6505_remove_notifier_module() idempotent, tracking
-the registration in a flag under extcon_lock, as both .detach() and
-remove() call it now. The notifier_call pointer is left intact:
-extcon traverses its raw notifier chain without holding a lock, so a
-traversal racing with the unregistration may still invoke the
-callback. Also initialise extcon_wq in probe: cancel_work_sync() on a
-never-initialised work item trips WARN_ON(!work->func).
+Patches 1-12 fix pre-existing bugs found during review of earlier
+versions of this series; they carry Fixes: tags and are ordered first
+so stable trees can pick them.
 
-Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Patch 13 wires up the it6505 audio helpers via hdmi_codec_ops,
+unblocking the mt8186-mt6366 sound card which references it6505 as
+the I2S3 codec. Patch 14 makes hw_params succeed with no display
+attached, needed when the I2S bus is shared with another codec as on
+MT8186 "steelix" Chromebooks, where the speaker path must keep
+working regardless of the it6505 link state.
+
+Tested on a MT8186 (google,steelix) Chromebook: the sound card comes
+up, speakers, microphone and headset jack work. HDMI/DP audio output
+itself could not be tested for lack of a suitable adapter cable.
+
+[1] https://lore.kernel.org/all/20230730180803.22570-4-jiaxin.yu@mediatek.com/
 ---
-v7: no changes
+v7:
+ * new patch 2: cancel link_works, hdcp_wait_ksv_list and hdcp_work
+   in it6505_poweroff() so link training and HDCP authentication
+   cannot run into a chip being powered off; pre-existing, found
+   while assessing the Sashiko AI review of v6
+ * patch 13 (was 12): it6505_poweroff() clears the powered flag
+   under audio_lock, closing the race between the codec ops and a
+   concurrent power-off flagged by the Sashiko AI review of v6; the
+   it6505_enable_audio() wrapper is folded into the delayed work
+ * the remaining v6 review findings are already fixed by later
+   patches of this series (patches 3, 4, 6, 8, 11 and 12), concern
+   pre-existing code outside its scope (whole-register restore in
+   it6505_audio_input(), unchecked reads in it6505_aux_i2c_wait()
+   and it6505_calc_video_info(), regulator disable order) or do not
+   apply (AUX unregister on unbind, missing newline in dev_err())
+ * rebased onto next-20260923
+ * patches 1, 3-12 and 14: no changes
 
-v6: track registration in a flag instead of clearing notifier_call,
-    which an unlocked chain traversal racing the unregistration
-    could have called as NULL
+v6:
+ * patch 1: track notifier registration in a flag instead of
+   clearing notifier_call, which a chain traversal racing the
+   unregistration could have called as NULL (extcon traverses its
+   raw notifier chain unlocked); flagged by Sashiko AI review of v5.
+   The in-flight-callback race also flagged there is an extcon core
+   limitation affecting all its consumers and cannot be closed from
+   a consumer driver.
+ * patch 4: note that a failed regulator_disable() leaks the
+   reference either way
+ * new patches 10 and 11: two more pre-existing fixes from v5
+   review, an uninitialised link-frequencies value and an error
+   code written back to the reset register
+ * patches 2, 3, 5-9, 12 and 13: no changes
 
-v5: serialise notifier registration state with extcon_lock
+v5:
+ * patch 1: serialise notifier registration state with extcon_lock
+ * patch 2: also drop the runtime PM usage ref held for a connected
+   display; retitled
+ * new patches 3-7 and 9: more pre-existing fixes from v4 review
+   (AUX unregister symmetry, poweroff error path, IRQ status read
+   errors, two divisions by zero, of_node_put before use)
+ * patch 10 (was 4): update plugged_cb/codec_dev under mode_lock
+ * patches 8 and 11: no changes
 
 v4:
- * quiesce event sources before cancelling work; retitled
- * initialise extcon_wq in probe to avoid WARN_ON(!work->func)
+ * patch 1: quiesce extcon notifier and IRQ before cancelling work,
+   initialise extcon_wq in probe; retitled
+ * new patch 2: disable runtime PM on remove
+ * patch 3 (was 2): collected Chen-Yu Tsai's Reviewed-by
+ * patch 4 (was 3): start out muted; mute state and cached
+   parameters updated under audio_lock; unregister codec after
+   quiesce
+ * patch 5 (was 4): apply audio defaults at probe time
 
-v3: new patch
----
- drivers/gpu/drm/bridge/ite-it6505.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+v3:
+ * new patches 1 and 2, fixing a pre-existing use-after-free on
+   remove() and an out-of-bounds read with channel_count == 0
+ * patch 3 (was 1): serialise audio enable/disable with audio_lock;
+   track mute state so the FIFO-error IRQ cannot undo a mute
+ * patch 4 (was 2): no changes
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index e136ac71edbb..e980cc6d5760 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -443,6 +443,7 @@ struct it6505 {
- 	struct drm_display_mode source_output_mode;
- 	struct drm_display_mode video_info;
- 	struct notifier_block event_nb;
-+	bool extcon_registered;
- 	struct extcon_dev *extcon;
- 	struct work_struct extcon_wq;
- 	int extcon_state;
-@@ -2934,11 +2935,15 @@ static int it6505_use_notifier_module(struct it6505 *it6505)
- 	int ret;
- 	struct device *dev = it6505->dev;
- 
-+	mutex_lock(&it6505->extcon_lock);
- 	it6505->event_nb.notifier_call = it6505_extcon_notifier;
--	INIT_WORK(&it6505->extcon_wq, it6505_extcon_work);
- 	ret = devm_extcon_register_notifier(it6505->dev,
- 					    it6505->extcon, EXTCON_DISP_DP,
- 					    &it6505->event_nb);
-+	if (!ret)
-+		it6505->extcon_registered = true;
-+	mutex_unlock(&it6505->extcon_lock);
-+
- 	if (ret) {
- 		dev_err(dev, "failed to register notifier for DP");
- 		return ret;
-@@ -2951,13 +2956,16 @@ static int it6505_use_notifier_module(struct it6505 *it6505)
- 
- static void it6505_remove_notifier_module(struct it6505 *it6505)
- {
--	if (it6505->extcon) {
--		devm_extcon_unregister_notifier(it6505->dev,
--						it6505->extcon,	EXTCON_DISP_DP,
-+	mutex_lock(&it6505->extcon_lock);
-+	if (it6505->extcon && it6505->extcon_registered) {
-+		devm_extcon_unregister_notifier(it6505->dev, it6505->extcon,
-+						EXTCON_DISP_DP,
- 						&it6505->event_nb);
--
--		flush_work(&it6505->extcon_wq);
-+		it6505->extcon_registered = false;
- 	}
-+	mutex_unlock(&it6505->extcon_lock);
-+
-+	flush_work(&it6505->extcon_wq);
- }
- 
- static void __maybe_unused it6505_delayed_audio(struct work_struct *work)
-@@ -3613,6 +3621,7 @@ static int it6505_i2c_probe(struct i2c_client *client)
- 	INIT_WORK(&it6505->link_works, it6505_link_training_work);
- 	INIT_WORK(&it6505->hdcp_wait_ksv_list, it6505_hdcp_wait_ksv_list);
- 	INIT_DELAYED_WORK(&it6505->hdcp_work, it6505_hdcp_work);
-+	INIT_WORK(&it6505->extcon_wq, it6505_extcon_work);
- 	init_completion(&it6505->extcon_completion);
- 	memset(it6505->dpcd, 0, sizeof(it6505->dpcd));
- 	it6505->powered = false;
-@@ -3645,6 +3654,12 @@ static void it6505_i2c_remove(struct i2c_client *client)
- 	drm_bridge_remove(&it6505->bridge);
- 	drm_dp_aux_unregister(&it6505->aux);
- 	it6505_debugfs_remove(it6505);
-+	it6505_remove_notifier_module(it6505);
-+	disable_irq(it6505->irq);
-+	cancel_work_sync(&it6505->link_works);
-+	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
-+	cancel_delayed_work_sync(&it6505->hdcp_work);
-+	cancel_work_sync(&it6505->extcon_wq);
- 	it6505_poweroff(it6505);
- 	it6505_remove_edid(it6505);
- }
+v2:
+ * keep and unregister the hdmi-codec platform_device on remove
+ * initialise delayed_audio before registering the codec device
+ * cancel delayed_audio synchronously on shutdown and remove
+ * disable audio immediately when muting
+ * patch 2: drop the encoder check instead of returning 0 early
+
+v1: https://lore.kernel.org/all/cover.1784393979.git.daniel@makrotopia.org/
+v2: https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
+v3: https://lore.kernel.org/all/cover.1784600387.git.daniel@makrotopia.org/
+v4: https://lore.kernel.org/all/cover.1784681487.git.daniel@makrotopia.org/
+v5: https://lore.kernel.org/all/cover.1784717129.git.daniel@makrotopia.org/
+v6: https://lore.kernel.org/all/cover.1784947240.git.daniel@makrotopia.org/
+
+Daniel Golle (13):
+  drm/bridge: it6505: quiesce event sources and work on remove()
+  drm/bridge: it6505: quiesce work items before powering off
+  drm/bridge: it6505: balance and disable runtime PM on remove
+  drm/bridge: it6505: unregister DP AUX adapter on bridge detach
+  drm/bridge: it6505: complete poweroff even if disabling regulators
+    fails
+  drm/bridge: it6505: bail out of the IRQ handler when status reads fail
+  drm/bridge: it6505: avoid division by zero in pixel clock calculation
+  drm/bridge: it6505: avoid division by zero in audio FS debug print
+  drm/bridge: it6505: guard against zero channel count in audio
+    infoframe
+  drm/bridge: it6505: hold endpoint OF node reference while parsing it
+  drm/bridge: it6505: reject a too short link-frequencies property
+  drm/bridge: it6505: don't write an error code back to the reset
+    register
+  drm/bridge: it6505: Don't reject audio hw_params without an encoder
+
+Jiaxin Yu (1):
+  drm/bridge: it6505: Add audio support
+
+ drivers/gpu/drm/bridge/ite-it6505.c | 262 +++++++++++++++++++++-------
+ 1 file changed, 200 insertions(+), 62 deletions(-)
+
+
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+prerequisite-patch-id: 0000000000000000000000000000000000000000
 -- 
 2.55.0
