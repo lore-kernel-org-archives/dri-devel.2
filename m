@@ -4,107 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DA9C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 874CDC9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:28:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CC310F5EF;
-	Thu, 24 Sep 2026 14:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8FCB10F5F4;
+	Thu, 24 Sep 2026 14:28:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DNTAcsDm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cAanq/HC";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 079E510F5EF
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:23:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jIy4BZM+ngyU1k8LAqYs1Kqf/M0TgSmsK4yf0w2rUTVJwVHrhvl/ZAwf9nRenPuyBbnVlxyCYqhYI6Jm/XAAON2bEs0MmUe8JhzlbNNBYrBJpqIYNJcOuec0+Gdb1Sc/3iN3imYd5RnQFJBBUdTr97ApYCHF9fC2GE3sHd9r4ZsaUhThsSHnFh5NGE5KjE4FZzNFJlYxGGpv+2WEYUl6pkvKIHLIAv+uNNMXGhNOu7mGWcVuLd+bwBhGLghL3De+rfrkhemHGOOersnplJ4yUDtNBY9cM1I6dXlyTadJFMhpvYcX+2dH481c5ADVQvQrqZxphaQraqYLn3BaXePJCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uHigaZcoTQAlZdsLbau/IFWFIFgOiK6sNVWHc2zvf1c=;
- b=JEZXrkwmxOG630EJYA9IayTKDXGf4XIJuxycuNHaxVZlvtPGLQPdPqzj/LBhLIe9XrhJDoYqhOIQSZHji57tgfgVSxrW2vAPOSXbsi3ow851DdAvKdaUAP7PREoI7f26zyUNvwJaVVRasQxVkT+2oBkPBNJXE0pS2k1TmECtQRNy7Y41CnXL1SZ9PewfJXUk51MjyBuCKuwR0tP54PiFKbVMsrQsNv+n3nlgiPp1SDJvy0WhvC5jcMDh9P5mmslh0lC+s2oqs8zFiSXztYL4nSNAlNYgH/9ziCwVa9GIoN4AM24hj2ZQGNTz7B4HegbgQyHqqk+op7Y2O8OGkdJQCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uHigaZcoTQAlZdsLbau/IFWFIFgOiK6sNVWHc2zvf1c=;
- b=DNTAcsDmL9wrets6NgannombxLM55omvzQRAX9HkFzz67e9ZX4ife3C2bZU22M/ZxN8Pgy98K35FP6++Pkcd9bLNxh34pfeNSvhrt93CdM6YMa+5H2sih7xOl9uxtlCqEibMIb80nImPOVoqo2kxjcSvcJs3fkbpQta2aMtK+WI=
-Received: from SJ0PR13CA0218.namprd13.prod.outlook.com (2603:10b6:a03:2c1::13)
- by SA3PR12MB8801.namprd12.prod.outlook.com (2603:10b6:806:312::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Thu, 24 Sep
- 2026 14:22:56 +0000
-Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::34) by SJ0PR13CA0218.outlook.office365.com
- (2603:10b6:a03:2c1::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Thu,
- 24 Sep 2026 14:22:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 14:22:55 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 09:22:54 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
- 2026 09:22:54 -0500
-Received: from localhost.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Thu, 24 Sep 2026 09:22:51 -0500
-From: Baorui.Liu <baorliu@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: <virtualization@lists.linux.dev>, <airlied@redhat.com>,
- <kraxel@redhat.com>, <dmitry.osipenko@collabora.com>,
- <gurchetansingh@chromium.org>, <olvaffe@gmail.com>, <lili.gong@amd.com>,
- "Baorui . Liu" <baorliu@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/virtio: add overlay plane format support
-Date: Thu, 24 Sep 2026 22:22:42 +0800
-Message-ID: <20260924142242.676-1-baorliu@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21D8910E391;
+ Thu, 24 Sep 2026 14:28:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B880443C51;
+ Thu, 24 Sep 2026 14:28:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010121F00893;
+ Thu, 24 Sep 2026 14:28:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790260110;
+ bh=IL6ClCwIjkZWXa+/sikAWRTuWWNCeUnK+ge6atvO8+M=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=cAanq/HC3J8+Nv74HWHMMsnf0HUL2z8Yx0G3QNxBFsbIJXebsZOfmmG+sNEdqzh+G
+ yhzVjJZbm4dPGZFF1NpUrCnE4NXRu5SAmuyHWYfH1Qw1SnIlH/sdao7pzGHPcjdtso
+ hhh1ah6O8YA9dzpCrnTkeCCZ74NP14gr62drZeCVEybtrl0JLnx3O8ikowIk3TdeW2
+ IQPmDqkmQ76fHJpzkKiiYzpN5sD7jS+f9jUf+7oMRUMtRlRXx1qH8l8d3hMowJ+Jf0
+ vhKdEBC1+V7wAqzLHB7OhZy7p2zEWkPk7yi6zn8uSo3DhwifnZplpvIiJUK6JIDQSw
+ c9g3Tm7I8atOA==
+From: Lee Jones <lee@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
+Subject: Re: (subset) [PATCH v2 09/19] dt-bindings: mfd: qcom,tcsr: Add
+ compatible for MSM8952
+Message-Id: <179026010074.638531.9042726679993021271.b4-ty@b4>
+Date: Thu, 24 Sep 2026 15:28:20 +0100
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|SA3PR12MB8801:EE_
-X-MS-Office365-Filtering-Correlation-Id: c42fda3a-ff31-4f8f-48de-08df1a47539f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|82310400026|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: 7quCEq5+C5ThnuqK5yTl9LbDVLbb51hgMWRadYbIUvxtUF31ri2ycwHQXM46ZyzpOOXiJsYaNWFHeSo6SD5q0C0Hsfcb/wGPMYTWVm6i5H5ZjsL9yEBKFAjpt7YyQ9xkPpWR9875UYsFTEDm9ZGW9EBn3/UhM6sfl8cIXJPyBxcbwcX9VduuCZRZGJMc6sILcxUlP6w7WTRroWYpf1fP3qMgNeD8XzamC+Y1gOaDS+OXxwWO3tvP3D5NFr7w7vYmz1riXlrWQPR0pQfSJQiZkjZ/vHezWeLYyLNhUhSPVueO1mGdMxPGcZMEc6TFDHjOQMGo9uF3qgDSxsppPVH0uBuL75erjp5j2Zzhj9z7e6ff7g+zOm1oGU0ffdPoZ02udbvmIdlyCp/OtR49IeSsR08ORxFPEmRu6fB+LT+fLgz+yZFUY9j86S0Y3GHl6KNBVWJIIITm4yhxduIGxmks/xW5AD2RmiK1OctEDAUuBuCOmP3LwSv//F5jcatOzzRLCeO77XF7Du+kYkEHHrYS6LogoueIPe730sDG5FBsU/SbtqtcnsieFnZDYb+9UwePuR4WhjE0knu+gvdAsSVWPwRPezxPIg7FWR19I9u2XfHyNSE4+iCBKZyx5V2cVPaQxHFZziEJfh/4o/oM4ENIrhLb/Vi9xsYrFcaivYRcj7E72kiKcoM9wS6N1NaL95krMACyEOtOSQruBhDpM1SZVQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1lxHslYmO0SaoNAoXTl/sf6ssahtJ9MSt4KC8SZ1L97//iROynaQGUV3IwTkbLFCiLAxKM0noD3a8Ba6RT3XuFWDRDFCmTNHCFtm5GqdwMQBg+uhd8UD5RUekaVPP3lRqhWaZuQu15htCOtNyfsE6f/3PvchbzF0JZO0Z7ol33S91p/h1QHWdn2EuocXXwb8vufn+0o1hzhClERcAr7tp5OoUTANgiIhtTnEPdihTmFLruHFc4haX2g3lR0sDxyCymQtGR1dDpItSXXzuj1QeeZdSanECNFYTjbo9GmlKUvmivyicmKzAxqJInBcInNEuJbkcxAdLzzOQf0x+ydxMkJ1jOpLOX+BikKWVEFxvM7cZr435rhBKsXUG590es2NG+3VNaDPmPpnIvAHP1oa6NODqPRX/SYDKv+un6fYSw59nkbsjVnRQ2KEJe6fu8wF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:22:55.6567 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c42fda3a-ff31-4f8f-48de-08df1a47539f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8801
+X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,73 +88,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sophia Gong <lili.gong@amd.com>
+On Wed, 16 Sep 2026 17:22:14 +0300, Muzaffer Kadir wrote:
+> Document the qcom,tcsr-msm8952 compatible.
 
-Advertise additional pixel formats for virtio-gpu overlay planes so a
-userspace compositor can use KMS overlay composition instead of
-falling back to GPU composition.
+Applied, thanks!
 
-Handle DRM_PLANE_TYPE_OVERLAY in virtio_gpu_plane_init() with a
-dedicated format list, and reuse the primary plane update path for
-overlay scanout.
+[09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
+        commit: 319633b06ff2bfc2a7a60d2cfcab2e681a343b27
 
-Signed-off-by: Sophia Gong <lili.gong@amd.com>
-Signed-off-by: Baorui.Liu <baorliu@amd.com>
----
- drivers/gpu/drm/virtio/virtgpu_plane.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 29e4b458ae57..23ca880692f1 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -41,6 +41,21 @@ static const uint32_t virtio_gpu_cursor_formats[] = {
- 	DRM_FORMAT_HOST_ARGB8888,
- };
- 
-+static const uint32_t virtio_gpu_overlay_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_XRGB2101010,
-+	DRM_FORMAT_BGRX1010102,
-+	DRM_FORMAT_NV12,
-+	DRM_FORMAT_P010,
-+};
-+
- uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
- {
- 	uint32_t format;
-@@ -572,6 +587,13 @@ static const struct drm_plane_helper_funcs virtio_gpu_cursor_helper_funcs = {
- 	.atomic_update		= virtio_gpu_cursor_plane_update,
- };
- 
-+static const struct drm_plane_helper_funcs virtio_gpu_overlay_helper_funcs = {
-+	.prepare_fb		= virtio_gpu_plane_prepare_fb,
-+	.cleanup_fb		= virtio_gpu_plane_cleanup_fb,
-+	.atomic_check		= virtio_gpu_plane_atomic_check,
-+	.atomic_update		= virtio_gpu_primary_plane_update,
-+};
-+
- struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 					enum drm_plane_type type,
- 					int index)
-@@ -586,6 +608,10 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 		formats = virtio_gpu_cursor_formats;
- 		nformats = ARRAY_SIZE(virtio_gpu_cursor_formats);
- 		funcs = &virtio_gpu_cursor_helper_funcs;
-+	} else if (type == DRM_PLANE_TYPE_OVERLAY) {
-+		formats = virtio_gpu_overlay_formats;
-+		nformats = ARRAY_SIZE(virtio_gpu_overlay_formats);
-+		funcs = &virtio_gpu_overlay_helper_funcs;
- 	} else {
- 		formats = virtio_gpu_formats;
- 		nformats = ARRAY_SIZE(virtio_gpu_formats);
--- 
-2.25.1
+--
+Lee Jones [李琼斯]
 
