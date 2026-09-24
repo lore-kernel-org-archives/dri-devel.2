@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E38DC9831C
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75553C98317
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:05:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057FE10F47A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89C8010F47C;
 	Thu, 24 Sep 2026 11:05:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lRSHosIY";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oPEz3aWT";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D372710F477
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0C310F477
  for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 11:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1790247889;
- bh=haNaa1vTgpxyTcCfqXXR41IYwfwITsSUh39XMWGczo8=;
+ bh=XXFQmfxbeg12M2OgKN8dJ9l8UIV4ldaUbZSuiynE7b4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=lRSHosIYzYj774CP8Xo/cJWcvQQCN9W8iBZfJ+6qK3+o1sv5yC7ENLvUWsEf3fQ4r
- Y6WWNga0wFquCVbyhCqMkh+QghMtTItG8EsXVdteIrQms8yp+KmPqsiOsmUUxzmqQD
- 6bcQs5vAjYf/LaPugns9OOuq8/znZjn7kTnQpVJofGo75KStzcQzJkUzoNk10BfwJ3
- 2AnvYygGH/2PqxdaZvkWIQeHTR4rwZnuHrLZAv3R1u/GQDOrjxViJwvij26p/Zdejc
- 5wWjW+sJM+hW/istAGR6mXj7jVSBb/TqZNLmrwVi87aY8tfMj5W8XSPK+zYv9pVOVG
- ve092JP/d35tg==
+ b=oPEz3aWTOD7BORoXvzIu8ZcdFFTYDR65DWxRg6vPai1wDhU70fz7IgiTAI/n2VvcF
+ AI/sDLpbXbEgWG4QZ2+tmah/F7SgFxptiITV887SDZG9ciMHQbdePrn9DtmWwDoACG
+ 7uQNuNQid/AsK3XQbXaWmV1qyGzFvngvTrdkijVPxwhq4If7aDi5uPXKfsT5iEOk3X
+ /KrkNEYeJob2TT6zzTH4Yo0ab3Qj1o79BV1FL3meTVbnYLA0PxOLvI09uL0QVZaByX
+ qm84l1crTV9aWsPIbBJRAkm5gqT7AChFcaM4SnA6RWRs6Tksw6Jjfi8qdA97IP8a9P
+ TnPNHuqPprXug==
 Received: from fedora-32.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 36FF017E0D5D;
- Thu, 24 Sep 2026 13:04:49 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DD9117E0B0F;
+ Thu, 24 Sep 2026 13:04:48 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 24 Sep 2026 13:04:42 +0200
-Subject: [PATCH v2 5/5] drm/panthor: Remove redundant
- panthor_fix_sparse_map_offset() call
+Date: Thu, 24 Sep 2026 13:04:41 +0200
+Subject: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
+ sparse regions
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-panthor-fix-partial-unmap-v2-5-59a68a1f9e14@collabora.com>
+Message-Id: <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
 References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
 In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -51,11 +51,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790247886; l=2164;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790247886; l=2529;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=haNaa1vTgpxyTcCfqXXR41IYwfwITsSUh39XMWGczo8=;
- b=eMMbyP6t2Qzi8/4M0Ex9oQq2+t4AYFS4pSN1SCSJTLJweJK7ouqPPlzH05Y4iH9GUFntsKJVW
- yiE9zh6eurPAA0Hlhw6t4JbsHFxE4vT5BaGRvgr1ijjRKuqXAjGIPIa
+ bh=XXFQmfxbeg12M2OgKN8dJ9l8UIV4ldaUbZSuiynE7b4=;
+ b=l/2yTWBNMeOJtPU6XlpqndFiYPPeycUcG7eZjtPC93NZDKhi11vFCOgO9xHR4iERb/9oXymjD
+ Hcq/8fsUb4/C1JTK92i1i/K6v53+WNIjkB7qYNx9lkrI/NVzvWkvgah
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,55 +73,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-op->remap.next->gem.offset is adjusted twice in
-panthor_gpuva_sm_step_remap() (once on the remap.next object, and once on
-the local map_op). Let's do it only once, and move this adjusment closer
-to the place it matters.
+With the recent changes to iova_mapped_as_huge_page(), the check for
+huge-page mapping of sparse BOs is actually simple:
 
-Reported-by: Akash Goel <akash.goel@arm.com>
-Closes: https://lore.kernel.org/dri-devel/b85679e3-5ca2-4d36-8675-2b968d97cb5b@arm.com/
+- for a sparse mapping, we know the BO offset any VA in this regions is
+  va & (SZ_2M - 1)
+- the VA we're searching the BO offset for is the 2M-aligned
+  aligned_va value
+
+This guarantees that the BO offset to check is always zero in that case.
+
+This is simple enough to let the code check if page 0 is a huge page
+and save the unmap+map dance when the dummy BO is not backed by a
+a huge page. So let's do that and kill the comment that says it's too
+complicated.
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Akash Goel <akash.goel@arm.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 01564d250adf..d8fb29ace5c4 100644
+index d2897099763e..01564d250adf 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -2397,11 +2397,6 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+@@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
  
- 	drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_range);
+ 		return false;
+ 	} else {
+-		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+ 		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+ 		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
++		const struct page *pg;
  
--	/* op->remap.prev's BO offset is always the same as the unmap va's, but
--	 * that of op->remap.next must be adjusted so as to remain < SZ_2M
--	 */
--	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
--
- 	if (!unmap_vma->evicted) {
- 		/*
- 		 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
-@@ -2447,6 +2442,12 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 		u64 addr = op->remap.next->va.addr;
- 		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
+-		/* If the unmapped VMA stands for a sparse mapping, always
+-		 * assume the backing storage is a THP, since the overhead of
+-		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+-		 * them is offset by the logic of working out whether it's
+-		 * the opposite case right below.
++		/* BO offset on a sparse mapping is chosen so that 2M-aligned
++		 * VAs point to the start of the BO. Since aligned_va (the
++		 * address we check huge-page against) is 2M-aligned, the BO
++		 * offset is guaranteed to be zero.
++		 * Check panthor_fix_sparse_map_offset() for more details.
+ 		 */
+ 		if (is_sparse)
+-			return true;
++			bo_offset = 0;
  
-+		/* op->remap.prev's BO offset is always the same as the unmap
-+		 * va's, but that of op->remap.next must be adjusted so as to
-+		 * remain < SZ_2M
-+		 */
-+		panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
-+
- 		if (!unmap_vma->evicted && size > 0) {
- 			struct drm_gpuva_op_map map_op = {
- 				.va.addr = addr,
-@@ -2454,7 +2455,6 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
- 				.gem.obj = op->remap.next->gem.obj,
- 				.gem.offset = op->remap.next->gem.offset,
- 			};
--			panthor_fix_sparse_map_offset(&map_op, unmap_vma->flags);
+ 		/* In case of shmem backing, we know we can only have a huge
+ 		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+@@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+ 		if (!IS_ALIGNED(bo_offset, SZ_2M))
+ 			return false;
  
- 			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
- 			if (ret)
++		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+ 		return folio_size(page_folio(pg)) >= SZ_2M;
+ 	}
+ }
 
 -- 
 2.55.0
