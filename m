@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15ACC98324
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8075C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6314310F5D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A3410F5D7;
 	Thu, 24 Sep 2026 14:01:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EOcGZbFc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OoE828Mc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99FC10F5CE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C4C10F5CE
  for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 65B34447C6;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3B138447AB;
  Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 44CFBC2BCB3;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 125D3C4AF09;
  Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790258496;
- bh=VtMHnds7jZXNRknUpJEYmVpmQX6SoqmzQo6wLw7z8cw=;
+ bh=ZNijc5MOKUhzAFx9b3sabAhG9y17oQclhc/PpQz74Pg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=EOcGZbFcgHj0/yTyzroq+04u0HHDVaTRO5S0gMaGz7PzS4U5/4Xqubf5yT2cJIUH5
- ooaevxS1RiJsBBFRjDVIlquTXNXm7Jqdha5C5g2ci7j+8hjWqmnCs5z+mn1GZ8a8U4
- 5TV29/0kfP/1RmuWrCAc/sN+BU9wlt30wnnOGlRZWTqmyL+It4mD2JZesNDhBSOEeE
- I1x1SUYr9Z4SyPx4HGqNTZ8pns54+iN9KdWIQat5TnyIHUYEudoiQi88ag1mwNnSjw
- xmm0nteEibdBXCuofFTxbRPp2aNDLU1YTyqVaRCcm5qVX76cXv3OBKjh65exEeiOQf
- g6mk3i7yc99WQ==
+ b=OoE828McXFL0/V6pcsgYqJxMBPGC/GjR2neOx8orTlfBJqMHxkxYclz5YuIQQfdg/
+ VMdp57x01sDlV/77b00XNIR3nP4LrM2BB50PprdWS050hqEGiNeQdwcsNmCdEyOdbP
+ Q1IAVITboTr3JeCu/A6z158wF5RF0NDFVuH5CIKCL8o3fDeNVedu/icGxkIWQDpXGr
+ v9RMVqFzJdy8hre6q1k2BK+TC0PxarnuKfqQMX0ATTn3/akzGUlXD0YAIQIiS1LM3T
+ qBcsOreeBMQv9/4v0OENbth5Gsb7MtVDpXYHmzQWsrrtbF5ddS/2z8qHN0gZmjX3Vm
+ bnZ0Y/fn8Imwg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3143AC98321;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 003FEC9831F;
  Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:38 +0200
-Subject: [PATCH v2 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
- into common
+Date: Thu, 24 Sep 2026 16:01:35 +0200
+Subject: [PATCH v2 07/11] drm/panel: s6e3ha8: Assert reset GPIO in
+ unprepare
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
+Message-Id: <20260924-crosshatch-panel-v2-7-08d5c7bf72fc@ixit.cz>
 References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2126; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=tmWWZMnJdIiah2Ra+OBrkILlOUVZlqnIlNSnhIb5uBA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09f2wlNMXFy/rZ1CQYqSibfi/pXLBtMVeu6
- 1wnc12nzs2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
- ct0AEACyeppnguTHriwBUu+k8lbdUGxD74whGrWZu8DAEYfw1G06WQYsn5KpfTWmNkAkLo/vewT
- mBgQJexOmb34ahjlHFOfgNlMs/ocRMHkzxEUCJaeWLYGnZr+ibyXj1+EyEupXSEmsrh1ygyXW6I
- MLtYVuoB3kjTlGOMagMPCFKjLI+AS8ZeCHpWg/hmNH/MTmUX0sx/Hh+5aXgX/mjl2WVLeXouaFR
- A8XhBYI/ySZZKVIH0r06QiVj7OVwhEdbe91JxOuqBeMDaNM4pgl1clv9ZIJIt7EYyMNzxQFZyd7
- FjSixpSOt2ol6xFTKCr0lUOj48Rb15v7st6H99cklzd0KOyFbSM+YOgjxH21H5/3ZTbK7kr3FlN
- DQOjvgV+9n5V68DvoyhdJDqtETDxXoN9DANks5UHEzRCeUeN/nXK1RXqxX3+PaC5WI45F6UeUmt
- fySCAFFdJUG4fp07YWdw3M3Wo0wT2zmfyjxIl1/eXmXkQ+PmGZEfVX3kvbN3PUEKCvDJYFyGccI
- 66jrb5pQsElKZEhjYaO7eLhXg/8SDSiiiTggCGt73Zb7mYbpH9GhOJZpxQ1mgxMWrPAdTcvGnKa
- jzqonpUah+XR9NSSiAFuavk9Nd2ELcQbb5QtuLMp8Ohg6Vh0rLY8SWVQpM676fIHCmasq+p04rs
- jzBkIthjorSBAlA==
+ bh=+wJwzxl6R6kFsAw/IP8INT9PZdDDVelgZpdEfbOYejM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09+kmOyC3qmmduvr07jHQ5sps+RXxREaQTh
+ TqcBIdNFPOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
+ ctzqD/4vq65LGGkUX0Ykq7LT8/pNIFwf2tY0PmuVkWhAPlyAfbx2oofy4IwyvvBH5Ch+45SiLuO
+ ikgycsyvBwM7P+tF+JfpoUuzTpJ+AaSGxtqQ5okGW9t8DQWQlpuuwl300jKBMO8sH2FfO8UaSbK
+ fyTF8sWh5u7M1nXo88TTOR9gGPpeBzTUNDI2eEKPqk09mpAojj34+WjNehvImSYDNRUrRDlkrNq
+ twr4EIv3nEkcJleLAC1wHiGbR/rwvm6bb2EZLRNr6i7jLc7qtORBEaK+KgGYtH/vgTyydDEJztR
+ DsvtdiLLIGsDbV3IoAWTZS6BP6zT5ToDE1+zokt1X2DzCRonY3sQxJ3F2zs48dOOIA40MOlHeOg
+ bDgFXyONE0vMZ9qwgq9DKM9/pJHViDl3cSgzKIRPNMT9Lh3bzFOTTKJ1H3QNjU65Tsl1ADZFHSA
+ LisOhkepB+s93s1jj4pPlgG+mk3wJQJgOpq9QGBc+RweW5rbIBPN+njmi0jg9nq8WGcac9KYuJh
+ FOt8rSn1XXoXg41NCC3k7bONDN9ovLnk40AFqoisqOODZVLL0RP6n2VH1lYU9F8kN/UXqQF3AVM
+ 1G9vCw/I9HVCI+2n/H6O70PwBqb7J+u/yoakVJFCBavZAYiBvO9of/JPF/0IAGSxdrW70yhPekR
+ X7aSXeaY2/j4ieg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -95,86 +95,37 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Heidelberg <david@ixit.cz>
 
-Both devices share the pinctrl configuration.
+For correct shutdown, the reset should be asserted.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Assisted-by: LLM
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..a000c75494f1c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -61,29 +61,11 @@ &mdss_dsi0_out {
- };
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 99290913de69a..2591b8c1a7753 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -58,16 +58,17 @@ static int s6e3ha8_get_modes(struct drm_panel *panel,
  
- &mdss_dsi0_phy {
- 	vdds-supply = <&vdda_mipi_dsi0_pll>;
+ 	return drm_connector_helper_get_modes_fixed(connector, priv->desc->mode);
+ }
  
- 	status = "okay";
- };
+ static int s6e3ha8_unprepare(struct drm_panel *panel)
+ {
+ 	struct s6e3ha8 *priv = to_s6e3ha8(panel);
  
--&tlmm {
--	panel_default: panel-default-state {
--		reset-pins {
--			pins = "gpio6";
--			function = "gpio";
--			drive-strength = <8>;
--			bias-disable;
--		};
--
--		te-pins {
--			pins = "gpio12";
--			function = "mdp_vsync";
--			drive-strength = <2>;
--			bias-pull-down;
--		};
--	};
--};
--
- &wifi {
- 	qcom,calibration-variant = "Google_blueline";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index f1379857e2742..d54cb47cdf95b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -473,16 +473,32 @@ &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
++	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ 	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+ }
  
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
-+	panel_default: panel-default-state {
-+		reset-pins {
-+			pins = "gpio6";
-+			function = "gpio";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+
-+		te-pins {
-+			pins = "gpio12";
-+			function = "mdp_vsync";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+	};
-+
- 	nfc_default: nfc-default-state {
- 		enable-pins {
- 			pins = "gpio25";
- 			function = "gpio";
- 			drive-strength = <2>;
- 			bias-pull-down;
- 		};
- 
+ static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+ {
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+ 	usleep_range(5000, 6000);
+ 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
 
 -- 
 2.55.0
