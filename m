@@ -4,47 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB35C98318
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 19:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 059F9C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 19:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1B610F74F;
-	Thu, 24 Sep 2026 19:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3439410E1EB;
+	Thu, 24 Sep 2026 19:25:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T7RydNq4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hy6CsqU/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3A810F74E
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 19:12:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1A42F406E1;
- Thu, 24 Sep 2026 19:12:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D3E1F000FF;
- Thu, 24 Sep 2026 19:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790277175;
- bh=6TTM/G+mPP5S3WhNhICuGYcbs6efnmaLhLn+ZuN6Lb4=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=T7RydNq4uO2Hc7l8rDc5+JkeeN2lnJkB5TgUBXdT7Gav95ZwqfXXqV+9LbV6GcMZp
- ++8+C66b3rrkEsktcX0zBsMVMO5Awv82gKcUVj83Kcf0L+lS0mGb0O12WIYnTOb00Y
- PNMARTBfnyV/2o7kBRWZ9uUKM8v55rsOBk1X5a5jHFRX1h78Vk1Ok/AKkUvGBxykKR
- pXw2p9z+w3F+mUY4Qq5/GdfVhkX+qafcnnCh/QFSrdv0WIZKdvRNboIEM3Sl2svd3K
- mxsZXkQ08i6mE8FuwjKg4OxBHJabQ89U2gSTYym5vfTCPHwB+XJ5A2iPimVdOZ2N5G
- lM0hzJCF92GNg==
-Date: Thu, 24 Sep 2026 14:12:53 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Dave Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- kvm@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Dave Airlie <airlied@redhat.com>, Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH] pci/vgaarb: pass a data pointer to be used in the decode
- callback
-Message-ID: <20260924191253.GA1994586@bhelgaas>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7FE10E1EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 19:25:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6FB85601F6;
+ Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 211F3C2BCB3;
+ Thu, 24 Sep 2026 19:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790277916;
+ bh=rNx+CfZXcU/cVFNz60AcgmLxdqGnvMrGSZVBz/AGdbI=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=hy6CsqU/vqPeIWo713TbJnB7S7LJ5zefYxbT9rhGkuNrXVU045HQsR51dO5/uL99O
+ v9p1m69niQFe5bQ7BhzQMLAC5t+SQT04SGRQ6aatEbuS/qP/8DshUTHF0eyy2iODne
+ rDzC77sy157RPjhYpDh/EXmN3l9NnM8sepNJhYrZMsa94Rx93umaKflXsN+QRihMDQ
+ i8GTJdzV/AhZR4FeWz56G3GpN3/a1P3bgwCrOBL/4muNMQoP1u+L/2lp3YCey4+nQA
+ xxffRnexFHxCcz93FDQCS4qzjD43cN6CvGg3bBIYjw876DJDbxC6J5ehA0wO8XImJU
+ MGdWrbDAZ9mzQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id F0886C98321;
+ Thu, 24 Sep 2026 19:25:15 +0000 (UTC)
+From: Vasilij Markin via B4 Relay <devnull+vasilij.kernel.tototo.si@kernel.org>
+Date: Thu, 24 Sep 2026 21:25:13 +0200
+Subject: [PATCH] drm/appletbdrm: Add suspend and resume support
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922064111.2468741-1-airlied@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMT3cSCgpzUkqSUolzdglxds6QUIyMDYwvTpNQkJaCegqLUtMwKsHn
+ RsbW1AO3TfuZfAAAA
+X-Change-ID: 20260924-appletbdrm-pm-6bd220385beb
+To: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>, 
+ Vasilij Markin <vasilij.kernel@tototo.si>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790277915; l=4094;
+ i=vasilij.kernel@tototo.si; s=20260924; h=from:subject:message-id;
+ bh=U9TR53zPKdFsJOhaemvo6rCzlInILyrXYml8JDZPnyk=;
+ b=TDq3ZsRwuEwNu59ZQph4synn4jS5RIHLjQWWEEQ1iV6mWja7AsKaW1jcKVJ+sYZcGMgh+Yz6n
+ 0JnFJZZ07KXC3UPflQN1J5unSjpSBKv3EeENWVBxJgkMeJHQG2Io53J
+X-Developer-Key: i=vasilij.kernel@tototo.si; a=ed25519;
+ pk=GBDozjDEYjDf6fxRiVINxMYHaGbpq/11fq4B6pdR7Gs=
+X-Endpoint-Received: by B4 Relay for vasilij.kernel@tototo.si/20260924 with
+ auth_id=1057
+X-Original-From: Vasilij Markin <vasilij.kernel@tototo.si>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,271 +75,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: vasilij.kernel@tototo.si
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 04:41:11PM +1000, Dave Airlie wrote:
-> From: Dave Airlie <airlied@redhat.com>
-> 
-> This changes the vgaarb client API so that the user can pass a
-> private data pointer into the register that will get used in
-> the decode callback.
-> 
-> This allows a bunch of pdev conversions in the drivers, and lets
-> some future vfio cleanups be nicer.
-> 
-> I'd like to merge this via the drm next tree but also fine with
-> it going via pci.
-> 
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> Cc: Alex Williamson <alex@shazbot.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
+From: Vasilij Markin <vasilij.kernel@tototo.si>
 
-This seems fine to me, except for the
-drivers/gpu/drm/loongson/lsdc_drv.c build error
-(https://lore.kernel.org/all/202609241037.1RwqQnfb-lkp@intel.com) the
-new kernel-doc issue
-(https://lore.kernel.org/all/202609241015.1yXHBzfy-lkp@intel.com).
+The driver has no USB power management callbacks, so the USB core
+unbinds it before system suspend and binds it again on resume. The DRM
+device is unregistered and registered again on every suspend and resume
+cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+loses its device, and the Touch Bar stays dark after resume.
 
-You could also update the subject line to match the
-drivers/pci/vgaarb.c history:
+Implement suspend and resume with drm_mode_config_helper_suspend() and
+drm_mode_config_helper_resume(), so the device stays registered and the
+last committed state is restored on resume. If the device was reset
+while suspended, repeat the probe-time handshake first.
 
-  PCI/VGA: Pass a data pointer ...
+Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+---
+Tested on a MacBookPro16,2 with this change backported to 7.2.7, deep (S3)
+suspend by closing the lid, tiny-dfr 0.3.7. Without it the driver is probed
+again on every resume and systemd stops tiny-dfr; with it tiny-dfr keeps
+running, the driver is not probed again and the Touch Bar shows its content
+right after resume. The reset_resume path is untested: the device never came
+back reset.
 
-With all that, I'm fine with this being merged via the drm tree:
+Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
+also need the plane reset hook to free the existing state, otherwise
+drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
+appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
+kernel; the tested backport carries that change as a separate patch.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Built on drm-misc-next (c4c54ffd6) with W=1 without warnings.
+---
+ drivers/gpu/drm/tiny/appletbdrm.c | 43 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
->  drivers/gpu/drm/i915/display/intel_vga.c   |  7 ++++---
->  drivers/gpu/drm/nouveau/nouveau_vga.c      |  6 +++---
->  drivers/gpu/drm/radeon/radeon_device.c     |  7 +++----
->  drivers/pci/vgaarb.c                       | 13 +++++++++----
->  drivers/vfio/pci/vfio_pci_core.c           |  9 +++++----
->  include/linux/vgaarb.h                     |  8 +++++---
->  7 files changed, 32 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 62b5b4a23f17..1344b2b1bd16 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1435,10 +1435,10 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
->   * Enable/disable vga decode (all asics).
->   * Returns VGA resource flags.
->   */
-> -static unsigned int amdgpu_device_vga_set_decode(struct pci_dev *pdev,
-> +static unsigned int amdgpu_device_vga_set_decode(void *data,
->  		bool state)
->  {
-> -	struct amdgpu_device *adev = drm_to_adev(pci_get_drvdata(pdev));
-> +	struct amdgpu_device *adev = (struct amdgpu_device *)data;
->  
->  	amdgpu_asic_set_vga_state(adev, state);
->  	if (state)
-> @@ -4208,7 +4208,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	 * ignore it
->  	 */
->  	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
-> -		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-> +		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, adev);
->  
->  	px = amdgpu_device_supports_px(adev);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-> index 4966fd7eea92..0889edb36190 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vga.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
-> @@ -283,9 +283,10 @@ void intel_vga_disable(struct intel_display *display)
->  	intel_de_posting_read(display, vga_reg);
->  }
->  
-> -static unsigned int intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
-> +static unsigned int intel_vga_set_decode(void *data, bool enable_decode)
->  {
-> -	struct intel_display *display = to_intel_display(pdev);
-> +	struct intel_display *display = (struct intel_display *)data;
-> +	struct pci_dev *pdev = to_pci_dev(display->drm->dev);
->  	unsigned int decodes = VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
->  
->  	drm_dbg_kms(display->drm, "%s VGA decode due to VGA arbitration\n",
-> @@ -331,7 +332,7 @@ void intel_vga_register(struct intel_display *display)
->  	 * then we do not take part in VGA arbitration and the
->  	 * vga_client_register() fails with -ENODEV.
->  	 */
-> -	ret = vga_client_register(pdev, intel_vga_set_decode);
-> +	ret = vga_client_register(pdev, intel_vga_set_decode, display);
->  	drm_WARN_ON(display->drm, ret && ret != -ENODEV);
->  }
->  
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> index 29a801124e56..6662e30466f2 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> @@ -9,9 +9,9 @@
->  #include "nouveau_vga.h"
->  
->  static unsigned int
-> -nouveau_vga_set_decode(struct pci_dev *pdev, bool state)
-> +nouveau_vga_set_decode(void *data, bool state)
->  {
-> -	struct nouveau_drm *drm = pci_get_drvdata(pdev);
-> +	struct nouveau_drm *drm = (struct nouveau_drm *)data;
->  	struct nvif_object *device = &drm->client.device.object;
->  
->  	if (drm->client.device.info.family == NV_DEVICE_INFO_V0_CURIE &&
-> @@ -103,7 +103,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
->  		return;
->  	pdev = to_pci_dev(dev->dev);
->  
-> -	vga_client_register(pdev, nouveau_vga_set_decode);
-> +	vga_client_register(pdev, nouveau_vga_set_decode, drm);
->  
->  	/* don't register Thunderbolt eGPU with vga_switcheroo */
->  	if (pci_is_thunderbolt_attached(pdev))
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index 9523240110a6..cf8a6bd00c77 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1076,10 +1076,9 @@ void radeon_combios_fini(struct radeon_device *rdev)
->   * Enable/disable vga decode (all asics).
->   * Returns VGA resource flags.
->   */
-> -static unsigned int radeon_vga_set_decode(struct pci_dev *pdev, bool state)
-> +static unsigned int radeon_vga_set_decode(void *data, bool state)
->  {
-> -	struct drm_device *dev = pci_get_drvdata(pdev);
-> -	struct radeon_device *rdev = dev->dev_private;
-> +	struct radeon_device *rdev = (struct radeon_device *)data;
->  	radeon_vga_set_state(rdev, state);
->  	if (state)
->  		return VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
-> @@ -1431,7 +1430,7 @@ int radeon_device_init(struct radeon_device *rdev,
->  	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
->  	/* this will fail for cards that aren't VGA class devices, just
->  	 * ignore it */
-> -	vga_client_register(rdev->pdev, radeon_vga_set_decode);
-> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, rdev);
->  
->  	if (rdev->flags & RADEON_IS_PX)
->  		runtime = true;
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index 3de05aee7859..3e58b2c05c85 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -51,7 +51,8 @@ struct vga_device {
->  	unsigned int mem_norm_cnt;	/* normal MEM count */
->  	bool bridge_has_one_vga;
->  	bool is_firmware_default;	/* device selected by firmware */
-> -	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
-> +	unsigned int (*set_decode)(void *data, bool decode);
-> +	void *set_decode_data;
->  };
->  
->  static LIST_HEAD(vga_list);
-> @@ -935,6 +936,7 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->   * vga_client_register - register or unregister a VGA arbitration client
->   * @pdev: PCI device of the VGA client
->   * @set_decode: VGA decode change callback
-> + * @data: private data to pass to callback
->   *
->   * Clients have two callback mechanisms they can use.
->   *
-> @@ -956,15 +958,18 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->   * Returns: 0 on success, -ENODEV on failure
->   */
->  int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
-> +		unsigned int (*set_decode)(void *data, bool decode),
-> +		void *data)
->  {
->  	unsigned long flags;
->  	struct vga_device *vgadev;
->  
->  	spin_lock_irqsave(&vga_lock, flags);
->  	vgadev = vgadev_find(pdev);
-> -	if (vgadev)
-> +	if (vgadev) {
->  		vgadev->set_decode = set_decode;
-> +		vgadev->set_decode_data = data;
-> +	}
->  	spin_unlock_irqrestore(&vga_lock, flags);
->  	if (!vgadev)
->  		return -ENODEV;
-> @@ -1464,7 +1469,7 @@ static void vga_arbiter_notify_clients(void)
->  	spin_lock_irqsave(&vga_lock, flags);
->  	list_for_each_entry(vgadev, &vga_list, list) {
->  		if (vgadev->set_decode) {
-> -			new_decodes = vgadev->set_decode(vgadev->pdev,
-> +			new_decodes = vgadev->set_decode(vgadev->set_decode_data,
->  							 new_state);
->  			vga_update_device_decodes(vgadev, new_decodes);
->  		}
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 6757054e9d87..b04ce3ded08c 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -162,9 +162,10 @@ static inline void vfio_pci_core_debugfs_init(struct vfio_pci_core_device *vdev)
->   * has no way to get to it and routing can be disabled externally at the
->   * bridge.
->   */
-> -static unsigned int vfio_pci_set_decode(struct pci_dev *pdev, bool single_vga)
-> +static unsigned int vfio_pci_set_decode(void *data, bool single_vga)
->  {
-> -	struct vfio_pci_core_device *vdev = dev_get_drvdata(&pdev->dev);
-> +	struct vfio_pci_core_device *vdev = data;
-> +	struct pci_dev *pdev = vdev->pdev;
->  	struct pci_dev *tmp = NULL;
->  	unsigned char max_busnr;
->  	unsigned int decodes;
-> @@ -2159,10 +2160,10 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
->  	if (ret)
->  		return ret;
->  
-> -	ret = vga_client_register(pdev, vfio_pci_set_decode);
-> +	ret = vga_client_register(pdev, vfio_pci_set_decode, vdev);
->  	if (ret)
->  		return ret;
-> -	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
-> +	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(vdev, false));
->  	return 0;
->  }
->  
-> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-> index 97129a1bbb7d..71a364669eaf 100644
-> --- a/include/linux/vgaarb.h
-> +++ b/include/linux/vgaarb.h
-> @@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
->  void vga_set_default_device(struct pci_dev *pdev);
->  int vga_remove_vgacon(struct pci_dev *pdev);
->  int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
-> +		unsigned int (*set_decode)(void *data, bool state),
-> +		void *data);
->  #else /* CONFIG_VGA_ARB */
->  static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
->  		unsigned int decodes)
-> @@ -59,7 +60,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
->  	return 0;
->  }
->  static inline int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
-> +		unsigned int (*set_decode)(void *data, bool state),
-> +		void *data)
->  {
->  	return 0;
->  }
-> @@ -97,7 +99,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
->  
->  static inline void vga_client_unregister(struct pci_dev *pdev)
->  {
-> -	vga_client_register(pdev, NULL);
-> +	vga_client_register(pdev, NULL, NULL);
->  }
->  
->  #endif /* LINUX_VGA_H */
-> -- 
-> 2.54.0
-> 
+diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+index 4297d9c11..024ad8bf6 100644
+--- a/drivers/gpu/drm/tiny/appletbdrm.c
++++ b/drivers/gpu/drm/tiny/appletbdrm.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_modeset_helper.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+@@ -821,6 +822,45 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
+ 	drm_atomic_helper_shutdown(&adev->drm);
+ }
+ 
++static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_suspend(&adev->drm);
++}
++
++static int appletbdrm_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_resume(&adev->drm);
++}
++
++static int appletbdrm_reset_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++	struct drm_device *drm = &adev->drm;
++	int ret;
++
++	/*
++	 * A reset puts the device back into its initial state, where it
++	 * expects the same handshake as during probe
++	 */
++	ret = appletbdrm_get_information(adev);
++	if (ret) {
++		drm_err(drm, "Failed to get display information\n");
++		return ret;
++	}
++
++	ret = appletbdrm_signal_readiness(adev);
++	if (ret) {
++		drm_err(drm, "Failed to signal readiness\n");
++		return ret;
++	}
++
++	return drm_mode_config_helper_resume(drm);
++}
++
+ static const struct usb_device_id appletbdrm_usb_id_table[] = {
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+ 	{}
+@@ -832,6 +872,9 @@ static struct usb_driver appletbdrm_usb_driver = {
+ 	.probe		= appletbdrm_probe,
+ 	.disconnect	= appletbdrm_disconnect,
+ 	.shutdown	= appletbdrm_shutdown,
++	.suspend	= appletbdrm_suspend,
++	.resume		= appletbdrm_resume,
++	.reset_resume	= appletbdrm_reset_resume,
+ 	.id_table	= appletbdrm_usb_id_table,
+ };
+ module_usb_driver(appletbdrm_usb_driver);
+
+---
+base-commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
+change-id: 20260924-appletbdrm-pm-6bd220385beb
+
+Best regards,
+-- 
+Vasilij Markin <vasilij.kernel@tototo.si>
+
+
