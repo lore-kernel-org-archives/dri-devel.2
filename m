@@ -4,79 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E90EC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDEECC98326
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F39AC10F91A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB9F10F918;
 	Fri, 25 Sep 2026 07:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tAsUNG7t";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="clmtSsbj";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C44EA10E960
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:44:37 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-398beb616f5so709793a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 23:44:37 -0700 (PDT)
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com
+ [74.125.230.234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A94410E198
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 02:53:53 +0000 (UTC)
+Received: by mail-qk2-f42.google.com with SMTP id
+ d75a77b69052e-52fb76bcb1eso15924981cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 19:53:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790232277; x=1790837077; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=umxBSp7tBrSSHgI3ytYK5kk1etwT5sOaqeI9/AKYgrI=;
- b=tAsUNG7tUD2YQ1Je7FFnn2Xawb1CT1ef3+qtSLnY1igmKmCHECIJws0uwsI2OtFGlI
- dMgLrDd1lq9QXYNqu14zxSO1DuK/D8CVhuwol4pZkcYVpzCvIRarFBSwaw73zKN741hC
- Xpm0abQFzrD+Nz8tDvMjBSC7d+SxDVj+mPt+v2CesqlBgBpeEvTdKcPgTKmqvZQsWSt0
- Fer6nPyLpBJn6oca+E3ynTdLTVC2WAyIqbtfVnpZzheBgCVJ5asVQp94OMWEePMPebfe
- ZkQAzrJfOb4Np03OS//UQf2WU6CPid9RJxjuX2oAYB2Q96oxKuJJAE6egyIikfbYRCWD
- 6EHA==
+ d=gmail.com; s=20251104; t=1790218432; x=1790823232; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Wvc7ihS48CMwaqQEEFS304xLksjJ1u/xnvvm0QQvd88=;
+ b=clmtSsbj9d3G2AKEqJZY07ksY7IA5uwCITRTEV9TftKxTkvTogiLh/QER3pBg6pGA6
+ MBIfwnLOsO3rCDuZR3mbLIoVMuO4VXHOYktoog9wt1799C0TaylDFT0nOXc4xfXkx6r6
+ 2SPuZnf+oXaqQM3S00leNxXAAm5gUNtEOIUAToT+P/mQKnL2Ah6xD2mwUNgkUlihSa7G
+ I0ELCcU48tE83z9QOULyM2xRTdg9aK6i3QwY7LFK5MgdS8FHHbbY7rlCsUiBzJjTHSlF
+ u8Ox9W/zVHAbd0toYS091oEGIu83sG0cp350SubnbGOLmqvH7gskdojueGPSt/pRVHP7
+ zAVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790232277; x=1790837077;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=umxBSp7tBrSSHgI3ytYK5kk1etwT5sOaqeI9/AKYgrI=;
- b=efXplhb8xYaPyEhssDwC520GKBNX+kLHBBw4oc/SIdZ9xgEF4lxx4WKTPIjzECPHZZ
- MHw7z9rcVDqKgpmQoUzgpsRaaRvgrDxpsrd/m9EqZ6pke8JGBhoK5fS4Y63qTaHBT3MK
- 3sR5xXBchDp7sDgYh0/28psZQyTQQqT20eUzAsbWZ80AnBuXzYFOI6zHsVx743S2w1zj
- bw/qNgSenSEILhsPhqOW6qGJBIsX1545NMYiVcCDBWBKtiw+81+YPCIEEJtWCaOeMpBD
- CZae6qI46pJgjo1Fv8PgG03lo9OIsva76bIgQ0eZ553GvYsHlFJhjNMugIlvRs6gEpma
- rXXA==
-X-Gm-Message-State: AFuF++l9gqO4YuIAa1e7GIrlBsX+G42+YiqzcETbaB5rKJF1aSPf319m
- znzMHEcLBT/ILIzPU3Dm/qs301+Rz4S/z7/dexSXxRz0XWcphrcAmxFe
-X-Gm-Gg: AYBFou2QesQK95kZ22ZluEMPDYr8cMvhEs9z1LkU1lutPsEIks983xP+pdB+7te+C25
- FM27RQwa6H0ZsXR9v/kXRAnsz6OjBhJ1msD7bFmUXuKxY6jKo8LKXOFuQ71N3y8Yfp1CMgviwUl
- QeIoK3QQ6LfetJBb9VAUnKZjs3i/B5WLLpn8s5kMP4qa4/UYfwlZ/yxJWPyQXrXQaHGZCTjn0Wu
- 6ZPkIJkrjct+4Wt1bfndCGhlN0bL4qpWTFzYBhTtBA9p+BT4QNSBidpwjhRNrr6LiB3Mw+w4slF
- 7XNhZJfYDBAoZhAtk95mZs+zdJemBe9gL7272bpJORNcBg//UdKxe3/Wu1W+6FyMvNMbyd/RQvz
- cOXjXlo1DvE+a8Y2qVfmKjjPTt1RfRYwH0ggt+Xq4ZzIFfKbBTG/2EVvBJnsPGa428WTaIRNIki
- Oho6hfUYW9WGp6fntX+o5oX6FzJD9K/RtrGehOnVwAgk5s3sGXoC4rqd89vi0elN7X0/YDx/1J2
- LqH1KFzgswQYoSgkiGxISsVjnOll1SX0mX7+eqW1LGx+63QbGpvaKWobUx3f8vIvOsSLs1aLn+B
- bv20RiYGnQ==
-X-Received: by 2002:a17:90b:564d:b0:39e:6c66:cbdd with SMTP id
- 98e67ed59e1d1-3a098acb900mr888044a91.21.1790232277226; 
- Wed, 23 Sep 2026 23:44:37 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com
- (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+ d=1e100.net; s=20260707; t=1790218432; x=1790823232;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Wvc7ihS48CMwaqQEEFS304xLksjJ1u/xnvvm0QQvd88=;
+ b=C19VCYqgIphIuPqXMZixx73f7+YKC/CxxVJ5nFEokHexEmXXSDyx65TU/WXdQlPZVS
+ FXk2AEDDjGvf0NMfLRUIgOElAmTlG7OXX+TTYOQwRokjZ9vgfV29Y2xxIfnao2SsIRsR
+ yQdch6dOM4Djt85zItQraDw4xrb1rJOVhomGyfaun4K25zKQF8umTBrt2YOpPEol/lXB
+ 00IXYaFHxT1R1D9/FY9pcsNnc8TfpXYETGkLcdXB+wKc9iruY2RFljNyUqP9c75EBKvH
+ 2SDCDstO/t1a9p3HDzew1ZvvVst7SnskNnPV1p2/gpDlVutwUgwvF4muHvZhHWmkQcIL
+ UVxQ==
+X-Gm-Message-State: AFuF++la04uwDWzZcxZYexRqavrdEATb4DCylcbLiC+DnmYxfcW5OaVg
+ D53IZ0OjebNzSJUftFk/K2YAaO2ZhS9of/Hk3NenMva3T63vHcWTcwrGdhcPGctHMRc=
+X-Gm-Gg: AYBFou1uZVfqSY92pAfNWcdkfl69JQFN6yRLNUPagG8n+nuybyfzr8XDklMaplQAUmu
+ yK/zSZaJruKi18+Vle6Aj8yfdX3JawkKeO/qwRleFLygq3C09PY6FyxBZDTuv9FcY8FNW4CbQ/d
+ WULE+YavmrD1Onb45JsbmCISmx7z6Ul+TVR+6DFnlq53v3JTTrTDxX1TSv1AT1MCkYpc3LdxYDw
+ 0uPCpDhigD3P96bpcm2o0FcFV+MR02VIFAgiHDq8s2QxwolOpYBdKB2+JVbzcjY+PhQF1/HSlqZ
+ szeHvJjGk+bbWOCtc6luVdOu+iwqPPKd3VwBSbMTkqXcT5WkwQ8pMw5TvoWTKVTS0cb0eHOVaoE
+ oyo0BRID4IHJubT2OY4xesrE1YMMMZwmerrdxYoBfZwvN2SvARSXl+9FTf/GEOkTHjEpBgZKx1h
+ gOwg5Q/Qy5/NzToJuB/RUZLQ31t/VPUF5CvVKNUgYMon4h0hRlBbuKQcfekbzvgBGStk/nUpupQ
+ cV5y7dYrLBDLr2/JCBHdG+70Hmr8NbAxlrdV9tv5DydPyHERFVQUB5Z9qudCxWnWqY=
+X-Received: by 2002:a05:622a:250b:b0:530:e335:58b3 with SMTP id
+ d75a77b69052e-532feb571afmr5037371cf.57.1790218431820; 
+ Wed, 23 Sep 2026 19:53:51 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2600:4040:29f7:9600:11c6:662b:adfc:7c99])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a0972efa0bsm2960830a91.8.2026.09.23.23.44.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 23:44:36 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: jani.nikula@linux.intel.com, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 2/2] drm/udl: clean up USB resources if drm_dev_register()
- fails
-Date: Thu, 24 Sep 2026 06:44:34 +0000
-Message-ID: <20260924064434.2541959-3-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-In-Reply-To: <20260924064434.2541959-1-benquike@gmail.com>
-References: <20260919223511.3889061-1-benquike@gmail.com>
- <20260924064434.2541959-1-benquike@gmail.com>
+ d75a77b69052e-532f501100asm18940981cf.24.2026.09.23.19.53.50
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 23 Sep 2026 19:53:51 -0700 (PDT)
+From: Dillon Amburgey <dillona@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: airlied@redhat.com, airlied@gmail.com, kraxel@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ simona@ffwll.ch, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/qxl: size packed dumb heads from the plane source
+Date: Wed, 23 Sep 2026 22:52:22 -0400
+Message-ID: <20260924025222.6077-1-dillona@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
@@ -95,47 +89,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
-allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
-normally freed by udl_drop_usb() in udl_usb_disconnect(). If
-drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
-without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
-buffers because udl_usb_disconnect() is not called when probe fails.
+QXL packs per-CRTC dumb buffers into a single primary surface.
+qxl_update_dumb_head() recorded each dumb BO allocation (bo->surf)
+instead of the plane source rectangle. Scanning 1280x800 from a
+2048x1024 dumb framebuffer beside a 1024x768 head therefore created
+a 3072x1024 primary and placed head 1 at +2048, rather than 2304x800
+with head 1 at +1280.
 
-Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
+Use src_w/src_h when building the packed shadow, and copy only that
+source rectangle into it.
 
-Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
-a registration error in drm_dev_register(): on the unfixed kernel,
-udl_usb_probe() returned an error without calling udl_drop_usb(udl),
-leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
-udl_drop_usb(udl) is called on error, freeing all URB and DMA
-allocations.
-
-Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
+Assisted-by: LLM sparse
+Signed-off-by: Dillon Amburgey <dillona@gmail.com>
 ---
-Changes in v2:
-- Split out as patch 2/2 as requested by Jani Nikula.
-- Added testing details in QEMU on drm_dev_register() failure cleanup.
+Tested on torvalds/linux 62f4c998b297. A DRM client (not Xorg, not
+SPICE) programmed one QXL device with max_outputs=2. CRTC 0 scans a
+1280x800 rectangle from a 2048x1024 dumb framebuffer (the allocation
+is larger than the scanout). CRTC 1 scans a separate 1024x768 dumb
+framebuffer. Unpatched, qxl_update_dumb_head() sizes packed heads
+from bo->surf, so QEMU's qxl_create_guest_primary is 3072x1024
+(2048+1024 by max height) and monitors_config places head 1 at +2048.
+With this patch, the primary is 2304x800 (1280+1024) and head 1 is at
++1280.
 
- drivers/gpu/drm/udl/udl_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Content outside CRTC 0's 1280x800 source rectangle did not appear in
+the packed primary, and both heads' source rectangles did.
 
-diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-index 1922988625eb..239a6983f49f 100644
---- a/drivers/gpu/drm/udl/udl_drv.c
-+++ b/drivers/gpu/drm/udl/udl_drv.c
-@@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
- 		return PTR_ERR(udl);
+checkpatch.pl --strict: 0 errors, 0 warnings, 0 checks. W=1 and Sparse
+on drivers/gpu/drm/qxl/qxl_display.c added no warnings.
+
+ drivers/gpu/drm/qxl/qxl_display.c | 39 ++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 0719fc6a52d5..e57aeeb97f84 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -670,13 +670,17 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
+ 	struct qxl_device *qdev = to_qxl(plane->dev);
+ 	struct qxl_bo *bo = gem_to_qxl_bo(new_state->fb->obj[0]);
+ 	struct qxl_bo *primary;
+-	struct drm_clip_rect norect = {
+-	    .x1 = 0,
+-	    .y1 = 0,
+-	    .x2 = new_state->fb->width,
+-	    .y2 = new_state->fb->height
+-	};
++	struct drm_clip_rect norect;
+ 	uint32_t dumb_shadow_offset = 0;
++	u32 src_x = new_state->src_x >> 16;
++	u32 src_y = new_state->src_y >> 16;
++	u32 src_w = new_state->src_w >> 16;
++	u32 src_h = new_state->src_h >> 16;
++
++	norect.x1 = src_x;
++	norect.y1 = src_y;
++	norect.x2 = src_x + src_w;
++	norect.y2 = src_y + src_h;
  
- 	r = drm_dev_register(&udl->drm, 0);
--	if (r)
-+	if (r) {
-+		udl_drop_usb(udl);
- 		return r;
-+	}
+ 	primary = bo->shadow ? bo->shadow : bo;
  
- 	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
+@@ -689,7 +693,7 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
  
+ 	if (bo->is_dumb)
+ 		dumb_shadow_offset =
+-			qdev->dumb_heads[new_state->crtc->index].x;
++			qdev->dumb_heads[new_state->crtc->index].x - src_x;
+ 
+ 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
+ 			  dumb_shadow_offset);
+@@ -764,18 +768,14 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
+ 	qcrtc->cursor_bo = NULL;
+ }
+ 
+-static void qxl_update_dumb_head(struct qxl_device *qdev,
+-				 int index, struct qxl_bo *bo)
++static void qxl_update_dumb_head(struct qxl_device *qdev, int index,
++				 struct qxl_bo *bo, uint32_t width,
++				 uint32_t height)
+ {
+-	uint32_t width, height;
+-
+ 	if (index >= qdev->monitors_config->max_allowed)
+ 		return;
+ 
+-	if (bo && bo->is_dumb) {
+-		width = bo->surf.width;
+-		height = bo->surf.height;
+-	} else {
++	if (!bo || !bo->is_dumb) {
+ 		width = 0;
+ 		height = 0;
+ 	}
+@@ -820,12 +820,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
+ }
+ 
+ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
+-			       int crtc_index)
++			       int crtc_index, uint32_t width, uint32_t height)
+ {
+ 	struct qxl_surface surf;
+ 
+-	qxl_update_dumb_head(qdev, crtc_index,
+-			     user_bo);
++	qxl_update_dumb_head(qdev, crtc_index, user_bo, width, height);
+ 	qxl_calc_dumb_shadow(qdev, &surf);
+ 	if (!qdev->dumb_shadow_bo ||
+ 	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
+@@ -869,7 +868,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
+ 
+ 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+ 	    user_bo->is_dumb) {
+-		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
++		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index,
++				   new_state->src_w >> 16,
++				   new_state->src_h >> 16);
+ 	}
+ 
+ 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
+
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-- 
+2.43.0
+
