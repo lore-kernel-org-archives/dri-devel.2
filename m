@@ -4,120 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1625BC98321
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70758C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7A10F632;
-	Thu, 24 Sep 2026 15:00:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC69010F631;
+	Thu, 24 Sep 2026 15:03:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WF48CgyE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LSreKgWp";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1307010F631
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790262043;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
- b=WF48CgyE55dtiKGZFTTd4Yx5uK+BVFW3hOpZHlI9D/q72DJQAVRzV/Cm7s5F8jWRVLHZvx
- /Ap7nhVtdZcJYP2ZjR2MyuCIMvbOu8T80OcagizcnHIXoYokifPQtMdRnw47OoOC7PW/I4
- 0/Vr2GhBrk4PMRRpdHqaULN36KVRH14=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-392-KbWdCjngOG6Zpc8GjnS85A-1; Thu, 24 Sep 2026 11:00:41 -0400
-X-MC-Unique: KbWdCjngOG6Zpc8GjnS85A-1
-X-Mimecast-MFC-AGG-ID: KbWdCjngOG6Zpc8GjnS85A_1790262041
-Received: by mail-yw1-f200.google.com with SMTP id
- 00721157ae682-8461ade272bso18336157b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:00:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790262041; x=1790866841;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
- b=fpA5VGZJQ/rdl6f5un+y2A7DPZDjf7tbw34QvIDIhcNz8nqNyo8ORoMiVqZVYcXEGT
- q1x2K4HpbT7PdOjQZUanqspBsWvNfEW/wsq1jldz0SwqI0NtvNrFvIoLhG3S1EOIl14S
- +YoQoK83ThS1QPNN0YCOEMPAhU8nGpHEmtjPJUBrPsJ0vR+Gw6p8vQ135otmjAuTG4ll
- EGHBAXkmgjTDlFYnLeh91f0vRJxvftOWJ6JvqPN0ivRjifzu34g+9qUNvUf8dQ1mQEVq
- /DAs4F1BoBU4qJxMjc2rgGhf65KRSdv6vqHd3Y32OqFsrHdMEfAk9JqDLglMeuIdcAee
- aJPA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwNul2v1WAyr8jYAT0beDojJV23wbSPo78dTQdrY0v3hjRxiVMkYsZVWPeAK+6sHdTWi6Or4YF5wcw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kgVlDNAKYF1txo7HqHHRNlbmeRVIU970Hru/FDb/utVURSNe+s
- ByCYxxMeCoJ7tLstrBvfprM7wkjuFYZQypYMKldP/jROBsCanCdqEzvCW1PEhABVNyV8+r0hro0
- PNQ4WmLl9PEO5cYyVTNu6BYeRhvTdlv3T/pIhlWuxlqJQ4JOX8p2z4eJgYDPeL2CSLDHJ3Wr06g
- Rb/LH7liM/pzlNWzheOtTaOMkGy7A94Cc2WaKWh9UJxv5k
-X-Gm-Gg: AYBFou3rRGeOUL6+h6Mq5/OgFxq7U9tpBMUMTCfB4UAUelHfTWyPk3ylNg/b9TOEeHA
- vdX+CJnH7Vs2urxszxaiH9CODnGbbGqwC2fRt+P3lmvLLdKD5p5NSTUQOafrQp+FL01kfwL73k5
- dwM3BZqz++hgAQfX2DdsaAWAlso6OcruXzHFatR2DyGfKHTaONlc59+Q==
-X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
- 00721157ae682-8a64e5d7328mr16132897b3.20.1790262040897; 
- Thu, 24 Sep 2026 08:00:40 -0700 (PDT)
-X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
- 00721157ae682-8a64e5d7328mr16131377b3.20.1790262038827; Thu, 24 Sep 2026
- 08:00:38 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
- <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
- <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
- <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
-In-Reply-To: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Thu, 24 Sep 2026 17:00:27 +0200
-X-Gm-Features: AclHuK_S1nrFMWot6v8DC6klfULfaNk07isgmJtfP7BYAekyrR84kzWx2Uw9qhE
-Message-ID: <CADSE00JhFYhDV2cuVxZwVTX6LTe8zH0-BR=-Fhv+6UXeFxq_Zw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal helpers
-To: "Bryan O'Donoghue" <bod@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Christian Loehle <christian.loehle@arm.com>,
- Maximilian Luz <luzmaximilian@gmail.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>, 
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jeff Johnson <jjohnson@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
- Jens Wiklander <jenswi@kernel.org>, 
- Sumit Garg <sumit.garg@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
- Thara Gopinath <thara.gopinath@gmail.com>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Brian Norris <briannorris@chromium.org>, 
- Govind Singh <govinds@codeaurora.org>, Niklas Cassel <niklas.cassel@linaro.org>,
- Kalle Valo <kvalo@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, iommu@lists.linux.dev, 
- linux-media@vger.kernel.org, linux-wireless@vger.kernel.org, 
- ath10k@lists.infradead.org, linux-gpio@vger.kernel.org, 
- linux-remoteproc@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: KA8tEs8exXaosevfKzqKQKOSKwmqJqUF00bxj8f6nos_1790262041
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF5410F631
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:03:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C9BC542ADB;
+ Thu, 24 Sep 2026 15:03:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C6A1F000FF;
+ Thu, 24 Sep 2026 15:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790262208;
+ bh=k/UlegJri9M8kl6wuLnDNVVTFN6rqxNxuZ0Xv221Hm4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LSreKgWpEzUIqqRbEMa+26S9twk4jPDPhUvH6HJUfMmTdSomxCrok8Q56CdiLXnpZ
+ i2713h/9X93bFYg89611VYP6QXQt0mhsGGKKz0V6+f2MPrpkWKjx2077+q4I9rnpgU
+ OzRXYT8n4lqO8lv1+B5XWu/hpkV9avgPJDbb29PwHQb/g7vjMEBL+PKfUU1mDfFvYE
+ f3cYxAutQ1b75bM6og8Eunjg+DKHueu4MFWejhv/1VHqlRgIpTc1TTi02nn0uPQK6/
+ ht+iBKkUlz+5dy9mJR+9yMAO9RbyNgxUjmYU8gTttWp8tHPM9/UIiK+jvNkVPvbcu5
+ XcVDTLKwrqRyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/tiny: Add RAiO RA8875 display controller driver
+To: "Adam Azuddin" <azuddinadam@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260924145400.1385815-3-azuddinadam@gmail.com>
+References: <20260924145400.1385815-1-azuddinadam@gmail.com>
+ <20260924145400.1385815-3-azuddinadam@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 15:03:27 +0000
+Message-Id: <20260924150328.67C6A1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,38 +54,306 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 23, 2026 at 11:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
-wrote:
->
-> On 14/09/2026 13:41, Albert Esteve wrote:
-> >   int qcom_scm_pas_auth_and_reset(u32 pas_id)
-> >   {
-> > -     return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
-> > +     struct qcom_scm *scm =3D __scm;
-> > +
-> > +     return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
-> >   }
-> >   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
->
-> Why make this change at all though ?
->
-> It takes a pointer to the file static _scm
->
-> The reset of the patch looks straight-forward to me but this change
-> caught my eye.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] drm/tiny: atomic context violation by calling sleeping functions
+- [High] spi: DMA-unsafe stack buffers passed to spi_sync
+- [High] drm: missing reset callback in drm_crtc_funcs leads to null deref
+- [High] drm: missing cleanup_fb causes GEM object pin leaks
+- [Medium] spi: massive contiguous allocation and unbounded spi transfers
+- [Medium] drm: missing atomic_disable hook causes intentional warnings
+- [Medium] spi: missing cs_change=3D1 breaks RA8875 spi protocol
+--
 
-Yeah, this change isn't useful. I aimed to avoid passing __scm to
-function calls but it does nothing in this patch, it'd be better to
-change it directly in the next patch that changes the signature.
+commit 594ac08dfc437ba3494bf3b5226a6268a7e028be
+Author: Adam Azuddin <azuddinadam@gmail.com>
 
-BR,
-Albert
+    drm/tiny: Add RAiO RA8875 display controller driver
+   =20
+    Add a DRM tiny driver for the RAiO RA8875 SPI-connected TFT display
+    controller. The driver supports display resolutions up to 800x480
+    and uses the GEM shmem helper for buffer management.
 
->
-> ---
-> bod
->
+> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/ra8875.c
 
+[ ... ]
+
+> +static int ra8875_read_reg(struct ra8875_device *ra8875, u8 reg, u8 *val)
+> +{
+> +	ra8875->cmd_buf[0] =3D RA8875_CMDWRITE;
+> +	ra8875->cmd_buf[1] =3D reg;
+> +	int ret;
+> +
+> +	u8 tx[2] =3D { 0x40, 0x00 };
+> +	u8 rx[2] =3D { 0x00, 0x00 };
+> +
+> +	struct spi_transfer t_cmd =3D {
+> +		.tx_buf =3D ra8875->cmd_buf,
+> +		.len =3D 2,
+> +		.speed_hz =3D RA8875_REG_SPI_SPEED,
+> +		.cs_change =3D 1
+> +	};
+> +	struct spi_transfer t_read =3D {
+> +		.tx_buf =3D tx,
+> +		.rx_buf =3D rx,
+> +		.len =3D 2,
+> +		.speed_hz =3D RA8875_REG_SPI_SPEED,
+> +	};
+> +	struct spi_message m;
+> +
+> +	spi_message_init(&m);
+> +	spi_message_add_tail(&t_cmd, &m);
+> +	spi_message_add_tail(&t_read, &m);
+> +
+> +	ret =3D spi_sync(ra8875->spi, &m);
+
+[Severity: High]
+Does this code pass stack memory into a DMA-mapped SPI transfer?
+
+The Linux SPI subsystem uses the DMA API to map transfer buffers if the SPI
+controller supports it. Stack memory allocated for tx and rx might not be
+physically contiguous, leading to memory corruption or cache coherency
+failures.
+
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+> +static int ra8875_hw_init(struct ra8875_device *ra8875,
+> +			  struct drm_display_mode *mode)
+> +{
+> +	u8 hdwr, hndr, hstr, hpwr, vpwr;
+> +	u16 vdhr, vndr, vstr;
+> +	u8 readback;
+> +	int ret;
+> +
+> +	if (ra8875->rst_gpio) {
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 1);
+> +		usleep_range(1000, 1200);
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 0);
+> +		msleep(RA8875_RESET_WAIT_MS);
+> +	}
+
+[Severity: High]
+Does this execute sleeping functions in an atomic context?
+
+The global review guidelines dictate that CRTC and plane atomic update
+callbacks execute in an atomic context during non-blocking commits, where
+hardware sequence paths must not sleep.
+
+Since ra8875_hw_init() is called by ra8875_crtc_atomic_enable(), executing
+msleep(), usleep_range(), and gpiod_set_value_cansleep() here can lead to
+system instability, lockups, and kernel warnings for scheduling while atomi=
+c.
+
+> +
+> +	/* Soft Reset Sequence */
+> +	ret =3D ra8875_write_reg(ra8875, RA8875_PWRR, RA8875_PWRR_SOFTRST);
+
+[ ... ]
+
+> +static int ra8875_clear_screen(struct ra8875_device *ra8875,
+> +			       struct drm_display_mode *mode)
+> +{
+
+[ ... ]
+
+> +	for (y =3D 0; y < height;) {
+> +		rows =3D min(rows_per_chunk, height - y);
+> +
+> +		u8 cmd[2] =3D { RA8875_CMDWRITE, RA8875_MRWC };
+> +		struct spi_transfer t_cmd =3D {
+> +			.tx_buf =3D cmd,
+> +			.len =3D 2,
+> +			.speed_hz =3D RA8875_REG_SPI_SPEED,
+> +		};
+
+[Severity: Medium]
+Will the missing cs_change =3D 1 break the RA8875 SPI protocol here?
+
+Unlike ra8875_write_reg() which sets cs_change =3D 1 for command transfers
+to de-assert the chip select before sending the data payload, this transfer
+omits it. Without toggling the CS pin between the command and data phases,
+the hardware might misinterpret the incoming data.
+
+[Severity: High]
+Does this code use stack memory for an SPI transfer buffer?
+
+Passing the local stack array cmd into spi_sync() is unsafe because the SPI
+subsystem may use DMA to map the buffer, which is explicitly prohibited for
+stack variables.
+
+> +		struct spi_transfer t_data =3D {
+> +			.tx_buf =3D txbuf,
+> +			.len =3D 1 + rows * width * 2,
+> +			.speed_hz =3D RA8875_MAX_SPI_SPEED,
+> +		};
+> +		struct spi_message m;
+
+[ ... ]
+
+> +static void ra8875_fb_dirty(struct ra8875_device *ra8875, struct iosys_m=
+ap *src,
+> +			    struct drm_framebuffer *fb, struct drm_rect *rect)
+> +{
+
+[ ... ]
+
+> +	memset(&t_data, 0, sizeof(t_data));
+> +	t_data.tx_buf =3D ra8875->txbuf;
+> +	t_data.len =3D 1 + height * width * 2;
+> +	t_data.speed_hz =3D ra8875->spi->max_speed_hz;
+
+[Severity: Medium]
+Will this result in unbounded SPI transfers that exceed the host controller=
+'s
+limits?
+
+The driver attempts to send up to the entire 768 KB buffer (for an 800x480
+resolution) in a single spi_transfer depending on the damage rect size.
+Many SPI controllers impose maximum transfer limits, such as 65535 bytes,
+and will reject oversized transfers.
+
+> +
+> +	spi_message_init(&m);
+> +	spi_message_add_tail(&t_data, &m);
+> +	if (spi_sync(ra8875->spi, &m))
+
+[Severity: High]
+Does this call a sleeping function from the plane's atomic update callback?
+
+spi_sync() sleeps while waiting for hardware I/O to complete.
+Because ra8875_fb_dirty() is invoked from ra8875_plane_atomic_update(),
+this executes sleeping routines in an atomic context, leading to kernel
+warnings and system lockups.
+
+> +		goto err;
+> +
+> +	drm_format_conv_state_release(&fmtcnv_state);
+
+[ ... ]
+
+> +static void ra8875_plane_atomic_update(struct drm_plane *plane, struct d=
+rm_atomic_commit *state)
+> +{
+> +	struct ra8875_device *ra8875 =3D container_of(plane->dev, struct ra8875=
+_device, drm);
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
+ne_state(plane_state);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	struct drm_rect rect;
+> +	struct iosys_map *map =3D &shadow_plane_state->data[0];
+> +	int idx;
+> +
+> +	if (drm_WARN_ON_ONCE(&ra8875->drm, !fb))
+> +		return;
+
+[Severity: Medium]
+Is this code triggering intentional warnings during plane disables?
+
+Because the driver does not provide an atomic_disable callback in
+ra8875_plane_helper_funcs, the DRM atomic helpers fall back to calling
+atomic_update with a NULL fb. This warning will immediately fire on valid
+plane disable requests, generating a stack trace that could crash the system
+if panic_on_warn is enabled.
+
+> +
+> +	if (!drm_dev_enter(&ra8875->drm, &idx))
+
+[ ... ]
+
+> +static const struct drm_crtc_funcs ra8875_crtc_funcs =3D {
+> +	.atomic_create_state =3D drm_atomic_helper_crtc_create_state,
+
+[Severity: High]
+Does this structure omit the required .reset callback and mistakenly assign
+to .atomic_create_state instead of .atomic_duplicate_state (or similar)?
+
+There is no .atomic_create_state member in drm_crtc_funcs, causing a build
+failure. Furthermore, omitting the required .reset callback (typically
+drm_atomic_helper_crtc_reset) leaves crtc->state as NULL, leading to a
+kernel panic upon the first atomic check or commit.
+
+> +	.destroy =3D drm_crtc_cleanup,
+> +	.set_config =3D drm_atomic_helper_set_config,
+> +	.page_flip =3D drm_atomic_helper_page_flip,
+> +	.atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_crtc_destroy_state,
+> +};
+> +
+> +static const struct drm_crtc_helper_funcs ra8875_crtc_helper_funcs =3D {
+> +	.mode_valid =3D ra8875_mode_valid,
+> +	.atomic_enable =3D ra8875_crtc_atomic_enable,
+> +	.atomic_disable =3D ra8875_crtc_atomic_disable,
+> +};
+> +
+> +static const struct drm_plane_funcs ra8875_plane_funcs =3D {
+> +	.update_plane =3D drm_atomic_helper_update_plane,
+> +	.disable_plane =3D drm_atomic_helper_disable_plane,
+> +	.destroy =3D drm_plane_cleanup,
+> +	DRM_GEM_SHADOW_PLANE_FUNCS,
+> +};
+> +
+> +static const struct drm_plane_helper_funcs ra8875_plane_helper_funcs =3D=
+ {
+> +	.prepare_fb =3D drm_gem_plane_helper_prepare_fb,
+> +	.begin_fb_access =3D drm_gem_begin_shadow_fb_access,
+> +	.end_fb_access =3D drm_gem_end_shadow_fb_access,
+> +	.atomic_check =3D ra8875_plane_atomic_check,
+> +	.atomic_update =3D ra8875_plane_atomic_update,
+> +};
+
+[Severity: High]
+Does this code leak GEM object pins by missing a cleanup_fb hook?
+
+The driver specifies .prepare_fb =3D drm_gem_plane_helper_prepare_fb, which
+pins the framebuffer during a page flip or mode set. Without providing a
+matching .cleanup_fb hook (such as drm_gem_plane_helper_cleanup_fb), the
+framebuffer is never unpinned. The GEM object reference count will perpetua=
+lly
+increase, and the memory cannot be freed.
+
+> +
+> +static const struct drm_driver ra8875_driver =3D {
+
+[ ... ]
+
+> +static int ra8875_probe(struct spi_device *spi)
+> +{
+
+[ ... ]
+
+> +	ret =3D spi_setup(spi);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to setup SPI:\n");
+> +
+> +	buf_size =3D 1 + RA8875_MAX_HEIGHT * RA8875_MAX_WIDTH * 2;
+> +	ra8875->txbuf =3D devm_kzalloc(&spi->dev, buf_size, GFP_KERNEL);
+
+[Severity: Medium]
+Will this fail to allocate memory on fragmented systems?
+
+The driver allocates ~768 KB of memory for a maximum 800x480 resolution usi=
+ng
+devm_kzalloc. Because this requires an order-8 contiguous physical allocati=
+on,
+it is highly likely to fail on systems with memory fragmentation.
+
+> +	if (!ra8875->txbuf)
+> +		return -ENOMEM;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924145400.1385=
+815-1-azuddinadam@gmail.com?part=3D2
