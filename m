@@ -4,45 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2B2C98321
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1625BC98321
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352D010F630;
-	Thu, 24 Sep 2026 15:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B7A10F632;
+	Thu, 24 Sep 2026 15:00:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MbVO+FBS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WF48CgyE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960C510F630
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:00:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA6CA601DE;
- Thu, 24 Sep 2026 15:00:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3561F000FF;
- Thu, 24 Sep 2026 15:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790262016;
- bh=Wc9fAoZBufbONSbp5xUMxzaYXBs6xLiLWXzit1d6rMc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MbVO+FBSjvR7zhLVwtIDeNW+/hEHcaYWZI4wPwPgY8Ld0nUzrnDktb72R1Swy31Iw
- Zi0mzpBK1eHvT2es/alPulXDclzqS+8UtH4PFQLUXaMUE7w5cjGGWyOiCg2pCGh7Hw
- mcCCstQZ9kfl23OV5k+QhUAqrVsuVYxUxabf7JWWkDiz8uaTa9ljXFezH798OsRCmg
- 4vmdk6GGe9bpm+MpP0SvqEXbuKZY2S54mzsA+lf5QW6sQsW2z6ba5BKOJp4hqjoA3K
- JW3WqQ+kBx5rV/lng6z0m4LLkV8IG3eP6QVVesRYbqn6jiIKq/EmyBcwvlb/h51pNo
- aIPWE1fOL2VNQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-To: "Adam Azuddin" <azuddinadam@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260924145400.1385815-2-azuddinadam@gmail.com>
-References: <20260924145400.1385815-1-azuddinadam@gmail.com>
- <20260924145400.1385815-2-azuddinadam@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1307010F631
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790262043;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+ b=WF48CgyE55dtiKGZFTTd4Yx5uK+BVFW3hOpZHlI9D/q72DJQAVRzV/Cm7s5F8jWRVLHZvx
+ /Ap7nhVtdZcJYP2ZjR2MyuCIMvbOu8T80OcagizcnHIXoYokifPQtMdRnw47OoOC7PW/I4
+ 0/Vr2GhBrk4PMRRpdHqaULN36KVRH14=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-392-KbWdCjngOG6Zpc8GjnS85A-1; Thu, 24 Sep 2026 11:00:41 -0400
+X-MC-Unique: KbWdCjngOG6Zpc8GjnS85A-1
+X-Mimecast-MFC-AGG-ID: KbWdCjngOG6Zpc8GjnS85A_1790262041
+Received: by mail-yw1-f200.google.com with SMTP id
+ 00721157ae682-8461ade272bso18336157b3.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:00:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790262041; x=1790866841;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YKTy1DV5Z8HP/0nQigR4wkQdWVD6m+LzXDtQhSwKE3c=;
+ b=fpA5VGZJQ/rdl6f5un+y2A7DPZDjf7tbw34QvIDIhcNz8nqNyo8ORoMiVqZVYcXEGT
+ q1x2K4HpbT7PdOjQZUanqspBsWvNfEW/wsq1jldz0SwqI0NtvNrFvIoLhG3S1EOIl14S
+ +YoQoK83ThS1QPNN0YCOEMPAhU8nGpHEmtjPJUBrPsJ0vR+Gw6p8vQ135otmjAuTG4ll
+ EGHBAXkmgjTDlFYnLeh91f0vRJxvftOWJ6JvqPN0ivRjifzu34g+9qUNvUf8dQ1mQEVq
+ /DAs4F1BoBU4qJxMjc2rgGhf65KRSdv6vqHd3Y32OqFsrHdMEfAk9JqDLglMeuIdcAee
+ aJPA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwNul2v1WAyr8jYAT0beDojJV23wbSPo78dTQdrY0v3hjRxiVMkYsZVWPeAK+6sHdTWi6Or4YF5wcw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kgVlDNAKYF1txo7HqHHRNlbmeRVIU970Hru/FDb/utVURSNe+s
+ ByCYxxMeCoJ7tLstrBvfprM7wkjuFYZQypYMKldP/jROBsCanCdqEzvCW1PEhABVNyV8+r0hro0
+ PNQ4WmLl9PEO5cYyVTNu6BYeRhvTdlv3T/pIhlWuxlqJQ4JOX8p2z4eJgYDPeL2CSLDHJ3Wr06g
+ Rb/LH7liM/pzlNWzheOtTaOMkGy7A94Cc2WaKWh9UJxv5k
+X-Gm-Gg: AYBFou3rRGeOUL6+h6Mq5/OgFxq7U9tpBMUMTCfB4UAUelHfTWyPk3ylNg/b9TOEeHA
+ vdX+CJnH7Vs2urxszxaiH9CODnGbbGqwC2fRt+P3lmvLLdKD5p5NSTUQOafrQp+FL01kfwL73k5
+ dwM3BZqz++hgAQfX2DdsaAWAlso6OcruXzHFatR2DyGfKHTaONlc59+Q==
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
+ 00721157ae682-8a64e5d7328mr16132897b3.20.1790262040897; 
+ Thu, 24 Sep 2026 08:00:40 -0700 (PDT)
+X-Received: by 2002:a05:690c:f04:b0:8a4:af43:6941 with SMTP id
+ 00721157ae682-8a64e5d7328mr16131377b3.20.1790262038827; Thu, 24 Sep 2026
+ 08:00:38 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
+ <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+In-Reply-To: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Thu, 24 Sep 2026 17:00:27 +0200
+X-Gm-Features: AclHuK_S1nrFMWot6v8DC6klfULfaNk07isgmJtfP7BYAekyrR84kzWx2Uw9qhE
+Message-ID: <CADSE00JhFYhDV2cuVxZwVTX6LTe8zH0-BR=-Fhv+6UXeFxq_Zw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal helpers
+To: "Bryan O'Donoghue" <bod@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Christian Loehle <christian.loehle@arm.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeff Johnson <jjohnson@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+ Jens Wiklander <jenswi@kernel.org>, 
+ Sumit Garg <sumit.garg@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Brian Norris <briannorris@chromium.org>, 
+ Govind Singh <govinds@codeaurora.org>, Niklas Cassel <niklas.cassel@linaro.org>,
+ Kalle Valo <kvalo@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, iommu@lists.linux.dev, 
+ linux-media@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ ath10k@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ linux-remoteproc@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: KA8tEs8exXaosevfKzqKQKOSKwmqJqUF00bxj8f6nos_1790262041
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 15:00:15 +0000
-Message-Id: <20260924150016.2F3561F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,62 +130,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing <dt-bindings/gpio/gpio.h> in example causes dt=
-c build failure
---
+On Wed, Sep 23, 2026 at 11:00=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> =
+wrote:
+>
+> On 14/09/2026 13:41, Albert Esteve wrote:
+> >   int qcom_scm_pas_auth_and_reset(u32 pas_id)
+> >   {
+> > -     return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
+> > +     struct qcom_scm *scm =3D __scm;
+> > +
+> > +     return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
+> >   }
+> >   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
+>
+> Why make this change at all though ?
+>
+> It takes a pointer to the file static _scm
+>
+> The reset of the patch looks straight-forward to me but this change
+> caught my eye.
 
-commit 7e01f56671098a8bf49e596e68df147ced833fec
-Author: Adam Azuddin <azuddinadam@gmail.com>
+Yeah, this change isn't useful. I aimed to avoid passing __scm to
+function calls but it does nothing in this patch, it'd be better to
+change it directly in the next patch that changes the signature.
 
-dt-bindings: display: panel: Add RAiO RA8875 display controller
+BR,
+Albert
 
-This commit introduces a new device tree binding for the RAiO RA8875 TFT
-display controller. It documents properties for its SPI interface,
-including required supplies and GPIO resets.
+>
+> ---
+> bod
+>
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.=
-yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-> new file mode 100644
-> index 0000000000000..b50fd95c57539
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        panel: display@0 {
-> +            compatible =3D "raio,ra8875";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <16000000>;
-> +            vdd-supply =3D <&vcc_3v3>;
-> +            reset-gpios =3D <&gpio 25 GPIO_ACTIVE_LOW>;
-
-[Severity: Low]
-Does this example fail to compile during the make dt_binding_check target?
-
-The GPIO_ACTIVE_LOW macro is used here without the required header
-inclusion. This causes dtc compilation to fail with a syntax error
-because the macro remains unexpanded.
-
-Could we include <dt-bindings/gpio/gpio.h> at the beginning of the
-example block?
-
-> +
-> +            display-timings {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924145400.1385=
-815-1-azuddinadam@gmail.com?part=3D1
