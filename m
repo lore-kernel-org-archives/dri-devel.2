@@ -4,82 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D41EC98328
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509A0C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 496A410F90A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417D710F909;
 	Fri, 25 Sep 2026 07:30:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrTEqPjb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DMbxskam";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D452210F7AF
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:19:30 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49ce364488dso859585e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:19:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790284769; x=1790889569; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
- b=FrTEqPjblL1/z7NXBMMi29ZkNGTKIcpBeUe/VrJMpOMrbaUW3mmNTvPgkVMBBYy6yJ
- qiAr0+sd1ZGSWivH7m5aMJztJGHRZjwMBBb1pycPb4irzL9EaUqwB1qKgOdv11rKR2Sy
- R8/A6MN1l094otNpAmi+R58Wh1QxOHpg9wHItREqPB228GyNLv2XMsQsOotiBTGvZt7u
- EqA8dwCwdEcyfKGFdG5gXQFkJ5JUrWFAQjN/4uhBJI4UNCF057Qs8rExQt0j1iNbg4xM
- dbXjPYpNbm00tbO93S7mLEUjYLgDzbGzlmzMozBgqEGJlLMTexSNgqZ1ssGRwkwRqonq
- ZBoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790284769; x=1790889569;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3b2nna4xnlk7YBC6uF1VaaYbEm9ppYIUbn/RXDv0QcY=;
- b=zIjFhcoTGzjIzjwKll5ASCk975R6qcI0CbNsRWEZFVuJt+ldQeetWGPIXgMC6mPiN7
- iOuRCTP9A+kfXPcYxZuGgUFsVeOCtrtmZmWmYSpIwxbv+GM1Gw88wqOlEjnBks03DHhr
- ElibOnKFDS0i1Jqh0Po1+XMSpj8ZnXd2gPOv+F3YkkMltrpkjen3aRiZShEbHOuLEVX+
- dV+vgpshCX6bYHSfS2UdD2TiV7SuwVum8xwHVs1hT9/3tI3g/3y2y7/gMNCviuB8uvgn
- 7a7iEawwHUArbTyWHe8g9BWzoHM9HliWCmCX9R9+lBVtO/YRoArrWs+Tw3fHO04CQsub
- STRQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwcTf0EC+mpOvDcRDDBs8HhBhYmYbfwMN6xblSCACG30D+aryQ+NyynwLOl66HeMSpGZob4vXqOzmo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mDAgWF3+BMo4oJg1te2rpYmiNh6QzaWbb90BNhk8LlE+fDmtk/
- DOkv9k0XvIES+9ORK/HM6lxiS9yVXlHxxAYOj88tnwYGamInx3oN1tgc
-X-Gm-Gg: AYBFou1iriauFhP8cxTevbjEneoXffp1k8BL1UCCkyaCpPwbpdYZMtT3xH/qtoX3jJp
- 1BcBSFBjrRr1yS/NAxgf/n3NKypsY8c2LbA1tl6X16WBMA1IJk7zyJbgaFEEUr+PvlnwrSJRJVJ
- Og7YoXaHoo81pp5zYvV4uwaPFRihH2OjD8ch/a1C5Lqu/ZH3dYegrVvRBVbn9u4IAW2mhCg5XBv
- IkJVWA/KLuGsz3EpuPNf3W7kPwTS2E9ErlhBLxM/JLV1RtkTMzBJkTVIV7pCDnwa+A//y44kpjz
- Vzn6XDUP4pl9vstJqqx/pN4SBZm2hidBbETE/sVvHXQiW12PrIhmc3xscbO0tZp+kjD2Xz1zj5b
- 3qwWEGQtOtEgmoatfludm9UODqEgbw5yuAGyam35YXCnWJylNox32eND79j+zCA/ilYn7tg51+P
- 9f4sijq44D+Iso62VM4Hfwgw4w9Uhed2D2lZz6aKJuFtuHlqnWjtNLZmLOYIjXvvXWZCguuF5be
- lk4UAumhI6TazV6zSxFuzGiAnvWCtiEWfzhESzw4BBioH5URJAW/4BOHnZb+8oLm2YL9oACLYST
- 9B0+LGKSf3WldIXP4f/HpPUMMppWrHscg2LBFaewOppvRuc=
-X-Received: by 2002:a05:600c:c096:b0:49f:f099:6f92 with SMTP id
- 5b1f17b1804b1-49ff0997108mr2146345e9.9.1790284768860; 
- Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
-Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fef5f876esm6403155e9.2.2026.09.24.14.19.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 14:19:28 -0700 (PDT)
-From: Conor Svensson <conor10@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Configure protocol converter only for TMDS
- outputs
-Date: Thu, 24 Sep 2026 22:18:09 +0100
-Message-ID: <20260924211852.436787-1-conor10@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
-References: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C4D10F408
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:03:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 983A5601FE;
+ Thu, 24 Sep 2026 10:03:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097291F000FF;
+ Thu, 24 Sep 2026 10:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790244234;
+ bh=Q6qe1GeJ9XQcp2Qtuu+QjoS116ZDPXf6D3ecAVzIRhY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=DMbxskamLqIuQ517s1qWGAAn1E+xsD1IWLYGPnumbRx6pTv8bCwHJNooLP/0Y9MmF
+ ewyfTQFlrtMHi0vbNbmoGXeP02wTiKXQwMUnfW6BJPnwha3F6zTor4G266x5NCtrLZ
+ UINk2FfnnrWpmI4AgQSRtCEaaer/qXtOU6XcHLmcrADLmAXvRTfOudurStBkH10L0j
+ cHXvTwq8BsOo1ESnuzegeDjHk5jwPxjbI7VL3VpDQNaTCWwI1ExYzT3hhqIHmtSCUY
+ phCcWTevzoeBg5AakjX55gtjhS7DlK4HJYPRuO/TGOEmjyYP86Mnf1i03HAWs2ule+
+ sZHwPnp+ZmfYA==
+Date: Thu, 24 Sep 2026 11:03:23 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 01/40] mm/vma: fix mmap_prepare file handling, remove
+ file_doesnt_need_get
+Message-ID: <arTvHhdoxZi_LslN@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-1-4583d8a23bca@kernel.org>
+ <26EB9785-2909-4D49-A755-09A72BA94BD0@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <26EB9785-2909-4D49-A755-09A72BA94BD0@nvidia.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,77 +143,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_dp_configure_protocol_converter() currently writes the HDMI/DVI
-output-selection control for every DP 1.3+ branch. The write is only
-meaningful for a TMDS downstream output; a native DisplayPort output should
-not be switched to the HDMI/DVI protocol-converter mode.
+On Wed, Sep 23, 2026 at 10:20:43PM -0400, Zi Yan wrote:
+> On 17 Sep 2026, at 12:22, Lorenzo Stoakes (ARM) wrote:
+>
+> > The map->file_doesnt_need_get flag is confusing and the existing
+> > implementation has holes.
+> >
+> > Drivers are permitted to change the owning file of a mapping. If they do
+> > so, they are required to take a reference on that file.
+> >
+> > The mmap() operation which ultimately invokes __mmap_region() is guaranteed
+> > to drop the refcount for the original file the mapping was made under, but
+> > this is not true for the replaced file.
+> >
+> > This has been addressed so far by tracking map->file_doesnt_need_get, which
+> > is rather poorly named and unfortunately fails to correctly track whether
+> > or not an additional put were needed in a number of cases.
+> >
+> > Make life easier by removing this flag, and instead drop the reference for
+> > both mmap_prepare and the deprecated mmap callback in a new function
+> > put_map().
+> >
+> > Track whether this needs to be done by aligning mmap_state with
+> > vm_area_desc and store the original file in the map->file field, keeping
+> > the updated file in map->vm_file.
+> >
+> > In order to have the same behaviour for both types of hooks, only drop the
+> > reference __mmap_new_file_vma() itself took in its error path, deferring
+> > the replaced file's reference to put_map().
+> >
+> > To make this work correctly, map->vm_file has to be updated before any
+> > error handling, so update __mmap_new_file_vma() and call_mmap_prepare() to
+> > set this field first.
+> >
+> > Also when mmap_prepare() changes the file and is then merged, the reference
+> > count also must be decremented, so update the logic to call put_map() in
+> > this case too.
+> >
+> > Also update __compat_vma_mmap() to manually perform this step for stacked
+> > file systems using the compatibility layer, and update
+> > compat_set_vma_from_desc() to replace vma_set_file() with a correct
+> > refcount/file update.
+> >
+> > No in-tree driver is impacted by the incorrect implementation of this
+> > currently (no driver that does this is mergeable for one), so this does not
+> > need to be a fix.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/internal.h |  1 +
+> >  mm/util.c     |  5 +++-
+> >  mm/vma.c      | 83 +++++++++++++++++++++++++++++++++++------------------------
+> >  mm/vma.h      |  6 +++--
+> >  4 files changed, 59 insertions(+), 36 deletions(-)
+> >
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index 0dca33db068f..fe576d468af4 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -7,6 +7,7 @@
+> >  #ifndef __MM_INTERNAL_H
+> >  #define __MM_INTERNAL_H
+> >
+> > +#include <linux/file.h>
+> >  #include <linux/fs.h>
+> >  #include <linux/khugepaged.h>
+> >  #include <linux/mm.h>
+> > diff --git a/mm/util.c b/mm/util.c
+> > index bf0513d1d3d0..016932780925 100644
+> > --- a/mm/util.c
+> > +++ b/mm/util.c
+> > @@ -1228,8 +1228,11 @@ int __compat_vma_mmap(struct vm_area_desc *desc,
+> >
+> >  	/* Perform any preparatory tasks for mmap action. */
+> >  	err = mmap_action_prepare(desc);
+> > -	if (err)
+> > +	if (err) {
+> > +		if (desc->vm_file != vma->vm_file)
+> > +			fput(desc->vm_file);
+> >  		return err;
+> > +	}
+> >  	/* Update the VMA from the descriptor. */
+> >  	compat_set_vma_from_desc(vma, desc);
+> >  	/* Complete any specified mmap actions. */
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index 55917d097933..fa784f069da4 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -24,7 +24,8 @@ struct mmap_state {
+> >  		vm_flags_t vm_flags;
+> >  		vma_flags_t vma_flags;
+> >  	};
+> > -	struct file *file;
+> > +	struct file *file;	/* mmap()-specified file. */
+>
+> IIUC, file is never assigned other than MMAP_STATE() and should not
+> change after mmap(). Could it be made const to prevent any change?
+> I assume mmap_state will not need to handle the nesting issue like
+> vm_area_desc, so file can be const.
 
-An Anker 565 branch (Synaptics OUI 90:cc:24) changes its downstream port
-descriptor from DisplayPort to DVI immediately after this write. i915 then
-derives a 165 MHz TMDS limit on the next hotplug probe and drops the
-monitor's native modes. Skipping the write for non-TMDS outputs prevents
-the transition.
+Oh I had assumed that this couldn't be const and I thought I'd checked that, but
+seems not, it can be :)
 
-The existing dfp.min_tmds_clock classification is nonzero for HDMI/DVI
-outputs and zero for native DisplayPort outputs, so retain the write for
-the protocol-converter cases that need it. Colour-conversion controls are
-unchanged.
+Will fix that up for v4 thanks!
 
-Tested on a ThinkPad L14 Gen 4 with an Anker 565 A8388 hub and a Dell
-S3422DWG:
+>
+> > +	struct file *vm_file;	/* May be updated by mmap_prepare. */
+> >  	pgprot_t page_prot;
+> >
+> >  	/* User-defined fields, perhaps updated by .mmap_prepare(). */
+> > @@ -43,8 +44,6 @@ struct mmap_state {
+> >
+> >  	/* Determine if we can check KSM flags early in mmap() logic. */
+> >  	bool check_ksm_early :1;
+> > -	/* If .mmap_prepare changed the file, we don't need to pin. */
+> > -	bool file_doesnt_need_get :1;
+> >  };
+> >
+> >  #define MMAP_STATE(name, mm_, vmi_, addr_, len_, pgoff_, anon_pgoff_, vma_flags_, file_) \
+> > @@ -58,6 +57,7 @@ struct mmap_state {
+> >  		.pglen = PHYS_PFN(len_),				\
+> >  		.vma_flags = vma_flags_,				\
+> >  		.file = file_,						\
+> > +		.vm_file = file_,					\
+> >  		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
+> >  	}
+> >
+>
+>
+> Best Regards,
+> Yan, Zi
 
-- native 3440x1440@59.973 after DP recovery
-- three USB-C reconnects on the first USB-C port
-- one test on the second USB-C port
-- suspend/resume on the second port
-- HDMI through the hub at 3440x1440@59.973, with HDMI-specific modes
-  present
-
-On the unpatched control kernel, the live descriptor changed from
-08 f0 01 1e 00 00 00 00 to 0a 42 00 00 00 00 00 00 across the 0x3050 write.
-
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
-
-Root-cause findings and validation details were added to the linked issue.
-
-Assisted-by: LLM Codex GPT-6
-
-Signed-off-by: Conor Svensson <conor10@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ffddf4b33..cdc3d7786 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4422,14 +4422,17 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
- 	if (!drm_dp_is_branch(intel_dp->dpcd))
- 		return;
- 
--	tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
-+	/* HDMI/DVI output selection only applies to TMDS downstream ports. */
-+	if (intel_dp->dfp.min_tmds_clock) {
-+		tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
- 
--	ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
--				     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
--	if (ret < 0)
--		drm_dbg_kms(display->drm,
--			    "Failed to %s protocol converter HDMI mode\n",
--			    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
-+		ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
-+					     DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
-+		if (ret < 0)
-+			drm_dbg_kms(display->drm,
-+				    "Failed to %s protocol converter HDMI mode\n",
-+				    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
-+	}
- 
- 	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
- 		switch (crtc_state->output_format) {
-
-base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
--- 
-2.55.0
-
+--
+Cheers, Lorenzo
