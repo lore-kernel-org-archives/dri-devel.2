@@ -4,91 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E075C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3333C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96B9510F43A;
-	Thu, 24 Sep 2026 10:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC9A10F43F;
+	Thu, 24 Sep 2026 10:22:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="ZAN7AZIC";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ah3ffRP+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtnUwN3h";
 	dkim-atps=neutral
-Received: from fhigh-b6-smtp.messagingengine.com
- (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 024B410F43A
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:02 +0000 (UTC)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfhigh.stl.internal (Postfix) with ESMTP id B79CD7A0052;
- Thu, 24 Sep 2026 06:22:01 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Thu, 24 Sep 2026 06:22:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm3; t=1790245321; x=
- 1790331721; bh=bhEwuQXKYWMYM7UfAE9zXDC7PfmHACUKFcOafx5HkO8=; b=Z
- AN7AZICfZ7e6jDnZhxpB9PUzoV3hLBEM1W4Qtudcvb8XW4ckpU5D1uwNGHJ2ZnWu
- 82dCTxcB7EJqa5JLDf3nLW4hKiNXaZdmA6P6K3xIT2BJvD3r6vF87tjKlSstJCDS
- 9fJ42LGGnMWcWqlq3aL8zblG9+Q3DqZqFmkRHZcPpbUOKRKqpS1VtEWsbBfcp4vq
- RIcTV3jctRus2t+Gyhm1JQyOyl4XPKecROuBW4FqLxmU59UlKN+ydjVHNgC+8rS6
- EbC56wgVmKMRU48MlWkufis8R77/ds9C/0q8H7pZZeyg2sRxwX60iaI1nvjG1jUQ
- YQ7eoxcNa4jxKZMDQIe8w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1790245321; x=1790331721; bh=b
- hEwuQXKYWMYM7UfAE9zXDC7PfmHACUKFcOafx5HkO8=; b=ah3ffRP+jAqff15eV
- LPT7T8o/VQdTo/POXaP+BMAFTzTQK28GHUQG6gOFXjooMnDimxCbYztKA/WzBLSZ
- XREqj6G1l50xQSzIml5PQ3Yd0a1hhNM8RYDrSaAcQE4CrBsnHxLIGzSQmhxzWeQV
- lfR8QPJDdeKWXHRB57OUz5ZNAPRzZ6NQ0iceq60Wyt2BRGVWSXqN2FZrF+quQHeq
- WKEFdaz1hCMykil/kQUkywwlKnbGvxyo8t3jnmIEhnI1rRCe0bmbjpF1PoXMa0kn
- ZiaGAa46e7uOnkzk0PdW5Yrg5U/uZmdof2Rhk5Z28KfBr4EhwsTqfUC7EIH0uJcn
- 4kf7g==
-X-ME-Sender: <xms:yfm0asad7A3Da22Rll8jQGVNriupFxyr9JBfDfkd_6TSr3AeMx_ARw>
- <xme:yfm0anjxDhjWzvMFlzJGG30sQyEann-MQnOETqnybyPi06cu7B7biVNDdUknqYyEo
- PoKn3fXYnR6e4NXCREWkzSHWhHSs4LADRUznCydrIagmV8-ZFuEbWMa>
-X-ME-Received: <xmr:yfm0akz-xFCSHdI1F0iLdm-_BZTAOhzEu47xVAk-FTem7QV3It1ml6pW6lwN-qlTk9DNShlDDw>
-X-ME-Proxy-Cause: dmFkZTE5U9DWJ/1d8NZBV16bjZrXhnu9+RjSei8Egg+AJBodp1SsqcAZICkdFDYYk8PQ/z
- nbl5nAv32NCM/Rvob60jzzR/sJI+sbtZKf4EXYq6NkDnWs3QsBAvLEkGDZPcVAuKZu09hj
- kufWDx+OHd427BpEwAmDDK2HcwDl5PIVxykoKPNTzoVswPV46/qyR6Xp/JY/TaNWyTgMqq
- yMy5OLUd6yAzE6clJlYL4qCFZSrQCDEMACpcb7vwZPjxoszy3u6FTeAITQlCqDvBOfb2xA
- f1SHw7kF1Gfs8fOU43Noc1IHs7QEkTjIEBtZWO5SBQ25T666ulWx7WKsjltbKYna0Y/oT0
- E+W0Z3CE6nOJgzb2tbTfbc5qfAHkD/1VVTbIYhLHcbq3ozpFHR5ZJDRId6v718KKPoapwL
- izW/nh3rjZWFbQ55ujRw2jsXmHVK+YCMAhIb3gMeFZqbM23q21JYb8LOxPUgazOTtctXku
- CWVnuPIyMw+4NrkiiRyn8MBQIOlxFmANR4rUxenOb6ynawyJKlXufoUd4xIl/a/hiqr8ox
- YP2MK5v0A0U4H9cUzF+SZID3mshCSj6Ikq/v3tjGq7UiSdhtvZo/CsGYAVRzdTB2LUI8tG
- m4gwKoVrLsBlp0NEkcRF5Qo6qerHy6/loj+kcKovjkF2yIQralEKsdzPTjzA
-X-ME-Proxy: <xmx:yfm0aq7NXUqOfFHwJwhTOe2DhM0vj8P43sRbKsZILFUTnS7EaUJdbQ>
- <xmx:yfm0al2VPMtCjtwdr8_5AsbpyyRdbxcldZ_l8pln-lJB_YgoCr-CWA>
- <xmx:yfm0aj0aP_6X8O-6s2DfYdNnC8WqvWUF0LCFd8XajfC_CxxTmUA5dw>
- <xmx:yfm0akcgH-xgTzxzz3b7UfpWezgMVK9DGyKFjK1MdRxZiA7odQ4Scg>
- <xmx:yfm0aijKzDr9zfFA1IKoWhCkf6F3_HEz_ydZObfMeDoR4bl_0L1PTwQv>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 06:21:53 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v14 01/15] accel/rocket: request the core clocks by name
-Date: Thu, 24 Sep 2026 22:21:21 +1200
-Message-ID: <20260924102135.92217-2-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
-References: <20260924102135.92217-1-gahing@gahingwoo.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D349A10F43F
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B87D840B95;
+ Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429C41F00893;
+ Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790245332;
+ bh=zKYx3kDRPb7Z8P9stq2bQ3C8P/z3NFTA0Vy7a1Abkrk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VtnUwN3hmlGtKm7aUuxUL0lihyN2yKK9BFg7UhHR0If8SGHk+6zFkxE2VsPR/unrS
+ IVHVwv+c5Roz6HVtWGq+tXo7EcpThrSRndnF7cbgZhtKuh1mPOizDN5xamnLkME33O
+ iWm7ptSXtxDiI+KYnWfx1dHn8CROqItmUwYT6aL+QkIdPRetCumMSlvtxImySq7h6a
+ kLg43kTBDKVjpvll0/beXX3rlkOwGI17fEZu9CGt4rcU1wdanH7PiiRMk2HdWa5ag4
+ 1ATsqQK102l/HhxLpJRMcA5qjfHXL43W8G9oShYHVvS+R5YAl7n1PYfYBhULBZioRe
+ pnjZjP4Uc5qPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
+ transitions
+To: =?utf-8?b?QW5lZXNoIEt1bWFyIEsuViAoQXJtKQ==?= <aneesh.kumar@kernel.org>
+Cc: "Oliver Upton" <oupton@kernel.org>, media-ci@linuxtv.org,
+ dri-devel@lists.freedesktop.org, kvmarm@lists.linux.dev, "Marc
+ Zyngier" <maz@kernel.org>
+In-Reply-To: <20260924100529.1398790-3-aneesh.kumar@kernel.org>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-3-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 10:22:11 +0000
+Message-Id: <20260924102212.429C41F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,84 +56,185 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Igor Paunovic <royalnet026@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] mm: ciphertext garbage in shared mappings due to zeroing in pr=
+epare callback
+- [High] hv: uninitialized kernel memory leaked on non-confidential VMs
+--
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+commit 0b9cafc26c64a65c124d5f6d15281e2bb9c41b6e
+Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed, so
-the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+mm: Zero memory during shared memory transitions
 
-The consequence is that rocket_device_runtime_resume() prepares and enables
-the AXI clock four times, while hclk, pclk and - most importantly - the NPU
-compute clock ("npu", SCMI_CLK_NPU on RK3588) are never prepared or enabled
-by this driver at all. The NPU still works only because the Rockchip
-power-domain driver sets GENPD_FLAG_PM_CLK and its attach_dev() callback
-walks the device node with of_clk_get() and adds every clock to the pm_clk
-list, so genpd happens to keep the remaining clocks running. The bug is
-therefore latent today, but it means the driver holds no reference to the
-clock that actually feeds the NPU, which stands in the way of any future
-frequency scaling (OPP/devfreq) work.
+This commit makes zeroing an implicit property of set_memory_decrypted().
+Each architecture clears memory at a safe point in its transition, and
+redundant post-transition memset() calls are removed from standard allocato=
+rs.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other two
-cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via of_clk_get().
+> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> --- a/arch/x86/coco/tdx/tdx.c
+> +++ b/arch/x86/coco/tdx/tdx.c
+> @@ -978,6 +978,9 @@ static int tdx_enc_status_change_prepare(unsigned lon=
+g vaddr, int numpages,
+>  					 bool enc)
+>  {
+> +	if (!enc)
+> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
+> +
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+[Severity: Critical]
+Does this write encrypted zeroes into RAM? Because this memset() in
+tdx_enc_status_change_prepare() happens before the PTE encryption bit is
+cleared, writing zeroes through the encrypted mapping results in ciphertext
+being stored. When the mapping later transitions to shared, reading this
+memory will yield that raw ciphertext.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the old
-NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with -ENOENT
-when one of the four names is missing. That is the right outcome for
-in-tree users - the binding requires exactly these four clock-names and
-rk3588-base.dtsi carries them on all three cores - but a DT that relied on
-the permissive lookup goes from silently running on the wrong clock handles
-to not probing at all, so record the change here where git log will find
-it.
+[ ... ]
 
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
+> --- a/arch/x86/mm/mem_encrypt_amd.c
+> +++ b/arch/x86/mm/mem_encrypt_amd.c
+> @@ -285,6 +286,9 @@ static void enc_dec_hypercall(unsigned long vaddr, un=
+signed long size, bool enc)
+> =20
+>  static int amd_enc_status_change_prepare(unsigned long vaddr, int npages=
+, bool enc)
+>  {
+> +	if (!enc)
+> +		memset((void *)vaddr, 0, (size_t)npages << PAGE_SHIFT);
+> +
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba..5dd260bac 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
- 
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
--- 
-2.43.0
+[Severity: Critical]
+Could amd_enc_status_change_prepare() suffer from the same ciphertext issue?
+Writing zeroes to the private encrypted mapping before the transition leaves
+ciphertext in RAM, which will appear as garbage once the page is mapped as
+decrypted and shared.
 
+[ ... ]
+
+> diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
+> --- a/drivers/hv/hv.c
+> +++ b/drivers/hv/hv.c
+> @@ -123,12 +123,13 @@ static int hv_alloc_page(void **page, bool decrypt,=
+ const char *note)
+>  	if (!*page)
+>  		return -ENOMEM;
+> =20
+> -	if (decrypt)
+> +	if (decrypt) {
+>  		ret =3D set_memory_decrypted((unsigned long)*page, 1);
+> -	if (ret)
+> -		goto failed;
+> -
+> -	memset(*page, 0, PAGE_SIZE);
+> +		if (ret)
+> +			goto failed;
+> +	} else {
+> +		memset(*page, 0, PAGE_SIZE);
+> +	}
+>  	return 0;
+
+[Severity: High]
+Does hv_alloc_page() bypass memset() on non-confidential VMs? On standard
+VMs, decrypt can evaluate to true. set_memory_decrypted() is a no-op that
+returns 0 there, and since __get_free_page() doesn't use __GFP_ZERO, this
+path could return completely uninitialized kernel memory to the hypervisor.
+
+[ ... ]
+
+> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+> --- a/drivers/hv/hv_common.c
+> +++ b/drivers/hv/hv_common.c
+> @@ -505,8 +505,6 @@ int hv_common_cpu_init(unsigned int cpu)
+>  				/* It may be unsafe to free 'mem' */
+>  				return ret;
+>  			}
+> -
+> -			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
+>  		}
+
+[Severity: High]
+Could hv_common_cpu_init() leak uninitialized memory here? The
+kmalloc_array() allocation above doesn't use __GFP_ZERO, so removing this
+memset() leaves the hypercall input/output page uninitialized on standard
+VMs.
+
+[ ... ]
+
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -324,7 +324,9 @@ void *dma_direct_alloc(struct device *dev, size_t siz=
+e,
+>  		cpu_addr =3D page_address(page);
+>  	}
+> =20
+> -	memset(cpu_addr, 0, size);
+> +	/* Zero after remapping because the page may be in HighMem. */
+> +	if (!mark_mem_decrypt)
+> +		memset(cpu_addr, 0, size);
+> =20
+>  	if (set_uncached) {
+
+[Severity: Critical]
+Is it safe to bypass this memset() for shared CC memory in
+dma_direct_alloc()? Since the memset() inside the x86 prepare callbacks
+leaves ciphertext in memory, skipping the post-transition zeroing here means
+we will return garbage-filled memory to callers expecting clean DMA buffers.
+
+[ ... ]
+
+> @@ -457,11 +463,13 @@ struct page *dma_direct_alloc_pages(struct device *=
+dev, size_t size,
+>  		return NULL;
+> =20
+>  	cpu_addr =3D page_address(page);
+> -	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) &&
+> -	    dma_set_decrypted(dev, cpu_addr, size))
+> -		goto out_leak_pages;
+>  setup_page:
+> -	memset(cpu_addr, 0, size);
+> +	if (mark_mem_decrypt) {
+> +		if (dma_set_decrypted(dev, cpu_addr, size))
+> +			goto out_leak_pages;
+> +	} else {
+> +		memset(cpu_addr, 0, size);
+> +	}
+>  	*dma_handle =3D phys_to_dma_direct(dev, page_to_phys(page),
+>  					 attrs & __DMA_ATTR_ALLOC_CC_SHARED);
+
+[Severity: Critical]
+Does skipping the zeroing here in dma_direct_alloc_pages() for
+mark_mem_decrypt also expose callers to raw ciphertext in the returned
+buffer?
+
+[ ... ]
+
+> diff --git a/mm/cc_shared.c b/mm/cc_shared.c
+> --- a/mm/cc_shared.c
+> +++ b/mm/cc_shared.c
+> @@ -137,9 +137,6 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_=
+t gfp,
+>  		return ret;
+>  	}
+> =20
+> -	if (zero)
+> -		memset(page_address(page), 0, layout.shared_size);
+> -
+>  	mem->page =3D page;
+>  	mem->shared_size =3D layout.shared_size;
+
+[Severity: Critical]
+Can removing this memset() cause __alloc_cc_shared_pages_node() to return
+memory containing ciphertext? Callers expecting zeroed memory will receive
+garbage instead.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924100529.1398=
+790-1-aneesh.kumar@kernel.org?part=3D2
