@@ -4,46 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B41C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFA8C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:21:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEDD410F439;
-	Thu, 24 Sep 2026 10:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD25410F450;
+	Thu, 24 Sep 2026 10:21:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EQbFilMW";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="YV226Ebj";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="kh2tFI+C";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF13110F439
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:19:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 41F4A600AA;
- Thu, 24 Sep 2026 10:19:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D7F1F000FF;
- Thu, 24 Sep 2026 10:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790245186;
- bh=/gxa1IwjEcYJPW+usTwOk+STx1BGzePZXC02PrSy/PI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EQbFilMWFOx8gLbcg9xGAHKwo9MLJCRMLa705Fjc0ZhdXcJCxNw2ySTUmTXr7lI1N
- E47/pvNF0y1HkHScYRhdhvT1YNVD7+nK0rQTvGXpeBIyNX7qY2sZYKywLRiPDkyx6A
- uelkjIvzg0XCNuiSlGfPPyuN+yxxuwg+g++hKeHb0k4fVfjYjZTzYyaXHMJZ4NHtrt
- YcfiItbON1TYcdMU7zNwN+0svt/UapQOJoRxEPSRhhhL/5Po8kHBHAC2I4sBxjVE5Z
- neVb+DKdHuGRadn7wh5/W2OXDDh0AwVVW4mnv4yi1taTexgTWK3mk2WPoUiu39S5WA
- nKSNzU+jSxNZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v8 06/14] dma-pool: Allocate CoCo atomic pools using
- CoCo shared memory allocator
-To: =?utf-8?b?QW5lZXNoIEt1bWFyIEsuViAoQXJtKQ==?= <aneesh.kumar@kernel.org>
-Cc: "Marc Zyngier" <maz@kernel.org>, dri-devel@lists.freedesktop.org,
- media-ci@linuxtv.org, kvmarm@lists.linux.dev, "Oliver
- Upton" <oupton@kernel.org>
-In-Reply-To: <20260924100529.1398790-7-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-7-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 10:19:45 +0000
-Message-Id: <20260924101945.95D7F1F000FF@smtp.kernel.org>
+Received: from fout-b4-smtp.messagingengine.com
+ (fout-b4-smtp.messagingengine.com [202.12.124.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E8310F43A
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:21:50 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 89BA61D00100;
+ Thu, 24 Sep 2026 06:21:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Thu, 24 Sep 2026 06:21:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm3; t=1790245309; x=1790331709; bh=W6tnudjnaq
+ nDvuJLZWbdA1XYcjcOG/KRBYhK5fxSl2U=; b=YV226EbjfVpuElFcw2Yq0ZEOf3
+ kV4oD1yEgBOGzqiHUWiGBUHsmuZWVgsCJn6s/sTW1jkG562sllnRbXnT1M+JSELY
+ Zq7awi+A4dmbEFQZ7+okF12O6itF/CxLx3TMAiHtctqB1kEMndbbrmrI2vlBk0Ba
+ XYbUEW3W70InY421d7O6sbJPaygVK8oL73OW89OVuXUbRzWTnkaWXWwvGtnCa3JV
+ 7eskiX2aABw4Blhzre4ogXQtco0DYIeEDlJeWU5UZaRrxoHvb9CbR4taKSWEPB/n
+ sdoymmnO7c3wE+k0aJs9YPSv56gwVLdBgm0AETs8sQKNxIiQyUtVyWZtMOZg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1790245309; x=1790331709; bh=W6tnudjnaqnDvuJLZWbdA1XYcjcOG/KRBYh
+ K5fxSl2U=; b=kh2tFI+C70MTIXe/YX+q8448PWaZCZnhMa5jTmFR1nMou61UJcn
+ 3WzJV+5IltfZrse2IpGQnglxx9FQZSd7rVblvWFZmqJQBxnrBOfOorgin2MRol1p
+ 7GTIl/h47gfMqkO5WlEFQRGked+S8dxfQw7RG545ESliULywNkO2Qx5Hx9ThYn8j
+ nh/tRRBjbnioJwxB5HMlsLGLW+2Gl/aHQUMYACBSsEAo3f8tb9AmOPdf9xHoco3C
+ EVE8q1HQj6CrJx0/ZQZUP78PC1BIp9aqiXGjjWtSgSkRIL70tyRk/NRpuyBxa9xJ
+ S0Qvt0mK0sgHL8pUxHP7lrwawcp44DWbETA==
+X-ME-Sender: <xms:vPm0avPHMDwn28tloF3tMSEyu8VxF0-yiXQT0HsAbMGQFOGRv59D_Q>
+ <xme:vPm0aqvSQ30pPg-WEW7otfxJ7VOHupprZl9Nln6n-luqCRE4x86mOLUkQiJquwlmT
+ 8kqev4u9lOuFsqkJNX5npO4SgiGf73qmqNwFMfAM2VaHTbC4UqsvEs>
+X-ME-Received: <xmr:vPm0aiGUv1jl5nzFATDJdBh4YPod_dURrATFLHxrFQJGEguGf87N8DiHfW9QxPYyoVWy8l0DIw>
+X-ME-Proxy-Cause: dmFkZTGUBsuQ8u1e21jVcr3eLNYG8Ga4Cps63LL/fYxHUubIriJLI2yezzT3bzXM0DpGzH
+ qkZsA9N9aBi9n2Y//Yi0OHlpEZJX5Bnw5YcMHpUTVUO0A8DdY/D5tvhfY4JQtyBJkgAFAw
+ TNXckoesIyFctYvXVe/Yo5XkqpKs0A5wEq4b+dKkkqErTVFOzm2U0Tqf5wP76p8dip0AEW
+ 6goXFoqaPcnDdHoe8hK/ilbx/bv7lys+91iE7/Vpn/kNTv2VZk73o5DQPwhe3rGxKYgLLO
+ NoMtnnrti5i/YjyeP2uj7BGXhCqwtaB6+EwJplu7fHaOam2PsrbS75wAJYWOARwLKIr9OS
+ DPI/daDD++KB0WfxHB3zjHMjqNV9vZYf0wOy5M8lMuV0ULxpgCD6jL7ucgWwhkGq9g9783
+ Z9TyFguJ6VUEk3MHSGQ6MdIT1xTww7BiozZzx9xuSDFh5IhMlwK+2xIpfoV13jYDwHIAnV
+ jqIv0OdUCnHJYM+M5qe9XAget8mEh2DuV935JroNa8o8cDgx95KRO5U2Reaw1BbfPvyG6x
+ p75wqGpVNdSXqXUO3rxHI1jVOITR29X4JLt+ZAFW720YnBULxO/I8Xwje52RdiLHEfbleN
+ dqAns0cW41qUL8d047ZJggRqksth7LcFfxDruC5W93OmRI2UsyQh41lNQWzw
+X-ME-Proxy: <xmx:vPm0alRmLW-fC207vPYU88tB4X3W1sYpm4gXSIhoogYbRN6k9_SHXw>
+ <xmx:vPm0amj9Of0_Sc6lVVIi-35IpePezVZYs4b6rN9Ae3Ck6cb98PE9HQ>
+ <xmx:vPm0apZ7rprtTFURlb7CwWUcijiQ8Dh8h-GqaMleHSRjlNg37b7ZRg>
+ <xmx:vPm0anVkLpvzJvhB7q-vVOsUXaic03rqhvimGFh9nCF1pHIGlszOkQ>
+ <xmx:vfm0ajvYafMq3HjSolhWD51Kegqh9Jhm0fEBs5AvIOIkpn2yyLWIeKF5>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:21:39 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v14 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Thu, 24 Sep 2026 22:21:20 +1200
+Message-ID: <20260924102135.92217-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,85 +97,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dma-pool: atomic_pool_expand() falsely returns success on failure
---
+This adds the RK3576 NPU to accel/rocket. The RK3576 has two cores of
+the RKNN block the driver supports on RK3588, with more clocks, two
+power domains per core, one reset instead of two, and a sixteen-bit task
+number in PC_TASK_CON.
 
-commit 7de8bc3a8ea9e2bbef83e09d72fa88999ce898b9
-Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+1/15 is Igor Paunovic's patch and also 05/11 of his DVFS series;
+whichever lands first, the other drops it. His 06/11 edits the same
+binding as 6/15.
 
-dma-pool: Allocate CoCo atomic pools using CoCo shared memory allocator
+Changes since v13:
 
-This commit modifies atomic DMA pools to use the CoCo shared memory allocat=
-or.
-It prevents allocation fallback below the required shared granule size, and
-uses the cc_make_shared() helper to transition the backing allocations in a
-sleepable context.
+  3/15   The comment notes that a core still up with runtime PM disabled
+         is left unmasked (Sashiko). The message quotes Igor's re-runs
+         on v13; his earlier summary is behind the Links. Igor, say if
+         you want it back.
+  7/15   Heiko's Reviewed-by.
+  9/15   Message trimmed (Ulf), keeping one sentence on need_regulator.
+  10/15  One reset, not an array (Philipp), and the pointer is cleared
+         under pmu->mutex before it is put (Sashiko). Abel, the code
+         under your Reviewed-by changed; say if the tag should go.
+  12/15  Drops a claim that its test was byte exact; it was within one
+         count. Its comment on PC_TASK_CON now says the count clear
+         lands inside the task number and inflates it, which is what
+         happens.
+  13/15, 14/15
+         v13's 13/14, split as Heiko asked. 14/15 gives 786 MHz at 750
+         mV as 11 to 25 wrong words a pass; v12 and v13 said 13 to 20
+         wrong rows, which no record supports.
 
-> diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-> index 70b7f64b17ab5..f059312c15aa5 100644
-> --- a/kernel/dma/pool.c
-> +++ b/kernel/dma/pool.c
-[ ... ]
-> @@ -85,6 +85,9 @@ static bool cma_in_zone(gfp_t gfp)
->  static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool=
-_size,
->  			      gfp_t gfp)
->  {
-> +	struct cc_shared_layout layout;
-> +	unsigned long attrs =3D 0;
-> +	unsigned int min_order =3D 0;
->  	unsigned int order;
->  	struct page *page =3D NULL;
->  	bool leak_pages =3D false;
-> @@ -92,6 +95,17 @@ static int atomic_pool_expand(struct dma_gen_pool *dma=
-_pool, size_t pool_size,
->  	int ret =3D -ENOMEM;
->  	pgprot_t prot __maybe_unused;
-> =20
-> +	if (dma_pool->cc_shared) {
-> +		ret =3D cc_shared_calc_layout(pool_size, &layout);
-> +		if (ret)
-> +			goto out;
+The other messages, apart from 1/15, are shorter.
 
-[Severity: High]
-If cc_shared_calc_layout() succeeds, it returns 0 and overwrites the initial
-ret =3D -ENOMEM. Could this cause the function to falsely return 0 (success=
-) on
-subsequent failures?
+On Heiko's question, 9/15's delay at 0 makes the first power-on of the
+NPU domain take an async SError, also with vdd_npu_s0 always-on; at 15
+us, 536 cold power-ons were clean. Details are in the v13 9/14 thread:
+https://lore.kernel.org/all/20260924090824.38493-1-gahing@gahingwoo.com/
 
-For instance, if page allocation fails below, the function jumps to out and
-returns the current value of ret:
+Routing: Ulf offered to take 7, 9 and 10. 1 to 5, 11 and 12 go through
+accel, 13 to 15 through rockchip, 6 with accel and 8 with the DT patches
+that use it. 15/15 needs 9, 10 and 12 to 14 first; without 9, 10 and 13
+the NPU domain comes up with no settle delay or reset pulse and the
+board takes an SError at boot.
 
-    if (!page)
-        goto out;
+Still open:
 
-Similarly, if remapping fails later in the function:
+  4/15   whether you want a fix for the asynchronous put, and which
+  5/15   moves the line that ZhaoJinming's "accel/rocket: Fix
+         iommu_group leak and unsafe IRQ register access" changes;
+         whichever lands first, the other conflicts
+  14/15  both NPU domains per core, as tested, or one
+  --     rocket_core_fini() puts the IOMMU group before it cancels the
+         timeout worker: fix it here or on its own
+  15/15  hold it a cycle, or coordinate the three trees
 
-    addr =3D dma_common_contiguous_remap(...)
-    if (!addr)
-        goto free_page;
+Link to v13: https://lore.kernel.org/all/20260915104328.45901-1-gahing@gahingwoo.com/
 
-In both cases, ret will be 0 instead of -ENOMEM. Would it be better to reset
-ret back to -ENOMEM when these failures occur, or use a separate variable
-for the cc_shared_calc_layout() return value?
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
 
-> +		pool_size =3D layout.shared_size;
-> +		min_order =3D get_order(layout.alignment);
-> +		if (min_order > MAX_PAGE_ORDER)
-> +			return -E2BIG;
-> +		attrs =3D __DMA_ATTR_ALLOC_CC_SHARED;
-> +	}
-> +
->  	/* Cannot allocate larger than MAX_PAGE_ORDER */
->  	order =3D min(get_order(pool_size), MAX_PAGE_ORDER);
->
+Jiaxing Hu (14):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle an optional power-domain reset on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924100529.1398=
-790-1-aneesh.kumar@kernel.org?part=3D6
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+ .../power/rockchip,power-controller.yaml      |   8 +
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+ drivers/accel/rocket/rocket_core.c            |  32 +++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 157 +++++++++++++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  89 +++++++---
+ 12 files changed, 467 insertions(+), 64 deletions(-)
+
+
+base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
+-- 
+2.43.0
+
