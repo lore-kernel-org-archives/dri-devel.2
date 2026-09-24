@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3535C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:58:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2B2C98321
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF9A10F62F;
-	Thu, 24 Sep 2026 14:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 352D010F630;
+	Thu, 24 Sep 2026 15:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SB2t3yum";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MbVO+FBS";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C38910F62F;
- Thu, 24 Sep 2026 14:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=PgCIPXJGgQ1RoakY6skCKlByw6TKSlJVQY3Ukqu3GWw=; b=SB2t3yum/DllcGimybkq52VHZo
- EdOA8Zcp/+/bjcL0KAR9OcP8W/JJk1m/hFuyr4UC3rWyJZpda01R95KY6Bix0SXIlMwoDgNz6ZK8m
- 7BivjE5WvRA9Nl5kIps3CHS+BMSOh7ZBgxGMw6YXKNekfd3EoJFIsu23u9kf22/5iLH2wyARlN0db
- 3qBjo0Z9IbgGHNtbujYLiAZSR1Gwxz2bt4SNrwS1iF/45q3WeIsCXCRvvW77lw2GUoNZ+qdSa5VkO
- Z5dHPFg1sgtVCnLtn9dFaTEQjwH07M1tp1fWhB0Q3mpSu9Xzct8NqX4K3D2ShXRSPuwg9pR8wBeT0
- RDwgFzZQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1x9kuQ-006hVV-NP; Thu, 24 Sep 2026 16:58:50 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Thu, 24 Sep 2026 11:58:40 -0300
-Subject: [PATCH] drm/amdgpu: make amdgpu_vm_update_funcs commit return void
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-amdgpu_vm_update_funcs_commit_void-v1-1-9ad7a8283920@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAKE6tWoC/x3NTQrDIBBA4auEWVdQm6bYq5QiRsd0Fv6gUQohd
- 69k+W3eO6BiIazwmg4o2KlSigPiNoH9mrghIzcMksuFK3lnJrgtN92DbtmZHbVv0VZtUwi0657
- Isee6eDE/hFIrhxHKBT39rsn7c55/qbEWJHQAAAA=
-X-Change-ID: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 960C510F630
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:00:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BA6CA601DE;
+ Thu, 24 Sep 2026 15:00:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3561F000FF;
+ Thu, 24 Sep 2026 15:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790262016;
+ bh=Wc9fAoZBufbONSbp5xUMxzaYXBs6xLiLWXzit1d6rMc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MbVO+FBSjvR7zhLVwtIDeNW+/hEHcaYWZI4wPwPgY8Ld0nUzrnDktb72R1Swy31Iw
+ Zi0mzpBK1eHvT2es/alPulXDclzqS+8UtH4PFQLUXaMUE7w5cjGGWyOiCg2pCGh7Hw
+ mcCCstQZ9kfl23OV5k+QhUAqrVsuVYxUxabf7JWWkDiz8uaTa9ljXFezH798OsRCmg
+ 4vmdk6GGe9bpm+MpP0SvqEXbuKZY2S54mzsA+lf5QW6sQsW2z6ba5BKOJp4hqjoA3K
+ JW3WqQ+kBx5rV/lng6z0m4LLkV8IG3eP6QVVesRYbqn6jiIKq/EmyBcwvlb/h51pNo
+ aIPWE1fOL2VNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+To: "Adam Azuddin" <azuddinadam@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260924145400.1385815-2-azuddinadam@gmail.com>
+References: <20260924145400.1385815-1-azuddinadam@gmail.com>
+ <20260924145400.1385815-2-azuddinadam@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 15:00:15 +0000
+Message-Id: <20260924150016.2F3561F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,147 +55,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As both SDMA and CPU implementations always return 0, they can as well
-just return void.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing <dt-bindings/gpio/gpio.h> in example causes dt=
+c build failure
+--
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  8 ++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  8 +++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 11 +++--------
- 5 files changed, 11 insertions(+), 22 deletions(-)
+commit 7e01f56671098a8bf49e596e68df147ced833fec
+Author: Adam Azuddin <azuddinadam@gmail.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bb04101b0fb5..09037df76400 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1027,9 +1027,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
- 			goto error;
- 	}
- 
--	r = vm->update_funcs->commit(&params, &vm->last_update);
--	if (r)
--		goto error;
-+	vm->update_funcs->commit(&params, &vm->last_update);
- 
- 	if (flush_tlb_needed)
- 		atomic64_inc(&vm->tlb_seq);
-@@ -1243,9 +1241,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		start = tmp;
- 	}
- 
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	if (params.needs_flush) {
- 		amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index d32183cd9e0f..3b237e78c8a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -332,8 +332,8 @@ struct amdgpu_vm_update_funcs {
- 	int (*update)(struct amdgpu_vm_update_params *p,
- 		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
- 		      unsigned count, uint32_t incr, uint64_t flags);
--	int (*commit)(struct amdgpu_vm_update_params *p,
--		      struct dma_fence **fence);
-+	void (*commit)(struct amdgpu_vm_update_params *p,
-+		       struct dma_fence **fence);
- };
- 
- struct amdgpu_vm_fault_info {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index b31ff6f56f0d..5c17946632cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -116,8 +116,8 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
-  *
-  * Make sure that the hardware sees the page table updates.
-  */
--static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
--				struct dma_fence **fence)
-+static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
-+				 struct dma_fence **fence)
- {
- 	struct amdgpu_device *adev = p->adev;
- 
-@@ -127,12 +127,10 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- 	mb();
- 	/* A reset flushed the HDP anyway, so that here can be skipped when a reset is ongoing */
- 	if (!down_read_trylock(&adev->reset_domain->sem))
--		return 0;
-+		return;
- 
- 	amdgpu_device_flush_hdp(adev, NULL);
- 	up_read(&adev->reset_domain->sem);
--
--	return 0;
- }
- 
- const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index e43a60d09808..e9622adf1246 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -422,7 +422,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	if (r)
- 		goto exit;
- 
--	r = vm->update_funcs->commit(&params, NULL);
-+	vm->update_funcs->commit(&params, NULL);
- exit:
- 	drm_dev_exit(idx);
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 50cc0779c340..9e3ade3cd646 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -100,11 +100,9 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
-  * @p: see amdgpu_vm_update_params definition
-  * @fence: resulting fence
-  *
-- * Returns:
-- * Negativ errno, 0 for success.
-  */
--static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
--				 struct dma_fence **fence)
-+static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
-+				  struct dma_fence **fence)
- {
- 	struct amdgpu_ib *ib = p->job->ibs;
- 	struct amdgpu_ring *ring;
-@@ -142,7 +140,6 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(*fence, f);
- 	}
- 	dma_fence_put(f);
--	return 0;
- }
- 
- /**
-@@ -246,9 +243,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		ndw -= p->job->ibs->length_dw;
- 
- 		if (ndw < 32) {
--			r = amdgpu_vm_sdma_commit(p, NULL);
--			if (r)
--				return r;
-+			amdgpu_vm_sdma_commit(p, NULL);
- 
- 			r = amdgpu_vm_sdma_alloc_job(p, count,
- 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+dt-bindings: display: panel: Add RAiO RA8875 display controller
 
----
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-change-id: 20260923-amdgpu_vm_update_funcs_commit_void-7b6f145199b0
+This commit introduces a new device tree binding for the RAiO RA8875 TFT
+display controller. It documents properties for its SPI interface,
+including required supplies and GPIO resets.
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.=
+yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> new file mode 100644
+> index 0000000000000..b50fd95c57539
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
 
+[ ... ]
+
+> +examples:
+> +  - |
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        panel: display@0 {
+> +            compatible =3D "raio,ra8875";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <16000000>;
+> +            vdd-supply =3D <&vcc_3v3>;
+> +            reset-gpios =3D <&gpio 25 GPIO_ACTIVE_LOW>;
+
+[Severity: Low]
+Does this example fail to compile during the make dt_binding_check target?
+
+The GPIO_ACTIVE_LOW macro is used here without the required header
+inclusion. This causes dtc compilation to fail with a syntax error
+because the macro remains unexpanded.
+
+Could we include <dt-bindings/gpio/gpio.h> at the beginning of the
+example block?
+
+> +
+> +            display-timings {
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924145400.1385=
+815-1-azuddinadam@gmail.com?part=3D1
