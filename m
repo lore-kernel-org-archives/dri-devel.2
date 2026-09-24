@@ -4,128 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C11C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D792C98328
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3816A10F8D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F1010F8D7;
 	Fri, 25 Sep 2026 07:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XXowWt4z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qi9+YSvz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06E210E85D
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:57:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 97EDE43790;
- Wed, 23 Sep 2026 08:57:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D981F000FF;
- Wed, 23 Sep 2026 08:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790153877;
- bh=zEbllmgiFfsLRk0pKgzNXwTCI+1F1P5ofJi8LFNISns=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=XXowWt4ziL/56y/Y94hdTEZbLLr97gz3vPYecgnU+2OLdzbRXNjVt79AFC23MY5tr
- oTJY4tAIVUSxYNA273DbifXhFQN5PmgBpv0TsVokaKinyjXefw20slNXoVFuzwiHLS
- F6ZYPX0Cqw7UBvBS+5fOLuIQVKaCqWPhvvdVx7EVb3HJaQ4wuHkk+WrSgfva1xzANX
- bHdWs2TB7EVaJ4pr9L0v2ILwyY9eS00lIEN1Y7x7dNWVkC56JD9zi1iKd9QoWfdwqu
- /X8/fzcyQTfJjStJTXhyCnJotJ5LbvBVoTP27bIDNCCQV90j0yhBvB6DJjUfHmgpLx
- LQAT+4T8xfxRQ==
-Date: Wed, 23 Sep 2026 09:57:27 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-rdma@vger.kernel.org, 
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>, 
- Emil Tsalapatis <emil@etsalapatis.com>
-Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Message-ID: <arOMefPN1gxMpyx8@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85EF110F375
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:30:15 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc4bdf8abaaso1273944a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 00:30:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790235015; x=1790839815; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
+ b=qi9+YSvzcRm51aLs+OfXHS2/AKxFfJ1q/MsENyT+1J+aY0RsS49b1H8pyvvBhSuqa2
+ AbFWQ+PFBJr62dvXnJqNGc73uOFQUletdaSDOdsfbiwXouDdml/7DyjsOVdBeg2oshx4
+ il+2sg4OVLrtgor30cgoce8TSTP8xYxagyxXfZF4W80Znclzau8ar6s37LLMub3vw35T
+ RcFH8IG/eVOc8a5cI5qibiAxQOvIAGoelNl0p5K+3pYqCpwDoBiDcGnEaNuqwdyvExrv
+ rW+rSgdYMUu8qkS01VMyv8CF83uLxVKmbxrWINVrV7smlquh4XO6k4436zyBNcL0AThq
+ 43RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790235015; x=1790839815;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6F8IvUZIEGfXb52LcJZy68sW3q/eTCjBvXuldSNAIWg=;
+ b=AHPthZZOOdAh2Wrdi/jXK+f/XT4flws2wWOd4YHJINZNFrEESItGpDb/aTwutJsdRE
+ r6vgtyVFsXwkWKC5zFO8nnY0uEtrPdsGNJnxTa9Hf3pf+saBnNHeAYTGp2G3njx0GVAm
+ yJRuKnZC6Z01AWtDs9Msf6pQjmeTmXGdr4jiQCt6zX22i/MMgzCZtrmuAiSv7t9BlySJ
+ e2SIMemVC4Vw3B0+N6+EtTyXC5bFMR+Faj1dLMh2SdINWDc3mxhM6/KJvaZ6wWFm1l9i
+ mCQGLXKvcaIJmtB4dKJcJF+m3puMvCSVE2pJsBgKROTyIqoCmsWqaSzwUdfjG9beLtBP
+ 16EQ==
+X-Gm-Message-State: AFuF++kuxhmzm2QMtMf6t5ZGzKuMJm3yNwqDT9cexHmtbn7PDs1y+60e
+ u/4jZAvoqCqHlVle5YPRX4e95GqZmIf7xiNsGYaCW0eiupsZZKhN3Wd2
+X-Gm-Gg: AYBFou1o9GN3pD8+3lb3ENSWc9IUfd++jFfu1O81dI6aUTwWxO4ZCZvxKp0dK013nLi
+ utaGjZ7aQRb/zPodL/c91IT6O740PGhOdd9fWUeo7/yzAD/1nJ0xdH4+qNTcAvXEyIdoGPg76cC
+ ZlIkpg/kwG8Zg1+/2vv/tCTI6sc7E1w9txn+20TI5TPuuIkIra+jUediia7qC0D1bBcd01GQEZN
+ 032RvrPXmtUJtAM6UB1uvxD1lmS3+51dqWD4fNBlj5OLXQLLZcw0RCB/MBHO+cphBDmnYL/+Qa0
+ ksxYE7eZXzlLaXoNuvoJHzy03DfkA8TeEM517o6mjx47zrwPL31uuQ8iApPisXQH7sgHCR6kD4o
+ U1OTWaNhUeb4c8ki47OIpZ9u8jiZ0aa/zcXMsEW8lniXfsWc11dOYHUasoNELKMgrlDF012IuJk
+ Lmj4g92CEv22PGp2sOFmQoQLUe9pA9VFXNXIUpokWWhJfRcWXiKnbm66lP9PDvjQGWTJp7Vejyz
+ kQtBe6behqYWyphDEDpQPKRUYYQG0TqVCcEblq4JaVqM+JsWNPz+nCtyuDMSnFST1sct6q/go8A
+ zztnr5+ZNw==
+X-Received: by 2002:a17:90a:ec88:b0:398:bacb:1137 with SMTP id
+ 98e67ed59e1d1-3a098b4b35cmr1393507a91.19.1790235014790; 
+ Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a0972efa0bsm3184726a91.8.2026.09.24.00.30.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: jani.nikula@linux.intel.com, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v3 2/2] drm/udl: clean up USB resources if drm_dev_register()
+ fails
+Date: Thu, 24 Sep 2026 07:30:11 +0000
+Message-ID: <20260924073012.2742968-3-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924064434.2541959-3-benquike@gmail.com>
+References: <20260924064434.2541959-1-benquike@gmail.com>
+ <20260924064434.2541959-3-benquike@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,42 +95,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I know everybody is very busy but I'd appreciate if people could take the time
-to have a look at this if possible!
+In udl_usb_probe(), udl_driver_create() calls udl_init(udl), which
+allocates USB URBs and DMA buffers via udl_alloc_urb_list() that are
+normally freed by udl_drop_usb() in udl_usb_disconnect(). If
+drm_dev_register() fails in udl_usb_probe(), udl_usb_probe() returns
+without calling udl_drop_usb(udl), leaking the allocated URB list and DMA
+buffers because udl_usb_disconnect() is not called when probe fails.
 
-I asked an LLM to look at review replies per week in mm (see below), and
-clearly 7.3 is an insane cycle, which I understand.
+Call udl_drop_usb(udl) when drm_dev_register() fails in udl_usb_probe().
 
-(And dropping the THP M, remarkably, has not resulted in a drop in review
-workload for me).
+Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd by simulating
+a registration error in drm_dev_register(): on the unfixed kernel,
+udl_usb_probe() returned an error without calling udl_drop_usb(udl),
+leaking 8 allocated URBs and DMA buffers; whereas with this fix applied,
+udl_drop_usb(udl) is called on error, freeing all URB and DMA
+allocations.
 
-However, I'd also ask people to perhaps 'give a little back' to those who
-are doing a lot of review also :) review can be thankless at the best of
-times, but having your own work sit there unreviewed for weeks while you
-are working so hard to review others' work is a little much.
+Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
+Cc: stable@vger.kernel.org
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v3:
+- Add Reviewed-by tag from Thomas Zimmermann.
 
-Thanks!
+Changes in v2:
+- Split out as patch 2/2 as requested by Jani Nikula.
+- Added testing details in QEMU on drm_dev_register() failure cleanup.
 
-┌───────────────────┬──────┬──────┬──────┬──────┬──────┬──────┬───────┐
-│      person       │ 6.17 │ 6.18 │ 6.19 │ 7.0  │ 7.1  │ 7.2  │  7.3  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ David Hildenbrand │ 84.8 │ 70.8 │ 44.5 │ 74.7 │ 80.3 │ 85.7 │ 107.0 │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Lorenzo Stoakes   │ 50.9 │ 25.1 │ 16.0 │ 45.4 │ 35.2 │ 40.1 │ 52.1  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Mike Rapoport     │ 11.8 │ 17.7 │ 12.8 │ 17.8 │ 30.1 │ 21.0 │ 24.1  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Zi Yan            │ 17.3 │ 12.8 │ 15.0 │ 14.4 │ 10.2 │ 24.0 │ 28.7  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Vlastimil Babka   │ 15.6 │ 19.3 │ 12.5 │ 23.8 │ 17.8 │ 25.2 │ 14.7  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ SeongJae Park     │ 16.2 │ 7.7  │ 13.3 │ 23.4 │ 22.8 │ 17.0 │ 19.2  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Shakeel Butt      │ 13.0 │ 5.3  │ 11.7 │ 9.6  │ 7.2  │ 8.2  │ 14.5  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Harry Yoo         │ 10.6 │ 15.0 │ 11.7 │ 15.0 │ 10.9 │ 11.3 │ 6.8   │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Baolin Wang       │ 6.0  │ 3.0  │ 4.1  │ 7.1  │ 6.7  │ 6.4  │ 17.4  │
-├───────────────────┼──────┼──────┼──────┼──────┼──────┼──────┼───────┤
-│ Kiryl Shutsemau   │ 5.6  │ 3.3  │ 2.2  │ 3.0  │ 0.9  │ 2.9  │ 16.2  │
-└───────────────────┴──────┴──────┴──────┴──────┴──────┴──────┴───────┘
+ drivers/gpu/drm/udl/udl_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
+index 1922988625eb..239a6983f49f 100644
+--- a/drivers/gpu/drm/udl/udl_drv.c
++++ b/drivers/gpu/drm/udl/udl_drv.c
+@@ -97,8 +97,10 @@ static int udl_usb_probe(struct usb_interface *interface,
+ 		return PTR_ERR(udl);
+ 
+ 	r = drm_dev_register(&udl->drm, 0);
+-	if (r)
++	if (r) {
++		udl_drop_usb(udl);
+ 		return r;
++	}
+ 
+ 	DRM_INFO("Initialized udl on minor %d\n", udl->drm.primary->index);
