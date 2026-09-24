@@ -4,78 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF89C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 08:57:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F536C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 09:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C19910E8EE;
-	Thu, 24 Sep 2026 08:57:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCBE010E95D;
+	Thu, 24 Sep 2026 09:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y66Nn1F7";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="M8CqYIdN";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="pDD4MiZO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C245010E178;
- Thu, 24 Sep 2026 08:57:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 795ED43454;
- Thu, 24 Sep 2026 08:57:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAFF1F00893;
- Thu, 24 Sep 2026 08:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790240248;
- bh=KsfA+7ZRfaMaOYHf9FLzqm+87QxZc0nf8pdVelteCEk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Y66Nn1F70+EOrXieRS0criFH3uxMANVUI7oanFcCoy8GmyXIy+pJT4bYVlm/thmPG
- N7qIdDiz1YmSsvWNdouFIMEZW4BAqVieOEmxdbjyjg8VeCwPdmNl98xvvOpohxm65Y
- GyNzGB6Z7BI3y56gBKntItSCJRjU51zGLLQXLvZnr16k3FQ6buDS49+J1C+07Q9T63
- n6nHxyci7fO61wmUlSLUGoMKJe5Tmzp5UMO6z0QysEePeglKrYmnlnSTGRtL4Xmc0R
- znGcbePU3j8NmjIOaR7E0m14ncuBzwafBVjkGLhSAzXI59gpYQZewywAESCZXVQDnZ
- 5vqxv1raD/1Pw==
-Date: Thu, 24 Sep 2026 10:57:24 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
- Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
-Message-ID: <arTlpd-KAsVpj3UH@houat>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
- <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
- <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044AF10E95D
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 09:08:24 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfout.stl.internal (Postfix) with ESMTP id 307A21D00023;
+ Thu, 24 Sep 2026 05:08:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Thu, 24 Sep 2026 05:08:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:content-type
+ :date:date:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:subject:subject:to:to; s=fm3;
+ t=1790240904; x=1790327304; bh=kbzH7qjqaOwJs9tvXnjG2IbxAbzm4f0k
+ LZPAR+JgW84=; b=M8CqYIdNbi4uc5RsPlzC7Vl7h+0MSRFgAHyUmuxOeGPSI5NJ
+ swA5QrXE3r0osIMJeWZiuef34Yo9ISApB7CNom62bqmucp3Cg9+ryh1tCM7Y9dAj
+ sMJLzBY/XNKTXzHS2uYF2TmaGuaqHzeI+htTP8Emgt0MtKgOZxsvqz5WLRhoJnrS
+ A7sJ0sPm4AmTtnbPME2fF4iVwqDdKlyIFwhkWzIK1VbczIG1sey+6U5bKCofugj1
+ V+N0IbcwNJv9Syc1jOJKuH594Y/AI+90/k1kVAFqBrV1T/sp3iea1MnMH/Ex0HwP
+ lI5Jd9tg7sSWr6+RD7DDp//nKQk1f2X/FWCsnw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790240904; x=
+ 1790327304; bh=kbzH7qjqaOwJs9tvXnjG2IbxAbzm4f0kLZPAR+JgW84=; b=p
+ DD4MiZOx75xMlL5FczWa6fpffjsxqY5U6XY2cEr+2twrHY4GcaaJc0k2fK5OMgVQ
+ XTXyma2nuVGr8t0Oc7MoS7FHJnKUhjoN/W9HWFgA/jdYseua+ipOvGAQXWpfft3l
+ Ql+x51MAA7Aa9gDX9YQ11pjYfP8xiTajQWkx2W6PU6qLvNm+SntMjQj0h/1Zs2m1
+ Uv4aNBTTpD4f1G5+JrYYnl5bR6BcOSCjeK9M/LV02TpyBvYdw1XklPbNeZXBftCz
+ BwZvL4lqbP7CC4fWjFCs86MX1a/ibBm2TkdNA0J5R8j5UpYaQxl9AGHNTV7GHYTo
+ J5zjpI0889obYjIktyQhA==
+X-ME-Sender: <xms:h-i0ahhtLT9rlJE9X-tKCBKMZ1QzCQclh8dgDaVdGtA65VcshSKCYA>
+ <xme:h-i0ainqRpD1tNqunlcJYFgRgPGyKx8wBg9k8H7EPufT4bzLO4smjS9MRSopHj8be
+ jvWGzLq7m0__rZevYohEafXG72_Gp42BUet-4EryLBClCcgtUfXK5PH>
+X-ME-Received: <xmr:h-i0aljCBATr659LeXSyehsjd8IAqOH8fbB1qOLMy8q0RWplSk_eOu6dIOb3VIC2KTRI1nyMJQ>
+X-ME-Proxy-Cause: dmFkZTGhribILWLZsbRrU4Y/cS3q14omnMoumwx+6zPO3/kzgsZAbgopM11gAgYklAnMHT
+ r8PmY3+S744nZ7vYIB3APy2UCljo+f8HLGJh3k+RQFLrJZnWvYguKKLNJ29x6WvdMSwQMo
+ 3RCBqaEPTdWezhFfe4I4z96PUbeCaHxtU7vUfxB40hI8WOXZOt/UxbS7gh2kryMdVlIFBt
+ X+maJR+jkma8Wk1q4jUGrDqxwocYQeTz1pvJvwdOBncc/1CbAZF/5ydS9GJUS/Dxt2oypD
+ yuIZZ0fmLnRsJUh4Wz+YDQcCynTXAZG3EFfDTzldAWd97QM+7dcGZ0Yumxz4b8qPajhDZT
+ U+CyAK/OZokQZUiWrcCvhp42lYDB6Frudhl7EOTFFfbHzGpfwQAYtcTin79czFo+jB9u6n
+ 7hVHQNrcTMsLFsoIEggN26BdXc7kzRTAkcRnowc3Xp00/cQ2eJ+h6dtDl5rs3WS7jbTQ7q
+ Sn6v/upBCYnQhmmoPZcOwtyAT1atfi7eZzPTj4YYqZ9lgG6e+1TNMeiQmyRsrYSjh0aiTw
+ +33cE1HuzyfY6oEGjQKOZN5Fi7rWzCrI13giX7jgJF/VPSpvxHSrbyUmEKecHS3s6RSor1
+ 6XZTjHbRIwORK9E0VDXT1g6hmiXxNPYti55KfJt0C0XxQ/TzE6PHnVXuYRSA
+X-ME-Proxy: <xmx:h-i0atHQNqbtPlYRkfD93X2Rdd6eblFEh22EPtH0z-5243AxBEMOEw>
+ <xmx:h-i0avuGvB9ta111P0wHdckEhJ5aY329L9o6iJ0lM6EgZ66bnz6gdg>
+ <xmx:h-i0amdy8da_NS5S7y0Q0KiseSTt5OMwj6aK9q2z3UquoLyoyTApHw>
+ <xmx:h-i0atmoSs5XuHrDzHumVBsMaGGDiaJx6ETb7chR3V-ivq5gN1zJVA>
+ <xmx:iOi0angqRXkkOlbxiU3EQpR0bMM2ouL_Vq7Dfnx_lLRX7Q-O06sOxnuk>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 05:08:20 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: ulf.hansson@oss.qualcomm.com
+Cc: heiko@sntech.de, p.zabel@pengutronix.de, tomeu@tomeuvizoso.net,
+ chaoyi.chen@rock-chips.com, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v13 00/14] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Thu, 24 Sep 2026 21:08:16 +1200
+Message-ID: <20260924090816.38457-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAPx+jO8EixqfXmrD8zkMkJe_B+2AATo=YNFJraAdE_O9X4KM-w@mail.gmail.com>
+References: <20260915104328.45901-1-gahing@gahingwoo.com>
+ <CAPx+jO8EixqfXmrD8zkMkJe_B+2AATo=YNFJraAdE_O9X4KM-w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="fta6xv3zcvscpec2"
-Content-Disposition: inline
-In-Reply-To: <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,73 +98,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Ulf,
 
---fta6xv3zcvscpec2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
-MIME-Version: 1.0
+Yes please. Could you take them from v14 rather than this version?
+Philipp pointed out that the binding allows one reset, so 10/14 should
+use of_reset_control_get_optional_exclusive() rather than the array
+form. v14 has that, your two commit message trims, and Heiko's split of
+13/14.
 
-On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
-> Hi Luca,
->=20
-> sorry for my slowness!
->=20
-> On Thu, Sep 24, 2026 at 9:01=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
-> > On Tue Sep 22, 2026 at 9:09 AM CEST, Maxime Ripard wrote:
->=20
-> > >> -    } else if (bridge) {
-> > >> +    if (!bridge) {
-> > >> +            dev_err(dev, "no bridge\n");
-> > >> +            return -ENODEV;
-> > >> +    } else if (!drm_bridge_is_panel(bridge)) {
-> > >>              /* TODO: AV8100 HDMI encoder goes here for example */
-> > >>              dev_info(dev, "connected to non-panel bridge (unsupport=
-ed)\n");
-> > >>              return -ENODEV;
-> > >
-> > > I wonder if we still need that branch. Every panel is a bridge now, a=
-nd
-> > > it looks like we don't have any specific panel handling in this drive=
-r,
-> > > so I guess it supports bridges already?
-> > >
-> > > Linus, do you know why this condition was here in the first place?
-> >
-> > I had the same thought while writing the patch, but I chose to be
-> > conservative.
-> >
-> > Linus, unless you have more info I'm going to apply the patch as
-> > is. Removing this special case would be welcome as a later patch.
->=20
-> I'd say go ahead as-is.
+In 9/14, v14 keeps one sentence beyond the two paragraphs you kept:
+RK3576_PD_NPU also gets need_regulator, which makes
+rockchip_pm_add_one_domain() power that domain off at probe on every
+rk3576 board. The subject does not describe that. Say if you want it
+gone too.
 
-I'm fine with that, but I really want this removed at some point.
-
-> I do have the idea to code up and submit the AV8100 encoder
-> and I have the hardware to test it, but every other user should
-> be using panels directly, and I would be the only non-panel
-> user so I can deal with it when it comes up.
-
-It won't change a thing. All existing "panel" users will be bridge users
-after this patch is merged. So whether you want to enable a bridge or
-not shouldn't matter, the only thing that does is whether the existing
-users would still work.
-
-Maxime
-
---fta6xv3zcvscpec2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarTl8wAKCRAnX84Zoj2+
-dhwWAXwI9qMs84ZRfc2g48IeAyQiE/CtbfMWnKHKCoJcY62gOn2KtPtJlfAUSVSt
-Fz2FzIoBf1P/bkrhzAS0uao6/CjJ0F2xh689BoYPK8a7rDMJeckpdh6Df4f795pW
-2kQWWS2bNQ==
-=k5VA
------END PGP SIGNATURE-----
-
---fta6xv3zcvscpec2--
+Regards,
+Jiaxing
