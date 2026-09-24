@@ -4,105 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54387C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 232E5C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88BB010F45B;
-	Thu, 24 Sep 2026 10:33:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5539010F45D;
+	Thu, 24 Sep 2026 10:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="L58Wfz7d";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SE6JRfs/";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F2210F45B
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:33:30 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-4834977ae75so1345063f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 03:33:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790246008; cv=none;
- d=google.com; s=arc-20260327;
- b=MhvsqAc89L++UheLJftU1sX1JeQloBRN29JMcCwHsVewJZi0Q+zynHNmuTnQWOGP0O
- Wq5JB0A5IAn0ItARaaHN/CdBaKQiaMSQKTbjJUfZwjVDRzLCeGHSpb8tbSL9aJir007W
- HXXWO4z7EltwXftoEfWRj0EPpG07AnUh8/ELR8LKGbNSh46xchT1DnH8pQAZrLWtiEgl
- /l57y2oGA5Soem87OGSKA6bwYFx8NNwyiG8fErwYZ5ABJL06oNcKwwPtnj+YvPYQ/0MO
- RQSrHEZR1oiyfpHbc6/3laKuEpwvrCSZvWoFQzaw8N98QJ20kkpXu8D8v6avApL4d/vq
- Oqfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
- fh=Ok+rHjJHFp2WYzChU8imsdv9/vdIMG7/uAKtXlOMFso=;
- b=YFochcflE/USvlnv+BbeXS4aal9n/rSG6K2FONxhRntWhT6tCCyRSz/Ddf3CnOTCGr
- cFPvPivIt9xAW5+qeapKM54YqIyEpPTTjtSejiVAqNb5DFJ2En0BeyM8NyIwGRqUfHsc
- qXIOG2q/PedAKXb8bYPTqOlRzwbw90E1ynQwaOTfaFp9alxIpr4nVi9+RAb9iEpSGhj0
- 1WH8SNQjjoGazEV2gIS3WbCr79RD42ppUs3dQO6605q2D6fri7Y6r66vH3bomJ5h4VR3
- wbxSqYdiHN8AIHA6zpqYSXbDkIHPZH7EY1p+rrBK+spZk4jDmU3VNdM482PN2Wcg8IoL
- hyiQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790246008; x=1790850808;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
- b=L58Wfz7dvyPf/A63ajRO5andp7OsIEs/MpyRMDT3jYtC1JTn7gHIDufve82KurUB6w
- F+eCM7gGOevnC85VaPTRSi3PL+m1ANbMWqiSRJy0kt2nzzHuzMYjl/VrmlX8+TTsuskf
- UvFdH+vpXth7ffr+Ym+NYviYPI37wjj9BU+UZ+U1tXakBtZhxnMOPJG1PwPsux+BVEwe
- lqM/w/KCRP+TNYxX+KHK/OWKmGnRGLzAspuU1xXdyP7nM0UiRx6jZo76mD4KbIuGchrQ
- cV0R9RsVj9v5Lt/dU5IzUiG3TuUI4ShJCgge2UoX+5grFDEva1YhULzZxGgAAemG1N4T
- tWfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790246008; x=1790850808;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
- b=h/BzEIgxiQOVC4e0K+/HItTmiEZDYkkgY4zH5qL6D2/apnEq7lJQUgYK3D8XL1Ritl
- 1RlLGzLVGwASwBRQaoWeaNzs1f4fbRUww7xPTiTha2PG70tEB9+9+iYHE8NrRVa2Elo9
- kbDXA3XTv1Y3pkJku+spGH2u+HQSya4I9olj2HaZMyt+0LxmVJ0DXl3C4yiAeNqmg8VV
- WvKhCJqktT+xvfeTHxStuqWCkdgZuzCa+WQn1/xTrpxio5LQDSiGnRnRlRejDC+KTjOD
- a1FXDnH2YjV+Kj4pMt/bidFo0GR2QTZTsWfmkcAr8KN6BVifJgSlrlllSs3fN1FvvvZv
- OLOg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByiFdtWe3AQYZ8NQj3qzudXV4xgAOqPrTFZv96foXg3eybMupMIvQft80bq7u85HdQrDaB1Snaus4s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mo/INvhiRrS5E6+zg1hTP7cPsW/tcBuSaFf2HF47+48eJtfgF9
- 3WULQCv1ZRxoKkKJ4XMWqCUFCBIe8ofNWzTXa0f6+jFFfoUM08q5DqNGSv3+gp0rvBSMV3ElvD8
- 2vZqfzbCJxroFbb8rXMDu7BzfYZ1sGs2k0w+SU/A2
-X-Gm-Gg: AYBFou0vXiB+UL2/C2wdE5fJ70UbTHET3kQCzSPWPoP5B5q/rASKLd6FVgMstgjwP0w
- wm2TmhXIhhRQApMdlp4Tkwzwv8KYW6RmZBMu/iSO3bDXTaI4Eg4AkCjZXV6o+JQDb5OAQDYTuX6
- WWY4gRPcG2Mi+CteWHshXelG+kAbFo+KiTy7SQfEzxc6BRX0rCo5WVLT+iwogfJp/vuXbx8beCm
- P4BSf+CvzNMBpJajCrXXixg/hfrkMzZ12/Tm/pvFPO6IISzu8KM+HLzdb0OxOm7JtrempN9a8GY
- l8mAJsdMCbWm3M4nOixxAJ/yvfTZaU3JGwy0Tf5bDff73dTuKKvPjkaAvMtnxqSLGR82f022J8f
- nbRq9oo3bqI5jLA68ugSj5mKu6MiqdjvL3KL+Yx/Ro3CqRe9pcHOw
-X-Received: by 2002:a05:6000:4a0a:b0:487:1084:10f7 with SMTP id
- ffacd0b85a97d-488716a5f1amr3158902f8f.28.1790246007990; Thu, 24 Sep 2026
- 03:33:27 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EC110F460
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:34:24 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68OA5Lsc1175616; Thu, 24 Sep 2026 10:34:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=ZZnMrO7aHOO2jruA9T+2Gn
+ 1sViU9nh5E9eCSpq2a5vk=; b=SE6JRfs/EdHmiNEmKeFIhunzGHGpCSE8wIjiSk
+ T+VKIBv1kjlpUqkecsFc+P+/9ctY3XIsyw2rjZwPY0ARgS4Df5nk3IRnINJNpFj7
+ pi7snGbyPYqMJROg1QQOYgGv3ii+svMqUOiLVfDIeQqgo+7NgUnFTj6pxIt0LaxZ
+ Z/Ldflw/OtaXJNakk3xppkwNbkp8qLSAi/elGHfDFK+p1KXmd7GbNMzrnTdZb0d+
+ 4HSOF/M22H+SEnv3QPN9qRR40nl7U6Qo72qPSXfBIoICN8L+tGPqHelGApqOvj7e
+ za7GkFUUkbq8uNRo++58/ZrO3J5bw2ZwVQZPT8bhSO7Ll12g==
+Received: from apblrppmta01.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1t7r3br-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 24 Sep 2026 10:33:59 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68OAXu8I2494666; Thu, 24 Sep 2026 10:33:56 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
+ [10.147.248.17])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68OAXtkT2494659
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 24 Sep 2026 10:33:55 +0000 (GMT)
+Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
+ by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id BFFC463A;
+ Thu, 24 Sep 2026 16:03:54 +0530 (+0530)
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 16:03:46 +0530
+Subject: [PATCH] drm/bridge: anx7625: Fix register access in low-power mode
 MIME-Version: 1.0
-References: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
-In-Reply-To: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 24 Sep 2026 12:33:15 +0200
-X-Gm-Features: AclHuK804AwDAE6HGEoAUsZfzHXQ3A-22uNDOLxivpJVZwrsF_RPFfFu1xUpH0s
-Message-ID: <CAH5fLgg9xCmiN=MdNpxCLOO5zByVxrPNxhqCeiEQNpb-U2AooQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/tyr: safely write GpuInfo to userspace
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-latest_tag-v1-1-7150d373f042@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAIn8tGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMT3ZzEktTikviSxHRdA4vUxORU05QUC4NEJaCGgqLUtMwKsGHRsbW
+ 1ALtePDVcAAAA
+X-Change-ID: 20260924-latest_tag-08eace5dd80a
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Xin Ji <xji@analogixsemi.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
+ rajeevny@qti.qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, arpit.saini@oss.qualcomm.com,
+ Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790246034; l=1817;
+ i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
+ bh=N2l6r0cOEWQcHFZ8LcTLMFDpM9/zGx7ZzJvtj9HaNOU=;
+ b=njF75fOau/EXPNPMKYdnbjZtzK1ZrjBoTzsX8dvCtyPuEJUNYO9gM2GOt83uskicQNA9He1Zz
+ 3c/dHzqWC6CBdSi9hhLQHShoGXRXuvF/NwquIOC28fK1nY0WujjeNwK
+X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
+ pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: ruGxyRo_qcHgjlck7joT9CeM2Gz7DEeW
+X-Authority-Analysis: v=2.4 cv=U/MHnuru c=1 sm=1 tr=0 ts=6ab4fc97 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=-5D3cT9HNYT4-cb-j94A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfX+f9r3xwfd7Wr
+ EwbZJOjZF9LfaQGad6WCfatiA8xkn557m98fMfrxn2xkhkbhRztoPz/CqgI6wN7D0X/elqYBRy7
+ J5QxLw0kRwE1xis3B9uhPxAbAiuYeMPl9I7nMmEydPD+Zz/WwODAy4dHvYfUj3iF03S/pg/8sOX
+ /NZeHHIBJcCsLmrzom6+d7uqT9LSTENw1pPGJw+NJEE14XO1VBgo7DGo2tD1gga9b0fuHfsxJlu
+ pkpEQXgekrVzdT4YWtjE01WyrboYDOjUuGeCoIfkT3jcx9ah6SeHrjbltE7fwJExnudOXegw1uo
+ 0/Ltm4DvotyofircKHEnIhgUJpGJz/jDO/mHfiW3I+q0sV84SslSLgUh5P+4lNq1uz3ZFDdCshF
+ JBdJEyqIy+awmgpznVY1T9ZYHtOqtEkXjFQD02bvg4aXfKjbkRh1ai4rfBh5+k2A7swb/CxzaOe
+ tNchtfiHVdIYiiJdRKg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfX4zAiGRSTYhws
+ 18sKSPjzcI015lOICR4IIYcDqWKUCcnG/P0SSpByqDDQjg6cAtVQDQUrPCN/11p+bZzB9OjDTta
+ 28WsoyGl/tmeSJqy9Vn7MD5LB9A9a5U=
+X-Proofpoint-ORIG-GUID: ruGxyRo_qcHgjlck7joT9CeM2Gz7DEeW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240043
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,53 +123,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 2:21=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
->
-> Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
-> bindings. It initializes this struct by querying the gpu and then writes
-> the struct into userspace memory faithfully byte-by-byte.
->
-> Currently, the struct drm_panthor_gpu_info does not have any implicit
-> padding, but if implicit padding were added in the future Rust does not
-> guarantee that it would be initialized. Then when Tyr writes the struct
-> back to userspace it could expose uninitialized kernel memory.
->
-> Tyr implements the unsafe trait AsBytes for GpuInfo whereby the developer
-> guarantees that struct drm_panthor_gpu_info does not include implicit
-> padding, pointers, or interior mutability. This allows Tyr to safely copy
-> the struct into userspace memory. However, relying on the unsafe trait
-> AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
-> guarantees may no longer be accurate.
->
-> Instead, use the macros provided by the zerocopy crate to safely derive
-> the traits IntoBytes and Immutable for struct drm_panthor_gpu_info. This
-> will cause a compile error if the Panthor UAPI changes in a way that the
-> traits IntoBytes or Immutable can no longer be implemented.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+The INTERFACE_CHANGE_INT_MASK register was accessed outside the
+Type-C initialization path added for minimal Type-C support.
 
-I checked it myself and per-type declarations are indeed needed. We
-can't use most_traits for everything yet.
+On platforms without Type-C support, this causes the driver to access
+the RX-P0 I2C client while the ANX7625 is in its low-power configuration.
+The access fails during probe and results in errors such as:
 
-> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-> index 8402b0c93545..65d913181eec 100644
-> --- a/rust/bindgen_parameters
-> +++ b/rust/bindgen_parameters
-> @@ -71,3 +71,7 @@
->  # Structs should implement `Zeroable` when all of their fields do.
->  --with-derive-custom-struct .*=3DMaybeZeroable
->  --with-derive-custom-union .*=3DMaybeZeroable
-> +
-> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DIntoBytes
-> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DImmutable
+[drm:i2c_access_workaround.isra.0 [anx7625]] *ERROR* fail to access i2c id=3f :39
+[drm:anx7625_i2c_probe [anx7625]] *ERROR* fail to write i2c id=3f :43
 
-For this case, I think we should just do:
+Keep the interrupt-mask update within the low-power-mode check block.
 
---with-derive-custom-struct
-'^drm_panthor_gpu_info$'=3Dzerocopy_derive::most_traits
+Fixes: f81455b2d332 ("drm: bridge: anx7625: implement minimal Type-C support")
+Reported-by: Salendarsingh Gaud <sgaud@qti.qualcomm.com>
+Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+---
+ drivers/gpu/drm/bridge/analogix/anx7625.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-That will automatically give us these two traits.
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index c3af88e14f8b..00f2132c7c47 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -2930,11 +2930,11 @@ static int anx7625_i2c_probe(struct i2c_client *client)
+ 
+ 		pm_runtime_get_sync(dev);
+ 		_anx7625_hpd_polling(platform, 5000 * 100);
+-	}
+ 
+-	if (platform->pdata.intp_irq)
+-		anx7625_reg_write(platform, platform->i2c.rx_p0_client,
+-				  INTERFACE_CHANGE_INT_MASK, 0);
++		if (platform->pdata.intp_irq)
++			anx7625_reg_write(platform, platform->i2c.rx_p0_client,
++					  INTERFACE_CHANGE_INT_MASK, 0);
++	}
+ 
+ 	/* After getting runtime handle */
+ 	ret = anx7625_typec_register(platform);
 
-Alice
+---
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+change-id: 20260924-latest_tag-08eace5dd80a
+
+Best regards,
+-- 
+Arpit Saini <arpit.saini@oss.qualcomm.com>
+
