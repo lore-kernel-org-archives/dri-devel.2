@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5168C98317
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34027C98317
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C50610F4C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C66A10F4C5;
 	Thu, 24 Sep 2026 12:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="G7SFuhK6";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QCEeOxDS";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF7A610F4C2
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:30:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C12E10F4C2
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790253052;
- bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
- h=From:Subject:Date:To:Cc:From;
- b=G7SFuhK6Z/TnEfb2AGONc+xwCi95a+DUC3iOJ+NX+8Gnzs62hhG9TacrU7PcwEPgV
- Su52aAwB47vhwGWhYQAnqyqQxClEZyec5t+xJNizYfyZMMUvXa5s7Plz8bnCEc91cF
- kH2layYRkLpy+XhtKIGCrDIp1PRqDJBoVUW+IoK7mqbBVa44J1X6voi5SKhVNseKy9
- UKkGYQ6ahwvb4AWSMUrmYXUosjFISvN3pSZMerf+x/pjdDgBUshprcMbSIxqBvPH1E
- nseNhu0M7ZqAlZi0WrxHRTjyCP05v4DrkMRKbsjICNF+QG6MpWJgi9+DUTkollovws
- EcqX26MydoNuQ==
+ s=mail; t=1790253053;
+ bh=wzmzkZ9ZhUiQxGJYR6sBbhtS0oVJuIIFllbIo4vfYrk=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=QCEeOxDSE2B7OCvO5L02ujAM50SAvZC7Y5F7DDk8gXsSPVucgh1HpIoRuDFCKGy0b
+ OTjLNiV80VThcZNAKesM3mmNsplnMe3vPzpXzP+P6Ny55v59gOr7Uk8I6nwQt8wtXK
+ g3trkxc9mP0gx+y6FhYEtlF4zqLPJZpS+eBHPw363cTQ3STGKj+Ejg/Qo3XIlyQESn
+ i8SoR6Ff5u68gMBTshTZ/U7IdJajP0utnPCMRYrKrpq3QT5dHH7N1hCYitu7RxCWje
+ 5cYjqZwLHUs9xHTgEB1P0akhdumvSc/I3Uyid6JX1SC2Ik8dq/r8WGvCgfaLAgR2c9
+ Ez8qZvh4OtsQQ==
 Received: from fedora-32.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BC8417E047B;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DE2017E0A68;
  Thu, 24 Sep 2026 14:30:52 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH 0/3] drm/panthor: Misc MMU fixes/robustness improvements
-Date: Thu, 24 Sep 2026 14:30:42 +0200
-Message-Id: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
+Date: Thu, 24 Sep 2026 14:30:43 +0200
+Subject: [PATCH 1/3] drm/panthor: Don't invalidate OTHER caches
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr0JmLQmlxWCvYroY6WhnAVSgxqTp3
- Z3Y5fsv7+9QqTBVGNUOhT5cOSeB7qIgLJhepHkWBmvs1dzsoFdMbclFx7jpJ3+paux8b+cg2ni
- Qbi30F5Ldp5MLvTe5bucID6ykQ46R26gG57wLPaL1Dqbj+AF1qJehkwAAAA==
-X-Change-ID: 20260924-panthor-mmu-fixes-a1832dc60908
+Message-Id: <20260924-panthor-mmu-fixes-v1-1-e25f9b106466@collabora.com>
+References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
+In-Reply-To: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Akash Goel <akash.goel@arm.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=1609;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=1715;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
- b=jO3y3kcEcTMilWPBpCdH/Qxa+iFb/m0jQ/1t5wk9GS8wQiMmhamdNWq9zrxl4/xjqowmvQiSg
- jQd5SIh+yyLBj/HIvP2JuqcURgHUgTysfPtxzyFqXMgknAkk90tVguU
+ bh=wzmzkZ9ZhUiQxGJYR6sBbhtS0oVJuIIFllbIo4vfYrk=;
+ b=LcVX7O2aDqNbkbo6BkeZhxzvSHttYQtYb4Mtxw5SCYJzC8T+XeH5Wq8dZ0D0dAsKQFz3arQpx
+ vG4qiknSJkbCcyVGcfO0yyH45jQSaIODcKpNOd7foJbSh07PSfF0d+k
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,37 +72,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The first commit is fixing a bug we've seen on v13 HW. Even though
-we don't quite understand what happens (race in the flush-elimination
-logic when flush requests are sent concurrently from the CPU and the
-MCU), it seems that the downstream driver has always been doing a
-flush+invalidate of RW caches from the start, and that we were doing
-so up until the atomic page table update changes, so let's go back to
-that state and leave the RO L1 caches untouched.
+Don't invalidate the OTHER caches (AKA L1 read-only caches) since
+this seems to trip out the flush-elimination logic on v13, and it's not
+needed in practice (can't leak other context data because of TLB
+invalidation or corrupt physical pages returned to the system because
+it's a RO cache).
 
-The second patch a fix for a race that could very well happen if we
-ever end up with a failure between the as_disable() and as_enable()
-calls. We've not experienced this so far, but it seems worth plugging
-the hole regardless. The last patch is a much more theoretical bug,
-which would involve a buggy FW telling us that a CSG is suspended,
-when it's actually. I've deliberately not added a Fixes tag on the
-last one for this very reason, but I think it's worth staying on
-the safe side by addressing this theoretical issue, still.
+It's also worth noting that the downstream driver has been avoid
+OTHER caches invalidation from the start, and that we were doing
+the same until atomic page table update was introduced.
 
+Fixes: 6e2d3b3e8589 ("drm/panthor: Add support for atomic page table updates")
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
-Boris Brezillon (3):
-      drm/panthor: Don't invalidate OTHER caches
-      drm/panthor: Fully disable the AS even if it's going to be re-assigned
-      drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/panthor/panthor_mmu.c | 43 ++++++++++++++++-------------------
- 1 file changed, 20 insertions(+), 23 deletions(-)
----
-base-commit: 45585c3aa285854face65293acc95eff73063d6d
-change-id: 20260924-panthor-mmu-fixes-a1832dc60908
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 9f63a048df61..7e98084b9a1e 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -634,7 +634,7 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+ 
+ 	/* Flush+invalidate RW caches, invalidate RO ones. */
+ 	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+-				       CACHE_CLEAN | CACHE_INV, CACHE_INV);
++				       CACHE_CLEAN | CACHE_INV, 0);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1841,8 +1841,7 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+ 		 * range is narrow enough and the HW supports it.
+ 		 */
+ 		ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+-					       CACHE_CLEAN | CACHE_INV,
+-					       CACHE_INV);
++					       CACHE_CLEAN | CACHE_INV, 0);
+ 
+ 		/* Unlock the region if the flush is effective. */
+ 		if (!ret)
 
-Best regards,
---  
-Boris Brezillon <boris.brezillon@collabora.com>
+-- 
+2.55.0
 
