@@ -4,79 +4,197 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B68C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8296C98326
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC4C10F8E6;
-	Fri, 25 Sep 2026 07:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA00810F8DF;
+	Fri, 25 Sep 2026 07:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pH7Opx6b";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="QmmUqpFn";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0E710E22B
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 22:12:10 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49e66390995so9020595e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:12:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790201528; x=1790806328; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
- b=pH7Opx6bRjVASpzqlEZgWEs3rwQHcAZbqyEjYLGAMSqIWfz7QsYlYDI3mwL0Nu+CpP
- lk9pxc5VLXaERYhgwkEVYwYkRwDOj5XXfZk6CCyNy/nFua/mHxN8D9w5rWiGI7a02M/9
- 29eUJ/AAguy06p5Ysp1h9HUyUCdqHeuW+/CyB7JiFJa4BgHgZK8UnZWmE9DyHNkbsM/q
- qLmFLvPA6nDopMj4tqmbugd6wUbtszWl6SxcFSx+YK+jSbxVtlqDGVQfBe5QSj6WMn9H
- mZoONBLCszN0Iv0NH3dJ8Ohc9t1/xYzFZJqXIzERe7If8F6RvLTItoBGolL2khDH8RuT
- yIOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790201528; x=1790806328;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
- b=jPljJkXQVrHyoN79h9V2DTIS7O5oH4sdkBqcOaAKowGm50z2glWx7Cxsmm0rJk73mG
- 10G/OIrlvJkX1MSnCzbMCsbrKqRh2PiYBLhFZkvGlSyGGoA+/SObcDUzBkdaIjUTe+gA
- UZYZAFVfyFwlCG92ypLVSmMronXqKOF43xErqcuI5NdJxlZzTUbPUZnJHJOIvTkCzhXs
- z307N8g1YKjwSZEHe6ATARHLTHuDODWk/WWsp1ae6ZLLGBNotCaD3F/Sju1+y7dfF/vu
- gVypGfetJf5/KpKDFRQy7Py7HMrHux4nbXTT3GqvrM2B9RWWDdG6GX7grcJcOU8HGYYQ
- 2wyA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz+Q0zQB9C9FWwyXaCtNxAYWb4PqnqykHsIE8woPvLJybVLE/pF01411tfxoGCacdFsEIKE+/7Lws8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m1YAkCFVoSJFsV086Rt26BsOmXQwS/9zXl5mI9YTU808xOXi7t
- mBvKurG4LwrxYHoB1IjzUvIHRIjNucy4uJ3M/QIgS2A+6asibIhUMCjv
-X-Gm-Gg: AYBFou35MWc3Whq+AWvyis/Pa5mesZyqzpEIbvZl3rbW4e+HuIMfG679mzcCuy61VBR
- 2N8U2qtk015QE2tHqyx7heXgbdYJJg5q6XcpSjMRRVRKMOq7TvyEBWHw0hlPz9dmt8jaAct/5Pq
- wmfOCgCd4TtRFqx/M9YCdVJ345/oSQv8gKt0xufPzZhnTgdssNGCojCHhocimhJ577xkHzvMA/B
- B+q8J+/DZM1gdG4U8BRQg88GmaJxwTthxaxyH+i3lZCuHyE/nA6MP1pC+zvAAhvdHdTyjFLoJH7
- Y+yEk2DP0SDhF2li5bu76GozuHpkNWtrKVCY4nJHd7SVgtQBNdvHoI83VpwykSr8td+z/8K32r4
- Opp40+6vZOnbR6pNybaZ/VbMwg/KwGiUE5c81nlWVUduHYk5yvHah9XTBZkpm8H2epe7MM6JUFX
- x6RywJdGFhvXqlntc/07gUKu8pYggVJBrrLfWT8SxQiCWD0mWkQDc8HECZGNnsmeINq2az7mZJ5
- Os5DRUcAZr7WBDYMcH1mAFMoazQkeTBUbMtDUnwrYyOlfScSakBQBP24pffs5QMFR9cIC1IUMRs
- I82RHkL2aXZvZV0sjll3eXsszaCz2UaiD5Bx86IlLypDuDQ=
-X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id
- 5b1f17b1804b1-49fe6708b23mr9674415e9.34.1790201528357; 
- Wed, 23 Sep 2026 15:12:08 -0700 (PDT)
-Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fe5dff204sm24977495e9.14.2026.09.23.15.12.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 15:12:07 -0700 (PDT)
-From: Conor Svensson <conor10@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Conor Svensson <conor10@gmail.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an Anker
- DP branch
-Date: Wed, 23 Sep 2026 23:07:50 +0100
-Message-ID: <20260923221018.42133-1-conor10@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEA8110F786
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 19:30:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MuhnL9d9eALCj59nD+9czyQ56faESfrhLm5v2ouaRJiIqmpBQ3xUPczhluHNBs/ukYVw4Kv9WOGiuSQ2Fdphc1K2MyeoHbIpSjHMPRzb5jVZ6pQkNxvl9Kl2Dw8tWWyNYSOg4NNPWeAfGtdaGN941PhJDosEdhZjk7p0HxnguSA8aOeHohX6gOrGFW6FhAICXd1lHCpc9eZ9DICEmOX2MXBTiPss0PHq15uF7QbqoyftZcG2nU37xWR4d2Usk1CkU++GevcYfaoN5Db612tXJHbmVPA0NjDSSTccm6+jQ+dn6AJ8sVcqzvYXG5Jyj2bryx49esReX9oSIP44iBnlGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CkIwKyxjGt1B1REIVI/rXEFCNLkFocEHiIdPxtjyLkU=;
+ b=Wai5vKJ0p8scVHTj+NnSrB3WJaWVXRZQf1qR37ck2rU+IMxlQhOGWJUIfZ4ZDx/0Oe3LCvO0A2XFzF1QSgDo1dzF/Imjd97vudfjtK3m6+s0vEx98yf6IzJAmid6FSyJ1s+9Rqo5YcMHi97KHqZX3zdmu4AV5fVIqa66xG+g+txga+h8IkDl2pcL55lJKV5JJP0P63bdLDOt1eW0ClGtsuVcpJ3wLtb7ce6ZHLY5aBhZGOOTv+OaoVJlyoSvzgSLr0ebv4NZ0GjViT9auWUH2lOYZUMoTVwqeKa4Ztsj6CQLet8gZMr2SfNkJf4lz+HTmpuUmQtDg8xhPb+GHsUmlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CkIwKyxjGt1B1REIVI/rXEFCNLkFocEHiIdPxtjyLkU=;
+ b=QmmUqpFnfunhyqNh+RespZSeSKCrXfX6zUNB/nSnDvdAN+LP94xaV4TxAO4JWGvtoPvzNwH724NuP8lbNxSENFIXHk/UvubpAVtO33iRiE1/s+98Fael8hkVhaIoJzCjMv3DVx7qV6y2agAODNAGXSxUKbUVO82h9iUd65BAJ89oS8TORf/yhSQeQ3mPrf2nQd3zh3aCPYWt6ofxPjtKX7/OHyZe5FgcvClbaHTUee33MFlEXVbUCDHx5c1XAEamBBzSxttmI4kpQUM24ZCbuZyNx/HGCUaEZlvu02JZDd/zr1VO660W985IPJggiPdkdqNVCDxq9XtQ7NFkqAEGWw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SJ5PPF4D350AC80.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::993) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 19:30:12 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 19:30:12 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 15:30:07 -0400
+Message-Id: <DLNSNQP7L4FM.1JZQ0GS9300H9@nvidia.com>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
+ <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
+ <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
+ <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
+ "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
+ Moore" <paul@paul-moore.com>, "Stephen Smalley"
+ <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
+ "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
+ Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
+ Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
+ Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
+ <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
+ <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
+ <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
+ <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
+ <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
+ <vincent.guittot@linaro.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
+ Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
+ <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
+ <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
+ <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
+ <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
+ <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
+ Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
+ He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
+ <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
+ <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
+ Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
+ <xu.xin@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v3 06/40] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-6-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-6-4583d8a23bca@kernel.org>
+X-ClientProxiedBy: BN9PR03CA0381.namprd03.prod.outlook.com
+ (2603:10b6:408:f7::26) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ5PPF4D350AC80:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b272aff-50df-431c-c325-08df1a724075
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|22082099003|18002099003|921020|56012099006|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: qcFoJ8TrzrzuzEDh3+Lmgn5ctD9luf+ysfpXMPiQCon/Csfk66pTbFVlTP2wNbLJdFkANjgOLef+YYo3A6h7zpfwhVRxObMobP+BQeYrCeyOFMQD8WXgF7xSKAcUZIrKyj+dpkqddYUeM9ogmgnkepxPiNAdcNMd+Fgl88oDb8KA/19vwi/0IyvVfanixeK9epVGeOg6een6JzFQk2rCTd1zR+XJMqyQ3swwNCJLINxzaPOR/nLHfqZbhxdju9AwqEgzqTa+J1pP8IoGwRG0IwiTwIOCGt04PG68tgTRqJNg2QTH9JHwSqo0aMBDWe1TQ/6tbbqSEuBhwO8QmoJfXPIH8PgITEkxnZBxR9JpaMoWXULbD7VbzdDrn5sET2thmaM1anTAabq+2nA8ILNCfhI3bmlpm/W20qt8pKsUTfr7EsNRTc2q798JNOBjQlRuJQBzc0SnkLdfyhe/lOC5ZglTGD7dgoF1FEKmjkQzNnOhfCbfiRfYxeBsBlddQfuzNioj9Xok+AL9QrU+25iQWfZyP8SI3oXW9sw4pjYizb+Q9HYh8Q8L6kf8u6OA+Dgng4xydCGjUVIvaCMW/ctQTPr/WgDbBQJcd7IKW/LO9G/tTZyw359VP46O1o9kHvV9bColA5Gw2dEjNtUVP0WDRefylPUD0oAx9ju+b+bVb3bpbCJ2RrF8WFcOiEnLIyuHTfjVc64dVD3h/O8jb6f65g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHhxZzF1M1M0aDdnYmpBS2pUSkZVWU5XSEVIL2J5dkNYa0x3Qmt5a1JsOEZy?=
+ =?utf-8?B?U3p2aWhFNGt6T3hGZFhTK3ZVUkw4NHk4T3hneWpXTytrVDBhYW5wNFNWdndP?=
+ =?utf-8?B?Um1QVEJOdjEraUZmSS95MVllK0UxanZLZ0E1V0hpTkordythYzUzL2V6L0xI?=
+ =?utf-8?B?QUtpUVRUQm0yOEtNNy9CTVJaTktnZitIRHN0dTl5ZjV0dmNKSTRCbC9hTzBx?=
+ =?utf-8?B?d01xYTJoV3RtZzhVSnRDNFMxN0hySHY5S2FDRnpmSFpFWCtzS2MrSEkvTm5G?=
+ =?utf-8?B?NWhRRmlSanNoMm04MTU4cTBsMEVpY1g5S05uU1Fta2RuY0tMOTBPZWRyeUlo?=
+ =?utf-8?B?SjJMQ0JpWjBHUkwwUFk4RXhhYXR2VllqTFc5d3pGSWZUaWlacG1FSjQxY2xJ?=
+ =?utf-8?B?RkJYUkZ3VzFMT0EySmszVHhFa1pnQS82VzhNTzVTak4rVkg5b0tNQkRvZE1r?=
+ =?utf-8?B?YmF3dVlTeHdPaVA0eExtRENHdFBHQU5IN1BZcTNJZUEwM3lCMVdxam1wUXVH?=
+ =?utf-8?B?ZFlVeE1TQ1ZSR0kydjgrbmdYZUNFcWtxazBwbUdRcGJ1V052aUErMTcvTzdy?=
+ =?utf-8?B?WGNsTkhXTWM1cTJyQXcvMzMvV1NaMXpQcWlseG8xN2szVDVxcm9CTGtJZUhN?=
+ =?utf-8?B?MmovcFN6Q001allmMDhiWHZBeE0wN0VZbm1BYWFucTJVbExWVDFCbnBYWGZa?=
+ =?utf-8?B?VjJML2V1NUNjWVp4aStCUnYrb3MzcksxalVhemJMK3M4MTJEdmp2czlzVVVv?=
+ =?utf-8?B?eDVwVTFyVVdlTEdXOXNPYXNIcTBGbmJtZEErSmNHdFFpUjkwZGxFWmVoQ014?=
+ =?utf-8?B?Tlc4ZXFQZjZnUk9KUDVqam96bkNneXREK29MRlNDajkySE1lekN4V0RwT0pN?=
+ =?utf-8?B?cVN0SlJDa2NKc0ZlMnE5a2VXZFNRcW9nS2tocUlvN2lKM0dGclpsVEk5SHRx?=
+ =?utf-8?B?UFVoK29aR2J3MGtjeU5Kd25RSGdKaklQRlAvbjNuWnI3RkViQUNybzdXTHEv?=
+ =?utf-8?B?YnVvRE9td3NGbzJnanRzbk1ScTMwVmxLSmZEUGF3QksrTmJRL2swamdVNVhu?=
+ =?utf-8?B?eEE5NWY1QituQ3RyZEg4RzFzOXB4cjlNRXU0K2xuVmtjS29BSERpOExCSzZS?=
+ =?utf-8?B?eWxTZGwxYy9wNDRmN0ZwcUxoZVIzaGllV1ozZzlTS2poWlZNellGUG90WDFj?=
+ =?utf-8?B?THoycU1Wczg2R0Rub1BEcS9sQkI5MXg3MGUyem1TeWlaUWh4MTBzUW1ZMWE3?=
+ =?utf-8?B?SFZJc01kZGZkY21teDZrcisxR0x4NzE2eEh1aDlCQmhwdFQwN0dxb2xFWlQ3?=
+ =?utf-8?B?dGFqd3B0TEVVelQrcnFYTmpNODkxWmpqdHZxVDFFVEpyU3lDZDk1VjcvSlFk?=
+ =?utf-8?B?TjJaWDNlUzdzVnREVFJlSE5oNHFxV0ludUU1ZHJLeEd2TnlJR1R5RWZxUktG?=
+ =?utf-8?B?TXlJUkhaT05zNmJob0R2M2ZobUo3QzRaVGljeWhiNmVvMmlWYnhlYUdqS0pN?=
+ =?utf-8?B?UWh0bmxmR2s1T2hGaUhqdVhKOFpmTFJHYXEzYXc2dTUxdFFxaXVVQytwaEEv?=
+ =?utf-8?B?cS9ud2ZrTEFHckhwSXAxZDJ3WFFFOS9MUGxjd1RJVWViSFU0VkFHSExIRXZG?=
+ =?utf-8?B?T1BHbXRYbGcrYnM2UUZUY2ZIcW9JU25jNEc1ZGxwMmc0ZzAvelN5UWw5VWxB?=
+ =?utf-8?B?dERxWnF2ZUF0MHYzdjhOa0twNXBrcllEZHRWQ2kxV0o2QThJdnlLaDlxbjBz?=
+ =?utf-8?B?QndyMWxyRnRia2hCbzBPTkl0SjY3M2h2bnVCRUZaLzZQTEdrUFJUZ0hnbjRl?=
+ =?utf-8?B?blY0SitMZnN6Q3JxMitOcmJ4eFF6QmlkNlRJNUxGOTlWbW5GSWRoVTR4UXdF?=
+ =?utf-8?B?ckdDd21jRmVJUG1xL0MxSGkyRE5vVldFdkFKUkFMczhVZURnR004OGZ0ZlJn?=
+ =?utf-8?B?SVZQdzhwTlhwYlNCTHYwaXFsN1BmenJLc2ErdUpHcytoWnRhVzZkQlBrT3px?=
+ =?utf-8?B?N0kxOHFYWnVmTWx3aHZUR1BvRkExSy9HckJxMUVEblV1WVNkTWFHQ1Y2S2Vr?=
+ =?utf-8?B?VytNSnc4dXMvcE1GZkd5cm1nYzN6WkdpUW9Db2l1VFRIR2RnLzJqc0JpQVNW?=
+ =?utf-8?B?Vm13ajBQamk5dGFmaTFybHpuWSs4eDhvTEJac1dvODFuSXBURXh2cEZUeWZK?=
+ =?utf-8?B?bE9uS2lYTHcyaTd4U3FSNE94R01WNy8xZXlEaVJYZ2x0MmZRcHpQOStPREds?=
+ =?utf-8?B?dURtSmJvUHk1ZDV0bjNwZjBPNHJMd1ZsRlBRV2dvbXYyejlKa3lEUHM4czFo?=
+ =?utf-8?Q?1VykPtvsPKA3+tK+5g?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b272aff-50df-431c-c325-08df1a724075
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 19:30:12.1248 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CRUQ2KrvOYig6kIu5tJe+o4lUkO5VaAyULfaj4Rd4LC/Y7np4A5Ae+Vj+fX3Qamm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4D350AC80
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,144 +211,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
-attached can leave the branch reporting a DVI downstream descriptor
-with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
-S3422DWG, this removes the native 3440x1440 mode from the connector's
-mode list even though the EDID still contains it. An explicit native
-modeline works with the same hardware state.
+On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> There's no reason to export the symbols for these functions which are onl=
+y
+> called from internal mm logic, additionally there's no reason for them to
+> be declared in mm.h.
+>
+> This patch therefore removes the exports and moves the declarations to
+> mm/internal.h.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h | 3 ---
+>  mm/internal.h      | 3 +++
+>  mm/memory.c        | 2 --
+>  3 files changed, 3 insertions(+), 5 deletions(-)
+>
 
-Ignore the derived TMDS limits only for the captured branch identity,
-firmware and downstream descriptor when EDID 1.4 identifies a digital
-DisplayPort input. Retain the raw descriptor and other mode checks.
-Do not restrict the match to a particular monitor or laptop model.
+Makse sense.
 
-With otherwise matching upstream Linux 7.2.5 control/patched builds,
-the control loses native modes after USB-C reconnect, while the patched
-kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
-both USB-C ports, suspend/resume, undocking while asleep and docked boot
-pass. HDMI also works and does not activate the workaround. Periodic
-picture cycling observed on the control stops with the patch.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-The branch identity is not proven unique to this retail adapter. This
-is an experimental workaround for review, not an explanation of why the
-branch reports inconsistent capabilities. Other adapters and monitors
-have not been tested.
-
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
-Assisted-by: LLM
-Signed-off-by: Conor Svensson <conor10@gmail.com>
----
-RFC: is this best handled as a branch quirk here, or in the common DP
-helpers? The captured identity and descriptor match is deliberately narrow;
-there is no monitor/laptop model restriction. The informational log marker
-is retained to show exactly when this experimental workaround executes.
-The commit introducing the underlying problem has not been identified, so
-there is no speculative Fixes tag.
-
-Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
-configurations. This RFC applies the same 48 added lines to drm-tip at the
-base commit below. This drm-tip revision has not been boot-tested. The affected intel_dp.o
-compiles successfully here with no compiler warnings; strict checkpatch
-passes (human sign-off pending), and 426 predicate boundary cases pass
-with ASan/UBSan. These predicate tests are not DRM integration tests.
-
-Results: three USB-C reconnects, alternate USB-C port, docked s2idle
-resume plus reconnect, undock while asleep/wake/reconnect, and docked
-DisplayPort reboot all passed. HDMI also passed without activating the
-workaround. The control lost native modes and showed periodic picture
-cycling; that cycling stopped on the patched kernel. No custom modeline
-was used in either test kernel. Other hardware and higher refresh rates
-remain untested.
-
-AI assistance: Codex (GPT-6) helped investigate the reported hotplug
-failure, wrote the match/limit-clearing change, prepared the predicate
-tests, collected diagnostics and drafted this message. The human reporter
-performed the physical reconnect, suspend and reboot tests and confirmed
-the visible results. The assistance arose from an extended troubleshooting
-session, rather than a single code-generation prompt.
-
-Evidence and detailed test results:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
-
-This is my first kernel patch submission. I'd appreciate feedback on
-whether this belongs here or in the common DP helpers, and whether the
-matching criteria are appropriate.
-
-Thanks,
-Conor
-
- drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ffddf4b33..6d6767ca7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
- 	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
- }
- 
-+static bool
-+intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
-+				 const struct drm_edid *drm_edid)
-+{
-+	static const struct drm_dp_dpcd_ident branch = {
-+		.oui = { 0x90, 0xcc, 0x24 },
-+		.device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
-+		.hw_rev = 0x10,
-+		.sw_major_rev = 0x06,
-+		.sw_minor_rev = 0x05,
-+	};
-+	static const u8 downstream_ports[] = {
-+		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	};
-+	const struct edid *edid = drm_edid_raw(drm_edid);
-+
-+	if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
-+	    !drm_dp_is_branch(intel_dp->dpcd) || !edid)
-+		return false;
-+
-+	/* HDMI and DVI inputs must retain their downstream limits. */
-+	if (edid->version != 1 || edid->revision < 4 ||
-+	    !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
-+	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) != DRM_EDID_DIGITAL_TYPE_DP)
-+		return false;
-+
-+	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
-+		!memcmp(intel_dp->downstream_ports, downstream_ports,
-+			sizeof(downstream_ports)) &&
-+		intel_dp->dfp.min_tmds_clock == 25000 &&
-+		intel_dp->dfp.max_tmds_clock == 165000;
-+}
-+
- static void
- intel_dp_update_dfp(struct intel_dp *intel_dp,
- 		    const struct drm_edid *drm_edid)
-@@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
- 		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
- 					   intel_dp->downstream_ports);
- 
-+	/*
-+	 * Experimental workaround for the branch observed in an Anker A8388.
-+	 * USB-C hotplug can expose a DVI descriptor for the DP output. The
-+	 * monitor's native timing works when requested explicitly, despite
-+	 * the reported 165 MHz limit. Keep the captured identity and failure
-+	 * signature checks narrow until the underlying cause is understood.
-+	 */
-+	if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
-+		intel_dp->dfp.min_tmds_clock = 0;
-+		intel_dp->dfp.max_tmds_clock = 0;
-+		drm_info(display->drm,
-+			 "[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround\n",
-+			 connector->base.base.id, connector->base.name);
-+	}
-+
- 	drm_dbg_kms(display->drm,
- 		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
- 		    connector->base.base.id, connector->base.name,
-
-base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
--- 
-2.55.0
+--=20
+Best Regards,
+Yan, Zi
 
