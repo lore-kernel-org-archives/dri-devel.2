@@ -4,67 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE154C98304
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 01:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F577C9830D
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 02:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CAE510E343;
-	Thu, 24 Sep 2026 01:31:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 069C610E141;
+	Thu, 24 Sep 2026 02:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="N8Z7N+uY";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="N8Z7N+uY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="chMvUUfF";
 	dkim-atps=neutral
-X-Greylist: delayed 1039 seconds by postgrey-1.36 at gabe;
- Thu, 24 Sep 2026 01:31:16 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 924AA10E343
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 01:31:16 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=ejjww0YvZd/2aF2RB25fAygrE8VohS4ZO/F+ChXYyNw=;
- b=N8Z7N+uY4kp4ilTD4AqnqONCCNCDlHWHOTkdKZQIZ/nY0EYp18BWpeRayonLW5AmJ+3RwWDg1
- /UBFHoNSRaYOoPRH2BBMvHHt8epKRATf+FZCXaHG9i+szVvai8rHavIHEb+zTOV6r6AZB/6HKcZ
- F4RwvxriQ9f3vZZAxKLVQ04=
-Received: from canpmsgout01.his.huawei.com (unknown [172.19.92.178])
- by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4hqwnv4yqfz1BFPt
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 09:13:39 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=ejjww0YvZd/2aF2RB25fAygrE8VohS4ZO/F+ChXYyNw=;
- b=N8Z7N+uY4kp4ilTD4AqnqONCCNCDlHWHOTkdKZQIZ/nY0EYp18BWpeRayonLW5AmJ+3RwWDg1
- /UBFHoNSRaYOoPRH2BBMvHHt8epKRATf+FZCXaHG9i+szVvai8rHavIHEb+zTOV6r6AZB/6HKcZ
- F4RwvxriQ9f3vZZAxKLVQ04=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
- by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hqwXQ47ZDz1T4Lb;
- Thu, 24 Sep 2026 09:01:58 +0800 (CST)
-Received: from kwepemo500009.china.huawei.com (unknown [7.202.194.199])
- by mail.maildlp.com (Postfix) with ESMTPS id 00E9D4056D;
- Thu, 24 Sep 2026 09:13:51 +0800 (CST)
-Received: from [10.67.121.161] (10.67.121.161) by
- kwepemo500009.china.huawei.com (7.202.194.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 09:13:50 +0800
-Message-ID: <f4ff7ced-63b6-42e6-8e01-9f01d2e59843@huawei.com>
-Date: Thu, 24 Sep 2026 09:13:49 +0800
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E04110E141
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 02:04:29 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ d2e1a72fcca58-8686f46e4adso1065020b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 19:04:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790215469; x=1790820269; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+ b=chMvUUfFbobFC3gRSLLGcIAggwdsbNtQUvKWnmOHcFw+FQCYSkQRP5idrcuqZofOt0
+ 0mtYBiD34BAbptV2T9kbjl86FfhbV5Ob5Peo4SXjCWDMJxOtwD14bfp3Z/KYNIuvx+/N
+ 0jQPoQ5uKgjEVEkxBn9LrfEXGoLar2mA2x6+faT8r96v5mak35OzAmuLrMvMMmav43fm
+ bygKOwWzaT2gRnbhxwuhDPQFBqzqtHMHestBYQrq2aLqYUAH8DtKqzDpzTGZmH/KoTEh
+ S3KWJm4EfrB7XirZvhbKrNx5fN33SNCSBsT+X+SWH/tx0Kmg97HPQxTqHWBa9tk1OeAg
+ fCfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790215469; x=1790820269;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+ b=VlO0iln/r+YyUjxs7DGsi+4eshYoZV1A0ea5YFoJojnc5bRorFBH1lHwxoL2kMBa+Q
+ x5gGrmt3r5CorDXL8kWzzOETq99SJecCDgQyZtR3hRnDT3QzinN5kt3cZVFzp6AKC8NS
+ zoqHexUOpaBkr51sQpFH8v5etUMPXD4G3ZP7JUxJw83SxkErygcgaG+QFRe9lw5IrN+B
+ bCaTfI2sW7BcZGZjcodNbBwqv3/nA16nNW6a84mLL8SuI/NeUD2x1iXAZjv6AjHUhLEt
+ NDsHcBaGQjqW0GG7yxmsZ61NkLc7GjZMbmsiASbphrTIgUeWBDEai4AHyFTUh7LVS+Qn
+ uobg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzM/1HGeUZKry2psbClBS3G1Q/rlDMjaTN4fDdCS+EkCaWKfIn93FvRRRItqGdJDUPgbTUxjpkO620=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mrKBEaEHb4+PE+iuCBTrtTYd0qEwRb9g5I3eSmlKpMfERdH3M/
+ POqkF0LUvs4j9ROxGcBNYk6a0YtOts+MPz0cPV3i2kcW908nWQidHQxn
+X-Gm-Gg: AYBFou1jek3WPQ85+AGIBHg3YFG1sutHrtqanlkwlI4seEP/3oFaK/cLwSzZRergoSV
+ yRE+RQ2RE4jbmcLyu7+YyxlnbCCWdsKGm0yqH+p0OL/1z53D7Kw2Yu0vymKNVPgGk2x9+1S6JkU
+ 5Baf83PSdaAU3tEmza1fPArQnhev7bRLDVzE9q38J5nC5oycy/bZFXpwbEKKTBKoWz4o4pgTnYU
+ veIWwFBwpDnTm7T9aPTrprwpdZa1kTWYiueDjORVIyyUYDWuZ9CaBopvTW73U4JeCwfGJpvrXDA
+ fwK0keQbvaKFTUsWa89HXi3HBkH/wvAkbN/kG6+LSuY4n7/ZHQsebqlMFtPBnf+bRIByFCfJnZ1
+ S0bPpEVmlvZaCxkeLBdqgi2rTKEeAHBAHYMI+tJFl38H4EQm7ynwebhC1DLk6oQq7qolfd3LmG8
+ KsuV49iXBbidZOf+OPuZIjrvrzy32yQ/fcaUtAKSrNo+FxcPg7NJgU2PCnEzJxTQG1tw0R5mDfZ
+ qtAlUZ7d9kyLO0B59F6HiqW36U7u4/D
+X-Received: by 2002:a05:6a00:6088:b0:874:706d:856d with SMTP id
+ d2e1a72fcca58-87e9b3ba37amr753328b3a.30.1790215468861; 
+ Wed, 23 Sep 2026 19:04:28 -0700 (PDT)
+Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-87d1d5c1331sm2041625b3a.24.2026.09.23.19.04.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2026 19:04:28 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+Subject: [PATCH RSEND] drm/bridge: analogix_dp: use devm_phy_optional_get()
+ for the DP PHY
+Date: Thu, 24 Sep 2026 10:04:16 +0800
+Message-ID: <20260924020417.868588-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when
- registering dma-buf mr
-To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
- Romanovsky <leon@kernel.org>, Michael Guralnik <michaelgur@nvidia.com>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>, 
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
- <20260731211601.3033906-6-zhipingz@meta.com>
-Content-Language: en-US
-From: fengchengwen <fengchengwen@huawei.com>
-In-Reply-To: <20260731211601.3033906-6-zhipingz@meta.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.67.121.161]
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemo500009.china.huawei.com (7.202.194.199)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,35 +97,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Zhiping,
+The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+internal eDP port) has no separate PHY device and relies on its built-in
+PHY, which is programmed directly through the GRF registers, so its DT
+node carries no "phys"/"phy-names" property.
 
-On 8/1/2026 5:15 AM, Zhiping Zhang wrote:
-> Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
-> (typically a GPU or a vfio-pci passthrough device) traverses the host
-> PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
-> Processing Hint (TPH) Steering Tag yields the best placement for the
-> traffic it will sink: per-endpoint hint selection lets the root complex
-> or switch direct DMA to a specific cache slice / NUMA node, cutting
-> cross-socket snoop traffic and DRAM pressure under sustained p2p
-> workloads.
-> 
-> Until now the mlx5 importer had no way to learn the exporter's chosen
-> ST tag, so dma-buf MRs were registered without TPH and ran with the
-> default (no-hint) routing. With dma_buf_get_pci_tph() in place this
-> patch wires up mlx5_ib to query that metadata at MR registration time
-> for p2p access and use it to program requester-side TPH on the outbound
-> mkey. If the exporter has no metadata, fall back to the existing
-> no-TPH path so behavior for non-TPH-aware exporters is unchanged.
+Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+-ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+misleading "no DP phy configured" error at probe time before falling back
+to a NULL phy.
 
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and otherwise behaves identically, and drop the manual -ENODEV/
+-ENOSYS handling. This also removes the spurious error message.
 
-While working on v21 of the VFIO PCIe TPH series, we got review
-feedback that importers must add pci_p2pdma_distance() validation
-before retrieving ST values from a dma-buf.
+Assisted-by: Claude:deepseek-v4-flash
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-Your mlx5 patch follows the same importer pattern – it consumes
-dma-buf TPH metadata. I think this patch should also include the
-same distance check.
-
-Thanks,
-Chengwen
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 18e76d1e78e1..28eb668d3e3f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
+-- 
+2.55.0
 
