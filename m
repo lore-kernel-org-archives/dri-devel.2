@@ -4,125 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64CFC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 179C0C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:10:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343F610F527;
-	Thu, 24 Sep 2026 13:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3619010F549;
+	Thu, 24 Sep 2026 13:10:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qpye8S7Z";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E0k+/ry1";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9725010F527;
- Thu, 24 Sep 2026 13:04:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kpM5J8JgYAKeN4JSXdZvRb7S7QnB9dAGh2FAP797VDjlwi4s/DmHVjg2NXUjPMdrj1HdJnvZk8kUpW3Rs1QQ9WhibV6xUVRXZxYBNTUwIjhvXv+DeHdQi2EQEy0nRs1EvIdGmnCsiPOarsfrMTz8tvd4ER+YqE1tWDJ7f61CCXkVo1EiVp2uAbBsPZ74FqZVAY67PrSFzkjNRcJg4KRIl5WquQ6iWWmEtnyGYoluLPgIpa/sWOlYRz4s749MHKKXNOMrlYuyHK9hJetpaxFS12AAYnLQS3X0ZfLlTm/8DMtmd3Ve0MING7RLzivi4RP6PNx7XGHmO92MEqj4sbo62w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZR1WbcjS7Et8H1Is/yfuP+KF2JF244+6G603E2mLLi8=;
- b=pQvW85630BYRM2NQn6ci24WvJaWTsAjLmhQr9zEWXnb34gYg3pJ5iCNRKQHwfKL9okvxVumaEbhqmdJFY70vbL3no+CH3urDzvsRiEY6Tcd5Nz1kqq3zf+W9sECduwA3yRA2+ZKtpRQ9a7DXogaWJmS/Scs8cpIjHk0Aj6jVwC+p2SsmX/+SXBuScM1A1CUkjAkHOUJyQrH1qHwI9IP+x6Mmtm/WBKxVMQ3yWacDiPymNW+f6peEweyJ7hYnP+Zc1JlHfEvNx8bF3cHzwtUJzNYD+bnL3TeKHAZXCw1M0loqKn54DO/uraY7N/jo+3Uw3l2Se8JrixzjaMI+N5/UFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZR1WbcjS7Et8H1Is/yfuP+KF2JF244+6G603E2mLLi8=;
- b=Qpye8S7Zo28nC59P65usB97SnHQ0TekLGvEvrHsh2PeBhz/FkUpFX3EOwAUD/QdpNl9VahcgD9jlsULor+Kcts8iKVUh+bLE6uBgqaWuzJ1iVu0Ud0YwiiAJSTB+VO06lNTEm9AmbLBFEDLhxm3AGxIU/LR1mholJZy4eqUhNEw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB5963.namprd12.prod.outlook.com (2603:10b6:8:6a::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.18; Thu, 24 Sep 2026 13:04:33 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 13:04:33 +0000
-Message-ID: <0e2f0fb5-a491-495b-a174-066f7c1ae314@amd.com>
-Date: Thu, 24 Sep 2026 15:04:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu: implement workaround for sdma dcc
- corruption
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260924124319.1895-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR08CA0016.namprd08.prod.outlook.com
- (2603:10b6:208:239::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D83810F539;
+ Thu, 24 Sep 2026 13:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790255453; x=1821791453;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=vxZHUgAV1NGMnOX0ExiQPdVOApOMW2k9MGIcoqalUJw=;
+ b=E0k+/ry1RxJSzxWa79NnCtWWcb7D3As0FMn4B8P5wTsLJyIk+nwJMTII
+ SxQYDh87cvnojcZ4ZogrwtWMDdtjfxOBm87qNyzZB1uoAr/XpA+9FX7gq
+ Kf9lQ9hWDCLcP0+oNDA7EvFICtXI+UxLfKHUY2jC9I6Go+QnirEfD8grN
+ JcVXb7ybJOQ39LD6zgtWxQ6NKkL5OAH52hICW/0MYP+fS9ysCMKUxeokN
+ Wqg/noGsuBd5Jj5PJhbKc9RemEXoPYI7Ze1Gsi7dKqCcjPftTYptL9FH1
+ rChwqohkDpSJBGdqM5E0qffJpaFetqh8yRK41qSQan9Lm1rWZ+gj0xxU5 g==;
+X-CSE-ConnectionGUID: jRP9K0coQkqvGd0Sr2eotw==
+X-CSE-MsgGUID: 3O9OgT+DTzyRaIIU4pWw3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90066972"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="90066972"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 06:10:52 -0700
+X-CSE-ConnectionGUID: xFYz4EnMScKpYZ9B6N+Z0w==
+X-CSE-MsgGUID: ZO0G/H2ESm2Mfg58AAK/tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="277416208"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.129])
+ ([10.245.244.129])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 06:10:50 -0700
+Message-ID: <91adcc043e3fedb0afd0857de9e87a71381e960c.camel@linux.intel.com>
+Subject: Re: [PATCH v2 1/3] drm: Provide a drm_dev_release_barrier()
+ function to wait for device release callbacks
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, Rodrigo Vivi	
+ <rodrigo.vivi@intel.com>, Matthew Auld <matthew.auld@intel.com>, 
+ dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, Alice
+ Ryhl	 <aliceryhl@google.com>, Alex Deucher <alexander.deucher@amd.com>
+Date: Thu, 24 Sep 2026 15:10:47 +0200
+In-Reply-To: <bcff99b0-4933-4f31-a2ee-dc88da13d207@amd.com>
+References: <20260924080455.25458-1-thomas.hellstrom@linux.intel.com>
+ <20260924080455.25458-2-thomas.hellstrom@linux.intel.com>
+ <bcff99b0-4933-4f31-a2ee-dc88da13d207@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5963:EE_
-X-MS-Office365-Filtering-Correlation-Id: de71676a-847f-47a5-b4ea-08df1a3c60de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: mburu+RYxcLWf0G+PC0yShm2FnoK42lqIJmmS/PXL0TUDREI4Bowzwt2zE+IDdFAo1R5gEMXNqztG91w2AGTS0F5c3lEX5Rc99pmLmgEHBA1GqeBGcpXtw3tIUg98TyTXuC8n5xYz4tFB1s3UoMuMxR2RRySFziaUljs1L5zxtpXg3GnTdKJ0iSeYQnDWOHHSWZov46OeAyXwBgYYLDaawQo/YKRDsBANdx6jWc9OMMTRcWm7ehUgH7f+8IA5IxETZmeV/q1jkEYOLHnBY29wnFCBG/AFl6zawOOiPmnENj+C0SpdWgGrlc36jc9Tcf1B8T5el2NLdf7tG3Mdz44wyqXnv1xJgVqoW1y8oNcahehfi0VPnoMy0GzC72M3mzloTRhqjDfE8Mb8lUW7d8J4BjKQlm6FZZDDPBH3vLElou9jQpBdZUtoXURw9Dcj4yjGhcUIFBosj1MM9+JLD+E16HxMOSaC2LOzuf8OsjJClx28dDmS8oB2b643lqsQFsQYpHvWlnAUFO43GWLWCyqJwSiyY3Ethv1hAPajUT/HT/FQGQprl0rUv1eF8KAt0nNTcEKWrzch2j5jkXwMbOA4nrLBwXpoKH0f5yjAigoRkwU3HOmPo7REZMdZ/eolhuB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1ZoWndwWUhxb3RUbzloUnMyWHZ1YmVnWVZ1UTlWSzVuZ1FXaUpMYXdYd01o?=
- =?utf-8?B?S2NxOW9QTXorVkJJOUJ2WmdWM0xkUHBHc3R4ZzR0OW03UWtRUndQdFVGaXBZ?=
- =?utf-8?B?U3lzdlkxK1hmTDFUNWtiUUxOV1pEOXM1ZzNsRjg0dU1seEdZWFIxajhuM3FS?=
- =?utf-8?B?S3FCQ0FBL0ZETVFXRGJ6ZmlNZVBNWlNRdTN4VWZtOVp6TUk2blFGR0NOdSto?=
- =?utf-8?B?Wi9IOW9xUWpQQTE0VGthb09TM2Jobjk0ZE9OMjlIdFF2RisrajFHTDFMMSth?=
- =?utf-8?B?SmJnUk9uSkJKdG1qQld3OWowWENLVlg2dDZ3bGhHZEF1TEdOOFYzQURrMEpL?=
- =?utf-8?B?MVZwY2k3T0x0Q3hTajdHOVArcVlVUnJrZDNrNXRpR01MR2hNSEhwUlVDNUc0?=
- =?utf-8?B?WkszTGVKN1Y5Z2pKaVl2Tm03cGxvN0p2VWx1OWQ1YTdyM1J0dXk2Tm9ML2VX?=
- =?utf-8?B?NkEyMHVxclZSRG1yRURBRzZyUWR2OXRXN1Bud204UzFER2pHQ1ltTDk2SGZl?=
- =?utf-8?B?TE43NUQvaEMrUzZpZXRLYjhJSVAzeXlxQi85UlgzSGZnVzM5emRxKzVRYzQy?=
- =?utf-8?B?bGtvUVFhUHk0YXIxMGMyWmJiSkhCNXVZdGJuYnhGMlltUTF3TFpDSldTbm1x?=
- =?utf-8?B?NnYvdVB6UDZXdXFRNDlxWHFCbGJCMTZUWjFGSi9DQW1lblptckV3dGYvWWNx?=
- =?utf-8?B?RlR4eFhPK3JPMUxvSWU3eDFHemgwdVk5ZndvaHFkSXkrY0xrSXRFRlMwTzBX?=
- =?utf-8?B?Y3k5UTlOdWtZWTVDUWNWSW0xc1QyNkJOVjhoTDhBSmxYYk92cDhHT0RKbDVr?=
- =?utf-8?B?RWMySTcxbHNWSDNWQThhYlNDcHptQ3NKaXNCLzB3ZUZjK014Zk5jZVpFRUFW?=
- =?utf-8?B?SXZXWGlQWElwYk1mOW1YZm1lV2piN1VvKzI2SHFMb28wbW01dzVDeW5vaVBp?=
- =?utf-8?B?THh1M0wvaWNOMDExMm1mM3RqSytmeG13VEN6anBjTy9hcVAxdW94YlRPT1o1?=
- =?utf-8?B?MWdPcW5zYlhlUFQ3alhoejV4NTlLOGp3WGFUYmE5UDVuMmZXN1FONW9xbEZo?=
- =?utf-8?B?SzYvSmpReHl6S0toVC94WUNuV1NHNldVUC8rK2ZvTUVRR2lvckh5U2VDQUYr?=
- =?utf-8?B?TGFnNXk1OWpWQU9kbDlCeG1uYjR4N0tZelNRL05FZVhoMm5FVlpseTh2NzVO?=
- =?utf-8?B?STNMSk9OZm85RjhOU2RsZG5rSFQ5Y0t5a1Q1Ni9US2Z4S01NaFdtOTZUS000?=
- =?utf-8?B?bnhhMElPNUhZOWM5c0QwbXdZc1RTK1lnOXZHcmNwSCtYMS82dk9tMU9sVnhP?=
- =?utf-8?B?YlFrUUo4TVhuMCt3bGduVkNJa1FiL28yNld0dmlTRzZFbGpNSTN4bGRUbTRJ?=
- =?utf-8?B?MmZ0Uk53K1pVS3A3cFV3bzNjVXgxWGJGN1JVUVQvdnB1NFlpaC9JUjdaUFQz?=
- =?utf-8?B?ajBZQm5qZWRSYjJQWWVUbjFpOXhycE9jcVhGYVE2dEpmVzhRSTRFNmU1NmpF?=
- =?utf-8?B?Q3Qrc3ZqYzRjbmN4UlB0RGtUS3c1MmlmZ1NkSlpsa2tDTGxUeDV3K0VyVWFx?=
- =?utf-8?B?UUdvZzI3UnlEVnlyUzZOMmx0dnhGQ0tjQ0cvRnRucnM2cy9aS3lCckdFQTFF?=
- =?utf-8?B?Q2VlQVpFajdaczUwaWs5bE5MSndSeHdDb0Q1QlNKQ1g5RmpIOXd2WXlMazRB?=
- =?utf-8?B?QXRJOTJBejZYSGRTMXFUVXFwcjVWcU9lTTdEWWRBSXUyOTRuQjdsS1ZoUnV1?=
- =?utf-8?B?cnpKaFoxNGRteUwwYWdyTzY3cml3VzBqbDVReTlUTGkwTWtCZ0dxSFhHeGVQ?=
- =?utf-8?B?SWY5Rlo5U2RsZVRkS3BvNnU1TkNkaDY2TnFOQnBheVBIZC9qQzlSTnk3L3V5?=
- =?utf-8?B?c0xtenVJOHczSzZhOWM1U05uKzZJeFVOQktLRHdxcU1TNHUrMzYrL2NhQ25j?=
- =?utf-8?B?WStZbjZtdCtWZnNyanp4MDJxMi9saURBQnprTU50UnBkZzZSOHQxOEZmY2J5?=
- =?utf-8?B?bVYwZVdnSWNvMDdLTHlOZ3F3QXh5Zm5qZExaMDQwa1NHYVhRVy9zcVVTM3k1?=
- =?utf-8?B?a1p4TVNzckFvenRSb01SdHFlNzFtcmRmb0E1KzBTQVNHMVd2MVhEbmpYaFlR?=
- =?utf-8?B?eEF0TGsyOUNDcnFRS3pYUndqeFBrNXVRd0g0OVE5N2ZJTnJyQ0dMUkE4Z0c4?=
- =?utf-8?B?ZHNWZ2hXSE9ROFZDZmQzVjd3eDg5dGFQN3F1ZkJhUU9MdDRnSmlPUEppWmtC?=
- =?utf-8?B?azZnak0rakRjL0V3bXM3L1dvZkc3aXlDempkWXFtOHYwOWRxd2dqTlIrVlY4?=
- =?utf-8?Q?68F9RpU2n5gJgsDH8R?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de71676a-847f-47a5-b4ea-08df1a3c60de
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:04:33.7168 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p3WZp5MOLnjsiqSZGyVAbX0wqZ+QGG4Z42G5lw9qQmLfq+8x56ZT5c4nIlqq6oWf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5963
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,41 +77,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/24/26 14:43, Pierre-Eric Pelloux-Prayer wrote:
-> For unknown reasons, on gfx12 using multiple entities can causes
-> random corruption of BOs with DCC.
-> This workaround seems to prevent the issue until the root cause
-> is understood and fixed.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5663
-> Fixes: 3a6f6eeb3db5 ("drm/amdgpu: give ttm entities access to all the sdma scheds")
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 3d620ec2937f..a826e091ea58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2392,6 +2392,11 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
->  
->  	num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
->  	num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
-> +        /* TODO: workaround for DCC corruption when moving BOs from multiple queues at
-> +         * the same time: use a single queue until the root cause is identified and fixed.
-> +         */
-> +	if (IP_VERSION_MAJ(amdgpu_ip_version(adev, SDMA0_HWIP, 0)) == 7)
+On Thu, 2026-09-24 at 13:19 +0200, Christian K=C3=B6nig wrote:
+> On 9/24/26 10:04, Thomas Hellstr=C3=B6m wrote:
+> > Driver and drm helper code is increasingly relying on holding a
+> > bare
+> > &drm_device reference (drm_dev_get()) without also holding a module
+> > reference on the module that created the device.
+> >=20
+> > For example drm_gpuvm_init() takes a drm_dev_get() reference on the
+> > &drm_gpuvm's behalf with no accompanying module reference at all,
+> > and
+> > drm_gpuvm_free() later calls the driver-supplied gpuvm->ops-
+> > >vm_free()
+> > callback, which lives in the driver module, before dropping that
+> > reference. xe also takes bare drm_device references itself from
+> > several asynchronous contexts, such as GuC submission fence
+> > workers,
+> > EU stall, OA and PMU sampling code, relying only on those
+> > references
+> > being dropped before the underlying xe_device, and eventually the
+> > driver module, can be torn down.
+> >=20
+> > If the module that created such a device is unloaded while one of
+> > these bare references is still outstanding, and the corresponding
+> > drm_dev_put() only completes after the module has already been
+> > removed, the driver's ->release() callback, any drm managed release
+> > actions, or a driver callback such as gpuvm->ops->vm_free(), all of
+> > which live in that module's, by then freed, code, can end up being
+> > invoked out of memory that no longer contains valid code.
+> >=20
+> > Requiring every one of these bare drm_device references to also
+> > take a
+> > module reference, as drm_pagemap does today via try_module_get(),
+> > doesn't scale to shared helpers and driver-internal code with many
+> > call sites, and is easy to get wrong.
+> >=20
+> > Fix this properly by letting drivers keep a drm device-count and
+> > ensure the module isn't unloaded until that count has dropped to
+> > zero
+> > and until any release callback that had already started executing
+> > has
+> > also finished executing.
+> >=20
+> > To help with the latter, add a drm_dev_release_barrier() function.
+> > The function ensures that any caller that has started executing
+> > device release callbacks has also finished executing them.
+> >=20
+> > Use SRCU for the implementation.
+> >=20
+> > Rather than a single SRCU domain shared by all drivers, which would
+> > mean drm_dev_release_barrier() could unnecessarily block a driver's
+> > module unload on unrelated drivers' release callbacks, require each
+> > driver that wants to use drm_dev_release_barrier() to supply its
+> > own
+> > SRCU domain via a new &drm_driver.release_srcu field. Drivers
+> > should
+> > define a static SRCU domain (DEFINE_STATIC_SRCU()) and set this
+> > field
+> > to point at it. Leaving the field unset means @release and drm
+> > managed
+> > release actions for that driver's devices simply aren't
+> > synchronized
+> > against, and calling drm_dev_release_barrier() for such a driver is
+> > a
+> > no-op that triggers a warning.
+>=20
+> That sounds like overkill to me.
+>=20
+> I mean I can understand that you don't want to use RCU, but a single
+> static SRCU for the DRM subsystem should pretty do the trick.
 
-Thinking it through it would be nice if we could check for that DCC HW generation instead of the SDMA version.
+Agreed. I'll change that in v3.
 
-But we need a fix ASAP so the patch is Reviewed-by: Christian König <christian.koenig@amd.com>.
+Thanks,
+Thomas
 
-Regards,
-Christian.
-
-> +		num_move_entities = 1;
->  
->  	adev->mman.clear_entities = kcalloc(num_clear_entities,
->  						sizeof(struct amdgpu_ttm_buffer_entity),
-
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Since &drm_driver.release_srcu is a new field, every existing
+> > struct
+> > drm_driver instance in the tree was scanned to confirm none of them
+> > would leave it uninitialized with indeterminate content. All in-
+> > tree
+> > instances have static storage duration (plain or const static
+> > file-scope objects), or are members of a KUnit test fixture zeroed
+> > via
+> > kunit_kzalloc(); no instance is stack-allocated or heap-allocated
+> > without zeroing. Objects with static storage duration are
+> > guaranteed
+> > by the C standard to have any member without an explicit
+> > initializer
+> > zero-initialized, so the new field is reliably NULL, and
+> > drm_dev_release() simply skips the SRCU critical section, for all
+> > drivers that don't set it.
+> >=20
+> > v2:
+> > - Use plain WARN_ON_ONCE() instead of drm_WARN_ON_ONCE(NULL, ...)
+> > in
+> > =C2=A0 drm_dev_release_barrier(), since passing a NULL drm_device cause=
+d
+> > =C2=A0 the warning path itself to dereference that NULL pointer inside
+> > =C2=A0 dev_driver_string()/dev_name() (sashiko)
+> >=20
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Assisted-by: LLM
+> > ---
+> > =C2=A0drivers/gpu/drm/drm_drv.c | 56
+> > +++++++++++++++++++++++++++++++++++++++
+> > =C2=A0include/drm/drm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0 | 24 ++++++++++++++=
++++
+> > =C2=A02 files changed, 80 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index 0cdc606af8d1..32a03170383c 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -921,18 +921,57 @@ EXPORT_SYMBOL(drm_dev_alloc);
+> > =C2=A0static void drm_dev_release(struct kref *ref)
+> > =C2=A0{
+> > =C2=A0	struct drm_device *dev =3D container_of(ref, struct
+> > drm_device, ref);
+> > +	struct srcu_struct *srcu =3D dev->driver->release_srcu;
+> > +	int idx =3D -1;
+> > =C2=A0
+> > =C2=A0	/* Just in case register/unregister was never called */
+> > =C2=A0	drm_debugfs_dev_fini(dev);
+> > =C2=A0
+> > +	if (srcu)
+> > +		idx =3D srcu_read_lock(srcu);
+> > +
+> > =C2=A0	if (dev->driver->release)
+> > =C2=A0		dev->driver->release(dev);
+> > =C2=A0
+> > =C2=A0	drm_managed_release(dev);
+> > =C2=A0
+> > +	if (srcu)
+> > +		srcu_read_unlock(srcu, idx);
+> > +
+> > =C2=A0	kfree(dev->managed.final_kfree);
+> > =C2=A0}
+> > =C2=A0
+> > +/**
+> > + * drm_dev_release_barrier() - Ensure drm device release callbacks
+> > are finished
+> > + * @driver: driver whose release callbacks to wait for
+> > + *
+> > + * If a device release method or any of the drm managed release
+> > callbacks
+> > + * have been called for a device created with @driver, wait until
+> > all of
+> > + * them have finished executing. This function can be used to help
+> > determine
+> > + * whether it's safe to unload a driver module.
+> > + *
+> > + * Assume for example the driver maintains a device count which is
+> > decremented
+> > + * using a drmm callback or a device release callback. From a drm
+> > device
+> > + * lifetime POV, it's then safe to unload the driver when that
+> > device-count
+> > + * has reached zero and drm_dev_release_barrier() has been called.
+> > + *
+> > + * @driver must have &drm_driver.release_srcu set to a driver-
+> > owned
+> > + * &struct srcu_struct for this function to have anything to wait
+> > for.
+> > + *
+> > + * This function only waits for the &drm_driver.release callback
+> > and drm
+> > + * managed release actions to finish. It does not, by itself,
+> > guarantee that
+> > + * whoever called drm_dev_put() to drop the reference triggering
+> > that release
+> > + * has itself finished running. See drm_dev_put() for that
+> > invariant.
+> > + */
+> > +void drm_dev_release_barrier(const struct drm_driver *driver)
+> > +{
+> > +	if (WARN_ON_ONCE(!driver || !driver->release_srcu))
+> > +		return;
+> > +
+> > +	synchronize_srcu(driver->release_srcu);
+> > +}
+> > +EXPORT_SYMBOL(drm_dev_release_barrier);
+> > +
+> > =C2=A0/**
+> > =C2=A0 * drm_dev_get - Take reference of a DRM device
+> > =C2=A0 * @dev: device to take reference of or NULL
+> > @@ -958,6 +997,23 @@ EXPORT_SYMBOL(drm_dev_get);
+> > =C2=A0 *
+> > =C2=A0 * This decreases the ref-count of @dev by one. The device is
+> > destroyed if the
+> > =C2=A0 * ref-count drops to zero.
+> > + *
+> > + * If this call may drop the last reference, the calling code
+> > itself is
+> > + * responsible for ensuring it isn't unloaded (for example as part
+> > of a
+> > + * module) before this call has returned. This matters in
+> > particular for
+> > + * drivers relying on drm_dev_release_barrier() to determine when
+> > it's safe to
+> > + * unload, since that function only waits for the
+> > &drm_driver.release
+> > + * callback and drm managed release actions to finish, not for
+> > whoever calls
+> > + * drm_dev_put() to finish calling it.
+> > + *
+> > + * A common case is dropping the last reference from a deferred
+> > context, such
+> > + * as a workqueue item. In that case it's the responsibility of
+> > whoever
+> > + * queued that work item to guarantee it has run to completion
+> > before the
+> > + * module can unload, for example by draining a module-lifetime
+> > workqueue at
+> > + * module exit time. Holding a module reference only until the
+> > work item
+> > + * starts running is insufficient: that reference would already be
+> > dropped
+> > + * before this call runs, even though this call is what may still
+> > need the
+> > + * module's code to remain resident.
+> > =C2=A0 */
+> > =C2=A0void drm_dev_put(struct drm_device *dev)
+> > =C2=A0{
+> > diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> > index b23830494ed4..30bb8727a896 100644
+> > --- a/include/drm/drm_drv.h
+> > +++ b/include/drm/drm_drv.h
+> > @@ -48,6 +48,7 @@ struct drm_display_mode;
+> > =C2=A0struct drm_mode_create_dumb;
+> > =C2=A0struct drm_printer;
+> > =C2=A0struct sg_table;
+> > +struct srcu_struct;
+> > =C2=A0
+> > =C2=A0/**
+> > =C2=A0 * enum drm_driver_feature - feature flags
+> > @@ -255,6 +256,28 @@ struct drm_driver {
+> > =C2=A0	 */
+> > =C2=A0	void (*release) (struct drm_device *);
+> > =C2=A0
+> > +	/**
+> > +	 * @release_srcu:
+> > +	 *
+> > +	 * Optional driver-owned SRCU domain used to synchronize
+> > completion of
+> > +	 * the @release callback and drm managed release actions
+> > with
+> > +	 * drm_dev_release_barrier().
+> > +	 *
+> > +	 * Left unset, @release and drm managed release actions
+> > for this
+> > +	 * driver's devices aren't synchronized with
+> > drm_dev_release_barrier()
+> > +	 * at all, and calling drm_dev_release_barrier() for this
+> > driver is a
+> > +	 * no-op that triggers a warning.
+> > +	 *
+> > +	 * Drivers that want to use drm_dev_release_barrier(), for
+> > example to
+> > +	 * help determine when it's safe to unload the driver
+> > module, should
+> > +	 * define their own static SRCU domain
+> > (DEFINE_STATIC_SRCU()) and set
+> > +	 * this field to point at it. Each driver should use its
+> > own domain,
+> > +	 * so that drm_dev_release_barrier() only waits for that
+> > driver's own
+> > +	 * release callbacks, rather than also for unrelated
+> > drivers sharing
+> > +	 * the same domain.
+> > +	 */
+> > +	struct srcu_struct *release_srcu;
+> > +
+> > =C2=A0	/**
+> > =C2=A0	 * @master_set:
+> > =C2=A0	 *
+> > @@ -485,6 +508,7 @@ void drm_dev_exit(int idx);
+> > =C2=A0void drm_dev_unplug(struct drm_device *dev);
+> > =C2=A0int drm_dev_wedged_event(struct drm_device *dev, unsigned long
+> > method,
+> > =C2=A0			 struct drm_wedge_task_info *info);
+> > +void drm_dev_release_barrier(const struct drm_driver *driver);
+> > =C2=A0
+> > =C2=A0/**
+> > =C2=A0 * drm_dev_is_unplugged - is a DRM device unplugged
