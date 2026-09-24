@@ -4,63 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8B2C98314
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 08:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EFE7C98310
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 08:14:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E945E10F385;
-	Thu, 24 Sep 2026 08:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB18910F344;
+	Thu, 24 Sep 2026 08:14:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lv96I4qJ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PcSLgM2q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB8C510F3AA;
- Thu, 24 Sep 2026 08:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790237140; x=1821773140;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1kW/CBCW88repyidEiNedKlRCr9R6IfY4qEDJ8poIjY=;
- b=lv96I4qJARAo6LpzWPTATLTcboC55gChweJ4hmA64SHcGdNqhCzV3vbz
- HWO759mBL8rdx+qrI3ktDGn/1fHif387kdhZ7SwIrg6AvHHrHzPU9fcRz
- OjPRn1hWynNb9TZU9NcpDCcf3BSK1+t3fZnWm9NqhDFhTAgRgqOhoEVPX
- InL+g0mRwUcaeci1XxjBhgIkKyn951G+x/bPydItWpphgbvxoIbApold2
- QyTcVvcWZSurt3BEB1tW66GHco0wllWnnYw0rJi1F0QJHBSKfJel2jUCU
- WwjnTbbz2nwHIWj6AMHfTNjhaxJF5GhgFm7g0Rdgsdxw6PTNyLR4EA0iI Q==;
-X-CSE-ConnectionGUID: Iv5zi76ITXOrn8GhUI43Sg==
-X-CSE-MsgGUID: 26c5Gse7QJq0PfdqnFxGbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89771251"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="89771251"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 01:05:40 -0700
-X-CSE-ConnectionGUID: 3vteNb54Q3Kngbo49hMSOw==
-X-CSE-MsgGUID: jnaasO8gQCCJM2XgyFSMJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="277702731"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.129])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 01:05:37 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v2 3/3] drm/xe: Route deferred xe_vma/xe_vm teardown off
- system_dfl_wq
-Date: Thu, 24 Sep 2026 10:04:55 +0200
-Message-ID: <20260924080455.25458-4-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924080455.25458-1-thomas.hellstrom@linux.intel.com>
-References: <20260924080455.25458-1-thomas.hellstrom@linux.intel.com>
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0C0510F344
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:14:15 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hr6785yczzKn70;
+ Thu, 24 Sep 2026 10:14:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790237652; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nLIdHlINPPTk97LeeSu2Ngy2+Bo9bivsTeUqxRvwGyQ=;
+ b=PcSLgM2qOACk8/OzB7Ptmfse/AyrMzxlp+/2PAjEifdb4t/9K7gYorqcdevMw23M13D+we
+ sqGyt2l3ml5DEHuVrm/i4PxA/C5ffHl2q5xDJsMGo8UvbG3pv2Ai6dlp84XL2Qq098Brmq
+ 2llMQ1UAskR7Xga6rdK+es6VaMfP0pb0IRtiSookkt7nf81957CzI25rH/moH8mAmjKD25
+ QwMZUXwCSA7egdPsBjmAN0Kl8UHk9QlktgnKr/BqYWbzQJbpK3C1Ctd7+ZgWHgbGYupN6S
+ qGxL6YPzc1SILBJhrQPkNNv967l4YRabS/lnFl3ohnfJYTLb/bC1oVOjuNV1Lg==
+Message-ID: <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 24 Sep 2026 10:14:10 +0200
+In-Reply-To: <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+References: <20260923150308.1294592-2-phasta@kernel.org>
+ <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+ <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+ <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 14u3rqh58rttqsbg5a1nqgx9nck8zahs
+X-MBO-RS-ID: 89c24c99eb9869622cf
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,95 +65,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_vma_destroy() can defer the final teardown of a struct xe_vma to a
-dma_fence completion callback (vma_destroy_cb()), and xe_vm_free() (the
-drm_gpuvm_ops.vm_free callback) always defers struct xe_vm teardown to
-a work item, since destroying a VM needs to sleep. Both used to queue
-their work on system_dfl_wq, a global, kernel-wide workqueue that xe
-has no control over and never waits on during module unload.
+On Wed, 2026-09-23 at 17:35 +0200, Christian K=C3=B6nig wrote:
+> On 9/23/26 17:27, Philipp Stanner wrote:
+> > On Wed, 2026-09-23 at 17:13 +0200, Christian K=C3=B6nig wrote:
+> > > On 9/23/26 17:03, Philipp Stanner wrote:
+> > > >=20
+> >=20
+> > [=E2=80=A6]
+> >=20
+> > >=20
+> > > > 	Consumers of a fence can instead notify themselves by
+> > > > +	 * registering a callback on the fence.
+> > >=20
+> > > Mhm, the wait callback is transparent to consumers it's just that
+> > > implementations used it for quite a number of different hacks.
+> >=20
+> > Right=E2=80=A6
+> >=20
+> > but doesn't the question then become why dma_fence_wait_timeout() even
+> > exists? IOW, shall we deprecate it, too?
+>=20
+> Yes, without the wait callback it is only a wrapper to block the
+> current thread for a dma_fence to signal using a callback.
 
-drm_gpuvm_free() drops its drm_device reference immediately after
-calling xe_vm_free(), without waiting for the deferred work to run.
-The same applies one level down: whichever xe_vma or xe_vm reference
-happens to be the last one can trigger this chain from a dma_fence
-callback that may fire at an arbitrary time, including after the
-owning file has already been closed and its own module reference
-dropped. Since nothing tracks or waits for work queued on
-system_dfl_wq, `rmmod xe` could succeed and free the module's text
-while vma_destroy_work_func() or vm_destroy_work_func() is still
-queued or running on it, jumping into freed code.
+I agree that it's probably quite a common use-case. I'm not sure
+whether it's possible to write a convenient wrapper, though, since you
+need to carry a waitqueue around.
 
-Fix this by queueing this work on xe_destroy_wq instead, the existing
-module-lifetime workqueue already used for GuC exec queue teardown.
-Unlike a per-device workqueue, this requires no dereference of a
-struct xe_device that may already be gone by the time a deferred
-callback fires, and unlike system_dfl_wq it is guaranteed to be
-drained by xe_destroy_wq_module_exit() before the module is unloaded,
-following the drm_pagemap_dev_hold()/unhold_work precedent of using a
-workqueue that is waited on at module unload rather than a bare module
-reference. The previous commit's reordering of xe_destroy_wq_exit()
-to run after xe_device_exit() guarantees that xe_destroy_wq is only
-torn down once the device-count has reached zero, i.e. after any
-xe_vma or xe_vm whose teardown queues work here has already dropped
-its drm_device reference and thus already queued that work.
+Maybe we can put a task for it onto the DRM TODO list?
 
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Assisted-by: LLM
----
- drivers/gpu/drm/xe/xe_module.c | 6 ++++--
- drivers/gpu/drm/xe/xe_vm.c     | 5 +++--
- 2 files changed, 7 insertions(+), 4 deletions(-)
+>=20
+> It's still quite useful to have a common function for that I think.
+>=20
+> > It seems to be a reimplementation of waitqueues. The driver could get
+> > this functionality by using a waitqueue whose event gets triggered by a
+> > fence callback.
+> >=20
+> > dma_fence_default_wait() interacts directly with the task state with
+> > __XX_task() functions which looks very.. deep to me :)
+>=20
+> That is *exactly* what I pointed out as well >10 years ago before that st=
+uff was merged upstream :)
+>=20
+> A wait_event based implementation would be tons of cleaner if you ask me.
 
-diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
-index c61bd33546f2..897724cb5cfb 100644
---- a/drivers/gpu/drm/xe/xe_module.c
-+++ b/drivers/gpu/drm/xe/xe_module.c
-@@ -114,8 +114,10 @@ static void xe_destroy_wq_module_exit(void)
-  * xe_destroy_wq_queue() - Queue work on the destroy workqueue
-  * @work: work item to queue
-  *
-- * The destroy workqueue has module lifetime and is used for GuC exec queue
-- * teardown that can outlive a single xe_device. SVM pagemap destroy uses the
-+ * The destroy workqueue has module lifetime, and is guaranteed to outlive
-+ * any xe_device, and to be drained before the module is unloaded. It is used
-+ * for GuC exec queue and xe_vm/xe_vma teardown that can be deferred past the
-+ * lifetime of the xe_device that triggered it. SVM pagemap destroy uses the
-  * per-device xe->destroy_wq instead.
-  *
-  * Return: %true if @work was queued, %false if it was already pending.
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 390da884c727..ee369e6c3b28 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -29,6 +29,7 @@
- #include "xe_exec_queue.h"
- #include "xe_gt.h"
- #include "xe_migrate.h"
-+#include "xe_module.h"
- #include "xe_pagefault.h"
- #include "xe_pat.h"
- #include "xe_pm.h"
-@@ -1249,7 +1250,7 @@ static void vma_destroy_cb(struct dma_fence *fence,
- 	struct xe_vma *vma = container_of(cb, struct xe_vma, destroy_cb);
- 
- 	INIT_WORK(&vma->destroy_work, vma_destroy_work_func);
--	queue_work(system_dfl_wq, &vma->destroy_work);
-+	xe_destroy_wq_queue(&vma->destroy_work);
- }
- 
- static void xe_vm_assert_write_mode_or_garbage_collector(struct xe_vm *vm)
-@@ -2059,7 +2060,7 @@ static void xe_vm_free(struct drm_gpuvm *gpuvm)
- 	struct xe_vm *vm = container_of(gpuvm, struct xe_vm, gpuvm);
- 
- 	/* To destroy the VM we need to be able to sleep */
--	queue_work(system_dfl_wq, &vm->destroy_work);
-+	xe_destroy_wq_queue(&vm->destroy_work);
- }
- 
- struct xe_vm *xe_vm_lookup(struct xe_file *xef, u32 id)
--- 
-2.55.0
+So you objected and it was merged anyways? With any rationale?
 
+I think I understand now why sometimes people apply a Nacked-by, so
+that it's documented that people objected against merging.
+
+[=E2=80=A6]
+
+> >=20
+> >=20
+> > Well, what I'm trying to say in this docu is that the driver can kick
+> > off custom operations that shall be performed once everyone is "done"
+> > with the fence after signaling it. Any driver data that might still be
+> > around cannot be accessed by fence consumers after signaling anymore.
+> > So the driver could trigger cleanup work after a graceperiod, as long
+> > as it does not involve kfree()-ing the fence itself.
+>=20
+> That sounds sane to me, but I'm not sure how to phrase it cleaner either.
+>=20
+> For now I'm ok with it, maybe somebody else has a better idea to how writ=
+e this.
+
+I try to come up with something slightly better.
+
+
+P.
