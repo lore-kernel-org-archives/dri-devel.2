@@ -4,89 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C439C98310
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD419C98310
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD0510F36A;
-	Thu, 24 Sep 2026 07:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E428610F341;
+	Thu, 24 Sep 2026 07:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b5y96raD";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XFTg7Fc/";
 	dkim-atps=neutral
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com
- [74.125.230.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7433410F36C
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:07:30 +0000 (UTC)
-Received: by mail-lr2-f10.google.com with SMTP id
- 38308e7fff4ca-3a499fd4357so9253441fa.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 00:07:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790233648; cv=none;
- d=google.com; s=arc-20260327;
- b=kO2V4zI9Mko428fa0ccmUEZiEFuPyWPhclLHTVUUuAz8YDcNW/CIqLs9aMIxdlG6UM
- JcPhmqU6JGzFnzvqP6MMgKg9qM976iSe021sVCyutFjAWQ0uHPlZhqzAWBig/3NO65X5
- zx3Y1d/LCw2CRzBy/zloNqyp1aQ8I2PKRV2J+54TaBafI27/Ptw3JF55RBb8DSLFY3a6
- xXYUUKK56VBVyTRHH5CZ4x5RdXlyScGYKgJXvxYQMru0jo1dkROd9UAKCprfB9HMITY6
- 5yOfkIZA5Ajuh0F/UZu68I8geGlXXmR+CUwgj8fmmibJWVKLtQ+kC9wb9MN4OOTpMopH
- bV1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Omcsv3OsXwGCeJM+502nGcJqAvAo2uAuiV3zLSTgZqs=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=sLY9zzgXVU9PAp0HTcNMQ+BbsIBX48ng+wj/JiLnJ5mAxABAKDfiKCsSxNroM9UKTF
- GD961YuRkmdt4uccJ3EDjbrsCruM10iXsG7ixFNF0ogw/qYEbSUwod9lDuxTChaHngy8
- Pr6QpXZXqqnckuGL9kkO3zE6W2xGY+VIDB49bf7ewijPIL2w9pJfuYkzDd/t3xv1OYmA
- CT0sWJ/0MBjtKUwGDaXAf7zZM4aU94oyWqSDxuwRtk0PzEuAYq9bLW+V4DkHq/5keV0T
- tkLvy5pudiI7KdxzCxwpaRdZsijdZsGX5u0r9heXszjrs4wKz6zlgjUowR+fht+gVj7V
- V9vQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF23810E07F
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:09:42 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-48870973bddso250891f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 00:09:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790233648; x=1790838448; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Omcsv3OsXwGCeJM+502nGcJqAvAo2uAuiV3zLSTgZqs=;
- b=b5y96raD1neef8G7oUrX1f0p/D+RvvtAO0JIOnbKPg7ACO2jIXT0aklzzKa4ho+br7
- BIdjw/holhjmMLGrTRWtRJbxmcnZYqxCtp6OtSZuUsi9YCBovF3SRqFAiXg6nueaWVSz
- 4KMtbvfdbWZAwq8OFUlD3LzXWwQxJUVMwHhn1ko+iiXuFM35dS6XWNmB/Nnff7pLO7JV
- Qdb5dgAQERbs/Sog+Ex6yKr1BfDehZsfLar6+6eoweD3Kn/z8CkMph51+IihcJ9Lx5Nu
- zNH9w4fSBSayr3FIo8iyXo0dlak+a7eVMHhTz1/5byszf3cnqeUv/+NBioHTB5EQmr5P
- CtjQ==
+ d=linaro.org; s=google; t=1790233781; x=1790838581; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7avs/biYs8l8E4Q+bkJinfYIswxmGt6u/gkPhCnUaNY=;
+ b=XFTg7Fc/6S1JU5S92TSjEc2IpPNoiI+GzOdjFs6Nc7NrB6HZmQjHY7l0Tdcpw2Ktmy
+ ZcUxFeTZH8jxMj3HmT36vdzN8Ky5sj4nxlNoZMUNjRDpoZmCM6l2cIxZteIWhuu+Uwmh
+ gv/9dfuMBIWhgmTZSDwLRfh4rAqifEv00MAo093m5trjg9+3WIgK4xfeV7T/llPzEcSE
+ K3+5yFaUX3xHF21caFiEZogrvosiNnrit9drNnG9vd1xlRdHpSw+xjSxRWQt3TXeUwyn
+ 9F6OnvlLqUdl+xpUYIfOSwV9vi4ukXIiyz/1Nuo3EMfon21blE5ni9ZlhXypg23qDq+r
+ E3OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790233648; x=1790838448;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Omcsv3OsXwGCeJM+502nGcJqAvAo2uAuiV3zLSTgZqs=;
- b=WdnEESnWiVU9zkPJOb6DBTdwP9UBoiQQ0eyZ92C2/fbGEStGgLvrRnQFma6Spuvtsy
- xY41iMmlIuz5jc2+Zp6+W8S2R7KqPLiEpi5+MMcaBH10TL5r+mf/pVlozC3GSiQRZsnP
- cEzYMdo6IvZZ+yXD38HdXLMuwhunoY5NUdFP+bVPiKr6wtcp0Y0fIKxzU+T149okegPe
- 090DTZ1pnLMzoX1qtqgH3blMu/0FR87VpyZ2mGsdBy5Eeifm7yIyuDFEGlkLIUCaocpV
- iweZ4hHWpxmv/0ijNdTxrujW4kruL8jBrr/Vj0eR+xnK4mJrPZuwWp9G6cpAsvmDUAUO
- uIyg==
-X-Gm-Message-State: AFuF++l+gE4r/yINmOQaNlB3C6/pFyocklac8Dyy2tw4LFGeVFK6bPVc
- dxCVvbtaDlpL2dUNVc2dSRc68Q2prxVJKBWjTdb8T1+XM7O6+nMQ4jiN90OUw9Y5KQBWhJN2itE
- 1sx6SBYHNUxThvYgrdLWCgqGes3lNL+xiet48Vsr5Ug==
-X-Gm-Gg: AYBFou24AdMCg+r8vJagTpt5KI0vDE+yo/Y4qtHS4tqfia33HyaTphMBdZzWDS9ZdVB
- fG6mZ0/vBvALGLTCLYiWhix0/dLKz+wROP676o2Vfq2e45ULogYLpLykMY5KY7koEyKbST39oAg
- cHorBE3egGy19VxJiA4rJSToOWTXy1Hn+j501xZUGRwoxtZ2F/Ss3wBxEtzhzjRH9U0C7Okv9Mi
- 7Vv01Zp/JLnxuvtLJLZZMgm3DS1vThr/hE4fkCnZomezTt4Y+cSkzPtrlVcb6TcLMhIz9ukpjkm
- bEUrn0fSsT76L+3yoqhc+F4lOkn/7/iVLGpEdfFzVRK3F6twvdA6
-X-Received: by 2002:ac2:4432:0:b0:5b6:1a7c:aa12 with SMTP id
- 2adb3069b0e04-5b8df0740a1mr328772e87.42.1790233648057; Thu, 24 Sep 2026
- 00:07:28 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790233781; x=1790838581;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7avs/biYs8l8E4Q+bkJinfYIswxmGt6u/gkPhCnUaNY=;
+ b=o7UvQJZ1rSiPEpuIT/FGlU6J/bXO+TGmFLuFUbR6F0Dz5guuA7MHrHq0/wsYp+9XMW
+ RnXliSGH0yfZGiw+zLftybvr6qEHBi0Sk+tXVKwmTmgNE1h6EL53rGUVYwKUWb6HggCj
+ RvuFcQCePfw2WssXky02132TLpuH+EcjbRba89UMXiNAU0e010cYAE7hUkf3Obn7Endv
+ 4+vGpL/eepezlf2HC2zWP0O81Uw8E9Tb/A55HOkXUZ4Kh0D3CTfW0tyDVNdhZTimUxTJ
+ ww+fi3OH0kORRYSA7rHA6SEz0/C1l3gVWRMcB16qbeOxnSi77vCc7rdw+8i4X3+jQ/D/
+ 4SjA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy0/EHQcSCApqZJypsRcc7GXld//5WnXMhbNLa62w6fqIw5ffqEygtd6EWLkcBmVbWekng+6SkR6xQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nDF3gmUYN6+oZOMsAbSQJckr/gFQC+ok8PwB5um2jc+7OYCODF
+ ND4geexFURszsMGm2rBM4BMLsvJYlBslLk6bGRJwC2Q7cvRDvPkXbcudMglp8oL7hRs=
+X-Gm-Gg: AYBFou2Qt5srKsx6ff4gdfiGsbBs+uo2wIbMQKvhaFQIvtuXz9XcV/g0CoyZQKEBD/i
+ Avy5DEz+oR2cvodHvfkIMgrDcghFPh5cVmhRVuJq2dCOtdwFZlq5kdUqzkMoqA5ggS+h9bwOlgh
+ 7TA1BNdY7FVhKiARtqAlrfkUR2pdbqD30EzKbEckn04KzK5PfPExzRUF6T1QtY6HuosQzdFx7Gt
+ GQpv3PVo2lbwy0V2Yg5atjT8fqpBmRDIteuOoaQQUv+vhGfe0oebXHns/vPrEer1r7ZoRhE7Hx7
+ S6lcwySC9G5bxLTlpaPNitgZAYxBwe4pcgbpiZbS1gCF6FThzBwVi2GMD/zmEEIs7I5xsp/j+6G
+ mFkwrNw07F0F6JTkKgaZjBhiiAj3O83coiTWgaCOmlgX1Wdz5MNdV/Uq66rxFVI3AxmXdJzY097
+ WMnCEE2hTyK31m56NQtbmJ4lRDMQAZ25rHgoCrO45znlb6LTOp57kq2ZQ/TvKwN9kgZTqOqh84K
+ KMbx/ZYwYqMDa/SomRo+dS84Jf9au1w8ghzhvCKEsm9dc4TOFVeShBD297rQOl30wE/frC37a0=
+X-Received: by 2002:a05:6000:1861:b0:487:e:f4f6 with SMTP id
+ ffacd0b85a97d-488716dd323mr2953334f8f.15.1790233780913; 
+ Thu, 24 Sep 2026 00:09:40 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5e86:d153:fdb4:61c0?
+ ([2a01:e0a:106d:1080:5e86:d153:fdb4:61c0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4886877a2a5sm13347227f8f.26.2026.09.24.00.09.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Sep 2026 00:09:40 -0700 (PDT)
+Message-ID: <2e369f45-6c9a-4604-a66e-f35c0904ec0f@linaro.org>
+Date: Thu, 24 Sep 2026 09:09:39 +0200
 MIME-Version: 1.0
-References: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
- <20260923150753.170D11F000FF@smtp.kernel.org>
-In-Reply-To: <20260923150753.170D11F000FF@smtp.kernel.org>
-From: Roman <roman.demidov.nn@gmail.com>
-Date: Thu, 24 Sep 2026 10:07:16 +0300
-X-Gm-Features: AclHuK8B0wcB9AXBAefU608zGQqzZG-52fzOuJjtER2pzb9jjs1oILlcpKXbyq0
-Message-ID: <CA+KF4b+8T9YaZVvA7x2=KMxdxsvJ9QM6hw4-8ft_zDvzB51T1g@mail.gmail.com>
-Subject: Re: [PATCH 5.15 1/2] drm/amdgpu: Use vmemdup_array_user in
- amdgpu_bo_create_list_entry_array
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000a85014065c3540d8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [REGRESSION] Resolutions broken after "drm/msm: dsi: fix PLL init
+ in bonded mode"
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Mohit Dsor <mohit.dsor@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, vishnu.saini@qualcomm.oss.com,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20251027-topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
+ <ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com>
+ <wrhuksrzlxw2pjlvjm37dwjuztcv7qs5t6mqiav4ujecwqdkwj@ozbfxpbgaimt>
+ <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
+ <114b9be8-1fca-4762-822e-1d53838d5de5@leemhuis.info>
+ <o64cxeq5f4ffqpdmbai5cvsmxei2cnw3p6acvu55xl3cj5w3z3@6o6kokszvng7>
+ <akt6z1irWlXA5UIy@hu-mdsor-hyd.qualcomm.com>
+ <493b8d4c-164e-43c9-93c8-40cc251b1c3b@leemhuis.info>
+ <d7v4kwmc42k5ymgdt4mn2qc7dkrf5jj2l5afgyjqrm3pxterl4@guulk22xwlzs>
+ <f77e53d3-fb80-4832-aff7-4ab1244ee4a4@linaro.org>
+ <y64m2frbbg67zfukyuuds5cx65fx3rjxfujbckoerv7sswhk2u@i6p4k3ul4aec>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <y64m2frbbg67zfukyuuds5cx65fx3rjxfujbckoerv7sswhk2u@i6p4k3ul4aec>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,177 +131,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000a85014065c3540d8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 9/23/26 22:58, Dmitry Baryshkov wrote:
+> On Wed, Sep 23, 2026 at 12:48:21PM +0200, neil.armstrong@linaro.org wrote:
+>> Hi,
+>>
+>> On 7/8/26 15:31, Dmitry Baryshkov wrote:
+>>> On Wed, Jul 08, 2026 at 09:26:04AM +0200, Thorsten Leemhuis wrote:
+>>>> On 7/6/26 11:52, Mohit Dsor wrote:
+>>>>> On Wed, Jun 03, 2026 at 03:11:34PM +0300, Dmitry Baryshkov wrote:
+>>>>>> On Wed, Jun 03, 2026 at 11:56:15AM +0200, Thorsten Leemhuis wrote:
+>>>>>>> On 5/4/26 22:09, Mohit Dsor wrote:
+>>>>>>>> Sorry for the late reply. I am attaching clk_summary and reg_dump in
+>>>>>>>> working and non working case. Lilliput is just a normal display working
+>>>>>>>> with hdmi and has 720p as preferred mode. Yes, I was talking about RB3
+>>>>>>>> Gen2 only.
+>>>>>>>
+>>>>>>> Neil, Dmitry, and Mohit: what's the status here? From the outside it
+>>>>>>> looks like this regression is still unfixed with nothing happening for
+>>>>>>> weeks now. Or has progress been made and I just missed it?
+>>>>>>
+>>>>>> Thanks as a reminder. Unfortunately, it takes some more time (and I've
+>>>>>> been a bit overloaded lately). Worst case I will send a revert soon.
+>>>>>>
+>>>>> Just wanted to check if you had a chance to look into this issue and whether there's any update on the investigation from your side.
+>>>> Hmm, no reply. Given that we are entering holiday season and are way
+>>>> past what Linus expects in a situation like this[1] I'd say we should go
+>>>> for a revert, unless some fix shows up really soon now.
+>>
+>> Sorry I'm very late to the party, and checked again, reverting this breaks all dual-DSI setup
+>> on SM8650, and probably other similar SoCs.
+>>
+>> Here's a complete log of the breakage which appears on the Ayaneo PS2 running v7.3-rc3 with mainline panel driver: https://gitlab.postmarketos.org/-/snippets/65
+>>
+>> I don't see why my fix did break this use case since it reverted the way the dual DSI PHYs
+>> were initialized to actually allow the dual-DSI setup.
+> 
+> See commit cb55f39bf7b1. Without PLL_SHUTDOWNB and DIGTOP_PWRDN_B most
+> of the PLL registers read as zero. Currently the regs are handled
+> correctly (almost). With your patch in place the SHUTDOWNB gets dropped,
+> making PLL loose reg contents (and return 0 to CCF as the selected divisor).
+> Current code depends on those two bits being set across host_power_on.
 
-vmemdup_array_user() is already available in 5.15.y via commit 24b17d530c42
-(string.h: add array-wrappers for (v)memdup_user()). So there is no
-implicit declaration or pointer truncation, and the described build failure
-does not apply to the target stable tree.
+Thanks I'll have a look.
 
+Neil
 
-=D1=81=D1=80, 23 =D1=81=D0=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 18:0=
-7, <sashiko-bot@kernel.org>:
+> 
+>>
+>> Thanks,
+>> Neil
+>>
+>>>>
+>>>> Ciao, Thorsten
+>>>
+>>> Please send a revert.
+>>>
+>>>>
+>>>> [1] To quote Linus statements from
+>>>> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
+>>>>
+>>>> """
+>>>>   From 2026-01-22:
+>>>>
+>>>>    But a user complaining should basically result in an immediate fix -
+>>>>    possibly a "revert and rethink".
+>>>>
+>>>> With a later clarification on 2026-01-28:
+>>>>
+>>>>    It's also worth noting that "immediate" obviously doesn't mean "right
+>>>>    this *second* when the problem has been reported".
+>>>>
+>>>>    But if it's a regression with a known commit that caused it, I think
+>>>>    the rule of thumb should generally be "within a week", preferably
+>>>>    before the next rc.
+>>>> """
+>>>
+>>
+> 
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> - [Low] build: missing vmemdup_array_user helper
-> --
->
-> commit 4d70c808a81c22c8b9f6c03847fa45f071b2e967
-> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->
-> drm/amdgpu: Use vmemdup_array_user in amdgpu_bo_create_list_entry_array
->
-> This commit replaces kvmalloc_array() + copy_from_user() with
-> vmemdup_array_user() on the fast path. This aims to shrink the source cod=
-e
-> and improve separation between kernel and userspace slabs.
->
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> > index 15c45b2a39835..b364f3f5fb918 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> > @@ -223,43 +223,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list
-> *list)
-> >  int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in=
-,
-> >                                     struct drm_amdgpu_bo_list_entry
-> **info_param)
-> >  {
-> [ ... ]
-> >       /* copy the handle array from userspace to a kernel buffer */
-> > -     r =3D -EFAULT;
-> > -     if (likely(info_size =3D=3D in->bo_info_size)) {
-> > -             unsigned long bytes =3D in->bo_number *
-> > -                     in->bo_info_size;
-> > -
-> > -             if (copy_from_user(info, uptr, bytes))
-> > -                     goto error_free;
-> > -
-> > +     if (likely(info_size =3D=3D bo_info_size)) {
-> > +             info =3D vmemdup_array_user(uptr, bo_number, info_size);
->
-> [Severity: Low]
-> Does this code call a function vmemdup_array_user() that does not exist i=
-n
-> this kernel tree?
->
-> When compiling drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c with
-> CONFIG_DRM_AMDGPU=3Dy or m, this will result in a build failure due to an
-> implicit function declaration in amdgpu_bo_create_list_entry_array(). If
-> the
-> compiler allows implicit declarations, it would assume a 32-bit int retur=
-n
-> type, which truncates the pointer on 64-bit systems and can lead to an
-> invalid pointer dereference or use-after-free when IS_ERR(info) or
-> kvfree(info) is called later.
->
-> > +             if (IS_ERR(info))
-> > +                     return PTR_ERR(info);
->
-> --
-> Sashiko AI review =C2=B7
-> https://sashiko.dev/#/patchset/20260923145453.76114-1-roman.demidov.nn@gm=
-ail.com?part=3D1
->
-
---000000000000a85014065c3540d8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail-ds-message gmail-_63c77b1"><div class=
-=3D"gmail-ds-markdown gmail-ds-assistant-message-main-content"><blockquote>=
-<p class=3D"gmail-ds-markdown-paragraph"><code>vmemdup_array_user()</code><=
-span class=3D"gmail-"> is already available in 5.15.y via commit </span><co=
-de>24b17d530c42</code><span class=3D"gmail-"> (</span><code>string.h: add a=
-rray-wrappers for (v)memdup_user()</code><span class=3D"gmail-">).
- So there is no implicit declaration or pointer truncation, and the=20
-described build failure does not apply to the target stable tree.</span></p=
-></blockquote></div></div></div><br><div class=3D"gmail_quote gmail_quote_c=
-ontainer"><div dir=3D"ltr" class=3D"gmail_attr">=D1=81=D1=80, 23 =D1=81=D0=
-=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 18:07, &lt;<a href=3D"mailto:s=
-ashiko-bot@kernel.org">sashiko-bot@kernel.org</a>&gt;:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">Thank you for your contribution! Sas=
-hiko AI review found 1 potential issue(s) to consider:<br>
-- [Low] build: missing vmemdup_array_user helper<br>
---<br>
-<br>
-commit 4d70c808a81c22c8b9f6c03847fa45f071b2e967<br>
-Author: Tvrtko Ursulin &lt;<a href=3D"mailto:tvrtko.ursulin@igalia.com" tar=
-get=3D"_blank">tvrtko.ursulin@igalia.com</a>&gt;<br>
-<br>
-drm/amdgpu: Use vmemdup_array_user in amdgpu_bo_create_list_entry_array<br>
-<br>
-This commit replaces kvmalloc_array() + copy_from_user() with<br>
-vmemdup_array_user() on the fast path. This aims to shrink the source code<=
-br>
-and improve separation between kernel and userspace slabs.<br>
-<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_bo_list.c<br>
-&gt; index 15c45b2a39835..b364f3f5fb918 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c<br>
-&gt; @@ -223,43 +223,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *l=
-ist)<br>
-&gt;=C2=A0 int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_=
-in *in,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_am=
-dgpu_bo_list_entry **info_param)<br>
-&gt;=C2=A0 {<br>
-[ ... ]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* copy the handle array from userspace to a=
- kernel buffer */<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0r =3D -EFAULT;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (likely(info_size =3D=3D in-&gt;bo_info_size))=
- {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long bytes =
-=3D in-&gt;bo_number *<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0in-&gt;bo_info_size;<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (copy_from_user(in=
-fo, uptr, bytes))<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0goto error_free;<br>
-&gt; -<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (likely(info_size =3D=3D bo_info_size)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0info =3D vmemdup_arra=
-y_user(uptr, bo_number, info_size);<br>
-<br>
-[Severity: Low]<br>
-Does this code call a function vmemdup_array_user() that does not exist in<=
-br>
-this kernel tree?<br>
-<br>
-When compiling drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c with<br>
-CONFIG_DRM_AMDGPU=3Dy or m, this will result in a build failure due to an<b=
-r>
-implicit function declaration in amdgpu_bo_create_list_entry_array(). If th=
-e<br>
-compiler allows implicit declarations, it would assume a 32-bit int return<=
-br>
-type, which truncates the pointer on 64-bit systems and can lead to an<br>
-invalid pointer dereference or use-after-free when IS_ERR(info) or<br>
-kvfree(info) is called later.<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(info))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return PTR_ERR(info);<br>
-<br>
--- <br>
-Sashiko AI review =C2=B7 <a href=3D"https://sashiko.dev/#/patchset/20260923=
-145453.76114-1-roman.demidov.nn@gmail.com?part=3D1" rel=3D"noreferrer" targ=
-et=3D"_blank">https://sashiko.dev/#/patchset/20260923145453.76114-1-roman.d=
-emidov.nn@gmail.com?part=3D1</a><br>
-</blockquote></div>
-
---000000000000a85014065c3540d8--
