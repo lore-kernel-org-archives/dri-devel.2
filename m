@@ -4,56 +4,175 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA9EC98310
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 08:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B632C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 08:21:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A945110F3A5;
-	Thu, 24 Sep 2026 08:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7057F10E937;
+	Thu, 24 Sep 2026 08:21:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="Bg/YesFj";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="LgsUvQwQ";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="V3wgucn1";
 	dkim-atps=neutral
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
- [113.46.200.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA1210F345
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:17:53 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=6kjXznkOnXGtV+t4t+Sino0ktTMNsnonA1JZVorFzVc=;
- b=Bg/YesFjrCeY4YYqSRTL3qpsM4zkBYiiYhdKfu8kmoap8FzGQsToKq4C0iJjoesz/4IuVajQt
- 3JWSCPlubz4q7CzKXL84AcpJOkTEFzCsRhCfaR5cGzq0fQObnWbSY0I8tydbMldKh8mUcm2nTJ3
- az3YheAWjP+ISJkZeugY5Ys=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hr5xP3N5pz12LHt;
- Thu, 24 Sep 2026 16:05:45 +0800 (CST)
-Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
- by mail.maildlp.com (Postfix) with ESMTPS id 1E4074057F;
- Thu, 24 Sep 2026 16:17:51 +0800 (CST)
-Received: from localhost.huawei.com (10.169.71.169) by
- kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 16:17:50 +0800
-From: Yongbang Shi <shiyongbang@huawei.com>
-To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
- <tiantao6@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <shuliubin@huawei.com>,
- <chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <shiyongbang@huawei.com>,
- <helin52@h-partners.com>, <shenjian15@huawei.com>, <shaojijie@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH for drm-misc-fixes v3 2/2] drm/hisilicon/hibmc: Add a flag to
- indicate whether the OS-side driver has been loaded
-Date: Thu, 24 Sep 2026 16:06:09 +0800
-Message-ID: <20260924080609.3681795-3-shiyongbang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924080609.3681795-1-shiyongbang@huawei.com>
-References: <20260924080609.3681795-1-shiyongbang@huawei.com>
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBDE310E937;
+ Thu, 24 Sep 2026 08:21:49 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68O5dsRx1074426; Thu, 24 Sep 2026 09:21:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ dk201812; bh=AcNVBh5HFPB2JuNZmeHJi14h/XRXzt19gMFTiE0w/WU=; b=Lgs
+ UvQwQDROBKyGY/9+svBrSn2Yy2c7lh6OMKpCXuxRixLsg7FuEkAOtN/eTvXAPgzc
+ Wai0K+andosI1OqhbTm8poXUmHaf7tLhOycMgP4Y+8j3y4KG08mr0NtPayBrH6Mp
+ cy6IuzsEcZCoL9e68rXXcwfZShp2TR4sNyHoiaA/XLT7e7scn1cOgd9gGBgB6zaS
+ uPpwm4wwA7qXEMB63qaORv74BtZV8XwTvGQOsCJQ/nPN6XmWrPsfQ7yZdaiWu7q7
+ Or080Lk4F6wGoyEPNQnyWrqKvvbvGoWiTj98egnh2j5eIAOfn51UDV59eXIHyi6/
+ cY8EwfN1LtKWJajc3Dw==
+Received: from cwxp265cu008.outbound.protection.outlook.com
+ (mail-ukwestazon11020111.outbound.protection.outlook.com [52.101.195.111])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq3x5e-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 24 Sep 2026 09:21:29 +0100 (BST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yyloK1nDdNMG1X2gbnYE6/sfvghDCnQG9hFo0hV9l48pdaPo0mFTUCvddLvYjEzpO2TxTYoGoacNEZB1e1nteLh+dg4Cobi8Ggz9RAGhUC4raIcpzzWQ39ajiDImVBxg8kLhPEX4DCwW62yzKqOVqdw+aMltMb93/tOOAqRCvSsDgX5d8DYXw5ob+aLL+085VeOIB+wIZhvkfOyxwGNcVGPfgRcRSRCwR6/ttLKa9pHX8Hgly0t2M3mt2qkW8tH8Qe226CcTuW/OEdM6G4YIBqJv/Uq77K5TLO4riVCpw6Zc1PwLpRqEn3G7LgEHCkkC+71ENIh+81oYjNPQI82a7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AcNVBh5HFPB2JuNZmeHJi14h/XRXzt19gMFTiE0w/WU=;
+ b=FbOkXxF2EHYnIvmuEIm7WMI+Hsc/ZQykqQ61+/IXUb/PWMDuqzR1tqjR5MH64XEr7d6pf/8gh/n1JExaKVGklsf3dz6gG6jIE7AQQR5D81o7VHH9Oe89iCMouEMwyEgdIWjFypGKAkUEZTkYQsq17zJBIw2WlQEmq2qPf1BYSv+38gE31nscge7OLGvjdWw77c3TaWGVJY5rI0lCyhzx/ligLY8QJ08ePklBfY+6QUovhuMFQFwcbq1l+snxNF8XJK2tgnXNewxblBKiKjyePcFTOe21O5w3HyGocTh75+3ncfscLLy1p3tYnW1XLtJzPLrjm8jHM4JjcLfd0IXMCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AcNVBh5HFPB2JuNZmeHJi14h/XRXzt19gMFTiE0w/WU=;
+ b=V3wgucn1mlTtK20CI+nSawKX1X0iZ3yJti/3u1z3y205gLyAHNetfuAOU3duGQmhuB9PZrjQ4PcdXPIb3nKvfn0BhV6IlG8kbw6O5y9DpGus6cf/lrVhzIXDvWIfjFCHRF0yVIDzOkRNaQcTB8CImlozjLoVy52vkLREAAmPddM=
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
+ by LO7P265MB7955.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:410::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 08:21:26 +0000
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 08:21:26 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: "hppiscas@163.com" <hppiscas@163.com>
+CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>,
+ "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "matt.coster@imgtec.com"
+ <matt.coster@imgtec.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "donald.robson@imgtec.com"
+ <donald.robson@imgtec.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, Frank Binns
+ <Frank.Binns@imgtec.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "sarah.walker@imgtec.com"
+ <sarah.walker@imgtec.com>, "mripard@kernel.org" <mripard@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "boris.brezillon@collabora.com" <boris.brezillon@collabora.com>
+Subject: Re: [PATCH v2] drm/imagination: clamp freelist reconstruction requests
+Thread-Topic: [PATCH v2] drm/imagination: clamp freelist reconstruction
+ requests
+Thread-Index: AQHdS/2w0mMrIwJjBUKPsTkHDjM4yw==
+Date: Thu, 24 Sep 2026 08:21:25 +0000
+Message-ID: <a5cabd93fa2950b339433f8a452bd92661396e7d.camel@imgtec.com>
+References: <20260920034329.16614-1-hppiscas@163.com>
+In-Reply-To: <20260920034329.16614-1-hppiscas@163.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LO7P265MB7955:EE_
+x-ms-office365-filtering-correlation-id: c5593d0a-d7f4-4cd3-5d7e-08df1a14d37f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|56012099006|38070700021|3023799007|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: 7FKXGXpH1B7NB7Tj1cuC/XPVRiMQQE7Wd8l4w7KUtZuQjOKrW19LmfxPq+D9cJ8AXmRAzXUeyaBMn5zUG6BJJZGGtlN/TVBVtppecdNtE9S+bCchAlrpJuJCV5tffO3PmFkVUys3g+PJcChWmLuHtCYZssKMQk94XM7FRk4PzpdWB+JXob8FiH3EBQl6nuUPTCn8f5s/nGDlvgs0O9uRei5rXYtTxk7R2Zzv8P/hN15N90DyVXtHt547xu/IY6ClAZWNeuceVJJdX0xOcb4XoTeYq/EWtPP818FAgI3J+bxsvqeMAzN1nYxesj3YNIpnlqhZ0Svc3gAsN2qBjhpCW6H+uuJ/C8pvqcmcw8J6puGcMqNYLV5XmZisY1lxTRapRwQ6W6lQ5Ml+Q90dBi/QsPWK8ICGiLeQXEWJ+3Mi7WLZqPVlTzWEv1otcN7XbfCiGHxazrVVT+L1nQ6h+To3ZJXvAzycxlsPiCydnN+0CwymNZ73DpFUrCvFmnosNO65lVT/FAChJcxuatmQBwrYIxghotraqdil3A8LJf2lsu4SKADRx53j74646Cy/06EUU1V36fK7BDOQIHMFWz07Tm7nX0PLE1cCjoA+Qdd9Wr7ijnV0zNNKDhY9uP6Kn6fQpYKEV4SlfzLAo3aDn14eeKfFreUK6+0cm/idRBpt4udq6jRAyQqXIkjuNRDp3uRl2u1+GM+p3XZGkv/XiBnKWTtLSKWJb/3+LPuAp9MKmOg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(56012099006)(38070700021)(3023799007)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MDJJalFHeFJLdEN1NmM1RHdpOGlmelljOFZjVnpoKzBxczAya2xJNjlINlJp?=
+ =?utf-8?B?RDNFUzFxRmhhaFRaekZTdWRTUkFKUGQyQTNoakpTLzZ4K0dtRzJISkpHbFE1?=
+ =?utf-8?B?eWlFdmVEZjNOb0M0ZkRBU005NmsvK0JkZDFMdUsvTmx1ckxsZjJGcXNKMUcy?=
+ =?utf-8?B?bGhWa3VhUDZpaXN4eHJicWpxdERGUUFGV2JGV1BDR0p3ZWhxQmM2eUFHQTRi?=
+ =?utf-8?B?S0IvYmcwVWliK2RDaDZXc2xQR3VEQ3pIdVpTUFRrTjNjcisybWJRV0lHVTBn?=
+ =?utf-8?B?Q1BLZCtFbEFmN2MxWGV4VVE5b2lHcFdnTWVCS2NoNTFhMUx1QUFpM045OWpk?=
+ =?utf-8?B?RFlmY043aDFuN2xxVUZVblgzZ2VrUERCSGJpb1ZJcnNqL2ZWdXFmTWNPTlFi?=
+ =?utf-8?B?TndVcHFIcTJYNVVUR21jVGRWT1RwRGM4bW8za1c4U1lUank4TFUvb1pmRll6?=
+ =?utf-8?B?akRvV3ZvMExURTBlTnZob1RkQStyRWpzcXQ2WDBwaXVHanhkbXVSaUFXbnpQ?=
+ =?utf-8?B?R3locHBqYzJ2cTZtZ1pPL0dlWG5RNEFSK1VlZThsYVllMHZsYW0wN0NTNG83?=
+ =?utf-8?B?Szc4dWRvNENuY0t1MzhTK2xOYktUeUdYTTFDdldKWWhRRlo4Um8yZGxNYmMx?=
+ =?utf-8?B?VERHcDRnODlGNVpzVk5mbmlvNFpEeHpURU52Q1FDbDY5b0lzSTlvWmRaSXNF?=
+ =?utf-8?B?MHc3VHdZdkRnbUdyL3VmaGRHK2dIR2FZMC9mLzRxREVXWm1nbHVXdlZPb01x?=
+ =?utf-8?B?S010Q05yTi83c1Z5QzJGalZSR1A1Y1hvUE5VQjZ2Q2RtU1dhaGI0L09ScWoz?=
+ =?utf-8?B?anJsZEdQQlYzbWhMTjh5V0dBS2ZJb01kL1hYajdGakhieldUanhsWlRzaU9B?=
+ =?utf-8?B?VVhsSDZqUVlLZlYrV24zU2djSHVFV3h6WVUvK3V0TkVxZEM5bEpRckdPa0p5?=
+ =?utf-8?B?cUJMTVp2MkVSUWNPc2xJcHVSdWw4REF4SjR3ZGRIMmw3amprZHBRT3pHeFlq?=
+ =?utf-8?B?M0ZoSDdLb0RSQjkzV2h5QWk0aUtrSFk0V1dPa09tblc5L2xyUnBoMVgwRG9x?=
+ =?utf-8?B?UVBQS2FSSFpyZXYyVU83c3BvWU1xcnRTTFRLK3JrRE5QWFJuUXdKaVYvM3Js?=
+ =?utf-8?B?NDRBaTdoUFN5WXNVWDJGRXJQTFZuUjFZdHoxaDVFWHBVMHZwZXZzZGV4cGNL?=
+ =?utf-8?B?VHF0SnJWa3liUHVxWk8vZ2JLU3lBclhoN0lRMmk1c0MrZmtIYkQ5TFpIOHdj?=
+ =?utf-8?B?NStCRURZYWl6NGliSFdQaVpVWkhmWDhvMytBemRQTjZDaWZ4Tzh5dTdLZy9j?=
+ =?utf-8?B?YmIwOFZNTG9oQ3JpQ3N2ekF6VmhKK2xmUnR1NnNoMFdUMllkdkZpblJ3Qmdp?=
+ =?utf-8?B?a25xVlkvVDgxZHdQeDQ5ZCtwTjRwSllVT3V1YmZScVI4L2xleU1wOEJMMUpI?=
+ =?utf-8?B?SnpoT0ZJbHdQd2dWTm9kN052SGlXOXVtQXUzT3U4V0JvZVRTUUQyK2dvV3dw?=
+ =?utf-8?B?SS9VWThVZ1ROcmUxMnAvbmpIK1FxNDIxWEI4Z0MzSUxvZU1rUnN3SUt4UThD?=
+ =?utf-8?B?UEZPZWw2eG5vMHpqTWQvV0R3U3FNSEtEYldJaklHaFdiRTFJT2NkRWNNeW56?=
+ =?utf-8?B?SnBTb2JHMnRrSDl0SWt3SjduamFNaktlYkp1NnQwbjd1ZHlhZUxYQU54NWtH?=
+ =?utf-8?B?ejRLK1VKKzYzSE1VVFF4dkU0dzFJSDVNTGg3ZmRpZVNKTmJEWTJyQWR5dmx4?=
+ =?utf-8?B?WENnNDFLSWZSWjg1ZEJKd3F2MWxvamJaY2Z6OGFDTGZFWUI4Vk5oOUhOdXpW?=
+ =?utf-8?B?TC9hK3pzOVJmS2FKdjdlTGg3TksraDEzaExUeWNuUkYyTW5Ka0I4N3g3cWd6?=
+ =?utf-8?B?akJXcWJONUQzMEt4Z1k5R09FWmY5dzFaRHFxWnI0a3ZlUFpMMHNjZDRqRkh6?=
+ =?utf-8?B?b3dhd3RGeTZUNjc0OFEvSC9LL2NWVFRHbk1IaGpqMEc1c3RPbTk1bkllY2sv?=
+ =?utf-8?B?RlBveE1CTmVUZTNIbi9LV0FrWUdrbHhwbGVIbGwrSWo4OW1FODl1QW5kbm9z?=
+ =?utf-8?B?bHZHR2x4YlVwUG5LWVZMNG1MdXhwTDkvTnJDZFk0Ky9zMUY0a3MvSExKTVYr?=
+ =?utf-8?B?SWxDY0Rmb3lXcjI1R1d5Um1RUm14QkkyOTBaREkwM2xaaGYzdkttSDhaeklj?=
+ =?utf-8?B?Z3ExM3NFYldaZkxMYW5QZ3c5L0Npb2ZKdFJnL0YvMkNQQ2pRRWplY3lveElN?=
+ =?utf-8?B?MXpVWlBsdXdSYUtYTENOQnM3eXdSc3Y1QTBaS0pFdTN3V05ReFM3RW9Yb0R2?=
+ =?utf-8?B?SFlvNnRXd2FzRFV2YUdVOVE5bmM3Q2hRZWNWeVFrOWlxVFVFRXFNcEpyNmV2?=
+ =?utf-8?Q?5CKv5Ly0J+6ZI+gM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <04AF3779BB2F3E4EBAEF60508C82C352@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.169.71.169]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200005.china.huawei.com (7.202.194.71)
+X-Exchange-RoutingPolicyChecked: y7mGAaanp28X8Qs7Xxn+yvP87CVui+7h2kfQmfJKPNSypSqO/A8mXhnHit4gC3iPecKW3qUkOsxyolU6pjrmrXe2sb5pCroeOS4ptdcZLe3IWshxgdxlj2/FyH4aTlUQs6C8nZ6x18yf3EFKvz5kn4GJnY55xpH3qpp1U6vjB/k1N49XcpxT6lYfVq7hUUhl4EyzIrjkUwTaO493AWIg81BCVfRjgdXI3dq7LnubPyRWI8WZKxc21clkTgsm2h5yg74+V1nHk5GNnAq8uivqwHiFhAU6MYqOWxaLlgVdtvw031HtOrxJHIe0PMYCdVAFhwpUMoWQpyhNny99VS70/Q==
+X-OriginatorOrg: imgtec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5593d0a-d7f4-4cd3-5d7e-08df1a14d37f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 08:21:25.9435 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +h9FgWpFvVB//ZS1Ip5mqzXwFXZ44CfOT/D8dikoAlAhJln55kd8dfC12EBg0De9Ih7LynNR/SPzHGXp+7rvEF6SAoYdJLzVfyjV5g8YgK4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7955
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNSBTYWx0ZWRfXxkXUqQLkK9Sz
+ b/sw9VPaRU3u+EwERZK7RKtQn0DD71E7q4jmM+eVwL+WWQfUn4V6klCPwQZFASVwMAX7TXYNA/j
+ kYTJWvAHMQ/HqDwXLVYNr2ogR3LqLzAtUDa82OpWFk33+3ifDTH9T+fKa4s0Hsm/3AbqUkyKzZ4
+ BjuWk1nRlIZWWsTzAOqPiwC9dqFcQ4Tq1HU02uFkfjysc368jAkAzBQXqGEswtnYVbMmPC9o0Bi
+ 59qXPTGN0Wl5iCqbfPsAJI9FXVZ25gNCRijNJGltA/Hr7NX3VfoTxfsVdUDxmyyW9Sf2x3luQu7
+ zQMD23KIBRI/MJd1lJXHlnSKst4Y0j74sHms43kiltNui0nQqJ37vhncWk8Zh2bxR1sQJfBfmu9
+ 2N6SXEnu3Gw2IYfAO27BvukEtwtf5RQCVWB+vYeeTB4RyrPI+NU54X2FCx31rXi/m6fQMWEfQUs
+ yvPfjaFy408B7+Wdjmw==
+X-Proofpoint-ORIG-GUID: hvBAqTPitJAIub1qNvyvhWuutXYcBqG0
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab4dd89 cx=c_pps
+ a=k8t8RstfKGYyU8/8NkkDbA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=VwQbUJbxAAAA:8
+ a=Byx-y9mGAAAA:8 a=r_1tXGB3AAAA:8 a=o0uOSWsYa0IRoul4HicA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: hvBAqTPitJAIub1qNvyvhWuutXYcBqG0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNSBTYWx0ZWRfX+PZFr6hu6Mau
+ Ps890eG9mscU5AvBAJvEWj4y8C1ZXtKsqhWlggcrk+Aa4ggtudlK47qLzoHVDOahpbvARP14rRH
+ 3UPz3iT3O+8gPCpavN0pK/wFBuqeUok=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,187 +188,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lin He <helin52@huawei.com>
-
-Add a flag to indicate whether the OS-side driver has been loaded to
-prevent the BMC from enabling DP if the driver is not loaded, which could
-lead to system failure in handling interrupts and generate error messages
-like:
-
-irq xx: nobody cared (try booting with the "irqpoll" option)
-...
-Call Trace:
-<TRQ>
-...
-
-Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
-Signed-off-by: Lin He <helin52@huawei.com>
-Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
----
-ChangeLog:
-v2 -> v3:
-  - Move hibmc_set_enable_flag() before drm_dev_register() and
-    hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
-    race window. (sashiko-bot)
-  - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
-    operations on 0x0802A4. (sashiko-bot)
-v1 -> v2:
-  - The call to `hibmc_set_enable_flag()` has been moved before
-    `drm_client_setup()`, specifically before the connector detection
-    triggers the I2C bit operation. (sashiko-bot)
-  - A read-modify-write operation has been implemented instead of directly
-    writing to prevent clearing the I2C mask bits. (sashiko-bot)
----
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 30 +++++++++++++++++++
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 ++
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 ++++++++++--
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
- 4 files changed, 51 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 4ab0e565cb13..9859492da5fa 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -167,6 +167,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
- 	if (ret)
- 		return ret;
- 
-+	spin_lock_init(&priv->gpio_lock);
-+
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
- 	dev->mode_config.max_width = 1920;
-@@ -423,6 +425,30 @@ static int hibmc_load(struct drm_device *dev)
- 	return ret;
- }
- 
-+static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
-+{
-+	unsigned long flags;
-+	u32 value;
-+
-+	spin_lock_irqsave(&priv->gpio_lock, flags);
-+	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-+	value |= HIBMC_ENABLE_STATE;
-+	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-+	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-+}
-+
-+static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
-+{
-+	unsigned long flags;
-+	u32 value;
-+
-+	spin_lock_irqsave(&priv->gpio_lock, flags);
-+	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-+	value &= ~HIBMC_ENABLE_STATE;
-+	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-+	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-+}
-+
- static int hibmc_pci_probe(struct pci_dev *pdev,
- 			   const struct pci_device_id *ent)
- {
-@@ -458,6 +484,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 		goto err_return;
- 	}
- 
-+	hibmc_set_enable_flag(priv);
-+
- 	ret = drm_dev_register(dev, 0);
- 	if (ret) {
- 		drm_err(dev, "failed to register drv for userspace access: %d\n",
-@@ -470,6 +498,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 	return 0;
- 
- err_unload:
-+	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
- 	hibmc_unload(dev);
- err_return:
- 	return ret;
-@@ -480,6 +509,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
- 	struct drm_device *dev = pci_get_drvdata(pdev);
- 
- 	drm_dev_unregister(dev);
-+	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
- 	hibmc_unload(dev);
- }
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-index dce8572bf63e..c2a82000ea7f 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-@@ -49,6 +49,8 @@ struct hibmc_drm_private {
- 	struct drm_crtc crtc;
- 	struct hibmc_vdac vdac;
- 	struct hibmc_dp dp;
-+
-+	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
- };
- 
- static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-index 44860011855e..4ceb87efec05 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-@@ -27,7 +27,11 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
- {
- 	struct hibmc_vdac *vdac = data;
- 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
--	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-+	unsigned long flags;
-+	u32 tmp_dir;
-+
-+	spin_lock_irqsave(&priv->gpio_lock, flags);
-+	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
- 
- 	if (value) {
- 		tmp_dir &= ~mask;
-@@ -41,20 +45,29 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
- 		tmp_dir |= mask;
- 		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
- 	}
-+	spin_unlock_irqrestore(&priv->gpio_lock, flags);
- }
- 
- static int hibmc_get_i2c_signal(void *data, u32 mask)
- {
- 	struct hibmc_vdac *vdac = data;
- 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
--	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-+	unsigned long flags;
-+	u32 tmp_dir;
-+	int ret;
-+
-+	spin_lock_irqsave(&priv->gpio_lock, flags);
-+	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
- 
- 	if ((tmp_dir & mask) != mask) {
- 		tmp_dir &= ~mask;
- 		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
- 	}
- 
--	return (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
-+	ret = (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
-+	spin_unlock_irqrestore(&priv->gpio_lock, flags);
-+
-+	return ret;
- }
- 
- static void hibmc_ddc_setsda(void *data, int state)
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-index 17b30c393b10..b95add5b253c 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-@@ -200,5 +200,8 @@
- 
- #define HIBMC_CRT_PALETTE                       0x80C00
- 
-+#define HIBMC_ENABLE_FLAG			0x802A4
-+#define HIBMC_ENABLE_STATE			BIT(2)
-+
- #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
- #endif
--- 
-2.43.0
-
+T24gU3VuLCAyMDI2LTA5LTIwIGF0IDExOjQzICswODAwLCBQZW5ncGVuZyBIb3Ugd3JvdGU6DQo+
+IFRoZSBmaXJtd2FyZSByZWNvbnN0cnVjdGlvbiBjb3VudCBjb250cm9scyBhY2Nlc3NlcyB0byB0
+aGUgcmVxdWVzdCdzDQo+IGZpeGVkIGZyZWVsaXN0IElEIGFycmF5IGFuZCB0aGUgY29weSBpbnRv
+IHRoZSBmaXhlZCByZXNwb25zZSBhcnJheS4NCj4gTmVpdGhlciBhY2Nlc3MgY3VycmVudGx5IGJv
+dW5kcyB0aGUgY291bnQgdG8gdGhvc2UgcHJvdG9jb2wgYXJyYXlzLg0KPiANCj4gQ2xhbXAgdGhl
+IGNvdW50IHRvIHRoZSByZXF1ZXN0IGNhcGFjaXR5LCB3aGljaCBpcyBzaGFyZWQgYnkgdGhlIHJl
+c3BvbnNlDQo+IGxheW91dCwgYW5kIHVzZSB0aGF0IGNvdW50IGNvbnNpc3RlbnRseSBmb3IgcmVj
+b25zdHJ1Y3Rpb24gYW5kIHJlc3BvbnNlDQo+IHB1YmxpY2F0aW9uLiBLZWVwIHRoZSBmaXJtd2Fy
+ZSByZWNvdmVyeSBleGNoYW5nZSBpbnN0ZWFkIG9mIGRyb3BwaW5nIGFuDQo+IG92ZXJzaXplZCBy
+ZXF1ZXN0IHdpdGhvdXQgYSByZXNwb25zZSwgYXMgZGlzY3Vzc2VkIHdpdGggdGhlIGZpcm13YXJl
+DQo+IG1haW50YWluZXIuDQo+IA0KPiBUaGUgaXNzdWUgd2FzIGZvdW5kIGJ5IG91ciBzdGF0aWMt
+YW5hbHlzaXMgdG9vbC4NCj4gDQo+IEZpeGVzOiA2ZWVkZGRhYjczM2IgKCJkcm0vaW1hZ2luYXRp
+b246IEltcGxlbWVudCBmcmVlIGxpc3QgYW5kIEhXUlQgY3JlYXRlIGFuZCBkZXN0cm95IGlvY3Rs
+cyIpDQo+IEFzc2lzdGVkLWJ5OiBncHQgNQ0KPiBTaWduZWQtb2ZmLWJ5OiBQZW5ncGVuZyBIb3Ug
+PGhwcGlzY2FzQDE2My5jb20+DQoNClJldmlld2VkLWJ5OiBBbGVzc2lvIEJlbGxlIDxhbGVzc2lv
+LmJlbGxlQGltZ3RlYy5jb20+DQoNClRoYW5rcywNCkFsZXNzaW8NCg0KPiAtLS0NCj4gQ2hhbmdl
+cyBzaW5jZSB2MToNCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwODEzMTUyNzU5
+LjM1ODU2LTEtcGVuZ3BlbmdAaXNjYXMuYWMuY24vDQo+IEluY2x1ZGUgZHJtX3ByaW50LmggZm9y
+IGRybV93YXJuX29uY2UoKSwgYnJhY2UgdGhlIG11bHRpbGluZSB3YXJuaW5nDQo+IGJsb2NrLCBh
+bmQgc2hvcnRlbiBpdHMgdGV4dCBhcyBBbGVzc2lvIHJlcXVlc3RlZC4NCj4gDQo+ICBkcml2ZXJz
+L2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2ZyZWVfbGlzdC5jIHwgICAxNSArKysrKysrKysrKyst
+LS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0K
+PiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfZnJlZV9s
+aXN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2ZyZWVfbGlzdC5jDQo+IGlu
+ZGV4IGU4NWNhYzgzODM0Yy4uZmFmNWU1ODZkOGRjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vaW1hZ2luYXRpb24vcHZyX2ZyZWVfbGlzdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9pbWFnaW5hdGlvbi9wdnJfZnJlZV9saXN0LmMNCj4gQEAgLTgsNiArOCw3IEBADQo+ICAjaW5j
+bHVkZSAicHZyX3ZtLmgiDQo+ICANCj4gICNpbmNsdWRlIDxkcm0vZHJtX2dlbS5oPg0KPiArI2lu
+Y2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4NCj4gICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+DQo+ICAj
+aW5jbHVkZSA8bGludXgveGFycmF5Lmg+DQo+ICAjaW5jbHVkZSA8dWFwaS9kcm0vcHZyX2RybS5o
+Pg0KPiBAQCAtNjEyLDEzICs2MTMsMjEgQEAgcHZyX2ZyZWVfbGlzdF9wcm9jZXNzX3JlY29uc3Ry
+dWN0X3JlcShzdHJ1Y3QgcHZyX2RldmljZSAqcHZyX2RldiwNCj4gIAl9Ow0KPiAgCXN0cnVjdCBy
+b2d1ZV9md2lmX2ZyZWVsaXN0c19yZWNvbnN0cnVjdGlvbl9kYXRhICpyZXNwID0NCj4gIAkJJnJl
+c3BfY21kLmNtZF9kYXRhLmZyZWVfbGlzdHNfcmVjb25zdHJ1Y3Rpb25fZGF0YTsNCj4gKwl1MzIg
+Y291bnQgPSBtaW5fdCh1MzIsIHJlcS0+ZnJlZWxpc3RfY291bnQsDQo+ICsJCQkgIEFSUkFZX1NJ
+WkUocmVxLT5mcmVlbGlzdF9pZHMpKTsNCj4gIA0KPiAtCWZvciAodTMyIGkgPSAwOyBpIDwgcmVx
+LT5mcmVlbGlzdF9jb3VudDsgaSsrKQ0KPiArCWlmIChjb3VudCAhPSByZXEtPmZyZWVsaXN0X2Nv
+dW50KSB7DQo+ICsJCWRybV93YXJuX29uY2UoZnJvbV9wdnJfZGV2aWNlKHB2cl9kZXYpLA0KPiAr
+CQkJICAgICAgIlJlcXVlc3RlZCByZWNvbnN0cnVjdGlvbiBvZiAldSBmcmVlbGlzdHMsIGxpbWl0
+aW5nIHRvICV1XG4iLA0KPiArCQkJICAgICAgcmVxLT5mcmVlbGlzdF9jb3VudCwgY291bnQpOw0K
+PiArCX0NCj4gKw0KPiArCWZvciAodTMyIGkgPSAwOyBpIDwgY291bnQ7IGkrKykNCj4gIAkJcHZy
+X2ZyZWVfbGlzdF9yZWNvbnN0cnVjdChwdnJfZGV2LCByZXEtPmZyZWVsaXN0X2lkc1tpXSk7DQo+
+ICANCj4gLQlyZXNwLT5mcmVlbGlzdF9jb3VudCA9IHJlcS0+ZnJlZWxpc3RfY291bnQ7DQo+ICsJ
+cmVzcC0+ZnJlZWxpc3RfY291bnQgPSBjb3VudDsNCj4gIAltZW1jcHkocmVzcC0+ZnJlZWxpc3Rf
+aWRzLCByZXEtPmZyZWVsaXN0X2lkcywNCj4gLQkgICAgICAgcmVxLT5mcmVlbGlzdF9jb3VudCAq
+IHNpemVvZihyZXNwLT5mcmVlbGlzdF9pZHNbMF0pKTsNCj4gKwkgICAgICAgY291bnQgKiBzaXpl
+b2YocmVzcC0+ZnJlZWxpc3RfaWRzWzBdKSk7DQo+ICANCj4gIAlXQVJOX09OKHB2cl9rY2NiX3Nl
+bmRfY21kKHB2cl9kZXYsICZyZXNwX2NtZCwgTlVMTCkpOw0KPiAgfQ0KPiANCj4gYmFzZS1jb21t
+aXQ6IDUxOGU1Yjc5NGMwNmMwZjBlYjQwZGYzZTIwMjI3NGE2NjIwMmMxMzcNCg0K
