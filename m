@@ -4,145 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFB8C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EA8C9831E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:58:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3134210E072;
-	Thu, 24 Sep 2026 13:48:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB6E510F5C2;
+	Thu, 24 Sep 2026 13:58:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eHjiz8y8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RoZV5u9e";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HljG2yH3";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4F710E072
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68OC4kTB1429858
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=; b=eHjiz8y8YIHa5or0
- 11zmYv8N8YFWNIrLMP+nSz2/CY2JsZMAGAiyHU7KTwUOLrN/RgQ55IKjEboEug1E
- nydY3hdgllD8W4Mbr88/Vb2+WaKgXhFBIxOTgRIgZ0m1mdrkgnEUJ4ZQ3yEAZh/n
- u534i+M34SCuyNfiBEd+Sei3pRJLNbufiIlZqP1o3sJIz6cTwDK/fAjOqRTU8T4F
- lU+6mFAQdEnJEAuk+6PGMgD1LnD72JlZtJIFbFDz7ulf1r9gFBFFty2DO1wwRiOt
- y4aPrllNI8TZVUbHydTUVIQUDEoW6IWah+KSKq2AJDUEVqfPwzQhEAMUr/0r5QHX
- WbYPfg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvghaa4c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2db3734d06dso19081095ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:48:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790257721; cv=none;
- d=google.com; s=arc-20260327;
- b=pICF+boQ5iSm7rr4BFOusGL/38VSoYdNeTk6LeOfY8h4nGeWngueCPn55IyhSdHyx1
- 7u9NX5NNApVBHsQthQKXEjSRXWt4r/VmRt91EuZ72iDxBugLEhjXkRwgMIFuA0cdEHxP
- t1URe6+9vnDO9ZeT/JFGV9koYloVt4ycjUiI7nBVqFDcUtQct/QPy8OW7tttt+IZ5JCb
- RdN86u6DHMIY9SyQFoRfw8WcfAZna/KVInk7spn/6X3Z7cwRqF4qSKOs2PCZEOal84ER
- UTFa3dfOe+OByatPfsZzjRqkzt5LymRC9HPWyPHkXAfVXryYRKFgywwt52qRgR95Noww
- GNnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
- fh=TP0RXlvuUL1mf6eZTCKftoPOxeY9QeeUnSNHZbyn/Lk=;
- b=lw6Ei45Kd2dsWOD1KWRfNfqvl1U4iWnwPQaRkOYS2X0ucQmmh4DaSEQ0pPOYk+RFTY
- co1jXBFaBNGBtxfbPhApHBgURG4OlbHtqDOhdGq1ZhgwwCBrsc5vp84P16i5E8DNXom4
- H7NUQWmHAC6DS6OR1Jh+9YYkC7I3f6PP01IeS1TtIw++MCGaKOoJBFBuyoK0jDL8yfsu
- X8K/J0cBP76a+kvaOfUOg/3AfYFsxhCnmp9cR5JwNPZuPnuU4uX0wprKGLTv+wvya6cI
- +1EAWB+Nhh2cWLSQLFXm4M6O7BwglaF7QO/Ps8fBIXN8zDWN9QrnCVnYBJcIeITh+s7B
- kRdA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790257721; x=1790862521;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
- b=RoZV5u9e+D0aFCCY4ozhax2G1rGBevM7Z2R9FvOCRw3ZPYEmJMg+h+NTwWWSSy69Jn
- qadmLVAo84H/gxI1xiQUmrQ+sLQSZCuIgmPtY1yKF6T2/XVAVLOd2rJZxa6iLO6rqVtL
- VMR1D80CTudj+oAG4kPH0BruUjDerfGOC8+5SNNcCtmU5MAQBf4XZyW7d6Gj0d2FTtzM
- 7WzV4RVjg2ns70Tlw12ENF2zPPfFofAcOuo91HV4Silb142ea0q6Z222a5hISgGvLxkO
- +Y+s8K3zax02BuiHJZV+craKPilRQaXhE/fWbFPOriq0dKabjwaBWkJaHT5tS2ZY1XLX
- BMgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790257721; x=1790862521;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
- b=oth0ilk3e9oUiVCiCXS33PEkjAlKd18opwvla5e5aFgHZSBB3sc9hSt1szp3d7CvBe
- HcCaCNivD9+h2jU49HugqfQJQ9jn8f/sFMi6Xnktyr1i763t4NppGXrFHhdX3AmlIHSe
- vM/8K1Q30wTVob4I9QZsHEY3lN9DsAnADcvtifPv9YRh+wccIKi1nq54of2+WkdCGH5n
- ka3Pl66DflFwk2i3mGSYwWuTpl4kCqNQzMDYtIgoYiXemHHryh5uxMnygQ04jqM1usMd
- vwpQKaykpCY2LlFn19DiERdkGSqMDIN01A6HrxP/D2JqokXSq/rzs3XJxKZjn1CV6ORI
- p0GQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxuiNFZ/KUpY4sCNJeHlHVeNWa0i3VyqCwY3VX6kQhdiMjEb6hkZK7j/9Gu3hOEz/KCkS1SvNXnwj8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lbjjLOjdlfQvX9zIpyL3+qBGemncFR1i9RyleYJVEJlLx98Q9h
- xTzS+9KkeIGM/UeDQCP6V3SRF38qTYs2DxIdpXfuXfcm3hwSXwrTSjRuUg5SLzR7sC1fOeM+EpH
- 9mc1Sn0zw4BW/Hc9uOlcds3NhmQ8Q9hoGGtb3PjqEgJAOq90uX6CwX7d/58bVFBUSz6rZK0vtgT
- ff3Wqww80OgnFKsQY8Ml57GC7E3RVOPdmz9Oh6qVDcFNfakg==
-X-Gm-Gg: AYBFou2pJPXbIYfDZzdPnhLEnwgPNCQ11fRd1Hm6R6YK7hYi0WX54cfgtlyeXaD2rB3
- 6B9v+0B67gLlMHvysroK5+doXH7BaIpzSM2XxCirBl6XMvW9mkxcZefUsnmWXMFHL+ucn9Uox2k
- 2aAQVMwshGrMzTTL6Yc0hyH9nhHdzQcebRkmoaqdfRDx9SIUPVHETUQoqzcg==
-X-Received: by 2002:a17:902:fd8e:b0:2df:84e0:9021 with SMTP id
- d9443c01a7336-2df84e0985dmr10949325ad.7.1790257721292; 
- Thu, 24 Sep 2026 06:48:41 -0700 (PDT)
-X-Received: by 2002:a17:902:fd8e:b0:2df:84e0:9021 with SMTP id
- d9443c01a7336-2df84e0985dmr10949065ad.7.1790257720872; Thu, 24 Sep 2026
- 06:48:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260915104328.45901-1-gahing@gahingwoo.com>
- <CAPx+jO8EixqfXmrD8zkMkJe_B+2AATo=YNFJraAdE_O9X4KM-w@mail.gmail.com>
- <20260924090816.38457-1-gahing@gahingwoo.com>
-In-Reply-To: <20260924090816.38457-1-gahing@gahingwoo.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 15:48:29 +0200
-X-Gm-Features: AclHuK_QXocrU1FUmDoQ1C4eNfLR68g-9FvqDtL-NyGnjY3Q7BSkJqEHWuwlS6Y
-Message-ID: <CAPx+jO-zAr+gfEGG5xvWXz-72cU+mw2HOnm7xVBYGhMenZWSVw@mail.gmail.com>
-Subject: Re: [PATCH v13 00/14] accel/rocket: RK3576 NPU (RKNN) enablement
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: heiko@sntech.de, p.zabel@pengutronix.de, tomeu@tomeuvizoso.net,
- chaoyi.chen@rock-chips.com, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5692C10F5B8;
+ Thu, 24 Sep 2026 13:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790258285; x=1821794285;
+ h=content-transfer-encoding:date:message-id:cc:subject:
+ from:to:references:in-reply-to:mime-version;
+ bh=fmC/vFPAeLNRWiFnfr1VsBYas6LzarQazl9yfnXHzBo=;
+ b=HljG2yH3S5pBiIboGxofDaY4hj68WsXL70bXiw4Blwhxj3OiZFrgoifD
+ uK5NNfIF0ns16F2rNL4UMnJMEhYU36qKoFpVE/NYhMIggjZcbVfOlNLRq
+ ejyOf5w92LCGQWITa8ad5quilP35Zc4KCvys9OYiHpb24+MAU+oQEuVQl
+ Nmu9YqVSqQEc6sgpZHjNTqciTb5aXLWslBZUhHKousn54dbWa1IiKhMKf
+ UX8wGcDu3lZcFdKem0+8TmyS63rs1eVF1H56sfQE3CbD+PSpZiO5vs2Dp
+ W5ZGkEQTkw09RdwZL8Fn6qB2dyRUGKuEN9zytXyNZZdreyxCECcNBw2uW w==;
+X-CSE-ConnectionGUID: Jsm85/ibRcKmkKO19WXxyg==
+X-CSE-MsgGUID: TXZgxHOHSGu/oeZsvlbrwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101685988"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="101685988"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 06:58:05 -0700
+X-CSE-ConnectionGUID: Y2sPAmZiSfCHZUt7h75kUg==
+X-CSE-MsgGUID: w6H+7y7uSeO/nUgvgFDt1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="282118548"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 06:58:05 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 06:58:04 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 06:58:04 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.58) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 06:58:03 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=STs8hG3ErapGX36RLVxUcMdDz449K2HS6xbMyfdXDqiEWPdLts7gdPykN2VRiM67XQr5P5CC5pkFCCbwk/qsXb0qKtrk+Qwl4v5Wv4gbNyVWKx84guSgQD0Uo4BlxM6pxQE4n9Ea8G5uCsD0MYRapFtuAZEfZuP/KdT1lZMuh1gsgHj2mjTvxHwmgPbuXNP0Zw4sAMtx0gFbw6ruOqgnkcw+BHfBxmc7ePsSJFVlXm65FcyhKZNK8x8mMCH1FRfoef0J3sxFOLbutuyVrxVv2Yt8S85E9o1ooLgn+XjNGlBss/It4wh7aI4vWkRAmQ6dIpt88rhXdNJBlnJZ1xzA2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PzEtieqPMsbWYGclwoEcAEbu/Ou1a/06gvkdOAbZabc=;
+ b=J8eyx2TLNk8DZjCAcBkNtk0rGvsMWorydmxwahFKFECKa2TskYjdL0cthVtiuepB6ok+doxJvAkZ49gI5HAHuTCUnkIazCR9vcXGPjyU8RiF+VkFZzPgTkR/HvmpF8hM/XG4mD5ry0CAk0v2At6zZQhGxdjLkYB2LMMQQ+VpBvMKITDtYaeUaaiVgZ6iE742Md82igcFv/SyRQ7Z2AWHclnmAEyKPMl8UV8gT3yjRx+3Dk9DYMDdgB8y1T8MFWKB8kDKNAIsaOUOD5Zf6rBSoqqLHI/LJUsHM36yURZ0a8NVq0MsFUGnQfQltqpUM+AdQWVsbJVuiEXo/D+wE4JW8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
+ by LV8PR11MB8769.namprd11.prod.outlook.com (2603:10b6:408:204::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 13:57:58 +0000
+Received: from MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
+ ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 13:57:58 +0000
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab52a3a cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=9GNsruGHAAAA:8 a=gHPckg_Ghvi-cCk_7foA:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=gf-oSkQAjqHFJRp-GQfY:22
-X-Proofpoint-GUID: kuS_PQuaOAQKLaS6sutiXJ5h6NbL4vI6
-X-Proofpoint-ORIG-GUID: kuS_PQuaOAQKLaS6sutiXJ5h6NbL4vI6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfXzdSYzZr56Fpn
- Th5jXxQHu2VLiMYWKaSc0WGbN+DoutE0PgaULtEh8pNMp7bE+P6qbZGJAXVbxntUFfnC7gKOyjw
- Gn99qKvCglLuCWzjoiIXcMGmK1F3eRw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfX/MCHX9VZPzQU
- HWUoZjbtNt0L16cj4ELCs2BvufWkTyXjLG669RTU1dVOEoKZJmETBGO6RRIdWz4QUBHez6RKSvf
- 6RtmRQeVycSiAJSyTeS11nvwbY+WhiDRKY84ih3+boJD4VM4vn7OciyUkGJtAXbYuI9BcXLxd1b
- W/HBc+6W9J0ONiAdxMDez/z+Xia2NL/MXRyAg7qD2RTGOOgEjvycHN1ZmZnlD/BG7pPC8/Zah0M
- cQWcg2VLrQYU72OqQ/P/bTuGNGjGVJOCTcw7NmHn1stchxmHditrE/naryyyFttm3yvHKn2ZuLZ
- 8YSKUdym6gfYL7um9xrzoKEk3hF1mlUU4+FwUapuVLTIRwS4t5U1T3NqC4dfBFfRR3q9BQZPe4c
- DbN2sQYt9Iv2JEMejzAIJK/5ug37055H/qeGwSE/YJYqPzxrdRgGggGsEZ5O3uqDte/zbNy9YQo
- UdPv6x0s1JaGpQosmig==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240056
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 24 Sep 2026 15:58:01 +0200
+Message-ID: <DLNLLGHRVHT9.2TW4LJ2SFXO5P@intel.com>
+CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, "Sebastian
+ Brzezinka" <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [PATCH v4 2/7] drm/i915: Add i915_* printer macros
+From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
+References: <20260924120147.1305127-1-krzysztof.karas@intel.com>
+ <20260924120147.1305127-3-krzysztof.karas@intel.com>
+In-Reply-To: <20260924120147.1305127-3-krzysztof.karas@intel.com>
+X-ClientProxiedBy: VIVP296CA0016.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:354::19) To MW4PR11MB6909.namprd11.prod.outlook.com
+ (2603:10b6:303:224::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|LV8PR11MB8769:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71db4a5c-8e4e-4aa6-cb40-08df1a43d6ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: zWcG0u54fZ9cZiau+dFNYWKrf+z4jrt/RcP63GPT76W58x+816jjVq07+GoraZ/eg2sB3EMdNKf17NCEZVfpeEbdS16nVa45YypNMJnSFl9fYQVjkcbGDaD5SOKdNNpiwfTfN6R0JELHdS7MRHXSwTuU0Ej3i0Vr6nIYQTbulu3f55qgHvlVb/MI7CUww+dsNHRmMUvFKufDv1fzbElqyA6XG+FU8G7YLnYEroZqPzmPYD72WkQblP9h1VO8aO9W3kK7tnBpMQ6Sye/a5TyHOFtgP6w7jq7gPUFk8O+IHf05cOYy3il8MLICKM4ohcUHli/00BW1c9CY9RxHsNxrGh48ik0nbkx2nU/hjI29aw60OcKHcdMCUCJZyCs4Q4WQmbmEGR9MAiztxytBpy5sBafyFyQBNkLYlVVHqWxX52GB1QCxVx/drXvPcF7aK3BRP8a5KHGPu3x3Rcu1Snjshy5Nn8IP0fk/BS6o0eLg7XNH4UzwQIpubomfbmlhfPLwLV6hQJqTzloC15bv3luzh4+UiL9uAVkaUF4ZC5M2T+X+RYQQ8VMFG3iIAVdjwpkmFFVKc0sQt3nHjA3MU+nfS7/20ntGVlBOOfJc0EkXmR0ofpUTsyxbxav3FTPyBE8m/yNUCmLaVu1YNxrP/pTWFJzvbjxJJDk+TTTJGUj7tzQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHFWRjVCV3U2WjI5UTUxMlEvblpyaFlld1c2aGgwVytvVlpNVE9TczVmVVlX?=
+ =?utf-8?B?MTNkN0o0aFNpeWRpUWdGUHJYanBYM0EzbHVNSWJNY2NOdXY4K056VWRPd0o5?=
+ =?utf-8?B?a2g4ZjF5WnVJckx6V2JrakVrdnpKTmtjQ0t5NzRLMTlRVE5COXBJNm56cXIv?=
+ =?utf-8?B?Tkp2d3NVdmhRLzRFRVMxRHdEUHFDUG9CMzdlYWN5aXZtVm9ubGF6T25TdnVj?=
+ =?utf-8?B?MkVrU3ZNUVM4K1A0WVJaNHBxRFBtK3YzT1BtSHcvN1kxaVV5NUhpV2xuSmRx?=
+ =?utf-8?B?bW5oWmkralAwN1AwLzczbWNSeWNwQ3NxR2RUc2ErUTNxSlc5bERZRVVJR2Rx?=
+ =?utf-8?B?LzdsWlJRT2tvSUEydHpoUmhDemFhbG03SHR5cUFRL0gxQWJoQ0lZV3dBQkZL?=
+ =?utf-8?B?WUVVMm5YYUZsVjh2N1VKM2dxSzdzQmZ5bmgrSGtUaFl5N1ovY3NmeWYrTncz?=
+ =?utf-8?B?a2V6M3U5NFBVQkYyd045c3d4RUNsOXFOT2JkZTN1WXRHbUFqVm1GNDJrUkY2?=
+ =?utf-8?B?cnJJZ1drVjVjZXdnOXo3eE5NL2IveXZzUDhFVmt1MWk4dFFpU09rN0VMVmhO?=
+ =?utf-8?B?VDgvbHQxZysrbW52ZXcvcmdwSWRUd240ck5HMzR6aXBLV1JYSG50RGQ1cUwx?=
+ =?utf-8?B?eG52MkpmZGF1MEVSN3R5dkNObElMcW5tTGp3ZzJJcUlnTzFOanh0dVRGY1dQ?=
+ =?utf-8?B?MDF3SlM5bFYyZGlMc3NYb2Z4dFNHaWNid09tNjJUSGRrUExZTkljVW5QV1lV?=
+ =?utf-8?B?VmpMWG94WUVQOGg0cTFtWXI4aXBtbmUwSDd2dERKZmFNakkzVURjOGJPblJk?=
+ =?utf-8?B?RXdYUlpSZlRnazIxdU0yL3U0UG9nRzJzaDNHOTM0aGVURXdTcGFrY1JzNGFs?=
+ =?utf-8?B?V214UjduRmxXWGo3S3NnQ2hUajRFQzM2bXF1S2R4d011eTFFOGVpSFo5N2M5?=
+ =?utf-8?B?K2RxZDBGa2dRZ3N3OEtzUUFORkJNODN4a0hxVjJEdUNhR0lQaE9nMkNKNXJ1?=
+ =?utf-8?B?ODdFQWx4eWp0eGlpRm1UV1NMRHdEcWtKbExhbzQ5V2lrZTNyc05jWXVpRUQ4?=
+ =?utf-8?B?VWhkSE5KSWVYQ3grUlltYUhuMGFtdGRtdWhzbHg1S3VjYlR0VWh2dlU5bnpL?=
+ =?utf-8?B?OUdlUitTWVU1TWJwMzdNaUM0STNmWXlzMm5aVUc3ZDluODVqSFAvMnNqMWNo?=
+ =?utf-8?B?WjVtZHdYTXgzUE02RWNCQmdIdTlNZHVCTUV4Yk9ma25ueXdqRDVrU2lTa2s4?=
+ =?utf-8?B?MkhMbnRWTmR6MlRxUUpHVWtCYzZMbllSTHp6cGZ5MEg3VkVPNU5MRm83WXBm?=
+ =?utf-8?B?bjd1TTdrWGJHUDZqWnBEemhGRiswSFhBQW45MW1vKzB2ZW9oT2lzdU5LM2Fo?=
+ =?utf-8?B?VFRIMFZma3Arbk9Xbkt0d3M5MEdUeEJ3YjdwbmFlNTZ4VWxEZTYxT0FLUnNN?=
+ =?utf-8?B?NEJtangxS2VTYUQybjcrM3JYVU9jN1hxYVp1ZU9weDRTYzhsWk1qUDdIbEwr?=
+ =?utf-8?B?bGpKTnR3bDd6clo5a0lUUmh3T0h3dG9paWxoeSs2VmE2WEIwaU9wd0o1anpn?=
+ =?utf-8?B?bFBxU2NqWlZqYmk0UnRFM3ArZEJQV2J5UzlnWG9nOFY2cXBFRlpON2N1NG1w?=
+ =?utf-8?B?VVEvTFlZcHdsTS9UeUN2ZlRKQ3I0M0p2MmkxemtWRmt0ZVNpZlkvTXJuMFRq?=
+ =?utf-8?B?WE9jdWVrWno0TmQ1dDlERGVvcU5TRU0xMkZVUWZBeEFORkt0VWg0d1dSOWRq?=
+ =?utf-8?B?YVZ6N29SbEtFb1IzeW9vRXpuaFVUdjBjVTJsQncvVml4WEtZQ2dDOHFid1Ny?=
+ =?utf-8?B?ME5EQzMvZDkzWWJFT1g0elRaZlNWWDNORWpvckF3Q25JK3VrSVpMV1FtSnZ1?=
+ =?utf-8?B?WEV5WkN6ZjJwV1psakEwQWZwS3RsUjlINnZBcDVkaFpQTk1taU92aDNqMmt0?=
+ =?utf-8?B?OU9WZ2t1RlVSRm1VbDVvTEpRNG43SWVrN1lFdnpyaWptMWc0RStvbkowK2tG?=
+ =?utf-8?B?ck5wa2JKY0pCdUZQMmdrZksrM0VqZFkxbzdzM1dSaFF6UWtXdW5RS2xBVVJ5?=
+ =?utf-8?B?azVtNnFyeGRheHhyZHNUOVI0cnlpWmlUMlR1N1dlbWJGc2tuUVVTaHMySGd5?=
+ =?utf-8?B?em1zZ3dKYm85cXZlRTExalJCOVlhdWhzSG55QklYVDJPMDYzY0llUDA5NHB1?=
+ =?utf-8?B?QWV2QTZiZGJpRWtQaGVJcTA3MzZWckpJcWVEZm1mQjBMTklnTXozZ0k3TGVs?=
+ =?utf-8?B?Uk05TTJQdy9zdTkvYmhseUpRb2wra256Q0gzbTY1SVhmYmlZbzhlWENQcDcw?=
+ =?utf-8?B?UnRlN0pvNnRNMk13Q0E5UVhpbVhSalRiNFgxcFkzemJXYS9zSkc3aHRqTGJQ?=
+ =?utf-8?Q?bKJXUjiwFpsOnCrs=3D?=
+X-Exchange-RoutingPolicyChecked: r6M8frbA6oeb8C1rYMnyClEIK6Uad68DRe7r0bQsQ1usFL39p8+bikcidLKd2bljhivoaoVjI0cGtTU2x7NirSpK80GE+eD1YMIpJaT9uCtEQc8io2HIPOc3IsIKbPPv2gKB6fA3xia+O3T7IGx+cA2BqeCnsatPYLJbRTXTHBZcLduGRgDE3Pbi9Io3RCggBXNgEQtJjH6yFzxVYHFw/1Jpmja5n64q2I1VpRJmZeEKQdCy5cy/cvzxPd3993YywUbdjzkytePM7PLdyVqJfwFg8ltVPEZfius5G4quEjkwTeuzYCTXduxmcewEgRLmqUUKy3+1MmUxMWCgN4iGGw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71db4a5c-8e4e-4aa6-cb40-08df1a43d6ef
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 13:57:58.3713 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eIldzfb3ToxFBEBEA2/Ik6nQaGRXfe9xowGcjoAQEhmSUZqQx8GV5F/3prSeJ7KJMZRDE4vcMt7phqcRy08ETFD1nu4EyhJGa8NhPiuwg5c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8769
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,27 +174,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 11:08=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> =
-wrote:
+Hi,
+
+On Thu Sep 24, 2026 at 2:01 PM CEST, Krzysztof Karas wrote:
+> Add i915_* family of printer macros, following existing example
+> of gt_* and xe_* prints.
 >
-> Hi Ulf,
+> Suggested-by: Andi Shyti <andi.shyti@kernel.org>
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_printk.h | 53 ++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+>  create mode 100644 drivers/gpu/drm/i915/i915_printk.h
 >
-> Yes please. Could you take them from v14 rather than this version?
-> Philipp pointed out that the binding allows one reset, so 10/14 should
-> use of_reset_control_get_optional_exclusive() rather than the array
-> form. v14 has that, your two commit message trims, and Heiko's split of
-> 13/14.
+> diff --git a/drivers/gpu/drm/i915/i915_printk.h b/drivers/gpu/drm/i915/i9=
+15_printk.h
+> new file mode 100644
+> index 000000000000..5bbbe604cae8
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/i915_printk.h
+> @@ -0,0 +1,53 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright =C2=A9 2026 Intel Corporation
+> + */
+> +
+> +#ifndef _I915_PRINTK_H_
+> +#define _I915_PRINTK_H_
+> +
+> +#include <drm/drm_print.h>
+> +
+> +#define i915_printk(_i915, _level, _fmt, ...) \
+> +	drm_##_level(&(_i915)->drm, _fmt, ## __VA_ARGS__)
+> +
+> +#define i915_err(_i915, _fmt, ...) \
+> +	i915_printk((_i915), err, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_err_once(_i915, _fmt, ...) \
+> +	i915_printk((_i915), err_once, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_err_ratelimited(_i915, _fmt, ...) \
+> +	i915_printk((_i915), err_ratelimited, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_warn(_i915, _fmt, ...) \
+> +	i915_printk((_i915), warn, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_notice(_i915, _fmt, ...) \
+> +	i915_printk((_i915), notice, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_info(_i915, _fmt, ...) \
+> +	i915_printk((_i915), info, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_dbg(_i915, _fmt, ...) \
+> +	i915_printk((_i915), dbg, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_dbg_ratelimited(_i915, _fmt, ...) \
+> +	i915_printk((_i915), dbg_ratelimited, _fmt, ##__VA_ARGS__)
+> +
+> +#define i915_WARN_type(_i915, _type, _condition, _fmt, ...) \
+> +	drm_WARN##_type(&(_i915)->drm, _condition, _fmt, ## __VA_ARGS__)
+> +
+> +#define i915_WARN(_i915, _condition, _fmt, ...) \
+> +	i915_WARN_type((_i915), _condition, __I915_PRINTK_FMT((_i915), _fmt, ##=
+ __VA_ARGS__))
+> +
+> +#define i915_WARN_ONCE(_i915, _condition, _fmt, ...) \
+> +	i915_WARN_type((_i915), _ONCE, _condition, __I915_PRINTK_FMT((_i915), _=
+fmt, ## __VA_ARGS__))
+> +
+> +#define i915_WARN_ON(_i915, _condition) \
+> +	i915_WARN((_i915), _condition, "%s(%s)", "WARN_ON", __stringify(_condit=
+ion))
+> +
+> +#define i915_WARN_ON_ONCE(_i915, _condition) \
+> +	i915_WARN_ONCE((_i915), _condition, "%s(%s)", "WARN_ON_ONCE", __stringi=
+fy(_condition))
 
-Okay, good!
+There is something wrong with the WARN macros. I noticed that they aren't
+used anywhere in the series, so the compiler never expands them. I added
+one to a file just to test it.
+diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu/d=
+rm/i915/selftests/i915_selftest.c
+index 4e2566189879..7446c265813a 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
++++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
+@@ -50,6 +50,7 @@ int i915_mock_sanitycheck(void)
+ int i915_live_sanitycheck(struct drm_i915_private *i915)
+ {
+        i915_info(i915, "%s() - ok!\n", __func__);
++       i915_WARN_ON(i915, false);
+        return 0;
+ }
 
->
-> In 9/14, v14 keeps one sentence beyond the two paragraphs you kept:
-> RK3576_PD_NPU also gets need_regulator, which makes
-> rockchip_pm_add_one_domain() power that domain off at probe on every
-> rk3576 board. The subject does not describe that. Say if you want it
-> gone too.
 
-I will have a look at v14 and let you know, thanks!
+This is what I get when compiled:
+vers/gpu/drm/i915/selftests/i915_selftest.c: In function 'i915_live_sanityc=
+heck':
+drivers/gpu/drm/i915/selftests/i915_selftest.c:53:33: error: macro "i915_WA=
+RN_type" requires 5 arguments, but only 3 given
+   53 |         i915_WARN_ON(i915, false); /* TEMP: reviewer repro, will be=
+ reverted */
+      |                                 ^
+In file included from drivers/gpu/drm/i915/selftests/i915_selftest.c:26:
+./drivers/gpu/drm/i915/i915_printk.h:38:9: note: macro "i915_WARN_type" def=
+ined here
+   38 | #define i915_WARN_type(_i915, _type, _condition, _fmt, ...) \
+      |         ^~~~~~~~~~~~~~
+./drivers/gpu/drm/i915/i915_printk.h:42:9: error: 'i915_WARN_type' undeclar=
+ed (first use in this function); did you mean 'i915_map_type'?
+   42 |         i915_WARN_type((_i915), _condition, __I915_PRINTK_FMT((_i91=
+5), _fmt, ## __VA_ARGS__))
+      |         ^~~~~~~~~~~~~~
+./drivers/gpu/drm/i915/i915_printk.h:48:9: note: in expansion of macro 'i91=
+5_WARN'
+   48 |         i915_WARN((_i915), _condition, "%s(%s)", "WARN_ON", __strin=
+gify(_condition))
+      |         ^~~~~~~~~
+drivers/gpu/drm/i915/selftests/i915_selftest.c:53:9: note: in expansion of =
+macro 'i915_WARN_ON'
+   53 |         i915_WARN_ON(i915, false); /* TEMP: reviewer repro, will be=
+ reverted */
+      |         ^~~~~~~~~~~~
+./drivers/gpu/drm/i915/i915_printk.h:42:9: note: each undeclared identifier=
+ is reported only once for each function it appears in
+   42 |         i915_WARN_type((_i915), _condition, __I915_PRINTK_FMT((_i91=
+5), _fmt, ## __VA_ARGS__))
+      |         ^~~~~~~~~~~~~~
+./drivers/gpu/drm/i915/i915_printk.h:48:9: note: in expansion of macro 'i91=
+5_WARN'
+   48 |         i915_WARN((_i915), _condition, "%s(%s)", "WARN_ON", __strin=
+gify(_condition))
+      |         ^~~~~~~~~
+drivers/gpu/drm/i915/selftests/i915_selftest.c:53:9: note: in expansion of =
+macro 'i915_WARN_ON'
+   53 |         i915_WARN_ON(i915, false); /* TEMP: reviewer repro, will be=
+ reverted */
+      |         ^~~~~~~~~~~~
+  CC [M]  drivers/gpu/drm/i915/gvt/cmd_parser.o
+make[6]: *** [scripts/Makefile.build:290: drivers/gpu/drm/i915/selftests/i9=
+15_selftest.o] Error 1
 
-Kind regards
-Uffe
+
+--=20
+Best regards,
+Sebastian
+
