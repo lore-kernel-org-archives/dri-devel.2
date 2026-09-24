@@ -4,84 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3DDC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1A40C98314
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:06:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E582610F418;
-	Thu, 24 Sep 2026 10:06:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138AB10F41D;
+	Thu, 24 Sep 2026 10:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AM+mpu9q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iqD+eH7G";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE2B10F418
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:06:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 18AA243F85;
- Thu, 24 Sep 2026 10:06:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD31D1F000FF;
- Thu, 24 Sep 2026 10:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790244384;
- bh=Ied2AelGOAUoBLypHiwb2BL1zLogQy2LqP9NEecl9Ec=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=AM+mpu9qGXxDz7bD9e86xWdXibQkZA/5cUFq8K+AJhu+OLOZOG3vMF9mBRTc+zGqI
- yRj9S4yaKhbuaIGypSGuFG49BwMWg7fZoz4YBrRNXGjOa8KkLOa6Kqdg9Mmjwt0q9Q
- ehXg0pJlZ1ALhgUqcXmE6XX5MLHMwgqnU3WirpecNc1Es05E37mMF/ufHlErk7/MSf
- iYgfs7myFqVwvkuOx0gREfI/UFZ+04YCqr2grhPtJdc/U8KkMMPJgqf3yT/2Rfmqui
- JTCFvApGvxYleMqambDrmxZ3rg9Pz/jTjTmV4Ve6a523KZYTJFPlknUQuc9r3kvPDT
- oi++Sb59RmMoQ==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org
-Subject: [RFC PATCH v8 02/14] mm: Zero memory during shared memory transitions
-Date: Thu, 24 Sep 2026 15:35:17 +0530
-Message-ID: <20260924100529.1398790-3-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB11F10F41E;
+ Thu, 24 Sep 2026 10:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790244397; x=1821780397;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=kFkevQsMz2heXC6zJ+CGqEGWFn3qpN2Y0mX1Y3z1SW8=;
+ b=iqD+eH7GA4n6dldlsyLbQycUF+TnL+LaLqbV+2vHsaALIXiJFa5G++Qu
+ KxINvLb/OuK0SnR05kPONG9cPhJeTJTXb4fJnHt3M+B9kLZeByifeoJwp
+ rK/Yl4LyOg/R+S5wsp7tIot9JTWYUxzGksOhMaM2YvVaNCBek7+9DASkP
+ x3THqgw1tPTzqBGk8L+Q1Ij7cyyC3ukTcyZd+4QT2D4RFpK/p955PzOTp
+ dGmmrkYDs7DRnsktxB2iZXnzcoCQzDGgKqxKAkG6t08IlrH5W2Gjpmubn
+ 3zN9YET6VCGusnoy+pQxeZfDbRxHdWu5ZRyVC4xtJEqdghy39CH60UKdl w==;
+X-CSE-ConnectionGUID: YdtQAjo6TwSFC1rGh14ZAA==
+X-CSE-MsgGUID: 2h/64r2lQNKDzQz2ps7ZVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90132686"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="90132686"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 03:06:36 -0700
+X-CSE-ConnectionGUID: lJPNDhdJQXSPeBud+VMLAw==
+X-CSE-MsgGUID: 7DQJXT/TRJ+MRGM3qeApTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="272571957"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 03:06:37 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 03:06:36 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 24 Sep 2026 03:06:36 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.30) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 24 Sep 2026 03:06:36 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xc0fTKuaTPz9ptz/wa7wzm0DMOR2sV0HpbAbGe3gTs+p1uQgl0QoKrrH7ija5oWK+OuYl5mpT20laDjLHz56ENOjjA6/fZHADqTgsSHoNZRsCzUBto1eVgHGmrTzKelckFlroS8xqSJ85CPMUTD9wQHi7HXn+vAeqAiVA54lacgwGBPlF7fIv4L58tPjhX5FshMT+e2atNQ/oP0NojVW/4sRsEDaSTVAdN7n4lKGImwgqlZxV4GdjtYUuPlRoF45D1CKcvqkzymfkp+AA7kDfCsW8R8iabQnCHlb+vyoyCG2zZ0fTPJllSu0s8r3/aORpnkr+pXJ5YOUTFk8axwK5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+PGBuHFDtc1vB0nl5FZWsNw0i1lszD0FAWup7ewt/0Q=;
+ b=eem2z5Bmj2m/LawGoU5O+vMDdRpisbVCLJwJt2kRppQfQ91q9z88MBqz+AbWlCbUQPEx3izVHRkF6SJVMK51ydPMlABZocCGB+26JAIeL89FFjn79C8iLXOFW/AsbrU7GQRd9PXvcs+tDAcrUago0vSo3ERp5TzkTFNCCpl4ZOCJymAy6LPeF+Y+9Br7z3WcZEjt+Yqg4rQucTTz7FjE71LfNq0G6sC25RwNfFwE1Rk0HbyzdwdlPYhkA7FTD0BvdorayNNoDH+Wp0mzM2OxI4hDQQXjO3vsAIPV7Vm2QuauFyUH8MS1zVOSUskb3wVvkUycoFN48F6BvouIvavIUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BN0PR11MB5709.namprd11.prod.outlook.com (2603:10b6:408:148::6)
+ by PH4PPF722C57DB3.namprd11.prod.outlook.com (2603:10b6:518:1::e68)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 10:06:34 +0000
+Received: from BN0PR11MB5709.namprd11.prod.outlook.com
+ ([fe80::ad31:3f30:20b8:26c]) by BN0PR11MB5709.namprd11.prod.outlook.com
+ ([fe80::ad31:3f30:20b8:26c%4]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 10:06:33 +0000
+Message-ID: <841ed3ad-f8fc-4d70-832d-a1129ba1dd11@intel.com>
+Date: Thu, 24 Sep 2026 15:36:23 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm/xe: Fix VM teardown and migration queue recovery
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <rodrigo.vivi@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <thomas.hellstrom@linux.intel.com>
+References: <20260916095337.3104891-1-arvind.yadav@intel.com>
+ <aq270L/+biIRJHkX@gsse-cloud1.jf.intel.com>
+Content-Language: en-US
+From: "Yadav, Arvind" <arvind.yadav@intel.com>
+In-Reply-To: <aq270L/+biIRJHkX@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0307.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21e::10) To BN0PR11MB5709.namprd11.prod.outlook.com
+ (2603:10b6:408:148::6)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR11MB5709:EE_|PH4PPF722C57DB3:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc543c91-ef17-4b23-d4d3-08df1a23825f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|10067099003|11063799006|18002099003|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: kFbhSmeHkREDg9ianVzIRvElaiU5vn2HQVNrCIve8IKj4cTk7r1JLjDmJ55rVLgYBQs1OZLvg3q5bTpWp8ZVgDb5AiRvaYTmwb/RVo54muijdV6ORY1ggqAZELJSFyqxs/o7X15W7uA875mLTvLKeagmWwAPRLFlGDpor3y57CtesH0RSuNuZMqXz746pCGqs5vxk1J540fhDtidfTOPQP9/QXDhirE5So3am9jon5mrqFvHO3ZHMKwd775etkOnRLyi35ykwZyKcVtxOIte2oXrPH36ggWe0ALsB5VP28NMmZ0qpicvlfmvZEx8reWJ05NgRRjEeteqjyrazU0i2I0r96YilsKxGDSuDlmyE52fGPlCm1qORPl4BSH/AFIuM+F5jDekbgruU9OMrTOlrO0bn89BWLt2xyU/g54yDjWzDIHfwqu5LFfWWo1k7qsDWtMzaRUOkmqvRgvHllLUce9BAPARIHUdREUZZ7o8FKoMOy/dg1a5yFmR8qT2CGuGbw72BZtOE0cnsdHDTjdc/b9CoVzxxHNlVkz5R4W4D710tkmqHikuWCFReGYw4cymanvUbmXkyBS97og3ZaHvfh3I/WjiNiKKqD1D02QTbWwWphwZMFa8toYhmpCo8Z4W
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR11MB5709.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(11063799006)(18002099003)(22082099003)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1dRd29kdC9vT3Y3MDU4OVF0SS90Sy9BUG51QUZtWlJlZXhoRlRVZ2lwdy9R?=
+ =?utf-8?B?MFlZMkMyeE13SGkxWGsyWHAxa0NiakVhemRqUFNJM3NhVi9lbXlWSDZRaFF1?=
+ =?utf-8?B?bjBWZ01lMForaDV0QW1LNkdBNnRwcFlvNjBDekhpbjRSM3BGRy9MUFVJMm1w?=
+ =?utf-8?B?WHFQaTVMUUZXOTlwWTNYOXIycjB1ZzBUZXRhQ25SaldBSUNwNmlicWtsdnYw?=
+ =?utf-8?B?WGxHMTEwRFhrdGdDRzN3aU5VaHFJa25GVDROQ2k2UThPWVEvZisrNEhDYXpq?=
+ =?utf-8?B?SE5LRHZIZkppeW51S0VuMTdKa1dRdVNCN2xWa09vSk9WWFhPQWpRUHlUTzlL?=
+ =?utf-8?B?Z1o2RHY2VVRRUUx6TFYwdXhtcll5YnR1NVQ2WlhJN056YWluYXlXKzdrbFFq?=
+ =?utf-8?B?TXh3K2FVZk9ZTXBuUFYvL05EMUxkZGRwREFpOHFrTEV4UTJ6QmhoTzRJc0dn?=
+ =?utf-8?B?SWZBV0hKUExvYWRsUEZSU25lSTVWeG9sUjduYWsvem9OYUh4UnBiMktsN3BS?=
+ =?utf-8?B?c0x4ajZYRms4TTQyQWV3Qlk3cThDNzJJYzEvcXZwL29ObXpzenFoZ0Jza2g2?=
+ =?utf-8?B?ODlPa0RndXhOU3ZacGczVmhEVmVpY1pTK0ZaelNpV01HVFllQUNSSmE0d1lC?=
+ =?utf-8?B?dkc0Z2YySHdYcjJOOWNFYjZBTnBvVlhMbkxjQll6RWZ5RVhRVG1ubnBUS2py?=
+ =?utf-8?B?NUFVSFd4ZmxWajhEc0VNYS9KVFdnTWpMeWhtVjhyZTVFREhHdW0ycDBmWUg1?=
+ =?utf-8?B?UzNsUXd5dUJZN3BWbGcvenB4UG5Ic3JMODhsdTlEdTBMblQyOC84MDF1Q1VL?=
+ =?utf-8?B?S05lVTh6end4aTVBQU9HYUc1RFYrcWUwZ1dQbDRuVmp5TUV4blVPRWVWcFVE?=
+ =?utf-8?B?VE5nQ3NvQzZkOGw3MkNKblNjQjFBZldRYUEwRVVHcUw4TTczTEk3NDFHYXlG?=
+ =?utf-8?B?bjlSdVFRQW5rL0NHL3FCbjVQVERmRTRjRHM0ajRVNTlLNEJFVDAvZFNpeEtY?=
+ =?utf-8?B?dmJNeWNGODI0aHFWS1ZlQVlOOTBSNlYyUGpaOGlOYnVZK3oyVkVFY0RLRWVo?=
+ =?utf-8?B?L01DL0VuOFAvb1hNclRpdyszak9CZElSNkZrcHVUVFZXMGhBWHpuMWZjRmVT?=
+ =?utf-8?B?eDNpOGxFWVpkN2ZFNk5sZ0JqeWpyZ2QrMlBpTExDVHpEckpVbUFtRVJCazE5?=
+ =?utf-8?B?RHFwaDEwaFQ2TDc0MDZJaHJWRm91MWQ0QXFUTFlMcVZybzB2ejJYNE1LM3Zx?=
+ =?utf-8?B?Smx1SFVWT0JBWkRVUHh0My9XM0dDQmdtWVRPUFpVTXlEblFlOXpjNTEzcENn?=
+ =?utf-8?B?Vm9tcWk0ZDlRa3AvZW1lTDY3cnBldGtCa2g4MjdKNlZDajBDSWgrMCtBaGht?=
+ =?utf-8?B?UkRWZEM1YUJWR0lWSVlCTEdvY3VLTGpmODlPd2txOXZDYnl0c2g5MUQ4NGZu?=
+ =?utf-8?B?a2d0akNlR1hUY2dxOTlBNWdZbU9mWi9lWEhXSEhPMEZpL1ZoTDh3UlFWRlBZ?=
+ =?utf-8?B?TXQ4MnUzTGJMYWtVYTdvUnJyL0szb2Q3UnZ3OXJEU1JuTWMwbnJWVmpsUENk?=
+ =?utf-8?B?SnVpbStXSXcrTEt2QzY5K2ZxNTN4eHpDSkg1bGR2bE84MkRzS1JhWlJXZ25t?=
+ =?utf-8?B?UFZ0YmlKNFBKUG9WNm9CSmRhU3kvUzUxQWdxS3pYK1NBWHVSTVhIazI4RFg2?=
+ =?utf-8?B?ZTZGajhEdjdoWnlnN2dXQkpBUk1majliNnF2TzI3am9wZlNNMHBBMnkyWHBV?=
+ =?utf-8?B?V3R3dHZRQ2xjZ0lDczBXaUtuemZGMTFYbWdLdHkvVjJuRkd2enhxZXlQYzVM?=
+ =?utf-8?B?Z0t1aGtpRlJ4aXQyNFZJT3VqMEIzZCttZ3EveFEzRllWYzE4a1p2ZkJ0ZE9z?=
+ =?utf-8?B?SUlzbnVZbTFyT0FoWmVObnEyVW9vekZvS3g1YzlLam1ucUk0Yk9XUW9JSXhS?=
+ =?utf-8?B?MEN2MU1SM1BrWnBqTUtnU0tPQ2hIMUp5M1RuUTVnT0ZJR3N3VjVvQkJpMU8r?=
+ =?utf-8?B?MWtNRVg3OTdWZkoxYzV2SWRMT0hxUVdNbGxVOXAyc00xaW9LRTFCUk5id1ND?=
+ =?utf-8?B?OE05UHNlSTZDekhmK1R3Wm80d0gzb01ZTm81V1U3RzV1NGo0MURNa2UxUkRN?=
+ =?utf-8?B?cmpwbHRrUm1tc2xWcEtyeWNXME5hUnpuemZpQnA0cGZqUWJGNWZWakdjZFJD?=
+ =?utf-8?B?eGIvTnRjaE5yNzcyY0UydXNsbWxZNWRvVkhhYlN1Mno3SFdtTThySnZZL2Nz?=
+ =?utf-8?B?V2JaaElvVDdKMmFiY2dnWThLeUhrdFE5Z3RlNXdkQUVua25LcVgrMmRZaWcv?=
+ =?utf-8?B?U0lPRmxxRUEwZDZYWFRQenV5VWhzbkhBb1NPc1FlS0FCTWdmSUE2dz09?=
+X-Exchange-RoutingPolicyChecked: sRWaemQFCLhY/zL208lmmvK7INQQ2T4Ljb9k2Rf4OVzUKAPY4hCTwCkOcL0tQ8KdLmPVF3+MPsiNrEVAxaD+UA/Fiz1NWkUdnUot1V5JOOA5dL2RzQQHmXF0m4aj/QpdOWxA6Yjr7BGbxyXicC1q86HTNxyKr63vBTSlN9V9ZIJUevXBggMjsiUQuWHJ3Xt/CXMot5rdaXzpVjkhN/S0Jhy5KLHdcc9MXIS+77ctNgSFusOYcGz60hy3AtJwb1q3sr7HF4P4fzt39HIgfcDeKkGxdtRLBs7LbSm95c2FOdDm96kzJuvb6FjNoEnigfdt6i6VB4haCS4FKSgnsRuN4g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc543c91-ef17-4b23-d4d3-08df1a23825f
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR11MB5709.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 10:06:33.6318 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rphmob3sykxjloABHy8DInMZUuItn9tEFbz+nRb3NFAOU5HRBVqUuSTDc3Wj6gMWFXzg/3LI5NjfBhOVMNuUGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH4PPF722C57DB3
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,442 +171,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Architectures need to zero memory at different points in a private-to-shared
-transition. For example, pKVM must clear memory before sharing it, while Arm
-CCA can only clear it after the RSI transition has completed.
 
-Make zeroing an implicit property of set_memory_decrypted(). Each architecture
-or platform performs the clear at the safe point in its transition. On x86,
-perform it in the prepare callback while the private mapping remains
-accessible. This avoids adding a flag to set_memory_decrypted() and threading
-it through the architecture-specific callbacks.
+On 19-09-2026 04:01, Matthew Brost wrote:
+> On Wed, Sep 16, 2026 at 03:23:32PM +0530, Arvind Yadav wrote:
+>> On BMG, terminating a process with Ctrl+C while GPU work is running under
+>> VRAM pressure can cause an RCS page fault followed by a migration queue
+>> timeout on BCS8 (guc_id 0). The driver resets the GT, but the pending
+>> migration job can time out again and eventually wedge the device.
+>>
+> If we can just avoid faults on ctrl-c or segfault will this series be
+> needed (or at least only a subset of this series)?
+>
+> I suggested a way to kill the exec queue first + sync wait on those here
+> [1] before clobbering the GPU page tables? I don't really care who works
+> on [1].
 
-Keep allocations on platforms without memory encryption on the ordinary page
-allocator path so the original GFP constraints, including __GFP_ZERO, remain
-intact. Remove post-transition memset() calls that are now redundant and
-explicitly clear allocations on paths where no transition occurs.
 
-This intentionally makes every private-to-shared transition destructive;
-callers can no longer use set_memory_decrypted() to preserve existing contents.
+Thankyou Matt for you review comments and suggestions.
 
-Assisted-by: Codex:gpt-5
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Sven Schnelle <svens@linux.ibm.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: H. Peter Anvin <hpa@zytor.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: K. Y. Srinivasan <kys@microsoft.com>
-Cc: Haiyang Zhang <haiyangz@microsoft.com>
-Cc: Wei Liu <wei.liu@kernel.org>
-Cc: Dexuan Cui <decui@microsoft.com>
-Cc: Long Li <longli@microsoft.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
-Cc: Andy Lutomirski <luto@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- arch/arm64/mm/pageattr.c                      |  3 ++
- arch/powerpc/platforms/pseries/svm.c          |  2 +
- arch/s390/mm/init.c                           |  3 ++
- arch/x86/coco/tdx/tdx.c                       |  3 ++
- arch/x86/hyperv/hv_init.c                     |  6 ++-
- arch/x86/hyperv/ivm.c                         |  4 ++
- arch/x86/kernel/kvmclock.c                    |  6 +--
- arch/x86/mm/mem_encrypt_amd.c                 |  4 ++
- drivers/hv/connection.c                       | 41 +++++++++----------
- drivers/hv/hv.c                               | 11 ++---
- drivers/hv/hv_common.c                        |  2 -
- drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c |  3 ++
- kernel/dma/direct.c                           | 22 ++++++----
- mm/cc_shared.c                                |  7 +---
- 14 files changed, 72 insertions(+), 45 deletions(-)
+My series waits for final queue cleanup before removing the VM mappings. 
+Your suggestion is to disable all queues first, then wait for them to 
+stop before calling xe_vm_close().
+I will build on your v6 patch and add the synchronous wait from the 
+earlier discussion. I will test that approach and check which parts of 
+my series are still needed.
 
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index bbe98ac9ad8c..ae1f5de66fad 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -339,6 +339,9 @@ static int realm_set_memory_decrypted(unsigned long addr, int numpages)
- {
- 	int ret = __set_memory_enc_dec(addr, numpages, false);
- 
-+	if (!ret)
-+		memset((void *)addr, 0, (size_t)numpages << PAGE_SHIFT);
-+
- 	WARN(ret, "Failed to decrypt memory, %d pages will be leaked",
- 	     numpages);
- 
-diff --git a/arch/powerpc/platforms/pseries/svm.c b/arch/powerpc/platforms/pseries/svm.c
-index 7a403dbd35ee..a344e094fe1c 100644
---- a/arch/powerpc/platforms/pseries/svm.c
-+++ b/arch/powerpc/platforms/pseries/svm.c
-@@ -9,6 +9,7 @@
- #include <linux/mm.h>
- #include <linux/memblock.h>
- #include <linux/mem_encrypt.h>
-+#include <linux/string.h>
- #include <linux/cc_platform.h>
- #include <asm/machdep.h>
- #include <asm/svm.h>
-@@ -59,6 +60,7 @@ int set_memory_decrypted(unsigned long addr, int numpages)
- 	if (!PAGE_ALIGNED(addr))
- 		return -EINVAL;
- 
-+	memset((void *)addr, 0, (size_t)numpages << PAGE_SHIFT);
- 	uv_share_page(PHYS_PFN(__pa(addr)), numpages);
- 
- 	return 0;
-diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
-index be7e009e7b59..f2e28a2710e0 100644
---- a/arch/s390/mm/init.c
-+++ b/arch/s390/mm/init.c
-@@ -129,6 +129,9 @@ int set_memory_encrypted(unsigned long vaddr, int numpages)
- int set_memory_decrypted(unsigned long vaddr, int numpages)
- {
- 	int i;
-+
-+	memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
-+
- 	/* make specified pages shared (swiotlb, dma_alloca) */
- 	for (i = 0; i < numpages; ++i) {
- 		uv_set_shared(virt_to_phys((void *)vaddr));
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index f904a636d449..1f1f39082391 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
- static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
- 					 bool enc)
- {
-+	if (!enc)
-+		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
-+
- 	/*
- 	 * Only handle shared->private conversion here.
- 	 * See the comment in tdx_early_init().
-diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
-index 0b4a1c0b0b16..a42468e81c34 100644
---- a/arch/x86/hyperv/hv_init.c
-+++ b/arch/x86/hyperv/hv_init.c
-@@ -156,8 +156,10 @@ static int hv_cpu_init(unsigned int cpu)
- 			 * page in non-root partition here.
- 			 */
- 			if (*hvp && !ms_hyperv.paravisor_present && hv_isolation_type_snp()) {
--				WARN_ON_ONCE(set_memory_decrypted((unsigned long)(*hvp), 1));
--				memset(*hvp, 0, PAGE_SIZE);
-+				int ret;
-+
-+				ret = set_memory_decrypted((unsigned long)*hvp, 1);
-+				WARN_ON_ONCE(ret);
- 			}
- 		}
- 
-diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
-index 2ce4dfe53472..e9c7799a0094 100644
---- a/arch/x86/hyperv/ivm.c
-+++ b/arch/x86/hyperv/ivm.c
-@@ -755,6 +755,10 @@ static int hv_mark_gpa_visibility(u16 count, const u64 pfn[],
-  */
- static int hv_vtom_clear_present(unsigned long kbuffer, int pagecount, bool enc)
- {
-+	if (!enc)
-+		memset((void *)kbuffer, 0,
-+		       (size_t)pagecount << PAGE_SHIFT);
-+
- 	return set_memory_np(kbuffer, pagecount);
- }
- 
-diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-index cb3d0ca1fa22..3e9b7ad3dea2 100644
---- a/arch/x86/kernel/kvmclock.c
-+++ b/arch/x86/kernel/kvmclock.c
-@@ -248,7 +248,7 @@ static void __init kvmclock_init_mem(void)
- 	 * be mapped decrypted.
- 	 */
- 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
--		r = set_memory_decrypted((unsigned long) hvclock_mem,
-+		r = set_memory_decrypted((unsigned long)hvclock_mem,
- 					 1UL << order);
- 		if (r) {
- 			__free_pages(p, order);
-@@ -256,9 +256,9 @@ static void __init kvmclock_init_mem(void)
- 			pr_warn("kvmclock: set_memory_decrypted() failed. Disabling\n");
- 			return;
- 		}
-+	} else {
-+		memset(hvclock_mem, 0, PAGE_SIZE << order);
- 	}
--
--	memset(hvclock_mem, 0, PAGE_SIZE << order);
- }
- 
- static int __init kvm_setup_vsyscall_timeinfo(void)
-diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
-index 2f8c32173972..47cae102acd2 100644
---- a/arch/x86/mm/mem_encrypt_amd.c
-+++ b/arch/x86/mm/mem_encrypt_amd.c
-@@ -13,6 +13,7 @@
- #include <linux/dma-direct.h>
- #include <linux/swiotlb.h>
- #include <linux/mem_encrypt.h>
-+#include <linux/string.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
- #include <linux/bitops.h>
-@@ -285,6 +286,9 @@ static void enc_dec_hypercall(unsigned long vaddr, unsigned long size, bool enc)
- 
- static int amd_enc_status_change_prepare(unsigned long vaddr, int npages, bool enc)
- {
-+	if (!enc)
-+		memset((void *)vaddr, 0, (size_t)npages << PAGE_SHIFT);
-+
- 	/*
- 	 * To maintain the security guarantees of SEV-SNP guests, make sure
- 	 * to invalidate the memory before encryption attribute is cleared.
-diff --git a/drivers/hv/connection.c b/drivers/hv/connection.c
-index 1ab3581b096a..3be779093f3c 100644
---- a/drivers/hv/connection.c
-+++ b/drivers/hv/connection.c
-@@ -13,6 +13,7 @@
- #include <linux/sched.h>
- #include <linux/wait.h>
- #include <linux/delay.h>
-+#include <linux/cc_platform.h>
- #include <linux/mm.h>
- #include <linux/module.h>
- #include <linux/slab.h>
-@@ -263,29 +264,27 @@ int vmbus_connect(void)
- 		goto cleanup;
- 	}
- 
--	ret = set_memory_decrypted((unsigned long)
--				vmbus_connection.monitor_pages[0], 1);
--	ret |= set_memory_decrypted((unsigned long)
--				vmbus_connection.monitor_pages[1], 1);
--	if (ret) {
--		/*
--		 * If set_memory_decrypted() fails, the encryption state
--		 * of the memory is unknown. So leak the memory instead
--		 * of risking returning decrypted memory to the free list.
--		 * For simplicity, always handle both pages the same.
--		 */
--		vmbus_connection.monitor_pages[0] = NULL;
--		vmbus_connection.monitor_pages[1] = NULL;
--		goto cleanup;
-+	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
-+		ret = set_memory_decrypted((unsigned long)vmbus_connection.monitor_pages[0],
-+					   1);
-+		ret |= set_memory_decrypted((unsigned long)vmbus_connection.monitor_pages[1],
-+					    1);
-+		if (ret) {
-+			/*
-+			 * If set_memory_decrypted() fails, the encryption state
-+			 * of the memory is unknown. So leak the memory instead
-+			 * of risking returning decrypted memory to the free list.
-+			 * For simplicity, always handle both pages the same.
-+			 */
-+			vmbus_connection.monitor_pages[0] = NULL;
-+			vmbus_connection.monitor_pages[1] = NULL;
-+			goto cleanup;
-+		}
-+	} else {
-+		memset(vmbus_connection.monitor_pages[0], 0, HV_HYP_PAGE_SIZE);
-+		memset(vmbus_connection.monitor_pages[1], 0, HV_HYP_PAGE_SIZE);
- 	}
- 
--	/*
--	 * Set_memory_decrypted() will change the memory contents if
--	 * decryption occurs, so zero monitor pages here.
--	 */
--	memset(vmbus_connection.monitor_pages[0], 0x00, HV_HYP_PAGE_SIZE);
--	memset(vmbus_connection.monitor_pages[1], 0x00, HV_HYP_PAGE_SIZE);
--
- 	msginfo = kzalloc(sizeof(*msginfo) +
- 			  sizeof(struct vmbus_channel_initiate_contact),
- 			  GFP_KERNEL);
-diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
-index fe50090dcc01..6e836a02910a 100644
---- a/drivers/hv/hv.c
-+++ b/drivers/hv/hv.c
-@@ -123,12 +123,13 @@ static int hv_alloc_page(void **page, bool decrypt, const char *note)
- 	if (!*page)
- 		return -ENOMEM;
- 
--	if (decrypt)
-+	if (decrypt) {
- 		ret = set_memory_decrypted((unsigned long)*page, 1);
--	if (ret)
--		goto failed;
--
--	memset(*page, 0, PAGE_SIZE);
-+		if (ret)
-+			goto failed;
-+	} else {
-+		memset(*page, 0, PAGE_SIZE);
-+	}
- 	return 0;
- 
- failed:
-diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
-index 31256cb22b39..af6b1531d600 100644
---- a/drivers/hv/hv_common.c
-+++ b/drivers/hv/hv_common.c
-@@ -505,8 +505,6 @@ int hv_common_cpu_init(unsigned int cpu)
- 				/* It may be unsafe to free 'mem' */
- 				return ret;
- 			}
--
--			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
- 		}
- 
- 		/*
-diff --git a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
-index 26fe9c3f22e3..7d922e0a28f9 100644
---- a/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
-+++ b/drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c
-@@ -13,6 +13,7 @@
- #include <linux/mem_encrypt.h>
- #include <linux/mm.h>
- #include <linux/pgtable.h>
-+#include <linux/string.h>
- 
- #include <asm/hypervisor.h>
- 
-@@ -61,6 +62,8 @@ static int pkvm_set_memory_encrypted(unsigned long addr, int numpages)
- 
- static int pkvm_set_memory_decrypted(unsigned long addr, int numpages)
- {
-+	memset((void *)addr, 0, (size_t)numpages << PAGE_SHIFT);
-+
- 	return __set_memory_range(ARM_SMCCC_VENDOR_HYP_KVM_MEM_SHARE_FUNC_ID,
- 				  addr, numpages);
- }
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index da665ca22d5c..356d4e09e1c8 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -211,7 +211,8 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 	if (force_dma_unencrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
--	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED) {
-+	mark_mem_decrypt = attrs & __DMA_ATTR_ALLOC_CC_SHARED;
-+	if (mark_mem_decrypt) {
- 		/*
- 		 * Unencrypted/shared DMA requires a linear-mapped buffer
- 		 * address to look up the PFN and set architecture-required PFN
-@@ -219,7 +220,6 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 		 * allocation.
- 		 */
- 		allow_highmem = false;
--		mark_mem_decrypt = true;
- 	}
- 
- 	size = PAGE_ALIGN(size);
-@@ -324,7 +324,9 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 		cpu_addr = page_address(page);
- 	}
- 
--	memset(cpu_addr, 0, size);
-+	/* Zero after remapping because the page may be in HighMem. */
-+	if (!mark_mem_decrypt)
-+		memset(cpu_addr, 0, size);
- 
- 	if (set_uncached) {
- 		void *uncached_cpu_addr;
-@@ -435,10 +437,13 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 	unsigned long attrs = 0;
- 	struct page *page;
- 	void *cpu_addr;
-+	bool mark_mem_decrypt;
- 
- 	if (force_dma_unencrypted(dev))
- 		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
- 
-+	mark_mem_decrypt = attrs & __DMA_ATTR_ALLOC_CC_SHARED;
-+
- 	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) && dma_direct_use_pool(dev, gfp))
- 		return dma_direct_alloc_from_pool(dev, size, dma_handle,
- 						  &cpu_addr, gfp, attrs);
-@@ -449,6 +454,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 			return NULL;
- 
- 		cpu_addr = page_address(page);
-+		mark_mem_decrypt = false;
- 		goto setup_page;
- 	}
- 
-@@ -457,11 +463,13 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 		return NULL;
- 
- 	cpu_addr = page_address(page);
--	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) &&
--	    dma_set_decrypted(dev, cpu_addr, size))
--		goto out_leak_pages;
- setup_page:
--	memset(cpu_addr, 0, size);
-+	if (mark_mem_decrypt) {
-+		if (dma_set_decrypted(dev, cpu_addr, size))
-+			goto out_leak_pages;
-+	} else {
-+		memset(cpu_addr, 0, size);
-+	}
- 	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page),
- 					 attrs & __DMA_ATTR_ALLOC_CC_SHARED);
- 	return page;
-diff --git a/mm/cc_shared.c b/mm/cc_shared.c
-index 85e16f4504b8..9eb79832a702 100644
---- a/mm/cc_shared.c
-+++ b/mm/cc_shared.c
-@@ -104,7 +104,6 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 	struct cc_shared_layout layout;
- 	struct page *page;
- 	unsigned int order;
--	bool zero = gfp & __GFP_ZERO;
- 	int ret;
- 
- 	ret = cc_shared_calc_layout(requested, &layout);
-@@ -117,7 +116,8 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 
- 	/*
- 	 * State transitions require a linear-map address and may modify memory.
--	 * Allocate from low memory and defer requested zeroing until afterwards.
-+	 * Allocate from low memory and let the architecture place zeroing at the
-+	 * appropriate point in the transition.
- 	 */
- 	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
- 	if (nid == NUMA_NO_NODE)
-@@ -137,9 +137,6 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 		return ret;
- 	}
- 
--	if (zero)
--		memset(page_address(page), 0, layout.shared_size);
--
- 	mem->page = page;
- 	mem->shared_size = layout.shared_size;
- 	return 0;
--- 
-2.43.0
+>
+> We still need root cause why a RCS fault affects the BCS engine - it
+> shouldn't and need investigation.
 
+
+I will also continue the GuC investigation into the first BCS8 failure. 
+Avoiding the teardown fault may prevent this reproducer, but it does not 
+explain why the RCS fault affects BCS8.
+I am discussing this issue with the GuC team, and once we identify the 
+root cause, I will provide an update.
+
+Thanks,
+Arvind
+
+>
+> Matt
+>
+> [1] https://patchwork.freedesktop.org/patch/752845/?series=173889&rev=1#comment_1391707
+>
+>> BCS8 is reserved for paging and runs migration and VM bind work.
+>> The exact hardware link between the RCS fault and the BCS8 stall
+>> is still under investigation. This series addresses the teardown
+>> and recovery problems found while debugging this failure.
+>>
+>> During file close, exec queue cleanup starts asynchronously, but the VM
+>> mappings can be removed before that cleanup finishes. A missed wakeup in
+>> the GuC disable-completion handler can also turn a completed operation
+>> into a five-second timeout and an unnecessary GT reset.
+>>
+>> The reset replay path rewinds the software ring tail to the oldest pending
+>> job, but leaves the LRC head at its saved position. This leaves different
+>> starting positions for replay.
+>>
+>> The four patches address these paths:
+>> 1. Clear pending-disable state before waking waiters, so a completed disable
+>> does not appear to time out.
+>>
+>> 2. Mark VMs as closing before queue cleanup. Reject new work and page faults
+>> on closing VMs, while allowing existing SVM invalidation to drain mappings.
+>>
+>> 3. Keep VM mappings alive until queue cleanup completes. File close uses one
+>> five-second queue-wait budget across all VMs, then defers any remaining teardown.
+>> VM destroy defers without waiting. Device references protect deferred close and
+>> final VM destruction on the module-lifetime destroy workqueue.
+>>
+>> 4. Set the software tail and LRC head and tail to the oldest pending job before
+>> resubmitting jobs after a GT reset.
+>>
+>> The five-second budget applies only to the new queue-cleanup wait.
+>> Existing teardown waits are unchanged.
+>>
+>> Arvind Yadav (5):
+>>    drm/xe: Hold a device reference across deferred VM destruction
+>>    drm/xe/guc: Wake disable waiters after clearing pending state
+>>    drm/xe: Mark VMs as closing before queue cleanup
+>>    drm/xe: Defer VM teardown until exec queue cleanup completes
+>>    drm/xe/guc: Reset LRC ring pointers before replay
+>>
+>>   drivers/gpu/drm/xe/xe_device.c     |  25 +++-
+>>   drivers/gpu/drm/xe/xe_exec_queue.c |  22 +++-
+>>   drivers/gpu/drm/xe/xe_guc_submit.c |  60 +++++----
+>>   drivers/gpu/drm/xe/xe_module.c     |   6 +-
+>>   drivers/gpu/drm/xe/xe_pagefault.c  |   2 +-
+>>   drivers/gpu/drm/xe/xe_svm.c        |   3 +-
+>>   drivers/gpu/drm/xe/xe_vm.c         | 205 +++++++++++++++++++++++++----
+>>   drivers/gpu/drm/xe/xe_vm.h         |  14 +-
+>>   drivers/gpu/drm/xe/xe_vm_types.h   |  16 +++
+>>   9 files changed, 289 insertions(+), 64 deletions(-)
+>>
+>> -- 
+>> 2.43.0
+>>
