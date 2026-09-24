@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EAF7C98314
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F52BC98310
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912C210F375;
-	Thu, 24 Sep 2026 07:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7BFB10F364;
+	Thu, 24 Sep 2026 07:43:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="INXTaRRw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DOfeHrag";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DDFF10F359;
- Thu, 24 Sep 2026 07:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790235513; x=1821771513;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=spmsYkrqjCRmUwSNTWJuRSUIkthceSnt8+ZLWsLLOMw=;
- b=INXTaRRw0Q5Jo3crpJqE8LY6hqU7uTQxLQzfLtt9t5MYktQ/CnmQFFk2
- vfo1rZOoUpxAnOI2ttx8MEYMNxW+nXbq6BaByOay3AU+mQvcRRLZawCVQ
- 2GYfLTJ4JJyeoVKGRAOksRqHIANk0zHsR6nKLYIqRQredO+WborolXCTZ
- vp5E+i4Cxnho1k5iWkL5a0dIOcq9s5b7y8AFnw6pv3uK3da7ZC/dmlqUx
- DqE1zD5OxNEG5+zjOAsMSsUM+8gEKsstZwPxxXZA96oLO8tVd8Oe6jAU2
- HdKOS8F3jwm5tErFJPEyLdoTDHizD6bsceF5tH2DOpTwceU6NOx1I4OPl g==;
-X-CSE-ConnectionGUID: pTBDZNF2TTm0CexH20uIHw==
-X-CSE-MsgGUID: RsvTKQlZTcejp5dEDR+Thw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="93495577"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="93495577"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 00:38:33 -0700
-X-CSE-ConnectionGUID: p96sOAq+RY+NnjaPY5XZVw==
-X-CSE-MsgGUID: EjNBxe0fQwWsLmtnV5Ozwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="301891508"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.130])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 00:38:29 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-fixes
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Date: Thu, 24 Sep 2026 10:38:26 +0300
-Message-ID: <9b8ff50ad5c3ff9ca120207b1e7aa95d5a16423f@intel.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECDB110F364
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:43:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 62E4C60209;
+ Thu, 24 Sep 2026 07:43:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E582C1F000FF;
+ Thu, 24 Sep 2026 07:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790235784;
+ bh=D2sXtPYa+ILg871cLjZey2URsuza8GY54cD1lrfNRcw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DOfeHragWGnZIgtQqivuE7AByN3AnCmf1YkAbVrfAOOEhYyWveZ0wT5WcMCz6mrxz
+ YSobmYpE035vO7s3h6WnA6tV0vrwlWsFMe40cK24J2DpQeCXaPG1kwer5/B0h8pzq1
+ GJloblnaXY4GSFNZW0dXJKwteccnCP14r37PvOovDQIGq0kIVORHt7v3MhHW0iKIeX
+ zKi++ixQc8htRQfSO2Nh9Rj0JC3S56yapHaftchQFaEGnu8qKe67VY+CEmpEFou4C7
+ FWQDx7mk8GyA0sesDUQFbpa/Lbji2ES0hN2nOua9GiYWlAVB8Czo2zZGjN2X6NtJY1
+ +Ka6QP2UoMGbQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/3] drm/imagination: Propagate all errors from KCCB
+ command submission code
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-2-584796cb599d@imgtec.com>
+References: <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgtec.com>
+ <20260924-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v7-2-584796cb599d@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 07:43:03 +0000
+Message-Id: <20260924074303.E582C1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,74 +54,154 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/imagination: CCCB state corruption and GPU UAF on job kick fai=
+lure
+- [Medium] drm/imagination: KCCB slot reservation leak on device loss
+--
 
-Hi Dave & Sima -
+commit ceda87571c98c414f17508dd17e12fa1ee009e5d
+Author: Alessio Belle <alessio.belle@imgtec.com>
+Date:   Thu Sep 24 07:29:44 2026 +0000
 
-drm-intel-fixes-2026-09-24:
-drm/i915 fixes for v7.3-rc5:
-- Fix incorrect RCU teardown order leading to endless loop
-- Fix DP MST TU and FEC handling for disconnected streams
-- Fix selective fetch disable, again
-- Fix export namespace for kunit helpers
-- Workaround eDP flicker on a specific laptop model
+drm/imagination: Propagate all errors from KCCB command submission code
 
-BR,
-Jani.
+This commit modifies pvr_kccb_send_cmd_reserved_powered() to return an int
+instead of void, propagating command submission errors up the stack. These
+errors now reach the DRM scheduler's run_job() callback.
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+> diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imag=
+ination/pvr_ccb.c
+> --- a/drivers/gpu/drm/imagination/pvr_ccb.c
+> +++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+> @@ -264,19 +269,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_devic=
+e *pvr_dev,
+>  	struct rogue_fwif_ccb_ctl *ctrl =3D pvr_ccb->ctrl;
+>  	u32 old_write_offset;
+>  	u32 new_write_offset;
+> +	int err;
+> =20
+> -	WARN_ON(pvr_dev->lost);
+> +	if (pvr_dev->lost)
+> +		return -EIO;
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+[Severity: Medium]
+When the device is lost, does this early return leak the KCCB slot reservat=
+ion?
 
-are available in the Git repository at:
+Looking at pvr_kccb_send_cmd_powered(), it reserves a slot via
+pvr_kccb_reserve_slot_sync() which increments pvr_dev->kccb.reserved_count.
+It then calls this function. By returning early here, reserved_count is nev=
+er
+decremented, leaking the slot permanently.
 
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2=
-026-09-24
+> =20
+>  	mutex_lock(&pvr_ccb->lock);
+> =20
+> -	if (WARN_ON(!pvr_dev->kccb.reserved_count))
+> +	if (WARN_ON(!pvr_dev->kccb.reserved_count)) {
+> +		err =3D -EINVAL;
+>  		goto out_unlock;
+> +	}
 
-for you to fetch changes up to d2da6696e0c4e60414706e607029d0bb0330c67e:
+[ ... ]
 
-  drm/i915: fix incorrect RCU teardown order (2026-09-22 12:18:20 +0300)
+> @@ -374,8 +392,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,=
+ struct rogue_fwif_kccb_cmd
+>  	if (err)
+>  		return err;
+> =20
+> -	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+> -	return 0;
+> +	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
+>  }
 
-----------------------------------------------------------------
-drm/i915 fixes for v7.3-rc5:
-- Fix incorrect RCU teardown order leading to endless loop
-- Fix DP MST TU and FEC handling for disconnected streams
-- Fix selective fetch disable, again
-- Fix export namespace for kunit helpers
-- Workaround eDP flicker on a specific laptop model
+[ ... ]
 
-----------------------------------------------------------------
-Ankit Nautiyal (1):
-      drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+> @@ -793,15 +793,15 @@ static struct dma_fence *pvr_queue_run_job(struct d=
+rm_sched_job *sched_job)
+> =20
+>  		/* Submit the fragment job along the geometry job and send a combined =
+kick. */
+>  		pvr_queue_submit_job_to_cccb(frag_job);
+> -		pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> -						 &geom_queue->cccb, &frag_queue->cccb,
+> -						 pvr_context_get_fw_addr(geom_job->ctx) +
+> -						 geom_queue->ctx_offset,
+> -						 pvr_context_get_fw_addr(frag_job->ctx) +
+> -						 frag_queue->ctx_offset,
+> -						 job->hwrt,
+> -						 frag_job->fw_ccb_cmd_type =3D=3D
+> -						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+> +		err =3D pvr_cccb_send_kccb_combined_kick(pvr_dev,
+> +						       &geom_queue->cccb, &frag_queue->cccb,
+> +						       pvr_context_get_fw_addr(geom_job->ctx) +
+> +						       geom_queue->ctx_offset,
+> +						       pvr_context_get_fw_addr(frag_job->ctx) +
+> +						       frag_queue->ctx_offset,
+> +						       job->hwrt,
+> +						       frag_job->fw_ccb_cmd_type =3D=3D
+> +						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
+> =20
+>  		trace_pvr_job_submit_fw(geom_job);
+>  		trace_pvr_job_submit_fw(frag_job);
+> @@ -809,9 +809,10 @@ static struct dma_fence *pvr_queue_run_job(struct dr=
+m_sched_job *sched_job)
+>  		struct pvr_queue *queue =3D container_of(job->base.sched,
+>  						       struct pvr_queue, scheduler);
+> =20
+> -		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> -					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
+> -					job->hwrt);
+> +		err =3D pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
+> +					      pvr_context_get_fw_addr(job->ctx) +
+> +					      queue->ctx_offset,
+> +					      job->hwrt);
+> =20
+>  		trace_pvr_job_submit_fw(job);
+>  	}
 
-Christian K=C3=B6nig (1):
-      drm/i915: fix incorrect RCU teardown order
+[Severity: High]
+Does propagating the error here corrupt the CCCB state and potentially caus=
+e a
+use-after-free?
 
-Imre Deak (2):
-      drm/i915/dp_mst: Fix configuring FEC for a disconnected stream
-      drm/i915/dp_mst: Fix configuring TUs for a disconnected stream
+Looking at the full context of pvr_queue_run_job(), if the kick fails, the
+error is caught and handled in the error path:
 
-Jani Nikula (1):
-      drm/i915/dp: use EXPORT_SYMBOL_IF_KUNIT() for kunit helpers
+	if (WARN_ON(err))
+		goto err_release;
+=09
+	...
 
-Nemesa Garg (1):
-      drm/i915/psr: Clear stale sel fetch enable bits on sel fetch disable
+err_release:
+	pvr_kccb_release_slot(pvr_dev);
+	return ERR_PTR(err);
 
- drivers/gpu/drm/i915/display/intel_cursor.c        |  7 +++++--
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_link_caps.c  |  6 ++++--
- .../gpu/drm/i915/display/intel_dp_link_training.c  |  4 ++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c        | 24 ++++++++++++++++++=
-+++-
- drivers/gpu/drm/i915/display/intel_dp_mst.h        |  2 ++
- drivers/gpu/drm/i915/display/intel_link_bw.c       |  3 ++-
- drivers/gpu/drm/i915/display/intel_psr.c           | 15 ++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c        |  3 +++
- drivers/gpu/drm/i915/display/skl_universal_plane.c |  9 ++++----
- drivers/gpu/drm/i915/gem/i915_gem_object.c         |  2 +-
- 11 files changed, 63 insertions(+), 14 deletions(-)
+By this point, pvr_queue_submit_job_to_cccb() has already modified the CCCB
+state, including incrementing queue->in_flight_job_count and writing the
+commands to the CCCB. The err_release path aborts the DRM scheduler job wit=
+hout
+reverting these changes.
+
+If the job is aborted, its resources can be freed by userspace, but its
+commands remain in the CCCB. When the next job is successfully kicked, the =
+GPU
+will execute the aborted job's commands, leading to a use-after-free of the
+freed GPU buffers. Additionally, queue->in_flight_job_count is left permane=
+ntly
+desynchronized.
 
 --=20
-Jani Nikula, Intel
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-b4-upstrea=
+m-propagate-all-errors-from-kccb-cmd-submission-code-v7-0-584796cb599d@imgt=
+ec.com?part=3D2
