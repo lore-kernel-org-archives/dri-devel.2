@@ -4,79 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44014C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:02:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DCA7C9831E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9022A10F5DE;
-	Thu, 24 Sep 2026 14:02:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9C810F350;
+	Thu, 24 Sep 2026 14:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e2xx/w1M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CWrZ80iZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30BC010F5CD
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 02A6F43E14;
- Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C1B92C2BD00;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790258495;
- bh=HQO6s5NSPIkZ8lJjSMxREoTe6x3ksQXgpWt1Xk24wJ4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=e2xx/w1MON657rJKlDZfCW7LHRDXJsaIY5BuMVkEesy7eKoB/ElTNt2K7k4uIVxVT
- bjEh2NJ1dwoRFKLzXCTHTpPMw7yELf+a5Q3KoSk1PHy2b3AKg+cwDTDDzGR3VQli/m
- 8DveYG9n4u4cDTts83uQ6mnTifg2tzFJLxwBWdeNOLv8BUnmOomxRQp/ioNF/cz1JP
- fbz9TBlok05ln0pB3qn1R4F6nyGlaQtho+9JEx30EqCB6m/lG0kzokEV6/ErUnF/kK
- xDvoZziZX+DI5numLHPxCq6t1E887M0MT/r31JX64v4LCEkowmHsFimrHluADHVK+p
- xQgcyQ2i1ofMA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AC2D4C98317;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:31 +0200
-Subject: [PATCH v2 03/11] drm/panel: s6e3ha8: Really assert reset on the
- failure
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012046.outbound.protection.outlook.com
+ [40.93.195.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29BB710F350;
+ Thu, 24 Sep 2026 14:06:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jw5Hlgi3lMYUA0pD4XtcSfOxWyQi8r90XkTU5bpsgtVb+N+oO9sW74ov6TA9dB/gXvlql81Z9Pkx9nEnnbEM4p+6A8YLZPBA23gTvlg6ncVOlixUomoh34XJLYDrx6kUIMEFt5TOpPALFOHiw/52fPRhVf459dB/WOZLZ/BlfaZshCXqmVWykvjJpmDSfwiGmpVHxrIvN0K9PU51YbyV+NQTdjYpzlt+AFulovQWyEZdYgLoHAOYsUNvpom3v8G3zsK69xBANsPlGwVBvqxwjIKhHPgibsPDF/SLAcn0PVB+lsnf1TxJlR5QyDJGsQm7ocPwovnH3sdA2JB46V5xfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BVZ7ZMac/Ja63Pz8kzNrZwtUZZAGUooo35qJFP5wzWk=;
+ b=rQmiIelQWI8ddvoGeLZ2HZ6cpZ/5C+DS1c4guW2YHbgLQatJEOS8c/JycPr+x6M9Vcdra2/7vAbf4047fwxZqo3pT35qdJ2zVD3BBp7UrYZuF6cx4U5i9rRmzzV37bSUCrSghvSx3LGm5EML+2iXUreOGYeCPEMoh7E/wvkQTzSJzjlcYr9yYylrCsbW7kMrDMRCEuF5bceW1C5i4+rIU+IY1icWAk2TcoTxgQ/UV1NAZlabIYoG3DJY3u16ONGGoreyFdL7SJpKDJruR/IqtSIvMJNwFDWdSmYC6gfsSqGg358A8ykIuR9JFb0MCL7osrWOTqfMMBa04+bXB0ZPlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BVZ7ZMac/Ja63Pz8kzNrZwtUZZAGUooo35qJFP5wzWk=;
+ b=CWrZ80iZ6vc+HhpiRQv8LoIdzzB6zQEtRJf5WpVdQWcIqM/M9dSS5USFX7YXBQvQgeDqSueSWdya3K83WaVUog0vpFbhEw4sJXBURmAffybgGmdsva3AITaluqiWZ8rWm7TkriGBaCaalbJAhXcw6VXm6J2xbA1RVZrvBgoGY9o=
+Received: from MN0P222CA0029.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::34)
+ by LV2PR12MB966079.namprd12.prod.outlook.com (2603:10b6:408:3a9::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 14:06:43 +0000
+Received: from BL6PEPF0002256F.namprd02.prod.outlook.com
+ (2603:10b6:208:531:cafe::9b) by MN0P222CA0029.outlook.office365.com
+ (2603:10b6:208:531::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Thu,
+ 24 Sep 2026 14:06:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0002256F.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 24 Sep 2026 14:06:43 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 24 Sep 2026 09:06:39 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Pierre-Eric
+ Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] drm/amdgpu: implement workaround for sdma dcc corruption
+Date: Thu, 24 Sep 2026 16:06:16 +0200
+Message-ID: <20260924140616.2647-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-To: Dzmitry Sankouski <dsankouski@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1446; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=sUy0BR5Bzr/Y22ddFb/f+LRIKy5v8DuL6NuaUod5V1U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08wHR9zYSx/3A2hmDQ05c0FOMS965h5V6ML
- hEg8/cxi+CJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
- cq8JD/4wsfSqoqairaLYwA3fSUe7IyhRf9Us7/9/0O2w6U4oV58WwpwXYz1aF/oR2Ld+37tSCrp
- 9f8AZsVIKqLL8ykHh45L9s6XcAFc1SoXhVes5WdbyQq+HweLzf0McOYZIG/sKup4nQJovUTuQft
- O2S4j5tQzrlA/rJr5TQmYYb4oCioOuahLb4Lzp0ezRsBBnXo17UieJnKvp6dZD5vSbq2ZnBpHG0
- v/AbASTfUczXTkMMQzZL4N+62ZdpLd4BZ396DWNNHQs2AayCWC4lt3ZWHOYtHS+ZqtuMR37KUVl
- kPRZmdcyK5wrZny7vW3aqgBcUo4dHDdlLKQaQM6Bp0UiITCP1nc9mREDTt4zjNFpXZ3ECVcQXCe
- Xrb0YH7Jx8liPGpFyU1J0zJTiWUBTpg3f0QH+kN5WIxKTcvM8TBEkFF/SeoS5NldFDntmA3i/l2
- 8OInuoHyvsuIGht01GzUACKMnXs/YBwcCZqhHimQE6w8GOg4OD9w3fV546/yEaexNDHAXSUYgfj
- zYaX8qVMhz+Gh/YGxF4rgo5ndFrNPYZq7WL6VkJvFlXznIpJaO/Mu9+35hYxkOKcubVrXqWldo8
- nTwVqvux6WJjac/UKMLn30L4acxcxHNArJVUibYYTMSmG+2kUUadYdullZU3DooMhnOXDwIHbSj
- OTZavnrCWCIaX4Q==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256F:EE_|LV2PR12MB966079:EE_
+X-MS-Office365-Filtering-Correlation-Id: cba0b78e-2daa-41a0-e529-08df1a45104a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: X5eLabG11oZEKyQVpuclcYMzr4lQDXYndtBz+bNsBAgQhd+AYt2jHcEdoVPr3h8RLt7pWTAQk4CJEyFkeGrWKliVVASwSWlQDeGbI4AZz2V0jVtivRYxl5sW7CR6A7YbMFDDg4WkJVd928Pc2lqSL/sku1SvN7FQiR6+Pq8CjvXH8lYpo/7zOkEJkxwEPp9r6iP0ftT+5t8aXHC9mmQBrdCKhReBWw/BeQvh9X55I4GVmJg3623hp9zMF6fU15cp6iVqEBaFdXej/yPh9OzBMyWd4++of28PBy3j92li3Af4Q+24SOzHrGFYaOnJuwL3G898C768HILYyTh9XPAZcftI1lugs78nez4xD5AbXSXQecqpI1zdPB+fT30j7UQWQFy1MNByu+DVE4ovrFUvA9OmwcSycGZYtK3SiMm1TdFJOATAClfg7MDubvCI+0Vs/f+vgK1EJHZlqPUfNzUZGe15JxYBBklB3e0HWnLLtEIZonryzrH2tXNiv0dwDyScmKhb/P9KW5m37yZHPHW90NdN0XpR2w6k3FbjXlmPnuif1edMruG0kX0wfGWr/OtCjTz5tv4x+cMXPNyT2mieNY5JfShF5KcXXoG42XKJjq0Ios5LNQFNIsW7bjtxXRlPlss0G7+NqyueST6lRcZCxg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: R2O4l+gz9AIievSFt/q45yijXerj6U80lmIku3ul7L5nsjb/+DHrBWjH3nLHPzm7ZhX6Q77X2vCLL5fvVVy29UUNDbViuOyMnX4qTXoZnPLxKQKWFRpdsKEw5IV5zoEJ+61ksQNDcHiJEfAVoKhpt63qibpiQC/CuyGyKu05sah+FWFnWGv6mQ260Iigv2f68stAIWUU1/hps/8lxWtO+OvV5T8mD63ormvffLAjfwwZbIGRfUGT+/2HhBOgaN5/lzQ7Y7fRm8ySRUnfeNp/8cf+ujGq24ERCqUtvQmAdcipZLTiGdgiAmK7lYAb8//tI50nPRMMo9IAbNJ2Rc3Y80+QbE/LfQIfcb9iuSWjYVLKHweY4dQRavswT53sjgn29YgtdlFibYBkA71xf1z+98vqbygS1chptCXXSI3ZZfgkLYA+mVkvtMSEdvH5lWPp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 14:06:43.7868 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cba0b78e-2daa-41a0-e529-08df1a45104a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB966079
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,52 +111,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+For unknown reasons, on gfx12 using multiple entities can causes
+random corruption of BOs with DCC.
+This workaround seems to prevent the issue until the root cause
+is understood and fixed.
 
-Due to incorrect implementation 0 == asserted, thus when driver fails it
-needs to assert reset.
-
-Minimal fix for stable; the polarity convention is corrected properly
-later in this series.
-
-Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5663
+Fixes: 3a6f6eeb3db5 ("drm/amdgpu: give ttm entities access to all the sdma scheds")
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-index 078523df48860..835121b322f4a 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-@@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
- 	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
- 	if (ret < 0)
- 		return ret;
- 	mipi_dsi_msleep(&ctx, 120);
- 	s6e3ha8_amb577px01_wqhd_reset(priv);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 3d620ec2937f..e9de5c4b7f63 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2367,7 +2367,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
+ {
+ 	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
+-	u32 num_clear_entities, num_move_entities;
++	u32 num_clear_entities, num_move_entities, sdma_ip_version;
+ 	int r, i, j;
  
- 	ret = s6e3ha8_amb577px01_wqhd_on(priv);
- 	if (ret < 0) {
--		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+		gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 		goto err;
- 	}
+ 	if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
+@@ -2392,6 +2392,12 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
  
- 	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
+ 	num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
+ 	num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
++        /* TODO: workaround for DCC corruption when moving BOs from multiple queues at
++         * the same time: use a single queue until the root cause is identified and fixed.
++         */
++	sdma_ip_version = amdgpu_ip_version(adev, SDMA0_HWIP, 0);
++	if (sdma_ip_version == IP_VERSION(7, 0, 0) || sdma_ip_version == IP_VERSION(7, 0, 1))
++		num_move_entities = 1;
  
- 	samsung_dsi_test_key_on_lvl1(&ctx);
- 	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
- 	samsung_dsi_test_key_off_lvl1(&ctx);
-
+ 	adev->mman.clear_entities = kcalloc(num_clear_entities,
+ 						sizeof(struct amdgpu_ttm_buffer_entity),
 -- 
-2.55.0
-
+2.43.0
 
