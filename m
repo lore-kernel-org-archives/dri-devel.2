@@ -4,85 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EC5C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:07:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F9E3C98311
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:08:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6ECE10F426;
-	Thu, 24 Sep 2026 10:07:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A93F10F427;
+	Thu, 24 Sep 2026 10:07:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hNxRqbRX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gaf9HbiN";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEC810F426
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:07:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91ABD10F427
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:07:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4FD8B4196C;
- Thu, 24 Sep 2026 10:07:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19E81F00893;
- Thu, 24 Sep 2026 10:07:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7A67643540;
+ Thu, 24 Sep 2026 10:07:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABB01F00898;
+ Thu, 24 Sep 2026 10:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790244468;
- bh=GJ0WVrMy94SvEspEtHLkpWdnYwmIG1CQN164cHPWINA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=hNxRqbRXCBgOSlhg7QIsbDMl/whpfkl0ji4BaBHpuxUxIl14Vx/ArJ7tNq0y1ndJF
- y9K5awNXnNh1KYw2+eWvCuc/PssjIkDyqaZWu4L877wC/jKUjqJ1vtwayk98/dUizt
- 3iMzqyg/Nr0Yi1NyIP5FNWknNNPLaEoaD4qY7DkTirbj7N+UPwQVnWdkefhMMilbyX
- qzg/oa0RKZLl0sPbOB816fgurHhifb89rdCCSvVAa8jEUMDiGPzlFZ1/Pr/Yn3kxKf
- +J7YuR28nAYg+9+WmWPWuGTOd4kD+JTXcvMadE+gkobA8U2AGqOoDVzjqNn7LAMkRu
- O52L6EXUAbO6Q==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org
-Subject: [RFC PATCH v8 07/14] dma-direct: Align CoCo shared DMA allocations to
- the shared granule size
-Date: Thu, 24 Sep 2026 15:35:22 +0530
-Message-ID: <20260924100529.1398790-8-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1790244478;
+ bh=cOuYAWQzfp8h6z0+79qmbP7zq2+xblr6aMlVg6a2ckk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Gaf9HbiNhHHf5dQyvcAZIYUyrSopIWn1MQxOTtJanlzbjFiBFmmAA4Y958gGE9E00
+ LSZqf/BSd7cfSfk6IV/3PIqDzNxnxs7YT7EqK/BLLy+kmcpLJEnbxL4al9WCYEqm5g
+ dU3+tTfQMknG1sDq3rBbXgtsAkp/eBjwrwC+ymQwS8VDoqxCkFb555AMlRY73PhyTM
+ jD/On4Srv3FrnvBCO5mAZMVcPqLzPXByJLzwcNoE6AlDD5z/nor5kUwR+57bmr5mKD
+ K/ak7JOfDLm78/636Ai9slKngf+mvOqxaDloPx5d/lZJHCo3pbl2IwYAuLzraIDS6F
+ KDgoWipW0zjaQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Honglei Huang" <honghuan@amd.com>
+Cc: "Eugenio Perez" <eperezma@redhat.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <20260924095556.1326164-4-honghuan@amd.com>
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 10:07:57 +0000
+Message-Id: <20260924100758.1ABB01F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,206 +54,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the common CoCo shared-memory geometry helpers for allocations backed
-directly by CMA or the page allocator. Round the backing allocation to a
-whole shared granule and pass the resolved shared-allocation attribute
-through the DMA contiguous allocator so it can enforce the mandatory
-alignment. Transition the complete range through the common shared/private
-helpers.
+> Add userptr blob objects so the guest kernel can pin an existing
+> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>=20
+> - New virtio_gpu_object_userptr type for userptr resources
+> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>   required; use DMA_TO_DEVICE for USE_READONLY blobs
+> - Mark writable pages dirty when unpinning
+> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>   cleanup_object() on the unref response or on create failure
+> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+> - Reject unaligned or overflowing userptr ranges at create time
+> - Disallow PRIME export of userptr objects
+> - Save CREATE_BLOB params and restore userptr resources after
+>   hibernation without using the shmem restore path
+>=20
+> The hibernation restore path maps with the same attrs and direction
+> used at create time, as documented next to the call. Like shmem
+> blobs, the DMA API can still bounce through a buffer there. This
+> design only avoids a second guest side shmem allocation and memcpy,
+> nothing more.
+>=20
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
 
-Recompute the layout before freeing ordinary direct allocations so the
-transition back to private memory and dma_free_contiguous() cover exactly
-the range acquired by the allocation path. If restoring private state
-fails, retain the existing fail-safe behavior and leak the pages rather
-than returning potentially shared memory to the allocator.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-This also applies the same rules to dma_direct_alloc_pages(), covering
-callers which require a struct page result rather than a CPU virtual
-address.
-
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Assisted-by: Codex:gpt-5
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- kernel/dma/direct.c | 51 ++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 39 insertions(+), 12 deletions(-)
-
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index cb14419f8a09..09a8a842fc6f 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -11,10 +11,10 @@
- #include <linux/scatterlist.h>
- #include <linux/pfn.h>
- #include <linux/vmalloc.h>
--#include <linux/set_memory.h>
- #include <linux/slab.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/cc_platform.h>
-+#include <linux/cc_shared.h>
- 
- #include "direct.h"
- 
-@@ -85,7 +85,7 @@ static int dma_set_decrypted(struct device *dev, void *vaddr, size_t size)
- {
- 	int ret;
- 
--	ret = set_memory_decrypted((unsigned long)vaddr, PFN_UP(size));
-+	ret = cc_make_shared(vaddr, size);
- 	if (ret)
- 		pr_warn_ratelimited("leaking DMA memory that can't be decrypted\n");
- 	return ret;
-@@ -95,7 +95,7 @@ static int dma_set_encrypted(struct device *dev, void *vaddr, size_t size)
- {
- 	int ret;
- 
--	ret = set_memory_encrypted((unsigned long)vaddr, PFN_UP(size));
-+	ret = cc_make_private(vaddr, size);
- 	if (ret)
- 		pr_warn_ratelimited("leaking DMA memory that can't be re-encrypted\n");
- 	return ret;
-@@ -115,7 +115,7 @@ static struct page *dma_direct_alloc_swiotlb(struct device *dev, size_t size,
- }
- 
- static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
--		gfp_t gfp, bool allow_highmem)
-+		gfp_t gfp, bool allow_highmem, unsigned long attrs)
- {
- 	int node = dev_to_node(dev);
- 	struct page *page;
-@@ -124,7 +124,7 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
- 	WARN_ON_ONCE(!PAGE_ALIGNED(size));
- 
- 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
--	page = dma_alloc_contiguous(dev, size, gfp, 0);
-+	page = dma_alloc_contiguous(dev, size, gfp, attrs);
- 	if (page) {
- 		if (dma_coherent_ok(dev, page_to_phys(page), size) &&
- 		    (allow_highmem || !PageHighMem(page)))
-@@ -184,7 +184,7 @@ static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
- {
- 	struct page *page;
- 
--	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
-+	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true, 0);
- 	if (!page)
- 		return NULL;
- 
-@@ -205,6 +205,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 	bool remap = false, set_uncached = false;
- 	bool mark_mem_decrypt = false;
- 	bool allow_highmem = true;
-+	struct cc_shared_layout layout;
- 	struct page *page;
- 	void *cpu_addr;
- 
-@@ -285,8 +286,15 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 		return NULL;
- 	}
- 
-+	if (mark_mem_decrypt) {
-+		if (cc_shared_calc_layout(size, &layout))
-+			return NULL;
-+		size = layout.shared_size;
-+	}
-+
- 	/* we always manually zero the memory once we are done */
--	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, allow_highmem);
-+	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO,
-+					allow_highmem, attrs);
- 	if (!page)
- 		return NULL;
- 
-@@ -305,7 +313,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
- 		void *lm_addr;
- 
- 		lm_addr = page_address(page);
--		if (set_memory_decrypted((unsigned long)lm_addr, PFN_UP(size)))
-+		if (dma_set_decrypted(dev, lm_addr, size))
- 			goto out_leak_pages;
- 	}
- 
-@@ -364,6 +372,7 @@ void dma_direct_free(struct device *dev, size_t size,
- 	phys_addr_t phys;
- 	bool mark_mem_encrypted = false;
- 	struct io_tlb_pool *swiotlb_pool;
-+	struct cc_shared_layout layout;
- 	unsigned int page_order = get_order(size);
- 
- 	/*
-@@ -408,6 +417,12 @@ void dma_direct_free(struct device *dev, size_t size,
- 		/* Swiotlb doesn't need a page attribute update on free */
- 		mark_mem_encrypted = false;
- 
-+	if (mark_mem_encrypted) {
-+		if (WARN_ON_ONCE(cc_shared_calc_layout(size, &layout)))
-+			return;
-+		size = layout.shared_size;
-+	}
-+
- 	if (is_vmalloc_addr(cpu_addr)) {
- 		vunmap(cpu_addr);
- 	} else {
-@@ -419,10 +434,8 @@ void dma_direct_free(struct device *dev, size_t size,
- 		void *lm_addr;
- 
- 		lm_addr = phys_to_virt(phys);
--		if (set_memory_encrypted((unsigned long)lm_addr, PFN_UP(size))) {
--			pr_warn_ratelimited("leaking DMA memory that can't be re-encrypted\n");
-+		if (dma_set_encrypted(dev, lm_addr, size))
- 			return;
--		}
- 	}
- 
- 	if (swiotlb_pool)
-@@ -435,6 +448,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 		dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp)
- {
- 	unsigned long attrs = 0;
-+	struct cc_shared_layout layout;
- 	struct page *page;
- 	void *cpu_addr;
- 	bool mark_mem_decrypt;
-@@ -458,7 +472,13 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
- 		goto setup_page;
- 	}
- 
--	page = __dma_direct_alloc_pages(dev, size, gfp, false);
-+	if (mark_mem_decrypt) {
-+		if (cc_shared_calc_layout(size, &layout))
-+			return NULL;
-+		size = layout.shared_size;
-+	}
-+
-+	page = __dma_direct_alloc_pages(dev, size, gfp, false, attrs);
- 	if (!page)
- 		return NULL;
- 
-@@ -484,6 +504,7 @@ void dma_direct_free_pages(struct device *dev, size_t size,
- 	phys_addr_t phys;
- 	void *vaddr = page_address(page);
- 	struct io_tlb_pool *swiotlb_pool;
-+	struct cc_shared_layout layout;
- 	/*
- 	 * if the device had requested for an unencrypted buffer,
- 	 * convert it to encrypted on free
-@@ -500,6 +521,12 @@ void dma_direct_free_pages(struct device *dev, size_t size,
- 	if (swiotlb_pool)
- 		mark_mem_encrypted = false;
- 
-+	if (mark_mem_encrypted) {
-+		if (WARN_ON_ONCE(cc_shared_calc_layout(size, &layout)))
-+			return;
-+		size = layout.shared_size;
-+	}
-+
- 	if (mark_mem_encrypted && dma_set_encrypted(dev, vaddr, size))
- 		return;
- 
--- 
-2.43.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924095556.1326=
+164-1-honghuan@amd.com?part=3D3
 
