@@ -4,116 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75C9C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB1CC98318
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D63510E130;
-	Thu, 24 Sep 2026 18:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4ED710F70B;
+	Thu, 24 Sep 2026 18:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="O8ny68Xg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TmQDn59K";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013058.outbound.protection.outlook.com
- [40.93.201.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7390110E130
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:26:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TqEwCwU+1G/m1kHFAivjGqguzxY4dIDkyiHLeXvzGnU7Rl86WO99upUiCFCZ7V2squHmeH70mEoxXEcIy1lOYZicBTSdoGwfqvtH/ujnwOVqJa5w8dxALfNITN8MyoM1oNTey/4ZD5a+lDFSNwfSceVB5tHanNQyAOxbJ2W6NdoT9UsCIdtBNj9nBT+4p6d1iRF5FMd2LQnN1nw4jaJ+luwrxlfoPhhqdYYF0FElnS9QrcDIlDnixHyYNs1oBBA0BpzstvNu2YXgCSvaczF/y1TBixXlSXzLX9kdJf44Jcffmaikn+idM8ZO597GD3hsFkkhRcd4i26WpJKtLFJpLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XYjtCOk6adHxJHjYr4tvhIzdDAh9mt3SDAKveVZMI6I=;
- b=wTtRN7V1aetLRmQPj2baIDYxU/TcJnd31eVAgYXdM2wOtiYys7rvF6YStGrcQ3BuXVAgenOmTwxTvMCSFVq/rvY3B5Hz8dY8LS8Cqi+36Mqc/RM0Ym11T7JiM54cA3eLPxSgs2JlE0LgRb9EHsQ5umFr9PEs3vaNhycMhsl/wgImlwZK6Ky33OHZrFc25+weET+2v7y+jYjTXkvuw9mj66eSuRJ38z2L2z9oQmIvdP/kmpK/1IPpKnkJnXHeXwqC+evJvb9X8dgNMniT1Uc32T/z7SBeuJuZhZbmR8ej04uumcos/aFGMjzLmLut9IYkyZJR5fZHbxpcRtP4grMZZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XYjtCOk6adHxJHjYr4tvhIzdDAh9mt3SDAKveVZMI6I=;
- b=O8ny68XgyAgxzts6EGVQSHlkjufjpYnPNw7d/GuxjxpKGCbTDJdt+Q+AC2ZA3IQdyDAIxtjvEQGHpmeoVkk1yK5g+CNNwz5B96L+ECeG2eegFHoNeLTyoF7MpYcAFENDj3ONcQVF1ycAX4ffMOBzccR5ctcN8zmaIJmtmADGPQFirX4X7EaCo0o0VXAld17k+WPq9Qz/l2AOW6XltxJ82KDIuhFlNHmdMlYcUDJ/154C4NzgwNXVY/0Ur4ZyfCgrY5xGmQYeBmU4gHiT6lv5w7NNs930I5BWOYMM8t7MVy3jn/qV8d0e6k+FkOSD6OHsom/3b7N+9/Lz0Ei6FveoIw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CH2PR12MB4279.namprd12.prod.outlook.com
- (2603:10b6:610:af::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Thu, 24 Sep
- 2026 18:26:50 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
- 18:26:50 +0000
-Date: Thu, 24 Sep 2026 15:26:43 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org,
- media-ci@linuxtv.org, Marc Zyngier <maz@kernel.org>,
- kvmarm@lists.linux.dev, Oliver Upton <oupton@kernel.org>
-Subject: Re: [RFC PATCH v8 01/14] mm: Add an allocator for CoCo shared memory
-Message-ID: <20260924182643.GC9354@nvidia.com>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-2-aneesh.kumar@kernel.org>
- <20260924101907.5C6261F000FF@smtp.kernel.org>
- <yq5a1pai4tlc.fsf@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5a1pai4tlc.fsf@kernel.org>
-X-ClientProxiedBy: PH0PR07CA0025.namprd07.prod.outlook.com
- (2603:10b6:510:5::30) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH2PR12MB4279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a34f821-22a7-4024-cd32-08df1a69666d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|11063799006|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ocLA9wnCSHXb43iTcGyGY+XUOWdeGbghAeIKFTNX2n1JozIPozf/c4Jb78JbicIb3MVB0+WvFmGcsyOVRvJPftqulSQ/9qbyZSjhDmQHMdcykI3iCHFO7/K/jsyIM8CZz8EViJ7MqwpJiMaFknSGRPTaGWRmyUHxPlBmiJzNDSTpi8i1qitzEEYuzNIT8IFgBwn81Nz1ij5xiMfdyfG/5hotuo61z4/8pS/CkKq6R1yL7KKyGQt3121oZfqa7Rg27dIjipaMxBE5BNrRI+Qcg64TCJnv/eUDyucQwF5u5vG2GgTRfEf2mjuhNexKiBRzkNN1umfvf5+ryYjZ81uO5ZguJ02gzpXycjiZ1JprMPfdf03q/K1aacWQYTOlpxb5HcoN/psZ7xQQWZTe2dfAsgS1wIXLOFD3oVXhkTBhIqTSQbsPTKbM/f7qp7YAdt1RhXIp64nMcR31u19cth96wXrxi+f/PhYMYM7VB7MDVsMl9k1YpGYSRVIKpZfK21f72tFB7WZExo8aLql5XSkz0SXDWWApQ7cZqLZZYv7YIVi7KkeRXBIXCg2VULj7gsAyM6lf6lfFXaWfaMji2wegleiFMjqdm6J8k/fA12jYrhodlCx+xSejAdUX174mnOD7GMJgBQVG3yN/EDl+zVECkVgG6LaCBXRCF0dg1wBT4qI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?i12alCYJyJqSqdP5qN2Sv4e/GGoAD/FRjLlQhGT6howbosCGqpizPFu+wnWF?=
- =?us-ascii?Q?FSyetW2A37TWEoVpSgmv8S4gmB8U7Pv2CX0UAQV92LIwGnWb1We6yMjce2ID?=
- =?us-ascii?Q?6l5W4faGyFPgODHgPH60Xy4lO4xIHJ0fJ1QK70/cDNsOHpMS+4umiYm6+oM/?=
- =?us-ascii?Q?/9Gn5+DO1ocQg66FoDdjSdWjNGCizEqT4V+51HBVDGf07cDUF8WpHfRLD9dH?=
- =?us-ascii?Q?Ii5xx3psI/rXsvZp2hXdNzLptea9A1vanU7H/VtjSHCQJMi/6FGjQwg1IR2I?=
- =?us-ascii?Q?Qpi4rZL7Y1xUUb2/uA1rij30Ycmbw4EOle3H5hEV0qZCBVK4t34+TqqzGoof?=
- =?us-ascii?Q?iqbIAP9Q4tMNzqC3qhBJmVopz68CANVFfzjpwX92PRXOzySqaGvVY3aySjss?=
- =?us-ascii?Q?SdVpN4VVhYBNvUFK3Q+PBIMMaFSIKQp/R0fsyveSZtAf9Hecb82UAh1FUyto?=
- =?us-ascii?Q?U/hDrEKyPGzl5WyHNBDSU2mzfVgO1YWpXt3yLmLcV1hty2cDFXpkDYgJbltx?=
- =?us-ascii?Q?Oskv4cCqnioC33SDxaAyaj/FjG1Tqlt4eDedAUfijRI/D/ITc6CeRKykkEw5?=
- =?us-ascii?Q?J0UJvABg4QYPqB5HoDbOZqxnYcnAQ0YkyU8WnD1E5eTtrl2oVDPlvenBriWZ?=
- =?us-ascii?Q?R1PSVjcdLFSdwUnFRQjYGedPbExDABnOQnSuZ8xyHMqTu5MFHQOdCC4Njx/P?=
- =?us-ascii?Q?3uiVe7XRWO++mOkd4XROfjY1jOUh9n6YBNPZIPhcQ/LdQ++Ue2aId7jxWjl2?=
- =?us-ascii?Q?/gxeP4tdANFrc0mD5iNeA2A5bjHXio4yUzdvr55pNX9Cw5MiHiqEJMWQn4xp?=
- =?us-ascii?Q?Ws6gAThgVQ1oQuYD35Er3Z+SabLvRm6g+ercHO7WHtPoQIVaVbHEjstQq0L7?=
- =?us-ascii?Q?GqPf1JgdvQo3iZWQfoK0nnodDkd4cE4jEzuPQSLSPxN8paSO6Vie/CuV9hcS?=
- =?us-ascii?Q?cZpbvkXHzSt25YZSeqdtSJP9IR0hPjSiDo499TN6zhnFC/+3fQ+SQ71efhqB?=
- =?us-ascii?Q?mVEXOVy0iwU/v+ZDxGz2B5S949uEENvocf6TSTdih8aHmjzEBCgtB1eJBEED?=
- =?us-ascii?Q?l+OASnwcPWcdnCG9B4P08D8ogMiWt3L6MRrCNNt/vINshxNCH+GQ4iCphWAO?=
- =?us-ascii?Q?flgfFi1aZG8w9I+gOJTjld1QtNnLGImt/ZEeu6ozpt1CguG4diJ2OJzDkMT4?=
- =?us-ascii?Q?JiNiVFzrVjZSQfrGNf8OYbtJfdz6yZ9nkJcc7WGpGVSUIbznsOi5aUPoRKZm?=
- =?us-ascii?Q?+WkKNg32EINnF6lARdm7NGBS6QGaGfga6w5mftIYY+gkhsoxUax+cwEWgv8p?=
- =?us-ascii?Q?LTjiz0jvYrl+yzXdvJQGz842pbUN7X/Upgf4tx0IZsgJiNWiqfnuG4OK50rk?=
- =?us-ascii?Q?vUKW1AoJM8Bj/5A3wIQkwcGHpKN9HaE2ynmtpiYKFKKSEH+6rouPUAUtNxtV?=
- =?us-ascii?Q?DcPWCRDpj3Zvdyr9NACIj7c8k7bq7vIi4ylMZPsXz7INQrxeOIANtMZTlti1?=
- =?us-ascii?Q?3icYFCwrGTptv9yryxC4Fh1PPfzTAXolbxXlcE+RiI6gW1JKSTFZ389jEB98?=
- =?us-ascii?Q?uUefksYJkaUgR8etn7KlAodczS55vEgzbZEjqPeZGz1tc3iyWnjHt7IeJCuI?=
- =?us-ascii?Q?ufUBleM+Aj13G55af5KCqwgJBl16CCWcUgCQ1LUtIif3VvxOJIVKC0U5uKPz?=
- =?us-ascii?Q?vBA8fjdC2TnRs0pjGMMuY5MCgbze3URb0on54Jjzn9GjQfEr?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a34f821-22a7-4024-cd32-08df1a69666d
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:26:50.2859 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 21XRIfLarhyeL+4wgvh3ddZy0FIYrZUVchxkzduusJC6QKWJJFZvvuUn2CMkN5ql
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0E5110E565
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:26:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B8F6C601FE;
+ Thu, 24 Sep 2026 18:26:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D141F000FF;
+ Thu, 24 Sep 2026 18:26:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790274415;
+ bh=rfOJj2dcp3PWljoy8ksov8HtIVmDykyhJ3RFyVUGue4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TmQDn59KUueU4QUSdYPvktKJbmq3ixGoectIojNFoyXmjGND1cJCxzHReLvykqh+o
+ RSL+IydD+84mumPKNDvYCo4RUwOmiIqkmcx2Q0IWMEKcMbbf/HwM2IvR2rxTTMCNue
+ SR0JTRd3QozxrNHwSqKDD2wJX8ed4OB2Mtdn7ad1d6a7pAnRK7PfqZevzZ/82K72IY
+ xgpxCKtXjwaFzUkIFgXpL+wxZjssX7Wr5au6ynXViHyesRf0msJ8YXWVqo+LYp78vA
+ mwXltAaJ+m4AEH2FmLNFB13SyVtGfmqq60zCp3JoyiEVbd4JAX0gIR5+2IVhC/Sjyn
+ /XhkMaNa+EDUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 15/15] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
+References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+ <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 18:26:54 +0000
+Message-Id: <20260924182655.51D141F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,100 +54,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 07:52:39PM +0530, Aneesh Kumar K.V wrote:
-> >> +int cc_make_shared(void *addr, size_t size)
-> >> +{
-> >> +	int ret = cc_validate_transition(addr, size);
-> >> +
-> >> +	if (ret)
-> >> +		return ret;
-> >> +
-> >> +	return set_memory_decrypted((unsigned long)addr, size >> PAGE_SHIFT);
-> >> +}
-> >
-> > [Severity: Medium]
-> > Will this function be unavailable to dynamically loadable modules since it
-> > is missing an EXPORT_SYMBOL_GPL() macro?
-> >
-> > The commit message states it should be usable by callers managing their own
-> > backing memory, but virtio or guest drivers won't be able to link to it
-> > without an export.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/panfrost: unnormalized positive return value causes ioctl to s=
+kip copy_to_user
+- [High] drm/panfrost: missing state reset causes permanent DoS for perfcnt=
+ after SESSION_DEAD
+- [Low] drm/panfrost: mixing goto and scoped_guard violates cleanup subsyst=
+em rules
+--
 
-> >> +
-> >> +int cc_make_private(void *addr, size_t size)
-> >> +{
-> >> +	int ret = cc_validate_transition(addr, size);
-> >> +
-> >> +	if (ret)
-> >> +		return ret;
-> >> +
-> >> +	return set_memory_encrypted((unsigned long)addr, size >> PAGE_SHIFT);
-> >> +}
-> >
-> > [Severity: Medium]
-> > Does this function also need an EXPORT_SYMBOL_GPL() macro so that modules
-> > can successfully link and call it?
-> 
-> I guess we don't want the cc_make_shared() and cc_make_private() APIs to be
-> called by modules. Modules that need CoCo shared memory should use
-> alloc_cc_shared_pages().
+commit 3965f7ad946ecef84cbe249a17983ab972ee3c12
+Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-Indeed, but we may also be over indexing on the cc name given AMD also
-uses this for their troubled host memory encryption address limit problem :\
+drm/panfrost: Fix races between perfcnt and reset sequence
 
-The note about virtio seems a bit strange, these are new functions why
-does it think virtio is calling them?
+This commit uses the reset r/w semaphore to govern access to the hardware
+at reset time, preventing races with tearing down perfcnt sessions or
+ongoing hardware resets. It also expands the DRM uAPI for the perfcnt
+DUMP operation to notify userspace if a reset occurred.
 
-> >> +	/*
-> >> +	 * State transitions require a linear-map address and may modify memory.
-> >> +	 * Allocate from low memory and defer requested zeroing until afterwards.
-> >> +	 */
-> >> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
-> >
-> > [Severity: High]
-> > Does this code inadvertently leave __GFP_MOVABLE intact if passed by the
-> > caller?
-> >
-> > Pages are returned as shared memory, but they lack migration hooks
-> > (movable_operations) to handle encryption state transitions during page
-> > migration.
-> >
-> > If a caller passes __GFP_MOVABLE, the page might be placed in ZONE_MOVABLE.
-> > Since the kernel migration code does not know how to handle encryption state
-> > transitions, the page cannot be safely migrated. Could this permanently pin
-> > the movable zone, thereby breaking memory hot-unplug and compaction?
-> 
-> I don't think we want CoCo shared memory allocations to be movable, but
-> I'm also not sure whether we should filter out all of these GFP flags.
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a9..91983d450c246 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+[ ... ]
+> @@ -58,25 +69,100 @@ void panfrost_perfcnt_sample_done(struct panfrost_de=
+vice *pfdev)
+[ ... ]
+> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u=
+32 *state)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> +	int ret;
+> +
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		*state =3D perfcnt->state;
+> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
+> +			return -EIO;
+> +
+> +		perfcnt->state =3D 0;
 
-It sounds like we should at least *reject* movable. It is right that
-seems incompatible with this, and we have no use case..
+[Severity: High]
+Does this permanently lock out the perfcnt session if it dies?
 
-> >> +	if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
-> >> +		return __alloc_cc_shared_pages_node(nid, gfp, requested, mem);
-> >> +
-> >> +	order = get_order(requested);
-> >> +	if (order > MAX_PAGE_ORDER)
-> >> +		return -EINVAL;
-> >> +
-> >> +	if (nid == NUMA_NO_NODE)
-> >> +		page = alloc_pages(gfp, order);
-> >> +	else
-> >> +		page = alloc_pages_node(nid, gfp, order);
-> >
-> > [Severity: Medium]
-> > Can this fallback path inadvertently allocate a highmem page?
-> >
-> > The function's kernel-doc explicitly guarantees: "A memory-state transition
-> > requires a valid linear-map address, so such allocations never come from
-> > high memory".
-> 
-> Only when a private-to-shared transition is required.
+If PANFROST_PERFCNT_SESSION_DEAD is set, the code returns -EIO here before
+reaching `perfcnt->state =3D 0`. Since panfrost_perfcnt_enable_locked() also
+does not clear `perfcnt->state` when starting a new session, won't this
+leave the dead state stuck permanently and fail all future dump attempts?
 
-IMHO disable the whole thing at kconfig if highmem is enabled. Make
-the calls always fail.
+[ ... ]
+> +	/*
+> +	 * Here we release the reset semaphore because perfcnt should not get i=
+n the way
+> +	 * of a HW reset. Besides, a legitimate reset might be issued during th=
+e wait.
+> +	 */
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> +
+> +	/* A reset might come through in the gap between the completion returni=
+ng and the following
+> +	 * check, but because no sample was produced, we don't care to relay th=
+e state back to UM
+> +	 */
+>  	if (!ret)
+> -		ret =3D -ETIMEDOUT;
+> -	else if (ret > 0)
+> -		ret =3D 0;
+> +		return -ETIMEDOUT;
 
-Jason
+[Severity: High]
+Will this return the remaining jiffies as a positive value on success?
+
+Since the previous code `else if (ret > 0) ret =3D 0;` was removed, a succe=
+ssful
+completion will now return a positive number. When this propagates back up =
+to
+the caller:
+
+panfrost_ioctl_perfcnt_dump()
+    ret =3D panfrost_perfcnt_dump_locked(pfdev, &req->state);
+    if (ret)
+        goto out;
+
+won't this positive return value be treated as an error by the `if (ret)`
+check? If so, this skips the copy_to_user() call entirely and prevents
+userspace from receiving the requested performance counter data.
+
+[ ... ]
+> @@ -87,9 +173,8 @@ static int panfrost_perfcnt_enable_locked(struct panfr=
+ost_device *pfdev,
+[ ... ]
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/*
+> +		 * Clear the counters to start from a fresh state.
+> +		 */
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> =20
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +		if (ret)
+> +			goto err_vunmap;
+
+[Severity: Low]
+Is it intended to use a goto statement inside a scoped_guard block?
+
+The cleanup subsystem guidelines indicate that goto-based error handling
+and scope-based cleanup helpers shouldn't be mixed in the same function
+to avoid confusing ownership semantics. Should this be refactored to avoid
+jumping out of the scope to the err_vunmap label?
+
+> =20
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +		perfcnt->user =3D user;
+> +	}
+> =20
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-claude-fix=
+es-v10-0-755929b3cc19@collabora.com?part=3D15
