@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75553C98317
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D2D4C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89C8010F47C;
-	Thu, 24 Sep 2026 11:05:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDCE10E0AB;
+	Thu, 24 Sep 2026 11:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oPEz3aWT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZRBo/Zzn";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0C310F477
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 11:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790247889;
- bh=XXFQmfxbeg12M2OgKN8dJ9l8UIV4ldaUbZSuiynE7b4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oPEz3aWTOD7BORoXvzIu8ZcdFFTYDR65DWxRg6vPai1wDhU70fz7IgiTAI/n2VvcF
- AI/sDLpbXbEgWG4QZ2+tmah/F7SgFxptiITV887SDZG9ciMHQbdePrn9DtmWwDoACG
- 7uQNuNQid/AsK3XQbXaWmV1qyGzFvngvTrdkijVPxwhq4If7aDi5uPXKfsT5iEOk3X
- /KrkNEYeJob2TT6zzTH4Yo0ab3Qj1o79BV1FL3meTVbnYLA0PxOLvI09uL0QVZaByX
- qm84l1crTV9aWsPIbBJRAkm5gqT7AChFcaM4SnA6RWRs6Tksw6Jjfi8qdA97IP8a9P
- TnPNHuqPprXug==
-Received: from fedora-32.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DD9117E0B0F;
- Thu, 24 Sep 2026 13:04:48 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 24 Sep 2026 13:04:41 +0200
-Subject: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
- sparse regions
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0A7D10E0AB
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 11:12:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790248366; x=1821784366;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=l2zV8Bz/fIDjNe8zbxT6okixXdqVMPFO3GzQPtztSss=;
+ b=ZRBo/ZznlrOktU2pxhb6SXNn5202F/83IKf5EHaSzy7cY3Jqs2j6n+c4
+ iLsac6WsB4Z2cAKxMzoawVdNXinxizIbb0gKXz85K6zrXLXCieU+pe+Tx
+ ND4ZVxGlLBVqoUHUnAXFv2FtNTwUs7UZggIdI4ymbKjp10tsmZT/qliSJ
+ 2YDIuNYHyUfNR/DL1/NRkx5h1zyBigIKl2xnrPRU4+cGzali/T4/kxeGS
+ yF4af05yd4DflHBLJAtOLYYWmU8iMqRziYcZ3hbV06IFOfef9TsYpzjKH
+ k91qBwrydc1xtqDbUe//y/tke+wOKaksT+gLcdmZDf740nEO0RmOvnP0B w==;
+X-CSE-ConnectionGUID: ZhR20u5BQh+znb7gyoHGIA==
+X-CSE-MsgGUID: lvWIMnqBTKKZRiTcStvJkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="93734093"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="93734093"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 04:12:46 -0700
+X-CSE-ConnectionGUID: FAyI/UwAToqWoEfQy+9Dlw==
+X-CSE-MsgGUID: GG/OzEtLQCS0lgqGzGa/qg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="273134530"
+Received: from soc-5cg4396xfb.clients.intel.com (HELO [10.102.89.94])
+ ([10.102.89.94])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 04:12:44 -0700
+Message-ID: <cf0db8d5-1a88-4eb9-bf67-08585de9342f@linux.intel.com>
+Date: Thu, 24 Sep 2026 13:12:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Make BO free helper NULL-safe
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
+ karol.wachowski@linux.intel.com, lizhi.hou@amd.com
+References: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
+Content-Language: en-US
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
-References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
-In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Akash Goel <akash.goel@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790247886; l=2529;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=XXFQmfxbeg12M2OgKN8dJ9l8UIV4ldaUbZSuiynE7b4=;
- b=l/2yTWBNMeOJtPU6XlpqndFiYPPeycUcG7eZjtPC93NZDKhi11vFCOgO9xHR4iERb/9oXymjD
- Hcq/8fsUb4/C1JTK92i1i/K6v53+WNIjkB7qYNx9lkrI/NVzvWkvgah
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,67 +74,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the recent changes to iova_mapped_as_huge_page(), the check for
-huge-page mapping of sparse BOs is actually simple:
+On 2026-09-24 12:59 PM, Andrzej Kacprowski wrote:
+> Handle NULL buffers in ivpu_bo_free() so callers can use it as a
+> kfree-like cleanup helper.
+> 
+> Use the NULL-safe helper to simplify error paths and teardown code in
+> firmware, IPC, preemption buffer, and metric streamer cleanup. This
+> removes redundant conditional frees and collapses unwind labels that only
+> differed by which BOs had been allocated.
+Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>> 
+Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> ---
+>   drivers/accel/ivpu/ivpu_fw.c  | 65 +++++++++++++++--------------------
+>   drivers/accel/ivpu/ivpu_gem.c |  3 ++
+>   drivers/accel/ivpu/ivpu_ipc.c | 11 +++---
+>   drivers/accel/ivpu/ivpu_job.c |  6 ++--
+>   drivers/accel/ivpu/ivpu_ms.c  | 17 ++++-----
+>   5 files changed, 44 insertions(+), 58 deletions(-)
 
-- for a sparse mapping, we know the BO offset any VA in this regions is
-  va & (SZ_2M - 1)
-- the VA we're searching the BO offset for is the 2M-aligned
-  aligned_va value
-
-This guarantees that the BO offset to check is always zero in that case.
-
-This is simple enough to let the code check if page 0 is a huge page
-and save the unmap+map dance when the dummy BO is not backed by a
-a huge page. So let's do that and kill the comment that says it's too
-complicated.
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Reviewed-by: Akash Goel <akash.goel@arm.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index d2897099763e..01564d250adf 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
- 
- 		return false;
- 	} else {
--		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
- 		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
- 		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-+		const struct page *pg;
- 
--		/* If the unmapped VMA stands for a sparse mapping, always
--		 * assume the backing storage is a THP, since the overhead of
--		 * unmapping 2MiB worth of 4KiB pages and remapping some of
--		 * them is offset by the logic of working out whether it's
--		 * the opposite case right below.
-+		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-+		 * VAs point to the start of the BO. Since aligned_va (the
-+		 * address we check huge-page against) is 2M-aligned, the BO
-+		 * offset is guaranteed to be zero.
-+		 * Check panthor_fix_sparse_map_offset() for more details.
- 		 */
- 		if (is_sparse)
--			return true;
-+			bo_offset = 0;
- 
- 		/* In case of shmem backing, we know we can only have a huge
- 		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-@@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
- 		if (!IS_ALIGNED(bo_offset, SZ_2M))
- 			return false;
- 
-+		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
- 		return folio_size(page_folio(pg)) >= SZ_2M;
- 	}
- }
-
--- 
-2.55.0
 
