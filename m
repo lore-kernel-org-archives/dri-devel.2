@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B89EC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56777C98317
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88A3B10E169;
-	Thu, 24 Sep 2026 13:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5DF910F543;
+	Thu, 24 Sep 2026 13:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="R0HoyHdE";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KtIli44P";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F5210E169
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:24:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0D6110F543
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:25:05 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e6c0fce17so11233685e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:24:48 -0700 (PDT)
+ 5b1f17b1804b1-49e79a408deso11656265e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:25:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790256287; x=1790861087; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1790256304; x=1790861104; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
- b=R0HoyHdEYtqGRZ2KG/y7niC1hqyLQHr4wU1NeYIzO+OkgymkxDV/iMzkwijtPf4AmB
- lQKfWKTYbRVUMWRCe36FLidCHSoMWJiIaTDlXwb0ddALxE3EZeiOtjq/nuBSK6QTzpVv
- l4gwd3eSTAz7zA3ZVB0I9IKAzzVNHkRhFm9Gno4mX5Zm+rB8zhMGnOovmBKzWpfro27s
- 5VJ72G3nk9jen1OYazVmHPWGXP8q17EtWSjh8q1g2/EU31x36Ji74kqXJQUzc51thisL
- 3UVTAus2p4I6p+eu971Jq4LDYgX+gwARwLGscO3zNphR7BbV2WXZdcpY+9OvZPErqpN2
- Agug==
+ bh=yYQCACi0L+UzO/UuTx/CBlh8yUR2BDqMNext39iQHo4=;
+ b=KtIli44PLEAmGAJwiUJXhLdU4u1aTxnpEKAf0obZv9BKwBS9pBONBAWOh4+Gir+3JS
+ uoWkUIUrrZw/O9gGPmcqckFUlMt7zQHd/xPxFBpDAurF3zF6Avt0qqENT1SQ7WZlPDAj
+ vRBhLBUEl9VIVA6Nyg37DFsga4oFQkaZny1nmFiHHhzGVGdWVrNKHAFCeRCc3BotIBdf
+ Ts2Sk4MYFF3TaDe/G/frNRMN4CF5YryO/7m6MSr7KT7Nf4Zfw0X9NMfRWXnRPq04g7CE
+ NsjPQyp9ebwu0Lq2Eu1KE5o2FDWYuUUXQkiqYMB8VhRpJIAWkvE+Tbbg/M4RYC4u5Fzi
+ HMUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790256287; x=1790861087;
+ d=1e100.net; s=20260707; t=1790256304; x=1790861104;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
- b=BzAA922WagqGD8tSTFnk2s0vMfmYYaOCLuIGLeFc3yURoO8h3Q2t2BMahx/eW6W26s
- AS1lUozqj5bXLJ+JOMqz1oDL4cb7gO9Po6P5AHu7nKRqra5/qe00XEjFvFhOSUAbF4q5
- IXula7KvvjhLGhK4IGzRF+Sygc/5nw0HZSE0Zrj4sP2FzklIbfGzC7f6XhMbVOe6G4d9
- pZfZ68922b6OlxyEP/i++Xh5VuHTF1e1HYSXAE2jKgdbAE7XM8YKI3F8RredfhpDEIpK
- UxDjub6MTgnjSO2ny4tNhntBp4/JIZCpf86tQc6j28nQ1r0lMHKzHT4ud2Fj88ohPrZ1
- JNuw==
-X-Gm-Message-State: AFuF++l2B/50NWTZO+UVRCPwV332gnYFGcbYCvr5ARLgKtm5kHdoLKQE
- XMqy/XjEO5qwdK7Eb9SvU4ASwnw7zMQWFG1B9K66f0wWCc1pNyXxP/3zyxGpq+GgAg0=
-X-Gm-Gg: AYBFou0dGuQ0g/RlXNbRwwwIn9LuhI7itGFOU5SMCHo1my1mazhf7cazZbKdrVRJTap
- 4RelTUFEjreVhJ2VylxS4nQQcMQhTIvTx7VMiiQsIGxOioCbzRvDH7bjVXvjHvBXAZGI4VBw7Ze
- 1o91nrvkKyXemSNz9yBtNWsDU+44jKXoUNFS7u8v+0vxs4W5C5dBLxQ14bR+ddSue2G/QiOTkGM
- QdeHi5M89g4/es24XmOVlVJ/o22c1SbsvIIFQTY+5ClqnLszPalA8EZz14AzoYubVZY/N1v+b+0
- +uAKHLnyd59DLoYiqxsOBgnM1mOG093lLbPhzjyOH+ZzXb86mKhlLnB38h/CshxYYG13ollucrW
- oJaLcebOPGku72r/g6AglHBU58AS0TjoPeqdySWCzLihnYjQutMwuAuVmtfRJBZsivZ5oi2p4uy
- jKCDiR02XGBUFKyeTtTLiXNG1BBzrpJ+ls8a6E1JKjPQ1J5irmzDUgSL6kB2zohkEhzW2rU7SaB
- UK0COKYPdzdUl0xFqVtdxA5oEhoTkMEWviToSMAZCIOTTK3epTW6/QEYHGyZlPG
-X-Received: by 2002:a05:600c:8b74:b0:49c:fc6e:a3d7 with SMTP id
- 5b1f17b1804b1-49fe66e87damr41701145e9.22.1790256287127; 
- Thu, 24 Sep 2026 06:24:47 -0700 (PDT)
+ bh=yYQCACi0L+UzO/UuTx/CBlh8yUR2BDqMNext39iQHo4=;
+ b=G6kPgQ0MidfzknmSgcv2zvDhoJIBAplq/XXqBR0IKy764L37rvhzANWKNGJFzJVwNq
+ f2Ct48Hws5VZDzZ4gh90GmjKZPBayr1DAI0LPfu/fYVr9xbPRrkyL1T5wOOEQaNeZRQO
+ kYN8nJ7VWcovO1HI8HieX7U8PRUeyQ33vRl1ts/0J6oC9vL92aWzPyxCkWqrKL//yB+6
+ BI94xUAfROH8n/tkU9SzzXZKUYsP1uvNEXJi/B2LGwhUQ9onL23z9UPQ9n5kMQMxU1E3
+ P4zePwaA7QUk5YiqFznVHmS8YA9g/DogBgj+Rc1vpk+FWPcXbsROA4sMEHym9mUAy7Mg
+ Ed8g==
+X-Gm-Message-State: AFuF++mnL70XPVk6mUIBLZv6vpGGdrd/l9vZct/DFEVZF2K2ue9TIhvt
+ NV9k8/yYT8MmcZnUYZBtazh0nbiizA/dgptaHB861pkXESek/grZJS8+EWAqkFyjeAM=
+X-Gm-Gg: AYBFou329PLc2eFTLL3/LWhzczHzr56qonJHi8riiWAi8Fu3d2hY99Vr18HXTtdWWUK
+ D6HJoIcmjoJGd36ha2IoBed+1PgDeEN9La5Th7JskI/smavRGBPzMFh1EhmkLgAsBA4HfCv8Aw8
+ dr8ziTSb9lxYNHuaw0fkuAfSo8Adbou004y5CIkqW8ibCOh7S0RsPdZs9ot9ct6avnjZsm1mpQA
+ Jy31feFNBE+CAI4KorKwDvvvu39ljmp+PMHN4KznEwn1M6mKl64Kf+4tanSMAcPyKQ2NcMSynop
+ epNWXycvEgaksr8TnyJ77Y0ekd4xaq6xf51rnphtQ7UcIZ6awSphJMMdEmD8fiqkuU6PghdJdzX
+ E7Ijv0dKHhPKIwkVNKFJqQ6Bpm354igDik3MLra+9tbA2ETUoTUEqSX3Fwm1Y6ZFpsc1M3hpV+v
+ F6maYVwtAYymA1Is1rfmn0w0TkKFu/llDoyvL3/kJVpAz3nX2cLBriwXR7PNvEfjWeslEe+K1ZW
+ B/Ur87zY4EGytidt0nGKtaCYrlaOulTg3KEPFwBnMFnyrDC+JGWtuuV
+X-Received: by 2002:a05:600c:630a:b0:49e:719e:e215 with SMTP id
+ 5b1f17b1804b1-49fe66fa3d9mr40160945e9.26.1790256304008; 
+ Thu, 24 Sep 2026 06:25:04 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a?
  ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fe5b47da1sm72841405e9.0.2026.09.24.06.24.45
+ 5b1f17b1804b1-49fe5de4de4sm74069035e9.8.2026.09.24.06.25.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Sep 2026 06:24:46 -0700 (PDT)
-Message-ID: <2f3d939e-8de6-45f2-92ff-4aeae4d9af54@linaro.org>
-Date: Thu, 24 Sep 2026 15:24:45 +0200
+ Thu, 24 Sep 2026 06:25:03 -0700 (PDT)
+Message-ID: <339d4a24-29b6-49c1-ba3a-85fc62f093d2@linaro.org>
+Date: Thu, 24 Sep 2026 15:25:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 03/11] drm/panel: s6e3ha8: Really assert reset on the
- failure
+Subject: Re: [PATCH 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
+ compatible
 To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
@@ -81,9 +81,9 @@ To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, stable@vger.kernel.org
+ phone-devel@vger.kernel.org
 References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
- <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
+ <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -110,7 +110,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
+In-Reply-To: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -132,43 +132,40 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On 9/20/26 13:05, David Heidelberg via B4 Relay wrote:
 > From: David Heidelberg <david@ixit.cz>
 > 
-> Due to incorrect implementation 0 == asserted, thus when driver fails it
-> needs to assert reset.
+> S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
+> the Samsung AMB577PX01. Match on the new panel compatible, and keep
+> the deprecated DDIC-only one working for existing devicetrees.
 > 
-> Minimal fix for stable; the polarity convention is corrected properly
-> later in this series.
-> 
-> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
-> Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> index 078523df48860..835121b322f4a 100644
+> index 835121b322f4a..a0015ac0e2782 100644
 > --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
 > +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->   	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
->   	if (ret < 0)
+> @@ -296,17 +296,18 @@ static int s6e3ha8_amb577px01_wqhd_probe(struct mipi_dsi_device *dsi)
+>   		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
 >   		return ret;
->   	mipi_dsi_msleep(&ctx, 120);
->   	s6e3ha8_amb577px01_wqhd_reset(priv);
->   
->   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->   	if (ret < 0) {
-> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
->   		goto err;
 >   	}
 >   
->   	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
+>   	return 0;
+>   }
 >   
->   	samsung_dsi_test_key_on_lvl1(&ctx);
->   	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
->   	samsung_dsi_test_key_off_lvl1(&ctx);
+>   static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
+> -	{ .compatible = "samsung,s6e3ha8" },
+> +	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
+> +	{ .compatible = "samsung,s6e3ha8-amb577px01" },
+>   	{ /* sentinel */ }
+>   };
+>   MODULE_DEVICE_TABLE(of, s6e3ha8_amb577px01_wqhd_of_match);
+>   
+>   static struct mipi_dsi_driver s6e3ha8_amb577px01_wqhd_driver = {
+>   	.probe = s6e3ha8_amb577px01_wqhd_probe,
+>   	.driver = {
+>   		.name = "panel-s6e3ha8",
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
