@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D7FC9831A
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:31:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 682A5C98314
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:36:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3339810F4BC;
-	Thu, 24 Sep 2026 12:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11A710F4C8;
+	Thu, 24 Sep 2026 12:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="b//Sv/IQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nA1izpcF";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889FE10F4C2
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790253054;
- bh=rsgS7rHkTq7viCTKRBVhQwtXUX5Iw9WtW8IFUt/hYzg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=b//Sv/IQIDLDzU7wIf/kerQCMO3IR1zwBMva1V7e3E8PLIFsf1A4Cqys4qXkpyi3H
- G1915I+vDaKg5zsRY5x8eVgHlDv1MVeDKgx1jDtEniSYmonyuLgv3v6MQ4dWlm5ahV
- k/TyUHCD9JeaCkKDSAE+Zul0OAX3XZRv2cOSWqlJ0oZEyQbBFhurlRx7STN2nEM7Ys
- 4vCeW/K9AEuacWKq9jf6gQEt7kSoZmeHm2OAuxda+IBuE5YMg2RlOQKQleDXTkoD8t
- Fmlt/tDcVbMRET6Gi9ObAnKZm+EE2PRIcHYPnGkmrp1PmyyiKMYF5Y3t22vBCQvLjB
- gdr/o1JwUPjmg==
-Received: from fedora-32.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CA0A317E0D5D;
- Thu, 24 Sep 2026 14:30:53 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 24 Sep 2026 14:30:45 +0200
-Subject: [PATCH 3/3] drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-panthor-mmu-fixes-v1-3-e25f9b106466@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D2E510F4C8
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:36:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BCB39601DE;
+ Thu, 24 Sep 2026 12:36:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546901F000FF;
+ Thu, 24 Sep 2026 12:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790253384;
+ bh=D/9++Cm02APzQ2HrYsJmX6yY0vS3ycg8nWbqirpjGwg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nA1izpcFeLrC7kRFlPHt+2g0m/f/MIPyQ1HjIjqpjjV1g+kt7+ZTZZ5YN0kUv7azG
+ iAHv6KY9oU5GhbcyHo7I8S5ykj4uHy87fFDfVcXwKHF7jsNIlwUhuMBtilK8u4gnm/
+ xtfmc8frcYxBTkciMOdZcT1yGN+B4owpag6mJRvsPHbJXbnhslJWhQnE+JeHUmD1xd
+ 7gUe+k3l86gDeHXhPNWRzNIYj2bYjbmhmdsTo2ZH4Wpy55jnz//7mU4INjrU1Cr5en
+ JrL7Hvwu6pCM/v+soW/n/eWG9RPvDY/b6HdCi50u1WTn3dEmOOcw+rPuLOESdV/0d4
+ D23RewKTp8nyA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/panthor: Don't invalidate OTHER caches
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260924-panthor-mmu-fixes-v1-1-e25f9b106466@collabora.com>
 References: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
-In-Reply-To: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Akash Goel <akash.goel@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=2299;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=rsgS7rHkTq7viCTKRBVhQwtXUX5Iw9WtW8IFUt/hYzg=;
- b=R2OTeuEvmvcvLmu7zMLWxLECynGQWE2U58cPhqAF006drMWikFuxxPkYN2i+75gJR4K6c0klb
- IEJN4Wcgl6IBxFN3Pdyh/lnUDSHtSnLj8unAo9C46DTZS5ReHOXIE5k
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
+ <20260924-panthor-mmu-fixes-v1-1-e25f9b106466@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 12:36:23 +0000
+Message-Id: <20260924123624.546901F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +53,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Right now, there's a theoretical window during which the GPU can populate
-the cache with data from a VM that's about to be evicted through the
-UPDATE(UNMAPPED) command.
-In practice this won't happen (hence the absence of Fixes tag) because
-when panthor_mmu_as_disable() is called, the VM is guaranteed to be idle
-(no active CSG pointing to this VM), but as we say, better safe than
-sorry.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] doc: comment contradicts code on RO cache invalidation
+--
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+commit 97f084533582df463bbfd6d17bb8670c85068160
+Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 038a092fd08c..bb71274aa36b 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -631,12 +631,6 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
- 	panthor_mmu_irq_disable_events(&ptdev->mmu->irq,
- 				       panthor_mmu_as_fault_mask(ptdev, as_nr));
- 
--	/* Flush+invalidate RW caches, invalidate RO ones. */
--	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
--				       CACHE_CLEAN | CACHE_INV, 0);
--	if (ret)
--		return ret;
--
- 	if (vm && vm->locked_region.size) {
- 		/* Unlock the region if there's a lock pending. */
- 		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_UNLOCK);
-@@ -648,7 +642,18 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
- 	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
- 	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
- 
--	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-+	ret = as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
-+	if (ret)
-+		return ret;
-+
-+	/* Flush+invalidate RW caches after we've unmapped, to make sure any
-+	 * cacheline eviction is effective before we potentially return
-+	 * memory pointed by this VM to the system. This needs to be done
-+	 * after the UPDATE(UNMAPPED) operation to guarantee that not further
-+	 * PT-walk can pull VM data into the cache.
-+	 */
-+	return panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-+					CACHE_CLEAN | CACHE_INV, 0);
- }
- 
- static u32 panthor_mmu_fault_mask(struct panthor_device *ptdev, u32 value)
+drm/panthor: Don't invalidate OTHER caches
 
--- 
-2.55.0
+This commit stops invalidating OTHER (L1 read-only) caches during MMU
+operations to prevent issues with flush-elimination logic on v13 hardware.
+The invalidation is deemed unnecessary as TLB invalidation prevents context
+data leaks and the cache is read-only.
 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
+hor/panthor_mmu.c
+> index 9f63a048df61c..7e98084b9a1ed 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+
+[ ... ]
+
+> @@ -1841,8 +1841,7 @@ static void panthor_vm_unlock_region(struct panthor=
+_vm *vm)
+>  		 * range is narrow enough and the HW supports it.
+>  		 */
+>  		ret =3D panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+> -					       CACHE_CLEAN | CACHE_INV,
+> -					       CACHE_INV);
+> +					       CACHE_CLEAN | CACHE_INV, 0);
+
+[Severity: Low]
+This isn't a bug, but should the comment just above this call in
+panthor_vm_unlock_region() be updated?
+
+The comment still explicitly says "and invalidate RO ones", which now
+contradicts the implementation since 0 is being passed for the OTHER (RO)
+caches.
+
+> =20
+>  		/* Unlock the region if the flush is effective. */
+>  		if (!ret)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-panthor-mm=
+u-fixes-v1-0-e25f9b106466@collabora.com?part=3D1
