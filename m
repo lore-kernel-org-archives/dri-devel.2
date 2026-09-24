@@ -4,46 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3333C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:22:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FCA8C98314
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC9A10F43F;
-	Thu, 24 Sep 2026 10:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBCBB10F443;
+	Thu, 24 Sep 2026 10:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtnUwN3h";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="fffb6f3C";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VB8tyHwO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D349A10F43F
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B87D840B95;
- Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429C41F00893;
- Thu, 24 Sep 2026 10:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790245332;
- bh=zKYx3kDRPb7Z8P9stq2bQ3C8P/z3NFTA0Vy7a1Abkrk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VtnUwN3hmlGtKm7aUuxUL0lihyN2yKK9BFg7UhHR0If8SGHk+6zFkxE2VsPR/unrS
- IVHVwv+c5Roz6HVtWGq+tXo7EcpThrSRndnF7cbgZhtKuh1mPOizDN5xamnLkME33O
- iWm7ptSXtxDiI+KYnWfx1dHn8CROqItmUwYT6aL+QkIdPRetCumMSlvtxImySq7h6a
- kLg43kTBDKVjpvll0/beXX3rlkOwGI17fEZu9CGt4rcU1wdanH7PiiRMk2HdWa5ag4
- 1ATsqQK102l/HhxLpJRMcA5qjfHXL43W8G9oShYHVvS+R5YAl7n1PYfYBhULBZioRe
- pnjZjP4Uc5qPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
- transitions
-To: =?utf-8?b?QW5lZXNoIEt1bWFyIEsuViAoQXJtKQ==?= <aneesh.kumar@kernel.org>
-Cc: "Oliver Upton" <oupton@kernel.org>, media-ci@linuxtv.org,
- dri-devel@lists.freedesktop.org, kvmarm@lists.linux.dev, "Marc
- Zyngier" <maz@kernel.org>
-In-Reply-To: <20260924100529.1398790-3-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-3-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 10:22:11 +0000
-Message-Id: <20260924102212.429C41F00893@smtp.kernel.org>
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23FCE10F444
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:15 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 06A607A0095;
+ Thu, 24 Sep 2026 06:22:14 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Thu, 24 Sep 2026 06:22:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm3; t=1790245333; x=
+ 1790331733; bh=gpp762BvRwhu+TFLXORNswWov10yfkMbGud787FoQf0=; b=f
+ ffb6f3C94LwANYV35FZ8qm8D/mav8mbwAJhplM9rabV2JVT91NLT2iNSbMJH78iO
+ bBM7lTJjf/9d0v+gq5+RKLmwZa2M972YpNInQz46tBbVDoZgEVFd5cTLqIb+qWwr
+ ywtP9q1UkK5hmzyH8VNTLaK2hV7GjTMYd6ccDOW/S9XbhA4lciwF0CQL/GKP+ycM
+ eLtrSrEuaDnYImavd0jpESvgFPmurgVmsxINmbsZxq/B1jJ7/ldQUX2WTIRt6x97
+ d2ks/W/EtjpsSOfhyThssaK+dYOCdtDON+30q7sgGRhN2GWvlD4W5Iol9lODmfOS
+ DYEYBy26YlHMX3JRZx1JQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; t=1790245333; x=1790331733; bh=g
+ pp762BvRwhu+TFLXORNswWov10yfkMbGud787FoQf0=; b=VB8tyHwOe7DrPeyG5
+ szZsJw4OIjJDu4FJihWnoY86bPoycfseTd4SW0BeQ0ADUSWZporS3SX/9By7aRvh
+ HRX2YjzvZb/FiJBab70qJSMXk7zxkYCUFkOwb0zeUfS581Q49wGjv1C11rcqT+xA
+ B4pX8oXj7eicWluj75Er/9/ENf8gYUtS1ttla2REc6nSTEA6l7GWl4aIOjdHLX0n
+ UfFSOyLWQ2VJlfchHumuFW1Rcu+PkFs2WRIK8hJSQXf8aOv01L29uSknODSYr3I0
+ u6oTzoT+xbWDYE/DqQSXgiFQCXFiZYe8eidP1pA1WII0isMzVmbX/gUZNmlSfnin
+ GapQA==
+X-ME-Sender: <xms:1fm0anRAqwpjjnrjt2JacYJnC4oEFlSkpQI2ucjXy7_pte3hWh9IfA>
+ <xme:1fm0ao6JytdW9884n6Y7FCoO2Wy6cMmd2EgO6gDVWCpLtFnrWHz_sVNNhEvAxg2OM
+ vajgG9aN7F2dfvki0PWTHJwaTzyzuNdsAMzaOAAke6pF7iZ_EBNjW4>
+X-ME-Received: <xmr:1fm0aqqDkMa0zfS0P6mKjPCmVSdWJuwwD9DT69bHA-hkzzQ_mnirzJHswL-e9Iw-MKa515AVFw>
+X-ME-Proxy-Cause: dmFkZTE5U9DWJ/1d8NZBV16bjZrXhnu9+RjSei8Egg+AJBodp1SsqcAZICkdFDYYk8PQ/z
+ nbl5nAv32NCM/Rvob60jzzR/sJI+sbtZKf4EXYq6NkDnWs3QsBAvLEkGDZPcVAuKZu09hj
+ kufWDx+OHd427BpEwAmDDK2HcwDl5PIVxykoKPNTzoVswPV46/qyR6Xp/JY/TaNWyTgMqq
+ yMy5OLUd6yAzE6clJlYL4qCFZSrQCDEMACpcb7vwZPjxoszy3u6FTeAITQlCqDvBOfb2xA
+ f1SHw7kF1Gfs8fOU43Noc1IHs7QEkTjIEBtZWO5SBQ25T666ulWx7WKsjltbKYna0Y/oKo
+ JPQ8pXQilrwWWeYarZXzxUVNS0M/pRyhhSA/ZhGS/PW7j4SW8pzBCqeBL0BDNss3H9rVlQ
+ GmjOBu5qLmik+D6L6Y3ZUH+gjnAUSROvWgx25huEVjbrLy73SjjLubx/JtmdnaUoE3V/ii
+ Q/YZaHvfbrS+cHiDux+ECtXWYKn/KzJ/te6vg8bwJy7dlpon6m06lEf1Rk5plm4ejhMOcS
+ 6/Y4/nuw9byymDIyDoaB3tcooeOgCRXS6J0T2W9bs7Vb48CTCEppJPDrniXI2XeNmeKSgE
+ iWAjzW1xknWlW9lGrArSle1RTyotE1AZle7NbEtVheRhRJEHaA6DQrPtLiHQ
+X-ME-Proxy: <xmx:1fm0arQKgMJkcp6HFTDRZ7IcAwiaddE1CbFbA29vPpVL4uZalSZqfQ>
+ <xmx:1fm0auv0KyoRR_C2jpgPeup2larQ_VJOPHzxBMfhT-Q65SR04krzww>
+ <xmx:1fm0arNd7LRAVlzMeAew5BKssaE-xhUmhz3damoFMql9fAWiQpH8zw>
+ <xmx:1fm0aoXdSOMPakH9lSS57aGoCIbhCeayfXxbhvl_UY1GmZSCFXf1xg>
+ <xmx:1fm0auvm_zZNGUNoXtTlup2OJeTX60ihjJPwb7vufzVNu-C01glj3fKx>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:22:05 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v14 02/15] accel/rocket: take the completion register writes
+ under job_lock
+Date: Thu, 24 Sep 2026 22:21:22 +1200
+Message-ID: <20260924102135.92217-3-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,185 +102,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] mm: ciphertext garbage in shared mappings due to zeroing in pr=
-epare callback
-- [High] hv: uninitialized kernel memory leaked on non-confidential VMs
---
+rocket_job_handle_irq() writes OPERATION_ENABLE and INTERRUPT_CLEAR before
+taking job_lock, while rocket_job_hw_submit() writes OPERATION_ENABLE under
+it, so a completion can write its zero after a submit has written its one
+and stop a task that has just started. Move both writes inside the existing
+scoped_guard().
 
-commit 0b9cafc26c64a65c124d5f6d15281e2bb9c41b6e
-Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+---
+ drivers/accel/rocket/rocket_job.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-mm: Zero memory during shared memory transitions
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index f40435505..575945015 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -345,10 +345,15 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ {
+ 	pm_runtime_mark_last_busy(core->dev);
+ 
+-	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+-	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
++	scoped_guard(mutex, &core->job_lock) {
++		/*
++		 * Stopping the block belongs under the lock. hw_submit() writes
++		 * OPERATION_ENABLE too, and outside the lock this zero can land
++		 * after that one and stop a task that has only just started.
++		 */
++		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
++		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+ 
+-	scoped_guard(mutex, &core->job_lock)
+ 		if (core->in_flight_job) {
+ 			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
+ 				rocket_job_hw_submit(core, core->in_flight_job);
+@@ -360,6 +365,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+ 		}
++	}
+ }
+ 
+ static void
+-- 
+2.43.0
 
-This commit makes zeroing an implicit property of set_memory_decrypted().
-Each architecture clears memory at a safe point in its transition, and
-redundant post-transition memset() calls are removed from standard allocato=
-rs.
-
-> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-> --- a/arch/x86/coco/tdx/tdx.c
-> +++ b/arch/x86/coco/tdx/tdx.c
-> @@ -978,6 +978,9 @@ static int tdx_enc_status_change_prepare(unsigned lon=
-g vaddr, int numpages,
->  					 bool enc)
->  {
-> +	if (!enc)
-> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
-> +
-
-[Severity: Critical]
-Does this write encrypted zeroes into RAM? Because this memset() in
-tdx_enc_status_change_prepare() happens before the PTE encryption bit is
-cleared, writing zeroes through the encrypted mapping results in ciphertext
-being stored. When the mapping later transitions to shared, reading this
-memory will yield that raw ciphertext.
-
-[ ... ]
-
-> diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
-> --- a/arch/x86/mm/mem_encrypt_amd.c
-> +++ b/arch/x86/mm/mem_encrypt_amd.c
-> @@ -285,6 +286,9 @@ static void enc_dec_hypercall(unsigned long vaddr, un=
-signed long size, bool enc)
-> =20
->  static int amd_enc_status_change_prepare(unsigned long vaddr, int npages=
-, bool enc)
->  {
-> +	if (!enc)
-> +		memset((void *)vaddr, 0, (size_t)npages << PAGE_SHIFT);
-> +
-
-[Severity: Critical]
-Could amd_enc_status_change_prepare() suffer from the same ciphertext issue?
-Writing zeroes to the private encrypted mapping before the transition leaves
-ciphertext in RAM, which will appear as garbage once the page is mapped as
-decrypted and shared.
-
-[ ... ]
-
-> diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
-> --- a/drivers/hv/hv.c
-> +++ b/drivers/hv/hv.c
-> @@ -123,12 +123,13 @@ static int hv_alloc_page(void **page, bool decrypt,=
- const char *note)
->  	if (!*page)
->  		return -ENOMEM;
-> =20
-> -	if (decrypt)
-> +	if (decrypt) {
->  		ret =3D set_memory_decrypted((unsigned long)*page, 1);
-> -	if (ret)
-> -		goto failed;
-> -
-> -	memset(*page, 0, PAGE_SIZE);
-> +		if (ret)
-> +			goto failed;
-> +	} else {
-> +		memset(*page, 0, PAGE_SIZE);
-> +	}
->  	return 0;
-
-[Severity: High]
-Does hv_alloc_page() bypass memset() on non-confidential VMs? On standard
-VMs, decrypt can evaluate to true. set_memory_decrypted() is a no-op that
-returns 0 there, and since __get_free_page() doesn't use __GFP_ZERO, this
-path could return completely uninitialized kernel memory to the hypervisor.
-
-[ ... ]
-
-> diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
-> --- a/drivers/hv/hv_common.c
-> +++ b/drivers/hv/hv_common.c
-> @@ -505,8 +505,6 @@ int hv_common_cpu_init(unsigned int cpu)
->  				/* It may be unsafe to free 'mem' */
->  				return ret;
->  			}
-> -
-> -			memset(mem, 0x00, pgcount * HV_HYP_PAGE_SIZE);
->  		}
-
-[Severity: High]
-Could hv_common_cpu_init() leak uninitialized memory here? The
-kmalloc_array() allocation above doesn't use __GFP_ZERO, so removing this
-memset() leaves the hypercall input/output page uninitialized on standard
-VMs.
-
-[ ... ]
-
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -324,7 +324,9 @@ void *dma_direct_alloc(struct device *dev, size_t siz=
-e,
->  		cpu_addr =3D page_address(page);
->  	}
-> =20
-> -	memset(cpu_addr, 0, size);
-> +	/* Zero after remapping because the page may be in HighMem. */
-> +	if (!mark_mem_decrypt)
-> +		memset(cpu_addr, 0, size);
-> =20
->  	if (set_uncached) {
-
-[Severity: Critical]
-Is it safe to bypass this memset() for shared CC memory in
-dma_direct_alloc()? Since the memset() inside the x86 prepare callbacks
-leaves ciphertext in memory, skipping the post-transition zeroing here means
-we will return garbage-filled memory to callers expecting clean DMA buffers.
-
-[ ... ]
-
-> @@ -457,11 +463,13 @@ struct page *dma_direct_alloc_pages(struct device *=
-dev, size_t size,
->  		return NULL;
-> =20
->  	cpu_addr =3D page_address(page);
-> -	if ((attrs & __DMA_ATTR_ALLOC_CC_SHARED) &&
-> -	    dma_set_decrypted(dev, cpu_addr, size))
-> -		goto out_leak_pages;
->  setup_page:
-> -	memset(cpu_addr, 0, size);
-> +	if (mark_mem_decrypt) {
-> +		if (dma_set_decrypted(dev, cpu_addr, size))
-> +			goto out_leak_pages;
-> +	} else {
-> +		memset(cpu_addr, 0, size);
-> +	}
->  	*dma_handle =3D phys_to_dma_direct(dev, page_to_phys(page),
->  					 attrs & __DMA_ATTR_ALLOC_CC_SHARED);
-
-[Severity: Critical]
-Does skipping the zeroing here in dma_direct_alloc_pages() for
-mark_mem_decrypt also expose callers to raw ciphertext in the returned
-buffer?
-
-[ ... ]
-
-> diff --git a/mm/cc_shared.c b/mm/cc_shared.c
-> --- a/mm/cc_shared.c
-> +++ b/mm/cc_shared.c
-> @@ -137,9 +137,6 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_=
-t gfp,
->  		return ret;
->  	}
-> =20
-> -	if (zero)
-> -		memset(page_address(page), 0, layout.shared_size);
-> -
->  	mem->page =3D page;
->  	mem->shared_size =3D layout.shared_size;
-
-[Severity: Critical]
-Can removing this memset() cause __alloc_cc_shared_pages_node() to return
-memory containing ciphertext? Callers expecting zeroed memory will receive
-garbage instead.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924100529.1398=
-790-1-aneesh.kumar@kernel.org?part=3D2
