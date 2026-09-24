@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F190C98318
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 21:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0007C98318
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 21:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8262610F7A5;
-	Thu, 24 Sep 2026 21:15:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 331AF10F7A3;
+	Thu, 24 Sep 2026 21:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="m84GtUdN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ji/mFo2c";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mz7NdAbN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LAxv2Uin";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD6210F7A5
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:19 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8900310F7AB
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:26 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68OIdlFm3462615
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:18 GMT
+ 68OIdjV62996412
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- JGkBawBsWkDYfJFvup28CeJU80F1RrPvHMm0I/iA3OE=; b=m84GtUdNnS3RSDz/
- 2LcMPv/qnjHMd6nCe0Plp7P940I5ry01S6tnXMgIIZ4JgijUaB/F9l51/yvhErmL
- 6jhZ6DvMjzIPuynDPZzho6V0mFZHBxQpeE93Kc7VqcxQhlyiIoyvQRi972OYZDcK
- VJJYrvTqULfeZB1kkJDlZXcVxgh4v/tQynmIq0hCMrqzY/LXXADTNJ5Fk/ofg6X1
- x5CRNCKDYbgnyhH84AwZPVpa3T7v1glpL2QDk7UtFrq0q9CXcUhewX3O1visyfMf
- A0MRxn2Wlv3wnnHkdGv2/dz/q3vwLF49FCE3uIrR6hQcwuj98I0I9ymPjcSrIAxW
- VV2Tmw==
+ uJ0xZghxcteqbgqQNa5Ju0bXGRBgVxcsciLwivSYvoE=; b=Mz7NdAbNAlf8h0Co
+ k2v4yGHyQJRsvNr/GRswo+5QJlKr2zmQZkeapv6h6BM+47Elrbv7H5Q5wUPOi0CV
+ y90QsqIEa0/evXlwgiZKdOc90VIse6kqNgcUHXiihM6CbH4diIV82OGShQ16lO2H
+ S3u/TWHG4lXxReyWHHlMu1sNs354jxSsySVhApVZUCaGkVKYKPU+QGrhx8G82tgv
+ BT0yC1NWnHd5ICZH4SNpAW8t41OPpPSty6YMjjxW+XXQ6MzOhDPX/2NXclt/4vnf
+ xVJ4THoE/Zfrecoc6DWtBZslP3x7xcxppqYbPvnLmrk4WmT+cqBIp2XtKAjMJ3bO
+ QkMyTQ==
 Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1tjjpkx-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw46522v1-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:17 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 21:15:25 +0000 (GMT)
 Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-139b62317d0so974858c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:15:17 -0700 (PDT)
+ a92af1059eb24-143803143c4so646935c88.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:15:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790284517; x=1790889317;
+ d=oss.qualcomm.com; s=google; t=1790284524; x=1790889324;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=JGkBawBsWkDYfJFvup28CeJU80F1RrPvHMm0I/iA3OE=;
- b=ji/mFo2c7nwyIC1AG7HKJpOJOYGbbyyC6AjPAQw7h3TLSZvdh7vY5BXus90PsPglBL
- 0SI1HQxT7q7hVvv6N4CEk+40xmYI7jNEwEk4YQ7t0SKAeWeAmK7X5XpJsn8i/I3tsoFq
- u0H8d+5Ccn3ERi6YeoDhIXapR8duo2oCRwaYAMPliY2pjtzWfky3kFTKuils5feEhTcP
- rA2P44phAaIkNts58KId4pXJad9ia0RWQd25AemmYKue3RJCQ9ufLLcYXlynL08zNqTc
- 2W1pCX/6kw0bTCXyONpCLvHHpGliNcFJnobaTKN0YEBBwWqb74sOjShHRb/28uvm5Q4q
- xmvw==
+ bh=uJ0xZghxcteqbgqQNa5Ju0bXGRBgVxcsciLwivSYvoE=;
+ b=LAxv2UinI721f/IylyRi96y2iBoJ0kcHcPCPfKb3zhk4/gkIoUTGJfncQR+x2LvDvT
+ Ge/5FLl+C/oREW96ZM6Btfpa6yh9xXZDcZnZ9ZDbmaJ/K7GTKYRCQLO78Nu4edNuqTVJ
+ vjnJB/l5xLe+Fw5lWNMuCJHOD+aTxshFkSukYRiTLuAZ0O84N4a9yAe9Z9R5hR8GTcTX
+ r+6Yp8Cgpd3fCwE14AyIa7iwbPw6gDrRtVHwbzSROnAKiyY2jPToy5ZvwlYMKuaOHJUS
+ eviKUBEyTUl8evQwD/V0Ac3rqEwjMxXE63tXamB4aNscAovMPn05Xi+sEDivHvfBEa5r
+ s2Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790284517; x=1790889317;
+ d=1e100.net; s=20260707; t=1790284524; x=1790889324;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=JGkBawBsWkDYfJFvup28CeJU80F1RrPvHMm0I/iA3OE=;
- b=st5DVcQhu1LnxvK70t024Q3w1fE67UbMWlJGJHfWJhFv5psIkoGfW6NzonQix24gNO
- 4W7eP7EpTNwwnn7ytlpxRslKtxQzbARDswIk12pDmKcuFVZxW1N7NUOm5dEpHcyXVQae
- 98VwUDEOuC5EqGmrzwmPBWQ3+gYt553hCFBYTKAHzuEdJWaDgbATJJFLrSids6tJtgFd
- UQZYMcO3NMgvzEo8BpcnKhKH5nbF/wjd4hSat1Pc1WWEErVtE8hoBCbi3fykmc68wkRW
- w/L1g389eEWvsvPGj3MaIyTog/RwNBlN36m6YM66FoHxvKB12baz1CUmlcjY8US1sQiO
- CWSg==
+ bh=uJ0xZghxcteqbgqQNa5Ju0bXGRBgVxcsciLwivSYvoE=;
+ b=z6XCGlVxVyA7S2Ux90kb8BQLxHlh63ZqWPGzif9eVD973g3qN3iCHKv0SFXDXr0ut2
+ BLBdtHdjVEbtUeHJ8MeidMTJoGPqI0y0w1ATquF1jXZRbqM2jQwNCYupr3t2Y+uhwm83
+ e9JbZBzUctN8/RBw3iZpTVcg0rKHXQq9sxqBWiGpA1VOYqKGRn07kKkEZEMK8P0xcnWw
+ OtmpR8Vagmrs1WjCEx/Wr4XC7OVwOjqdwGL7UWTpwUlfypwdrk0ODa8zH0oyS3TVdjUH
+ Sb7xh1H3UBA9+MpJ8OKjgBp122rpFXrbTKnSUYvO94K0oKdFOJLpRDpoomqS6oTLHzyQ
+ 4/ig==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy2KGea0ICB5sozUwZFvO4Ry9LpQyH1RmH8QKlpiHs62kshFukTY9OOvVGXOttgBTZBmJbncaAGQmA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++khnGknwzX2X4IX3YvD8uE7vM5SgDLc3+k+pktmKidDuqWoylBn
- a3/71JLQHpDJIya2QrspGpGMnJfQ+hy/UA2ZSvT1PGhGYPAmjlnO4byscoLENK+3tFiuNLZz9E9
- 6kHrm0SiGR/HLh1FAy0h04eDGMLnqKBbivh0/OEJkUbZ9pxRhYYeqgJylYtrZnSZcp6NIZNc=
-X-Gm-Gg: AYBFou3MrwLi3p4bADjPl77MtF2JQTny1z5ye4YcEeBjHGV2S8hVOVuJeDJusBivO/Q
- b8RTNKzV/xZeDf+bLNuhpvlmlIoqxAe1vuiEqNxEX18+lvPVz/R7HNOYDnlMbV9CAwwHExhF/oF
- 5T3D4o1076GdwgkKeDVT2G3kg2Op/1HMF9mNDt1vRv3NH5nfTvlWo50Jm4oODp5sTZOuWSGfRnD
- dAnUy75+z/y2tEfHDq2z8pcLb5UoLo/b3EUwwg5OzCBqDCL+6yKSTS0W9YpTCiu4nvc6f+lDqV6
- is4M6gdXj6BUpqbmpI/apF8sLE5r1zseqog2IfHQIX9CUANKpX2KKXVOJDOIjEs80xSwV9wVTrL
- xd6sKzm69apcXG/KmYYETsDg=
-X-Received: by 2002:a05:701b:280f:b0:143:7330:7fbc with SMTP id
- a92af1059eb24-14503fb7d58mr2637782c88.21.1790284516742; 
- Thu, 24 Sep 2026 14:15:16 -0700 (PDT)
-X-Received: by 2002:a05:701b:280f:b0:143:7330:7fbc with SMTP id
- a92af1059eb24-14503fb7d58mr2637727c88.21.1790284515607; 
- Thu, 24 Sep 2026 14:15:15 -0700 (PDT)
+ AKwUvBwf3PRK4WhkJQg3b4nF6nlh72NrdTkWd24jnS61Mp07FyduUVGmatbghJC42cGdajFFX7VVu/EVK+Y=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lLW9DcJKU+DpEY+wXgo+Bc/q20PH6OPmw8+oBAju2dzMbiCyTO
+ EvSaBWcb1ywikc+9EaPuB4oT2VztuWS3cEARuhWqUt2GrrTmhs0hnOuLm8YMo3FuQMQoj5cH12p
+ XP9anl72JiyZkcJvjMIRcQ0yRkC6UgczaEUFYpmRnIphLb2UBzXzXlYvByexzN6uaAaSz28A=
+X-Gm-Gg: AYBFou0GVDMMAskAk7CyYtZPb7ZVrZI2TDZKdZzFYTyZi2j0JwaLWL0Dvx5/rF7Rk4u
+ MYNC/i7AjAUjR8AQ25DOrvIQZ5Pio2fNa0Zwlzj2VNBgpjO+WONeQ7NaiqZSJrKAiKHqeANqukh
+ vOlAIIonLkDb3PERse/UrQ8RCVWJbUTZjfYiF7fNrSqUcc4F9uAbg0DYXCIQG/ZawS01RPnSMg2
+ El+iy4DjKBv9K3PuhmHFr2g/YuH2nRxiVm29oG0uu+4M98KL1NCOqD5+mLWoyRByZOC/mtATgIk
+ IMTkAz1CswSRBTFs7o4FuIzjROI0/HhzLqz9uplwVZ8TT4v//46BzKmzCqovXHD5d9EfwSEAc6Q
+ 0cVTjvH8MlGvDuRKId5l+cG0=
+X-Received: by 2002:a05:701b:4183:10b0:143:271a:3df3 with SMTP id
+ a92af1059eb24-1450403a968mr2967580c88.45.1790284524291; 
+ Thu, 24 Sep 2026 14:15:24 -0700 (PDT)
+X-Received: by 2002:a05:701b:4183:10b0:143:271a:3df3 with SMTP id
+ a92af1059eb24-1450403a968mr2967553c88.45.1790284523639; 
+ Thu, 24 Sep 2026 14:15:23 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-145acc47ab8sm1323776c88.6.2026.09.24.14.15.07
+ a92af1059eb24-145acc47ab8sm1323776c88.6.2026.09.24.14.15.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 14:15:15 -0700 (PDT)
+ Thu, 24 Sep 2026 14:15:23 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 02:44:33 +0530
-Subject: [PATCH 2/5] arm64: dts: qcom: glymur: fix Adreno X2-90 GMU compatible
+Date: Fri, 25 Sep 2026 02:44:34 +0530
+Subject: [PATCH 3/5] drm/msm/a8xx: Add Mahua GPU support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-mahua-gpu-v1-2-0fa0bfd8d315@oss.qualcomm.com>
+Message-Id: <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
 References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
 In-Reply-To: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -114,41 +114,40 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Jie Zhang <jie.zhang@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790284491; l=927;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790284491; l=3597;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=dqFAneSd4zL7363Qe2/8VcryWwTx+SO9Kj4pOL4oJBY=;
- b=Vebdhc0T+mrn5mzFGJiB8rbqLfgC1XngpTlhfJp4Xocf8bgEq3CCYSI3kLNcd7cYnxbcdvSi0
- 6T9GY23MvQZBL0DnKWA447FGx116TyNTUJWbfajiYPcvipqc2JR7efQ
+ bh=I88dKR93qprsU57JQfFiug9aNzx2vTCQK2zznJC5iNU=;
+ b=1psEMZuRUs7tbF4UQyIgkdQzaYUKb5r3TO16eJsS2mHei0/EsusvgUpRTNXYMHS/LegWQxYOi
+ A/A00OyHanVDzGuLxHDd8SWZF/3mR9HLEhmSEIt7x9ElBifOKeHpu0N
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: 8ZXwliG6x9LApSsdJXAN1ZUKxWl7KYLS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfX8vwgnARWCzis
- KntMfY/W6lc2WOsCRCKHsFG0pYfJirN1EQDA1l+Sld/I8JqLCkkZHnN/71laO5kehow/L4c9meK
- 9UFmBSbGU8zCdK57q+C+auJYA2UJuLpyKiVk6IBO+8j0aIVwVmkJ1UsweoWXVluwM4QUxGChOZ+
- doiYQ4GUP6RPEdN6dFJma9ky23LexCXVGXlOfMfe6CH0lnJCxvQxAdf7HDqU9N35EeB/8Vbvkc8
- YxSxdHfhkfa8Ws7F1g/IzICLy7aNixNf3dhOFOJafgjYoC3RBdi3WCeX7haW3skTMysUNbclRBH
- mNkLHXSJPxR9O9FRVZ1/1GatJhFvz9jcDoPh+Y5/3QX5nrbBukTe+Rrg2DeW4xcRcH7KpEwAkPH
- YDQ6ufwWzNyh0OmDVM9stRqF4Req7jo4mdxBAjfl7/+3kZ83ZIUUvr0OPazmUHUQqyackNi4qlb
- ByE1kxzCEkViJTTUgPg==
-X-Authority-Analysis: v=2.4 cv=cK11IVeN c=1 sm=1 tr=0 ts=6ab592e5 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=Wrq+otfv c=1 sm=1 tr=0 ts=6ab592ed cx=c_pps
  a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Xl3f10jGzgz6Ja07nhwA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=_hwIf5ch9eKH10-pnQIA:9 a=QEXdDO2ut3YA:10
  a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-GUID: 8ZXwliG6x9LApSsdJXAN1ZUKxWl7KYLS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfX2UJfci0KeqLD
- kOtNA0NnoFzD93sXJ7Ae0hIqvxWgCZUTIZcm1tgzZdFLqtAKUfYHYnrRsHLhTclNcpQq3FXfidP
- LN3W8xCxN6JpxY6Yf02xDKxdAEqJYYU=
+X-Proofpoint-ORIG-GUID: EiwAcVE3t29v-uRYgnnzHcg1R3yPJQEk
+X-Proofpoint-GUID: EiwAcVE3t29v-uRYgnnzHcg1R3yPJQEk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfX6yP+W8tDBEI4
+ jyG31HW2+jnZClHJffIHTRapHZmsbKOoBPJPHNOVyxjL0LorflpFpdDctoABTH61Zkv1o2mdZyX
+ JSenJCDnSuIHlIhbw45BgRoscS8boEn6rF6/4slqBFIw8Ra/seGOguby7iIS1crh0uS1WZMzHZi
+ 6tL7V6st+GKpD9mBMbKewRK+3iQf+GjTu5USlyrjpthp0drjFmklxyqDiBxEBzx9OFtyP6fCOBA
+ dOH5XnfGt1ThrTZJA/Jti0LtOZa68pMRv4ysSmDo4sa7BxLBTogO+bG27XN+gqgaExKxJMGc09M
+ RScpBIvxUiWC8jjpOo1Bch2eBb8CTPRkiV56tXHM/B2Pvn2QcyywxidbV+ZIoiHzUmdpfvBxyEV
+ pDK+++Guwrep6puT8qCDgm0VxmMY2oaEdnKBJwRvuzC6zh6X4TDqSdT1ZcGUJUxkydOghDTmaUi
+ GRAyfWcek8HHpKT/7HQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA4NiBTYWx0ZWRfX5TOvdRzVB+oG
+ zZ6hQ0WUb8OG/OkOhHYoN0h0f0hAe29715W3bui5no2IfEozclEX2nZssKZTEhjSNs9l/gmScVg
+ MRmvh2JWYohaNtnK9DlLn+q9mcYo0S0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-24_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 phishscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240086
+ spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240086
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,29 +165,105 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jie Zhang <jie.zhang@oss.qualcomm.com>
 
-The Glymur's GMU compatible was set to the wrong string
-qcom,adreno-gmu-x285.1. Correct it to qcom,adreno-gmu-x290.1.
+Add support for Adreno X2-85 GPU present in Mahua SoC. This GPU is a
+smaller version of Glymur GPU with fewer slices and smaller internal
+memories, but shares the same register layout. Also, the GMU chipid is
+different when compared to Glymur's GPU. Add a new catalog entry to
+support this GPU.
 
-Fixes: b6ff8cec8aaa ("arm64: dts: qcom: Add GPU support for Glymur")
 Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/glymur.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 42 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |  7 ++++--
+ 3 files changed, 48 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index de7c395d9c35..29c62118cec5 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -4286,7 +4286,7 @@ gxclkctl: clock-controller@3d64000 {
- 		};
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 90a0c7ffb3c8..3f11b16e9a1f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -2524,6 +2524,48 @@ static const struct adreno_info a8xx_gpus[] = {
+ 			{ 242, 1 },
+ 			{ 221, 2 },
+ 		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44060000),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
++			[ADRENO_FW_AQE] = "gen80100_aqe.fw",
++		},
++		.gmem = 15 * SZ_1M + SZ_512K + SZ_256K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_SOFTFUSE,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &x285_protect,
++			.nonctxt_reglist = x285_nonctxt_regs,
++			.pwrup_reglist = &a840_pwrup_reglist,
++			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
++			.ifpc_reglist = &a840_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x80a0000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 388, 1 },
++			{ 357, 2 },
++			{ 284, 3 },
++		),
+ 	}
+ };
  
- 		gmu: gmu@3d6c000 {
--			compatible = "qcom,adreno-gmu-x285.1", "qcom,adreno-gmu";
-+			compatible = "qcom,adreno-gmu-x290.1", "qcom,adreno-gmu";
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+index add93c1fa039..165620d51109 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+@@ -200,7 +200,7 @@ static void a8xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
+ 	u32 val;
  
- 			reg = <0x0 0x03d6c000 0x0 0x32000>;
- 			reg-names = "gmu";
+-	if (adreno_is_x285(adreno_gpu) && state)
++	if (adreno_is_x285_family(adreno_gpu) && state)
+ 		gpu_write(gpu, REG_A8XX_RBBM_CGC_0_PC, 0x00000702);
+ 
+ 	gmu_write(gmu, REG_A6XX_GPU_GMU_AO_GMU_CGC_MODE_CNTL,
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 114a40f79ef3..eb394d9a1d9d 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -597,9 +597,12 @@ static inline int adreno_is_a810(struct adreno_gpu *gpu)
+ 	return gpu->info->chip_ids[0] == 0x44010000;
+ }
+ 
+-static inline int adreno_is_x285(struct adreno_gpu *gpu)
++static inline int adreno_is_x285_family(const struct adreno_gpu *gpu)
+ {
+-	return gpu->info->chip_ids[0] == 0x44070001;
++	if (WARN_ON_ONCE(!gpu->info))
++		return false;
++	return gpu->info->chip_ids[0] == 0x44060000 ||
++	       gpu->info->chip_ids[0] == 0x44070001;
+ }
+ 
+ static inline int adreno_is_a840(struct adreno_gpu *gpu)
 
 -- 
 2.55.0
