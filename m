@@ -4,100 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D54C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54387C98311
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:33:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE4D10F459;
-	Thu, 24 Sep 2026 10:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88BB010F45B;
+	Thu, 24 Sep 2026 10:33:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ehN9kY3S";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="L58Wfz7d";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E916C10F457;
- Thu, 24 Sep 2026 10:28:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16DA8601FE;
- Thu, 24 Sep 2026 10:28:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CA21F000FF;
- Thu, 24 Sep 2026 10:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790245702;
- bh=RO3pD7Q9+eQAPt4mIEHLCPHWj9ylSpQSd8EUvJUV68k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ehN9kY3S16mwiPpWIqXUBkd5hPCW7NXCUfm9dHVmmKs4VS6gwEyV4j4nHHdB+cYCq
- smsa3uzpTXcx7YKAzxQk6HHTQ//Ny2fNiiO3UgY4qY0oXBC0fbqcxW4LbvNnqbRLgd
- Fxy36ADnplqbxDgOAPCO7KWlW5sOPi1dz1GMuiwRJazYJvcZCYM3ebKF/AotMiau7N
- 50lAdyTvxvOOCn5e3y6C2VUacOASKaVi+8smHAh3g+dQSzGsvdX6Y2i0IbvLPQ4Q0P
- yXNKFB7X9cBLMsdR1N0cmttdd9NOplVn2yGzyY/5Wje2139C1/kKvbME3lAvh36cOH
- g1xCKrxl/idMw==
-Message-ID: <19a05a1e-6d27-40ad-bb61-b7ff4e3ddbb9@kernel.org>
-Date: Thu, 24 Sep 2026 11:28:17 +0100
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F2210F45B
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:33:30 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-4834977ae75so1345063f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 03:33:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790246008; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MhvsqAc89L++UheLJftU1sX1JeQloBRN29JMcCwHsVewJZi0Q+zynHNmuTnQWOGP0O
+ Wq5JB0A5IAn0ItARaaHN/CdBaKQiaMSQKTbjJUfZwjVDRzLCeGHSpb8tbSL9aJir007W
+ HXXWO4z7EltwXftoEfWRj0EPpG07AnUh8/ELR8LKGbNSh46xchT1DnH8pQAZrLWtiEgl
+ /l57y2oGA5Soem87OGSKA6bwYFx8NNwyiG8fErwYZ5ABJL06oNcKwwPtnj+YvPYQ/0MO
+ RQSrHEZR1oiyfpHbc6/3laKuEpwvrCSZvWoFQzaw8N98QJ20kkpXu8D8v6avApL4d/vq
+ Oqfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
+ fh=Ok+rHjJHFp2WYzChU8imsdv9/vdIMG7/uAKtXlOMFso=;
+ b=YFochcflE/USvlnv+BbeXS4aal9n/rSG6K2FONxhRntWhT6tCCyRSz/Ddf3CnOTCGr
+ cFPvPivIt9xAW5+qeapKM54YqIyEpPTTjtSejiVAqNb5DFJ2En0BeyM8NyIwGRqUfHsc
+ qXIOG2q/PedAKXb8bYPTqOlRzwbw90E1ynQwaOTfaFp9alxIpr4nVi9+RAb9iEpSGhj0
+ 1WH8SNQjjoGazEV2gIS3WbCr79RD42ppUs3dQO6605q2D6fri7Y6r66vH3bomJ5h4VR3
+ wbxSqYdiHN8AIHA6zpqYSXbDkIHPZH7EY1p+rrBK+spZk4jDmU3VNdM482PN2Wcg8IoL
+ hyiQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1790246008; x=1790850808;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
+ b=L58Wfz7dvyPf/A63ajRO5andp7OsIEs/MpyRMDT3jYtC1JTn7gHIDufve82KurUB6w
+ F+eCM7gGOevnC85VaPTRSi3PL+m1ANbMWqiSRJy0kt2nzzHuzMYjl/VrmlX8+TTsuskf
+ UvFdH+vpXth7ffr+Ym+NYviYPI37wjj9BU+UZ+U1tXakBtZhxnMOPJG1PwPsux+BVEwe
+ lqM/w/KCRP+TNYxX+KHK/OWKmGnRGLzAspuU1xXdyP7nM0UiRx6jZo76mD4KbIuGchrQ
+ cV0R9RsVj9v5Lt/dU5IzUiG3TuUI4ShJCgge2UoX+5grFDEva1YhULzZxGgAAemG1N4T
+ tWfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790246008; x=1790850808;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=B2Y2KJCyXfWZMz2HsqnglDrl7rh38AmDRqjeiA7oS9M=;
+ b=h/BzEIgxiQOVC4e0K+/HItTmiEZDYkkgY4zH5qL6D2/apnEq7lJQUgYK3D8XL1Ritl
+ 1RlLGzLVGwASwBRQaoWeaNzs1f4fbRUww7xPTiTha2PG70tEB9+9+iYHE8NrRVa2Elo9
+ kbDXA3XTv1Y3pkJku+spGH2u+HQSya4I9olj2HaZMyt+0LxmVJ0DXl3C4yiAeNqmg8VV
+ WvKhCJqktT+xvfeTHxStuqWCkdgZuzCa+WQn1/xTrpxio5LQDSiGnRnRlRejDC+KTjOD
+ a1FXDnH2YjV+Kj4pMt/bidFo0GR2QTZTsWfmkcAr8KN6BVifJgSlrlllSs3fN1FvvvZv
+ OLOg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByiFdtWe3AQYZ8NQj3qzudXV4xgAOqPrTFZv96foXg3eybMupMIvQft80bq7u85HdQrDaB1Snaus4s=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mo/INvhiRrS5E6+zg1hTP7cPsW/tcBuSaFf2HF47+48eJtfgF9
+ 3WULQCv1ZRxoKkKJ4XMWqCUFCBIe8ofNWzTXa0f6+jFFfoUM08q5DqNGSv3+gp0rvBSMV3ElvD8
+ 2vZqfzbCJxroFbb8rXMDu7BzfYZ1sGs2k0w+SU/A2
+X-Gm-Gg: AYBFou0vXiB+UL2/C2wdE5fJ70UbTHET3kQCzSPWPoP5B5q/rASKLd6FVgMstgjwP0w
+ wm2TmhXIhhRQApMdlp4Tkwzwv8KYW6RmZBMu/iSO3bDXTaI4Eg4AkCjZXV6o+JQDb5OAQDYTuX6
+ WWY4gRPcG2Mi+CteWHshXelG+kAbFo+KiTy7SQfEzxc6BRX0rCo5WVLT+iwogfJp/vuXbx8beCm
+ P4BSf+CvzNMBpJajCrXXixg/hfrkMzZ12/Tm/pvFPO6IISzu8KM+HLzdb0OxOm7JtrempN9a8GY
+ l8mAJsdMCbWm3M4nOixxAJ/yvfTZaU3JGwy0Tf5bDff73dTuKKvPjkaAvMtnxqSLGR82f022J8f
+ nbRq9oo3bqI5jLA68ugSj5mKu6MiqdjvL3KL+Yx/Ro3CqRe9pcHOw
+X-Received: by 2002:a05:6000:4a0a:b0:487:1084:10f7 with SMTP id
+ ffacd0b85a97d-488716a5f1amr3158902f8f.28.1790246007990; Thu, 24 Sep 2026
+ 03:33:27 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
-To: Jianfeng Liu <liujianfeng1994@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+References: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
+In-Reply-To: <20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Thu, 24 Sep 2026 12:33:15 +0200
+X-Gm-Features: AclHuK804AwDAE6HGEoAUsZfzHXQ3A-22uNDOLxivpJVZwrsF_RPFfFu1xUpH0s
+Message-ID: <CAH5fLgg9xCmiN=MdNpxCLOO5zByVxrPNxhqCeiEQNpb-U2AooQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/tyr: safely write GpuInfo to userspace
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Karl Mehltretter <kmehltretter@gmail.com>
-References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
- <rm4C3dzRACNd_2ryMMuye2bD7vs_rT_4nbtr2DN7t0Y3bTLnwruweMpVv4J_x2FOoSXvakXCuo7vOpCvY5Sr4g==@protonmail.internalid>
- <20260923074256.9357-2-liujianfeng1994@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260923074256.9357-2-liujianfeng1994@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,42 +118,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 23/09/2026 08:42, Jianfeng Liu wrote:
-> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
-> DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
-> default, which had the side effect of enabling the option (and with it
-> the page-stripping sg_table wrapper handed to importers) on every
-> kernel with DEBUG_KERNEL=y - i.e. virtually every distro kernel.
-> 
-> drm/msm is broken by this: it maps imported dma-bufs into the GPU's
-> own pagetables with iommu_map_sgtable(), which needs the struct page
-> of the attachment sg_table, and it fills the GEM object's page array
-> through drm_prime_sg_to_page_array().  With the debug wrapper in
-> place both silently produce garbage (the wrapper zeroes sg->length,
-> so the page iterator yields nothing and an uninitialized array is
-> kept).  The VM_BIND map job then fails asynchronously after userspace
-> has already enqueued GPU work referencing the mapping, which shows up
-> as an arm-smmu translation fault from UCHE, e.g.:
-> 
->    gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
->    type=TRANSLATION source=UCHE
-> 
-> This breaks hardware video decode (clapper, chromium) on Adreno
-> systems; bisected on a Snapdragon laptop as v7.3-rc3 good,
-> v7.3-rc4 bad, culprit 143755bdabaa9.
-> 
-> Revert the default until importers that legitimately need to build
-> phys-based mappings have been converted.
-> 
-> Fixes: 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels")
-> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+On Thu, Sep 24, 2026 at 2:21=E2=80=AFAM Deborah Brouwer
+<deborah.brouwer@collabora.com> wrote:
+>
+> Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
+> bindings. It initializes this struct by querying the gpu and then writes
+> the struct into userspace memory faithfully byte-by-byte.
+>
+> Currently, the struct drm_panthor_gpu_info does not have any implicit
+> padding, but if implicit padding were added in the future Rust does not
+> guarantee that it would be initialized. Then when Tyr writes the struct
+> back to userspace it could expose uninitialized kernel memory.
+>
+> Tyr implements the unsafe trait AsBytes for GpuInfo whereby the developer
+> guarantees that struct drm_panthor_gpu_info does not include implicit
+> padding, pointers, or interior mutability. This allows Tyr to safely copy
+> the struct into userspace memory. However, relying on the unsafe trait
+> AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
+> guarantees may no longer be accurate.
+>
+> Instead, use the macros provided by the zerocopy crate to safely derive
+> the traits IntoBytes and Immutable for struct drm_panthor_gpu_info. This
+> will cause a compile error if the Panthor UAPI changes in a way that the
+> traits IntoBytes or Immutable can no longer be implemented.
+>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-This is a very obviously LLM generated patch.
+I checked it myself and per-type declarations are indeed needed. We
+can't use most_traits for everything yet.
 
-Please state so in the commit log.
+> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+> index 8402b0c93545..65d913181eec 100644
+> --- a/rust/bindgen_parameters
+> +++ b/rust/bindgen_parameters
+> @@ -71,3 +71,7 @@
+>  # Structs should implement `Zeroable` when all of their fields do.
+>  --with-derive-custom-struct .*=3DMaybeZeroable
+>  --with-derive-custom-union .*=3DMaybeZeroable
+> +
+> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
+> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DIntoBytes
+> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3DImmutable
 
-Also I don't believe reverting the change is correct. Fix the bug where 
-it exists in Adreno.
+For this case, I think we should just do:
 
----
-bod
+--with-derive-custom-struct
+'^drm_panthor_gpu_info$'=3Dzerocopy_derive::most_traits
+
+That will automatically give us these two traits.
+
+Alice
