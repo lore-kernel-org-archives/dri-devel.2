@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55ECCC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9903C98311
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A81AF10F42B;
-	Thu, 24 Sep 2026 10:08:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 000A010F42A;
+	Thu, 24 Sep 2026 10:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h7vVYIE0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UuUMyUgz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0EF10F42B
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:08:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E295410F42A
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:08:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EC8A2418D2;
- Thu, 24 Sep 2026 10:08:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AACF1F000FF;
- Thu, 24 Sep 2026 10:08:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C682D40C06;
+ Thu, 24 Sep 2026 10:08:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A8A1F00893;
+ Thu, 24 Sep 2026 10:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790244518;
- bh=wOq7lOU2FcK7bFNXejlGbOi1XU8BMJcPZcRxtw9e4Sw=;
+ s=k20260515; t=1790244535;
+ bh=/F4y/7yxyUDiC6xbvLu9ph4vBP4DM40ibzlyQTAOh0c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=h7vVYIE0aMAfRYhJEF3IrnQkTPB+l8URFB8a2ES5HlMFPDWYqoftWe2Ff8rVJSgHz
- //Op1zX/iwMgv9mXBkckDouFTPX0yIsuZxqyC0hSZbgJNOHGHh/SORbTcQbJNWXXo2
- nUcxq5smZ+bkK8UdPl+zQcHG5xIFmbrqMpdGAiQ26FV2D4kvBW8Su/Mij/C3EDF8gK
- l4YYQMnmrMqIuikyKNc99VEKE2PCSbB7BLEPIu5WwybWevD7t2nNjyS/K4mLgpcVP/
- /sv9QW2fUVc4LunoMvqqgAhjOq6/Ihho9u3wzSDnaqja06rEay4I3ZS+EXulKYaZK7
- HA1XNHuabSvRw==
+ b=UuUMyUgzUZWtthyh61vaCwP7ZLcWxHojwv+uEizpKSKXauzTbqg6EVPm0mJDppj3X
+ ztyjgCs08HO+QzCrg8WCWibDXFvPYpFUKjIYI4O6sAoOJr+8RltFEDWZuHR05Mmh3j
+ drE4nAushbHuhZXqr7khJTBd9CfA7GwiknoMQ8yVPjKzfEYauZlDgzQk77n+jj0y3T
+ q8sHWy4IAz2LpKhmDLPNDY5p9N9napTpJ2vyOkZCuS505Ogd89yBRjUeGWBX4ZwPsU
+ cgg41AK1Qx1QJI002BGvsJUwlMCFUqXRoyHGKNpPql89lBdfad+a7TqNmPIQYO3YtP
+ eNHWgKjV1jtWQ==
 From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
 To: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
@@ -74,10 +74,10 @@ Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
  linux-mm@kvack.org
-Subject: [RFC PATCH v8 10/14] dma-buf: system_heap: Limit scatterlist entries
- to the buffer size
-Date: Thu, 24 Sep 2026 15:35:25 +0530
-Message-ID: <20260924100529.1398790-11-aneesh.kumar@kernel.org>
+Subject: [RFC PATCH v8 11/14] dma-buf: system_heap: Allocate shared buffers
+ using CoCo shared memory allocator
+Date: Thu, 24 Sep 2026 15:35:26 +0530
+Message-ID: <20260924100529.1398790-12-aneesh.kumar@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
 References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
@@ -99,24 +99,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The system heap currently allocates each backing page no larger than the
-remaining dma-buf length. It can therefore use the complete
-compound-page size for every scatterlist entry while keeping the total
-length equal to the buffer size.
+The system_cc_shared heap currently allocates its backing pages using the
+normal system-heap order policy and changes each resulting compound page to
+shared state. That is unsafe when an architecture requires state changes in
+units larger than PAGE_SIZE: an order-0 tail is neither sufficiently aligned
+nor large enough to transition independently.
 
-Shared backing allocations may need to be rounded up to an architecture
-shared granule size. A backing allocation can then be larger than the
-remaining buffer length. Describing the complete allocation in the
-scatterlist would incorrectly expose the rounded tail to scatterlist
-consumers as part of the dma-buf.
+Use the common CoCo shared-page allocator for every backing allocation of the
+shared heap. Preserve the existing preferred-order search and its GFP policy:
+each candidate order is passed to the common allocator as a byte request, and
+that allocator rounds it up when the architecture shared granule is larger.
 
-Track the remaining buffer length while constructing the scatterlist and
-limit each entry to the smaller of the compound-page size and the
-remaining length. The complete backing allocation remains owned by the
-heap and is still released normally.
+Add __GFP_COMP for shared allocations because an order-0 candidate can
+be rounded into a high-order allocation. The system heap uses
+compound_order() and page_size() for accounting and release, so the
+returned allocation must retain compound-page semantics.
 
-This does not change behavior with the current allocation policy, but
-prepares the heap for shared-granule-sized backing allocations.
+Calculate a rounded internal backing length but retain the original
+length in dma_buf::size. The preceding scatterlist-length change ensures
+that the rounded tail is not included in DMA mappings or other
+operations. This permits a 4 KiB request on a 64 KiB shared-granule
+system without exposing the extra 60 KiB to an importer.
 
 Cc: Sumit Semwal <sumit.semwal@linaro.org>
 Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
@@ -126,34 +129,226 @@ Cc: "T.J. Mercier" <tjmercier@google.com>
 Cc: "Christian König" <christian.koenig@amd.com>
 Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- drivers/dma-buf/heaps/system_heap.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/dma-buf/heaps/system_heap.c | 121 ++++++++++++----------------
+ 1 file changed, 53 insertions(+), 68 deletions(-)
 
 diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index c8959eadc71d..b5b8cdf65f23 100644
+index b5b8cdf65f23..5970b76416ae 100644
 --- a/drivers/dma-buf/heaps/system_heap.c
 +++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -406,6 +406,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+@@ -11,14 +11,13 @@
+  */
+ 
+ #include <linux/cc_platform.h>
++#include <linux/cc_shared.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/dma-heap.h>
+ #include <linux/err.h>
+ #include <linux/highmem.h>
+-#include <linux/mem_encrypt.h>
+ #include <linux/mm.h>
+-#include <linux/set_memory.h>
+ #include <linux/module.h>
+ #include <linux/pgtable.h>
+ #include <linux/scatterlist.h>
+@@ -65,34 +64,6 @@ static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+ static const unsigned int orders[] = {8, 4, 0};
+ #define NUM_ORDERS ARRAY_SIZE(orders)
+ 
+-static int system_heap_set_page_decrypted(struct page *page)
+-{
+-	unsigned long addr = (unsigned long)page_address(page);
+-	unsigned int nr_pages = 1 << compound_order(page);
+-	int ret;
+-
+-	ret = set_memory_decrypted(addr, nr_pages);
+-	if (ret)
+-		pr_warn_ratelimited("dma-buf system heap: failed to decrypt page at %p\n",
+-				    page_address(page));
+-
+-	return ret;
+-}
+-
+-static int system_heap_set_page_encrypted(struct page *page)
+-{
+-	unsigned long addr = (unsigned long)page_address(page);
+-	unsigned int nr_pages = 1 << compound_order(page);
+-	int ret;
+-
+-	ret = set_memory_encrypted(addr, nr_pages);
+-	if (ret)
+-		pr_warn_ratelimited("dma-buf system heap: failed to re-encrypt page at %p, leaking memory\n",
+-				    page_address(page));
+-
+-	return ret;
+-}
+-
+ static int dup_sg_table(struct sg_table *from, struct sg_table *to)
+ {
+ 	struct scatterlist *sg, *new_sg;
+@@ -337,6 +308,20 @@ static void system_heap_vunmap(struct dma_buf *dmabuf, struct iosys_map *map)
+ 	iosys_map_clear(map);
+ }
+ 
++static void system_heap_free_page(struct page *page, bool cc_shared)
++{
++	struct cc_shared_pages mem;
++
++	if (!cc_shared) {
++		__free_pages(page, compound_order(page));
++		return;
++	}
++
++	mem.page = page;
++	mem.shared_size = page_size(page);
++	free_cc_shared_pages(&mem);
++}
++
+ static void system_heap_dma_buf_release(struct dma_buf *dmabuf)
+ {
+ 	struct system_heap_buffer *buffer = dmabuf->priv;
+@@ -345,19 +330,8 @@ static void system_heap_dma_buf_release(struct dma_buf *dmabuf)
+ 	int i;
+ 
+ 	table = &buffer->sg_table;
+-	for_each_sgtable_sg(table, sg, i) {
+-		struct page *page = sg_page(sg);
+-
+-		/*
+-		 * Intentionally leak pages that cannot be re-encrypted
+-		 * to prevent shared memory from being reused.
+-		 */
+-		if (cc_shared_buffer(buffer) &&
+-		    system_heap_set_page_encrypted(page))
+-			continue;
+-
+-		__free_pages(page, compound_order(page));
+-	}
++	for_each_sgtable_sg(table, sg, i)
++		system_heap_free_page(sg_page(sg), cc_shared_buffer(buffer));
+ 	sg_free_table(table);
+ 	kfree(buffer);
+ }
+@@ -375,22 +349,39 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+ 	.release = system_heap_dma_buf_release,
+ };
+ 
++static struct page *system_heap_alloc_order(unsigned int order,
++	     gfp_t flags, bool cc_shared)
++{
++	struct cc_shared_pages mem;
++
++	if (!cc_shared)
++		return alloc_pages(flags, order);
++
++	/* The shared granule can raise the actual allocation order. */
++	flags |= __GFP_COMP;
++	if (alloc_cc_shared_pages(flags, PAGE_SIZE << order, &mem))
++		return NULL;
++
++	return mem.page;
++}
++
+ static struct page *alloc_largest_available(unsigned long size,
+-					    unsigned int max_order)
++		unsigned int max_order, bool cc_shared)
+ {
+ 	struct page *page;
+-	int i;
+ 	gfp_t flags;
++	int i;
+ 
+ 	for (i = 0; i < NUM_ORDERS; i++) {
+ 		if (size <  (PAGE_SIZE << orders[i]))
+ 			continue;
+ 		if (max_order < orders[i])
+ 			continue;
++
+ 		flags = order_flags[i];
+ 		if (mem_accounting)
+ 			flags |= __GFP_ACCOUNT;
+-		page = alloc_pages(flags, orders[i]);
++		page = system_heap_alloc_order(orders[i], flags, cc_shared);
+ 		if (!page)
+ 			continue;
+ 		return page;
+@@ -405,6 +396,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ {
  	struct system_heap_buffer *buffer;
  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
++	struct cc_shared_layout layout;
  	unsigned long size_remaining = len;
-+	unsigned long sg_remaining = len;
+ 	unsigned long sg_remaining = len;
  	unsigned int max_order = orders[0];
- 	struct system_heap_priv *priv = dma_heap_get_drvdata(heap);
- 	bool cc_shared = priv->cc_shared;
-@@ -454,7 +455,11 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+@@ -417,6 +409,16 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 	struct page *page, *tmp_page;
+ 	int i, ret = -ENOMEM;
  
- 	sg = table->sgl;
- 	list_for_each_entry_safe(page, tmp_page, &pages, lru) {
--		sg_set_page(sg, page, page_size(page), 0);
-+		unsigned long sg_len;
++	if (cc_shared) {
++		int err;
 +
-+		sg_len = min_t(unsigned long, page_size(page), sg_remaining);
-+		sg_set_page(sg, page, sg_len, 0);
-+		sg_remaining -= sg_len;
- 		sg = sg_next(sg);
++		err = cc_shared_calc_layout(len, &layout);
++		if (err)
++			return ERR_PTR(err);
++
++		size_remaining = layout.shared_size;
++	}
++
+ 	buffer = kzalloc_obj(*buffer);
+ 	if (!buffer)
+ 		return ERR_PTR(-ENOMEM);
+@@ -439,7 +441,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 			goto free_buffer;
+ 		}
+ 
+-		page = alloc_largest_available(size_remaining, max_order);
++		page = alloc_largest_available(size_remaining, max_order,
++					       cc_shared);
+ 		if (!page)
+ 			goto free_buffer;
+ 
+@@ -464,14 +467,6 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
  		list_del(&page->lru);
  	}
+ 
+-	if (cc_shared_buffer(buffer)) {
+-		for_each_sgtable_sg(table, sg, i) {
+-			ret = system_heap_set_page_decrypted(sg_page(sg));
+-			if (ret)
+-				goto free_pages;
+-		}
+-	}
+-
+ 	/* create the dmabuf */
+ 	exp_info.exp_name = dma_heap_get_name(heap);
+ 	exp_info.ops = &system_heap_buf_ops;
+@@ -486,22 +481,12 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 	return dmabuf;
+ 
+ free_pages:
+-	for_each_sgtable_sg(table, sg, i) {
+-		struct page *p = sg_page(sg);
+-
+-		/*
+-		 * Intentionally leak pages that cannot be re-encrypted
+-		 * to prevent shared memory from being reused.
+-		 */
+-		if (cc_shared_buffer(buffer) &&
+-		    system_heap_set_page_encrypted(p))
+-			continue;
+-		__free_pages(p, compound_order(p));
+-	}
++	for_each_sgtable_sg(table, sg, i)
++		system_heap_free_page(sg_page(sg), cc_shared);
+ 	sg_free_table(table);
+ free_buffer:
+ 	list_for_each_entry_safe(page, tmp_page, &pages, lru)
+-		__free_pages(page, compound_order(page));
++		system_heap_free_page(page, cc_shared);
+ 	kfree(buffer);
+ 
+ 	return ERR_PTR(ret);
 -- 
 2.43.0
 
