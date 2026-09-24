@@ -4,153 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 598EEC98317
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:45:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFB8C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:48:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B315310F586;
-	Thu, 24 Sep 2026 13:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3134210E072;
+	Thu, 24 Sep 2026 13:48:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OXNqTZaW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DQ/XgQ5X";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eHjiz8y8";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RoZV5u9e";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E33810F586
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:45:11 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4F710E072
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68OC4Wu63134057
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:45:10 GMT
+ 68OC4kTB1429858
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +92HIZiD8BjzLF20PEwnQGtt9JR2IY1fehiHqBhK2DE=; b=OXNqTZaW1hVXUEuA
- RpbpIDZ5ZyZIMz5G3cp/uC/FgcuVeu3hcEkHU+lrs0zGQ9LslzczkcYpfSViC2pQ
- HDAj2sS5zlACKFUS3vuWUqwcHy/Pirw2f88NsGnJYR7H0RLWPSY9G/qjBuA7oVxg
- r7JUkZP6oRWhIYTIB6Dlxk0JYowYsovizQ5kDwCHxSzWKeHWGpUMjP2vryZbILNt
- p4jOnHT3okmy53j8LtMoyl+sGDCmTjkISbe/J+tNphd93NjcoU2TBMXKYrYszQ5t
- 96fw3+VpQemov/UV82Yj085pC3Ts6ZG23ZZMYfL+KsMe2dJihm7aww+cvUEExwLZ
- /JxeBw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1ragvt2-1
+ gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=; b=eHjiz8y8YIHa5or0
+ 11zmYv8N8YFWNIrLMP+nSz2/CY2JsZMAGAiyHU7KTwUOLrN/RgQ55IKjEboEug1E
+ nydY3hdgllD8W4Mbr88/Vb2+WaKgXhFBIxOTgRIgZ0m1mdrkgnEUJ4ZQ3yEAZh/n
+ u534i+M34SCuyNfiBEd+Sei3pRJLNbufiIlZqP1o3sJIz6cTwDK/fAjOqRTU8T4F
+ lU+6mFAQdEnJEAuk+6PGMgD1LnD72JlZtJIFbFDz7ulf1r9gFBFFty2DO1wwRiOt
+ y4aPrllNI8TZVUbHydTUVIQUDEoW6IWah+KSKq2AJDUEVqfPwzQhEAMUr/0r5QHX
+ WbYPfg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvghaa4c-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:45:10 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2dd7d0751efso8516545ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:45:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790257510; cv=none;
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:48:42 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2db3734d06dso19081095ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:48:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790257721; cv=none;
  d=google.com; s=arc-20260327;
- b=YiOizsijFQFo7jdtx72pqB71IW8fUw2xEA36EiBNfpE8RPmoU7liOMo/Ezif2DYPez
- o4LuJFAp5Hd9CpJbbF3KPyF8mW0V6xtU4YNzBuiBjATNiVonmh0oNQSsZ16t2Hx4/yNB
- uwv2D21VIfLVk4f3abWGRG2u6pe8CwPXPjufdnHGOxAgQDMqVe0PCqXZIeT+i9MEmFW8
- IhK/hEgRcXbXlXlGeYBfW9YWSzkCWL93Ka6fJzk1G55KNy5Cg0eQO9a0Z2PYDUyLD1id
- Bqlfu08EdH7x/zT4mWJz6Gz9/sLJhZ+WFj92BZtUiVV9jHwemDxhfVAyad8rxKSQdyBU
- 2ShQ==
+ b=pICF+boQ5iSm7rr4BFOusGL/38VSoYdNeTk6LeOfY8h4nGeWngueCPn55IyhSdHyx1
+ 7u9NX5NNApVBHsQthQKXEjSRXWt4r/VmRt91EuZ72iDxBugLEhjXkRwgMIFuA0cdEHxP
+ t1URe6+9vnDO9ZeT/JFGV9koYloVt4ycjUiI7nBVqFDcUtQct/QPy8OW7tttt+IZ5JCb
+ RdN86u6DHMIY9SyQFoRfw8WcfAZna/KVInk7spn/6X3Z7cwRqF4qSKOs2PCZEOal84ER
+ UTFa3dfOe+OByatPfsZzjRqkzt5LymRC9HPWyPHkXAfVXryYRKFgywwt52qRgR95Noww
+ GNnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+92HIZiD8BjzLF20PEwnQGtt9JR2IY1fehiHqBhK2DE=;
- fh=xJwWx6VM6Hkn2BYiv4jYQ3B7jJdFDGg2yUgv9wDXymI=;
- b=spYJjN3acebKMXk+1xCRreHgeYntz7IRspz7MR9fJg5B4j73ZmF3BIvhNGV37jUnlq
- JVzwp/h3NPB7A3oXxvTEz8fibMjVFM+ZjZFX6pgoIUC/4hp11zv4vOERFChEEfBwM7nz
- g/uGzKNVftq30RFGbo6vIiH0EE+ZViQGVzQwbqeoezSVVbJuG4JF6TcM3ZnIkeDPnm34
- zgRScv52w7SFESJJySy3VKReLkbbhwafvgwpmjUt7mAgNvgCRAOyamfkGfQTrv7Oo2Xs
- ylZ2nv5w8Hw9lx6f/Fe44rY4kKG3a/IV+henPcZES/+wIz10Lysaun8KZwT7PjNT8RE9
- nRwg==; darn=lists.freedesktop.org
+ bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
+ fh=TP0RXlvuUL1mf6eZTCKftoPOxeY9QeeUnSNHZbyn/Lk=;
+ b=lw6Ei45Kd2dsWOD1KWRfNfqvl1U4iWnwPQaRkOYS2X0ucQmmh4DaSEQ0pPOYk+RFTY
+ co1jXBFaBNGBtxfbPhApHBgURG4OlbHtqDOhdGq1ZhgwwCBrsc5vp84P16i5E8DNXom4
+ H7NUQWmHAC6DS6OR1Jh+9YYkC7I3f6PP01IeS1TtIw++MCGaKOoJBFBuyoK0jDL8yfsu
+ X8K/J0cBP76a+kvaOfUOg/3AfYFsxhCnmp9cR5JwNPZuPnuU4uX0wprKGLTv+wvya6cI
+ +1EAWB+Nhh2cWLSQLFXm4M6O7BwglaF7QO/Ps8fBIXN8zDWN9QrnCVnYBJcIeITh+s7B
+ kRdA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790257510; x=1790862310;
+ d=oss.qualcomm.com; s=google; t=1790257721; x=1790862521;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+92HIZiD8BjzLF20PEwnQGtt9JR2IY1fehiHqBhK2DE=;
- b=DQ/XgQ5Xu+S5xSEw0KfXtQXVMegpJG1M/FoTAT2NSWL1Gmd+gu/wDH2MLYZWT35LnJ
- 9G3M1xKJqbB0LJ67WfYsgF89yETw5ZYoBFafx3vXby7GKaA5nhy7mBWCM+04a9/WwT5e
- FFX3zh8AX2qCwJw6eM2YXfmH6SAqSwjaqXglmWHiFAQ1ctdlH0wc0xKHfOPSWRNIyOM1
- +qdBkXur1ucb6jYVDDbP6rg990HOLbk3Edlnl7dbiMYqPx7/UvuukYW0DMzpxx5nhCZq
- CQVtt+M5TxB5fk/ZEILSwuxCwA7d96PiOQyFyGsQPbW97vvc6420xjQ93UfjJHaafUlV
- AGlA==
+ bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
+ b=RoZV5u9e+D0aFCCY4ozhax2G1rGBevM7Z2R9FvOCRw3ZPYEmJMg+h+NTwWWSSy69Jn
+ qadmLVAo84H/gxI1xiQUmrQ+sLQSZCuIgmPtY1yKF6T2/XVAVLOd2rJZxa6iLO6rqVtL
+ VMR1D80CTudj+oAG4kPH0BruUjDerfGOC8+5SNNcCtmU5MAQBf4XZyW7d6Gj0d2FTtzM
+ 7WzV4RVjg2ns70Tlw12ENF2zPPfFofAcOuo91HV4Silb142ea0q6Z222a5hISgGvLxkO
+ +Y+s8K3zax02BuiHJZV+craKPilRQaXhE/fWbFPOriq0dKabjwaBWkJaHT5tS2ZY1XLX
+ BMgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790257510; x=1790862310;
+ d=1e100.net; s=20260707; t=1790257721; x=1790862521;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+92HIZiD8BjzLF20PEwnQGtt9JR2IY1fehiHqBhK2DE=;
- b=x5HvZf2EdABpcz/wJA22qoffZmCViALpAhi7coq19kTf4a32eGYDqb4hFPp1HX+Vxn
- iOJkDlWPkoxO7Q4krHMiA5CoNwtzddW6YzV2R7+Hz376pwEPiPyM1B1M0VQIpO/bQqP5
- 53xSw3Hbs1vQxV0xUiQvogFm/dqeI+01sun2KaXOMFij00X41fGhTMF3k/SOGqBb78DB
- zvLUth3xpBkCNT5sZhhA6UgtuEJiHDfPDCEPFvqGPLhfy5WbMJqmmUViOJYIhrPdXfTx
- RY+dKkWrvw3SdgVFk3tNEGgp+QeT5oAvV8AukzQDab9bTSvyh+fXdN4TcRlj9sCuDQp9
- o5yg==
+ bh=gIzGgpbn/bLfRecbbJR8idZ+V5oVFq52ZNmGReij2M8=;
+ b=oth0ilk3e9oUiVCiCXS33PEkjAlKd18opwvla5e5aFgHZSBB3sc9hSt1szp3d7CvBe
+ HcCaCNivD9+h2jU49HugqfQJQ9jn8f/sFMi6Xnktyr1i763t4NppGXrFHhdX3AmlIHSe
+ vM/8K1Q30wTVob4I9QZsHEY3lN9DsAnADcvtifPv9YRh+wccIKi1nq54of2+WkdCGH5n
+ ka3Pl66DflFwk2i3mGSYwWuTpl4kCqNQzMDYtIgoYiXemHHryh5uxMnygQ04jqM1usMd
+ vwpQKaykpCY2LlFn19DiERdkGSqMDIN01A6HrxP/D2JqokXSq/rzs3XJxKZjn1CV6ORI
+ p0GQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByrxBYd8Skju9JdudMxhASQlbEFu9S6bNqM7AuKQHyUaUAH6rw7oj3qvjqJyXzHdJ4+1HcfL3w0Omo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lCOpwKzpaTexW2ZD3hoGWHQKto1YEVmysbSfxyVTJz68+Yo8Nd
- r/ZKuDMdsWF744sSTmYl7MktIujsXepJzagdZON8/a9gbnIGweCjnEi+UzAuuPXoBKbCrfcOWdi
- eiUWPbGexC28olSbo56CgV4iPouu+NkNBoQR/VE1kV5RbZpscDZvicrDYg4+rKP6nNSBiopbLXk
- 20oCrrNsnwwYtnTUhLK8g0DMz4WWxEVAFJKwVPscaiTg9WVQ==
-X-Gm-Gg: AYBFou1cCpt/ZL2C1p9DxiGc0Kth1OkWBE0MvozjfS/BLiFR33x93rf7mTzxd3E3xjb
- HeYq0cZYn/MmsXyYOmciiyMLiUgQyqIbIJdh0VFlq+kWOoua98rlRNtyjvZ+wrFXKRllz4HKgBr
- q5Ivbfc3ux62+94t2/qav9x/DHm9Mxzsz7Dtjxa9PRwin60B3sOadws08avg==
-X-Received: by 2002:a17:902:e747:b0:2df:89ac:a9f3 with SMTP id
- d9443c01a7336-2df89acb234mr4396915ad.30.1790257509534; 
- Thu, 24 Sep 2026 06:45:09 -0700 (PDT)
-X-Received: by 2002:a17:902:e747:b0:2df:89ac:a9f3 with SMTP id
- d9443c01a7336-2df89acb234mr4396605ad.30.1790257508990; Thu, 24 Sep 2026
- 06:45:08 -0700 (PDT)
+ AKwUvBxuiNFZ/KUpY4sCNJeHlHVeNWa0i3VyqCwY3VX6kQhdiMjEb6hkZK7j/9Gu3hOEz/KCkS1SvNXnwj8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lbjjLOjdlfQvX9zIpyL3+qBGemncFR1i9RyleYJVEJlLx98Q9h
+ xTzS+9KkeIGM/UeDQCP6V3SRF38qTYs2DxIdpXfuXfcm3hwSXwrTSjRuUg5SLzR7sC1fOeM+EpH
+ 9mc1Sn0zw4BW/Hc9uOlcds3NhmQ8Q9hoGGtb3PjqEgJAOq90uX6CwX7d/58bVFBUSz6rZK0vtgT
+ ff3Wqww80OgnFKsQY8Ml57GC7E3RVOPdmz9Oh6qVDcFNfakg==
+X-Gm-Gg: AYBFou2pJPXbIYfDZzdPnhLEnwgPNCQ11fRd1Hm6R6YK7hYi0WX54cfgtlyeXaD2rB3
+ 6B9v+0B67gLlMHvysroK5+doXH7BaIpzSM2XxCirBl6XMvW9mkxcZefUsnmWXMFHL+ucn9Uox2k
+ 2aAQVMwshGrMzTTL6Yc0hyH9nhHdzQcebRkmoaqdfRDx9SIUPVHETUQoqzcg==
+X-Received: by 2002:a17:902:fd8e:b0:2df:84e0:9021 with SMTP id
+ d9443c01a7336-2df84e0985dmr10949325ad.7.1790257721292; 
+ Thu, 24 Sep 2026 06:48:41 -0700 (PDT)
+X-Received: by 2002:a17:902:fd8e:b0:2df:84e0:9021 with SMTP id
+ d9443c01a7336-2df84e0985dmr10949065ad.7.1790257720872; Thu, 24 Sep 2026
+ 06:48:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-12-9352be6b86b1@kernel.org>
-In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-12-9352be6b86b1@kernel.org>
+References: <20260915104328.45901-1-gahing@gahingwoo.com>
+ <CAPx+jO8EixqfXmrD8zkMkJe_B+2AATo=YNFJraAdE_O9X4KM-w@mail.gmail.com>
+ <20260924090816.38457-1-gahing@gahingwoo.com>
+In-Reply-To: <20260924090816.38457-1-gahing@gahingwoo.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 15:44:57 +0200
-X-Gm-Features: AclHuK8823By2ir4rvAhJl6ftcMi5z7VMEo6jrXMBPTc2AtobSCQW7MLn1qCZ9I
-Message-ID: <CAPx+jO-3aZXatF+zL=G_cG0QaSjjCPrdhpXOGZC+_zNYxjsP1w@mail.gmail.com>
-Subject: Re: [PATCH v3 12/18] pmdomain: st: ux500: Control DB8500 EPODs
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Date: Thu, 24 Sep 2026 15:48:29 +0200
+X-Gm-Features: AclHuK_QXocrU1FUmDoQ1C4eNfLR68g-9FvqDtL-NyGnjY3Q7BSkJqEHWuwlS6Y
+Message-ID: <CAPx+jO-zAr+gfEGG5xvWXz-72cU+mw2HOnm7xVBYGhMenZWSVw@mail.gmail.com>
+Subject: Re: [PATCH v13 00/14] accel/rocket: RK3576 NPU (RKNN) enablement
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, p.zabel@pengutronix.de, tomeu@tomeuvizoso.net,
+ chaoyi.chen@rock-chips.com, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfXwnEWsX1CLBcT
- YMA+ovNDRI700j3KTUuyNM7fWP554v+3kDWDKRVM2KxX4kjLADa51+/7eE/Vyp5LFMPmbrmRvB7
- FWjucA2PVP04rEYq0eCmMNh1Hgkf813n3xo5vF+m9eNQnrTzDAR+sCBjoFkDPlzAeyU5qbJMdwP
- fykAKc50knbDAyghakN5nue2tUifkntBSYIhYQtTUR7zahEMZnxp3B1/2w6B/998aFxe4gADS/c
- u4Jnr2CbFgPdyVQSQzu52GDg2x6lhUscUbsdjX2h/THYu1Ob4iEI3+gJL3WfrH6TvYCSELw2kRx
- 65rkLSiEorUWdKhbhSW4LAp0fFq8RSepO8qso9gMmg/EPzB5hwKH8tj7WFQ9L8+6GN/ZI6yCgEO
- L3x/t5p4Vu2TqPIk1B/BEwjtYp/GkEJ0PlDhuXD9FYyFZgbXpVLOjqHveT8oowT4TRhm5TA+RyL
- npq6ZBLEHE09pOnWDbg==
-X-Proofpoint-ORIG-GUID: VIE5LPfmlQGsjeSIWQQ9Rp-Tn_zQN5S7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfX3l3O3LJp/U3m
- Efm4RM08mMbWm6VComwWt/d6qzcEMsmduIOjpd4jw4vltPIB83eaGgJQzMUqmDMHsXaaci5gKO5
- wv6TsDOfKPBGcieiEP9iBGUmt/hlP/U=
-X-Authority-Analysis: v=2.4 cv=fvpJ914f c=1 sm=1 tr=0 ts=6ab52966 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab52a3a cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=-O4hDVTBhx9-GJANRbkA:9
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: VIE5LPfmlQGsjeSIWQQ9Rp-Tn_zQN5S7
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=9GNsruGHAAAA:8 a=gHPckg_Ghvi-cCk_7foA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=gf-oSkQAjqHFJRp-GQfY:22
+X-Proofpoint-GUID: kuS_PQuaOAQKLaS6sutiXJ5h6NbL4vI6
+X-Proofpoint-ORIG-GUID: kuS_PQuaOAQKLaS6sutiXJ5h6NbL4vI6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfXzdSYzZr56Fpn
+ Th5jXxQHu2VLiMYWKaSc0WGbN+DoutE0PgaULtEh8pNMp7bE+P6qbZGJAXVbxntUFfnC7gKOyjw
+ Gn99qKvCglLuCWzjoiIXcMGmK1F3eRw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA1NiBTYWx0ZWRfX/MCHX9VZPzQU
+ HWUoZjbtNt0L16cj4ELCs2BvufWkTyXjLG669RTU1dVOEoKZJmETBGO6RRIdWz4QUBHez6RKSvf
+ 6RtmRQeVycSiAJSyTeS11nvwbY+WhiDRKY84ih3+boJD4VM4vn7OciyUkGJtAXbYuI9BcXLxd1b
+ W/HBc+6W9J0ONiAdxMDez/z+Xia2NL/MXRyAg7qD2RTGOOgEjvycHN1ZmZnlD/BG7pPC8/Zah0M
+ cQWcg2VLrQYU72OqQ/P/bTuGNGjGVJOCTcw7NmHn1stchxmHditrE/naryyyFttm3yvHKn2ZuLZ
+ 8YSKUdym6gfYL7um9xrzoKEk3hF1mlUU4+FwUapuVLTIRwS4t5U1T3NqC4dfBFfRR3q9BQZPe4c
+ DbN2sQYt9Iv2JEMejzAIJK/5ug37055H/qeGwSE/YJYqPzxrdRgGggGsEZ5O3uqDte/zbNy9YQo
+ UdPv6x0s1JaGpQosmig==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- adultscore=0 spamscore=0 malwarescore=0 clxscore=1015 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240056
+ malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,302 +158,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 12:49=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
+On Thu, Sep 24, 2026 at 11:08=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> =
 wrote:
 >
-> Move the DB8500 EPOD state handling into the Ux500 power-domain driver.
+> Hi Ulf,
 >
-> Keep the old regulator driver mutually exclusive with the pmdomain driver=
-.
->
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  arch/arm/mach-ux500/Kconfig               |   2 +-
->  drivers/pmdomain/st/ste-ux500-pm-domain.c | 355 +++++++++++++++++++++---=
-------
->  drivers/regulator/Kconfig                 |   1 +
->  3 files changed, 254 insertions(+), 104 deletions(-)
->
-> diff --git a/arch/arm/mach-ux500/Kconfig b/arch/arm/mach-ux500/Kconfig
-> index c18def269137..56636c993f49 100644
-> --- a/arch/arm/mach-ux500/Kconfig
-> +++ b/arch/arm/mach-ux500/Kconfig
-> @@ -26,7 +26,7 @@ menuconfig ARCH_U8500
->         select PL310_ERRATA_753970 if CACHE_L2X0
->         select PM_GENERIC_DOMAINS if PM
->         select REGULATOR
-> -       select REGULATOR_DB8500_PRCMU
-> +       select UX500_PM_DOMAIN
->         select REGULATOR_FIXED_VOLTAGE
->         select SOC_BUS
->         select RESET_CONTROLLER
-> diff --git a/drivers/pmdomain/st/ste-ux500-pm-domain.c b/drivers/pmdomain=
-/st/ste-ux500-pm-domain.c
-> index d90a563cd6f3..b31a36a4acd1 100644
-> --- a/drivers/pmdomain/st/ste-ux500-pm-domain.c
-> +++ b/drivers/pmdomain/st/ste-ux500-pm-domain.c
-> @@ -6,174 +6,292 @@
->   *
->   * Implements PM domains using the generic PM domain for ux500.
->   */
-> +#include <linux/cleanup.h>
->  #include <linux/device.h>
-> -#include <linux/kernel.h>
-> -#include <linux/platform_device.h>
-> -#include <linux/printk.h>
-> -#include <linux/slab.h>
->  #include <linux/err.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mfd/db8500-prcmu.h>
-> +#include <linux/mutex.h>
->  #include <linux/of.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_domain.h>
-> +#include <linux/slab.h>
->
->  #include <dt-bindings/arm/ux500_pm_domains.h>
->
->  #define NR_DOMAINS             (DOMAIN_ESRAM_34 + 1)
-> +#define UX500_EPOD_NONE                NUM_EPOD_ID
->
-> -static int pd_power_off(struct generic_pm_domain *domain)
-> +/**
-> + * struct dbx500_powerdomain_info - dbx500 power domain information
-> + * @genpd: generic power domain
-> + * @epod_id: id for EPOD (power domain)
-> + * @is_ramret: RAM retention switch for EPOD (power domain)
-> + */
-> +struct dbx500_powerdomain_info {
-> +       struct generic_pm_domain genpd;
-> +       u16 epod_id;
-> +       bool is_ramret;
+> Yes please. Could you take them from v14 rather than this version?
+> Philipp pointed out that the binding allows one reset, so 10/14 should
+> use of_reset_control_get_optional_exclusive() rather than the array
+> form. v14 has that, your two commit message trims, and Heiko's split of
+> 13/14.
 
-This one is unused for the defined power domains. Is the plan to add
-support for this on top, later on?
+Okay, good!
 
-> +};
-> +
-> +static DEFINE_MUTEX(ux500_pd_lock);
-> +static bool epod_on[NUM_EPOD_ID];
-> +static bool epod_ramret[NUM_EPOD_ID];
-> +
-> +static int enable_epod(u16 epod_id, bool ramret)
->  {
-> -       /*
-> -        * Handle the gating of the PM domain regulator here.
-> -        *
-> -        * Drivers/subsystems handling devices in the PM domain needs to =
-perform
-> -        * register context save/restore from their respective runtime PM
-> -        * callbacks, to be able to enable PM domain gating/ungating.
-> -        */
-> +       int ret;
-> +
-> +       if (ramret) {
-> +               if (!epod_on[epod_id]) {
-> +                       ret =3D db8500_prcmu_set_epod(epod_id, EPOD_STATE=
-_RAMRET);
-> +                       if (ret < 0)
-> +                               return ret;
-> +               }
-> +               epod_ramret[epod_id] =3D true;
-> +       } else {
-> +               ret =3D db8500_prcmu_set_epod(epod_id, EPOD_STATE_ON);
-> +               if (ret < 0)
-> +                       return ret;
-> +               epod_on[epod_id] =3D true;
-> +       }
-> +
->         return 0;
->  }
 >
-> -static int pd_power_on(struct generic_pm_domain *domain)
-> +static int disable_epod(u16 epod_id, bool ramret)
->  {
-> -       /*
-> -        * Handle the ungating of the PM domain regulator here.
-> -        *
-> -        * Drivers/subsystems handling devices in the PM domain needs to =
-perform
-> -        * register context save/restore from their respective runtime PM
-> -        * callbacks, to be able to enable PM domain gating/ungating.
-> -        */
-> +       int ret;
-> +
-> +       if (ramret) {
-> +               if (!epod_on[epod_id]) {
-> +                       ret =3D db8500_prcmu_set_epod(epod_id, EPOD_STATE=
-_OFF);
-> +                       if (ret < 0)
-> +                               return ret;
-> +               }
-> +               epod_ramret[epod_id] =3D false;
-> +       } else {
-> +               if (epod_ramret[epod_id]) {
-> +                       ret =3D db8500_prcmu_set_epod(epod_id, EPOD_STATE=
-_RAMRET);
-> +                       if (ret < 0)
-> +                               return ret;
-> +               } else {
-> +                       ret =3D db8500_prcmu_set_epod(epod_id, EPOD_STATE=
-_OFF);
-> +                       if (ret < 0)
-> +                               return ret;
-> +               }
-> +               epod_on[epod_id] =3D false;
-> +       }
-> +
->         return 0;
->  }
->
-> +
-> +static int pd_power_off(struct generic_pm_domain *domain)
-> +{
-> +       struct dbx500_powerdomain_info *info =3D
-> +               container_of(domain, struct dbx500_powerdomain_info, genp=
-d);
-> +       int ret =3D 0;
-> +
-> +       guard(mutex)(&ux500_pd_lock);
-> +       if (info->epod_id < NUM_EPOD_ID)
-> +               ret =3D disable_epod(info->epod_id, info->is_ramret);
-> +
-> +       return ret;
-> +}
-> +
-> +static int pd_power_on(struct generic_pm_domain *domain)
-> +{
-> +       struct dbx500_powerdomain_info *info =3D
-> +               container_of(domain, struct dbx500_powerdomain_info, genp=
-d);
-> +       int ret =3D 0;
-> +
-> +       guard(mutex)(&ux500_pd_lock);
-> +       if (info->epod_id < NUM_EPOD_ID)
-> +               ret =3D enable_epod(info->epod_id, info->is_ramret);
-> +
-> +       return ret;
-> +}
-> +
->  /*
->   * Apart from these voltage domains there is also VSAFE which is always
->   * on. Vape_esram0_pwr for eSRAM0 is connected to VSAFE.
->   */
-> -static struct generic_pm_domain ux500_pm_domain_vape =3D {
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vape =3D {
->         /* Vape_pwr */
-> -       .name =3D "VAPE",  /* 0.95 .. 1.20 V */
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +       .genpd =3D {
-> +               .name =3D "VAPE",  /* 0.95 .. 1.20 V */
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
+> In 9/14, v14 keeps one sentence beyond the two paragraphs you kept:
+> RK3576_PD_NPU also gets need_regulator, which makes
+> rockchip_pm_add_one_domain() power that domain off at probe on every
+> rk3576 board. The subject does not describe that. Say if you want it
+> gone too.
 
-Several power domains below share this epod_id. What does that really
-mean? Or is this only temporary?
-
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_varm =3D {
-> -       .name =3D "VARM",
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_varm =3D {
-> +       .genpd =3D {
-> +               .name =3D "VARM",
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_vmodem =3D {
-> -       .name =3D "VMODEM",
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vmodem =3D {
-> +       .genpd =3D {
-> +               .name =3D "VMODEM",
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_vpll =3D {
-> -       .name =3D "VPLL", /* 1.8 V */
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vpll =3D {
-> +       .genpd =3D {
-> +               .name =3D "VPLL", /* 1.8 V */
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
->  /*
->   * CHECKME: as these are used directly by peripherals as regulators,
->   * perhaps they should stay in the regulator subsystem?
->   */
-> -static struct generic_pm_domain ux500_pm_domain_vsmps1 =3D {
-> -       .name =3D "VSMPS1", /* Also called VIO (1.2V) */
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vsmps1 =3D {
-> +       .genpd =3D {
-> +               .name =3D "VSMPS1", /* Also called VIO (1.2V) */
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_vsmps2 =3D {
-> -       .name =3D "VSMPS2", /* Also called VIO (1.8V) */
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vsmps2 =3D {
-> +       .genpd =3D {
-> +               .name =3D "VSMPS2", /* Also called VIO (1.8V) */
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_vsmps3 =3D {
-> -       .name =3D "VSMPS3",
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vsmps3 =3D {
-> +       .genpd =3D {
-> +               .name =3D "VSMPS3",
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
->
-> -static struct generic_pm_domain ux500_pm_domain_vrf1 =3D {
-> -       .name =3D "VRF1",
-> -       .power_off =3D pd_power_off,
-> -       .power_on =3D pd_power_on,
-> +static struct dbx500_powerdomain_info ux500_pm_domain_vrf1 =3D {
-> +       .genpd =3D {
-> +               .name =3D "VRF1",
-> +               .power_off =3D pd_power_off,
-> +               .power_on =3D pd_power_on,
-> +       },
-> +       .epod_id =3D UX500_EPOD_NONE,
->  };
-
-[...]
+I will have a look at v14 and let you know, thanks!
 
 Kind regards
 Uffe
