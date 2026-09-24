@@ -4,57 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 588D1C98318
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6C60C98318
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 18:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A463710F6E7;
-	Thu, 24 Sep 2026 18:02:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2C910F6F4;
+	Thu, 24 Sep 2026 18:09:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CtNBYdX4";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="azF1ZUyT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB9A10F6E7
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:02:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 50BD7601FE;
- Thu, 24 Sep 2026 18:02:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929D61F000FF;
- Thu, 24 Sep 2026 18:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790272956;
- bh=7XuW8fR6obHIaECVkQ/oQW8UbYwTRR48c0HPzP0MOGo=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=CtNBYdX4hAYjYZhVp62dDw10ZSvEsXwhf8WbMaG7QqvwG2ejItwNA/vMxflQEaBgG
- lQljaNpKl/DB60I7eovidWmR6OXM1yTz6EgQ7YBGa981N0cJMfU4zMgiS3mCkonos1
- 2iUE027Nkvbrw59/iw6XouLu73Y1uQOLbsv09hnnrCouG/QKgwdv8Gvhwi3m4cauQt
- v8KziPMkFJqT/hRZAwvEQCTULagBmBKcurrRdt3siwl9izz1FN/v7IPL4KmAJB0U3N
- G8UhiFTBqJfB79qhMk88JS76iG6HgDZzByRjfKw6YbMF+caWp5rckLucp2V2ye/LAV
- P0z1L2vriLA4Q==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 24 Sep 2026 20:02:29 +0200
-Message-Id: <DLNQSN92C9RT.WNMLAMGA5UBW@kernel.org>
-Subject: Re: [PATCH v3 5/5] rust: samples: add EDU PCI driver sample
-Cc: "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Lyude Paul" <lyude@redhat.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-To: "Maurice Hieronymus" <mhi@mailbox.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260812-b4-rust-pci-edu-driver-v3-0-5d0b5594e52b@mailbox.org>
- <20260812-b4-rust-pci-edu-driver-v3-5-5d0b5594e52b@mailbox.org>
-In-Reply-To: <20260812-b4-rust-pci-edu-driver-v3-5-5d0b5594e52b@mailbox.org>
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1934910F6EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:09:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790273377; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=KgtZFs12af8RojbDsVnRbS2nepQ2WXjbb3LLmRVSBZ3nZ7fvSbmnFU4qXdxa6bj+GDuHKddqUoSPPzg9M7gJySUkzbbWDnkLfGIU6WYXCdihNF/JMgQ4VHqZViMALy1LNuZoUewa9kwNjLhbWrJ2KGBi8fQO3QB8o1sfgmHOolM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790273377;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=XJghPhycc8eLcD5JgLM91zEBdVYCBiop68SBv7k5ghI=; 
+ b=MWX6sElEAuBADgPH9hAPiy6y9K6ZOqRr2aRhN6/K79GiXrVq/SyEJOPcKH7fF5Yy3xCUNy1hwEC+pnsGjjPDU8krlrPZGMhx4XNoAaySQ01btlvB+t7Oou09N4zxLx2HkHBf8clbhvOOTrEe8xbLM6ZmvQ+LwLqlujzEpdlULAc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790273377; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=XJghPhycc8eLcD5JgLM91zEBdVYCBiop68SBv7k5ghI=;
+ b=azF1ZUyTIBHACv4cuqtbxv4Nil7kvldTgRl/JXc+FUHDAfzsalw3ttgqRmH0XgJC
+ 2rsn4M40GGRU7wpUo4MfybGg0Ab/QGLJ9xtFBolT7o0Fkz+w9ZugIi5AclJSWRnP1Sc
+ fzjqH+hMZOLMINGthoZbFwdxrmMrs8LPRO0wLl/k=
+Received: by smtp.zohomail.com with SMTPS id 179027337613491.99857568666687;
+ Thu, 24 Sep 2026 11:09:36 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v10 00/15] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Thu, 24 Sep 2026 19:09:17 +0100
+Message-Id: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23SzU7DMAwA4FeZcqYodvPLifdAHBLXZUVlRe1Wg
+ aa+O+kQaslydGx/luxcxcRjx5N4OlzFyHM3dcMpBSAfDoKO4fTGVdekB4ESjdRYV9SHS8NV233
+ xVDmMsg5Qq+BIpJbPkW+J1PHy+htPl/jOdF6NteLYTedh/L4NnGGt+6PNf3qGSlZg2COHoLzyz
+ zT0fYjDGB5p+BArP+MGGKkyABOgLZnYKAKjdQmoN8BiDtQroDC0BkJsZFsC1B7wGaASIMEb1yK
+ TtaEE6A1wABmgE1A3xiN59o6wBJgdcLdEkwCbXB9aJT3bEmD3gMsAuwKYThyRAHVTAtwGeGkzw
+ CWAMFLU7BCcKgF+BwBmgE8Aa+fa9A8M8N0VlmX5Aewsm2nHAgAA
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7490;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=sPUdChjqeOyyU296lXP4tUeen/Ed0Pc/Vt3vppsRbHc=;
+ b=kA0DAAoBDiZ+TO5TQz0ByyZiAGq1Z1LIX0cA+kxLdY850jnhAcHzErxvtT2QSCM2rWAxEUG80
+ 4kBswQAAQoAHRYhBDJAMOjABRdd+TcHpA4mfkzuU0M9BQJqtWdSAAoJEA4mfkzuU0M9EboMAIfq
+ YjcOHvLc0zPSo+ylWPQ0naXsKs016ATiJJuAWUyEJ60G7n0IqgRF9YRAfi9Sdh0Wj/bOHqjVszr
+ QpGrLPG9M5mL7KBkBcYRGUsGSsTWY17Ua6VF+aBsndw/uHhHb3PhTevVfJnZH7H0ZgX+VRfYuha
+ OFIWryCDQFhCkz0lW1JwRgyShlbQqdguFhTllyu/dPgxDjqfPRG29ecB7GUgTl49UhiDcKR0LKB
+ bjErgknUL4XZexv5mITJaJXXpXAk5zerdBJch3zDhAJCsrBicEr+odjE2R4DCwTl4MYbKNFMPMO
+ dvbVcTC0PeCm2WLCQtZb1amU1FUX7poyuDnmVQCcEDlLWzX566RWfy+QgnAldTD67dtKPf9w7US
+ SClgJs7O2nsAa3eQ36wR5Muw9Sv0wweyqicjMniT8pIaYUq6liWhSRqpmd7GfwF+85Syt9cQGq2
+ eTkETzZOdbW32QFGU+FN4DOcd/KrzjJzxbasZ2XTGJrx5JJLkcQIBJMiRbFA==
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,271 +96,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 12, 2026 at 9:52 PM CEST, Maurice Hieronymus wrote:
-> +const QEMU_VENDOR_ID: u16 =3D 0x1234;
-> +const QEMU_EDU_DEVICE_ID: u32 =3D 0x11e8;
-> +const QEMU_EDU_DEVICE_MAGIC: u8 =3D 0xed;
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
-This should be local to magic().
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-> +const QEMU_DMA_BASE: u64 =3D 0x40000;
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v10:
+- Improved the logic for the debugfs reset knob.
+- Changed perfcnt reset race commit message to reflect true HW behaviour.
+- Improved logic of perfcnt reset handling with a state variable instead of booleans.
+- Added comments explaning how we handle PM status and references at device init time.
+- Fix RM resume clock disable bug uncovered by Sashiko and also changed function naming.
+- Link to v9: https://patch.msgid.link/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com
 
-This could be of type regs::DMA_DST and local to test_dma().
+Changes in v9:
+- Extended clk_(enable|disable) consolidation into other runtime callbacks.
+- Fixed uAPI and perfcnt/reset interaction errors uncovered by Sashiko.
+- Link to v8: https://patch.msgid.link/20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com
 
-> +
-> +const IRQ_MAGIC_VALUE: u32 =3D 42;
-> +
-> +/// Bit set in `IRQ_STATUS` when a DMA transfer has completed.
-> +const DMA_IRQ: u32 =3D 0x100;
+Changes in v8:
+- Applied fixes for issues brought up by Sashiko.
+- Rolled back some additions from v7: job stopping, IRQ consolidation.
+- Applied RPM fixes before moving most driver init code into panfrost_device.c
+- Brought back v6 patch that enables MMU IRQs before device is registered.
+- Simplified perfcnt reset handling procedure, so that no retry is done in the kernel.
+- Link to v7: https://patch.msgid.link/20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com
 
-Why is this not part of the IRQ_STATUS declaration in register!()?
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
 
-> +
-> +mod regs {
-> +    use super::*;
-> +
-> +    register! {
-> +        pub(super) IDENTIFICATION(u32) @ 0x0 {
-> +            31:24 major;
-> +            23:16 minor;
-> +            7:0 magic;
-> +        }
-> +
-> +        pub(super) LIVENESS_CHECK(u32) @ 0x04 {}
-> +
-> +        pub(super) FACTORIAL(u32) @ 0x08 {}
-> +
-> +        pub(super) STATUS(u32) @ 0x20 {
-> +            0:0 computing;
-> +            7:7 raise_interrupt;
-> +        }
-> +
-> +        pub(super) IRQ_STATUS(u32) @ 0x24 {}
-> +        pub(super) IRQ_RAISE(u32) @ 0x60 {}
-> +        pub(super) IRQ_ACK(u32) @ 0x64 {}
-> +
-> +        pub(super) DMA_SRC(u64) @ 0x80 {}
-> +        pub(super) DMA_DST(u64) @ 0x88 {}
-> +        pub(super) DMA_COUNT(u64) @ 0x90 {}
-> +        pub(super) DMA_COMMAND(u64) @ 0x98 {
-> +            0:0 start_transfer;
-> +            1:1 direction;
-> +            2:2 raise_irq;
-> +        }
-> +    }
-> +
-> +    pub(super) const END: usize =3D 0xA0;
-> +}
-> +
-> +type Bar0<'a> =3D pci::Bar<'a, { regs::END }>;
-> +
-> +struct EduDriver;
-> +
-> +#[pin_data(PinnedDrop)]
-> +struct EduDriverData<'bound> {
-> +    pdev: &'bound pci::Device,
-> +    #[pin]
-> +    irq_handler: irq::Registration<'bound, IrqHandler<'bound>>,
-> +    // Declared last so the device stays enabled until the IRQ handler i=
-s freed.
-> +    _enable: pci::DeviceEnableGuard<'bound>,
-> +}
-> +
-> +#[pin_data]
-> +struct IrqHandler<'a> {
-> +    pdev: &'a pci::Device,
-> +    bar: Bar0<'a>,
-> +    #[pin]
-> +    irq_test_completion: Completion,
-> +    #[pin]
-> +    irq_dma_completion: Completion,
-> +    dma: Coherent<u64>,
-> +}
-> +
-> +impl EduDriver {
-> +    fn init(pdev: &pci::Device<Bound>, bar: &Bar0<'_>, handler: &IrqHand=
-ler<'_>) -> Result {
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
 
-I think this should rather be named selftest() and it should be a method on
-EduDriverData instead rather than a function on EduDriver. The same goes fo=
-r all
-the other functions below.
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
 
-> +        Self::config_space(pdev);
-> +        Self::magic(pdev, bar)?;
-> +        Self::liveness_check(pdev, bar)?;
-> +        Self::factorial(pdev, bar)?;
-> +        Self::test_irq(pdev, handler)?;
-> +        Self::test_dma(pdev, handler)?;
-> +        Ok(())
-> +    }
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
 
-<snip>
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
 
-> +    fn magic(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Result {
-> +        let identification =3D bar.read(regs::IDENTIFICATION);
-> +
-> +        let magic: u8 =3D identification.magic().into();
-> +
-> +        if magic !=3D QEMU_EDU_DEVICE_MAGIC {
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
 
-Can't we construct a regs::IDENTIFICATION value and compare this instead of=
- the
-raw value?
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
 
-> +            dev_err!(
-> +                pdev,
-> +                "magic mismatch: expected {:#x} got {:#x}\n",
-> +                QEMU_EDU_DEVICE_MAGIC,
-> +                magic
-> +            );
-> +            return Err(ENODEV);
-> +        }
-> +
-> +        dev_info!(
-> +            pdev,
-> +            "major: {:#x} minor: {:#x}\n",
-> +            identification.major(),
-> +            identification.minor()
-> +        );
-> +        Ok(())
-> +    }
-> +
-> +    fn liveness_check(pdev: &pci::Device<Bound>, bar: &Bar0<'_>) -> Resu=
-lt {
-> +        let test_value =3D 0xabcd;
-> +
-> +        bar.write(regs::LIVENESS_CHECK, test_value.into());
-> +
-> +        let inverse_value =3D bar.read(regs::LIVENESS_CHECK).into_raw();
-> +
-> +        if inverse_value !=3D !test_value {
+---
+Adrián Larumbe (15):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Explicitly enable MMU interrupts at device init
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Add warning messages to fatal error conditions
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
 
-I think this would read better as
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 231 ++++++++++++++-------
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   5 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +-----------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  64 ++++--
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 103 +++++++++-
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  14 +-
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 245 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |   8 +-
+ 14 files changed, 515 insertions(+), 388 deletions(-)
+---
+base-commit: 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
+change-id: 20260523-claude-fixes-82b03a134a8c
 
-	let pattern =3D regs::LIVENESS_CHECK::from_raw(0xdead_beef);
-	bar.write_reg(pattern);
-	if bar.read(regs::LIVENESS_CHECK) !=3D !pattern {
-	    return Err(ENODEV);
-	}
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
-And in the regs module we could implement
-
-	impl core::ops::Not for LIVENESS_CHECK {
-	    type Output =3D Self;
-=09
-	    fn not(self) -> Self {
-	        Self::from_raw(!self.into_raw())
-	    }
-	}
-
-> +    fn test_dma(pdev: &pci::Device<Bound>, handler: &IrqHandler<'_>) -> =
-Result {
-> +        dev_dbg!(pdev, "testing dma\n");
-> +
-> +        let dma =3D &handler.dma;
-> +
-> +        const DMA_VALUE: u64 =3D 42;
-> +
-> +        kernel::dma_write!(dma, , DMA_VALUE);
-> +
-> +        handler.bar.write(regs::DMA_SRC, dma.dma_handle().into());
-> +        handler.bar.write(regs::DMA_DST, QEMU_DMA_BASE.into());
-> +        handler
-> +            .bar
-> +            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-> +        handler.bar.write(
-> +            regs::DMA_COMMAND,
-> +            regs::DMA_COMMAND::zeroed()
-> +                .with_start_transfer(true)
-> +                .with_direction(false)
-> +                .with_raise_irq(true),
-> +        );
-> +
-> +        handler.irq_dma_completion.wait_for_completion();
-> +
-> +        // Destroy previous value to test roundtrip
-> +        kernel::dma_write!(dma, , 0);
-> +
-> +        handler.bar.write(regs::DMA_SRC, QEMU_DMA_BASE.into());
-> +        handler.bar.write(regs::DMA_DST, dma.dma_handle().into());
-> +        handler
-> +            .bar
-> +            .write(regs::DMA_COUNT, (dma.size() as u64).into());
-
-Please avoid as casts and use FromSafeCast instead.
-
-> +impl pci::Driver for EduDriver {
-> +    type IdInfo =3D ();
-> +    type Data<'bound> =3D EduDriverData<'bound>;
-> +
-> +    const ID_TABLE: pci::IdTable<Self::IdInfo> =3D &PCI_TABLE;
-> +
-> +    fn probe<'bound>(
-> +        pdev: &'bound pci::Device<kernel::device::Core<'_>>,
-> +        _id_info: &'bound Self::IdInfo,
-> +    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-> +        pin_init::pin_init_scope(move || {
-
-Let's make this a single try_pin_init!() block. You can subsequently chain =
-it
-with pin_chain() to call selftest().
-
-This is what I came up with for a talk; it doesn't align perfectly as it ha=
-s a
-couple of things refactored and uses self-referencial pin-init, but you get=
- the
-idea.
-
-	fn probe<'bound>(
-	    pdev: &'bound pci::Device<kernel::device::Core<'_>>,
-	    _id_info: Option<&'bound Self::IdInfo>,
-	) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-	    try_pin_init!(EduDriverData {
-	        _: {
-	            dev_dbg!(
-	                pdev,
-	                "Probe Rust EDU driver sample (PCI ID: {}, 0x{:x}).\n",
-	                pdev.vendor_id(),
-	                pdev.device_id(),
-	            );
-	        },
-=09
-	        _enable: pdev.enable_device().inspect(|_| pdev.set_master())?,
-=09
-	        bar: pdev.iomap_region_sized(0, c"rust_driver_edu")?,
-=09
-	        irq_vec: pdev.alloc_irq_vectors(1, 1, IrqTypes::default().with(pci=
-::IrqType::Msi))?,
-=09
-	        irq_handler <- irq::Registration::new(
-	            irq_vec.index(0)?.into(),
-	            Flags::TRIGGER_NONE,
-	            c"rust_edu_irq",
-	            try_pin_init!(IrqHandler {
-	                bar,
-	                irq_test_completion <- Completion::new(),
-	                irq_dma_completion <- Completion::new(),
-	                pdev,
-	            }),
-	        ),
-=09
-	        dma: {
-	            let mask =3D DmaMask::new::<28>();
-=09
-	            // SAFETY: There are no concurrent calls to DMA allocation and=
- mapping primitives.
-	            unsafe { pdev.dma_set_mask_and_coherent(mask)? };
-=09
-	            Coherent::zeroed(pdev.as_ref(), GFP_KERNEL)
-	        }?,
-=09
-	        pdev,
-	    })
-	    .pin_chain(|this| this.selftest())
-	}
-
-> +            let bar =3D pdev.iomap_region_sized::<{ regs::END }>(0, c"ru=
-st_driver_edu")?;
-
-With the above, we also get rid of the turbofish.
