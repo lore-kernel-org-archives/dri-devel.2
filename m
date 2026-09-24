@@ -4,75 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDEECC98326
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E453C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDB9F10F918;
-	Fri, 25 Sep 2026 07:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24E6910F91D;
+	Fri, 25 Sep 2026 07:30:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="clmtSsbj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bK5oWCb3";
 	dkim-atps=neutral
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com
- [74.125.230.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A94410E198
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 02:53:53 +0000 (UTC)
-Received: by mail-qk2-f42.google.com with SMTP id
- d75a77b69052e-52fb76bcb1eso15924981cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 19:53:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790218432; x=1790823232; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Wvc7ihS48CMwaqQEEFS304xLksjJ1u/xnvvm0QQvd88=;
- b=clmtSsbj9d3G2AKEqJZY07ksY7IA5uwCITRTEV9TftKxTkvTogiLh/QER3pBg6pGA6
- MBIfwnLOsO3rCDuZR3mbLIoVMuO4VXHOYktoog9wt1799C0TaylDFT0nOXc4xfXkx6r6
- 2SPuZnf+oXaqQM3S00leNxXAAm5gUNtEOIUAToT+P/mQKnL2Ah6xD2mwUNgkUlihSa7G
- I0ELCcU48tE83z9QOULyM2xRTdg9aK6i3QwY7LFK5MgdS8FHHbbY7rlCsUiBzJjTHSlF
- u8Ox9W/zVHAbd0toYS091oEGIu83sG0cp350SubnbGOLmqvH7gskdojueGPSt/pRVHP7
- zAVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790218432; x=1790823232;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Wvc7ihS48CMwaqQEEFS304xLksjJ1u/xnvvm0QQvd88=;
- b=C19VCYqgIphIuPqXMZixx73f7+YKC/CxxVJ5nFEokHexEmXXSDyx65TU/WXdQlPZVS
- FXk2AEDDjGvf0NMfLRUIgOElAmTlG7OXX+TTYOQwRokjZ9vgfV29Y2xxIfnao2SsIRsR
- yQdch6dOM4Djt85zItQraDw4xrb1rJOVhomGyfaun4K25zKQF8umTBrt2YOpPEol/lXB
- 00IXYaFHxT1R1D9/FY9pcsNnc8TfpXYETGkLcdXB+wKc9iruY2RFljNyUqP9c75EBKvH
- 2SDCDstO/t1a9p3HDzew1ZvvVst7SnskNnPV1p2/gpDlVutwUgwvF4muHvZhHWmkQcIL
- UVxQ==
-X-Gm-Message-State: AFuF++la04uwDWzZcxZYexRqavrdEATb4DCylcbLiC+DnmYxfcW5OaVg
- D53IZ0OjebNzSJUftFk/K2YAaO2ZhS9of/Hk3NenMva3T63vHcWTcwrGdhcPGctHMRc=
-X-Gm-Gg: AYBFou1uZVfqSY92pAfNWcdkfl69JQFN6yRLNUPagG8n+nuybyfzr8XDklMaplQAUmu
- yK/zSZaJruKi18+Vle6Aj8yfdX3JawkKeO/qwRleFLygq3C09PY6FyxBZDTuv9FcY8FNW4CbQ/d
- WULE+YavmrD1Onb45JsbmCISmx7z6Ul+TVR+6DFnlq53v3JTTrTDxX1TSv1AT1MCkYpc3LdxYDw
- 0uPCpDhigD3P96bpcm2o0FcFV+MR02VIFAgiHDq8s2QxwolOpYBdKB2+JVbzcjY+PhQF1/HSlqZ
- szeHvJjGk+bbWOCtc6luVdOu+iwqPPKd3VwBSbMTkqXcT5WkwQ8pMw5TvoWTKVTS0cb0eHOVaoE
- oyo0BRID4IHJubT2OY4xesrE1YMMMZwmerrdxYoBfZwvN2SvARSXl+9FTf/GEOkTHjEpBgZKx1h
- gOwg5Q/Qy5/NzToJuB/RUZLQ31t/VPUF5CvVKNUgYMon4h0hRlBbuKQcfekbzvgBGStk/nUpupQ
- cV5y7dYrLBDLr2/JCBHdG+70Hmr8NbAxlrdV9tv5DydPyHERFVQUB5Z9qudCxWnWqY=
-X-Received: by 2002:a05:622a:250b:b0:530:e335:58b3 with SMTP id
- d75a77b69052e-532feb571afmr5037371cf.57.1790218431820; 
- Wed, 23 Sep 2026 19:53:51 -0700 (PDT)
-Received: from localhost.localdomain
- ([2600:4040:29f7:9600:11c6:662b:adfc:7c99])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-532f501100asm18940981cf.24.2026.09.23.19.53.50
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 23 Sep 2026 19:53:51 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, airlied@gmail.com, kraxel@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/qxl: size packed dumb heads from the plane source
-Date: Wed, 23 Sep 2026 22:52:22 -0400
-Message-ID: <20260924025222.6077-1-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D7810F444
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id ACE6560200;
+ Thu, 24 Sep 2026 10:22:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DC61F000FF;
+ Thu, 24 Sep 2026 10:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790245340;
+ bh=/kufuYs8c40R6+aOEF8XLRCigB/kXlHZjyeo0hfMBwU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bK5oWCb3icJZsdzewTtJXUj2g8+OdPY584wvobmFjH9caA6XHPZPOxLC+ENgAYis7
+ FMWfW3kg0b1pKU0W7dpIcpkH9wgepYgd+Vs0xeodvPvhS2Z2eCR6zzIfxbc+F4vYn1
+ crr7Q7r6oewUJpom74jt6mX2gF6IAipPmH/f96jRZvGrtuVNztKClju5BP2uHo6kW6
+ 734wktJAnH1jO9c7SkfE4BGx5XUqUo3nH1YffnP3W3u3mHAJ7/dU+/pRlEDaapTJOL
+ hEriCB9vp3MVrONwH7vOYcoqLNO15CHvH8FuBJLz8aDKeueJxc7YfwK4KfyNmRNl7E
+ 8UCm0PUzGxdsg==
+Date: Thu, 24 Sep 2026 11:21:49 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify
+Message-ID: <arT3K71l86fUVldk@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+ <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,127 +143,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-QXL packs per-CRTC dumb buffers into a single primary surface.
-qxl_update_dumb_head() recorded each dumb BO allocation (bo->surf)
-instead of the plane source rectangle. Scanning 1280x800 from a
-2048x1024 dumb framebuffer beside a 1024x768 head therefore created
-a 3072x1024 primary and placed head 1 at +2048, rather than 2304x800
-with head 1 at +1280.
+On Wed, Sep 23, 2026 at 04:06:14PM -0400, Zi Yan wrote:
+> On 17 Sep 2026, at 12:22, Lorenzo Stoakes (ARM) wrote:
+>
+> > When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
+> > solely to fix a race with migration which might otherwise double-count
+> > mlock VMAs.
+> >
+> > This is unnecessary - at the point of applying folio mlock state, whether
+> > setting or clearing PG_mlocked, we know whether or not we are locking.
+> >
+> > Solve this in two ways - thread a boolean through the page table walk
+> > indicating whether a lock or unlock is being performed, and run a locking
+> > walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
+> >
+> > This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
+> > VMA_LOCKED_BIT. These are also always cleared together.
+> >
+> > Then, update folio_add_lru_vma() and mlock_folio() to check only for
+> > VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
+> > instead.
+> >
+> > Also remove the useless invocation of allow_mlock_munlock() which simply
+> > returns true if unlocking and instead rename it to allow_mlock() and only
+> > call it when locking.
+> >
+> > Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
+> > mlock_vma_folio() and folio_add_lru_vma() to simply test for
+> > VMA_LOCKED_BIT. munlock_vma_folio() tests VMA_LOCKED_MASK instead, as an
+> > unmap racing with the locking walk must still munlock folios the walk has
+> > already counted.
+> >
+> > While here, also replace some deprecated VMA flag predicates.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/folio.c    |  2 +-
+> >  mm/internal.h | 10 +++++++---
+> >  mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
+> >  mm/rmap.c     |  4 +++-
+> >  4 files changed, 30 insertions(+), 37 deletions(-)
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index 47a437e0f7fd..35e242b48870 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
+> >  {
+> >  	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+> >
+> > -	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
+> > +	if (vma_test(vma, VMA_LOCKED_BIT))
+>
+> I think it is worth documenting VMA_LOCKONFAULT_BIT alone means mlock in
+> progress, like you did in munlock_vma_folio(). Just to keep the protocol
+> explicit for all the readers.
 
-Use src_w/src_h when building the packed shadow, and copy only that
-source rectangle into it.
+Well I'm not sure it's necessary here honestly, because this never checked
+VMA_LOCKED_MASK anyway, and VMA_LOCKONFAULT_BIT never made a difference.
 
-Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
-Assisted-by: LLM sparse
-Signed-off-by: Dillon Amburgey <dillona@gmail.com>
----
-Tested on torvalds/linux 62f4c998b297. A DRM client (not Xorg, not
-SPICE) programmed one QXL device with max_outputs=2. CRTC 0 scans a
-1280x800 rectangle from a 2048x1024 dumb framebuffer (the allocation
-is larger than the scanout). CRTC 1 scans a separate 1024x768 dumb
-framebuffer. Unpatched, qxl_update_dumb_head() sizes packed heads
-from bo->surf, so QEMU's qxl_create_guest_primary is 3072x1024
-(2048+1024 by max height) and monitors_config places head 1 at +2048.
-With this patch, the primary is 2304x800 (1280+1024) and head 1 is at
-+1280.
+So the meaning of VMA_LOCKED_BIT here is strictly 'is it locked' and it's
+correctly handled.
 
-Content outside CRTC 0's 1280x800 source rectangle did not appear in
-the packed primary, and both heads' source rectangles did.
+And I fear that it becomes whack-a-mole - the neat thing about this change is
+that you no longer have to special case the stupid VM_SPECIAL thing, and can in
+fact do the 'normal' thing of _just checking_ VMA_LOCKED_BIT :)
 
-checkpatch.pl --strict: 0 errors, 0 warnings, 0 checks. W=1 and Sparse
-on drivers/gpu/drm/qxl/qxl_display.c added no warnings.
+So I think it's better not to.
 
- drivers/gpu/drm/qxl/qxl_display.c | 39 ++++++++++++++++---------------
- 1 file changed, 20 insertions(+), 19 deletions(-)
+>
+> >  		mlock_new_folio(folio);
+> >  	else
+> >  		folio_add_lru(folio);
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index b2c6c9435021..84aa3e6c8bac 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -971,8 +971,7 @@ void mlock_folio(struct folio *folio);
+> >  static inline void mlock_vma_folio(struct folio *folio,
+> >  				struct vm_area_struct *vma)
+> >  {
+> > -	/* The VM_IO check prevents migration from double-counting during mlock. */
+> > -	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
+> > +	if (vma_test(vma, VMA_LOCKED_BIT))
+>
+> Ditto.
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 0719fc6a52d5..e57aeeb97f84 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -670,13 +670,17 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 	struct qxl_device *qdev = to_qxl(plane->dev);
- 	struct qxl_bo *bo = gem_to_qxl_bo(new_state->fb->obj[0]);
- 	struct qxl_bo *primary;
--	struct drm_clip_rect norect = {
--	    .x1 = 0,
--	    .y1 = 0,
--	    .x2 = new_state->fb->width,
--	    .y2 = new_state->fb->height
--	};
-+	struct drm_clip_rect norect;
- 	uint32_t dumb_shadow_offset = 0;
-+	u32 src_x = new_state->src_x >> 16;
-+	u32 src_y = new_state->src_y >> 16;
-+	u32 src_w = new_state->src_w >> 16;
-+	u32 src_h = new_state->src_h >> 16;
-+
-+	norect.x1 = src_x;
-+	norect.y1 = src_y;
-+	norect.x2 = src_x + src_w;
-+	norect.y2 = src_y + src_h;
- 
- 	primary = bo->shadow ? bo->shadow : bo;
- 
-@@ -689,7 +693,7 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 
- 	if (bo->is_dumb)
- 		dumb_shadow_offset =
--			qdev->dumb_heads[new_state->crtc->index].x;
-+			qdev->dumb_heads[new_state->crtc->index].x - src_x;
- 
- 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
- 			  dumb_shadow_offset);
-@@ -764,18 +768,14 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
- 	qcrtc->cursor_bo = NULL;
- }
- 
--static void qxl_update_dumb_head(struct qxl_device *qdev,
--				 int index, struct qxl_bo *bo)
-+static void qxl_update_dumb_head(struct qxl_device *qdev, int index,
-+				 struct qxl_bo *bo, uint32_t width,
-+				 uint32_t height)
- {
--	uint32_t width, height;
--
- 	if (index >= qdev->monitors_config->max_allowed)
- 		return;
- 
--	if (bo && bo->is_dumb) {
--		width = bo->surf.width;
--		height = bo->surf.height;
--	} else {
-+	if (!bo || !bo->is_dumb) {
- 		width = 0;
- 		height = 0;
- 	}
-@@ -820,12 +820,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
- }
- 
- static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
--			       int crtc_index)
-+			       int crtc_index, uint32_t width, uint32_t height)
- {
- 	struct qxl_surface surf;
- 
--	qxl_update_dumb_head(qdev, crtc_index,
--			     user_bo);
-+	qxl_update_dumb_head(qdev, crtc_index, user_bo, width, height);
- 	qxl_calc_dumb_shadow(qdev, &surf);
- 	if (!qdev->dumb_shadow_bo ||
- 	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
-@@ -869,7 +868,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    user_bo->is_dumb) {
--		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index,
-+				   new_state->src_w >> 16,
-+				   new_state->src_h >> 16);
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
+Similar reasoning to above.
 
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
--- 
-2.43.0
+>
+> >  		mlock_folio(folio);
+> >  }
+> >
+> > @@ -989,7 +988,12 @@ static inline void munlock_vma_folio(struct folio *folio,
+> >  	 * always munlock the folio and page reclaim will correct it
+> >  	 * if it's wrong.
+> >  	 */
+> > -	if (unlikely(vma->vm_flags & VM_LOCKED))
+> > +	/*
+> > +	 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
+> > +	 * mlock_vma_pages_range(). An unmap racing with the walk must still
+> > +	 * munlock folios the walk has already counted.
+> > +	 */
 
+Here it's worth mentioning, as it's specifically relying on the new
+behaviour. Although it's neatly using the VMA_LOCKED_MASK to handle both the
+locked case and the 'being locked' case :)
+
+> > +	if (unlikely(vma_test_any_mask(vma, VMA_LOCKED_MASK)))
+> >  		munlock_folio(folio);
+> >  }
+> >
+>
+> Why I am commenting in the middle of the series? Because I am taking
+> a quiz given by LLM based on this series to get myself enough background
+> knowledge to review this series. This mlock part came up at part E
+> and I only have part F left before I can do the full review. :)
+
+Thanks! :) I really appreciate you taking the time to look at this! Sorry it's
+so large.
+
+I held this series back from last cycle to help with review load, then spent
+some time fixing various AI-discovered things, and all the patches are necessary
+(well for the most part) to get where the series needs to go.
+
+I think the change is worth it though!
+
+>
+> Best Regards,
+> Yan, Zi
+
+--
+Cheers, Lorenzo
