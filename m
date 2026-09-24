@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC46C98318
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 16:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9506BC9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 16:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF6F10F68F;
-	Thu, 24 Sep 2026 16:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE47C10E358;
+	Thu, 24 Sep 2026 16:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bV8xxj7Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kNCdcQU6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2D3F10F68E
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 16:08:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5A610E18B;
+ Thu, 24 Sep 2026 16:54:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5873F43262;
- Thu, 24 Sep 2026 16:08:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8F31F0089E;
- Thu, 24 Sep 2026 16:08:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 76E3C601EF;
+ Thu, 24 Sep 2026 16:54:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6081F000FF;
+ Thu, 24 Sep 2026 16:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790266097;
- bh=2amtWoddep7pLojeoPlYnSOvF1cjX1L2EV1PPtxJAkM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bV8xxj7QLljb63+9SMJVZr5rMtdrlNkzybIwY8y2BSFTnj2H2ZwAVkN7O9tU5L4+Y
- Qqp/sDY4OyTSqPQpz5Ch9ZWB0pgvPJgyqzZEjTfU2yV9+4pQivEfV0ePZHumJ0W6NY
- 3+S33ED5n1cHhog0A6laY3Hc9Jutw+M+6zaNOB18iVp8VE7fYenB1ZS9qyi5gOzVHb
- blvPM3wv+MVoPgbZQ/eupg4UJAilP31w6CtP5JXJHgLJlxWgVmZRSGPkrGixTVX2mL
- cn56JF2rMx5Zpd8Y73bv2zaYh64GrDw0JfWSo46rAGEdSPI3YnrTW10Yh5SUbBQ4ao
- CCJIgPfois6rw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c bridge
-To: vishnu.saini@oss.qualcomm.com
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
-References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
- <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 16:08:16 +0000
-Message-Id: <20260924160816.ED8F31F0089E@smtp.kernel.org>
+ s=k20260515; t=1790268872;
+ bh=BkzAkiWdzegc3H0KCcLioXPh2WESOPx/9LTCwHSdQDI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kNCdcQU6ajBlxqBQ4LfRJawizexIf/eZEFukJwJ57sYk18nimzTBcWPVDNFLDHySK
+ rCpOtZA+6PjhIT0E19ZwrY6scDJaa+kMEqqFeyfTdgpH8EUcEUxWofrpidInfRhorz
+ EV6X5OWA1t8WELdvJb576pvporyY7+awdjs7lKrT6+Ll1DoQ31/5LDLw7+QWcbP3nj
+ Do3oI4kuwVWIkgszw5O7APGw5hxlzcMtvWkXf5Tvxv/FI94tneDDkfx7FjvLobLgrB
+ n1n3FLH+U0uyRftC8u+m/goilZncfB7C00KlmZ6CLUe0kDbxn5ZbDuYeweKevJcCBv
+ Mw8EOwFeVQHaQ==
+Date: Thu, 24 Sep 2026 17:54:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <4ddbd29e-3524-4f4c-b6d7-1e2e677641b5@sirena.org.uk>
+References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+ <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
+ <arPhsTaiqXPgCqAU@sirena.co.uk>
+ <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="TfUEtMAqWQQDRMnd"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
+X-Cookie: Memory fault -- brain fried
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,147 +63,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/bridge: probe race causing NULL pointer dereference via early =
-devm_drm_bridge_add()
-- [High] drm/bridge: use-after-free of workqueue on unbind due to reversed =
-devres cleanup ordering
-- [Medium] drm/bridge: asynchronous atomic_enable breaks DRM synchronous br=
-idge chain initialization
---
 
-commit 2cf60daaeefff033f413189c179402f2bd50e48c
-Author: Yi Zhang <zhanyi@qti.qualcomm.com>
+--TfUEtMAqWQQDRMnd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-drm/bridge: add support for lontium lt9211c bridge
+On Wed, Sep 23, 2026 at 05:57:24PM -0400, Alex Deucher wrote:
 
-This commit extends the lontium-lt9211 driver to support the LT9211C
-variant by detecting the new chip ID and implementing its specific
-initialization sequences. It defers the final bridge configuration to
-a work item scheduled from atomic_enable() to wait for an active DSI stream.
+> Your reports are valuable and we always take them seriously even if I
+> don't reply as quickly as I should.  For the issues at hand they
+> should all be fixed with the following patches:
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/br=
-idge/lontium-lt9211.c
-> index 23682384daf46..e6c08a7fdc27c 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9211.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
+> https://patchwork.freedesktop.org/patch/755725/?series=3D174828&rev=3D1
+> https://patchwork.freedesktop.org/patch/755741/?series=3D174834&rev=3D1
+> https://patchwork.freedesktop.org/patch/755769/?series=3D172614&rev=3D2
 
-[ ... ]
+> I'll push a new -next branch with those fixes later today.
 
-> @@ -523,6 +1271,21 @@ static void lt9211_atomic_enable(struct drm_bridge =
-*bridge,
->  	if (ret)
->  		return;
-> =20
-> +	if (ctx->chip_data->chip_type =3D=3D LT9211C) {
-> +		drm_mode_copy(&ctx->lt9211c_mode, mode);
-> +		ctx->lt9211c_bpp24 =3D lvds_format_24bpp;
-> +		ctx->lt9211c_jeida =3D lvds_format_jeida;
-> +		ctx->lt9211c_de_high =3D !!(bus_flags & DRM_BUS_FLAG_DE_HIGH);
-> +		ctx->lt9211c_crtc =3D crtc;
-> +
-> +		/*
-> +		 * Needs a live DSI stream to auto-detect RX resolution/format;
-> +		 * defer bridge configuration until vblank inside the work item.
-> +		 */
-> +		queue_work(ctx->wq, &ctx->lt9211_work);
-> +		return;
-> +	}
+I'm still seeing at least:
 
-[Severity: Medium]
-Does returning asynchronously here violate the DRM bridge API contract?
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn30/display_mode_vba_30.c: In function =E2=80=98UseMinimumDCFCLK=E2=80=
+=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn30/display_mode_vba_30.c:6666:1: error: the frame size of 2064 bytes i=
+s larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 6666 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn31/display_mode_vba_31.c: In function =E2=80=98UseMinimumDCFCLK=E2=80=
+=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn31/display_mode_vba_31.c:7460:1: error: the frame size of 2128 bytes i=
+s larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 7460 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn32/display_mode_vba_util_32.c: In function =E2=80=98dml32_UseMinimumDC=
+FCLK=E2=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn32/display_mode_vba_util_32.c:3278:1: error: the frame size of 2176 by=
+tes is larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 3278 | }
+      | ^
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn314/display_mode_vba_314.c: In function =E2=80=98UseMinimumDCFCLK=E2=
+=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l/dcn314/display_mode_vba_314.c:7546:1: error: the frame size of 2128 bytes=
+ is larger than 2048 bytes [-Werror=3Dframe-larger-than=3D]
+ 7546 | }
+      | ^
+cc1: all warnings being treated as errors
+make[7]: *** [/home/broonie/git/next/sfr/next/scripts/Makefile.build:290: d=
+rivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/display_mode_vba_util_32.=
+o] Error 1
+make[7]: *** Waiting for unfinished jobs....
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l2_0/display_mode_core.c: In function =E2=80=98dml_prefetch_check=E2=80=99:
+/home/broonie/git/next/sfr/next/drivers/gpu/drm/amd/amdgpu/../display/dc/dm=
+l2_0/display_mode_core.c:6821:1: error: the frame size of 2160 bytes is lar=
+ger than 2056 bytes [-Werror=3Dframe-larger-than=3D]
+ 6821 | }
+      | ^
 
-By offloading the hardware initialization to a workqueue and returning
-immediately, the DRM core might proceed to enable downstream panels in the
-chain before the LVDS signal is actually active.
+after merging amdgpu today, note that this is in the -next merge and not
+just the amdgpu tree in isolation.  I am currently holding drm and
+drm-misc at next-20260921, there is a conflict with the old version of
+them though that was just comments but they'll be in the history at the
+point I'm building so possibly whatever git did with the merge is
+causing issues.
 
-Could this result in display initialization failures on platforms where
-downstream panels require a stable LVDS stream during their enable sequence?
+Any fixes will also need to propagate into drm and drm-misc.
 
-[ ... ]
+I'm also still carrying a build fix marking the display KUnit tests as
+BROKEN due to the issues with the conflicting changes with drm-misc
+which several people have noticed, for example there's this from Arnd
+last week:
 
-> @@ -748,45 +1516,53 @@ static int lt9211_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
-> =20
-> -	ctx->regmap =3D devm_regmap_init_i2c(client, &lt9211_regmap_config);
-> +	ctx->chip_data =3D i2c_get_match_data(client);
-> +	if (!ctx->chip_data)
-> +		return -ENODEV;
-> +
-> +	ctx->regmap =3D devm_regmap_init_i2c(client, ctx->chip_data->regmap_con=
-fig);
->  	if (IS_ERR(ctx->regmap))
->  		return PTR_ERR(ctx->regmap);
-> =20
-> -	dev_set_drvdata(dev, ctx);
-> -	i2c_set_clientdata(client, ctx);
-> -
->  	ctx->bridge.of_node =3D dev->of_node;
-> -	drm_bridge_add(&ctx->bridge);
-> +	ret =3D devm_drm_bridge_add(dev, &ctx->bridge);
-> +	if (ret)
-> +		return ret;
+   https://lore.kernel.org/r/20260915201006.3526945-1-arnd@kernel.org
 
-[Severity: High]
-Is there a risk of a NULL pointer dereference here if the bridge is exposed
-before its workqueue is initialized?
+None of the mails I saw about that or the issues resulting from my
+mismerge got any response either.
 
-Because devm_drm_bridge_add() globally exposes the bridge to the subsystem,=
- a
-concurrent display controller probe could immediately discover it and initi=
-ate
-an atomic commit.
+--TfUEtMAqWQQDRMnd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If lt9211_atomic_enable() is reached before ctx->wq and ctx->lt9211_work are
-initialized further down in lt9211_probe(), it will call queue_work() with =
-an
-uninitialized NULL workqueue.
+-----BEGIN PGP SIGNATURE-----
 
->  	ret =3D lt9211_host_attach(ctx);
->  	if (ret)
-> -		drm_bridge_remove(&ctx->bridge);
-> -
-> -	return ret;
-> -}
-> +		return ret;
-> =20
-> -static void lt9211_remove(struct i2c_client *client)
-> -{
-> -	struct lt9211 *ctx =3D i2c_get_clientdata(client);
-> +	if (ctx->chip_data->chip_type =3D=3D LT9211C) {
-> +		ctx->wq =3D create_workqueue("lt9211_work");
-> +		if (!ctx->wq)
-> +			return -ENOMEM;
-> +		/* Register after DSI attach so devres flushes work before freeing ctx=
-->dsi. */
-> +		ret =3D devm_add_action_or_reset(dev, lt9211_destroy_wq, ctx->wq);
-> +		if (ret)
-> +			return ret;
-> +		INIT_WORK(&ctx->lt9211_work, lt9211_work_func);
-> +	}
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1VcMACgkQJNaLcl1U
+h9DVrwf/fFeeDT5pfDcxHGFhYdqb+fTkCDcSDPtwkCUrKEHGBTabJ2uY/V+h36yq
+BgYE6dIWD14pzaSAhnum5ZSwk8Ht2+mf9uJFA9qx5Pa/TCLMZmkMijGwXMLR7vNe
+oUOINfjXh2fVgdOZ0EfDoFOdOV9xtGI6Ar3sQV5pqvcFg7I5H4xUx8RAQJQdNBUC
+kEB/dcwF2sLC7sHhaTdbkbnuRBgC9fkQbvurG8VJE35xKbd8x3xs3PTUbm4Egx6b
+q+V4Ly9Qm8NZbNu1EvLy8XvgXfR+lpDJ5YjrQpBWPBkTVNJ/9O7dW/rItnEPHdEF
+zbarZkyx0UmPvj5Aw1uvvvcWaAatPA==
+=O+Zt
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Could this devres ordering lead to a use-after-free during driver unbind?
-
-The devres infrastructure executes cleanup actions in reverse order of
-addition (LIFO). Since devm_drm_bridge_add() was called earlier in the probe
-sequence, the workqueue cleanup (lt9211_destroy_wq) will execute before the
-bridge is unregistered from the DRM subsystem.
-
-If the DRM core invokes lt9211_atomic_enable() or lt9211_atomic_disable()
-during this unbind window, the driver will dereference the freed ctx->wq
-pointer in queue_work() or cancel_work_sync().
-
-> -	drm_bridge_remove(&ctx->bridge);
-> +	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-add-lt9211=
-c-bridge-v9-0-d78b39677a61@oss.qualcomm.com?part=3D2
+--TfUEtMAqWQQDRMnd--
