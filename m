@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7718C9831F
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15ACC98324
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C30410F5D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6314310F5D4;
 	Thu, 24 Sep 2026 14:01:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rOELeOTl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EOcGZbFc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292B210F5CF
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D99FC10F5CE
  for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F245743DF9;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B8255C2BCFC;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 65B34447C6;
+ Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44CFBC2BCB3;
+ Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790258495;
- bh=rtR6voWlBp6nmy7r/Mw5s0EqVFPdv3nDJeJ4GzojCQ4=;
+ s=k20201202; t=1790258496;
+ bh=VtMHnds7jZXNRknUpJEYmVpmQX6SoqmzQo6wLw7z8cw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=rOELeOTlQMEQ20LhH9sN776dl9/JoPloOQkb8zH8GBLZ0uieCpOSw9oR51yGQFB3o
- fTo1YxXy4jZ1gmrph981EO270zVpVgRVZiWQhuV5t8L1yAOPGhHHUafrq28bJ7Kl93
- 452ftRHw399QgA/tJlolvW6Apz8jbf1NDycyJJ/tImS5ittU3GURMy13LcyAJ3S6So
- eLD4w7HcmX3pKMxEiR5JmfNPJFCeIDOqp7mkcPgfHlCbFJos7dKEI8h+kRr7Jvbu+7
- uY7dyIkrQWYC2uLFJXZIxWe+nipIQm/J7kBrMFYu4sRcxa+4xEhI/j83idogpoL9/q
- U6NuHhIl0MAsA==
+ b=EOcGZbFcgHj0/yTyzroq+04u0HHDVaTRO5S0gMaGz7PzS4U5/4Xqubf5yT2cJIUH5
+ ooaevxS1RiJsBBFRjDVIlquTXNXm7Jqdha5C5g2ci7j+8hjWqmnCs5z+mn1GZ8a8U4
+ 5TV29/0kfP/1RmuWrCAc/sN+BU9wlt30wnnOGlRZWTqmyL+It4mD2JZesNDhBSOEeE
+ I1x1SUYr9Z4SyPx4HGqNTZ8pns54+iN9KdWIQat5TnyIHUYEudoiQi88ag1mwNnSjw
+ xmm0nteEibdBXCuofFTxbRPp2aNDLU1YTyqVaRCcm5qVX76cXv3OBKjh65exEeiOQf
+ g6mk3i7yc99WQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 9A0E3C9831F;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3143AC98321;
+ Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:30 +0200
-Subject: [PATCH v2 02/11] dt-bindings: display: panel: samsung,s6e3ha8: Add
- AMB630QY01 panel
+Date: Thu, 24 Sep 2026 16:01:38 +0200
+Subject: [PATCH v2 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
+ into common
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-2-08d5c7bf72fc@ixit.cz>
+Message-Id: <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
 References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2442; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2126; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=K2rs3ud3gazsmGeLP5fMP4q2yS8qRIDd3AISDM3ybSU=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08VkRqj0WEof9HjRjSR4hVLdlW/AsFGAVOI
- v956XP148aJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
- cs7FEACsE94bBqkeYjQN+BTrH6kDai9p8lc8cqqrU7PHbqyH8sLrTIvvhtgGH49qKVqN2IugIMS
- G292zBUb6rYISii85x84mq742Zi8XDzVYCTzF2ohFsJK3MBloQHJTO/iSTOqlnWF2et7gd4YLd1
- 4PG/1VHEy1eDkRo4UsmWwi0UbaiZ3HPzLjv6FnImaLnLefu8yDzTm1P5tQW/8fw8p8/Gc9hS35h
- 09M21IGprFKpbEDZ5RtUDWIHUD8tqBgS3bXyKtVm3MF7Lh1rmnXuePierlITiwrs3mY/wYTgenu
- rPt3GLYWNHIrBcdUGbBnEms3TxdnuMVOlK2h8bcM429Tvrn4kT9vB76ZWhCYI3SijO3fxaQSfpr
- pJYBLUd8Da/lCKIBjWA/3Z/V6S5rwcKbgz8WT7BKaqoOH8FK8CRSmAHY/lLHz2YS7xWMIDQlezY
- qYrxxQouNm7luEfT8QYTJuJVGnPtdtRb6FykVEvpJXHkOB8S22QXq7ty7VGL/fdjV4StdjYos+P
- RwAjyPIVT60RO+Lg9nK1pIB1GFxX/TfvDX1dQyYescQ8WSuX3isJcLXZu+vY1rhqAXzbKBzGRK7
- X1ZWyywrWx9Hw48jHUGTuVv97Qd5r+Hgc+Q0KmaOPjpeEVAhXQQ9yYQUJQ2nggRDqFDzsbw9KfE
- bAWQMyXnTExmCKA==
+ bh=tmWWZMnJdIiah2Ra+OBrkILlOUVZlqnIlNSnhIb5uBA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09f2wlNMXFy/rZ1CQYqSibfi/pXLBtMVeu6
+ 1wnc12nzs2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
+ ct0AEACyeppnguTHriwBUu+k8lbdUGxD74whGrWZu8DAEYfw1G06WQYsn5KpfTWmNkAkLo/vewT
+ mBgQJexOmb34ahjlHFOfgNlMs/ocRMHkzxEUCJaeWLYGnZr+ibyXj1+EyEupXSEmsrh1ygyXW6I
+ MLtYVuoB3kjTlGOMagMPCFKjLI+AS8ZeCHpWg/hmNH/MTmUX0sx/Hh+5aXgX/mjl2WVLeXouaFR
+ A8XhBYI/ySZZKVIH0r06QiVj7OVwhEdbe91JxOuqBeMDaNM4pgl1clv9ZIJIt7EYyMNzxQFZyd7
+ FjSixpSOt2ol6xFTKCr0lUOj48Rb15v7st6H99cklzd0KOyFbSM+YOgjxH21H5/3ZTbK7kr3FlN
+ DQOjvgV+9n5V68DvoyhdJDqtETDxXoN9DANks5UHEzRCeUeN/nXK1RXqxX3+PaC5WI45F6UeUmt
+ fySCAFFdJUG4fp07YWdw3M3Wo0wT2zmfyjxIl1/eXmXkQ+PmGZEfVX3kvbN3PUEKCvDJYFyGccI
+ 66jrb5pQsElKZEhjYaO7eLhXg/8SDSiiiTggCGt73Zb7mYbpH9GhOJZpxQ1mgxMWrPAdTcvGnKa
+ jzqonpUah+XR9NSSiAFuavk9Nd2ELcQbb5QtuLMp8Ohg6Vh0rLY8SWVQpM676fIHCmasq+p04rs
+ jzBkIthjorSBAlA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -95,97 +95,86 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Heidelberg <david@ixit.cz>
 
-The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
-1440x2960 flexible AMOLED panel.
+Both devices share the pinctrl configuration.
 
-Assisted-by: LLM
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../bindings/display/panel/samsung,s6e3ha8.yaml    | 31 ++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
+ 2 files changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-index ca250b1b91712..acc2ea2969298 100644
---- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-@@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Samsung s6e3ha8 AMOLED DSI panel
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index fa89be500fb85..a000c75494f1c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -61,29 +61,11 @@ &mdss_dsi0_out {
+ };
  
- description: |
-   The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
-   Samsung Mobile Displays (SMD).
+ &mdss_dsi0_phy {
+ 	vdds-supply = <&vdda_mipi_dsi0_pll>;
  
-   Known panels:
-     - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
-+    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
+ 	status = "okay";
+ };
  
- maintainers:
-   - Dzmitry Sankouski <dsankouski@gmail.com>
+-&tlmm {
+-	panel_default: panel-default-state {
+-		reset-pins {
+-			pins = "gpio6";
+-			function = "gpio";
+-			drive-strength = <8>;
+-			bias-disable;
+-		};
+-
+-		te-pins {
+-			pins = "gpio12";
+-			function = "mdp_vsync";
+-			drive-strength = <2>;
+-			bias-pull-down;
+-		};
+-	};
+-};
+-
+ &wifi {
+ 	qcom,calibration-variant = "Google_blueline";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index f1379857e2742..d54cb47cdf95b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -473,16 +473,32 @@ &qup_uart9_tx {
+ 	drive-strength = <2>;
+ 	bias-disable;
+ };
  
- allOf:
-   - $ref: panel-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - samsung,s6e3ha8
-+              - samsung,s6e3ha8-amb577px01
-+    then:
-+      required:
-+        - vddr-supply
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: samsung,s6e3ha8-amb630qy01
-+    then:
-+      required:
-+        - vddpos-supply
-+        - vddneg-supply
+ &tlmm {
+ 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+ 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
  
- properties:
-   compatible:
-     oneOf:
--      - const: samsung,s6e3ha8-amb577px01
-+      - enum:
-+          - samsung,s6e3ha8-amb577px01
-+          - samsung,s6e3ha8-amb630qy01
-       - const: samsung,s6e3ha8
-         deprecated: true
- 
-   reg:
-     maxItems: 1
- 
-   vdd3-supply:
-     description: VDD regulator
- 
-   vci-supply:
-     description: VCI regulator
- 
-   vddr-supply:
-     description: VDDR regulator
- 
-+  vddpos-supply:
-+    description: positive boost supply regulator (ELVDD)
++	panel_default: panel-default-state {
++		reset-pins {
++			pins = "gpio6";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-disable;
++		};
 +
-+  vddneg-supply:
-+    description: negative boost supply regulator (ELVSS)
++		te-pins {
++			pins = "gpio12";
++			function = "mdp_vsync";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++	};
 +
- required:
-   - compatible
-   - reset-gpios
-   - vdd3-supply
-   - vci-supply
--  - vddr-supply
+ 	nfc_default: nfc-default-state {
+ 		enable-pins {
+ 			pins = "gpio25";
+ 			function = "gpio";
+ 			drive-strength = <2>;
+ 			bias-pull-down;
+ 		};
  
- unevaluatedProperties: false
- 
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
- 
-     dsi {
 
 -- 
 2.55.0
