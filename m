@@ -4,46 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD73C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B93D9C98311
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD8B10F44D;
-	Thu, 24 Sep 2026 10:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E8B10F44B;
+	Thu, 24 Sep 2026 10:23:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NxegDJ7/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="KktBEdoU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="I8xdiyIs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF1410F44F
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:22:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 03AAF601EF;
- Thu, 24 Sep 2026 10:22:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C431F00893;
- Thu, 24 Sep 2026 10:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790245374;
- bh=nyWKpdPHcUsX4hzNUZswfNLX4eWwVSI/lyiHUGXWFyc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NxegDJ7/Rg4PlVy/nCHIbPLxl2w8HcGH1cJ+GDy3aaM8Cj+oI8kWGYH61RnZ4/RCv
- mlwMSYcs+vAliSn3PmylkY2xsyoYNTK4IBEOsn2hViwi332zm+qVaBTRW9YuQoscTp
- zsrWulJGS6DPWBO8/yGrNexmR+LwDUyZCKvP8e8SDzYaLO7jxPSaWRuuZ9YkXtNGPt
- PDvU0zHnHzwVQY7R0csMN8krDuBZK1e3447CtC2A0w61uC42UCXpQkXKGh5UUWAvsx
- gMoB56tIjP6Xl+VMcUneNlZKxGCWIdevemLgNtb/cS4bpt7MI0yNAoWP13Kgfk5ZCv
- 1Pg0/yESyKabw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v8 08/14] swiotlb: Align shared IO TLB pools to the
- shared granule size
-To: =?utf-8?b?QW5lZXNoIEt1bWFyIEsuViAoQXJtKQ==?= <aneesh.kumar@kernel.org>
-Cc: media-ci@linuxtv.org, kvmarm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, "Oliver
- Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20260924100529.1398790-9-aneesh.kumar@kernel.org>
-References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
- <20260924100529.1398790-9-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 10:22:53 +0000
-Message-Id: <20260924102254.60C431F00893@smtp.kernel.org>
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F29D10F44B
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:23:05 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 382717A00A3;
+ Thu, 24 Sep 2026 06:23:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Thu, 24 Sep 2026 06:23:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm3; t=1790245384; x=
+ 1790331784; bh=0DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=K
+ ktBEdoU5gsFnD9KybH5juVltRRIhaJKOM4BE7uUIdllRfXZ9DZUK6DqlhY79sF1U
+ 5F0dhr2Stbm5/l6bHj2kKL7Nz0OHDOakqphB+MLts5Lu2cEKhFEP+PqUQlBtAaKL
+ ugjmNhlfe7riT3FOBHhAL+6fyhEhImgqCmLMJqK8uH+icQnM8pYzck02uXMyIBZD
+ yU6If62/RLT9nNpzySsfyeBGDUTjVuZDbdn3/pYsFVh19+wUa74q7L7uMFLBhgEs
+ gJw8wFwEN4ag/Nf+8ZVWnzSJ/bA2THdqE8EMeEl35xPYBLFDGaZnVBdrmlU4N0R4
+ zQf37PAka75wJ9xfgRBOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; t=1790245384; x=1790331784; bh=0
+ DpoiKQK/pAK6+VRgnar1lFxM3UetYvMfvKdfg6sGSU=; b=I8xdiyIsE026WTQN4
+ pEfp2huSywhP/VeSkH4+5ookcPh9hOSIzvT22dS7j1HbSgFHmGnL+DxxZ92BDDQ8
+ eF4CENe62HBunk0w1lhXj23b/ozeNRLO1AValH+OkflaiTEgp8cf+flUDbW4e+Bc
+ g7pUTN4oEgg8LHMgetOnmpd2iySkzV0VFUeOgdbwHr0FztLbGxeKqA3W+G44i0y4
+ /2C3TNj3VwUsFB4Za+2AhKjtinOr2Bk7FFFcb2DlLEm67oXM8F9k6q+XoRbZ1M3D
+ XsGs4I/4dYDbdRMi6NmIQYPi18MzqGSgwVLgCD3NKJw33iM85GQSMZiSmREL+umf
+ xSixw==
+X-ME-Sender: <xms:B_q0alprBRrZruDSS7U-ZBIIVr62GWQe34_lsauIxJJ35FHQO2PTUw>
+ <xme:B_q0aoaaLDdtqZb89gYY4Z-kh6wNoHLs7a9VHcWcfDs8DH46kr5VotWM3JWyNMwDv
+ UYlcpIgYoHDPuxESzSBJohozGa3vFMF7QcWDP9T9vfljp5Sk2zTwAA>
+X-ME-Received: <xmr:B_q0arFeH2Y-0NAsERy9kMTcx5Bi0wnWo-a5RVOt9ksZ0PvjxwMm6MrTN0UOoiJ0cQFx_p5j1Q>
+X-ME-Proxy-Cause: dmFkZTFedTl3F1DIrTHCICe4Fo+6yuH2iIryXb4vaD1hJk5uz+D3fdxBaPEGleMmtjQ9jj
+ /AH1EkwAh8wKmQiLT/9bSvDiQhW+TZmRyikvMLrEzAS6A5ogRqUhM4yxUxSgAmF4L6zbNq
+ JU1CrDOUHEJdjtSdpDsxEskFn/aWSY8EhEM69IoGnovQNyACerECRpwt+2pE+OuDo6j5C2
+ BOOC64LiXafVGJCK8SqFHoQAP2FF+TvLHYjrI91po4XURVMn1pQeIKHxydNlGe/KKK+FAO
+ 2AUxd7OWs8ZDGv/h0aNNMjxPVGQhrAw5D/31vFjHI5S7swl3HoagxPlYCWUyU9dgrzlHFV
+ 9ued//M7bvfNrjaALGaNXU06mxZi2UVe0kaRvozT0as1aZOpp9EU8g9PKO6raYXt8sp0g+
+ T0b8yZtwROIYhaU2kCcRXrEGtPCrg9SK6NH0hjcZxU7n3SzsPlubWw+UZlSoaU40myTd3R
+ HPzUd2zt/Q7bohcpmKKOhNGyGQP0pw3tVyDtlx7y0zKyeMqenYPrJyXkvKK2LFlAxI0K5W
+ DJK6B7aQwBizD50zHV1Z8RHuIVdIb4YO4EOUBIt/HlpC7PDhl1jbkEyr5hTe1pbZlGPBGp
+ N5c4Ktr0hrHSIRL4fkh710iSkOvTtY2cpi5nssX6Mhx00NE5u+avreaEBc5w
+X-ME-Proxy: <xmx:B_q0aoztOLntchIIP8UiIyxd7L2dMcl72afwZNX17XfJ1iT9PQAXxw>
+ <xmx:B_q0akAvi0IM_Os0cEc3oyuhgI3xA8tLvaQzmYOE80mDou6V_xVieA>
+ <xmx:B_q0avUNyscvgScdMZ18LuhRFgl_kP3vgyOwEWUXdC-HKgO7fHlAQw>
+ <xmx:B_q0aujJQu-tACx60G-UT8PgvUxmK7geTtqY3e-WR2bbTVi0UiCzww>
+ <xmx:CPq0as4uoDYYSWw7WsmYlIo5edFF2Gw3vCrhc3EVY4InOp35k6c8eCbG>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 24 Sep 2026 06:22:54 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v14 06/15] dt-bindings: npu: rockchip: add rockchip,
+ rk3576-rknn-core
+Date: Thu, 24 Sep 2026 22:21:26 +1200
+Message-ID: <20260924102135.92217-7-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,68 +103,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] mm: infinite loop in swiotlb_init_late() when remap fails
---
+The RK3576 NPU has two cores of the RKNN block this binding describes, with
+two extra CBUF clocks, two power domains per core, one reset instead of
+two, and no SRAM supply. Widen the properties and pin each SoC to its own
+shape in allOf; sram-supply stays required for RK3588.
 
-commit 9e7f1b72520615870ee21508117e4c5c7e0eb684
-Author: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
+ 1 file changed, 44 insertions(+), 3 deletions(-)
 
-swiotlb: Align shared IO TLB pools to the shared granule size
-   =20
-This commit aligns and sizes the early memblock pool to the common CoCo
-shared granule, leaving the slot count unchanged. It replaces the default
-and dynamic pool set_memory calls with helpers to keep alignment validation
-and architecture dispatch centralized. Pages are intentionally leaked if
-their private state cannot be restored safely.
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a490..3b611b64c 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -21,6 +21,7 @@ properties:
+ 
+   compatible:
+     enum:
++      - rockchip,rk3576-rknn-core
+       - rockchip,rk3588-rknn-core
+ 
+   reg:
+@@ -33,14 +34,18 @@ properties:
+       - const: core # Main NPU core processing unit registers
+ 
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: aclk
+       - const: hclk
+       - const: npu
+       - const: pclk
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+ 
+   interrupts:
+     maxItems: 1
+@@ -51,12 +56,15 @@ properties:
+   npu-supply: true
+ 
+   power-domains:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+ 
+   resets:
++    minItems: 1
+     maxItems: 2
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: srst_a
+       - const: srst_h
+@@ -75,7 +83,40 @@ required:
+   - resets
+   - reset-names
+   - npu-supply
+-  - sram-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3588-rknn-core
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        power-domains:
++          maxItems: 1
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
++      required:
++        - sram-supply
++    else:
++      properties:
++        clocks:
++          minItems: 6
++        clock-names:
++          minItems: 6
++        power-domains:
++          minItems: 2
++        resets:
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++        sram-supply: false
+ 
+ additionalProperties: false
+ 
+-- 
+2.43.0
 
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index ded7016a46a71..394db93b7eb96 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-
-[ ... ]
-
-> @@ -578,7 +578,7 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask,
->  		swiotlb_adjust_nareas(num_possible_cpus());
-> =20
->  retry:
-> -	order =3D get_order(nslabs << IO_TLB_SHIFT);
-> +	order =3D get_order(ALIGN(nslabs << IO_TLB_SHIFT, cc_shared_granule_siz=
-e()));
->  	nslabs =3D SLABS_PER_PAGE << order;
-
-[Severity: Medium]
-If remap() fails later in this function, nslabs is halved and the code jumps
-back to the retry label to try a smaller allocation:
-
-kernel/dma/swiotlb.c:swiotlb_init_late() {
-    ...
-	if (remap)
-		rc =3D remap(vstart, nslabs);
-	if (rc) {
-		free_pages((unsigned long)vstart, order);
-
-		nslabs =3D ALIGN(nslabs >> 1, IO_TLB_SEGSIZE);
-		if (nslabs < IO_TLB_MIN_SLABS)
-			return rc;
-		retried =3D true;
-		goto retry;
-	}
-    ...
-}
-
-Does the new ALIGN macro at the retry label risk inflating the halved size
-back to its original value if cc_shared_granule_size() is >=3D 2MB?
-
-If so, this would restore nslabs to its original failing value, overriding
-the shrinking mechanism and creating an infinite loop.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924100529.1398=
-790-1-aneesh.kumar@kernel.org?part=3D8
