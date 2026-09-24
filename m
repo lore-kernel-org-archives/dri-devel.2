@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2965CC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CF81C9831F
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B28E10F5CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F333F10F5CE;
 	Thu, 24 Sep 2026 14:01:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BPLrtG2/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D0dbgQv2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0235010F5CE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67D3F10F5CD
  for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D972B43BAA;
- Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AD6E4C2BCF7;
+ by sea.source.kernel.org (Postfix) with ESMTP id 206B644779;
+ Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1F4FC4AF11;
  Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790258495;
- bh=6PmAGXZV+htq2Tef1xnLisdfXtwtLDKNBf1RrXQoeO4=;
+ s=k20201202; t=1790258496;
+ bh=rGsboR1NAldd5bx6/+4ouc+QR6HkIvOETiMf7nk5qeg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=BPLrtG2/n056+Jb5PFyzXY9QteDff8B40LDBrAUkBfdXcffbQXtc8qyWtVeQbrQNx
- 0k/6CE//vkK3psMxdCexWSYhU8iLOAT2CQCkdbljrdO9MPT7Q7u+Cqmdhq/Aw00OdU
- +C3s2TsqdDGs6v3O0mhD+LaWG94SAbB3QI4dzqOM8ySFmGAMP2n88VQxdvbGSnrzJk
- R2qWaP/tPngxtrMyLJsn6bTDm7cTRIWP59yJz3DS/MfEouwzNXv6IGbyI/EfRQUofl
- NdbuZUkwJcfMsN1eKVs8dlNS0HG1FFlgdSWx/ni9MvcrWgsKjPGX7bzm6Q3FXOHDMj
- I32/Iy3uZY5GQ==
+ b=D0dbgQv2fmdSYOIJ5W0C7DKoOWvEYLHMFuNmhQcuTkHCD+1+kmyRYdSJsvTyoy1dR
+ cEFRhbrvi/fVhpesV6I65YDVA3HDsZ9n9hxgZfTY9AqNVL7RIwX5z/o3Tefkqx1HBc
+ MUxHt6u6cJOPwEO0kW6w4DYfjJbTOPFOb8a+Em7W9yJcyxl0B/r8WFgWV1JiVDvXtx
+ oapGpsyoeBbUw/D5XuYdhx88PAAfVfpuzIidJnJiGHSuR3I11Wsekr//Cpdpkc+7pm
+ M9QDkRHWVMPpR1xzb9HCOjeK5eN9Va8PR5rXHbB/7zUL/G2xbnwyoqx2uhSU/q34vu
+ VvgRsK6cYzQaQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 86E65C9830E;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id BEC26C98322;
  Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:29 +0200
-Subject: [PATCH v2 01/11] dt-bindings: display: panel: s6e3ha8: Adjust to
- reflect the DDIC and panel used
+Date: Thu, 24 Sep 2026 16:01:32 +0200
+Subject: [PATCH v2 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
+ compatible
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
+Message-Id: <20260924-crosshatch-panel-v2-4-08d5c7bf72fc@ixit.cz>
 References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2789; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1427; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=SZkNpsxVS531OAFU8Nu8uN6r2eb+ReEDrV3Xfp7rlS0=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08/0Ibx+l0MD7D3DFphX2S4KX3arhT8rBXB
- gZtcDJygcyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
- csSUD/42gW8JST620vtaKHrsRapj7FtT6Ohl4snD6nlFzcA9pBHWzZcgeewV4KvWP3K6rbq6QO+
- Rqx2DO2lOSSSr6PTzoK7NcflkYPDy4ORZ88KDIJeHw3lVy+I14OhRP/t+mI0w1J0VzCG2YB2nh5
- mcPZS7JzT0rwe0UjV3idwMt7wIrg1TDWulKxMxMPcj6fEeug8nPMyZbghSiWydC6rsVFZrMLPYr
- zDVODBb6gejQNkgB1DP3YVQCnu8yP7GWbwRBEZ5w3sCOu/8w/43YwgX1rilR+KVYJwAgrX7WE6L
- TI4/RVArxJGf3C9c4YeADqp1g4fS9l68QxFhKf+NrfKuAQLAKKW+hu85ui2etZtOH/9ZWAWjYb/
- z4N9mDPqmwG9i82Nw8okAVNa9EC5qrS1XDHb3QP2TA3GRyyr0OtLEPd6yuC3dqeVmrCmO94s78D
- cj2YDG6hFxp3JPQ+H/vEDdMPUBQ02tl0bBYx7IKm7ytlLo+ka9gXAnDyPQLZ4HPZUhi1uVJUZTS
- CD34uWsCijPtk9phIUjbZPc86fvckdx22YteBwzAH+M7gi1h4fRQg84DrRrrO7G087cjOmUNHzX
- iNoyN3XwcJswsKAJdnpfITpUoPCabR6AFx5XCKCls3eUT+5QDX194vPYKGYDO1bsJJM549TDOcy
- 6ULOreJz2AFlvmg==
+ bh=I8au9RHlXJp0sQXsphkjbyxxUnhlBLGtjFxIrmaazt0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09Aj+5xy06Bf/ZdEsKwwYMBKVtqAAr7raY4
+ nhNkZ++z5aJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
+ ck99D/9e5+IE8uB8z3x+xQs5FrYOzurX9IZsv1qZOtlKE4cVukeXZ0rjtTsGLaUPgAjTfTj9802
+ 4f8RwZevpFtnZ4emf5+G6YJAGuSSMb7yqnzI/PtMoQ1fi98ppDp05CEtEE5v4fS5mpHxbhV7R0z
+ +idByYtgNXSGxS7vl5JZNZvEmdvl1MzfAsPkt1BriLFryGHn0Cv1j5x+xTWibTsxc02sNlipa74
+ FnhD07JXH6cSomAXxHHr0YlNTLNgXTCSL2sfaE+RszyekaV4fuX2crU7vpB44cOQURSkqnMh3F+
+ te23YneQoeA/8ZqPoga38qAmkRztFdwcdwjQ9aPz0bcX0AGt5hIhlDBz6uYOxRI/C1Xd8glRZOI
+ lpuouukszROvnGHNP2CJ1stuLyFlw/67I2SYIqYLSUrT5g9tdn2F+cf3FEnJYLbAKVYXUiACgBV
+ sGW4NYVjwsp//GqDVTZZEqNl46lCECLOGq0rRQvgx68wqQPAau+nOMOOLryc3nY5GVkOKIJhODT
+ t5USd5XlqvvVZG+wwpj0p10dBmxKkjKN5HQSq4//mhXS/hQkKQxcJqJo1Z34S1hSgnbvew7jWbA
+ DiSSEPCexL37VPKq18niYFPpUBQKcDZDtfaiOl0VNd0GRPhVjxWVzhclvs9tg4IGvAmI1AWi9nV
+ bj7ABNci0h14xww==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -96,87 +96,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 From: David Heidelberg <david@ixit.cz>
 
 S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
-the Samsung AMB577PX01. Introduce a compatible reflecting that, adjust
-the example, and deprecate the DDIC-only samsung,s6e3ha8 compatible.
-
-Update the polarity to better match newly introduced compatibles with
-fixed logic.
+the Samsung AMB577PX01. Match on the new panel compatible, and keep
+the deprecated DDIC-only one working for existing devicetrees.
 
 Assisted-by: LLM
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../bindings/display/panel/samsung,s6e3ha8.yaml         | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-index 00ce5a4e1c6be..ca250b1b91712 100644
---- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
-@@ -1,28 +1,35 @@
- # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
- %YAML 1.2
- ---
- $id: http://devicetree.org/schemas/display/panel/samsung,s6e3ha8.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+index 835121b322f4a..a0015ac0e2782 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+@@ -296,17 +296,18 @@ static int s6e3ha8_amb577px01_wqhd_probe(struct mipi_dsi_device *dsi)
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+ 		return ret;
+ 	}
  
- title: Samsung s6e3ha8 AMOLED DSI panel
+ 	return 0;
+ }
  
--description: The s6e3ha8 is a 1440x2960 DPI display panel from Samsung Mobile
--  Displays (SMD).
-+description: |
-+  The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
-+  Samsung Mobile Displays (SMD).
-+
-+  Known panels:
-+    - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
+ static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
+-	{ .compatible = "samsung,s6e3ha8" },
++	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
++	{ .compatible = "samsung,s6e3ha8-amb577px01" },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, s6e3ha8_amb577px01_wqhd_of_match);
  
- maintainers:
-   - Dzmitry Sankouski <dsankouski@gmail.com>
- 
- allOf:
-   - $ref: panel-common.yaml#
- 
- properties:
-   compatible:
--    const: samsung,s6e3ha8
-+    oneOf:
-+      - const: samsung,s6e3ha8-amb577px01
-+      - const: samsung,s6e3ha8
-+        deprecated: true
- 
-   reg:
-     maxItems: 1
- 
-   vdd3-supply:
-     description: VDD regulator
- 
-   vci-supply:
-@@ -44,23 +51,23 @@ examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
- 
-     dsi {
-         #address-cells = <1>;
-         #size-cells = <0>;
- 
-         panel@0 {
--            compatible = "samsung,s6e3ha8";
-+            compatible = "samsung,s6e3ha8-amb577px01";
-             reg = <0>;
-             vci-supply = <&s2dos05_ldo4>;
-             vddr-supply = <&s2dos05_buck1>;
-             vdd3-supply = <&s2dos05_ldo1>;
-             te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
--            reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
-+            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-             pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
-             pinctrl-1 = <&sde_dsi_suspend &sde_te_active_sleep>;
-             pinctrl-names = "default", "sleep";
- 
-             port {
-                 panel_in: endpoint {
-                     remote-endpoint = <&mdss_dsi0_out>;
-                 };
+ static struct mipi_dsi_driver s6e3ha8_amb577px01_wqhd_driver = {
+ 	.probe = s6e3ha8_amb577px01_wqhd_probe,
+ 	.driver = {
+ 		.name = "panel-s6e3ha8",
 
 -- 
 2.55.0
