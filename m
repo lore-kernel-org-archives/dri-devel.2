@@ -4,56 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC47C98321
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC7CC98318
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 927D310F65B;
-	Thu, 24 Sep 2026 15:23:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 603C310F65A;
+	Thu, 24 Sep 2026 15:24:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="J6eLNRnI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BKFiGTAa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JGz386te";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 320FF10F65F
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1790263348;
- bh=ER/KY8UXfK8c0VQTmavxRmsDF4Dsrqaymely51IlP6A=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J6eLNRnIRK4irpejH6jGmi62M1Y6MOTTFtN4rmRU//uOedVrDHlDlW8bbw2g0DSD6
- BIdxsKBgQcfP2zvt8SXtZGCZFstEKnsBJqZFzxBdmay5C32k7rPv8+YF+MwLyMJlKN
- Qb1zIjZVzrocdR9ONbQA5H1bR4XL9WYLSEcYtFk2CjSgVsvAeh5/PoBK7VHuF+Gnxv
- jmE+cqXwTsiWnwPPBW2wiSPH4BGJwqa+PM8mo85RJpz4WwRsszuiIvzU+/12PFrhct
- fcDxXeSv2buIXEYWyJZYQLYQdbRhEiLFiABfKs6nnCuJDeYID3ZmnVNBdNO6OxGwpx
- IAoxp5UycGprw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hrHdH47j4z4w0Q;
- Fri, 25 Sep 2026 01:22:27 +1000 (AEST)
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: [PATCH v7 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Date: Thu, 24 Sep 2026 16:21:51 +0100
-Message-ID: <20260924152159.49702-9-matt@ozlabs.org>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260924152159.49702-1-matt@ozlabs.org>
-References: <20260924152159.49702-1-matt@ozlabs.org>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A81710F65A
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:24:08 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68OC4tZb803928
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:24:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=iSJGEOaWnOQsAtOO7cFRQJIYsioL8PCNRmlmGKoYK+c=; b=BK
+ FiGTAaK7AiaGU4i0w/nY558Yucoas9ghxuei1filSjCk6bNgn7VSxk2s8K2gH58H
+ Fezr0EOweVAJviAX0+Oo6RBjjBi6R/0jnght5FEMDJRgS9jappmj4c1ienF9LAHg
+ ofSOb2yngGblENDPZ9o7j9yEaxR7MloOVi5BbEZ+Lw7Xvaf++2RL4coYqyHhqL4L
+ KOMcjg5UGz893ArL05LZcEQB+UxlDd6PbnWDcxAXjF9vyxTiyutrIbQc8sAcBASe
+ 4Jhr40/h/G8dCvkTw8sUe9vOjzMkT9X7I3KZxGiXooob8zZO8cFfXO63QwL9hc5G
+ bafdE1KzaSgKLiBOyEzA==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1sc9bd6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:24:07 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-48296f34f1dso2710030fac.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:24:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790263447; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JSaIuWpSwLSRfvhlQWDgTfnFiEea9nJJ2py71sLxp2D74axX4Yb7Jzrsdn1zC3lvTA
+ KQpKo85X5tZFQnSKHfj/psdE3JBS0QCtioNngqTiLGlU/WTSq/tK0JiWSvIdj4fCC1R+
+ IRqFGSG5oEyvkgTqIr+xeFhvKiM4ZDw7wSguVhwPbVJy7XXzTnA/TBf3DVAJvh6yENKA
+ BoHO6mUUZqKqX+BNZMGqWpMdOTzpy5B/L2MDebtP7LJEbk/FWljE3E+hHnaJsq2Flc4a
+ rdipaGsNUW06WVK14ozp1oLmyOrhhw4thAx6mUg4REheXnTcTAAyhy0RYBDb8fDtntjG
+ 9xBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=iSJGEOaWnOQsAtOO7cFRQJIYsioL8PCNRmlmGKoYK+c=;
+ fh=w8i8GUNIJimx5TLebsJC14KH0pi8rdDxcisemxaC2Vg=;
+ b=lOeE7h+hdaeMRN6Q6H5nYcZLOVn1gldf295asavzr0ZUgwFY2kfU8t+6UVTRBMRli5
+ +oITNRjcP1QPDA1S66EPsIY448wsbDK7Z8qNE/C+8qgqBm4YLyEARB2GvirV0wz/csZF
+ kCGSGUkw1iRcsYCVS/jRM7NHN8mhtBKlpsnMOGao80ZuuPlbpf+IME4RB4+pgBYu9/MC
+ p8hWG8RDAk/crES6IZAEcA5Ccwk+7adKwdYWB7oXojeUmjFqilmB0iCW7LzlRx2C034W
+ HfE8O0sXXAsuPiBiKYjaBMe9sZqahlDPkIIwavcpYoT9m+XMBGvsDSOoVOlhRo+70xDZ
+ jUrw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790263447; x=1790868247;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=iSJGEOaWnOQsAtOO7cFRQJIYsioL8PCNRmlmGKoYK+c=;
+ b=JGz386teZQ/utDdCFf03Dlo2osu8iZq2ut4PPfQy1AoITM4ksND/hlvrXl+3q6YEIW
+ yBBE5o7oQQr4clLiB+ulxrTXt+iceb9al27oo6bl5WfQAdcFfBhp+cbxAnrFHQ9NPUea
+ lCmRfa8seOSoqa0c8nCGb/XamVAtkpItmVTqU+8AXgpmAvJpQxbljiiimeP5aByI8vX5
+ QgoJL/M/C3Ar/JRjG2u4pUO+c7QaKeRPkOonh+zjgHcAiLOVLR2WYF2Mq2ijmfY53jx5
+ UnoHuevj/ngxaCDAdTDrwGEf9trDiHExzF1I/wfymqHrumBYUrWrjGkR9sw5w/XhD188
+ /4KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790263447; x=1790868247;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=iSJGEOaWnOQsAtOO7cFRQJIYsioL8PCNRmlmGKoYK+c=;
+ b=t9vylLGLLWx9Hk/0ReDeocXjuUILySkZ1hzBEZ8Jm91qYcce7DldaFAdOYGcbDbSPA
+ YUuNOboILrpRRl8/BfMekk/nWH3j1HEy4RZSC06aZmqcbVyX096LFbVTEFZ6W6fnxCgU
+ JlyWzKkU3eW7T7cbGl/KxTQsHubU/mOjnXMd3ZTn5idhJI3d0XqBOOWHFSO1EgzcxZzT
+ iYEWk034ytdm9yP0Z/B12aa4KpZ4qmRg41GvTyUIqFWdMM7ry21vpWdm3FYfQxYO0xGS
+ 370x/hErhgJid+OOY5BBgXX72FJ5pEW8pA2IZdc5F7t31RyNAUrbl/czpXSUUNMiWf1/
+ JtLw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzEJfb426fJT6DraEz6Ywk+MHSgesxNqYozfAOXUtHrcuOkArlcUKgw2X1TQaBnMf3Yzf3ksb6tMBE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNgoexvXiazxFiATTR8zshIzaf9gv26a8JjowMqLCucwUncCLL
+ pa8xawf9vNLqji1991ShqJxZ5CCcVJXKImcvrcHOPfWm3MDjpmNUjpYhKmNaJX8gkGDEyyIowZB
+ Wf2SfS3BfjykH9Zl4cQ5DEhs9eIgw8JDtnX0Pp+bIGrNy0Zl/9f/OT1UAnIwNH3guVGTmvKSxJX
+ 999ZjW5Huz1otdYdn0Lnzvv1CQ3lTTnmTXjN5JCqfmleSkeA==
+X-Gm-Gg: AYBFou3EHi55fmyTherHXd8whKv9JikO1MxxBlXY4z+3/dkYkHDNFt4d4W3CvOC+lEO
+ WjiccHFf1+wu8XKUyoemFf+DKw+kz3DuTa0Ut8NHR2vcjC4BPdiA7P9URsXnIZm4zEJTMtGQ32O
+ ghnqTOnciamkavM0hh5OPUnxW1rmuGG6rfUKyGbSAz2rbzuK6IfgKhCOC7
+X-Received: by 2002:a05:6871:7c04:b0:475:e235:8ff with SMTP id
+ 586e51a60fabf-491e6ded9a1mr2702872fac.29.1790263446559; 
+ Thu, 24 Sep 2026 08:24:06 -0700 (PDT)
+X-Received: by 2002:a05:6871:7c04:b0:475:e235:8ff with SMTP id
+ 586e51a60fabf-491e6ded9a1mr2702840fac.29.1790263445947; Thu, 24 Sep 2026
+ 08:24:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+ <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
+ <CACSVV01NZROH9U5Qjd1TSDu+BPyyPLC9pFByqSfrxXrPJV+wZQ@mail.gmail.com>
+ <20260924145419.47354-1-liujianfeng1994@gmail.com>
+In-Reply-To: <20260924145419.47354-1-liujianfeng1994@gmail.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 08:23:53 -0700
+X-Gm-Features: AclHuK_WRAYAvS2UWB0hTgewsu2euKPCpECh3qJVYbGPrKE7NCVbxLwrzOLrmGk
+Message-ID: <CACSVV00tYa18fijNfSSwzE8tgYVqHK5yp4zohwdTgvyNK8SREQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+To: Jianfeng Liu <liujianfeng1994@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Bryan O'Donoghue" <bod.linux@nxsw.ie>,
+ Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: Ye3UKtRmHK6OrOqNsChp7SKNYfc6rXFJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2MyBTYWx0ZWRfXxSD+RJen+O9L
+ OLrQUxwfarrT/+ziigrIZJHfHmO7cG/DkABoX8nReQineT0HFCCbJFmQ5jX3C4UvIo8JkfZtcZh
+ 7Y6LmIk+eU7msHK+3SfOSGFRt32pwuheUOj7o9EH6l/iRTXJ1valwfVQXj2vDI05h25VTaLlL8e
+ vJ4976lLYGnuweU0RF6op+QQdzCyu09ITod4m39ehaJ2km7f/nFt0zCu6fkFbFBIbV1aZQCP29A
+ Vz3IgC68az2HWlik9yu9HSn0elQHyvGvQPb361V1ZmAG+AcJeA8/ztgQpXiGKTAkgOYF7ghAi1u
+ SE5dDB1nO1XdIsSnz/PkTQqk/PvnSD9QLQ7k+1G8hPuTNtVBGatfS9qanTk+Dpx+Y157lSQ7WLE
+ sDwo8X2UPLPHOUETstCbJbt8iYHZMhdiqVAGqyeZPSUX6BvQD1yt03ypnDacnmkkfBSdpEqLjS1
+ 2137SZaVRzohwnZoMQg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2MyBTYWx0ZWRfX4vrnl/2ZnJHC
+ N4AtGxa5nzn5hYC0Dfib6j9npSikiXRkdundnEec+glMWyMY8m9RKDkq6Jjkp+Df+FyuLJ4tDSA
+ A66Z8eDOs6WnnWpjUqiif3vksxPB4VU=
+X-Proofpoint-ORIG-GUID: Ye3UKtRmHK6OrOqNsChp7SKNYfc6rXFJ
+X-Authority-Analysis: v=2.4 cv=GI+dgeNK c=1 sm=1 tr=0 ts=6ab54097 cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=pGLkceISAAAA:8 a=ntJSuBRzbTKlmYc5m18A:9
+ a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609240063
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,236 +159,126 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
-support for mmap() of this fd.  This provides another route for a
-process to map BARs, in which the process can only map a specific
-subset of a BAR represented by the exported DMABUF.
+On Thu, Sep 24, 2026 at 7:54=E2=80=AFAM Jianfeng Liu <liujianfeng1994@gmail=
+.com> wrote:
+>
+> Hi Rob,
+>
+> On Thu, Sep 24, 2026 at 7:01 AM Rob Clark wrote:
+> > So the assessment of what is going wrong looks pretty wrong..  VM_BIND
+> > should never lead to iommu_map_sgtable() (which is never used for gpu
+> > per-process pgtables), for example.. but is used for mapping for
+> > scanout.  And pages are never used for mapping in either path.
+> >
+> > However there are a few places where sg->length is used (in iommu code
+> > and msm).. AFAICT dma_buf_wrap_sg_table() zeroing out sg->length is
+> > what the actual problem here is, rather than any use of struct page.
+>
+> Thanks for the correction - you're right, I mis-traced the GPU path.
+> The per-process pgtable mapping goes through
+> msm_iommu_pagetable_map(), which walks the sg_table with sg->length
+> and sg_phys(). With the wrapper zeroing sg->length it iterates the
+> entries, maps nothing at all and still returns 0 - which explains
+> the UCHE translation faults without any error anywhere, and is a
+> nastier failure mode than the async-bind-failure story I wrote in
+> the commit log.
+>
+> With that corrected picture, DMABUF_DEBUG=3Dy breaks msm in the map
+> paths themselves: msm_iommu_pagetable_map() for the GPU and
+> iommu_map_sg() for scanout both consume sg->length, and
+> dma_buf_wrap_sg_table() zeroes it, so every mapping of a
+> page-stripped sg_table silently maps nothing. On top of that msm
+> also uses sg_phys() in those paths and
+> drm_prime_sg_to_page_array() for the page array, so even with
+> sg->length preserved, page-less entries would map garbage
+> physical addresses instead of failing loudly.
 
-mmap() support enables userspace drivers to safely delegate BAR
-sub-ranges to other processes by sharing a DMABUF fd, without having
-to share the (omnipotent) VFIO device fd with them.
+oh, ugg.. I overlooked that sg_phys() uses the pages under the hood..
+I think using sg_dma_len()/sg_dma_address() instead should be fine in
+msm.
 
-Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap() reuses
-the existing vm_ops.
+Otherwise, (other than the fault path) obj->pages is mostly a proxy
+for "is backing storage allocated".. we could just use obj->sgt for
+that instead.
 
-The lifecycle of an exported DMABUF remains decoupled from that of the
-device fd it came from, i.e. the device fd could be closed with DMABUF
-VMAs present, meaning a fault on a VMA could happen concurrently with
-vfio_pci_dma_buf_cleanup().
+> So it looks like this needs work on both sides:
+>
+>  - dma-buf: preserve sg->length in the debug wrapper, so
+>    sg->length consumers at least fail loudly instead of silently
+>    mapping nothing. I think that is what both Christian's "we
+>    should probably change that" and your "zeroing out sg->length
+>    is what the actual problem is" are pointing at.
+>
+>  - msm: stop consuming struct page and sg->length of imported
+>    sg_tables, i.e. build the GPU and scanout mappings from the DMA
+>    addresses, plus the drm_prime_sg_to_page_array() cleanup.
+>
+> Is that the right split, and is there a preferred direction for
+> the msm side?
 
-To deal with this scenario, the fault handler now temporarily takes a
-VFIO device registration to ensure the vdev remains valid, and then
-vdev locks can be taken.
+On the msm side, I think we should be using
+sg_dma_len()/sg_dma_address() for the immediate issue.
 
-Signed-off-by: Matt Evans <matt@ozlabs.org>
----
- drivers/vfio/pci/vfio_pci_core.c   | 84 ++++++++++++++++++++++++++----
- drivers/vfio/pci/vfio_pci_dmabuf.c | 47 +++++++++++++++++
- drivers/vfio/pci/vfio_pci_priv.h   |  1 +
- 3 files changed, 123 insertions(+), 9 deletions(-)
+Maybe we can just do the same on the iommu side, but not sure what
+various sharp edges might exist with other iommu users.  We could also
+just stop using iommu_map_sgtable() and inline our own iommu_map_sg()?
+ It looks like there are a few other drm drivers that use
+iommu_map_sgtable() so it might be worth at least trying to fix this
+in iommu.  Presumably if there are issues with that approach an iommu
+maintainer would speak up.
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 986852b1d44f..d38210d1c5c4 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -13,6 +13,8 @@
- #include <linux/aperture.h>
- #include <linux/debugfs.h>
- #include <linux/device.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-resv.h>
- #include <linux/eventfd.h>
- #include <linux/file.h>
- #include <linux/interrupt.h>
-@@ -1804,21 +1806,79 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 	vm_fault_t ret = VM_FAULT_SIGBUS;
- 
- 	/*
--	 * We can rely on the existence of both a DMABUF (priv) and
--	 * the VFIO device it was exported from (vdev).  This fault's
--	 * VMA was established using vfio_pci_core_mmap_prep_dmabuf()
--	 * which transfers ownership of the VFIO device fd to the
--	 * DMABUF, and so the VFIO device is held open because the
--	 * VMA's vm_file (DMABUF) is open.
-+	 * The only thing this can rely on is that the DMABUF relating
-+	 * to the VMA's vm_file exists (priv).
- 	 *
--	 * Since vfio_pci_dma_buf_cleanup() cannot have happened,
--	 * vdev must be valid; we can take vdev locks.
-+	 * A DMABUF for a VFIO device fd mmap() holds a reference to
-+	 * the original VFIO device fd, but an explicitly-exported
-+	 * DMABUF does not.  The original fd might have closed,
-+	 * meaning this fault can race with
-+	 * vfio_pci_dma_buf_cleanup(), meaning the buffer could have
-+	 * been revoked (in which case priv->vdev might be NULL), and
-+	 * the VFIO device registration might have been dropped.
-+	 *
-+	 * With the goal of taking vdev locks in a world where vdev
-+	 * might not still exist:
-+	 *
-+	 * 1. Take the resv lock on the DMABUF:
-+	 *  - If racing cleanup got in first, the buffer is revoked;
-+	 *    stop/exit if so.
-+	 *  - If we got in first, the buffer is not revoked so vdev is
-+	 *    non-NULL, accessible, and cleanup _has not yet put the
-+	 *    VFIO device registration_.  So, the device refcount must
-+	 *    be >0.
-+	 *
-+	 * 2. Take vfio_device registration (refcount guaranteed >0
-+	 *    hereafter).
-+	 *
-+	 * 3. Unlock the DMABUF's resv lock:
-+	 *  - A racing cleanup can now complete.
-+	 *  - But, the device refcount >0, meaning the vfio_device
-+	 *    (and vfio_pcie_core device vdev) have not yet been
-+	 *    freed.  vdev is accessible, even if the DMABUF has been
-+	 *    revoked or cleanup has happened, because
-+	 *    vfio_unregister_group_dev() can't complete.
-+	 *
-+	 * 4. Take the vdev->memory_lock then vdev->dmabuf_lock:
-+	 *  - Either the DMABUF is usable, or has been cleaned up.
-+	 *  - It's not necessary to also take the resv lock, because
-+	 *    the status/vdev can't change while dmabuf_lock is held.
-+	 *  - Test the DMABUF revocation status again: if it was
-+	 *    revoked between 1 and 4, return a SIGBUS. Otherwise,
-+	 *    return a PFN.
-+	 *
-+	 * 5. Unlock, done.
- 	 */
-+
-+	dma_resv_lock(priv->dmabuf->resv, NULL);
-+
-+	if (priv->revoked) {
-+		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
-+				     __func__, vmf->address, vma->vm_pgoff);
-+		dma_resv_unlock(priv->dmabuf->resv);
-+		return VM_FAULT_SIGBUS;
-+	}
-+
-+	/* If the buffer isn't revoked, vdev is valid */
- 	vdev = priv->vdev;
- 
-+	if (!vfio_device_try_get_registration(&vdev->vdev)) {
-+		/*
-+		 * If vdev != NULL (above), the registration should
-+		 * already be >0 and so this try_get should never
-+		 * fail.
-+		 */
-+		dev_warn_ratelimited(&vdev->pdev->dev,
-+				     "%s: Unexpected registration failure\n",
-+				     __func__);
-+		dma_resv_unlock(priv->dmabuf->resv);
-+		return VM_FAULT_SIGBUS;
-+	}
-+	dma_resv_unlock(priv->dmabuf->resv);
-+
- 	/* memory_lock for vfio_pci_vmf_insert_pfn() */
- 	down_read(&vdev->memory_lock);
--	/* Test revocation status under dmabuf_lock */
-+	/* Re-test revocation status under dmabuf_lock */
- 	down_read(&vdev->dmabuf_lock);
- 	if (!priv->revoked) {
- 		int pres = vfio_pci_dma_buf_find_pfn(vdev, priv, vma,
-@@ -1839,6 +1899,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 			    __func__, order, pfn, vmf->address,
- 			    vma->vm_pgoff, (unsigned int)ret);
- 
-+	vfio_device_put_registration(&vdev->vdev);
- 	return ret;
- }
- 
-@@ -1854,6 +1915,11 @@ static const struct vm_operations_struct vfio_pci_mmap_ops = {
- #endif
- };
- 
-+void vfio_pci_set_vma_ops(struct vm_area_struct *vma)
-+{
-+	vma->vm_ops = &vfio_pci_mmap_ops;
-+}
-+
- int vfio_pci_core_mmap(struct vfio_device *core_vdev, struct vm_area_struct *vma)
- {
- 	struct vfio_pci_core_device *vdev =
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 617afb7de00f..c0a48d17c829 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -27,6 +27,50 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 
- 	return 0;
- }
-+
-+static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
-+{
-+	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-+
-+	/*
-+	 * dma_buf_mmap_internal() has asserted that the VMA is
-+	 * contained within the DMABUF size before calling this.
-+	 *
-+	 * Also, if we observe that the buffer is revoked now then
-+	 * refuse the mmap().  This is a belt-and-braces early failure
-+	 * to ease debugging a revoked buffer being used.  Userspace
-+	 * might also race an mmap() against an explicit revocation,
-+	 * or an action causing a revoke; race scenarios are still
-+	 * safe because the fault handler ultimately prevents access
-+	 * to a revoked buffer if it isn't caught here.
-+	 */
-+	if (priv->revoked)
-+		return -ENODEV;
-+	/*
-+	 * Make clear that anything with an offset adjustment is
-+	 * explicitly unsupported, as vfio_pci_dma_buf_find_pfn()
-+	 * maths would underflow; this doesn't happen through the
-+	 * regular DMABUF export path used with this mmap().  A DMABUF
-+	 * implicitly created for BAR mmap could have adjust > 0, but
-+	 * these can't currently be re-opened and mmap()ed again.
-+	 * Catch here in case that assumption ever changes.
-+	 */
-+	if (priv->vma_pgoff_adjust)
-+		return -EINVAL;
-+	if ((vma->vm_flags & VM_SHARED) == 0)
-+		return -EINVAL;
-+
-+	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
-+
-+	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
-+	vm_flags_set(vma, VM_ALLOW_ANY_UNCACHED | VM_IO | VM_PFNMAP |
-+		     VM_DONTEXPAND | VM_DONTDUMP);
-+	vma->vm_private_data = priv;
-+	vfio_pci_set_vma_ops(vma);
-+
-+	return 0;
-+}
- #else
- static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 				   struct dma_buf_attachment *attachment)
-@@ -104,6 +148,9 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
- 
- static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
- 	.attach = vfio_pci_dma_buf_attach,
-+#ifdef CONFIG_VFIO_PCI_DMABUF
-+	.mmap = vfio_pci_dma_buf_mmap,
-+#endif
- 	.map_dma_buf = vfio_pci_dma_buf_map,
- 	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
- 	.release = vfio_pci_dma_buf_release,
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index f11b31f8953c..32d520cac52f 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -151,6 +151,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 				   unsigned int res_index);
- void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
-+void vfio_pci_set_vma_ops(struct vm_area_struct *vma);
- 
- #ifdef CONFIG_VFIO_PCI_DMABUF
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
--- 
-2.50.1 (Apple Git-155)
+For the longer term cleanup, I think we should use msm_obj->sgt
+instead of msm_obj->pages for "is there backing storage", and allow
+msm_obj->pages to be NULL for imported dma_buf's
 
+Given the late stage for v7.3, the immediate thing we should do is
+revert the CONFIG_DMABUF_DEBUG change IMHO, and try again once we have
+sorted out what to do about the iommu_map_sgtable() path.
+
+BR,
+-R
+
+> > (And yeah, I should get rid of use of drm_prime_sg_to_page_array()..
+> > but that cleanup that I haven't found time for shouldn't be the
+> > problem here.)
+>
+> Agreed on it not being what produced the faults - but it is part
+> of the same contract problem, see below.
+>
+> Also answering Bryan's review of patch 2, which is in a different
+> branch of this thread:
+>
+> On Thu, Sep 24, 2026 at 10:36 AM Bryan O'Donoghue wrote:
+> > Why is the fix Adreno specific ?
+> >
+> > Shouldn't this function be ammended with
+> >
+> >  > +    if (filled !=3D npages)
+> >
+> > instead ?
+>
+> It isn't meant to be - msm_gem_import() is the shared GPU/DPU
+> import path. And putting the fill-count check into
+> drm_prime_sg_to_page_array() itself would indeed be the better
+> generic version of that guard; I checked the other callers
+> (etnaviv, omapdrm, vmwgfx, xen) and none of them expects a
+> partial fill either. But with the corrected analysis above, the
+> page array isn't what produced the GPU faults, so neither variant
+> is a real fix. I'm not asking for either patch to be merged - the
+> series is a bug report with code attached, sent to get exactly
+> this discussion going, which is also why it carries the RFC
+> prefix.
+>
+> > This very much looks like an LLM generated patch - the commit log, the
+> > large comment in the code and TBH the solution too.
+>
+> Sorry about that - the patches were drafted with LLM assistance
+> and I should have declared that up front. Any later version will
+> carry a proper declaration.
+>
+> Thanks all!
+> Jianfeng
