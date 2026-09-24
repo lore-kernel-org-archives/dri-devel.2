@@ -4,79 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6971DC9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AE2AC9831F
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 14:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E0810F5D8;
-	Thu, 24 Sep 2026 14:02:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A16E10F5DA;
+	Thu, 24 Sep 2026 14:02:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Le2SaUDr";
+	dkim=pass (2048-bit key; unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.b="m6YuM63d";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D61B210E04E
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 744C9447D2;
- Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 55CBCC2BCFC;
- Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790258496;
- bh=7lbo0tmJuCrfVNuusObRSYRQ3LhsPSY4no0HnM72Pbs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Le2SaUDr9wMCys8uzqbuUv4CQ/HoqEWVryBpHReryH3HSKdIeq/QKDQvgSFZY3bFk
- 3khrKUn5PjdRPlbOhrwiu0Eaw9arTsr3O1ekQpsFcH1NyPQ67jeIt8rRx3dYU4hwTy
- 29Ll3AWJ5OvIhZ04scFaUNPmLhljq4GjNR0ytaf3tpz5A+vHT/PZSwS80Tqms6OzBq
- RoNOcamkGJHA0we9r89qC2pvTmyJzL+FgWuPvqe4XvEMjYSVpAgJbw+ohJ629zuJAg
- CamfmBhIlbQzWuDCyS3ZbFF8YPT11/GntDpE6J8G8nvM9FN4mzAz9UsQNQnW2STiOP
- D+eFMSwgpOlaQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 412CCC98324;
- Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:39 +0200
-Subject: [PATCH v2 11/11] arm64: dts: qcom: sdm845-google-crosshatch: Add
- display panel
+Received: from purple.birch.relay.mailchannels.net
+ (purple.birch.relay.mailchannels.net [23.83.209.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C49110F5D9
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 14:02:04 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id E8CFB7A2A19;
+ Thu, 24 Sep 2026 14:02:03 +0000 (UTC)
+Received: from pdx1-sub0-mail-a243.dreamhost.com
+ (trex-green-6.trex.outbound.svc.cluster.local [100.100.66.64])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 6E5847A16F2;
+ Thu, 24 Sep 2026 14:01:59 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Hysterical-Glossy: 29b8471a5dd85187_1790258523717_3377842951
+X-MC-Loop-Signature: 1790258523717:1375064299
+X-MC-Ingress-Time: 1790258523716
+Received: from pdx1-sub0-mail-a243.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.100.66.64 (trex/8.0.2); Thu, 24 Sep 2026 14:02:03 +0000
+Received: from offworld (unknown [76.167.199.67])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: dave@stgolabs.net)
+ by pdx1-sub0-mail-a243.dreamhost.com (Postfix) with ESMTPSA id 4hrFrQ5jghzymg; 
+ Thu, 24 Sep 2026 07:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+ s=dreamhost; t=1790258519;
+ bh=fFTgQxpLRMyIDkGRkEct8M3mBmUVlPAFnBwTTUnIXGs=;
+ h=Date:From:To:Cc:Subject:Content-Type:Content-Transfer-Encoding;
+ b=m6YuM63d9hvA/ou0smxfrqjU4Ap8q2U+SErlE9SmUt9iP0IoPTmJMyhVUGB7PgVTU
+ abYoc4Uea1pZ3CymH3YrwgagHABHpj95OrheemWbnqFy/ULEMzzbpjB94RO/XU6jDY
+ nJHyEMCi7oSRxEODHjlDDrI7gLVg1kCBhSePEijnCZ7LJ5UIlxAjqUaz3yfrdNtc3I
+ 1igs/MuchL3sRntmvMSUym0uQNREqJghoUlxZqHeAMy0gkK7vI14vjR2KTNuzyqCTn
+ g8E3RHrIK86S0aHF3KRUPEvDmSlYdwQm0JWVMPZNEl6XbYjV2ghtHbuetswpLFV8uz
+ p4W2yeRJPfnCA==
+Date: Thu, 24 Sep 2026 07:01:56 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Christian =?utf-8?B?S8Ovwr/CvW5pZw==?= <christian.koenig@amd.com>
+Cc: "T.J. Mercier" <tjmercier@google.com>, sumit.semwal@linaro.org,
+ phasta@kernel.org, benjamin.gaignard@collabora.com,
+ jstultz@google.com, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] dma-buf: system_heap: add a 2MB allocation order for
+ IOMMU superpages
+Message-ID: <20260924140156.howlrcf4gaab6kdx@offworld>
+References: <20260914212258.2657788-2-dave@stgolabs.net>
+ <54ae0d83-d777-4357-8e87-dfc3a5c7b835@amd.com>
+ <CABdmKX1ky3Jfr7B-Oqaz17aLJwo1SSh1huZ05NG7D44SMF=9fw@mail.gmail.com>
+ <871b6fc6-e126-429f-881c-9cc517ee8dcc@amd.com>
+ <CABdmKX1g=wcLHOFkRN6DLPTABrnn2uWmgCKpCtixhiV_b+9J1g@mail.gmail.com>
+ <CABdmKX2GU0Eby=SEeALzeEp5ragEjU3Fw468Jv1yykD1Zdrgag@mail.gmail.com>
+ <d8d3af91-4f21-44ea-bc90-339fa1adacf9@amd.com>
+ <CABdmKX1YtyFM_MoMbPr4JUCXCr8TGPVbXUrAoQRELpp54cK-0w@mail.gmail.com>
+ <20260916162255.jv3dqacwtgfiv5kd@offworld>
+ <6f31d927-c598-4033-aff9-0f8b2c5590e1@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-11-08d5c7bf72fc@ixit.cz>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
-To: Dzmitry Sankouski <dsankouski@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2261; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=YKxaEQ83IRvBzliLWTENjXhw/HISL/i0Wy+mkQdH9Sw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09CRw4AjnBWLNaZGzHG49mTtgKP+bP2PN+j
- BNOfZS6CaaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
- cgCQEACNSghX2ofl/jTgz22pX0CXScL5o0+ueuo3F8JyXYZfnOcjaUMF2vU8VdZ2KRA8mZozcVi
- fS50qZZ58SBVKq378CbVeB6IbkXHm9ih7CsMAYKSSpTXkErcEZqQheYNQUM0d2w3SE8e4g/lzba
- AjBRWHKOlH7vsuo7W0NsCz+ninOQ7GuDQx5m4kGmZmzcNiPJ68/YyigsDF4zTzdCpmhNzKc17GN
- H7ftgVW64HxCg2dB4NcfYetPonPB6DmU4MKT3QlVZMgTH7SHchE1kilsHSDpH1qY1xl89mRQ8Fv
- Ml/NiX5Ih17vo4uDidMCdSVRTD/7bgrwGlkxmGS3vIcebeZB9xPyZjRYfy2fDYDlQrfEHgLIX2/
- XvskJuSUmkXXLf/81zmdqsYHnrqrLYebbVH65r0MbxmuX0BDmrPvYUSGAhQpBgHtPSxUvHJXz8J
- 9xYZeMgzS5G4JTQolmDDCA8Oxjr9MldfrvmrQFSjd8JboJ0IlBzCo13Y8lfz5k3xy+hQ72PaIqK
- HYcim5Sl1A5o5fZGQwg3WIGUnChhy8rHY3MyoFcnyZ6uPaKFx7U6fEgnqIe7cTkt90FCzGs6N6e
- fsU6oVe5eyucd/Ov7U74UXC6phFk6COHChE55GR8KwGq3KNpdnEUMqZLAC5avDuX41hql4hh3BL
- L/yATMYeCw1zxNA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <6f31d927-c598-4033-aff9-0f8b2c5590e1@amd.com>
+User-Agent: NeoMutt/20220429
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,107 +90,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Heidelberg <david@ixit.cz>
+On Thu, 17 Sep 2026, Christian K=EF=BF=BDnig wrote:
 
-Wire up the Samsung AMB630QY01 AMOLED panel on the Pixel 3 XL and drop
-the MDSS/DISPCC disables that kept simple-framebuffer alive.
+>On 9/16/26 18:22, Davidlohr Bueso wrote:
+>> On Wed, 16 Sep 2026, T.J. Mercier wrote:
+>>
+>>> I'm not sure these patches were motivated by Android (based on x86
+>>> focus in the commit message), but Davidlohr would have to comment on
+>>> that. That's just where most of my experience comes from and what I
+>>> can share details about.
+>>
+>> This series was motivated by exploring new use cases for dma-buf (such
+>> as kvcache), not really for Android specifically. I was counting on
+>> the cheap/one-time 2Mb attempt (current high order semantics) to not be
+>> a problem for potential performance gains. As for the x86 I tested here,
+>> basically because it's what I have on hand, I had no idea ROCm was a no-=
+no
+>> for system heaps.
+>
+>Well the problem is that it does work, but gives you unstable performance =
+and people see that as a bug while it is an intentional design decision mad=
+e to keep the system heap driver independent.
+>
+>So yeah it's a trade off, it should just be properly documented.
+>> I am fine dropping this effort.
+>
+>It's clearly good that we talked about this.
+>
+>When something is changed here I would rather say that we have some #ifdef=
+ CONFIG_ARM around the existing code and use the PMD_SIZE for all other pla=
+tforms.
 
-Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../boot/dts/qcom/sdm845-google-crosshatch.dts     | 60 +++++++++++++++++++---
- 1 file changed, 52 insertions(+), 8 deletions(-)
+Just able to circle back to this, sorry for the delay.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-index 2a81ca1d00b1b..3b788757b7303 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
-@@ -10,27 +10,71 @@ / {
- };
- 
- &battery {
- 	charge-full-design-microamp-hours = <3480000>;
- 	voltage-min-design-microvolt = <3600000>;
- 	voltage-max-design-microvolt = <4400000>;
- };
- 
--&dispcc {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
--};
--
- &framebuffer0 {
- 	width = <1440>;
- 	height = <2960>;
- 	stride = <(1440 * 4)>;
- };
- 
--&mdss {
--	/* Disable for now so simple-framebuffer continues working */
--	status = "disabled";
-+&ibb {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-over-current-protection;
-+	regulator-pull-down;
-+	regulator-soft-start;
-+};
-+
-+&lab {
-+	regulator-min-microvolt = <4600000>;
-+	regulator-max-microvolt = <6000000>;
-+	regulator-soft-start;
-+	regulator-pull-down;
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vdda_mipi_dsi0_1p2>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "samsung,s6e3ha8-amb630qy01";
-+		reg = <0>;
-+
-+		vdd3-supply = <&vreg_l14a_1p8>;
-+		vci-supply = <&vreg_l28a_3p0>;
-+		vddpos-supply = <&lab>;
-+		vddneg-supply = <&ibb>;
-+
-+		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&panel_default>;
-+		pinctrl-names = "default";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in>;
-+	qcom,te-source = "mdp_vsync_e";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vdda_mipi_dsi0_pll>;
-+
-+	status = "okay";
- };
- 
- &wifi {
- 	qcom,calibration-variant = "Google_crosshatch";
- };
+I will go ahead then and add the ifdefiry for arm to leave it alone, and ad=
+d the PMD size otherwise.
 
--- 
-2.55.0
+>
+>If functionality isn't changed I think adding at least some notes that thi=
+s only works optimal on 4k ARM platforms is clearly a good idea.
 
+(will also comment the situation).
 
+Thanks,
+Davidlohr
