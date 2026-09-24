@@ -4,129 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE5DC98314
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5168C98317
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 12:30:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3456710E651;
-	Thu, 24 Sep 2026 12:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C50610F4C2;
+	Thu, 24 Sep 2026 12:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Hd4ENon7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8CIub1yI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LfRSO0iu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fL4AqYg2";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="G7SFuhK6";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05BEB10E651
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:24:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF7A610F4C2
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 12:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1790253052;
+ bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
+ h=From:Subject:Date:To:Cc:From;
+ b=G7SFuhK6Z/TnEfb2AGONc+xwCi95a+DUC3iOJ+NX+8Gnzs62hhG9TacrU7PcwEPgV
+ Su52aAwB47vhwGWhYQAnqyqQxClEZyec5t+xJNizYfyZMMUvXa5s7Plz8bnCEc91cF
+ kH2layYRkLpy+XhtKIGCrDIp1PRqDJBoVUW+IoK7mqbBVa44J1X6voi5SKhVNseKy9
+ UKkGYQ6ahwvb4AWSMUrmYXUosjFISvN3pSZMerf+x/pjdDgBUshprcMbSIxqBvPH1E
+ nseNhu0M7ZqAlZi0WrxHRTjyCP05v4DrkMRKbsjICNF+QG6MpWJgi9+DUTkollovws
+ EcqX26MydoNuQ==
+Received: from fedora-32.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6428621D2F;
- Thu, 24 Sep 2026 12:24:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790252665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
- b=Hd4ENon7G6FY3sxJgQfNNF8HdQK/sk1PZv+d08mvA9RBQkP3kFN7+GgELBBLIqtwOee9J1
- Z4tpx8RkCSfXoBEITlJqrZ1CYCQKI8n3zRBMM87jFu+pqk8eYJlDJmAU3gNQHimUJXtZJI
- 4b93zhtRdg1nlbgtckp3pkud1v8VEKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790252665;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
- b=8CIub1yI4Gguq/XE5IMraKeA0SVyLTx9x+rOoW+tsYdoWQ1aXkSoHCsN3GgjpsldmSgBgl
- 0zsRyhh5NW+QINCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790252661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
- b=LfRSO0iu/JiE4+ijCBHhag08gMu6/6QQCg0YtggGv1JLVccHjLqc/sSSvQazJMmxhkdDVv
- y4n0Z+uiedYYpIqx2s71tGEvdf2pTz/rBkajxl9Lmf//spaFEBeDNFH/0U20DF4PrOh1dv
- qr9ZMnFY2kPHS2MibkP5fTYMZ+tkZaY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790252661;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8ltJQJiwP4sg8UED1LnyRiGoPM3NSf1WElJ2i4ppZAI=;
- b=fL4AqYg2h7xiGSH76p+H73fOVt0BMiUzEq1T+5+l+r4J5EDaisAxPdi5KoaKUvhvzQbtQu
- ZvBgbdFuRbIKZIDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0B73813354;
- Thu, 24 Sep 2026 12:24:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5EvHNHQWtWpjYgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 12:24:21 +0000
-Message-ID: <bb1176c6-a1d5-4c89-9524-caeedd9282c4@suse.de>
-Date: Thu, 24 Sep 2026 14:24:20 +0200
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BC8417E047B;
+ Thu, 24 Sep 2026 14:30:52 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH 0/3] drm/panthor: Misc MMU fixes/robustness improvements
+Date: Thu, 24 Sep 2026 14:30:42 +0200
+Message-Id: <20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/udl: reject short USB control transfers in
- udl_read_edid_block()
-To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-2-benquike@gmail.com>
- <20260924073012.2742968-2-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924073012.2742968-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:email, suse.de:mid]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr0JmLQmlxWCvYroY6WhnAVSgxqTp3
+ Z3Y5fsv7+9QqTBVGNUOhT5cOSeB7qIgLJhepHkWBmvs1dzsoFdMbclFx7jpJ3+paux8b+cg2ni
+ Qbi30F5Ldp5MLvTe5bucID6ykQ46R26gG57wLPaL1Dqbj+AF1qJehkwAAAA==
+X-Change-ID: 20260924-panthor-mmu-fixes-a1832dc60908
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Akash Goel <akash.goel@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790253051; l=1609;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=Y2vPvygsden7BH0x9JcmWlAOFiFi6xLiprxeon4Cp38=;
+ b=jO3y3kcEcTMilWPBpCdH/Qxa+iFb/m0jQ/1t5wk9GS8wQiMmhamdNWq9zrxl4/xjqowmvQiSg
+ jQd5SIh+yyLBj/HIvP2JuqcURgHUgTysfPtxzyFqXMgknAkk90tVguU
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,72 +74,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+The first commit is fixing a bug we've seen on v13 HW. Even though
+we don't quite understand what happens (race in the flush-elimination
+logic when flush requests are sent concurrently from the CPU and the
+MCU), it seems that the downstream driver has always been doing a
+flush+invalidate of RW caches from the start, and that we were doing
+so up until the atomic page table update changes, so let's go back to
+that state and leave the RO L1 caches untouched.
 
-Am 24.09.26 um 09:30 schrieb Hui Peng:
-> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
-> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
-> Currently the short-transfer check tests ret < 1 instead of ret < 2, so
-> if a short USB control transfer returns 1 byte, read_buff[1] is not
-> written by usb_control_msg() and retains the previous iteration's byte (or
-> uninitialized kmalloc(2) memory on the first iteration), which is then
-> copied into buf[i].
->
-> Change the check from ret < 1 to ret < 2 so any short USB control
-> transfer fails with -EIO.
->
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
-> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
-> usb_control_msg() returned 1 byte for an EDID read (short transfer),
-> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
-> data into the EDID buffer; whereas with this fix applied, ret < 2
-> correctly fails with -EIO and prevents EDID buffer corruption.
->
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+The second patch a fix for a race that could very well happen if we
+ever end up with a failure between the as_disable() and as_enable()
+calls. We've not experienced this so far, but it seems worth plugging
+the hole regardless. The last patch is a much more theoretical bug,
+which would involve a buggy FW telling us that a CSG is suspended,
+when it's actually. I've deliberately not added a Fixes tag on the
+last one for this very reason, but I think it's worth staying on
+the safe side by addressing this theoretical issue, still.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+Boris Brezillon (3):
+      drm/panthor: Don't invalidate OTHER caches
+      drm/panthor: Fully disable the AS even if it's going to be re-assigned
+      drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
 
-Thanks for the fix.
+ drivers/gpu/drm/panthor/panthor_mmu.c | 43 ++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
+---
+base-commit: 45585c3aa285854face65293acc95eff73063d6d
+change-id: 20260924-panthor-mmu-fixes-a1832dc60908
 
-Best regards
-Thomas
-
-> ---
-> Changes in v3:
-> - Change (ret != 2) to (ret < 2) in udl_read_edid_block(), as requested
->    by Thomas Zimmermann.
->
-> Changes in v2:
-> - Split out as patch 1/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on short USB EDID control transfers.
->
->   drivers/gpu/drm/udl/udl_edid.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
-> index af4cff2a7c51..2120e363b6eb 100644
-> --- a/drivers/gpu/drm/udl/udl_edid.c
-> +++ b/drivers/gpu/drm/udl/udl_edid.c
-> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
->   		if (ret < 0) {
->   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
->   			goto err_drm_dev_exit;
-> -		} else if (ret < 1) {
-> +		} else if (ret < 2) {
->   			ret = -EIO;
->   			drm_err(dev, "Read EDID byte %zu failed\n", i);
->   			goto err_drm_dev_exit;
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Best regards,
+--  
+Boris Brezillon <boris.brezillon@collabora.com>
 
