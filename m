@@ -4,77 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D46C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D14DC98326
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D6E10F91F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E88610F921;
 	Fri, 25 Sep 2026 07:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RUGFcFrm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qe8k7rel";
 	dkim-atps=neutral
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com
- [74.125.230.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E69C310E70C
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 03:30:21 +0000 (UTC)
-Received: by mail-qk2-f13.google.com with SMTP id
- d75a77b69052e-5309a20a55bso5363641cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 20:30:21 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEEB10F3EC
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 09:44:05 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c254f560398so252188666b.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 02:44:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790243044; cv=none;
+ d=google.com; s=arc-20260327;
+ b=aPMnRyCCKVC+l32OBN2DLcVVtmWul6PouKzx2C+7cG0iH8Zc0Ii51hxFZqvz1oPbip
+ l8CkZQCPjvaUuzHd0+lsWW6Zhs2H45FOurUw8cqhp1QI8BWzb6G++K4Sq+eUHfphtCBN
+ U1n5msAZbcq3O8NuxzKLKcijnMiMPRyOiSqf3pTBS7fn12cZ6oK6qVALgvrdEFnlFdmP
+ 3yMj8NHwgDQYmHXEEIpsWeTqE9RTpl+fJ5tQ866Bq6eVRaN58+Bw8zIrEJC4HGToiRnS
+ HVIUAf4frnXjOzYYlQVmDBVsHJyyYZR+FNAH2pSv6CKiNfYmVi8uCA4BDoELdMO5xoVa
+ OiPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=L9OLmDrSTqVykaELu958GJ33pT3enqLsGyn406fHVPs=;
+ fh=i7TaucTUfjXy8Xgnrdc9pztWNz42bndvwC0oEuZEmOQ=;
+ b=nfX1YE/UY2pu5FgId4e3UhWdQfTBujFmSR1kkHu0RdtZijrDICurYqm3DwHwJZixtf
+ XP5JmjbVIt40Xut9HxRCNheMeWZujMz2NjoJahNFo1DBDmDJ4ihX5o3MsBmmepw47isL
+ HLLxQAPQJiWJPZph/t2fSFDK2yP2CMOfILTC0mtNFE7aEq3yz2vsw+eGrVp3l5gNGrvu
+ vtryiZsBM2QdjwrzJ2c7HnHnO2r2ral0qGq1pqEx/uhCFh62IttySmP2yUuKiitf+le8
+ I1GdeX6fzs0EV35YDC1l3bXxhSxYbEplhv9lYg6G6PraL67JlMJWJ7dCMKQLkXa5StPp
+ I7sQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790307021; x=1790911821; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
- b=RUGFcFrmcjYkmhdz3+i2FUpYenDOMzmbdZ9UFaXzsui4AUQA+m93gEMjox+Zwf/Jfw
- puWoVanrAXuzeGV0LgyQz0K/L3D7A37AVa+Vd2ngmOP0DRqGW/VbahulXgbQuYGBER/e
- lym+J4DZLN7F6v7Uev7PZ1rOmEFi8LxmHi69tXd3Wp43fh/7Q7dpe3lcCJz8B03ODP5w
- C0pWhNYB+vCChcFEI46YqF/VsK+2QcGFKI4WcdZU4uEAxmg8p+DO8v1AFbO4+gpyako2
- 1F5GyGqoBXYga7Dl7xFmWHlB7Bl9CN9ZyhhCQdA7SXT0zrRl6f5xuQR7aRATBmkbkvrw
- JJ1g==
+ d=gmail.com; s=20251104; t=1790243044; x=1790847844; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=L9OLmDrSTqVykaELu958GJ33pT3enqLsGyn406fHVPs=;
+ b=Qe8k7relAqkLQ7rISPhvTAkaolAc4e0Cynb1txU2GmZBKmadT/jITDsCCEZruqdqED
+ qKfAOn/qqTvikMjvWCXBJSLWG4sRTpj3mJpsLIMIxnZgwaRIfssChohZmDCYIGY5qZiw
+ feCPhEMTq+di/3WTIIyjqFC/9hF818XKW3wWR3v5goJzpipHYk36O7MoMxH1B11vdxzK
+ 93bmr7Q2lCPLSSpCGyd+16kHLkqIpJFlzd5JPdrzOmkTqAGh0udqlQ0l7hJdc+lfr5E/
+ myQgDN5SUVxlKl85G/32aSQ+g9rIfvZZMVENJBzPini0M27EPwFKm45x3M88DpD8lush
+ N43w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790307021; x=1790911821;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
- b=MzhbJGsM09bEFak+mwljX8yhzuIgDgD84FFSLsP38IWXDYb/sWWqblmYYmmUCfHE6s
- IMy9dpvCc6/qSwfXxVZp5nQZ4ntfpdoUkXAlu1SFib6y9P7GVeJWIzH/q9Nbcsde6uiw
- W7+xvv8YQH7NpocvDDUqF3DJZO/c9HO8d6fexnp4qHFjejXUdkP4r98OUWgJ4ElcWLpH
- RUzEytWDvJ0Jn+ylTqe+2c7S8j+54yzD47MgAL9pGcuc7uemMVBTUN1BHn4WvGnfwUAU
- 0a/M52gzMMZaroDbAHCa3GTack0kEuYQvlrK88SC23Q1LAK/o/yn9L0pic6eXMFghS58
- v8hw==
-X-Gm-Message-State: AFuF++n+4d062KvBgAkjBy8iK2wh9wT6WvD4YmkJlKqqRtyo9ztaTosM
- n0GksfpiCilq3vT+PrRtgn3YRhOGoheKSGyJ0CuO+duM26krd0FHg/6eL8uB1Oiow3w=
-X-Gm-Gg: AYBFou09YIKAYniAodWwF/NmogXuX4teAQqOyazRuZiucYWV8lvLrf0VuQ1z5INrxdr
- hkhRKpifiyiTBE9QKfzxDfDrWzMUH8FTtOEf8voZO9lLNxxpiLLsQyc8D69UTvFSIKFBE3161cF
- d3d4zPn9VpP0apz0friRobo+kw0fnndgueyFqDMzCBHtZyMBRAmyRwA7sxCx0sEAlX05N6zw5i8
- fAoh15wb1iZ4nxpJTcCDXC6VBPgm1PAUw6eKAVzrlzrQWf/T3Ln4Wbgjg1mO1X9CSdVDWL886Bn
- 6k2a0miOhHjVeMaZsD+1+a8xW+BmEhiIrZvwM37A2JngCC0V9KZj0bpNHHstHVXynB5sHhJZPTc
- O3Kch0jUFrgiva0qRaGlRGBbcN/NLG/or0LxLtvsxiXFXxlWuY9cPDtpsKgY4fADLP08nj3UAkr
- 42x8ld4RiGyD+tX7Cl/7JrrUUTK25A1CSb03ROH6H4dy4dHHDzyby+ZUPfr15+EH9xqPdHWUszo
- lCADzsRD5YAncAobkZgKiW/EC4tS+ppOOErXADK0qUveTnGe7jJJPXCYXeBYhsP
-X-Received: by 2002:a05:622a:1392:b0:532:9f90:3f70 with SMTP id
- d75a77b69052e-5330b5a56d7mr23799041cf.10.1790307020648; 
- Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
-Received: from localhost.localdomain ([2600:4040:29f7:9600:b44c:c4c:9e3:10a8])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5330c0e16easm7031841cf.29.2026.09.24.20.30.19
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, airlied@gmail.com, kraxel@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- simona@ffwll.ch, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/qxl: size packed dumb heads from the plane source
-Date: Thu, 24 Sep 2026 23:30:11 -0400
-Message-ID: <20260925033011.12560-1-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260924025222.6077-1-dillona@gmail.com>
-References: <20260924025222.6077-1-dillona@gmail.com>
+ d=1e100.net; s=20260707; t=1790243044; x=1790847844;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=L9OLmDrSTqVykaELu958GJ33pT3enqLsGyn406fHVPs=;
+ b=A+voadsN3Sl6LF8uSbEi8aJPvbYv6tovprxe/MGuR1bWnkS4KlXt1G8ogQUVc6MxSL
+ MzDMLrlq65NSTCTHjSANIJeSCpIEAt2FDox1/MvDHdDNLHIZAMpgvCWB6YB3oefUz01l
+ 15TwIUmo868rX9MXos4SkGcXpUB69bxiIIBKs56cnFdjz0eysyma1liNG97/2WGMpaP7
+ WaLlZDLHTHIOGdnvdVBq42Z2XvpnrrKaL/51iEc8RRAtuL28Kw/ioNuq0nEe4qyONwod
+ JXqCA1qy/Rlsy/e3ypxNENAp2Vlc9+s5zT2Cn+lBsytHwODJLJ2giY/jc7vphcrT4B6K
+ 8PUQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzJwfxleR0Kb8zjzyX+dFUBuvjf8gIcET+H/c88ILdk70vf2jJ62BDCGdmT9SLxPoP+mEQtdJnp/nw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mlSS3yd8EpiQUDGoV8nSRMZpObNbZki2k/YDw5dXq+Cc/yTNFu
+ eKmmsCs7rNqQW1o4lr7hDLHBw19QXzX0uxmUpiEMoPNqJn1bGLFkNty/IFGFjFCztb5O+GlVtDI
+ IhVZLqhkNgQ12iPMHYk6UNidJ3ivGe+I=
+X-Gm-Gg: AYBFou0NZNNvSYactDcwFIHnY9cbm23qfADxz3nbeHeAcsVka9oAGrKtFWwBrFm2SLj
+ vCPNGZM234WzqWZHYtrxPbeA1cdewCSzD5GgyqPF3O8qOq6xAzwV5e5qtlM4p45ggK64ChOtRvz
+ KkxRPA3vYAQ72iMsmldQC9zhwCTSJD7PZIKFGgqJVuhVGLHijupggeQVYVXxi+UcpliRRR3oEnE
+ bFolpQcATdsukJu0FXRqwR73iOUSMvFMb1OQUxHJYa8Lbk4ZCfObXX+yQ9UYwm5qOAIiP/MeNJu
+ V+S7WFgDTBHyu1KHavvHE7dZoIZeFPeAkfXtAeu/aZHaXJutLeDFLoqdLjdSb4vCHUopx79tzoU
+ pSawVB24SUHaWzHBi40YqL70a+xy4w8IzvIw4BUJ3ZrzweaOH8jH5KZS40gUi5tQug/DppZ2dxg
+ ==
+X-Received: by 2002:a17:906:7944:b0:c29:555e:bef with SMTP id
+ a640c23a62f3a-c2ac23daeb2mr167538266b.9.1790243043803; Thu, 24 Sep 2026
+ 02:44:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923221018.42133-1-conor10@gmail.com>
+ <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
+In-Reply-To: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com>
+From: Conor Svensson <conor10@gmail.com>
+Date: Thu, 24 Sep 2026 10:43:52 +0100
+X-Gm-Features: AclHuK_JAs21Y6W8bkD-aXYNGegwrRc5OSyNx86NuiiiEUTWMZf9sodhEhvPvrA
+Message-ID: <CALr9iFqDs+yvz+V8den0SRV_5X6SKn0WGh0HAnkSuwtxYjZAMQ@mail.gmail.com>
+Subject: Re: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an
+ Anker DP branch
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+ simona@ffwll.ch, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000b00c7e065c3770b4"
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,312 +110,532 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-QXL packs per-CRTC dumb buffers into a single primary surface.
-qxl_update_dumb_head() recorded each dumb BO allocation (bo->surf)
-instead of the plane source rectangle. Scanning 1280x800 from a
-2048x1024 dumb framebuffer beside a 1024x768 head therefore created
-a 3072x1024 primary and placed head 1 at +2048, rather than 2304x800
-with head 1 at +1280.
+--000000000000b00c7e065c3770b4
+Content-Type: text/plain; charset="UTF-8"
 
-Use src_w/src_h when building the packed shadow, and copy only that
-source rectangle into it. Place that rectangle at the packed origin:
-crtc->x and crtc->y are the plane source position, so adding them to
-the packed offset publishes the head past the end of the primary.
-When the shadow is reallocated, copy the other active dumb heads from
-their current framebuffers. DRM_IOCTL_MODE_DIRTYFB intersects each
-clip with the plane source and uses that same origin, so a dirty
-update of one head is not painted at (0, 0).
+Hi Jani,
 
-Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
-Assisted-by: LLM sparse
-Signed-off-by: Dillon Amburgey <dillona@gmail.com>
----
-Changes in v2:
-- Place each source rectangle at the packed origin. crtc->x and
-  crtc->y are the plane source position, so adding them published
-  head 1 at +2560 on a 2304-wide primary. A shadow primary now
-  reports dumb_heads[i].x and .y. A shared framebuffer with head 1
-  scanning at x=1280 now reports +1280.
-- A non-zero source y is no longer the destination y. The copy reads
-  at src_y and writes at dumb_heads[i].y. A 1280x800 source starting
-  at y=200 is drawn at the top of the primary.
-- Replacing the shadow recopies the other active dumb heads from
-  their current framebuffers. The failure was stale pixels, not a
-  cleared head: after recoloring head 0 and enabling head 1, head 0
-  kept the old color until this recopy.
-- DRM_IOCTL_MODE_DIRTYFB intersects the clip with the plane source
-  and uses that same origin. A dirty update of head 1 no longer
-  paints that buffer at (0, 0).
+Thanks for the guidance. I've set the quirk revision aside and attached the
+full, uncompressed boot-to-failure dmesg from the unpatched control kernel,
+with the requested DRM debug parameters:
 
- drivers/gpu/drm/qxl/qxl_display.c | 132 ++++++++++++++++++++++++------
- drivers/gpu/drm/qxl/qxl_draw.c    |   6 +-
- drivers/gpu/drm/qxl/qxl_drv.h     |   3 +-
- 3 files changed, 113 insertions(+), 28 deletions(-)
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3678430
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 0719fc6a52d5..d01504332bc8 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -348,8 +348,10 @@ static void qxl_crtc_update_monitors_config(struct drm_crtc *crtc,
- 		head.y = crtc->y;
- 		if (qdev->monitors_config->count < i + 1)
- 			qdev->monitors_config->count = i + 1;
--		if (qdev->primary_bo == qdev->dumb_shadow_bo)
--			head.x += qdev->dumb_heads[i].x;
-+		if (qdev->primary_bo == qdev->dumb_shadow_bo) {
-+			head.x = qdev->dumb_heads[i].x;
-+			head.y = qdev->dumb_heads[i].y;
-+		}
- 	} else if (i > 0) {
- 		head.width = 0;
- 		head.height = 0;
-@@ -458,8 +460,47 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 		inc = 2; /* skip source rects */
- 	}
- 
--	qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
--			  clips, num_clips, inc, 0);
-+	if (qobj->shadow) {
-+		struct drm_crtc *crtc;
-+		unsigned int n;
-+
-+		drm_for_each_crtc(crtc, &qdev->ddev) {
-+			struct drm_plane_state *st;
-+			u32 sx, sy, sw, sh;
-+
-+			st = crtc->primary->state;
-+			if (st->fb != fb ||
-+			    !qdev->dumb_heads[crtc->index].width)
-+				continue;
-+			sx = st->src_x >> 16;
-+			sy = st->src_y >> 16;
-+			sw = st->src_w >> 16;
-+			sh = st->src_h >> 16;
-+			for (n = 0; n < num_clips; n++) {
-+				struct drm_clip_rect *in = clips + n * inc;
-+				struct drm_clip_rect c;
-+				u32 x1 = max_t(u32, in->x1, sx);
-+				u32 y1 = max_t(u32, in->y1, sy);
-+				u32 x2 = min_t(u32, in->x2, sx + sw);
-+				u32 y2 = min_t(u32, in->y2, sy + sh);
-+
-+				if (x1 >= x2 || y1 >= y2)
-+					continue;
-+				c.x1 = x1;
-+				c.y1 = y1;
-+				c.x2 = x2;
-+				c.y2 = y2;
-+				qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+						  &c, 1, 1,
-+						  qdev->dumb_heads[crtc->index].x - sx,
-+						  (int)qdev->dumb_heads[crtc->index].y -
-+						  (int)sy);
-+			}
-+		}
-+	} else {
-+		qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+				  clips, num_clips, inc, 0, 0);
-+	}
- 
- out_lock_end:
- 	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
-@@ -662,6 +703,37 @@ static void qxl_free_cursor(struct qxl_bo *cursor_bo)
- 	qxl_bo_unref(&cursor_bo);
- }
- 
-+static void qxl_redraw_other_dumb_heads(struct qxl_device *qdev, int skip)
-+{
-+	struct drm_crtc *crtc;
-+
-+	drm_for_each_crtc(crtc, &qdev->ddev) {
-+		struct drm_plane_state *st;
-+		struct qxl_bo *other;
-+		struct drm_clip_rect clip;
-+		u32 sx, sy;
-+
-+		if (crtc->index == skip ||
-+		    !qdev->dumb_heads[crtc->index].width)
-+			continue;
-+		st = crtc->primary->state;
-+		if (!st->fb)
-+			continue;
-+		other = gem_to_qxl_bo(st->fb->obj[0]);
-+		if (!other->is_dumb)
-+			continue;
-+		sx = st->src_x >> 16;
-+		sy = st->src_y >> 16;
-+		clip.x1 = sx;
-+		clip.y1 = sy;
-+		clip.x2 = sx + (st->src_w >> 16);
-+		clip.y2 = sy + (st->src_h >> 16);
-+		qxl_draw_dirty_fb(qdev, st->fb, other, 0, 0, &clip, 1, 1,
-+				  qdev->dumb_heads[crtc->index].x - sx,
-+				  (int)qdev->dumb_heads[crtc->index].y - (int)sy);
-+	}
-+}
-+
- static void qxl_primary_atomic_update(struct drm_plane *plane,
- 				      struct drm_atomic_commit *state)
- {
-@@ -670,13 +742,18 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 	struct qxl_device *qdev = to_qxl(plane->dev);
- 	struct qxl_bo *bo = gem_to_qxl_bo(new_state->fb->obj[0]);
- 	struct qxl_bo *primary;
--	struct drm_clip_rect norect = {
--	    .x1 = 0,
--	    .y1 = 0,
--	    .x2 = new_state->fb->width,
--	    .y2 = new_state->fb->height
--	};
-+	struct drm_clip_rect norect;
- 	uint32_t dumb_shadow_offset = 0;
-+	int y_off = 0;
-+	u32 src_x = new_state->src_x >> 16;
-+	u32 src_y = new_state->src_y >> 16;
-+	u32 src_w = new_state->src_w >> 16;
-+	u32 src_h = new_state->src_h >> 16;
-+
-+	norect.x1 = src_x;
-+	norect.y1 = src_y;
-+	norect.x2 = src_x + src_w;
-+	norect.y2 = src_y + src_h;
- 
- 	primary = bo->shadow ? bo->shadow : bo;
- 
-@@ -687,12 +764,19 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 		qxl_primary_apply_cursor(qdev, plane->state);
- 	}
- 
--	if (bo->is_dumb)
-+	if (bo->is_dumb) {
- 		dumb_shadow_offset =
--			qdev->dumb_heads[new_state->crtc->index].x;
-+			qdev->dumb_heads[new_state->crtc->index].x - src_x;
-+		y_off = (int)qdev->dumb_heads[new_state->crtc->index].y -
-+			(int)src_y;
-+	}
- 
- 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
--			  dumb_shadow_offset);
-+			  dumb_shadow_offset, y_off);
-+	if (qdev->dumb_shadow_needs_redraw) {
-+		qdev->dumb_shadow_needs_redraw = false;
-+		qxl_redraw_other_dumb_heads(qdev, new_state->crtc->index);
-+	}
- }
- 
- static void qxl_primary_atomic_disable(struct drm_plane *plane,
-@@ -764,18 +848,14 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
- 	qcrtc->cursor_bo = NULL;
- }
- 
--static void qxl_update_dumb_head(struct qxl_device *qdev,
--				 int index, struct qxl_bo *bo)
-+static void qxl_update_dumb_head(struct qxl_device *qdev, int index,
-+				 struct qxl_bo *bo, uint32_t width,
-+				 uint32_t height)
- {
--	uint32_t width, height;
--
- 	if (index >= qdev->monitors_config->max_allowed)
- 		return;
- 
--	if (bo && bo->is_dumb) {
--		width = bo->surf.width;
--		height = bo->surf.height;
--	} else {
-+	if (!bo || !bo->is_dumb) {
- 		width = 0;
- 		height = 0;
- 	}
-@@ -820,12 +900,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
- }
- 
- static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
--			       int crtc_index)
-+			       int crtc_index, uint32_t width, uint32_t height)
- {
- 	struct qxl_surface surf;
- 
--	qxl_update_dumb_head(qdev, crtc_index,
--			     user_bo);
-+	qxl_update_dumb_head(qdev, crtc_index, user_bo, width, height);
- 	qxl_calc_dumb_shadow(qdev, &surf);
- 	if (!qdev->dumb_shadow_bo ||
- 	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
-@@ -839,6 +918,7 @@ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
- 		qxl_bo_create(qdev, surf.height * surf.stride,
- 			      true, true, QXL_GEM_DOMAIN_SURFACE, 0,
- 			      &surf, &qdev->dumb_shadow_bo);
-+		qdev->dumb_shadow_needs_redraw = true;
- 	}
- 	if (user_bo->shadow != qdev->dumb_shadow_bo) {
- 		if (user_bo->shadow) {
-@@ -869,7 +949,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    user_bo->is_dumb) {
--		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index,
-+				   new_state->src_w >> 16,
-+				   new_state->src_h >> 16);
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
-diff --git a/drivers/gpu/drm/qxl/qxl_draw.c b/drivers/gpu/drm/qxl/qxl_draw.c
-index 3a3e127ce297..f99f4afa46d9 100644
---- a/drivers/gpu/drm/qxl/qxl_draw.c
-+++ b/drivers/gpu/drm/qxl/qxl_draw.c
-@@ -129,7 +129,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 		       unsigned int flags, unsigned int color,
- 		       struct drm_clip_rect *clips,
- 		       unsigned int num_clips, int inc,
--		       uint32_t dumb_shadow_offset)
-+		       u32 dumb_shadow_offset, int y_off)
- {
- 	/*
- 	 * TODO: if flags & DRM_MODE_FB_DIRTY_ANNOTATE_FILL then we should
-@@ -160,6 +160,8 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 
- 	clips->x1 += dumb_shadow_offset;
- 	clips->x2 += dumb_shadow_offset;
-+	clips->y1 += y_off;
-+	clips->y2 += y_off;
- 
- 	left = clips->x1;
- 	right = clips->x2;
-@@ -210,7 +212,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 
- 	ret = qxl_image_init(qdev, release, dimage, surface_base,
- 			     left - dumb_shadow_offset,
--			     top, width, height, depth, stride);
-+			     top - y_off, width, height, depth, stride);
- 	qxl_bo_vunmap_locked(bo);
- 	if (ret)
- 		goto out_release_backoff;
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
-index cc02b5f10ad9..f7edb620d4d7 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.h
-+++ b/drivers/gpu/drm/qxl/qxl_drv.h
-@@ -202,6 +202,7 @@ struct qxl_device {
- 
- 	struct qxl_bo *primary_bo;
- 	struct qxl_bo *dumb_shadow_bo;
-+	bool dumb_shadow_needs_redraw;
- 	struct qxl_head *dumb_heads;
- 
- 	struct qxl_memslot main_slot;
-@@ -394,7 +395,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 		       unsigned int flags, unsigned int color,
- 		       struct drm_clip_rect *clips,
- 		       unsigned int num_clips, int inc,
--		       uint32_t dumb_shadow_offset);
-+		       u32 dumb_shadow_offset, int y_off);
- 
- void qxl_release_free(struct qxl_device *qdev,
- 		      struct qxl_release *release);
+The failure reproduced at 1920x1080, with the native 3440x1440 mode
+missing. Only identifying strings were redacted; no log lines were removed.
 
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+I'll continue the root-cause investigation on the GitLab issue and use
+those findings to guide a revised patch.
+
+Best,
+
+Conor
+
+On Thu, 24 Sept 2026 at 09:03, Jani Nikula <jani.nikula@linux.intel.com>
+wrote:
+
+> On Wed, 23 Sep 2026, Conor Svensson <conor10@gmail.com> wrote:
+> > Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
+> > attached can leave the branch reporting a DVI downstream descriptor
+> > with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
+> > S3422DWG, this removes the native 3440x1440 mode from the connector's
+> > mode list even though the EDID still contains it. An explicit native
+> > modeline works with the same hardware state.
+> >
+> > Ignore the derived TMDS limits only for the captured branch identity,
+> > firmware and downstream descriptor when EDID 1.4 identifies a digital
+> > DisplayPort input. Retain the raw descriptor and other mode checks.
+> > Do not restrict the match to a particular monitor or laptop model.
+> >
+> > With otherwise matching upstream Linux 7.2.5 control/patched builds,
+> > the control loses native modes after USB-C reconnect, while the patched
+> > kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
+> > both USB-C ports, suspend/resume, undocking while asleep and docked boot
+> > pass. HDMI also works and does not activate the workaround. Periodic
+> > picture cycling observed on the control stops with the patch.
+> >
+> > The branch identity is not proven unique to this retail adapter. This
+> > is an experimental workaround for review, not an explanation of why the
+> > branch reports inconsistent capabilities. Other adapters and monitors
+> > have not been tested.
+> >
+> > Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
+> > Assisted-by: LLM
+> > Signed-off-by: Conor Svensson <conor10@gmail.com>
+> > ---
+> > RFC: is this best handled as a branch quirk here, or in the common DP
+> > helpers? The captured identity and descriptor match is deliberately
+> narrow;
+> > there is no monitor/laptop model restriction. The informational log
+> marker
+> > is retained to show exactly when this experimental workaround executes.
+> > The commit introducing the underlying problem has not been identified, so
+> > there is no speculative Fixes tag.
+> >
+> > Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
+> > configurations. This RFC applies the same 48 added lines to drm-tip at
+> the
+> > base commit below. This drm-tip revision has not been boot-tested. The
+> affected intel_dp.o
+> > compiles successfully here with no compiler warnings; strict checkpatch
+> > passes (human sign-off pending), and 426 predicate boundary cases pass
+> > with ASan/UBSan. These predicate tests are not DRM integration tests.
+> >
+> > Results: three USB-C reconnects, alternate USB-C port, docked s2idle
+> > resume plus reconnect, undock while asleep/wake/reconnect, and docked
+> > DisplayPort reboot all passed. HDMI also passed without activating the
+> > workaround. The control lost native modes and showed periodic picture
+> > cycling; that cycling stopped on the patched kernel. No custom modeline
+> > was used in either test kernel. Other hardware and higher refresh rates
+> > remain untested.
+> >
+> > AI assistance: Codex (GPT-6) helped investigate the reported hotplug
+> > failure, wrote the match/limit-clearing change, prepared the predicate
+> > tests, collected diagnostics and drafted this message. The human reporter
+> > performed the physical reconnect, suspend and reboot tests and confirmed
+> > the visible results. The assistance arose from an extended
+> troubleshooting
+> > session, rather than a single code-generation prompt.
+> >
+> > Evidence and detailed test results:
+> >
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
+> >
+> > This is my first kernel patch submission. I'd appreciate feedback on
+> > whether this belongs here or in the common DP helpers, and whether the
+> > matching criteria are appropriate.
+>
+> Thanks for the patch. Please let's first root cause the issue (on the
+> gitlab issue) before jumping into quirking specific devices.
+>
+> Regardless, a few comments below.
+>
+> >
+> > Thanks,
+> > Conor
+> >
+> >  drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
+> >  1 file changed, 48 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index ffddf4b33..6d6767ca7 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
+> >       return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
+> >  }
+> >
+> > +static bool
+> > +intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
+> > +                              const struct drm_edid *drm_edid)
+> > +{
+> > +     static const struct drm_dp_dpcd_ident branch = {
+> > +             .oui = { 0x90, 0xcc, 0x24 },
+> > +             .device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
+> > +             .hw_rev = 0x10,
+> > +             .sw_major_rev = 0x06,
+> > +             .sw_minor_rev = 0x05,
+> > +     };
+> > +     static const u8 downstream_ports[] = {
+> > +             0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> > +     };
+>
+> intel_dp->downstream_ports is read from DPCD address 0x80, and it
+> dynamically reflects the downstream port information, i.e. what's
+> currently connected to the branch device. Having a fixed comparison like
+> this will only work for a specific type of downstream device connected
+> to a specific downstream port.
+>
+> > +     const struct edid *edid = drm_edid_raw(drm_edid);
+>
+> No new drm_edid_raw() calls are to be added.
+>
+> > +
+> > +     if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
+> > +         !drm_dp_is_branch(intel_dp->dpcd) || !edid)
+> > +             return false;
+> > +
+> > +     /* HDMI and DVI inputs must retain their downstream limits. */
+> > +     if (edid->version != 1 || edid->revision < 4 ||
+> > +         !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
+> > +         (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) !=
+> DRM_EDID_DIGITAL_TYPE_DP)
+> > +             return false;
+> > +
+> > +     return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
+> > +             !memcmp(intel_dp->downstream_ports, downstream_ports,
+> > +                     sizeof(downstream_ports)) &&
+> > +             intel_dp->dfp.min_tmds_clock == 25000 &&
+> > +             intel_dp->dfp.max_tmds_clock == 165000;
+> > +}
+>
+> We have intel_quirks.c with various structured mechanisms for
+> identifying quirks. If we end up needing a quirk for this, the existing
+> mechanisms need to be used instead of adding a bunch of code inline like
+> this.
+>
+> Again, please let's first root cause and debug the issue instead of
+> trying to fix the patch.
+>
+> BR,
+> Jani.
+>
+>
+> > +
+> >  static void
+> >  intel_dp_update_dfp(struct intel_dp *intel_dp,
+> >                   const struct drm_edid *drm_edid)
+> > @@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
+> >               drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
+> >                                          intel_dp->downstream_ports);
+> >
+> > +     /*
+> > +      * Experimental workaround for the branch observed in an Anker
+> A8388.
+> > +      * USB-C hotplug can expose a DVI descriptor for the DP output. The
+> > +      * monitor's native timing works when requested explicitly, despite
+> > +      * the reported 165 MHz limit. Keep the captured identity and
+> failure
+> > +      * signature checks narrow until the underlying cause is
+> understood.
+> > +      */
+> > +     if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
+> > +             intel_dp->dfp.min_tmds_clock = 0;
+> > +             intel_dp->dfp.max_tmds_clock = 0;
+> > +             drm_info(display->drm,
+> > +                      "[CONNECTOR:%d:%s] experimental Anker DP TMDS
+> limit workaround\n",
+> > +                      connector->base.base.id, connector->base.name);
+> > +     }
+> > +
+> >       drm_dbg_kms(display->drm,
+> >                   "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d,
+> TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
+> >                   connector->base.base.id, connector->base.name,
+> >
+> > base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
+>
+> --
+> Jani Nikula, Intel
+>
+
+
 -- 
-2.43.0
 
+*Conor Svensson*
+
+Schedule a Meeting <https://calendar.app.google/qwPdNGAewy95Bmbn9>
+
++44 (0) 7497 376 365
+
+LinkedIn <https://www.linkedin.com/in/conorsvensson/>  X (Twitter)
+<https://twitter.com/conorsvensson>  Telegram <https://t.me/conor10>
+
+--000000000000b00c7e065c3770b4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi Jani,<br><br>Thanks for the guidance. =
+I&#39;ve set the quirk revision aside and attached the full, uncompressed b=
+oot-to-failure dmesg from the unpatched control kernel, with the requested =
+DRM debug parameters:<br><br><a href=3D"https://gitlab.freedesktop.org/drm/=
+i915/kernel/-/work_items/17180#note_3678430">https://gitlab.freedesktop.org=
+/drm/i915/kernel/-/work_items/17180#note_3678430</a><br><br>The failure rep=
+roduced at 1920x1080, with the native 3440x1440 mode missing. Only identify=
+ing strings were redacted; no log lines were removed.<br><br>I&#39;ll conti=
+nue the root-cause investigation on the GitLab issue and use those findings=
+ to guide a revised patch.<br><br>Best,</div><div dir=3D"ltr"><br>Conor</di=
+v><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" cla=
+ss=3D"gmail_attr">On Thu, 24 Sept 2026 at 09:03, Jani Nikula &lt;<a href=3D=
+"mailto:jani.nikula@linux.intel.com">jani.nikula@linux.intel.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, 23 =
+Sep 2026, Conor Svensson &lt;<a href=3D"mailto:conor10@gmail.com" target=3D=
+"_blank">conor10@gmail.com</a>&gt; wrote:<br>
+&gt; Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor<b=
+r>
+&gt; attached can leave the branch reporting a DVI downstream descriptor<br=
+>
+&gt; with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell=
+<br>
+&gt; S3422DWG, this removes the native 3440x1440 mode from the connector&#3=
+9;s<br>
+&gt; mode list even though the EDID still contains it. An explicit native<b=
+r>
+&gt; modeline works with the same hardware state.<br>
+&gt;<br>
+&gt; Ignore the derived TMDS limits only for the captured branch identity,<=
+br>
+&gt; firmware and downstream descriptor when EDID 1.4 identifies a digital<=
+br>
+&gt; DisplayPort input. Retain the raw descriptor and other mode checks.<br=
+>
+&gt; Do not restrict the match to a particular monitor or laptop model.<br>
+&gt;<br>
+&gt; With otherwise matching upstream Linux 7.2.5 control/patched builds,<b=
+r>
+&gt; the control loses native modes after USB-C reconnect, while the patche=
+d<br>
+&gt; kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnec=
+ts,<br>
+&gt; both USB-C ports, suspend/resume, undocking while asleep and docked bo=
+ot<br>
+&gt; pass. HDMI also works and does not activate the workaround. Periodic<b=
+r>
+&gt; picture cycling observed on the control stops with the patch.<br>
+&gt;<br>
+&gt; The branch identity is not proven unique to this retail adapter. This<=
+br>
+&gt; is an experimental workaround for review, not an explanation of why th=
+e<br>
+&gt; branch reports inconsistent capabilities. Other adapters and monitors<=
+br>
+&gt; have not been tested.<br>
+&gt;<br>
+&gt; Link: <a href=3D"https://gitlab.freedesktop.org/drm/i915/kernel/-/work=
+_items/17180" rel=3D"noreferrer" target=3D"_blank">https://gitlab.freedeskt=
+op.org/drm/i915/kernel/-/work_items/17180</a><br>
+&gt; Assisted-by: LLM<br>
+&gt; Signed-off-by: Conor Svensson &lt;<a href=3D"mailto:conor10@gmail.com"=
+ target=3D"_blank">conor10@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt; RFC: is this best handled as a branch quirk here, or in the common DP<=
+br>
+&gt; helpers? The captured identity and descriptor match is deliberately na=
+rrow;<br>
+&gt; there is no monitor/laptop model restriction. The informational log ma=
+rker<br>
+&gt; is retained to show exactly when this experimental workaround executes=
+.<br>
+&gt; The commit introducing the underlying problem has not been identified,=
+ so<br>
+&gt; there is no speculative Fixes tag.<br>
+&gt;<br>
+&gt; Hardware A/B testing used upstream Linux 7.2.5 with otherwise identica=
+l<br>
+&gt; configurations. This RFC applies the same 48 added lines to drm-tip at=
+ the<br>
+&gt; base commit below. This drm-tip revision has not been boot-tested. The=
+ affected intel_dp.o<br>
+&gt; compiles successfully here with no compiler warnings; strict checkpatc=
+h<br>
+&gt; passes (human sign-off pending), and 426 predicate boundary cases pass=
+<br>
+&gt; with ASan/UBSan. These predicate tests are not DRM integration tests.<=
+br>
+&gt;<br>
+&gt; Results: three USB-C reconnects, alternate USB-C port, docked s2idle<b=
+r>
+&gt; resume plus reconnect, undock while asleep/wake/reconnect, and docked<=
+br>
+&gt; DisplayPort reboot all passed. HDMI also passed without activating the=
+<br>
+&gt; workaround. The control lost native modes and showed periodic picture<=
+br>
+&gt; cycling; that cycling stopped on the patched kernel. No custom modelin=
+e<br>
+&gt; was used in either test kernel. Other hardware and higher refresh rate=
+s<br>
+&gt; remain untested.<br>
+&gt;<br>
+&gt; AI assistance: Codex (GPT-6) helped investigate the reported hotplug<b=
+r>
+&gt; failure, wrote the match/limit-clearing change, prepared the predicate=
+<br>
+&gt; tests, collected diagnostics and drafted this message. The human repor=
+ter<br>
+&gt; performed the physical reconnect, suspend and reboot tests and confirm=
+ed<br>
+&gt; the visible results. The assistance arose from an extended troubleshoo=
+ting<br>
+&gt; session, rather than a single code-generation prompt.<br>
+&gt;<br>
+&gt; Evidence and detailed test results:<br>
+&gt; <a href=3D"https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items=
+/17180#note_3677750" rel=3D"noreferrer" target=3D"_blank">https://gitlab.fr=
+eedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750</a><br>
+&gt;<br>
+&gt; This is my first kernel patch submission. I&#39;d appreciate feedback =
+on<br>
+&gt; whether this belongs here or in the common DP helpers, and whether the=
+<br>
+&gt; matching criteria are appropriate.<br>
+<br>
+Thanks for the patch. Please let&#39;s first root cause the issue (on the<b=
+r>
+gitlab issue) before jumping into quirking specific devices.<br>
+<br>
+Regardless, a few comments below.<br>
+<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Conor<br>
+&gt;<br>
+&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++=
+++++++<br>
+&gt;=C2=A0 1 file changed, 48 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm=
+/i915/display/intel_dp.c<br>
+&gt; index ffddf4b33..6d6767ca7 100644<br>
+&gt; --- a/drivers/gpu/drm/i915/display/intel_dp.c<br>
+&gt; +++ b/drivers/gpu/drm/i915/display/intel_dp.c<br>
+&gt; @@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return drm_edid_read_ddc(&amp;connector-&gt;=
+base, &amp;intel_dp-&gt;aux.ddc);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +static bool<br>
+&gt; +intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct drm_edid *drm_edid)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0static const struct drm_dp_dpcd_ident branch =3D =
+{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.oui =3D { 0x90, 0xcc=
+, 0x24 },<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.device_id =3D { &#39=
+;S&#39;, &#39;Y&#39;, &#39;N&#39;, &#39;A&#39;, &#39;b&#39;, 0x10 },<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.hw_rev =3D 0x10,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.sw_major_rev =3D 0x0=
+6,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.sw_minor_rev =3D 0x0=
+5,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0};<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0static const u8 downstream_ports[] =3D {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x0a, 0x42, 0x00, 0x0=
+0, 0x00, 0x00, 0x00, 0x00,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0};<br>
+<br>
+intel_dp-&gt;downstream_ports is read from DPCD address 0x80, and it<br>
+dynamically reflects the downstream port information, i.e. what&#39;s<br>
+currently connected to the branch device. Having a fixed comparison like<br=
+>
+this will only work for a specific type of downstream device connected<br>
+to a specific downstream port.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0const struct edid *edid =3D drm_edid_raw(drm_edid=
+);<br>
+<br>
+No new drm_edid_raw() calls are to be added.<br>
+<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (intel_dp_is_edp(intel_dp) || intel_dp-&gt;is_=
+mst ||<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!drm_dp_is_branch(intel_dp-&gt;dpcd=
+) || !edid)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* HDMI and DVI inputs must retain their downstre=
+am limits. */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (edid-&gt;version !=3D 1 || edid-&gt;revision =
+&lt; 4 ||<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!(edid-&gt;input &amp; DRM_EDID_INP=
+UT_DIGITAL) ||<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(edid-&gt;input &amp; DRM_EDID_DIGI=
+TAL_TYPE_MASK) !=3D DRM_EDID_DIGITAL_TYPE_DP)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return !memcmp(&amp;intel_dp-&gt;desc.ident, &amp=
+;branch, sizeof(branch)) &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!memcmp(intel_dp-&gt;=
+downstream_ports, downstream_ports,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0sizeof(downstream_ports)) &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_dp-&gt;dfp.min_=
+tmds_clock =3D=3D 25000 &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_dp-&gt;dfp.max_=
+tmds_clock =3D=3D 165000;<br>
+&gt; +}<br>
+<br>
+We have intel_quirks.c with various structured mechanisms for<br>
+identifying quirks. If we end up needing a quirk for this, the existing<br>
+mechanisms need to be used instead of adding a bunch of code inline like<br=
+>
+this.<br>
+<br>
+Again, please let&#39;s first root cause and debug the issue instead of<br>
+trying to fix the patch.<br>
+<br>
+BR,<br>
+Jani.<br>
+<br>
+<br>
+&gt; +<br>
+&gt;=C2=A0 static void<br>
+&gt;=C2=A0 intel_dp_update_dfp(struct intel_dp *intel_dp,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0co=
+nst struct drm_edid *drm_edid)<br>
+&gt; @@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dp_get_pcon_=
+max_frl_bw(intel_dp-&gt;dpcd,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 intel_dp-&gt;downstream_ports);<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * Experimental workaround for the branch observe=
+d in an Anker A8388.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * USB-C hotplug can expose a DVI descriptor for =
+the DP output. The<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * monitor&#39;s native timing works when request=
+ed explicitly, despite<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * the reported 165 MHz limit. Keep the captured =
+identity and failure<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * signature checks narrow until the underlying c=
+ause is understood.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (intel_dp_has_anker_tmds_mismatch(intel_dp, dr=
+m_edid)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_dp-&gt;dfp.min_=
+tmds_clock =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0intel_dp-&gt;dfp.max_=
+tmds_clock =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_info(display-&gt;=
+drm,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 &quot;[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround=
+\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 connector-&gt;<a href=3D"http://base.base.id" rel=3D"noreferrer" ta=
+rget=3D"_blank">base.base.id</a>, connector-&gt;<a href=3D"http://base.name=
+" rel=3D"noreferrer" target=3D"_blank">base.name</a>);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dbg_kms(display-&gt;drm,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&q=
+uot;[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PC=
+ON Max FRL BW %dGbps\n&quot;,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0co=
+nnector-&gt;<a href=3D"http://base.base.id" rel=3D"noreferrer" target=3D"_b=
+lank">base.base.id</a>, connector-&gt;<a href=3D"http://base.name" rel=3D"n=
+oreferrer" target=3D"_blank">base.name</a>,<br>
+&gt;<br>
+&gt; base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04<br>
+<br>
+-- <br>
+Jani Nikula, Intel<br>
+</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
+=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
+ignature"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"lt=
+r"><div><table width=3D"640" cellspacing=3D"0" cellpadding=3D"0"><tbody><tr=
+><td style=3D"border-left:4px solid rgb(66,69,242)"><p style=3D"font-size:1=
+4px;line-height:20px;margin:0px 0px 0px 12px"><b style=3D"color:rgb(37,42,4=
+5)">Conor Svensson</b><br></p><p style=3D"font-size:14px;line-height:20px;m=
+argin:0px 0px 0px 12px"><a href=3D"https://calendar.app.google/qwPdNGAewy95=
+Bmbn9" style=3D"color:rgb(91,91,91)" target=3D"_blank">Schedule a Meeting</=
+a><span style=3D"color:rgb(91,91,91)">=C2=A0</span></p><p style=3D"font-siz=
+e:14px;line-height:20px;color:rgb(91,91,91);margin:0px 0px 0px 12px">+44 (0=
+) 7497 376 365</p><p style=3D"font-size:14px;line-height:20px;margin:0px 0p=
+x 0px 12px"><a href=3D"https://www.linkedin.com/in/conorsvensson/" style=3D=
+"color:rgb(91,91,91)" target=3D"_blank">LinkedIn</a><font color=3D"#5b5b5b"=
+>=C2=A0=C2=A0</font><a href=3D"https://twitter.com/conorsvensson" style=3D"=
+color:rgb(91,91,91)" target=3D"_blank">X (Twitter)</a>=C2=A0<font color=3D"=
+#5b5b5b">=C2=A0</font><a href=3D"https://t.me/conor10" style=3D"color:rgb(9=
+1,91,91)" target=3D"_blank">Telegram</a>=C2=A0</p></td></tr></tbody></table=
+></div><div><br></div></div></div></div></div></div></div>
+
+--000000000000b00c7e065c3770b4--
