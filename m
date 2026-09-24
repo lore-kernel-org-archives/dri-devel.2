@@ -4,99 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF20EC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A4FAC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D401510F916;
-	Fri, 25 Sep 2026 07:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D47910F931;
+	Fri, 25 Sep 2026 07:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZsbR5AWy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VU/KBHeX";
 	dkim-atps=neutral
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
- [74.125.224.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA39210E216
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 01:06:42 +0000 (UTC)
-Received: by mail-yx2-f12.google.com with SMTP id
- 956f58d0204a3-66e4ab2029eso517279d50.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 18:06:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790298401; cv=none;
- d=google.com; s=arc-20260327;
- b=ZTNUUxeCjPwlZkk/3WiRSLVQu4+aYMB82uZ0UiIYdnq/4WBN5s2sr/AjKh3Me5/ypT
- vmql22plxW+6fPljGP0EwrfKniv9U6mPznG37j9gKU8Z36XXZynE0fu+QmAJA/S6Iwy6
- myoHdJLR0NeY8sMWnRLwZRIjOoznGU6AnM8uwUGNzVqdonhqWQv+f6sexQrFvkhkp0kR
- xlqQCLF7o5RPtgxqFa2w2G8IGwa1cMDqaOyQaG2TfQSXDZQxbE5aRv2LHwY3EwJR9Tk3
- jid/ZnfG/loppUQr1yme2XJG+oj5z3vl0Sidrz+trAGvGyd7zo5TCOUFv74vi+7MXQj+
- 0SLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=0UWWegM3zaySSImGAmVuG25fiwQNAAHUhoXGTbOrN78=;
- fh=9GDLYrDP8FWecc4hT0utHXxfweav+PD2e1YyPSwCxSg=;
- b=nF57EdBksYyhj0ZrGB1CQdw+btZJIflJb+9ki6DgN1HdkVi83+Zm+EDPapdn3FaMx6
- iuOXiSCzU36CsyGkx1VbO3zlUVxxujOB2WTKsjDpsEsVnG/IBTzVeiV3oz9wdYmXZ1/t
- ea9HSLKCydhnqoc2Sqf+qDU7dnJ4Rg4WePnkXpLZEEXWBNarawpDUFMppgt7LWRCVqOj
- +xkhGY7YDth8HmNrIx1MawXSg8ICtbzvubIrtAzPeD2WwATwJR/PBmXnaY63b+ZP2ycP
- Hfb/0DukgWembX37tiTdHVOZj75/9hfK/snrpu+SOTQwXHD8k7HnuWJSijE9z2rIjHhL
- hG+g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
+ [74.125.227.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5B210F36F
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:30:15 +0000 (UTC)
+Received: by mail-pj2-f43.google.com with SMTP id
+ 98e67ed59e1d1-39b9184fa80so1224450a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 00:30:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790298401; x=1790903201; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0UWWegM3zaySSImGAmVuG25fiwQNAAHUhoXGTbOrN78=;
- b=ZsbR5AWygCEQGHUEa6qAtQM1Nj+Ihv0dvo5lgZOLp8KqY+v4HQEdyY/dMN1tuYOyf+
- D5EIKU6M6v+SRw9MMPfTmx0HZ6/mx2d0tvs0OYAEasg95DLIRyurVhQnlPV9FaLiJk6i
- OIUK7WH8LKC3tlOrZmET/95gb/FNsEOmSoyTMdvKvX6BsQUY3PrP3svcb8c9aUMtjkEq
- AgbuOeH3+aPnUo7FQbLjMJqQX+ywGBcsA6QJjT6bEodNTjNEGu4s7yN1KNK3+6WYPcBA
- j5af4634hyBgG+4Qf7m5whRT7Fa1t6+vMxz3+K+ZTHaHW7IyN3qSy8SYAsLpxD8XAdC+
- zymQ==
+ d=gmail.com; s=20251104; t=1790235014; x=1790839814; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I5RaZ9J/BPAqTVFwFZkJAJ6b/KARjI40wHk0bzH3x3U=;
+ b=VU/KBHeXmbjOV8qmsdWp2pzYO35rtNWOMYnzTBbatm82KfiRu1Z6W+ZzCMSRf8lBvR
+ DaXSO5SnTbvXdNk+/CkYsgabkLQJbE8Qgx8d3E5RPN5WAIKZm/jYPqi3qlAGS1Btgz1e
+ ezDWicAIvth995OuTjtaxM4s7WzYypIlYbglYsYYuP9+grIqOUW4mhDeowLLzL21WM5d
+ UxyoGukWDd+AF4Rj+2loxUVqBzbP26fwhLuh1BksFutPXsEmCIKe4/2vUN6+8Z65SaWD
+ NveOED6VgSPc/rzt2pouJ4Su0IYfa0RKtDGaoiH7/eav0/L4tp9aBCYVL/VuvpOLUZ5U
+ jdgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790298401; x=1790903201;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0UWWegM3zaySSImGAmVuG25fiwQNAAHUhoXGTbOrN78=;
- b=xl7G1QHLncKYIW6AIhcoroq4yHLtj3vUIOATl4tfRc6Y3VemVYcUs+wuCNMAzm/pZi
- 7fcYDQ33xWNiQezOGau4uYC/G5knTXNnJIll2hSxLCax1JUf3QA69UL21s72ce8VyiSW
- 1MvmtBsDrGTHIm1drUpFw7M/egwacNUdJQXKPvE6EX7u2LV5XNviIxrlp7YGW15jPwlR
- /cfxNzMR/FIyeXeoSAgo/j4zyLr5RHtSfmtSv89Y4RfGxp22JIDel6gulbHMicI54Wdf
- CbNEHlljURAWN74YVWyMs0Nabc3FB8z3M1PMwk2/WGbN9dhAiDrqYPDIhpr2JqLqbnkY
- NGIg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwzsW6DfEIAXlE+aaTGOlO9b2IgV/NO1O4UJtppGIztghz3jjWGpWh8lE1YlaJgsedbvRVBL/h2O0I=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lKsOhZAaeSFpkY3FMBaChowprkYktLHYBNezHwfz1xzsKCXalI
- 4jpEmdd/KQW5SvL+3GAGo1/njbZAFD8rSI/UQJ1AMYaDW4ocG/3UJ/PKQJ5JGUsFQ7llxRo7XW7
- SyV3IsNcPVEPm0P1TodNIQ/NEQUinpDA=
-X-Gm-Gg: AYBFou0WUA3NEll9/oh6vnTcd9FJuW4oD8rNxR7DwWW6HSLOiyCc7GScKpmOLfm6DKc
- od1sFdop6vvx4c3wLsttD/0sxtwUE9kYhQGDS87oKtco9fQ205jbGJU1ZxRYrJPstCoe4S/dO+K
- VdhkRwVRTfviF/rkqzLE7IRX+yP0LhDsarUMt4R4FnWlMgSAmch+b6lxpPmQuaycVXjUNQOVgHm
- Zkk3252/IuxG94G4Mwn57CBtP/RBXT9WM6CU7k6a++WTbcSRQN6sM0MuRTy4dphkpae3lji9UW5
- 1IUxIZ1h8PPbHgbdopbarFvsPAHCri/N6MhnJ8/uFBMI+pBiCwfA/5BDJXyDNRc5uKyR5JBVWut
- mPcPkC/GgITZN/jVqVhTHLNeBHAiVzrNgPOzcTFx7h1Q=
-X-Received: by 2002:a05:690e:1343:b0:672:99e1:11f4 with SMTP id
- 956f58d0204a3-672ed523ab0mr1807170d50.145.1790298401392; Thu, 24 Sep 2026
- 18:06:41 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790235014; x=1790839814;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I5RaZ9J/BPAqTVFwFZkJAJ6b/KARjI40wHk0bzH3x3U=;
+ b=wc+U8uW0YntNs1mOCQ/wiMqnPq+iP8DSg7sO1i4qwn9NDkp36BjkhtI37e37NlgP64
+ pDKVPqHeeLODB32JYSSKs518AfxNrPzAUMnY303hw+44dEBESZFKGngMU9OFMPXYbgLb
+ 9o5bq5o73EVa7P+3qgqIwIhl8gUMUtLo9bdbMnLweONlzcHSXRGStXmkwtVk63phVyQo
+ G7NCyhOukT1uLdLozjJBWPZhffRZgQmZiupRyC+cXko5huOjTBETMYcMTUbXjUKpMG8x
+ +sf6vSvKFGmTjBtWLJ9YzaKG1qU9GQ4WCWHRK9dTRf11H+1I65MBy0WwepveM0OvM58e
+ Rcfw==
+X-Gm-Message-State: AFuF++kub9ffj8MxHYCbGlcgDPWO16Jlv75IMHb3jw5wAjoOV44k6Kvj
+ CQfgqnPX79nrcQEW0qj+Dqomg7jN3ggzu57iKGe+dSmMxf7DCg4Lp8cr
+X-Gm-Gg: AYBFou0d2Mvb/ys5az/nEhVKB0W2zMvWxs+Cyw4cH+ynLDwdXBiO1YFPdqXQ9hpUKtV
+ AGFaMnkn6aOOuerSXQfAWTDMPm7TXm79TCTBfRaNWqHd1ZuNiCqJYPg5XS6Xzo1OHu+rXT+CXHe
+ I2COvMSGVZ2YGQK6JvlARJjBMfvEPOnKBxr8PVFM7mpNqbbDCB+vjxdP0GFv54BnO2mr1n+qQ5s
+ c8aHpEYKPoWgJyKSv5kmYmVsk0BQ7OUDP3CCOvTvwWTCNSBbVPIzzprCTEpbd7sqBVwhTPhTKB5
+ IkGB+Coy2Oiu3k4z7E4CMyXr47ukgC/qeTlv7OQJ8AqXiStWi2k8p/u6Rdv65Dd0psjaxJAU8eO
+ kGQ0L/WdgV0fIkxvDMuuqMnShlP197nQ5BeIdc66VFkbvQL+4ivkYTmDcpb1R3QYYaNRJ3lpnFh
+ XzHOVTi4zk4cXf0A+P7u384kTab+CTeCcvIcA4E1c+Qacf6CTgF7bY2zsa1bGLpbDDwjR261e1b
+ D+X0RUBDzO9c3x1uTCzK7zSJeZhXB0CWveZssefXSye1EajG5nMSMEwlZpLS9d8wnKButvqdSTk
+ 3SucVtewjA==
+X-Received: by 2002:a17:90b:28d0:b0:39e:6a81:c920 with SMTP id
+ 98e67ed59e1d1-3a098724784mr1301143a91.19.1790235014279; 
+ Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a0972efa0bsm3184726a91.8.2026.09.24.00.30.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Sep 2026 00:30:14 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: jani.nikula@linux.intel.com, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v3 1/2] drm/udl: reject short USB control transfers in
+ udl_read_edid_block()
+Date: Thu, 24 Sep 2026 07:30:10 +0000
+Message-ID: <20260924073012.2742968-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260924064434.2541959-2-benquike@gmail.com>
+References: <20260924064434.2541959-1-benquike@gmail.com>
+ <20260924064434.2541959-2-benquike@gmail.com>
 MIME-Version: 1.0
-References: <20260922144634.55130-1-talesam@gmail.com>
- <arWenmbBkCZ4m7I8@gsse-cloud1.jf.intel.com>
-In-Reply-To: <arWenmbBkCZ4m7I8@gsse-cloud1.jf.intel.com>
-From: =?UTF-8?B?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Date: Thu, 24 Sep 2026 22:06:30 -0300
-X-Gm-Features: AclHuK-r4LLIiBiR1RGrRY3Sys7ZN1PZp4qyLo2evLQzPzAw5UlLUytrsT3CmrE
-Message-ID: <CAHBRX4EnQ2W1XxzZjnqZfQS0cG7V4PNB_47s5dHnX6T8N5CiCA@mail.gmail.com>
-Subject: Re: [PATCH v6 0/3] drm/xe: fix GuC TLB invalidation ack stalls on ARL
- (Wa_22016122933)
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, daniele.ceraolospurio@intel.com, 
- stuart.summers@intel.com, julia.filipchuk@intel.com, 
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, 
- jani.nikula@intel.com, navonjohnlukose@gmail.com, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,10 +95,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks Matt, and thanks everyone for the reviews and the testing.
+In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
+read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
+Currently the short-transfer check tests ret < 1 instead of ret < 2, so
+if a short USB control transfer returns 1 byte, read_buff[1] is not
+written by usb_control_msg() and retains the previous iteration's byte (or
+uninitialized kmalloc(2) memory on the first iteration), which is then
+copied into buf[i].
 
-Tales
+Change the check from ret < 1 to ret < 2 so any short USB control
+transfer fails with -EIO.
 
---=20
-Tales A. Mendon=C3=A7a
-talesam.org | communitybig.org
+Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
+emulating a DisplayLink UDL USB device: on the unfixed kernel, when
+usb_control_msg() returned 1 byte for an EDID read (short transfer),
+udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
+data into the EDID buffer; whereas with this fix applied, ret < 2
+correctly fails with -EIO and prevents EDID buffer corruption.
+
+Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
+Cc: stable@vger.kernel.org
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v3:
+- Change (ret != 2) to (ret < 2) in udl_read_edid_block(), as requested
+  by Thomas Zimmermann.
+
+Changes in v2:
+- Split out as patch 1/2 as requested by Jani Nikula.
+- Added testing details in QEMU on short USB EDID control transfers.
+
+ drivers/gpu/drm/udl/udl_edid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
+index af4cff2a7c51..2120e363b6eb 100644
+--- a/drivers/gpu/drm/udl/udl_edid.c
++++ b/drivers/gpu/drm/udl/udl_edid.c
+@@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
+ 		if (ret < 0) {
+ 			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
+ 			goto err_drm_dev_exit;
+-		} else if (ret < 1) {
++		} else if (ret < 2) {
+ 			ret = -EIO;
+ 			drm_err(dev, "Read EDID byte %zu failed\n", i);
+ 			goto err_drm_dev_exit;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
