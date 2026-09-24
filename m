@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE93C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5999C98326
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A85C610F8F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A9D710F8ED;
 	Fri, 25 Sep 2026 07:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Wc6z9R8B";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="WLezWYFL";
 	dkim-atps=neutral
-X-Greylist: delayed 23062 seconds by postgrey-1.36 at gabe;
- Wed, 23 Sep 2026 11:56:30 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E5210EFDC;
- Wed, 23 Sep 2026 11:56:30 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC35710E543;
+ Thu, 24 Sep 2026 12:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ri
- 8FyuOCQtYkwZzSZfiHKNrXOAfY81g/ycbm8C3SdHw=; b=Wc6z9R8BKqaPvZZA/1
- aldbg3Ij4JcCF8O1u3fmSlRdQxPJcXodLaf2/JhR64PYDjrb/Yk7RsrsnokUJaeB
- TH/selq0BbBkK+eVte2dK75nJM/9kKAvZw43LX9jT7Qvl6Tl/5cz5dpyCXPE2YEx
- D5fP+kk22EqP2bs8bZ39tjwV8=
-Received: from fedora (unknown [])
- by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id
- _____wD3fxJcvrNq3ctJAQ--.47372S2; 
- Wed, 23 Sep 2026 19:56:12 +0800 (CST)
-From: Xizhe Tang <xizheTang2005@163.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Xizhe Tang <xizheTang2005@163.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: [PATCH v2] drm/i915/dp: Only send AS SDP when VRR/CMRR is enabled or
- PR !async
-Date: Thu, 24 Sep 2026 03:51:49 +0800
-Message-ID: <20260923195149.21329-1-xizheTang2005@163.com>
-X-Mailer: git-send-email 2.55.0
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=PE
+ PnVVexH+hFXfSPkcaX+kZ98oVF8UZaUHBxwCAYz/I=; b=WLezWYFL5Ag+IBoTaE
+ mIIAveOeVxAYekHqcmfWs3ZhrUacI41HOo5CmMz+6E+h6luX+7Ig4uT5Qd5RLPfv
+ uKCQwOpufHtQi610oCg4Eyi4Tfs7NMmaRqBFWwEqz0PIqafmjOxv/YoMgSdUX1qx
+ yvNi7Cnnf+4oHHrHaHIC6ITrE=
+Received: from pc.localdomain (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgAXhnqMGbVqI5arBA--.27527S2;
+ Thu, 24 Sep 2026 20:37:34 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/qxl: validate client monitor index before access
+Date: Thu, 24 Sep 2026 20:37:30 +0800
+Message-Id: <20260924123731.803007-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3fxJcvrNq3ctJAQ--.47372S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4xAw4kAFy5ur45AF1DJrb_yoWrJF18pw
- 47WryFyr4fXFyIqFWxXFn2vFy5WwsrJ34rGF98G3y8Z3Wqk343trZavayj9a4Dur4xXF1F
- yrZ5JFWqka10vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKLvuiUUUUU=
-X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
-X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbCwR1OpWqzvl0lWwAA3z
+X-CM-TRANSID: QCgvCgAXhnqMGbVqI5arBA--.27527S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZr4ktrWkXw4xGF4xtw4Dtwb_yoW5Gw4rpr
+ Z8tFy5Kr1kJFyaya1DAa4xWF4rC34qyFWI934fG3WavFyqkrWYyFyDtrn8uF9xJF98AF18
+ uw1FgFZFvF1DCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piAwIDUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A5xq2q1GY5e-QAA3P
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,87 +63,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A Panther Lake eDP panel that advertises VRR in EDID but runs at a fixed
-refresh rate has received an Adaptive-Sync SDP since commit 6a1712052859
-("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async").
-On this panel the first modeset at boot is vertically streaked.
+client_monitors_config is allocated with space for count heads, while QXL
+creates qxl_num_crtc outputs whose indexes range from zero to
+qxl_num_crtc - 1.  The monitor count may be smaller than qxl_num_crtc, but
+qxl_update_offset_props() and qxl_conn_get_modes() use the output index to
+access heads[] without checking it against count.
 
-intel_vrr_possible() is only crtc_state->vrr.flipline != 0. Fixed-refresh
-timings program flipline too:
+Starting QEMU with "-device qxl-vga,xres=1024,yres=768" provides one
+client monitor while the driver creates four outputs by default.  KASAN
+reported the first out-of-bounds access during probe, with
+qxl_update_offset_props() inlined into its caller:
 
-	intel_vrr_compute_fixed_rr_timings():
-		/* For fixed rr,  vmin = vmax = flipline */
-		crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+  BUG: KASAN: slab-out-of-bounds in
+  qxl_display_read_client_monitors_config+0x2379/0x2e30
+  Read of size 4 at addr ffff88810403e170 by task swapper/0/1
+  Call Trace:
+   qxl_display_read_client_monitors_config+0x2379/0x2e30
+   qxl_modeset_init+0x6a6/0x7b0
+   qxl_pci_probe+0x150/0x2d0
 
-intel_vrr_compute_config() takes that path when VRR is not actually
-enabled (uapi.vrr_enabled is false, or vmin == vmax). Then
-intel_dp_needs_as_sdp() is true with `vrr: no, fixed rr: yes`, and
-intel_dp_compute_as_sdp() programs DP_AS_SDP_AVT_FIXED_VTOTAL.
+The same configuration reaches the unchecked access in
+qxl_conn_get_modes() when userspace enumerates connectors.
 
-Gate the terminal condition on the states that consume the SDP:
-crtc_state->vrr.enable (VRR) or crtc_state->cmrr.enable (CMRR / FAVT).
-Leave the Panel Replay aux-less-ALPM early-return from the same commit
-unchanged.
+Skip offset updates for outputs that have no corresponding client head,
+and retain the default preferred mode dimensions in qxl_conn_get_modes()
+when its output index is outside the client head array.
 
-CMRR is still hard-disabled (is_cmrr_frac_required() has "|| true"), so
-cmrr.enable stays false today and the OR is a no-op versus v1 at fixed
-refresh. intel_vrr_compute_cmrr_timings() sets cmrr.enable without
-vrr.enable; the OR keeps the FAVT branch reachable when CMRR is re-enabled.
-
-This is a no-op while VRR is actually active. It does not fix Adaptive
-Sync = Always corruption, nor the non-atomic SDP update named by the
-#FIXME above intel_dp_compute_as_sdp(). Trailer is Link:, not Closes:.
-
-Tested on LENOVO 21VG (PTL eDP, 8086:b080), v7.2.6-200.fc44.x86_64,
-rebuilding only xe.ko with this hunk:
-
-  Adaptive Sync = Never (Tested-by): vrr: no, fixed rr: yes,
-  infoframes enabled: 0x6 (no BIT(3)), zero Adaptive-Sync SDP, panel
-  clean. This boot: six s2idle suspend/resume cycles, all clean.
-
-  Adaptive Sync = Always (not Tested-by): vrr: yes, vmin 2016 / vmax 8064,
-  infoframes enabled: 0xe, Adaptive-Sync SDP still sent. Panel
-  appearance on Always is not claimed.
-
-  CMRR / FAVT: not tested.
-
-On the same panel, Adaptive Sync = Never, first modeset, drm.debug=0xe:
-
-  7.1.13 (clean):     infoframes enabled: 0x4  (VSC only)
-  7.2.4  (streaked):  infoframes enabled: 0xc  (VSC + AS SDP,
-                      operation mode 1 = DP_AS_SDP_AVT_FIXED_VTOTAL)
-
-  Later dumps of those boots are 0x6 vs 0xe; each non-zero bad mask is
-  good | BIT(3).
-
-Changes in v2:
-- OR crtc_state->cmrr.enable so CMRR still gets AS SDP (v1 review).
-  At fixed refresh v2 matches v1.
-  v1: https://lore.kernel.org/r/20260923052937.22817-1-xizheTang2005@163.com
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
-Fixes: 6a1712052859 ("drm/i915/dp: Enable AS SDP whenever VRR is possible or PR !async")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
-Tested-by: Xizhe Tang <xizheTang2005@163.com> # v7.2.6, PTL eDP, Adaptive Sync=Never
+Fixes: 7dea0941f880 ("drm/qxl: use suggested x/y offset properties to pass guest prefs")
+Fixes: 1b043677d4be ("drm/qxl: add qxl_add_mode helper function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/qxl/qxl_display.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3115,8 +3115,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 0719fc6a52d5..25f786ab7f1b 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -158,6 +158,9 @@ static void qxl_update_offset_props(struct qxl_device *qdev)
+ 	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
+ 		output = drm_connector_to_qxl_output(connector);
  
--	return intel_vrr_possible(crtc_state);
-+	return crtc_state->vrr.enable ||
-+	       crtc_state->cmrr.enable;
- }
++		if (output->index >= qdev->client_monitors_config->count)
++			continue;
++
+ 		head = &qdev->client_monitors_config->heads[output->index];
  
- static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
---
-2.47.0
+ 		drm_object_property_set_value(&connector->base,
+@@ -1056,7 +1059,8 @@ static int qxl_conn_get_modes(struct drm_connector *connector)
+ 	unsigned int pheight = 768;
+ 	int ret = 0;
+ 
+-	if (qdev->client_monitors_config) {
++	if (qdev->client_monitors_config &&
++	    output->index < qdev->client_monitors_config->count) {
+ 		struct qxl_head *head;
+ 		head = &qdev->client_monitors_config->heads[output->index];
+ 		if (head->width)
+-- 
+2.34.1
 
