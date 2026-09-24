@@ -4,75 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A848CC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C93EC9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:32:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25FC410F933;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7225910F935;
 	Fri, 25 Sep 2026 07:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TdqfDPK0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PLQwBAOG";
 	dkim-atps=neutral
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
- [74.125.224.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5557710F1C4
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 20:59:00 +0000 (UTC)
-Received: by mail-yx2-f13.google.com with SMTP id
- 00721157ae682-85d43ac6072so25111277b3.0
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 13:59:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790197139; x=1790801939; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
- b=TdqfDPK0Be5VxBNmTDVlWxjOU8BdE4+kKU/JgQHUHUjuk/qJX4spq5QPAazgpOuSvV
- N9/89F4pb3h19XicDviaBPR1ERuU4H9Q7NYsuwMHLMXy1i2PZ3ahHWVlw+rxVSLf2+6z
- f4iHudc2MxSnlwkJzi1oR9Z8C9kpHAzu9CXvSkWFyGHRAj1uszGKeQQ20dIVKKKPk+bE
- iBzdZ6AXHprzEbSS/do8lRI5YvjWTHTlhGnXUcvSjiIDWFs8tY2Y9u9MXF0mshu6X+7l
- /Skt+iu1W/j9V6ZhT4eFKfsYkLA6tlY7qnN8ATihyRPF2TwFtzPJsU3Q55i1bI9zLANh
- tkww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790197139; x=1790801939;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
- b=lOm+BLW97nZHZqkreI8N+NbXvWzTVcG4Evlxl3S8rrFdFHQ1wqNhzRRCr93K7u/zlo
- H+Y+cl1+OBMU5d+NUAUs2kagtTU514EI2sr/CV8XxOOg0V0mcERlDX35v4pgBG876EM4
- A+G+XH5RinZOy6+rCru2bVDsCevdnD5VwVc34aCuzfisWCeDfsrutNVB+PQDjIx7DvZ9
- jcfUBIQHZtT3um2LhC20ZX8Dcj/wPVt8e+WMwXdye1NA3kLzUBEEBvJtsjEyuwtWYxZ/
- e1tW9bnBOqdcPXtBBE+DZxEo8AkbUeBvPzvErFW4yw/U67HdtBSSbGQZktDND04lCsIQ
- uG8w==
-X-Gm-Message-State: AFuF++lzLKX4xagJbu2ZnW7oL/JQyQZrVPM0BuKibTi9eRe82uwl69mH
- HgBiVhpUAQicUA6+tjaf/1JezF4VShsV3tNP4TJWNz9CRL/Tipp/DLSZexex06Ko
-X-Gm-Gg: AYBFou0c8xyrpc/2gXB75nbA750zFI/16aP9L1Wvz1V0DLP6fMtEX78Wep86GkkGMoa
- 0Gzrb8CcteMPs9HNIAsHzwpYUNYMmka2vJCKLuWuojmqBoCBfXgSJUXywi9nJIARvS0wPTqfuvM
- aOtvLYGyVfgUr9ly/XuP3bOVy/e7f7j34XlyJKTiUxlV2j/5BDtIwII4kiNUqC5i4WYSL2LzGLL
- ujv6sL/B1CRvYzRztZVmbRM8RGgAjOFlrTJ9phQY2CNmHaHFxMgsZiUgNWUC0g5kD2F8qn7JCdl
- FsGEFClPqS0NIKawmJZ/mh+oAy6wNQS7u45SWNsa0wEKrgBydv1tuKLsQxHu0CfEQ3NbHFeptCd
- heCRlVhvNGd2VCQgT9fO8bvQBgCLHIPmXgCLr6VLxiKLGENqQRdy4uV1LjV5AHPKhQtiDARu3d/
- /E4lAzCf0QKnMfdOtBAvbP5WeDWW0srxuj49jDsnTY/pQQUucTiVAK/qzfVm4BcAk6jmssiwaPH
- CHdmfN1Xw==
-X-Received: by 2002:a05:690c:ec5:b0:884:b55c:312 with SMTP id
- 00721157ae682-8a648ec512fmr3446857b3.16.1790197139130; 
- Wed, 23 Sep 2026 13:58:59 -0700 (PDT)
-Received: from DESKTOP-TLFH1MG ([76.255.203.42])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8a65270b1e2sm1073467b3.41.2026.09.23.13.58.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Sep 2026 13:58:58 -0700 (PDT)
-From: Jonathan Frazin <frazinjonathan@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, kamlesh.gurudasani@gmail.com,
- lanzano.alex@gmail.com, phil@raspberrypi.com, linux-kernel@vger.kernel.org,
- Jonathan Frazin <frazinjonathan@gmail.com>
-Subject: [PATCH v3 0/2] drm/mipi-dbi: display a cropped region of an oversized
- framebuffer
-Date: Wed, 23 Sep 2026 15:58:32 -0500
-Message-ID: <20260923205835.3505-1-frazinjonathan@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A6D10F413
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:06:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E9433602C3;
+ Thu, 24 Sep 2026 10:06:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C321F00893;
+ Thu, 24 Sep 2026 10:06:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790244413;
+ bh=Tmln/mtpzj8HRD3oGhB2G+T5+fAuKHxHe9EIDa4XupE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=PLQwBAOGo9zDSHvR7HKzryQ/BMyFMtzGN+nCViQmJtAxtR/cVtie3h8+uTfYAAuqI
+ 031IL8YiCRbRgN3Lu0GdOWHF3up1c5eAkeUhEPdxuJ9q/SthtjUJM4e5DTQk3971Cv
+ +R/NIvQEe5TAium5bmdEyB/qSUVvrKQ3N2k6WtmzwCU8Hw7KqZ3HuHqonUNceqtFUI
+ gkBAcKeGMzG5vw33mskB8GCIprFrs11XV7eTU1DX4P4aEFuLfxG1bzkZcra4RB+dUr
+ UBz/croW/YGWjUjo9iUnRJL3m1e4m9BS//Qzg5nKK/0JyOftW1GHHLTSp3iQSWnW2G
+ YCgs9xZC0a5iw==
+Date: Thu, 24 Sep 2026 11:06:21 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 04/40] mm: consistently validate VMA state after
+ mmap[_prepare] hooks
+Message-ID: <arT1xJpWlFlRHUFY@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-4-4583d8a23bca@kernel.org>
+ <DLN7FLRJGS5Y.1T8T274W2NS6L@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLN7FLRJGS5Y.1T8T274W2NS6L@nvidia.com>
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,65 +143,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that is exactly panel-sized, always from the origin. This series lets a client allocate a larger framebuffer and choose the displayed region via the plane source rectangle - a crop / pan with no scaling.
+On Wed, Sep 23, 2026 at 10:52:06PM -0400, Zi Yan wrote:
+> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> > When the f_op->mmap_prepare or deprecated f_op->mmap hooks are invoked, the
+> > driver might have done something crazy that is not permitted by the kernel.
+> >
+> > Currently we check for three such cases in __mmap_new_file_vma(), but only
+> > if the legacy f_op->mmap hook is used:
+> >
+> > * Did sparc ADI result in invalid flags?
+> >
+> > * Did the driver alter vma->vm_start?
+> >
+> > * Did the driver make a file-backed mapping on a read-only file writable?
+> >
+> > Generalise these checks for both mmap_prepare and mmap and apply to all
+> > invocations of mmap_file(), the f_op->mmap and f_op->mmap_prepare handling
+> > in the core VMA code and the mmap_prepare compatibility layer.
+> >
+> > Also extend the vm_start check to vm_end also - drivers must not change the
+> > VMA range at all.
+> >
+> > We also WARN_ON_ONCE() on these conditions as they are things that should
+> > simply not occur in the kernel and it's important to call it out when it
+> > does.
+> >
+> > We invoke mmap_prepare_validate() after mmap_action_prepare(), as mmap
+> > actions often manipulate state in the descriptor thus providing the final
+> > state the VMA will be derived from.
+> >
+> > Also call mmap_validate_vma_flags() in insert_vm_struct() to ensure that
+> > special regions which are inserted (such as a VDSO or VVAR) also satisfy
+> > the sanity checks.
+> >
+> > This way every VMA established through an mmap hook, whether via mmap() or
+> > the compatibility layer, or inserted via insert_vm_struct(), has been
+> > validated. brk() VMAs never pass through a driver hook and so need no such
+> > check.
+> >
+> > While we're here, also fixup a couple disjoint blocks of #ifdef CONFIG_MMU.
+> >
+> > Finally, update the VMA userland tests to reflect the change.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/internal.h                   |  51 ++++++++++++--------
+> >  mm/util.c                       |  19 ++++++--
+> >  mm/vma.c                        | 100 ++++++++++++++++++++++++++++++++++------
+> >  mm/vma.h                        |  25 ++++++++--
+> >  tools/testing/vma/include/dup.h |  10 ++++
+> >  5 files changed, 163 insertions(+), 42 deletions(-)
+> >
+> <snip>
+> > +
+> > +/* Check to ensure a driver hasn't done something crazy. */
+> > +static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
+> > +			 unsigned long curr_start, unsigned long curr_end,
+> > +			 const vma_flags_t *prev_flags,
+> > +			 const vma_flags_t *curr_flags)
+> > +{
+> > +	bool was_maywrite, is_maywrite;
+> > +
+> > +	/* Drivers cannot alter the range of the VMA. */
+> > +	if (WARN_ON_ONCE(prev_start != curr_start || prev_end != curr_end))
+> > +		return -EINVAL;
+> > +
+> > +	was_maywrite = vma_flags_test(prev_flags, VMA_MAYWRITE_BIT);
+> > +	is_maywrite = vma_flags_test(curr_flags, VMA_MAYWRITE_BIT);
+> > +
+> > +	/* A driver may not make a previously unwritable mapping writable. */
+> > +	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
+>
+> Is it driver specific or generally applicable to all mmap(_preppare)
+> operations? Is the comment too specific?
+>
+> During my LLM quiz, making memfd write seals writable via a
+> hypothetically wrong shmem_mmap_prepare() implementation is an example
+> for this WARN_ON_ONCE. It is not driver related. Let me know if I get it
+> wrong.
 
-Motivation: feeding hardware-decoded video to a small SPI panel. The video decoder emits a fixed frame size; being able to point the panel at a panel-sized window of that buffer avoids a full-frame CPU copy on every flush and lets userspace pan/centre the image.
+Driver is taken to mean anything with an mmap or mmap_prepare hook, like a
+general term for that.
 
-Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller in framebuffer coordinates, which is only correct while src_x/src_y are zero. It now subtracts the plane source origin.
+If we start getting into calling it different if it's a file system or memfd or
+something then it becomes quite hard to talk about it.
 
-Patch 2 raises mode_config.max_width/height (pinned to the panel size) on the six drm/tiny drivers that flush through the shared drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has its own flush path that does not carry the source offset.
+And yeah I hate that it's not a good name because driver makes you think
+something in drivers/* or an OOT one or something but the kernel makes it vague
+:)
 
-Open question for patch 2: the six drivers each set the limits identically in their probe. This could instead be a shared helper (or folded into drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future drivers get it for free. Happy to respin that way if preferred - the per-driver form is what is shown here because it is the smaller diff and easier to review a first pass.
+Naming is hard...
 
-The min_width/min_height, the fixed mode, the connector and the mode-sized transfer buffer are all unchanged, and drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING and no repositioning, so the flushed rectangle stays bounded by the panel regardless of the framebuffer dimensions.
+>
+> Otherwise, LGTM.
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both 240x320 - an oversized framebuffer is accepted and a non-zero-offset panel-sized window scans out correctly; a panel-sized framebuffer is unchanged. HX8357D was tested during the downstream review by Dave Stevenson (Cc'd). ili9486, mi0283qt, ili9163 and st7735r are build-tested only.
+Thanks!
 
-Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and in use there: https://github.com/raspberrypi/linux/pull/7589. The v1/v2 heap-overflow fix (see below) has also been folded back into that downstream kernel: https://github.com/raspberrypi/linux/pull/7643.
-
-Applies to current mainline / drm-misc-next; the touched files are identical there.
-
-Changes since v2:
-- Patch 1: a damage clip that lies entirely within the one-pixel sliver
-  the v2 clamp cuts off collapses the clamped rectangle to zero width or
-  height. That was still being passed to mipi_dbi_set_window_address(),
-  producing an inverted (start past end) address window ahead of a
-  zero-length write - undefined behaviour per the MIPI DCS spec. Skip
-  the flush when the clamped rectangle is empty.
-- Patch 2: st7735r also flushes through the shared
-  drm_mipi_dbi_plane_helper_atomic_update() but was missed from the
-  original list - it lives under drivers/gpu/drm/sitronix/ rather than
-  drivers/gpu/drm/tiny/. Added it, and confirmed by grepping the whole
-  tree for DRM_MIPI_DBI_PLANE_HELPER_FUNCS that no other driver shares
-  this path. Thanks again to the automated review for catching both of
-  these on v2.
-
-Changes since v1:
-- Patch 1: clamp the damage rectangle to the panel's fixed mode before
-  using it, instead of trusting it to already be panel-sized. src_x/src_y
-  are the plane source origin truncated to whole pixels, but the
-  rectangle from drm_atomic_helper_damage_merged() is clipped against
-  that origin's exact 16.16 fixed-point value - when the origin has a
-  fractional part, the rectangle's far edge could land up to a pixel past
-  where the truncated origin would place the panel's own width/height,
-  overflowing the panel-sized tx_buf. Thanks to the automated review for
-  catching this.
-- Patch 2: unchanged.
-
-Jonathan Frazin (2):
-  drm/mipi-dbi: honour the plane source offset when flushing
-  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
-    drivers
-
- drivers/gpu/drm/drm_mipi_dbi.c        | 43 +++++++++++++++++++++++----
- drivers/gpu/drm/sitronix/st7735r.c    |  8 +++--
- drivers/gpu/drm/tiny/hx8357d.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9163.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9341.c        |  8 +++--
- drivers/gpu/drm/tiny/ili9486.c        |  8 +++--
- drivers/gpu/drm/tiny/mi0283qt.c       |  8 +++--
- drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 +++--
- 8 files changed, 80 insertions(+), 19 deletions(-)
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
 
 --
-2.53.0
+Cheers, Lorenzo
