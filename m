@@ -4,129 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DE1FC98314
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B919FC98314
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 07:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E82810F365;
-	Thu, 24 Sep 2026 07:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28BE310F367;
+	Thu, 24 Sep 2026 07:16:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="lEB74waK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="heyBVIvW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bGgQDb2V";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MdeQGqzD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QXd0YnWz";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18DA810F365
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 07:14:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6618D21C40;
- Thu, 24 Sep 2026 07:14:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790234070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
- b=lEB74waKjCNzIPQgRSgy6lHlkj+gwyoJwFri8Zfs/+e21A1Pp6DGEuqkf2Qg18xfuVDFpa
- 68Q1r0l06H4sgKPWMUQrbYGAKLvgO4KjTAsj1L8u+5drEEdJwaEsp3QdG7q9BkZPVrmUe6
- ucO1+/A4oHlFp9vJzuf+kiWbDfBg+kI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790234070;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
- b=heyBVIvWHWTwiCNdC/5RpW9/oY2sJg8Hst2cP7sXtj7gS8Nd+vOHEHMJkhyq3mmnhNVh3q
- 8KjeGrO2995JoYCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790234066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
- b=bGgQDb2V5m3rkqavrer2ZCW4Ya2tX+tiGP7mna3pk9KD4fBeC6hf89OcWFTY5krxBCSP+o
- 2igWuiFmqHvf7Wzct0o8i38aSnUTbu76I7gIhiyOH5bm/xAVRj1UDnTURzLtq1icvGqMk2
- IbTUhCh97u3ZFfCkXx/g3TOylBwi9S0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790234066;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=l1UzpKZExQHMgq+sq0aemQthY02cjPSoIUfciqIEIaE=;
- b=MdeQGqzDCxiNWGlYm3VoqJE7inIR2oistRjtJVNnWy6ewu6YORpH3ArvHjjLV4jaazuenq
- KwE6NbhTVEpwjYDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F110D13354;
- Thu, 24 Sep 2026 07:14:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oTP2LtHNtGoqCQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Sep 2026 07:14:25 +0000
-Message-ID: <35bc19a3-27d7-4d3e-978e-0692de78f8a0@suse.de>
-Date: Thu, 24 Sep 2026 09:14:25 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/udl: reject short USB control transfers in
- udl_read_edid_block()
-To: Hui Peng <benquike@gmail.com>, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919223511.3889061-1-benquike@gmail.com>
- <20260924064434.2541959-1-benquike@gmail.com>
- <20260924064434.2541959-2-benquike@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260924064434.2541959-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; MIME_TRACE(0.00)[0:+];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.com:url]
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0FBA10F367;
+ Thu, 24 Sep 2026 07:16:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ADE6441076;
+ Thu, 24 Sep 2026 07:16:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACA41F000FF;
+ Thu, 24 Sep 2026 07:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790234168;
+ bh=EzoKA7522s9DKLOzrIGayti3wV0kNBLex7i/R1GOzgA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QXd0YnWz048gIvZ+VCClVLMF8njL9GFQhkmrOyEgFOWjei7eVEJdXtzWyyQNQmiD1
+ MolPtQfzFtsXvb3kE6ZdknobyZtFDL7Av5Ht0l4Y5LprL2nY31+YjiKSh5elWYfH+y
+ eVgNTzkpNJG3o7foJL5SQzwJwk0r1z1sjG749IhWZ0edUfqM+wPqB7sPZemw4x6MKl
+ lMoCCgpKVY7CA706C/pOVysFuJtluzCgtb7O5JGJ13oh1TfZ1KzUMM0LReUlh6JnKZ
+ MSR42QCsErkqsUe38x3rFLhXWXEyCyIXFeQTuy1G94O58eggU9+OkxqIuWn4fN6l/D
+ i3DqMU8ZZKTNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 08/11] mm/hmm: implement rollback for device page
+ migration in HMM pagewalk
+To: mpenttil@redhat.com
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260924065313.899730-9-mpenttil@redhat.com>
+References: <20260924065313.899730-1-mpenttil@redhat.com>
+ <20260924065313.899730-9-mpenttil@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 07:16:07 +0000
+Message-Id: <20260924071608.5ACA41F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,69 +54,176 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 24.09.26 um 08:44 schrieb Hui Peng:
-> In udl_read_edid_block(), usb_control_msg() requests 2 bytes into
-> read_buff for each EDID byte, and read_buff[1] is stored into buf[i].
-> Currently the short-transfer check tests ret < 1 instead of ret != 2, so
-> if a short USB control transfer returns 1 byte, read_buff[1] is not
-> written by usb_control_msg() and retains the previous iteration's byte (or
-> uninitialized kmalloc(2) memory on the first iteration), which is then
-> copied into buf[i].
->
-> Change the check from ret < 1 to ret != 2 so any short USB control
-> transfer fails with -EIO.
->
-> Tested in QEMU against Linux 7.3.0-rc3 using dummy_hcd and raw-gadget
-> emulating a DisplayLink UDL USB device: on the unfixed kernel, when
-> usb_control_msg() returned 1 byte for an EDID read (short transfer),
-> udl_read_edid_block() accepted ret = 1 and stored stale read_buff[1]
-> data into the EDID buffer; whereas with this fix applied, ret != 2
-> correctly fails with -EIO and prevents EDID buffer corruption.
->
-> Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Split out as patch 1/2 as requested by Jani Nikula.
-> - Added testing details in QEMU on short USB EDID control transfers.
->
->   drivers/gpu/drm/udl/udl_edid.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_edid.c b/drivers/gpu/drm/udl/udl_edid.c
-> index af4cff2a7c51..b7c462436573 100644
-> --- a/drivers/gpu/drm/udl/udl_edid.c
-> +++ b/drivers/gpu/drm/udl/udl_edid.c
-> @@ -36,7 +36,7 @@ static int udl_read_edid_block(void *data, u8 *buf, unsigned int block, size_t l
->   		if (ret < 0) {
->   			drm_err(dev, "Read EDID byte %zu failed err %x\n", i, ret);
->   			goto err_drm_dev_exit;
-> -		} else if (ret < 1) {
-> +		} else if (ret != 2) {
-
-Please test for (ret < 2) instead. It makes the test a little less 
-dependent on the earlier calls.
-
-Best regards
-Thomas
-
->   			ret = -EIO;
->   			drm_err(dev, "Read EDID byte %zu failed\n", i);
->   			goto err_drm_dev_exit;
-
--- 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] mm: memory corruption via uninitialized PFN unlock/put during =
+rollback
+- [High] mm: infinite loop in hmm_range_fault_locked on failed THP split
+- [Medium] mm: lost per-PFN input flags on hmm rollback preventing correct =
+retries
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit 773397c69855b5d4adbb7a21c81d362234a475a7
+Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
+mm/hmm: implement rollback for device page migration in HMM pagewalk
+
+During the migration pagewalk, the PTE table could be cleared
+and/or changed into PMD leaf or even another PTE table while
+dropped locks.
+
+In these cases the possibly inserted migration ptes are gone.
+We have to however undo the collecting done so far, so unlock
+the folios and drop reference taken.
+
+[ ... ]
+
+> diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+> index 4f56f3419cb46..b08ebc1343dd9 100644
+> --- a/include/linux/hmm.h
+> +++ b/include/linux/hmm.h
+> @@ -111,6 +111,28 @@ static inline unsigned int hmm_pfn_to_map_order(unsi=
+gned long hmm_pfn)
+>  	return (hmm_pfn >> HMM_PFN_ORDER_SHIFT) & 0x1F;
+>  }
+> =20
+> +/*
+> + * hmm_pfn_collected() - is this pfn entry prepared for migration ?
+> + * If collected the folio's refcount is increased and the folio
+> + * is locked.
+> + */
+> +static inline bool hmm_pfn_collected(unsigned long hmm_pfn)
+> +{
+> +	return (hmm_pfn & (HMM_PFN_VALID | HMM_PFN_MIGRATE)) =3D=3D
+> +		(HMM_PFN_VALID | HMM_PFN_MIGRATE);
+> +}
+> +
+> +/*
+> + * hmm_pfn_rollback_collected() - undoes the collection of hmm_pfn
+> + *
+> + * Note for total rollback the folio's refcount has to be put
+> + * and folio has to be unlocked.
+> + */
+> +static inline unsigned long hmm_pfn_rollback_collected(unsigned long hmm=
+_pfn)
+> +{
+> +	return hmm_pfn & ~(HMM_PFN_VALID | HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
+> +}
+
+[Severity: Medium]
+Will hmm_pfn_rollback_collected() destroy the user's per-PFN request flags?
+
+When pte_offset_map_lock() fails in hmm_vma_walk_pmd(),
+hmm_vma_handle_migrate_prepare_rollback() is called on unprocessed entries.
+This clears HMM_PFN_VALID and HMM_PFN_MIGRATE here. Because input flags
+(HMM_PFN_REQ_FAULT and HMM_PFN_REQ_MIGRATE) share the exact same bit
+definitions as the output flags, this effectively destroys the user's reque=
+st
+flags.
+
+If the outer loop retries the walk, will it see no request flags for these
+pages and silently skip them?
+
+> +
+>  /*
+>   * struct hmm_range - track invalidation lock on virtual address range
+>   *
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 9fdd945cc0266..daf83f8091518 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+
+[ ... ]
+
+> @@ -412,6 +421,9 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, u=
+nsigned long addr,
+> =20
+>  	new_pfn_flags =3D pte_pfn(pte) | cpu_flags;
+>  out:
+> +	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
+> +						addr + PAGE_SIZE,
+> +						hmm_pfn);
+>  	*hmm_pfn =3D (*hmm_pfn & HMM_PFN_INOUT_FLAGS) | new_pfn_flags;
+>  	return 0;
+
+[Severity: Critical]
+Can this regression lead to memory corruption via an uninitialized PFN
+unlock/put?
+
+Here hmm_vma_handle_migrate_prepare_rollback() is called before the
+individual hmm_pfn entry is populated with new_pfn_flags, meaning it reads
+and acts on the user's input flags.
+
+If a user calls hmm_range_fault() to request migration using per-PFN flags
+(setting HMM_PFN_REQ_MIGRATE | HMM_PFN_REQ_FAULT, which map directly to
+HMM_PFN_MIGRATE | HMM_PFN_VALID), hmm_pfn_collected() will incorrectly
+evaluate to true.
+
+This causes hmm_vma_handle_migrate_prepare_rollback() to extract the PFN
+part (typically 0), cast it to a folio, and attempt to unlock/put it:
+
+hmm_vma_handle_migrate_prepare_rollback() {
+	...
+	folio =3D page_folio(hmm_pfn_to_page(hmm_pfn[i]));
+	if (folio !=3D fault_folio)
+		folio_unlock(folio);
+	folio_put(folio);
+	...
+}
+
+[ ... ]
+
+> @@ -1117,6 +1190,9 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>  		if (ptep) {
+>  			lazy_mmu_mode_enable();
+>  			hmm_vma_walk->ptelocked =3D true;
+> +		} else {
+> +			/* The pte table is gone */
+> +			hmm_vma_handle_migrate_prepare_rollback(walk->private, addr, end, hmm=
+_pfns);
+>  		}
+>  	} else {
+>  		ptep =3D pte_offset_map(pmdp, addr);
+
+[Severity: High]
+Is there an infinite loop in hmm_range_fault_locked() when a THP split fail=
+s?
+
+When hmm_vma_handle_migrate_prepare_pmd() attempts to split a PMD-mapped THP
+via __migrate_vma_split_folio(), the split can fail and return -EBUSY. It
+propagates this -EBUSY directly to hmm_vma_walk_pmd() without updating
+hmm_vma_walk->last:
+
+hmm_vma_handle_migrate_prepare_pmd() {
+	...
+	r =3D __migrate_vma_split_folio(folio, migrate->fault_page);
+	if (r)
+		return r;
+
+	hmm_vma_walk->last =3D start;
+	return -EBUSY;
+}
+
+However, hmm_vma_walk_pmd() handles -EBUSY as a success sentinel meaning
+"split succeeded, please re-walk":
+
+		/*
+		 * hmm_vma_handle_migrate_prepare_pmd() splits the huge pmd in
+		 * place when needed and returns -EBUSY to re-walk the range as
+		 * PTEs; any other error means the split failed.
+		 */
+		if (r =3D=3D -EBUSY)
+			return -EBUSY;
+
+This propagates the -EBUSY to walk_page_range(), and the outer loop in
+hmm_range_fault_locked() restarts the walk from hmm_vma_walk.last (which was
+not advanced). It encounters the exact same THP, fails to split it again,
+and loops infinitely.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924065313.8997=
+30-1-mpenttil@redhat.com?part=3D8
