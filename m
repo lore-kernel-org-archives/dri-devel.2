@@ -4,44 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03DE9C98311
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 09:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C67C98314
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 09:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B4210E81A;
-	Thu, 24 Sep 2026 09:43:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4D3E10F3EC;
+	Thu, 24 Sep 2026 09:45:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jx2UOZdI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iE2hDD9R";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACAAC10E81A;
- Thu, 24 Sep 2026 09:43:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 69B2541779;
- Thu, 24 Sep 2026 09:43:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F311F000FF;
- Thu, 24 Sep 2026 09:43:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790243012;
- bh=IlAzjOylR7gOvnBHL9lIBc2N2riyk9bh140STelRoNk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jx2UOZdIhA2j7a+MlDeHL0y2ahJy5is2KwJFM+E1144vTz3RCHBbBa1ivYSTVZtqZ
- dxkVW+aynGx6Vx+Q71PtYCgVz74UvCyz4nZ9waiVhazr7EdSaEXYRiflPmPy2Ce3Ky
- jNoVcHkrazvbBL8vVnrtm4dgeLfGyNr97+cAFeb4O98f/UXIfXfBpIXA6pYGVzzl2F
- dNu70UpYbI74z2Xz3KUk2sSSBJvcy0nWQF64QQYyLvlQHKLxwqYYEjb61f6mAm92/6
- RNPKzk8i1XfLpZA3myY5BwmSXZc8C9otlA0MtC5HtYQ/ibduZv+2aokFCVciBHZmd+
- n8VrM/qE0Gk5w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/fbdev: Move fbdev helpers into client library
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20260924093036.82356-3-tzimmermann@suse.de>
-References: <20260924093036.82356-1-tzimmermann@suse.de>
- <20260924093036.82356-3-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 09:43:31 +0000
-Message-Id: <20260924094332.14F311F000FF@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A4710F3E6;
+ Thu, 24 Sep 2026 09:45:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790243141; x=1821779141;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=sfY11cdtJp865U1tC2f/dZACe/B/9CLIWV3bLlL5Bwk=;
+ b=iE2hDD9RXkIbcuZ3gEM2bD8iRlBKum2DcUx/+9u+D9mYHOf6M9aMKWXc
+ dRp+lJoOQMGKAY52bltxER1me9JPLcwah8A2lBKFBlUFFqBXIniyR0jnj
+ jIqhaE66jQwg/0zdBV+KyULL6ujTRSEi5z9m3gYaViLwVsWXry6X7uj7m
+ nZDfRHVTNIATkFY9q38zdNYlz/8L7DQ0kjuFA4lIrXnhxXV+05f+qdvmu
+ MjEY68CW7vmlP7XLcOcx6R2kBS6knUqkqD72LYM+ZrVDLUktTPYyJ+e4n
+ FMjhbAqn3tIo7LixOGrk9fMcC8/Rs5Lxwh23gnNGNqFS46DDNDUG0cnb1 A==;
+X-CSE-ConnectionGUID: PPL96b7SQvitGuWAwo8nlA==
+X-CSE-MsgGUID: LRPusl0ORi20B6Dpv7jb0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90048133"
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="90048133"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 02:45:41 -0700
+X-CSE-ConnectionGUID: ON0PMdNNRzSp4iGopxx0CA==
+X-CSE-MsgGUID: 4/iZC4TMQdCXozfqBD6ing==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="311879535"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by orviesa001.jf.intel.com with ESMTP; 24 Sep 2026 02:45:38 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ Xiao Lu <xiaolu.xie@intel.com>
+Subject: [PATCH v3 0/2] drm/i915/dp: Fix MST PBN accounting
+Date: Thu, 24 Sep 2026 17:43:14 +0800
+Message-ID: <20260924094316.822211-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922092647.2263962-1-xiaolu.xie@intel.com>
+References: <20260922092647.2263962-1-xiaolu.xie@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,55 +69,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] drm: missing DRM_CLIENT_LIB selection in memory helpers causes link=
-er error
---
+Use the raw video PBN in ALLOCATE_PAYLOAD requests while keeping the
+TU-aligned PBN for source hardware programming. Also track the PBN
+actually allocated by downstream branches and use it in later bandwidth
+checks.
 
-commit b0f3c606cfc59f0c56cd9be7e3349abc72f97a64
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+The series was tested with a three-display PS8650 MST daisy chain.
 
-drm/fbdev: Move fbdev helpers into client library
+Changes in v3:
+- Preserve allocated_pbn when recalculating an active payload; clear it
+  only when releasing the payload.
+- Patch 1 is unchanged.
 
-DRM's fbdev helpers are for the fbdev-emulation clients. Move them
-into the client-library module. Fix include statements throughout
-DRM drivers.
+Xiao Lu (2):
+  drm/i915/dp: fix PBN in ALLOCATE_PAYLOAD request to use actual video
+    bandwidth
+  drm/dp_mst: Track allocated_pbn from ALLOCATE_PAYLOAD down-reply
 
-> diff --git a/drivers/gpu/drm/clients/Makefile b/drivers/gpu/drm/clients/M=
-akefile
-> index c16addbc327f0..1304ff358509d 100644
-> --- a/drivers/gpu/drm/clients/Makefile
-> +++ b/drivers/gpu/drm/clients/Makefile
-> @@ -4,5 +4,6 @@ subdir-ccflags-y +=3D -I$(src)/..
-> =20
->  drm_client_lib-y :=3D drm_client_setup.o
->  drm_client_lib-$(CONFIG_DRM_CLIENT_LOG) +=3D drm_log.o
-> -drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) +=3D drm_fbdev_client.o
-> +drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) +=3D drm_fbdev_client.o \
-> +						drm_fbdev_helper.o
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 +++++++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   | 33 ++++++++++++++-----
+ include/drm/display/drm_dp_mst_helper.h       | 10 ++++++
+ 3 files changed, 46 insertions(+), 14 deletions(-)
 
-[Severity: Low]
-Since drm_fbdev_helper.o is now built into drm_client_lib, can this cause a
-linker error for built-in memory helpers?
+-- 
+2.43.0
 
-If CONFIG_DRM_FBDEV_EMULATION=3Dy and a driver selects DRM_GEM_DMA_HELPER=
-=3Dy,
-but CONFIG_DRM_CLIENT_SELECTION=3Dm (selected only by modular drivers),
-drm_client_lib.ko will be built as a module while drm_fbdev_dma.o becomes
-built-in.
-
-This would lead to undefined references to fbdev helper functions (e.g.,
-drm_fb_helper_fini) during vmlinux linkage.
-
-Do the memory helpers in drivers/gpu/drm/Kconfig (DRM_GEM_DMA_HELPER,
-DRM_GEM_SHMEM_HELPER, DRM_TTM_HELPER) need to explicitly select
-DRM_CLIENT_LIB when DRM_FBDEV_EMULATION is enabled to prevent this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924093036.8235=
-6-1-tzimmermann@suse.de?part=3D2
