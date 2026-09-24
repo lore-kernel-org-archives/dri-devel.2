@@ -4,61 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D2D4C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:12:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FB7C9831C
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 11:13:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDCE10E0AB;
-	Thu, 24 Sep 2026 11:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07C3E10E0F6;
+	Thu, 24 Sep 2026 11:13:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZRBo/Zzn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D2f0AEAm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0A7D10E0AB
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 11:12:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790248366; x=1821784366;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=l2zV8Bz/fIDjNe8zbxT6okixXdqVMPFO3GzQPtztSss=;
- b=ZRBo/ZznlrOktU2pxhb6SXNn5202F/83IKf5EHaSzy7cY3Jqs2j6n+c4
- iLsac6WsB4Z2cAKxMzoawVdNXinxizIbb0gKXz85K6zrXLXCieU+pe+Tx
- ND4ZVxGlLBVqoUHUnAXFv2FtNTwUs7UZggIdI4ymbKjp10tsmZT/qliSJ
- 2YDIuNYHyUfNR/DL1/NRkx5h1zyBigIKl2xnrPRU4+cGzali/T4/kxeGS
- yF4af05yd4DflHBLJAtOLYYWmU8iMqRziYcZ3hbV06IFOfef9TsYpzjKH
- k91qBwrydc1xtqDbUe//y/tke+wOKaksT+gLcdmZDf740nEO0RmOvnP0B w==;
-X-CSE-ConnectionGUID: ZhR20u5BQh+znb7gyoHGIA==
-X-CSE-MsgGUID: lvWIMnqBTKKZRiTcStvJkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="93734093"
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="93734093"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 04:12:46 -0700
-X-CSE-ConnectionGUID: FAyI/UwAToqWoEfQy+9Dlw==
-X-CSE-MsgGUID: GG/OzEtLQCS0lgqGzGa/qg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,120,1787036400"; d="scan'208";a="273134530"
-Received: from soc-5cg4396xfb.clients.intel.com (HELO [10.102.89.94])
- ([10.102.89.94])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2026 04:12:44 -0700
-Message-ID: <cf0db8d5-1a88-4eb9-bf67-08585de9342f@linux.intel.com>
-Date: Thu, 24 Sep 2026 13:12:42 +0200
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA55610E0F6
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 11:13:03 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-396ccb652d7so1348764a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 04:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790248383; x=1790853183; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xajPQk8GjdXK5kaUdC9KQJ19YcliIXFOaF4kzScKofU=;
+ b=D2f0AEAmsQ37/jtYgvje1jrPPqFyPuDobEwthR5OJEts223kx5uidRoIre0uRKpt3o
+ BWdMpSz0etxmbUv9dTYsNj1xcbryB5yGS6H/uQxigujymx14UkQxqccNICHqS6xULdk5
+ un5XKA+qFQXpNTOX3WZfBZDm5lJTDJ5ctuTYNG+Y7gdp6/HO8WUt1DHVsKlh5CS/FQns
+ c4j0Sb1k05HF7PXRvRvEw5J0vVpIc4i/kiqiwA/fwzGjTFD0csaLFk+Rt88gzwqam7gd
+ g++FrOJZx8M/Cn7WvUUkQwk6z3k54eVnad6xKy4nRvoJ/7ON+MpwvWDsuCCVOBKuH7O2
+ 4PCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790248383; x=1790853183;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xajPQk8GjdXK5kaUdC9KQJ19YcliIXFOaF4kzScKofU=;
+ b=n5ygNMv6CtwTgnM1BrEql6tc+NGyLznMXuAod6QgDFzeRt53xezXbRVpiXUybufx5u
+ foYPASIReo3zuPFquKyK83myg7Gq3AEZ/J0BWHBM1mO2/12DGuhYnfWcSakvfiAf0vjt
+ 4Nu2tmms1+DOKP+JRKQZZic/EKO45MmojXN/aA9qBP97i8w9JlhRRj6KXGS/ddqBqgj+
+ lZQW/U9z0e7HjheLYs/6aUSvkRvlECf6rYWIzZn0IMqmWftI+hdoPx1KbWkiAsIADT8S
+ g4oRzuNOhEk9XCTLIouvOUCze4Wnqy7PcyACH1bp73ptIEB3yplWBvJtdgV6ZJiVVGHS
+ DiKQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByR0fgWAL3y+pwMtlQQRKJkdUZlnQr6f/npZUrEMWuqsjnBxLzjBtIS4Ll1ukrVyFlThuS32W/ynSA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lRnt34roF80pmkgJJ6Qy1HTBbdYmhGlvWjbNqhQjtVMPuVhfkh
+ L9LM/D6FBx7KgADGG3d2jv2r/u7KhRxaoWXWi/ffK8wKIYCaQT0OQvrY
+X-Gm-Gg: AYBFou1nF0Tcdymxad3i/9JPY8PmPHvcbIAP6Fg6jOIU42gDNuChwqFwWa5nMGFKN6e
+ vy1nG4q8arO/yeErfhSWuTSXrmpYG4bC+p8WuPmqbm3/TiuM0BvzxSDJfIJMs55sFsKbnNhMauO
+ ODow/0DmhIacZgw9bsFiP9ZAuhsctv5nyH4jo4o76FDX7dM7RkyTV7x2hsqLqHBOEmkfslVVRJT
+ J9R/81o/DzTXUHSsOBl8BSNN1SJLAXSpM7A9+jEuKWjtP0iKuoyw+UGa49d/fJ/7q9YVmOrVlrG
+ 9zyg4NO/F9eDpTFyZnVAFeyZH0Grn/X64ZEC0NafGR2n7Y2kIlLxs7uVGrUqAQB1ZYZgaFL4k2U
+ Q8CSB1KUusbIkA+hz13w1csfYfbgIe5YjUBPC5nPfDpLWKwFEOA1thOTKdGfSDSNEl4HcvxkO4l
+ 8daK8xMjdUAdC9OwtWd4IbNnder7W20ceMCt4/XFYhqqatoGo21gMUdH7SFAi2qbmvJ9DujDEv7
+ gdjXspTgiGxj/UKN+TtzEYzjC/xKB2RMQ==
+X-Received: by 2002:a17:90b:314e:b0:39e:5ade:f9de with SMTP id
+ 98e67ed59e1d1-3a098b431dbmr1903170a91.26.1790248378423; 
+ Thu, 24 Sep 2026 04:12:58 -0700 (PDT)
+Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a0974ec5dfsm4399478a91.3.2026.09.24.04.12.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Sep 2026 04:12:58 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: damon.ding@rock-chips.com
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com,
+ andrzej.hajda@intel.com, dri-devel@lists.freedesktop.org, heiko@sntech.de,
+ jernej.skrabec@gmail.com, jerrysteve1101@gmail.com, jonas@kwiboo.se,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de
+Subject: Re: [PATCH RSEND] drm/bridge: analogix_dp: use
+ devm_phy_optional_get() for the DP PHY
+Date: Thu, 24 Sep 2026 19:12:49 +0800
+Message-ID: <20260924111251.936444-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <a0754d11-d88b-4dda-972f-7c696a037bc2@rock-chips.com>
+References: <a0754d11-d88b-4dda-972f-7c696a037bc2@rock-chips.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Make BO free helper NULL-safe
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com
-References: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
-Content-Language: en-US
-From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,22 +99,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-09-24 12:59 PM, Andrzej Kacprowski wrote:
-> Handle NULL buffers in ivpu_bo_free() so callers can use it as a
-> kfree-like cleanup helper.
+> On 9/24/2026 11:24 AM, Damon Ding wrote:
+> > Hi Jun,
+> > 
+> > On 9/24/2026 10:04 AM, Jun Yan wrote:
+> >> The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+> >> internal eDP port) has no separate PHY device and relies on its built-in
+> >> PHY, which is programmed directly through the GRF registers, so its DT
+> >> node carries no "phys"/"phy-names" property.
+> >>
+> >> Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+> >> -ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+> >> misleading "no DP phy configured" error at probe time before falling back
+> >> to a NULL phy.
+> >>
+> >> Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+> >> absent and otherwise behaves identically, and drop the manual -ENODEV/
+> >> -ENOSYS handling. This also removes the spurious error message.
+> >>
+> >> Assisted-by: Claude:deepseek-v4-flash
+> >> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> >> ---
+> >>   .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
+> >>   1 file changed, 3 insertions(+), 15 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/ 
+> >> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> >> index 18e76d1e78e1..28eb668d3e3f 100644
+> >> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> >> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> >> @@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct 
+> >> analogix_dp_plat_data *plat_data)
+> >>       if (ret)
+> >>           return ERR_PTR(ret);
+> >> -    dp->phy = devm_phy_get(dp->dev, "dp");
+> >> -    if (IS_ERR(dp->phy)) {
+> >> -        dev_err(dp->dev, "no DP phy configured\n");
+> >> -        ret = PTR_ERR(dp->phy);
+> >> -        if (ret) {
+> >> -            /*
+> >> -             * phy itself is not enabled, so we can move forward
+> >> -             * assigning NULL to phy pointer.
+> >> -             */
+> >> -            if (ret == -ENOSYS || ret == -ENODEV)
+> >> -                dp->phy = NULL;
+> >> -            else
+> >> -                return ERR_PTR(ret);
+> >> -        }
+> >> -    }
+> > 
+> > It should be better to add some comments here:
+> > 
+> > /*
+> >   * Exynos5/RK3288/RK3399 use Analogix DP controller built-in PHY,
+> >   * no separate PHY configuration is needed.
+> >   */
 > 
-> Use the NULL-safe helper to simplify error paths and teardown code in
-> firmware, IPC, preemption buffer, and metric streamer cleanup. This
-> removes redundant conditional frees and collapses unwind labels that only
-> differed by which BOs had been allocated.
-Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>> 
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_fw.c  | 65 +++++++++++++++--------------------
->   drivers/accel/ivpu/ivpu_gem.c |  3 ++
->   drivers/accel/ivpu/ivpu_ipc.c | 11 +++---
->   drivers/accel/ivpu/ivpu_job.c |  6 ++--
->   drivers/accel/ivpu/ivpu_ms.c  | 17 ++++-----
->   5 files changed, 44 insertions(+), 58 deletions(-)
+> Well, I think it should be fixed to:
+> 
+> /*
+>   * RK3288/RK3399 use Analogix DP controller built-in PHY,
+>   * no extra PHY configuration is required.
+>   */
+> 
+> The Exynos5xxx case may be more complex.
+> 
+
+Thanks for the review. I will add the comments in the patch and send v2 soon.
+
+> > 
+> >> +    dp->phy = devm_phy_optional_get(dp->dev, "dp");
+> >> +    if (IS_ERR(dp->phy))
+> >> +        return ERR_CAST(dp->phy);
+> >>       dp->clock = devm_clk_get(&pdev->dev, "dp");
+> >>       if (IS_ERR(dp->clock)) {
+> > 
+> > With the comment added:
+> > Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+> > 
+> > Best regards,
+> > Damon
+> > 
+
 
 
