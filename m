@@ -4,91 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9578C98314
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:25:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D54C98311
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 10:28:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E357310F456;
-	Thu, 24 Sep 2026 10:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE4D10F459;
+	Thu, 24 Sep 2026 10:28:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HN0rfTJ+";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZJMsRNYU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ehN9kY3S";
 	dkim-atps=neutral
-Received: from fhigh-b6-smtp.messagingengine.com
- (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AB010F452
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 10:24:18 +0000 (UTC)
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
- by mailfhigh.stl.internal (Postfix) with ESMTP id EC1547A0097;
- Thu, 24 Sep 2026 06:24:16 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-10.internal (MEProxy); Thu, 24 Sep 2026 06:24:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm3; t=1790245456; x=
- 1790331856; bh=pfYAW0w82lUL7tvd6Gd/1JdfDEXmZoXCwPME0P14c7w=; b=H
- N0rfTJ+oNZ89n3s0O+qgINDn44MCAVp57y1JPkTSp8OlhiJM+Sy4N90F9OXD6H7J
- /Kg4LUV1oWxjQIlcLmHGJlbMqf8Z9CNHFRshIBkuse5drcKoTbgF/b3pue+eyS4W
- ZvtfjQQ5JtEKbqhx/YTZcSQrfY1mEuKYvDraE/6Ah24jiWAtRKEotnJsXy72iunO
- PnrNx5TwjkW+4/Iho5V7rJq5eAKn11Nqxp44m4nmbXjos8TZWm2eGwuzDB6YEvEH
- LC0jEtVa9badgRXGp2NNMgTEIFWl94x3wM7FnQwmLqN/SKSqwYeQUr6kWW9CQmEU
- vDvGktfb1ylk3P9Gaejlg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1790245456; x=1790331856; bh=p
- fYAW0w82lUL7tvd6Gd/1JdfDEXmZoXCwPME0P14c7w=; b=ZJMsRNYUvW8dihHeP
- Dj7kXNCKFnTQDFVAZ/vPomI9I3JVsNZKcWuGI0TYUM1gcjXDeodWHwBRogCAMe38
- c6jEBzNJS5bKvj207ZcpF9bef28UJjUwAc7ondxDVw4fOBe1etF+ANY1rtEsr0DJ
- kXxjeu0PFcoEpPiXStc8qld7UjYyGO1xaoO655MGWwevPcn28sBOMVj0fDJ79ozj
- zLqK2GQ8bUXeOIw1z1eVbHrnu+EBy33UWG0pbUkZu6VqBuroYHZ/u3/1hq1bLlPQ
- pDZIno26JDG81494yBwJn67RVZlXvXJhKnBnRwXh2shA5gYykcZvnJNWPgx4tMxy
- N28GQ==
-X-ME-Sender: <xms:UPq0aqFBIziTwRESYvL5rim1Wf5zUWAFFyP2g6vBtxz4iymq1rDVAw>
- <xme:UPq0asH1O61UCoiU_wSBX11LkuM7jEj35dNxNxFc5rrlEbob4333rrVuPKN2faDoW
- LwqL5jRuwil54g8qUhYITiw-il5CMns1D4Gk50FfgpW3p9QOiV1CDI>
-X-ME-Received: <xmr:UPq0an9INCGAbcyTbgLxv5xb0rBD_Mcy7htfY4r1DE52PNiJ4gf_WjanoomTCZO_INIOOzk8Ng>
-X-ME-Proxy-Cause: dmFkZTE/QIwB5hMaZGabcoDJbFvLt9A2eA9CIjQyvwImr4j621UDYsePWIjY7kkwVe+3ha
- YkC/pQh1DgZsF91gnx96IU4AJfUAliZz4PtVkwqdgFou6r0AvlSbZ6qgmOiPj6Tun7Po+s
- ziupQ0holf1ANfJc7zf78psVJQ4bya+dgZnUvag4wUyy3hLpTE7pqgcAMte80MyecYci0I
- FlR50R22k6CcDqOD62b+AQhcr231YN/ZkoanY+/FPbUmhfHGnTMxOCrwlQMMecULh17h3l
- 8ckpJrB4lb4HzuhIeHttsf3MObzJeItP2z0RECr7Rlmd/GtQ3eUkFZv7TfIHgAtYxEgrVM
- R8bow08rRyQpxBQw/UKJly4WQnSQxY+xDUml443eV0UFSjSPc8wwzcMgdavBeanwQDN75G
- GBo5KDP9R/OsBYFwUyI2HMXuCM9Bho82AKc/ncKAR93O67IRi4c7mygjKfJ3Ekw1Q4/Zt6
- xbzS/3nJiJIWpb6vtMDdnp5mA4jELSQbvO1NxR+NgQcEwRODJjTaauBW7Eco3CCdO4r+iX
- eP6Rc2dL0aiFEo+SLtEeKR0mrP0huP/6xhGUPjUOXn5hd8nPvdb2M2H8FwzUuFbN+VK3Gm
- mcqawtzb7PQpDmAej/xHQvFdtO4yz0g2YqPmsK/RzfHFw74uYE8Ms3GNSS7g
-X-ME-Proxy: <xmx:UPq0alqmkm3Y1Vggi5z6_Dqvt8NFgeQfCy27dO50a4srZz_UJ2WJ4w>
- <xmx:UPq0avajY3_O2Z2q8XDPUzouHVuo2eDBrBXbU3XXSuJNlGk-bacWHg>
- <xmx:UPq0agz69SDNo_sKF0f4q2QZh0iMyCH2l1tV7HQ-TO5Thd-AA9MCRw>
- <xmx:UPq0arNABezGYZlxAiv9CCBY48VfwQ5KD9IcCN-Nnu1MCH5Lw86M7Q>
- <xmx:UPq0atmc9tJPttyVZjmWCYyqfF3m8QyUx2P6f2YkBVLBCIMGWgFAkpbI>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 24 Sep 2026 06:24:08 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v14 12/15] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Thu, 24 Sep 2026 22:21:32 +1200
-Message-ID: <20260924102135.92217-13-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
-References: <20260924102135.92217-1-gahing@gahingwoo.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E916C10F457;
+ Thu, 24 Sep 2026 10:28:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 16DA8601FE;
+ Thu, 24 Sep 2026 10:28:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CA21F000FF;
+ Thu, 24 Sep 2026 10:28:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790245702;
+ bh=RO3pD7Q9+eQAPt4mIEHLCPHWj9ylSpQSd8EUvJUV68k=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ehN9kY3S16mwiPpWIqXUBkd5hPCW7NXCUfm9dHVmmKs4VS6gwEyV4j4nHHdB+cYCq
+ smsa3uzpTXcx7YKAzxQk6HHTQ//Ny2fNiiO3UgY4qY0oXBC0fbqcxW4LbvNnqbRLgd
+ Fxy36ADnplqbxDgOAPCO7KWlW5sOPi1dz1GMuiwRJazYJvcZCYM3ebKF/AotMiau7N
+ 50lAdyTvxvOOCn5e3y6C2VUacOASKaVi+8smHAh3g+dQSzGsvdX6Y2i0IbvLPQ4Q0P
+ yXNKFB7X9cBLMsdR1N0cmttdd9NOplVn2yGzyY/5Wje2139C1/kKvbME3lAvh36cOH
+ g1xCKrxl/idMw==
+Message-ID: <19a05a1e-6d27-40ad-bb61-b7ff4e3ddbb9@kernel.org>
+Date: Thu, 24 Sep 2026 11:28:17 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
+To: Jianfeng Liu <liujianfeng1994@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Karl Mehltretter <kmehltretter@gmail.com>
+References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
+ <rm4C3dzRACNd_2ryMMuye2bD7vs_rT_4nbtr2DN7t0Y3bTLnwruweMpVv4J_x2FOoSXvakXCuo7vOpCvY5Sr4g==@protonmail.internalid>
+ <20260923074256.9357-2-liujianfeng1994@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260923074256.9357-2-liujianfeng1994@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,242 +113,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3576 has two cores of the RKNN block, with six clocks per core (the
-CBUF has its own), one reset instead of two, two power domains attached
-explicitly, and a PC_TASK_CON that packs the task number into sixteen bits
-instead of twelve. Chaoyi Chen of Rockchip confirmed that layout:
+On 23/09/2026 08:42, Jianfeng Liu wrote:
+> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+> DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
+> default, which had the side effect of enabling the option (and with it
+> the page-stripping sg_table wrapper handed to importers) on every
+> kernel with DEBUG_KERNEL=y - i.e. virtually every distro kernel.
+> 
+> drm/msm is broken by this: it maps imported dma-bufs into the GPU's
+> own pagetables with iommu_map_sgtable(), which needs the struct page
+> of the attachment sg_table, and it fills the GEM object's page array
+> through drm_prime_sg_to_page_array().  With the debug wrapper in
+> place both silently produce garbage (the wrapper zeroes sg->length,
+> so the page iterator yields nothing and an uninitialized array is
+> kept).  The VM_BIND map job then fails asynchronously after userspace
+> has already enqueued GPU work referencing the mapping, which shows up
+> as an arm-smmu translation fault from UCHE, e.g.:
+> 
+>    gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+>    type=TRANSLATION source=UCHE
+> 
+> This breaks hardware video decode (clapper, chromium) on Adreno
+> systems; bisected on a Snapdragon laptop as v7.3-rc3 good,
+> v7.3-rc4 bad, culprit 143755bdabaa9.
+> 
+> Revert the default until importers that legitimately need to build
+> phys-based mappings have been converted.
+> 
+> Fixes: 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels")
+> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 
-  https://lore.kernel.org/all/4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com/
+This is a very obviously LLM generated patch.
 
-Count the cores from the driver's own match table, now in rocket_drv.h, so
-the count and the array it sizes cannot disagree.
+Please state so in the commit log.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Also I don't believe reverting the change is correct. Fix the bug where 
+it exists in Adreno.
+
 ---
- drivers/accel/rocket/rocket_core.c   | 20 ++++++++++++++
- drivers/accel/rocket/rocket_core.h   |  8 +++---
- drivers/accel/rocket/rocket_device.c |  7 ++++-
- drivers/accel/rocket/rocket_drv.c    | 16 +++++++++---
- drivers/accel/rocket/rocket_drv.h    |  2 ++
- drivers/accel/rocket/rocket_job.c    | 39 +++++++++++++++++++++++++---
- 6 files changed, 81 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b202d1581..91f690176 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -8,6 +8,7 @@
- #include <linux/err.h>
- #include <linux/iommu.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- 
-@@ -21,6 +22,7 @@ int rocket_core_init(struct rocket_core *core)
- 	u32 version;
- 	int err = 0;
- 
-+	/* RK3576 has no per-core hclk reset, so it takes srst_a alone. */
- 	core->resets[0].id = "srst_a";
- 	core->resets[1].id = "srst_h";
- 	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->num_resets,
-@@ -32,6 +34,9 @@ int rocket_core_init(struct rocket_core *core)
- 	core->clks[1].id = "hclk";
- 	core->clks[2].id = "npu";
- 	core->clks[3].id = "pclk";
-+	/* RK3576 clocks the CBUF separately; the compute path stalls without these. */
-+	core->clks[4].id = "aclk_cbuf";
-+	core->clks[5].id = "hclk_cbuf";
- 	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
-@@ -60,6 +65,21 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return err;
- 
-+	/*
-+	 * RK3576 spans two power domains, and a multi-domain device is skipped
-+	 * by the driver-core single-domain auto-attach, so attach the list here.
-+	 * This goes before the first thing that would have to be unwound, so a
-+	 * failure can simply return.
-+	 */
-+	if (core->soc->multi_power_domain) {
-+		struct dev_pm_domain_list *pd_list;
-+
-+		err = devm_pm_domain_attach_list(dev, NULL, &pd_list);
-+		if (err < 0)
-+			return dev_err_probe(dev, err,
-+					     "failed to attach NPU power domains\n");
-+	}
-+
- 	core->iommu_group = iommu_group_get(dev);
- 
- 	err = rocket_job_init(core);
-diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-index ba74c5339..8c8d1f453 100644
---- a/drivers/accel/rocket/rocket_core.h
-+++ b/drivers/accel/rocket/rocket_core.h
-@@ -29,8 +29,10 @@
- 
- /* Per-SoC differences, selected by the of_device_id match data. */
- struct rocket_soc_data {
--	unsigned int num_clks;		/* clk_bulk count */
--	unsigned int num_resets;	/* reset_bulk count */
-+	unsigned int num_clks;		/* clk_bulk count: 4 base, 6 with CBUF */
-+	unsigned int num_resets;	/* reset_bulk count: 2 base, 1 on RK3576 */
-+	bool multi_power_domain;	/* device spans more than one PM domain */
-+	bool task_con_16bit;		/* PC_TASK_CON uses the 16-bit task number */
- };
- 
- struct rocket_core {
-@@ -43,7 +45,7 @@ struct rocket_core {
- 	void __iomem *pc_iomem;
- 	void __iomem *cna_iomem;
- 	void __iomem *core_iomem;
--	struct clk_bulk_data clks[4];
-+	struct clk_bulk_data clks[6];
- 	struct reset_control_bulk_data resets[2];
- 
- 	struct iommu_group *iommu_group;
-diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-index 46e6ee1e7..923add5bd 100644
---- a/drivers/accel/rocket/rocket_device.c
-+++ b/drivers/accel/rocket/rocket_device.c
-@@ -9,6 +9,7 @@
- #include <linux/of.h>
- 
- #include "rocket_device.h"
-+#include "rocket_drv.h"
- 
- struct rocket_device *rocket_device_init(struct platform_device *pdev,
- 					 const struct drm_driver *rocket_drm_driver)
-@@ -27,7 +28,11 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
- 	ddev = &rdev->ddev;
- 	dev_set_drvdata(dev, rdev);
- 
--	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
-+	/*
-+	 * Count over the same match table the platform driver binds with, so
-+	 * that a core added there is counted here without a second edit.
-+	 */
-+	for_each_matching_node(core_node, rocket_dt_match)
- 		if (of_device_is_available(core_node))
- 			num_cores++;
- 
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 7ed64c131..f387b4656 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -231,13 +231,23 @@ static void rocket_remove(struct platform_device *pdev)
- static const struct rocket_soc_data rk3588_soc_data = {
- 	.num_clks = 4,
- 	.num_resets = 2,
-+	.multi_power_domain = false,
-+	.task_con_16bit = false,
- };
- 
--static const struct of_device_id dt_match[] = {
-+static const struct rocket_soc_data rk3576_soc_data = {
-+	.num_clks = 6,
-+	.num_resets = 1,
-+	.multi_power_domain = true,
-+	.task_con_16bit = true,
-+};
-+
-+const struct of_device_id rocket_dt_match[] = {
- 	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
-+	{ .compatible = "rockchip,rk3576-rknn-core", .data = &rk3576_soc_data },
- 	{}
- };
--MODULE_DEVICE_TABLE(of, dt_match);
-+MODULE_DEVICE_TABLE(of, rocket_dt_match);
- 
- static int find_core_for_dev(struct device *dev)
- {
-@@ -296,7 +306,7 @@ static struct platform_driver rocket_driver = {
- 	.driver	 = {
- 		.name = "rocket",
- 		.pm = pm_ptr(&rocket_pm_ops),
--		.of_match_table = dt_match,
-+		.of_match_table = rocket_dt_match,
- 	},
- };
- 
-diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
-index 2c673bb99..0cd692a66 100644
---- a/drivers/accel/rocket/rocket_drv.h
-+++ b/drivers/accel/rocket/rocket_drv.h
-@@ -6,10 +6,12 @@
- 
- #include <drm/drm_mm.h>
- #include <drm/gpu_scheduler.h>
-+#include <linux/device-id/of.h>
- 
- #include "rocket_device.h"
- 
- extern const struct dev_pm_ops rocket_pm_ops;
-+extern const struct of_device_id rocket_dt_match[];
- 
- struct rocket_iommu_domain {
- 	struct iommu_domain *domain;
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index e6e41d517..c5491994f 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -21,6 +21,30 @@
- 
- #define JOB_TIMEOUT_MS 500
- 
-+/*
-+ * PC_TASK_CON packs the task number with control bits above it, and neither
-+ * the width of the number nor the count of the controls is the same on every
-+ * SoC. rocket_registers.h is generated from the RK3588 description, where the
-+ * task number is twelve bits and there are two:
-+ *
-+ *   RK3588   BIT[11:0] task_number, BIT[12] pp_en, BIT[13] count_clear
-+ *   RK3576   BIT[15:0] task_number, BIT[16] pp_en, BIT[17] count_clear,
-+ *            BIT[18] last_layer_clear
-+ *
-+ * The RK3576 layout was confirmed by Chaoyi Chen of Rockchip:
-+ * https://lore.kernel.org/all/4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com/
-+ *
-+ * Writing the RK3588 layout to an RK3576 therefore asks for task_number
-+ * 0x7001, that is 28673 tasks: the count clear at BIT(13) lands inside the
-+ * sixteen-bit task number and inflates the count instead of clearing it.
-+ * The task counter is then only ever cleared by a reset, so the block runs
-+ * one task per reset.
-+ */
-+#define RK3576_PC_TASK_CON_TASK_NUMBER(n)	((n) & 0xffff)
-+#define RK3576_PC_TASK_CON_PP_EN		BIT(16)
-+#define RK3576_PC_TASK_CON_COUNT_CLEAR		BIT(17)
-+#define RK3576_PC_TASK_CON_LAST_LAYER_CLEAR	BIT(18)
-+
- static struct rocket_job *
- to_rocket_job(struct drm_sched_job *sched_job)
- {
-@@ -142,10 +166,17 @@ static void rocket_job_hw_submit(struct rocket_core *core, struct rocket_job *jo
- 	rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INTERRUPT_MASK_DPU_1);
- 	rocket_pc_writel(core, INTERRUPT_CLEAR, PC_INTERRUPT_CLEAR_DPU_0 | PC_INTERRUPT_CLEAR_DPU_1);
- 
--	rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
--					 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
--					 PC_TASK_CON_TASK_NUMBER(1) |
--					 PC_TASK_CON_TASK_PP_EN(1));
-+	if (core->soc->task_con_16bit)
-+		rocket_pc_writel(core, TASK_CON,
-+				 RK3576_PC_TASK_CON_LAST_LAYER_CLEAR |
-+				 RK3576_PC_TASK_CON_COUNT_CLEAR |
-+				 RK3576_PC_TASK_CON_PP_EN |
-+				 RK3576_PC_TASK_CON_TASK_NUMBER(1));
-+	else
-+		rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-+						 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-+						 PC_TASK_CON_TASK_NUMBER(1) |
-+						 PC_TASK_CON_TASK_PP_EN(1));
- 
- 	rocket_pc_writel(core, TASK_DMA_BASE_ADDR, PC_TASK_DMA_BASE_ADDR_DMA_BASE_ADDR(0x0));
- 
--- 
-2.43.0
-
+bod
