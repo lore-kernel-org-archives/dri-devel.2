@@ -4,102 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3DCFC98321
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4111BC9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 15:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 170B810F666;
-	Thu, 24 Sep 2026 15:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7839F10F687;
+	Thu, 24 Sep 2026 15:59:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LcL6ZOeJ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vmc9nzXn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="L4Vx5238";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NIE7PafW";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99ECB10F666
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:27 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC0A10F68E
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:36 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68OFeuZm3220540
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:26 GMT
+ 68OFegDn1907518
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=nfSTtB7CnjnuKHzDWEOktG
- VajU38a6DXdrzAiO3Dzy4=; b=LcL6ZOeJMSQE7etRqHMLcZUx+Idw6AqgZ0AcWV
- IYvxvPbKOn8z07PJSdpBc28tPqeQTSE24IDUY8XrQV8fGrBqjYehGyX/SvaRIknu
- DmiezVlpI9Q44Mull/VRDl3BeRqw/lmNCoZp62+CyPtWmEoKLdecUu5J1p1BcdoB
- uGZDIZgTFFMAKR9/T2vb3kYhnPAY4UEE+ry/XrZpY206/Inr2VA9bbQKkdKn8aQI
- C2i6rIKh+2rK5Ni8EmGje+O7Skiw9x3NeXHgmow8dTSBnJBnydNoM6h8vYavS56F
- AiWoxFHbybKC1pFT656i22qf+DwTgC32i0SLgPIAfURP5y2Q==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1s91e61-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ nMeeDoM5kZU/bqV8HBx/kQzsngPCM+3poCWoyr7i+Wc=; b=L4Vx5238ZyCbLj0K
+ QipZ+sAtiwv90BdLKTQ2HH92/VFEeZeLqYKpbMpwdGLYsesdymqXVGOTxBjFxdXJ
+ ESrq8w1bEQ3C9+eR48MJtpXtRVEbv/EQSsc6kgBwoR24a1geVI/NN4u7PeFxegz5
+ c+fM062PsFd1CfVP1gZsOkKvpW73dFbNNn5pu2VO7h1BB1EUlMSUAlnlcCl8dybK
+ XlxVPjvMYtPdqPgvT+9c1VwJdcR0CURGCYc3J92fOBpK93IdLW1HSLX9xbyWgts1
+ rEMRE6WrZ6KNSsRFWGz2a1KeZP9tUoFsSMaLu04IHz4COPtz8o26NhWAYfg7wUGO
+ EOUYKA==
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1t7se79-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:25 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id
- 956f58d0204a3-66e608ab218so7333d50.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:59:25 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 15:59:34 +0000 (GMT)
+Received: by mail-yx1-f71.google.com with SMTP id
+ 956f58d0204a3-67116384f6aso12519d50.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 08:59:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790265565; x=1790870365;
+ d=oss.qualcomm.com; s=google; t=1790265574; x=1790870374;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=nfSTtB7CnjnuKHzDWEOktGVajU38a6DXdrzAiO3Dzy4=;
- b=Vmc9nzXnUitzeo1srQFaaC8PkKz/5poR0JAuhPsv4S4GjT3/asvBHn5ppbrljHjd/o
- sRiJ9eWh7Aqv3G75jkLxm08WVCghMRFMhHlRo9PtmgzX85PDP1MgwDC24KX7jU0v/twd
- Css2+gSyyMdojaut1rY/hs1XJP5oN5GFhAJcZnVc+XyoCQIda1bgx8PpRx9IJITj2xYL
- nXFg5XghXcdSGmJksu4mVmxaCML52xRGTzf2+EYE0KmnTX9RWn5EQ75+Axr41JA/gg+a
- OVXFWYXzMxLY9HeSQr5stdxfitMvOrbhufk6eoxMrfE6ijIS5XvCe9HB4VLb4Y3jkk0z
- qrsQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=nMeeDoM5kZU/bqV8HBx/kQzsngPCM+3poCWoyr7i+Wc=;
+ b=NIE7PafWN/6mxVoVsYVtmG2ggv8dKXTlvlXK3WZV4qGMfLVl6pcs7IXAiDVTed383p
+ HaruF+uLf8shzTqC3xwZ2xWhZ4Zt5sIvM7m5Hh4HdGjhkTcK1tYk5xjS+trB30D2ktCI
+ PA4ado9CPFQYkzzhpRFKOyWlWZNkttWwggHiJVEwGzNSUsf8v3XIO9j80Wy5UgPjhdo1
+ 4C+pIOtIMUCFB+JLytp1ekS6iWaU3l6/e1QqmnYQpj+dbbVaC8GUktTCtdMtXw/8ghQ7
+ DK2Lj9h28WbhAgyXUHIgSYiJqZ0jhYiaLE0wJMkyjwnEekCtGpFG56OtsYkkGFjCm+gy
+ eFTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790265565; x=1790870365;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=nfSTtB7CnjnuKHzDWEOktGVajU38a6DXdrzAiO3Dzy4=;
- b=sVxjXJOB8FSY2tO+S+mhXUwh8CmBRvAUjGrKrlOfVvNtFZiYJ5P/qs5HIEoopCKJti
- 8pAm8THavW0/pcckBRXgdZ+g0e8RKVB38C9kYoZ1goMNezrjo5aHwC3lxPt5qM8gN1UB
- 0nF934aoLVXNJoxLYhJ8FHg2AAzjbuDV6DhGC6iFCaahP8WRRlFm+sh1kST1kZQwnNKy
- TeaPIF/P1ga8+4sXlw7nLOUg/B3ybDHBwGKQAk/ULl6wyz7t/1gtP5izLmFiLwT0g/kq
- x3/NaoWpynuAtN5kp7kr/MjQg4ozqjQyBwtR5SD7RcRCrTSqr+yRfdEPh7GZtASBUkq0
- uosw==
-X-Gm-Message-State: AFuF++l0flQtoPMJm/RNuuvphYjJNpdqwAeEPrUL2A8DQssDAqpou1mA
- Gcn0wGdY71ZAH9egYl6Zy/WicCcY5tzIMLFrTwzltADR9JBDWaH3NdYCkf2TfoCioQox2RbX1az
- xrbq7GQGdkY2bOwPcJhDZz43KW8wyDD7l7rJKUQfIrfNVva+hM3HEAnZORYp64XsPMNCD3do=
-X-Gm-Gg: AYBFou0sMQX7J3i6jU+m8dfUnaOYANol4vmENzM4maalK94iIMH1OPfekwuw3JzoKvA
- oKuHcvrq4KBS3RLt1wTGB2/wgttroHEmZRDARfCkyCQ113aduP2U8BXgJqA+u0zItkQbhNnwctt
- xw7MjvvnnRvF14vE5rI9hlA/RyWHqnfwWRizMKx08nAl14l/5enGcty5NS5S7+ZN7hHp93Ay2Td
- RK+xD5olVC8yyRIFKVrX+ahWZUVUu6PJicj4Y3j3//0pgqDjckss9ENM6YwgD1NKnPoe7vRNZqz
- PIzU+NIy94Mpmjw1dN9ZVYfGV9+f4p9NuzntZNl7I+EwCraxGnZrZ6as5aHF6HG8cL6BsKkcQx9
- /0aQE0/g/JbGEN9zjy9yjwlcD43ZxRmKcF7kg4XlEo8J3a0bdCNoqGkIpfsntl2l59Jk0shWmNo
- DD/hDRQ01xQYfR0zeS06QP
-X-Received: by 2002:a53:e02d:0:b0:672:f638:6e6 with SMTP id
- 956f58d0204a3-672f6383704mr1155142d50.3.1790265565264; 
- Thu, 24 Sep 2026 08:59:25 -0700 (PDT)
-X-Received: by 2002:a53:e02d:0:b0:672:f638:6e6 with SMTP id
- 956f58d0204a3-672f6383704mr1155106d50.3.1790265564675; 
- Thu, 24 Sep 2026 08:59:24 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790265574; x=1790870374;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=nMeeDoM5kZU/bqV8HBx/kQzsngPCM+3poCWoyr7i+Wc=;
+ b=2UVyHsoSQS93wv7H2wHtdOp/AwOycKPw8f0JwOeWM0aZfSPp8nnM6tkg/GLv6G7hC0
+ yGFeBmpp3YaadZXHkc/pQOxPaQ9TXjzyHkkFN2AkSUjI7svxSMsIdxgioTHtS13Zb+pC
+ 9PPGVSl/uFj5MB1dHu76qXNhfJ9KztmW4VHOMDdewsndE2mkYezPpd6ISEWLQLK4ElYP
+ MLVjJqsKwBYfCYYBIuWz/SaHa6ViI1rYy7gb7thE1Gj6ih4ZpeDME6Ci4gJNdvwBSyBK
+ l1V6SuzUpVOmQVdn6fvtwLLR7DA6rNU/Y0wTMjc0ZzlpgcVy5P4NFjzAYT0ZapAfpJVY
+ m/Qw==
+X-Gm-Message-State: AFuF++kKwnM/gJ9HmCuJJsqEcwenBJhOhnmi7b24n1zId+WEpmgzhg7i
+ Mx40US3KD2+2tSuevHjwWIl9UclTWOPTVtaOsOzizqNC1MuCZ2CN5adk998uzsVapcmhYBH2KLZ
+ sz6bW/lY4xvw2jU1Y0ShnbToHva4oihLTaHk7vSQx+3Z/DxApYlwps2Z0KRHfuMvPO8umvsw=
+X-Gm-Gg: AYBFou0R9s3Vr2u1V7VdH15GywX2yzMKIobQ9O2PTi6R9Nq+oqXxIICZ+NrsHZW9y2n
+ aTPAtvW3DiPQiNXPMXYop5xSxzpf+FRLik6CP2UjAym58C4tqflprylX5EcjAfgU//7uGYICg8h
+ om//tFmtrbWm/uCNlTSR4fXEbzZmRQ4+fbnQMSGEPJE4z7FwKBYppGC2QId9763Y9rdhPPD56zo
+ znDbwe/NkyJW4cSYooRcYxRtsZvraZPm6eaAmZQPdkoOJYvbViXRc1bBCd5WYBlLl5za6Ok5S41
+ Fw0Xfk/T3tUffzPul/b/c52Do3F3WXHlizgwqpBfdca0638bUIHm3nqHfnRGZOtycUNpLmTOEH7
+ d7Hz9th48UClByhWF+CTRwO9DiRD/JvcrlXzxKhxpLJiTnO5bekZg91v7Dck3j7c7a94VptQWaD
+ Yw9dzHLaeUq56DKqmH0X1N
+X-Received: by 2002:a53:bd4e:0:b0:671:1256:56f2 with SMTP id
+ 956f58d0204a3-672ece3f118mr1991409d50.0.1790265574335; 
+ Thu, 24 Sep 2026 08:59:34 -0700 (PDT)
+X-Received: by 2002:a53:bd4e:0:b0:671:1256:56f2 with SMTP id
+ 956f58d0204a3-672ece3f118mr1991386d50.0.1790265573893; 
+ Thu, 24 Sep 2026 08:59:33 -0700 (PDT)
 Received: from hu-vishsain-blr.qualcomm.com
  (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-672d81e102asm2271003d50.19.2026.09.24.08.59.15
+ 956f58d0204a3-672d81e102asm2271003d50.19.2026.09.24.08.59.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 08:59:23 -0700 (PDT)
+ Thu, 24 Sep 2026 08:59:33 -0700 (PDT)
 From: vishnu.saini@oss.qualcomm.com
-Subject: [PATCH v9 0/2] This series adds LT9211C bridge driver by extending
- LT9211
-Date: Thu, 24 Sep 2026 21:29:09 +0530
-Message-Id: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+Date: Thu, 24 Sep 2026 21:29:10 +0530
+Subject: [PATCH v9 1/2] dt-bindings: display: bridge: lontium,lt9211: Add
+ lt9211c support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAM1ItWoC/33RwU7DMAwG4FeZciaT7SROyon3QBzaxGWRthXaU
- YGmvjvZJCiHlEukP4o/W85VTTJmmdTj7qpGmfOUh3MJzcNOxUN7fhWdU8mKgBw0CLpNSR8vDSF
- G3Y05lReuJexjhzGAUaXwbZQ+f97R55eSD3m6DOPXvceMt9t/uRk1atuT8RZ6QcCnYZr27x/tM
- Q6n074c6qbO9Cshgq9KpEF3wMhCxoKPG5JZJcJQlUyRUATYQwupow3J/pHIViVbJAss3kikEN2
- G5H4kBkOmKrkiNZFN14FxEf2GxKvksalKXCRxnIjQkQu8IflVCkRVyRfJp9g79sn5aDeksEoN1
- PcUimQ4cfm9IOhrMy3L8g38SeivwQIAAA==
-X-Change-ID: 20250910-add-lt9211c-bridge-5a21fcb1c803
+Message-Id: <20260924-add-lt9211c-bridge-v9-1-d78b39677a61@oss.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+In-Reply-To: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
@@ -116,44 +113,42 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
  Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
  Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
- venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
+ venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790265554; l=6411;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790265554; l=1545;
  i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
- bh=ydudDu5jBsMjX2oGdpjCZVgEDwqXfRt4QuPNX5P8jGQ=;
- b=fxGCroy6njAh8Onv5T5JwmA9hYLsab9FY3gLSf4latr0PfRii8vuC5dAcpbk/iwxJwWrW8b0M
- SHpM1sDygF3BPdbo2XqxKOWahy0xKiEif4+pmX+L9VOcAkmh40IzlHR
+ bh=7XMiXr7D3fC2Of65x2F+DhMxVAnk7abheQMCzBYJB9E=;
+ b=hEeFDcepPc6JFQoICcwq7lno6RBFKeTfIcn1bnp+3lE4885PlNlYhbqK5Pn7DeS4NvFmTpvmr
+ 7zcnS/3EDKDDJKytCQK1aa9uvp6JMXmxLiA8E4NeEPYD3ZQhTlSx+q0
 X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
  pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2NSBTYWx0ZWRfXyxxgGL4ry29y
- 1TW13mYxc182HWoizush9Zw9+EalnTLCFQbqvXFLf6Y+nUbrl2dfBI71LattLjdcyz/Dd/JtBqc
- LQvux1iQo495gwx5hzoXfdfb723gEcEY1BkBVND93XCwf3N2eS9wbdTFwAd0ncU4KEqsLwOH9ZQ
- jgUmnCTf0WcdtZOYbaoPAZ55TE5agjOpEpfs/nNU0rG3uLrUzyLt5qEdw2JP8AKvyyrlr7FIkLu
- BGqSn45BqzfP6+mPZ3Ybm5Xb/F2UJdeZxYfJ6Rqc6tv79gMV1a/rNz97BNorcI8gxeifsC7KgwH
- NJSS29PT9q+aE5m0fB7oHUjOlS7YlB+zW2UgMVWsfSZkECrLIx507T1Od2yEapg9mf2u/3buNrG
- hJH88zjZHRqLixHes4WvXdrw6fzXdjPTQvoYej42lkZalwq31Gc3WRxhLwR3gC8Xp82U8UZgKTp
- wywxE+xTKwijGAjDI5w==
-X-Authority-Analysis: v=2.4 cv=VPxIDNPX c=1 sm=1 tr=0 ts=6ab548de cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-GUID: 2bjD8xaPCBKd8IO6CLW3o4ToewVPQFki
+X-Authority-Analysis: v=2.4 cv=U/MHnuru c=1 sm=1 tr=0 ts=6ab548e6 cx=c_pps
+ a=ngMg22mHWrP7m7pwYf9JkA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=AhwvnLMPz7v9dBksGrUA:9 a=QEXdDO2ut3YA:10
- a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2NSBTYWx0ZWRfXyPxuikJvFb/2
- rAY06VdXNN8mu/Cbp+D+FP4SuP6pIthr9RvkUO/Y9+YHxjXX/my5eDav7l1hrY521eBDlViiBQb
- 1dxAZXkRMFlapA3VlC+FJWpK2LFbWdQ=
-X-Proofpoint-ORIG-GUID: c2BeDZhx8LzY-_kCyPNaBCye24Wip1Uj
-X-Proofpoint-GUID: c2BeDZhx8LzY-_kCyPNaBCye24Wip1Uj
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=UcubZVdaWCKl6vSfqw4A:9
+ a=QEXdDO2ut3YA:10 a=yHXA93iunegOHmWoMUFd:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2NSBTYWx0ZWRfX4vXEEJR13vZK
+ 1cb6wHpuOOapKuLLTYANDB00PTVuDqvSW9O7MBW0u664ffVZuHokC01ReW51GrTeaIvTENT/HuM
+ sk2gBdswdDy3sQF/gSslbuHOAwGvee77VJ+oGjmf8RLGglbgaJ6hIh8A8N3RfS4UiRQsU8etaSt
+ H5t7t/gkcTz0TnWki/wA+8bQuIwGc7ueNTEbjVGzCNVOol287jiQpyi1DpakoEmpqoFHSOeukxU
+ s2uXSVLk2wW0x2QuemU/eErMxBvcPg5JIGRhm0spkuaJz/O2mbQlTKSPEW8mkd9tVMLV4mcMok3
+ Vzkbe09n1D6QaSrYb5ghXcdUknV6kXeLVUSWvCh1J54CCt7ubowYim2j4vK4WO0xGzODc1mwzZr
+ moPxuN0yJ7NdUnWCCGAHw1+pRl03CWHIaFBF10JPiPIosJVa8g9LDHx6BOg8HOoM3R8VpqcUaey
+ jiqh06dBBD8Fecsu6gA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2NSBTYWx0ZWRfX7LeQOpOVPf3/
+ YZN8ErqnE9oxxTfW4t84fuFhWq+mv05K736PosjNE6EA12gG5OLNZQ1FpLQNbC4aEEGR7uXYIF7
+ gT39PdpRgNrVpy0HXMr85Aa9eO/2/pU=
+X-Proofpoint-ORIG-GUID: 2bjD8xaPCBKd8IO6CLW3o4ToewVPQFki
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- adultscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240065
+ malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240065
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,120 +164,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-LT9211c is a Single/Dual-Link DSI/LVDS or Single DPI input to
-Single-link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
-This adds support for DSI to LVDS bridge configuration. By extending the
-existing lontium-lt9211 driver to support DSI-to-LVDS bridge configuration.
+From: Yi Zhang <zhanyi@qti.qualcomm.com>
+
+Add binding for the Lontium LT9211C bridge chip.
 
 Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
 Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
 Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 ---
-Changes in v9:
-- Rebased the series on latest branch.
-- Fixed a use-after-free reported by Sashiko AI review: the LT9211C
-  workqueue teardown was registered via devm_add_action_or_reset()
-  before lt9211_host_attach() created ctx->dsi, so on unbind devres
-  would free ctx->dsi before flushing/destroying the workqueue. Moved
-  lt9211_host_attach() before the workqueue creation so devres tears
-  it down first.
-- Link to v8: https://lore.kernel.org/r/20260904-add-lt9211c-bridge-v8-0-36d66168e176@oss.qualcomm.com
+ Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Changes in v8:
-- Addressed Sashiko AI review comments on v7:
-  - lt9211_read_chipid() now cross-checks the detected chip ID against
-    the chip type requested by the DT compatible string, instead of
-    accepting either ID unconditionally.
-  - Pixel clock overflow and divide-by-zero concerns in
-    lt9211c_configure_tx() are false positives: lt9211_mode_valid()
-    already clamps mode->clock to the 25000-176000 kHz LVDS range
-    before any mode reaches this code.
-- Switched the LT9211C deferred init from delayed_work to a plain
-  work_struct/queue_work(), since the delay was always 0ms.
-- Link to v7: https://lore.kernel.org/r/20260822-add-lt9211c-bridge-v7-0-7dcf567d57c4@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+index 7cfe92a8bcd7..de61bda09db9 100644
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+@@ -4,19 +4,20 @@
+ $id: http://devicetree.org/schemas/display/bridge/lontium,lt9211.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Lontium LT9211 DSI/LVDS/DPI to DSI/LVDS/DPI bridge.
++title: Lontium LT9211/LT9211C DSI/LVDS/DPI to DSI/LVDS/DPI bridge.
+ 
+ maintainers:
+   - Marek Vasut <marex@denx.de>
+ 
+ description: |
+-  The LT9211 are bridge devices which convert Single/Dual-Link DSI/LVDS
++  The LT9211 and LT9211C are bridge devices which convert Single/Dual-Link DSI/LVDS
+   or Single DPI to Single/Dual-Link DSI/LVDS or Single DPI.
+ 
+ properties:
+   compatible:
+     enum:
+       - lontium,lt9211
++      - lontium,lt9211c
+ 
+   reg:
+     maxItems: 1
 
-Changes in v7:
-- Squashed 5 fixes from Philipp Zabel, except drop delayed work.
-    drm/bridge: lt9211: fix regmap_write error handling
-    drm/bridge: lt9211: use regmap_write_bits
-    drm/bridge: lt9211: reuse lt9211_configure_timing in lt9211c_configure_timing
-    drm/bridge: lt9211: combine equal branches
-    drm/bridge: lt9211: use devm_drm_bridge_add and drop lt9211_remove
-- Keeping the delayed work but improved the approach by reducing the delay
-  to 0ms and wait on vblank irq to correctly configure bridge and autodetect
-  RX as with synchronous approach in atomic_enable callback autodetect RX
-  was failed to detect RX format/width/height due to stream was not live.
-- Introduced lt9211_chip_data and fetched it via i2c_get_match_data(),
-  removing the remaining chip_type branches. [Philipp Zabel]
-- Switched lt9211c_regmap_config.cache_type from REGCACHE_RBTREE to
-  REGCACHE_NONE. [Philipp Zabel]
-- The few read-modify-write registers now use regmap_write_bits()) [Philipp Zabel]
-- Merged the mode->clock < 22000 and < 44000 branches in
-  lt9211c_configure_plls() that wrote identical 0x822f/div values;
-  0x822c is now written unconditionally in every branch instead of
-  being left stale when the mode clock moves out of the < 22000 range [Philipp Zabel]
-- Removed the dead "set bit 0x80 then mask it off" on the 0xd026
-  write in lt9211c_configure_plls() [Philipp Zabel]
-- Consolidated the duplicated SOT / HS-settle-set write into a single
-  hs_settle calculation and one regmap_write() call [Philipp Zabel]
-- Fixed error handling on regmap_write() calls in
-  lt9211c_configure_plls() that used "ret |=" across multiple writes,
-  which drops the return value of an earlier failed write [Philipp Zabel]
-- Reused lt9211_configure_timing() from lt9211c_configure_timing()
-  instead of duplicating the timing register sequence [Philipp Zabel]
-- Switched to devm_drm_bridge_add() and devm_add_action_or_reset() for
-  the LT9211C workqueue, dropping the explicit lt9211_remove() [Philipp Zabel]
-- Squashed LT9211C burst mode fix from Oleksij Rempel.
-- Added Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
-- Link to v6: https://lore.kernel.org/r/20260719-add-lt9211c-bridge-v6-0-e56d22152586@oss.qualcomm.com
-
-Changes in v6:
-- Nilesh Laad and Gopi Botlagunta  moved to different org in Qualcomm. Further, i will followup on this series with community, will also submit the dt series where LT9211C bridge is used.
-- Rebased onto current drm-misc-next (commit 671b7825dbfe)
-- Fixed lt9211_read_chipid: LT9211 match no longer checks chipid[2],
-  preserving compatibility with LT9211 rev U5 (db74b04edce1)
-- Fixed indentation in lt9211_atomic_enable LT9211 path (was double-indented)
-- Fixed indentation in lt9211_delayed_work_func body (was double-indented)
-- Gated workqueue creation on LT9211C chip type only
-- Fixed few formatting warnings with coccinelle and W=1
-- Link to v5: https://lore.kernel.org/r/20260323-add-lt9211c-bridge-v5-0-9c63bb035c17@oss.qualcomm.com
-
-Changes in v5:
-- Addressed code formatting in lt9211 driver (no functional or design changes)
-- Addressed v4 comments on lontium-lt9211.yaml
-- Link to v4: https://lore.kernel.org/r/20251224-add-lt9211c-bridge-v4-0-406e73ec28c5@oss.qualcomm.com
-
-Changes in v4:
-- Removed lontium-lt9211c.yaml
-- Extended lontium-lt9211.yaml to support LT9211C
-- Link to v3: https://lore.kernel.org/r/20251218-add-lt9211c-bridge-v3-0-1ee0670a0db2@oss.qualcomm.com
-
-Changes in v3:
-- Removed lontium-lt9211c as separate driver
-- Add support to lontium-lt9211c bridge driver by extending the existing lontium-lt9211.c
-- Fixed kernel test robot reported build errors
-- Link to v2: https://lore.kernel.org/lkml/20251107-add-lt9211c-bridge-v2-0-b0616e23407c@oss.qualcomm.com/
-
-Changes in v2:
-- Combined driver patch from https://lore.kernel.org/lkml/20250911-lt9211c-bridge-support-v1-1-c221202cbcd5@oss.qualcomm.com/
-- Added MODULE_AUTHOR
-- Uppercase to lowercase for hex values
-- Link to v1: https://lore.kernel.org/r/20250910-add-lt9211c-bridge-v1-1-4f23740fe101@oss.qualcomm.com
-
----
-Yi Zhang (2):
-      dt-bindings: display: bridge: lontium,lt9211: Add lt9211c support
-      drm/bridge: add support for lontium lt9211c bridge
-
- .../bindings/display/bridge/lontium,lt9211.yaml    |   5 +-
- drivers/gpu/drm/bridge/lontium-lt9211.c            | 838 ++++++++++++++++++++-
- 2 files changed, 810 insertions(+), 33 deletions(-)
----
-base-commit: 97c594f71fa71dc30a0583a76d8b6ef5c5ea10b1
-change-id: 20250910-add-lt9211c-bridge-5a21fcb1c803
-
-Best regards,
 -- 
-Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+2.34.1
 
