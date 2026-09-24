@@ -4,84 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A649C9830E
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B89EC9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E68D310F53A;
-	Thu, 24 Sep 2026 13:16:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A3B10E169;
+	Thu, 24 Sep 2026 13:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="L0FCqFIN";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="R0HoyHdE";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A169710F53A
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:16:51 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482f6351831so1301584f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:16:51 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F5210E169
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:24:48 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e6c0fce17so11233685e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:24:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790255810; x=1790860610; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1790256287; x=1790861087; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=e72LlFud0CCI0EsfmN7tiOkPcKOczfDlT5tJOUrL9HM=;
- b=L0FCqFINfktJ/WhyXDxCG1YcpeNaKZTtoskCoaAyZ3BHr1awMijcVTU/PNxohbRDbv
- qwaNlaNsyT/w9Ykre8hqqrfy2ceRJOOkooEY7q34+X85Z6QEXmKpl1UdHaHyAxoqe3Bx
- OvnPmZ8cEUcGnFvmeVSL3b0Wlmm5/gOwEv0n3jpfjeyctb8VHtVx2uM33JQxWGgyj/h6
- 0bxKgcwGn8KoILyieEjpijmM0wUBjOUrtf3B4yL0rDG9uLiyUufe0EthZZzx5NYBW0gp
- J3UkFhc+3EKwEZPX2VrGbuaYw9QShdCWHSpXISJj11AaFcp91DH7ERrk0ur2fEAdObxv
- 9tog==
+ bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
+ b=R0HoyHdEYtqGRZ2KG/y7niC1hqyLQHr4wU1NeYIzO+OkgymkxDV/iMzkwijtPf4AmB
+ lQKfWKTYbRVUMWRCe36FLidCHSoMWJiIaTDlXwb0ddALxE3EZeiOtjq/nuBSK6QTzpVv
+ l4gwd3eSTAz7zA3ZVB0I9IKAzzVNHkRhFm9Gno4mX5Zm+rB8zhMGnOovmBKzWpfro27s
+ 5VJ72G3nk9jen1OYazVmHPWGXP8q17EtWSjh8q1g2/EU31x36Ji74kqXJQUzc51thisL
+ 3UVTAus2p4I6p+eu971Jq4LDYgX+gwARwLGscO3zNphR7BbV2WXZdcpY+9OvZPErqpN2
+ Agug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790255810; x=1790860610;
+ d=1e100.net; s=20260707; t=1790256287; x=1790861087;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=e72LlFud0CCI0EsfmN7tiOkPcKOczfDlT5tJOUrL9HM=;
- b=yhzbavSDKCgM+KrsFbikh1RIlnoXTf/+hXU6OBgzHxGmL6iE3ndSIbugKBXV40KH6v
- bc+vsReRNeZxEmXJnqlS/z0qkkrHEdMC4LnWUwIw+uJARFwqiY6b7XBVn4WEHhbyYxOP
- dMRrGoUW3IYunMtw5dit0Rw/GSvgCRnDQykOBWOqpFn5MhJnXX9kWY9oNBx5/8Zh7smN
- s96TikPqnF/j1+l044j2Aa3hUY9ISCmoaHivcvFEZAFU11pY7JHRtMN2FLHawa3jf1SE
- FHOSaBivr6RADcSUQ1ERrNVWcYa7iTl9jRNW/PQtUilmcMqYTcxaFhzzgt/7Oo/9ngHv
- MO+Q==
-X-Gm-Message-State: AFuF++mimwvE263IeZjQHjgDCDSdsnF4Lc/zPrbivGVt9yPO7u/PTd9J
- HyFIWf7iiappTTSjWqxzUsN41Pm7Q0SlrCAiHPuaOQauZ5QSm2l/wPq8ESMZLx40uAc=
-X-Gm-Gg: AYBFou3pTIcTLkraF7HLvl/9VUmJnJXFhDvdKJHwkj3LrHmXzNpf2I0x/LGZeX52geC
- FxQs6QhCCvaiqVJp1TRwWZhI0Jzp3to4Q6vma7FpmWsx0wSLsbSl/Kd0IXn5n22urgticx+b4EX
- sOi1bCPKklAOpDjfmH30i5iGNXQ01fyKIYyKvbFtxFMF2fO71/sFoYD4McuVLu6GLd1uwGK0Syb
- Wcf4tpBjGPGMBNMqzayr82cMwWG1PzWpVGBsMvr+Md/EK/U61hP+YjojWPeZAo33Aw0/+MWM4oh
- ISr3WUeTWD2cvy/rueRTfObbUjoDRBsM0xdGZXW35fyTOLU99z7SpPLL6A9ek8PR59b0GH7TlLF
- ShJizUSOJAJrgqGYDuthmdHfDvvvt74nDTotrIdcQReQdmSuLl0XCZglPEg313jVuZKnzd0JVv2
- BgClt+UTrDOEkdLwxCZLNp5K3EWIPymbSQtFrgITgGhOmr71ksgQQ3cEGvkm84NEWpEJ52nzWR6
- jAaImclyIP4ruMNCQ3BfQHUHgShuUG5oB4is4twv4VdtoccQJ6jYfjH1cUuMd+S
-X-Received: by 2002:a05:6000:1863:b0:487:342:d142 with SMTP id
- ffacd0b85a97d-4887175ae72mr4705434f8f.44.1790255809815; 
- Thu, 24 Sep 2026 06:16:49 -0700 (PDT)
+ bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
+ b=BzAA922WagqGD8tSTFnk2s0vMfmYYaOCLuIGLeFc3yURoO8h3Q2t2BMahx/eW6W26s
+ AS1lUozqj5bXLJ+JOMqz1oDL4cb7gO9Po6P5AHu7nKRqra5/qe00XEjFvFhOSUAbF4q5
+ IXula7KvvjhLGhK4IGzRF+Sygc/5nw0HZSE0Zrj4sP2FzklIbfGzC7f6XhMbVOe6G4d9
+ pZfZ68922b6OlxyEP/i++Xh5VuHTF1e1HYSXAE2jKgdbAE7XM8YKI3F8RredfhpDEIpK
+ UxDjub6MTgnjSO2ny4tNhntBp4/JIZCpf86tQc6j28nQ1r0lMHKzHT4ud2Fj88ohPrZ1
+ JNuw==
+X-Gm-Message-State: AFuF++l2B/50NWTZO+UVRCPwV332gnYFGcbYCvr5ARLgKtm5kHdoLKQE
+ XMqy/XjEO5qwdK7Eb9SvU4ASwnw7zMQWFG1B9K66f0wWCc1pNyXxP/3zyxGpq+GgAg0=
+X-Gm-Gg: AYBFou0dGuQ0g/RlXNbRwwwIn9LuhI7itGFOU5SMCHo1my1mazhf7cazZbKdrVRJTap
+ 4RelTUFEjreVhJ2VylxS4nQQcMQhTIvTx7VMiiQsIGxOioCbzRvDH7bjVXvjHvBXAZGI4VBw7Ze
+ 1o91nrvkKyXemSNz9yBtNWsDU+44jKXoUNFS7u8v+0vxs4W5C5dBLxQ14bR+ddSue2G/QiOTkGM
+ QdeHi5M89g4/es24XmOVlVJ/o22c1SbsvIIFQTY+5ClqnLszPalA8EZz14AzoYubVZY/N1v+b+0
+ +uAKHLnyd59DLoYiqxsOBgnM1mOG093lLbPhzjyOH+ZzXb86mKhlLnB38h/CshxYYG13ollucrW
+ oJaLcebOPGku72r/g6AglHBU58AS0TjoPeqdySWCzLihnYjQutMwuAuVmtfRJBZsivZ5oi2p4uy
+ jKCDiR02XGBUFKyeTtTLiXNG1BBzrpJ+ls8a6E1JKjPQ1J5irmzDUgSL6kB2zohkEhzW2rU7SaB
+ UK0COKYPdzdUl0xFqVtdxA5oEhoTkMEWviToSMAZCIOTTK3epTW6/QEYHGyZlPG
+X-Received: by 2002:a05:600c:8b74:b0:49c:fc6e:a3d7 with SMTP id
+ 5b1f17b1804b1-49fe66e87damr41701145e9.22.1790256287127; 
+ Thu, 24 Sep 2026 06:24:47 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a?
  ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-488684863d9sm14842399f8f.12.2026.09.24.06.16.49
+ 5b1f17b1804b1-49fe5b47da1sm72841405e9.0.2026.09.24.06.24.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Sep 2026 06:16:49 -0700 (PDT)
-Message-ID: <78aa5e0b-b3ab-4e33-a17e-a353d65d86bc@linaro.org>
-Date: Thu, 24 Sep 2026 15:16:48 +0200
+ Thu, 24 Sep 2026 06:24:46 -0700 (PDT)
+Message-ID: <2f3d939e-8de6-45f2-92ff-4aeae4d9af54@linaro.org>
+Date: Thu, 24 Sep 2026 15:24:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 3/3] drm/panel: ebbg-ft8719: Split initialization into
- enable/disable fn
-To: david@ixit.cz, Joel Selvaraj <foss@joelselvaraj.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH 03/11] drm/panel: s6e3ha8: Really assert reset on the
+ failure
+To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>,
- Linus Walleij <linusw@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
- <20260908-ebbg-ft8719-fixups-v2-3-5454ae1f5581@ixit.cz>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, stable@vger.kernel.org
+References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
+ <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,7 +110,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-3-5454ae1f5581@ixit.cz>
+In-Reply-To: <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -127,121 +129,46 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/8/26 14:45, David Heidelberg via B4 Relay wrote:
+On 9/20/26 13:05, David Heidelberg via B4 Relay wrote:
 > From: David Heidelberg <david@ixit.cz>
 > 
-> Move the MIPI commands into enable/disable callbacks since they
-> are called between prepare/unprepare callbacks.
+> Due to incorrect implementation 0 == asserted, thus when driver fails it
+> needs to assert reset.
 > 
+> Minimal fix for stable; the polarity convention is corrected properly
+> later in this series.
+> 
+> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 > Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->   drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 19 ++++++++-----------
->   1 file changed, 8 insertions(+), 11 deletions(-)
+>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> index 14982263a94f1..1652de70900f1 100644
-> --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> @@ -49,74 +49,69 @@ static void ebbg_ft8719_reset(struct ebbg_ft8719 *ctx)
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
->   	usleep_range(4000, 5000);
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
->   	usleep_range(1000, 2000);
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
->   	usleep_range(15000, 16000);
->   }
->   
-> -static int ebbg_ft8719_on(struct ebbg_ft8719 *ctx)
-> +static int ebbg_ft8719_enable(struct drm_panel *panel)
->   {
-> +	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
->   	struct mipi_dsi_device *dsi = ctx->dsi;
->   	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
->   
->   	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
->   
->   	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x00ff);
->   	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x24);
->   	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
->   
->   	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->   	mipi_dsi_msleep(&dsi_ctx, 90);
->   	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
->   
->   	return dsi_ctx.accum_err;
->   }
->   
-> -static int ebbg_ft8719_off(struct ebbg_ft8719 *ctx)
-> +static int ebbg_ft8719_disable(struct drm_panel *panel)
->   {
-> +	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
->   	struct mipi_dsi_device *dsi = ctx->dsi;
->   	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
->   
-> -	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
->   
->   	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
->   	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
->   	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
->   	mipi_dsi_msleep(&dsi_ctx, 90);
->   
-> -	return dsi_ctx.accum_err;
-> +	return 0;
->   }
->   
->   static int ebbg_ft8719_prepare(struct drm_panel *panel)
->   {
->   	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
->   	int ret;
->   
->   	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> index 078523df48860..835121b322f4a 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
+>   	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
 >   	if (ret < 0)
 >   		return ret;
+>   	mipi_dsi_msleep(&ctx, 120);
+>   	s6e3ha8_amb577px01_wqhd_reset(priv);
 >   
->   	ebbg_ft8719_reset(ctx);
+>   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
+>   	if (ret < 0) {
+> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>   		goto err;
+>   	}
 >   
-> -	ret = ebbg_ft8719_on(ctx);
-> -	if (ret < 0) {
-> -		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> -		return ret;
-> -	}
-> -
->   	return 0;
->   }
+>   	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
 >   
->   static int ebbg_ft8719_unprepare(struct drm_panel *panel)
->   {
->   	struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
->   
-> -	ebbg_ft8719_off(ctx);
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
->   	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
->   
->   	return 0;
->   }
->   
->   static const struct drm_display_mode ebbg_ft8719_mode = {
->   	.clock = (1080 + 28 + 4 + 16) * (2246 + 120 + 4 + 12) * 60 / 1000,
-> @@ -148,16 +143,18 @@ static int ebbg_ft8719_get_modes(struct drm_panel *panel,
->   	connector->display_info.height_mm = mode->height_mm;
->   	drm_mode_probed_add(connector, mode);
->   
->   	return 1;
->   }
->   
->   static const struct drm_panel_funcs ebbg_ft8719_panel_funcs = {
->   	.prepare = ebbg_ft8719_prepare,
-> +	.enable = ebbg_ft8719_enable,
-> +	.disable = ebbg_ft8719_disable,
->   	.unprepare = ebbg_ft8719_unprepare,
->   	.get_modes = ebbg_ft8719_get_modes,
->   };
->   
->   static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
->   {
->   	struct device *dev = &dsi->dev;
->   	struct ebbg_ft8719 *ctx;
+>   	samsung_dsi_test_key_on_lvl1(&ctx);
+>   	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
+>   	samsung_dsi_test_key_off_lvl1(&ctx);
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
