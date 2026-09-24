@@ -4,84 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 162EBC98317
-	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:36:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA09C9830E
+	for <dri-devel@archiver.kernel.org>; Thu, 24 Sep 2026 13:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2E010F569;
-	Thu, 24 Sep 2026 13:36:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 083E110F581;
+	Thu, 24 Sep 2026 13:37:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X22oSTyf";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="pdXVFJ5l";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C3410F569
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:36:47 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49b912e64ccso13605565e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:36:47 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
+ [74.125.225.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 704DD10F581
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 13:37:52 +0000 (UTC)
+Received: by mail-wr2-f12.google.com with SMTP id
+ ffacd0b85a97d-48449f62b93so844868f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 06:37:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790257005; x=1790861805; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1790257071; x=1790861871; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xXlP/969CHxJtU22HfzbT0qcpswupuWX/2g/r8D5tLk=;
- b=X22oSTyfaZwoEAu3/0deD081i8H2nMf24A4dard04cU6K25CQTEo2I8lcnkcwsgVjb
- OOU+qMrvVFn2Orzro9MDi43/RgNRwEY4Mvq1kzl23HVRVcF2myUs5ggrMcQbYhScbeVU
- Th8UT+s5OzydgqlnPuJGXbFG1+918/XR1oyMJKgsyKArbSLKYtxFiPXxsFN4oYxc+k9x
- sUHGHNVJOjtIJvO6dw2QTQm/JCSNBShdtIzukAusmZ2k+fiuyrtIU5eAuyQ33XxmtQaZ
- yCBKY4xz5URmuGqX5Rc/3NhXRoUBKf6lWCiUpw7SPL8zHP5Zy9d9UZbxT1PNjtQVmIDM
- udUQ==
+ bh=czECHI0/k3wkyu2UFpcXryFcDXjrvdMhsjt10rPpJ7M=;
+ b=pdXVFJ5ls2gT60HAwNfPiAX/BV7HxHyBAQBkopm+/EuHH9ht19UK2PUQOzrbygv+kf
+ wYmDO6kk0EWm0zMjxrRDqfUK1J6QYr03OqrH8+JCtTmHt6go+M4eyMS2sPkOwauEqOnC
+ IG+J8usU7Z1Y5Rdsm2VWpw+v5sjiyYqzUPCatSqZC/Q0keFHA/z+ZugeWtsHPgzh6y42
+ hTma35kg5jtsIRN9QjLOwQwHSBOmw2cP0GOtDEsOGlRXtN1DBCk52KI9QUtwrDimrRdL
+ 0czsqnbOFMq5FILrxpXKlwgeoj2JHRgdXf4MlbbE2+ByyTSltCJxQZz/Gkokirco+iG0
+ /6Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790257005; x=1790861805;
+ d=1e100.net; s=20260707; t=1790257071; x=1790861871;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xXlP/969CHxJtU22HfzbT0qcpswupuWX/2g/r8D5tLk=;
- b=SDC5WRuJItsI4VCs8lpXUFjDmUT0PuSZBqb1D38ruh186CIsPfqXPWCnRHTDgGo3Ad
- RNIt6+X67w8lgr8dejEM/qXtcyDDIJWikU61f9nv9hA8ggza+DeOyI3fLMk3JN5Q8CMw
- +d6gXiES9iwUM6cyGw0JCu66y8yoF5sY+YEw8moIVDJKhCjwN9Ny28OZo31ZxgC4GV8K
- f8dHUQQj8mylz2SsYLCYImyPNpigSnZVMC9bjoag18+eq+i+1HDqHuSanC9TlFn4YYbd
- c8ykc7rgNzZ749CnmEftsrPci6uxcPsmtRNhmLJGtKtqpUEsYUnNXVm9Jl9Aalq7XXLU
- FGZQ==
+ bh=czECHI0/k3wkyu2UFpcXryFcDXjrvdMhsjt10rPpJ7M=;
+ b=ffKFI/VIX9lzF7jXdOxdaDQO6IKwf/6Xct5qiYyeMqyutS6j+gijyjv05ommP2fUH/
+ CqJ5bd2PS/FqD1dmnRduwNQX4b1JjTuQuGYxHFkLd6AanLThtH1HUfgALYJQvl9mwYsP
+ DL71K+xJb9zm10KweHEFRXNYiCK+XAt27ZWVLySnTi/4IRb0QDCTqBukXdJZGkp/Wtvh
+ GYvFZ0hF0KjMFxtZnu7HF//Vspht/1ILxSxFx6RIubSVnfGMApPultQPjbQYd4CP/9vt
+ fR/Fe8GkOLqUq0V583qPWcmnY/randUVNzKuwuSM2hMDUbTrwoLIOMAQw43USpDxwzjt
+ Y4LA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxYXlq6RnaNTFH5nYw8+HO7W7lpljWUL4L5ldLSMrb8u26IieSoBsay87jv5uI8+xcIX5yQa7BdUA8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lwzedBbmm+ChgxWE+00v8//eizWFWuuQJvogczyQ0kfDOiQ+zR
- fRxsFcXY/zVShN+Xj48Ldow2npHmrNaYtc3l1aVGJPLm+H/1cFcDtw15JVVId/V6E44=
-X-Gm-Gg: AYBFou1GiZQIZ6o3skQ22mCsDMd5yG0pJVgPSz5ISoVfsZPRSAHdYzBlBd0IJCIACXq
- F+XZTyA1fQ6WDniiMSpxMzDb08mxZkCsJroPDgbP3nAUtJR9jwkn2cM8BuBAfNFZdf2yDLnyCW4
- 4hpW6pyLoPlQ2EV50CwakmdwXt+rILRrOwcgOxcUy9nNWXB1KcGUrbm71aIGOKGa23LxzVjNzRn
- YemfPpUaWtzJvHuw5amYEq+gai2UkeJecOGg9EAja61wdRA0hyTWyzcYU5UxnZChaJdmcbT9IXQ
- xRUfJamTZefkA+z4ESLvcg9jzvFAY8MDd1kPVKoD7XH0H8AsFgaXGlRVXHxslmECSs/KebrOm0x
- oEGsV4cMoF3gHMy1+igT5TjpgqtlstCIQWRCF/dEFPVPmDjk76PTbFQCBqzt7YUEPRwhItpx31U
- o7VJphXoYSzZONHZkjZP8ofxU+3reIHjGWroz8Iq0BIKh7YC8frowW2irT1laL+9RHx5mJlEWJa
- 1fKJ7FnUx9NaC7c6x3OYdtJG1daOOWTBV67lfzwTIcPJEsxN0A4vdI=
-X-Received: by 2002:a05:600c:468c:b0:49f:bd3c:bc19 with SMTP id
- 5b1f17b1804b1-49fe66f4cabmr40024985e9.20.1790257005322; 
- Thu, 24 Sep 2026 06:36:45 -0700 (PDT)
+ AKwUvBx6ILmlrNP4OR6hXqpkeFYMqT89bOa4Fih0O5Kc9yoDlbdGi6/1L4O1hdEkHVXeoC/bEbLs2XFZZ3M=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lF2c8ozU97vvDs7JZLgctPGioYWiEVsxXpihJTHpdfHyGRSV7V
+ iDvn/+kf0ri+N183IUwnbYI1o22oMy9Jr2oWkAbSW2DeX/B5UBodNulqAqSvqQTxOK5cDHjQbL6
+ J30cL9mU=
+X-Gm-Gg: AYBFou08AZs8aZuNEIQ6H1LUof6un+gkkDzA4NiCQ5xP64gFN8onSheEDOFAy/jRa7u
+ zAsClZMpR6X5LjV0XtEX6Q/250bgzFr6eLekS0crz1umPFyk0OiswSE6ToIzpFO1U4D/rPQpgzP
+ 6qeQfw8ZWJw6GE7CD6Cs8v67WBiT9qTZ1qfZG4BhiVAD3kb8GkjJugSGPF2DM6h+1xfbcvodWVq
+ dSSHDQeSr5asRBWeAKqUUnIf8IGKdeDCwKGIcRl01rClTeOcyT0GY8vCmSNiFGDp71qfYp9SbpE
+ FvwBazocDtEACYqlN/9vMudSh0HxvIrdPQ1q4tKWYiAu+0q75+6zTVZhJtTM/CmUejVpZ4AmnfY
+ +SixQkDKna2S3/JI1aY9+hVi+7Y0Hl6KkuNth5yCDKM6umjCPTzwlATdRcc5/ydO1wSUOivO7po
+ 571Xa/ff3c1hJ1GAPqkql4Tke4AgwIge4WCHCWFMf19L0zA1A6cdY9lfBxlbcgvsf7/bigE+98j
+ yfBMiHB+mGJzBnqWBYiGUUbutvwM0uI9iqDj0EvYedZ3XBjsV4JaQ==
+X-Received: by 2002:a05:6000:470e:b0:487:342:eb37 with SMTP id
+ ffacd0b85a97d-488716954e0mr4204794f8f.7.1790257070687; 
+ Thu, 24 Sep 2026 06:37:50 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a?
  ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48868889130sm14521695f8f.37.2026.09.24.06.36.44
+ ffacd0b85a97d-488682673bdsm14741846f8f.2.2026.09.24.06.37.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Sep 2026 06:36:44 -0700 (PDT)
-Message-ID: <8f18e32d-07a7-46d9-9e6b-55c8fd25ede6@linaro.org>
-Date: Thu, 24 Sep 2026 15:36:43 +0200
+ Thu, 24 Sep 2026 06:37:49 -0700 (PDT)
+Message-ID: <3aaa9d04-6bf4-46a4-80d7-9828405b7468@linaro.org>
+Date: Thu, 24 Sep 2026 15:37:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
-Subject: Re: [PATCH] drm/panel: Fix node reference leak in
- rpi_touchscreen_probe()
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: architt@codeaurora.org, bcm-kernel-feedback-list@broadcom.com,
- dri-devel@lists.freedesktop.org, eric@anholt.net,
- florian.fainelli@broadcom.com, jesszhan0024@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, treding@nvidia.com,
- tzimmermann@suse.de, stable@vger.kernel.org
-References: <20260916180549.2090497-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ sam@ravnborg.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260919191524.268810-1-meatuni001@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,7 +105,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260916180549.2090497-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260919191524.268810-1-meatuni001@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -127,33 +124,61 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/16/26 20:05, Wentao Liang wrote:
-> of_graph_get_remote_port() returns a reference to the remote port
-> node.  On the success path that reference is passed to the registered
-> DSI device and released with it, but if mipi_dsi_device_register_full()
-> fails the reference is never dropped.  Release it on the error path.
+On 9/19/26 21:15, Muhammad Bilal wrote:
+> tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
+> into the global panel_list before tdo_tl070wsh30_panel_probe() calls
+> mipi_dsi_attach(). The panel object itself is allocated with
+> devm_drm_panel_alloc(), which only arranges for an automatic
+> drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
+> is torn down; unlike devm_drm_panel_add(), it does not call
+> drm_panel_remove() for you.
 > 
-> Fixes: 2f733d6194bd ("drm/panel: Add support for the Raspberry Pi 7" Touchscreen.")
+> If mipi_dsi_attach() fails, probe() returns the error directly:
+> 
+> 	return mipi_dsi_attach(dsi);
+> 
+> Once probe() returns an error, the driver core releases devres
+> resources for the device, which drops the allocation's own
+> reference. But drm_panel_add() had already taken its own reference
+> and linked panel->list into the global panel_list, and nothing
+> undoes that. The panel is left registered in panel_list pointing at
+> a device that failed to bind, where it can still be found and
+> dereferenced by later lookups/iterations such as
+> of_drm_find_panel() or find_panel_by_fwnode().
+> 
+> Call drm_panel_remove() when mipi_dsi_attach() fails, mirroring what
+> tdo_tl070wsh30_panel_remove() already does on the normal teardown
+> path, and matching the pattern used by other MIPI-DSI panel drivers
+> that pair a manual drm_panel_add() with mipi_dsi_attach().
+> 
+> Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> index dc4bb8ad9131..c14776561623 100644
-> --- a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> +++ b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> @@ -428,6 +428,7 @@ static int rpi_touchscreen_probe(struct i2c_client *i2c)
->   	if (IS_ERR(ts->dsi)) {
->   		dev_err(dev, "DSI device registration failed: %ld\n",
->   			PTR_ERR(ts->dsi));
-> +		of_node_put(info.node);
->   		return PTR_ERR(ts->dsi);
->   	}
+> diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+> index fa961abdd2d7..32f2dd2bcee7 100644
+> --- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+> +++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+> @@ -179,7 +179,11 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
+>   	if (err < 0)
+>   		return err;
 >   
+> -	return mipi_dsi_attach(dsi);
+> +	err = mipi_dsi_attach(dsi);
+> +	if (err < 0)
+> +		drm_panel_remove(&tdo_tl070wsh30->base);
+> +
+> +	return err;
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Switch to devm_mipi_dsi_attach() instead.
 
-Thanks,
 Neil
+
+
+>   }
+>   
+>   static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
+
