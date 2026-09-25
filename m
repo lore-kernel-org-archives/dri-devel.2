@@ -4,80 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC5ACA5FA4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D03CA5FA3
 	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2F210E836;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6601C10E839;
 	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nNBRYm1w";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ORXEZCJf";
 	dkim-atps=neutral
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com
- [74.125.227.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E65F10E419
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 07:54:41 +0000 (UTC)
-Received: by mail-pj2-f40.google.com with SMTP id
- 98e67ed59e1d1-3a0df0bb2d6so591612a91.3
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 305C410F8FB
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:37:44 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6a5f9b036f9so5559a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 00:37:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790321862; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ZBCh4pMXvshdXKNSPnq7f+BKCpJ+N6WfPuN6YK6vklKNt6fSPhP73jH70FYSjxvbkn
+ +/+nApwGIiFVAw6OztZnLGVROPze+yepjnzQOISv+A8a2COT3RT+e4ITi60mYUNLhuro
+ WKZKFPbZnqh8brSklEFX1XEpb3iyQ2mhBI7jZOAElY82cv6qgKHvHbQcg5lXZeB/qTLH
+ EZ2vCVVeCGckMBgguVWiX/Rn4FU+qXiS44lDojzxwbqr7IwC6jCBRNAwRFTwuQSqTFUv
+ /1XeYCnNFefgVZAo9uT7DldHK4eoNj1bReQ8Itfc8tTQ+Sv3Br+TSgRpWal8VQcfeJJI
+ h3dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
+ fh=BlPsUDqtRk8UGzdIbhWV2VuNSdUr+Ol0FdV8D+OXPoA=;
+ b=P4ob2JBkX9UkXRXRtwdrwj/EoXUrxU9xRV8MFK0QeNdmIs6Z/Gbpy8amEumXVL5ikk
+ 6tAr7L/GBVDjucIdyjC5D3uRmIe+/Tl+DCY0C65MIf5/MqyV3T9UzMuphoUaCAF7K7kC
+ kK1AGaafhrRGMkM05ffWq7fIlYMle+6joXh2o7UfAtGKd1Oe7d+DnhAoSoMbl4jTKmNJ
+ +47wnn5dlZ+6G4EKKRx8sLwdEjEVu7HCQI6mmOP4LDAxsfRgttuJdpoMcce0xAIV2e0C
+ XP76eFMzln0UJ6ASrxCMptQU3hVUXgvvkjr9PG45GvjVHevo2o0pSQULWPpMh3xOzxlc
+ d0DQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790495680; x=1791100480; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
- b=nNBRYm1wvE/N5oZgIfvbJgdEnOZVzZIGgxtgKqsI41mdEHuss3rmKy3a+oqI5LS2Qm
- 76B2ewFNR4I7pFHHIvUX1GSy05sAqlCQFGw1FmXTxIW0XOg6joaA00HkkDlxLWQAPqmL
- nny+ZqvMYojZBH5lo/w5/0l65JbIIOH7ngHm0AY1Z1/5C1FilbeWCC8OeBAdWP8HMzy4
- SODY5uyOkcTi3CiYehYIuKrK224qMSPvrSV1AVXdzozOOv/dbGdTttqgPm2XtawUlJG+
- oJPzMBZCTZM9gShwM61FUBqeOs9uYcZ6JKZs4ZLEvkO4co4phIk2p09AXGSluQeXkE24
- iqjg==
+ d=google.com; s=20251104; t=1790321862; x=1790926662;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
+ b=ORXEZCJfMIm0f/4Fs7DU0vKGI+ASuhxzlj6/3FxyhKkWtcrSFPbPgUPr81ML7WKsYb
+ VmQGRRWWpdAxelLf964iO/8oszIFBW/s4/eUdubVe8htXoT0NNnNZM2HmNw5TSgmShJZ
+ ZfG/jHrFeA8uXR6j2dHkr7eCUnb7cYxD6Ffub8U9FcV89adWc7Kum3dwpm3Ct6V8W3jp
+ vatT4jRPVqdJWzJemTjzm92GHo11z5RYPhbfShNxr9bT78aytiTCRF96iy3D+TfHZOJO
+ XwS0TDxcCfOUvvSmg30H+hm7KwInefVvD8kwoNunn2mUfBsR4mXNPTUqWtjq/f0X95uS
+ Cx8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790495680; x=1791100480;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=bjwFwUue96fleY0pohUkbrbEGxywxs4gaD//2C9cu0w=;
- b=rPh0iL4iKm1nRYBFh1wXPyLHYukJDTb97l72726qHM8OiFSVF/cEVtdZ8AVCbnUCxv
- 3lNIA4hi62Bq/7bO5k0VBN9INUBFmZjcYU1TmWEJKQp5ZAn+0tI4bYl7Rdnvg7q3U/Bv
- NFciAKp29IEnZwgUpTTeaMAqrDgGB27/IXXU1vBoZPRx3cMxAhiOIP97JLF5HAV6jhX4
- 64MQGWqkth1uCvNBLRYexCJdk373gxcDnC0A7bI5hgTunKMs804wXUJJMj8dV+qFneTK
- iu/viyL+BnxFgNNr+IrpW/fEnDtQUpHKMuvooOQp0c0strr4gGgvfZ/YHuWUaT+x/r9b
- oFGg==
+ d=1e100.net; s=20260707; t=1790321862; x=1790926662;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
+ b=Tz8P4BAGcq3TchmGMPe8pmM+Px68AbpEyYUPgCCrfbt3BkEMO0KRcPBoe5BucQObLO
+ BKkeO05E4za7g7uEw2bHvYVwmi3NqBFTswA0IFzHinx8SovqNBg7o0DrDc/EnO10bX3F
+ jWP+k5C0bzvtuGGX2QEWGojEdar25mg3/vtDlTFRXjqE3IWJcqRIiELz9C1SXATJhGMa
+ TRFx/K9fy4TPv21HG73eCANUHjZ1RZdK6yeHHC7c0jooO7k2bVvG2fIyrUCTaNnvWomt
+ YWe3Y5kPvEmrpWlK9dJfBRRUw6WYzT3cFbXPIp860OB1d0SeF1aARuJvVzz3BWfilvqY
+ zeuQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxiLRVT374u/BvV2npBwrVfUTX6wYRst6L0+64dcNB7VoB5t3b/IHIpLHEINu+cSCstz5Go12sNRYg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJGej2gKBI33gjnQvAbhM3rouXEcVSfV9xSzm44wCDqLOrP+iwV
- V6ztzM5uLxinw5AlXiYb6aBFhKPL459q11bbZXPxkKkOLVQFjk4sdQ/d
-X-Gm-Gg: AYBFou3q/kaqAOFn4JyTSZ8UDMQzH+xxUyMpLqv6B9DmDtlr0TG6b9JD/HCYzkzB5/0
- L4C2a+rQaNjhskhXrXExlb/pP/b01+IPW7gMHF3xmpCYCpmKnmbecehdL3jUYvWEsmkSeihqNrj
- GW9h82Qb7ygREdNXy8uyQo0fwkaEsYKgceJgzRQbS6fOaKNq8kjhoaw0m8Ggy2CIQlTSdKmVo+y
- nc8HAD1aswhczxh0LJx1wnOvAe0817r2nmEk+SA7cfftCo2cJhY3TL19xR5GL/tV9AfMdGZoSQe
- /QRQ3OdDjoU0FTc0kPFj9XIJX6KlkwxNPSErJCJG36xjvXUonZDXJCa10pGm248xrlJdzd7eL3T
- UZclrh4X+JEwO2essCqjNPEuoe19fMOOqrVi6s80g6H7nM0diHrEVUr1tHUa+K7cRUNcCUT6w7T
- XNOwYLpvhiIci4MWIuetwd+MEkAlVeSrHJ7azRUa5VYXyHeA5gpQCYSNfKmZ0eYG3/CkmsTCeLV
- kssS2bpfx2JqZGS
-X-Received: by 2002:a17:90b:57c6:b0:3a0:22bd:6ef6 with SMTP id
- 98e67ed59e1d1-3a09853a6cdmr7064156a91.2.1790495680466; 
- Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a0b8efaeb3sm13771287a91.2.2026.09.27.00.54.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Sep 2026 00:54:40 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Subject: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails,
- not just on -EAGAIN
-Date: Sun, 27 Sep 2026 14:54:34 +0700
-Message-ID: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ AKwUvBzBVwwurt+d67rMeC54IzDnkoi7tjsBdPzdBEsMH18B3612haMC525Htmb8WJa8J8UNXSuzyBauR7Q=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lqmD/L7i4IgSfmjicU3RCDQsu1jG1PpqNyI5ZQ/x0y1RgpZKD/
+ dDBbvezgkzozGcEL++/5L/xJSB0R869I5LIvjtRWEkaS+CAGAaUuFUoYSb4A0aQVtTmJCq869Qk
+ HWeXT7Yn8ymKAnqgZYV36FUNHlUOb/vZirjIeW9Er
+X-Gm-Gg: AYBFou0Hvdc98FoYA+h2bE3VRAGzAOR/5NZeCKcaHjZkOeQnVDKnbTyMGiuFdNL2weX
+ 0cGB9vTDIV/sqv+9pPw4lc8kN/gCqy7BqU6b/0fzgjHxZf2wwzsE8/H44tGSCOCYmTr3M/1r79j
+ k2P54nDlBJEK663V1BF7aQ3hOxvzWeHFCrSM0MZbL1H+GCPEYIW2bFUH9PwuWieonwKCaZlgE5a
+ AuJuGrX+Vuc/pZYfveYKCH3QHKnMEBSk8/vo2uvN/J0+vNmyChIknDZmmtxRP05xQaO+VUTqcHc
+ rjsS/RR/R8PXEvcGl8DqmZdZ6o/A6CVkK9emHrSexL8+VsK8VFPj4A==
+X-Received: by 2002:a05:6402:2714:b0:6a6:f2a5:1b4f with SMTP id
+ 4fb4d7f45d1cf-6aae4729638mr36915a12.4.1790321859803; Fri, 25 Sep 2026
+ 00:37:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-7-4583d8a23bca@kernel.org>
+ <DLNSOBMBHIVC.22QI9YBL1U72E@nvidia.com>
+In-Reply-To: <DLNSOBMBHIVC.22QI9YBL1U72E@nvidia.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 25 Sep 2026 00:37:26 -0700
+X-Gm-Features: AclHuK_RUT9CXNFLpx8ZY_roLEZNzp5S3oNdpNL4cW25fJBFg9wRGnSWohuMdYA
+Message-ID: <CAJuCfpH6AF-hOo4jU6OeNVpd+fgpqLpmcfAGs11J=nPCgAqG_w@mail.gmail.com>
+Subject: Re: [PATCH v3 07/40] mm/vma: tidy up map kernel pages enum values
+To: Zi Yan <ziy@nvidia.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,83 +192,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__drm_fb_helper_initial_config_and_unlock() calls
-drm_client_modeset_probe() first, which already fills in each
-mode_set->mode/num_connectors for every connected output, and only
-afterwards calls drm_fb_helper_single_fb_probe() to create
-fb_helper->fb and wire it into those mode_sets via
-drm_setup_crtcs_fb().
+On Thu, Sep 24, 2026 at 12:31=E2=80=AFPM Zi Yan <ziy@nvidia.com> wrote:
+>
+> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> > MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied=
+ by
+> > MMAP.
+> >
+> > Also while we're here delete useless comments for mmap actions whose na=
+mes
+> > clearly indicate what they are for.
+> >
+> > Also update the userland VMA tests to reflect this change.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  include/linux/mm.h              | 2 +-
+> >  include/linux/mm_types.h        | 8 ++++----
+> >  mm/util.c                       | 8 ++++----
+> >  tools/testing/vma/include/dup.h | 8 ++++----
+> >  4 files changed, 13 insertions(+), 13 deletions(-)
+> >
+> LGTM.
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-If drm_fb_helper_single_fb_probe() fails with anything other than
--EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
-bails out before drm_setup_crtcs_fb() runs and before setting
-fb_helper->deferred_setup. The client is left with mode_sets that
-have a mode and connectors but mode_set->fb == NULL, and nothing
-marks this fb_helper as needing a retry.
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-__drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
-when fb_helper->deferred_setup is set, so a later .restore() call
-(drm_lastclose() on process exit, in this report) commits the stale
-mode_set through drm_client_modeset_commit() ->
-drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
-which hits WARN_ON(!set->fb).
-
-Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
-failure, not just -EAGAIN, so restore keeps skipping the commit until
-a later hotplug event successfully re-probes and re-populates
-mode_set->fb. The real error code is still returned to the caller
-unchanged.
-
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
-a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
-idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
-lands on a different card minor than in the syzbot report since other
-drivers (vgem/vkms/bochs-drm) register first, but retargeting the
-reproducer's open() at gud's actual minor reproduces it directly on the
-very first probe:
-
-  gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
-  gud 1-1:1.0: [drm] No compatible format found
-  gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
-  ------------[ cut here ]------------
-  !set->fb
-  WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
-
-On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
-warns and then continues, committing an active CRTC/plane with a NULL
-framebuffer, which escalates into a NULL-pointer dereference and a fatal
-kernel panic a few lines later in our runs. With this patch applied, the
-same gud probe failure (ret=-22) still happens every time as expected, but
-restore() no longer commits the stale mode_set: no warning, no panic,
-clean shutdown across repeated runs.
-
- drivers/gpu/drm/drm_fb_helper.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index d4664ed468b2..0817b639b3fa 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
- 
- 	ret = drm_fb_helper_single_fb_probe(fb_helper);
- 	if (ret < 0) {
--		if (ret == -EAGAIN) {
--			fb_helper->deferred_setup = true;
-+		/* modesets are probed but fb_helper->fb isn't; defer restore too */
-+		fb_helper->deferred_setup = true;
-+		if (ret == -EAGAIN)
- 			ret = 0;
--		}
- 		mutex_unlock(&fb_helper->lock);
- 
- 		goto err_drm_fb_helper_release_info;
--- 
-2.43.0
-
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
