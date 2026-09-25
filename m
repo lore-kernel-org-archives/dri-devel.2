@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C228C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69E3C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C94910FA9C;
-	Fri, 25 Sep 2026 13:34:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF15810FAAD;
+	Fri, 25 Sep 2026 13:34:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JbtdyyWQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Iu30Ga0s";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF50410FA9C;
- Fri, 25 Sep 2026 13:34:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8E110FA9F;
+ Fri, 25 Sep 2026 13:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790343249; x=1821879249;
+ t=1790343252; x=1821879252;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3uVgxO16E80pFDQCDMuae+BLgs8SKoNwryj3+Wbk1AQ=;
- b=JbtdyyWQJbcRxpEXZ7RKSv90+dSnJWU5lgZl5354l7Z77gn3MbVTm9nQ
- AN0INnP4AnryxNqjaZ1+a8prWOcbkgwMHLWuFWUNoOWOFtTM5gkk1wsfe
- tJBExLgItfEg9jUeXJkX1Z/1Gwbuzb+Qh6DxodTNajITWIpWEHennpsnJ
- hbgMZIXZh1vuQSI6oWbs8cgEl4cpNKHqZ1Lk/GjabOLbfQZajRuL77c9v
- J5gFr3BfxE+Ia96bG6s3WH4lSCjhUHfgj1yA511FqIfiNvvJ5hgWAIrFN
- ir06fqCAE6ISf5Tau7/IH2PFOvcla3BJjXaVKyuKNBOR1vBwyLfnFVq0K A==;
-X-CSE-ConnectionGUID: yV2QBLsITVWskGjrLCSitg==
-X-CSE-MsgGUID: 43xjeRJDQuaLAboj8vkzuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="100461156"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="100461156"
+ bh=5Wiue+KTeqP/K+JVKvZRB/tXA1RwS3Pr9Wyh09a/xoo=;
+ b=Iu30Ga0s6Q15Vsh3w012/2lFaXhsv5LYMJVer8t8uGNinwBfLtS63DH2
+ dwIHT0eKjC8TZYHomSpth8PXQp/uFkfeUU+5YszeZMNqlVWQzSGLYdqNh
+ Or5Ydm1Zilg4gMfruvhEZvWj+GqceBs3uaDtz1CwfzoPetf3bps9XHYaZ
+ INnBXQkEQCNVriDhHhlIfWEXpHWBXySJCX6v6mqF7F7kwtJcPf2ujR9Qw
+ ykiO31Ey01t9XnqXNVfiKhOb/8EBuEJPat16gKZRg/mYdu91unZsWlnHg
+ WMFEyd8ztymO5kM+InvtNQhXG7iQ0izFUUy4pmNI6j/FjTGojNfx21c3U A==;
+X-CSE-ConnectionGUID: jbzeWpYGQK++7O7eWIP5Jw==
+X-CSE-MsgGUID: W62RyoOWT/6kXx4hWO/KrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="100461163"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="100461163"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 06:34:09 -0700
-X-CSE-ConnectionGUID: sOGUFsl1Ra6jGHet1SnqdQ==
-X-CSE-MsgGUID: rQ3tU+jXTiSQM416pT8uwA==
+ 25 Sep 2026 06:34:12 -0700
+X-CSE-ConnectionGUID: 5AOeNnGWRh2g+7WsauasTw==
+X-CSE-MsgGUID: t8rdJVPVSAe4a/MvH5gtSQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="273888299"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="273888335"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
  ([10.245.245.121])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 06:34:07 -0700
+ 25 Sep 2026 06:34:09 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -51,10 +51,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v3 1/3] drm: Provide a drm_dev_release_barrier() function to
- wait for device release callbacks
-Date: Fri, 25 Sep 2026 15:33:33 +0200
-Message-ID: <20260925133335.149679-2-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v3 2/3] drm/xe: Don't unload the driver until all drm devices
+ are freed
+Date: Fri, 25 Sep 2026 15:33:34 +0200
+Message-ID: <20260925133335.149679-3-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
 References: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
@@ -76,178 +76,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Driver and drm helper code is increasingly relying on holding a bare
-&drm_device reference (drm_dev_get()) without also holding a module
-reference on the module that created the device.
+xe, and shared helpers it uses such as drm_gpuvm, already take bare
+drm_device references (drm_dev_get()) from several contexts, for
+example GuC submission fence workers, EU stall, OA and PMU sampling
+code, and drm_gpuvm's own vm object lifetime, without pairing them
+with a module reference. Since xe_exit() is only invoked after the
+module's own refcount has dropped to zero, none of these references
+currently prevent `rmmod xe` from proceeding while they, or the
+underlying xe_device release path they can trigger, are still
+outstanding, i.e. driver code belonging to a module whose text is
+being freed could still end up executing.
 
-For example drm_gpuvm_init() takes a drm_dev_get() reference on the
-&drm_gpuvm's behalf with no accompanying module reference at all, and
-drm_gpuvm_free() later calls the driver-supplied gpuvm->ops->vm_free()
-callback, which lives in the driver module, before dropping that
-reference. xe also takes bare drm_device references itself from
-several asynchronous contexts, such as GuC submission fence workers,
-EU stall, OA and PMU sampling code, relying only on those references
-being dropped before the underlying xe_device, and eventually the
-driver module, can be torn down.
+Close this gap by keeping a device-count and waiting for it to reach
+zero at module unload, then waiting for any release callback that has
+started executing to finish, using the drm_dev_release_barrier()
+infrastructure introduced in the previous commit.
 
-If the module that created such a device is unloaded while one of
-these bare references is still outstanding, and the corresponding
-drm_dev_put() only completes after the module has already been
-removed, the driver's ->release() callback, any drm managed release
-actions, or a driver callback such as gpuvm->ops->vm_free(), all of
-which live in that module's, by then freed, code, can end up being
-invoked out of memory that no longer contains valid code.
+The wait for the device-count to reach zero at module unload is
+unbounded and non-interruptible. Rather than blocking silently forever
+if a reference is ever leaked, use wait_var_event_timeout() with a 20s
+timeout, well above the typical maximum dma_fence signalling time, and
+warn once if devices still remain by then, before falling back to an
+unbounded wait_var_event() so a stuck rmmod is at least observable
+instead of an indefinite, silent hang.
 
-Requiring every one of these bare drm_device references to also take a
-module reference, as drm_pagemap does today via try_module_get(),
-doesn't scale to shared helpers and driver-internal code with many
-call sites, and is easy to get wrong.
+Note that if a reference genuinely leaks, this still ends up as an
+indefinite uninterruptible sleep, which may eventually trip the
+kernel's hung-task watchdog. The alternative would be for these bare
+drm_device references to also take a module reference, which would
+instead make the module unable to be unloaded unless all its devices are
+manually unbound first. The wait-based approach is chosen here since it
+keeps rmmod usable in the common case.
 
-Fix this properly by letting drivers keep a drm device-count and
-ensure the module isn't unloaded until that count has dropped to zero
-and until any release callback that had already started executing has
-also finished executing.
+drm_dev_release_barrier() uses a single, global SRCU domain shared by
+all drivers, so xe's wait for its own release callbacks may
+occasionally end up blocking on an unrelated driver's release path
+too, a trade-off accepted in favor of not requiring each driver to set
+up and tear down its own SRCU domain.
 
-To help with the latter, add a drm_dev_release_barrier() function.
-The function ensures that any caller that has started executing
-device release callbacks has also finished executing them.
-
-Use SRCU for the implementation, with a single, global SRCU domain
-shared by all drivers. This means a driver's call to
-drm_dev_release_barrier() may occasionally end up waiting for an
-unrelated driver's release callback to finish, but release callbacks
-are expected to run quickly, and sharing one domain avoids the
-bookkeeping that a per-driver SRCU domain would require, such as
-adding a new &drm_driver field that every existing struct drm_driver
-instance in the tree would need to be audited for, and initializing
-and cleaning up that domain around driver (un)registration.
+xe_device_exit() is added as a new module exit hook. Its entry in the
+init_funcs[] table is placed between xe_destroy_wq_module_init and
+xe_register_pci_driver, so that (exit functions run in reverse array
+order) it executes after xe_unregister_pci_driver() has forced all
+devices to unbind, but before xe_destroy_wq_module_exit() tears down
+the module-lifetime xe_destroy_wq. This preserves xe_destroy_wq's
+existing teardown ordering relative to xe_sched_job_module_exit() and
+xe_hw_fence_module_exit(), which destroy kmem_caches that work drained
+from xe_destroy_wq relies on, while ensuring xe_destroy_wq itself is
+only torn down once xe_device_exit() has confirmed no more work can be
+queued onto it.
 
 v2:
-- Use plain WARN_ON_ONCE() instead of drm_WARN_ON_ONCE(NULL, ...) in
-  drm_dev_release_barrier(), since passing a NULL drm_device caused
-  the warning path itself to dereference that NULL pointer inside
-  dev_driver_string()/dev_name() (sashiko)
+- Updated commit message to describe the actual implementation (a
+  single 20s wait_var_event_timeout() followed by one pr_warn() and an
+  unbounded wait_var_event(), rather than a loop retrying with a
+  diagnostic every 10s) and its uninterruptible-sleep tradeoff
+  (sashiko)
 
 v3:
-- Use a single, global SRCU domain shared by all drivers instead of
-  requiring each driver to supply its own via a new
-  &drm_driver.release_srcu field, accepting that a driver's call to
-  drm_dev_release_barrier() may then occasionally block on unrelated
-  drivers' release callbacks (Christian König)
+- drm_dev_release_barrier() no longer takes a &drm_driver argument
+  since it now uses a single, global SRCU domain; drop the
+  &drm_driver.release_srcu registration on both xe drm_driver
+  instances accordingly (Christian König)
 
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: LLM
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/drm_drv.c | 61 +++++++++++++++++++++++++++++++++++++++
- include/drm/drm_drv.h     |  1 +
- 2 files changed, 62 insertions(+)
+ drivers/gpu/drm/xe/xe_device.c | 32 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_device.h |  2 ++
+ drivers/gpu/drm/xe/xe_module.c | 18 +++++++++++++++++-
+ 3 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 0cdc606af8d1..0641e61ee931 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -918,21 +918,65 @@ struct drm_device *drm_dev_alloc(const struct drm_driver *driver,
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index 205cb4e7f9e8..c54d734bd890 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -372,6 +372,9 @@ bool xe_device_is_admin_only(const struct xe_device *xe)
  }
- EXPORT_SYMBOL(drm_dev_alloc);
+ #endif
  
-+/*
-+ * Single, global SRCU domain used to synchronize completion of every
-+ * driver's @release callback and drm managed release actions with
-+ * drm_dev_release_barrier(). Sharing one domain across all drivers means a
-+ * driver's call to drm_dev_release_barrier() may occasionally have to wait
-+ * for unrelated drivers' release callbacks to finish, but that's a
-+ * reasonable trade-off given that release callbacks are expected to run
-+ * quickly, and it avoids the bookkeeping of a per-driver SRCU domain.
-+ */
-+DEFINE_STATIC_SRCU(drm_release_srcu);
++/* Number of allocated struct xe_device */
++static atomic_t xe_device_count;
 +
- static void drm_dev_release(struct kref *ref)
+ static void xe_device_destroy(struct drm_device *dev, void *dummy)
  {
- 	struct drm_device *dev = container_of(ref, struct drm_device, ref);
-+	int idx;
+ 	struct xe_device *xe = to_xe_device(dev);
+@@ -391,6 +394,9 @@ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ 		destroy_workqueue(xe->destroy_wq);
  
- 	/* Just in case register/unregister was never called */
- 	drm_debugfs_dev_fini(dev);
- 
-+	idx = srcu_read_lock(&drm_release_srcu);
+ 	ttm_device_fini(&xe->ttm);
 +
- 	if (dev->driver->release)
- 		dev->driver->release(dev);
- 
- 	drm_managed_release(dev);
- 
-+	srcu_read_unlock(&drm_release_srcu, idx);
-+
- 	kfree(dev->managed.final_kfree);
++	if (atomic_dec_and_test(&xe_device_count))
++		wake_up_var(&xe_device_count);
  }
  
+ /**
+@@ -461,6 +467,7 @@ int xe_device_init_early(struct xe_device *xe)
+ 		return err;
+ 
+ 	xe_bo_dev_init(&xe->bo_device);
++	atomic_inc(&xe_device_count);
+ 	err = drmm_add_action_or_reset(&xe->drm, xe_device_destroy, NULL);
+ 	if (err)
+ 		return err;
+@@ -1501,3 +1508,28 @@ struct xe_vm *xe_device_asid_to_vm(struct xe_device *xe, u32 asid)
+ 
+ 	return vm;
+ }
++
 +/**
-+ * drm_dev_release_barrier() - Ensure drm device release callbacks are finished
++ * xe_device_exit() - Device subsystem exit function.
 + *
-+ * If a device release method or any of the drm managed release callbacks
-+ * have been called for any drm_device, wait until all of them have finished
-+ * executing. This function can be used to help determine whether it's safe
-+ * to unload a driver module.
-+ *
-+ * Assume for example a driver maintains a device count which is decremented
-+ * using a drmm callback or a device release callback. From a drm device
-+ * lifetime POV, it's then safe to unload the driver when that device-count
-+ * has reached zero and drm_dev_release_barrier() has been called.
-+ *
-+ * Since a single, global SRCU domain is used for all drivers, this function
-+ * may also end up waiting for unrelated drivers' release callbacks to
-+ * complete.
-+ *
-+ * This function only waits for the &drm_driver.release callback and drm
-+ * managed release actions to finish. It does not, by itself, guarantee that
-+ * whoever called drm_dev_put() to drop the reference triggering that release
-+ * has itself finished running. See drm_dev_put() for that invariant.
++ * Exit function to be called at module unload time.
 + */
-+void drm_dev_release_barrier(void)
++void xe_device_exit(void)
 +{
-+	synchronize_srcu(&drm_release_srcu);
-+}
-+EXPORT_SYMBOL(drm_dev_release_barrier);
++	/*
++	 * Wait for all devices to be freed. 20s is well above the typical
++	 * maximum dma_fence signalling time, so warn and keep waiting if
++	 * we're still not done by then, since it may indicate a leaked
++	 * xe_device reference is stalling module unload.
++	 */
++	if (!wait_var_event_timeout(&xe_device_count,
++				    !atomic_read(&xe_device_count),
++				    HZ * 20)) {
++		pr_warn("%s: Waiting for %d xe device(s) to be freed before unloading.\n",
++			DRIVER_NAME, atomic_read(&xe_device_count));
++		wait_var_event(&xe_device_count, !atomic_read(&xe_device_count));
++	}
 +
- /**
-  * drm_dev_get - Take reference of a DRM device
-  * @dev: device to take reference of or NULL
-@@ -958,6 +1002,23 @@ EXPORT_SYMBOL(drm_dev_get);
-  *
-  * This decreases the ref-count of @dev by one. The device is destroyed if the
-  * ref-count drops to zero.
-+ *
-+ * If this call may drop the last reference, the calling code itself is
-+ * responsible for ensuring it isn't unloaded (for example as part of a
-+ * module) before this call has returned. This matters in particular for
-+ * drivers relying on drm_dev_release_barrier() to determine when it's safe to
-+ * unload, since that function only waits for the &drm_driver.release
-+ * callback and drm managed release actions to finish, not for whoever calls
-+ * drm_dev_put() to finish calling it.
-+ *
-+ * A common case is dropping the last reference from a deferred context, such
-+ * as a workqueue item. In that case it's the responsibility of whoever
-+ * queued that work item to guarantee it has run to completion before the
-+ * module can unload, for example by draining a module-lifetime workqueue at
-+ * module exit time. Holding a module reference only until the work item
-+ * starts running is insufficient: that reference would already be dropped
-+ * before this call runs, even though this call is what may still need the
-+ * module's code to remain resident.
-  */
- void drm_dev_put(struct drm_device *dev)
- {
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index b23830494ed4..169b404df54a 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -485,6 +485,7 @@ void drm_dev_exit(int idx);
- void drm_dev_unplug(struct drm_device *dev);
- int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
- 			 struct drm_wedge_task_info *info);
-+void drm_dev_release_barrier(void);
++	/* Wait for any driver release callbacks to complete */
++	drm_dev_release_barrier();
++}
+diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
+index 6d3d6d5eba29..83d6dafab53c 100644
+--- a/drivers/gpu/drm/xe/xe_device.h
++++ b/drivers/gpu/drm/xe/xe_device.h
+@@ -283,6 +283,8 @@ static inline bool xe_device_is_admin_only(const struct xe_device *xe)
+ }
+ #endif
  
- /**
-  * drm_dev_is_unplugged - is a DRM device unplugged
++void xe_device_exit(void);
++
+ /*
+  * Occasionally it is seen that the G2H worker starts running after a delay of more than
+  * a second even after being queued and activated by the Linux workqueue subsystem. This
+diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
+index 4bc28dfc1992..c61bd33546f2 100644
+--- a/drivers/gpu/drm/xe/xe_module.c
++++ b/drivers/gpu/drm/xe/xe_module.c
+@@ -12,7 +12,7 @@
+ #include <drm/drm_module.h>
+ 
+ #include "xe_defaults.h"
+-#include "xe_device_types.h"
++#include "xe_device.h"
+ #include "xe_drv.h"
+ #include "xe_configfs.h"
+ #include "xe_hw_fence.h"
+@@ -162,6 +162,22 @@ static const struct init_funcs init_funcs[] = {
+ 		.init = xe_destroy_wq_module_init,
+ 		.exit = xe_destroy_wq_module_exit,
+ 	},
++	/*
++	 * xe_destroy_wq_module_exit() must run after xe_device_exit()
++	 * (below), since freeing a device can still queue work on
++	 * xe_destroy_wq that must be drained before the module can safely
++	 * unload. At the same time, xe_device_exit() must run after
++	 * xe_unregister_pci_driver() (below), and xe_destroy_wq_module_exit()
++	 * must run before xe_sched_job_module_exit() and
++	 * xe_hw_fence_module_exit() (above), whose kmem_caches are still used
++	 * by work drained from xe_destroy_wq. Exit functions run in reverse
++	 * array order, so this entry must sit between the
++	 * xe_destroy_wq_module_init entry above and the xe_register_pci_driver
++	 * entry below.
++	 */
++	{
++		.exit = xe_device_exit,
++	},
+ 	{
+ 		.init = xe_register_pci_driver,
+ 		.exit = xe_unregister_pci_driver,
 -- 
 2.55.0
 
