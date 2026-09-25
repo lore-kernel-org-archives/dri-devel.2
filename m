@@ -4,77 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F639C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66DDAC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E552510FAD9;
-	Fri, 25 Sep 2026 14:03:17 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA13B10FAD9
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:03:16 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
- by APP-01 (Coremail) with SMTP id qwCowAA3D_P+frZqWmXzCA--.32169S2;
- Fri, 25 Sep 2026 22:02:41 +0800 (CST)
-Message-ID: <2a3e3ce8d62805394ef41a2e9f84a5051af30ac2.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 13/19] clk: starfive: jh7110-vout: Allow pixel clock
- rate propagation
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Jerome Brunet <jbrunet@baylibre.com>, Michal Wilczynski	
- <m.wilczynski@samsung.com>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Andrzej Hajda	 <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
- Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>,  Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>
-Date: Fri, 25 Sep 2026 22:02:38 +0800
-In-Reply-To: <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132733eucas1p1a6529cb2ea97bc75c9cd190d1ba901c0@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-13-484f9ae72715@samsung.com>
- <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F7010FAEA;
+	Fri, 25 Sep 2026 14:19:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BJy/xYTF";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KQWlPjMm";
+	dkim-atps=neutral
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 982D610FAEA
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:19:38 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68PD4p1E3532115
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:19:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Gs/Zp4Lyis1BUfei8WI1dbDL
+ AbMPRkxp7joj1eNb5+8=; b=BJy/xYTFs1C+RCKKuMNXhfxCK8TqLvqP2uymw68K
+ GQ1B3ulwMqZu18/z7ZsmtNvYpJGn/LyY3alfnOOvql+Xs0XH95oQRiCp8eOKPy8z
+ Jiu4+C3oVlXCrC72+kpSocWr5BdlI/QJOmYT8HQoT5aYy+QeYaEtnGVTAVuQNrnL
+ jj1a8Slx8POrx/C1xqZZMnoCBkIAEm0xtJtNXY+QpzlA3ZLfrBzYILNngtzaajG3
+ gVYjviAZGlsxd9NUSFGZmw1oR/A0RfmCk1+QxkouzwLWjzavJ4AQ1d4IBThNcig1
+ 4BNMc3jgzrmqvOwipjHao1JZMvB7lJCkyPnPuCmBf9WQcA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw94kbhnc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:19:37 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93a1e564fd5so171405885a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:19:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790345977; x=1790950777;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Gs/Zp4Lyis1BUfei8WI1dbDLAbMPRkxp7joj1eNb5+8=;
+ b=KQWlPjMm8dvN5/woZy2QMU/sK2/w2SiOMDEObIWDngK1jTysaobZ+suQdI5o7pl5Z4
+ cjy9KJGkE0S5WOpNGYielOxY+ihX2fl7CiC9W6YGOx6WJZLukWEoQNv3RoXla0hR51Ph
+ IOsmhfgnkWQRorkuVZD/v63siK7rs9fbG2RxEU3QbA2lD9tnrvuF6/T2vk9L6dp+PQMp
+ sgSMZXJ0DOWgIK9U4C0IS4gS41IW+zrR1R6deKtWaSTsaWsN0jmk+/tEK4CA2I68y0Kj
+ nCRLe4Cy07/8HEOK3yk63LA505IJaS+8sSSBu3bWzlXZYZuMKYddENBwCaDeyflMqS61
+ SJuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790345977; x=1790950777;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Gs/Zp4Lyis1BUfei8WI1dbDLAbMPRkxp7joj1eNb5+8=;
+ b=Hn8RAH0WIlXwuyAPD8+5ZQmzscfDTP3sdsiihj6Y6vYs8sOOWSnKHYmio9ZgtaR5LS
+ zVZ93cuLW6xCuDrUESaJHQe+eJzvlIcL2T1athKHt/7l2YtKP5T4lwlrutnKvbrzlAvt
+ 5fAqEgzNY/VOjrlAjVgghprBVt8y2R81NyK04KBYtJp+hZ/KWiO/+J4UzbN+eHVAu4hS
+ 0igu+jUuT9SlJ52WHXLjOYpxR2nbgQ99pi2BFMr5ZEqAXnDH2CzBPs56TPzeYg/75UZo
+ gC68sWn8CWsg1KCoBP32UfHYkqcURVCycFuHPTAqHp/2geBNY4gEEb91rg8Bp8d8Lgm8
+ qAlg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByjvR/xRcASVLkbdhrMKKIMMKDu0QUxdH/qwESO8xBfnkwLeHyo6nKiTWilOIPOSSFrdf9jT6UGKQ8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kdX8YpgOkXqFWBzEEfH9kbsPm5PNclHwwmLW6Moc0NLXwhdMvB
+ Ey2rce/C8kwvXFO/1LXIgaR3i/KYnmev1TlWLnDy4z/cujkyiMkh2fr9ClscVKmi23tjgV+lFZb
+ 8YM9nqq09c1BGvpus/93Q4WMU4Kn70ItSjwYY5DkKc03XpcfKw/1xdUZ1lfh4lOw9zckdwaM=
+X-Gm-Gg: AYBFou10/fy8rl9L77jdXv2lhTJ6tH7ZnHeEkbRe23Wxn+71W26y7tjWmehGocy6joG
+ RAfoNAhoQxmJSmVDT3oH48K5s20Y3GPIr8FRe+OATrGShuFNc3eGQv3eedf6sMBFzMlZTirszVE
+ ajf3WdnfzwYpwK+qhPVq0BUMdCaEvSqhzxUzFAqo/Iu4vhN8ok3sc+vR+312CpY562hQeYW3gFl
+ 9D2FaMS952MyjVpUeejaKY88APfl8quOl1DGI+JIzeuYbjJfrJ3Q6hHqFo+CgO/DMhsiLM17Iuu
+ xILYujVhvGch/wDgFMl5mll3xcbJW7iXFx6iax3IY0h3B+xEh3C5eyKAPsHqivfDI+i6FGRwn7D
+ leE8/6IBdPw5sndlZulIJQhpjZGKEveiKXnZimhR0+wjnUmF0Nk5q7bEVbX9i4auvZplCtMSZlA
+ ar2jx4uINvi2Pi
+X-Received: by 2002:a05:620a:710d:b0:93b:ca79:3b0b with SMTP id
+ af79cd13be357-93c43be5048mr477718985a.24.1790345976478; 
+ Fri, 25 Sep 2026 07:19:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:710d:b0:93b:ca79:3b0b with SMTP id
+ af79cd13be357-93c43be5048mr477713385a.24.1790345975854; 
+ Fri, 25 Sep 2026 07:19:35 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b8e6b0795bsm567008e87.64.2026.09.25.07.19.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 07:19:34 -0700 (PDT)
+Date: Fri, 25 Sep 2026 17:19:32 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Val Packett <val@packett.cool>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dsi/phy: power up the digital top before
+ starting the 7nm PLL
+Message-ID: <hqdsikuu7tgbkchteduzgno3pvzvhxahdrv52qy2v35qj3w7ms@qhsy2cot4uuy>
+References: <20260924-dsi-7nm-pll-digtop-v1-1-c2b24c8e218d@oss.qualcomm.com>
+ <DLNL4OAG2D1L.2EI2N80LMZV8N@fairphone.com>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAA3D_P+frZqWmXzCA--.32169S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFW5WrW3Kr47uw4UtFWrZrb_yoW5Aw4rpr
- s7Ca4rJFs0qF48Za4xX3WYqFW5Aan2ya45tFn7ZF10vr45Ka1UWw1vkF9xWF97XrZ7Cw13
- Wr4v9F4fuF4DXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IUnPl1DUUUUU==
-X-Originating-IP: [120.85.96.244]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLNL4OAG2D1L.2EI2N80LMZV8N@fairphone.com>
+X-Authority-Analysis: v=2.4 cv=aaj0Dhot c=1 sm=1 tr=0 ts=6ab682f9 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=BDs8z1iCgLwJFp4fgFUA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: HKlXM9Kl3SjnC3oEK3WYW6obkdmXXggA
+X-Proofpoint-ORIG-GUID: HKlXM9Kl3SjnC3oEK3WYW6obkdmXXggA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1NyBTYWx0ZWRfX8uhUxgW2MwUK
+ WDp3ZK3jcodnP90ogMSqbG+hi/pHoDNpJeIcGZ4SuVxn2hmQ2w485HqPJbbtn5IKwQ2CDtk0h/y
+ TqX4P3AQcaeI3rJRnvDW+uHBjp5178FCd3siTMBIrjweoFGNjjTtCwR8CqNlt8u/NCv9cQZe33C
+ 8DxogLyCuoOxxc7MyL/Wjkpht9wybCMMK/+zh9HtZ9YUHKZouVHBTd7NqUGqjyK5gLOAwYIMLxE
+ vsUZbcJb2GgJE62bCmZWR3ibu/pXLYW6Wkjtk6pI/rm03mgUayHewRycJVhGp4UDHL8Dq0Ku6TJ
+ fz3jVwW89u9lUl7EklsJnAFJrokM7iKAwyp0b+G3UMdMfhCrkuLRYr2wfXoGnIe0X3lILbhL0wF
+ +QihO5wmU7DrKJIEZcYZ4HCxwz4uBABm+qLI84G92ZDZQ49WoSxDusg3uWz0Fmusx89G+uRCt4N
+ A/EqSJ83R3eukDi4flg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1NyBTYWx0ZWRfXziK8JgH7BuNe
+ IucKOkGBvjf8UMQbS/OTAgp+scBnwUApRiyGfy3JWR2uHK2hkZn46czqKumtACpbIq5I5v7t5tY
+ UP5jFKzfUC0ngRntsoLLyGqNpiaHNwA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250057
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,82 +152,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 14:47 +0200=EF=BC=8CJerome Brunet=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On ven. 04 sept. 2026 at 15:27, Michal Wilczynski
-> <m.wilczynski@samsung.com> wrote:
->=20
-> > The dc8200_pix0 and dc8200_pix1 MUXes feed the display controller,
-> > and
-> > the rate they carry is ultimately produced by the HDMI PHY, which
-> > registers hdmitx0_pixelclk as a clock provider.
-> >=20
-> > Add CLK_SET_RATE_PARENT to both MUXes so a rate requested on them
-> > reaches that parent, instead of being clamped to whatever rate the
-> > parent already happens to run at.
-> >=20
-> > Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> > Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> > ---
-> > =C2=A0drivers/clk/starfive/clk-starfive-jh7110-vout.c | 6 ++++--
-> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > index
-> > bad20d5d794a72f071b4d547b7304786a8ba9afa..aeba42cd3c44ba205ced52b18
-> > 26d2d2de82ad78f 100644
-> > --- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > +++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > @@ -40,10 +40,12 @@ static const struct jh71x0_clk_data
-> > jh7110_voutclk_data[] =3D {
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AXI, "dc8200_axi", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AXI),
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_CORE, "dc8200_core", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AXI),
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AHB, "dc8200_ahb", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AHB),
-> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0", 0,
-> > 2,
-> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0",
-> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
-> > CLK_SET_RATE_NO_REPARENT, 2,
->=20
-> I see that you've added CLK_SET_RATE_NO_REPARENT following a previous
-> sashiko advice.
+On Thu, Sep 24, 2026 at 03:36:05PM +0200, Luca Weiss wrote:
+> Hi Dmitry,
+> 
+> On Thu Sep 24, 2026 at 2:51 AM CEST, Dmitry Baryshkov wrote:
+> > dsi_pll_7nm_vco_prepare() de-asserts PLL_SHUTDOWNB and starts the PLL,
+> > but leaves the PHY digital top powered down; only dsi_7nm_phy_enable()
+> > sets DIGTOP_PWRDN_B.  The PLL cannot lock in that state.  This went
+> > unnoticed for as long as the PLL was only ever prepared from the DSI
+> > host's enable path, after the PHY had been enabled.
+> >
+> > Since commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for
+> > pixel clocks") the clock framework enables the PHY PLL on its own while
+> > applying the DT's assigned-clock-parents from of_clk_set_defaults(), at
+> > probe time, before the PHY has been touched.  The lock fails, the failed
+> > enable leaves the pixel clock with an unbalanced enable count, and the
+> > retries on every probe attempt stall the boot for tens of seconds:
+> >
+> >   DSI PLL(0) lock failed, status=0x00000000
+> >   PLL(0) lock failed
+> >   dsi0_phy_pll_out_dsiclk already disabled
+> >   WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x244/0x24c
+> >    clk_core_disable
+> >    __clk_set_parent_after
+> >    clk_core_set_parent_nolock
+> >    clk_set_parent
+> >    of_clk_set_defaults
+> >    platform_probe
+> >
+> > CMN_CTRL_0 reads 0x20 at the failing attempt: PLL_SHUTDOWNB set,
+> > DIGTOP_PWRDN_B clear.  Setting DIGTOP_PWRDN_B alone makes the same PLL
+> > lock, with no rate change and no other register touched.
+> >
+> > Power up the digital top together with the PLL bias, and power it down
+> > again with it.  The normal enable path is unaffected: dsi_7nm_phy_enable()
+> > holds the bias reference and writes CMN_CTRL_0 in full anyway.
+> 
+> FWIW the same fix seems to help on the 10nm with this error on bootup
+> 
+> [    0.503085] msm_dsi_phy ae94400.phy: [drm:dsi_pll_10nm_vco_prepare] *ERROR* DSI PLL(0) lock failed, status=0x00000000
+> [    0.503168] msm_dsi_phy ae94400.phy: [drm:dsi_pll_10nm_vco_prepare] *ERROR* PLL(0) lock failed
+> 
+> I've also ported more commits from 7nm to 10nm locally, will send them
+> soon, since anyway they should be good fixes and code quality
+> improvements
+> 
+> drm/msm/dsi_phy_10nm: Protect PHY_CMN_CLK_CFG0 updated from driver side
+> drm/msm/dsi_phy_10nm: Protect PHY_CMN_CLK_CFG1 against clock driver
+> drm/msm/dsi_phy_10nm: Do not overwite PHY_CMN_CLK_CFG1 when choosing bitclk source
+> drm/msm/dsi_phy_10nm: Define PHY_CMN_CLK_CFG[01] bitfields and simplify saving
+> drm/msm/dsi_phy_10nm: Define PHY_CMN_CTRL_0 bitfields
+> drm/msm/dsi_phy_10nm: Fix reading zero as PLL rates when unprepared
+> 
+> Unfortunately some other warnings/errors still persist on bootup that I
+> can't figure out... maybe you have some idea?
+> 
+> If not, I don't want to bring this thread too much offtopic :)
+> 
+> [    1.197104] ------------[ cut here ]------------
+> [    1.197113] dsi0_pll_bit_clk: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set
 
-I think the problem is that the Innosilicon HDMI PHY is designed to be
-solely the pixel clock provider when HDMI output is enabled, so manual
-clock parent assginment is required when using HDMI to prevent the
-general PLL from driving the pixel clock, and for DSI to prevent
-abusing the HDMI PHY clock generator.
+This looks like the read from the unpowered PLL block. Check that all
+required bits are set. It might be worth replacing this standard
+clk_divider (and the one in 7nm) with the special version that doesn't
+go to the registers if the PHY is unpowered.
 
-Thanks,
-Icenowy
+> [    1.197134] WARNING: drivers/clk/clk-divider.c:145 at divider_recalc_rate+0xac/0xd4, CPU#0: kworker/u32:0/12
+> [    1.197150] Modules linked in:
+> [    1.197160] CPU: 0 UID: 0 PID: 12 Comm: kworker/u32:0 Not tainted 7.2.0-00088-gddc402c24fff #86 PREEMPTLAZY 
 
->=20
-> Note that saying it will 'hijack' the parent without it is kind of
-> strong. It is fine to let a mux reparent while setting a rate, as
-> long
-> as you understand the possible consequences for the rest of the tree.
->=20
-> Regardless
->=20
-> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
->=20
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
-> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1", 0,
-> > 2,
-> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1",
-> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
-> > CLK_SET_RATE_NO_REPARENT, 2,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
-> > =C2=A0	/* LCD */
-> >=20
-> > --=20
-> > 2.34.1
-> >=20
-
+-- 
+With best wishes
+Dmitry
