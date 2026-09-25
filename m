@@ -4,47 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D63C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 11:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE03C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 12:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5775510E265;
-	Fri, 25 Sep 2026 11:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5184A10E573;
+	Fri, 25 Sep 2026 12:09:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="jeLJQeE4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C78wY15I";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-138.mta0.migadu.com [91.218.175.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C25E10E265
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 11:51:33 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=W5HjZtvkEZP4bI+XdBWSmYCpMoNGX4TaFCAmHfxFcFw=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790337092; v=1; x=1790941892;
- b=jeLJQeE4CjnVJJy/VNoOjJmxdPtLoUoSMcctSBjQXIh6f6jlVDXqcfEtLMfMsHhJspf4hobB
- 3gQEgkkrSh2cEgmNS1omiMGpUXvGqUWdHcjuHncE+nrC9FQeO0GZsWVuToblFhpBnEEnCvcSKAv
- EJUFoZ/hVb7eeBokSkD1BNnA=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 9aae308e809086b9;
- Fri, 25 Sep 2026 11:51:31 +0000
-X-Mizu-Trace-ID: 9aae308e809086b9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <988a32d4-6b76-48f3-bcc1-3634b4a02c36@linux.dev>
-Date: Fri, 25 Sep 2026 17:21:25 +0530
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 826EE10E573
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:09:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8F38F60136;
+ Fri, 25 Sep 2026 12:09:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E511F00893;
+ Fri, 25 Sep 2026 12:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790338146;
+ bh=bpOatN8c0vzQ5XGVXFfSv8DKVf4rivauZnBt896FgHg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=C78wY15IWuSHyWzdqDDT7eq8MGBjMuC2MgBPRHiH1/Cib4Q2ycCR9Y6RbhvsAGU50
+ q5tZw8/2wiDyQ3/+eWXed91+VVQsjjk8pieuow7Tol4MtXB0C2GYZuWaxYcTejPf/r
+ BgpSuD1MCToqahOHEpPB2mqf/KtvibTXXAPcpePnJrDb73DGkMJxdLoV52jj7nSWco
+ YiD0bljhRjRiAFGWJU3FETf2MnA1dAjxRQ/hrjNoKcaNRvnaO9s/0HeBAV7cylkb4U
+ deUO03vah9aNSeDOHYNoFLZfuelQNQ8/QG1a2cUCs4WI2++L8iC4HqnbZfKARFrsd7
+ Pcv4odfkCHIiQ==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfauth.ams.internal (Postfix) with ESMTP id F0D01198003A;
+ Fri, 25 Sep 2026 08:08:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Fri, 25 Sep 2026 08:09:02 -0400
+X-ME-Sender: <xms:VGS2apVl0oCJHXSAF-WnG03V0OTkE3GA3JKk6_2wku0RZ0iOk6I8VA>
+ <xme:VGS2aiNFpi9BnkhFuuvFuFD70z2eBlFObIvPb29IzL5mI2ZX4ynwOvzRE_LNUXFwx
+ MxB6eWOboCuVpa1CHShE3eBEdlpVGjuVpHowmad4m6Ezn7y_bAq>
+X-ME-Received: <xmr:VGS2aqOosTEEs-ZdT05pxKviNpAWr3_xzRLG8_wFMp7Vw5A6xBNjESi0LMg>
+X-ME-Proxy-Cause: dmFkZTEA00vB4wCEuGFPU26dSeuaRUC5A4v8eR3RjG3bBqa5h9xJ9DkJKF4RfcLFM9n52q
+ 3k8DUPXRt4S1MUQEQlgs/wFXZV95oQo4U601e3eSYJKZG4Nhmud24uk7molK+3EfFBEyfp
+ uDB+bzuPtnSdm3cfhWN7C/cKeLr/l2x069NPMBtTxphXRLuvs4rl/Oop2SUxPOEiACBaC0
+ gVKF5BVz0FD5pmDrDLCObajhGOWXVLPB4W5+pGabl+YCuxbxl1db9bA3z/zmlyf/1Y3+2L
+ bVts6vygIEw+WpL0zBkMy806BQB0UOjN5unt97CMkqUmRwIhB3ZHFNBhyJmHTKmaY59xgy
+ PaoQcuDGforIp2yh/OBDcAuLeHTf4NVgu/Q3MiIOv2TZopVH0lk4R8KuKyPCu2sh571uG9
+ sQPWLWpLg+PoxuyoKvDnj3hE9HeDAhnW3hojgqd3K3wL+y5rD/qo4gklbsa8cpwL188kU/
+ PkrFg7Z10iDPdvydF0UxXu1cXW3SDAD7DkoSjDdZk52r6lJ4VuFRP8XOiCC01t/9khS7+8
+ 80d3XVP2yWba/CGFqlEv9Y9vYYaHPUtop786W0VSRxh4hYXHm6ZkBsk1pUW3rlfEVHeLs+
+ E+BuIgoOa3tDknUGmMSn2+zWK6DrKkUYj1McN22x/IP5Ssc3bWGg5eEzG1dQ
+X-ME-Proxy: <xmx:VGS2aoYZ7nFUadQ6kpGq7uDV0Tu20PSpPBisEuB6MM_0W2vrpxJVUQ>
+ <xmx:VGS2atoj4JRTVSnU8vzq8ZHzfJromoy1OYGmojnz8W7_me2t_SvIuA>
+ <xmx:VGS2ak9LMv9u5n_IwlQGG91twmRAsL4cPlt48wRftdAIxr4bG3jPgA>
+ <xmx:VGS2alVS_NfEyFQwF6El4FGRt3qemk-R8MfkGXNZNCHv-aPFOPXyxw>
+ <xmx:VGS2at8o0pQeT8R73VmmXOBI_CqD_RbB5258qJ3tDaj-yJiuehlpH8fX>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 25 Sep 2026 08:08:51 -0400 (EDT)
+Date: Fri, 25 Sep 2026 13:08:50 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, 	Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, 	Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 	Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, 	Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, 	linux-media@vger.kernel.org,
+ linux-mm@kvack.org
+Subject: Re: [RFC PATCH v8 02/14] mm: Zero memory during shared memory
+ transitions
+Message-ID: <arZkEugXwCtKHH64@thinkstation>
+References: <20260924100529.1398790-1-aneesh.kumar@kernel.org>
+ <20260924100529.1398790-3-aneesh.kumar@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/appletbdrm: Add suspend and resume support
-To: vasilij.kernel@tototo.si, Aun-Ali Zaidi <admin@kodeit.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>
-References: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924100529.1398790-3-aneesh.kumar@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,123 +125,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Sep 24, 2026 at 03:35:17PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+> index f904a636d449..1f1f39082391 100644
+> --- a/arch/x86/coco/tdx/tdx.c
+> +++ b/arch/x86/coco/tdx/tdx.c
+> @@ -978,6 +978,9 @@ static bool tdx_enc_status_changed(unsigned long vaddr, int numpages, bool enc)
+>  static int tdx_enc_status_change_prepare(unsigned long vaddr, int numpages,
+>  					 bool enc)
+>  {
+> +	if (!enc)
+> +		memset((void *)vaddr, 0, (size_t)numpages << PAGE_SHIFT);
+> +
+>  	/*
+>  	 * Only handle shared->private conversion here.
+>  	 * See the comment in tdx_early_init().
 
-Hi Vasilij
+This doesn't make sense to me.
 
-Thanks for the patch
+On TDX the memset zeroes a page that is about to be dropped.
+MapGPA(shared) makes the VMM back the GPA with different memory, and
+what the guest reads afterwards through the shared mapping is whatever
+the host has there.
 
-> From: Vasilij Markin <vasilij.kernel@tototo.si>
-> 
-> The driver has no USB power management callbacks, so the USB core
-> unbinds it before system suspend and binds it again on resume. The DRM
-> device is unregistered and registered again on every suspend and resume
-> cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-> loses its device, and the Touch Bar stays dark after resume.
-> 
-> Implement suspend and resume with drm_mode_config_helper_suspend() and
-> drm_mode_config_helper_resume(), so the device stays registered and the
-> last committed state is restored on resume. If the device was reset
-> while suspended, repeat the probe-time handshake first.
-> 
-> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
-> ---
-> Tested on a MacBookPro16,2 with this change backported to 7.2.7, deep (S3)
-> suspend by closing the lid, tiny-dfr 0.3.7. Without it the driver is probed
-> again on every resume and systemd stops tiny-dfr; with it tiny-dfr keeps
-> running, the driver is not probed again and the Touch Bar shows its content
-> right after resume. The reset_resume path is untested: the device never came
-> back reset.
-> 
-> Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
-> also need the plane reset hook to free the existing state, otherwise
-> drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
-> appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
-> kernel; the tested backport carries that change as a separate patch.
-> 
-> Built on drm-misc-next (c4c54ffd6) with W=1 without warnings.
-> ---
->   drivers/gpu/drm/tiny/appletbdrm.c | 43 +++++++++++++++++++++++++++++++++++++++
->   1 file changed, 43 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-> index 4297d9c11..024ad8bf6 100644
-> --- a/drivers/gpu/drm/tiny/appletbdrm.c
-> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
-> @@ -30,6 +30,7 @@
->   #include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_gem_shmem_helper.h>
-> +#include <drm/drm_modeset_helper.h>
->   #include <drm/drm_plane.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
-> @@ -821,6 +822,45 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
->   	drm_atomic_helper_shutdown(&adev->drm);
->   }
->   
-> +static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
-> +{
-> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-> +
-> +	return drm_mode_config_helper_suspend(&adev->drm);
-> +}
-> +
-> +static int appletbdrm_resume(struct usb_interface *intf)
-> +{
-> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-> +
-> +	return drm_mode_config_helper_resume(&adev->drm);
-> +}
-> +
-> +static int appletbdrm_reset_resume(struct usb_interface *intf)
-
-We don't need a reset_resume function as the USB device is virtually 
-exposed by the t2bce driver and current implementation doesn't reset the 
-device in any case. If the need arises, it can be added in a later patch.
-
-> +{
-> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-> +	struct drm_device *drm = &adev->drm;
-> +	int ret;
-> +
-> +	/*
-> +	 * A reset puts the device back into its initial state, where it
-> +	 * expects the same handshake as during probe
-> +	 */
-> +	ret = appletbdrm_get_information(adev);
-> +	if (ret) {
-> +		drm_err(drm, "Failed to get display information\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = appletbdrm_signal_readiness(adev);
-> +	if (ret) {
-> +		drm_err(drm, "Failed to signal readiness\n");
-> +		return ret;
-> +	}
-> +
-> +	return drm_mode_config_helper_resume(drm);
-> +}
-> +
->   static const struct usb_device_id appletbdrm_usb_id_table[] = {
->   	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
->   	{}
-> @@ -832,6 +872,9 @@ static struct usb_driver appletbdrm_usb_driver = {
->   	.probe		= appletbdrm_probe,
->   	.disconnect	= appletbdrm_disconnect,
->   	.shutdown	= appletbdrm_shutdown,
-> +	.suspend	= appletbdrm_suspend,
-> +	.resume		= appletbdrm_resume,
-> +	.reset_resume	= appletbdrm_reset_resume,
->   	.id_table	= appletbdrm_usb_id_table,
->   };
->   module_usb_driver(appletbdrm_usb_driver);
-> 
-> ---
-> base-commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
-> change-id: 20260924-appletbdrm-pm-6bd220385beb
-> 
-> Best regards,
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
