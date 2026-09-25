@@ -4,107 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E9CC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 12:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9300C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 12:54:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9C8510FA45;
-	Fri, 25 Sep 2026 12:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 431FD10FA4A;
+	Fri, 25 Sep 2026 12:54:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UWttT2gq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hcm2Luw1";
 	dkim-atps=neutral
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com
- [74.125.230.204])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32DD10FA48
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:52:47 +0000 (UTC)
-Received: by mail-qk2-f12.google.com with SMTP id
- af79cd13be357-939109f067fso110864885a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 05:52:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790340767; cv=none;
- d=google.com; s=arc-20260327;
- b=lM1c++o723S8oD2t+1BZF3HQdr4Suln0iGJ5y3PTBdLIaoH+wUEsHUJh1PAsPwaUIu
- g7xBS/ggMYmxG+Ev3O0CHsmukbF94A6MDsJk61XtpiaOa3IZgECNCh4s/7dSY77J6iLe
- 0mpv6d3xSAG/euo5Mzd0JvtUQbq8ThJ6qWDtq24qGNinyf2ebgh7qlhwR48Me4jTdIuX
- RAizdQasNFqU2vkaGYbyVeNHMDeb5JfkjFTGP2QzfgiIai0dIXjs4FNyZYf9vFJ2ilxb
- pH9XMpCYd09AeBgteYEZ+lSGdJGWSikhe5epWfzPJ2W1UgtFYAsKNKhJvZa8SUCcdC/f
- qUgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- fh=l+WxGjGoLlp4sUPNrRYZDt2rt0grJf44T/svYUOsdfQ=;
- b=dYxA8GtkLixrvH+RRgFr+ePNDTZ+aB2iZZOZ60k1w+teU0kQrD2PJEMKtftmETGYxW
- HapF9gHPjlj184P3NeNZhBJgWui7Hs1mfY4hAaQhgJzBNSka0yPtZVKziJoK92NvGgwd
- ku92Cj2asdBtkapJVJOjTqk1Rclkgx3VYBrE17jJWKMsfh9ACcIhYdc8dGTOU2mESolO
- LLlqX3zUR2mRoOxJJ5Xo7CFsuFCe26armuItXGs02CQcIBIeLrsHgRHxpDwGCYSJ1h6f
- beIaWRIYjGnCvo85jxDJVjLseB3F/uEcCGwMxDvpUITVn9xTSCjeHwQX3m2Ul0cl5qkn
- f3Pw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790340767; x=1790945567; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- b=UWttT2gqZVLPbAc3FiQ6UUGZWc71HKtC/B9fYuDd5qL85uSR+/wc9OtTujQ9mTJw0W
- UO7LxC4yuGDfZ7UcyjXLpjhi4WO407347tRmvp8U8YJHROJ82XEugNWIy44v/suliVg3
- isYdQHw3bbfMqgLWvrwNMuPhuv6dmwWOUxfMrguj7ZpSeijQAK/w5BUQxEkoHvTKPhcx
- 4zD/CxDAJBPgk1NydMPyLO344UYulyWFzYtET5Ub5pxal42wOLsn+W83zwZL+zqgEudx
- SQqG3A+NNqNNTT33p9INoEh4yc3DklM22rw6iR/P93G2drzEtFJ9N8vXBPZl+QLjF2On
- 1mqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790340767; x=1790945567;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=9LWDCzcn0ysfmdsUdgkxA//1tZg5vvX+0Vm1HrB/0WM=;
- b=lEjliMhKICeIlnHU9eybz+S2XGjFj59rGEJDbaU9FZiZr1UUx/jDiqYP3/1KbYGOwP
- H69wKk8couyb/J3WF4aJ5iSO1ePyk8MSUHpwFGgkQ1XiaQzY0TU0HXJHXfRb4oPvndeR
- 6nB5sTI4sdSpSPmkJZ5lYiBSXkgbDsbjeXKPousx/PwfG6Cdz3GXxWrdCU820Hs17JC6
- 5OP2yQ0uJ+rb1H8K+xmY07ivPRjsV2uiY0xxsb3K//zUrC5VJmv0XyqOWfN9eFgXLqiA
- 3s6I76T+OEXlOj0BXSaYfjQ5PjEGSVFC65GSKSARxh2mCxZ3Us2wcd70vq2xUB0qxh1m
- X3Sg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBztgplM/FubB5ypjG8T0gEhd4KtRxfNZ/Hwu821D5xzRoV771/Ej6/LXyt2okh8UJPeLSconyPGNMc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ma0uGjJQb6WWCTdX1sbbH1LCEEYRLAhCySFs2tfHiX3pnVKhwW
- ZcNWWkANJbMmwrZu6Qj4jj9F4YEPDd6YhJzfSows2BUTt6frkoL7QIQWpOdUBAKvwIjPsKNC0Tz
- ek0cAPj4aL16LM0pAzy8jesJMaNS1D4Q=
-X-Gm-Gg: AYBFou0ML2Stj7kodO2QQ/q/AbSDehLmd5eS8TKNPj3JsvUEzhN3IXAzJGCp1YcdqCY
- BhCSkZJCnbdpoVFx8ICsx9unv7HyeNcBq92XejfqqGWAHnrTZQ9Ez80nenmPwnrc5x3s/Ba9e+d
- xqB8Iq4kGoPifjS44FijL6OZpBBYx2zHLu+ulj9ZX1ACNZt9xb5q2jZ8v3tAJe/qZ/paNotxlmS
- 1qyxrwzQiZt4Du9E8ftFzihyuthkWeplkeOC0z2Z+8w8ntUYFVGOgHpO1zKvteWP4YXa/5VIa4C
- vy/g6kZE6m95KnB1eBGII0tO2mKJMUP0qojs1x2x1vqKA4ZqLQNIbH4hbA==
-X-Received: by 2002:a05:620a:8389:b0:93a:3d22:3122 with SMTP id
- af79cd13be357-93c43cc7043mr442767385a.3.1790340766713; Fri, 25 Sep 2026
- 05:52:46 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47D9710FA48;
+ Fri, 25 Sep 2026 12:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790340839; x=1821876839;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=7QFQaHhQHwO4JjYiWqEtP4ey1qTU6R5eBhvbiXj4+cY=;
+ b=Hcm2Luw1xj9bra6dRe3ht0f765OCx3i3n12xKvFsZz6Js2WBW/PYkH9d
+ fSpq1Mzz3RdQRPpDLKTCYKi33f3de3B2i8gAkJSRoxrlucAQ0o1P/gbt0
+ 9oZjBGRaC+FsioGPEaOIM8QqkUrBBOGR+Tm0+q3pxfXHcsBmEqMz17QHo
+ MVtQzpuca8B1XlDU+O39lu/EF9u3puVQP6bMNotqSetNLubvtSU8DzU0j
+ dsARlKbsHz848zVQ6PRfG5RDOIIs3RZdL/8amQVs/M3XEbLTk+kSvRX7k
+ +yxeEQDLaiWLW/CD2pYv+w71CuZZgiIvIBuCisR0XWKgVitPLc8V1bsAA Q==;
+X-CSE-ConnectionGUID: No43p0f5THa1sxO3RYac8w==
+X-CSE-MsgGUID: MnmjtVbxQWORYIZiMSxomw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="102486242"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="102486242"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 05:53:59 -0700
+X-CSE-ConnectionGUID: 4PIYZybqQxehFdbSfdSDZw==
+X-CSE-MsgGUID: bpl31Ej6T1GrkfDHe8iYYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="274497205"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.27])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 05:53:54 -0700
+Date: Fri, 25 Sep 2026 15:53:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+ u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <arZu33UFU2b7kVRR@ashevche-desk.local>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <arZB2s3HOBgSRuE4@ashevche-desk.local>
+ <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
+ <arZIqk6wgV_LF0rg@ashevche-desk.local>
+ <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
 MIME-Version: 1.0
-References: <20260908044035.62093-1-mario.limonciello@amd.com>
- <20260908044035.62093-3-mario.limonciello@amd.com>
- <0fb724cc-ac12-4502-b338-1c4f310f043a@suse.de>
- <CAFOAJEdFPrwHZV5y1E_u_Wd6oE_viPsPztxYW6PRZHJ-zdPFMQ@mail.gmail.com>
- <ff86caeb-4388-4660-b3c0-ddc42bc274e3@amd.com>
- <b60d3430-ca99-40b6-aaa0-7b8d481ebda6@suse.de>
-In-Reply-To: <b60d3430-ca99-40b6-aaa0-7b8d481ebda6@suse.de>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Fri, 25 Sep 2026 14:52:34 +0200
-X-Gm-Features: AclHuK_7Zf-6pQcm6muMqKFw6mcOuy1gYopDSlUKmT8vyhgjq4Te-A38Cn1BR-c
-Message-ID: <CAFZQkGzUuOh2tGa_otw7yDUd9rSne2PG5Vdte-hwhLZEDf24dA@mail.gmail.com>
-Subject: Re: [PATCH v8 02/14] backlight: add kernel-internal backlight API
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, 
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>, 
- David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>, 
- Mario Limonciello <superm1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,24 +88,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Di., 22. Sept. 2026 um 14:05 Uhr schrieb Thomas Zimmermann
-<tzimmermann@suse.de>:
-> > The whole design here is to put the compositor in control.  For
-> > example if compositor wants to enforce brightness to be a certain
-> > value when certain content is being displayed.
->
-> And as I mentioned, it might not be that easy. Sysfs has been the entry
-> point to backlight brightness so far AFAIU.
-Yes, but this doesn't remove or break the sysfs API for old userspace,
-it just allows new userspace to handle things more properly.
+On Fri, Sep 25, 2026 at 04:46:39PM +0530, Aniket Limaye wrote:
+> On 25/09/26 15:40, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 03:29:27PM +0530, Aniket Limaye wrote:
+> > > On 25/09/26 15:11, Andy Shevchenko wrote:
+> > > > On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-> Did you consider treating this similar to display hotplugging?  When the
-> user plug a display in or out, the DRM driver sends a message to the
-> compositor in user space. [1]  I think it might be possible to do a
-> similar thing for changes to brightness.
-Notifying the compositor after the fact would not be ok. All the other
-display properties are under exclusive control of the process that
-holds drm master, backlight being different is one of the problems
-fixed by this new API.
+...
 
-- Xaver
+> > > > Still doesn't look good. The current register layout may be left as is. What
+> > > > you need is translate it in the respective regmap callbacks in case we are
+> > > > enumerated on the different IP. Also possible to have a different regmap
+> > > > config for the different HW where you translate them only in one place.
+> > > Is it confusing to keep using existing offsets in regmap_read/write() call
+> > > sites for TDA54, and let the regmap silently handle the translation?
+> > > 
+> > > Given that we do *not* have any new registers in use on the tda54 version
+> > > that were not there in the original one, I guess it works... will send a v4
+> > > as per your suggestion.
+> > Depends on the mapping. Your series also forgot to provide the differences
+> > Check this as an example: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi").
+> > 
+> Ahh sorry about that, will remember to add a clean mapping in cover letter
+> of next version.
+> 
+> For now here are the structural differences:
+> 
+> 1.  Reg offsets  Existing        New TDA54
+> 
+>     [DW_IC_CON]                     0x00           0x2c
+>     [DW_IC_TAR]                     0x04            0x30
+>     [DW_IC_SAR]                     0x08            0x34
+>     [DW_IC_DATA_CMD]                0x10            0x80
+>     [DW_IC_SS_SCL_HCNT]             0x14            0x4c
+>     [DW_IC_SS_SCL_LCNT]             0x18            0x50
+>     [DW_IC_FS_SCL_HCNT]             0x1c            0x4c  /* same as SS */
+>     [DW_IC_FS_SCL_LCNT]             0x20            0x50  /* same as SS */
+>     [DW_IC_HS_SCL_HCNT]             0x24         0x54
+>     [DW_IC_HS_SCL_LCNT]             0x28            0x58
+>     [DW_IC_INTR_STAT]               0x2c            0xc0
+>     [DW_IC_INTR_MASK]               0x30            0xc4
+>     [DW_IC_RAW_INTR_STAT]           0x34            0xc8
+>     [DW_IC_RX_TL]                   0x38            0x84
+>     [DW_IC_TX_TL]                   0x3c            0x88
+>     [DW_IC_CLR_INTR]                0x40            0xcc
+>     [DW_IC_CLR_RX_UNDER]            0x44            NA
+>     [DW_IC_CLR_RX_OVER]             0x48            NA
+>     [DW_IC_CLR_TX_OVER]             0x4c            NA
+>     [DW_IC_CLR_RD_REQ]              0x50            NA
+>     [DW_IC_CLR_TX_ABRT]             0x54            NA
+>     [DW_IC_CLR_RX_DONE]             0x58            NA
+>     [DW_IC_CLR_ACTIVITY]            0x5c            NA
+>     [DW_IC_CLR_STOP_DET]            0x60            NA
+>     [DW_IC_CLR_START_DET]           0x64            NA
+>     [DW_IC_CLR_GEN_CALL]            0x68            NA
+>     [DW_IC_ENABLE]                  0x6c            0x04
+>     [DW_IC_STATUS]                  0x70            0xd8
+>     [DW_IC_TXFLR]                   0x74            0xdc
+>     [DW_IC_RXFLR]                   0x78            0xe0
+>     [DW_IC_SDA_HOLD]                0x7c            0x5c
+>     [DW_IC_TX_ABRT_SOURCE]          0x80            0xd4
+>     [DW_IC_ENABLE_STATUS]           0x9c            0xd0
+>     [DW_IC_CLR_RESTART_DET]         0xa8            NA
+>     [DW_IC_SMBUS_INTR_STAT]         0xc8            NA
+>     [DW_IC_SMBUS_INTR_MASK]         0xcc            NA
+>     [DW_IC_CLR_SMBUS_INTR]          0xd4            NA
+>     [DW_IC_COMP_PARAM_1]            0xf4            NA
+>     [DW_IC_COMP_VERSION]            0xf8            0x100
+>     [DW_IC_COMP_TYPE]               0xfc            0x104
+> 
+> 2. DW_IC_CON bitfields:
+> 
+>     DW_IC_CON_MASTER BIT(0)                  BIT(0)
+>     DW_IC_CON_SPEED_STD                 (1 << 1)       (1 << 4)
+>     DW_IC_CON_SPEED_FAST                (2 << 1)       (2 << 4)
+>     DW_IC_CON_SPEED_HIGH                (3 << 1)       (3 << 4)
+>     DW_IC_CON_SPEED_MASK                GENMASK(2, 1)  GENMASK(5, 4)
+>     DW_IC_CON_10BITADDR_SLAVE           BIT(3) BIT(8)
+>     DW_IC_CON_10BITADDR_MASTER          BIT(4) BIT(9)
+>     DW_IC_CON_RESTART_EN                BIT(5) NA
+>     DW_IC_CON_SLAVE_DISABLE             BIT(6) NA
+>     DW_IC_CON_STOP_DET_IFADDRESSED      BIT(7) BIT(10)
+>     DW_IC_CON_TX_EMPTY_CTRL             BIT(8) BIT(11)
+>     DW_IC_CON_RX_FIFO_FULL_HLD_CTRL     BIT(9) BIT(12)
+>     DW_IC_CON_BUS_CLEAR_CTRL            BIT(11)  BIT(14)
+
+Thanks for providing this mapping!
+
+> 3. To clear INTR,  Read DW_IC_CLR_* reg    Write bit to DW_IC_CLR_INTR
+> 
+> As you can see, it's an entirely different mapping, which is why I had 2
+> independent enum -> reg offset maps instead of offset -> offset translation.
+> Similarly, selecting a CON register bitfield layout too.
+> 
+> Let me know what you would prefer based on this...
+
+This clears a bit the whole picture and what I would like to say is that better
+to have the separate driver for it. On top of completely reworked RTL I believe
+you won't need tons of hacks and workarounds that are applied during all these
+years against the old IP.
+
+TL;DR: Make a new clean and simple driver, which is hack-less and done properly
+(using the all modern APIs and frameworks in the kernel).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
