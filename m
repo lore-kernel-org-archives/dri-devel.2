@@ -4,60 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2743C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC43DC9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2F510E08F;
-	Fri, 25 Sep 2026 08:18:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C9C10E5C3;
+	Fri, 25 Sep 2026 08:20:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CEh1cYrK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DMoEKtCl";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5213F10E08F
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 08:18:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790324315;
- bh=+tH4Mc9FC4T4Lpy94DCG6SpUwN4tXJW8DVCLpr5sk9o=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=CEh1cYrK2B39TQLwj7BzHLDsqqM99K3trEOfbawx/yC4wO/v++gvzkXQsq730rcyM
- gWc6RB0pk7Qt5VGfBug7k5r4d0NgPjaTPCQAdO5PRbgSWPtxbw+qeEWhyuJh4shR8P
- c0bRAwRkkrTDPdgaZXPwUgXZ4wI4tWtfHSpbfT9yTP2p+pAAP2W6QquSx7JVuW+I2Y
- Gg4CuBec/xumiHxX787HuPzUztlNczfHkwfwsVTqrtXRZlt4kgC7ipzTsNFGhEeEsY
- 7ovxXwZ7ndEvSY+YZ+rMRDZrlW5IUSZh80UP2G6uMNYIAb5h/HlYObTonAVrfZXpTF
- +3LeYG6p+7TAQ==
-Received: from fedora-32.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 47A1117E05F4;
- Fri, 25 Sep 2026 10:18:35 +0200 (CEST)
-Date: Fri, 25 Sep 2026 10:18:30 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v10 15/15] drm/panfrost: Fix races between perfcnt and
- reset sequence
-Message-ID: <20260925101830.25d16466@fedora-32.home>
-In-Reply-To: <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
-References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
- <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02CDC10E5C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 08:20:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 91FC943B44;
+ Fri, 25 Sep 2026 08:20:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D581F000FF;
+ Fri, 25 Sep 2026 08:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790324415;
+ bh=m6nEJDV+7FIzPWlZBY2PWO8zBLW9phOFmTFY7TGKFas=;
+ h=From:To:Cc:Subject:Date;
+ b=DMoEKtClqfUrXAf8gxB1uXH+FavBAWA7/ecwcgWk2K0X0dqlRUUlYZVjDaTM72uqA
+ qnKQaIOtpEvgF+YVzXRKzV0eCERdJb4bxSWXXM6WYUH1pufvwiUlAD2yBrdrOGWduE
+ VtxKkXEitLMWE/Y002AFSdJH8i/Q3yPhYsQb04Pbi3PdwGJASwQ5O6hlu2oZaLqJGC
+ RCpQYe/Ecll/ZvcPZ9Tdg2g4xCCKHhb+9RpJ0SxPFJ2+ue9zxTYrjzqq+tNoCMfZ9u
+ LtyqYysVhHANqJqwVjeXkGmTl2a5gl8/BK7rfKQ9OrB4IDadGKxwvAW0Yc8CLrtnLa
+ hTYca8bstVkIw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: DmaFence: Add better warning through Device reference
+Date: Fri, 25 Sep 2026 10:19:59 +0200
+Message-ID: <20260925081958.3048112-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,187 +66,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 24 Sep 2026 19:09:32 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+FenceContext::drop() contains a warning print that warns about possible
+memory corruptions if there are forgotten fences. However, precisely
+speaking, a forgotten fence is undefined behavior.
 
-> Formerly, the reset sequence would race with panfrost_mmu_as_put()
-> when tearing down a perfcnt session. On top of that, poking GPU
-> registers to program a perfcnt session or obtaining a dump might lead to
-> undefined behaviour when done at the same time a reset was ongoing.
->=20
-> Use the reset r/w semaphore to govern access to the hardware at reset
-> time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
-> so that userspace can be made aware of a reset having happened. UM needs
-> to know about this condition because counter data is inaccurate after
-> a reset, so the best approach is simply to try again.
->=20
-> The new perfcnt-aware reset sequence also takes care to reestablish
-> perfcnt to its original configuration if there was an enabled session,
-> or else flags the current session as dead if that failed.
->=20
-> Also bump DRM driver minor to reflect the new DUMP IOCTL req field.
->=20
-> Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
-> Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through u=
-nstable ioctls")
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c  |   2 +
->  drivers/gpu/drm/panfrost/panfrost_drv.c     |   3 +-
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 200 ++++++++++++++++++++--=
-------
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   1 +
->  include/uapi/drm/panfrost_drm.h             |   8 +-
->  5 files changed, 155 insertions(+), 59 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 801ca07ccb28..98de04362517 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -483,6 +483,8 @@ void panfrost_device_reset(struct panfrost_device *pf=
-dev, bool enable_job_int)
->  	panfrost_jm_reset_interrupts(pfdev);
->  	if (enable_job_int)
->  		panfrost_jm_enable_interrupts(pfdev);
-> +
-> +	panfrost_perfcnt_reset(pfdev);
->  }
-> =20
->  static int panfrost_device_runtime_resume(struct device *dev)
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 571a26b84126..de9b1c115181 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driv=
-er_fops =3D {
->   * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
->   *	   PANFROST_IOCTL_QUERY_BO_INFO and
->   *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-> + * - 1.7 - adds PERFCNT_DUMP req state field
->   */
->  static const struct drm_driver panfrost_drm_driver =3D {
->  	.driver_features	=3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-> @@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver =
-=3D {
->  	.name			=3D "panfrost",
->  	.desc			=3D "panfrost DRM",
->  	.major			=3D 1,
-> -	.minor			=3D 6,
-> +	.minor			=3D 7,
-> =20
->  	.gem_create_object	=3D panfrost_gem_create_object,
->  	.gem_prime_import	=3D panfrost_gem_prime_import,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index b3f71d7fd82a..91983d450c24 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -11,6 +11,7 @@
->  #include <drm/drm_file.h>
->  #include <drm/drm_gem_shmem_helper.h>
->  #include <drm/panfrost_drm.h>
-> +#include <drm/drm_print.h>
-> =20
->  #include "panfrost_device.h"
->  #include "panfrost_features.h"
-> @@ -28,21 +29,31 @@
-> =20
->  struct panfrost_perfcnt {
->  	struct panfrost_gem_mapping *mapping;
-> +	unsigned int counterset;
->  	size_t bosize;
->  	void *buf;
->  	struct panfrost_file_priv *user;
->  	struct mutex lock;
->  	struct completion dump_comp;
-> +	unsigned int state;
+Moreover, forgotten fences hint at a severe design problem in the
+driver. In this context, the used pr_err!() does not provide very useful
+text output.
 
-nit:
-	u32 state;
+Replace the warning print with a dev_warn!(). To do so, have the
+FenceContext carry a reference to a Device, protected by the already
+present lifetime.
 
-to be consistent with the uAPI field.
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ rust/kernel/dma_buf/dma_fence.rs | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-> +	bool owns_as_ref;
->  };
-> =20
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 18a43e1bb442..58ba678e91b5 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -32,6 +32,10 @@
+ };
+ 
+ use kernel::{
++    device::{
++        Device,
++        Normal, //
++    },
+     str::CString,
+     sync::{
+         aref::{
+@@ -59,7 +63,7 @@ pub trait FenceContextOps {
+ /// with each other, providing each with raising sequence numbers and a common
+ /// identifier.
+ #[pin_data(PinnedDrop)]
+-pub struct FenceContext<T: FenceContextOps + Send + Sync> {
++pub struct FenceContext<'a, T: FenceContextOps + Send + Sync> {
+     /// The fence context number.
+     nr: u64,
+     /// The sequence number for the next fence created.
+@@ -81,12 +85,14 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
+     // the lifetime which intends to enforce that all fences disappear before
+     // their context.
+     nr_of_unsignaled_fences: Atomic<usize>,
++    /// The device this fence context is associated with.
++    dev: &'a Device<Normal>,
+     /// The user's data.
+     #[pin]
+     data: T,
+ }
+ 
+-impl<'a, T: Send + Sync + FenceContextOps> FenceContext<T> {
++impl<'a, T: Send + Sync + FenceContextOps + 'a> FenceContext<'a, T> {
+     // This can later be extended as a vtable in case other parties need support
+     // for the more "exotic" callbacks.
+     const OPS: bindings::dma_fence_ops = bindings::dma_fence_ops {
+@@ -106,6 +112,7 @@ pub fn new<E>(
+         initial_seqno: u64,
+         driver_name: &CStr,
+         timeline_name: &CStr,
++        dev: &'a Device<Normal>,
+         data: impl PinInit<T, E>,
+     ) -> impl PinInit<Self, Error>
+     where
+@@ -122,6 +129,7 @@ pub fn new<E>(
+             driver_name: driver_name?,
+             timeline_name: timeline_name?,
+             nr_of_unsignaled_fences: Atomic::new(0),
++            dev,
+             data <- data,
+         })
+     }
+@@ -211,7 +219,7 @@ unsafe fn from_raw_fence(ptr: *mut bindings::dma_fence) -> &'a Self {
+ }
+ 
+ #[pinned_drop]
+-impl<T: FenceContextOps + Send + Sync> PinnedDrop for FenceContext<T> {
++impl<T: FenceContextOps + Send + Sync> PinnedDrop for FenceContext<'_, T> {
+     fn drop(self: Pin<&mut Self>) {
+         // Fence ops callbacks can be called on unsignaled fences. Since these
+         // callbacks can access the fence context and its data, it needs to be
+@@ -596,7 +604,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+     /// Callback head for dropping this in a deferred manner through RCU.
+     rcu_head: bindings::callback_head,
+     /// Reference to access the FenceContext.
+-    fctx: &'a FenceContext<T>,
++    fctx: &'a FenceContext<'a, T>,
+     /// The API user's data. It is essential that the data only performs
+     /// operations legal in atomic context in its [`Drop`] implementation.
+     #[pin]
+@@ -641,6 +649,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// ```
+ /// use kernel::{
++///     device::Normal,
+ ///     dma_buf::{
+ ///         DriverFence,
+ ///         FenceContext,
+@@ -648,6 +657,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///         FenceCallback,
+ ///         FenceCallbackRegistration,
+ ///     },
++///     faux,
+ ///     str::CString,
+ ///     sync::aref::ARef, //
+ /// };
+@@ -676,9 +686,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// let fctx_data = FenceContextData::new();
+ ///
++/// let reg = faux::Registration::new(c"DmaFence-KUnit-Test", None)?;
+ ///
+ /// let mut fctx = KBox::pin_init(
+-///     FenceContext::new(0, c"dummy_driver", c"dummy_timeline", fctx_data),
++///     FenceContext::new(0, c"dummy_driver", c"dummy_timeline", reg.as_ref().as_ref(), fctx_data),
+ ///     GFP_KERNEL
+ /// )?;
+ ///
+@@ -934,7 +945,9 @@ fn drop(&mut self) {
+         // SAFETY: `guard` is valid until the `call_rcu()` below.
+         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+         if !signaled {
+-            pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
++            // SAFETY: `data` is valid because `self` is valid.
++            let dev = unsafe { self.data.as_ref().fctx.dev };
++            dev_warn!(dev, "DriverFence drops unsignaled.\n");
+             // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
+             // must not have been signaled yet, which we check directly above.
+             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
 
-[...]
+base-commit: 896ed083362758b33c49a1b5e5a3423c5814d87e
+-- 
+2.55.0
 
-> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u=
-32 *state)
-> +{
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-> +	int ret;
-> +
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		*state =3D perfcnt->state;
-> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
-> +			return -EIO;
-> +
-> +		perfcnt->state =3D 0;
-> +
-> +		reinit_completion(&pfdev->perfcnt->dump_comp);
-> +
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-> +	}
-> +
-> +	/*
-> +	 * Here we release the reset semaphore because perfcnt should not get i=
-n the way
-> +	 * of a HW reset. Besides, a legitimate reset might be issued during th=
-e wait.
-> +	 */
->  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
-_comp,
->  							msecs_to_jiffies(1000));
-> +
-> +	/* A reset might come through in the gap between the completion returni=
-ng and the following
-> +	 * check, but because no sample was produced, we don't care to relay th=
-e state back to UM
-> +	 */
->  	if (!ret)
-> -		ret =3D -ETIMEDOUT;
-> -	else if (ret > 0)
-> -		ret =3D 0;
-> +		return -ETIMEDOUT;
-> +
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		u32 new_state =3D perfcnt->state;
-> +
-> +		*state |=3D new_state;
-> +		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
-> +			return -EIO;
-> +
-> +		perfcnt->state =3D 0;
-> +
-> +		/* If we faced a reset during our SAMPLE, the user needs to try again.=
- */
-> +		if (new_state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
-> +			return -EAGAIN;
-
-Okay, so I think we have a weird situation where sometimes the state
-should be ignored when an error is returned (we don't
-propagate the state on ETIMEDOUT), and sometimes not (if EAGAIN or EIO
-is returned, the state has been propagated and cleared). This is problematic
-if INTERRUPTED_BY_RESET is set and EAGAIN is returned, because on the next
-DUMP this flag will have disappeared, and if userspace didn't store the
-information on the EAGAIN, it wouldn't know the counters are disjoint.
-
-We either need to propagate the state all the time, and document the errno
-where userspace should not ignore it (EAGAIN, ETIMEDOUT and EIO), or we need
-to preserve the INTERRUPTED_BY_RESET bit when EAGAIN is returned (basically
-move the perfcnt->state =3D 0 below the if (INTERRUPTED_BY_RESET) branch, a=
-nd
-restore the state that was cleared in the first scoped_guard()).
-
-Once addressed, this is
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
