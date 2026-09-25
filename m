@@ -4,131 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C61C9832F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 381D8CA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0964310E8BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A2A10E8C0;
 	Mon, 28 Sep 2026 08:43:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jp0AvcBc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PjynjrjW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793D910E03B
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:41:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C08043E2E;
- Sat, 26 Sep 2026 09:41:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8C81F000FF;
- Sat, 26 Sep 2026 09:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790415681;
- bh=0u13dbBevDvvrKeztStjJV2PV5yx6LiZibgW9CGmgFg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Jp0AvcBc2qFPX1KUyqat5xOo7kolWDkC6C0w6P6DaUvXm5iSIG2CZI03JVCmdPvQ2
- vFXKg46qQ6h6qbDwt9b4xtSV8aaaHLKGAB793g+poJ3xMYhkIZo7xqXL5RLvULfLUx
- vltnCfE9F9DOd8HFLd4r2r4Sg0lUuE/yF336VcdgoJJtQs97NrE8ayt+3eU4eDKxGI
- oItyuRRw3Cj0jyhydyYqR3Mm1CDYrci/+rQrHCVid7DDrx80EwRj+MiAUgyhESJ7FS
- iOAhXbJnk5J5uDUKfyr1oX15QJ3wMcCu5lNOsTEzc+QVqHwaov8/ApQZu8GqGu9l4+
- gmVl8+MdCcOZA==
-Date: Sat, 26 Sep 2026 10:40:50 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- "Kirill A. Shutemov" <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- peterx <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Dave Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S . Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>, 
- Emil Tsalapatis <emil@etsalapatis.com>
-Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Message-ID: <areSEI5pWBadkqIe@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
+ [74.125.225.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D148410FA48
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:53:25 +0000 (UTC)
+Received: by mail-wr2-f35.google.com with SMTP id
+ ffacd0b85a97d-48881a62e09so279791f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 05:53:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790340804; x=1790945604; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HaRnV5HNxYS3xKGjNmztf83AWXiwarq2vGsbWimUVzc=;
+ b=PjynjrjWZxKfLAwKS3FhHqBr85Kd4ToViljwFeYz5hqQNiI/0P4twqDC/bsVkbfRr5
+ 5q1qFlhfHrGzW4S8QFRESjG9nOxkp2jzY/zOdZTBjWzeT3clXPWlazgjkkCCWVG8wOuP
+ GkwXSDH6JG9XFEs/hDSEc9gKvVIAAoIwxmybQi9Ja6SVRqU6upzO0cthK3ltzRgVR6y+
+ Ouav+cL0yZJVIhJ4tjsZ0CiYT1MI08hZUf2B5xvYlobWQd6ZBDu2AvzE9cQZwwd98SLC
+ inUYhQgEfeh0sBcnM7DmvvNyOcNpADi+zhBu6+YVjqoJTdlnIsNd4nHnkQfsKraheBnh
+ BE8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790340804; x=1790945604;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HaRnV5HNxYS3xKGjNmztf83AWXiwarq2vGsbWimUVzc=;
+ b=usmiH0frOieOjD1ZTUhmboTDxCuT1o/fMgBi8Gc9Dmh3TedR7them/LDeiRvYJXFcf
+ dioBT4Dg55Ocyd1HBza8KSKvmP22YNWmBVIn5HhDGXu/L5OsTuJwwd0lPq1yYuf8qpF6
+ Ns0ysNOErRdtKQOqDDgrphqa69LSfmyHZdneoCpx0LtSrbrq1hNM0wHJ6QYWCovVK74M
+ 5rOD12WzrAKPNY62LGIsICxlW0wqWTWhiliv056mMeAsV8qtbSKetSE8ydSdSgIHf+B+
+ hoP/FmgDIoIQ+w0qvqq6nHF13mHjg6CgxjSKgqqnIgmCyVVub+H0s1x9HB+h1fjuvVgU
+ 7XGw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwChnYPShU/GQjawv9TQOzpVKJtfMt5wkZ4NQX0lZovBOeLmS8qMzmPd2qxx03CUU4QdkQNonGJQek=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mpBjs1cvedGmwtnI18471Sk3H1U9OJdBndEGaRaEIplxtyVe6C
+ LX03jiDMcJVVjZXCuNOSMmW+bIVIPwuhHcGl3nnKS5WdGulhZjDaCSlN
+X-Gm-Gg: AYBFou34fMK8FSZnVOFMfmnVimu1UFeUoTmAfF4erbqTxgPfzO5pAwVwPPHnuP3ACe4
+ Rn6uZmUmFyLip2VBBCl+R5cI0vWeU5UG3TBadaj7KwK2AaR39SEp3gogn6PLevKrj+6n3+dcD9f
+ 2dZyADwT0Pt8tM3mptmzeUXTrvdwDPhad5BWbnV9htqZK+AVXI337txNUeBfWEyaVI595DsBE4V
+ fZZv06gEVjs4cIkORMNm6AL0iI+utDV3wDVpB6yrdBq23ZRu/HIDkxXM9K3O14OYb8TQ3OPq/Rk
+ Z+fcx4nBIDY2codtltwPe45va1e9pzMf50Ohe65c67hWHW5tuAkl1vvBqrFLwKSUSe6/wDGpQfk
+ gGyVpOoTAnylvmHzN/HQhUGEN/OAf3ZPAK/Ia32H2lTnvkfPTR/x5v0Yaa8uJaXM+k8ztcYUXZZ
+ 6s+LLt19A7gn3tSUurl6qBidnDOEKxQ0ixgfp+UISpV6kotqr4+/Tenmvq8NlIR5iaSUJu/UPGa
+ zStNtLIng==
+X-Received: by 2002:a05:6000:2083:b0:487:463:92d3 with SMTP id
+ ffacd0b85a97d-4887171a473mr9808865f8f.20.1790340803845; 
+ Fri, 25 Sep 2026 05:53:23 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-4887a355826sm7170296f8f.18.2026.09.25.05.53.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 05:53:23 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dp: don't report link training success after a reinit
+Date: Fri, 25 Sep 2026 14:53:14 +0200
+Message-ID: <20260925125314.16563-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,71 +93,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 26, 2026 at 12:06:22AM +0200, Arnd Bergmann wrote:
-> On Thu, Sep 17, 2026, at 18:22, Lorenzo Stoakes (ARM) wrote:
-> >
-> >  mm/vma.c                                   | 246 +++++++++++++++++++-------
->
-> Hi Lorenzo,
->
-> I see that in linux-next there is a new build failure in some
-> configurations in code that you are changing here:
+When every training attempt fails, the retry loop in
+msm_dp_ctrl_on_link() ends on a successful
+msm_dp_ctrl_reinitialize_mainlink(), leaving rc at 0. The caller then
+enables the stream on an untrained link and the display stays dark.
 
-Thanks for the report!
+The retry counter only reaches zero in that case, so treat it as a
+training failure.
 
->
-> mm/vma.c: In function '__mmap_region':
-> mm/vma.c:3083:1: error: the frame size of 1552 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
->
-> I don't immediately see anything that you did that would have introduced
-> something bad that wasn't already there, so it's likely just gone from
-> just below the limit I was using for my testing to just above. The 1536
-> byte limit is what I use on 64-bit builds with KASAN and otherwise
-> still has a clean build (with a small number of local fixup patches).
+Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Hmm are you specifying this limit manually somehow?
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -2434,6 +2434,9 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
+ 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
+ 		return rc;
+ 
++	if (!link_train_max_retries)
++		rc = -ETIMEDOUT;
++
+ 	if (rc == 0) {  /* link train successfully */
+ 		/*
+ 		 * do not stop train pattern here
 
->
-> What I see is that this function has multiple structures on the
-> stack that have nontrivial sizes:
->
->         VMA_ITERATOR(vmi, mm, addr); /* 104 bytes */
->         MMAP_STATE(map, mm, &vmi, addr, len,...); /* 384 bytes */
->         struct vm_area_desc desc; /* 128 bytes */
->
-> The config that caused this is https://pastebin.com/raw/5M95qHy5,
-> which is an x86-64 build with CONFIG_KASAN_STACK enabled, and likely
-> a few other configuration options that made it a little worse.
-> KASAN_STACK tends to double the stack size used by structures
-> in order to catch out-of-bounds accesses.
-
-Yeah, there is a lot on the stack admittedly but there is also a lot of state
-being used. I'm sure we can reduce it.
-
->
-> If I sprinkle some 'noinline_for_stack' annotations on functions
-> called by __mmap_region(), I can get the size down to 1144 in this
-> config, but that doesn't sound like a great workaround.
->
-> The large stack usage is potentially harmful if this ends up
-> in call chains that have additional large stack usage (e.g.
-> kmalloc() leading to reclaim). Any ideas for how to reduce it here?
-
-That can never happen :) this call chain is _only_ for an mmap() call.
-
->
->      Arnd
-
-In general I am absolutely taking this seriously and will find a way to
-reduce this, but my only question is whether this is actually something
-that needs to be done in this series?
-
-Because it's already huge and I would rather avoid adding yet another patch
-to it if possible.
-
-If I can do it as a follow-up that'd be ideal!
-
-Thanks!
-
---
-Cheers, Lorenzo
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+-- 
+2.55.0
