@@ -4,133 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B32C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09229C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D37510E254;
-	Fri, 25 Sep 2026 08:40:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5725310E91E;
+	Fri, 25 Sep 2026 08:42:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3E+1xIZi";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jzhL2YVu";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011012.outbound.protection.outlook.com [52.101.52.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 727FF10E254
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 08:40:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AkZsXsXNIHYAZdY6mzmNT1c6/n2zqPdZZkcRAJ4PSDKOcCKq0PX16VnB5/4thk5R8QWypyR1hzS37lEwzfbkqPnVbaBFv5LNTGTkOnVrXD6BJPTOTHW70LiLb1BDPIPR8owL937K6klN+aA100rxG9j0SxZYTQreokumYfiuvQ2PDWFEdXp/Rm7kEiH+6UnT7nTSwQRByomfnTUu729z/mKC1jVuquyeVBgZnM2AhcE8jRf73bbsdI9ahs9y5wvtMgB9wzfH7WzRUbpT++oiVylmEqIDP1sM2fb9ubQwCdYzH7cl2ixMHorgKMwhAH9L5z8CiS2njUf5q6bZ9BYs3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TcoTRta24a9c08NNsPQTEqOBpoeJztmYb+oU8GJqxSA=;
- b=WPX9w0yktcYiy7s7bsUVLcLS5lyohE6yA7EqoM26mqqHSihMwzAs/9JspmuOHvUWGyPzYS2OXH3fFDpSPope4jxAY4unGkjgVGzYe7Oau9kg2SQ5mJdjNK/5mMEEJrEGpykOZqzeLjrAlzOpbr0hL7QHdDtJhKWMbrj2TNdl1UWutkvJpCPiRaG5X+cIIs5peFKvZmp+s/szBRFSkfRVZuFbXo3lDsToYtnI0l8vkast9rHjfKt7pR6prndPtVwFOWzAcF06N5qDWCS2eeB7gp7cYNedjyUDBZOycLlrf3DsqydmXWKc38/JzmkErUdG39a/fgXXJHqJutIZePEwNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TcoTRta24a9c08NNsPQTEqOBpoeJztmYb+oU8GJqxSA=;
- b=3E+1xIZiZnuw+YmOvdFPRHBgwXoqqfeo4jcEuqthSUvkaObUsinoVtANKEtEVUvNu+ovd6ccfSnv6rlX565Pg7i0c0prNi3ceNUDDFjbWjQdw+dnDOkNxRrKb/ckHLFJlAsIvUdFP67pVqbsqJn3hRzVWPhTFcAGI7yFe1VQai0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5719.namprd12.prod.outlook.com (2603:10b6:8:72::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 08:40:11 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 08:40:03 +0000
-Message-ID: <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
-Date: Fri, 25 Sep 2026 10:39:58 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/9] dma-buf: Provide dma_buf_set_name()
-To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260924152159.49702-1-matt@ozlabs.org>
- <20260924152159.49702-4-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260924152159.49702-4-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0235.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B94A910E91E
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 08:42:06 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrkhq5Kd5zMlN2;
+ Fri, 25 Sep 2026 10:42:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790325723; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vRvOW5NrkIUrw9dWfkyAdujFBwy7oebVmERVFMWai8Y=;
+ b=jzhL2YVuv3ff2aE5LMGqBShNaDSCXIjidBG3CC124ceWlQZjbfOxQpIScjA50TNl3dqdVY
+ 0b3Axa6oJwQ3KRSpeBzN30pqPEqMDvJDbainpz/6fUDS/FKz3Ouf+NslWP5vacyPJ1e3rB
+ pUvYgomNYXd2DXp0CJ26SVHPk269eSCAtOhqfBb8PH7E8Q3opP2NgWjtQhCc1Z+K+koXYX
+ xgJ9JmRX8HkpXTxQZwwlpvx1EW4L9Kvenop9L1AVDDN7NrBrgSmlYZiHjkLj6hV9bgk4D5
+ M0gi/cvf2jxsSlZB14XuCGpWMO2PiYgrgTJ5BzEzkijkhxdpFf698Ql2jUs8eg==
+Message-ID: <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 10:42:01 +0200
+In-Reply-To: <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+References: <20260923150308.1294592-2-phasta@kernel.org>
+ <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+ <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+ <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+ <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
+ <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5719:EE_
-X-MS-Office365-Filtering-Correlation-Id: 690f8295-1219-47b2-1914-08df1ae09812
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: Keq27O1/3tNWNJoflLbPIxd9Vn4hLErRG7ajVqE2fdiclC9BlFbKlh5h8iBd9wBuWZ1CGliiPgVMxmvzIBXHhO/Hm8WCTaz4ifakosJ71/jVtv48nEt4FG2OETiEQzrC+XtSggzNAQot3UOCoHv2Tltj5Ah+98YhCZN7a714wtZ7llMX0gPAxX0290usEd4/kpqiGyPR8v8lZ9ppkcLX3rpW5mMA1SukSQsubQPEDE2idBTL61Bo1aBcoim/913GRzDcnU5fh95fWF4huT/VSCjiH6OOQZqvgyr2m4ZFD1VUQ35l/85yXQkwzmKLXwrhZrba1Ipj/Vhwm3tax0H+CFntoVaIWluMJefjFUa3fTG5Qs8dzm2VP1lafNcfoLe/wM1itdzkI388bek3GfFzkgh+LlayCE2LVTVWKLItk/Xrto3Xuc9KfMT7tgFgKyczbqTHbvH3LB3262pMbAU6DyMnZIBNHtWk5r1/nxOPOXVc2+c/ZLnMxIt8B4dkRXIQSXI4zFGD4pt/LH4kBikFQfgODMMWvT/GHOcKJK7G0Cpc/7rU097AbzrVURTCCbSIXIHElmksekE+Er2LUF+sqvJaIFSsFRq8hJw9kpfG0SdlEowq0CzSblazXr4v2WivfIgTO5vI3Eb6gRYQdcUpsJzUNA/v32hq07fB/VFXeco7KRYW71evB1P5dalTpVjC1c9BdoE+3dxBbAr4e/tkEg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDNYWW5qU2YwQ0MvMTA2ZTZWZUNZYVV3VHlIb1ZaTXpXcHZGVGZyT08rOURC?=
- =?utf-8?B?NXFuMVNjM2dNNkJPWWcySjkvVS9wY1RUdEJoK3h5WUd3S2xWRFJPekpLUGhQ?=
- =?utf-8?B?S252eWlqZUdTeW44eXZBSkViV0FOZHBabHFYb0U2UUY0MnBnS0FIQkNvcU9r?=
- =?utf-8?B?Smp0bENvbUVrMmlwYTNFQ1F4di9RdHVjaXFidmNFMnN6VGREd0h6TmVnc2Z4?=
- =?utf-8?B?WVZQZk96ZTZEVU5PSWowdFJQOWFHa0RhOUg4ZWJnakNHODc1N1J6TiswZlh1?=
- =?utf-8?B?aExNUERpMU0vSnA1aHZ6bklreXgvZEtXcTlJd0d1VmIrZ29pcFBBc3ZYQVBL?=
- =?utf-8?B?SjBrdGgxN0lpNS9UUHgzVHhqL09YRHlhWTdiZzFGUkhDcmlsY3FuWmhCbFR0?=
- =?utf-8?B?NDdQZ1pJMkZiRDFFdDhUZGFvZE5HRi9vaU92OGhDYWNHZ2RsR2E5MGgvMTZo?=
- =?utf-8?B?SmE2czRDakgxZVlybDB0eUZoNGdqU0pSZG4ydVNONElRN1B6dWxRajkvbEtC?=
- =?utf-8?B?azVlZ3JUY0ZaZkRCYUhDZmlVTzlSZmgrQVkrd05SZmk2Mm9sUStpMVVHSEwz?=
- =?utf-8?B?NG9CazhnYkJ5QXJVVGNaNmMrbGt1Q0NpVms0aFpnRW85NUdIL2c4VzJRMTVm?=
- =?utf-8?B?eFJxM2pSZUJOaDRmN0RnQWQ2SlRPUFdUckF6aTkyd0Q4TndBRXEvRkFZWmZQ?=
- =?utf-8?B?T1lUcFprbWtKdzNpSmFSK2NYdnFSRlpaODlCNlg3U25kd3JQdkcyOVU4clZ5?=
- =?utf-8?B?THU3Q0tsYXVLUFNRUlgvUnVLUmhGd1dFYzFPQzVWQUM2Y1k1Q0cwRHlwUE45?=
- =?utf-8?B?QmJyUUZGa1JOWmpTUmVoVndEakh6cVVMemJ6bFZnOGZMbVBTUm1IMFQ3SUY5?=
- =?utf-8?B?bkhlQjdCemUyTVhjb25vNkozWDlOak5NaTJkeHRSRnhJYlc5eUQ0UnA4VWti?=
- =?utf-8?B?cS9WWEtZUDF5V2JIRStYd2hZQ09aQ2tZZ2ZzQXNhY1FQWElPam1ubTNuU09N?=
- =?utf-8?B?MFU5NXNCeDNqWWZnWktrRHJqT08wQlcvVlRSYzVwQUZNeTgvYXJ1Yk1FVCtm?=
- =?utf-8?B?cmtsRGswdzQvQ3lETHVMeDJ6U0M3NmZnZVkrMHZsdG9SOW9ZSUErbmNsNHhs?=
- =?utf-8?B?VitKc3Zia2s3TFdlTFdLcDZHVEEzVTV0TVRUUlp4OXVEUXppaXljckh4a3pm?=
- =?utf-8?B?anZjZ05GVlp4dXBEaFVncDhqbURoNmVnWTBLNFNYNE81YUZhRmlRdk9VaGlC?=
- =?utf-8?B?RDFSQWRYcm5kTlE0eEVHVTlVa3JIVXpMUGN4ZW5YdzNaZmdxZnhGRGRYQy9K?=
- =?utf-8?B?UzVVMXZXelBQVXE0bGJPREd1UzUwaEpIY1VIVTM4VVZFd3ExQ3d5bmdqQWl1?=
- =?utf-8?B?Rkh1VUVMcklwbGRQR3JzcEErdmorODQ1WTMrMDFsN1NsWmEybDZNcHZvZFZL?=
- =?utf-8?B?SFpBVi9qVHpDQzExZmY1R3FqeUhjdDdyWStBcDgrZlNPU0FQNFhGUEllaXZN?=
- =?utf-8?B?aEU2YXI5MXRYKzcvV2lUZnRsa0N4VHBpMG5OUy9qT1MvLzQwYnFtS29tanh1?=
- =?utf-8?B?UWJyTitma1Npd1hrL3pjaG1QTXUyMjBEeGNYcWc1UmJqUEdoaEtpcUhPMU1Q?=
- =?utf-8?B?UEErcnNyNmR5aFZvZHp3aXE4M3BIUElBdkhHQ0ZYdlNUa3QvRnRZNzNkaGtL?=
- =?utf-8?B?S2NVcWVtRVhGY1BzTnp5UVJ4T0RHOU9oRTY4WjBSZDU4UHhYK2J2TVBzVmlH?=
- =?utf-8?B?bVBKMmw2YzN1aENjRmUzRDNTL2JpdVU4ZC82eldqa05HelJMVm4xU24xQzRZ?=
- =?utf-8?B?emRmNEhhR01YbDJkeDY0WktXTU5YTWRGdCtpOWE4K2xXS0VXeTRlNmhlU2JY?=
- =?utf-8?B?Y0k1STZrUytic0JMQTMraTNsSWJSRjAxeXZIWkdOZkhJdWpCTzFrN2haZkM3?=
- =?utf-8?B?SENyQW9sT0xrdTU5eHJibmZBZEFpSjBDenJHVTVKNVZkRlUyd0o0MmhnSkp4?=
- =?utf-8?B?N0tCeU9HQUk0d3pzQSs1VFZZdzVpRXh6TTN5V2d3d2dyN2hwTjUybzNsNkFh?=
- =?utf-8?B?Ty8vNGpwb21MNkpVeVhpS25vOW93WnIwUlB5eEdjVjBZOWF2eS9oQnhSeXo0?=
- =?utf-8?B?RzVyejBVZXI0MjE0VGcwR0ZDekRjTFlJT3daZTYrQ2JpSVVtK3dkYmFUNGda?=
- =?utf-8?B?ZlhXZEFmWG1KMm4rTWQyUU00Nk5vUFQrR2UxUXA0REZIOTg1WUZzRVdETlJQ?=
- =?utf-8?B?M2pCUTFUUVhkQTBTbFZVUS8zcnVYRFpWMW1TdjY0TEFzSTVvUlJOekdQTnRG?=
- =?utf-8?Q?1hHBiLDvZZVsJ4v9KL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 690f8295-1219-47b2-1914-08df1ae09812
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 08:40:03.8128 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J3vy778GwPHMJE45PTZUeJAeCx6ZegQsA6xcd59OdAQA1rvOe/bDtuFRs39yzrrT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5719
+X-MBO-RS-ID: 7c07fbf7874eee8c257
+X-MBO-RS-META: ysrckashgmocyszoea99kqe6zsniwgxt
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,150 +67,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
+> Some problems like the locking design are still WIP, but we are
+> slowly moving towards that.
+
+The question will be whether we can reach common ground with that one.
+
+>=20
+> But some problems like parts of the dma_fence uAPI are unfixable
+> without time travel.
+
+I would be especially interested in learning about who the party is
+that apparently is spinning on dma_fence_is_signaled(), supposedly
+preventing us from getting the memory ordering right.
+
+Also learning more about the users that definitely *need* ops-
+>signaled() and ops->enable_signaling() would be interesting. drm_sched
+users cannot make use of these, since the sched-fence does not pass the
+request through to the hardware fence.
+
+So who are the users? Parties like Nouveau implement these callbacks,
+but it's not clear whether they actually need them.
+
+(btw, funnily enough, with the Rust-fence design we finally have the
+ability to fully support all callbacks with or without a scheduler,
+since the need for an intermediate fence disappeared)
 
 
-On 9/24/26 17:21, Matt Evans wrote:
-> Allow exporters to set the name of buffers, during export or for
-> subsequent updates.  This is useful to express buffer-specific debug
-> information, indicate state particular to the exporter's usage, etc.
-> Only exporters and userspace are expected to set names; it isn't
-> sensible for importers to do it.
-> 
-> Originally, the static dma_buf_set_name() was used for
-> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
-> this function as a generic set-name helper, taking a kernel-allocated
-> string.  The SET_NAME ioctls now locally duplicate the __user string,
-> and use the new function to set the name.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 78 ++++++++++++++++++++++++---------------
->  include/linux/dma-buf.h   |  2 +
->  2 files changed, 50 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..e4ec504e9288 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -404,34 +404,6 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
->  	return events;
->  }
->  
-> -/**
-> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
-> - * It could support changing the name of the dma-buf if the same
-> - * piece of memory is used for multiple purpose between different devices.
-> - *
-> - * @dmabuf: [in]     dmabuf buffer that will be renamed.
-> - * @buf:    [in]     A piece of userspace memory that contains the name of
-> - *                   the dma-buf.
-> - *
-> - * Returns 0 on success. If the dma-buf buffer is already attached to
-> - * devices, return -EBUSY.
-> - *
-> - */
-> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
-> -{
-> -	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
-> -
-> -	if (IS_ERR(name))
-> -		return PTR_ERR(name);
-> -
-> -	spin_lock(&dmabuf->name_lock);
-> -	kfree(dmabuf->name);
-> -	dmabuf->name = name;
-> -	spin_unlock(&dmabuf->name_lock);
-> -
-> -	return 0;
-> -}
-> -
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
->  static long dma_buf_export_sync_file(struct dma_buf *dmabuf,
->  				     void __user *user_data)
-> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
->  		return ret;
->  
->  	case DMA_BUF_SET_NAME_A:
-> -	case DMA_BUF_SET_NAME_B:
-> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
-> +	case DMA_BUF_SET_NAME_B: {
-> +		char *name = strndup_user((const char __user *)arg,
-> +					  DMA_BUF_NAME_LEN);
-> +
-> +		if (IS_ERR(name))
-> +			return PTR_ERR(name);
-> +
-> +		ret = dma_buf_set_name(dmabuf, name);
-> +		if (ret)
-> +			kfree(name);
-> +
-> +		return ret;
-> +	}
->  
->  #if IS_ENABLED(CONFIG_SYNC_FILE)
->  	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
-> @@ -874,6 +857,41 @@ void dma_buf_put(struct dma_buf *dmabuf)
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
->  
-> +/**
-> + * dma_buf_set_name - Set a dmabuf's name
-> + * Intended to be used by the exporter to set a name for debug
-> + * purposes.  This can also change an existing name if the same piece
-> + * of memory is used for multiple purposes over time.
-
-Add something like "Importers should *NOT* use this function to overwrite the name." here and add some note under "DOC: locking convention" how this function is supposed to be called.
-
-Apart from that looks good to me,
-Christian.
-
-> + *
-> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
-> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
-> + *                   similar.  This takes ownership of the allocation
-> + *                   on success, which will be kfree()d when the
-> + *                   dmabuf is released or a new name assigned.
-> + *
-> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
-> + * name (including terminator) exceeds DMA_BUF_NAME_LEN.
-> + */
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
-> +{
-> +	if (!name)
-> +		return -EINVAL;
-> +
-> +	/* dmabuffs_dname() won't use the string if the length
-> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
-> +	 */
-> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
-> +		return -E2BIG;
-> +
-> +	spin_lock(&dmabuf->name_lock);
-> +	kfree(dmabuf->name);
-> +	dmabuf->name = name;
-> +	spin_unlock(&dmabuf->name_lock);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
-> +
->  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
->  {
->  	struct scatterlist *to_sg, *from_sg;
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..952a2c196ad4 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -571,6 +571,8 @@ void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
->  struct dma_buf *dma_buf_get(int fd);
->  void dma_buf_put(struct dma_buf *dmabuf);
->  
-> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
-> +
->  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->  					enum dma_data_direction);
->  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
-
+P.
