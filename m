@@ -4,52 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01476C9832F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0592FC9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7797C10E892;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9375E10E896;
 	Mon, 28 Sep 2026 08:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="PmMoJTc4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NHlywOEA";
 	dkim-atps=neutral
-X-Greylist: delayed 586 seconds by postgrey-1.36 at gabe;
- Mon, 28 Sep 2026 01:04:38 UTC
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31DC210E00B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:04:38 +0000 (UTC)
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.40.71])
- by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 9D1C212111F;
- Sun, 27 Sep 2026 21:54:53 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
- s=dkim2026; t=1790556893;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=D19fqv261MzzzeIRV2U6y+pS9yH8+bjHlaQKvLA8LmE=;
- b=PmMoJTc4/pL22BkmxS5cJaydZzf3+cYA0CpTPHT2rbz4KS4LzFm3Va7+1LbGG6xxrJMnT6
- K632yV1H9VXZLBojzcukJkAyQs4/O3vZ2ITJKCBuvnpplL9Ewn7H5lD5XMPHqiuO5IwQRL
- uWUyxXZaCYkGqit1P23Vts3REJhKRafajRh/YQ2BvfF48lTyEmN4swzH6Tzcc2ANZYyqNs
- RszB5a44WfM2bPSYjII6Ne2Qzs8FYrDlUHbVNmAJDOtYLsj2WM2eB+3xhw90iyHdoyFCdK
- 07r99MNfULOCI40wmwWTrx3gX8tCTpQy1ciQRId2cB7+/eMb/cL9IqRao+g4kw==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9AC10E281
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:48:12 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49ccf3ca626so5146575e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 05:48:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790340490; x=1790945290; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
+ b=NHlywOEARJOIEqXEg2D1nwNS1DgATA7PkhlZEiOrZLmt2snHMHk9ZD2pL/BFMOcWn1
+ KiYSVEnzr/k/E40I2fDh5mAD9j9bqkfozl3sM5o+ToV/3sRev0/FHzvZ40V/1QMNEJNC
+ dqt0s/0Djv6YEOastuOevvJd/A99pdzyBFAiseDZcL0wduiOFa48/nZck+Pl+naDc5Wx
+ oPZqCMhaM/95iR0bm+qa/xww2/+LNlFI38RpL+hCsdAE8gShTMwe2wK0Y+qJzKoyiHx/
+ beqlu0KG18yVbJqTVMmjXACxA9MFboagXdqDYftsBYSMgGvwk8+wIP+Gp/lATO6irrPN
+ owEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790340490; x=1790945290;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
+ b=RPkp9ftSTIlpMqUdmbQap3IFOMSjYF+YrA+vXPCgl//XI2oBZOYcc/YWHMOGLnWbcD
+ XW+m98IlzBPkhBCr216HKRY66RF2pSKFITjafZUtJWC6F/awXGGFX76gpqnF1MCTxAoJ
+ 9Q/3hAVSXmrbQv2oJ52mhJ87GpGQsiPHI/VKupftxLbv0OmNiPovZGrkQgBYE/kE64tG
+ 91Own8XSjWqzky+GvkwqGYCpuQeJ4Gy4sLulzn1y+OiaCav6KdJFvBMIo76BBEHPpjkM
+ JOMUsxi7PsLCBnwaVKiWH9ud/1oAJvHatfO7ka9nIOWmQYcLplaRkBaLKbLn47C7YGtb
+ U+jw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxFPcHGSx/pcXWO+FlOfxlChqwXjeINEIPDjXQ0+FbfMGqNfzZSZ8VLOQpKNgDssoYxdb1S5tSuvNA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lukbj6rv1EKbrRCdwI7TSiCTYZHopMftylCO45Ksdwac3YLcn3
+ WPJkWf3fV6QE/Hfcow92AnN47ypXnao4WJtJ6PLClkWXCUAusr4DaI5TM/fbMw==
+X-Gm-Gg: AYBFou2WZGYKUe3Tixs0TCHgeTHS7VBY1gTGwe+VQpNgBZJ4Zkl7WxC2+Nf6xPlbdZ9
+ ZRRe6krGNxPeHgD2YfrR0j5bAfGz/Y1gX+fJXIHNKDzzC+Watv41XBJC15975Bx8idhXVhM7QDh
+ QGl/dXTeua1A9B6lECS1Ew8Ri/gK69PDpNLfunEvOyeYGn5U5p8Ya24nB4o0URpNEuIqx6o7OBq
+ fKshZJuT5RO0yq1ZWeVOgoOvU7J0aCV5k9uk31Ya7OmXgONiP+8jIvQIK+QTeLVdIPM4S24Mpit
+ 4hGRiaVcWLy8c8CprRyrlsF72MZP+/wGjMN2Y8xhHNCe7DtngimbBiH7w2wqLPbZrC1MBt0uXBM
+ kAJDHVIdDaFt2d4fp/wAfD38LJMoY5F7axN3ciOhO/puD1x9I6VG0jZjZ2xQcNam7TAZ17pAOvk
+ YCI14YbmV19L7cWxYddZZ5jjeqt6OoGH27o+rANEoxrMOMPvvtZlezQpRA7v8=
+X-Received: by 2002:a05:600c:4f4d:b0:49c:dadb:18a7 with SMTP id
+ 5b1f17b1804b1-49fe66cbb21mr116104615e9.10.1790340490347; 
+ Fri, 25 Sep 2026 05:48:10 -0700 (PDT)
+Received: from fedora ([2a02:587:200f:d100:bf67:f785:caad:e278])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a36189bsm6670499f8f.21.2026.09.25.05.48.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 05:48:09 -0700 (PDT)
+From: George Karagounis <taterraster@gmail.com>
+X-Google-Original-From: George Karagounis <mail@taterr.org>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: Koby Elbaz <koby.elbaz@intel.com>,
+ Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH 5/5] drm/vkms: add support for BGR233
-Date: Sun, 27 Sep 2026 21:53:01 -0300
-Message-ID: <20260928005301.367977-6-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+ mail@taterr.org
+Subject: [PATCH 1/2] accel/amdxdna: Replace create_singlethread_workqueue with
+ alloc_ordered_workqueue
+Date: Fri, 25 Sep 2026 15:48:03 +0300
+Message-ID: <20260925124804.58808-2-mail@taterr.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925124804.58808-1-mail@taterr.org>
+References: <20260925124804.58808-1-mail@taterr.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:45 +0000
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,100 +95,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for reading and writing the BGR233 pixel format.
+create_singlethread_workqueue() is deprecated. Replace it with
 
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+alloc_ordered_workqueue() to use the shared system workqueue
+
+infrastructure more efficiently.
+
+WQ_MEM_RECLAIM is added to ensure the mailbox can process
+
+interrupts under memory pressure.
+
+Signed-off-by: George Karagounis <mail@taterr.org>
 ---
- drivers/gpu/drm/vkms/vkms_formats.c   | 20 ++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_plane.c     |  1 +
- drivers/gpu/drm/vkms/vkms_writeback.c |  3 ++-
- 3 files changed, 23 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index 0c3bb0618..de25c8a19 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -273,6 +273,12 @@ static struct pixel_argb_u16 argb_u16_from_RGB332(u8 pixel)
- 				    pixel & 0x3, 0xffff, 3, 3, 2, 0);
- }
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index cc8865f4e79c..05c3786de135 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -481,7 +481,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		return NULL;
  
-+static struct pixel_argb_u16 argb_u16_from_BGR233(u8 pixel)
-+{
-+	return channels_to_argb_u16(pixel & 0x7, (pixel >> 3) & 0x7,
-+				    (pixel >> 6) & 0x3, 0xffff, 3, 3, 2, 0);
-+}
-+
- static struct pixel_argb_u16 argb_u16_from_gray8(u8 gray)
- {
- 	return argb_u16_from_u8888(255, gray, gray, gray);
-@@ -482,6 +488,7 @@ READ_LINE(RGB565_read_line, px, __le16, argb_u16_from_RGB565, px)
- READ_LINE(BGR565_read_line, px, __le16, argb_u16_from_BGR565, px)
- 
- READ_LINE(RGB332_read_line, px, u8, argb_u16_from_RGB332, *px)
-+READ_LINE(BGR233_read_line, px, u8, argb_u16_from_BGR233, *px)
- 
- READ_LINE(R8_read_line, px, u8, argb_u16_from_gray8, *px)
- 
-@@ -707,6 +714,15 @@ static void argb_u16_to_RGB332(u8 *out_pixel, const struct pixel_argb_u16 *in_pi
- 	*out_pixel = r << 5 | g << 2 | b;
- }
- 
-+static void argb_u16_to_BGR233(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
-+{
-+	u16 r, g, b;
-+
-+	argb_u16_to_channels(&r, &g, &b, NULL, 3, 3, 2, 0, in_pixel);
-+
-+	*out_pixel = b << 6 | g << 3 | r;
-+}
-+
- /**
-  * vkms_writeback_row() - Generic loop for all supported writeback format. It is executed just
-  * after the blending to write a line in the writeback buffer.
-@@ -771,6 +787,8 @@ pixel_read_line_t get_pixel_read_line_function(u32 format)
- 		return &BGR565_read_line;
- 	case DRM_FORMAT_RGB332:
- 		return &RGB332_read_line;
-+	case DRM_FORMAT_BGR233:
-+		return &BGR233_read_line;
- 	case DRM_FORMAT_NV12:
- 	case DRM_FORMAT_NV16:
- 	case DRM_FORMAT_NV24:
-@@ -1013,6 +1031,8 @@ pixel_write_t get_pixel_write_function(u32 format)
- 		return &argb_u16_to_BGR565;
- 	case DRM_FORMAT_RGB332:
- 		return &argb_u16_to_RGB332;
-+	case DRM_FORMAT_BGR233:
-+		return &argb_u16_to_BGR233;
- 	default:
- 		/*
- 		 * This is a bug in vkms_writeback_atomic_check. All the supported
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fff2d4eb5..89beda57e 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -30,6 +30,7 @@ static const u32 vkms_formats[] = {
- 	DRM_FORMAT_RGB565,
- 	DRM_FORMAT_BGR565,
- 	DRM_FORMAT_RGB332,
-+	DRM_FORMAT_BGR233,
- 	DRM_FORMAT_NV12,
- 	DRM_FORMAT_NV16,
- 	DRM_FORMAT_NV24,
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index 54330803e..37042445d 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -23,7 +23,8 @@ static const u32 vkms_wb_formats[] = {
- 	DRM_FORMAT_ARGB16161616,
- 	DRM_FORMAT_RGB565,
- 	DRM_FORMAT_BGR565,
--	DRM_FORMAT_RGB332
-+	DRM_FORMAT_RGB332,
-+	DRM_FORMAT_BGR233
- };
- 
- static const struct drm_connector_funcs vkms_wb_connector_funcs = {
+ 	INIT_WORK(&mb_chann->rx_work, mailbox_rx_worker);
+-	mb_chann->work_q = create_singlethread_workqueue(MAILBOX_NAME);
++	mb_chann->work_q = alloc_ordered_workqueue(MAILBOX_NAME, WQ_MEM_RECLAIM);
+ 	if (!mb_chann->work_q) {
+ 		MB_ERR(mb_chann, "Create workqueue failed");
+ 		goto free_chann;
 -- 
-2.43.0
+2.55.0
 
