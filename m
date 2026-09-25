@@ -4,92 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D70E4C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCFAC98324
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE74A10FA9E;
-	Fri, 25 Sep 2026 13:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3010FA98;
+	Fri, 25 Sep 2026 13:22:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qPFhbQ5y";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fOKfPt2k";
 	dkim-atps=neutral
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com
- [74.125.227.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B74610FA6F
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 13:19:06 +0000 (UTC)
-Received: by mail-vs2-f12.google.com with SMTP id
- 71dfb90a1353d-5c6560f7a84so21539e0c.0
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 06:19:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790342345; cv=none;
- d=google.com; s=arc-20260327;
- b=A36Eb8VZbDVdLAnHRLQIzpmjRQ+aGx1IoZoJzt+2HG1rhLUBdfTInCkiSA/zzPBGx8
- fy3Y3Pbjl8R3BFZNyFVGLhoBFZgS5Oe1YDRmFd6gDz26nC1Bo9cp19jTZM76hh3dDSa+
- 8etegLMmZl2o2VEIFeLhzN/JyRbzIyteAqTn+90xyrlx6CGcHRug0LhW4luQOwVCggTC
- ATZr+eNe8UINYXlAsCxWMvPpMBQHzrU2ZnmW9yJ536Pxuh5WSUo9OZ4bxruDLuUpALwr
- ltPOfCR3V3I0hhD0VSmQ8jll3MY2o0PiEeVtM82DVq8PADO3RbQe2sKDK+wCl/SfXKqO
- uvXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=v1T+887+ysRm648rHil2WXYMHOnrtYykJIIR4VYBxQ8=;
- fh=pKGbRUybyLdVguHS3QbYdmtziSUFMMgvnKejY3M4RjE=;
- b=ec9oJ1d52HL8M6fUDl1XTS4n79bhLetKtRsRQUvr9jmpOuJDIQKyRu5ijVsq5Jl2cj
- JRFuyugOyzdQ55LsspgjH+XFTKilq/3lbw0bwfWHIXdSl0GUeTdkLTYMDsDCm5HXRMNH
- fZHpA71a7GaUezxDVGYYkQHvQjHFlqOErjPvzOcaKD7sZGLtTmMAJGB05BZnfT8jaqK4
- eFkDbfyV8/bI/ZbsIrhg19kehxOvkUaCeTh3O5hFxdIeERcHUDlwrp4H/D3vD+3vylbv
- sv/44AawhD8J47X5oQ2prNjyW3kQFCLJF7duwMGKWmhBwZLbK3o27VCvhcoa5G3VEhpw
- 5DwQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790342345; x=1790947145; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=v1T+887+ysRm648rHil2WXYMHOnrtYykJIIR4VYBxQ8=;
- b=qPFhbQ5yelfK6hsLF1HGlwtyAuFYuBQ1+6c86RxF69csmW73rR1BpFueJaR4ORoSHJ
- Q3cuieJgu7en+Ym8yqvlwfiYs/w12nqMRFhI9i6G4c5UlB5aXb9ZPt6R625Dxi6sJOnR
- Sv8MBh/PQheDA9nf2vKzzR53ZhiE4F/t4w4Y4E7obpa8j/YSKxPp1QuetQLjrYAUTgue
- HTPDOkApfh+k7t/zEKHChXmXPXWqjR9VqPAh+TzqipUEOpPo+XELROS89vVl0a80uEq5
- WhHkkHiRYbKbijzk9a9h+38/bTnLqxkGIpbC9tihm5E1/ghmM4b80GCNarhlsochhXPe
- /i6w==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52D1010FAB1
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 13:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790342544;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
+ b=fOKfPt2k/qkngRrNihgEPzV+PiFb3us9Y3/uhFjMZ1TdRd3BmG+M0oag/GpTFq7R6JyCkM
+ nY45gWV1lPCbKIBOvDkm2/XSodcCTqlJLPz4K7ZHGOcU2wezsvP/3R90SlndcwzSHfwzSH
+ tWy7KSCpXER0hwV0VpWlVtHWNBbQw6c=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-608-XfC5DskFPhqA6Efm3Ft7ow-1; Fri, 25 Sep 2026 09:22:23 -0400
+X-MC-Unique: XfC5DskFPhqA6Efm3Ft7ow-1
+X-Mimecast-MFC-AGG-ID: XfC5DskFPhqA6Efm3Ft7ow_1790342542
+Received: by mail-lf1-f70.google.com with SMTP id
+ 2adb3069b0e04-5b5e279489dso596254e87.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 06:22:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790342345; x=1790947145;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=v1T+887+ysRm648rHil2WXYMHOnrtYykJIIR4VYBxQ8=;
- b=ao8ZOs79DxQF4SoWBX5oQFCU9cmgg1IJKRO8yg5B+t9K8niHM1J/IGt3YEES7dQgEy
- QVy0GSYLZYPTAB31hzzwMLDqF5O1dqymhPDp28USnvBgleD70zEirm7paJgX8RT5cykO
- iUaEVIdHBBM9OWUnptBgQqlwxmfEHnDm9cbj8rvxvBYd+15+YF1SQf1XCxqkADrEuYhj
- WmYvHCZA0WhvQbkk1z9/2LKLRfShH0YX5AhJJwbGYO6Vsrb5fea8J1JsZLdEGo8EKsBr
- unAQ6fZdlPTv5VrV3CsLEzi1sjyrawuVm/LUDGTMMWuZ/6LKevGaXHtPgIUjj+FPo1az
- W8+w==
+ d=1e100.net; s=20260707; t=1790342541; x=1790947341;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
+ b=UR+UL/BmmHi1nDE3tKESa96llZXo03ganM8tD7yJPoMiDc/D3T6R1H8emJKb/LFnES
+ j5/HRduYDYDkkI2JIMr4pXs6Wu4MOaTrKHC9FEQkzAVLSNHO1FECy7Euyn1EJ8eMiS/7
+ U9gS2bzgn6EAmr0gbZGEWN6ILNu5OzHBf5hL2ahSF7Z3zpESRwzQOzn+PtSsmHeJemuS
+ 3DRH/dZzwWAB9tU2soBe23cTXQxKoCgEa/6g4IEpScFLddlz5YPpZ1lnJ3UNOVjGQS+e
+ x6pSDvFBtvGlNa4e2Dcg5lmdmtI86cF/UZa8postg1KktRG9TUL9KPXyRx636EFr7tmw
+ CIiQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxKYVp2PvCQVj7A4xvPAh30BJledpe2cDtILQ07pjczcv0mBIXybihKKG5xHvMFo7BkjKfFrJxk3F8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mZAWsqSPnVkD+PKTMFuL5Nd/UA0sXTT9MHOfG86rdih8Hc1faK
- FkHszOYmQSitau3jOdSkeSBcJXzu1AnsAp7Vwly65xtFTI4QVNk2tWG/rtHwpnwylEZxgmV6lLg
- utpGKD3fUPKJ1S+M27F2yh7qDmoGn+Tg=
-X-Gm-Gg: AYBFou3JWMCbiuj737bMS05U2NoH27i2PvYjHxMVXYiRiIHxlMpc1vhvKyz4OR9c7VF
- Pxpk/3MwO+W1MNOsD4q3NnUoTKiMGH6RZsAmYWL9teXGxyhbzpooU3AJrlAfZ6gV5lbOazJqzb5
- 4xdC5WEkAbgTh9mRLLOluDfMjdtD59hibITml6jH9C6bzAn8CsCftFxHk2iqSMa+oVRmWFeymSa
- N9Xep5gtqVUTHWZSmVALn5nStGnpmUZFIlxYYi44qE1BAx932ReyHbIcr6JGZWOGHAjYG6Vzjaf
- d+z1eGfTsa0Lpa8lVN3Tp057RMohr3ma67rj/7g5m5e8qFuaUufOM4qFXxDi29uTTpE/W14CquC
- 5Z4HiYRU4hhr1PK2C9VZTXB+x91aBKY9PDsL1Z+maPQ==
-X-Received: by 2002:a05:6122:2911:b0:5c9:e558:53da with SMTP id
- 71dfb90a1353d-5cc4ac05f70mr1019989e0c.3.1790342345253; Fri, 25 Sep 2026
- 06:19:05 -0700 (PDT)
+ AKwUvByNvyrIPBe6qfwo4tXybPpg9n0ge82do7ihE+kf/dKYW9xMaE6Ntfe5a8F0nEktn9D5S7pK6t3iayg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lYUEJQ7etnjxtjnB3Sa/kVtibXtuOpkfd7hnmiw47INrzOfIu+
+ T054StucWX2nRE3OSlTIOg5jpUn0pGzSGjg/VTWNkxb9qd2WLQFWicWZU+uS9GxmqfT8Y0ylP7b
+ bMxu/m3jiFN7Kxu46CQJcvO0Gv3svLP3uZyvFAXSXMOUhR+hSBKM5s4abmgIoDVaqP6aQ
+X-Gm-Gg: AYBFou1TFg8C2kQzIcVbv6tsi2R6rCvh4w2WBNl9Q6qjvfSL5Vu8f+8luXG8EpGVhCI
+ 3SQrmrjvPCKQs+/Xsn53dqtW9mqX3SkBM36LW5dx8nfJS4YGmDGuQunKPY65EyIJBXVS/XPeGXp
+ D1CCR3O/He7KC3Sv/zWPN9HECGu3YSBYCEC0D632Zsits/I5zYU1FRZ8n0WWdYEg1OWJ9G7bLFl
+ NTC1QTg2cM2DfJ3hBHCEVCGVDvZ3DPiE7JjDBWC/7xcJVoPl7uq9yI4fLyxkdGQ5IMz1qBHr2Wb
+ kK2F4+ZCi4vdqEJY6P/Jc1vLykOxn4QyxZGw+QH+sBIOI1e52Sf0fsvky4nBEuTh0toShRAhPrE
+ c32uLFRfZPevlo8bJdUWvKBJjs0gSSSw=
+X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id
+ 2adb3069b0e04-5b8e6b36729mr733454e87.0.1790342541319; 
+ Fri, 25 Sep 2026 06:22:21 -0700 (PDT)
+X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id
+ 2adb3069b0e04-5b8e6b36729mr733437e87.0.1790342540724; 
+ Fri, 25 Sep 2026 06:22:20 -0700 (PDT)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a64c2ea5d2sm5510451fa.18.2026.09.25.06.22.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Sep 2026 06:22:18 -0700 (PDT)
+Message-ID: <f7cc0ac3-729e-435e-9062-3317d0a6517b@redhat.com>
+Date: Fri, 25 Sep 2026 16:22:17 +0300
 MIME-Version: 1.0
-References: <20260925072444.18982-1-ayhancicek@gmail.com>
-In-Reply-To: <20260925072444.18982-1-ayhancicek@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 25 Sep 2026 09:18:43 -0400
-X-Gm-Features: AclHuK8CdVe5loQJtszbEolTxrSAmN7yAW4OJnGnOhsKcaA4SE9RM2C-7EHSPEw
-Message-ID: <CADnq5_PWzO-UqBJgduTy-X7bYnxSJyBZxL0TcsBue3S9cWyTUw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
-To: =?UTF-8?B?QXloYW4gw4dpw6dlaw==?= <ayhancicek@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch
-Content-Type: multipart/mixed; boundary="0000000000008403f5065c4e8ffd"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 00/11] migrate on fault for device pages
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Christoph Hellwig <hch@infradead.org>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260924065313.899730-1-mpenttil@redhat.com>
+ <arY5zKsLuf7f_EYw@infradead.org>
+ <65c5c412-56a7-46a9-b22b-22077a8e9727@redhat.com>
+ <20260925124737.GL9354@nvidia.com>
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <20260925124737.GL9354@nvidia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: LmLly3vYX8RH6TMAU2y9x68uyHvuA5lOD5DCIjR7CGM_1790342542
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,95 +113,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000008403f5065c4e8ffd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 3:46=E2=80=AFAM Ayhan =C3=87i=C3=A7ek <ayhancicek@g=
-mail.com> wrote:
->
-> The existing MacBook workaround reserves VRAM at address 0 for
-> Polaris ASICs when the iGPU is enabled. This prevents cursor
-> allocations from landing at address 0.
->
-> A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
-> failure mode. Hardware cursor updates repeatedly log
-> "DC: Cursor address is 0!" followed by
-> "DC failed to set cursor attributes".
->
-> Extend the existing workaround to CHIP_VERDE. With this change,
-> hardware cursor operation is stable, the cursor errors remain at
-> zero during repeated cursor movement, and cursor disappearance
-> and flicker are no longer observed.
+On 9/25/26 15:47, Jason Gunthorpe wrote:
+> On Fri, Sep 25, 2026 at 01:23:52PM +0300, Mika Penttilä wrote:
+>> On 9/25/26 12:07, Christoph Hellwig wrote:
+>>> Who is going to use this? The series seems to lack an actual user
+>>> for it. 
+>> Two users: For one, existing migrate_vma_setup() callers, unchanged.
+>> The series reworks migrate_vma_setup() to collect via
+>> hmm_range_fault() internally (it sets HMM_PFN_REQ_MIGRATE and calls
+>> migrate_hmm_range_setup(), mm/migrate_device.c). So every in-tree
+>> migrate_vma consumer — nouveau, amdgpu/amdkfd, drm/xe via
+>> drm_pagemap, lib/test_hmm — runs on the new path. 
+> So split the series so you don't add unused interfaces for now? Jason
 
-Sounds like this may be consistent for most or all Macs.  How about
-something like the attached patch?
+I think we get the other for "free", migrate_vma_setup() ->
+hmm_range_fault() is the now used. But if wanted you can drive the
+migration initially from  hmm_range_fault()  also from fault handler. If
+don't want that then it's removing 
+EXPORT_SYMBOL(migrate_hmm_range_setup);
 
-Alex
+--Mika
 
->
-> Signed-off-by: Ayhan =C3=87i=C3=A7ek <ayhancicek@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gmc.c
-> index 1bf2a42fa..9e7f9cc2b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu=
-_device *adev)
->         case CHIP_RENOIR:
->                 adev->mman.keep_stolen_vga_memory =3D true;
->                 break;
-> +       case CHIP_VERDE:
->         case CHIP_POLARIS10:
->         case CHIP_POLARIS11:
->         case CHIP_POLARIS12:
-> --
-> 2.55.0
->
 
---0000000000008403f5065c4e8ffd
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-drm-amdgpu-make-Mac-FB-workaround-generic.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-make-Mac-FB-workaround-generic.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mugzl7210>
-X-Attachment-Id: f_mugzl7210
-
-RnJvbSBhOTIzODRiNzdhZjM4MTgzMTBiNDcxYzllZjA0ODRhMWE2NGU4MTY2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IEZyaSwgMjUgU2VwIDIwMjYgMDk6MTY6MjYgLTA0MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBtYWtlIE1hYyBGQiB3b3JrYXJvdW5kIGdlbmVyaWMKClJhdGhlciB0aGFu
-IGFkZGluZyBhIGNhc2Ugb2YgZXZlcnkgY2hpcCB3aGVyZSB0aGlzIGlzIHNlZW4KanVzdCBjaGVj
-ayBpZiB0aGUgRkIgaXMgYXQgMCBhbmQgdGhlIHNzaWQgaXMgYXBwbGUuICBUaGlzCnNob3VsZCBj
-b3ZlciBhbGwgY2hpcHMgd2hpY2ggZmFsbCBpbnRvIHRoaXMgY2FzZS4KClNpZ25lZC1vZmYtYnk6
-IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMgfCAxNyArKysrKysrLS0tLS0tLS0tLQogMSBm
-aWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5jCmluZGV4IDFiZjJhNDJmYTYzY2UuLjkyYjMyMjE1
-OTBmYjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmMKQEAgLTEwODYs
-MjAgKzEwODYsMTcgQEAgdm9pZCBhbWRncHVfZ21jX2luaXRfdmdhX3Jlc3ZfcmVnaW9ucyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAljYXNlIENISVBfUkVOT0lSOgogCQlhZGV2LT5tbWFu
-LmtlZXBfc3RvbGVuX3ZnYV9tZW1vcnkgPSB0cnVlOwogCQlicmVhazsKLQljYXNlIENISVBfUE9M
-QVJJUzEwOgotCWNhc2UgQ0hJUF9QT0xBUklTMTE6Ci0JY2FzZSBDSElQX1BPTEFSSVMxMjoKLQkJ
-LyogTWFjQm9va1Byb3Mgd2l0aCBzd2l0Y2hhYmxlIGdyYXBoaWNzIHB1dCBWUkFNIGF0IDAgd2hl
-bgotCQkgKiB0aGUgaUdQVSBpcyBlbmFibGVkIHdoaWNoIHJlc3VsdHMgaW4gY3Vyc29yIGlzc3Vl
-cyBpZgotCQkgKiB0aGUgY3Vyc29yIGVuZHMgdXAgYXQgMC4gIFJlc2VydmUgdnJhbSBhdCAwIGlu
-IHRoYXQgY2FzZS4KLQkJICovCi0JCWlmIChhZGV2LT5nbWMudnJhbV9zdGFydCA9PSAwKQotCQkJ
-YWRldi0+bW1hbi5rZWVwX3N0b2xlbl92Z2FfbWVtb3J5ID0gdHJ1ZTsKLQkJYnJlYWs7CiAJZGVm
-YXVsdDoKIAkJYWRldi0+bW1hbi5rZWVwX3N0b2xlbl92Z2FfbWVtb3J5ID0gZmFsc2U7CiAJCWJy
-ZWFrOwogCX0KKwkvKiBNYWNCb29rUHJvcyB3aXRoIHN3aXRjaGFibGUgZ3JhcGhpY3MgcHV0IFZS
-QU0gYXQgMCB3aGVuCisJICogdGhlIGlHUFUgaXMgZW5hYmxlZCB3aGljaCByZXN1bHRzIGluIGN1
-cnNvciBpc3N1ZXMgaWYKKwkgKiB0aGUgY3Vyc29yIGVuZHMgdXAgYXQgMC4gIFJlc2VydmUgdnJh
-bSBhdCAwIGluIHRoYXQgY2FzZS4KKwkgKi8KKwlpZiAoKGFkZXYtPnBkZXYtPnN1YnN5c3RlbV92
-ZW5kb3IgPT0gUENJX1ZFTkRPUl9JRF9BUFBMRSkgJiYKKwkgICAgKGFkZXYtPmdtYy52cmFtX3N0
-YXJ0ID09IDApKQorCQlhZGV2LT5tbWFuLmtlZXBfc3RvbGVuX3ZnYV9tZW1vcnkgPSB0cnVlOwog
-CiAJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSB8fAogCSAgICAhYW1kZ3B1X2RldmljZV9oYXNf
-ZGlzcGxheV9oYXJkd2FyZShhZGV2KSkgewotLSAKMi41NS4wCgo=
---0000000000008403f5065c4e8ffd--
