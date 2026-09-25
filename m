@@ -4,52 +4,176 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB146C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B651C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 08:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 280D010F913;
-	Fri, 25 Sep 2026 08:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB7C10F941;
+	Fri, 25 Sep 2026 08:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NYsBLlqS";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="N16N/i3O";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="AN7WQSe7";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61E0F10F941;
- Fri, 25 Sep 2026 08:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=7rHWGhHT1ysJVVr3dhAoJ5OBInZCPNmZTYtschpXnHU=; b=NYsBLlqSjjpLUU3nUjrUPgRlrE
- /rke+0kC/KyHm1dcwRGjpHG8OogLvuahd5CUwlxJ1LQyJ9z2J1TM298w23Nj2ZWeg3aPPw7qB2qEo
- 8yQwjFC7r5O/1w17sYcs5D3BAH7wsHBc9l1W2+cbcbnj2FVXavVRUlnXeG4AViVxpWLR7BOoFWLji
- 78I0tIvSyfVAQuXNr9dsjAhlTKU/hQqltNwKvFwNOpdxzoXrPUZM5Irz/d28KmtJIyOmoZ7kGJ/cB
- R7Vd7DC7bBTNZ2musWtaBvvHycXr4BwelRhwnENZflVKG4qs+cXWWEqul84/TUIiaZnIpZQV79bGM
- tTF3RHSw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xA0rn-0072v4-I1; Fri, 25 Sep 2026 10:01:11 +0200
-Message-ID: <aa484472-1d5f-4973-8941-6e86f9a81fd2@igalia.com>
-Date: Fri, 25 Sep 2026 09:01:10 +0100
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E770410F941;
+ Fri, 25 Sep 2026 08:09:47 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68P7FkT83819780; Fri, 25 Sep 2026 09:09:32 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ dk201812; bh=UfNef7UXct3R4efECQNlq+DUR1EO6f/YAVB52bj9VP4=; b=N16
+ N/i3Omg6WAOyG8z2XL3eafX+XbRqszWdVCgfSev3EyAeN3l2ijl5P0jq2qNlMxgv
+ 921sQk9Sa6wgPuPuuDbqoLM2RU7ul0SMT0i/IsxBXlJ9CtAQrOGYlkBtBoSl03fc
+ 7iHBSI6ABio7nLvSb8BpftaKXmQAeSXhQY3TxPXPukaLzB9ajXBQJhxdMDPG2aNe
+ 1ZMWfx0WOfFFLLMTKncyYk6b4ejd+1Y1qPQ3EhpRHiaNRo3yjy18rlM5fC6mw1hW
+ UjZN/8deDLDER7I+n0fys6EsIz6fkODo3p0TMpk2XdKP3gRo71bX2HFCyfuk8G/P
+ 2m+Do1uQ9yInbiAgvGQ==
+Received: from cwxp265cu009.outbound.protection.outlook.com
+ (mail-ukwestazon11021100.outbound.protection.outlook.com [52.101.100.100])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gwec2g82j-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 25 Sep 2026 09:09:31 +0100 (BST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F3DJOMZmRt8O/5P1XSRgRWFffkqSBz8CAbc1GJSuXUlsU/LW2PIwEap2lzhD/s9rhbOKD/1ZBufzS9GmCV+TTETSnsuALO6jnb2ibH3b3XLlK1rer4IzCO1OSKTuZcV6+FKLSXggsUuQNz4mNw2gRIetWlB3qikGI2wVC2DEFMxijd5+CYseIW7Hd+7N98hfUAVAhFcsTiz4D5YKCYMn8+GgegyxcrRLtthRBZ/p6gzLyrPPleyJZp1TZ9JEwsd+pBwLSRF6viZ/dwrubQLGKBn01j1y5M+JVrWAsA79QeMIUHY7u3X/13/aioT9ceTkFbBF6UQLV/kXRFnlqU37/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UfNef7UXct3R4efECQNlq+DUR1EO6f/YAVB52bj9VP4=;
+ b=gLKjQKyth8AvVF+IFdM6rptiHtZkaD/dtUf8mXbhA1vbNlumHxxsWpuJtoefU866glS1u/KmqICfJNS7Ni+rUejrB7Xg7gHDZUSISCnI2N+PHDoa5KzhRI6EWCFKNHrbcvIW8J5pRV+N50ZLXWgeQdpvV6xRIx02SpUTRx5urAk/7dx0yZ+y34a6XR6Ab+DWKamVHKGPM2DIA5V/d8BNN0rebcQPaG0Ssmv/+Sd4gL9wfErWkBV2TNElU6Z9AwruAI/ZrQoYeA1BuVIGdC+bPXirkrhQ4yB8zcasevBYe/5lALNIbIYITKprIM7mKl79uaMUBGnNlIOBGusaSq2cXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UfNef7UXct3R4efECQNlq+DUR1EO6f/YAVB52bj9VP4=;
+ b=AN7WQSe7iAYBMEN+TENnvtZ1UCCIXCIv1rpXh8p+WjGPObSEIRZTJgBLumuT2scTbcn0S1JpRosGYpVLwM+cHsduqqZ6tHDtyIDCz9iRDe2+QZFLg5+/k5pigwA/q9LMjePJM65tZoT/rLGQank7Fp36RGgndqfX2ieQh0nG8d4=
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
+ by CW1P265MB9136.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:272::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 08:09:27 +0000
+Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::3ee9:8c49:ba94:4237%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 08:09:27 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: Alexandru Dadu <Alexandru.Dadu@imgtec.com>
+CC: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "imagination@lists.freedesktop.org"
+ <imagination@lists.freedesktop.org>, "sashiko-bot@kernel.org"
+ <sashiko-bot@kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>
+Subject: Re: [PATCH v4] drm/imagination: Fix parameter validation in
+ pvr_fw_object_destroy()
+Thread-Topic: [PATCH v4] drm/imagination: Fix parameter validation in
+ pvr_fw_object_destroy()
+Thread-Index: AQHdSlk/qBv5DbsdxU6WB2g83wCEFbbe9aoA
+Date: Fri, 25 Sep 2026 08:09:27 +0000
+Message-ID: <7612b0f891b829f1450538fd763f47d147880a31.camel@imgtec.com>
+References: <20260922-fix-null-pointer-dereference-v4-1-6c7369b83437@imgtec.com>
+In-Reply-To: <20260922-fix-null-pointer-dereference-v4-1-6c7369b83437@imgtec.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=imgtec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO0P265MB7076:EE_|CW1P265MB9136:EE_
+x-ms-office365-filtering-correlation-id: 8bc01d04-c264-4455-16f1-08df1adc51bd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: qONh1x/r5RZyBHTRz2OA7xiKQEZZxYbFDHrxIptl2TZflwZoNi9Qe9HKVvGcPXF9+10pkiWrVtJUooJZm/RprLA2lga/OR639PN+16yf732tEz0SAj579EA+92XlgqwlRFXqEs2K7K+Nr5PqK48c2XmiSRay/fPlnVt9ojyTRsoHDFWysa+eK+CmUxKyI0jY68Ld4wULLfIBiiriYvcJ6qMih7hTmt5qBtiWPJ4HlDhAvAEagsxJ2JGM70yIZDUvbQJlpkE/nTiSS1D65+uL2CJGclHFylqBO/vV7H9h2ewm1CqSsMKImSdR6IjY/7g0+zYCzlKpu+39cnodMrujS7oMYTQ5fzGHZUY/us8OAweIaCmz5bBFgibyfN8Msb5AHtIMAaoXfKSPvmMUvaeSvBe9Apb5zAS7QirWYy8pQxTx7f689BTtsZt58ApUWpxYbSnc9+e3PjyZA/acZoiLpu+zjstP1wTK8ciFuEv8uCLy8PWwBHS6PQK7I/1xwPlyjCtWEoVTSX4jXC27U+WezSL1VkSN/q5gJifS/YWCnBf2NACbgbGwVleyiLnG5sJQOJjrowvyrPDlEpVsof8MzoWUsYxZOKFwlsmbrlULzTpXE2LTUdEVyJg/w6dwdma4Mbg9rmgXpVasPtoNgjUORdTMQKUZuq08ImflTIlx9m0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(38070700021)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SFl5NTI4MWtwOTRnVS9CVDdSTkVtZ3NrY1ZRcHl4T3dLTno2d2hxajRHWTc3?=
+ =?utf-8?B?WVhzWmIwSE50Um5HSThMVkExVWFGOHBhUmIvYldJdXZEYmNnd3Q2TGhqMDlU?=
+ =?utf-8?B?NW51RE5ZNHNiTjhwMGpGUGJONFIwMTJiRk1uOWZNdno5TUw0UnlOTVkvZ2Ry?=
+ =?utf-8?B?REtPTytsWVpwZitva3dMajNFRkpkNVJTRCtIbUVwWmhqWWI3ZVFQTkpDVVB5?=
+ =?utf-8?B?UTd1eFZzcjlhQmozcnF0Uk9nUEhLL1lWbDRWZXF1KzZCcE56aFpIUzZ3VEl2?=
+ =?utf-8?B?UUFqVm5xV04wbTZQU1hyd1pyTTBYMFM5UVBBcGVSdWozZ0JaMkdXaGFUZ1pT?=
+ =?utf-8?B?OWJOMmZrc2JQMUtSWHBiQWFMS0FmZmtsTklTNzRBUGVVQTNVd1A0N3JJaFk1?=
+ =?utf-8?B?L2JaRHVLU3JwS083NzUrczZZVG5IUnNMaDB6Q1ZqWkpCbGsrZzd1NWlYVzNj?=
+ =?utf-8?B?NlJ3WFVueFJ4d0tLQWU1c3Rqako0VmJHNS91Y1F6V2piUXJhbjJBSlBWUzZn?=
+ =?utf-8?B?cG5zZFJvWjRPYXJORSt0TEk0R2dJb3dYaC9IQ2hpQUxwWXU0T1RtYVJxM2dv?=
+ =?utf-8?B?Z1lGUG5zZ2oyeWRlWUxHWUxGV2VaQWtkQ2lQS1I2dk5oSFcrUXg3S3pKaEl1?=
+ =?utf-8?B?ZmlNK0NTUGppMVY2R0UyU2xlY2pGUXYwZ09ubklTcXJxaXRIeG5zUnRsUjhU?=
+ =?utf-8?B?UERKWkFpaUwyZlRFa0hDMUxMam9KUVFLbFJBdnpLcUVhMS9qVFRBNFAxb3Ri?=
+ =?utf-8?B?YjIzTjN0NzdRUlpVRFNQSCtiVUl1T05vbXBxRk05RHRqSWlwOEdaUVRUTlV5?=
+ =?utf-8?B?YTlXK3dpM0h6QW9YVjVzSTBQZEh2UlV4d3p4VlJKY0dSTEhtWG8xZUZ4cDBM?=
+ =?utf-8?B?V1VnakJieUhRaXJLdUFyRlhHRTZCUFBiR3lzN2g0WWExWVpTTU5BUlZvZElT?=
+ =?utf-8?B?cC9tbEZYdG5VaE1TSjNPcVFrK2J3bnJPSTFnY2p5dm5YQ1FHdjJxb0poVy9z?=
+ =?utf-8?B?OHkxa1lEditoaThwZ2w0cmF6cWpwRmtGVkdVbDNPLzZEV0dYL2hONU1rcWxl?=
+ =?utf-8?B?U2VIZHY4MUoxaVZxOERXNEtNKy9xR25aTmt2amI0MzRrdmJHYWRXQllxWkNL?=
+ =?utf-8?B?bUJNMmJhRXhubEpldCttMEY1NFlSbC9GUm5XUENOdWxnSkE4WnU1bnBsYzY4?=
+ =?utf-8?B?V01rd3BDNVZaMnROdDBPcEZscm1PR1pwNUp1Nkd4dmhHZDlEZ1hyL2ZMUnI5?=
+ =?utf-8?B?dTdLQWtrVEhDRUxsT0VVY2VVN2tLWFBYeWc1eUM4a3FtZlpwb1FSc0JaeGZl?=
+ =?utf-8?B?eEZNK0JoczF4RTh3WHE0UWUvWEwzU2tJLzhXcjZxT2ZqZUhrY1pjVXFUVmdV?=
+ =?utf-8?B?OGFISjZkNDJuZnpqVXo0VTVTZEdBWnRTZjAvTmNoQzE0VDYxb280dk00S1V5?=
+ =?utf-8?B?TmNsbllXSHFkNXFhZTcybjBmRVlsbGNzaE1BZEp1VjJsaU5FTnVBcjlKK1VV?=
+ =?utf-8?B?d0h2YTkzd1AxOXVkU0kyQjJ6TnVPaFQwWGp4aGU3UlJ2SURCWFlDUEppWGRm?=
+ =?utf-8?B?Qmc4dW15RzdpdFZicUYvNDdvRlFJY2crWnhNVzZpaXBMTW0zc0ZSR2xpb21X?=
+ =?utf-8?B?ZzJISzMzM3NualdZMWVFTjl6NDVtU0xGVWxyZkVBYjF0emxtb2ZkMGdMeTBa?=
+ =?utf-8?B?Tkp0cmdVODZFUTRIL2xvRUlNc2dGbnNyalBtTjZaemdseXEvb0x5aFBwSkhn?=
+ =?utf-8?B?aXcxZCt2aGcvQUppVCsyUkVxRFdhcFZ6Q1dMV2RtVHBrZzhob3grSW5Xb0Yz?=
+ =?utf-8?B?VFZqZDZnQmRickJSNmdLTFNmdUVGc1RSd2hKeDBBY3FTOHJYbnBrNWlvSlFx?=
+ =?utf-8?B?d3llWTZwTWZnR3pTSVF3NEFsUjlHbVJBZXlaM3JZTFJiMkp6bEkwSjcwdTdl?=
+ =?utf-8?B?K3E1bFB6MnoxRllyUFp5bTY0Q0pLaDFjSTBnQWlIRThheks2STVTc1N4N3ht?=
+ =?utf-8?B?aVBISDBEMzJ3UDVzakdUOExiUFM1WTFoUlhyMXIyc2Eyajgxdm5LQnpaWDZR?=
+ =?utf-8?B?ZzZnMlIzVGZIK1hPekxodDJYeGFmMUFGUTZLaHF2TytDYTZJYjF4UGtFQjVQ?=
+ =?utf-8?B?VzhONWhPalJJYnJCVmZLNXl1UGRjUUljRmRheXE4ajgzWXlSMG1HSXZnTmtQ?=
+ =?utf-8?B?S0ZFZTV1TUpVNDdsdTZ2V3k4UDVQZ2VRU0h0SUF1WU5iaFVWcGNwNkNQRFpX?=
+ =?utf-8?B?VzZOa25mMlI0ZUczYk15Snp2MXZ3RUtOOEZvaS9HYVozUEFjVVo2VFdHY3k2?=
+ =?utf-8?B?amNkVGlPSktuNExMOENzMnViNGt3WVpIdUVXOWtxTWxwa0VqOVJYQTIvdFdr?=
+ =?utf-8?Q?VlLiLTEi031nM0cs=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D8597A219BB33743A57235689CBE773C@GBRP265.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH i-g-t v3] tests/intel/xe_sync_file: Exercise sync file
- access post queue destruction
-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- phasta@kernel.org
-References: <20260917101203.85009-1-tvrtko.ursulin@igalia.com>
- <20260917170104.ezdsuxezb7e3xm7q@kamilkon-DESK.igk.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260917170104.ezdsuxezb7e3xm7q@kamilkon-DESK.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: qNX5EHsjmyr67HxMdipaBBAK7MSyr+Mvz43/vJvfi9ZlJ98TsTn9pZNvbVRlT11/AHjSEnEpM3geaUzgKerb7kXkSZx5qA8HHoVZwJb0dpxm/cvju8x//LhTs9Q2Kmm0nKQJD9Oap80s/u71RkoNmHHdnW/qL2jo3OOMuhd0hTkNZwkKH4D2fGfSM7+8eRxUVtbs/fj1EkxK2CQxkiIkLV2GY+7MpihKgQxI9+FKYws+6i5sO4kFaUe5BLlLQq1FqxyO9BXRk9XA/j/eU4IMdA8ENx/ND2wgC3jhoys+SI+dq7lmIww+gfz3vXjwNiPHjXg0H9kKyBknEHOG2Llpvg==
+X-OriginatorOrg: imgtec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bc01d04-c264-4455-16f1-08df1adc51bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 08:09:27.6105 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: U31N306c1N8XSXiremdSXv80l+mYntxdXiHi3oAhgwm/gtKtYQcLn7aU4KKoO02niqtxobULbgFfY14wIF7UXw9f9hIyVepHwO/bebYllqY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9136
+X-Proofpoint-ORIG-GUID: XD8dvrIYOEU5hUa5XCxC0Tf1_5U1PULP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzMiBTYWx0ZWRfX8PND0y8iMAVJ
+ BZqQGXAP3MJyG0feSj1MmIG57hVgudFwasbsozRNWU2UKz8KjQkCcc3XbxLc2/JtYNxJzt01ypT
+ KQbQQLFu1ZZcdHFlV8aMmnkwf4SPJJo=
+X-Authority-Analysis: v=2.4 cv=FsSQbGrq c=1 sm=1 tr=0 ts=6ab62c3b cx=c_pps
+ a=oadnnpdogVhhPU8NEU1TIg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=VwQbUJbxAAAA:8
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8
+ a=e5mUnYsNAAAA:8 a=yquQxoIgQxfYBwPdRxMA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: XD8dvrIYOEU5hUa5XCxC0Tf1_5U1PULP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzMiBTYWx0ZWRfXxTdQ2amK9w96
+ wL64BFZPgX61zXEv1YO2PU0JgB6nLBhp15NsBrKllDeeFCu4h1TifWwx6mpgrz+EnUOcPR5y6xQ
+ wEgiaEZZMHNk7yBYS1BE9Iz08Ol/hFq5FDOAKdjZtr030xIWC1sLO+UszeQx6gUN/jkImOSGjQs
+ vWsbcZ4GYeVnX3i/6JFhWCBTQtuIpkxI//+3VLLSlToXrq7fsL8nfJTfH0Qjk+HHQDUsFdZ3hqt
+ gEFbSRWeXyTMmitbM53cPOtyP66d5twzseoZSMytMphe5lHtF17ZDj0EjTZfsvbB9R0gDyJuxVJ
+ jPF0uEoc0nrQq4hKeHELdUsvbjiXKvzfoHVJaVY+FQvB+16nF24dZTyzEf5xpwj/C3TyVBKUqQc
+ GhW/uFVZ71qwZ/LXrwlPbze7bXZNsCEOiE/b0KUnL+h0GswrN/RQE0mhETBPiiGN/jDexkbqDWt
+ 3e2UEA7mj6tDZTdZwsQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,253 +189,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 17/09/2026 18:01, Kamil Konieczny wrote:
-> Hi Tvrtko,
-> On 2026-09-17 at 11:12:03 +0100, Tvrtko Ursulin wrote:
->> A new test to roughly simulate the VK CTS suite where
->> dEQP-VK.wsi.android.swapchain.render.* is hitting an use after free when a
->> sync file is accessed after the xe submission queue has been destroyed.
->>
->> Abbreviated KASAN report:
->>
->>   [IGT] xe_sync_file: starting subtest sync_file_race
->>   ==================================================================
->>   BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
->>   Read of size 8 at addr ffff888126726020 by task xe_sync_file/2931
->>   ...
->>   Call Trace:
->>    <TASK>
->>    kasan_report+0xeb/0x130
->>    drm_sched_fence_get_timeline_name+0xa1/0xb0 [gpu_sched]
->>    sync_file_ioctl+0x3cb/0xb00
->>   ...
->>   Allocated by task 2931:
->>    __kmalloc_cache_noprof+0x1c2/0x410
->>    guc_exec_queue_init+0x1a8/0x1240 [xe]
->>    xe_exec_queue_create+0xe72/0x13b0 [xe]
->>    xe_exec_queue_create_ioctl+0x10d9/0x1770 [xe]
->>    drm_ioctl_kernel+0x179/0x300
->>    drm_ioctl+0x58f/0xcf0
->>    xe_drm_ioctl+0xe8/0x140 [xe]
->>   ...
->>   Freed by task 1689:
->>    kfree+0x106/0x3e0
->>    __guc_exec_queue_fini_async+0x144/0x2d0 [xe]
->>    process_one_work+0x610/0xdf0
->>    worker_thread+0x7c8/0x14b0
->>
->> Without KASAN this of course turns into a plain null pointer dereference.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: phasta@kernel.org
->> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com> # v2
-> LGTM
-> Acked-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-
-Thank you - okay if I push or Intel will do it?
-
-Regards,
-
-Tvrtko
-
-> 
-> Regards,
-> Kamil
-> 
->> ---
->> v2:
->>   - igt_main and igt_fixture tweaks. (Rodrigo)
->>
->> v3:
->>   - Add driver name checks.
->>
->> v4:
->>   - Restore alphabetical ordering in the makefile. (Kamil)
->> ---
->>   tests/intel/xe_sync_file.c | 154 +++++++++++++++++++++++++++++++++++++
->>   tests/meson.build          |   1 +
->>   2 files changed, 155 insertions(+)
->>   create mode 100644 tests/intel/xe_sync_file.c
->>
->> diff --git a/tests/intel/xe_sync_file.c b/tests/intel/xe_sync_file.c
->> new file mode 100644
->> index 000000000000..842c3856a525
->> --- /dev/null
->> +++ b/tests/intel/xe_sync_file.c
->> @@ -0,0 +1,154 @@
->> +// SPDX-License-Identifier: MIT
->> +/*
->> + * Copyright © 2025 Google, Inc.
->> + */
->> +
->> +/**
->> + * TEST: Tests for sync file functionality
->> + * Category: Core
->> + * Mega feature: General Core features
->> + * Sub-category: CMD submission
->> + * Functionality: fences
->> + */
->> +
->> +#include "igt.h"
->> +#include "sync_file.h"
->> +
->> +#include "lib/igt_syncobj.h"
->> +#include "lib/intel_reg.h"
->> +
->> +#include "xe_drm.h"
->> +#include "xe/xe_ioctl.h"
->> +#include "xe/xe_query.h"
->> +
->> +static int sync_file_get_status(int sync_file, char **driver_name)
->> +{
->> +	struct sync_fence_info fence = { };
->> +	struct sync_file_info info = {
->> +		.num_fences = 1,
->> +		.sync_fence_info = to_user_pointer(&fence),
->> +	};
->> +
->> +	do_ioctl(sync_file, SYNC_IOC_FILE_INFO, &info);
->> +	igt_assert_eq(info.num_fences, 1);
->> +
->> +	igt_debug("'%s'/'%s' = %d\n",
->> +		  fence.driver_name, fence.obj_name, fence.status);
->> +
->> +	*driver_name = strdup(fence.driver_name);
->> +
->> +	return fence.status;
->> +}
->> +
->> +/**
->> + * SUBTEST: sync_file_race
->> + * Description: Check that we can safely query an exported sync file fd
->> + * Test category: functionality test
->> + */
->> +static void test_race(int xe, struct drm_xe_engine_class_instance *eci)
->> +{
->> +	uint32_t vm, bo, syncobj, bind_syncobj, *batch;
->> +	struct drm_xe_sync sync[2] = {
->> +		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
->> +		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
->> +		},
->> +		{ .type = DRM_XE_SYNC_TYPE_SYNCOBJ,
->> +		  .flags = DRM_XE_SYNC_FLAG_SIGNAL,
->> +		},
->> +	};
->> +	const uint32_t bbend = MI_BATCH_BUFFER_END;
->> +	struct drm_xe_exec exec = {
->> +		.address = 0x100000,
->> +		.num_batch_buffer = 1,
->> +		.num_syncs = 2,
->> +		.syncs = to_user_pointer(sync),
->> +	};
->> +	char *driver_name;
->> +	int sync_fence;
->> +	size_t size;
->> +
->> +	vm = xe_vm_create(xe, 0, 0);
->> +
->> +	size = xe_bb_size(xe, sizeof(bbend));
->> +	bo = xe_bo_create(xe, vm, size, vram_if_possible(xe, eci->gt_id),
->> +			  DRM_XE_GEM_CREATE_FLAG_NEEDS_VISIBLE_VRAM);
->> +
->> +	batch = xe_bo_map(xe, bo, size);
->> +	*batch = bbend;
->> +
->> +	exec.exec_queue_id  = xe_exec_queue_create(xe, vm, eci, 0);
->> +
->> +	syncobj = syncobj_create(xe, 0);
->> +	bind_syncobj = syncobj_create(xe, 0);
->> +
->> +	sync[0].handle = bind_syncobj;
->> +	xe_vm_bind_async(xe, vm, 0, bo, 0, exec.address, size, sync, 1);
->> +
->> +	sync[0].flags &= ~DRM_XE_SYNC_FLAG_SIGNAL;
->> +	sync[0].handle = bind_syncobj;
->> +	sync[1].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
->> +	sync[1].handle = syncobj;
->> +	xe_exec(xe, &exec);
->> +
->> +	/* Export a sync file fence. */
->> +	sync_fence = syncobj_handle_to_fd(xe, sync[1].handle,
->> +					  DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE);
->> +
->> +	igt_assert(syncobj_wait(xe, &syncobj, 1, INT64_MAX, 0, NULL));
->> +	igt_assert(syncobj_wait(xe, &bind_syncobj, 1, INT64_MAX, 0, NULL));
->> +
->> +	driver_name = NULL;
->> +	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
->> +	igt_assert(driver_name);
->> +	igt_assert(!strcmp(driver_name, "drm_sched"));
->> +	free(driver_name);
->> +
->> +	sync[0].flags |= DRM_XE_SYNC_FLAG_SIGNAL;
->> +	syncobj_reset(xe, &sync[0].handle, 1);
->> +	xe_vm_unbind_async(xe, vm, 0, 0, exec.address, size, sync, 1);
->> +	igt_assert(syncobj_wait(xe, &sync[0].handle, 1, INT64_MAX, 0, NULL));
->> +
->> +	syncobj_destroy(xe, syncobj);
->> +	xe_exec_queue_destroy(xe, exec.exec_queue_id);
->> +
->> +	munmap(batch, size);
->> +	gem_close(xe, bo);
->> +
->> +	syncobj_destroy(xe, bind_syncobj);
->> +	xe_vm_destroy(xe, vm);
->> +
->> +	/* Give any delayed freeing time to run. */
->> +	sleep(1);
->> +
->> +	/* This should still work and not crash the kernel. */
->> +	driver_name = NULL;
->> +	igt_assert_eq(sync_file_get_status(sync_fence, &driver_name), 1);
->> +
->> +	/* And must not read the original timeline/driver name either! */
->> +	igt_assert(driver_name);
->> +	igt_assert(!strcmp(driver_name, "detached-driver"));
->> +	free(driver_name);
->> +
->> +	close(sync_fence);
->> +}
->> +
->> +int igt_main()
->> +{
->> +	struct drm_xe_engine_class_instance *eci;
->> +	int xe;
->> +
->> +	igt_fixture() {
->> +		xe = drm_open_driver(DRIVER_XE);
->> +	}
->> +
->> +	igt_subtest("sync_file_race") {
->> +		xe_for_each_engine(xe, eci) {
->> +			test_race(xe, eci);
->> +			break;
->> +		}
->> +	}
->> +
->> +	igt_fixture() {
->> +		drm_close_driver(xe);
->> +	}
->> +}
->> diff --git a/tests/meson.build b/tests/meson.build
->> index 1ac89bab7e15..43236b19b3a9 100644
->> --- a/tests/meson.build
->> +++ b/tests/meson.build
->> @@ -347,6 +347,7 @@ intel_xe_progs = [
->>           'xe_survivability',
->>   	'xe_sriov_vram',
->>           'xe_svm_usrptr_madvise',
->> +	'xe_sync_file',
->>   	'xe_sysfs_defaults',
->>   	'xe_sysfs_preempt_timeout',
->>   	'xe_sysfs_scheduler',
->> -- 
->> 2.55.0
->>
-
+T24gVHVlLCAyMDI2LTA5LTIyIGF0IDA5OjExICswMzAwLCBBbGV4YW5kcnUgRGFkdSB3cm90ZToN
+Cj4gRml4IHBhcmFtZXRlciB2YWxpZGF0aW9uIHRvIGF2b2lkIHBvc3NpYmxlIE5VTEwgcG9pbnRl
+ciBkZXJlZmVyZW5jZSBmcm9tDQo+IHB2cl9md19vYmplY3RfZGVzdHJveSgpIHdoZW4gaGFuZGxp
+bmcgYWxsb2NhdGlvbiBmYWlsdXJlcy4NCj4gDQo+IFNhc2hpa28gcmVwb3J0Og0KPiBJZiBwdnJf
+Z2VtX29iamVjdF9jcmVhdGUoKSBmYWlscyBpbg0KPiBwdnJfZndfb2JqZWN0X2NyZWF0ZV9hbmRf
+bWFwX2NvbW1vbigpLCBmd19vYmotPmdlbSBpcyBleHBsaWNpdGx5IHNldCB0bw0KPiBOVUxMIGJl
+Zm9yZSBqdW1waW5nIHRvIHRoZSBlcnJvciBjbGVhbnVwIHBhdGguDQo+IFRoZSBjbGVhbnVwIHBh
+dGggdGhlbiBjYWxscyBwdnJfZndfb2JqZWN0X2Rlc3Ryb3koKS4NCj4gDQo+IFJlcG9ydGVkLWJ5
+OiBTYXNoaWtvIDxzYXNoaWtvLWJvdEBrZXJuZWwub3JnPg0KPiBMaW5rOiBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9kcmktZGV2ZWwvMjAyNjA4MTAxMzIyMDIuM0MxNkQxRjAwMEU5QHNtdHAua2Vy
+bmVsLm9yZy8NCj4gRml4ZXM6IGNjMWFlZWRiOThhZCAoImRybS9pbWFnaW5hdGlvbjogSW1wbGVt
+ZW50IGZpcm13YXJlIGluZnJhc3RydWN0dXJlIGFuZCBNRVRBIEZXIHN1cHBvcnQiKQ0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4YW5kcnUgRGFkdSA8YWxleGFuZHJ1LmRhZHVAaW1ndGVjLmNvbT4NCj4g
+LS0tDQo+IENoYW5nZXMgaW4gdjQ6DQo+IC0gTW92ZSB0aGUgc3RydWN0cyBkZWNsYXJhdGlvbnMg
+YWZ0ZXIgdGhlIGVhcmx5IHJldHVybiB0byBmaXggVjMuDQo+IC0gQWRkZWQga2ZyZWUoKSB0byB0
+aGUgZWFybHkgcmV0dXJuIHBhdGguDQo+IC0gTGluayB0byB2MzogaHR0cHM6Ly9wYXRjaC5tc2dp
+ZC5saW5rLzIwMjYwOTIyLWZpeC1udWxsLXBvaW50ZXItZGVyZWZlcmVuY2UtdjMtMS1mMDk5NzYz
+ZWQ2NzZAaW1ndGVjLmNvbQ0KPiANCj4gQ2hhbmdlcyBpbiB2MzoNCj4gLSBTa2ltZWQgdGhlIGNv
+bW1pdCBtZXNzYWdlIHJlbW92aW5nIHJlZHVuZGFudCBpbmZvcm1hdGlvbi4NCj4gLSBSZWZhY3Rv
+cmVkIHRoZSBwYXJhbWV0ZXIgdmFsaWRhdGlvbiB0byByZXR1cm4gZWFybHkuDQo+IC0gTGluayB0
+byB2MjogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYwOTAzLWZpeC1udWxsLXBvaW50ZXIt
+ZGVyZWZlcmVuY2UtdjItMS0xMzhmZjliNmY4MDVAaW1ndGVjLmNvbQ0KPiANCj4gQ2hhbmdlcyBp
+biB2MjoNCj4gLSBDb21taXQgbWVzc2FnZSBhbmQgY292ZXIgbGV0dGVyIHVwZGF0ZXMuDQo+IC0g
+TGluayB0byB2MTogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYwODEyLWZpeC1udWxsLXBv
+aW50ZXItZGVyZWZlcmVuY2UtdjEtMS1mNjliMmZmZTk1MjBAaW1ndGVjLmNvbQ0KPiANCj4gVG86
+IEFsZXNzaW8gQmVsbGUgPGFsZXNzaW8uYmVsbGVAaW1ndGVjLmNvbT4NCj4gVG86IEx1aWdpIFNh
+bnRpdmV0dGkgPGx1aWdpLnNhbnRpdmV0dGlAaW1ndGVjLmNvbT4NCj4gVG86IE1hYXJ0ZW4gTGFu
+a2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+DQo+IFRvOiBNYXhpbWUg
+UmlwYXJkIDxtcmlwYXJkQGtlcm5lbC5vcmc+DQo+IFRvOiBUaG9tYXMgWmltbWVybWFubiA8dHpp
+bW1lcm1hbm5Ac3VzZS5kZT4NCj4gVG86IERhdmlkIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+
+DQo+IFRvOiBTaW1vbmEgVmV0dGVyIDxzaW1vbmFAZmZ3bGwuY2g+DQo+IFRvOiBEb25hbGQgUm9i
+c29uIDxkb25hbGQucm9ic29uQGltZ3RlYy5jb20+DQo+IFRvOiBTYXJhaCBXYWxrZXIgPHNhcmFo
+LndhbGtlckBpbWd0ZWMuY29tPg0KPiBDYzogaW1hZ2luYXRpb25AbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBsaW51eC1r
+ZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0
+aW9uL3B2cl9mdy5jIHwgMTEgKysrKysrKysrLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2Vy
+dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jIGIvZHJpdmVycy9ncHUvZHJtL2ltYWdpbmF0aW9uL3B2
+cl9mdy5jDQo+IGluZGV4IDg1MGEzZWM4ZTc3NS4uMzlkNzBmNTFmMTI2IDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2Z3LmMNCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2ltYWdpbmF0aW9uL3B2cl9mdy5jDQo+IEBAIC0xNDI1LDYgKzE0MjUsMTQgQEAgcHZy
+X2Z3X29iamVjdF9jcmVhdGVfYW5kX21hcF9vZmZzZXQoc3RydWN0IHB2cl9kZXZpY2UgKnB2cl9k
+ZXYsDQo+ICAgKi8NCj4gIHZvaWQgcHZyX2Z3X29iamVjdF9kZXN0cm95KHN0cnVjdCBwdnJfZndf
+b2JqZWN0ICpmd19vYmopDQo+ICB7DQo+ICsJaWYgKCFmd19vYmopDQo+ICsJCXJldHVybjsNCj4g
+Kw0KPiArCWlmICghZndfb2JqLT5nZW0pIHsNCj4gKwkJa2ZyZWUoZndfb2JqKTsNCj4gKwkJcmV0
+dXJuOw0KPiArCX0NCj4gKw0KPiAgCXN0cnVjdCBwdnJfZ2VtX29iamVjdCAqcHZyX29iaiA9IGZ3
+X29iai0+Z2VtOw0KPiAgCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqZ2VtX29iaiA9IGdlbV9mcm9t
+X3B2cl9nZW0ocHZyX29iaik7DQo+ICAJc3RydWN0IHB2cl9kZXZpY2UgKnB2cl9kZXYgPSB0b19w
+dnJfZGV2aWNlKGdlbV9vYmotPmRldik7DQoNCkkgaGF2ZSBhIHByZWZlcmVuY2UgZm9yIHZhcmlh
+YmxlIGRlY2xhcmF0aW9ucyBhdCB0aGUgdG9wLCB0aGVuIGNoZWNrcywgdGhlbg0KYXNzaWdubWVu
+dHMsIGJ1dCBkb24ndCBmZWVsIHN0cm9uZ2x5IGFib3V0IGl0LCBzbzoNCg0KUmV2aWV3ZWQtYnk6
+IEFsZXNzaW8gQmVsbGUgPGFsZXNzaW8uYmVsbGVAaW1ndGVjLmNvbT4NCg0KVGhhbmtzLA0KQWxl
+c3Npbw0KDQo+IEBAIC0xNDM5LDggKzE0NDcsNyBAQCB2b2lkIHB2cl9md19vYmplY3RfZGVzdHJv
+eShzdHJ1Y3QgcHZyX2Z3X29iamVjdCAqZndfb2JqKQ0KPiAgCQkJcmV0dXJuOw0KPiAgCX0NCj4g
+IA0KPiAtCWlmIChmd19vYmotPmdlbSkNCj4gLQkJcHZyX2dlbV9vYmplY3RfcHV0KGZ3X29iai0+
+Z2VtKTsNCj4gKwlwdnJfZ2VtX29iamVjdF9wdXQoZndfb2JqLT5nZW0pOw0KPiAgDQo+ICAJa2Zy
+ZWUoZndfb2JqKTsNCj4gIH0NCj4gDQo+IC0tLQ0KPiBiYXNlLWNvbW1pdDogYmQ0ZjI4NGRmMDRk
+NzZmZDY1ZTU3MTQxY2IxZTZlN2E0OWU0YzNjYg0KPiBjaGFuZ2UtaWQ6IDIwMjYwODEyLWZpeC1u
+dWxsLXBvaW50ZXItZGVyZWZlcmVuY2UtMmM4OTExNDJkOTg4DQo+IA0KPiBCZXN0IHJlZ2FyZHMs
+DQo+IC0tICANCj4gQWxleGFuZHJ1IERhZHUgPGFsZXhhbmRydS5kYWR1QGltZ3RlYy5jb20+DQo+
+IA0KDQo=
