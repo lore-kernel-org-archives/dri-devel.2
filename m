@@ -4,74 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6815DC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 17:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF392C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C18B310FBD1;
-	Fri, 25 Sep 2026 17:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 180DA10FBD2;
+	Fri, 25 Sep 2026 18:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZL7D9HIN";
+	dkim=pass (2048-bit key; unprotected) header.d=mainlining.org header.i=@mainlining.org header.b="dybEE07j";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="6hkU80fp";
 	dkim-atps=neutral
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
- [74.125.229.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34B8610FBD2
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 17:58:28 +0000 (UTC)
-Received: by mail-dy2-f43.google.com with SMTP id
- 5a478bee46e88-33e630052ebso1334693eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 10:58:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790359107; x=1790963907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=AyFVOhvCGQIiViIbb7+gjM5CZL+S3jyqr2aX/1FUz8c=;
- b=ZL7D9HINfy6hzF10rAhP7GoOFySlmfVQMxoZMgj3ioOxgcB7Y+unvHtSBP3TvVyejy
- PgcghWHqMOsfxHdVXqNwRj/IKIDSnwqRFrXZuIE0U1V+Xv6K7pVvycTFyDjAOrRAxnOv
- LvzMQDlD7jWFjEhm5cFJu3AN4X+DZCr4laSkf3l0kJ8JJRSNmUvvip7hNMBT9NzUhius
- tFJ1XOWDxpMKvOkYdVLhCMBdEF7DkLxQxfsqg6UL1CBd4292CBYD9AYvXXt2kGx7i6Sd
- Ga4IM6m18KGWAw9i4cNVIfWUpFH/IAfQqUJl1JYcbXHhgMoETAbc9Yb0EHRuTFCnv/Lo
- nxMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790359107; x=1790963907;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=AyFVOhvCGQIiViIbb7+gjM5CZL+S3jyqr2aX/1FUz8c=;
- b=OrXtxdGvnIHlGN3jhr7GUrlXzrxKwaWYoRcf0xthxsGVpax+Sh2uhzvMqJxawj2g14
- F61vG+P5fD2YIaLeXcV8hXFb5eBaYYc9Wkia7qKnIMxlkEpG+/xRlOSMHvhIzG7nO/fK
- mqxB5gsFna6WgTfuqwhmYYsTX/QfdjjohWb3wY5AzqaLZ9/XoXngTdmplQTnxTd47jK+
- f+TeqiAXfcc3ryBvJvpIBK5Bxk3pGx/rw5e1IYvtAMfUJx+RTu/1AyEsoS6ZMVv9ES7G
- ZXrcrjD5d74w0i45Dx63OkhyE/PFDEx0Dhku94Dh1lBJl4MtUrK+nqDvFC/tThbP+JyH
- sH5g==
-X-Forwarded-Encrypted: i=1;
- AKwUvByvrBETV8tu1+oL5Rb02xvd5t5WbsHPZ4P6o2krMYbTfuFe2QJKCVuUY8Ry1HX8wryM+hBhAIK8A2M=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nmb5r+EIXBFSYedf2xZuauJWf61z4eOWAQjERykEcmB8eSAaoY
- 812Mb4LvGJLCfcNpT6KGI8afn8eOIhTfujATHxjAWiQRCbQoyN6Ak6ER
-X-Gm-Gg: AYBFou0ePQZNodaL99o9bk6yjKz4488AIEWJtmfVjQ80rvccwVJKdfUVFcCgS6Kn3V8
- ME0YUh2r+Oqms3yh3jFXZqiV1HaNNCe6/cx2q4WiOgH4sd3GR36a6DWtJEc5AHdBihjUWrV5GBu
- uHdkMvUkQQLy5znW4ZxOZMFUDKicBgx0Z9Kn3hOAYmeCxGXZzH3R6cR4H+vxwBVvLLn96blDPrP
- Iy307AIZo69B2T+ofb9dbSgVrhOXsdVwV+qDGPPuy15Ly0UXPfDj3NxVIZvKuYdkn+3CJN+AdCg
- 9ktNjMD5qUm5RTHp0CnqDTETeYRAY/6xNmgjIV8GCcHGv9ioeAqiMeBgwexDbDsNN087fm1XMs6
- N3xXruRmK+cTNOa57cy1eOIbgvovA07O639NliayhwOHD4kRvg/utcmsps8wsdWnQvEOjuVmJ0E
- LrFPNjRjIB3XKXO1FmHFGhi+xsVFn8NdFflL4qDQ1lEZvCyG6hji6t730SJGEDd0k=
-X-Received: by 2002:a05:7300:c394:b0:33b:fae8:bbd6 with SMTP id
- 5a478bee46e88-3426febb742mr935256eec.2.1790359107087; 
- Fri, 25 Sep 2026 10:58:27 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34145c17074sm6579075eec.26.2026.09.25.10.58.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 10:58:26 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: airlied@redhat.com,
-	dakr@kernel.org,
-	bskeggs@nvidia.com
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] drm/nouveau: cancel irq_work before freeing connector
-Date: Fri, 25 Sep 2026 14:58:19 -0300
-Message-ID: <20260925175819.3699225-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+X-Greylist: delayed 463 seconds by postgrey-1.36 at gabe;
+ Fri, 25 Sep 2026 18:00:22 UTC
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D8010FBD2;
+ Fri, 25 Sep 2026 18:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=Message-ID:Subject:To:From:Date; t=1790358748; bh=nNXRZZyO5E6gJXFXSSEbRo7
+ RUD3G589ViTisRDLWX74=; b=dybEE07jOsSg2uVQbdrgvnpMJTnRpLxDanSAyANWMHaXeM16IC
+ g+Oov4sM3WMnWkgiJGGW8xu4nutrv3Tr/NqSZZvIVJ8s9+uiaRf/Typxm1P5yJhO8ZB88O64D+0
+ lpOMx0wfsRL/dNzTfD7yiUy+89mL5zAxuU9//TMhic3wpj8yvnmPjWXaTl3gJAlNnSYnYr9KDbC
+ NmJFr4eOi9atCKMb2gbjhSGewJ2gXNBKZseJlACHY1NqlMahuFSMUNWb4DNRVxR3qHaIJmrSwJ3
+ dpm8w2QjZAy4+1mrqgOGkOBJAMz65Oo/fgW/8jFyNuEMTzdv2S4kfo7lmIfDipvSa6g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org;
+ c=relaxed/relaxed; 
+ h=Message-ID:Subject:To:From:Date; t=1790358748; bh=nNXRZZyO5E6gJXFXSSEbRo7
+ RUD3G589ViTisRDLWX74=; b=6hkU80fpF18eaotihI8czs8zqTmN9aBl918adzBeqol+4g+4I5
+ AX114HYqQ5r0FqT8+yWyI6FklC5LOVeiPUBg==;
 MIME-Version: 1.0
+Date: Fri, 25 Sep 2026 19:52:27 +0200
+From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: kavakliyigitcan@gmail.com, Lee Jones <lee@kernel.org>, Daniel Thompson
+ <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek
+ <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller
+ <deller@gmx.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Henrik Rydberg <rydberg@bitmath.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav
+ Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 10/10] arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable
+ display, backlight and touchscreen
+In-Reply-To: <fe437142-eb1e-49d3-ad3f-704066bea53b@oss.qualcomm.com>
+References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+ <20260911-ginkgo-submission-final-v1-10-0e68e63a18d4@gmail.com>
+ <fe437142-eb1e-49d3-ad3f-704066bea53b@oss.qualcomm.com>
+Message-ID: <37bb460f800995ee97b4867e09c04ebb@mainlining.org>
+X-Sender: barnabas.czeman@mainlining.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,31 +81,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_connector_irq() schedules irq_work on the system workqueue.
-nouveau_connector_destroy() calls nvif_event_dtor() which unregisters
-the interrupt event source so no new callbacks will fire, but it does
-not drain the system workqueue.  If a work item was already queued,
-nouveau_dp_irq() can run after kfree(connector) and dereference freed
-memory.
+On 2026-09-21 13:26, Konrad Dybcio wrote:
+> On 9/11/26 10:51 AM, YİĞİTCAN KAVAKLI via B4 Relay wrote:
+>> From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+>> 
+>> Enable the display subsystem (MDSS/MDP/DSI0), Kinetic KTD3136 
+>> backlight,
+>> and Novatek NT36672A SPI touchscreen on the Xiaomi Redmi Note 8 
+>> (ginkgo).
+>> 
+>> Hardware nodes added:
+>> - Fixed LCDB regulators (lcdb_lab and lcdb_ibb at +/- 5.5V)
+>> - MDSS and DSI0 with Tianma 1080x2340 FHD+ video panel
+>> - I2C1 backlight node at 0x36 with PMI632 GPIO 6 hardware enable
+>> - SPI2 touchscreen node at CS0 with GPIO 88 interrupt and panel 
+>> follower
+>>   reference
+>> - Touchscreen active pinctrl definition on GPIO 88
+>> 
+>> Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+>> ---
+>>  .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 
+>> +++++++++++++++++++++
+>>  1 file changed, 100 insertions(+)
+>> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi 
+>> b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> index 
+>> 59042a5937535c4acda064fa0f865f4f5a52d01b..f4b9e2092a814e56cdc23218025cb4166dec110a 
+>> 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> @@ -26,11 +26,30 @@ / {
+>>  	chassis-type = "handset";
+>> 
+>>  	qcom,msm-id = <QCOM_ID_SM6125 0x10000>;
+>> +	qcom,board-id = <34 0>, <34 1>, <34 2>, <34 3>, <34 4>, <0 0>;
+> 
+> This should be a separate patch with the reasoning for the change
 
-Add cancel_work_sync() after nvif_event_dtor() so any in-flight or
-pending irq_work completes before the connector is freed.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_connector.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index XXXXXXX..YYYYYYY 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -395,6 +395,7 @@ nouveau_connector_destroy(struct drm_connector *connector)
- 	struct nouveau_connector *nv_connector = nouveau_connector(connector);
- 	nvif_event_dtor(&nv_connector->irq);
- 	nvif_event_dtor(&nv_connector->hpd);
-+	cancel_work_sync(&nv_connector->irq_work);
- 	kfree(nv_connector->edid);
- 	drm_connector_unregister(connector);
- 	drm_connector_cleanup(connector);
+board-id is not neccesary for this device to be able to boot so it can 
+be removed. I have already done that before so it should not be readded.
+> 
+>> 
+>>  	aliases {
+>>  		serial0 = &uart4;
+>>  	};
+>> 
+>> +	lcdb_lab: regulator-lcdb-lab {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-name = "lcdb_lab";
+>> +		regulator-min-microvolt = <5500000>;
+>> +		regulator-max-microvolt = <5500000>;
+>> +		regulator-boot-on;
+>> +		regulator-always-on;
+>> +	};
+>> +
+>> +	lcdb_ibb: regulator-lcdb-ibb {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-name = "lcdb_ibb";
+>> +		regulator-min-microvolt = <5500000>;
+>> +		regulator-max-microvolt = <5500000>;
+>> +		regulator-boot-on;
+>> +		regulator-always-on;
+>> +	};
+> 
+> LAB/IBB and LCDB are separate hardware blocks, only LCDB is
+> present on PMI632. It provides a pair of pos/neg bias
+> voltages. Looks like downstream has a driver for controlling
+> this block.
+> 
+> Konrad
