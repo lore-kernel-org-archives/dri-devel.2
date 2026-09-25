@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24F41C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:57:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302CEC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E91310E136;
-	Fri, 25 Sep 2026 18:57:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 669F610E20A;
+	Fri, 25 Sep 2026 18:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i2ivh1RE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OoHwadfy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5BA710E136
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 18:57:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E34510E20A
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 18:57:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7D12D41FD4;
- Fri, 25 Sep 2026 18:57:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40ABA1F000FF;
- Fri, 25 Sep 2026 18:57:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6CDEF60136;
+ Fri, 25 Sep 2026 18:57:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC56A1F000FF;
+ Fri, 25 Sep 2026 18:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790362630;
- bh=9urLjBbQJqV31l/GSLtRwGuRLaQxggmfvjvuH0G7Maw=;
+ s=k20260515; t=1790362676;
+ bh=rFmnwtwUj0if7+mwxOcaDtUdyrVYdF+P+3Crq7bvUzw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i2ivh1REKx85SsuATt/+OceiC76n4xZlUc0xTp86oc9etEn8po6V57dX2bnEjDPn0
- o3sbqxRiKGrQh9Lcm80qrCWfaExABcSQn/a/h6knd/x+HhtxmKTvwuBae5kAhucgf1
- tX0XWPUenMR96CwIvzslr163yfV5j9QSM6wSjOH9J3I+OLxjfzcxy+ysC67Wru97ox
- 2NA4mpLTSJhrtArfVJhevIZohxWg75alOva7zi6X7j1iVhQJawUdzhUj23vm4ww6SK
- pRyLltQxc/vOcHGLHP+XvaNa+9/MYUfxY5nuuclI09AWrenF6pRTuIVOqIKuCd9nGT
- 5XDQFT1Oqoo3Q==
+ b=OoHwadfyokg0MquWNpHBQoaAi9/3q0SBV+LgA6wdi7w6sT8J2frBrL2/RDSe4ZhWW
+ rVk4zd34QrrWiZ5o2vf3q7bbJyAhZDp6jtQ+tH6brSpAywOR4uCiuew/hM88mnbmwz
+ xc2Iw68fzXjQoGHJPGXxcPG5KSW9aqEIb53ANmfgIBvM4d3o0exMuKdhQokGioMW72
+ yR9/MgyPKn+FRE+HibioJp4vLeXJ4M7sPrtbXGmmdI3lHUTVzLU6PXdewsqxOhVs/d
+ a//aIxPaIYF74iBBBKHWbk+DJhGhXgmrZJrSsNlWL17ssqKs2t/WDy9rDEZDp+RP+A
+ h7XhEFiq65rVQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 05/15] drm/panfrost: Consolidate device clock
- management and reset
+Subject: Re: [PATCH v11 06/15] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260925-claude-fixes-v11-5-0dbf5a58e7ce@collabora.com>
+In-Reply-To: <20260925-claude-fixes-v11-6-0dbf5a58e7ce@collabora.com>
 References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
- <20260925-claude-fixes-v11-5-0dbf5a58e7ce@collabora.com>
+ <20260925-claude-fixes-v11-6-0dbf5a58e7ce@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 18:57:09 +0000
-Message-Id: <20260925185710.40ABA1F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 18:57:55 +0000
+Message-Id: <20260925185755.EC56A1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +60,69 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panfrost: Unintended global prepare_lock contention in runti=
-me PM
+- [Medium] pm: omitted reordering of pm_runtime_set_suspended() contrary to=
+ commit message
 --
 
-commit b64fb23518fa629aff18538498a7ba6190344212
+commit e5b622a5bf50c2417ee98e980c4b45ec511cb4e7
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Consolidate device clock management and reset
+drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
 
-This commit gathers clock enables and disables into a single function to av=
-oid
-repetitions between driver init/fini and device resume/suspend. It also
-combines clock prepares and enables together, simplifying the management AP=
-I.
+This commit attempts to fix PM reference count and autosuspend issues
+during device probe and removal. It manually adjusts the PM reference
+count, disables autosuspend in wind-down paths, and aims to reorder
+PM teardown steps to mirror initialization.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index b3a53504bd016..9f2b1967a3984 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 55fc22e8d4d4e..907d4a14a0b55 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
 [ ... ]
-> +static int panfrost_clks_enable(struct panfrost_device *pfdev, bool on_r=
-esume)
->  {
->  	int err;
-> +
-> +	err =3D clk_prepare_enable(pfdev->clock);
+> @@ -866,13 +871,16 @@ static int panfrost_probe(struct platform_device *p=
+dev)
+[ ... ]
+>  err_out1:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
 
 [Severity: Medium]
-Will this introduce global lock contention during runtime PM wake-ups?
+The commit message states "Move pm_runtime_set_suspended() before
+panfrost_device_fini() so that resource unwinding happens in the opposite
+order as initialisation." However, this structural reordering appears to be
+missing from the code.
 
-The commit message notes that clk_prepare can simply increase the refcnt
-of an already prepared clock. However, clk_prepare() and clk_unprepare()
-always acquire the global prepare_lock mutex to do so.
+Should pm_runtime_set_suspended() be moved above panfrost_device_fini() in
+the panfrost_probe() error path to match the intent described in the commit
+message?
 
-Furthermore, since the GPU driver is the sole consumer of its specific leaf
-clocks, the refcount might drop to 0, forcing a full hardware
-unprepare/prepare cycle which can be quite slow.
-
-Because panfrost_clks_enable() is called from
-panfrost_device_runtime_resume(), this replaces the previous clk_enable()
-calls (which only take a fast spinlock) with clk_prepare_enable(), causing
-the driver to contend for the global prepare_lock mutex every time the GPU
-wakes up from runtime suspend.
-
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D clk_prepare_enable(pfdev->bus_clock);
-> +	if (err)
-> +		goto disable_clock;
-> +
-> +	if (on_resume) {
-> +		err =3D clk_prepare_enable(pfdev->bus_ace_clock);
-> +		if (err)
-> +			goto disable_bus_clock;
-> +	}
-> +
-> +	return 0;
-> +
-> +disable_bus_clock:
-> +	clk_disable_unprepare(pfdev->bus_clock);
-> +disable_clock:
-> +	clk_disable_unprepare(pfdev->clock);
-> +
-> +	return err;
-> +}
-> +
-> +static void panfrost_clks_disable(struct panfrost_device *pfdev, bool on=
-_suspend)
-> +{
-> +	if (on_suspend)
-> +		clk_disable_unprepare(pfdev->bus_ace_clock);
-> +	clk_disable_unprepare(pfdev->bus_clock);
-> +	clk_disable_unprepare(pfdev->clock);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  err_out0:
+>  	return err;
+>  }
+> @@ -884,9 +892,12 @@ static void panfrost_remove(struct platform_device *=
+pdev)
+[ ... ]
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
 
 [Severity: Medium]
-Similar to the resume path, since this is called from
-panfrost_device_runtime_suspend(), will replacing clk_disable() with
-clk_disable_unprepare() cause unintended global prepare_lock contention
-every time the GPU idles?
+Similarly, in the panfrost_remove() path, the reordering mentioned in the
+commit message is omitted.
 
-[ ... ]
-> @@ -436,34 +450,17 @@ static int panfrost_device_runtime_resume(struct de=
-vice *dev)
-[ ... ]
-> -		ret =3D clk_enable(pfdev->clock);
-> -		if (ret)
-> -			goto err_clk;
-> -
-> -		ret =3D clk_enable(pfdev->bus_clock);
-> -		if (ret)
-> -			goto err_bus_clk;
-> -
-> -		ret =3D clk_enable(pfdev->bus_ace_clock);
-> -		if (ret)
-> -			goto err_bus_ace_clk;
-> +		ret =3D panfrost_clks_enable(pfdev, true);
-[ ... ]
-> @@ -480,9 +477,7 @@ static int panfrost_device_runtime_suspend(struct dev=
-ice *dev)
-[ ... ]
->  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
-> -		clk_disable(pfdev->bus_ace_clock);
-> -		clk_disable(pfdev->bus_clock);
-> -		clk_disable(pfdev->clock);
-> +		panfrost_clks_disable(pfdev, true);
->  		reset_control_assert(pfdev->rstc);
->  	}
+Should pm_runtime_set_suspended() be moved above panfrost_device_fini()
+here as well?
+
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+> +
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-claude-fix=
-es-v11-0-0dbf5a58e7ce@collabora.com?part=3D5
+es-v11-0-0dbf5a58e7ce@collabora.com?part=3D6
