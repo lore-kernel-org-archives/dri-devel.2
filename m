@@ -4,73 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F117C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 15:21:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7AF6C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 15:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D71EB88E45;
-	Fri, 25 Sep 2026 15:21:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1351510E279;
+	Fri, 25 Sep 2026 15:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="F656mgJ9";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="GHaga3eU";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 658E788E45
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:21:02 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260925152100euoutp01f66d6f8165a657e248ca8bf1c08c7403~YmYfRx5CL2212322123euoutp01e
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:21:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260925152100euoutp01f66d6f8165a657e248ca8bf1c08c7403~YmYfRx5CL2212322123euoutp01e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1790349660;
- bh=SHgaribOFjNf5YMHUlR3fMpt5ySYd+TAsj/f7UavMDk=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=F656mgJ9jfgNjrKs8uA1ZyoifUtpO6Jd2QaA5EhGg1UsGVHdaiunvQVyoBsr8yvQm
- 4JvEzIJQ1xTCBczVOiZBqIm+3EdyCpwECRq8i8GN27wlqHNo+fCU/+mKx+GZJgiYUH
- q6eRUP+VcFpqTg/tZTDMerGTpXC394G1YEw2aP4w=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1~YmYeygoFS3026930269eucas1p2w;
- Fri, 25 Sep 2026 15:20:59 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260925152057eusmtip25e163fc5b8da5ebbde70f8a09827ff17~YmYcynyS-2281922819eusmtip28;
- Fri, 25 Sep 2026 15:20:57 +0000 (GMT)
-Message-ID: <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
-Date: Fri, 25 Sep 2026 17:20:57 +0200
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA1510E22F
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:30:12 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-49e65a8f70eso44145e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 08:30:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790350211; cv=none;
+ d=google.com; s=arc-20260327;
+ b=B/BBujGV9ff19Oe5sJnS9iNAOBNerW3mQIceGdf/FU3X+fSIBPWoWTrr3WVgM6C0fu
+ TN0SBEGxPOSc3NhMrFhzMKaNpI464BV858bA3ExhNKrsv71uiANBw1P+kLXwQD2qhH5Z
+ SbinMslaWUQO8Gia39kNgf6ybfpKiFwdTtzgIGq49L2pCGVa0E2B1YDVCxIRfYAUQnTY
+ kEYwIQ0eciSND0A7wNQj1Litajmt4DG5/GQvmQPqh0IGmCiS3COYe7JCbYQXq7bXpnuf
+ Xivi4BU1xOIQH3xqyiXQia7tON1SyGhnxbYZKZqZuhsLoUmiimdVwm2TS5WR3Gsq8R7d
+ AEdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+ fh=fZ0ZfkepB2Wapc2oqWm+hcgk/ani9hkyVEtm1f6cnwc=;
+ b=MZq20zu/aEDDpX/58fJK3daCfyBPdtenxN1BhdaodZTjswtY4Mj+zu+axdRCWm+KlC
+ VjW8XnOBLVi71aSNVXkmo283qQ60cv9dCtuWfBmfVO/ts+em+whpZFsww8+XhSIzwWCB
+ +JZH21tq72TwjjuXj95zRgZvKHtfjoxTkuzpANCmPIF1UlC10kapcK7u88ZJJB/qPHt4
+ pSNTLUUSbYhL/cOpis4wdA6OvYdvUSiHPKzQMgpp2xxZGU7V0F3xAe2lbnrGs/WfGPgz
+ vyESq7AcsyxFxz+52bU1B8dY/xoOdGRXY2E+4oaRRnRVSuQ2FMBW7zTURr1+AE6A6Ii7
+ lxzg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1790350211; x=1790955011;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+ b=GHaga3eU3O4L8isT5Ge6a71vhZxpvyq2d1bm6ii1U3HmhuBD0lSCG6sECeMj/XfhsM
+ FQpCQnNYRjzs97stzJm9Gtt9fnRdsmD+lZ9dg14G2u2PifxzQ2f2tf7wl5VAGnnDMQmv
+ aYKGMnRJXyeA1dKRKq2TA2M+G6kI1XmHl4Nlr2r8SoG3+Dt+XRZYgc7/+5EHoPwvvNtk
+ utjsLuIKob3UbwhJ2UmdTL9oLmtqxARtFiC2h+GRfekVoYzQwc2j61bxxMrcnflG3fey
+ hN7EO9c/j1pfVzVJWFU9exIvZ0FG6Zqf40ahiFbmRHNkJLCKc2hkUeazw263a511XDSs
+ Fg/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790350211; x=1790955011;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+ b=e1vsrCJlZkc2gIBuTrf4VEUUcrNSo7cxpzCLvKDlEyiiRVqMXPS15N5TdsUGt2O5te
+ u33CF5RLA7C6n6bPmvxw6knIsbepoU6feUkYtM+Z1sigB9vGOgxLgYmqepd59t0UA5AF
+ SqMz2q+LRKidHMyqWsxqN5totCL3V2FBYVHdMstGoXdENx8TYsBAlUakoiiBe6kd0OZW
+ rkJ6SxZ8tgifUnOUK0JGGpnfn7VJScd0ReKtpMeu1Lfy/fsgnKWph44d4RzkrhPulqWm
+ EwABXYDZ8FCNi0lpsfrMKtoDEpNDu614+JuAKJwfQNTfwrLhEbo292pCjUfhQ3WhdOxS
+ yKZQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLzWg7SRPrZuftYu5/NdcatS5P/pf7KlbuvRbXiWvqQvV4MAJb2PPQ1orZMLswGf7uj9YVgftnne8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++krEBcasc5PRyKtlFEb4qbZwPpBFDCwkmG/PEFI43ORrxEZsQna
+ zpTk28MlLTeCl2kkpCs/E+J0VxCqg9d5QGa8QAdvECaZLm/HG9/cFsVAOkXKVYbmxuvdDl4VfMO
+ PGuIo73KVo79FwlLlt43C0rtOsfoac/CO3ITEulrg
+X-Gm-Gg: AYBFou0ApqUnqwt0FRqQliBEeBhmot1g4eHypmF1MnfcafGlhN1ZrE6Z8z1R8xDJ8Lu
+ IkFsbOkHutEM54F72Z3pFlDoKoxiTntHC9beX5HM7bxNdu5tcl4THwuVSqD+0x1fYeDsuTD0dxp
+ Tq7DV+1B5vBXDV3uneLIUCy7mhlU6b2wnIKySNTiRKnRqU+Nzk6N4e5XvtTnWGNtQ75+x3gx9g3
+ bVQUr2rMg8sGb866Rc/aPCKQ3q8yvD/JdGBh9QyGHPPrG8vS6aPXpjv35FaVcJYnvNkAsG3QmF8
+ H14AFaXbV2t6KbgNyeUdzLxo6ac0u+f9UVRz7r3BvPIGgyup7vIjgzL5RpyDbqEKZMF2rsbgXcs
+ Ymtioh3b5RyhkWg==
+X-Received: by 2002:a05:600c:3014:b0:49f:e12d:1a60 with SMTP id
+ 5b1f17b1804b1-49ff638a87fmr227415e9.4.1790350210427; Fri, 25 Sep 2026
+ 08:30:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 00/11] Make the 32-bit ARM DMA API work with normal
- IOMMU DMA default domains (+ Tegra PoC)
-To: Mikko Perttunen <mperttunen@nvidia.com>, Robin Murphy
- <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon
- <will@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiko Stuebner
- <heiko@sntech.de>, Thierry Reding <thierry.reding@kernel.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Hunter
- <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>, Krzysztof
- Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Yong Wu
- <yong.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
- Clark <robin.clark@oss.qualcomm.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
-References: <CGME20260915021542eucas1p254addab18c10cb117f42ccf3d3522883@eucas1p2.samsung.com>
- <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
+References: <20250417201913.2393655-1-jyescas@google.com>
+ <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+In-Reply-To: <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+From: Juan Yescas <jyescas@google.com>
+Date: Fri, 25 Sep 2026 08:29:58 -0700
+X-Gm-Features: AclHuK91aA7NHqV433GteBTggY1TVKYNnE0__wEQzOG6MTG22gothUdiDWS_u9I
+Message-ID: <CAJDx_rhLvcWV2-qzwVNG1DHnh2G4i26FgusebATLDj9zGg166g@mail.gmail.com>
+Subject: Re: [PATCH v3] dma-buf: system_heap: Set allocation orders for larger
+ page sizes
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ baohua@kernel.org, dmitry.osipenko@collabora.com, jaewon31.kim@samsung.com, 
+ surenb@google.com, kaleshsingh@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,119 +117,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 15.09.2026 04:14, Mikko Perttunen wrote:
-> Depending on the probe ordering, TegraDRM does not currently probe on 
-> kernels with CONFIG_ARM_DMA_USE_IOMMU enabled, such as with 
-> multi_v7_defconfig. The Tegra SMMU puts several display and 2D/3D 
-> clients into one IOMMU group, and the legacy 32-bit ARM DMA API path 
-> creates one UNMANAGED domain per device and attaches it with 
-> iommu_attach_device(). That only works for one device per group, so 
-> every client after the first fails to attach, 
-> iommu_device_use_default_domain() rejects the group with -EBUSY, and the 
-> driver goes down with it. tegra_defconfig is currently working by virtue 
-> of not enabling CONFIG_ARM_DMA_USE_IOMMU.
+On Tue, Sep 22, 2026 at 5:11=E2=80=AFAM Pankaj Patil
+<pankaj.patil@oss.qualcomm.com> wrote:
 >
-> Robin suggested [1] that instead of teaching the legacy path about 
-> groups, we should explore modernizing the 32-bit ARM DMA code a bit by 
-> making it use domain cookies and have the core code own the domains, as 
-> is the case on other architectures. Still, ARM's own DMA code is kept to 
-> support existing drivers and APIs that expect it, and because dma-iommu 
-> is considered too big and unnecessary for 32-bit ARM.
+> On 4/18/2025 1:49 AM, Juan Yescas wrote:
+> > This change sets the allocation orders for the different page sizes
+> > (4k, 16k, 64k) based on PAGE_SHIFT. Before this change, the orders
+> > for large page sizes were calculated incorrectly, this caused system
+> > heap to allocate from 2% to 4% more memory on 16KiB page size kernels.
+> >
+> > This change was tested on 4k/16k page size kernels.
+> >
+> > Signed-off-by: Juan Yescas <jyescas@google.com>
+> > Acked-by: John Stultz <jstultz@google.com>
+> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> > ---
+> >
+> > Changes in v2:
+> >   - Add John's Acked-by tag.
+> >   - Add TJ's Reviewed-by tag
+> >   - Use dma-buf: system_heap: in the subject since this is specific to =
+the
+> >     system heap, as per TJ.
+> >   - Remove extra space in if statement.
+> >
+> > Changes in v3:
+> >   - Remove defines for the orders as per Christian.
+> >   - Update the order array for 64k page sizes as per TJ
+> >
+> >  drivers/dma-buf/heaps/system_heap.c | 21 ++++++++++++++++++---
+> >  1 file changed, 18 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heap=
+s/system_heap.c
+> > index 26d5dc89ea16..8c10c0f2b473 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -18,6 +18,7 @@
+> >  #include <linux/mm.h>
+> >  #include <linux/module.h>
+> >  #include <linux/scatterlist.h>
+> > +#include <linux/sizes.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/vmalloc.h>
+> >
+> > @@ -44,14 +45,28 @@ struct dma_heap_attachment {
+> >  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+> >                               | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+> >                               | __GFP_COMP)
+> > -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> >  /*
+> >   * The selection of the orders used for allocation (1MB, 64K, 4K) is d=
+esigned
+> >   * to match with the sizes often found in IOMMUs. Using order 4 pages =
+instead
+> >   * of order 0 pages can significantly improve the performance of many =
+IOMMUs
+> >   * by reducing TLB pressure and time spent updating page tables.
+> > + *
+> > + * Note: When the order is 0, the minimum allocation is PAGE_SIZE. The=
+ possible
+> > + * page sizes for ARM devices could be 4K, 16K and 64K.
+> > + */
+> > +#if (PAGE_SIZE =3D=3D SZ_64K)
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> > +/* 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB */
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 0};
+> > +#else
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> > +/*
+> > + * 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB
+> > + * 64KiB allocs are calculated with (2 ^ (16 - PAGE_SHIFT)) * PAGE_SIZ=
+E =3D 64KiB
+> >   */
+> > -static const unsigned int orders[] =3D {8, 4, 0};
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 16 - PAGE_SHI=
+FT, 0};
+> > +#endif
+> > +
+> >  #define NUM_ORDERS ARRAY_SIZE(orders)
+> >
+> >  static struct sg_table *dup_sg_table(struct sg_table *table)
+> > @@ -318,7 +333,7 @@ static struct page *alloc_largest_available(unsigne=
+d long size,
+> >       int i;
+> >
+> >       for (i =3D 0; i < NUM_ORDERS; i++) {
+> > -             if (size <  (PAGE_SIZE << orders[i]))
+> > +             if (size < (PAGE_SIZE << orders[i]))
+> >                       continue;
+> >               if (max_order < orders[i])
+> >                       continue;
+>
+> Hello Juan,
+> I've posted a respin of the patch by extending upon your work,
+> Can you please review?
+> Aplogies for adding signed-off by, will drop it in v2.
+>
+> Link -
+> https://lore.kernel.org/all/20260921-dma_buf_improvement-v1-1-23d82e771de=
+c@oss.qualcomm.com/
+>
 
+Hi Pankaj,
 
-I agree that such little modernization is the right step to unify a bit
-ARM 32bit with modern archs and get rid of some workaround in the drivers.
+There is another change that fixes the problem and adds the 2MiB
+order. It has already been
+reviewed the Christian K=C3=B6nig:
 
-It was me who raised the concern about the drivers depending on the first-fit
-allocation algorithm used in the32-bit ARM DMA code. This is an issue for some
-legacy Samsung Exynos drivers. I not aware of any other driver used on ARM 32bit
-SoCs that depends on this behavior.
+https://lore.kernel.org/all/20260914212258.2657788-3-dave@stgolabs.net/
 
-If one is still interested in switching ARM 32bit to generic IOMMU-DMA code I
-can prepare a workaround for those Exynos drivers. I still have it on my todo
-list, but in meantime there was no interest in updating ARM 32bit DMA code.
-
-
-> The series is in four parts:
 >
-> - Patches 1-2 are preparation in the IOMMU core:
->   1. Add iommu_teardown_dma_ops, counterpart to iommu_setup_dma_ops.
->   2. Add cookie type for ARM's DMA domains.
-> - Patches 3-6 implement the DMA API side on 32-bit ARM:
->   3. Split up domain and address space management code in arch/arm/.
->   4. Implement parallel dma_ops / cookie APIs on ARM side.
->   5. Avoid domain allocation when IOMMU core does it.
->   6. Support foreign-allocated sg_tables.
-> - Patch 7 enables 32-bit ARM IOMMU drivers to provide a DMA default 
->   domain.
-> - Patches 8-11 convert Tegra:
->   8. Allows deferring translation enable until driver handshake for
->      selected devices.
->   9-10. Removes code detaching ARM UNMANAGED DMA domains in
->         Host1x/TegraDRM.
->   11. Enables DMA default domain for selected Tegra devices.
->
-> None of this should have any functional effect on any device other than 
-> the Tegra devices enabled in patches 8-11. Other IOMMU drivers can opt 
-> in later. The new DMA default domains are enabled only when the IOMMU 
-> driver explicitly specifies a DMA domain type, just returning 0 for the 
-> default is not enough (unlike on arm64), keeping the current behavior.
->
-> Patches 8-11 are provided for demonstration but we can deal with them 
-> separately if the rest of the series is accepted.
->
-> Patches 1,2,3 are applicable independently.
-> Patches 4,5 depend on the previous patches.
-> Patch 6 can be applied independently but is only required once
->   the whole series lands (by TegraDRM).
-> Patch 7 depends on patch 4.
->
-> Patches 1-7 only touch drivers/iommu/ and arch/arm/mm/ and associated 
-> headers.
->
-> Best regards,
-> Mikko
->
-> [1] https://lore.kernel.org/linux-tegra/910d1492-ad3b-4201-93c6-208be1dcde7d@arm.com/
->
-> ---
-> Mikko Perttunen (11):
->       iommu: Add iommu_teardown_dma_ops
->       iommu: Add cookie type for ARM_DMA_USE_IOMMU
->       ARM: dma-mapping: Split mapping allocation from domain allocation
->       ARM: dma-mapping: Implement and expose DMA setup functions
->       ARM: dma-mapping: Bypass the legacy path for core-owned DMA API domains
->       ARM: dma-mapping: Handle foreign buffers in arm_iommu_get_sgtable
->       iommu: Let 32-bit ARM drivers opt into a DMA API default domain
->       iommu/tegra-smmu: Defer display client translation to driver handover
->       gpu: host1x: Drop release of legacy 32-bit ARM DMA domain
->       drm/tegra: Drop release of legacy 32-bit ARM DMA domain
->       iommu/tegra-smmu: Use a DMA API default domain per swgroup
->
->  arch/arm/include/asm/dma-iommu.h |  17 ++++
->  arch/arm/mm/dma-mapping.c        | 209 ++++++++++++++++++++++++++++++++-------
->  drivers/gpu/drm/tegra/dc.c       |   8 ++
->  drivers/gpu/drm/tegra/drm.c      |  15 ---
->  drivers/gpu/host1x/dev.c         |  15 ---
->  drivers/iommu/Kconfig            |   1 +
->  drivers/iommu/dma-iommu.c        |   5 +
->  drivers/iommu/dma-iommu.h        |  52 +++++++---
->  drivers/iommu/iommu.c            |  24 ++---
->  drivers/iommu/tegra-smmu.c       | 109 +++++++++++++++++++-
->  drivers/memory/tegra/tegra114.c  |  15 ++-
->  drivers/memory/tegra/tegra124.c  |  12 ++-
->  drivers/memory/tegra/tegra210.c  |   6 +-
->  drivers/memory/tegra/tegra30.c   |  18 ++--
->  include/linux/iommu.h            |   3 +
->  include/soc/tegra/mc.h           |  20 ++++
->  16 files changed, 410 insertions(+), 119 deletions(-)
-> ---
-> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> change-id: 20260728-b4-arm32-iommu-dma-cookie-3170e07f9125
->
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
