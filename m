@@ -4,81 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0592FC9833E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C0CCA5FA4
 	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9375E10E896;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFB8510E898;
 	Mon, 28 Sep 2026 08:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NHlywOEA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HxJQcEvn";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C9AC10E281
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:48:12 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49ccf3ca626so5146575e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 05:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790340490; x=1790945290; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
- b=NHlywOEARJOIEqXEg2D1nwNS1DgATA7PkhlZEiOrZLmt2snHMHk9ZD2pL/BFMOcWn1
- KiYSVEnzr/k/E40I2fDh5mAD9j9bqkfozl3sM5o+ToV/3sRev0/FHzvZ40V/1QMNEJNC
- dqt0s/0Djv6YEOastuOevvJd/A99pdzyBFAiseDZcL0wduiOFa48/nZck+Pl+naDc5Wx
- oPZqCMhaM/95iR0bm+qa/xww2/+LNlFI38RpL+hCsdAE8gShTMwe2wK0Y+qJzKoyiHx/
- beqlu0KG18yVbJqTVMmjXACxA9MFboagXdqDYftsBYSMgGvwk8+wIP+Gp/lATO6irrPN
- owEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790340490; x=1790945290;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
- b=RPkp9ftSTIlpMqUdmbQap3IFOMSjYF+YrA+vXPCgl//XI2oBZOYcc/YWHMOGLnWbcD
- XW+m98IlzBPkhBCr216HKRY66RF2pSKFITjafZUtJWC6F/awXGGFX76gpqnF1MCTxAoJ
- 9Q/3hAVSXmrbQv2oJ52mhJ87GpGQsiPHI/VKupftxLbv0OmNiPovZGrkQgBYE/kE64tG
- 91Own8XSjWqzky+GvkwqGYCpuQeJ4Gy4sLulzn1y+OiaCav6KdJFvBMIo76BBEHPpjkM
- JOMUsxi7PsLCBnwaVKiWH9ud/1oAJvHatfO7ka9nIOWmQYcLplaRkBaLKbLn47C7YGtb
- U+jw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxFPcHGSx/pcXWO+FlOfxlChqwXjeINEIPDjXQ0+FbfMGqNfzZSZ8VLOQpKNgDssoYxdb1S5tSuvNA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lukbj6rv1EKbrRCdwI7TSiCTYZHopMftylCO45Ksdwac3YLcn3
- WPJkWf3fV6QE/Hfcow92AnN47ypXnao4WJtJ6PLClkWXCUAusr4DaI5TM/fbMw==
-X-Gm-Gg: AYBFou2WZGYKUe3Tixs0TCHgeTHS7VBY1gTGwe+VQpNgBZJ4Zkl7WxC2+Nf6xPlbdZ9
- ZRRe6krGNxPeHgD2YfrR0j5bAfGz/Y1gX+fJXIHNKDzzC+Watv41XBJC15975Bx8idhXVhM7QDh
- QGl/dXTeua1A9B6lECS1Ew8Ri/gK69PDpNLfunEvOyeYGn5U5p8Ya24nB4o0URpNEuIqx6o7OBq
- fKshZJuT5RO0yq1ZWeVOgoOvU7J0aCV5k9uk31Ya7OmXgONiP+8jIvQIK+QTeLVdIPM4S24Mpit
- 4hGRiaVcWLy8c8CprRyrlsF72MZP+/wGjMN2Y8xhHNCe7DtngimbBiH7w2wqLPbZrC1MBt0uXBM
- kAJDHVIdDaFt2d4fp/wAfD38LJMoY5F7axN3ciOhO/puD1x9I6VG0jZjZ2xQcNam7TAZ17pAOvk
- YCI14YbmV19L7cWxYddZZ5jjeqt6OoGH27o+rANEoxrMOMPvvtZlezQpRA7v8=
-X-Received: by 2002:a05:600c:4f4d:b0:49c:dadb:18a7 with SMTP id
- 5b1f17b1804b1-49fe66cbb21mr116104615e9.10.1790340490347; 
- Fri, 25 Sep 2026 05:48:10 -0700 (PDT)
-Received: from fedora ([2a02:587:200f:d100:bf67:f785:caad:e278])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4887a36189bsm6670499f8f.21.2026.09.25.05.48.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 05:48:09 -0700 (PDT)
-From: George Karagounis <taterraster@gmail.com>
-X-Google-Original-From: George Karagounis <mail@taterr.org>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Koby Elbaz <koby.elbaz@intel.com>,
- Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mail@taterr.org
-Subject: [PATCH 1/2] accel/amdxdna: Replace create_singlethread_workqueue with
- alloc_ordered_workqueue
-Date: Fri, 25 Sep 2026 15:48:03 +0300
-Message-ID: <20260925124804.58808-2-mail@taterr.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925124804.58808-1-mail@taterr.org>
-References: <20260925124804.58808-1-mail@taterr.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1146610E9EB
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:55:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AE0F340AC5;
+ Fri, 25 Sep 2026 09:55:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C76A1F000FF;
+ Fri, 25 Sep 2026 09:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790330132;
+ bh=wHcL5jPNS47s6Ul8XnEo1uFsA8Y0TKv8vyd/Iuc4jW8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HxJQcEvnuhUOHH3Z6mzmWye1CE1PjDtpVrPBVFbcNDGyG6yBkjOShg1wXTRxmQKyc
+ TCJMHEkTxA8Sxw4HyLR7LdXQhRJb+9udY3QgV8ET7cug6AZBPLxgIFx/TdmYGQ8bVU
+ ptEgwP56FVQ2pJrDbYSWaP8xyRORQKPPWrshPWAAjxwWnAwT2YIoJgfyo9wv4EO7c3
+ 7ozDd+omlnSWJmwSq3s1563JOKXMeNxa13jAxu5Ee20miDdmPGzcEIeZWGgnBBy5y6
+ eWzAFHQy56s+qgvvgTG8xUGQUmf5tQzyaZcP9CgdenUpWl9R2UycwCgDON1sf75KvU
+ KkanjhxFaUGcw==
+Date: Fri, 25 Sep 2026 10:55:01 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 05/40] mm/vma: ensure mmap_prepare doesn't set actions
+ on a mergeable vma
+Message-ID: <arZE4aXD0yIbXVFU@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-5-4583d8a23bca@kernel.org>
+ <DLNSM8R8JS9A.1850RMXAG9NSR@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLNSM8R8JS9A.1850RMXAG9NSR@nvidia.com>
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,34 +143,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-create_singlethread_workqueue() is deprecated. Replace it with
+On Thu, Sep 24, 2026 at 03:28:10PM -0400, Zi Yan wrote:
+> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> > When a user requests an mmap_action be performed in mmap_prepare, this
+> > involves populating the VMA range with data.
+> >
+> > However, if the VMA is mergeable, it might then mistakenly be merged with
+> > another VMA without having populated the range.
+> >
+> > Every mmap action currently available sets VMA flags such that the VMA
+> > cannot be merged.
+> >
+> > However, to ensure that no future mmap action falls foul of this, assert
+> > that this is the case upon mmap_prepare validation.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/vma.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index d6ed10cefc8f..62f2ce1ad5a1 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
+> >  int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
+> >  			  const struct vm_area_desc *desc)
+> >  {
+> > +	/*
+> > +	 * It is not valid to execute mmap actions for VMAs which can be merged,
+>
+> Is it better to say "for VMAs ... after mmap_action_prepare()"? When I
+> first read this, I wonder why the check is done after
+> mmap_action_prepare(), which does some work based on action.type. Then,
+> I realize mmap_action_prepare() changes desc->vma_flags and affect its
+> mergeablitiy.
 
-alloc_ordered_workqueue() to use the shared system workqueue
+Ack, good point will update!
 
-infrastructure more efficiently.
+>
+> > +	 * as any such merge would leave portions of the mapping incorrectly
+> > +	 * unmapped.
+> > +	 */
+> > +	if (vma_flags_can_merge(&desc->vma_flags) &&
+> > +	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
+> > +		return -EINVAL;
+> > +
+> >  	return mmap_validate(prev_desc->start, prev_desc->end,
+> >  			     desc->start, desc->end,
+> >  			     &prev_desc->vma_flags, &desc->vma_flags);
+>
+>
+> Otherwise, LGTM.
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-WQ_MEM_RECLAIM is added to ensure the mailbox can process
+Thanks!
 
-interrupts under memory pressure.
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
 
-Signed-off-by: George Karagounis <mail@taterr.org>
----
- drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-index cc8865f4e79c..05c3786de135 100644
---- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-+++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-@@ -481,7 +481,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
- 		return NULL;
- 
- 	INIT_WORK(&mb_chann->rx_work, mailbox_rx_worker);
--	mb_chann->work_q = create_singlethread_workqueue(MAILBOX_NAME);
-+	mb_chann->work_q = alloc_ordered_workqueue(MAILBOX_NAME, WQ_MEM_RECLAIM);
- 	if (!mb_chann->work_q) {
- 		MB_ERR(mb_chann, "Create workqueue failed");
- 		goto free_chann;
--- 
-2.55.0
-
+--
+Cheers, Lorenzo
