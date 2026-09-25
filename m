@@ -4,133 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED764C98324
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F639C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:03:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2364010FAC8;
-	Fri, 25 Sep 2026 14:01:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RgfCkIA9";
-	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011054.outbound.protection.outlook.com
- [40.93.194.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E632310FABC;
- Fri, 25 Sep 2026 14:00:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=diKeXp8rY6bYgvbhyq9tRfJQMXu2r1PdMkq71z6yXnudWPsO3eBzzBpzoKVSkxohbIs3IioEMNRPCIWIAGQi8tZJXE75dpwTFZE2Z2LqGGoChgCqJY0f0LFLOPE+D60pSS7iZuX9ISXIsM2FO/DGGDlFVSjmeV2k/2LBBSXGQmFqcruhxh47XSN1pRFlgxDw8tO3AMbC+n6j5xFkKgoe8zfIco28OjeWxQ+Hb+K6ldOEagx77nc6PWPMzgAL08120hfvLH0yO6FvjfdcVjM8TjVlL1dsZ3e2yGNm0pLuuu4+lC3oC77APPGwh5w4Wo3pKZAduHq+x/6w2Srzkg/XYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=bm2jxqlQOWZvtMc9t6Bv4KGvBpVEY9LUrtgeL+3qoHsSI/sdDzRSxJSxNf62cBMR8dVliYBh8U+RMXLPZaDinw7uXf3UpUHpGbxVf2rmdF1zXL3+a7CP0dXJKl10QPE7p1/ks7SHiqYqlP5mTSlNjMk8hhLIcznv8hvyYsSLXX/3NjkC9x8QpZ+4NwAaFKOAyr7wjXQhTumxO8+dROHLL7DXvkJSgilWUMh3wc16+imU7gIhm1TS0rtYFLOxkXuTYeFj3xxPkqqDqJr21cd6W2/8Cu7R4assWGwQeecI4Hk9TeibL1f2MO5hIQJb0lukQAhGwvBIR9B8WwwaeQpW/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=RgfCkIA99tnQxeAwU7xllfWp2b9txMWsws8Wlhgm5h8ME03Tfxs/4phv/lccxeL9cTyyam4jU+zUS9Q6AndWtQBn4oC1gsyAUBQ2/dVTceNAd7GtU5LYVCJ/+P7k5ziRsYpnMMuTXUqBiD9syJycGnELM0+Bzu733YT10MDmJz8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 14:00:53 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 14:00:53 +0000
-Message-ID: <9a917ebe-9d9d-409d-8913-89b448425726@amd.com>
-Date: Fri, 25 Sep 2026 09:00:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] VESA DisplayID fixed DSC BPP value support
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Yaroslav Bolyukin <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20251202110218.9212-1-iam@lach.pw>
- <5d1fc27a-eea0-4995-8b8e-46006144ae7b@0la.ch>
- <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR03CA0260.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::25) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E552510FAD9;
+	Fri, 25 Sep 2026 14:03:17 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA13B10FAD9
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:03:16 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+ by APP-01 (Coremail) with SMTP id qwCowAA3D_P+frZqWmXzCA--.32169S2;
+ Fri, 25 Sep 2026 22:02:41 +0800 (CST)
+Message-ID: <2a3e3ce8d62805394ef41a2e9f84a5051af30ac2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3 13/19] clk: starfive: jh7110-vout: Allow pixel clock
+ rate propagation
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Jerome Brunet <jbrunet@baylibre.com>, Michal Wilczynski	
+ <m.wilczynski@samsung.com>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda	 <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
+ Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>,  Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+ Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>
+Date: Fri, 25 Sep 2026 22:02:38 +0800
+In-Reply-To: <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132733eucas1p1a6529cb2ea97bc75c9cd190d1ba901c0@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-13-484f9ae72715@samsung.com>
+ <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ0PR12MB7476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: U+CTrM91UcRJtEB0es6/jKuyVFj3T5hD+Bwcm2tsKyDPTDGCS6vTTafc6LAciUNxykidRFBo15aztYr8MKRxzLcYx/tM/MYhRuc/6LmLhMmg0cC94eNCHXASZmiuwXIlqUrKNAvvbEfQB88rF4L6rU2v4269wzctmszVe79u5ihcegAQnLV13AazpKZgUX+biRG0O5GCyMpQGkC4xLx2RP2wjVmKRpWU/+gshJk54qM9btDOTBrZ2D0SNShSQ9d7shiqlLwzddbYA+WPLexUvKYWYzHPLZvFMTJmZolPc17mJtWvoZd2h9pk34xQRGMkm7ve2hdM4NlTYdBX0zMleI/itWZmJsOLJ1AVHjWFm50lP1Im7YMSB8dXTnuJii6qiH86CXfC/GwpS2pVCtYl5U+Ua4RvYGnpPo9jt1Y/WPdYOWatUUC1v4P9TgsZt3wcTNxcKWZ8eVmiYhg62fBkkSpuvz8hv0DK6HCr6slltNsG2UK7Ks5RYTMPZvONgLToO1NlbpEBIhoVAbOhaZGQpJrXH8dFDQX3fv629K924VzCm9ts9tZoPx35twyRiVuiV94ofhy4v+wzk7xN6i/2Hiy8sP+jaV550wd5rUa9cq5QVBWj3Yg5rsinXlF8Mwp6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTlRbXl4YW1FM3NFTU5STkg4Y0QxVUhuZ2tPdThOejFLejhNR3V6bVp5Z21Q?=
- =?utf-8?B?bzRRNzNPYkQ1NDBNeUFsZnpRWDAxV0dlNWR4ZW9ENTdiOEtPLzIyMjN5TmZ5?=
- =?utf-8?B?TmpNN0tYUkpHaXBHakRIVVBQeXhISGdhSEQ3UDljd21YRHR2ekE5Y0JQYVlP?=
- =?utf-8?B?N2k2ZDdNa2R6eEUwWi9uSm9pbDVYb2pVR3lOcVZEaUE5UE1LYzNON3NnVTZ5?=
- =?utf-8?B?NGdsYzE2UkpVRHBpZHN4aHE5WGNjeXlNTDVTMERHQzFxSzBCOVdGbCtuL1VD?=
- =?utf-8?B?MUg0WlBkZHZjUVRzdHNhVkxLd2J1U1BCdkhXSkhIbk9hZ2loMXM3VnFtcWVr?=
- =?utf-8?B?SXpWcEsrSEJiYkxGM0d5NEw0T2VnZXpFeVFWM0wzWWc0Q0VUSDdxeWZqcldz?=
- =?utf-8?B?QS9nRC8yZGtwWTlPTmFpa2EydnFnZWlJanhyTlRNUEYycDd1d2xoelZWYUU3?=
- =?utf-8?B?b1pQN2R3bDZkbHR4ZENHbFF5bGFnSG15WWthakhJMitLVHFNaUNhVVIyTEcx?=
- =?utf-8?B?YXRFb3VmRnhQcFd2OUorQng2bzk4djFsd3lTNWhiazZMTjRGcy9RSVk1LzBN?=
- =?utf-8?B?NjdRQ2ZTd3FyZWpGM0xsL2Z4M2l4dGZoVUYyUklkUUltQlhnZWtpQWlkeVov?=
- =?utf-8?B?RmVqMmpVOG1ldWZ6QjBmcFVubXgvZjBCZFk4R0ZGOGx3Zlpkc24xM09ZaUk4?=
- =?utf-8?B?cEd5UTRNajhMWnBFbXAxdEg3eHpINElTVTMwYlB6V2ZHanFTcUptZDNxTFlZ?=
- =?utf-8?B?bk8yK3drUnJTSnFqVEpiRzEyd2NQc3NDellkdG9SSzkwbWx0bjR2QXRvOUtt?=
- =?utf-8?B?V3h0TlVVM0RDdFBKM3ZueEVjbkFzYVFiYlREUHo4eDFHKzJlU3RMcXdFcXlK?=
- =?utf-8?B?RlljY24xeHo0b2JtTmJsZ1FjQjhkWDZiT09ZWHBZb0ZCV0xnMDBoTExwWm04?=
- =?utf-8?B?SFpFWGJlR0xudENqSXZHd2M3QkJxNzJ0QXF2c05oYUZuTWQvZERJU1NNdWlX?=
- =?utf-8?B?Q1dJUll1RFIzdmhnVHFDU0FYQ1dpZlFOU2ptMlFOb2tRMGFlOVAxaGl5WnpS?=
- =?utf-8?B?UlUrOTE5SytoeFBwSjJpSDlkSm9Ec29CWVFwSTA2a09vSWM3MEVMMlFwSjF3?=
- =?utf-8?B?dzJOaXdhUStPSzRXZWFNL2dkalFBaGxqR3hHQ0pENDh4VVJqbkJSaTRyV3ZR?=
- =?utf-8?B?QjFYTFYvNXlEYlFYQUM3UzlkZ3A5QjgrOTdzZERXVDBKUkoxVTlyY213UWZJ?=
- =?utf-8?B?TUZUYlAwL3R6QkRvUFlEN05veHRqeFd1ZVg1SStwVEIwYjU5Q2JLZldzRDNa?=
- =?utf-8?B?WkV2MkFQZ3E2ZGh6R2FoVThkL2E2cE1yc21sSHBIWno4OU82TFEyNTNxd2Yz?=
- =?utf-8?B?MGNTL3E1cVN0T3Z4bi9JdmJBUHRsNnE2QS9zTkRMVzhNNEljd2J5aXE5c2F2?=
- =?utf-8?B?ZHhkNXVWSUl5QVJHb2lmbXRvby9kaGV1dy8xejVHdDBMVGpLcUxVcXRjaTdp?=
- =?utf-8?B?QUNHSXB3azF6YWsrR2wrMktzd1BGbjVrU3dpZHg5T2lNQURMYTI0a0FJbDVN?=
- =?utf-8?B?UVYraU9sbitsK1JER2h3SUtyYW9hSE1BeVljNDFHc2xwUFQxaGlvVjQ1MTFN?=
- =?utf-8?B?SmRDdmZFaDE0ZmZJZWZGQURkRlI5enJXVCtZaUxCcWVVUmZ3RUNyc0VoMzQ1?=
- =?utf-8?B?b1poRTJYZTJOKzF1Ni91N1FWeUUwNHVDM29lWFNncSs1RWhOb2VERzBrRFBD?=
- =?utf-8?B?WXlvOXE4c1REbzhudUduOXozWXFSN2ErVXBYdzR1MUY1ZjZ1L3E3dHRKRm9E?=
- =?utf-8?B?eHFEbkROQTM0SzNlcHpKZDZFTXpjSlpicVZNT0ZHYlA3ZDY0Ui8vdmxsdDNh?=
- =?utf-8?B?VFd4Ry9NeUhJa1RPZVkyUXhKOUxJdzhBZS9abjdWRjdnT3h2MmRDQ0hadXBs?=
- =?utf-8?B?czZoUXU0bDhGb1FsUDE2MG83aGV5Wk1KMmhybVFMc29XdTJKZEx2M2hRQzJY?=
- =?utf-8?B?bndrcEFMTG9OT1NhNVZ6RXR6aW4rV2xaZldJL2FaQXF2WkhQMDdPaE5iU0dm?=
- =?utf-8?B?aGFnTTVrVnU3ODdadE9PSkdEdnk1aDI4NWdmbUZRNGtrbWkxcFBjQjhvT2Fm?=
- =?utf-8?B?blJONGlJZ3duaHFzT0dKWlBaRCtGaFg3SURsWTJUMjFMN2hQUCt3RWVXeUQ4?=
- =?utf-8?B?QllGYXByclhOdklBZ3ZqZFZuWXVoVE82UjVMMXdGY1Yyc2hFUXBvMFkyWmZj?=
- =?utf-8?B?ditoRUhkNkx1bjJXZGlnUlBGWFZ3UlNFbm8xMENjUU5kUlBiS1NMTURGaVJH?=
- =?utf-8?Q?XFPkNLATvYhIj8jhLO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:00:52.8055 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsqzNf3r9fnEDr+1Oga1fGfVzpfJXoHTSeWyDMWv5KrOSgNPkgQhcL5JIc11nom8qbk6n/5QVlu/y/zCJTr7zA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
+X-CM-TRANSID: qwCowAA3D_P+frZqWmXzCA--.32169S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZFW5WrW3Kr47uw4UtFWrZrb_yoW5Aw4rpr
+ s7Ca4rJFs0qF48Za4xX3WYqFW5Aan2ya45tFn7ZF10vr45Ka1UWw1vkF9xWF97XrZ7Cw13
+ Wr4v9F4fuF4DXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IUnPl1DUUUUU==
+X-Originating-IP: [120.85.96.244]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,130 +90,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 14:47 +0200=EF=BC=8CJerome Brunet=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On ven. 04 sept. 2026 at 15:27, Michal Wilczynski
+> <m.wilczynski@samsung.com> wrote:
+>=20
+> > The dc8200_pix0 and dc8200_pix1 MUXes feed the display controller,
+> > and
+> > the rate they carry is ultimately produced by the HDMI PHY, which
+> > registers hdmitx0_pixelclk as a clock provider.
+> >=20
+> > Add CLK_SET_RATE_PARENT to both MUXes so a rate requested on them
+> > reaches that parent, instead of being clamped to whatever rate the
+> > parent already happens to run at.
+> >=20
+> > Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> > Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> > ---
+> > =C2=A0drivers/clk/starfive/clk-starfive-jh7110-vout.c | 6 ++++--
+> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > index
+> > bad20d5d794a72f071b4d547b7304786a8ba9afa..aeba42cd3c44ba205ced52b18
+> > 26d2d2de82ad78f 100644
+> > --- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > +++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > @@ -40,10 +40,12 @@ static const struct jh71x0_clk_data
+> > jh7110_voutclk_data[] =3D {
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AXI, "dc8200_axi", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AXI),
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_CORE, "dc8200_core", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AXI),
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AHB, "dc8200_ahb", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AHB),
+> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0", 0,
+> > 2,
+> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0",
+> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
+> > CLK_SET_RATE_NO_REPARENT, 2,
+>=20
+> I see that you've added CLK_SET_RATE_NO_REPARENT following a previous
+> sashiko advice.
 
+I think the problem is that the Innosilicon HDMI PHY is designed to be
+solely the pixel clock provider when HDMI output is enabled, so manual
+clock parent assginment is required when using HDMI to prevent the
+general PLL from driving the pixel clock, and for DSI to prevent
+abusing the HDMI PHY clock generator.
 
-On 1/9/26 02:15, Jani Nikula wrote:
-> On Thu, 08 Jan 2026, Yaroslav Bolyukin <iam@0la.ch> wrote:
->> Hi,
->>
->> Now that every patch in this patchset has a review, any chance this can
->> be picked up for drm-misc-next?
->>
->> Or should it go through amd-staging-drm-next, given that the main EDID
->> change is only handled for amdgpu driver right now?
-> 
-> As I said in [1] I'm hoping to get Ville's approval on the approach, as
-> he had earlier concerns [2].
-> 
-> BR,
-> Jani.
-> 
-> [1] https://lore.kernel.org/r/b0b1567707c91806e3758bf0b678c2038dffb3c2@intel.com
-> 
-> [2] https://lore.kernel.org/r/aPF32XpVst5mPVz7@intel.com
-> 
+Thanks,
+Icenowy
 
-Ville,
-
-Can you take a look at this series per Jani's comments?  Here is the 
-full series lore link if you don't have it.
-
-https://lore.kernel.org/all/20251202110218.9212-1-iam@lach.pw/
-
-
->>
->> Best regards,
->> Lach
->>
->> On 2025-12-02 12:02, Yaroslav Bolyukin wrote:
->>> VESA DisplayID spec allows the device to force its DSC bits per pixel
->>> value.
->>>
->>> For example, the HTC Vive Pro 2 VR headset uses this value in
->>> high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
->>> kernel doesn't respect this parameter, garbage is displayed on the HMD
->>> instead.
->>>
->>> Me and other users have successfully tested the old (v3) version of this
->>> patch (which was applying DSC BPP value unconditionally, thus incorrect:
->>> https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
->>> Bigscreen Beyond VR headsets, and have been using it daily, it is known
->>> to work and doesn't seem to break anything else since 2022.
->>>
->>> Previously, I didn't have enough dedication to get it merged, I hope
->>> this time I will manage to get it to v6.19 :D
->>>
->>> Regarding driver support - I have looked at amdgpu and Nvidia's
->>> open-gpu-kernel-modules, and both seem to have some indication for this
->>> value; however, in Linux, it is unused in both.
->>>
->>> First patch implements parsing of DSC BPP values and display mode VII
->>> timings flag which mandates that the DSC BPP value should actually be
->>> used for this display mode.
->>>
->>> The second patch implements handling of this value for AMDGPU driver.
->>>
->>> The only thing that I don't like in the current implementation, is how
->>> the value of `dsc_passthrough_timings_support` flag is propagated from
->>> the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
->>> handler (which is used for VR display initialization in Monado and
->>> StreamVR), it feels like this flag should be initialized by the kernel
->>> itself, but as far as I can see there is no correct way to do this, as
->>> the timing constraints calculation belongs to the individual drivers.
->>>
->>> Another problem with how this flag is set, is that there is no hard
->>> connection between modes creaded in `SETCRTC` and the modes actually
->>> defined by connector, so the current implementation searches for the
->>> resolution and refresh rate that match exactly declared to obtain
->>> this flag value. This might not be correct, as device might not support
->>> the other mode at all, but the situation won't be any worse for the
->>> existing devices, as the currently they don't work at all, and there
->>> is no other known devices on the market to check their assumption in
->>> regard to this part of specs, and the spec does not describe how that
->>> should work.
->>>
->>> Both of those downsides are due to the fact my understanding of DRM
->>> subsystem is not that high. If another implementation would be proposed
->>> by AMDGPU maintainers - I will gladly implement it here.
->>>
->>> v6->v7:
->>>    * Print DSC bpp value in fixed point format instead of x16
->>>    * MSO should only be enabled for eDP, not the other way round.
->>> v5->v6:
->>>    * amdgpu: only apply dsc bpp to modes that match exactly the declared
->>>      modes with this flag set.
->>> v4->v5:
->>>    * The patch was split into multiple
->>>    * Disabled MSO parsing for eDP displays
->>>    * Disabled MSO logs if not used
->>>    * Minor codestyle changes: lines moved around, naming, passing of
->>>      function arguments
->>> v3->v4:
->>>    * This patch now parses timings support flag on type VII block, instead
->>>      of applying it unconditionally. Previously I didn't understand the
->>>      spec properly.
->>>    * Now it also is not being applied for non-supported and/or non-VII
->>>      blocks in amdgpu driver.
->>>
->>> Regards,
->>>
->>> Lach
->>>
->>> Yaroslav Bolyukin (7):
->>>     drm/edid: rename VESA block parsing functions to more generic name
->>>     drm/edid: prepare for VESA vendor-specific data block extension
->>>     drm/edid: MSO should only be used for non-eDP displays
->>>     drm/edid: parse DSC DPP passthru support flag for mode VII timings
->>>     drm/edid: for consistency, use mask everywhere for block rev parsing
->>>     drm/edid: parse DRM VESA dsc bpp target
->>>     drm/amd: use fixed dsc bits-per-pixel from edid
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +++
->>>    drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
->>>    drivers/gpu/drm/drm_edid.c                    | 102 +++++++++++-------
->>>    include/drm/drm_connector.h                   |   6 ++
->>>    include/drm/drm_modes.h                       |  10 ++
->>>    5 files changed, 109 insertions(+), 36 deletions(-)
->>>
-> 
+>=20
+> Note that saying it will 'hijack' the parent without it is kind of
+> strong. It is fine to let a mux reparent while setting a rate, as
+> long
+> as you understand the possible consequences for the rest of the tree.
+>=20
+> Regardless
+>=20
+> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+>=20
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1", 0,
+> > 2,
+> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1",
+> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
+> > CLK_SET_RATE_NO_REPARENT, 2,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+> > =C2=A0	/* LCD */
+> >=20
+> > --=20
+> > 2.34.1
+> >=20
 
