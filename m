@@ -4,78 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 442EBC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62C0EC9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A17A010E293;
-	Fri, 25 Sep 2026 19:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0A8510E0E6;
+	Fri, 25 Sep 2026 19:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ggJ53t7U";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="N/ZYWroD";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=valla.it header.i=@valla.it header.b="QJx4pD3h";
 	dkim-atps=neutral
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 494AC10E293
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:46:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790365558; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=V0yHfIlicxlSFURBzR9KizSTXjiKuzKAbQAk5f/413AoFh+fdlgcQpKoNBoQy30AU7TSltLtOJRrzBW6NrXJbOw1G6imJD1XQP+BurJ0tSUooXJfF+5ybAoF9GaSt57eE8VNJJsW93Rt/zjaFOL0HA2ZQPDVIwAYsAlaSs4kcvE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790365558;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=qNelDJtxRD3hVHInLY1zscFbVX+OjnrhsDwrRHHSyXk=; 
- b=Z/A5r7XHGGRC/oO7ZMGHN8AnPlcibbsv6C0cB1DslIqch0VwLYSUyeqy7sWTEXBIbqTe0hfqlIhK3g8MOnkm/dn0eTQIWm/AcfXkf79uuh8qozURhI0N8u5rihcyCutkuuXdOjnp+eHjT3P6igva1tDnHPMYJJAMKCgN8hFYXlg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790365558; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
- bh=qNelDJtxRD3hVHInLY1zscFbVX+OjnrhsDwrRHHSyXk=;
- b=ggJ53t7UliP4NZMF4R4szL9N9yFHs9xlP2ZOx/gWA1PXOmXs99HCkvwi3oA6AjqX
- TYiKlJl9lfkH7WDEOmLUCEUfivZbOeyXN/ZUmpeU11yqpBGUqGPHWtp8xNSbLVcI0xw
- +BKIsooJVEDZTm0T4h59XlOevv89w5xKiTSC8/V8=
-Received: by smtp.zohomail.com with SMTPS id 1790365556869124.38320245356829; 
- Fri, 25 Sep 2026 12:45:56 -0700 (PDT)
+X-Greylist: delayed 1232 seconds by postgrey-1.36 at gabe;
+ Fri, 25 Sep 2026 19:52:43 UTC
+Received: from delivery.antispam.mailspamprotection.com
+ (delivery.antispam.mailspamprotection.com [185.56.87.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C897510E0E6
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:52:43 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256;
+ d=outgoing.instance-europe-west4-0jng.prod.antispam.mailspamprotection.com;
+ s=arckey; t=1790365963; 
+ b=r1bg+JDvluBZDTFWBvfLswoZYLh7IQMZY3Gbji7LIBIiXx27goVStVdrVyLIWuJRcen4/ur7/C
+ 43A0tBvDeUB5jxdy8V+bG/gsfVSVX9+JqXPqdDqSHBYpVwDytPxLOwD5RxtSTdFXnt8B8cvopM
+ aBdIdRtRz3cBUCwpF/tcRQFyL13ogzhI5xq90ojyPqLCx6pW7hK0yMW7Gsfe2iSHJqQaqXrhrx
+ 0aDVS6f21wxhU1QjpDlU0NqacPsgYr0T1bAmZOkeqWZx2trOi+qa8KW8woAgokpw8y6XK0L+QG
+ zZnKJ7k7h+5tRqExhOdp2TJRjCF9MpxQ+2gZb+yoxFPgTQ==;
+ARC-Authentication-Results: i=1;
+ outgoing.instance-europe-west4-0jng.prod.antispam.mailspamprotection.com;
+ smtp.remote-ip=35.214.173.214; 
+ iprev=pass (214.173.214.35.bc.googleusercontent.com)
+ smtp.remote-ip=35.214.173.214; 
+ auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+ dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+ arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed;
+ d=outgoing.instance-europe-west4-0jng.prod.antispam.mailspamprotection.com;
+ s=arckey; t=1790365963; 
+ bh=oN779mH9tBNwuA7d/NdNWDGQm450ycX3DX6zJkalp1I=;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ Message-ID:Subject:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
+ b=JIUKfDRINNaM7FhQB26Kt04+KGSfwspy0qS/hfLrLXYxEsxYTkV4lSb9b2Md3ykF/irGY5USKG
+ RThQ3tZliLrFM6XXHtzJypxbzpEJKqZb1ku7sejt8z2RYhQmfWTMQDKIUMmrFoqhk9ypiH4CK7
+ uziAX5HXtDwHHEF5RY9HvUmgc6MFogMl3Cv/iSx6DUih1yytN/w7HNMyRCxg+KYVqhlkA33TgA
+ DQQz3isVlQME2pkNG1k9mkk5/fmsqjWpkxaL7hoTUzq99vRd+4i9xIKsz6AOUlxvpdUBasq/F6
+ MpB1/s/8umEY5tKZIUMX+TYxZ2YTJ86nfUxB9cF8a25acg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+ :Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Subject:Cc:To
+ :From:Date:Reply-To:List-Unsubscribe;
+ bh=yvE3X9fHZurwYk916e+LX2mNqDb/QFApCbGFkhBpWsI=; b=N/ZYWroDCu66Qe9k9RN68/m9L+
+ F+wqXASRmB9HcjXLKK3uxGBDAQ0NkOjHExkrtKlz/74fGoYCHb+xNAyx7/YMjBHOSWnlx1kcSE93F
+ 93wohbCI7uQ8gNcAD3eGWfb7dz5BYANek+Mwz0mhSTaIWYmja6kiJHnnC/buWB+GNQv4=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214]
+ helo=esm19.siteground.biz)
+ by instance-europe-west4-0jng.prod.antispam.mailspamprotection.com with
+ esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384 (Exim 4.100.1)
+ (envelope-from <francesco@valla.it>) id 1xABeS-00000006ZRx-1ydM
+ for dri-devel@lists.freedesktop.org; Fri, 25 Sep 2026 19:32:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+ s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+ list-subscribe:list-post:list-owner:list-archive;
+ bh=yvE3X9fHZurwYk916e+LX2mNqDb/QFApCbGFkhBpWsI=; b=QJx4pD3h5WMfaRo9W0EvTF6goY
+ BapWrz5179rvyOrHL6dOengJgj79GvD7dKfyewvov+Nugo+OfX96ypdaC3dlJTBXc+fIntYohkNaQ
+ yqV/99qP3sCHq4vcZKBQ2bzgfS+dcQ0cKhD4RQb9qDIAOqhvvJWwEYmxQVBxzaNbHnMk=;
+Received: from [79.45.60.29] (port=62784 helo=bywater)
+ by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.100.1) (envelope-from <francesco@valla.it>)
+ id 1xABeI-00000000BOp-0kv1; Fri, 25 Sep 2026 19:31:58 +0000
+Date: Fri, 25 Sep 2026 21:31:56 +0200
+From: Francesco Valla <francesco@valla.it>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/7] Boot logo supplied by the device tree
+Message-ID: <arbLHvCBqxG7zcf_@bywater>
+References: <20260923201035.51007-1-maximpedraza@gmail.com>
+ <64e273d4-2660-437d-8871-e2bfa3c377c9@suse.de>
+ <CAEUXW=G2a=Qz-9P_2+EFe-GiW4WqdOjtSCxoO4P15u_J48nP9g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v11 08/15] drm/panfrost: Move all DRM device
- initialisation into device_init()
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20260925-claude-fixes-v11-8-0dbf5a58e7ce@collabora.com>
-References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
- <20260925-claude-fixes-v11-8-0dbf5a58e7ce@collabora.com>
-Date: Fri, 25 Sep 2026 20:45:48 +0100
-Message-Id: <179036554864.2217255.10773122876415356419.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1024;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=U7UArruoVKpMlDyOp9QZVpO7tn3LanpdrF8ISbtxSm0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqts9uNnZgKN8zTvaOcnkzyNQA7aRUhlJg7SPm3
- tvjn13bmwqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbPbgAKCRAOJn5M7lND
- PZfIC/0RtgIo50ztoq/PvWSpGtJX2bt0Q11yqn9L01LcsCvoSGyDh8jcUyebXWh6/Ga1bj3XJMb
- kXdmSKS1VXQHWxnmoBTwhxphEPXbqZPnepMchDS1/8HEnKgtApzIeWOkMU8jLFFNHL7ptK4jVXY
- ax68dppUN06G812RCPqIqfs0haSut9iVqjCR3P1HTiHoX4qWZR+og+DK+2NytiFVWU+TZ9fyOQx
- a3u2JKcjoiRptZ2bGsWRvR/dak5Z6auTyaS+K7ssTim/PTnAN6FFddLD7ejuwFbKbiI786zHj5l
- u6lbfuF4JO7gKun5MlM93KwlX+Z1fq+teLPMNLOBvjkvvoPrxRqsyBfjhSpOmKKR2Hjz7anAyoF
- eS8w+SthrcyEVBl5jxfKAUWo3l72Jw0Z4jLoFLn7QlOBiMBySxmyvd5ShtQAz/Wch6xCaalpVh5
- rNKeH15nGxTEH23VeJoqdj3vffRAevzmaF1cF77KwLA55E6eQlbKAUjchzoFa8fyzHbv0=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+In-Reply-To: <CAEUXW=G2a=Qz-9P_2+EFe-GiW4WqdOjtSCxoO4P15u_J48nP9g@mail.gmail.com>
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 03a0908a9906a86d61499e46ecdb2f87
+X-AntiAbuse: ID - 03a0908a9906a86d61499e46ecdb2f87
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xABeS-00000006ZRx-1ydM-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-0jng.prod.antispam.mailspamprotection.com; 
+ iprev=pass (214.173.214.35.bc.googleusercontent.com)
+ smtp.remote-ip=35.214.173.214; 
+ auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+ dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+ arc=none
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,26 +126,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 25 Sep 2026 19:45:29 +0100, Adri√°n Larumbe <adrian.larumbe@collabora.com> wrote:
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 9f2b1967a398..b8094c0d1252 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -311,11 +343,22 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	panfrost_reset_fini(pfdev);
->  out_pm_domain:
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	if (pm_runtime_active(pfdev->base.dev)) {
-> +		pm_runtime_set_suspended(pfdev->base.dev);
-> +		pm_runtime_put_noidle(pfdev->base.dev);
-> +	}
-> +
+Hi M‡xim,
 
-Sashiko showed this won't work, because it'll return true when dev->power.disable_depth != 0.
-However, before we enable runtime PM, its value would be -1 as set by pm_runtime_init(), so
-I think I'll just create an 'initialised' bool that is set before the PM calls and check
-it here instead.
+On Fri, Sep 25, 2026 at 10:48:31AM +0200, M‡xim Pedraza Padilla wrote:
+> Hi Thomas,
+> 
+> > the whole Linux logo on the console is somewhat gimmicky and IMHO should
+> > not be further extended. Also fbdev as a whole has realistically run its
+> > course. We fix bugs and occasionally clean up the code, but it is
+> > questionable whether new feature make much sense. Even more so as the
+> > drivers your system uses appear to be DRM ones.
+> 
+> They are, it is tilcdc. Understood, I will drop the fbdev side, which
+> also settles your comment on patch 1.
+> 
+> > There is a proposal for a DRM splash screen at [1]. It retrieves the
+> > device vendor's logo from the firmware and displays it at the given
+> > coordinates. IMHO you should start with this series and add DT support
+> > there.
+> 
+> Agreed. I have been following Francesco's series since Sam pointed me
+> at it, and it is where the DRM follow-up I mentioned in the cover letter
+> belongs, rather than in a client of my own.
+> 
+> A device tree source fits next to the BGRT one. The BGRT is the firmware
+> handing the kernel an image and where to put it, and a DT system has no
+> such table. The BMP loaded as firmware only helps if the file is built
+> into the kernel, or if a filesystem is already there when the display
+> comes up. With U-Boot's Falcon mode, the device tree is the only thing
+> that reaches the kernel.
+> 
+> So the plan would be a node under /chosen carrying a BMP, either in the
+> node itself or in a reserved memory region the bootloader loaded it
+> into, with the placement properties from this series. The region is the
+> same memremap() the BGRT source already does, only with the address
+> coming from the device tree.
+> 
+> Rotation too: the client skips a BGRT image with the orientation bits
+> set today, and it could turn it instead. I will ask Rob separately how
+> he wants the image described, since that is what the binding hinges on.
+> 
+> Francesco, is a v4 on the way? Would you take a DT source as patches on
+> top of your series, or would you rather I wait until it lands?
+> 
 
--- 
-Adri√°n Larumbe <adrian.larumbe@collabora.com>
+v4 is planned but has been preempted by other activities - I am not able
+to give you an ETA at the moment. If you have capacity, feel free to
+take over.
+
+> Max
+> 
+
+Regards,
+Francesco
+
