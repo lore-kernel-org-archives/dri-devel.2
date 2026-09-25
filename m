@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C59C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:08:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EAEFC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A784710F89B;
-	Fri, 25 Sep 2026 07:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9224310F8A8;
+	Fri, 25 Sep 2026 07:08:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YKCfbKpJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lyGhofsf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB0210F89B
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:08:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D35CC10F88F
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:08:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A1BB560238;
+ by sea.source.kernel.org (Postfix) with ESMTP id 8599243F51;
  Fri, 25 Sep 2026 07:08:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36B8CC2BCF4;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 46D35C2BCF7;
  Fri, 25 Sep 2026 07:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790320101;
- bh=LJHpmpN4n2fBxLNW85aNGVYEQW9cS+9eIlZD1kckjfA=;
+ bh=Ye1Lwu6HhMt9l1l+ih9pWPnf6Cac+RNhY9u/U+CqJrM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=YKCfbKpJcWUQyRQqv2zmMyo990Y/8YUz8KlE61LhLA5AYmQ52GBH+jAC4XOo9sYul
- smvLNhJAMljmrj/hF9wx9dYf/yR7Svuk12eeykUA2/Wa3OMtqfpLtSMAgPPol+AhQG
- 7sTX33ZU/e2jbdMtOGJj5BEYwRP3U0hHH0LeZDUsJaBd02QNFYx4Z1uOhGqOBeWroo
- llAQoXJOMPV9SJ6QFwjtJRbtQS7pXQKj9YYQMOhu0SOs0AdQ4Xx49HPBgXhvgiRBGM
- SS6Zqqex57B1vNwyR5Mt5pWJmZIgtfALhVFURl93aQdP3M07ebMOqKdy2CNI8QWtkY
- YMc5+P2c/2k2w==
+ b=lyGhofsf/D78UugMYMcJIxG6o5VmVwwWIVd8bMXMUHGOC39UW7rG6kq//qx9SoNDt
+ cNQSgOQnJ3hdup6OfGilg8YJVHSsGEB8VZU8P0htbDQ6fU7pgwb4XIgOXhzFBipZcJ
+ umb5YBe3anjq4gqXPXkUqoH9SgScHJZELZ7ffcs+PcFePSgnENFlgdFruArCcDJvG3
+ BGPxHTQcBDRfRtLBYRA9ziAHVYf2uQ2YFMjcXwW837r1CB29oVQLMSehYBWTNGedBF
+ oHv5ccS5R01KNs8a1DpugLTaTfmzarCSFw+8viZcjeLzAIrOElPLVAwgIwVyIqMkVK
+ JLepDiu8NWMNg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1891DC9830D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 27916C98326;
  Fri, 25 Sep 2026 07:08:21 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 02:08:19 -0500
-Subject: [PATCH v2 1/4] dt-bindings: display: visionox,vtdr6130: Add
- Retroid Pocket 6 panel
+Date: Fri, 25 Sep 2026 02:08:20 -0500
+Subject: [PATCH v2 2/4] drm/panel: visionox-vtdr6130: Add panel orientation
+ support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-rp6-panel-v2-1-19c425e523de@gmail.com>
+Message-Id: <20260925-rp6-panel-v2-2-19c425e523de@gmail.com>
 References: <20260925-rp6-panel-v2-0-19c425e523de@gmail.com>
 In-Reply-To: <20260925-rp6-panel-v2-0-19c425e523de@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -52,14 +52,13 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790320100; l=1472;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790320100; l=2208;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=CaFv5K6fLpukUu5HCZg1CekyTprxOvXYUWdp65fN9W4=;
- b=x2KA/yVp8ENHhH1eGMIPO0tkZ9gjdp/e6GlDCY17U4OW/K1BftQn7yW1B6uQLq4+saUI8+72j
- PtLsKVJj21EBxnxO+1wgaaSYz48EQkDZqdprq3QWaK/fuvw/5GV1OEr
+ bh=XYfhvMoyxwMtq/M1dOwLhFn0oqv6k+OlxjCG6KQEnFE=;
+ b=ugTdYHBOlhgxveZ3vh05Cq9/fm4/x7uPDm7b3ziQhPe6yODtFtKzIESE7H/W+qaTGFQ6quPvC
+ t47Uo0vVC37A+4sH5X+mVvp+UFrN8nFzV2zbFuBiwHojSsFTGKz8LrL
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -83,51 +82,66 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Aaron Kling <webgeek1234@gmail.com>
 
-The vtdr6130 is a display driver integrated circuit, a common chip used
-for various panels. One such panel is used in the Retroid Pocket 6.
+Fetch orientation from the device tree if provided.
 
-The RP6 panel only lists the regulators vddio and vci, so drop vdd as a
-required property. The panel is rotated 270 degrees to natural, so also
-add rotation as an allowed property.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- .../devicetree/bindings/display/panel/visionox,vtdr6130.yaml      | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
-index c99f4146f1bb0..682f30dc9ee43 100644
---- a/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.yaml
-@@ -14,7 +14,11 @@ allOf:
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index 6733e0e1d0612..b66d6c7128c75 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -11,6 +11,7 @@
+ #include <drm/display/drm_dsc.h>
+ #include <drm/display/drm_dsc_helper.h>
+ #include <drm/drm_mipi_dsi.h>
++#include <drm/drm_of.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
  
- properties:
-   compatible:
--    const: visionox,vtdr6130
-+    oneOf:
-+      - const: visionox,vtdr6130
-+      - items:
-+          - const: retroidpocket,rp6-panel
-+          - const: visionox,vtdr6130
+@@ -22,6 +23,7 @@ struct visionox_vtdr6130 {
+ 	struct mipi_dsi_device *dsi;
+ 	struct gpio_desc *reset_gpio;
+ 	struct regulator_bulk_data *supplies;
++	enum drm_panel_orientation orientation;
+ };
  
-   reg:
-     maxItems: 1
-@@ -25,13 +29,13 @@ properties:
-   vdd-supply: true
-   port: true
-   reset-gpios: true
-+  rotation: true
+ static const struct regulator_bulk_data visionox_vtdr6130_supplies[] = {
+@@ -218,10 +220,18 @@ static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+ 	return 1;
+ }
  
- required:
-   - compatible
-   - reg
-   - vddio-supply
-   - vci-supply
--  - vdd-supply
-   - reset-gpios
-   - port
++static enum drm_panel_orientation visionox_vtdr6130_get_orientation(struct drm_panel *panel)
++{
++	struct visionox_vtdr6130 *ctx = to_visionox_vtdr6130(panel);
++
++	return ctx->orientation;
++}
++
+ static const struct drm_panel_funcs visionox_vtdr6130_panel_funcs = {
+ 	.prepare = visionox_vtdr6130_prepare,
+ 	.unprepare = visionox_vtdr6130_unprepare,
+ 	.get_modes = visionox_vtdr6130_get_modes,
++	.get_orientation = visionox_vtdr6130_get_orientation,
+ };
  
+ static int visionox_vtdr6130_bl_update_status(struct backlight_device *bl)
+@@ -293,6 +303,12 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+ 	ctx->panel.prepare_prev_first = true;
+ 
++	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
++	if (ret < 0) {
++		dev_err(dev, "Failed to get orientation %d\n", ret);
++		return ret;
++	}
++
+ 	ctx->panel.backlight = visionox_vtdr6130_create_backlight(dsi);
+ 	if (IS_ERR(ctx->panel.backlight))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
 
 -- 
 2.54.0
