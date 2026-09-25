@@ -4,93 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D0D2C98324
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A07C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 14:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBEA710FB28;
-	Fri, 25 Sep 2026 14:43:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="baLf5kpg";
-	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5B7F10FB28
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:43:51 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49ff23af865so6492555e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:43:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1790347430; x=1790952230;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=DtEfZGf6pOZoZKp7BZybV8NV7US5hG1rb4KkghHs3uw=;
- b=baLf5kpgaKtCf7v6hsUxdpTPF4OTA9uhhEflnDpRLypwxXiAIVSq/3UbWX1ARlFb43
- F03pQo5oaQRm6XzUpOTU6oEJQ1j++FRM5LKKS87cX3BcvyYVimuBIg4/1HjXAcjeEu5k
- AL837AuQbtgMv9N+i7nenmEfwYLnac0KR4orF8+awg28t2OBaCOfXTua+OSaa/bfp9cr
- rwNRKdIqbgJT05Avk4pOekdYT+rDNrITJj3Ji3CohvKy9YABEL7bdkg4FgKaRVuuDEL/
- M9EYnzqdUavFnQOqWJqc5i+2jP2eJeXw8+9v+CL/uTvlxIYA7k044xcwALf2YsdCfR27
- GWTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790347430; x=1790952230;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=DtEfZGf6pOZoZKp7BZybV8NV7US5hG1rb4KkghHs3uw=;
- b=KPe/45uSxVuDrCQy/a4VQUuuY7oZDLqLlVz75OYpvNunEMHL+LanuGG9ob4ycJZSYi
- mfuFMKsDl1gddYMwWbgZkkPA/7rN86cNJ4Tqf+BAGe03aChmy5NsMxF2XQhA2XewIe/T
- +hiOwuI5vm9VvcNxMDaPXsauuF2q8q23rBFyeOsLykS9sXEYVv9vGIm8aj15PHODT5yu
- yf5mUsznTFi/X3dYGgqy4Ndcivc7cjppnrwzTz80QO8n+ci3vHGAk4DEZw09PqxIii22
- tAVjo6KpomvmyrPobn1e6+K2Sonp4fGkyFr1dk1iTUuIBm0mzu3MojUV1kCEhO7irp5z
- hIdw==
-X-Gm-Message-State: AFuF++m6/eJzfS6KtIN68cOnwOD0eSa1egz6QY7Y5/bg3Ps5Stq0SiGt
- Gg6qGbZ3HvFGf1PiI4XFmoJF35ZuDvk3FEbLLsrP/cdXTLtrBF6b5hOIoFl/z8AOBEU=
-X-Gm-Gg: AYBFou1xHrNqo7gGL4+53CAC8TbnvypuQYf1eLJ98vaVmMFF6jl684AHZjLdLMkmLJe
- kJoyU0umr7gFH6DqVIzFG9Wv/V1y1Frgq4I5mxB1UYBMS9Vn4+LEfS1gfXA5Vvf+aBqINjASYPg
- k+lKIh9miccnfjCXxruQlwEtbzxgPKk7A8GwsdJBdE5bYSRRLt06RlczLv4aK6CCfhv9qOea40r
- MgSdby27HKSn2HQ+cshOHXr0ozyT+mxDQkofsNsxQCgJJuPP4QL4GlcAvj0DGrefB4IyOK8ykR/
- 4Qr8U5BLZG6ag6mkLK+s3slPjQhmOmdCtFT89hYVOlVQn2ipY+E0sJix75N8PssXvIClS+vxULK
- jd1ls9GhKxclHd0YYejXkPM1el+CokIBD2chCc71FtEx0IFrqz0lX4s8nuY896CxkmuZA46lF2n
- MR6h/x/CE5DFzL1F7IAX2F7NhjB/kIXIR+AsVboZQWKQYgzDc5FFoB+d02TTvBvsqJMgKQSSTug
- rcjSPHRKmj/IANf1Q==
-X-Received: by 2002:a05:600c:c8f:b0:49c:dc14:d681 with SMTP id
- 5b1f17b1804b1-49fe66bdf3bmr105928135e9.3.1790347430286; 
- Fri, 25 Sep 2026 07:43:50 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4887a35607bsm7104435f8f.16.2026.09.25.07.43.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 07:43:47 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Cody Kang <codykang.hk@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Vinod Koul
- <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu
- <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, Stephen
- Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
-Subject: Re: [PATCH v2 06/17] clk: spacemit: k3: parent eDP/DP pixel clock
- to the PHY PLL
-In-Reply-To: <20260809-k3-display-v2-6-327d7910bf71@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-6-327d7910bf71@gmail.com>
-Date: Fri, 25 Sep 2026 16:43:46 +0200
-Message-ID: <1jwls975nh.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139C710E260;
+	Fri, 25 Sep 2026 14:56:08 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A4A10E260
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 14:56:05 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+ by APP-05 (Coremail) with SMTP id zQCowAAXhD5+i7Zqv8FECQ--.59835S2;
+ Fri, 25 Sep 2026 22:56:00 +0800 (CST)
+Message-ID: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 22:55:57 +0800
+In-Reply-To: <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+ <20260918030125.315978-8-a0987203069@gmail.com>
+ <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+ <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+ <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+ <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: zQCowAAXhD5+i7Zqv8FECQ--.59835S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyfCFW8JFyDXFWkKw4fAFb_yoW8CFyxpa
+ 97Ka90krs7Xr4Ik392kw48taySgrWrJ3yUJryrG34vk398tF1xJFyrKayfuFWxurs3Ww12
+ qF4qkr98CFWDuwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [120.85.96.244]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,67 +71,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On dim. 09 ao=C3=BBt 2026 at 21:14, Cody Kang <codykang.hk@gmail.com> wrote:
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > Maybe it's better to just make it the 2nd patch in this patchset,
+> > just
+> > after the binding change.
+> >=20
+> > Waiting for something into drm-misc-fixes again will need another
+> > fixes
+> > pull and another RC back merge, which can consume weeks and miss
+> > the
+> > current merging window.
+> >=20
+> > In addition, it's possible that `drm/verisilicon: introduce per-
+> > variant
+> > hardware ops table` also gets backported for a more clean primary
+> > plane
+> > atomic_update disabling fix.
+> Understood. I'll fold the FB_EN fix in as patch 2, right after the
 
-> The APMU eDP/DP pixel-clock muxes were parented to a placeholder, because
-> their real parents (the DP PHY PLLs) did not exist as clocks yet. They do
-> now, so point each mux at its PLL and let the pixel clock reach the
-> controller through the clock framework.
->
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
->
-> ---
-> v2:
-> - no change
-> ---
->  drivers/clk/spacemit/ccu-k3.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
-> index cb0c4277f72a8..afbbbd797826d 100644
-> --- a/drivers/clk/spacemit/ccu-k3.c
-> +++ b/drivers/clk/spacemit/ccu-k3.c
-> @@ -937,13 +937,13 @@ CCU_MUX_DIV_GATE_FC_DEFINE(ufs_aclk, ufs_aclk_paren=
-ts, APMU_UFS_CLK_RES_CTRL, 5,
->=20=20
->  static const struct clk_parent_data edp0_pclk_parents[] =3D {
->  	CCU_PARENT_HW(lcd_pxclk),
-> -	CCU_PARENT_NAME(external_clk),
-> +	CCU_PARENT_NAME(edp0_pll_pxclk),
+Should I just apply this revision of patch with this reorder?
 
-hidden behind this macro is a .fw_name. Basically these are your DT
-input names. You can't change them at will like that because your
-bindings are supposed to be stable.
+Thanks,
+Icenowy
 
-You should not use placeholder name, ever. No need to make the
-name too specific either, from the beginning it should have been
-something like "pixel_pll" or whatever your doc refer it with.
+> dt-bindings patch, targeting the current vs_primary_plane.c directly,
+> so the ops-table patch just carries the already-corrected code
+> forward
+> into vs_dc8200.c. Agreed that's faster than round-tripping.
+>=20
+> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> still
+> has a real per-variant operation there (clearing FB_EN + commit),
+> while
+> DC8000 leaves it NULL and does nothing, so the suffix still reflects
+> an actual per-variant difference, not just structure introduced by
+> the
+> refactor.
+>=20
+> While testing the cursor plane, I found the same class of bug there:
+> the disable register write was being triggered from the plane's
+> atomic_update() invisible-branch using the old plane state to look up
+> the CRTC/output, which can be stale or NULL on a plane's very first
+> commit if it's already invisible then. I've fixed it locally by
+> having
+> atomic_update() derive the CRTC/output from the state it already
+> holds
+> before checking visibility, instead of falling through to the
+> old-state-based disable path. Just flagging it here for now -
+> vs_cursor_plane.c isn't touched by any of my patches.
+>=20
+> Thanks.
 
-"external_clk" is not declared in your bindings AFAICT, so at least it
-should be fine to remove it.
-
-There need to be a dt-binding patch documenting the new name you need
-and then you can start using it in the driver.
-
-In the future, please try to document all the inputs of your controller
-in the bindings. Even if you do not use them yet, they exist.
-
->  };
->  CCU_MUX_GATE_DEFINE(edp0_pxclk, edp0_pclk_parents, APMU_LCD_EDP_CTRL, 2,=
- 1, BIT(1), 0);
->=20=20
->  static const struct clk_parent_data edp1_pclk_parents[] =3D {
->  	CCU_PARENT_HW(dsi4ln2_lcd_pxclk),
-> -	CCU_PARENT_NAME(external_clk),
-> +	CCU_PARENT_NAME(edp1_pll_pxclk),
->  };
->  CCU_MUX_GATE_DEFINE(edp1_pxclk, edp1_pclk_parents, APMU_LCD_EDP_CTRL, 18=
-, 1, BIT(17), 0);
->=20=20
->
-> --=20
-> 2.43.0
->
-
---=20
-Jerome
