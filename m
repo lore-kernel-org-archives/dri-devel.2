@@ -4,100 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCFAC98324
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:22:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB803C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 13:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3010FA98;
-	Fri, 25 Sep 2026 13:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82E310FA6F;
+	Fri, 25 Sep 2026 13:23:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fOKfPt2k";
+	dkim=pass (2048-bit key; unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.b="dqHMBXFV";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52D1010FAB1
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 13:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790342544;
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8260310FA6F
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 13:23:30 +0000 (UTC)
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::4e])
+ (Authenticated sender: pza@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D5CB4200153;
+ Fri, 25 Sep 2026 15:23:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1790342608;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
- b=fOKfPt2k/qkngRrNihgEPzV+PiFb3us9Y3/uhFjMZ1TdRd3BmG+M0oag/GpTFq7R6JyCkM
- nY45gWV1lPCbKIBOvDkm2/XSodcCTqlJLPz4K7ZHGOcU2wezsvP/3R90SlndcwzSHfwzSH
- tWy7KSCpXER0hwV0VpWlVtHWNBbQw6c=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-608-XfC5DskFPhqA6Efm3Ft7ow-1; Fri, 25 Sep 2026 09:22:23 -0400
-X-MC-Unique: XfC5DskFPhqA6Efm3Ft7ow-1
-X-Mimecast-MFC-AGG-ID: XfC5DskFPhqA6Efm3Ft7ow_1790342542
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-5b5e279489dso596254e87.3
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 06:22:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790342541; x=1790947341;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
- b=UR+UL/BmmHi1nDE3tKESa96llZXo03ganM8tD7yJPoMiDc/D3T6R1H8emJKb/LFnES
- j5/HRduYDYDkkI2JIMr4pXs6Wu4MOaTrKHC9FEQkzAVLSNHO1FECy7Euyn1EJ8eMiS/7
- U9gS2bzgn6EAmr0gbZGEWN6ILNu5OzHBf5hL2ahSF7Z3zpESRwzQOzn+PtSsmHeJemuS
- 3DRH/dZzwWAB9tU2soBe23cTXQxKoCgEa/6g4IEpScFLddlz5YPpZ1lnJ3UNOVjGQS+e
- x6pSDvFBtvGlNa4e2Dcg5lmdmtI86cF/UZa8postg1KktRG9TUL9KPXyRx636EFr7tmw
- CIiQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByNvyrIPBe6qfwo4tXybPpg9n0ge82do7ihE+kf/dKYW9xMaE6Ntfe5a8F0nEktn9D5S7pK6t3iayg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lYUEJQ7etnjxtjnB3Sa/kVtibXtuOpkfd7hnmiw47INrzOfIu+
- T054StucWX2nRE3OSlTIOg5jpUn0pGzSGjg/VTWNkxb9qd2WLQFWicWZU+uS9GxmqfT8Y0ylP7b
- bMxu/m3jiFN7Kxu46CQJcvO0Gv3svLP3uZyvFAXSXMOUhR+hSBKM5s4abmgIoDVaqP6aQ
-X-Gm-Gg: AYBFou1TFg8C2kQzIcVbv6tsi2R6rCvh4w2WBNl9Q6qjvfSL5Vu8f+8luXG8EpGVhCI
- 3SQrmrjvPCKQs+/Xsn53dqtW9mqX3SkBM36LW5dx8nfJS4YGmDGuQunKPY65EyIJBXVS/XPeGXp
- D1CCR3O/He7KC3Sv/zWPN9HECGu3YSBYCEC0D632Zsits/I5zYU1FRZ8n0WWdYEg1OWJ9G7bLFl
- NTC1QTg2cM2DfJ3hBHCEVCGVDvZ3DPiE7JjDBWC/7xcJVoPl7uq9yI4fLyxkdGQ5IMz1qBHr2Wb
- kK2F4+ZCi4vdqEJY6P/Jc1vLykOxn4QyxZGw+QH+sBIOI1e52Sf0fsvky4nBEuTh0toShRAhPrE
- c32uLFRfZPevlo8bJdUWvKBJjs0gSSSw=
-X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id
- 2adb3069b0e04-5b8e6b36729mr733454e87.0.1790342541319; 
- Fri, 25 Sep 2026 06:22:21 -0700 (PDT)
-X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id
- 2adb3069b0e04-5b8e6b36729mr733437e87.0.1790342540724; 
- Fri, 25 Sep 2026 06:22:20 -0700 (PDT)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a64c2ea5d2sm5510451fa.18.2026.09.25.06.22.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Sep 2026 06:22:18 -0700 (PDT)
-Message-ID: <f7cc0ac3-729e-435e-9062-3317d0a6517b@redhat.com>
-Date: Fri, 25 Sep 2026 16:22:17 +0300
+ bh=FdhcquS8zcAZN7c0wYgqa4lDKnhin/2F2Ap2WGiqtYc=;
+ b=dqHMBXFV5h+TJgepHN/PFBLJBiVvxvl7NS/i3ddKATSLdmGNL13XcjL99bREmPa46/cc1a
+ 9kU/G7kJidP57WjfziejC0AfDKUv4FWROMJHO3B1QrvbuJdlGV8tm51vgK9pZE5V+zTczF
+ lUczsydndzJeeMKCWeqLQBYYp30iTHLo4RC8sFgc8JGjDQNlrRJJUBnILLR2DEmHTQVz3z
+ XPJQWkLfwQI2PScER3iVeIekLXyE6JamyYqmNBINXJGI++iHuL5H8Lzu8Z7s+6iHpmUkCE
+ 6cgAa36UJiD6jSD/z3ml4wAhyddNv2wdcVfbSBfYvOOiE6vcXK1KOqu16/YjIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1790342608;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FdhcquS8zcAZN7c0wYgqa4lDKnhin/2F2Ap2WGiqtYc=;
+ b=VscFHX5Nilk5f/x1aNvmluoMFXEVapp3TjgLvYMQ8hv4v3LMvZwwuEcvdg2clKw3noeHRG
+ Y3F5x7SoYIddKuRH5978oCUiWl9DigVEF1+4LNOVtibWjJXNUj8yjd5JcTGtp6IdERvC8m
+ F0B67Aea8vE8SoLYps+S6k6bMQiFPXyz296R1aMaerAyZlImg9w3ddVAvkqX1jIXVGtjus
+ x93AjsoweTWdf0L+KnREK8xAMz/HDjIhIB9rS7PUTR8Co+lpc290MUaja4773U8tANqXwE
+ /9PxkUaXjnqpbG2oqhgXzpIY/8IphCeLAtjPaMRvlb/t6ZpY1tkWXnRhJJq40Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790342608; a=rsa-sha256;
+ cv=none;
+ b=YynP0Q/W82yQ93X7hMinn+nyM7N9P7qCjnIDcEwq/q7icZB7ctcqlV7vPiY+53ry0nygaY
+ i+JJ08IqFBb2tyTGRPDB6hRlDOuxKIXjdD/xFRhJ131lhrtwKziPlsqpHvH7ZicWSRoTk7
+ 9ltcmt4CJ+Pcfgp1CHIgQzTttVMPXgi0CaGq/WDsCmQG/qu0f6RyLIatDtoMvfy+iFDSpj
+ NQ22FB7MJ/BCdhcf5hMvtj7YEDyorullLcaxknnxk09ZMGtkvuEeuHBXivxdq1pflET05L
+ /GYJcateQOXdAWheGv+/GuhVQ3c4k6UJYMV+XgBUCoXkwnk+Mh7t40FHPc94Zw==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c bridge
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: vishnu.saini@oss.qualcomm.com, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Marek
+ Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yi Zhang <zhanyi@qti.qualcomm.com>, Nilesh
+ Laad	 <nilesh.laad@oss.qualcomm.com>, Gopi Botlagunta	
+ <venkata.botlagunta@oss.qualcomm.com>, venkata.valluru@oss.qualcomm.com, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+Date: Fri, 25 Sep 2026 15:23:28 +0200
+In-Reply-To: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+ <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/11] migrate on fault for device pages
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Christoph Hellwig <hch@infradead.org>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260924065313.899730-1-mpenttil@redhat.com>
- <arY5zKsLuf7f_EYw@infradead.org>
- <65c5c412-56a7-46a9-b22b-22077a8e9727@redhat.com>
- <20260925124737.GL9354@nvidia.com>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <20260925124737.GL9354@nvidia.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: LmLly3vYX8RH6TMAU2y9x68uyHvuA5lOD5DCIjR7CGM_1790342542
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,26 +95,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> From: Yi Zhang <zhanyi@qti.qualcomm.com>
+>=20
+> LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> bridge configuration by detecting and handling both LT9211 and LT9211C
+> variants from a single driver.
+>=20
+> Chip detection in lt9211_read_chipid() is extended to identify the
+> LT9211C by its distinct chip ID registers, and cross-checked against
+> the chip type requested by the DT compatible string to catch a
+> mismatched board/compatible combination.
+>=20
+> Add LT9211C-specific regmap support and use lt9211_chip_data with
+> i2c_get_match_data() to provide per-chip configuration.
+>=20
+> Five new functions implement the LT9211C DSI-to-LVDS initialisation
+> sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
+> lt9211c_configure_timing(), lt9211c_configure_plls() and
+> lt9211c_configure_tx().
+>=20
+> Defer the remaining LT9211C initialization to a work item scheduled
+> from atomic_enable(), since RX auto-detection requires an active DSI
+> stream.
 
-On 9/25/26 15:47, Jason Gunthorpe wrote:
-> On Fri, Sep 25, 2026 at 01:23:52PM +0300, Mika Penttilä wrote:
->> On 9/25/26 12:07, Christoph Hellwig wrote:
->>> Who is going to use this? The series seems to lack an actual user
->>> for it. 
->> Two users: For one, existing migrate_vma_setup() callers, unchanged.
->> The series reworks migrate_vma_setup() to collect via
->> hmm_range_fault() internally (it sets HMM_PFN_REQ_MIGRATE and calls
->> migrate_hmm_range_setup(), mm/migrate_device.c). So every in-tree
->> migrate_vma consumer — nouveau, amdgpu/amdkfd, drm/xe via
->> drm_pagemap, lib/test_hmm — runs on the new path. 
-> So split the series so you don't add unused interfaces for now? Jason
+This is still wrong, and I don't understand why you need it.
 
-I think we get the other for "free", migrate_vma_setup() ->
-hmm_range_fault() is the now used. But if wanted you can drive the
-migration initially from  hmm_range_fault()  also from fault handler. If
-don't want that then it's removing 
-EXPORT_SYMBOL(migrate_hmm_range_setup);
+All scheduling initialization as a work item should allow is for
+downstream bridges and/or panels to be atomic_enabled while
+lt9211_work_func() is waiting for a vblank interrupt.
+They expect the LVDS signal to be active at this point. If LVDS is
+enabled at some unknown later point in time by the work item, any
+startup timing requirements the panel might have can not be applied
+correctly.
 
---Mika
+Also, deferring initialization as a work item shouldn't have any
+influence on the upstream DSI signal. That should already be active
+when lt9211c atomic_enable is called. Could it be that there is a bug
+in your display controller or DSI bridge driver that causes the DSI
+signal to still not be completely active at this point?
+
+> Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+I have not tested this version (yet).
 
 
+regards
+Philipp
