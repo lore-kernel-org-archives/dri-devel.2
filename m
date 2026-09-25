@@ -4,133 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB145C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 10:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3069C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 10:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10D710F9C1;
-	Fri, 25 Sep 2026 10:26:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 517A610F9C2;
+	Fri, 25 Sep 2026 10:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Q4zNbtax";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="pd5UJsxx";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020117.outbound.protection.outlook.com [52.101.195.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C116210F9C1
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 10:26:28 +0000 (UTC)
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021080.outbound.protection.outlook.com [52.101.95.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB93A10F9C2
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 10:29:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k728eXgz3AlXIa7rStLekEtyNUuA76FLNeaRi0loNxquKEW6281pSj8lswUCxCk+4zC/cHce1KcC1PIhdLI75rTysP3fUe/E7JpsPL/q2061EgA9G3WBJsgWpKZ+s0rrk15IiJCE4pRg8f/P37jeLvErHfq4XIjMFDedZoBnvtxILJVG8m2LjBNOM91JRGiKwKdzJu6ecpccFoiw+/c6F9zb5qlPMqVDuusq4Qaq10VW16PPbKNaWhYgoEj6TlVBAvqjPi6VWyAWOV5fTibQVxWxKWAmq7zZ2a9eZW4QJJbYaMuniJppeJ3Ipw7rP5WQfIEQq7PRqUj1m0UxdoHxyg==
+ b=BQJWtpyAZOym/wJdICELh1wDLPdlVRA4I/oohZZZFo+jl/Z7aEqtc/PRbNdn3q9LuQr444WqvvIoyZjcqc0+5x5D1fyeCJYpwa/pTpXIq+cvdsncbxj9fbWjnmiKRyPPmJgv1+DBKha+sFdRjYb75pQX4GVTpsu75SB8kgnviCsxQHA4YLkBcCh7PjiqxXCjJTDdlhvlB0bp9L/svPcj7Ltutv/lMfE4KZMFH0/bpyBMbFVpNrG8Jn2eAW1U0MBcZ9KW/f/u+YFHW/MfD2GxmTnRz/f8zwtMHI54ckUIDktHN9U9LCZiBftAALpIVlc/9P+1z13Q7jB0RDyGTX96eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CZJu9LoV7syLi+e6CLD3MHg/aKox3Bc7UM3+IlGh+m0=;
- b=xuwNpA45vshX4FC1jvSDY8XeT9lkNrqLc/0RHYZndKRV3WOJv5yeabq3ww7yW7ZFtvq2BqW641MKQCYaQA/sP9b5hSeQoq1BIPIG8xL5vx+QJchRH4+HCb6DQxKV7WwtqiM3ZXjVd/tebqwCzpECN0ExxzNrXwvfcIo8NR2T2SfiibHLZxOu19cukaJLW4oURpWcPHDAThgYhy4efweCZh1xkFFYLozh0277ytTBFwC8GMnGo2x8AYJVwIg+1rt2QeCXB4+8ff3Lzm98B/tTEzMF2eFYtLg0oSRTLGxfuyIUNXYswlaAKrrrXr6ESZJLhJcSOI8WlGF2pP45iM8W1g==
+ bh=sxjsxFHoYdELjeP4Y2+qg2AfABHp+CmZcqUvVsK6i4g=;
+ b=T5C6vudqPaDmUzJJrv5sqM7h+D4Dr8U5w/SdDQiGvkvFzqwCVocn8Tt8wlzr/5wHvwdgSF9ace/UEWsxLWFPeH/d06WCFWnd2nHYqcAEEojRCpZzNog6hhgHCltL7XwvyHd/u1t9buTRQV4CFDwl4/PJkNlJi1SV3oiucjJClsxOSDIwWIaFBUkQwOZ/2gHDe8S8Ob6jCZMb5Gj1yOGZqat0IKv6zDIqgtv2BlPNHN+rmFxpHbr0Uloi4GTzkB0v1uzFhEVOBvnSZVgFoCSdB4R4BSAPcLGQqJqAWNIQoJMQ0xGV5DcUJeIujotXcC2TsCoB6TuJ5CujsZ11s8xJvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CZJu9LoV7syLi+e6CLD3MHg/aKox3Bc7UM3+IlGh+m0=;
- b=Q4zNbtaxX7ca/IRLHcLo/HGOwdy7oVqX/cEBUacoEtMM5YfcMexIctfTJm7MTUrqYkZjrb3uRPFj5CzHjTf6V1bWMGB2P1lVADizj5DTw3iGGqTRZa4Zf9mSEDGA+U8jXYOlh3yjiNbCd64SZJGXGV5A+QrXtlJucTL0dKaVVO0=
+ bh=sxjsxFHoYdELjeP4Y2+qg2AfABHp+CmZcqUvVsK6i4g=;
+ b=pd5UJsxxTXdUNQlMPxu4n3zvrCZ0/kYWZtsU/FNVtVbLxnn55QqLJs85o/Fas5gqTi6E4Nt3rSvR3yL96nxg16VOjfkiUPw/yYdHxiFP8laV00A4+xSIXJ3OVnJMoJKKzFXk/23aXJfU0/YVGIM/kAloytJvrL0yQlwhgC8Mn+w=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB3010.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:d0::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ by CW1P265MB7405.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:219::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 10:26:23 +0000
+ 2026 10:29:11 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 10:26:22 +0000
+ 10:29:08 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 11:26:21 +0100
-Message-Id: <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
- reference
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+Date: Fri, 25 Sep 2026 11:29:07 +0100
+Message-Id: <DLOBS2HQYSWS.2W0JMY91EZ48V@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
  <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
  <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
  "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>
+ <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/tyr: safely write GpuInfo to userspace
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alice Ryhl" <aliceryhl@google.com>, "Deborah Brouwer"
+ <deborah.brouwer@collabora.com>
 X-Mailer: aerc 0.22.0
-References: <20260925081958.3048112-2-phasta@kernel.org>
-In-Reply-To: <20260925081958.3048112-2-phasta@kernel.org>
-X-ClientProxiedBy: LO4P123CA0406.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:189::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+References: <20260924-b4-gpu_info_intobytes-v2-1-1b05e33df8a4@collabora.com>
+ <CAH5fLgj=h_riWoOvEX_TOH3+0FNbKBtjO1OrxzwHDQq7uzXg_A@mail.gmail.com>
+In-Reply-To: <CAH5fLgj=h_riWoOvEX_TOH3+0FNbKBtjO1OrxzwHDQq7uzXg_A@mail.gmail.com>
+X-ClientProxiedBy: LO0P123CA0001.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:354::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB3010:EE_
-X-MS-Office365-Filtering-Correlation-Id: 541edd9c-de4e-4f4f-0a2f-08df1aef723a
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7405:EE_
+X-MS-Office365-Filtering-Correlation-Id: a90e7ecd-6a1e-4831-c60b-08df1aefd530
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|10070799003|376014|7416014|23010399003|10067099003|18002099003|56012099006|5023799004|3023799007|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: N64gNEEOtYJBrdYvM6wke8biTp3UKKbxJCpqzcmuYTLJpmKbtVwDVQ3oI0y5sBLbSrlao62oCSbNbhE08h2aPRIc+KEuvRxg4gwFg3bHbOX6khmynny+Y3ryPEzRZ+omxxY72d83au7WCFRwX5IHyIiK11I2fwF6ljAf90gmud6Vd3I0IaHAf/KrjSVsmVEihKg57nQKMPuezAXpJw1EF7VM42cU+JhYfJiIAsnkON7KzOtVLjInW0tI4gTXEshNJ5G9NrKBs4ICovUBhVmnQKmJ4/VPbVLUCqDyBJk9wF75oDDB6p3NOB/Fp21nQPwsv7FHWhxlVohwlYtFsmiLGAG9aSWnbas/GRO7FlZ6S9ldGKR56N4187ikdrQrPHwK4LnpCoTBPu9QCNdrbic9R/8rXY1QNEn8Ohb+EdhEBN8khumXtyNzXI1jt/AWcwtzZArqNHpVg6EJ2G6OX3AZdt+aWgCtIrBAqqVJxji/jg+OvH0EWgXKFlCLjIijSRkyzJ8SMwqY6B4nBcdVzTbrMW63H8DBh9mWuL/20npPkXY1FcXT53VBVhl2tFV94PnT4sQ5sglLCKL2w3YCocxucrafA9MblXA4MLNkjcuxK+IOjy57OAe0bm7FD3oM49x0D4YfVnT2LaaVj+NtEnQ/tlFKyuuZf+PdgSkuMss1Af4p8BXPlXdbwgrRcRuZ20TCtz/cLJriOBqEXSHGRIELNQ==
+ ARA:13230040|23010399003|10070799003|366016|1800799024|376014|7416014|56012099006|18002099003|4143699003|22082099003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: qK46F+gLzoN/ZXmeLCI4psc0u9KaCdbJPLDQxuTspiFqfR+qtyArIa04cl7q3kxqFqhhVEo/OOwj9+w9SrVSHa0kZ4gViSiCijMLvDiC1tLL3vgUqw/m8GYPRDdHdB7awUxQTKkLfU++b/lxy84BR72PqtNsG+b21mG3ILEP8hldsMMLKOdHfUPR5eoawVKAutJ8JSgSn/njW2hk8n98hyKhPyppYwAv+o4K8hIpBtZp0p+vI0hs6dSYE1yTAW8bOMiurZ8KhwtvPuL+nCbtW5x6MAdSNJftbQmBwUxc6FuuCqnFfNvtHmi8O6wGceMzrBMVHZtqTh2qSDubw41vJ1X8g5e+EfGtL/EeQvyFBhQOZ1+TSApT1QpemBeAwFqJApC3k0UIcDogQkEKfKhYNd1+FRc5sPNZsGooqZ0eDosXekletCxt2D9bcoZQqC/cm6zgGbPl0561inYMfJLhOXcv/X6HQ15ZobMbgJBTmU00T8n71d3GV3e/wD1gqgTza1Y6LKL2wzs1cN+QimDYci1GZb72H4KkMLRxQxqdc+WgGKoC9UoBIrIQLqgVk0C6Tm9aWBRUlOyYe5otI9gmPJZ/x5G1QEZMxSiqAlWs/SPow2GIaAOTFeEFsIlUXxxIoYJuxwX/WIROdOHctX9sHP0TQT6GI3fADBn741BJZoI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(7416014)(23010399003)(10067099003)(18002099003)(56012099006)(5023799004)(3023799007)(22082099003)(921020);
+ SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(376014)(7416014)(56012099006)(18002099003)(4143699003)(22082099003)(10067099003)(6133799003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVFmTVFuQ08xV0NhaUROVnZFTFhHU3FGYkllOGpKNUFid3AyRWtJN2wxWXRO?=
- =?utf-8?B?QTFlUWpEdE9PSTA3cjZ6amNJd1lzdGxyTWNpNjRWK2Y5VHlGeHRFdVViWU54?=
- =?utf-8?B?V3V2b1g4ekJOQlowcnFRbmRRaHRaVUdUemIyYmM5bXJ1aVdHWVk3SWVnODAy?=
- =?utf-8?B?ekViWVRWZUFnZ3RCdTRxOUxGTWV4bkcra1VSV0hwZXAxVGdzcXZ5Q2hpU09O?=
- =?utf-8?B?ZldRYjBtMXp2WlJKY2x5WW1JU3pKZnZtMldDZ0pybGVpWnBQUDAwYlhUcXQ0?=
- =?utf-8?B?V2l2UFdIWjZ6ZjZ1RVhMWWU3bjVKWUJEV0YzN3ZwK2hmNTl1ZjQwbm0zTzBw?=
- =?utf-8?B?amRKWTY3YUNXYUUxelpXWFJiQlpZY05RTlJXVFhiOTgzR2NYbU5RZmk4Tk9w?=
- =?utf-8?B?Zkw4ektmNVZVMjlqSmR4WFYvZG1IYlNRQ28rd2NiSEQ4dnFpZzlWaVk5K1ps?=
- =?utf-8?B?cVRoRFZad0ZpUWJPMEZma1FkVkdJK3RnaXdSeFJnaERMdlZUTXFRYmUzMlpn?=
- =?utf-8?B?ODJORWZhdVEyM1hsNEZlL3JoNFZ0QXVjTXU1b1hRdUg4ZEdXTXd0SXc5eVBk?=
- =?utf-8?B?aUg5MFBYVWNoNmFKTVVScnYrdW9hbnpCRUlSNSsrMGdKTWpzM3QxRU9EVVRD?=
- =?utf-8?B?bUVkU0pUTzBQU1NEQnB6bDdVOHF4Vi9YU0FSMGQ3V2oxN3FueWY2TjVEcGRZ?=
- =?utf-8?B?d1IwVUpaU21nMzNFbHhYakNsVlk0VmU3cVd6V295UERlcHYvRGR3YmF6emM4?=
- =?utf-8?B?ZUFVOWRNMFJDRkVmb3VvZDBTRVNsbnFucDFFRWt5dzhjRXlkZzVLNENNV3FT?=
- =?utf-8?B?d0pYQU9jZjZ5amxnNmhDb2hGVzlQWFV1V3NvakFEdGZqdFovRDgrelJWeHRH?=
- =?utf-8?B?NVRySTZnZHVYVXR2WDlWbEtrcVBBUkJ3RkhZZWNNZmlHWDU4M0c1cnNaQldC?=
- =?utf-8?B?Uld3ZEkzRXRDajh1Ulp5OTNsMktVcmpCbU9aM2pVWnFPOHhPRVdQUVJJUml6?=
- =?utf-8?B?NXFvNkZpYXdwWXByUzVtTlY5aGdJSWptU2gwZnZScS8rN1pLQWVzWDkvYmpB?=
- =?utf-8?B?NVNPRXRERmN5cmFxM2F5Y1h1NjlrZDR2VW5oUk1ra1hHZ1BJSE5MQld5NnlU?=
- =?utf-8?B?UGM4Rmk5UjJnZEt5YzliOGl5SUgwNUVvL3NMZ3dlT0lQTXIyYlpJSHBOcFZw?=
- =?utf-8?B?bnlySEk1YnRBVlQvWEdDUTVPakphVHg2T0FaTmk5UVVmZFVVT1UvVGdPN1Rt?=
- =?utf-8?B?bUpQQjdzTWNacTlHQUp2aTlwaTl4WDU4T0FkYWQ1eExkeWZFMUVBaFVxWjJB?=
- =?utf-8?B?Q1BuOEVSTUN2MkJBVUhrVGp2ZkFDSks0RVg3NTVYMUF5OXRuR1c0R1hEL1I0?=
- =?utf-8?B?c2lGc0ZjeTlhV052bk92TUNqTkRNd05obVBXcUZNTm0rbWIwRklrL3RrVmZI?=
- =?utf-8?B?MHpkSFdtbTRiOHNsUEl0YUJVYzhJeXF6bU0vOEF2WkJnSHZTbFJKeGx2NjU1?=
- =?utf-8?B?NkFhUlhWc08vN2tXVmNkTlBKVEJWTjdNUkZSS05hb09YbERXdHRSbDJzR3dx?=
- =?utf-8?B?aWg4eTl4T3NZanlLL1FyUlNTcWVrM2NPOWZ4ZE0yN0FsdXhWc1B3aUNubDJK?=
- =?utf-8?B?cWU5dFl4SGxOcTNKVGlpVEZoSncxR1U4eWUvN3BhN2VyVitVbVU0MndmSEdt?=
- =?utf-8?B?dEJuREZZYm83MWFXSE1TWWQrbUV3LzZHNW52SDNaeFkzMjFabXpGcXVWaWlP?=
- =?utf-8?B?eWJGNkhadW5uUWNhdUFWRkFPVWJHMTd0U0FISnpidktTOFhuTUlMTkl0Qmd6?=
- =?utf-8?B?NzdsQjJKZSt2SlRpeTdOalhpcTRRRjZDMDBTT2k3aCtxY2ZDaTZpYTFaT0U4?=
- =?utf-8?B?cCt4MXk1WjFBVUFtcVJCcyt2RDFVa3Zud05vRkVtT3RheFh5aTRRd29URUJm?=
- =?utf-8?B?dXRWZnZIN2lkWUo5Qi9kNjhjMHI1NFN5UDZ0eWpPWUJpVnZucFhuVE43Y3Nv?=
- =?utf-8?B?d2RFRmd0dndXNGRiN0R4cTdGWGMrOWM0UEw4cWRHdTdtbkJGVURJejg1dy9R?=
- =?utf-8?B?bXlLZDFnbEdCRzg4ZEtQL0QzakphUGh0WTRTTk9jV3dtUDJpU1ZhVUgvRGR1?=
- =?utf-8?B?SlRvWWtmaDR2Y3dlZ3JyVHNycWRMSm9nRUNrZDMxNWNoZXd1ZTk2SFFnbVJ4?=
- =?utf-8?B?NHpRU0ZCdVZDcnlGb2VGV3ozY1N4NnRESERTRFBnZU9xVzVZTUZoUzNvaHUr?=
- =?utf-8?B?b3pmWGVWMnNnbWxVT3o2TGZQa2xOQ2JPQytzcXRLTWVGa3BETEJGcEpQcDNC?=
- =?utf-8?B?bURZTUFLRTJDSW9Xa0dMZEkyanVKUVpidjd2VTZMMml6SjJqTTNrQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE8ycDZYZmVvT2dMcUJTYlpvOFdQUDVSZGJaMXJRckFPbjNOcVgyOW5XQzJU?=
+ =?utf-8?B?cElrWnhsWWpZVkhPOUNMc1NUaDB6NFpneFZFek5Gejc4N1V0bE4zWTA1eHp6?=
+ =?utf-8?B?Y3hnU0t5RGg4QUF0am9xVmxmWGRaTDk3T24vRG9CSXk1c3ppMHVyRjVIdUY2?=
+ =?utf-8?B?MlJwK1N6Y3c3VmhBWjM3ZG9vTGc5bFFGTmFxODk0Z2xzM01MaFlIM216d1NL?=
+ =?utf-8?B?T2pLa1YwSEZOWEF1akNIbDhteWRwZHVvTEFLeExXNVNrUVFJZVBnOWdrVE9P?=
+ =?utf-8?B?ZUlBQ01vTzdNQjkwS3Bpd21EVjUzQTJRR0Q5WXNHTFAvYitVR3FLQTJzaG9B?=
+ =?utf-8?B?dVRNd2xGdWw3b240SVdzN093N2FycUV3Zzl1TStoZ2pTSGdRTTMzUzJ3eURQ?=
+ =?utf-8?B?YlZteXJ1RlhwRWRXdnB1Qlh4UUtjd2hEeWZ6dWZWQ01yckN6ajBETUF3dW1Y?=
+ =?utf-8?B?aHBBaGlVOHM1ZTJEYXhIcWNhODhTKzlDVDFCWjVXQXg2dFFsVVlpRzJ3Njcx?=
+ =?utf-8?B?cUs1OUw0L1JQRFpXUlVMWTY4dVI0OTZyTUxYaWpMVFdPRXB1V1hWbVlGUjlv?=
+ =?utf-8?B?dlRWbk4yQTQ1TW8zc0tLSWZ1enV6d2RxM3JrSmdUN0lSRm4vYzlvdXZSck1D?=
+ =?utf-8?B?dm0wTGV6M3ZWNG9jWTNYa3RGMHlYRWZ4aE5QY2czajVzd3VqOThFa3FnK3Nj?=
+ =?utf-8?B?SUw4UUtlMDVmZWZ6ZVV2dDcraTZaVGUrL3YyeXQzTFhldXN0WDNJU2gxTGxJ?=
+ =?utf-8?B?bHRhbG9uU3VjWVVLdnRCTU83VUl4c2JnMmtvbDA1Y1hvSUZHalhJWERKVmNr?=
+ =?utf-8?B?L1JuR1J4dktNTzZwcVRHYWE3OTBaV0Y2ZDZkV2thZVVrV0lGMUhzSXlkWFNZ?=
+ =?utf-8?B?YmFRaC9DUEVoUUpWWDVIQ0FBQldhOWhkNjdJdmdzcXJpL2Noa0VWYTZrdFZj?=
+ =?utf-8?B?ZUVxek9LVHBuQjhiSUtReVNEb1NvVSt6L2JtbHVwSUFDK3JRQ25qZjdBWFRS?=
+ =?utf-8?B?SEdtOUlxTHR3Q2krZ0ZHeHN1ZGNqb0ZvZHpQODQ5WFdxYW5NN2thL2xra1M1?=
+ =?utf-8?B?WURjbUt6Z0laZzFsSjE0NWo2QUUwSUM1MnNod0h2YXQ1K1RNMzlWZzJqbjBO?=
+ =?utf-8?B?aVFEVTVWMmNVbXZuTG5yZHVmRjRwTmlld0hzSWFmTS9MaGdMZ25zNXpIREZm?=
+ =?utf-8?B?WXYvOENuTURsdklIa0o5QjA4ZkZZWXBLN0RlVFNKNW5BeXlsZDNqbFRoZkZC?=
+ =?utf-8?B?WEs1WmI1MEJxV0tiQ1BaNThCeHRZRWx1eHpIbHp1YzA0ek96ZGVtcVdYLytE?=
+ =?utf-8?B?czMzOEh5Ykd4SkxpQkpURVJhZDdsamdiTUpKcEMvb1lWZEpxbFBwdEF2NHRi?=
+ =?utf-8?B?QmY2MzNockZzWVdOT2tkck1oMDI3MjhiNFFjL3lqd0F4cGVrMFk1WUtHbHdL?=
+ =?utf-8?B?dC83QUtWWXhBK2FqVnprT0MzTUliVXowVERKZGI3Uis3eVlHSnNwcEJyQ0RG?=
+ =?utf-8?B?OXlDL1lORHhEcnFzdklBTEZUNDBxMmdpK0FUYU5LWnRTajE0YkxZR1IyUHMr?=
+ =?utf-8?B?TG15Rm1XNXpIT0NrOGpISUkyNU1TQVNEcGVwYmphYjBZTE9mUnorNWE1RUhN?=
+ =?utf-8?B?ZHdKTXJXN2hiS0FqMjljVmRHa1pvWjdmN0JUdEVOMFJMNGJRWC9LKzFoSVEx?=
+ =?utf-8?B?Zll6Q3pDeE5NODliQTVXZUYyd1U1SEFkaDc3NXVnTVU3YlpGSkEzMjVqS1hY?=
+ =?utf-8?B?OWMxTUFQMzl2UVBzbjVNVGNmNS9MSDZZeVY5OElTMDhoc2dPNXpVRXR4OGdy?=
+ =?utf-8?B?WnRMNFkyemF6bnI0UzlFMWVhQTVyd0JjVUpCeGJ4Q2djMjF6WVZaWS9tSHlt?=
+ =?utf-8?B?d3VzdFU3bFovQ1BuWjlROVBmN2hTZW9kcFplSGNha01YRGZRcFBHdVo1Mk95?=
+ =?utf-8?B?Q2J1YlcvVlBVTHBoUXhEOURYaTQ3Ymh5MDBhSEZRTkUwL1JCNmFBOUNKNEVw?=
+ =?utf-8?B?SDZRRXlwN1pZTnhSalV3WjBkc0ZneHRSUVRXZHRNejBncksyR1c1eXRmbUhJ?=
+ =?utf-8?B?MTQvUVRPT0Zxc2NKMVZTTStHMTh1K2k4Rk13eWlVNXFPeDdHcTJwQ3ZMTUNO?=
+ =?utf-8?B?VkJpRHhNcFNYUDR4VnV4d3ZFUSt4enZvOENjMU94K2lZeC9DYXNDaGplWUZk?=
+ =?utf-8?B?SFhKSE5KM3ZISld6WXEwWmFxL0lWSUxHQWswb2dQWUJYY0VIbkxVVHFEdmwy?=
+ =?utf-8?B?eWhKOWRBb2tqL3Q4UDhKMmN6VzI0QVBxbWxMMVFUUm92WC9VNnoyNzZSUFpi?=
+ =?utf-8?B?S2hxbTh4VXNRc1ZFMS9vR0Uwc1NjUjFpVlNrVXNkUHh6MjY5ZkM2Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 541edd9c-de4e-4f4f-0a2f-08df1aef723a
+X-MS-Exchange-CrossTenant-Network-Message-Id: a90e7ecd-6a1e-4831-c60b-08df1aefd530
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 10:26:22.7230 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 10:29:08.6951 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K0TR+H+l7BUu7tc8BGXyxiXKJ5Jl4taR8+Yi6sTvDMakLwwLBJ8qjqKwj/4/FMck1kwvttVCDz5lvi4KFdxJ+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3010
+X-MS-Exchange-CrossTenant-UserPrincipalName: YUbiSRso30hyDTbCt6Bwt/4TLgiVlulkB/5dPG7YSMVgWXsOjvv+eFcFmPEhaVBgMACZHQssp7NRTM+goIV8pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7405
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,30 +145,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 25, 2026 at 9:19 AM BST, Philipp Stanner wrote:
-> FenceContext::drop() contains a warning print that warns about possible
-> memory corruptions if there are forgotten fences. However, precisely
-> speaking, a forgotten fence is undefined behavior.
+On Fri Sep 25, 2026 at 8:56 AM BST, Alice Ryhl wrote:
+> On Thu, Sep 24, 2026 at 7:22=E2=80=AFPM Deborah Brouwer
+> <deborah.brouwer@collabora.com> wrote:
+>>
+>> Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
+>> bindings. It initializes this struct by querying the gpu and then writes
+>> the struct into userspace memory faithfully byte-by-byte.
+>>
+>> Currently, the struct drm_panthor_gpu_info does not have any implicit
+>> padding, but if implicit padding were added in the future Rust does not
+>> guarantee that it would be initialized. Then when Tyr writes the struct
+>> back to userspace it could expose uninitialized kernel memory.
+>>
+>> Tyr implements the unsafe trait AsBytes for GpuInfo whereby the develope=
+r
+>> guarantees that struct drm_panthor_gpu_info does not include implicit
+>> padding, pointers, or interior mutability. This allows Tyr to safely cop=
+y
+>> the struct into userspace memory. However, relying on the unsafe trait
+>> AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
+>> guarantees may no longer be accurate.
+>>
+>> Instead, use the derive macro `zerocopy_derive::most_traits` for struct
+>> drm_panthor_gpu_info. This macro will attempt to implement the zerocopy
+>> traits for struct drm_panthor_gpu_info. If the Panthor UAPI changes so
+>> that the traits IntoBytes or Immutable can no longer be implemented, Tyr
+>> will no longer compile.
+>>
+>> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 >
-> Moreover, forgotten fences hint at a severe design problem in the
-> driver. In this context, the used pr_err!() does not provide very useful
-> text output.
+> So this looks good to me
 >
-> Replace the warning print with a dev_warn!(). To do so, have the
-> FenceContext carry a reference to a Device, protected by the already
-> present lifetime.
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+>
+> but needs Miguel's ok since it modifies the Makefile. And I imagine he
+> may ask the commit to be split into two.
 
-Add a lifetime just to do this a print doesn't sound ideal. You could use
-`ARef<Device>` instead?
+FWIW I do think this should be two commits, one making Make changes and app=
+ly to
+both uapi and bindings, and the second adding the Tyr-specific parts.
 
 Best,
 Gary
 
->
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->  rust/kernel/dma_buf/dma_fence.rs | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
->
 
