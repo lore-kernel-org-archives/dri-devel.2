@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BBE9C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:09:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31528C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7088710F8AF;
-	Fri, 25 Sep 2026 07:09:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83A7E10E23A;
+	Fri, 25 Sep 2026 07:12:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DEb2rwZ8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ADPMwDDG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DC010F8AC;
- Fri, 25 Sep 2026 07:09:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDBA10E23A
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:12:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4705142088;
- Fri, 25 Sep 2026 07:09:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58B51F000FF;
- Fri, 25 Sep 2026 07:09:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B2EA6022E;
+ Fri, 25 Sep 2026 07:12:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09DF11F000FF;
+ Fri, 25 Sep 2026 07:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790320182;
- bh=+J4xHXaY9R9kLQ7szYwmx/wU+8/NKKFT7t+1HnxrAIU=;
+ s=k20260515; t=1790320359;
+ bh=NVNtdfaFuhQM5ZtGJkq2qCGOSaGMPFe6Csf0NwoMr4E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DEb2rwZ8krH5ND5HAWvMaTLizes8sChFPaJM/ptw0TZ8VkiHNPXxHKBgBYKpLbmnZ
- aFU6SfD2BkJM+mw9+WbSGR9ae4v7KX6v9DTfVu5wTgRl/LXbkxjZGHWFrL5V4Kg8sl
- D3Dh/yBHHy/ldDFdDqPGEB0PX9RR8jlxbawBZdjOT54wRLpjeDXcwhVFOlp/9PxrB0
- i6UIJqGqm6s+6/ZY2Odfo7QG+bCjbh3afS6zOpupTXiTVa25Ng2fg3kRR76dWgzuur
- nq/4mWTIWUsvW7DhE9q+FSCHQ3ghkn2Y+pzehcAufrHQpjylzSDqDXEJyeiatG59oF
- idh4cUqP3/nSQ==
+ b=ADPMwDDGlI1Ole2f5pmjuNSwhTO5ZOFXTT6tUkRNc9DzHzjfqVfOd/pN9jJV8jn3i
+ qT2fNuyssbqufUBk/mMFQd+CsvQt0etIzKlLqj1TMmW+97tQfmBZtTSQzJBNvDgU9M
+ LAckJm9k4e1zXG6swQB/xV8cN2MMl2txkYae4KRNd0zHfDsM5yUFWwEszb5tK/IuvZ
+ AJOHkHilUkr5lM4JjLSL6QkXTUPxlXuawQmY42x7NMl9f8F8QuxCcB+PnHEDDXhMrX
+ 4xWCMBgfqY9A5kREODTP7NHq4GtyooMt4hn6bZ4Sy73eEwLZMXl9lC/ns5NMtEtWGn
+ kiwkZO+Xl02EA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] i2c: designware: Support per-variant reg/bit
- offsets and intr handling
-To: "Aniket Limaye" <a-limaye@ti.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- intel-xe@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260925-tda54-upstream-i2c-v3-2-544d74e992ff@ti.com>
-References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
- <20260925-tda54-upstream-i2c-v3-2-544d74e992ff@ti.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: visionox,vtdr6130: Add
+ Retroid Pocket 6 panel
+To: "Aaron Kling" <webgeek1234@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260925-rp6-panel-v2-1-19c425e523de@gmail.com>
+References: <20260925-rp6-panel-v2-0-19c425e523de@gmail.com>
+ <20260925-rp6-panel-v2-1-19c425e523de@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 07:09:41 +0000
-Message-Id: <20260925070941.C58B51F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 07:12:38 +0000
+Message-Id: <20260925071239.09DF11F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,98 +59,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] i2c: designware: wangxun hardware register access broken
-- [Low] i2c: designware: dw_i2c_reg_offsets array bloat in header
+- [Medium] dt-bindings: vdd-supply validation dropped for visionox,vtdr6130
 --
 
-commit 5382481b0ab458e2922590488d443f56e4cc2c8b
-Author: Aniket Limaye <a-limaye@ti.com>
+commit a3a48cee05612d79cd6eb27b26e83813b38aff64
+Author: Aaron Kling <webgeek1234@gmail.com>
 
-    i2c: designware: Support per-variant reg/bit offsets and intr handling
+dt-bindings: display: visionox,vtdr6130: Add Retroid Pocket 6 panel
 
-This commit introduces support for per-variant register and bit offsets,
-and interrupt handling in the DesignWare I2C driver. It changes register
-offsets from compile-time constants to a logical enum, resolving physical
-offsets via a regmap-based mapping table to prepare for different register
-layouts.
+The vtdr6130 is a display driver integrated circuit, a common chip used
+for various panels. One such panel is used in the Retroid Pocket 6.
 
-Link: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v2-2-261785e5=
-8493@ti.com/
-Link: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-2-b0b9f77be1=
-8b@ti.com/
+> diff --git a/Documentation/devicetree/bindings/display/panel/visionox,vtd=
+r6130.yaml b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6=
+130.yaml
+> index c99f4146f1bb0..682f30dc9ee43 100644
+> --- a/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/panel/visionox,vtdr6130.y=
+aml
 
-> diff --git a/include/linux/designware_i2c.h b/include/linux/designware_i2=
-c.h
-> index 53f37f18a7229..994e0e5ea623f 100644
-> --- a/include/linux/designware_i2c.h
-> +++ b/include/linux/designware_i2c.h
-> @@ -11,48 +11,103 @@
->  #include <linux/bits.h>
+[ ... ]
+
+> @@ -25,13 +29,13 @@ properties:
+>    vdd-supply: true
+>    port: true
+>    reset-gpios: true
+> +  rotation: true
 > =20
->  /*
-> - * Registers offset
-> + * Logical register IDs. Each ID is resolved to a physical offset via a
-> + * per-variant table (see dw_i2c_reg_offsets[] below); regmap backends
-> + * (dw_reg_read()/dw_reg_write() and the Xe I2C_REG() macro) perform that
-> + * lookup so callers never need to know the real offset.
->   */
-> -#define DW_IC_CON				0x00
-> -#define DW_IC_TAR				0x04
-[ ... ]
-> -#define DW_IC_COMP_TYPE				0xfc
-> +enum dw_ic_reg_id {
-> +	DW_IC_CON,
-> +	DW_IC_TAR,
+>  required:
+>    - compatible
+>    - reg
+>    - vddio-supply
+>    - vci-supply
+> -  - vdd-supply
 
-[Severity: High]
-Does changing these constants to logical enum IDs break Wangxun hardware
-register access?
+[Severity: Medium]
+By dropping vdd-supply globally from the required list, does this cause
+incomplete schema validation for the original visionox,vtdr6130 hardware?
 
-When the Wangxun driver's parent (txgbe) provisions an external parent regm=
-ap,
-the I2C core skips its built-in regmap initialization:
+Device trees using compatible =3D "visionox,vtdr6130" might now erroneously
+omit the previously required vdd-supply property and silently pass schema
+validation.
 
-drivers/i2c/busses/i2c-designware-common.c:i2c_dw_init_regmap() {
-    ...
-    /*
-     * Skip detecting the registers map configuration if the regmap has
-     * already been provided by a higher code.
-     */
-    if (dev->map)
-        return 0;
-    ...
-}
+Should this be solved using an allOf and if-then block to conditionally
+require vdd-supply only for the original hardware?
 
-Because the parent regmap hasn't been updated to expect logical register ID=
-s,
-it will pass these new enum values directly to the hardware. For example, it
-would pass 26 for DW_IC_ENABLE instead of the physical offset 0x6c.
-
-Will this cause the driver to read and write to incorrect register offsets =
-on
-Wangxun platforms?
-
-[ ... ]
-> +	DW_IC_COMP_TYPE,
-> +	AMD_UCSI_INTR_REG,
-> +	DW_IC_REG_MAX
-> +};
-> +
-> +/*
-> + * Default "snps,designware-i2c" register offsets, indexed by
-> + * enum dw_ic_reg_id.
-> + */
-> +static const __maybe_unused u32 dw_i2c_reg_offsets[DW_IC_REG_MAX] =3D {
-> +	[DW_IC_CON]			=3D 0x00,
-
-[Severity: Low]
-Does defining this static const array in a header file cause binary bloat?
-
-Including linux/designware_i2c.h will embed a private copy of this 164-byte
-array into every translation unit that includes the header.
+>    - reset-gpios
+>    - port
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-tda54-upst=
-ream-i2c-v3-0-544d74e992ff@ti.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-rp6-panel-=
+v2-0-19c425e523de@gmail.com?part=3D1
