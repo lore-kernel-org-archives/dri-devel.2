@@ -4,85 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78ABC98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 20:09:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B720C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 20:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30EDA10E0F7;
-	Fri, 25 Sep 2026 20:09:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31D410FC70;
+	Fri, 25 Sep 2026 20:18:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="kjgvy4zl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lGrPRzNi";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A371F10E0F7
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 20:09:16 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260925200914euoutp02190211168e9262f27661be7eb6326ac0~YqUJW3dDY2877128771euoutp02d;
- Fri, 25 Sep 2026 20:09:14 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260925200914euoutp02190211168e9262f27661be7eb6326ac0~YqUJW3dDY2877128771euoutp02d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1790366954;
- bh=R72S8DmRi/X/3ay93ymVYKLFPysF0+EoCRlZHiXClqQ=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=kjgvy4zlvFmyqpQHEzHq/zWMUA3FgQkqE75j4+LomdrHrNmkJpvcM3ydDGtKc4VXp
- fWZsWjxcsrdkzuWcJLhS1ty46ziDUjRf9WEicSKvI1tcUCxzIfuP5EWFNFERIqLDX4
- zaHyNsRYRimaSmp2xvCGlZcGHHhLniYdd49lPjJI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260925200913eucas1p198ff3fecf4c9d327b4b2d573f4509285~YqUIQc1cW1226912269eucas1p1i;
- Fri, 25 Sep 2026 20:09:13 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260925200911eusmtip12932e01dfb1872e66825c5d6349ffed6~YqUGgNfWN0501005010eusmtip1G;
- Fri, 25 Sep 2026 20:09:11 +0000 (GMT)
-Message-ID: <0c29c063-0b09-4710-8bf8-1d9adee4eb53@samsung.com>
-Date: Fri, 25 Sep 2026 22:09:10 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Byron Stanoszek
- <gandalf@winds.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
- Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
- Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
- Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B12810FC3B;
+ Fri, 25 Sep 2026 20:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790367501; x=1821903501;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=8nYsMNBj4L3ReABaog33NYzqWk3JFS/Z/36I8Qc2fsE=;
+ b=lGrPRzNiKWxRIeDAQdbm5JRH43GncP7KeFp5VzAoIkBxEN79i1QmkzbX
+ KhSGpPMX/uI4k4PWE+KkL40EGogGPjk0GL6+Rfxx9/rjIDP0OBISpcSxb
+ Noaw15X+51KZ+Eo6DWF6+ztIDmhbVovVC7ynfXMmgksKIF29eB8bA1BBR
+ mw3ZLV9ja63ocJuTfzKPd1QaiXgr2s22LH6KBw8cTa14YYop/RfOawufp
+ 47ux0OOomooUkP9VFvpAHGrFxedXFXHWNWfrQyOVVsdt3gr2cW+7HA+of
+ n2vtNXyEOKxYaSlNlWMkTjBA/HbxzRJEw8aHO/sB/dndasxwEwSCUXbC2 Q==;
+X-CSE-ConnectionGUID: lojvzow/RsOD3UrQ1r3tGg==
+X-CSE-MsgGUID: dFnuRwyCRDqXzc2bFn2zfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="91180818"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; d="scan'208";a="91180818"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 13:18:20 -0700
+X-CSE-ConnectionGUID: 7E6ASCgKQ+m3LAw83IfJgg==
+X-CSE-MsgGUID: cWxAMHJBSjuqkdm875GN5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; d="scan'208";a="277612602"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 13:18:20 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 13:18:19 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 25 Sep 2026 13:18:19 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.20)
+ by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 13:18:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=epUy8OKg/m93+/GkIwfRozQYU9WivVxGge3+LhPaK2mriq4cX9GNbCS3o0jSH+8yNAcNeTUM3hbs2OCJgJy+B5wBSw62xJfmjk35oYejFGX+gFp3goto6Iq/g2rm1cDTboOTyZs13nanx8qT811jS9HiwWv+jpO7Y+qjEQJQSklcyW/in9L7XwdVW0Z1pexQOka2pVN4doTQe0DSmDLvYgQKi3Umgh/MAWnKWeo1/98GvNnlolIhL8OgU6XagJOYny0wFCzvFceeoY3Pnm0n4I6Li8S+vJQjFwJ4TJM282bB42V0ClNBKpXPlxnL26nbp+jxjJUQNb5zeUcoA4UVig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=maZsWI5ydvsOu63HJfTMGo8QwnruevchgHezJ6ic/Lg=;
+ b=i4iKqzfMaaf5oGzZrdbcgCgvLkFGoHjqZy6eROgf2FW8q2m15lnNOc5Io6yIZKpIiYl8E4LAiczWWP6rakCtnhfCSYWHb9hZHxvDekzqkS9064eRcTi4L2OgcnA1zrWHfdtf5GWqMAtVxivX5JsZ9S4XFCxCiWU3SLyEk66LJXIq15IznD4LpKtrijX562WDixRFohQcatM35TSStpW3TEAxbRmGHR3rm6QQse3DzWvQQMkp0lBriJn23gSxsSTW3WGYf8SYqe7tzu7W+QYBvj6oNH0zK9lIKHMoUY+0VJQgt2aYp1XXiUBkCEbSSpi6DR2M5nTn4zPi6eR0HSxZJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by BY1PR11MB7984.namprd11.prod.outlook.com (2603:10b6:a03:531::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 20:18:16 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 20:18:16 +0000
+Date: Fri, 25 Sep 2026 13:18:14 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+CC: <intel-xe@lists.freedesktop.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+Subject: Re: [PATCH v3 3/3] drm/xe: Route deferred xe_vma/xe_vm teardown off
+ system_dfl_wq
+Message-ID: <arbXBmprEiRY6fXR@gsse-cloud1.jf.intel.com>
+References: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
+ <20260925133335.149679-4-thomas.hellstrom@linux.intel.com>
+ <arbR+2Sxc9snuKSM@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260925200913eucas1p198ff3fecf4c9d327b4b2d573f4509285
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
-References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
- <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
- <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
+In-Reply-To: <arbR+2Sxc9snuKSM@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: MW4PR03CA0162.namprd03.prod.outlook.com
+ (2603:10b6:303:8d::17) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|BY1PR11MB7984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7881e0a3-524a-43fe-c824-08df1b42220e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|10067099003|5023799004|11063799006|6133799003|18002099003|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: Efndq3q5V9OC14NuGUCXusskyWVi50vKXfWwTQNZdvnsdTlcsxkkwE7RyV4y746afzMJVomQuWWGYA0msyC4/tpddlo5s5AB59bBQMXbOBOSbJdD4MPkyEHJooOgmk8xjXGQbBsYZqt5blGPprXaszuuUBNp/p/4Q01CVQaLazX2D6AUpSMUhUxgzDe6q/LAgg9H5Cx8/x2bAXVT19i1oq1uuyMZRB70iXz0NFIKkGqWlChn+rILyS1bfRIj3f/DinYIPf3hdrOGpf3rqENr0g8d/1ctPta0WtWPUQXt8Wx3tilbHSeJNDGJjXa1T8awEi9H0pQFFAtSFQu1n7zQzI9ldP6I6HQWHD45mfndgUEIWP1YLbugXKuQx0O3GzsxI7ojUZ3n2awrWnjVvsuK31FjjtSITsRgPl/crvrIbPEY5hAjFCKTcxwDr71ULCsRBSsjijGrkz3WiSSehj71iihk9P5MsAKNMEldVYLi/0J+fpgdrDEjLS/i8vxD6NDnxsuU7V6NsF97ndNo6lb5HytLqm6ehyVmyparLNHLeoxj3dc6g3mO+ppRBPbB7CN71CNkMyrw2l39uoyMAZqaQ8tpkQBOhmF1ztf+5ry1d3rSbjCHrnfXPpNrAUPnT6ptjEGjVJPY3wReOUmMldrMbqrbelUqc9uILk1xsmz/twM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(10067099003)(5023799004)(11063799006)(6133799003)(18002099003)(22082099003)(4143699003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Fb39C6uW/131iegqJG3Fio6qAOkkH9R7l75aXjJpAh4uOZ0BPtuxbb8U23?=
+ =?iso-8859-1?Q?xlVWjWBP/5k/0LTiBXDucfxlVtTgxdRIEpRH/i9HcD9KYd0s44r0NOI1q8?=
+ =?iso-8859-1?Q?89Z4jMGnBmF2kbswjoAcEmZHJN6DCE6f7XtGDEX3nxSoVNp8G0BzC/AS1X?=
+ =?iso-8859-1?Q?+hDLPV/thS83+z7eYI1OsKugXeay0nZwHu3/JysQiXfYlC+l33cU4qf89a?=
+ =?iso-8859-1?Q?t+HxdT9HEyz9ejhyhr9Vci98eLrOB58ASv0vq6M0EJr8ugCTPnQV/rb5wT?=
+ =?iso-8859-1?Q?VP7GCET+vZIgS6TV7N/LWwx9E8O0Ukn2GrtvCEvKupgtw41G1xgVGuqWSN?=
+ =?iso-8859-1?Q?O0iJyuK2Kxxj6YoX2PBwlauCmIn4Yrt7W/Dpzz9MCjffEznk+pfnOTZbMD?=
+ =?iso-8859-1?Q?wkQOgvogNer5Dtb+RgNLLQeHxEgfmy3khe+OTyrLiBmR1R4/v631teTfV5?=
+ =?iso-8859-1?Q?I4HLMQ/vW7qp79t72s96A0OcKTdyEG9xowy7QGaSCWlB6PhedY7mgKGsBu?=
+ =?iso-8859-1?Q?4dRw3XcpUeYKZ2+2MziCC+II/rN2Xt5ib7mAB8Wc0GMqJRXedJdoRoVEEL?=
+ =?iso-8859-1?Q?YGEIefxDAUZwR7K69ZFJCgn05yJnN0mydmA/S3rbEknYhIpzDGDaMOrLwh?=
+ =?iso-8859-1?Q?HOmHLYVkyG7tjPq0ggvlSPNerRB7siJTFXmVaquBhljmt6agqm7FFkvWN8?=
+ =?iso-8859-1?Q?x3J+b5DwY4Bn+7pdU5tAe1l+EqOWN6BoujiG/0Y9QksBcTR/NDpRPA+OFC?=
+ =?iso-8859-1?Q?VLdtLaDAz7V5X83GnAeZkW679djGcbfQUflq136qceFQBdbxYnfKs/nbdR?=
+ =?iso-8859-1?Q?xGOiQS1E7fH0cuqPr5fGuSa15B+cuUWB7jsBbF0y1T0k//iiQgqDoxxCpy?=
+ =?iso-8859-1?Q?Bwh29VizV64B1Zxxrqdgf6oTw8ZbnKAA7cbUO5MxpXj3htByafz9hVTW3d?=
+ =?iso-8859-1?Q?5+lag/wlebW2353cu66pJFhjjJmTgFh2VJ0Faow24o50YMOSQvlf9IhycW?=
+ =?iso-8859-1?Q?zYJP9cxIFJ0i8J+adeMlrsyut344Kb0U3YwC1JMyyBhAUqigpY9d5MuTE3?=
+ =?iso-8859-1?Q?tBG2aizqoVBJG3gOzF+zwiKN12lg1X96eoxMN+pXCFtiXeIbJByijtGDDD?=
+ =?iso-8859-1?Q?hZkLdzDb1QY3KApIT0wxPpbKPCX2WhHwuK7Dk+rttccbROEFElAlr9QDF2?=
+ =?iso-8859-1?Q?O9vR3Mm88/QsWfeXRejWYGaY/YqSXVQt1uCKLiqXA+/ctAt5mCLBzTnwcn?=
+ =?iso-8859-1?Q?STGevk95TEH82Wirf40pAAWzNNexglLNS5q8Oz1+nSPM4lEmctjiwOt7e1?=
+ =?iso-8859-1?Q?MiSTiA1hg29IaLpryh2ffu+d8Pv+/xPQGPpXiJiN1ghKZMtnNMwoxbREnq?=
+ =?iso-8859-1?Q?5sWkycfK58wY74h3v9/BRwHxiHWB3x+dWkbcZPE3BlWaqz6Kv3fWC8pWVI?=
+ =?iso-8859-1?Q?1iD9Q3i/20AfoAVhrPrV5LojynwD2nz6SyoSqYhqpdmO6s8FRgzLRNcxrx?=
+ =?iso-8859-1?Q?KfvUGuTCoCtYMXAk7Gf/ihoNLnSPEepmncJ5+eTj7EYXUMEowOAzLv5dy8?=
+ =?iso-8859-1?Q?mWy6Cdp357cdXYCecFcDA1xMEzb9OSSP+YCk4REyurBxXp+YvDu+umyr0L?=
+ =?iso-8859-1?Q?CAnPMM7WgsMFWMUseXA2vlP+RGKJM3CrPROVU7UIgw3aL/DuNfPgKufWd+?=
+ =?iso-8859-1?Q?okWwkUKuUs3zIHBHNDe+YyPoTgNHwPvQzYv6OyKDgkqejCbXXRViXHKBVX?=
+ =?iso-8859-1?Q?VH83wcPd112TTcym4ce4WSo6il3SwXTMqK/PL//Bl57vWyhA/38LVobroA?=
+ =?iso-8859-1?Q?IEwS5GqSkaBv+5nv7ke2OSVwLAr1r+0=3D?=
+X-Exchange-RoutingPolicyChecked: 0s8VrWmBqH80ZDpBXeISki1mVx06JAKjiHvjGaS64nrtnPAT7RVef1ddqGLSwqu43uZiTOxqyv2VEIGe3pv/JpmcP4E9qAVFdT+wg9nKsRP6aoPpd2CulaNR3uquJjq08ET91fLD5HFUhTEZ0NyxLBOeav7yQAb45p7rBTE9zbVTFcIEtzz7cW83pqHNt2gNwzHNTBU5VTpT55mFzHlv4pa3PdiruwMPBGk9+mK5+x1E23hdi8t9xDNqBCoTwRxd6pC+VEcYLqz0yjLUpU4Iw4wek1N7VXxkJGgdoYY3LuJ113xKjphVJpwvM5IH9H/1HJa4ruDpxwLE2XdAj0TU5w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7881e0a3-524a-43fe-c824-08df1b42220e
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 20:18:16.4403 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AoAC5XlabQyg94zxXSEuaNVVCw0JFcfc/Brv1ZPV/iT2d0YrCpzuOx/w2vfF8gAo+GjLYCHKzaSNJ6mYT8CPQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB7984
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,193 +166,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Bryan and Icenowy,
-
-On 9/20/26 09:35, Icenowy Zheng wrote:
-> 在 2026-09-20日的 02:09 -0400，Byron Stanoszek写道：
->> On Tue, 15 Sep 2026, Michal Wilczynski wrote:
->>
->>> This series enables the display subsystem on the StarFive JH7110.
->>
->> Hi Michal,
->>
->> I tested your v4 patch series on my VisionFive2 1.3B with kernel 7.3-
->> rc3 today
->> and it works very well, except for 2 issues. Note, to make the screen
->> refresh
->> properly, I am using the noncoherent cache fixes from
->> https://protect2.fireeye.com/v1/url?k=3d78ed45-62e3d45a-3d79660a-000babdfecba-dbc6e750c3338bb9&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=https%3A%2F%2Fgithub.com%2Fganboing-jh7110%2Flinux%2Fcommits%2Fganboing-jh7110-cache-fix-v1%2F
->> (specifically commits 3683d97, ef93e2c, 277db0b, and 26ce3e6) in
->> addition to
->> your patch.
->>
->> Issue 1: I have a Dell U2711 monitor which has limited HDMI 1.3
->> capability, so
->> I invented my own Xorg mode to get a good frame rate:
->>
->> "2560x1440_40.22"  162.00  2560 2608 2640 2720  1440 1443 1448 1481
->> +hsync -vsync
->>
->> With this mode and your new driver, I started getting rows of black
->> pixels
->> flickering in the upper-left corner of my LCD screen. These weren't
->> there back
->> when I was running the same mode under the Keith Zhao driver from
->> StarFive
->> (drm/verisilicon v5 plus a bunch of patches for dma cache coherency)
->> (
->> https://patchwork.kernel.org/project/dri-devel/cover/20241120061848.196754-1-keith.zhao@starfivetech.com
->> /).
->>
->> The glitches I saw suggested the sync polarity was being set
->> incorrectly; the
->> number of glitched rows was exactly the vsync pulse width plus 1
->> (i.e.
->> "1440 1443 1448 1481" produced 6 bad rows, "1440 1443 1456 1481"
->> produced 14,
->> "1440 1441 1442 1481" produced 2, and so forth).
->>
->> I did a register dump between the two drivers and found that,
->> although the
->> DC8200 HSYNC and VSYNC registers were identical between the two
->> versions, the
->> hsync and vsync bits on the inno hdmi tx were swapped between the
->> two. When I
->> manually set the VIDEO_TIMING_CTL register from 0x09 to 0x05
->> (matching the
->> output of Keith's driver), the glitches went away.
->>
->> Keith Zhao driver:
->>
->> === DC8200 display 0 ===
->> DC   PANEL_CONFIG               0x1418 = 0x00001111
->> DC   HSIZE                      0x1430 = 0x0AA00A00
->> DC   HSYNC                      0x1438 = 0x45280A30
->> DC   VSIZE                      0x1440 = 0x05C905A0
->> DC   VSYNC                      0x1448 = 0xC2D405A3
->> DC   DPI_CONFIG                 0x14B8 = 0x00000005
->> DC   FB_CONFIG                  0x1518 = 0x14000000
->> DC   FB_ADDRESS                 0x1400 = 0x71200000
->> DC   FB_STRIDE                  0x1408 = 0x00002800
->> DC   FB_SIZE                    0x1810 = 0x02D00A00
->> DC   FB_CONFIG_EX               0x1CC0 = 0x00002000
->> DC   PANEL_START                0x1CCC = 0x00000001
->> DC   DP_CONFIG                  0x1CD0 = 0x0000000A
->> DC   FB_WATER_MARK              0x1CE8 = 0x00000000
->> DC   PANEL_CONFIG_EX            0x2518 = 0x00000000
->>
->> === INNO HDMI TX video timing ===
->> HDMI VIDEO_TIMING_CTL           0x08   = 0x05
->> HDMI EXT_HTOTAL_L               0x09   = 0xA0
->> HDMI EXT_HTOTAL_H               0x0A   = 0x0A
->> HDMI EXT_HBLANK_L               0x0B   = 0xA0
->> HDMI EXT_HBLANK_H               0x0C   = 0x00
->> HDMI EXT_HDELAY_L               0x0D   = 0x70
->> HDMI EXT_HDELAY_H               0x0E   = 0x00
->> HDMI EXT_HDURATION_L            0x0F   = 0x20
->> HDMI EXT_HDURATION_H            0x10   = 0x00
->> HDMI EXT_VTOTAL_L               0x11   = 0xC9
->> HDMI EXT_VTOTAL_H               0x12   = 0x05
->> HDMI EXT_VBLANK                 0x13   = 0x29
->> HDMI EXT_VDELAY                 0x14   = 0x26
->> HDMI EXT_VDURATION              0x15   = 0x05
->>
->> Your driver (showing only the changed values):
->>
->> DC   DP_CONFIG                  0x1CD0 = 0x00000000
->> DC   PANEL_CONFIG_EX            0x2518 = 0x00000001
->> HDMI VIDEO_TIMING_CTL           0x08   = 0x09
->>
->> Specifically the bit#s are different between the two drivers:
->>
->> inno_hdmi-starfive.h (Keith Zhao):     inno-hdmi.c (generic):
->>    v_HSYNC_POLARITY_SF(n)  ((n) << 2)     v_HSYNC_POLARITY  bit 3
->>    v_VSYNC_POLARITY_SF(n)  ((n) << 3)     v_VSYNC_POLARITY  bit 2
->>
->> "_SF" suggests this change is specific to StarFive. The correct
->> positions are
->> HSYNC=bit 2 and VSYNC=bit 3 for the JH7110.
+On Fri, Sep 25, 2026 at 12:56:43PM -0700, Matthew Brost wrote:
+> On Fri, Sep 25, 2026 at 03:33:35PM +0200, Thomas Hellstr�m wrote:
+> > xe_vma_destroy() can defer the final teardown of a struct xe_vma to a
+> > dma_fence completion callback (vma_destroy_cb()), and xe_vm_free() (the
+> > drm_gpuvm_ops.vm_free callback) always defers struct xe_vm teardown to
+> > a work item, since destroying a VM needs to sleep. Both used to queue
+> > their work on system_dfl_wq, a global, kernel-wide workqueue that xe
+> > has no control over and never waits on during module unload.
+> > 
+> > drm_gpuvm_free() drops its drm_device reference immediately after
+> > calling xe_vm_free(), without waiting for the deferred work to run.
+> > The same applies one level down: whichever xe_vma or xe_vm reference
+> > happens to be the last one can trigger this chain from a dma_fence
+> > callback that may fire at an arbitrary time, including after the
+> > owning file has already been closed and its own module reference
+> > dropped. Since nothing tracks or waits for work queued on
+> > system_dfl_wq, `rmmod xe` could succeed and free the module's text
+> > while vma_destroy_work_func() or vm_destroy_work_func() is still
+> > queued or running on it, jumping into freed code.
+> > 
+> > Fix this by queueing this work on xe_destroy_wq instead, the existing
+> > module-lifetime workqueue already used for GuC exec queue teardown.
+> > Unlike a per-device workqueue, this requires no dereference of a
+> > struct xe_device that may already be gone by the time a deferred
+> > callback fires, and unlike system_dfl_wq it is guaranteed to be
+> > drained by xe_destroy_wq_module_exit() before the module is unloaded,
+> > following the drm_pagemap_dev_hold()/unhold_work precedent of using a
+> > workqueue that is waited on at module unload rather than a bare module
+> > reference. The previous commit's reordering of xe_destroy_wq_exit()
+> > to run after xe_device_exit() guarantees that xe_destroy_wq is only
+> > torn down once the device-count has reached zero, i.e. after any
+> > xe_vma or xe_vm whose teardown queues work here has already dropped
+> > its drm_device reference and thus already queued that work.
+> > 
+> > Signed-off-by: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
+> > Assisted-by: LLM
+> > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >  drivers/gpu/drm/xe/xe_module.c | 6 ++++--
+> >  drivers/gpu/drm/xe/xe_vm.c     | 5 +++--
+> >  2 files changed, 7 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
+> > index c61bd33546f2..897724cb5cfb 100644
+> > --- a/drivers/gpu/drm/xe/xe_module.c
+> > +++ b/drivers/gpu/drm/xe/xe_module.c
+> > @@ -114,8 +114,10 @@ static void xe_destroy_wq_module_exit(void)
+> >   * xe_destroy_wq_queue() - Queue work on the destroy workqueue
+> >   * @work: work item to queue
+> >   *
+> > - * The destroy workqueue has module lifetime and is used for GuC exec queue
+> > - * teardown that can outlive a single xe_device. SVM pagemap destroy uses the
+> > + * The destroy workqueue has module lifetime, and is guaranteed to outlive
+> > + * any xe_device, and to be drained before the module is unloaded. It is used
+> > + * for GuC exec queue and xe_vm/xe_vma teardown that can be deferred past the
+> > + * lifetime of the xe_device that triggered it. SVM pagemap destroy uses the
+> >   * per-device xe->destroy_wq instead.
+> >   *
+> >   * Return: %true if @work was queued, %false if it was already pending.
+> > diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> > index 390da884c727..ee369e6c3b28 100644
+> > --- a/drivers/gpu/drm/xe/xe_vm.c
+> > +++ b/drivers/gpu/drm/xe/xe_vm.c
+> > @@ -29,6 +29,7 @@
+> >  #include "xe_exec_queue.h"
+> >  #include "xe_gt.h"
+> >  #include "xe_migrate.h"
+> > +#include "xe_module.h"
+> >  #include "xe_pagefault.h"
+> >  #include "xe_pat.h"
+> >  #include "xe_pm.h"
+> > @@ -1249,7 +1250,7 @@ static void vma_destroy_cb(struct dma_fence *fence,
+> >  	struct xe_vma *vma = container_of(cb, struct xe_vma, destroy_cb);
+> >  
+> >  	INIT_WORK(&vma->destroy_work, vma_destroy_work_func);
+> > -	queue_work(system_dfl_wq, &vma->destroy_work);
+> > +	xe_destroy_wq_queue(&vma->destroy_work);
+> >  }
+> >  
+> >  static void xe_vm_assert_write_mode_or_garbage_collector(struct xe_vm *vm)
+> > @@ -2059,7 +2060,7 @@ static void xe_vm_free(struct drm_gpuvm *gpuvm)
+> >  	struct xe_vm *vm = container_of(gpuvm, struct xe_vm, gpuvm);
+> >  
+> >  	/* To destroy the VM we need to be able to sleep */
+> > -	queue_work(system_dfl_wq, &vm->destroy_work);
+> > +	xe_destroy_wq_queue(&vm->destroy_work);
 > 
-> In fact it's not SF specific, [1] pg.13 (full manual page 979) also
-> shows the same for RK.
+> Actually this is still unsafe, right?
 > 
-> It could be an error from Rockchip developers since the beginning.
-
-Yeah I agree; Maud Spierings reported similar issue and Dominuque
-Belhachemi also figured that v_HSYNC_POLARITY and v_VSYNC_POLARITY are
-simply swapped in
-inno-hdmi.c.
-
-As Icenowy stated Rockhip TRM also confirms this. I intend to send a fix
-as part of this series (as suggested by Maud).
-
+> destroy_work touches vm->xe which could be gone after gpuvm drops
+> potentially the final drm_dev_put, right?
 > 
-> [1]
-> https://protect2.fireeye.com/v1/url?k=ba283351-e5b30a4e-ba29b81e-000babdfecba-1b86e6ec0e74b45d&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=https%3A%2F%2Fgithub.com%2FDeciHD%2Frockchip_docs%2Fblob%2Fmain%2Frk3128%2FTRM-chapter-24-hdmi-tx.pdf
+
+Ignore this - we flush this queue before destorying any device.
+
+Matt
+
+> Matt 
 > 
-> Thanks,
-> Icenowy
-> 
->>
->> I'm guessing that your 42-mode test passed because most CEA modes are
->> +hsync
->> +vsync, and this wouldn't show any difference if the two bits were
->> transposed.
->>
->> Once the sync polarity is sorted, I'd be happy to give a Tested-by:
->> on the
->> series.
->>
->>   --
->>
->> Issue 2: This is more a feature request than an issue. Originally, I
->> tried
->> running this Xorg modeline, which worked well under Keith's driver:
->>
->> "2560x1440_49.90"  201.00  2560 2608 2640 2720  1440 1443 1448 1481
->> +hsync -vsync
->>
->> However, your driver would not accept this pixel clock. I then
->> noticed you have
->> a pre-PLL table of fixed clocks. Is there any chance you can change
->> the code to
->> compute the pre-PLL on the fly like how Keith does it, rather than
->> use a table?
-
-I can add the entry, hopefully you can let me know in the v5 whether it
-works for you.
-
-inno_hdmi_phy_pre_pll_determine_rate() returns -EINVAL for any rate not
-in the table, and .mode_valid is built entirely on that:
-
-rounded = clk_round_rate(ctrl->clks[CLK_PCLK].clk, pixelclk);
-if (rounded != pixelclk)
-      return MODE_NOCLOCK;
-
-If the PHY computes dividers on demand, clk_round_rate() starts
-succeeding for almost every rate .mode_valid stops rejecting anything
-and we're back to advertising modes the PHY can't drive  the
-blank screen bug patch 11 exists to fix.
-
-To keep the rejection you'd have to replace the table with a real
-constraint model.
-
-The fracdiv values doesn't seem to be cleanly derivable and the Rockchip
-has the datasheet and still chose a table. 
-
-
->>
->> Thanks for all your great work!
->>
->> Best regards,
->>   -Byron
->>
->>
->> _______________________________________________
->> linux-riscv mailing list
->> linux-riscv@lists.infradead.org
->> https://protect2.fireeye.com/v1/url?k=46fbedc2-1960d4dd-46fa668d-000babdfecba-e6e7fb64f005c1b3&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=http%3A%2F%2Flists.infradead.org%2Fmailman%2Flistinfo%2Flinux-riscv
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+> >  }
+> >  
+> >  struct xe_vm *xe_vm_lookup(struct xe_file *xef, u32 id)
+> > -- 
+> > 2.55.0
+> > 
