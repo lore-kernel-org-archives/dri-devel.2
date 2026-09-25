@@ -4,54 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D2CEC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 15:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F117C98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 15:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 901B010E26A;
-	Fri, 25 Sep 2026 15:05:24 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0780310E26A
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:05:21 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
- by APP-05 (Coremail) with SMTP id zQCowAD3YTysjbZqY+FECQ--.59359S2;
- Fri, 25 Sep 2026 23:05:16 +0800 (CST)
-Message-ID: <05dd2bb93c0e4ecb7b12c8bc20a2e61a80cbe05b.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 3/7] drm/verisilicon: introduce per-variant hardware
- ops table
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 23:05:15 +0800
-In-Reply-To: <20260918030125.315978-4-a0987203069@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-4-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D71EB88E45;
+	Fri, 25 Sep 2026 15:21:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="F656mgJ9";
+	dkim-atps=neutral
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 658E788E45
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:21:02 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260925152100euoutp01f66d6f8165a657e248ca8bf1c08c7403~YmYfRx5CL2212322123euoutp01e
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 15:21:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260925152100euoutp01f66d6f8165a657e248ca8bf1c08c7403~YmYfRx5CL2212322123euoutp01e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1790349660;
+ bh=SHgaribOFjNf5YMHUlR3fMpt5ySYd+TAsj/f7UavMDk=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=F656mgJ9jfgNjrKs8uA1ZyoifUtpO6Jd2QaA5EhGg1UsGVHdaiunvQVyoBsr8yvQm
+ 4JvEzIJQ1xTCBczVOiZBqIm+3EdyCpwECRq8i8GN27wlqHNo+fCU/+mKx+GZJgiYUH
+ q6eRUP+VcFpqTg/tZTDMerGTpXC394G1YEw2aP4w=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1~YmYeygoFS3026930269eucas1p2w;
+ Fri, 25 Sep 2026 15:20:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260925152057eusmtip25e163fc5b8da5ebbde70f8a09827ff17~YmYcynyS-2281922819eusmtip28;
+ Fri, 25 Sep 2026 15:20:57 +0000 (GMT)
+Message-ID: <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
+Date: Fri, 25 Sep 2026 17:20:57 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowAD3YTysjbZqY+FECQ--.59359S2
-X-Coremail-Antispam: 1UD129KBjvAXoWfXF45KrW5JFy7JF43JF1UKFg_yoW8tr4UGo
- WxK3WfGayrXrnakayYyw18Kw4aqF4DGwn5u3yrKrsFqa4jyw1UXrW7Gr15uayxKr1Fkr17
- Z34Ikw4vvF48XFyUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
- AaLaJ3UjIYCTnIWjp_UUUY37k0a2IF6w4kM7kC6x804xWl14x267AKxVW8JVW5JwAFc2x0
- x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj4
- 1l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0
- I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqVcEUUUUU
-X-Originating-IP: [120.85.96.244]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 00/11] Make the 32-bit ARM DMA API work with normal
+ IOMMU DMA default domains (+ Tegra PoC)
+To: Mikko Perttunen <mperttunen@nvidia.com>, Robin Murphy
+ <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon
+ <will@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiko Stuebner
+ <heiko@sntech.de>, Thierry Reding <thierry.reding@kernel.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Hunter
+ <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>, Krzysztof
+ Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Yong Wu
+ <yong.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
+ Clark <robin.clark@oss.qualcomm.com>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
+References: <CGME20260915021542eucas1p254addab18c10cb117f42ccf3d3522883@eucas1p2.samsung.com>
+ <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,673 +86,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sorry for some late nitpicks.
+On 15.09.2026 04:14, Mikko Perttunen wrote:
+> Depending on the probe ordering, TegraDRM does not currently probe on 
+> kernels with CONFIG_ARM_DMA_USE_IOMMU enabled, such as with 
+> multi_v7_defconfig. The Tegra SMMU puts several display and 2D/3D 
+> clients into one IOMMU group, and the legacy 32-bit ARM DMA API path 
+> creates one UNMANAGED domain per device and attaches it with 
+> iommu_attach_device(). That only works for one device per group, so 
+> every client after the first fails to attach, 
+> iommu_device_use_default_domain() rejects the group with -EBUSY, and the 
+> driver goes down with it. tegra_defconfig is currently working by virtue 
+> of not enabling CONFIG_ARM_DMA_USE_IOMMU.
+>
+> Robin suggested [1] that instead of teaching the legacy path about 
+> groups, we should explore modernizing the 32-bit ARM DMA code a bit by 
+> making it use domain cookies and have the core code own the domains, as 
+> is the case on other architectures. Still, ARM's own DMA code is kept to 
+> support existing drivers and APIs that expect it, and because dma-iommu 
+> is considered too big and unnecessary for 32-bit ARM.
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The DC8200 and DCUltraLite share a broadly similar register layout
-> but
-> differ in how the bridge, CRTC, primary plane and IRQ paths are
-> driven.
-> Introduce a vs_dc_funcs vtable so each variant can supply its own
-> implementation without scattering conditionals across multiple files.
->=20
-> Add a generation field to struct vs_chip_identity to distinguish
-> variants.
-> Extract the DC8200-specific hardware ops into vs_dc8200.c and add
-> unified
-> IRQ bit definitions so implementations can translate hardware-
-> specific
-> bits to a common set.=C2=A0 Update the shared code to dispatch through
-> dc->funcs.
->=20
-> No behaviour change for existing DC8200 platforms.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+
+I agree that such little modernization is the right step to unify a bit
+ARM 32bit with modern archs and get rid of some workaround in the drivers.
+
+It was me who raised the concern about the drivers depending on the first-fit
+allocation algorithm used in the32-bit ARM DMA code. This is an issue for some
+legacy Samsung Exynos drivers. I not aware of any other driver used on ARM 32bit
+SoCs that depends on this behavior.
+
+If one is still interested in switching ARM 32bit to generic IOMMU-DMA code I
+can prepare a workaround for those Exynos drivers. I still have it on my todo
+list, but in meantime there was no interest in updating ARM 32bit DMA code.
+
+
+> The series is in four parts:
+>
+> - Patches 1-2 are preparation in the IOMMU core:
+>   1. Add iommu_teardown_dma_ops, counterpart to iommu_setup_dma_ops.
+>   2. Add cookie type for ARM's DMA domains.
+> - Patches 3-6 implement the DMA API side on 32-bit ARM:
+>   3. Split up domain and address space management code in arch/arm/.
+>   4. Implement parallel dma_ops / cookie APIs on ARM side.
+>   5. Avoid domain allocation when IOMMU core does it.
+>   6. Support foreign-allocated sg_tables.
+> - Patch 7 enables 32-bit ARM IOMMU drivers to provide a DMA default 
+>   domain.
+> - Patches 8-11 convert Tegra:
+>   8. Allows deferring translation enable until driver handshake for
+>      selected devices.
+>   9-10. Removes code detaching ARM UNMANAGED DMA domains in
+>         Host1x/TegraDRM.
+>   11. Enables DMA default domain for selected Tegra devices.
+>
+> None of this should have any functional effect on any device other than 
+> the Tegra devices enabled in patches 8-11. Other IOMMU drivers can opt 
+> in later. The new DMA default domains are enabled only when the IOMMU 
+> driver explicitly specifies a DMA domain type, just returning 0 for the 
+> default is not enough (unlike on arm64), keeping the current behavior.
+>
+> Patches 8-11 are provided for demonstration but we can deal with them 
+> separately if the rest of the series is accepted.
+>
+> Patches 1,2,3 are applicable independently.
+> Patches 4,5 depend on the previous patches.
+> Patch 6 can be applied independently but is only required once
+>   the whole series lands (by TegraDRM).
+> Patch 7 depends on patch 4.
+>
+> Patches 1-7 only touch drivers/iommu/ and arch/arm/mm/ and associated 
+> headers.
+>
+> Best regards,
+> Mikko
+>
+> [1] https://lore.kernel.org/linux-tegra/910d1492-ad3b-4201-93c6-208be1dcde7d@arm.com/
+>
 > ---
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 20 +--
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 38 +++++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 32 +++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 121
-> ++++++++++++++++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 ++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 32 +----
-> =C2=A011 files changed, 220 insertions(+), 54 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> b/drivers/gpu/drm/verisilicon/Makefile
-> index 426f4bcaa834d..9d4cd16452fa1 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,6 +1,6 @@
-> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
-> =C2=A0
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o
-> vs_hwdb.o \
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_drm.o vs_hwdb.o \
-> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> =C2=A0
-> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index dc7c85b07fe32..3fbc8d57f8a1e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -162,15 +162,8 @@ static void vs_bridge_enable_common(struct
-> vs_crtc *crtc,
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_DE_EN |
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_DAT_EN |
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_EN);
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> -			VSDC_DISP_PANEL_CONFIG_RUNNING);
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			VSDC_DISP_PANEL_START_RUNNING(output));
-> -
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> >id),
-> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +
-> +	dc->funcs->panel_enable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_bridge_atomic_enable_dpi(struct drm_bridge *bridge,
-> @@ -228,14 +221,7 @@ static void vs_bridge_atomic_disable(struct
-> drm_bridge *bridge,
-> =C2=A0	struct vs_dc *dc =3D crtc->dc;
-> =C2=A0	unsigned int output =3D crtc->id;
-> =C2=A0
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> -			=C2=A0 VSDC_DISP_PANEL_START_RUNNING(output));
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> -			=C2=A0 VSDC_DISP_PANEL_CONFIG_RUNNING);
-> -
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> >id),
-> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +	dc->funcs->panel_disable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_bridge_funcs vs_dpi_bridge_funcs =3D {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> index c24c1588cbe69..6033662dd9221 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> @@ -16,10 +16,33 @@
-> =C2=A0#include "vs_crtc_regs.h"
-> =C2=A0#include "vs_crtc.h"
-> =C2=A0#include "vs_dc.h"
-> -#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_drm.h"
-> =C2=A0#include "vs_plane.h"
-> =C2=A0
-> +static void vs_crtc_atomic_begin(struct drm_crtc *crtc,
-> +				 struct drm_atomic_commit *state)
-> +{
-> +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> +	struct vs_dc *dc =3D vcrtc->dc;
-> +	unsigned int output =3D vcrtc->id;
-> +
-> +	if (dc->funcs->crtc_begin)
-> +		dc->funcs->crtc_begin(dc, output);
-> +}
-> +
-> +static void vs_crtc_atomic_flush(struct drm_crtc *crtc,
-> +				 struct drm_atomic_commit *state)
-> +{
-> +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> +	struct vs_dc *dc =3D vcrtc->dc;
-> +	unsigned int output =3D vcrtc->id;
-> +
-> +	if (dc->funcs->crtc_flush)
-> +		dc->funcs->crtc_flush(dc, output);
-> +
-> +	drm_crtc_vblank_atomic_flush(crtc, state);
-> +}
-> +
-> =C2=A0static void vs_crtc_atomic_disable(struct drm_crtc *crtc,
-> =C2=A0				=C2=A0=C2=A0 struct drm_atomic_commit *state)
-> =C2=A0{
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc
-> *crtc,
-> =C2=A0	drm_crtc_vblank_off(crtc);
-> =C2=A0
-> =C2=A0	clk_disable_unprepare(dc->pix_clk[output]);
-> +
-> +	if (dc->funcs->crtc_disable_ex)
-> +		dc->funcs->crtc_disable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
-> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc
-> *crtc,
-> =C2=A0	drm_WARN_ON(&dc->drm_dev->base,
-> =C2=A0		=C2=A0=C2=A0=C2=A0 clk_prepare_enable(dc->pix_clk[output]));
-> =C2=A0
-> +	if (dc->funcs->crtc_enable_ex)
-> +		dc->funcs->crtc_enable_ex(dc, output);
-> +
-> =C2=A0	drm_crtc_vblank_on(crtc);
-> =C2=A0}
-> =C2=A0
-> @@ -119,7 +148,8 @@ static bool vs_crtc_mode_fixup(struct drm_crtc
-> *crtc,
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_crtc_helper_funcs vs_crtc_helper_funcs =3D =
-{
-> -	.atomic_flush	=3D drm_crtc_vblank_atomic_flush,
-> +	.atomic_begin	=3D vs_crtc_atomic_begin,
-> +	.atomic_flush	=3D vs_crtc_atomic_flush,
-> =C2=A0	.atomic_enable	=3D vs_crtc_atomic_enable,
-> =C2=A0	.atomic_disable	=3D vs_crtc_atomic_disable,
-> =C2=A0	.mode_set_nofb	=3D vs_crtc_mode_set_nofb,
-> @@ -132,7 +162,7 @@ static int vs_crtc_enable_vblank(struct drm_crtc
-> *crtc)
-> =C2=A0	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-> +	dc->funcs->enable_vblank(dc, vcrtc->id);
-> =C2=A0
-> =C2=A0	return 0;
-> =C2=A0}
-> @@ -142,7 +172,7 @@ static void vs_crtc_disable_vblank(struct
-> drm_crtc *crtc)
-> =C2=A0	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-> +	dc->funcs->disable_vblank(dc, vcrtc->id);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_crtc_funcs vs_crtc_funcs =3D {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
-> b/drivers/gpu/drm/verisilicon/vs_dc.c
-> index dad9967bc10b8..9729b693d360e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -8,9 +8,7 @@
-> =C2=A0#include <linux/of.h>
-> =C2=A0#include <linux/of_graph.h>
-> =C2=A0
-> -#include "vs_crtc.h"
-> =C2=A0#include "vs_dc.h"
-> -#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_drm.h"
-> =C2=A0#include "vs_hwdb.h"
-> =C2=A0
-> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void
-> *private)
-> =C2=A0	struct vs_dc *dc =3D private;
-> =C2=A0	u32 irqs;
-> =C2=A0
-> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	irqs =3D dc->funcs->irq_ack(dc);
-> =C2=A0
-> =C2=A0	vs_drm_handle_irq(dc, irqs);
-> =C2=A0
-> @@ -136,6 +134,8 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
-> >identity.model,
-> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
-> =C2=A0
-> +	dc->funcs =3D &vs_dc8200_funcs;
-> +
-> =C2=A0	if (port_count > dc->identity.display_count) {
-> =C2=A0		dev_err(dev, "too many downstream ports than HW
-> capability\n");
-> =C2=A0		ret =3D -EINVAL;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
-> b/drivers/gpu/drm/verisilicon/vs_dc.h
-> index ed1016f18758e..825f5dd6bf174 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-> @@ -14,6 +14,7 @@
-> =C2=A0#include <linux/reset.h>
-> =C2=A0
-> =C2=A0#include <drm/drm_device.h>
-> +#include <drm/drm_plane.h>
-> =C2=A0
-> =C2=A0#include "vs_hwdb.h"
-> =C2=A0
-> @@ -22,6 +23,34 @@
-> =C2=A0
-> =C2=A0struct vs_drm_dev;
-> =C2=A0struct vs_crtc;
-> +struct vs_dc;
-> +
-> +struct vs_dc_funcs {
-> +	/* Bridge: atomic_enable, atomic_disable */
-> +	void (*panel_enable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +	void (*panel_disable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +
-> +	/* CRTC: atomic_begin, atomic_flush */
-> +	void (*crtc_begin)(struct vs_dc *dc, unsigned int output);
-> +	void (*crtc_flush)(struct vs_dc *dc, unsigned int output);
-> +
-> +	/* CRTC: atomic_enable, atomic_disable */
-> +	void (*crtc_enable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +	void (*crtc_disable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +
-> +	/* CRTC: enable_vblank, disable_vblank */
-> +	void (*enable_vblank)(struct vs_dc *dc, unsigned int
-> output);
-> +	void (*disable_vblank)(struct vs_dc *dc, unsigned int
-> output);
-> +
-> +	/* Primary plane: atomic_enable, atomic_disable,
-> atomic_update */
-> +	void (*primary_plane_enable_ex)(struct vs_dc *dc, unsigned
-> int output);
-> +	void (*primary_plane_disable_ex)(struct vs_dc *dc, unsigned
-> int output);
-> +	void (*primary_plane_update_ex)(struct vs_dc *dc, unsigned
-> int output,
-> +					struct drm_plane_state
-> *state);
-> +
-> +	/* IRQ acknowledge */
-> +	u32 (*irq_ack)(struct vs_dc *dc);
-> +};
-> =C2=A0
-> =C2=A0struct vs_dc {
-> =C2=A0	struct regmap *regs;
-> @@ -33,6 +62,9 @@ struct vs_dc {
-> =C2=A0
-> =C2=A0	struct vs_drm_dev *drm_dev;
-> =C2=A0	struct vs_chip_identity identity;
-> +	const struct vs_dc_funcs *funcs;
-> =C2=A0};
-> =C2=A0
-> +extern const struct vs_dc_funcs vs_dc8200_funcs;
-> +
-> =C2=A0#endif /* _VS_DC_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> new file mode 100644
-> index 0000000000000..f72da10295e1b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> @@ -0,0 +1,121 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
-> + */
-> +
-> +#include <linux/regmap.h>
-> +
-> +#include <drm/drm_print.h>
-> +
-> +#include "vs_bridge_regs.h"
-> +#include "vs_dc.h"
-> +#include "vs_dc_top_regs.h"
-> +#include "vs_drm.h"
-> +#include "vs_plane.h"
-> +#include "vs_primary_plane_regs.h"
-> +
-> +static void vs_dc8200_panel_enable_ex(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			VSDC_DISP_PANEL_START_RUNNING(output));
-> +
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
-> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			=C2=A0 VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> +			=C2=A0 VSDC_DISP_PANEL_START_RUNNING(output));
-> +
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
-> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_enable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> +			VSDC_TOP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dc8200_disable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> +			=C2=A0 VSDC_TOP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dc8200_plane_commit(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc,
-> unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
-> unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_update_ex(struct vs_dc *dc,
-> unsigned int output,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane_state
-> *state)
-> +{
-> +	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> >crtc_y));
-> +	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state-
-> >crtc_w,
-> +					 state->crtc_y + state-
-> >crtc_h));
-> +	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 hw_irqs, unified =3D 0, known =3D 0;
-> +	unsigned int i;
-> +
-> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &hw_irqs);
-> +
-> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-> +		known |=3D VSDC_TOP_IRQ_VSYNC(i);
-> +		if (hw_irqs & VSDC_TOP_IRQ_VSYNC(i))
-> +			unified |=3D VSDC_IRQ_VSYNC(i);
-> +	}
-> +
-> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "Unknown hardware IRQ bits: %#x\n", hw_=
-irqs &
-> ~known);
-> +
-> +	return unified;
-> +}
-> +
-> +const struct vs_dc_funcs vs_dc8200_funcs =3D {
-> +	.panel_enable_ex		=3D vs_dc8200_panel_enable_ex,
-> +	.panel_disable_ex		=3D
-> vs_dc8200_panel_disable_ex,
-> +	.enable_vblank			=3D vs_dc8200_enable_vblank,
-> +	.disable_vblank			=3D
-> vs_dc8200_disable_vblank,
-> +	.primary_plane_enable_ex	=3D
-> vs_dc8200_primary_plane_enable_ex,
-> +	.primary_plane_disable_ex	=3D
-> vs_dc8200_primary_plane_disable_ex,
-> +	.primary_plane_update_ex	=3D
-> vs_dc8200_primary_plane_update_ex,
-> +	.irq_ack			=3D vs_dc8200_irq_ack,
-> +};
-> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c
-> b/drivers/gpu/drm/verisilicon/vs_drm.c
-> index fd259d53f49f1..24e9d0b008f31 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_drm.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_drm.c
-> @@ -25,7 +25,6 @@
-> =C2=A0#include "vs_bridge.h"
-> =C2=A0#include "vs_crtc.h"
-> =C2=A0#include "vs_dc.h"
-> -#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_drm.h"
-> =C2=A0
-> =C2=A0#define DRIVER_NAME	"verisilicon"
-> @@ -168,8 +167,8 @@ void vs_drm_handle_irq(struct vs_dc *dc, u32
-> irqs)
-> =C2=A0	unsigned int i;
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < dc->identity.display_count; i++) {
-> -		if (irqs & VSDC_TOP_IRQ_VSYNC(i)) {
-> -			irqs &=3D ~VSDC_TOP_IRQ_VSYNC(i);
-> +		if (irqs & VSDC_IRQ_VSYNC(i)) {
-> +			irqs &=3D ~VSDC_IRQ_VSYNC(i);
-> =C2=A0			if (dc->drm_dev->crtcs[i])
-> =C2=A0				drm_crtc_handle_vblank(&dc->drm_dev-
-> >crtcs[i]->base);
-> =C2=A0		}
-> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.h
-> b/drivers/gpu/drm/verisilicon/vs_drm.h
-> index 606338206a427..6a89c20879df7 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_drm.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_drm.h
-> @@ -6,6 +6,7 @@
-> =C2=A0#ifndef _VS_DRM_H_
-> =C2=A0#define _VS_DRM_H_
-> =C2=A0
-> +#include <linux/bits.h>
-> =C2=A0#include <linux/platform_device.h>
-> =C2=A0#include <linux/types.h>
-> =C2=A0
-> @@ -13,6 +14,13 @@
-> =C2=A0
-> =C2=A0struct vs_dc;
-> =C2=A0
-> +/*
-> + * DC variants use different interrupt registers with diverging bit
-> + * assignments; each irq_ack() implementation must translate its
-> + * hardware-specific bits into these definitions.
-> + */
-> +#define VSDC_IRQ_VSYNC(n)	BIT(n)
-
-This seems to fit better in vs_dc.h ?
-
-> +
-> =C2=A0struct vs_drm_dev {
-> =C2=A0	struct drm_device base;
-> =C2=A0
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 2a0f7c59afa3a..91524d16f7785 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -94,6 +94,7 @@ static struct vs_chip_identity vs_chip_identities[]
-> =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D ~0U,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> @@ -103,6 +104,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5721,
-> =C2=A0		.customer_id =3D 0x30B,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> @@ -112,6 +114,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x310,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_with_yuv444,
-> @@ -121,6 +124,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x311,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 2065ecb730437..a15c8b5656044 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -9,6 +9,11 @@
-> =C2=A0#include <linux/regmap.h>
-> =C2=A0#include <linux/types.h>
-> =C2=A0
-> +enum vs_dc_generation {
-> +	VSDC_GEN_DC8000,
-
-Maybe just add DC8000 definition when DC8000 support is really added?
-
-Thanks,
-Icenowy
-
-> +	VSDC_GEN_DC8200,
-> +};
-> +
-> =C2=A0struct vs_formats {
-> =C2=A0	const u32 *array;
-> =C2=A0	unsigned int num;
-> @@ -19,6 +24,7 @@ struct vs_chip_identity {
-> =C2=A0	u32 revision;
-> =C2=A0	u32 customer_id;
-> =C2=A0
-> +	enum vs_dc_generation generation;
-> =C2=A0	u32 display_count;
-> =C2=A0	/*
-> =C2=A0	 * The hardware only supports square cursor planes, so this
-> field
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 20a820f1ef302..0d7c6f424079b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -54,12 +54,6 @@ static int vs_primary_plane_atomic_check(struct
-> drm_plane *plane,
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int
-> output)
-> -{
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_COMMIT);
-> -}
-> -
-> =C2=A0static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
-> =C2=A0					=C2=A0=C2=A0 struct drm_atomic_commit
-> *atomic_state)
-> =C2=A0{
-> @@ -70,13 +64,8 @@ static void vs_primary_plane_atomic_enable(struct
-> drm_plane *plane,
-> =C2=A0	unsigned int output =3D vcrtc->id;
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_enable_ex)
-> +		dc->funcs->primary_plane_enable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_primary_plane_atomic_disable(struct drm_plane *plane=
-,
-> @@ -89,10 +78,8 @@ static void vs_primary_plane_atomic_disable(struct
-> drm_plane *plane,
-> =C2=A0	unsigned int output =3D vcrtc->id;
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_disable_ex)
-> +		dc->funcs->primary_plane_disable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane *plane,
-> @@ -138,18 +125,11 @@ static void
-> vs_primary_plane_atomic_update(struct drm_plane *plane,
-> =C2=A0	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 fb->pitches[0]);
-> =C2=A0
-> -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> >crtc_y));
-> -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state-
-> >crtc_w,
-> -					 state->crtc_y + state-
-> >crtc_h));
-> =C2=A0	regmap_write(dc->regs, VSDC_FB_SIZE(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_SIZE(state->crtc_w, stat=
-e-
-> >crtc_h));
-> =C2=A0
-> -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_update_ex)
-> +		dc->funcs->primary_plane_update_ex(dc, output,
-> state);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_plane_helper_funcs
-> vs_primary_plane_helper_funcs =3D {
+> Mikko Perttunen (11):
+>       iommu: Add iommu_teardown_dma_ops
+>       iommu: Add cookie type for ARM_DMA_USE_IOMMU
+>       ARM: dma-mapping: Split mapping allocation from domain allocation
+>       ARM: dma-mapping: Implement and expose DMA setup functions
+>       ARM: dma-mapping: Bypass the legacy path for core-owned DMA API domains
+>       ARM: dma-mapping: Handle foreign buffers in arm_iommu_get_sgtable
+>       iommu: Let 32-bit ARM drivers opt into a DMA API default domain
+>       iommu/tegra-smmu: Defer display client translation to driver handover
+>       gpu: host1x: Drop release of legacy 32-bit ARM DMA domain
+>       drm/tegra: Drop release of legacy 32-bit ARM DMA domain
+>       iommu/tegra-smmu: Use a DMA API default domain per swgroup
+>
+>  arch/arm/include/asm/dma-iommu.h |  17 ++++
+>  arch/arm/mm/dma-mapping.c        | 209 ++++++++++++++++++++++++++++++++-------
+>  drivers/gpu/drm/tegra/dc.c       |   8 ++
+>  drivers/gpu/drm/tegra/drm.c      |  15 ---
+>  drivers/gpu/host1x/dev.c         |  15 ---
+>  drivers/iommu/Kconfig            |   1 +
+>  drivers/iommu/dma-iommu.c        |   5 +
+>  drivers/iommu/dma-iommu.h        |  52 +++++++---
+>  drivers/iommu/iommu.c            |  24 ++---
+>  drivers/iommu/tegra-smmu.c       | 109 +++++++++++++++++++-
+>  drivers/memory/tegra/tegra114.c  |  15 ++-
+>  drivers/memory/tegra/tegra124.c  |  12 ++-
+>  drivers/memory/tegra/tegra210.c  |   6 +-
+>  drivers/memory/tegra/tegra30.c   |  18 ++--
+>  include/linux/iommu.h            |   3 +
+>  include/soc/tegra/mc.h           |  20 ++++
+>  16 files changed, 410 insertions(+), 119 deletions(-)
+> ---
+> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+> change-id: 20260728-b4-arm32-iommu-dma-cookie-3170e07f9125
+>
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
