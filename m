@@ -4,49 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E7A0C9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 09:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 990BAC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 09:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704D610E25A;
-	Fri, 25 Sep 2026 09:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB91C10F9A6;
+	Fri, 25 Sep 2026 09:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gD9VLXNv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RXpTfNQ3";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 210E610E250;
- Fri, 25 Sep 2026 09:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=Raqg+OkBW0ybdlQNfJimrz0RehwkGgR6F0gW6V36HrI=; b=gD9VLXNv06X0b+CpkATgqJOEu4
- jMkEvUmkSjuY2bC5mPHAhGYQdn87HHEL3/aSSGWOgVB/qhBE5JEHAgutMA1Pc6Hn2JkVhFAZFuU+1
- +DqMbjdGp2I6pMLJxWOLv3oadCo9GIPMlSMAhXHGYtR7GrBfsK6eXTfVZjiMDWg2hK90u/GB7Nj8h
- p4cY7V0Ssb7vfDxZnV/PQHgcYSZWOs/cvcaNQavAihTAYfGlxbGy7bGnMqv4jnQ01n3g4Lt2Nkv5W
- stQr9h2EjWVL5wli+e8SRwq9RdTti3dXqcunQJXIG0xqNunqTkImyL0rjePKqe3uECeM+5tOJpVk2
- xsuRpgeA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xA2P3-0074x9-Uc; Fri, 25 Sep 2026 11:39:37 +0200
-Message-ID: <ac484238-b994-4c20-991e-95efa3756af3@igalia.com>
-Date: Fri, 25 Sep 2026 10:39:36 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5700C10F9A6;
+ Fri, 25 Sep 2026 09:41:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790329315; x=1821865315;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=pinOX8WRyr3ERKakIVV56UL40/ntXRmy6CdeaaIRHKs=;
+ b=RXpTfNQ3YKzUMkWG8iMMXKxN2dXl5Nw6M8qGyfUclqogeZJxnj9Bffzw
+ ziJ70mzSE5ZwoPK8m2uPHR7+RrA5tsFTPZcLkGj+EURzqOGaULv24ybqd
+ 5jMCsJB6BqeY/MmFEdLEZYddJwGJhBJ1JkXp45EVVOQ6oDht2whG0OYmy
+ BG96adTuV/HJIwcKVF9lmj9shuYKEtbLznqfmrSBk9SoDp+IQ4WA01ftH
+ ZwzciKYU1eEWrXOhdxqnBa1guYC9QEWqS5kCrOZLlJ79jd74n8dnu4HvX
+ lfNkPHuDAFyDT7COLsiDLFun5xmRcTBjK/Fvmh2X9Qi39bdPcWCIeJPy6 w==;
+X-CSE-ConnectionGUID: A55rCrVUTEun+aa/ShaiSg==
+X-CSE-MsgGUID: bHZGNGgdRpq+IdfJnC7kpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="108602586"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="108602586"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 02:41:54 -0700
+X-CSE-ConnectionGUID: 3ShRyZ7aRBGJlskZZuKMvg==
+X-CSE-MsgGUID: QsoZh8iATzmcCbfUS82mXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="278057352"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.27])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 02:41:48 -0700
+Date: Fri, 25 Sep 2026 12:41:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+ u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <arZB2s3HOBgSRuE4@ashevche-desk.local>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: remove unused adev parameter from
- amdgpu_vm_pt_free_list
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20260925-amdgpu_vm_pt_free_list_args-v1-1-f6f1c644c878@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260925-amdgpu_vm_pt_free_list_args-v1-1-f6f1c644c878@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,82 +83,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 25/09/2026 09:54, Thadeu Lima de Souza Cascardo wrote:
-> Since commit b6c4f90b3819 ("drm/amdgpu: sync page table freeing with tlb
-> flush") simplified amdgpu_vm_pt_free_dfs into amdgpu_vm_pt_free_list, it
-> does not need adev as it already finds the target PTs on the
-> tlb_flush_waitlist.
-
-It also looks like accessing adev from the params is idiomatic in this 
-code so:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Regards,
-
-Tvrtko
-
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    | 3 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 4 +---
->   3 files changed, 3 insertions(+), 6 deletions(-)
+On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
+> Add new compatible and update driver to support Synopsys Advanced I2C
+> Controller (DWC_i2c [0]) present on TI TDA54 SoC. This is needed since
+> this controller differs from the existing designware i2c (DW_apb_i2c
+> [1]) in its register offsets and some register definitions.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index bb04101b0fb5..d090bbbdc00d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1252,7 +1252,7 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   		tlb_cb = NULL;
->   	}
->   
-> -	amdgpu_vm_pt_free_list(adev, &params);
-> +	amdgpu_vm_pt_free_list(&params);
->   
->   error_free:
->   	kfree(tlb_cb);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index d32183cd9e0f..5d9063e71268 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -613,8 +613,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->   			  uint64_t start, uint64_t end,
->   			  uint64_t dst, uint64_t flags);
->   void amdgpu_vm_pt_free_work(struct work_struct *work);
-> -void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
-> -			    struct amdgpu_vm_update_params *params);
-> +void amdgpu_vm_pt_free_list(struct amdgpu_vm_update_params *params);
->   
->   #if defined(CONFIG_DEBUG_FS)
->   void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index e43a60d09808..af0d95fa8965 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -551,13 +551,11 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->   /**
->    * amdgpu_vm_pt_free_list - free PD/PT levels
->    *
-> - * @adev: amdgpu device structure
->    * @params: see amdgpu_vm_update_params definition
->    *
->    * Free the page directory objects saved in the flush list
->    */
-> -void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
-> -			    struct amdgpu_vm_update_params *params)
-> +void amdgpu_vm_pt_free_list(struct amdgpu_vm_update_params *params)
->   {
->   	struct amdgpu_vm_bo_base *entry, *next;
->   	bool unlocked = params->unlocked;
+> The new compatible updates driver logic due to changes in register
+> definitions:
 > 
-> ---
-> base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
-> change-id: 20260924-amdgpu_vm_pt_free_list_args-1eed6131aab5
+> - The new register offsets are handled by first refactoring the driver
+>   to use a map of register IDs to their offsets.
+> - Similarly, also update the driver to use an updated CON-register
+>   bitfield definition.
+> - Interrupts are acknowledged by writing a bitmask to a single CLR_INTR
+>   register instead of reading N dedicated CLR_* registers;
+>   i2c_dw_ack_intr() picks the right method based on dev->flags.
+> - One HCNT/LCNT register pair is shared between standard and fast speed
+>   instead of having one pair each; i2c_dw_write_timings() writes
+>   whichever value set matches the configured speed.
+> - No COMP_PARAM_1 register, so FIFO depth and high-speed-mode support
+>   can't be autodetected: FIFO depth now comes from the required
+>   snps,tx-fifo-depth/snps,rx-fifo-depth DT properties, and the
+>   high-speed capability check is skipped.
+> - No defined CON.RESTART_EN bit; treat it as always set.
+> - TDA54 SoC does not support SMBus, so skip accesses to those registers.
 > 
-> Best regards,
-> --
-> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> 
+> [0]: DWC_i2c_reference.pdf
+> [1]: DW_apb_i2c_databook.pdf
+
+Still doesn't look good. The current register layout may be left as is. What
+you need is translate it in the respective regmap callbacks in case we are
+enumerated on the different IP. Also possible to have a different regmap
+config for the different HW where you translate them only in one place.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
