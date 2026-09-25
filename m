@@ -4,130 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD1EC9832F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFACDCA5FA3
 	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 960E210E86E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9230210E86D;
 	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PP6PZ9bM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mlopop8o";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A3110E03B
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:07:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BC0FD429E4;
- Sat, 26 Sep 2026 10:07:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8511F000FF;
- Sat, 26 Sep 2026 10:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790417227;
- bh=cx2CIfJJRJI8nlg/LkJLWm6mTZk+oyqA+tLDKMt8K64=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=PP6PZ9bMZs7e/duxeo/+vo5CsbMP1Rz2+y31gRT9a+0I5x57hx+X0qV3VH6ZT4U4G
- yJbOFXBGKOb0K1/wzI/4ZVK66vC39At0uE2uwbtQ83oA2SlyEAWclRJagc3OIbbqHm
- aGWgANkkLmApMwDJ2U+Pphh/en/LxpO06qIoOaCTuD43Ohhox87eyXx7fdho5yNs5A
- YUbNxgBjyK8Pa4hT+QXLxoaUyk9M5Ul4my8apPo6NoSv0IFMgCIjYXvQDeUqZfUlWm
- gpsK8pBYkPTzDaunC56zp3EElzUI0dA/SJCNUEjE1vnEPzCd1n7uEW6cQm5qDqJMYE
- NMKaLYXBxLBUQ==
-Date: Sat, 26 Sep 2026 11:06:35 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Doug Gilbert <dgilbert@interlog.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 16/40] mm/vma: only allow mmap to clear
- VMA_MAYWRITE_BIT if kernel-owned
-Message-ID: <areYqRfd7mss9KQG@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-16-4583d8a23bca@kernel.org>
- <DLOVQMACWLZ5.1WFOTGRG8ZG92@nvidia.com>
- <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15DBC10F85E
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:25:06 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e71cdb22bso3932805e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 00:25:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790321104; x=1790925904; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
+ b=mlopop8o3CPIABgoNh77bfKzDcwZIKdAhhn6mKWFvsg1rOORpm31hv8r3TBsx7ufnp
+ SsImscV1vY7dVleSbLs0kAvU3nBPFVyfvPzMZrXr2q+1VF2E1s+XGdhynOxbHSLcAxXI
+ L9RrUS97DzYGLlbA8Eyrb4JZiw46D4dQzsCWipfv9TH1+6JwjsrYLLKg1W75xA5SLM8x
+ W24gm78V36u5ez1jY0dZ/9AbgsNozlTv2i4bAOJCNrW1uqr/0gc1QAscB+doCkwMlp/y
+ sjGjqlQv3J8iq4wAEQ9vPONkgiOEXhBQlq4H4BOZuWBap2Ap8W84EeJKcuDPFPh59AWh
+ w2ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790321104; x=1790925904;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
+ b=G1aJfZo8Tbcxw7Q0QDyeyMumIKoT2XpQb4qw1qaNoFa1BeXCC4nLLDmCC0YEb8cpQb
+ w3YMjnK13PitNx4J5xsZO2XA0fS/gvclg73o75TKJvIDKTYV1ez5CeP+rRItGDsVkP6G
+ UHaDv6ZSR9Blx1aS/cbr/WVSIWR7ulbqKj6vXSj8UU+lIsGv0JnfJ012xEnqfjqN67MB
+ /oF6n6KD6gOxIaaTcz4/rNl2DCJImQYN4afolrR+/pVwblehcatdfhk8FPBnT8s+hUik
+ wNRKB8DOjlV+iJXjWcP5R3eJJEFVHfGxaV2FRMvQ5yvd+J6QeyQ49HzxjrN906Avf8vP
+ ABog==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxdKI1PEaT9BL6tKX1dcHcPsd3gOG96d/yegOjiWQDFT3F2aHcZACInMJDGOVvLj+EaEPqErPIM1vA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nm3uK60qlsquutJV5G4eQOfqDDHjgvBVdeKxHAjFtDTU6Yz0u7
+ ZnFI1bYcgf5O1OkCjN5Zo6zjStJ+PUQgbThM3RuUS6CqGZzjGaKIhDn/
+X-Gm-Gg: AYBFou0zGLljuBGzSnMQeLVVuXB/j0pHMr/o5S1DdfAOl6RaeA9qsIlWL5g3S45c7gS
+ aUQYxnHX9+r3IZ2GxvjSjHHsqg1mjisTOKwg0UMr+OV74ItZ0YKs9Evn6nn/Jeac9vtKZPqnZMe
+ RgYFj0nKOlj19Q3+gSrbwGG+Dzh32oDbfa5RvOQ7s5TyqJ6I1q/Y6xelL993bbs41VFGDCpyy9E
+ SkdkyfDzjf8pZxIFL6dTrfzoYBV6hT2plvFxrgXQBJAWY2W9AwwIYbZqDs+s+foF2VORq7qsr/L
+ mkLhlMBBQp9jrd0GnbH/703SIVdMkJfNZ8e7cfWGZUXuo+w4u2P7fan5YaO5hOv0ZIbz6kYF6Y7
+ CgKvMc6HHtImlyvg9N//gj8CN0wjBajdNJrm6Ky7FAItvls6IIpBXC57RaPwheduxVxn37cUgt+
+ QmocvMEg7KuvDYP3IK/hi5SFdiRit9CorIvWPqm0I5hVxHJGn2tUVYR38dOvgpMA0iXHRjLvtLo
+ bT7tw==
+X-Received: by 2002:a05:600c:1546:b0:49c:fa20:cc00 with SMTP id
+ 5b1f17b1804b1-49fe66f4f59mr83248455e9.23.1790321104123; 
+ Fri, 25 Sep 2026 00:25:04 -0700 (PDT)
+Received: from abcmhome.hgw.local ([83.66.10.10])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fe5dfa6a7sm201790475e9.12.2026.09.25.00.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 00:25:03 -0700 (PDT)
+From: =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
+Subject: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
+Date: Fri, 25 Sep 2026 10:24:44 +0300
+Message-ID: <20260925072444.18982-1-ayhancicek@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,90 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 25, 2026 at 10:17:10PM -0400, Zi Yan wrote:
-> On Fri Sep 25, 2026 at 10:07 PM EDT, Zi Yan wrote:
-> > On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> >> For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-> >> the underlying file is itself read-only.
-> >>
-> >> This means that mprotect() cannot mark a shared mapping of a read-only file
-> >> as read/write, as doing so would violate the read only attribute, and
-> >> permit writes.
-> >>
-> >> In general, we do not want file systems to be able to do this for
-> >> read/write files.
-> >>
-> >> Doing so would violate fundamental user expectation of file attributes and
-> >> likely break userspace.
-> >>
-> >> However, drivers pose a tricky problem here - the /dev/xxx file may be
-> >> read/write but provide access to a resource which is fundamentally
-> >> read-only.
-> >>
-> >> Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
->
-> IIUC, a file's FMODE_* bear both fd and mmap permissions, e.g.,
-> FMODE_WRITE means fd is writable and mmap is writable. At least for
-> normal files. But a driver fd might not fit the same pattern. Would a
-> new FMODE_MAP_READ and a new FMODE_MAP_WRITE help? Not trying to propose
-> anything, but just thinking out load.
+The existing MacBook workaround reserves VRAM at address 0 for
+Polaris ASICs when the iGPU is enabled. This prevents cursor
+allocations from landing at address 0.
 
-Hmm I don't think that's necessarily at the right level of abstraction
-though, and these drivers need to do the same thing even if the file is R/W
-regardless.
+A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
+failure mode. Hardware cursor updates repeatedly log
+"DC: Cursor address is 0!" followed by
+"DC failed to set cursor attributes".
 
-So I'm not so sure that's the right path.
+Extend the existing workaround to CHIP_VERDE. With this change,
+hardware cursor operation is stable, the cursor errors remain at
+zero during repeated cursor movement, and cursor disappearance
+and flicker are no longer observed.
 
-Then again, if the driver could somehow specify these modes at inode
-creation or some means of doing that it could help avoid the driver ever
-doing this, I'd really prefer us to disallow such changes in the hook in
-general.
+Signed-off-by: Ayhan Çiçek <ayhancicek@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-But I think definitely one for a follow up :)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 1bf2a42fa..9e7f9cc2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
+ 	case CHIP_RENOIR:
+ 		adev->mman.keep_stolen_vga_memory = true;
+ 		break;
++	case CHIP_VERDE:
+ 	case CHIP_POLARIS10:
+ 	case CHIP_POLARIS11:
+ 	case CHIP_POLARIS12:
+-- 
+2.55.0
 
->
-> >>
-> >> To achieve both of these things, restrict this ability to kernel-owned
-> >> mappings as identified by vma_flags_is_kernel_owned().
-> >>
-> >> This constrains this ability to drivers which own the mapping's contents,
-> >> whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-> >> map themselves, and so define its semantics.
-> >>
-> >> Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-> >> across drivers, filesystems and bpf, establishes a kernel-owned mapping,
-> >> with usbmon and the ALSA PCM status page converted earlier in this series
-> >> to do so.
-> >>
-> >> Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-> >> disable MAP_PRIVATE-file-backed mapping CoW semantics.
-> >>
-> >> This is perhaps not always intended, but we retain this capacity to
-> >> maintain existing behaviour.
-> >>
-> >> As all drivers which clear VMA_MAYWRITE_BIT establish kernel-owned
-> >> mappings, no functional change is intended.
-> >>
-> >> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >> ---
-> >>  mm/vma.c | 5 +++++
-> >>  1 file changed, 5 insertions(+)
-> >>
-> >
-> > Makes sense.
-> >
-> > Acked-by: Zi Yan <ziy@nvidia.com>
-
-Thanks!
-
->
->
->
->
-> --
-> Best Regards,
-> Yan, Zi
->
-
---
-Cheers, Lorenzo
