@@ -4,49 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C26C98325
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 16:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF3EC9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 16:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44EB310E1D1;
-	Fri, 25 Sep 2026 16:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8640F10E2E6;
+	Fri, 25 Sep 2026 16:25:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SEwbo7cX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SkZTyo4x";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9363D10E1D1;
- Fri, 25 Sep 2026 16:18:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653D510E1E2
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 16:25:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 60522405E3;
- Fri, 25 Sep 2026 16:18:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F291F000FF;
- Fri, 25 Sep 2026 16:18:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 70AE06022F
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 16:25:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288261F00898
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 16:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790353130;
- bh=l/EOOpDu4elY4P01g5S2YkynazluBd403L+RfYMQhwo=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=SEwbo7cXvF1KP4D12i+jVO7huonQJAN9xrzNS1ajCI/rho+UaundCECyF365FdpXa
- jRrnIQ5XC/cPoeRRtKO45vD4u654RFa15zYojBxizMS9NYAVoVS8net1tp/C8bWd1p
- 77mYQMCZaCRaUtrThDMcAb+lKRwAnrxNrPXgk9yrnTnePoEUnxxPHvHvjIrvf588BV
- s/O6ihHWYRXG5chrAtqKDuZAfMt30Lr2sKIrPxhiapmYXlRyL5uY+nmIzoDbCqzFSV
- 0NE+b4jI6+QFzNoMTTtiRipHO3R/jHS4dZmmxV99e5nowIBYVfdJxdSCpWWtlIWXA6
- viN395m7A+Hhw==
-Mime-Version: 1.0
+ s=k20260515; t=1790353552;
+ bh=6fYDLPuw7TdEq9beCl8lZHCEAKip/STw7RgtlWkrkg8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=SkZTyo4xxfFfIHkKIcVzKt/r6NVyGCRHYPlxBuj/CfdOc5/UiPnHhsNeysafJ83uT
+ PrsApt20TbtzJyRpj/ArQV+ysPRtw70TjqJbVdGUsvZcqDtlWD9Kq6uCr9e2hR5TcQ
+ WqHkFq31PmtukKbdE6y/W8GS9/XSR4o73yuajz9jGmCx6GdhINz2kzewMKYZle40Rz
+ Jc4eglh/tm38aa+rDhaE+rYk23PpYcf8o3TBVaTamJ/idDzDGvcrFiD2suq/GxYFWK
+ zgFkLbpLOozrM5LhUI306UQ1mmZ30ZjqiBsz8Sk4d6Pq2YHLUgL3h7x5LiWU8/PFE8
+ PJ7V94nNq5nFA==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b8eb39a8edso580398e87.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:25:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwVHHp2wVy5Xt0qpUIvpDX8phALETJND3SVb8tXSSlbx69lsoJUfdZJx/XIZLKnAPL+axgO4aZoJTY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kWo5TDQhQz9xfzukdlQv4IwComK881YWPpjFsDIn6bYPtGiuLy
+ vEPWt6uvu/GaunudqkKzZ8cTTU5EpZUy4wMg+OpR4/w0vMcr9LCLulZe19c2e07CmBgMNKacbiK
+ 8VFrWU1XEyMLu4g2x4FLm0T7Ab/zDztI=
+X-Received: by 2002:a05:6512:1344:b0:5b6:1a7c:59db with SMTP id
+ 2adb3069b0e04-5b8df0d22f7mr2083445e87.53.1790353550897; Fri, 25 Sep 2026
+ 09:25:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
+ <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
+ <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
+ <arTlpd-KAsVpj3UH@houat>
+In-Reply-To: <arTlpd-KAsVpj3UH@houat>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 25 Sep 2026 18:25:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
+X-Gm-Features: AclHuK_fq2ZWJ1A-qMmc6hpV7kHeTfdnkXq9HUzMYWRHIkAmDRIf8rPpfyjUW1o
+Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
+Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+ asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 18:18:46 +0200
-Message-Id: <DLOJ7S2IZW0R.2BNLLO5M3YL7M@kernel.org>
-Subject: Re: [PATCH v3 0/3] drm, drm/xe: Protect against premature module
- unloads
-Cc: <intel-xe@lists.freedesktop.org>, "Matthew Brost"
- <matthew.brost@intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Matthew Auld" <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
-In-Reply-To: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +104,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Sep 25, 2026 at 3:33 PM CEST, Thomas Hellstr=C3=B6m wrote:
-> Driver and shared DRM helper code is increasingly relying on bare
-> drm_device references (drm_dev_get()/drm_dev_put()) to keep a device's
-> software state around, without also pairing that with a reference on
-> the owning kernel module. Xe itself does this in several places, and
-> so does drm_gpuvm for the lifetime of a GPU VM. None of these
-> references currently prevent the owning module from being unloaded
-> while they, or the teardown work they can still trigger, are
-> outstanding, meaning driver code can end up executing after its own
-> module's text has already been freed.
+On Thu, Sep 24, 2026 at 10:57=E2=80=AFAM Maxime Ripard <mripard@kernel.org>=
+ wrote:
+> On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
 
-Since you mention DRM GPUVM in a couple of places, how can this ever happen=
-? It
-wouldn't make sense to keep a VM alive beyond driver unbind. I.e. it can't =
-make
-its drm_device reference count reach module unload in the first place.
-
-Besides that, can you please remind me whether there are any other reasons =
-than
-the release() callback why a DRM device must not outlive module unload?
-
-I don't think the correct solution is to constrain module unload. The relea=
-se()
-callback shouldn't really do anything other than free the memory of the
-drm_device allocation. All other resources a driver may have should be rele=
-ased
-on driver unbind.
-
-There may be shared resources, such as e.g. a common workqueue, but those a=
-re
-module level things that have nothing to do with the DRM device.
-
-I am aware that a few drivers implement release(), but TBH it looks pretty
-broken. qxl_drm_release() is a great example, and it already calls it out
-itself.
-
-> This series closes that gap for xe:
+> > > Linus, unless you have more info I'm going to apply the patch as
+> > > is. Removing this special case would be welcome as a later patch.
+> >
+> > I'd say go ahead as-is.
 >
-> - Patch 1 adds core DRM infrastructure allowing a driver to wait for
->   its outstanding device-release callbacks to finish before
->   proceeding with module unload.
+> I'm fine with that, but I really want this removed at some point.
 
-Please see above; I also wonder why Xe cares in the first place. Xe doesn't
-implement release(), no?
+If Luca wanna fix this up (drop this path) that's fine by me,
+else send a patch immediately after this is applied and I'll
+ACK it.
 
-> - Patch 2 makes xe use this infrastructure to hold up module unload
->   until every xe_device instance has actually been released, rather
->   than only until the module's own refcount happens to reach zero,
->   with a diagnostic if this ends up taking an unexpectedly long time.
+> > I do have the idea to code up and submit the AV8100 encoder
+> > and I have the hardware to test it, but every other user should
+> > be using panels directly, and I would be the only non-panel
+> > user so I can deal with it when it comes up.
 >
-> - Patch 3 fixes a related, previously unprotected case where the
->   teardown of a GPU VM or its address space mappings can be deferred
->   to run at an arbitrary later time, including after module unload has
->   already completed.
+> It won't change a thing. All existing "panel" users will be bridge users
+> after this patch is merged. So whether you want to enable a bridge or
+> not shouldn't matter, the only thing that does is whether the existing
+> users would still work.
 
-Huh? GPUVM tracks the GPU's VA space mappings, but after driver unbind ther=
-e's
-no access to the GPU to manage anything anymore. How can this even work?
+I know, all it does is create a snag that I would run into myself.
 
-Thanks,
-Danilo
+But it's not gonna be a problem for anyone else, that's all I meant.
+
+Yours,
+Linus Walleij
