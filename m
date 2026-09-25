@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 967D5C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B88C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBD3810E5E1;
-	Fri, 25 Sep 2026 19:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7B310FC08;
+	Fri, 25 Sep 2026 19:10:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BumItEAy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lta26CTJ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8224510E5E1
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:02:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D8A510FC08
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:10:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 836A760136;
- Fri, 25 Sep 2026 19:02:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FE01F000FF;
- Fri, 25 Sep 2026 19:02:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7B50E60136;
+ Fri, 25 Sep 2026 19:10:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C64E1F000FF;
+ Fri, 25 Sep 2026 19:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790362944;
- bh=R7//6cVnZ3IWY3TIHTbz2Wo6Wkv06O1U83INif6VQUk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BumItEAyJpd708Vi4YWbdtbN1luenlo5rx2BZlD8d1kIsTL9SQ3nfqW2nBDwiq1gJ
- Wy71Up9miurUYe12fYGWWU5Nek+dKny7IcCEmlhGduypw5FtkPeYjojCcrWjcUbFJp
- iH/kvT9/npwK60IMCm8ibebwT4whvSH/aCn8wPvf6yL5LmdOtXYrsKlcYM9O5dbQfz
- YR9wk+H2qrba5pH6cH6QSOt+GrldwNXmotASKBXj07IDKbV0qGz4V3PwXXUAy2jbMc
- Ke9QKpnspcIX6lrflw7+Br+zR6Sw/mUzYVRE2VOLRyYq5T3FyBjykQFb6nFHYJN53q
- JoSlb4yb98bBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 15/15] drm/panfrost: Fix races between perfcnt and
- reset sequence
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
-References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
- <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 19:02:23 +0000
-Message-Id: <20260925190224.18FE01F000FF@smtp.kernel.org>
+ s=k20260515; t=1790363416;
+ bh=WIh5MF91TgNDRmG6Qisl3WLz2tFz4iMG+XOqdmL7CGE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=lta26CTJTzuqDDh5KI8mVWRhpEM81U1UcckDr7elT2XmDDv9u3Yu83P5Kh49UB1d7
+ 3RmumOK4R51exJOZZNWGrKtF5MQN87aNO+1fQdjMPzcQisfnSm1Sv3mQpPjr5nVKML
+ ClXq0r1H+aVB7Wb5sxjDOFcwtAuh3SeOaFRNklbtdCY2DF5NQOUE8Q4alUJYQJ7BjU
+ 0WLKQ8Gl14aZLEKpS81xG/puqobi7SQ6pP3/HchhrBK1Sd4KV9rXlWut9JVd7yL2qs
+ c3EtSA68/rbFVVNiAjBjoowFqz46o784ouT6Tas+VISMbCw56jRrP+LfDzqv2gbI6h
+ 4Y8PV2u15/CsQ==
+Date: Fri, 25 Sep 2026 12:10:15 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Konstantin Sinyuk <ksinyuk@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Francois Dugast
+ <francois.dugast@intel.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Donald Hunter <donald.hunter@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, "Paolo Abeni" <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+ <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <20260925121015.08b8cc15@kernel.org>
+In-Reply-To: <ara5iTl7bmgWbPW9@intel.com>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+ <20260921131911.532d81f4@kernel.org> <ara5iTl7bmgWbPW9@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,150 +66,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/panfrost: resource leak in panfrost_perfcnt_enable_locked due =
-to missing early return
-- [Medium] drm/panfrost: data race on perfcnt->state in panfrost_perfcnt_en=
-able_locked
-- [Low] drm/panfrost: cleanup helper mixing in panfrost_perfcnt_enable_lock=
-ed
---
+On Fri, 25 Sep 2026 14:12:25 -0400 Rodrigo Vivi wrote:
+> I do understand the feeling here :(
+> 
+> But I do hope that you reconsider your position here. We had such a great
+> experience with the drm-ras using the netlink and I was really hoping that
+> we could just reproduce the same experience here.
+> 
+> Netlink is such an incredible API.
+> 
+> Would it help if I take the maintainership of this drm-fabric netlink
+> along with the drm-ras one, ensuring the same consistent and clean usage?
 
-commit c957f0622ea75128cd4d3065e0ee09d23f004f48
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-Subject: drm/panfrost: Fix races between perfcnt and reset sequence
+Hard call, I have nothing to complain about with the drm-ras work.
+Purely worried about the time :( Well, that, and DRMs general love
+of Rust which seems to be about 10x less development efficient for us..
 
-This commit modifies the panfrost driver to fix races between perfcnt
-teardown and the reset sequence. It introduces the use of a reset
-read/write semaphore during perfcnt configuration and modifies the
-uAPI to report reset states.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index b3f71d7fd82a9..96c3c41cd269e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-
-[ ... ]
-
->  static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
->  					  struct drm_file *file_priv,
->  					  unsigned int counterset)
->  {
->  	struct panfrost_file_priv *user =3D file_priv->driver_priv;
->  	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> -	struct iosys_map map;
->  	struct drm_gem_shmem_object *bo;
-> -	u32 cfg, as;
-> +	struct iosys_map map;
->  	int ret;
-> =20
-> -	if (user =3D=3D perfcnt->user)
-> -		return 0;
-> -	else if (perfcnt->user)
-> -		return -EBUSY;
-> +	if (perfcnt->user) {
-> +		if (perfcnt->user !=3D user)
-> +			return -EBUSY;
-> +
-> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
-> +			drm_WARN_ON(&pfdev->base,
-> +				    panfrost_perfcnt_disable_locked(pfdev, file_priv));
-> +	}
-
-[Severity: High]
-Could this missing early return sequence cause a resource leak?
-
-When panfrost_perfcnt_enable_locked() is called on an already active sessio=
-n,
-if the session is not dead, the function falls through to resource allocati=
-on
-because there is no early return. This could lead to a memory leak, an
-unbalanced power management reference count, and dangling pointers by
-allocating a new GEM object and mapping it without freeing the old session.
-
-[Severity: Medium]
-Is there a data race on perfcnt->state here?
-
-This function reads perfcnt->state before establishing the reset.lock via
-scoped_guard. A concurrent GPU reset might be calling panfrost_perfcnt_rese=
-t()
-and updating perfcnt->state. This could result in missing a concurrently set
-PANFROST_PERFCNT_SESSION_DEAD flag, preventing a dead session from being
-restarted properly.
-
-> =20
->  	ret =3D pm_runtime_get_sync(pfdev->base.dev);
-
-[ ... ]
-
->  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
-> =20
-[ ... ]
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		/*
-> +		 * Clear the counters to start from a fresh state.
-> +		 */
-> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
-> =20
-> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
-> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
-> +		if (ret)
-> +			goto err_vunmap;
-
-[Severity: Low]
-Are we mixing goto-based cleanup with scoped_guard declarations here?
-
-The subsystem guide forbids mixing goto-based cleanup labels with scoped_gu=
-ard
-in the same function. Using goto err_vunmap inside the scoped_guard block
-could violate ownership semantics and lead to subtle bugs.
-
-> =20
-> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
-> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
-> +		perfcnt->user =3D user;
-> +		perfcnt->state =3D 0;
-> +	}
-> =20
->  	/* The BO ref is retained by the mapping. */
->  	drm_gem_object_put(&bo->base);
-
-[ ... ]
-
-> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
-> +{
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +
-> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
-> +		return;
-> +
-> +	lockdep_assert_held(&pfdev->reset.lock);
-> +
-> +	if (!perfcnt->user)
-> +		return;
-> +
-> +	/* All active AS are released during the MMU post_reset. */
-> +	perfcnt->owns_as_ref =3D false;
-> +	perfcnt->state |=3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
-> +	if (panfrost_perfcnt_hw_enable(pfdev))
-> +		perfcnt->state |=3D PANFROST_PERFCNT_SESSION_DEAD;
-
-[Severity: Medium]
-This is the concurrent write to perfcnt->state that could race with the
-unlocked read in panfrost_perfcnt_enable_locked() mentioned above.
-
-> +
-> +	/* Unblock pending sample requests. */
-> +	complete(&perfcnt->dump_comp);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-claude-fix=
-es-v11-0-0dbf5a58e7ce@collabora.com?part=3D15
+Let's start by feeding this + the spec into your LLM
+https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/netlink.md
