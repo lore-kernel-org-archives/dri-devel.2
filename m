@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04401C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 967D5C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6169210E263;
-	Fri, 25 Sep 2026 18:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD3810E5E1;
+	Fri, 25 Sep 2026 19:02:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bDWUf+n/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BumItEAy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33D3F10E263
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 18:58:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8224510E5E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:02:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0003F41A59;
- Fri, 25 Sep 2026 18:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2BC1F000FF;
- Fri, 25 Sep 2026 18:58:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 836A760136;
+ Fri, 25 Sep 2026 19:02:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FE01F000FF;
+ Fri, 25 Sep 2026 19:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790362706;
- bh=q5XMxNdY+REj7PrmhtYfhajhEUp16XWJ54A4LubCZkk=;
+ s=k20260515; t=1790362944;
+ bh=R7//6cVnZ3IWY3TIHTbz2Wo6Wkv06O1U83INif6VQUk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bDWUf+n/1Yf5W2HNJfa44t5s2KGta+7e2sZREmqrhlqu4iwBU8xzjhNBARH/Sgzdk
- ABQykmAIyR+O/ICHo+lJVt95dVJ33kGu1qm3ECOMlr+3ro1ViF55Bt+aJ7St1fY4kg
- ON48htxICcPT/jzddeksKFoxB0wSDDgNakHtujlNetoBWLwRFQd+x3IjhQUmIaMzkA
- gWUcNmllmo8hexW/KwK59VGpVP6nX3SczP49hG3twRq3LuJeTcAEMpP0XGwVJQAzWD
- G2916M66aAB3iKvHsgHNzv/uOJVSBVBz0g2YDOJQzopkCi5LOnRK4gHyyAS68Y9ySR
- 4J5seINqauuxQ==
+ b=BumItEAyJpd708Vi4YWbdtbN1luenlo5rx2BZlD8d1kIsTL9SQ3nfqW2nBDwiq1gJ
+ Wy71Up9miurUYe12fYGWWU5Nek+dKny7IcCEmlhGduypw5FtkPeYjojCcrWjcUbFJp
+ iH/kvT9/npwK60IMCm8ibebwT4whvSH/aCn8wPvf6yL5LmdOtXYrsKlcYM9O5dbQfz
+ YR9wk+H2qrba5pH6cH6QSOt+GrldwNXmotASKBXj07IDKbV0qGz4V3PwXXUAy2jbMc
+ Ke9QKpnspcIX6lrflw7+Br+zR6Sw/mUzYVRE2VOLRyYq5T3FyBjykQFb6nFHYJN53q
+ JoSlb4yb98bBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 08/15] drm/panfrost: Move all DRM device
- initialisation into device_init()
+Subject: Re: [PATCH v11 15/15] drm/panfrost: Fix races between perfcnt and
+ reset sequence
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260925-claude-fixes-v11-8-0dbf5a58e7ce@collabora.com>
+In-Reply-To: <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
 References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
- <20260925-claude-fixes-v11-8-0dbf5a58e7ce@collabora.com>
+ <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 18:58:26 +0000
-Message-Id: <20260925185826.AD2BC1F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 19:02:23 +0000
+Message-Id: <20260925190224.18FE01F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,67 +58,146 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] pm_runtime: usage_count corruption on early probe failure
+- [High] drm/panfrost: resource leak in panfrost_perfcnt_enable_locked due =
+to missing early return
+- [Medium] drm/panfrost: data race on perfcnt->state in panfrost_perfcnt_en=
+able_locked
+- [Low] drm/panfrost: cleanup helper mixing in panfrost_perfcnt_enable_lock=
+ed
 --
 
-commit 83a4c1b15f0bb7a999d8fbc11545b9b267d7fbdf
+commit c957f0622ea75128cd4d3065e0ee09d23f004f48
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Subject: drm/panfrost: Fix races between perfcnt and reset sequence
 
-drm/panfrost: Move all DRM device initialisation into device_init()
+This commit modifies the panfrost driver to fix races between perfcnt
+teardown and the reset sequence. It introduces the use of a reset
+read/write semaphore during perfcnt configuration and modifies the
+uAPI to report reset states.
 
-This commit moves DRM device registration and runtime PM setup from
-panfrost_probe() into panfrost_device_init(), and consolidates the
-cleanup path into panfrost_device_fini().
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 9f2b1967a3984..b8094c0d12528 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a9..96c3c41cd269e 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
 
 [ ... ]
 
-> @@ -311,11 +343,22 @@ int panfrost_device_init(struct panfrost_device *pf=
-dev)
->  	panfrost_reset_fini(pfdev);
->  out_pm_domain:
->  	panfrost_pm_domain_fini(pfdev);
+>  static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+>  					  struct drm_file *file_priv,
+>  					  unsigned int counterset)
+>  {
+>  	struct panfrost_file_priv *user =3D file_priv->driver_priv;
+>  	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> -	struct iosys_map map;
+>  	struct drm_gem_shmem_object *bo;
+> -	u32 cfg, as;
+> +	struct iosys_map map;
+>  	int ret;
+> =20
+> -	if (user =3D=3D perfcnt->user)
+> -		return 0;
+> -	else if (perfcnt->user)
+> -		return -EBUSY;
+> +	if (perfcnt->user) {
+> +		if (perfcnt->user !=3D user)
+> +			return -EBUSY;
 > +
-> +	if (pm_runtime_active(pfdev->base.dev)) {
-> +		pm_runtime_set_suspended(pfdev->base.dev);
-> +		pm_runtime_put_noidle(pfdev->base.dev);
+> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
+> +			drm_WARN_ON(&pfdev->base,
+> +				    panfrost_perfcnt_disable_locked(pfdev, file_priv));
 > +	}
-> +
 
 [Severity: High]
-Can this catch-all conditional block cause a PM runtime usage_count corrupt=
-ion
-on early probe failures?
+Could this missing early return sequence cause a resource leak?
 
-If sysfs power/control is set to 'on' (e.g., via udev rules before probe),
-pm_runtime_forbid() increments the usage_count to 1.
+When panfrost_perfcnt_enable_locked() is called on an already active sessio=
+n,
+if the session is not dead, the function falls through to resource allocati=
+on
+because there is no early return. This could lead to a memory leak, an
+unbalanced power management reference count, and dangling pointers by
+allocating a new GEM object and mapping it without freeing the old session.
 
-If the driver then fails early in panfrost_device_init() (such as a probe
-deferral during panfrost_clk_init()), pm_runtime_enable() has not been call=
-ed
-yet. This leaves dev->power.disable_depth at 1, which inherently causes
-pm_runtime_active() to return true.
+[Severity: Medium]
+Is there a data race on perfcnt->state here?
 
-This would cause the error path to incorrectly assume the driver acquired t=
-he
-PM reference, calling pm_runtime_put_noidle() and erroneously decrementing
-the usage_count to 0.
+This function reads perfcnt->state before establishing the reset.lock via
+scoped_guard. A concurrent GPU reset might be calling panfrost_perfcnt_rese=
+t()
+and updating perfcnt->state. This could result in missing a concurrently set
+PANFROST_PERFCNT_SESSION_DEAD flag, preventing a dead session from being
+restarted properly.
 
-When userspace later sets power/control to 'auto', pm_runtime_allow() would
-decrement the usage_count again, underflowing it to -1 and permanently brea=
-king
-runtime PM for the device.
+> =20
+>  	ret =3D pm_runtime_get_sync(pfdev->base.dev);
 
->  	return err;
->  }
+[ ... ]
+
+>  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> =20
+[ ... ]
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		/*
+> +		 * Clear the counters to start from a fresh state.
+> +		 */
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> =20
+> -	gpu_write(pfdev, GPU_PERFCNT_CFG, cfg);
+> +		ret =3D panfrost_perfcnt_hw_enable(pfdev);
+> +		if (ret)
+> +			goto err_vunmap;
+
+[Severity: Low]
+Are we mixing goto-based cleanup with scoped_guard declarations here?
+
+The subsystem guide forbids mixing goto-based cleanup labels with scoped_gu=
+ard
+in the same function. Using goto err_vunmap inside the scoped_guard block
+could violate ownership semantics and lead to subtle bugs.
+
+> =20
+> -	if (panfrost_has_hw_issue(pfdev, HW_ISSUE_8186))
+> -		gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0xffffffff);
+> +		perfcnt->user =3D user;
+> +		perfcnt->state =3D 0;
+> +	}
+> =20
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+
+[ ... ]
+
+> +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +
+> +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> +		return;
+> +
+> +	lockdep_assert_held(&pfdev->reset.lock);
+> +
+> +	if (!perfcnt->user)
+> +		return;
+> +
+> +	/* All active AS are released during the MMU post_reset. */
+> +	perfcnt->owns_as_ref =3D false;
+> +	perfcnt->state |=3D PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> +	if (panfrost_perfcnt_hw_enable(pfdev))
+> +		perfcnt->state |=3D PANFROST_PERFCNT_SESSION_DEAD;
+
+[Severity: Medium]
+This is the concurrent write to perfcnt->state that could race with the
+unlocked read in panfrost_perfcnt_enable_locked() mentioned above.
+
+> +
+> +	/* Unblock pending sample requests. */
+> +	complete(&perfcnt->dump_comp);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-claude-fix=
-es-v11-0-0dbf5a58e7ce@collabora.com?part=3D8
+es-v11-0-0dbf5a58e7ce@collabora.com?part=3D15
