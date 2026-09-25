@@ -4,177 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 265F3C9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5145CC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:31:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6687810F912;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B0310F915;
 	Fri, 25 Sep 2026 07:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="aXdJnsuu";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="AtlCP5Xp";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="p5Nt1Hi3";
 	dkim-atps=neutral
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F302B10E54B
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 15:32:56 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-530e8c6fb80so258551cf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 23 Sep 2026 08:32:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790177576; cv=none;
- d=google.com; s=arc-20260327;
- b=lN5vqJ7uz1lB/PM41455UowkCb0ZbU0TXVEg/bf1eCsS/irrMcI0s8LDphswWET8fh
- 1yMaEfHjxfPWAgXw6fbGnnAP0O0HPnVbqtFBA3xy3ob1Wk3UqFXnG5ahgH8Ruo5qGDSR
- UiCQ8FPg0dpYOo2NjBJeAmh0S+qxIb9hy05Px6hOUkgE030Rk3iIYa26yfv/sRyGl8QB
- vE3jvbUHxWMzEI7oC4i/jSfO9rCo52N6CsiDn+R21MNY6Ukct95OFnZgpQBDu++LpxJr
- BbtytghVWBX/PzSUzNlWFQoaN6VnWA8P8TEEWUUCPYzHaZZqoyjKS0JqZTvl8w3fzH5a
- NJaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=hKtcWNVFda3wl86zaKIN0hpMLzWuZcmeXVfEC0xSzRI=;
- fh=uTL8JqPwoowoeLojkoeOhZ6ZGOp46dkBO2OTaEwjw3o=;
- b=NLh6L83zad4o8WI4MiRas6SJFDjRbDLY3n8n+hh2PvopD3ef1DUbBhvsFUl9e3IIC2
- BO5zjjetir8MTkGzHFz69p5iyspMhE4FBDaiFGTFoM9uNEoYQe28INVqfELO7220gqIY
- wx12l0oa7PNHzNOWv/bbZLiMrtR9EKDBLf8oQX7nSzPC95VCe8WCAfp5hXo3nKRzu6M7
- qBzb/tAu75iOCSUMuOiUssJsGZOkiRSty+dEucPENWpLgLFbBvhw0gjlLfKMycV5aj/4
- 4CdKCDQLqTKEmHizgvj2DMlQz0FOPxNb4A5WsG7mEUBq/n1hflJJ7bwiAmvJg9a4uYPQ
- XOmg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790177576; x=1790782376;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=hKtcWNVFda3wl86zaKIN0hpMLzWuZcmeXVfEC0xSzRI=;
- b=aXdJnsuuaeAzahzoUysiqrvA70An4xvZ87/2RO7qLFnpByzS+XMfgDmEuivN6GrQ+7
- Q0i8AEffLgFaTGtRiNREcreW59lBFpVpSVNlucnjXePOcqVYmGC0CJkawN0ZCmIchLrS
- DRFpdMYmmKnlh2EbiMjasVGgAI07eHJqkHyuprQeXf8j+hhnFuN1OTLglGHie2/QY5+N
- NFdgeBq9+8wFwgzhjo8thqH+vnKQYxfcYTzPMy8Xj6qC51injVPKEHdP1pI8R/ObmGEf
- Oa4EsDJbVpNyArZl1DQttZ/Nqt7XZL+hEFkGcKoYefBa7+y9HFuGNin3EMb9qiaCdunp
- yX8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790177576; x=1790782376;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hKtcWNVFda3wl86zaKIN0hpMLzWuZcmeXVfEC0xSzRI=;
- b=BP6UJJbMbX5uVBCWZLyVC1ehRSEoxs2a/DrF4fTN/qhP30Smxj6x+Ta94L9Lr3ZNHO
- c6FyL+m2my73Bk63A+Yns5fpRUH1VcRVLobr528mJCmRfmMYdIw1e+zzps3k9YuzCB7w
- E8/t0I48cQ22/BaefywyeemlX8NBZRoVge9UDWECjZxxzxHHTy9E8URJr92IEXq6pZZt
- qDJChtbG5yLvCNfuK1PDBw2frCeIMBm6iveXiFOCv/gxfrz4u3eEwf2OMds+dodNTW1I
- 1Z/GScvh7M2Z2mvbtODCqN2euniMdxUHBjEKbnHABm+9m7knBNtTCeEUhkX950Cr8bYv
- QPag==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxwK0ByLEY/UM05v+l/OOaQTZAF8KYWzTG0QyF6Ym/x/HD7zH2Zk8LAbyzWmC71h6H3ChF4bPMy8bU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nK+fHFbvD6SmGATYR8OBjwotuNJIazA9C1MQUyA6kcN/B/Ocba
- NYHYZyaWbqN3LPK00quqQklyqqC/rQzVlIrZj7VewIikp1WZ/V0tW122svpHyxA+JXinowg2BNL
- v2s/Vp8LSM7ONEAbLzzyi4VmW0nKsBglSy9nDwRgG
-X-Gm-Gg: AYBFou31r/P38KaNkKdkckbVKZ5EXYsIhQltz6NcTxTf96EnuhbzHs+SVvxY6W0mvX1
- xykhKlrMilTftZguVTCRai3EPEXSxhNQKtIUGyW65WJmgm8dwfo9LorhYJIbBdTAfp14pvDjBmX
- j4nG0QfMC7z5NoqQ0T8xzVUFEHYHsFquNu1rt+Vxqp+3mxTbIfHOqg3COuZEG9+X5RxGwJab4qp
- +ccIQl4lNAEh9yzFVPLuim4ANuvMas2w2zBcjuT1rsFkzLLW6ZDWdsM2tquRrtWoRs7GHthMfKJ
- aPp/3SviN2mwDkpAmXHE8/lDAFk+KqTmk2zV7FsxouY0fdzcjj4cuB+fqrleP6ON69uGy6glTx1
- fJ5NNUw5ltw==
-X-Received: by 2002:ac8:5f13:0:b0:532:8423:1e78 with SMTP id
- d75a77b69052e-532f8eef5afmr573491cf.10.1790177574693; Wed, 23 Sep 2026
- 08:32:54 -0700 (PDT)
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com
+ [148.163.150.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC79310E586;
+ Fri, 25 Sep 2026 06:57:30 +0000 (UTC)
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+ by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68P4ac0g1382243;
+ Fri, 25 Sep 2026 01:57:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=proofpoint-05-2026; bh=BvZW+U+XdOfBs
+ rS/WWP9QwqovFjaa4eWmq3hosy744Q=; b=AtlCP5Xpckohzr6Kdr74MfDL3oI4C
+ wTgsBdSFfWo5+sjEbfRCCDkSMo8B6YXzIgrH0MIqIbQZY5VDUvgSNe8hEhB2X6ca
+ r/OsdDdImwDxDLV/6jOCPeu2HAHvhbqJcOLdb3qzLkRyweiBsXyPAfxieRLMjleo
+ 3mWhWpKnlWmwKI/ab0/IpLmRTe8HYIW+QfREwZWcglkgbwpfaHID8YMAY8Y6mITK
+ gKm8aILEMFtSWqQ4YBFR1fUe/cnlqhU2EVRazF42T1PcT8RYqy7/n1hw1Yf0X90W
+ sLnO4Tb3CxUZjh4F2RlXbWZ5FKczWHpuonc5eZgXmgOvoh9C00isso2qQ==
+Received: from ph0pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11011020.outbound.protection.outlook.com [40.107.208.20])
+ by m0380145.ppops.net (PPS) with ESMTPS id 4gw13rf09k-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 25 Sep 2026 01:57:20 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MrYaZs5gDH8WyuE4mAexykGW4RNkixdN37Ve+1DifXh3dmWXXxXioAerAWFmrNrGS119zVhFmSlm4q9SETIKfRUucjh5cu4PzpCnDQyETncCnVrOYYxLmROBbu8ITATMwg/F9Bdyf6+RmnWtZUBPdJQUeHCC1XL/LQNCDm/ln9rnBdjMFohiLX17qgV2Rb7kumF76P7xH4x+HPObRmkFB7gmnRDxuCpp1EatDOC8ocPYAP8sgrzeStl+vGTwozdS6Xf3RdZFsjKlFl8qIUAMRM1w4LeF2/k9mU55nR7UTZ7USd8KiMe89O1j2QZvZhigS9+tYFvcSIgkx1Ivfh+VPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BvZW+U+XdOfBsrS/WWP9QwqovFjaa4eWmq3hosy744Q=;
+ b=cSbRPI0yFHMe9UjHkhd1N2+BkYxXRXur3UpRG11j2BlUN7mhPspbOJDjCvnG5dN1bY2SO2ovVtvjdYHQLR61eZGHoLK/bnqi48zedrWXuwTipA8+RV/kwAvOGCXrj5BrptU8e/Rw5tELJKCYGZHOHxw5N7rdNJjMddaHvvOSFGfiHP4Ar5u0N4gKfwHzKA5bI1tzfhWwpqvmG29LwzG2GUFT5OR3w4abtf3uWtcLi1oC3OHCEcX5wPwNgrSWXCmbzDt5g9sKO1y5CN3+mocdWWO6VzPo90fF6MKtKHf5pLu1fLNKaQ0CskaOv5HQygZQf8ZpPA/vSaEsDQOBtKn4iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BvZW+U+XdOfBsrS/WWP9QwqovFjaa4eWmq3hosy744Q=;
+ b=p5Nt1Hi3WtVaPvPIxJ/nOwThoUdC5dAVqCAnUjvdvv1MOEPcj+revfgGPag6K/pC4LTOg3ak1PeYWs/DEDPe0ZXsm70wtweT3y3uDVsCg6zGNvBuYnTuPCZ4z5rSBNwxqoR2WIdWXO9r8Pu8faxIyNhKRmmBzDrpA3COmong7ew=
+Received: from PH7P220CA0075.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::11)
+ by IA1PR10MB115880.namprd10.prod.outlook.com (2603:10b6:208:5a0::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Fri, 25 Sep
+ 2026 06:57:17 +0000
+Received: from SJ1PEPF000023D5.namprd21.prod.outlook.com
+ (2603:10b6:510:32c:cafe::7c) by PH7P220CA0075.outlook.office365.com
+ (2603:10b6:510:32c::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 06:57:17 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SJ1PEPF000023D5.mail.protection.outlook.com (10.167.244.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.5 via Frontend Transport; Fri, 25 Sep 2026 06:57:15 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
+ 2026 01:56:42 -0500
+Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
+ 2026 01:56:42 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
+ (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 25 Sep 2026 01:56:42 -0500
+Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com
+ [10.24.51.24])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68P6uZ1I1371804;
+ Fri, 25 Sep 2026 01:56:36 -0500
+From: Aniket Limaye <a-limaye@ti.com>
+Subject: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Date: Fri, 25 Sep 2026 12:26:27 +0530
+Message-ID: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
 MIME-Version: 1.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 23 Sep 2026 08:32:43 -0700
-X-Gm-Features: AclHuK8Inh8u6lJouEWaJf_8_dOxdEc__Ja8ROlufrRS70N8N3MQ9iMsAEM4G5I
-Message-ID: <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
-Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
- fields on new vma alloc
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABsbtmoC/32NsQ7CIBRFf6VhFgO0QHHyP4xDoQ/7htoGkGia/
+ ru0g3Ewjucm59yFRAgIkZyqhQTIGHG6F6gPFXFDd78Bxb4wEUwoZrihqe9kQx9zTAG6kaJwtGd
+ Oac+VbbwjRZwDeHzu0cu18IAxTeG1f2S+rX9zmVNGLbPGa22Bt/ac8OimkWytLL58IX/6ovhCc
+ d1KkG1j6o+/rusb7ZxiLPEAAAA=
+X-Change-ID: 20260919-tda54-upstream-i2c-d0c67f16b4fc
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, Nirujogi Pratap
+ <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>, <nm@ti.com>,
+ <u-kumar1@ti.com>, <lianfeng.ouyang@starfivetech.com>,
+ <Ritwick.Sharma@arm.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Aniket Limaye <a-limaye@ti.com>
+X-Mailer: b4 0.14.3
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D5:EE_|IA1PR10MB115880:EE_
+X-MS-Office365-Filtering-Correlation-Id: 826841c8-473a-4a1d-2e35-08df1ad23ba4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|10067099003|6133799003|56012099006|18002099003|13003099007|921020;
+X-Microsoft-Antispam-Message-Info: 3uQBAudgS6qalflhghWJSDuxpBpMRcVibYwraRQthw9Hqu6Wff1FoP8paP385He67zPNVaA/JZRuyz8D/5HLUq5adJTDV4QS66nv3cG5qTYkKSIuoSGWZmqzvIwSfZthTN2178HP46C4slzCfb2Y0PdBBUzsZCa4oCrNeR5urVJB+XgZ2MWThc/NHTSPTNujjOFYxJwUCGBKCdEhoHiRoHlIC75S7GGiud+VOK1XL/aG6JC1fdfZJXk1bq8sm71Pul3pIsg7iUh5rnHYPV7/yxbTfAInPnI29AW3MHgsEarDt0HRRZI2Drpp5nls3DW3+jg/LmU0+QS8Y7jzvLJRs1xgFi1cdNq8ojB2HuIWnQtdeqTK61bFHR96kEgMArkH0Knt+Uj+BNavbJ7OKFgzrT1OLYEHIwzgBMN6RjK/pGycoX95PdCPuBhyu/kW8E/S2m8sFeTvj9qtO8MgFln1N5WNDLogOx+FeQe3zsdPvaifmCMeyfYZe7EMs49HRVZMekh0oTkQc+OXqqFIFsh0LgtNnFvUx3pV7qMcbEkYhhG/eZI+o7xNw5ekTtLUk608Js6ajybGd9oTg0nP0aDTKWglKDy5N3ArvNtjlpxhYLsQyE5TxzLI6NRbycXjUXA1HOj4jGIN0jlh4cY1yCD7stPRbXbJI9NC4CTqNm7XMvLDhjZRLCiE0YQXSlcZXQdVZVwzFgzDeRD7yqXwTeT/d7043vOv5CQFEwybYwwL799E0mb21R/7A4adMoHJCfBy
+X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(10067099003)(6133799003)(56012099006)(18002099003)(13003099007)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: KQ1nKn7Oo4o/qPz6a9FJEGcj6+pATdBLTBz3KZKUrAkVKqFWGwR3Do3YFjPD6TMIjcC3DOubyinzM65H+Mu+pqcSO1+4IXMSzKzjwLPZ8f9TiB5Mz8MtCEQTNIWvyBFq/7f2nGtI9WncNuSOvZqs1wfRZurEkQzQLHy+dkJTK/2bDuyBnilj0BFaIqr/EAseqPbGMn8qtJ0ZLOkJ5L0XI8ZdNXlgZVefGM9+Xw6bP/kDErjTdOlxsE7G9taBz+DicnuQUDEgTyB72f9TP6htAcSetlmtWlIHXbNFApiWPtxZySTGe9wm2ktKJXJ2Z7qi3Yh+io4Y+kFGDo0z657SY0glMLWY8T4eZ4j6DyqpfN6WWDoUQYcbpsUmMen10bbZFnKJfAoLJ+5fG9cgMMtcs9Oz+e0x9+DZGMWCGiIlE9FUWOiruNmaCaOEi4mKMjnq
+X-Exchange-RoutingPolicyChecked: JF/9ASFl0pYntrdPVjrKbrYi02StW1du4aBaWBbC2LG3YThv0eByQ/WgK7/n+DQ8DZr57LeUw+XI20VvNfm09BV5jPQkXA3op4CW3senV6qyZi0MT70+G+OdTi1MMmelsrE9HZWkqPHjIAk5j9pMRBY20/mJOxTajcEcsipx00kSSuEBW6l4cmXDuyxD3f8eE5PqIyNp39yF7mRSN5INMucpX824AKrgyaaHKclgoHx2FGsrGDPUeri5GEiwI8W04CijjbCsrm1VCecen6VsYAiimAJrET15avQVPaCzFJoaeL36LCLAP2vj2qcUmXhzLwV78+DFxOFvn80dm3+A8g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 06:57:15.4622 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 826841c8-473a-4a1d-2e35-08df1ad23ba4
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
+ Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D5.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB115880
+X-Proofpoint-ORIG-GUID: JeRQIfILRJZQKSN3hUBLw-hHT5sZs_lv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNyBTYWx0ZWRfX+JQ3Mm0wyVio
+ hcYa+1QNK218Szsv5AapRoXt8KFZMOxjKa6TeyVwpmzwvb6Ye31BiFdahoxXRleRRz0FkAQRYWx
+ WXgLLTOu/g2OcYvUCtTfzA3fRGJ10PPZBxDfnDrqi8itP8YQeoCL2oz08ZHx9ex9WIpl0D+i/gd
+ R3yovHtogQRg/Y+GKcJv+BYsLDkhfDTdPvk8STGikmpmikgwnRKFqV5OS5PX6gRGDhrV7FFI6sK
+ y/LsbNXuEmI4TzJz5papFBxUSybUSsdkZo387Vy2RVPPZiquU3VEFtzRMvjGbsht5QjpWPHlFjo
+ 9IjTtORLF0FPlq55T6rKNj7HjcPVZY8y1rBDSELbIbSoJrmy/Ev2H5SG3bF/fdQ2nP0k0kn9ch9
+ K56eQ3MJh86G1dEA72kSvhVm1XKM9DrW3Tjx6OXZGmTnAyJ/fH++lyMqzOJLoqyjjwRDgkPgY1D
+ 53SWq6I0PaKQwyZymVA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNyBTYWx0ZWRfXy2vn34CKK03C
+ taxzG6B4jX4bjxUjXiu5H9iiMp7Gm75VOhM5oUNH3JI6aKN/lVibDYqzxzoWip2MMD5xOHWgYLr
+ UyiPWQEtlJpsFn9uxbOJ47uzIjCLWMY=
+X-Authority-Analysis: v=2.4 cv=OICyTiaB c=1 sm=1 tr=0 ts=6ab61b50 cx=c_pps
+ a=KTjCFeyF3Vp3atYHcTGfzw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=di3ura9MPRWK6PFUWBwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: JeRQIfILRJZQKSN3hUBLw-hHT5sZs_lv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250027
 X-Mailman-Approved-At: Fri, 25 Sep 2026 07:30:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -191,67 +183,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 17, 2026 at 9:24=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> It only makes sense to manipulate VMA fields if we allocated a new VMA,
-> rather than merged it.
->
-> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> keeps its own, which is also what the legacy f_op->mmap path does since i=
-t
-> never touches an existing VMA. Previously set_vma_user_defined_fields()
-> overwrote the merged VMA's fields with those set for the new mapping. In
-> practice these are the same values, with rare exceptions such as shmem
-> selecting vm_ops based on whether the file has been unlinked, so no
-> user-visible change is expected.
->
-> Make this dependency explicit, and additionally constify have_mmap_prepar=
-e
-> while we're here.
+Add new compatible and update driver to support Synopsys Advanced I2C
+Controller (DWC_i2c [0]) present on TI TDA54 SoC. This is needed since
+this controller differs from the existing designware i2c (DW_apb_i2c
+[1]) in its register offsets and some register definitions.
 
-The fact that we might be overriding attributes of an existing VMA
-that we merged with is technically a bug even if we never hit it,
-right? If so, should we have:
+The new compatible updates driver logic due to changes in register
+definitions:
 
-Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+- The new register offsets are handled by first refactoring the driver
+  to use a map of register IDs to their offsets.
+- Similarly, also update the driver to use an updated CON-register
+  bitfield definition.
+- Interrupts are acknowledged by writing a bitmask to a single CLR_INTR
+  register instead of reading N dedicated CLR_* registers;
+  i2c_dw_ack_intr() picks the right method based on dev->flags.
+- One HCNT/LCNT register pair is shared between standard and fast speed
+  instead of having one pair each; i2c_dw_write_timings() writes
+  whichever value set matches the configured speed.
+- No COMP_PARAM_1 register, so FIFO depth and high-speed-mode support
+  can't be autodetected: FIFO depth now comes from the required
+  snps,tx-fifo-depth/snps,rx-fifo-depth DT properties, and the
+  high-speed capability check is skipped.
+- No defined CON.RESTART_EN bit; treat it as always set.
+- TDA54 SoC does not support SMBus, so skip accesses to those registers.
 
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[0]: DWC_i2c_reference.pdf
+[1]: DW_apb_i2c_databook.pdf
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+---
+Changes in v3:
+- [PATCH 2/3] Revert to special handling for the max_register in regmap
+  for MODEL_AMD_NAVI_GPU instead of unconditionally including
+  AMD_UCSI_INTR_REG in the legal regmap range. (sashiko)
+- Link to v2: https://lore.kernel.org/r/20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com
 
-> ---
->  mm/vma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/vma.c b/mm/vma.c
-> index fa784f069da4..4b74b48c29b7 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *fil=
-e, unsigned long addr,
->  {
->         struct mm_struct *mm =3D current->mm;
->         struct vm_area_struct *vma =3D NULL;
-> -       bool have_mmap_prepare =3D file && file->f_op->mmap_prepare;
-> +       const bool have_mmap_prepare =3D file && file->f_op->mmap_prepare=
-;
->         VMA_ITERATOR(vmi, mm, addr);
->         const pgoff_t anon_pgoff =3D addr >> PAGE_SHIFT;
->         MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags=
-, file);
-> @@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *fil=
-e, unsigned long addr,
->                 allocated_new =3D true;
->         }
->
-> -       if (have_mmap_prepare && !map_is_anon(&map))
-> +       if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
->                 set_vma_user_defined_fields(vma, &map);
->
->         __mmap_complete(&map, vma);
->
-> --
-> 2.55.0
->
+Changes in v2:
+- Rename compatible/flag: snps,dwc-i2c -> ti,tda54-i2c,
+  MODEL_DWC_I2C -> MODEL_TI_TDA54.
+- Move the Reg ID -> Offset mapping inside the regmap functions such
+  that existing calls to reg_read/write are unaltered. This does change
+  the reg_read()/reg_write() functions to take reg IDs as input rather
+  than their physical offsets, which also requires updates to the
+  xe_i2c.c driver to handle the same mapping.
+- Remove i2c_dwc_has_smbus(); just skip the SMBUS_INTR_MASK write under
+  MODEL_TI_TDA54.
+- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com
+
+---
+Aniket Limaye (3):
+      dt-bindings: i2c: dw: Add ti,tda54-i2c compatible
+      i2c: designware: Support per-variant reg/bit offsets and intr handling
+      i2c: designware: Add ti,tda54-i2c support
+
+ .../bindings/i2c/snps,designware-i2c.yaml          |  33 ++++
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h              |   3 +-
+ drivers/i2c/busses/i2c-designware-amdisp.c         |   1 +
+ drivers/i2c/busses/i2c-designware-common.c         | 193 ++++++++++++++++++---
+ drivers/i2c/busses/i2c-designware-core.h           |  70 +++++++-
+ drivers/i2c/busses/i2c-designware-master.c         |  78 +++++----
+ drivers/i2c/busses/i2c-designware-pcidrv.c         |   2 +
+ drivers/i2c/busses/i2c-designware-platdrv.c        |   3 +
+ drivers/i2c/busses/i2c-designware-slave.c          |  26 +--
+ include/linux/designware_i2c.h                     | 137 ++++++++++-----
+ 10 files changed, 432 insertions(+), 114 deletions(-)
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260919-tda54-upstream-i2c-d0c67f16b4fc
+
+Best regards,
+-- 
+Aniket Limaye <a-limaye@ti.com>
+
