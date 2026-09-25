@@ -4,44 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99E62C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 04:17:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC0AC9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 04:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABB010F84F;
-	Fri, 25 Sep 2026 04:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFB6F10F858;
+	Fri, 25 Sep 2026 04:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fQOJaIUI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OC/2zjMn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D487B10F836;
- Fri, 25 Sep 2026 04:17:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F16966022E;
- Fri, 25 Sep 2026 04:17:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A191F000FF;
- Fri, 25 Sep 2026 04:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790309855;
- bh=Nq1E/W0hOk05nlI9/1a52oKb/tW+irCR05uyh92AyxA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fQOJaIUIr1wbjOjvIpBBaCvTiQAzFx7+QKZ93KZ/lTfsg9AatwueVfJNBsJBmuksW
- KpYM53/bCXfbCwvfWhQMorY9eZScWA1fitbzyxLobIWg2gPS41KIARVIMSqf/bPpto
- XeSmGV5fetvGl4PK0WZ9u6ibwT9uul6aJY5XVrRFociguFqFYNtVWUiCQ/uJUUTGvA
- PaFCAvEPjk8q/qg7GAsKC7OGRVFRv+ZREihYsMjgDiC/WSaYUzkHkYWk/KgDeG01c9
- y0BRbTxbFWkiS2J2m6oMi9gBxV0UnC6y8vPA5sXu9rVV7DMbdxIURORgE6wMYxmiOz
- mDQLFCj3knMHQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/hdcp: Fail fast when HDCP Type 1 is
- unsupported via MST
-To: "George D. Sworo" <george.d.sworo@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F86510F858;
+ Fri, 25 Sep 2026 04:58:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790312337; x=1821848337;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8Dkk4oJwvZCcswUWqzOd3RRTYzoakF3bQMXeNMULP0M=;
+ b=OC/2zjMnEiJyGAikloD08vYiobKChh4Bj6MTsQ5y37bjaT/3BaULkEKd
+ bz1H7DL9eS30hFzL2uhS214kC3/6L7qgoDpPPPQejeMhbicS4NGrw7rgb
+ 7QEiJVbsrTaE5g4cYbs67pOiy1UINaUTddX5rJX7uFg7NhwBoK8TI34wi
+ exZiL++IFDt6EQeEkMC+H0WIGlomN35P17yoCmTtLjxAkpQj7Dv40fEnk
+ PPtfTj/00ZO/qPkFlKRxPgcEnM1qN1fvC4agKlPs2ktG0k4IrBqjHQb5d
+ k05WPT/eX+QACXFMC2h8jMgJX+cW1HU5hSaGbpg0a6ipSdLFQJBHp10QY Q==;
+X-CSE-ConnectionGUID: IY12S4wNTmiTXdXlzNlKoQ==
+X-CSE-MsgGUID: qJ3hKpf9TOufUHvM10u8Sg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90001724"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; d="scan'208";a="90001724"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2026 21:58:55 -0700
+X-CSE-ConnectionGUID: Uq+QI5DKSRqGK1FfB7M2Ag==
+X-CSE-MsgGUID: MAUwL8XoSHuAkToy9F6uyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; d="scan'208";a="273785851"
+Received: from gdsworo-desk4-x299-aorus-gaming-3-pro.jf.intel.com
+ ([10.54.67.206])
+ by orviesa007.jf.intel.com with ESMTP; 24 Sep 2026 21:58:55 -0700
+From: "George D. Sworo" <george.d.sworo@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ "George D. Sworo" <george.d.sworo@intel.com>
+Subject: [PATCH v2] drm/i915/hdcp: refresh MST Type1 capability per sink
+Date: Thu, 24 Sep 2026 22:03:10 -0700
+Message-ID: <20260925050310.2058392-1-george.d.sworo@intel.com>
+X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260925035639.2034315-1-george.d.sworo@intel.com>
 References: <20260925035639.2034315-1-george.d.sworo@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 04:17:34 +0000
-Message-Id: <20260925041735.66A191F000FF@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +67,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/i915: stale cached HDCP capability causes spurious atomic ch=
-eck failures
---
+Thanks for the review.
 
-commit 74bd0c52833336220c44be4fec288971d8f48f92
-Author: George D. Sworo <george.d.sworo@intel.com>
+You are right: the cached Type1 capability is only valid for the current MST sink,
+and it must not outlive a hotplug or topology change. I've updated the patch to
+clear the cached value when a new MST connector is created and when it is torn
+down, and to refresh it only for the active sink.
 
-drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST
+This keeps the atomic check AUX-free while avoiding stale results across MST
+hotplug events.
 
-This commit queries the downstream sink through its MST remote AUX channel
-during HDCP initialization to cache whether HDCP Type 1 is unsupported. It
-then uses this cached value in intel_hdcp_atomic_check() to reject invalid
-HDCP Type 1 requests early.
+HDCP Content Type 1 requires HDCP 2.x support from both the source and
+the downstream MST sink. A request for a sink that supports HDCP 1.x but
+cannot use HDCP 2.x currently passes atomic validation and fails later in
+the HDCP enable path.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/=
-i915/display/intel_hdcp.c
-> index e56df337dc6d8..7490fc0fd96ab 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-[ ... ]
-> @@ -2421,6 +2441,10 @@ int intel_hdcp_init(struct intel_connector *connec=
-tor,
->  	if (is_hdcp2_supported(display))
->  		intel_hdcp2_init(connector, dig_port, shim);
-> =20
-> +	/* Cache the remote capability before atomic checks can run. */
-> +	connector->mst.type1_unsupported =3D
-> +		intel_hdcp_mst_type1_is_unsupported(connector, shim);
+Use the refreshed per-sink capability to reject unsupported Type1 requests
+with -EOPNOTSUPP in intel_hdcp_atomic_check(), and propagate the error through
+the digital connector atomic check.
 
-[Severity: Medium]
-Does caching this capability during intel_hdcp_init() fail to account for
-subsequent monitor hotplugs? If an MST dock is connected with an HDCP 1.x
-monitor (or no monitor) initially, connector->mst.type1_unsupported evaluat=
-es
-to true. If an HDCP 2.x monitor is later hotplugged into the same port, the
-stale cached value will remain.
-
->  	ret =3D drm_connector_attach_content_protection_property(&connector->ba=
-se,
->  							       hdcp->hdcp2_supported);
-[ ... ]
-> @@ -2700,7 +2725,20 @@ void intel_hdcp_atomic_check(struct drm_connector =
-*connector,
->  		if (old_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_ENABLED)
->  			new_state->content_protection =3D
->  				DRM_MODE_CONTENT_PROTECTION_DESIRED;
-> -		return;
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * Fail fast if userspace asks for Type1 but neither the platform nor
-> +	 * the downstream sink can do HDCP 2.x, instead of only discovering
-> +	 * this once intel_hdcp_enable() is reached.
-> +	 */
-> +	if (new_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_DESIRED &&
-> +	    new_state->hdcp_content_type =3D=3D DRM_MODE_HDCP_CONTENT_TYPE1 &&
-> +	    intel_connector->mst.type1_unsupported) {
-> +		drm_dbg_kms(connector->dev,
-> +			    "HDCP Type1 requested without HDCP 2.x support\n");
-> +		return -EOPNOTSUPP;
->  	}
-
-[Severity: Medium]
-Could this lead to spurious rejections of valid HDCP Type 1 requests for
-hotplugged monitors? When userspace requests HDCP Type 1 for a newly connec=
-ted
-HDCP 2.x monitor, the atomic check reads the stale cached flag and spurious=
-ly
-fails the request with -EOPNOTSUPP, preventing the display of premium conte=
-nt.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925035639.2034=
-315-1-george.d.sworo@intel.com?part=3D1
+Signed-off-by: George D. Sworo <george.d.sworo@intel.com>
+---
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7023619aaaba..da54699fb121 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1838,6 +1838,7 @@ mst_topology_add_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	connector->sync_state = intel_dp_connector_sync_state;
+ 	connector->mst.dp = intel_dp;
+ 	connector->mst.port = port;
++	connector->mst.type1_unsupported = false;
+ 	drm_dp_mst_get_port_malloc(port);
+ 
+ 	ret = drm_connector_dynamic_init(display->drm, &connector->base, &mst_connector_funcs,
+@@ -332,6 +332,19 @@ intel_hdcp_mst_type1_is_unsupported(struct intel_connector *connector,
+ 	return hdcp_capable && (!hdcp->hdcp2_supported || !hdcp2_capable);
+ }
+ 
++static void
++intel_hdcp_mst_update_type1_capability(struct intel_connector *connector,
++						       const struct intel_hdcp_shim *shim)
++{
++	connector->mst.type1_unsupported = false;
++
++	if (!shim || !shim->get_remote_hdcp_capability)
++		return;
++
++	connector->mst.type1_unsupported =
++		intel_hdcp_mst_type1_is_unsupported(connector, shim);
++}
++
+ static bool intel_hdcp_in_use(struct intel_display *display,
+ 			      enum transcoder cpu_transcoder, enum port port)
+ {
+@@ -2441,9 +2454,8 @@ int intel_hdcp_init(struct intel_connector *connector,
+ 	if (is_hdcp2_supported(display))
+ 		intel_hdcp2_init(connector, dig_port, shim);
+ 
+-	/* Cache the remote capability before atomic checks can run. */
+-	connector->mst.type1_unsupported =
+-		intel_hdcp_mst_type1_is_unsupported(connector, shim);
++	/* Cache the capability for the currently attached MST sink only. */
++	intel_hdcp_mst_update_type1_capability(connector, shim);
+ 
+ 	ret = drm_connector_attach_content_protection_property(&connector->base,
+ 											   hdcp->hdcp2_supported);
+@@ -2676,6 +2688,8 @@ void intel_hdcp_cleanup(struct intel_connector *connector)
+ {
+ 	struct intel_hdcp *hdcp = &connector->hdcp;
+ 
++	connector->mst.type1_unsupported = false;
++
+ 	if (!hdcp->shim)
+ 		return;
