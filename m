@@ -4,145 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA68EC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 09:50:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE77BC98324
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 09:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D30810F9D0;
-	Fri, 25 Sep 2026 09:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42CCD10E249;
+	Fri, 25 Sep 2026 09:51:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ow9vXphI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XSugoVKr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JSUBBGwl";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E385D10F9BA
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:50:21 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68P4YiXV039781
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:50:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=yLHiwXQklmHg3BGQyexI717l
- yCNVJaLgg3xbK9n9cXo=; b=ow9vXphIS5Bk04s1Zxdr6kq+e9JGe+G3x+64k4qi
- I6G0Oz8rNoY3DpX62YJJ/pmMolcohoXmEn3stTOX8paKBZfxkkBUgOhdG58a61oe
- fxFdFrDUXGRSlklcYVqhpFGZY8tGEW9zRIa0NE4UyfdjYI/eeIBERLk/udv2nSe6
- 7b5qeZr8YlpS+q0QTrK81b6QKQ31z4gI8iKgiAclXlFBbuM2gZIlMO0K906avSsk
- kAJ2Vrw9X1vuqgrvmP2giMl6VQyWxa61uGemmZj33yR7t7r5vLMZQogXdWVBx0dF
- EXOu8SNSFGJFDZEo3u2EfQ8cUU3XTjWO3ZaUbPhBTW5JYg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw46545aw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:50:20 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93a1de6d5c3so163755285a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 02:50:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790329820; x=1790934620;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=yLHiwXQklmHg3BGQyexI717lyCNVJaLgg3xbK9n9cXo=;
- b=XSugoVKrPhxYVNp/yOIog2DPYOn6GifiomWu2HbzpgiBXzb+FhlXjtk0aSxdOw0VKe
- gqdN8+dCJntjRsi/2TGKvBgvixx9l8BJ4Z1dFIVjj+gJDKqpTh2t+5zqimQAXkko5MWD
- B8ABJH6Yzgs9AKn1g2JsZcetkYcwn9cxaVCbrbO59pTC6KonsUpNAntfxpE6ONMFOui6
- 2dLfP6JzHFSNtSH057n7IuxC8uGXixWuXqOWKgXkctAx26DylHoX/PnxaWe4PNBAZkOp
- waFybt2iqqz8YffxsqqMWZvfWVg1rUnEJfW5vAbL66vc8C8PZv6hEJTmyG61eGmxgKMy
- WLjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790329820; x=1790934620;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yLHiwXQklmHg3BGQyexI717lyCNVJaLgg3xbK9n9cXo=;
- b=ikd67DZnTyaF2oXYP06mHCnyvVoXyVs9WrUb2VXwu0jfZIZXibyxNx3LeE0lf3foFo
- pYCvOuueRMTPNEg2gUcr1hDx+gb3MyMOs2proVmLjBk7MzeteXkZwucen/NAQbGvzDeT
- I9K/4zvLLqBtpby/mmBLKxtua69XNouSSmfPcqChWClJ2T8bi9Eoob3ne/nsNGKro8eF
- DGctJ0VN0O5jbMYevuH6TXOOschIcTxxQTXgfJUWib5QaSrzgjuYUAu9u5QKnOWrxlg6
- EN0NbNpxE0TEpb/LVKmiw+5jDO69+HleXHojCg5wMCcQ5HvQ66spPlvRNn8qZxmk9Nao
- uGbQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwQ7m44rMSgXdXzkssNt9mXCtyO/RTHlaOItK1GgXAqwrCdvAp5+LhNYsxiUMNYlsHrntC8rZdZ6qA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lY0b5PQp4ITWDH6uqG21mg1QW6SKT/87T29/DCa1qffqU/r3pE
- nqCT9rQ9m/TuAsed35Ef4GLjy1VQ46vOtpUCDrXJifBFuMPDgaxK1BvyJ3eCM8udj6iHlrgAJXq
- 3ssGjNAH6og8rBZDbxlyYp/jN1GwM3FJoQBaw6OR96DSkdiPKUPvzt/+6gKua9MgeZkMqnQQ=
-X-Gm-Gg: AYBFou1ydF27LYkD0FEpbw9nSVxqJAf7TZO3vuMxzUBknJjAEPkzU5gSvqSFfRenBeQ
- q3LS50+MIbTG8J5I8ooDmrVEwwKf/yDPJaNXFEL4NAFx5iO6KeL7Rs0681iWO2+OeYIE/GDqC5x
- GesvY+gHTuv1KGiztjzSL7GoTdPCfxodvOFBgY4Shim8vMkDk4RBaVc6+8ZP/qC5qwcnEqdY0Kv
- D93T61jZ/xmTvp/dWnC8HsMWWu6yOcQo63VmqL0tG0W1xo3HH4B7jUPpVZzTre8iwFvKVkh0f+6
- rmNi+deYD4xmzDluW46G8OQk5QplnTibWLOBKLKyZHvXMpbwu/VD1D7gniSDePEcSe0IDMzqIaa
- Ce1W/91Ol5OZLNQo=
-X-Received: by 2002:a05:620a:8808:b0:93b:c45f:9024 with SMTP id
- af79cd13be357-93c43cc2c98mr342981585a.7.1790329819862; 
- Fri, 25 Sep 2026 02:50:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:8808:b0:93b:c45f:9024 with SMTP id
- af79cd13be357-93c43cc2c98mr342976785a.7.1790329819260; 
- Fri, 25 Sep 2026 02:50:19 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4887a355826sm5830535f8f.18.2026.09.25.02.50.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 02:50:17 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:50:14 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: [PATCH 2/5] arm64: dts: qcom: glymur: fix Adreno X2-90 GMU
- compatible
-Message-ID: <ahdrlb7wvcr6aczgrhiwuyy7ahi4ahvvv26aweucfb54hmwszm@f5spdkm35xab>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
- <20260925-mahua-gpu-v1-2-0fa0bfd8d315@oss.qualcomm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0471610E249
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:51:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D8896022E;
+ Fri, 25 Sep 2026 09:51:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3B71F000FF;
+ Fri, 25 Sep 2026 09:51:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790329872;
+ bh=Yk8oUNugjqXaeddwMIx0+ekaXJEnqfxT78aSMnwYEnI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=JSUBBGwlrH3ZgwJ6l/4+E323TPon9dlzQmxSgi4dKP5ej5M+6JNROW2aYv/s16dE8
+ CRGnOlxQkSQ+kwX4jOwHjC4XJeglXJXbstdRLEGVyfy9uuaU5RY7j/bQVZeovmWADu
+ BMPfHT0+2IVfelM7WD5GXNkc8n0jApkA5i6t7amcABDPyOlWU00gWD4tXhMUjhBqDP
+ hNtSCW963vazV7rBBtraH4k8uB392AUIFbbnM1RHSRvA6CGYdjO1l8WDJIm8Wq65e1
+ FusdmWKynvIGTrqdUJHAe9NC9EjgtAYk10ou/aFv3U2NgPrnFm53wiqaIk0D7TVJJV
+ MhzR8ZFfariJg==
+Date: Fri, 25 Sep 2026 10:51:04 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 05/40] mm/vma: ensure mmap_prepare doesn't set actions
+ on a mergeable vma
+Message-ID: <arZC7UscjpjVJxnV@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-5-4583d8a23bca@kernel.org>
+ <arVkwC_wNoTLjRYf@gourry-fedora-PF4VCD3F>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925-mahua-gpu-v1-2-0fa0bfd8d315@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Wrq+otfv c=1 sm=1 tr=0 ts=6ab643dc cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=Le0wDFEDRhIWofPBaA0A:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: Ck_Y1q5UvCDVtDY-LcHUkYBgs2OrAbz-
-X-Proofpoint-GUID: Ck_Y1q5UvCDVtDY-LcHUkYBgs2OrAbz-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX9/F1PnM8yGxU
- 53qg3tKmgIGn7R0ac6rUxfDeRtsUaJQhx96rIYLnSuAZr/+HTeIqEHzaLRCQR01BWD22N1gWxC5
- JEchLQyaH6dRfwdcX2HbgdU2qlfslreEZ7dXBY/8crllZ88AjWu3Xiab6cPxCleGsh//EVernl1
- IITbGdRDdWgIPFpjVesKlt3y5OH9kWcsAo+uxnHeZr1B48YcmRRPW1KdEuQr0iJ/b09KbQ2Jw7y
- RmjAylQcFlZY2GHVxuscL39z7h05JEcav8N1E12a066vQw9SeVIRQ88dwdlyTA2gmST8nyUojs7
- FonYyOA3X7syic8N1jVqgeTPl6LOPVTc2KYRXhIA+9pLuMr5zPMLCgHrB7KfFwnQrxo9F2X/wJb
- qG+aHAAtqqr5TqgH4NxpYjgwr0DvMfBFyEtqY/kJrRO8CY6rXKPoShrbui6qJGt1IGiC57M21Sl
- IOW84RJhCooXHaQEycA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX21ZPjmxvkxrU
- 5T1tjJoDR/3LbBc8uRYneAaPbESsXphzdn3yBpuTMxiF8D53ALG+QWLX5ARB+qmL4ekDfdA4yRQ
- zUblCL978u6tXCaNB0AGRhG1kYYTcI4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250039
+In-Reply-To: <arVkwC_wNoTLjRYf@gourry-fedora-PF4VCD3F>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,14 +73,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-09-25 02:44:33, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> 
-> The Glymur's GMU compatible was set to the wrong string
-> qcom,adreno-gmu-x285.1. Correct it to qcom,adreno-gmu-x290.1.
-> 
-> Fixes: b6ff8cec8aaa ("arm64: dts: qcom: Add GPU support for Glymur")
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+On Thu, Sep 24, 2026 at 02:00:18PM -0400, Gregory Price wrote:
+> On Thu, Sep 17, 2026 at 05:22:14PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > When a user requests an mmap_action be performed in mmap_prepare, this
+> > involves populating the VMA range with data.
+> >
+> > However, if the VMA is mergeable, it might then mistakenly be merged with
+> > another VMA without having populated the range.
+> >
+> > Every mmap action currently available sets VMA flags such that the VMA
+> > cannot be merged.
+> >
+> > However, to ensure that no future mmap action falls foul of this, assert
+> > that this is the case upon mmap_prepare validation.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/vma.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index d6ed10cefc8f..62f2ce1ad5a1 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
+> >  int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
+> >  			  const struct vm_area_desc *desc)
+> >  {
+> > +	/*
+> > +	 * It is not valid to execute mmap actions for VMAs which can be merged,
+> > +	 * as any such merge would leave portions of the mapping incorrectly
+> > +	 * unmapped.
+> > +	 */
+> > +	if (vma_flags_can_merge(&desc->vma_flags) &&
+> > +	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
+> > +		return -EINVAL;
+> > +
+>
+> If you wanted to make this unit-testable, you could pull it out into a
+> separate function:
+>
+> static bool mmap_action_is_valid(const struct vm_area_desc *desc)
+> {
+> 	return desc->action.type == MMAP_NOTHING ||
+> 		!vma_flags_can_merge(&desc->vma_flags);
+> }
+>
+> then write:
+>
+> if (WARN_ON_ONCE(!mmap_action_is_valid(desc)))
+> 	return -EINVAL;
+>
+> And you can write a unit test directly against mmap_action_is_valid
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+You mean to isolate this check specifically?
+
+All of the functions in vma.c are unit-testable in the userland VMA tests,
+obviously here you'd be testing further stuff but you could certainly assert a
+mergeable VMA specifying an action should result in an error there.
+
+I'm also keen not to proliferate two many 'kinds' of validation.
+
+As mmap_validate() checks pretty much everything BUT the action check, and it
+has to work across mmap_prepare and mmap hooks.
+
+So the idea here is we put the mmap_prepare-specific stuff in
+mmap_prepare_validate() and the shared stuff in mmap_validate().
+
+And already the stuff that can be validated just against flags lives in
+mmap_validate_vma_flags() so that is itself separated out nicely.
+
+>
+> otherwise
+>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+
+Thanks!
+
+--
+Cheers, Lorenzo
