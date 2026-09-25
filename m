@@ -4,83 +4,176 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB0CCA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44776CA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7954D10E84D;
-	Mon, 28 Sep 2026 08:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CACF710E846;
+	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Axo52xk1";
+	dkim=permerror (0-bit key) header.d=arndb.de header.i=@arndb.de header.b="Zlmr4DHG";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X/5NAWLy";
 	dkim-atps=neutral
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com
- [74.125.227.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A55A010E0C2
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:07:02 +0000 (UTC)
-Received: by mail-pj2-f40.google.com with SMTP id
- 98e67ed59e1d1-3a0f64df6a6so210650a91.3
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 21:07:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790482022; x=1791086822; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7z9jyGFvSNyPE4j90ojKfCFxGEKOnKcOHIMpedzYh5o=;
- b=Axo52xk1zekoWaTkNUDDKxAFl4o/mOmqfrf+qknLfp/zVERVmp6EaMzmKqbkCi6odz
- vQ3J+tBnFR69zB/nSlW8Z69pX1ez0PWXkechezTR/pRjhBvGoqx8vrjdkEkbe19B/FM+
- 7OJuKurchBGmN+gCzTVKp5tAi0zUSkM3zI1hDiVYSkF6FTuiQQlYYjP0QqxOezB/cE14
- L+XqykOaJdILimQk/ZlcNUeX9+vFDjPD+gD4vaEEN7J8MM0skxpkDeG1qdJjQ6Hv76oz
- bb/o6JZIN43GD2q2klOg505IUV2loINN3vZkP7HpbapIIhbZKITxOQQp3AM9YWq2ZR71
- Y4Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790482022; x=1791086822;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7z9jyGFvSNyPE4j90ojKfCFxGEKOnKcOHIMpedzYh5o=;
- b=0WOBejxQCmPFI5COYxoELLfbaYx3A+iu2/PEKzDYsLo2q/ghYsFawvjL5F264uOBy0
- UYC/xWYOrlldSaib17ldaRoQwcVQNruFqraNpxJIZWOXabsE1/7uUgH9k/Vo6Ah8tNgo
- QPJLXSs81LOLQ953Adq8UaDpKPWTcbU9daYtGChFiMssDWkUQyg3/UM/NItu7kzTONuN
- bdug0gY1xoSG3Edmllzlq7kJ2YllZjLry3JoU6MX0qhiUYT9dC7MOKb4ZG6eQ+Dmzvwa
- xlwq5z82IdQQ1fdTm+r+c+8LKy/ot0wCdboJkC3NaNq4j9Ow8UAybgDovDe90559YZ1r
- bZ6A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxx5qm5KysAj4fw31vD5gSl9uTwOzFGbqoWjt14MmPCPOB/jPm/j1416CzdqFYRIvT7zwDS2aga5f4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIeMdhcJjmMVs2k7L2o9ID80tFUgO41YC08wra0fbF83vGG413m
- l4hdRTDn1kWdYEZfAPaCljuLtAmVtzEbymXxbU9FRjy72PexM3dsYiVhyjMdqw==
-X-Gm-Gg: AYBFou1lqm4HCRyWYDzpdPHfQum4hLwoNrogkGH7pd1Y/f7Wr+62qYcfCkHyJORK8nt
- DASzZEvvEfnucrkSa241Cm+f7TjjQm+qZDP5otWKaFP5MbexaX65+JDrb+4y3zsbeBpmXhK4P5Q
- lBi3soxRqQV3x7Oa7bCgrSmkO75/6tXsuYuZncTXUaHXKS0taCxIuUSuLERIEF0WeQwjggrmOrE
- u3U+xBKbWbhbIF5laLNzWiw8UgyFv+AIU8PMeq2BzRSL/mim5qeyf8YH9vZk2ViGf4RymL3Cysv
- peFKcKPG79olY5IQHFWnjJoHUYb59WaifqHowrR4eN/RpZIoaG/rZYt2Pjz9s3s2dQOB/Zs7VYA
- 5YX3WTj5Jq7OmEwPki9wj2BTP1JpicjhWolEbUPjnxaK2qwS797haTo5ggu3uWLMK/1PfKPlllL
- jhKWbROfPZCNjDalbg6/7vQ43o8It4IttPuZnmyr024WagX760Sl1dijFc98Xzu4B8AkpSAj4eC
- 6ZB9BPHLpgaSt7w
-X-Received: by 2002:a17:90b:57e8:b0:39e:6c6a:6578 with SMTP id
- 98e67ed59e1d1-3a0bb6537admr5254135a91.59.1790482022096; 
- Sat, 26 Sep 2026 21:07:02 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a0e7036e3bsm5833191a91.13.2026.09.26.21.06.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2026 21:07:01 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
-Subject: [PATCH] drm/virtio: put GEM objects when dropping a vbuf on unplug
-Date: Sun, 27 Sep 2026 11:06:55 +0700
-Message-ID: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from flow-b8-smtp.messagingengine.com
+ (flow-b8-smtp.messagingengine.com [202.12.124.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76E6F10E1AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 22:07:00 +0000 (UTC)
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+ by mailflow.stl.internal (Postfix) with ESMTP id 66524130051B;
+ Fri, 25 Sep 2026 18:06:54 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+ by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 18:06:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1790374013;
+ x=1790381213; bh=JrMmm48wWb5nfElfLTql9tnPeB0+8MEVeYNyAgGoaQE=; b=
+ Zlmr4DHGQ8VOFDbBpL4C63f0nX7MHZG2nG3ayIMRnmI96rYz/AL0gq1drAqD488p
+ nRXyZrQmC6x+9EmXhbOrO4tVieILNRX1OrF85tC3SpyFYFTooOPtwQhsomsyVFnR
+ /JL/wUDCwIAvzqukPUYWFpnmPjA9tkQKzm3sN8CtP4Er/blf9iMJ5E1RbL9dQr5Q
+ azNWuCqNQFI/RtcVKlzqmiwqBdEB7hxNNBcJHZRuQOUlpbLsER9WMTIqh7fR0cbO
+ 0rqOTpCQJBH/fMc3/cSkpsYg3m2x/XVeiwXfI/fIE3VkuK0tu6kmIxRtGMjmZ5Tm
+ 0bGA+qPzrmWnT/PmDeHu3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790374013; x=
+ 1790381213; bh=JrMmm48wWb5nfElfLTql9tnPeB0+8MEVeYNyAgGoaQE=; b=X
+ /5NAWLyg3YZFuUWu8ra4DQtcMMYuSCQ8ppRoARSsvykmth6tIbYB1DV/SBkKaBqy
+ ucuqfLFSv1a5QY3O0fGJBFNvVgU8ch42KbnuYXIespMpXGzMotkKHyFDIfMWLRl9
+ F7nM74RkfKRQS9hC/5ei1xuCfo5nmfjaqdTQnN8R0e7Hlj1lgy0J+W0FR4BAU+A4
+ NQLC+nBh6bH7jAdVJkhAAdtNuTA3rfYfCtwlx0hw1TN0+AzlI/wyWDtTfY49272U
+ L3RJ4biROW6jLSXjRZNZVlLfRNuZn/iiVPFefw8RdPr0K7bp3w4jlh5vyZVoO4CE
+ 5wC6Ljxr7feU/E4rReomA==
+X-ME-Sender: <xms:cvC2aleooIz-s5Od9uinMQe3cwAY8eDmch1kynf_fy3H821eqXhoEA>
+ <xme:cvC2auCqaLVPfE6ov_bEa6-wP_ue3HT7urx6Pkp8OHuNw8Gx-YmbQwreoPICZC_C8
+ wqzDaLNP2F-QCveEeF9wWmMIoLPnYMKvncpwz86IJJPrk1J4H72akC->
+X-ME-Proxy-Cause: dmFkZTFzcTdzGevjqjoCPQwS3cDuhZoK8oU2gJZJEJ9nm6Ezy4rCsybvSQH5LWRQQ5BGYD
+ rWE8GcLh/SD0OK93rHMHb+nN85ZiQLBNNWUMv4/GBdRWEXKSGbwbYWQ2GwGJmZ2CLvUIP3
+ 2eF1fY0CpcwTbnziypIg5cFo5xsUnavn7wLuBNDJE6AclU/QJrEq8x08d8JZw195pkMut9
+ +XQ7lzPYEQZohK59KW7gHFp7WnISiwDCkylL1SuAn0RKCSSdlhmRMt9w65C8xyi3rDiCVv
+ vE+hQgASzBzLzKVc3I9ppRL7f57uPiViyuwADs8Yu19vaS3Qfxg9r9IrzC4Mkgk2ustKRO
+ F4m05rRdOeE5QpPp6vbIW6kxmuTWTAckzKlnyd8YSIxkWZv6i9nfm513vFD+0eTgA4SdTt
+ qri3VNnnch9OdxrqaSSzsWZHizOYpxImHRcvk6QGv1bq1UhMgkHFzBOBPavWiMeiwky2KB
+ 3YkeHFQE/+K4iWbdjOEFO4OTzP/2wAcq7DiAjSIWoqjXvFqai5/eBWEZwYXzH24T2Jqilr
+ EgQhDSmS5E2SAJVWg3UyPZsK5j9sRZkoeQSL0VVjyCIZZx+DN7PLGivuCQsWF/VP5s+ABk
+ 01aGDOM3El01HuVwMy0P/rO2I5SQxMqxGjZSe1srADQ0PhIRJpx21/0+EvLA
+X-ME-Proxy: <xmx:ePC2ai0cNfYHa_hu2mUjpUBcw5imDXjczzuFVtK8vQhMU-jtziGkzg>
+ <xmx:ePC2ajmX_hgY984FYsQ00EH6M5K0sfyeHvF1qv2R1IvPjts0GUTCKw>
+ <xmx:ePC2alvAPzoDWLruQB6z3Ygd2kq3A2wm1GlTlHlWYalN8zlbryTlaA>
+ <xmx:ePC2aqA0UTfKSyeeZg0dB6TK75dxPCAzmPZFuC_nBWalRYa9mhRkLQ>
+ <xmx:ffC2alqlaLQVHV7jBfKQ7aBbho8OdZx_4GIw9IJBalNr09Mw03UhyI4W>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+ id 548BB32A0087; Fri, 25 Sep 2026 18:06:42 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
+X-ThreadId: AJwEWD5WPnhk
+Date: Sat, 26 Sep 2026 00:06:22 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Lorenzo Stoakes" <ljs@kernel.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ "Jann Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>,
+ "Suren Baghdasaryan" <surenb@google.com>,
+ "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
+ "Paul Moore" <paul@paul-moore.com>,
+ "Stephen Smalley" <stephen.smalley.work@gmail.com>,
+ "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
+ "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Zi Yan" <ziy@nvidia.com>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Nico Pache" <nico.pache@linux.dev>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
+ "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
+ "Usama Arif" <usama.arif@linux.dev>, "Kirill A. Shutemov" <kas@kernel.org>,
+ "Doug Gilbert" <dgilbert@interlog.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter" <simona@ffwll.ch>,
+ "Helge Deller" <deller@gmx.de>, "Sebastian Reichel" <sre@kernel.org>,
+ "John Hubbard" <jhubbard@nvidia.com>, peterx <peterx@redhat.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Oleg Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>,
+ "Harry Yoo" <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>,
+ "Vincent Guittot" <vincent.guittot@linaro.org>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Dave Airlie" <airlied@gmail.com>, "Will Deacon" <will@kernel.org>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ "Nicholas Piggin" <npiggin@gmail.com>,
+ "Muchun Song" <muchun.song@linux.dev>,
+ "Oscar Salvador" <osalvador@suse.de>,
+ "Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>,
+ "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ "Janosch Frank" <frankja@linux.ibm.com>,
+ "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ "Gerald Schaefer" <gerald.schaefer@linux.ibm.com>,
+ "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Andreas Larsson" <andreas@gaisler.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>,
+ "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
+ "Byungchul Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>,
+ "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Chris Li" <chrisl@kernel.org>,
+ "Kairui Song" <kasong@tencent.com>,
+ "Kemeng Shi" <shikemeng@huaweicloud.com>,
+ "Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>,
+ "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>,
+ "Axel Rasmussen" <axelrasmussen@google.com>,
+ "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
+ "Chengming Zhou" <chengming.zhou@linux.dev>,
+ "Michal Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>,
+ "Xu Xin" <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Linux-Arch <linux-arch@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, "Takashi Iwai" <tiwai@suse.de>,
+ "Emil Tsalapatis" <emil@etsalapatis.com>
+Message-Id: <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,81 +189,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter() fails
-or when vqs_released is set. It unlocks the reservation and frees the
-vbuf, but never releases the references that the caller handed over in
-vbuf->objs. Those references are normally dropped from the dequeue path,
-which never sees a command that was not queued.
+On Thu, Sep 17, 2026, at 18:22, Lorenzo Stoakes (ARM) wrote:
+>
+>  mm/vma.c                                   | 246 +++++++++++++++++++-------
 
-If a framebuffer flush races with device removal, the GEM object backing
-the fbdev buffer keeps a stale reference, is never freed, and its node is
-still in the vma offset manager when the drm_device is released:
+Hi Lorenzo,
 
-  Memory manager not clean during takedown.
-  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown
-  Call Trace:
-   drm_managed_release
-   drm_dev_put
-   virtio_dev_remove
-   virtio_pci_remove
-   pci_device_remove
-   remove_store
+I see that in linux-next there is a new build failure in some
+configurations in code that you are changing here:
 
-Drop the object references together with the vbuf on both early-exit
-paths.
+mm/vma.c: In function '__mmap_region':
+mm/vma.c:3083:1: error: the frame size of 1552 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 
-Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
-Fixes: b7170f9457f2 ("drm/virtio: return virtio_gpu_queue errors")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/gpu/drm/virtio/virtgpu_vq.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+I don't immediately see anything that you did that would have introduced
+something bad that wasn't already there, so it's likely just gone from
+just below the limit I was using for my testing to just above. The 1536
+byte limit is what I use on 64-bit builds with KASAN and otherwise
+still has a clean build (with a small number of local fixup patches).
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index c02c03c10d92..b36c4da04b18 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -208,6 +208,17 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	kmem_cache_free(vgdev->vbufs, vbuf);
- }
- 
-+static void virtio_gpu_drop_vbuf(struct virtio_gpu_device *vgdev,
-+				 struct virtio_gpu_vbuffer *vbuf, bool locked)
-+{
-+	if (vbuf->objs) {
-+		if (locked)
-+			virtio_gpu_array_unlock_resv(vbuf->objs);
-+		virtio_gpu_array_put_free(vbuf->objs);
-+	}
-+	free_vbuf(vgdev, vbuf);
-+}
-+
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
- {
- 	struct virtio_gpu_vbuffer *vbuf;
-@@ -410,9 +421,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 	int ret, idx;
- 
- 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
--		if (fence && vbuf->objs)
--			virtio_gpu_array_unlock_resv(vbuf->objs);
--		free_vbuf(vgdev, vbuf);
-+		virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
- 		return -ENODEV;
- 	}
- 
-@@ -432,9 +441,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 		 * synchronize_srcu() wait in drm_dev_unplug().
- 		 */
- 		if (vgdev->vqs_released) {
--			if (fence && vbuf->objs)
--				virtio_gpu_array_unlock_resv(vbuf->objs);
--			free_vbuf(vgdev, vbuf);
-+			virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
- 			drm_dev_exit(idx);
- 			return -ENODEV;
- 		}
--- 
-2.43.0
+What I see is that this function has multiple structures on the
+stack that have nontrivial sizes:
 
+        VMA_ITERATOR(vmi, mm, addr); /* 104 bytes */
+        MMAP_STATE(map, mm, &vmi, addr, len,...); /* 384 bytes */
+        struct vm_area_desc desc; /* 128 bytes */
+
+The config that caused this is https://pastebin.com/raw/5M95qHy5,
+which is an x86-64 build with CONFIG_KASAN_STACK enabled, and likely
+a few other configuration options that made it a little worse.
+KASAN_STACK tends to double the stack size used by structures
+in order to catch out-of-bounds accesses.
+
+If I sprinkle some 'noinline_for_stack' annotations on functions
+called by __mmap_region(), I can get the size down to 1144 in this
+config, but that doesn't sound like a great workaround.
+
+The large stack usage is potentially harmful if this ends up
+in call chains that have additional large stack usage (e.g.
+kmalloc() leading to reclaim). Any ideas for how to reduce it here?
+
+     Arnd
