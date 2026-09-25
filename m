@@ -4,63 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F42BC9830D
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 11:43:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0D63C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 11:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D099810E214;
-	Fri, 25 Sep 2026 11:43:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5775510E265;
+	Fri, 25 Sep 2026 11:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MdRhzimy";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="jeLJQeE4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD8310E7CE
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 11:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790336607; x=1821872607;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=xSCzSQa9vpv7fTrpe4D6eJEWhOskC3i34wNAy1rzkek=;
- b=MdRhzimyRrXokFdFk9n+prxn1v8X66bR73kXThYSijcVyGkQnPbOdKYh
- iY+Fn9zTRmDNUUCBW1dFqX2/MYMVqVsRtWq8J7FdbrB/Wocvmb+XPaAHE
- XZ66QALMNPct+awVp7p6y92FE9JhA4UZUsBWMYhoQvF9jYibHjqnjvBkf
- Q6u2aw+UgN9siLKJ76GRmM9Ok1bf4sbqoF8KAbeM/OxQJJFlxEye3O6Ez
- /Ppp4XyzFC8j9gHYNBv1fewxlbFs3/B12MXmcJwwlyptKW6SGgJpgZR6B
- WsGVOa+sAoYTbK8aIo8I6bAKeiEiXN/PRUWgDvIgaSo82+aYTCnoj9vtG w==;
-X-CSE-ConnectionGUID: nuFNTCBaT5yZI1wPQ474JA==
-X-CSE-MsgGUID: 9FfQfa2ZQS2Te5ZnBV4zWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93839870"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="93839870"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 04:43:22 -0700
-X-CSE-ConnectionGUID: /daeCRXrS4WRpBjCCG+/fw==
-X-CSE-MsgGUID: rpOFlsItSKaRR05dJQ3aaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="312238006"
-Received: from soc-5cg4396xfb.clients.intel.com (HELO [10.102.89.94])
- ([10.102.89.94])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 04:43:16 -0700
-Message-ID: <edc255b9-4537-4542-bfa8-6f004bcbe6b7@linux.intel.com>
-Date: Fri, 25 Sep 2026 13:43:14 +0200
+Received: from mta0.migadu.com (out-138.mta0.migadu.com [91.218.175.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C25E10E265
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 11:51:33 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=W5HjZtvkEZP4bI+XdBWSmYCpMoNGX4TaFCAmHfxFcFw=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790337092; v=1; x=1790941892;
+ b=jeLJQeE4CjnVJJy/VNoOjJmxdPtLoUoSMcctSBjQXIh6f6jlVDXqcfEtLMfMsHhJspf4hobB
+ 3gQEgkkrSh2cEgmNS1omiMGpUXvGqUWdHcjuHncE+nrC9FQeO0GZsWVuToblFhpBnEEnCvcSKAv
+ EJUFoZ/hVb7eeBokSkD1BNnA=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 9aae308e809086b9;
+ Fri, 25 Sep 2026 11:51:31 +0000
+X-Mizu-Trace-ID: 9aae308e809086b9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <988a32d4-6b76-48f3-bcc1-3634b4a02c36@linux.dev>
+Date: Fri, 25 Sep 2026 17:21:25 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Fix IOVA offset when linking phys vecs to sgt
-To: Yili Zhang <zhangyili01@baidu.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: Ankit Agrawal <ankita@nvidia.com>, Nicolin Chen <nicolinc@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260924065508.27245-1-zhangyili01@baidu.com>
+Subject: Re: [PATCH] drm/appletbdrm: Add suspend and resume support
+To: vasilij.kernel@tototo.si, Aun-Ali Zaidi <admin@kodeit.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <evepolonium@gmail.com>
+References: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
 Content-Language: en-US
-From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20260924065508.27245-1-zhangyili01@baidu.com>
+From: Aditya Garg <aditya.garg@linux.dev>
+In-Reply-To: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -78,43 +60,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-09-24 8:55 AM, Yili Zhang wrote:
-> The dma_buf_phys_vec_to_sgt() routine links every physical range into
-> the allocated IOVA space at offset zero instead of advancing the offset
-> by the already mapped length. This breaks the THRU_HOST_BRIDGE flow
-> whenever phys_vec contains more than one entry: the second and
-> subsequent dma_iova_link() calls try to install mappings on top of
-> PTEs that already exist, which fails and makes the whole conversion
-> return an error.
-> 
-> Fix it by passing the accumulated mapped_len as the IOVA offset. This
-> matches the pattern used by all other dma_iova_link() callers and is
-> consistent with the rest of the function: dma_iova_sync() and the
-> error path in dma_iova_destroy() both operate on the [0, mapped_len)
-> prefix of the IOVA space, which assumes that the ranges were linked
-> contiguously starting at offset 0.
-> 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Cc: stable@vger.kernel.org
 
-Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Hi Vasilij
 
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+Thanks for the patch
+
+> From: Vasilij Markin <vasilij.kernel@tototo.si>
+> 
+> The driver has no USB power management callbacks, so the USB core
+> unbinds it before system suspend and binds it again on resume. The DRM
+> device is unregistered and registered again on every suspend and resume
+> cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+> loses its device, and the Touch Bar stays dark after resume.
+> 
+> Implement suspend and resume with drm_mode_config_helper_suspend() and
+> drm_mode_config_helper_resume(), so the device stays registered and the
+> last committed state is restored on resume. If the device was reset
+> while suspended, repeat the probe-time handshake first.
+> 
+> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
 > ---
->   drivers/dma-buf/dma-buf-mapping.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Tested on a MacBookPro16,2 with this change backported to 7.2.7, deep (S3)
+> suspend by closing the lid, tiny-dfr 0.3.7. Without it the driver is probed
+> again on every resume and systemd stops tiny-dfr; with it tiny-dfr keeps
+> running, the driver is not probed again and the Touch Bar shows its content
+> right after resume. The reset_resume path is untested: the device never came
+> back reset.
 > 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 833be519e1e6..ef0f22854d01 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -156,7 +156,7 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->   						       phys_vec[i].paddr);
->   		} else if (dma_use_iova(dma->state)) {
->   			ret = dma_iova_link(attach->dev, dma->state,
-> -					    phys_vec[i].paddr, 0,
-> +					    phys_vec[i].paddr, mapped_len,
->   					    phys_vec[i].len, dir,
->   					    DMA_ATTR_MMIO);
->   			if (ret)
+> Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
+> also need the plane reset hook to free the existing state, otherwise
+> drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
+> appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
+> kernel; the tested backport carries that change as a separate patch.
+> 
+> Built on drm-misc-next (c4c54ffd6) with W=1 without warnings.
+> ---
+>   drivers/gpu/drm/tiny/appletbdrm.c | 43 +++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 43 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+> index 4297d9c11..024ad8bf6 100644
+> --- a/drivers/gpu/drm/tiny/appletbdrm.c
+> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
+> @@ -30,6 +30,7 @@
+>   #include <drm/drm_gem_atomic_helper.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_modeset_helper.h>
+>   #include <drm/drm_plane.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> @@ -821,6 +822,45 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
+>   	drm_atomic_helper_shutdown(&adev->drm);
+>   }
+>   
+> +static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
+> +{
+> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
+> +
+> +	return drm_mode_config_helper_suspend(&adev->drm);
+> +}
+> +
+> +static int appletbdrm_resume(struct usb_interface *intf)
+> +{
+> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
+> +
+> +	return drm_mode_config_helper_resume(&adev->drm);
+> +}
+> +
+> +static int appletbdrm_reset_resume(struct usb_interface *intf)
+
+We don't need a reset_resume function as the USB device is virtually 
+exposed by the t2bce driver and current implementation doesn't reset the 
+device in any case. If the need arises, it can be added in a later patch.
+
+> +{
+> +	struct appletbdrm_device *adev = usb_get_intfdata(intf);
+> +	struct drm_device *drm = &adev->drm;
+> +	int ret;
+> +
+> +	/*
+> +	 * A reset puts the device back into its initial state, where it
+> +	 * expects the same handshake as during probe
+> +	 */
+> +	ret = appletbdrm_get_information(adev);
+> +	if (ret) {
+> +		drm_err(drm, "Failed to get display information\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = appletbdrm_signal_readiness(adev);
+> +	if (ret) {
+> +		drm_err(drm, "Failed to signal readiness\n");
+> +		return ret;
+> +	}
+> +
+> +	return drm_mode_config_helper_resume(drm);
+> +}
+> +
+>   static const struct usb_device_id appletbdrm_usb_id_table[] = {
+>   	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+>   	{}
+> @@ -832,6 +872,9 @@ static struct usb_driver appletbdrm_usb_driver = {
+>   	.probe		= appletbdrm_probe,
+>   	.disconnect	= appletbdrm_disconnect,
+>   	.shutdown	= appletbdrm_shutdown,
+> +	.suspend	= appletbdrm_suspend,
+> +	.resume		= appletbdrm_resume,
+> +	.reset_resume	= appletbdrm_reset_resume,
+>   	.id_table	= appletbdrm_usb_id_table,
+>   };
+>   module_usb_driver(appletbdrm_usb_driver);
+> 
+> ---
+> base-commit: c4c54ffd65555ac5316f8faf4d7dc8c815877937
+> change-id: 20260924-appletbdrm-pm-6bd220385beb
+> 
+> Best regards,
 
