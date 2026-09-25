@@ -4,83 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 746DAC98306
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 05:29:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E142AC98306
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 05:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3DA410F85C;
-	Fri, 25 Sep 2026 05:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C11F10F83E;
+	Fri, 25 Sep 2026 05:34:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AsZIatA7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gd5EJMW4";
 	dkim-atps=neutral
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
- [74.125.227.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F31310F85F
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 05:29:02 +0000 (UTC)
-Received: by mail-pj2-f43.google.com with SMTP id
- d9443c01a7336-2d747ee1f38so1912285ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 24 Sep 2026 22:29:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790314142; x=1790918942; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jjesyLAW8O7xyuzsdrbUH/i4uqP33Nn67plGwTSNEoc=;
- b=AsZIatA7sl/lVFpa9XqaIDpsVkfmgHX5xL7nTWZRSifGE99Z+3ZgEU5QBp7wnMeHdJ
- gREjY8TETIjHQDTxO6xN49ubn35NFyjCVfQAciDmEM93/H3dAOybXGNYdjV6uEyzyH/G
- DDzpapS5vRBtoC+gDcJ/Q16fbrOrVEL9fo2wA1EwBC6RxpQFdX1VPCQQfI8OChwPKO3u
- DQ5mJDIt+yYmf417sl7jBUAFqbfTlBzJplHrdWOpLNKvz+K3FCsytGT6EQwvRJ26ZL2O
- mOEUyjnHj3cYl9pP4UpSNiiiecw+zr6KQFrJApbmzNYSO4CZMWeye51WUL5XSMhDB6Th
- v8DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790314142; x=1790918942;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jjesyLAW8O7xyuzsdrbUH/i4uqP33Nn67plGwTSNEoc=;
- b=AnDTb072xZ8x2XMG0308r0ZjlhkdgvDBoHiTT4mNUvWTegbfLaxKONlu/GgroCJe5E
- Yskj33oKjjeRuxOUMD4JFZiHUYTPNOyAE7S11AD/0i3Xe/X61W+RxHU9GZxVf1Jb6d9D
- AErnZPuLVTS1BSHwWtUpvKuk6l4ANs+m4GS9Sfv+2LgD3bK1GWp3cH46cO/gbLLM/UiY
- /ItniXWkHAK1ewHXJ5G4dtgJNyHnnRFz3EIvPh/hsz/josQLMaPzWgyihfvz0nlq6aex
- aAyDnIHLRrYDR+oue6wTPW90nLjbKKRKuL+jROrH6KQFTQoWExaUQuDTUzRLMjyHXRML
- 7yAw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw4hR8qNcihb6pmiQdo2LfywuxMvWB9tdCFW6xG7YOqimT9bsLD9DcKgz6oOcPJ4pfAe3sR2UcFZxE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m45B4waAvBULpFfzdcphAPRyceshpa5tgv7SnE61s6e1Im3NCh
- knpLmivViq42+3WA4XUqHga0NI876QNTn20WVICkQCTTEzxVTmIQEjOL
-X-Gm-Gg: AYBFou1qUY+rU35Exs9MnFGwQKpwUBn4HLJbFjqvrlZ4pL7+vWdOJoXXEhepJqjryeP
- 8LnHsujR9JIsQ69b9TwoDUFAZVhDZDGW9ogtXphOddhuNzEgGD/JjCzfAJbzW+0TfiXTaGCUKaV
- QhB1vneOM0yfxihjzn+2ftNop/Tozsp8kwsDsAP4yXYQHoP2KuI7FBdMNAy6n+bCC1UJWz2Hydu
- zlpLpB/VliNNEDW/a0maKU2fLKubOHcLhablFhHQkPAc5CEhDjcI+CKnADg9zgthCv4FFaCwRsr
- djcpR0IcrK3IsbVTCKUtxXDqnZTY+9U91jKTgQBZnWP3yahn9ioddJUP6qE/xqjfe/CLCWueBtL
- HqT/PO6lCir0XR7dkzAamtSt+Az6faPAKYJAxls79Mfm4XwQwlyuAq7Q0GeUUgZG3zHDQGr408A
- K6ojIQOXEjGyPdOgba7TzwULWOC+Zkf/ZetvN5M9q0CDlVQ7Xq+HYS3lbBHstHX5krOhgP4Te9M
- seK
-X-Received: by 2002:a17:902:e552:b0:2dd:c100:7cbb with SMTP id
- d9443c01a7336-2df7dc514admr37582425ad.55.1790314141611; 
- Thu, 24 Sep 2026 22:29:01 -0700 (PDT)
-Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df964d46b0sm2611595ad.15.2026.09.24.22.29.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Sep 2026 22:29:01 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:28:58 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: airlied@gmail.com, changbin.du@intel.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com,
- simona@ffwll.ch, tursulin@ursulin.net, zhi.wang.linux@gmail.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: Fix mm reference leak in
- handle_g2v_notification()
-Message-ID: <arYGmj-FpQS_OBCA@dell-wzy>
-References: <20260916173720.2088455-1-vulab@iscas.ac.cn>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916173720.2088455-1-vulab@iscas.ac.cn>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E033C10E9E5;
+ Fri, 25 Sep 2026 05:34:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C0CDB60514;
+ Fri, 25 Sep 2026 05:34:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E991F000FF;
+ Fri, 25 Sep 2026 05:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790314466;
+ bh=HTWk6IZy6orlfSRnx8oFTjANOFafgh0ZAqnhUrDC3w0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gd5EJMW4fcIPeQReUdhOqtaw4UHacfJIoW1GWiPHvfrchswjBf9f61ykRTCOpPobW
+ FOyPPcZ7WeQTioF3GAa823xkTOty9lCiJz9ARGRXr6rmqxgTfG2YbyiayOiG1/fzTC
+ 4J0oQf/A3H+iIzJqeI2ypXsM696ydBkWLGu7+Rucxo7qkiDMweNC06WDLd0S3sPc2+
+ xuzbjD1BCyLNaGzjq6gVgwNcCjwYLNjVg+Uh5/AwKb6/aSLUru/In+OeK/YyFKPjhy
+ 0QZwf+kZ6CPVSvPzgLxjNPWjS4TeiLd2EY6lvK7ulUrppKGLwg4VgsA8mlLQomptzi
+ 8ZFpQbenIfCDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/i915/hdcp: Fail fast when HDCP Type 1 is
+ unsupported via MST
+To: "George D. Sworo" <george.d.sworo@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260925052703.2068117-1-george.d.sworo@intel.com>
+References: <20260925035639.2034315-1-george.d.sworo@intel.com>
+ <20260925052703.2068117-1-george.d.sworo@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 05:34:25 +0000
+Message-Id: <20260925053426.43E991F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,51 +54,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 16, 2026 at 05:37:20PM +0000, Wentao Liang wrote:
-> intel_vgpu_get_ppgtt_mm() returns a reference the caller must drop, but
-> the PPGTT page table create path only inspected the result. A page
-> table that is already tracked gained an extra reference which nothing
-> would ever drop. Skip the lookup-get for an already registered mm; a
-> newly created mm keeps its initial registration reference.
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/i915/hdcp: stale type1_unsupported cache on MST hotplug
+- [Medium] drm/i915/hdcp: bypass of Type 1 fast-fail validation
+--
 
-Besides sashiko's reply, those reference was designed to guard against
-case that possible same ppgtt table usage within single client case.
-This change just breaks all of that. So NAK this with other reason Joonas
-has replied..
+commit fb3d7b407b5fff7eb8ca9312ac9476d293a32b63
+Author: George D. Sworo <george.d.sworo@intel.com>
 
-> Fixes: e6e9c46fd235 ("drm/i915/gvt: Factor out intel_vgpu_{get, put}_ppgtt_mm interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/i915/gvt/handlers.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-> index a34f56630af9..3d7aae6c5cf1 100644
-> --- a/drivers/gpu/drm/i915/gvt/handlers.c
-> +++ b/drivers/gpu/drm/i915/gvt/handlers.c
-> @@ -1506,7 +1506,17 @@ static int handle_g2v_notification(struct intel_vgpu *vgpu, int notification)
->  		root_entry_type = GTT_TYPE_PPGTT_ROOT_L3_ENTRY;
->  		fallthrough;
->  	case VGT_G2V_PPGTT_L4_PAGE_TABLE_CREATE:
-> -		mm = intel_vgpu_get_ppgtt_mm(vgpu, root_entry_type, pdps);
-> +		/*
-> +		 * A newly created mm keeps its initial reference as the
-> +		 * registration reference, dropped by the DESTROY
-> +		 * notification. A duplicate CREATE for an already tracked
-> +		 * mm must not take an extra reference that nothing drops.
-> +		 */
-> +		mm = intel_vgpu_find_ppgtt_mm(vgpu, pdps);
-> +		if (mm)
-> +			return 0;
+drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST
+
+This commit attempts to fail early in the atomic check phase when userspace
+requests HDCP Content Type 1 for a downstream MST sink that lacks HDCP 2.x
+support. It queries and caches the sink's capability during initialization
+and uses the cached result to reject unsupported configurations.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/=
+i915/display/intel_hdcp.c
+> --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+
+[ ... ]
+
+> @@ -2421,6 +2454,9 @@ int intel_hdcp_init(struct intel_connector *connect=
+or,
+>  	if (is_hdcp2_supported(display))
+>  		intel_hdcp2_init(connector, dig_port, shim);
+> =20
+> +	/* Cache the capability for the currently attached MST sink only. */
+> +	intel_hdcp_mst_update_type1_capability(connector, shim);
 > +
-> +		mm = intel_vgpu_create_ppgtt_mm(vgpu, root_entry_type, pdps);
->  		return PTR_ERR_OR_ZERO(mm);
->  	case VGT_G2V_PPGTT_L3_PAGE_TABLE_DESTROY:
->  	case VGT_G2V_PPGTT_L4_PAGE_TABLE_DESTROY:
-> -- 
-> 2.34.1
+
+[Severity: High]
+Could this cached capability become permanently stale after a hotplug event?
+
+Since DRM MST connectors represent topological branch ports rather than the
+sinks themselves, they persist across sink hotplug events. If a user connec=
+ts
+an HDCP 1.x monitor, type1_unsupported will be cached as true here in
+intel_hdcp_init(). If the user then unplugs that monitor and connects an
+HDCP 2.x capable monitor to the same port, the cached value is never update=
+d.
+
+Will this cause valid HDCP Type 1 requests to be permanently and incorrectly
+rejected for the new monitor?
+
+[ ... ]
+
+> @@ -2700,7 +2739,20 @@ void intel_hdcp_atomic_check(struct drm_connector =
+*connector,
+>  		if (old_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_ENABLED)
+>  			new_state->content_protection =3D
+>  				DRM_MODE_CONTENT_PROTECTION_DESIRED;
+> -		return;
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * Fail fast if userspace asks for Type1 but neither the platform nor
+> +	 * the downstream sink can do HDCP 2.x, instead of only discovering
+> +	 * this once intel_hdcp_enable() is reached.
+> +	 */
+> +	if (new_cp =3D=3D DRM_MODE_CONTENT_PROTECTION_DESIRED &&
+> +	    new_state->hdcp_content_type =3D=3D DRM_MODE_HDCP_CONTENT_TYPE1 &&
+> +	    intel_connector->mst.type1_unsupported) {
+
+[Severity: Medium]
+Does this condition inadvertently allow invalid configurations to bypass the
+fast-fail validation?
+
+If userspace has already enabled HDCP Type 0, the content_protection
+property will be in the ENABLED state. If a subsequent atomic commit
+changes only the hdcp_content_type to TYPE1, new_cp will inherit the
+ENABLED state.
+
+Since this check strictly requires new_cp to be DESIRED, it appears it will
+evaluate to false, allowing the invalid request to proceed and fail
+asynchronously during hardware enablement later. Should this check also
+account for the ENABLED state?
+
+> +		drm_dbg_kms(connector->dev,
+> +			    "HDCP Type1 requested without HDCP 2.x support\n");
+> +		return -EOPNOTSUPP;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925052703.2068=
+117-1-george.d.sworo@intel.com?part=3D1
