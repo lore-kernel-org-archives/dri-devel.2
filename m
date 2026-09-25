@@ -4,153 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D5BC98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 19:59:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78ABC98321
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 20:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77ED710E28E;
-	Fri, 25 Sep 2026 19:59:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30EDA10E0F7;
+	Fri, 25 Sep 2026 20:09:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="R9deWuCc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V/6jHD4L";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="kjgvy4zl";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4414310E28E
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:59:10 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68PIo86K1733218
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:59:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BoGtlFMrTCZDnWzopkng0s/Kflr9jZ0FN5wZjUl38mw=; b=R9deWuCcVazo/u9o
- p8DlRF3ME8neof4XV7bS5GYW8MCsYiq8HqQBCLUe0eQTstEcpRcVh+BQGLvaCTcT
- KbyfCuXa/wCdO2SR+n6Rkwjrjhw2QuN/k3zbAsq5wpM+2hMHCBb1hKO1YZtyW6PV
- t5ZvwQQVkSh8CnZikDsOs5g5uVIjGXmKeGkWNSs6T03P2YYauG+eadvOzdQLoWEW
- 6CIaS6vG4vu31mwkS14W3y3cAcTfLcXR6k4ItwjJ+3e/bKYlGSExF4EXG3BCG+Kw
- lDlGLw1/Pj+ZsGnxMBiYk6HQTb+5ulrrefltrm/44J9lHVcY+ixDx7ukwVqNxAFA
- z80R8g==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwpvnt35r-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:59:08 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-30bcb065bfdso2052975eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 12:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790366348; x=1790971148;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BoGtlFMrTCZDnWzopkng0s/Kflr9jZ0FN5wZjUl38mw=;
- b=V/6jHD4Lpg1He6LsBaEAU+nu4YxQbEUbDUn+3hr+TvidCEBLreJCSyZFhDHcv48GXs
- b7orOu8+DUV5J9ZY4QYbPizxiK0MBnmCYv2kp2IWpwAoQGuad61Oex48pJF5Yzll+iqD
- /Uw/uwbhJzbYT1sfDPbpDJ7d/BySwHg2sckbUTjarJBOxlvK7AREzcaUWLjB1lMMoU3h
- MtIIFbRgI1FM0d6vCtlaJFvdQui/TP7Rh0M8BnTANCcDxtp/VGx1quQtfVYksJa19dtV
- R/tw8diFIlcNzNqPQ0z4Zc89egkKVJbE3Jo16ZZwE0ylEqcs/+J/TGA00TPX7PK7LGIY
- RLqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790366348; x=1790971148;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BoGtlFMrTCZDnWzopkng0s/Kflr9jZ0FN5wZjUl38mw=;
- b=CtODEeo+6S20xS4/5EhdY5MAWKHMZtZ1s/+RGDbzAUtXpD/z7u7so5oRzONbeBldDZ
- rfcrEOMlEyNRWT1am6GIl1O1XcZar0EWHXJJWbFABt1ZNT2G7UGQlT9wHpEVenqI62ry
- Xln/1goIvNZDBxTad4Q+Wkyx0hfMIuzy3avU28uSgz4UQS1VDjY5Dc80JKvEE2KmeE/K
- opf8RANBI8vDcA9CPCFyPICfacESTojKvkJ8wCzn1hulJhM/gAhei/ts3oNOKzr5luVu
- 6ONQTo1xGbDDEKDVk9cxreqdhxkMzpDzGbNlS3xLgr6ngI1aa0upo85wO3OXzkx8f40i
- UE7A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzsfqT33t/HOVcxiXN+wUmcO9zt0Tt2Io3s2f/PckQlD/JiBqLdvEo7Uqy2Oyh/ccOfJW5KXRp1VVA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ne/7H9LtFbCJBKLORoSsG2UIv3oPpalw3VfTkUH/VfFesUdA0o
- U2qgKx4cghH7FsKUzO8nyNorCq1zD7LvmI55P6oRHMjWodcVCUfYqkd2a2eWSuDpaNCJoInucJ1
- qHpQOTLSVNjjMYUwEOPz+0hCgmsTsQ1Qv/a2zualibDga0igYOFnBA/70feV06sDt/IkFuWw=
-X-Gm-Gg: AYBFou2Jzmfuyr6SsEsGufyUjp+lNlD6suVLzsJo8No+LiMaAgeN8RsBGIV2TOvhcHX
- k0W0hWEs5pU5XrpCFrA2aQ3vfphGqj5/l4lWTosMiFJumZObbsFmNYaCPXZgchLWaVQIw0kDu26
- tCRrnS9gX2zybzk3DW6JNUNH2BE9TnvYHleGplAKWZwG2elR8rfc/EyFDlff3KVKacIhRWxLYyg
- lo90Q2LA+rRA0sVgZQJwp/z4YCdWO8AvpOBui7fDVvM4uOo1/6XEqSAaYdRb6ZqrQSz1j4QwhUU
- yRpiLkVBPSvOlCfedB21Vbgza79sqNuSSMLK34Q6Qn5u3AXjP/HZI+GhnKNbYwvtooZJgXFVFFe
- /Dw0DoHnG/Mf8rcQZflgl1UJ2
-X-Received: by 2002:a05:7301:1442:b0:342:5966:7626 with SMTP id
- 5a478bee46e88-34271d8d2c2mr922089eec.25.1790366347578; 
- Fri, 25 Sep 2026 12:59:07 -0700 (PDT)
-X-Received: by 2002:a05:7301:1442:b0:342:5966:7626 with SMTP id
- 5a478bee46e88-34271d8d2c2mr922062eec.25.1790366346939; 
- Fri, 25 Sep 2026 12:59:06 -0700 (PDT)
-Received: from [10.204.104.211] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34145c17074sm7137779eec.26.2026.09.25.12.58.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Sep 2026 12:59:06 -0700 (PDT)
-Message-ID: <761386ae-f1e5-4892-ac18-b450a803a433@oss.qualcomm.com>
-Date: Sat, 26 Sep 2026 01:28:57 +0530
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A371F10E0F7
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 20:09:16 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260925200914euoutp02190211168e9262f27661be7eb6326ac0~YqUJW3dDY2877128771euoutp02d;
+ Fri, 25 Sep 2026 20:09:14 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260925200914euoutp02190211168e9262f27661be7eb6326ac0~YqUJW3dDY2877128771euoutp02d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1790366954;
+ bh=R72S8DmRi/X/3ay93ymVYKLFPysF0+EoCRlZHiXClqQ=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=kjgvy4zlvFmyqpQHEzHq/zWMUA3FgQkqE75j4+LomdrHrNmkJpvcM3ydDGtKc4VXp
+ fWZsWjxcsrdkzuWcJLhS1ty46ziDUjRf9WEicSKvI1tcUCxzIfuP5EWFNFERIqLDX4
+ zaHyNsRYRimaSmp2xvCGlZcGHHhLniYdd49lPjJI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260925200913eucas1p198ff3fecf4c9d327b4b2d573f4509285~YqUIQc1cW1226912269eucas1p1i;
+ Fri, 25 Sep 2026 20:09:13 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260925200911eusmtip12932e01dfb1872e66825c5d6349ffed6~YqUGgNfWN0501005010eusmtip1G;
+ Fri, 25 Sep 2026 20:09:11 +0000 (GMT)
+Message-ID: <0c29c063-0b09-4710-8bf8-1d9adee4eb53@samsung.com>
+Date: Fri, 25 Sep 2026 22:09:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/15] drm/msm: Support for Hawi & Maili GPU
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
- <CACu1E7GndBnSj75ZVqic9NxdSakZJL3ZJOuz7D+RbVWA4DUqTQ@mail.gmail.com>
- <692ff69a-330e-40db-bffc-a53987fa4bce@oss.qualcomm.com>
- <CACu1E7FuCVhu_0gKmVVeBL=e4=zghvXJT=mZVfg8UjUzRrv3Yw@mail.gmail.com>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Byron Stanoszek
+ <gandalf@winds.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+ Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
+ Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <CACu1E7FuCVhu_0gKmVVeBL=e4=zghvXJT=mZVfg8UjUzRrv3Yw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: kAjWA839W0lKV6lmc-jyBIYGKrd24q77
-X-Proofpoint-GUID: kAjWA839W0lKV6lmc-jyBIYGKrd24q77
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA3OSBTYWx0ZWRfX5xM/xJtV43LG
- hHjIEdhenhWtNcoUOfWnRtCV8ss8Y3fFMFV6qRSE663IldBqGxymqkI6uMZmWkVPCeJ1A9y8EjY
- uEusCRGuWdwBNQjHujKZW8qY48WaRNU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA3OSBTYWx0ZWRfX6/qDNKk/Icwl
- VbEnMY87yb8Jy8oiWPgkw/hICE03RoebVirPFiUAkBAfNlHN1xbrziKJthesPzb2AMBpxVel5nR
- RANCu01t/MvfcoBAxhilz/BH/YqcbuJBjj7pw9x46LexxlrOLQlv06mG4mBQUqV3UK3sLY+K4pC
- cqT2HHW+OYJ5+mLb4N5UC1Aol1IiuZD5WxzvdiwX0Na8pwYyPW3y8s2ty7hu6cHv8H40bHzhw+i
- DIs04lssCMWe+HjMwUiqCG3KJP40Tbl5WGQQjgtfUX6sD723sh/M+733Y1sSZYcWDF0B8y2rp0E
- iNJbVerDYtJpRqMg1aWmG95pWugas6yZlPeMXUea/f2GhTkwvyj30qkKp2obUesibBCtrOeEKDA
- 7CZPCLEzUlbu6/T5l0/InXYpZQ7pCmBBamQkzDsNHA0DqH7paVvWAVZu016STHtlqg0DGHJ7eg4
- 8egcA+37LJJGhO8Zyng==
-X-Authority-Analysis: v=2.4 cv=eNmGH3p1 c=1 sm=1 tr=0 ts=6ab6d28c cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=qC_FGOx9AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=tVI0ZWmoAAAA:8 a=MmXTpdYTAAAA:8 a=QyXUC8HyAAAA:8 a=e5mUnYsNAAAA:8
- a=HOaGrLfzmr4yaBHx-_YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=fsdK_YakeE02zTmptMdW:22 a=-BPWgnxRz2uhmvdm1NTO:22
- a=7hoCnnChfAR1N-e-f1W3:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 suspectscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250079
+X-CMS-MailID: 20260925200913eucas1p198ff3fecf4c9d327b4b2d573f4509285
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
+ <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,151 +98,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Bryan and Icenowy,
 
-
-On 9/24/2026 7:36 PM, Connor Abbott wrote:
-> On Thu, Sep 24, 2026 at 9:41 AM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
+On 9/20/26 09:35, Icenowy Zheng wrote:
+> 在 2026-09-20日的 02:09 -0400，Byron Stanoszek写道：
+>> On Tue, 15 Sep 2026, Michal Wilczynski wrote:
 >>
+>>> This series enables the display subsystem on the StarFive JH7110.
 >>
+>> Hi Michal,
 >>
->> On 9/24/2026 12:54 AM, Connor Abbott wrote:
->>> On Wed, Sep 23, 2026 at 6:26 AM Akhil P Oommen <akhilpo@oss.qualcomm.com> wrote:
->>>>
->>>> Adreno 850 is the next generation of A8x GPU present in Hawi SoC. It shares
->>>> the ADRENO_8XX_GEN2 family and slice architecture with A840, but has many
->>>> architectural improvements. There is a new block Matrix core (MALU) which
->>>> helps to accelerate certain compute workloads. Also, there is a new Bx rail
->>>> that powes a part of the GPU IP. GMU is now powered by a dedicated GDSC
->>>> powered by MxG rail.
->>>
->>> If there is a dedicated rail for GMU, then
->>> VK_KHR_calibrated_timestamps is likely broken, assuming that the GMU
->>> AO counter is on this rail. The AO offset logic in kgsl probably needs
->>> to be ported here. Has this been tested?
+>> I tested your v4 patch series on my VisionFive2 1.3B with kernel 7.3-
+>> rc3 today
+>> and it works very well, except for 2 issues. Note, to make the screen
+>> refresh
+>> properly, I am using the noncoherent cache fixes from
+>> https://protect2.fireeye.com/v1/url?k=3d78ed45-62e3d45a-3d79660a-000babdfecba-dbc6e750c3338bb9&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=https%3A%2F%2Fgithub.com%2Fganboing-jh7110%2Flinux%2Fcommits%2Fganboing-jh7110-cache-fix-v1%2F
+>> (specifically commits 3683d97, ef93e2c, 277db0b, and 26ce3e6) in
+>> addition to
+>> your patch.
 >>
->> Not sure how GMU core's power domain affect the AO timer. Could you please point
->> me to the AO offset related change in KGSL? I will check.
+>> Issue 1: I have a Dell U2711 monitor which has limited HDMI 1.3
+>> capability, so
+>> I invented my own Xorg mode to get a good frame rate:
+>>
+>> "2560x1440_40.22"  162.00  2560 2608 2640 2720  1440 1443 1448 1481
+>> +hsync -vsync
+>>
+>> With this mode and your new driver, I started getting rows of black
+>> pixels
+>> flickering in the upper-left corner of my LCD screen. These weren't
+>> there back
+>> when I was running the same mode under the Keith Zhao driver from
+>> StarFive
+>> (drm/verisilicon v5 plus a bunch of patches for dma cache coherency)
+>> (
+>> https://patchwork.kernel.org/project/dri-devel/cover/20241120061848.196754-1-keith.zhao@starfivetech.com
+>> /).
+>>
+>> The glitches I saw suggested the sync polarity was being set
+>> incorrectly; the
+>> number of glitched rows was exactly the vsync pulse width plus 1
+>> (i.e.
+>> "1440 1443 1448 1481" produced 6 bad rows, "1440 1443 1456 1481"
+>> produced 14,
+>> "1440 1441 1442 1481" produced 2, and so forth).
+>>
+>> I did a register dump between the two drivers and found that,
+>> although the
+>> DC8200 HSYNC and VSYNC registers were identical between the two
+>> versions, the
+>> hsync and vsync bits on the inno hdmi tx were swapped between the
+>> two. When I
+>> manually set the VIDEO_TIMING_CTL register from 0x09 to 0x05
+>> (matching the
+>> output of Keith's driver), the glitches went away.
+>>
+>> Keith Zhao driver:
+>>
+>> === DC8200 display 0 ===
+>> DC   PANEL_CONFIG               0x1418 = 0x00001111
+>> DC   HSIZE                      0x1430 = 0x0AA00A00
+>> DC   HSYNC                      0x1438 = 0x45280A30
+>> DC   VSIZE                      0x1440 = 0x05C905A0
+>> DC   VSYNC                      0x1448 = 0xC2D405A3
+>> DC   DPI_CONFIG                 0x14B8 = 0x00000005
+>> DC   FB_CONFIG                  0x1518 = 0x14000000
+>> DC   FB_ADDRESS                 0x1400 = 0x71200000
+>> DC   FB_STRIDE                  0x1408 = 0x00002800
+>> DC   FB_SIZE                    0x1810 = 0x02D00A00
+>> DC   FB_CONFIG_EX               0x1CC0 = 0x00002000
+>> DC   PANEL_START                0x1CCC = 0x00000001
+>> DC   DP_CONFIG                  0x1CD0 = 0x0000000A
+>> DC   FB_WATER_MARK              0x1CE8 = 0x00000000
+>> DC   PANEL_CONFIG_EX            0x2518 = 0x00000000
+>>
+>> === INNO HDMI TX video timing ===
+>> HDMI VIDEO_TIMING_CTL           0x08   = 0x05
+>> HDMI EXT_HTOTAL_L               0x09   = 0xA0
+>> HDMI EXT_HTOTAL_H               0x0A   = 0x0A
+>> HDMI EXT_HBLANK_L               0x0B   = 0xA0
+>> HDMI EXT_HBLANK_H               0x0C   = 0x00
+>> HDMI EXT_HDELAY_L               0x0D   = 0x70
+>> HDMI EXT_HDELAY_H               0x0E   = 0x00
+>> HDMI EXT_HDURATION_L            0x0F   = 0x20
+>> HDMI EXT_HDURATION_H            0x10   = 0x00
+>> HDMI EXT_VTOTAL_L               0x11   = 0xC9
+>> HDMI EXT_VTOTAL_H               0x12   = 0x05
+>> HDMI EXT_VBLANK                 0x13   = 0x29
+>> HDMI EXT_VDELAY                 0x14   = 0x26
+>> HDMI EXT_VDURATION              0x15   = 0x05
+>>
+>> Your driver (showing only the changed values):
+>>
+>> DC   DP_CONFIG                  0x1CD0 = 0x00000000
+>> DC   PANEL_CONFIG_EX            0x2518 = 0x00000001
+>> HDMI VIDEO_TIMING_CTL           0x08   = 0x09
+>>
+>> Specifically the bit#s are different between the two drivers:
+>>
+>> inno_hdmi-starfive.h (Keith Zhao):     inno-hdmi.c (generic):
+>>    v_HSYNC_POLARITY_SF(n)  ((n) << 2)     v_HSYNC_POLARITY  bit 3
+>>    v_VSYNC_POLARITY_SF(n)  ((n) << 3)     v_VSYNC_POLARITY  bit 2
+>>
+>> "_SF" suggests this change is specific to StarFive. The correct
+>> positions are
+>> HSYNC=bit 2 and VSYNC=bit 3 for the JH7110.
 > 
-> Previously the GMU AO counter was part of CX, which is kept on by
-> other things in the system, so it continues to tick even if the GPU is
-> suspended. However kgsl does not rely on that, and recalibrates the
-> GMU AO timer whenever booting the GMU [1], which we currently don't
-
-KGSL doesn't do that during every resume. KGSL recalibrates it only after a
-system suspend. The AO counter is still in CX MISC which is under CX domain.
-So it should not be affected in Hawi.
-
--Akhil.
-
-> do. I don't know if the timer is still part of CX, but if not, then
-> this part of kgsl could become load-bearing in a way it wasn't before.
-> It seems possible that it isn't part of CX anymore, given your
-> description that GMU and other things have been moved to new
-> GPU-specific power domains.
+> In fact it's not SF specific, [1] pg.13 (full manual page 979) also
+> shows the same for RK.
 > 
-> Connor
-> 
-> [1] https://git.codelinaro.org/clo/la/platform/vendor/qcom/opensource/graphics-kernel/-/blob/gfx-kernel.lnx.16.0.r14-rel/adreno_gen8.c?ref_type=heads#L917
+> It could be an error from Rockchip developers since the beginning.
 
+Yeah I agree; Maud Spierings reported similar issue and Dominuque
+Belhachemi also figured that v_HSYNC_POLARITY and v_VSYNC_POLARITY are
+simply swapped in
+inno-hdmi.c.
+
+As Icenowy stated Rockhip TRM also confirms this. I intend to send a fix
+as part of this series (as suggested by Maud).
+
+> 
+> [1]
+> https://protect2.fireeye.com/v1/url?k=ba283351-e5b30a4e-ba29b81e-000babdfecba-1b86e6ec0e74b45d&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=https%3A%2F%2Fgithub.com%2FDeciHD%2Frockchip_docs%2Fblob%2Fmain%2Frk3128%2FTRM-chapter-24-hdmi-tx.pdf
+> 
+> Thanks,
+> Icenowy
 > 
 >>
->> -Akhil.
->>>
->>> Connor
->>>
->>>>
->>>> Maili GPU (Adreno 845) is very similar to A850, except that it doesn't
->>>> have the MALU block.
->>>>
->>>> We will post the Mesa support and linux-firmware support soon. MALU support
->>>> will be brought in separately along with its support in Mesa.
->>>>
->>>> As there is no display support available for Hawi/Maili, validated offscreen
->>>> testcases that render basic triangles, glmark2-offscreen etc.
->>>>
->>>> The driver/dt-binding patches are for Rob to pickup and the DT patches
->>>> are for Bjorn.
->>>>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> ---
->>>> To: Rob Clark <robin.clark@oss.qualcomm.com>
->>>> To: Sean Paul <sean@poorly.run>
->>>> To: Konrad Dybcio <konradybcio@kernel.org>
->>>> To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> To: Dmitry Baryshkov <lumag@kernel.org>
->>>> To: Abhinav Kumar <abhinav.kumar@linux.dev>
->>>> To: Jessica Zhang <jesszhan0024@gmail.com>
->>>> To: Marijn Suijten <marijn.suijten@somainline.org>
->>>> To: David Airlie <airlied@gmail.com>
->>>> To: Simona Vetter <simona@ffwll.ch>
->>>> To: Jordan Crouse <jordan@cosmicpenguin.net>
->>>> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>>> To: Maxime Ripard <mripard@kernel.org>
->>>> To: Thomas Zimmermann <tzimmermann@suse.de>
->>>> To: Rob Herring <robh@kernel.org>
->>>> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>>> To: Conor Dooley <conor+dt@kernel.org>
->>>> To: Bjorn Andersson <andersson@kernel.org>
->>>> Cc: linux-arm-msm@vger.kernel.org
->>>> Cc: dri-devel@lists.freedesktop.org
->>>> Cc: freedreno@lists.freedesktop.org
->>>> Cc: linux-kernel@vger.kernel.org
->>>> Cc: devicetree@vger.kernel.org
->>>>
->>>> ---
->>>> Akhil P Oommen (11):
->>>>       drm/msm/a6xx: Honor perfmode_bw threshold on A8x
->>>>       drm/msm/a6xx: Fix secondary rail vote in ARC votes
->>>>       drm/msm/a6xx: Fix RPMH dependency votes
->>>>       drm/msm/a6xx: Factor out RPMh arc-vote helpers
->>>>       drm/msm/a6xx: Add BX rail support to GMU dependency votes
->>>>       drm/msm/a6xx: Clamp MX dependency vote
->>>>       drm/msm/a8xx: Add Adreno 850 support
->>>>       drm/msm/a6xx: Send THINMEM config to GMU for A850
->>>>       dt-bindings: display/msm: Document A850 GPU and GMU
->>>>       arm64: dts: qcom: hawi: Add GPU support
->>>>       arm64: dts: qcom: hawi-mtp: Enable GPU
->>>>
->>>> Bhaskar Reddy Valluru (4):
->>>>       drm/msm/a8xx: Add Adreno 845 support
->>>>       dt-bindings: display/msm: Document A845 GPU and GMU
->>>>       arm64: dts: qcom: maili: Add GPU support
->>>>       arm64: dts: qcom: maili-mtp: Enable GPU
->>>>
->>>>  .../devicetree/bindings/display/msm/gmu.yaml       |  90 ++++-
->>>>  .../devicetree/bindings/display/msm/gpu.yaml       |   4 +
->>>>  arch/arm64/boot/dts/qcom/hawi-mtp.dts              |   8 +
->>>>  arch/arm64/boot/dts/qcom/hawi.dtsi                 | 336 ++++++++++++++++
->>>>  arch/arm64/boot/dts/qcom/maili-mtp.dts             |   8 +
->>>>  arch/arm64/boot/dts/qcom/maili.dtsi                | 309 ++++++++++++++
->>>>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 446 +++++++++++++++++++++
->>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 231 +++++++----
->>>>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   1 +
->>>>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +
->>>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |  25 ++
->>>>  drivers/gpu/drm/msm/adreno/a6xx_hfi.h              |   1 +
->>>>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |  16 +-
->>>>  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  21 +
->>>>  drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   8 +
->>>>  15 files changed, 1407 insertions(+), 99 deletions(-)
->>>> ---
->>>> base-commit: 1e9b8055458b92f9ebab6f39d97ade5265a0b012
->>>> change-id: 20260811-hawi-gpu-05b4ecfc3c4c
->>>> prerequisite-message-id: 20260923-hawi-dt-post-v1-0-e41473b6298b@oss.qualcomm.com
->>>> prerequisite-patch-id: 239c169e15da44519b2dad09ecd92f0052757929
->>>> prerequisite-patch-id: 6c586be864944bb1eed773e8c211b898bb1289fe
->>>> prerequisite-patch-id: f3d8748ccdb6760563f3e07f701a18388a9408ed
->>>> prerequisite-patch-id: b1639353868bed10fd3cbfcd01cfb88b7e737ead
->>>> prerequisite-message-id: 20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com
->>>> prerequisite-patch-id: 36f12c16bf9cb0411d8be2f396407c724162189d
->>>> prerequisite-patch-id: 28ede1ab83d4b5b56423ebb09bae74b6599b3bac
->>>> prerequisite-patch-id: 6b3e28c55c07bfcdca8bfa9219fa0c6c763c6f6e
->>>> prerequisite-patch-id: a2007fdaaeaf2981860c54ae5514f5a6f06c6bb3
->>>> prerequisite-patch-id: af8aa3c630647336bdaeffa9c88de3650f1e49e4
->>>>
->>>> Best regards,
->>>> --
->>>> Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>
+>> I'm guessing that your 42-mode test passed because most CEA modes are
+>> +hsync
+>> +vsync, and this wouldn't show any difference if the two bits were
+>> transposed.
 >>
+>> Once the sync polarity is sorted, I'd be happy to give a Tested-by:
+>> on the
+>> series.
+>>
+>>   --
+>>
+>> Issue 2: This is more a feature request than an issue. Originally, I
+>> tried
+>> running this Xorg modeline, which worked well under Keith's driver:
+>>
+>> "2560x1440_49.90"  201.00  2560 2608 2640 2720  1440 1443 1448 1481
+>> +hsync -vsync
+>>
+>> However, your driver would not accept this pixel clock. I then
+>> noticed you have
+>> a pre-PLL table of fixed clocks. Is there any chance you can change
+>> the code to
+>> compute the pre-PLL on the fly like how Keith does it, rather than
+>> use a table?
 
+I can add the entry, hopefully you can let me know in the v5 whether it
+works for you.
+
+inno_hdmi_phy_pre_pll_determine_rate() returns -EINVAL for any rate not
+in the table, and .mode_valid is built entirely on that:
+
+rounded = clk_round_rate(ctrl->clks[CLK_PCLK].clk, pixelclk);
+if (rounded != pixelclk)
+      return MODE_NOCLOCK;
+
+If the PHY computes dividers on demand, clk_round_rate() starts
+succeeding for almost every rate .mode_valid stops rejecting anything
+and we're back to advertising modes the PHY can't drive  the
+blank screen bug patch 11 exists to fix.
+
+To keep the rejection you'd have to replace the table with a real
+constraint model.
+
+The fracdiv values doesn't seem to be cleanly derivable and the Rockchip
+has the datasheet and still chose a table. 
+
+
+>>
+>> Thanks for all your great work!
+>>
+>> Best regards,
+>>   -Byron
+>>
+>>
+>> _______________________________________________
+>> linux-riscv mailing list
+>> linux-riscv@lists.infradead.org
+>> https://protect2.fireeye.com/v1/url?k=46fbedc2-1960d4dd-46fa668d-000babdfecba-e6e7fb64f005c1b3&q=1&e=d9589fcd-304c-4065-91c9-c5043969df15&u=http%3A%2F%2Flists.infradead.org%2Fmailman%2Flistinfo%2Flinux-riscv
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
