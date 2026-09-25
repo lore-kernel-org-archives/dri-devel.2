@@ -4,122 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 724C9C98321
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92EEAC9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 18:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51DB10FBDC;
-	Fri, 25 Sep 2026 18:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF1B10FBDF;
+	Fri, 25 Sep 2026 18:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qnlffLAE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="jYDe/Fc+";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012043.outbound.protection.outlook.com
- [40.107.200.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB73D10FBDC;
- Fri, 25 Sep 2026 18:42:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ye7prbYyACZ7WV/j8xgF4NgDZN/W5KrwcPAfEMlrHGTt8LY+5UKJAsX/4YF0rF2OZLxvCA3c59CTGHJRb0LKKUSK2czP9GHpNn7LPAQEyGn1AGQZQLubw9XYV0+3nLFqrFWbEGYXpXoQJ2NtFNjtrZNdhiI0ViSjswdWhjA4DhakSZ5w9YdsArj5jBqm93MBconTgACYaP0IsN0861rSeNUYN6Sp07J9hqLlE8n27R8UJXfW+EHMLMvBWO02QGfJ9H8n39AJRiWCOFe9+QZcEhr5OYEj94+pmPEFeFNOqgu6aLoaUCje7gMnFySqzCnhk9Ue6nqkFNUOT8g3H7jeNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bOfpGmVAQ40dh+pQHepJXK/c9qXJ2THWPTvOZ/CTwew=;
- b=dAEp5RbrpPVPWZ26lDjmhVwk0or1O5/dYjYIse39kqiyoCgZEW5QvdzdIED6KY5I0PB9Q5DYikSIJrCA3yrP86Lyzi354ooprk7kDxcxV3F3Ah8766hkYPFMcm4AsPirbQVuzNLH+ahikf+/A033GvBRbQ0xJnn4r4Etj7LHBMUf/1ZBCn+bnoKb2g4y6o8FUAcVaOHCDzfx/uCU9+AI9iFiv1fN/AA15p4A4C0sV08N9O87tpiQrQMvVZOsuLK7pJjwOKOb6sO7/OzIDIcCaVPD8DeWGrf6wOpNT+6YWDssEpM4iaZYYSkRg2V21Ankt5+ljmYSwdIX1VdJViqUOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bOfpGmVAQ40dh+pQHepJXK/c9qXJ2THWPTvOZ/CTwew=;
- b=qnlffLAEep3mw5W5tcEvn1aLIj8wAFF1WPLmcAfA4cTfgXe7TbcC86TuBk+Y7H1wFgqPLUjoxSKwqD2mKO8gdh3nHgIx9hlKwa6Cz4K9+QJPVyemCzR73GHWjB7/wEIIMtkTi9fOFWA5W+Jf+wHY34BGXdQf0s2CmiU54pDjgtM=
-Received: from BL1PR13CA0448.namprd13.prod.outlook.com (2603:10b6:208:2c3::33)
- by SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 18:42:13 +0000
-Received: from BN7PEPF000000A9.namprd05.prod.outlook.com
- (2603:10b6:208:2c3:cafe::3) by BL1PR13CA0448.outlook.office365.com
- (2603:10b6:208:2c3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Fri, 25
- Sep 2026 18:42:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF000000A9.mail.protection.outlook.com (10.167.245.233) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 18:42:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 13:42:13 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 13:42:12 -0500
-Received: from [10.254.92.96] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 13:42:11 -0500
-Message-ID: <8a3b2902-3255-4dd9-82f0-75a7747b710e@amd.com>
-Date: Fri, 25 Sep 2026 14:42:05 -0400
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7204A10FBDF
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 18:45:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790361929; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MJR1tAOgOv+PNp5bBM3AvmWcIY8591JJJH/osnxrexDpCbqbLDjygvaNiu9lvH1XTx17Izq4H0MR5ETY10b/pu0T2wI2U7Yjwwo+upsu7hYryTO7v4w3LUrBFuSiXBgomkrspdgxmQ4DUPYHurG4WiEXfGI/uqlz18VULFgC+ac=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1790361929;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ZC2uSeX+ReJs5Nof+3r87ZSm4Xof9woJZs+HQw8pGrE=; 
+ b=jK3Tm4YlTaRgwzWiQLJjvb/RnKKV3PIR3DjNkzuJ4wflVm8YA9h3i6SmAb181PgYNTxlYPyU7OUfpwhHvcwpcK6F3SUTl+FnaOWpLUlTf9dnGEkQzgRHBYUPTyYLMLduxJLfesKm7ebhJLkDDd/b65XJy4n6LqHHOqvVLNvHaFU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790361929; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=ZC2uSeX+ReJs5Nof+3r87ZSm4Xof9woJZs+HQw8pGrE=;
+ b=jYDe/Fc+e5avqknOXsQsix+K3VwK5DlTmK++sHLEYS9YRERMJdmU2Wyqfodze9+4
+ fo0giHtJC2fsvGQdMUUUBYUeQtZ/xhLWJ/+GTAXyc4ylzAoTLeuWNyGV9ZSL0lFlO3E
+ y8bBmRl9WqmyHx2IvHv40R2MN/Jr4WIGldDLdiHY=
+Received: by smtp.zohomail.com with SMTPS id 1790361929639509.6917716892872;
+ Fri, 25 Sep 2026 11:45:29 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v11 00/15] Collection of fixes for Panfrost: Perfcnt, RPM,
+ refactorings
+Date: Fri, 25 Sep 2026 19:45:21 +0100
+Message-Id: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, "Borah, Chaitanya
- Kumar" <chaitanya.kumar.borah@intel.com>, Daniel Stone
- <daniels@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andy.yan@rock-chips.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-fbdev@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <kernel@collabora.com>, Derek Foreman
- <derek.foreman@collabora.com>, <wayland-devel@lists.freedesktop.org>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <0226527e-ee38-40ab-a2a8-1ae62013b950@amd.com>
- <VERVf-aJRRKsBOI_3dpScg@collabora.com>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <VERVf-aJRRKsBOI_3dpScg@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A9:EE_|SA1PR12MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce00b8b2-9201-49bf-0f0c-08df1b34b715
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014|7416014|42112799006|23010399003|10067099003|56012099006|6133799003|22082099003|4143699003|18002099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: Riz02biUVxIpWgvZ8NZKQ3bHHfi5XDtTnGglixOIZoMOKfZqZnSrKlyLmCbvraGXxP+fDoWmC+ktdi66xqY5IzauVpEsNpBFcHB7fR0XgGC1CPDEB36akuE0u6HK8DRrgtjV9L+bNTJTux6hZYmi13VxNhrnT68rRaQ8xTWGvmKF4Xs27xCzUfq8FUUmx0pKPw+NOUEhTvrKSqGfvCp40ykWxayMuAYfUXonibvH3KHwKtDQ2JPl0+WCxjykYc1T1N9EDe5/oR6Hh2Jbx2xHdBo1Av7NPmCAXQ15a1O8rwnHQcmOfyNtTMAvJ1VbbS4l6eY7i59Nlu0ypnjZYqE0FAJQfkdEsrnl0m6d8D9uVZHf5vIHZepeQwTpKgHWY7qr0zU+QD7CQbMf+Fs9y9gPV7nYbz0NvY5ZGpIklwkyC36AbTXIcdsl6KJrqv5G3tsdcoyvGvVIK0FdJRjSsNxs7TQPNg9rUNknIu3EmlV4KoIEGhdQ/qcqeO05mf5oohDUKdFLoeT+8o8fadf6Q+j5QP2g2l00tIYvsemtVny6nXNv+ikanLB+848lD8psMAyvch5mFIQoee0t30usWoYeXQSeh6SDDV7Lfddgd7eTHmeHIIUZbSW1FSSZP4a36biFaR9qYokkOkI/L+oEXg4Z3BbNZleZ5PNYI8uO6HzeKWOdWaOA9NHzv7W3YC41JURrWFU25fbc/3zkhVGeOUbc4GnaBQ+ACGaUxFdtHT1kCUJvxcQ840nj2bipygyik0AV
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(7416014)(42112799006)(23010399003)(10067099003)(56012099006)(6133799003)(22082099003)(4143699003)(18002099003)(11063799006)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jXDzaoj4FClt0uR3OlLyale2P4nf1gIsETl9qEhpgRxvqtkkmEs/9Cq3w4BcLd+jvePx5wVs9K8OpZuXVhJpoz9eNOUG/vBCtMtYS6EZJLHLP5+pcZJoq3fhyfJbVkIixoWnGUmgR3RvNgHxdq8xVTEvOdNw7XdhJSBqwdyHWb8vJj6CGijlACtLmkRQxuzQaVonN+ycVJVBDeMuT//W57IZT7a4gxCrw7iKKKwjHwCCf9hNn/ZD2RC4WJmOy+d6QIQ8/d41rfwfwBFNf15aL6XzpugDbGcDBYmThbuXOLepDPmTBf8Jo5j6ADCHApoMQjZ27wNcZVtDUuJf35xhpYxUbtHkY7Xh7iqTK14HyGbdHcpkYvuXWFf6eaCh/VFhJgdf9+ClzC5xyijur1N6GTbKFMS0l55W/8Nuwy8W4oX5QuidxNhgCGsjv11rVcx9
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 18:42:13.3339 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce00b8b2-9201-49bf-0f0c-08df1b34b715
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF000000A9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23SzU7DMAwA4FeZeqYodvNnTrwH4pC4LisaK2q3C
+ jTt3UmGUEuXoxP7ixz7Uk0y9jJVT7tLNcrcT/1wTAHAw67ifTi+Sd236aBChVYZbGo+hHMrddd
+ /yVR7jKoJ0OjguUoln6PcLlLFy+tvPJ3ju/ApGzlj30+nYfy+PThDzvuj7X96hlrVYIVQQtCk6
+ ZmHwyHEYQyPPHxUmZ9xAazSGwATYBzb2GoGa0wJaBbA4RZoMqAxdBZCbFVXAvQaoA2gE6CArO9
+ Q2LlQAswCeIANYBLQtJaQScgzlgC7Au4+0SbAJZdCpxWJKwFuDfgN4DKAacQRGdC0JcAvACm3A
+ XwCGCNHIx7B6xJAKwBwA1ACxHjfpT2wIMUpgFoJd3MElZswhpBiwwx3q3S9Xn8AlXv0oAoDAAA
+ =
+X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7825;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=GHkhy0pLkEHWk0Sn13qrTpLI+F6hIbaLndeXv3kZrxw=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtsFDvm/2XVGGGjGyRWwZZmG0h/rGW5kpc63Y7
+ sbktkRVHf6JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbBQwAKCRAOJn5M7lND
+ PVKxDACfQ3kEtmgw9MPFxx2fdJjlLTbvYNh0nx5CY+FDTboF02IjVVPDCcy9TWiTjxgu9HQ0Kam
+ oLczDUe+byk2XQsAV5MSsqnoFeg3677qtouSckANb023DMJiuc0BWAdk0iY7j8lx8dGyGmezfEK
+ +GYRtXbe9OyLr/cxeCub1SjKaW3I05lkd9K4ipqaKnKuRONPhR94Rg9KX01Ion5nP+EzaQCdLk+
+ PDc8HXFJUOqmOjfNe5ES4qMFeoZrPW/1i6VEh31nWNy1q0l2Rks/d5/PW09Aju/O5gfzPjw35JV
+ kYjSexiCYcDCWR2vvwb3QuhD1jsgDsaUmFn9mFTY/hMkvj1VIXRNGkwZSxUfRO85kQa25KcuChG
+ JD4/3P7ZS6/M7VsL2XPL5andm221zMa1WxcK+b56CtXE9Ktx8bdkyl/AFoRDYkBUwTuac+LuJkr
+ 4SFboRL7dv4v04PmLH82JWmiVOqLr0qycGlIEFj8WFmw8Bs8roMu4xxmRwptgDU3MeNQU=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,85 +97,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series began as an assortment of small fixes for some issues
+uncovered by Claude. Over time, it has evolved to include many other
+fixes for further problems revealed by Sashiko in successive revisions,
+and also refactorings and improvements suggested by maintainer
+discussions.
 
+A subset of patches submitted in previous revisions was already merged
+after they had been reviewed, to avoid this series growing to unmanageable
+extents.
 
-On 2026-09-22 11:26, Nicolas Frattaroli wrote:
->>> + * VRR Limiter/Target Properties
->>> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>> + *
->>> + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
->>> + * through which userspace can control the desired range of refresh rates in
->>> + * which VRR is allowed to operate. Each rate is expressed as a
->>> + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
->>> + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
->>> + *
->>> + * If the minimum and maximum rate are set to the same value (and not 0), they
->>> + * are understood as a fixed target rate. This is especially useful for media
->>> + * playback, where the content's frame rate is both constant and known in
->>> + * advance. In such cases, a refresh rate that is not an integer multiple of the
->>> + * content's frame rate will introduce judder, since not every frame is
->>> + * displayed for the same amount of time. A modeset of the display with a
->>> + * compatible rate may in those cases be either undesirable or impossible, but
->>> + * the rate can still effectively be reached through VRR.
->>> + *
->>> + * .. _VRR-MIN-NUMERATOR:
->>> + *
->>> + * "VRR_MIN_NUMERATOR":
->>> + *	Default &drm_crtc integer property forming the numerator of a
->>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
->>> + *	target rate. Set to 0 to disable.
->>> + *
->>> + * "VRR_MIN_DENOMINATOR":
->>> + *	Default &drm_crtc integer property forming the denominator of a
->>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
->>> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
->>> + *	zero, it must be non-zero.
->>> + *	Otherwise, must also be zero.
->>> + *
->>> + * .. _VRR-MAX-NUMERATOR:
->>> + *
->>> + * "VRR_MAX_NUMERATOR":
->>> + *	Default &drm_crtc integer property forming the numerator of a
->>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
->>> + *	target rate. Set to 0 to disable.
->>> + *
->>> + * "VRR_MAX_DENOMINATOR":
->>> + *	Default &drm_crtc integer property forming the denominator of a
->>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
->>> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
->>> + *	zero, it must be non-zero. Otherwise, must also be zero.
->>>   */
->> If VRR_MIN_NUMERATOR == 0 && VRR_MAX_NUMERATOR > 0, do we interpret that as
->> vrr limiting is disabled?
-> You can picture VRR limiting as always being active, but with a limit rational
-> of 0 it uses the display's limit as per the EDID, which is what unlimited game
-> mode is. So with how it's implemented right now in hdmi_validate_vrr(), your
-> example would set a maximum target, but leave the minimum at whatever the
-> display defaults to.
-> 
-> Now that I'm thinking through this, a possible problem is that
-> drm_crtc_helper_vrr_is_fixed_rate() operates on the user supplied limits, but
-> if the display supplied lower limit is equal to the user supplied upper limit,
-> then we have a fixed rate scenario without recognising it as such. I think I
-> need to have a ponder on what the least surprising behaviour for userspace
-> is in that instance. The display limit stuff gets a bit complex due to
-> CinemaVRR and QMS TFRmin/TFRmax.
-> 
-> I'll improve the documentation on the next revision to make the meanings more
-> explicit.
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+Changes in v11:
+- Fixed bugs about user_count and PM device status at driver init and remove time.
+- Documented new uAPI for perfcnt dump ioctl that depends on reset status.
+- Fixed issues about internal perfcnt bookkeeping in case of reset.
+- Link to v10: https://patch.msgid.link/20260924-claude-fixes-v10-0-755929b3cc19@collabora.com
 
-Perhaps a simple way is to require simultaneous setting MIN and MAX pairs?
-IOW, require userspace to set MIN and MAX simultaneously to >0, or =0. For example:
+Changes in v10:
+- Improved the logic for the debugfs reset knob.
+- Changed perfcnt reset race commit message to reflect true HW behaviour.
+- Improved logic of perfcnt reset handling with a state variable instead of booleans.
+- Added comments explaning how we handle PM status and references at device init time.
+- Fix RM resume clock disable bug uncovered by Sashiko and also changed function naming.
+- Link to v9: https://patch.msgid.link/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com
 
-if ((vrr_min_n == 0 || vrr_min_d == 0 ||
-     vrr_max_n == 0 || vrr_max_d == 0) &&
-    (vrr_min_n > 0 || vrr_max_n > 0))
-	return -EINVAL;
+Changes in v9:
+- Extended clk_(enable|disable) consolidation into other runtime callbacks.
+- Fixed uAPI and perfcnt/reset interaction errors uncovered by Sashiko.
+- Link to v8: https://patch.msgid.link/20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com
 
-That way, it's never ambiguous what userspace has requested for the range. They can copy the EDID supported range if they don't care about limiting one side, rather than leaving it at 0. It's then also clear if they requested a static Hz.
+Changes in v8:
+- Applied fixes for issues brought up by Sashiko.
+- Rolled back some additions from v7: job stopping, IRQ consolidation.
+- Applied RPM fixes before moving most driver init code into panfrost_device.c
+- Brought back v6 patch that enables MMU IRQs before device is registered.
+- Simplified perfcnt reset handling procedure, so that no retry is done in the kernel.
+- Link to v7: https://patch.msgid.link/20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com
 
-Thanks,
-Leo
- 
+Changes in v7:
+- Again fixed some minor issues reported by Sashiko.
+- Made sure the new debugfs reset knob works even when runtime PM isn't enabled.
+- Added new patch that handles job termination at driver teardown time.
+- Link to v6: https://patch.msgid.link/20260826-claude-fixes-v6-0-78119af409e7@collabora.com
 
+Changes in v6:
+- Grafted trivial already-reviwed patches from previous revisions into
+their own series so that they could be merged into drm-misc-next.
+- Added commits with multiple refactorings, code rearrangements and simplifications.
+- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
+- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+
+Changes in v5:
+- Addressed more issues uncovered by Sashiko.
+- Discarded two patches to avoid dealing with too many pre-existing issues at once.
+- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
+- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+
+Changes in v4:
+- Fixed errors and issues uncovered by Sashiko in the previous revision.
+- Changed the way RPM checks whether the device is initialised when resuming.
+- Simplified perfcnt treatment of potential resets.
+- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
+
+Changes in v3:
+- Applied some minor suggestions for the first couple of patches in the series.
+- Moved shrinker initialisation into gem initialisation.
+- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
+- Added patch for reset sequence fixes and also a userspace knob to trigger it.
+- Reworked perfcnt fix by having the reset sequence restore its initial state.
+- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
+
+Changes in v2:
+- Fixed race conditions introduced by the previous revision, in the RPM and
+HWPerf commits specifically. These can be consulted at [1]
+- Don't attempt to suspend the device unconditionally at the end of
+probe(), and do it through autosuspend instead.
+- Broke the RPM patch into one that fixes PM refcnt proper and another one
+for MMU enablement at device init time.
+- Moved perfcnt GPU disable helper into its own commmit. Same for
+transplating shrinker initialisation and unplug.
+- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
+- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
+- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
+
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Adrián Larumbe <adrian.larumbe@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Faith Ekstrand <faith.ekstrand@collabora.com>
+To: "Marty E. Plummer" <hanetzer@startmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Eric Anholt <eric@anholt.net>
+To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+
+---
+Adrián Larumbe (15):
+      drm/panfrost: Move shrinker initialization and unplug one level down
+      drm/panfrost: Move lock and modparam initialisations into their subsystems
+      drm/panfrost: Move debugfs initialisation to relevant subsystems
+      drm/panfrost: Skip NULL checks for clock enable/disabling
+      drm/panfrost: Consolidate device clock management and reset
+      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
+      drm/panfrost: Explicitly enable MMU interrupts at device init
+      drm/panfrost: Move all DRM device initialisation into device_init()
+      drm/panfrost: Add warning messages to fatal error conditions
+      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
+      drm/panfrost: Move perfcnt GPU disable sequence into a helper
+      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
+      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
+      drm/panfrost: Introduce a reset lock
+      drm/panfrost: Fix races between perfcnt and reset sequence
+
+ drivers/gpu/drm/panfrost/panfrost_device.c       | 236 +++++++++++------
+ drivers/gpu/drm/panfrost/panfrost_device.h       |   5 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +--------------
+ drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  64 +++--
+ drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
+ drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
+ drivers/gpu/drm/panfrost/panfrost_gpu.c          |   2 +
+ drivers/gpu/drm/panfrost/panfrost_job.c          | 103 +++++++-
+ drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
+ drivers/gpu/drm/panfrost/panfrost_mmu.c          |  14 +-
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 306 +++++++++++++++--------
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
+ include/uapi/drm/panfrost_drm.h                  |  29 ++-
+ 14 files changed, 578 insertions(+), 412 deletions(-)
+---
+base-commit: 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
+change-id: 20260523-claude-fixes-82b03a134a8c
+
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
