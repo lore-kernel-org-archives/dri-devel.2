@@ -4,53 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA700CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9261CA5FA4
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FA1D10E8A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 648A710E89D;
 	Mon, 28 Sep 2026 08:42:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Bk9HOghe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FEU85VGS";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E47310E050;
- Sat, 26 Sep 2026 16:27:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Qk
- 3GrePbv9eu1xk5tupyIxeqhb2lAK9MbLxhiUca/KA=; b=Bk9HOgheCr6rFakatO
- wS1KwBlnFHrWIKsDtvCj6LJ8Jy/KMKKSx9BGlnZ1aIrfhiHM19G18V9rtA0OoMZL
- mcNwrYmCJGCv7As5OW/z3ZaygcpyYGlvB5VHRpx95/KxnOd/GGwXFzJdULO/LS+H
- 9d8YAIBez/q6NcfNhgvPnaV2c=
-Received: from pc.localdomain (unknown [])
- by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
- _____wD3v6EU8rdq1Ce5Aw--.54526S5; 
- Sun, 27 Sep 2026 00:26:17 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Qiang Yu <yuq825@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B514C10FA91
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 13:26:10 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49b91369d18so6241145e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 06:26:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790342769; x=1790947569; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=06duDdNGXEXO3D6IjmbJBB78lIY9/9EMnDOm9nOMKis=;
+ b=FEU85VGSWZawhyIEDwFcsAt56AfpgsIPVYgTgYCKFuvi3Z15A0B00pCplAKIbLSnQw
+ dQAazeyKDL3I/T/G7mtsR/2t4htzqYsQRVNMewwTqPhm9yrKr3lGfN/mTZ1ggCFAb9Fr
+ AQYv5XcGu+X/rDXCL0yjP/LqDFVf8pjiQlQThWcGgkaOFEw706imCCucqT/Z+zkDv1E0
+ Fa1byu/fs+I3z1yJ5nQSlyqoGThFAaCmoCAaFq4zXLJn5n6jH5PrLrPREGFaPKnMUZzm
+ D8ZTRCOILXxD6wOd61PVCYxQjJZogXSOtzZI5b8Aunr1V2uuq96Jkx+vzA+2jWkbmnMm
+ 7gXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790342769; x=1790947569;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=06duDdNGXEXO3D6IjmbJBB78lIY9/9EMnDOm9nOMKis=;
+ b=x7uBsSfMgeGNFdwiZ6pOs4C8Oe14bYG8qIoi5qPe1ZWV2P78Wg+WiByvwidaMccIZ+
+ fquEKmREaONbfrT0c/k/J3MCfdl6WC5QCu0O4kirQD0guoD744n5280rFyO5MOxbWldM
+ 7f5yQZlVfm2Zn3Br9eBPqgd6AvoMXa6vxtNCRfRRpGzZVOURytaLjOR5+Cdx7TrEtpmX
+ 5j3GkGJdrj1zkRTMCJJAeOxgeR16fpV9+R6jfYA0juHfC+q1m/mslZ5Eq24RWHqZjhgE
+ Yq+SsQPlM5783H+m7Su8aSEYmAnrc7vmZPh2gCQcCRESM+7OsT0mOJEwKfyq397Ue+YF
+ CFjg==
+X-Gm-Message-State: AFuF++mfz5HqE7yMkSHywgvH5nawIucnrgV9S6zpTl55+AvZh1hi2I7/
+ bAQOTLpRCoRRdcMR/vr0Mhqyfh+S0GdggbLzHzuHrwvOd2pWeSrkwg5g
+X-Gm-Gg: AYBFou3vfMwL+mbHzmMnrxhKrPBoHQYBS67TbSaW00RJfjhtqEMqpLucCRPqBO72+Je
+ 20dKFW22SANFBteK9M66MDdxodiDDFBrDmEC7+Ec1EnbbUpKX1VkVC7jjisDWn01jar3Tad1wcf
+ skZ/RQCu6/qQ040e3zHBAEX1H1F0229fnQ27pI0UCNooaUXydxei2Uspf/Dk2NhamIsYmIPgtxa
+ IbkkhzMBpZI+SA5/OvSBn6IZa06XQ2DvmcQPZYMTt98nME7swkgWoiAPuACWSFdoXDPRieB7cSY
+ FuYI6cIFOKPIS8lYMJAv0ZSNqc++l7wRzu+QlWOKTieQcevYcStGAaqtovUsVbqxwRgluuq5yHs
+ 2hq09NZBgejYO8iujPIC1N7eOG2AnAZz+kcB0pBzEWr02X960RJ8cJvNKrPDcKOR7m6YeSE0RRe
+ mouynUpKGJ3OESQmkPoKEY8mWCo09SzMsbcjmoGOjkc6YvQvQTRzrbyOWnp1q7XxWDGQ8zWXe0/
+ dCG5PcAsg==
+X-Received: by 2002:a05:600c:6087:b0:49f:df99:ff13 with SMTP id
+ 5b1f17b1804b1-49fe66e652cmr93012705e9.21.1790342768794; 
+ Fri, 25 Sep 2026 06:26:08 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-4887a354c47sm7488028f8f.15.2026.09.25.06.26.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 06:26:08 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>,
- Erico Nunes <nunes.erico@gmail.com>, Rob Herring <robh@kerrnel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Andreas Baierl <ichgeh@imkreisrum.de>, dri-devel@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 3/3] drm/lima: Drain fence callbacks before destroying slab
-Date: Sun, 27 Sep 2026 00:25:52 +0800
-Message-Id: <20260926162554.163197-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260926162554.163197-1-yaojiale02@163.com>
-References: <20260926162554.163197-1-yaojiale02@163.com>
+ Simona Vetter <simona@ffwll.ch>, Douglas Anderson <dianders@chromium.org>,
+ Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/dp: don't mark the AUX backlight enabled when enabling
+ failed
+Date: Fri, 25 Sep 2026 15:25:58 +0200
+Message-ID: <20260925132558.27518-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3v6EU8rdq1Ce5Aw--.54526S5
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZF1kXr4UGF4DXr4Dury3Arb_yoWDArb_Kw
- 43Wrn3Gw17GFnrK3ZrZrn3Wr9akasrZFZ5ZrnYvFWfKry7JF1UXw4jgr45Z34UJ3W2y3Zx
- tanFqFyrXr9F9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_CJmUUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQlPiWq38imLAgAA3N
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lima_fence_release() defers freeing fences from lima_fence_slab to an
-RCU callback. The last lima_sched_slab_fini() can destroy the slab and
-clear its pointer while a release callback is still queued. Module removal
-can also free lima_fence_release_rcu() before that callback runs.
+If drm_edp_backlight_enable() fails, dp_aux_backlight_update_status()
+still marks the backlight as enabled. From then on every brightness
+change only updates the level and the enable is never retried, so the
+panel stays dark until something blanks and unblanks the backlight.
 
-Drain outstanding callbacks before destroying the last fence slab.
+I hit this after resume on a Samsung ATNA OLED panel, where the first
+AUX write can fail while the panel is still waking up.
 
-Fixes: a1d2a6339961 ("drm/lima: driver for ARM Mali4xx GPUs")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Return the error instead, so the next update tries to enable again.
+
+Fixes: 10f7b40e4f30 ("drm/panel: add basic DP AUX backlight support")
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
- drivers/gpu/drm/lima/lima_sched.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/display/drm_dp_helper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index 9a1e6b9ecbe5..9c5ff1929d3e 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -44,6 +44,7 @@ int lima_sched_slab_init(void)
- void lima_sched_slab_fini(void)
- {
- 	if (!--lima_fence_slab_refcnt) {
-+		rcu_barrier();
- 		kmem_cache_destroy(lima_fence_slab);
- 		lima_fence_slab = NULL;
- 	}
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -4634,7 +4634,9 @@ static int dp_aux_backlight_update_status(struct backlight_device *bd)
+ 
+ 	if (!backlight_is_blank(bd)) {
+ 		if (!bl->enabled) {
+-			drm_edp_backlight_enable(bl->aux, &bl->info, brightness);
++			ret = drm_edp_backlight_enable(bl->aux, &bl->info, brightness);
++			if (ret)
++				return ret;
+ 			bl->enabled = true;
+ 			return 0;
+ 		}
+
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
 -- 
-2.34.1
-
+2.55.0
