@@ -4,60 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE77BC98324
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 09:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFD9C9830E
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 10:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42CCD10E249;
-	Fri, 25 Sep 2026 09:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA59510E5B2;
+	Fri, 25 Sep 2026 10:10:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JSUBBGwl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EOK0Fjdr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0471610E249
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:51:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D8896022E;
- Fri, 25 Sep 2026 09:51:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3B71F000FF;
- Fri, 25 Sep 2026 09:51:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790329872;
- bh=Yk8oUNugjqXaeddwMIx0+ekaXJEnqfxT78aSMnwYEnI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JSUBBGwlrH3ZgwJ6l/4+E323TPon9dlzQmxSgi4dKP5ej5M+6JNROW2aYv/s16dE8
- CRGnOlxQkSQ+kwX4jOwHjC4XJeglXJXbstdRLEGVyfy9uuaU5RY7j/bQVZeovmWADu
- BMPfHT0+2IVfelM7WD5GXNkc8n0jApkA5i6t7amcABDPyOlWU00gWD4tXhMUjhBqDP
- hNtSCW963vazV7rBBtraH4k8uB392AUIFbbnM1RHSRvA6CGYdjO1l8WDJIm8Wq65e1
- FusdmWKynvIGTrqdUJHAe9NC9EjgtAYk10ou/aFv3U2NgPrnFm53wiqaIk0D7TVJJV
- MhzR8ZFfariJg==
-Date: Fri, 25 Sep 2026 10:51:04 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 05/40] mm/vma: ensure mmap_prepare doesn't set actions
- on a mergeable vma
-Message-ID: <arZC7UscjpjVJxnV@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-5-4583d8a23bca@kernel.org>
- <arVkwC_wNoTLjRYf@gourry-fedora-PF4VCD3F>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBFB10E1DD;
+ Fri, 25 Sep 2026 10:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790331058; x=1821867058;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=nGspYnnDwbxEw2uzhbTdVx6pk6eDe92BH9ntuHaRs/s=;
+ b=EOK0Fjdr34Yf3OvVmlSnGB4jzD7HexmD248y0nC+Hrlv2Pc9Qez0RCIl
+ 4AY0nQ3A9S1AdLSpPkEKoOVLV+IsU463igPd6+gcQUJiQkT4NBjoHS8Ym
+ 191ljFUj9TV98ad42fQfHO9kaViyaYjX7iOsB5rkWBomQMlvZThawGY6G
+ SZmhpeh6fC9THPJoOmZzLkpnSY6I8G6Iq+d05d6v0KiDXjCbnr/X0LuQf
+ 8zzQdMtS6XVzkpTLQT4EadzRidfMUBEF+w97pTZAd2TTkfCR3sir+533G
+ M94YK8A/jINXNK60v9RVGFQoBJElCFym6h4lwnmZvDU2UkR74/N1BSBaa Q==;
+X-CSE-ConnectionGUID: sYIGa51BQ96px2M5uzPIbA==
+X-CSE-MsgGUID: 5YmyWRhQT+WGpDiGsKT+NA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101288016"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="101288016"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 03:10:58 -0700
+X-CSE-ConnectionGUID: prgoZqEoTTSgWFpNLRmd4w==
+X-CSE-MsgGUID: nO3lvYNQTrWGkYi4OVRZxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; d="scan'208";a="282384381"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.27])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2026 03:10:52 -0700
+Date: Fri, 25 Sep 2026 13:10:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+ u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <arZIqk6wgV_LF0rg@ashevche-desk.local>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <arZB2s3HOBgSRuE4@ashevche-desk.local>
+ <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arVkwC_wNoTLjRYf@gourry-fedora-PF4VCD3F>
+In-Reply-To: <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +85,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 02:00:18PM -0400, Gregory Price wrote:
-> On Thu, Sep 17, 2026 at 05:22:14PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > When a user requests an mmap_action be performed in mmap_prepare, this
-> > involves populating the VMA range with data.
-> >
-> > However, if the VMA is mergeable, it might then mistakenly be merged with
-> > another VMA without having populated the range.
-> >
-> > Every mmap action currently available sets VMA flags such that the VMA
-> > cannot be merged.
-> >
-> > However, to ensure that no future mmap action falls foul of this, assert
-> > that this is the case upon mmap_prepare validation.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/vma.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index d6ed10cefc8f..62f2ce1ad5a1 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
-> >  int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
-> >  			  const struct vm_area_desc *desc)
-> >  {
-> > +	/*
-> > +	 * It is not valid to execute mmap actions for VMAs which can be merged,
-> > +	 * as any such merge would leave portions of the mapping incorrectly
-> > +	 * unmapped.
-> > +	 */
-> > +	if (vma_flags_can_merge(&desc->vma_flags) &&
-> > +	    WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
-> > +		return -EINVAL;
-> > +
->
-> If you wanted to make this unit-testable, you could pull it out into a
-> separate function:
->
-> static bool mmap_action_is_valid(const struct vm_area_desc *desc)
-> {
-> 	return desc->action.type == MMAP_NOTHING ||
-> 		!vma_flags_can_merge(&desc->vma_flags);
-> }
->
-> then write:
->
-> if (WARN_ON_ONCE(!mmap_action_is_valid(desc)))
-> 	return -EINVAL;
->
-> And you can write a unit test directly against mmap_action_is_valid
+On Fri, Sep 25, 2026 at 03:29:27PM +0530, Aniket Limaye wrote:
+> On 25/09/26 15:11, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-You mean to isolate this check specifically?
+...
 
-All of the functions in vma.c are unit-testable in the userland VMA tests,
-obviously here you'd be testing further stuff but you could certainly assert a
-mergeable VMA specifying an action should result in an error there.
+> > Still doesn't look good. The current register layout may be left as is. What
+> > you need is translate it in the respective regmap callbacks in case we are
+> > enumerated on the different IP. Also possible to have a different regmap
+> > config for the different HW where you translate them only in one place.
+> 
+> Is it confusing to keep using existing offsets in regmap_read/write() call
+> sites for TDA54, and let the regmap silently handle the translation?
+> 
+> Given that we do *not* have any new registers in use on the tda54 version
+> that were not there in the original one, I guess it works... will send a v4
+> as per your suggestion.
 
-I'm also keen not to proliferate two many 'kinds' of validation.
+Depends on the mapping. Your series also forgot to provide the differences
+Check this as an example: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi").
 
-As mmap_validate() checks pretty much everything BUT the action check, and it
-has to work across mmap_prepare and mmap hooks.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-So the idea here is we put the mmap_prepare-specific stuff in
-mmap_prepare_validate() and the shared stuff in mmap_validate().
 
-And already the stuff that can be validated just against flags lives in
-mmap_validate_vma_flags() so that is itself separated out nicely.
-
->
-> otherwise
->
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
-Thanks!
-
---
-Cheers, Lorenzo
