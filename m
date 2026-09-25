@@ -4,60 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C0BC9830E
-	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF04C9830D
+	for <dri-devel@archiver.kernel.org>; Fri, 25 Sep 2026 07:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F75210F8F1;
-	Fri, 25 Sep 2026 07:46:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 946A610E1D4;
+	Fri, 25 Sep 2026 07:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Zczmql+L";
+	dkim=pass (2048-bit key; unprotected) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="ZvxFxCOy";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE22010F8F1
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790322373;
- bh=zCTuDqlNX3/6/wVssV35Ayu2kyDqNktIb5z2fDgv8vY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Zczmql+LBk8L5sTxZ+0n4Mko5ek9KJIptOVerW6Dp2cZNp4mLAiGUazkxAE+E6vhy
- s0c9GkMpXPXmzYv2YNlG5F4/1IOyljDrz0xJDJcsQYo+XVpSav5Lh/bVZYyWSrWlRX
- lo8T18WU0Nrg2DIe1hcohncmzDwm7tZTilVqIRn0BcUYDOebhrVjghgm1Vt5rdEg00
- LdofasBVP6zw1vPnpRamByMoJwCNL8AY5IsC66YBDHDhSxDlbQ9dziOL26LL0wmnsg
- +dfeFjYoSV23TKvPV5gc3VXuHAZr9fCPK+tooJXNijOKshGEGXz8F2P5YreMP4EVll
- 9mARIY8uNouzg==
-Received: from fedora-32.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 679F317E006F;
- Fri, 25 Sep 2026 09:46:12 +0200 (CEST)
-Date: Fri, 25 Sep 2026 09:46:06 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v10 06/15] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
-Message-ID: <20260925094606.4bb127dc@fedora-32.home>
-In-Reply-To: <20260924-claude-fixes-v10-6-755929b3cc19@collabora.com>
-References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
- <20260924-claude-fixes-v10-6-755929b3cc19@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch
+ [185.125.25.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACDE10F941
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:49:01 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown
+ [IPv6:2001:1600:4:17::246c])
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hrjWc153qznTx;
+ Fri, 25 Sep 2026 09:49:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+ s=20250113; t=1790322539;
+ bh=pJG7Ae2O4dVdTdH+3j1xRhaTZGtXxML8UCDGUBJItcU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZvxFxCOyQeGVCrYxlFeeieiGE1TRzJBNkRcofN79aKlZU03jCgduwy+FIVzyA9bwC
+ K4gWj5mcSZN/5fzR0a6V0blBPXXzxCjv9BHW1c+02O4f+rW/f4Yfgad8h9k/XcI5IA
+ 3gRWOL+okp3NKdkbqQjcZm+d4oEmnex1KUFcfxZB9qavX8K52mcBbxRNZWyk1uCqgS
+ Zfp9uwVrHdbtHL23GXaXPRSykbB1FFKrE44D5KPGNG3C1i9GPm84JnwKLdRLg8MEjb
+ 4Q5hCJSzQjGQqZ8TQ5J/AkabIjITe2MtLiJ4aK/9gS+77eBUx/XupMJWevV8iVeGR1
+ iyYP1xPh1UiPg==
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hrjWZ1xfGzYwM; Fri, 25 Sep 2026 09:48:58 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Don't replace a sink mode that shares the
+ native totals
+Date: Fri, 25 Sep 2026 09:48:29 +0200
+Message-ID: <20260925074829.92079-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,114 +63,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 24 Sep 2026 19:09:23 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC
+timing into the requested mode when clock, htotal and vtotal match.
+That is meant for the modes amdgpu inserts itself:
+amdgpu_dm_create_common_mode() duplicates the native mode and changes
+only hdisplay and vdisplay, so those are sent with the native timing
+and scaled.
 
-> During device probe(), failure to do a PM get() will leave the usage_count
-> set to 0, which is the value assigned at device creation time. That means
-> when the autosuspend delay expires, runtime suspend callback won't be
-> invoked, so the device will remain powered on forever.
->=20
-> On top of that, failure to call PM put() during device unplug means
-> Panfrost device's PM usage_count increases monotonically for every new
-> module reload.
->=20
-> The outcome of both of the above meant that:
->=20
-> - Devfreq OPP transition notifications would be printed all the time,
->   even when no jobs are being submitted. This quickly fills the kernel
->   ring buffer with junk.
-> - Because MMU interrupts are only enabled when the device is reset,
->   the very first job targeting the tiler heap BO after device probe()
->   would always time out, since the driver's PM runtime resume callback
->   would not be invoked.
->=20
-> To fix the above:
-> - Manually adjust the PM refcnt at device probe and removal time.
-> - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
-> - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
-> - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
->   resource unwinding happens in the opposite order as initialisation.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-> Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> index 55fc22e8d4d4..02ddd391231c 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -852,8 +852,13 @@ static int panfrost_probe(struct platform_device *pd=
-ev)
->  		goto err_out0;
->  	}
-> =20
-> +	/* The reason we must manually set the PM status and usage counter is
-> +	 * we have just powered the device up but did not go through the PM
-> +	 * runtime resume callback, so we need to update these ourselves.
-> +	 */
->  	pm_runtime_set_active(pfdev->base.dev);
->  	pm_runtime_mark_last_busy(pfdev->base.dev);
-> +	pm_runtime_get_noresume(pfdev->base.dev);
->  	pm_runtime_enable(pfdev->base.dev);
->  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
->  	pm_runtime_use_autosuspend(pfdev->base.dev);
-> @@ -866,13 +871,16 @@ static int panfrost_probe(struct platform_device *p=
-dev)
->  	if (err < 0)
->  		goto err_out1;
-> =20
-> +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> =20
->  	return 0;
-> =20
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
-> -	panfrost_device_fini(pfdev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> +	panfrost_device_fini(pfdev);
->  err_out0:
->  	return err;
->  }
-> @@ -884,9 +892,11 @@ static void panfrost_remove(struct platform_device *=
-pdev)
->  	drm_dev_unregister(&pfdev->base);
-> =20
->  	pm_runtime_get_sync(pfdev->base.dev);
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
+A sink can also offer a real mode with the same clock and totals as
+its native mode. CTA-861 VIC 102 (4096x2160@60) and VIC 97
+(3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as
+the preferred mode, a 4096x2160@60 request goes out with the 3840x2160
+timing and the framebuffer scaled into it (dst 3840x2025 at y=67),
+while the AVI InfoFrame still carries VIC 102. A JVC projector then
+reports 3840x2160 and shows a corrupted right edge. 4096x2160@24,
+whose totals differ, is sent and displayed correctly.
 
-You really want put_noidle() after pm_runtime_disable(), otherwise if
-the ref you put is not the last one, and another entity puts its ref
-without no_idle() before you call pm_runtime_disable(), it will
-schedule and potentially execute the suspend hook, which might mess up
-with the state the _fini() helpers expect the device to be in.
+Inserted modes keep the native sync positions; a real mode with its
+own active width does not. Compare those too, so only inserted modes
+are patched.
 
-> -	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> +	panfrost_device_fini(pfdev);
+Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude Code:claude-opus-5-5
+---
+Tested on an RX 7600 (7.2.4 backport) with a JVC projector behind an
+HDFury VRROOM: 4096x2160@60 now arrives as 4096x2160 with a clean right
+edge; 3840x2160@60 and 7680x4320@60 are unchanged. KUnit
+amdgpu_dm_connector*: 360/360.
 
-With:
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  7 +++-
+ .../tests/amdgpu_dm_connector_test.c          | 42 +++++++++++++++++++
+ 2 files changed, 48 insertions(+), 1 deletion(-)
 
-	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-	pm_runtime_disable(pfdev->base.dev);
-	pm_runtime_put_noidle(pfdev->base.dev);
-	pm_runtime_set_suspended(pfdev->base.dev);
-	panfrost_device_fini(pfdev);
-
-This patch is
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
->  }
-> =20
->  static ssize_t profiling_show(struct device *dev,
->=20
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 7ebf7216b499..7db85bcebecd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -996,10 +996,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
+ {
++	/* Inserted modes copy the native sync; a sink mode with equal totals may not */
+ 	if (scale_enabled || (
+ 	    native_mode->clock == drm_mode->clock &&
+ 	    native_mode->htotal == drm_mode->htotal &&
+-	    native_mode->vtotal == drm_mode->vtotal)) {
++	    native_mode->vtotal == drm_mode->vtotal &&
++	    native_mode->hsync_start == drm_mode->hsync_start &&
++	    native_mode->hsync_end == drm_mode->hsync_end &&
++	    native_mode->vsync_start == drm_mode->vsync_start &&
++	    native_mode->vsync_end == drm_mode->vsync_end)) {
+ 		if (native_mode->crtc_clock)
+ 			copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index bd55d943e4e5..04e0afd7aa71 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1468,6 +1468,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
+ }
+ 
++static void dm_test_decide_crtc_timing_sink_mode_same_totals(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode = {
++		DRM_MODE("4096x2160", DRM_MODE_TYPE_DRIVER, 594000, 4096, 4184, 4272,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode_set_crtcinfo(&drm_mode, 0);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 4096);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hsync_start, 4184);
++}
++
++static void dm_test_decide_crtc_timing_inserted_mode(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode;
++
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode = native_mode;
++	drm_mode.hdisplay = 1920;
++	drm_mode.vdisplay = 1080;
++	drm_mode_set_crtcinfo(&drm_mode, 0);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 3840);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2160);
++}
++
+ /* Tests for amdgpu_dm_connector_funcs_reset() */
+ 
+ static const struct drm_connector_funcs dm_test_connector_funcs = {
+@@ -10342,6 +10382,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
++	KUNIT_CASE(dm_test_decide_crtc_timing_sink_mode_same_totals),
++	KUNIT_CASE(dm_test_decide_crtc_timing_inserted_mode),
+ 	/* amdgpu_dm_connector_funcs_reset */
+ 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
+ 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
+-- 
+2.55.0
 
