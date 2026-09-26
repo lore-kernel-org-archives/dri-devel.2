@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 438B0C98332
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 13:33:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F27C98332
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 14:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4E910E1F4;
-	Sat, 26 Sep 2026 13:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C91410E009;
+	Sat, 26 Sep 2026 14:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VV4Uqhwg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZaRyGWS4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA4E610E1F4
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 13:33:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E86110E009
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:11:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 080D76020C;
- Sat, 26 Sep 2026 13:33:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717B91F000FF;
- Sat, 26 Sep 2026 13:33:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3E87B6020C;
+ Sat, 26 Sep 2026 14:11:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47171F000FF;
+ Sat, 26 Sep 2026 14:11:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790429635;
- bh=f7zKPBnbUp6eUB/KEXui9d/UrTXlZyGna2N3UHmO1JU=;
+ s=k20260515; t=1790431891;
+ bh=KUQkDfe1dlQHuc+TjtZoa9JN6JTUsbLT3hL59Pkv+W8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VV4Uqhwg3goroXJnxSkntCl+TmsX91WAbIX36NP0HdAsMQqSpMWFeuVD/0l6lwyPe
- 8DLlGyS1dPIeD6gS9Mxq2uLszlKaqoDG+RZtfUiXP6g3V4tQu0yRVK4Iu5Z+C2b+DD
- zNWeHwQIPTRjrjQkJ7FxFkVtciH4m/6gZeqIiqwAXuDjc6beCnLcDvFGVZPLodElLD
- bCxP+W08dYW3S/Cidgwhtv6Pi6hpsm5NHfyysFHWJsJAUU0gfBIghmPouRcPlFkFLE
- 1s0RnnXPkZwccH/kjWQU4pTgZ2TBR8Dgo4Z4JVg4Nv/GMT8s9ucYnGPveH6APD+lEA
- h5G7/HSuWMfSg==
+ b=ZaRyGWS4+aJ3lTxB3S5F6tBFaT0PD/6o0FWNF67z9Udhs334vR60x1rPdvxcQF7eV
+ K++FY7T/ZP6unOdtw84sKprNswDEnY1aLVhRQR3uMMDv2m1kdL/VkpLwrWi1Dj6FHR
+ BphH5CMUOj6DTTxAZGIpbBELAQZCY39oXkEW6S5ikk9xEErrlMODE+Y/ou2J/ojOxr
+ ClUov2UVfVfGiFRle5RTtEbpExyghGk/SNlsHv22DLrv8wzeYeFHGFGjZCZdksN76i
+ jVu353EuFnzYq6pX7O+ElKE83Q/U37gCXVOOR3lybLx3OEIX+sajhIaxUCesuMVP0T
+ 07FYHiXmDDWoQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] fbdev: sh_mobile_lcdc: check for
- fb_deferred_io_init() error
-To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org
-In-Reply-To: <20260926-fix-fbdefio-error-handling-v1-6-a94810b6e263@kernel.org>
-References: <20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263@kernel.org>
- <20260926-fix-fbdefio-error-handling-v1-6-a94810b6e263@kernel.org>
+Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+To: erebion <erebion@erebion.eu>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 13:33:54 +0000
-Message-Id: <20260926133355.717B91F000FF@smtp.kernel.org>
+Date: Sat, 26 Sep 2026 14:11:30 +0000
+Message-Id: <20260926141130.A47171F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,76 +60,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] fbdev: sh_mobile_lcdc: clock leak on fb_deferred_io_init() failure
+- [Low] dt-bindings: missing swctrl-gpios schema definition causes dtbs_che=
+ck failure
 --
 
-commit 5d69f4a8e3d4f95bd3f24c9c5188ad04101636e7
-Author: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+commit 2895c104a8a87260afe61b3db500946505dbefb6
+Author: erebion <erebion@erebion.eu>
+Subject: arm64: dts: qcom: sm6350-lena: Enable Bluetooth
 
-fbdev: sh_mobile_lcdc: check for fb_deferred_io_init() error
+Configure the required regulators for Bluetooth and enable it on the
+Xperia 10 III.
 
-This commit updates sh_mobile_lcdc_start() to check the return value of
-fb_deferred_io_init(). If it fails, info->fbdefio is cleared to prevent
-sh_mobile_lcdc_stop() from cleaning up uninitialized deferred I/O state,
-and the function returns the error.
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index f3ed6445c7d35..9be0e7ceccb55 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 
-> diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev=
-/sh_mobile_lcdcfb.c
-> index e8324b01700f6..1409a5cc736b0 100644
-> --- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
-> +++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-> @@ -1042,7 +1042,11 @@ static int sh_mobile_lcdc_start(struct sh_mobile_l=
-cdc_priv *priv)
->  			ch->defio.deferred_io =3D sh_mobile_lcdc_deferred_io;
->  			ch->defio.delay =3D msecs_to_jiffies(tmp);
->  			ch->info->fbdefio =3D &ch->defio;
-> -			fb_deferred_io_init(ch->info);
-> +			ret =3D fb_deferred_io_init(ch->info);
-> +			if (ret) {
-> +				ch->info->fbdefio =3D NULL;
-> +				return ret;
-> +			}
+[ ... ]
 
-[Severity: High]
-Does this early return bypass unwinding the clocks and stopping the hardwar=
-e?
+> @@ -424,6 +466,73 @@ ts_int_default: ts-int-default-state {
 
-Earlier in sh_mobile_lcdc_start(), the clocks are enabled and the hardware =
-is
-started. When called via the FBIOPUT_VSCREENINFO ioctl through
-sh_mobile_lcdc_set_par(), a failure here exits without disabling the clocks=
- or
-stopping the hardware:
+[ ... ]
 
-drivers/video/fbdev/sh_mobile_lcdcfb.c:sh_mobile_lcdc_set_par() {
-    ...
-	ret =3D sh_mobile_lcdc_start(ch->lcdc);
-	if (ret < 0)
-		dev_err(info->dev, "%s: unable to restart LCDC\n", __func__);
-    ...
-}
+> +&uart1 {
+> +	/delete-property/ interrupts;
+> +	interrupts-extended =3D <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +	pinctrl-names =3D "default", "sleep";
+> +	pinctrl-1 =3D <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uar=
+t1_sleep_tx>, <&qup_uart1_sleep_rx>;
+> +
+> +	status =3D "okay";
+> +
+> +	bluetooth {
+> +		compatible =3D "qcom,wcn3991-bt";
+> +		vddio-supply =3D <&pm6350_l11>;
+> +		vddxo-supply =3D <&pm6350_l7>;
+> +		vddrf-supply =3D <&pm6150l_l2>;
+> +		vddch0-supply =3D <&pm6150l_l10>;
+> +		swctrl-gpios =3D <&tlmm 69 GPIO_ACTIVE_HIGH>;
 
-Additionally, in a multi-channel setup during probe, the failure on one
-channel bypasses sh_mobile_lcdc_channel_fb_register(). This causes the error
-handler sh_mobile_lcdc_stop() to explicitly call clk_on() for the successful
-channel, creating an unmatched increment:
+[Severity: Low]
+Does this property need to be added to the dt-bindings?
 
-drivers/video/fbdev/sh_mobile_lcdcfb.c:sh_mobile_lcdc_stop() {
-    ...
-		if (ch->info && ch->info->fbdefio) {
-			...
-			sh_mobile_lcdc_clk_on(priv);
-		}
-    ...
-}
+When running make dtbs_check, the swctrl-gpios property here fails validati=
+on
+because it isn't documented in the qcom,wcn3990-bt.yaml schema. Since the
+schema enforces unevaluatedProperties: false, the build generates a warning.
 
-Could this lead to a permanent leak of the hardware clock reference count
-(priv->hw_usecnt) and leave the LCDC hardware running in an error state?
+The hci_qca driver parses this property correctly at runtime, so there
+isn't a functional issue, but should the binding schema be updated to avoid
+the validation warning?
 
->  		}
-> =20
->  		sh_mobile_lcdc_display_on(ch);
+> +		firmware-name =3D "crnv32u.bin";
+> +	};
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-fix-fbdefi=
-o-error-handling-v1-0-a94810b6e263@kernel.org?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-pdx213-ups=
+tream-3-v2-0-b4612e3eb536@erebion.eu?part=3D5
