@@ -4,59 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DABC9831E
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 04:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A603EC98318
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 04:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C23E510E030;
-	Sat, 26 Sep 2026 04:48:14 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E85710E030
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 04:48:12 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
- by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
- Sat, 26 Sep 2026 12:48:07 +0800 (CST)
-Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 26 Sep 2026 12:48:05 +0800
-In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-8-a0987203069@gmail.com>
- <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
- <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
- <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
- <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
- <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id C028A10E03D;
+	Sat, 26 Sep 2026 04:55:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KbXWT7eL";
+	dkim-atps=neutral
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com
+ [74.125.229.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24F8B10E03D
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 04:55:30 +0000 (UTC)
+Received: by mail-dl2-f43.google.com with SMTP id
+ a92af1059eb24-1438e88300cso1319796c88.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 21:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790398529; x=1791003329; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lez8Lh9LK2IJV3Lg+4+qOHMKMvDRPEZgp+OMdBxRRpI=;
+ b=KbXWT7eLHFaFa+/Z5OnUBs73WcPg2IeuQY6srzmIy9GeUFPcoqFHRbAstOX7otfP8t
+ e/LR80sg/vc4IUV/BIs6z7QJJfm21L/OJrVLl3qoK0TvZ7Uwn1nt5wEcaV3yeBPqnjeB
+ T0tOL7+nLU9O8e0mQGfccONH5L8zkS/b4wnm/aFNaCiIspoHVvrIgxxb5smn6Om6K+3G
+ 6USn6dlkvh9Bl2PtmkKwdxQSLwb6Uil828hcLJcmXfbdKdgUpus1EwhqR88qHmOVw+qX
+ h5nzHHhF4v0zNSgPt4yX4Y4y0tuZMgUI26nKFmZQdVsiKUhF37d/g0QJzrZXfcu23Fa1
+ +wkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790398529; x=1791003329;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lez8Lh9LK2IJV3Lg+4+qOHMKMvDRPEZgp+OMdBxRRpI=;
+ b=sDuMnfYskifcFeKmXFd2tFCi7xVXzm2idTy6EqIaWpCWwVVPMp5oLDrj/B6obnxjBi
+ nmQIbpqNFnLBFspZmvKjN0Sqhk1QTGgaBGzb8tydO149PpBrPJAwPfPyPUtlvfl54lCV
+ dvUtEZRbVsGCIvv7O00zEAH2nA5RgnFzrLhy8Snk2y+vlKMBN+LiPGGAQs3wqLjhKa7+
+ pIEyWrgUxRB4UUo4uQtA21DvtMR1ufaFSAl49+HjKUIAh8n7kvfE2ttIrRMaZ6+epFHU
+ Vjomd/b4boyD+AdxbbuksakPu8iNe3N41PNaSy8CwEPF7W/qM2p4mW3pV6WnMe68OYRm
+ NnMQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx6wLaIYnVKAQQwEMB15Z65nltFhdPLdqNYuPybhjO0RAgnpHhoNp/9AnO2sXoJQX6/VWksfocV2VQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lNXz9/91CBXdI9IrUGNIIUxjynIe8RJOlZiE8I/pRS9cKSNQKv
+ XS/iV5q2aUj44IlGGgXIuvAPClNoi7YH39NTr7WqoJj64XTtAKp5P6QX
+X-Gm-Gg: AYBFou1sLzswDw3qa6jd5Hd6KvSjVOpop8UuWfWAAkGX0ewZWVPWe2qXFFbi5n0ysqo
+ ItbLl26RqG6zVz9Zr4nRBT7QuPODX4yMBLzR8D8YfPmvCaj/JHOYScV8je2cLlHhiL3oEFIaH2i
+ ZKY1w/zHNEylKHYy/DYfR5+CfdNJvrPQ4o79ZreC/N3xbIzl83s2oAoJAilopBHNhx9ueole+p1
+ lP7ZzAcdRyny9uSHjNtjEK8yqzc1Bw8uT2aphiEnl96KK/eg0lUA6QxOYSOGdrC17aT4Zycb9sm
+ xY4NDctLNeoWrCQw2cBMkM7ropdwELsR6wtg311NSgpontUIVC6sxZ1ZFR/lwgS3TXN5aZtKi7+
+ uQ+v88s+fWoYZg72oe5KMO6/jUdPfL98vA+glUGKQEyoc2DzMGQFsOpfHDLtiBrOV1oLSlo+tFK
+ uSu2Gh4bgZxd9K8uEUkQ+id5PHhEwyn/Lc4NkYKmLkg6Sip5Ff5zXtS472gnqzYy12UQPxMTZi5
+ cSrvh9nU2X4pAt1lIdUAQV88fQpDaPXIKAdlcEYOVUcHQ1uwu0lddSqVX9UpJYDuktC3mHFiJfR
+ 3qzPdU5T9W8mV6VW2rcFGMQ+uIWoSzg5fKQlJuTyI0oMSMDKOnzwzP3/Wug=
+X-Received: by 2002:a05:701b:4354:b0:143:8865:cca with SMTP id
+ a92af1059eb24-146cfdcf390mr1703579c88.22.1790398527862; 
+ Fri, 25 Sep 2026 21:55:27 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-145adcc5b00sm9334211c88.15.2026.09.25.21.55.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 21:55:27 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate offload
+Date: Sat, 26 Sep 2026 12:55:13 +0800
+Message-ID: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAAHE0GFTrdqYafICA--.2178S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
- ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
- qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IU56yI5UUUUU==
-X-Originating-IP: [120.85.96.244]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,85 +106,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> >=20
-> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
-=81=93:
-> > > Maybe it's better to just make it the 2nd patch in this patchset,
-> > > just
-> > > after the binding change.
-> > >=20
-> > > Waiting for something into drm-misc-fixes again will need another
-> > > fixes
-> > > pull and another RC back merge, which can consume weeks and miss
-> > > the
-> > > current merging window.
-> > >=20
-> > > In addition, it's possible that `drm/verisilicon: introduce per-
-> > > variant
-> > > hardware ops table` also gets backported for a more clean primary
-> > > plane
-> > > atomic_update disabling fix.
-> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
->=20
-> Should I just apply this revision of patch with this reorder?
+This RFC adds offload-only swap areas for deliberate cold-page offload to
+backends unsuitable for pressure reclaim. ZFS zvol swap has documented
+deadlocks under memory pressure [3]; compressed swap is another target
+because writes may need memory despite free logical slots.
 
-Oh I think more fixes are coming.
+Explicit proactive reclaim can use these areas alongside conventional
+swap, ordered by priority. Ordinary reclaim cannot initiate non-zero
+writes to them, including through retained swap entries. Conventional
+capacity is not reserved for emergencies. Operators choose the policy;
+the kernel does not measure headroom or make an allocating backend safe.
 
-There's one more DC8200-specific problem (which might be problematic on
-DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
-be executed before vs_dc8200_panel_enable_ex, because some timing
-parameters seem to be latched when the value going from 0 to 1, and
-when a stale state is programmed before the driver is loaded (e.g. a
-firmware driving the display) and the timing isn't the same with the
-timing of the first modeset, the modeset will fail.
+TMO/Senpai [4] and DAMON_RECLAIM [5] are related cold-page reclaim
+approaches. This RFC admits offload-only swap through memory.reclaim and
+per-node reclaim, but not DAMON. Other related work includes per-cgroup
+zswap writeback control [6], Virtual Swap Space v4 [1] and swap tiers v10
+[2].
 
-I'm thinking about sending a fix patchset first, which will pick the
-FB_EN fix here, implement a fix for the stale state problem and maybe
-implement fixes for the old state dereference problems for hidden
-planes in their atomic_update callback (although this fix will
-introduce a helper, which will then be moved and renamed in the DC8200
-ops patch).
+The util-linux companion [8] proposes swapon --offload-only and an fstab
+option. Older swapon silently ignores the fstab token, so persistent
+activation needs discussion. Apply the separate i915 fix [9] first to avoid
+a pre-existing folio-lock leak when shmem writeback is skipped.
 
-Thanks,
-Icenowy
+The series fixes zram selftest device tracking and error reporting, adds
+the swap policy with DRM eligibility checks, and tests routing, workingset
+activation and retained-entry write refusal. It is based on mm-new at
+995829088503.
 
->=20
-> Thanks,
-> Icenowy
->=20
-> > dt-bindings patch, targeting the current vs_primary_plane.c
-> > directly,
-> > so the ops-table patch just carries the already-corrected code
-> > forward
-> > into vs_dc8200.c. Agreed that's faster than round-tripping.
-> >=20
-> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
-> > still
-> > has a real per-variant operation there (clearing FB_EN + commit),
-> > while
-> > DC8000 leaves it NULL and does nothing, so the suffix still
-> > reflects
-> > an actual per-variant difference, not just structure introduced by
-> > the
-> > refactor.
-> >=20
-> > While testing the cursor plane, I found the same class of bug
-> > there:
-> > the disable register write was being triggered from the plane's
-> > atomic_update() invisible-branch using the old plane state to look
-> > up
-> > the CRTC/output, which can be stale or NULL on a plane's very first
-> > commit if it's already invisible then. I've fixed it locally by
-> > having
-> > atomic_update() derive the CRTC/output from the state it already
-> > holds
-> > before checking visibility, instead of falling through to the
-> > old-state-based disable path. Just flagging it here for now -
-> > vs_cursor_plane.c isn't touched by any of my patches.
-> >=20
-> > Thanks.
+Feedback is particularly welcome on:
+
+- Activation-time eligibility versus backend placement or migration:
+  is retained-entry refusal, with possible reclaim churn or OOM,
+  acceptable without migration?
+- Eligible-capacity accounting, including overcommit limits and OOM
+  scoring; cache recovery, cluster invalidation and workingset activation.
+- Persistent activation and visibility: current swap listings do not
+  expose the policy.
+
+Validation includes x86 builds, affected arm64 MTE objects and builds
+without swap or memory cgroups. QEMU tests covered routing, retained-entry
+recovery, data integrity and cleanup, with negative controls for write
+refusal and teardown failure.
+
+I have also been using this policy on my own machine with experimental
+bcachefs swap support, with no problems observed so far. Deliberate stress
+testing is confined to VMs; I do not deliberately stress-test this machine.
+
+Changes since v1, incorporating Sashiko's public review [7]:
+
+- Improve selftest isolation, retained-swap measurement and memlock skips.
+- Track allocated zram devices, wait for udev probes and report cleanup
+  errors without deleting data through a mount that could not be released.
+- Clarify activation, capacity reporting and conventional fallback limits.
+
+[1] https://patchew.org/linux/20260825153238.2695446-1-nphamcs@gmail.com/
+[2] https://patchew.org/linux/20260713025644.170839-1-youngjun.park@lge.com/
+[3] https://openzfs.github.io/openzfs-docs/Project%20and%20Community/FAQ.html#using-a-zvol-for-a-swap-device-on-linux
+[4] https://engineering.fb.com/2022/06/20/data-infrastructure/transparent-memory-offloading-more-memory-at-a-fraction-of-the-cost-and-power/
+[5] https://www.kernel.org/doc/html/latest/admin-guide/mm/damon/reclaim.html
+[6] https://www.kernel.org/doc/html/latest/admin-guide/mm/zswap.html
+[7] https://sashiko.dev/#/patchset/20260914104501.3960616-1-matthias.goergens@gmail.com
+[8] https://github.com/util-linux/util-linux/pull/4633
+[9] https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
+
+v1: https://lore.kernel.org/all/20260914104501.3960616-1-matthias.goergens@gmail.com/
+
+Matthias Goergens (4):
+  selftests: zram: track owned devices and report cleanup failures
+  mm: restrict offload-only swap to proactive reclaim
+  selftests: zram: cover offload-only swap policy
+  selftests: zram: cover retained offload-only entries
+
+ Documentation/mm/swap.rst                     | 105 ++++
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |   2 +-
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |   6 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |   2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |   2 +-
+ drivers/gpu/drm/ttm/ttm_backup.c              |   2 +-
+ drivers/gpu/drm/xe/tests/xe_bo.c              |   2 +-
+ include/linux/swap.h                          |  29 +-
+ include/linux/vm_event_item.h                 |   1 +
+ mm/memcontrol.c                               |  20 +-
+ mm/page_io.c                                  |  24 +-
+ mm/swapfile.c                                 | 123 ++++-
+ mm/vmscan.c                                   |  31 +-
+ mm/vmstat.c                                   |   1 +
+ tools/testing/selftests/zram/.gitignore       |   2 +
+ tools/testing/selftests/zram/Makefile         |   4 +-
+ tools/testing/selftests/zram/README           |  20 +-
+ tools/testing/selftests/zram/config           |  10 +-
+ tools/testing/selftests/zram/settings         |   1 +
+ tools/testing/selftests/zram/swap_offload.c   | 425 +++++++++++++++++
+ .../selftests/zram/workingset_offload.c       | 207 ++++++++
+ tools/testing/selftests/zram/zram.sh          |   9 +
+ tools/testing/selftests/zram/zram01.sh        |   9 +-
+ tools/testing/selftests/zram/zram02.sh        |   9 +-
+ tools/testing/selftests/zram/zram03.sh        | 174 +++++++
+ tools/testing/selftests/zram/zram04.sh        | 164 +++++++
+ tools/testing/selftests/zram/zram05.sh        | 447 ++++++++++++++++++
+ tools/testing/selftests/zram/zram_lib.sh      | 189 ++++++--
+ 28 files changed, 1926 insertions(+), 94 deletions(-)
+ create mode 100644 tools/testing/selftests/zram/settings
+ create mode 100644 tools/testing/selftests/zram/swap_offload.c
+ create mode 100644 tools/testing/selftests/zram/workingset_offload.c
+ create mode 100755 tools/testing/selftests/zram/zram03.sh
+ create mode 100755 tools/testing/selftests/zram/zram04.sh
+ create mode 100755 tools/testing/selftests/zram/zram05.sh
+
+-- 
+2.55.0
 
