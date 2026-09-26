@@ -4,149 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E7DC9830E
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 01:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DAB5C9832A
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 01:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D4C910E0BF;
-	Sat, 26 Sep 2026 01:00:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A604310E02A;
+	Sat, 26 Sep 2026 01:35:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JYkucG5b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZruQtrXO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2487D10E0BF;
- Sat, 26 Sep 2026 01:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790384436; x=1821920436;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=1FWA+A/P/3uaiAfp/yW4enBXaOIMKpp/EbEZPihCpY0=;
- b=JYkucG5b1oFoykei5RuuiKCOQ4p8L2bZQ8kk/92ho9dyPltq38PFnPtF
- ZkcB24tm9ZwgdHrXJCLvWoEoqy0nRF1/c6QgueQ2xKAvddlkSRDg7igO1
- BgYHntydalPDbMaDGvVuZomCHkKTp/x5OI9W6+/tRf1ZwkjwWYhzEcJeG
- CXTYdlY7tAm4s8DA+jc+wpp7ZbifuYA72OWFNSG2Bh17mtN33UDP1yRxC
- rgHycNAA4THY3AxJWWro/oLyrY5PedSJPB1AaXmbis2KjYKqb9is+O9dH
- UNZmlCmhP0zRhfWgNmBvh68f52nlVqYqngZ8d5X6T/Q1sZsH9d8omwtzc w==;
-X-CSE-ConnectionGUID: QJBe5vk4QfeRQZOM3+OvnA==
-X-CSE-MsgGUID: LsTmDvAxRiKnp+ZpIh6K0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="90234751"
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; d="scan'208";a="90234751"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 18:00:36 -0700
-X-CSE-ConnectionGUID: DOpdoXqyToWp2e2bMkoxxA==
-X-CSE-MsgGUID: 5N7zN3DzRFeFebcP9IxIDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; d="scan'208";a="274043927"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2026 18:00:35 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 25 Sep 2026 18:00:34 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 25 Sep 2026 18:00:34 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.35) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 25 Sep 2026 18:00:33 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780D010E02A
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 01:35:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PVMebVQGLHbtcMH6bdOLOfLAZDZL6SpeijNcuDWE5sZlVILCMcenotHXmu9pMsB4FD/KGwcX5VLT0AUDcyxX11VqJh6QiAMYPJhV9X1KOqgulfmOLPrsJwUyELijnK5W3SQNiHIl6J2/M7A9KmNvcFYXwsXrIamCSUNLcfvBS5C/MRU2owyw0WvGSQ0IlAO9kG4oC1w9fd9YkRhWZECjTwyOuW6NiXiK2bu8bXtTDAOoALFep5z1p7oet9hYruEVFaSXF0f/Dxf6Q5fqN7YpKFLKTFX/lKIGMY1LVw/25uVEXoXcupeb6f6mdKXm2Ou8m36gWXyAntIz+zLdhd9dUQ==
+ b=AVm3W98ApPyyx6JKIjWXgJRdwEqQYNcxjsjqyvwywsTBSYD/V9X0yipY+Dmw+PWIo2Vo4KM8Lld4qfoF8o7eEkAknAHUNuMNFbOaXTnNyoEv4aVZDi6vAlOGw1zgNLkP2qvJSkUhq7PEjw//RyeKOJRaeD4oyMLf3mPHFgCXzjk3GscWpe+OL09L13B836Tn0RzHmghL2FjqrGZPkSmynOcLM41ikHjWx1iFy53CYwWyk/kpN2Zh4UAJynGU/lAMFH/VCxOnAcQux5hSgDZiKAYdLpQ354WMVINCZdjINYBk2u3MYkWlP6KtjkoioBWNRaex0So5+kF0qJ2toxP3HQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YrHvhT95aiI/Req3L5SJYL25l6Ziv7wXbscLByjO1ks=;
- b=pB+fJa6PlGpN7o0hHPeqoyE01d0idX0djuYxUE9TAwM2T/fgMhPnjT+UaE4tUtIb1GjM492oLIGYMAd+hISLelUNQ2gsEEfZgX6Hdz9jaPsPFi3zIbR/1O+6S9Q0DMbKCxCWapbsD8T4rDTDtJt4IP9luIHWT/BF/uK6ifhnkaOyHgZHgJF7wGlPvjJAuCtOMqfM2PWjSNZ3hdJTotKXVS97oWgZ6QYOti2IJrDnIqJAVsF6Cz0epsDmJuITdEhO0i0nkL7l5EkzMUeq3DOYCbktv/9s346wr4BUySNFRhGvrtWkFngsoRk56XFWcSXUfs4Ld+IL9qScsrxMtvti5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by SJ0PR11MB4976.namprd11.prod.outlook.com (2603:10b6:a03:2d7::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=QcWwtA5fuNvPZrpQxAFELbI9Qyw0J7X4ifFjanWSTGc=;
+ b=BTHqrSEizGJ8bC6l4k4x23oYfkHhtHiFwaMd4fZXbBII33QnArigmX9woIy46SxfI0lHRUDPrgLN33ptyeSVMFYyzclaElf/oPPHV/6T5XWgZvuHF48lgStAmqE3rlr+MOLJg7M6Q7Ms0qNPKxSkWwDNTySKOWJYFV1eZbouH3dRHckpXV+VQS3vmsedDArvT/6/oCpIzFfTnrPsseNpl2LpDyUffQWbQUE1J5qVWm2flawXAPllYQ3dB4zvKTWLtiMG1GITK5pwp3RMe2yICw8ZP4QRzMH6Jtvh2M00W9wYV+o6QjaEsobwt0CanxeFYrWFDrIzm35RpQ+j191X6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QcWwtA5fuNvPZrpQxAFELbI9Qyw0J7X4ifFjanWSTGc=;
+ b=ZruQtrXOw8VlahqctBtTbroXcP2q7Zhl82HqK7Uf11MrI6p1/oQo6Jjl8YOcYs30CNl4qSfo5h8O/q2DdZiGLfpgjmX/6xv2TxG6aFu6cgl1jxStNp0hmDEKClAr7Mkt/dsyCP8Ww4xhbjKItVz0jl7vCUFGsgFmOCjwb+lZtqI=
+Received: from BN9PR03CA0085.namprd03.prod.outlook.com (2603:10b6:408:fc::30)
+ by DS0PR12MB8041.namprd12.prod.outlook.com (2603:10b6:8:147::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 01:00:30 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 01:00:30 +0000
-Date: Fri, 25 Sep 2026 21:00:15 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, <brgl@kernel.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>
-Subject: Re: [PATCH] drm/xe/i2c: use device_create_managed_software_node()
-Message-ID: <arcZH00cGFL5aSYF@intel.com>
-References: <20260922-xe-i2c-reapply-swnode-unreg-v1-1-1bdda5d44701@oss.qualcomm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260922-xe-i2c-reapply-swnode-unreg-v1-1-1bdda5d44701@oss.qualcomm.com>
-X-ClientProxiedBy: SI3PR01CA0003.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::18) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+ 2026 01:35:18 +0000
+Received: from BN5PEPF0004698A.namprd02.prod.outlook.com
+ (2603:10b6:408:fc:cafe::86) by BN9PR03CA0085.outlook.office365.com
+ (2603:10b6:408:fc::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Sat,
+ 26 Sep 2026 01:35:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN5PEPF0004698A.mail.protection.outlook.com (10.167.245.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:18 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 20:35:17 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Fri, 25 Sep 2026 20:35:16 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+ <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+ <mario.limonciello@amd.com>
+Subject: [PATCH V0 00/21] accel/amdxdna: Kernel submission and PM for AIE4
+Date: Fri, 25 Sep 2026 18:34:27 -0700
+Message-ID: <20260926013448.3840921-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SJ0PR11MB4976:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d386366-34b8-443a-78a9-08df1b698f22
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698A:EE_|DS0PR12MB8041:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05ed9698-48f0-4045-9a2e-08df1b6e6bf0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|260925022911599003|260925021311599003|10067099003|56012099006|22082099003|18002099003|11063799006|260925021911599003;
-X-Microsoft-Antispam-Message-Info: OfDJfblckIew64Sc523OyxuvHjQMo2ILlwR10m8pFPntk0Z/NDN1dIRomAGqscPyN3YXlW97MHK/8E6xpIA15k2JXpcLrGqfLXjFMjW//dyDCu2BhB3nD4znmlif3tTLzxr9372zciV+YrzbxqN7mqRQWtNkM4/pp1U+oyZsJ4rypEE6MYBj1i1D0+D52xWn3CtGslwsPCkdMJObGcZe28oXlMx16yHKJi/oXKpV/r4LJBq/dqzGOotPuXCZoB1hELEw9I2ras63+84bvwEAexk0nzTxtmFbEli15HVGurYgDqe/lr/OYaFlo+bIIyJqorWNPoK2fJIcfW4P8/uQUlWM8F2F4H3XJHgyC2dmCO1rew58NbjvJgPbDTk7jF8GgrIb7Z9DEwkaHLISRyn+NtHNP0KIXtRjpuVaW4gbPGPaZ++Oi6ErMpRjmDR41n4lGIP12NHtiN8GHG1GF/8Ak8/OYucxRJkAe8n2INMz4pzEoCnC3ZP34WXVhF7qADRzjt2rOksZSLHXRZQf7wfp0AQXOv3iCGe2gimoHc8B0+50GbesZ304/BypbtIncqXHnWSjDTSa5UydiDQEJooSHwiePprbYaqWl1lOllJbBHn+B2N/RqdqrDtDGSG2WLQucQWZXCvf4rnkMlFikoknqx9pP3ZCjdy1hd3qMSfeLiw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(260925022911599003)(260925021311599003)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(260925021911599003);
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|3023799007|6133799003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: HGtUSE7nb3BtEz8NywFD5rMOTCdr1PY6LMp8IzHfNk8wiPhcuRIqbiO9uNnfELUi+/oBqMEF/iinrQoMrBFXiBT5gUSqkMreFFOo2QCKSwzmy6P2zhAVNoq1yLoPqGZ9RBaOESMUSH/IEofkAIGCtNstEeFONfcVJxHP+/mvVLSA9aiygyk2UvMkGo5euvZ8DZf4X3F3kbvuICn1uptzhTB0YXh32AqX8uz5bZRjp3sOXWX8XqGR/U/RJxhLdBoZHxFqwQE2LvlKV+7RcGrTyRO/wugRVpf0m2peSIieD0k4iqnlwzZHmv2C+yoh5aeO2bNllNcGfSVVj2lrpzOVu1lcaIjjjufHbMH2rl+j46fG+5ijoAaHyMb5EYmj7c/2Z1eX3U4JPWGAVooLWwzOGjBoKrmra/p54ygQFqgVLDog/q6Ys/PWLadGmMpgd4BM9ho058hwFE7E80rqbmonjajNXgqrSeKbLZQHFctt1nPqENa+MlcjnuYGL6K7tf6AZG4pYwPPDESbSdUPhZBfiNzjDoPz6ZIDk6TiuWtmDAZ+TOCvg2Jjc+L++iXwZpXbyHWcHE3P/m/VALTCdo3wnPcEJHS3do2XpRby7IfumNEZQNc7vKiw2WXCXRrC3PiqeeicZhTJOfI/Zf+UHtUAxnWOZG7jeybaIbKqHdCEKjDCLPWrDVv+2l5c1jI85gimnD6me38Ac1sJVKfzzj2VMw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(3023799007)(6133799003)(56012099006)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bk1HCPjf6nfeY4yNtuAhOr3N5BNijSLPVJFaLNu51eJvxm+ZrJKBTp/1kjLR?=
- =?us-ascii?Q?e+aUxM3L8okakk2hhrWRXI7y7J68H58ucKAgOeFarpdiofV/+Z3JiyEDrXfp?=
- =?us-ascii?Q?OgUAa8O649FO9GlfEo+OibG4e6fsVgMT0k6JYiokzVZGQvzmPzpu9dOpNwSx?=
- =?us-ascii?Q?bYWMhtvbA46tLF6XSc2SGnsDJWFXXxsMvnPf8SG+i/SKxUC1IUVxOKFhJytj?=
- =?us-ascii?Q?CsAmJE64HmzgZmoptfzPagvAd43F+Svr5FlXIlSz+Ys10ROHLnNxvRrSxVRs?=
- =?us-ascii?Q?/hOXrGxx/1RgkIjmS4lkHOFfynY4YT+k8Ci47jdh0ICPM0dagQN/huf7MiAL?=
- =?us-ascii?Q?yzG/LgSH+oivLk45p4km9n0is7bbOe4C3suvq6fC0HdQDXGj5hX7XdUanGHC?=
- =?us-ascii?Q?o6Fdd1E0OQEdg4GTfiPiM41ZtLEPtHXxaWMAwMHiQY0KLzF0uWw52x/XBIO1?=
- =?us-ascii?Q?RpBV1QLmag1f1XvL+OnxnzwgMAb1dmDZaTEUisrsF1goBZsiuOIMM3Y54udS?=
- =?us-ascii?Q?PmfIgpf351of6OMsMLgTSawfYuPjK3OsyR7u831jYJZ6TBiPI++wKRcSoPi6?=
- =?us-ascii?Q?7iZzOIFSndo5nt4V1RTYHiTwF82lE1GGsdg4O+4bat/kCu1xataTdD5VrBAd?=
- =?us-ascii?Q?4D0yQlEHiDzHDRCchsTeN6iynUPWt0uJ/ZG4iHfLHPvS253natmJir0fsWFg?=
- =?us-ascii?Q?ysot7xeHZJLQUyhA1BYm9U15Sp9w47mJEjAksLDDT+jPdIkWGi1Kn3F01cTS?=
- =?us-ascii?Q?v14DOOxmRsjD8DlXSEFRT0EusLf0mgVwOPZfg46xNknzBKiZLxgGyK/yu3tS?=
- =?us-ascii?Q?WjnKdguGjYgs0ivq+5DcpB26VnGInOXn8rM/AU3/j9vYX5y7Y4Axnb2vDbS0?=
- =?us-ascii?Q?U77g+68Yh0YAczszRkUnHtoJ/1J3EHBllim8323IyDW9KFhPWVXP0d6mZbLl?=
- =?us-ascii?Q?6N5f+IhwlQ4h0rDnyBW+6qRjVP7Z8+4Upwzc+sTMFVuimgocRWG8Okpgb6Vk?=
- =?us-ascii?Q?yObgqVufDtQwp2GP2oe7tvp9xOVaU+sqlDfwjFILPK1jOyzACAcwoKjt4g3r?=
- =?us-ascii?Q?uIJgsohrvhLf7ZoAmaI7PTITsLUIDO/4ii7zBx64lgkJh899ht+3X+/H9IHG?=
- =?us-ascii?Q?iiRYXA8FNpJbwbLrhi4lOKghr8oekmfkj5Wz5s7YxLQC70t03tsOQjEuYte0?=
- =?us-ascii?Q?kgTovBnjsWw2QmGzWQWqae0iKLq+wpN62r+CB7KdtdbzcloEUL/imbH/raZf?=
- =?us-ascii?Q?lPwZP296mOfTlEgSOSVJekWXQ/MNhYuvGhGFEUmQeUTUkaBgui1QAEWs/oRS?=
- =?us-ascii?Q?WhE8tygOnW0VrsRFHgNtwm5C4OYiWsc24xSPHT8uhecopHtKFCLrq1NcU+3U?=
- =?us-ascii?Q?NmRf5tMd3/nCs8Xa9U5CwC46IxTZo2Qh8OwxU/ImATxXD/pifwQLraIszFJ/?=
- =?us-ascii?Q?BePZRHXcwO502RhXi/lFJtthb74U2b2ugdseO/4Ba2sMfpJIQJyDa86feaNB?=
- =?us-ascii?Q?UgPTnka9+T8hnisLzEAgUDkA17pgS38pFJMYtPyKkw0sBsDjxq2pr/G3YN+n?=
- =?us-ascii?Q?Nn2mhTMXjuNc1jgV2BjuoCnR43H7Yz2HXcQGqj38ReH2iE8R+hNIqzylQexd?=
- =?us-ascii?Q?GX7u30lLKwMe2FdRKa/RO4wf7LCvZJIBn5IteuFzfwyAsWyWk/uK1uy+tkKJ?=
- =?us-ascii?Q?oZpj83dR0NVTQp21Yi/sMJJQGgPpXVHr8bxKavESQl4TqujIpN50Vkxactp1?=
- =?us-ascii?Q?hMsqLIrggFycjgvNGMb83S6kARON0SU=3D?=
-X-Exchange-RoutingPolicyChecked: ye0lB/e2z69wrQ5D+Exojw/y11tAC/tjoADCy2SyE2qQh0Oh3h5fGXAZCLkBaKT0PR+39ih7/TZQ7EEV1BwOW8niOw31vp1FCL4X7sUuQ1p1ZlT2nHNuZp3PgJwUqBCrIa9OovtQ8on3aXcVJsnbdXr4DeGeLXFRxfKSvLQnU5RRAf+aMZNM0l2/X1jXfm5BeBo/+8tOyG+sIvxgmgmbwoMW6/t6aAk9CIyjQU70Q7EwGkroPM0tZoPY0GRELRweNR0xaRFLbZ0cqQQ8v6aLqPu0C4t5D0wApkPYBPXjlVB69i84797t8BgKsOq7h0r0ITx0bnLSGuCz55cuTVxJFg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d386366-34b8-443a-78a9-08df1b698f22
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:00:30.1906 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Vfn4b1TID7wd4UM6QbuT7RGnOCIGYAnicb2Zrva+yOtTQMU+sZnvqRutajkTlzUPYcg6trSf8x1s2p3B/PKrIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4976
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: FfimWliRp31GZaRMASc4Mj29Mo60CjS9NI0dP4f5mK7JfUo+Ci1nffD7c832RBHxEqm/fc7pHPB5cZ6Gm2WSB9fow2JXzSl737e6+jPwfDsme+42Nx5kOel04cQJh4Cmn2xockrajExw2ff0cypxu1AxolnmlbHDrpL4qE8IXNvJIyNBkghIahOuZg3bnQaQYoBqQpU0fL4a05wgdOda4vaOYhwLGJgviiZ2J+BerJJh190364z9HFdkggcA3GPXz8kFOhqwKn9rrHfAU6W+tUCPUgb5fZQZClTnC89bqCiVo1aFyHArNIZC5A9Ac6LrSI4UkrFo8yg39/Q9aYohJK/2wWc0Y7g7mu2LTGyQ9Ipz1IlGL6VAA8HUdDcfWjMTTfsY8ZKN1BE8m4fxGszY/UQ/Vhh01Q1HH/+KqAtTSvRrk47unFRFtnGLOhVQmFwh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:18.0764 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ed9698-48f0-4045-9a2e-08df1b6e6bf0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN5PEPF0004698A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8041
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,109 +114,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 22, 2026 at 04:25:55PM +0200, Bartosz Golaszewski wrote:
-> This driver intentionally uses the fine-grained approach to creating
-> platform devices. It assigns a software node as the primary firmware
-> node of the device it creates. Ahead of improving the reference counting
-> of platform device software nodes, switch to using
-> device_create_managed_software_node(). This way, we create a dynamic
-> software node whose life-time is tied to the device to which it's
-> assigned.
-> 
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> This patch exists in mainline as commit fc90ce2d ("drm/xe/i2c: use
-> device_create_managed_software_node()") but the code got silently
-> overwritten by merge commit cc467969646b ("Merge drm/drm-next into
-> drm-xe-next"). It should be reapplied.
+This patch series extends the amdxdna accelerator driver to support
+AMD AIE4 (NPU3) platforms with kernel-mode command submission (KMQ),
+device telemetry queries, comprehensive system and runtime power
+management, and NPU3 classic device support.
 
-I pushed this back again, but modifying the commit message to reflect the
-history.
+Previously, AIE4 devices relied on userspace doorbell mapping for command
+dispatch. This series establishes kernel-mode submission as the default
+execution path, providing robust fence management, BO reservation
+locking, and queue lifecycle handling. Additionally, it implements full
+system suspend/resume and runtime power management across Physical
+Functions (PF), Virtual Functions (VF), and Classic devices, along with
+SR-IOV PM dependency linking and userspace runtime compatibility stubs.
 
-> ---
->  drivers/gpu/drm/xe/xe_i2c.c | 22 ++++++++--------------
->  drivers/gpu/drm/xe/xe_i2c.h |  1 -
->  2 files changed, 8 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> index 51ca9fb73b708317c5dd8613d0ba060b8dc2028e..f4f3819882897f7f19a7bd3043a936e3c7eec553 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.c
-> +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> @@ -111,14 +111,9 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  {
->  	struct pci_dev *pci = to_pci_dev(i2c->drm_dev);
->  	struct platform_device *pdev;
-> -	struct fwnode_handle *fwnode;
->  	int ret;
->  	u32 id;
->  
-> -	fwnode = fwnode_create_software_node(xe_i2c_adapter_properties, NULL);
-> -	if (IS_ERR(fwnode))
-> -		return PTR_ERR(fwnode);
-> -
->  	id = (pci_domain_nr(pci->bus) << 16) | pci_dev_id(pci);
->  
->  	/*
-> @@ -128,14 +123,16 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  	 * platform_device_register_full() is done.
->  	 */
->  	pdev = platform_device_alloc(adapter_name, id);
-> -	if (!pdev) {
-> -		ret = -ENOMEM;
-> -		goto err_fwnode_remove;
-> -	}
-> +	if (!pdev)
-> +		return -ENOMEM;
-> +
-> +	ret = device_create_managed_software_node(&pdev->dev,
-> +						  xe_i2c_adapter_properties,
-> +						  NULL);
-> +	if (ret)
-> +		goto err_pdev_put;
->  
->  	pdev->dev.parent = i2c->drm_dev;
-> -	pdev->dev.fwnode = fwnode;
-> -	i2c->adapter_node = fwnode;
->  	i2c->pdev = pdev;
->  
->  	ret = platform_device_add(pdev);
-> @@ -146,8 +143,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  
->  err_pdev_put:
->  	platform_device_put(pdev);
-> -err_fwnode_remove:
-> -	fwnode_remove_software_node(fwnode);
->  
->  	return ret;
->  }
-> @@ -155,7 +150,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  static void xe_i2c_unregister_adapter(struct xe_i2c *i2c)
->  {
->  	platform_device_unregister(i2c->pdev);
-> -	fwnode_remove_software_node(i2c->adapter_node);
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-> index d63adacfefe71b3ae695987f104f978959a7e2c5..5969054a6b6b3f184857defd4ad3f6489f05aca0 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.h
-> +++ b/drivers/gpu/drm/xe/xe_i2c.h
-> @@ -33,7 +33,6 @@ struct xe_i2c_endpoint {
->  };
->  
->  struct xe_i2c {
-> -	struct fwnode_handle *adapter_node;
->  	struct platform_device *pdev;
->  	struct i2c_adapter *adapter;
->  	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-> 
-> ---
-> base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
-> change-id: 20260922-xe-i2c-reapply-swnode-unreg-8e18b542549f
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> 
+Series structure:
+
+1. Firmware Interfaces, Versioning & Compatibility (Patches 1-4)
+   - Patch 1: Rename NPU3 firmware filenames to match official release
+     binaries (npu.sbin, cert.sbin) and declare MODULE_FIRMWARE().
+   - Patch 2: Remove userspace doorbell mmap and default to kernel
+     submission with invalid doorbell offsets for user contexts.
+   - Patch 3: Add CERT (Column Enternal Run Time) firmware version
+     queries and protocol validation (aie_check_cert_protocol) before
+     upgrading queue layouts.
+   - Patch 4: Upgrade firmware interface version to 6.0, updating host
+     queue layout, opcode definitions, and hwctx creation requests.
+
+2. Device Operations, Telemetry & Power Modes (Patches 5-9)
+   - Patch 5: Add NPU3 classic device operations (aie4_classic_ops) and
+     register definitions, managing SMU/PSP firmware symmetrically, and
+     remove unreleased device IDs 0x1B0B and 0x1B0C.
+   - Patch 6: Expose AIE and NPU firmware versions via GET_INFO ioctl.
+   - Patch 7: Add power mode get/set support via GET_INFO and SET_STATE.
+   - Patch 8: Restore cached user power mode overrides on hardware start
+     so overrides persist across PM cycles and firmware reloads.
+   - Patch 9: Add clock metadata, DPM frequency table initialization,
+     and hardware resource info queries, generalizing DPM tracking
+     across AIE generations in struct aie_device, with independent
+     clock domain level handling for AIE compute and host clocks.
+
+3. Hardware Initialization & Transport Hooks (Patches 10-12)
+   - Patch 10: Add context switch hysteresis configuration with debugfs
+     control (ctx_switch_hysteresis_us) applied on hardware start.
+   - Patch 11: Refactor AIE4 hardware initialization sequence into
+     distinct modular phases (query_fw, config_fw, setup_aie) across
+     PF, VF, and classic devices.
+   - Patch 12: Decouple PCI doorbell and MSI-X notification transport
+     hooks from transport-neutral context management code.
+
+4. Kernel-Mode Command Submission & Fencing (Patches 13-16)
+   - Patch 13: Implement kernel queue lifecycle, job workqueue, and
+     memory layout for kernel-mode submission.
+   - Patch 14: Fix fence timeline name (dev_name() to prevent UAF after
+     context destruction) and allocate unique fence context per job to
+     prevent evicting fences in shared BO reservation objects.
+   - Patch 15: Prepare command submission structures, smp_rmb ordering
+     for read index updates, and asynchronous disconnect/reset checks.
+   - Patch 16: Implement full command packet building (direct/indirect
+     packets), BO reservation locking and fence attachment matching
+     AIE2, queue slot waiting, context reset recovery, and
+     aie4_hwctx_wait_for_running() to safely quiesce worker threads.
+
+5. System & Runtime Power Management (Patches 17-20)
+   - Patch 17: Fix runtime PM deadlock on device removal by finalizing
+     RPM before acquiring dev_lock, and symmetrically initialize RPM
+     during probe across all device types.
+   - Patch 18: Implement system suspend and resume for PF, VF, and
+     classic devices, draining in-flight jobs, restoring contexts, and
+     re-linking VFs.
+   - Patch 19: Link SR-IOV VFs via device_link_add() to ensure the PM
+     core suspends VFs before the PF and resumes the PF before VFs.
+   - Patch 20: Implement runtime suspend and resume support for AIE4
+     and AIE2, validating active VFs on PF and handling independent VF
+     runtime power states.
+
+6. Userspace ABI Compatibility (Patch 21)
+   - Patch 21: Add a stub hwctx_config callback returning 0 to support
+     the DRM_AMDXDNA_CONFIG_HWCTX ioctl, enabling userspace validation
+     runtimes (such as XRT GEMM tests) to run unmodified.
+
+Testing:
+- Tested on AMD AIE4/NPU3 hardware in both classic and SR-IOV (PF/VF)
+  modes.
+- Verified kernel-mode command submission with direct and indirect
+  execution packets under concurrent workloads.
+- Verified system suspend/resume (S2idle/S3) and runtime autosuspend
+  cycles during idle and active command submission.
+- Verified SR-IOV VF binding, execution, and PM dependency sequencing.
+- Confirmed no regression on existing AIE2 devices (NPU1/NPU4).
+
+David Zhang (21):
+  accel/amdxdna: Rename NPU3 firmware files
+  accel/amdxdna: Remove mmap for doorbell
+  accel/amdxdna: Add CERT firmware version support
+  accel/amdxdna: Upgrade firmware version to 6.0
+  accel/amdxdna: Add NPU3 classic device support
+  accel/amdxdna: Add AIE version query to aie4_get_info
+  accel/amdxdna: Add get and set power_mode for AIE4
+  accel/amdxdna: Restore power mode override on AIE4 hardware start
+  accel/amdxdna: Add clock, DPM frequency, and resource info queries for
+    AIE4
+  accel/amdxdna: Add context switch hysteresis with debugfs control
+  accel/amdxdna: Refactor AIE4 hardware initialization sequence
+  accel/amdxdna: Decouple AIE4 doorbell and MSI-X notification transport
+    hooks
+  accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
+  accel/amdxdna: Fix fence timeline name and context allocation
+  accel/amdxdna: Prepare for AIE4 command submission
+  accel/amdxdna: Implement AIE4 command packet building and submission
+  accel/amdxdna: Finalize runtime PM before acquiring dev_lock on
+    removal
+  accel/amdxdna: Implement AIE4 suspend and resume
+  accel/amdxdna: Link SR-IOV VFs for power management sequencing
+  accel/amdxdna: Implement runtime suspend and resume support
+  accel/amdxdna: Add stub hwctx_config for AIE4
+
+ drivers/accel/amdxdna/aie.c             |   45 +-
+ drivers/accel/amdxdna/aie.h             |   45 +-
+ drivers/accel/amdxdna/aie2_message.c    |    4 +-
+ drivers/accel/amdxdna/aie2_pci.c        |   65 +-
+ drivers/accel/amdxdna/aie2_pci.h        |   39 +-
+ drivers/accel/amdxdna/aie2_pm.c         |   10 +-
+ drivers/accel/amdxdna/aie4_ctx.c        | 1083 +++++++++++++++++++++--
+ drivers/accel/amdxdna/aie4_host_queue.h |   79 +-
+ drivers/accel/amdxdna/aie4_message.c    |  216 +++++
+ drivers/accel/amdxdna/aie4_msg_priv.h   |  137 ++-
+ drivers/accel/amdxdna/aie4_pci.c        |  812 ++++++++++++++++-
+ drivers/accel/amdxdna/aie4_pci.h        |  138 ++-
+ drivers/accel/amdxdna/aie4_sriov.c      |  104 ++-
+ drivers/accel/amdxdna/amdxdna_ctx.c     |   29 +-
+ drivers/accel/amdxdna/amdxdna_ctx.h     |   22 +
+ drivers/accel/amdxdna/amdxdna_debugfs.c |    3 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   53 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   18 +-
+ drivers/accel/amdxdna/amdxdna_pm.c      |   35 +
+ drivers/accel/amdxdna/amdxdna_pm.h      |    4 +-
+ drivers/accel/amdxdna/amdxdna_sysfs.c   |    2 +-
+ drivers/accel/amdxdna/npu1_regs.c       |   19 +-
+ drivers/accel/amdxdna/npu3_regs.c       |   99 ++-
+ drivers/accel/amdxdna/npu4_regs.c       |   30 +-
+ 24 files changed, 2805 insertions(+), 286 deletions(-)
+
+-- 
+2.34.1
+
