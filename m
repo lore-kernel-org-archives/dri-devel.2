@@ -4,178 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D03CA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B32BFCA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6601C10E839;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88CF310E842;
 	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ORXEZCJf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cps7uyC/";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 305C410F8FB
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:37:44 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-6a5f9b036f9so5559a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 00:37:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790321862; cv=none;
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
+ [74.125.229.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 656F210E049
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:32:52 +0000 (UTC)
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b5e4f16f15so1720489e87.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 07:32:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790433170; cv=none;
  d=google.com; s=arc-20260327;
- b=ZBCh4pMXvshdXKNSPnq7f+BKCpJ+N6WfPuN6YK6vklKNt6fSPhP73jH70FYSjxvbkn
- +/+nApwGIiFVAw6OztZnLGVROPze+yepjnzQOISv+A8a2COT3RT+e4ITi60mYUNLhuro
- WKZKFPbZnqh8brSklEFX1XEpb3iyQ2mhBI7jZOAElY82cv6qgKHvHbQcg5lXZeB/qTLH
- EZ2vCVVeCGckMBgguVWiX/Rn4FU+qXiS44lDojzxwbqr7IwC6jCBRNAwRFTwuQSqTFUv
- /1XeYCnNFefgVZAo9uT7DldHK4eoNj1bReQ8Itfc8tTQ+Sv3Br+TSgRpWal8VQcfeJJI
- h3dg==
+ b=FVWZ+fDxWL0BHouNMepQmSGonkB1SG+lSZT6yF4T9x8ZYwMRxRRb621eMidGhLbj9W
+ 9Dq4Ru54ZGVcWOO97OYcfhWsZHLl4zqvcTdIsIX0bv78Koj+v+hWeKhmhTl/Xz2lkNw6
+ D7jiTp90MBBjrQ8HDGHVgG1/OdssmNh5H/0UuIrgR6uhpAxMuFTZSItXJeEMeJnavXzt
+ JVfh8skH+2bpOSru5XxFZ7EFjjk4QkvSouj1yU+juti+NdMdTuHUlhAIFTWt4OFN2VMP
+ LOdqpUOo12H9sv4EV/s7QgmgCOFBR56VXadjpcV7CBB/sebpBb64qrwJi9ooV/SvVU7Z
+ CCmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
- fh=BlPsUDqtRk8UGzdIbhWV2VuNSdUr+Ol0FdV8D+OXPoA=;
- b=P4ob2JBkX9UkXRXRtwdrwj/EoXUrxU9xRV8MFK0QeNdmIs6Z/Gbpy8amEumXVL5ikk
- 6tAr7L/GBVDjucIdyjC5D3uRmIe+/Tl+DCY0C65MIf5/MqyV3T9UzMuphoUaCAF7K7kC
- kK1AGaafhrRGMkM05ffWq7fIlYMle+6joXh2o7UfAtGKd1Oe7d+DnhAoSoMbl4jTKmNJ
- +47wnn5dlZ+6G4EKKRx8sLwdEjEVu7HCQI6mmOP4LDAxsfRgttuJdpoMcce0xAIV2e0C
- XP76eFMzln0UJ6ASrxCMptQU3hVUXgvvkjr9PG45GvjVHevo2o0pSQULWPpMh3xOzxlc
- d0DQ==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=UwnKxeYjjB35jqKs1JWfeWzfpTBQMWF9hmaBGIxYM7E=;
+ fh=MNBXXHBpBMRu9HhX6cXQhrYNdHS1DUtEhjLT7PwdGB8=;
+ b=KBNbaj8KMInSBzNyXPsnFc/uvZ2jCdRislcFIOPR0Z0dbCd+Mr9X2Jt14s8Dd4EZSN
+ DQ8d/sWNgZsgNuhzmET2RrsgbWf9jbJnRar2BHD11eLFbhidNX9XDE4G4qPz7E390s4C
+ DoxbhlOeACswKWXchuFikSo082O49V8a+O7I0aydeo4a3wAj6YQ4KHpPMNpEq5HSKtA1
+ 2pTyF40KuxArYRh8je+Nyawn/Ri9lKJPA182yOmvgebnRFt5NJxasOkcNthlImfdLuoQ
+ SZ7wLN+d2OX9C4Pj79vDG0UAgLMg+NGTrLshQX3oNxo6oRXBY4/JP2zezaikaF7MA1f5
+ PL5A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790321862; x=1790926662;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
- b=ORXEZCJfMIm0f/4Fs7DU0vKGI+ASuhxzlj6/3FxyhKkWtcrSFPbPgUPr81ML7WKsYb
- VmQGRRWWpdAxelLf964iO/8oszIFBW/s4/eUdubVe8htXoT0NNnNZM2HmNw5TSgmShJZ
- ZfG/jHrFeA8uXR6j2dHkr7eCUnb7cYxD6Ffub8U9FcV89adWc7Kum3dwpm3Ct6V8W3jp
- vatT4jRPVqdJWzJemTjzm92GHo11z5RYPhbfShNxr9bT78aytiTCRF96iy3D+TfHZOJO
- XwS0TDxcCfOUvvSmg30H+hm7KwInefVvD8kwoNunn2mUfBsR4mXNPTUqWtjq/f0X95uS
- Cx8Q==
+ d=gmail.com; s=20251104; t=1790433170; x=1791037970; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UwnKxeYjjB35jqKs1JWfeWzfpTBQMWF9hmaBGIxYM7E=;
+ b=Cps7uyC/7WTKp6SneoxIai4BWCy+jtbIMmrfiujAZQgPMWrPeyOIPkBV+CYk0n3At8
+ s3MgFa1vsHtZghPAr2uE3jsFybv/kEYT8C77qG7SR9lrCb07yZaio84whk3TFS5l/O2f
+ ZqyU+HMZckiFNyASoHvmN830RNwp03oQboXb3LOJZ3jhgzFgjZBga3gGtW528W9r8ffj
+ LNHytUwyFFs7LmwW9A7VuisNe9imASBHkL11CM/JOuV2xIQ2tln0fmHIiqrFReZLdjPl
+ W4KfhH8lKQKQdemX+1ye5AKH8+tkiWpU1B9EkDlbYK/rd3wbTfGgSSmhwf7cJhTY7atA
+ YnKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790321862; x=1790926662;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1Oc+jzCqS0Wyq/bTJh2/I4jluChyvqK4NXUNsIigcps=;
- b=Tz8P4BAGcq3TchmGMPe8pmM+Px68AbpEyYUPgCCrfbt3BkEMO0KRcPBoe5BucQObLO
- BKkeO05E4za7g7uEw2bHvYVwmi3NqBFTswA0IFzHinx8SovqNBg7o0DrDc/EnO10bX3F
- jWP+k5C0bzvtuGGX2QEWGojEdar25mg3/vtDlTFRXjqE3IWJcqRIiELz9C1SXATJhGMa
- TRFx/K9fy4TPv21HG73eCANUHjZ1RZdK6yeHHC7c0jooO7k2bVvG2fIyrUCTaNnvWomt
- YWe3Y5kPvEmrpWlK9dJfBRRUw6WYzT3cFbXPIp860OB1d0SeF1aARuJvVzz3BWfilvqY
- zeuQ==
+ d=1e100.net; s=20260707; t=1790433170; x=1791037970;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=UwnKxeYjjB35jqKs1JWfeWzfpTBQMWF9hmaBGIxYM7E=;
+ b=HheC3WLyp70gRuPwtxGmr2H3XQdHIOtBimPmVJ34CXYmxdEGRknoBd4MpChDP39X5a
+ ptz6/0MjVSKEdG46fp+cbQxSGbO0rXL+3dkoh61W6Oq3LbbPW7X/bW4wPH6WyDUkstJX
+ G7nS0KoFDmZqfi/hD3cQiWSWaTn4Uo+ZbPD+54Mx2McVBu9p5BCpsPN1CckjjCBr4i8n
+ yJCjM9vY1IZ879Ud0Ny6eoJM97xvL2C+FnTjyrQb6ZwR995B+bLnxRCjAfwj2r8a15XD
+ E+y85UszJhUGNyCn5ZyEsNNWZo4r6xhJF9XoaRG+tuFicLe1Hyzvl+njFge6Cto1X7Le
+ eT0w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzBVwwurt+d67rMeC54IzDnkoi7tjsBdPzdBEsMH18B3612haMC525Htmb8WJa8J8UNXSuzyBauR7Q=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lqmD/L7i4IgSfmjicU3RCDQsu1jG1PpqNyI5ZQ/x0y1RgpZKD/
- dDBbvezgkzozGcEL++/5L/xJSB0R869I5LIvjtRWEkaS+CAGAaUuFUoYSb4A0aQVtTmJCq869Qk
- HWeXT7Yn8ymKAnqgZYV36FUNHlUOb/vZirjIeW9Er
-X-Gm-Gg: AYBFou0Hvdc98FoYA+h2bE3VRAGzAOR/5NZeCKcaHjZkOeQnVDKnbTyMGiuFdNL2weX
- 0cGB9vTDIV/sqv+9pPw4lc8kN/gCqy7BqU6b/0fzgjHxZf2wwzsE8/H44tGSCOCYmTr3M/1r79j
- k2P54nDlBJEK663V1BF7aQ3hOxvzWeHFCrSM0MZbL1H+GCPEYIW2bFUH9PwuWieonwKCaZlgE5a
- AuJuGrX+Vuc/pZYfveYKCH3QHKnMEBSk8/vo2uvN/J0+vNmyChIknDZmmtxRP05xQaO+VUTqcHc
- rjsS/RR/R8PXEvcGl8DqmZdZ6o/A6CVkK9emHrSexL8+VsK8VFPj4A==
-X-Received: by 2002:a05:6402:2714:b0:6a6:f2a5:1b4f with SMTP id
- 4fb4d7f45d1cf-6aae4729638mr36915a12.4.1790321859803; Fri, 25 Sep 2026
- 00:37:39 -0700 (PDT)
+ AKwUvBxgkqJvkiZkGd7CSkmNR5OMR92l94pIgb0qkIhaGfGlESjJk7j704CWLSA4bI36GfUlcu2iwJ0M5OY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nnuE2H8rzKcvXYdq9kXiFibebA9xVnsb9BvjKFJ8IyhZWclkCD
+ p3GFcNDp/T5xCJ+iXljE6YmKfLwJ0s2UFbLeufNMWj5o/17LpG4xFHFIruHbUqZyhZa1UInQZma
+ iltRWM8GMmydNRp/E3Oq5sQZAjF6dumw=
+X-Gm-Gg: AYBFou1jqKRoSN5iJxLrskDCqELpAOVpg2ScPcJocuQJ4tF8ijYYMBm+G7ubBafndmS
+ 4a4YSh+toL1CvjU/VQbUoLEaogi3rE1J43vSbLrngSai7ewrYTFT4uHCadJZGHUO2lDLTSB6+IO
+ SKFYOmY6NZkMO/Fkoh3RPOoJGA40RcdK7NL0566b0od5TBMzdFfhELWDjOx8hmWvhUvNsgYoEmf
+ Tp0B0H+uj8zcTFJzxf0es8iqijMTwx+XRpIjGXYTcCKZrl2q27VqO4MSsyjs/Cs96jqRs1OGc9I
+ LsqrQ8YAD2+ihlxAcEkAxUWxptT7mE5ZB3sdXckaId8xvVKgDAUClPdplIlx26QLjrR+aJiURxv
+ r48JWMKOJrNG3U3BONeYMx6Sb1METKwiewy9sLRSmg/tnnOLJVdDU9KZRa/7m0VCTnCpE+PA6It
+ nGGNpDZpyH+11XbhpzSVExtBVT
+X-Received: by 2002:a05:6512:251f:b0:5b8:ea1d:ce0f with SMTP id
+ 2adb3069b0e04-5b8ea1dcfebmr1597289e87.67.1790433170155; Sat, 26 Sep 2026
+ 07:32:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-7-4583d8a23bca@kernel.org>
- <DLNSOBMBHIVC.22QI9YBL1U72E@nvidia.com>
-In-Reply-To: <DLNSOBMBHIVC.22QI9YBL1U72E@nvidia.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 25 Sep 2026 00:37:26 -0700
-X-Gm-Features: AclHuK_RUT9CXNFLpx8ZY_roLEZNzp5S3oNdpNL4cW25fJBFg9wRGnSWohuMdYA
-Message-ID: <CAJuCfpH6AF-hOo4jU6OeNVpd+fgpqLpmcfAGs11J=nPCgAqG_w@mail.gmail.com>
-Subject: Re: [PATCH v3 07/40] mm/vma: tidy up map kernel pages enum values
-To: Zi Yan <ziy@nvidia.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
- Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
- John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
- selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: krishnanand G <krishnanandgeetheswaran@gmail.com>
+Date: Sat, 26 Sep 2026 20:02:38 +0530
+X-Gm-Features: AclHuK-CL75w8EKdw7F584-DPLQiFrVOcdh4rVjeBan5-ZoM4N5k6KSj03DryME
+Message-ID: <CAG_41B+424_C5FA0PX9g1pDEPz2WX8JSeFhTWFpJ2TWgWLQjBw@mail.gmail.com>
+Subject: [PATCH] staging: fbtft: fix spacing in macro calls
+To: andy@kernel.org
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev
+Content-Type: multipart/alternative; boundary="00000000000019ee1f065c63b576"
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -192,37 +104,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 12:31=E2=80=AFPM Zi Yan <ziy@nvidia.com> wrote:
->
-> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> > MMAP_MAP_KERNEL_PAGES is a mouthful, discard the MAP_ as that's implied=
- by
-> > MMAP.
-> >
-> > Also while we're here delete useless comments for mmap actions whose na=
-mes
-> > clearly indicate what they are for.
-> >
-> > Also update the userland VMA tests to reflect this change.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  include/linux/mm.h              | 2 +-
-> >  include/linux/mm_types.h        | 8 ++++----
-> >  mm/util.c                       | 8 ++++----
-> >  tools/testing/vma/include/dup.h | 8 ++++----
-> >  4 files changed, 13 insertions(+), 13 deletions(-)
-> >
-> LGTM.
->
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+--00000000000019ee1f065c63b576
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+The two calls to define_fbtft_write_reg() that use the default
+modifier have a space before the closing parenthesis. This triggers
+two checkpatch.pl errors.
 
->
-> --
-> Best Regards,
-> Yan, Zi
->
+Add an inline comment for the intentionally empty modifier argument.
+It satisfies the spacing check without changing the macro expansion.
+
+Tests: scripts/checkpatch.pl --no-tree -f --terse --strict
+  drivers/staging/fbtft/fbtft-bus.c
+
+A full kernel build was not run because the sparse checkout does not
+include the architecture makefiles.
+
+Signed-off-by: Krishnanand G <
+118352827+Krishnanand-G@users.noreply.github.com>
+
+--00000000000019ee1f065c63b576
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">The two calls to define_fbtft_write_reg()=
+ that use the default<br>modifier have a space before the closing parenthes=
+is. This triggers<br>two <a href=3D"http://checkpatch.pl" target=3D"_blank"=
+>checkpatch.pl</a> errors.<br><br>Add an inline comment for the intentional=
+ly empty modifier argument.<br>It satisfies the spacing check without chang=
+ing the macro expansion.<br><br>Tests: scripts/<a href=3D"http://checkpatch=
+.pl" target=3D"_blank">checkpatch.pl</a> --no-tree -f --terse --strict<br>=
+=C2=A0 drivers/staging/fbtft/fbtft-bus.c<br><br>A full kernel build was not=
+ run because the sparse checkout does not<br>include the architecture makef=
+iles.<br><br>Signed-off-by: Krishnanand G &lt;<a href=3D"mailto:118352827%2=
+BKrishnanand-G@users.noreply.github.com" target=3D"_blank">118352827+Krishn=
+anand-G@users.noreply.github.com</a>&gt;<br></div>
+</div>
+
+--00000000000019ee1f065c63b576--
