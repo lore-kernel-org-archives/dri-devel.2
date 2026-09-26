@@ -4,50 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95159C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B48D9CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1C110E8D6;
-	Mon, 28 Sep 2026 08:43:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B3410E8C1;
+	Mon, 28 Sep 2026 08:43:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="2ElVj65/";
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="tHmjixd1";
+	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="uIDHJeqV";
 	dkim-atps=neutral
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88A8510E00B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:04:55 +0000 (UTC)
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.40.71])
- by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 5D2BA121119;
- Sun, 27 Sep 2026 21:54:48 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
- s=dkim2026; t=1790556889;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/Nqfzy3UswsFhdkL7rmqN73lRrtY1OlqfEodXP85Wkk=;
- b=2ElVj65/G3GHfz8f/rdQdKVa75X5ZDmOGkbbI1sIJ7d/CNeu5awYBJKujtzhCUoyeMWiyd
- KGYb3e/0aaEr/cb+Kc3gxu2YqkROm6kUNN9T2HpZejWStUNJIftwQV/OmhSjUEIBoCv7AF
- oyAYsy7zTj9TTxTTTgXU98KLVNx9oSSeBXkYWiV+pHdbQ5dnd4jLJKNNsWMD/nnPaV9t/M
- PC58Vl0YnP23uCvSMai88xtWqk84IacJ4mO3HQc8gbYeyvc/+K75w1KvOswI2EHQnNXNou
- Zl5+DE1fF+4ZvURB0lA5FcynlbHi74G+oewFBWqfUMC+v2n76dZbcRelND7Ezg==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH 1/5] drm/vkms: make argb_u16_to_RGB565 round resulting values
-Date: Sun, 27 Sep 2026 21:52:57 -0300
-Message-ID: <20260928005301.367977-2-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4D410E009
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=To:Message-Id:Date:Subject:From; t=1790431254; bh=28CwxnSliVSpNHVTu/q9xzT
+ V56sbtRybuqgB3xHeeOE=; b=tHmjixd1gLaywcTqwyeblHEH06tOCAFMEMfoxaaaaTsPs9NpMO
+ WqH960bh5aQ2xCL5KM6vgXhKhhgkxsI1AkCw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=To:Message-Id:Date:Subject:From; t=1790431254; bh=28CwxnSliVSpNHVTu/q9xzT
+ V56sbtRybuqgB3xHeeOE=; b=uIDHJeqVuovotUwGmrTdd+3he6QCLaB3imrD0DG40GDwV1tNl3
+ 68NA40pXo8IkfIMnh2HfbBvbi9/vmeLJ31Os46B2+9uBLh/WbQr7vpOVLkYHjOjQxGN3WTKTmIJ
+ BaAPdaty5jGN/oZ5iM1uncRDYF7cmp+go31LUXzVRXvT29DPns9dgOCSiKTzoykiQe2CgSGEtBJ
+ DMXEN6aoxDWJ+ZcY3bZ/30cj+is7l/fnOY9iqgqyguJo/c0Anhb7rJamwuFd+NzPexCUnn3N5bA
+ ife63bmOwCgAfsBQ0I1HRxJ/AXXV/0It+w3gQn88Cr0sRhUYIJFIkCIkIIQybFUjbEg==;
+From: erebion <erebion@erebion.eu>
+Subject: [PATCH v2 0/8] Enable more nodes for the Xperia 10 III
+Date: Sat, 26 Sep 2026 16:00:49 +0200
+Message-Id: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:45 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Pyw6CMBBFf4XM2iFtkefK/zAsaBmkJgi2hWAI/
+ 24pLl3ezH2c2cCS0WShijYwtGirx5cX4hKB6pvXg1C3XoNgImOFKHFqV8ETnCfrDDUDJtgyWbA
+ uv5YyleBzk6FOr6HzXp/azvJJyh1FP4eh9+zH3GkD2VhCNQ6DdlW05HGCRnE40r22bjSfALjwY
+ A4spcj+sCwcGXJ/VbyQqeLtzS9J/1NMM9T7vn8BWNP7e/EAAAA=
+X-Change-ID: 20260829-pdx213-upstream-3-d0b80f749b5b
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1202;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=67Ax9GT3XJZ/oPQ+TlKH+nxeny2DDTnLBR4v2OpX5Y0=;
+ b=K/WuS0fhCgVgGk4henN3rUzofMfwh0d4avHMOmttKC0eXftIwl28mCpkoJsqrv0sjcqgxqKld
+ 8gH9XwR1XI2BuRUL7m3hTTtkJutY4sxt5ObHABbeUwGdVMLWhCcY0w0
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +77,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, argb_u16_to_RGB565() truncates the resulting channel values.
-Use drm_fixp2int_round() to round them to the nearest representable
-RGB565 values.
+Enable some more nodes for the Xperia 10 III.
 
-Restore the rounding behavior from commit
-ab87f558dcfb ("drm/vkms: Fix RGB565 pixel conversion") while adding a
-separate helper for channel conversion.
-
-Fixes: cc4fd2934d41 ("drm/vkms: Isolate writeback pixel conversion functions")
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Signed-off-by: erebion <erebion@erebion.eu>
 ---
- drivers/gpu/drm/vkms/vkms_formats.c | 35 ++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 10 deletions(-)
+Changes in v2:
+- Remove panel_reset_pin that shouldn't be part of this patch series
+- Remove incorrect reg from mpss
+- Fix conflicting bias pinctrl, as pinctrl nodes from sm6350.dtsi already contain a bias-* property
+- Fix incorrect unit name in &pmk8350_vadc
+- Link to v1: https://patch.msgid.link/20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu
 
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cb..6d7853e87 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -639,20 +639,35 @@ static void argb_u16_to_XRGB16161616(u8 *out_pixel, const struct pixel_argb_u16
- 	pixel[0] = cpu_to_le16(in_pixel->b);
- }
- 
--static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
-+static u16 u16_to_channel(int size, u16 in)
- {
--	__le16 *pixel = (__le16 *)out_pixel;
-+	s64 fp_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp((1 << size) - 1));
-+	s64 fp_channel = drm_int2fixp(in);
- 
--	s64 fp_rb_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(31));
--	s64 fp_g_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(63));
-+	return drm_fixp2int_round(drm_fixp_div(fp_channel, fp_ratio));
-+}
-+
-+static void argb_u16_to_channels(u16 *out_r, u16 *out_g, u16 *out_b, u16 *out_a,
-+				 unsigned int r_size, unsigned int g_size,
-+				 unsigned int b_size, unsigned int a_size,
-+				 const struct pixel_argb_u16 *in_pixel)
-+{
-+	if (r_size)
-+		*out_r = u16_to_channel(r_size, in_pixel->r);
-+	if (g_size)
-+		*out_g = u16_to_channel(g_size, in_pixel->g);
-+	if (b_size)
-+		*out_b = u16_to_channel(b_size, in_pixel->b);
-+	if (a_size)
-+		*out_a = u16_to_channel(a_size, in_pixel->a);
-+}
- 
--	s64 fp_r = drm_int2fixp(in_pixel->r);
--	s64 fp_g = drm_int2fixp(in_pixel->g);
--	s64 fp_b = drm_int2fixp(in_pixel->b);
-+static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
-+{
-+	__le16 *pixel = (__le16 *)out_pixel;
-+	u16 r, g, b;
- 
--	u16 r = drm_fixp2int(drm_fixp_div(fp_r, fp_rb_ratio));
--	u16 g = drm_fixp2int(drm_fixp_div(fp_g, fp_g_ratio));
--	u16 b = drm_fixp2int(drm_fixp_div(fp_b, fp_rb_ratio));
-+	argb_u16_to_channels(&r, &g, &b, NULL, 5, 6, 5, 0, in_pixel);
- 
- 	*pixel = cpu_to_le16(r << 11 | g << 5 | b);
- }
--- 
-2.43.0
+---
+erebion (8):
+      arm64: dts: qcom: sm6350-lena: Add flash LED
+      arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
+      arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
+      arm64: dts: qcom: sm6350-lena: Enable IPA
+      arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+      arm64: dts: qcom: sm6350-lena: Enable wifi
+      arm64: dts: qcom: sm6350-lena: Enable PM7250B
+      arm64: dts: qcom: sm6350-lena: Enable PMK8350
+
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 253 +++++++++++++++++++++
+ 1 file changed, 253 insertions(+)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260829-pdx213-upstream-3-d0b80f749b5b
+
+Best regards,
+--  
+erebion <erebion@erebion.eu>
 
