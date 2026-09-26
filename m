@@ -4,79 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD493C9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 17:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CF83C9832A
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 18:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F6810E03C;
-	Sat, 26 Sep 2026 17:44:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60D0E10E0DD;
+	Sat, 26 Sep 2026 18:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hchAiTaM";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eOYiwH9/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MH2/PNEw";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20FFB10E03C
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 17:44:11 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e6c0fce17so9340915e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:44:11 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BCFF10E0DD
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 18:31:47 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68QGxQkR1449967
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 18:31:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Az
+ h39mMkvM=; b=eOYiwH9/nH5zEcu5AbSDDatmiUr7DM0jTc/7EkEJNb5TIl/U0Dr
+ s80SOJGcovzGB4yz2VymtbjxC14QJ/58dAb4+kUQXhUUiebYAz277Nkx4BjlTlGX
+ o09YKucrnSQ1nLB7XwI4XyU8U2XS/kv/88tSWgvmhkHX5mTMD4RJ8K6ltHhZzk01
+ QQK38mqxGrSIhaOCI+99pL7pfiEaezV0UdIMd1PKIekUOiVYEAT2Pze5re/nlKcn
+ g25ON3hnOT30fQT6OGnjBtkD10KUdYpl9CP5mWOTVii74Hhcb3VHxs5usyjuGVMz
+ O0ri7I9IzGA567m007xDePtqrOyS5oYxiCg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx3rfsstw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 18:31:46 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-cc1b8088202so1253979a12.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 11:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790444649; x=1791049449; darn=lists.freedesktop.org;
+ d=oss.qualcomm.com; s=google; t=1790447506; x=1791052306;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=6al9428943yAcl20WwBMtLLUBgJYR9IbwENL+dao9Rg=;
- b=hchAiTaMkvyGM23V/udrfV6qOsaItnXccPQXZU1E5wIhcLECFj0HjQ0gs9WlmdW250
- MMmAuw6fNm825WInI3f2dza3oK2ZEuQYXCu2H7ubsw8YKSE/vPhtw/lUULeb9K4EQfav
- 4BXVIEPtwYSd9m7Hjcznw/B3/7/rc20GlTBHLgcOOxX82w8P/kWZB+fRdJ0cUl4Gg1fE
- EPI4uTBqSDS0jO8XnoauScWuJ/wVtXDAgIjYnzU9IDC9asjN4QxbvPTLvI0FLC3oDCid
- 2GZtcZUn4LFZ6jNJIlvXanCKN/hTMh22wuHR0Owoo+IPQOFBBpohqBwgndkS4R+slONF
- ITrg==
+ bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Azh39mMkvM=;
+ b=MH2/PNEwhIm63WFPA+Wy6jAmW1C7k72djRdOrx6vsVsiv30nrvGpymeXHjHvoQTCoQ
+ 6EHbYPKtHPY5e6093o9sdE2BpQKQ9JKkdo69lVB+mATxBFHNWSxF5nk22kDXd2mz/SYk
+ REMnxdVZ+BTTw0FR4HBGb/MHatAVXXd+XHauzkUELTwOXu7HYEHHvBkpxugKSvtCpM94
+ 8O+RD3GZ2cfjFx3WdvnRmJatroI2QsjEjchD1b/e29/bz2T2LeQ14M1kYeZLlt1Y7E98
+ sYXn7M0yytC7K8AopF1QoKbH9bV6U9xYJa6j7TTDKlvkYWQ5I8WW4n6ISjNPHxDp+Nu1
+ l0fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790444649; x=1791049449;
+ d=1e100.net; s=20260707; t=1790447506; x=1791052306;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6al9428943yAcl20WwBMtLLUBgJYR9IbwENL+dao9Rg=;
- b=lSOtCFYOoGuGG27V64oMjbTuHXk170DT32Pe3B+OkSQdTb+frrpThNJDlJJCvxkfmK
- cnnWxOBpJ5tBqaxpjougJA7zRVQMJI4GoJET+zCxLkAUMXIwgQ1MfODFRz9V+tjYhMuT
- aKhRE8Dj/roiOWS2KibIHqiVo60/KkttqcrbdahgLMX5GAw2pwjYYa8lToGTsQ0IO7Mi
- rzvOyJdQivAzXjb/7i6Ibeb7GZr9iNhJNJoELVH6UnGcsiuYC58JAQLbqqhSyLUXovaC
- i1VWarzq5rLfpYkwebXCQp0cQwMg4ifNgs0dVlnjieuw15VC2GGoipWh9PspY0PQPLF6
- 3ugw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz0uNcam7CulE+YP0VE/gZSv9kaVCAZHCwit/6IIU8zWLE++eoH9M/+OAfSZ0WFuQf5r+PKjIMkON0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kA7xyPB6wx8yrMPIH5FNU0IPsUy5/QYXJ3+ybqClUcqA8Wjg3p
- 6bZvkrTLOi+mQ1Hxqa6Evc+EWHpzrNBIrCZMumdj3Q4E4JLnqSgS0M+P
-X-Gm-Gg: AYBFou2sQaqljbH1CS5HYa5G8N6F8O61oKtEdbCNiiKk2+Y7+lFfDbr34HXW9TpxytV
- 3jOoF9+0NyxlX+6fFr+UhXPt2qzcBrEsplzfTjQrylWfxUpZLww/gEOh8zEEfY9INLxfg+zHk91
- WV5E5bLVpL4XJpZSbKkwfcn/oCeFSR7o4lo0gpBUoPQADkYkuiJdV2RH3SUnkjl6ypF/rkV/hE9
- il8n+Ytpym330hIod+juli7H6fut7zr6AVSztMaWqLZu8Y5SkrEly8Yt2V7L53abr3P0fVpABue
- BF21TCUwMt4z0K3qtL1evXxquRwJGyiXukW3UCrhe0ZgWYwQ4knlrPFEzvsv9J3/7PIiBfOHMZ+
- PGSlHngszXp5ZvwpuzNseRLVD247mtLoY9kLymTLCrUuska7lon4SSsir0eN11sHfiAzhrmD/vp
- wgIDKAqj6yuPJ0RvY89acqdbWmexHGjXQw1LPwsHKUxFZhRRJfpPP6Q2t2VEPF9vmY20o06QnXa
- OfZ7ek/kdQViP6JZIvy48U7a2T3MGsqlauGd2Q7kifAaxVlWCMl+5BEHEI=
-X-Received: by 2002:a05:600c:1d29:b0:49c:fc6e:a3d9 with SMTP id
- 5b1f17b1804b1-49fe66eeeaamr183527895e9.24.1790444649393; 
- Sat, 26 Sep 2026 10:44:09 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+ bh=JdPUDZZT+WDdxEtZZi5YPAJFXhlxmleL6Azh39mMkvM=;
+ b=eCfdefcoGQVhewr7Z2g35+ecRiDNAxI0bAjl/8qPu9RSuoQ7sSyZrOftE8IiOIFlBe
+ BMTD7JoGXtoiqZslZ9Vx17DWgZgwsS3eYk5cjUTAZ7KZobn+2uGYQLISyJ0TVwBd0Vyf
+ 7iJw5lwUN4MNiqYHT6nl1eqmrMw7SrnWHTtuzpie3cMKzfsl4hlJ2sTbRXT/ib0B0t9A
+ CDo1PCLMcK6rvYQi7UT2TO/FGcg3zH+o5M04ryy/H05bXRC4uE7KAIc+AMVWw15CJXgP
+ /26zweibHRDZsPCRlI1kMmADtOi0EWE6iSulgki/u6nOzupJa1IvoIbX0fz20sS9y8Kx
+ 9Ofw==
+X-Gm-Message-State: AFuF++l81rQqjQXU4bKYSwCwwtXhlNIY7Zawgj01SvrkP1Z5ccxGGuwu
+ N6PD/+ynM2AYu55F0OawxZFzYJeM3Sf+s+V/GDzB+fvfg4qNvOpwGcIpaoNra1hGIp3vCwwvy4D
+ OH5P1QLFjbnyKw1LqRi0DoJfg+kzslLKv0aDZs85SaSC+FrWg6ytEFJa22kXnfWWiZxL2pvinn0
+ TKZsE=
+X-Gm-Gg: AYBFou3G+yM+TXSM0Yb4YuitnEEMV8DoGmLYrpt4pcA0TnCkmi+c3uKJzoHM4GkDhm7
+ BhMAEYswyAfAONM3OyeIOkumxrARG1+QdEORTRoG1YRTn1pBQ35NSWic47lVibwH0NJSc9F57EP
+ ULEcbbIqNoX+v4TgU+HAYxGwXdLkau2XAmPBswPaLTQdH7QdNZd054qIBrLuaCvoM3Cr9qud/oM
+ A9Ct0ZIGZSFS2yleB7ZVbpyFvmsaJ27/pQtZsIg2K4PYEB2TzCAdkhlE3CUrXHlgqLYM9ky0zNV
+ K+1UoD+MdwOXRafKDBNd4L3z1tU31jWsZmJewLm+S6l8nqQ+kGjxnAajuMojnYPvfyw/unSfL1k
+ eV4OnvXcxEGjiDKNHuu8bhm82hIdgtTyvC6Vp4ihULvPTp0M=
+X-Received: by 2002:a05:6a20:3d09:b0:3da:bea4:6219 with SMTP id
+ adf61e73a8af0-3de0e75e925mr7709836637.20.1790447505800; 
+ Sat, 26 Sep 2026 11:31:45 -0700 (PDT)
+X-Received: by 2002:a05:6a20:3d09:b0:3da:bea4:6219 with SMTP id
+ adf61e73a8af0-3de0e75e925mr7709807637.20.1790447505363; 
+ Sat, 26 Sep 2026 11:31:45 -0700 (PDT)
+Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a000901b07sm9455665e9.9.2026.09.26.10.44.08
+ 41be03b00d2f7-cc78791c680sm2539983a12.16.2026.09.26.11.31.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2026 10:44:08 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Carlier <devnexen@gmail.com>
-Subject: [PATCH v2] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
- import
-Date: Sat, 26 Sep 2026 18:44:06 +0100
-Message-ID: <20260926174406.346253-1-devnexen@gmail.com>
+ Sat, 26 Sep 2026 11:31:44 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Jianfeng Liu <liujianfeng1994@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Andrei Kuchynski <akuchynski@chromium.org>,
+ Benson Leung <bleung@chromium.org>,
+ "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Hsin-Te Yuan <yuanhsinte@chromium.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Johan Hovold <johan@kernel.org>,
+ linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING
+ FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b), 
+ linux-kernel@vger.kernel.org (open list),
+ linux-media@vger.kernel.org (open list:DMA BUFFER SHARING
+ FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b), 
+ linux-usb@vger.kernel.org (open list:USB TYPEC CLASS),
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Pooja Katiyar <pooja.katiyar@intel.com>, Sean Paul <sean@poorly.run>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH 0/6] drm/msm/gem: Drop use of pages for imported dma-bufs
+Date: Sat, 26 Sep 2026 11:30:40 -0700
+Message-ID: <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA3MyBTYWx0ZWRfX4uwfGdWs/oxu
+ ZS9ZF/LUPSbPl5ywQkfXmBYZGRqjmHqPAUEVlBHIOC5zTWxvDd2kv6V2M0gkE2XsxuUPsTZweRb
+ /7/KMPhFH5g6Zxccie4nuLguuoIg9Sk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA3MyBTYWx0ZWRfX/EPfBNBo/RYn
+ r0ShKEZI2XbzKQO4Avc4g5sxYPMrnl6FE6WpaD2jA2NiRjNd8g7c9j/vxN0bnMaAQmQn1x/drU1
+ iPo8+I3BPoi7nNm3ZrQE7hz0O7iEfBaF7fwqfU/bd9GBrC5b0XIB/HrnuI/6hqQ0Sa6R6JaHSEg
+ MBqIzgmH0jmAnk2dDSg6lsW6x9DdKSQj2OPMRNd054sWvzl29OQqmMLNby3NIV5SRPSdFF/+kP/
+ WUYMq9VpMu2iG5BMvL4pPmpEJRggeNDGRrA2E8CnYWfCCCViDx4Yn/5NVqhnjy/C1t8ViXp0kyY
+ 7lnrIR+1vZ6NHbxUe6cuMlzfri6sLMdyrQ4Ib/zzeinzGCxSxFBTSAjLa8MVjQlT8NqwZOQ1LyT
+ WhaIrP2BCqHQJT1Apqig3dx8CX7jzyAsNJFJrFeKa/+8XP3EGkCWaLUO+LCohCk8U5eFwoSA1TX
+ J6oqse7w5agB1APSBIA==
+X-Proofpoint-GUID: UkukF5oSoNCMd_NJ4AivOFwWCBy7WDvt
+X-Proofpoint-ORIG-GUID: UkukF5oSoNCMd_NJ4AivOFwWCBy7WDvt
+X-Authority-Analysis: v=2.4 cv=K6G3jCWI c=1 sm=1 tr=0 ts=6ab80f92 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=tIciJ6vaqEqC_qAMQbIA:9
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260073
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,119 +154,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The exporter records an importer when it answers NPA-REQ, so it can send
-NPA-REVOKE as soon as the BO is freed, before the importer has finished
-building the dma-buf for that handle. The revoke handler assumes a fully
-imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
-until the import completes, and drops the xarray reference the importing
-thread still relies on. The importer then links the node and marks it
-READY regardless, so the node can be freed while still on the per-remote
-list.
+The use of msm_obj->pages _mostly_ served to mark that the obj is
+resident in memory.  Mapping to the GPU, etc, all works in terms of
+the sgt.
 
-Only tear down a node that is READY. Otherwise mark it for teardown and
-send NPA-RELEASE, as nothing has been handed to user-space yet, and wake
-the importer if it is still waiting for NPA-RSP so that it fails right
-away. A node already in teardown belongs to whoever moved it there, so a
-duplicate NPA-REVOKE no longer touches it either. The importer checks for
-teardown under the xarray lock before linking the node and marking it
-READY, and unwinds otherwise.
+The exception was the fault path.  Resolve this by using dma_buf_mmap()
+for mmap'ing imported buffers, like we are supposed to.  With that and
+a bit more cleanup we can drop the use of drm_prime_sg_to_page_array().
 
-Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
-Assisted-by: LLM
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-Changes in v2:
-- Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
-  in teardown neither dereferences a NULL dmabuf nor drops the node
-  reference twice (Sashiko).
-- Complete npa_done when a revoke arrives before NPA-RSP, so the importer
-  fails right away instead of timing out into a connection reset (Sashiko).
-- Use the current Assisted-by format.
+This doesn't solve the issues with DMABUF_DEBUG, mapping to the GPU,
+either via iommu_map_sgtable() (display, and TTBR1 for GPU, aka the
+kernel managed mappings), or msm_iommu_pagetable_map() (userspace
+managed mappings), still requires pages under the hood.  That will
+be harder to solve.  But this is a step along the way.
 
-Found by code analysis and compile-tested with W=1. Not tested on hardware,
-as it needs two UALink-connected accelerators in a vPod.
+Lightly tested.. in that I don't actually have a good way to test
+importing buffers that weren't first exported by drm/msm.  And I'm
+headed to XDC soon.
 
-v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
+Rob Clark (6):
+  drm/msm/gem: Add helper to check if resident
+  drm/msm/gem: Mmap imported dma-bufs via the exporter
+  drm/msm/gem: Use get_pages() directly in vmap path
+  drm/msm/gem: Stop exposing a page array
+  drm/msm/gem: Stop calling get_pages() for imported dma-bufs
+  drm/msm/gem: Drop use of drm_prime_sg_to_page_array()
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 34 +++++++++++++++++++---
- 1 file changed, 30 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/msm_gem.c       | 107 +++++++++++++++++-----------
+ drivers/gpu/drm/msm/msm_gem.h       |  10 ++-
+ drivers/gpu/drm/msm/msm_gem_prime.c |   5 +-
+ drivers/gpu/drm/msm/msm_gem_vma.c   |   8 +--
+ 4 files changed, 78 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 8411ea17172f..cb35026e6eba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -3265,6 +3265,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ualink_imp_xa_node *imp_xa_node;
- 	struct amdgpu_bo *bo;
-+	u32 node_state;
- 	int r = 0;
- 
- 	/* Remove the entry from the Xarray. */
-@@ -3288,7 +3289,23 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
- 		return;
- 	}
- 
-+	node_state = READ_ONCE(imp_xa_node->node_state);
- 	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
-+
-+	/* Only a READY node is torn down here. If the import is still in
-+	 * flight, the dmabuf may not exist yet and nothing has been handed
-+	 * to user-space: leave the node to the importing thread, which sees
-+	 * the teardown state and unwinds, and wake it up if it is still
-+	 * waiting for NPA-RSP. A node already in teardown is owned by
-+	 * whoever moved it there, e.g. an earlier NPA-REVOKE.
-+	 */
-+	if (node_state != AMDGPU_UALINK_NODE_READY) {
-+		if (node_state == AMDGPU_UALINK_NODE_NOT_READY)
-+			complete(&imp_xa_node->npa_done);
-+		xa_unlock(&adev->ualink.imp_xa);
-+		goto send_release;
-+	}
-+
- 	list_del_init(&imp_xa_node->list);
- 	xa_unlock(&adev->ualink.imp_xa);
- 
-@@ -3299,6 +3316,7 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
- 	/* Drop the refcount for the node */
- 	amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
- 
-+send_release:
- 	r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
- 	if (r)
- 		dev_err(adev->dev,
-@@ -3760,9 +3778,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
- 		return r;
- 	}
- 
--	/* Add this node to the imported handles list for the remote GPU */
-+	/* Add this node to the imported handles list for the remote GPU,
-+	 * unless the exporter revoked the handle while the import was in
-+	 * flight. The dmabuf is released with the last node reference.
-+	 */
- 	xa_lock(&adev->ualink.imp_xa);
-+	if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
-+		xa_unlock(&adev->ualink.imp_xa);
-+		dev_warn(adev->dev,
-+			 "IMPORT: handle:%llx:%llx revoked during import\n",
-+			 handle.handle_hi, handle.handle_lo);
-+		return -EINVAL;
-+	}
- 	list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
-+	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
- 	xa_unlock(&adev->ualink.imp_xa);
- 
- 	return 0;
-@@ -3938,9 +3967,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
- 					"IMPORT: XA import failed for handle:%llx:%llx\n",
- 					handle.handle_hi, handle.handle_lo);
- 			goto cleanup;
--		} else {
--			WRITE_ONCE(imp_xa_node->node_state,
--				   AMDGPU_UALINK_NODE_READY);
- 		}
- 	}
- 
 -- 
 2.55.0
 
