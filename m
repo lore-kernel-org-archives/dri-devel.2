@@ -4,85 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08B8C98328
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 06:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7674C98328
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 07:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2F6110E1C2;
-	Sat, 26 Sep 2026 06:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 417E710E013;
+	Sat, 26 Sep 2026 07:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="GH25z9vN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cfpt2Llr";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A31C10E1C2
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 06:32:27 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49b912d391aso10832125e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 23:32:27 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4A910E013
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 07:13:06 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48884b021dbso269226f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 00:13:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1790404346; x=1791009146;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=RKnDzIDzmT8Fb769giFnrQq/6P1KJS3fV65UjMQ0CGg=;
- b=GH25z9vN5Oev+zHGoiH4LUwH7iwK3i7GhCYW1GLhHuIadEUQLvGBnkXU/q5mm03uzu
- sg8F4ng8uNCklVLvgWgBFS0Fe18wEZqcp5bXn4P2C6EbK5Ad5R1/D6B2QD6loRkklx+R
- N4mz6/R1pHxw+EahTE0M1ge00hd8ZN5fLwmQY3AnBHooGKlgm48rTf3m9x12rJpSdh0O
- cCF9J6P9oNLW6qhDVwG8M+EWpffcmXQBB0J+UjpIlk2usOgRcCgn6DAgxZTFLvsFmgBF
- VU0RhYcW4Ls2SGrGXdaWuzvi3F0jfDReexcB0hqALwGmUUVS/7fyR+U2IjtiTRcCEUvV
- U/VQ==
+ d=gmail.com; s=20251104; t=1790406785; x=1791011585; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rY5HCiFtt5IzvJR7OZXNoiF5Qm5UV5uB0Zymmp5HUaY=;
+ b=cfpt2LlrTQKQndMPlqCUIfKEi7JaXybRPudR9ePr5XtRJm11zq+/lWI+4Os3Hj/79k
+ 2eZ8omd9R9Y/9uYM59HAkc5S86Zna2vwFDgaQwMhzl3Q3oEoYU/EVg7YidS+8yRYCmwd
+ D0shwBCw6U+TVr6zlAMxq2o8D/nBuy4i+tQRH8FqAt4oEoJv+I9NW0hHlcRWC+jAIIuT
+ Smn234Wjqy8+1WLzeug6hlegbBojENOnQwjB8LTFpM/COxhYXwUkB1D51CHAF4WYDeFk
+ QcJuMkt198Ik+MPJvMPVkDQQakDLatwRIAL1wHDA2R4ohS0jGVl8g/mcUMV4FjDn+bjl
+ DMtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790404346; x=1791009146;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=RKnDzIDzmT8Fb769giFnrQq/6P1KJS3fV65UjMQ0CGg=;
- b=pC9B3OwtyLzc8U7nI44N5R5Hj5I0+ZhzCcdjaYBCgKZnXIMGh/fwzl+h1rI0C9RlAN
- h7e4bAQXyA/wjLdxXF0dKvW545oQigPkMmUueJkPz9Mp4Ihd5tUBZWSPA7Ur+C4kKQuA
- owl/XrMWxMdJMMsRtfboJXqT++a2JWjZ2Da+kVKQ52aUb8Uo6ndNRrq6KAfH/bV1dhk/
- I0vFfNAZbuT9ii1zTLbBCID9epiVU64QxW4NG6Lwy6DgYQdwGjuLw1FQs+b2TqCZKxWE
- T4G4CchON7ELRHwFllHpQSWtPg7fjuLvrYYkLsD4qVVArdD+wi7ETR1ArOm/jKKhhT5I
- PjvQ==
+ d=1e100.net; s=20260707; t=1790406785; x=1791011585;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rY5HCiFtt5IzvJR7OZXNoiF5Qm5UV5uB0Zymmp5HUaY=;
+ b=EcN2Mc/mo7gsH9XWWEjTWfNlZodAteQb9Rr6f44yIqgMzcwrU8GLDDmBouriX38Pnn
+ w3zeANjp5MJe98tHYHT37i9ObRhE7v3HdDPd2B6O+VJODP8/j7okFYy3L1iaWGKyJNDD
+ oGu10BE717zDlLJ6sGUiMYsn9j0kO8DLu4FiXSvdl/g3KtbZ0Aqb0qbiMIFIKcoPWVxr
+ 3DM2fKeqFQt3QLY585dW2+20DQNNX7zGDjr1/FNUCM4xxPuZye1KyBqylU6HJMg7pwYd
+ 0GrgNANUyuOhGdHXJfMcDBHjj0C/coPficdQQkXjsmVMQbhBbal3tcGWMTwg0JPN70tR
+ PAsA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByTa0zLW4uJWjnVHUjLXKNKsGLu3hr2z7beBZ8o00BPTaHW5552y5QeAuPhvUk3z16dP9mrNh/y1XQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k5J/8WI6VKmo8ceyc0+S5OU/ef0EsZdi0UQOYXmEnjBYoRbdOB
- qLkk0LaVXNy5rtYtjwfeiMT5Y32eq39kMB9kgzJMmRDhMMKfARDAHN/6dBzirx5DxL0=
-X-Gm-Gg: AYBFou3vXc5/5ELldPJQlPEsi5reXBwSrXCNdNZH1E3Y9YdERzlaXXgbP2xPY+AaQnu
- 382d8djmLH5SGd68NQyyIES7jenkAOAGPJWULCxFS7AoauVNBQy+/Xw4Qct9upkMk/++TqPnVIB
- fZJnAY8Xbp00I5vp/BoCuQwda0fGidBh27g3/U68Wb+vj0IL2pcA4NcFVksg0DRXGdOId/4x0bn
- i57RCxc8VZXYfN47kU8byd3FdZSD0LQtjHUln/OcWTgliWnIDnMZCxqZUTo4KbDgpCB8Crobtf1
- /z5bFBGYuI+vrvog14k71bG1SBVEfh9kbbEjq+DYvdiV1nzWiJw9hUeDa0pxPKqX6PL0Z62UsX1
- O+9/9V9OQE/nbjEd9arqxhORFsqwsl1iaZpBvcvjY2AMV5fjeTd6E/H9KGB9DCpRku5ljALW2xH
- aW7w9fk7a6oqsLbk7FY9K5KHSEXgVGumB4cbcu/ol8PbQ4UneYrmL+UXcKtk8LziNH+on+1OMGN
- KXrIp/w409jUYo=
-X-Received: by 2002:a05:600c:3486:b0:49f:f9d4:674d with SMTP id
- 5b1f17b1804b1-49ff9d4695dmr17829285e9.13.1790404345436; 
- Fri, 25 Sep 2026 23:32:25 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-49ff06b6108sm130167325e9.8.2026.09.25.23.32.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 23:32:24 -0700 (PDT)
-Date: Sat, 26 Sep 2026 08:32:22 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Alex Lanzano <lanzano.alex@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
- Mehdi Djait <mehdi.djait@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/tiny: sharp-memory: reject devices without match data
-Message-ID: <ardmUk4lMFhnc76E@monoceros>
-References: <20260925123608.2082429-1-yaojiale02@163.com>
+ AKwUvBz0SS0HyTjT3SQTXC+pJx+Kl9RO6ZrWOIsVAgqt1c6ULKjnjXBDmhGJj+TV/l2SC5nybz+yyrX1zZs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m4Hy1GgWxVyZWVKAfgpHmH0SawE05Y7yjOqHUIZ4qVWsU7JFgH
+ RUwATNIDqUY1qZ8kVtBzz6dK0xnTsmZFv2gQKugFJEqk0qa9pS/9UWPn
+X-Gm-Gg: AYBFou1fJeB2+3xHChlVwmoNA3Ng4G3nclYTBcpGhoE1YJUXzJLd/78l+m60V3N9plq
+ 6b9j00X+Dlbe4K/GhgA32y+LKWlWIH6IOf5vuuQdhvLD0MPm/211OyTdJBgMmRkTILnOiOmP0iS
+ hQ6/ICS44TIBJQNItcck7nAGWaLbUwa5/tNzFdHQgPZq7QjyW9qEiSJuFLdBAYcWsFc5eHdXYvd
+ onr/2p/ls+w9Y1hmE0HHeUxVzwdX8gH0uZEtbFhWFGYLcuJkrq8uBX5E8UTB8yVXIUTdlLjoBg0
+ TMLaFdbbLPjS4WR2klslL7SspWBYGFnQ12ZosOGnEOCy7buNC9A/nntk2pMmBtbiwakkYDzWrbH
+ Y7hLrHZqPzvXKjmeuMKC+gdCJuZ3hH4O2QATfwditM/rz1bM0K3MUZQrc4fPswGLUKcNqBFCZuJ
+ /NGLs4b2x2fOFYMdIuhCTkrAYNwxZ4LMG2E9AmOoUnncroBbQemwPYZDaWsO/99F6S4YVcpKiqO
+ ymmx7IDLsePP4l6KSCnOZrqCks9f/5NAWkcJHjzktG+seNrEQ9V9PZrofORL2rWq1j9I7Y4JpoK
+ g4IjI5jHYdK8s1RYk0kLnz8j06agmjHrCueNSHH3bMPJnuSyxXZKfiSw63k9j+rOHStEJ66my6K
+ mngPHDiQzMPaiHSuTAg==
+X-Received: by 2002:a05:6000:2583:b0:485:8ee0:dfc8 with SMTP id
+ ffacd0b85a97d-4887175a69cmr16191456f8f.41.1790406784608; 
+ Sat, 26 Sep 2026 00:13:04 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de.
+ [2a02:3100:b162:c701:4960:a998:3de8:2fce])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a34a570sm11592286f8f.13.2026.09.26.00.13.03
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 26 Sep 2026 00:13:04 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] udmabuf: respect the device's maximum segment size
+Date: Sat, 26 Sep 2026 09:12:58 +0200
+Message-Id: <20260926071258.77202-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="j7h5nzpwlz2f2g5n"
-Content-Disposition: inline
-In-Reply-To: <20260925123608.2082429-1-yaojiale02@163.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,57 +96,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+get_sg_table() merges physically contiguous pages without accounting
+for the mapping device's maximum segment size. This affects both
+importer mappings and the udmabuf misc device mapping used for CPU
+access.
 
---j7h5nzpwlz2f2g5n
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tiny: sharp-memory: reject devices without match data
-MIME-Version: 1.0
+With DMA_API_DEBUG enabled, DMA_BUF_IOCTL_SYNC on a 64 MiB udmabuf
+reports:
 
-Hello,
+  DMA-API: misc udmabuf: mapping sg segment longer than device claims to support [len=65884160] [max=65536]
 
-On Fri, Sep 25, 2026 at 08:36:08PM +0800, Jiale Yao wrote:
-> SPI driver_override allows a device to bind to this driver without
-> matching either the OF or SPI device ID table. In that case,
-> spi_get_device_match_data() returns NULL.
->=20
-> sharp_memory_probe() immediately dereferences the returned display mode
-> to calculate the pitch and transmit buffer size, causing a NULL pointer
-> dereference.
->=20
-> Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
-> data") fixed the same driver_override issue in another SPI driver.
-> Reject devices without match data before using the display mode.
->=20
-> Fixes: b8f9f21716fe ("drm/tiny: Add driver for Sharp Memory LCD")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Use sg_alloc_table_from_pages_segment() with the mapping device's
+maximum segment size. Keep a PAGE_SIZE minimum because the allocator
+warns and returns -EINVAL for smaller limits.
 
-Note there is an effort to make it impossible to use driver_override in
-the core and only allow a few dedicated drivers. (See
-https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded=
-3b83@nvidia.com/)
+Before commit 5bf888673e0d ("udmabuf: Do not create malformed
+scatterlists"), each entry covered one page.
 
-That should make your effort to implement that check in all the driver
-redundant.
+Fixes: 5bf888673e0d ("udmabuf: Do not create malformed scatterlists")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
 
-Best regards
-Uwe
+Notes:
+    Tested on v7.3-rc4-70-gfe2ec83746e5 in QEMU (x86_64, TCG) with
+    DMA_API_DEBUG (all_errors=1) and DMABUF_DEBUG, A/B against the same
+    base:
+    
+                                            before        after
+      DMA_BUF_IOCTL_SYNC, 64 MiB udmabuf    1 report      0
+      vivid import, 4 MiB udmabuf           2 reports     0
+      vivid import, 2 MiB hugetlb udmabuf   2 reports     0
+        frames captured                     5/5           5/5
+    
+    vb2-dma-contig rejected the non-contiguous import in both runs.
 
---j7h5nzpwlz2f2g5n
-Content-Type: application/pgp-signature; name="signature.asc"
+ drivers/dma-buf/udmabuf.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00462423..09f1eb8432f19 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -139,9 +139,13 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 	if (!sg)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
+-					ubuf->pagecount << PAGE_SHIFT,
+-					GFP_KERNEL);
++	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
++	ret = sg_alloc_table_from_pages_segment(sg, ubuf->pages, ubuf->pagecount,
++						0, ubuf->pagecount << PAGE_SHIFT,
++						max_t(unsigned int,
++						      dma_get_max_seg_size(dev),
++						      PAGE_SIZE),
++						GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_alloc;
+ 
+-- 
+2.53.0
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq3ZvQACgkQj4D7WH0S
-/k6Qcgf9G3X0KeSPaCKttnPz60x5oy+ze4Lrp0MR133CvtMOi/KpCFTC0JPCuv3a
-M8mOGrUG7qRG9hwJz2xlMIeNTtr3Jib0Jgu6pZYvMaNnVJBmNdDF4sTWaZmx5hL7
-A/qqL7LyP9lRn6Ko2yw/zhyWp276vGLp/yjW3tFDpUlJucJ8XPXfmYJlZVvgrvoV
-4NAfE+Byneex1y222VYJX4lsZ70byfg0BVuBtxV3kxsdIRW9y9vo+ZBAyzgmd57s
-Y6GxPfU0SKn/qiRPg54hhtwSAru7oele0BN3Hjwf41Ll2rt59Troh7l18UONatC4
-tXudK822kPgqBO/Ax1CSPtsjwbLZgg==
-=Gwu0
------END PGP SIGNATURE-----
-
---j7h5nzpwlz2f2g5n--
