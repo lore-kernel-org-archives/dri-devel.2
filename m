@@ -4,47 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C650FCA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4668C9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4BD710E8A2;
-	Mon, 28 Sep 2026 08:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1C010E8A3;
+	Mon, 28 Sep 2026 08:42:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="x30xCUB/";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="knXpC96T";
 	dkim-atps=neutral
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D55410E4B9
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:04:47 +0000 (UTC)
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.40.71])
- by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 83B38121114;
- Sun, 27 Sep 2026 21:54:46 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
- s=dkim2026; t=1790556888;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=2ZJeyHj2hMUdTyP8McbMGBxqp5b+zG+SJIKnSqTY1Gk=;
- b=x30xCUB/TsAVSWbJkrUN+02MViAp1wgNvpOgh33HR41QX8K3QOhVTuSKcrFo96TDW3oJbZ
- up/yyMYre1/hA14fcAwYVE+YKs5KsDm1gDRi9Fekd2yQDxWVVndjjihvzAU+fUELLRQReQ
- OHcnKmtah/inWfrXrcsQYh/M5u8mTtuFbXIXwXjTI5geYVCuUODHwk2lsVt2D0lHE1N1Ro
- 1hGTazjnWuAl52Krh1GvE1QMeXopLwmu18qPBUCwmpXTpuuw5uVEojN0nvqM6ED16u6LQo
- geyx8wgGN4SpoPcQWluHPq0pvgmHS2Dd4m2juxBqhc/u22+nE4bDX/IZml5X1w==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 825F110E050;
+ Sat, 26 Sep 2026 16:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=SX
+ 4HMIM1TzXt1rGZ0TSFJGAeochb7ps2U/JaupsWzEk=; b=knXpC96TSRqfwoKauG
+ 5vRzTgd8746fp6cOjqKEgQgiJ4+hBW8hArrTDppVNJ6UsUHHwOHEfKagCZLFaInr
+ hbNylVGVzqrTdCh6lDI7aGWWNn81/uUJT7vfvHPLszfXaXcwECl8rI0HmKTv295o
+ xx38SzsVO8b89O7f56EjijuEg=
+Received: from pc.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
+ _____wD3v6EU8rdq1Ce5Aw--.54526S2; 
+ Sun, 27 Sep 2026 00:25:58 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Qiang Yu <yuq825@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [PATCH 0/5] drm/vkms: support more formats and fix RGB565 regression
-Date: Sun, 27 Sep 2026 21:52:56 -0300
-Message-ID: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
+ Simona Vetter <simona@ffwll.ch>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ Jason Wang <jasowangio@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Alex Williamson <alex@shazbot.org>,
+ Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ankit Agrawal <ankita@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ Farhan Ali <alifm@linux.ibm.com>, Matt Evans <mattev@meta.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Eric Anholt <eric@anholt.net>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ Andreas Baierl <ichgeh@imkreisrum.de>, Marek Vasut <marex@denx.de>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ lima@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, kvm@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 0/3] Drain module-owned RCU callbacks during teardown
+Date: Sun, 27 Sep 2026 00:25:49 +0800
+Message-Id: <20260926162554.163197-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:45 +0000
+X-CM-TRANSID: _____wD3v6EU8rdq1Ce5Aw--.54526S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7XF4rWrW7uFyfGw43Zr4DXFb_yoWDuFc_W3
+ sa9r9rGw1kG3WxKanFyF1xAFWvka45ur1rArWFkr9rKry8Wr45ZrZ8Kr98CF48trWYy3Zr
+ Jrn8KF15Xw4v9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUUNeOJUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRZKhGq38haJ5QAA3A
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,32 +75,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+VFIO PCI core, TUN, and Lima each enqueue an RCU callback implemented in
+module text. Their teardown paths can run after the callback producer has
+stopped but before a previously queued callback has completed. Unloading
+the module in that interval lets rcu_do_batch() invoke freed module text.
 
-This series adds support for RGB332, BGR233 and BGR565 writeback. This
-is done with new helpers added to make conversion easier. It also fixes
-a regression in the RGB565 write conversion.
+For Lima, the same window also allows the callback's slab cache to be
+destroyed and its global pointer cleared before the callback frees the
+fence.
 
-The argb_u16_to_RGB565() code currently truncates the resulting
-channels. This behavior was originally fixed by commit
-ab87f558dcfb ("drm/vkms: Fix RGB565 pixel conversion"),
-but the fix was lost during a refactor in commit
-cc4fd2934d41 ("drm/vkms: Isolate writeback pixel conversion functions").
-The rounding behavior has been restored using the new 
-argb_u16_to_channels() helper.
+Drain callbacks after their producers have stopped. The three changes are
+independent and each patch remains buildable on its own.
 
-Matheus Alves de Almeida (5):
-  drm/vkms: make argb_u16_to_RGB565 round resulting values
-  drm/vkms: support BGR565 writeback
-  drm/vkms: add a helper for channel to argb_u16 conversion
-  drm/vkms: add support for RGB332
-  drm/vkms: add support for BGR233
+The affected object files were built with CONFIG_TUN=m. The series was
+also checked with checkpatch.pl. Runtime reproduction was not performed.
 
- drivers/gpu/drm/vkms/vkms_formats.c   | 136 ++++++++++++++++++++------
- drivers/gpu/drm/vkms/vkms_plane.c     |   2 +
- drivers/gpu/drm/vkms/vkms_writeback.c |   5 +-
- 3 files changed, 112 insertions(+), 31 deletions(-)
+Jiale Yao (3):
+  vfio/pci: Drain eventfd RCU callbacks on module exit
+  tun: Drain eBPF RCU callbacks on module exit
+  drm/lima: Drain fence callbacks before destroying slab
+
+ drivers/gpu/drm/lima/lima_sched.c | 1 +
+ drivers/net/tun.c                 | 1 +
+ drivers/vfio/pci/vfio_pci_core.c  | 1 +
+ 3 files changed, 3 insertions(+)
 
 -- 
-2.43.0
+2.34.1
 
