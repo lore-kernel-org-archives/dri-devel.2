@@ -4,122 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7425EC9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 15:34:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D413C9832F
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 15:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A29210E049;
-	Sat, 26 Sep 2026 15:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7060F10E161;
+	Sat, 26 Sep 2026 15:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DfBjs4LT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fO7jfr7l";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dXR6m2Ij";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CFC210E049
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:34:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j9G3rht9By9Ienenq14MwYVQb+me/htPHoDeymR5BktZKAprq4WL7plrCIQCULR05MpdD1pF3x7PpWr/TQKvipy8pl5+gq2GTXq66ZeV6Of/bu54fVmuCyM5E/8Ekc+n1FvqaYjaVUPtT+f/CpKFr6oQwRul9HTx2tM+rQLdR8tyxiowHUF6J/kVvw0SFcKMOwaSlfKkZCPCpJJQAwAFrBQe/3u/+DqGS7oxKA+ccbHn7eo0EGNTCd/vmIxq4YnduQejQCnAjmZ/rb1AcWAQ+PnIk5EwQT+Femwdu+NR5EHOANJlYCEGCc14Z9z+8bA8wnu77iQtMRR6oPDny5A0LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CqP2Lk4uW83yrNzZ6RibMgF19It1/vGLOkq/IQWQE/c=;
- b=qti1fMUNSgxkzjmyMlfj2J9TReCDUwkTyckrLAn2r4q4Xejh3JQFYikUDHFVgeHTYWLjJLyXrGLGQzzR6YImMdOd0Y7A9hGXDLeYoquBBhqzMDHYEqtwUiB9//A87QsLvmRFIE30V3k+RIVtLXy45q9qDxG+DoIBLCBOC/kpi39D3/K7WaJ2OtGztFGIqmp4Bh6USYuiQ5E80DUb+UXDir2y2c3pXjnx5t4+05QnSJIMSXQagipWizG7eUl1EbrtSTCQsLab8hNYdLYECFTv1aH+h3G7OoKzAEFHGSWVlnIKJuENueBUeZCXPAiJ3LXt+IUFZWnfHs/+VTznE/5bhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CqP2Lk4uW83yrNzZ6RibMgF19It1/vGLOkq/IQWQE/c=;
- b=DfBjs4LTbaFcWmRj4VWs2C6pHTwZesKwRQpICL7X93tWwPO829Ife33tc11YtWYFmSzEVnrvVewr7cSx1YDob2WqGL44Sx/VvtlsrplK9UhlgHBzQa/6xi6nFrbfL522ExwfwwMxLwX9uqu5SFQglODC70+9eX9b+8xaRKyWTtHGcBDx7WqTBZnSYkZHrKXKRFjhYfPz8MFDYjXy5J2QvOM6AXsnIkUuw3liS3QUM6HINNxaORZ6tW7Gy3/x+a3eFvLlKYTvsKINnXsk0XutWOwx9/1DYmYb1kfc77ZZAiDsNDZCZNqj8r2ULIp8JASeJQ0NAAL8st4LJygj45uEQw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS6PR12MB600424.namprd12.prod.outlook.com (2603:10b6:8:499::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Sat, 26 Sep
- 2026 15:34:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 15:34:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 00:34:45 +0900
-Message-Id: <DLPCWMGBSMY2.2AYCBL9WM5OGU@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 0/4] nova-core: align Bar0/Bar1 and remvove unnecessary Arc
-References: <20260926124405.604707-1-dakr@kernel.org>
-In-Reply-To: <20260926124405.604707-1-dakr@kernel.org>
-X-ClientProxiedBy: TY6P301CA0001.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0C010E0E3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:47:42 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68QDpBQ03379244
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:47:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=JMZ+iTCkhXTeqoblAjLsoVh6+/LG9XNCLdnREQCp/DI=; b=fO
+ 7jfr7lwRzdlPAXZlW3o5LbBTZrJPA0ZNCtEMuY8mBLR7J/Uz27vkKnTD8FP+KFE8
+ fJQ+ZoF4ph4GuByFffW8/zuGWUILSkvS3B2RNwb+h7b/H0P2RgbU0+1WsjCyifxQ
+ WOmYAPpMQYlcfv9YuASU2K7EhId7nlUTaue6lj/fRjdTO9nAOQqVMr9LCzsDHelT
+ 6C1rZ3/Z80FzeuKOyT3L3kqxdCnNe8wpxmcWGYibLMflEErw3DLrLNbbpTx2wCdt
+ W6jbFVeBJbFExt4YS32LMLGrpITr6PQ0KaHQxqZnI3ji4rjeTqPNc3YysoCozCWF
+ lPa7oOvZoAPfs3iFEmUQ==
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx6e814t0-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:47:41 +0000 (GMT)
+Received: by mail-oa1-f70.google.com with SMTP id
+ 586e51a60fabf-46a4168b520so2066014fac.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 08:47:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790437660; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WOZJwVYFu5XyKF4xIvI4/ZpU0mICOlQ5kQ4QTOp7a7ki7S0TEd47YcjI4tFrkeKaio
+ 9l6KPm0iCPf321FSWxQn+13t4lNPyDASeWKxkzGSa53ihhVmDJUuULO1rRVvaltLNwvP
+ 4O7rMvzqmBdo3q1zl6EjJhrgIvK9ym+qFVpTrhfUp1LdPULTEloART0eNNAg2W+lzJvu
+ dNslnbSbRqfKF1618lb7irx+D1vOMLOFBDP6qCbyroWUYtDmENhHxg3I7BZgQvKt8Dv7
+ c6n8DkGnvQYEj3ePcCU8rs0gGyOhfhYSHQNVUUSNNkMJv3L1PvaJbZL0I7VjpHUBgwam
+ Qz6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=JMZ+iTCkhXTeqoblAjLsoVh6+/LG9XNCLdnREQCp/DI=;
+ fh=hKhCaZnU+QeQD/Q17OmWc/QsWl8p2S/8OOw0R+G3364=;
+ b=hcwDCQVQSriq+eoxlhZKmdKY3a6ICc9mqWBxFfCqwEaNNVlNEiKN0oEfjuTVzNjkud
+ T+isxZswqcHMS7RngDRbRZ+Ln/6Tnh0VNp+lDOOOOPLgRCDSBwLEw7lEb7rRhuiSTzEn
+ /XYbd+xmaKcdRMtHg1xrgKC2lddc2vdaWouhFgXzLFCPjTdxl4FKxO7ExZpfMduibiIC
+ tgpyOor2Vt4Bu8EghSr+3HYi99048vLqCIHAfKsT8rYoUPMQkfAm7TgcgemHEUuHJgY0
+ 3ftHDEnORiPQOYzfvv+zo8TfRuJltXdkkKibgX+qGj1rkGU8L9PM+xNABCy82EI488GO
+ u9cg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790437660; x=1791042460;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=JMZ+iTCkhXTeqoblAjLsoVh6+/LG9XNCLdnREQCp/DI=;
+ b=dXR6m2IjcgasOUorhqGDmdZHAjg4GeUfQT1SpxPwh+BVxVC0Ha7yx6c+ejOTiMQAMS
+ 6BbNnMsBhaFnzvzeRq6+MubwhKiWvRijNGL0w/38A3y9Dmuwyd/afrf2rEBJklB8o+pR
+ ZjLTi4GLxSjZTPD72vY5UybyCtmCuNSWIyZm6BAWVZIK2kTRL87+Rw3Xpjx5qopNdiMe
+ t7OpxkYC62JaH2kTY0bMo5tT46NFPchrJZgILklwJUCG5QvFAbuAUSeqZKIV6bshsTQ0
+ MCXCOYrrHQVHKCg8ZuMgJaXi6V9sR55IAyY0jUsT+RINxb441k+TKF2JsVyW26EdSaZ9
+ ROwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790437660; x=1791042460;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JMZ+iTCkhXTeqoblAjLsoVh6+/LG9XNCLdnREQCp/DI=;
+ b=TOxclMj/5f5TxbkkSdt8EEnye40FZC0FsJciHGL1IPd1iN7b7P3sWVYsQYFmOZbweO
+ LuObB0EXt1dM5s8rcBr0YmYxcvY+iNZ9VJ/q9LmeiZU/TmA5kyKdI3s8+aJ9VcB8l2Lb
+ dlFi6ApI3f8HmLS4oDdFau+Auc3lpY/MrLXE++UIe4PVmY0Z4/lxm4mRLUzHhYMCZCaW
+ jL4Tv9qzRAQcgYiOUIr0bAGP7b19zEfv0gYsoafeEsy6yr6/04p3htHSAepIgbOMbbVV
+ QIFOU+up8xuIfwxU+yYjzRhfDebXbpZDJKi4B49beuMDUj/2nkhM6q5wf2nN/RxJpgrq
+ Qsuw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxMoPGjJB2EoVQdSkryQd3LwqP59YLcNjchm6UZYp1D6TZ5KJyWrNMUL8Fk2fBti8VVQDh3m32961c=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLJu+kTUH+IzJR1xVqv6rdnQkxN22AhwKxKmqhsF2bqC81lTZYo
+ 1cHcJVt+vG0UiWnbNzoCwoHWISNLWzifm/9D1P0WwxhuHfN/XKwrX6EuCxoYpPn/+bnVt9YYGDA
+ LKXU5O8Bdvl9yUny9LmOTJYrh65oRzMCQDaHIrr+aLyxaC5dpAAGVN9a80C8nLADdIVRD9Q1Opq
+ eTPnwA5YHdp63uVxdzzv5nHNg+1geIi5aNpbpksDMWLEL8cA==
+X-Gm-Gg: AYBFou0qTF6tEfcdN1jtuLvK+unsgVUTTptOinC9NYffKAYdjoC72cczRDygYUFlJwd
+ 7JdYU1XndfPoygj6IFRdiPK9Ln/PSdFRB/4PXLwLTLFMiwFn8Ys+CRd+WSBlHZ6J5hSLC+8BqSj
+ R8f74NiokHFOZjBBwhymKwSA/ji2/SweXlwtIHzUfZ03m3hxvubwWljwWs
+X-Received: by 2002:a05:6870:f613:b0:48f:e107:3189 with SMTP id
+ 586e51a60fabf-491e6ce18e8mr8561222fac.41.1790437660433; 
+ Sat, 26 Sep 2026 08:47:40 -0700 (PDT)
+X-Received: by 2002:a05:6870:f613:b0:48f:e107:3189 with SMTP id
+ 586e51a60fabf-491e6ce18e8mr8561187fac.41.1790437659970; Sat, 26 Sep 2026
+ 08:47:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS6PR12MB600424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75852f98-5855-4593-e790-08df1be3b2ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|10070799003|1800799024|366016|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Qg+NeoN/GqSfHn1yJ1lOKZPPq3Z21bTPRZ41soaSYRx7bRV/VFLLJn+h4nBOQLjcardFZ8KORXskSGJdXpDhSILRNHpho8UaC/aIa4tC3FUm41ucIQ9fQciBpW5RW5evS35lIB5Tz0Ji2rGTaFWCdQWfG/YEXJvrXDtY7+LPFlq2THbPhH0SPAYcO03joy5O7c6dTbWWaE2GdxqcuZMkwTRp8IQob2SUnm719MS9QNw5PyTo6KRIgjgTnm56fe4gcw2a4hKyx83o6c9Q8OwKQL/h8sirgrfsxO6fLdUaF3fuJFVfjapVHwDsKigzRCE7nFQK5/jxWWatQ/yobFVZ9QCwkvK3iOF1jxJrV/Jf8/sOqjT0YbQ+GNHTfTyViXyKzOFIlAIkaukpwXIWQtH8DCcYW3yDFspNsMGOba4I3VUJAVsHv+ypKP4hY8CMKsTjSqZfS54WcOuGZJqUcjEWberNbg+t6roNBjs/UgQhO1Y3XnVhzDS/oHfJjo/AuL1+KttN9TfuRNVDJpwvuZDIJs0QOjOtN/gWa/1dxICaUm5K1eOAYbM3VLV15+pQj5uSkxpOwo6x6sOq3QIhgH2KTTS1tFPkqZSC/j16u75lIuYyRXTUBa9idNVXg31AOxnTn6SJymUiLJkD2eG0tzn/+kcWl4GZFQZa6yvHc3JyHeQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(10070799003)(1800799024)(366016)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnFSVGhxQWlJNWVyUVcwdUNMOFdoSTkrWHVoWXc3Q0tkd01mcUtnaU9UTXlB?=
- =?utf-8?B?Wnk1aVBVUkpDdjhsOFJiQXVQRzEvTnZHLzRxWlZPT29LMG0wWlB1bGJLQko4?=
- =?utf-8?B?ZFFPNjRFTzdrTVZ3K0V3RFRqRWVDL1hVSXFPZE9aSEFlNjN0S2svdmFHMUpL?=
- =?utf-8?B?Smtsamt4azVzc3dJblFKd0FLSUtmSERyZVd2amVIcmVOeUtTbHBESnRYMXZh?=
- =?utf-8?B?akV1Nk9zck1aYXF6aG15NUx3S3Q0RW9QVjhvQmw0bll0VUN3R3pMY0FqT2pm?=
- =?utf-8?B?WEw5N0lwbHMwNDVmSWh3WStRV0RyY2lic0tMa2Joei9QZjNQWjQwdFpRbUV4?=
- =?utf-8?B?aGMybHYwNVNTRCtTTWdPQVZ1MjNIOG50ekRveHgwa1I1SkFCdmpHejJrR1Vl?=
- =?utf-8?B?VnlvR3FGMXlBaEVWd29pYnBZL0ptbTV2eVBLRlArc1lkQTEzZlhzWmVyMXR5?=
- =?utf-8?B?bXNVeVNqSlBUSzc3Ky81RFpLS1IvU2V6dFFmMEE0WnVkZ0tvamc4TmZTUCsx?=
- =?utf-8?B?WXlKTWdzZUloLzY5YzMzb082aWk3U2hZcC9OTjVNVldTd3JDZm9VWHh4aUlk?=
- =?utf-8?B?Tkt0bTRLaURPSGN4R0kzYzdkeHc4dGo0Y3lCbGRFcHhlcG1BYjc5dFpWNTJQ?=
- =?utf-8?B?VlhUcGxKeG1DbE5iNG1CUFBueStqWWxNcjQrWFg5NnZuNyszUzRCQW92cTZE?=
- =?utf-8?B?ZUM5TUlXODZ1YSs3aW4rRU9qTHd2UUdGS3VSM3ZDNWprakVuTURicnN1VitB?=
- =?utf-8?B?WTJ6alU2dkpMRmV3Q0NrMC9wZ2NHUUVtbVU1ZCs1ZUxqNE5PUUV0NzlTM2p6?=
- =?utf-8?B?YkVHOGF6Rk1xV2h6RXcrNk1BUVF5NFp0bmE1STNIMW5tR3BYRzJtbGlET3NO?=
- =?utf-8?B?ZTJFNXc0dk83T3YrYkdLcGNDdnRuTTV4a1ovTERFVy9KU0NTRnVZTjI1QlNW?=
- =?utf-8?B?aVAzcjZSYWlhR0hCNXUxaGZDMk54WkJSTnNUd21DaTI3V0M5dWVkbVZrWjh5?=
- =?utf-8?B?bjdRR0RxejdSTjlhNDREREgrVzdUUWxVYWxPa3Q2RGNteS93TTM5cGNyN29M?=
- =?utf-8?B?ZXhqT013L21HcmlsQXA5bE9rU1RLY2hhUlRaQ0Jlcm5zM2hRMjVwT25naXdh?=
- =?utf-8?B?KzJkV1FhNHN3QmhXdFg0MG5PWjh0U2NRWEtLS2hjYUJYbFV6WE9mRUFqMVN4?=
- =?utf-8?B?aFgyYXVSME9CQU5mZUI0V1JQb0FScXl0Lyt2VUFBb2RINzhUUjU0dDIwa0hV?=
- =?utf-8?B?NmhBMURJd0V6OFNNU2YwSS8xTUoya3ZsYm5BSEFmbHprRUVlcUpxVytPUXZL?=
- =?utf-8?B?ZWFqcytxSTJhVnJ5ZWxDRVR4U0ErRlRVSW1uMDNZS0JIbk5mUENtMmZlRitV?=
- =?utf-8?B?bzQ0SW1MOWN3dTZQeTZRWXZPck9pRElZMWlOVzlVeXhWVTN3RkY4Tmd6NHVZ?=
- =?utf-8?B?djd0NDZ2cHd6R0pKTlNUSzRZczVmRWxUOWNjR2NOMDROTUFZVkc0aUpabTA2?=
- =?utf-8?B?UFJYRW0waUdzMTY5cEJVYm1ZUHVKNXlEZlZrWUNic1hiU3NkOHgwZUcyZWdH?=
- =?utf-8?B?Sm1uclVJb0pOd3ZsOHloazdKWWRiTW85U05jWnBoVlFwRHhUTjVOSlRQZmt4?=
- =?utf-8?B?eXQ5ZlNUQ1ZUbnk5U2ZBcU5QS3NVd3dpQU80NzNBSE11Z2dvZ3Vmd2dSSHMv?=
- =?utf-8?B?ajA3Z0oveFlyeERXbkhWZlhpNCtwZk0vOVpGZmVXcWpRRWFiT3Y4ZDVwWmMv?=
- =?utf-8?B?MmZ0cG02YWN6REJmMEhQbTQvUFNST0tQREkrT1BpL3hoNk1VcGFHcnFSazBH?=
- =?utf-8?B?bmNETmxlS21JMlE2eTd0YU9FOVVPTHFjVmlDK1YwNDZFZFFMd1FXcEFZYjB5?=
- =?utf-8?B?RjFGS0JNdE0yeU9rQjFqQUtjVkRWdTVTVFRaTzZtaGR3d2FUaXJzeEhBcHFL?=
- =?utf-8?B?UEtQK3cxSy9Vc1hEVno3bVRBWjdjNHNoSkg1bWhyaG00UmZxZ1d4NXpLZDJ2?=
- =?utf-8?B?cDZDSllJVXlIYlhGczBjVG5FTTlvd3ZzL0UwcmlZQlg2WXkzZS9paVFUbTlo?=
- =?utf-8?B?MGJQNzg5dTMvQTQyUnJkeGhOU0lWOGdkQjdSN0RLQkN6SFNuSmF5bEVua3p6?=
- =?utf-8?B?bUFBdHB6UHB6OGdDTFcvVDd2dmd1S2J2WllVb05TUlF1OC92K1ZNUDVQSVNG?=
- =?utf-8?B?YkZrVkUxQjd2NjBSMHF1U01GS3Y3dGt1Vmg4ZlVSS0ZSdFFsZVQwNi8vQ0U3?=
- =?utf-8?B?R056K2owcHMrQzhWcElEOU90b2l5VDZqOEpZQW93cHVxcDBOclhDN0x6OXZ0?=
- =?utf-8?B?bEpxM1VUMGlYWlJEVVhpVHZoRHo4TU5kK3MyRnAyYk9PajBrZWtHV2ZwQWN3?=
- =?utf-8?Q?RKHNd01ghO53IVju6fVkiQSM/YsfKaXp4h20/9euQo1Oe?=
-X-MS-Exchange-AntiSpam-MessageData-1: LDbNxWfuo1XZDQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75852f98-5855-4593-e790-08df1be3b2ae
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 15:34:48.1706 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7C1ggsYdrkudFwiN00RDTbiZ/5qsdAOyMvCEP4rU2rZVbx5Rh1vbI5IFtUO8LpjOE6j/WC6On90xYr7ZuT+Ikg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB600424
+References: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
+ <20260912-fd-kms-fix-smmu-v3-1-a7ddc6fe2032@oss.qualcomm.com>
+In-Reply-To: <20260912-fd-kms-fix-smmu-v3-1-a7ddc6fe2032@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Sat, 26 Sep 2026 08:47:28 -0700
+X-Gm-Features: AclHuK9cxghme6lV-xoFMmZbZ0mWJR0qaLuDqqfDUs6jVDEGvSERVCEWpuW5hG0
+Message-ID: <CACSVV00XJ4Ad8AMr9C8hv7LjnjVXmG2JrDtJxsyqx=Gz+rZ2XA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/8] drm/msm: serialise framebuffer pin state
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Kalyan Thota <quic_kalyant@quicinc.com>,
+ Federico Amedeo Izzo <federico@izzo.pro>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: G5CyX9qiALjbL8-lhh3GrEro7E7zo8Br
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA2MiBTYWx0ZWRfX3zj0g/dVPopQ
+ a9APOoQWQeKj7ByhZpcvZLcZe4AZ0g2UKs+9E4C3Q/woPqsa7KOeYNZQXvmJI6sqYQOw5Wy03pg
+ jeMh8rtHm6kwPTGYB/8IkTSSdFYFoiEYOSvgV3pWRaxuK+s2htQ6Ln0H2D1dYvJ6PsW2rbIG9If
+ ETnnpIPG98OD3SyxEgj0Qa3iUQS3LPDPtCpUjddXCl2YKr9E4IwyabWScUjYjy30eVZm7KbUB35
+ H8X9/OXmFSBw4NRtMjR1H++0IAKT9RyIVNr6//7WU1D5eCjINEFEbKYQ9Wm7sTGZeu491b1jiTo
+ XKR9ktZNs7uUAPCcRmE4AsgEUZUtw7aQ9l4twiH04eWKG0ILGLxznZU89jbQ8PaDeR0EUj/N9eV
+ m9HacMaV099TROdZS+6i+6kCOU0j+zXp03R7WOZ3HGaybypqHSaXyiI2Uy8pkO1MeLX6qHyAy1F
+ cvoKU00cKeJaw8ae+uA==
+X-Proofpoint-ORIG-GUID: G5CyX9qiALjbL8-lhh3GrEro7E7zo8Br
+X-Authority-Analysis: v=2.4 cv=aIFlOr9m c=1 sm=1 tr=0 ts=6ab7e91d cx=c_pps
+ a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=LMo7-oU2RdcLhoRdf2wA:9
+ a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA2MiBTYWx0ZWRfXzVkhwSOGOiR2
+ P/UYgFmzydD4Fcjz02ADLuzsgVceFvgQsUjjYmYJsizMgYDzS9MDw9aIogsdfxmcBcL5nzSBY5G
+ MGvKYMcDnNVlopoQ6ob1QOGxkEvbXeA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260062
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,22 +166,178 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Sep 26, 2026 at 9:43 PM JST, Danilo Krummrich wrote:
-> Get rid of the Bar0/Bar1 type alias inconsistency and the unnecessary ref=
-erence
-> count of BarUser.
+On Sat, Sep 12, 2026 at 5:48=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 >
-> There's much more to improve, but this just crossed my way.
+> prepare_count, iova[] and the pins they describe are updated locklessly,
+> but drm_atomic_helper_commit() prepares a new state in parallel with the
+> completion of the previous one -- stall_checks() only stalls on the secon=
+d
+> previous commit.  Commit N+1's ->prepare_fb() thus runs while commit N is
+> in ->cleanup_fb(), and for a double-buffered flip that is the same
+> framebuffer:
 >
-> Danilo Krummrich (4):
->   gpu: nova-core: align Bar1 alias with Bar0
->   gpu: nova-core: remove unnecessary Arc around BarUser
->   gpu: nova-core: mm: get rid of Arc<BarUser> in BarUserAccess
->   gpu: nova-core: mm: fix lifetime name in BarUser
+>   cleanup: prepare_count 1 -> 0
+>   prepare: prepare_count 0 -> 1, pins, stores iova[]
+>   cleanup: memset(iova, 0)
+>
+> leaving the plane programmed with a NULL base address:
+>
+>   arm-smmu 15000000.iommu: Unhandled context fault: fsr=3D0x402,
+>       iova=3D0x00000100, fsynr=3D0x3e0023, cbfrsynra=3D0x1c00, cb=3D11
+>
+> The opposite order is broken too since commit 8ac37c88f991 ("drm/msm:
+> Refcount framebuffer pins"): a prepare which finds the count non-zero
+> returns at once, assuming iova[] is populated.
+>
+> Both callbacks may sleep, so a mutex will do.  drm_framebuffer_init()
+> adds the framebuffer to the object idr, from where userspace can reach it
+> before msm_framebuffer_init() returns, so take the private state out of
+> its way and initialise it first.
+>
+> Fixes: 8ac37c88f991 ("drm/msm: Refcount framebuffer pins")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_fb.c | 44 +++++++++++++++++++++++++++++++++-----=
+------
+>  1 file changed, 33 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+> index 60c108d35d2a..77415302e6d8 100644
+> --- a/drivers/gpu/drm/msm/msm_fb.c
+> +++ b/drivers/gpu/drm/msm/msm_fb.c
+> @@ -22,9 +22,12 @@ struct msm_framebuffer {
+>         /* Count of # of attached planes which need dirtyfb: */
+>         refcount_t dirtyfb;
+>
+> +       /* Protects the pin state below: */
+> +       struct mutex lock;
+> +
+>         /* Framebuffer per-plane address, if pinned, else zero: */
+>         uint64_t iova[DRM_FORMAT_MAX_PLANES];
+> -       atomic_t prepare_count;
+> +       unsigned int prepare_count;
+>  };
+>  #define to_msm_framebuffer(x) container_of(x, struct msm_framebuffer, ba=
+se)
+>
+> @@ -45,9 +48,17 @@ static int msm_framebuffer_dirtyfb(struct drm_framebuf=
+fer *fb,
+>                                          clips, num_clips);
+>  }
+>
+> +static void msm_framebuffer_destroy(struct drm_framebuffer *fb)
+> +{
+> +       struct msm_framebuffer *msm_fb =3D to_msm_framebuffer(fb);
+> +
+> +       mutex_destroy(&msm_fb->lock);
+> +       drm_gem_fb_destroy(fb);
+> +}
+> +
+>  static const struct drm_framebuffer_funcs msm_framebuffer_funcs =3D {
+>         .create_handle =3D drm_gem_fb_create_handle,
+> -       .destroy =3D drm_gem_fb_destroy,
+> +       .destroy =3D msm_framebuffer_destroy,
+>         .dirty =3D msm_framebuffer_dirtyfb,
+>  };
+>
+> @@ -76,13 +87,15 @@ int msm_framebuffer_prepare(struct drm_framebuffer *f=
+b, bool needs_dirtyfb)
+>         struct msm_drm_private *priv =3D fb->dev->dev_private;
+>         struct drm_gpuvm *vm =3D priv->kms->vm;
+>         struct msm_framebuffer *msm_fb =3D to_msm_framebuffer(fb);
+> -       int ret, i, n =3D fb->format->num_planes;
+> +       int ret =3D 0, i, n =3D fb->format->num_planes;
+>
+>         if (needs_dirtyfb)
+>                 refcount_inc(&msm_fb->dirtyfb);
+>
+> -       if (atomic_inc_return(&msm_fb->prepare_count) > 1)
+> -               return 0;
+> +       mutex_lock(&msm_fb->lock);
 
-The series,
+guard(mutex)(&msm_fb->lock) ??
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+here and below that would simplify the error path
+
+BR,
+-R
+
+> +
+> +       if (msm_fb->prepare_count++)
+> +               goto out;
+>
+>         for (i =3D 0; i < n; i++) {
+>                 msm_gem_vma_get(fb->obj[i]);
+> @@ -90,10 +103,13 @@ int msm_framebuffer_prepare(struct drm_framebuffer *=
+fb, bool needs_dirtyfb)
+>                 drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
+>                               fb->base.id, i, msm_fb->iova[i], ret);
+>                 if (ret)
+> -                       return ret;
+> +                       break;
+>         }
+>
+> -       return 0;
+> +out:
+> +       mutex_unlock(&msm_fb->lock);
+> +
+> +       return ret;
+>  }
+>
+>  void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dir=
+tyfb)
+> @@ -106,8 +122,10 @@ void msm_framebuffer_cleanup(struct drm_framebuffer =
+*fb, bool needed_dirtyfb)
+>         if (needed_dirtyfb)
+>                 refcount_dec(&msm_fb->dirtyfb);
+>
+> -       if (atomic_dec_return(&msm_fb->prepare_count))
+> -               return;
+> +       mutex_lock(&msm_fb->lock);
+> +
+> +       if (--msm_fb->prepare_count)
+> +               goto out;
+>
+>         memset(msm_fb->iova, 0, sizeof(msm_fb->iova));
+>
+> @@ -115,6 +133,9 @@ void msm_framebuffer_cleanup(struct drm_framebuffer *=
+fb, bool needed_dirtyfb)
+>                 msm_gem_unpin_iova(fb->obj[i], vm);
+>                 msm_gem_vma_put(fb->obj[i]);
+>         }
+> +
+> +out:
+> +       mutex_unlock(&msm_fb->lock);
+>  }
+>
+>  uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane)
+> @@ -199,14 +220,15 @@ msm_framebuffer_init(struct drm_device *dev, const =
+struct drm_format_info *info,
+>
+>         drm_helper_mode_fill_fb_struct(dev, fb, info, mode_cmd);
+>
+> +       refcount_set(&msm_fb->dirtyfb, 1);
+> +       mutex_init(&msm_fb->lock);
+> +
+>         ret =3D drm_framebuffer_init(dev, fb, &msm_framebuffer_funcs);
+>         if (ret) {
+>                 DRM_DEV_ERROR(dev->dev, "framebuffer init failed: %d\n", =
+ret);
+>                 goto fail;
+>         }
+>
+> -       refcount_set(&msm_fb->dirtyfb, 1);
+> -
+>         drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb);
+>
+>         return fb;
+>
+> --
+> 2.47.3
+>
