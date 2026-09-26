@@ -4,55 +4,197 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20B0CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C0CC9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D437110E86F;
-	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E9B10E875;
+	Mon, 28 Sep 2026 08:42:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="EC6Qmmey";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IlgmnWC0";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 384E210E029
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:18:06 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68QAHR8a014899
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Sat, 26 Sep 2026 19:17:28 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=Si0qkEJOOGZg860PSDMWBkQye22Dh1G8xdAkw+9Al5w=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1790417848; v=1;
- b=EC6QmmeyTHnZOZVg4KHZOt86u47eru0KSAYjiS1pWyi8ZEzuW5R07nCscWWOpTlK
- PVVzUpBiL04W0RNAJkeL9fEJJcljWXFEjf4TiJFFXw8rN+oCyMEnETHCCZE1ML/8
- khlNfIlVtADuF0qEg8/kVnrwYoSr2qWik8tPiBHkNqN4RAzJm+EXkR6X9N9ozkc4
- fFHInBt8TQXOlJX24mu/KF3PeagPVNC3jH6yHY4Tzry4ojL1KSV9TJCapdmOZPME
- ATgT/HaIpTYUggMu1rRd94NiFQ556ft0sWdEmjZjTwsceOs5ZgR4oUUtVRBwAqWu
- iADtxZ7wUq/90M5EE4kSMg==
-Message-ID: <ffc008e6-90b1-499b-9ce2-e668cd818699@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sat, 26 Sep 2026 19:17:27 +0900
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14E2210FD1C
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 01:38:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nvoe+6KAlh9q4MhGIK0UDQg/EYvSIh2qF+dvQtLnaboA6F7xJf45zMPl4q4fHZU0OJUh8HSsJVmE+3Q/i7meFV3A0zxihk9GcXjL1IjsQaOdboX6Dce+eIlFc93YkfHXHKVo/5MYa5stBSjMCAOYLKpsLk0h2f2BGedQT6MezOF4pwePlBRHceI1sEvTRj8IEEdxP3T+E9mzhrZXnAAaMLLAJt3k/I/F4LJqcizZCxxqSYDh9f9k2Z8xDhPcNfvQT57QkUg5W1kZFE/Rlme4J8WpMIW/KloP5mHk3NKbHTA/DzZ3yz2c8vscKf+Ye47u1tRQaB8nC1isIjJKWEsOfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JREHSo7U9IfHqKqetOS7hWZc9sDxByVpwPxnE1Mw09Q=;
+ b=Lyfs+cJXBtFi26dK2WzE1vLfJgTzu0rLEXIprhcRJEtkHEGB3btLmSrHNXF1N7sLQkC89iKPaiDFCn9ujAwXqTHa7ispVK3tEGbXSd3Gt8wHeSCFOG5CP1bA+YIcNg/PFVKw8jh6RynlifufJ18AbHnUwzqAqQJkKRCn3as50kXFz1ABQ4bKZtJ2CcWRc4SF7sAFHEW7993Q7bZ1ilUhGY0vcAfIvthpSWq5gM988ct10JOJGI5YIGfCLU7t+TfdYgntcgjU3rTxMACfI1oaEXlZyJ9Q2yQZxDfyVgrKts1cbtImiXfZIO4zayZKI0WjHAaC/nv7zSsb6vbdMbP1lA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JREHSo7U9IfHqKqetOS7hWZc9sDxByVpwPxnE1Mw09Q=;
+ b=IlgmnWC0rE/hjKPkhzRPb5WBKdrd91VzGb7XPPYpP5meQ00MvavGEh4qjtsyoZP47yfHwesFTsYgyv6rAG7Fg9yAlaLmNQ59TqwjXR29YNzE1THb2BQVwxIHHaCS1hst/i0F4Wguk99xqh/n/K/6xO6icloPdsORyojdNMRxFcd33r4WTjqlHzIC6nA14gkuVNw0pLzhwGdW7DKvTw/lAYVAt0m+xNx8qyfIb30szdMOvYVHyEWp24RWz9knmUEGcWlvd3SwsOlVULHF/7bGWxqtZIugT12i4CjvfOdhDo9P6efBbf2kyfzXQU+9DyJxtO03gsFhkEm1AdMqLvqRXQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB7502.namprd12.prod.outlook.com (2603:10b6:8:112::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Sat, 26 Sep
+ 2026 01:37:58 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 01:37:58 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 21:37:54 -0400
+Message-Id: <DLOV3VTNOBPL.193R3V124JURK@nvidia.com>
+Subject: Re: [PATCH v3 15/40] mm/vma: add vma[_flags]_is_kernel_owned()
+ predicates
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
+ <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
+ <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
+ <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
+ "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
+ Moore" <paul@paul-moore.com>, "Stephen Smalley"
+ <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
+ "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
+ Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
+ Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
+ Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
+ <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
+ <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
+ <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
+ <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
+ <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
+ <vincent.guittot@linaro.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
+ Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
+ <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
+ <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
+ <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
+ <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
+ <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
+ Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
+ He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
+ <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
+ <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
+ Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
+ <xu.xin@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+X-ClientProxiedBy: IA1P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:461::7) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/4] drm/virtio: implement userptr support for
- zero-copy memory access
-To: "Huang, Honglei" <honghuan@amd.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-4-honghuan@amd.com>
- <30ce57b1-21ab-4fb3-9e6c-75d061807b17@rsg.ci.i.u-tokyo.ac.jp>
- <4813f53c-d6f4-4e2b-a92d-2218b6e49951@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <4813f53c-d6f4-4e2b-a92d-2218b6e49951@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB7502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 545be6ab-443e-42d1-8b0e-08df1b6ecb54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|7416014|1800799024|921020|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: eHTozzARUAPxautQc1g9RpS1Mb919g7GvHX3YmPnOtBZeaoLZ2ADMz+gWYvXqcBVfq/FUJK8gjMMH2y0ELwdrLt+g3ZaKBBKL2Aq6L91xZ/b8Z/T5lDVyXK1dpD2Pov8FrLNOeXQs+GYiqCX6OSOY6YCwg5dXXvudw7uPOkLjf8dCh/p6nKZ3dvvozUzcnGsoxrdd1dpdYuTc93yE/y+N5+D6RztFnm/J8jQw2FjjIrAd7FzboO6ea8fUMUExYKd2zdrcq/q6rXQ0vNqbK+BDfGXXojKaFHMZ/Ht64s1CmfYNlDHGgKumfO1ZmvrGqlTyme2BOsPiH4uksM1oDVZOgx69LGbUAZb/kmF0utEFkbjFBOl+uwUelfb54j+xpHwJbyaq5hE8fymtnL5lovlenfoRpXFqj6R7A6Zjjz5aUeC4uUVHjOFBWErnsUaX8QUj78oVnPDlb2FWFZaRY2oxlTG0Vt2r9czLLJip6jcjS9uLAONOZDvyJp79gbotv1T7g4nMpVCZNvu5Xc+OripRjMiQpS6kAI7rioDX/nvLESDj4jSXBmjy8hVDtFp1c477E/59qTwUfyMxhPPCdpTDFUCrfWUYFh3HNdaAfDnmZM0GSzhnOvIKXg4QhY7XRl87YD4E0Gf7XudDGBaDjOJLN61JB85VYqgNqTj8gVDEWrzjYP0XgbOOxT8KgOMnBUdiYItMPnw0O5m5YcY/q7eqA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXZjcnl1QlloWUJQWStML09WWWNZSG9pWHFXZ0lOR3lSUERERUVJZlk1SzVu?=
+ =?utf-8?B?VTZDQ0dOaFJpL3BYWWNKc3FtT1RvS0kxcDdrdWpRTFZta2pxZTRJZ3R6RHhT?=
+ =?utf-8?B?T29ZU1lvSEZpdFh3VGtFN1padUphVEZsZS85SS9SZS9TaTJMd2JHS3FvNDYx?=
+ =?utf-8?B?TnVyQy95SFlnYytwb1ZZZFdXTm1mMitoUmNVYmNNcWpHZUt3NUlFMEZuVGJk?=
+ =?utf-8?B?Q0VqMHNSa3JndVYrbGNUL2NrYjdkelV2d3U2bVBxR1RrbC9QWWtITnR6RGd3?=
+ =?utf-8?B?UTk3K2N5azEwYUx5NytSU0poUnV2cys1NnJaUm1Bclkwd2kzcFBVbnRPVmNU?=
+ =?utf-8?B?R291b2pVYzVEYVdsdUhVSmVVa3F3OXhrMm1yd0lXMFNKTzM3T0lZMmlnd2xE?=
+ =?utf-8?B?RUY0K05IZVlkK3V1cStDdFJOU012RDNBSERJUDdQdmo5cVJnMlFMalJmYUY0?=
+ =?utf-8?B?N29ockJXVWZLRkcwTVlNMXZzZlJwSmdJYWJrcFk2Uk9mWTdITGRmalRFYllw?=
+ =?utf-8?B?dkRObXFCcHI3SGVpcm1Xd3hJb01xYXY3MjZTTVRPV0hyYlJDK2hGZzd5VC9r?=
+ =?utf-8?B?aUR3OStZN1lIckdZaVk2aVRBTE5EZlVpcGFqRENPeHBVS0VPZmNiVUFra29n?=
+ =?utf-8?B?ajRtaTYzb2sraUs2ek5KM2NvTktDOGt2NmY3Tnp4bGZSQ2lDRnEzbUkzRkYw?=
+ =?utf-8?B?S0VBa3dnOEZYT0tQNzNRb2wwSGVYY3hTa083YkhsRmYrdlFiZjhhTmxTc2ho?=
+ =?utf-8?B?SXU1UCswTWs5VDlEVTJjNHZpTy91Q2FUT3dnQ0l1Z2E1RWVpYUxOdjRUa1dN?=
+ =?utf-8?B?R3FaeGNoM01xTFh0NVdvTVZiSXpEcUhmbEUrdXpJNUZTTmFDeit3Y3pQd3ox?=
+ =?utf-8?B?VUtoZjVtcGN6MmN4ZlowcFFCaTlvVmtIWDA0YzlrUmpxQ2RXckxEdzJGanV4?=
+ =?utf-8?B?Y1JMaUtqS0FKUFlwMWRSZkZhcVBJYWV6YTFXZ05HcnRWOStieWQvYkZmdXlx?=
+ =?utf-8?B?dmhwL0ZUS2ZkdnRZcjNhb0M2cENFUzYvV005R2JqbUFXZWlwUmcyRFU0YnJJ?=
+ =?utf-8?B?ZVl2LytselRKOUVCQS9IYUNCeDJ3aURTWEpnRW1kaktsdXluWmREc3JVYW04?=
+ =?utf-8?B?cjlnM3FwK3d6cnkwa1YwMVFUbHF0VS94VVJNMytQNkkrSk5QQXhGZ1J6WWVi?=
+ =?utf-8?B?eC9UUjhtaFpEbUJzVUx1SGJhMVR6aVZyVWJvQ3YvMXlaZW9IVW9JQ2pJUUZp?=
+ =?utf-8?B?N3NYU0xCLzNiMkpxSDc1SndpLzlNenJnTVlCTGNPWXJzdnYrdGk0b2lxRENs?=
+ =?utf-8?B?ZzM0NUQ4UEU0MFJoaDBxSVhjWmRkSW5oYmpEYldISzJRRXRHWmUrV05Fb1du?=
+ =?utf-8?B?c3lCU1FqdXhIbkpWaDhMeFBNTm5WMnRHbXJhY1lwb3hIVktkMWhyUnZjRjhM?=
+ =?utf-8?B?N2JWRWtPbXRjQWo1SVpwRzBSTldzREN3WFZSTDRJUlE1Wi9pNVhwcWRlVEd1?=
+ =?utf-8?B?N1YwY0FNWmMrZjcxR0ZmWEVHbTNVeWs5R3NkNktYemRDL1ZVWUpqdmtLd3Ew?=
+ =?utf-8?B?Mno2ekFjWEdpcmJHME4renB5cFFRMDlPa2VDbUNIdW50VUUvelJ1ZTY5UlB5?=
+ =?utf-8?B?NGNOR3RZck9HWEh1YndsVTEzaVNaOURzUFFJVmY4RmRjRmx3ZXNpL2hTNUpq?=
+ =?utf-8?B?MFltV2hJeXNDOVlWaEY5WTBhc2ZPd3dZd0l6UXdreTdNLytsZ2ZxZlRMbzhQ?=
+ =?utf-8?B?UUlCUGVUYktwVzMyOGFwVlJKVlJlN1NKUy9zeFM5cDNvdG5aSUVReWxXVHFm?=
+ =?utf-8?B?a0Y4OFMyUEVmVFQ5Tk0yeDQxeXQvQmFZaFN0U2ZObnRlMXlxNmJZdG12WldI?=
+ =?utf-8?B?aWh6TlNFb0RsNjdlbmVjdVpXK3RTWnhtVTR2YUVLWHE0VFB4aldNS3dYWVBn?=
+ =?utf-8?B?b0J3MlpTVUVzTFFNR3EzL25Ga1B3MzdFZlNoeWRGWTcyZ0N4SS9BSm05SFJV?=
+ =?utf-8?B?YXUrSDNNTHFQbGJEQ2d5TFpKaVIwSVJPeWM2eGY4QlRxaEVXYTNUc0VOSDRO?=
+ =?utf-8?B?Qk02djV0blVQOWJvWENoK21JYVRwUEI0UURKQ3BCTktaNFpxa3FFNDJ5RXU2?=
+ =?utf-8?B?N1VwSVM2MDIxMzhhUE1xSC9wbU1vRTR2YVBRdDc5SGtFYTlRNHhwWUFqZWha?=
+ =?utf-8?B?a21xTU8xaHF5Q0h2UnZ5cDBMN0cyUkpUS1lNYzlkVVJ0MUdiUGpvOFJEUXNv?=
+ =?utf-8?B?dFVKckJMb3ZEeUlxcFNCRk1zeVpSMzdtb01lMERLSHVaWlBoMnBJbDF1aDZR?=
+ =?utf-8?Q?8VYEs3y2DAyj0D4u5q?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 545be6ab-443e-42d1-8b0e-08df1b6ecb54
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:37:58.3051 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iG06bl6AsetwrGy8rU0jwt7ivW5xr1TeQD552YR9eamAkcxdA76zYOCom8MtghrX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7502
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,644 +211,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/09/24 18:25, Huang, Honglei wrote:
-> 
-> 
-> On 9/19/2026 4:59 PM, Akihiko Odaki wrote:
->> On 2026/09/18 18:59, Honglei Huang wrote:
->>> Add userptr blob objects so the guest kernel can pin an existing
->>> userspace mapping and advertise it as CREATE_BLOB backing entries.
->>>
->>> - New virtio_gpu_object_userptr type for userptr resources
->>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
->>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
->>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
->>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
->>> - Sync userptr SG for the device on TRANSFER_TO_HOST
->>> - Mark writable pages dirty when unpinning
->>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->>>    cleanup_object() on the unref response or on create failure
->>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
->>> - Reject unaligned or overflowing userptr ranges at create time
->>> - Disallow PRIME export of userptr objects
->>> - Save CREATE_BLOB params and restore userptr resources after
->>>    hibernation without using the shmem restore path
->>>
->>> Signed-off-by: Honglei Huang <honghuan@amd.com>
->>> ---
->>>   drivers/gpu/drm/virtio/Makefile          |   3 +-
->>>   drivers/gpu/drm/virtio/virtgpu_drv.h     |  43 +++
->>>   drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
->>>   drivers/gpu/drm/virtio/virtgpu_userptr.c | 365 +++++++++++++++++++++++
->>>   drivers/gpu/drm/virtio/virtgpu_vq.c      |  33 +-
->>>   5 files changed, 456 insertions(+), 10 deletions(-)
->>>   create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
->>>
->>> diff --git a/drivers/gpu/drm/virtio/Makefile b/drivers/gpu/drm/ 
->>> virtio/ Makefile
->>> index d2e1788a82..fe7332a621 100644
->>> --- a/drivers/gpu/drm/virtio/Makefile
->>> +++ b/drivers/gpu/drm/virtio/Makefile
->>> @@ -6,6 +6,7 @@
->>>   virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_gem.o 
->>> virtgpu_vram.o \
->>>       virtgpu_display.o virtgpu_vq.o \
->>>       virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o 
->>> virtgpu_plane.o \
->>> -    virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o 
->>> virtgpu_submit.o
->>> +    virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o 
->>> virtgpu_submit.o \
->>> +    virtgpu_userptr.o
->>>   obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/ 
->>> virtio/virtgpu_drv.h
->>> index 9df4c71173..e0941cc187 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> @@ -105,6 +105,7 @@ struct virtio_gpu_object_params {
->>>       uint32_t blob_flags;
->>>       uint64_t blob_id;
->>>       uint32_t blob_hints;
->>> +    uint64_t userptr;
->>>   };
->>>   struct virtio_gpu_object {
->>> @@ -138,12 +139,42 @@ struct virtio_gpu_object_vram {
->>>       struct drm_mm_node vram_node;
->>>   };
->>> +struct virtio_gpu_object_userptr;
->>> +
->>> +struct virtio_gpu_object_userptr_ops {
->>> +    int (*get_pages)(struct virtio_gpu_object_userptr *userptr);
->>> +    void (*put_pages)(struct virtio_gpu_object_userptr *userptr);
->>> +};
->>> +
->>> +struct virtio_gpu_object_userptr {
->>> +    struct virtio_gpu_object base;
->>> +    const struct virtio_gpu_object_userptr_ops *ops;
->>> +    /* Protects pages and sgt. */
->>> +    struct mutex lock;
->>> +
->>> +    uint64_t start;
->>> +    uint32_t npages;
->>> +    uint32_t bo_handle;
->>> +    uint32_t flags;
->>> +
->>> +    struct virtio_gpu_device *vgdev;
->>> +    struct drm_file *file;
->>> +    struct page **pages;
->>> +    struct sg_table *sgt;
->>> +    bool dma_mapped;
->>> +    enum dma_data_direction dma_dir;
->>> +    struct mm_struct *mm;
->>> +};
->>> +
->>>   #define to_virtio_gpu_shmem(virtio_gpu_object) \
->>>       container_of((virtio_gpu_object), struct 
->>> virtio_gpu_object_shmem, base)
->>>   #define to_virtio_gpu_vram(virtio_gpu_object) \
->>>       container_of((virtio_gpu_object), struct 
->>> virtio_gpu_object_vram, base)
->>> +#define to_virtio_gpu_userptr(virtio_gpu_object) \
->>> +    container_of((virtio_gpu_object), struct 
->>> virtio_gpu_object_userptr, base)
->>> +
->>>   struct virtio_gpu_object_array {
->>>       struct ww_acquire_ctx ticket;
->>>       struct list_head next;
->>> @@ -284,6 +315,7 @@ struct virtio_gpu_device {
->>>       bool has_host_visible;
->>>       bool has_context_init;
->>>       bool has_blob_alignment;
->>> +    bool has_blob_readonly;
->>>       bool hibernated;
->>>       struct virtio_shm_region host_visible_region;
->>>       struct drm_mm host_visible_mm;
->>> @@ -562,4 +594,15 @@ void virtio_gpu_vram_map_deferred(struct 
->>> virtio_gpu_object_vram *vram);
->>>   int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
->>>                   struct drm_file *file);
->>> +/* virtgpu_userptr.c */
->>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->>> +                  struct drm_file *file,
->>> +                  struct virtio_gpu_object_params *params,
->>> +                  struct virtio_gpu_object **bo_ptr);
->>> +bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo);
->>> +void virtio_gpu_userptr_dma_sync_for_device(struct virtio_gpu_object 
->>> *bo);
->>> +int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
->>> +                   struct virtio_gpu_object *bo,
->>> +                   struct virtio_gpu_mem_entry **ents,
->>> +                   unsigned int *nents);
->>>   #endif
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/ 
->>> drm/virtio/virtgpu_object.c
->>> index 49899485be..ab21494b1c 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_object.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_object.c
->>> @@ -91,6 +91,16 @@ void virtio_gpu_cleanup_object(struct 
->>> virtio_gpu_object *bo)
->>>           drm_gem_free_mmap_offset(&vram->base.base.base);
->>>           drm_gem_object_release(&vram->base.base.base);
->>>           kfree(vram);
->>> +    } else if (virtio_gpu_is_userptr(bo)) {
->>> +        struct virtio_gpu_object_userptr *userptr =
->>> +            to_virtio_gpu_userptr(bo);
->>> +
->>> +        mutex_lock(&userptr->lock);
->>> +        userptr->ops->put_pages(userptr);
->>> +        mutex_unlock(&userptr->lock);
->>> +        mutex_destroy(&userptr->lock);
->>> +        drm_gem_object_release(&userptr->base.base.base);
->>> +        kfree(userptr);
->>>       } else {
->>>           drm_gem_object_release(&bo->base.base);
->>>           kfree(bo);
->>> @@ -316,6 +326,18 @@ int virtio_gpu_object_restore_all(struct 
->>> virtio_gpu_device *vgdev)
->>>               continue;
->>>           }
->>> +        if (virtio_gpu_is_userptr(bo)) {
->>> +            ret = virtio_gpu_userptr_restore(vgdev, bo, &ents,
->>> +                             &nents);
->>> +            if (ret)
->>> +                break;
->>> +
->>> +            virtio_gpu_cmd_resource_create_blob(vgdev, bo,
->>> +                                &bo->params,
->>> +                                ents, nents);
->>> +            continue;
->>> +        }
->>> +
->>>           if (bo->params.blob || bo->attached) {
->>>               ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents,
->>>                                  &nents);
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/ 
->>> drm/virtio/virtgpu_userptr.c
->>> new file mode 100644
->>> index 0000000000..ccfd96844e
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
->>> @@ -0,0 +1,365 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +#include <linux/dma-mapping.h>
->>> +#include <linux/limits.h>
->>> +#include <linux/mm.h>
->>> +#include <linux/overflow.h>
->>> +#include <linux/pid.h>
->>> +#include <linux/sched/mm.h>
->>> +#include <linux/sched/signal.h>
->>> +#include <linux/vmalloc.h>
->>> +
->>> +#include "virtgpu_drv.h"
->>> +#include <drm/drm_gem.h>
->>> +
->>> +static void virtio_gpu_userptr_free(struct drm_gem_object *obj)
->>> +{
->>> +    struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
->>> +    struct virtio_gpu_device *vgdev = obj->dev->dev_private;
->>> +
->>> +    /*
->>> +     * Keep pages pinned until RESOURCE_UNREF completes. The response
->>> +     * callback calls virtio_gpu_cleanup_object(), which drops them.
->>> +     */
->>> +    if (bo->created) {
->>> +        virtio_gpu_remove_from_restore_list(bo);
->>> +        virtio_gpu_cmd_unref_resource(vgdev, bo, false);
->>> +        virtio_gpu_notify(vgdev);
->>> +        return;
->>> +    }
->>> +
->>> +    virtio_gpu_cleanup_object(bo);
->>> +}
->>> +
->>> +static struct dma_buf *
->>> +virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
->>> +{
->>> +    return ERR_PTR(-EINVAL);
->>> +}
->>> +
->>> +static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
->>> +    .open = virtio_gpu_gem_object_open,
->>> +    .close = virtio_gpu_gem_object_close,
->>> +    .free = virtio_gpu_userptr_free,
->>> +    .export = virtio_gpu_userptr_prime_export,
->>> +};
->>> +
->>> +bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo)
->>> +{
->>> +    return bo->base.base.funcs == &virtio_gpu_userptr_funcs;
->>> +}
->>> +
->>> +void virtio_gpu_userptr_dma_sync_for_device(struct virtio_gpu_object 
->>> *bo)
->>> +{
->>> +    struct virtio_gpu_object_userptr *userptr = 
->>> to_virtio_gpu_userptr(bo);
->>> +    struct device *dev;
->>> +
->>> +    if (!userptr->dma_mapped)
->>> +        return;
->>> +
->>> +    dev = drm_dev_dma_dev(userptr->base.base.base.dev);
->>> +    dma_sync_sgtable_for_device(dev, userptr->sgt, DMA_TO_DEVICE);
->>> +}
->>> +
->>> +static int
->>> +virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
->>> +{
->>> +    unsigned int flag = FOLL_LONGTERM;
->>> +    unsigned int num_pages, pinned = 0;
->>> +    int ret = 0;
->>> +
->>> +    if (userptr->pages)
->>> +        return 0;
->>> +
->>> +    userptr->pages = kvmalloc_array(userptr->npages, sizeof(struct 
->>> page *),
->>> +                    GFP_KERNEL);
->>> +    if (!userptr->pages)
->>> +        return -ENOMEM;
->>> +
->>> +    if (!(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY))
->>> +        flag |= FOLL_WRITE;
->>> +
->>> +    do {
->>> +        num_pages = userptr->npages - pinned;
->>> +
->>> +        ret = pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
->>> +                      num_pages, flag,
->>> +                      userptr->pages + pinned);
->>> +
->>> +        if (ret < 0) {
->>> +            if (pinned)
->>> +                unpin_user_pages(userptr->pages, pinned);
->>> +            kvfree(userptr->pages);
->>> +            userptr->pages = NULL;
->>> +            return ret;
->>> +        }
->>> +
->>> +        pinned += ret;
->>> +
->>> +    } while (pinned < userptr->npages);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static void
->>> +virtio_gpu_userptr_unaccount(struct virtio_gpu_object_userptr *userptr)
->>> +{
->>> +    if (!userptr->mm)
->>> +        return;
->>> +
->>> +    atomic64_sub(userptr->npages, &userptr->mm->pinned_vm);
->>> +    mmdrop(userptr->mm);
->>> +    userptr->mm = NULL;
->>> +}
->>> +
->>> +static void
->>> +virtio_gpu_userptr_put_pages(struct virtio_gpu_object_userptr *userptr)
->>> +{
->>> +    struct drm_device *dev = userptr->base.base.base.dev;
->>> +
->>> +    if (userptr->sgt) {
->>> +        if (userptr->dma_mapped)
->>> +            dma_unmap_sgtable(drm_dev_dma_dev(dev), userptr->sgt,
->>> +                      userptr->dma_dir, 0);
->>> +        userptr->dma_mapped = false;
->>> +        sg_free_table(userptr->sgt);
->>> +        kfree(userptr->sgt);
->>> +        userptr->sgt = NULL;
->>> +    }
->>> +
->>> +    if (userptr->pages) {
->>> +        bool dirty = !(userptr->flags & 
->>> VIRTGPU_BLOB_FLAG_USE_READONLY);
->>> +
->>> +        unpin_user_pages_dirty_lock(userptr->pages, userptr->npages,
->>> +                        dirty);
->>> +        kvfree(userptr->pages);
->>> +        userptr->pages = NULL;
->>> +    }
->>> +
->>> +    virtio_gpu_userptr_unaccount(userptr);
->>> +}
->>> +
->>> +static int
->>> +virtio_gpu_userptr_get_entries(struct virtio_gpu_device *vgdev,
->>> +                   struct virtio_gpu_object_userptr *userptr,
->>> +                   struct virtio_gpu_mem_entry **ents,
->>> +                   unsigned int *nents)
->>> +{
->>> +    bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->>> +    struct scatterlist *sg;
->>> +    unsigned int count;
->>> +    int si;
->>> +
->>> +    count = use_dma_api ? userptr->sgt->nents : userptr->sgt- 
->>> >orig_nents;
->>> +    if (!count)
->>> +        return -EINVAL;
->>> +
->>> +    *ents = kvmalloc_array(count, sizeof(**ents), GFP_KERNEL);
->>> +    if (!*ents)
->>> +        return -ENOMEM;
->>> +
->>> +    if (use_dma_api) {
->>> +        for_each_sgtable_dma_sg(userptr->sgt, sg, si) {
->>> +            (*ents)[si].addr = cpu_to_le64(sg_dma_address(sg));
->>> +            (*ents)[si].length = cpu_to_le32(sg_dma_len(sg));
->>> +            (*ents)[si].padding = 0;
->>> +        }
->>> +    } else {
->>> +        for_each_sgtable_sg(userptr->sgt, sg, si) {
->>> +            (*ents)[si].addr = cpu_to_le64(sg_phys(sg));
->>> +            (*ents)[si].length = cpu_to_le32(sg->length);
->>> +            (*ents)[si].padding = 0;
->>> +        }
->>> +    }
->>> +
->>> +    *nents = count;
->>> +    return 0;
->>> +}
->>> +
->>> +int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
->>> +                   struct virtio_gpu_object *bo,
->>> +                   struct virtio_gpu_mem_entry **ents,
->>> +                   unsigned int *nents)
->>> +{
->>> +    struct virtio_gpu_object_userptr *userptr = 
->>> to_virtio_gpu_userptr(bo);
->>> +    int ret;
->>> +
->>> +    mutex_lock(&userptr->lock);
->>> +    if (!userptr->sgt || !userptr->pages) {
->>> +        mutex_unlock(&userptr->lock);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    if (userptr->dma_mapped) {
->>> +        struct device *dev = drm_dev_dma_dev(vgdev->ddev);
->>> +
->>> +        dma_unmap_sgtable(dev, userptr->sgt, userptr->dma_dir, 0);
->>> +        userptr->dma_mapped = false;
->>> +        ret = dma_map_sgtable(dev, userptr->sgt, userptr->dma_dir, 0);
->>
->> This maps with attributes 0, allowing bounce buffers instead of
->> "zero-copy memory access". It is also unclear what coherence guarantee 
->> the UAPI is intended to provide.
-> 
-> 
-> This is a good point, will modify the commit and patch tittle to remove
-> ero-copy memory access.
-> And in virtio_gpu_object_shmem_init it also uses dma_map_sgtable(..., 
-> 0), so keep 0 here.
+On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> Rather than referring to VMA flags with uncertain meaning, add a new
+> predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+> or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+> determining VMA mergeability.
+>
+> Either flag means the contents of the mapping are owned by the kernel,
+> usually a driver, rather than by the core mm: the memory may be MMIO,
+> kernel-allocated pages or even ordinary pages the driver maps itself, but
+> the core must not populate, reclaim, migrate, copy-on-write or merge the
+> range on its own initiative.
+>
+> We initially also include VMA_IO_BIT here, as by implication, these must =
+be
+> kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+> while locking them, which is addressed later in this series.)
+>
+> However the intent is to in future remove this, as no mapping should be
+> marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+>
+> This forms the basis of further work intended to improve how we express V=
+MA
+> properties such as this.
+>
+> Also update the VMA userland tests to reflect the change.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              | 56 +++++++++++++++++++++++++++++++++++=
++++++-
+>  tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+>  2 files changed, 83 insertions(+), 2 deletions(-)
+>
 
-Removing the zero-copy claim addresses the wording, but the coherence
-question remains. The required guarantees depend on how ROCm accesses
-this memory. Using the same DMA mapping attributes as the shmem path
-does not establish that those guarantees are met.
+LGTM.
 
-Regards,
-Akihiko Odaki
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-> 
-> Regards,
-> Honglei
-> 
->>
->>> +        if (ret) {
->>> +            mutex_unlock(&userptr->lock);
->>> +            return ret;
->>> +        }
->>> +        userptr->dma_mapped = true;
->>> +    }
->>> +
->>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, ents, nents);
->>> +    mutex_unlock(&userptr->lock);
->>> +    return ret;
->>> +}
->>> +
->>> +static int
->>> +virtio_gpu_userptr_init(struct drm_device *dev, struct drm_file *file,
->>> +            struct virtio_gpu_object_userptr *userptr,
->>> +            struct virtio_gpu_object_params *params,
->>> +            const struct virtio_gpu_object_userptr_ops *ops)
->>> +{
->>> +    struct drm_gem_object *obj;
->>> +    int ret;
->>> +
->>> +    userptr->start = params->userptr;
->>> +    userptr->npages = params->size >> PAGE_SHIFT;
->>> +    userptr->flags = params->blob_flags;
->>> +
->>> +    mutex_init(&userptr->lock);
->>> +    userptr->vgdev = dev->dev_private;
->>> +    userptr->file = file;
->>> +    userptr->ops = ops;
->>> +
->>> +    /*
->>> +     * Allocate the resource id before GEM init so a failure here can
->>> +     * unwind with a plain kfree and does not need a special id=0 guard
->>> +     * in the shared resource_id_put helper.
->>> +     */
->>> +    ret = virtio_gpu_resource_id_get(userptr->vgdev,
->>> +                     &userptr->base.hw_res_handle);
->>> +    if (ret) {
->>> +        mutex_destroy(&userptr->lock);
->>> +        return ret;
->>> +    }
->>> +
->>> +    obj = &userptr->base.base.base;
->>> +    obj->funcs = &virtio_gpu_userptr_funcs;
->>> +
->>> +    drm_gem_private_object_init(dev, obj, params->size);
->>> +    INIT_LIST_HEAD(&userptr->base.restore_node);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static const struct virtio_gpu_object_userptr_ops 
->>> virtio_gpu_userptr_ops = {
->>> +    .get_pages = virtio_gpu_userptr_get_pages,
->>> +    .put_pages = virtio_gpu_userptr_put_pages,
->>> +};
->>> +
->>> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->>> +                  struct drm_file *file,
->>> +                  struct virtio_gpu_object_params *params,
->>> +                  struct virtio_gpu_object **bo_ptr)
->>> +{
->>> +    struct virtio_gpu_object_userptr *userptr;
->>> +    struct virtio_gpu_mem_entry *ents = NULL;
->>> +    struct sg_table *sgt;
->>> +    struct mm_struct *mm;
->>> +    unsigned long lock_limit;
->>> +    unsigned long start;
->>> +    unsigned long end;
->>> +    s64 new_pinned;
->>> +    unsigned int nents;
->>> +    int ret;
->>> +
->>> +    *bo_ptr = NULL;
->>> +
->>> +    if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
->>> +        params->userptr != (unsigned long)params->userptr)
->>> +        return -EINVAL;
->>> +
->>> +    start = params->userptr;
->>> +    if (!IS_ALIGNED(start, PAGE_SIZE) ||
->>> +        check_add_overflow(start, (unsigned long)params->size, &end))
->>> +        return -EINVAL;
->>> +
->>> +    if (!can_do_mlock())
->>> +        return -EPERM;
->>> +
->>> +    if (params->size >> PAGE_SHIFT > INT_MAX)
->>> +        return -E2BIG;
->>> +
->>> +    if (!access_ok((void __user *)start, params->size))
->>> +        return -EFAULT;
->>> +
->>> +    userptr = kzalloc_obj(*userptr);
->>> +    if (!userptr)
->>> +        return -ENOMEM;
->>> +
->>> +    ret = virtio_gpu_userptr_init(vgdev->ddev, file, userptr, params,
->>> +                      &virtio_gpu_userptr_ops);
->>> +    if (ret) {
->>> +        kfree(userptr);
->>> +        return ret;
->>> +    }
->>> +
->>> +    mm = current->mm;
->>> +    mmgrab(mm);
->>> +    lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
->>> +    new_pinned = atomic64_add_return(userptr->npages, &mm->pinned_vm);
->>> +    if (new_pinned < 0 ||
->>> +        (new_pinned > lock_limit && !capable(CAP_IPC_LOCK))) {
->>> +        atomic64_sub(userptr->npages, &mm->pinned_vm);
->>> +        mmdrop(mm);
->>> +        ret = new_pinned < 0 ? -EOVERFLOW : -ENOMEM;
->>> +        goto err_cleanup;
->>> +    }
->>> +    userptr->mm = mm;
->>> +
->>> +    mutex_lock(&userptr->lock);
->>> +    ret = userptr->ops->get_pages(userptr);
->>> +    mutex_unlock(&userptr->lock);
->>> +    if (ret)
->>> +        goto err_cleanup;
->>> +
->>> +    sgt = drm_prime_pages_to_sg(vgdev->ddev, userptr->pages,
->>> +                    userptr->npages);
->>> +    if (IS_ERR(sgt)) {
->>> +        ret = PTR_ERR(sgt);
->>> +        goto err_cleanup;
->>> +    }
->>> +
->>> +    userptr->sgt = sgt;
->>> +
->>> +    /*
->>> +     * Match shmem blobs: only DMA-map when the virtio DMA API is in
->>> +     * use. Mapping unconditionally can create SWIOTLB bounce buffers
->>> +     * that get copied back over guest pages on unmap even though the
->>> +     * host was given sg_phys() addresses.
->>> +     */
->>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
->>> +        enum dma_data_direction dir =
->>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
->>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
->>> +
->>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
->>> +                      dir, 0);
->>> +        if (ret)
->>> +            goto err_cleanup;
->>> +
->>> +        userptr->dma_dir = dir;
->>> +        userptr->dma_mapped = true;
->>> +    }
->>> +
->>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
->>> &nents);
->>> +    if (ret)
->>> +        goto err_cleanup;
->>> +
->>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
->>> params, ents,
->>> +                        nents);
->>> +
->>> +    userptr->base.params = *params;
->>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
->>> +
->>> +    *bo_ptr = &userptr->base;
->>> +    return 0;
->>> +
->>> +err_cleanup:
->>> +    virtio_gpu_cleanup_object(&userptr->base);
->>> +    return ret;
->>> +}
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/ 
->>> virtio/virtgpu_vq.c
->>> index c02c03c10d..dcbd7bb7a6 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> @@ -781,9 +781,14 @@ int 
->>> virtio_gpu_panic_cmd_transfer_to_host_2d(struct virtio_gpu_device 
->>> *vgdev,
->>>       struct virtio_gpu_vbuffer *vbuf;
->>>       bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->>> -    if (virtio_gpu_is_shmem(bo) && use_dma_api)
->>> -        dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> -                        bo->base.sgt, DMA_TO_DEVICE);
->>> +    if (use_dma_api) {
->>> +        if (virtio_gpu_is_shmem(bo))
->>> +            dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> +                            bo->base.sgt,
->>> +                            DMA_TO_DEVICE);
->>> +        else if (virtio_gpu_is_userptr(bo))
->>> +            virtio_gpu_userptr_dma_sync_for_device(bo);
->>> +    }
->>>       cmd_p = virtio_gpu_panic_alloc_cmd_resp(vgdev, &vbuf, 
->>> sizeof(*cmd_p));
->>>       memset(cmd_p, 0, sizeof(*cmd_p));
->>> @@ -812,9 +817,14 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct 
->>> virtio_gpu_device *vgdev,
->>>       struct virtio_gpu_vbuffer *vbuf;
->>>       bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->>> -    if (virtio_gpu_is_shmem(bo) && use_dma_api)
->>> -        dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> -                        bo->base.sgt, DMA_TO_DEVICE);
->>> +    if (use_dma_api) {
->>> +        if (virtio_gpu_is_shmem(bo))
->>> +            dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> +                            bo->base.sgt,
->>> +                            DMA_TO_DEVICE);
->>> +        else if (virtio_gpu_is_userptr(bo))
->>> +            virtio_gpu_userptr_dma_sync_for_device(bo);
->>> +    }
->>>       cmd_p = virtio_gpu_alloc_cmd(vgdev, &vbuf, sizeof(*cmd_p));
->>>       memset(cmd_p, 0, sizeof(*cmd_p));
->>> @@ -1245,9 +1255,14 @@ void virtio_gpu_cmd_transfer_to_host_3d(struct 
->>> virtio_gpu_device *vgdev,
->>>       struct virtio_gpu_vbuffer *vbuf;
->>>       bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
->>> -    if (virtio_gpu_is_shmem(bo) && use_dma_api)
->>> -        dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> -                        bo->base.sgt, DMA_TO_DEVICE);
->>> +    if (use_dma_api) {
->>> +        if (virtio_gpu_is_shmem(bo))
->>> +            dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
->>> +                            bo->base.sgt,
->>> +                            DMA_TO_DEVICE);
->>> +        else if (virtio_gpu_is_userptr(bo))
->>> +            virtio_gpu_userptr_dma_sync_for_device(bo);
->>
->> This code is ineffective since the transfer ioctl rejects 
->> VIRTGPU_BLOB_MEM_GUEST.
->>
->> Regards,
->> Akihiko Odaki
-> 
+
+--=20
+Best Regards,
+Yan, Zi
 
