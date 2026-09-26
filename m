@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D8FC9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 22:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE17C98328
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 22:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7195A10E05F;
-	Sat, 26 Sep 2026 22:33:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7A610E126;
+	Sat, 26 Sep 2026 22:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tS+E/4Mg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kdLtRGZe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B606410E05F
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB9F10E05F
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 22:33:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7295043EB2;
+ by tor.source.kernel.org (Postfix) with ESMTP id E0EFC601FA;
  Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 31A15C2BCB8;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BEF1C2BCFA;
  Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790462034;
- bh=fxP3TXfyWT+sUcAC6cZncp/t39Htd3ktm9W/nEZb5KI=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=tS+E/4MgmQdLBxg9iNBbiLTjbapFyxLlw1yBVGEcsIVdGSkYiw4lzxfmIzC3dlB1K
- n46UsXhmESOpk9sENyg9V3gNMDG8ZE4rclqZTRlB2MtAdACNYUipxUmkRJrppgrdaq
- Z0Lw1DWzIDRg31mOMSMjIiY9+hcQa8Tpj85ztC/vupcb77bKJhL0Vl02UdeSK0W8UY
- B9HviXQ8BXzejb7DKGc7clBdMjx0135sFl4EkPKwNBOymXXFmZniUqIPVGV4t6337H
- eB0GGn0+KTenyEEa75scunovKqmtX0bkwOK9MaSWSTdiPsH7ncXy14ePYt99+73px+
- r/veRH+lYIAFw==
+ bh=VZulDtDxqhPLQ6+5jwWRkBXlKH0j6U1wO7eceuEiZCE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=kdLtRGZe73fngpDVokxQIaocmTf+0BVw/oXF53nTYc5ynV16AxQURzPyoMgxsb5DS
+ DG3uIsbI3C8fWXkWQEEWOENTMOv89uTr400YAeQd7/5Xve3W9uwoRo/bNkuP8eAMXi
+ 7GMyxfazDKeuIPeMtRYPBC2traeKLlQWo3MZaAQlZS/tkUGy7mT0oXOGI4xQRuNgOH
+ +LI6wVz5PE7ygu67Al8rWA8okPlAyeJ09/F14q7Nx+w6pQlimNCZZbdT2E52ghYY6M
+ bNIS2+C/l65JwmmvUBRgUIujePnBG6w3K6y3nZeTGd2cXw+3uXfjP/gFd9UzNZR9zr
+ fDJNs1DMwRmDg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 06685C98328;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 2D92FC9833E;
  Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Subject: [PATCH 0/2] drm: 2 quick fixes
-Date: Sat, 26 Sep 2026 16:33:31 -0600
-Message-Id: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
+Date: Sat, 26 Sep 2026 16:33:33 -0600
+Subject: [PATCH 2/2] drm: Fix incorrect ccflags-y spelling inside Makefile
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSyNT3aIU3dz84pKcSl2zRKO0ZIPkFLO0FDMloPqCotS0zAqwWdGxtbU
- AYiYBmlsAAAA=
-X-Change-ID: 20260925-rd-mostly-6a2fc0cd6fd6
+Message-Id: <20260926-rd-mostly-v1-2-28b7d714ed2c@gmail.com>
+References: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
+In-Reply-To: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=709;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=1146;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=fxP3TXfyWT+sUcAC6cZncp/t39Htd3ktm9W/nEZb5KI=;
- b=xI/zic2+jXuvDHLxNq3q1EcjouHL9BjNcN17ZvWX1RuNF1A2eXefwQR4deGxsM57UhhK+Bzhh
- hVVzbpo9zd2AZ6JVNT66RtiRSsJNKPNwsyoMFAzwlBAfvfgC0WXKzmE
+ bh=k/p3/mF4PjoGAd1p0WbIzbzTATt0GlWd9hAVgx/C8sg=;
+ b=bsI2eblwopjRAJO9Q6o7zYYZ/Kl0joBNGfqKkrxAZc//Sxa+h9iENDsnV5jfIDaqARyTd1QOv
+ U97OkhBUfhbA0PXGax8ZzT7KTdN6cBxedw9fm2RbrswYs2s/1ZVNYAa
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -77,28 +75,35 @@ Reply-To: jim.cromie@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-1. make __drm_debug __read_mostly
-   it is rarely written, and read at up to 80khz
-   
-2. fix CFLAGS -> ccflags mis-spelling
-   this fails to add -DDYNAMIC_DEBUG_MODULE to ccflags
-   currently masked by DRM_USE_DYNAMIC_DEBUG=n
+From: Jim Cromie <jim.cromie@gmail.com>
+
+Fix a longstanding spelling error in the DRM Makefile by changing
+'CFLAGS-y' to 'ccflags-y'. This fixes CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+dependent addition of -DDYNAMIC_DEBUG_MODULE, which is needed to
+enable dyndbg-under-drm-debug when only CONFIG_DYNAMIC_DEBUG_CORE is
+enabled (and not CONFIG_DYNAMIC_DEBUG itself).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-Jim Cromie (2):
-      drm/print: Mark __drm_debug as __read_mostly
-      drm: Fix incorrect ccflags-y spelling inside Makefile
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/Makefile    | 3 ++-
- drivers/gpu/drm/drm_print.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260925-rd-mostly-6a2fc0cd6fd6
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e635fcffd379..c42884d84ad1 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+ 
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
+ 
+ # Unconditionally enable W=1 warnings locally
+ # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
 
-Best regards,
 -- 
-Jim Cromie <jim.cromie@gmail.com>
+2.55.0
 
 
