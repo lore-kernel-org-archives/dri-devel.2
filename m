@@ -4,59 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 653A1C9832F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6359FCA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D650B10E855;
-	Mon, 28 Sep 2026 08:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BEFE10E894;
+	Mon, 28 Sep 2026 08:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="Gh7FhbGn";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="mdPxfJLN";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0650010E1A9
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:12:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=sfz2jeqf2ra6deha5l34k43swm.protonmail2; t=1790532721;
- x=1790791921; bh=BaA+PvTIQkJ8Rsg8Gex3ng2jCts9EGUcExk5dx8M/ZU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=Gh7FhbGn8KUlaG29K/qsA9gm7ZnxyGWOJIurE59aWJEPrym8NCx6TYC6KDacc70jB
- TPoVGZgnDRApuPRfFIN9bJ1jXJotl3S/9SV2ePvHNeW/D0inXTl9Qrx/yzPWnCSF12
- mJi+Uo8kYI+BHITIrUupGP7n9dCXFcLRqryvOipV8fgshYq+MdpAo9J2z+ewRXxnni
- tgKmsT/U+gQhn1ppAWYsTktS9kdwqU3MlD2q/JLdRqCRGpqptOroUfkwej249qI6tt
- nAc2NjgyBN+Ki9iwA/eDmBH14HrrEszHZ0z14nfhtQ+ctUCsdxgIgmIOO26Fm644/d
- 4DM4mH+iZWkhA==
-Date: Sun, 27 Sep 2026 18:11:57 +0000
-To: Danilo Krummrich <dakr@kernel.org>
-From: Lorenzo Delgado <lnsdev@proton.me>
-Cc: Lorenzo Delgado <lnsdev@proton.me>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alexandre Courbot <acourbot@nvidia.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3] rust: io: convert ResourceSize into a transparent
- newtype
-Message-ID: <20260927181154.1757237-1-lnsdev@proton.me>
-In-Reply-To: <DLNPXJ4WPH4L.2MBUGV1TAESYY@kernel.org>
-References: <20260920-resource-size-newtype-v3-1-9451444e83bb@proton.me>
- <DLNPXJ4WPH4L.2MBUGV1TAESYY@kernel.org>
-Feedback-ID: 53083996:user:proton
-X-Pm-Message-ID: 541aa433539a53276ac34d20166f44a5eb3c53af
+X-Greylist: delayed 93264 seconds by postgrey-1.36 at gabe;
+ Sat, 26 Sep 2026 14:32:25 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC86910E049
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y8
+ uk6acIn5+spuh54iSxJYMKnZSAnNC7gMYO6fVnpnc=; b=mdPxfJLNwx6YY83Auv
+ 0fPtxCpADKcY1v1wYNv32qUC0ZvLsOXL893lisG/QlJD0Q2BKsE5qblUVzySUSFS
+ 2KKW42/Tr3NwRGLuSM/fgqLNBq/xVu8qYv2HoQetOxTiOtbSgSMdhcZ8QBi0Cr4v
+ TTTpBEg4OqRt1aY53FoiEQNOA=
+Received: from pc.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id
+ _____wD3N5Y117dqTFyMAw--.64413S2; 
+ Sat, 26 Sep 2026 22:31:19 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Mihail Atanassov <mihail.atanassov@arm.com>,
+ "james qian wang (Arm Technology China)" <james.qian.wang@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] drm/arm/komeda: Fix early runtime PM NULL dereference
+Date: Sat, 26 Sep 2026 22:31:16 +0800
+Message-Id: <20260926143116.3457144-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3N5Y117dqTFyMAw--.64413S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWkGFWUKw18WryUuFWDXFb_yoW8WF48pF
+ 4UWF4UJry8GF4ay3srAanrZFy5GayfX3y7Ar1Uu3Z5u345AF18tryDJryvyFWUtFZ5AFnF
+ grn7XF4xZFsayF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU1OJnUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzReLxWq31zfhbQAA3l
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,24 +65,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 24, 2026 at 7:21 PM CEST, Danilo Krummrich wrote:
-> So, I think we should change dma_len() to just return u32 (I'm also fine =
-with a
-> new type, but it might be slighly overkill).
->
-> I'd usually pick this patch regardless and leave that for a follow-up, as=
- it is
-> a separate issue. But if we change dma_len() first, we only have to updat=
-e tyr
-> once, whereas if change it after we end up touching nova and tyr twice.
+komeda_platform_probe() enables runtime PM before publishing the driver
+data.  The runtime PM callbacks dereference the driver data, so a
+callback running in that window dereferences NULL.
 
-Makes sense, thanks. I sent v4 with a patch in front that makes dma_len()
-return u32, so the newtype patch no longer touches tyr or nova-core:
+The debugfs register file is created while komeda_dev_create() runs and
+its read path calls pm_runtime_get_sync().  The DRM minor is registered
+before dev_set_drvdata() as well.  Either path can invoke
+komeda_rt_pm_resume() while the driver data is still NULL.
 
-https://lore.kernel.org/r/20260927-resource-size-newtype-v4-0-447a08af23fb@=
-proton.me
+Publish mdrv immediately after komeda_dev_create() succeeds and before
+enabling runtime PM.  This guarantees that runtime PM callbacks always
+see a fully initialized mdrv->mdev.
 
-Heads-up: patch 1 interacts with Alexandre's nova_num on one line in
-gsp.rs. Whichever lands second needs a two-line fixup; details in the
-cover letter.
+Fixes: efb465088518 ("drm/komeda: Add runtime_pm support")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 67fffab018ae..82efa74199be 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -73,6 +73,8 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 		goto free_mdrv;
+ 	}
+ 
++	dev_set_drvdata(dev, mdrv);
++
+ 	pm_runtime_enable(dev);
+ 	if (!pm_runtime_enabled(dev)) {
+ 		err = komeda_dev_resume(mdrv->mdev);
+@@ -86,7 +88,6 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 		goto destroy_mdev;
+ 	}
+ 
+-	dev_set_drvdata(dev, mdrv);
+ 	drm_client_setup(&mdrv->kms->base, NULL);
+ 
+ 	return 0;
+-- 
+2.34.1
 
