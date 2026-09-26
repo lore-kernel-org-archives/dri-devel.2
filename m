@@ -4,157 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C61AEC9832F
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 15:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9BB5C9832F
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 15:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA17710E0E3;
-	Sat, 26 Sep 2026 15:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA9410E002;
+	Sat, 26 Sep 2026 15:50:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eu56kTDw";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZccJNeO+";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="iaZ/OGag";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 511D810E0E3
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:49:57 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68QDeXhl501897
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:49:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=x5PdX9DxWJnyk2v9EFXGjBKujlwifuu0xz8YQXo6qPw=; b=Eu
- 56kTDwUvhYxvgeCA1se3G9INk9M6Eq1BcgR5Dqc4RveIn+MKTpFhWEcQ05As+qvw
- gMzgeih+iykA1mh4fSb4UWXeP8VsGiVRI5iGEyecAsfE/a2Y3/bAVij0FaupuRQl
- flrwbxj9UDZ5pyym0iCBOKx4NNkPZwVH61aERzuZ5EH6gANv5xzSz+oCp4BVgCKE
- pc1ChxvTHIhFmv/BuKBeau7lv6mvebsnJrHkLTuVCk6PwX/KVNoYuYsE7RjpecMg
- GRjp+m/mK3nnGP1qCwz8PGCwwYpmRJSW9RpWgOLERLP0DaYN+V6gg2yfBJgxhxcs
- 6JvsdSiaX8cJJVEVCGNg==
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx5mw97y5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:49:56 +0000 (GMT)
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-4519ef1babeso1592522fac.2
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 08:49:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790437795; cv=none;
- d=google.com; s=arc-20260327;
- b=hB9UWVO93OaSEwbXBjrPubU5h0ZcfJ8LSCNjasQ/oX+TyCjruoYtEwm4XrlMv6rhRM
- 7PKDvb4on8y0ekq+v1Wk90ytQZFCGKk5sLWYZwnPBLkoyFKXqzFfz5kLpoBmMXlMez+3
- oQ2HYcYJp1Uh1kuTUNMrBS3j28P7x6I957Gu0kHKhkVwIgSUDaQDxhO8SLgdvXdAg/aR
- vo0ZCq0aSKNSHcCC36hk296+X0LEvAYirYJFUWWeaU9/wi+HrtEakq3N/R+JWeL30Mw6
- mtG6glbLWxwMRu1pvqrXuJf5H8Jhn0b/K17URHvxgD906aUsekaeuRVLueHZ30bWsnTB
- tNvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=x5PdX9DxWJnyk2v9EFXGjBKujlwifuu0xz8YQXo6qPw=;
- fh=oaYBx4S49dtTaaU99CsPR6TbVUS981XzHyljVWexgHY=;
- b=do3I9dcrj9Qb61fnOiehdV7fSLfjdt1rrXtcT1ag1D5irdEDPVDbJngspzVorJuouo
- LoVSGYUHQjC8oxmNmR0b/dyYPAbgVtRysstsu4RF7FMNRakwBa45VertCrwvqHxJNdwz
- Tz19W2zgidWoiBgO32ws3KyvirQyTbiuped2RyMTKrbqloK7dlZfJVAFaI5ZJ0/UvirD
- RDqr62qMDf69ah4Y/J2AbBQn0EyIiupcMZ+5GhrephBPknbHpHUDx140dezRnHnbgGD5
- HuO+pt+gAiy2EOxHunJ6yDUfF/pm7eLEpOvgox3zOvkQHm6SJ1RX++wp1dxEa6wJ/Vk6
- 3kcg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790437795; x=1791042595;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=x5PdX9DxWJnyk2v9EFXGjBKujlwifuu0xz8YQXo6qPw=;
- b=ZccJNeO+XDe2+HU3ph0t416PGT6gPk0JuAft1UAwMT0lHAZNS5LXUCWx+pFpG1lke+
- nSd5heMqklIPSs6ZxOKRGQV8mxervgHa2WCFo+N+Llw1+Olqu0tP9+HneIiOL6gwn1xH
- arfQliTAcnjDU6Rbp9BOehdke2nWuuUc6T++jn/VqHvsZc8PlPjiTt+0btvBbAsNoufg
- c1ijcZ/N2ff4IHBP66riKZ1Nce4049L/p/TJLOKg+wo8fyFdENGzxXIk44vn31ZXpFlr
- 828HE8DxDZYttW7pfB2ED9LhDLbpaRI37THkte3Uf/Dt6c341WmWl78FlTv+vARAVIfc
- c7Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790437795; x=1791042595;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=x5PdX9DxWJnyk2v9EFXGjBKujlwifuu0xz8YQXo6qPw=;
- b=ekoboLEKP/Vln4eRu1RANRuML3oQ93RHOKEDmHkShJZdzaHTHsYG7KVVmQyxJvKbIw
- U4+D7lis9yHUSRH5iMNxoN4kzK4fiVfBQSLkgZXPy3lwHJS7TOsn/uVmedKFebZsi5MT
- K02hiPJUtll01kttajnOJbu15ak0hIdLlJm0TKnYpfT5zuGj3QmgoBEjjpHb296KBCSE
- dtadmBQ+y45NdWRO6FU19lgnS6spfGdQOY0szadE3tOjJpb59cl9Zi2k6v3w+Nu2Z5Xz
- aLyq/vz1rARM+mzrXBdumBWJBhM9LPPDjhRWc4IK5JKP46gEQVjE+IkVyGeV8TXXCmKg
- nLew==
-X-Forwarded-Encrypted: i=1;
- AKwUvBytWr8xKehxtmvCR6NtweAvXRTmbQTZUkjAi/D7ZY28oe+0KWSk3rOnI6xCQXBnOfqLptw62KjX7Fo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++liPbR96xC8gRXb6gcYaKQ7I6GE76DZ0vXuq1h7Z2bwN1qygrGh
- 8HGCfG+YQXnIAgFvK3aHMlQp6/cyMw45N3GcpYyvwUjMbKCgeWbZ5B0s5wPxUSRYwRtvV9lWmgf
- 4RgfVcp8vxVi9n7xwhdNG691f6mCNm3jS1BD2G3KaZxtdXX07rWZqhND54npVkQpiH38tOWfMww
- M58fJlrqwR/ctYkvJ/VzjR6xo9yJt9Uyruc6qHWuiMHcfzCA==
-X-Gm-Gg: AYBFou0MqL9+wb0PF04fHaXrki6XeooKxFLVYP7qEn3kSlx1w2fNGgRg1vYKIJERIpi
- tppULwvFczl8FII1VRrua7U+hBlxNVtTMsshoQYPVztHTncvwvBFwOToUygWzxMkk+u9ceV4umQ
- 1t3kTU1AGEFAvGPO0koPPjE3pIKWjFL/+oy8fRyDullR6QWw+YKDUYtxng
-X-Received: by 2002:a05:6870:178f:b0:449:bccf:bb67 with SMTP id
- 586e51a60fabf-49355fb0e0fmr4957352fac.5.1790437795332; 
- Sat, 26 Sep 2026 08:49:55 -0700 (PDT)
-X-Received: by 2002:a05:6870:178f:b0:449:bccf:bb67 with SMTP id
- 586e51a60fabf-49355fb0e0fmr4957335fac.5.1790437794877; Sat, 26 Sep 2026
- 08:49:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260912-fd-kms-fix-smmu-v3-0-a7ddc6fe2032@oss.qualcomm.com>
- <20260912-fd-kms-fix-smmu-v3-1-a7ddc6fe2032@oss.qualcomm.com>
- <CACSVV00XJ4Ad8AMr9C8hv7LjnjVXmG2JrDtJxsyqx=Gz+rZ2XA@mail.gmail.com>
-In-Reply-To: <CACSVV00XJ4Ad8AMr9C8hv7LjnjVXmG2JrDtJxsyqx=Gz+rZ2XA@mail.gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Sat, 26 Sep 2026 08:49:43 -0700
-X-Gm-Features: AclHuK-RciRtAJx994R3gG3wy_WgHDhW8e0P-gvRnH-8QYnK2N0vc2wRF8XuNhk
-Message-ID: <CACSVV00SHn=f4kt-zbGsCjnB+g+aanrJ-GkzhtpkNVDiZDt8gg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/8] drm/msm: serialise framebuffer pin state
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- Federico Amedeo Izzo <federico@izzo.pro>,
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022120.outbound.protection.outlook.com [52.101.101.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F67910E002
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 15:50:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=srisAkddEPRUBkc9B3fPTWg9Zyfw/sk+qM8VuWzMQu3AHTznzvHP/lB7qp9MLjwu4/EUmu3QVeDK14W0XnggrLh+uzFlV3gpH2MlCHMhBMxDWjKbhqje036gacx4vaZkTFybwJNEm3jHGZoiXu0D0Ar3+A5KgWJ9dvJg+4Mg971MHVtxEiVeYtrgVuJF/ghHxcZkBuYNCTCz5jqDTr0dpDVsugQOX1j0GPUs1IAT4BGekditIwdVsyXCqq4dUQFBUUZyKxje/woMp+Iu6C8z3wL+xoV9aWTEOoVHu+jNCOfrKWF8hJ+TyNR96Nq6rNT8UiSEVkzmMcod9w4U4NP1DA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rj/pbXsmXu367V2ifKVap0nLlgU4MymGQbftw8IMlK0=;
+ b=WvsGG1SNzFqe+QQz2xePh/Kp3J8G6dBt6bsfDS9GmvMgBUdGH80UzDq2ZsZ3PBHc0kjCz5uJoCD6jt36KpUZe+hSUpF5V11Opoz9I2buC+K6D5OTgNLmw12iYjDFolGkdNM2jeMMGOrkN98mh4eqV48Xj6kvGKXfhQqBIHYQAIjyW58ia3ruX3uDHQnBRlsn8s3Ow0S9uqNrgIHk05ZvelOjfbEexFfIfN/rjyqfKbID3Ivet3YBqRLvOJQLc4cIyIS8tFq4d5SHsqoKrORnrGXdbvIFFu4LWMOsIlDSUCnwKUeP+rtm0nmgsbs8HsMh9/8Ju161vAIamGGw5m/v0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rj/pbXsmXu367V2ifKVap0nLlgU4MymGQbftw8IMlK0=;
+ b=iaZ/OGagmICqxNIRa/qTbo3YT9YJcnL2C0/4BcxYcuXi7siZD0sBvjIFycMFdjv0suve1NH4TX+aXbHGTmGKP1xUEKDEqIq4xnwjY4iwT5bbVQRSkQ75S1Jxkb11FZit7JzHrnxUBWxk/WnAl6xfE2nRClXckMSGAnAzrhOZw0o=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB8419.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:26d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Sat, 26 Sep
+ 2026 15:50:38 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 15:50:38 +0000
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: W3P_cE2wcfU8bvwQivjMIBMhKqypkXKd
-X-Authority-Analysis: v=2.4 cv=QvPLTlyd c=1 sm=1 tr=0 ts=6ab7e9a4 cx=c_pps
- a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=ZeSDCgH4AKyXpHf_t3sA:9
- a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
-X-Proofpoint-ORIG-GUID: W3P_cE2wcfU8bvwQivjMIBMhKqypkXKd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA2MyBTYWx0ZWRfX4Sy6Lq+JIqv/
- kHLIeMhIiNgrOFVnwWNdw9Qws7KUHIhy5OG+9o1RnznIQRUyrYd5UjQfvz0T+Q99hu2tWPv6ZhV
- SXtxcu4Nkxi7zmL8AUMXmNXBYqiTLA5CUraOU1M/JvOHdn7lYREtxVxVvmduwKju7xFQXPeNXUZ
- DObNr2yg5J6Xv4jXYBfGUXS/T2vslc98umO7GhllFktFBPe0A16mIkOaaSYjSnWntgUy9d3A5mC
- jLSfOuViNjH5+HFTAV5G1+cn2N2r+0Vub7E/IqvwTcSvbHdpC/IzpINUQ8I5DF+vFHa9X0DBsNn
- i+y5l7fqiBZCgx41ywhFPxoxe1L2hdxOLA8svpPZp7ITnE6yoZ5gXS5mO3oUT2KiOHrRLpsrTw/
- lpUGOmJcQNfpSuS8UkpjMF8ToDyEtX/I3BQwWlA8H+q4vKCvQPRNGgZ9cYDnTmbB36uk78mHCIH
- zRfSGuczVC4qYUeYDtQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA2MyBTYWx0ZWRfX9+8YX8FzucB+
- ddp8od9p5GI9M+idSEvcKq3Wng6PM05ks/HxMaO3fkn1IpbMpnAPMYjpgZjlZ5mf+cDhiFiJheq
- ad2gY5I8uEODT3J5fzqt60rBXwPD8EU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260063
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 26 Sep 2026 16:50:37 +0100
+Message-Id: <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+Cc: <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
+From: "Gary Guo" <gary@garyguo.net>
+To: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>
+X-Mailer: aerc 0.22.0
+References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
+ <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
+In-Reply-To: <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
+X-ClientProxiedBy: LO4P265CA0187.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:311::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8419:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7d11399-f4f3-42a3-ccfc-08df1be5e946
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|7416014|10070799003|921020|4143699003|10067099003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: oiHG2rgRMGV3j1hEZwQq7iJ4OcJnIciAbVZZj59uRECmkZuREb4eEHHp5q1+bRaxeJP+G/cRNPcYAmXxEYlwwM78j71D2nCaExEpGFz5Yp8YmDPoM1F02ukokLhd7RYDMo/mBISbsL0bMk7KHsdJSdtRuP0m5U0fvsQ3+HE0p1rHY01arK6HfdYPFfJMl1OWLf62fC0UJpHPwkOjcwduHC9KmTWwMxjZV9oF9CEsk6fOfMCCkX+zUqZzqqdLSkfXhar+XlCsgKQ+kRB8X9ikTCDXTnlXrUDSJh4CdK1HHfRsvcpm53K1PgdQsCS9GDeaYpZ4TU4l80jtcBUGhY8b222I+2ujToE6W8t73YasVNwsl4lwqRdyg7MkiIl2x7/gNJCUTKNtioZW5E/cH1ilFicruiWsXqrnxFt8nFyD4ZXQGUFpT0BMax6wO5u6NL7jJEDnZR6Nm8pXwfjF3BY+BM2SeyqwdDlW3DGbwJTqZdyaqbxAtQcZf5puh1zATGz2R884A1x/ZPy2Y+tLe+2MFHbMfmXM1GzKBMvExW0/GWrtfcM9jee479Vmkn2KNRVrx+WwuV47KgmXa+SRnd+gvn4EESLFKeO5UX2H89xr764Ip6gv3A3rDrfD+WD7mFZ9IJZr0I7Mu0lhBeFJoEIBj0fwxHQ9ENYoigAwcWvqZ6hy5U1UktNYsv/Ehy9/TRnGf5LXFCauXfpJir3toFQt0g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(10070799003)(921020)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlRrTXdpK2hoRVlZS0JFak80ejNVaEJuVE9Za0E3ZU45bmpXQU9zRjhpQ0xS?=
+ =?utf-8?B?WFdyZmMvbXFlWTFMRnNkMG9LK3l5bERyKzFOclVwdWRER0E2MzllZCtaVVNx?=
+ =?utf-8?B?NTR3OVdPRUtzUTNGMlpRZHgwaTZ4S0pnSGEyUFI5aEVkOXBnd25Hb2RVUU1H?=
+ =?utf-8?B?OXA2QWd2cmRZNGhNSmhkSjNQa2c5Q0xKTlEzRkRsc0xoMEFOVHZvc2lDWEZC?=
+ =?utf-8?B?Y2pNdm5URmNQQ0duT0c4NjQ5aXZ3RS80d2VTU3lrWW44cXFERXNKcXY5VnJ2?=
+ =?utf-8?B?R05JK0ZGbTg5OXBVTTBFbEY0M3pHdk40d0xRMjFTT1IyVzYwdEgyZ1FWSmFG?=
+ =?utf-8?B?R1lqNnlvK2RRcS9lWmVvK0JLRnNHQ1BrMkNmOGdVbjlDUnFQNWFkYnRYRzFx?=
+ =?utf-8?B?aEs5VGUxQmp5WVZvVUpLU2NIRjdWYnRRZFJUQUdXUzdpLzEya2hGdjh6M1Vs?=
+ =?utf-8?B?M2xqZmR5NW95VmF5azdZeS9OZjM3RnducmR6ajRET1lnNUphbCtyczV3T1Qr?=
+ =?utf-8?B?bkNqY0J2WGFhVHltenEyNlJNZjZ0TFRoS3cydnFoNnJIMjBKRlB1TGFtZ0ND?=
+ =?utf-8?B?SmRrbUFBQkRydys0dUJkcmtmNUc3Mm5Oc1VYT3JsVGJwdTRYTmFqc2Nyei83?=
+ =?utf-8?B?bVpPbWtPS0dYVnJzK3ZCRTRPSHU2T1dmWHF6UTRXSlduVFBZanIveWlpQ3Nw?=
+ =?utf-8?B?T2Y2RzhTTWlEbVJwbFQ4YnZLZFF0Ny9nTU5ybWFpMW5oUVJDQmdGUE1OOFND?=
+ =?utf-8?B?aS9mL05mSTEwQk5RU2ZGc0w1alc0VlZkMWhDREJwM2pDZE5EMC9Md21XQ2Rp?=
+ =?utf-8?B?U29OVGRweUlaZGlwam92d2E0aFlwZXNtcFNsUUlibmthdld0RDBpc3ZVaDNt?=
+ =?utf-8?B?OG1TMmp1K0I1UjVjcldUMy9CRGFLa0lDdWtTLzR0c2xWNXNFV0FJU1YyYVZ3?=
+ =?utf-8?B?b3REbGhLVUFCTy8zZmJaeHVxUmhvQ2RCbXlpdVdjRFdqMWdrUzRzMVpYbXpU?=
+ =?utf-8?B?Z3E2M0hnZ2I0ajB3djE4aEU1aC9kYi8wdnBRWGpBQzZlZGFlSjNoSzRJK0dR?=
+ =?utf-8?B?WTl6djNEZHpSYURUYVJQeFdFeFh6NHNWZzhLZHl2UTRmempneGNGeCtsVklS?=
+ =?utf-8?B?dHF6OW9oTXZxQmUrc2d0OVdVSWtLeTJiOWwwQkhIMTJEYzFqOUkwbEJPaHJ2?=
+ =?utf-8?B?bDltdWVxamh5YWQ3RWx0OENtWFE4S3MrTjlJOVBxMWp4NnJjcFRmOWw5YzQv?=
+ =?utf-8?B?THRPMmE4MmM2ZyszaGVnTEJTb3B5SmI5MXJsR2MvbnM0a1N0VkQ3RmFxWjhy?=
+ =?utf-8?B?ZzJ3UEM0R0JGQ1ZFV3BpVFE5aVNvVEp3WWZ5dUZmUnhVTS9lRVgrckltcXZy?=
+ =?utf-8?B?Vjd3aEhrNmdLQlhmV1Z1d3BaakdpSEFuYm5YdkZnZkdnbzRrU2Fhdk50VDMw?=
+ =?utf-8?B?U0JFRFNoTTh1czZYS29reUUvSzg3L29Udm82NnFiZ0l2QUQ5Q09LYVRJN0ZH?=
+ =?utf-8?B?SW5nNXhQd1Z5bFgyRUZEbExNWXJFYUV0eFVTOUlWaS9kOFBHQ3BqV3F6aEpJ?=
+ =?utf-8?B?MkM3WXpWZVFIUTZWMFUwQmhOcU02ck84cU5TbUNxdUp4Y2NsRjcvaGNKL1Nt?=
+ =?utf-8?B?RGRrRnlBRERIbzd2bzVJRHkrYnh3Y0pZNXhqWHBIZVNWQWxIcVd1cmJja1Q1?=
+ =?utf-8?B?c2RDUGM2UUhPR1ZGSWRYMmpXYUdXbHpwRHNObkJLL2Q2QVFocnVkWDY4UFdP?=
+ =?utf-8?B?dytyb1o4L09maHFKdEtRYlNpVlhYNHRqeFB3a2JmNFhZMWNod2RVN1RxMUxw?=
+ =?utf-8?B?THJmUlI3RGxwVEhkK1FwSGlzdmt3L0JadUpNdWs4RFlYRkdLVUJNOFNSeW56?=
+ =?utf-8?B?TzdEb2ZsakxOQ1hPZEhualFYMzYwY1Q5b0NFM1ZPRlgzZVVUOENlb1JyQ28x?=
+ =?utf-8?B?NzlZdldEbXRoUFB6TVZBbGR4emYyVXpSWHo1ZFBrWGlyYjRFelZ0VHYydW84?=
+ =?utf-8?B?djRTaU5LR1loZkV2cTFSN3NmM2RUM3ZKaGZ1UzFYM2R5enV6eFNXK2NSaUVu?=
+ =?utf-8?B?L245SmhjNDNZd1EzOHE2YzdZRXVPVFhBeE45ankvekNxd2t3S1NiVEk4c0RP?=
+ =?utf-8?B?SU9DKzhSVFpKV3pZM2xKZittdERFeWhkRFRqTzJKaEJ4NEd0STRWK0xmUVg2?=
+ =?utf-8?B?Qlg3cXcrQmdVbXBMUGVWM1JZTVdEVDIwc3crc1RMb0FON0cxTlNGWFEvblZZ?=
+ =?utf-8?B?blZxaFJZbGdGZGdDSWM1ck9DNFd0TFk5T0NTYXMxQ01idmRkTUpNNjJhaUhz?=
+ =?utf-8?B?YkJmVnR3V0hQdnRtWnVKN3BwWU01eE11MXg0blozUXBnTVd3UVliZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7d11399-f4f3-42a3-ccfc-08df1be5e946
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 15:50:38.5961 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1109GdeVBfL4rLwEypEaDw1i8Zx/Pt7qcrn9rUpVugeXYKW8xFeppGpyv+LsjZiITzf+EbN+mANQs3ERX8ajxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8419
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,194 +142,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 26, 2026 at 8:47=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.c=
-om> wrote:
+On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
+> Make the zerocopy and zerocopy_derive crates available for use when
+> building the UAPI crate and its tests. Then attempt to derive most of
+> the zerocopy traits for struct drm_panthor_gpu_info when generating its
+> binding. This will be used by the Tyr driver that needs the traits
+> IntoBytes and Immutable to safely copy the struct byte-for-byte to
+> userspace.
 >
-> On Sat, Sep 12, 2026 at 5:48=E2=80=AFAM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > prepare_count, iova[] and the pins they describe are updated locklessly=
-,
-> > but drm_atomic_helper_commit() prepares a new state in parallel with th=
-e
-> > completion of the previous one -- stall_checks() only stalls on the sec=
-ond
-> > previous commit.  Commit N+1's ->prepare_fb() thus runs while commit N =
-is
-> > in ->cleanup_fb(), and for a double-buffered flip that is the same
-> > framebuffer:
-> >
-> >   cleanup: prepare_count 1 -> 0
-> >   prepare: prepare_count 0 -> 1, pins, stores iova[]
-> >   cleanup: memset(iova, 0)
-> >
-> > leaving the plane programmed with a NULL base address:
-> >
-> >   arm-smmu 15000000.iommu: Unhandled context fault: fsr=3D0x402,
-> >       iova=3D0x00000100, fsynr=3D0x3e0023, cbfrsynra=3D0x1c00, cb=3D11
-> >
-> > The opposite order is broken too since commit 8ac37c88f991 ("drm/msm:
-> > Refcount framebuffer pins"): a prepare which finds the count non-zero
-> > returns at once, assuming iova[] is populated.
-> >
-> > Both callbacks may sleep, so a mutex will do.  drm_framebuffer_init()
-> > adds the framebuffer to the object idr, from where userspace can reach =
-it
-> > before msm_framebuffer_init() returns, so take the private state out of
-> > its way and initialise it first.
-> >
-> > Fixes: 8ac37c88f991 ("drm/msm: Refcount framebuffer pins")
-> > Assisted-by: LLM
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/msm_fb.c | 44 +++++++++++++++++++++++++++++++++---=
---------
-> >  1 file changed, 33 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.=
-c
-> > index 60c108d35d2a..77415302e6d8 100644
-> > --- a/drivers/gpu/drm/msm/msm_fb.c
-> > +++ b/drivers/gpu/drm/msm/msm_fb.c
-> > @@ -22,9 +22,12 @@ struct msm_framebuffer {
-> >         /* Count of # of attached planes which need dirtyfb: */
-> >         refcount_t dirtyfb;
-> >
-> > +       /* Protects the pin state below: */
-> > +       struct mutex lock;
-> > +
-> >         /* Framebuffer per-plane address, if pinned, else zero: */
-> >         uint64_t iova[DRM_FORMAT_MAX_PLANES];
-> > -       atomic_t prepare_count;
-> > +       unsigned int prepare_count;
-> >  };
-> >  #define to_msm_framebuffer(x) container_of(x, struct msm_framebuffer, =
-base)
-> >
-> > @@ -45,9 +48,17 @@ static int msm_framebuffer_dirtyfb(struct drm_frameb=
-uffer *fb,
-> >                                          clips, num_clips);
-> >  }
-> >
-> > +static void msm_framebuffer_destroy(struct drm_framebuffer *fb)
-> > +{
-> > +       struct msm_framebuffer *msm_fb =3D to_msm_framebuffer(fb);
-> > +
-> > +       mutex_destroy(&msm_fb->lock);
-> > +       drm_gem_fb_destroy(fb);
-> > +}
-> > +
-> >  static const struct drm_framebuffer_funcs msm_framebuffer_funcs =3D {
-> >         .create_handle =3D drm_gem_fb_create_handle,
-> > -       .destroy =3D drm_gem_fb_destroy,
-> > +       .destroy =3D msm_framebuffer_destroy,
-> >         .dirty =3D msm_framebuffer_dirtyfb,
-> >  };
-> >
-> > @@ -76,13 +87,15 @@ int msm_framebuffer_prepare(struct drm_framebuffer =
-*fb, bool needs_dirtyfb)
-> >         struct msm_drm_private *priv =3D fb->dev->dev_private;
-> >         struct drm_gpuvm *vm =3D priv->kms->vm;
-> >         struct msm_framebuffer *msm_fb =3D to_msm_framebuffer(fb);
-> > -       int ret, i, n =3D fb->format->num_planes;
-> > +       int ret =3D 0, i, n =3D fb->format->num_planes;
-> >
-> >         if (needs_dirtyfb)
-> >                 refcount_inc(&msm_fb->dirtyfb);
-> >
-> > -       if (atomic_inc_return(&msm_fb->prepare_count) > 1)
-> > -               return 0;
-> > +       mutex_lock(&msm_fb->lock);
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> ---
+>  rust/Makefile           | 12 +++++++++---
+>  rust/bindgen_parameters |  3 +++
+>  2 files changed, 12 insertions(+), 3 deletions(-)
 >
-> guard(mutex)(&msm_fb->lock) ??
->
-> here and below that would simplify the error path
+> diff --git a/rust/Makefile b/rust/Makefile
+> index da1a7409d984..bf02a1efd6f3 100644
+> --- a/rust/Makefile
+> +++ b/rust/Makefile
+> @@ -365,8 +365,11 @@ rusttestlib-bindings: private rustc_target_flags =3D=
+ --extern ffi --extern pin_ini
+>  rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib=
+-pin_init FORCE
+>  	+$(call if_changed,rustc_test_library)
+> =20
+> -rusttestlib-uapi: private rustc_target_flags =3D --extern ffi --extern p=
+in_init
+> -rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_ini=
+t FORCE
+> +rusttestlib-uapi: private rustc_target_flags =3D --extern ffi --extern p=
+in_init \
+> +	--extern zerocopy=3D$(objtree)/$(obj)/test/libzerocopy.rlib \
+> +	--extern zerocopy_derive=3D$(objtree)/$(obj)/test/$(libzerocopy_derive_=
+name)
+> +rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_ini=
+t \
+> +	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+>  	+$(call if_changed,rustc_test_library)
+> =20
+>  quiet_cmd_rustdoc_test =3D RUSTDOC T $<
+> @@ -782,11 +785,14 @@ $(obj)/bindings.o: $(src)/bindings/lib.rs \
+>      $(obj)/bindings/bindings_helpers_generated.rs FORCE
+>  	+$(call if_changed_rule,rustc_library)
+> =20
+> -$(obj)/uapi.o: private rustc_target_flags =3D --extern ffi --extern pin_=
+init
+> +$(obj)/uapi.o: private rustc_target_flags =3D --extern ffi --extern pin_=
+init \
+> +	--extern zerocopy --extern zerocopy_derive
+>  $(obj)/uapi.o: private skip_gendwarfksyms =3D 1
+>  $(obj)/uapi.o: $(src)/uapi/lib.rs \
+>      $(obj)/ffi.o \
+>      $(obj)/pin_init.o \
+> +    $(obj)/zerocopy.o \
+> +    $(obj)/$(libzerocopy_derive_name) \
 
-or perhaps scoped_guard() if needed for the next patch
+Please add these to `bindings` crate as well to avoid have it diverging wit=
+h
+`uapi`.
 
-BR,
--R
+>      $(obj)/uapi/uapi_generated.rs FORCE
+>  	+$(call if_changed_rule,rustc_library)
+> =20
+> diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+> index 8402b0c93545..332bc8d6a9f7 100644
+> --- a/rust/bindgen_parameters
+> +++ b/rust/bindgen_parameters
+> @@ -71,3 +71,6 @@
+>  # Structs should implement `Zeroable` when all of their fields do.
+>  --with-derive-custom-struct .*=3DMaybeZeroable
+>  --with-derive-custom-union .*=3DMaybeZeroable
+> +
+> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
+> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3Dzerocopy_derive::=
+most_traits
+
+This is Tyr specific change and should be in patch 2.
+
+Best,
+Gary
 
 
-> BR,
-> -R
->
-> > +
-> > +       if (msm_fb->prepare_count++)
-> > +               goto out;
-> >
-> >         for (i =3D 0; i < n; i++) {
-> >                 msm_gem_vma_get(fb->obj[i]);
-> > @@ -90,10 +103,13 @@ int msm_framebuffer_prepare(struct drm_framebuffer=
- *fb, bool needs_dirtyfb)
-> >                 drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n=
-",
-> >                               fb->base.id, i, msm_fb->iova[i], ret);
-> >                 if (ret)
-> > -                       return ret;
-> > +                       break;
-> >         }
-> >
-> > -       return 0;
-> > +out:
-> > +       mutex_unlock(&msm_fb->lock);
-> > +
-> > +       return ret;
-> >  }
-> >
-> >  void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_d=
-irtyfb)
-> > @@ -106,8 +122,10 @@ void msm_framebuffer_cleanup(struct drm_framebuffe=
-r *fb, bool needed_dirtyfb)
-> >         if (needed_dirtyfb)
-> >                 refcount_dec(&msm_fb->dirtyfb);
-> >
-> > -       if (atomic_dec_return(&msm_fb->prepare_count))
-> > -               return;
-> > +       mutex_lock(&msm_fb->lock);
-> > +
-> > +       if (--msm_fb->prepare_count)
-> > +               goto out;
-> >
-> >         memset(msm_fb->iova, 0, sizeof(msm_fb->iova));
-> >
-> > @@ -115,6 +133,9 @@ void msm_framebuffer_cleanup(struct drm_framebuffer=
- *fb, bool needed_dirtyfb)
-> >                 msm_gem_unpin_iova(fb->obj[i], vm);
-> >                 msm_gem_vma_put(fb->obj[i]);
-> >         }
-> > +
-> > +out:
-> > +       mutex_unlock(&msm_fb->lock);
-> >  }
-> >
-> >  uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane)
-> > @@ -199,14 +220,15 @@ msm_framebuffer_init(struct drm_device *dev, cons=
-t struct drm_format_info *info,
-> >
-> >         drm_helper_mode_fill_fb_struct(dev, fb, info, mode_cmd);
-> >
-> > +       refcount_set(&msm_fb->dirtyfb, 1);
-> > +       mutex_init(&msm_fb->lock);
-> > +
-> >         ret =3D drm_framebuffer_init(dev, fb, &msm_framebuffer_funcs);
-> >         if (ret) {
-> >                 DRM_DEV_ERROR(dev->dev, "framebuffer init failed: %d\n"=
-, ret);
-> >                 goto fail;
-> >         }
-> >
-> > -       refcount_set(&msm_fb->dirtyfb, 1);
-> > -
-> >         drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb)=
-;
-> >
-> >         return fb;
-> >
-> > --
-> > 2.47.3
-> >
