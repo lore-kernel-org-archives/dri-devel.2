@@ -4,54 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A4AC9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD1EC9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C28910E83C;
-	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 960E210E86E;
+	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=solidxs.se header.i=@solidxs.se header.b="JSmaowXt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PP6PZ9bM";
 	dkim-atps=neutral
-X-Greylist: delayed 348 seconds by postgrey-1.36 at gabe;
- Fri, 25 Sep 2026 12:01:08 UTC
-Received: from mail.solidxs.nl (mail.solidxs.nl [135.181.160.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56E310EA09;
- Fri, 25 Sep 2026 12:01:08 +0000 (UTC)
-Received: from localhost.localdomain (unknown
- [IPv6:2001:2042:bc22:2b00:665f:5046:e84a:28d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.solidxs.nl (Postfix) with ESMTPSA id 5A7692DA0053;
- Fri, 25 Sep 2026 13:55:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solidxs.se; s=2026a;
- t=1790337316;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=mPFXHOweYUJn5VvQHi3d8rLLCyBG+oOdevRP/Ld5GzU=;
- b=JSmaowXt/5pxfwqPdHN9sOD6PiU53SFgjBK97jRl9fR+34RUyW9/UAGQO4mvE6OeWy4qWM
- LKpp6NYTXJeiyn24jgdHTmnetQzlTwObYIb9hK3YHkpYexhKx/U++VAGw6n0v7pOz5jypy
- oWO2ZFuZDGRXl1tkQc5Yz/Da22Ve94Uctr8ZTz1qXzY0wJ7wJIsQpnP9n8beQanGbkBMvi
- axOhITogzJddTFZ+ef01veUAqTD1HUGkw7f81/iFarhmhCWLM1yqGdoh3tgmzPExlXqHXM
- oSwcPJ5bXHk6vLAngTPUnhmbG4JwtsrSosMzawHSP5eO22rBZQgxtxAC9mj26A==
-From: Marcel Hamer <marcel@solidxs.se>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Vinod Govindapillai <vinod.govindapillai@intel.com>
-Cc: Marcel Hamer <marcel@solidxs.se>, stable@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/irq: crtc guard inside interrupt handlers
-Date: Fri, 25 Sep 2026 13:55:10 +0200
-Message-ID: <20260925115511.1655213-1-marcel@solidxs.se>
-X-Mailer: git-send-email 2.47.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27A3110E03B
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:07:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BC0FD429E4;
+ Sat, 26 Sep 2026 10:07:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8511F000FF;
+ Sat, 26 Sep 2026 10:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790417227;
+ bh=cx2CIfJJRJI8nlg/LkJLWm6mTZk+oyqA+tLDKMt8K64=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=PP6PZ9bMZs7e/duxeo/+vo5CsbMP1Rz2+y31gRT9a+0I5x57hx+X0qV3VH6ZT4U4G
+ yJbOFXBGKOb0K1/wzI/4ZVK66vC39At0uE2uwbtQ83oA2SlyEAWclRJagc3OIbbqHm
+ aGWgANkkLmApMwDJ2U+Pphh/en/LxpO06qIoOaCTuD43Ohhox87eyXx7fdho5yNs5A
+ YUbNxgBjyK8Pa4hT+QXLxoaUyk9M5Ul4my8apPo6NoSv0IFMgCIjYXvQDeUqZfUlWm
+ gpsK8pBYkPTzDaunC56zp3EElzUI0dA/SJCNUEjE1vnEPzCd1n7uEW6cQm5qDqJMYE
+ NMKaLYXBxLBUQ==
+Date: Sat, 26 Sep 2026 11:06:35 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
+ linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 16/40] mm/vma: only allow mmap to clear
+ VMA_MAYWRITE_BIT if kernel-owned
+Message-ID: <areYqRfd7mss9KQG@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-16-4583d8a23bca@kernel.org>
+ <DLOVQMACWLZ5.1WFOTGRG8ZG92@nvidia.com>
+ <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,100 +144,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Interrupts are enabled before the crtc datastructures are initialized.
-As intel_crtc_for_pipe() is called inside interrupt handlers and can
-return a NULL value, this can in rare cases lead to the following NULL
-pointer dereference and panic:
+On Fri, Sep 25, 2026 at 10:17:10PM -0400, Zi Yan wrote:
+> On Fri Sep 25, 2026 at 10:07 PM EDT, Zi Yan wrote:
+> > On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> >> For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
+> >> the underlying file is itself read-only.
+> >>
+> >> This means that mprotect() cannot mark a shared mapping of a read-only file
+> >> as read/write, as doing so would violate the read only attribute, and
+> >> permit writes.
+> >>
+> >> In general, we do not want file systems to be able to do this for
+> >> read/write files.
+> >>
+> >> Doing so would violate fundamental user expectation of file attributes and
+> >> likely break userspace.
+> >>
+> >> However, drivers pose a tricky problem here - the /dev/xxx file may be
+> >> read/write but provide access to a resource which is fundamentally
+> >> read-only.
+> >>
+> >> Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
+>
+> IIUC, a file's FMODE_* bear both fd and mmap permissions, e.g.,
+> FMODE_WRITE means fd is writable and mmap is writable. At least for
+> normal files. But a driver fd might not fit the same pattern. Would a
+> new FMODE_MAP_READ and a new FMODE_MAP_WRITE help? Not trying to propose
+> anything, but just thinking out load.
 
-RIP: 0010:handle_plane_fault+0x19/0xc0 [i915]
-Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f
-1f 44 00 00 55 48 89 e5 41 55 41 54 49 89 fc 53 48 83 ec 18 <48> 8b 1f
-65 4c 8b 2d 24 90 31 ef 4c 89 6d e0 41 89 f5 48 85 db 74
-RSP:
-0018:ffff92b180003e50 EFLAGS: 00010086
-RAX: ffffffffc0911fc0 RBX: ffffffffc06e0b90 RCX: 0000000000000005
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffff92b180003e80 R08: 0000000000000005 R09: 000000010517d5f6
-R10: 0000008000000041 R11: 000000010517d5f6 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007f72f5b72780(0000) GS:ffff8bbdcbfe9000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 0000000102f2c000 CR4: 00000000003506f0
-Kernel panic - not syncing: Fatal exception in interrupt
-Kernel Offset: 0x2c800000 from 0xffffffff81000000 (relocation range:
-0xffffffff80000000-0xffffffffbfffffff)
-Call Trace:
- <IRQ>
- intel_pipe_fault_irq_handler+0x42/0xc0 [i915]
- gen8_de_irq_handler+0x1ed/0xdf0 [i915]
- gen8_irq_handler+0xb5/0xd0 [i915]
- __handle_irq_event_percpu+0x6e/0x230
- handle_irq_event+0x3a/0x90
- handle_edge_irq+0xd1/0x1a0
- __common_interrupt+0x48/0xe0
- ? generic_smp_call_function_single_interrupt+0x17/0x20
- common_interrupt+0x84/0xa0
+Hmm I don't think that's necessarily at the right level of abstraction
+though, and these drivers need to do the same thing even if the file is R/W
+regardless.
 
-Fixes: f13011a79999 ("drm/i915: Pimp display fault reporting")
-Fixes: 138d2bda4eaf ("drm/i915/display: pass display to intel_crtc_for_pipe()")
-Cc: stable@vger.kernel.org # 6.18.x
-Signed-off-by: Marcel Hamer <marcel@solidxs.se>
----
- drivers/gpu/drm/i915/display/intel_display_irq.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+So I'm not so sure that's the right path.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index a59b75830bd1..4ffc8789c9f3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -131,6 +131,9 @@ static void intel_pipe_fault_irq_handler(struct intel_display *display,
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
- 	const struct pipe_fault_handler *handler;
- 
-+	if (!crtc)
-+		return;
-+
- 	for (handler = handlers; handler && handler->fault; handler++) {
- 		if ((fault_errors & handler->fault) == 0)
- 			continue;
-@@ -148,7 +151,8 @@ intel_handle_vblank(struct intel_display *display, enum pipe pipe)
- {
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
- 
--	drm_crtc_handle_vblank(&crtc->base);
-+	if (crtc)
-+		drm_crtc_handle_vblank(&crtc->base);
- }
- 
- /**
-@@ -425,9 +429,14 @@ static void display_pipe_crc_irq_handler(struct intel_display *display,
- 					 u32 crc4)
- {
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
--	struct intel_pipe_crc *pipe_crc = &crtc->pipe_crc;
-+	struct intel_pipe_crc *pipe_crc;
- 	u32 crcs[5] = { crc0, crc1, crc2, crc3, crc4 };
- 
-+	if (!crtc)
-+		return;
-+
-+	pipe_crc = &crtc->pipe_crc;
-+
- 	trace_intel_pipe_crc(crtc, crcs);
- 
- 	spin_lock(&pipe_crc->lock);
-@@ -465,6 +474,9 @@ static void flip_done_handler(struct intel_display *display,
- {
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
- 
-+	if (!crtc)
-+		return;
-+
- 	spin_lock(&display->drm->event_lock);
- 
- 	if (crtc->flip_done_event) {
+Then again, if the driver could somehow specify these modes at inode
+creation or some means of doing that it could help avoid the driver ever
+doing this, I'd really prefer us to disallow such changes in the hook in
+general.
 
-base-commit: f49a343b305c0b6c19a3b50c0bbf10bcd0e2e8fd
--- 
-2.47.3
+But I think definitely one for a follow up :)
 
+>
+> >>
+> >> To achieve both of these things, restrict this ability to kernel-owned
+> >> mappings as identified by vma_flags_is_kernel_owned().
+> >>
+> >> This constrains this ability to drivers which own the mapping's contents,
+> >> whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
+> >> map themselves, and so define its semantics.
+> >>
+> >> Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
+> >> across drivers, filesystems and bpf, establishes a kernel-owned mapping,
+> >> with usbmon and the ALSA PCM status page converted earlier in this series
+> >> to do so.
+> >>
+> >> Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
+> >> disable MAP_PRIVATE-file-backed mapping CoW semantics.
+> >>
+> >> This is perhaps not always intended, but we retain this capacity to
+> >> maintain existing behaviour.
+> >>
+> >> As all drivers which clear VMA_MAYWRITE_BIT establish kernel-owned
+> >> mappings, no functional change is intended.
+> >>
+> >> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >> ---
+> >>  mm/vma.c | 5 +++++
+> >>  1 file changed, 5 insertions(+)
+> >>
+> >
+> > Makes sense.
+> >
+> > Acked-by: Zi Yan <ziy@nvidia.com>
+
+Thanks!
+
+>
+>
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
