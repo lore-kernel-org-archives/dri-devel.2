@@ -4,77 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFACDCA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B919FC9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9230210E86D;
-	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFFB310E856;
+	Mon, 28 Sep 2026 08:42:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mlopop8o";
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="D0vsH8hq";
+	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="kZ1rCOTN";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DBC10F85E
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 07:25:06 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49e71cdb22bso3932805e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 00:25:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790321104; x=1790925904; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
- b=mlopop8o3CPIABgoNh77bfKzDcwZIKdAhhn6mKWFvsg1rOORpm31hv8r3TBsx7ufnp
- SsImscV1vY7dVleSbLs0kAvU3nBPFVyfvPzMZrXr2q+1VF2E1s+XGdhynOxbHSLcAxXI
- L9RrUS97DzYGLlbA8Eyrb4JZiw46D4dQzsCWipfv9TH1+6JwjsrYLLKg1W75xA5SLM8x
- W24gm78V36u5ez1jY0dZ/9AbgsNozlTv2i4bAOJCNrW1uqr/0gc1QAscB+doCkwMlp/y
- sjGjqlQv3J8iq4wAEQ9vPONkgiOEXhBQlq4H4BOZuWBap2Ap8W84EeJKcuDPFPh59AWh
- w2ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790321104; x=1790925904;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=jJsFR3C4BXwq6V8a4asvimu14gijx70uQQhfBt9Dfjk=;
- b=G1aJfZo8Tbcxw7Q0QDyeyMumIKoT2XpQb4qw1qaNoFa1BeXCC4nLLDmCC0YEb8cpQb
- w3YMjnK13PitNx4J5xsZO2XA0fS/gvclg73o75TKJvIDKTYV1ez5CeP+rRItGDsVkP6G
- UHaDv6ZSR9Blx1aS/cbr/WVSIWR7ulbqKj6vXSj8UU+lIsGv0JnfJ012xEnqfjqN67MB
- /oF6n6KD6gOxIaaTcz4/rNl2DCJImQYN4afolrR+/pVwblehcatdfhk8FPBnT8s+hUik
- wNRKB8DOjlV+iJXjWcP5R3eJJEFVHfGxaV2FRMvQ5yvd+J6QeyQ49HzxjrN906Avf8vP
- ABog==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxdKI1PEaT9BL6tKX1dcHcPsd3gOG96d/yegOjiWQDFT3F2aHcZACInMJDGOVvLj+EaEPqErPIM1vA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nm3uK60qlsquutJV5G4eQOfqDDHjgvBVdeKxHAjFtDTU6Yz0u7
- ZnFI1bYcgf5O1OkCjN5Zo6zjStJ+PUQgbThM3RuUS6CqGZzjGaKIhDn/
-X-Gm-Gg: AYBFou0zGLljuBGzSnMQeLVVuXB/j0pHMr/o5S1DdfAOl6RaeA9qsIlWL5g3S45c7gS
- aUQYxnHX9+r3IZ2GxvjSjHHsqg1mjisTOKwg0UMr+OV74ItZ0YKs9Evn6nn/Jeac9vtKZPqnZMe
- RgYFj0nKOlj19Q3+gSrbwGG+Dzh32oDbfa5RvOQ7s5TyqJ6I1q/Y6xelL993bbs41VFGDCpyy9E
- SkdkyfDzjf8pZxIFL6dTrfzoYBV6hT2plvFxrgXQBJAWY2W9AwwIYbZqDs+s+foF2VORq7qsr/L
- mkLhlMBBQp9jrd0GnbH/703SIVdMkJfNZ8e7cfWGZUXuo+w4u2P7fan5YaO5hOv0ZIbz6kYF6Y7
- CgKvMc6HHtImlyvg9N//gj8CN0wjBajdNJrm6Ky7FAItvls6IIpBXC57RaPwheduxVxn37cUgt+
- QmocvMEg7KuvDYP3IK/hi5SFdiRit9CorIvWPqm0I5hVxHJGn2tUVYR38dOvgpMA0iXHRjLvtLo
- bT7tw==
-X-Received: by 2002:a05:600c:1546:b0:49c:fa20:cc00 with SMTP id
- 5b1f17b1804b1-49fe66f4f59mr83248455e9.23.1790321104123; 
- Fri, 25 Sep 2026 00:25:04 -0700 (PDT)
-Received: from abcmhome.hgw.local ([83.66.10.10])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fe5dfa6a7sm201790475e9.12.2026.09.25.00.25.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2026 00:25:03 -0700 (PDT)
-From: =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- =?UTF-8?q?Ayhan=20=C3=87i=C3=A7ek?= <ayhancicek@gmail.com>
-Subject: [PATCH] drm/amdgpu: extend MacBook VRAM-at-0 workaround to VERDE
-Date: Fri, 25 Sep 2026 10:24:44 +0300
-Message-ID: <20260925072444.18982-1-ayhancicek@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E21F10E009
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1790431255; bh=FpsgjhkiEWhZHw10mbH5ePH
+ QdMnxCIKabE/Zrf5angU=; b=D0vsH8hqFizwiuM3AtF3qE6T2YWdukFuX47KRNX9uS4J/Wlj4g
+ P7ciAmNgUBM7RmF6ibH8kCgjRQ7UnJlR2sCg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1790431255; bh=FpsgjhkiEWhZHw10mbH5ePH
+ QdMnxCIKabE/Zrf5angU=; b=kZ1rCOTNCOWWq3TnOmrnV8oP26y1C9jxp68Y0oVcSHuJ6AdUFX
+ zHun5WF43QhoyoQEpLw5X71nRaUgR5NWxagWCeqhSrI0qIEPyTNKii1vJtUkWPsk3Mn28KzUf+k
+ yjy8Y/LxZi9lIyQqlf/mXjtSial6UWq3At/tvsV/W0u7RJRhllE33W0f6a5MdtbB+UuRBZOqaaJ
+ eFMG3MXKSqh7pt9fWxI33wIw5MEexS3HCFLIQLs9aqEAD075bWcCJEVo3AA0MU+aEFfkDhZa7rq
+ dKTP2oJ2L26ZfLomCg0SDPkKwI438hTEbXIRxzQX8EDMVvl0OKUS2k27/Pk8YNx1N0g==;
+From: erebion <erebion@erebion.eu>
+Date: Sat, 26 Sep 2026 16:00:51 +0200
+Subject: [PATCH v2 2/8] arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1334;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=SAh/u9rqLjnMP9ySwBKTGM10EJ+3cf/9qk6pK5KDfE8=;
+ b=HhwUyvpaLxbAOvvKgi65/+HHIgzvDvGzqCuXYdSaVFAO4dZ0jsKwdVNyBRxSI9YpQBdUqIWex
+ uo4TfMAupELCb6AMB4DR6dlNPPYq/bymKNeefMCanf8vDdKWziYHjU3
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,37 +74,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing MacBook workaround reserves VRAM at address 0 for
-Polaris ASICs when the iGPU is enabled. This prevents cursor
-allocations from landing at address 0.
+Adds the qcom,rmtfs-mem node required for the modem
 
-A MacBookPro11,5 with Radeon R9 M370X (VERDE) hits the same
-failure mode. Hardware cursor updates repeatedly log
-"DC: Cursor address is 0!" followed by
-"DC failed to set cursor attributes".
-
-Extend the existing workaround to CHIP_VERDE. With this change,
-hardware cursor operation is stable, the cursor errors remain at
-zero during repeated cursor movement, and cursor disappearance
-and flicker are no longer observed.
-
-Signed-off-by: Ayhan Çiçek <ayhancicek@gmail.com>
+Signed-off-by: erebion <erebion@erebion.eu>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 1bf2a42fa..9e7f9cc2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1086,6 +1086,7 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
- 	case CHIP_RENOIR:
- 		adev->mman.keep_stolen_vga_memory = true;
- 		break;
-+	case CHIP_VERDE:
- 	case CHIP_POLARIS10:
- 	case CHIP_POLARIS11:
- 	case CHIP_POLARIS12:
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 79aa2521aed40..0ef3e9e239786 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -4,6 +4,7 @@
+  */
+ /dts-v1/;
+ 
++#include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+@@ -54,6 +55,22 @@ touch_en_vreg: touch-en-regulator {
+ 
+ 		vin-supply = <&pm6350_l6>;
+ 	};
++
++	reserved-memory {
++		/*
++		 * The rmtfs memory region in downstream is 'dynamically allocated'
++		 * but given the same address every time. Hard code it as this address is
++		 * where the modem firmware expects it to be.
++		 */
++		rmtfs@fe901000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xfe901000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
+ };
+ 
+ &apps_rsc {
+
 -- 
-2.55.0
+2.53.0
 
