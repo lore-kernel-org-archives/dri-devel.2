@@ -4,62 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D403CC9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F2BCA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0854D10E8E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84F610E8E5;
 	Mon, 28 Sep 2026 08:45:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="S3JyyhrP";
-	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="MysR+efI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PY+uGwdH";
 	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E827410E063
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418022; bh=bIK+qvG75GMAuzzdcR5w43x
- CfaEsVmoowVxiOAmB3vY=; b=S3JyyhrPDSbJJsPwB6TQnku7rNE2De/oSi8QxqVyYTeNN6eG5B
- nE15XuttJItXpP/bMk4x3IC8FlnE7yVV7wDA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418022; bh=bIK+qvG75GMAuzzdcR5w43x
- CfaEsVmoowVxiOAmB3vY=; b=MysR+efI2MsBTCeD3I696hbJSFpAhMzBd2t5OIKvdGfYNzxxww
- 2oivDgwK2tj013sT5Ua8342tBzbe6fo3nfA4bgF8IGYKlmj/8DlDQDsQEgvq9su2SVIFVj+we6S
- O55ZKocOvZ+/C7I15o4Jmxvow0l2IUmf1iqvhKeIhw64YBiUFy4neg7d1eKbG6EdpzFz5nslMHu
- 1hocbWF+bGta2zGe7iyX3KxUpP3g9P3We5fzkWKnMFQ4NUq+siu1k+ezfk4ELAWdc04ifA90RSs
- kzcSGBJIhZBODSifh5Xr0tw+MWhQelJprsUY+Ck1b6cNDAX5aURxHdU7DoSX5oncjYQ==;
-From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 12:20:20 +0200
-Subject: [PATCH 3/8] arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP &
- MPSS
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com
+ [74.125.230.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7B7E10E050
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:31:31 +0000 (UTC)
+Received: by mail-qk2-f12.google.com with SMTP id
+ af79cd13be357-93a2a8c29c4so185361285a.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:31:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790440291; x=1791045091; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ilWbdrK2o5HYjWejTvlhwKOghbkTj1jD2D3PzsAcjlU=;
+ b=PY+uGwdHrX1sEfzakl779ITDqMBB2aRcBXPH7NxeIlK01MgCXHurD84iNYElJbslZ3
+ uxo/QdDaDp7NIWJNwF5+t+xSAWrZYZfqwVEqmII7954BxT9MtOUbC+DdRVw5tPLHX+Qn
+ qJh/HdwbOtS8hbMhwQe5ZO0P8+RPXliXExO3WQGxrKvbov3iFVUdIe1A5mj4I3MIZfcp
+ UoMSMaxBfGe5Qfx0cgRYJT5PrHl+DGsbW0B6sAmeM0s5hg8MOFn41avp6GfWWnRk/KyH
+ syxX0wTaDIQC1NuvMJ3FxZafsj5YTyuO3dZIPaw+n+M8BFrPtFzwMG6UUKjAFT9FTla+
+ Jr1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790440291; x=1791045091;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ilWbdrK2o5HYjWejTvlhwKOghbkTj1jD2D3PzsAcjlU=;
+ b=aYJy66cAggLHxA90sKU5FyWWWJqK5U0WPZxI32gaVM5aor9VOqAT7tCeO1DHTWl3aL
+ CGxgNe8mxW9e6RXbP/1kjWCIpQSzuDQom6yIp5h1/s23pyVtUp7wmeKxXgMZrChqcGi2
+ dr3eyVxkmB+sY+XtiaQWMoXzp3Nf5IER3BB1d06fwfcxaR5mF9rF9WF9Qyx5vIcF+TwX
+ /vxHoX46pn3XPoNf4l1I56vBxzaZf7rkZremjv0kAlSvACx6SDTfP5lsgy0HmvYmXbgu
+ 2KqdmZSL2CI9C1sL3WFCnafzjx8BWYL3UPmii0uXTutiDK7IOhf/aS/hdjlltNBSnPlR
+ wKsw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw+qxd2ARVqDwRC/4sQXeiqNWCVFllFpyJUOeEE1M/4mSI/vFt0xBdwrC38mzn0L2R74e2b7W8asxI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kf8AmsO5XXBk0E41UAeAB2og4TduJ98Xsl1I4SqKiqRWMy20b7
+ pW93qSnvxhVY+4LxwvKFOjEUjubKm71Wohsx+BNVFFyKUfmwT/CjR1hn
+X-Gm-Gg: AYBFou1B4XhZX8cHEdCawUOTQC1aj4tBiTt9+atLRkh2Ip/unKA9edkJMUx9LDQnZVQ
+ 4bA4YvUwsppufSPhyFnznL4IsZ/Se0U3bwbgFbx0kbBoiiZU9CyKYKOTlEjtTclAszi17EdYlKH
+ xJ0I6aXm6AoFaKTWUySsHeLQrrf+74vAWmV7U/mZkCLBekAcogslSB14MPwSO6M7hIR7WXPRS87
+ gxx1BuUa3tOFuE6DIdbTfaYnKbIpNox+gY5DzCXNfaRSLFY94t7aJjgXZ6q0F7CErnRS3t0Qwg+
+ 3Db2rp51tP9KlVUadRN2FYIkY4H3lNzPOpFKp1tpLaUhzLDHgarEGplHHbpguMskKZBfkv80Xwf
+ PrqiaESsJp266Mdc26wWFutITqd7fXrJKT+b8UPgp4m5b/V41kwxx6/yYMFOC7FQPKnu+G1/PrE
+ s9Wahlh58226rl0a6E0OvEi2eZJCmv6CDWohsgZdFUQhB259IpJ+aVSG9qHd2DBIxb+f67m7IP4
+ 2nwtGwPCKqFBifzlcCzRk1Zw+LeTAeEM1S8lz5gO4inezg3mVDAVcFNhw1xetAIC1F/
+X-Received: by 2002:a05:620a:4111:b0:939:13a7:70f0 with SMTP id
+ af79cd13be357-93c43b7f202mr1155214985a.5.1790440290642; 
+ Sat, 26 Sep 2026 09:31:30 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2600:4040:29f7:9600:f571:6178:b590:34a4])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.28
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 26 Sep 2026 09:31:29 -0700 (PDT)
+From: Dillon Amburgey <dillona@gmail.com>
+To: Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>
+Cc: Dillon Amburgey <dillona@gmail.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, christian.koenig@amd.com, krisman@collabora.co.uk,
+ noralf@tronnes.org
+Subject: [PATCH v3 1/5] drm/qxl: unpin the framebuffer when plane preparation
+ fails
+Date: Sat, 26 Sep 2026 12:31:19 -0400
+Message-ID: <20260926163123.39217-2-dillona@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260926163123.39217-1-dillona@gmail.com>
+References: <20260926163123.39217-1-dillona@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v1-3-1609c18b5c1d@erebion.eu>
-References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=1213;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=F9YqDdGfTxGOSumv7kEnhrjH11pKfFwV10/6oP7m72s=;
- b=DQhpFOfLaahddcDp0JesxKxC0hU/G4hBS8tdBNbauD942WZwxCuzJoiixk84KN+6DS9aNP7cr
- RhVX9HLckv+B7ZnM/MAVlcfgGeehv3+ZVBawgMhxUsHsvl/BX10S+vz
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,58 +98,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable the ADSP, CDSP and MPSS (Modem) nodes for the Xperia 10 III.
+qxl_plane_prepare_fb() pins the framebuffer before preparing its GEM
+fences. If GEM preparation fails, the atomic helper cleans up only the
+previously prepared planes, leaving this framebuffer pinned.
 
-Signed-off-by: erebion <erebion@erebion.eu>
+Unpin this plane's framebuffer before returning the preparation error.
+
+Fixes: 6071c4c2a319 ("drm/qxl: add drm_gem_plane_helper_prepare_fb")
+Assisted-by: LLM sparse
+Signed-off-by: Dillon Amburgey <dillona@gmail.com>
 ---
- .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts  | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/gpu/drm/qxl/qxl_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 56a863eb8e167..79854151a84ac 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -73,6 +73,12 @@ rmtfs@fe901000 {
- 	};
- };
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 0719fc6a52d5..1f869734e14d 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -887,7 +887,10 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
+ 	if (ret)
+ 		return ret;
  
-+&adsp {
-+	firmware-name = "qcom/sm6350/sony/pdx213/adsp.mbn";
-+
-+	status = "okay";
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm6350-rpmh-regulators";
-@@ -296,6 +302,12 @@ pm6150l_bob: bob {
- 	};
- };
+-	return drm_gem_plane_helper_prepare_fb(plane, new_state);
++	ret = drm_gem_plane_helper_prepare_fb(plane, new_state);
++	if (ret)
++		qxl_bo_unpin(user_bo);
++	return ret;
+ }
  
-+&cdsp {
-+	firmware-name = "qcom/sm6350/sony/pdx213/cdsp.mbn";
-+
-+	status = "okay";
-+};
-+
- &gpi_dma0 {
- 	status = "okay";
- };
-@@ -321,6 +333,13 @@ touchscreen@48 {
- 	};
- };
- 
-+&mpss {
-+	firmware-name = "qcom/sm6350/sony/pdx213/modem.mbn";
-+	reg = <0x0 0x04080000 0x0 0x100>;
-+
-+	status = "okay";
-+};
-+
- &pm6150l_flash {
- 	status = "okay";
- 
-
--- 
-2.53.0
-
+ static void qxl_plane_cleanup_fb(struct drm_plane *plane,
