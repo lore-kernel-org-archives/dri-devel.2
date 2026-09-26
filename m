@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7752CCA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D370CA5FA4
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C40E10E8AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5E6D10E8B0;
 	Mon, 28 Sep 2026 08:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="kcJdxXS+";
-	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="OUrYtfeZ";
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="+/jouv0m";
+	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="GdCGXe8h";
 	dkim-atps=neutral
 Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D92910E096
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:27:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8663910E009
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 14:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
  c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418024; bh=lVlAnYc883cp2ahIumWV9sy
- JCRy4qAhBeWrjjpiDrd0=; b=kcJdxXS+dW6Brd3cEIU4jILC+ktY26Dv0UhRGtCQrQDsXjnp2w
- X8OHX5wLLIRBEnsvLZ0a0Wv0G0KwlwfQ4zCw==;
+ h=To:Message-Id:Subject:Date:From; t=1790431255; bh=4ss4Vu3NIbwTtaDQz961Ih0
+ ITnPZZKKN15Y755Pj7Go=; b=+/jouv0mEsRqzpMTSgdOsu+iRD8W6pjfWh3C1lATtt3uB/5Qgm
+ RnA14GtDhhrhT5THW1dXnFH3pP15STRfQ7CA==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
  r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418024; bh=lVlAnYc883cp2ahIumWV9sy
- JCRy4qAhBeWrjjpiDrd0=; b=OUrYtfeZnlFFJXL6ipDSzTh79qjtnIznuhWOUpzDzPc/jKG1hO
- LXhdvtw1Thk70gNXKwy6oTHr483K06Yx27PIzqseueVtmNALWDNqPc30Nti4fIxTSGowxCi5h2e
- H+HeRDWexX9MxtkK4G/xaBCwLyjysOvHRsm0TaurH/9xnrgqOmeE6EUIDVMcWWUFa6w8i3pCU4z
- O81Siw1vk2pyCdRGaBAZ3GyZ8e4OTi+Nk5ih7TFNEa8LkD/aX+1jZC7l2MZc2TwvmvlLHe/RU3T
- kocAn7KDZR0DVrewY5pAZpUZI5MGL1UcyCJ+nSH8x2Cu4evr4NszHqLzDPiM9pNrCrg==;
+ h=To:Message-Id:Subject:Date:From; t=1790431255; bh=4ss4Vu3NIbwTtaDQz961Ih0
+ ITnPZZKKN15Y755Pj7Go=; b=GdCGXe8h6KV2xjtQ+ABrh6NWsjjYd8FOBK94JVyqekUkIUHfrF
+ YZOII1RMx1xGyP05XeLTMU4tA07w+UZAx6ucItEVsNb6c8ybyHdTB4EXgnYiSWtBxRB3fn4zx05
+ j6WmDz+/Vo6P30q0XJhUKemZp1RdYRyZjbcf4QweH1+iWRE8QfDpF2uHBwVazx/wGgjsxOUEuid
+ koUqsryVjSsrkQKyb0bE0JN/eR8iv2QafRgX/f85M/RIvHz8XTDg18i0wRLkUVKFrx22c1ZH2qU
+ uV0AxswDeyhVUMQ/pukuBkwrUOR6AbqIIvibiuvOFYUJ105bxh+owx0FpfmRmRIPhzg==;
 From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 12:20:24 +0200
-Subject: [PATCH 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
+Date: Sat, 26 Sep 2026 16:00:52 +0200
+Subject: [PATCH v2 3/8] arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v1-7-1609c18b5c1d@erebion.eu>
-References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
+Message-Id: <20260926-pdx213-upstream-3-v2-3-b4612e3eb536@erebion.eu>
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,11 +51,11 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=1972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1176;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=KLlHO9g+T+Yj7FycdIZ6x56fp1RhrGOeRrv/Rrarm5w=;
- b=PPme/hK2x0lvSTxfN7R7zUIWSLBfjnGu6/GBeOtDAu1rnOCe6qR00JlftoOEEeocQnSpxmfhe
- +xmU5cm35bXCqVIg8T+omYUDS5poDR/Eem4EjWXkqR7wMKOq+soGNAK
+ bh=LJJELl/M9f8YmHlaJTO9RvN08jHQADEyvfNK7FNO6DY=;
+ b=FxYFXS5X7RVxOxNZjemWQZu190fpTBmPnMAZTM36BLd0nBbLslz6aRazbJByudnWAe2D0VtY7
+ NTPzrYxSX38Ae8FArEFkEcLdPirhTimJl229smHWxcLmyo4K6G0nIs5
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
@@ -74,86 +74,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable PM7250B and some components on it for the Xperia 10 III.
+Enable the ADSP, CDSP and MPSS (Modem) nodes for the Xperia 10 III.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 48 ++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 7c14360cb1838..265400aa945ba 100644
+index 0ef3e9e239786..c58047ce3291d 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,6 +4,10 @@
-  */
- /dts-v1/;
- 
-+/* PM7250B is configured to use SID2/3 */
-+#define PM7250B_SID 2
-+#define PM7250B_SID1 3
-+
- #include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-@@ -11,6 +15,7 @@
- #include "sm6350.dtsi"
- #include "pm6150l.dtsi"
- #include "pm6350.dtsi"
-+#include "pm7250b.dtsi"
- 
- / {
- 	model = "Sony Xperia 10 III";
-@@ -388,6 +393,49 @@ &pm6350_resin {
- 	status = "okay";
+@@ -73,6 +73,12 @@ rmtfs@fe901000 {
+ 	};
  };
  
-+&pm7250b_adc {
-+	channel@4d {
-+		reg = <ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "charger_skin_therm";
-+	};
-+
-+	channel@4f {
-+		reg = <ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "conn_therm";
-+	};
-+};
-+
-+&pm7250b_adc_tm {
-+	status = "okay";
-+
-+	charger-skin-therm@0 {
-+		reg = <0>;
-+		io-channels = <&pm7250b_adc ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+
-+	conn-therm@1 {
-+		reg = <1>;
-+		io-channels = <&pm7250b_adc ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+};
-+
-+&pm7250b_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <1500000>;
++&adsp {
++	firmware-name = "qcom/sm6350/sony/pdx213/adsp.mbn";
 +
 +	status = "okay";
 +};
 +
- &qupv3_id_0 {
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm6350-rpmh-regulators";
+@@ -296,6 +302,12 @@ pm6150l_bob: bob {
+ 	};
+ };
+ 
++&cdsp {
++	firmware-name = "qcom/sm6350/sony/pdx213/cdsp.mbn";
++
++	status = "okay";
++};
++
+ &gpi_dma0 {
  	status = "okay";
  };
+@@ -321,6 +333,12 @@ touchscreen@48 {
+ 	};
+ };
+ 
++&mpss {
++	firmware-name = "qcom/sm6350/sony/pdx213/modem.mbn";
++
++	status = "okay";
++};
++
+ &pm6150l_flash {
+ 	status = "okay";
+ 
 
 -- 
 2.53.0
