@@ -4,84 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFB00CA5FA3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF14C9832F
 	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77AA410E87C;
-	Mon, 28 Sep 2026 08:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 530E610E88B;
+	Mon, 28 Sep 2026 08:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YaaRDDIx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gn1PEczg";
 	dkim-atps=neutral
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com
- [74.125.230.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA2A389E59
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:31:35 +0000 (UTC)
-Received: by mail-qk2-f39.google.com with SMTP id
- d75a77b69052e-5332bdd8296so7308181cf.2
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:31:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790440294; x=1791045094; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nKaiZuCWzgj/35GoC92DyRMuXF3uBWzJWZETTYPAMUo=;
- b=YaaRDDIxOkIpQOCyStqb9buhE30uFwAKuhgGF5eUJJw06WEM7m4S98kpokD6X6KRkp
- lhBdllJ9AvkqEL0R6IuZj1XmHBDGOUKDzrmOHY7F3kl6yylFCuTW51vIrTHbTZ03/2Wj
- 5M1Io8sV7PhF/v+1ej1mbdOuNpFVCMhIJ6/cJDQ+OMByuWixU+MZ9HAPZ2re2RnhECDV
- Fg2J++j9TG6aL1ockz6bI+CG5dLClWPYbHid6j47+fK4iNWlpzdBF3AvwtPT2atQl6TH
- n/dh7KLRGVZKFqi/v+NQ5gIH5qEiHmaZhciSiczk9AdN3oXuyKnCsPt68oleCw+zovux
- gqTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790440294; x=1791045094;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=nKaiZuCWzgj/35GoC92DyRMuXF3uBWzJWZETTYPAMUo=;
- b=j8Jah2baS8sZRVCDUvVjdGRWmUy7k59YTUUAk8CsL4cQxcrbAGIsZweY3q2/sf/TSb
- oMgtdSeobRivxUzLUIUNeAOMgsTD9Fk32s4KWk1QjU2Wzn8J4R9l3V2Cz97XCrQjsoKk
- Wv0Hr417XlLGX04hgTANLRBRXUcx2IgV8v6MzK/Jn2RPYuk+jlDVIdi7uE2RVLOrSDSL
- uawgPSTl2i9QxBgaITNMeXUZ3Vca4rscHnEIjnbrqND6cHh5Ny6SbkTc5rJY5rJmO/Dx
- iS774/QvF5gXNFYqek9gN1B+lb2V1QepbYzck8VBdWj+ClFsgzYb6e0GKqBoTBCHnTcb
- 7QFw==
-X-Forwarded-Encrypted: i=1;
- AKwUvByghmaa9GQ/+HtFLl/hlswkP3mpA6M9x1Rf87cPw5bSIEBNCn0s8JnIp5VYiKjmMJJtDdvFFdHeMXA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lcVN0Az02OXBs5G7vX+MbCE+ZkjOGc6eDNz3lWg2NUBWhgCM9/
- 8tb1QXVm7UEQ8Z+UfMsCqbiIKYctateXHS52ekSeIE70ZGftwh8d877p
-X-Gm-Gg: AYBFou1CRcGJ6n9sb53WZdKVm/qJJKk5pbf/PjQFbArEGjLTrw8sTM3tJ7p+/AJFP8U
- Appd1rV+HWafqs/jZrUQgQf7W1Z+qpsFZv66kK41NHJb6tG64DCfrZmnnURJXoNZc4/CgPSfo0c
- wPEju+7V9bAkQs4pvlAkD6QIgjvdXNc+SeQyWwppOPjwJwh/XdNSXyxuisWDcdjpnAtJUY0Zq64
- Xd54p9nsBd3HcUh2aTH1vkdv5A5E/k/6/JT21kRq0lXtfVMxNz0nSNycP+uNwjNzZKqiKxmlp/N
- hx3hN2pQAo+g83pBcw/iz/swnAY1uN9dXsRj/avrPQM378hEPpJXxTt1Pmh2q+axJgTOM78KBGM
- 6Z4JXv5Kace176BdfxyctE4fYzeAR1b46i+wDx/JMNA5dIcmkZEhexP6uPPJPDVn4x5MwZFTAtq
- V5MQbTVBcja+VePQLdRnohUBJYHJ2l4MI850vAx6Glz6NnsHoavzAQXy98oLngxP74pHPTe5sVA
- iHttBaJMGJm6aB81OQoX+O0H6FxxsGOWyJz2fRx23OeLq0HL3mEhAwqDo5rxFxNkX8=
-X-Received: by 2002:a05:620a:4686:b0:93a:2e8:5afa with SMTP id
- af79cd13be357-93c43ca5e78mr1028604385a.30.1790440294481; 
- Sat, 26 Sep 2026 09:31:34 -0700 (PDT)
-Received: from localhost.localdomain
- ([2600:4040:29f7:9600:f571:6178:b590:34a4])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.30
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 26 Sep 2026 09:31:31 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Dillon Amburgey <dillona@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, christian.koenig@amd.com, krisman@collabora.co.uk,
- noralf@tronnes.org
-Subject: [PATCH v3 2/5] drm/qxl: wait for pending commits before applying
- DirtyFB
-Date: Sat, 26 Sep 2026 12:31:20 -0400
-Message-ID: <20260926163123.39217-3-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260926163123.39217-1-dillona@gmail.com>
-References: <20260926163123.39217-1-dillona@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF1710E170
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 13:22:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DAC1D60514;
+ Sat, 26 Sep 2026 13:22:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B984F1F000FF;
+ Sat, 26 Sep 2026 13:22:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790428957;
+ bh=Ho6ODA6dlgcOvdPnhowd9GgmBiom3Zlo2XTvzY/VTW0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=gn1PEczgsD5J29kex3G7noDS0spUTsU0srsr+zO1nZZFuyKKVJFH88OWSVdctFAta
+ v7+cMia70kZ1YiuCIVpgK+S7YUkcgPcfUscXxMIVNy2T0tNen4vpOI9UIX+1BDQbbc
+ ePRW1SWCr2qEbUMLcslI3kLtHSdkz6HzShrhvUDCAIXM9cTBfN59vnzkvSpAY5sH1A
+ HiO3kEDoHq52UM6A/hwkWmFG1rbuJuaaijRW4+S7BnYNa61yNGGxIUvVs8xVjcKOaU
+ 2ZsrOuBc7LttfpdBhGRS97sgpAQW2anj2l9mfgb3mnYHtFFH+/VpzMj5GLRW0f0MCb
+ rDkMkQL9UaUiA==
+Date: Sat, 26 Sep 2026 14:22:06 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ "Kirill A. Shutemov" <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ peterx <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dave Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S . Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>, 
+ Emil Tsalapatis <emil@etsalapatis.com>
+Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Message-ID: <arfGmNiEngnO3JKm@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
+ <areSEI5pWBadkqIe@gremlin>
+ <408aef6e-5b0a-482f-8ba8-f8c20ee870e5@app.fastmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <408aef6e-5b0a-482f-8ba8-f8c20ee870e5@app.fastmail.com>
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,49 +147,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The modeset locks protect software state, but a nonblocking commit can
-swap that state before its hardware updates finish. DirtyFB can then
-race primary-surface replacement and draw into the preceding surface.
+On Sat, Sep 26, 2026 at 03:06:33PM +0200, Arnd Bergmann wrote:
+> On Sat, Sep 26, 2026, at 11:40, Lorenzo Stoakes (ARM) wrote:
+> > On Sat, Sep 26, 2026 at 12:06:22AM +0200, Arnd Bergmann wrote:
+> >>
+> >> mm/vma.c: In function '__mmap_region':
+> >> mm/vma.c:3083:1: error: the frame size of 1552 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+> >>
+> >> I don't immediately see anything that you did that would have introduced
+> >> something bad that wasn't already there, so it's likely just gone from
+> >> just below the limit I was using for my testing to just above. The 1536
+> >> byte limit is what I use on 64-bit builds with KASAN and otherwise
+> >> still has a clean build (with a small number of local fixup patches).
+> >
+> > Hmm are you specifying this limit manually somehow?
+>
+> It's a Kconfig setting upstream, but the way I'm doing it is to have
+> patch that calculates a sensible default based on other options that
+> is a little smaller than the default (currently 2048 bytes) on x86-64
+> to catch more cases where something sticks out.
 
-Wait for the current CRTC commits while holding the modeset locks before
-checking the primary and issuing dirty updates. Return wait and lock
-errors to the caller instead of reporting success.
+I see.
 
-Fixes: 9973c879cff7 ("drm: qxl: Atomic phase 3: Wire up atomic page_flip helper")
-Assisted-by: LLM sparse
-Signed-off-by: Dillon Amburgey <dillona@gmail.com>
----
- drivers/gpu/drm/qxl/qxl_display.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+So this is an early warning more or less :)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 1f869734e14d..51087cacff74 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -437,10 +437,17 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 	struct qxl_bo *qobj;
- 	struct drm_modeset_acquire_ctx ctx;
- 	bool is_primary;
-+	struct drm_crtc *crtc;
- 	int inc = 1, ret;
- 
- 	DRM_MODESET_LOCK_ALL_BEGIN(fb->dev, ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE, ret);
- 
-+	drm_for_each_crtc(crtc, &qdev->ddev) {
-+		ret = drm_crtc_commit_wait(crtc->state->commit);
-+		if (ret)
-+			goto out_lock_end;
-+	}
-+
- 	qobj = gem_to_qxl_bo(fb->obj[0]);
- 	/* if we aren't primary surface ignore this */
- 	is_primary = qobj->shadow ? qobj->shadow->is_primary : qobj->is_primary;
-@@ -464,7 +471,7 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- out_lock_end:
- 	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
- 
--	return 0;
-+	return ret;
- }
- 
- static const struct drm_framebuffer_funcs qxl_fb_funcs = {
+>
+> >> If I sprinkle some 'noinline_for_stack' annotations on functions
+> >> called by __mmap_region(), I can get the size down to 1144 in this
+> >> config, but that doesn't sound like a great workaround.
+> >>
+> >> The large stack usage is potentially harmful if this ends up
+> >> in call chains that have additional large stack usage (e.g.
+> >> kmalloc() leading to reclaim). Any ideas for how to reduce it here?
+> >
+> > That can never happen :) this call chain is _only_ for an mmap() call.
+>
+> I mean more functions called /from/ here, something like
+>
+>   __mmap_region()
+>   __mmap_new_vma()
+>   vm_area_alloc()
+>   kmem_cache_alloc(..., GFP_KERNEL)
+>   slab_alloc_node()
+>   allocate_slab()
+>   alloc_slab_page()
+>   __alloc_pages_slowpath()
+>   __alloc_pages_direct_reclaim()
+>   __perform_reclaim()
+>   try_to_free_pages()
+>   shrink_zones()
+>   shrink_node()
+>   lru_gen_shrink_node()
+>   shrink_many()
+>   shrink_one()
+>   try_to_shrink_lruvec()
+>   evict_folios()
+>   shrink_folio_list()
+>   pageout()
+>   shmem_writeout()
+>   swap_writeout()
+>   swap_add_folio()
+>   swap_write_submit()
+>   nfs_swap_submit_write()
+>   nfs_file_direct_write()
+>   nfs_direct_extract_pages()
+>   nfs_do_recoalesce()
+>   __nfs_pageio_add_request()
+>   nfs_pageio_doio()
+>   pnfs_generic_pg_writepages()
+>   pnfs_do_write()
+>   pnfs_try_to_write_data()
+>   filelayout_write_pagelist()
+>   nfs_initiate_pgio()
+>   nfs_local_doio()
+>   nfs_local_do_write()
+>   nfs_local_call_write()
+>   ->write_iter()
+>   generic_file_write_iter()
+>   generic_write_sync()
+>   vfs_fsync_range()
+>   ->fsync()
+>   xfs_file_fsync()
+>   file_write_and_wait_range()
+>   filemap_fdatawrite_range()
+>   filemap_writeback()
+>   do_writepages()
+>   ->writepages()
+>   xfs_vm_writepages()
+>   iomap_writepages()
+>   iomap_writeback_folio()
+>   iomap_writeback_range()
+>   ->writeback_range()
+>   xfs_zoned_writeback_range()
+>   iomap_add_to_ioend()
+>   ->writeback_submit()
+>   xfs_zoned_writeback_submit()
+>   xfs_zone_alloc_and_submit()
+>   xfs_submit_zoned_bio()
+>   submit_bio()
+>   submit_bio_noacct()
+>   submit_bio_noacct_nocheck()
+>   __submit_bio_noacct()
+>   __submit_bio()
+>   blk_mq_submit_bio()
+>   blk_mq_run_dispatch_ops()
+>   blk_mq_try_issue_directly()
+>   blk_mq_run_hw_queue()
+>   blk_mq_sched_dispatch_requests()
+>   blk_mq_do_dispatch_sched()
+>   __blk_mq_do_dispatch_sched()
+>   blk_mq_dispatch_rq_list()
+>   ->queue_rq()
+>   scsi_queue_rq()
+>   scsi_dispatch_cmd()
+>   ->queuecommand()
+>   ata_scsi_queuecmd()
+>   __ata_scsi_queuecmd()
+>   ata_scsi_translate()
+>   ata_scsi_qc_issue()
+>   ata_qc_issue()
+>   qc_issue()
+>   ata_sff_qc_issue()
+>   ata_sff_queue_pio_task()
+
+Ugh delightful :)
+
+>
+> There are many ways the call chain can go of course, but the actual
+> stack overflows do tend to follow this pattern where you are at a
+> function with high stack usage and call kmalloc() during low memory
+> condition and that ends up waiting for a block I/O down the line.
+> (you normally don't go through swap and nfs, I was just looking
+> for the worst case I could easily see in the code)
+
+You certainly found quite the example haha.
+
+>
+> > In general I am absolutely taking this seriously and will find a way to
+> > reduce this, but my only question is whether this is actually something
+> > that needs to be done in this series?
+> >
+> > Because it's already huge and I would rather avoid adding yet another patch
+> > to it if possible.
+> >
+> > If I can do it as a follow-up that'd be ideal!
+>
+> What I was hoping for is that as you are already deep into the
+> exact code that caused the warning and you can already see something
+> in there that may help.
+>
+> I don't think it's urgent, I just don't want it to be forgotten.
+
+It won't be, it's now on my TODO and I see it as a relatively high priority
+thing to follow up with.
+
+Will likely send a patch for it next cycle (this is about the worst cycle I've
+seen workload-size for mm so I don't really want to send anything more this time
+around).
+
+>
+>      Arnd
+
+--
+Cheers, Lorenzo
