@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDA1EC9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 16:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 545C4C9832F
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 16:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4876710E1D9;
-	Sat, 26 Sep 2026 16:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B198410E22E;
+	Sat, 26 Sep 2026 16:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AqQk3Jb2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gc3YlU+Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D44310E1D9
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:39:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AE7F10E22E
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:42:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0EFDD6020C;
- Sat, 26 Sep 2026 16:39:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76FAE1F000FF;
- Sat, 26 Sep 2026 16:39:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5028243941;
+ Sat, 26 Sep 2026 16:42:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E801F000FF;
+ Sat, 26 Sep 2026 16:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790440781;
- bh=VD5Gm+hR15ohJ5wVTjgweg6mMAFFp2xYQK7jmt6Fwt0=;
+ s=k20260515; t=1790440920;
+ bh=U89+kmtfsOWlRFigA3CHEGQ2aPXOnjJ5VGEkFsbUFxg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AqQk3Jb2AMUp39KSzyyV2ZYAtxsdRvTSqT2kCAmjswk0HtltsP0xeAqrnGfFG+t+z
- tuY1grYCSWc+v0N6lsYq+WZdFUfTROdk+01ezQ7Z/Pbfj/I/ZiGycjO9Sre48LAmta
- 0LpdRsJW4V5LziTbdYsHVKorHezvZ9GkPamb+ZeLsfsn4XAAiFLoUJlixcpiHtkf+d
- Kj9pcs2HJFWj1J+S1wBA3JGI/7zpymHSwypAUXgz1JvN9nXSQF6sgxtk8JrE+fGx4L
- yaNlIo6dHrN2AznsNLr8mf9TwRRpR1NsSg2r35n8c5s9c1FQCQ6L3lByBLmRoLtTf8
- 0803ndnE8hCVA==
+ b=Gc3YlU+Yr5R8VzXFSSDTF2gVpx4HpXhK5sX2IIOrUZoN0Of0NnrwlUWIjs/rSZzCU
+ xq9nGMeBevFelRBGZWMqGBGFFOU4F/Ws9W7587QgDMkedQ7f2/NanqIp7o/WsEQpL+
+ eajpnsr5xph/ob0jaj+pvEGquSDKbvo0I2Eo8pBTIl/4R1Wnaten/ZPugAtNFmS0qH
+ WSTOh//zPqS9z4d30AYKvnkh5TMutDS24rXnLC9sk5x/atfwAHyZqyJdwpUBzVjI10
+ Mcn6J3rumdcE2W/bWjC3YUeKs2y+JAB1IiZBnlIEHgEyJ9PMm2HU7dXLY1CZdf99Nj
+ s+6yIAnUXq+qA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] drm/qxl: wait for pending commits before
- applying DirtyFB
+Subject: Re: [PATCH v3 4/5] drm/qxl: own packed primary shadows in atomic
+ plane state
 To: "Dillon Amburgey" <dillona@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, "Eugenio Perez" <eperezma@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev
-In-Reply-To: <20260926163123.39217-3-dillona@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, "Eugenio
+ Perez" <eperezma@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <20260926163123.39217-5-dillona@gmail.com>
 References: <20260926163123.39217-1-dillona@gmail.com>
- <20260926163123.39217-3-dillona@gmail.com>
+ <20260926163123.39217-5-dillona@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 16:39:41 +0000
-Message-Id: <20260926163941.76FAE1F000FF@smtp.kernel.org>
+Date: Sat, 26 Sep 2026 16:41:59 +0000
+Message-Id: <20260926164159.E6E801F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,16 +59,27 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> The modeset locks protect software state, but a nonblocking commit can
-> swap that state before its hardware updates finish. DirtyFB can then
-> race primary-surface replacement and draw into the preceding surface.
+> Preparing a dumb framebuffer changes device-wide layout and BO shadow
+> bindings before the atomic commit succeeds. An aborted preparation can
+> redirect live framebuffers to an uncommitted shadow. Per-plane cleanup
+> can also remove a shadow binding still needed by another head using the
+> same framebuffer.
 >=20
-> Wait for the current CRTC commits while holding the modeset locks before
-> checking the primary and issuing dirty updates. Return wait and lock
-> errors to the caller instead of reporting success.
+> Give each prepared primary plane state a reference and pin to a shared
+> shadow. Compute the complete new layout and prepare one matching shadow
+> without changing the displayed states. Include all primary planes and
+> CRTCs so replacement and repacking redraw every head under the same
+> commit dependencies. Release each state's resources independently.
 >=20
-> Fixes: 9973c879cff7 ("drm: qxl: Atomic phase 3: Wire up atomic page_flip =
-helper")
+> Keep the primary while any new primary plane remains active, and destroy
+> it when the last head turns off, including DPMS with retained framebuffer
+> bindings. Route DirtyFB clips through each matching active plane state
+> to its packed slot; copy clips before the draw helper translates them.
+>=20
+> Retain allocation-based packing and full-framebuffer drawing here; plane
+> source geometry is handled separately.
+>=20
+> Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
 > Assisted-by: LLM sparse
 > Signed-off-by: Dillon Amburgey <dillona@gmail.com>
 
@@ -76,5 +87,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926163123.3921=
-7-1-dillona@gmail.com?part=3D2
+7-1-dillona@gmail.com?part=3D4
 
