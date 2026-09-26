@@ -4,102 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54908C9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 01:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 602EBC9832A
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 02:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF4A210FD1B;
-	Sat, 26 Sep 2026 01:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAEE410E2C5;
+	Sat, 26 Sep 2026 02:20:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="34S+nhOa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hb8QgQs7";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011031.outbound.protection.outlook.com [52.101.62.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D8D10FD1B
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 01:37:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YkluyF5cbe4kYnpvKrmrwVh1i353xj2acx1/i09joZf3SnOqgm0NQofTGxduaoPJYivuI+dNk6UbDYApvJVQZmpFDiDVyimYIMR7yLYDkeexz5LvTdRtiaWQyBC94gxKYMi7aja0zEzv6JmhzqpnUphQKB9pu/R5aoFeB7yNNo/CSATbrTFFfR4Hl6A4F08Sk5z1Ko350TrvoLXaxLP6xL2HANGzCA93P9VNSed6TaZJna+iAxehRBC4JUmtYV23o8uuHIQGPLhUA2ACg1E/39wtoQd0qdxanE+3nwfCJgkXQ/uyUszXy17oISIl9X3nCzrJfSC6vtSeCYCbTZsAlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6xIeLhV7IlVBF22UN6I+L1bEI275kVAa+wRYBmVKT0o=;
- b=T3prIbTud/xD/VBawQWDMakhHjGrHP0ka5ddpAC/rRZzoaGn0GNruksdbUkSmwlcxrFngWQyXmn5HMnOk37uOE6vFFTbuPhSVsfMVIOOmbp25ZHBISR5qsEVH+qhYbOawByj57Vb68MMdCO9IXYuC/0jnkErHD74RbyC27wXQ+byKrzuTI7LFieRDmKSgeCRGbnLg8K4TsFWuOejCXVvLhQ/rCKBi10FSrK2jEuUxGjMB0AkYR+vZTE0XaCxLfX0MajoK3yUqZPGlLRyhlo8ZUssU6BJCYp6k0Uo0icr+gOsRmHQf5C+vhoryVmCTDMn16q4WwVqbUoz1tLegriGXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6xIeLhV7IlVBF22UN6I+L1bEI275kVAa+wRYBmVKT0o=;
- b=34S+nhOa7ivroBBCks8/1PfuFiVWvtR56uXXZkXYDyOhgC+p7BW9gJR2p2tHBzNKGECEz26g0hTDa7obLWR8TE+sSmB+lUEuY5EWT3JPUlcLGDQp2lLn+wxmrzI4bXJDjSWMLEd04XyphA43+VomZGnpAeC/+ArEs2OSKONUPuY=
-Received: from BN0PR04CA0136.namprd04.prod.outlook.com (2603:10b6:408:ed::21)
- by CH3PR12MB9170.namprd12.prod.outlook.com (2603:10b6:610:199::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 01:35:38 +0000
-Received: from BN7PEPF00000091.namprd03.prod.outlook.com
- (2603:10b6:408:ed:cafe::2) by BN0PR04CA0136.outlook.office365.com
- (2603:10b6:408:ed::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Sat,
- 26 Sep 2026 01:35:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF00000091.mail.protection.outlook.com (10.167.245.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:38 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 20:35:35 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via
- Frontend Transport; Fri, 25 Sep 2026 20:35:34 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
- <max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
- <mario.limonciello@amd.com>
-Subject: [PATCH V0 21/21] accel/amdxdna: Add stub hwctx_config for AIE4
-Date: Fri, 25 Sep 2026 18:34:48 -0700
-Message-ID: <20260926013448.3840921-22-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260926013448.3840921-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20260926013448.3840921-1-yidong.zhang@amd.com>
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com
+ [74.125.228.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 234A110E2C5
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 02:20:36 +0000 (UTC)
+Received: by mail-pz2-f12.google.com with SMTP id
+ 41be03b00d2f7-cc1ab17a156so22909a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 19:20:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790389235; x=1790994035; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
+ b=hb8QgQs7GVr9D7VskSNY/J3zSfgIJO8vPx0nQJDma6TIobU26vwpR4Qx2AGj4tKqo0
+ Ws+Ux9M8T42dgcX/MJueaSv8FjngeUxozGRz3BeH96/zgr7P2GzD97R70fS5FbCTySlA
+ I/1Wwe/F7t1HY4ZF7RVPuXMEi/cLhM+Ux+3vCu+HVv1k7bWeaE/MfxXlEqlce2ba1LEb
+ dRTApoTZAe7iQr8D30fiT+aZs3mEpw6FZi9s/gwuT4Hz/sWKdFzdH+dBYxt6de9AUp6e
+ vqhxznKliDlt7ZDgYP6v+qWzEPk6ej1SoYVUuRugkmXsvORRT2HeVtymFY/QXPpSol/z
+ EH3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790389235; x=1790994035;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=A35dxfOiF0vku1a8AiorVl5ekNNXinTf80Wsr1D60yQ=;
+ b=26fKRPtWlY/dLuWV5+JbZWn1limeDsWUZ2UyNJ6vMAUwYgLqyGdtrIW2Yfphi83Wd0
+ XKikR65XXwiIGEtVZH98J7yDfdk4fNTnHVP/A0E59hDyIbKBN3u49V/xGX83uBECvr/y
+ 60AtIQ91ZW8El7P+0TQFYWsuUN304uxYd6Pd1NLuO2ZXHH+hJ1xpC5BXiwZVEB0UYgNO
+ KqpHmxOtfGJOctT2stVrM9MO/uLWGBITclyBXn8EB47K2qhNJOfp0p7E9+hyRrS7TKbh
+ 3X6hxILiAbmphP1HG1EmnyM5l7t+FwiN8xSftLqzCvYyIV2a80Kxuwx9q+q5yRndJXt7
+ 0XAg==
+X-Gm-Message-State: AFuF++lbucyPOZB5W3arLYWjUdd7ySfceJQQZDQQo0UCp4fgvmDNmapX
+ y8hxbrghhKHgFSsw1hpSElx2CvjW8bXPCkjmrbopNVELwM4g4Zvz+QqOq5stDQ==
+X-Gm-Gg: AYBFou0UYQ6qTzKg+QONBC6ug91WAe+mSOpW7izd0e7v2jB5VCndLFnUWqWT/ouTBZ1
+ jJQCZ6JoVqQ88EQE1pBV80c+CQKsOsMS4xjAQKxTeHYpWOk7frQOthPqlHTT88gk3vFPYeiSnIP
+ YQVzY3O7a3XLM66ZvEaOpP5Lc4w1zqZ7cXEK0gkqxxkiV+KohxEVKQn5hhbpsksPbJ+OmsE2oIb
+ r/ePIdAWgFZsoQbYl84YA2cZ7cfomcIFVha9I1JwjMz55Z8z7APkVoyI3UMSSO5YU+p+7Bze2lF
+ ox4vduFClLEe1V/z1lJ9UCLs72WN9y8+CSeR58Qdq7x+Cag4vd6T6n+dU701209N+wcJ6Q62h91
+ jYrvHdgUWxdFDk07LuMbupZYsBKBMAwoXNksp9ACVVr7sJMBXP+gmgSkw84gkPxMv4/LZy7jETe
+ qPd/GqWFn+fk/nwiThEZMfQytLfSD9RAoCUCWpYjpLUO4/Hc9pWrjN7zJDZl4VDODXdi7PA8ITq
+ rWujlYdaolBWQ==
+X-Received: by 2002:a17:902:c94c:b0:2db:2846:ce3c with SMTP id
+ d9443c01a7336-2df8e59a4e9mr65359735ad.1.1790389235476; 
+ Fri, 25 Sep 2026 19:20:35 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2df90fbac49sm17687415ad.3.2026.09.25.19.20.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Sep 2026 19:20:34 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Bryan O'Donoghue <bod.linux@nxsw.ie>, Dmitry Baryshkov <lumag@kernel.org>,
+ Karl Mehltretter <kmehltretter@gmail.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Jianfeng Liu <liujianfeng1994@gmail.com>
+Subject: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on
+ DEBUG_KERNEL kernels"
+Date: Sat, 26 Sep 2026 10:20:17 +0800
+Message-ID: <20260926022026.10539-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000091:EE_|CH3PR12MB9170:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f015d45-735a-49b0-298b-08df1b6e77d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|56012099006|4143699003|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 1lV3YHvF6Z81l6h1zCaWPLqJurQJtegH6YUA+HeMtrYiSJYEVFcYQDS+iSvHnk0bePYRB9XtUSc01WbXgGbkMQ3ztXi7hdxMrZ39itIW6yTn5eiaBFDzpNd7Ix3D9j+DsmIxuRXIwbAyQpuKUPUYnhG0scPesNGqSf8z7yEPfmb9mbDUFQX6AXKueqNsiQuPWrW1dU3dDSawg5SyndzRhc9FVGQSjTTMkLkLYXWTcjLRDfnxJWgpAKyWQfxCnaOpssFQc6APrfcEFyM+eQBegkrDUh7Zp6pbXKXAGojZFlMwVe7VkBamFAWn60C2d2k8B4HJ2Sp3Jt6DHhaBo/NRMMVAELVmHYzFvq4IAKTq0SIjWih65fQR3zAdSH1gmS5NTDYX+Z8pOHhSdwspuxW1FnfsLDIOQqgGwuPgs19UoC/O4Ky9pPrlD7Tmj0QRvuHzZuTekqlYGieamVcBM5QvLQ0bht70OJtepUbLskPgPoCOHCLUJV4Km5lYR9rPcKtmnujZ/GWUktIjRMUj/cibFyZaZNDXNW2F7Ozb/KRxNlTbzDEzqsjfN4mr33nubSz7ZnnCD1Ka2iUF7ptIz4Yp7X7otZymWEDlahipc5T4lRdiVYt+Y7WXDGEQtPjXa8Oj4OGRzH63hlORg50cnekiUIvUaZnetUxBjFeyqcvKBCIbylvcoM1lytmtl2c5/dhoSXdb6zaWTBeBAE7bqLKZgA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(56012099006)(4143699003)(10067099003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bsj2KBvxkOOgp4YTUD3vsmOGNRzHoGsyeuDm8SLfn2FhAl2+xvCMJ4dvzFha4g8BGj1W29W4uNaERIToX6nsPGcvAwmDbGfzRAyOyZrce8rugYhJ2eba7lJCczxctEPvEXErtvHbTKoxAs44riEG7Ms4RVRBHM+kiVgsva407/fUxavdMj6dCo+DzAFz10v8oC4G/YdddWpDv7WVf/e7yqfAKfLiamIGdtcVE9fvxQwOASEpGU66xsZxV5ueOQyLrpM6yFCOHy2VIbXQxBoaVYnTL7euYSH1jxLkE1s1bjuqVoKTEZPBUxTcrmWxytx8fwsEkMNpKX/NXGtF/a6cbm23OvVqLVOPv+cPgeVIlUfEEfhcM4Lzjl5AAvUw9dDYs3wLRKXYEtD9KtyjR/T//Y0KeYCYZFHg1lEIhlGX/un4CFHHucjIXdYJR/QlKw19
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:38.0281 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f015d45-735a-49b0-298b-08df1b6e77d5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000091.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9170
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,50 +93,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-XRT issues DRM_AMDXDNA_CONFIG_HWCTX during hardware context
-initialization. If hwctx_config is NULL, the ioctl returns -EOPNOTSUPP,
-causing userspace validation tests like GEMM to fail.
+This reverts commit 143755bdabaa96776c24f878014608e9cb44f930.
 
-Add a stub aie4_hwctx_config() returning 0 and wire it to aie4_vf_ops
-and aie4_classic_ops.
+That commit fixed a dangling reference in the DMABUF_DEBUG default
+and thereby enabled the option - and with it the page-stripping
+sg_table wrapper that dma_buf_map_attachment() hands to importers -
+on every kernel with DEBUG_KERNEL=y, i.e. virtually every distro
+kernel.
 
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
+drm/msm is broken by the wrapper.  Both of msm's map paths consume
+sg->length and sg_phys() of the attachment sg_table:
+msm_iommu_pagetable_map() for the per-process GPU pagetables, and
+iommu_map_sg() (via iommu_map_sgtable()) for scanout.  The wrapper
+zeroes sg->length and strips the page pointers, so mappings of
+imported dma-bufs silently map nothing, and userspace observes
+arm-smmu translation faults from UCHE, e.g. during hardware video
+decode (clapper, chromium) on Adreno systems:
+
+  gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
+  type=TRANSLATION source=UCHE
+
+Bisected on a Snapdragon X1E78100 laptop as v7.3-rc3 good,
+v7.3-rc4 bad, culprit 143755bdabaa9.
+
+Switching msm to sg_dma_address()/sg_dma_len() is not a trivial fix
+either: those fields are only valid for sg_tables that msm has
+dma-mapped itself, which native non-MSM_BO_WC objects' sg_tables
+are not, so the conversion needs more work.  The msm maintainer has
+therefore requested restoring the previous default for v7.3, to be
+revisited once msm no longer consumes struct page and sg->length of
+imported sg_tables.
+
+Link: https://lore.kernel.org/linux-arm-msm/20260923074256.9357-1-liujianfeng1994@gmail.com/
+Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+
+Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 ---
- drivers/accel/amdxdna/aie4_pci.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 28ac7940b200..5a94d41ae5f8 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -1368,12 +1368,19 @@ const struct amdxdna_dev_ops aie4_pf_ops = {
- 	.runtime_suspend	= aie4_pf_runtime_suspend,
- };
- 
-+static int aie4_hwctx_config(struct amdxdna_hwctx *hwctx, u32 type, u64 value,
-+			     void *buf, u32 size)
-+{
-+	return 0;
-+}
-+
- const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.init			= aie4_vf_init,
- 	.fini			= aie4_vf_fini,
- 	.debugfs_init		= aie4_debugfs_init,
- 	.hwctx_init		= aie4_hwctx_init,
- 	.hwctx_fini		= aie4_hwctx_fini,
-+	.hwctx_config		= aie4_hwctx_config,
- 	.cmd_submit		= aie4_cmd_submit,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
-@@ -1390,6 +1397,7 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
- 	.debugfs_init		= aie4_debugfs_init,
- 	.hwctx_init		= aie4_hwctx_init,
- 	.hwctx_fini		= aie4_hwctx_fini,
-+	.hwctx_config		= aie4_hwctx_config,
- 	.cmd_submit		= aie4_cmd_submit,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
+ drivers/dma-buf/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+index e4f078a326a41..7efc0f0d07126 100644
+--- a/drivers/dma-buf/Kconfig
++++ b/drivers/dma-buf/Kconfig
+@@ -43,7 +43,7 @@ config UDMABUF
+ config DMABUF_DEBUG
+ 	bool "DMA-BUF debug checks"
+ 	depends on DMA_SHARED_BUFFER
+-	default y if DEBUG_KERNEL
++	default y if DEBUG
+ 	help
+ 	  This option enables additional checks for DMA-BUF importers and
+ 	  exporters. Specifically it validates that importers do not peek at the
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+branch: revert-dmabuf-debug-for-7.3
+
 -- 
-2.34.1
+2.47.3
 
