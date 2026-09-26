@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E105BC9832A
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 16:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C944C9832F
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 16:33:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD3610E3A2;
-	Sat, 26 Sep 2026 16:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41AB510E050;
+	Sat, 26 Sep 2026 16:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="flAwOjtS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OgbOxHbL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87B9A10E050
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:26:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE90710E050
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:33:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 977156020C;
- Sat, 26 Sep 2026 16:26:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03F91F000FF;
- Sat, 26 Sep 2026 16:26:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5221A43FBE;
+ Sat, 26 Sep 2026 16:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFAB1F000FF;
+ Sat, 26 Sep 2026 16:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790440005;
- bh=q8p/wCUk8cWVpUL/3mdSIEThA8tm+/7jX39lkkQ8EEE=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=flAwOjtSPoX6dbTjcTGiG9G5mEsSqXKigcjPcsTE95yFQlnCWcbdG9LDZBanvyjJO
- vz2617T24PmV5j1L4jxsdVqWrs3opwO6mHh65azECEac23cph7jU9WHm8RYo8EviTt
- nxLTeDznZ35PU2yaNzIqrMaupFe99QfjFHT1KIQObGpaoI8LVFfmpko9PLLQMf5XvI
- 82XYV1a3o+fCrj5grGpHxgw8E59xs+ckJKvMHDeDNVS/XTu2lgjm70H//j6d7KFJn+
- CjN8MdCoVHgUcRfnOI8bEgt2bFpw7uLeB7ImdlBGdFXF5D5CgSfzWv/KSGl3Pf0fA9
- gO03tOMkT5hug==
-Mime-Version: 1.0
+ s=k20260515; t=1790440391;
+ bh=DC49a69vTi4kk21TyRDDzbBEZH85eWAv5sh8dSCrfdc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OgbOxHbLZUdcSTawsuZoGHTTTr+bEyxkdN/wws2u61lY8gnovN8j9YAZydOvFPAbB
+ ZEf1DuOy5XKXqBt96Kzuck5MFbBiUfbkxMyZLuhN47BotNEUs1pE3VnwDTxrLRJl6b
+ sZGpvJ/P8RhAZZLvr2dmQxjLcRdoJ7nVX8ltr80k98mmTle50oWNyfE9Ki83pkwC2N
+ cwG6yO7vUaabOa0+7moyjrpFXNbwIobQinV68gEOwrEp8abSoV86zSoMDvIZV1ROtz
+ rJTXquHPDRsSg7T3Wi4RNtcUCDc08dgRrjS+HBUaYYTRQ3BhhfvcU1n0x42I8fTBg4
+ P44yTz+d74o4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
+To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>
+Cc: "Eugenio Perez" <eperezma@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+In-Reply-To: <20260926162452.136863-1-ngocthang2710.1999@gmail.com>
+References: <20260926162452.136863-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 26 Sep 2026 18:26:40 +0200
-Message-Id: <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
- <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
- <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
-In-Reply-To: <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+Date: Sat, 26 Sep 2026 16:33:10 +0000
+Message-Id: <20260926163310.DDFAB1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,20 +54,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Sep 26, 2026 at 5:50 PM CEST, Gary Guo wrote:
-> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
->> @@ -71,3 +71,6 @@
->>  # Structs should implement `Zeroable` when all of their fields do.
->>  --with-derive-custom-struct .*=3DMaybeZeroable
->>  --with-derive-custom-union .*=3DMaybeZeroable
->> +
->> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
->> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3Dzerocopy_derive:=
-:most_traits
->
-> This is Tyr specific change and should be in patch 2.
+> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+> "virtio-gpu-vbufs" for every device and destroys it from
+> virtio_gpu_release(), which only runs once the last drm_device
+> reference is dropped. If a reference outlives the PCI removal (for
+> instance an open /dev/fbN), a rescan probes the device again while the
+> old cache still exists:
+>=20
+>   kmem_cache of name 'virtio-gpu-vbufs' already exists
+>   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+>   Call Trace:
+>    virtio_gpu_alloc_vbufs
+>    virtio_gpu_init
+>    virtio_gpu_probe
+>    ...
+>    pci_rescan_bus
+>    rescan_store
+>=20
+> kmem_cache_create() then fails and the new device does not probe.
+>=20
+> The vbuf size is the same for every device, so create the cache once
+> at module init and destroy it at module exit instead of per device.
+>=20
+> Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D1b129b44597a126d2d79
+> Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-Why list all of them separately? Can't we apply this to all uAPI structs?
+Sashiko has reviewed this patch and found no issues. It looks great!
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926162452.1368=
+63-1-ngocthang2710.1999@gmail.com?part=3D1
+
