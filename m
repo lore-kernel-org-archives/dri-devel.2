@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF86C98332
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 12:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A955C98328
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 12:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A191510E142;
-	Sat, 26 Sep 2026 12:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2412110E144;
+	Sat, 26 Sep 2026 12:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NDMdvgN7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DpOyCmnG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6799B10E142
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 12:30:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C066910E144
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 12:44:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1EAF5406E7;
- Sat, 26 Sep 2026 12:30:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B9C1F000FF;
- Sat, 26 Sep 2026 12:30:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 60BF141AEA;
+ Sat, 26 Sep 2026 12:44:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27E2A1F000FF;
+ Sat, 26 Sep 2026 12:44:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790425843;
- bh=jWmnr7J4qu50XLlqlwEJX9uF3ohuEh01l7hkZBw4udg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NDMdvgN7zdsJbrPGGtgUlpHSWa5X+tCBjwkOiPPwqzVmEKLh+962MTZSKBrOvDue+
- 5iTUQf9MIUFFPmqsCqYENm1fmR4RGguYYt2Pna5Q2+VBZhcfJK26o9tSA+bkecJb+A
- 9yeJOcMBXTHmDICCgWYeI1hxmvCZMpV+iiN0a+qtL7XNdpaetzaAPHENZT0vLYkS9v
- 25KxuZ1UT8j9ue5eBfNDEdMfWbczlTtoJb4WoZjh2KdFDjrf75vZHUXjuWaF6sxGuB
- /2qET4s5/yNTNLAR+vFMfXdxUORDfAcZ9elhECTSR7o/39v648u2tQCQXyPhMtuysA
- icoq9f3dz92RA==
-Date: Sat, 26 Sep 2026 15:30:38 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Yili Zhang <zhangyili01@baidu.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, Nicolin Chen <nicolinc@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Fix IOVA offset when linking phys vecs to sgt
-Message-ID: <20260926123038.GT563127@unreal>
-References: <20260924065508.27245-1-zhangyili01@baidu.com>
+ s=k20260515; t=1790426649;
+ bh=2ODxEQcjvqmkuPG+SDefLmH/+uRSXK5o4R5dGwS3vq0=;
+ h=From:To:Cc:Subject:Date;
+ b=DpOyCmnG6OIpkKcoLZ+Kh04cMCthlsfsrJvBnAjzAa9Gmpz/6g2Aq1a8o2SAYbJSk
+ FqxUH1NizFfK261BwYKSTmjUadKlAodINrB3JmUz+AmVMuabtschM2+MLs6xq+SAUj
+ ZfWhW+aHplYjfhFeullcxg2/lQyGzygCA1fcUOIa7bigFSnzVdPsXjPAXy2es/lyDB
+ JOj5yqQb5/oSxFfLBzHKZUyXd4qruKAiK+m5nREj8z7agFnMB6xtkpjp7FDVsTFJx2
+ KR750lWqvzoxohtI1YGgcPMNyXUPPcrdkQBmRjZ1u4YXL53tMtq8LIgQq/i5UMJzXy
+ LulvCTF1t1cdA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	acourbot@nvidia.com
+Cc: nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/4] nova-core: align Bar0/Bar1 and remvove unnecessary Arc
+Date: Sat, 26 Sep 2026 14:43:23 +0200
+Message-ID: <20260926124405.604707-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924065508.27245-1-zhangyili01@baidu.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,29 +56,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 02:55:08PM +0800, Yili Zhang wrote:
-> The dma_buf_phys_vec_to_sgt() routine links every physical range into
-> the allocated IOVA space at offset zero instead of advancing the offset
-> by the already mapped length. This breaks the THRU_HOST_BRIDGE flow
-> whenever phys_vec contains more than one entry: the second and
-> subsequent dma_iova_link() calls try to install mappings on top of
-> PTEs that already exist, which fails and makes the whole conversion
-> return an error.
-> 
-> Fix it by passing the accumulated mapped_len as the IOVA offset. This
-> matches the pattern used by all other dma_iova_link() callers and is
-> consistent with the rest of the function: dma_iova_sync() and the
-> error path in dma_iova_destroy() both operate on the [0, mapped_len)
-> prefix of the IOVA space, which assumes that the ranges were linked
-> contiguously starting at offset 0.
-> 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
-> ---
->  drivers/dma-buf/dma-buf-mapping.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Get rid of the Bar0/Bar1 type alias inconsistency and the unnecessary reference
+count of BarUser.
 
-Thanks,
-Reviewed-by: Leon Romanovsky <leon@kernel.org>
+There's much more to improve, but this just crossed my way.
+
+Danilo Krummrich (4):
+  gpu: nova-core: align Bar1 alias with Bar0
+  gpu: nova-core: remove unnecessary Arc around BarUser
+  gpu: nova-core: mm: get rid of Arc<BarUser> in BarUserAccess
+  gpu: nova-core: mm: fix lifetime name in BarUser
+
+ drivers/gpu/nova-core/driver.rs      |  4 +--
+ drivers/gpu/nova-core/gpu.rs         | 26 ++++++++---------
+ drivers/gpu/nova-core/mm.rs          |  5 ++--
+ drivers/gpu/nova-core/mm/bar_user.rs | 43 +++++++++++++---------------
+ 4 files changed, 36 insertions(+), 42 deletions(-)
+
+
+base-commit: 896ed083362758b33c49a1b5e5a3423c5814d87e
+-- 
+2.55.0
+
