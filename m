@@ -4,129 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E7CCA5FA4
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE669CA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F8410E83F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB0710E83D;
 	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MsAuqFOO";
+	dkim=pass (2048-bit key; secure) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="y4Lm5GqY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20EE110E272
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 09:54:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E0DB941A8C;
- Fri, 25 Sep 2026 09:54:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABF21F00893;
- Fri, 25 Sep 2026 09:53:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790330064;
- bh=F26o3Lz6j0FulgVu/J70FouYk+xm4Aj0BzlXmkWYx74=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=MsAuqFOOx+AF1dgN+IqsXkW8tPskls72sr+6/efWMWpfVIAlZSDWLuBHTrLZClhgG
- q/dIOEfA2AyCRm9jA5KWXH0p9qG5z3u3QSSdut4cDfuHJ9MY2s5zp+Of3VIDKk9aQh
- cjBRq0th+AWyc2+NbiAThoZzNXCNSNida0MNqGcbx/Gp+nAuExhBiSODnPz+COmnw9
- Q5xFbgOZ6EBRN1Z/dgGPytz/TJE4uK9b62Ug/ZoKT2bY5zp22H3YyXonIbjvgfMmsP
- Ity7rFv41f14MLa4FLJtZ16dM7J7DZuG6gjVmfVxCKHLOVNegP/UQM/eBy2REvzB/4
- t2NDXRrsRj7PA==
-Date: Fri, 25 Sep 2026 10:53:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, 
- Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
- linux-sound@vger.kernel.org, 
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
- linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 05/40] mm/vma: ensure mmap_prepare doesn't set actions
- on a mergeable vma
-Message-ID: <arZEKkLGpHNQX3Jg@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-5-4583d8a23bca@kernel.org>
- <CAJuCfpF2U9rgHmhaDoXX1hxsuuS=s-oWK9Nk19TDQ6CLpjhFVA@mail.gmail.com>
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6AB10E13C
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:05:40 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc4c08393b0so696008a12.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 02:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=embeddedlinux.blog; s=google; t=1790413540; x=1791018340;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=poyGQFhxfjPpwyIrTQh0fZ+JdUzuLojhwNaxF0pNYJE=;
+ b=y4Lm5GqYZMLKj3kbTAmJ8/L1qddm8r3PsLr2/ml+NSp/LR3I3gqbSFFAULiZ0ZKE+U
+ 2l7oMAsEkAW8zpj7hd7ZU7VjlgGj854Z8t+4v++MLow4iglua9BANG9v3l8eEuH4anOt
+ zLFba53rjKN8QZkyL3uUh37ASaJ1AW64Uxc5cqDWOS0/bn0IMAH3tIBjzpnaHMUAQk4O
+ PgGP8u7SG9mK1Qy93QajssRfxhj8BqNriCzE9ZC2/rzIf5ljfAjoXqkqr4XU2IubOWG8
+ //loNkMPd2wHe1gJInmlxVu9Aqnnh7/rouGriaXNl213q8H47ZacUV4pIacnjgx1p0AS
+ xLrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790413540; x=1791018340;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=poyGQFhxfjPpwyIrTQh0fZ+JdUzuLojhwNaxF0pNYJE=;
+ b=GDEvMb2Y8PgaYl1tLNQ681E7GNhibfdLHy6jNKpPifuelmsjUqE9v6ahEGcv/cW8Q/
+ q6aEK7QkjxV4ltRUFJIstp+zeOlXQbCC35FV7VOzoLxs4DDfAheZecMyiHxekKfyO2Ev
+ Kde4e6Z7o9SY8BSiAhTLu0UQN1eAVfo85OnC0VrIpstpA65TEvPzqvOuaiX0OVDNhYDd
+ ns2TjhrRZflFEulOQuwN8tDkOP9cieUy+Fm1UT+eFj+JZ0Hq3Q0FYWi9wM8OEU57A8En
+ QXqzF8UC0vIFhcg/NehjeW351J33TT51qWRO5Lp10Zdi+iIK0dVWL2EE1wdl7PkhROdm
+ 0OOw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzHFSrROL5NHfvuA5sl45GLLZh2f//ZZ+j7FGob6UoaVD7QZ3ULX8FgN43IzJRXvxxiFEGZwvs11Bs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLBIteWZsJioeH3V6o2ld+7wqDDrYnLuo5y66hZ3yWdKmLZ/74x
+ dGSRiaKvscgbyP9JNmqeyV5w1lPde9YVMiI9Ut37pKgttzqvmMCr0Z60QTiFT+B1AqAp
+X-Gm-Gg: AYBFou01oYS1AS6FeAfepmNA/GifYSBwDb65enhOHVRoEmX92R56V/E2vf17syN3WyF
+ TuypiWW4WvN7rBMVQBS65ph77JiXG2gm6yOrY+Xv2IKmJXSMSRSSJt+6rsgNlAor1Z96SsMpaLV
+ lj/8tShP5eh+7B8v2gK6WPERZpCLrBlXOwSFm4ZEhjHMmAcd4ZVikvnzDeMoMYckIsWlpahZYDd
+ 3TpwaUIOHm8ztO/jsEPG5zqlAgEArJ/bcBAwcAOYWSIOqkAgzSxMdJlrYuhOSkyRX1sn59EHgpz
+ cAQXbEYTt0AVhfneec23a3p2EpsW3UcjFlDzTL8jmyqEEJTdBZATyrpa+7Exo0HSsrPmn/TUSwl
+ xKJs4nuFu0pbx/DeDEeN0FyOlZFx25ebJ2o3z1+WO2CFUqpHfcyl1hAWxyo0RYyjRAV+IhdYN87
+ hIh9xz8ljwN7Phe+RhTZVB6ys9LNHAbVxfXPtJu3NZiPJCe1d/8r4e11ovcd98TcT6kg==
+X-Received: by 2002:a17:90b:3b90:b0:3a0:cbe2:9e00 with SMTP id
+ 98e67ed59e1d1-3a0cbe2a110mr2426179a91.42.1790413539584; 
+ Sat, 26 Sep 2026 02:05:39 -0700 (PDT)
+Received: from ltu.. ([171.245.4.151]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc787959599sm2299078a12.26.2026.09.26.02.05.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 26 Sep 2026 02:05:39 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, tien.nguyenminh@embeddedlinux.blog
+Subject: [PATCH] drm/sun4i: dsi: Get the A100 mod clock at bind time
+Date: Sat, 26 Sep 2026 16:05:32 +0700
+Message-Id: <20260926090532.126025-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpF2U9rgHmhaDoXX1hxsuuS=s-oWK9Nk19TDQ6CLpjhFVA@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,74 +92,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 25, 2026 at 12:28:49AM -0700, Suren Baghdasaryan wrote:
-> On Thu, Sep 17, 2026 at 9:25 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > When a user requests an mmap_action be performed in mmap_prepare, this
-> > involves populating the VMA range with data.
-> >
-> > However, if the VMA is mergeable, it might then mistakenly be merged with
-> > another VMA without having populated the range.
-> >
-> > Every mmap action currently available sets VMA flags such that the VMA
-> > cannot be merged.
-> >
-> > However, to ensure that no future mmap action falls foul of this, assert
-> > that this is the case upon mmap_prepare validation.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+The A100 variant gets its module clock from the TCON TOP, which only
+registers its clocks when it is bound. Requesting the clock in probe
+defers the DSI forever, so the display never comes up on the D1 and
+T113, which use this variant:
 
-Thanks!
+  sun6i-mipi-dsi 5450000.dsi: Couldn't get the DSI mod clock
 
->
-> > ---
-> >  mm/vma.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index d6ed10cefc8f..62f2ce1ad5a1 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -2809,6 +2809,15 @@ static int mmap_validate(unsigned long prev_start, unsigned long prev_end,
-> >  int mmap_prepare_validate(const struct vm_area_desc *prev_desc,
-> >                           const struct vm_area_desc *desc)
-> >  {
-> > +       /*
-> > +        * It is not valid to execute mmap actions for VMAs which can be merged,
-> > +        * as any such merge would leave portions of the mapping incorrectly
-> > +        * unmapped.
-> > +        */
-> > +       if (vma_flags_can_merge(&desc->vma_flags) &&
-> > +           WARN_ON_ONCE(desc->action.type != MMAP_NOTHING))
->
-> Any reason you chose this "if (A && WARN_ON_ONCE(B))" pattern instead
-> of a simpler "if (WARN_ON_ONCE(A && B))"? Unless there are races
-> between A and B updates, I think these would be equivalent, right?
+Request the clock at bind time instead, as the TCON driver does.
 
-They are equivalent yes!
+Tested on a T113-S3 with a DSI panel.
 
-So it's more of a style thing, as that reads less clearly to me:
+Fixes: 4b71e269f5a5 ("drm/sun4i: dsi: Add the A100 variant")
+Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+---
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-	if (WARN_ON_ONCE(vma_flags_can_merge(&desc->vma_flags) &&
-			 desc->action.type != MMAP_NOTHING))
+diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+index d504ae583..69987bb5b 100644
+--- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
++++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+@@ -1062,6 +1062,17 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
+ 	struct sun6i_dsi *dsi = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	/*
++	 * This module clock comes from the TCON TOP, which registers it only
++	 * when it is bound, so it cannot be requested in probe.
++	 */
++	if (dsi->variant->has_mod_clk && !dsi->variant->set_mod_clk) {
++		dsi->mod_clk = devm_clk_get(dev, "mod");
++		if (IS_ERR(dsi->mod_clk))
++			return dev_err_probe(dev, PTR_ERR(dsi->mod_clk),
++					     "Couldn't get the DSI mod clock\n");
++	}
++
+ 	drm_encoder_helper_add(&dsi->encoder,
+ 			       &sun6i_dsi_enc_helper_funcs);
+ 	ret = drm_encoder_init(drm, &dsi->encoder, &sun6i_dsi_enc_funcs,
+@@ -1160,7 +1171,7 @@ static int sun6i_dsi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (variant->has_mod_clk) {
++	if (variant->has_mod_clk && variant->set_mod_clk) {
+ 		dsi->mod_clk = devm_clk_get(dev, "mod");
+ 		if (IS_ERR(dsi->mod_clk)) {
+ 			dev_err(dev, "Couldn't get the DSI mod clock\n");
+-- 
+2.34.1
 
-And this version highlights what is the broken thing here (action type set) a
-little more clearly though obviously that's only if mergeable so arguable.
-
-I don't have a really strong opinion though I can change it if you prefer?
-
->
-> > +               return -EINVAL;
-> > +
-> >         return mmap_validate(prev_desc->start, prev_desc->end,
-> >                              desc->start, desc->end,
-> >                              &prev_desc->vma_flags, &desc->vma_flags);
-> >
-> > --
-> > 2.55.0
-> >
-
---
-Cheers, Lorenzo
