@@ -4,80 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6BCCA5FA3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7981C9832F
 	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA1510E86A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 422E510E863;
 	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DlrKmcmy";
+	dkim=permerror (0-bit key) header.d=arndb.de header.i=@arndb.de header.b="dE1RFAps";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LFqYjy/y";
 	dkim-atps=neutral
-Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com
- [74.125.230.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287AB89233
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:31:30 +0000 (UTC)
-Received: by mail-qk2-f40.google.com with SMTP id
- af79cd13be357-93c5b166b8fso46753585a.0
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:31:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790440289; x=1791045089; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=T+XTa7v9YGLEx2g2NOBefUwMoQWTvFtXhbpvBGy7RY4=;
- b=DlrKmcmyGCxo7lJoA9RYvNXoBH4mr/k8GAo7eUPcdp6j8Oy54gCc75eUWbehGInMQ5
- xKJsodbT4eKXTNmW/mCEWIsS8MisoMpo6qT41O4NRgMRFn5uLD8GtTUkB/9TQYLhLcVL
- CeH/d9Aikdep0bFOQydG6k5l4r9LTtN+IW57rKPX9IfhB1imAHJqVpZtBCNfo79fvkv9
- EToaOfSk0D6pND9JtV2P+zR02lEJm+jTF8cuZ35ztHDG5JcDIxRYgnMMfA6h1jTiFbm+
- SZUfe0mBbV1cBKUa3c9nFNgabRkl8chIRPzFVcJzWB2JxaC3j1Slvll6qJogqn8mSLkq
- Y6TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790440289; x=1791045089;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=T+XTa7v9YGLEx2g2NOBefUwMoQWTvFtXhbpvBGy7RY4=;
- b=rP4E+KFIAQnLl90z2QX0R3QnZOKWR63NU85UXXMTjUYRc8fPZow1HdJM4u5LUy/LtT
- u694EmWxmD7HR+CFw0zfRbsoypxUyjo7kK8EZFAT7/n+3obqJhIfqaDG2VNToVXgrHyL
- U5eXHvN4HDiTye3Lk/4KjlKIPsuJara6P08zrfLp0zwLXyWqflFjmK1u3/UTYxuhkXib
- vnCvfJyoR0gOESIz9ceZOZlqBzy3XlEWzylMRw1cql9ScE8DE9mPUc14UyOdpzw2o9XY
- Ii8XzXOyuHpE9zQnfyL74m04Pt2soedW/F4FlN1et0GOVhPYe/JvHJCwP8HXR04o1Wm7
- OSWg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx1aokaBJnCMpNUVwjfS3Z4acO6aUHrQkIFIQRqDmiGTVY16intLZAAN1w98i4m7jbOT//abIGioC0=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mk12We2spDUrr/cGdLG0kE7+sMPK0t0iNi26swZFHSoOPcYV3j
- ypphs9BxQto6q8bFbO3H5reGhzta2V7jAEjA1ib34WAI9Qq+W2lhueZH
-X-Gm-Gg: AYBFou0010DPdpy3xtCBDlKbohI30ZOJSJoWpWw4QCZ1V7mrHcZ68T0X+WqeKeOHJ9l
- rIVJ5dUKSYfymtTZfydY6XoJbLb/gIRdHiJtreARDScTq0ukcveEt3shUaa1PcS0QrbMHIDTXbX
- DrrqoIHupa4MgGqKxvZzY9lNPVRUQyLETQB7hWW/SdoymeO9g4yN+ZEZugPeoj4PaUiwylNXf5Q
- CP6oIKNBrUmvMLi2+aTSBNeT43H6Wga6n3jzxcZFO5/vbCYbEGH2HJ+9g8ygmJe7DBNVVpu9c7f
- oWJaWdRHLvCdlq3cZUu/2G6r1aJ4hsUMBh8Kynm5ANufaqM5NT4REMPM1ZBORq5rOShfzSj5EHG
- 7ZHu8Hrq8u2hLcqw8e/N8GV3UQzLm+S60QewFnF1B9heSCPQI3OLcRL+m4UvfLemGW4TE8BakBG
- sQEP5OLauiEQPc7RV9o/SQEkUO90qNTHbegKmTx2wDJtizMoJBzqLwmpg/OPwFUOqFuM04LfUDS
- tS9V+mz7wRow/7aTIVO2fwr44+BwnFWSnwLmEaGtRCcPrfXDNgDfmhwq61y+GrGjMI=
-X-Received: by 2002:a05:620a:400d:b0:93b:d7a2:dd29 with SMTP id
- af79cd13be357-93c43d2d070mr1066129985a.57.1790440288703; 
- Sat, 26 Sep 2026 09:31:28 -0700 (PDT)
-Received: from localhost.localdomain
- ([2600:4040:29f7:9600:f571:6178:b590:34a4])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.26
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 26 Sep 2026 09:31:27 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Dillon Amburgey <dillona@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, christian.koenig@amd.com, krisman@collabora.co.uk,
- noralf@tronnes.org
-Subject: [PATCH v3 0/5] drm/qxl: fix shared-primary lifetime and source packing
-Date: Sat, 26 Sep 2026 12:31:18 -0400
-Message-ID: <20260926163123.39217-1-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
+Received: from flow-a3-smtp.messagingengine.com
+ (flow-a3-smtp.messagingengine.com [103.168.172.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2859B10E166
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 17:14:52 +0000 (UTC)
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+ by mailflow.phl.internal (Postfix) with ESMTP id 178B413800C5;
+ Sat, 26 Sep 2026 13:14:47 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+ by ams-compute-02.internal (MEProxy); Sat, 26 Sep 2026 13:14:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1790442886;
+ x=1790450086; bh=tGTq2YiYGuZgWk5ZY7JZMyWu45IuuL1ykMMcgPEJafg=; b=
+ dE1RFApslPrSXAIEUR7zYCnrfR6vWyYxLHf2mps7m16cLN5ynFqwRrqagDCdLt5m
+ YGRbmWqMeuJZtlHPeeOXNw4YOCr4WJ6Mx0NBGForSSyaTMKmirJa1d3T2lnduVHI
+ rsG6gUbympIQqV0TgHZcoaLCS4Np+hjwdRsk5xnTjJWQAspIaZDsh56Wd+ZL1Q9P
+ guB+47QlTtdPYoLG8jeKzxdNJlNY8FOh1EE+3+tKu9V2DYSkeblqIQPL6x4FiFqi
+ 37BVGgjvon0RgSlw4AbAROwgO5Lo55li4rPUTLQ9IBrXkmPCZHI9T0Ji1alFsVXg
+ +dWgvw0N90MVm2Z635R8Zg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790442886; x=
+ 1790450086; bh=tGTq2YiYGuZgWk5ZY7JZMyWu45IuuL1ykMMcgPEJafg=; b=L
+ FqYjy/yVFlEv/wmLmbEHRnoCYINCfyu+CrEq8Z1fyh4tz9qIiMya3S3yY3OFrTAj
+ kbwJ1H7p0hlPQkLTIbo3q91ouu2AqnlXl5AXAUacs9gWfltmW1YlpP2JQRX6xaDG
+ BIlnaq23mgNxIHZvkc5sn32cnf0vgx81JvFvLJXh30/EkXzOIDF2jBGju20aWRpQ
+ r+U4sr/EsBDJPkf1NNPApHB0wtpHKJnfgD68NUX259cKVa0+Te+WR7YSLWz3+AYG
+ NY5HM9amaFG4UKU2VWfYypsTDrNO67ys7nqOEDOLSOI0kUSbd6LrrDfi5G6ZeLOj
+ guHR/v4b83Xt/fUVhxgQg==
+X-ME-Sender: <xms:ev23aqEfCNjet-2YbYWWzRXflqtzqi8hwMuw-sOV-SpumEa7LG2shg>
+ <xme:ev23amLx2unnBtPfhChzlb1fRZ2Od9LfU9yDqP0ez7conwhJcOBcipgwHXcNic6Vd
+ ihyMWwi_TyPeTUyTmoikaAeCIv-aWaHbyLCC6Ub4m_6V1cork6IqRQ>
+X-ME-Proxy-Cause: dmFkZTE6NCtyMLNoS8hrfLFpEVvHnZq+KuaY8H+9LmihRjQuIS2tAlukOayEfreBF4n2zt
+ VM1Xb2o3pLojfbA1Q3K/syWPA1rTM+rS4TL1sKcoS7DFAfYGpLW2jXD87OlXNKqEST0xN/
+ cCB9d0v2iX9PJOBVVmY1Q/2SAi/Mg+fUIg3v4HzozejY4wwxdLDProktJHZEibcEbdkK9A
+ DsbLRqLfari181EQsuwTU6q2VoX8ASbKad+pD4D4x5fnBcBEsLw1S0g0DqkX98pTL00H96
+ s7WDOTgZX/sRdKZFzHVYGuDUWUJen+c2yA8PP101rXcEkHHLoEMw3Y2mH/kj+PJ6Jg4phW
+ ZPtHSWVzfsMi/uo7wINTVSLDSLjRI4Nrcb+iIceGEJgwfznIyowU/XB7wjZK1vQwvmWNfh
+ Xsf2CcydvUcV328L0LwSnRsCbh10PhtfXwxt1AdrlAnXwA/tpDhQGwkJwWPe8a1uDDSIgR
+ FuRPcva3YSO3dMEwljCPu2EQ9gdo7QVG5vdPgtLNw84R0kUyuYuZE3uKBRMlgr4529/DqD
+ DjCSn1ux1tr4q9apeaHlutLLSq0hzxv+TC86iyQ80tvVgpfvwCR7R2k16RICYFops8dGKe
+ orvK37Cs5fQgJyBNeJVlwb2UjdrY+qi1eBLaiX0vwatLO6jmf2NBuSQeeCRg
+X-ME-Proxy: <xmx:gP23aluqnoTw4Kp_p7Myy76Cg9h3zOKmotAVHEwJf7Xg8wiaBQaRtA>
+ <xmx:gP23atVx8P31dhvH6TSVp8JBe56LI4k3auajT3v0qFyKlytMy_bmLA>
+ <xmx:gP23apJheLHk8ePOwgYDLSw0f2H4aAcZiX3L2QUNgpYltbdfKVe22A>
+ <xmx:gP23ahPAx3Etc-AdLxQIy0Ipz5Y_4EKVj1jjlEnECLU6wC7z8PJW4Q>
+ <xmx:hv23aunjCQ20lqB8ZAJCIhTa2AfrZr7JcwsQqJyvJGCpuVigaepn1ADv>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+ id 7CCAA32A0087; Sat, 26 Sep 2026 13:14:34 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AJwEWD5WPnhk
+Date: Sat, 26 Sep 2026 19:14:14 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Lorenzo Stoakes" <ljs@kernel.org>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ "Jann Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>,
+ "Suren Baghdasaryan" <surenb@google.com>,
+ "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
+ "Paul Moore" <paul@paul-moore.com>,
+ "Stephen Smalley" <stephen.smalley.work@gmail.com>,
+ "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
+ "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Zi Yan" <ziy@nvidia.com>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Nico Pache" <nico.pache@linux.dev>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
+ "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
+ "Usama Arif" <usama.arif@linux.dev>, "Kirill A. Shutemov" <kas@kernel.org>,
+ "Doug Gilbert" <dgilbert@interlog.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter" <simona@ffwll.ch>,
+ "Helge Deller" <deller@gmx.de>, "Sebastian Reichel" <sre@kernel.org>,
+ "John Hubbard" <jhubbard@nvidia.com>, peterx <peterx@redhat.com>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Oleg Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>,
+ "Harry Yoo" <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>,
+ "Vincent Guittot" <vincent.guittot@linaro.org>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Dave Airlie" <airlied@gmail.com>, "Will Deacon" <will@kernel.org>,
+ "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ "Nicholas Piggin" <npiggin@gmail.com>,
+ "Muchun Song" <muchun.song@linux.dev>,
+ "Oscar Salvador" <osalvador@suse.de>,
+ "Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>,
+ "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>,
+ "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>,
+ "Janosch Frank" <frankja@linux.ibm.com>,
+ "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ "Gerald Schaefer" <gerald.schaefer@linux.ibm.com>,
+ "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Andreas Larsson" <andreas@gaisler.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>,
+ "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
+ "Byungchul Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>,
+ "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Chris Li" <chrisl@kernel.org>,
+ "Kairui Song" <kasong@tencent.com>,
+ "Kemeng Shi" <shikemeng@huaweicloud.com>,
+ "Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>,
+ "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>,
+ "Axel Rasmussen" <axelrasmussen@google.com>,
+ "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
+ "Chengming Zhou" <chengming.zhou@linux.dev>,
+ "Michal Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>,
+ "Xu Xin" <xu.xin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org,
+ bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Linux-Arch <linux-arch@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, "Takashi Iwai" <tiwai@suse.de>,
+ "Emil Tsalapatis" <emil@etsalapatis.com>
+Message-Id: <4a3a089c-3ade-494d-8f83-f9cb710e9ad1@app.fastmail.com>
+In-Reply-To: <arfGmNiEngnO3JKm@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
+ <areSEI5pWBadkqIe@gremlin>
+ <408aef6e-5b0a-482f-8ba8-f8c20ee870e5@app.fastmail.com>
+ <arfGmNiEngnO3JKm@gremlin>
+Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,58 +193,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-QXL packs dumb framebuffers into a shared primary surface. Failed
-preparation and multihead updates can leave shadow bindings inconsistent;
-packing whole allocations instead of visible sources also produces
-oversized surfaces and incorrect coordinates. Patch 4 establishes atomic
-ownership of the shared shadow before patch 5 changes its geometry.
+On Sat, Sep 26, 2026, at 15:22, Lorenzo Stoakes (ARM) wrote:
+> On Sat, Sep 26, 2026 at 03:06:33PM +0200, Arnd Bergmann wrote:
+>>
+>> It's a Kconfig setting upstream, but the way I'm doing it is to have
+>> patch that calculates a sensible default based on other options that
+>> is a little smaller than the default (currently 2048 bytes) on x86-64
+>> to catch more cases where something sticks out.
+>
+> So this is an early warning more or less :)
 
-This series supersedes the single-patch v2 posted on September 24:
-https://lore.kernel.org/r/20260925033011.12560-1-dillona@gmail.com
+Yes, a surprising number of these just point to stupid mistakes
+where the developer had no they were adding a large object to
+the stack. This instance here is unfortunately not an obvious
+case.
 
-Changes since v2:
-- Split out fixes for framebuffer pin unwinding, DirtyFB commit ordering
-  and error propagation, and stale disabled-head-zero monitor metadata.
-- Replace BO-global shadow mutation and the shared redraw flag with
-  prepared atomic plane-state ownership. Include every primary plane and
-  CRTC in commit dependencies, replacing the lockless redraw of other
-  heads. This addresses the state-lifetime and redraw-flag races raised
-  by Sashiko AI:
-  https://lore.kernel.org/r/20260925034208.6B9F61F000FF@smtp.kernel.org
-- Separate shadow lifetime from source-sized packing, retaining source
-  X/Y translation, packed monitor origins and clipped DirtyFB updates.
-- Rebase onto mainline 6812ce4e4379 and expand regression coverage.
+>> There are many ways the call chain can go of course, but the actual
+>> stack overflows do tend to follow this pattern where you are at a
+>> function with high stack usage and call kmalloc() during low memory
+>> condition and that ends up waiting for a block I/O down the line.
+>> (you normally don't go through swap and nfs, I was just looking
+>> for the worst case I could easily see in the code)
+>
+> You certainly found quite the example haha.
 
-The series also applies and builds on drm-misc-fixes 94cf5971b1d0.
-For drm-misc-next 98c7fc4219b9, patch 4 needs adaptation to the new
-atomic_create_state API.
+I have previously toyed around with using VMALLOC_STACK on a reduced
+stack size and syzcaller, so I knew roughly where the worst offenders
+lie, but the list was from looking through the code just today.
 
-Validation:
-- Each commit builds on x86 with W=1 and no new sparse diagnostics.
-  The final QXL driver is also compile-tested on ARM and ARM64.
-- QEMU/KVM tests cover error unwinding, commit/DirtyFB ordering, shared
-  framebuffers, source offsets, clipped damage and concurrent modesets.
-  Error-path and ordering tests used test-only hooks, absent from the
-  series and final kernel.
-- End-to-end Xorg/SPICE tests verify multihead resizing and DPMS resume
-  without an application repaint.
+>> > If I can do it as a follow-up that'd be ideal!
+>>
+>> What I was hoping for is that as you are already deep into the
+>> exact code that caused the warning and you can already see something
+>> in there that may help.
+>>
+>> I don't think it's urgent, I just don't want it to be forgotten.
+>
+> It won't be, it's now on my TODO and I see it as a relatively high priority
+> thing to follow up with.
+>
+> Will likely send a patch for it next cycle (this is about the worst cycle I've
+> seen workload-size for mm so I don't really want to send anything more this time
+> around).
 
-OpenAI Codex assisted development and review of the patches and regression
-fixtures.
+Sounds good, I'll keep the local hack to mark functions as noinline for the
+moment then. Thanks,
 
-Dillon Amburgey (5):
-  drm/qxl: unpin the framebuffer when plane preparation fails
-  drm/qxl: wait for pending commits before applying DirtyFB
-  drm/qxl: clear the monitor configuration for disabled head zero
-  drm/qxl: own packed primary shadows in atomic plane state
-  drm/qxl: pack dumb heads from their plane source rectangles
-
- drivers/gpu/drm/qxl/qxl_display.c | 370 ++++++++++++++++++------------
- drivers/gpu/drm/qxl/qxl_draw.c    |   6 +-
- drivers/gpu/drm/qxl/qxl_drv.h     |   5 +-
- 3 files changed, 229 insertions(+), 152 deletions(-)
-
-
-base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
--- 
-2.43.0
+      Arnd
