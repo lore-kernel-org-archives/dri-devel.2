@@ -4,88 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1981C9831E
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 03:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DABC9831E
+	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 04:48:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E986D10E067;
-	Sat, 26 Sep 2026 03:32:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="jo9wQQ7m";
-	dkim-atps=neutral
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30B2610E067
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 03:32:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
- s=smtpauto.stravinsky;
- h=X-Debian-User:Content-Transfer-Encoding:Content-Type
- :Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
- Reply-To:Content-ID:Content-Description;
- bh=AQLmCm/9B4mrJDzPpo+c4kOsaksdj2bsxYt/mOLsFQ8=; b=jo9wQQ7mm1/ITjk+ho4Jqb3VQ4
- pZIm1U2kqU9EuqV46lVDXBxtDVqh6mbj/xZCVgKxADk0e2A+hQc6WwZfju0uf/V9QQDHCcacY0TFO
- kvEYBfRRfI7hAG62lVNBjhLw3NdbPvg/A/lUr8mu8Z/uP1+PInYzLX2mvLZidv8ajyiaLyE9N/WXN
- DiWG1A+Y4rYjXLv7HkZsYQ9Fu1lUSzYgN0eO9ym8loXE/rzLtByS5fEFW7wwesxFNYSNy/NVqgAlC
- p5RVlYBoeEHqVbXfwr/vSn+oAcQhe7y0NVmH4v6jfafS+/SH1x4gI3ntSvqjYJyPDFRi/2TfNfFv2
- ozuxqb4A==;
-Received: from authenticated-user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
- (Exim 4.96) (envelope-from <domibel@debian.org>) id 1xAJ91-005nO2-2X
- for dri-devel@lists.freedesktop.org; Sat, 26 Sep 2026 03:32:12 +0000
-Received: by mail-pz2-f12.google.com with SMTP id
- d2e1a72fcca58-8693af0d7c4so947179b3a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 25 Sep 2026 20:32:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzFqL7E7v3iaspDTLlydk8oQGtYrYyIPrpgzzwFLHRjzFPH9gQn0rOVKkC4HOjFJNC424z9tEv05Ho=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lWnBIZ3dBn0aqhuUBUKfKe5AufWUifTe6f3p16U23n+RRkxY1H
- iWBO43hHIZk4OhrF2Q2hMUUt9vIY/WSpUCmN2KwGf4RpXd316PbSXhglBXQlm47qDL0Q0zMQJY2
- EkwJgAcNL4WIcrFBwEwXoNn6TV+hcZ+w=
-X-Received: by 2002:aa7:888b:0:b0:880:7e9a:6e56 with SMTP id
- d2e1a72fcca58-8807e9a73a8mr2177107b3a.13.1790393525763; Fri, 25 Sep 2026
- 20:32:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <CGME20260915153246eucas1p289987fd8757c89ff865c99b6465708a8@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-In-Reply-To: <20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-From: Dominique Belhachemi <domibel@debian.org>
-Date: Fri, 25 Sep 2026 23:31:54 -0400
-X-Gmail-Original-Message-ID: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
-X-Gm-Features: AclHuK8_8y3EcFqb3OgZBY9WaeDxyzPMPd1_yK_ekhMIXfr7tAphtd8D7H_5xEI
-Message-ID: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
-Subject: Re: [PATCH v4 18/20] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,
- Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>,
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>, 
- Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C23E510E030;
+	Sat, 26 Sep 2026 04:48:14 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E85710E030
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 04:48:12 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+ by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
+ Sat, 26 Sep 2026 12:48:07 +0800 (CST)
+Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 26 Sep 2026 12:48:05 +0800
+In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+ <20260918030125.315978-8-a0987203069@gmail.com>
+ <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+ <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+ <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+ <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+ <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Debian-User: domibel
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: rQCowAAHE0GFTrdqYafICA--.2178S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
+ ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
+ qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IU56yI5UUUUU==
+X-Originating-IP: [120.85.96.244]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,35 +72,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 15, 2026 at 11:32=E2=80=AFAM Michal Wilczynski
-<m.wilczynski@samsung.com> wrote:
->
-> +static int starfive_hdmi_phy_probe(struct platform_device *pdev)
-> +{
-> +       ret =3D clk_set_rate(inno->phyclk, 297000000);
-> +       if (ret) {
-> +               dev_err(dev, "Failed to set default rate: %d\n", ret);
-> +               goto err_del_clk_provider;
-> +       }
+=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> >=20
+> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > > Maybe it's better to just make it the 2nd patch in this patchset,
+> > > just
+> > > after the binding change.
+> > >=20
+> > > Waiting for something into drm-misc-fixes again will need another
+> > > fixes
+> > > pull and another RC back merge, which can consume weeks and miss
+> > > the
+> > > current merging window.
+> > >=20
+> > > In addition, it's possible that `drm/verisilicon: introduce per-
+> > > variant
+> > > hardware ops table` also gets backported for a more clean primary
+> > > plane
+> > > atomic_update disabling fix.
+> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
+>=20
+> Should I just apply this revision of patch with this reorder?
 
-Hi Michal,
+Oh I think more fixes are coming.
 
-Can we drop these 5 lines?
-When my 4K monitor comes up in mode (3840x2160@30, 297 MHz) the screen
-stays blank.
+There's one more DC8200-specific problem (which might be problematic on
+DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
+be executed before vs_dc8200_panel_enable_ex, because some timing
+parameters seem to be latched when the value going from 0 to 1, and
+when a stale state is programmed before the driver is loaded (e.g. a
+firmware driving the display) and the timing isn't the same with the
+timing of the first modeset, the modeset will fail.
 
-When the first real modeset requests a mode whose pixel clock is also 297 M=
-Hz,
-clk_set_rate(hdmi_pclk, 297000000) then sees cur =3D=3D want and does nothi=
-ng.
-So the pre-PLL is never actually programmed.
+I'm thinking about sending a fix patchset first, which will pick the
+FB_EN fix here, implement a fix for the stale state problem and maybe
+implement fixes for the old state dereference problems for hidden
+planes in their atomic_update callback (although this fix will
+introduce a helper, which will then be moved and renamed in the DC8200
+ops patch).
 
-Without these 5 lines inno->pixclock stays 0,
-so the first modeset's clk_set_rate() always runs .set_rate() for real.
+Thanks,
+Icenowy
 
-Together with my forgotten fix from May we can have working 4K@30 on the VF=
-2.
-https://lore.kernel.org/all/20260528184145.384114-1-domibel@debian.org/
+>=20
+> Thanks,
+> Icenowy
+>=20
+> > dt-bindings patch, targeting the current vs_primary_plane.c
+> > directly,
+> > so the ops-table patch just carries the already-corrected code
+> > forward
+> > into vs_dc8200.c. Agreed that's faster than round-tripping.
+> >=20
+> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> > still
+> > has a real per-variant operation there (clearing FB_EN + commit),
+> > while
+> > DC8000 leaves it NULL and does nothing, so the suffix still
+> > reflects
+> > an actual per-variant difference, not just structure introduced by
+> > the
+> > refactor.
+> >=20
+> > While testing the cursor plane, I found the same class of bug
+> > there:
+> > the disable register write was being triggered from the plane's
+> > atomic_update() invisible-branch using the old plane state to look
+> > up
+> > the CRTC/output, which can be stale or NULL on a plane's very first
+> > commit if it's already invisible then. I've fixed it locally by
+> > having
+> > atomic_update() derive the CRTC/output from the state it already
+> > holds
+> > before checking visibility, instead of falling through to the
+> > old-state-based disable path. Just flagging it here for now -
+> > vs_cursor_plane.c isn't touched by any of my patches.
+> >=20
+> > Thanks.
 
-Best
--Dominique
