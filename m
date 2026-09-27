@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A67AC9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 23:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99673C9830E
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 23:50:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 650B610E6EE;
-	Sun, 27 Sep 2026 23:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE9FD10E6F1;
+	Sun, 27 Sep 2026 23:50:11 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87BC410E6EE
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 23:50:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC4C10E6F1
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 23:50:10 +0000 (UTC)
 Received: from local by pidgin.makrotopia.org with esmtpsa
  (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768) (Exim 4.100)
- (envelope-from <daniel@makrotopia.org>) id 1xAyd5-000000000m7-13xw;
- Sun, 27 Sep 2026 23:49:59 +0000
-Date: Mon, 28 Sep 2026 00:49:56 +0100
+ (envelope-from <daniel@makrotopia.org>) id 1xAydC-000000000n7-2Fho;
+ Sun, 27 Sep 2026 23:50:06 +0000
+Date: Mon, 28 Sep 2026 00:50:03 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -34,9 +34,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
-Subject: [PATCH v8 03/14] drm/bridge: it6505: balance and disable runtime PM
- on remove
-Message-ID: <aa94f192ee4ac67bc51d0809fdd4a0e675050fef.1790552614.git.daniel@makrotopia.org>
+Subject: [PATCH v8 04/14] drm/bridge: it6505: unregister DP AUX adapter on
+ bridge detach
+Message-ID: <ae0941be8fb5e20a309f2e30b5e2d8818168aa38.1790552614.git.daniel@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -57,44 +57,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Runtime PM is enabled in probe but never disabled on remove, so
-rebinding the driver warns "Unbalanced pm_runtime_enable!". The
-extcon work also holds a usage reference while a display is
-connected, which unbinding leaks; the count survives in struct
-device, so after a rebind the device never runtime-suspends again.
+The DP AUX adapter is registered in .attach() but only unregistered
+in i2c remove(). Unbinding and rebinding the DRM device while the
+i2c driver stays bound registers the adapter a second time, which
+fails. Also unregister it in .detach() and on the .attach() error
+path, which so far leaked the registration. remove() keeps its call,
+which waits for in-flight AUX device users before devres frees the
+regmap; drm_dp_aux_unregister() does nothing for an adapter that is
+already unregistered.
 
-Drop the usage reference held for a connected display and disable
-runtime PM in remove().
-
-Fixes: 10517777d302 ("drm/bridge: it6505: Adapt runtime power management framework")
+Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
+Assisted-by: LLM
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
-v8: no changes
+v8: keep the unregister in remove() so an i2c unbind waits for
+    in-flight AUX device users before the regmap is freed
 
 v7: no changes
 
 v6: no changes
 
-v5: also drop the usage ref held for a connected display; retitled
-
-v4: new patch
+v5: new patch
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6505.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 52d7d818a5ea3..9c4aae383c1c5 100644
+index 9c4aae383c1c5..7a0702e441ad7 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -3663,6 +3663,9 @@ static void it6505_i2c_remove(struct i2c_client *client)
- 	cancel_work_sync(&it6505->hdcp_wait_ksv_list);
- 	cancel_delayed_work_sync(&it6505->hdcp_work);
- 	cancel_work_sync(&it6505->extcon_wq);
-+	if (it6505->extcon_state)
-+		pm_runtime_put_sync(&client->dev);
-+	pm_runtime_disable(&client->dev);
- 	it6505_poweroff(it6505);
- 	it6505_remove_edid(it6505);
+@@ -3096,6 +3096,7 @@ static int it6505_bridge_attach(struct drm_bridge *bridge,
+ 		ret = it6505_use_notifier_module(it6505);
+ 		if (ret < 0) {
+ 			dev_err(dev, "use notifier module failed");
++			drm_dp_aux_unregister(&it6505->aux);
+ 			return ret;
+ 		}
+ 	}
+@@ -3109,6 +3110,7 @@ static void it6505_bridge_detach(struct drm_bridge *bridge)
+ 
+ 	flush_work(&it6505->link_works);
+ 	it6505_remove_notifier_module(it6505);
++	drm_dp_aux_unregister(&it6505->aux);
  }
+ 
+ static enum drm_mode_status
 -- 
 2.55.0
