@@ -4,61 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7071DCA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C71CA5FA4
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4F2C10E8CC;
-	Mon, 28 Sep 2026 08:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9A2510E8D4;
+	Mon, 28 Sep 2026 08:43:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="TmrNEmGE";
-	dkim=pass (2048-bit key; secure) header.d=erebion.eu header.i=@erebion.eu header.b="EyVaHDV8";
+	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="YEOIrGIT";
 	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A623E10E0B7
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 10:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418023; bh=hNATm9qyniYwT3x8rwBBwLQ
- QBuNESnvdMPBTzEQjPB0=; b=TmrNEmGEgVqTb2YD6+YQHY4eKPO9MbCYfwIfQBYHwWHrTGY124
- ejQmyYdvyJdXifulb6KT55EHHk99niBm39Bg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1790418023; bh=hNATm9qyniYwT3x8rwBBwLQ
- QBuNESnvdMPBTzEQjPB0=; b=EyVaHDV8FlEQwawOg7cdjppRCoe2ZZ5RzNDUtTT6et0N6rWpUr
- p0lamn2DTUSPHIDxfFWyYdbhxwO+dVq6NJtgeyTQnacZicI5iG+JxxxXYkvJtyMIuyrfIF3NJ4Y
- PxFZAo3LI7gL6zSPOuVEp12G4+kYb3EvHNQPcJFbzgZVE2w4SuT7jwiG0c5xymiY4yTH9N7Iguv
- vOH0yWKrHJheVDgI1E5/U4Msrt+jLATLyVv1sRhCAnR79X5i4s/ZiIzzjiwo5iN8oL+7Ggrd55H
- Hjufi+8kA+K1rnEBu4mQR99WVV5bT6XmcIDxV5EJtbRSjQVUkw4XqlIBUtx0n0v4vRA==;
-From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 12:20:23 +0200
-Subject: [PATCH 6/8] arm64: dts: qcom: sm6350-lena: Enable wifi
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB50710E28A
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 01:04:34 +0000 (UTC)
+Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68R14B7G059851
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Sun, 27 Sep 2026 10:04:11 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=j9w0REUefCOyn/q9h5nw6t2GYkHFhe/4JUNcRaBJ3ls=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-ID:To:Subject:Date;
+ s=rs20250326; t=1790471051; v=1;
+ b=YEOIrGITN814dVoh8ELZYeibUAW/GbzKPm4z47VTZqNMlKKiY95jCfzAzE+q7hF8
+ iJwqg53LOLXUgElRtk1Vumhe9pq+Umaxlq//Xb/IaLz2f71i02FNAXu4NB4Xg5K1
+ quJ4ik9W6q518wDvbSX69acii7WdEVtW4rxpD3MSaTLBFqFLJmFSNMjzR9qEjKOm
+ GcH/dn5Uv4hHxCK70uGgOI8MyzvapSNEqr8IDmbvM/REtL9wIcbgMHRM7Y0jegBR
+ TcSBLbesnW/n4Fa7pmijBu3CqQxVgxkJ68JADrR9xfsFjzhVWmJGWwhxG1fsNvay
+ SahpQXVZnbMdM+gCqtn3Ag==
+Message-ID: <88d78717-d935-4c7f-a123-c6ddff761e97@rsg.ci.i.u-tokyo.ac.jp>
+Date: Sun, 27 Sep 2026 10:04:10 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v1-6-1609c18b5c1d@erebion.eu>
-References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=856;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=CnqCI9zUx2Ih3eXynf8+h7IC3SYJGKIYqpd59BtClw8=;
- b=EoiTFdsGa971WaQXxSF7wxsVtVBuf27E46vgfDsfTMGl6+oAcm85eRsn18n5s8S6i/M6FPCeG
- 4iBP1mGVUBTCCWACY3qx4mQldeOKaBcUYoHX2xSTb1697l59jPSym9C
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 4/4] drm/virtio: wire blob ioctl creation to
+ userptr objects
+To: Honglei Huang <honghuan@amd.com>, dmitry.osipenko@collabora.com,
+ airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-5-honghuan@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260924095556.1326164-5-honghuan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,32 +65,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Configure regulators and enable it for the Xperia 10 III
+On 2026/09/24 18:55, Honglei Huang wrote:
+> Integrate userptr into the blob resource creation ioctl.
+> 
+> - A non-zero userptr selects virtio_gpu_userptr_create()
+> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
+>    advertised VIRTIO_GPU_F_BLOB_READONLY
+> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
+> - Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
+> 
+> virtio_has_feature() routes device-specific feature bits through
+> virtio_check_driver_offered_feature(), which calls BUG() when the
+> driver queries a bit it never declared in features[]. The
+> VIRTIO_GPU_F_BLOB_READONLY probe added to virtio_gpu_init() hit
+> exactly that: every probe crashed regardless of host support because
+> the bit was missing from features[]. Registering it there fixes the
+> crash.
+> 
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> ---
+>   drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
+>   drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
+>   drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
+>   drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
+>   4 files changed, 38 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> index 3a68a16b58..b8b9b40584 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+> @@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
+>   			    vgdev->has_resource_assign_uuid);
+>   
+>   	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
+> +	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
+>   	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
+>   	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
+>   	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> index 2aaa7cb080..f1edd20c37 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+> @@ -182,6 +182,7 @@ static unsigned int features[] = {
+>   	VIRTIO_GPU_F_RESOURCE_BLOB,
+>   	VIRTIO_GPU_F_CONTEXT_INIT,
+>   	VIRTIO_GPU_F_BLOB_ALIGNMENT,
+> +	VIRTIO_GPU_F_BLOB_READONLY,
+>   };
+>   
+>   #ifdef CONFIG_PM_SLEEP
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> index 3d8e4ccdb7..3dc058e50e 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> @@ -36,7 +36,10 @@
+>   
+>   #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
+>   				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
+> -				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
+> +				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
+> +				    VIRTGPU_BLOB_FLAG_USE_READONLY)
+> +
+> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
+>   
+>   /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
+>   static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
+> @@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
+>   			return -ENOENT;
+>   		value = vgdev->blob_alignment;
+>   		break;
+> +	case VIRTGPU_PARAM_USERPTR:
+> +		value = 1;
+> +		break;
+> +	case VIRTGPU_PARAM_BLOB_READONLY:
+> +		value = vgdev->has_blob_readonly ? 1 : 0;
+> +		break;
+>   	default:
+>   		return -EINVAL;
+>   	}
+> @@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+>   	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
+>   		return -EINVAL;
+>   
+> +	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
+> +		return -EINVAL;
+> +
+>   	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+>   		if (!vgdev->has_resource_assign_uuid)
+>   			return -EINVAL;
+>   	}
+>   
+> +	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
+> +		if (!vgdev->has_blob_readonly)
+> +			return -EINVAL;
+> +	}
+> +
+> +	if (rc_blob->userptr &&
+> +	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
+> +		return -EINVAL;
+> +
+>   	switch (rc_blob->blob_mem) {
+>   	case VIRTGPU_BLOB_MEM_GUEST:
+>   		*guest_blob = true;
+> @@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+>   	params->blob = true;
+>   	params->blob_flags = rc_blob->blob_flags;
+>   	params->blob_hints = rc_blob->blob_hints;
+> +	params->userptr = rc_blob->userptr;
+>   
+>   	if (vgdev->has_blob_alignment &&
+>   	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+> @@ -518,9 +540,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>   	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
+>   	struct drm_virtgpu_resource_create_blob *rc_blob = data;
+>   
+> -	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
+> -			&guest_blob, &host3d_blob))
+> -		return -EINVAL;
+> +	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
+> +			  &guest_blob, &host3d_blob);
+> +	if (ret)
+> +		return ret;
+>   
+>   	if (vgdev->has_virgl_3d)
+>   		virtio_gpu_create_context(dev, file);
+> @@ -538,7 +561,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+>   				      vfpriv->ctx_id, NULL, NULL);
+>   	}
+>   
+> -	if (guest_blob)
+> +	if (guest_blob && params.userptr)
+> +		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
- arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+After userptr creation has pinned pages, charged pinned_vm, queued 
+resource creation, and registered the object for restore, the 
+[handle-creation failure path calls drm_gem_object_release() directly. 
+The UUID-assignment failure path does likewise.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index cb749cc121abf..7c14360cb1838 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -566,3 +566,13 @@ &usb_1_qmpphy {
- 
- 	status = "okay";
- };
-+
-+&wifi {
-+	vdd-0.8-cx-mx-supply = <&pm6350_l4>;
-+	vdd-1.8-xo-supply = <&pm6350_l7>;
-+	vdd-1.3-rfa-supply = <&pm6150l_l2>;
-+	vdd-3.3-ch0-supply = <&pm6150l_l10>;
-+	vdd-3.3-ch1-supply = <&pm6150l_l11>;
-+
-+	status = "okay";
-+};
+That function releases GEM internals; it does not invoke the object’s 
+.free callback. The userptr pages, DMA mapping, memlock charge, and host 
+resource therefore remain unreleased, with no userspace handle available 
+to close them.
 
--- 
-2.53.0
+These error paths predate the series, but this patch routes long-term 
+userptr pins through them.
+
+Regards,
+Akihiko Odaki
+
+> +	else if (guest_blob)
+>   		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
+>   	else if (!guest_blob && host3d_blob)
+>   		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> index 1d4d3bf46a..06c2bded49 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> @@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+>   		vgdev->blob_alignment = blob_alignment;
+>   	}
+>   
+> +	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
+> +		vgdev->has_blob_readonly = true;
+> +
+>   	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
+>   		 vgdev->has_virgl_3d    ? '+' : '-',
+>   		 vgdev->has_edid        ? '+' : '-',
+>   		 vgdev->has_resource_blob ? '+' : '-',
+>   		 vgdev->has_host_visible ? '+' : '-');
+>   
+> -	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
+> +	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
+>   		 vgdev->has_context_init ? '+' : '-',
+> -		 vgdev->has_blob_alignment ? '+' : '-');
+> +		 vgdev->has_blob_alignment ? '+' : '-',
+> +		 vgdev->has_blob_readonly ? '+' : '-');
+>   
+>   	ret = virtio_gpu_find_vqs(vgdev);
+>   	if (ret) {
 
