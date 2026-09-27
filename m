@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA366C98324
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65AE0C9830E
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C28910E592;
-	Sun, 27 Sep 2026 11:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B49C110E593;
+	Sun, 27 Sep 2026 11:27:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y82dT5eQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NmBgy/wZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1476910E592
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:26:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D24310E593
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:27:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 43D2560AAE;
- Sun, 27 Sep 2026 11:26:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95CB71F000FF;
- Sun, 27 Sep 2026 11:26:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 09030404EF;
+ Sun, 27 Sep 2026 11:27:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921E91F000FF;
+ Sun, 27 Sep 2026 11:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790508404;
- bh=9r3PoyOMJ+47A7HCgzEunN7ip0IMB3F17Wu22sTfcm4=;
+ s=k20260515; t=1790508464;
+ bh=pMqKucmWWoBKiao3KWyJg9C/vAKWZEZYQBcGADSqI7s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y82dT5eQeXwh55GSgOoCH8wfuQ/jBBfobADBJXl/P3D3kWQ2yU8LdRwD2aCWNgx/B
- /ayoYP1O9RZrp7L6QcuH63q/+rGfe7oU8dv2QOwTI/82VvtXrRiHNiM5wJCg7ErUlH
- DwyN4eaf/ud8nkiCEcdPYjU5s6iwS02Nuq+NSj7kwJzibBSqZvSs2NzvO0M/y39O8k
- R9ckt3Yt8zAHqkzIlGZwVjSWeMQ9mwY0szMeTaJ3o3eeMgzjTpEf0Eo5i7uTxgiWJX
- FhDzxHU/gXJ/Co/MFfII2foQ7gZmLwTxcIKtNWY95dIN82CDh0xq15RwOozj3O2frv
- Fs5qd1U22yO7g==
+ b=NmBgy/wZ9FV/nBUeqNqUprWfvcnh5WMhsxawPbkk4PQdnO5d8ns/p7JYJxuUeKVTc
+ X3tpJsB82+Smw3JugwEYJI05abqFCU430yEQhAClfZ1IxfDxbzSQ1XSC0AqEHKK+ds
+ kJ259uhUj8gJuYyQtk8G0YI89NCSuv6tWhva/FxovRXQcl+Cf+gS1/5QyocyF9Y+Jp
+ zAA77frsklajnjtP20NQVGeQL4k+pdkVlR3YAXm+ko3U72IfZqaiHO94F3F7pk4O0n
+ KGAtuOfDwsDtoHU9g5CqL6B1GlqDWYe5QHVrsTHrujj3TvbnDyJWPG41dvZqJ5aKPK
+ +6DwYpQ6z/Eag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/10] gpu: nova-core: gsp: cmdq: split the transport
- part of the send path
+Subject: Re: [PATCH 07/10] gpu: nova-core: gsp: cmdq: split the transport
+ part of the receive path
 To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, gary@garyguo.net, ojeda@kernel.org
-In-Reply-To: <20260927-cmdq-rpc-v1-5-822db5af910e@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, gary@garyguo.net,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, ojeda@kernel.org
+In-Reply-To: <20260927-cmdq-rpc-v1-7-822db5af910e@nvidia.com>
 References: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
- <20260927-cmdq-rpc-v1-5-822db5af910e@nvidia.com>
+ <20260927-cmdq-rpc-v1-7-822db5af910e@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 11:26:43 +0000
-Message-Id: <20260927112643.95CB71F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 11:27:44 +0000
+Message-Id: <20260927112744.921E91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +62,42 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] gpu: nova-core: spurious checksum failure due to un-truncated slic=
-es
-- [High] gpu: nova-core: infinite loop via unvalidated element_count from G=
-SP
+- [High] gpu/nova-core: checksum validation fails on untrimmed queue buffer=
+ slices
+- [High] gpu/nova-core: unvalidated element_count from GSP allows arbitrary=
+ read pointer manipulation
 --
 
-commit 90b2987a6783eb2acf6f7b5e9bf5e7fbc3108e1d
+commit 4799dd94b859632b92a2a5821daacb47098f5faa
 Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: gsp: cmdq: split the transport part of the send path
-   =20
-Move the transport part of send_single_command into send_command_element.
-The RPC part of send_single_command is passed as a closure to set up moving=
-=20
-the RPC code into its own sub-module. No functional change intended.
+gpu: nova-core: gsp: cmdq: split the transport part of the receive path
+
+This commit splits wait_for_msg into wait_for_element and wait_for_msg. The
+transport layer is moved into wait_for_element, while the RPC layer that
+trims the payload slices remains in wait_for_msg. This prepares the code
+for moving the RPC layer into its own module.
 
 > diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
 p/cmdq.rs
-> index a5595da23407b..602824236f64e 100644
+> index a5595da23407b..d50a2a594f828 100644
 > --- a/drivers/gpu/nova-core/gsp/cmdq.rs
 > +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
 
 [ ... ]
 
-> @@ -768,16 +807,28 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gs=
+> @@ -755,7 +584,7 @@ fn send_command<M>(&mut self, command: M) -> Result
+>      ///   message queue.
+>      ///
+>      /// Error codes returned by the message constructor are propagated a=
+s-is.
+> -    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+> +    fn wait_for_element(&self, timeout: Delta) -> Result<GspMessage<'_>>=
+ {
+>          // Wait for a message to arrive from the GSP.
+>          let (slice_1, slice_2) =3D read_poll_timeout(
+>              || Ok(self.gsp_mem.driver_read_area()),
+> @@ -768,15 +597,41 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gs=
 pMessage<'_>> {
 >          // Extract the `GspMsgElement`.
 >          let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice=
@@ -98,24 +110,28 @@ _1).ok_or(EIO)?;
 > +            slice_2,
 > +        ])) !=3D 0
 > +        {
-
-[Severity: High]
-Does this code spuriously fail the checksum validation when the GSP leaves
-padding in the ring buffer or batches messages?
-
-The patch moves the Cmdq::calculate_checksum call in wait_for_msg before
-slice_1 and slice_2 are truncated to the actual payload_length. Because
-calculate_checksum iterates and hashes all bytes in the slices, it will now
-hash the entire available read area (including trailing ring buffer data)
-instead of just the single message.
-
 > +            dev_err!(&self.dev, "GSP receive: bad checksum\n");
 > +            return Err(EIO);
 > +        }
+> +
+> +        Ok(GspMessage {
+> +            header,
+> +            contents: (slice_1, slice_2),
+> +        })
+> +    }
+
+[Severity: High]
+Does this code calculate the checksum over the entire available read area,
+including trailing padding or queued messages?
+
+In the original wait_for_msg(), slice_1 and slice_2 were trimmed to the
+message payload_length before the checksum calculation. Since
+wait_for_element() performs validation before trimming, won't valid messages
+fail the checksum if there's extra data in the buffer?
 
 [ ... ]
 
-> @@ -863,9 +899,8 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout:=
+> @@ -863,9 +703,8 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout:=
  Delta) -> Result<M>
 >          };
 > =20
@@ -125,26 +141,24 @@ instead of just the single message.
 > -        )?);
 > +        self.gsp_mem
 > +            .advance_cpu_read_ptr(message.header.element_count());
-
-[Severity: High]
-Can an untrusted or erroneously crafted message header from the GSP cause an
-infinite loop here?
-
-The patch changes the read pointer advancement in receive_msg to use
-message.header.element_count() (the raw elemCount field from the GSP) inste=
-ad
-of safely deriving it from the bounded payload length.
-
-If the GSP firmware provides an elemCount of 0 (or a multiple of
-MSGQ_NUM_PAGES, i.e., 63), advance_cpu_read_ptr adds 0 to the read pointer.
-If the driver then encounters an unexpected function code and retries, it
-will continuously re-read the exact same zero-advancing message, resulting
-in a deadlock.
-
 > =20
 >          result
 >      }
 
+[Severity: High]
+Does this code allow an untrusted GSP to arbitrarily manipulate the host's
+ring buffer read pointer?
+
+The element_count() value comes directly from the GSP message header and
+is never validated against the available read area or queue capacity, unlike
+payload_length.
+
+Can a malicious GSP send a small payload but a huge element_count to force
+the kernel to process uninitialized memory or stale data?
+
+(Note: In the final state of the patch series, this logic ends up in
+receive_rpc_msg(), but the vulnerability is introduced here).
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-cmdq-rpc-v=
-1-0-822db5af910e@nvidia.com?part=3D5
+1-0-822db5af910e@nvidia.com?part=3D7
