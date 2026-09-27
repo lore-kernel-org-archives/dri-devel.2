@@ -4,91 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FF00C9830E
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 21:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2C8C98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 22:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FD010E2E9;
-	Sun, 27 Sep 2026 21:17:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2101A10E045;
+	Sun, 27 Sep 2026 22:46:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pq7iMiNm";
+	dkim=pass (2048-bit key; unprotected) header.d=matt3o12.de header.i=@matt3o12.de header.b="QPxsBAyX";
 	dkim-atps=neutral
-Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com
- [74.125.230.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02E8C10E6C0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:17:33 +0000 (UTC)
-Received: by mail-qk2-f40.google.com with SMTP id
- af79cd13be357-93c5a837375so64892485a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 14:17:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790543852; cv=none;
- d=google.com; s=arc-20260327;
- b=ImF0HJ4ffWIxr6E4R9CKdpXzlSOChw6PxVIPuVzxdKTkOWDTCXiZaJfj+DW3p1PcGN
- HKhzJmFbpj5sumpxGlO6MGdDb+CxxwdXJ+oCHlmKQDiAEZtBqiFDaVb393P/EQNThzbG
- TMXyQZPLrW6VLCb2VDwjalAOVzpsoeWlnbmpW1kC7jI7dIahY+Ttz4msjrzfinQ6+NwI
- 3Mg5Q7PPMJ4JnnZFxGYNjDGLiz0mYzuFZStbSLpCzwKgpZhPv1k6z6YWAtykaTJilGoX
- 8BZO2O85F4doOhhjRkNxT8PqXvbf7Ky3CjHyE3GiAL2mX8CIIwin/vFpaVdI+tTk6tm3
- /tIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
- fh=TolZhRkc3/KkDmGd/Hsyr0FPfH+sjOhV9Eq3XusccEE=;
- b=s+JuE+jFzwxrA6WNsQXeIA/iDFdybmgsmdBHx1BF2VciAnxTOcTtFTs9+war1/bnGB
- zvhqmGtCYrh0KotGCurDbnm8if3fjIHZs/y/rWefvDSXGAcAl0la/nUm7WlI+l0Iz3td
- PmJVpP4sxOvTy3iPYBDss2zl1muBF+yg0y9Y7LcS7eA/gGF17k24fO4CslzTqkqDdecO
- LGpgz5PQnQgmUvB4BtgYbH1z87LYxh5iVXP0TcGw0yANGtkHrIuOteYEPdteJnCkdUHS
- Bc6wpkn7PT/iUqCF5zfU3qFdvA/aBd6B7YuObWV2nHEXRpvtioadm7zO6U0ER4WNtQRW
- QzFQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790543852; x=1791148652; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
- b=pq7iMiNmmqDgvqQUw5qWWTF3P2G7YZfD6nuP5qmRvC+Mf+JLseJSFEaobitpspsPsk
- VkZsjlEh9u0a2yrgB4Hpqe/+NG1WRL6Ritj8Z9Ed9vYVn5MXt5661VlHnFF578U9DERA
- R8hcTFImfTgCExYfJTZO8I/pgDjEgkd86fjGN2nMYjoen3S6p38qu9f30k+Qt7Wkbu2r
- uSyJYEOXpt1vy+WH2JeCtva4Nczbm/U1K+pwVWYGvU/LAYLRSNl2wGTYm1BzuKnyR2z4
- 3mA3SHWuiAyuPq2mSFgYXiDRjAzKwDqsPxzku5Uy5gQmWLIwfhYfeohdjevtTJWLRrBf
- mWsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790543852; x=1791148652;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
- b=czAOA+J1bwaBEOcZLDdKxZb8pPoN0yriIgorpQNI7uyYusBIpjWnEHuwUpZcq7/tik
- djTWlAFnSEGaeUxJ0Q9+umeTXUjUplG9CLwzFIDM3wqiivvj1VyzdPh0l8jrUW0OWIfW
- 9Hj+Y3QZ7blR3WJYVTqtUt0NTClgcpTm7fOj9S3YM6DbFOYcfiRzjpHQf10VDoga+/N7
- 4wdTJKvTM7dKQokXGY+ZnGO1ioJE8qvhHByctX6hwgY4zHYExNuohA7NHtRyTU+8TMQa
- B+PlKZEztnZQORpkbcrbXeDehOS5jrzDGU2m0PPbNHBijWv4BSHca7Ag/jhdIs6SNn3z
- C2nA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxR5M0vyUXR3SM4MS2EhdchUl0zWxoqj2llG4m27dnT0vwhmplbjxGf258//xnbVEdncyBs1AINHXA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nWsCfYISRoBJsbMdip5hiEFKM6836fZRmEJX/OqcA3ZPg1SaY5
- n7kvXPL1b5u+jpFlYUTl8pW98wQ1jEpIYDofC0TYgkJhHaFlinaktReNJz1q/U8raUHI9BUpiyB
- +txOGVQXSzUlHeaP/I/2MFvjQ7EGgLuU=
-X-Gm-Gg: AYBFou1wvqgWgQvBIpyC0MvuICsiB6ytDUEZsKyh1ekg+OQvZJKf8Yr4fPV8JPxE9Pf
- D4sWrDUjY67vf9JjaBR24tKaEnj4tDihLOblL0JDq1iakQg2pWU9rkeiGetogpMvbwofSa/diY8
- uwR6BtI+LWy1hbIq9wBoSC3pt6hlnRHm5uuIEbxTqd1u7lBp3fkbtYJglZZ8iQZsT2bGg4w+tXR
- HQczjMsdMu3nrwXg8uzL5VSi/fMKV6LcKM54nw1lbupm+7RussQkwQsPLXH6mOCSdUSMbQ0pPgg
- QaPwLn+22OSPm/VZ3AXKDKFiZpTF5au5mz1pEJOWe4BK00LzE/2+qsCwSuRN5tssi6KJQ0M+NPP
- itZo48KDFSBzuTd08fbxECjiqGwUKYvXGqxaKPjGy
-X-Received: by 2002:a05:620a:26a8:b0:93c:2670:2c28 with SMTP id
- af79cd13be357-93c43c3b302mr1594003485a.10.1790543851808; Sun, 27 Sep 2026
- 14:17:31 -0700 (PDT)
+Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de
+ [91.216.248.203])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F37FB10E045
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 22:46:00 +0000 (UTC)
+From: Matteo Kloiber <kernel@matt3o12.de>
+X-Lima-ML-UUID: 7b21bed0-f515-40d2-8fad-e214b5c9faf0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
+ s=securedbylima-20230709; t=1790549158;
+ bh=xC9euzdpfWQA6clWp09WVE/7sgF5HEkIjOsWgJhhgTE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=QPxsBAyXObGEqRuVtVwk+kG/MmUHlCLH7ftmtL5BWr2j8oaZf0M4V9Q3kIBZ9zV+2
+ uylOzjCrgcHThRhe5hs4jq2HvGiNof6YkMwPPkWx3ToNAJplgp+cp0SpLJ0eZShIhP
+ cL9aqqpJMKK1jiCRLqPoDgiKaEH3N2yN8bY7vVrd8qp8ScHRVQw3QGZxZ9UKv/+oAR
+ xLVSKeXX1+T/jtMI9IQloUVQvaHzI/703WAmDE/7Jdc8d2wO5bvZAMStVQq6a1vbR5
+ RNVGTGvhjnpL8x33L1GqLVpWnHzdQflfLmVHlzU0CgiRtDVX2EmxDPhXofOm2Jdl3V
+ I/ygm44GFUvqA==
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Robin Murphy <robin.murphy@arm.com>, aliceryhl@google.com,
+ ojeda@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ abdiel.janulgue@gmail.com, daniel.almeida@collabora.com,
+ a.hindborg@kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum segment
+ size
+Date: Mon, 28 Sep 2026 00:44:43 +0200
+Message-ID: <20260927224446.1053037-1-kernel@matt3o12.de>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com> <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+ <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
+ <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
+ <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+ <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
+ <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20260821195224.809173-1-alexander.deucher@amd.com>
-In-Reply-To: <20260821195224.809173-1-alexander.deucher@amd.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 28 Sep 2026 07:17:20 +1000
-X-Gm-Features: AclHuK9j_ZBnHU5bftvT0-bNJR4EDTfTOCkhRiQMtodvJ4ebzPkWhQxMxMAITPU
-Message-ID: <CAPM=9tzfOiFBHKRVPjmde0gcFY+C=AQh-+-VvNTb5ZuAhvqG7A@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Add UALink infrastructure series 2
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Felix.Kuehling@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,26 +70,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L1036
->
-> Alex Deucher (1):
->   Documentation: add initial UALink Documentation
->
-> Mukul Joshi (2):
->   drm/gem: Add callback for when handle count goes to 0
->   drm/amdgpu: Add ioctl infra for exporting/importing UALink handles
->
->  Documentation/gpu/amdgpu/index.rst         |  1 +
->  Documentation/gpu/amdgpu/ualink.rst        | 74 ++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  9 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 44 +++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  2 +
->  drivers/gpu/drm/drm_gem.c                  |  5 +-
->  include/drm/drm_gem.h                      | 11 ++++
+First of all, thanks for merging my first two patches and sorry about my late reply.
 
-This gem patch is kinda sneaking in here, I'd have preferred to have
-more discussion on the list around this sort of addition to the gem
-code.
+What I think Alex meant and what I agree with is that the new API should focus on
+making semantic bugs harder, not to necessarily make it easier to write safer
+drivers. That being said, I think we can do both with this change.
 
-Dave.
+The key change here is that we introduce a structure that defines dma
+parameters for a device. This structure deliberately has no default
+implementation and new fields should be added even if they require changes for
+all dma drivers.
+
+```
+pub struct Params {
+    pub streaming_mask: DmaMask,
+    pub coherent_mask: DmaMask,
+    pub max_seg_size: NonZeroU32,
+}
+```
+
+Suppose, we didn't have `max_seg_size` before and only discovered it later. We
+would add it and the compiler would guide us to any drivers that will need to
+consider an appropriate value for `max_seg_size`.
+
+If rust was bigger in the kernel, this could be quite a bit of work, requiring
+coordination with other maintainers, but I would call this a feature because it
+actually requires everyone to at least consider what the right value is instead
+of forgetting to set it.
+
+The same is also true for new drivers. Authors do not have to be omniscient of
+all dma related settings and instead just fill out the struct and already have
+some important ones set.
+
+If a parameter is only important for some drivers but those drivers should not
+forget it, we could make it an Option so that drivers that really don't need
+a parameter can set it to `None`, but they had to think about it at least.
+
+I think, instead of discussing different possibilities, it might be easier to
+discuss code directly. Taking Alex's example, I went ahead and wrote a small
+LLM assisted PoC. I'm happy to share it here or in another thread, but here are
+the main changes:
+
+1. The PCI and platform probe callbacks receive a unique setup token:
+
+```rust
+    fn probe<'bound>(
+        dev: &'bound Device<device::Core<'_>>,
+        dma: dma::Setup<'bound>,
+        id_info: Option<&'bound Self::IdInfo>,
+    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
+```
+
+The bus driver creates this token and drivers cannot obtain another one from
+the device. 
+
+2. `setup.configure(params)` consumes the token, applies the parameters through
+   the C DMA setters, and returns a `dma::Handle<'bound>` on success.  This
+   combines the setters and `finish()` from Alex's outline into one call.
+
+```
+pub fn configure(self, params: Params) -> Result<Handle<'bound>> {
+    let dev = self.dev.as_raw();
+
+    // SAFETY: `dev` is valid and its DMA parameters are initialized by the bus. The `Setup`
+    // invariants exclude concurrent DMA operations and other parameter setters. Consuming
+    // the unique token prevents reconfiguration after a handle has been issued.
+    unsafe {
+        to_result(bindings::dma_set_mask(dev, params.streaming_mask.value()))?;
+        to_result(bindings::dma_set_coherent_mask(dev, params.coherent_mask.value()))?;
+        bindings::dma_set_max_seg_size(dev, params.max_seg_size.get());
+    }
+
+    Ok(Handle { dev: self.dev })
+}
+```
+
+3. The handle contains a bound device reference and is copyable, but provides
+   no way to reconfigure DMA:
+
+```rust
+#[derive(Clone, Copy)]
+pub struct Handle<'bound> {
+  dev: &'bound device::Device<Bound>,
+}
+```
+
+4. Allocation and mapping APIs now require a Handle. 
+
+For example, scatter list now takes:
+
+```
+pub fn new<'a>(
+  dma: dma::Handle<'a>,
+  pages: P,
+  dir: dma::DataDirection,
+  flags: alloc::Flags,
+) -> impl PinInit<Self, Error> + 'a {
+```
+
+The PoC uses Handle for coherent allocations, owned scatterlists, and DRM
+scatterlist mappings.
+
+5. Each pci/platform driver that uses DMA configures its own `Params`. Let's
+   look at `samples/rust/rust_dma.rs`:
+
+```rust
+fn probe<'bound>(
+    pdev: &'bound pci::Device<Core<'_>>,
+    setup: dma::Setup<'bound>,
+    _info: Option<&'bound Self::IdInfo>,
+) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+    pin_init::pin_init_scope(move || {
+        dev_info!(pdev, "Probe DMA test driver.\n");
+
+        let mask = DmaMask::new::<64>();
+
+        let dma = setup.configure(dma::Params {
+            streaming_mask: mask,
+            coherent_mask: mask,
+            max_seg_size: const { NonZeroU32::new(u32::SZ_64K).unwrap() },
+        })?;
+
+        let ca: Coherent<'_, [MyStruct]> =
+            Coherent::zeroed_slice(dma, TEST_VALUES.len(), GFP_KERNEL)?;
+
+        for (i, value) in TEST_VALUES.into_iter().enumerate() {
+            io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
+        }
+
+        let size = 4 * page::PAGE_SIZE;
+        let pages = VVec::with_capacity(size, GFP_KERNEL)?;
+
+        let sgt = SGTable::new(dma, pages, DataDirection::ToDevice, GFP_KERNEL);
+
+        Ok(try_pin_init!(Self::Data {
+            pdev,
+            ca,
+            sgt <- sgt,
+        }))
+    })
+}
+```
+
+What I am not 100% sure about is how we should handle drivers that don't use
+dma. Currently I just discarded the setup token like suggested, for example
+`samples/rust/rust_driver_auxiliary.rs`:
+
+```rust
+impl pci::Driver for ParentDriver {
+  fn probe<'bound>(
+    pdev: &'bound pci::Device<Core<'_>>,
+    _dma: kernel::dma::Setup<'bound>,
+    _info: Option<&'bound Self::IdInfo>,
+  ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound { ... }
+}
+```
+
+But maybe it would make sense to introduce a C API such as: `debug_no_dma` and
+have the bus call it unless configure was called first. This would then trigger
+a debug warning if a marked rust device calls any C APIs that use DMA
+regardless. But this could also very well be a worthwhile follow up.
