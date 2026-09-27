@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B9CDC9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C6BC98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D229610E68C;
-	Sun, 27 Sep 2026 18:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B111610E68D;
+	Sun, 27 Sep 2026 18:40:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j+XAKfVt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fkk43sts";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F00810E68C
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:40:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B89210E68D
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:40:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 59DC160052;
- Sun, 27 Sep 2026 18:40:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7BD71F000FF;
- Sun, 27 Sep 2026 18:40:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 17EA0400CE;
+ Sun, 27 Sep 2026 18:40:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A83521F000FF;
+ Sun, 27 Sep 2026 18:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790534405;
- bh=+Au+t9N3IgLrvbEOBZOILQ7QogwJI3INkawRRomrqe0=;
+ s=k20260515; t=1790534451;
+ bh=OaBf7xddw2D53JcU0DRpu4plXwIjffjOq+eYS5SJf3I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=j+XAKfVtiNUNt5lqOTvK8/ldFtmGtYsI7uDZPfejsPhLzvgmhvmW4QrvQjFdIV+eG
- Bo20tD4OGm+tuQOTOAMII4PhXXoLtr/Dmhp1VTHxGZAjFAmJpzYcyqy5bGLLQS7xQ8
- VctsfSFB2cYEYaBM776akUFUrC53F/exzMFFHN1k3fqwaWu6iss2lHkX1Xq9JuixxM
- Dm8dIG1dPg2EbQ0k4cyh6ZQqdbOWkOTs9cXlvI2WWdbwRxrcdRnXQXjYz4uJgHrBu4
- UjsWRqfAhF/xzJxlEMsW51qEG5YVKWM0xaC8nEGUD8RI9iJonkFvVJMwOiusEfkc7h
- A3X0kAmsM9r1g==
+ b=fkk43stscSrpzKfFYoeCaGhEu7QvF5ze0AEMCvlMgd7mUIryaWljPy2FDwG2eLx50
+ Y3TvPIWC8KpPX0fsH9qO/Jxjl+WP/gfEskckw3va71bKpAli59zDQgyPxXbjixPBBg
+ Hza2goQ6ho6fHngNZDouQS5UT7gL2t+q3d8fT3f44tBp/bQs8iaa18uywTXqhvkmOw
+ 1vNP/xOIfxepYp/D6oLuliWwo2S3SofxG8JIE4jPro+UFi7NJQhRchhl++NWkPBCYn
+ 2xp9GUBwG+jZEJMHTh3AjzWecNqJzRjPZA+VExu8vh9glPlpXwEcpR89FCYYN8op10
+ jTS8PF8IZgQZQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [DO_NOT_MERGE PATCH v2 14/14] arm64: dts: ti: Add AM62L3 EVM
- overlay for GDEY042T81 e-paper display
+Subject: Re: [PATCH v2 06/14] drm/solomon: ssd16xx: Add support for Solomon
+ SSD1677 controller
 To: "Devarsh Thakkar" <devarsht@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260927182329.4193961-15-devarsht@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260927182329.4193961-7-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
- <20260927182329.4193961-15-devarsht@ti.com>
+ <20260927182329.4193961-7-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 18:40:04 +0000
-Message-Id: <20260927184004.B7BD71F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 18:40:50 +0000
+Message-Id: <20260927184050.A83521F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,87 +59,139 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dt: commit message claims MCU GPIO0 but uses Main GPIO0
-- [Low] dt: incorrect inline comment for busy_pins_default pad
-- [Low] dt: raw integer used for GPIO flags instead of macro
+- [High] drm/solomon: heap buffer overflow during 1bpp framebuffer conversi=
+on
+- [High] drm/solomon: illegal DMA mapping of .rodata via SPI tx_buf
 --
 
-commit d0e18d861dbf41de9b7a268b82e7b844f57b80dc
+commit 097c6bbe33ac16a0e3a2bddb2a05e16d23d7914c
 Author: Devarsh Thakkar <devarsht@ti.com>
 
-arm64: dts: ti: Add AM62L3 EVM overlay for GDEY042T81 e-paper display
-   =20
-Add device tree overlay for the Good Display GDEY042T81 4.2" e-paper
-panel connected to the AM62L3 EVM via SPI.
+drm/solomon: ssd16xx: Add support for Solomon SSD1677 controller
 
->     The overlay configures SPI1 with the SSD1683-based GDEY042T81 panel
->     at 2MHz, with reset, busy, and DC GPIOs connected to MCU GPIO0.
+Add infrastructure to support the Solomon SSD1677 e-paper controller
+(up to 960x680 pixels, 10-bit pixel-level X/Y RAM addressing).
 
-[Severity: Medium]
-Is the commit message accurate regarding the GPIO domain?
+> diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
+ssd16xx.c
+> index c478309d08e9f..93fa064cf5894 100644
+> --- a/drivers/gpu/drm/solomon/ssd16xx.c
+> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
+[ ... ]
+> @@ -420,6 +426,29 @@ static const struct ssd16xx_controller_config ssd16x=
+x_controller_configs[] =3D {
+>  		},
+>  		.ctrl2_load_temp_lut     =3D SSD1683_CTRL2_LOAD_TEMP_LUT,
+>  	},
+> +	[SSD1677] =3D {
+> +		/*
+> +		 * 10-bit pixel-level X/Y addressing; only deep sleep mode
+> +		 * 0x03 is supported (no RAM-retain mode). Border waveform
+> +		 * encoding matches SSD1683.
+> +		 */
+> +		.max_width  =3D 960,
+> +		.max_height =3D 680,
+> +		.ram_x_address_bits =3D 10,
 
-The commit message states that the display GPIOs are connected to MCU GPIO0,
-but the device tree nodes explicitly reference &gpio0, which corresponds to
-the Main domain GPIO0 controller in the K3 architecture (the MCU domain
-would be &mcu_gpio0 or &wkup_gpio0).
+[Severity: High]
+Does this configuration allow panels with widths that are not a multiple of=
+ 8,
+leading to a heap buffer overflow during framebuffer conversion?
 
-Additionally, the configured pad offsets (0x0080, 0x007c, 0x00b8) belong to
-the Main domain GPMC0 peripheral, verifying that the physical hardware
-routing targets the Main domain.
+Because ram_x_address_bits is 10, it bypasses the multiple-of-8 width check=
+ in
+ssd16xx_probe():
 
-Could the commit message be updated to reflect that Main GPIO0 is being
-used?
+	if (device->controller_cfg->ram_x_address_bits =3D=3D 8 &&
+	    device->width % 8 !=3D 0) {
+		drm_err(drm, "panel width %u not a multiple of 8 required for byte-addres=
+sed X controller)\n",
+			device->width);
+		return -EINVAL;
+	}
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso =
-b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
-> new file mode 100644
-> index 0000000000000..50975a2cdd2a1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
-> @@ -0,0 +1,96 @@
+This permits device->width to not be a multiple of 8. However,
+ssd16xx_alloc_tx_bufs() calculates the buffer size using global packing:
+
+	size_t frame_size =3D DIV_ROUND_UP(device->width * device->height, 8);
+	device->tx_buf =3D drmm_kmalloc(&device->drm, frame_size, GFP_KERNEL);
+
+But ssd16xx_convert_fb_to_1bpp() pads each row to a byte boundary:
+
+	for (y =3D rect->y1; y < rect->y2; y++) {
+		...
+		if (++bit_pos =3D=3D 8) {
+			dst[dst_idx++] =3D byte;
+			byte =3D 0;
+			bit_pos =3D 0;
+		}
+		...
+		if (bit_pos > 0) {
+			dst[dst_idx++] =3D byte;
+			byte =3D 0;
+			bit_pos =3D 0;
+		}
+	}
+
+This padding means it writes DIV_ROUND_UP(width, 8) * height bytes in total,
+which exceeds the allocated frame_size, causing memory corruption past the =
+end
+of device->tx_buf.
 
 [ ... ]
+> @@ -691,21 +736,34 @@ static int ssd16xx_hw_init(struct ssd16xx_device *d=
+evice)
+> =20
+>  	ssd16xx_hw_reset(device);
+> =20
+> -	/* Software reset */
+> +	/* Software reset (0x12): resets command/parameter registers to default=
+s. */
+>  	ssd16xx_send_cmd(device, SSD16XX_CMD_SW_RESET, &err);
+>  	ssd16xx_wait_for_device(device, &err);
+> =20
+>  	/* Internal temperature sensor (SSD1683/SSD1680 only; not present in SS=
+D1673) */
+>  	if (device->controller_cfg->has_temp_sensor_ctrl) {
+>  		ssd16xx_send_cmd(device, SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL, &err);
+>  		ssd16xx_send_data(device, SSD1683_TEMP_SENSOR_INTERNAL, &err);
+>  	}
+> =20
+> +	/*
+> +	 * Booster soft-start (0x0C): panel-specific charge pump tuning.
+> +	 * Some panels (e.g. PIXPAPER 4.26m on SSD1677) require this step;
+> +	 * others (e.g. GDEY042T81 on SSD1683) omit it.
+> +	 */
+> +	if (device->device_cfg->booster_soft_start_data) {
+> +		ssd16xx_send_cmd(device, SSD16XX_CMD_BOOSTER_SOFT_START, &err);
+> +		ssd16xx_send_data_bulk(device,
+> +				       device->device_cfg->booster_soft_start_data,
+> +				       device->device_cfg->booster_soft_start_len,
+> +				       &err);
 
-> +	busy_pins_default: epaper-busy-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_AD0.GPIO0_31 */
-> +		>;
-> +	};
+[Severity: High]
+Does this pass a .rodata pointer directly to the SPI core, causing an illeg=
+al
+DMA mapping?
 
-[Severity: Low]
-Does this inline comment misidentify the pad name?
+The booster_soft_start_data pointer comes from the device configuration, wh=
+ich
+points to static const tuning data. When this is passed to
+ssd16xx_send_data_bulk() under 4-wire SPI mode:
 
-The overlay correctly uses the offset 0x00b8 for the busy-gpios pin, but the
-comment next to it reads GPMC0_AD0.GPIO0_31. In the AM62L pad configuration,
-offset 0x00b8 actually corresponds to the GPMC0_CLK pad. The GPMC0_AD0 pad
-resides at offset 0x0078.
+	if (device->dc) {
+		/* 4-wire SPI: D/C# GPIO high selects data mode */
+		xfer.tx_buf =3D data;
+		xfer.len =3D len;
+		gpiod_set_value_cansleep(device->dc, 1);
+		ssd16xx_spi_sync(device->spi, &msg, err);
 
-Should the comment be updated to prevent confusion during future pinmux
-debugging?
-
-[ ... ]
-
-> +/* Drive GPIO0_89 high to select the SPI1 path on the VOUT0 FET switch */
-> +&gpio0 {
-> +	fet-sel-hog {
-> +		gpio-hog;
-> +		gpios =3D <89 0>;
-
-[Severity: Low]
-Should this use the GPIO_ACTIVE_HIGH macro instead of a raw integer?
-
-While functionally correct (0 equates to GPIO_ACTIVE_HIGH), standard kernel
-device tree styling strictly prefers using the named macro for readability
-and consistency, especially since <dt-bindings/gpio/gpio.h> is included at
-the top of the file.
-
-> +		output-high;
-> +		line-name =3D "GPIO_EXP_CONN_FET_SEL";
-> +	};
-> +};
+The SPI core will attempt to DMA map the xfer.tx_buf. Mapping .rodata for D=
+MA
+is prohibited and can cause kernel panics or mapping failures.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927182329.4193=
-961-1-devarsht@ti.com?part=3D14
+961-1-devarsht@ti.com?part=3D6
