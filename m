@@ -4,79 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE669CA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A95EDC9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB0710E83D;
-	Mon, 28 Sep 2026 08:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245D410E84B;
+	Mon, 28 Sep 2026 08:42:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="y4Lm5GqY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NR2bBxVW";
 	dkim-atps=neutral
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
- [74.125.228.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6AB10E13C
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:05:40 +0000 (UTC)
-Received: by mail-pz2-f42.google.com with SMTP id
- 41be03b00d2f7-cc4c08393b0so696008a12.0
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 02:05:40 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A77210E23D
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:20:42 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396ccdaea76so683716a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 21:20:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=embeddedlinux.blog; s=google; t=1790413540; x=1791018340;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1790482842; x=1791087642; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=poyGQFhxfjPpwyIrTQh0fZ+JdUzuLojhwNaxF0pNYJE=;
- b=y4Lm5GqYZMLKj3kbTAmJ8/L1qddm8r3PsLr2/ml+NSp/LR3I3gqbSFFAULiZ0ZKE+U
- 2l7oMAsEkAW8zpj7hd7ZU7VjlgGj854Z8t+4v++MLow4iglua9BANG9v3l8eEuH4anOt
- zLFba53rjKN8QZkyL3uUh37ASaJ1AW64Uxc5cqDWOS0/bn0IMAH3tIBjzpnaHMUAQk4O
- PgGP8u7SG9mK1Qy93QajssRfxhj8BqNriCzE9ZC2/rzIf5ljfAjoXqkqr4XU2IubOWG8
- //loNkMPd2wHe1gJInmlxVu9Aqnnh7/rouGriaXNl213q8H47ZacUV4pIacnjgx1p0AS
- xLrA==
+ bh=eDCmetS7q26pDTAMQ+r7lMzCxwM1hYCU7lPFcoUtvfY=;
+ b=NR2bBxVWZc4cEs0U/CLz1liFUYmPPQdyhrayTrIMRNW30+pwRO8leaUbz1EEZWsgd4
+ aQc9fzFkhD5HAmxSvMYCSn/rTxp+kjc5/QEtYM8+69+kMrz79FCjdwuO8+aE2nl6Lms/
+ ERbn44tllB4pzHmrPxuveOwRR3+VK8zRq7XPkA116XPX68ngmLx3tlPncFS9vr4hWaom
+ 4QH+s46XwIzbiQZnkLVide8dGkr6azhKYGOP+6+1jvQTxHm4XjZZLBI5f4as8QZuFjRm
+ YlEqYRK/YX3U+b9E31ZOycWvwuXhNAdJB/dVgr1qGTsh5MfTNZFfOayjHjXJnDIqc9C8
+ Zv5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790413540; x=1791018340;
+ d=1e100.net; s=20260707; t=1790482842; x=1791087642;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=poyGQFhxfjPpwyIrTQh0fZ+JdUzuLojhwNaxF0pNYJE=;
- b=GDEvMb2Y8PgaYl1tLNQ681E7GNhibfdLHy6jNKpPifuelmsjUqE9v6ahEGcv/cW8Q/
- q6aEK7QkjxV4ltRUFJIstp+zeOlXQbCC35FV7VOzoLxs4DDfAheZecMyiHxekKfyO2Ev
- Kde4e6Z7o9SY8BSiAhTLu0UQN1eAVfo85OnC0VrIpstpA65TEvPzqvOuaiX0OVDNhYDd
- ns2TjhrRZflFEulOQuwN8tDkOP9cieUy+Fm1UT+eFj+JZ0Hq3Q0FYWi9wM8OEU57A8En
- QXqzF8UC0vIFhcg/NehjeW351J33TT51qWRO5Lp10Zdi+iIK0dVWL2EE1wdl7PkhROdm
- 0OOw==
+ bh=eDCmetS7q26pDTAMQ+r7lMzCxwM1hYCU7lPFcoUtvfY=;
+ b=Js3g/jnYYRTAeFDUAzGzosr0GD9Or0Uy7+ovNOnGTWsReVSwQBT2P4f1qBgzqO8EeY
+ 3wnRZ1EpNzQwhvU+mdrgN5mXoBZ2kDjPASfbP/KumMju+fifk6n+9wsqDndYsK46LE9S
+ 4Hfv+vmTfoLoDqjFDRs05ztz4Ad8+Co1XOR7bm/bEjXZQpOhDoE5e5OGj75KAC1MLmMt
+ cTeDnD/+/fgPlfDueBm9g8M7zNJT7Fv7KwWCGsCngqmq+ds39kicNRGyIH2TjcYO6ZcR
+ qejpjf9Y6hOfCk5A1GUsOacw4eiH5IBsNCgpOQ7ZcD82v5DaWnzs4/bDoYeSRuWjquFp
+ kHZw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzHFSrROL5NHfvuA5sl45GLLZh2f//ZZ+j7FGob6UoaVD7QZ3ULX8FgN43IzJRXvxxiFEGZwvs11Bs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLBIteWZsJioeH3V6o2ld+7wqDDrYnLuo5y66hZ3yWdKmLZ/74x
- dGSRiaKvscgbyP9JNmqeyV5w1lPde9YVMiI9Ut37pKgttzqvmMCr0Z60QTiFT+B1AqAp
-X-Gm-Gg: AYBFou01oYS1AS6FeAfepmNA/GifYSBwDb65enhOHVRoEmX92R56V/E2vf17syN3WyF
- TuypiWW4WvN7rBMVQBS65ph77JiXG2gm6yOrY+Xv2IKmJXSMSRSSJt+6rsgNlAor1Z96SsMpaLV
- lj/8tShP5eh+7B8v2gK6WPERZpCLrBlXOwSFm4ZEhjHMmAcd4ZVikvnzDeMoMYckIsWlpahZYDd
- 3TpwaUIOHm8ztO/jsEPG5zqlAgEArJ/bcBAwcAOYWSIOqkAgzSxMdJlrYuhOSkyRX1sn59EHgpz
- cAQXbEYTt0AVhfneec23a3p2EpsW3UcjFlDzTL8jmyqEEJTdBZATyrpa+7Exo0HSsrPmn/TUSwl
- xKJs4nuFu0pbx/DeDEeN0FyOlZFx25ebJ2o3z1+WO2CFUqpHfcyl1hAWxyo0RYyjRAV+IhdYN87
- hIh9xz8ljwN7Phe+RhTZVB6ys9LNHAbVxfXPtJu3NZiPJCe1d/8r4e11ovcd98TcT6kg==
-X-Received: by 2002:a17:90b:3b90:b0:3a0:cbe2:9e00 with SMTP id
- 98e67ed59e1d1-3a0cbe2a110mr2426179a91.42.1790413539584; 
- Sat, 26 Sep 2026 02:05:39 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc787959599sm2299078a12.26.2026.09.26.02.05.35
+ AKwUvBz8y/tI0XA064t5UC7miHjUppO4SF9ZugDBKFU1YzXF3ThBUnr57JodBwlUgAKWSwwgALEHWlta5LY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJf6Lz02QkWuBCsRozOMefd+dua/lNka25Ye3/aawHb9cIFV9GD
+ 4wy56qZXg2jzGkN4LHetOPxuUbI+Zi+4zVhZawPMkDcsZQ37qdYGnjP8
+X-Gm-Gg: AYBFou1QQ7s8rEeEiwq5GwJlrCwUkJ+YOhvcE39U7t84akMRrDHp3QuzDg64c5kWzDn
+ ed2IF5IE7dcwnyCuKpUhDOf5QwGmmYeDDw25SNYajTLM9i1uSQKKwXMHrdfCtLRry3po7iA18SI
+ b0a4RV7B9LQu+SaqZTp1hm5KytH1SZ6IdAJo/7oT2DAuKCDHLlDl3DwzfDJs61z9JUwefcR4zHt
+ mEOAylLLhMgOhhF5/svq/r10u77y74SQWTlsa2Y/ennxFjpmeGVRsaGY0xvSVaufECgr7qJpu9M
+ NX9jwRnVuhxEtW6Y9ndwRrTbZnumLSNQw/JimwdHYoAJndh4j38Uax7AftDeJ1Gryf0qj7Urp9P
+ WoI3VmwjaFfi8BuBUg/KEa8LYququQOToFe5MGuLVy64nSNHH3mX0RSlfCMMJfkj/lCd5MVS2PC
+ 9bjxuGEDGrlsnQmw+CfSwMp+Ky3R91rLSk7lo1n/nPkaUQQ360tT1ZaLMlKOcR0IeQHZiSE4LuF
+ eyz/RWLNmiU7PA/
+X-Received: by 2002:a17:90a:dfcc:b0:3a0:cca0:4a8c with SMTP id
+ 98e67ed59e1d1-3a0cca04bf4mr2596078a91.7.1790482841989; 
+ Sat, 26 Sep 2026 21:20:41 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a0b4f6345fsm5558223a91.1.2026.09.26.21.20.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Sep 2026 02:05:39 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
+ Sat, 26 Sep 2026 21:20:41 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Hillf Danton <hdanton@sina.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, tien.nguyenminh@embeddedlinux.blog
-Subject: [PATCH] drm/sun4i: dsi: Get the A100 mod clock at bind time
-Date: Sat, 26 Sep 2026 16:05:32 +0700
-Message-Id: <20260926090532.126025-1-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Subject: [PATCH v2] drm/virtio: drop the dedicated vbuf kmem_cache
+Date: Sun, 27 Sep 2026 11:20:35 +0700
+Message-ID: <20260927042035.19956-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,54 +96,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The A100 variant gets its module clock from the TCON TOP, which only
-registers its clocks when it is bound. Requesting the clock in probe
-defers the DSI forever, so the display never comes up on the D1 and
-T113, which use this variant:
+virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+"virtio-gpu-vbufs" for every device and destroys it from
+virtio_gpu_release(), which only runs once the last drm_device
+reference is dropped. If a reference outlives the PCI removal (for
+instance an open /dev/fbN), a rescan probes the device again while the
+old cache still exists:
 
-  sun6i-mipi-dsi 5450000.dsi: Couldn't get the DSI mod clock
+  kmem_cache of name 'virtio-gpu-vbufs' already exists
+  WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+  Call Trace:
+   virtio_gpu_alloc_vbufs
+   virtio_gpu_init
+   virtio_gpu_probe
+   ...
+   pci_rescan_bus
+   rescan_store
 
-Request the clock at bind time instead, as the TCON driver does.
+kmem_cache_create() then fails and the new device does not probe.
 
-Tested on a T113-S3 with a DSI panel.
+A vbuf is 216 bytes and lands in kmalloc-256 anyway, so the dedicated
+cache buys nothing. Use kzalloc()/kfree() and drop the per-device cache.
 
-Fixes: 4b71e269f5a5 ("drm/sun4i: dsi: Add the A100 variant")
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+v2: (Hillf Danton) drop the dedicated cache and use kzalloc()/kfree()
+    instead of sharing one cache across devices.
+    v1: https://lore.kernel.org/r/20260926162452.136863-1-ngocthang2710.1999@gmail.com
 
-diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-index d504ae583..69987bb5b 100644
---- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-+++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-@@ -1062,6 +1062,17 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
- 	struct sun6i_dsi *dsi = dev_get_drvdata(dev);
- 	int ret;
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  3 ---
+ drivers/gpu/drm/virtio/virtgpu_kms.c |  8 --------
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 23 +++--------------------
+ 3 files changed, 3 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 9df4c7117341..2639d9ec0470 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -261,7 +261,6 @@ struct virtio_gpu_device {
+ 	struct virtio_gpu_queue ctrlq;
+ 	struct virtio_gpu_queue cursorq;
+ 	bool vqs_released;
+-	struct kmem_cache *vbufs;
  
-+	/*
-+	 * This module clock comes from the TCON TOP, which registers it only
-+	 * when it is bound, so it cannot be requested in probe.
-+	 */
-+	if (dsi->variant->has_mod_clk && !dsi->variant->set_mod_clk) {
-+		dsi->mod_clk = devm_clk_get(dev, "mod");
-+		if (IS_ERR(dsi->mod_clk))
-+			return dev_err_probe(dev, PTR_ERR(dsi->mod_clk),
-+					     "Couldn't get the DSI mod clock\n");
-+	}
-+
- 	drm_encoder_helper_add(&dsi->encoder,
- 			       &sun6i_dsi_enc_helper_funcs);
- 	ret = drm_encoder_init(drm, &dsi->encoder, &sun6i_dsi_enc_funcs,
-@@ -1160,7 +1171,7 @@ static int sun6i_dsi_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+ 	atomic_t pending_commands;
  
--	if (variant->has_mod_clk) {
-+	if (variant->has_mod_clk && variant->set_mod_clk) {
- 		dsi->mod_clk = devm_clk_get(dev, "mod");
- 		if (IS_ERR(dsi->mod_clk)) {
- 			dev_err(dev, "Couldn't get the DSI mod clock\n");
+@@ -361,8 +360,6 @@ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
+ void virtio_gpu_array_put_free_work(struct work_struct *work);
+ 
+ /* virtgpu_vq.c */
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
+ 				    struct virtio_gpu_object *bo,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 1d4d3bf46a20..047b591b5da2 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -264,11 +264,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 		DRM_ERROR("failed to find virt queues\n");
+ 		goto err_vqs;
+ 	}
+-	ret = virtio_gpu_alloc_vbufs(vgdev);
+-	if (ret) {
+-		DRM_ERROR("failed to alloc vbufs\n");
+-		goto err_vbufs;
+-	}
+ 
+ 	/* get display info */
+ 	virtio_cread_le(vgdev->vdev, struct virtio_gpu_config,
+@@ -324,8 +319,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 	virtio_reset_device(vgdev->vdev);
+ 	virtio_gpu_modeset_fini(vgdev);
+ err_scanouts:
+-	virtio_gpu_free_vbufs(vgdev);
+-err_vbufs:
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+ err_vqs:
+ 	dev->dev_private = NULL;
+@@ -365,7 +358,6 @@ void virtio_gpu_release(struct drm_device *dev)
+ 		return;
+ 
+ 	virtio_gpu_modeset_fini(vgdev);
+-	virtio_gpu_free_vbufs(vgdev);
+ 	virtio_gpu_cleanup_cap_cache(vgdev);
+ 
+ 	if (vgdev->has_host_visible)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index c02c03c10d92..5eb78d69f561 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -70,30 +70,13 @@ void virtio_gpu_cursor_ack(struct virtqueue *vq)
+ 	schedule_work(&vgdev->cursorq.dequeue_work);
+ }
+ 
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev)
+-{
+-	vgdev->vbufs = kmem_cache_create("virtio-gpu-vbufs",
+-					 VBUFFER_SIZE,
+-					 __alignof__(struct virtio_gpu_vbuffer),
+-					 0, NULL);
+-	if (!vgdev->vbufs)
+-		return -ENOMEM;
+-	return 0;
+-}
+-
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
+-{
+-	kmem_cache_destroy(vgdev->vbufs);
+-	vgdev->vbufs = NULL;
+-}
+-
+ /* For drm_panic */
+ static struct virtio_gpu_vbuffer*
+ virtio_gpu_panic_get_vbuf(struct virtio_gpu_device *vgdev, int size)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_ATOMIC);
++	vbuf = kzalloc(VBUFFER_SIZE, GFP_ATOMIC);
+ 
+ 	vbuf->buf = (void *)vbuf + sizeof(*vbuf);
+ 	vbuf->size = size;
+@@ -110,7 +93,7 @@ virtio_gpu_get_vbuf(struct virtio_gpu_device *vgdev,
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_KERNEL | __GFP_NOFAIL);
++	vbuf = kzalloc(VBUFFER_SIZE, GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	BUG_ON(size > MAX_INLINE_CMD_SIZE ||
+ 	       size < sizeof(struct virtio_gpu_ctrl_hdr));
+@@ -205,7 +188,7 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	if (vbuf->resp_size > MAX_INLINE_RESP_SIZE)
+ 		kfree(vbuf->resp_buf);
+ 	kvfree(vbuf->data_buf);
+-	kmem_cache_free(vgdev->vbufs, vbuf);
++	kfree(vbuf);
+ }
+ 
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
 -- 
-2.34.1
+2.43.0
 
