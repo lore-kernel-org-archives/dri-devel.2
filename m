@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0301AC9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 17:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C094AC98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 17:50:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF6210E66B;
-	Sun, 27 Sep 2026 17:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2499A10E667;
+	Sun, 27 Sep 2026 17:50:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iPaqY9eM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cgL5SSxl";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E11D010E65E;
- Sun, 27 Sep 2026 17:49:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23E8310E65E;
+ Sun, 27 Sep 2026 17:50:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 30C5260052;
- Sun, 27 Sep 2026 17:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF35D1F000FF;
- Sun, 27 Sep 2026 17:49:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5B2BA60052;
+ Sun, 27 Sep 2026 17:50:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117E31F000FF;
+ Sun, 27 Sep 2026 17:50:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790531360;
- bh=DUr0/JNZSocbRtbwQblNOwCc1O5vVz+cA+7//sagOdk=;
+ s=k20260515; t=1790531436;
+ bh=/vbm5QoeycSWTloWQxB0kK3Em/as6Fxxdtxh7/akDAU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=iPaqY9eMdOvTgZoDl/zxCB6swaJIf2Zy0v+wzDuoI9myzucZUGnB06IRodCLo37v1
- 6uDeu3cpAfjvGz6TOjkd00zuXYHrJkox50awzWqmxqt5vlXLqdU5585h2q43YvNoUA
- +a1Kp00foOkQZc7TB00V+N0pyLhCvgqUqpo014rKdgTlVtKMhYJtGIbxh80cLq4GAx
- +RDrAPx6lPJnxSpf5d9kzJL//N41yreLPs5BN3nfmS0e7EUTzceijqxD9d0Rx/0UUt
- zCBAIlvPA1Tu5xDZOZlGwE2wgzWC53ezsh2VFvUpMpoMhaw8bZJnVh9mXL9VBJf9kw
- a3exNrZCM8guQ==
-Date: Sun, 27 Sep 2026 19:49:18 +0200
+ b=cgL5SSxl4EIHtpk2EftozLFVQvL19d3Yksi4Qybvo/uVVVu2mM4yhNRU4nTTcVCZA
+ oMz3NGKIDQvdnO5IpJjWjRCZZcJHoU1yStMmrU2lrzkqw9gts0nAYGc48SLADiEiLG
+ uiVizhCyPO57ui43xZCoo8KlCPtwHU35UVu1kEI2NWmjAaBkSDYarmohJ/RzlYhPT0
+ ah2wimxJhD+Bl6+zfoOJNsipF+aDTezlLBJ5au+LhOdLmvayiO2aoolMacvuG1hS6l
+ xBKe9wjveFD8MoOSOk85CTi4IQKfjPP+Luav/rKHouK8mqsm9fqG4Y9S3evyuI6M6e
+ 9JADdWrSLLIUA==
+Date: Sun, 27 Sep 2026 19:50:32 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Muzaffer Kadir <muzafferkadir@mainlining.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -63,15 +63,15 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v3 08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952
- IOMMU to SMMUv2 compatibles
-Message-ID: <20260927-wonderful-vermilion-crocodile-afacec@quoll>
+Subject: Re: [PATCH v3 12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952
+ compatible
+Message-ID: <20260927-statuesque-energetic-cheetah-dad592@quoll>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-12-b96fd3fe298b@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921-msm8952-initial-support-v3-8-b96fd3fe298b@mainlining.org>
+In-Reply-To: <20260921-msm8952-initial-support-v3-12-b96fd3fe298b@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,15 +87,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 09:18:59PM +0300, Muzaffer Kadir wrote:
-> Add MSM8952 compatible string with "qcom,msm-iommu-v2" as fallback
-> for the MSM8952 IOMMU which is compatible with Qualcomm's secure
-> fw "SMMU v2" implementation.
+On Mon, Sep 21, 2026 at 09:19:03PM +0300, Muzaffer Kadir wrote:
+> Document the rpmcc found on MSM8952.
 > 
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 > ---
->  Documentation/devicetree/bindings/iommu/qcom,iommu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> index 17332aa55886..aa532f208f5a 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> @@ -56,6 +56,11 @@ properties:
+>                - qcom,rpmcc-shikra
+>            - const: qcom,rpmcc-qcm2290
+>            - const: qcom,rpmcc
+> +      - items:
+> +          - enum:
+> +              - qcom,rpmcc-msm8952
+> +          - const: qcom,rpmcc-msm8976
+> +          - const: qcom,rpmcc
+
+This block should be placed rather before one using qcm2290 as fallback,
+to keep alphabetical sorting.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
