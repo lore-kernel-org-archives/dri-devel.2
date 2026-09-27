@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73CDC9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C86A9C98324
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC8C10E577;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48F810E57D;
 	Sun, 27 Sep 2026 11:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Kr633U1Q";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="s07GPqd8";
 	dkim-atps=neutral
 Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F2210E54A
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:15:02 +0000 (UTC)
+ (mail-eastus2azon11010037.outbound.protection.outlook.com [52.101.56.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6C010E54A
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:15:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u60uJTnzXtvirdN9mPISk8BE+0HJl0/WlGPew7Z4Sd92AibHu+ynUKJz6MCC54f0FwSi1g+tWhjhkyxy7LgDr1CAKS19ZNUsewDOfu2SwqU8/m/AffPbmamGvbUFePO32d78Fy26BwhPSw4uWgbucCuwRMMWem/Q+kAnUtHrAbygSGcKhR7vojVRPI55THEb4ndEhdLEHRRsxMSbGZDGgkFrzEMxukt/pFHuI2JCFHPcOlW8larg545MMnckaINQ2ej9FdRFLhUQ5h0f+6fRq6z5MNVCCI2pdcKUNIYGLpT1NkRLH4BVx/XT6FAE9oFrHB03gHqAq6VE7U/3ytQh1g==
+ b=SrGG2LazteDT1ZRzj4wVZ+ZXgfjgkH+RROfsRPDFC4khoRSfFfLVAWGancVOWrmjpbPpy+LIfEIDiUW4D0RAu+24yu1a8FrHAqyiD8lwqDZ4aiIAHAChZNe4/FQxZD4/pa8+qPjCzGp3T30laOI252nyCygNKait2/zmC4y7oGjklEPy73GqfTTadybytEMiWr3C7cxZ6JsQbyHOqGhI4a8v7yKBMXKn+lLmTpkyo6y9jA6PeSEbJCIv+6xSg4vODxU7v5gIJ8tAhMCWAs9RjPpEFhLqqbCjpsT7467A1y1/mLiSiFnphmPWdxUzefeGiZYk8uurRue2gEyrggVTXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iO/gnvr6ss5WKgymeUS8w+UBj2c2ugbTngmTZsRsams=;
- b=QydE+NYwSqFeM/QnHFPycywF+mTZhZJfN6894uMCrQOtKM5ig5djtgLXf+0fzSCEsk4FhfkexOB4GtOqcjtgPcg9+ROw5ufDjg1/QjUbWHtdPa1eoJUfTeuub7b9/spqQCwUi0ABNefpYQpgDl5hUX4FsEiJnONom6KVtk1ihrnDXJSkJ5bb8BiP3f+2hZZvqCwlsVMo1dQwr8q5f+xyQuDqIO5X+/MzukcaZbROxUFF59jBZ62k9qrXXHXWT/f/UBQCfDXArVkXlz+ndHozdz35NX7F1yjVuc93/pBQ6TCEgjKCcRwvcH/sU1VfnwLN/5G9hwK5i3jAhsCj1Ped8A==
+ bh=0rd2wrTncN4iYab2ghP93bX6ow/+czgZBbtXHT7hn0s=;
+ b=Oty0jFIPEz3pPHZG7AC/lRc4m/oJOYNEnUgHhVUj4TKOgcCcq42hMbe0RlV00QWqVhBjucQE5aChT/XZ8MfOqSAGm29qpu4HHWu4/QC/aaAXziIZpq1D5FYjYbeLZ6cTLX8BzSZXx2w4wlyiQe33tWIJ9ezyefZXez7PKoQ82+41VaVoVGes4hdhyspN2cu2TJlXufl4/HjLq5nMZaECcCNYdPJkMaPNbk7AazQg6DKxPU/tf9Sw+GK1Iqsgsgd7qmy9UawefqXU/Bq6j5YlrBRJdw/VsduMWZsczUbd2qeRi8F0NaZw7rRd49fQvlZWH5pqUVLINGxWST7W0wMy4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iO/gnvr6ss5WKgymeUS8w+UBj2c2ugbTngmTZsRsams=;
- b=Kr633U1QTmE6EQ67MdI9iZdHS5BrKje0Lln+eWSCgwqApgWxFLBlvlasdsqb6m9pl3gg0hqExYtv1A+6Q4y3EH5ZhV6WtqjC7iJDrlUAYB3bENOrKGuoUqKXeiN8AGueSvRsL87AfQ6p4FAJiK5gxXiz2OGm7V/JszCQu2WthHl7ROHWWJc1dT338KP07Yi/mT7ScOIwD75sibjedKU+VldMY3NE8MCc9EjTAQnDRzTWUW83LkZRWp0KXdzlMXA7PrGiu3Quv8lN0YJ6QswUuzgEmnYetLzDFonuusbKy3givMsqZ2tgKGMpotCoWSkpOU+MotM2va8PePk5KZg7hA==
+ bh=0rd2wrTncN4iYab2ghP93bX6ow/+czgZBbtXHT7hn0s=;
+ b=s07GPqd8Tc7QRexNNjEH1RcCK0Lz4iyHCTevMQlkazMGFvUasS7O/4o/s4HqP1YxJsRkooB+BIMMoayhLgXaQ6IzaKg+fBqpqTHO62BH1SSn8rOc336QWQfGq37cJ9Njxxn/jEbosRVCW3HWqvSxhHHBChFX8mzFifVV1dHcDdbk/YgiNUj/yTbddJBZ39upU3xz1mttTPI4VVmfBzh8HbMgIix7ZpfhDGdbHM0sPKmiZ4VDSgv1sw1T1U21D8xogvtGOBChGumebirdb6QVFOmCey2IgSDUzhYwRKAWm7Sb0S5xxzdz7JUmDoUBs4nQ7xJqSCcdZv6vDOBuRMO73A==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by LV8PR12MB9154.namprd12.prod.outlook.com (2603:10b6:408:190::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sun, 27 Sep
- 2026 11:14:58 +0000
+ 2026 11:14:56 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Sun, 27 Sep 2026
- 11:14:58 +0000
+ 11:14:56 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Sun, 27 Sep 2026 20:14:32 +0900
-Subject: [PATCH 10/10] gpu: nova-core: gsp: add `rpc` to RPC message
- send/receive methods
+Date: Sun, 27 Sep 2026 20:14:31 +0900
+Subject: [PATCH 09/10] gpu: nova-core: gsp: move the RPC commands into a
+ sub-module
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-cmdq-rpc-v1-10-822db5af910e@nvidia.com>
+Message-Id: <20260927-cmdq-rpc-v1-9-822db5af910e@nvidia.com>
 References: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
 In-Reply-To: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -61,73 +61,73 @@ Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0271.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c9::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4PR01CA0051.jpnprd01.prod.outlook.com
+ (2603:1096:405:372::19) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LV8PR12MB9154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 292a4105-b10b-4c92-525f-08df1c889133
+X-MS-Office365-Filtering-Correlation-Id: 9c3ee3be-52fd-45c3-7592-08df1c888f75
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|6133799003|22082099003|18002099003|10067099003|3023799007|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: L9vtuuETwhtti8tkXyS3wmKj1SZ6WFo1GMNAn410gWvF1Av5tELDJnZygKZAf0YvjyhpmWVE+pVTTJV/082zfMu1/4R8dTSmgUPL51ri3Nkd9VwgHk8XRdiL4bsk88+QXTVJG18sGkIUDBo/GH6nQ0juW0C41FhEqEC/D6j0h4JAa2ferD9SOqaOlwki+oFVxYyMXyQKwgthOOHY7T7zbI3Ego44c8hPUF/zOi3MqeP/edgERAevoxIDVb2Jxh5vG6qrkKy+CwdJJ7vGi/FRctmAffpUNI8UwY9z1og4MvIwwtUaZBLOk7V6YTCJIodfGjOUAScLyYXhDULwQuex5vwlwcxex8QGdVDVp6tyNblNOgrkfgYlDAekxssy4TCBUwkHIR1ek2kySl9YqgKEMb3RX6BjZcFRLN84mrXH1oF6EcrLB65RECEQHvcCunAhSIwjO29tbemkb9TWUkiX1nUG/Q3X6/4xqv0bP/EvCuwxWDi3RxzPpSF8A1N2uPd90Si1BfvcBKJfh5yAFxAVygxXuqKzwzoph64vCsiM/rC2O4NstaebUvIFK2ZubXoOdf9flYn3NudoRc7pp361KBSvwwTbBPZXAvhiro7QPW9LG7ZSyPW/a3VBHvdsIe/ZuJgjr1u4omSeoERWSAmgPpnvvUMGMWceSX/zogd7/n8=
+X-Microsoft-Antispam-Message-Info: ngCC70eG7AmtcZVCeHBRSaANceEnegrWA0N4jlTw2qwHhrhLFmPeZpYPX1c6SZ7mScXWl102ACpDK0dfoHDatltnlxwdWHwc62Q6RD1PGZk2cRVkan+xt7rS49CSJPaWb0BIKeoc8+uqHLwdGoKIgqG8cfAGltuVHXgJwu6rRZtPrhpVPpmFzbiyRcmZ/JjNF1aV7lGdcLbBz/nDgQKofRFrqYQxRTYf+eF/1vTzDfd64yz6ynGgEQjqHeR/94+sxgUzGuzJ6LzMhDBG2I+94kFzLYa3wGteY5IHtnThsoWz3xxGF2fHSQwwIVvBT5gGg81h5Yy7X99UbRhBKODl/Go+HHoixZoCBK9zozFFCRDJJZrERvJyiC9fLhCCZ4zQLDgvIVKtw0APHYMSnj0FQWcGK6N8T3pvYQ9LIqYDtbUkA6eiXajeS7GhVxzaoOWCkgLWMb7r0UL5kTybGiaWQKjoiXUqHjePvVzIygVJWAFnW15ps5b4QTKxWpLL2EdM01Spmht5P1+awMKWz7dIrt2ZB8f4eWgsesH2M3P8ZSmagQOJ+xt+PJMbBeBvIFnFWY4LWuweAv4ZMvdeh/A450CXCat3GDGPVTM7j67wrixHhiFrlWikcAr2HNkvfE8diG3DUhuDSiK8RxQdnrTZHU1OuGNz1WeZCercnenUeMI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXgzd0V2RTUrVCtqM0lITjR5eWp2bi93c0YzYmFma2tEa3dLdFd2ekg1SnFx?=
- =?utf-8?B?N1hNV0pib3ZDY1NHZWNtK0NqeTJPNGVRQnJNdFc3VUZEWisvZDdHd2pWN2Yy?=
- =?utf-8?B?TURMbDBpdmt6NEM2MFA0RFQ3aHdHS2VWeFRNbWZJVWdnRENUU0x4azlhNEtF?=
- =?utf-8?B?aGhWbm5KV0lJc1ZCbkpFUXQ0MTcrVm41ME81ZVl1UHZ6dVRTbjZzL01adzBq?=
- =?utf-8?B?b3FkdXpXNUZFY3gvcDNoVjdSSTAvZWJycTcyZHE2azJNZ3FhdFZ5UW11SHFL?=
- =?utf-8?B?NnMrNGJIYis5b0p1Y3hUWWU2eFo5RXN6Z21LV1hFZUIvTjB1cXFDL3ZYWFIr?=
- =?utf-8?B?VXFaWUF1UzYrMDI2ek9kcDJQNjA0R0pjT0QrK1J6ZEhpNlp4OWtpN0FnY2VR?=
- =?utf-8?B?Q0VMYmZzYTRWMXJiRm5vZjZySFN1K0ZaSDZIcFlsUnB4UEt5a2FVdFc0SVRl?=
- =?utf-8?B?UlYralQ4d1h5d2czY0Nldlg0WFhFMlBJb1hPNTd5eWtkTWlKclZrZ3dKWjRZ?=
- =?utf-8?B?NEZObjBZUDZqak9yQ2J3eXVDdlMxSkw4VlJDVXFid3FXS0NWSThIaEpEZGxN?=
- =?utf-8?B?NTVhT0V6TEx1ZUZBc1dHRlFqTUhaMGRXUDBHS3lORERkWTN4TmtQbm9lTmZ5?=
- =?utf-8?B?Y2hRb2ZGQmxqMkFRbGYvaE82TThUNGk3aVpXdUYrYlp2OVFuZ1lhaGxEUW04?=
- =?utf-8?B?aW9pazZhdjZ0MFMxWTV2cm5lOVBqYm5PTGpQUXo3ay9vVmRVall3MDlCM0h3?=
- =?utf-8?B?aWRNUEcwQlJqNzNoK0J1SlFPSjVCcDArMnBYU1R3elJGSDBhaEpobWpvbjhx?=
- =?utf-8?B?ZStaNmZNcW02cFZ0T1E1OVcwRUlrVHNIemVPUnVFdHZhcXBrYklmOTZwd0Ju?=
- =?utf-8?B?M0NDRGNuZElGK1BndlNVaUpFR0ZwSDJRT0RDa3V6Y1VmbzVpbDR1VUdZaVd1?=
- =?utf-8?B?VU4vTTlSUnJzMWhUSDBGd3pNWVQwY1lHbU92UEk4dmx0cDA3RjFMNEdlYk8v?=
- =?utf-8?B?U2hPMGxhVWhoMURkamJHcDBTNm1xWkNodzZVczk5SFA3VUw4bGhNd3Nicyt4?=
- =?utf-8?B?SGVqRmhCUHhiVlVWZ0xQWTlUNnZTL1ovZnc2eWhvRUpINTZIRGZPbmgyZ3dv?=
- =?utf-8?B?VVhiUHhSRVA1UEFyMXBtclp1TlNnN0drcXR3bHQ2MVlpMm9vdFBBaG5TKzAy?=
- =?utf-8?B?N0Q1UlJNOW8rZFZMTi9mWjYrWUJZMms3SHZuZktCaC9nelV4M1lseDRiYm43?=
- =?utf-8?B?YTBzQi9uWCtIc2pUWHg0a2lJT2tBTUJQWTljOFNVNUliRCtuTnNGYzI5LzNs?=
- =?utf-8?B?Y0t2R0dUUnc2dEFDUGtNbjVpZ1Y4L3Y2c2FWVS81cUtGWnJucHd6Wkx1a3hO?=
- =?utf-8?B?VEpic1VaTmVkVW9mbWQrUlZOeFpTVEdtN1JlMWY3TWZDMEtpanVCSWJ6TVR2?=
- =?utf-8?B?TW9aTDVIU0M2NWp6VGZNYnNsN0Y5WUR1RmlXVzhzQXUyR3BvN0czUEJBK2k5?=
- =?utf-8?B?UGRWc2NWM3dFd3gxWWRveHFSV0xYL0NzZGRBTW5OcmVOenlDSVloWENwb0pi?=
- =?utf-8?B?TGNnMkF4KzBtdExjUFg0QVk3YnhveUJNdTljT0NuVlNja0tFd3VuaU1ySkZp?=
- =?utf-8?B?RWhkczl1Wmw3QnZHOVpCSVlVVkhneWp6OVl1RmZHRGorNDcxZ3BHSks5dFVC?=
- =?utf-8?B?cGJURGJVeEZnTDZ4TCtiWU4rYzcwdlhCWXIvc1h3a0wwa2c2a0JOemg2VmNQ?=
- =?utf-8?B?dlNrVzh0N3lKS0RaOTRoR1VhRTdjRmpzNTB3MFh0am1JMU1Uc0U0MHd6WFRW?=
- =?utf-8?B?OEhVdWtHdXE2a2tWcFZXSE9Zc2loYlNiMDVWQm9uN2F4M3BDWUovbU5odW5x?=
- =?utf-8?B?dEIzeG0veXFlcWxNT1VVMzEyaC9LV3paUGNsdDVwcjZ5aXVWRThZenQ1ZGhY?=
- =?utf-8?B?RXBtN3J3bDFWRjNEcVJmajIrYnlqallkUmtpUm9iWWJ5Vm00WnFLdmNoU3VW?=
- =?utf-8?B?c3c5Zi9vWWhzNjlWaGdLa3pxanBBRE5ydGRQWWttRzgyMFlDWDUrbmMzYnRk?=
- =?utf-8?B?c05xS3JkbXhoTG50dkdFYlhUakNyeEdHWk1JNVUrUEk3cXJ2eXRDVU1SMmp6?=
- =?utf-8?B?WVlJQUZTS2Y0UUk0N1RVWkM3ZWllMDkxQktCVHQybDlXUHJ3THJ2V3ZPeXVx?=
- =?utf-8?B?NVloRE4wWnFhdU01MGNmRUNONmFmUjZkb2pXc1d3L2k2eldOcjlueEhoYjdm?=
- =?utf-8?B?TjFiSURIZXV1dHA0MG9wRlFlY1RXYmdFcHA2dzdJMFVtYnBxdkJRUkZKTnYz?=
- =?utf-8?B?NmJtVWNzTDhMakc0SlNHRWdISjA5YnJhRWsvU1pKS2tBeVJYbW5aOUIwSFgz?=
- =?utf-8?Q?DCU3tArVNK3SL3tI2qo3ypKpli/GkbeVls3a/EsjhFGwL?=
-X-MS-Exchange-AntiSpam-MessageData-1: rbtBRB+yfG0idw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTBkaTdkM01RQlJ0bFRZODdzV1FFdW1uMGpCb24yM3d4UHlUK040aThMeE1z?=
+ =?utf-8?B?dWhlRDlNOW9DN0hkOUJrT1JjVldjRjZSS2s2elBjTmEwSFJKcHRocmJJK0hH?=
+ =?utf-8?B?U3lkaDBGdVFYS0s3dWRKc3ZiYzJUd1FZSDRZU3lLUEtXSFk1dS9KSmFLeTg3?=
+ =?utf-8?B?MFYrdDV2N3IyUzJGNFJ1Y2UvWFBFbkI3eUVpTGJOaFVvczQ0RzNjUTFsa3g5?=
+ =?utf-8?B?ZUIrQWFqL2x2MFBxNU5ac2t3K3kreWErM1czcGJZcENXMXBuNWtGeGVMUGZV?=
+ =?utf-8?B?dlZIQnZRRDFLcW1Gdml1bFp6ODlvZ3ZrMkRBSzBtTmZLM05TS1pqaEIzOEZj?=
+ =?utf-8?B?UVVKUkJsdXRGMndHUXQyNXNHQ1pHbjBsbXh6VkV3bmR3UnRHazl3MlBqQVhQ?=
+ =?utf-8?B?SWhZaVVYOFlvc1l2cy9OS2JFbFlPR2p2M29YWW94akxuaytkSUxBRzk4WHh0?=
+ =?utf-8?B?UGZMQjA0WldsS1J5SnRYd3dYcVBqdWQ4RkwrNmV6QmlCMDZvTG5VZE95ZmJD?=
+ =?utf-8?B?TlgvdHlQcDBybGVrVHJtQnFnM3ovSDZZcTl5WkZEeEppSDRWSDc2cGx4cDBx?=
+ =?utf-8?B?Nzh3cDE4b0UyUkV6dTlSd1VndEQ5VmZYUTJ2NzFHWW41enVVUU11OWdxZ3VL?=
+ =?utf-8?B?YWJiTUJpUjZwcGF0eW5tNG1JQllxSkhpdXJicUc4VkFuV0ZKM2ZQY2VmcUpF?=
+ =?utf-8?B?M3M4K2FCdE5ZYXRISFl2cUFxWXNKdHZNSk5IVVBPN2JMTWk1Y3E1S05FOUFI?=
+ =?utf-8?B?ZWhJLzhudjM3WGl5d01vK0hWbmFMTWdNbzJVYWh5VWhzdDBkZ2tJWnRLN1JS?=
+ =?utf-8?B?MlVLeDMvaFF4a1NPRFp4QWZaM09VcHR5RUIveHppR0x6cEYySkF0cVNpZlh2?=
+ =?utf-8?B?RmlzRlVGRytDRmU1UFBLaTBjd2krdFN4NGRhUTBlV1JyUExqYTRlNTA4VVZF?=
+ =?utf-8?B?UWdwaWtFeVI4Q1JLbzcxcVJrb1BRRjJvTk95RHpWajk1UGRkbmdDMFlQci9u?=
+ =?utf-8?B?ajVic3B5cWVWcS9vYVZsbUhuRjhLQlRvMU5OM2dLYnY0bUFmUjR3UmF4WDBS?=
+ =?utf-8?B?NW96OXVIRjJINVhFUWh0WlJ4b21hdkhSSjAvZk1mUTlMd2ExVWk4REdZQ01h?=
+ =?utf-8?B?eXhkSEYrNFFFWXUrMmpmTnppSVl6eFpxaVF2TEpWTkFiR2FXOXBCVUR3NHBy?=
+ =?utf-8?B?eDJXOUdoQW94emFwWk95SVVXcWE0cXhobU9EaUZMQnRjZnNkQXUrVnJsMjhT?=
+ =?utf-8?B?Wi8rVmswb29lZFZ5Z3ZNZTBOK3BVRXV1K28yTmNVbU1wUXVPUWY3ZnFTMU8v?=
+ =?utf-8?B?VkJOK3FWam5hS3VlbnlKQkZPZDRVbHNoUjNOdTk5NG1OcXkzQ2ZIVEU2bWJj?=
+ =?utf-8?B?Z1lYcS85U0RhVjgwUVNjQSt2WW1OU2FUYmlicUFIcVZCdXJRUUNzKy9zRkRX?=
+ =?utf-8?B?SVhUY3JsdmhuUmxTbjRXak1vajY5V25sMjVVVlh3NlJXQ3BxczNjNzQ3aTF4?=
+ =?utf-8?B?WXlBbDFKNjNuTzdSSEFJdFFlRU14RDFnNk9QSDBxdXRHbzBXdEpuOVRKcUNZ?=
+ =?utf-8?B?NVdpWEtyZGpJQ1FHTVRCMlc5alpsZ1ZsY3c4RjljbXQ1UkNZdlVQc1BMaENZ?=
+ =?utf-8?B?bXczOVpORGprRklHNnJOTjUwRnd1Q1Nab2IzT2tBNGdneEVrTnVieGE3MXVX?=
+ =?utf-8?B?R2lacU9hTGhsRkVPUTZzS2xrTi9tSzg2anVuTHk5NU9EUTkzTDF0VDlVM1Vv?=
+ =?utf-8?B?RE90OU1PeXd5dTlwU04wRnptRWFvQVBidXVVZkJBcXZQcmpuVTdjT2c1NEZu?=
+ =?utf-8?B?Z2crcHNlNE15YStqM1VmMytKUVprY29JYlhmV1drUjNRc2tSQ3NyK1JleUtR?=
+ =?utf-8?B?MXFWUnRJZk5uNVdpSSt4dXpDa0RPNk9FbW9BdSt2STlPcnN2Q0d0ZzBmN0Qz?=
+ =?utf-8?B?RlJ0VjFzdzhaWlZBeFBoQlIxZ1lEVjA4aGdSVnlZNDJHRnhBdng4eTJaUlFZ?=
+ =?utf-8?B?SFYrTUtPcWREVE45QjVlNW9EZXZNVTRpVTErMXQ5M1Q1V1BycExHMEFpdnNz?=
+ =?utf-8?B?aW03Qmpad05kR254eHFDMmlCbzEvSExJTDVrOHRweEtPbUQybjlsMHdDM0NJ?=
+ =?utf-8?B?ZlQ5YXpxbmhUeXdkR2lLeGpKbHRZYVQ4UTNhT2E2dEl1bzdDNjgwNkplZ1du?=
+ =?utf-8?B?ZXdKZUY0UWp6ZUJKK2lOa0xDd3FXazdyajh4Rmw1TFd3VGV2TW5IVVRyTWw1?=
+ =?utf-8?B?UlFCd2F4TXBjaFBqV0dYQUVHNWZNM1hqVC9kMlpWc0dzZHJXMWIzcXRGUnp1?=
+ =?utf-8?B?cUd4REEySjRsL1VLdEIzMkVSOGRlUHRCREZPdi8yUmZvaGE2WmNPL3JnZW5q?=
+ =?utf-8?Q?/l6+nQieaczkfkLyZXFsnKLD5eMZ9ZIroRGmWpdbD2uJZ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6nL+haImJmuoKg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 292a4105-b10b-4c92-525f-08df1c889133
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c3ee3be-52fd-45c3-7592-08df1c888f75
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 11:14:58.8420 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 11:14:56.2590 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xJ2X8y10jXm5Rs1oRzhy51jj0OLnPGwX0RaTi885QuPnwK+NoUpCTw0+UomStgZEliAK7Rkt6XfTH/ga7JiQwA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8jTcUmquF6y+A8mjdW/fy96oHG1eR+L0sxfb+joYu1kxBfdN//hs7C7Ge3MlFw9r2pPWO/C4r1UjRHbgFMPQ+A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9154
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,195 +144,740 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since we are going to introduce a second type of message, add `rpc` to
-the names of the relevant command queue methods so we can distinguish
-between the two.
+Move the types and code related to RPC commands into the
+`rpc` sub-module, and update their users to reference them from their
+new location.
 
-No functional change intended.
+This is a pure move commit, with no functional change intended.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp.rs              |  2 +-
- drivers/gpu/nova-core/gsp/boot.rs         |  6 +++---
- drivers/gpu/nova-core/gsp/cmdq/rpc.rs     | 30 +++++++++++++++---------------
- drivers/gpu/nova-core/gsp/commands/rpc.rs |  2 +-
- drivers/gpu/nova-core/gsp/sequencer.rs    |  2 +-
- 5 files changed, 21 insertions(+), 21 deletions(-)
+ drivers/gpu/nova-core/gpu.rs              |   2 +-
+ drivers/gpu/nova-core/gsp.rs              |   4 +-
+ drivers/gpu/nova-core/gsp/boot.rs         |  12 +-
+ drivers/gpu/nova-core/gsp/commands.rs     | 314 +----------------------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs | 316 ++++++++++++++++++++++++++++++
+ 5 files changed, 326 insertions(+), 322 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 8f30186f10ba..b6c691361895 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -34,7 +34,7 @@
+     fsp::Fsp,
+     gsp::{
+         self,
+-        commands::GetGspStaticInfoReply,
++        commands::rpc::GetGspStaticInfoReply,
+         Gsp,
+         GspBootContext, //
+     },
 diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 75a3ba7d50f4..ed7eef21e8f9 100644
+index dda58095f40b..75a3ba7d50f4 100644
 --- a/drivers/gpu/nova-core/gsp.rs
 +++ b/drivers/gpu/nova-core/gsp.rs
-@@ -221,7 +221,7 @@ pub(crate) fn new(
+@@ -220,8 +220,8 @@ pub(crate) fn new(
+     }
  
      /// Query the GSP for the static GPU information.
-     pub(crate) fn get_static_info(&self) -> Result<commands::rpc::GetGspStaticInfoReply> {
--        self.cmdq.send_command(commands::rpc::GetGspStaticInfo)
-+        self.cmdq.send_rpc_command(commands::rpc::GetGspStaticInfo)
+-    pub(crate) fn get_static_info(&self) -> Result<commands::GetGspStaticInfoReply> {
+-        self.cmdq.send_command(commands::GetGspStaticInfo)
++    pub(crate) fn get_static_info(&self) -> Result<commands::rpc::GetGspStaticInfoReply> {
++        self.cmdq.send_command(commands::rpc::GetGspStaticInfo)
      }
  }
  
 diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 8e446ad1eac2..0d0b07fafd4f 100644
+index 4fb1b69ac9d5..8e446ad1eac2 100644
 --- a/drivers/gpu/nova-core/gsp/boot.rs
 +++ b/drivers/gpu/nova-core/gsp/boot.rs
 @@ -43,9 +43,9 @@ pub(crate) fn boot(
          let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
  
          self.cmdq
--            .send_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
-+            .send_rpc_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
+-            .send_command_no_wait(commands::SetSystemInfo::new(pdev, chipset))?;
++            .send_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
          self.cmdq
--            .send_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
-+            .send_rpc_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
+-            .send_command_no_wait(commands::SetRegistry::new(ctx.vgpu.state())?)?;
++            .send_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
  
          // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
          let unload_bundle = hal.boot(&self, &mut ctx, &gsp_fw)?.or_else(|| {
-@@ -91,7 +91,7 @@ fn shutdown_gsp(
-         mode: commands::rpc::PowerStateLevel,
+@@ -79,7 +79,7 @@ pub(crate) fn boot(
+         hal.post_boot(&self, ctx, &gsp_fw)?;
+ 
+         // Wait until GSP is fully initialized.
+-        commands::wait_gsp_init_done(&self.cmdq)?;
++        commands::rpc::wait_gsp_init_done(&self.cmdq)?;
+ 
+         Ok(unload_guard.dismiss().1)
+     }
+@@ -88,10 +88,10 @@ pub(crate) fn boot(
+     fn shutdown_gsp(
+         cmdq: &Cmdq<'_>,
+         gsp_falcon: &Falcon<'_, Gsp>,
+-        mode: commands::PowerStateLevel,
++        mode: commands::rpc::PowerStateLevel,
      ) -> Result {
          // Command to shut the GSP down.
--        cmdq.send_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
-+        cmdq.send_rpc_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
+-        cmdq.send_command(commands::UnloadingGuestDriver::new(mode))?;
++        cmdq.send_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
  
          // Wait until GSP signals it is suspended.
          const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-index 335f94c4d2aa..81f8c79b1bb5 100644
---- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-@@ -135,7 +135,7 @@ impl CmdqInner<'_> {
-     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-     ///
-     /// Error codes returned by the command initializers are propagated as-is.
--    fn send_single_command<M>(&mut self, command: M) -> Result
-+    fn send_single_rpc_command<M>(&mut self, command: M) -> Result
-     where
-         M: CommandToGsp,
-         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-@@ -196,19 +196,19 @@ fn send_single_command<M>(&mut self, command: M) -> Result
-     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-     ///
-     /// Error codes returned by the command initializers are propagated as-is.
--    fn send_command<M>(&mut self, command: M) -> Result
-+    fn send_rpc_command<M>(&mut self, command: M) -> Result
-     where
-         M: CommandToGsp,
-         Error: From<M::InitError>,
-     {
-         match SplitState::new(command)? {
--            SplitState::Single(command) => self.send_single_command(command),
-+            SplitState::Single(command) => self.send_single_rpc_command(command),
-             SplitState::Split(command, mut continuations) => {
--                self.send_single_command(command)?;
-+                self.send_single_rpc_command(command)?;
+@@ -118,7 +118,7 @@ pub(crate) fn unload(
+         let mut res = Self::shutdown_gsp(
+             &self.cmdq,
+             ctx.gsp_falcon,
+-            commands::PowerStateLevel::Level0,
++            commands::rpc::PowerStateLevel::Level0,
+         )
+         .inspect_err(|e| dev_err!(dev, "GSP shutdown failed: {:?}\n", e));
  
-                 while let Some(continuation) = continuations.next() {
-                     // Turbofish needed because the compiler cannot infer M here.
--                    self.send_single_command::<ContinuationRecord<'_>>(continuation)?;
-+                    self.send_single_rpc_command::<ContinuationRecord<'_>>(continuation)?;
-                 }
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index 81bd457a6eb6..5f1c944678be 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -1,316 +1,4 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
  
-                 Ok(())
-@@ -216,7 +216,7 @@ fn send_command<M>(&mut self, command: M) -> Result
-         }
-     }
- 
--    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-+    fn wait_for_rpc_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-         let GspMessage {
-             header,
-             contents: (slice_1, slice_2),
-@@ -275,12 +275,12 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-     /// - `ERANGE` if the message had a recognized but non-matching function code.
-     ///
-     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
--    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
-+    fn receive_rpc_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
-     where
-         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-         Error: From<M::InitError>,
-     {
--        let message = self.wait_for_msg(timeout)?;
-+        let message = self.wait_for_rpc_msg(timeout)?;
-         let function = message.header.rpc_header().function().map_err(|_| EINVAL)?;
- 
-         // Extract the message. Store the result as we want to advance the read pointer even in
-@@ -329,7 +329,7 @@ impl Cmdq<'_> {
-     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-     ///
-     /// Error codes returned by the command and reply initializers are propagated as-is.
--    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-+    pub(crate) fn send_rpc_command<M>(&self, command: M) -> Result<M::Reply>
-     where
-         M: CommandToGsp,
-         M::Reply: MessageFromGsp,
-@@ -337,10 +337,10 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-         Error: From<<M::Reply as MessageFromGsp>::InitError>,
-     {
-         let mut inner = self.inner.lock();
--        inner.send_command(command)?;
-+        inner.send_rpc_command(command)?;
- 
-         loop {
--            match inner.receive_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
-+            match inner.receive_rpc_msg::<M::Reply>(Self::RECEIVE_TIMEOUT) {
-                 Ok(reply) => break Ok(reply),
-                 Err(ERANGE) => continue,
-                 Err(e) => break Err(e),
-@@ -357,22 +357,22 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-     ///
-     /// Error codes returned by the command initializers are propagated as-is.
--    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-+    pub(crate) fn send_rpc_command_no_wait<M>(&self, command: M) -> Result
-     where
-         M: CommandToGsp<Reply = NoReply>,
-         Error: From<M::InitError>,
-     {
--        self.inner.lock().send_command(command)
-+        self.inner.lock().send_rpc_command(command)
-     }
- 
-     /// Receive a message from the GSP.
-     ///
-     /// See [`CmdqInner::receive_msg`] for details.
--    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
-+    pub(crate) fn receive_rpc_msg<M: MessageFromGsp>(&self, timeout: Delta) -> Result<M>
-     where
-         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-         Error: From<M::InitError>,
-     {
--        self.inner.lock().receive_msg(timeout)
-+        self.inner.lock().receive_rpc_msg(timeout)
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/commands/rpc.rs b/drivers/gpu/nova-core/gsp/commands/rpc.rs
-index a3262cc3e0e9..ad4f466427c0 100644
---- a/drivers/gpu/nova-core/gsp/commands/rpc.rs
-+++ b/drivers/gpu/nova-core/gsp/commands/rpc.rs
-@@ -191,7 +191,7 @@ fn read(
- /// Waits for GSP initialization to complete.
- pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
-     loop {
+-use core::{
+-    array,
+-    convert::Infallible,
+-    ffi::FromBytesUntilNulError,
+-    ops::Range,
+-    str::Utf8Error, //
+-};
+-
+-use kernel::{
+-    device,
+-    pci,
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    }, //
+-};
+-
+-use crate::{
+-    gpu::Chipset,
+-    gsp::{
+-        cmdq::{
+-            rpc::{
+-                CommandToGsp,
+-                MessageFromGsp, //
+-            },
+-            Cmdq,
+-            NoReply, //
+-        },
+-        fw::{
+-            self,
+-            MsgFunction, //
+-        },
+-    },
+-    sbuffer::SBufferIter,
+-    vgpu::VgpuState, //
+-};
+-
+-/// The `GspSetSystemInfo` command.
+-pub(crate) struct SetSystemInfo<'a> {
+-    pdev: &'a pci::Device<device::Bound>,
+-    chipset: Chipset,
+-}
+-
+-impl<'a> SetSystemInfo<'a> {
+-    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
+-    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
+-        Self { pdev, chipset }
+-    }
+-}
+-
+-impl<'a> CommandToGsp for SetSystemInfo<'a> {
+-    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
+-    type Command = fw::commands::GspSetSystemInfo;
+-    type Reply = NoReply;
+-    type InitError = Error;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.pdev, self.chipset)
+-    }
+-}
+-
+-struct RegistryEntry {
+-    key: &'static str,
+-    value: u32,
+-}
+-
+-/// The `SetRegistry` command.
+-pub(crate) struct SetRegistry {
+-    entries: KVec<RegistryEntry>,
+-}
+-
+-impl SetRegistry {
+-    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
+-    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
+-        let mut entries = KVec::new();
+-
+-        // RMSecBusResetEnable - enables PCI secondary bus reset
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMSecBusResetEnable",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
+-        // any PCI reset.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMForcePcieConfigSave",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
+-        // in the internal product name database.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMDevidCheckIgnore",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
+-            // RMSetSriovMode - required when vGPU is enabled.
+-            entries.push(
+-                RegistryEntry {
+-                    key: "RMSetSriovMode",
+-                    value: 1,
+-                },
+-                GFP_KERNEL,
+-            )?;
+-        }
+-
+-        Ok(Self { entries })
+-    }
+-}
+-
+-impl CommandToGsp for SetRegistry {
+-    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
+-    type Command = fw::commands::PackedRegistryTable;
+-    type Reply = NoReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.entries.len() as u32, self.size() as u32)
+-    }
+-
+-    fn variable_payload_len(&self) -> usize {
+-        let mut key_size = 0;
+-        for entry in self.entries.iter() {
+-            key_size += entry.key.len() + 1; // +1 for NULL terminator
+-        }
+-        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
+-    }
+-
+-    fn init_variable_payload(
+-        &self,
+-        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
+-    ) -> Result {
+-        let string_data_start_offset = size_of::<Self::Command>()
+-            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
+-
+-        // Array for string data.
+-        let mut string_data = KVec::new();
+-
+-        for entry in self.entries.iter() {
+-            dst.write_all(
+-                fw::commands::PackedRegistryEntry::new(
+-                    (string_data_start_offset + string_data.len()) as u32,
+-                    entry.value,
+-                )
+-                .as_bytes(),
+-            )?;
+-
+-            let key_bytes = entry.key.as_bytes();
+-            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
+-            string_data.push(0, GFP_KERNEL)?;
+-        }
+-
+-        dst.write_all(string_data.as_slice())
+-    }
+-}
+-
+-/// Message type for GSP initialization done notification.
+-struct GspInitDone;
+-
+-// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
+-// trivially has no uninitialized bytes.
+-unsafe impl FromBytes for GspInitDone {}
+-
+-impl MessageFromGsp for GspInitDone {
+-    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(GspInitDone)
+-    }
+-}
+-
+-/// Waits for GSP initialization to complete.
+-pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+-    loop {
 -        match cmdq.receive_msg::<GspInitDone>(Cmdq::RECEIVE_TIMEOUT) {
-+        match cmdq.receive_rpc_msg::<GspInitDone>(Cmdq::RECEIVE_TIMEOUT) {
-             Ok(_) => break Ok(()),
-             Err(ERANGE) => continue,
-             Err(e) => break Err(e),
-diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
-index ebf13867746f..ab3237ed64d6 100644
---- a/drivers/gpu/nova-core/gsp/sequencer.rs
-+++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-@@ -344,7 +344,7 @@ pub(crate) fn run(
-         bootloader_app_version: u32,
-     ) -> Result {
-         let seq_info = loop {
--            match cmdq.receive_msg::<GspSequence>(Cmdq::RECEIVE_TIMEOUT) {
-+            match cmdq.receive_rpc_msg::<GspSequence>(Cmdq::RECEIVE_TIMEOUT) {
-                 Ok(seq_info) => break seq_info,
-                 Err(ERANGE) => continue,
-                 Err(e) => return Err(e),
+-            Ok(_) => break Ok(()),
+-            Err(ERANGE) => continue,
+-            Err(e) => break Err(e),
+-        }
+-    }
+-}
+-
+-/// The `GetGspStaticInfo` command.
+-pub(crate) struct GetGspStaticInfo;
+-
+-impl CommandToGsp for GetGspStaticInfo {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Command = fw::commands::GspStaticConfigInfo;
+-    type Reply = GetGspStaticInfoReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init_zeroed()
+-    }
+-}
+-
+-/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+-pub(crate) struct GetGspStaticInfoReply {
+-    gpu_name: [u8; 64],
+-    /// BAR1 Page Directory Entry base address.
+-    pub(crate) bar1_pde_base: u64,
+-    /// Usable FB (VRAM) regions for driver memory allocation.
+-    pub(crate) usable_fb_regions: KVec<Range<u64>>,
+-    /// Exclusive end of the FB physical address space.
+-    pub(crate) total_fb_end: u64,
+-}
+-
+-impl MessageFromGsp for GetGspStaticInfoReply {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Message = fw::commands::GspStaticConfigInfo;
+-    type InitError = Error;
+-
+-    fn read(
+-        msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        let mut usable_fb_regions = KVec::new();
+-        for region in msg.usable_fb_regions() {
+-            usable_fb_regions.push(region, GFP_KERNEL)?;
+-        }
+-        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
+-
+-        Ok(GetGspStaticInfoReply {
+-            gpu_name: msg.gpu_name_str(),
+-            bar1_pde_base: msg.bar1_pde_base(),
+-            usable_fb_regions,
+-            total_fb_end,
+-        })
+-    }
+-}
+-
+-/// Error type for [`GetGspStaticInfoReply::gpu_name`].
+-#[derive(Debug)]
+-pub(crate) enum GpuNameError {
+-    /// The GPU name string does not contain a null terminator.
+-    NoNullTerminator(FromBytesUntilNulError),
+-
+-    /// The GPU name string contains invalid UTF-8.
+-    #[expect(dead_code)]
+-    InvalidUtf8(Utf8Error),
+-}
+-
+-impl GetGspStaticInfoReply {
+-    /// Returns the name of the GPU as a string.
+-    ///
+-    /// Returns an error if the string given by the GSP does not contain a null terminator or
+-    /// contains invalid UTF-8.
+-    pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
+-        CStr::from_bytes_until_nul(&self.gpu_name)
+-            .map_err(GpuNameError::NoNullTerminator)?
+-            .to_str()
+-            .map_err(GpuNameError::InvalidUtf8)
+-    }
+-}
+-
+-pub(crate) use fw::commands::PowerStateLevel;
+-
+-/// The `UnloadingGuestDriver` command, used to shut down the GSP.
+-///
+-/// Only used within the `gsp` module.
+-pub(super) struct UnloadingGuestDriver {
+-    level: PowerStateLevel,
+-}
+-
+-impl UnloadingGuestDriver {
+-    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
+-    pub(super) fn new(level: PowerStateLevel) -> Self {
+-        Self { level }
+-    }
+-}
+-
+-impl CommandToGsp for UnloadingGuestDriver {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type Command = fw::commands::UnloadingGuestDriver;
+-    type Reply = UnloadingGuestDriverReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        fw::commands::UnloadingGuestDriver::new(self.level)
+-    }
+-}
+-
+-/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
+-pub(super) struct UnloadingGuestDriverReply;
+-
+-impl MessageFromGsp for UnloadingGuestDriverReply {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(UnloadingGuestDriverReply)
+-    }
+-}
++pub(crate) mod rpc;
+diff --git a/drivers/gpu/nova-core/gsp/commands/rpc.rs b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+new file mode 100644
+index 000000000000..a3262cc3e0e9
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+@@ -0,0 +1,316 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++use core::{
++    array,
++    convert::Infallible,
++    ffi::FromBytesUntilNulError,
++    ops::Range,
++    str::Utf8Error, //
++};
++
++use kernel::{
++    device,
++    pci,
++    prelude::*,
++    transmute::{
++        AsBytes,
++        FromBytes, //
++    }, //
++};
++
++use crate::{
++    gpu::Chipset,
++    gsp::{
++        cmdq::{
++            rpc::{
++                CommandToGsp,
++                MessageFromGsp, //
++            },
++            Cmdq,
++            NoReply, //
++        },
++        fw::{
++            self,
++            MsgFunction, //
++        },
++    },
++    sbuffer::SBufferIter,
++    vgpu::VgpuState, //
++};
++
++/// The `GspSetSystemInfo` command.
++pub(crate) struct SetSystemInfo<'a> {
++    pdev: &'a pci::Device<device::Bound>,
++    chipset: Chipset,
++}
++
++impl<'a> SetSystemInfo<'a> {
++    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
++    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
++        Self { pdev, chipset }
++    }
++}
++
++impl<'a> CommandToGsp for SetSystemInfo<'a> {
++    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
++    type Command = fw::commands::GspSetSystemInfo;
++    type Reply = NoReply;
++    type InitError = Error;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.pdev, self.chipset)
++    }
++}
++
++struct RegistryEntry {
++    key: &'static str,
++    value: u32,
++}
++
++/// The `SetRegistry` command.
++pub(crate) struct SetRegistry {
++    entries: KVec<RegistryEntry>,
++}
++
++impl SetRegistry {
++    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
++    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
++        let mut entries = KVec::new();
++
++        // RMSecBusResetEnable - enables PCI secondary bus reset
++        entries.push(
++            RegistryEntry {
++                key: "RMSecBusResetEnable",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
++        // any PCI reset.
++        entries.push(
++            RegistryEntry {
++                key: "RMForcePcieConfigSave",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
++        // in the internal product name database.
++        entries.push(
++            RegistryEntry {
++                key: "RMDevidCheckIgnore",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
++            // RMSetSriovMode - required when vGPU is enabled.
++            entries.push(
++                RegistryEntry {
++                    key: "RMSetSriovMode",
++                    value: 1,
++                },
++                GFP_KERNEL,
++            )?;
++        }
++
++        Ok(Self { entries })
++    }
++}
++
++impl CommandToGsp for SetRegistry {
++    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
++    type Command = fw::commands::PackedRegistryTable;
++    type Reply = NoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.entries.len() as u32, self.size() as u32)
++    }
++
++    fn variable_payload_len(&self) -> usize {
++        let mut key_size = 0;
++        for entry in self.entries.iter() {
++            key_size += entry.key.len() + 1; // +1 for NULL terminator
++        }
++        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
++    }
++
++    fn init_variable_payload(
++        &self,
++        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
++    ) -> Result {
++        let string_data_start_offset = size_of::<Self::Command>()
++            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
++
++        // Array for string data.
++        let mut string_data = KVec::new();
++
++        for entry in self.entries.iter() {
++            dst.write_all(
++                fw::commands::PackedRegistryEntry::new(
++                    (string_data_start_offset + string_data.len()) as u32,
++                    entry.value,
++                )
++                .as_bytes(),
++            )?;
++
++            let key_bytes = entry.key.as_bytes();
++            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
++            string_data.push(0, GFP_KERNEL)?;
++        }
++
++        dst.write_all(string_data.as_slice())
++    }
++}
++
++/// Message type for GSP initialization done notification.
++struct GspInitDone;
++
++// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
++// trivially has no uninitialized bytes.
++unsafe impl FromBytes for GspInitDone {}
++
++impl MessageFromGsp for GspInitDone {
++    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(GspInitDone)
++    }
++}
++
++/// Waits for GSP initialization to complete.
++pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
++    loop {
++        match cmdq.receive_msg::<GspInitDone>(Cmdq::RECEIVE_TIMEOUT) {
++            Ok(_) => break Ok(()),
++            Err(ERANGE) => continue,
++            Err(e) => break Err(e),
++        }
++    }
++}
++
++/// The `GetGspStaticInfo` command.
++pub(crate) struct GetGspStaticInfo;
++
++impl CommandToGsp for GetGspStaticInfo {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Command = fw::commands::GspStaticConfigInfo;
++    type Reply = GetGspStaticInfoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init_zeroed()
++    }
++}
++
++/// The reply from the GSP to the [`GetGspStaticInfo`] command.
++pub(crate) struct GetGspStaticInfoReply {
++    gpu_name: [u8; 64],
++    /// BAR1 Page Directory Entry base address.
++    pub(crate) bar1_pde_base: u64,
++    /// Usable FB (VRAM) regions for driver memory allocation.
++    pub(crate) usable_fb_regions: KVec<Range<u64>>,
++    /// Exclusive end of the FB physical address space.
++    pub(crate) total_fb_end: u64,
++}
++
++impl MessageFromGsp for GetGspStaticInfoReply {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Message = fw::commands::GspStaticConfigInfo;
++    type InitError = Error;
++
++    fn read(
++        msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        let mut usable_fb_regions = KVec::new();
++        for region in msg.usable_fb_regions() {
++            usable_fb_regions.push(region, GFP_KERNEL)?;
++        }
++        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
++
++        Ok(GetGspStaticInfoReply {
++            gpu_name: msg.gpu_name_str(),
++            bar1_pde_base: msg.bar1_pde_base(),
++            usable_fb_regions,
++            total_fb_end,
++        })
++    }
++}
++
++/// Error type for [`GetGspStaticInfoReply::gpu_name`].
++#[derive(Debug)]
++pub(crate) enum GpuNameError {
++    /// The GPU name string does not contain a null terminator.
++    NoNullTerminator(FromBytesUntilNulError),
++
++    /// The GPU name string contains invalid UTF-8.
++    #[expect(dead_code)]
++    InvalidUtf8(Utf8Error),
++}
++
++impl GetGspStaticInfoReply {
++    /// Returns the name of the GPU as a string.
++    ///
++    /// Returns an error if the string given by the GSP does not contain a null terminator or
++    /// contains invalid UTF-8.
++    pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
++        CStr::from_bytes_until_nul(&self.gpu_name)
++            .map_err(GpuNameError::NoNullTerminator)?
++            .to_str()
++            .map_err(GpuNameError::InvalidUtf8)
++    }
++}
++
++pub(crate) use fw::commands::PowerStateLevel;
++
++/// The `UnloadingGuestDriver` command, used to shut down the GSP.
++///
++/// Only used within the `gsp` module.
++pub(crate) struct UnloadingGuestDriver {
++    level: PowerStateLevel,
++}
++
++impl UnloadingGuestDriver {
++    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
++    pub(crate) fn new(level: PowerStateLevel) -> Self {
++        Self { level }
++    }
++}
++
++impl CommandToGsp for UnloadingGuestDriver {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type Command = fw::commands::UnloadingGuestDriver;
++    type Reply = UnloadingGuestDriverReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        fw::commands::UnloadingGuestDriver::new(self.level)
++    }
++}
++
++/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
++pub(crate) struct UnloadingGuestDriverReply;
++
++impl MessageFromGsp for UnloadingGuestDriverReply {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(UnloadingGuestDriverReply)
++    }
++}
 
 -- 
 2.55.0
