@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76977C9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 23:50:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91138CA5FA3
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 23:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9C9B10E6FA;
-	Sun, 27 Sep 2026 23:50:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5B6D10E6FC;
+	Sun, 27 Sep 2026 23:50:58 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AA8410E6FA
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 23:50:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3510E6FC
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 23:50:57 +0000 (UTC)
 Received: from local by pidgin.makrotopia.org with esmtpsa
  (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768) (Exim 4.100)
- (envelope-from <daniel@makrotopia.org>) id 1xAydp-000000000r0-12cY;
- Sun, 27 Sep 2026 23:50:45 +0000
-Date: Mon, 28 Sep 2026 00:50:42 +0100
+ (envelope-from <daniel@makrotopia.org>) id 1xAydx-000000000rp-2YuH;
+ Sun, 27 Sep 2026 23:50:53 +0000
+Date: Mon, 28 Sep 2026 00:50:50 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -34,9 +34,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
-Subject: [PATCH v8 09/14] drm/bridge: it6505: guard against zero channel
- count in audio infoframe
-Message-ID: <f6dec78d013b5fbda56fdcc40f1d2cff96c219ba.1790552614.git.daniel@makrotopia.org>
+Subject: [PATCH v8 10/14] drm/bridge: it6505: hold endpoint OF node reference
+ while parsing it
+Message-ID: <97c7e1c392178d0d386bcdb70813a0cd162fbefe.1790552614.git.daniel@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -57,18 +57,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-it6505->audio.channel_count stays 0 until link training or a valid
-hw_params call has run, but it6505_enable_audio() can be reached
-before that from the audio-FIFO-error IRQ, making
-it6505_enable_audio_infoframe() index the 8-entry audio_info_ca[]
-table with -1. Bail out while the channel count is not yet known.
+it6505_parse_dt() drops the reference to each endpoint node right
+after looking it up and then keeps reading its properties, racing
+with the node being freed under CONFIG_OF_DYNAMIC. Put the node only
+once parsing is done.
 
-Also fix the debug print on the invalid-channel-count path, which
-logged the previously cached count instead of the rejected one.
-
-Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
+Fixes: 380d920b582d ("drm/bridge: add it6505 driver to read data-lanes and link-frequencies from dt")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
 v8: no changes
 
@@ -76,37 +71,45 @@ v7: no changes
 
 v6: no changes
 
-v5: no changes
-
-v4: no changes, collected Chen-Yu Tsai's Reviewed-by
-
-v3: new patch
+v5: new patch
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 0d21014324167..3f17024116e14 100644
+index 3f17024116e14..848e9a650b9ff 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -1577,6 +1577,9 @@ static void it6505_enable_audio_infoframe(struct it6505 *it6505)
- 	struct device *dev = it6505->dev;
- 	u8 audio_info_ca[] = { 0x00, 0x00, 0x01, 0x03, 0x07, 0x0B, 0x0F, 0x1F };
- 
-+	if (!it6505->audio.channel_count)
-+		return;
-+
- 	DRM_DEV_DEBUG_DRIVER(dev, "infoframe channel_allocation:0x%02x",
- 			     audio_info_ca[it6505->audio.channel_count - 1]);
- 
-@@ -3012,7 +3015,7 @@ static int __maybe_unused it6505_audio_setup_hw_params(struct it6505 *it6505,
- 
- 	if (params->cea.channels <= 1 || params->cea.channels > 8) {
- 		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
--				     it6505->audio.channel_count);
-+				     params->cea.channels);
- 		return -EINVAL;
+@@ -3369,7 +3369,6 @@ static void it6505_parse_dt(struct it6505 *it6505)
  	}
  
+ 	ep = of_graph_get_endpoint_by_regs(np, 1, 0);
+-	of_node_put(ep);
+ 
+ 	if (ep) {
+ 		len = it6505_get_data_lanes_count(ep, 1, 4);
+@@ -3382,13 +3381,13 @@ static void it6505_parse_dt(struct it6505 *it6505)
+ 			*max_lane_count = MAX_LANE_COUNT;
+ 			dev_err(dev, "error data-lanes, use default");
+ 		}
++		of_node_put(ep);
+ 	} else {
+ 		*max_lane_count = MAX_LANE_COUNT;
+ 		dev_err(dev, "error endpoint, use default");
+ 	}
+ 
+ 	ep = of_graph_get_endpoint_by_regs(np, 0, 0);
+-	of_node_put(ep);
+ 
+ 	if (ep) {
+ 		len = of_property_read_variable_u64_array(ep,
+@@ -3408,6 +3407,7 @@ static void it6505_parse_dt(struct it6505 *it6505)
+ 			dev_err(dev, "error link frequencies, use default");
+ 			*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
+ 		}
++		of_node_put(ep);
+ 	} else {
+ 		dev_err(dev, "error endpoint, use default");
+ 		*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
 -- 
 2.55.0
