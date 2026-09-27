@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9530AC98338
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9C3C9832F
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF8710E691;
-	Sun, 27 Sep 2026 18:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3794C10E6A5;
+	Sun, 27 Sep 2026 18:43:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NmkI7HEg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EXhxmQLc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0D010E691
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:43:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 101B210E69D
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:43:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E18460052;
- Sun, 27 Sep 2026 18:43:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6B71F000FF;
- Sun, 27 Sep 2026 18:43:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AA9A0401B5;
+ Sun, 27 Sep 2026 18:43:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A23E1F000FF;
+ Sun, 27 Sep 2026 18:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790534608;
- bh=afsyPqr6K3RrPooxiMars5q1pjzphSzjMRyNifTqSuQ=;
+ s=k20260515; t=1790534634;
+ bh=MiJLK9zfspIDuGEFEkEd1odTJlaz+JjS18bqAnJlqD4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NmkI7HEg1k9n6mrBy6MXiux/esf6lGPxz9bRMGm4UvNyaLi2sBfjDk/IFOQWbmQCt
- VMmLqIht0gBIghFPDLchxp0xtEdi4WP/06opShihHkp0m/h/BIt89axTcPGqwkaV4J
- DkX6xNAcup5sASQscugz8u90A9q3mBJCmE9NfITdKOCwmQL62bfPaRWEA/iRWrZF8u
- Jt6T/vimCjtTtsZeEvFgmism0b0CiUODdVa5XRZhBjYfHQvp5+6kjfhFUM/oed6IHn
- nJAZet1omTEtoj2uvwA26YgxUFYiPRZzdcXUlrNMLxidJt7QBkfb8Vy7USy6qHpP3f
- 6IwHBnRQUnh/Q==
+ b=EXhxmQLcnEPxyQ329Xll86lj/lCUlnib5aDytwCHLtX/xwA2lYVtiS3ff7Ao6+JCr
+ yjjmQE68YOqDv7THwA4/cD4/wFtvtsYdfnR53dPINaYe5x+TxTIyCmoqNV1R1A2AZG
+ 4xm04d4ViGnlvBC8/5oIqEaBgGKpW2N8twissbiYW7daDVNJfpGPEXDTBjLIQfkf1K
+ 5F9pNXuWVhEf2MbdvbkL4tSr6JJNdBaRhlUry1lyl9QoM8vDUBQ8TEusDQ0ob3QT/P
+ inmwDeSJaacwzSe/0mvJXn8pJQ+eHvY7kj20OS5e9285ebFxjuomHpl2+JwN7FFVqe
+ LslzX+Cw26UEQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/14] drm/solomon: ssd16xx: Expose color mode as
+Subject: Re: [PATCH v2 08/14] drm/solomon: ssd16xx: Expose refresh mode as
  plane property
 To: "Devarsh Thakkar" <devarsht@ti.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260927182329.4193961-10-devarsht@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260927182329.4193961-9-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
- <20260927182329.4193961-10-devarsht@ti.com>
+ <20260927182329.4193961-9-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 18:43:28 +0000
-Message-Id: <20260927184328.6B6B71F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 18:43:53 +0000
+Message-Id: <20260927184354.4A23E1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,100 +59,147 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/solomon: ssd16xx: 3-color mode with partial refresh corrupts R=
-1 pixels
-- [Medium] drm/solomon: ssd16xx: Commit message contradicts color_mode prop=
-erty creation
+- [High] drm/ssd16xx: hardware desync when refresh_mode is updated on disab=
+led plane
+- [High] drm/ssd16xx: double vunmap risk due to kmemdup of shadow plane sta=
+te
+- [Low] drm/ssd16xx: build failure due to undefined __drm_gem_shadow_plane_=
+state_init
 --
 
-commit 50bd4d2129cba69722affa1695b7f8c68a0578a8
+commit f164596b389c43d5ba1998c30d9e04e66112e4d1
 Author: Devarsh Thakkar <devarsht@ti.com>
 
-drm/solomon: ssd16xx: Expose color mode as plane property
+drm/solomon: ssd16xx: Expose refresh mode as plane property
 
-This commit introduces a new DRM plane property called "color_mode" to supp=
-ort
-panels with 3-color (black/white/red) display modes. It allows switching
-between standard black/white representation and a 3-color representation wh=
-ere
-the R1 format designates red ink on a white background.
+This commit adds a DRM plane property "refresh_mode" to allow userspace
+to select between partial, full, and fast display update modes at runtime.
+It uses an enum to match the internal refresh modes and updates the
+default setting from the panel configuration.
 
-> Add a DRM plane property "color_mode" for panels that support
-> 3-color (black/white/red) display modes.
->=20
-> The property allows runtime selection between:
->   - bw (black/white): R1 format represents black (0) and white (1)
->   - 3color: R1 format represents red ink (1) on white background
->=20
-> This property is only created on panels with red_supported =3D true.
-
-[Severity: Medium]
-The commit message states the property is only created on panels where red
-is supported.
-
-However, the code in ssd16xx_plane_create_properties() appears to create
-it unconditionally for all panels (while restricting the selectable enum
-options if unsupported).
-
-Is this description accurate?
-
-> The default is set from the panel configuration's default_color_mode
-> field (typically BW for monochrome panels).
->=20
-> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-
-diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ss=
-d16xx.c
-index dc2b8fe536af3..3815af0cee5c5 100644
---- a/drivers/gpu/drm/solomon/ssd16xx.c
-+++ b/drivers/gpu/drm/solomon/ssd16xx.c
+> diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
+ssd16xx.c
+> index 6255f434248ae..dc2b8fe536af3 100644
+> --- a/drivers/gpu/drm/solomon/ssd16xx.c
+> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
 [ ... ]
-@@ -1568,6 +1587,7 @@ static void ssd16xx_plane_atomic_update(struct drm_pl=
-ane *plane,
- 	}
-=20
- 	device->refresh_mode =3D new_ssd->refresh_mode;
-+	device->color_mode =3D new_ssd->color_mode;
+> @@ -1397,11 +1409,91 @@ static void ssd16xx_plane_destroy(struct drm_plan=
+e *plane)
+>  	drm_plane_cleanup(plane);
+>  }
+> =20
+> +static void ssd16xx_plane_atomic_destroy_state(struct drm_plane *plane,
+> +					       struct drm_plane_state *state);
+> +
+> +static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct =
+drm_plane *plane)
+> +{
+> +	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
+> +	struct ssd16xx_plane_state *ssd_state;
+> +
+> +	ssd_state =3D kzalloc(sizeof(*ssd_state), GFP_KERNEL);
+> +	if (!ssd_state)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
+
+[Severity: Low]
+Does this cause a build failure? It appears __drm_gem_shadow_plane_state_in=
+it()
+is not defined anywhere in the kernel.
+
+If the module were somehow compiled, would failing to initialize the base
+plane state leave plane_state->plane as NULL and cause a NULL pointer
+dereference in the core DRM atomic helpers?
+
+> +	ssd_state->refresh_mode =3D device->refresh_mode;
+> +
+> +	return &ssd_state->base.base;
+> +}
+> +
+> +static struct drm_plane_state *
+> +ssd16xx_plane_atomic_duplicate_state(struct drm_plane *plane)
+> +{
+> +	struct ssd16xx_plane_state *old_ssd_state, *ssd_state;
+> +
+> +	if (WARN_ON(!plane->state))
+> +		return NULL;
+> +
+> +	old_ssd_state =3D to_ssd16xx_plane_state(plane->state);
+> +	ssd_state =3D kmemdup(old_ssd_state, sizeof(*ssd_state), GFP_KERNEL);
 
 [Severity: High]
-When a user sets color_mode to 3COLOR and refresh_mode to PARTIAL,
-device->color_mode is updated here before calling ssd16xx_fb_dirty().
+Does this kmemdup() risk a double free or double unmap of the shadow plane
+state?
 
-However, looking at ssd16xx_fb_dirty():
+The struct drm_shadow_plane_state contains map and data arrays which track
+active kernel memory mappings of the framebuffer. These are explicitly
+documented as "Transitional state - do not export or duplicate".
 
-drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_fb_dirty() {
-    ...
-    if (device->color_mode =3D=3D SSD16XX_COLOR_MODE_3COLOR &&
-        (device->refresh_mode =3D=3D SSD16XX_REFRESH_FULL ||
-         device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST)) {
-            red_buffer =3D device->tx_red_buf;
-    }
-    ...
-    if (red_buffer)
-            ssd16xx_convert_fb_to_3color(mono_buffer, red_buffer, &map, fb,=
- rect);
-    else
-            ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect, device-=
->orientation);
-    ...
-}
+If the new state encounters an error before drm_gem_begin_shadow_fb_access()
+overwrites them, won't the error cleanup paths unmap those stale pointers,
+resulting in a double vunmap of the old state's memory?
 
-Because red_buffer is only initialized for FULL or FAST refresh modes, a
-PARTIAL refresh in 3-color mode leaves red_buffer as NULL.
-
-This triggers the fallback to ssd16xx_convert_fb_to_1bpp(), which copies
-R1 bits directly and interprets them as luma (0=3Dblack, 1=3Dwhite) instead=
- of
-the 3-color expectation (0=3Dwhite, 1=3Dred).
-
-Can this lead to corrupted R1 pixel colors during a partial refresh?
-
- 	/*
- 	 * When refresh_mode_init was set, use the specified mode for this first
+> +	if (!ssd_state)
+> +		return NULL;
+> +
+> +	__drm_gem_duplicate_shadow_plane_state(plane, &ssd_state->base);
+> +	return &ssd_state->base.base;
+> +}
 [ ... ]
+> @@ -1456,6 +1550,25 @@ static void ssd16xx_plane_atomic_update(struct drm=
+_plane *plane,
+> =20
+>  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%d=
+,%d)-(%d,%d)\n",
+>  		rect.x1, rect.y1, rect.x2, rect.y2);
+> +
+> +	/* Diff refresh_mode against the plane's own previous state to see
+> +	 * whether fast LUT preload is needed.
+> +	 */
+> +	if (old_ssd->refresh_mode !=3D new_ssd->refresh_mode) {
+> +		/*
+> +		 * Fast refresh omits LOAD_LUT each update; arm the
+> +		 * one-shot flag so LUT is pre-loaded before the first
+> +		 * fast frame.
+> +		 */
+> +		if (new_ssd->refresh_mode =3D=3D SSD16XX_REFRESH_FAST &&
+> +		    old_ssd->refresh_mode !=3D SSD16XX_REFRESH_FULL)
+> +			device->fast_lut_pending =3D true;
+> +		else
+> +			device->fast_lut_pending =3D false;
+> +	}
+> +
+> +	device->refresh_mode =3D new_ssd->refresh_mode;
+
+[Severity: High]
+Can this hardware configuration desynchronize from the software state, lead=
+ing
+to a missing LUT preload and corrupted display output?
+
+Earlier in ssd16xx_plane_atomic_update(), there is an early return when the
+plane is being disabled:
+
+    if (!fb)
+        return;
+
+If a userspace atomic commit disables the plane while simultaneously changi=
+ng
+the refresh_mode property, won't this early return skip the state
+synchronization here?=20
+
+When the plane is later enabled, wouldn't pm_runtime_resume() call
+ssd16xx_hw_init(), read the stale device->refresh_mode, and skip the requir=
+ed
+FAST mode LUT preload?
+
+> +
+>  	/*
+>  	 * When refresh_mode_init was set, use the specified mode for this first
+>  	 * frame only, then restore the user-configured refresh_mode so
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927182329.4193=
-961-1-devarsht@ti.com?part=3D9
+961-1-devarsht@ti.com?part=3D8
