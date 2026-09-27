@@ -4,76 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789B0C98328
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 00:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33DE7C98328
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 00:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8009210E197;
-	Sun, 27 Sep 2026 00:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 424C210E350;
+	Sun, 27 Sep 2026 00:08:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iOIJTaat";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V5icYsbD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 761B710E197
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF10C6057A
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71EF1F0089B
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790467407;
- bh=dM60/lQJZNJbWoteFqu6uPH785ljbJ4v68GljKAZeM0=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=iOIJTaatkNJ/Rx0KAosWsEwaSeM1/VzOcFaAXAR27F0Tghc6tEkwXrLZLSxZEofLE
- r2Dx50NWbwE+0HSrIyUzc2guH3dCCZXbEqPI7RuyOdOfnKMteagodLQPrevjon41v9
- Dtf9Lxy4aPDYrhMWgQCZIUG/QmvbX27bI1HhTmKKiBkbNRiXvNAyEHiEKg+u2C0EHs
- gt5HUb5YZUq5D/Ka+Dd0RKLqtVNKcts0c9yYCa/iClMmie/d+ZbfkHElnsovKJu0dt
- yvJoCqBPz82kyHXp7mVgU9FH9lw9/lV7+e8letvdUnQkAqw46bQ4ZX/sT/j4L+KY9D
- Urf6jZIxQuU3Q==
-Received: by mail-ej2-f22.google.com with SMTP id
- a640c23a62f3a-c2afd63c3e0so153463966b.0
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 17:03:27 -0700 (PDT)
+Received: from mail-dy2-f23.google.com (mail-dy2-f23.google.com
+ [74.125.229.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EECF110E350
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:08:49 +0000 (UTC)
+Received: by mail-dy2-f23.google.com with SMTP id
+ 5a478bee46e88-32be7127c64so219834eec.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 17:08:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790467729; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D/0AnLqusTTFjeE0dWVwW2fhfsXEfmLedsVHFjtwRPq6S4wLLwPgC/OxAPkq4CgnGt
+ 5WXzi3W2iOw5R+rt+bjc4sxGNNfWb5Pe/5Zj1GDztBdCtI1wR0NG0hE/CLAWmPLwB0VW
+ 3OS4Rc+ZrTFF85+K7kzn8rVXO/mfKnDRsSFjiYqwxtz+g9DmVMerWyPmUTodvpRusvVr
+ sVyVrwyihH2TnzfQGjtQhilhH3IraPHQr0YQGm2g4y036g5IMY8q73ZMA8fxjA4zTSgG
+ kG39MYXWxUDlybm60Mg9Cy3wEe0i8TNz5NF+k/l36cRS6715fHeCKC9ZEmZPwtz+Q5Gl
+ NVFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=xn5PZ6iiiFBX0SCeMBxmphmVE7WTRrTX9RR4bP5Nfho=;
+ fh=5n+EJ8wh8cc5ZGiit0Mo5GJebpjRPM563cOwlQVEwqM=;
+ b=IWgQLuVX7ZGBgcPiKf5iAc4ylg9Xgm8y7AYKLV6FtFvLm9QiaRVKUAF/EOfOjFrb4o
+ 9Uz3WT6YGYvhwslEvYv9f2irjYidCqWA1gA0gaOoIH8ZZOp1vhoS3xz2NFvI+nSIt1LE
+ vZA22cH0DRjiWB8ECrjX0bb00o1eiv4exDZeaYg/OJNCwHch4ubbdeRxJpmFMjOhkwx5
+ r/9dO4qDo4xxjAVIEZu3zuJ5H3Ud6Vesaxpi/685vqPd2xn9Nj2zBjJYDHK97pXaCsD9
+ rYU0RcbpIsdsYpId2QiY7idxXSzCWXzpzRBouYAS5QtmIRIh7cjIMgXjdq2aetUPYKOe
+ RzlA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790467729; x=1791072529; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xn5PZ6iiiFBX0SCeMBxmphmVE7WTRrTX9RR4bP5Nfho=;
+ b=V5icYsbDT4dsfNAQ2REoLUwuzetsLPI8omBdRF8UF3Npb5HzVPfnAr9fO2somsJ2+v
+ TPhuYAh1pd5lJFfvg6oJFFlmtee9jSwA/Kx/4Z5NfptzxhDKK99t/A/XSFu6+m9/huEm
+ AyetOcNB0sWK16Q7tkwKO9JCT+0GBAOHVeKk8oe69sb9TQ6V66cm6ExvfcaZDEVUajDs
+ AhA4d1syzeXnYXtP+Ssd7PhwyEVh+hrVB9S3zltmCPf872Coojhy4+2nEAQUKfwaCEC6
+ WBnp+8HA3VcctoGZrJD00No9yw7RHYz0SwEelDHjzuwG4xJyLuLitk85WpaJDtw/8abM
+ rmlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790467729; x=1791072529;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xn5PZ6iiiFBX0SCeMBxmphmVE7WTRrTX9RR4bP5Nfho=;
+ b=vIF/aNQE2Ks+H1ECrpk2RQ6QGow+RNoYkw5HNFz0RGJ9pb9whcPUsr0GHNy5pwQjIu
+ RY7Lw/1n/9BA4+ifXydbvUM8lvy4zKpv2Bc/MvG4xU/Q5wu5+tL800g2jopXPWu3FuMr
+ iXh3slMl8PVBBQ5MOwxMGoW39PhBsUainN1T2MW6yy5hiVW14mAImCm8kMc3mJ3HWp3E
+ Xaju8F7dsSUwPO6d5RAoMdOUPBrRScXRGiyiGV/RpgPJOTBJLdd5GkAuolEvnhR/7Ikb
+ YG2iFC8OdDS/xewCSe6naY+kLPGg0SmRCX/GIT0SyK/7FVZTiuuXJ3Fc/eifkqvOHCxo
+ of5A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzS2lzw1Lfmkfa26ovUiwx66tIj/175keTOluiwsS8G1mwJ4smfwDX97ONEjIHv0oEL1X8iiOSkYog=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mL3zGmh63V4f3z+YzeAg+mre5fM3yd59mH1hyfWNOId0+7vh0S
- Pe7DltNHhuH3b/IxxkTU+bobITE4Z/pG/JJ5Zx+lPLUfqjEo+7SStaF7AM44Z1/IZj9QCz6zV07
- 8RXZJmaGtXKIQtR+DPfI+c974EsJF1+2ZvSAvfKrHkA==
-X-Received: by 2002:a17:907:970f:b0:c28:e01d:1d08 with SMTP id
- a640c23a62f3a-c2ac268a3b6mr767904866b.49.1790467402757; Sat, 26 Sep 2026
- 17:03:22 -0700 (PDT)
+ AKwUvByPomYrZQeOp/7yAwk61b3Rsb+1OiOWNoOaw4hlpVUe4dZ03vqnugjxIPuPMHSI5A3ve7rhF+xZQG4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJmjChHOk1/tdmwk7BEqkA4IHJCNhTCt2YJveJuuO69LoGShnYd
+ yuP0rb8kzVGjzg15LxIsYWrmQ4CtmkG0FRMQqq7BLv3zx6pXm3Oi+qO1FePVUmJcERfHNabVjFL
+ rfwRYk/5wU1SUcO4lLd9/TJJ4dk1+QHA=
+X-Gm-Gg: AYBFou2bwXtQeZDpqyClg7fd7ZA9PMRrBgq1t5J6fnJML90HFXkQlSJODCrg5cca2QB
+ hUKcQYjIuuoKpj0nvUvb4lwbOtd2WQVO4a0pNs6FdJUSHbC/8vkChTypKZB7qoDFpCSItt+S3TS
+ Gv9f6tPXoC6QGhK2QuGNZTtwLuhSo6e1AhWDixvVsNROxbLTP+mX0J3L6D8aHwFnHVq5TlKUgJm
+ 3M4FjShhNvr2Uvks8pqlneABAgHP7Oit/6iGsBCXz3oo78j7KYOUJiQwwhDrh5QUxyErcS2ylOr
+ qeJHZeMwWQBwoV5n1opciCEJSRaiwKRaMbbyZSbcVx+nP05FfaM2TXtj/6NyFHjWAxUnUlb2lo7
+ ji5FM9uc5uDKmljhPKAg0qK1356VwD7oQ0YI0wOxYS2bv9N8ltnT+vNZGPsDiL+GeI1h0m9XGnE
+ SwSJ47VgywOL140J836LgXS/GkZNTW6ENTFh7uw9dmsgdzxZr30Xw=
+X-Received: by 2002:a05:693c:4099:b0:33b:ee8a:2061 with SMTP id
+ 5a478bee46e88-3427169bcc5mr8229144eec.1.1790467729056; Sat, 26 Sep 2026
+ 17:08:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
-In-Reply-To: <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 26 Sep 2026 14:03:11 -1000
-X-Gmail-Original-Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
-X-Gm-Features: AclHuK-ZyMX3KOF420HwXlAK4cpZeFQwMK0gQ_EG8K18s67LKRQ8CucrkEWbQU8
-Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
- Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
- Karel Zak <kzak@redhat.com>, 
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org
+References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
+ <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
+ <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+ <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
+ <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
+ <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
+ <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
+In-Reply-To: <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 27 Sep 2026 02:08:36 +0200
+X-Gm-Features: AclHuK85J-R98H_gMYqDRew3PEoe-FlnfCLidl5BzuhsD9_CB8w0JZU5OM3YYg8
+Message-ID: <CANiq72kvkAWmJEgOathMVwuXFzUURK1dVN=OWmczykVWpSTv6A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,28 +125,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 26, 2026 at 1:32=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+On Sun, Sep 27, 2026 at 1:49=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
 >
-> On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
-> <matthias.goergens@gmail.com> wrote:
-> > The series fixes zram selftest device tracking and error reporting, add=
-s
-> > the swap policy with DRM eligibility checks, and tests routing, working=
-set
-> > activation and retained-entry write refusal. It is based on mm-new at
-> > 995829088503.
->
-> Hi Matthias,
->
-> I can't find mm-new 995829088503 anymore.
->
-> Your patch does not apply cleanly to the current tip of mm-new
-> mm-unstable, or mm-stable branches.
-> Do you have a git repo with your patch applied?
+> I think the skip-on-error default was added in a version newer than what =
+we've
+> vendored.
 
-Never mind, I have the conflict resolved on mm-unstable.
+I was going to update, so that shouldn't be a big problem.
 
-Sorry I usually need to have the patch appliable to use my own review scrip=
-ts.
-
-Chris
+Cheers,
+Miguel
