@@ -4,85 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78783C98332
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 15:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2B0C9830E
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 16:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A776010E407;
-	Sun, 27 Sep 2026 15:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B23ED10E48E;
+	Sun, 27 Sep 2026 16:16:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="gjg9eQOW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jzZ3rIWi";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A6B710E407
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 15:27:00 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260927152657euoutp01fee60fb85c8f744f5b23de099f9efd5d~ZNwQwVanT0796507965euoutp01Z;
- Sun, 27 Sep 2026 15:26:57 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260927152657euoutp01fee60fb85c8f744f5b23de099f9efd5d~ZNwQwVanT0796507965euoutp01Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1790522818;
- bh=552yr90urBhvBvN6cAihy9SNDNfGhvxsBdcKYn8Bqkg=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=gjg9eQOWA0CxY3ngNhBHqtz1JM3KKcYnvAXf1eQWIfGbzS+ettayDylBqirZGSDZ0
- 4/LXiCaTIPkLLVpd5a2xD3aFHM5RQsqbdNfRkqEjajd72YE31sUYSbxWhMeTWRmQ+F
- TWdrCd/edX3NzOp1vM2aOWlWptW3UGr6cosY45Yg=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260927152656eucas1p1473e0b9575b6efc4ccc01e99783bf8aa~ZNwPrSQNF0222902229eucas1p1j;
- Sun, 27 Sep 2026 15:26:56 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260927152655eusmtip1c51d14fba318ce4acae93d017ad71be3~ZNwOCLRV_3134331343eusmtip1g;
- Sun, 27 Sep 2026 15:26:55 +0000 (GMT)
-Message-ID: <a74ccc09-ed64-4915-ab85-232c6d953c3d@samsung.com>
-Date: Sun, 27 Sep 2026 17:26:54 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7203A10E2BE;
+ Sun, 27 Sep 2026 16:16:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C93814016B;
+ Sun, 27 Sep 2026 16:16:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDDD61F000FF;
+ Sun, 27 Sep 2026 16:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790525765;
+ bh=3adEtc4xOPxd1JaicuETuvUs/uY97IjCeup573MIdrk=;
+ h=From:To:Cc:Subject:Date;
+ b=jzZ3rIWim1fWVek/Bac0fgqQKNgqm4W7UFXEwgACbvi/rWb6cpT+OtVskY293oPml
+ Caf/KwHr0kjhJNu5zWd8tmJR4Dp4hUFLZsj860KMY7wqYluRYwpNSDM9yFWCXkwajn
+ kd0fuyYE2P97bM5JZb9toUvoE0nSp2dnpmol/QFXdtndEbTxWcqk3oBELuQBAU30LD
+ 8L5PouM2no4oSIi15G2jtmdsO3irGvXah52gJYrsB791tXitNvjus2fJJuVy66tEZs
+ 9wqeQEJwp4gEWUsOqmJxz4GsL87mszcKFU1Y92zMz+DEXIsVXW5sDC7Ghvpzveg2A5
+ gRuq+hOW4209Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nathan Chancellor <nathan@kernel.org>, Alex Hung <alex.hung@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: [PATCH] drm/amd/display: Fix sanitizer check for the DML frame size
+ limit
+Date: Sun, 27 Sep 2026 12:16:01 -0400
+Message-ID: <20260927161601.1183525-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/20] dt-bindings: display: verisilicon: Add
- starfive,jh7110-dc8200
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
- <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
- Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mfd@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, Marek Szyprowski
- <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen
- <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927152656eucas1p1473e0b9575b6efc4ccc01e99783bf8aa
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
- <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,56 +64,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Building x86_64 allmodconfig with clang fails:
 
+  .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:10491:13:
+  error: stack frame size (3128) exceeds limit (3072) in
+  'dml_core_mode_programming' [-Werror,-Wframe-larger-than]
 
-On 9/18/26 07:58, Icenowy Zheng wrote:
-> 在 2026-09-15二的 17:32 +0200，Michal Wilczynski写道：
->> The JH7110 embeds a DC8200. The binding requires an SoC specific
->> compatible ahead of the generic one, so add the JH7110 to the enum.
->>
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index
->> 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64
->> 584d959d96d90 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -16,6 +16,7 @@ properties:
->>    compatible:
->>      items:
->>        - enum:
->> +          - starfive,jh7110-dc8200
-> 
-> Note: this binding is being refactored as part of MA35D1 support
-> introduction (this SoC has a single-port DC like a DC8000), after the
-> refactor the binding string might need to appear twice.
-> 
-> Thanks,
-> Icenowy
+That config enables both KASAN and UBSAN, and should get the 4096
+byte limit meant for clang COMPILE_TEST sanitizer builds. The check
+in the dml and dml2_0 Makefiles concatenates the three symbols with
+no separator:
 
-Hi,
-Thank you for letting me know. I've found the patchset on the mailing
-list [1]. Will make sure to rebase (and fix) after it gets in
-(presumably before this one although I'm not 100% sure).
+  ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
 
-[1] - https://lore.kernel.org/all/20260918030125.315978-2-a0987203069@gmail.com/
+KASAN and KCSAN cannot be enabled together, so before UBSAN was
+added the string was at most "y". UBSAN can be enabled alongside
+either of them, and with both set the string becomes "yy",
+$(filter y,yy) is empty, and the build falls through to the
+non-sanitizer limit of 3072. Adding UBSAN to the check therefore
+lowered the limit for the most heavily instrumented builds instead
+of raising it.
 
+Separate the symbols with spaces so that $(filter) sees individual
+words, and test for a non-empty result. Only the configs with two
+sanitizers enabled change behaviour.
 
-> 
->>            - thead,th1520-dc8200
->>        - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
->>  
-> 
-> 
+Found by KernelCI builds of the linus-next tree.
 
-Best regards,
+Fixes: ebf8b0fd8508 ("drm/amd/display: Relax DML frame limit with UBSAN")
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml/Makefile    | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml2_0/Makefile | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 91465ac05c971..eb4ce5b1ecfbb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -29,7 +29,7 @@ dml_ccflags := $(CC_FLAGS_FPU)
+ dml_rcflags := $(CC_FLAGS_NO_FPU)
+ 
+ ifneq ($(CONFIG_FRAME_WARN),0)
+-    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
++    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
+         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
+             frame_warn_limit := 4096
+         else
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+index e8bd061be05c1..2181079c89d0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+@@ -28,7 +28,7 @@ dml2_ccflags := $(CC_FLAGS_FPU)
+ dml2_rcflags := $(CC_FLAGS_NO_FPU)
+ 
+ ifneq ($(CONFIG_FRAME_WARN),0)
+-    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
++    ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
+         ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
+             frame_warn_limit := 4096
+         else
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.53.0
+
