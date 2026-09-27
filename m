@@ -4,135 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EE0C98328
-	for <dri-devel@archiver.kernel.org>; Sat, 26 Sep 2026 23:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789B0C98328
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 00:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAAAA10E0C4;
-	Sat, 26 Sep 2026 23:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8009210E197;
+	Sun, 27 Sep 2026 00:03:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="PS/jPXqM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iOIJTaat";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021089.outbound.protection.outlook.com [52.101.100.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A19810E0C4
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 23:49:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NB870HHr59rv2WmBvftJvoT3Tscgs6h/7pKSd7DK011nASTIgsiKNg3y7za154R6tsiQ6uC96OBQOUmFVNddYjxPQXmrbOYce9auQ0VaDPVs6XGk3vwWRJkB+S9+plkmc3WuWLrN8YMjMchzlX2LRjevpLAyAEvfobxHpkQkadbW3/eTheqny92AvNQuBffSBHn+y0whoMilaO17+a3PZGqiYMf3IbzH+YNiA3k2m1eiFo2c6ZmbvcNPun7q8WjjP8MjeBjwl8U7buMiBJ5BmArgUWW0DIaJjmzKIMivxGp3lXSxqTdWpK9PSiETLXpr2zE3p0KR48TggnjbHrTr5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
- b=wTIqysq+YLYBvNWCEZVl2ovG3+K0v+fpBdyQpV5SgbYxdidzgAsIsNVDN58RiU8J3RwRgEx+6+wyPw5GtIhpSW8TPjQC5HM/jaPGNt4glZQxByxvHlurCieav4tg4aWGmIDhvI5YTAtXOoSipbj7u/vEMMMItvL6yGNNcmDriOoNXrKplEa57fj1wNTIB8AeEjLNxiWh2xgnGlwa57rbgWPKngpHxvL54szl9RcAsW+RHfaiaBN2puoNU3vInzADd0T3k/UbhjbPpJVtRLGU34Qrxj7yYiWVOFAtjpWbCRlWRrpreFJjAR2da73U6IlPfZUBj3mgwoz8TcOkrQKAvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
- b=PS/jPXqMnzBM/5MZcT0jaB/KP31rLiHJx0xOY7Nf1l2P2jPKIc3fk0TsvGTRrAl8nOG6igqmI7wEcaYdjDdsONpQhGKyh1qg/d6UxZvZM/XByRA4FXQIJxF+Y7aHOPJj6bFtr0bUJZIogYxqq2jHdIG9JWoEvhQS/ryPlKTZczI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB7837.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:213::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sat, 26 Sep
- 2026 23:49:30 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 23:49:30 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 00:49:29 +0100
-Message-Id: <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
-Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
- <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
- <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
- <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
- <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
- <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
-In-Reply-To: <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
-X-ClientProxiedBy: LO4P123CA0274.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:195::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 761B710E197
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF10C6057A
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71EF1F0089B
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790467407;
+ bh=dM60/lQJZNJbWoteFqu6uPH785ljbJ4v68GljKAZeM0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=iOIJTaatkNJ/Rx0KAosWsEwaSeM1/VzOcFaAXAR27F0Tghc6tEkwXrLZLSxZEofLE
+ r2Dx50NWbwE+0HSrIyUzc2guH3dCCZXbEqPI7RuyOdOfnKMteagodLQPrevjon41v9
+ Dtf9Lxy4aPDYrhMWgQCZIUG/QmvbX27bI1HhTmKKiBkbNRiXvNAyEHiEKg+u2C0EHs
+ gt5HUb5YZUq5D/Ka+Dd0RKLqtVNKcts0c9yYCa/iClMmie/d+ZbfkHElnsovKJu0dt
+ yvJoCqBPz82kyHXp7mVgU9FH9lw9/lV7+e8letvdUnQkAqw46bQ4ZX/sT/j4L+KY9D
+ Urf6jZIxQuU3Q==
+Received: by mail-ej2-f22.google.com with SMTP id
+ a640c23a62f3a-c2afd63c3e0so153463966b.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 17:03:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzS2lzw1Lfmkfa26ovUiwx66tIj/175keTOluiwsS8G1mwJ4smfwDX97ONEjIHv0oEL1X8iiOSkYog=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mL3zGmh63V4f3z+YzeAg+mre5fM3yd59mH1hyfWNOId0+7vh0S
+ Pe7DltNHhuH3b/IxxkTU+bobITE4Z/pG/JJ5Zx+lPLUfqjEo+7SStaF7AM44Z1/IZj9QCz6zV07
+ 8RXZJmaGtXKIQtR+DPfI+c974EsJF1+2ZvSAvfKrHkA==
+X-Received: by 2002:a17:907:970f:b0:c28:e01d:1d08 with SMTP id
+ a640c23a62f3a-c2ac268a3b6mr767904866b.49.1790467402757; Sat, 26 Sep 2026
+ 17:03:22 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|10070799003|18002099003|22082099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Tq7bWUxww0TDYWe3xrCRuY/ibZ2kcxB1j1EzOmfmsn8IapLhpL1OftWXq8nLUjlt3LWG7CZ3kxgQiBMzZj+P4c7tDu1vct+SItvu0i+1QHzDrdvxGCkYcHucn2HfLSqoLcU8v9oklOmU33QGX+rfXzCM3Rqv26h+DISKQkadnCanJcpZbmuGDC8LbZ1Ld4umVE5gIR+pIdiiF+G6ftLdpncoB0C5dFEMxY/PCXFhQG/G0LW3mxP3OZF5+3kOwpij+MrjaQqoofFf1Yg1WqiRsxfVOTXcY1RZ96uFMbzulJjKsW9DBNxsusSoPoMN9CT8vNS62xno+K9ABLuy2UVJX4gvVE8lsCFQqWWhbJpa3zIJ3p4hcncR4YLyqOXHLuqa2KsGkmFSPSIelorG9984XrF0VFiHyp83vH+IEpqqnD+XViBPhGV46hQ7Xjomvcu1kRQLH7/SKL2dnhIm920zlMCyq3/Ee/8Tg2wsn548kgnik1LBb99Fojnrk6Pa3SOXOO0mAuCA1ux8tSB8xZ4ucr+wn/9+hRQ6CdVCQx4wOB87PMMrU01U1kV6o74jn0BR6M+Y7Wi0YeofQSA92mzvKAzotX9nGWPIlYR0nAcwivrfOu4wu8dx5/aEUpU1DRiT6ZdeTauObgdZdt3UTJqSenhWMYl3ZpAywOo40xOzOzQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10070799003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHNtT3VmSVZtK2NCL21uQVdPd3RHSXlLTWVaMUNTLzdkY056RXp5c29BTktY?=
- =?utf-8?B?OUNYdVl2bVZJNkZMTjNDTzlOOWRZWUFlQXlPdGJtZmZmNkpJRk5vRlR2aHJw?=
- =?utf-8?B?VVpjQ1kvV0RVMUFYMWhvVWYzZzJMbTRFVFR6VGFWOHY1S29YeklLNUl0blJL?=
- =?utf-8?B?d2tUVHZtRVAxU3NSaXVvTzRid1owczYwZWlLNVF6Q3Bzb1A0R2JuWG5ka3Rl?=
- =?utf-8?B?S0pZWXE2c1lPZmZBczVhUUNOQjY0Rzk5clpsNnpzYTFyT2NDRFEwWDFjclky?=
- =?utf-8?B?bWxTU1ZTVEozTjZBVHFraHhyMm96c2E3WVhVdDhrRFpuWGhlTG01RDE5cC81?=
- =?utf-8?B?QzNTK3RTWWtyOG5NR0pzOTJqQ0NMR3NXVVFDM3lOd1NUQ1p1QVNIdDZwQVZC?=
- =?utf-8?B?WmdWVnYyWG1WdmhQRDNwVTBEVnh1SDFlampLMTFRcXJ2T2dFNmJjbGpDZnNX?=
- =?utf-8?B?VjVNVnl4RDg5YnV6dnZ0M1h3RGowRXFmVEkzbm5HQm0xTE9udlhZb1BnS1hj?=
- =?utf-8?B?cXlZOEhjR2lRYU5IV3pHZW1IeGE1SEVZalMrdGZXWS9Fc0EzTTc1d0JaS2JI?=
- =?utf-8?B?TWZOVlFqcEhHZVhNZ2lsSnFyMEg4QVVXVnYzMzhMSWdaaWtTMlkxMjZLNXB5?=
- =?utf-8?B?SmVQUWcvZ0VYdGc0UktGQkZ6NC9LOVRzTEkxNVdPNEx2VkN6OUlObUlYZlRI?=
- =?utf-8?B?TEhST1UvSU1xcC9UWFZpTVRrK2hPUjFMQ1pZdTNic3Eyd1VwdG02OThobUZh?=
- =?utf-8?B?dzZ1RHZjZ2R2bHFVVlRkY2tEUXFlcG8zYVVOa3A3VXdiUzROZXRrSTlFV0Na?=
- =?utf-8?B?SFo5K0dobFJ0SjFUZ001TGJpUmo0cDh4SkZQMnBLUVlJWk5Mb04yQURESTlF?=
- =?utf-8?B?U01MSDQrNTdrbjY4aHk4dlJHNEZTYkQ5WC9acE1HejAwVWlSK2lFTStqeXBw?=
- =?utf-8?B?MHZtZTVJUUZvelR2T21LR2R1dG0rOVhWRkw1b2VQUVhlSFpEYUI3TnFpZkpJ?=
- =?utf-8?B?QnpqckpFQVpEeVBPVGMzT2twTkZEY2VwZ0p6bEgrSEgwSVFyUldGS0szRXlN?=
- =?utf-8?B?S1JLVmkzNHN2SWdpTjEwZUVmMEVvSXRIaDE0SERPTHlMM2c0ckZvZWFnTWJu?=
- =?utf-8?B?bjNLMzI5TUhyc21makFXdWdzY1c3amx5b1FzWEdSdEs3VGlIcEdUcXRVeE52?=
- =?utf-8?B?d2p2amxyT1lSVVpya2NDQjBJWm9mNE9iM1NnYWdhNnMybVRLVU51eFpORGpM?=
- =?utf-8?B?YjF2cTg3M1NUM2E2NG5LZTVsUXJ5elY2emozWEdxQlp6T2k3N0FSdDJlOUVO?=
- =?utf-8?B?YXg2ZENqVmVNL2s3VWJldHZnQUlDQnlrbFJEZ09kZnBQRXRDWmVOQnFYUHRp?=
- =?utf-8?B?dzRvNGlhRDRPNTlrYVpRdWdySHJwNVgyK1lVaXZuNHVIb1IzY3MxYktLa2t0?=
- =?utf-8?B?NENMUEpsUU4yUWhaOHZ1RDdIOFdkWHkzQW50KzNuR2xwaXBySG5jT1RheS9i?=
- =?utf-8?B?YUl0d0M2ZjYzaUhGbDRpNmdQcE1iVUJLWEVZenB4SnVIVTE0akp1Z1IxbTB4?=
- =?utf-8?B?clNqZGE0NXZDQzNzKzNMZTRSejlxM1Q2NlVlSm5nYjJnTFFQckxSdWxINEVE?=
- =?utf-8?B?d0R3UmxhR2RaclBtcVIyNW1tKzFoWWl5bjlSb2htYXQwWVFyTmpvakhZdzU5?=
- =?utf-8?B?TDlLRWYyMDlWakVsOVJoSzQxUDRtWGk2RENuSktpMzVKYnE2ZFVLbzhxN3Y0?=
- =?utf-8?B?dUdQM3V5S2o4Z2hwcXNSeDJsSjFHQ1VyemhKYnpSa21NTUt5SnBFTllQMFVM?=
- =?utf-8?B?OFNVd2VoMEpPWEJnbTY0SVZRbXRSVEc3cXdDd0dGUWh4blpsUlAxdEloTDJ4?=
- =?utf-8?B?YTI3K3VIbGVaRHFlWEFiTWRVYStrRGRQWlkwWElYWnNPeUs2RWczWFJXKzU3?=
- =?utf-8?B?RXo4RHIzM044SzNUTTJhVTg3R1lIOG8rNDZoV0F6RnZ5bVdRejh4WVJwQ2U5?=
- =?utf-8?B?aXpoR2ZSZTRWQUJ0dkhVSE9EbUtiVDdBZTZUUlcrc056WlFHT0U4L3FpUWs3?=
- =?utf-8?B?NUNZWjRQQ2g5WXpoWXN4T1FaRVJMNGVCQ2xNUVFQL0FkdEpKQ3BUa2xFQ2x3?=
- =?utf-8?B?a0s2MlpIL3JrWFBGK2w4OHhIVUdqVGJ3Nnk1NThqRGFmOWJXUUFrUjRhWm4z?=
- =?utf-8?B?OTQxYnZJSTVpYndScFJvZnlLMlptU1hMWGhJRmpuZXRCMG1HRmhkVjZQOGRZ?=
- =?utf-8?B?L2d4eXFuWjlhYkZTLzBYdzJIYlFQa3Z6UzNmbGZ5NzYybDl2bWpHQ1J1L1p5?=
- =?utf-8?B?aVNmZGxCeVJCeVh5UkRuNnRkUWNGNWdKV1I1UDB6M2NhZndacmRTQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 23:49:30.5533 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TGWq5dZRzRPyyD8SSGtNHRhq8P1/7aHz89C2ToZF1uM4wFwYGEfOPShumUx62fTFqckj36fu7a5O5IXszlc7jg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7837
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+ <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
+In-Reply-To: <CACePvbWPLegjMtF4jYN4+_1ZeoEuBHwZuwNyMpYwPZaA0edO5A@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sat, 26 Sep 2026 14:03:11 -1000
+X-Gmail-Original-Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
+X-Gm-Features: AclHuK-ZyMX3KOF420HwXlAK4cpZeFQwMK0gQ_EG8K18s67LKRQ8CucrkEWbQU8
+Message-ID: <CACePvbU_6o_9fEFU6TJ9VaZ=4yBsDG5qXcxFkrGHBSD69m5ZXQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
+ offload
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
+ Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, 
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,38 +91,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Sep 26, 2026 at 10:38 PM BST, Danilo Krummrich wrote:
-> On Sat Sep 26, 2026 at 10:59 PM CEST, Gary Guo wrote:
->> On Sat Sep 26, 2026 at 5:26 PM BST, Danilo Krummrich wrote:
->>> On Sat Sep 26, 2026 at 5:50 PM CEST, Gary Guo wrote:
->>>> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
->>>>> @@ -71,3 +71,6 @@
->>>>>  # Structs should implement `Zeroable` when all of their fields do.
->>>>>  --with-derive-custom-struct .*=3DMaybeZeroable
->>>>>  --with-derive-custom-union .*=3DMaybeZeroable
->>>>> +
->>>>> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
->>>>> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3Dzerocopy_deri=
-ve::most_traits
->>>>
->>>> This is Tyr specific change and should be in patch 2.
->>>
->>> Why list all of them separately? Can't we apply this to all uAPI struct=
-s?
->>
->> There are types with paddings which cannot derive `IntoBytes`.
+On Sat, Sep 26, 2026 at 1:32=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
 >
-> We have some existing uAPI structs without explicit padding; new ones sho=
-uld use
-> explicit padding though.
+> On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Matthias Goergens
+> <matthias.goergens@gmail.com> wrote:
+> > The series fixes zram selftest device tracking and error reporting, add=
+s
+> > the swap policy with DRM eligibility checks, and tests routing, working=
+set
+> > activation and retained-entry write refusal. It is based on mm-new at
+> > 995829088503.
 >
-> But isn=E2=80=99t most_traits intended to handle this through best-effort=
- derivation,
-> leaving IntoBytes unavailable for types with implicit padding?
+> Hi Matthias,
+>
+> I can't find mm-new 995829088503 anymore.
+>
+> Your patch does not apply cleanly to the current tip of mm-new
+> mm-unstable, or mm-stable branches.
+> Do you have a git repo with your patch applied?
 
-I think the skip-on-error default was added in a version newer than what we=
-'ve
-vendored.
+Never mind, I have the conflict resolved on mm-unstable.
 
-Best,
-Gary
+Sorry I usually need to have the patch appliable to use my own review scrip=
+ts.
+
+Chris
