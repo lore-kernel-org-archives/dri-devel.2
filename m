@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09854C98324
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 04:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A612DC98324
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 04:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7CCC10E0C2;
-	Sun, 27 Sep 2026 04:19:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28F7810E0C2
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A9F010E0BA;
+	Sun, 27 Sep 2026 04:29:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2E810E0BA
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:29:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0060060120;
- Sun, 27 Sep 2026 04:19:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F241F000FF;
- Sun, 27 Sep 2026 04:19:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 05614437D1;
+ Sun, 27 Sep 2026 04:29:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9A11F000FF;
+ Sun, 27 Sep 2026 04:29:28 +0000 (UTC)
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: put GEM objects when dropping a vbuf on unplug
+Subject: Re: [PATCH v2] drm/virtio: drop the dedicated vbuf kmem_cache
 To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>
-Cc: virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>,
- dri-devel@lists.freedesktop.org, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
-References: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+Cc: "Eugenio Perez" <eperezma@redhat.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <20260927042035.19956-1-ngocthang2710.1999@gmail.com>
+References: <20260927042035.19956-1-ngocthang2710.1999@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 04:19:10 +0000
-Message-Id: <20260927041913.55F241F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 04:29:28 +0000
+Message-Id: <20260927042928.9C9A11F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,37 +44,36 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter() fails
-> or when vqs_released is set. It unlocks the reservation and frees the
-> vbuf, but never releases the references that the caller handed over in
-> vbuf->objs. Those references are normally dropped from the dequeue path,
-> which never sees a command that was not queued.
+> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+> "virtio-gpu-vbufs" for every device and destroys it from
+> virtio_gpu_release(), which only runs once the last drm_device
+> reference is dropped. If a reference outlives the PCI removal (for
+> instance an open /dev/fbN), a rescan probes the device again while the
+> old cache still exists:
 >=20
-> If a framebuffer flush races with device removal, the GEM object backing
-> the fbdev buffer keeps a stale reference, is never freed, and its node is
-> still in the vma offset manager when the drm_device is released:
->=20
->   Memory manager not clean during takedown.
->   WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown
+>   kmem_cache of name 'virtio-gpu-vbufs' already exists
+>   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
 >   Call Trace:
->    drm_managed_release
->    drm_dev_put
->    virtio_dev_remove
->    virtio_pci_remove
->    pci_device_remove
->    remove_store
+>    virtio_gpu_alloc_vbufs
+>    virtio_gpu_init
+>    virtio_gpu_probe
+>    ...
+>    pci_rescan_bus
+>    rescan_store
 >=20
-> Drop the object references together with the vbuf on both early-exit
-> paths.
+> kmem_cache_create() then fails and the new device does not probe.
 >=20
-> Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dd93b9064fe5f74af3aa3
-> Fixes: b7170f9457f2 ("drm/virtio: return virtio_gpu_queue errors")
+> A vbuf is 216 bytes and lands in kmalloc-256 anyway, so the dedicated
+> cache buys nothing. Use kzalloc()/kfree() and drop the per-device cache.
+>=20
+> Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D1b129b44597a126d2d79
+> Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
 > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927040655.1453=
-1-1-ngocthang2710.1999@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927042035.1995=
+6-1-ngocthang2710.1999@gmail.com?part=3D1
 
