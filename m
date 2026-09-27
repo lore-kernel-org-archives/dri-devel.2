@@ -4,89 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B441BC9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EBB2C9832F
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9D810E674;
-	Sun, 27 Sep 2026 18:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C4010E676;
+	Sun, 27 Sep 2026 18:26:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="RaEWhoQ7";
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="G3587KgM";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="E+GiLypT";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="CbR4xp28";
 	dkim-atps=neutral
 Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com
  [148.163.150.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12FB710E674
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:26:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7385C10E679
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:26:09 +0000 (UTC)
 Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
- by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68R8qHcN3707378;
- Sun, 27 Sep 2026 13:26:02 -0500
+ by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68R8pbgn3706250;
+ Sun, 27 Sep 2026 13:26:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=
- proofpoint-05-2026; bh=dg8DtLXHvDQpJJr0G8Yvu35JsAsXg1SiOlpe3Gy/7
- Jc=; b=RaEWhoQ7K1EzVyU/zbI4+t3sjS0rPN1ATLUUEH1CeWHil6W6S75YXyEpl
- gk6+sBsWRgHHCuFR4zN1kTsdyblsIAtvu4gW3hb32f/35nGi5PnWvnMHRMrF/7UR
- YZ+6Jy8sqM4MHp238yHyHLHwcL7jJYPwQpOBd/PYwHGjQtsNeJnBpif1HnvQmP5u
- jdaNMgSovMdsTth1F57ybcVhEm0K0xG3n+hu+BW46UxOdha8CFkB1otiSu1zrtSz
- YKH5rhuB7T4QB37IiYbiLc5BjqG1vuNyHObTiG0Sea9mgMOiqbudK4OiavCSi2X9
- GrLSGj0k+IxQJ+YrvafHWY4/8/lkA==
-Received: from ch4pr04cu002.outbound.protection.outlook.com
- (mail-northcentralusazon11013002.outbound.protection.outlook.com
- [40.107.201.2])
- by m0384305.ppops.net (PPS) with ESMTPS id 4gy00n9hsn-1
+ proofpoint-05-2026; bh=ZhbZ43vVGnvQ0IYCxKWBLDtdACiVcvnqbKjQMbMxL
+ n8=; b=E+GiLypTKY0V3GvQOqjsVLUcpsMlO1tp2l8MgZBknwkDvqKbscpEvs5JW
+ p44tably5bfo8fJl6HC4RmxaGelDIcKc7dQ6sR1KMhu6SGyfjQqFo98pre770l/S
+ 9NjBSUMtGymP9pSN0ktTME/yaekFPHCjZ0PcljV9s6ykJr6DBsGkmZWiF5ZFXjoM
+ havN8j6XVEqd6cxCLON1yMHzMFjejTLveqEJDvoyY9h4Cnf4sOx3RAG7Q+skA/z/
+ kJmmK36HTl91LQ6xnZn7CsOl41MPQ5QM9EfJ0S1ZCeknfnh/Yx0PLLuR+7TINox6
+ QrXw/Ivf00vEZnxQaPGCL6PysD8qg==
+Received: from mw6pr02cu001.outbound.protection.outlook.com
+ (mail-westus2azon11012019.outbound.protection.outlook.com [52.101.48.19])
+ by m0384305.ppops.net (PPS) with ESMTPS id 4gy00n9hsr-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Sun, 27 Sep 2026 13:26:02 -0500 (CDT)
+ Sun, 27 Sep 2026 13:26:05 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NXK6+yE3prKNqYeS1AXCDnUHwq+buDtEQ2VFz58P7wp2qCHR4cht+OT/FgmSn2O4GuHjkZMNa9gSIuD0SLR0IBMT0LP1LpKlFIPNd0ybEzpVI1eIIAfn9nMOHncDzBIXrWVXO+TIwo177dFPN7sV1dVHln9hF1jppFgxhOoruqryoIzhHIq2Dotox31T+aSGjFc0kcA7lNBAbiA6uPXJO1N7N9BOyJfR78rK5BJrHDZZSBSEOxze+r9jAlCefSpUdSULmqhsEMV5cURAUh1/VyuH/DaEW/0Ndbdd1tbMNFkhNh2AG0ab89bkhYOJdOVFGXVDdAlqopl6hq8Vw8Dfzg==
+ b=MS/fDUk0j2akcYWMub+XGrNT5BfkWeubWbQX4vizD5n00AhJgvHodrdBuac4bKALXWRq1dhDwbBbIFe63XmDdvsmTQ79i5kxccO1y8DL4i96YRyUSnQcLhTNN6p8JPbgRlj65tmLFW3ITEZSTOPw2PzCAmmQeWkrEg3EoMYmVNG+tLlWNiSGCUnSyjtrwzds9uJrVHNBtHl93B7EsNQFy9nn/lMNg+sEEZKypw9vVaQIwsEgVY3ZlEuqmxzkDQ+Yj4KnTo83Iu+Y69q1cVk+JvL5rth6hQAgMOKFc+z/RcgzARejxXhcjJ9rllfDq325cYY/1gQArf462NnuQDUTCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dg8DtLXHvDQpJJr0G8Yvu35JsAsXg1SiOlpe3Gy/7Jc=;
- b=JXdVFoIpxtNV9h4jAcM4MUptXhkVkySQME3pQWKZ9Ct+YS7fmBlCwpeaMhblRdzFXF5LLmB/HzviPOE/Ihof3vhMzSV6BI7utYYwdgZ7vcbdvMoQ1W5sjuCkrXZ1izEus0ZcqID89ETWqExyrjGRZSg+CisO7ekdTw4ECCl7AehYXKk5wM27Q/leqEdD74TLid0fTuvGxDspzyMhvCp4q1w0UyZs1XuV06/HxGF8bR8hG4niVqYJieGIOXjdw0QAr9t5DPDCCK9rQ1qFeRvkYbF08yvKRMs//QcuwuM1K5nc9tqgSWl6ZD2dN1TC+9OJTlsTbRZpTub1qFbcl2YowA==
+ bh=ZhbZ43vVGnvQ0IYCxKWBLDtdACiVcvnqbKjQMbMxLn8=;
+ b=K7FFBuft4PPK3mOg9+ZiggRWSYSlLbJSWORjiuMxf2tM+TD79rZZUClSHc/Izms/fQYfUJbC9qyB0F4LMzAcfnF2PR4YJRsSRSa1OVZF0ch/+NpvHpfA+B5378EgAHxl0K4vyFQRJC39vk0BQWauBNJnOFcAvPHXyJLgRrxXZI26NtY7cymfg8rcnIlOYpoUMnOMrmRPYtJQM3fGAVMcamIc/Qqz275xaVGtzvB/Z4kLshXU2q6NyokD29g9kBJvmO0/xxaO8a4qMVHZUT+xhgPj8sWQbaVYWbFwoTb2Kasm5AtH3mQtl+negDgm2xJAEWD94EpdlIMgDBgi0I7bcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dg8DtLXHvDQpJJr0G8Yvu35JsAsXg1SiOlpe3Gy/7Jc=;
- b=G3587KgMp1gDqWU96QWsfRu4tjT8PLhI5yrltASjC8kIo20+TYSHM0bjof1Qe/zvjmZxHrEZUaGihI8T/3lKpQiauC4gjZmVPCc7WLKv+ewJykbfbPkEQhRhsltEwAMGTvEveEurSUuVFkAYiq9lWeso8Cng60f7J5VKrEd5llE=
-Received: from BN8PR04CA0064.namprd04.prod.outlook.com (2603:10b6:408:d4::38)
- by SA2PR10MB4538.namprd10.prod.outlook.com (2603:10b6:806:115::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Sun, 27 Sep
- 2026 18:25:58 +0000
-Received: from BN3PEPF00022BBF.namprd04.prod.outlook.com
- (2603:10b6:408:d4:cafe::8e) by BN8PR04CA0064.outlook.office365.com
- (2603:10b6:408:d4::38) with Microsoft SMTP Server (version=TLS1_3,
+ bh=ZhbZ43vVGnvQ0IYCxKWBLDtdACiVcvnqbKjQMbMxLn8=;
+ b=CbR4xp287cp8tSPPjSm3CLjY40giiPjgEYMiPVanz6fXiLMgO9mJduUqxmVZiXc9mfFq2lIUkM0WOHdoiDNI7XFy2dSc+tj0VH8u/J2Rnqbk0TKS8n4duL6V8MZGzVZA7pI+lnapro2HxnYZAzTlbxPQnzkuA8o06DWTFeQdK6Y=
+Received: from SJ0PR03CA0270.namprd03.prod.outlook.com (2603:10b6:a03:3a0::35)
+ by DS0PR10MB6271.namprd10.prod.outlook.com (2603:10b6:8:d1::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sun, 27 Sep
+ 2026 18:26:02 +0000
+Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::9a) by SJ0PR03CA0270.outlook.office365.com
+ (2603:10b6:a03:3a0::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Sun,
- 27 Sep 2026 18:25:58 +0000
+ 27 Sep 2026 18:26:02 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com;
+ is 198.47.23.194) smtp.mailfrom=ti.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN3PEPF00022BBF.mail.protection.outlook.com (10.167.248.121) with Microsoft
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Sun, 27 Sep 2026 18:25:56 +0000
-Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.496.3 via Frontend Transport; Sun, 27 Sep 2026 18:26:02 +0000
+Received: from DLEE211.ent.ti.com (157.170.170.113) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 13:25:27 -0500
-Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:26:01 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 13:25:27 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:26:01 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 27 Sep 2026 13:25:27 -0500
+ Transport; Sun, 27 Sep 2026 13:26:01 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68RIPQwJ1629628;
- Sun, 27 Sep 2026 13:25:26 -0500
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68RIQ0eH1629989;
+ Sun, 27 Sep 2026 13:26:00 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
@@ -96,60 +95,61 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>, Devarsh Thakkar <devarsht@ti.com>
-Subject: [PATCH v2 07/14] drm/solomon: ssd16xx: Add power management support
-Date: Sun, 27 Sep 2026 23:53:22 +0530
-Message-ID: <20260927182329.4193961-8-devarsht@ti.com>
+Subject: [DO_NOT_MERGE PATCH v2 14/14] arm64: dts: ti: Add AM62L3 EVM overlay
+ for GDEY042T81 e-paper display
+Date: Sun, 27 Sep 2026 23:53:29 +0530
+Message-ID: <20260927182329.4193961-15-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20260927182329.4193961-1-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBF:EE_|SA2PR10MB4538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84bac5d6-4ede-40bb-8971-08df1cc4c5c9
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|DS0PR10MB6271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 841cd43a-7dcc-4a94-dffd-08df1cc4c96f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|82310400026|23010399003|36860700016|921020|3023799007|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 23+2qvapidDbL9v2ZpLmnP7AVTtBpkAUWH5BhJEkeRHMSsPx0MC2oHG0Hm0pt6f7c13wqoPTx6RtyAfFHwf0Q5k/QQFzkoM6w2udDb7JZVPu++4s5D9cAdUb7NRi2Xf0NybHSskACpCJYd017Lcme4aYBsxrv7KpYnFJJoyRcysYaMKHFBQJ2M4iy2PRiNruIaL2n5BdYp4YPfpLOCM2lYoxbSSCwoXUCI3smIeb3AeZpPrTG+jLobxtY83k6j4DBLnOppQoBgJLlMMmk4H9mCTpB0UBa7fRYVGsRjxlw8nCtDBmb0AsbofTI0KTW6bqkl1CLDtyUIFCix3GWjfTLk1it7HAWErkDSklECtUF10Gr3GrWF67jxbDf5IK6mATU11oMRHd/JJ8by4PPfgn+PbT6HK03wRRv8898WFH+VVSiOBJ1ji2ezpB1DwpDh+lyD0F/NsmmvY4Tt0M699xGEO7vwG67gRIb6sh9lAK9Iy2zMrNlYCma67BfXTGZadBBNAJnPhTFWFVzQrYKq+gzhoa3VC7Duwd9VWMlUlKIiUmmo5sMh7q0HsD4A59jWfMQkU0DxnK5jUf66O4qVmZVGe8PXOfZJ7Gw53zApwHRIQUgYazA9aAgtj49xcxIOHh5A3j8uVshMxmqsOeuGoOcWMN1Cqt3hTw5AOYCyoivTXwJ2VfSDaHagAmPjnQAHCCXWgIn1hJiukuaC9GsAR6hlYkRLtkGPyjXtwuLqi07ZwM1SmTChIU0E01XPV2/Gr/
-X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(82310400026)(23010399003)(36860700016)(921020)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);
+ ARA:13230040|36860700016|82310400026|23010399003|376014|7416014|1800799024|10067099003|3023799007|22082099003|18002099003|56012099006|13003099007|921020;
+X-Microsoft-Antispam-Message-Info: Ejf3/oUfDELw1ssnpd4uO0FssPBns944NhKuzOv41PJ5goHg5mZhWC6Mbq57KMSZ56lZHwNbIqDP/oSgAbLMx8y9JbUiO/oB3vN03/8HAk8D6J8OlnxP6dqaN/k4RPtUyf+KQANmCkpPMfmkePUFOrpOMNN9SRYW+27roqg6hpTK7dl26W1ReF6hhDFVDJa3EnoTg8/K+q7hOwRCZKtTduAp8WbDY/dO3zLzloQlOsW0I2DUT/7A3Gm0ZQgOslAwjLeTbhRV+KsBSsmjL/ayScF01Cgb9p39hf86uiBfSj1oOahaGz4kFvMpNJqys0YLpUH640EDsw7OYrqmrAvo1kldOc0EwHD42+1pDxtgfooCdnAGPgjqdjtafZPCYT9djxqLBn4ICqRgUdXsb8/AfwuAzf4yZHlSyp78tQV6/6BNuBHsdqDvWleb7W6xuslDZLCMBfu2CV0ecfzcvaaJEyi8B++MxhaPhun5wYBk70Qyp3WPFcmmPh6xzGpBMPFaaYh97YqpCfvIB0vrB5wr85P3wzcCmLxbICfKAvP8TPPDYBsakkT2rdYtQ9dny+5PAJb7JLu5oljDuGH2kGcBd6L0z/ETsQr4oRUgTHV9HRsy7nXOh1ORm910H5027CfHcMae28g7CZhxTxbNI9ncHA83sbrNYlMYMoLoH0LISGp4EQ4LuQE2Lo0kYQyaYred
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(7416014)(1800799024)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(13003099007)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CPulLVjX0PJ2hL+Ff6ZlOqRSAtIj8tsK88aG2rX1ITGCpX4JpKclALmMqgqtLQyVW2IYbCWNqWZAbb64aUNiUuBSjv5N0xUNuWsQufICoMkt0Wqi9xJDzVshehErFu5yE4O9kZJ3lKr8XuUSE6lNA9SHtBM3D002aHqDXfOMQGoJe4pGPo6dqQnDXhMLF50cveA+5zlKw0Z/O9EjyX0KcY6e6v0dqXVOKdqg2l9GGRHb01PUTgkZyncUnrGWursuttlS3V4vPF9fGbZsLHEM7TQgggS/LCRpUrGkScp+LIU6vsUXniQHDoZu9SubsmJVbEGgFBLpPyat4pcac7PMGtdSQy6mS/fFAN3g9Pw3M/ULPpMgsD6ncqpP2X/r011qGkKQ4A+rDiyEWEWqyWCxLpgQS5oqkLtoFE9liRj2VB+omd8B48hSJU2J6E4QTb9E
-X-Exchange-RoutingPolicyChecked: t8NfF9ICdYpKLt6+NHvARv7cPQWc/fx8Wo+kUAwcr3OFGBldacG3fm9yys99gjHuma4QT17zTTJ+qA4nVxp+a8DiOV1wb6cIVdLGC00F9jtxNiGxXqh18XGrQSrX6roxRLwr19jLvzQSyDsaSK0lC1DnHjju+MA0aloxlTo/K6Vytm+eDAiVlU6dPRfVkjaK5/AXkD9kKXMzojGiHA74EJkIIl7bzWrJNPy6utRqZGXrIitVK11MpRBV2rhTrlBCQI7SIjeamHD0uuRyAdiB+ueWYSZl2qZcc+A24mA4LhiFxjOvoXGORwKC9V6PIsDfl29aGTsMQIsA7ESI3eDWHQ==
+X-MS-Exchange-AntiSpam-MessageData-0: Im3EdNvcFuZsbWwEMS8nBcVhQq9y0s4nMrNIQ4b00bXkI3djMKaDC/kt/e5/tFLu08nHn5G7euas7ZfwX4WnQbsAP58f4UqZRMVEsoaEfj2zyMaJ9QB3iXKWJ0RNYFbXIJflmR3maRjnHSXpJ52c4tvJJghJuznEJvNGRzYozkeGuxFMZU0vCb9ZQHmWgmbY0rJrKgWj5Agftoy0bH6ECsgoPfQ20XSCwTY158BUPfhaJ4+3bNQJqTGacia9QzseprtjtT+0bDglymbu6OXvSxxy1AmoZ57bmkTzKUALKG1hPsArUrE8TCq5xUWR4co0va63WX6dru9zzVWFonbxTTLl87o+vqitSXyA7BDVWFcI/Dl448y8YFO5vE/PBqtUuUBCJjZo/AUQ2vzjgB894Z9fD9us2r5KxSVfLV+/xZi+Lo8dopk/Ouq67AnWWj4v
+X-Exchange-RoutingPolicyChecked: kgFmvqvO1yFE59oMTHFiFVa0/RLZ1EtlIZKqm8oyQO/NtYIwJvf3a0Ha4psRCD7Vnfa0S3ecw1fzCZWS2Qw1bKdQjS6XRSxFqNzHIuNWKS1ofxfH897Ung+AXj9ldc1Vb0hF1/EanDx+hWWfNKWU5/rvOadq1gd3J1U+zbi9Sq5dq8cUAiI9tgXtDv42T+lagaqgE6sYfyexsWvL4xXmUZUazoTbh3V6GiO7SD8rQnaq6DDzc5ML6U3o8O428kl+zsssUIecsmPfTaoq6VF3xKLeAzhEtIqawbgkkhA0zeDM8IRBCTpYdqQ9MRbhwL2F8a7ylxt7E7lBsgYVITO1DA==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 18:25:56.6239 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84bac5d6-4ede-40bb-8971-08df1cc4c5c9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 18:26:02.7341 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 841cd43a-7dcc-4a94-dffd-08df1cc4c96f
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
- Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BBF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4538
-X-Proofpoint-GUID: gMh6Ae00mOupYBNPik8OMURIcrtzFnWt
-X-Authority-Analysis: v=2.4 cv=fKysTpae c=1 sm=1 tr=0 ts=6ab95fba cx=c_pps
- a=uYXQfM3GD41LpGGBCGkGnQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6271
+X-Proofpoint-GUID: cjHZg9Dtf_k1KFfTxp_cZyrslmwRdHQv
+X-Authority-Analysis: v=2.4 cv=fKysTpae c=1 sm=1 tr=0 ts=6ab95fbd cx=c_pps
+ a=rwqFklNBBe0PgClOpsUSJg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
  a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=qtjW0_A5QSDpLcJLBZoA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: gMh6Ae00mOupYBNPik8OMURIcrtzFnWt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfX6ZamKgH+EhjT
- ZeshNlMqzW8KS42M5GbWuP5DDWY1bMG29AKfiO5FpF6ixc78zYqxLNFfJhkkVDW0l1crKSbD73Y
- FU4zM0t2/29HJyLF1uPirdrrz/pnUIM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfX/VYVc2kmXJEp
- lUXIgXPqbb4deCHvFVpI1r13L5v2XvonO22ijXAV9yX4D+4mjW3g9ERHpLFT16eI+NDviYO5DRB
- QPp/lVx56Us3VjWEVedX9pcW0YP3OMXXhD6QvoNB8r3eJB54morGAZ9N1Amjq473NaW6zzf0a+y
- tsFZ8Wxvwa5qNBGoQXxs0APsDqcK/Ld6KKWXv78p89u049d8zoBKE91X7+ucPi3j67x236WCT5o
- HSgnhkPpJPzhsYvd4w8PAIhyFnvqFYYXL1VloH03rYc8jUXbpNHDHtTycGlb9CjvEnAZynSt7GU
- UOHi/DYJRW6GlzNLBI8X5dgB4I/2CLvbdpe+P5q/MxIL6ZITRpdW9vCTsHFPHKdiE8CNW+cyqnx
- RZTHr9c7v9bET/NVzJxbWVK5KEBEIUW9NZNXedeT+Q8pGHrAGbbBh8A5+pGEYOAZOLL3w12fSJh
- gSnkE832f9RnmSeqklQ==
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=zmbZ_4TfkIE7zwaIlw4A:9
+X-Proofpoint-ORIG-GUID: cjHZg9Dtf_k1KFfTxp_cZyrslmwRdHQv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfXxu5gk8p19UIs
+ TtCQYehj7RDOVBCn2N0zZowQUJcxBRRhChWLby8whZIwUXp3YS7dV+hJ9vFhnY1mlfrJ3uVEl/i
+ t8adCx3F4UJExHCjtCB7orPlGJhOpmw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfX8lqXjB/fixJc
+ fDO4hxiW/T5TsLmObaY2CxXjJ2TC6TjiKM15gITcmkZO0eWqjPk+4rQIEoglevYUB7vQmuAfU4Q
+ gO37KZPilUi6fb97ig5U1r7WW10ZxuaNCLNx4UBn3xP4zBCTlBiRV64H2+TpePIJxkcl1lmdE7b
+ 6FSupGIMcPeoJhtLnhGY4Tc1RWIVrvODirij/Z+YFYCOPrzWeLkMa1+m8FbIi7BwE4HJE3GnvGm
+ GHX5JlaNyodN5tcMFCl2oGR8QBKrCJDJe+7gl1hLRNITJD0YSWJjfvHFzO32xDdnk4TEwwpTRko
+ xgBM0dZ79N0xQKbrsJ12dYjQa7Wt5UEzbc7fQZ7PNyi3pd/VsoihDn6Uaff2UR208iaO56Sq9PP
+ 6IpP1N+wKLiQ2q80P+hml+LducqbvuBLx9tfUJfmOixY0xcF08vHjYsgxbykl3WbGuu6NbRt2Rn
+ kakNW89Q7/08NVnUD3w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
@@ -173,422 +173,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add runtime and system suspend/resume power management to the SSD16xx
-e-paper display driver.
+Add device tree overlay for the Good Display GDEY042T81 4.2" e-paper
+panel connected to the AM62L3 EVM via SPI.
 
-Runtime PM uses a two-level deep-sleep strategy:
-  - Level 1 (runtime_suspend after 35s idle): light sleep with RAM
-    retained (SSD1683 mode 0x01), allowing fast resume via SPI wakeup
-  - Level 2 (system_suspend): maximum power savings (mode 0x03),
-    requires full GPIO hardware reset to resume
-
-An autosuspend delay of 35 seconds keeps the panel active across typical
-userspace update bursts, avoiding unnecessary deep-sleep/wake cycles.
-
-On resume from level-2 (system suspend), the driver must fully reset
-the panel via HWRESET (the only exit from deep sleep since SPI is
-inactive in mode 0x03), re-run hw_init, and redraw the last frame.
-
-For SSD1677 where level1 == level2 (both 0x03), the system suspend
-path skips the redundant "upgrade" since the panel is already in the
-deepest sleep state from runtime suspend.
+The overlay configures SPI1 with the SSD1683-based GDEY042T81 panel
+at 2MHz, with reset, busy, and DC GPIOs connected to MCU GPIO0.
 
 Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
 ---
 Changes from v1:
-  - Extracted power management features into dedicated patch for improved
-    code organization
+  - No changes: Minor improvements to DTS overlay structure
 
- drivers/gpu/drm/solomon/ssd16xx.c | 240 ++++++++++++++++++++++++++++--
- 1 file changed, 225 insertions(+), 15 deletions(-)
+NOTE: This should only be merged post driver is merged
 
-diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
-index 93fa064cf589..6255f434248a 100644
---- a/drivers/gpu/drm/solomon/ssd16xx.c
-+++ b/drivers/gpu/drm/solomon/ssd16xx.c
-@@ -12,6 +12,7 @@
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/pm_runtime.h>
- #include <linux/property.h>
- #include <linux/spi/spi.h>
+ arch/arm64/boot/dts/ti/Makefile               |  6 ++
+ .../ti/k3-am62l3-evm-epaper-gdey042t81.dtso   | 96 +++++++++++++++++++
+ 2 files changed, 102 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 795978e962ee..90e7a687ca86 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -82,6 +82,9 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
  
-@@ -39,6 +40,7 @@
- 
- /* SPI command codes (common) */
- #define SSD16XX_CMD_DRIVER_OUTPUT_CONTROL		0x01
-+#define SSD16XX_CMD_DEEP_SLEEP_MODE			0x10
- #define SSD16XX_CMD_BOOSTER_SOFT_START			0x0C
- #define SSD16XX_CMD_DATA_ENTRY_MODE			0x11
- #define SSD16XX_CMD_SW_RESET				0x12
-@@ -52,6 +54,9 @@
- #define SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER		0x4E
- #define SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER		0x4F
- 
-+/* Runtime PM autosuspend delay (ms): keep display active across typical gaps */
-+#define SSD16XX_PM_AUTOSUSPEND_DELAY_MS			35000
++# Overlays for AM62Lx EVM
++dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm-epaper-gdey042t81.dtbo
 +
- /*
-  * Data Entry Mode (command 0x11) AM/IDY/IDX bit encoding (common).
-  *
-@@ -245,11 +250,14 @@ struct ssd16xx_controller_config {
- 
- 	/*
- 	 * Deep sleep mode byte values for command 0x10.
--	 *   deep_sleep_mode_level1: lower-power sleep, RAM content retained
--	 *     (MODE_1 on SSD1683/SSD1680; used for runtime idle / app-close).
--	 *   deep_sleep_mode_level2: maximum power savings, RAM may be lost
--	 *     (MODE_2 on SSD1683/SSD1680; used for system suspend).
--	 * Chips with a single sleep mode set both fields to the same value.
-+	 *   deep_sleep_mode_level1: used for runtime idle (autosuspend).
-+	 *     SSD1683/SSD1680: 0x01 — RAM retained, minimal wake latency.
-+	 *     SSD1677: 0x03 — only one mode documented; RAM may be lost.
-+	 *   deep_sleep_mode_level2: used for system suspend (max power savings).
-+	 *     SSD1683/SSD1680: 0x03 — RAM lost, full re-init required on resume.
-+	 *     SSD1677: 0x03 — same as level1 (single sleep mode).
-+	 * When level1 == level2 the system-suspend "upgrade" path is skipped;
-+	 * the device is already in the deepest available mode.
- 	 */
- 	u8 deep_sleep_mode_level1;
- 	u8 deep_sleep_mode_level2;
-@@ -367,8 +375,10 @@ struct ssd16xx_device {
- 	bool init_refresh_pending; /* First frame after refresh_mode_init enable */
- 	bool first_clear_done;  /* clear_on_init has already fired once */
- 	bool display_cleared_on_deinit; /* Avoid redundant clear in atomic_disable/master_drop */
-+	bool pm_force_suspended;  /* pm_runtime_force_suspend was called in pm_suspend */
- 
--	int orientation; /* Display orientation in degrees: 0/90/180/270 */
-+	int orientation;      /* Display orientation in degrees: 0/90/180/270 */
-+	u8 deep_sleep_mode;   /* Deep sleep mode to use on next disable */
- 	enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
- 	enum ssd16xx_color_mode color_mode;     /* Active color mode (BW or 3-color) */
- 	bool fast_lut_pending; /* LUT pre-load needed before next fast refresh */
-@@ -1425,11 +1435,16 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
- 	struct drm_rect rect;
- 	int ret;
- 
--	drm_dbg(&device->drm, "plane_atomic_update: fb=%p, initialized=%d\n",
--		fb, device->initialized);
-+	drm_dbg(&device->drm, "plane_atomic_update: fb=%p\n", fb);
+ # Boards with AM62Px SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-var-som-symphony.dtb
+@@ -319,6 +322,8 @@ k3-am62a7-sk-csi2-ov5640-dtbs := k3-am62a7-sk.dtb \
+ k3-am62a7-sk-csi2-tevi-ov5640-dtbs := k3-am62a7-sk.dtb \
+ 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
+ k3-am62a7-sk-hdmi-audio-dtbs := k3-am62a7-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
++k3-am62l3-evm-epaper-gdey042t81-dtbs := k3-am62l3-evm.dtb \
++	k3-am62l3-evm-epaper-gdey042t81.dtbo
+ k3-am62p5-sk-csi2-imx219-dtbs := k3-am62p5-sk.dtb \
+ 	k3-am62x-sk-csi2-imx219.dtbo
+ k3-am62p5-sk-csi2-ov5640-dtbs := k3-am62p5-sk.dtb \
+@@ -458,6 +463,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am62a7-sk-csi2-imx219.dtb \
+ 	k3-am62a7-sk-csi2-ov5640.dtb \
+ 	k3-am62a7-sk-hdmi-audio.dtb \
++	k3-am62l3-evm-epaper-gdey042t81.dtb \
+ 	k3-am62p5-sk-csi2-imx219.dtb \
+ 	k3-am62p5-sk-csi2-ov5640.dtb \
+ 	k3-am62p5-sk-csi2-tevi-ov5640.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+new file mode 100644
+index 000000000000..50975a2cdd2a
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+@@ -0,0 +1,96 @@
++// SPDX-License-Identifier: GPL-2.0-only or MIT
++/*
++ * DT Overlay for GoodDisplay GDEY042T81 4.2" E-Paper Display on AM62L3 EVM
++ *
++ * The GDEY042T81 is a 400x300 black-and-white e-paper panel driven by a
++ * Solomon SSD1683 controller, connected via SPI1 on the AM62L3 EVM
++ * expansion header.
++ *
++ * Pin mapping (AM62L3 EVM expansion header):
++ * P5  --> BUSY  (GPMC0_AD0.GPIO0_31)
++ * P26 --> RST   (GPMC0_AD1.GPIO0_16)
++ * P27 --> CLK   (GPMC0_AD5.SPI1_CLK)
++ * P28 --> DC    (GPMC0_AD2.GPIO0_17)
++ * P29 --> DAT   (GPMC0_AD3.SPI1_D1 / MOSI)
++ * P30 --> CS    (GPMC0_AD4.SPI1_CS0)
++ *
++ * The GPMC0_AD[0:5] pins are multiplexed for SPI1 and GPIO use; GPMC0 is
++ * already disabled by default in the SoC DTSI.
++ *
++ * Copyright (C) 2025 Texas Instruments Incorporated - https://www.ti.com/
++ */
 +
-+	if (!fb)
-+		return;
- 
--	if (!fb || !device->initialized)
-+	ret = pm_runtime_resume_and_get(device->drm.dev);
-+	if (ret < 0) {
-+		drm_err(&device->drm, "plane_atomic_update: failed to resume: %d\n", ret);
- 		return;
-+	}
- 
- 	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect)) {
- 		rect.x1 = 0;
-@@ -1488,6 +1503,9 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
- 		device->init_refresh_pending = false;
- 		device->border_waveform_pending = true;
- 	}
++/dts-v1/;
++/plugin/;
 +
-+	pm_runtime_mark_last_busy(device->drm.dev);
-+	pm_runtime_put_autosuspend(device->drm.dev);
- }
- 
- static const struct drm_plane_helper_funcs ssd16xx_plane_helper_funcs = {
-@@ -1547,6 +1565,10 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
- 	if (device->clear_on_disable < 0 || device->display_cleared_on_deinit)
- 		goto out;
- 
-+	ret = pm_runtime_resume_and_get(device->drm.dev);
-+	if (ret < 0)
-+		goto out;
++#include <dt-bindings/gpio/gpio.h>
++#include "k3-pinctrl.h"
 +
- 	drm_dbg(&device->drm, "clear_on_disable: running, mode=%d\n",
- 		device->clear_on_disable);
- 	ret = ssd16xx_clear_display(device,
-@@ -1554,10 +1576,12 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
- 								  device->clear_on_disable));
- 	if (ret) {
- 		drm_err(&device->drm, "atomic_disable: clear failed: %d\n", ret);
-+		pm_runtime_put_autosuspend(device->drm.dev);
- 		goto out;
- 	}
- 
- 	device->display_cleared_on_deinit = true;
-+	pm_runtime_put_sync_suspend(device->drm.dev);
- out:
- 	drm_dev_exit(idx);
- }
-@@ -1574,12 +1598,27 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
- 	drm_dbg(&device->drm, "atomic_enable: %dx%d orientation=%u°\n",
- 		device->width, device->height, device->orientation);
- 
--	ret = ssd16xx_hw_init(device);
--	if (ret) {
--		drm_err(&device->drm, "crtc_atomic_enable: HW init failed: %d\n", ret);
--		goto out;
-+	ret = pm_runtime_resume_and_get(device->drm.dev);
-+	if (ret < 0) {
-+		drm_err(&device->drm, "crtc_atomic_enable: failed to resume: %d\n", ret);
-+		drm_dev_exit(idx);
-+		return;
-+	}
++&pmx0 {
++	dc_pins_default: epaper-dc-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 7) /* (K22) GPMC0_AD2.GPIO0_17 */
++		>;
++	};
 +
-+	/*
-+	 * If the device is not yet initialized (fresh from deep sleep),
-+	 * pm_runtime_resume calls hw_init. The fallback below handles the case where
-+	 * runtime PM is disabled and the resume callback never fires."
-+	 *
-+	 */
-+	if (!device->initialized) {
-+		ret = ssd16xx_hw_init(device);
-+		if (ret) {
-+			drm_err(&device->drm, "crtc_atomic_enable: HW init failed: %d\n", ret);
-+			goto out;
-+		}
-+		device->initialized = true;
- 	}
--	device->initialized = true;
- 
- 	/* Clear display on first app launch if configured */
- 	ret = ssd16xx_clear_display_on_init(device);
-@@ -1599,6 +1638,8 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
- 	}
- 
- out:
-+	pm_runtime_mark_last_busy(device->drm.dev);
-+	pm_runtime_put_autosuspend(device->drm.dev);
- 	drm_dev_exit(idx);
- }
- 
-@@ -1620,6 +1661,13 @@ static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
- 	if (!drm_dev_enter(&device->drm, &idx))
- 		return;
- 
-+	ret = pm_runtime_resume_and_get(device->drm.dev);
-+	if (ret < 0) {
-+		drm_err(&device->drm, "atomic_flush: failed to resume: %d\n", ret);
-+		drm_dev_exit(idx);
-+		return;
-+	}
++	rst_pins_default: epaper-rst-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 7) /* (L23) GPMC0_AD1.GPIO0_16 */
++		>;
++	};
 +
- 	drm_dbg(&device->drm, "atomic_flush: reinit, orientation=%u°\n",
- 		device->orientation);
- 
-@@ -1652,6 +1700,8 @@ static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
- 	}
- 
- out:
-+	pm_runtime_mark_last_busy(device->drm.dev);
-+	pm_runtime_put_autosuspend(device->drm.dev);
- 	drm_dev_exit(idx);
- }
- 
-@@ -1752,11 +1802,19 @@ static void ssd16xx_drm_master_drop(struct drm_device *drm,
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
- 
-+	ret = pm_runtime_resume_and_get(drm->dev);
-+	if (ret < 0) {
-+		drm_dev_exit(idx);
-+		return;
-+	}
++	busy_pins_default: epaper-busy-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_AD0.GPIO0_31 */
++		>;
++	};
 +
- 	ret = ssd16xx_clear_display_on_exit(device);
- 	if (ret)
- 		drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
- 
- 	device->display_cleared_on_deinit = true;
-+	/* sync suspend — bypass autosuspend, sleep immediately after clear */
-+	pm_runtime_put_sync_suspend(drm->dev);
- 	drm_dev_exit(idx);
- }
- 
-@@ -2017,9 +2075,26 @@ static int ssd16xx_probe(struct spi_device *spi)
- 
- 	drm_mode_config_reset(drm);
- 
-+	/*
-+	 * Mark the device active before enabling runtime PM. The SPI device
-+	 * persists across module reload cycles; pm_runtime_enable() alone
-+	 * does not clear a stale dev->power.runtime_error left by a previous
-+	 * failed hw_init, which would cause pm_runtime_resume_and_get() to
-+	 * return -EINVAL on every subsequent call.
-+	 */
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_set_autosuspend_delay(dev, SSD16XX_PM_AUTOSUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(dev);
++	main_spi1_pins_default: main-spi1-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 4) /* (H22) GPMC0_AD5.SPI1_CLK */
++			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 4) /* (K23) GPMC0_AD4.SPI1_CS0 */
++			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 4) /* (J23) GPMC0_AD3.SPI1_D1  */
++		>;
++	};
 +
- 	ret = drm_dev_register(drm, 0);
--	if (ret)
-+	if (ret) {
-+		pm_runtime_disable(dev);
- 		return ret;
-+	}
-+
-+	/* Default to runtime sleep mode (RAM retained if supported) */
-+	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level1;
- 
- 	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d° rotation)\n",
- 		device->width, device->height, device->orientation);
-@@ -2035,6 +2110,8 @@ static void ssd16xx_remove(struct spi_device *spi)
- 
- 	drm_dev_unplug(&device->drm);
- 	drm_atomic_helper_shutdown(&device->drm);
-+	pm_runtime_dont_use_autosuspend(&spi->dev);
-+	pm_runtime_disable(&spi->dev);
- }
- 
- static void ssd16xx_shutdown(struct spi_device *spi)
-@@ -2042,8 +2119,140 @@ static void ssd16xx_shutdown(struct spi_device *spi)
- 	struct ssd16xx_device *device = spi_get_drvdata(spi);
- 
- 	drm_atomic_helper_shutdown(&device->drm);
-+	pm_runtime_dont_use_autosuspend(&spi->dev);
-+	pm_runtime_disable(&spi->dev);
- }
- 
-+static int ssd16xx_pm_suspend(struct device *dev)
-+{
-+	struct ssd16xx_device *device = dev_get_drvdata(dev);
-+	struct drm_device *drm = &device->drm;
-+	int ret;
-+
-+	/*
-+	 * Select maximum-savings sleep mode for system suspend.
-+	 * On SSD1683/SSD1680: level2 = 0x03 (RAM lost) gives deeper savings
-+	 *   than the runtime-idle level1 = 0x01 (RAM retained).
-+	 * On SSD1677: only one deep sleep mode exists; level1 == level2 == 0x03.
-+	 */
-+	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level2;
-+	dev_dbg(dev, "system suspend: entering deep sleep mode 0x%02x\n",
-+		device->deep_sleep_mode);
-+
-+	ret = drm_mode_config_helper_suspend(drm);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * If the autosuspend timer already fired the device is RPM_SUSPENDED
-+	 * at level1.  pm_runtime_force_suspend() would skip its callback, so
-+	 * level2 would never reach the hardware.
-+	 *
-+	 * SPI is unresponsive in deep sleep; HWRESET is the only exit.
-+	 * After the reset, level2 can be sent directly without a full hw_init.
-+	 *
-+	 * Skip this for controllers where level1 == level2 (e.g. SSD1677 which
-+	 * has only one deep sleep mode): the device is already in the deepest
-+	 * available state and no upgrade is needed.
-+	 */
-+	if (pm_runtime_status_suspended(dev)) {
-+		int err = 0;
-+
-+		if (device->controller_cfg->deep_sleep_mode_level1 !=
-+		    device->controller_cfg->deep_sleep_mode_level2) {
-+			dev_dbg(dev, "system suspend: upgrading level1->level2 via HWRESET\n");
-+			ssd16xx_hw_reset(device);
-+			ssd16xx_wait_for_device(device, &err);
-+			ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
-+			ssd16xx_send_data(device,
-+					  device->controller_cfg->deep_sleep_mode_level2,
-+					  &err);
-+		} else {
-+			dev_dbg(dev, "system suspend: already at deepest sleep mode\n");
-+		}
-+		device->initialized = false;
-+		device->pm_force_suspended = false;  /* Skip force_resume on resume */
-+		return err;
-+	}
-+
-+	/* Force runtime-suspended state for clean resume. */
-+	pm_runtime_force_suspend(dev);
-+	device->pm_force_suspended = true;  /* Resume must call force_resume */
-+
-+	return 0;
-+}
-+
-+static int ssd16xx_pm_resume(struct device *dev)
-+{
-+	struct ssd16xx_device *device = dev_get_drvdata(dev);
-+	struct drm_device *drm = &device->drm;
-+
-+	dev_dbg(dev, "system resume: restoring state\n");
-+
-+	/*
-+	 * Only call force_resume if we actually called force_suspend during
-+	 * system suspend. The MODE_1->MODE_2 upgrade path skips force_suspend
-+	 * since the device is already RPM_SUSPENDED.
-+	 */
-+	if (device->pm_force_suspended) {
-+		pm_runtime_force_resume(dev);
-+		device->pm_force_suspended = false;
-+	}
-+
-+	/* Restore Mode 1 (RAM retained) for subsequent runtime PM cycles. */
-+	device->deep_sleep_mode = device->controller_cfg->deep_sleep_mode_level1;
-+
-+	/* Hardware must be re-initialized after waking from system sleep */
-+	device->initialized = false;
-+
-+	return drm_mode_config_helper_resume(drm);
-+}
-+
-+static int ssd16xx_pm_runtime_suspend(struct device *dev)
-+{
-+	struct ssd16xx_device *device = dev_get_drvdata(dev);
-+	int err = 0;
-+
-+	dev_dbg(dev, "runtime suspend: entering deep sleep mode 0x%02x\n",
-+		device->deep_sleep_mode);
-+
-+	ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
-+	ssd16xx_send_data(device, device->deep_sleep_mode, &err);
-+	device->initialized = false;
-+
-+	return err;
-+}
-+
-+static int ssd16xx_pm_runtime_resume(struct device *dev)
-+{
-+	struct ssd16xx_device *device = dev_get_drvdata(dev);
-+	int ret;
-+
-+	dev_dbg(dev, "runtime resume: initialized=%d%s\n",
-+		device->initialized,
-+		!device->initialized ? " (running hw_init)" : "");
-+
-+	/*
-+	 * pm_runtime_suspend clears initialized after sending the deep sleep
-+	 * command.  If a new app opens before the suspend fires (the put was
-+	 * cancelled), initialized is still true and hw_init is unnecessary.
-+	 */
-+	if (!device->initialized) {
-+		ret = ssd16xx_hw_init(device);
-+		if (ret)
-+			return ret;
-+
-+		device->initialized = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops ssd16xx_pm_ops = {
-+	SYSTEM_SLEEP_PM_OPS(ssd16xx_pm_suspend, ssd16xx_pm_resume)
-+	RUNTIME_PM_OPS(ssd16xx_pm_runtime_suspend, ssd16xx_pm_runtime_resume, NULL)
++	fet_sel_pins_default: epaper-fet-sel-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x01a8, PIN_OUTPUT, 7) /* (E13) SPI0_CLK.GPIO0_89 */
++		>;
++	};
 +};
 +
- static const struct of_device_id ssd16xx_of_match[] = {
- 	{ .compatible = "gooddisplay,gdey042t81", .data = (void *)GDEY042T81 },
- 	{ }
-@@ -2060,6 +2269,7 @@ static struct spi_driver ssd16xx_spi_driver = {
- 	.driver = {
- 		.name = "ssd16xx",
- 		.of_match_table = ssd16xx_of_match,
-+		.pm = pm_ptr(&ssd16xx_pm_ops),
- 	},
- 	.probe = ssd16xx_probe,
- 	.remove = ssd16xx_remove,
++/* Drive GPIO0_89 high to select the SPI1 path on the VOUT0 FET switch */
++&gpio0 {
++	fet-sel-hog {
++		gpio-hog;
++		gpios = <89 0>;
++		output-high;
++		line-name = "GPIO_EXP_CONN_FET_SEL";
++	};
++};
++
++&gpmc0 {
++	status = "disabled";
++};
++
++&spi1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_spi1_pins_default>, <&fet_sel_pins_default>;
++	status = "okay";
++
++	gdey042t81: display@0 {
++		compatible = "gooddisplay,gdey042t81", "solomon,ssd1683";
++		reg = <0>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&dc_pins_default>,
++			    <&rst_pins_default>,
++			    <&busy_pins_default>;
++		spi-max-frequency = <2000000>;
++		reset-gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
++		dc-gpios    = <&gpio0 17 GPIO_ACTIVE_HIGH>;
++		busy-gpios  = <&gpio0 31 GPIO_ACTIVE_HIGH>;
++	};
++};
 -- 
 2.39.1
 
