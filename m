@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6397C98338
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 17:47:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EF4C98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 17:47:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D82A10E4F6;
-	Sun, 27 Sep 2026 17:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6210D10E5B8;
+	Sun, 27 Sep 2026 17:47:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTse6Bce";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ns6Dm6El";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 923F210E4F6;
- Sun, 27 Sep 2026 17:47:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1213D10E5B8;
+ Sun, 27 Sep 2026 17:47:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 00F0443A2C;
- Sun, 27 Sep 2026 17:47:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835891F000FF;
- Sun, 27 Sep 2026 17:47:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0F96D60052;
+ Sun, 27 Sep 2026 17:47:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1636C1F000FF;
+ Sun, 27 Sep 2026 17:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790531243;
- bh=4UGSD6QOqsK7x7bW27DoVdhw8/6KXu6nNsPGwCg+XOM=;
+ s=k20260515; t=1790531265;
+ bh=DzR0jTnU51RcypYbL9BWrDBujbm6DjkMB1n09q08+6E=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FTse6BceAe8HDezxUlWZ/5EQyZhJCydrkGIETRwb+qZoDQdid4eUZiet1e/6LE3XY
- 6CKwR/P9eRbDakEQpISJQc/muLW/BCSVfe4zjAVLXFGxOusx/kiSYwE5qIgI0fPQMe
- 50lAZXN82q1RRUocay1M/xuqzW4oj6d8R6/EuIVoamW9hCric6QoglU1YSKn9l1Qdh
- Mc/7iKuoPES12gmICCMeolnpSPlEdQbw1tu7ur0q4A9eD04k+IX1T7QCXzcWN6pYZk
- pKdB/DBpdjwqYBL3J+evETgwqzESxou2Q9F+n4zeUizvN0HH4yIwiaodfwhsA/zSjL
- ybq1Rid6R5bmw==
-Date: Sun, 27 Sep 2026 19:47:20 +0200
+ b=ns6Dm6El+tTTIra6dTryY56ZkoBLSpubJGdWdGXd4BSBdvuh1nh9DtyIIlGJRnrYX
+ 1+sclfjVdqxlU5gH20U6bI5Hh4vpzoxLMuRHUdcMUA4wm9ToBVdp9qcjsx9uTQBpRl
+ KG70Ot+FEzq5u04M/IbysA4cR58kJuZcgw2WtaRK7bB5JtWLeeJJo5k+rWbEkDl6Un
+ FjHxRXadLGoUmlKbFih+Hs1xKUG8VbTYyqVvq2OQCZDK88WwUQd160hI9YpQr8+2+s
+ smJxJTcbsGeQW8/3xWGaqdqfAY+QQ3n1iwU21A/QjRM5C1v5sS7QTahzr1pjR4IxZ0
+ ovM3Q3/Ddhy7Q==
+Date: Sun, 27 Sep 2026 19:47:42 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Muzaffer Kadir <muzafferkadir@mainlining.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -63,15 +63,15 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v3 04/19] dt-bindings: power: rpmpd: Add MSM8952 power
- domains
-Message-ID: <20260927-tiny-electronic-toucan-bcbd21@quoll>
+Subject: Re: [PATCH v3 05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952
+ compatible
+Message-ID: <20260927-crouching-newt-from-avalon-4f0fab@quoll>
 References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
+In-Reply-To: <20260921-msm8952-initial-support-v3-5-b96fd3fe298b@mainlining.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,13 +87,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 09:18:55PM +0300, Muzaffer Kadir wrote:
-> Document the compatible for the rpmpd found on MSM8952.
+On Mon, Sep 21, 2026 at 09:18:56PM +0300, Muzaffer Kadir wrote:
+> Document the compatible string for the SDHCI controller on the
+> MSM8952 platform.
 > 
 > Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
->  1 file changed, 1 insertion(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
