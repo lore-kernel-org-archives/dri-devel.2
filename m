@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE6C4C98338
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:27:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D16C98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F59110E67F;
-	Sun, 27 Sep 2026 18:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADDDB10E675;
+	Sun, 27 Sep 2026 18:27:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="NV9l+Ikj";
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="A8lQ9sCI";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="UJxhJ/FO";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="SMR/mVkk";
 	dkim-atps=neutral
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com
- [148.163.150.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B868F10E67F
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:26:59 +0000 (UTC)
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
- by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68R8phTg3706315;
- Sun, 27 Sep 2026 13:26:56 -0500
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com
+ [148.163.154.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 705A310E675
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:27:10 +0000 (UTC)
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+ by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68R5ddVW2282836; Sun, 27 Sep 2026 13:27:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=
- proofpoint-05-2026; bh=Vj/VjvvhgHzkGLqabqeFmV7NiJ9aFDafCq1m6DmEg
- AY=; b=NV9l+IkjyKc5Gtkbmnx8t13KKuBr7F1Riv9R9sD6cz2rTQSFLwLueAoYK
- Ol6m1ZxodgvZxhCto2i/dkrXoY924M47pQceosGGW+RHy2yDDB70u4zg72ARXybr
- D4JVow9UYPgVTXVFf0A+Dde/QiiYPl+LSIzQ7wXf2KKvXtLC7iiC/CmYFdgdgnqV
- ABouD2LSkbhB8TYFL7gpXHr9F4E3vgG2yo++tOCjHX/5SvfdQ9pbLnhNmKdVwF33
- 85Tnyi8Hz5IEVMbZcieoMH2jseLNsWORpnHc2MrfZLS/7zm3XcrIbPbJ55SmNo2D
- Qjei0NjSDAVv1wQjKNR/VnAvDXGlQ==
-Received: from bl2pr02cu003.outbound.protection.outlook.com
- (mail-eastusazon11011023.outbound.protection.outlook.com [52.101.52.23])
- by m0384305.ppops.net (PPS) with ESMTPS id 4gy00n9huw-1
+ proofpoint-05-2026; bh=dawKxhttlNPMoKpD65YH6LNBtC4+ddC+SVQzFShCc
+ l8=; b=UJxhJ/FOAFDLuetrwuafyxDJ7725iOiPyIz5yRPMyMMEJclOSjmg+Xr9S
+ 7I+MELuh3DvbO4D1dEFJXkJ4p13FodIp0e63/YRloQKB51vY0OYjcIaDFDHML4uQ
+ gCKvwEg33dnKn66Uq3sU29WJlNHrKs0Ke4pm3OHWXxZXRFR2xqC/IoebJfxHpOmM
+ 5vsKki7n8ZnD+b52TZcYkZ9sgfYX/s0LH9+WIBGzYwHqH9WSJ/jh5u6FrTRN7bpN
+ HkrSVQ6kunOJQ5kwOWt1xNJtjjz+QOdfSnvr7F90dnnSwBG6AIzvXN41X+RBj2KK
+ 2YhR399TLeE0QMQBb0e1Ix10HL/FQ==
+Received: from dm1pr04cu001.outbound.protection.outlook.com
+ (mail-centralusazon11010067.outbound.protection.outlook.com [52.101.61.67])
+ by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gxw6nsy91-1
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Sun, 27 Sep 2026 13:26:55 -0500 (CDT)
+ Sun, 27 Sep 2026 13:27:05 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nNM4xYmLieJhVx6jm+t1zerF/w0X9v2LoUxuR/TjJ10r/lq55sMwaRdCwh6GeNIjuQwJ340hy3PLXiszlU1UKSLjaLy9ZZ1R3yIXF6QEISmGQYtBVgk0qevkcFDtymHrkuN6S0gbjgIg7FkHZeou8DwsGgW4tP8i5m0SWifHLeH0bu0XxZgQNvZ+S0E6hLdwCvIxXoQOFUnUYKPFzkxWAZV+U/P5XtsBOA3GfydcesFLIWhNh3V6FVOAMBI8mWtzuZM7D983BQ5cUtQoGk8mUF25qzYSglQLVP9ClFxy0qvgkRpSZtIMXvW03V2hhVVw5rMBQzDSUqifh4qdyKzsbw==
+ b=CfCfBKtx5GUAYwwI8S09LKD2lmlk+mT89J4g+xQiydq0kcRKGM07/bfS+HOPb9U+n2ROveEU9ZAJ82Q4AaAiIBeq0bZzbAu1RpaH8vGgJa10fqSBi78HAjzf4WIDK0/ILQrWUOjTABp6Crdo6PqAbgsatuenokWcRF1lKjMGtrIzjkK8cpcTMGCXzRCv3rbRdoDvWZD4wtGaqbvx/aF5YyEeVe79Si2BXYwww1KDjdLWjK+RVj68mVkBy0z6+O0tYtG8KwbC7HnD6EPxqsrJBbby7lRS+1ef8Xh5vY7B8U2HhRuvmpGKbmHmRweVZ+eML0pyNLLtQnBCxSZRLsB2Ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vj/VjvvhgHzkGLqabqeFmV7NiJ9aFDafCq1m6DmEgAY=;
- b=jYz/rwCcxa9ixyjvZORjWXc7GD55p5Buv1BdUJlXDA1pLj0y0vlGyaDnEbXUIVqzEjJYFPIywitGe2dyG8JMdKF0V7tfz08dFTpg9G7I6GJftxtLHTqXE8H6hIga05RX+r6j9YSWakKVOtDNqkiDU9cMw6+RKnlq5LJDVrF6CgO/3ObcHgL29zO1AcM29FfvUlokKOxBm8E4s4ft2fbD54Qiz3hOVuW0PfQeZYJF1p5Gir04pVb4OXkjuZFs47LdTmwQYh+RE5qb9OR+DYEbXmxcbgIvyn5OPqF1SNtkijn/HvsXzUbDraSqdb0uuorH4MSv86Y8XeMxZLRKAFCgAg==
+ bh=dawKxhttlNPMoKpD65YH6LNBtC4+ddC+SVQzFShCcl8=;
+ b=ViZz2ozwhJq2XIUezAVtmrPgm1t6y2nIKJROPcEf/DqWBm7iTxnyQPh7YH71RLPmz7nUU0cE1apdCwUNBCUqIUSehtyR1cv119XO5PLwcMxK6Rb6q1enJY33t8Z0+JwEzCfeOPAoMkbaGAU5o0IyNy3+6XHlcwDzGxA4MMiO69eKkVM8Po6M5dt7i7qu19eSD0qtKri0tSOKqfNHsc6nbhbGzCNh4CzZlnuB9iN42dshi8u8uWf9nxMq3vzh/sizab9Hh2MnmUl8haUxwnfNMOzClnG15HVL1/2XVc0tPDU7rP5z5t4vzfEXzyibR4Bc63MxZdbv5fFWNOzRma1vRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+ 198.47.21.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vj/VjvvhgHzkGLqabqeFmV7NiJ9aFDafCq1m6DmEgAY=;
- b=A8lQ9sCIMU0lnPDvqDptqAMFASzLrsYhcnUinioNFaFAgmlfAzuKBxU7R8yzveyptrXzxFAvVu/a9TwBhjrmi6WycUeDcL0oPSot0BK2pQWlnoJYkXOH8mC/3OcQGVSygJCtIwZheB2cKjcm5fhzjB9/ywfDu3hiRNKdCNsr5XU=
-Received: from DS1PR05CA0005.namprd05.prod.outlook.com (2603:10b6:8:457::8) by
- CH5PR10MB997692.namprd10.prod.outlook.com (2603:10b6:610:2f2::15)
+ bh=dawKxhttlNPMoKpD65YH6LNBtC4+ddC+SVQzFShCcl8=;
+ b=SMR/mVkkXsaErhjLTQ8jG3d1Sn+OoqYbA3SQyrTkWG1dChp1Z+1ktgYG8TyFCzbOdTw+ny5CzOzCI9GRRoL9HC2wIVUH12XWuosaRl8/3xAsWKyGpmocOznCs2qGYH7FlnaNOcG7EJB+uqGocj5AwEq5y4G0M6C1H1zyg9DNsKw=
+Received: from IA1P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:461::15)
+ by IA3PR10MB8162.namprd10.prod.outlook.com (2603:10b6:208:513::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Sun, 27 Sep
- 2026 18:25:10 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:8:457:cafe::73) by DS1PR05CA0005.outlook.office365.com
- (2603:10b6:8:457::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Sun,
- 27 Sep 2026 18:25:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sun, 27 Sep
+ 2026 18:26:19 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:208:461:cafe::6e) by IA1P220CA0001.outlook.office365.com
+ (2603:10b6:208:461::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Sun,
+ 27 Sep 2026 18:26:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com;
+ is 198.47.21.195) smtp.mailfrom=ti.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Sun, 27 Sep 2026 18:25:09 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Sun, 27 Sep 2026 18:26:18 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 13:24:40 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:25:46 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 13:24:40 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:25:46 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 27 Sep 2026 13:24:40 -0500
+ Transport; Sun, 27 Sep 2026 13:25:46 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125])
- by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68RIOdYc2546867;
- Sun, 27 Sep 2026 13:24:40 -0500
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68RIPj5p2547966;
+ Sun, 27 Sep 2026 13:25:46 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
@@ -94,11 +94,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra
  <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Devarsh Thakkar <devarsht@ti.com>
-Subject: [PATCH v2 02/14] dt-bindings: display: Add Solomon SSD16xx e-paper
- controller binding
-Date: Sun, 27 Sep 2026 23:53:17 +0530
-Message-ID: <20260927182329.4193961-3-devarsht@ti.com>
+ <linux-kernel@vger.kernel.org>, LiangCheng Wang <zaq14760@gmail.com>,
+ "Devarsh Thakkar" <devarsht@ti.com>
+Subject: [PATCH v2 11/14] drm/solomon: ssd16xx: support panels whose RAM X
+ order is reversed
+Date: Sun, 27 Sep 2026 23:53:26 +0530
+Message-ID: <20260927182329.4193961-12-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20260927182329.4193961-1-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
@@ -107,56 +108,54 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|CH5PR10MB997692:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69d6a558-8f36-4a68-34a9-08df1cc4a9b5
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|IA3PR10MB8162:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5826c56e-b7cb-4dd0-903b-08df1cc4d29a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|36860700016|23010399003|1800799024|82310400026|10067099003|56012099006|6133799003|3023799007|18002099003|22082099003|921020|13003099007;
-X-Microsoft-Antispam-Message-Info: 3mfZH3h4Mnf081vjX2dNj7QVn0l5FEl1rFO2Sba+EBU/AI0EiWIfXWJwNbOyqEOK25sPAz5N5ZWN86dlI3vNBR3+vRHYuVodnF26Y5KMgRbiLRi11IygET70+2st5196/SmU7lkKBzaTI6lrbTRw5RYkjB6eFW1bQXerQCV/aDMmFEOh4EDPqAYV/2NJT27CDeHpLSCNs7bKTEBJwCuZhDObb75FtnDgRnkVe2CL0otux8HGGFT5roO8gGCTFblvQMhtckufdQ/P4eFDC0am/8vH6BPABcmkwRIzHctF4GvLqCaFTBYamJ/+pThqReMtd21oZuostwAFIj937+AfMwjrp97LtlnDJxb2FF7W667OAkCNKv6RBP9RWvYVl12obL35H6ZpyxRmB3J2tUu9Nrt/Vwtydn529fyeh5aF8Vcn9TmirNxZuDuRNWy699PLdb07SFgEFl/u1Kc8YpakmNLAiBOvH/9bnG6mD6Y0zAPNna2qDHr+irNW+f0ntf/2Y0n9cOM8IyjOSGU9k3NES4dbNZSvsuJpvO+7VfIcsLMg//vD/vsH0fbO1AyVMVIef0HmGaYi6Lprbfc/igaAS4+2IU14thqWSclAaa7LILXAUxHwfoHi6XMubrDBpnxXVoHaPqv+DmHACMnt0EMoragNtqV9KJZpieIWlVQXIPJz2F7P4Dwb00dma1gSPr9W
-X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(56012099006)(6133799003)(3023799007)(18002099003)(22082099003)(921020)(13003099007);
+ ARA:13230040|7416014|376014|23010399003|36860700016|82310400026|1800799024|921020|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: I/DDSpggYCfuwzuDse3z/Vwj+T+untXIAfWPvcIM2NFL8awk8Yizp7ZPyMMrcK8k66r+4N6Fn+JhUPLuYMDe2TsfwRqq0cGu8lvNJTzLpgWXfrfTti53X5PgMrWt5TP4Pdi6m1L/Lb2fa0R3Q2UhkEMJdsXdPepIkFEZdcLFh4sU+XeUHFbw0Z4hIPpfcrp+KpcHONvf17A0RcPadV/rX1IaVj5oclBd+0ouFnHFuOIgVXHZ3145/gUWEe5uv5LpdOMLInrdpMslmP1jy2QDtF3PsQTQfchryNAq6GLpuVTNITVRSvpNovWjViC3lBCeZ4FC+onNQ3Ivg5efg0eo6z1Qyg2ysW+uIRbhHn7Ke4BR3RCLQd3GKWsFaXaZmzvBt1pxhAMEP64wXvDG7Z42UjBoPXgvt6I/rgvl1XeX8TAmX+vekLMvaDqjk0b492rTCHYzXTESg0fHIuyP4iAIV95HKOYDdOF5TUu5SX+1HzFwVdvpU02rlxnJScLYGzhyAsk88oPxheXcx6RuYcqncKA+76yMWVbGonkp6ZqrlYGsfXZZhoo7RJ6Yeo9lj15W64VmdNZsuA7ZGL4a3+NE0SBah2E+eqSXuUEKUsXwI4vuBon64gKgVS4WLbKhJX0ukVhEnWTvZ7+zsAT4N8yo0gQfzC3f5oUfGAQbZKunzFZNt2YgfbuitnCL3wWJdgvTOgu+biHaLccOB5gyKTn8KAFDqTcPWXZReKs0iUmj8aIfZnuecgZkTxj/O7ZmDaPa
+X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(921020)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Nn5et8h+bN2BQuELI7PCo4YkCLDK4sPi+Q/FsLFcTKCZEeuJErCUcY3tG+vGTfINciN9tYLNpDTlRq431smr5wtPd4083gmCy0bnCKu2BnMruNnwlzKmvs1ZImgS5iOQLCjibuWJvdUzuoDYk6Zid2CiNP2Tl7MjjfaMiDlObhvEcApLK4zLBD9hVTkaJSl8zJOvYVLlM6cmVv+A/FKzYOsz/X6qaJWhxjobwlw7MCRSRVmVzx8SUTAKY+vzYez7hnkVVcp24UL5c/DjwHYJBM9x/12IpDrdGXBc0Mrhhz2VlbAQaQrwmI91Xw7KFL4ppVFcFjLLGKkvsS85qRhkrUks5OwEHYb60YXJfpSxSTI5M8WSZgFsYK1m3+UpBM61/D+HOHkAmHRcJWdB2Ivb8LleIEFSuOqIpnorcs61WxQwWHF5VciIWi6FqiwQFneZ
-X-Exchange-RoutingPolicyChecked: spEP28GAcVyVm/pKElEw+9G08TI9kgXUWd1jMRwL9a/e8cmv5RdcPvX9KgGNTkwjO0nLluAKpzPliTEK6eGkAYLtWb1bKZ+DWtXT4kHt9KmtmUzGW4oasYXJWlLUm6AZGeea5sDfa0AoiwCMoLSi+ienMQuk0UB7h2r0q1H2B1+NnqKfkmexKh/J2dMJg5T3Y7iQ6lDekuqSW/AZkC3onUYv1tCyH3T4L807istkLQMxI8OG33FGzHNMGZ99Ir3ATy/hH/FJUb0Q3h8quPMsYx2f/ugoLeSJT579ZQEwwHlorE0beiJeyWvvjksYd5p7YClfXNX0mmspcKqtzSUa1w==
+X-MS-Exchange-AntiSpam-MessageData-0: WYE7qLZNyXvh5HuTV4CiOmPjHfyHFBMyHmvlnYyLR1NHH489rdTzGgwy/bjAQcQWckgLyOfPSLzOQEx64i+I9pt4Oj+rQ1MwGcvwkpmmdJRh+2MnSRnr8ejdHbCpamAzgjgTfsfHDObejGvTM0FZQp2MCxbIdJG/BLEQ8xb2CUVMXXphug+4Cbfa5z9pZouFqxfrcvne/zdsDMTyjy/YFB6IOugBfg5BFforCstU4EzLFcLtj74bWWPmjPCpAgYEFMELYFQt45aqxv41Qijn1q6o9kxlW0wH1b1xmLFXXhoftemndrCQkHrcB8G3C+Ypi8zaKABLVPpaCUQamb4gDvOLbJjYdrxxXmdxn9nAeAzmjOtUtvmL1CdL67rDNmzvD+3+eJgTcQTrasAUUq62iia0isZLaeMMKLTR04W0aSySLeM1x2kMEas+D9g5VyiZ
+X-Exchange-RoutingPolicyChecked: KLSdKBWPhGVqTIMij00/uQl95DCe0dPtxJerwuPQSBNVUpSO2qDydEQnAn34ll0ijOscHWl1s5tAwoxxhcW92kRke2gsx4wDjyQOmZjE57ioOxrVC4aU3fWpfPNmMlbAGAzecr+Wk5jcyggFjzduz2MML/ioqU6Ip8qBDhcgIv7OI1ChHWQeIpeif7LvIFkQowlOoCVX5Ee5LDR31peFCEcC5Me9trgYnMaQYLTHZ0hngkGwbPNkzT0WMgHv1HLobI34UIYI9povaghiQCyZ+Sr7HqW4aBsJMoivsTkY3de3e+Dpk/eUz0+b3i/KCqSrJujah+h5MnUNsEWF26UHvA==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 18:25:09.5250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69d6a558-8f36-4a68-34a9-08df1cc4a9b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2026 18:26:18.1124 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5826c56e-b7cb-4dd0-903b-08df1cc4d29a
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
- Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
+ Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E63.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR10MB997692
-X-Proofpoint-GUID: sNFqYFeupT5wrKuzu0fOFH_fyC0aFktR
-X-Authority-Analysis: v=2.4 cv=fKysTpae c=1 sm=1 tr=0 ts=6ab95fef cx=c_pps
- a=g4Zu/129bcKSj1q/f/8ScQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB8162
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfX0JK3m6pwClqZ
+ AjVK16Vnw5zfW/7s6PX/cX9CsdFfn2vaJS+XZaI7CX/E/m3hk5nuxlEMbFo9Vqy3mHQkChFo2nq
+ u3uJ2VI2PbTr7TCu03CQtWXhLpwLXgw=
+X-Authority-Analysis: v=2.4 cv=dbkVTnXe c=1 sm=1 tr=0 ts=6ab95ff9 cx=c_pps
+ a=5QB7A90Jg1Mn+JdiV6um6w==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=YmX860EEAAAA:8 a=LBxWy3usAAAA:8 a=gEfo2CItAAAA:8 a=sozttTNsAAAA:8
- a=3-E89_k90uRfBEW5-WMA:9 a=BeCehlkWaqzeQ17686bl:22 a=4jSGKt0uXjqk0CpsFuVH:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: sNFqYFeupT5wrKuzu0fOFH_fyC0aFktR
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfXxVvaAyiLOoeZ
- /PLHkwu3NC+wVD1xinsPs3X/UmXD7XMwwXPgoWuesU594WYkIrKA93gmW9+U8iTnmPU88paCDi0
- qxQ+N2BXVuHpZNv+QO3pG2YV3RIgqkE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfXxSRn2mTK1Q5s
- OmTTiQkNTeeAVNZP3inl4TTofQL3BYr/hkBPu/O+7Ag4p+kcaqKZZzfh5FcqMAtSfSEiCJ6/a9g
- t+FFyJTtDccCKbZsBEiJfubhy6KHQtyWUkqWogPzWnrIWz8COQshsFMvtYOh03WgX8F/5d85A5w
- DY3QtFqnzavsV4R+V7U1TQ3O4xOV7h7UcLVJAqZllWULTNkbTnu5g86O+JGcj3aw4n4SGePHABZ
- yC+wPt7yJJKhMKFgZIhReNmqU2gE1cgOXKijsbSxu9c8qjMZCslvjxCCKgTHJHcelxS8juLzUzS
- PfrW57hr7R8Cb02SsLWTcu5nUFVcvdJzx819fhnjlz2oBUrdzP4pWxtf42MbPeuspZfSIigZEVT
- hfnVV+bE4/BSIYuQfRQZ92hBfNld6B7nudXAoJg1Q8f14rf/Q1P+zkfIuKDDB51KwKm+OOJgXpr
- 85GqjWp+R+dMEc4L0+Q==
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
+ a=pGLkceISAAAA:8 a=sozttTNsAAAA:8 a=UpfALD_kB0Hx50bdgzMA:9
+X-Proofpoint-ORIG-GUID: 42O6raC0nFR3JDJof5tPYaZySiqKHcdp
+X-Proofpoint-GUID: 42O6raC0nFR3JDJof5tPYaZySiqKHcdp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA3MyBTYWx0ZWRfXwGtmvoAQCoy8
+ c2uFBZ3IQiDGR0qRqJUVSTy7y2B2o6oT4brIFD8QD3q4woTe5gfxpgvF+W74LW5bBx7/ElnFPXr
+ IBKckJzQiaDPHANj4LCrtdDZ0gWirA1n1ERb/2UYIPvNvQQfJgqJDPnwE2pK9BNZo0Y+o+nCZGN
+ EFU0uPnCsKQCnXLC7Rm6iGQzjBHYiuUByWA0RYkUxUIBbONSmYP3Wecqvf2sHwEbc4JmwWomUSL
+ GYQL7wS95Fp1QXOgZsFcbJZp+gLGMPv1tIm42j195tgdfe7WqlRthUxyKXBaIkQxBP5L1UQNvrW
+ IzJw12r7dGAd3UNoWfz/ki09f3MHca/qXgHuF4nCuqYvybiLoE0zfXuOBA6/RYLg/hsGpRc01Er
+ aoYryk2VMj03jafhyCyGgXBjvf2iGuVgCc5gNiWqkROhQvDk65dHHY+K1rbrU/B41oOP1sS9e3d
+ QlXlY4g9sqBsmjyFA9g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 adultscore=0 phishscore=0 clxscore=1015
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609270073
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -174,135 +173,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
-display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
+From: LiangCheng Wang <zaq14760@gmail.com>
 
-The binding covers the 4-wire SPI interface with required GPIO pins for
-reset (active-low), busy status (active-high), and data/command selection.
-The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
-which is also the maximum supported frequency amongst the family.
+Some panels have their first column wired to the controller's last source
+output, so the controller scans RAM X in the opposite direction and the
+image comes out horizontally mirrored.  SSD1677 offers no source-direction
+control that I could find - command 0x01 only affects the gate side - so it
+has to be handled while packing the framebuffer.
 
-An optional rotation property allows static display orientation to be
-configured from device tree.
+Add an x_mirror flag to struct ssd16xx_device_config and honour it in both
+branches of ssd16xx_convert_fb_to_1bpp(): the scanline order in the
+landscape path, and the inner loop in the portrait one, which is what maps
+to RAM X there.  The DRM_FORMAT_R1 memcpy fast path cannot mirror while
+copying, so it is skipped when the flag is set.  Enable it for the
+pixpaper-426m entry.
 
-The data/command selection GPIO pin is also kept as optional since various
-SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
-data/command selection bit transmitted as first bit before sending the data
-sequence.
+Tested on a Mayqueen PIXPAPER 4.26m (SSD1677, 800x480): a pattern with four
+differently sized corner blocks renders correctly at rotation 0, and a DT
+rotation of 90 gives a clean clockwise portrait.  Doing only the landscape
+path leaves the portrait output transposed.
 
-The first supported compatible is for Gooddisplay GDEY042T81 which is 4.2",
-400x300 resolution black/white e-paper display using SSD1683 controller.
-
-Links:
-[1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
-[2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
-[3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
-[4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
-[5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
-
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
 Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
 ---
 Changes from v1:
-  - Added fallback compatible for the controller
-  - Wrap lines to 80
+  - New patch introduced to prepare base for pixpaper
 
- .../bindings/display/solomon,ssd16xx.yaml     | 87 +++++++++++++++++++
- 1 file changed, 87 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
+ drivers/gpu/drm/solomon/ssd16xx.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
-new file mode 100644
-index 000000000000..b31fb862de04
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/solomon,ssd16xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
+index 6331f367d864..8fe09dca589e 100644
+--- a/drivers/gpu/drm/solomon/ssd16xx.c
++++ b/drivers/gpu/drm/solomon/ssd16xx.c
+@@ -358,6 +358,9 @@ struct ssd16xx_device_config {
+ 	const u8 *booster_soft_start_data;
+ 	u8        booster_soft_start_len;
+ 
++	/* Controller scans this panel's RAM X in the reverse direction. */
++	bool x_mirror;
 +
-+title: Solomon Systech SSD16xx controller based e-paper display panels
-+
-+maintainers:
-+  - Devarsh Thakkar <devarsht@ti.com>
-+
-+description:
-+  The SSD16xx family includes e-paper display controllers (SSD1673,
-+  SSD1680, SSD1681, SSD1683, SSD1677) with integrated gate driver,
-+  source driver and timing controller. Different panels use these
-+  controllers in monochrome or 3-color (black/white/red) configurations.
-+  The controller uses a 4-wire SPI interface and requires GPIO pins for
-+  reset, busy status, and data/command control. A 3-wire mode is also
-+  available where the D/C bit is transmitted along the SPI data line
-+  before each byte.
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          # Good Display 4.2" 400x300 monochrome e-ink panel
-+          - gooddisplay,gdey042t81
-+      - enum:
-+          - solomon,ssd1683
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 20000000
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the RSTB (reset) pin. Active low.
-+
-+  busy-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the BUSY pin. Active high when the controller
-+      is busy updating the display.
-+
-+  dc-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the D/C (Data/Command) pin. Low for command,
-+      high for data.
-+
-+  rotation:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 90, 180, 270]
-+    description:
-+      Display rotation in degrees clockwise.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - busy-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        display@0 {
-+            compatible = "gooddisplay,gdey042t81", "solomon,ssd1683";
-+            reg = <0>;
-+            spi-max-frequency = <2000000>;
-+            reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
-+            busy-gpios = <&gpio1 18 GPIO_ACTIVE_HIGH>;
-+            dc-gpios = <&gpio1 19 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
+ 	/* Panel-specific display mode (resolution and physical dimensions) */
+ 	const struct drm_display_mode *mode;
+ };
+@@ -513,6 +516,7 @@ static const struct ssd16xx_device_config ssd16xx_device_configs[] = {
+ 		.default_clear_on_disable = -1,
+ 		.default_refresh_mode_init = SSD16XX_REFRESH_FULL,
+ 		.red_supported = false,  /* 2-colour black/white panel */
++		.x_mirror = false,
+ 		.default_color_mode = SSD16XX_COLOR_MODE_BW,
+ 		.mode = &gdey042t81_mode,
+ 	},
+@@ -1121,10 +1125,11 @@ static void ssd16xx_convert_fb_to_3color(u8 *bw_dst, u8 *red_dst,
+ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
+ 				       struct drm_framebuffer *fb,
+ 				       struct drm_rect *rect,
+-				       unsigned int orientation)
++				       unsigned int orientation,
++				       bool x_mirror)
+ {
+ 	u32 format = fb->format->format;
+-	int x, y;
++	int x, y, i;
+ 	u8 byte = 0;
+ 	unsigned int bit_pos = 0;
+ 	unsigned int dst_idx = 0;
+@@ -1146,7 +1151,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
+ 	 * if not, the generic pixel-by-pixel loop below handles non-aligned
+ 	 * rects safely.
+ 	 */
+-	if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0) {
++	if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0 &&
++	    !x_mirror) {
+ 		unsigned int src_pitch = fb->pitches[0];
+ 		unsigned int width_bytes = drm_rect_width(rect) / 8;
+ 
+@@ -1168,7 +1174,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
+ 		 * The data entry mode and cursor position control scan direction.
+ 		 */
+ 		for (x = rect->x2 - 1; x >= (int)rect->x1; x--) {
+-			for (y = rect->y1; y < rect->y2; y++) {
++			for (i = 0; i < drm_rect_height(rect); i++) {
++				y = x_mirror ? rect->y2 - 1 - i : rect->y1 + i;
+ 				if (ssd16xx_pixel_is_white(src, fb, x, y))
+ 					byte |= (1 << (7 - bit_pos));
+ 				if (++bit_pos == 8) {
+@@ -1194,7 +1201,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
+ 		 * The data entry mode and cursor position control scan direction.
+ 		 */
+ 		for (y = rect->y1; y < rect->y2; y++) {
+-			for (x = rect->x1; x < rect->x2; x++) {
++			for (i = 0; i < drm_rect_width(rect); i++) {
++				x = x_mirror ? rect->x2 - 1 - i : rect->x1 + i;
+ 				if (ssd16xx_pixel_is_white(src, fb, x, y))
+ 					byte |= (1 << (7 - bit_pos));
+ 				if (++bit_pos == 8) {
+@@ -1267,7 +1275,9 @@ static int ssd16xx_fb_dirty(struct drm_framebuffer *fb, struct drm_rect *rect,
+ 	if (red_buffer)
+ 		ssd16xx_convert_fb_to_3color(mono_buffer, red_buffer, &map, fb, rect);
+ 	else
+-		ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect, device->orientation);
++		ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect,
++					   device->orientation,
++					   device->device_cfg->x_mirror);
+ 
+ 	drm_dbg(&device->drm,
+ 		"fb_dirty: mono[0..3]=0x%02x 0x%02x 0x%02x 0x%02x (data_size=%u)\n",
 -- 
 2.39.1
 
