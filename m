@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7644C9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 14:56:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F54DC9830E
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 14:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1B810E510;
-	Sun, 27 Sep 2026 14:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E3010E617;
+	Sun, 27 Sep 2026 14:56:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HJWlY62k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JA0eYk+i";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5679810E4E5;
- Sun, 27 Sep 2026 14:56:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B13410E617;
+ Sun, 27 Sep 2026 14:56:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 080FB42A5F;
+ by sea.source.kernel.org (Postfix) with ESMTP id 8387E43740;
+ Sun, 27 Sep 2026 14:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F5F1F000FF;
  Sun, 27 Sep 2026 14:56:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2031F00893;
- Sun, 27 Sep 2026 14:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790520968;
- bh=iU5SiVe9iB5i+kPG90oa4hLYEVkiZAW5YzZdAQv2iEI=;
- h=From:To:Cc:Subject:Date;
- b=HJWlY62kgaKtabBg26a0ZeZ3VETWppdf2HHOz0t7z0UZ+TCZMUDG6vafOHrErhXDk
- SB4xh3w3mgcZx83FwItDL60y6trkhbAK2nZdw8URXz5tpWbMzAlAILaAXlHyg/GYa6
- Tmw29e8XfaXVKTEdP75fs34a65pUn5cpjfRog6ghIgT9aZN5ndIKBYPvvcJsJ4Q41s
- Y0/3Aqi6Mb/orjhgmrbl4ut3sRew6gWugis5Fl06ajs0BbjGxD6oHkvI8hgHqEbpNJ
- 07216lHUg4MWog3Gmjr/SvpjvRzskLKFKePL+jWDijVxwV2UvKG0A0Tr6GzpcJt/vd
- +z4gRznVRyf7Q==
+ s=k20260515; t=1790520971;
+ bh=Ewo/kFhfNF9BUM9+V8oV0ndAio75zzFZWkSpzJ/6QFY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=JA0eYk+icdXbhoC+ApA3bVeLwziBW0BHyQlLJ6143opdiBvujXIYGQpLW4IER7Zc1
+ Y2U2jUjj4CXZCrfKzhltklUF43dkaYe8nSBhOz5ZHsWUDdy2+TgMA4hAKnlZKUHnfa
+ lRY19NIiMIdg94oPVpaYm1k0XqyoMTyQNTvN6YEKgkw6meAOCN7XFgN0ud9GoyMa8t
+ I8CGa3uh82SUi3hVqV2tsqNCGjF9O/xCjywAmEj51p4GXqfA8/LToN4lHCHmfDNYsk
+ Hwt06RYisTcjRr8U7awX4jbblleX74vF9T5jI2TWd1Ps65hDkbzfwz4Xzc/xNXdZNv
+ uID1lemqulIqg==
 From: Imre Kaloz <kaloz@kernel.org>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] drm/radeon: Sun XVR-300 support on sparc64
-Date: Sun, 27 Sep 2026 16:55:03 +0200
-Message-ID: <20260927145505.16883-1-kaloz@kernel.org>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2 1/2] drm/radeon: Read the VRAM VBIOS signature with readb()
+Date: Sun, 27 Sep 2026 16:55:04 +0200
+Message-ID: <20260927145505.16883-2-kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260927145505.16883-1-kaloz@kernel.org>
+References: <20260927145505.16883-1-kaloz@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -57,34 +59,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These two patches get radeon KMS working on the Sun XVR-300, a
-FireMV 2200 PCIe (RV370) board, in sparc64 hosts.
+igp_read_bios_from_vram() checked bios[0]/bios[1] with a plain
+__iomem load, which faults on sparc64 before the copy runs at all.
+radeon_read_bios() already reads its two signature bytes with
+readb() ahead of its own copy; use the same accessor here, keeping
+the check before the allocation.
 
-Patch 1 fixes an Oops that any posted radeon card on sparc64 hits in
-igp_read_bios_from_vram(), which dereferences an ioremap() cookie to
-check the VBIOS signature. It is tagged for stable.
-
-Patch 2 adds a legacy connector table for the XVR-300, which has no
-COMBIOS for the driver to parse, so both DVI-I outputs are found.
-The XVR-300 needs both.
-
-Tested on a Sun Ultra 45 with an XVR-300.
-
+Fixes: b442962a9e82 ("drm/radeon/kms: add support for "Surround View"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
 Changes in v2:
 - Read the signature with readb() before the allocation instead of
-  checking the RAM copy, as radeon_read_bios() does (patch 1).
+  checking the RAM copy, as radeon_read_bios() does.
 
-Imre Kaloz (2):
-  drm/radeon: Read the VRAM VBIOS signature with readb()
-  drm/radeon: add a connector table for the Sun XVR-300
+ drivers/gpu/drm/radeon/radeon_bios.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/radeon/radeon_bios.c    |  6 ++-
- drivers/gpu/drm/radeon/radeon_combios.c | 51 +++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h    |  3 +-
- 3 files changed, 58 insertions(+), 2 deletions(-)
-
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 8595f4c6e2e5..1da6bf1c17ff 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -49,6 +49,7 @@
+ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
+ {
+ 	uint8_t __iomem *bios;
++	uint8_t val1, val2;
+ 	resource_size_t vram_base;
+ 	resource_size_t size = 256 * 1024; /* ??? */
+ 
+@@ -63,7 +64,10 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
+ 		return false;
+ 	}
+ 
+-	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
++	val1 = readb(&bios[0]);
++	val2 = readb(&bios[1]);
++
++	if (size == 0 || val1 != 0x55 || val2 != 0xaa) {
+ 		iounmap(bios);
+ 		return false;
+ 	}
 -- 
 2.47.3
 
