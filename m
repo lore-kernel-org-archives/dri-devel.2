@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01445C98324
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FF7C98324
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 11:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47DD010E57F;
-	Sun, 27 Sep 2026 11:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012A010E587;
+	Sun, 27 Sep 2026 11:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P870lIfO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jvtuR1MB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A75C10E57F
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:22:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B3410E587
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 11:23:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C636E41443;
- Sun, 27 Sep 2026 11:22:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48AC11F000FF;
- Sun, 27 Sep 2026 11:22:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F6ED40C35;
+ Sun, 27 Sep 2026 11:23:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BC91F000FF;
+ Sun, 27 Sep 2026 11:23:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790508145;
- bh=JrpJ6wGQk4MmIgnOuY1E3EpbAWqu8Y33KuGdfk0UT/k=;
+ s=k20260515; t=1790508211;
+ bh=6netCiyDZA5CA37P8HRTFW9nAeL18e17cdFOrafqqF0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=P870lIfOWoUx/lno9rQnnq70dYvGg9YEQSaQbo11mT8Bvh5DVAE0zM9su8GRgbk8m
- X3sQ3Xz9acq/QTCahuOLowF+QWyrkJ6eOZaXeP6OEQGLnUImVvyNs91Gq8aKfYcyzY
- qz0BLewgCx9gRAq+H6f3IeRE89jsYZtTf8242CGxfNBHtEHKljeRfhZiWNboGF/TWw
- AGHoKgYMcDAoAgQ93x7XmFmyO3nan6ax9pdu1PZC2Vnpn5MbwBQ7Nl8o+oh7RRELBb
- RrHWvTYznUlY8dYjd91u/e1kMXBONaypVrWEMSRqbi6pe3D3KN2uxvlEinFHKiYQhG
- +TGpTZhzruAqQ==
+ b=jvtuR1MBqkkg5B6A3qIMbG/1jrPLXK8Iltqr3X4+8SjYctCvsrFlnAhP7HSu6h/Ji
+ OwETfMuUE+y1VZgCQtgCn0shmCV1PG6nCSsX58+aOzYLSvarj2zZ1Lggx6VyrnahRb
+ zgP2a++cIoTRIqxSloEhq26Gom0OdEILe3elrdZZt1LIkDBMkGzp7yhvX2sq0oOxHU
+ QNrTSgevcWp8ltRe8f6QxGM1N9gkkLH8MzSZAWurULMOLBEIwfUIH7PpHDHFV62nQI
+ ZNqVzqXqsz/QlgCcDz6U6LzaRqkCLOcSVePAAzELtzbFW+Yt4WwdBJhcH94kZ3/oyr
+ YnVwOjCrtOxCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/10] gpu: nova-core: gsp: add `rpc` to RPC message
- send/receive methods
+Subject: Re: [PATCH 02/10] gpu: nova-core: gsp: cmdq: validate checksum
+ earlier on receive
 To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org, gary@garyguo.net, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260927-cmdq-rpc-v1-10-822db5af910e@nvidia.com>
+Cc: gary@garyguo.net, dri-devel@lists.freedesktop.org,
+ "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260927-cmdq-rpc-v1-2-822db5af910e@nvidia.com>
 References: <20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com>
- <20260927-cmdq-rpc-v1-10-822db5af910e@nvidia.com>
+ <20260927-cmdq-rpc-v1-2-822db5af910e@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 11:22:24 +0000
-Message-Id: <20260927112225.48AC11F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 11:23:30 +0000
+Message-Id: <20260927112331.32BC91F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,126 +62,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] rust: broken rustdoc intra-doc links after method renaming
+- [High] gpu/nova: GSP message queue permanently wedges due to untruncated =
+checksum calculation
 --
 
-commit 41ab580cce9e4df6dca3c50983301c4f117e6a64
+commit 5dd9973126ada78a1c8fff2d08bacb19190898fd
 Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: gsp: add `rpc` to RPC message send/receive methods
+gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
 
-Since we are going to introduce a second type of message, add `rpc` to
-the names of the relevant command queue methods so we can distinguish
-between the two.
+This commit moves the checksum validation of received messages to occur
+before the RPC message header is accessed.
 
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-cor=
-e/gsp/cmdq/rpc.rs
-> index 335f94c4d2aac..81f8c79b1bb53 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-[ ... ]
-> @@ -216,7 +216,7 @@ fn send_command<M>(&mut self, command: M) -> Result
->          }
->      }
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 9285fd796f9d3..08a49450bca0f 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -768,6 +768,17 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gsp=
+Message<'_>> {
+>          // Extract the `GspMsgElement`.
+>          let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice=
+_1).ok_or(EIO)?;
 > =20
-> -    fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-> +    fn wait_for_rpc_msg(&self, timeout: Delta) -> Result<GspMessage<'_>>=
- {
->          let GspMessage {
+> +        // Validate checksum.
+> +        if Cmdq::calculate_checksum(SBufferIter::new_reader([
+> +            header.as_bytes(),
+> +            slice_1,
+> +            slice_2,
+> +        ])) !=3D 0
+> +        {
 
-[Severity: Low]
-Are there stale rustdoc links in drivers/gpu/nova-core/gsp/cmdq.rs after
-this rename?
+[Severity: High]
+Does this perform the checksum validation on slice_1 and slice_2 before
+they have been truncated to the actual message length?
 
-drivers/gpu/nova-core/gsp/cmdq.rs:
-/// This is the type returned by [`CmdqInner::wait_for_msg`].
-struct GspMessage<'a> {
+If the read area spans more bytes than the actual message length,
+could the slices contain non-zero trailing data from subsequent
+messages or old uninitialized data in the circular buffer page?
 
->              header,
->              contents: (slice_1, slice_2),
-[ ... ]
-> @@ -275,12 +275,12 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gs=
-pMessage<'_>> {
->      /// - `ERANGE` if the message had a recognized but non-matching func=
-tion code.
->      ///
->      /// Error codes returned by [`MessageFromGsp::read`] are propagated =
-as-is.
-> -    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Resu=
-lt<M>
-> +    fn receive_rpc_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> =
-Result<M>
+If the checksum is calculated over the entire un-truncated read area,
+wait_for_msg() will return Err(EIO) without advancing the read pointer.
 
-[Severity: Low]
-Could this method rename break the intra-doc link for MessageFromGsp in
-this same file?
+Could this cause the GSP message queue to wedge permanently, as
+subsequent calls will repeatedly read the exact same bytes and fail
+the checksum again?
 
-drivers/gpu/nova-core/gsp/cmdq/rpc.rs:
-/// This trait tells [`Cmdq::receive_msg`] how it can receive a given type =
-of message.
-pub(crate) trait MessageFromGsp: Sized {
-
->      where
->          // This allows all error types, including `Infallible`, to be us=
-ed for `M::InitError`.
->          Error: From<M::InitError>,
->      {
-> -        let message =3D self.wait_for_msg(timeout)?;
-> +        let message =3D self.wait_for_rpc_msg(timeout)?;
-[ ... ]
-> @@ -357,22 +357,22 @@ pub(crate) fn send_command<M>(&self, command: M) ->=
- Result<M::Reply>
->      ///   written to by its [`CommandToGsp::init_variable_payload`] meth=
-od.
->      ///
->      /// Error codes returned by the command initializers are propagated =
-as-is.
-> -    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-> +    pub(crate) fn send_rpc_command_no_wait<M>(&self, command: M) -> Resu=
-lt
-
-[Severity: Low]
-Will this change leave a broken rustdoc link in drivers/gpu/nova-core/gsp/c=
-mdq.rs?
-
-drivers/gpu/nova-core/gsp/cmdq.rs:
-/// Marker type representing the absence of a reply for a command. Commands=
- using this as their
-/// reply type are sent using [`Cmdq::send_command_no_wait`].
-pub(crate) struct NoReply;
-
->      where
->          M: CommandToGsp<Reply =3D NoReply>,
->          Error: From<M::InitError>,
->      {
-> -        self.inner.lock().send_command(command)
-> +        self.inner.lock().send_rpc_command(command)
->      }
-> =20
->      /// Receive a message from the GSP.
->      ///
->      /// See [`CmdqInner::receive_msg`] for details.
-> -    pub(crate) fn receive_msg<M: MessageFromGsp>(&self, timeout: Delta) =
--> Result<M>
-> +    pub(crate) fn receive_rpc_msg<M: MessageFromGsp>(&self, timeout: Del=
-ta) -> Result<M>
-
-[Severity: Low]
-It looks like this method rename might have missed its own doc comment right
-above it:
-
-    /// See [`CmdqInner::receive_msg`] for details.
-
->      where
->          // This allows all error types, including `Infallible`, to be us=
-ed for `M::InitError`.
->          Error: From<M::InitError>,
->      {
-> -        self.inner.lock().receive_msg(timeout)
-> +        self.inner.lock().receive_rpc_msg(timeout)
->      }
->  }
+> +            dev_err!(&self.dev, "GSP receive: bad checksum\n");
+> +            return Err(EIO);
+> +        }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-cmdq-rpc-v=
-1-0-822db5af910e@nvidia.com?part=3D10
+1-0-822db5af910e@nvidia.com?part=3D2
