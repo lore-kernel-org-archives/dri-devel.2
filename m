@@ -4,85 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49040C98338
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 21:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FF00C9830E
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 21:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BED10E6A9;
-	Sun, 27 Sep 2026 21:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68FD010E2E9;
+	Sun, 27 Sep 2026 21:17:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="lsv/0B3L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pq7iMiNm";
 	dkim-atps=neutral
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
- [74.125.225.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7024D10E6A9
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:00:11 +0000 (UTC)
-Received: by mail-wr2-f35.google.com with SMTP id
- ffacd0b85a97d-48882c1f261so750527f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 14:00:11 -0700 (PDT)
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com
+ [74.125.230.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E8C10E6C0
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:17:33 +0000 (UTC)
+Received: by mail-qk2-f40.google.com with SMTP id
+ af79cd13be357-93c5a837375so64892485a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 14:17:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790543852; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ImF0HJ4ffWIxr6E4R9CKdpXzlSOChw6PxVIPuVzxdKTkOWDTCXiZaJfj+DW3p1PcGN
+ HKhzJmFbpj5sumpxGlO6MGdDb+CxxwdXJ+oCHlmKQDiAEZtBqiFDaVb393P/EQNThzbG
+ TMXyQZPLrW6VLCb2VDwjalAOVzpsoeWlnbmpW1kC7jI7dIahY+Ttz4msjrzfinQ6+NwI
+ 3Mg5Q7PPMJ4JnnZFxGYNjDGLiz0mYzuFZStbSLpCzwKgpZhPv1k6z6YWAtykaTJilGoX
+ 8BZO2O85F4doOhhjRkNxT8PqXvbf7Ky3CjHyE3GiAL2mX8CIIwin/vFpaVdI+tTk6tm3
+ /tIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
+ fh=TolZhRkc3/KkDmGd/Hsyr0FPfH+sjOhV9Eq3XusccEE=;
+ b=s+JuE+jFzwxrA6WNsQXeIA/iDFdybmgsmdBHx1BF2VciAnxTOcTtFTs9+war1/bnGB
+ zvhqmGtCYrh0KotGCurDbnm8if3fjIHZs/y/rWefvDSXGAcAl0la/nUm7WlI+l0Iz3td
+ PmJVpP4sxOvTy3iPYBDss2zl1muBF+yg0y9Y7LcS7eA/gGF17k24fO4CslzTqkqDdecO
+ LGpgz5PQnQgmUvB4BtgYbH1z87LYxh5iVXP0TcGw0yANGtkHrIuOteYEPdteJnCkdUHS
+ Bc6wpkn7PT/iUqCF5zfU3qFdvA/aBd6B7YuObWV2nHEXRpvtioadm7zO6U0ER4WNtQRW
+ QzFQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1790542809; x=1791147609; darn=lists.freedesktop.org;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
- b=lsv/0B3LYj0AU9YbrRyq2DiFP46psMqFe2uo9rRJmLwarC/W1BlP9CUw1QqYjwB1H1
- FuSUuUCoaBVrS5ua5CUXvNUDBu9HiYg+Beps9484/kWXnyE4MgStcFYA66byytT/o8bm
- PEP+SMJ+5nlZlRttaFJBQ5SRU05QzrS3KuoROOzEaNrP2is+2LD7dOQDv08AWYtgprw8
- XShsADUQE8tA8UK3fBkNWUEXXw6Tivtmiaxmn/BVbQ8PD10e7qjMv/xIS2BY1gJsEm+r
- SQK32tDKQzpTAp9viM/HKLuxBSAjwtQ96TrU5J/SV8xxfgH05dIFGN506HHW56W+GsCa
- lMAA==
+ d=gmail.com; s=20251104; t=1790543852; x=1791148652; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
+ b=pq7iMiNmmqDgvqQUw5qWWTF3P2G7YZfD6nuP5qmRvC+Mf+JLseJSFEaobitpspsPsk
+ VkZsjlEh9u0a2yrgB4Hpqe/+NG1WRL6Ritj8Z9Ed9vYVn5MXt5661VlHnFF578U9DERA
+ R8hcTFImfTgCExYfJTZO8I/pgDjEgkd86fjGN2nMYjoen3S6p38qu9f30k+Qt7Wkbu2r
+ uSyJYEOXpt1vy+WH2JeCtva4Nczbm/U1K+pwVWYGvU/LAYLRSNl2wGTYm1BzuKnyR2z4
+ 3mA3SHWuiAyuPq2mSFgYXiDRjAzKwDqsPxzku5Uy5gQmWLIwfhYfeohdjevtTJWLRrBf
+ mWsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790542809; x=1791147609;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
- b=u2GeIBuPFuaHHVUYdmtj58mYa6VNIupiOi0xIILXFo+Y2CAx2qj+ZGd3xuZD681vVD
- 6NH8znr6wAQU+jRtVQj8+8fLmNGjsT1gTomdK4JTfvByUP964fLFcFcnFGOF6WkdRtdS
- L2EgSdabsKCf/YVZSJnfATcmuKVHxNNeWLIiuBVhXWAxNG70vnXm81zVi4z5oAK1h0bb
- w4PjXUYy7xM98gjpOhQD3autBP1zSV9OLEzTTHxCPLwLx+GX2QV+LisJMLo8PQ5Ovnh5
- hz97QEeXgoD6uMAgrOTXZ5LUYhpLM/nwN7l8kwTYl9iBBEg8wvsorIlv8pucGckKD9wh
- ebow==
+ d=1e100.net; s=20260707; t=1790543852; x=1791148652;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=aMhTNMHCy/W9QF11i6so/5746wOL4VdliI9v6lvtqLo=;
+ b=czAOA+J1bwaBEOcZLDdKxZb8pPoN0yriIgorpQNI7uyYusBIpjWnEHuwUpZcq7/tik
+ djTWlAFnSEGaeUxJ0Q9+umeTXUjUplG9CLwzFIDM3wqiivvj1VyzdPh0l8jrUW0OWIfW
+ 9Hj+Y3QZ7blR3WJYVTqtUt0NTClgcpTm7fOj9S3YM6DbFOYcfiRzjpHQf10VDoga+/N7
+ 4wdTJKvTM7dKQokXGY+ZnGO1ioJE8qvhHByctX6hwgY4zHYExNuohA7NHtRyTU+8TMQa
+ B+PlKZEztnZQORpkbcrbXeDehOS5jrzDGU2m0PPbNHBijWv4BSHca7Ag/jhdIs6SNn3z
+ C2nA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+LmdpTIen78hLh1/G0x0Uui6RqGRNChllRLguNAANVnbWbPlEB98MC3HT7UGBF+wYdz5ZZdcIznk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nOdUP6eEMQqIwCHVxukof9SbrZI+Smh1k0xJVD9jPKZhLBg972
- P2iSeBW7pogyjDYy4qKdNSRDsTIq/xenuA1jzma3OKZtD10YeVfevayZXNOanOqin9Q=
-X-Gm-Gg: AYBFou3itEKzvpykkAwClv1auQy8smKPvoYtiexu80Dx1QB3G1zD1maEyo4QUlod3yl
- 7/4vBZzTtf8ooFfrVT2GyChnhzZdfWYN7nHAYz3UsRI57IH6TnBkYtI1utyoSby9pKF/Hb8dHxM
- kUWbJkjR9VWsd1mehMzVRNkViX/sGtGWKif5BSl/YbmzCFPcy4agTCVvItJqXzj85KlCwlpI9bR
- Dr6rSCPvKoGJC1KzD9/HdgLeK5ou64xs0TZK5mIZB+5e4y0nCRy1sXE2VoF35UdaS3cuzEoB1If
- 57zf5lZtMIQ3DKWZ46pBlbvJzViBSSOB5rCagWiuV0tTjIjRSFDOnuZfrhb1+6LOVowUwRA5Ocw
- RYh9qEZ20hAsCWidX09wVNJq4OyWUF0XIh1acHXLORRIavP6gtWXHZDW2Hxm5GDvHbuhxV7wjXp
- Vuw6GUiPAEUpdlnhCMZ/8Vuk6Ouc2YhiNoPIeIudOiHhD5Th9t8PZCtoq6xq5nJJbLxjhKFSI=
-X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id
- 5b1f17b1804b1-49fe66c8288mr201327785e9.4.1790542809339; 
- Sun, 27 Sep 2026 14:00:09 -0700 (PDT)
-Received: from localhost ([62.217.52.92]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49fee6ced69sm146468965e9.0.2026.09.27.14.00.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Sep 2026 14:00:08 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 23:00:07 +0200
-Message-Id: <DLQEGA48W7X8.21N6R6EPU8C@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
+ AKwUvBxR5M0vyUXR3SM4MS2EhdchUl0zWxoqj2llG4m27dnT0vwhmplbjxGf258//xnbVEdncyBs1AINHXA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nWsCfYISRoBJsbMdip5hiEFKM6836fZRmEJX/OqcA3ZPg1SaY5
+ n7kvXPL1b5u+jpFlYUTl8pW98wQ1jEpIYDofC0TYgkJhHaFlinaktReNJz1q/U8raUHI9BUpiyB
+ +txOGVQXSzUlHeaP/I/2MFvjQ7EGgLuU=
+X-Gm-Gg: AYBFou1wvqgWgQvBIpyC0MvuICsiB6ytDUEZsKyh1ekg+OQvZJKf8Yr4fPV8JPxE9Pf
+ D4sWrDUjY67vf9JjaBR24tKaEnj4tDihLOblL0JDq1iakQg2pWU9rkeiGetogpMvbwofSa/diY8
+ uwR6BtI+LWy1hbIq9wBoSC3pt6hlnRHm5uuIEbxTqd1u7lBp3fkbtYJglZZ8iQZsT2bGg4w+tXR
+ HQczjMsdMu3nrwXg8uzL5VSi/fMKV6LcKM54nw1lbupm+7RussQkwQsPLXH6mOCSdUSMbQ0pPgg
+ QaPwLn+22OSPm/VZ3AXKDKFiZpTF5au5mz1pEJOWe4BK00LzE/2+qsCwSuRN5tssi6KJQ0M+NPP
+ itZo48KDFSBzuTd08fbxECjiqGwUKYvXGqxaKPjGy
+X-Received: by 2002:a05:620a:26a8:b0:93c:2670:2c28 with SMTP id
+ af79cd13be357-93c43c3b302mr1594003485a.10.1790543851808; Sun, 27 Sep 2026
+ 14:17:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260821195224.809173-1-alexander.deucher@amd.com>
+In-Reply-To: <20260821195224.809173-1-alexander.deucher@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 28 Sep 2026 07:17:20 +1000
+X-Gm-Features: AclHuK9j_ZBnHU5bftvT0-bNJR4EDTfTOCkhRiQMtodvJ4ebzPkWhQxMxMAITPU
+Message-ID: <CAPM=9tzfOiFBHKRVPjmde0gcFY+C=AQh-+-VvNTb5ZuAhvqG7A@mail.gmail.com>
+Subject: Re: [PATCH 0/3] Add UALink infrastructure series 2
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Felix.Kuehling@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,56 +104,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi erebion,
-
-On Sat Sep 26, 2026 at 4:00 PM CEST, erebion wrote:
-> Add a node for the camera flash LED found on the Xperia 10 III
+> https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L1036
 >
-
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
->  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++=
-++++++
->  1 file changed, 15 insertions(+)
+> Alex Deucher (1):
+>   Documentation: add initial UALink Documentation
 >
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
-b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index 6e2bbf4f060ac..79aa2521aed40 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> @@ -4,9 +4,11 @@
->   */
->  /dts-v1/;
-> =20
-> +#include <dt-bindings/leds/common.h>
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
->  #include "sm6350.dtsi"
-> +#include "pm6150l.dtsi"
->  #include "pm6350.dtsi"
-> =20
->  / {
-> @@ -302,6 +304,19 @@ touchscreen@48 {
->  	};
->  };
-> =20
-> +&pm6150l_flash {
-> +	status =3D "okay";
-> +
-> +	led-0 {
-> +		function =3D LED_FUNCTION_FLASH;
-> +		color =3D <LED_COLOR_ID_WHITE>;
-> +		led-sources =3D <1>;
-> +		led-max-microamp =3D <180000>;
-> +		flash-max-microamp =3D <1000000>;
-> +		flash-max-timeout-us =3D <1280000>;
-> +	};
-> +};
-> +
->  &pm6350_gpios {
->  	vol_down_n: vol-down-n-state {
->  		pins =3D "gpio2";
+> Mukul Joshi (2):
+>   drm/gem: Add callback for when handle count goes to 0
+>   drm/amdgpu: Add ioctl infra for exporting/importing UALink handles
+>
+>  Documentation/gpu/amdgpu/index.rst         |  1 +
+>  Documentation/gpu/amdgpu/ualink.rst        | 74 ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  9 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 44 +++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  2 +
+>  drivers/gpu/drm/drm_gem.c                  |  5 +-
+>  include/drm/drm_gem.h                      | 11 ++++
 
+This gem patch is kinda sneaking in here, I'd have preferred to have
+more discussion on the list around this sort of addition to the gem
+code.
 
+Dave.
