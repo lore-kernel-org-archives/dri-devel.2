@@ -4,42 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA17C9832F
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 20:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49040C98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 21:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFCC10E053;
-	Sun, 27 Sep 2026 20:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BED10E6A9;
+	Sun, 27 Sep 2026 21:00:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fE2OH3MR";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="lsv/0B3L";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 937C510E053
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 20:47:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4222D41B30;
- Sun, 27 Sep 2026 20:47:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7251F000FF;
- Sun, 27 Sep 2026 20:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790542049;
- bh=/Bfkc1mMzdoI6DJf4ffixO762p7ODXAF5SNmPdvBi5Y=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fE2OH3MRkmylrYSEqbDrgXFnzqcMC95W8GWFcytGpoM0HEEuKWGWYFcl1iqH5pFyI
- DnrnV8fBrV01kjIU6B1gf4q1B86N8NJHrDahyqCUr3cqMjHmsBqshtCCke2NtGI+mU
- 4bZAmu7AV0Kke+oNxQtR6DbRi4UYq++AVuJ8RjHD921u2ZoyqiUJvEQk2+yzJBiBDk
- mZv7gV+BnD6XrEXkE9B6DvJKSmXwKIwCUeiZ2q1baxL4lE/tFe/N0p9xtG0b/5w/8G
- soC51Qg2gLoHCADRGM9b/usmV5M4yGdfOWBAoC5DcxSneW8AdneSGAy3luqAgWhQAV
- 379bmm0u/CFSA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/vc4: Set DRM DMA device directly from HVS and V3D
-To: "Daniel Drake" <dan@reactivated.net>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net>
-References: <20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
+ [74.125.225.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7024D10E6A9
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:00:11 +0000 (UTC)
+Received: by mail-wr2-f35.google.com with SMTP id
+ ffacd0b85a97d-48882c1f261so750527f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 14:00:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fairphone.com; s=fair; t=1790542809; x=1791147609; darn=lists.freedesktop.org;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
+ b=lsv/0B3LYj0AU9YbrRyq2DiFP46psMqFe2uo9rRJmLwarC/W1BlP9CUw1QqYjwB1H1
+ FuSUuUCoaBVrS5ua5CUXvNUDBu9HiYg+Beps9484/kWXnyE4MgStcFYA66byytT/o8bm
+ PEP+SMJ+5nlZlRttaFJBQ5SRU05QzrS3KuoROOzEaNrP2is+2LD7dOQDv08AWYtgprw8
+ XShsADUQE8tA8UK3fBkNWUEXXw6Tivtmiaxmn/BVbQ8PD10e7qjMv/xIS2BY1gJsEm+r
+ SQK32tDKQzpTAp9viM/HKLuxBSAjwtQ96TrU5J/SV8xxfgH05dIFGN506HHW56W+GsCa
+ lMAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790542809; x=1791147609;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=HdQLpvgoc2kmRQGNUAWswTV8bwgORG4pWTKI2Gc4aS0=;
+ b=u2GeIBuPFuaHHVUYdmtj58mYa6VNIupiOi0xIILXFo+Y2CAx2qj+ZGd3xuZD681vVD
+ 6NH8znr6wAQU+jRtVQj8+8fLmNGjsT1gTomdK4JTfvByUP964fLFcFcnFGOF6WkdRtdS
+ L2EgSdabsKCf/YVZSJnfATcmuKVHxNNeWLIiuBVhXWAxNG70vnXm81zVi4z5oAK1h0bb
+ w4PjXUYy7xM98gjpOhQD3autBP1zSV9OLEzTTHxCPLwLx+GX2QV+LisJMLo8PQ5Ovnh5
+ hz97QEeXgoD6uMAgrOTXZ5LUYhpLM/nwN7l8kwTYl9iBBEg8wvsorIlv8pucGckKD9wh
+ ebow==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw+LmdpTIen78hLh1/G0x0Uui6RqGRNChllRLguNAANVnbWbPlEB98MC3HT7UGBF+wYdz5ZZdcIznk=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nOdUP6eEMQqIwCHVxukof9SbrZI+Smh1k0xJVD9jPKZhLBg972
+ P2iSeBW7pogyjDYy4qKdNSRDsTIq/xenuA1jzma3OKZtD10YeVfevayZXNOanOqin9Q=
+X-Gm-Gg: AYBFou3itEKzvpykkAwClv1auQy8smKPvoYtiexu80Dx1QB3G1zD1maEyo4QUlod3yl
+ 7/4vBZzTtf8ooFfrVT2GyChnhzZdfWYN7nHAYz3UsRI57IH6TnBkYtI1utyoSby9pKF/Hb8dHxM
+ kUWbJkjR9VWsd1mehMzVRNkViX/sGtGWKif5BSl/YbmzCFPcy4agTCVvItJqXzj85KlCwlpI9bR
+ Dr6rSCPvKoGJC1KzD9/HdgLeK5ou64xs0TZK5mIZB+5e4y0nCRy1sXE2VoF35UdaS3cuzEoB1If
+ 57zf5lZtMIQ3DKWZ46pBlbvJzViBSSOB5rCagWiuV0tTjIjRSFDOnuZfrhb1+6LOVowUwRA5Ocw
+ RYh9qEZ20hAsCWidX09wVNJq4OyWUF0XIh1acHXLORRIavP6gtWXHZDW2Hxm5GDvHbuhxV7wjXp
+ Vuw6GUiPAEUpdlnhCMZ/8Vuk6Ouc2YhiNoPIeIudOiHhD5Th9t8PZCtoq6xq5nJJbLxjhKFSI=
+X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id
+ 5b1f17b1804b1-49fe66c8288mr201327785e9.4.1790542809339; 
+ Sun, 27 Sep 2026 14:00:09 -0700 (PDT)
+Received: from localhost ([62.217.52.92]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49fee6ced69sm146468965e9.0.2026.09.27.14.00.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 27 Sep 2026 14:00:08 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 20:47:28 +0000
-Message-Id: <20260927204728.EF7251F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 27 Sep 2026 23:00:07 +0200
+Message-Id: <DLQEGA48W7X8.21N6R6EPU8C@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,77 +95,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/vc4: dma_free_wc() used with wrong device in vc4_bo_purge()
---
+Hi erebion,
 
-commit abd61016c96bce404abb5e31405d8c24a7acfb12
-Author: Daniel Drake <dan@reactivated.net>
+On Sat Sep 26, 2026 at 4:00 PM CEST, erebion wrote:
+> Add a node for the camera flash LED found on the Xperia 10 III
+>
 
-    drm/vc4: Set DRM DMA device directly from HVS and V3D
-   =20
-    vc4 uses of_dma_configure() during bind to set the DMA configuration of
-    the drm device by borrowing the configuration of one of its component
-    devices.
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
 
-> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-> index e715147d091ca..305770c87dcf0 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-[ ... ]
-> @@ -1662,6 +1663,19 @@ static int vc4_hvs_bind(struct device *dev, struct=
- device *master, void *data)
->  		hvs->regset.nregs =3D ARRAY_SIZE(vc4_hvs_regs);
->  	}
+> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++=
+++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 6e2bbf4f060ac..79aa2521aed40 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,9 +4,11 @@
+>   */
+>  /dts-v1/;
 > =20
-> +	if (vc4->gen >=3D VC4_GEN_6_C) {
-> +		ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-> +		if (ret)
-> +			return ret;
-> +	}
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include "sm6350.dtsi"
+> +#include "pm6150l.dtsi"
+>  #include "pm6350.dtsi"
+> =20
+>  / {
+> @@ -302,6 +304,19 @@ touchscreen@48 {
+>  	};
+>  };
+> =20
+> +&pm6150l_flash {
+> +	status =3D "okay";
 > +
-> +	/*
-> +	 * Use the HVS as the DRM device's DMA controller for buffer
-> +	 * allocations if one has not already been configured.
-> +	 */
-> +	if (drm_dev_dma_dev(drm) =3D=3D drm->dev)
-> +		drm_dev_set_dma_dev(drm, dev);
+> +	led-0 {
+> +		function =3D LED_FUNCTION_FLASH;
+> +		color =3D <LED_COLOR_ID_WHITE>;
+> +		led-sources =3D <1>;
+> +		led-max-microamp =3D <180000>;
+> +		flash-max-microamp =3D <1000000>;
+> +		flash-max-timeout-us =3D <1280000>;
+> +	};
+> +};
+> +
+>  &pm6350_gpios {
+>  	vol_down_n: vol-down-n-state {
+>  		pins =3D "gpio2";
 
-[Severity: High]
-Will this change lead to a DMA API regression in vc4_bo_purge()?
 
-Looking at drivers/gpu/drm/vc4/vc4_bo.c, when a DMA allocation fails under
-memory pressure, vc4_bo_userspace_cache_purge() calls vc4_bo_purge() to
-reclaim memory from BOs marked as DONTNEED.
-
-In vc4_bo_purge(), the memory is freed using the virtual aggregate device
-instead of the newly configured DMA device:
-
-static void vc4_bo_purge(struct drm_gem_object *obj)
-{
-	...
-	dma_free_wc(dev->dev, obj->size, bo->base.vaddr, bo->base.dma_addr);
-	...
-}
-
-Since buffer objects are allocated using drm_gem_dma_create(), which now
-uses the properly configured drm_dev_dma_dev(drm) device, bypassing GEM
-helpers and explicitly calling dma_free_wc(dev->dev, ...) breaks the DMA
-API contract.
-
-This contract requires memory to be freed with the exact same device pointer
-used for allocation. Using a different device guarantees IOMMU unmap failur=
-es,
-as the aggregate device no longer has a matching DMA/IOMMU configuration.
-
-Should vc4_bo_purge() be updated to use drm_dev_dma_dev(dev) instead of
-dev->dev?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-drm-dma-de=
-vice-2-v1-1-3230afcdc851@reactivated.net?part=3D1
