@@ -4,52 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37C79C98328
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 00:13:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09854C98324
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 04:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 750B710E37B;
-	Sun, 27 Sep 2026 00:13:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=sina.com header.i=@sina.com header.b="MDbJGjx2";
-	dkim-atps=neutral
-X-Greylist: delayed 574 seconds by postgrey-1.36 at gabe;
- Sun, 27 Sep 2026 00:13:11 UTC
-Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn
- [202.108.3.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE44F10E1F1
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 00:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208;
- t=1790467992; bh=t1NV1h1nSPt4cYWoKLftL9MH2NWX+QPNIV0D+GSaeoE=;
- h=From:Subject:Date:Message-ID;
- b=MDbJGjx238QgfjMhWFwYxQccnzfKc8hJI5p+VGQqFeKF0Zq2gR9+lerqX7OQb5mXg
- gOEP0MjOCaz7zq51lvgYImAxefsoeMMjOFXWv2i7MhG0AdNQjqb97C3CD9On6WxECz
- EXQRTiqtTYvbrxIAOAKRQNETnDHOPbR9M8ZysVjc=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
- by sina.com (10.54.253.32) with ESMTP
- id 6AB85D5200006D2A; Sun, 27 Sep 2026 08:03:33 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com; spf=none smtp.mailfrom=hdanton@sina.com;
- dkim=none header.i=none;
- dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 924834456770
-X-SMAIL-UIID: F10C53ADF8B44D0E820DF1EC2C9DBC9C-20260927-080333-1
-From: Hillf Danton <hdanton@sina.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
-Subject: Re: [PATCH] drm/virtio: share one vbuf cache across all devices
-Date: Sun, 27 Sep 2026 08:03:21 +0800
-Message-ID: <20260927000323.299-1-hdanton@sina.com>
-In-Reply-To: <20260926162452.136863-1-ngocthang2710.1999@gmail.com>
-References: 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7CCC10E0C2;
+	Sun, 27 Sep 2026 04:19:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28F7810E0C2
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:19:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0060060120;
+ Sun, 27 Sep 2026 04:19:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F241F000FF;
+ Sun, 27 Sep 2026 04:19:13 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/virtio: put GEM objects when dropping a vbuf on unplug
+To: "Nguyen Ngoc Thang" <ngocthang2710.1999@gmail.com>
+Cc: virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>,
+ dri-devel@lists.freedesktop.org, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+References: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 04:19:10 +0000
+Message-Id: <20260927041913.55F241F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +40,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 26 Sep 2026 23:24:52 +0700 Nguyen Ngoc Thang wrote:
-> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
-> "virtio-gpu-vbufs" for every device and destroys it from
-> virtio_gpu_release(), which only runs once the last drm_device
-> reference is dropped. If a reference outlives the PCI removal (for
-> instance an open /dev/fbN), a rescan probes the device again while the
-> old cache still exists:
-> 
->   kmem_cache of name 'virtio-gpu-vbufs' already exists
->   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+> virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter() fails
+> or when vqs_released is set. It unlocks the reservation and frees the
+> vbuf, but never releases the references that the caller handed over in
+> vbuf->objs. Those references are normally dropped from the dequeue path,
+> which never sees a command that was not queued.
+>=20
+> If a framebuffer flush races with device removal, the GEM object backing
+> the fbdev buffer keeps a stale reference, is never freed, and its node is
+> still in the vma offset manager when the drm_device is released:
+>=20
+>   Memory manager not clean during takedown.
+>   WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown
 >   Call Trace:
->    virtio_gpu_alloc_vbufs
->    virtio_gpu_init
->    virtio_gpu_probe
->    ...
->    pci_rescan_bus
->    rescan_store
-> 
-> kmem_cache_create() then fails and the new device does not probe.
-> 
-> The vbuf size is the same for every device, so create the cache once
-> at module init and destroy it at module exit instead of per device.
->
-What is unclear -- why is kmalloc failing to work in 2026?
+>    drm_managed_release
+>    drm_dev_put
+>    virtio_dev_remove
+>    virtio_pci_remove
+>    pci_device_remove
+>    remove_store
+>=20
+> Drop the object references together with the vbuf on both early-exit
+> paths.
+>=20
+> Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dd93b9064fe5f74af3aa3
+> Fixes: b7170f9457f2 ("drm/virtio: return virtio_gpu_queue errors")
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+
+Sashiko has reviewed this patch and found no issues. It looks great!
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927040655.1453=
+1-1-ngocthang2710.1999@gmail.com?part=3D1
+
