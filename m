@@ -4,84 +4,176 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B84CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A40ECA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDF4E10E8D9;
-	Mon, 28 Sep 2026 08:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4EC10E8D5;
+	Mon, 28 Sep 2026 08:44:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qz+MAS/g";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="llcfmYRg";
 	dkim-atps=neutral
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com
- [74.125.230.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 090D810E050
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 16:31:39 +0000 (UTC)
-Received: by mail-qk2-f41.google.com with SMTP id
- af79cd13be357-93c59695cc9so54595485a.3
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 09:31:38 -0700 (PDT)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAB7410E6D5
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:44:31 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-533202fe429so279861cf.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 14:44:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790545471; cv=none;
+ d=google.com; s=arc-20260327;
+ b=TOw6+ZobV6TJkTveLrA7p0N2jA+vT5EiBye10e4Z67qJKXPxmW005q6ofvAGgzrBFJ
+ IUOqVXiWTgXplDheqZBHQy7MNPYovdnIdq2G6HdnnWySkrQUgYg92EuqboY2UX00AIYa
+ XNHFqvCiBihmekpQfqJmwBf00+5KlMTgckiVhXb8j/R3Rm03cZbiDoOL8rN6SlqVVOuh
+ pW0u+ivb3SroqlIZhNMs+Sq2gNSKgRdFtnEmgOKWKW3uDa7xOQd1QNMBn1qCDlqEoIWw
+ dOolMR2rk/5tLhpjZvBPtUsfWcHiiY0SEtJekA0X8nyo4VEyNv0fb28a98csXR0Nbz04
+ LQBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=y119z7sdl3qfjHiuF1t57ekDKg+i4BGISMvCcdxAaw0=;
+ fh=ZF2nJB7NYc6v4JfO4AJ3bUdhQtkTX5eQOSOirWysdQg=;
+ b=rA37t2i67BC8jyTgUSfRADJAeRobnX1boxP35mRdokJY10VstH81yEXlHgj74VMg2W
+ J3QiFJ1FqkLUb/rgGIbUZ5gzU1MneFZfqD9B41apa2/wQ4arUsjIWuIWqetXMVYVtr1C
+ oSdMjWZSMTivQU5jFqlNXrDpKcd36egAiChBBEo70wk6aj+Cj5PCJn6ZGlnrQGpb2sK+
+ Zx2qRhhDb7fJXwDnoWGSClpVIo2WrW2Is7efmXhrT10KJigOr7pKRGl/facwJYrHnai6
+ D+nbnaLSjQJI7gIPskFT5Oy3YDrZt72NSRIWE6ejOfcWBHe05q/3wPMuXox8sWWESzLF
+ UyUg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790440298; x=1791045098; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=60WAUxziU7muSXLNkG9SMKlAL+mMs9W/WR/Iki3BFx0=;
- b=Qz+MAS/gkvRJAf1zWCeFJqAaMraPaqPU1zWer8Qko0AXhsbBH16XEAAB2lqWlegT+x
- pZgKpA5gwoMRM+bKOVf5YEXmIJgdKT5x2xRv23mdX0k7rgrT7fjV0uZ4Qi7L//41sHq3
- hvfVtYSSDdimkX54PqcH2fKMSZgBrBagVXpvSWkIV4wl9hkVgCbRi9HUO5i3DVrcairi
- 05mibNtyhVOx4aPQJK4AqyVGlhgWz8sBbV0FWFOZSWSHO/DPKfEGjwsS89mvRyjsz+aH
- e7KNDbUmhxgNUwxJP4cvl9kxeDO4JYDvNzcewV2WZOZYVOji5SenmllThW8r6o+pLkMF
- zJPQ==
+ d=google.com; s=20251104; t=1790545471; x=1791150271;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=y119z7sdl3qfjHiuF1t57ekDKg+i4BGISMvCcdxAaw0=;
+ b=llcfmYRg4b+gX6myOpZhU/tSXx189DtwAYnl6JPD/tIVe4fZBC/A6o7ONnk+vLhCBD
+ /mb+/NiYifnJ/Vfd3EOwfGiVx+i1ep6lDU5tzEF7b+cWBe/KKh6DWV5KgrywWEfryQhM
+ ogdA7JQTswfivrqbyvxsLTCaQcGHgKxl3cGC28LKyK1L/h/hGyOnUkgrql6uvx3k8eeG
+ oVfY5Pi87a+nnufX2Mr+kcqg4diF6Qwma1TU+rK//CWU80Uve7g5dhIfN0qNtwJGHKH9
+ ctbGpTU15pDemhe+lhQC9eTumj91LighC/FHP8SeipPvw1r0WzjNinWfLVQn4iwAdvwR
+ q8DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790440298; x=1791045098;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=60WAUxziU7muSXLNkG9SMKlAL+mMs9W/WR/Iki3BFx0=;
- b=l1jZLnE/HcPjTApIVqiPZ1DpqJvTlqcyM/YeOqI+AMDH5bK9pJg9NstoQOCv3VYbqb
- wQK9K3sSGyLfgd5m4ipNnCdItKBfVCrtFXKLGQE5MHmV/wpBP4nebYnIoaX6A7qJnpyp
- 4EOHBOdh2H0JSt0H0sHsI8hwCZPSa74QtRpyMIjIVFfPiXRb9R1lZ9239x6Widgt/5tu
- l2p4Pil885fTMera5grjpIoqsq8hwrIZ8zXfhiKerQHa6i6e7pYvrT0bQ7nkbW6OUxNJ
- SrWre0QNJj4ZNKYvwLJ+bGg+NTPyZjU3HKzWh7VzOQTGVP5PzeekUlsHQgfstF0GpFwR
- WlAg==
+ d=1e100.net; s=20260707; t=1790545471; x=1791150271;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=y119z7sdl3qfjHiuF1t57ekDKg+i4BGISMvCcdxAaw0=;
+ b=N5opyMWos34THKLtWwMqEcY9rqxRQxnMbR/yQDboER4vHewWKLQhENT2a+CwYqeywO
+ 9/qfPP9KuYeDvBzdgX4LI68aI7a7VsYUt6VQv54rqj6MGqKKl+oVfR7/bB5IGd3XBA+5
+ aiUJOSiuuZC7mtz4bMNMhNDQpR2Hjgwsy3pdga8pfgWSTJoYQ+Lu5AegTsJ5nXdF/8mP
+ xJ82y4oQ08FQpboo1Gi1EC1ybnP2KJurxEA+8B3NX/wAXlj9JQ32vfA7FNCFF/vbx6cB
+ ilsjaOrcC+wrYo5XI/l8Ftgc7PAhdfBNvkEVRKzFQVlIBK9AJEWWvM752yygrVbPS9x4
+ Xv3A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxM0bd8cegEXVejRuEEjMYR5tKmoxDLe3pOEuqkMwdGLq6bNZd3s7cFm/AsTQOtsBa/l2ZMiyfqNVM=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lr6SqPs+cXtfWAgv02y5wNwen/OpJf/gmI2e44LCQRhuqHaihM
- MxGqVxmO7zSFlaLRBbpkG44X4im8UqhYq5PimVpakDXGjlsQSDGX0Lzj
-X-Gm-Gg: AYBFou0qbML5tThrcVwcWmFa6hRCveqrzH+qAr8z+iebfsiJsgQ6R48z1PRYUdmjQuK
- A+r4P1ZjMgGNgJUkCzCzCOrVioRo7U2OYcd291n04SbagKHFGmWRsvCWxCsob8ux1QdwH+IAumR
- Npn2pFWWI7+8xlSbwDN9CLyZ8hno4bt+DticdxQ9GWDOEjO6dLfGtcRjXKAp3ejnDq02Bcp9SPt
- ugSfZ5jXdF0aT3tCG8GSfljHVgX9XfGdv+0rFZE8rugj+jQjMW7fwzC6o3C2xtQKe1s8WWjEri8
- ZotlRwnW+xHyT8F8S/gj/otQCQ41IAvChjR3oeVUkmDkT+j4KWUbcCsDe+m0M3iaV/ZSwjQuwif
- j0AotcZnCyjCraBXnaL/ow9j5qxz6f0YCRSiomI392X86EjVHskofqYXaphmJkxT6wZnhZtVQMe
- KPjFBhH6JEAEzNHOufGuybvWPNtlaydDO5T9mXw7lFzGKNg4OPTYNfOAq6t5onId3takWvdUOUH
- hktJDBJHACDN+e/CbBOrH1mxlkvAZflP2p2yrDVwnA4Ph+8p4uAMXUACMccfYKruH4=
-X-Received: by 2002:a05:620a:2887:b0:939:518d:7f6e with SMTP id
- af79cd13be357-93c43bba60bmr1065684085a.22.1790440297949; 
- Sat, 26 Sep 2026 09:31:37 -0700 (PDT)
-Received: from localhost.localdomain
- ([2600:4040:29f7:9600:f571:6178:b590:34a4])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-93c4fe09037sm341332385a.27.2026.09.26.09.31.36
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 26 Sep 2026 09:31:37 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Dillon Amburgey <dillona@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, christian.koenig@amd.com, krisman@collabora.co.uk,
- noralf@tronnes.org
-Subject: [PATCH v3 4/5] drm/qxl: own packed primary shadows in atomic plane
- state
-Date: Sat, 26 Sep 2026 12:31:22 -0400
-Message-ID: <20260926163123.39217-5-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260926163123.39217-1-dillona@gmail.com>
-References: <20260926163123.39217-1-dillona@gmail.com>
+ AKwUvByAaZPbMnNYjf2Kj70eqaRJye3PIIaE+9TAdBGQVW/p7Ro6vaE2mDRW5Rfup5XHkW9+SjzKQzgMF3o=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nBLbyFMgv+P1/E1Jq19Z3k/qDmttp6l6DmZn1puIEtSnE4pxMH
+ Atq0lvWm/dCvOVjoWS6HB3v3a3roU6d6iq9+r9cqZGSDh/I9u7ka7U0LtMa8qpnbVX1imTjKwPp
+ JyRzUKicik9YpETe1rc27He07Kan1jQHvu3Oo5GFu
+X-Gm-Gg: AYBFou0EyADRe12BV2QJGhM9pfzcD1qTorf742Vtanssldm3yo0/Ow3m2Zcwc0jAVsF
+ a/kCiC/zUj/8aJ9aijjqBZDxiUQcRjWZDJzKa5Sph29TOVNWzQSKB2TxX2YPkBWtnEeX2Zn8Wss
+ vKpTeP76hGlvJw4F+q1SpqbAJ8zw3eVANQ+lw7J/u6YJNvFPyN9mj2+RsASMskkL6iGPktpWYpo
+ f+a9e6Mpiu5qQQOzquXBfjObVLzkuJrF4v/JTD1eRp4eIX5aEm/vAsL1alxqzNz2QiaVVNgeZaw
+ +/aubWrR4z/zxMMkslY+J6Yf+QUfT4l1YYp73Pg/Ac0jaPMhEd0hTw==
+X-Received: by 2002:ac8:6104:0:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-5331fed98dfmr23915841cf.0.1790545469472; Sun, 27 Sep 2026
+ 14:44:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-8-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-8-4583d8a23bca@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 27 Sep 2026 14:44:18 -0700
+X-Gm-Features: AclHuK-2F2ckU1C-yxhObu0QhsQKrsVKTug_h-Hi9fsC16ALl2HO1fuDhZLvMkI
+Message-ID: <CAJuCfpEawD2NUO9EoqKnR6YR59XMdYrtUrj8KEwJVwO8AOk8Lw@mail.gmail.com>
+Subject: Re: [PATCH v3 08/40] mm: add mmap action for discontiguous kernel
+ page mapping
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,505 +190,430 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Preparing a dumb framebuffer changes device-wide layout and BO shadow
-bindings before the atomic commit succeeds. An aborted preparation can
-redirect live framebuffers to an uncommitted shadow. Per-plane cleanup
-can also remove a shadow binding still needed by another head using the
-same framebuffer.
+On Thu, Sep 17, 2026 at 9:27=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> The existing kernel page mapping mmap actions allow for partial and full
+> mapping of an array of struct page pointers.
+>
+> However some drivers require the mapping of discontiguous ranges. Permit
+> this by providing discontig_kernel_page_ops which allows a driver to
+> specify how the operation should begin and how batches of pages should be
+> retrieved.
+>
+> It uses the minimum exposed interface to do so, providing address, page
+> offset and both vm_private_data state and a local private state object.
+>
+> ops->init can establish state for the operation, and ops->get outputs the
+> pages to map and their count. Should an error arise the core unmaps the
+> VMA, invoking vm_ops->close, which is therefore where any state establish=
+ed
+> by ops->init is released.
+>
+> Batches may not exceed the VMA, but may map less than its full range in
+> case the driver wishes to allow the user to map an area larger than the
+> available data.
+>
+> To use it, users invoke mmap_action_map_discontig_kernel_pages() with
+> initial local private state and a set of operations.
+>
+> Users can then use one of the provided helper functions to perform an
+> action:
+>
+> * discontig_kernel_map_abort() - Abort and leave the mapping as it has
+>   been accumulated so far.
+> * discontig_kernel_map_page() - Map a single page, or a compound page giv=
+en
+>   its head page.
+> * discontig_kernel_map_page_range() - Maps a struct page ** array of a
+>   specified count.
+>
+> The userland VMA tests are updated accordingly.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              |  45 +++++++++++++++++
+>  include/linux/mm_types.h        |  44 +++++++++++++++-
+>  mm/internal.h                   |   3 ++
+>  mm/memory.c                     | 108 ++++++++++++++++++++++++++++++++++=
+++++--
+>  mm/util.c                       |   7 +++
+>  tools/testing/vma/include/dup.h |  11 +++-
+>  6 files changed, 209 insertions(+), 9 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index a1f2d375cf7d..2a92193ac6a5 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -4647,10 +4647,55 @@ static inline void mmap_action_map_kernel_pages_f=
+ull(struct vm_area_desc *desc,
+>                                      vma_desc_pages(desc));
+>  }
+>
+> +static inline
+> +void mmap_action_map_discontig_kernel_pages(struct vm_area_desc *desc,
+> +               void *init_private, const struct discontig_kernel_page_op=
+s *ops)
+> +{
+> +       struct mmap_action *action =3D &desc->action;
+> +
+> +       action->type =3D MMAP_DISCONTIG_KERNEL_PAGES;
+> +       action->map_kernel_discontig.init_private =3D init_private;
+> +       action->map_kernel_discontig.ops =3D ops;
+> +}
+> +
+>  int mmap_action_prepare(struct vm_area_desc *desc);
+>  int mmap_action_complete(struct vm_area_struct *vma,
+>                          struct mmap_action *action, bool is_compat);
+>
+> +static inline void
+> +discontig_kernel_map_abort(struct discontig_kernel_page_state *state)
+> +{
+> +       state->action =3D DISCONTIG_KERNEL_PAGE_ABORT;
+> +}
+> +
+> +static inline void
+> +discontig_kernel_map_page(struct discontig_kernel_page_state *state,
+> +                         struct page *page)
+> +{
+> +       struct folio *folio =3D page_folio(page);
+> +
+> +       if (folio_test_large(folio)) {
+> +               VM_WARN_ON_ONCE(page !=3D folio_page(folio, 0));
+> +               state->action =3D DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE=
+;
+> +               state->__folio =3D folio;
+> +               state->__nr_pages =3D min(state->nr_pages_remain,
+> +                                       folio_nr_pages(folio));
+> +       } else {
+> +               state->action =3D DISCONTIG_KERNEL_PAGE_MAP_PAGE;
+> +               state->__page =3D page;
+> +               state->__nr_pages =3D 1;
+> +       }
+> +}
+> +
+> +static inline void
+> +discontig_kernel_map_page_range(struct discontig_kernel_page_state *stat=
+e,
+> +                               struct page **page_arr, unsigned long nr_=
+pages)
+> +{
+> +       state->action =3D DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE;
+> +       state->__page_arr =3D page_arr;
+> +       state->__nr_pages =3D nr_pages;
 
-Give each prepared primary plane state a reference and pin to a shared
-shadow. Compute the complete new layout and prepare one matching shadow
-without changing the displayed states. Include all primary planes and
-CRTCs so replacement and repacking redraw every head under the same
-commit dependencies. Release each state's resources independently.
+Shouldn't we cap state->__nr_pages at state->nr_pages_remain like you
+do in discontig_kernel_map_page()?
 
-Keep the primary while any new primary plane remains active, and destroy
-it when the last head turns off, including DPMS with retained framebuffer
-bindings. Route DirtyFB clips through each matching active plane state
-to its packed slot; copy clips before the draw helper translates them.
-
-Retain allocation-based packing and full-framebuffer drawing here; plane
-source geometry is handled separately.
-
-Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
-Assisted-by: LLM sparse
-Signed-off-by: Dillon Amburgey <dillona@gmail.com>
----
- drivers/gpu/drm/qxl/qxl_display.c | 310 +++++++++++++++++-------------
- drivers/gpu/drm/qxl/qxl_drv.h     |   3 -
- 2 files changed, 176 insertions(+), 137 deletions(-)
-
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 05de8dd3144d..af36d4d1ea57 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -45,6 +45,27 @@
- #include "qxl_drv.h"
- #include "qxl_object.h"
- 
-+/* Each prepared primary state owns a pin and reference to its shadow. */
-+struct qxl_plane_state {
-+	struct drm_plane_state base;
-+	struct qxl_bo *shadow;
-+	u32 x;
-+};
-+
-+#define to_qxl_plane_state(state) \
-+	container_of(state, struct qxl_plane_state, base)
-+
-+static bool qxl_primary_active(struct drm_atomic_commit *state,
-+			       struct drm_plane_state *ps)
-+{
-+	struct drm_crtc_state *cs;
-+
-+	if (!ps || !ps->fb || !ps->crtc)
-+		return false;
-+	cs = drm_atomic_get_new_crtc_state(state, ps->crtc);
-+	return cs && cs->active;
-+}
-+
- static bool qxl_head_enabled(struct qxl_head *head)
- {
- 	return head->width && head->height;
-@@ -348,8 +369,8 @@ static void qxl_crtc_update_monitors_config(struct drm_crtc *crtc,
- 		head.y = crtc->y;
- 		if (qdev->monitors_config->count < i + 1)
- 			qdev->monitors_config->count = i + 1;
--		if (qdev->primary_bo == qdev->dumb_shadow_bo)
--			head.x += qdev->dumb_heads[i].x;
-+		if (to_qxl_plane_state(crtc->primary->state)->shadow)
-+			head.x += to_qxl_plane_state(crtc->primary->state)->x;
- 	} else {
- 		head.width = 0;
- 		head.height = 0;
-@@ -428,12 +449,10 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 					 struct drm_clip_rect *clips,
- 					 unsigned int num_clips)
- {
--	/* TODO: vmwgfx where this was cribbed from had locking. Why? */
- 	struct qxl_device *qdev = to_qxl(fb->dev);
- 	struct drm_clip_rect norect;
- 	struct qxl_bo *qobj;
- 	struct drm_modeset_acquire_ctx ctx;
--	bool is_primary;
- 	struct drm_crtc *crtc;
- 	int inc = 1, ret;
- 
-@@ -446,9 +465,7 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 	}
- 
- 	qobj = gem_to_qxl_bo(fb->obj[0]);
--	/* if we aren't primary surface ignore this */
--	is_primary = qobj->shadow ? qobj->shadow->is_primary : qobj->is_primary;
--	if (!is_primary)
-+	if (!qobj->is_dumb && !qobj->is_primary)
- 		goto out_lock_end;
- 
- 	if (!num_clips) {
-@@ -462,8 +479,29 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 		inc = 2; /* skip source rects */
- 	}
- 
--	qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
--			  clips, num_clips, inc, 0);
-+	if (qobj->is_dumb) {
-+		unsigned int n;
-+
-+		drm_for_each_crtc(crtc, &qdev->ddev) {
-+			struct drm_plane_state *st;
-+
-+			st = crtc->primary->state;
-+			if (st->fb != fb || !crtc->state->active ||
-+			    !to_qxl_plane_state(st)->shadow ||
-+			    !to_qxl_plane_state(st)->shadow->is_primary)
-+				continue;
-+			for (n = 0; n < num_clips; n++) {
-+				struct drm_clip_rect c = clips[n * inc];
-+
-+				qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+						  &c, 1, 1,
-+						  to_qxl_plane_state(st)->x);
-+			}
-+		}
-+	} else {
-+		qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+				  clips, num_clips, inc, 0);
-+	}
- 
- out_lock_end:
- 	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
-@@ -499,20 +537,31 @@ static const struct drm_crtc_helper_funcs qxl_crtc_helper_funcs = {
- 	.atomic_disable = qxl_crtc_atomic_disable,
- };
- 
-+/* The primary surface is shared, so every primary update must serialize
-+ * with, and redraw, the other heads, including heads whose packed x moves.
-+ */
- static int qxl_primary_atomic_check(struct drm_plane *plane,
- 				    struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
--										 plane);
--	struct qxl_device *qdev = to_qxl(plane->dev);
--	struct qxl_bo *bo;
-+	struct drm_plane_state *ps = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc *crtc;
- 
--	if (!new_plane_state->crtc || !new_plane_state->fb)
--		return 0;
-+	drm_for_each_crtc(crtc, plane->dev) {
-+		struct drm_crtc_state *cs;
-+		struct drm_plane_state *other;
- 
--	bo = gem_to_qxl_bo(new_plane_state->fb->obj[0]);
-+		cs = drm_atomic_get_crtc_state(state, crtc);
-+		if (IS_ERR(cs))
-+			return PTR_ERR(cs);
-+		other = drm_atomic_get_plane_state(state, crtc->primary);
-+		if (IS_ERR(other))
-+			return PTR_ERR(other);
-+	}
- 
--	return qxl_check_framebuffer(qdev, bo);
-+	if (!ps->fb || !ps->crtc)
-+		return 0;
-+	return qxl_check_framebuffer(to_qxl(plane->dev),
-+				     gem_to_qxl_bo(ps->fb->obj[0]));
- }
- 
- static int qxl_primary_apply_cursor(struct qxl_device *qdev,
-@@ -666,6 +715,23 @@ static void qxl_free_cursor(struct qxl_bo *cursor_bo)
- 	qxl_bo_unref(&cursor_bo);
- }
- 
-+static void qxl_primary_atomic_disable(struct drm_plane *plane,
-+				       struct drm_atomic_commit *state)
-+{
-+	struct qxl_device *qdev = to_qxl(plane->dev);
-+	struct drm_plane *other;
-+	struct drm_plane_state *ps;
-+	int i;
-+
-+	for_each_new_plane_in_state(state, other, ps, i) {
-+		if (other->type == DRM_PLANE_TYPE_PRIMARY &&
-+		    qxl_primary_active(state, ps))
-+			return;
-+	}
-+	if (qdev->primary_bo)
-+		qxl_io_destroy_primary(qdev);
-+}
-+
- static void qxl_primary_atomic_update(struct drm_plane *plane,
- 				      struct drm_atomic_commit *state)
- {
-@@ -682,7 +748,12 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 	};
- 	uint32_t dumb_shadow_offset = 0;
- 
--	primary = bo->shadow ? bo->shadow : bo;
-+	if (!qxl_primary_active(state, new_state)) {
-+		qxl_primary_atomic_disable(plane, state);
-+		return;
-+	}
-+
-+	primary = bo->is_dumb ? to_qxl_plane_state(new_state)->shadow : bo;
- 
- 	if (!primary->is_primary) {
- 		if (qdev->primary_bo)
-@@ -692,30 +763,12 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 	}
- 
- 	if (bo->is_dumb)
--		dumb_shadow_offset =
--			qdev->dumb_heads[new_state->crtc->index].x;
-+		dumb_shadow_offset = to_qxl_plane_state(new_state)->x;
- 
- 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
- 			  dumb_shadow_offset);
- }
- 
--static void qxl_primary_atomic_disable(struct drm_plane *plane,
--				       struct drm_atomic_commit *state)
--{
--	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state,
--									   plane);
--	struct qxl_device *qdev = to_qxl(plane->dev);
--
--	if (old_state->fb) {
--		struct qxl_bo *bo = gem_to_qxl_bo(old_state->fb->obj[0]);
--
--		if (bo->shadow)
--			bo = bo->shadow;
--		if (bo->is_primary)
--			qxl_io_destroy_primary(qdev);
--	}
--}
--
- static void qxl_cursor_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
- {
-@@ -768,93 +821,98 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
- 	qcrtc->cursor_bo = NULL;
- }
- 
--static void qxl_update_dumb_head(struct qxl_device *qdev,
--				 int index, struct qxl_bo *bo)
-+static int qxl_prepare_shadow(struct drm_plane *plane,
-+			      struct drm_plane_state *new_state)
- {
--	uint32_t width, height;
-+	struct qxl_plane_state *qps = to_qxl_plane_state(new_state);
-+	struct drm_atomic_commit *state = new_state->state;
-+	struct qxl_device *qdev = to_qxl(plane->dev);
-+	struct qxl_surface surf = { 0 };
-+	struct qxl_bo *shadow = NULL;
-+	struct drm_crtc *crtc;
-+	int ret;
- 
--	if (index >= qdev->monitors_config->max_allowed)
--		return;
-+	if (!qxl_primary_active(state, new_state))
-+		return 0;
- 
--	if (bo && bo->is_dumb) {
--		width = bo->surf.width;
--		height = bo->surf.height;
--	} else {
--		width = 0;
--		height = 0;
-+	drm_for_each_crtc(crtc, plane->dev) {
-+		struct drm_plane_state *ps;
-+		struct qxl_plane_state *other;
-+		struct qxl_bo *bo;
-+
-+		ps = drm_atomic_get_new_plane_state(state, crtc->primary);
-+		if (!qxl_primary_active(state, ps) ||
-+		    !gem_to_qxl_bo(ps->fb->obj[0])->is_dumb)
-+			continue;
-+		other = to_qxl_plane_state(ps);
-+		if (ps == new_state)
-+			qps->x = surf.width;
-+		bo = gem_to_qxl_bo(ps->fb->obj[0]);
-+		surf.width += bo->surf.width;
-+		surf.height = max_t(u32, surf.height, bo->surf.height);
-+		if (other->shadow)
-+			shadow = other->shadow;
- 	}
-+	surf.width = max_t(u32, surf.width, 64);
-+	surf.height = max_t(u32, surf.height, 64);
-+	surf.format = SPICE_SURFACE_FMT_32_xRGB;
-+	surf.stride = surf.width * 4;
-+
-+	if (!shadow) {
-+		shadow = to_qxl_plane_state(plane->state)->shadow;
-+		if (shadow && (shadow->surf.width != surf.width ||
-+			       shadow->surf.height != surf.height))
-+			shadow = NULL;
-+	}
-+	if (!shadow)
-+		return qxl_bo_create(qdev, surf.height * surf.stride,
-+				     true, true, QXL_GEM_DOMAIN_SURFACE, 0,
-+				     &surf, &qps->shadow);
- 
--	if (qdev->dumb_heads[index].width == width &&
--	    qdev->dumb_heads[index].height == height)
--		return;
--
--	DRM_DEBUG("#%d: %dx%d -> %dx%d\n", index,
--		  qdev->dumb_heads[index].width,
--		  qdev->dumb_heads[index].height,
--		  width, height);
--	qdev->dumb_heads[index].width = width;
--	qdev->dumb_heads[index].height = height;
-+	ret = qxl_bo_pin(shadow);
-+	if (ret)
-+		return ret;
-+	drm_gem_object_get(&shadow->tbo.base);
-+	qps->shadow = shadow;
-+	return 0;
- }
- 
--static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
--				 struct qxl_surface *surf)
-+static void qxl_primary_destroy_state(struct drm_plane *plane,
-+				      struct drm_plane_state *state)
- {
--	struct qxl_head *head;
--	int i;
-+	struct qxl_plane_state *qps = to_qxl_plane_state(state);
- 
--	memset(surf, 0, sizeof(*surf));
--	for (i = 0; i < qdev->monitors_config->max_allowed; i++) {
--		head = qdev->dumb_heads + i;
--		head->x = surf->width;
--		surf->width += head->width;
--		if (surf->height < head->height)
--			surf->height = head->height;
-+	if (qps->shadow) {
-+		ttm_bo_reserve(&qps->shadow->tbo, false, false, NULL);
-+		qxl_bo_unpin_locked(qps->shadow);
-+		qxl_bo_unreserve(qps->shadow);
-+		drm_gem_object_put(&qps->shadow->tbo.base);
- 	}
--	if (surf->width < 64)
--		surf->width = 64;
--	if (surf->height < 64)
--		surf->height = 64;
--	surf->format = SPICE_SURFACE_FMT_32_xRGB;
--	surf->stride = surf->width * 4;
--
--	if (!qdev->dumb_shadow_bo ||
--	    qdev->dumb_shadow_bo->surf.width != surf->width ||
--	    qdev->dumb_shadow_bo->surf.height != surf->height)
--		DRM_DEBUG("%dx%d\n", surf->width, surf->height);
-+	__drm_atomic_helper_plane_destroy_state(state);
-+	kfree(qps);
- }
- 
--static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
--			       int crtc_index)
-+static void qxl_primary_reset(struct drm_plane *plane)
- {
--	struct qxl_surface surf;
--
--	qxl_update_dumb_head(qdev, crtc_index,
--			     user_bo);
--	qxl_calc_dumb_shadow(qdev, &surf);
--	if (!qdev->dumb_shadow_bo ||
--	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
--	    qdev->dumb_shadow_bo->surf.height != surf.height) {
--		if (qdev->dumb_shadow_bo) {
--			qxl_bo_unpin(qdev->dumb_shadow_bo);
--			drm_gem_object_put
--				(&qdev->dumb_shadow_bo->tbo.base);
--			qdev->dumb_shadow_bo = NULL;
--		}
--		qxl_bo_create(qdev, surf.height * surf.stride,
--			      true, true, QXL_GEM_DOMAIN_SURFACE, 0,
--			      &surf, &qdev->dumb_shadow_bo);
--	}
--	if (user_bo->shadow != qdev->dumb_shadow_bo) {
--		if (user_bo->shadow) {
--			qxl_bo_unpin(user_bo->shadow);
--			drm_gem_object_put
--				(&user_bo->shadow->tbo.base);
--			user_bo->shadow = NULL;
--		}
--		drm_gem_object_get(&qdev->dumb_shadow_bo->tbo.base);
--		user_bo->shadow = qdev->dumb_shadow_bo;
--		qxl_bo_pin(user_bo->shadow);
--	}
-+	struct qxl_plane_state *qps;
-+
-+	if (plane->state)
-+		qxl_primary_destroy_state(plane, plane->state);
-+	qps = kzalloc_obj(*qps);
-+	__drm_atomic_helper_plane_reset(plane, qps ? &qps->base : NULL);
-+}
-+
-+static struct drm_plane_state *qxl_primary_duplicate_state(struct drm_plane *plane)
-+{
-+	struct qxl_plane_state *qps;
-+
-+	if (WARN_ON(!plane->state))
-+		return NULL;
-+	qps = kzalloc_obj(*qps);
-+	if (!qps)
-+		return NULL;
-+	__drm_atomic_helper_plane_duplicate_state(plane, &qps->base);
-+	return &qps->base;
- }
- 
- static int qxl_plane_prepare_fb(struct drm_plane *plane,
-@@ -873,7 +931,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    user_bo->is_dumb) {
--		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		ret = qxl_prepare_shadow(plane, new_state);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
-@@ -914,12 +974,6 @@ static void qxl_plane_cleanup_fb(struct drm_plane *plane,
- 	obj = old_state->fb->obj[0];
- 	user_bo = gem_to_qxl_bo(obj);
- 	qxl_bo_unpin(user_bo);
--
--	if (old_state->fb != plane->state->fb && user_bo->shadow) {
--		qxl_bo_unpin(user_bo->shadow);
--		drm_gem_object_put(&user_bo->shadow->tbo.base);
--		user_bo->shadow = NULL;
--	}
- }
- 
- static const uint32_t qxl_cursor_plane_formats[] = {
-@@ -959,9 +1013,9 @@ static const struct drm_plane_funcs qxl_primary_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
--	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
--	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
-+	.reset		= qxl_primary_reset,
-+	.atomic_duplicate_state = qxl_primary_duplicate_state,
-+	.atomic_destroy_state = qxl_primary_destroy_state,
- };
- 
- static struct drm_plane *qxl_create_plane(struct qxl_device *qdev,
-@@ -1255,11 +1309,7 @@ int qxl_create_monitors_object(struct qxl_device *qdev)
- 		qxl_bo_physical_address(qdev, qdev->monitors_config_bo, 0);
- 
- 	memset(qdev->monitors_config, 0, monitors_config_size);
--	qdev->dumb_heads = kzalloc_objs(qdev->dumb_heads[0], qxl_num_crtc);
--	if (!qdev->dumb_heads) {
--		qxl_destroy_monitors_object(qdev);
--		return -ENOMEM;
--	}
-+
- 	return 0;
- }
- 
-@@ -1270,9 +1320,6 @@ int qxl_destroy_monitors_object(struct qxl_device *qdev)
- 	if (!qdev->monitors_config_bo)
- 		return 0;
- 
--	kfree(qdev->dumb_heads);
--	qdev->dumb_heads = NULL;
--
- 	qdev->monitors_config = NULL;
- 	qdev->ram_header->monitors_config = 0;
- 
-@@ -1325,10 +1372,5 @@ int qxl_modeset_init(struct qxl_device *qdev)
- 
- void qxl_modeset_fini(struct qxl_device *qdev)
- {
--	if (qdev->dumb_shadow_bo) {
--		qxl_bo_unpin(qdev->dumb_shadow_bo);
--		drm_gem_object_put(&qdev->dumb_shadow_bo->tbo.base);
--		qdev->dumb_shadow_bo = NULL;
--	}
- 	qxl_destroy_monitors_object(qdev);
- }
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
-index cc02b5f10ad9..f29ce77eef7b 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.h
-+++ b/drivers/gpu/drm/qxl/qxl_drv.h
-@@ -85,7 +85,6 @@ struct qxl_bo {
- 	/* Constant after initialization */
- 	unsigned int is_primary:1; /* is this now a primary surface */
- 	unsigned int is_dumb:1;
--	struct qxl_bo *shadow;
- 	unsigned int hw_surf_alloc:1;
- 	struct qxl_surface surf;
- 	uint32_t surface_id;
-@@ -201,8 +200,6 @@ struct qxl_device {
- 	struct qxl_ram_header *ram_header;
- 
- 	struct qxl_bo *primary_bo;
--	struct qxl_bo *dumb_shadow_bo;
--	struct qxl_head *dumb_heads;
- 
- 	struct qxl_memslot main_slot;
- 	struct qxl_memslot surfaces_slot;
+> +}
+> +
+>  /* Look up the first VMA which exactly match the interval vm_start ... v=
+m_end */
+>  static inline struct vm_area_struct *find_exact_vma(struct mm_struct *mm=
+,
+>                                 unsigned long vm_start, unsigned long vm_=
+end)
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 9ca2ea3664bc..0cb4f9603956 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -818,8 +818,44 @@ enum mmap_action_type {
+>         MMAP_NOTHING,
+>         MMAP_REMAP_PFN,
+>         MMAP_IO_REMAP_PFN,
+> -       MMAP_SIMPLE_IO_REMAP,   /* I/O remap with guardrails. */
+> -       MMAP_KERNEL_PAGES,      /* Map kernel page range from array. */
+> +       MMAP_SIMPLE_IO_REMAP,           /* I/O remap with guardrails. */
+> +       MMAP_KERNEL_PAGES,              /* Map kernel page range from arr=
+ay. */
+> +       MMAP_DISCONTIG_KERNEL_PAGES,    /* Map kernel discontig page rang=
+e. */
+> +};
+> +
+> +enum discontig_kernel_page_action {
+> +       DISCONTIG_KERNEL_PAGE_ABORT,
+> +       DISCONTIG_KERNEL_PAGE_MAP_PAGE,
+> +       DISCONTIG_KERNEL_PAGE_MAP_COMPOUND_PAGE,
+> +       DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE,
+> +};
+> +
+> +struct discontig_kernel_page_state {
+> +       /* Map state. */
+> +       const unsigned long start;      /* Start address of VMA. */
+> +       const unsigned long end;        /* End address of VMA. */
+> +       unsigned long addr;             /* The current address to be mapp=
+ed. */
+> +       pgoff_t pgoff;                  /* The current pgoff to be mapped=
+. */
+> +       unsigned long nr_pages_mapped;  /* The number of pages mapped. */
+> +       unsigned long nr_pages_remain;  /* The number of pages remaining.=
+ */
+> +
+> +       /* User-defined state. */
+> +       void *vm_private_data;          /* VMA private data. */
+> +       void *private;                  /* Mapping private data. */
+> +
+> +       /* Users should not touch these, use discontig_kernel_map_*() hel=
+pers. */
+> +       enum discontig_kernel_page_action action;
+> +       union {
+> +               struct page *__page;
+> +               struct folio *__folio;
+> +               struct page **__page_arr;
+> +       };
+> +       unsigned long __nr_pages;
+> +};
+> +
+> +struct discontig_kernel_page_ops {
+> +       int (*init)(void *vm_private_data, void **private);
+> +       int (*get)(struct discontig_kernel_page_state *state);
+>  };
+>
+>  /*
+> @@ -844,6 +880,10 @@ struct mmap_action {
+>                         unsigned long nr_pages;
+>                         pgoff_t pgoff;
+>                 } map_kernel;
+> +               struct {
+> +                       void *init_private;
+> +                       const struct discontig_kernel_page_ops *ops;
+> +               } map_kernel_discontig;
+>         };
+>         enum mmap_action_type type;
+>
+> diff --git a/mm/internal.h b/mm/internal.h
+> index c767007c2187..b81fce5fe510 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1516,6 +1516,9 @@ int simple_ioremap_prepare(struct vm_area_desc *des=
+c);
+>  int map_kernel_pages_prepare(struct vm_area_desc *desc);
+>  int map_kernel_pages_complete(struct vm_area_struct *vma,
+>                               struct mmap_action *action);
+> +int map_discontig_kernel_pages_prepare(struct vm_area_desc *desc);
+> +int map_discontig_kernel_pages_complete(struct vm_area_struct *vma,
+> +                                       struct mmap_action *action);
+>
+>  static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
+>  {
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 448342883e9d..45b21bb04a18 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2609,17 +2609,23 @@ int vm_insert_pages(struct vm_area_struct *vma, u=
+nsigned long addr,
+>  }
+>  EXPORT_SYMBOL(vm_insert_pages);
+>
+> +static void __map_kernel_pages_prepare(struct vm_area_desc *desc)
+> +{
+> +       if (vma_desc_test(desc, VMA_MIXEDMAP_BIT))
+> +               return;
+> +
+> +       VM_WARN_ON_ONCE(mmap_read_trylock(desc->mm));
+> +       VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_PFNMAP_BIT));
+> +       vma_desc_set_flags(desc, VMA_MIXEDMAP_BIT);
+> +}
+> +
+>  int map_kernel_pages_prepare(struct vm_area_desc *desc)
+>  {
+>         const struct mmap_action *action =3D &desc->action;
+>         const unsigned long addr =3D action->map_kernel.start;
+>         unsigned long nr_pages, end;
+>
+> -       if (!vma_desc_test(desc, VMA_MIXEDMAP_BIT)) {
+> -               VM_WARN_ON_ONCE(mmap_read_trylock(desc->mm));
+> -               VM_WARN_ON_ONCE(vma_desc_test(desc, VMA_PFNMAP_BIT));
+> -               vma_desc_set_flags(desc, VMA_MIXEDMAP_BIT);
+> -       }
+> +       __map_kernel_pages_prepare(desc);
+>
+>         nr_pages =3D action->map_kernel.nr_pages;
+>         end =3D addr + PAGE_SIZE * nr_pages;
+> @@ -2640,6 +2646,98 @@ int map_kernel_pages_complete(struct vm_area_struc=
+t *vma,
+>                             &nr_pages, vma->vm_page_prot);
+>  }
+>
+> +int map_discontig_kernel_pages_prepare(struct vm_area_desc *desc)
+> +{
+> +       const struct mmap_action *action =3D &desc->action;
+> +       const struct discontig_kernel_page_ops *ops =3D
+> +               action->map_kernel_discontig.ops;
+> +
+> +       /* At minimum need to be able to get pages. */
+> +       if (WARN_ON_ONCE(!ops || !ops->get))
+> +               return -EINVAL;
+> +
+> +       __map_kernel_pages_prepare(desc);
+> +       return 0;
+> +}
+> +
+> +static int apply_discontig_action(struct vm_area_struct *vma,
+> +                                 struct discontig_kernel_page_state *sta=
+te)
+> +{
+> +       unsigned long nr_pages =3D state->__nr_pages;
+> +       unsigned long addr =3D state->addr;
+> +       unsigned long i;
+> +
+> +       if (state->action =3D=3D DISCONTIG_KERNEL_PAGE_MAP_PAGE)
+> +               return insert_page(vma, addr, state->__page,
+> +                                  vma->vm_page_prot, /*mkwrite=3D*/false=
+);
+> +       if (state->action =3D=3D DISCONTIG_KERNEL_PAGE_MAP_PAGE_RANGE)
+> +               return insert_pages(vma, addr, state->__page_arr,
+> +                                   &nr_pages, vma->vm_page_prot);
+> +
+> +       /* Compound folio - have to iterate through each page. */
+> +       for (i =3D 0; i < nr_pages; i++, addr +=3D PAGE_SIZE) {
+> +               struct page *page =3D folio_page(state->__folio, i);
+> +               int err;
+> +
+> +               err =3D insert_page(vma, addr, page, vma->vm_page_prot,
+> +                                 /*mkwrite=3D*/false);
+> +               if (err)
+> +                       return err;
+> +       }
+> +       return 0;
+> +}
+> +
+> +int map_discontig_kernel_pages_complete(struct vm_area_struct *vma,
+> +                                       struct mmap_action *action)
+> +{
+> +       const struct discontig_kernel_page_ops *ops =3D
+> +               action->map_kernel_discontig.ops;
+> +       struct discontig_kernel_page_state state =3D {
+> +               .start =3D vma->vm_start,
+> +               .end =3D vma->vm_end,
+> +               .addr =3D vma->vm_start,
+> +               .pgoff =3D vma->vm_pgoff,
+> +               .nr_pages_mapped =3D 0,
+> +               .nr_pages_remain =3D vma_pages(vma),
+> +               .vm_private_data =3D vma->vm_private_data,
+> +               .private =3D action->map_kernel_discontig.init_private,
+> +       };
+> +       int err =3D 0;
+> +
+> +       if (ops->init)
+> +               err =3D ops->init(vma->vm_private_data, &state.private);
+> +       if (err)
+> +               return err;
+> +
+> +       do {
+> +               unsigned long end, pgoff_end;
+> +               unsigned long nr_pages;
+> +
+> +               /* Default to abort. */
+> +               state.action =3D DISCONTIG_KERNEL_PAGE_ABORT;
+> +               err =3D ops->get(&state);
+> +               if (err || state.action =3D=3D DISCONTIG_KERNEL_PAGE_ABOR=
+T)
+> +                       return err;
+> +               nr_pages =3D state.__nr_pages;
+> +
+> +               if (!nr_pages || nr_pages > state.nr_pages_remain)
+> +                       return -EINVAL;
+> +               end =3D state.addr + PAGE_SIZE * nr_pages;
+> +               pgoff_end =3D state.pgoff + nr_pages;
+> +
+> +               err =3D apply_discontig_action(vma, &state);
+> +               if (err)
+> +                       return err;
+> +
+> +               state.addr =3D end;
+> +               state.pgoff =3D pgoff_end;
+> +               state.nr_pages_mapped +=3D nr_pages;
+> +               state.nr_pages_remain -=3D nr_pages;
+> +       } while (state.addr < vma->vm_end);
+> +
+> +       return 0;
+> +}
+> +
+>  /**
+>   * vm_insert_page - insert single page into user vma
+>   * @vma: user vma to map to
+> diff --git a/mm/util.c b/mm/util.c
+> index 438170490e7f..c5ee52aede1e 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1469,6 +1469,8 @@ int mmap_action_prepare(struct vm_area_desc *desc)
+>                 return simple_ioremap_prepare(desc);
+>         case MMAP_KERNEL_PAGES:
+>                 return map_kernel_pages_prepare(desc);
+> +       case MMAP_DISCONTIG_KERNEL_PAGES:
+> +               return map_discontig_kernel_pages_prepare(desc);
+>         }
+>
+>         WARN_ON_ONCE(1);
+> @@ -1501,6 +1503,9 @@ int mmap_action_complete(struct vm_area_struct *vma=
+,
+>         case MMAP_KERNEL_PAGES:
+>                 err =3D map_kernel_pages_complete(vma, action);
+>                 break;
+> +       case MMAP_DISCONTIG_KERNEL_PAGES:
+> +               err =3D map_discontig_kernel_pages_complete(vma, action);
+> +               break;
+>         case MMAP_IO_REMAP_PFN:
+>         case MMAP_SIMPLE_IO_REMAP:
+>                 /* Should have been delegated. */
+> @@ -1522,6 +1527,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
+>         case MMAP_IO_REMAP_PFN:
+>         case MMAP_SIMPLE_IO_REMAP:
+>         case MMAP_KERNEL_PAGES:
+> +       case MMAP_DISCONTIG_KERNEL_PAGES:
+>                 WARN_ON_ONCE(1); /* nommu cannot handle these. */
+>                 break;
+>         }
+> @@ -1543,6 +1549,7 @@ int mmap_action_complete(struct vm_area_struct *vma=
+,
+>         case MMAP_IO_REMAP_PFN:
+>         case MMAP_SIMPLE_IO_REMAP:
+>         case MMAP_KERNEL_PAGES:
+> +       case MMAP_DISCONTIG_KERNEL_PAGES:
+>                 WARN_ON_ONCE(1); /* nommu cannot handle this. */
+>
+>                 err =3D -EINVAL;
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/=
+dup.h
+> index 1098655a5f4a..1d5f6b3cbd21 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -457,14 +457,17 @@ enum mmap_action_type {
+>         MMAP_NOTHING,
+>         MMAP_REMAP_PFN,
+>         MMAP_IO_REMAP_PFN,
+> -       MMAP_SIMPLE_IO_REMAP,   /* I/O remap with guardrails. */
+> -       MMAP_KERNEL_PAGES,      /* Map kernel page range from array. */
+> +       MMAP_SIMPLE_IO_REMAP,           /* I/O remap with guardrails. */
+> +       MMAP_KERNEL_PAGES,              /* Map kernel page range from arr=
+ay. */
+> +       MMAP_DISCONTIG_KERNEL_PAGES,    /* Map kernel discontig page rang=
+e. */
+>  };
+>
+>  /*
+>   * Describes an action an mmap_prepare hook can instruct to be taken to =
+complete
+>   * the mapping of a VMA. Specified in vm_area_desc.
+>   */
+> +struct discontig_kernel_page_ops;
+> +
+>  struct mmap_action {
+>         union {
+>                 struct {
+> @@ -483,6 +486,10 @@ struct mmap_action {
+>                         unsigned long nr_pages;
+>                         pgoff_t pgoff;
+>                 } map_kernel;
+> +               struct {
+> +                       void *init_private;
+> +                       const struct discontig_kernel_page_ops *ops;
+> +               } map_kernel_discontig;
+>         };
+>         enum mmap_action_type type;
+>
+>
+> --
+> 2.55.0
+>
