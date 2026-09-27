@@ -4,78 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF38CA5FA7
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB0CCA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9F5110E854;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7954D10E84D;
 	Mon, 28 Sep 2026 08:42:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nOHVy2qN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Axo52xk1";
 	dkim-atps=neutral
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
- [74.125.225.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1161F10E456
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 10:32:37 +0000 (UTC)
-Received: by mail-wr2-f35.google.com with SMTP id
- ffacd0b85a97d-48882c1f261so657058f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 03:32:36 -0700 (PDT)
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com
+ [74.125.227.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A55A010E0C2
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 04:07:02 +0000 (UTC)
+Received: by mail-pj2-f40.google.com with SMTP id
+ 98e67ed59e1d1-3a0f64df6a6so210650a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 21:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790505155; x=1791109955; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=45tBD3kZBcNwqDCe4McFRRFSHceImT3aj0kJG1xkuLo=;
- b=nOHVy2qNZfo29/ERLFbNSbHZV2d8rdzUKPBgu1R2djm2Ldd+So9DTuiASfgX83XYau
- mTBMm2qBiKMSyYyZL4qB0caijuASBnSqpy+psu8wjxPsU3xIH8OyR21jw3AcSlAiaDW0
- zjJTMVLIK3F6s6+0zjsKqo9I3lGPJBVnWNMEwbOIkx0+L9oyoUet1zitf/WKF0fsbwhQ
- ZYiPRXnfAZEe99xl4FwzoyP2N55bvYhD6ZNeYvy2uPnK1k3MmXb6INw8VJVKLdzvp04K
- rJwU86xcc4gFfy55EoSgBlWEFLmvX3SEmf7t/V40lDZS22P57xFuNXHsEcPj+f6tJ7HR
- qsEw==
+ d=gmail.com; s=20251104; t=1790482022; x=1791086822; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7z9jyGFvSNyPE4j90ojKfCFxGEKOnKcOHIMpedzYh5o=;
+ b=Axo52xk1zekoWaTkNUDDKxAFl4o/mOmqfrf+qknLfp/zVERVmp6EaMzmKqbkCi6odz
+ vQ3J+tBnFR69zB/nSlW8Z69pX1ez0PWXkechezTR/pRjhBvGoqx8vrjdkEkbe19B/FM+
+ 7OJuKurchBGmN+gCzTVKp5tAi0zUSkM3zI1hDiVYSkF6FTuiQQlYYjP0QqxOezB/cE14
+ L+XqykOaJdILimQk/ZlcNUeX9+vFDjPD+gD4vaEEN7J8MM0skxpkDeG1qdJjQ6Hv76oz
+ bb/o6JZIN43GD2q2klOg505IUV2loINN3vZkP7HpbapIIhbZKITxOQQp3AM9YWq2ZR71
+ Y4Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790505155; x=1791109955;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=45tBD3kZBcNwqDCe4McFRRFSHceImT3aj0kJG1xkuLo=;
- b=QROZKYRYECRnll/P8M/oxoMe62sEeIrrCnyEzsNNkWijg75yjEdkZPH0kSYxX5xczr
- Ick3RLjCHKDs3fSMWVsJBe1fybGaLK3YSnKlX/SW+jljs6Xmize1oUHU4mK76YX7Rzzh
- DqxtSj1YnabXvtKhgjZmh3qbn0cjZTHqEsAdPN0b26XJaESgE/HyXPkVIfYXNX2YxSG2
- D+fWw0Q602flw6h1yoXqpb1hrXRNSD4q1P9RbrJCb13lCCdqWOhhPsKj0fv/r28bHFdh
- RMnL88Z+v8QZ6kXX0kSbSIxa23+f3idKSk3dCDvGsctMVXRkJVMRY2AV9KqDJkCrwiwu
- tTBQ==
+ d=1e100.net; s=20260707; t=1790482022; x=1791086822;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7z9jyGFvSNyPE4j90ojKfCFxGEKOnKcOHIMpedzYh5o=;
+ b=0WOBejxQCmPFI5COYxoELLfbaYx3A+iu2/PEKzDYsLo2q/ghYsFawvjL5F264uOBy0
+ UYC/xWYOrlldSaib17ldaRoQwcVQNruFqraNpxJIZWOXabsE1/7uUgH9k/Vo6Ah8tNgo
+ QPJLXSs81LOLQ953Adq8UaDpKPWTcbU9daYtGChFiMssDWkUQyg3/UM/NItu7kzTONuN
+ bdug0gY1xoSG3Edmllzlq7kJ2YllZjLry3JoU6MX0qhiUYT9dC7MOKb4ZG6eQ+Dmzvwa
+ xlwq5z82IdQQ1fdTm+r+c+8LKy/ot0wCdboJkC3NaNq4j9Ow8UAybgDovDe90559YZ1r
+ bZ6A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxi/w0eu50lm4Z4tZjL9W6h8f7yIJFSnkxOCqVWpYcWb0oHTPUy/Ae0ygulo9gYp4rsGZWLGq7sT7Y=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lwaRO/8lSP6JavI3yMffu9g3Oo3hc81WMt++ymig46pQ3r4yZy
- NCI0iArwCJpsfTs8i3jNEmXrdYa0YF1NYvRWWBw8jlQZJ/x7eeBdwu1k
-X-Gm-Gg: AYBFou09auSgzHRk/R0cQS5PiVQ8E+SlsE3ClYUfcSTr1ZGAQXt5SUdH4FVaJT/JC3s
- e1+m6kVIgg1t2JeFPEyL4Kt0uKX5rwy+bq6p2/0FBLBldeUqqf56KD7J2cjlXhFVM04owQq1r4q
- aAywlIubLvsc3jwkUVi0CRxtKTPpe1xQIJ1+SUOthxw2B13l6+tk8KWgIfpiA/RN1u1/xE5GXFs
- 5CxfuLRF4Y/ZilQsrmHxl14SVUBKWSUqh4qShU1fkNOzbCtNmlnATplAxRCYZIjVBnsm7KuLEXV
- M2hZ9FHv4jB6fFIUSDpQtCAh7JebXXqdH3aflMY6hSX7LPG9c6FY0DXWU2z6ixUCpGIzSliIZW3
- mCrR4cd8KPCU7/oK8P+Z2b2kfPcZwtncKzVgqU/YEKw2LWcbs8S/ARIsrq+DEU0eI/yVqZfw5+p
- 2lgtBp3GGhQKsqtY5QyXwBFE+p4P0P/mcgucb54tYHtFgy3zlebcWyqYvjO7HM6WomUJUTSDGK1
- bDx2TyWbFrzDZW87Y/Hp220jTF5lXl7YJ6vqIln81RirpEEM+Ql3EuRRvH87g==
-X-Received: by 2002:a05:600c:a00e:b0:49e:6865:904e with SMTP id
- 5b1f17b1804b1-49fe66f176dmr201357565e9.12.1790505155186; 
- Sun, 27 Sep 2026 03:32:35 -0700 (PDT)
-Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
- (212.pool95-21-2.static.orange.es. [95.21.2.212])
+ AKwUvBxx5qm5KysAj4fw31vD5gSl9uTwOzFGbqoWjt14MmPCPOB/jPm/j1416CzdqFYRIvT7zwDS2aga5f4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIeMdhcJjmMVs2k7L2o9ID80tFUgO41YC08wra0fbF83vGG413m
+ l4hdRTDn1kWdYEZfAPaCljuLtAmVtzEbymXxbU9FRjy72PexM3dsYiVhyjMdqw==
+X-Gm-Gg: AYBFou1lqm4HCRyWYDzpdPHfQum4hLwoNrogkGH7pd1Y/f7Wr+62qYcfCkHyJORK8nt
+ DASzZEvvEfnucrkSa241Cm+f7TjjQm+qZDP5otWKaFP5MbexaX65+JDrb+4y3zsbeBpmXhK4P5Q
+ lBi3soxRqQV3x7Oa7bCgrSmkO75/6tXsuYuZncTXUaHXKS0taCxIuUSuLERIEF0WeQwjggrmOrE
+ u3U+xBKbWbhbIF5laLNzWiw8UgyFv+AIU8PMeq2BzRSL/mim5qeyf8YH9vZk2ViGf4RymL3Cysv
+ peFKcKPG79olY5IQHFWnjJoHUYb59WaifqHowrR4eN/RpZIoaG/rZYt2Pjz9s3s2dQOB/Zs7VYA
+ 5YX3WTj5Jq7OmEwPki9wj2BTP1JpicjhWolEbUPjnxaK2qwS797haTo5ggu3uWLMK/1PfKPlllL
+ jhKWbROfPZCNjDalbg6/7vQ43o8It4IttPuZnmyr024WagX760Sl1dijFc98Xzu4B8AkpSAj4eC
+ 6ZB9BPHLpgaSt7w
+X-Received: by 2002:a17:90b:57e8:b0:39e:6c6a:6578 with SMTP id
+ 98e67ed59e1d1-3a0bb6537admr5254135a91.59.1790482022096; 
+ Sat, 26 Sep 2026 21:07:02 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3a0c:2ea9:4ab7:bd1b])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49ffd137346sm79586805e9.1.2026.09.27.03.32.34
+ 98e67ed59e1d1-3a0e7036e3bsm5833191a91.13.2026.09.26.21.06.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Sep 2026 03:32:34 -0700 (PDT)
-From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-Subject: [PATCH v6] Memory leak error in qxl unbind
-Date: Sun, 27 Sep 2026 12:32:27 +0200
-Message-ID: <20260927103231.47692-1-megia.oscar@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Sat, 26 Sep 2026 21:07:01 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+Subject: [PATCH] drm/virtio: put GEM objects when dropping a vbuf on unplug
+Date: Sun, 27 Sep 2026 11:06:55 +0700
+Message-ID: <20260927040655.14531-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,139 +96,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I discovered an OOM after run the script below
-(I updated it and added udevadm settle to allow the cache to
-recover):
+virtio_gpu_queue_ctrl_sgs() drops the command when drm_dev_enter() fails
+or when vqs_released is set. It unlocks the reservation and frees the
+vbuf, but never releases the references that the caller handed over in
+vbuf->objs. Those references are normally dropped from the dequeue path,
+which never sees a command that was not queued.
 
-i=0;\
-while [ 1 -eq 1 ]; do\
-    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
-    if (($i%1000==0)); then\
-        echo loops=$i; free;\
-        grep nr_free_pages /proc/vmstat;\
-        grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
-        sync; echo 3 > /proc/sys/vm/drop_caches;\
-        echo 1 > /proc/sys/vm/compact_memory;\
-        echo "running udevadm settle;";\
-        udevadm settle;\
-        free;\
-        grep nr_free_pages /proc/vmstat;\
-        grep -E "VmallocUsed|Slab|Reclaimable|SUnreclaim" /proc/meminfo;\
-        uptime;\
-    fi;\
-    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
-done
+If a framebuffer flush races with device removal, the GEM object backing
+the fbdev buffer keeps a stale reference, is never freed, and its node is
+still in the vma offset manager when the drm_device is released:
 
-ttm_pool_mgr_fini() does not destroy the list lru leaving memory leak.
+  Memory manager not clean during takedown.
+  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown
+  Call Trace:
+   drm_managed_release
+   drm_dev_put
+   virtio_dev_remove
+   virtio_pci_remove
+   pci_device_remove
+   remove_store
 
-Fix: Add list_lru_destroy() after ttm_pool_type_fini().
+Drop the object references together with the vbuf on both early-exit
+paths.
 
-This patch depends on patch ("[PATCH v4] drm/qxl: fix use-after-free in
-qxl_irq_handler on PCI"), link [1] below.
-
-Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
-Assisted-by: https://claude.ai:Sonnet 5
-Assisted-by: https://gemini.google.com:3.6 Flash
-Link: https://lore.kernel.org/virtualization/
-20260927101026.45411-1-megia.oscar@gmail.com/ [1]
-Link: https://lore.kernel.org/dri-devel/
-20260731053047.24503-1-megia.oscar@gmail.com/ [2]
-Cc: <stable@vger.kernel.org> # 7.1.0
-Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
-Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+Reported-by: syzbot+d93b9064fe5f74af3aa3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+Fixes: b7170f9457f2 ("drm/virtio: return virtio_gpu_queue errors")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-Changes in v2:
- - Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return.
-   If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
-   returns -ENOMEM with pool types already initialized (64 list_lru_init
-   calls done). ttm_global_init ignored this and returned 0, leaving orphaned
-   pool types with a NULL mm_shrinker.
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-   Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
-   refcount + debugfs.
-
- - Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
-   If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
-   the function returned -ENOMEM without undoing them. With Bug 1 now
-   triggering proper error handling, this undo is necessary.
-
-   Fix: err_shrinker: label that finalizes + destroys all 64 pool types
-   before returning.
-
-Changes in v3:
- - Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
-   causes a deterministic NULL pointer dereference in the newly added
-   error path."
-   Now check list_lru_init return value in ttm_pool_type_init() and
-   returns error if any.
-
- - Solved pre-existing issues reported by kernel test robot:
-   - [High] `ttm_pool_type_init()` ignores the return value of
-     `list_lru_init()`, leading to a NULL pointer dereference
-     if allocation fails.
-
-     Fix: get return value from list_lru_init and return error if any.
-
-   - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty,
-     causing memory corruption and crashes during module unload
-     if triggered.
-
-     Fix: Check if shrinker_list is empty and return 0 if it is empty.
-
-Changes in v4:
- - removed check return value in ttm_pool_mgr_init, now in new patch
-   ("[PATCH] ttm: Add error handling for ttm_pool_mgr_init()")
-   link [2] above.
- - Fixed check empty shrinker_list.
- - Check return value from ttm_pool_type_init.
- - Move up shrinker_alloc.
- - Deleted dput(backup_fault_inject.dname);
- - Fixed issue [High] The patch introduces a use-after-free race condition
-   between `ttm_pool_type_fini()` and the active memory shrinker
-   `ttm_pool_shrink()` by calling `list_lru_destroy()` prematurely as
-   reported by kernel test robot.
-
- Fix: separate ttm_pool_type_fini and list_lru_destroy. Then, add
- ttm_pool_synchronize_shrinkers between them.
-
-Changes in v5:
- - In ttm_pool_init() return int and check return value from
-   ttm_pool_type_init and propagate error. Free pt and pg->pages
-   if returns error.
- - In ttm_pool_mgr_init() free previous ttm_pool_type_init() if returns
-   error.
- - In ttm_global_init() check return value from ttm_pool_mgr_init() and
-   propagate.
-
-Changes in v6:
- - Add list_lru_destroy in ttm_pool_mgr_fini to avoid memory leak.
----
- drivers/gpu/drm/ttm/ttm_pool.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 278bbe7a11ad..09fdfe45e39f 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1453,6 +1453,18 @@ void ttm_pool_mgr_fini(void)
- 		ttm_pool_type_fini(&global_dma32_uncached[i]);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index c02c03c10d92..b36c4da04b18 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -208,6 +208,17 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	kmem_cache_free(vgdev->vbufs, vbuf);
+ }
+ 
++static void virtio_gpu_drop_vbuf(struct virtio_gpu_device *vgdev,
++				 struct virtio_gpu_vbuffer *vbuf, bool locked)
++{
++	if (vbuf->objs) {
++		if (locked)
++			virtio_gpu_array_unlock_resv(vbuf->objs);
++		virtio_gpu_array_put_free(vbuf->objs);
++	}
++	free_vbuf(vgdev, vbuf);
++}
++
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+@@ -410,9 +421,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 	int ret, idx;
+ 
+ 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
+-		if (fence && vbuf->objs)
+-			virtio_gpu_array_unlock_resv(vbuf->objs);
+-		free_vbuf(vgdev, vbuf);
++		virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 		return -ENODEV;
  	}
  
-+	/* We removed the pool types from the LRU, but we need to also make sure
-+	 * that no shrinker is concurrently freeing pages from the pool.
-+	 */
-+	ttm_pool_synchronize_shrinkers();
-+
-+	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
-+		list_lru_destroy(&global_write_combined[i].pages);
-+		list_lru_destroy(&global_uncached[i].pages);
-+		list_lru_destroy(&global_dma32_write_combined[i].pages);
-+		list_lru_destroy(&global_dma32_uncached[i].pages);
-+	}
-+
- 	shrinker_free(mm_shrinker);
- 	WARN_ON(!list_empty(&shrinker_list));
- }
+@@ -432,9 +441,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 		 * synchronize_srcu() wait in drm_dev_unplug().
+ 		 */
+ 		if (vgdev->vqs_released) {
+-			if (fence && vbuf->objs)
+-				virtio_gpu_array_unlock_resv(vbuf->objs);
+-			free_vbuf(vgdev, vbuf);
++			virtio_gpu_drop_vbuf(vgdev, vbuf, fence);
+ 			drm_dev_exit(idx);
+ 			return -ENODEV;
+ 		}
 -- 
-2.55.0
+2.43.0
 
