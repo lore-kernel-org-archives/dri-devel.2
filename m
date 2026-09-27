@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C6BC98338
-	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F816C98338
+	for <dri-devel@archiver.kernel.org>; Sun, 27 Sep 2026 18:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B111610E68D;
-	Sun, 27 Sep 2026 18:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FEFC10E68E;
+	Sun, 27 Sep 2026 18:41:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fkk43sts";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O8rv6una";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B89210E68D
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:40:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33ACC10E68E
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 18:41:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 17EA0400CE;
- Sun, 27 Sep 2026 18:40:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A83521F000FF;
- Sun, 27 Sep 2026 18:40:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 04E2A43601;
+ Sun, 27 Sep 2026 18:41:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980541F000FF;
+ Sun, 27 Sep 2026 18:41:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790534451;
- bh=OaBf7xddw2D53JcU0DRpu4plXwIjffjOq+eYS5SJf3I=;
+ s=k20260515; t=1790534481;
+ bh=R6Jexkl5+0KVkXMxC6EZ7Q7deQB86sb915iFIalUtsc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fkk43stscSrpzKfFYoeCaGhEu7QvF5ze0AEMCvlMgd7mUIryaWljPy2FDwG2eLx50
- Y3TvPIWC8KpPX0fsH9qO/Jxjl+WP/gfEskckw3va71bKpAli59zDQgyPxXbjixPBBg
- Hza2goQ6ho6fHngNZDouQS5UT7gL2t+q3d8fT3f44tBp/bQs8iaa18uywTXqhvkmOw
- 1vNP/xOIfxepYp/D6oLuliWwo2S3SofxG8JIE4jPro+UFi7NJQhRchhl++NWkPBCYn
- 2xp9GUBwG+jZEJMHTh3AjzWecNqJzRjPZA+VExu8vh9glPlpXwEcpR89FCYYN8op10
- jTS8PF8IZgQZQ==
+ b=O8rv6una4JlXJ47ZsgEQ1p1xB2dCeEySbxCrE8jH1Im8WS74V0EXmXkvOGKQOUP6I
+ S9Ma45RHgqC1S6HsZvppQOxeiZcBmy/Fp5sDPM6bTzx1zA48ddEq6wZ0EfpIRHfndA
+ h7xGok6JQDoc3L8j20PHo/yxl2jiYBolqF3g8lyObwmirT2f4+ckxkW+mI0GDyo5Vo
+ aiXwfZ+zIwCenanYH5fwZaVwfOyOtQt1ONOnHdBvZijw8d8D0YjmMduQ3cRTXaKcbY
+ cQq+I4AVHtkOXzhAdyMtzREclgWqQ7VTpLaTJEjHkWgnyM1acwCgJH6m9j5XMXeAZB
+ OR5xg7AZ0LWcg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/14] drm/solomon: ssd16xx: Add support for Solomon
- SSD1677 controller
+Subject: Re: [PATCH v2 07/14] drm/solomon: ssd16xx: Add power management
+ support
 To: "Devarsh Thakkar" <devarsht@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260927182329.4193961-7-devarsht@ti.com>
+In-Reply-To: <20260927182329.4193961-8-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
- <20260927182329.4193961-7-devarsht@ti.com>
+ <20260927182329.4193961-8-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 18:40:50 +0000
-Message-Id: <20260927184050.A83521F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 18:41:21 +0000
+Message-Id: <20260927184121.980541F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,139 +59,274 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] drm/solomon: heap buffer overflow during 1bpp framebuffer conversi=
-on
-- [High] drm/solomon: illegal DMA mapping of .rodata via SPI tx_buf
+- [High] drm/pm: System suspend aborts without rolling back DRM state
+- [High] drm/pm: Transient runtime suspend failures permanently brick displ=
+ay
+- [High] drm/pm: Ignoring pm_runtime_force_suspend error underflows disable=
+_depth
+- [High] drm/atomic: Sleeping functions called from atomic context
+- [Medium] drm/pm: Double hardware initialization during system resume
+- [Medium] drm/pm: Hardware remains powered indefinitely upon driver removal
+- [Medium] drm/pm: Autosuspend timer is never started after probe
 --
 
-commit 097c6bbe33ac16a0e3a2bddb2a05e16d23d7914c
+commit 6dc9572b54afb59f2f6005e0c8a2cc022b179d13
 Author: Devarsh Thakkar <devarsht@ti.com>
+Subject: drm/solomon: ssd16xx: Add power management support
 
-drm/solomon: ssd16xx: Add support for Solomon SSD1677 controller
-
-Add infrastructure to support the Solomon SSD1677 e-paper controller
-(up to 960x680 pixels, 10-bit pixel-level X/Y RAM addressing).
+This commit adds runtime and system suspend/resume power management to the
+SSD16xx e-paper display driver. It implements a two-level deep-sleep
+strategy to allow light sleep across typical userspace update bursts and
+maximum power savings on system suspend.
 
 > diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
 ssd16xx.c
-> index c478309d08e9f..93fa064cf5894 100644
+> index 93fa064cf5894..6255f434248ae 100644
 > --- a/drivers/gpu/drm/solomon/ssd16xx.c
 > +++ b/drivers/gpu/drm/solomon/ssd16xx.c
+
 [ ... ]
-> @@ -420,6 +426,29 @@ static const struct ssd16xx_controller_config ssd16x=
-x_controller_configs[] =3D {
->  		},
->  		.ctrl2_load_temp_lut     =3D SSD1683_CTRL2_LOAD_TEMP_LUT,
->  	},
-> +	[SSD1677] =3D {
-> +		/*
-> +		 * 10-bit pixel-level X/Y addressing; only deep sleep mode
-> +		 * 0x03 is supported (no RAM-retain mode). Border waveform
-> +		 * encoding matches SSD1683.
-> +		 */
-> +		.max_width  =3D 960,
-> +		.max_height =3D 680,
-> +		.ram_x_address_bits =3D 10,
+
+> @@ -1425,11 +1435,16 @@ static void ssd16xx_plane_atomic_update(struct dr=
+m_plane *plane,
+>  	struct drm_rect rect;
+>  	int ret;
+> =20
+> -	drm_dbg(&device->drm, "plane_atomic_update: fb=3D%p, initialized=3D%d\n=
+",
+> -		fb, device->initialized);
+> +	drm_dbg(&device->drm, "plane_atomic_update: fb=3D%p\n", fb);
+> +
+> +	if (!fb)
+> +		return;
+> =20
+> -	if (!fb || !device->initialized)
+> +	ret =3D pm_runtime_resume_and_get(device->drm.dev);
+> +	if (ret < 0) {
 
 [Severity: High]
-Does this configuration allow panels with widths that are not a multiple of=
- 8,
-leading to a heap buffer overflow during framebuffer conversion?
+Does this call pm_runtime_resume_and_get() from an atomic context?
 
-Because ram_x_address_bits is 10, it bypasses the multiple-of-8 width check=
- in
-ssd16xx_probe():
+According to DRM subsystem guidelines, plane atomic update callbacks
+execute in an atomic context where sleeping is forbidden. Since
+pm_runtime_resume_and_get() can sleep (and the underlying hardware
+reset uses usleep_range()), could this lead to kernel warnings or
+deadlocks?
 
-	if (device->controller_cfg->ram_x_address_bits =3D=3D 8 &&
-	    device->width % 8 !=3D 0) {
-		drm_err(drm, "panel width %u not a multiple of 8 required for byte-addres=
-sed X controller)\n",
-			device->width);
-		return -EINVAL;
-	}
-
-This permits device->width to not be a multiple of 8. However,
-ssd16xx_alloc_tx_bufs() calculates the buffer size using global packing:
-
-	size_t frame_size =3D DIV_ROUND_UP(device->width * device->height, 8);
-	device->tx_buf =3D drmm_kmalloc(&device->drm, frame_size, GFP_KERNEL);
-
-But ssd16xx_convert_fb_to_1bpp() pads each row to a byte boundary:
-
-	for (y =3D rect->y1; y < rect->y2; y++) {
-		...
-		if (++bit_pos =3D=3D 8) {
-			dst[dst_idx++] =3D byte;
-			byte =3D 0;
-			bit_pos =3D 0;
-		}
-		...
-		if (bit_pos > 0) {
-			dst[dst_idx++] =3D byte;
-			byte =3D 0;
-			bit_pos =3D 0;
-		}
-	}
-
-This padding means it writes DIV_ROUND_UP(width, 8) * height bytes in total,
-which exceeds the allocated frame_size, causing memory corruption past the =
-end
-of device->tx_buf.
+> +		drm_err(&device->drm, "plane_atomic_update: failed to resume: %d\n", r=
+et);
+>  		return;
+> +	}
+> =20
+>  	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect)) {
+>  		rect.x1 =3D 0;
 
 [ ... ]
-> @@ -691,21 +736,34 @@ static int ssd16xx_hw_init(struct ssd16xx_device *d=
-evice)
+
+> @@ -1620,6 +1661,13 @@ static void ssd16xx_crtc_atomic_flush(struct drm_c=
+rtc *crtc,
+>  	if (!drm_dev_enter(&device->drm, &idx))
+>  		return;
 > =20
->  	ssd16xx_hw_reset(device);
+> +	ret =3D pm_runtime_resume_and_get(device->drm.dev);
+> +	if (ret < 0) {
+
+[Severity: High]
+Similar to the plane atomic update, does this call
+pm_runtime_resume_and_get() from the atomic flush path?=20
+
+CRTC atomic callbacks also run in an atomic context where sleeping is
+forbidden, so this sleeping call might trigger kernel warnings or deadlocks.
+
+> +		drm_err(&device->drm, "atomic_flush: failed to resume: %d\n", ret);
+> +		drm_dev_exit(idx);
+> +		return;
+> +	}
+> +
+>  	drm_dbg(&device->drm, "atomic_flush: reinit, orientation=3D%u=C2=B0\n",
+>  		device->orientation);
 > =20
-> -	/* Software reset */
-> +	/* Software reset (0x12): resets command/parameter registers to default=
-s. */
->  	ssd16xx_send_cmd(device, SSD16XX_CMD_SW_RESET, &err);
->  	ssd16xx_wait_for_device(device, &err);
+
+[ ... ]
+
+> @@ -2017,9 +2075,26 @@ static int ssd16xx_probe(struct spi_device *spi)
 > =20
->  	/* Internal temperature sensor (SSD1683/SSD1680 only; not present in SS=
-D1673) */
->  	if (device->controller_cfg->has_temp_sensor_ctrl) {
->  		ssd16xx_send_cmd(device, SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL, &err);
->  		ssd16xx_send_data(device, SSD1683_TEMP_SENSOR_INTERNAL, &err);
->  	}
+>  	drm_mode_config_reset(drm);
 > =20
 > +	/*
-> +	 * Booster soft-start (0x0C): panel-specific charge pump tuning.
-> +	 * Some panels (e.g. PIXPAPER 4.26m on SSD1677) require this step;
-> +	 * others (e.g. GDEY042T81 on SSD1683) omit it.
+> +	 * Mark the device active before enabling runtime PM. The SPI device
+> +	 * persists across module reload cycles; pm_runtime_enable() alone
+> +	 * does not clear a stale dev->power.runtime_error left by a previous
+> +	 * failed hw_init, which would cause pm_runtime_resume_and_get() to
+> +	 * return -EINVAL on every subsequent call.
 > +	 */
-> +	if (device->device_cfg->booster_soft_start_data) {
-> +		ssd16xx_send_cmd(device, SSD16XX_CMD_BOOSTER_SOFT_START, &err);
-> +		ssd16xx_send_data_bulk(device,
-> +				       device->device_cfg->booster_soft_start_data,
-> +				       device->device_cfg->booster_soft_start_len,
-> +				       &err);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_set_autosuspend_delay(dev, SSD16XX_PM_AUTOSUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +
+
+[Severity: Medium]
+Is the autosuspend timer started after probe?
+
+The device is marked as RPM_ACTIVE via pm_runtime_set_active(), but
+it doesn't appear pm_runtime_put_autosuspend() or pm_request_idle() is
+called. Could this cause the device to linger in the active state until
+userspace attaches and performs an update?
+
+>  	ret =3D drm_dev_register(drm, 0);
+> -	if (ret)
+> +	if (ret) {
+> +		pm_runtime_disable(dev);
+>  		return ret;
+> +	}
+> +
+> +	/* Default to runtime sleep mode (RAM retained if supported) */
+> +	device->deep_sleep_mode =3D device->controller_cfg->deep_sleep_mode_lev=
+el1;
+> =20
+>  	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d=C2=B0 rota=
+tion)\n",
+>  		device->width, device->height, device->orientation);
+
+[ ... ]
+
+> @@ -2035,6 +2110,8 @@ static void ssd16xx_remove(struct spi_device *spi)
+> =20
+>  	drm_dev_unplug(&device->drm);
+>  	drm_atomic_helper_shutdown(&device->drm);
+> +	pm_runtime_dont_use_autosuspend(&spi->dev);
+> +	pm_runtime_disable(&spi->dev);
+>  }
+
+[Severity: Medium]
+If the driver is unloaded while the device is runtime active, and
+clear_on_disable is disabled, does this leave the hardware powered on
+indefinitely?
+
+Calling pm_runtime_disable() cancels the pending autosuspend timer.
+Since a synchronous suspend isn't forced before removal here, could the
+display controller remain physically powered and active after the module
+is unloaded?
+
+> =20
+>  static void ssd16xx_shutdown(struct spi_device *spi)
+
+[ ... ]
+
+> +	if (pm_runtime_status_suspended(dev)) {
+> +		int err =3D 0;
+> +
+> +		if (device->controller_cfg->deep_sleep_mode_level1 !=3D
+> +		    device->controller_cfg->deep_sleep_mode_level2) {
+> +			dev_dbg(dev, "system suspend: upgrading level1->level2 via HWRESET\n"=
+);
+> +			ssd16xx_hw_reset(device);
+> +			ssd16xx_wait_for_device(device, &err);
+> +			ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
+> +			ssd16xx_send_data(device,
+> +					  device->controller_cfg->deep_sleep_mode_level2,
+> +					  &err);
+> +		} else {
+> +			dev_dbg(dev, "system suspend: already at deepest sleep mode\n");
+> +		}
+> +		device->initialized =3D false;
+> +		device->pm_force_suspended =3D false;  /* Skip force_resume on resume =
+*/
+> +		return err;
+> +	}
 
 [Severity: High]
-Does this pass a .rodata pointer directly to the SPI core, causing an illeg=
-al
-DMA mapping?
+If an error (like a SPI timeout) occurs when sending the deep sleep
+command, does returning the error here abort the suspend without rolling
+back the DRM state?
 
-The booster_soft_start_data pointer comes from the device configuration, wh=
-ich
-points to static const tuning data. When this is passed to
-ssd16xx_send_data_bulk() under 4-wire SPI mode:
+The DRM suspend state was allocated earlier by
+drm_mode_config_helper_suspend(drm). If we return err, is that state
+permanently leaked, leaving the display frozen since the resume
+callback will be skipped?
 
-	if (device->dc) {
-		/* 4-wire SPI: D/C# GPIO high selects data mode */
-		xfer.tx_buf =3D data;
-		xfer.len =3D len;
-		gpiod_set_value_cansleep(device->dc, 1);
-		ssd16xx_spi_sync(device->spi, &msg, err);
+> +
+> +	/* Force runtime-suspended state for clean resume. */
+> +	pm_runtime_force_suspend(dev);
+> +	device->pm_force_suspended =3D true;  /* Resume must call force_resume =
+*/
+> +
+> +	return 0;
+> +}
 
-The SPI core will attempt to DMA map the xfer.tx_buf. Mapping .rodata for D=
-MA
-is prohibited and can cause kernel panics or mapping failures.
+[Severity: High]
+Should the return value of pm_runtime_force_suspend() be checked here?
+
+If it fails, the PM core re-enables runtime PM before returning. If we
+ignore the error and proceed to call pm_runtime_force_resume() on wake,
+could the unconditional enable drop disable_depth below zero and trigger
+kernel warnings?
+
+> +
+> +static int ssd16xx_pm_resume(struct device *dev)
+> +{
+> +	struct ssd16xx_device *device =3D dev_get_drvdata(dev);
+> +	struct drm_device *drm =3D &device->drm;
+> +
+> +	dev_dbg(dev, "system resume: restoring state\n");
+> +
+> +	/*
+> +	 * Only call force_resume if we actually called force_suspend during
+> +	 * system suspend. The MODE_1->MODE_2 upgrade path skips force_suspend
+> +	 * since the device is already RPM_SUSPENDED.
+> +	 */
+> +	if (device->pm_force_suspended) {
+> +		pm_runtime_force_resume(dev);
+> +		device->pm_force_suspended =3D false;
+> +	}
+> +
+> +	/* Restore Mode 1 (RAM retained) for subsequent runtime PM cycles. */
+> +	device->deep_sleep_mode =3D device->controller_cfg->deep_sleep_mode_lev=
+el1;
+> +
+> +	/* Hardware must be re-initialized after waking from system sleep */
+> +	device->initialized =3D false;
+> +
+
+[Severity: Medium]
+Does setting device->initialized to false here overwrite the state just
+initialized by the pm_runtime_force_resume() callback?
+
+Overwriting this might cause the subsequent atomic enable to incorrectly
+fire a redundant hardware reset, introducing unnecessary sleep delays in
+the performance-critical system resume path.
+
+> +	return drm_mode_config_helper_resume(drm);
+> +}
+> +
+> +static int ssd16xx_pm_runtime_suspend(struct device *dev)
+> +{
+> +	struct ssd16xx_device *device =3D dev_get_drvdata(dev);
+> +	int err =3D 0;
+> +
+> +	dev_dbg(dev, "runtime suspend: entering deep sleep mode 0x%02x\n",
+> +		device->deep_sleep_mode);
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
+> +	ssd16xx_send_data(device, device->deep_sleep_mode, &err);
+> +	device->initialized =3D false;
+> +
+> +	return err;
+> +}
+
+[Severity: High]
+If a transient SPI timeout or hardware error occurs, does returning the
+error code here propagate the failure to the PM core?
+
+This could transition the device to an unrecoverable RPM_ERROR state,
+causing all future atomic updates to instantly fail and essentially
+bricking the display until the module is reloaded.
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927182329.4193=
-961-1-devarsht@ti.com?part=3D6
+961-1-devarsht@ti.com?part=3D7
