@@ -4,147 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB84CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61FDACA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2B10EB8E;
-	Mon, 28 Sep 2026 19:05:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 899FC10EB70;
+	Mon, 28 Sep 2026 19:16:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CTksQLh9";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cWSah7hl";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PP0gpRY9";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6B1410EB8E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:05:22 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68SHvvcJ3197223
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:05:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- aUQXcc91Nms0mMqzegCYthYDa1bP/Fd/lJEybhf1XvQ=; b=CTksQLh9GRSRU5aC
- RkNBkiHcJRI7vkuzbXUnrgkGoX8I7HlKIE+HdNX9yhy8EwaM+Q6JN5vqkdKpcHEP
- mEI7zCQ16KNdzkfpOsPNQfq6FywVtWukivJn18kHmEi0YBB/4+sQA0vXQf4HVz+u
- y4IDpGwo2IhC3f7svhevQUVXTZI7MXu3j4dxNaW/9WRmgBsSZlaOQEOLMNfs2PyB
- ViyMR9jDPVjhPONgnLMD2DyYyD2K1KhelVxixgEm5+wDvG1jDdoZ9NlGkQoPVXyE
- IbpR9pNPWNunK9qS7qVg8rs7hPnLTz+ax30kmT9hgqBt2HkoCcebmSSoe8G5kYNh
- vJMD5w==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyw03gbuf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:05:22 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-33c35f5ca6cso5721315eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 12:05:22 -0700 (PDT)
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4336610EB70
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:16:24 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c963d7503fso1146266e0c.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 12:16:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790622321; x=1791227121;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=aUQXcc91Nms0mMqzegCYthYDa1bP/Fd/lJEybhf1XvQ=;
- b=cWSah7hl5phU7vRb/hUhVurQPVTUcfnxBrJDVkhemBMvUbu+dACa6htNlOUwfdvZDn
- hfs6ltsHs0FE5rJ4+a3tl/hpbqeogJwW1kGxMegu4bnCdxaMquw6IopgvuoK3DibXO8t
- GKN0YatQM6BXc9G8xMF08C+WbZHXF9arCM3Hq0Fh5anuStA0iszopqDVZpPpVZB5zwGs
- aICh06gGsPXhHmxUjkB9kvE+1gGKMhaSBLspE9YRdVr0+lSzIX+EPyuXCnRDKc8wtBZz
- tQW8I0wW2b0uScr/VL2RXRzN/eNTjrNBoKi6RrQY2B2WEqfmTltWELe94Cfj8afJRw29
- ji0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790622321; x=1791227121;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1790622983; x=1791227783; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=aUQXcc91Nms0mMqzegCYthYDa1bP/Fd/lJEybhf1XvQ=;
- b=iFx3ZGdeXakZNNWPYu9GJa5LtEQZRyESOh3Cmw+LFMgfe4eeDd7cdCbGNAhpMchAZ0
- Ubj1ucS4z8dawjxVc6DfWHPBnpXigzCNah5CoqtyagG/ikExu+ILaAklCjCBdH3P96nF
- MUcNJMlrw+PY3v5FmTByDAsd24tp/MjeAK0Miq0BMuQfYJuu4h2J2uZv6Vxefvtpodxt
- 0h6K1g3DxN+UrCHp78yLgVeKBVsvaP4kJejFjbeeSDJPnJ2mS5PDSBVqTHebkc5xneS8
- 3PXUVZXqo9ZPg7qS2WJgntokphXXbBriDsQe1G2XtwsdwWR+RRbIF7HoueQB0obwrfnY
- HNSw==
+ bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
+ b=PP0gpRY9U61JF4snEJXdHtiEay4tmvdd08HR7Sfw3nrdBE2uE+9Vsz2cVGF/utuzn3
+ 4b7HaiDQoi2KGSP2LeA2UiWwzC5Y/+Dzdd7g4HD31HAGYaMocBLlZZ4VAM1bRXNd65O7
+ /9aU8y0KLWOhaxvugY4nFRbY0fi1Rznd2bh+qQjRpzBdVO8jYPHysXI47HLcSp/v8m/h
+ EeC5ySnRgtmAqqL3u7c6sEbZE2hscIixad/0wiL1pFXjUC8zAR/1CQmaO3k4jFxcxc0+
+ 0cbylCA8H0R7hmqxJYIZ/Ygbk1SqgvKtxtyjQZ2IfBFQK39oqLfxxvlzryDJeB5Lalrr
+ 9Q/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790622983; x=1791227783;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
+ b=hlPffAzSMuzqInxwB7a6mBC6hfijNwiaOBSdqLBd1tIeXVXyt9T5w8SR/gvvxrXJZS
+ ygjRvXCPrJbesMJy6FwLq7nbt4Zb0wqCvy+jMnONOeoodAO1ZEYWNeHnckiOQ00AJgQ/
+ LIB9UFc4G1uXWrk9kQA98A7PS0YaDOUEBPYiO99OtfiiU6N8QjNvgjJUf0oLR2CiiZey
+ GqC8xO+vgxwDq5t51iFdW7Npogg4b78tB51UL800xB2QfrBdmHUBD2ICW3sXBWt2XR2h
+ LaGscPz4woLWYKaZlWuxrFWUGWmI1DKk5Zzw24nv1aUq8+wRF/X1BJkyetpGbtcqmJlA
+ C9IQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzqqnaY+x45HZTjeDGRxYTKiiBYI2ANifdAea5jvpPUiOTZwyXfJicKGTFI0P49jWdlnTpfsC5vUnA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL5zhOk9/DR9u5++jYtIVMG9VQMBWtSPn9o5XdeUUKwnj+xpimg
- cfBXi7USpY+4QWfJJQ62JdohNHgegT+d+/MpUuQCLZ/WBLY2UHr9sNRM3bwG3s6blJ77+w1b5U2
- R7u5CrKZ3/UgyzUuZsdbQHLUxJsIdQuF7h6ycqMjNE2WNj/4b8V5bhWClIjwcq+4OtMPH6z0=
-X-Gm-Gg: AYBFou2r4AVdFn8z19khu/6PLUdhBzylBzyh9gs7vLcCaQ8Lr7N0jc5NWRkSwtA83FJ
- IQS2eadQE9RI6hKfw/9ErJQZ3gXIdlLyNBBrTuqAowfbCjSq82Is+74K0vb15ybZ2m5TGsRtK45
- 6NhRkc6+6YxCUCF7AapzdAag6blR9btTtPeL+KZHqQAY7NYtEsaj8qYersdhq/7cwasT/gBLgNw
- qyouHgNCfp/lK7l2hdU67f3PC+7VF86ahmQO6h0AJm3VrBiOw1GtboOYYmb6TrpHSoFygXds1pG
- 4B3uaPHUOczf9Cz7+b6Y9oz62JrJ46eK1bF/GtWYpXr9TKauZkigaNhzjvk6voZmqt1ToddWW6y
- 9opoRIOZ4yAbMRbTeL/LUTOje
-X-Received: by 2002:a05:7301:2811:b0:339:7572:7b2b with SMTP id
- 5a478bee46e88-34271d8d7edmr12283289eec.24.1790622320463; 
- Mon, 28 Sep 2026 12:05:20 -0700 (PDT)
-X-Received: by 2002:a05:7301:2811:b0:339:7572:7b2b with SMTP id
- 5a478bee46e88-34271d8d7edmr12283193eec.24.1790622318728; 
- Mon, 28 Sep 2026 12:05:18 -0700 (PDT)
-Received: from [10.204.104.211] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3434958c3adsm37771935eec.22.2026.09.28.12.05.10
+ AKwUvBy/MBE86N+tTiJd77/1VIU4wDDCsZggWN4YMR9wCch34TdssIuCp87vjmbY4AnRjEU28OoXhDPnCNU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIxRixx9oqdxajiaf4OT6BEB6lJNtxZxkMh6T7N0nC4FAqAQ1zR
+ CHxpXoVr6Fom+OJdbgOd6IbHS/r5AlTe5aKEBLIf9Fa6WxdYvgiTG+wZY5SKz9XIGMc=
+X-Gm-Gg: AYBFou0dKuLG4iPWmIWfN3y/Yq7sPnbTCJDQ07AGMKR4rbs5+XunzfX9fGiUAFopxhs
+ hW+0FViU7vGhJiMktGqh02ag41wJSmABFh6dJPJpJEr5u/Vrenz9BPXgyzycREZ28GyNhq+bOUx
+ VD033fVuLSR8eCAVClB1vY8zZir9E0RFNdQVCQiMoPzeBOoQHaNuCgDG6bqda+Xhohnf0lB01KU
+ V4puXJMJWGx5aD7UJ5Rds/NM5B8ugxCHLkKNjOqZKh5giYoWqd9MT0gs60gOoyvOT6VQAX5C0WS
+ afjlSL+iF3zXGzjQ12tD7Q8XdReaMS5OCCbwDFZ3L4dRJJG9MEXEVDMbGCicEa5SgJGaS2WOYZg
+ VnAwFv6TL3R2fLKF0OujMoigxzv0kh/LzfnYqOx2VTblCn/g/hPVF7RBsZ0h8dtrXqGs6vLQYa0
+ qefFILmB14yeSx+J1mPSw8lap9kPEaJTGmo0W0F6hMx/ivT4fNRnOhEG3qliH7TsLr9GUb412Pl
+ RrJMTN2WmVwKu/VK9bts9i5xQieKdg0siXdjhEH/EQKwhctcsQe5nP/TFN7TYKkLMZeTov8Ju/u
+ tGKsPPE=
+X-Received: by 2002:a05:6122:1313:b0:5c9:a60b:e5d5 with SMTP id
+ 71dfb90a1353d-5cb0b67e6bbmr5760667e0c.15.1790622982793; 
+ Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
+Received: from [10.21.51.184]
+ (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca.
+ [142.127.77.63]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5cde4f969b9sm10052205e0c.3.2026.09.28.12.16.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Sep 2026 12:05:17 -0700 (PDT)
-Message-ID: <fac7522a-a9c8-497d-8753-e8c397ad581f@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 00:35:08 +0530
+ Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
+Message-ID: <8fa0c826-9d4a-487c-b7db-5412118364d5@linaro.org>
+Date: Mon, 28 Sep 2026 21:16:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: display/msm/gmu: Fix Glymur's compatible
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, Jie Zhang <jie.zhang@oss.qualcomm.com>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
- <20260925-mahua-gpu-v1-1-0fa0bfd8d315@oss.qualcomm.com>
- <arnTH0_tjrspIymm@zenbook>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <arnTH0_tjrspIymm@zenbook>
-Content-Type: text/plain; charset=UTF-8
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3NiBTYWx0ZWRfX9+FDRRYni4Qa
- L1zZfeZ4ntpwGxynNt5u5k/6npG+jyQBjstoOlFlYX6LPuLCDhVieEUq9Z2DCJnOY1U7rdoIxkc
- wq6nPSc1gh7ci/tRknfGJWIHmEKsKZM=
-X-Authority-Analysis: v=2.4 cv=SIbXx+vH c=1 sm=1 tr=0 ts=6ababa72 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=QgEWrOWD1ie02Gccw6EA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3NiBTYWx0ZWRfX/jpwZ2lJeCK2
- MpA8M0oPPXCZLWsgsk9O8mZvFXPTzIhUCs2A39KQsXYw/3Zo5Gt1IKjBjEnEFsyveC0opRUlSIs
- erCLInC9JxwX6Uv0U+ljFq+85OfO2qFiYb9GKPXODl0otSyc8LHPb9qGRvvBDvDilom8J685nBv
- dKli6d27W7Q57u5jG9tPvcJO4nkfCVKmsElsMBsdT/YUAVcAslSitMk/UxmxHqdOESYJZnUYhmR
- lieSpv2dpkX1y5lIbJgWkv0hoqTiGkZzRswzrDArI14IgNqCfq64aw3WSx2Nzf3WgVeUHiFIfEc
- RgpJ/SYggS4frQVNIMWuqE37ciSinHih32m4EI6x9vjeUA8KRR5uvZYM3m7m7QBfaapBvF9TqA1
- iLWHW3leiX14CjcPd00vjGVQExAniMgJz1VNFerX4Pwhzj0iBar96kZz7AGrBCKn3ikc4hvCGu5
- FepbwV6FzcjlLqa7HBQ==
-X-Proofpoint-GUID: -D7ZgKzCQWOVDQdBGWQIVHOw8o7jDwh0
-X-Proofpoint-ORIG-GUID: -D7ZgKzCQWOVDQdBGWQIVHOw8o7jDwh0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280076
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,54 +138,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 9/28/2026 8:10 AM, Bjorn Andersson wrote:
-> On Fri, Sep 25, 2026 at 02:44:32AM +0530, Akhil P Oommen wrote:
->> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
->>
->> The Glymur GMU compatible string was incorrectly documented as
->> qcom,adreno-gmu-x285.1. Fix it to use the correct string
->> qcom,adreno-gmu-x290.1.
->>
->> Fixes: 7bc29d5fb6fa ("dt-bindings: display/msm/gmu: Add Adreno X2-85 GMU")
->> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
->>  Documentation/devicetree/bindings/display/msm/gmu.yaml | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> index 9e459f12ce3f..f22661447e7c 100644
->> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> @@ -363,7 +363,7 @@ allOf:
->>        properties:
->>          compatible:
->>            contains:
->> -            const: qcom,adreno-gmu-x285.1
->> +            const: qcom,adreno-gmu-x290.1
+On 9/28/26 18:22, Maxime Ripard wrote:
+> Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> regulators and GPIOs, perform a reset pulse with specific timing,
+> send a vendor-supplied sequence of DSI commands, then enable the
+> display. The only truly panel-specific part is the init sequence
+> and power-on/off timing.
 > 
-> It would be preferrable if you add the new compatible and then once the
-> dts has moved you remove the old one (i.e. after next -rc1) - that way
-> my dtbs_check doesn't light up while we're trying to dance these patches
-> into the different branches.
-
-Sure. We can do that. Will drop this patch in the next rev.
-
--Akhil.
+> The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
+> with a single generic driver whose panel-specific behavior is
+> provided by BPF programs loaded from userspace at runtime,
+> following the HID-BPF model. This enables new panel support
+> without kernel patches.
 > 
-> Regards,
-> Bjorn
+> Panel DT nodes use a two-entry compatible with the panel-specific
+> string first and "panel-mipi-dsi-bpf" as fallback. The generic
+> driver matches on the fallback, while the first compatible is used
+> to identify which BPF program to load.
 > 
->>      then:
->>        properties:
->>          reg:
->>
->> -- 
->> 2.55.0
->>
+> Six normalized optional regulator supplies cover ~95% of existing
+> MIPI-DSI panels: vcc (IC core), iovcc (I/O interface), avdd/avee
+> (positive/negative analog), and elvdd/elvss (OLED EL driver).
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>   .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++++++++++++++
+>   1 file changed, 184 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
+> new file mode 100644
+> index 000000000000..9a20a21cf70e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
+> @@ -0,0 +1,184 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/panel-mipi-dsi-bpf.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic MIPI-DSI panel with BPF init sequences
+> +
+> +maintainers:
+> +  - Maxime Ripard <mripard@kernel.org>
+> +
+> +description: |
+> +  A generic MIPI-DSI panel driver where the panel-specific power sequencing
+> +  and DSI init commands are provided by BPF programs.
+> +
+> +  Panel DT nodes use a fallback compatible so the generic driver matches on
+> +  "panel-mipi-dsi-bpf" while the first compatible identifies the specific
+> +  panel for BPF program matching.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - description: Panel-specific compatible string
+> +      - const: panel-mipi-dsi-bpf
 
+I don't see how this can be a valid hardware description, bfp is a software
+implementation and has nothing to do in the bindings.
+
+Neil
