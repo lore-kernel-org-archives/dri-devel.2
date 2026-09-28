@@ -4,132 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A1E8CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:40:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49F9C9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29E8010E12B;
-	Mon, 28 Sep 2026 11:40:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E27D10E356;
+	Mon, 28 Sep 2026 11:45:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kz2gu6+C";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="droKwZF4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oq1mL7Ef";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W/4lSq6C";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EDoFp/Au";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011050.outbound.protection.outlook.com [52.101.62.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4AE10E12B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:40:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XE3/5be1VWM4CZSPn9p5OKVFM59b35KAznzVWP7fMXc/Xa/Vx12DDZdq0XyTJaHPX4OwPCtYYfmeVWVgwbmxkOQPhQKxkXdKkcUDNI+3UCYojPWpXczsCqq3IgAeK8+RDoqjciK2GwqBYSYk7iJWNM6dHpzfrfauTTS2TAXQSHD41n5HK1/4gWTCs9dbilQzmzzR813uwMP0zPJKwnb+lpN6EeBWx8ru45qhFbzc6awSuotFGizK+ST7u/XKWqvVlEzQx0mOjx4SGEKX7QJmgJ7rR6Pa3KH/6dAUWAukYzKpm5IuntfNOIcKopmKiXe5LZ1GYa22s+i0IuHrApk6Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
- b=LsrgJA5ZpPWV8Lxv6Fb9AgzQt/qrbVCG3VmYm0JeNcxowAyB6RLcD0fghYgARhUfmlBiDvF9QoHoRQpQ/virRBPrstmyk4zXuUVppMrY0wwsgJgJen+JyUazrhtTIXMmPTfGgo5/+owvbhY8irNLGS3kugBcTyd7DBCjKuarAFCu7TT2uSycIWvaRxLL7gSxAZJwTGgwPcB0OxW3Zb8OZfpDqgOPn1i3CM+mPrMM/uYMDohXTwms9bao1zR0w/BCm7PKma/q+FJ1c8ww2oQZeUI4BaZEivDF2tlrUs1KztihakQ0LgZqehH+rqcSkXmn8gy5G+HbWW5geNfj8lngEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PrbS6vXLH8q+fLpPJUOqUARfaZE+/JOqx0Y25J88fYg=;
- b=kz2gu6+CxxT4qOgR7ZxIq2DlGtLdTApuXYCD9xxa8nt85dVh3N+6pfTQ00Eo3/bSW+6NnbsI+y0hlXvJAESpQ5+R9YbwluhfhkKhXueibIFzuE4ZNGkZN7ZE7PFlvwqFue0+X7Jpw5nqmmmU5fCWaVVjCdZRE47n1Jm3M0p/vjdDdJaLZmnRkFeHL0pGBSS1lMMXlgy4W39jHABak3kLjdwQMg7kY4APzlZDxrWn0kQGNRcKndASgAmEJICr2mbbrm7bihzh1e6wEr3MA7IbarWhV5+BFUZ9/3zimDM8Jd9MVolN1E0mFx5vPDpTMvTMKi5ufhCt6fTSOvir2KntoA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA1PR12MB7568.namprd12.prod.outlook.com (2603:10b6:208:42c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 11:40:11 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 11:40:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 20:40:08 +0900
-Message-Id: <DLQX62L47S38.1D5416RRETLY3@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 8/9] gpu: nova-core: gsp: move the RPC commands into
- a sub-module
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
- <20260927-cmdq-rpc-v2-8-c3f66ae73be4@nvidia.com>
- <20260928122015.3df66b3e@inno-dell>
-In-Reply-To: <20260928122015.3df66b3e@inno-dell>
-X-ClientProxiedBy: OS7PR01CA0191.jpnprd01.prod.outlook.com
- (2603:1096:604:250::10) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9A110E356
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:45:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0C60421C07;
+ Mon, 28 Sep 2026 11:45:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790595919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
+ b=droKwZF4+XAkNO5BnDz5fFgevBpfjIM0g4bBczyWs5IjRYoxodw9aFC90JHrbcZaoJISke
+ 7MXZD2r7ewdLBzOxdp6GeJ+KE5mLbBPkQ6KNUpBUA4dKz28Nm1NNNFU4Oj6GlyQNj1nKaN
+ zH8oeU18inWrT/NkWnbmRgyuO/TEK5M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790595919;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
+ b=oq1mL7EfoOJA7wJiapCfDPPPmtyexesiZ0no8b0gsnPIyfHfMMRkqa3+hyk01pyR5sRdVw
+ g227V8St8MeXO/Aw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="W/4lSq6C";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="EDoFp/Au"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790595915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
+ b=W/4lSq6CkagFNUNwOVpQmrORPmQ6YVyutZFacBfNKMgWu37UpMoFBHTvwlssQyz2obTG0B
+ j8gPcnDlGzb58LOv20Y1gKlss/WIiE/TUPwseaY+I8AOo3a0eMgLcR4XjY8ql81yFrCXUT
+ 3QcVqmTe5rRsBk0igz2NV3i/1R2Guqw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790595915;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
+ b=EDoFp/AuTUuQmOiohUqBR2hUT9i2l4lwY/8VgVmKQEk0WXBKRC13dSUNyINSZozjzJXg7b
+ Mr6un4R4x+FDhbCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A467E133F3;
+ Mon, 28 Sep 2026 11:45:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id WH1nHEpTumrkTQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 11:45:14 +0000
+Message-ID: <2c5caf22-1fa4-43d7-95c0-782c111ab3f7@suse.de>
+Date: Mon, 28 Sep 2026 13:45:14 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB7568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|10067099003|11063799006|3023799007|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: vCQOPlTEevDGJdOe3Q1vIuY87zR5KZSrRySkLVmJu938idMhSCpYOqDifItF86p1JlWRTA7TQmWQcELYvBkuG1dk8v+7HJnxH8pckwiwoeM5il5uGu+HxNgDul2mQUTkaCm3fVBZoeBoNdYhLdt3aLr5ATR6yqniZcicHSBi8Au/bnv/16sg1a4Bx/zSnY5sSLzfNd0BiQBorMKv+0PdzIHKASW4KeeqNjFcukb/EwdBelYWoW7L+TQXmSd2aY0dVDRa7FpsLc/xGrcOqUgacVrHLl0QEXv9qNMqtIjREhoAfmvXfysVyPXiArru6UdT9AY4ZY9EaH8ld98qJ7XeXv85GLpuxayhEtvZVoPjfSUdkM3BAUCuMSXU2dyvmKI8oav1zwnsn8Q6TSN2iKn9EhO7IbTCdXq2JbFB6uwvdH8Tahn8VO13zFnCeSsgMeUswmKsNiLTjoU5fWM2lVHsG402qSXvk5jkH5HXloFKpmIlckfwJ05aSyGd3YCAf7CTV2oc0/HNoxiV5lY56QMCtykEFrq/Bssy9/Dg2hsatvz3ScDRk3mDFPXLga68Hm/tbEAMYdH+0wxiyV6yCQcuLx2iK2o5JA4bOpK+rp1ZvAOZ/eBBx3Wliiv2VbvjQufDWrKbK7qngW5QR7cKE1FHEyj/RcbQEi7Ui+V5y0R9PIc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXBndE9teFVSMXR4VTR5dXFwK0J4V2hBdExlcGtkRmhXck5PYVJZVlpPUVk0?=
- =?utf-8?B?elFEMDNwSWNkeG1KcXB1Ulo1U1NjdFJ2dXRVUDNnRnl3R2FWRVlRT1lzT0kz?=
- =?utf-8?B?cS95Qjc3QVd6c25QZHk4SVc4a0kvcUFldkIxYkhhZFBTM0NXU3JSSlViMkRh?=
- =?utf-8?B?cVh6QzJGY21HMXJISHJxQ1dZQkxXS0tlOWxGWUJXc2FCcEV1UVdSdTdlaDIx?=
- =?utf-8?B?U2RIV3R2NXFETU82cnFRNHcrZGV3anZzRVJEczNqUmJ2WlRlRjBBM1QwT3Y4?=
- =?utf-8?B?RTdReUlTVjBDMTVieTkvR01IaFhTaStxWmFMMmRmV04vMm83TjVmanVTeDJq?=
- =?utf-8?B?V1hlRFRicnoxV3RsSFNvK0VwNkZ1Yk9aUnhyWlZVcDluS0NPRkRMeERQYWtM?=
- =?utf-8?B?UXMzYWJHY1ZuMDhxVDMwa3NRWUxINWRxTXpGRmNteWNWRFNDWXM5SUw4NGNW?=
- =?utf-8?B?bkVOZ0FGVDdkVEtHZDQ1eDhYbnVxSWJJUEFUU1pLZW9XNFJ5bTBDbWV6VEtU?=
- =?utf-8?B?ZTJqMFlvSUNMQTY2UG9pRk1sODgveTBHLzFoZGE2QThzbmNtR2d5WWdseXEz?=
- =?utf-8?B?NFRhaVBtcjRya09WZTJZcHFxQXhxMlord1hGZWFrZnNxbTZWbHZHZi94RnBZ?=
- =?utf-8?B?S3VYeHBNOUYxVzZJZnJPMS96YldKZ1hUZTlabXhmczBmWjM3d3k2OUE5dUFk?=
- =?utf-8?B?dGpOblkzZ3RMMFNiSVdTWU4yYnp5NlhMOWN4ZGJlVE14U3NITlc2OFlYY1NR?=
- =?utf-8?B?L3h0Z2tGT3Z1TURaenBkaGMwd3NXZTZFWVRhRzBtcXFJd0pPY0hIbkJKUVVH?=
- =?utf-8?B?LzZueXBMNHNtczY2NWgrd05JYUZ2eHpHbzJRN2pxS2dqWllIOXljU2ZiWGNl?=
- =?utf-8?B?TUZMZ2s0QlFoVDk2QW5XblhDSElyM2FHN25EOXpMZjVwZkpZN0VtZ2FrSnZ3?=
- =?utf-8?B?cUNWTFoxazV1ejgyc2crd3YvdHhFakc0TXA0RFJRK1M5MWtjRjhrd3lSbUdU?=
- =?utf-8?B?ZzN0Z0ZLNFVIOG9GT05uOE11amJQdEFmSW5VaGJsRDlSY3pab0FyWTJBME1i?=
- =?utf-8?B?MS9UUTY0Rzc1V1doYURsbGNyd1lTaElhWFBURHVCZEZIMzRhd2dBS242Vmdr?=
- =?utf-8?B?NnlxaTI0aURhZ1JsZ2tqOTZRdmlVTjRXYVdPQ0xJRXdTMUtPT3NvTk9hMkNz?=
- =?utf-8?B?UHZqTHluMHVBV2tIU3pwWjdSZ3V6VGRUNGNIakh4cjQ1OWFtTmc5TXdjMFc3?=
- =?utf-8?B?MzhPWHVEcUFmekxqR2lEV1kyMDFwVE8xbHVYNUhJNXFLK3NCdGo4SlU0V0xV?=
- =?utf-8?B?RkJKbm9lYldrTHRDY3JmaDc2endmd3lyUjdjNXdwLzFHTm9VRS9BblhHanBk?=
- =?utf-8?B?L1I3dDcvK09FYUlzMWpnYlVCVTJCbk43MUFpcXRlQnVDYXNjajI2RTVwM3A2?=
- =?utf-8?B?TzUvRW5FdUxpYVdpemJWOHE4cTlkNUxjWUcrQ0g5bytZb3hzeklSZjZ5Qnh6?=
- =?utf-8?B?TXNya0Zwbkg5K0VONDBRNE0weVI4cGNtRldybmpVY1g2bHlhM05obUtxTHFF?=
- =?utf-8?B?UW1Zd2t4QmRaNTA1WThiNjNoQ2dwNFJZTXdoZWw4QU1xa0RWUVJFVHl1OWhv?=
- =?utf-8?B?MmUzSDlmbE5tR3VvdVdLSzEyVDJwQjNlcVYxUkNaSS9oanBvQU5GeTFWUFZW?=
- =?utf-8?B?ZVdvbFQxeVY0RS9CQ2NRM0tYZjh6UXdrSVM5NGtmTXY1U25qanBxWDA3NFIx?=
- =?utf-8?B?VnNkZ1krNU9NRlVYUW96ZkpNekxaTlpiV2oxRytJTnVHenNaWXprcmREb3Rl?=
- =?utf-8?B?WjM0QzVibExZMHdRQlJvMEhCZXRSNTVIT0NHYnpBb1JoakxpSUpFdzY0WWpy?=
- =?utf-8?B?emI4dFQzZ0FtTnNadlVSdTNyOHE1Ym91ZzF4eldvKzhqRUIxakUyWmt0cHdv?=
- =?utf-8?B?MlgrcXl2VWY1UnRNQithVTh5cEdnQk44dFJRN1g2eWZadFE5R05EdDl0NE1r?=
- =?utf-8?B?TnR2amtvZDl3QWw5bXlsYmZXejVkWnRVQnJTS0syVS9pR1YzeUlOWHlaOVpy?=
- =?utf-8?B?anJFWjBVM1d6dEJxWEsxYnV0Nm81WjhubmtHd0ZOZUdWZEptWmlUUWxhU01M?=
- =?utf-8?B?VGZPL0pqdWxrM1JJYWp6T0NhcldLSzJFSFYxdndlazdYd3lYbDZ2NFF1SmVW?=
- =?utf-8?B?eGJKaE5ScFRlTDFVVElhbnRxNXpzUHpDT2xXa1JIeDRuYjBrQUFuQVg1MHNF?=
- =?utf-8?B?SWZnQnpDV29HbGxVelk2TVBObW5UMVZuZUVhdWplWlhlL3lJZ1JSSE8rbTBB?=
- =?utf-8?B?bHhwSjljbXMzRGRpcWRGSTlwTktkbHcyMWlhWHVLV05UY2UzbVhhc3FNZGR3?=
- =?utf-8?Q?jKs3DAKcXrPyam2g8ODCo0mMMaB7nXIOExmsmleOhoodo?=
-X-MS-Exchange-AntiSpam-MessageData-1: MHrNUGRDERzIQw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51ada62d-6f9a-4005-fd8a-08df1d554138
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:40:11.6426 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EyTsFNjw9ihtPBaEfvd2K7TQd05sxBvMjLrMkxTQWyYPBd1JQX0DeEDkmmdAbiWlDYVXlqkJjIr6KEdk4gkZ3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7568
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] vt: Add cursor-size helpers
+To: Jani Nikula <jani.nikula@linux.intel.com>, deller@gmx.de,
+ gregkh@linuxfoundation.org, jirislaby@kernel.org, simona@ffwll.ch
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
+References: <20260928085724.41660-1-tzimmermann@suse.de>
+ <20260928085724.41660-2-tzimmermann@suse.de>
+ <7e3cccd612e87e6e85271a026d9fc737a56eaa6c@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <7e3cccd612e87e6e85271a026d9fc737a56eaa6c@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 0C60421C07
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[linux.intel.com,gmx.de,linuxfoundation.org,kernel.org,ffwll.ch];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,29 +150,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 28, 2026 at 6:20 PM JST, Zhi Wang wrote:
-> On Sun, 27 Sep 2026 22:46:25 +0900
-> Alexandre Courbot <acourbot@nvidia.com> wrote:
->
->> Move the types and code related to RPC commands into the
->> `rpc` sub-module, and update their users to reference them from their
->> new location.
->>=20
->> This is a pure move commit, with no functional change intended.
->>=20
->
-> Hi Alex:
->
-> What would be the plan for commands.rs in the future after the movement?
-> I was adopting the similar code structures (fw.rs/command.rs) for vGPU
-> manager's RPCs and GSP plugin RPCs, e.g. having RPC typed code and
-> function handler(wrapper)s, it would be nice that I can align with the
-> idea accordingly.
+Hi
 
-Can you point me to the the structure you have if it is posted? (sorry,
-too many series in-flight and I cannot find where it is ^_^;)
+Am 28.09.26 um 11:07 schrieb Jani Nikula:
+> On Mon, 28 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Cursors in the VT subsystem are blocks within a character cell that are
+>> filled with the foreground color. The new helpers vc_cursor_start() and
+>> vc_cursor_end() return the scanlines in which the cursor block starts rsp.
+>> ends. This is compatible with VGA hardware.
+>>
+>> In terms of cursor design, the new cursor-size helpers follow established
+>> styles in fbcon. The only exception is in underline cursors for fonts with
+>> a size larger than 10. The underlining dash is now one pixel closer to
+>> the font-glyph data, so that the cursor looks less detached. This follows
+>> the style used by vgacon.
+>>
+>> Users control the cursor size with the vt module's parameter cur_default
+>> or with the ESC sequence \e[?Nc, where N is the cursor-size constant. In
+>> case of an invalid setting, the new helpers fall back to cur_default and
+>> then underline cursors; in this order.
+>>
+>> Similar code in vgacon and fbcon ignores the cursor's default size stored
+>> in vt.cur_default. The consoles default to full-block cursors, while vt
+>> defaults to underline cursors. VGA BIOSes also tend to use underline by.
+>> default. Upon initialization vt applies its default to the console, but
+>> each console might fall back to it own default. For example, running the
+>> ESC code from above with the invalid constant of 8 magically flips the
+>> cursor from underline to block size on vgacon. Another call with N set
+>> to 0 (i.e., default) magically flips it back to underlyine. Making
+>> underline the new default everywhere harmonizes vt, fbcon and most VGA
+>> BIOSes.
+>>
+>> v3:
+>> - mention user interfaces to control cursor size in commit message (GregKH)
+>> - elaborate defaults (GregKH)
+>> - move retry logic into helper
+>> - handle CUR_DEF
+>> v2:
+>> - export non-font interface for vgacon
+>> - avoid interference from concurrent user space (Sashiko)
+>> - fix function docs (Sashiko)
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Reviewed-by: Helge Deller <deller@gmx.de>
+>> ---
+>>   drivers/tty/vt/vt.c            | 104 +++++++++++++++++++++++++++++++++
+>>   include/linux/console_struct.h |   7 +++
+>>   2 files changed, 111 insertions(+)
+>>
+>> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+>> index 57edf37495a8..8141296ccad0 100644
+>> --- a/drivers/tty/vt/vt.c
+>> +++ b/drivers/tty/vt/vt.c
+>> @@ -71,6 +71,7 @@
+>>    * by Adam Tla/lka <atlka@pg.gda.pl>, Aug 2006
+>>    */
+>>   
+>> +#include <linux/compiler.h>
+>>   #include <linux/module.h>
+>>   #include <linux/types.h>
+>>   #include <linux/sched/signal.h>
+>> @@ -264,6 +265,109 @@ unsigned int vc_font_size(const struct vc_font *font)
+>>   }
+>>   EXPORT_SYMBOL_GPL(vc_font_size);
+>>   
+>> +/*
+>> + * Cursors
+>> + */
+>> +
+>> +static unsigned int vc_cursor_size(unsigned int cursor_size)
+>> +{
+>> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
+>> +
+>> +retry:
+>> +	switch (cursor_size) {
+>> +	case CUR_NONE:
+>> +	case CUR_UNDERLINE:
+>> +	case CUR_LOWER_THIRD:
+>> +	case CUR_LOWER_HALF:
+>> +	case CUR_TWO_THIRDS:
+>> +	case CUR_BLOCK:
+>> +		return cursor_size;
+>> +	default:
+>> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
+>> +		fallthrough;
+>> +	case CUR_DEF:
+>> +		/*
+>> +		 * Use user-given default size, or underline if
+>> +		 * the given default is invalid.
+>> +		 */
+>> +		if (cursor_size != cursor_default_size)
+>> +			cursor_size = cursor_default_size;
+>> +		else
+>> +			cursor_size = CUR_UNDERLINE;
+>> +		goto retry;
+> Complete bikeshed, but IMO goto for retries is ugly. It's fine for error
+> handling, but this could trivially be a loop.
 
-If you add vGPU RPC commands then I guess somewhere like
-`gsp/commands/rpc/vgpu.rs` would be a good place for them. But let's
-wait until this series is approved before settling on a design - moving
-code around is easy anyway.
+Ok. I have no strong opinion about it.
+
+Best regards
+Thomas
+
+>
+> BR,
+> Jani.
+>
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * vc_cursor_start - Calculates the cursor's first scanline within a character cell
+>> + * @cell_height: The overall height of the character cell
+>> + * @cursor_size: The size constant of cursor pattern
+>> + *
+>> + * The parameter @cell_height is the height of the character cell as
+>> + * displayed by the console. The argument given in @cursor_size is one
+>> + * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
+>> + * For unknown values, the helper draws the default cursor or an underline
+>> + * dash.
+>> + *
+>> + * Returns:
+>> + * The index of the cursor's first scanline within the character cell
+>> + */
+>> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
+>> +{
+>> +	switch (vc_cursor_size(cursor_size)) {
+>> +	case CUR_NONE:
+>> +		return cell_height;
+>> +	case CUR_UNDERLINE:
+>> +	default:
+>> +		if (cell_height < 10)
+>> +			return cell_height - 1;
+>> +		else
+>> +			return cell_height - 3;
+>> +	case CUR_LOWER_THIRD:
+>> +		return cell_height - cell_height / 3;
+>> +	case CUR_LOWER_HALF:
+>> +		return cell_height - cell_height / 2;
+>> +	case CUR_TWO_THIRDS:
+>> +		return cell_height - (cell_height * 2) / 3;
+>> +	case CUR_BLOCK:
+>> +		return 0;
+>> +	}
+>> +}
+>> +EXPORT_SYMBOL_GPL(vc_cursor_start);
+>> +
+>> +/**
+>> + * vc_cursor_end - Calculates the first scanline after the cursor within a character cell
+>> + * @cell_height: The overall height of the character cell
+>> + * @cursor_size: The size constant of cursor pattern
+>> + *
+>> + * The parameter @cell_height is the height of the character cell as
+>> + * displayed by the console. The argument given in @cursor_size is one
+>> + * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
+>> + * For unknown values, the helper draws the default cursor or an underline
+>> + * dash.
+>> + *
+>> + * Returns:
+>> + * The index of the first scanline after the cursor within the character cell
+>> + */
+>> +unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size)
+>> +{
+>> +	switch (vc_cursor_size(cursor_size)) {
+>> +	case CUR_UNDERLINE:
+>> +	default:
+>> +		if (cell_height < 10)
+>> +			return cell_height;
+>> +		else
+>> +			return cell_height - 1;
+>> +	case CUR_NONE:
+>> +	case CUR_LOWER_THIRD:
+>> +	case CUR_LOWER_HALF:
+>> +	case CUR_TWO_THIRDS:
+>> +	case CUR_BLOCK:
+>> +		return cell_height;
+>> +	}
+>> +}
+>> +EXPORT_SYMBOL_GPL(vc_cursor_end);
+>> +
+>>   /*
+>>    * /sys/class/tty/tty0/
+>>    *
+>> diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+>> index fe915afdece5..1d37c7898ea0 100644
+>> --- a/include/linux/console_struct.h
+>> +++ b/include/linux/console_struct.h
+>> @@ -204,6 +204,10 @@ struct vc {
+>>   extern struct vc vc_cons [MAX_NR_CONSOLES];
+>>   extern void vc_SAK(struct work_struct *work);
+>>   
+>> +/*
+>> + * Cursors
+>> + */
+>> +
+>>   #define CUR_MAKE(size, change, set)	((size) | ((change) << 8) |	\
+>>   		((set) << 16))
+>>   #define CUR_SIZE(c)		 ((c) & 0x00000f)
+>> @@ -222,6 +226,9 @@ extern void vc_SAK(struct work_struct *work);
+>>   #define CUR_CHANGE(c)		 ((c) & 0x00ff00)
+>>   #define CUR_SET(c)		(((c) & 0xff0000) >> 8)
+>>   
+>> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size);
+>> +unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size);
+>> +
+>>   bool con_is_visible(const struct vc_data *vc);
+>>   
+>>   #endif /* _LINUX_CONSOLE_STRUCT_H */
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
