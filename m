@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C71CA5FA4
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95159C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:44:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9A2510E8D4;
-	Mon, 28 Sep 2026 08:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1C110E8D6;
+	Mon, 28 Sep 2026 08:43:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="YEOIrGIT";
+	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="2ElVj65/";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB50710E28A
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 01:04:34 +0000 (UTC)
-Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68R14B7G059851
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Sun, 27 Sep 2026 10:04:11 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=j9w0REUefCOyn/q9h5nw6t2GYkHFhe/4JUNcRaBJ3ls=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1790471051; v=1;
- b=YEOIrGITN814dVoh8ELZYeibUAW/GbzKPm4z47VTZqNMlKKiY95jCfzAzE+q7hF8
- iJwqg53LOLXUgElRtk1Vumhe9pq+Umaxlq//Xb/IaLz2f71i02FNAXu4NB4Xg5K1
- quJ4ik9W6q518wDvbSX69acii7WdEVtW4rxpD3MSaTLBFqFLJmFSNMjzR9qEjKOm
- GcH/dn5Uv4hHxCK70uGgOI8MyzvapSNEqr8IDmbvM/REtL9wIcbgMHRM7Y0jegBR
- TcSBLbesnW/n4Fa7pmijBu3CqQxVgxkJ68JADrR9xfsFjzhVWmJGWwhxG1fsNvay
- SahpQXVZnbMdM+gCqtn3Ag==
-Message-ID: <88d78717-d935-4c7f-a123-c6ddff761e97@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sun, 27 Sep 2026 10:04:10 +0900
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88A8510E00B
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:04:55 +0000 (UTC)
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.40.71])
+ by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 5D2BA121119;
+ Sun, 27 Sep 2026 21:54:48 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+ s=dkim2026; t=1790556889;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/Nqfzy3UswsFhdkL7rmqN73lRrtY1OlqfEodXP85Wkk=;
+ b=2ElVj65/G3GHfz8f/rdQdKVa75X5ZDmOGkbbI1sIJ7d/CNeu5awYBJKujtzhCUoyeMWiyd
+ KGYb3e/0aaEr/cb+Kc3gxu2YqkROm6kUNN9T2HpZejWStUNJIftwQV/OmhSjUEIBoCv7AF
+ oyAYsy7zTj9TTxTTTgXU98KLVNx9oSSeBXkYWiV+pHdbQ5dnd4jLJKNNsWMD/nnPaV9t/M
+ PC58Vl0YnP23uCvSMai88xtWqk84IacJ4mO3HQc8gbYeyvc/+K75w1KvOswI2EHQnNXNou
+ Zl5+DE1fF+4ZvURB0lA5FcynlbHi74G+oewFBWqfUMC+v2n76dZbcRelND7Ezg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH 1/5] drm/vkms: make argb_u16_to_RGB565 round resulting values
+Date: Sun, 27 Sep 2026 21:52:57 -0300
+Message-ID: <20260928005301.367977-2-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 4/4] drm/virtio: wire blob ioctl creation to
- userptr objects
-To: Honglei Huang <honghuan@amd.com>, dmitry.osipenko@collabora.com,
- airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-5-honghuan@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260924095556.1326164-5-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:41 +0000
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,183 +63,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/09/24 18:55, Honglei Huang wrote:
-> Integrate userptr into the blob resource creation ioctl.
-> 
-> - A non-zero userptr selects virtio_gpu_userptr_create()
-> - Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
-> - Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
->    advertised VIRTIO_GPU_F_BLOB_READONLY
-> - Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
-> - Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
-> 
-> virtio_has_feature() routes device-specific feature bits through
-> virtio_check_driver_offered_feature(), which calls BUG() when the
-> driver queries a bit it never declared in features[]. The
-> VIRTIO_GPU_F_BLOB_READONLY probe added to virtio_gpu_init() hit
-> exactly that: every probe crashed regardless of host support because
-> the bit was missing from features[]. Registering it there fixes the
-> crash.
-> 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
-> ---
->   drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
->   drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
->   drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 35 ++++++++++++++++++++----
->   drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 ++++--
->   4 files changed, 38 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> index 3a68a16b58..b8b9b40584 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> @@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
->   			    vgdev->has_resource_assign_uuid);
->   
->   	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
-> +	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
->   	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
->   	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
->   	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index 2aaa7cb080..f1edd20c37 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -182,6 +182,7 @@ static unsigned int features[] = {
->   	VIRTIO_GPU_F_RESOURCE_BLOB,
->   	VIRTIO_GPU_F_CONTEXT_INIT,
->   	VIRTIO_GPU_F_BLOB_ALIGNMENT,
-> +	VIRTIO_GPU_F_BLOB_READONLY,
->   };
->   
->   #ifdef CONFIG_PM_SLEEP
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> index 3d8e4ccdb7..3dc058e50e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -36,7 +36,10 @@
->   
->   #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
->   				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
-> -				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
-> +				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
-> +				    VIRTGPU_BLOB_FLAG_USE_READONLY)
-> +
-> +#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
->   
->   /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
->   static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
-> @@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
->   			return -ENOENT;
->   		value = vgdev->blob_alignment;
->   		break;
-> +	case VIRTGPU_PARAM_USERPTR:
-> +		value = 1;
-> +		break;
-> +	case VIRTGPU_PARAM_BLOB_READONLY:
-> +		value = vgdev->has_blob_readonly ? 1 : 0;
-> +		break;
->   	default:
->   		return -EINVAL;
->   	}
-> @@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->   	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
->   		return -EINVAL;
->   
-> +	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
-> +		return -EINVAL;
-> +
->   	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
->   		if (!vgdev->has_resource_assign_uuid)
->   			return -EINVAL;
->   	}
->   
-> +	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
-> +		if (!vgdev->has_blob_readonly)
-> +			return -EINVAL;
-> +	}
-> +
-> +	if (rc_blob->userptr &&
-> +	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
-> +		return -EINVAL;
-> +
->   	switch (rc_blob->blob_mem) {
->   	case VIRTGPU_BLOB_MEM_GUEST:
->   		*guest_blob = true;
-> @@ -495,6 +516,7 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->   	params->blob = true;
->   	params->blob_flags = rc_blob->blob_flags;
->   	params->blob_hints = rc_blob->blob_hints;
-> +	params->userptr = rc_blob->userptr;
->   
->   	if (vgdev->has_blob_alignment &&
->   	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> @@ -518,9 +540,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
->   	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
->   	struct drm_virtgpu_resource_create_blob *rc_blob = data;
->   
-> -	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
-> -			&guest_blob, &host3d_blob))
-> -		return -EINVAL;
-> +	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
-> +			  &guest_blob, &host3d_blob);
-> +	if (ret)
-> +		return ret;
->   
->   	if (vgdev->has_virgl_3d)
->   		virtio_gpu_create_context(dev, file);
-> @@ -538,7 +561,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
->   				      vfpriv->ctx_id, NULL, NULL);
->   	}
->   
-> -	if (guest_blob)
-> +	if (guest_blob && params.userptr)
-> +		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
+Currently, argb_u16_to_RGB565() truncates the resulting channel values.
+Use drm_fixp2int_round() to round them to the nearest representable
+RGB565 values.
 
-After userptr creation has pinned pages, charged pinned_vm, queued 
-resource creation, and registered the object for restore, the 
-[handle-creation failure path calls drm_gem_object_release() directly. 
-The UUID-assignment failure path does likewise.
+Restore the rounding behavior from commit
+ab87f558dcfb ("drm/vkms: Fix RGB565 pixel conversion") while adding a
+separate helper for channel conversion.
 
-That function releases GEM internals; it does not invoke the object’s 
-.free callback. The userptr pages, DMA mapping, memlock charge, and host 
-resource therefore remain unreleased, with no userspace handle available 
-to close them.
+Fixes: cc4fd2934d41 ("drm/vkms: Isolate writeback pixel conversion functions")
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+ drivers/gpu/drm/vkms/vkms_formats.c | 35 ++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
 
-These error paths predate the series, but this patch routes long-term 
-userptr pins through them.
-
-Regards,
-Akihiko Odaki
-
-> +	else if (guest_blob)
->   		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
->   	else if (!guest_blob && host3d_blob)
->   		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> index 1d4d3bf46a..06c2bded49 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->   		vgdev->blob_alignment = blob_alignment;
->   	}
->   
-> +	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
-> +		vgdev->has_blob_readonly = true;
-> +
->   	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
->   		 vgdev->has_virgl_3d    ? '+' : '-',
->   		 vgdev->has_edid        ? '+' : '-',
->   		 vgdev->has_resource_blob ? '+' : '-',
->   		 vgdev->has_host_visible ? '+' : '-');
->   
-> -	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
-> +	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
->   		 vgdev->has_context_init ? '+' : '-',
-> -		 vgdev->has_blob_alignment ? '+' : '-');
-> +		 vgdev->has_blob_alignment ? '+' : '-',
-> +		 vgdev->has_blob_readonly ? '+' : '-');
->   
->   	ret = virtio_gpu_find_vqs(vgdev);
->   	if (ret) {
+diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+index dfb8e13cb..6d7853e87 100644
+--- a/drivers/gpu/drm/vkms/vkms_formats.c
++++ b/drivers/gpu/drm/vkms/vkms_formats.c
+@@ -639,20 +639,35 @@ static void argb_u16_to_XRGB16161616(u8 *out_pixel, const struct pixel_argb_u16
+ 	pixel[0] = cpu_to_le16(in_pixel->b);
+ }
+ 
+-static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
++static u16 u16_to_channel(int size, u16 in)
+ {
+-	__le16 *pixel = (__le16 *)out_pixel;
++	s64 fp_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp((1 << size) - 1));
++	s64 fp_channel = drm_int2fixp(in);
+ 
+-	s64 fp_rb_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(31));
+-	s64 fp_g_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(63));
++	return drm_fixp2int_round(drm_fixp_div(fp_channel, fp_ratio));
++}
++
++static void argb_u16_to_channels(u16 *out_r, u16 *out_g, u16 *out_b, u16 *out_a,
++				 unsigned int r_size, unsigned int g_size,
++				 unsigned int b_size, unsigned int a_size,
++				 const struct pixel_argb_u16 *in_pixel)
++{
++	if (r_size)
++		*out_r = u16_to_channel(r_size, in_pixel->r);
++	if (g_size)
++		*out_g = u16_to_channel(g_size, in_pixel->g);
++	if (b_size)
++		*out_b = u16_to_channel(b_size, in_pixel->b);
++	if (a_size)
++		*out_a = u16_to_channel(a_size, in_pixel->a);
++}
+ 
+-	s64 fp_r = drm_int2fixp(in_pixel->r);
+-	s64 fp_g = drm_int2fixp(in_pixel->g);
+-	s64 fp_b = drm_int2fixp(in_pixel->b);
++static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
++{
++	__le16 *pixel = (__le16 *)out_pixel;
++	u16 r, g, b;
+ 
+-	u16 r = drm_fixp2int(drm_fixp_div(fp_r, fp_rb_ratio));
+-	u16 g = drm_fixp2int(drm_fixp_div(fp_g, fp_g_ratio));
+-	u16 b = drm_fixp2int(drm_fixp_div(fp_b, fp_rb_ratio));
++	argb_u16_to_channels(&r, &g, &b, NULL, 5, 6, 5, 0, in_pixel);
+ 
+ 	*pixel = cpu_to_le16(r << 11 | g << 5 | b);
+ }
+-- 
+2.43.0
 
