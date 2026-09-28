@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD42C9833F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 13:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE75C9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 13:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B63310E893;
-	Mon, 28 Sep 2026 13:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BAED10E8B7;
+	Mon, 28 Sep 2026 13:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WFoqRQ27";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JF7hblBd";
 	dkim-atps=neutral
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Mon, 28 Sep 2026 13:46:10 UTC
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
- [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426C510E893
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:46:10 +0000 (UTC)
-Received: from LAPTOP-99KJFSET (unknown [36.153.54.109])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4f5d6f423;
- Mon, 28 Sep 2026 21:41:03 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: mripard@kernel.org,
-	dave.stevenson@raspberrypi.com
-Cc: mcanal@igalia.com, kernel-list@raspberrypi.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
- Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH] drm/vc4: drain GEM timer and work on teardown
-Date: Mon, 28 Sep 2026 21:41:00 +0800
-Message-ID: <20260928134100.420-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e83f5e5503a1kunm58e8e81a20017a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0gaVktJSUMYQklMTx5DH1YeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VSktCWVdZFhoPEhUdFFlBWU9LSFVKS0hKT0
- hMVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
- b=WFoqRQ27TA0QYqdKjs6pFXFqSsmtGODJ0JakpxmjfVvhtgZ1VLJMk0FESxS6nQ7gwWaFlqGYK3yP1FxEdp0bQTJl4//WXNDmrS7wQROMqlcltTFDrRnDrjrQdkPzKHDRJxu340KtuOESoSOE6B3ml0OBqxerfBgBuW7Ia/dowBs=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=l5uc3vlrnJc2pqK+XNyvRBjLb9PdsYhHTUaTOSqOxyY=;
- h=date:mime-version:subject:message-id:from;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D3A10E8B7
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:46:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F9B74019C;
+ Mon, 28 Sep 2026 13:46:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF781F000FF;
+ Mon, 28 Sep 2026 13:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790603190;
+ bh=h+JF53NjR7RFRCpUx8+15+uAHLqchP+HksRZYy3+vGs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JF7hblBdcWJ8moqNBIB/Ks6MBg/EqG34DWXGSgFkvxXPWd+o202nSJ6DvVYV+aKPE
+ nV4p2pHFbqqyOHPZ/S27BzAz0MSN69et8iQ6MDXyH/JRkKXHNiLcuX7zK7lv5CLLa4
+ PCo1Z1IeB8UmH2CxBJiC3+sNCbRuQ2QVKLzYpwe9UobRMY9ARuSYHUZkJwWLIMHzG2
+ V361wNrE/PBcJT/ldB4ioysZU7HBvtIF8WHyYRQZLexOGdc5lHdgpDMWBzNKdWd4Bn
+ x4gVHqDHjV290/FjvH7zg3bDXRmcHrcG6wljjimhtDww1K22TJDyRCkupl7flPjHEV
+ SGSOSu0aDwlyw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+To: "Pavel Begunkov" <asml.silence@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <c33046bbadce5a2f14aa1874270ec2d10def58ef.1790602223.git.asml.silence@gmail.com>
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <c33046bbadce5a2f14aa1874270ec2d10def58ef.1790602223.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 13:46:29 +0000
+Message-Id: <20260928134630.2CF781F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,37 +54,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hangcheck timer can rearm itself or queue reset_work, while the V3D
-interrupt queues job_done_work. vc4_gem_destroy() releases state
-embedded in vc4_dev without first draining those asynchronous callbacks.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dma-buf: map leak and deadlock on invalid min_seg_shift
+- [Medium] dma-buf: memory leak in dma_buf_io_ctx_create() dev_ops validati=
+on
+--
 
-Shut down the timer so it cannot be rearmed, then cancel both work items
-before GEM state is destroyed.
+commit cebbd64805f3eac146806ef3dc1344fdf0a76c98
+Author: Pavel Begunkov <asml.silence@gmail.com>
 
-Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
- drivers/gpu/drm/vc4/vc4_gem.c | 4 ++++
- 1 file changed, 4 insertions(+)
+dma-buf: introduce initial file I/O infrastructure
 
-diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index e231c906709c..2443b62df89c 100644
---- a/drivers/gpu/drm/vc4/vc4_gem.c
-+++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -1194,6 +1194,10 @@ static void vc4_gem_destroy(struct drm_device *dev, void *unused)
- {
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
- 
-+	timer_shutdown_sync(&vc4->hangcheck.timer);
-+	cancel_work_sync(&vc4->hangcheck.reset_work);
-+	cancel_work_sync(&vc4->job_done_work);
-+
- 	/* Waiting for exec to finish would need to be done before
- 	 * unregistering V3D.
- 	 */
--- 
-2.50.1.windows.1
+This patch adds basic building blocks serving as an API between drivers and
+upper layer subsystems to natively use dma-buf in the IO paths. It introduc=
+es
+the dma_buf_io_ctx and dma_buf_io_map structures to handle mapping, unmappi=
+ng,
+and invalidation operations.
 
+> diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/dma-buf/dma-buf-io.c
+[ ... ]
+> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
+> +{
+[ ... ]
+> +	map =3D ctx->dev_ops->map(ctx);
+> +	if (!IS_ERR(map)) {
+> +		atomic_inc(&ctx->active_maps);
+> +		atomic_inc(&ctx->all_maps);
+> +	}
+> +	dma_resv_unlock(dmabuf->resv);
+> +
+> +	if (IS_ERR(map))
+> +		return map;
+> +	if (WARN_ON_ONCE(!map->min_seg_shift))
+> +		return ERR_PTR(-EFAULT);
+
+[Severity: High]
+Does this error path leak the map and deadlock the system?
+
+If map->min_seg_shift evaluates to 0 (for example, if an odd-length DMA
+segment causes __ffs() to return 0), the WARN_ON_ONCE check will trigger.
+
+Since atomic_inc(&ctx->active_maps) and atomic_inc(&ctx->all_maps) have
+already executed for a valid map, returning ERR_PTR(-EFAULT) here skips
+dropping the map's percpu_ref count and leaves the atomic counters
+permanently elevated.=20
+
+Could subsequent cleanup calls to dma_buf_io_wait_active_maps() or
+dma_buf_io_wait_maps() then block forever waiting for the counters to reach
+zero?
+
+[ ... ]
+> +int dma_buf_io_ctx_create(struct file *file,
+> +			   struct dma_buf *dmabuf,
+> +			   enum dma_data_direction dir,
+> +			   struct dma_buf_io_ctx **out_ctx)
+> +{
+[ ... ]
+> +	ret =3D file->f_op->init_dma_buf_io_ctx(file, ctx);
+> +	if (ret) {
+> +		kfree(ctx);
+> +		dma_buf_put(dmabuf);
+> +		return ret;
+> +	}
+> +
+> +	if (WARN_ON_ONCE(!ctx->dev_ops ||
+> +			 !ctx->dev_ops->map ||
+> +			 !ctx->dev_ops->unmap ||
+> +			 !ctx->dev_ops->release))
+> +		return -EINVAL;
+
+[Severity: Medium]
+Can this early return leak the context and the dma-buf reference?
+
+If the init_dma_buf_io_ctx callback succeeds but fails to populate the
+required dev_ops, this path returns -EINVAL immediately.
+
+It appears to skip the kfree(ctx) and dma_buf_put(dmabuf) teardown
+operations that are present in the preceding error handling block.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790602223.gi=
+t.asml.silence@gmail.com?part=3D1
