@@ -4,95 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E08ECA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 15:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7460CA5FA5
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 15:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA4910EADF;
-	Mon, 28 Sep 2026 15:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC39310EADE;
+	Mon, 28 Sep 2026 15:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kZVKtMVh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Li39jcZ6";
 	dkim-atps=neutral
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com
- [74.125.227.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A115810EADE
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 15:19:55 +0000 (UTC)
-Received: by mail-pj2-f38.google.com with SMTP id
- d9443c01a7336-2d747ec6185so13642195ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:19:55 -0700 (PDT)
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com
+ [74.125.227.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03E5610EADE
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 15:24:49 +0000 (UTC)
+Received: by mail-pj2-f39.google.com with SMTP id
+ d9443c01a7336-2e2ad8bf95bso6553975ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:24:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790608795; x=1791213595; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790609088; x=1791213888; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=EQrjkRZQeuYzERNWt13KrmtO7dHmdt8dryvfZkIliO0=;
- b=kZVKtMVhN8B0ZkD9XMpY3N/eULHLeJ70BNKh8cOlulOGwRB0J5pRkyd1p+KgQeRKE6
- KbvKvXz2eC5jWzqhi8C+3u0zbK77iSfOSKk4ojs6BKeTQjTp8eRgR0p/7/qSRHcpMcEN
- ttuknoVDeYc+nK8j2J9dHPkljvXjGHe4h05TnOjd+inEwTEZR2UabgulDA7duwduKCiq
- A9V3SggbFXv6vASa1wwTl2vCgc1zysPptojPsL4G9B3IYV/oV2s/80tu/xtG/BHzfCKs
- Dj39cJ3c3F63gwzaTYEuU4I+SwZR0PSJ9i9x6nDovYrd1M8uLBfyt2giv8w6b/+pQV5X
- NvBA==
+ bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
+ b=Li39jcZ6Bi5R4V1Kz+mraBj0lHmep21RiiXYhEJQrTGJoDQFtMhMrPREp0Ab5CP/X2
+ iI5RQH3HYiG0sAdql6gIwbADCpd6+z1WUDPaSdBl1Y/IvA7W5DrPSEekXaajmlo/2QKF
+ Ycy8CmfxPY0W4utCqu3DYsSiOhbYEGyVok9r92YHmAP9IoFz91QudNYcfq3C2+CyQn3K
+ lbqNtMkchBPoRR3HgC0QoKmx8zM0NBmMaiP89gmJ9TM4dQ3kv+jaeTRTC2XA+wYbqzYN
+ IzLIYgVKNLvZ60Z2QMjzqbzw3stsIW6hnLela2XRacUk6/EbvtLyLEwzdB5Br/57wCz6
+ w6xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790608795; x=1791213595;
+ d=1e100.net; s=20260707; t=1790609088; x=1791213888;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=EQrjkRZQeuYzERNWt13KrmtO7dHmdt8dryvfZkIliO0=;
- b=Nw+sRkJugES8eub5Spo+mFrCrz/tg9DfQ9RiYvpBpI1CYMp9Zfo/MlKKfpH0OEvqg6
- A6PGE2ER0JssBBk+W7kV0ZS/ckQb0wJLqB7l6s5BHOtl6sgC11mrHoBT8xvEjmCU0olI
- XINpc5Ln46/LTXHxtDi2ZdKRnJqxifjH153v5mtJPUEEEcNMe3uCMo3h/U49MZKnF5Lm
- 4MAVzY7GmWeuiJmd0dwA/Zqi2iCFchogXnfN2haEoa7ERMHoGY/AKuigoIsN8vhu41l4
- zFCCllVcyz+DwKpyULuNaPYFC1jJOCMQ0JuuTDSpCjR3JaVYA+/fXwRJ6pfz5Smt+nmL
- 2tow==
+ bh=C6Pp7UXENL802jIZX5zKHy4TP058XOOA4yzitIGnZCM=;
+ b=Jdws7iw/Ev9A5E2t6wR1/BSEEvJ3sIHucFeWan95RdDBikR0LGVAyuBHrDMrSvT/Ye
+ zN7/Yxf+NL4Fc4k89uYGjrG52v7yXUtS00aq9D6Z/V5SoRn6LxaY5Nam3CR3Kgh3j5g9
+ vseyYXEhXmpbYuLfmy1ZlQYAo35El1v6dxjsQ4ebSMSYRscC7XUfQszOURrkttVolHjt
+ tNcMJ7pB5fOjhU36YBAsyZE1zD3HkHE9fqoektI6lsuZqcVSbBWJElrZxbkGqLOGr2Cj
+ Z3ozEVUl5MW+dCj2GzvzCK26r+LoS5f8Thod5RZ6scTxOBSB/BWDdITJmDI9ia0nvXOX
+ 20SA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzG2HhS+LUb7b7kEIIp9HWHP7HGUIUI7zo+1+P1PrYFNt5oelG3PzpGRc1iMEWDsbNUNHgdMhfm+UY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIMkvu+cBtlsr+9lI7JUfQ/Zoafi3UwIbS6WKiI8HqufLCKezwW
- 92cvXkTdTP+i6mMYTsuS0+9544t5puLSs05EW9GhVzgiztUzq9TVyFnZ
-X-Gm-Gg: AYBFou2kMgQ0gc54InuSvWW5/gdHofD/LkUlx+nnYNxKhpXZV19KcERnBvqu6Gj6s58
- sakIDGLniOF/2NXz+cDQwlU139IY49I3Ss9AKantyCta1NydKXFxJdRRcRcxUo/ptB9IhHHqQ2K
- GH+ZtxrNS2uMzl4CP2qyC0eM2xivCqbvocLoYaWgKe1In2Uj3F33ZWj7WSaCRbfHJt6dFidHm1t
- WmbdrZ7oLVo4y9IBj7tcP8m7BOs4/qKzWWT3ewqIqBQrgHWl2KIdnjYFI4I2WSCMuxDMsWNNilc
- 3h0L61hCFx31/xFJgBIchhSY0PHXICyFlMElviZnAZeVcUfZ5fzc5T1j9elstIkJ4RMO6i7rAWt
- 3MI18neo3a3a75J7/g6aMMYlBYPBKBA1zL8WKd4uA/D/NMJ3OMTsk0MHn3xqe3Jvt9/UzmFz+/c
- a8AtbTI7ance+96yUasfP+h599F89JmvmM6GcuXSceNd9DQ7APKItGPh15hfOHDxb/EM39RST38
- a3KzaGUiVmfcao+LUmoLmIicBF6kXKwuzIjGZ73Ki5tG2nDMg29sMmmaoTo4f6Q/R61Z79pTjXN
- tTTcrdfswYlo0FCXXwkjdZ3sauxjZTMbR77FrjU+02bPn3fEAcDKrVnT4bs=
-X-Received: by 2002:a17:903:1987:b0:2dd:3ddf:b87a with SMTP id
- d9443c01a7336-2df7da68a41mr101388085ad.0.1790608794891; 
- Mon, 28 Sep 2026 08:19:54 -0700 (PDT)
+ AKwUvByvxeMbJLNyqmlLWkVLh2STFdblKM0mEIC+Y7fr4M69pGguX5axESheuT4JTWsikFti2kv1hyz0Xgs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYISL6rCyj8ctMLyvlq3BWy3CHnqrCzy3mm30mkCa+Exo8pyvBoE
+ qb4l8lWCcrWbjFRgP1dRYB7qiqLrnOLacobmon9A71SvA8Rqn4L3tAO1
+X-Gm-Gg: AYBFou0+EDf8gG1tMvon2JlQbyJndoPS6V0OC0kdYFwcpbzT4iYokpEOaKeVjDMqE2k
+ 85+pMH2R2s0YEEVzfNhxWYwsizn6tNJIp8qX6KkfboYiA6Gg17a6vhPIZW4PWkOWMBpOTM4SPbP
+ 877Lh+13HTDskZ+3APHF6o75fWhzQfD7BSHHhmXyLwUHDt0mPxuBj9EJfD3mIb6k5JdBGbmA/HJ
+ ywq/tNzhPiIphKMb96liBvGR6AsZmsKMwGFyE5OLRo+05aFHMQYUvJxWuRf8dDmLTY+sDzVtY9N
+ Zta34xEkyc7QgweMBKzOj+n/0QUfJvuV3ufvoPDceMmtFtwxNXNJbOOHTlsCEgvgM2lx8uCnxIw
+ 6E2w3kdxIc/9dQ4OTNEr8wcWKTtZvMxCJnM0w0NRzZ8ytXdKXMYpxKiz/teG7hJd/Oe21NZFE3H
+ a+/rCFkKZXYikYsawftuEhuWdeitsZBF7yL5Or/JBqEFD3Cfg44pn8235sqyz7hKwLYmbobc3r8
+ SSQOMq+BxjaGxIp12myCWgosf5zU8XakU04mZl4nJqbq9LddaDLH6dpZS0/EJgIxXrUQezruQtJ
+ Lp85xrWaV0ywH8r1Kb9cBgKmHoiHdMVAw16r6rn+dCf5vIx3V1kNTohvsjc=
+X-Received: by 2002:a17:903:2408:b0:2dd:c100:9435 with SMTP id
+ d9443c01a7336-2df94c1bc19mr71037265ad.51.1790609088305; 
+ Mon, 28 Sep 2026 08:24:48 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df91423df7sm43558615ad.43.2026.09.28.08.19.46
+ d9443c01a7336-2dfafe765cdsm25166465ad.33.2026.09.28.08.24.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 08:19:54 -0700 (PDT)
+ Mon, 28 Sep 2026 08:24:47 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Kairui Song <ryncsn@gmail.com>
+To: Andy Lutomirski <luto@amacapital.net>
 Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
  Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
- Yosry Ahmed <yosry@kernel.org>, Barry Song <baohua@kernel.org>,
+ Yosry Ahmed <yosry@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
  linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
  linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
  util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vivi Rodrigo <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>,
+ dri-devel@lists.freedesktop.org, Rafael J Wysocki <rafael@kernel.org>,
  Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
  Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, Kairui Song <kasong@tencent.com>
+ linux-kselftest@vger.kernel.org
 Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
  offload
-Date: Mon, 28 Sep 2026 23:19:44 +0800
-Message-ID: <20260928151944.2686626-1-matthias.goergens@gmail.com>
+Date: Mon, 28 Sep 2026 23:24:38 +0800
+Message-ID: <20260928152438.2694783-1-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
+In-Reply-To: <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
 References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
+ <3FDF3191-94A5-42B3-A33E-12021344D7BD@amacapital.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -110,25 +111,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Kairui,
+Hi Andy,
 
-> Just like we already have a "swappiness=" parameter in the reclaim
-> interface, perhaps adding a "swap.tier=" would be better and much
-> cleaner to achieve the same goal? Based on Youngjun's work here:
-> https://lore.kernel.org/all/20260916183437.2946306-1-youngjun.park@lge.com/
+Thanks for reading it, and for the direct feedback.
 
-Thanks, I think that's the right base.  I tried it: on top of
-Youngjun's v11, a "swap.tier=" argument to memory.reclaim is about 40
-lines.  In a VM with zram at a higher priority than a disk swap
-device, and a cgroup whose tier mask allowed only the disk, ordinary
-reclaim in that cgroup stayed on the disk, while memory.reclaim with
-"swap.tier=" pointing at zram went to zram only.
+> if the system is under overall memory pressure, why do you care what
+> triggered the particular swap operation that is being processed?
 
-What it doesn't cover yet is reclaim outside any configured cgroup:
-under global pressure, a cgroup nobody configured still reached the
-zram tier.  So for v3 I'd like to add a system-wide limit on which
-tiers pressure reclaim may use, on top of the per-cgroup settings.
-I'll wait for Youngjun's v12 and build on that.
+You're right, and that question gets at what I actually want better
+than the series does.  The goal is: when there is no memory pressure,
+swap-out may do more work, including allocating memory (compression,
+copy-on-write, filesystem-backed swap), because moving cold pages out
+to make room for page cache is what swap is for most of the time.
+Under real pressure, swap-out must not depend on that.
+
+The RFC was the smallest change I could think of in that direction.
+It used "who started the reclaim" as a stand-in for "is there
+pressure", and that is wrong both ways: memory.reclaim during global
+pressure may allocate, while kswapd with plenty of free memory may
+not.  Building on Kairui's suggestion in this thread (swap tiers), or
+on virtual swap, may well be the better route, and I'm looking at both
+for v3.
+
+> Why can't the kernel figure this out itself?
+
+It can: the backend knows whether its writes may allocate (zram knows
+it compresses, a filesystem knows at swapon whether the swapfile is
+copy-on-write or compressed), so it should declare that, rather than
+the administrator setting a flag.
+
+On the practical questions: v2 does nothing to balance fullness
+between areas or to empty conventional swap, and does not change OOM
+selection.  Those are fair gaps and I'll address them, or say
+explicitly what is out of scope, in v3.
+
+On the recursion question: within the reclaiming task it can't
+happen.  memory.reclaim and per-node reclaim both run with PF_MEMALLOC
+set (memalloc_noreclaim_save() in try_to_free_mem_cgroup_pages() and
+__node_reclaim()), so an allocation the backend makes in that task
+never enters direct reclaim; it either fails or, unless it passes
+__GFP_NOMEMALLOC, dips into the reserves.  Two things do need care.  A
+backend allocating there can drain the emergency reserves unless it
+passes __GFP_NOMEMALLOC or fails fast.  And work the backend hands to
+another thread, such as a filesystem or zvol worker, runs without
+PF_MEMALLOC and can enter reclaim itself; that is only safe if that
+reclaim never waits for the write the worker is meant to complete.
+
+> The remainder of the writeup is IMO somewhat incoherent.
+
+Agreed.  I cut the v1 cover letter down too far and lost the
+definitions it depended on.  v3's will start from the goal above and
+define its terms.
+
+> Adding "eligible" to a bunch of calls does nothing to explain what's
+> going on.
+
+It exists because v2 made "how much swap is free" depend on who asks.
+Reclaim itself checks free swap before scanning anonymous pages
+(can_reclaim_anon_pages(), MGLRU's get_swappiness()) and before
+allocating a slot (folio_alloc_swap()), and callers such as the GPU
+shrinkers check it before pushing objects towards swap.  With an
+offload-only area, each of those would otherwise count space that the
+calling reclaim may not use.  In v3 I'd keep get_nr_swap_pages()
+meaning "usable by ordinary reclaim", so those checks stay as they are
+and only the offload path asks for a different count.
 
 Thanks,
 Matthias
