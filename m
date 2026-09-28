@@ -4,64 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D05CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 13:20:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CC6CA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 13:32:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9ED10EA39;
-	Mon, 28 Sep 2026 13:20:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 646DB10E891;
+	Mon, 28 Sep 2026 13:32:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wy187zvz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JR9wZeO3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C30E10EA39
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:20:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6161E601EF
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:20:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119A71F008A0
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790601601;
- bh=k8NaUNezwm1OqIABpDqgi3K1HuGNVyBGjeIJUA1Vp/U=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=Wy187zvzjuSDW/E2X5EUV6MGN8P3JLVGAgiMq34FslO1Hkv5k6DRJy2nVuOE+tOYD
- sZF6r5UP4XLiLVzYgvE9Wmg3NZxgNMZ4fW5StrGWlRLR2szQg3+yRQWfGdfyWs1GHS
- bzBju9cUq6DFC/KGBLlr3dAC0BCKN7JroSur46qeLYnNz8r7/qsD/4QLwi6hvyHSij
- GzRWd3mk4pZl9Y7tMBy/zP3gFbZAtVSVI49c3NNMc6zoklUchFqDrJN1RHDVsYyXsk
- 4oTD/vFz5aN435Pi5K0vjKXJDlJ44n7DO0WL0gGIxsCJpLu/wFaNA+bR2w6xNEMy1n
- 8YQlO6nNSFS/w==
-Received: by mail-oo2-f13.google.com with SMTP id
- 006d021491bc7-6d7a52c9d62so607339eaf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:20:00 -0700 (PDT)
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
+ [74.125.225.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 212F110E891
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:32:46 +0000 (UTC)
+Received: by mail-wr2-f35.google.com with SMTP id
+ ffacd0b85a97d-4888129c46eso1629443f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790602364; x=1791207164; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
+ b=JR9wZeO3XDkgjWE+tZpwuqjUdgJg4Qzeg8LXMcR55yMPweL9ARE+d6CQrWVJ0jQlJZ
+ 3tqhpagkOrlGxHVBIfQIvwcP+tCupkgRPtVFPuH0EGXKl5chZHR1LJfJh02U+P5vcb5F
+ RoJzMt6taI2wHVMT2GSfBH6gySjYw3xqWTVE7NxJb7SuJSgBDL3LmDBB8NgiWHQyjO/g
+ R9hE68ZRtmBe2SN6oLaAYzkQfJrN5z/wSeXBHPlwpMAODAtmosKNYr+ZpwodsF4up2G7
+ m+Ig/tapdlMpJaWn0W1qrjlvX31zi56VYIeIGGWGhm/MHjHLkBGO3P/u4usSJx5B1BuV
+ dOKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790602364; x=1791207164;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rDgWSkzXb9T2f2eSv4f8loR9LBdnnTqRZoSNaSt6PRU=;
+ b=MYReCeSv0rpcLtloXZAgivVQysg/mgQ1SCIqJ7kAz70BbMVbkXnavhNg/yWEpnvjfG
+ /ygVCNLbXbpE0g9dzwiYh6bka4iazMtjxrjCN6i3FLjplwmIxMsZzjDqH8XtpGNeaZSs
+ NJLwZTWAQ/WKepyBVDIDpoPsiaosmMJQdWLrY3pETYtJfGMiVVwkrqhgUR8Y/u9SmgL5
+ Lu8hc5wN9DDhDSwTjc5u6wmFTMlIyxeUFAru+6Y2o3ce9yHgeGz4rK8A09prKhD2K4qc
+ tA0I77PeKUGqjCN5KmoQ+iStchvW2w78VulErSVpeyidG3Lb6A+UyjhelIk0Wndno91T
+ mLGQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy6XeYyMEQykCAUSp1Qf6UWkbTqxBnE4hIw16vskKnHXE+N93tUMyBqjTQSoOdTfysM14XxbMBYOzE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lgc7Fs/BGvAVEhpVZPzRwRdlHT9X/hoCA1AlfzhMmZzuxyMWCd
- MAcMTlSWrwSuKM4D1MJYXOteUzfixq1ILzO1mXV193ZivSFX7xOSNQ2Ff2Py0IR/ykmcdkN7yHt
- 9Mf9+rq/LNcJ4QcUeBtSjwk0g4VUY8uQ=
-X-Received: by 2002:a05:6820:2005:b0:6d7:c2d2:3ba2 with SMTP id
- 006d021491bc7-6d7c2d23f2amr4986734eaf.52.1790601600291; Mon, 28 Sep 2026
- 06:20:00 -0700 (PDT)
+ AKwUvBzMxPbPOYS66qlKo92koZQzJZUYshr/gSIaFCD83GwoJz7BZhMHC22fBFZVl+vm+OFHmbKbGcCvPZM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKOWaD+Xl0WoZH0pVMqLJ69X8S/AO+zkNUu/+JfLoNT0jw9dF/x
+ C8jMVR004V6bvX5qwSJ8G0onszBw4SdofJ+AkrsmejYI5LmUB8I+RUGl
+X-Gm-Gg: AYBFou0q7O0ES0PA4BVlnF89NSq24BT8yewNaQBwtMwKK3wra1vqPSxR3cVC5QuxR6X
+ oIdJMIrUeI5zm4+RT0xAx0loP7lhcUdENcHrUJM5HZhXY3udN1XAaxhinRS4975Er4lvi5fMlCh
+ VzKit3vkYzeWUedGKbXuRh+lXIgNpROJ0i9zicpa9iToLEDPzIzlAs+eoqgyqWRdQt3QuiRvLVp
+ VRw3L0Wx0Ioxb0Pp6DZQRPKr/g0BVoUGS5t2eF/LyK6yf3/ozLQ7sBnCDeSzq+jnvcHE8SDrEhf
+ 0yCKHeXBeBYZvC12wox/ASTldo0VBZ1VmfbUawMGjkjWfYbKFFe2H1Frie/atz0ysFkXV6kd9Ff
+ GEqutJcF8irBXCD6uwI9CJbKgwKeR6z/8S1YaGKhKwGLKot3hIrMvoYEiC+R2YZjuEqok2Wr1RZ
+ woz1kHPrHYxNMWCL90SqpXCNGFCEfTybDbX1+1jGGN1p8fAAZ3SJmFgbspEWsuCNuehWnD/N3Q+
+ JWWzlzxUrvPbCD0DCxB3sTLjsJrAvrAo4xtbYbpfVX30Qb9tTvlE+DhqVbPu/CqOoay8oSoFvnl
+ 1+O+CDtAf91/
+X-Received: by 2002:a05:6000:4693:b0:487:342:d141 with SMTP id
+ ffacd0b85a97d-488774f4f02mr13825713f8f.23.1790602364016; 
+ Mon, 28 Sep 2026 06:32:44 -0700 (PDT)
+Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a349731sm28090164f8f.12.2026.09.28.06.32.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 06:32:43 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: linux-block@vger.kernel.org
+Cc: asml.silence@gmail.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>,
+ Phil Cayton <phil.cayton@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+Subject: [PATCH v7 00/13] Add dmabuf read/write via io_uring
+Date: Mon, 28 Sep 2026 14:32:16 +0100
+Message-ID: <cover.1790602223.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
- <20260921-gemini-tve200-fix-v1-1-8be03ac2a8f7@kernel.org>
- <179060141842.3905299.18293784781944970746.robh@kernel.org>
-In-Reply-To: <179060141842.3905299.18293784781944970746.robh@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 28 Sep 2026 15:19:45 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=VRVEo9h1aiF6-1fBA-eEuNjAdhiNHuagBw71=ZGrpmQ@mail.gmail.com>
-X-Gm-Features: AclHuK8N4y_x-2Pp53B3CGwLTjOtb4DhwJwJ3Zwoh0Xaz47DE26TzaOXVbr4nRM
-Message-ID: <CAD++jL=VRVEo9h1aiF6-1fBA-eEuNjAdhiNHuagBw71=ZGrpmQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: display: faraday,tve200: Use a
- level-high interrupt
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,13 +103,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 3:17=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
- wrote:
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a number of changes. Later it was brough back up
+to life by Tushar and Vishal.
 
-> Applied, thanks!
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to glue it together, count requests, manage
+lifetime and implement invalidation.
 
-I applied it to the drm tree following Kryzstof's ACK, I should have
-said. Sorry!
+Tushar, William, Phil did a lot of testing and experimentation on various
+devices with previous versions of the patch set, and I've received lots
+of help from Anuj, Kanchan and Nitesh with investigations, testing, and
+patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
+showed:
 
-Yours,
-Linus Walleij
+STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
+
+# Patch set structure:
+- Patches 1-2 introduce internal API and infrastructure mediating
+  io_uring and target subsystem / devices
+- Patches 3-5: block layer support + prep patches
+- Patches 6-8 implement NVMe support
+- Patches 9-13 add io_uring support and uapi.
+
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v5
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v5
+
+The patches are based on Jens' for-next. Also available as a branch:
+git: https://github.com/isilence/linux.git rw-dmabuf-v7
+url: https://github.com/isilence/linux/tree/rw-dmabuf-v7
+
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
+
+v7: - refcount *_io_ctx 
+    - wait rcu grace period for ctx->map before freeing maps
+    - increment map counters under dma resv lock
+    - more comments about bio splitting
+    - make ->unmap responsible for freeing maps to match ->map
+    - replace dma_sync_single* with full table sync
+    - detach dma-buf on nvme reset after cancel nvme_cancel_tagset
+
+v6: - remove fences and wait on invalidation synchronously
+    - report all map requests are detached earlier, outside of wq
+    - handle nvme removal
+    - gate nvme_free_descriptors() on iod->nr_descriptors 
+    - fix error handling in nvme_rq_setup_dmabuf_map() 
+    - fix iov_iter_alignment()
+    - relax the 1G io_uring registered dma-buf limit
+    - fix type overflow issue in bio split
+    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
+    - harden block checks against dma-buf + buffered io
+
+v5: - Reject dma-buf with buffered IO for raw bdev
+    - Add lim->max_segments bio splitting
+    - Add bio_iov_iter_set() helper
+    - Fix io_uring uapi validation
+    - Other minor changes
+    NVMe:
+    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
+      into its own prep patch.
+    - Convert segment walk loops to do-while.
+    - Drop adjacent segment coalescing logic.
+    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
+    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
+    - Factor SGL vs PRP decision making into a helper.
+
+v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
+    - Add sgl support from Anuj
+    - Move it under drivers/dma-buf/ and rename
+    - Fix mis-sized allocations
+    - Fix io_uring re-import mishandling
+    - Drop map before io_uring "task work"
+    - Move blk-mq callback to block_device_operations
+    - Convert bio flag to REQ_OP*
+    - Other small changes
+
+v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
+    - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
+
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
+
+Anuj Gupta (2):
+  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
+  nvme-pci: add SGL support for the dmabuf path
+
+Pavel Begunkov (11):
+  dma-buf: introduce initial file I/O infrastructure
+  iov_iter: add iterator type for dmabuf maps
+  block: always adjust bi_offset on bio_advance_iter
+  block: introduce dma map backed bio type
+  block: add dma-buf support for raw bdev
+  nvme-pci: implement dma-buf backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add uncloneable regbuf flag
+  io_uring/rsrc: add regbuf import flags
+  io_uring/rsrc: add dmabuf backed registered buffers
+
+ block/bio.c                    |  15 +-
+ block/blk-merge.c              |  50 ++++
+ block/fops.c                   |  27 +-
+ drivers/dma-buf/Makefile       |   2 +-
+ drivers/dma-buf/dma-buf-io.c   | 230 ++++++++++++++++
+ drivers/md/dm-io-rewind.c      |   6 +-
+ drivers/nvme/host/core.c       |  12 +
+ drivers/nvme/host/nvme.h       |   2 +
+ drivers/nvme/host/pci.c        | 467 ++++++++++++++++++++++++++++++++-
+ include/linux/bio.h            |  21 +-
+ include/linux/blk-mq.h         |   7 +
+ include/linux/blk_types.h      |  14 +-
+ include/linux/blkdev.h         |   2 +
+ include/linux/bvec.h           |   3 +-
+ include/linux/dma-buf-io.h     | 117 +++++++++
+ include/linux/fs.h             |   2 +
+ include/linux/io_uring_types.h |   5 +
+ include/linux/iov_iter.h       |   2 +
+ include/linux/uio.h            |  11 +
+ include/uapi/linux/io_uring.h  |  31 ++-
+ io_uring/io_uring.c            |   3 +-
+ io_uring/rsrc.c                | 275 ++++++++++++++++---
+ io_uring/rsrc.h                |  45 +++-
+ io_uring/rw.c                  |   6 +-
+ lib/iov_iter.c                 |  29 +-
+ 25 files changed, 1304 insertions(+), 80 deletions(-)
+ create mode 100644 drivers/dma-buf/dma-buf-io.c
+ create mode 100644 include/linux/dma-buf-io.h
+
+-- 
+2.54.0
+
