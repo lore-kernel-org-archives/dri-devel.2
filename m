@@ -4,110 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD05CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CD9C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A06F10E853;
-	Mon, 28 Sep 2026 08:57:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52BF210E832;
+	Mon, 28 Sep 2026 08:58:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qWp65NFR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6se3jsvH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q9OmmGc0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="llGOmrpI";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="h8HVsXDJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Rwevysdt";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Qfv7yWhd";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gvfgsLyC";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E7210E828
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:57:38 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B0210E849
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:57:46 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3B734220B6;
- Mon, 28 Sep 2026 08:57:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BBE6C2005F;
+ Mon, 28 Sep 2026 08:57:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790585853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790585860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ONdTxhedLm8ux4WYa6nJOCgvg99wnIBGvzLaX70z8pc=;
- b=qWp65NFR+vY/TlfE3G2E9yzErJ8gN1VZZ4sjd9CAGIcVYFEYdecYxGAEwIUSYf/sNejUyt
- 1NEZ34Ouet4YXs4YPqz4SV7yaApdvFUb/nOwrwLr6P77lovT/Yf42QILsXI7HIZIdCEiKA
- SrmWScWD7gdgKMla0F6KLzFdabtu2ns=
+ bh=eQInQiSoFgN20FwPZAQkSimSNxx0P+gPkILtWae2sXM=;
+ b=h8HVsXDJ57TrisiNuQXH+7Ry2/1MsQ1mui1Kn3oU0hUZJnAqXjylvtW57BfXbW4wzTyLD2
+ 5RgLDN7bcM+cghkc7n6q/NzQFCSX2LB/4PKPxL8ASdJr16cpUgjFVUsoGHGxBvxFUes4SV
+ 9M0hfLQHkLN8rOX5nRHxVqvMSvjfi+Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790585853;
+ s=susede2_ed25519; t=1790585860;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ONdTxhedLm8ux4WYa6nJOCgvg99wnIBGvzLaX70z8pc=;
- b=6se3jsvHqYMFYuFAHH5iKiz1zRcNhy4pf8WnT5X5trLlsESyfNUe6yZTZF5YIWWb6mSQPl
- tvAQf9LI/kdwWcCw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=q9OmmGc0;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=llGOmrpI
+ bh=eQInQiSoFgN20FwPZAQkSimSNxx0P+gPkILtWae2sXM=;
+ b=RwevysdtqOOA4dK4Ra23UrqUsvpYR/BQ/gMqlS/a0qGYK73Wh5WFvsos5Dif7l0p4AOpDS
+ KPxJwtYofDsRz5DQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Qfv7yWhd;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gvfgsLyC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790585849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790585856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ONdTxhedLm8ux4WYa6nJOCgvg99wnIBGvzLaX70z8pc=;
- b=q9OmmGc0bCLKGK4oQTKLiuEstTwijD7275NUcCCIRUKTcF7BYRnmmI1JWefVqXvkS+DT0t
- P9STS4tXzv6QEGp/ANUiqPG8822X4qN6X+9qV9ZeOU8DWk2gJFAJ3hjIAiyADr4uHM0UfL
- Bp4wjSie2cYBnlW47g1YXZDguFEBZBM=
+ bh=eQInQiSoFgN20FwPZAQkSimSNxx0P+gPkILtWae2sXM=;
+ b=Qfv7yWhdydEZ6HAj5qrhZvOl8P6pQus72AmkCQfsrmvKpjcw7VmivCU7MmsCWCLpfpWnXF
+ wwmlEayUlLA1kVGn8ifYby0nB5LaQZiUF4AVa5gmqLJ5J8tmgj/YlUZhggvsH1RXI6vBct
+ +p5hyu8RRnbknA+XJrZ3KpK2f9lg8WM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790585849;
+ s=susede2_ed25519; t=1790585856;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ONdTxhedLm8ux4WYa6nJOCgvg99wnIBGvzLaX70z8pc=;
- b=llGOmrpISnY8kkEv83RzY3DmplLzFpq32E2+t/P54brogM+HACiayLrT/25gnNg+JHH6jm
- XvsHrFDUOplaRuCQ==
+ bh=eQInQiSoFgN20FwPZAQkSimSNxx0P+gPkILtWae2sXM=;
+ b=gvfgsLyCZtpmD59/Pt9eux8K1yBcpF0Qh45hBdddqJo1KHYK8jWbfTLFXxEMp0l2ryvHDg
+ 6RiYCVqSEwhoZhBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDD8713419;
- Mon, 28 Sep 2026 08:57:28 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CB2013432;
+ Mon, 28 Sep 2026 08:57:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Kr86I/crumo3HwAAD6G6ig:T4
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 08:57:28 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Kr86I/crumo3HwAAD6G6ig:T6
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 08:57:29 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
  simona@ffwll.ch
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 3/5] vgacon: Use vt_cursor_{start,end}()
-Date: Mon, 28 Sep 2026 10:55:26 +0200
-Message-ID: <20260928085724.41660-4-tzimmermann@suse.de>
+Subject: [PATCH v3 5/5] fbcon: Replace fbcon_fill_cursor_mask() with
+ fbcon_cursor_glyph()
+Date: Mon, 28 Sep 2026 10:55:28 +0200
+Message-ID: <20260928085724.41660-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928085724.41660-1-tzimmermann@suse.de>
 References: <20260928085724.41660-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 3B734220B6
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BBE6C2005F
 X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MX_GOOD(-0.01)[];
  FREEMAIL_TO(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
  RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,gmx.de:email];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,gmx.de:email];
  RCPT_COUNT_SEVEN(0.00)[9];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de]
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,86 +127,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace vgacon's custom cursor metrics with the shared helpers
-vc_cursor_start() and vc_font_cursor_end(). Note that the _end()
-function returns the index of the scanline below the cursor, while
-VGA hardware expects the cursor's final scanline. Hence vgacon
-subtracts 1 from the end value.
+The kernel's font library provides font_glyph_cursor() to create cursor
+glyphs. Replace fbcon's fbcon_fill_cursor_mask() with a new helper that
+uses font_glyph_cursor().
 
-The cursor shapes remain mostly unchanged, except that non-underline
-cursors now also use the glyph's top-most and bottom-most scanline.
-This follows the style used by fbcon.
+The cursor shapes remain mostly unchanged. The only exception is in
+underline cursors for fonts with a size larger than 10. The underlining
+dash is now one pixel closer to the font-glyph data, so that the cursor
+looks less detached. This follows the style used by vgacon.
 
 v2:
-- restore use of vc_cell_height (Sashiko)
+- adapt to new VT interface
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/console/vgacon.c | 33 +++++----------------------------
- 1 file changed, 5 insertions(+), 28 deletions(-)
+ drivers/video/fbdev/core/bitblit.c   |  3 +-
+ drivers/video/fbdev/core/fbcon.c     | 45 +++++++---------------------
+ drivers/video/fbdev/core/fbcon.h     |  2 +-
+ drivers/video/fbdev/core/fbcon_ccw.c |  3 +-
+ drivers/video/fbdev/core/fbcon_cw.c  |  3 +-
+ drivers/video/fbdev/core/fbcon_ud.c  |  3 +-
+ 6 files changed, 16 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
-index 536e7fe4d142..b1408bb5e265 100644
---- a/drivers/video/console/vgacon.c
-+++ b/drivers/video/console/vgacon.c
-@@ -506,6 +506,7 @@ static void vgacon_set_cursor_size(int from, int to)
- static void vgacon_cursor(struct vc_data *c, bool enable)
- {
- 	unsigned int c_height;
-+	unsigned int c_size;
+diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
+index 39f44258d793..03b3b18e1fe9 100644
+--- a/drivers/video/fbdev/core/bitblit.c
++++ b/drivers/video/fbdev/core/bitblit.c
+@@ -334,11 +334,10 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	    vc->vc_cursor_type != par->p->cursor_shape ||
+ 	    par->cursor_state.mask == NULL ||
+ 	    par->cursor_reset) {
+-		unsigned char *mask = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
++		unsigned char *mask = fbcon_cursor_glyph(&vc->vc_font, vc->vc_cursor_type);
  
- 	if (c->vc_mode != KD_TEXT)
- 		return;
-@@ -513,10 +514,11 @@ static void vgacon_cursor(struct vc_data *c, bool enable)
- 	vgacon_restore_screen(c);
+ 		if (!mask)
+ 			return;
+-		fbcon_fill_cursor_mask(par, vc, mask);
  
- 	c_height = c->vc_cell_height;
-+	c_size = CUR_SIZE(c->vc_cursor_type);
- 
- 	write_vga(14, (c->vc_pos - vga_vram_base) / 2);
- 
--	if (!enable) {
-+	if (!enable || c_size == CUR_NONE) {
- 	        if (vga_video_type >= VIDEO_TYPE_VGAC)
- 			vgacon_set_cursor_size(31, 30);
- 		else
-@@ -524,33 +526,8 @@ static void vgacon_cursor(struct vc_data *c, bool enable)
- 		return;
- 	}
- 
--	switch (CUR_SIZE(c->vc_cursor_type)) {
--	case CUR_UNDERLINE:
--		vgacon_set_cursor_size(c_height - (c_height < 10 ? 2 : 3),
--				       c_height - (c_height < 10 ? 1 : 2));
--		break;
--	case CUR_TWO_THIRDS:
--		vgacon_set_cursor_size(c_height / 3,
--				       c_height - (c_height < 10 ? 1 : 2));
--		break;
--	case CUR_LOWER_THIRD:
--		vgacon_set_cursor_size(c_height * 2 / 3,
--				       c_height - (c_height < 10 ? 1 : 2));
--		break;
--	case CUR_LOWER_HALF:
--		vgacon_set_cursor_size(c_height / 2,
--				       c_height - (c_height < 10 ? 1 : 2));
--		break;
--	case CUR_NONE:
--		if (vga_video_type >= VIDEO_TYPE_VGAC)
--			vgacon_set_cursor_size(31, 30);
--		else
--			vgacon_set_cursor_size(31, 31);
--		break;
--	default:
--		vgacon_set_cursor_size(1, c_height);
--		break;
--	}
-+	vgacon_set_cursor_size(vc_cursor_start(c_height, c_size),
-+			       vc_cursor_end(c_height, c_size) - 1);
+ 		kfree(par->cursor_state.mask);
+ 		par->cursor_state.mask = (const char *)mask;
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 615fa596b7cc..8581b7a9b3b7 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -444,44 +444,21 @@ static void fbcon_del_cursor_work(struct fb_info *info)
+ 	cancel_delayed_work_sync(&par->cursor_work);
  }
  
- static void vgacon_doresize(struct vc_data *c,
+-void fbcon_fill_cursor_mask(struct fbcon_par *par, struct vc_data *vc, unsigned char *mask)
++unsigned char *fbcon_cursor_glyph(const struct vc_font *font, unsigned int cursor_type)
+ {
+-	static const unsigned int pattern = 0xffffffff;
+-	unsigned int pitch = vc_font_pitch(&vc->vc_font);
+-	unsigned int cur_height, size;
++	unsigned int height = font->height;
++	unsigned int cursor_size = CUR_SIZE(cursor_type);
++	unsigned char *glyph;
+ 
+-	switch (CUR_SIZE(vc->vc_cursor_type)) {
+-	case CUR_NONE:
+-		cur_height = 0;
+-		break;
+-	case CUR_UNDERLINE:
+-		if (vc->vc_font.height < 10)
+-			cur_height = 1;
+-		else
+-			cur_height = 2;
+-		break;
+-	case CUR_LOWER_THIRD:
+-		cur_height = vc->vc_font.height / 3;
+-		break;
+-	case CUR_LOWER_HALF:
+-		cur_height = vc->vc_font.height / 2;
+-		break;
+-	case CUR_TWO_THIRDS:
+-		cur_height = (vc->vc_font.height * 2) / 3;
+-		break;
+-	case CUR_BLOCK:
+-	default:
+-		cur_height = vc->vc_font.height;
+-		break;
+-	}
++	glyph = kmalloc_array(height, vc_font_pitch(font), GFP_ATOMIC);
++	if (!glyph)
++		return NULL;
+ 
+-	size = (vc->vc_font.height - cur_height) * pitch;
+-	while (size--)
+-		*mask++ = (unsigned char)~pattern;
++	font_glyph_cursor(font->width, height,
++			  vc_cursor_start(height, cursor_size),
++			  vc_cursor_end(height, cursor_size), glyph);
+ 
+-	size = cur_height * pitch;
+-	while (size--)
+-		*mask++ = (unsigned char)pattern;
++	return glyph;
+ }
+ 
+ #ifndef MODULE
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 407d207b14f1..054cf66b15fa 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -202,7 +202,7 @@ extern void fbcon_set_tileops(struct vc_data *vc, struct fb_info *info);
+ extern void fbcon_set_bitops_ur(struct fbcon_par *par);
+ extern int  soft_cursor(struct fb_info *info, struct fb_cursor *cursor);
+ 
+-void fbcon_fill_cursor_mask(struct fbcon_par *par, struct vc_data *vc, unsigned char *mask);
++unsigned char *fbcon_cursor_glyph(const struct vc_font *font, unsigned int cursor_type);
+ 
+ #define FBCON_ATTRIBUTE_UNDERLINE 1
+ #define FBCON_ATTRIBUTE_REVERSE   2
+diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/core/fbcon_ccw.c
+index 33f02d579e02..9a9839631cc5 100644
+--- a/drivers/video/fbdev/core/fbcon_ccw.c
++++ b/drivers/video/fbdev/core/fbcon_ccw.c
+@@ -298,10 +298,9 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	    par->cursor_reset) {
+ 		unsigned char *tmp, *mask;
+ 
+-		tmp = kmalloc_array(vc->vc_font.height, vc_font_pitch(&vc->vc_font), GFP_ATOMIC);
++		tmp = fbcon_cursor_glyph(&vc->vc_font, vc->vc_cursor_type);
+ 		if (!tmp)
+ 			return;
+-		fbcon_fill_cursor_mask(par, vc, tmp);
+ 
+ 		mask = kmalloc_array(vc->vc_font.width, w, GFP_ATOMIC);
+ 		if (!mask) {
+diff --git a/drivers/video/fbdev/core/fbcon_cw.c b/drivers/video/fbdev/core/fbcon_cw.c
+index bde820967eb9..4cb20337cf79 100644
+--- a/drivers/video/fbdev/core/fbcon_cw.c
++++ b/drivers/video/fbdev/core/fbcon_cw.c
+@@ -281,10 +281,9 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	    par->cursor_reset) {
+ 		unsigned char *tmp, *mask;
+ 
+-		tmp = kmalloc_array(vc->vc_font.height, vc_font_pitch(&vc->vc_font), GFP_ATOMIC);
++		tmp = fbcon_cursor_glyph(&vc->vc_font, vc->vc_cursor_type);
+ 		if (!tmp)
+ 			return;
+-		fbcon_fill_cursor_mask(par, vc, tmp);
+ 
+ 		mask = kmalloc_array(vc->vc_font.width, w, GFP_ATOMIC);
+ 		if (!mask) {
+diff --git a/drivers/video/fbdev/core/fbcon_ud.c b/drivers/video/fbdev/core/fbcon_ud.c
+index eaf08999e249..ac22b9846b79 100644
+--- a/drivers/video/fbdev/core/fbcon_ud.c
++++ b/drivers/video/fbdev/core/fbcon_ud.c
+@@ -328,10 +328,9 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	    par->cursor_reset) {
+ 		unsigned char *tmp, *mask;
+ 
+-		tmp = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
++		tmp = fbcon_cursor_glyph(&vc->vc_font, vc->vc_cursor_type);
+ 		if (!tmp)
+ 			return;
+-		fbcon_fill_cursor_mask(par, vc, tmp);
+ 
+ 		mask = kmalloc_array(vc->vc_font.height, w, GFP_ATOMIC);
+ 		if (!mask) {
 -- 
 2.55.0
 
