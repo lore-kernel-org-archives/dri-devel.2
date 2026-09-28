@@ -4,120 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AE15CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 22:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29F3CA5FA5
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 23:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E02F410E165;
-	Mon, 28 Sep 2026 22:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 365BA10E12C;
+	Mon, 28 Sep 2026 23:28:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="LOpdup5i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SlR20X4u";
 	dkim-atps=neutral
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com
- [74.125.229.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB8E10E165
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 22:28:42 +0000 (UTC)
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b8d6489419so2938051e87.3
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 15:28:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1790634521; x=1791239321;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=JArXmWr/mVGoLLKcByjQ5+EXzcvGruMpOpTO8U+lXSI=;
- b=LOpdup5icX460garvm9iskaRu90ETKjvytSGpeGb0HU+TS4GHYKdBYQQAvDEhylw+w
- Nhgbd9iLzh0miVv0HI/v9M4iVLwLzPmxLGSq4r+RRamKox0nu+2u++qAns9lgpvRC5ph
- lRsHYpvCseB2rRjpD4iUV05mSUiDb7gTQcVFU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790634521; x=1791239321;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=JArXmWr/mVGoLLKcByjQ5+EXzcvGruMpOpTO8U+lXSI=;
- b=0pXVflKvt/W6cjJEPJRC6gaDestRXz9SZ7D9ESY+GrropHNdWKnB5AytdgJe5xuYxz
- xhlFIOcT2/kN0O6SAI5465rFELfhcIFJcK9tQ/1zHsp5prVR25dWIFjxQAB+EOhW7kAJ
- VwGzcFdz7AZqsDUA0EbZjQugW4YxNCrww1m6hGo0YuuVGzeCgsmst7RqJreTdLKC7XSb
- JjFdt9swn+yuRBzHJDVeKEYutZ6uLjLy8h0eLO/cBfdFKZMeCubNJk0IUO0KCYGbtr+Z
- saVVxnDNpqbi1/7PiIsIGfgO5YZHQsJggtmUPCx8vxvznvUB+n9a0QB/7OXBTfR2fE81
- wfUw==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5D410E12C
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 23:28:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BD844366C
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 23:28:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211F71F0089B
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 23:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790638133;
+ bh=jfNrPFE2/IENfsII90Vt8A6OX76G8R6ZgvMpj6jZeww=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=SlR20X4u9vAyQFfMO92S47QUK9yBB+P7gG41NknqY/af6wpl4Hm/J0ra67LtDoSOQ
+ l/lqYoBHTv9xFC9u8u8MCgosK2Uq3gFezKU11wts4PZajg5JY15YmefbgHZvIAA+iV
+ mZ4839MQbl7MSXEr1Kg5aU0GZbG4Qq0ahNMT/bIpLIyPqzcq2NSj0vtDym5yz6eB/3
+ tMWwJbj8RZW1ptEWS3F/76DFUD/VYDn118KSA3LfSuM1YK+D5fU8/opP8Uz1NEWSt4
+ VhaZ62p9hu6UbyLukHnfM17AgI5o1es/AmU2J0Ny1UKnkGUThgKC3k1vNp/RpMXFZ0
+ CQdKKYncXD9Iw==
+Received: by mail-dl2-f12.google.com with SMTP id
+ a92af1059eb24-142dd046b87so2584820c88.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:28:53 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AKwUvBzZjZbIR4gEzShBdtN/m5MfTXGV5suDk4j33QNQ+TYm5eidBo4fhek+Vg9pwkF2eR0vAp2dO1C6QgQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKCvD0FS+hQHZxwS+Ix42i0gbdQodSxhd4mfn0tjbmysDWMBu+G
- Nmn7vB8gY7XIVt/W2yVCJbhmqf9Xh3hAGHNHSTnE+7LxE0or6rRyQX0gCqQh3TObQwscAM47HOk
- MH0GBHw==
-X-Gm-Gg: AYBFou1RJmo32CpA+VpuKqBg6zThXWebilzaZN9rCdk/cI/aW8rN+swdnNK+p8+VZK5
- bWAz2GsG3Z28SikyEc/rjisLGLOPeDkpBtn9oGJBNV8ogBAYihVNWO4OYNMAQNJOZ7pM9eqM/YT
- h/DibIhoMvr0NeeaSSAtn2+UbKZlM0hbUo/eXKYf4JrUZ5ny5qK8Bz1oDy9ReE70cQ7xULEZiZl
- pfx2hQu4cwU11YXQthOJwdtxNi6u+vG4hZM4Eo+vRRBoQgCfdUzRxt+QKzOovsTtOvKS2Gfj/5r
- qSMjw/t69ph70oDkkKxmG7fs0cttf0yqZQXn5c70a3voKMXqJC0xVdz1UZ0am4/Cc79wqk7XfZp
- 7ruZz1Rtngfcr1Ayd0mNZLSQHAD5WqCBzxm+OSn327wT1x8H2WPgTzmdDm6WSHDblwjEmQwSL5H
- bcdt+wEmoRBTmXxUZEVIrQQzta9tMCoMjjDr7o7voP9w1BAsXSIOzAiYBPyrhJUrP1kSbNHgOYx
- 8jP+RYaPoSEfngdgJ9jHdnPZpHtcqFZpupPTbg=
-X-Received: by 2002:a05:6512:2383:b0:5b0:c95:cdb9 with SMTP id
- 2adb3069b0e04-5b8df05a857mr5432488e87.23.1790634520787; 
- Mon, 28 Sep 2026 15:28:40 -0700 (PDT)
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com.
- [74.125.229.205]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b9debbd2besm864944e87.58.2026.09.28.15.28.40
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Sep 2026 15:28:40 -0700 (PDT)
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b8cbb7b9cfso2840353e87.0
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 15:28:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzMCBtEnIwx5QyihF74YZwUDuSKl49Y9k5dq2Fv3n0N1htpWdjFAPdrHGapktQ0vQCcOxXZPT8rq4k=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:6986:b0:49c:fa21:e73c with SMTP id
- 5b1f17b1804b1-49fe66f147bmr235241965e9.18.1790634033791; Mon, 28 Sep 2026
- 15:20:33 -0700 (PDT)
+ AKwUvBzRfg77Vd/1aLLqkcQx4zzjMgDEaHB61E5zU4+4xv+Uycv2y8qa4wE+vGlpgKAlavIx6JxYuLFtsLs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nQtdzpUAAXwtnORGkwIN59x9F7BfEkPw+MvD+TrAAp3EweEWAT
+ pXfEF5j0Ygx0dMSZMiMvvKu3EmXBrseF4uFzjV1OelXJKAh8HY8MdVa/aEf1mdfb2sRc8A99g3x
+ awXot7o+muzMvwbpfZEzvBCeZoim26Q==
+X-Received: by 2002:a05:701b:4314:b0:143:50a0:56d6 with SMTP id
+ a92af1059eb24-146cdfbe26dmr10687171c88.7.1790638132459; Mon, 28 Sep 2026
+ 16:28:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260928161605.2271412-1-arnd@kernel.org>
-In-Reply-To: <20260928161605.2271412-1-arnd@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 28 Sep 2026 15:20:22 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UzWmSjWZ96sBYvRLr=EbYqqBZ71o2BqotUsxRf5zqjTg@mail.gmail.com>
-X-Gm-Features: AclHuK-sVszmxzKslRXTzUjiQ3wDqpSD15BZhQhdtvRJFSFfPWjQSieqaRkgVN0
-Message-ID: <CAD=FV=UzWmSjWZ96sBYvRLr=EbYqqBZ71o2BqotUsxRf5zqjTg@mail.gmail.com>
-Subject: Re: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, 
- Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Liu Ying <victor.liu@nxp.com>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, dri-devel@lists.freedesktop.org, 
- asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org
+References: <7a3cbf55bf6a97835ee426eb38c34b2c153437eb.camel@mediatek.com>
+ <20260825100845.438893-1-lihaojie@kylinos.cn>
+In-Reply-To: <20260825100845.438893-1-lihaojie@kylinos.cn>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Tue, 29 Sep 2026 07:30:47 +0800
+X-Gmail-Original-Message-ID: <CAAOTY_-yXPCDQT4b2s6hEDDQ3Wa-x8bttg136MaZVqtgAs3Nsg@mail.gmail.com>
+X-Gm-Features: AclHuK8HNY3IA0QITI8piNzSYqjyY4DjhKThRjLr8iy4Knqan-haBW6sZ5vbbc0
+Message-ID: <CAAOTY_-yXPCDQT4b2s6hEDDQ3Wa-x8bttg136MaZVqtgAs3Nsg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/mediatek: Add missing IS_ERR check for ovl_adaptor
+ platform device
+To: Haojie Li <lihaojie@kylinos.cn>
+Cc: ck.hu@mediatek.com, chunkuang.hu@kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, p.zabel@pengutronix.de, 
+ stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -135,57 +74,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Sep 28, 2026 at 9:16=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wro=
-te:
+Haojie Li <lihaojie@kylinos.cn> =E6=96=BC 2026=E5=B9=B48=E6=9C=8825=E6=97=
+=A5=E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=886:09=E5=AF=AB=E9=81=93=EF=BC=9A
 >
-> From: Arnd Bergmann <arnd@arndb.de>
+> platform_device_register_data() can fail and return an ERR_PTR, but the
+> return value is used without checking, leading to an invalid pointer
+> being stored in ddp_comp[].dev and passed to component_match_add() and
+> mtk_ddp_comp_init(), which could result in a kernel crash.
 >
-> The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
-> not all callers include this, which leads to build failures in
-> some configurations:
+> Add an IS_ERR() check to jump to the error handling path on failure.
+
+Applied to mediatek-drm-fixes [1], thanks.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-fixes
+
+Regards,
+Chun-Kuang.
+
 >
-> drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
-> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declaration o=
-f function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
->   404 |         bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, 0=
-);
->       |                  ^~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
-> drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declarati=
-on of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
->   306 |         next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->de=
-v->of_node,
->       |                ^~~~~~~~~~~~~~~~~~~~~~
+> Fixes: 0d9eee9118b7 ("drm/mediatek: Add drm ovl_adaptor sub driver for MT=
+8195")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> Include the new header in all files that need it.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index c86a3f54f35b..b281482ab8c8 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -1112,6 +1112,9 @@ static int mtk_drm_probe(struct platform_device *pd=
+ev)
+>                                                             PLATFORM_DEVI=
+D_AUTO,
+>                                                             (void *)priva=
+te->mmsys_dev,
+>                                                             sizeof(*priva=
+te->mmsys_dev));
+> +               if (IS_ERR(ovl_adaptor))
+> +                       return PTR_ERR(ovl_adaptor);
+> +
+>                 private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev =3D =
+&ovl_adaptor->dev;
+>                 mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPO=
+NENT_DRM_OVL_ADAPTOR],
+>                                   DDP_COMPONENT_DRM_OVL_ADAPTOR);
+> --
+> 2.25.1
 >
-> Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index e7f9e6d58927..e50737432071 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -36,6 +36,7 @@
->  #include <drm/drm_encoder.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_of.h>
-> +#include <drm/drm_panel.h>
->  #include <drm/drm_print.h>
->
->  #include "drm_crtc_internal.h"
-
-The above one might not be necessary. drm_bridge.c only references
-devm_drm_of_get_bridge() in comments.
-
-Other than that, this looks OK to me.
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-I'll assume Luca will apply the fix since he landed aa8a8c7e4641.
-
--Doug
