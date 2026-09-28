@@ -4,65 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D849BCA5FAA
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 17:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744A0CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 17:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A72D10E93E;
-	Mon, 28 Sep 2026 17:32:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D033610E945;
+	Mon, 28 Sep 2026 17:33:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dTTJOcwp";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="C4Lhhx+6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6FB10E93E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:32:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 168E3600E2;
- Mon, 28 Sep 2026 17:32:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1831F000FF;
- Mon, 28 Sep 2026 17:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790616727;
- bh=DVCYORH83Mdl0Gt8ikYu58Tz+uRUhq9ZJzLJhMmXjZQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dTTJOcwptb6dtMZSchc1Lofu3hSLpnFiqMkVGzX4i24kCkCaG/iGddLmgAfy9dhOP
- V9T7CrALeOpd+ch2q5TE2cqbRaRBjJzAmaFRijbYMnvL6hjtTUbOqrX9fT7Mq1xJGd
- beM7+4/VqZ7tJJh75zo1CBfH5u/yroD9KDXRfiDuksUIlJn5qDJHGjOiClin0XRGq3
- hGuB4dbwy36SVluamPU6mYLjAVxoLWYf+/DYtu6XVi6QDofA6r3epPv++vQBPfJipa
- seLWVZJYEXdq31uGKgrMQolSe2cfPDeW2Z8O2EK7e1tLe54GzD52cWpP/EVFTOL3b4
- 48SEqu6ci+0JQ==
-Date: Mon, 28 Sep 2026 19:31:59 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maxime Ripard <mripard@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <arqi0etVHGajQAMe@beelink>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928163711.GA210522@killaraus.ideasonboard.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928163711.GA210522@killaraus.ideasonboard.com>
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C58EB10E951
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:33:43 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49b912d3920so24642895e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 10:33:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fairphone.com; s=fair; t=1790616822; x=1791221622; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Nm+H1sF5plZg2FFwBIfCS3h66ScIgoJSGwKlR3JKRkg=;
+ b=C4Lhhx+6vWDH+NAVlRY3si8o3871VjcdArpRlmeA+PAMJ9ZxmYRL6cmD1QGzU3wxZe
+ ddPXuvOcQBtuSGBFSLNtKjOdQuNQd1CUMIXqa8RcWa1i1CkyRNqIZib+xEXgjtblVXr0
+ mPPGwlt3zYw/tJ/SngcxP7XGMYiiGKjcjwVnuNYKC8EEUlTJwt9/XfUyFvl6aQf3/Hpy
+ 9uBdWmdgL5tKHvMQRt5Jftfp4+XatQnThczRgn/+9yilTA1Nf6RVWOC4BsfyARk0YOHr
+ IbI8I253e1hVqRfSebXC9YeKhn1fbqboDsg5wh1tguD0rBzHypCULSWp/amZjDKoanUC
+ b7aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790616822; x=1791221622;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Nm+H1sF5plZg2FFwBIfCS3h66ScIgoJSGwKlR3JKRkg=;
+ b=qFGqmecgIhqqFiJRh6h0qh98njWUi8BINhncDG8MIVEL1EcbM4TpcPfxzihjJrJgIn
+ BDn9rrvE+3BZvvKbq3WTxnhajnnB3mOYeHAE6lXUBAokKTsI/IxLLYQNH6o5KunnACNQ
+ apXutaleffc2L+C4Gb9FkEZYH3XmTzODb/9SkD690WuTKiOjzUFf28XydkL/28IztZ8c
+ 7G926JPCb8PDIhDQOLysCyuI3kcDGtkHu4ploem6c1sFypLpO4jN9AEDQUKZGA5Lt39w
+ MTJFt96UtCHvejMQT9yKQNlPE4DevogWJ7kDHuyuuMZUiGb2D+NxGF4Id59kVLhzYi8t
+ RdCA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByWERzgDe4dLkdrpROIUQ4mPjIB1znrHJTXS70HugRDFgh2hTAPJtWRv1No1cFPix/TvyZqtjP4/8A=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mQKKELFCj6Xr6tKWYA/+Y6utnWo91CWblq0ZOlcukjZIvs5P/0
+ nA2qODRksjZqpdYHcZMHxcTj8t1cAx6c4HY71qH7ClNREoIIGP6qi5AUZS9g+2eC+4A=
+X-Gm-Gg: AYBFou2xXiXgky1rcjEuPf3Dedwfdn+Zw2SPFnzZIu/+ZE8gKl5W7tLTHBwNroS1c7r
+ 8k4P16HlytWRHWWkait+y4ZM8t7/1BqAsFbRruAvC4r31N7G7fl4NsGFkGM2iZ46XZ1ZvH+VHRq
+ cSiiTFb1gMaNY/APKq/hemAnWolGWWb0ydWuXid6wYMA77rDH72oW46vgy19IHawHGQwuRTLX3L
+ /lWc87+NIXKOm6M8ZPbNcMvyOniNGECMP2ZdkgTHLGHviKAd8F2QOF7DMwE+0jROA0hAu/e6XDK
+ W0c/3PzNuVYJB4eVFTBbw6ljxJSj1inOT+p6MOwYrASPnu4XJjJqBo+AbYmwE2wv/J6HIgPruIo
+ 0Sa5j36WJgA5wCId47ldGH/c683YeVM6mVcXDVkm2/V/ACkpeiQD/wDnu9+5vVp1ib5eWyG+M4L
+ LgGPhQTmWeqqHCuX8OffpcYHbOT33URL6urvdF0XU1qiACRNZJLZ9vlHN1nfvrKqtPP8I0Ep1NM
+ ykz
+X-Received: by 2002:a05:600c:4ed2:b0:49f:e3f2:f5a3 with SMTP id
+ 5b1f17b1804b1-49fe6685393mr248630105e9.0.1790616821952; 
+ Mon, 28 Sep 2026 10:33:41 -0700 (PDT)
+Received: from localhost ([2a03:2260:3006:212:74c7:e2df:8ae8:a3f9])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a00cfb479asm7566165e9.15.2026.09.28.10.33.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Sep 2026 10:33:41 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 19:33:39 +0200
+Message-Id: <DLR4OQOPXHKZ.36X3TK68F75K1@fairphone.com>
+Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Bjorn Andersson" <andersson@kernel.org>, "erebion" <erebion@erebion.eu>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
+ <arnF0u2F9ipfnNP-@zenbook>
+In-Reply-To: <arnF0u2F9ipfnNP-@zenbook>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,55 +101,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sep 28 2026, Laurent Pinchart wrote:
-> Hi Maxime,
-> 
-> On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
-> > Hi,
-> > 
-> > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > difficult to support and require pretty much a panel driver for each
-> > panel produced. Most of them are pretty simple, and require an opaque
-> > initialization sequence that is usually poorly documented.
-> > 
-> > This creates a tension between OEMs and distros because OEMs will
-> > typically get a new panel to react to a sourcing issue during
-> > production, and thus need some swift turnaround between getting their
-> > new panel and it being operational in the OS. Distributions on the other
-> > hand can take years to ship a kernel with that new panel driver.
-> > 
-> > To solve this, I followed the example of HID-BPF and wrote a panel
-> > driver that will rely on BPF programs to perform the panel
-> > initialization. That way, we can ship the programs separately from the
-> > kernel, and with a different lifecycle. If this driver is accepted, the
-> > plan is to have a userspace component started by udev to identify and
-> > load the right BPF program for the panels found on the device.
-> 
-> Interesting idea.
-> 
-> How would that work for devices that want early display support ? In
+On Mon Sep 28, 2026 at 3:42 AM CEST, Bjorn Andersson wrote:
+> On Sat, Sep 26, 2026 at 04:00:50PM +0200, erebion wrote:
+>> Add a node for the camera flash LED found on the Xperia 10 III
+>>=20
+>> Signed-off-by: erebion <erebion@erebion.eu>
+>
+> Per
+> https://www.kernel.org/doc/html/v4.19/process/submitting-patches.html#dev=
+eloper-s-certificate-of-origin-1-1
+> please use your real name.
 
-Brain fart... Include a bpf VM in the bootloader? :)
+Hi Bjorn,
 
-> particular, how does it interact with your recent work on "fastboot"
-> support (with the kernel drivers taking over a running display
-> configured by the boot loader) ?
-> 
-> I'm also wondering about the incentives for vendors to upstream the
-> code. How will we avoid having a proliferation of out-of-tree drivers ?
+As per updated versions of the docs
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign=
+-your-work-the-developer-s-certificate-of-origin
+it says "using a known identity".
 
-My 2 cents here from the HID-BPF point of view:
-- as mentioned in my reply to Neil, the kernel enforce GPL licensed BPF
-	only
-- so vendors have to publish their code somewhere
-- in HID-BPF, I decided to provide an "official" list of HID-BPF sources
-	as part of the kernel (see drivers/hid/bpf/progs). I try to sync them
-	with the userspace tree when time permits
+I have met erebion multiple times at different events, so I can vouch
+for them, in case that's what's needed here. And they have their website
+and everything under this identity.
 
-So basically, distributions can say "we ship only BPF objects compiled
-from the kernel tree". It doesn't mean they have to be in a released
-kernel already to remove the friction, but in the process of being
-released could be sufficient.
+Regards
+Luca
 
-Cheers,
-Benjamin
+>
+> Regards,
+> Bjorn
+>
+>> ---
+>>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 ++++++++=
++++++++
+>>  1 file changed, 15 insertions(+)
+>>=20
+>> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts=
+ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+>> index 6e2bbf4f060ac..79aa2521aed40 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+>> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+>> @@ -4,9 +4,11 @@
+>>   */
+>>  /dts-v1/;
+>> =20
+>> +#include <dt-bindings/leds/common.h>
+>>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>>  #include "sm6350.dtsi"
+>> +#include "pm6150l.dtsi"
+>>  #include "pm6350.dtsi"
+>> =20
+>>  / {
+>> @@ -302,6 +304,19 @@ touchscreen@48 {
+>>  	};
+>>  };
+>> =20
+>> +&pm6150l_flash {
+>> +	status =3D "okay";
+>> +
+>> +	led-0 {
+>> +		function =3D LED_FUNCTION_FLASH;
+>> +		color =3D <LED_COLOR_ID_WHITE>;
+>> +		led-sources =3D <1>;
+>> +		led-max-microamp =3D <180000>;
+>> +		flash-max-microamp =3D <1000000>;
+>> +		flash-max-timeout-us =3D <1280000>;
+>> +	};
+>> +};
+>> +
+>>  &pm6350_gpios {
+>>  	vol_down_n: vol-down-n-state {
+>>  		pins =3D "gpio2";
+>>=20
+>> --=20
+>> 2.53.0
+>>=20
+>>=20
+
+
