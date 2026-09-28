@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8F5CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:12:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CD4ACA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:22:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A3C10EB48;
-	Mon, 28 Sep 2026 18:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB64B10E09B;
+	Mon, 28 Sep 2026 18:22:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QTo0gZkm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jzRocgp9";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF6C10EB48
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:12:44 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B5D18FD;
- Mon, 28 Sep 2026 20:10:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1790619052;
- bh=USfKYzH0A6fMkjH3Ae9LrJxx6YoB7rY2b4VDa8FNY+M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QTo0gZkm7WwOtTm4JaKIpKPrNLiNa+iZIUEZ+OKoVN6xmtGJuZe+OAlqHyYjFcvoh
- CEdeaxjv555X963g8CAZa26Y7UZal+YLZ74per2iWl1sNXIT3kYNjPZmw2ailNjNf0
- On4p0mZ6uI91tZqb1ZUSGlulGesv3QLO3SS1ocAg=
-Date: Mon, 28 Sep 2026 21:12:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <20260928181241.GB210522@killaraus.ideasonboard.com>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928163711.GA210522@killaraus.ideasonboard.com>
- <arqi0etVHGajQAMe@beelink>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <arqi0etVHGajQAMe@beelink>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2125C10E09B
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:22:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E3F984361D;
+ Mon, 28 Sep 2026 18:22:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04541F000FF;
+ Mon, 28 Sep 2026 18:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790619763;
+ bh=K1cLWac03IM4KLKAmCbBaNPBWoO0bBv/YDS2Dcc186U=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=jzRocgp9APFbn7PWm/lVftNBWm3nQuRe4DUsY1sk9cmMIiwjTgRQz3nzamHXngS9I
+ D5vM+QVrBcWiDqiAKnqzhNEGR+VN4zBbJZRS+3RhDWZgRZHyyaOjXYKtHZ8UYogYlI
+ xnP2x0peEeKDhrzkQMemQW6PZjv0TfneoPHS8XXrk+10ztob7MmG8VcIFgBndIwMmI
+ X6rxeLZb1m7SDtl/JNvNQ2qRBw8oM1zCVVLFrw8dfMra73wGuHSIpl0DSNbBOHtJ2g
+ gVsGur5H9GW6bmWAm67uLZpkNuy8XV/GVUc41PQrczztiKYMoML/svpOqrDftsFfIa
+ MZbh+EkmNLKCw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 20:22:39 +0200
+Message-Id: <DLR5Q993RA06.3UA51L951IFX0@kernel.org>
+Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
+ segment size
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Matteo Kloiber"
+ <kernel@matt3o12.de>, "Robin Murphy" <robin.murphy@arm.com>,
+ <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260831233215.287881-1-kernel@matt3o12.de>
+ <20260831233215.287881-3-kernel@matt3o12.de>
+ <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
+ <20260913210806.125589-1-kernel@matt3o12.de>
+ <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
+ <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
+ <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
+ <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
+ <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
+ <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
+ <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
+ <20260927224446.1053037-1-kernel@matt3o12.de>
+ <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
+ <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
+In-Reply-To: <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,63 +77,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 07:31:59PM +0200, Benjamin Tissoires wrote:
-> On Sep 28 2026, Laurent Pinchart wrote:
-> > On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
-> > > Hi,
-> > > 
-> > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > difficult to support and require pretty much a panel driver for each
-> > > panel produced. Most of them are pretty simple, and require an opaque
-> > > initialization sequence that is usually poorly documented.
-> > > 
-> > > This creates a tension between OEMs and distros because OEMs will
-> > > typically get a new panel to react to a sourcing issue during
-> > > production, and thus need some swift turnaround between getting their
-> > > new panel and it being operational in the OS. Distributions on the other
-> > > hand can take years to ship a kernel with that new panel driver.
-> > > 
-> > > To solve this, I followed the example of HID-BPF and wrote a panel
-> > > driver that will rely on BPF programs to perform the panel
-> > > initialization. That way, we can ship the programs separately from the
-> > > kernel, and with a different lifecycle. If this driver is accepted, the
-> > > plan is to have a userspace component started by udev to identify and
-> > > load the right BPF program for the panels found on the device.
-> > 
-> > Interesting idea.
-> > 
-> > How would that work for devices that want early display support ? In
-> 
-> Brain fart... Include a bpf VM in the bootloader? :)
+On Mon Sep 28, 2026 at 7:39 PM CEST, Gary Guo wrote:
+> I was quite skeptical whether the complication of adding the dma setup to=
+ken is
+> worth the effort, but the capacity struct sounds like a very nice design =
+as it's
+> infinitely extensible. I can foresee that we might want to eventually get=
+ rid of
+> the special `Core` typestate and just replace everything with setup
+> capabilities.
 
-The boot loader can have its own panel driver, that's not an issue. What
-I'm wondering is how we will deal with e.g. getting oops traces on the
-screen before userspace is available.
+I had a similar thought (which is one of the reasons I proposed it), but I =
+don't
+think we can replace the Core type state entirely.
 
-> > particular, how does it interact with your recent work on "fastboot"
-> > support (with the kernel drivers taking over a running display
-> > configured by the boot loader) ?
-> > 
-> > I'm also wondering about the incentives for vendors to upstream the
-> > code. How will we avoid having a proliferation of out-of-tree drivers ?
-> 
-> My 2 cents here from the HID-BPF point of view:
-> - as mentioned in my reply to Neil, the kernel enforce GPL licensed BPF
-> 	only
-
-I didn't know that, it's interesting.
-
-> - so vendors have to publish their code somewhere
-> - in HID-BPF, I decided to provide an "official" list of HID-BPF sources
-> 	as part of the kernel (see drivers/hid/bpf/progs). I try to sync them
-> 	with the userspace tree when time permits
-> 
-> So basically, distributions can say "we ship only BPF objects compiled
-> from the kernel tree". It doesn't mean they have to be in a released
-> kernel already to remove the friction, but in the process of being
-> released could be sufficient.
-
--- 
-Regards,
-
-Laurent Pinchart
+There's more than just one bus callback that holds the Core type state, so =
+I
+think the bus setup token is rather the (much) better version of a Probe ty=
+pe
+state.
