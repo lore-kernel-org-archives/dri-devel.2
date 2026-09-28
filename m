@@ -4,126 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F66C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB5CC9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCAA8961D;
-	Mon, 28 Sep 2026 08:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B8CC10E81B;
+	Mon, 28 Sep 2026 08:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x7FUOEDo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jBuhpJQu";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Geecc+Hd";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013005.outbound.protection.outlook.com
- [40.93.201.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFC848961D
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:27:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IyczSjpJ8aE/Cua7npMcAikJg7bKapXtbvM9BPbkz4ejP+rvY+eOoS1WhAsPf+xrgYMRdWcAgHKB+1U//TZrn67x1aRi39w2IcVqjmm28dKc++/m9JX9r3uwALdgplMgtK0+k0POzefJAzLc3BPZBkdg4q3rjxrOHFlz2DUmQbzvTxp/v5sM6QydXTGXn5g8mld7gZMe3R4+A7wL6JTzp3jYOICIgpDxDGRTXwXtQmJSEAUgH2ZlQRkjVAjkvsaWJvRnn7fwwbmqCCekWvf5dw3kZE5vBhWfT0ogBKcB3IGNgneM63OhXaRfGXc6NPuNB++3i7QJPSjZAI2RebfhdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ouPWJjKRJ3M/+J6cWZnzKaMUDBb7jkODhZYdrMyzF6g=;
- b=gEB/qmvReNiu775MB3DUCZCOtQZz+x6LN3IaTfstqspQoIjFPzsAaALqR0S4HGvYiLvSJbn+vXCG8rznJy71vjITjPjQ88/7u3xoOYUEJr8/B0n4ofzhGUZJHLcQFZKw2/N1/JFoLM/l3OHdFiEMMvmt4OXylJSRcaQ1mI4Gs2v4mVocnSQwGhS5RdvmY0vHu+08ttkVsB5YLa3801PSG14NcB/89Rkmx+Th2mS7Gpi07HmGLrVMbtBY0JE1nBjrou8+W6gtsnjXqp00MqUYuPKzQzq2ngVbv1ocktZgiTdYLk/je4v1DkyT0S522WuGL/OF3XR5r7fhASbGbIq/Yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ouPWJjKRJ3M/+J6cWZnzKaMUDBb7jkODhZYdrMyzF6g=;
- b=x7FUOEDoCtp+A2NQRsip7i/fQOXV3LvOYcbcdtM/y3mN47WJS8kJIhRGaXHTPG4otgUAhFwUiGs99iJ3todYtuf3Thp7jG2nCzdG6bO6YTQ1UnleNfzk8FwXt8eQLYi+x6NKS7C+X26rcpPy91KWdgY/g1F9Lg2oiP4FzBBas64=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB8027.namprd12.prod.outlook.com (2603:10b6:806:32a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 08:27:36 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 08:27:36 +0000
-Message-ID: <ea7da508-131e-4146-a737-5e8778866e03@amd.com>
-Date: Mon, 28 Sep 2026 10:27:32 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985C810E805
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:29:13 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68S7xjtK1871698
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:29:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=; b=jBuhpJQuH44rdrAq
+ wvTI1RPbP/mnbkm35Ej7ZxBm6iMOc6gwmtEOdX9PWzdc3/Z/8R8LnQRfUSBiRO/p
+ BPLmwXqNFqyRDlPG4+bQQJkPY0asEWsZ/Q/PZGIEEovI3Y4XpRCz0Yy3K+ldCrsh
+ L++SiejYXDtKXYZNUAjNCBB4Q6iUoNfSzqOokC8WRub7Kk65U3Q00P+2TKEkp+GM
+ 37z1nGO3wBFt5Cvlm2fO2eaA4UpIIr+xBrOWIPpiRl5WX10fGenUrSreobh1/vL0
+ NSLHkH6dO9mUdHFB7l0u1GvDyysJp8ibSJSzokOczQurYyUmwixaqoN1eAb0AdOf
+ WXTSSA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyhubgmun-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:29:13 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93c6049cd16so7710585a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:29:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790584152; x=1791188952;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=;
+ b=Geecc+HdQh+TCRgpUC9zCuniiND0/JqrEPCmAhUXXYoV6leHfVtxK/p1Vj35YV76n0
+ 1kVJh/iAAsW9+4pK8qhJPsIQ6ehZjmV9NfRJd+qdGLVp0urYeLaXLEZWM3GMr8QlIj++
+ VKtJuYCbfb+o/5Uz47MjobDC/Ts9lrio14G9BmUl6DyNdG6EB4u0TxZrpe7NLgd1fRKF
+ jk6HGG5BRuEdZE+FVLDG9pXILMc+1F2YpXsggGlRO3hClqqeNAGrGBKMV70EmSEsZ/vy
+ Ol+LJpckeE9Ur+tpSarJkS6ffys4+JQVyCXHuVyU6oBsjKi6hLSGD1vvrQfb81NJtjot
+ g5og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790584152; x=1791188952;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6xndBd5gqizhYMvRqH0U4waQTYqgueSPfdyK8EMU99k=;
+ b=D87wMZgTLFflLNAdMjlix5+Y37Y5EiOHgQ7AJlBiLeEPBG37tc4+VfDEjrATIyTejP
+ 2AmQlfrSBY57SBDB6T7vqk0NmZMc/pgXFhMBi+SjmsXro5U21CK27ltIxlIGTSfLUINU
+ mdVWv3xDNuaxfgntgt0IipxL7mKF6yvZSi5NUfGrVETZlgVR4jsci0o56tdsOs0nxvGK
+ iEsQOEXOknUjhCdDvU11PJ3JTLBKAOdZdFhp50pLUJkd4R7ZGLRLj9y2ar514gq/zUQw
+ stfOUZOv4b79C5ItEhaI/qd6k2+Ewm5EfF0RPodyO50bl7ppSv4bic/+l9dlQhr1B+Gl
+ EeMA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx4Ti0wYkdIpnYgvFOwDC9m730n2rm3gJjp5HG+qsnAxMOVJA6T9y93VAupOcgDegWp8Jihb86fgd0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mXrbKp6+tD6D3CkyBDVLw6hhrhsKoO0M3CF5fOSjUHgDjF4Qxs
+ TfEvqFAgmZETR+lnrdObKIugXVplYn1B+V9sytx8to6g6RCoTHcbtAHvLwSKiAKw5dP1SFewAMV
+ swkzH8miOTMMlXZtJacJbZSDF1k2yUbXm5nEjFjtdJKcMYXPakDT3rKUsTVSXFtc4/9UyQcw=
+X-Gm-Gg: AYBFou1McP0HLEppof5AMqbXkmznhrAm0NLnZ5uURAWbg8sCielzTMLm0PtIm3idyFI
+ EDXDHdKhb2qbe1bYu+gInr2TmwBUQfBv9M26JtXA71zJES4kavkf1lT9igzclKFJks+z0tos1E8
+ eRWX8Lx/LN/Lw/mWcS/lQV64SeV9DcQ6O6EaZNXu97ol22WR4+nbF7uztDI2wIDbaap2f6eVuMK
+ 9cyEmws56r/GbDkLLSYEjvJKMQZG92hit9QbALk+77YnUko5XYcM4aUmsI78sv6olz6uWizWK6j
+ xO2ogvjKqlyB93O0vPxdO8oGV1832jZj1eV4FsAjBugoAhAivH2YRg3XRuJZuZp9pYvF9ie0liG
+ gXWMJ38oV1I/BTH8VDXqOSw==
+X-Received: by 2002:a05:620a:404c:b0:93b:ee2a:b67c with SMTP id
+ af79cd13be357-93c43d78ef4mr1813619885a.4.1790584152219; 
+ Mon, 28 Sep 2026 01:29:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:404c:b0:93b:ee2a:b67c with SMTP id
+ af79cd13be357-93c43d78ef4mr1813617885a.4.1790584151740; 
+ Mon, 28 Sep 2026 01:29:11 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2dd69d4f65sm128311666b.22.2026.09.28.01.29.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Sep 2026 01:29:10 -0700 (PDT)
+Message-ID: <89c68705-bac5-40d2-b53b-bfc818900487@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 10:29:08 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] udmabuf: respect the device's maximum segment size
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260926071258.77202-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] drm/msm/a3xx: fix VBIF halt mask for A306/A306A
+To: me@samcday.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alexandre MINETTE <contact@alex-min.fr>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260926071258.77202-1-kmehltretter@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0059.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 605640e3-590f-49a9-ca8e-08df1d3a59c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: KcQocDpSZZl+oQZGQwBj3yQYtWR1ra7JyWELVeoXZxUPjj8d4hzxUft3yOjpaTkT51k4OnWuZNWvqVG/Foev7wy3/rEuQtMCPDFG8PldAQGmxq2aNmX1cPWD348s0fjGZ79MIT6imgkkywNt18c8t/ZVjcrC2TG6sAebeBJq6fWC4hLSm9aN7Im5TYTq8D3EXl6SGvuQG/J2PvSAm126V1mEvSX6kCEWZZRUeW+SHadpC2MU7ytbUJLRuyCiObt/XXWrSUgFfNV997bQCNt0e58mjN5eVowbZT5lAoZwBgNUaYy0S20ryAGg8TbT4brhfBelaxVekLPlPSpn9355DwNhxQGtEeV0DZK+3dD4cHVK1owfqIbIdxDsTSYOF3vhLiEj4j053Ajr8NBUpjTq0RCzVJ6J2g+VmI6P8M+7r73M8ZXykr0R1mGSWdPChYSE6PFTnubevMX/on8H97gyb5ivbxnAO+KD2apjgdoP5r4N9p0MatMOL2BNG1S5C/SI3F7BmxxCFNVcaTs4QYkl5o0NfB5bZTBcUx4b8iosMkvbUnljwzO1tigFTaY5CXPAB4HLddaJ92uHCiBY1v+/Ts/wgXRCnzw1bf33DpWMc7b4EvUQp5ZG+0fnYs1xbb5OaIBCWyocHNz6/6ihhHxsztmKMomAda6MGg/4irJmMAo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1lVSFdqUDJnckhXTEwwNFR1R1ozbTN2dGE1dHlIazlOQlZIdEVRQk9tL0Y4?=
- =?utf-8?B?YVZmL3VFOUFSQTM5Y1pWY1Y4T2Jnc1VscnVwTkhBQUM5OStSZlBCejBtRjhr?=
- =?utf-8?B?YTBkaExXNHl1TndPT2p3UEppejNOL1lBaEhZL3RReW5RV2gya2VNbys0UjlC?=
- =?utf-8?B?cnZCcXZOMTlXRFE2emtxdkpRM3lzR0dQWW1QSWs4OUQ1Y1J1WVpLNW1ubHVU?=
- =?utf-8?B?SndteXg5ODRSOXZqMXNyUkdneFA4TmhvSkxBSnNwQVk2ZlpWYitZaGpsZmtD?=
- =?utf-8?B?cy9ET2F4U1JpZVN4dGwrM1U1bTNFN0xlVjlKeWxsUnRaeExJTjdUekdhSG1a?=
- =?utf-8?B?MVAvS0xyelBpcFpLY0xETHRza1hXbTRBZmxNdE9UM3VHN0w1MDRUQ1FzN21r?=
- =?utf-8?B?Zm9TalN2YVlXUjRiN2drTzBYRnZlUFRYNStWZzRhQk5kRi9iQU1oU2xXSFJ1?=
- =?utf-8?B?QXdsb25PZWxzcUNYSUhWcFN1K1RJQ0hHR0F0bnpxb1NyOU5vSkVJeW9xd09q?=
- =?utf-8?B?dHJqSkQ0bDkwS3U2cEZJY05rcTRjQ091WmUxcDc4c2MyekM5TlJIR2dPVUNl?=
- =?utf-8?B?d3N4U1lnZXFCMlZzOHNvOHlaR005L004K2cyWUtxL2JMNy9LdGJicGZRQmhi?=
- =?utf-8?B?c1U5eURrSUN5YkpsWkF6bWlTR1BHekcveHdhZFA5ck5TS05MTGRzMmxSWjl1?=
- =?utf-8?B?RGVUbFhRVTc2eUZwRU4wZ0hrQXNsenh3dDZtMnZ0MVJqYStLTVpaNUxBUWhv?=
- =?utf-8?B?UlRSUFhzSG5LV2Q2SkZ1SnRLVXVvRm5KWU5DYndjQ2J3SWlMa0hDYnRCTEQ0?=
- =?utf-8?B?dllPZWs0N1lJWXNwQUtmS3pzKytSdzNzWTFvVDJJRHBpalg2SEwyMFNLUkxk?=
- =?utf-8?B?RXdNaGVwN3E3UjlnNFowWTBpbWJ6RGYvYjgrUE96b0Q2dFF1N3h3Y24vRW9u?=
- =?utf-8?B?VnZUc3JvR3BHa1E5NHd3SC8wTmdRU1BkL3RiN29ta0IwYmY4ZkU5bWVBc3BG?=
- =?utf-8?B?SXMreFhob0w5TVNIUUp3TW9jblZ0WVcvc29nSXJZaVJTT0R2Nmk0cm9DdWhI?=
- =?utf-8?B?MlhXdTNvUUtvbVJFZ1k3Mk5CWU9KZ3BCdTh5Nm5ReFExRTBOUGVMUHRyWG1w?=
- =?utf-8?B?NmUyVkRKQlZ3YmhLUEVOaWw2dWpQclk3ZHdYemFxVXY5OGpzY1cwd3VjeVZ2?=
- =?utf-8?B?ZVBsL1BwajE2MlpVaXpZZVg5T04vZE8xWkVRSDk1TEJqc1VkWGxoMWg3ckNy?=
- =?utf-8?B?SmczV24wMWNVdG9JWitQSWtEYU9rcXFPTWNkbmQwbXQxL2gxQXRNTjZGRUJv?=
- =?utf-8?B?N3ZTSmZFQnRxNXN0MmV1UDN3L2pQbTJMLytjQjVCY3FWYkRUcmFjWjFPQXRH?=
- =?utf-8?B?RWZmQnhwOTl6M3UvTHVsaFFpVE5zT1pnS1JMZmZjenJUdWJUSUtxbmpGN2Ny?=
- =?utf-8?B?TTUyNW9TaG1reitqU3VhZG81WHNmdlFzci81WU1KcWlFN1U3NzJPL2lPSEdo?=
- =?utf-8?B?Tk5LKzN1MHJpcDlsQzhlNENLOEFLWVlPOXlhOEhvMFcyQVRHUXlnYzVCUkZP?=
- =?utf-8?B?c1l2VTY1eWV3Z0Y5QVJqUzVnWW56OVhFNVpkWTZCaWhIVlNscjIwOXlmdzlF?=
- =?utf-8?B?MEZra0pTc0EvT2poU0xLWGM3QkJid2NEWm8xL1VHS2orLzgvbmFmY0VXd2dR?=
- =?utf-8?B?V2MvcVlwWVhQZFBuRUhSZEE5SDRHbmlyaWp3WEt3bEd1dkZhNWxObjZXb2t5?=
- =?utf-8?B?SllPUWY0Unh5UzZWbDdZNFhDdEN6bzl3SmhZdDN5cUFPT0NmRWhMY0NOL2FZ?=
- =?utf-8?B?NTVoVnJoYlIzRTFpRXNGM0xIeEZkWEhmOE0xWWhrT1pGaktzdDJ4M3hGbTgw?=
- =?utf-8?B?RzNFOXQyU2tSU1AyK3JtWUY0OVVxSlFub2I1ak0yOUh0NXNSUHlaNFdIeEZ2?=
- =?utf-8?B?bDFDU3B4Nm43UHRjUVpmRk4xSThlb3N3SFNVM21kemlRZ3R3eUtuMVBTblFV?=
- =?utf-8?B?WC9IVnlmcW9tQkJBWEhaTXlDVlVlSERsZGdBNzJVZTNybTlyb1BpZ1ZGekJB?=
- =?utf-8?B?R2VIeUJwQTFZMFFKRG1wZTJ3ZFZLMFc3TGFHWlBYNGFobU55bC96aEh3c0hK?=
- =?utf-8?B?N2hjdTBHaXM5VHBkRU9HQzQyWG96UTAvSjJVYTFrT2o5Y2lGa1gzelQyeEVT?=
- =?utf-8?B?TXF5a011c0tXNHEwRTdNNW0yaXVpdythNjNxc2tOMkZEaTZRVUxTSEs0QUhT?=
- =?utf-8?B?RGVQN056YWFFc1pPaTFDOEJpQUtEZDlzK0xoaUIwdC81elorbUNHN3o0VUlz?=
- =?utf-8?Q?BJE2G3ea9yUEoQUs3U?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 605640e3-590f-49a9-ca8e-08df1d3a59c4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:27:36.2824 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NBr7Lmnpvp3IFxgYp8a0H9qYphmMV1degSYLN1Fmn7V58hNLvAeDHd/Ip6riLiGh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8027
+X-Proofpoint-GUID: iC4kOLuHTsQIHzA62MblEf2Tqi5ciAIR
+X-Authority-Analysis: v=2.4 cv=C7F8WgP+ c=1 sm=1 tr=0 ts=6aba2559 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=Oh2cFVv5AAAA:8 a=lKQ-AihTAAAA:8 a=EUspDBNiAAAA:8 a=ZpghvvjZZmtfGsAZhOkA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=7KeoIwV6GZqOttXkcoxL:22
+ a=K6G5NyU7usMl-irPePdK:22
+X-Proofpoint-ORIG-GUID: iC4kOLuHTsQIHzA62MblEf2Tqi5ciAIR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX4XrWKUIoOlMo
+ f1g14fRrO3C64nJN3RvG4B0AhG/yxb9DOKlmcpjr4C3LXrMd9/kLtTmMbiIsRvPbq4cTgDO9Iom
+ n3B+FpiAYQ+d3wsuVdv3pPLj9zPQckk844Jkqfi3iHDGren6QmXVOu+FY8Gse5jLUqnXegTg7FJ
+ In3gnQZDBuyHAm0Tp9hv3fTVHASR5npQL1tjnE4de6IjTDUrvwWDOH+teI3DAMC/AfrpahalN3x
+ E+s9G54FxMt6KXjTWhh7P0z+4TKFWF6rbdSqd8Av2irlm+T9FoitmF7hEDUpSrn+BiVzNoO5Ak7
+ mzmOAjyk2/0warcDkZlq1bBCZP6xkp5MzlDDuiDpAqo/HoBOiUDI0aR/AU0oyn/xLzPKppdS/0g
+ 7mgqXwoH8qYn2eW2wvw7hhfsR8axpl9En09R4Zr/of7Y/r1+skKrpkBmQRACc5Vt/p4h9+5/KWh
+ ajstsHr0nbrXgouKjJA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX7UdTLCr2PisX
+ ldaLw85cscdALo1IB6n+uw8BykJDgE4LNfHKt86HYxM69gmAATNnBF1JXz8lV2UQMxUBfWZZy83
+ zFjnnRGbMcZIwVYLT3IVX1RlpvJ1zR4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,74 +152,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/26/26 09:12, Karl Mehltretter wrote:
-> get_sg_table() merges physically contiguous pages without accounting
-> for the mapping device's maximum segment size. This affects both
-> importer mappings and the udmabuf misc device mapping used for CPU
-> access.
+On 9/26/26 8:17 AM, Sam Day via B4 Relay wrote:
+> From: Sam Day <me@samcday.com>
 > 
-> With DMA_API_DEBUG enabled, DMA_BUF_IOCTL_SYNC on a 64 MiB udmabuf
-> reports:
+> A306 and A306A implement only three VBIF XIN halt request bits.
+> Consequently, waiting for the full 6-bit A3xx mask times out and
+> prevents runtime suspend.
 > 
->   DMA-API: misc udmabuf: mapping sg segment longer than device claims to support [len=65884160] [max=65536]
+> This issue was reproduced on a DragonBoard 410c: the request reads back
+> as 0x7 and the acknowledgment as 0x00070007 - the poll eventually
+> returns -ETIMEDOUT, and a3xx_pm_suspend fails with -EBUSY.
 > 
-> Use sg_alloc_table_from_pages_segment() with the mapping device's
-> maximum segment size. Keep a PAGE_SIZE minimum because the allocator
-> warns and returns -EINVAL for smaller limits.
+> The downstream kgsl driver corroborates this (see link). Since the
+> single-character difference between A3XX_VBIF_XIN_HALT_CTRL0_MASK and
+> A30X_VBIF_XIN_HALT_CTRL0_MASK could be confusing to read, the narrowed
+> GENMASK is instead defined inline in a3xx_vbif_halt().
 > 
-> Before commit 5bf888673e0d ("udmabuf: Do not create malformed
-> scatterlists"), each entry covered one page.
-> 
-> Fixes: 5bf888673e0d ("udmabuf: Do not create malformed scatterlists")
+> Fixes: be0e82b8e0c9 ("drm/msm/a3xx: Drain VBIF before GPU suspend")
+> Link: https://android.googlesource.com/kernel/msm/+/c90c7feeca2f5839ad6824f816c0bd207602a2f4/drivers/gpu/msm/adreno_a3xx.c#637
 > Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Signed-off-by: Sam Day <me@samcday.com>
 > ---
-> 
-> Notes:
->     Tested on v7.3-rc4-70-gfe2ec83746e5 in QEMU (x86_64, TCG) with
->     DMA_API_DEBUG (all_errors=1) and DMABUF_DEBUG, A/B against the same
->     base:
->     
->                                             before        after
->       DMA_BUF_IOCTL_SYNC, 64 MiB udmabuf    1 report      0
->       vivid import, 4 MiB udmabuf           2 reports     0
->       vivid import, 2 MiB hugetlb udmabuf   2 reports     0
->         frames captured                     5/5           5/5
->     
->     vb2-dma-contig rejected the non-contiguous import in both runs.
-> 
->  drivers/dma-buf/udmabuf.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..09f1eb8432f19 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -139,9 +139,13 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
->  	if (!sg)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
-> -					ubuf->pagecount << PAGE_SHIFT,
-> -					GFP_KERNEL);
-> +	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
-> +	ret = sg_alloc_table_from_pages_segment(sg, ubuf->pages, ubuf->pagecount,
-> +						0, ubuf->pagecount << PAGE_SHIFT,
-> +						max_t(unsigned int,
-> +						      dma_get_max_seg_size(dev),
-> +						      PAGE_SIZE),
 
-Please return -EINVAL instead when dma_get_max_seg_size() returns that the segment size is smaller than a page.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-In general I think that the sg_alloc_table_from_pages_segment() approach is because of the broken design of the old DMA API. Stuff like that should be handled by the iterator going over the DMA segments instead. But yeah that is not something you can fix in one patch.
-
-So apart from the error handling the patch looks good to me.
-
-Regards,
-Christian.
-
-> +						GFP_KERNEL);
->  	if (ret < 0)
->  		goto err_alloc;
->  
-
+Konrad
