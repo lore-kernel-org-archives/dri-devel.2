@@ -4,91 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E5B0CA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:10:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8F5CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFEA10EB68;
-	Mon, 28 Sep 2026 18:10:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A3C10EB48;
+	Mon, 28 Sep 2026 18:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hANFZopc";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QTo0gZkm";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B357310EB5F
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790619032;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OFTht72VGYwnHy4rRuIiS5N5orHNND6LgvZVdS8G2Q0=;
- b=hANFZopcyLedUQhKEQkdBlYiherp/C3nUQ747CxrT374lOZGGIv2QoZiZHPUNYOm+PIToz
- 7dnnCCpihtUy32qnGza1WpDmtSh+RO8rPj1CFTfdg80p4y/4/N5n2pTYm2LF4gxQr0eT/D
- mPT76c9OZAGILFsF8fORK692OatNQRw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-688-v0uKlg-vPxyNTEYDvV-JOw-1; Mon, 28 Sep 2026 14:10:31 -0400
-X-MC-Unique: v0uKlg-vPxyNTEYDvV-JOw-1
-X-Mimecast-MFC-AGG-ID: v0uKlg-vPxyNTEYDvV-JOw_1790619030
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-49fffa5de0fso25408105e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:10:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790619030; x=1791223830;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=OFTht72VGYwnHy4rRuIiS5N5orHNND6LgvZVdS8G2Q0=;
- b=CZAqqmcjuJPaOTIxZUOrc0ZZTNzLoUgY5Y5BuCF0xb2JlMwasrwMriFz1y/QeW5WRS
- JoJlPDaqQFogqu7TnofuoJqSoOFzEYLHk3DS1/ZpmK3Vs38UnqKXaKK66zE45cfTExIM
- rnFY0bUeb7kMQY+Ft8tEhc5yjZruV+6ntOrvxKOMAxmk1TWasxsG/s+Ti6D6JBffMzGN
- ZuUeyyMsTwm1qtxwcYTfYeSE3lyQX7dkuW2QQzHkNa5C2LE1bgeol+hN13Or91OjzO7b
- m0rYc/ysRri4otGctC4ivl+p2n6DXUZmqzX6C9bA9yojgbhWyIvVa6BEpy8VyhR/QORt
- fBTg==
-X-Gm-Message-State: AFuF++kyKNKOQsnq5QC5WULRrP0sKDy2M/RiZedm9R/C+/UMhfXnpSXr
- c7P+L5goepImC+S8UL/3BkHoU0CpJFs2Qbbn6TBeWhJx7lHkSebtCx5XiOBYaYqwJgd723tSRUR
- ELxzJWALKCqjx5L6Fs1idpeTGsuCoSInMZ8t/MvlFVujS5nT8h5ueYV1p9MtiOPcmO374HA==
-X-Gm-Gg: AYBFou2bEX7qcgmDDEsAnSy9xByaSEHE7xJuHd/FV8VgNQDXbsugKWB58DKh71xc4Jw
- xeH5rDaOmtCKHgYz2Kto61oRXj6XIi6rZqGT44VyR4BX7aEI2xR3VQfmsjIAzfVJV5mZ/+hMsES
- R3eDWYoOMxIlc/r/uxpMydYkGERhyqUSYrjYTc9xpdUa+Ikq7ix/BY4iqvfOFdj5AtIXOFIJ8Sv
- 2wK8XI66zFT6ILYmv8vII2P7cLgKhEiFHaTjkeeAfJ0aVJM/bLNaoCTyAGz9TB8yDUOiITKt/VB
- rcomr6GaNw+5bEvMEju7fIYsKdvvd03KM355GIGgyEXzYngFdMRU4Xl0ec4Be1nPuW1AysPF0yz
- zHx/yeHDli5sDxBwhh6VyuGmL8bmJeBXwxL3Pmi9lyZQWtkH9RFwIGzc1txSCiQudww==
-X-Received: by 2002:a05:600c:4f44:b0:4a0:23f:8b0d with SMTP id
- 5b1f17b1804b1-4a0023f8d93mr91712445e9.2.1790619030023; 
- Mon, 28 Sep 2026 11:10:30 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f44:b0:4a0:23f:8b0d with SMTP id
- 5b1f17b1804b1-4a0023f8d93mr91712165e9.2.1790619029624; 
- Mon, 28 Sep 2026 11:10:29 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a00cfe16a2sm9652415e9.4.2026.09.28.11.10.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 11:10:28 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, jani.nikula@linux.intel.com, Alexander.Deucher@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>, Alex Deucher
- <alexander.deucher@amd.com>, Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v4 2/2] drm/fbdev: Move fbdev helpers into client library
-In-Reply-To: <20260928080323.23909-3-tzimmermann@suse.de>
-References: <20260928080323.23909-1-tzimmermann@suse.de>
- <20260928080323.23909-3-tzimmermann@suse.de>
-Date: Mon, 28 Sep 2026 20:10:27 +0200
-Message-ID: <xlv1zex1dz70.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF6C10EB48
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:12:44 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B5D18FD;
+ Mon, 28 Sep 2026 20:10:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1790619052;
+ bh=USfKYzH0A6fMkjH3Ae9LrJxx6YoB7rY2b4VDa8FNY+M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QTo0gZkm7WwOtTm4JaKIpKPrNLiNa+iZIUEZ+OKoVN6xmtGJuZe+OAlqHyYjFcvoh
+ CEdeaxjv555X963g8CAZa26Y7UZal+YLZ74per2iWl1sNXIT3kYNjPZmw2ailNjNf0
+ On4p0mZ6uI91tZqb1ZUSGlulGesv3QLO3SS1ocAg=
+Date: Mon, 28 Sep 2026 21:12:41 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Benjamin Tissoires <bentiss@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Albert Esteve <aesteve@redhat.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <20260928181241.GB210522@killaraus.ideasonboard.com>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928163711.GA210522@killaraus.ideasonboard.com>
+ <arqi0etVHGajQAMe@beelink>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: k18k_GQjxeNkxXrRPOhSwC5aCkuZ1CwIjtdxgPn6d_s_1790619030
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <arqi0etVHGajQAMe@beelink>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,35 +77,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+On Mon, Sep 28, 2026 at 07:31:59PM +0200, Benjamin Tissoires wrote:
+> On Sep 28 2026, Laurent Pinchart wrote:
+> > On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
+> > > Hi,
+> > > 
+> > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > difficult to support and require pretty much a panel driver for each
+> > > panel produced. Most of them are pretty simple, and require an opaque
+> > > initialization sequence that is usually poorly documented.
+> > > 
+> > > This creates a tension between OEMs and distros because OEMs will
+> > > typically get a new panel to react to a sourcing issue during
+> > > production, and thus need some swift turnaround between getting their
+> > > new panel and it being operational in the OS. Distributions on the other
+> > > hand can take years to ship a kernel with that new panel driver.
+> > > 
+> > > To solve this, I followed the example of HID-BPF and wrote a panel
+> > > driver that will rely on BPF programs to perform the panel
+> > > initialization. That way, we can ship the programs separately from the
+> > > kernel, and with a different lifecycle. If this driver is accepted, the
+> > > plan is to have a userspace component started by udev to identify and
+> > > load the right BPF program for the panels found on the device.
+> > 
+> > Interesting idea.
+> > 
+> > How would that work for devices that want early display support ? In
+> 
+> Brain fart... Include a bpf VM in the bootloader? :)
 
-> DRM's fbdev helpers are for the fbdev-emulation clients. Move them
-> into the client-library module. Fix include statements throughout
-> DRM drivers.
->
-> While at it, rename the files from drm_fb_helper to drm_fbdev_helper.
-> The old name was too reminiscent of DRM's framebuffer code.
->
-> The GEM support code for fbdev remains part of DRM's memory managers.
->
-> v4:
-> - fix the depedendencies from v3
-> v3:
-> - remove obsolete dependencies from Kconfig
-> v2:
-> - update armada und docs
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> ---
+The boot loader can have its own panel driver, that's not an issue. What
+I'm wondering is how we will deal with e.g. getting oops traces on the
+screen before userspace is available.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> > particular, how does it interact with your recent work on "fastboot"
+> > support (with the kernel drivers taking over a running display
+> > configured by the boot loader) ?
+> > 
+> > I'm also wondering about the incentives for vendors to upstream the
+> > code. How will we avoid having a proliferation of out-of-tree drivers ?
+> 
+> My 2 cents here from the HID-BPF point of view:
+> - as mentioned in my reply to Neil, the kernel enforce GPL licensed BPF
+> 	only
+
+I didn't know that, it's interesting.
+
+> - so vendors have to publish their code somewhere
+> - in HID-BPF, I decided to provide an "official" list of HID-BPF sources
+> 	as part of the kernel (see drivers/hid/bpf/progs). I try to sync them
+> 	with the userspace tree when time permits
+> 
+> So basically, distributions can say "we ship only BPF objects compiled
+> from the kernel tree". It doesn't mean they have to be in a released
+> kernel already to remove the friction, but in the process of being
+> released could be sufficient.
 
 -- 
-Best regards,
+Regards,
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Laurent Pinchart
