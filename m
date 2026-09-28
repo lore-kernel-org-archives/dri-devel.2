@@ -4,146 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24983C9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9DFC9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62A3510ED4F;
-	Tue, 29 Sep 2026 08:20:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C91CF10ED60;
+	Tue, 29 Sep 2026 08:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tkRzg3kf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RCTqvwqT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fZQXVFKV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZOffk6JZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ri9Gf+j3";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80AAA10ED4F;
- Tue, 29 Sep 2026 08:20:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C0B1E21D8C;
- Tue, 29 Sep 2026 08:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790670011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nETDWloaEVpCPGnd6lUlXYN5U1Kh7s4QPVRJfhErP4A=;
- b=tkRzg3kfMk2G9Lg6lWi2Kx3p8OxasRIs5Jxe5XD2UUWENkfzqI2YBcOrrLIsxRgf2GeRwR
- S3EpMBgb/iczAHSzjShEjyVZyvMN77/+KZKALwRQwcXoTK5yRcn7t8Gz1paiVFV7kXtN0/
- nkJzQaU3+Y3d/FFBK6BQNuI7yHELKM4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790670011;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nETDWloaEVpCPGnd6lUlXYN5U1Kh7s4QPVRJfhErP4A=;
- b=RCTqvwqTirx4Td1evatueRVJLQLeFxS6JY9ckGe+gpBBeF87oIZU6NViTAWPTk4YdmM9KR
- 9u9sxNGZ9UVY3BAQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fZQXVFKV;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZOffk6JZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790670007; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nETDWloaEVpCPGnd6lUlXYN5U1Kh7s4QPVRJfhErP4A=;
- b=fZQXVFKV2PCuq1HXNlmMILqPISyVgX/knLNUwKEZpiH6SQky9Ki6d5NWDJmWBBvmBi3TCT
- 4KRbFLo4qGNML+aPkKFTWgsKdfmz2vw0zR5RAFYaY5js26kfec7YFylPlPN5b0qCWq7/mv
- 4QEymfmYd/otba8ltuX+W0DFx0mFGH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790670007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nETDWloaEVpCPGnd6lUlXYN5U1Kh7s4QPVRJfhErP4A=;
- b=ZOffk6JZnoQWBVaPSE6RxmdDPmmidgFVsbFHc5I12L460Fc2ov5FI/iFClZomF9uzRrjW4
- VlllxrW1JDIpTfCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2FF67133F1;
- Tue, 29 Sep 2026 08:20:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id AUnWNrZ0u2p0RwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:20:07 +0000
-Message-ID: <75a63281-c3f1-496f-8ff6-e44372c135f2@suse.de>
-Date: Tue, 29 Sep 2026 10:20:06 +0200
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com
+ [74.125.231.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D8F10EA2E
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:47:00 +0000 (UTC)
+Received: by mail-oi2-f10.google.com with SMTP id
+ 5614622812f47-4c3bb46aaf0so283021b6e.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 04:47:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790596020; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Q0yLSBC4Z/ATg+dywS9bPLOZkaQsPu49u0VvJ478EYUI5dXLsZEVsgZK4MpQjOO33W
+ XWTLiiu2o7GfRl0BnsKv5u1iy1mR7SGk5egDWrKcYbe05XSwZUzXx5CdZ1MV7a66+8DS
+ broQfih2JaMUXIUTFLfv9JQx7qfneVUEwMHV+I6zdVkc7RdbMXhqN1/HnKRKxPN7Rg2O
+ wIkWBFiaPUVHtqIHyqWJcPUIap7GC+mmHgn84xnBkWN6gdW0IG1oUlYGBZJOAfh47Y9l
+ nnIau9ZavTRtl5dD+AmeQhq2vQ3xp0jVHbFtgoqezeNw5TLpPiiyI4PiEXRG4Dhmc+lo
+ 3a3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:dkim-signature;
+ bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+ fh=kIC9/A29+/e1zqNDNQHSg1zujtrSkk/Rq7VokMNTsFI=;
+ b=ruC1PTEVe8eG2NU9PGwEg2N+Nz/7NfXMvGTO/B6t9E1ErlvA6gf5H7MKLw48PYuElj
+ tRBDpHDWrtuS/IViloWVLNLrvwAA4buQE+ePEC8Q+Ala/uy7ikDeNbdZEgSeyRPk0qMD
+ x/T8anjjUJ0X/moQxoq0iZVhvRQudrMgFL3EWj6jyMKz38DdJ065k9iqUR4t9VQqtlCn
+ of34RzNRJOEWgE+horGZpI+RrNtherBM5tXIQvN4j0inDPhpgziDMr5K4zpJwQUg9gkp
+ HaFfmmuhfJhuBy0kRiwLXpMyUPo8RshzDcuIBl9SA0/DYUTgcXyqOZVRiaXcQjCG75dV
+ P3hw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790596020; x=1791200820; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+ b=Ri9Gf+j36A0Orc5xdT6JTujQt94De0c3D30/LRaM+k8FHRvcvVQjmweF8zmSSjQWbL
+ +kDNJp2TaxQCCSRTwRbxpgS2XcR+qrPIYB25u/zqvB2rP5t7+5VpCgs6qgi9popZSliU
+ Yaz40Nq4gOi+q73kFplSAWIPcYkJl8IUXBc/Vt34KHHbA5UbuRjL2CyHkj0EX9gz3Hb9
+ A3Rs4jxgu0EphryfxzZK43U9D/TYncciOoqlGOP0J5BaGjibA/mqWYYwM9aBL9uvDzh0
+ q9IJae9LMcWTDaHsSasyJ18FFHQGWmTJJmva2RQwFvXV4NZ7lH65Npt7ATjMWR9Vmuu2
+ W+xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790596020; x=1791200820;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=mAEzcqvZR7kY5FZwPLKlXWGuBFBAruI7pzeVz3Vqh4E=;
+ b=CsE4Z+lp9ihUkHMz7qx8dNPWbTaCy7eVaF7P5+azmrw78eL6PDpC69CM8uuiQryYnt
+ eRGGT35SwGE/uzg0dRthP44PFcBWFk4844bGdX1jYduI3Fy53ZU/sU0MOh1PfEZd3IRT
+ BGrkVG7eaO/y3JabsKrCJNeHwvRzbQ975ieDyDtEnI2Gv+91e0EOOOKjO7XNYjoPZxAk
+ Gey8Fee1QXkyh2jhjSoABLsLxJjG4Qz9tahxOaYmlVKP5WeQrMoWayWE3MSEwjMuVqwE
+ 3TuP+ZeKlDQWd5dXGCfoSz0BlAAF7n44Dn3O5/TbqVnsfOTE4ytBjaEMK73ANIqjvDba
+ LL9g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzkgSsP3+OWWZZgjUvuqb1emEcRIP+PGu9jiLveayjHh6BAgMURjw6xiNvtyL7t3TIv9Lkm6DUyKm8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nbNO7yEKfxZmacl7W3osmkH8/MjsJGZKWXOGHApKYYy/DFZvC6
+ aU+Z3eCVCjnEzV0wCadmYH3PiqoGgnXnZzgob3IlOTt/IaG9A+4Xfwm/S4qCbCTJziFu62Lvgdn
+ 6sDkGGM/YmBG5MJh6JUDe1ZtNWgkQBdQ=
+X-Gm-Gg: AYBFou3W1sQhYxyt3dYSJjGM3QgknzR5tW7kNxhq21HBWI4Uwc/hvvARSXfAIfcbLSA
+ M2j+HVigw352WOTyChdeTs3HC0RXApAtJX6jNdYHe8B4q1JbrlQxpl13CcLJfNs9a7FDI6BzglD
+ TgRY8Xtz+EgKpz4J3FszKuuL3uGl74PZ5lD9qKLoDkqAQNNGUVAtpq5n0KD5T++XnSC00klG/kh
+ VZsqygpktIDuuy2vsEui4XfFDZjqiCbFtNEbKuSe0i6J6YTipfM01nkrctGsAi+Q92mTFwUyCmO
+ nZfnWFORu82wsMWKFS9ITUoj9b7mMre7JDwiCyq6Q6sjL5R1G46IJ7HmJR1vBvxh+/AUttXVD0W
+ 8CQnBCTnR9w==
+X-Received: by 2002:a05:6808:4fe1:b0:4e9:429e:d9a7 with SMTP id
+ 5614622812f47-4e9429edd08mr3795446b6e.49.1790596019638; Mon, 28 Sep 2026
+ 04:46:59 -0700 (PDT)
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:58 +0200
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:58 +0200
+From: Aveline Noir <jm5905938@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
+References: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] drm/i915: Use drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,igalia.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- URIBL_BLOCKED(0.00)[igalia.com:email,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: C0B1E21D8C
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Date: Mon, 28 Sep 2026 13:46:58 +0200
+X-Gm-Features: AclHuK_kufxbmR3rqUnxgcHL0HxOsXbK2RSoAj85Izv9mkp5_zAOdC4beU5raZY
+Message-ID: <CANOyQmH1zm86uwt55Ueg50sBkiKHxXc7oJqNO3x_64qc5sE4Vg@mail.gmail.com>
+Subject: [PATCH 2/2] HID: picolcd: Avoid framebuffer last-close deadlock
+To: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, deller@gmx.de, 
+ simona@ffwll.ch, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,69 +112,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Closing the last framebuffer descriptor can deadlock against PicoLCD's
+deferred update worker. fb_release() holds info->lock while waiting for
+deferred work, and picolcd_fb_update() takes the same lock. Lockdep
+reports the cycle through deferred-work completion and fbdefio_state->lock.
+Repeated framebuffer open/write/close with concurrent device destruction
+reproduces the hang in a PREEMPT_RT QEMU guest.
 
+Use a private update mutex in the deferred worker instead of info->lock.
+Take it in picolcd_set_par() as well to preserve serialization of pixel
+format conversion and framebuffer updates. Initialize it before exposing
+the framebuffer.
 
-Am 15.09.26 um 21:42 schrieb Maíra Canal:
-> nsecs_to_jiffies_timeout() originated here and has since been copied into
-> another driver. It is now available in "drm_timeout.c", so use it and drop
-> the local definition.
->
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+The test with the preceding output-request fix hung in the first round
+and reported a circular locking dependency. With this change, all five
+rounds completed, including 29 successful framebuffer write cycles and
+concurrent LCD, backlight, two LED and UHID destroy operations, without
+BUG/WARNING. The original syzkaller reproducer and persistent-open
+framebuffer tests also passed again. These are bounded virtual-device
+tests; physical hardware and suspend/resume remain untested.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 3efc61d95259 ("fbdev: Fix invalid page access after closing
+deferred I/O devices")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+---
+ drivers/hid/hid-picolcd.h    |  2 ++
+ drivers/hid/hid-picolcd_fb.c | 33 ++++++++++++++++++++++-----------
+ 2 files changed, 24 insertions(+), 11 deletions(-)
 
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 +++--------------
->   1 file changed, 3 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_wait.c b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-> index 2893df65c359..872d4045813a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_wait.c
-> @@ -7,6 +7,8 @@
->   #include <linux/dma-fence-chain.h>
->   #include <linux/jiffies.h>
->   
-> +#include <drm/drm_timeout.h>
-> +
->   #include "gt/intel_engine.h"
->   #include "gt/intel_rps.h"
->   
-> @@ -184,25 +186,12 @@ i915_gem_object_wait(struct drm_i915_gem_object *obj,
->   	return !timeout ? -ETIME : 0;
->   }
->   
-> -static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
-> -{
-> -	/* nsecs_to_jiffies64() does not guard against overflow */
-> -	if ((NSEC_PER_SEC % HZ) != 0 &&
-> -	    div_u64(n, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> -		return MAX_JIFFY_OFFSET;
-> -
-> -	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
-> -}
-> -
->   static unsigned long to_wait_timeout(s64 timeout_ns)
->   {
->   	if (timeout_ns < 0)
->   		return MAX_SCHEDULE_TIMEOUT;
->   
-> -	if (timeout_ns == 0)
-> -		return 0;
-> -
-> -	return nsecs_to_jiffies_timeout(timeout_ns);
-> +	return drm_timeout_rel_to_jiffies(timeout_ns);
->   }
->   
->   /**
->
+diff --git a/drivers/hid/hid-picolcd.h b/drivers/hid/hid-picolcd.h
+index 846a8ceb95..33e6654ca0 100644
+--- a/drivers/hid/hid-picolcd.h
++++ b/drivers/hid/hid-picolcd.h
+@@ -115,6 +115,8 @@ struct picolcd_data {
+ struct picolcd_fb_data {
+ 	/* Framebuffer stuff */
+ 	spinlock_t lock;
++	/* Deferred I/O runs while fbdefio_state->lock is held. */
++	struct mutex update_lock;
+ 	struct picolcd_data *picolcd;
+ 	u8 update_rate;
+ 	u8 bpp;
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index c17104fd60..258c7c4fa2 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -231,7 +231,8 @@ static void picolcd_fb_update(struct fb_info *info)
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	struct picolcd_data *data;
 
+-	mutex_lock(&info->lock);
++	/* fb_release() flushes this work while holding info->lock. */
++	mutex_lock(&fbdata->update_lock);
+
+ 	spin_lock_irqsave(&fbdata->lock, flags);
+ 	data = !fbdata->ready ? fbdata->picolcd : NULL;
+@@ -258,11 +259,11 @@ static void picolcd_fb_update(struct fb_info *info)
+ 				spin_lock_irqsave(&fbdata->lock, flags);
+ 				data = fbdata->picolcd;
+ 				spin_unlock_irqrestore(&fbdata->lock, flags);
+-				mutex_unlock(&info->lock);
++				mutex_unlock(&fbdata->update_lock);
+ 				if (!data)
+ 					return;
+ 				hid_hw_wait(data->hdev);
+-				mutex_lock(&info->lock);
++				mutex_lock(&fbdata->update_lock);
+ 				n = 0;
+ 			}
+ 			spin_lock_irqsave(&fbdata->lock, flags);
+@@ -277,13 +278,13 @@ static void picolcd_fb_update(struct fb_info *info)
+ 		spin_lock_irqsave(&fbdata->lock, flags);
+ 		data = fbdata->picolcd;
+ 		spin_unlock_irqrestore(&fbdata->lock, flags);
+-		mutex_unlock(&info->lock);
++		mutex_unlock(&fbdata->update_lock);
+ 		if (data)
+ 			hid_hw_wait(data->hdev);
+ 		return;
+ 	}
+ out:
+-	mutex_unlock(&info->lock);
++	mutex_unlock(&fbdata->update_lock);
+ }
+
+ static int picolcd_fb_blank(int blank, struct fb_info *info)
+@@ -332,17 +333,24 @@ static int picolcd_set_par(struct fb_info *info)
+ {
+ 	struct picolcd_fb_data *fbdata = info->par;
+ 	u8 *tmp_fb, *o_fb;
++	int ret = 0;
++
++	mutex_lock(&fbdata->update_lock);
+ 	if (info->var.bits_per_pixel == fbdata->bpp)
+-		return 0;
++		goto out;
+ 	/* switch between 1/8 bit depths */
+-	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8)
+-		return -EINVAL;
++	if (info->var.bits_per_pixel != 1 && info->var.bits_per_pixel != 8) {
++		ret = -EINVAL;
++		goto out;
++	}
+
+ 	o_fb   = fbdata->bitmap;
+ 	tmp_fb = kmalloc_array(PICOLCDFB_SIZE, info->var.bits_per_pixel,
+ 			       GFP_KERNEL);
+-	if (!tmp_fb)
+-		return -ENOMEM;
++	if (!tmp_fb) {
++		ret = -ENOMEM;
++		goto out;
++	}
+
+ 	/* translate FB content to new bits-per-pixel */
+ 	if (info->var.bits_per_pixel == 1) {
+@@ -369,7 +377,9 @@ static int picolcd_set_par(struct fb_info *info)
+
+ 	kfree(tmp_fb);
+ 	fbdata->bpp = info->var.bits_per_pixel;
+-	return 0;
++out:
++	mutex_unlock(&fbdata->update_lock);
++	return ret;
+ }
+
+ static void picolcdfb_ops_damage_range(struct fb_info *info, off_t
+off, size_t len)
+@@ -506,6 +516,7 @@ int picolcd_init_framebuffer(struct picolcd_data *data)
+
+ 	fbdata = info->par;
+ 	spin_lock_init(&fbdata->lock);
++	mutex_init(&fbdata->update_lock);
+ 	fbdata->picolcd = data;
+ 	fbdata->update_rate = PICOLCDFB_UPDATE_RATE_DEFAULT;
+ 	fbdata->bpp     = picolcdfb_var.bits_per_pixel;
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+2.55.0
