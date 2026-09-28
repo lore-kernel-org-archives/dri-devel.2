@@ -4,90 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E31C9833F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C583CC9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:48:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02FD310EA2E;
-	Mon, 28 Sep 2026 11:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D05E10EA31;
+	Mon, 28 Sep 2026 11:48:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MGXKKc4c";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="XOIPMFaG";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="eKbVtTCA";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047EB10EA2E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:48:19 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 91F271A103F;
- Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5AA61601BD;
- Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DAA5A102F2227; 
- Mon, 28 Sep 2026 13:47:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790596095; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=TR2EoUedzfwkF3107b5KNS7BcXvPvkAv8bW+yYycLg8=;
- b=MGXKKc4c5SOmaVWp/phoair6djFZb7UjXYb4g7L1mu9HkDS45D2Mlcr5y0nCwPGAVqpsGv
- OEyWMqiy3ker2qxJrAW/UnrGrRHX0U5FTADuUuUtmWYUjbjs5sEQnRZOMUAMqnzQlFMAjA
- pPfwXpH8+1YUt2r57oV6Vdkon/lXPcVhV54ca8km8DMGpKDscvP2exc0uf2Nu6SDXfkR44
- TLdVQPBbaKuqlM8N4aAFilFSY0cAFNPEgcpSiJcNTfZYNkrgZ0RKbrheWBH8E5cEAIKAjr
- 8JuIZsDLIGY++CVbtEFdbI5WenxcI1Asgjh4lbJzwiQZuHiUsB0V5sy5A7bfEQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 13:47:52 +0200
-Message-Id: <DLQXBZQ8KOCD.17XT73H60GTNJ@bootlin.com>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Krzysztof
+X-Greylist: delayed 2360 seconds by postgrey-1.36 at gabe;
+ Mon, 28 Sep 2026 11:48:39 UTC
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com
+ [148.163.154.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C53C10EA31
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:48:39 +0000 (UTC)
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+ by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68S9Kc5A1131888; Mon, 28 Sep 2026 06:09:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ proofpoint-05-2026; bh=0hS9Wztf0zHLIHXI8FAVpAGINXt34rvbRVblpIEIs
+ QE=; b=XOIPMFaGqLhFEDGDHZqUwmYjGL0j82YJPmT1RVFjnleBchTDI0v/+/KNn
+ 41iiHEO7Q/9gaxqGPyvnGZpz8vOmH2A3Iu87psPeFCjsu7Z/yoFpEgHbWgzf+FI2
+ MMvsWFaZ6DhFF0oB6jBwHiGLDWB9NoJ0KPYSR69LiHszFRY5db7orHornApFywU2
+ xMwCujornn+3BdaVrswBFhgclX6FCjz4YW12uIFpP69FFyR/tPn5EQBzgxGespLs
+ SXB8lqzpxMPWPhSgpS6NJFnixGrHk2TRU3iziwdLah6jJeQbZ2J4HMHXMbl8snLL
+ 7rTeptxTIhwdyBsfIsIMr0rDs/FCA==
+Received: from ph7pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11010064.outbound.protection.outlook.com [52.101.201.64])
+ by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gxw6nwjy1-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 28 Sep 2026 06:09:01 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ruJ+TH2qnpun/Iw82z5iVknAeqjwkeP7ImqvmipxxHO/ibh6xyzpLAeORMQS8g1lX9ooLu9jN5lwIRbtjjpMlw4aOOdFKuZXl9UN2AjOiC8BfZ+d82GJlbynrEL9yLFF2dwa+sRL+65MRj4dKxwOSSi2GM6lsoyq5eo//vxogJgBtjWrMHmYjuF0pU05p5yrtr2HYFpaVa9EiMlj+bXAfxCrE+1Zg0hZhv0lqqLieu8C6rM6H6GcpaUKTN8Mv7keFtonLzCOmwR7DUN6gUtrl2n9kzckbj+mtlMuyiGejsOitvzPyMseZXTvztGlfKsJh23xtFCIfbnQAtx5aDkt5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0hS9Wztf0zHLIHXI8FAVpAGINXt34rvbRVblpIEIsQE=;
+ b=nNoqTxCxyHnQPf/8XgjgkgJiToJnK/5K8tngGhcrzArJn9Sm7CBNQkth+nx0xFBtfneIZ4d9ulKb/G77F96LUNfeu/KYSNud6Q2FpcJcM2SrM2YMUGGzUBzdkZVHEmJEaCcal3qQDsXISZs4tCrhu7aiRi5wOi6peNfHbQAjRDrfJGbbp2lGvcHGkbl5j9NTdIorxKiPeEVU9VtmWtfH8RT86eYxCXE4sNArAZQIcD3WK9a5Y9/VuUdSQvLoJZ+kWXEZODLqmByGccoUvVUD5+SbkOpFDs/g1ADf4bSDHNjYDnQd/uB+ArGXBmwmupIqVgjfAp/wBxRAWgt/3wl4Zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0hS9Wztf0zHLIHXI8FAVpAGINXt34rvbRVblpIEIsQE=;
+ b=eKbVtTCA5oKPJe96TvXqJurBQZ3puIsL85Yyr9AJ4FopzjRHkEyYYrDB7zD2qKR7WG6scKkNIdHNWaGvo+k5QH0JfpmwG9OGNnbqjywzzLQRwkLKJXXKnKwfrFOt88WswVdZJ2FVvkcSd7yN3Q25ucLHBsD/ZozPFhvTAmKyiig=
+Received: from MW4PR02CA0029.namprd02.prod.outlook.com (2603:10b6:303:16d::34)
+ by SJ0PR10MB4750.namprd10.prod.outlook.com (2603:10b6:a03:2d5::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Mon, 28 Sep
+ 2026 11:08:58 +0000
+Received: from SJ1PEPF000037A5.namprd04.prod.outlook.com
+ (2603:10b6:303:16d:cafe::76) by MW4PR02CA0029.outlook.office365.com
+ (2603:10b6:303:16d::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
+ 28 Sep 2026 11:08:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SJ1PEPF000037A5.mail.protection.outlook.com (10.167.244.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 11:08:56 +0000
+Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 06:08:11 -0500
+Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
+ 2026 06:08:11 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 28 Sep 2026 06:08:11 -0500
+Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SB86hE3008926;
+ Mon, 28 Sep 2026 06:08:07 -0500
+Message-ID: <40d65442-d290-4a71-b680-bec42a771586@ti.com>
+Date: Mon, 28 Sep 2026 16:38:06 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] drm/tidss: Preparation for AM62P and BeagleY-AI
+ display support
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Devarsh Thakkar
+ <devarsht@ti.com>, Jyri Sarha <jyri.sarha@iki.fi>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+CC: Tomi Valkeinen <tomi.valkeinen@ti.com>, <dri-devel@lists.freedesktop.org>, 
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Krzysztof
  Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
- indentation in the example
-Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai"
- <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
- <samuel@sholland.org>, "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Frank
- Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
- <festevam@gmail.com>, "Francesco Dolcini" <francesco@dolcini.it>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov"
- <lumag@kernel.org>, "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn
- Suijten" <marijn.suijten@somainline.org>, "Marcus Folkesson"
- <marcus.folkesson@gmail.com>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Yannick Fertre"
- <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
- <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
- <philippe.cornu@foss.st.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Adrien Grassein" <adrien.grassein@gmail.com>, "Russell King"
- <linux@armlinux.org.uk>, "Simha BN" <simhavcs@gmail.com>, "CK Hu"
- <ck.hu@mediatek.com>, "Jitao shi" <jitao.shi@mediatek.com>, "Yongxing Mou"
- <yongxing.mou@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Chris
- Morgan" <macromorgan@hotmail.com>, "Martinez Canillas"
- <javierm@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-X-Mailer: aerc 0.22.0
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
- <179057359762.92994.13773102514654073802.b4-ty@b4>
- <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
- <20260928065837.GA22609@killaraus.ideasonboard.com>
- <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
- <20260928100841.GC22609@killaraus.ideasonboard.com>
-In-Reply-To: <20260928100841.GC22609@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
+Content-Language: en-US
+From: Swamil Jain <s-jain1@ti.com>
+In-Reply-To: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A5:EE_|SJ0PR10MB4750:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6661600-778a-4bcb-c72d-08df1d50e3ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|7416014|56012099006|22082099003|18002099003|10067099003|3023799007|13003099007|921020;
+X-Microsoft-Antispam-Message-Info: fBgi9oGvygwbFxsi/ESCcf1Dj8JiSAFJvEudENobXkYfhRkO3LUS91cARWVUXtgT9lHa//IV7YG2r5V1SN0rmDjF7EqslLUnvwsUGF66ktLxshWBJDJU6RmB5DnxdQJOYc+vTywODkXcQKhN/2Ssi1pElNzY5Rj2P0b+z4SPjbcWm6smqtQwBMS7oCdTGR/DWfsSQYYit2tILWQxRPZLHQxovdfryIyD1bxfRohGrbPSatY+vtC6jSBYCnGg+kLDZQvpb91JN+Wjn54dtWLQkFuKXXxOUb3AMrme6s8IhbIWaeUjp8zV3h0H/Fh2weHah9JIHGs/9HcwNT5J3atmSyK4xrbfUMKpa7hGOsBvVmuGUSdN4TuqV7mLXab78ndul96sRPCYw8aLPyADujRk9S0d1aNZR8DjdhCQ5z8FoEPcpPGMjGLPH6X6jloPAYMHctpJhyZifLVTyDWbXsAqZtGsZj329Zib2nYL0qC33gSgKtlIk0m/tYXffTa1ahlaUycfFsa00F+YreF+3jwLGqMCo5A35JNwjx6igYK//9HXgCzHAzppRG0pyw4L61LhiMzDdJSTUYP9rEzEDFHN14giKxZZ6WFmabwTUEjegWGbaq4MTGQnH4/pKDx0b/96OpfnU8ehsfUtx3vMA7wqAtXPf1hZ/ud/gDJeC0UpjpVvOYuCmxgp4wegl1KhMT5YQFmysxWJrH7NDnLBiZwTZu0zW88F9fzNNGxyMTbtzStIA+dnR15TMlekr8V8VcTY
+X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(7416014)(56012099006)(22082099003)(18002099003)(10067099003)(3023799007)(13003099007)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: EnbEVkymFj2aiETkm1u+nTCrlSTMEzP7F2M0Ke8ya71W2hZAHP+E7oJR2+E/YYHG4YdaEu7RI4NeFf8QyRsqyMHtaKMzYh1iv0KeObD6FS7ucUtLems34ZCpOq5XReMDll2iJNvjupT3aGfB4QTq66WsDEubCrpj89LGbryZPZvt+M2gXeVPS05VPL3O87qzHBR66U0mhIcJ3TaJuoNIEUiL1+5UBbsvdiQ1RlbdmMQdvT5OcapII5cICSyTZWE+lICbBlyU2SG3OXqjecqOcysu7gwzt2bJtdBVvC+tyLX1fGDa7yaIgQ+LTcTVnWduOqYCr+AZ6IsVVX9nHu4DkYdpzEmG8qhLGZCQp2K8EDDJkewEfZwSoDE0uocw+yi8exKKQ4NxKlEfPVjdSLnaBWXZ4hzbTuYEdkggUE+4QDTT08nDaTyImT0LZ1B9V7RQ
+X-Exchange-RoutingPolicyChecked: K//J19gc7DkUwdtXn7Q+9slr6ZkSgn8OX3B+eTW4rhsPZd8lVlgEZlwstqUZis52CM2MRQ13uIhXLlolxDL03AiXwHJuiChX5vjTQG+QWpgPF+QxxQCG98R4VxbCUWD6NAUtb7FrbqIimgpeBY7MBQARmdwe6YlTm64SA9VR7Htk6QT9g7bdJ1xGE78N4J85tSLcjENFmyxSeQqQ/ZLAa/rngzba8QJSqulnMDIy1Uxsj65NdmjVkbiFjIFAjTcLSVMOe9erFj7Fy7zmAul6PSVxi1+Mhnws0RIgwzRO3N1y5aGD9kHg3VEpAngTF4MVtdHAib9SmKa9c11rVhsnfw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:08:56.7339 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6661600-778a-4bcb-c72d-08df1d50e3ee
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
+ Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4750
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA0NCBTYWx0ZWRfXyIrDByeRK1he
+ HcE7iUuTyottWAGpBBLeTkcvrE0Q/a4ngtrqjNuhfX4p8unNotJQpwyLnLeVxE3g8HAdUxWARH2
+ tpSiaLCgdrzlvF5iG6BMyC452W5zwRw=
+X-Authority-Analysis: v=2.4 cv=dbkVTnXe c=1 sm=1 tr=0 ts=6aba4acd cx=c_pps
+ a=98eAHdF884nMI2WayFaxAg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=NEAV23lmAAAA:8 a=P1BnusSwAAAA:8 a=sozttTNsAAAA:8
+ a=Yilb6PzjgOhoUNh-V8YA:9 a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-ORIG-GUID: VOu4l58fe14S-0wm9Ay8S0Sy3b7IU_uj
+X-Proofpoint-GUID: VOu4l58fe14S-0wm9Ay8S0Sy3b7IU_uj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA0NCBTYWx0ZWRfXww3Kms3/Vpif
+ KEm25etm7Qa2hwy5BfOvoU6oCHhOhzZ2sbzSrzzjquI0Y2R5ldIhqFwUaI9yc49OAFJ870RyvzC
+ TyMap2H9zk4s54dvpw5IKuJXIjbplDWgNE+LqygVuF3laWdDDV3xtQeBrk6LidRVpgeKtr+6v9k
+ xdUpPfniqaeoZJm44p9d1jYML83vLjk7KDYz3TQBmYd02/eUdAMmGV2GeqsXbf6MTIFXsVPQKCI
+ J5+R7B1wu6kdKHbxTjriGpHbcBGaU6WE9VpbHnRSxX62ixwwciIOOWWsCK0f2gV2YiLD/BOd0u2
+ VYdzL6ms3zaLAXPOkGWNGbIWVfUyJK0f65Bh+86uCumEUfsY1aCPeV6AL1UjahNYSkhbTQ+eFRS
+ PX48g9xKi8RdUP0ywQbASedchuOSu6eemlmuLAtrNWq1TAMKQBeV879knQATTSpYbhjTMx8+cYL
+ ioU7yVUKV/q9OpJ5odA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 clxscore=1011 lowpriorityscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280044
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,64 +178,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Krzysztof, Laurent,
 
-On Mon Sep 28, 2026 at 12:08 PM CEST, Laurent Pinchart wrote:
-> On Mon, Sep 28, 2026 at 10:08:43AM +0200, Krzysztof Kozlowski wrote:
->> On 28/09/2026 08:58, Laurent Pinchart wrote:
->> > On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
->> >> On 28/09/2026 07:33, Luca Ceresoli wrote:
->> >>> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
->> >>>> Correct indentation in the examples to consistent 2- or 4-spaces
->> >>>> indentation to fix dt-check-style warnings ("example 0
->> >>>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, =
-but
->> >>>> re-indenting entire example just for that is too much churn.
->> >>>
->> >>> Applied, thanks!
->> >>>
->> >>> [1/2] dt-bindings: display: Use consistent indentation in the exampl=
-e
->> >>>       commit: 370c5d9004f8b754351981d59fc26851bf943e93
->> >>
->> >> Thanks, but I expected no one will pick it up, so I asked Rob to take
->> >> it, thus it is already queued.
 
-Sorry that this caused confusion.
+On 9/3/26 17:39, Tomi Valkeinen wrote:
+> This is a reduced set from the original "[PATCH v3 00/15] drm/tidss: Add
+> BeagleY-AI display support (and some more)" series, with a few new ones
+> on top. I have dropped the patches that still have unresolved issues.
+> Essentially that means AM62P and BeagleY-AI support is not added in this
+> series, but all these patches stand on their own and are needed for the
+> future AM62P support.
+> 
+> Most of these have already been reviewed.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
 
->> > Please explain your merge plans in the cover letter next time.
->>
->> The merge plan was this going through drm-misc. It got reviews, no one
->> applied, even Dmitry for msm only reviewed the msm-bits (second patch),
->> so I asked Rob to take it. This was not planned, but result of usual
->> drm-misc inactivity for bindings (many bindings were not taken in the
->> past or with noticeable delay/pings).
+Tested-by: Swamil Jain <s-jain1@ti.com>
 
-My personal rule of thumb to apply patches to drm-misc is to wait at least
-(the latest of):
+Tested on AM62L3 EVM.
 
- * 2w after the patch has been sent
- * 1w after it's reviewed/acked
+- Link to test-logs: 
+https://gist.github.com/swamiljain/d37a2170d9c252522ac62967c23e6af0
 
-This is to give everyone reasonable time to chime in and nack if needed.
+- Link to test branch: 
+https://github.com/jainswamil/linux-next/tree/sept_AM62P_J722S_patches
 
-According to that policy, which is of course debatable and not ubiquitous,
-this patch got applied timely.
+> Tomi Valkeinen (10):
+>        dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
+>        dt-bindings: display: ti,am65x-dss: Simplify binding
+>        dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
+>        drm/tidss: Remove extra pm_runtime_mark_last_busy
+>        drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
+>        drm/tidss: Add mechanism to detect DPI output
+>        drm/tidss: Add support for DPIENABLE bit
+>        drm/tidss: oldi: Fix OLDI signal polarities
+>        drm/tidss: Drop WARN_ON() from tidss_runtime_put()
+>        drm/tidss: oldi: Fix missing of_node_put()s in error paths
+> 
+>   .../bindings/display/ti/ti,am625-oldi.yaml         |   3 +
+>   .../bindings/display/ti/ti,am62l-dss.yaml          | 136 +++++++++++++++++++
+>   .../bindings/display/ti/ti,am65x-dss.yaml          | 149 ++++++---------------
+>   MAINTAINERS                                        |   1 +
+>   drivers/gpu/drm/tidss/tidss_crtc.c                 |  10 +-
+>   drivers/gpu/drm/tidss/tidss_crtc.h                 |   4 +-
+>   drivers/gpu/drm/tidss/tidss_dispc.c                |  28 +++-
+>   drivers/gpu/drm/tidss/tidss_dispc.h                |   5 +-
+>   drivers/gpu/drm/tidss/tidss_dispc_regs.h           |   1 +
+>   drivers/gpu/drm/tidss/tidss_drv.c                  |   7 +-
+>   drivers/gpu/drm/tidss/tidss_kms.c                  |  70 +++++++++-
+>   drivers/gpu/drm/tidss/tidss_oldi.c                 |  46 +++++--
+>   drivers/gpu/drm/tidss/tidss_oldi.h                 |   1 -
+>   13 files changed, 323 insertions(+), 138 deletions(-)
+> ---
+> base-commit: 97c594f71fa71dc30a0583a76d8b6ef5c5ea10b1
+> change-id: 20260903-tidss-pre-beagley-5d22a69b2269
+> 
+> Best regards,
+> --
+> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> 
 
-> If that happens again, could you please reply to the series on the
-> dri-devel list to tell it will be merged through the DT tree ? I don't
-> think there's any issue with merging patches that way, it's just
-> coordination that's lacking.
-
-I agree a ping over e-mail or on #dri-devel would be good and less noisy.
-
-But if the patch has multiple eligible branches an "applied, thanks" e-mail
-would let everyone know. I do it very cheaply with 'b4 ty'.
-
-Kind regards,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
