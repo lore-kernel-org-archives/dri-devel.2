@@ -4,52 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A65F7CA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0526CA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1035510EBB4;
-	Mon, 28 Sep 2026 19:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EACE610E58C;
+	Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="LIIrUs07";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rfIUkCMG";
 	dkim-atps=neutral
-Received: from mta1.migadu.com (out-48.mta1.migadu.com [95.215.58.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A975710EBB4
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:35:07 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=6GdeS5J1nAEzAADIZpXQl1fwy/uaoTDl+7jyHikSKZc=; 
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790624105; v=1; x=1791228905;
- b=LIIrUs07PDS31P3GtcKlFbpeJkkJDwMH9Eiri2PUlYs4voOm4sgXuJOYt0i1aEyfj9Lu1dy/
- nMhpULR5eEje6W5Bf9CBxLmxwQbHLbDHn9UDbKOC91XMVsW83Nmn1ZIf4wtF/l9e03QiDmG86eS
- /ZBfHorgVd2A0XaZthh9CyANq0Fap0MN6JN9NkAjSq+dBLsLimJ2Cw4asZVdA5VNbjpuUzz0Xwo
- kzTpcChy8TA/I7ufo3g2DXizZZDABX6cF9jTtiae7x5bGlH5cZuhpHReu8YzTbkxBMQT7HJwoxF
- HCZrJZW764GMn6l1e4slkj2kBagZw7R/gl3y6utVK6bJg==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id a3187ec75891e86d;
- Mon, 28 Sep 2026 19:28:51 +0000
-X-Mizu-Trace-ID: a3187ec75891e86d
-X-Migadu-Flow: FLOW_OUT
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 21:28:47 +0200
-Message-Id: <DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com>
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, <linux-rockchip@lists.infradead.org>, "Detlev
- Casanova" <detlev.casanova@collabora.com>, "Jonas Karlman"
- <jonas@kwiboo.se>
-Subject: Re: [PATCH] dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL
- kernels
-X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
-References: <20260907020015.24719-1-kmehltretter@gmail.com>
-In-Reply-To: <20260907020015.24719-1-kmehltretter@gmail.com>
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77ACB10E58C
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48884b926f0so2206670f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 12:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790624349; x=1791229149; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
+ b=rfIUkCMGkqX7N8oqPWfUQrBoi89Nn6kg+Kyf38Is9zYOLbaJo3m1o5HJTU8Yi+L/+V
+ HlZT/GZS4ZLUzQvuuU1FyC7OqrYLctinCXM5QDmTM7Wqbgifo09tLWFMi+6fXKJibttS
+ XtAVXvu/ekFKouiVXnwUgDhpHR6GoGgIJgxUcxo8/zy0fnn9qIv/6eka143J7lTP7Usw
+ zSkuEHo4afJiNC4fCOoT2wMLBHy+rZJKNuDmMLsd4Go5NMYy3lYjn65qdwL0lOXFp/yp
+ BwHRcyyPq4PEc4yr5H4hRi05WqYErJifpA8znpHjNv4FTuB3TwyO7I4A9p+wqX+KMCyo
+ WNIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790624349; x=1791229149;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
+ b=WI4W81uWOR7B+1xbzqIW4GZEl3WSHtRU71LYpYhAgkPr1MW0HH8wEe0M0rsXR0ahUR
+ yE6TYDCFpWqMruCGWZHU9l68aZa7fL/iuPVsYcxj2kpJMXkGFYxKmZm5ST5oOeMijC79
+ uKSrn5TEE1iRj1gL0FWKiEhYPfauq3Ph3Ul5wWsSx9IIJRttwzfDka6njdlLP37meB7l
+ a1xxVEcs/ISd7Ph4hfT7BO5wpibpwsIuf8hzKc0637XJKlND9EMra7moHwYDWCsrRnEF
+ J98Ji1qbbBb7pvbZWg7uCf4COdKlHJtwsat3Zio43PFG0mwYq/AgCVAU7Scd/UXqgrmX
+ dyNQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwADDwy5sAEnIJcuZqB5H1epVXeQW/4FSR0nji3SbVhxFCB37LCvYHSzFGmGrOfwqqbe4rHQW3BL8U=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYICavx4EnJWGLVvexKmszMFbdCZEq8SgsCn1q+0HSe2ip8w6SVu
+ VE1+QF2nbzmMCmlHpeTCJ9Hq3CJpS1AUskUCSD2WpriHko2unYAHLUPS
+X-Gm-Gg: AYBFou1jgOlImBLKajJkEQxzmSZrUdNmjoH8+ZqtgsfoMi3ve+uchCUT6EJL5GBPDHp
+ XIo1o125yO+eDoR7iNzfTcl+8jswFN8C8y98oq3DctebaddwAlD/b1zFXPIkR3d10AchJJ2SUTA
+ mZP25940Q13k/mq5SmyZ3AqWy7s6pwvuRxkIP7+MCOoBlQ9gzjbE0DcqENk0LQd22yjYQsam9ik
+ 30WqzGAtiaiEejmTA7KpFFNSJXlB0SVRNDmUEE01soNQjIQsd6cj1nSSPtvAsyMIIxCju75l4gj
+ ZQA9lgHDJzR2/I0GI2YoiX3+OFqfX4TooFxEfjzC2nDsgIDDFP2jZZcNaanQo0WR6Z8q25ouK7R
+ 2frvlYVVQFzZ10n2hNGvjIQEtWMHchLm79OivwKXlemF7hVDmIIM6+UBhqVyeFSB0yptPXiAt8Z
+ jh2wDVhj9+XRBQrLxzO/1NsVHmyGiBrgHR3ydRMhthI2RORs2zklxuPe+0xxwTW3xJWcWALOiLG
+ 0fZFUL3Uv9IfhBr118826bMsu7rBr0BdXCZv2z7wKn+kMxypvQc4yQtkvoAnlKnZjQbkulGeBZ1
+ yGOJpwCPiVq77YL5I/ol39km8CwOb536p5iIctnHl/LkXfssyq/OWYreU++K6WQdv5Ldij3xjw=
+ =
+X-Received: by 2002:a05:6000:3104:b0:48a:eff0:c31d with SMTP id
+ ffacd0b85a97d-48aeff0c6e7mr1174394f8f.38.1790624348461; 
+ Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
+Received: from unknown748F3CBA5068
+ (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de.
+ [2a02:3100:acba:a601:4494:3582:465b:eab])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a6456f8sm29487793f8f.26.2026.09.28.12.39.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
+Date: Mon, 28 Sep 2026 21:39:05 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Bryan O'Donoghue <bod.linux@nxsw.ie>, Dmitry Baryshkov <lumag@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on
+ DEBUG_KERNEL kernels"
+Message-ID: <arrAvk4aYQ4sDEzN@gmail.com>
+References: <20260926022026.10539-1-liujianfeng1994@gmail.com>
+ <17bf71c6-2442-4eaa-847d-29ef625870bd@amd.com>
+ <CACSVV02WCQwQy9BpUUqziQTtKV7QyJruiM+iTiLE_SEVKtpVNQ@mail.gmail.com>
+ <50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com>
+ <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,85 +106,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 7, 2026 at 4:00 AM CEST, Karl Mehltretter wrote:
-> Commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG
-> kernels") changed the default of DMABUF_DEBUG to "y if DEBUG", but no
-> Kconfig symbol DEBUG exists, so the option has had no default since.
->
-> Use DEBUG_KERNEL, the Kconfig symbol for a debug kernel.
+On Mon, Sep 28, 2026 at 04:21:41AM +0100, Rob Clark wrote:
+> On Mon, Sep 28, 2026 at 3:48 AM Christian König
+> > What I can offer is to set it to default N for another few month to give you more time to fix things.
+> 
+> If it is disabled by default in distro kernels, that sounds fine.
 
-I wondered why since 7.3-rc4 when playing videos I got a WHOLE lot of the
-following error messages, which weren't there with 7.3-rc3:
+Another option is to restore the earlier DMABUF_DEBUG default for now,
+although off by default is also fine with me:
 
-  [drm:rockchip_gem_iommu_map [rockchipdrm]] *ERROR* failed to map buffer: =
-size=3D0 request_size=3D3956736
-  [drm:rockchip_gem_prime_import_sg_table [rockchipdrm]] *ERROR* failed to =
-import sg table: -12
+	default y if DMA_API_DEBUG
 
-Both come from ``drivers/gpu/drm/rockchip/rockchip_drm_gem.c``.
+I would like to help fix the affected importers, and have started work
+on several of them. Beyond msm, my LLM agent found paths that use the
+page or CPU-length fields of imported attachment tables in:
 
-The value of request_size varies sometimes; I see ``request_size=3D8294400`=
-`
-the most. When playing a video (with mpv with v4l2request functionality, bu=
-t
-I think that doesn't matter), I see a whole bunch of these errors and then
-it stays 'silent', but I get another stream of them when I resize the windo=
-w
-(ie I'm toggling between windowed and full-screen).
-It doesn't take long before dmesg only consists of these errors.
+  - rockchip, tegra, rcar-du/VSP, omapdrm and xen_drm_front;
+  - tegra-vde, staging ipu3, pxa_camera and sur40;
+  - fastrpc's SECUREMAP path;
+  - the IIO dmaengine buffer, USB FunctionFS and UVC gadget DMABUF paths.
 
-The 'playing video' is likely important; when I just start sway I don't see
-those errors. It's only when I start a video that those pop up.
+The host1x imported-buffer gather path also looks susceptible. There
+are less severe cases too: amdxdna rejects the affected import, while
+mali-dp loses MMU prefetch.
 
-My kernel (config) is based on Debian's and that has ``DEBUG_KERNEL=3Dy`` a=
-t
-least since 2008 and due to this patch/commit, ``DMABUF_DEBUG`` got turned =
-on.
-When I explicitly disable ``DMABUF_DEBUG``, I no longer see those errors.
+For sur40, IIO, FunctionFS and UVC gadget, I have reproduced failures
+and tested local fixes in QEMU using local device models. The other
+entries above are findings from source inspection, not hardware tests.
+Some failures depend on the architecture and configuration, in
+particular whether NEED_SG_DMA_LENGTH is enabled.
 
-Whether that fixes or just hides a problem, I'll leave that for others to
-decide.
+Unfortunately, I don't have hardware for most of these drivers...
 
-> Fixes: 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by default on DEBUG ke=
-rnels")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> This enables the dma-buf debug checks on every CONFIG_DEBUG_KERNEL
-> configuration, which is what 646013f513f3 set out to do. If that is too
-> broad today, the alternative is to restore the previous
-> "default y if DMA_API_DEBUG".
+I think the drivers managing their own IOMMU mappings also need a
+clearer supported path here. Simply switching from physical addresses
+to DMA addresses is not generally sufficient, since the latter belong
+to the attachment device's address space.
 
-My 0.02:
-That change landed in 7.0-rc1 albeit it didn't have the effect it intended
-to achieve. An -rc1 version seems like the right version to land such a cha=
-nge.
+I also have a draft warning-only mode for DMABUF_DEBUG that I can post
+as an RFC. It preserves the CPU fields and logs suspect accesses
+instead of deliberately breaking importers. Coverage is incomplete
+and the underlying bugs still need fixing; strict mode would remain
+available.
 
-I'm not in favor of this just popping up in 7.3-rc4 while -rc3 did NOT have
-that affect. With an -rc1 you'd expect major changes, but in this case I
-accidentally stumbled upon it while trying out something else.
-
-Cheers,
-  Diederik
-
->  drivers/dma-buf/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-> index 7efc0f0d0712..e4f078a326a4 100644
-> --- a/drivers/dma-buf/Kconfig
-> +++ b/drivers/dma-buf/Kconfig
-> @@ -43,7 +43,7 @@ config UDMABUF
->  config DMABUF_DEBUG
->  	bool "DMA-BUF debug checks"
->  	depends on DMA_SHARED_BUFFER
-> -	default y if DEBUG
-> +	default y if DEBUG_KERNEL
->  	help
->  	  This option enables additional checks for DMA-BUF importers and
->  	  exporters. Specifically it validates that importers do not peek at th=
-e
->
-> base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
-
-
+Thanks,
+Karl
