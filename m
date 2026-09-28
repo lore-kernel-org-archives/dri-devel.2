@@ -4,77 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3CD0CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D1ACA5FB3
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F29810ED89;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A38C10ED8B;
 	Tue, 29 Sep 2026 08:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J1J5PxZ2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PLAgRZXV";
 	dkim-atps=neutral
-Received: from mail-pj2-f23.google.com (mail-pj2-f23.google.com
- [74.125.227.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D13D10E7F1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:15:11 +0000 (UTC)
-Received: by mail-pj2-f23.google.com with SMTP id
- d9443c01a7336-2d747f066d8so6910745ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:15:11 -0700 (PDT)
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com
+ [74.125.231.203])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 511BB10EA2E
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:46:49 +0000 (UTC)
+Received: by mail-oi2-f11.google.com with SMTP id
+ 5614622812f47-4c112aaaee4so199668b6e.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 04:46:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790596008; cv=none;
+ d=google.com; s=arc-20260327;
+ b=h/8TUTS6H9FQGKnG/5FCVcFfU2pwD+E8hXOn7dhUfrbDRRPBc6cIFpO6XvhY/miOdj
+ uXItljElkt+KO5ss4XkeH9zdy3/S6ebDZPkgnNxI5YIithseem2lMccOgVcLNM1mhNe8
+ MCgkpj2Vr2ZXO1WEj/URjS527JliJ4GxSkd0z4EfPiDlXckkn2JDfYfg206FkgX+7oM0
+ QbO0P1qcFCweCAEijcgsBRVwe9Tw5cQ9rUtN9iWP8eHRm+pVU+9MVMb+tMNN6Q4UXSrj
+ 6rIjbaJCvnfL4W53BZwie9wjGDXtteg60i9NA75QIT44dBRVrByUoGhE+dJVgrCV6ZmV
+ zwnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+ bh=8y/14vF+O1HeqA5emJg88NL5DefW60ELONqq7Ew71Mg=;
+ fh=lCGPIwztGU3T44xy9/76ntEqutSXiWLUZEPw+O3qGcQ=;
+ b=bkelpLACtDN3zjUZt0aiZYJ5QJ4+OgoLfKEVlsUDVyYcbZChfbCkvFUtb5CTLTmF/U
+ sIUyxJ1HJVdFxFBDWZvh3F9bmYtVwQ+K1/1wiPcRdYUtUhCW/WlXMvJ4QvXvFt+ferwJ
+ C1pV60dEG0mh5hWFYmvxke1F1Uzl59iz8q3IfIYXH92GT1swN25AdoUo8+VMoN9x8LgE
+ EsxTA7ATHU6tPizqJvmlRP5gocZMwW9FwfjbICdb3p+IGcdPSeyPDhePahfO+RxOW7X2
+ 9NCUJ8w5StGrValKMWLG67jBZBYyzFrN/G7ouFogDPaHHGFhG5/rYxiz42B7JCeqZ2l1
+ 7xpw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790583310; x=1791188110; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
- b=J1J5PxZ2/e/P6aRtz7OTYySz3VTJSZBID+OooYnwDxc8eXsXsH+4m0rAg2CeKW6H7Z
- SXTI3hBocsn5hEN91VktZh8/9Wqa2PcnS42aAwfC5AZJsRJ0gyyfBGEV8JplJSlgSCWH
- cpFBUs41ABIg8JHsZcLUDv5pjFiRj+YQAtTeQxwrvEHCOTH1lt2t0PKbipZc27XtGJcG
- yxzoPukXa8uyDgmBUgOsBP0moqFjVRdu0TPmHJK9s+G0hrZsY+MdMtk2hIj3uocWD3AK
- 7JfEasvCCxQlPPMOyx6mEtlBt3Vbf7MqLfnXVvX+iBLwtlACl6coFIUIoy75P4jQlUzd
- Y64Q==
+ d=gmail.com; s=20251104; t=1790596008; x=1791200808; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8y/14vF+O1HeqA5emJg88NL5DefW60ELONqq7Ew71Mg=;
+ b=PLAgRZXVZ3TBgpfFdWL84t5iHAWs+2ykJpBf/qH/1ueYhOjunkVQ3CMuOX/c/L9Kna
+ cOwKDTFVJyus8uzaQSvDwnI5RBhncBlkitd56UlgOpPuPHI7N8vXYnv7siGQUFM9AOBj
+ Z7AbKHl7mroeWG2FOj2BvvqATvmLY7TlUsofN2nbjb/7yRr+3jpyp/38ZgNBzHfYa4dU
+ uKm0nFggBkSYdJxircwtlChzrChQKdh1sxSOW9mlI0QF/TW495RM7O2DARsPYINgjqVR
+ V3zhtEMN2OT8Ru2VLOOTJxqai/KAoIbQA8tk6fEx/c2KV20oGrU0p6E84RzHaJMzMSHQ
+ 4RfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790583310; x=1791188110;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
- b=fvWp5VABL86wG8HO3mgzfAqtuVsdH/a/qalf5r+8+T1oid5LktI6aHpQxalzifEwjM
- WQLVbu6T4YYo+lj7CnTDQYfStWnT2HwHzB5jCF26yFCpSuaLqIUd3hZi8lvsyfPeoLCH
- DMnxEExq+xzbWUMNJpysl2Ec1izoNJZ7nGyreMM+78D8+VtBCg6HhrwXO+SMZaGc4j29
- jFRqL4KY4fAHS8wCSAjpGE+DZDPES9bdjJR3KEn7MyYyEblAh1YEV3QqlT7GSKcocF34
- Hh9aT4K4ilXfeCV5aHSgQhbkqQ/dIqhqmRJcrTbbuZV4YE06ZNKUfERPYX3coKqGql3U
- PxgQ==
+ d=1e100.net; s=20260707; t=1790596008; x=1791200808;
+ h=content-type:cc:to:subject:message-id:date:mime-version:from
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8y/14vF+O1HeqA5emJg88NL5DefW60ELONqq7Ew71Mg=;
+ b=AcVTOQnYs2iSaH8iCYKX3mDBEx038qOQgAQAvw9noTS0mPsCUntls0s/1rihqOeXfC
+ L8BqW/YQ53gyqG7qmMa9O3bpDs5IY1g+ciPfRhq3MZu37O5w2Atc7VyO+/3Is7qMgSdN
+ RjJFJ18fjx/jP8V9uZ0xoc5qIDTwZ2r1l99zzApt1cWPuSuxFgavEDK0+tJqpCnV5OcS
+ lRiUOI/9Mkho/OlcFw0wQ9CdWYl+a1rHor6JR4NFtSnAa2IaB4ZPSitX5ZZz/se8+i0x
+ pGgc8TtXHhUkS7DQhzbFMrO/M81PpAEQyQJCT0FVib+OEZt54UihVhA19kchV+Cl09sl
+ jOZg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzwF/6E2vERIM6eSEvzY8hG4LwUEx06R2LcxvcBPjte2QIS4VNsKOj390XSRYMjKxuHr583CEfx4rk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ9H9wj24Ix5WQXUWv/nvYIw9oz6q2IU8Uuzu2F44WXg+zj0Dbx
- V071T12XO8zICTT7V6Xt6HsYe+STiZ9NBO4Ae/NW5gjbu4vcKTNv+AQZ
-X-Gm-Gg: AYBFou3n7H7PH97WpUvN/I5eRA4Rdy5XUSZ6oGY54XqFlNXOGs8dqp+9Rr8fCXGdCaD
- Xld3D7xRfT5GILh+RlNDEgS/S9tj1o6slYBGP8EMjVFhMb1sma3bLcvCQxW3zS8Kjo4hSjfRx/W
- R8+e/mPw5+btY5iqEbX51AtPhzR7PKGFfTSygUd2PulLkwqWIO8T/tL1nq3hkwP4kjkjKtzAcHZ
- kV1C7fWggRr2u/TH3bw/xEzabwQ/rrcWK09Au0W6l+BDATciE/TnRSK3Pkv2BMd8UsYDRssmm/Q
- /ZyFJ8OG2D2etz04T/Cr6jVtHfImh9zR1V6XTIrP7R3/m2zOKnoGIiBQQ8DHb++xM1nbyT7P1TD
- LNicymicowZVGzCogwzc9MCRk8WUKn/IMpQgs15DeL2LrgUP16woy1SdGwN9JAeKr8wTgmU4zlk
- 8Zb6PlACcU2zfQtI6TwkYtoXalkV7uOJxJ00NV+2GyFT0tBsIFywhho9ChfMtkkx1Hroj70T6Fv
- SMbIiMQK+e26mf7hijG77yNuaD8qithzU+DsSc=
-X-Received: by 2002:a17:902:fdae:b0:2df:67e8:4a39 with SMTP id
- d9443c01a7336-2df7dfef6ffmr74050975ad.10.1790583310497; 
- Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
-Received: from DESKTOP-HOME ([2406:5900:111f:dc2a:3071:69c7:a4c4:6259])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df90fb675bsm37833275ad.10.2026.09.28.01.15.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
-From: Beomseok Kim <dilddream31@gmail.com>
-To: nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Beomseok Kim <dilddream31@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-Date: Mon, 28 Sep 2026 17:14:50 +0900
-Message-ID: <20260928081450.19340-1-dilddream31@gmail.com>
+ AKwUvBya2G1sCD9/f1Ff2RZj+ENobybCR4NCd+JZT9nxXbQieMJalZeO3A5K1HdUMwvgmdWFxzzJStxTa1E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kuW70tVbWrUU0M3s5KaRsNX9ACBhrla2iMII+g39aAPSUjxZ8M
+ OmGIcaOrELQRP6J+Z9qFrr8rR6u3dPYXbuy20XHxsQSZR/zoj7lhpk+oCKWLD6aCMbue2Dn5Sk+
+ vPzpABbg0Oc1ljcQSlcp6L8cbVHLWhqs=
+X-Gm-Gg: AYBFou3v0NOPbGvpetaRGiKb6w5zhL2WhthBzyp25MW8nSQSQOt+siTCPTECAWdhC9j
+ d4RvFrG5jL2zIHE70mzSgr7zv97n8iB6yP+sdPkcZAIi6cEGAV6GuLHGOj1EMPuF76ak3kPA3gJ
+ Nqy74h/hWP1wDzppdxUOt8Ok4Hqi8qgZbZNgH+PwKTjmVUMNQ//qSOEpQWpukUnXdNaTfTUcxM1
+ La3iUb9r+zkQISurwJ8VwxThIXj3CNhbMUwkBj+jreGsare/4bJ5r1eoW97Qt7huXTO8R0IhKB/
+ rOqCXstFsCRzEQiVVQUA19Qn8PTse9bIEKaZlwas47RNPZ4bHRC2L8h2MfZD5qxW4CbXIShxOvB
+ PXTgnCyAKzQ==
+X-Received: by 2002:a05:6808:bcc:b0:4b3:7da2:f393 with SMTP id
+ 5614622812f47-4d72c636b6cmr12794285b6e.15.1790596008135; Mon, 28 Sep 2026
+ 04:46:48 -0700 (PDT)
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:47 +0200
+Received: from 578479312649 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 28 Sep 2026 13:46:47 +0200
+From: Aveline Noir <jm5905938@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 28 Sep 2026 13:46:47 +0200
+X-Gm-Features: AclHuK8vvWWUjI-1FK5rP_VlhGDEQ4c_Oaxo0Aq7l7qcc2S08USGBF3bm-pvFn0
+Message-ID: <CANOyQmEg5abcMc-Xk6=2hQQWu9vq9wevGR3spe352QLyxsZNEw@mail.gmail.com>
+Subject: [PATCH 0/2] HID: picolcd: Fix output-request and framebuffer locking
+To: =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, bigeasy@linutronix.de, 
+ linux-rt-devel@lists.linux.dev, deller@gmx.de, simona@ffwll.ch, 
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,43 +110,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_fence_signal() clears fence->channel before dropping its
-reference.  nouveau_fence_no_signaling(), however, removes an already
-signaled fence from fctx->pending without clearing the pointer.
+This series fixes two PicoLCD locking problems. The first moves output
+requests into sleepable context and serializes LED state updates. The
+second breaks the last-close/deferred-worker lock dependency using a
+private framebuffer update mutex.
 
-The fence can remain attached to a BO reservation object and be used
-later in nouveau_fence_sync() after channel teardown has freed the
-channel.  This leaves a stale channel pointer that the sync path can
-dereference.
+The first patch was tested separately with the original syzkaller C
+reproducer and bounded concurrent sysfs/UHID-destroy workloads on
+PREEMPT_RT. The complete series additionally passed repeated framebuffer
+open/write/close and persistent-open framebuffer tests. Pre-fix modules
+reproduced the respective failures. Physical hardware, prolonged stress
+and suspend/resume have not been tested.
 
-A diagnostic build with concurrent short-lived Wayland GL clients
-observed nouveau_fence_no_signaling() with a fence pointing to channel
-C, nouveau_channel_del(C) returning, and then nouveau_fence_sync()
-attempting to read C->cli.  A no-fault read failed after teardown.
+Patch 2's Fixes tag identifies the fbdev change that began draining
+deferred work from fb_release() while holding info->lock. Patch 1's Fixes
+tag was checked against the upstream transport-conversion diff.
 
-Clear the pointer in nouveau_fence_no_signaling() to match
-nouveau_fence_signal(), so the sync path uses the fence wait fallback.
+Aveline Noir (2):
+  HID: picolcd: Move output requests out of spinlocked sections
+  HID: picolcd: Avoid framebuffer last-close deadlock
 
-Fixes: 29ba89b2371d ("drm/nouveau: rework to new fence interface")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Beomseok Kim <dilddream31@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_fence.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hid/hid-picolcd.h           |  4 +++
+ drivers/hid/hid-picolcd_backlight.c |  7 ++--
+ drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
+ drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
+ drivers/hid/hid-picolcd_lcd.c       |  7 ++--
+ drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
+ 6 files changed, 93 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
-index edbe9e08b..5b09cf134 100644
---- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-@@ -488,6 +488,7 @@ static bool nouveau_fence_no_signaling(struct dma_fence *f)
- 	 */
- 	if (nouveau_fence_is_signaled(f)) {
- 		list_del(&fence->head);
-+		rcu_assign_pointer(fence->channel, NULL);
- 
- 		dma_fence_put(&fence->base);
- 		return false;
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
 2.55.0
-
