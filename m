@@ -4,132 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57F49CA5FA5
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2384CA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92E6410E0D4;
-	Mon, 28 Sep 2026 11:14:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F4EB10E85F;
+	Mon, 28 Sep 2026 11:15:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="AT4CYSk4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4FQyDlrb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pl0B0tcK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+luPtwx4";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hHucVxnR";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 965B010E0D4
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:14:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CB45222745;
- Mon, 28 Sep 2026 11:14:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790594066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=T7DQXoqYyJF9JDYKyqmwcaf8DlQ/o6emYbvkFY8yqqY=;
- b=AT4CYSk4i1XzEmUdrBskSLLSn1ANStwZWqEqDhQQ7zccKqO/mVBxf/nNgXFqiQbXk47+Md
- n3Ol0PQStVjieFsr0hQEPMbFhBMCbnWiCTst4QsVulVLlfzapXScUjg6jjP2McS7IOFY5c
- a/dCJNPTTLnMeEK2oVlVMD7L/VuGvro=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790594066;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=T7DQXoqYyJF9JDYKyqmwcaf8DlQ/o6emYbvkFY8yqqY=;
- b=4FQyDlrbtPERYERA36fOl+NTU9KFs7s4dTopt1NSvwSJ/Zxuj4iHYeYL9eL12nTkkB8685
- mt9mE3j9CzSBA+Ag==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pl0B0tcK;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+luPtwx4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790594061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=T7DQXoqYyJF9JDYKyqmwcaf8DlQ/o6emYbvkFY8yqqY=;
- b=pl0B0tcKiqfdERHTZ9SEzX/P5ok5auRhh6kUEQmkpOCRougIRT796sl0gN5NZSLLZU5Dax
- RcQR3DAMicE7+vo8BVsI0znYKdQKJJWyKB96NS6MnHdu5lg36m4mc8V+BXrwHbIv5LcK0X
- O3tbC5HfNK6YHTlzxKJx3Nz08qkoN6I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790594061;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=T7DQXoqYyJF9JDYKyqmwcaf8DlQ/o6emYbvkFY8yqqY=;
- b=+luPtwx4B8ABmTdZ4ir0C60W/8DnUNm+qUMtslDSKn/9s0xwsX+UzX23o68Usnedi1BG/n
- gyG9N9Ev+jYbOFBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6750713419;
- Mon, 28 Sep 2026 11:14:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id S+yqEQ1MumrWLgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 11:14:21 +0000
-Message-ID: <9a95df99-3978-46b1-a3a3-17392006f5f1@suse.de>
-Date: Mon, 28 Sep 2026 13:14:20 +0200
-MIME-Version: 1.0
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012034.outbound.protection.outlook.com [52.101.66.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D58C10E85F
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:15:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QXm8ItfI4jmQ3YyV1spt+CCCv8GyYrs6tzIqdLHtmNRkArPEmANzegR62QbY2CPCy1V+vCPdMwRxYW0tfW3N1CJFYjig5SZ/mjRv92K/opWdoYNPJOMFilR2oTqch71ZhdavwzQ+WzwIQBm//mRk6iL0TKpuqPuvxQwRlJJl3+9uXez/FVhCso3TrvQYTpUFCx/g6lPT9LRopa+ofjX5oWmRfRnOyeFuMZDU/mTDIjD6kZIoxqkjw3oNfbYXm+wl/moTjyGK3aFUDBWN0Yj5MPW87i3M0stpQDBov8TXFjIomCt/VTeEc8FRF8RkUsl62M+uMj7qMyZVHYdo/e26hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Uz+Owp+xl4vLrZxLFJdjLJ83/fAOXEhsHgoHFguUapk=;
+ b=efg6rEIJPRUkTZOzjj0zgj5LY2HiD9qi8TfA5dYQCXqd4UPnhJhC1SL4YOX8fRboT6NnLZSQkSDfiyTTChGK60tMNEgS1cqsnEfGDQt9l1FZUxyWIuZuk5NEvskiDQ8NaUJixybGkQj9YcvumdKK+dsGLkn0UAj5VHnb9uHdWKPgJb9gbAYqqbOw5S+qQLXfNMWS0CDYeV92YQwVQxzi25askVU0IcdSRqrdGe97Doq2fq9D68g9TLWEMap3qvFxLoWRPCY5S4868YLc9SWnedgfsx2bXhYZExV0nYiGZF0CPF5P2g01Dpyn25BbjqmdJjKAdfyG7zR5E3v/rHwOHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Uz+Owp+xl4vLrZxLFJdjLJ83/fAOXEhsHgoHFguUapk=;
+ b=hHucVxnRNZliekWw52GPpVuNGX9PIZgYUMfzW6ShGDGWnieeYmiRY+uAlY/dvHBJYd/r2ahqckSkF/8XpbszwkM7+Y4EHbDnBZ9/gpfam0CCLRu/Dr+nbX3Bokbj8TDaAHQv3D8v4vYENd2d3A6EsR34uBvyUGBxBEM8nSvHsONStaUXaGPGpsxyJ+jADXYSRRW1JuJPqBlV4x5V2MxRgxMPnDCzOy4jQRvtA8U8TVr6grxl3S4DHyYcdJjklKMBZcD+feucNSiNWOCzkKnkutHEOPhjfEfs1t03QhFaabg/dbBsBktk3vjw6NXc/X8EqgoQIEV2NrGNXX2kzpEeUg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
+ by PAXPR04MB9593.eurprd04.prod.outlook.com (2603:10a6:102:24f::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Mon, 28 Sep
+ 2026 11:15:11 +0000
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 11:15:11 +0000
+Message-ID: <516826a0-67fe-4d42-af2d-7a283d945e2b@oss.nxp.com>
+Date: Mon, 28 Sep 2026 14:18:40 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] vt: Add cursor-size helpers
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-serial@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260928085724.41660-1-tzimmermann@suse.de>
- <20260928085724.41660-2-tzimmermann@suse.de>
- <20260928090923.E6F9C1F000FF@smtp.kernel.org>
+Subject: Re: [PATCH 8/8] arm64: dts: imx952: rename soc to soc@0
+To: Frank.Li@oss.nxp.com, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Guido_G=C3=BAnther?=
+ <agx@sigxcpu.org>, Robert Chiras <robert.chiras@nxp.com>,
+ Tim Harvey <tharvey@gateworks.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
+ Frank Li <Frank.Li@nxp.com>
+References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
+ <20260925-cleanup_dtb_warning-v1-8-f999fafbca60@nxp.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260928090923.E6F9C1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: CB45222745
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
- MID_RHS_MATCH_FROM(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20260925-cleanup_dtb_warning-v1-8-f999fafbca60@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR10CA0030.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d8::11) To GVXPR04MB12316.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c6::8)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|PAXPR04MB9593:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25bed790-53fa-4867-6afb-08df1d51c2f7
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|19092799006|23010399003|376014|7416014|1800799024|260925022911599003|921020|260925021311599003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003|260925021911599003;
+X-Microsoft-Antispam-Message-Info: i1iWOu5uk7BYRnolV6D7JqxbQb+LJNbPfnLPae67ZEMrZDXUERtaxnM8tnhknSuiusqxUpE9p6dgoiqKEbEIVJv37kFm7rI5CufG8YdaJekUJH/EfIh8438jU4Vmd1JxyjCuOQ2+ie5NwnvO0Y7+0c7dsfl5G27VNhq7NZLH2ped/gXzucf+xc0/sd0M7qt3HGVzZgZstUer3fuEt9OE/H50l5m/tOliA8Wv/w0U9pRuEFIyIoodvlEPaUPWaJgZNM53MFzzbNyVobv2fRqQDMCc+QGe/S9ZzHJ/h2FyD61dNR7sIATzmFSqv6Eq1VtnNKMDgj5GzJv1tY/xNCZk/mojLmCgtZaxhCyNWqq5/4TGo/iDcTMsOIpN77lXrHRTFyfnyHotCQGHlx0tpGczii1EYtE9hOmmu3B8IFqfKTAN9d+itnkx2jzNkbT621yBmCKvZErExpf1nKnJ0WIq7n1/An/4dkU3px9PbdTzmaFSXUXQIdsKM7w9rZM542MAHnz5svh/9t6u2J4oU+VVj6vxWb8jRbExlL7GXx7cg65pA2+R3epO2PraMpAX85qJvATk+AHL8xrLav569xZSFjospRoOb9GikjwUILzwf7L5SFSgmS/zMb5+df4QiOcIYCxrUzCPU96HC21b0g0ylE08haO/p0crJCSCSsW9ANe7chtCJgDhXpm4trL/rtsKmhYN0MjgBcsJR0iwefqSsA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GVXPR04MB12316.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(7416014)(1800799024)(260925022911599003)(921020)(260925021311599003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(260925021911599003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUFoemlQVit3alBlcUtPUTFHdFFLbEpGOFh6V0RWMUgzbnZkUkIrVm1QRmJv?=
+ =?utf-8?B?MVY2ZmtnNnJNZHVLaFRqeThXdlBmTll3OHorY2ZGVXN6bE92aU1XOEcya1V2?=
+ =?utf-8?B?L0FYVjNGZlBuU2hRZEdhQVg2Mmh4NjRFSGVqbURYYnIyUjRsbzdiNVU2bFdp?=
+ =?utf-8?B?R0k2akJUSHFSOVR4cTgwRjJuYkc2QXMzaitISEdJVEUyb0hudCtUWnVWS0VE?=
+ =?utf-8?B?QVc2cktFMTlZVjlsMVF1YnQzOEY3ckU1SGlvdjZrZHc4QUdMSHRCb0REcGlB?=
+ =?utf-8?B?Z1R1WVh3SEE1OW80Ri81ZFQ5SVR5V2NjSDJvZGxwTXF4bkg5Q3NIVlVtVWZa?=
+ =?utf-8?B?SFRvSmJuMUFzckxOYzUxR3F0VVNYRVlQNklvYWJxQ0ZaYnhuQWlZMUg2Zlo3?=
+ =?utf-8?B?a3RXaFQweXhJd2RpMTR5ZS9vTTVHZVRFbS9tQzFpcFZkNVVZeTRsNHZadDdL?=
+ =?utf-8?B?azNDZ21BV3BzYlE0eUVSSTRBSmFVVFVDbDh1M2NscGRTeWdxSjhnTFZKOGJL?=
+ =?utf-8?B?MWkrUEZ3R3o3SzdUSXFOREdlWEVjV25BWWJjWVFEWXQvcjFwUlJ0QnNEQ25B?=
+ =?utf-8?B?a0VpNzJPWHhhTzZJVHRuKytvZ0w0cmx0M0RwaEFTN1VORmxCaHhyQnVJU2pk?=
+ =?utf-8?B?L3YvMFJ3OExlckJUSjU1V0F0cmJLS3EwMExjOVU1NHBuZUFROUMvckJ5b255?=
+ =?utf-8?B?TGErTWxjYnR0SzRKUkhsMDNuVkM5eHl3ZDd0WG91ODgwMzR1MkFyYitnZGJn?=
+ =?utf-8?B?MzUzbkREWVJZSURuR3RTQzRWUVVDRzVNUHdpMEpUZGxTd1ZiMzJLSGFwWEEz?=
+ =?utf-8?B?WEVJMEtmWkRWRElQTWhkQVk1MVdrVXNmTnhoZXZTaFprRUQ1YWx3WVk4NG8y?=
+ =?utf-8?B?dW04Y3VUbmJkaVN2b2Jwc0M3anhCSUlmeFV0VTEvNDhpcUNtMnQ3SmE1T0c3?=
+ =?utf-8?B?WUZnSnIrcGhKMTRaSGthVWU5WmZwNkNIcUdSbTFUc2RJeGV5L24ybHB5S00w?=
+ =?utf-8?B?YnBpQXlsWHU0YVVXUCt1WmtLMCtlOVNUdG56dkQ0T1VNY2pMSWcyZ0Vaeis4?=
+ =?utf-8?B?WEJ0S2NYSTJhTUZGVTl6RUh3V3MvREg2cW9YRy9sT2JLd2s4Y0VKUUN6TnNH?=
+ =?utf-8?B?V2hDY3hFczMwZUhFNGhsWTZWNXRibjlMSVZKSFdzL0N0WkVjK2tuTHNPc2JG?=
+ =?utf-8?B?RS94RHFwczI5NlROdW45dDIwRFhYVHVMRFBSeW81NWYzV3NTbVhza1dLbXlR?=
+ =?utf-8?B?ekVnSWJOUk9SMU0rVzhYQWhEZlk0QlRXNVFVUGIyWnNHdFJ6UmFGWG92R1JH?=
+ =?utf-8?B?c21HQnFscHM5alo4aUJ4UkFpdjJWY0FTSjZ5UEUrSW1neWE4MHpOWlBtL3B2?=
+ =?utf-8?B?R2FnM2QrdFZlWTRiVmJFNEVRU0s5NGJnYkRIRXFjS3RmaS93TzNoNmhERTlY?=
+ =?utf-8?B?UlFnZnpJbThobVZvMytBby9LdFlVZzR6eWRrT01sRnBEZGlJSjY1MmZvNWlD?=
+ =?utf-8?B?V3Y2RTNqdXFQdmtXOTArbncxbUFxT1EzSE5oQkZEQys1bWp4NC90RmE4WVlY?=
+ =?utf-8?B?L2gvZ3Nwcm1NQVpscExaaVhlYXJnbDE1YUNtNmZ5eEtJOEtXeWdpSTM3OFA1?=
+ =?utf-8?B?blhMZW9kQ3BUWEQrVVRlZXFSSGZ5bmZhL1ZRSEsyNlROeUlVNW0vVVBLZjRL?=
+ =?utf-8?B?STF3eWNuTDF5eTVCdU5VREpYWWpBK2hIUDZJL1pFZkVTaHFXSmVCLzduWHlC?=
+ =?utf-8?B?ejcrS0dJc0I4eHpISThTb3UvNm8reDdmZlNyZnRGUXFBbU9VYUkxV2ZQUkxQ?=
+ =?utf-8?B?Sk9mSmwrdEk5NEdaMlJhZXRoV3dBRkF1Nng5QW9IR0V6dGpEbG0rTmFaWndy?=
+ =?utf-8?B?NFVLaEdha3BxdmdUdWVRV0VMZUdYU0FUeCt1RWlFVU5YSnJ5QUJPYmJFUTJN?=
+ =?utf-8?B?QmpPVDdVUjBXdGIxRnR1VDNLaW9sK3J1WHgyV2VnZFRRVStkWWYzT1B1UU1s?=
+ =?utf-8?B?dmZUanY5dVI4alZOdWxvd0hsaTgxdWw3NVVtVTFiT0FCN25wWnprMXp1NVd1?=
+ =?utf-8?B?Z2h0dFhmaGdFcXlneUtocU43NVR0N1JZaXZkWHlvdTBWUkVheUlydkNVMzhs?=
+ =?utf-8?B?NWNCU00xS21RU0V1OHRhUjRkaEZqT04yN3E2RUt4SEJ3L05Qb09xUkNibGZ6?=
+ =?utf-8?B?T0xLNisvREFkelJTUkUxWDZEWmNIRXVVaWsvNmZpYmdZSWRDZnFvdXNON3Ri?=
+ =?utf-8?B?WGtmZ09hcHBLcDhjNjdJTmkrQVZYUkhyUS9iODJqV0lOMkhyTUkvS04rNEJK?=
+ =?utf-8?B?NDJYUzIwbzJZSGZqbjdDcGw3ZU1odERkVEJMbUM0VFVUVTlsWFNKdz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25bed790-53fa-4867-6afb-08df1d51c2f7
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:15:11.2643 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7/L9W1s4aFUXeay5DE/NQnImTEEmCAjr7ENFfrA9NIfRGEoucq2Z1H7MWgvNJdoyRdcCqLjUynRKRMUKI8OIUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9593
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,94 +155,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 9/25/26 19:37, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Rename soc to soc@0 to fix warning (W=1)
+>   arch/arm64/boot/dts/freescale/imx952.dtsi:348.6-1539.4: Warning (unit_address_vs_reg): /soc: node has a reg or ranges property, but no unit name
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
 
-Am 28.09.26 um 11:09 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] vt: unprivileged log injection via pr_warn_once in cursor sizing
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 
-FYI this is by intention. In DRM land, we usually allow for warn_once to 
-be triggered by user-space code.  If that's not an option for vt, let's 
-use pr_debug() instead.
 
-> --
->
-> commit 4874174842fbef217a6215957d5bf1bff1442b36
-> Author: Thomas Zimmermann <tzimmermann@suse.de>
->
-> vt: Add cursor-size helpers
->
-> The new helpers vc_cursor_start() and vc_cursor_end() return the scanlines
-> in which the cursor block starts respectively ends. Users can control the
-> cursor size with the vt module's parameter cur_default or with the ESC
-> sequence \e[?Nc. In case of an invalid setting, the new helpers fall back
-> to cur_default and then underline cursors.
->
->> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
->> index 57edf37495a81..8141296ccad05 100644
->> --- a/drivers/tty/vt/vt.c
->> +++ b/drivers/tty/vt/vt.c
-> [ ... ]
->
->> @@ -264,6 +265,109 @@ unsigned int vc_font_size(const struct vc_font *font)
->>   }
->>   EXPORT_SYMBOL_GPL(vc_font_size);
->>   
->> +/*
->> + * Cursors
->> + */
->> +
->> +static unsigned int vc_cursor_size(unsigned int cursor_size)
->> +{
->> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
->> +
->> +retry:
->> +	switch (cursor_size) {
->> +	case CUR_NONE:
->> +	case CUR_UNDERLINE:
->> +	case CUR_LOWER_THIRD:
->> +	case CUR_LOWER_HALF:
->> +	case CUR_TWO_THIRDS:
->> +	case CUR_BLOCK:
->> +		return cursor_size;
->> +	default:
->> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
->> +		fallthrough;
-> [Severity: Low]
-> Is it expected that an unprivileged user can trigger this warning message?
->
-> An unprivileged user can write a specific DEC escape sequence (e.g.,
-> \e[?103c) to the VT, which parses an unhandled size into
-> vc->vc_cursor_type via CSI_MAKE.
->
-> When the console driver later updates the cursor, vc_cursor_size() hits
-> the default case and emits this warning.
->
-> Since pr_warn_once() is rate-limited to once per boot, it cannot cause
-> a denial of service, but it still allows local unprivileged users with
-> write access to a VT to add a warning line to the kernel log.
->
->> +	case CUR_DEF:
->> +		/*
->> +		 * Use user-given default size, or underline if
->> +		 * the given default is invalid.
->> +		 */
->> +		if (cursor_size != cursor_default_size)
->> +			cursor_size = cursor_default_size;
->> +		else
->> +			cursor_size = CUR_UNDERLINE;
->> +		goto retry;
->> +	}
->> +}
-> [ ... ]
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+> ---
+>  arch/arm64/boot/dts/freescale/imx952.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
+> index 1154b66dadb2d..3c51e61d1fc36 100644
+> --- a/arch/arm64/boot/dts/freescale/imx952.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
+> @@ -345,7 +345,7 @@ opp-1000000000 {
+>  		};
+>  	};
+>  
+> -	soc {
+> +	soc@0 {
+>  		compatible = "simple-bus";
+>  		#address-cells = <2>;
+>  		#size-cells = <2>;
+> 
 
