@@ -4,91 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FDACA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCCBCA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:10:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6D9810EB52;
-	Mon, 28 Sep 2026 18:09:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9754010EB63;
+	Mon, 28 Sep 2026 18:10:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PJhbHkIR";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jjpcLyCr";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E47610EB48
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790618969;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WblzAY3JRV9CtwzNMKeAP2oGeUzXJbmdjxKWRmzPjT0=;
- b=PJhbHkIRBFID5cswJ92776vll2KD9fgt0nDXJiPT4OZ0f/SvgmDkX8UF87Anx6/UkrWjPP
- 5fzw94ZOd6SAHBX8zdIdHM+amGsRhWyLrT6KKRv9c8ZVZev/4ilzX8ghONdSJyg4rG8uGk
- ohi3QePa1nJcfZw2sf5/pvMfBxfM0ZE=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-493-g_QVZ40QMQ-5OAQq0dsBEg-1; Mon, 28 Sep 2026 14:09:28 -0400
-X-MC-Unique: g_QVZ40QMQ-5OAQq0dsBEg-1
-X-Mimecast-MFC-AGG-ID: g_QVZ40QMQ-5OAQq0dsBEg_1790618967
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-49e7631c43aso34555905e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:09:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790618967; x=1791223767;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WblzAY3JRV9CtwzNMKeAP2oGeUzXJbmdjxKWRmzPjT0=;
- b=OfOEsc+JJFOxNbsdIQk6PsebQO6mk6nkj9eS0RL8cH+r/FAIsimu3olJ9zA9yuBd/X
- OnHuPuKp4X1jhvloSVWw9BEMHk890bw/8iekaFJTf+ZxzgKC2UBiKXJGUcoTPw4Y5Zn/
- GqWfGeqAupa2ju7CH1Me6tmlXh2Xk+zT9A/ze9Fp9qWQMp2yjRQ8XeCwIq9DSZCP8gDq
- TQ7jipyI6rq35EJla1Nt25jfFbnjodQblJFMPmAUvFOqq0Bq4VvWdpdHVXpacls0Z+bu
- svVfFoBXikPLhe90/0gX/4gP/g3xJXBH3mvhTGitb9cGcNWeztZDq1N9EzSg/51oJGNR
- +0pg==
-X-Gm-Message-State: AFuF++lYZSCSAKkmPRFb9XsPwnkIkkKmt3QdViH3k03G6LaswXnxSNy7
- kupBBUXjukKfylT5m2GdfdKej9hA21btOEY3Hw/imxZiS1DCPjorxZeba/eFoQU7a5R64ENV+U3
- SgvnSuz7csskc1ZQw1Mvrkhd609oWSYV4nuIrfcETCnxtkDMTsf888U6+J/H8LeiZ74ZAig==
-X-Gm-Gg: AYBFou0dmVWE5tqCb44Ipz3dGLGIeBzF75TQY8QOAEzJ3EmL9pCQ0KqoSYueImTZA5J
- ttDWIrd/PjKG9hg3zLYA/iWXqcAltSZ/gea/6oaO4TTx2BFMhyaLpwJLNapXwx9PqGmI/KYfaWZ
- Im7OHFOFYTfiMFRIt0G6kwkF0MuJ9YHXr9SAIv4wJDpO5WCG+hPw2KjAbHcHeQG+aDSVKuzGoxM
- JvoAUARy0nfKn9CfY7FqWFHpnSuHcXExdEdjhcm2oI+xIZRdGgCOGaInCBewMjCkqQGT+LD6mxn
- OmLFkFKYVK3z2xRyAf1qfHAuFwaimhsqmJWuai38zuKQFtPMp4O2uncXXMyw0z69mwIsRbx7MNe
- T+ZgvNv7E5D8RGDf8SmVmlVkKNYToECMzl6DVwq4kvCKlKG1xoBtlg5ilIV2tLtjClg==
-X-Received: by 2002:a05:600c:1389:b0:49f:dcc8:c735 with SMTP id
- 5b1f17b1804b1-49fe66f4c7dmr231739745e9.18.1790618966854; 
- Mon, 28 Sep 2026 11:09:26 -0700 (PDT)
-X-Received: by 2002:a05:600c:1389:b0:49f:dcc8:c735 with SMTP id
- 5b1f17b1804b1-49fe66f4c7dmr231739375e9.18.1790618966445; 
- Mon, 28 Sep 2026 11:09:26 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a00d10cb7dsm3533065e9.0.2026.09.28.11.09.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 11:09:25 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, jani.nikula@linux.intel.com, Alexander.Deucher@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>, Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH v4 1/2] drm/fbdev: Move fbdev module parameters next to
- module init
-In-Reply-To: <20260928080323.23909-2-tzimmermann@suse.de>
-References: <20260928080323.23909-1-tzimmermann@suse.de>
- <20260928080323.23909-2-tzimmermann@suse.de>
-Date: Mon, 28 Sep 2026 20:09:23 +0200
-Message-ID: <xlv133utfdt8.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9FCB10EB48;
+ Mon, 28 Sep 2026 18:10:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=SRzjVWsHhgmkv307VMRyp22ehkJ2vsY4NwD7K1IM8Kc=; b=jjpcLyCrI8ZCdQKSgEWQ29VjlT
+ dDrbGKC+TQry+E4N6nGrzMFqNWrvkMpswi9gatGOdkwJL4+mt8jsZIJj2Fo4bd23l1uS5oaOuTogS
+ pgu9Dr3ZP59dlfFslSjFLoVDO5lF0/xULrkHdbva9GSs/Im2zDKLU6Vxj3d3agpxPh8xCt1JItor6
+ k7Xrlqfb6g1QdyWUA1biYq2Pkr6dloM7u9glIb7Uj4lEaJwku5KsnyETdDliMS2WfRD9N5IMamGlU
+ OXDlI1XBvCsE7WH3nQPw6gdOpYu0zJ/UJ3J0P/XpmjdtK23IBGPTYyOEauWe+pWHU6858si3UC6Yj
+ puLBT/5g==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xBFnQ-008VrI-2j; Mon, 28 Sep 2026 20:09:48 +0200
+Message-ID: <7dda1960-9e73-43af-bbb8-e6e7ba32a8f3@igalia.com>
+Date: Mon, 28 Sep 2026 15:09:40 -0300
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: nqpeAt9oAngaMjVFGPjeywsIpdR4Wsv3VyzV_jagM2k_1790618967
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+ <7a19a212-194a-4d5b-b0a0-6d2bee24f636@suse.de>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <7a19a212-194a-4d5b-b0a0-6d2bee24f636@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,33 +95,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+Hi Thomas,
 
-Hello Thomas,
+Thank you for your review!
 
-> Define the parameters for fbdev emulation in the source file with the
-> module-initialization and exit code of drm_kms_helper.ko. The parameters
-> control some aspects of DRM's fbdev emulation. Common usage looks like
->
->   drm_kms_helper.drm_fbdev_overalloc=200
->
-> on the kernel's command line. This has been possible for many years
-> and changing it would likely upset users.
->
-> The emulation code is supposed to be moved into the module for DRM
-> clients. Keeping the parameters in drm_kms_helper.ko avoids breaking
-> systems the use them in the way described above.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
+On 28/09/26 13:37, Thomas Zimmermann wrote:
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+[...]
 
--- 
+>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+>> +{
+>> +    u64 secs;
+>> +    u32 rem;
+>> +
+>> +    /* Make 0 timeout means poll, as for the absolute variant. */
+>> +    if (timeout_nsec == 0)
+>> +        return 0;
+>> +
+>> +    /*
+>> +     * As nsecs_to_jiffies64() does not guard against overflow, split
+>> +     * the timeout into whole seconds and nanoseconds. This way
+>> +     * nsecs_to_jiffies64() is always handed a value below a second.
+>> +     */
+>> +    secs = div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
+>> +    if (secs >= MAX_JIFFY_OFFSET / HZ)
+>> +        return MAX_JIFFY_OFFSET;
+>> +
+>> +    return min_t(u64, MAX_JIFFY_OFFSET,
+>> +             secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
+> 
+> The timeout is controled by user space, right? Can these additions 
+> overflow?  I see that secs is tested against MAX_JIFFY_OFFSET, but is 
+> that sufficient?
+
+Although the timeout is controlled by user-space, the additions cannot
+overflow here. The secs test bounds the multiplication, which is why it
+is written as secs >= MAX_JIFFY_OFFSET / HZ rather than secs * HZ >=
+MAX_JIFFY_OFFSET (which could overflow).
+
+Past that check, we know that the remaining is smaller than one second
+and therefore, nsecs_to_jiffies64(rem) <= HZ - 1. So, the sum + 1 is at
+most MAX_JIFFY_OFFSET.
+
+> 
+> BTW there was this NSEC % HZ test in the original code? What was it good 
+> for? It is no longer useful?
+> 
+
+I believe that NSEC_PER_SEC % HZ was only useful to check if it was a
+plain division, which wouldn't overflow. With the current approach, I
+believe it's no longer needed.
+
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+- Maíra
+> Best regards
+> Thomas
+> 
+> 
+>> +}
+>> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+>> index cd9621c52062..6ee222a3e97c 100644
+>> --- a/include/drm/drm_timeout.h
+>> +++ b/include/drm/drm_timeout.h
+>> @@ -12,5 +12,6 @@
+>>   #include <linux/types.h>
+>>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>>   #endif
+>>
+> 
 
