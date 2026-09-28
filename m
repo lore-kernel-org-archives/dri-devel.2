@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA88CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFE3C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF7410E7F3;
-	Mon, 28 Sep 2026 08:15:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6435D10E7FC;
+	Mon, 28 Sep 2026 08:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Wfr60wMv";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FHR468bO";
 	dkim-atps=neutral
-Received: from mail-m16023653176.xmail.ntesmail.com
- (mail-m16023653176.xmail.ntesmail.com [160.236.53.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 489FE10E7F1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:15:09 +0000 (UTC)
+Received: from mail-m935.xmail.ntesmail.com (mail-m935.xmail.ntesmail.com
+ [103.126.93.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46C7910E7F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:15:17 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e5f;
- Mon, 28 Sep 2026 16:15:05 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398ea3;
+ Mon, 28 Sep 2026 16:15:14 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -38,25 +38,25 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 03/14] drm/bridge: analogix_dp: Add IRQF_ONESHOT and
- simplify IRQ handling
-Date: Mon, 28 Sep 2026 16:14:07 +0800
-Message-Id: <20260928081418.3605775-4-damon.ding@rock-chips.com>
+Subject: [PATCH v3 10/14] drm/bridge: analogix_dp: Manage pm runtime and IRQ
+ for native HPD pin detection
+Date: Mon, 28 Sep 2026 16:14:14 +0800
+Message-Id: <20260928081418.3605775-11-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0e714f49203a8kunm323e2b5437cf1f
+X-HM-Tid: 0aa0e715167803a8kunm323e2b5437cf71
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSUlOVkIaSUpNGB4ZGEsaQ1YVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEoeVk5DS09JGRlIGB1MH1YVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
  9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
- b=Wfr60wMvG2J8qXhOo+zFzALi2vXZTHnXnItUIGi80sunqP3uXezqTn20pSNXseZJpW14EPUORahf2X8lmgkjMQy2T0E3haipumge3QtefnLqRgtXcBC66qN5HZikwDMj0wARqUkZXwgFCjtPTlDh5i1Tyse4Ml1PBRn1DthkrPU=;
+ b=FHR468bOgqbhhO89sW6plrUIBNGprK8yYsnbhwl/HwN66rnW4hGl8VtzxBx68WybFuSZzy8j3qDfROdZCxkvRQ6vAzV8f/oAq+aB4t0IwrwwrfY+6QjEQaNJ508ExGLqC6LpAn4qYVRjMuO/H56CpbpVCrtGHnvHBXYvQ1Gt82w=;
  s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=TeGRKIo9zN3ch77zMT+V+rC/6To7Yk8YMsagDBLa1v4=;
+ bh=QLzkxeakjSh54tUqTZOT4TJ34W2N82hCyBquIMOGQ6g=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,81 +73,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The threaded IRQ is requested without IRQF_ONESHOT, allowing hardirq to
-preempt the threaded handler. This creates a read-modify-write race on
-HPD interrupt mask registers between the hardirq mute and thread unmute
-operations.
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered and clocked to generate plug/unplug
+interrupts. Without a runtime PM reference, the controller suspends
+when the display pipeline is inactive, disabling HPD detection.
 
-Add IRQF_ONESHOT to keep the IRQ line masked during thread execution,
-which eliminates the race and makes the per-event mute/unmute calls in
-hardirq and thread handlers redundant. Move interrupt status clearing
-to the beginning of the threaded handler, before
-drm_helper_hpd_irq_event(), to avoid losing events that arrive during
-the event handling.
+Acquire a runtime PM reference in analogix_dp_bind() and release it in
+analogix_dp_unbind() for native HPD pin mode. This keeps the controller
+alive throughout the device lifecycle for continuous hotplug detection.
+
+Persistent power is only necessary for native HPD pin mode. It is not
+required for force-HPD or GPIO HPD modes, where hotplug detection does
+not depend on the DP controller's internal interrupt logic. Add helper
+analogix_dp_require_pm_for_hpd_irq() to identify Rockchip native HPD
+pin configurations (non-GPIO, non-force-HPD).
 
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls.(Sashiko)
+
 Changes in v3:
-- Split out a separate commit to improve the return value checking for
-  &analogix_dp_device.irq.(Sashiko)
+- Modify the commit msg according to the previous commit for moving IRQ
+  enabling/disabling.
 ---
- .../gpu/drm/bridge/analogix/analogix_dp_core.c  | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 27c9a764e25f..974be5b702dc 100644
+index addd319719de..38857508d939 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -704,10 +704,8 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
- 	u32 irq_type;
+@@ -39,6 +39,12 @@
  
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type) {
--		analogix_dp_mute_hpd_interrupt(dp);
-+	if (irq_type)
- 		ret = IRQ_WAKE_THREAD;
--	}
+ static const bool verify_fast_training;
  
- 	return ret;
- }
-@@ -718,6 +716,9 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 	u32 irq_type;
- 
- 	irq_type = analogix_dp_get_irq_type(dp);
-+	if (irq_type)
-+		analogix_dp_clear_hotplug_interrupts(dp);
++static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
++{
++	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
++	       !dp->force_hpd;
++}
 +
- 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
- 	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
- 		dev_dbg(dp->dev, "Detected cable status changed!\n");
-@@ -725,11 +726,6 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
+ static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+ {
+ 	analogix_dp_reset(dp);
+@@ -1571,6 +1577,12 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
+ 		goto err_unregister_aux;
  	}
  
--	if (irq_type) {
--		analogix_dp_clear_hotplug_interrupts(dp);
--		analogix_dp_unmute_hpd_interrupt(dp);
--	}
--
- 	return IRQ_HANDLED;
++	if (analogix_dp_require_pm_for_hpd_irq(dp)) {
++		ret = pm_runtime_resume_and_get(dp->dev);
++		if (ret)
++			goto err_unregister_aux;
++	}
++
+ 	enable_irq(dp->irq);
+ 
+ 	return 0;
+@@ -1585,6 +1597,10 @@ EXPORT_SYMBOL_GPL(analogix_dp_bind);
+ void analogix_dp_unbind(struct analogix_dp_device *dp)
+ {
+ 	disable_irq(dp->irq);
++
++	if (analogix_dp_require_pm_for_hpd_irq(dp))
++		pm_runtime_put_sync(dp->dev);
++
+ 	drm_dp_aux_unregister(&dp->aux);
  }
- 
-@@ -1474,10 +1470,11 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 		 * that we can get the current state of the GPIO.
- 		 */
- 		dp->irq = gpiod_to_irq(dp->hpd_gpiod);
--		irq_flags = IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_NO_AUTOEN;
-+		irq_flags = IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_NO_AUTOEN |
-+			    IRQF_ONESHOT;
- 	} else {
- 		dp->irq = platform_get_irq(pdev, 0);
--		irq_flags = IRQF_NO_AUTOEN;
-+		irq_flags = IRQF_NO_AUTOEN | IRQF_ONESHOT;
- 	}
- 
- 	if (dp->irq < 0) {
+ EXPORT_SYMBOL_GPL(analogix_dp_unbind);
 -- 
 2.34.1
 
