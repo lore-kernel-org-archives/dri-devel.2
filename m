@@ -4,131 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758EDC9832F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 06:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32850C9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 06:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB77910E7A3;
-	Mon, 28 Sep 2026 06:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4843510E403;
+	Mon, 28 Sep 2026 06:40:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PGxSZnNt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ABLGZDmA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RTpY1fyP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YXDKyG7u";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="QghSC15Z";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3338910E7A3
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:31:51 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6513221D31;
- Mon, 28 Sep 2026 06:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790577105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
- b=PGxSZnNtJLiZ/ZJFkoLz58FtMKW99QZPDqNVsDvMoFRWHNJ1mvX8xCIQZsawXALCNsr3p8
- J3zLKGw6LtSfa/Mup528JvdJBVYWSR9KHam/jFPXOJCu5rhphU/ESrjOwbh133vaWxxEEz
- 4WgdABxtwNrB+i/eoXU7lPHkZ7ViSl0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790577105;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
- b=ABLGZDmAIOgZQT6P2ak1da6ELiW1C6dFzqx52k9DezRSSddkBpRkRN2sL65KGHnz9cuwtF
- 6QtHlclj6yKIdzCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790577101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
- b=RTpY1fyPsjdZQlvQAEP2IV/0L7wujxktcmMHjtZskaY68baNv8DZGJ3G1dZC6nt0IqKV3l
- sfwy1eSk7gg24rOtfZRih+vzIN96vYEU7UzA1sMterSRdqaos4akzXo/inRYatTMMpMS+T
- 3wzMkRGNQKwmfgrWDaEvczGsM59IVL0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790577101;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FDaDfs212NgUvCmr9pWEaywlhgSFzA9dZFzGmRyIntI=;
- b=YXDKyG7u8F6YWdZyuZJ3xKHtmHRf6spUbbDLENJB/SXNeI6UTrTXo4/wxJEuRkL8+0OAW2
- xl9bnjCqv+ty8XAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0701A133F3;
- Mon, 28 Sep 2026 06:31:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7RUqKMwJumpOfwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 06:31:40 +0000
-Message-ID: <21221a01-2533-44e0-881e-8225cd63fe02@suse.de>
-Date: Mon, 28 Sep 2026 08:31:40 +0200
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010036.outbound.protection.outlook.com [52.101.56.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFBB10E403;
+ Mon, 28 Sep 2026 06:40:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hAHK5pI0f5ReOqcZGrRFcju6pVyVbzYnW0QmynGbz1EunrBp+Lj2WSi3hK9+YEjomBmZwQWSI1ODKlcBbDyVXmjqv8J6eUVZ496iBFdfy4mfg6TCayePRQjUX6yb0YT2100CJrFVn2FrBrtqujh8eTV4kD5A7TK1v3PcW5a+Z6HmBv4+uhNNReFxCBbT06FNZ2NY3noeubiLjHdjOV54S8l9a7Gebqxd6+wF368q+llopHG6HEvFut/zOKTEOEjbcZE/+hMJ+UoRpRibRMyJbPnNoVrZyM8rIwRL+YIHmYc+hWJ9hJgOoeEnHvl6ksBykZDL0JK43YR/macBkScM8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C4LTSZWMKxCxrSZVc1n43vX0ZJfJlK7OPaNWx9ZGoiI=;
+ b=gT9xMD3tc/KvpWn/vBo1uk3eG4jyVED61+hLON1jjZL3yBteRsKdDTaWn49HlUGMnAQsbxzX0Qoy06DyXakhtwlm1GtUVk0wwLsLMprYCF2Ny3GI2T5Fb4Qc0bd1inhQFbyFNsSWNVU4LEkB3SsTu76HdMAVdeu9OmIdVsS42Sazw/jqhYVt5tbRVleK7J4qQsuikgiqWMehlXGsE4ykzhUQR6yPuIZZiZXjlW9zDCPFu4suMPYid6RsO7tT4ZZb7UMYgtXi3BaTOcPt3uXc33nYSxbr3wuYbGb5GnYExXtWK/hCAR8r+SLuCmobqvHr5Aus+G3bDIYqSRRbe579kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C4LTSZWMKxCxrSZVc1n43vX0ZJfJlK7OPaNWx9ZGoiI=;
+ b=QghSC15ZqQJXNBOwoPVCZ11oaumn40mDk/XzqzwyN0c36WENiHpMkg48zqetFWbhDwv4HLJtKnnUbcnF/Dwt/miiPxQRg52uG0kNj9TrjeKHScycSsqOxLOeTz8kDNJp9T6VIFTuSatdxzqzWKU5IvxWy5ooi81lKxyGa5m9FNJK9Yg5HencD3Vj6QdeFXWx8H0j7c1dTOwUECvkdCKCFCLqroVE4n9MvINXWh8N9YPMcWebP5xAwerj+JqURk2kgxpBq4G6N69tZgdcqTMoiy1EYXWVVMAIzAPmfhRZ27+zqmoZKWfkAeLt37F8+jjpAHU3lly3CpFr/bSy+K3ZzA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.23; Mon, 28 Sep 2026 06:40:40 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:40:39 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 15:40:35 +0900
+Message-Id: <DLQQSPX5V4GY.8G8ZVQXV6WQ8@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 4/9] gpu: nova-core: gsp: cmdq: split the transport
+ part of the send path
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-4-c3f66ae73be4@nvidia.com>
+ <DLQP0I37RZTD.4C52AA74ID18@nvidia.com>
+ <DLQQCJRLIWXA.32C5JK2QOGGTW@nvidia.com>
+In-Reply-To: <DLQQCJRLIWXA.32C5JK2QOGGTW@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0256.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::14) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fb-helper: defer setup when fbdev_probe() fails, not
- just on -EAGAIN
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260927075434.72658-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[ca23c8570669ead78867]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[9]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,syzkaller.appspotmail.com];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email,
- appspotmail.com:email, imap1.dmz-prg2.suse.org:helo, syzkaller.appspot.com:url,
- suse.com:url]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL1PR12MB5972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b478ddb-247a-4f86-2de8-08df1d2b68d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|23010399003|7416014|376014|3023799007|6133799003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: dLH9lYwqIy2W/9ayFygRJNyr/LqxFxttsHTP/hCJghO53saYGThUTZ6WWlTg9+pR1O8bUrDzkgy06n2BTcxRh7erhPEqoPipebtcbLwahJddq69kthbS68Uv5tkTedNl/EMOkfnXV7S2uZDFHFhYxP+Nr+TEXFk37MeXJaoHsb4oDDBMJX5oqelBKylPz7ccUmu01ipq3yIS8A7LCV8EaiHZYesnJ3+e3QnZYdCQY+ZpETNb+ryHRbtXOnHCiE0XkjlzZ5Vwyreur5d29kOaCKKWeT6IuSi9XU8Itt9/G1iBP8ZkEZUK9Kcbl4NktYmwhwmXUjC3vLQ2NztMA6qpqq+V7axneitffeTMAuqJKjiKucffkAMe5bkS/WP3Yf25U0xzfWsSItM8gwoQ2axNzJUteU4sqn8uKHsAFCKCYeUiRvexgJrkuthjdQyNugg2zCmxhbhmaTBx9ZxMNBoUs87gRzIsCJAxQMoK3nYcnPcw+5w00YbTtSdG7lOgEU7sD0ETDoCNWVgbQR0o8iiyXpzanFHtHxJhYdxs+8QHTXAq46ULv0E+c6mVV6uS8ScoYPJHGUvERAOoRryXLXEGJMMf1hskErU5IrTpd210HARrNHIadCLzqcX11u+bmoDcQQUx3NNu3D6l5imyA/4zon+mUwD25zTZuEJVbXsmMRA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(7416014)(376014)(3023799007)(6133799003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RDN0K3RGNWxSMHJHTXZ0RktLZlM4amNCS1VIQUVjeFRqdkhTenFEZlgySWNX?=
+ =?utf-8?B?Nlpxdy9nTnhrU2hDQmhNS0p5OWlEUVl3S1I0bXBJN0UwbEJSbmtNUEpzZThP?=
+ =?utf-8?B?QjR2TzJPN3kyd2tFMVN1b09tVlkzYUhWbXIwTzlTSjR5eUhEN1c4bkh4RFNo?=
+ =?utf-8?B?NGJmVTBqQ1RWajVvZkxpUTJCUURkekVrZm9uOEkzcUo1UHNGTWthNzZvWGVy?=
+ =?utf-8?B?L016VmFNeTN1c2YzYzNDa2t6c0piQUNOYS82d2lSTnVBY2pYdFFpVFlQZk5R?=
+ =?utf-8?B?bTZ5SjhBOTNzSTFTaUc1YWZsR25PaU9NY2c4TTNVWmw4UzZ4akdvbXpKSDBv?=
+ =?utf-8?B?cjUvSjJ0dTNFMnhWcXh3T2c3WTRKY2tTaHU2UVoxUlhub1VQQUxod2NKOHRX?=
+ =?utf-8?B?MTcyeXU3bWhYaGZobkEvMEd3Yk54WnMwUDhlNXE5eFArMk8yZjBlVGJBV2Qr?=
+ =?utf-8?B?VGVnL0F3QkJtM1VES0w0V2NBcU1nUGxhUWtMc01vWUxBLzgwNGZnREpyZ2RY?=
+ =?utf-8?B?U2N2bzhaK3RYTGVJVldVMjBZMWM3aWtyU2VIc2EzdXdTTUxoR3daUzZscElV?=
+ =?utf-8?B?V2Z3TldEU0dHdE96QTFHaVYwOHhuZS9EdjFreHZsZk9Kby85YTd4dGlGVlJ4?=
+ =?utf-8?B?blFoOTBoQnRXTVNXL2xrdEROakU2T3lDVTRNM3lBVEY2dXlCS1lwRSsrRisr?=
+ =?utf-8?B?UTV4cG1Za0lZaTFXYmhsNDdpbVJCdEF4MVVVeS8rWlVmL0VHbHQxMVpaT3pG?=
+ =?utf-8?B?RmNJRWJKc3FYdG5QM0FmRDREbmVNd2RpelhDRFBsREFrZ1krV1ZTYlV3YmR5?=
+ =?utf-8?B?UGExcUQrTW5Va20vRWF6dWJLTG93OStwaFNWclZuckxVWUxMSGpoSjhqNDlU?=
+ =?utf-8?B?RVRweVMxbVhkcy8rN2lka3p3VlhQeG10QTVRZ3FnaEVTK29LN1p3UEF5L1c2?=
+ =?utf-8?B?TUxpMk96UGdveDdSejRqTUlabDBDUzlhdWhOL0t2cXFPLytYbE1UTGN0T09V?=
+ =?utf-8?B?NFc0dkdhYzF0YW85aGdsejVYYXRWMVVza1hFVVgxNGxBVHFQZWhMeWtjSUNB?=
+ =?utf-8?B?V25oZmZuZ1dURzMxQnJ5MSt3U3haZHFha2QweHRPUFdVTnFJU3p2ZEppclRO?=
+ =?utf-8?B?SnFhQTVkMFhQaGxnTDZJa3lreW8zNU9KdEdqaG44dVI5eVNTZkFXK3drK2Fs?=
+ =?utf-8?B?Z0hTS0M1ZkN2eUtGdVR1UDRyd0tDVlVkZ3A3VnZsbC90c2ZhSW84TnZtVXhR?=
+ =?utf-8?B?ajBzbDNrK1ZpbDIxUC9mOVpPQnhXMUhJQi8zWlJJbURkNktRZ0x4RTU4OVZY?=
+ =?utf-8?B?VHFwU2lGNW50dE9SSHVUQXBubWZjanZQWmhGSWFQWFI4L0psNVJWQkhYSDhu?=
+ =?utf-8?B?MU94dDEwYjFPTklZUzcybnJ0S1ZrUEFpMElyTFVpeVRiSnFMYWs5cm5zZ3VT?=
+ =?utf-8?B?RlhTRmVXRmJGdldpL2loTU5hVlBSWHl1cVBUSmdJUjF5Mnc3RDJvbmIvRTVl?=
+ =?utf-8?B?em9qQVd0bnhCZ28xbUNNcWpsbFNVL3EwM01XTTlaZEFITDNzMW1xTHFUSThO?=
+ =?utf-8?B?QjBjVkNaSXhjaStUSXdJcDY3OWc4bmp4MmF0QS8yeWVYUTB3NGc0Ykp3Z2VR?=
+ =?utf-8?B?a0E1aXl6T2ZRUWdkY3hoYWljTTNsNHhIMkVFL3JDZFdYQ3JhNkRWM2trM2pq?=
+ =?utf-8?B?UUNJMDByTWk1U21JZ3Z3Q21TSzVucndjWXZiYjNXNDRpaWZIaVV1WnhhcTRh?=
+ =?utf-8?B?NHkwazZlbWNqTGJxZksySUcrbGE4WXRmUFJ0akx4QUJGekYxTSs1OTVLWWJx?=
+ =?utf-8?B?NDRKSDcxbjZ5dGJUc3RYZG9zbnYxMk0wYWhwWTNRRTdjUnhLNFNsR3lNUlAy?=
+ =?utf-8?B?OTlMUjRDNmV3eGlZOTMwMjFmb1pad2VpRU8vYnRUV3dHYzViOVRQWitYcWN3?=
+ =?utf-8?B?MVkrWGd1eUY5cFBvY0NKWFBtMnI5SVl0SEhrcFpSTkJUQnl5NEMydEVxU0NC?=
+ =?utf-8?B?NXdZTE9neFM0eGxhS2k3RUV6WjYrQ2hWR3NidEY5MTd4NC9uYzA1QVB1SUM3?=
+ =?utf-8?B?WUJvbVNNRStRV2ZOQXhCaEVleFU1QldCUU5Nb0M1MzUyYktxdUhneXpqOFIz?=
+ =?utf-8?B?QS9FL1JBSDdNTFE3eHphSElDVjJRSGRHRmw0ZzBISGhaem1PZjEvZUFjZ2N2?=
+ =?utf-8?B?SmMrYVUzVGUxKy8yWGQ5amt4b1lXQWxvY1Z2SCtHWm1XcFZuNGQyRkhObEZq?=
+ =?utf-8?B?TWovNzVaZHRtQjFLcENIWjZXbEJEYitHMW1sZkZRemk5R0w0bGtsMmJiZVZR?=
+ =?utf-8?B?Qk1vYkVrQktGVytIZGdUT0JzaVZrQW5KRVdiUlVBTk1rekpNK2gxRVdYak9l?=
+ =?utf-8?Q?C7dapsErrqI2Y3qkCKSo6VWSdDi4cT2Ps6s1REG/gZp6/?=
+X-MS-Exchange-AntiSpam-MessageData-1: +ugUFcrj/+OPRA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b478ddb-247a-4f86-2de8-08df1d2b68d3
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:40:39.3684 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pk18b9QbMuIEEa1skfUKS4zWnHw+MJOF6Eh4fapPCgMDvJxqVwoZsRcirBJkhSFSMtko7QazR8iIFo+FW/28vQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,101 +149,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 27.09.26 um 09:54 schrieb Nguyen Ngoc Thang:
-> __drm_fb_helper_initial_config_and_unlock() calls
-> drm_client_modeset_probe() first, which already fills in each
-> mode_set->mode/num_connectors for every connected output, and only
-> afterwards calls drm_fb_helper_single_fb_probe() to create
-> fb_helper->fb and wire it into those mode_sets via
-> drm_setup_crtcs_fb().
+On Mon Sep 28, 2026 at 3:19 PM JST, Alexandre Courbot wrote:
+> On Mon Sep 28, 2026 at 2:16 PM JST, Eliot Courtney wrote:
+>> On Sun Sep 27, 2026 at 10:46 PM JST, Alexandre Courbot wrote:
+>>> Move the transport part of `send_single_command` into
+>>> `send_command_element`, which allocates the queue slots, writes the
+>>> element header, calls a closure to fill the remainder of the command,
+>>> then computes the checksum, advances the write pointer and rings the
+>>> doorbell.
+>>>
+>>> The RPC part of `send_single_command` (writing the RPC header and the
+>>> command payload) is passed as a closure, unchanged apart from its
+>>> indentation. This sets things up for moving the RPC code into its own
+>>> sub-module, leaving the transport agnostic of the message type.
+>>>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>> ---
+>>>  drivers/gpu/nova-core/gsp/cmdq.rs | 118 ++++++++++++++++++++++++------=
+--------
+>>>  1 file changed, 74 insertions(+), 44 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/=
+gsp/cmdq.rs
+>>> index 07e8e32c3d57..b6d50b0bd039 100644
+>>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> @@ -638,65 +638,35 @@ impl CmdqInner<'_> {
+>>>      /// Timeout for waiting for space on the command queue.
+>>>      const ALLOCATE_TIMEOUT: Delta =3D Delta::from_secs(1);
+>>> =20
+>>> -    /// Sends `command` to the GSP, without splitting it.
+>>> +    /// Allocates enough send slots to store a command of `sizes_in_by=
+tes` length, initialize them
+>>> +    /// using `command_init`, and send the command to the GSP.
+>>>      ///
+>>>      /// # Errors
+>>>      ///
+>>>      /// - `EMSGSIZE` if the command exceeds the maximum queue element =
+size.
+>>>      /// - `ETIMEDOUT` if space does not become available within the ti=
+meout.
+>>> -    /// - `EIO` if the variable payload requested by the command has n=
+ot been entirely
+>>> -    ///   written to by its [`CommandToGsp::init_variable_payload`] me=
+thod.
+>>>      ///
+>>> -    /// Error codes returned by the command initializers are propagate=
+d as-is.
+>>> -    fn send_single_command<M>(&mut self, command: M) -> Result
+>>> -    where
+>>> -        M: CommandToGsp,
+>>> -        // This allows all error types, including `Infallible`, to be =
+used for `M::InitError`.
+>>> -        Error: From<M::InitError>,
+>>> -    {
+>>> -        let size_in_bytes =3D command.size();
+>>> -        let dst =3D self
+>>> +    /// Error codes returned by `command_init` are returned as-is.
+>>> +    fn send_command_element(
+>>> +        &mut self,
+>>> +        size_in_bytes: usize,
+>>> +        command_init: impl FnOnce(&mut GspCommand<'_>) -> Result,
+>>> +    ) -> Result {
+>>> +        let mut dst =3D self
+>>>              .gsp_mem
+>>>              .allocate_command(size_in_bytes, Self::ALLOCATE_TIMEOUT)?;
+>>> =20
+>>> +        let seq =3D self.seq;
+>>
+>> nit: this local reads noisily to me
+>>
+>>> +
+>>>          // Fill the header.
+>>> -        let msg_element_init =3D GspMsgElement::init(self.seq, size_in=
+_bytes);
+>>> +        let msg_element_init =3D GspMsgElement::init(seq, size_in_byte=
+s);
+>>>          // SAFETY: `msg_header` is a valid reference, and not touched =
+if the initializer fails.
+>>>          unsafe {
+>>>              pin_init::raw_try_init(core::ptr::from_mut(dst.header), ms=
+g_element_init)?;
+>>>          }
+>>> =20
+>>> -        // Extract area for the command itself. The GSP message header=
+ and the command header
+>>> -        // together are guaranteed to fit entirely into a single page,=
+ so it's ok to only look
+>>> -        // at `dst.contents.0` here.
+>>> -        let (cmd, payload_1) =3D M::Command::from_bytes_mut_prefix(dst=
+.contents.0).ok_or(EIO)?;
+>>> -        let rpc_header_init =3D RpcMessageHeader::init(size_in_bytes, =
+M::FUNCTION);
+>>> -        // SAFETY: `rpc_header_mut()` and `cmd` are valid references, =
+and not touched if the
+>>> -        // initializer fails.
+>>> -        unsafe {
+>>> -            pin_init::raw_try_init(
+>>> -                core::ptr::from_mut(dst.header.rpc_header_mut()),
+>>> -                rpc_header_init,
+>>> -            )?;
+>>> -            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.i=
+nit())?;
+>>> -        }
+>>> -
+>>> -        // Fill the variable-length payload, which may be empty.
+>>> -        let mut sbuffer =3D SBufferIter::new_writer([&mut payload_1[..=
+], &mut dst.contents.1[..]]);
+>>> -        command.init_variable_payload(&mut sbuffer)?;
+>>> -
+>>> -        if !sbuffer.is_empty() {
+>>> -            return Err(EIO);
+>>> -        }
+>>> -        drop(sbuffer);
+>>> -
+>>> -        dev_dbg!(
+>>> -            &self.dev,
+>>> -            "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\=
+n",
+>>> -            self.seq,
+>>> -            M::FUNCTION,
+>>> -            size_in_bytes,
+>>> -        );
+>>> +        // Initialize the message payload.
+>>> +        command_init(&mut dst)?;
+>>> =20
+>>>          // Compute checksum now that the whole message is ready.
+>>>          dst.header
+>>> @@ -715,6 +685,66 @@ fn send_single_command<M>(&mut self, command: M) -=
+> Result
+>>>          Ok(())
+>>>      }
+>>> =20
+>>> +    /// Sends `command` to the GSP, without splitting it.
+>>> +    ///
+>>> +    /// # Errors
+>>> +    ///
+>>> +    /// - `EMSGSIZE` if the command exceeds the maximum queue element =
+size.
+>>> +    /// - `ETIMEDOUT` if space does not become available within the ti=
+meout.
+>>> +    /// - `EIO` if the variable payload requested by the command has n=
+ot been entirely
+>>> +    ///   written to by its [`CommandToGsp::init_variable_payload`] me=
+thod.
+>>> +    ///
+>>> +    /// Error codes returned by the command initializers are propagate=
+d as-is.
+>>> +    fn send_single_command<M>(&mut self, command: M) -> Result
+>>> +    where
+>>> +        M: CommandToGsp,
+>>> +        // This allows all error types, including `Infallible`, to be =
+used for `M::InitError`.
+>>> +        Error: From<M::InitError>,
+>>> +    {
+>>> +        let dev =3D self.dev;
+>>> +        let seq =3D self.seq;
+>>> +        let size_in_bytes =3D command.size();
+>>
+>> I suspect if we pass dev and seq into the closure below, we can
+>> further split the RPC layer from the transport layer. That means the
+>> patches after this won't have to impl on CmdqInner for e.g.
+>> `send_single_command` and instead we can just define a trait that writes
+>> in the message layer data (so send_single_command could e.g. instead
+>> take an impl RpcCommandWriter or whatever, and we can impl
+>> RpcCommandWriter for anything that impls CommandToGsp, inserting the
+>> message layer protocol stuff in there).
 >
-> If drm_fb_helper_single_fb_probe() fails with anything other than
-> -EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
-> bails out before drm_setup_crtcs_fb() runs and before setting
-> fb_helper->deferred_setup. The client is left with mode_sets that
-> have a mode and connectors but mode_set->fb == NULL, and nothing
-> marks this fb_helper as needing a retry.
+> That sounds like a much better design indeed - I was contemplating
+> introducing traits and thought it might be better to keep things simple
+> and revisit until r000 is completed, but it probably won't be limiting
+> us in any way, and removes the unneeded mirror methods in `CmdqInner`.
 >
-> __drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
-> when fb_helper->deferred_setup is set, so a later .restore() call
-> (drm_lastclose() on process exit, in this report) commits the stale
-> mode_set through drm_client_modeset_commit() ->
-> drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
-> which hits WARN_ON(!set->fb).
->
-> Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
-> failure, not just -EAGAIN, so restore keeps skipping the commit until
-> a later hotplug event successfully re-probes and re-populates
-> mode_set->fb. The real error code is still returned to the caller
-> unchanged.
->
-> Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-> Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> The same pattern can probably also be applied on the receiving side, so
+> I'll try and do it there as well.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks a lot for the fix.
-
-Best regards
-Thomas
-
-> ---
-> Tested in QEMU (KVM, x86_64) with the syzbot C reproducer, which enumerates
-> a USB device over raw-gadget matching drm/gud's ID (idVendor 0x1d50,
-> idProduct 0x614d) then opens the resulting DRM node. In our test VM gud
-> lands on a different card minor than in the syzbot report since other
-> drivers (vgem/vkms/bochs-drm) register first, but retargeting the
-> reproducer's open() at gud's actual minor reproduces it directly on the
-> very first probe:
->
->    gud 1-1:1.0: [drm] format XR24 little-endian (0x34325258) not supported
->    gud 1-1:1.0: [drm] No compatible format found
->    gud 1-1:1.0: [drm] *ERROR* fbdev: Failed to setup emulation (ret=-22)
->    ------------[ cut here ]------------
->    !set->fb
->    WARNING: drivers/gpu/drm/drm_atomic.c:2031 ...
->
-> On the unpatched kernel this isn't benign: __drm_atomic_helper_set_config()
-> warns and then continues, committing an active CRTC/plane with a NULL
-> framebuffer, which escalates into a NULL-pointer dereference and a fatal
-> kernel panic a few lines later in our runs. With this patch applied, the
-> same gud probe failure (ret=-22) still happens every time as expected, but
-> restore() no longer commits the stale mode_set: no warning, no panic,
-> clean shutdown across repeated runs.
->
->   drivers/gpu/drm/drm_fb_helper.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index d4664ed468b2..0817b639b3fa 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -1724,10 +1724,10 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper)
->   
->   	ret = drm_fb_helper_single_fb_probe(fb_helper);
->   	if (ret < 0) {
-> -		if (ret == -EAGAIN) {
-> -			fb_helper->deferred_setup = true;
-> +		/* modesets are probed but fb_helper->fb isn't; defer restore too */
-> +		fb_helper->deferred_setup = true;
-> +		if (ret == -EAGAIN)
->   			ret = 0;
-> -		}
->   		mutex_unlock(&fb_helper->lock);
->   
->   		goto err_drm_fb_helper_release_info;
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Yerp I think it can be. I also don't think it's bad to keep the trait
+around even after we remove r570. If we are passing in closures anyway
+to cmdq to do message layer stuff, that's kinda like an unnamed trait
+anyway. Thanks!
