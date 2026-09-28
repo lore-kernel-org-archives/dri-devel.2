@@ -4,137 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49F9C9833F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E31C9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 11:48:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E27D10E356;
-	Mon, 28 Sep 2026 11:45:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02FD310EA2E;
+	Mon, 28 Sep 2026 11:48:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="droKwZF4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oq1mL7Ef";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W/4lSq6C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EDoFp/Au";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MGXKKc4c";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9A110E356
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:45:24 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0C60421C07;
- Mon, 28 Sep 2026 11:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790595919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
- b=droKwZF4+XAkNO5BnDz5fFgevBpfjIM0g4bBczyWs5IjRYoxodw9aFC90JHrbcZaoJISke
- 7MXZD2r7ewdLBzOxdp6GeJ+KE5mLbBPkQ6KNUpBUA4dKz28Nm1NNNFU4Oj6GlyQNj1nKaN
- zH8oeU18inWrT/NkWnbmRgyuO/TEK5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790595919;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
- b=oq1mL7EfoOJA7wJiapCfDPPPmtyexesiZ0no8b0gsnPIyfHfMMRkqa3+hyk01pyR5sRdVw
- g227V8St8MeXO/Aw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="W/4lSq6C";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="EDoFp/Au"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790595915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
- b=W/4lSq6CkagFNUNwOVpQmrORPmQ6YVyutZFacBfNKMgWu37UpMoFBHTvwlssQyz2obTG0B
- j8gPcnDlGzb58LOv20Y1gKlss/WIiE/TUPwseaY+I8AOo3a0eMgLcR4XjY8ql81yFrCXUT
- 3QcVqmTe5rRsBk0igz2NV3i/1R2Guqw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790595915;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2WVpFuXjFddjDeRIFbAJvdlTK7EgmkNkTiDhxMr1adY=;
- b=EDoFp/AuTUuQmOiohUqBR2hUT9i2l4lwY/8VgVmKQEk0WXBKRC13dSUNyINSZozjzJXg7b
- Mr6un4R4x+FDhbCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A467E133F3;
- Mon, 28 Sep 2026 11:45:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WH1nHEpTumrkTQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 11:45:14 +0000
-Message-ID: <2c5caf22-1fa4-43d7-95c0-782c111ab3f7@suse.de>
-Date: Mon, 28 Sep 2026 13:45:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] vt: Add cursor-size helpers
-To: Jani Nikula <jani.nikula@linux.intel.com>, deller@gmx.de,
- gregkh@linuxfoundation.org, jirislaby@kernel.org, simona@ffwll.ch
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-serial@vger.kernel.org, sashiko-reviews@lists.linux.dev
-References: <20260928085724.41660-1-tzimmermann@suse.de>
- <20260928085724.41660-2-tzimmermann@suse.de>
- <7e3cccd612e87e6e85271a026d9fc737a56eaa6c@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7e3cccd612e87e6e85271a026d9fc737a56eaa6c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0C60421C07
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- FREEMAIL_ENVRCPT(0.00)[gmx.de]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[linux.intel.com,gmx.de,linuxfoundation.org,kernel.org,ffwll.ch];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 047EB10EA2E
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:48:19 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 91F271A103F;
+ Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5AA61601BD;
+ Mon, 28 Sep 2026 11:48:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id DAA5A102F2227; 
+ Mon, 28 Sep 2026 13:47:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1790596095; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=TR2EoUedzfwkF3107b5KNS7BcXvPvkAv8bW+yYycLg8=;
+ b=MGXKKc4c5SOmaVWp/phoair6djFZb7UjXYb4g7L1mu9HkDS45D2Mlcr5y0nCwPGAVqpsGv
+ OEyWMqiy3ker2qxJrAW/UnrGrRHX0U5FTADuUuUtmWYUjbjs5sEQnRZOMUAMqnzQlFMAjA
+ pPfwXpH8+1YUt2r57oV6Vdkon/lXPcVhV54ca8km8DMGpKDscvP2exc0uf2Nu6SDXfkR44
+ TLdVQPBbaKuqlM8N4aAFilFSY0cAFNPEgcpSiJcNTfZYNkrgZ0RKbrheWBH8E5cEAIKAjr
+ 8JuIZsDLIGY++CVbtEFdbI5WenxcI1Asgjh4lbJzwiQZuHiUsB0V5sy5A7bfEQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 13:47:52 +0200
+Message-Id: <DLQXBZQ8KOCD.17XT73H60GTNJ@bootlin.com>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
+ indentation in the example
+Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai"
+ <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
+ <samuel@sholland.org>, "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Frank
+ Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
+ <festevam@gmail.com>, "Francesco Dolcini" <francesco@dolcini.it>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
+ "Rob Clark" <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov"
+ <lumag@kernel.org>, "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica
+ Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn
+ Suijten" <marijn.suijten@somainline.org>, "Marcus Folkesson"
+ <marcus.folkesson@gmail.com>, "Maxime Coquelin"
+ <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
+ <alexandre.torgue@foss.st.com>, "Yannick Fertre"
+ <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
+ <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
+ <philippe.cornu@foss.st.com>, "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+ "Adrien Grassein" <adrien.grassein@gmail.com>, "Russell King"
+ <linux@armlinux.org.uk>, "Simha BN" <simhavcs@gmail.com>, "CK Hu"
+ <ck.hu@mediatek.com>, "Jitao shi" <jitao.shi@mediatek.com>, "Yongxing Mou"
+ <yongxing.mou@oss.qualcomm.com>, "Abel Vesa" <abelvesa@kernel.org>, "Chris
+ Morgan" <macromorgan@hotmail.com>, "Martinez Canillas"
+ <javierm@redhat.com>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-mediatek@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>
+X-Mailer: aerc 0.22.0
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <179057359762.92994.13773102514654073802.b4-ty@b4>
+ <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
+ <20260928065837.GA22609@killaraus.ideasonboard.com>
+ <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
+ <20260928100841.GC22609@killaraus.ideasonboard.com>
+In-Reply-To: <20260928100841.GC22609@killaraus.ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,220 +103,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hello Krzysztof, Laurent,
 
-Am 28.09.26 um 11:07 schrieb Jani Nikula:
-> On Mon, 28 Sep 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Cursors in the VT subsystem are blocks within a character cell that are
->> filled with the foreground color. The new helpers vc_cursor_start() and
->> vc_cursor_end() return the scanlines in which the cursor block starts rsp.
->> ends. This is compatible with VGA hardware.
->>
->> In terms of cursor design, the new cursor-size helpers follow established
->> styles in fbcon. The only exception is in underline cursors for fonts with
->> a size larger than 10. The underlining dash is now one pixel closer to
->> the font-glyph data, so that the cursor looks less detached. This follows
->> the style used by vgacon.
->>
->> Users control the cursor size with the vt module's parameter cur_default
->> or with the ESC sequence \e[?Nc, where N is the cursor-size constant. In
->> case of an invalid setting, the new helpers fall back to cur_default and
->> then underline cursors; in this order.
->>
->> Similar code in vgacon and fbcon ignores the cursor's default size stored
->> in vt.cur_default. The consoles default to full-block cursors, while vt
->> defaults to underline cursors. VGA BIOSes also tend to use underline by.
->> default. Upon initialization vt applies its default to the console, but
->> each console might fall back to it own default. For example, running the
->> ESC code from above with the invalid constant of 8 magically flips the
->> cursor from underline to block size on vgacon. Another call with N set
->> to 0 (i.e., default) magically flips it back to underlyine. Making
->> underline the new default everywhere harmonizes vt, fbcon and most VGA
->> BIOSes.
->>
->> v3:
->> - mention user interfaces to control cursor size in commit message (GregKH)
->> - elaborate defaults (GregKH)
->> - move retry logic into helper
->> - handle CUR_DEF
->> v2:
->> - export non-font interface for vgacon
->> - avoid interference from concurrent user space (Sashiko)
->> - fix function docs (Sashiko)
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Reviewed-by: Helge Deller <deller@gmx.de>
->> ---
->>   drivers/tty/vt/vt.c            | 104 +++++++++++++++++++++++++++++++++
->>   include/linux/console_struct.h |   7 +++
->>   2 files changed, 111 insertions(+)
->>
->> diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
->> index 57edf37495a8..8141296ccad0 100644
->> --- a/drivers/tty/vt/vt.c
->> +++ b/drivers/tty/vt/vt.c
->> @@ -71,6 +71,7 @@
->>    * by Adam Tla/lka <atlka@pg.gda.pl>, Aug 2006
->>    */
->>   
->> +#include <linux/compiler.h>
->>   #include <linux/module.h>
->>   #include <linux/types.h>
->>   #include <linux/sched/signal.h>
->> @@ -264,6 +265,109 @@ unsigned int vc_font_size(const struct vc_font *font)
->>   }
->>   EXPORT_SYMBOL_GPL(vc_font_size);
->>   
->> +/*
->> + * Cursors
->> + */
->> +
->> +static unsigned int vc_cursor_size(unsigned int cursor_size)
->> +{
->> +	const unsigned int cursor_default_size = CUR_SIZE(READ_ONCE(cur_default));
->> +
->> +retry:
->> +	switch (cursor_size) {
->> +	case CUR_NONE:
->> +	case CUR_UNDERLINE:
->> +	case CUR_LOWER_THIRD:
->> +	case CUR_LOWER_HALF:
->> +	case CUR_TWO_THIRDS:
->> +	case CUR_BLOCK:
->> +		return cursor_size;
->> +	default:
->> +		pr_warn_once("Unknown cursor %u\n", cursor_size);
->> +		fallthrough;
->> +	case CUR_DEF:
->> +		/*
->> +		 * Use user-given default size, or underline if
->> +		 * the given default is invalid.
->> +		 */
->> +		if (cursor_size != cursor_default_size)
->> +			cursor_size = cursor_default_size;
->> +		else
->> +			cursor_size = CUR_UNDERLINE;
->> +		goto retry;
-> Complete bikeshed, but IMO goto for retries is ugly. It's fine for error
-> handling, but this could trivially be a loop.
+On Mon Sep 28, 2026 at 12:08 PM CEST, Laurent Pinchart wrote:
+> On Mon, Sep 28, 2026 at 10:08:43AM +0200, Krzysztof Kozlowski wrote:
+>> On 28/09/2026 08:58, Laurent Pinchart wrote:
+>> > On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
+>> >> On 28/09/2026 07:33, Luca Ceresoli wrote:
+>> >>> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
+>> >>>> Correct indentation in the examples to consistent 2- or 4-spaces
+>> >>>> indentation to fix dt-check-style warnings ("example 0
+>> >>>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, =
+but
+>> >>>> re-indenting entire example just for that is too much churn.
+>> >>>
+>> >>> Applied, thanks!
+>> >>>
+>> >>> [1/2] dt-bindings: display: Use consistent indentation in the exampl=
+e
+>> >>>       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+>> >>
+>> >> Thanks, but I expected no one will pick it up, so I asked Rob to take
+>> >> it, thus it is already queued.
 
-Ok. I have no strong opinion about it.
+Sorry that this caused confusion.
 
-Best regards
-Thomas
+>> > Please explain your merge plans in the cover letter next time.
+>>
+>> The merge plan was this going through drm-misc. It got reviews, no one
+>> applied, even Dmitry for msm only reviewed the msm-bits (second patch),
+>> so I asked Rob to take it. This was not planned, but result of usual
+>> drm-misc inactivity for bindings (many bindings were not taken in the
+>> past or with noticeable delay/pings).
 
->
-> BR,
-> Jani.
->
->> +	}
->> +}
->> +
->> +/**
->> + * vc_cursor_start - Calculates the cursor's first scanline within a character cell
->> + * @cell_height: The overall height of the character cell
->> + * @cursor_size: The size constant of cursor pattern
->> + *
->> + * The parameter @cell_height is the height of the character cell as
->> + * displayed by the console. The argument given in @cursor_size is one
->> + * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
->> + * For unknown values, the helper draws the default cursor or an underline
->> + * dash.
->> + *
->> + * Returns:
->> + * The index of the cursor's first scanline within the character cell
->> + */
->> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size)
->> +{
->> +	switch (vc_cursor_size(cursor_size)) {
->> +	case CUR_NONE:
->> +		return cell_height;
->> +	case CUR_UNDERLINE:
->> +	default:
->> +		if (cell_height < 10)
->> +			return cell_height - 1;
->> +		else
->> +			return cell_height - 3;
->> +	case CUR_LOWER_THIRD:
->> +		return cell_height - cell_height / 3;
->> +	case CUR_LOWER_HALF:
->> +		return cell_height - cell_height / 2;
->> +	case CUR_TWO_THIRDS:
->> +		return cell_height - (cell_height * 2) / 3;
->> +	case CUR_BLOCK:
->> +		return 0;
->> +	}
->> +}
->> +EXPORT_SYMBOL_GPL(vc_cursor_start);
->> +
->> +/**
->> + * vc_cursor_end - Calculates the first scanline after the cursor within a character cell
->> + * @cell_height: The overall height of the character cell
->> + * @cursor_size: The size constant of cursor pattern
->> + *
->> + * The parameter @cell_height is the height of the character cell as
->> + * displayed by the console. The argument given in @cursor_size is one
->> + * of the CUR_ constants, as stored in struct @vc_data.vc_cursor_type.
->> + * For unknown values, the helper draws the default cursor or an underline
->> + * dash.
->> + *
->> + * Returns:
->> + * The index of the first scanline after the cursor within the character cell
->> + */
->> +unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size)
->> +{
->> +	switch (vc_cursor_size(cursor_size)) {
->> +	case CUR_UNDERLINE:
->> +	default:
->> +		if (cell_height < 10)
->> +			return cell_height;
->> +		else
->> +			return cell_height - 1;
->> +	case CUR_NONE:
->> +	case CUR_LOWER_THIRD:
->> +	case CUR_LOWER_HALF:
->> +	case CUR_TWO_THIRDS:
->> +	case CUR_BLOCK:
->> +		return cell_height;
->> +	}
->> +}
->> +EXPORT_SYMBOL_GPL(vc_cursor_end);
->> +
->>   /*
->>    * /sys/class/tty/tty0/
->>    *
->> diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
->> index fe915afdece5..1d37c7898ea0 100644
->> --- a/include/linux/console_struct.h
->> +++ b/include/linux/console_struct.h
->> @@ -204,6 +204,10 @@ struct vc {
->>   extern struct vc vc_cons [MAX_NR_CONSOLES];
->>   extern void vc_SAK(struct work_struct *work);
->>   
->> +/*
->> + * Cursors
->> + */
->> +
->>   #define CUR_MAKE(size, change, set)	((size) | ((change) << 8) |	\
->>   		((set) << 16))
->>   #define CUR_SIZE(c)		 ((c) & 0x00000f)
->> @@ -222,6 +226,9 @@ extern void vc_SAK(struct work_struct *work);
->>   #define CUR_CHANGE(c)		 ((c) & 0x00ff00)
->>   #define CUR_SET(c)		(((c) & 0xff0000) >> 8)
->>   
->> +unsigned int vc_cursor_start(unsigned int cell_height, unsigned int cursor_size);
->> +unsigned int vc_cursor_end(unsigned int cell_height, unsigned int cursor_size);
->> +
->>   bool con_is_visible(const struct vc_data *vc);
->>   
->>   #endif /* _LINUX_CONSOLE_STRUCT_H */
+My personal rule of thumb to apply patches to drm-misc is to wait at least
+(the latest of):
 
--- 
+ * 2w after the patch has been sent
+ * 1w after it's reviewed/acked
+
+This is to give everyone reasonable time to chime in and nack if needed.
+
+According to that policy, which is of course debatable and not ubiquitous,
+this patch got applied timely.
+
+> If that happens again, could you please reply to the series on the
+> dri-devel list to tell it will be merged through the DT tree ? I don't
+> think there's any issue with merging patches that way, it's just
+> coordination that's lacking.
+
+I agree a ping over e-mail or on #dri-devel would be good and less noisy.
+
+But if the patch has multiple eligible branches an "applied, thanks" e-mail
+would let everyone know. I do it very cheaply with 'b4 ty'.
+
+Kind regards,
+Luca
+
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
