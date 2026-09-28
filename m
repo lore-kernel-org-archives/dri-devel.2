@@ -4,197 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F67ACA5FC1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB6A0C9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CDB810ED95;
-	Tue, 29 Sep 2026 08:23:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C4A10ED94;
+	Tue, 29 Sep 2026 08:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nbSi06Xg";
+	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="vksL4Kmk";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D442110E0F5
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:12:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=leeJ8nG6kj+Isq6S32I/3jiDio4VD8pSbkms/J2QD/IoX8aLjHdso07oB/5c35shMYDpTwrel4o7mU4I1FWDN1AFAmeR/3R/NWNSVOl8pcMqS6kOgC5pT9tYA8/Ofn+tXn7rhqOudPS9JUhFuMNxboeOVhrACy5P6LkekpgZv3i5dw80SaSNAGPAMLPxZtg2+iT2IQxUpebjAPr9T0CIrXgCYf8Dqe0eh0+kNpenBcJ9k3zaXNia9AT/8Ieewx7u1VGQb19YkesBEYCMdnAf9p6qVUTkQHMWowi+2t9pL8nWE5ZUz5brT9TpM4o4VOzL/uCBGqII4umw7zkax/LubA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rvbe69xBIpzGsOrw6VbYQRORSyH1zSp/rLtFmlWZcCQ=;
- b=BrZGvAynJ4ponUIVOC/cXDvrF1+Etamv2w8qVqOlmhTL8aiE49f6Fr+pOZGCxpsZ8U5TWZJeYCRTF0JCQRuPP55AJVZuwoRVfyelTWQbndJxpUDeg27fFcjsLvOWUBI2Lppn2TBIn+kkt+PdquLDl+M2IX9quoD3CNvn6dG+bzbCQcY8jNjTrlvky7Kvf2JnQ3oXOrvRgEnO3TC7qBz+Li/Di6Uy5qjKJrHOPmtgB+xJpTRvLbcJxCi2zqCf+Oif/79m+P6CKx8IGZcMsnRlxfrvt6nscsBQs4/yY6DxAyUtoYbi9lMgkjHr5wnZKQfQr9weeVUnEx3FaP0LAf7nfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rvbe69xBIpzGsOrw6VbYQRORSyH1zSp/rLtFmlWZcCQ=;
- b=nbSi06XgCR12RiFIHX53tm05VV6tvR8/+VLSfACKpV0nx74Nc/5S3tSezV1wqhbi0cq7fG5akeV+5ugVQEXZx8Ie72mN77tyNZKtIUXyfDpSyG/LqGOli/zt8QYC6byGtv4stGz12SOqQoiRkvlmC5mA4TMRiAQjpdyH1OJDE8LjQT4riv3BdU3C10yuHgc7649NY12R+CP4T1Tx1zYNsnEdcUpL0LVGqJ3HBYH4wwX1QmohJ86A9KA7M9mf/oIfEsTLcjSvbAqkkynzOcQySH2+tGANArdLXGiXQ1vmHAEC4/c4SlOl4OsmwIK78JCfEw4GrAkf2wlBAgXZBE6c6Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA1PR12MB8161.namprd12.prod.outlook.com (2603:10b6:806:330::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 02:12:09 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 02:12:09 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 22:12:02 -0400
-Message-Id: <DLRFPN5JH235.34HHA5QDQGSBT@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
- Moore" <paul@paul-moore.com>, "Stephen Smalley"
- <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
- Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
- Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
- <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
- <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
- <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
- Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
- <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
- <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
- <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
- <vincent.guittot@linaro.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
- Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
- <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
- <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
- <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
- Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
- <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
- <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
- Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
- He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
- <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
- <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
- Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
- <xu.xin@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v3 25/40] mm/vma: enforce that only kernel-owned
- mappings may set VMA_IO_BIT
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
- <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-25-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-25-4583d8a23bca@kernel.org>
-X-ClientProxiedBy: YQBPR0101CA0340.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::17) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C3310E93E
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:26:14 +0000 (UTC)
+Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
+ (authenticated bits=0)
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68SHPi5M004380
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Tue, 29 Sep 2026 02:25:44 +0900 (JST)
+ (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=rvIrxGw3Y3qe2djohG1u2oQ0KR6/RuYYbn73hE+XyXI=; 
+ c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+ h=From:Message-ID:To:Subject:Date;
+ s=rs20250326; t=1790616344; v=1;
+ b=vksL4Kmk3TJCH7made6gj3jSvb3jdJENbOR5pWR+szdAzcEDQaLPXHjNm6rJaA0K
+ HtfOEQYrCXaAPV2TdcOHQooJxvX8xUV0MKAS/Rz+KZ+Yel/5oV9QwUcRZRzPMsHx
+ cpuVJLKYh89tOUAE6SFHEFqFS72TQY5RNaX/elb5rsWMKYrZBfJmJtBwMUgTmWkq
+ Hj2dEBHD08Ar5Md0q++qsPOyfYRJzQBCSG0AMmGhFBpc14VnRKsVZbCbiAc30y0p
+ NhD+64BLr1gStTdBXBVAKu8/GdKtK8RrMMy/uxwbXZKrn6dk0wKTOdzzJVPsWYTb
+ KYrEuqkrhchwURlMmW0mow==
+Message-ID: <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Date: Tue, 29 Sep 2026 02:25:43 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA1PR12MB8161:EE_
-X-MS-Office365-Filtering-Correlation-Id: 929b79cd-7fd3-4fe7-b0ea-08df1dcf10e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|7416014|921020|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 55V5jLLqnKa+bap2rTDpyXvJ3MS2KeCN1v66hI6BgDtw24iIHyBtnFcsj40HGTzEsTDv6VVOvLjR+3RKHA13ORaZjm94lG+Mm6zU/Gi5YMuUYQVpJFkYr14j9O2JEahCemsUkSAvCXrpWSlLjvgVYmWUWb2pMyw+ENNOeNu9ib40HzVvAlZ1hnYPKjBOGJmIhdSQahYFF2kBaQUuxI+GQ4Ggj6FQYrR3/VE+qJZJpfwcECIAFB4twVQa+hLHa0Ve0J3DSJT24HEHLYU4q4AkQdTVE/lEl/AIeXhgOUupKjHD9yu256BAbRce7VT6kw5gebvfaLB6PeRavLv8twn1I6OdyXfs2CsChLXJoeTSySz6laOIKou7jk9lJDIHvpn2NJ5j7FFWDYru8bNGIOYxS1D+oJOd1no8EYCKcS4FoVqOMZu8SxD6nI5W5LesieW6vo4Z8G5btadzb3CVLJi4YBw3XHQLNI+VkzVKhIJ3Kfq7hEkvvjn5jzX89cxCQekRNonJwLSUjc/eR/gZhHhBjnF7/pvLR4MhCfy5mos6X7sd77iTwY9mB+IEyGRt4oEGSOqPdlvWFtngelGgsZMcvRpKdOIJw9eZjxzu9+i3vf8mLI9h8wzHVv4jGxA0NzZEI8IofRgVaKEHJFZm2obMyU03kiQn9zErw/yXQeNHOCl8QWdt64j6Ft1G9PwSg+AhwwMh3EGQOYEH+UNFKOBvCw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmpGRzdZTUhYUEpidGovM2ltbThTWDBuQlNLbW1uZHRGTXl4Y05XRWxVcDVz?=
- =?utf-8?B?YXh6OFhPd3JhNTdtSytoMm91Yi9lVlp0NWJueS9wM3RRMW80QURYV29RUWg1?=
- =?utf-8?B?dnlVRWpVN1pMS2lkZlFOb0U1UGtzeVNkZjFUdFdXcEZTOEVGcWdzcU5zdlpv?=
- =?utf-8?B?QnJnL0JXQjBDVHVsNWt1SFB6LzZGWjlzRWdXTVYvNC9EVFJBTVlSRE9iQUJh?=
- =?utf-8?B?b3cvcWV6NTZXT2dOS1VmVUk2NHBHeE5NbGlYdithNC9VUHV4c1FMcnM3MXpX?=
- =?utf-8?B?cExGellJTFBXOU4xUlpwWkNnSTM1dzU0WkpRTytlNTQydUw2WGtTbHdJSEc4?=
- =?utf-8?B?M0dudWh6d2JMQUVKWWlZajhGMGhHZU9DWUNYckVUWG1YWDA2TFU0SEliL0RN?=
- =?utf-8?B?dERYNHEvQVJzWkNma3hSVndMVCtoc3o1MGhWdVNET3F1MGRjQUxPQmdaRmZC?=
- =?utf-8?B?Nzc5WFhkbVRkcldBdmVvZjF2T2tKVG1iRXdqWGVmdzYxaS80N0U0RWczNkpC?=
- =?utf-8?B?OWFjamVLOVBsVTNJR0U4V2lWVFRxSDJVSGZFZkhrY3BPTmRKei9YbXFuZ21L?=
- =?utf-8?B?UGx4R2VkM0sxMnZhd0RsejdGbTEzcUUxdmRyY2J3Ry9DWXc3Q2lVSHozbng3?=
- =?utf-8?B?c3hQMEJpWWdPdFpqZ3dybUxabmdOK1JQSE5UM0RyOGxRSVBwQzVneXF5UzRi?=
- =?utf-8?B?bEhJM3NMcjNiK1Evd2Y1eFNVRHQ3WnQ3c2RJNTNPZWwzM1dBTDN0RzZZQU1D?=
- =?utf-8?B?QWw2SDNwbCtsa010aEd2aVZoYnBXN1BKd3NxeW42WCtLUmFtdnRzVnkwbVlR?=
- =?utf-8?B?OWxkL1RQNlUrSTBkRTBsZ04zbG9iUy9jYTdqRjVudmg5RDlmWkhwNDRQUFlp?=
- =?utf-8?B?a2l0ZkFOdStOL1V4OVIzbDRFVFB6TWViQVc3OWRUZDducUlDMTZBZTNMcmVD?=
- =?utf-8?B?Ry90emRCTHd3NnQxZWFxelZDM2ttY2xrMklDd3M4dXJwV0Y3b2hhd0lnQnlr?=
- =?utf-8?B?bXlyOWt1NkNJZXc0VjNHLzFFT0NsQ1hwLzgwUzZKQ1VsNkk5eU5rR3F0cWRH?=
- =?utf-8?B?T3Zkc2Q4ZHh0cWhMbkwvQ3JCc0J0OWtuaTRVa1RFbnFBT1BQckJkS1FGN1ZV?=
- =?utf-8?B?QzM3Q2JSVzBzUzFJQWNZN3dOSEErZ2Q2dVl3WEk5dnBFRmxTc0RLWHFtNUZa?=
- =?utf-8?B?V01xWTI0R2hEbnp6d1RiekZGL0wwUzdkVjZ2RFVhTFU1OU5qZ1J2SXZQL05t?=
- =?utf-8?B?SzZSRzRiWWtDZ3MrL1FEVnVNUE1TZzh4UnV4a2w5R2RiQktjdmhWMEo5Y1Yz?=
- =?utf-8?B?YXoyYUQxd2J4WUo5Q0d1TUw0YVBDbUxjbEQwbEZpQStPZjVOQmZTakdTdVkw?=
- =?utf-8?B?elU2ZkZod2JERHpXek94UUJDTFZMVjF1Rnd5bVNTSUJ5bUVQRlpCamtCWkdq?=
- =?utf-8?B?bVJLbG1JS1BCS1dhQ0hMUTJNc3A5UFliOTkrWmdhMzFjbTh6OXZyMk9sa1p4?=
- =?utf-8?B?R2pyelhlU1BMZDg2VFN4SW5XbGdrWmQwOWdHV0l1ejBKS0hzK1AvMmJjRW5q?=
- =?utf-8?B?clh4cjhkb3VNdDA5T3pVNTc4dUFCUEJ2ZzZiSjlhY0pYRmF5Y1RDU1F3OVkw?=
- =?utf-8?B?VG1SdDdFTFRKU2FFL241cnhWNEFKWnRHdW15OXhaTUp2UjF0TnpiMUt4REdE?=
- =?utf-8?B?T01ETHRmdHRXcmpBcThpUE9ocFgrK2huT2N6bElBNWc2MkVEL2YvdHR1Z1M0?=
- =?utf-8?B?UXBkdTc0cVdjWEw4Sld2RHlFUkJnellpaUR5ZGUxNnIwRGJIa0RxY2pGWkFa?=
- =?utf-8?B?aGphNUFOL3c5dG1Lb0w5Y29DampLbGNIbHg4OThUY2NCRG1FTHdxaFg2OG0w?=
- =?utf-8?B?MkoyanMyY3BTVUl6dUZmcjF0MmZLNFZNSGpKY0w0NGtsVWYwOWJZbk9Xb2sy?=
- =?utf-8?B?NTE1Z2ZWZDZjMFVFdnZ5VUJmVmRyV1JDN1ErZFBwZ1E2VlJGQUYrck1WRzRa?=
- =?utf-8?B?aVROVjZRMW5mb1lWY1lZSlh3aVVzeEpWNmp3NGw2RG5oczIrS1YrUTlIYXNX?=
- =?utf-8?B?Zk9XRWt2VFVYc211ZVR4dUwzendWSkg3WWRKYkljWk5pUFNTcGxFMDd6UXE1?=
- =?utf-8?B?WmNHcVJlR1ZSYmRNWHFHdzVyeGJGQ1pRVVQyanhJUmpvUjRNb2dId1k3TDAr?=
- =?utf-8?B?T29MU2QrYTEyMWhudFFBN2FGQTd2ekZDMnJ4c2pubzBOdk9kcTBxSVFRSnJi?=
- =?utf-8?B?K3Y2QWJVRVZ4YmZHbGhFazFSdDdadkp2cEUyMmVQRUdMdzNVaENVd2hFUmxC?=
- =?utf-8?Q?nxE//RYebAqK4lZhk9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 929b79cd-7fd3-4fe7-b0ea-08df1dcf10e1
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:12:09.0376 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iGPiS2Ywd+V6AhZ66j60qQ5UQnjbvbizvRjnGHh57Z10grwgY/ZHiviWZgnay2r+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8161
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: "Huang, Honglei" <honghuan@amd.com>, dmitry.osipenko@collabora.com,
+ airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -211,45 +67,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> It makes no sense for a mapping whose contents the kernel does not own to
-> specify that the range is MMIO.
->
-> Prior to this patch, all in-tree drivers which did so have been updated
-> such that they are marked as kernel-owned. The check WARNs and fails the
-> mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kern=
-el
-> mapping.
->
-> No functional change intended for in-tree code.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/vma.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 1db8b218fe64..56a0cd154419 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2787,6 +2787,12 @@ static int mmap_validate_vma_flags(const vma_flags=
-_t *flags)
->  		return -EINVAL;
->  #endif
-> =20
-> +	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
+On 2026/09/29 1:22, Huang, Honglei wrote:
+> 
+> 
+> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>> Add userptr blob objects so the guest kernel can pin an existing
+>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>
+>>> - New virtio_gpu_object_userptr type for userptr resources
+>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>> - Mark writable pages dirty when unpinning
+>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>    cleanup_object() on the unref response or on create failure
+>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>> - Reject unaligned or overflowing userptr ranges at create time
+>>> - Disallow PRIME export of userptr objects
+>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>    hibernation without using the shmem restore path
+>>>
+>>> The hibernation restore path maps with the same attrs and direction
+>>> used at create time, as documented next to the call. Like shmem
+>>> blobs, the DMA API can still bounce through a buffer there. This
+>>> design only avoids a second guest side shmem allocation and memcpy,
+>>> nothing more.
+>>
+>> I don't see the restore path is documented though this says 
+>> "documented next to the call".
+> 
+> Will fix in next version
+> 
+>>
+>>>
+> ...
+>>> +        goto err_cleanup;
+>>> +    }
+>>> +
+>>> +    userptr->sgt = sgt;
+>>> +
+>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>> +        enum dma_data_direction dir =
+>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>> +
+>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>> +                      dir, 0);
+>>
+>> I checked the ROCm code and documentation, and I do not see how this 
+>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>> explicit DMA cache maintenance are required.
+>>
+>> HIP distinguishes two coherence models:
+>>
+>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>  > after synchronization performed using hipDeviceSynchronize(),
+>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>  > accessed by a part of the system while simultaneously being written by
+>>  > another, the memory is made visible only after the caches have been
+>>  > flushed.
+>>  >
+>>  > Fine-grained coherence: The memory is coherent even while being
+>>  > modified by a part of the system. Fine-grained coherence ensures that
+>>  > up-to-date data is visible to others regardless of kernel boundaries.
+>>  > This can be useful if both host and device operate on the same data.
+>>
+>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>> hip_runtime_api/memory_management/coherence_control.html
+>>
+>> Fine-grained access requires coherence throughout execution; copying
+>> between the original pages and a bounce buffer only at kernel boundaries
+>> would not suffice. Coarse-grained access could support such copies, but
+>> they must occur at the required synchronization points. I found no code
+>> that synchronizes this DMA mapping at those points.
+>>
+> 
+> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+> SWIOTLB behind the device, not by we request. attrs=0 here just matches 
+> the existing shmem blob path, and is exactly what native (non- 
+> virtualized) ROCm's own userptr support does too:
+> 
+> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+> kfd_mem_dmamap_userptr()
+> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+> 
+> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+> property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
+> as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
+> set by whichever driver programs the real GPU's page tables for this 
+> memory:
+> 
+> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+> 
+> I really want to disable the bounce buffers in DMA, but it is a platform 
+> behaviour, can not disable it in this layer. And in XEN, the dmapping 
+> for it is another form of iovector/simple sgtable. And if use the 
+> virtio-iommu or somthing else, the efficiency and the complexity of 
+> driver integration are both lower than using iovector/sgtable directly.
+> And for how to handle the DMA thing for userptr, since we have so many 
+> concern about it, maybe we can drop this part in next version. But we 
+> may have the AI review warn/error.
 
-I thought why not just using vma_flags_is_kernel_owned(), then realize
-that function is still checking VMA_IO_BIT. And you convert it in the
-next patch.
+Documentation/core-api/dma-attributes.rst says:
 
-LGTM.
+ > DMA_ATTR_REQUIRE_COHERENT
+ > -------------------------
+ >
+ > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+ > system where SWIOTLB or cache management is required. This should only
+ > be used to support uAPI designs that require continuous HW DMA
+ > coherence with userspace processes, for example RDMA and DRM. At a
+ > minimum the memory being mapped must be userspace memory from
+ > pin_user_pages() or similar.
+ >
+ > Drivers should consider using dma_mmap_pages() instead of this
+ > interface when building their uAPIs, when possible.
+ >
+ > It must never be used in an in-kernel driver that only works with
+ > kernel memory.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+This is exactly our use case. Although the platform decides whether a
+mapping requires bouncing or cache maintenance, 
+DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+meet this requirement.
 
+The shmem path serves a different use case, but amdkfd is a relevant 
+comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+configuration and the DMA mapping established by the kernel driver. GPU 
+page table attributes alone cannot make a bounce buffer coherent with 
+the original userspace pages.
 
+The amdkfd mapping you cited therefore warrants discussion with its
+developers as well. I have CCed the maintainer.
 
---=20
-Best Regards,
-Yan, Zi
+Regards,
+Akihiko Odaki
+
+> 
+> Regards,
+> Honglei
+> 
+>> Regards,
+>> Akihiko Odaki
+>>
+>>> +        if (ret)
+>>> +            goto err_cleanup;
+>>> +
+>>> +        userptr->dma_dir = dir;
+>>> +        userptr->dma_mapped = true;
+>>> +    }
+>>> +
+>>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
+>>> &nents);
+>>> +    if (ret)
+>>> +        goto err_cleanup;
+>>> +
+>>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
+>>> params, ents,
+>>> +                        nents);
+>>> +
+>>> +    userptr->base.params = *params;
+>>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
+>>> +
+>>> +    *bo_ptr = &userptr->base;
+>>> +    return 0;
+>>> +
+>>> +err_cleanup:
+>>> +    virtio_gpu_cleanup_object(&userptr->base);
+>>> +    return ret;
+>>> +}
+>>
+> 
 
