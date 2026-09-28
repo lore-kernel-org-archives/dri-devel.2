@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E240C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 05:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB797C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 06:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B3A10E791;
-	Mon, 28 Sep 2026 05:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2111310E792;
+	Mon, 28 Sep 2026 06:02:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iNCqcwtL";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DwnDxrhJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B100510E791
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 05:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790574905; x=1822110905;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=OCfCLC2lqL3impgQoOtHyiOSB7jmXL9KfA5FyqezH5M=;
- b=iNCqcwtLCfWmGYqtfVcFtgGyIbg2WpZtgpvswpZV4ub4tKVdfptgMZK7
- sNxCzrrzPlObf/gofo7lM+mZD3mJGlfhOY8Swd4ioascrkFvSo+ryJXaH
- WLKMAT1LDHaS++nHlmC5aMbkCZXzh4nXMCi0hSD52ikBS46krF5/+dW+A
- QkOcrKXPPQxftFVrU9bk2fM5OTjYvG0DvaW1uDcZI5PqwAMO65SjZ20a7
- 6Cxg2338DZHkshnw97RD4ZJ0MrfWBr4T9Qtjun2thkLqB3dQPNdqXMnBZ
- oXYY2e3HxtV+mhlwzlBY2m8Bt5xZBVzrSR+ajiLobpb2EqJB1CH9Z+57I A==;
-X-CSE-ConnectionGUID: TaV6ETMCQ8iPEgpouwaBgQ==
-X-CSE-MsgGUID: e5lOt4jfRDaoJ//J9KI9pQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="90218066"
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; d="scan'208";a="90218066"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2026 22:55:04 -0700
-X-CSE-ConnectionGUID: FdD9JTBcStKgnBJQ1Mj7Eg==
-X-CSE-MsgGUID: hKDS9DCkR0G5UdRRgsbEtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,127,1787036400"; d="scan'208";a="312872127"
-Received: from cphenegh-mobl1.ger.corp.intel.com (HELO [10.245.113.104])
- ([10.245.113.104])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2026 22:55:02 -0700
-Message-ID: <8f2c049b-7ef4-43f1-b2f1-892294f023a6@linux.intel.com>
-Date: Mon, 28 Sep 2026 07:54:58 +0200
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30E5310E792
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:02:45 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 2B983C5CD48;
+ Mon, 28 Sep 2026 06:03:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 1EE59601BD;
+ Mon, 28 Sep 2026 06:02:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 353C3102F1E25; 
+ Mon, 28 Sep 2026 08:02:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1790575360; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=xF0u3rKr9M74KSQg7RCN0+aCxKJVpc+VR+Lv57tnGPo=;
+ b=DwnDxrhJiBekhijz8hvJwq2H5uJBe+71MSerGIeHFlNj1FyvCJM3zsKuJZtAS4uLHpS8zU
+ NaH9eDdxyMGrKJH7HZXeO7DuvstXSJREBq8UGNp5VtQ3ncJNZ5npcvSMRrgBWzyo2LhSnc
+ Pd6w6b8d/lykJZWInmOsxR6v8qtSqJGOKXc5hPkRDnj+56EK7ICiRX1MfHxf8TMsLMRe81
+ 7eBh5sOd0VMg4cjFp5yYFa1iYXMLN8oovltBRUi/6jjU1Vow2R9QJwSJpXNUQKLD/gUWP8
+ ZkjNGHhoj2Pk/5ieIlarpZzksdICG53fDIC+obBNiq1TN/79cGTkyv2vyPPi0w==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Marek Vasut <marex@denx.de>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Christopher Vollo <chris@renewoutreach.org>, 
+ Sean Paul <seanpaul@chromium.org>, Vincent Palatin <vpalatin@chromium.org>, 
+ Tony Lindgren <tony@atomide.com>, Michael Walle <mwalle@kernel.org>, 
+ Vinay Simha BN <simhavcs@gmail.com>, Maoyi Xie <maoyixie.tju@gmail.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Andrey Gusakov <andrey.gusakov@cogentembedded.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ sashiko-bot@kernel.org
+In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
+References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
+Subject: Re: [PATCH v4 0/9] drm/bridge: Kconfig: cleanup DRM_PANEL usage
+Message-Id: <179057534751.224803.9257678806193592731.b4-ty@b4>
+Date: Mon, 28 Sep 2026 08:02:27 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Make BO free helper NULL-safe
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com
-References: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260924105906.489378-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,287 +85,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 24-Sep-26 12:59, Andrzej Kacprowski wrote:
-> Handle NULL buffers in ivpu_bo_free() so callers can use it as a
-> kfree-like cleanup helper.
-> 
-> Use the NULL-safe helper to simplify error paths and teardown code in
-> firmware, IPC, preemption buffer, and metric streamer cleanup. This
-> removes redundant conditional frees and collapses unwind labels that only
-> differed by which BOs had been allocated.
-> 
-> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_fw.c  | 65 +++++++++++++++--------------------
->   drivers/accel/ivpu/ivpu_gem.c |  3 ++
->   drivers/accel/ivpu/ivpu_ipc.c | 11 +++---
->   drivers/accel/ivpu/ivpu_job.c |  6 ++--
->   drivers/accel/ivpu/ivpu_ms.c  | 17 ++++-----
->   5 files changed, 44 insertions(+), 58 deletions(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
-> index b78b7c35cd9b..f9ddaa2420c4 100644
-> --- a/drivers/accel/ivpu/ivpu_fw.c
-> +++ b/drivers/accel/ivpu/ivpu_fw.c
-> @@ -364,6 +364,25 @@ static void ivpu_fw_release(struct ivpu_device *vdev)
->   }
->   
->   
-> +static void ivpu_fw_mem_fini(struct ivpu_device *vdev)
-> +{
-> +	struct ivpu_fw_info *fw = vdev->fw;
-> +
-> +	ivpu_bo_free(fw->mem_shave_nn);
-> +	ivpu_bo_free(fw->mem_log_verb);
-> +	ivpu_bo_free(fw->mem_log_crit);
-> +	ivpu_bo_free(fw->mem);
-> +	ivpu_bo_free(fw->mem_fw_ver);
-> +	ivpu_bo_free(fw->mem_bp);
-> +
-> +	fw->mem_shave_nn = NULL;
-> +	fw->mem_log_verb = NULL;
-> +	fw->mem_log_crit = NULL;
-> +	fw->mem = NULL;
-> +	fw->mem_fw_ver = NULL;
-> +	fw->mem_bp = NULL;
-> +}
-> +
->   static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   {
->   	struct ivpu_fw_info *fw = vdev->fw;
-> @@ -382,7 +401,7 @@ static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   	if (!fw->mem_fw_ver) {
->   		ivpu_err(vdev, "Failed to create firmware version memory buffer\n");
->   		ret = -ENOMEM;
-> -		goto err_free_bp;
-> +		goto err_free;
->   	}
->   
->   	fw->mem = ivpu_bo_create_runtime(vdev, fw->runtime_addr, fw->runtime_size,
-> @@ -390,14 +409,14 @@ static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   	if (!fw->mem) {
->   		ivpu_err(vdev, "Failed to create firmware runtime memory buffer\n");
->   		ret = -ENOMEM;
-> -		goto err_free_fw_ver;
-> +		goto err_free;
->   	}
->   
->   	ret = ivpu_mmu_context_set_pages_ro(vdev, &vdev->gctx, fw->read_only_addr,
->   					    fw->read_only_size);
->   	if (ret) {
->   		ivpu_err(vdev, "Failed to set firmware image read-only\n");
-> -		goto err_free_fw_mem;
-> +		goto err_free;
->   	}
->   
->   	fw->mem_log_crit = ivpu_bo_create_global(vdev, IVPU_FW_CRITICAL_BUFFER_SIZE,
-> @@ -405,7 +424,7 @@ static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   	if (!fw->mem_log_crit) {
->   		ivpu_err(vdev, "Failed to create critical log buffer\n");
->   		ret = -ENOMEM;
-> -		goto err_free_fw_mem;
-> +		goto err_free;
->   	}
->   
->   	if (ivpu_fw_log_level <= IVPU_FW_LOG_INFO)
-> @@ -418,7 +437,7 @@ static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   	if (!fw->mem_log_verb) {
->   		ivpu_err(vdev, "Failed to create verbose log buffer\n");
->   		ret = -ENOMEM;
-> -		goto err_free_log_crit;
-> +		goto err_free;
->   	}
->   
->   	if (fw->shave_nn_size) {
-> @@ -427,47 +446,17 @@ static int ivpu_fw_mem_init(struct ivpu_device *vdev)
->   		if (!fw->mem_shave_nn) {
->   			ivpu_err(vdev, "Failed to create shavenn buffer\n");
->   			ret = -ENOMEM;
-> -			goto err_free_log_verb;
-> +			goto err_free;
->   		}
->   	}
->   
->   	return 0;
->   
-> -err_free_log_verb:
-> -	ivpu_bo_free(fw->mem_log_verb);
-> -err_free_log_crit:
-> -	ivpu_bo_free(fw->mem_log_crit);
-> -err_free_fw_mem:
-> -	ivpu_bo_free(fw->mem);
-> -err_free_fw_ver:
-> -	ivpu_bo_free(fw->mem_fw_ver);
-> -err_free_bp:
-> -	ivpu_bo_free(fw->mem_bp);
-> +err_free:
-> +	ivpu_fw_mem_fini(vdev);
->   	return ret;
->   }
->   
-> -static void ivpu_fw_mem_fini(struct ivpu_device *vdev)
-> -{
-> -	struct ivpu_fw_info *fw = vdev->fw;
-> -
-> -	if (fw->mem_shave_nn) {
-> -		ivpu_bo_free(fw->mem_shave_nn);
-> -		fw->mem_shave_nn = NULL;
-> -	}
-> -
-> -	ivpu_bo_free(fw->mem_log_verb);
-> -	ivpu_bo_free(fw->mem_log_crit);
-> -	ivpu_bo_free(fw->mem);
-> -	ivpu_bo_free(fw->mem_fw_ver);
-> -	ivpu_bo_free(fw->mem_bp);
-> -
-> -	fw->mem_log_verb = NULL;
-> -	fw->mem_log_crit = NULL;
-> -	fw->mem = NULL;
-> -	fw->mem_fw_ver = NULL;
-> -	fw->mem_bp = NULL;
-> -}
-> -
->   int ivpu_fw_init(struct ivpu_device *vdev)
->   {
->   	int ret;
-> diff --git a/drivers/accel/ivpu/ivpu_gem.c b/drivers/accel/ivpu/ivpu_gem.c
-> index 4f2005a8d496..62dbc2ef6e9d 100644
-> --- a/drivers/accel/ivpu/ivpu_gem.c
-> +++ b/drivers/accel/ivpu/ivpu_gem.c
-> @@ -471,6 +471,9 @@ struct ivpu_bo *ivpu_bo_create_global(struct ivpu_device *vdev, u64 size, u32 fl
->   
->   void ivpu_bo_free(struct ivpu_bo *bo)
->   {
-> +	if (!bo)
-> +		return;
-> +
->   	struct iosys_map map = IOSYS_MAP_INIT_VADDR(bo->base.vaddr);
->   
->   	if (bo->flags & DRM_IVPU_BO_MAPPABLE) {
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-> index 8e960293b77a..79d34f9b1f07 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.c
-> +++ b/drivers/accel/ivpu/ivpu_ipc.c
-> @@ -509,7 +509,7 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
->   	if (!ipc->mem_rx) {
->   		ivpu_err(vdev, "Failed to allocate mem_rx\n");
->   		ret = -ENOMEM;
-> -		goto err_free_tx;
-> +		goto err_free_bo;
->   	}
->   
->   	ipc->mm_tx = devm_gen_pool_create(vdev->drm.dev, __ffs(IVPU_IPC_ALIGNMENT),
-> @@ -517,13 +517,13 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
->   	if (IS_ERR(ipc->mm_tx)) {
->   		ret = PTR_ERR(ipc->mm_tx);
->   		ivpu_err(vdev, "Failed to create gen pool, %pe\n", ipc->mm_tx);
-> -		goto err_free_rx;
-> +		goto err_free_bo;
->   	}
->   
->   	ret = gen_pool_add(ipc->mm_tx, ipc->mem_tx->vpu_addr, ivpu_bo_size(ipc->mem_tx), -1);
->   	if (ret) {
->   		ivpu_err(vdev, "gen_pool_add failed, ret %d\n", ret);
-> -		goto err_free_rx;
-> +		goto err_free_bo;
->   	}
->   
->   	spin_lock_init(&ipc->cons_lock);
-> @@ -532,14 +532,13 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
->   	ret = drmm_mutex_init(&vdev->drm, &ipc->lock);
->   	if (ret) {
->   		ivpu_err(vdev, "Failed to initialize ipc->lock, ret %d\n", ret);
-> -		goto err_free_rx;
-> +		goto err_free_bo;
->   	}
->   	ivpu_ipc_reset(vdev);
->   	return 0;
->   
-> -err_free_rx:
-> +err_free_bo:
->   	ivpu_bo_free(ipc->mem_rx);
-> -err_free_tx:
->   	ivpu_bo_free(ipc->mem_tx);
->   err_destroy_cache:
->   	kmem_cache_destroy(ipc->rx_msg_cache);
-> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-> index b3de5dd29d1e..c436cd418bca 100644
-> --- a/drivers/accel/ivpu/ivpu_job.c
-> +++ b/drivers/accel/ivpu/ivpu_job.c
-> @@ -64,10 +64,8 @@ static int ivpu_preemption_buffers_create(struct ivpu_device *vdev,
->   static void ivpu_preemption_buffers_free(struct ivpu_device *vdev,
->   					 struct ivpu_file_priv *file_priv, struct ivpu_cmdq *cmdq)
->   {
-> -	if (cmdq->primary_preempt_buf)
-> -		ivpu_bo_free(cmdq->primary_preempt_buf);
-> -	if (cmdq->secondary_preempt_buf)
-> -		ivpu_bo_free(cmdq->secondary_preempt_buf);
-> +	ivpu_bo_free(cmdq->primary_preempt_buf);
-> +	ivpu_bo_free(cmdq->secondary_preempt_buf);
->   }
->   
->   static int ivpu_preemption_job_init(struct ivpu_device *vdev, struct ivpu_file_priv *file_priv,
-> diff --git a/drivers/accel/ivpu/ivpu_ms.c b/drivers/accel/ivpu/ivpu_ms.c
-> index cd176e77b9a0..489ab51d3341 100644
-> --- a/drivers/accel/ivpu/ivpu_ms.c
-> +++ b/drivers/accel/ivpu/ivpu_ms.c
-> @@ -69,7 +69,7 @@ int ivpu_ms_start_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
->   
->   	ret = ivpu_jsm_metric_streamer_info(vdev, ms->mask, 0, 0, &sample_size, NULL);
->   	if (ret)
-> -		goto err_free_ms;
-> +		goto err_free;
->   
->   	buf_size = PAGE_ALIGN((u64)args->read_period_samples * sample_size *
->   			      MS_READ_PERIOD_MULTIPLIER * MS_NUM_BUFFERS);
-> @@ -77,14 +77,14 @@ int ivpu_ms_start_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
->   		ivpu_dbg(vdev, IOCTL, "Requested MS buffer size %llu exceeds range size %llu\n",
->   			 buf_size, ivpu_hw_range_size(&vdev->hw->ranges.global));
->   		ret = -EINVAL;
-> -		goto err_free_ms;
-> +		goto err_free;
->   	}
->   
->   	ms->bo = ivpu_bo_create_global(vdev, buf_size, DRM_IVPU_BO_CACHED | DRM_IVPU_BO_MAPPABLE);
->   	if (!ms->bo) {
->   		ivpu_dbg(vdev, IOCTL, "Failed to allocate MS buffer (size %llu)\n", buf_size);
->   		ret = -ENOMEM;
-> -		goto err_free_ms;
-> +		goto err_free;
->   	}
->   
->   	ms->buff_size = ivpu_bo_size(ms->bo) / MS_NUM_BUFFERS;
-> @@ -96,16 +96,15 @@ int ivpu_ms_start_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
->   	ret = ivpu_jsm_metric_streamer_start(vdev, ms->mask, args->sampling_period_ns,
->   					     ms->active_buff_vpu_addr, ms->buff_size);
->   	if (ret)
-> -		goto err_free_bo;
-> +		goto err_free;
->   
->   	args->sample_size = sample_size;
->   	args->max_data_size = ivpu_bo_size(ms->bo);
->   	list_add_tail(&ms->ms_instance_node, &file_priv->ms_instance_list);
->   	goto unlock;
->   
-> -err_free_bo:
-> +err_free:
->   	ivpu_bo_free(ms->bo);
-> -err_free_ms:
->   	kfree(ms);
->   unlock:
->   	mutex_unlock(&file_priv->ms_lock);
-> @@ -322,10 +321,8 @@ void ivpu_ms_cleanup(struct ivpu_file_priv *file_priv)
->   
->   	mutex_lock(&file_priv->ms_lock);
->   
-> -	if (file_priv->ms_info_bo) {
-> -		ivpu_bo_free(file_priv->ms_info_bo);
-> -		file_priv->ms_info_bo = NULL;
-> -	}
-> +	ivpu_bo_free(file_priv->ms_info_bo);
-> +	file_priv->ms_info_bo = NULL;
->   
->   	list_for_each_entry_safe(ms, tmp, &file_priv->ms_instance_list, ms_instance_node)
->   		free_instance(file_priv, ms);
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+On Tue, 15 Sep 2026 18:46:13 +0200, Luca Ceresoli wrote:
+> As a cleanup in preparation for making every drm_panel embed a drm_bridge,
+> fix missing or unnecessary usage of DRM_PANEL and DRM_PANEL_BRIDGE in
+> drivers/gpu/drm/bridge/Kconfig.
+> 
+> == Grand plan
+> 
+> This is part of the work to support hotplug of DRM bridges. The grand plan
+> was discussed in [0].
+> 
+> [...]
+
+Applied, thanks!
+
+[1/9] drm/bridge: tc358764: don't select unused DRM_PANEL
+      commit: 8ea0903c62e1fd2d53f68af671635a532bd7dbac
+[2/9] drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL, select DRM_PANEL_BRIDGE
+      commit: 184046c9f35222fa3784f960ed3780b2793d62ea
+[3/9] drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      commit: 7dda59aea6288025fd861cd8467af456f9dc26ae
+[4/9] drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      commit: f378fbe78e6e87a3657f1e6286ea3964b99f30cf
+[5/9] drm/bridge: tc358775: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      commit: c76257183d3d20ce4986d86814676ff2377c24a8
+[6/9] drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+      commit: 65a55bb11116c080ed8e408ef95706a9c8bb393f
+[7/9] drm/bridge: tc358768: select DRM_PANEL_BRIDGE
+      commit: a269221bf5c304d64d6a6aceded710f8c737113c
+[8/9] drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+      commit: 9e0156ff263020fd4a10d5b6bc5ee550a7837c2c
+[9/9] drm/bridge: tc358764: select DRM_PANEL_BRIDGE
+      commit: 6095cb1190585793055953d5ee76ff3871681c6e
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
