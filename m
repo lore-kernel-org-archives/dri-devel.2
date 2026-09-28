@@ -4,84 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36229CA5FA7
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284DAC9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:22:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D54810ED74;
-	Tue, 29 Sep 2026 08:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE0F110ED73;
+	Tue, 29 Sep 2026 08:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UDec8Oir";
+	dkim=pass (1024-bit key; unprotected) header.d=g001.emailsrvr.com header.i=@g001.emailsrvr.com header.b="knMpqU6M";
+	dkim=pass (1024-bit key; unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.b="dAAx1Q/7";
 	dkim-atps=neutral
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
- [74.125.225.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D9F10ED17
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 07:07:22 +0000 (UTC)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49d1fb0cf5eso36236445e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:07:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790665641; x=1791270441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
- b=UDec8OirfmH2ZqFq2/bRbFVp/nRjjqCAgZjCF4pt34luPV0C32N0T4KK/tmo/j12H8
- UN5CfRQ1g8SYLrVdioC0qvkCiSeafKVz4NI1fUhENen2xsIeRKb9//JE/o7BDYX1H5Kb
- S/ToqClherWu8Zvo3aB7Fc74/SPBB4M4TdGx7ZhdtgIh4t/FthV5blRvBd1LLD5n5bLU
- JxgQvNd3Fu3twOEzfKAfe4RXtEKT0Lvr+QYARW+yMTlq0R6wuv6b5/3ezl9TKF0wiJWu
- vnz3XjRHOLB4ib2cFAtBVb8XHaVKumgHtVBqb6wBFe8LXnYWX4ITZVNSbLaERNb4Q8JZ
- XJwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790665641; x=1791270441;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
- b=ajRoBqZRE01KNk3Pp3XRCnT6oEy0Vxl/DjbLA6U2YOJy28pTG2y7aJyhY8zHPtLAoM
- D8jK6gyAIuKDAsMnFIJc0jHZwXVQnNfzeppn9bR7p+j8UKgNZFF0dTjaeSWgM1KS7mmz
- BVgQ+BnGkqpkETB+tNkP9d+pBNnEo8Ja9Edh822G9UkgvzjzNlQ+3N1Gl8mhlCWFYabY
- yrQgo02wLDm/D175gfxvKde3tsW0st5x9c4k8pEDLgCQgFBfKF8KD6i5DyzMw1E8LZqP
- +/l/jEoVcVYKqoLG9/2iekVoMVp0HTLVNtgw3w7vnOfEsR88eVJl0DX7uXuO3fdICQnG
- Xc0A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzI2a8XaCEuPDmJ6wXVt+J9c4ErIrzSDS0VbvB+YoQ0ZbtU2KiMUPUFMl7pLUtnf4lmV6qBfybCQ64=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nn3/Wzstv8Uz6ZXRyrI2TgtIgnTXoWUFqtCd6hPYt7jvaG6l4x
- gH50mmMeVspfCGwOcq0kw77ElJJGAJdmFd4ekfyrIRv9dqX60HzBTNVQ
-X-Gm-Gg: AYBFou1nmRJZfjUgGYaYd8lTn4QCa2siBhJ4wLvuzBjbQ92DgFHDJGvZplK6j6sqFdj
- oB0lS0E5ktasJDr45spJHrF7Oppzm0mTAXJFPiKbuLRF55l725iz9edn/pvjMuBnqm5/VYpBPaI
- xSKw3iQdDtQVzBr0s3pa4G1SvlgHUiS5pFgD43gUw6IQcEUxbCtlM1Dlmc6nJbHDbtgX4LY+xHi
- v8FnuNVuK6sR5MXAhQ8LBZuWcfrVA/VZyd2ze6Ph5GKPk6FxfatMBgqT2MZ5hWAt1IHzJRrAMmw
- ngZZzOZDIij1cIM3WJuFNLua5YKi/bhTB3I6R/C7cZwSUcdkYoJ2AsJGk2vmW+FuLX3A8Ec51Z1
- u9wUcZZIjQACIbut126vW8uWEeIyT7Ql3LoLwxTtyZlNrv6I8zIdfHb02egKzGOWFhF/hEkgoN4
- SltOzQser7JBoX+tDvlWjHecefNSfK9CRb9q0VqLbBgZ7ynWVoVNWC6DTt9gpYv471Ix6myXDXm
- iIxxeu5Q+kXbYNz6NZ52cmgh6aSGRwmEzQ6pHdimuMFLD50QOPoQIpsvXWqcOrgDu0=
-X-Received: by 2002:a05:600c:3556:b0:49f:bd3c:bc24 with SMTP id
- 5b1f17b1804b1-49fe6708a46mr262115795e9.31.1790665640767; 
- Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
-Received: from f3a6eae2255e.fritz.box
- (dynamic-002-214-017-137.2.214.pool.telefonica.de. [2.214.17.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a00cfec770sm57919625e9.8.2026.09.29.00.07.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
-From: Abhin Parekadan Jose <abhinjoses@gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com,
- Abhin Parekadan Jose <abhinjoses@gmail.com>
-Subject: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
- drm_dev_put()
-Date: Tue, 29 Sep 2026 07:07:14 +0000
-Message-ID: <20260929070714.169412-1-abhinjoses@gmail.com>
-X-Mailer: git-send-email 2.51.1
+X-Greylist: delayed 512 seconds by postgrey-1.36 at gabe;
+ Mon, 28 Sep 2026 16:26:44 UTC
+Received: from smtp71.iad3a.emailsrvr.com (smtp71.iad3a.emailsrvr.com
+ [173.203.187.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D56110E5DA
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=g001.emailsrvr.com;
+ s=feedback; t=1790612291;
+ bh=dcfqKy8RuwJf19ZxcNaKgTpq2Zkz6O8a3A4laJuSYfM=;
+ h=Date:Subject:To:From:From;
+ b=knMpqU6Mk0kmP+ISs7Cok7X4ebagiVtXT1NiP8qiqgH159TGzqgxajWFaZpSo70uz
+ X4JvLjhst970T9CuQ/B1UK7DDj94fUZ9D0EuIcMXbSMkMJeSP20XqvG8xys/G508W2
+ FOaJU8N23FUYtqhMknHHcQaVfBr5pD0xTp3BApkM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+ s=20221208-6x11dpa4; t=1790612291;
+ bh=dcfqKy8RuwJf19ZxcNaKgTpq2Zkz6O8a3A4laJuSYfM=;
+ h=Date:Subject:To:From:From;
+ b=dAAx1Q/7P23kXEJJmdf1NGwU5hwBxkB9RRRgCV8DxfO9tKEKn3op87rBbKCtMQxor
+ A7xRjYnmS2/wTvYLr7pPA1i+MhM1dZVN9lyPAynl4YEL0TQoXXoZQxmf7SdxwFhpQQ
+ 4DXajLwgB0+U+CoG1uD67D8LZvzt6Rhe9+Cdueqc=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp17.relay.iad3a.emailsrvr.com (Authenticated sender:
+ abbotti-AT-mev.co.uk) with ESMTPSA id 02B6C23DAD; 
+ Mon, 28 Sep 2026 12:18:06 -0400 (EDT)
+Message-ID: <efbb4382-45eb-41a5-afe3-6c359714aa89@mev.co.uk>
+Date: Mon, 28 Sep 2026 17:18:06 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drivers: Replace __MODULE_STRING() with __stringify()
+To: Petr Pavlu <petr.pavlu@suse.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rudolf Marek <r.marek@assembler.cz>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Snook <chris.snook@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
+ Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>
+Cc: linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922-module-string-v1-0-c18766690185@suse.com>
+ <20260922-module-string-v1-2-c18766690185@suse.com>
+Content-Language: en-US
+From: Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <20260922-module-string-v1-2-c18766690185@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Classification-ID: 15bec65d-5b3a-44b5-8eff-f2a711d4e1ec-1-1
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,83 +94,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
-deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
-objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
-alive, and the fbdev DRM client holds a drm_device reference. When the
-fd is finally closed, the buffer is freed and takes the destroyed lock:
+On 2026-09-22 14:32, Petr Pavlu wrote:
+> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+> moved it to the graveyard section at the end of linux/module.h
+> 
+> Replace the remaining uses of __MODULE_STRING() with __stringify() in
+> preparation for its removal.
+> 
+> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Acked-by: Ian Abbott <abbotti@mev.co.uk>
 
-  fb_release()
-    drm_fbdev_shmem_fb_destroy()
-      drm_client_buffer_delete()
-        virtio_gpu_free_object()
-          virtio_gpu_remove_from_restore_list()
-            mutex_lock(&vgdev->obj_restore_lock)
-
-  DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-  WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
-
-virtio_gpu_deinit() should only do hardware teardown in this case
-related virtio, its queues and others. Software state that GEM callbacks
-still use belongs in virtio_gpu_release(), which runs on the final
-drm_dev_put().
-
-There are two equivalent ways to tie the mutex lifetime to the
-drm_device:
-
- 1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
-    virtio_gpu_release(). This is what this patch does. It is the
-    smallest change and keeps the teardown next to the rest of the
-    final-put software cleanup.
-
- 2) Initialise the lock with drmm_mutex_init() (checking its return
-    value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
-    managed release destroys it. This also covers the virtio_gpu_init()
-    error path, where release returns early because dev_private is
-    NULL. Skipping mutex_destroy() there is harmless, since it only
-    matters for mutex debugging.
-
-Either fix removes the WARN. Option 1 is sent as the smaller change,
-and option 2 can be done instead if preferred.
-
-Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
-and PROVE_LOCKING: open /dev/fb0, write 1 to
-/sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
-patch the WARN is gone, and rebinding brings back /dev/fb0 and
-/dev/dri/card0.
-
-Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
-Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-Assisted-by: LLM
-Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
----
- drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a20..0ec755c35050 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	virtio_reset_device(vgdev->vdev);
- 	virtio_gpu_reclaim_vbufs(vgdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
--	mutex_destroy(&vgdev->obj_restore_lock);
- }
- 
- void virtio_gpu_release(struct drm_device *dev)
-@@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
- 
- 	if (vgdev->has_host_visible)
- 		drm_mm_takedown(&vgdev->host_visible_mm);
-+
-+	mutex_destroy(&vgdev->obj_restore_lock);
- }
- 
- int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-2.51.1
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
 
