@@ -4,83 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9331CA5FA7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3CD0CA5FA1
 	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AA510ED8A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F29810ED89;
 	Tue, 29 Sep 2026 08:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="eAmmF7Br";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J1J5PxZ2";
 	dkim-atps=neutral
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com
- [74.125.229.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE7810E8EC
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 03:14:20 +0000 (UTC)
-Received: by mail-dl2-f41.google.com with SMTP id
- a92af1059eb24-1474c6b7742so2140172c88.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 20:14:20 -0700 (PDT)
+Received: from mail-pj2-f23.google.com (mail-pj2-f23.google.com
+ [74.125.227.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D13D10E7F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:15:11 +0000 (UTC)
+Received: by mail-pj2-f23.google.com with SMTP id
+ d9443c01a7336-2d747f066d8so6910745ad.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:15:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790651659; x=1791256459;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1790583310; x=1791188110; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=XEoH4g84gk9XFCZN7uYIcwGzkc00ec8qVmnXddCOcQw=;
- b=eAmmF7Brw7O1EoF1zaMqE2xuKtOnjODivzbpYZ2Jd0K876I8O+u4uex3GjhEXHRhHY
- 0EgVzEjVFGni4uFDm477e6naN6vPGUwG1F2NAHY6T3R8gDDna+VfX1piSrwLEZ43oZ4g
- MmxyFYE/CJxHBNQVxIp8CLP6Wo2P847dXJW8H7Dpy1X//uJDuElI+HQzDtsFDL3zI71r
- nd1gUAZyl80UVnaHIca+fKjR8tu9/9FZLYitvL01VQBqszbW9hy+4456fUJRQc/pFYkh
- +7vghq6ZdMIbW4Wc/71pVJIQeq6RmCvEAwiQ0Qlr+QY+jel3sQP+KhCUjvANqPB8keW9
- UySg==
+ bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
+ b=J1J5PxZ2/e/P6aRtz7OTYySz3VTJSZBID+OooYnwDxc8eXsXsH+4m0rAg2CeKW6H7Z
+ SXTI3hBocsn5hEN91VktZh8/9Wqa2PcnS42aAwfC5AZJsRJ0gyyfBGEV8JplJSlgSCWH
+ cpFBUs41ABIg8JHsZcLUDv5pjFiRj+YQAtTeQxwrvEHCOTH1lt2t0PKbipZc27XtGJcG
+ yxzoPukXa8uyDgmBUgOsBP0moqFjVRdu0TPmHJK9s+G0hrZsY+MdMtk2hIj3uocWD3AK
+ 7JfEasvCCxQlPPMOyx6mEtlBt3Vbf7MqLfnXVvX+iBLwtlACl6coFIUIoy75P4jQlUzd
+ Y64Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790651659; x=1791256459;
+ d=1e100.net; s=20260707; t=1790583310; x=1791188110;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=XEoH4g84gk9XFCZN7uYIcwGzkc00ec8qVmnXddCOcQw=;
- b=ObSCgEF1rsxIiTUF/41oibtSm7CwYDDsfsMXJaKEoOAwoZiSZpi1QZlcctuLK6X23p
- 7sanbdxCaWjxGelJYjoLrWuwWRjyGUyH3LQlntkynOCkNRQIYcVCvbxJbww1AjTvRaNH
- mkMdv4Bypv8nMnDY+gFlZiCSAuM6AMYBajvY+9Pp21YaBNbOFdA5GnHz6PHN9SfdRXD+
- iDijMzwPtE6hdIAuHnYJQiwtzHCDdGcYpYRtYyWqEJ8L6nzgehALLoJHI/1UoLEFn7Cz
- KYr9G8c7hxKxaHztc9YgKqIxyWLQrXmePzG2jJqo4A2Dw8dx4CJweYm7c2ZXWoQ3C6Bv
- MMKg==
+ bh=3PGFMLkqPdnEjr3rj+p66S6V4/orGCF5/967SLXqniU=;
+ b=fvWp5VABL86wG8HO3mgzfAqtuVsdH/a/qalf5r+8+T1oid5LktI6aHpQxalzifEwjM
+ WQLVbu6T4YYo+lj7CnTDQYfStWnT2HwHzB5jCF26yFCpSuaLqIUd3hZi8lvsyfPeoLCH
+ DMnxEExq+xzbWUMNJpysl2Ec1izoNJZ7nGyreMM+78D8+VtBCg6HhrwXO+SMZaGc4j29
+ jFRqL4KY4fAHS8wCSAjpGE+DZDPES9bdjJR3KEn7MyYyEblAh1YEV3QqlT7GSKcocF34
+ Hh9aT4K4ilXfeCV5aHSgQhbkqQ/dIqhqmRJcrTbbuZV4YE06ZNKUfERPYX3coKqGql3U
+ PxgQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx9snMaQnDBEToY5u5puRyBm4DTP5wA13Ku4eantGLp172prv4RSd7z2uAWeowZfYqT/cZs4wNifU8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kYtSo4OoArLNO1eGd1OqrTKv7SAnlZAr8FxbiiCDwKY5IW/gYU
- N85LPkbBTojZd8/CMW90ZhqODsZ7WazpokZlM1G0Y3AP+qyzKfUWT1IESTI+j6P8QW0=
-X-Gm-Gg: AYBFou2kuHEScdp7VTdKK5grT2akPu31647o0WMLVMc3TIBbV8Lm9umkleDKEIBJdJm
- cTPfysMR0fum7btZm3Vl2Tev9wnA0tMXnPC4nGbE2AE8yc4uaD72AUBRI54zs2sRa3HDcaQnI0k
- 80VEaRRKZ/Kk9IZqSjaStx4Ra3ilUfzoJwapCqmSZ3cPMCDhbZ4tMSzW9RPc2KOwSIszelQqfe6
- eK+KG+nZm+gkHMpdjq5xKuv8oJWdQt/fTcPUhRS12FRL7OQv/jNfw0EUlz0HXOU6wJSI/UzIpl3
- HTPfkb/AeOZ4JoGaMel1MXT9v0E50qacnVbTQrC8G2724JNKs8BVx4AdqnCajHT/SSsaExr1Ete
- Ca0+pCfRqS1O14HmYEexsG3X7DcmZWSlrDG+hwlF5mcp1y1zcgGFSdNWWggiRkYh8FGi+OhyQHD
- RiSILBqk9STJmFJTfud3cPN2Cc6+clWYOGpy21naJgdqRmG/rgmr5za6sWAhkI21PrA8XrnofKV
- WIdgZCAcnYCGpJBI+vuUzzWjdoyx0kzxq47qja7I8tzMFi9rtnwp7w5gv79Tqe0Mv6Ejvo=
-X-Received: by 2002:a05:701b:42d1:10b0:143:4710:a84e with SMTP id
- a92af1059eb24-146cec4be1fmr12051694c88.15.1790651659361; 
- Mon, 28 Sep 2026 20:14:19 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+ AKwUvBzwF/6E2vERIM6eSEvzY8hG4LwUEx06R2LcxvcBPjte2QIS4VNsKOj390XSRYMjKxuHr583CEfx4rk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ9H9wj24Ix5WQXUWv/nvYIw9oz6q2IU8Uuzu2F44WXg+zj0Dbx
+ V071T12XO8zICTT7V6Xt6HsYe+STiZ9NBO4Ae/NW5gjbu4vcKTNv+AQZ
+X-Gm-Gg: AYBFou3n7H7PH97WpUvN/I5eRA4Rdy5XUSZ6oGY54XqFlNXOGs8dqp+9Rr8fCXGdCaD
+ Xld3D7xRfT5GILh+RlNDEgS/S9tj1o6slYBGP8EMjVFhMb1sma3bLcvCQxW3zS8Kjo4hSjfRx/W
+ R8+e/mPw5+btY5iqEbX51AtPhzR7PKGFfTSygUd2PulLkwqWIO8T/tL1nq3hkwP4kjkjKtzAcHZ
+ kV1C7fWggRr2u/TH3bw/xEzabwQ/rrcWK09Au0W6l+BDATciE/TnRSK3Pkv2BMd8UsYDRssmm/Q
+ /ZyFJ8OG2D2etz04T/Cr6jVtHfImh9zR1V6XTIrP7R3/m2zOKnoGIiBQQ8DHb++xM1nbyT7P1TD
+ LNicymicowZVGzCogwzc9MCRk8WUKn/IMpQgs15DeL2LrgUP16woy1SdGwN9JAeKr8wTgmU4zlk
+ 8Zb6PlACcU2zfQtI6TwkYtoXalkV7uOJxJ00NV+2GyFT0tBsIFywhho9ChfMtkkx1Hroj70T6Fv
+ SMbIiMQK+e26mf7hijG77yNuaD8qithzU+DsSc=
+X-Received: by 2002:a17:902:fdae:b0:2df:67e8:4a39 with SMTP id
+ d9443c01a7336-2df7dfef6ffmr74050975ad.10.1790583310497; 
+ Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
+Received: from DESKTOP-HOME ([2406:5900:111f:dc2a:3071:69c7:a4c4:6259])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14a719057e1sm7529563c88.2.2026.09.28.20.14.17
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 28 Sep 2026 20:14:18 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Alex Hung <alex.hung@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Jerry Zuo <jerry.zuo@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <xinhui.pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 6.6.y] drm/amd/display: Check null pointers before using them
-Date: Mon, 28 Sep 2026 23:14:14 -0400
-Message-ID: <20260929031415.87382-1-artem@trailofbits.com>
+ d9443c01a7336-2df90fb675bsm37833275ad.10.2026.09.28.01.15.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 01:15:10 -0700 (PDT)
+From: Beomseok Kim <dilddream31@gmail.com>
+To: nouveau@lists.freedesktop.org
+Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Beomseok Kim <dilddream31@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
+Date: Mon, 28 Sep 2026 17:14:50 +0900
+Message-ID: <20260928081450.19340-1-dilddream31@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -100,84 +91,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+nouveau_fence_signal() clears fence->channel before dropping its
+reference.  nouveau_fence_no_signaling(), however, removes an already
+signaled fence from fctx->pending without clearing the pointer.
 
-[ Upstream commit 1ff12bcd7deaeed25efb5120433c6a45dd5504a8 ]
+The fence can remain attached to a BO reservation object and be used
+later in nouveau_fence_sync() after channel teardown has freed the
+channel.  This leaves a stale channel pointer that the sync path can
+dereference.
 
-[WHAT & HOW]
-These pointers are null checked previously in the same function,
-indicating they might be null as reported by Coverity. As a result,
-they need to be checked when used again.
+A diagnostic build with concurrent short-lived Wayland GL clients
+observed nouveau_fence_no_signaling() with a fence pointing to channel
+C, nouveau_channel_del(C) returning, and then nouveau_fence_sync()
+attempting to read C->cli.  A no-fault read failed after teardown.
 
-This fixes 3 FORWARD_NULL issue reported by Coverity.
+Clear the pointer in nouveau_fence_no_signaling() to match
+nouveau_fence_signal(), so the sync path uses the fence wait fallback.
 
-[ Backport to 6.6.y: kept the applicable dm_state and dc_link guards; the
-  vulnerable acrtc loop shape is absent. ]
-
-Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes: 29ba89b2371d ("drm/nouveau: rework to new fence interface")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Signed-off-by: Beomseok Kim <dilddream31@gmail.com>
 ---
-Hi Greg, Sasha, and drm amd maintainers,
+ drivers/gpu/drm/nouveau/nouveau_fence.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I am working through the small CVE backports still missing from 6.6.y.
-This one addresses CVE-2024-49922. It prevents the applicable HDCP path
-from dereferencing a NULL dc_link.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.6.y?
-
-CVE: CVE-2024-49922
-Upstream: 1ff12bcd7deaeed25efb5120433c6a45dd5504a8
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7c72caac7b4d71..702c9f5c3d006e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6630,6 +6630,9 @@ create_validate_stream_for_sink(struct amdgpu_dm_connector *aconnector,
- 	int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
- 	enum dc_status dc_result = DC_OK;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+index edbe9e08b..5b09cf134 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fence.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+@@ -488,6 +488,7 @@ static bool nouveau_fence_no_signaling(struct dma_fence *f)
+ 	 */
+ 	if (nouveau_fence_is_signaled(f)) {
+ 		list_del(&fence->head);
++		rcu_assign_pointer(fence->channel, NULL);
  
-+	if (!dm_state)
-+		return NULL;
-+
- 	do {
- 		stream = create_stream_for_sink(aconnector, drm_mode,
- 						dm_state, old_stream,
-@@ -8859,9 +8862,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 			DRM_INFO("[HDCP_DM] hdcp_update_display enable_encryption = %x\n", enable_encryption);
- 
--			hdcp_update_display(
--				adev->dm.hdcp_workqueue, aconnector->dc_link->link_index, aconnector,
--				new_con_state->hdcp_content_type, enable_encryption);
-+			if (aconnector->dc_link)
-+				hdcp_update_display(
-+					adev->dm.hdcp_workqueue,
-+					aconnector->dc_link->link_index,
-+					aconnector,
-+					new_con_state->hdcp_content_type,
-+					enable_encryption);
- 		}
- 	}
- 
+ 		dma_fence_put(&fence->base);
+ 		return false;
 -- 
-2.39.5
+2.55.0
 
