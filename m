@@ -4,53 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8260CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF71BCA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7F8110E8BB;
-	Mon, 28 Sep 2026 14:21:38 +0000 (UTC)
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EACBB10E8BB
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:21:37 +0000 (UTC)
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-4db3db8687fso5097927b6e.0
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 07:21:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D38A10EA9E;
+	Mon, 28 Sep 2026 14:41:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltDfkQMu";
+	dkim-atps=neutral
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
+ [74.125.228.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB4610EAB9
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:41:31 +0000 (UTC)
+Received: by mail-ej2-f12.google.com with SMTP id
+ a640c23a62f3a-c2940ef15d3so383173566b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 07:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790606490; x=1791211290; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gdKbC3riLBZ98r8oodQbbP8SrsBHoTyLl7tB6yhXYEA=;
+ b=ltDfkQMuXhQ2aeD1MSGsGJEjGqut1mcyBNJNI3v4MsRPlgnHifXpcZqX6x/n1+umZO
+ TzQGd1QaeX6iPDVOGMCCU/ktL6fEnQd7eojZ1+l7NubYTqvllMAPqevJ+yAusTCNnxmD
+ tENJJmERGCt2bljL0KA3mXFahvoSXuIp2XCmqg+Yq7mSsoDFXWY4iRTmTSecT67Fkcs6
+ p4uEsJK/t7R4kCFz99XUN6BthMoc5UmaZCBcPaQj7ZdDUIc8377+mBTrCdKqzC5cMKA6
+ xetwk3ve5DIKnStfyt6BbSvpj6Xgqq0VwTILeEB+rE6J5s/WzMeL+Jme+NqHSs5HJ2GW
+ J9kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790605297; x=1791210097;
- h=content-type:to:from:subject:message-id:in-reply-to:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=vubk7muu+YkhKRkIvbgFvnTZh6exw+2ow1dFCKoAylI=;
- b=beRo1ui36NUt2gSX2uDlqj69Y9uCrGcjPZdx3sWTUR690mgLe124s1QVUK2FuOMk/m
- 9lL2Fe1sp/PP7AwFaPvfUyShG3wXGEmytA9dIYHnym1yHZod+B9oik406Vqriqe/FJ2/
- ao/B/ObwGG4zNv7Sv6aTN1JvnE+UD3SKxKM+k6ENnS/Lvv0Yzm78KQt/MvcXPYDYEMyH
- n4hjpoW7LQWFoGKMaLCZVBexzUB9uPjwjs0cw3aoSodf2jsbuHmRrlo+dATRu6jk9Fn4
- wa0UfwS2u94y3TLmML5ppEgk09lANJpagfG3He/hTeHd/V0GddjDorN0+kyTWVTGofCB
- 5B8A==
+ d=1e100.net; s=20260707; t=1790606490; x=1791211290;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gdKbC3riLBZ98r8oodQbbP8SrsBHoTyLl7tB6yhXYEA=;
+ b=D8gDuzM2DrbJSZrDd+LAxOrDymCwJ31X1Q4H7yRrH9IxnOYZv0I/Gu7rWnBhepMwBc
+ iu5NbOEpUaJw4Ox+DQHxpFbDgv4ttoV/m3ljHnfVxvk7Mcg95XXQXKE9tdMriEnPdzuf
+ 9S92/99p5h46kEVjHS//RYcNYwWuN+J+5aN+DmmdSOQUPFYXUbhL+TBYJ1YKbyNarzkT
+ dWr5nlKsRdrFukKLFHfE+okidEH++c2EE9fqivL02g3ety+z/sQTebmlon2EsXCZ/jdk
+ vmL49eGpheXvRxq+q9F3x6Z33N4rWOmMubvzN7l9PjlKBDu0C4BsPZ+D3+8HJqQTks9H
+ 50/A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxg5Rqk4MzP7PzJ/W3uWmCHT+hT6Y92wO7RXWXE+R7qJFdPWYlEIk6cOZkiOg/9en6K2+AuO2FUQIU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kd6y5ktS1lys/lnEkWt0ljpCTvjnFrX319z3GWVKmWntPJbxvC
- srk2Nog5NwHniWVaBrGoeImxdXlX6d8qFPTtlK5BxZErxVCXXiJYaYksI4PEs5p0hzaplqzxUgS
- Qpgg6aGXFZgSm7dtTnNi4+DWiByfIlAICAXY1DrRhX6CwNo39mzFwAWtnyyQ=
+ AKwUvBy6tZiNCSg16Sg3G/0PvL3WCtidz1Vzcnx9fpGK4fogB5g471JWRIIb23Snk5zDfBNWnWclKlx06No=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l+fzUUDVGAnJCYsNe+w+1WuAubmX2XjwL5gUwWulDZL8J6ivAV
+ L4uRN8fnogKTuO5BYqV+CMUa1WZwUOkN2vlzQ3qA76D/ozajg5XHq52W
+X-Gm-Gg: AYBFou0mwFvhEUkjwoF8NLpyrW/UclxItsLObfdv6IauRUsxkPKT+QDvXElttyyKWwE
+ cqkhs5wIPBcq4e2AejtMG7dXw6eHTRXkld9tpLnTSQuMa1eXVgau1ypzpfbmfHeh+TQhE/DLKpq
+ PpwsjYH82h2ZrX4Mj523CxPWgMb29pnFXVepngEddhMtvk6OEgKtR0/W7nRwE9auxMn18taKK6A
+ gTNx6bcuA4gRcpgbcBI9XtbsUPUJdgAkhjwoJAeoIbpXs2vER2wPNOb3movpjuWwjOim+zLf67F
+ /gJwzGgyz3t0z2uGoYBefuDPVfpO7dtWW2alG98Q60E+1p+guvVq5bl0DGMu2O25z17OBAhsSc9
+ W91deqEA41ycGF7WKNT7Q3slO1T2VEqsxkd73umIY8uUCfG5nV+967vvGLTtOBayMuaLX4IgsJQ
+ 65ZIBteHUhKYflLGx8S8c5eQR4a4JTJjI2Voso89KAYJoI6z2KOWGsBBanBAk/sFInJgjHXk2US
+ vD0pPTjb9AZVc/CMIi/vFFlZGxwKp47mV0SsWly+TTKfth7vC4wECDQd8gjHVndVF+1qYsjxLwD
+ iZc3Wf/iBjxgHCCTggxIVFlPrgueV1L+X67AzWMVO7zr8lYx
+X-Received: by 2002:a17:907:7b8c:b0:c2d:c33d:a9d4 with SMTP id
+ a640c23a62f3a-c2dc33dada2mr388838266b.10.1790606489807; 
+ Mon, 28 Sep 2026 07:41:29 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
+ ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2b769429ddsm355555066b.51.2026.09.28.07.41.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Sep 2026 07:41:29 -0700 (PDT)
+Message-ID: <38f81e58-44ca-4fe6-ba72-97557b7625e9@gmail.com>
+Date: Mon, 28 Sep 2026 15:41:28 +0100
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1914:b0:4ca:8d6f:4258 with SMTP id
- 5614622812f47-4d72e06ff3dmr12786028b6e.37.1790605297180; Mon, 28 Sep 2026
- 07:21:37 -0700 (PDT)
-Date: Mon, 28 Sep 2026 07:21:37 -0700
-In-Reply-To: <6a9826cf.9266084e.bf0d7.0008.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aba77f1.e548f532.1ca396.0049.GAE@google.com>
-Subject: Re: [syzbot] [dri?] [virt?] WARNING in virtio_gpu_free_object
-From: syzbot <syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com>
-To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
- kraxel@redhat.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
- simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tao1.yu@intel.com, 
- tzimmermann@suse.de, virtualization@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
+To: sashiko-reviews@lists.linux.dev
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+ <20260928140208.0C56B1F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260928140208.0C56B1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,100 +96,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-syzbot has found a reproducer for the following issue on:
+On 9/28/26 15:02, sashiko-bot@kernel.org wrote:
+...>> +	nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
+>> +
+>> +	if (length <= 0) {
+>> +		prp2_dma = 0;
+>> +		goto done;
+>> +	}
+>> +
+>> +	if (length <= NVME_CTRL_PAGE_SIZE) {
+>> +		prp2_dma = dma_list[map_idx];
+> 
+> [Severity: Critical]
+> Is map_idx checked against map->nr_entries here?
+> 
+> If dmabuf->size is 4608 bytes, nr_entries is truncated to 1, allocating 1
 
-HEAD commit:    72d3fcf802c4 Linux 7.3-rc5
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=168a2ac9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=118a2ac9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1324e325580000
+It'd be rejected, not truncated, see below.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-72d3fcf8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/57f8c24b5f88/vmlinux-72d3fcf8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6587a00eaa7f/bzImage-72d3fcf8.xz
+> array element. Userspace could submit a 4608-byte IO. The driver calculates
+> 'length' up to 4608 and advances 'map_idx' to 1 for the remaining 512 bytes.
+> It reads 'dma_list[1]' (which is out-of-bounds) and uses it as 'prp2_dma',
+> potentially resulting in arbitrary physical DMA (read or write).
+> 
+>> +		goto done;
+>> +	}
+> 
+> [ ... ]
+> 
+>> +free_prps:
+>> +	iod->cmd.common.dptr.prp1 = cpu_to_le64(prp1_dma);
+>> +	iod->cmd.common.dptr.prp2 = cpu_to_le64(prp2_dma);
+>> +	nvme_free_descriptors(req);
+>> +	return BLK_STS_RESOURCE;
+> 
+> [Severity: High]
+> Does this code leave iod->nr_descriptors greater than 0 on the error path?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+I can clear it, but unless I missed sth that's what e.g.
+nvme_pci_setup_data_prp() already does.
 
-Console: switching to colour dummy device 80x25
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#2: syz.0.17/5926
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bd0 kernel/locking/mutex.c:821, CPU#2: syz.0.17/5926
-Modules linked in:
-CPU: 2 UID: 0 PID: 5926 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x94b/0x1bd0 kernel/locking/mutex.c:821
-Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c0 10 00 00 44 8b 05 e8 55 71 05 45 85 c0 75 13 48 8d 3d ac 61 74 05 48 c7 c6 c0 f6 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
-RSP: 0018:ffffc900043f7b30 EFLAGS: 00010246
-RAX: 0000000000000003 RBX: ffff888100b551c0 RCX: 1ffffffff228b180
-RDX: 0000000000000000 RSI: ffffffff8beff6c0 RDI: ffffffff914897d0
-RBP: ffffc900043f7ca0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888027028b60
-FS:  0000555564139500(0000) GS:ffff8880d5d4f000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000001b32f24008 CR3: 00000000296f3000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- virtio_gpu_remove_from_restore_list drivers/gpu/drm/virtio/virtgpu_object.c:70 [inline]
- virtio_gpu_free_object+0xec/0x280 drivers/gpu/drm/virtio/virtgpu_object.c:106
- drm_gem_object_free+0x60/0xa0 drivers/gpu/drm/drm_gem.c:1164
- kref_put include/linux/kref.h:65 [inline]
- __drm_gem_object_put include/drm/drm_gem.h:562 [inline]
- drm_gem_object_put include/drm/drm_gem.h:575 [inline]
- drm_gem_object_put include/drm/drm_gem.h:572 [inline]
- drm_client_buffer_delete drivers/gpu/drm/drm_client.c:201 [inline]
- drm_client_buffer_delete+0x1d8/0x270 drivers/gpu/drm/drm_client.c:185
- drm_fbdev_shmem_fb_destroy+0xc5/0x110 drivers/gpu/drm/drm_fbdev_shmem.c:67
- put_fb_info drivers/video/fbdev/core/fbmem.c:61 [inline]
- put_fb_info+0xb8/0xf0 drivers/video/fbdev/core/fbmem.c:56
- fb_release+0x13e/0x190 drivers/video/fbdev/core/fb_chrdev.c:381
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f1e7cf9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fffb76db628 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007fffb76db710 RCX: 00007f1e7cf9e159
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 000000000000e123 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000001b32320000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f1e7d225fac R14: 00007f1e7d225fa8 R15: 00007f1e7d225fa0
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
-   4:	38 d0                	cmp    %dl,%al
-   6:	7c 08                	jl     0x10
-   8:	84 d2                	test   %dl,%dl
-   a:	0f 85 c0 10 00 00    	jne    0x10d0
-  10:	44 8b 05 e8 55 71 05 	mov    0x57155e8(%rip),%r8d        # 0x57155ff
-  17:	45 85 c0             	test   %r8d,%r8d
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d ac 61 74 05 	lea    0x57461ac(%rip),%rdi        # 0x57461cf
-  23:	48 c7 c6 c0 f6 ef 8b 	mov    $0xffffffff8beff6c0,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	e9 1b f8 ff ff       	jmp    0xfffff850
-  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
-  3c:	4c 89 e7             	mov    %r12,%rdi
-  3f:	e8                   	.byte 0xe8
+nvme_pci_setup_data_prp() // goto bad_sgl:
+	nvme_unmap_data()
+		nvme_free_descriptors();
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> If dma_pool_alloc() fails in nvme_rq_setup_dmabuf_map(), it jumps to
+> 'free_prps:', which calls nvme_free_descriptors() but leaves
+> 'iod->nr_descriptors' unchanged. The block layer may requeue the failed
+> request.
+> 
+> If the queue is subsequently torn down, the cancellation path invokes
+> nvme_unmap_data() -> nvme_rq_clean_dmabuf_map(). Seeing the non-zero
+> 'nr_descriptors', it calls nvme_free_descriptors() again, resulting in a
+> double free.
+> 
+>> +}
+> 
+> [ ... ]
+> 
+>> +static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx *ctx)
+>> +{
+>> +	unsigned nr_entries = ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
+>> +	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
+>> +	struct dma_buf_attachment *attach = nvme_ctx->attach;
+>> +	unsigned long tmp, i = 0;
+>> +	struct nvme_dmabuf_map *map;
+>> +	struct scatterlist *sg;
+>> +	struct sg_table *sgt;
+>> +	int ret;
+>> +
+>> +	dma_resv_assert_held(ctx->dmabuf->resv);
+>> +
+>> +	map = kvmalloc_flex(*map, dma_list, nr_entries);
+>> +	if (!map)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	sgt = dma_buf_map_attachment(attach, ctx->dir);
+>> +	if (IS_ERR(sgt)) {
+>> +		ret = PTR_ERR(sgt);
+>> +		sgt = NULL;
+>> +		goto err;
+>> +	}
+>> +
+>> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
+>> +		dma_addr_t dma_addr = sg_dma_address(sg);
+>> +		unsigned long sg_len = sg_dma_len(sg);
+>> +
+>> +		if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
+>> +		    (dma_addr % NVME_CTRL_PAGE_SIZE)) {
+>> +			ret = -EINVAL;
+>> +			goto err;
+>> +		}
+>> +		while (sg_len) {
+>> +			map->dma_list[i++] = dma_addr;
+> 
+> [Severity: High]
+> Does this loop overflow dma_list[]?
+> 
+> 'nr_entries' is computed via integer division of dmabuf->size. If the dmabuf
+> size is not page-aligned (e.g., 4097 bytes), nr_entries truncates down (to 1).
+
+It'll fail on the alignment check in this loop for [4096, 4097)
+
+> However, exporters often pad sg_table allocations to full pages (e.g., 8192
+> bytes).
+> 
+> The loop unconditionally writes all sg_len chunks to 'dma_list', exceeding the
+> allocated 'nr_entries' capacity.
+> 
+>> +			dma_addr += NVME_CTRL_PAGE_SIZE;
+>> +			sg_len -= NVME_CTRL_PAGE_SIZE;
+>> +		}
+>> +	}
+>> +
+>> +	ret = dma_buf_io_init_map(ctx, &map->base, sgt);
+>> +	if (ret)
+>> +		goto err;
+>> +	map->nr_entries = nr_entries;
+>> +	map->sgt = sgt;
+>> +	return &map->base;
+>> +err:
+>> +	if (sgt)
+>> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+>> +	kfree(map);
+> 
+> [Severity: High]
+> Is it safe to free a kvmalloc_flex() allocation with kfree()?
+
+Going to fix.
+
+-- 
+Pavel Begunkov
+
