@@ -4,169 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C48BC9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 06:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 945A5C98328
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 06:19:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8646210E795;
-	Mon, 28 Sep 2026 06:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E144810E79C;
+	Mon, 28 Sep 2026 06:19:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MwXyitkk";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fStPA8Fa";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Arsu/03M";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454F710E795
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:03:29 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68S4Sbrp2376652
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:03:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=; b=MwXyitkkxn0o88VW
- l9uaPIO/lY4hQjuEshUjTOfxwQkdFJNbJIC0x2nXV8IPoAATJPp+VfKXE/zzGZUq
- 7AxOj80knHjC2avsCthYU1qqiucB8vcecCMW8FTfVZPvqrVtD2iTPnvPG+TZmnKz
- OA4LQ38+62mzKc1gkv6N5ot1OWCQUX1AGVvGbSNXdMTBqiBH6SIw9/EapQtuzpjC
- tpYcvEvzYJupGnDV+Kro/VYrNwrYGwr2Plc0/uKe3+V/wEIVJ2w4ZP9tGBWV4ang
- +l6dk1hIOOc1RBADy/vhUFthXpbi6SCtw647X+H+yFZI0nVr+ioHqSZn4D580mPZ
- SoAkoQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx3dp51bk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:03:28 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-53124d6a362so85398921cf.0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 23:03:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790575407; x=1791180207;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=;
- b=fStPA8FamYafQckzi4fGy5J3vNuW5mozDE1Eg3wyC1A0sTLadh884hRoW+mWSkkIzC
- GGPrU4hqVDSFoAURSnSEotUxllNetfPgTbPpieTtktWu7NIoJJbBoOkuYePlZsGpvJ6m
- up8GUzvk21eLY1rpj8yIj8adwvAFHTkRon+Jx1r4MZRc1vGUGJj+ocEguZL8QC6Lgx7h
- cuVS1PHg0SsAWBJ456gbT+F/1Cm+Y4RtE7dMmkTDgOvSCIM9gVXssKNYMtsupncNsm1/
- 0lN6KI4XCVOajoEXFv0/d76YuZ5JwFFPDknVjzALFLZFf+kebDw0IxMuRBuUt2rlA52g
- /aJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790575407; x=1791180207;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=TfllPCpOYcD0Q0J40ZUWiBiA0eMH8gTidifWVXwZRKM=;
- b=oUa18Jm/L0oiuBEEYo8Ghn2QnrRFwD4TUEWi52IdZdHhCQQR+gsanJApZt/MI/gEyM
- 8f2ci22APpjtnoeo/BkjYyxTTq/LKb//UlvL52E45zIncGHT7vJJ2dKL3U9rYoJkpW9H
- uenPFslkdZAIYV0ooS+MppR4GtvKGlRI6e8x1NqsC+5XbOGHTbr/IEDtPF+SJHfsYshB
- uon9VGOrP8ZfBtsogG7tyJXCzNLrV/xiGIJr8+ahSPojkyiIpFSOw/kpN0B4Y2A/BuwJ
- EaOHAJq2KvI+XeU4xM9f/npSdIlj3PMpn9AjskUqE+/xs1dy3fUhUa1oPGvg89qwZLwD
- D1Hw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzK1qVK6jAdY6FwvSsoYQz9Kfj0DhffbQh6O4JBpgWz8Mg3ROLZr5RrvnrQfqLRZxDsPuwvy+ojiyk=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k41mYohtIqgqIcf9wPB1TNS4a5145vSTUaV/BBNQs4S86zPjFF
- CVZI6FqjOmaPQMEjj0vVuaZxkRnbH2VFSgct5a/iXIfuUhE2RRePI8tkIH4Q0QC7JBb2T3WRuaK
- NMJxqi4IP3ybGcUwMgV04IzUNnpM/ZKhwTjfSWGTssaD4ZtNE4kYyrMo2WSqIXn8iQs0lPwM=
-X-Gm-Gg: AYBFou3eLHfp+suKvQ4VVUj/NqorJgHEeVCCCBpp10pwGxszsC0Z2dvvL82/4mv/QAr
- HdBx7vkRF7IZJ+Be69N7qXAnNtaTfLDRQUsZQUWW44vsrKk7Uvfe8eIY4RdA/tIXFMmAipodtcH
- UjK4FxasdvvlZ5AiYu++YuGq2LMYCvWvjRT2/fJdSLJQKb0kKFgbLQJOBAwhWkRHLRjGRGjeoBg
- LCBqzfOXkugRcqjQHhVcxcJ5V6ROE8xa8wbr5/dIXtBtu2k80tA+4XZUAlEr7KnRe2qIzBneI41
- hB/+bmZywOkX+urqGUfSBzSxiNqfsrTL9A92dwtDVYFGE33Whrl4IAYDCT9SW3yd/QOPLATdLuV
- m9kT9rLjdaSuf+hnVA0Xtp1wENzq5
-X-Received: by 2002:a05:622a:580a:b0:530:8853:1be5 with SMTP id
- d75a77b69052e-5330dbe7652mr183346571cf.10.1790575407327; 
- Sun, 27 Sep 2026 23:03:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:580a:b0:530:8853:1be5 with SMTP id
- d75a77b69052e-5330dbe7652mr183345631cf.10.1790575406762; 
- Sun, 27 Sep 2026 23:03:26 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a0017816efsm113080805e9.9.2026.09.27.23.03.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Sep 2026 23:03:24 -0700 (PDT)
-Message-ID: <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 08:03:18 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
- indentation in the example
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Francesco Dolcini
- <francesco@dolcini.it>, Philipp Zabel <p.zabel@pengutronix.de>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>,
- CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>, Abel Vesa
- <abelvesa@kernel.org>, Chris Morgan <macromorgan@hotmail.com>,
- Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
- <179057359762.92994.13773102514654073802.b4-ty@b4>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <179057359762.92994.13773102514654073802.b4-ty@b4>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012071.outbound.protection.outlook.com
+ [40.93.195.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5BFC10E7A1;
+ Mon, 28 Sep 2026 06:19:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=We+EzDH8EnyY9q4ENVIQbt00ebYnAjDvs78KonWFZyFOCit7u3w2rx208gkk+nNxnYu2tKbGEgP+nNeS2Y15E2nB3n00VZWO6wJ8QOvbHDeEWS+jMejPB4C1pkP43podMw5N8IMG9DdRvSUoalGIKqOF6F+3j831Mntc5sVFUul6Ytq36IFqtyEG4S11VdaPJOgJQbSNQkfl5Q90GEYknl4F/F/y+FRdkHMOYMjUNa/VyM/+5MMZedPZVdKilK5vwqXu99yydFI+tZOQr2J4wHVw9Q0ELVG+tdtgn/XkXj37XvoG1nnQyxVvI316yLsFjvs9KVJtloYiWBB1M5gTNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FlYOflMS6TmsvmrLKLuxnJaM36/HAICp+2Y40xIkRuM=;
+ b=WlAeL0CY7bg5dzU/WwQIHppM9gEbt0AHp1SfA71m7S5ydpvkA+op2Rtv+IxzMbTCa18lb0OlVTG65GTirpLuhS1KsRq7ICscq0cpVUI2VJT+vCw/k1mgusPBF+yphF9oFQUlqmJIQNYhCVMzicH9ZOhpHpoM3mP278dbnQfO96EgRzarMomvm7xg3DNnLMgEKnRTYmhQpv7mpnMpzaWeOXshvZWUTj1+N3cdbg0HKOTzUsKMwAivmeCDeEqFZ0MOHoEulScSad4ZT4TsH96fIaijyB9fARhJEgB1ebzgOcyqjXuPfsXFUeCztIkgzeba4ol871vWuyy9m0YXjy5ZmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FlYOflMS6TmsvmrLKLuxnJaM36/HAICp+2Y40xIkRuM=;
+ b=Arsu/03MRvDEckEMRLIpgx3RpZQn28EhYSQ2TJ/FnkFfW/mD+wX9bjZBS2oXXsfEwqOuApnHiygriU96xH7OEfP/mXYsFyq9gqZkpFiVxS3Buj3Ovbv9AQ6xHg9KAj9rKD1uUJK2fq7Zz4YjLhxXrVf/Ku2yW3gjspwflkUPqKie1BXHyD5Hf5rJefbQMV4EI08C3iThJcA20fwzszOmNVwetJZvuaKwH4FGIW2Q0AbvGZvV7rhXZgj5Fz1VPXo4I6ALl/PjMrAmNkNEKgfJ8FxIRNOvu0YlPjT3/5YqqwF/3N8V+yEOmunFlLcmjeXp00FJu+VZ0+PvOQvATZEq9A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
+ by IA5PR12MB999277.namprd12.prod.outlook.com (2603:10b6:208:608::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 06:19:42 +0000
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:19:42 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyMyBTYWx0ZWRfX36MQbdwKYtPW
- Cos3w5H4m744a/0D+a6jO+639wTwoILyDmatz3SSAYnH5EIGE6J3hxBtnSFOdgHwJGsXNLHy9e7
- eQgLm5POoBdCij6HS05XVviMT7Krk9FUT20jr4A1FSMytoNGOIjijlNPTPkifiBtKR3qN6Bdsgs
- /1CkTMGFBEzmS3OWTD67THLQCMFHhdA7WKDfiqJyzuJtZQbmDOrcUum5nGJVtPrbF0V9IRxJu3Q
- xggeranFKdl8xxVYmT4hSOjM1lGaMSPlNvbBJu/69bSsnAaq6M6KdkuMxFpPY47e5z6m6fQj7X3
- xeP8yDH0zDAmSkVPF/+0mFhkCEYqXiOn4TY/iJVJZncTOBzfWnpT0zrezgRDMGPOmFW0K0s9G1X
- XwrFlY9NlVpby0iW9xkfD62fNP05SLc1UahGVwNdCjePnwqsyMDCkU3C9tQxXmFm0gYGsD+PQRK
- TpY3RWar/SVwFeNLF8g==
-X-Authority-Analysis: v=2.4 cv=QsXLTlyd c=1 sm=1 tr=0 ts=6aba0330 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=chZs0_0Ys9iI7aL1xjgA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: bNFL7XRpWb_esLOuqPUd57XWKJqXs_gn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyMyBTYWx0ZWRfX2EcRsBJ9GeMF
- E9htPXlYyrfa87RXQ8jnO4TmD3rHajWoNjJ/u97NVSo3BGVm2y57JyokdD+jOIkGiVXccBmbiZl
- q3P9rM+sunK2CeqzoPDyRfBF0GxgHrc=
-X-Proofpoint-ORIG-GUID: bNFL7XRpWb_esLOuqPUd57XWKJqXs_gn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 malwarescore=0 phishscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280023
+Date: Mon, 28 Sep 2026 15:19:28 +0900
+Message-Id: <DLQQCJRLIWXA.32C5JK2QOGGTW@nvidia.com>
+Subject: Re: [PATCH v2 4/9] gpu: nova-core: gsp: cmdq: split the transport
+ part of the send path
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+References: <20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com>
+ <20260927-cmdq-rpc-v2-4-c3f66ae73be4@nvidia.com>
+ <DLQP0I37RZTD.4C52AA74ID18@nvidia.com>
+In-Reply-To: <DLQP0I37RZTD.4C52AA74ID18@nvidia.com>
+X-ClientProxiedBy: OSTP286CA0101.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:219::17) To SN7PR12MB6862.namprd12.prod.outlook.com
+ (2603:10b6:806:265::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|IA5PR12MB999277:EE_
+X-MS-Office365-Filtering-Correlation-Id: c481abe4-0211-40c8-2074-08df1d287b43
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|3023799007|6133799003|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: VajMFb8ql2o9MuN7jQ0nb10Xt9p83fzC2ePWwy8KhgxoyqhnNJWaKWPORpsyR2ClUiGR0RVvh2ZaQdEFhPvW5w4T0q+FsoAtj6s81TcUI8Pa4Ag7Fcs8q6HwVRoAaqErk6s/JMjy2+wY64fvcto4L3StxYf3ppOnIRkw1UfG9jCJidG5g0z1BbKE1c48yxEWymieuJ0I/cyifs1KgmN6aOOMW5satS4reJXtpU626AOqmKlhQ2qD8U3DIErCVLlAnChALtwy2IpVTzvuQqdsNvtze9ugIMoXzZXPDA4LlTfcGLsJo2Gyh3yz/kvxXon2jn+ujGgjE36+qUaY/+Zk/MztDtmfv3xHvtFd+Lw6Ziwh2ACUq6oh7BWuXyd0NMV1iRW2cUwWxMIg3CnRJdN/f9WJMJNFBCpow90Yu0LcoOgHcZ/j+mBtgux4971d7rvnk56uXEFZuJP4WP6dvjn/EuBkFQniFiS6Pq1qcExmqecBwHXkbPkAPjhpQefqQlvClTT/l4Nq/YbJe3JxH+D0fzUNsApJyZV9M2HaYQm9TgnoZz55UJVY7XEd4cAJsYuhKaQ2JM9ASfxpjrWiSBH0YgHUfzWs7FXgtzVnQ0P3qlauBaot8LkM9Q9IPYhfyP7LXZB0m6O/VK7R4SlMmJ24FhPF/clpc3GZVEh8P+eKf+4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6858.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(3023799007)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aG1OSGhvd21RU01ib0VUYVJrZSt6Uk5MZnlOQ2p0QmFtZTYvcVBxOGZDSVN6?=
+ =?utf-8?B?cWgyYlNEdHNwRkFhNmZpeW45NFBza0tkUjFTd0NIZGNqY1lYekVSY0FvWi8y?=
+ =?utf-8?B?VENydlJqMXhBempjNWFHcEFvMUs4Z3JEc0dDWjBvMmZIUEt4YkIyZ3dHQ1ZX?=
+ =?utf-8?B?cENqdk13ODJBSW5xbS9BTGQvUnhXU3J6OGRnVGpjTnRxSU9kdW5uaHZIUHh6?=
+ =?utf-8?B?NXRDRGpza0hGZkV6NkIzOVQybGdnUWh2aG5xMHpaMUVWbFBJeFhHRnhjalFH?=
+ =?utf-8?B?R2hqRGRUNEJMYkZHbXI3WkErY2xVVDZ4YUZwSmY0OGZvY3ZNZy9DbmltWDJk?=
+ =?utf-8?B?UDFzTm5jY3p6RWZVU2N1ZnRldEU0cGFlRnkzSlovQTRmQXJzc21PSGVTSUsw?=
+ =?utf-8?B?bHMxWmt4TDJRZ28rZTVTd01oaVVNTTR2M1Frd1N4WkM0NGdFaDIzSC9DMU9Z?=
+ =?utf-8?B?R0YyWStDVkFSNU5BQUlpdmdWK2ZadFNselpKSUlMNXZPRGwzazJ5ZGx2RHFB?=
+ =?utf-8?B?UGFQdklUa1UwRzBvZWZrNmFWVUtWOVJYdUhLN094WHArak04czVVZ1J6V1lp?=
+ =?utf-8?B?YmdMTzNjTzRxZUVJWERiR2VvUEhJL2RTV1VDR1I1T05lWlU3RGhQclMzb1Np?=
+ =?utf-8?B?TysvNkpra25pQStML0k2QkF6QVpCRlNtQlAwR3FmRCtIZWVYT3ZHRm1pdHlX?=
+ =?utf-8?B?TEVIT2RTdWxjQ0xqNWFyUGp1emVaL2QrVS9sWXJDeDI5WFhEM2UyR0RIa1BT?=
+ =?utf-8?B?WGhCNCtPNVpVODYzSE5IUDZqQk5iTEFrSi9qaEZ1VGFxUDdKUk01aXVzZWZB?=
+ =?utf-8?B?MzVTbmI5VytGQ24rN1o2RTNGOUxLVXdxais2Vzl1WlJKNkJvVENKcmo1ZVF1?=
+ =?utf-8?B?OTdGaXZQd3JGLzhXelBJTk5pL0k0aEk3ckN4M0dXbkl0cU9nUko1V3FWS1pl?=
+ =?utf-8?B?M09mS1d1M1hKN2kvekViWGNReVVHUitrbEFGTzExMU0wTVVWb1M4VFNObG1M?=
+ =?utf-8?B?cEkzcy9aNXFWaU5CcXNwdnpUUlI2Rjl4ckY2SXgyY0g4dSs2ZEVabGNTaDVJ?=
+ =?utf-8?B?K3JJZVcvdy92VmtPd1FPSXBHZXZkMnJxY1JOM1hBK1F4Skx6dldzWXYrLzBZ?=
+ =?utf-8?B?K1NrSlNLWDdJam4zWEJ2bDNaem90VVJmZWE0VjhKVmJubk1tbFVRUUp4S0hy?=
+ =?utf-8?B?ak1DK3oxQy9KcllwWWE3RE1jRFZwQmNoWEprT1BEb3V2QkZHU2pIVDFTaEND?=
+ =?utf-8?B?cDJRVThwemhUYml5TkZ1cUFBK2x5RE42K0NlOURja0x1MUI1UFRkM2FGWDZy?=
+ =?utf-8?B?QTRwWGEzSGkxSHp1Ly9RMVY0NFNBNkZPTGxKUVpHcmQwODdIUmhzdGlGNGR0?=
+ =?utf-8?B?MU00aktRSnBBSmwyZTM2ZTR0ZnhRSExTMHVZbHdHY3p5RTJsZEpBa2pQTTk3?=
+ =?utf-8?B?TXRmU0doNmt4T3ZDcUxFUjB3ZmIyOEZIcVZBWmlxYU1TZ2JvdXJNQUt0VElO?=
+ =?utf-8?B?U3BWRCtuQjd2MXp1bklrM1YxNC9jZXZyRzVlZFMzZ0dHMEN3WjMyZE91NVRu?=
+ =?utf-8?B?UGtBYnIrV1ZzQ0R6Wkp3bDFEVlVQQlk0YW56UGNLdjV2cHh1bFJ1UXRwaU95?=
+ =?utf-8?B?SlR1Q3FudXRockYwTDZMZVNPbTFBNUs1OUtSZXdwVFNuWXhLbkV1WlZNa01N?=
+ =?utf-8?B?R051Q0tlNExWSHpFY01aclc2U2thNWlGanNBU0tCM2ZMV0xSbjlqQmU5N1Nm?=
+ =?utf-8?B?Wjc1R1h4c29scXprT0U3ekpCdVl1SVdGR0lvU2tybzZud2d0cnlXalhpR1RN?=
+ =?utf-8?B?eEwzUzVsOUFEampFMk82WWg5cFdUeUxuOXAyQjJVNjBKRFdaaGM0SStEL1ZL?=
+ =?utf-8?B?bzNEVk1MMGtMbm5xK0FmQThZZGhxU3IzaUJ0S3l5MUdhRnA4bngyY1QxZXJu?=
+ =?utf-8?B?ZzZzTlp1MU54SGVQZXJtNUpFbEhwSFVWZklxYnBZNktzZy9OU003a3ZqYkVk?=
+ =?utf-8?B?NkRrVS91Mm9oMzZrOHQ5MWNTZEFxYmVadWxYMEUvbWdTZG1EZE9kNllobFRL?=
+ =?utf-8?B?cGl3S0k5Uis5c2FkQXhEOGRGT3NHYytpL2hUZ0dsSkV5UmFtdXpJL0c5Ky9M?=
+ =?utf-8?B?VllBWFM2VldudlVKczh2S2paaENPMzAxWStVMUhzUzFsZ2JuNzg4NVNWWkhu?=
+ =?utf-8?B?Lyt6SW1zK2UrZGxxNnJlWTI4YmFYL204N3drNUk0N1p5d2NKSDBuVmFmYWZV?=
+ =?utf-8?B?RXA0ZXJIaGhQQnQxQnBBemw3YzVLaFgxL2RVNzFlZnRqOS9XcVFIOHJ5TGNv?=
+ =?utf-8?B?QlN0MVNWUjRYZVlQVjB6MUV5MEtNT2YxRVQrOGE0TFhMNDF3MUNwZHpqQVVE?=
+ =?utf-8?Q?z/363F7QzA0MwhVcBY9Yme2tWobkkEt/0shaPpmR9kTEV?=
+X-MS-Exchange-AntiSpam-MessageData-1: Eb9F6QEuSYFlxg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c481abe4-0211-40c8-2074-08df1d287b43
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6862.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:19:42.3372 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x+ssjlzuARE4RSXn7Dknq4hS5IcHwCylFheiBQLY5AVpPoslyr08avPyyE7aXxceYWC+BOO+b3TCLqdQVNTuNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999277
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,21 +147,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/09/2026 07:33, Luca Ceresoli wrote:
-> 
-> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
->> Correct indentation in the examples to consistent 2- or 4-spaces
->> indentation to fix dt-check-style warnings ("example 0
->> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
->> re-indenting entire example just for that is too much churn.
-> 
-> Applied, thanks!
-> 
-> [1/2] dt-bindings: display: Use consistent indentation in the example
->       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+On Mon Sep 28, 2026 at 2:16 PM JST, Eliot Courtney wrote:
+> On Sun Sep 27, 2026 at 10:46 PM JST, Alexandre Courbot wrote:
+>> Move the transport part of `send_single_command` into
+>> `send_command_element`, which allocates the queue slots, writes the
+>> element header, calls a closure to fill the remainder of the command,
+>> then computes the checksum, advances the write pointer and rings the
+>> doorbell.
+>>
+>> The RPC part of `send_single_command` (writing the RPC header and the
+>> command payload) is passed as a closure, unchanged apart from its
+>> indentation. This sets things up for moving the RPC code into its own
+>> sub-module, leaving the transport agnostic of the message type.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/cmdq.rs | 118 ++++++++++++++++++++++++-------=
+-------
+>>  1 file changed, 74 insertions(+), 44 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/g=
+sp/cmdq.rs
+>> index 07e8e32c3d57..b6d50b0bd039 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>> @@ -638,65 +638,35 @@ impl CmdqInner<'_> {
+>>      /// Timeout for waiting for space on the command queue.
+>>      const ALLOCATE_TIMEOUT: Delta =3D Delta::from_secs(1);
+>> =20
+>> -    /// Sends `command` to the GSP, without splitting it.
+>> +    /// Allocates enough send slots to store a command of `sizes_in_byt=
+es` length, initialize them
+>> +    /// using `command_init`, and send the command to the GSP.
+>>      ///
+>>      /// # Errors
+>>      ///
+>>      /// - `EMSGSIZE` if the command exceeds the maximum queue element s=
+ize.
+>>      /// - `ETIMEDOUT` if space does not become available within the tim=
+eout.
+>> -    /// - `EIO` if the variable payload requested by the command has no=
+t been entirely
+>> -    ///   written to by its [`CommandToGsp::init_variable_payload`] met=
+hod.
+>>      ///
+>> -    /// Error codes returned by the command initializers are propagated=
+ as-is.
+>> -    fn send_single_command<M>(&mut self, command: M) -> Result
+>> -    where
+>> -        M: CommandToGsp,
+>> -        // This allows all error types, including `Infallible`, to be u=
+sed for `M::InitError`.
+>> -        Error: From<M::InitError>,
+>> -    {
+>> -        let size_in_bytes =3D command.size();
+>> -        let dst =3D self
+>> +    /// Error codes returned by `command_init` are returned as-is.
+>> +    fn send_command_element(
+>> +        &mut self,
+>> +        size_in_bytes: usize,
+>> +        command_init: impl FnOnce(&mut GspCommand<'_>) -> Result,
+>> +    ) -> Result {
+>> +        let mut dst =3D self
+>>              .gsp_mem
+>>              .allocate_command(size_in_bytes, Self::ALLOCATE_TIMEOUT)?;
+>> =20
+>> +        let seq =3D self.seq;
+>
+> nit: this local reads noisily to me
+>
+>> +
+>>          // Fill the header.
+>> -        let msg_element_init =3D GspMsgElement::init(self.seq, size_in_=
+bytes);
+>> +        let msg_element_init =3D GspMsgElement::init(seq, size_in_bytes=
+);
+>>          // SAFETY: `msg_header` is a valid reference, and not touched i=
+f the initializer fails.
+>>          unsafe {
+>>              pin_init::raw_try_init(core::ptr::from_mut(dst.header), msg=
+_element_init)?;
+>>          }
+>> =20
+>> -        // Extract area for the command itself. The GSP message header =
+and the command header
+>> -        // together are guaranteed to fit entirely into a single page, =
+so it's ok to only look
+>> -        // at `dst.contents.0` here.
+>> -        let (cmd, payload_1) =3D M::Command::from_bytes_mut_prefix(dst.=
+contents.0).ok_or(EIO)?;
+>> -        let rpc_header_init =3D RpcMessageHeader::init(size_in_bytes, M=
+::FUNCTION);
+>> -        // SAFETY: `rpc_header_mut()` and `cmd` are valid references, a=
+nd not touched if the
+>> -        // initializer fails.
+>> -        unsafe {
+>> -            pin_init::raw_try_init(
+>> -                core::ptr::from_mut(dst.header.rpc_header_mut()),
+>> -                rpc_header_init,
+>> -            )?;
+>> -            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.in=
+it())?;
+>> -        }
+>> -
+>> -        // Fill the variable-length payload, which may be empty.
+>> -        let mut sbuffer =3D SBufferIter::new_writer([&mut payload_1[..]=
+, &mut dst.contents.1[..]]);
+>> -        command.init_variable_payload(&mut sbuffer)?;
+>> -
+>> -        if !sbuffer.is_empty() {
+>> -            return Err(EIO);
+>> -        }
+>> -        drop(sbuffer);
+>> -
+>> -        dev_dbg!(
+>> -            &self.dev,
+>> -            "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\n=
+",
+>> -            self.seq,
+>> -            M::FUNCTION,
+>> -            size_in_bytes,
+>> -        );
+>> +        // Initialize the message payload.
+>> +        command_init(&mut dst)?;
+>> =20
+>>          // Compute checksum now that the whole message is ready.
+>>          dst.header
+>> @@ -715,6 +685,66 @@ fn send_single_command<M>(&mut self, command: M) ->=
+ Result
+>>          Ok(())
+>>      }
+>> =20
+>> +    /// Sends `command` to the GSP, without splitting it.
+>> +    ///
+>> +    /// # Errors
+>> +    ///
+>> +    /// - `EMSGSIZE` if the command exceeds the maximum queue element s=
+ize.
+>> +    /// - `ETIMEDOUT` if space does not become available within the tim=
+eout.
+>> +    /// - `EIO` if the variable payload requested by the command has no=
+t been entirely
+>> +    ///   written to by its [`CommandToGsp::init_variable_payload`] met=
+hod.
+>> +    ///
+>> +    /// Error codes returned by the command initializers are propagated=
+ as-is.
+>> +    fn send_single_command<M>(&mut self, command: M) -> Result
+>> +    where
+>> +        M: CommandToGsp,
+>> +        // This allows all error types, including `Infallible`, to be u=
+sed for `M::InitError`.
+>> +        Error: From<M::InitError>,
+>> +    {
+>> +        let dev =3D self.dev;
+>> +        let seq =3D self.seq;
+>> +        let size_in_bytes =3D command.size();
+>
+> I suspect if we pass dev and seq into the closure below, we can
+> further split the RPC layer from the transport layer. That means the
+> patches after this won't have to impl on CmdqInner for e.g.
+> `send_single_command` and instead we can just define a trait that writes
+> in the message layer data (so send_single_command could e.g. instead
+> take an impl RpcCommandWriter or whatever, and we can impl
+> RpcCommandWriter for anything that impls CommandToGsp, inserting the
+> message layer protocol stuff in there).
 
-Thanks, but I expected no one will pick it up, so I asked Rob to take
-it, thus it is already queued.
+That sounds like a much better design indeed - I was contemplating
+introducing traits and thought it might be better to keep things simple
+and revisit until r000 is completed, but it probably won't be limiting
+us in any way, and removes the unneeded mirror methods in `CmdqInner`.
 
-Best regards,
-Krzysztof
+The same pattern can probably also be applied on the receiving side, so
+I'll try and do it there as well.
