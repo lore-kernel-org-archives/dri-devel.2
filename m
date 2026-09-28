@@ -4,146 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE02ECA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95F9CCA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0C4710E69A;
-	Mon, 28 Sep 2026 16:12:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0120F10EAF0;
+	Mon, 28 Sep 2026 16:16:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="uZjuIRv1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1MQ6OWa6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="R/JWyV97";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O1Ckxs1f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fDMPS1BQ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C35A10E64F;
- Mon, 28 Sep 2026 16:12:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D92371FB51;
- Mon, 28 Sep 2026 16:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790611950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pyff3cghlQpfxKQ8MAKmPaSMdDocUqnZkZObvNc3RxY=;
- b=uZjuIRv1T/mguF8xvhdtk4zZOQNdo8l8bsg8bIIV0TIYaVzAnRR/ADKbqRCGv6uRx2K1/1
- bncXQ7Pl+rqy/1K6OOIFq07dS7mTK6Nc8NOztrmti/RrrxmNfSNAWKJEXYqFQ9McewH3dd
- 4sCW6h7deay8LmjwE3c98QWH2gg45XM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790611950;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pyff3cghlQpfxKQ8MAKmPaSMdDocUqnZkZObvNc3RxY=;
- b=1MQ6OWa61bK0uG8M8PZKBBVXuyRpJO5QLufmfgQXuKqcd1kjW+lUp9y20pKYvjbyy8ifv1
- F/GKtO21CyWBQpBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="R/JWyV97";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=O1Ckxs1f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790611945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pyff3cghlQpfxKQ8MAKmPaSMdDocUqnZkZObvNc3RxY=;
- b=R/JWyV97qtesVVTYlx3wRBT3ddSe/5vueiWUceGEgEbAe4eoojQWxxk5YpWeFsc3POblbk
- FM+5CNssqkJYi0AsltvCipByCwf0V/dL+J+rw05D4corLYPs10hERv/P6e9Ex9j0QMscwY
- RLgyRhG89x4yTG4pTt0ldNuhtkJBkOE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790611945;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pyff3cghlQpfxKQ8MAKmPaSMdDocUqnZkZObvNc3RxY=;
- b=O1Ckxs1f4rG9UKSB8pRG92P7/orKJe9wHFjzrqxjpDdMisuOFAK4ybXsohHFasN6pAF71O
- DZznj1DlA2yoRqBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 212061340F;
- Mon, 28 Sep 2026 16:12:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5PFbOuiRumoIagAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 16:12:25 +0000
-Message-ID: <a4593bf7-2036-432f-ba6a-85321fcb28df@suse.de>
-Date: Mon, 28 Sep 2026 18:12:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] drm: Move drm_timeout_abs_to_jiffies() to
- drm_timeout.c
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD9D110EAF0;
+ Mon, 28 Sep 2026 16:16:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 814B9600D1;
+ Mon, 28 Sep 2026 16:16:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EB91F00898;
+ Mon, 28 Sep 2026 16:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790612179;
+ bh=v9Tw4ZE1G69hRr4vc52iHnkSsVjNEruzNlhhsAUicUU=;
+ h=From:To:Cc:Subject:Date;
+ b=fDMPS1BQWnhqBOm5Et2mOCue6qkyeCiAtDwNCfym/yr7KTxRMQsqu0E6hMtOC3G4v
+ zVB5Nk0ppwIjf11h1jlqCVd40xiB83NC/dlmG3Othz+Yj26ZLpuQO/2Vq89ZvGMcPq
+ Elbik/R3zVlKqJUEchfTMLky3ugNbNjwwjfpacNS+vNbyC1jKVoP2AVcB7mBqQ1T0W
+ PyCLWuxlgyWfASyTH/028go6JiMSdTragpnvIFyaPQzWMc6aqPUGpuysKLqr6wkZEn
+ SP2ZljcJ1FqeYd2qX+k2O8HBsNs1d79Q7dVDQ6RHhVwJTg1TqLMZCirKMeXkrqt2mC
+ gaVo0QpwNmSqQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Sasha Finkelstein <k@chaosmail.tech>,
+ Janne Grunau <j@jannau.net>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-1-f2ae987d861f@igalia.com>
- <3a146579-b9c6-4d4c-835b-89871b0dcd6a@suse.de>
-Content-Language: en-US
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <3a146579-b9c6-4d4c-835b-89871b0dcd6a@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
+ asahi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
+Date: Mon, 28 Sep 2026 18:04:50 +0200
+Message-ID: <20260928161605.2271412-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: D92371FB51
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,216 +93,405 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Arnd Bergmann <arnd@arndb.de>
 
+The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
+not all callers include this, which leads to build failures in
+some configurations:
 
-Am 28.09.26 um 18:03 schrieb Thomas Zimmermann:
-[...]
->>   -/**
->> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
->> absolute value
->> - *
->> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
->> - *
->> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
->> - */
->> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->
-> As Jani noted, the types seem to be off here. The timeout should 
-> likely by unsigned. Jiffies are counted in u64 and the helper should 
-> return it as such.
+drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
+drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declaration of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+  404 |         bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+      |                  ^~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
+drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declaration of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
+  306 |         next = devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
+      |                ^~~~~~~~~~~~~~~~~~~~~~
 
-Scratch that. Jiffies are stored in unsigned long. So this should be 
-returned.
+Include the new header in all files that need it.
 
->
-> If you have the time, another such patch on top would be appreciated.
+Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/adp/adp_drv.c                    | 1 +
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c | 1 +
+ drivers/gpu/drm/bridge/chipone-icn6211.c         | 1 +
+ drivers/gpu/drm/bridge/imx/imx-ldb-helper.c      | 1 +
+ drivers/gpu/drm/bridge/ite-it6263.c              | 1 +
+ drivers/gpu/drm/bridge/microchip-lvds.c          | 1 +
+ drivers/gpu/drm/bridge/nwl-dsi.c                 | 1 +
+ drivers/gpu/drm/bridge/nxp-ptn3460.c             | 1 +
+ drivers/gpu/drm/bridge/parade-ps8622.c           | 1 +
+ drivers/gpu/drm/bridge/parade-ps8640.c           | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c    | 1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c   | 1 +
+ drivers/gpu/drm/bridge/tc358762.c                | 1 +
+ drivers/gpu/drm/bridge/tc358764.c                | 1 +
+ drivers/gpu/drm/bridge/tc358775.c                | 1 +
+ drivers/gpu/drm/bridge/ti-dlpc3433.c             | 1 +
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c            | 1 +
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c            | 1 +
+ drivers/gpu/drm/drm_bridge.c                     | 1 +
+ drivers/gpu/drm/imx/ipuv3/imx-ldb.c              | 1 +
+ drivers/gpu/drm/imx/ipuv3/parallel-display.c     | 1 +
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c              | 1 +
+ drivers/gpu/drm/mediatek/mtk_dpi.c               | 1 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c         | 1 +
+ drivers/gpu/drm/mxsfb/lcdif_drv.c                | 1 +
+ drivers/gpu/drm/sprd/sprd_dsi.c                  | 1 +
+ drivers/gpu/drm/tidss/tidss_oldi.c               | 1 +
+ drivers/gpu/drm/tilcdc/tilcdc_encoder.c          | 1 +
+ drivers/gpu/drm/verisilicon/vs_bridge.c          | 1 +
+ 29 files changed, 29 insertions(+)
 
-^ This.
-
-Best regards
-Thomas
-
-
->
-> Best regards
-> Thomas
->
->
->> -{
->> -    ktime_t abs_timeout, now;
->> -    u64 timeout_ns, timeout_jiffies64;
->> -
->> -    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
->> -    if (timeout_nsec == 0)
->> -        return 0;
->> -
->> -    abs_timeout = ns_to_ktime(timeout_nsec);
->> -    now = ktime_get();
->> -
->> -    if (!ktime_after(abs_timeout, now))
->> -        return 0;
->> -
->> -    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
->> -
->> -    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
->> -    /*  clamp timeout to avoid infinite timeout */
->> -    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
->> -        return MAX_SCHEDULE_TIMEOUT - 1;
->> -
->> -    return timeout_jiffies64 + 1;
->> -}
->> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
->> -
->>   static int drm_syncobj_array_wait(struct drm_device *dev,
->>                     struct drm_file *file_private,
->>                     struct drm_syncobj_wait *wait,
->> diff --git a/drivers/gpu/drm/drm_timeout.c 
->> b/drivers/gpu/drm/drm_timeout.c
->> new file mode 100644
->> index 000000000000..35e10293e0a1
->> --- /dev/null
->> +++ b/drivers/gpu/drm/drm_timeout.c
->> @@ -0,0 +1,50 @@
->> +// SPDX-License-Identifier: MIT
->> +/*
->> + * Timeout conversion helpers for wait ioctls.
->> + *
->> + * Copyright 2017 Red Hat
->> + * Copyright 2016 Advanced Micro Devices, Inc.
->> + */
->> +
->> +#include <linux/export.h>
->> +#include <linux/jiffies.h>
->> +#include <linux/ktime.h>
->> +#include <linux/sched.h>
->> +
->> +#include <drm/drm_timeout.h>
->> +
->> +/**
->> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
->> absolute value
->> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
->> + *
->> + * Calculate the timeout in jiffies from an absolute time in ns. The 
->> result is
->> + * clamped to MAX_SCHEDULE_TIMEOUT - 1 to avoid infinite timeouts.
->> + *
->> + * Returns:
->> + * The number of jiffies until the given timeout, or the upper limit.
->> + */
->> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->> +{
->> +    ktime_t abs_timeout, now;
->> +    u64 timeout_ns, timeout_jiffies64;
->> +
->> +    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
->> +    if (timeout_nsec == 0)
->> +        return 0;
->> +
->> +    abs_timeout = ns_to_ktime(timeout_nsec);
->> +    now = ktime_get();
->> +
->> +    if (!ktime_after(abs_timeout, now))
->> +        return 0;
->> +
->> +    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
->> +
->> +    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
->> +    /*  clamp timeout to avoid infinite timeout */
->> +    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
->> +        return MAX_SCHEDULE_TIMEOUT - 1;
->> +
->> +    return timeout_jiffies64 + 1;
->> +}
->> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
->> diff --git a/drivers/gpu/drm/lima/lima_gem.c 
->> b/drivers/gpu/drm/lima/lima_gem.c
->> index 0c73860bb501..97e1dc541c2e 100644
->> --- a/drivers/gpu/drm/lima/lima_gem.c
->> +++ b/drivers/gpu/drm/lima/lima_gem.c
->> @@ -10,7 +10,7 @@
->>     #include <drm/drm_file.h>
->>   #include <drm/drm_syncobj.h>
->> -#include <drm/drm_utils.h>
->> +#include <drm/drm_timeout.h>
->>     #include <drm/lima_drm.h>
->>   diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c 
->> b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> index 96a66d673ba6..70c05210ea84 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
->> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
->> @@ -18,7 +18,7 @@
->>   #include <drm/drm_ioctl.h>
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_syncobj.h>
->> -#include <drm/drm_utils.h>
->> +#include <drm/drm_timeout.h>
->>     #include "panfrost_device.h"
->>   #include "panfrost_drv.h"
->> diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
->> index c0ac6b45f2d7..bee310b07eb0 100644
->> --- a/drivers/gpu/drm/tegra/uapi.c
->> +++ b/drivers/gpu/drm/tegra/uapi.c
->> @@ -7,7 +7,7 @@
->>     #include <drm/drm_drv.h>
->>   #include <drm/drm_file.h>
->> -#include <drm/drm_utils.h>
->> +#include <drm/drm_timeout.h>
->>     #include "drm.h"
->>   #include "uapi.h"
->> diff --git a/drivers/gpu/drm/xe/xe_wait_user_fence.c 
->> b/drivers/gpu/drm/xe/xe_wait_user_fence.c
->> index 51eb940ceb4e..e241f3ec3547 100644
->> --- a/drivers/gpu/drm/xe/xe_wait_user_fence.c
->> +++ b/drivers/gpu/drm/xe/xe_wait_user_fence.c
->> @@ -7,7 +7,7 @@
->>     #include <drm/drm_device.h>
->>   #include <drm/drm_file.h>
->> -#include <drm/drm_utils.h>
->> +#include <drm/drm_timeout.h>
->>   #include <uapi/drm/xe_drm.h>
->>     #include "xe_device.h"
->> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
->> new file mode 100644
->> index 000000000000..cd9621c52062
->> --- /dev/null
->> +++ b/include/drm/drm_timeout.h
->> @@ -0,0 +1,16 @@
->> +/* SPDX-License-Identifier: MIT */
->> +/*
->> + * Function prototypes for timeout conversion helpers for wait ioctls.
->> + *
->> + * Copyright 2017 Red Hat
->> + * Copyright 2016 Advanced Micro Devices, Inc.
->> + */
->> +
->> +#ifndef __DRM_TIMEOUT_H__
->> +#define __DRM_TIMEOUT_H__
->> +
->> +#include <linux/types.h>
->> +
->> +signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
->> +
->> +#endif
->> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
->> index 7e077484c5bb..c61dee76451c 100644
->> --- a/include/drm/drm_utils.h
->> +++ b/include/drm/drm_utils.h
->> @@ -25,6 +25,4 @@ struct drm_panel_backlight_quirk {
->>   const struct drm_panel_backlight_quirk *
->>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->>   -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
->> -
->>   #endif
->>
->
-
+diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
+index fdf0e6316175..eb67c6fe9c01 100644
+--- a/drivers/gpu/drm/adp/adp_drv.c
++++ b/drivers/gpu/drm/adp/adp_drv.c
+@@ -16,6 +16,7 @@
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
+index e8aea905fb10..d16945ebb2f5 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
+index 4ec50fb63aba..fc4a49b2b246 100644
+--- a/drivers/gpu/drm/bridge/chipone-icn6211.c
++++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
+@@ -6,6 +6,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_mipi_dsi.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c b/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
+index 6149ba141a38..018fedb0162c 100644
+--- a/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
++++ b/drivers/gpu/drm/bridge/imx/imx-ldb-helper.c
+@@ -13,6 +13,7 @@
+ 
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include "imx-ldb-helper.h"
+diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
+index 21ac8e58b9d2..12a23bb45c84 100644
+--- a/drivers/gpu/drm/bridge/ite-it6263.c
++++ b/drivers/gpu/drm/bridge/ite-it6263.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ /* -----------------------------------------------------------------------------
+diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
+index dd4ffc9f4df3..53291cde0636 100644
+--- a/drivers/gpu/drm/bridge/microchip-lvds.c
++++ b/drivers/gpu/drm/bridge/microchip-lvds.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 09992529f3d8..f7043dcd76cb 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include <video/mipi_display.h>
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index f9eff8bfceb7..489704df6145 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037d..ff24aa647028 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -19,6 +19,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
+index 56b48f8feab6..425985f2398d 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8640.c
++++ b/drivers/gpu/drm/bridge/parade-ps8640.c
+@@ -20,6 +20,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define PAGE0_AUXCH_CFG3	0x76
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index 5dd475fcaacf..11233d2d7385 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define HWVER_131			0x31333100	/* IP version 1.31 */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+index c0d89dd767ce..5b4f4c823d48 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+@@ -24,6 +24,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define DSI2_PWR_UP			0x000c
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 76564d5e4f69..c9e5bbc5dcd0 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -23,6 +23,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
+index 049215e65988..311de8797402 100644
+--- a/drivers/gpu/drm/bridge/tc358764.c
++++ b/drivers/gpu/drm/bridge/tc358764.c
+@@ -18,6 +18,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #define FLD_MASK(start, end)    (((1 << ((start) - (end) + 1)) - 1) << (end))
+diff --git a/drivers/gpu/drm/bridge/tc358775.c b/drivers/gpu/drm/bridge/tc358775.c
+index 203dc738ecef..e7ea47307a50 100644
+--- a/drivers/gpu/drm/bridge/tc358775.c
++++ b/drivers/gpu/drm/bridge/tc358775.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #define FLD_VAL(val, start, end) FIELD_PREP(GENMASK(start, end), val)
+diff --git a/drivers/gpu/drm/bridge/ti-dlpc3433.c b/drivers/gpu/drm/bridge/ti-dlpc3433.c
+index c9f789e30687..21922878e60e 100644
+--- a/drivers/gpu/drm/bridge/ti-dlpc3433.c
++++ b/drivers/gpu/drm/bridge/ti-dlpc3433.c
+@@ -10,6 +10,7 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_mipi_dsi.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index eb5b249cc43c..cc6c4c89d468 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -45,6 +45,7 @@
+ #include <drm/drm_bridge_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+index 48b83df9aed6..de16afa99b91 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+@@ -32,6 +32,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index e7f9e6d58927..e50737432071 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -36,6 +36,7 @@
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ 
+ #include "drm_crtc_internal.h"
+diff --git a/drivers/gpu/drm/imx/ipuv3/imx-ldb.c b/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
+index 63d6a1e7c1bd..317db4d9b898 100644
+--- a/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
++++ b/drivers/gpu/drm/imx/ipuv3/imx-ldb.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/imx/ipuv3/parallel-display.c b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
+index eb75827394f8..966649bc6dc6 100644
+--- a/drivers/gpu/drm/imx/ipuv3/parallel-display.c
++++ b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
+@@ -17,6 +17,7 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ #include <drm/bridge/of-display-mode-bridge.h>
+diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+index c67fe80b8115..cac50a002004 100644
+--- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
++++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+@@ -14,6 +14,7 @@
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
+index 0e4f430de983..b73d76a40c6c 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dpi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ 
+ #include "mtk_ddp_comp.h"
+ #include "mtk_disp_drv.h"
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 9b1d1982e683..df5fed30718e 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -8,6 +8,7 @@
+ 
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_vblank.h>
+ 
+ #include "msm_drv.h"
+diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+index e2173c4d6fc2..ba14b20cb038 100644
+--- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
++++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
+ 
+diff --git a/drivers/gpu/drm/sprd/sprd_dsi.c b/drivers/gpu/drm/sprd/sprd_dsi.c
+index 23b0e1dc547a..260d1682c8a7 100644
+--- a/drivers/gpu/drm/sprd/sprd_dsi.c
++++ b/drivers/gpu/drm/sprd/sprd_dsi.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+ 
+ #include "sprd_drm.h"
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 5eb749f495d5..7e77b4af36d0 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ 
+ #include "tidss_dispc.h"
+ #include "tidss_dispc_regs.h"
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
+index ac4b5beb2dd5..5fb0e8e1e829 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
+@@ -10,6 +10,7 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+ #include "tilcdc_drv.h"
+diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
+index dc7c85b07fe3..586f1bd7d7b5 100644
+--- a/drivers/gpu/drm/verisilicon/vs_bridge.c
++++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_connector.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.53.0
 
