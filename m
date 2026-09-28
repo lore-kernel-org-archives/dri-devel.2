@@ -4,178 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BA3C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFAAECA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:43:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3344810E88A;
-	Mon, 28 Sep 2026 08:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9F410E86C;
+	Mon, 28 Sep 2026 08:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=arndb.de header.i=@arndb.de header.b="JY6ej2Ga";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="w0Cytzi8";
+	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="QIGeP145";
 	dkim-atps=neutral
-Received: from flow-a6-smtp.messagingengine.com
- (flow-a6-smtp.messagingengine.com [103.168.172.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A604710E021
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 13:07:21 +0000 (UTC)
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
- by mailflow.phl.internal (Postfix) with ESMTP id C06B913804B0;
- Sat, 26 Sep 2026 09:07:16 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
- by ams-compute-02.internal (MEProxy); Sat, 26 Sep 2026 09:07:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1790428036;
- x=1790435236; bh=E/0Aixz4MoGQbluxHxh98fr8xrgoH3pVa08CacPtFqs=; b=
- JY6ej2GaMU5tFQx4P4L7xpK0hMl18csetiXOfr6O0dqdVPmShWq0JPpifDXCAXS1
- WAsyKi8pjs7t6RWq759bpX8FHUqqgB3ix677GOzcftzN7F9N8PLmthIECeaNfa/A
- P+2uJuuFBTTgZAQ7EbICe01O/JdcPwKinMgJvLho7IluNFj8RTtGxVmNjqIKiYpj
- UR3vOmenvvoHhh4I2ZiYEvackkexMn3lXYx3KuwIgkOFVskKsEp+lc6xtXygxdEK
- AjntRnwlwzXroiH47DzyeX4QFd/GKDl/9E642yS7DF2Kw0s0p/0L0Ubu+WuXNN9t
- Dwqap0O2x84uyGP2aDdDPA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790428036; x=
- 1790435236; bh=E/0Aixz4MoGQbluxHxh98fr8xrgoH3pVa08CacPtFqs=; b=w
- 0Cytzi8wSmj+mFhvAnjabMb+QZf7M3dVCKLEj9/Dbx70AK0JLhjm4IvD59f8aPoW
- M3lSl46dKAne7di/wMTJ76iJeR/YN2CWmJ273SA+/BycJRtz2TadIIcXjRQRA6Fw
- d1PjbiAXLrHehMn9sWL+H1plV3O0I6zA4hqQ8L1CMVdgSuWipTkep6zve4YfEqP0
- Zs6j6tUUMO1riGOt8v1vffbaH/NF18IOy7CG4zw9bmOLTzHJKqkXp4V6OtaaRa5H
- 2eR47nryPx9zkA9F1ahtgW9c9sl4Pip3yYqEADEeqnrzG3MzERSbC2635R8ZhKrg
- pwU3ej5l8FK+5aoJABjXA==
-X-ME-Sender: <xms:d8O3ag1HENOK2aqX5Hwlw6Q8RFPRNjCrvC5EQg62Q5MwZ2X8bbKZZw>
- <xme:d8O3al7CTh-qdNdQdYHKlYAc2HK5Pct0chw4_Wh6lTausRDuhvnXgNqkprm7sdGdM
- 5U4_BMYkuFoj-4mearySbRTQ_cmndooZhYXir5Lfas9_vbxa-3XFA>
-X-ME-Proxy-Cause: dmFkZTGluhR8DaufX6B/O8p7kobwL+s/+e2WxIV1ftwgdk4MOyOBMt7LN1vTfG/eVZk0Du
- poDENDPAZWU/+DFm2TqDnNDFfgVA6hHaGe30H4n6HeZKXNfngYWBIprCqpApIrE+Fbsucg
- 3T43On08Mo6RNjVXL9te8gsrxz2WjOyw/W95nmJYPc0JMOu2PQIIsRRzHlvn+vNrT8LUbX
- mmoYyzTpLxtlzDHIP0u3kK4ktm0M9xoXlmDPLfcWfL49p+EPf/LNIMvJJMcvl0MfSqseyk
- Rsr0fjsMhmDFEIX9RQVpOsEW/sifidIp5PFecnwP38g63Y0mVjJCAlVER9svaUec6rZbmC
- qbtQKRzPvL8vBpUlrACJ+50qfVABYjsNU7+coMpX7EK9rz3tWqDsshpIrekmR1EYoFIwzi
- MFzRtA6nyv0gSEWy8V3Jxg6yoM9xEoGlhkpmswvoPC+1yCzJfj9aqpNmAvG77toghXLpW3
- oSZGIcXZugioQhzHy9zw5o5cRzaVDoEyD+WlhlAIT7/5QdIXyAicupFVuieBjIjNc7MSLE
- ZTeTptEMpLzGLB31HwOxannZP+AQz43E3ZUxZlcqdrZ09Q6mzAI3aJNRZ88M2AiEhJSkoF
- SRPUmVb1bqKMeD4YM6wIkw8UjM82p5rtkv7hDfqSo1lynYzWf8HPL9EYqClQ
-X-ME-Proxy: <xmx:fcO3asP_JZb7_pe9MebtKK8m1oQZ2mFysi4LzvtqxqjkK-xmQJG7oA>
- <xmx:fcO3ahdCUIGe_-N0_11cq50k2hB7qoMtAn8OQ0p4v_cKD3b-BZ1GSQ>
- <xmx:fcO3auH0MA2jXNBVepFNbfn0NcMhLJ0i9yrj76_mSiuk373fUnS0zA>
- <xmx:fcO3aq71vFxuFeuj5WpfAshyYTTqDxV9SfXlvv_NrYetkbnGCsY2Uw>
- <xmx:hMO3aqB8ADUszpbuD6K9q4F8d_--PVT7Q9k3xSG4B02mLBEY0FvpthMT>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
- id 577F132A0087; Sat, 26 Sep 2026 09:07:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DAD410E4B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:04:43 +0000 (UTC)
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.40.71])
+ by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 8B7B212111D;
+ Sun, 27 Sep 2026 21:54:52 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+ s=dkim2026; t=1790556893;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=B8ccYN2Olkio/VgRZYmOT00d5tYZYi0SFblVjv+81wo=;
+ b=QIGeP145hV/CVwX6TrQfKYND0Tv0I3bE2SkTpnXHQc7mUICDbgTzEMlCCwt2k8JKd53vOg
+ PVaoZgLqdKA22x9+Di9AtJ7onzPtPD+1fAUNpbtLA3DjPG6BEWZwmBIGO09gMYKG+LZ5lX
+ RDMD8jeO+Q+E3zKAviSm4JLWXS3aSyPI9wBsGFiQjlFh8yhxEb9yc1knZHWPEyZLvax/YS
+ mvE+CAsYUfHFyiFMYYkKWCfyjDvkua5ol27WALEdme9LMHDSji6bEpqCNbVf/T+WrkpKzC
+ AK7AkmdvVIVs+o1fT4obdkisI6IAeIHw8NcRR4sUNlYRbn3X1vCTHFqrVEK2PQ==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH 3/5] drm/vkms: add a helper for channel to argb_u16 conversion
+Date: Sun, 27 Sep 2026 21:52:59 -0300
+Message-ID: <20260928005301.367977-4-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
 MIME-Version: 1.0
-X-ThreadId: AJwEWD5WPnhk
-Date: Sat, 26 Sep 2026 15:06:33 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Lorenzo Stoakes" <ljs@kernel.org>
-Cc: "Andrew Morton" <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- "Jann Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet" <corbet@lwn.net>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>,
- "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
- "Paul Moore" <paul@paul-moore.com>,
- "Stephen Smalley" <stephen.smalley.work@gmail.com>,
- "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
- "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>,
- "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Zi Yan" <ziy@nvidia.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Nico Pache" <nico.pache@linux.dev>,
- "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
- "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
- "Usama Arif" <usama.arif@linux.dev>, "Kirill A. Shutemov" <kas@kernel.org>,
- "Doug Gilbert" <dgilbert@interlog.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter" <simona@ffwll.ch>,
- "Helge Deller" <deller@gmx.de>, "Sebastian Reichel" <sre@kernel.org>,
- "John Hubbard" <jhubbard@nvidia.com>, peterx <peterx@redhat.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Oleg Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>,
- "Harry Yoo" <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>,
- "Vincent Guittot" <vincent.guittot@linaro.org>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Dave Airlie" <airlied@gmail.com>, "Will Deacon" <will@kernel.org>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Muchun Song" <muchun.song@linux.dev>,
- "Oscar Salvador" <osalvador@suse.de>,
- "Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>,
- "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- "Janosch Frank" <frankja@linux.ibm.com>,
- "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>,
- "Gerald Schaefer" <gerald.schaefer@linux.ibm.com>,
- "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>,
- "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
- "Byungchul Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>,
- "Ying Huang" <ying.huang@linux.alibaba.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Chris Li" <chrisl@kernel.org>,
- "Kairui Song" <kasong@tencent.com>,
- "Kemeng Shi" <shikemeng@huaweicloud.com>,
- "Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>,
- "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>,
- "Axel Rasmussen" <axelrasmussen@google.com>,
- "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
- "Chengming Zhou" <chengming.zhou@linux.dev>,
- "Michal Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>,
- "Xu Xin" <xu.xin@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, linux-sound@vger.kernel.org,
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Linux-Arch <linux-arch@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, "Takashi Iwai" <tiwai@suse.de>,
- "Emil Tsalapatis" <emil@etsalapatis.com>
-Message-Id: <408aef6e-5b0a-482f-8ba8-f8c20ee870e5@app.fastmail.com>
-In-Reply-To: <areSEI5pWBadkqIe@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
- <areSEI5pWBadkqIe@gremlin>
-Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,143 +63,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Sep 26, 2026, at 11:40, Lorenzo Stoakes (ARM) wrote:
-> On Sat, Sep 26, 2026 at 12:06:22AM +0200, Arnd Bergmann wrote:
->>
->> mm/vma.c: In function '__mmap_region':
->> mm/vma.c:3083:1: error: the frame size of 1552 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
->>
->> I don't immediately see anything that you did that would have introduced
->> something bad that wasn't already there, so it's likely just gone from
->> just below the limit I was using for my testing to just above. The 1536
->> byte limit is what I use on 64-bit builds with KASAN and otherwise
->> still has a clean build (with a small number of local fixup patches).
->
-> Hmm are you specifying this limit manually somehow?
+Other pixel formats have similar conversions to the one implemented in
+the RGB565 helper.
 
-It's a Kconfig setting upstream, but the way I'm doing it is to have
-patch that calculates a sensible default based on other options that
-is a little smaller than the default (currently 2048 bytes) on x86-64
-to catch more cases where something sticks out.
+Add a channels_to_argb_u16() helper to convert individual channels into
+the internal representation, and use it in argb_u16_from_BGR565() and
+argb_u16_from_RGB565().
 
->> If I sprinkle some 'noinline_for_stack' annotations on functions
->> called by __mmap_region(), I can get the size down to 1144 in this
->> config, but that doesn't sound like a great workaround.
->>
->> The large stack usage is potentially harmful if this ends up
->> in call chains that have additional large stack usage (e.g.
->> kmalloc() leading to reclaim). Any ideas for how to reduce it here?
->
-> That can never happen :) this call chain is _only_ for an mmap() call.
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+ drivers/gpu/drm/vkms/vkms_formats.c | 50 +++++++++++++++++------------
+ 1 file changed, 29 insertions(+), 21 deletions(-)
 
-I mean more functions called /from/ here, something like
+diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+index b44900761..6e4f58207 100644
+--- a/drivers/gpu/drm/vkms/vkms_formats.c
++++ b/drivers/gpu/drm/vkms/vkms_formats.c
+@@ -229,24 +229,42 @@ static struct pixel_argb_u16 argb_u16_from_le16161616(__le16 a, __le16 r, __le16
+ 				       le16_to_cpu(b));
+ }
+ 
+-static struct pixel_argb_u16 argb_u16_from_RGB565(const __le16 *pixel)
++static u16 channel_to_u16(unsigned int size, u16 in)
++{
++	s64 fp_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp((1 << size) - 1));
++	s64 fp_channel = drm_int2fixp(in);
++
++	return drm_fixp2int_round(drm_fixp_mul(fp_channel, fp_ratio));
++}
++
++static struct pixel_argb_u16 channels_to_argb_u16(u16 in_r, u16 in_g, u16 in_b, u16 in_a,
++						  unsigned int size_r, unsigned int size_g,
++						  unsigned int size_b, unsigned int size_a)
+ {
+ 	struct pixel_argb_u16 out_pixel;
+ 
+-	s64 fp_rb_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(31));
+-	s64 fp_g_ratio = drm_fixp_div(drm_int2fixp(65535), drm_int2fixp(63));
++	out_pixel.r = size_r ? channel_to_u16(size_r, in_r) : in_r;
++	out_pixel.g = size_g ? channel_to_u16(size_g, in_g) : in_g;
++	out_pixel.b = size_b ? channel_to_u16(size_b, in_b) : in_b;
++	out_pixel.a = size_a ? channel_to_u16(size_a, in_a) : in_a;
+ 
++	return out_pixel;
++}
++
++static struct pixel_argb_u16 argb_u16_from_RGB565(const __le16 *pixel)
++{
+ 	u16 rgb_565 = le16_to_cpu(*pixel);
+-	s64 fp_r = drm_int2fixp((rgb_565 >> 11) & 0x1f);
+-	s64 fp_g = drm_int2fixp((rgb_565 >> 5) & 0x3f);
+-	s64 fp_b = drm_int2fixp(rgb_565 & 0x1f);
+ 
+-	out_pixel.a = (u16)0xffff;
+-	out_pixel.r = drm_fixp2int_round(drm_fixp_mul(fp_r, fp_rb_ratio));
+-	out_pixel.g = drm_fixp2int_round(drm_fixp_mul(fp_g, fp_g_ratio));
+-	out_pixel.b = drm_fixp2int_round(drm_fixp_mul(fp_b, fp_rb_ratio));
++	return channels_to_argb_u16((rgb_565 >> 11) & 0x1f, (rgb_565 >> 5) & 0x3f,
++				    rgb_565 & 0x1f, 0xffff, 5, 6, 5, 0);
++}
+ 
+-	return out_pixel;
++static struct pixel_argb_u16 argb_u16_from_BGR565(const __le16 *pixel)
++{
++	u16 bgr_565 = le16_to_cpu(*pixel);
++
++	return channels_to_argb_u16(bgr_565 & 0x1f, (bgr_565 >> 5) & 0x3f,
++				    (bgr_565 >> 11) & 0x1f, 0xffff, 5, 6, 5, 0);
+ }
+ 
+ static struct pixel_argb_u16 argb_u16_from_gray8(u8 gray)
+@@ -259,16 +277,6 @@ static struct pixel_argb_u16 argb_u16_from_grayu16(u16 gray)
+ 	return argb_u16_from_u16161616(0xFFFF, gray, gray, gray);
+ }
+ 
+-static struct pixel_argb_u16 argb_u16_from_BGR565(const __le16 *pixel)
+-{
+-	struct pixel_argb_u16 out_pixel;
+-
+-	out_pixel = argb_u16_from_RGB565(pixel);
+-	swap(out_pixel.r, out_pixel.b);
+-
+-	return out_pixel;
+-}
+-
+ VISIBLE_IF_KUNIT
+ struct pixel_argb_u16 argb_u16_from_yuv161616(const struct conversion_matrix *matrix,
+ 					      u16 y, u16 channel_1, u16 channel_2)
+-- 
+2.43.0
 
-  __mmap_region()
-  __mmap_new_vma()
-  vm_area_alloc()
-  kmem_cache_alloc(..., GFP_KERNEL)
-  slab_alloc_node()
-  allocate_slab()
-  alloc_slab_page()
-  __alloc_pages_slowpath()
-  __alloc_pages_direct_reclaim()
-  __perform_reclaim()
-  try_to_free_pages()
-  shrink_zones()
-  shrink_node()
-  lru_gen_shrink_node()
-  shrink_many()
-  shrink_one()
-  try_to_shrink_lruvec()
-  evict_folios()
-  shrink_folio_list()
-  pageout()
-  shmem_writeout()
-  swap_writeout()
-  swap_add_folio()
-  swap_write_submit()
-  nfs_swap_submit_write()
-  nfs_file_direct_write()
-  nfs_direct_extract_pages()
-  nfs_do_recoalesce()
-  __nfs_pageio_add_request()
-  nfs_pageio_doio()
-  pnfs_generic_pg_writepages()
-  pnfs_do_write()
-  pnfs_try_to_write_data()
-  filelayout_write_pagelist()
-  nfs_initiate_pgio()
-  nfs_local_doio()
-  nfs_local_do_write()
-  nfs_local_call_write()
-  ->write_iter()
-  generic_file_write_iter()
-  generic_write_sync()
-  vfs_fsync_range()
-  ->fsync()
-  xfs_file_fsync()
-  file_write_and_wait_range()
-  filemap_fdatawrite_range()
-  filemap_writeback()
-  do_writepages()
-  ->writepages()
-  xfs_vm_writepages()
-  iomap_writepages()
-  iomap_writeback_folio()
-  iomap_writeback_range()
-  ->writeback_range()
-  xfs_zoned_writeback_range()
-  iomap_add_to_ioend()
-  ->writeback_submit()
-  xfs_zoned_writeback_submit()
-  xfs_zone_alloc_and_submit()
-  xfs_submit_zoned_bio()
-  submit_bio()
-  submit_bio_noacct()
-  submit_bio_noacct_nocheck()
-  __submit_bio_noacct()
-  __submit_bio()
-  blk_mq_submit_bio()
-  blk_mq_run_dispatch_ops()
-  blk_mq_try_issue_directly()
-  blk_mq_run_hw_queue()
-  blk_mq_sched_dispatch_requests()
-  blk_mq_do_dispatch_sched()
-  __blk_mq_do_dispatch_sched()
-  blk_mq_dispatch_rq_list()
-  ->queue_rq()
-  scsi_queue_rq()
-  scsi_dispatch_cmd()
-  ->queuecommand()
-  ata_scsi_queuecmd()
-  __ata_scsi_queuecmd()
-  ata_scsi_translate()
-  ata_scsi_qc_issue()
-  ata_qc_issue()
-  qc_issue()
-  ata_sff_qc_issue()
-  ata_sff_queue_pio_task()
-
-There are many ways the call chain can go of course, but the actual
-stack overflows do tend to follow this pattern where you are at a
-function with high stack usage and call kmalloc() during low memory
-condition and that ends up waiting for a block I/O down the line.
-(you normally don't go through swap and nfs, I was just looking
-for the worst case I could easily see in the code)
-
-> In general I am absolutely taking this seriously and will find a way to
-> reduce this, but my only question is whether this is actually something
-> that needs to be done in this series?
->
-> Because it's already huge and I would rather avoid adding yet another patch
-> to it if possible.
->
-> If I can do it as a follow-up that'd be ideal!
-
-What I was hoping for is that as you are already deep into the
-exact code that caused the warning and you can already see something
-in there that may help.
-
-I don't think it's urgent, I just don't want it to be forgotten.
-
-     Arnd
