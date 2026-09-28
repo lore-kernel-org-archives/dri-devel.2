@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71AAC9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 10:16:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AEB9C9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 10:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B512910E96A;
-	Mon, 28 Sep 2026 10:16:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D9D10E93A;
+	Mon, 28 Sep 2026 10:17:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="bwejCrD+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="fOsRGqyd";
 	dkim-atps=neutral
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F4310E92D
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 10:16:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EFF710E93A
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 10:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
- bh=POZLvRoevrQRe8ReGi7VrXpFypFOGxEFh47NX+G65io=; b=bwejCrD+YR18/FPRfIG4n2WXMz
- tosFyv/GgfKEf06yd/8M/Z0arpcC60MVmvgV427t6AHz07To/VfjXsoHkbt59uMus77NceF7XlNuR
- It8JCbqgp/uLnP8VdgiAqTrQa4qzASBVD+CDN4cq7d8WlMTa0cCwTUWv8SDWPbQIet/nGVYu0ZZ5L
- neqJgnbWrVAJxkW0hmwveXJPx//2NNzqnCcxoqr8Lct/I+Q/FDMmF0xJnP9Mjh/7y96CRfoc1McEy
- sRviPEE+MbR18aoKUTkbW6TVZEPS6gcf1OS8FlBkruydMnxlHGyb5EN4F5wrggPaqed8JmeO+KP8x
- mUhgbGGQ==;
+ bh=ID7B6wbjsNNmOlQbuPS6iyOH0i0CHBvTbHBEcGBY4xo=; b=fOsRGqydo0GOhg1fGXJKGFG7+T
+ zl/gxqlyIwfiwPOJ77hcmcIgtd0MQNDA3DwOLHLehbjZHpfO1xk1O7qUoysmlJxSYWdODWXXb+LX8
+ /jY7cVUBNMNiR9HLPyDy6BuMciBs5cDX9xCzojc7tLKOK4sVJzViebHly15VasTEtP1Xw/dk9xtNz
+ 34ZhJbkHjDM3zTAvPRGYD5YyvPR2kbUWza3GTTp5vmDIvu6FVE7HYVdo47033LHHHc4uRpyQP8zy2
+ D9fOzoq4Bk40fcUOHzRIVN3DH+UJS3qsDylhteJCu2bQomzXN1KerlLSSJPfPVr/fPeHD4Q7ocbrm
+ JUbJdCeA==;
 Received: from sslproxy03.your-server.de ([88.198.220.132])
  by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
  (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1xB7x7-000KjR-1N; Mon, 28 Sep 2026 11:47:17 +0200
+ id 1xB7ss-000JjN-0f; Mon, 28 Sep 2026 11:42:54 +0200
 Received: from localhost ([127.0.0.1])
  by sslproxy03.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
  (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1xB7x7-00097e-0C; Mon, 28 Sep 2026 11:47:16 +0200
+ id 1xB7sr-000A1V-2o; Mon, 28 Sep 2026 11:42:53 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -54,13 +54,14 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
  Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 7/8] arm64: dts: imx95: rename bus@4c100000 to hsio-bus
-Date: Mon, 28 Sep 2026 11:47:14 +0200
-Message-ID: <3065655.e9J7NaK4W3@steina-w>
+Subject: Re: [PATCH 1/8] dt-bindings: display: remove #address-cells and
+ #size-cells off requires
+Date: Mon, 28 Sep 2026 11:42:51 +0200
+Message-ID: <5135446.31r3eYUQgx@steina-w>
 Organization: TQ-Systems GmbH
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-7-f999fafbca60@nxp.com>
+In-Reply-To: <20260925-cleanup_dtb_warning-v1-1-f999fafbca60@nxp.com>
 References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-7-f999fafbca60@nxp.com>
+ <20260925-cleanup_dtb_warning-v1-1-f999fafbca60@nxp.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="iso-8859-1"
@@ -80,36 +81,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Freitag, 25. September 2026, 18:37:56 CEST schrieb Frank.Li@oss.nxp.com:
+Am Freitag, 25. September 2026, 18:37:50 CEST schrieb Frank.Li@oss.nxp.com:
 > From: Frank Li <Frank.Li@nxp.com>
 >=20
-> Rename bus@4c100000 to hsio-bus to warning (W=3D1).
->   arch/arm64/boot/dts/freescale/imx95.dtsi:1878.16-1907.5: Warning (unit_=
-address_vs_reg): /soc/bus@4c100000: node has a unit name, but no reg or ran=
-ges property
+> The display panel node is not necessary located in dsi node. So remove
+> these from requires list.
 >=20
 > Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
 Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-
 > ---
->  arch/arm64/boot/dts/freescale/imx95.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml | 2 --
+>  1 file changed, 2 deletions(-)
 >=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
-ts/freescale/imx95.dtsi
-> index d20c2498b9aa2..b8711f9f846ce 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -1875,7 +1875,7 @@ hsio_blk_ctl: syscon@4c0100c0 {
->  			power-domains =3D <&scmi_devpd IMX95_PD_HSIO_TOP>;
->  		};
+> diff --git a/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yam=
+l b/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
+> index 5952e6448ed47..a0c3ba9275684 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/nwl-dsi.yaml
+> @@ -137,8 +137,6 @@ properties:
+>        - port@1
 > =20
-> -		bus@4c100000 {
-> +		hsio-bus {
->  			compatible =3D "simple-bus";
->  			#address-cells =3D <2>;
->  			#size-cells =3D <2>;
+>  required:
+> -  - '#address-cells'
+> -  - '#size-cells'
+>    - clock-names
+>    - clocks
+>    - compatible
 >=20
 >=20
 
