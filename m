@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F60C98328
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 05:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3140FC98328
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 05:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6884110E77E;
-	Mon, 28 Sep 2026 05:39:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95A2110E787;
+	Mon, 28 Sep 2026 05:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VM9hPf9C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4JpBbcK";
 	dkim-atps=neutral
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
- [74.125.228.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9E7710E77E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 05:39:10 +0000 (UTC)
-Received: by mail-pz2-f41.google.com with SMTP id
- d2e1a72fcca58-86dba3e584dso75931b3a.2
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 22:39:10 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEC8610E787
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 05:39:14 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-39b1a806664so317959a91.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 22:39:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790573950; x=1791178750; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=e1GfyXNzZ7U9i0Z+Tk5I9ck9dnyRvvtvnuEFHqewoGY=;
- b=VM9hPf9Cy1EoI1enx4zqO4aIaAorWREH09ddnquEdExvyQUdxd4u6Zeo7dCezZWZzR
- iA9i+OuJ+Ae+GswpZDgtyTYeqUmMXoT/qaKzmd2jXIZ0ApYKp0ped8NTAVAEqMgi+6N+
- vhmJAULx0RqF7qF7WnfirFg2YP6X1mV6FMDDh/t0IP10UmjQP+gZzgzIqqG+iTuO73pg
- Ksw0GM9MwLU4es3XxhrYg3f7AlP3toz9UkKErKE22DcnBQiHHcJv3TDkIRrb+RzL5jAL
- xejE8qR9Uq7R+388Y59AOoXDOkkheT3BPMBtioYsXeU58ly5GXqO+4ZGE9ZD0iqiGbwv
- Da9g==
+ d=gmail.com; s=20251104; t=1790573954; x=1791178754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oYoN39qS2O9tTjo4AMAAx7esJiOig4Qk9Kzt2+/v1lw=;
+ b=I4JpBbcK7inNTRq+4O4BvRvULALfWidzisee4m8/c3HJY+W/2BXMEh6EqRrSrGc3wt
+ /fMRs0OcgLd2Uk2cpBMJ7Ot/5+ZzjvrlFnl9eDdmYMpXU8a96oQwUYffXaZx5VxwtLfx
+ Jajw02wK07PeWOdreqTI+2zvsCv8sOfCZnsAyaBUccWDEs8DJAKsQdBXMgVYXO3QDzXS
+ Ip9QfI+ryuFVU0nx8ZIFSL0nHsNtouG1cRPAwR7WZ5nm/buPE/aFkcXN8dt5PkvVSKMA
+ 30bf8G1jsW00iPJ9Ur3WiD8IcxTU1zICBy1+KsPE9qmIDr8zMSqxYNDuwpdLw8cK+JHz
+ c7Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790573950; x=1791178750;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=e1GfyXNzZ7U9i0Z+Tk5I9ck9dnyRvvtvnuEFHqewoGY=;
- b=lzgKjzLp2Kl3Ci/B5SibT7kQmupRRQyOtfGZFwwNeYbyPUT4ly3UHfLMdWeHnxylwm
- nFKQaywtuqzBzY76Nc4n6s8JpLEH1ycQ8xsSewoupWNw2kRCWv/qRYJ37PB+g6d4QOqg
- pxvaB7+MoYitPJjPA4NLTaPnvAKSoorC0NWDXR2WhNEFB3T4IGv3X74kvzPJsiykEaZJ
- XPB4KuAkGVbtmonh9XoQh1HAvQvzdl8Dgnawr3f6qvGaN+p5gmVzSFnbno/k0E8NKLaB
- 4aXCs0+yw6ZjyzuqocpgktOuTvqaNOMH0NVVHyq1M11og4GK0YprAX68WbxReSnvGQV8
- 0zCw==
-X-Gm-Message-State: AFuF++lxcgT5Vo77SNcfeskhAR6rxSAvQcBHpCyOIG73/QnCmp3FSFTW
- 1tBsLyBwKV0twZma2jxGTevI5qWCZ037c7D37y3ji2TeHb01KsnsEgEynRcL5zur
-X-Gm-Gg: AYBFou2srDUtxlIYK5tYc+J+JMggrDMlsnlcpgrhqqmN5ZfGYAFHpex0FvL27O0kIAy
- vdeUYD+54teq6iVU+8TNa7UOcuBNYmrvH1Kk9WBN4jYgi5af4y8zlREQlU97lVHNXE57Rn+VOwh
- 7MxHa07DK2Kv8nrlGPbJW3aYgRbXnK2oWyYdJDMQyJ3RJLhWR3q3bxwEhkrkIGiIMTbVtxtzU/s
- PKesBq/Oc2q8zhBlpSmyuyQDQiUu1w/ZtolpwE5xkPih5X+cNVFWV7lqin4M7mHXzR8SgWyZILn
- mb6DVpkEkGYvjfazWTEBvjNL8PMF9jEUbub50HvDBm1w4Ym1+fn0zecBonA+rK2tCrFlVIak2jj
- OBoOSg0G1I7mTIiuvuv2sTTbOe0dAT6KT2bvGGvS285wvzrtqBG1bt1odQ9R/USzzNjD17oRS+U
- NtRkq7uKIOPcY8+xL6o4aEFts4tmuOLsq+rj9FRilzRLrZBsAZMiVLO6JNZkOxZXggPxkKNPhDU
- LycreIj1NfUIg==
-X-Received: by 2002:a05:6a00:4807:b0:864:59e2:2968 with SMTP id
- d2e1a72fcca58-87fd0d8cbc6mr6922416b3a.0.1790573950242; 
- Sun, 27 Sep 2026 22:39:10 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790573954; x=1791178754;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=oYoN39qS2O9tTjo4AMAAx7esJiOig4Qk9Kzt2+/v1lw=;
+ b=t0NG6ZIBiLt5HKMYQUdWjvv9JFmOAJnuiTcOm0lEfUqF68NGlK4y96jGXI/SJqtwLA
+ BNW6adWJo0FZir5Znoc0nD7s6bdGRG3eHclVoQbHX1YVtuZhw1y5eAr1GkSId+WomvOG
+ g3yKTkyHWC3jqDoJszJxA4nM2B7mKk8A9/6qVbMCO+eNAhM3iz5+uFlzmqEA/NB0ElXg
+ 6N5k1zgNtJTvBc1dmK8PVXjgsLDSlIH8FgwmU2kkq4j1Wj+pHWFERjN0pnJuz+LIe/PO
+ Xothfc1HW1/SsPTzYQBEAhxZRIg9T3c2grMD/jda05HxAnddq3UY/qmGtmHRHuvDKW/H
+ syKA==
+X-Gm-Message-State: AFuF++mYnykJ1Pl9FJhHEH2x05bwsAIoU3NMl3pN3B5C01yf3sPHqacs
+ xsV2SMw5qnVvORRQQcOa4InI40z3S+/6y43hRrmA17zdfbvsava7LWn9OYu7r84j
+X-Gm-Gg: AYBFou0hJpoBNKLL6XpaaFBuydsnv9wJ/SdBE737EJxqDhP6desk9yVRLz30xglkzno
+ g4F6jrv7qcCKcrmbUIJbGcin/A0VYPHVOb3+oXZ/uUSyZn5F8ugbbhFEg3xcVnb4VKzB4+tPqjt
+ GdOd9cgw4fal2+eHIus3C+VanZSh2Jr1yEsk5aFUWApW+eKJ8FXbV/cV4uR1mwikuiTKRwQdfn4
+ fnIAobnHbSom6mQJu6rN4yHrtZvjzEiby8v25dRxpG5kv5vzSvxVsC593eEcydXUpnNDB3rJKy2
+ 9kRlp9ReQcgRqTOYeceizadYN/skj2FoNWHFI+X/r81urpbxwTqv0A87SUrs0tYD+gIasPbVY+4
+ 9W0P93ia5D0YXe8XpN+wh4roHm1/HN+SRQPaJaqVHMq6Ll10fYEQJGOCsTk7TF2UaQ+ktdVj6gx
+ mQUmmCE6bYYV8RxQkahUBdRkth89/baPH8n5Li98jxbEZ3ozXASetNgZLr/cZh8DVZw156cN4bv
+ DB/W7v/gdj7mA==
+X-Received: by 2002:a05:6a21:1645:b0:3c3:2dc0:7cbd with SMTP id
+ adf61e73a8af0-3de22b356bbmr12488753637.1.1790573954396; 
+ Sun, 27 Sep 2026 22:39:14 -0700 (PDT)
 Received: from jfliu-sfa1411.. ([129.227.183.200])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-87febb82357sm3591121b3a.61.2026.09.27.22.39.05
+ d2e1a72fcca58-87febb82357sm3591121b3a.61.2026.09.27.22.39.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Sep 2026 22:39:09 -0700 (PDT)
+ Sun, 27 Sep 2026 22:39:13 -0700 (PDT)
 From: Jianfeng Liu <liujianfeng1994@gmail.com>
 To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
@@ -68,19 +69,15 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>, freedreno@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
  Bryan O'Donoghue <bod.linux@nxsw.ie>,
- Jianfeng Liu <liujianfeng1994@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Robin Murphy <robin.murphy@arm.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, Will Deacon <will@kernel.org>
-Subject: [PATCH v1 0/2] drm/msm: followup - map page-less imported sg_tables
-Date: Mon, 28 Sep 2026 13:38:49 +0800
-Message-ID: <20260928053901.7270-1-liujianfeng1994@gmail.com>
+ Jianfeng Liu <liujianfeng1994@gmail.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+Subject: [PATCH v1 1/2] iommu: export iommu_get_dma_domain()
+Date: Mon, 28 Sep 2026 13:38:50 +0800
+Message-ID: <20260928053901.7270-2-liujianfeng1994@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260928053901.7270-1-liujianfeng1994@gmail.com>
+References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,69 +94,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+drm/msm needs to recover the physical address behind a DMA address of
+imported dma-bufs: with CONFIG_DMABUF_DEBUG=y the attachment sg_table
+it hands to importers carries no struct page, and msm has to translate
+sg_dma_address() back to a physical address through the attaching
+device's DMA-API domain to map such buffers into its own pagetables
+(see the follow-up drm/msm patch).
 
-Hi Rob,
+Export the helper so modularized drivers can use it.
 
-this is the follow-up I promised: it fixes the two remaining map
-paths that still consume struct page/sg->length of imported
-sg_tables, and therefore completes the DMABUF_DEBUG=y story when
-applied on top of your series [1].
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: iommu@lists.linux.dev
 
-Test results on x1e78100 (Snapdragon X1E78100, DMABUF_DEBUG=y,
-kernel v7.3-rc4 based), which is the machine that originally
-reported the UCHE translation faults and the one hardware test
-environment for imports of buffers not first exported by drm/msm:
-
- - v7.3-rc4 stock: arm-smmu UCHE translation faults during hardware
-   video decode in clapper/chromium (bisected to 143755bdabaa9)
-
- - your series alone: video plays via the userspace copy fallback,
-   zero GPU faults, but a WARN storm from __arm_lpae_unmap()
-   (472 traces within a minute of video playback) - every map of a
-   page-less sg_table silently maps nothing, so the matching unmap
-   finds no PTE and WARNs.  This matches your cover letter saying
-   the map paths are not addressed by the series.  Your patch 2
-   ("mmap imported dma-bufs via the exporter") in particular works:
-   a test importing a linux,cma-heap buffer via
-   DRM_IOCTL_PRIME_FD_TO_HANDLE and mmaps it both through the heap
-   fd and through msm's GEM mmap sees the same memory through both
-   mappings, including writes visible in both directions.
-
- - your series + this series: zero arm-smmu faults, zero io-pgtable
-   WARNs, and hardware video decode displays correctly in clapper
-   and chromium.  The GPU per-process pagetable path is exercised
-   with real decoder capture buffers (videobuf2-dma-contig, 2MB
-   frames) and maps them from their DMA addresses.
-
-Patch 1 exports iommu_get_dma_domain(), which msm needs to look up
-the dma_addr -> phys mapping of imported buffers through the msm
-drm device's DMA-API domain.  On platforms where the drm device is
-direct mapped (like mine: ae01000.display-controller is in no
-iommu_group) the lookup degenerates to the identity; on platforms
-where it sits behind a translated IOMMU the translation is needed.
-
-Happy to rebase on whatever your tree looks like - and I can rerun
-the full test matrix (WARN count, fault count, kmssink scanout of
-real V4L2 frames, chromium/clapper hardware decode) on any revision.
-
-[1] <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
-
-
-
-Jianfeng Liu (2):
-  iommu: export iommu_get_dma_domain()
-  drm/msm: map page-less imported sg_tables from their DMA addresses
-
- drivers/gpu/drm/msm/msm_gem_vma.c |  9 ++++
- drivers/gpu/drm/msm/msm_iommu.c   | 90 ++++++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_mmu.h     | 13 +++++
- drivers/iommu/iommu.c             |  1 +
- 4 files changed, 111 insertions(+), 2 deletions(-)
-
+Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 ---
-base-commit: d6882ed4e5b3970a13d721a07d2737c4831cdced
-branch: msm-map-followup-v1
 
+ drivers/iommu/iommu.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index cd1bca7ede9af..330f9a79248bd 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -2327,6 +2327,7 @@ struct iommu_domain *iommu_get_dma_domain(struct device *dev)
+ {
+ 	return dev->iommu_group->default_domain;
+ }
++EXPORT_SYMBOL_GPL(iommu_get_dma_domain);
+ 
+ static void *iommu_make_pasid_array_entry(struct iommu_domain *domain,
+ 					  struct iommu_attach_handle *handle)
 -- 
 2.47.3
 
