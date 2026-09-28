@@ -4,62 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5240CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 910CCCA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFBE10E21B;
-	Mon, 28 Sep 2026 16:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA5E110E93D;
+	Mon, 28 Sep 2026 16:37:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tgwwdITK";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Xbzczbtl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oKjJnJY8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SrQQnyQ1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kYzGZZvA";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D707A10E21B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:37:14 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id D2BE68FD;
- Mon, 28 Sep 2026 18:35:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1790613323;
- bh=79ekLGQx1Tor6z02KqQn9lGJBkxxAMsnhhsc0gv/Pv4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tgwwdITKp4bfEl3NckTRce+gdM4AqUQST43w9pHEv3HmzcSUOqUmik84htz5qPg3X
- OcLpOr9Mikj4IUIaukMWgueo2gjofH/ExaxDKh1qFqsWzuUQvNYFgZg4MLBuMKQJqT
- zLI18YDW8IyTiyPLslMQtK6pLIx4CdsGLPz0oBLc=
-Date: Mon, 28 Sep 2026 19:37:11 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <20260928163711.GA210522@killaraus.ideasonboard.com>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB77310E93D;
+ Mon, 28 Sep 2026 16:37:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F13A321EA4;
+ Mon, 28 Sep 2026 16:37:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790613463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=S4iM9XLY2XGuoN/j+o6k8TksS6rQOnfmLzJbJ+cpdeg=;
+ b=XbzczbtlT5vzgK/4vkGL4xsymZu5tID4sSlWw8PwUUgbWuUbxP/wJHmXf0o5gF2ytbMlfL
+ DTdqyG/3Hu3ObzGeaH1qpj1Kcb0+VqVQG7YHE1QxQOQJUnSv2mw6Tghi/tgiNtBVs9qBr3
+ 1MvZ3rt1nZPP92E5WFchnYJPPSAoUUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790613463;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=S4iM9XLY2XGuoN/j+o6k8TksS6rQOnfmLzJbJ+cpdeg=;
+ b=oKjJnJY8qSyL6LbYPFJ+jYOWoQMzQ0Dy7RthDSMXmU1vIUVWH/o7qgEmgPKuxH+4z+i39m
+ BuC1xjlJ1VIB42CA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790613459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=S4iM9XLY2XGuoN/j+o6k8TksS6rQOnfmLzJbJ+cpdeg=;
+ b=SrQQnyQ1MrIbwuaWtadyM83MaaT3mK9v6RTBZYRkyPXJ41FNj+I9QRnAqa44+SNmG337La
+ /oNwg5i0BHnG27OVaVedbJ1kGmBvtSPTYvGF/tO3gWmknh44huj7G8q20tA1lkLxO6G68v
+ 7Qx86TE+r89IEMUuoKaByitGGn6pXzI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790613459;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=S4iM9XLY2XGuoN/j+o6k8TksS6rQOnfmLzJbJ+cpdeg=;
+ b=kYzGZZvA9WL8QDcL0pRd8EJRO54HcPeMKBRsDtI2BSXXYHso27AHMRT/kmKefHGjA0j2yU
+ mfBuvHjfargdjFDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 58849133F1;
+ Mon, 28 Sep 2026 16:37:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tVPkCtKXumr+BQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 16:37:38 +0000
+Message-ID: <7a19a212-194a-4d5b-b0a0-6d2bee24f636@suse.de>
+Date: Mon, 28 Sep 2026 18:37:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[suse.com:url,igalia.com:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, igalia.com:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,101 +151,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Hi
 
-On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
-> Hi,
-> 
-> Panels in general, and MIPI-DSI panels in particular, are pretty
-> difficult to support and require pretty much a panel driver for each
-> panel produced. Most of them are pretty simple, and require an opaque
-> initialization sequence that is usually poorly documented.
-> 
-> This creates a tension between OEMs and distros because OEMs will
-> typically get a new panel to react to a sourcing issue during
-> production, and thus need some swift turnaround between getting their
-> new panel and it being operational in the OS. Distributions on the other
-> hand can take years to ship a kernel with that new panel driver.
-> 
-> To solve this, I followed the example of HID-BPF and wrote a panel
-> driver that will rely on BPF programs to perform the panel
-> initialization. That way, we can ship the programs separately from the
-> kernel, and with a different lifecycle. If this driver is accepted, the
-> plan is to have a userspace component started by udev to identify and
-> load the right BPF program for the panels found on the device.
-
-Interesting idea.
-
-How would that work for devices that want early display support ? In
-particular, how does it interact with your recent work on "fastboot"
-support (with the kernel drivers taking over a running display
-configured by the boot loader) ?
-
-I'm also wondering about the incentives for vendors to upstream the
-code. How will we avoid having a proliferation of out-of-tree drivers ?
-
-> This driver is fully functional and works with both 5" and 7" Touch
-> Display 2 panels for the RaspberryPi. However, it breaks away from the
-> typical panel driver in multiple ways:
-> 
-> - BPF programs can only be loaded by userspace. This leaves us with two
->   choices: 
-> 
->   * We prevent the driver from loading until the script itself is
->     loaded. This has the side effect of preventing any other output to
->     be used until the initramfs is ran at the earliest, and possibly
->     ever if the loader isn't installed for example.
-> 
->   * Or we probe the driver all the time, but only report it as connected
->     once a program has been registered. This is somewhat unconventional,
->     but allows the other outputs to be functional, *and* allows the user
->     to force the output if their panel doesn't require any
->     initialization or during debugging. I chose this solution.
-> 
-> - It's not a panel driver, but a bridge one, which is also pretty
->   unconventional. This is required because panel drivers don't have
->   access to a detect callback that is required for the above, but I also
->   think that the recent work from Luca blurs the line from panels and
->   bridges and we'll end up going that road anyway.
-> 
-> Let me know what you think,
-> Maxime
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Am 15.09.26 um 21:42 schrieb Maíra Canal:
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
+>
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
+>
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
+>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
-> Maxime Ripard (6):
->       dt-bindings: display: Add panel-mipi-dsi-bpf generic panel binding
->       drm/panel: Add generic MIPI-DSI panel driver with BPF init sequences
->       drm/panel: dsi-bpf: Add BPF program build infrastructure and helper header
->       drm/panel: dsi-bpf: Add Raspberry Pi 7-inch panel BPF program
->       drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
->       [DO NOT MERGE] arm64: dts: broadcom: Add Raspberry Pi ILI9881C DSI panel overlays
-> 
->  .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++
->  arch/arm64/boot/dts/broadcom/Makefile              |   8 +
->  .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         |  22 +
->  .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         |  22 +
->  .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  |  65 +++
->  drivers/gpu/drm/panel/Kconfig                      |   3 +
->  drivers/gpu/drm/panel/Makefile                     |   1 +
->  drivers/gpu/drm/panel/bpf/Kconfig                  |  28 ++
->  drivers/gpu/drm/panel/bpf/Makefile                 |  10 +
->  .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-core.c    | 452 +++++++++++++++++++++
->  .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-kfuncs.c  | 278 +++++++++++++
->  drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi-ops.c | 242 +++++++++++
->  .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.c   |   4 +
->  .../gpu/drm/panel/bpf/panel-bpf-mipi-dsi-trace.h   | 246 +++++++++++
->  drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi.h     | 264 ++++++++++++
->  drivers/gpu/drm/panel/bpf/progs/Makefile           |  93 +++++
->  .../panel/bpf/progs/Raspberrypi__dsi-5inch.bpf.c   | 266 ++++++++++++
->  .../panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c   | 271 ++++++++++++
->  .../gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h   |  95 +++++
->  19 files changed, 2554 insertions(+)
-> ---
-> base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-> change-id: 20260928-drm-mipi-dsi-panel-ebpf-d78b72a9c47f
+>   drivers/gpu/drm/drm_timeout.c | 45 +++++++++++++++++++++++++++++++++++++++++++
+>   include/drm/drm_timeout.h     |  1 +
+>   2 files changed, 46 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 35e10293e0a1..ee545475429c 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/export.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>   #include <linux/sched.h>
+>   
+>   #include <drm/drm_timeout.h>
+> @@ -48,3 +49,47 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>   	return timeout_jiffies64 + 1;
+>   }
+>   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
+> + * same arguments, so the duration starts counting from zero again. New uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+> + *
+> + * Returns:
+> + * 0 if @timeout_nsec is 0. Otherwise the equivalent number of jiffies and
+> + * clamped to MAX_JIFFY_OFFSET.
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	u64 secs;
+> +	u32 rem;
+> +
+> +	/* Make 0 timeout means poll, as for the absolute variant. */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	/*
+> +	 * As nsecs_to_jiffies64() does not guard against overflow, split
+> +	 * the timeout into whole seconds and nanoseconds. This way
+> +	 * nsecs_to_jiffies64() is always handed a value below a second.
+> +	 */
+> +	secs = div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
+> +	if (secs >= MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET,
+> +		     secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
+
+The timeout is controled by user space, right? Can these additions 
+overflow?  I see that secs is tested against MAX_JIFFY_OFFSET, but is 
+that sufficient?
+
+BTW there was this NSEC % HZ test in the original code? What was it good 
+for? It is no longer useful?
+
+Best regards
+Thomas
+
+
+> +}
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+> index cd9621c52062..6ee222a3e97c 100644
+> --- a/include/drm/drm_timeout.h
+> +++ b/include/drm/drm_timeout.h
+> @@ -12,5 +12,6 @@
+>   #include <linux/types.h>
+>   
+>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>   
+>   #endif
+>
 
 -- 
-Regards,
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-Laurent Pinchart
+
