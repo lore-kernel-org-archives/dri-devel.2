@@ -4,83 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF71BCA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC0DBCA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D38A10EA9E;
-	Mon, 28 Sep 2026 14:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22B3110E8E7;
+	Mon, 28 Sep 2026 14:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltDfkQMu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KDLG4goQ";
 	dkim-atps=neutral
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com
- [74.125.228.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB4610EAB9
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:41:31 +0000 (UTC)
-Received: by mail-ej2-f12.google.com with SMTP id
- a640c23a62f3a-c2940ef15d3so383173566b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 07:41:31 -0700 (PDT)
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com
+ [74.125.229.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8485010E8E7
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:52:48 +0000 (UTC)
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5b8e6ec4e1dso2306799e87.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 07:52:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790607166; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NvC18pxHYvbCxI/edCjl6GYFCs0n/9wnBbA9Vq/Dx5wF+xYZ07F1Ql8JbDbSRkSAPx
+ CMWA5ImWBLMjVDjVVIDhmajZ9DJgi46XE96HqZGzYvSgtdYgM1gtVH3mWYq/OTA0Ray5
+ W2pYcoEzhuW4ip6T4GXQQsDnguSTZmrk3gj9yEOfx576vk2NF/UQ0rfS9ADHkvGgLbEj
+ dPjCMop1UV4881pvgvOeAdIoxGlkh3yKqIVKga1Mr/Dy3xY4T03/WnebMrfd4ZtZ534S
+ y2W6TOjdDyoFwRIUrwFvxS/Clw3N/bZ/oUmuOdm3AdxWEYF2rgem+U8CuPUec4lPoXlv
+ evvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=LayCXAFHVmoDJ7OzuMd5bfhOgMn0WjtS+zr0t0p63QA=;
+ fh=mKr05x0NXR9Ll693umCutw8ktlNvIk/f9RRdj2EP4BE=;
+ b=hZzvhEPWJsTAoIOHm9yBbModF3fH6wLDU/89IvHnDzeLv2ewYTDgeP5XykxOc2zZls
+ EPS8t+/fDhq1t58+brbMQ1/nbpfkqH4tYj27UCncVoTrxYk+7XmYo+zZSWJGGvFaf6Lh
+ EqT8Ty/FFh1NXo/4f1CjDmqT8eJKKBTbqgleMAZmfEu+HQQgh8zZdCf8nYrLyP1W7ZZz
+ NFXVzHP5Rd0TCSHtF2N3uQVbD9Aq/hkJIpyINYdX5aqZmzEmh8lV7a+KdCxlIfvbcJhG
+ siAB4VAB7/oDhpfpqdL3+26FLePS1o40Qi0Qimt+uXiHZnu7uxoAthx8fRo0p4bRV99y
+ Ok5A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790606490; x=1791211290; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=gdKbC3riLBZ98r8oodQbbP8SrsBHoTyLl7tB6yhXYEA=;
- b=ltDfkQMuXhQ2aeD1MSGsGJEjGqut1mcyBNJNI3v4MsRPlgnHifXpcZqX6x/n1+umZO
- TzQGd1QaeX6iPDVOGMCCU/ktL6fEnQd7eojZ1+l7NubYTqvllMAPqevJ+yAusTCNnxmD
- tENJJmERGCt2bljL0KA3mXFahvoSXuIp2XCmqg+Yq7mSsoDFXWY4iRTmTSecT67Fkcs6
- p4uEsJK/t7R4kCFz99XUN6BthMoc5UmaZCBcPaQj7ZdDUIc8377+mBTrCdKqzC5cMKA6
- xetwk3ve5DIKnStfyt6BbSvpj6Xgqq0VwTILeEB+rE6J5s/WzMeL+Jme+NqHSs5HJ2GW
- J9kg==
+ d=gmail.com; s=20251104; t=1790607166; x=1791211966; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=LayCXAFHVmoDJ7OzuMd5bfhOgMn0WjtS+zr0t0p63QA=;
+ b=KDLG4goQuG+7Dhq5S/jt7I5AeGn2UpFqjksEkh9n2qP+REG6iAbiX7ivFIS83OkND5
+ UYWjF5ufZHNSoashRJSZSvRJCGFoe8tqiPrdLNOSZGcYkrmdGXvbBE4FPQNAJcAmOLRB
+ Hg9OaEMcl+QQo6VU07B0P8YC/H3qcnPIeysWqyQwRI3/G/rhACQsKaStNAeNkpnfjfnV
+ UAXgu6sR8HBKvXKf3+067isMcKAAE7aCslpXzxFj99vdbzCF6gN6/Plq8jWL0fLOmtKT
+ F4LrRslC5W1if4AeXg39G0Usic/CInrt2Em7oqx+S6nzDsqJLVXe5cGCrsCE6j6yAP+3
+ lg4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790606490; x=1791211290;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=gdKbC3riLBZ98r8oodQbbP8SrsBHoTyLl7tB6yhXYEA=;
- b=D8gDuzM2DrbJSZrDd+LAxOrDymCwJ31X1Q4H7yRrH9IxnOYZv0I/Gu7rWnBhepMwBc
- iu5NbOEpUaJw4Ox+DQHxpFbDgv4ttoV/m3ljHnfVxvk7Mcg95XXQXKE9tdMriEnPdzuf
- 9S92/99p5h46kEVjHS//RYcNYwWuN+J+5aN+DmmdSOQUPFYXUbhL+TBYJ1YKbyNarzkT
- dWr5nlKsRdrFukKLFHfE+okidEH++c2EE9fqivL02g3ety+z/sQTebmlon2EsXCZ/jdk
- vmL49eGpheXvRxq+q9F3x6Z33N4rWOmMubvzN7l9PjlKBDu0C4BsPZ+D3+8HJqQTks9H
- 50/A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy6tZiNCSg16Sg3G/0PvL3WCtidz1Vzcnx9fpGK4fogB5g471JWRIIb23Snk5zDfBNWnWclKlx06No=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l+fzUUDVGAnJCYsNe+w+1WuAubmX2XjwL5gUwWulDZL8J6ivAV
- L4uRN8fnogKTuO5BYqV+CMUa1WZwUOkN2vlzQ3qA76D/ozajg5XHq52W
-X-Gm-Gg: AYBFou0mwFvhEUkjwoF8NLpyrW/UclxItsLObfdv6IauRUsxkPKT+QDvXElttyyKWwE
- cqkhs5wIPBcq4e2AejtMG7dXw6eHTRXkld9tpLnTSQuMa1eXVgau1ypzpfbmfHeh+TQhE/DLKpq
- PpwsjYH82h2ZrX4Mj523CxPWgMb29pnFXVepngEddhMtvk6OEgKtR0/W7nRwE9auxMn18taKK6A
- gTNx6bcuA4gRcpgbcBI9XtbsUPUJdgAkhjwoJAeoIbpXs2vER2wPNOb3movpjuWwjOim+zLf67F
- /gJwzGgyz3t0z2uGoYBefuDPVfpO7dtWW2alG98Q60E+1p+guvVq5bl0DGMu2O25z17OBAhsSc9
- W91deqEA41ycGF7WKNT7Q3slO1T2VEqsxkd73umIY8uUCfG5nV+967vvGLTtOBayMuaLX4IgsJQ
- 65ZIBteHUhKYflLGx8S8c5eQR4a4JTJjI2Voso89KAYJoI6z2KOWGsBBanBAk/sFInJgjHXk2US
- vD0pPTjb9AZVc/CMIi/vFFlZGxwKp47mV0SsWly+TTKfth7vC4wECDQd8gjHVndVF+1qYsjxLwD
- iZc3Wf/iBjxgHCCTggxIVFlPrgueV1L+X67AzWMVO7zr8lYx
-X-Received: by 2002:a17:907:7b8c:b0:c2d:c33d:a9d4 with SMTP id
- a640c23a62f3a-c2dc33dada2mr388838266b.10.1790606489807; 
- Mon, 28 Sep 2026 07:41:29 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2b769429ddsm355555066b.51.2026.09.28.07.41.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Sep 2026 07:41:29 -0700 (PDT)
-Message-ID: <38f81e58-44ca-4fe6-ba72-97557b7625e9@gmail.com>
-Date: Mon, 28 Sep 2026 15:41:28 +0100
+ d=1e100.net; s=20260707; t=1790607166; x=1791211966;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=LayCXAFHVmoDJ7OzuMd5bfhOgMn0WjtS+zr0t0p63QA=;
+ b=vjjOVHyITOeBRHDkCRNr0yORZA4pUzbj9y0b+3+ydaZBIdIJqQqAMFt7sIAxyj2YPF
+ l7akMHSYcHsV8g5wX6zQRvot017bguweTkPA58PBmdS3rySpDfCTNsdVrx2uTVh8QIkl
+ 0lsB1yuzgx+jM+IGbZLZPDosRZKCoiRadaTcuCEOmM/AXUI/86vPhBUjnz98W0OCm7eQ
+ voqd9ybAmNxBMdeq4Frx7+5u5CNbzsYmgtP3FVaruSeGckxtdd/xwv+QeAeNJ/CaTiOG
+ WbKzcB79gIUoom9+SValOPZtKR0bMyNHifkT19BuaGvpZfzwYjAx1ZxkWy38xBrf01uB
+ U1Cg==
+X-Gm-Message-State: AFq9FYKZTbFSiz77VTt+scNK5GI3P2mvw6cenITwRf9LCat9tbuGrGVc
+ H3KL4INXKn/J2rUgzYKxpTvdWF49MH7MlEXwkx158i0cgqR+qGcKo+USTTarYB9YPf3lC5WtwkJ
+ ufa6xUHCi7/3UhD0zsla+7+XZTE04498=
+X-Gm-Gg: AYBFou1HTgTHt+k3cXre0NJc7c8LB10sf5rPKjMJDIJLcGHjmYUlAImqNA7Bm49agiO
+ IV+t83JFXT/yUPIWxz6m2cdvi4j3sVkYZW0EwehTMp9qedGI7blz1qmH3HKCEwCAAWkwTAnYK7V
+ YBz4zxvBTYLN27x55jCNZc96Hm+RXY7azWh24sJfrWat1LUgQYpAwpVtZa/BzYT+8+8nv5HGgWC
+ MFSj2vmPxzTa3pdzL/XoVAbiAgcUuMXpIei/SqnsaG7bbHWYu/XJwELA/edcLq084lYs7qfCGS7
+ C38tRb/Y7PvrWBM/8j9lWWfJkonKU+2QXeoL0kxQ4yy7zjCXvl8KbvYUhFofaH7LBotUxeQ46vZ
+ bF1wivf2WHlQ+b506i5k61Fi34PTsFZ0A5DaMQBd/spUOt6GxngOCxkM9Lgw2Hub/lbEpQd2bHR
+ i+fZgn26dW/A==
+X-Received: by 2002:a05:6512:2396:b0:5b8:f417:dbf2 with SMTP id
+ 2adb3069b0e04-5b8f417dcfamr2127641e87.45.1790607166317; Mon, 28 Sep 2026
+ 07:52:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
-To: sashiko-reviews@lists.linux.dev
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-References: <cover.1790602223.git.asml.silence@gmail.com>
- <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
- <20260928140208.0C56B1F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260928140208.0C56B1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260920193944.110983-1-kieweg.leander@gmail.com>
+ <20260920193944.110983-3-kieweg.leander@gmail.com>
+ <349a5c40-5cc4-4e24-8e24-4e05fc8a7bca@suse.de>
+In-Reply-To: <349a5c40-5cc4-4e24-8e24-4e05fc8a7bca@suse.de>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Mon, 28 Sep 2026 16:52:34 +0200
+X-Gm-Features: AclHuK9TPVsBjaiGZv0TSHgVz7QThaWnF_VETNU5oTwrNIVOU7PP1d6BRDXXjHo
+Message-ID: <CAMwcS0jd91B+9PvYeZTC+yuOxMc7hO8-Q0YMbXE51WiFHnvpWg@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,136 +107,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/28/26 15:02, sashiko-bot@kernel.org wrote:
-...>> +	nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
->> +
->> +	if (length <= 0) {
->> +		prp2_dma = 0;
->> +		goto done;
->> +	}
->> +
->> +	if (length <= NVME_CTRL_PAGE_SIZE) {
->> +		prp2_dma = dma_list[map_idx];
-> 
-> [Severity: Critical]
-> Is map_idx checked against map->nr_entries here?
-> 
-> If dmabuf->size is 4608 bytes, nr_entries is truncated to 1, allocating 1
+Hi Thomas,
 
-It'd be rejected, not truncated, see below.
+> One remark on future updates: I assume that you want to further update
+> or extend the HW design. One thing you should certainly add is a
+> version/feature identifier, so that the driver can distinguish among
+> different hardware generations. We also cannot merge support for
+> everyone's hobbyist hardware and you got the benefit of being the
+> first.  So for future submitters of similar drivers, it might be better
+> for them to build upon your work instead of coming up within something
+> entirely new. A distinct identifier will be helpful with that.
 
-> array element. Userspace could submit a 4608-byte IO. The driver calculates
-> 'length' up to 4608 and advances 'map_idx' to 1 for the remaining 512 bytes.
-> It reads 'dma_list[1]' (which is out-of-bounds) and uses it as 'prp2_dma',
-> potentially resulting in arbitrary physical DMA (read or write).
-> 
->> +		goto done;
->> +	}
-> 
-> [ ... ]
-> 
->> +free_prps:
->> +	iod->cmd.common.dptr.prp1 = cpu_to_le64(prp1_dma);
->> +	iod->cmd.common.dptr.prp2 = cpu_to_le64(prp2_dma);
->> +	nvme_free_descriptors(req);
->> +	return BLK_STS_RESOURCE;
-> 
-> [Severity: High]
-> Does this code leave iod->nr_descriptors greater than 0 on the error path?
+I'm planning to add a hardware register in a future revision
+that exposes a version number that the driver can read.
 
-I can clear it, but unless I missed sth that's what e.g.
-nvme_pci_setup_data_prp() already does.
+> Is there a reason to no use drm_crtc_vblank_atomic_flush() ? It's the
+> same code.
 
-nvme_pci_setup_data_prp() // goto bad_sgl:
-	nvme_unmap_data()
-		nvme_free_descriptors();
+I will use drm_crtc_vblank_atomic_flush() in v6.
 
+On the QEMU device ID: it's currently a placeholder from the
+experimental range, since I haven't submitted the QEMU patch to get
+an official one yet. Is that fine to merge as is, with a follow-up
+kernel patch once the official ID is assigned?
 
-> If dma_pool_alloc() fails in nvme_rq_setup_dmabuf_map(), it jumps to
-> 'free_prps:', which calls nvme_free_descriptors() but leaves
-> 'iod->nr_descriptors' unchanged. The block layer may requeue the failed
-> request.
-> 
-> If the queue is subsequently torn down, the cancellation path invokes
-> nvme_unmap_data() -> nvme_rq_clean_dmabuf_map(). Seeing the non-zero
-> 'nr_descriptors', it calls nvme_free_descriptors() again, resulting in a
-> double free.
-> 
->> +}
-> 
-> [ ... ]
-> 
->> +static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx *ctx)
->> +{
->> +	unsigned nr_entries = ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
->> +	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
->> +	struct dma_buf_attachment *attach = nvme_ctx->attach;
->> +	unsigned long tmp, i = 0;
->> +	struct nvme_dmabuf_map *map;
->> +	struct scatterlist *sg;
->> +	struct sg_table *sgt;
->> +	int ret;
->> +
->> +	dma_resv_assert_held(ctx->dmabuf->resv);
->> +
->> +	map = kvmalloc_flex(*map, dma_list, nr_entries);
->> +	if (!map)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	sgt = dma_buf_map_attachment(attach, ctx->dir);
->> +	if (IS_ERR(sgt)) {
->> +		ret = PTR_ERR(sgt);
->> +		sgt = NULL;
->> +		goto err;
->> +	}
->> +
->> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
->> +		dma_addr_t dma_addr = sg_dma_address(sg);
->> +		unsigned long sg_len = sg_dma_len(sg);
->> +
->> +		if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
->> +		    (dma_addr % NVME_CTRL_PAGE_SIZE)) {
->> +			ret = -EINVAL;
->> +			goto err;
->> +		}
->> +		while (sg_len) {
->> +			map->dma_list[i++] = dma_addr;
-> 
-> [Severity: High]
-> Does this loop overflow dma_list[]?
-> 
-> 'nr_entries' is computed via integer division of dmabuf->size. If the dmabuf
-> size is not page-aligned (e.g., 4097 bytes), nr_entries truncates down (to 1).
-
-It'll fail on the alignment check in this loop for [4096, 4097)
-
-> However, exporters often pad sg_table allocations to full pages (e.g., 8192
-> bytes).
-> 
-> The loop unconditionally writes all sg_len chunks to 'dma_list', exceeding the
-> allocated 'nr_entries' capacity.
-> 
->> +			dma_addr += NVME_CTRL_PAGE_SIZE;
->> +			sg_len -= NVME_CTRL_PAGE_SIZE;
->> +		}
->> +	}
->> +
->> +	ret = dma_buf_io_init_map(ctx, &map->base, sgt);
->> +	if (ret)
->> +		goto err;
->> +	map->nr_entries = nr_entries;
->> +	map->sgt = sgt;
->> +	return &map->base;
->> +err:
->> +	if (sgt)
->> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
->> +	kfree(map);
-> 
-> [Severity: High]
-> Is it safe to free a kvmalloc_flex() allocation with kfree()?
-
-Going to fix.
-
--- 
-Pavel Begunkov
-
+Best regards,
+Leander
