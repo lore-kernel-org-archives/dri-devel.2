@@ -4,70 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A43CC98328
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 04:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA29DC98328
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 04:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D9110E753;
-	Mon, 28 Sep 2026 04:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B238F10E75C;
+	Mon, 28 Sep 2026 04:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="RU844wVf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ln6CHw7z";
 	dkim-atps=neutral
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B504D10E753
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 04:30:59 +0000 (UTC)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-398dcfabbf8so7876296a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 27 Sep 2026 21:30:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1790569859; x=1791174659;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
- b=RU844wVfeGz1c2wg1BhbbGYpfA7UGFJYWAV7QUJ/dbVcatku5n84xm1XTn3ihF+4RD
- ED9LrjFkpz/dPJDlegEsnyG9AGkXR2UruPNjJXHvjTM4r7OQDIfW0BWHdGVe1jcrlI0n
- 3GK6R1n/lvrNm9dWOdEMQJWBIeFTy7kLDXdtSIR5OiIczHOQ2Pft4KiPFebv54CybAT4
- j4jaSg/aB5SJb7qb2hLgNlKANT+2elucYHePdUyn0yFthDD2S2ZbARG0vKZuooCzwU8Q
- aBrIpcl3fbk/fkmXSloB1PfFhRxmY0y3Bx90FluW1WWipwsG+S4OfuJrNSkSQXMswWgl
- d+9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790569859; x=1791174659;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F4a/2U6MDyhfh6OctZetk7ga+hEdDkfQe/jf3hv28p0=;
- b=Oke7XsJ2Vel1JXLy7Mve/eKSi7QBb0oSrdK2tn/8ThaowfVpv+I11ACVnKra68moFp
- h4pJVl9O+iplj3zUjGiKikwiKdLxydYoNFspAbrimM1zJ7a4FY9Fi5dwjA6/5252dvnT
- 8aMFy4Vnyu5d6VranuXnuj908DQFhqEUMtwSyYslQbQkXSwNgTpXAgi5n/kmDTkYrEqf
- 7Lfz4/o2IlBZb68SZcvoaNtCWNP1I10MS0cNaHxouAVpYcNl9YebenaFoQmQXOIF+QCa
- sDxj/oPpmNP1VmxC69660gRPEAgQAXBlaWBHNWREFjUiPl/xINNCyzX4LQL2nCcAB1Rz
- o37g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx5w2SHemZp7JWbX9G+MHZZoSU2nZsMOZA18An/RiS76qhI1vIp0XP4qOMBy7Unf/H2bxKbwf4cXkk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKERSZG3sIhyXN18GCHoNTGWDSg/CSUX19sWV896ssPfvadlUsN
- tn507y+IbIQ5EGuywPZNFkT5Io9FM0lrnbsTYva0WqWM772oX4Yo753t1QT16WSel9dD6EQxNnJ
- H
-X-Received: from pjqo14.prod.google.com ([2002:a17:90a:ac0e:b0:3a0:70aa:2cef])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:c2cb:b0:3a4:7a96:5209
- with SMTP id 98e67ed59e1d1-3a47a966299mr377611a91.33.1790569858850; Sun, 27
- Sep 2026 21:30:58 -0700 (PDT)
-Date: Mon, 28 Sep 2026 04:30:56 +0000
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260928043056.1324568-1-morbo@google.com>
-Subject: [PATCH] dma-buf/dma_fence_array: Annotate fences with __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Mark Brown <broonie@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE5710E755;
+ Mon, 28 Sep 2026 04:33:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D5DE643702;
+ Mon, 28 Sep 2026 04:33:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AE59EC2BCB3;
+ Mon, 28 Sep 2026 04:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790570016;
+ bh=YwPpbFVrdO5EkkKuY0LiZH1/d7Y7QXqvVXT05SzMsSw=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=ln6CHw7zAcNZ62D99Phds6aFD63FSgqS8b1FO8J1QjHwBXxMOvJ7E7ZTphISkM0Lm
+ 7r6FTasSF0meSU56T3sRrFGCUB96jqRLSczfffaqCXpDZfVcFEzf7VUI35zZJHKUQ8
+ w9EKJ56s38fPsIoSsGJBVEE490xOM8XaJjmKSyc/eZxic1DlD2AudgA5+DOM7YsxhX
+ 8wrJpDTyJtZ/0rmM+14RfezYg8Sv/jmS4ed6/wTsOlLpVMyrDItWRRZbjizxdJQRRl
+ 1O9UXj1s2Umja9JdjgIUZgwn79yMgN2Kbu0NMZFx4ckF1FP8wysllVMuzZvh76G6Ii
+ fYyprnhR95MWQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8A93DC9833E;
+ Mon, 28 Sep 2026 04:33:36 +0000 (UTC)
+From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
+Date: Mon, 28 Sep 2026 14:33:26 +1000
+Subject: [PATCH] drm/msm: vmalloc fall back for msm_gem_submits
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260928-msmdrm-submit-vmalloc-v1-1-8b24b1325855@samcday.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrCQAwF0KuEv25gDDjYuYq4GNuogaaViS1C6
+ d0F3wHejtBmGii0o+lmYcuMQqeOMLzq/FS2EYUgSXLq5cIePjbnWO9uH968TtMycJJz7jWLVM3
+ oCO+mD/v+3+vtOH6S71DOZwAAAA==
+X-Change-ID: 20260928-msmdrm-submit-vmalloc-02569e622ae6
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Sam Day <me@samcday.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790570015; l=3464;
+ i=me@samcday.com; s=20240502; h=from:subject:message-id;
+ bh=4To87PoB5Gy7rINqfb6PWjdKecVIeYCcY9gOzBdSoHg=;
+ b=cS5sp8BtOVWAHABMobEZSHj7WaVmRb2cpyvVR+lCff9hhAouttlFUkpO9bW6IUBerMJquE2XB
+ mHQ3OnCMf3/CkdWzxZyvtvNOKl3W2jst3Y101Kq680ELxAIo8mD6wec
+X-Developer-Key: i=me@samcday.com; a=ed25519;
+ pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
+X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with auth_id=595
+X-Original-From: Sam Day <me@samcday.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,41 +76,108 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: me@samcday.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 'struct dma_fence_array' holds a pointer field 'fences' that points
-to an array of 'dma_fence' pointers, and its element count is stored in
-the 'num_fences' field within the same structure.
+From: Sam Day <me@samcday.com>
 
-Annotate 'fences' with the '__counted_by_ptr' attribute to allow
-compilers supporting this attribute to perform runtime bounds checking
-via KASAN and '__builtin_dynamic_object_size'.
+On low memory boards like the DragonBoard410c (1GiB), if memory
+fragmentation is severe enough, large submits will fail when allocating
+the msm_gem_submit bookkeeping struct.
 
-The structure is allocated in 'dma_fence_array_alloc()' which
-initializes all fields, including 'fences' and 'num_fences', to zero.
-The structure is initialized in 'dma_fence_array_init()'.
+Mesa was consistently triggering this issue when running its full piglit
+suite on the DB410c - the vbo-subdata-many drawrangeelements test
+submits ~32k BOs, which results in submit_create() attempting to
+allocate ~1.05MB, which requires an order-9 (2MiB) allocation. When
+fragmentation is severe enough, this fails.
 
-Cc: codemender-patching+linux@google.com
+Switch allocation to kvzalloc() so that larger submits can fall back to
+virtually contiguous memory. The msm_gem_submit struct is only used on
+the CPU side for bookkeeping that submit.
+
+Since submits are implicitly limited to KMALLOC_MAX_SIZE with the
+current kzalloc() path, we make this limit explicit with the switch to
+kvzalloc().
+
+Link: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16414
 Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
+Signed-off-by: Sam Day <me@samcday.com>
 ---
- include/linux/dma-fence-array.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The kvzalloc switch was tested and validated on my DB410c, the explicit
+bounds check was added later and compile-tested only. Performance has
+not been benchmarked.
 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index 0c49d7ccefb6..85e5879e8a1e 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -39,7 +39,7 @@ struct dma_fence_array {
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Sam Day <me@samcday.com>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 5862db05297a7..1631bdeb64b20 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -42,14 +42,21 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
+ 	sz = size_add(struct_size(submit, bos, nr_bos),
+ 		      array_size(sizeof(submit->cmd[0]), nr_cmds));
  
- 	unsigned num_fences;
- 	atomic_t num_pending;
--	struct dma_fence **fences;
-+	struct dma_fence **fences __counted_by_ptr(num_fences);
+-	submit = kzalloc(sz, GFP_KERNEL | __GFP_NOWARN);
++	/* We previously allocated submit with kmalloc(), but that's
++	 * problematic on low-memory boards with high fragmentation. Now
++	 * vmalloc can be used so we retain the previous implicit sz limit.
++	 */
++	if (sz > KMALLOC_MAX_SIZE)
++		return ERR_PTR(-ENOMEM);
++
++	submit = kvzalloc(sz, GFP_KERNEL | __GFP_NOWARN);
+ 	if (!submit)
+ 		return ERR_PTR(-ENOMEM);
  
- 	struct irq_work work;
+ 	submit->hw_fence = msm_fence_alloc();
+ 	if (IS_ERR(submit->hw_fence)) {
+ 		ret = PTR_ERR(submit->hw_fence);
+-		kfree(submit);
++		kvfree(submit);
+ 		return ERR_PTR(ret);
+ 	}
  
+@@ -57,7 +64,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
+ 				 drm_client_id);
+ 	if (ret) {
+ 		kfree(submit->hw_fence);
+-		kfree(submit);
++		kvfree(submit);
+ 		return ERR_PTR(ret);
+ 	}
+ 
+@@ -121,7 +128,7 @@ void __msm_gem_submit_destroy(struct kref *kref)
+ 	for (i = 0; i < submit->nr_cmds; i++)
+ 		kfree(submit->cmd[i].relocs);
+ 
+-	kfree(submit);
++	kvfree(submit);
+ }
+ 
+ static int submit_lookup_objects(struct msm_gem_submit *submit,
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260928-msmdrm-submit-vmalloc-02569e622ae6
+
+Best regards,
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Sam Day <me@samcday.com>
+
 
