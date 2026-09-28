@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE57CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF44ACA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B41510E8FF;
-	Mon, 28 Sep 2026 08:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F77310E906;
+	Mon, 28 Sep 2026 08:51:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nbfgf2ZT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wd+2AKht";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD7110E905
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:51:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D12A10E905
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:51:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 559CD43B63;
+ by tor.source.kernel.org (Postfix) with ESMTP id 3620060AB9;
+ Mon, 28 Sep 2026 08:51:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A159E1F00898;
  Mon, 28 Sep 2026 08:51:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44DD1F00893;
- Mon, 28 Sep 2026 08:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1790585470;
- bh=2/xOsFTDG4fxFcaqIIDqRaBYrYlg6DzwkvWNS27clnk=;
+ bh=OP6AAf+CPFjUDg5EA7Hut+rH1BWV4J9s+VSYbD/7DhU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nbfgf2ZTLru5S7YMWXxlReVLVCMGc5eO6B8fuEzw5yIgwZeYG+K307hQeVAFpEGmC
- rLCBrC3bsE+g4WuLGByCCGN3ENfL0pXnFTf80xMg5nqt2p6JRqEj+ivSm8XaaJvpbq
- 8I18kx25tJaTJVekvVLLoRnHZTldKykm3nOyDj3NVSk48YjSfrIq3u+pU2ZPr13hhM
- ycKnQW7zIrEJYv3SIqjfwjwkwONmdhR13DagzXsQcuzLUvj3b4P8dkhnkbeusOshNB
- eslNMeBMCjA3dMW7ViE93CFCTd6tVnA2IdXqagVCtMre85vdnHlCH8GPkFNcjvkcEb
- zieubo6c8IsUA==
+ b=Wd+2AKhtFRX5gpd4T0Pu39QZg581zxyJK+Th0a5UsQ8VDBZ8hD0dk37B/J7/AWjlh
+ eYBMpUx7AYwn5luxy2my81tLgcEDrQIpLsarvo83ezuNaRFSBkClbuVLTrcmj3y+N6
+ lroyXMxSxHQ3x71/GhbD7PUQYlQcfTCc3LgU1qKqjoic4HHYn+M17sTilJ9j4HWgaq
+ QF88Rqz6AIRoNTAllbUYGJX+fqpm5BMKv2IBju4EnMtMDhlSScrOT9UZSI5gK8Tv2I
+ zf+fy8RgRNWZ9FFxkLtZOF1uxGaWAacV4FII1pXhQ1gQPSMmu2VPlMRi3xZziAq52W
+ H13NGRelgbzWg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/8] rust: alloc: add Vec::try_push_init
+Subject: Re: [PATCH v3 3/8] rust: alloc: add ArrayVec
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: gary@garyguo.net, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- "Danilo
- Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260928-b4-nvkv-v3-1-f04504c262c2@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>, gary@garyguo.net, "Danilo
+ Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260928-b4-nvkv-v3-3-f04504c262c2@nvidia.com>
 References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-1-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-3-f04504c262c2@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 08:51:09 +0000
-Message-Id: <20260928085109.D44DD1F00893@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 08:51:10 +0000
+Message-Id: <20260928085110.A159E1F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,74 +61,94 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] rust: missing #[inline] on try_push_init()
+- [Low] rust: alloc: missing #[inline] on small ArrayVec methods
 --
 
-commit 5b0998c4906cb7b8fa1c27d53ac13078b73e0f91
+commit 272001023e1b94a98c5055e880db10e4aff13e9a
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-rust: alloc: add Vec::try_push_init
+rust: alloc: add ArrayVec
 
-This commit adds Vec::try_push_init for fallible initializers along
-with a new PushInitError sum type. It allows the original initializer
-to be returned to the caller if the allocation fails.
+Adds a fixed capacity vector backed by an array of uninitialized memory. The
+ArrayVec is also initializable with a closure to avoid constructing it on
+the stack, which is useful for small varying size arrays on the stack or
+larger ones initialized into caller-provided memory.
 
-> diff --git a/rust/kernel/alloc/kvec.rs b/rust/kernel/alloc/kvec.rs
-> index c7546b9da4fa3..a2b72a7779d9d 100644
-> --- a/rust/kernel/alloc/kvec.rs
-> +++ b/rust/kernel/alloc/kvec.rs
+> diff --git a/rust/kernel/alloc/arrayvec.rs b/rust/kernel/alloc/arrayvec.rs
+> new file mode 100644
+> index 0000000000000..4172a982e4775
+> --- /dev/null
+> +++ b/rust/kernel/alloc/arrayvec.rs
 [ ... ]
-> @@ -359,6 +367,49 @@ pub fn push(&mut self, v: T, flags: Flags) -> Result=
-<(), AllocError> {
->          Ok(())
->      }
-> =20
-> +    /// Appends an element to the back of the [`Vec`] instance by initia=
-lizing it in place.
+> +    /// Appends an element to the back of the [`ArrayVec`].
 > +    ///
-> +    /// Unlike [`Vec::push`], the initializer may be fallible. If the al=
-location fails, the
-[ ... ]
-> +    /// let mut v: KVec<Element> =3D KVec::new();
-> +    /// v.try_push_init(Element::new(), GFP_KERNEL)?;
-> +    /// assert!(v[0].buf.is_empty());
-> +    /// # Ok::<(), Error>(())
-> +    /// ```
-> +    pub fn try_push_init<I, E>(&mut self, init: I, flags: Flags) -> Resu=
-lt<(), PushInitError<I, E>>
-> +    where
-> +        I: Init<T, E>,
-> +    {
+> +    /// Fails when the [`ArrayVec`] is full, handing the element back in=
+ [`PushError`].
+> +    pub fn push(&mut self, v: T) -> Result<(), PushError<T>> {
 
 [Severity: Low]
-Should try_push_init() be annotated with #[inline]?
+The rust subsystem coding guidelines recommend that small functions in
+abstractions like the kernel crate be annotated with #[inline]. Since push
+is a trivial wrapper around try_push_init, should it have an #[inline]
+annotation to avoid sub-optimal inlining?
 
-The Rust subsystem coding guidelines recommend that small functions in
-abstractions should be annotated with #[inline] to allow the compiler
-to better optimize them.
-
-> +        if self.reserve(1, flags).is_err() {
-> +            return Err(PushInitError::AllocError(init));
-> +        }
-> +        // SAFETY: The call to `reserve` was successful, so there is at =
-least one spare slot.
-> +        unsafe { init.__init(self.spare_capacity_mut().as_mut_ptr().cast=
-::<T>()) }
-> +            .map_err(PushInitError::InitError)?;
-> +        // SAFETY: The call to `__init` returned `Ok`, so the first spar=
-e slot now holds an
-> +        // initialized `T`. The new length does not exceed the capacity =
-because `reserve` ensured
-> +        // the capacity is greater than the length by at least one.
-> +        unsafe { self.inc_len(1) };
-> +        Ok(())
+> +        self.try_push_init(v)
+> +            .map_err(|PushInitError::Full(v)| PushError(v))
 > +    }
 > +
->      /// Appends an element to the back of the [`Vec`] instance without r=
-eallocating.
->      ///
->      /// Fails if the vector does not have capacity for the new element.
+> +    /// Appends an element to the back of the [`ArrayVec`] by initializi=
+ng it in place.
+> +    ///
+> +    /// Fails with [`FullError`] when the [`ArrayVec`] is full.
+> +    pub fn push_init(&mut self, init: impl Init<T>) -> Result<(), FullEr=
+ror> {
+
+[Severity: Low]
+Similarly, push_init is a trivial wrapper around try_push_init. Would it be
+appropriate to add an #[inline] annotation here as well?
+
+> +        self.try_push_init(init)
+> +            .map_err(|PushInitError::Full(_)| FullError)
+> +    }
+[ ... ]
+> +    /// Returns a slice of `MaybeUninit<T>` for the remaining spare capa=
+city of the [`ArrayVec`].
+> +    fn spare_capacity_mut(&mut self) -> &mut [MaybeUninit<T>] {
+
+[Severity: Low]
+Since spare_capacity_mut is a small internal helper returning a slice,
+should it also be annotated with #[inline]?
+
+> +        // PANIC: `len` never exceeds `N` by the type invariants.
+> +        &mut self.data[self.len..]
+> +    }
+> +}
+[ ... ]
+> +impl<T, const N: usize> Borrow<[T]> for ArrayVec<T, N> {
+> +    fn borrow(&self) -> &[T] {
+
+[Severity: Low]
+This trait method is a one-line wrapper around as_slice. Does it need an
+#[inline] annotation following the coding guidelines?
+
+> +        self.as_slice()
+> +    }
+> +}
+[ ... ]
+> +impl<'a, T, const N: usize> IntoIterator for &'a ArrayVec<T, N> {
+> +    type Item =3D &'a T;
+> +    type IntoIter =3D slice::Iter<'a, T>;
+> +
+> +    fn into_iter(self) -> Self::IntoIter {
+
+[Severity: Low]
+This trait method is a one-line wrapper around iter. Should an #[inline]
+annotation be added here?
+
+> +        self.iter()
+> +    }
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-b4-nvkv-v3=
--0-f04504c262c2@nvidia.com?part=3D1
+-0-f04504c262c2@nvidia.com?part=3D3
