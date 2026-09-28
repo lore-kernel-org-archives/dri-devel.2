@@ -4,96 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A55CA5FA7
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 664EDC9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:09:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 628C410E7E6;
-	Mon, 28 Sep 2026 08:03:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C385E10E7EE;
+	Mon, 28 Sep 2026 08:09:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1ua2sRpc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="52CrCdTu";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qAf7ExlU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qPraS+eD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SKDSW8Y5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WlgNljOa";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E80210E7F7;
- Mon, 28 Sep 2026 08:03:55 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3F02C22261;
- Mon, 28 Sep 2026 08:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790582614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kmYVfCKDkAd4SbCiRkHNFQwJCnqKJd6ox50FWhc42Yg=;
- b=1ua2sRpcqIDd0Oijf+IF02cBKLPxqxj5tmuxhcCEQO+s6VIGoN/tV2gKgagRDlN0zrHoU3
- LWQcHEdIufpabOYDqrUPqBZREUeBfSR6U/nzCHncp1Hv7bxfe09x68FzuJF/Haww5D9sal
- NzksfVa1fNVBtrCcTDKl+VgfASf9zuQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790582614;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kmYVfCKDkAd4SbCiRkHNFQwJCnqKJd6ox50FWhc42Yg=;
- b=52CrCdTuknPBq2KMST9yyDXVP+bv0PB+Xx0tMYmfF7xfcxPDshquuGrD+r1R47U8GnV+ju
- uvj89sH0wnXlL7Cg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790582610; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kmYVfCKDkAd4SbCiRkHNFQwJCnqKJd6ox50FWhc42Yg=;
- b=qAf7ExlUyrNUcSjyDnTOUXS9apNmnZBOjeefhQD1qLdL/CcFIcXfgGxhj9qbOc4kmQifbf
- at6GqXjinwuaY3UFe5rLNcLHzEFgORFoIsOsFIM+r5OoTp82prGkxyMZfYeiY9Rv9US3rU
- jK+4Nm2G0OoqJefHqWA7RZDnuzX6nrM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790582610;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kmYVfCKDkAd4SbCiRkHNFQwJCnqKJd6ox50FWhc42Yg=;
- b=qPraS+eD7dKSEWR2Xe0in4GJ1jZ762mYQ2OGg/nZd0KMRWaiPjOWc8fcE+hcLZzot+WvdR
- xeJ2+PejIm/4YBAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 748EF133F1;
- Mon, 28 Sep 2026 08:03:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id LwPoBFEfumpBYQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 08:03:29 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, javierm@redhat.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jani.nikula@linux.intel.com, Alexander.Deucher@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v4 0/2] drm/fbdev: Move helpers to clients/ subdirectory
-Date: Mon, 28 Sep 2026 10:01:23 +0200
-Message-ID: <20260928080323.23909-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF7D10E7DB
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:08:58 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68S803iP1872252
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:08:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ oM81pKyayfK2X8YKDVXwTbFLMrukiJVnnCmewayJBqA=; b=SKDSW8Y5QhLznaQ1
+ yzxkud/7TYJOhk6dx/p3qyA8tC7kxFki3tE+Nd56wjxF+b9iJASw0vjxii6TezBT
+ ZMdgxRrVQ2HKFKydfWaRhBoF1GZenEMTC9ZAlW7V7JbrI6fP8P5Zye3NyIqA3FnL
+ bZR5CJzL4DXRwrnLCl+DzAJSwTuaS9FLvO/Sz22RXBSSG5drpv8iuVkBtm4eQsJG
+ dpY7YaSJfuQDnR8mcWdZIemD2SZhPnkbHriD1NzKmc8auOlu68yM325Jq+Uh3j4G
+ /z3D6lwBxyFHr4YBKSDVwA3Y/J+s3jJDWavHdfwb3amjUN9uEsX5VHOL68NyDm0u
+ n08ytQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyhubgjgx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:08:57 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93c5c205127so274447185a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790582936; x=1791187736;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=oM81pKyayfK2X8YKDVXwTbFLMrukiJVnnCmewayJBqA=;
+ b=WlgNljOahwEmISaIFslcilVT5KDOcxZhF1I3rpHBrQPCNGFlzcDA0zWN1XVG9gK6ms
+ C44Wrfvq1mgcqKGdTEAIhbjj/CACI1w1tRUB30Jv2g56OVUZBYrinADrGCatamzirRB3
+ R2dpUbsSEl5SrE6Lm+TFOzWBOCYUaHGgGHwe3V5TLCqRmEWxxlVCq/hwvdl+Ygo6ItXl
+ 9chzTcQjNNYoeldoI0Yni8IXot7DI9oJXr8SJC4XusLafT1v5t1XNh0ZtY5v87oHUbbD
+ kiba15o+Q+EhslNo2mv+Q+zkFdY3HZKLt0xFcQGS28TRENHYH0IFS0MI+PXL67vVunQZ
+ n3Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790582936; x=1791187736;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oM81pKyayfK2X8YKDVXwTbFLMrukiJVnnCmewayJBqA=;
+ b=pURBrPscmBFcuI3bPfMdpc+cU6+3io9ALOF3PBcsqMZ/b9wHoT+QwcyHCIdqBDWnu0
+ uibuoGOwfRQune94PCYWma0Y1ElExUrh36fvc7OEuteMJZJ48kSZsAOhCYEuv4W5ldca
+ x1BcczHnnX0mecvrQ3oWsrxpyaLy7P4YG6Xx2MduLgXymG3bLx4cj95pHrH8CaAEzQU8
+ S7bPacDoQprmcMSIkSyWQseWaaJ1IJ72O30H4FVPYomYMAfr8C5E+EgLbiL/VUr40u4h
+ Gxkf/xxszylie0RaLLldyXa5yDsWUZ0vbexpc+S3z0Fmrx2lp9JebpYVhVSPfyb++DdM
+ Pxrg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx36GE2gmeqLQwyz8SzRPktUpl2VA1e7eYhW3l+twoVUWeZoQeiIiNYVGvEv7LQZ9Wi4eG5r48N0XM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ntMfoN8HgN/kHSoUvHuKY2psqNjZhW+GvkGW0fea6bLsixDb2b
+ sTvDXGQVuyKSGsAp4Tutj37CKq+rvlxK4oWWKsKWl6c6x7EcgfIF8Sq81HEa11nc3XOH6gkjNdo
+ poHh86j5MkXqWev/iMLO0fn1dfG8Y9gJuK/UpXz2F/JcGqv+mziYGQX1AcrCUq4ClHH/abAw=
+X-Gm-Gg: AYBFou0HanB28Tk3NIrCN1zK73iaRWlnrdEFIt2MPE/wsjF5vFgThzF2+BTmCUCtYjW
+ AUYZ6KVXYPSTc8m4IgOzTZp5ePzXh+1jZFNOZfTYxsxvCY3k4DWya89syTk/Om0+C7ImmCi8ygs
+ zi0hiWgLz7vSuTfmmKrTZBBj1TDCecJLPydmIPAshf29GzoG5pyYBw5dB1juIk8QpTPfbdNqLTl
+ gZG3fMwT/nmrPPz7E4wWqnkLS15zP7niGRrpZ4OH1IrdvqhpQ5pllnyrBvsS40tXKcPQCsGx8p/
+ P+qBb1+2RvdasKid49LPfOBHaw1F396CZXMMoK2OK2dXbO7bvHm81/zKJI8XZ6LJBd/wyWh2ZHo
+ H15H0CiyQ6VftoXqNm3HUc3KrgQm0
+X-Received: by 2002:a05:620a:4150:b0:939:a003:7127 with SMTP id
+ af79cd13be357-93c43d15a2dmr1823459785a.52.1790582936325; 
+ Mon, 28 Sep 2026 01:08:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:4150:b0:939:a003:7127 with SMTP id
+ af79cd13be357-93c43d15a2dmr1823452285a.52.1790582935772; 
+ Mon, 28 Sep 2026 01:08:55 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4887a349731sm26045947f8f.12.2026.09.28.01.08.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Sep 2026 01:08:53 -0700 (PDT)
+Message-ID: <ccb949ea-5fa9-47e5-be75-af8155328dc8@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 10:08:43 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[21];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com];
- RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
+ indentation in the example
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Francesco Dolcini
+ <francesco@dolcini.it>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>,
+ CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>, Abel Vesa
+ <abelvesa@kernel.org>, Chris Morgan <macromorgan@hotmail.com>,
+ Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <179057359762.92994.13773102514654073802.b4-ty@b4>
+ <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
+ <20260928065837.GA22609@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260928065837.GA22609@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: YfCv_HGSNsKoEw3QyGmGZ5DzZbivCgBm
+X-Authority-Analysis: v=2.4 cv=C7F8WgP+ c=1 sm=1 tr=0 ts=6aba2099 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=3sPRIKSABCI_lCAVw8wA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: YfCv_HGSNsKoEw3QyGmGZ5DzZbivCgBm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMiBTYWx0ZWRfX680vFFXEZtIW
+ LOJ7QH7MSuDG0BLAJyYr+/ChzZvcM1Oi/RiId0M4x2y/U0RGB7bG+721CFgw0+bFRUbzf8kaddA
+ C+fXR2iaIRQeGCrFEewT1q5PeDwuAKC3X60bAt9AZtwTCPFstqK//Qh8ytvxisJ6jEPtWw4Tbt/
+ A0eudhy5FiyyvkRXSwx/S6FiOZdwbHpZKIVTi6q33I/cIPdwehg+2QOiaCF5fRb1RwXEdHjjyPg
+ w+SfpEOVnOi6mKTg3WCcaOP8MILsg4kaDQnktsaUn5MQNapCA3O86ByUr1AxJe/QhPrYsNAa4fh
+ aKhIixHVyDTRubiwWISisFpUKsftk1l+gfGdSQbpUyX4Qkj+3a1dzCra0oCg9Ip7X5k0NnW8Toi
+ RU+ITFLss6zKFJsZAr29FfEhq06R9tn2FNjz9OypBNxT7AhrUQVak6WyD/CGZvIJIPKLC6xBOy+
+ UY4+8YxAakKKGjXwlSw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMiBTYWx0ZWRfX/xHQ8xXxb8RX
+ ztXkGyKUi0F+nUu1X4EJ/HNAAHBWVGPj3430idMSNf3Qh+l3gH0lozKw6Dm0BTuH7OPue4Xb/Bv
+ uAuQidUrHuXCLDbiow1hfnJqRkPk9ow=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609280032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,65 +185,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Helpers for fbdev emulation are still linked into drm_kms_helper.ko,
-which is for mode setting. Move the source and header files to the
-clients/ subdirectory and link them into drm_client_lib.ko. This has
-some fallout throughout drivers, but it's all trivial.
+On 28/09/2026 08:58, Laurent Pinchart wrote:
+> On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
+>> On 28/09/2026 07:33, Luca Ceresoli wrote:
+>>> On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
+>>>> Correct indentation in the examples to consistent 2- or 4-spaces
+>>>> indentation to fix dt-check-style warnings ("example 0
+>>>> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+>>>> re-indenting entire example just for that is too much churn.
+>>>
+>>> Applied, thanks!
+>>>
+>>> [1/2] dt-bindings: display: Use consistent indentation in the example
+>>>       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+>>
+>> Thanks, but I expected no one will pick it up, so I asked Rob to take
+>> it, thus it is already queued.
+> 
+> Please explain your merge plans in the cover letter next time.
 
-There are 3 module parameters to drm_kms_helper.ko that control fbdev
-emulation. For compatibility with existing installations, leave them
-in this module.
+The merge plan was this going through drm-misc. It got reviews, no one
+applied, even Dmitry for msm only reviewed the msm-bits (second patch),
+so I asked Rob to take it. This was not planned, but result of usual
+drm-misc inactivity for bindings (many bindings were not taken in the
+past or with noticeable delay/pings).
 
-v4:
-- fix the depedendencies from v3
-v3:
-- remove obsolete dependencies from Kconfig
-v2:
-- update armada and docs
-
-Thomas Zimmermann (2):
-  drm/fbdev: Move fbdev module parameters next to module init
-  drm/fbdev: Move fbdev helpers into client library
-
- Documentation/gpu/drm-kms-helpers.rst         |  6 +--
- drivers/gpu/drm/Kconfig                       |  7 ++--
- drivers/gpu/drm/Makefile                      |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
- drivers/gpu/drm/armada/armada_fbdev.c         |  2 +-
- drivers/gpu/drm/clients/Makefile              |  3 +-
- drivers/gpu/drm/clients/drm_fbdev_client.c    |  2 +-
- .../drm_fbdev_helper.c}                       | 34 +---------------
- drivers/gpu/drm/drm_crtc_helper_internal.h    |  9 +++++
- drivers/gpu/drm/drm_fbdev_dma.c               |  2 +-
- drivers/gpu/drm/drm_fbdev_shmem.c             |  2 +-
- drivers/gpu/drm/drm_fbdev_ttm.c               |  2 +-
- drivers/gpu/drm/drm_kms_helper_common.c       | 39 +++++++++++++++++++
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |  2 +-
- drivers/gpu/drm/gma500/fbdev.c                |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +-
- drivers/gpu/drm/msm/msm_debugfs.c             |  2 +-
- drivers/gpu/drm/msm/msm_fbdev.c               |  2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  1 -
- drivers/gpu/drm/omapdrm/omap_debugfs.c        |  2 +-
- drivers/gpu/drm/omapdrm/omap_fbdev.c          |  2 +-
- drivers/gpu/drm/radeon/radeon_device.c        |  2 +-
- drivers/gpu/drm/radeon/radeon_fbdev.c         |  2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  2 +-
- drivers/gpu/drm/sitronix/st7571.c             |  1 -
- drivers/gpu/drm/tegra/fbdev.c                 |  2 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
- .../drm_fbdev_helper.h}                       |  4 +-
- 29 files changed, 79 insertions(+), 64 deletions(-)
- rename drivers/gpu/drm/{drm_fb_helper.c => clients/drm_fbdev_helper.c} (97%)
- rename include/drm/{drm_fb_helper.h => clients/drm_fbdev_helper.h} (99%)
-
-
-base-commit: ff831af91674990f9f1814340860e96943d5df1a
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
--- 
-2.55.0
-
+Best regards,
+Krzysztof
