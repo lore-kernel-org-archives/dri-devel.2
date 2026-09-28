@@ -4,51 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C256CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:45:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2888CA5FA4
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A23D10E8E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD31E10E8E6;
 	Mon, 28 Sep 2026 08:45:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="La/KELX3";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LjrMkTNm";
 	dkim-atps=neutral
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1110E10E039
- for <dri-devel@lists.freedesktop.org>; Sat, 26 Sep 2026 11:34:12 +0000 (UTC)
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
- (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68QBXqon036661
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Sat, 26 Sep 2026 20:33:52 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=QMZDCy3tPxqguplaGG3KPkMSeAQYvGfIE4Fox8IiofM=; 
- c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
- h=From:Message-ID:To:Subject:Date;
- s=rs20250326; t=1790422432; v=1;
- b=La/KELX30GXSEmk9g/85VhHIYysbSmMTcZYdZtk7AnLTnQxJnVvYX2J/RNgaIcff
- vdzWK+7jGNeozbZR5RzEQvkJHRsOwLuOXt0ShKcitTDL1vagYtVZyJcn+xrNG8H4
- zwXvpRVMQuRZcC7lzwVgMNMejWjbWQFRKrufr7ExLGroGwCzAx9L2gAE0wotgIwS
- v+IuRhmuhOQkOAFtoKFlJgWn5lzFhCbexo0LBeOL4D/fUnqYk4nU0J75ilRRz7ao
- e9l3uPaGYPwYkGjTm6/SAP8BZwKR/xamb0exzTqpCEVvs7f8ygLq0kerbY8x4slI
- u2AG7ISVuw0M/hufyzCCtQ==
-Message-ID: <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sat, 26 Sep 2026 20:33:51 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Honglei Huang <honghuan@amd.com>, dmitry.osipenko@collabora.com,
- airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260924095556.1326164-4-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010047.outbound.protection.outlook.com
+ [40.93.198.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3B710E865
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:43:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c1cdMwD56vsYxd3OGmsjbNf5O5TltwNJqmPTcuie9+BPamWn7ob79+eEcV4NWLLFXBSy8wDH1CKledUKRhOygciIHRL3UMEWgsHdtzAYFLDyxzJidCL/K2QNKvZJ6Nz3ZIj4lXQ3AwajoPUcMNYPdv2Cbyzrb3a4ruj60F7Andc8rAHD63i5qCu8CyV8b7oCPrKonOfd94T5zuUlu8R0YeZE3T1q6hPHWFnPbAeVhISIsoEALwsLnh62aPnrlgT/jMcicvIh2/ofr3vIZUqPuUU7uPotRVguWsDZ9yjkt18eU+F8seQn8uBbwplN3GI5hWhKv4KI/5a1h8PjWD513A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+8Qt4tkjb9EowBOopQTF/mGrZ0Ii17ox9dnn6/61w64=;
+ b=DKjczq31HiAyABO0UicyeNor0OWe8qskHEu+xZ0qi8b2DPaZrgYBgKgctVyABbOx4N9o1WvL87LcfeMiTAPt2mlphVoMcXjCVAczy2USWfEe64jJOfUfXhPfk6Nn4ttiEWDJNLgGV1l6Te8BSM0ZnRc1/eZrEXqdCYaqU73YNuGHHJu38m28JmiJUxQzIM27l9vfBC89eicAQ6jqIkT/4c546VctJGi1f9fdkSyApovOi+j9uLMmbzHDZeGuvNX5a82ye7rYn1qrN1itrwNHCqLZGTcrHpE7B8PMsbvhF/N7MWQJ6h4oDY4/lsTcFDFkt7gsC98kkjkCIbVpcMhMFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+8Qt4tkjb9EowBOopQTF/mGrZ0Ii17ox9dnn6/61w64=;
+ b=LjrMkTNmpyzoAeP19xyU6bzpxoZd25WiG16zITXg46FaAV5ICdD/1s8K+qAr9tRFPs1GaUTvN5xr93u4xazJ0mVED5ucMxpW7RfzGqmZzAn1j9WzYZOFenUEJ9V06QC/JipTCdusH3jRID3Iwt2WjGFfQoDcsr9Ym80D1GbFPY/5xhQji+kXjLl4RmZpkJICBsT6cXWSjFA+Q8JbB2XHoJmJ19AZAyICYxKSynfbhfOd4jWuXSMueiGIDc1ac8/Uhk91cB52B++Nba5zCPkQR7N7MfHZ/bnGm/0S19WyG6CBFlZpp0Pt+TK+kkHLmY7jjM0PHfnSvaX7jXO39oOu7Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Mon, 28 Sep 2026 08:43:20 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 08:43:20 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Mon, 28 Sep 2026 17:42:45 +0900
+Subject: [PATCH v3 6/8] gpu: nova-core: add NVKV typed encoding
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 28 Sep 2026 08:42:42 +0000
+Message-Id: <20260928-b4-nvkv-v3-6-f04504c262c2@nvidia.com>
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4P301CA0072.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36f::19) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CY8PR12MB8065:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e880ddb-fb48-4b04-0968-08df1d3c8c58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|10067099003|56012099006|11063799006|921020|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 9hwEPCPpvKWqZEWbL5C0Qj7b1Zfdfj05unLXReOTCBehbevIAEJfSpcOp65Y7TeLdkTyuM3lz68C+IvoWwLhFTURGLhDm2XIACsE0G6Ge+AFvTOscon4kqwMeQobYCDDCJKgOKrKpVCTTHxV7WO0904hhP5qbSP4XgJ5a2kjeyq6XNaYftee/38OTknOCI1WHd5EMEgPIvYpD2Y3N+S1O2gzlu+6UESiLurcK1HllEOvTvtn+vy27VNGSndfZMOPtx3Hw9cGBKFMpQaepX+NFNJuIbMIj8ycnX83K/l9UMCEpmjraPlsCQFXbvKRIpo7YCYCbve/DOn+uexb7IvKYcztKu9msKy9WyC1g19SsrxtszWyBRLGZl3oQgOQk3y2T77rQAIZGTTTaydl0qVp7pHJOZKBSiDpEH/bFTIsibmINsS3k/gQS6jbqlNgXkNCmBu25tvGEiNueWgVWE1dLVHSj+fctziHCrIEb39CB0Uk24yCOOgYiRDm/EV3aIRbxUs0SVT+4lzcX3Y7H1uKl9qQJP+Me/minCJNh4YX/774fHvxAUFgVM6prFyew7F9Xarn6/B/dfvTkNnohYfBa6cPIhKlB2EYE1nSAy42kAjZrdNO8HPB5JOPppn0pgmO8ByhHqdNDDr4C5Ae35St+dJib98/XBV0FPjiwHHndlqP8jHyzHuNN1Xh5JuLLNla9HH+e7vhORjUbNnECVmrcg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(921020)(3023799007)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U09zUG1udnRDSDNFYThWOHJnNzNmY09UbVJkWk9tdnVrOW9Nb29VUzdtb3FP?=
+ =?utf-8?B?RGs5WStBYVNZaXErNnVVeEFZa1lXc0hPaTB0bkdpYitLRFcrcWhoYUp4Nko0?=
+ =?utf-8?B?OURBcms1VVd4aVByYXg0aUtSd09mdGVxQy92SlQ1NTVhc0w2UTFNeWltaWhp?=
+ =?utf-8?B?ajhNeFNRb2l4Vm9PK0Mxbi9Kd3phK3pDc3BRQnNWZC90R1dtY2E5eG13NVdO?=
+ =?utf-8?B?bGxSQzFadDZoY01XdEJuVlNXOWJWYjA1M1pOWS8zT3lwMTBiQnpJZWttcExO?=
+ =?utf-8?B?SC8wOEtJc0xJMkRNQ3E1MWYyclBtdUR6RDdVYWEwclhiNGlhTXF6TjdiVXlE?=
+ =?utf-8?B?NFZmLzlMWUp4ZWVGWXhYZFRkOXJuNlpDVUhTZEhCMFZZaGZucnJQbDdna0o3?=
+ =?utf-8?B?OG5Jdis4TmZrQjdKT2x6c1VNdjVpNDJBTjlCVi9NekJZWmFLZUZ0aEg3Kzd6?=
+ =?utf-8?B?dW5zcEd2MWEzNmlVL0E4NjNOcTh0SmVJUm5pdlRCZDY1dkxXMWc4WWZhZHNn?=
+ =?utf-8?B?aHEwWEJwZXcwdXdZUHlwd2FXbjFpWWxaSnpmNGgzSTNDaTJtVEMwVWhKYThq?=
+ =?utf-8?B?SjVuZ1FDQ29xNGFweDliZHhXa3lOdm5kT1hIMWJBUFJZRXJBQ3dnYlpPT2ox?=
+ =?utf-8?B?bC9uOHg3RU8rOERCUStURStHbFNwdk9DSGQxMEJTUGxQeDlkM1VkdVVFRzBt?=
+ =?utf-8?B?Z3ZnNmgyUVR3d3NaL3p5SzY4ZzU4RGhuYTNyenUrSGxySXlaKzVNcmorK05G?=
+ =?utf-8?B?bG9ybG1tWkVwVHNrdUN1dDJuRVNhTzVrOTQ4dHMrVnhKRlE1SWI0WFF1a2l1?=
+ =?utf-8?B?bFBxTjRQeFlyUGo5WmVHc29zOVllVDNZaEdPd2ZjYlBIUjJuQW1ScHJHMmtu?=
+ =?utf-8?B?RlBkY3Q4QThaSlVHYTNXcHppcE1yUVRNeFFzL2xSSEFGN3BqejY3SlpFdlow?=
+ =?utf-8?B?cXozWGNlTmxKOTBLZEhmMUttRUtUY2F2UzA1azRhTTFoM2lVSSt6SDN3dHNn?=
+ =?utf-8?B?Rm9WY0UrWnZzM041UUExT0hoZEVuNlk0bnRuUEJCMTljV0JDU0xSUURVSG5v?=
+ =?utf-8?B?UWxETHJMbS9hVHZqR1cwK3pnVUdqajIyeDNHcEZFSWVFTC9IR0xKUDdHaHlF?=
+ =?utf-8?B?V0FqVWE0UWZxYmFTcFZjZlFsaFhkUHc0R0lUM0IybVJPdGZSbGJIMGVYVnB3?=
+ =?utf-8?B?OGo3Y3RMclZnUnNkdmNidllBR1VLZUxKMWM3S3U1NDRJalNwbkhQNktFUEl5?=
+ =?utf-8?B?eFNWSUpHZHVUYVZCVGNQa3c5aUlLSzRyNmxUSnFBMjBPZ250WWRpUlZYbnUz?=
+ =?utf-8?B?QUwzZXVMTTZMbzFUNHRIc1dEYVJyNjJiSXp3L3doVUhldW51TXVnSGU3TTZ3?=
+ =?utf-8?B?QlBJUXY5WTRGdUxLRWNtUVJGQlRjcUJpOGN5WU1VcFkwOXBBYXVMVmsxbW1w?=
+ =?utf-8?B?Yk52K0h4YVZCTXA0RE1iUnZiYzAxd25KUkhzN0JNaVp0KzFsWS9kT0lDbEFt?=
+ =?utf-8?B?WFl6aVJ5Q3ppMVFOaDNxVTNBK1pxVTdJUzYvMXQ3d2pIeTZyaXo0TXhYOEc5?=
+ =?utf-8?B?ZlRLVzJLcmsxTkhaOEZtbC9lOVdMZk9NWGlpZ3RyUUFaUW9adCs1UXlFcklS?=
+ =?utf-8?B?TkZzdmpzei9HQUlRaHUrUTFRMkswdFo3ZDRPR0ZTOG02clhSK2pMVzh1cVJV?=
+ =?utf-8?B?Y2xjOEtEdzk2K0Z0QUJsWFREc2ZVTlFFWk45enMrb2JIaWR2VUVhSkNIUEJZ?=
+ =?utf-8?B?cm15SE4wZkdkT0pwam9ndjgrblFESWlHQXJrMXVTWnM1NDk5OFNSYlhHYWgv?=
+ =?utf-8?B?RGY2eFpjUGZSOUExREtGUFppa09OcEdWL3BESVRZZlIvNncrOVFhMUIyVkRo?=
+ =?utf-8?B?WEl5MXBNMEV2K2JvbzdrRHR6dUZsVy9vVU9zdHpHVng3QW0yUlpmdzgyQmVx?=
+ =?utf-8?B?YkV0MUdmSk1BZWo0ZmRURUlGWTdxVC9TRXBnWEtkNEJRY2xqczc3SElmVkhq?=
+ =?utf-8?B?ckFOUWpHTFd6aGhZZE1zMFNDU05FRzk2NGs2VUNJQ3o4WXV2MXJ5ZFRES1Rz?=
+ =?utf-8?B?Uy9VZ1Bndi81ZG1obHp1QlhVNk52R2dyUkN3NGozbmR1V21MblpoY2h0anZI?=
+ =?utf-8?B?WTVyNEZlMjd3OGkzeWI1Y1hpbWxNaGlXVTNsVDVsY0R3OTd6SXdWeXJSVHVu?=
+ =?utf-8?B?NnNISWxmRUFxSmdyeE40aGk4Q1VaYVExN1VpNU90OEZpcHNKT3hIQ2VkczY4?=
+ =?utf-8?B?QVZ2R2ZWRFV2OU9tRFBFNTJKZ1RQZDYwTlNIKzZRbmVWeS9FT25GY3RFL2x0?=
+ =?utf-8?B?WHN0cWdSZVRzUGxhNyt2ZElGY1J0ZllCd3lkMVJUOXNIb2lPc3A5VnVXQVZw?=
+ =?utf-8?Q?v4R8qQPUKbgV+zukSXqKkgDNNUGXQrsY5CHU6TOdGM8SR?=
+X-MS-Exchange-AntiSpam-MessageData-1: kC/0knvNjl6rTQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e880ddb-fb48-4b04-0968-08df1d3c8c58
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:43:20.2114 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 76c48xtcmeuRJx+vg3BnYDF0+WYEcwV7m+DviOd9j3bnWaEYAtqhueHGEGj04gHrUZCxtyDIDhHZgOPhR6elMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,557 +152,359 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026/09/24 18:55, Honglei Huang wrote:
-> Add userptr blob objects so the guest kernel can pin an existing
-> userspace mapping and advertise it as CREATE_BLOB backing entries.
-> 
-> - New virtio_gpu_object_userptr type for userptr resources
-> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
-> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
-> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
-> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->    required; use DMA_TO_DEVICE for USE_READONLY blobs
-> - Mark writable pages dirty when unpinning
-> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->    cleanup_object() on the unref response or on create failure
-> - Clear userptr->pages on pin failure to avoid double-free on cleanup
-> - Reject unaligned or overflowing userptr ranges at create time
-> - Disallow PRIME export of userptr objects
-> - Save CREATE_BLOB params and restore userptr resources after
->    hibernation without using the shmem restore path
-> 
-> The hibernation restore path maps with the same attrs and direction
-> used at create time, as documented next to the call. Like shmem
-> blobs, the DMA API can still bounce through a buffer there. This
-> design only avoids a second guest side shmem allocation and memcpy,
-> nothing more.
+For struct-like GMCAPI messages encoding field by field manually is
+noisy. Add some type machinery and a macro to automate encoding of
+struct-like messages. The `Encodeable` trait can be implemented by any
+type to say that it can be encoded into an NVKV `Encoder`. Add a simple
+`nvkv_encode!` macro that works on structs and encodes each field in
+order. Provide some base types, such as `Key` which statically
+associates a NVKV key with some value, to avoid having to make a lot of
+newtypes and implement `Encodeable` on them.
 
-I don't see the restore path is documented though this says "documented 
-next to the call".
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp/nvkv.rs        |  56 ++++++-
+ drivers/gpu/nova-core/gsp/nvkv/encode.rs | 241 +++++++++++++++++++++++++++++++
+ 2 files changed, 296 insertions(+), 1 deletion(-)
 
-> 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
-> ---
->   drivers/gpu/drm/virtio/Makefile          |   3 +-
->   drivers/gpu/drm/virtio/virtgpu_drv.h     |  41 +++
->   drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
->   drivers/gpu/drm/virtio/virtgpu_userptr.c | 348 +++++++++++++++++++++++
->   4 files changed, 413 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
-> 
-> diff --git a/drivers/gpu/drm/virtio/Makefile b/drivers/gpu/drm/virtio/Makefile
-> index d2e1788a82..fe7332a621 100644
-> --- a/drivers/gpu/drm/virtio/Makefile
-> +++ b/drivers/gpu/drm/virtio/Makefile
-> @@ -6,6 +6,7 @@
->   virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_gem.o virtgpu_vram.o \
->   	virtgpu_display.o virtgpu_vq.o \
->   	virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o virtgpu_plane.o \
-> -	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o
-> +	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o virtgpu_submit.o \
-> +	virtgpu_userptr.o
->   
->   obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> index 9df4c71173..b58e5afe8f 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> @@ -105,6 +105,7 @@ struct virtio_gpu_object_params {
->   	uint32_t blob_flags;
->   	uint64_t blob_id;
->   	uint32_t blob_hints;
-> +	uint64_t userptr;
->   };
->   
->   struct virtio_gpu_object {
-> @@ -138,12 +139,41 @@ struct virtio_gpu_object_vram {
->   	struct drm_mm_node vram_node;
->   };
->   
-> +struct virtio_gpu_object_userptr;
-> +
-> +struct virtio_gpu_object_userptr_ops {
-> +	int (*get_pages)(struct virtio_gpu_object_userptr *userptr);
-> +	void (*put_pages)(struct virtio_gpu_object_userptr *userptr);
-> +};
-> +
-> +struct virtio_gpu_object_userptr {
-> +	struct virtio_gpu_object base;
-> +	const struct virtio_gpu_object_userptr_ops *ops;
-> +	struct mutex lock;
-> +
-> +	uint64_t start;
-> +	uint32_t npages;
-> +	uint32_t bo_handle;
-> +	uint32_t flags;
-> +
-> +	struct virtio_gpu_device *vgdev;
-> +	struct drm_file *file;
-> +	struct page **pages;
-> +	struct sg_table *sgt;
-> +	bool dma_mapped;
-> +	enum dma_data_direction dma_dir;
-> +	struct mm_struct *mm;
-> +};
-> +
->   #define to_virtio_gpu_shmem(virtio_gpu_object) \
->   	container_of((virtio_gpu_object), struct virtio_gpu_object_shmem, base)
->   
->   #define to_virtio_gpu_vram(virtio_gpu_object) \
->   	container_of((virtio_gpu_object), struct virtio_gpu_object_vram, base)
->   
-> +#define to_virtio_gpu_userptr(virtio_gpu_object) \
-> +	container_of((virtio_gpu_object), struct virtio_gpu_object_userptr, base)
-> +
->   struct virtio_gpu_object_array {
->   	struct ww_acquire_ctx ticket;
->   	struct list_head next;
-> @@ -284,6 +314,7 @@ struct virtio_gpu_device {
->   	bool has_host_visible;
->   	bool has_context_init;
->   	bool has_blob_alignment;
-> +	bool has_blob_readonly;
->   	bool hibernated;
->   	struct virtio_shm_region host_visible_region;
->   	struct drm_mm host_visible_mm;
-> @@ -562,4 +593,14 @@ void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram);
->   int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
->   				struct drm_file *file);
->   
-> +/* virtgpu_userptr.c */
-> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
-> +			      struct drm_file *file,
-> +			      struct virtio_gpu_object_params *params,
-> +			      struct virtio_gpu_object **bo_ptr);
-> +bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo);
-> +int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
-> +			       struct virtio_gpu_object *bo,
-> +			       struct virtio_gpu_mem_entry **ents,
-> +			       unsigned int *nents);
->   #endif
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-> index 49899485be..ab21494b1c 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_object.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-> @@ -91,6 +91,16 @@ void virtio_gpu_cleanup_object(struct virtio_gpu_object *bo)
->   		drm_gem_free_mmap_offset(&vram->base.base.base);
->   		drm_gem_object_release(&vram->base.base.base);
->   		kfree(vram);
-> +	} else if (virtio_gpu_is_userptr(bo)) {
-> +		struct virtio_gpu_object_userptr *userptr =
-> +			to_virtio_gpu_userptr(bo);
-> +
-> +		mutex_lock(&userptr->lock);
-> +		userptr->ops->put_pages(userptr);
-> +		mutex_unlock(&userptr->lock);
-> +		mutex_destroy(&userptr->lock);
-> +		drm_gem_object_release(&userptr->base.base.base);
-> +		kfree(userptr);
->   	} else {
->   		drm_gem_object_release(&bo->base.base);
->   		kfree(bo);
-> @@ -316,6 +326,18 @@ int virtio_gpu_object_restore_all(struct virtio_gpu_device *vgdev)
->   			continue;
->   		}
->   
-> +		if (virtio_gpu_is_userptr(bo)) {
-> +			ret = virtio_gpu_userptr_restore(vgdev, bo, &ents,
-> +							 &nents);
-> +			if (ret)
-> +				break;
-> +
-> +			virtio_gpu_cmd_resource_create_blob(vgdev, bo,
-> +							    &bo->params,
-> +							    ents, nents);
-> +			continue;
-> +		}
-> +
->   		if (bo->params.blob || bo->attached) {
->   			ret = virtio_gpu_object_shmem_init(vgdev, bo, &ents,
->   							   &nents);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_userptr.c b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-> new file mode 100644
-> index 0000000000..4fb367d0d6
-> --- /dev/null
-> +++ b/drivers/gpu/drm/virtio/virtgpu_userptr.c
-> @@ -0,0 +1,348 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +#include <linux/dma-mapping.h>
-> +#include <linux/limits.h>
-> +#include <linux/mm.h>
-> +#include <linux/overflow.h>
-> +#include <linux/pid.h>
-> +#include <linux/sched/mm.h>
-> +#include <linux/sched/signal.h>
-> +#include <linux/vmalloc.h>
-> +
-> +#include "virtgpu_drv.h"
-> +#include <drm/drm_gem.h>
-> +
-> +static void virtio_gpu_userptr_free(struct drm_gem_object *obj)
-> +{
-> +	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
-> +	struct virtio_gpu_device *vgdev = obj->dev->dev_private;
-> +
-> +	/*
-> +	 * Pages stay pinned until RESOURCE_UNREF finishes. Its callback
-> +	 * calls virtio_gpu_cleanup_object to drop them.
-> +	 */
-> +	if (bo->created) {
-> +		virtio_gpu_remove_from_restore_list(bo);
-> +		virtio_gpu_cmd_unref_resource(vgdev, bo, false);
-> +		virtio_gpu_notify(vgdev);
-> +		return;
-> +	}
-> +
-> +	virtio_gpu_cleanup_object(bo);
-> +}
-> +
-> +static struct dma_buf *
-> +virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
-> +{
-> +	return ERR_PTR(-EINVAL);
-> +}
-> +
-> +static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
-> +	.open = virtio_gpu_gem_object_open,
-> +	.close = virtio_gpu_gem_object_close,
-> +	.free = virtio_gpu_userptr_free,
-> +	.export = virtio_gpu_userptr_prime_export,
-> +};
-> +
-> +bool virtio_gpu_is_userptr(struct virtio_gpu_object *bo)
-> +{
-> +	return bo->base.base.funcs == &virtio_gpu_userptr_funcs;
-> +}
-> +
-> +static int
-> +virtio_gpu_userptr_get_pages(struct virtio_gpu_object_userptr *userptr)
-> +{
-> +	unsigned int flag = FOLL_LONGTERM;
-> +	unsigned int num_pages, pinned = 0;
-> +	int ret = 0;
-> +
-> +	if (userptr->pages)
-> +		return 0;
-> +
-> +	userptr->pages = kvmalloc_array(userptr->npages, sizeof(struct page *),
-> +					GFP_KERNEL);
-> +	if (!userptr->pages)
-> +		return -ENOMEM;
-> +
-> +	if (!(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY))
-> +		flag |= FOLL_WRITE;
-> +
-> +	do {
-> +		num_pages = userptr->npages - pinned;
-> +
-> +		ret = pin_user_pages_fast(userptr->start + pinned * PAGE_SIZE,
-> +					  num_pages, flag,
-> +					  userptr->pages + pinned);
-> +
-> +		if (ret < 0) {
-> +			if (pinned)
-> +				unpin_user_pages(userptr->pages, pinned);
-> +			kvfree(userptr->pages);
-> +			userptr->pages = NULL;
-> +			return ret;
-> +		}
-> +
-> +		pinned += ret;
-> +
-> +	} while (pinned < userptr->npages);
-> +
-> +	return 0;
-> +}
-> +
-> +static void
-> +virtio_gpu_userptr_unaccount(struct virtio_gpu_object_userptr *userptr)
-> +{
-> +	if (!userptr->mm)
-> +		return;
-> +
-> +	atomic64_sub(userptr->npages, &userptr->mm->pinned_vm);
-> +	mmdrop(userptr->mm);
-> +	userptr->mm = NULL;
-> +}
-> +
-> +static void
-> +virtio_gpu_userptr_put_pages(struct virtio_gpu_object_userptr *userptr)
-> +{
-> +	struct drm_device *dev = userptr->base.base.base.dev;
-> +
-> +	if (userptr->sgt) {
-> +		if (userptr->dma_mapped)
-> +			dma_unmap_sgtable(drm_dev_dma_dev(dev), userptr->sgt,
-> +					  userptr->dma_dir, 0);
-> +		userptr->dma_mapped = false;
-> +		sg_free_table(userptr->sgt);
-> +		kfree(userptr->sgt);
-> +		userptr->sgt = NULL;
-> +	}
-> +
-> +	if (userptr->pages) {
-> +		bool dirty = !(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY);
-> +
-> +		unpin_user_pages_dirty_lock(userptr->pages, userptr->npages,
-> +					    dirty);
-> +		kvfree(userptr->pages);
-> +		userptr->pages = NULL;
-> +	}
-> +
-> +	virtio_gpu_userptr_unaccount(userptr);
-> +}
-> +
-> +static int
-> +virtio_gpu_userptr_get_entries(struct virtio_gpu_device *vgdev,
-> +			       struct virtio_gpu_object_userptr *userptr,
-> +			       struct virtio_gpu_mem_entry **ents,
-> +			       unsigned int *nents)
-> +{
-> +	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
-> +	struct scatterlist *sg;
-> +	unsigned int count;
-> +	int si;
-> +
-> +	count = use_dma_api ? userptr->sgt->nents : userptr->sgt->orig_nents;
-> +	if (!count)
-> +		return -EINVAL;
-> +
-> +	*ents = kvmalloc_array(count, sizeof(**ents), GFP_KERNEL);
-> +	if (!*ents)
-> +		return -ENOMEM;
-> +
-> +	if (use_dma_api) {
-> +		for_each_sgtable_dma_sg(userptr->sgt, sg, si) {
-> +			(*ents)[si].addr = cpu_to_le64(sg_dma_address(sg));
-> +			(*ents)[si].length = cpu_to_le32(sg_dma_len(sg));
-> +			(*ents)[si].padding = 0;
-> +		}
-> +	} else {
-> +		for_each_sgtable_sg(userptr->sgt, sg, si) {
-> +			(*ents)[si].addr = cpu_to_le64(sg_phys(sg));
-> +			(*ents)[si].length = cpu_to_le32(sg->length);
-> +			(*ents)[si].padding = 0;
-> +		}
-> +	}
-> +
-> +	*nents = count;
-> +	return 0;
-> +}
-> +
-> +int virtio_gpu_userptr_restore(struct virtio_gpu_device *vgdev,
-> +			       struct virtio_gpu_object *bo,
-> +			       struct virtio_gpu_mem_entry **ents,
-> +			       unsigned int *nents)
-> +{
-> +	struct virtio_gpu_object_userptr *userptr = to_virtio_gpu_userptr(bo);
-> +	int ret;
-> +
-> +	mutex_lock(&userptr->lock);
-> +	if (!userptr->sgt || !userptr->pages) {
-> +		mutex_unlock(&userptr->lock);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (userptr->dma_mapped) {
-> +		struct device *dev = drm_dev_dma_dev(vgdev->ddev);
-> +
-> +		dma_unmap_sgtable(dev, userptr->sgt, userptr->dma_dir, 0);
-> +		userptr->dma_mapped = false;
-> +
-> +		ret = dma_map_sgtable(dev, userptr->sgt, userptr->dma_dir, 0);
-> +		if (ret) {
-> +			mutex_unlock(&userptr->lock);
-> +			return ret;
-> +		}
-> +		userptr->dma_mapped = true;
-> +	}
-> +
-> +	ret = virtio_gpu_userptr_get_entries(vgdev, userptr, ents, nents);
-> +	mutex_unlock(&userptr->lock);
-> +	return ret;
-> +}
-> +
-> +static int
-> +virtio_gpu_userptr_init(struct drm_device *dev, struct drm_file *file,
-> +			struct virtio_gpu_object_userptr *userptr,
-> +			struct virtio_gpu_object_params *params,
-> +			const struct virtio_gpu_object_userptr_ops *ops)
-> +{
-> +	struct drm_gem_object *obj;
-> +	int ret;
-> +
-> +	userptr->start = params->userptr;
-> +	userptr->npages = params->size >> PAGE_SHIFT;
-> +	userptr->flags = params->blob_flags;
-> +
-> +	mutex_init(&userptr->lock);
-> +	userptr->vgdev = dev->dev_private;
-> +	userptr->file = file;
-> +	userptr->ops = ops;
-> +
-> +	/*
-> +	 * Get the resource id before GEM init, so a failed call here
-> +	 * just needs a plain kfree and no special id zero check in the
-> +	 * shared resource_id_put helper.
-> +	 */
-> +	ret = virtio_gpu_resource_id_get(userptr->vgdev,
-> +					 &userptr->base.hw_res_handle);
-> +	if (ret) {
-> +		mutex_destroy(&userptr->lock);
-> +		return ret;
-> +	}
-> +
-> +	obj = &userptr->base.base.base;
-> +	obj->funcs = &virtio_gpu_userptr_funcs;
-> +
-> +	drm_gem_private_object_init(dev, obj, params->size);
-> +	INIT_LIST_HEAD(&userptr->base.restore_node);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct virtio_gpu_object_userptr_ops virtio_gpu_userptr_ops = {
-> +	.get_pages = virtio_gpu_userptr_get_pages,
-> +	.put_pages = virtio_gpu_userptr_put_pages,
-> +};
-> +
-> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
-> +			      struct drm_file *file,
-> +			      struct virtio_gpu_object_params *params,
-> +			      struct virtio_gpu_object **bo_ptr)
-> +{
-> +	struct virtio_gpu_object_userptr *userptr;
-> +	struct virtio_gpu_mem_entry *ents = NULL;
-> +	struct sg_table *sgt;
-> +	struct mm_struct *mm;
-> +	unsigned long lock_limit;
-> +	unsigned long start;
-> +	unsigned long end;
-> +	s64 new_pinned;
-> +	unsigned int nents;
-> +	int ret;
-> +
-> +	*bo_ptr = NULL;
-> +
-> +	if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
-> +	    params->userptr != (unsigned long)params->userptr)
-> +		return -EINVAL;
-> +
-> +	start = params->userptr;
-> +	if (!IS_ALIGNED(start, PAGE_SIZE) ||
-> +	    check_add_overflow(start, (unsigned long)params->size, &end))
-> +		return -EINVAL;
-> +
-> +	if (!can_do_mlock())
-> +		return -EPERM;
-> +
-> +	if (params->size >> PAGE_SHIFT > INT_MAX)
-> +		return -E2BIG;
-> +
-> +	if (!access_ok((void __user *)start, params->size))
-> +		return -EFAULT;
-> +
-> +	userptr = kzalloc_obj(*userptr);
-> +	if (!userptr)
-> +		return -ENOMEM;
-> +
-> +	ret = virtio_gpu_userptr_init(vgdev->ddev, file, userptr, params,
-> +				      &virtio_gpu_userptr_ops);
-> +	if (ret) {
-> +		kfree(userptr);
-> +		return ret;
-> +	}
-> +
-> +	mm = current->mm;
-> +	mmgrab(mm);
-> +	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-> +	new_pinned = atomic64_add_return(userptr->npages, &mm->pinned_vm);
-> +	if (new_pinned < 0 ||
-> +	    (new_pinned > lock_limit && !capable(CAP_IPC_LOCK))) {
-> +		atomic64_sub(userptr->npages, &mm->pinned_vm);
-> +		mmdrop(mm);
-> +		ret = new_pinned < 0 ? -EOVERFLOW : -ENOMEM;
-> +		goto err_cleanup;
-> +	}
-> +	userptr->mm = mm;
-> +
-> +	mutex_lock(&userptr->lock);
-> +	ret = userptr->ops->get_pages(userptr);
-> +	mutex_unlock(&userptr->lock);
-> +	if (ret)
-> +		goto err_cleanup;
-> +
-> +	sgt = drm_prime_pages_to_sg(vgdev->ddev, userptr->pages,
-> +				    userptr->npages);
-> +	if (IS_ERR(sgt)) {
-> +		ret = PTR_ERR(sgt);
-> +		goto err_cleanup;
-> +	}
-> +
-> +	userptr->sgt = sgt;
-> +
-> +	if (virtio_gpu_use_dma_api(vgdev->vdev)) {
-> +		enum dma_data_direction dir =
-> +			(userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
-> +			DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
-> +
-> +		ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
-> +				      dir, 0);
+diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
+index 10f7a16ffc23..7ac3a459a98b 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+@@ -10,8 +10,15 @@
+ //! naturally maps to storing a &str with the GPU name.
+ 
+ #![expect(unused_imports)]
++#![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+ 
+-use core::ops::Deref;
++use core::{
++    marker::PhantomData,
++    ops::{
++        Deref,
++        DerefMut, //
++    }, //
++};
+ 
+ use kernel::{
+     alloc::{
+@@ -94,6 +101,53 @@ fn deref(&self) -> &Self::Target {
+ /// The index of an NVKV value.
+ pub(crate) type Index = Bounded<u64, 12>;
+ 
++/// A static association between an NVKV key `KEY_ID` and the storage of its value.
++///
++/// Use with the encoder or decoder macros `nvkv_encode!` and `nvkv_decode!` to let them know how to
++/// map the value `Key<T, KEY_ID, As>` to/from encoded data. For brevity, `As` inserts an additional
++/// conversion (`From`) to avoid having to implement [`Encodable`] for many types. For example,
++/// enums that are easily convertible to a u32 can have `As = u32` and rely on the existing encoding
++/// for u32.
++#[repr(transparent)]
++pub(crate) struct Key<T, const KEY_ID: KeyId, As = T>(T, PhantomData<As>);
++
++impl<T, const KEY_ID: KeyId, As> From<T> for Key<T, KEY_ID, As> {
++    #[inline]
++    fn from(value: T) -> Self {
++        Self(value, PhantomData)
++    }
++}
++
++impl<'a, T, const KEY_ID: KeyId, As, const N: usize> From<&'a [T; N]> for Key<&'a [T], KEY_ID, As> {
++    #[inline]
++    fn from(value: &'a [T; N]) -> Self {
++        Self(&value[..], PhantomData)
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> Deref for Key<T, KEY_ID, As> {
++    type Target = T;
++
++    #[inline]
++    fn deref(&self) -> &Self::Target {
++        &self.0
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> DerefMut for Key<T, KEY_ID, As> {
++    #[inline]
++    fn deref_mut(&mut self) -> &mut Self::Target {
++        &mut self.0
++    }
++}
++
++impl<T: Default, const KEY_ID: KeyId, As> Default for Key<T, KEY_ID, As> {
++    #[inline]
++    fn default() -> Self {
++        Self(T::default(), PhantomData)
++    }
++}
++
+ bitfield! {
+     /// The op word that starts each NVKV operation.
+     struct Op(u64) {
+diff --git a/drivers/gpu/nova-core/gsp/nvkv/encode.rs b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+index 8b66ddb15189..2cc0cfbad814 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv/encode.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv/encode.rs
+@@ -8,11 +8,152 @@
+ use super::{
+     EncodedStream,
+     Index,
++    Key,
+     KeyId,
+     Op,
+     Opcode, //
+ };
+ 
++/// A type that can encode itself into an [`Encoder`].
++pub(crate) trait Encodable {
++    /// Encodes `self` into `encoder`.
++    fn encode(&self, encoder: &mut Encoder) -> Result;
++}
++
++/// Defines a struct together with its [`Encodable`] implementation.
++///
++/// The implementation encodes each field in declaration order. Each field type must implement
++/// [`Encodable`], which is done already for types like `Key<T, KEY_ID>`.
++///
++/// # Examples
++///
++/// ```
++/// nvkv_encode! {
++///     struct Request {
++///         id: Key<u32, 0x0001>,
++///         name: Key<&'static [u8], 0x0002>,
++///     }
++/// }
++/// ```
++macro_rules! nvkv_encode {
++    (
++        $(#[$attr:meta])*
++        $vis:vis struct $name:ident {
++            $(
++                $(#[$field_attr:meta])*
++                $field_vis:vis $field:ident : $ty:ty
++            ),* $(,)?
++        }
++    ) => {
++        $(#[$attr])*
++        $vis struct $name {
++            $(
++                $(#[$field_attr])*
++                $field_vis $field: $ty,
++            )*
++        }
++
++        impl $crate::gsp::nvkv::Encodable for $name {
++            #[inline]
++            fn encode(&self, encoder: &mut $crate::gsp::nvkv::Encoder) -> ::kernel::error::Result {
++                $( $crate::gsp::nvkv::Encodable::encode(&self.$field, encoder)?; )*
++                Ok(())
++            }
++        }
++    };
++}
++
++/// A value with a specific index that encodes under the NVKV key `KEY_ID`.
++struct IndexedKey<T, const KEY_ID: KeyId> {
++    index: Index,
++    value: T,
++}
++
++impl<T, const KEY_ID: KeyId> IndexedKey<T, KEY_ID> {
++    /// Creates a key with the given index and value.
++    fn new(index: Index, value: T) -> Self {
++        Self { index, value }
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<u32, KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_u32(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<u64, KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_u64(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u8], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array8(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u32], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array32(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const KEY_ID: KeyId> Encodable for IndexedKey<&[u64], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array64(KEY_ID, self.index, self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u8; N], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array8(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u32; N], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array32(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<const N: usize, const KEY_ID: KeyId> Encodable for IndexedKey<[u64; N], KEY_ID> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        encoder.encode_array64(KEY_ID, self.index, &self.value)
++    }
++}
++
++impl<T, const KEY_ID: KeyId, As> Encodable for Key<T, KEY_ID, As>
++where
++    IndexedKey<As, KEY_ID>: Encodable,
++    As: From<T>,
++    T: Copy,
++{
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        IndexedKey::new(Index::new::<0>(), As::from(self.0)).encode(encoder)
++    }
++}
++
++impl<T: Encodable> Encodable for Option<T> {
++    #[inline]
++    fn encode(&self, encoder: &mut Encoder) -> Result {
++        if let Some(value) = self {
++            value.encode(encoder)?;
++        }
++        Ok(())
++    }
++}
++
+ /// An encoder for an NVKV stream.
+ pub(crate) struct Encoder {
+     stream: EncodedStream,
+@@ -207,4 +348,104 @@ fn encode_all_value_kinds() -> Result {
+ 
+         Ok(())
+     }
++
++    // Tests that encoding via the `nvkv_encode!` macro works correctly.
++    #[test]
++    fn encode_typed_struct() -> Result {
++        const U32_KEY: KeyId = 0x0001;
++        const U64_KEY: KeyId = 0x0002;
++        const NAME_KEY: KeyId = 0x0003;
++        const FIXED_KEY: KeyId = 0x0004;
++        const OPT_KEY: KeyId = 0x0005;
++        const INDEXED_KEY: KeyId = 0x0006;
++
++        nvkv_encode! {
++            struct TypedRequest {
++                a: Key<u32, U32_KEY>,
++                b: Key<u64, U64_KEY>,
++                name: Key<&'static [u8], NAME_KEY>,
++                fixed: Key<[u8; 4], FIXED_KEY>,
++                opt: Option<Key<u32, OPT_KEY>>,
++                indexed: IndexedKey<u32, INDEXED_KEY>,
++            }
++        }
++
++        const U32_VALUE: u32 = 0x89ab_cdef;
++        const U64_VALUE: u64 = 0x0123_4567_89ab_cdef;
++        const INDEXED_VALUE: u32 = 0x1234_5678;
++
++        let index5 = Index::new::<5>();
++        let request = TypedRequest {
++            a: U32_VALUE.into(),
++            b: U64_VALUE.into(),
++            name: b"name\0".into(),
++            fixed: [1u8, 2, 3, 4].into(),
++            opt: None,
++            indexed: IndexedKey::new(index5, INDEXED_VALUE),
++        };
++
++        let mut encoder = Encoder::new();
++        request.encode(&mut encoder)?;
++        let encoded = encoder.finish();
++
++        // `opt` is `None` and is not encoded.
++        assert_eq!(encoded.len(), 8);
++
++        let index0 = Index::new::<0>();
++        // `a`: IMM32 with the value in the `Op`.
++        assert_eq!(
++            encoded[0],
++            Op::zeroed()
++                .with_key(U32_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Imm32)
++                .with_value(U32_VALUE)
++                .into_raw()
++        );
++        // `b`: a single-key SEQ64 followed by the value.
++        assert_eq!(
++            encoded[1],
++            Op::zeroed()
++                .with_key(U64_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Seq64)
++                .with_value(1u32)
++                .into_raw()
++        );
++        assert_eq!(encoded[2], U64_VALUE);
++        // `name`: ARRAY8 of 5 bytes, zero-padded to one `u64`.
++        assert_eq!(
++            encoded[3],
++            Op::zeroed()
++                .with_key(NAME_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Array8)
++                .with_value(5u32)
++                .into_raw()
++        );
++        assert_eq!(encoded[4], u64::from_le_bytes(*b"name\0\0\0\0"));
++        // `fixed`: ARRAY8 of 4 bytes, zero-padded to one `u64`.
++        assert_eq!(
++            encoded[5],
++            Op::zeroed()
++                .with_key(FIXED_KEY)
++                .with_index(index0)
++                .with_opcode(Opcode::Array8)
++                .with_value(4u32)
++                .into_raw()
++        );
++        assert_eq!(encoded[6], u64::from_le_bytes([1, 2, 3, 4, 0, 0, 0, 0]));
++        // `indexed`: IMM32 with a non-zero index in the `Op`.
++        assert_eq!(
++            encoded[7],
++            Op::zeroed()
++                .with_key(INDEXED_KEY)
++                .with_index(index5)
++                .with_opcode(Opcode::Imm32)
++                .with_value(INDEXED_VALUE)
++                .into_raw()
++        );
++
++        Ok(())
++    }
+ }
 
-I checked the ROCm code and documentation, and I do not see how this 
-mapping satisfies the HIP coherence contract when bounce buffers or 
-explicit DMA cache maintenance are required.
-
-HIP distinguishes two coherence models:
-
- > Coarse-grained coherence: The memory is considered up-to-date only
- > after synchronization performed using hipDeviceSynchronize(),
- > hipStreamSynchronize(), or any blocking operation that acts on the
- > null stream such as hipMemcpy(). To avoid the cache from being
- > accessed by a part of the system while simultaneously being written by
- > another, the memory is made visible only after the caches have been
- > flushed.
- >
- > Fine-grained coherence: The memory is coherent even while being
- > modified by a part of the system. Fine-grained coherence ensures that
- > up-to-date data is visible to others regardless of kernel boundaries.
- > This can be useful if both host and device operate on the same data.
-
-https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/hip_runtime_api/memory_management/coherence_control.html
-
-Fine-grained access requires coherence throughout execution; copying
-between the original pages and a bounce buffer only at kernel boundaries
-would not suffice. Coarse-grained access could support such copies, but
-they must occur at the required synchronization points. I found no code
-that synchronizes this DMA mapping at those points.
-
-Regards,
-Akihiko Odaki
-
-> +		if (ret)
-> +			goto err_cleanup;
-> +
-> +		userptr->dma_dir = dir;
-> +		userptr->dma_mapped = true;
-> +	}
-> +
-> +	ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, &nents);
-> +	if (ret)
-> +		goto err_cleanup;
-> +
-> +	virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, params, ents,
-> +					    nents);
-> +
-> +	userptr->base.params = *params;
-> +	virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
-> +
-> +	*bo_ptr = &userptr->base;
-> +	return 0;
-> +
-> +err_cleanup:
-> +	virtio_gpu_cleanup_object(&userptr->base);
-> +	return ret;
-> +}
+-- 
+2.55.0
 
