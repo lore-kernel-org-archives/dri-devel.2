@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EBCDC98328
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 05:48:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE39C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 05:52:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED82C10E78B;
-	Mon, 28 Sep 2026 05:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D09D810E790;
+	Mon, 28 Sep 2026 05:52:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A0noBykY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e76VoC0k";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C52510E78B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 05:48:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C44810E790
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 05:52:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63F8743DD7;
- Mon, 28 Sep 2026 05:48:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1A91F000FF;
- Mon, 28 Sep 2026 05:48:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0C914408C8;
+ Mon, 28 Sep 2026 05:52:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C848B1F000FF;
+ Mon, 28 Sep 2026 05:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790574487;
- bh=wab64JdkfXaLn0c5A2ewyQIPdafcHb6wyChBfLV/sH8=;
+ s=k20260515; t=1790574752;
+ bh=Plfcelqj6YQTpzDFdfMnV+Ubrb2dddrVl0bSMDI1Px0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A0noBykY4nx7r8yXlwlYnjB0vQm9+U5JQNGqQTTdspixfUOD4NT2FmRbWNQyJK106
- ucYdQhC28W2q4EOASNZOEx8PNqJRWLRsCz91AdzqLPjbRZzlMwCgJEAYgSuVwQB/+Q
- 0AaqKT3ae7y64rjGr2XXog4asNhmD80wghbUlzRpWx7F8vC35CQRL7hwyyHMW+gs1n
- SE0zG6UBHpfAfmdo0JED2jmPdSy/GxpyJ0H/jo5wqdK+iXw+2W4PcMygZs1//nv5Sc
- 1m15/amyQcc/ABZ2KVW/QSqnzrUOzqGLTdKxxu4ZGhTip9PMSaFMrL4GuKNOuPmh66
- nAYOC88pA7XQg==
+ b=e76VoC0k7oM4zrQ/2vmASXp8zDJW68i1oz6nTmDC0bHTh0z2ysyedbLellaGpbMtS
+ er3Uru2oYBvqZv5cboZ6z6j89rWPVIRoCqPhLJAdsTvW+tS5weWLmZ1e0fBbrUO4oC
+ /p1eJv2uCr14lDYGiZhVN/xuqOsmOhFM/5gXXxNdFLi1DtfQMwAAnOsBKDBL8o+GF8
+ IjLyf3kjBsOW6VCIRuZhpxk3NSRdLpY2oojoh9+rTDJxqrweyrCp0eXieLmnugrY6L
+ BMhec+BVAnmLSulnWSOaIr20gj6nXCpL1gjJN19I15V33/ka2va1PUvXW3ImkfYddw
+ JscHManCUXSwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/2] iommu: export iommu_get_dma_domain()
+Subject: Re: [PATCH v1 2/2] drm/msm: map page-less imported sg_tables from
+ their DMA addresses
 To: "Jianfeng Liu" <liujianfeng1994@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260928053901.7270-2-liujianfeng1994@gmail.com>
+In-Reply-To: <20260928053901.7270-3-liujianfeng1994@gmail.com>
 References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
- <20260928053901.7270-2-liujianfeng1994@gmail.com>
+ <20260928053901.7270-3-liujianfeng1994@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 05:48:06 +0000
-Message-Id: <20260928054807.2C1A91F000FF@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 05:52:32 +0000
+Message-Id: <20260928055232.C848B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,58 +58,133 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] iommu: architectural violation bypassing DMA API and dma-buf isola=
-tion
-- [Medium] iommu: missing NULL check in exported iommu_get_dma_domain()
-- [Low] iommu: missing fallback stub for iommu_get_dma_domain()
+- [Critical] drm/msm: assuming physical contiguity for IOMMU-coalesced DMA =
+segments
+- [Medium] drm/msm: memory leak on error path when mapping page-less sg ent=
+ries
 --
 
-commit 9558776a7b7367aa853a5851fe8a04b46536b527
+commit 77e8df4ba7f003ef7b79e1521b4c58572c28169c
 Author: Jianfeng Liu <liujianfeng1994@gmail.com>
 
-iommu: export iommu_get_dma_domain()
+drm/msm: map page-less imported sg_tables from their DMA addresses
 
-This commit exports iommu_get_dma_domain() to allow modular drivers to reco=
-ver
-the physical address behind a DMA address for imported dma-bufs.
+With CONFIG_DMABUF_DEBUG=3Dy, dma_buf_map_attachment() hands importers a
+copy of the attachment sg_table with the struct page pointers stripped
+and sg->length zeroed. This patch translates the DMA addresses back
+to physical addresses using the drm device's DMA-API domain to fix
+arm-smmu translation faults caused by the missing page pointers.
 
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index cd1bca7ede9af..330f9a79248bd 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -2327,6 +2327,7 @@ struct iommu_domain *iommu_get_dma_domain(struct de=
-vice *dev)
->  {
->  	return dev->iommu_group->default_domain;
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
+mmu.c
+> index da6782fca6bd2..8407a37f9efee 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+[ ... ]
+> @@ -184,8 +202,35 @@ static int msm_iommu_pagetable_map(struct msm_mmu *m=
+mu, u64 iova,
+>  		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
+> =20
+>  	for_each_sgtable_sg(sgt, sg, i) {
+> -		size_t size =3D sg->length;
+> -		phys_addr_t phys =3D sg_phys(sg);
+> +		size_t size;
+> +		phys_addr_t phys;
+> +
+> +		if (sg_page(sg)) {
+> +			/* CPU-view entry: native objects, and imported
+> +			 * sg_tables that still carry struct page
+> +			 */
+> +			size =3D sg->length;
+> +			phys =3D sg_phys(sg);
+> +		} else {
+> +			/*
+> +			 * Page-less entry, e.g. the sg_table wrapper
+> +			 * that dma_buf_map_attachment() hands out when
+> +			 * CONFIG_DMABUF_DEBUG=3Dy (page pointers stripped,
+> +			 * sg->length zeroed, only the DMA fields carried
+> +			 * over).  Recover the physical address by
+> +			 * translating the DMA address through the drm
+> +			 * device's DMA-API domain.
+> +			 */
+> +			size =3D sg_dma_len(sg);
+> +			phys =3D msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
+                        ^^^^
+
+[Severity: Critical]
+Does this assume that the entire DMA segment length mapped by the IOMMU is
+physically contiguous?=20
+
+If the IOMMU DMA API coalesces physically discontiguous pages into a single
+contiguous IOVA segment, wouldn't mapping sg_dma_len(sg) using just the
+starting physical address map the pages after the first page to incorrect,
+adjacent physical addresses instead of their actual disjoint addresses?
+
+> +
+> +			if (!size || !phys) {
+> +				dev_err(mmu->dev,
+> +					"cannot map page-less sg entry: dma=3D%pad len=3D%zu\n",
+> +					&sg_dma_address(sg), size);
+> +				return -EINVAL;
+                                ^^^^
 
 [Severity: Medium]
-Does this code introduce a regression where modular callers could trigger a
-kernel panic? An unconditional dereference of dev->iommu_group will crash
-if the passed device does not have an IOMMU group, which can occur with
-SWIOTLB fallbacks or missing bindings.
+If this fails after some scatterlist entries have already been successfully
+mapped, does returning -EINVAL directly cause a permanent leak of the IOMMU
+pagetable mappings?
 
->  }
-> +EXPORT_SYMBOL_GPL(iommu_get_dma_domain);
+Should this use a cleanup path to unmap the already-mapped pages, similar to
+how ops->map_pages failures are handled with msm_iommu_pagetable_unmap()?
 
-[Severity: High]
-Can exporting this function lead to memory corruption by breaking DMA API
-and dma-buf isolation? By allowing callers to reverse-translate IOVAs via
-iommu_iova_to_phys(), it bypasses the opacity of the DMA mapping API. This
-specifically defeats CONFIG_DMABUF_DEBUG (which zeroes struct page
-pointers to catch this abuse) and could be dangerous if the DMA API uses
-SWIOTLB bounce buffers or dynamic deferred TLB invalidation.
-
-[Severity: Low]
-Will this cause build regressions for configs lacking CONFIG_IOMMU_API?
-Since the function is now exported for general modular use, any caller
-built without CONFIG_IOMMU_API will fail to link or compile because
-include/linux/iommu.h lacks a corresponding empty stub in the
-!CONFIG_IOMMU_API block.
-
+> +			}
+> +		}
+> =20
+>  		if (!len)
+>  			break;
 [ ... ]
+> @@ -697,6 +742,47 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64=
+_t iova,
+>  	if (iova & BIT_ULL(48))
+>  		iova |=3D GENMASK_ULL(63, 49);
+> =20
+> +	/*
+> +	 * With CONFIG_DMABUF_DEBUG=3Dy, imported sg_tables carry no struct
+> +	 * page and sg->length is zeroed; iommu_map_sgtable() would consume
+> +	 * zero length and silently map nothing.  Map from the (translated)
+> +	 * DMA addresses instead.
+> +	 */
+> +	if (!sg_page(sgt->sgl)) {
+> +		struct scatterlist *sg;
+> +		size_t mapped =3D 0;
+> +		unsigned int i;
+> +
+> +		for_each_sgtable_dma_sg(sgt, sg, i) {
+> +			phys_addr_t phys =3D
+> +				msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
+> +			size_t size =3D sg_dma_len(sg);
+> +
+> +			if (!phys || !size) {
+> +				ret =3D -EINVAL;
+> +				goto err_unmap;
+> +			}
+> +
+> +			ret =3D iommu_map(iommu->domain, iova + mapped, phys,
+> +					size, prot, GFP_KERNEL);
+                        ^^^^
+
+[Severity: Critical]
+Does this also incorrectly assume physical contiguity for the coalesced DMA
+segment by passing the entire sg_dma_len(sg) to iommu_map() with only the
+starting physical address?
+
+> +			if (ret)
+> +				goto err_unmap;
+> +
+> +			mapped +=3D size;
+> +		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928053901.7270=
--1-liujianfeng1994@gmail.com?part=3D1
+-1-liujianfeng1994@gmail.com?part=3D2
