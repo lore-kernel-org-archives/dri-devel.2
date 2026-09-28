@@ -4,64 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CD4ACA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DBDBCA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:34:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB64B10E09B;
-	Mon, 28 Sep 2026 18:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7113E10EB7F;
+	Mon, 28 Sep 2026 18:34:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jzRocgp9";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="ooCPWuWA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2125C10E09B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:22:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E3F984361D;
- Mon, 28 Sep 2026 18:22:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04541F000FF;
- Mon, 28 Sep 2026 18:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790619763;
- bh=K1cLWac03IM4KLKAmCbBaNPBWoO0bBv/YDS2Dcc186U=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=jzRocgp9APFbn7PWm/lVftNBWm3nQuRe4DUsY1sk9cmMIiwjTgRQz3nzamHXngS9I
- D5vM+QVrBcWiDqiAKnqzhNEGR+VN4zBbJZRS+3RhDWZgRZHyyaOjXYKtHZ8UYogYlI
- xnP2x0peEeKDhrzkQMemQW6PZjv0TfneoPHS8XXrk+10ztob7MmG8VcIFgBndIwMmI
- X6rxeLZb1m7SDtl/JNvNQ2qRBw8oM1zCVVLFrw8dfMra73wGuHSIpl0DSNbBOHtJ2g
- gVsGur5H9GW6bmWAm67uLZpkNuy8XV/GVUc41PQrczztiKYMoML/svpOqrDftsFfIa
- MZbh+EkmNLKCw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 20:22:39 +0200
-Message-Id: <DLR5Q993RA06.3UA51L951IFX0@kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Matteo Kloiber"
- <kernel@matt3o12.de>, "Robin Murphy" <robin.murphy@arm.com>,
- <aliceryhl@google.com>, <ojeda@kernel.org>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <a.hindborg@kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
- <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
- <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
- <20260927224446.1053037-1-kernel@matt3o12.de>
- <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
- <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
-In-Reply-To: <DLR4TIXBL0K0.3GNRPD2HU6S4T@garyguo.net>
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8B2210E94D
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:34:31 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260928183430euoutp02d8c2ceefbbbee78d8631d795eb470987~Zj9SaDp1F1266812668euoutp02d;
+ Mon, 28 Sep 2026 18:34:30 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260928183430euoutp02d8c2ceefbbbee78d8631d795eb470987~Zj9SaDp1F1266812668euoutp02d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1790620470;
+ bh=4Zph+siZBeGkLK5OkBadCTawnz0zQ5RVLKRomkp3JFM=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=ooCPWuWAFvYF4ZM2kjMd6Sk5u8LAPjsE03rJcvHzAe/OskadksFIcixYe9TFn3SG5
+ x2Lag0CNxSduPsZVTUcvY8qADKxrETrS0mODDs5RLBK7W0fG+vhAH96c+oaZU+BhSr
+ uY8fE2y2hrrSNfQ4261WxiEAHHMqI6kqWuuKrmhg=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260928183429eucas1p291d65fe935c65b88fc63e99837bf87f8~Zj9RjhP5N2664926649eucas1p2Q;
+ Mon, 28 Sep 2026 18:34:29 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260928183427eusmtip29fd870671ef52906c604dca1dab6db1e~Zj9Pk2-JD0396803968eusmtip22;
+ Mon, 28 Sep 2026 18:34:27 +0000 (GMT)
+Message-ID: <d4fb48de-829d-4285-9ca6-ab418a6f4987@samsung.com>
+Date: Mon, 28 Sep 2026 20:34:26 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/20] dt-bindings: mfd: Add
+ starfive,jh7110-hdmi-subsystem
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+ Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20260917-colossal-phenomenal-rattlesnake-7aca88@quoll>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260928183429eucas1p291d65fe935c65b88fc63e99837bf87f8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153218eucas1p278c4870936afe1aaa52438660418f8c8
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153218eucas1p278c4870936afe1aaa52438660418f8c8
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153218eucas1p278c4870936afe1aaa52438660418f8c8@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-3-f0e4fd6f2cc8@samsung.com>
+ <20260917-colossal-phenomenal-rattlesnake-7aca88@quoll>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,22 +99,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 28, 2026 at 7:39 PM CEST, Gary Guo wrote:
-> I was quite skeptical whether the complication of adding the dma setup to=
-ken is
-> worth the effort, but the capacity struct sounds like a very nice design =
-as it's
-> infinitely extensible. I can foresee that we might want to eventually get=
- rid of
-> the special `Core` typestate and just replace everything with setup
-> capabilities.
 
-I had a similar thought (which is one of the reasons I proposed it), but I =
-don't
-think we can replace the Core type state entirely.
 
-There's more than just one bus callback that holds the Core type state, so =
-I
-think the bus setup token is rather the (much) better version of a Probe ty=
-pe
-state.
+On 9/17/26 08:54, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 05:32:11PM +0200, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+> 
+> Your cover letter, in the first paragraph, should explain the
+> merging/dependencies constraints - this depends on previous patches and
+> cannot be taken alone.
+
+OK I will update this in the v5
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
