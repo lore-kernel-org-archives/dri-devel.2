@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E174C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0012C9833E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF3F910E7F0;
-	Mon, 28 Sep 2026 08:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A1210E28D;
+	Mon, 28 Sep 2026 08:15:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AXFG54NN";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="e9rUnIUn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7BD310E7F0
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:11:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 93550600E2;
- Mon, 28 Sep 2026 08:11:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450541F000FF;
- Mon, 28 Sep 2026 08:11:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790583101;
- bh=oihozRlFZ7lt6GDwFed9U05sgh5zM+CW01iJD4rrReU=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=AXFG54NN28oi8qNx/+8HghJ8/4iBl+tTWjh5BeAP3onSRThy2zn/N1FdOwcSei4tG
- YwRDAfKywfqDIEEmpBMNcY7xY/qZ/UrDSvKbIw5xEOVzJEohYjSkb5QGeFoN+3FrXK
- CWOVLe84KPfzX5QfxV2PPG2x+eKPIBcp/ER1VBC5Cs6YSGHB+Zlse696OBWVweH4E5
- fBitSGWnjM7hHzZ8n2M63pTUvnvZpFUwQjErotQ+xKiOv0yaTNygFdwWq7kB6baGdN
- SJb2L5ZmB9y0Q0Zm0+GHPr9YjNDQWI0OZWqajuKdZt3yY1CT3X9Fg0seL4k0uR6yqW
- lMA6pweRMAAXA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 10:11:35 +0200
-Message-Id: <DLQSQE8ZXLY1.1XFW8PGSDLICT@kernel.org>
-Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
- reference
-Cc: <phasta@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alice Ryhl"
- <aliceryhl@google.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Philipp Stanner" <phasta@mailbox.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260925081958.3048112-2-phasta@kernel.org>
- <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
- <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
- <f0248d1529378ab8be957009a93a0a73ee74bafb.camel@mailbox.org>
- <DLOILT0V4HCX.31L2PE7YIAKY3@kernel.org>
- <ab1241777ac432666bb1564d875211bf142a6398.camel@mailbox.org>
- <DLOKSGU61PUG.WSZBN04H0A2Q@kernel.org>
- <37a2858a4687e4d9bbe0aba4c1861b96875c4ed7.camel@mailbox.org>
-In-Reply-To: <37a2858a4687e4d9bbe0aba4c1861b96875c4ed7.camel@mailbox.org>
+Received: from mail-m9330.xmail.ntesmail.com (mail-m9330.xmail.ntesmail.com
+ [103.126.93.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 323A010E28D
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:15:06 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4f5398e40;
+ Mon, 28 Sep 2026 16:15:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jingoo Han <jingoohan1@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 01/14] drm/bridge: analogix_dp: Return bitmask from
+ analogix_dp_get_irq_type()
+Date: Mon, 28 Sep 2026 16:14:05 +0800
+Message-Id: <20260928081418.3605775-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+References: <20260928081418.3605775-1-damon.ding@rock-chips.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0e714eaeb03a8kunm323e2b5437cf01
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUlIVkJCT0pPHx1IHkJIS1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ JDQ0xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=e9rUnIUnggVntlM+VCCn3Pgkdao9uZAva/eyhDYkS+mpJG9kvFVs+UQiHBHj9uanrY95E6qMpW1TWQN2yXUCRx3lCupYRaGdilL+QImZUX58j6Nf8p1gib6hDpwyGY27P3ZS378dJuT2MjFTMCcmDRplArlaJ9yRXcHWo+75Yjw=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=fTbtcGZ0NiXRdk++xUkHW9KoNxxGSWE+RUMF8C782Oc=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,51 +73,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 28, 2026 at 9:52 AM CEST, Philipp Stanner wrote:
-> On Fri, 2026-09-25 at 19:32 +0200, Danilo Krummrich wrote:
->> On Fri Sep 25, 2026 at 7:21 PM CEST, Philipp Stanner wrote:
->> > I guess we agree that it would be a horrible bug if there's still a
->> > command buffer running on the GPU that can access memory which might
->> > have been freed once the associated fence signaled.
->>=20
->> Sure, but that's unrelated.
->>=20
->> > So I suppose what you are saying is more: there is not much value in
->> > the case of *JobQueue*, basically because all the jobs live inside of
->> > it anyways.
->>=20
->> No, I'm saying there is not much value in general. Whatever thing owns t=
-he
->> DriverFence has to represent the "device access" of some resource, which
->> already naturally establishes the relationship.
->>=20
->> IOW, whatever thing owns a DriverFence is also the thing that stops the =
-hardware
->> in its own drop() implementation; anything else would be rather question=
-able.
->>=20
->> > So I suppose we agree that a warning is fine. It won't fire in JQ
->> > anyways, but might benefit others.
->>=20
->> What scenario are you thinking of?
->
-> Drivers doing "rather questionable" things, like we've seen a great
-> many times already ;)
->
-> Note that the dma_fence backend fires a WARN_ON if a fence is freed
-> unsignaled, too, for the same reason.
->
-> Life finds a way.
+Analogix DP controllers support two sets of interrupts for hotplug
+detection: HOTPLUG_CHG, and the pair PLUG / HPD_LOST. The current
+driver logic relies on PLUG/HPD_LOST and does not consume HOTPLUG_CHG,
+nor does it check for INT_HPD for IRQ_HPD events.
 
-I'd rather you engage with the arguments I made above and give a concrete
-example of how it "might benefit others", instead of resorting to know-it-a=
-ll
-platitudes.
+The existing analogix_dp_get_irq_type() returns on the first matched
+interrupt flag. This causes the hardirq handler to unconditionally mute
+all HPD interrupts, including HOTPLUG_CHG and INT_HPD, creating a
+limitation for future extensions.
 
-The comparison with C does not address my point about ownership: C relies o=
-n
-explicit cleanup, whereas the Rust design I described ties cleanup to owner=
-ship
-through RAII.
+To prepare fine-grained interrupt handling, convert the return type
+from enum dp_irq_type to a u32 bitmask. Accumulate all pending
+interrupt flags instead of returning early, and add detection for
+DP_IRQ_TYPE_IRQ_HPD. Remove DP_IRQ_TYPE_UNKNOWN sentinel; use zero
+to indicate no pending interrupts, which simplifies code and
+facilitates future extension for additional interrupt types.
 
-Again, please address the arguments I've already made.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c |  8 ++++----
+ .../gpu/drm/bridge/analogix/analogix_dp_core.h |  4 ++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 ++++++++++--------
+ 3 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..079f2f01f33b 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -701,10 +701,10 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ {
+ 	struct analogix_dp_device *dp = arg;
+ 	irqreturn_t ret = IRQ_NONE;
+-	enum dp_irq_type irq_type;
++	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+-	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
++	if (irq_type) {
+ 		analogix_dp_mute_hpd_interrupt(dp);
+ 		ret = IRQ_WAKE_THREAD;
+ 	}
+@@ -715,7 +715,7 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ {
+ 	struct analogix_dp_device *dp = arg;
+-	enum dp_irq_type irq_type;
++	u32 irq_type;
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+@@ -725,7 +725,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 			drm_helper_hpd_irq_event(dp->drm_dev);
+ 	}
+ 
+-	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
++	if (irq_type) {
+ 		analogix_dp_clear_hotplug_interrupts(dp);
+ 		analogix_dp_unmute_hpd_interrupt(dp);
+ 	}
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 4560597604ad..3f40d95757c5 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -120,7 +120,7 @@ enum dp_irq_type {
+ 	DP_IRQ_TYPE_HP_CABLE_IN  = BIT(0),
+ 	DP_IRQ_TYPE_HP_CABLE_OUT = BIT(1),
+ 	DP_IRQ_TYPE_HP_CHANGE    = BIT(2),
+-	DP_IRQ_TYPE_UNKNOWN      = BIT(3),
++	DP_IRQ_TYPE_IRQ_HPD      = BIT(3),
+ };
+ 
+ struct video_info {
+@@ -195,7 +195,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp);
+ void analogix_dp_force_hpd(struct analogix_dp_device *dp);
+-enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
++u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
+ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
+ void analogix_dp_reset_aux(struct analogix_dp_device *dp);
+ void analogix_dp_init_aux(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index c1344a3f013a..49c1961e4326 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -412,8 +412,9 @@ void analogix_dp_force_hpd(struct analogix_dp_device *dp)
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+ }
+ 
+-enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
++u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp)
+ {
++	u32 irq_type = 0;
+ 	u32 reg;
+ 
+ 	if (dp->hpd_gpiod) {
+@@ -425,17 +426,18 @@ enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
+ 	} else {
+ 		/* Parse hotplug interrupt status register */
+ 		reg = readl(dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
+-
+ 		if (reg & PLUG)
+-			return DP_IRQ_TYPE_HP_CABLE_IN;
+-
++			irq_type |= DP_IRQ_TYPE_HP_CABLE_IN;
+ 		if (reg & HPD_LOST)
+-			return DP_IRQ_TYPE_HP_CABLE_OUT;
+-
++			irq_type |= DP_IRQ_TYPE_HP_CABLE_OUT;
+ 		if (reg & HOTPLUG_CHG)
+-			return DP_IRQ_TYPE_HP_CHANGE;
++			irq_type |= DP_IRQ_TYPE_HP_CHANGE;
++
++		reg = readl(dp->reg_base + ANALOGIX_DP_INT_STA);
++		if (reg & INT_HPD)
++			irq_type |= DP_IRQ_TYPE_IRQ_HPD;
+ 
+-		return DP_IRQ_TYPE_UNKNOWN;
++		return irq_type;
+ 	}
+ }
+ 
+-- 
+2.34.1
+
