@@ -4,132 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8D2C9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 10:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D67C9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 10:12:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BEE410E91C;
-	Mon, 28 Sep 2026 10:09:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 681E610E83E;
+	Mon, 28 Sep 2026 10:12:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XJ/85OPU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Bs0LNYE";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05AD10E91C;
- Mon, 28 Sep 2026 10:09:14 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012059.outbound.protection.outlook.com [52.101.53.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6527210E816;
+ Mon, 28 Sep 2026 10:12:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jczITGPfXOQJpjAkxY0AaVZ0t0MZLArAkGo0IQEIn4n1JCvVtinCYiA/LWoXtRTUuEaSsih3wyHi/uBoP3MSL+v58D+VxZ7gEu7o/xJPZY08orTL1WA+kQdLiHB6iVo1837g0yh4+d3uGF7fx1UZ/YUNXlFMJrbm6XP0u4TnAtOB/Chy0lIBWzgCBLEdTi/jbv41ts0pvGZwyXJ51gKpJ6e/vs2t6QY4mBigMN1SZAyRpDb3oiHUGqzy4rXmP5tbXuONFfEHoJZJWjwoCSFTeai/05InyPT70QnXqQNc8zEGpULQD9T8f5XIeraCJ+nOAfskPF+K1Z8A4aN6Je3YKg==
+ b=uUubxGMYpb4gvle04NtRpJyunKxAWRx8yHSSxb7GatHFCBxRk+EZCsBUELIawUax7eNVm8HA6HYwZVDX8hXf4pOmNW7Fot7dlsz35qF1lpr9O4Z7hzcUzdHpJVdccAp9HcDvE9IsumPXuKhXcyZxHrJzbtOTZ/08gX/dspIqTYVc0+QIvY/An8lR+Lc2pTprmTuamhjuyBBNzVY9ztNPZ25TAjdPFmVskTgnp2bWtN30vXn0qoDbyzcCRWpFP+H9E99PAGs6oLotUpztHTjZAuqx0Pkpsoft+eGkl3Pek4Rexv/pnAP0vzFlNCiRQMntsmiKuUmHgd49h14ozticaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p+2cWYw+cNw1U/ZnbTJm8xIjB2ZFYrYKVd+UhMHA6aw=;
- b=quO3mfoiIMwQlyggE3O7X1R1GUfo0l1pkcl3sfqoTlL5TYETKYoXhjLPeI8W+exs02ZB9GyI3DIxCHmiPM/iC72qXkHNbCUvRqfz6M84yOIerwQ7Mr3PnIzfLxZWRjdnwLYvNPJyxOZvj+wSCyzr0MHIygD7luyGAcELR4sq7VcwybeS0OI9I/g57xIRwr2+31uqBlEFshbFcIhCBkphuqZUkYicnOqDHwDbTqyr6Nmr5qozPb0yhENM4E4Pu/iKOG58aRR0X/EJ0lgSQVpcRGvmXyCvto16w+k/UYpOBW/IUqAL76zi4aSa4Wrt/CoHCHQOeRQpJsTJcRMorRayYg==
+ bh=669Ud33NSswgye1cytTVDUyExT2nHB2+p/USLdIk4B0=;
+ b=GwZvwnT/ue/1jd0eB0fx/U+8EE4r5GeCSFIOsKXHzIYzga/9AEANAh3iHj33R9p0KMz/zbW8GYDPvTwZ5un0N9ohoUSJbZsie9/3WisH7mCfWNKtehfU3/PqgEmTPg0q1VA5ak7ElC2+ZHveNfmY6UJw9zURyS1NTb5QU1vb6G0rDKvRRgJxGog0D1qd+lPkAxGfi7SCz7KXmxB4yu+DxXoagk6T8sGOmVkZBeKcuaxDE84wNAJKifogAU/o2j+N437lcUaa7C4K3ezZhkUtTaAxb6P0bl+Yd9kcVJ47udoQPYnLpsDtlXoJK1J001cKcjhZ807v/mx1otubNk2Kww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+2cWYw+cNw1U/ZnbTJm8xIjB2ZFYrYKVd+UhMHA6aw=;
- b=XJ/85OPUmt412XIvg5OoXzPR/baEmMnctGKbBGETM9LRNlKCRqffRmKR7MW7l2EOzEViB97Yh6JxNGqQ4PpvT0BMYwm9hkH6W+3sHOuasC9mm19l1g7Sk4wwKc2CIsIv0CtCsoPNCp2HNIhS5xLBDw7moVnA5NlmagMaMfKjz3I=
+ bh=669Ud33NSswgye1cytTVDUyExT2nHB2+p/USLdIk4B0=;
+ b=4Bs0LNYE+hpA2aZB2/zldjuP6oVjIp4KhKhhdjZz8J3U3IHQc26DjajUii3qe7J56xPOMfX7KqLa9zaf/zXo0qVg24akrUNggoT6AhtEcvpA7pEcBr+8bjpBJJatJF1KFbKslxjOFkEb06zhklp0kDj9Irt4HItbIFfUw+y3Up4=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB7144.namprd12.prod.outlook.com (2603:10b6:303:21b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
- 2026 10:09:11 +0000
+ by SA5PPF9D25F0C6D.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 28 Sep
+ 2026 10:12:30 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 10:09:11 +0000
-Message-ID: <bd4e5ece-1358-4e0b-bb04-ba9de62d26f6@amd.com>
-Date: Mon, 28 Sep 2026 12:09:05 +0200
+ 10:12:30 +0000
+Message-ID: <66def337-5237-464d-9361-4d1f9da02f7b@amd.com>
+Date: Mon, 28 Sep 2026 12:12:25 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] drm/msm: map page-less imported sg_tables from
- their DMA addresses
-To: Jianfeng Liu <liujianfeng1994@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- freedreno@lists.freedesktop.org, iommu@lists.linux.dev,
- Dmitry Baryshkov <lumag@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, Bryan O'Donoghue <bod.linux@nxsw.ie>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>
-References: <20260928053901.7270-1-liujianfeng1994@gmail.com>
- <20260928053901.7270-3-liujianfeng1994@gmail.com>
+Subject: Re: [PATCH 1/2] drm/sched: keep the current runqueue when no
+ scheduler is ready
+To: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>
+References: <20260928020018.120503-1-vitaly.prosyak@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260928053901.7270-3-liujianfeng1994@gmail.com>
+In-Reply-To: <20260928020018.120503-1-vitaly.prosyak@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0441.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0060.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cc::20) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7144:EE_
-X-MS-Office365-Filtering-Correlation-Id: eaa09384-4982-46e2-68bd-08df1d488a72
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPF9D25F0C6D:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b0454db-b4ad-4cc4-c721-08df1d49015c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|10067099003|56012099006|5023799004|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: bR55gF9OOEfAN6PqL6/1O4SmBHj5co4Jv6p6AsY5YRhg54nPWFfiE5Mf9SxJ01Cy3m//X7tx+hmZCzhfDo5jtvkE8NfPu3h39ixs/k+RGZkaCmQLarfzjpYOcYQcP83NaNqPvSsq7gE7hkCaeW58YBzlVT6UNIOJ4Dd/GXLffl4UowTPX0RQg23qBTBTcO0xwumo5mgdJsyO/NscQYAQNGySEc/rTISAPonCrr3d+V4PEqQ3HAIW6ECgq9Cf7WHORF//ZU2koeYYYqW1ivl66lFFPlve5BXyB5VhmPBpij7KrrmHhdPjRbcTOdmAaUXvan9TYRjk2Qa0fdtJn63xgIUeEpEjFQx6UkX8QIfJUXNTNOUL5OI2g7rEJhCYi5zsl4PmuicKA2sSBXTduDtdu9hJ972YRaS+cEPjbLyzt5FIaW5KlQZAKfoIHKYUCdrVqtmj08eNWd9P8rsI9OkpBKDJe2Dc00u3mwFIvjgfM7PZ0IlCU9sH1zoXDO/vTqgpIhVWLzSVXmeD4ouRVHlfMwJqg/+xhtAvbwmNJbyO7AYAMKoC2BCFTpgDzt+Pv4T6EO5R5AwXzLt8YV885BCAbgfHYBbUcjNs2635kh+BTRpd5u/CTa3J7TIRhDuyAMEILwrB0qzAipwgRgfXNTkI8YEcL/LLuzC7O3kkq3BYCuk=
+ ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|6133799003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: gbFC7ey/a5CMSxj4zgyo24sPZkwRsvr6MzovhQAuxIGp5B5/GjR5FsQFgY9hh79R3fNkggnrweBSCJxGXzZWR2T9mtrSOMMkmcNsHCDx5+XiwKrk9As/MxPM43Qf9Pf2WIog6YXiJ/dZzgZ7uQvihCEUSYfDKFlR60RHir+ytyvi9QT1jpnZiKYOAxgiuj0+SWPHwrzzIlu6LsJXpumseBLXT2FUzll3Z0HuctQR3WdVFKWRZ6ZI84obj3IpP10Ur4LZXQ0VoGZnseWsWT0WbwpjywmEyO8pqdfTyml2iGuk39SdRe3dU7yUZ/1niZrvPvbSly7QB8KdMUAedTeNlAT8nvfiAiv5/VOpFCgvvlxYieXNDAPmrVVnz7Zax8S+uuFy/dMR7yFPI2cqHWos8uqBAbGQ+7AAD4RFDTdItGu3IlgtZHePgN3XYp8O9U3BLhpVxSSy0j0HYCSAknmdsKV9UDvBM1eGfaFWUNM4cxhE9kavw+vkBtP4i/8TXItWVIeVQOeXkGul7HNFS5yIsijj42AYE5J3iAwKODZHSU2nCl6qVkiHOMZZixvQERmv51e1Lsb2ZeZkrPVW2T8+gx6m5vWvwKyzfLDhtcFj2LkU1iIeCNLqa2wCEZiJorwacyV3oUuM9iYAd67d2wgKklpW2BPmy9uhKRe0C7Ra/Ik=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEpIYzhJUnFrVFBqdm9NNnJRNUhEbnRWMXRzd3k1N3Nid2NOT2p1S2pobWtj?=
- =?utf-8?B?Sk93MVBqVStVQ2RVZTN2bWF0QnhISGxGdEgvT1FsdXVVTEw5cEF5dDUyTVlt?=
- =?utf-8?B?djBBbjQ3UnhhZHR4dUJWQjhDWXZSK3BDTkNxRytvNE9GV3FWSThYWmw1Znd0?=
- =?utf-8?B?cW5WVksraWhhQUdrQTY0ZHYyakFFZ09BMUJqZEEzdjdweDRDU0dPeTBIUnNl?=
- =?utf-8?B?R0hjMi8xY1FPdEYwR1FWRUpmcFV4cHZYenhtSk1wU01HSEFKSkVFVTJGVXVy?=
- =?utf-8?B?NW5xaFlTS0QyTkRFbVB3VXk3QnUxTENENm1iLzZ5a1JvaVZWSnoxUnBsdzdC?=
- =?utf-8?B?VEtXaStpSkxzYVc4ZFBPWElHOEdYeUdhWU1oZm1WRmc3S1FZcXJ6U0F4WTZl?=
- =?utf-8?B?eUdyOVZ1R1o3Mm4yTGl4T0FEUVJUd0pEMXo2VE1SaUdFc25QeGJBelZadkZZ?=
- =?utf-8?B?UnNUYUlCMTFJVzZZMlNJdUVBSWZNVUwxV3ZtSk81RVhxdFZETlpRVnNlNGp2?=
- =?utf-8?B?dlc2eWVMeWg5VVJZWnVZM25KMURoT01BR3JKRWQzZndPdlpUZFNrS0pGQThZ?=
- =?utf-8?B?UmxRM05VMnc4c2ZKWUdzRk9acGVaTFZKK3pVVUU0SVZkRmZiYnlVM2kxYVBo?=
- =?utf-8?B?b0Q4bnZoN3czRXZ0VG9EWm1HSTJZM0NNNzROVXRCSTZDR1BJZXB3WUMzb3FL?=
- =?utf-8?B?bmxVdlNFSTBML2ZZZTk4K2I3KzdpQ1FOK3RZVjlPWlVZUGtCTTVxOGE3TFRh?=
- =?utf-8?B?TTdkZWNRMTFjMTlvd3ltbGlUbHBZN2xxQjg4ZkYwYUJzT0pESXlralJqbHNq?=
- =?utf-8?B?bVVndzliNEFKZHpiWlRrMGZmTXhsY3lIOFRZL25BSUVhMHpBdDdiUG5iVmlS?=
- =?utf-8?B?eG9aejQ2TGIrK0lySUVyaTJTbkFVdWxhbHBmREtkTmxocXROelZJakFUYUhQ?=
- =?utf-8?B?ZFcyTDZlVUk4TGNrYjRIL0hidkxPWk5SYkNVdnZRMDBRNm1qZXQ1VWhyWW95?=
- =?utf-8?B?bVczVXdncGdKbGV3OEZtejZqSnhSaTQxdGRhMXdoWit2ZGlvaWw0M2xLN3JK?=
- =?utf-8?B?VTJUeHQwUG01U3R4SE9PcEg1VUJFV2R2WUw0aCtubFZsM3hJRm1mdkRhbVor?=
- =?utf-8?B?NWRFNnhZUnljMERqcWd0OEw5UDNWejBXSHFYT1IyQnUwMW1hWUU5NUNjaDNw?=
- =?utf-8?B?ZTFiUnVlOHNFT1BUdXFsenJhbUpVUEh3em9ibUtGejBVUXZFdGZNaVo2ZEJP?=
- =?utf-8?B?SjVRUG5BVmJnUVBvamRBMmZHOHBXUk5iQ1B1Y2ltcXFkNmV0SDV0a1g3N0ZH?=
- =?utf-8?B?K2huRWZ2RVladkZRRDRxNHI3V3JhVHdvUXhHOFBocE1jazVrcDFYOG9BbDBF?=
- =?utf-8?B?ZEVMSFd1RWk0aDNXK1NnbUF3SytObHA3RXJDNzkrRTdNYk1ST3dWNmM0eUdz?=
- =?utf-8?B?WEMvcWhxa0NHNEhCRldZbnd6OWsyeVZZZ1BPNG5nZUdaWnY5bzB2ZWxrSE5t?=
- =?utf-8?B?QUJyZk9xN1NFeUxUTm1Va3Q5TWNHVTY0ODE4U2tjb3FaRjQ3TGJRTEZNVlQ3?=
- =?utf-8?B?R3FMRVQrZUdxVU1yWkU2TUlMNW9tY3J4VzlvV0pnY1NGcGNXb0xVVVk3R1l0?=
- =?utf-8?B?d2NXazk2SlFZK2w1K0R6enlCZXBTeExmRnZiZmJaWVVqbEdnRWJXU3crcG9Y?=
- =?utf-8?B?RWJ2Z2g4Z0J4TkJ0eEs2SWFYRUpWZ0tSVlpQczVoc0lkbW9xRStjeVpEZ2c2?=
- =?utf-8?B?OUFUSUI4bThTSUZzRmNUVkdOelJLWlRMRkpwVGJVUnRhQllQc0lZWlMrZ3dY?=
- =?utf-8?B?TDVNVkxodkVxR2t1a3ZUamQySWFyWjJCYXNVYlNQU3VMUU5wazJpdjBBajE5?=
- =?utf-8?B?UlpHYUNRek1Zdmx4RVBNdHZSY0tabTJ5dUFVVnVreUVraXlPUXN2cjhIYWFP?=
- =?utf-8?B?Z1FHWEdMbkoxYzJIU3JRY2pxS01NYVIwL3J2QjA1YUIxTlBpTGQwTkQxU25Y?=
- =?utf-8?B?TzZzMkZHY0F6ZXVnS1ROU1hrL0MxKzFKS29TaGhXRENvZEMrS0Ezcmd6anQ3?=
- =?utf-8?B?ZFZOYW5hNXhsV0JMVWI3RVVYSGV3WW9IZTJJQXZIVU95R3ZOQlhGSzlmQjFS?=
- =?utf-8?B?SSsyU09sdmRLVHU1bk44ZXhLMkVTUFc5V1pUMm5VQnNlNk9JdHd1SnlWeVV1?=
- =?utf-8?B?S1o2T1M4Nk1oRTkzNFNETTAvZnRRcDVmcnhQeHd4ZEJHR1NDYUU4NVAwS0JP?=
- =?utf-8?B?SWNEUXZybHVQdDN4dFYyekMzV2JXNkVaT1RyK0RlYkdBSi9hV0tQNVdvU0Iz?=
- =?utf-8?Q?z8amb5FFf2piqTAxwR?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2dFZVBSR3ZYUGtuN204SU9HVmJ1ZmcrbUI3WDlINkVhRGQ3RHZHNmh4UzM5?=
+ =?utf-8?B?L3Y2cjBwQ2dtMTBmNTJNTlY0ZktBbEtGVUFuUjAzY3NUYjkvdlJCVVM5bzQr?=
+ =?utf-8?B?eUdtK0xISlVFSC82b3VRWHc2MksvQmNOaXFzR1EvV0UvODAvcmlLTFBsMWFD?=
+ =?utf-8?B?bnRTd2tOYUR0MWc2SmNiZks2ZHVlYXBJY3o3Z2hvcUJuTzM1U3JDdDRpTG9m?=
+ =?utf-8?B?NUhpTnFwZGRyQ0FXYWVMdDl1QTJBaFJlYWs1MzFORlBoUW01N1hSNWtHRkRF?=
+ =?utf-8?B?SzR5STlQMi9qa01ZSW12cXhDMlBvNGg3a1BrNUc1UmRyNDE1Wkx6RnhhdGFh?=
+ =?utf-8?B?ZGkyL1F6TzZVL2RNS0VZQlR1YnpmdjJuYWFoRXl2dHZLSStTTjBXaytOb3U0?=
+ =?utf-8?B?ZEZLUVFZT2FhWmdXeEEvVFpoMkJuNnA2bzhVYjd4dDRwU0E0d2lFS1VaeFFY?=
+ =?utf-8?B?YVFzQkJscVZ2eTNFdzFaRFBEMFQvczVwWi9LM1hiREpIc1VhcjllbHAwbkts?=
+ =?utf-8?B?MC9FZ2E1aVk1b0tDcUhIRGZRSjBmelVXRmlqc2VLeHVkd203S05EVVI4b3pG?=
+ =?utf-8?B?R3FrK1U0YjIzcXNmSHFOMFVTZ3VnNk1mTHNkbENJcEl1S1ZWLyt1dGJNQW1p?=
+ =?utf-8?B?TGNZY2JYTlFqaDVrYUFRTjhQL1h2WXZKcnc2cjZNSWtkcmdJSFNSb3QyUHNV?=
+ =?utf-8?B?dkd4U3kxWUdOanA1eGRYL0YyOThIbTJrN2dvNEZWMU42MVE1S3FEUHdPNm1u?=
+ =?utf-8?B?bTNWeVZQdEtkbUV1RmVObnpPdDZjWU1CdU9nb3NvSjNCVHBvWU95TFZNUUQ4?=
+ =?utf-8?B?YzV4M0NuWE9QU1lxRlhnUHgwOEhZb0tySFROejY5azMvcnFQYXBYSlZJY2x2?=
+ =?utf-8?B?VUhkdURhelV5cDdtSXFrcnkzYjNZTVRIdHlzdGtOUmcrK1dMQTFwL1Npc0JQ?=
+ =?utf-8?B?MjFLN0RiUXpMWlFlOTRreDNERjYwTkZwZ1ZaNGNZWVhiQVpMVmhjdGFyOHZh?=
+ =?utf-8?B?dy9oNzh6RlJxeEFBdGUxcWJIMC9UWnpQLzdVWlNCaTVFci9xMEt1L01mS2VD?=
+ =?utf-8?B?aW5YM1VxQ3plaXU0VXFFSSt2RS9HZnBEeWFiVTFDVm1GM3FmcFUzRU8wNjBv?=
+ =?utf-8?B?VFNNWGtpK0lvcHhoMUZsRWFLTlhCSVRIQkxPSG52L25VODlORTN2Y0VZSEpR?=
+ =?utf-8?B?bndIeElOOTBjOXdRaXp6T0kxT0JvU2V1SVd4Sm5TZHFESi94SUpOK2lBS2lx?=
+ =?utf-8?B?TzYyTWJwQVI4RXR2ZjYrdzI4QlRzL0U4ZTNjVlJWaE9xNTc4dENvWm5ic1VQ?=
+ =?utf-8?B?bWpoTEtyb2FMQm1zUGZuL0I5YWNkcUhVSkJoU3gvck41aXNWR0htMUJib1lE?=
+ =?utf-8?B?Qm95cTkyeldNNG4xcjkvcTFWaEU5QU5RcE1kYnlWMzZjcUxya2F5RjI0eGJk?=
+ =?utf-8?B?MUQ0cGt5NUFYbnlpWkVsWURLd3BMcWNPRktLZ2VraldMYkxzNXFCa0dQZ29Z?=
+ =?utf-8?B?Vk1MSWhsVGdabHJnSW8vbXZpOFErSm4zelV3UTR3ektHYlNTUWRXbUxJdXQz?=
+ =?utf-8?B?R0NLYmdEbkYya1AwKzFKaTUyMThQMUtGY3BQTElzTWczV3FkUTg3VktZeWdu?=
+ =?utf-8?B?NUU3TjJ6ZGRlQkhOU24vSWNoSTV1SjhoVXRhNmk0QlNsRHZETjFVZGJoczdz?=
+ =?utf-8?B?RCtBQ25XNVdrTDd5TVBJNHhvMFBZbHVqOU5GWmlVbEtZMzBJZUJkbkdwN0FK?=
+ =?utf-8?B?eTBsUEZOeWczMjE3WG5DVTBQSlNweklkV0gyODVhVzBTV2xQcU9qTDAzSVVa?=
+ =?utf-8?B?Wmp6SU9LV2ZUN3hPZEVKWStEbkdEVTFmb25Pc2xUb2JzWHBmOWo5Um9qVUxp?=
+ =?utf-8?B?RzhXWlZOQnJoRjA1SCtFcmVLbU1mTXhsYzIyODRJendpQlV2VHRrcENMYXJo?=
+ =?utf-8?B?SWpsVGhLeFZ0WUZLZVprOU42R2o4Y0F2TG1zdjNMN1J5aUZEZ3Z0WEpqajg4?=
+ =?utf-8?B?TjVHRGhsOFNJU2tRSHNPbUhHUWs1S1orREViWm9mQVVsTFU5YWRxY01NT1cw?=
+ =?utf-8?B?N3lmSmdqek1QYmlCQitYclptS1VpQkF2a21mNk1WcHRGS0tJN2NTRlNYUUhl?=
+ =?utf-8?B?OTg4ek94THpNMU8wOHlkd2hKT0hkNEpzR0hUS0tVb0NGU00rUmE2SitnMXdF?=
+ =?utf-8?B?dXFZSGJPcVFJYlhoUFlIMmx3RVIwdmk3RmEwS0V3TnhZQUthVUFuM1hvaWNP?=
+ =?utf-8?B?NlIzdHVueXRKOVlIK0prV29jVENzcDZpTi9MenRpNW10c25uMVA3T1p6YW80?=
+ =?utf-8?Q?OiNlGPkSgWfbxWUSHi?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaa09384-4982-46e2-68bd-08df1d488a72
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b0454db-b4ad-4cc4-c721-08df1d49015c
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:09:10.9317 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 10:12:30.4114 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uOShepzdSoy1epTOkaBg0QSExypExwIKlg00kkTlV54MaVcnsb+LgXcMomuzbgHH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7144
+X-MS-Exchange-CrossTenant-UserPrincipalName: SshaBPnoL9LuMMwjiqXZpoa5cKs1wLPDijl+XT56a3ntDke7BsEYLShx8jyOQHHH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF9D25F0C6D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,228 +138,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/28/26 07:38, Jianfeng Liu wrote:
-> With CONFIG_DMABUF_DEBUG=y, dma_buf_map_attachment() hands importers a
-> copy of the attachment sg_table with the struct page pointers stripped
-> and sg->length zeroed; only sg_dma_address()/sg_dma_len() are carried
-> over.  msm consumes sg->length and sg_phys() in both of its map paths:
+On 9/28/26 03:59, vitaly.prosyak@amd.com wrote:
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 > 
->  - msm_iommu_pagetable_map() (userspace managed, per-process GPU
->    pagetables) walks the sg_table with sg->length and sg_phys()
+> The IGT amd_dispatch test exposed a NULL pointer dereference in the
+> AMDGPU CS submission path when the GPU schedulers were not ready.
 > 
->  - msm_iommu_map() (kernel managed mappings: display, and TTBR1 for the
->    GPU), via iommu_map_sgtable(), which consumes sg->length and
->    sg_phys() as well
-> 
-> With a page-stripped sg_table both paths silently map nothing and
-> return success.  Userspace then observes arm-smmu translation faults
-> once the GPU first touches the mapping, e.g. during hardware video
-> decode:
-> 
->   gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
->   type=TRANSLATION source=UCHE
-> 
-> and __arm_lpae_unmap() WARNs for the never-mapped ranges when the GEM
-> handles are closed (a WARN storm of ~470 traces within a minute of
-> video playback on my x1e78100 laptop).
-> 
-> For sg entries that still carry a struct page (native objects, and
-> imports without the DMABUF_DEBUG wrapper) keep using sg_phys(), so
-> native objects which msm never dma-maps itself (non-MSM_BO_WC) are
-> unaffected.  For page-less entries, recover the physical address from
-> the DMA address instead: dmabuf attachments are dma-mapped against
-> the msm drm device, so the dma_addr -> phys lookup can be done with
-> iommu_iova_to_phys() in that device's DMA-API domain, cached per VM
-> in struct msm_mmu::dma_domain at msm_gem_vm_create() time.  If the
-> drm device is direct mapped the DMA address already is a physical
-> address and the lookup degenerates to the identity.
+> drm_sched_pick_best() returns NULL when every scheduler in an entity's
+> list is marked not ready. drm_sched_entity_select_rq() then replaces
+> the entity's existing runqueue with NULL.
 
-That is not in any way better than illegally using struct page. The point is we need to get away from using phys_addr at all here.
+That is perfectly correct behavior as far as I can see.
+
+The schedulers should only be marked not ready when they are permanently dead and in this case keeping the existing rq doesn't make sense any more either.
+
+> 
+> A subsequent drm_sched_job_arm() retains that invalid runqueue.
+> When AMDGPU CS submission calls drm_sched_entity_push_job(), the
+> scheduler pointer derived from entity->rq is invalid and the access
+> to sched->score faults. The reported oops shows the sequence:
+> 
+>     [drm] scheduler comp_1.1.0 is not ready, skipping
+>     [drm] scheduler comp_1.2.0 is not ready, skipping
+>     BUG: kernel NULL pointer dereference, address: 0000000000000268
+>     RIP: drm_sched_entity_push_job+0x4f/0x2b0 [gpu_sched]
+>     Call Trace:
+>       amdgpu_cs_ioctl+0x1e9e/0x2530 [amdgpu]
+
+That is clearly a bug in amdgpu. The scheduler behavior here is correct.
 
 Regards,
 Christian.
 
 > 
-> Applied on top of "drm/msm/gem: Drop use of pages for imported
-> dma-bufs" [1], which removes the remaining struct page consumers for
-> imported buffers.  With both, hardware video decode works with
-> DMABUF_DEBUG=y, tested with clapper and chromium on x1e78100
-> (Snapdragon X1E78100): zero arm-smmu faults, zero io-pgtable WARNs,
-> correct frames.  Without this patch, the same system logs a WARN
-> trace per unmap and falls back to a copy path for video playback.
+> Keep the previously selected runqueue when no ready replacement is
+> found. This prevents scheduler selection from turning a valid entity
+> runqueue into NULL; it does not make a stopped scheduler ready or
+> guarantee that the submitted job will execute.
 > 
-> [1] <20260926183051.25754-1-robin.clark@oss.qualcomm.com>
-> 
-> Suggested-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
 > Cc: Christian König <christian.koenig@amd.com>
-> 
-> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 > ---
+>  drivers/gpu/drm/scheduler/sched_entity.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
->  drivers/gpu/drm/msm/msm_gem_vma.c |  9 ++++
->  drivers/gpu/drm/msm/msm_iommu.c   | 90 ++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/msm/msm_mmu.h     | 13 +++++
->  3 files changed, 110 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-> index f687a629629d3..322b96e0e07ec 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -840,6 +840,15 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
->  		goto err_free_vm;
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index 4ebb513255ed..b11e1dddabd0 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -584,8 +584,8 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>  
+>  	spin_lock(&entity->lock);
+>  	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+> -	rq = sched ? &sched->rq : NULL;
+> -	if (rq != entity->rq) {
+> +	if (sched && &sched->rq != entity->rq) {
+> +		rq = &sched->rq;
+>  		drm_sched_rq_remove_entity(entity->rq, entity);
+>  		entity->rq = rq;
 >  	}
->  
-> +	/*
-> +	 * dma-buf imports attach against the msm drm device, and their
-> +	 * sg_dma_address() lives in that device's DMA-API domain.  Keep it
-> +	 * so the map paths can translate page-less sg_table entries (the
-> +	 * DMABUF_DEBUG wrapper) back to physical addresses.
-> +	 */
-> +	if (device_iommu_mapped(drm->dev))
-> +		mmu->dma_domain = iommu_get_dma_domain(drm->dev);
-> +
->  	if (!managed) {
->  		struct drm_sched_init_args args = {
->  			.ops = &msm_vm_bind_ops,
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-> index da6782fca6bd2..8407a37f9efee 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -140,6 +140,24 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
->  	return ret;
->  }
->  
-> +/**
-> + * msm_mmu_dma_to_phys() - recover the physical address of a dma address
-> + *
-> + * dma-buf attachments are dma-mapped against the msm drm device, so the
-> + * DMA domain of that device (msm_mmu::dma_domain) holds the mapping.
-> + * For a direct-mapped drm device the DMA address already is a physical
-> + * address.
-> + */
-> +static phys_addr_t msm_mmu_dma_to_phys(struct msm_mmu *mmu, dma_addr_t dma_addr)
-> +{
-> +	struct iommu_domain *dma_domain = mmu->dma_domain;
-> +
-> +	if (!dma_domain)
-> +		return (phys_addr_t)dma_addr;
-> +
-> +	return iommu_iova_to_phys(dma_domain, dma_addr);
-> +}
-> +
->  static int msm_iommu_pagetable_map_prr(struct msm_mmu *mmu, u64 iova, size_t len, int prot)
->  {
->  	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-> @@ -184,8 +202,35 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
->  		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
->  
->  	for_each_sgtable_sg(sgt, sg, i) {
-> -		size_t size = sg->length;
-> -		phys_addr_t phys = sg_phys(sg);
-> +		size_t size;
-> +		phys_addr_t phys;
-> +
-> +		if (sg_page(sg)) {
-> +			/* CPU-view entry: native objects, and imported
-> +			 * sg_tables that still carry struct page
-> +			 */
-> +			size = sg->length;
-> +			phys = sg_phys(sg);
-> +		} else {
-> +			/*
-> +			 * Page-less entry, e.g. the sg_table wrapper
-> +			 * that dma_buf_map_attachment() hands out when
-> +			 * CONFIG_DMABUF_DEBUG=y (page pointers stripped,
-> +			 * sg->length zeroed, only the DMA fields carried
-> +			 * over).  Recover the physical address by
-> +			 * translating the DMA address through the drm
-> +			 * device's DMA-API domain.
-> +			 */
-> +			size = sg_dma_len(sg);
-> +			phys = msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-> +
-> +			if (!size || !phys) {
-> +				dev_err(mmu->dev,
-> +					"cannot map page-less sg entry: dma=%pad len=%zu\n",
-> +					&sg_dma_address(sg), size);
-> +				return -EINVAL;
-> +			}
-> +		}
->  
->  		if (!len)
->  			break;
-> @@ -697,6 +742,47 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
->  	if (iova & BIT_ULL(48))
->  		iova |= GENMASK_ULL(63, 49);
->  
-> +	/*
-> +	 * With CONFIG_DMABUF_DEBUG=y, imported sg_tables carry no struct
-> +	 * page and sg->length is zeroed; iommu_map_sgtable() would consume
-> +	 * zero length and silently map nothing.  Map from the (translated)
-> +	 * DMA addresses instead.
-> +	 */
-> +	if (!sg_page(sgt->sgl)) {
-> +		struct scatterlist *sg;
-> +		size_t mapped = 0;
-> +		unsigned int i;
-> +
-> +		for_each_sgtable_dma_sg(sgt, sg, i) {
-> +			phys_addr_t phys =
-> +				msm_mmu_dma_to_phys(mmu, sg_dma_address(sg));
-> +			size_t size = sg_dma_len(sg);
-> +
-> +			if (!phys || !size) {
-> +				ret = -EINVAL;
-> +				goto err_unmap;
-> +			}
-> +
-> +			ret = iommu_map(iommu->domain, iova + mapped, phys,
-> +					size, prot, GFP_KERNEL);
-> +			if (ret)
-> +				goto err_unmap;
-> +
-> +			mapped += size;
-> +		}
-> +
-> +		if (mapped != len) {
-> +			ret = -EINVAL;
-> +			goto err_unmap;
-> +		}
-> +
-> +		return 0;
-> +
-> +err_unmap:
-> +		iommu_unmap(iommu->domain, iova, mapped);
-> +		return ret;
-> +	}
-> +
->  	ret = iommu_map_sgtable(iommu->domain, iova, sgt, prot);
->  	if (ret < 0)
->  		return ret;
-> diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-> index 8915662fbd4d0..116daf6ce47cb 100644
-> --- a/drivers/gpu/drm/msm/msm_mmu.h
-> +++ b/drivers/gpu/drm/msm/msm_mmu.h
-> @@ -64,6 +64,19 @@ struct msm_mmu {
->  	 * msm_gem_vm::mmu_lock.
->  	 */
->  	struct msm_mmu_prealloc *prealloc;
-> +
-> +	/**
-> +	 * @dma_domain: DMA-API domain of the msm drm device
-> +	 *
-> +	 * dma-buf attachments are dma-mapped against the msm drm device,
-> +	 * so this domain holds the mapping dma_addr -> phys for imported
-> +	 * buffers.  Used to recover the physical address of sg_table
-> +	 * entries which carry no struct page (e.g. the page-stripped
-> +	 * sg_table wrapper that dma_buf_map_attachment() hands out when
-> +	 * CONFIG_DMABUF_DEBUG=y).  NULL if the drm device is direct
-> +	 * mapped, in which case DMA addresses are physical addresses.
-> +	 */
-> +	struct iommu_domain *dma_domain;
->  };
->  
->  static inline void msm_mmu_init(struct msm_mmu *mmu, struct device *dev,
 
