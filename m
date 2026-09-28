@@ -4,74 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B10AFCA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:22:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F11ACA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D6410EB1F;
-	Mon, 28 Sep 2026 16:22:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8E8E10EB1B;
+	Mon, 28 Sep 2026 16:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="exUCF+uo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bwVKxqWM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0976C10EB17
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:22:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E5B17415AE;
- Mon, 28 Sep 2026 16:22:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243E21F00893;
- Mon, 28 Sep 2026 16:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790612557;
- bh=WuyZUjLenwsCfwS9QKli7wzxywUnFb57xoXkqL2ZFHg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=exUCF+uoC3LJPEFvKkr/Iyg+urdpecMJmq7SPUSTT5u92JP60c4PWpugRa0IgDGSF
- wun3g+u/KBxDs1HuGZcR2mE01wHfBRE3ulSnkwPsj6lYbwQXmX12FqM2pSshmzJ8CH
- s9G351I/gGdlu/uSY0hop3Lv0NdBwkm9JgliyyP5KXPcfzv6nNpnkRUJ4vodk+X+Bl
- g6SkFxdgjDohjlrXzzOP0z68xkaGHWjdZtpTUQhcAoUOTzxmrAdm6ZcYqTl5o8n8qG
- U2jmlW8PLPGNpG7/IYBhw1abW6NZP4kRCxkh+NJKE85073awxYlqp0W4Ijn9YctkHo
- 4IHKt3sA3IwLQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 28 Sep 2026 18:22:06 +0200
-Subject: [PATCH DO NOT MERGE 6/6] arm64: dts: broadcom: Add Raspberry Pi
- ILI9881C DSI panel overlays
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010041.outbound.protection.outlook.com [52.101.56.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B863510EB1B
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:23:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dYnHjlswy32KDS8zcj3GGiO29f9fpQFw7pDPddVcon3846gwKk9e2xZPxkYxY1Jb91XA1kHO124yhsoSxqqW9pfw6XaYXlp3IbmKhTLjURdniCi8m/8m5GwfyOmJ4x7ZzzrmAvGb188zvcq2E16AtS1Hc6hWJtfnFZaEuzlOxCj/l1HSA0uH5XFefLEszpteIUJ2gCNJFMpd5d1iQlgct3+lHJYoOxYh/2oWNbCqghWxw50tFUZGkVuFGwKhu2A7ioCt8Bs6XXHLOwrY5drGh6SYfEwCAvDK4i6mPJYgJ+QcQTHHCUkd/Jxu3K04Hhg0wVCaC7xsumyvWuWXNluz2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OJambJeQVS89QP5SS+oWw+80b9z2/pS8Cdgo5j+faok=;
+ b=qTHtSKRaXIqAfelKzn30+zA8jwbLzPG84y3g0Kvd8z+hXCslRbX3F1MgxdHRe69E7FThK6nHFZkHhj+by6H78BvbQEI+tWp9mxi24y8i1ZhtVTpwhH1Hcbl4M/Pi3edn7SXBZtpogrNvwJuuka/TmTYOV1CUUxRiB1r5/B4L7cGemM6hXmTWWG8fXhE2poz+pIgxgGHYWMmf8yCsSH1/jPgUY7f/zoFwyMf8gtLOcr4CpCsQgjf9c7Ys9P1wx0hsL4whWoX8wKxDFLc7kpEimAo50iETgOr7sR+B5WZsXrjaUwLKN6rZwOYg+bIVwoe8ZVjBj2YmojoqH4DNp/OYQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OJambJeQVS89QP5SS+oWw+80b9z2/pS8Cdgo5j+faok=;
+ b=bwVKxqWMtCdqAUdM6A09z+5IVELdObz4z3qiLtD4Q4DMOtVkCjb4O3vJjLusmSyfEH2ACcMcAq+I6yMkL1H72SAqlXu+GQ8SE/CoisVkXI6ie/hMeUtCbwlkzFUie2ya9pH5TxOsolsiJshHeI2bNkrFFWI75DITa3qzri8oU8c=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7183.namprd12.prod.outlook.com (2603:10b6:510:228::20)
+ by PH7PR12MB8105.namprd12.prod.outlook.com (2603:10b6:510:2b7::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 16:23:02 +0000
+Received: from PH8PR12MB7183.namprd12.prod.outlook.com
+ ([fe80::d54c:d13c:6346:4009]) by PH8PR12MB7183.namprd12.prod.outlook.com
+ ([fe80::d54c:d13c:6346:4009%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 16:23:02 +0000
+Message-ID: <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+Date: Tue, 29 Sep 2026 00:22:50 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ dmitry.osipenko@collabora.com, airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0012.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::8) To PH8PR12MB7183.namprd12.prod.outlook.com
+ (2603:10b6:510:228::20)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-drm-mipi-dsi-panel-ebpf-v1-6-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4776; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ZYgZYD7JpbqT97KHtSk4iVbtoENcGyke2ICgcF7Yk+A=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm7phj/0Lt4cMNSEx3jk6zlPks2G0z0vnmIvUGP9Z7fy
- u3s8zU/d0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJrBRnrI88+bCp864+x7H1
- ngWGbVyysas3C8hxqfK0afGeXl0ayPK67Ze6Lf8hHq365hWSQvrTGesUvyR/Eo1k/vPO/Xgg178
- qFr+C+UuPxSmxPjELvb1vUjnbtLn7JudIzVA/1Kq82yigzwEA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7183:EE_|PH7PR12MB8105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0159946f-2e40-4f6e-7095-08df1d7cc470
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|5023799004|11063799006|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: jhXAjIbjc+Nqwdp+UjeIc7zcGiNMo2MnLwHW1V/hZSExjc4QIicbq2/Mcat1tx3kK2sVBUBRNELqJpYk8qT8l/B84gyFvXTZnntlrbnDY0qRKScgmbv0X6obpW3C7l8kitYL26Ru1p4yT/VE3Z9FUksFVqfO/9YXuw9iKlX/ykwgR/HnHhRMSmqZ/8nSXRCWb795K9aQlcL0qvRM8wUfFsC6iSmT5dv6dE0om7JFpj8KM1AtWpWEFCAB2j++akIbxeZWW+Lwg13NPPvvYqe/HNDcO+O9sli1fpVTjtnZA3TW36ovUGVYaElAdmRuHxnIfUsMjgNRMibua58wOF1/rxR6QKelmyDLT3ycQrvQrLGVCgkQldlszCMVCpP6HofD39l5/CvAiTPx+cPf8hHhhb52f+FhEtDMvq/WcK3SjPUFIf3uSCU40Bh1LoEaeWMMPfeR/EmtlgJI9W3eEKaoyQ2vQu1UOTS7d9O7DlPEVevbxciGdL6LtVjHhiWZaD8yS9WzTHViJ/aCj4O13bL9mQ36vIvU0Amy7p4aj8hFaQetD3XcG6tUZrgz5u5NzGgpQb6L6xEK/JRJ46o4/v7QB4HXn/Vxs/EcJu8tEXIFiLSPFDyPp7YpZtyWs+fVjojFoOxdfEbAFaZ/PrbzOHktu/ZdtMxl3HWnCBFZIUJZB0c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7183.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0JTUHF5amQ1QzhEdDd0dUJrY1l2SEpHRHlUYlphU0NZUHRnbis2aVJHMkFH?=
+ =?utf-8?B?bnpFNGY4MFF0dFhZQlMyQ2FOUkl6VzV2MGhTSzNTS2lTS2UrUzZIcG5GTkJJ?=
+ =?utf-8?B?WkR0ZXd5citvdFNRQ0doVWtHNlF3anNzNzQzK3NmUi9JbStUbHBjbSszdDRU?=
+ =?utf-8?B?b1JTVkJzMU1BeFZoODNzNnc3SWVwaWR1bjlES2grT0Q0cUEwY3BIYlE2RUl4?=
+ =?utf-8?B?TUNqK0pTTjVpaHgvdHhDUXB2VHNORVExSnBpejA1MysxZVVlZEFXSG5OR3Rl?=
+ =?utf-8?B?N2huLzVQRXBpdG9FZjdiS2J4eFBpMTQ4dVdBRnh1Q3pFSmJNRkg1ejYrVkJ2?=
+ =?utf-8?B?WXMxVVlCOG1vMmJRYk5lNWkvTE5ySGp4WVZsVUZmZHNRaCtpVG9LUUFzeHV1?=
+ =?utf-8?B?eHY3OWhyWlByK05RcHBLREZoemxXWnBmc3BFZTZoaFlJczJqeXZXenV5d1dU?=
+ =?utf-8?B?a0JnN2RscGJvbFhlckkyY3dlL1ZCNHdmM241a0hVNnEzUkxmcUM1V1lWalFZ?=
+ =?utf-8?B?NXJoU3Z4Yk1Zd1Y2cHY2S3RvSm5sMzYrd0VZdUtVRi9OdXhIY0pyRldtdU1I?=
+ =?utf-8?B?WC8xOFluL24wUGhiR0NoeUlySEZ1YUdYcktrSHNKaXA4ZTNROEd2WDFzZUM0?=
+ =?utf-8?B?OEYvVWltb0c3RDlPYWxZMENqcytPZUNVMlVrcmcwSDFSQ2lMQUVHaEhSc0sv?=
+ =?utf-8?B?dGFvblpwZmtUUVFiUW1SZnVoT2pscnhWUG1UMmJkd1dVZjZHZitrN0RHV0F4?=
+ =?utf-8?B?YXZubFcrekFDUW82ZStUbFhMSkk5eE1FUVo2T0R1L3dHMDArL3FEYUt6U0dt?=
+ =?utf-8?B?c1licXRmTnZxL3NXdkJYZ3o0ejhyTTZ6S2RaMG8xKy9IK2ZZQTMyZkM4M3h2?=
+ =?utf-8?B?RTY5bUFmWVJmdnpWaWtmdWIyS25ZYmYvRTBHUVE3TFlnOEtzanBnVjJHQi8x?=
+ =?utf-8?B?UEFMRkkwRHJBeUVMMHI5T1pHL2FuQ3RoU0dhOGprZlM1cmdEVHR3Y3lQMzhN?=
+ =?utf-8?B?Nm52UVFsbGVEOWl5bU1MSFN1SEJwSTRKY0x5UTF2UkZuV2lsSGIyUGhsQ2pJ?=
+ =?utf-8?B?MlZobHNVazlJNS9sakZ1SW1xL3BOWWpYT0dQR2FQa2ZXaW5mQ0hQLytDVFBW?=
+ =?utf-8?B?Q0FDc1ZSUUZYQXpwMTBCcTVpcllaQ29ZMDVRcUhlTjhQQm81dkZxa1pYZmZG?=
+ =?utf-8?B?cUkvbUNERGxnTCtWaHJqZVE1NDZjSlVPczRhb3dVMWVOa3ZoZ0labWNPSTRP?=
+ =?utf-8?B?WllBaStiQ05LdlBzNEJFVnV5cEl2T2RqSFczUUZxemVocWF5ME84U2lJUHhz?=
+ =?utf-8?B?VTlUOU9kY0RGV2ZwMnNUNU0rbmRSdTRoS0dMRTVoNHJndGl4S3JnV0xadlNz?=
+ =?utf-8?B?bU0vSW00YTRDRHg1cURrenZKZk5iSnJBR2duSEZUMHBIN0ljNlBabGFOZjFC?=
+ =?utf-8?B?ZW9sdkJLQkFqUkd2U2ZaMGhKRDkwbnlPeHBNeW5JTFRFMXgxNDJpZ1hqWVF2?=
+ =?utf-8?B?eXU4Qys3VGhjLzBrN1loTzRNTXJRMWMxV3h1cEtHTG84Y3dqRnM2NU5aWWht?=
+ =?utf-8?B?dEMvQjJPQnNaa0h2dXFwSi9SQ0VWM1hQUmRoaXUzUW5sV09idjc2RWlRZUdW?=
+ =?utf-8?B?MFFlNkFDMFhxamdLSE4wTzhNT09HTnlNS3lTTTR6Z1ZTWXcxVW5DMnNXZldM?=
+ =?utf-8?B?S0VBamhBOU1FMlNLbFhpcjNkalZ2cndPclNiaGs4ZXROcnhwczBEMjBHR0NR?=
+ =?utf-8?B?L1FBV0w0NUlPK3BDR2VqVmRIanpqVkxRQzZROHB6NG9ORDBnZXJZeEhCdTJC?=
+ =?utf-8?B?Z3dUc3Ntb3NYcjg1NGhqSENaampINHp3eFJWUXducWkwQmdLdnBsS1dqUFZz?=
+ =?utf-8?B?b252OXhoRmE0bTJ0R1FKc1NNTURSdERoMDBmMUp3M0VqTzBnN1lrMzVsaWVZ?=
+ =?utf-8?B?TmFZZ2YvSmdjZmZLRi9vcjRDYmJiQ29wUmFkejFRUWJsWitNdWZFVFhUOFg3?=
+ =?utf-8?B?TzlQVTQ2K1hSVExLRXp6cXFUMUNZRHZTL2l5c2NXaFZ4SWNEWS9ZUHpoL0wy?=
+ =?utf-8?B?cjBQV1FIcGxaTWIvZGs5VTNIY3RkVG1iS1QrWGVGSWFQNFFncjJSZklSTStI?=
+ =?utf-8?B?K0t3L20vdEFWeWZUMWJvNk5TaFJzRktQQ3JXd3pnUEdxS2grQ3RlenFXRTQ2?=
+ =?utf-8?B?YXNlVld3ZXA2Y0EvN1JISWg0b29kcGVNanMrRGRhLzdFU0tJS2RJY0JQdTRW?=
+ =?utf-8?B?SUQwbVdWZGw5NEViRjhiVHR0QnF6VzN6N0lUaE9jcTM3RnEvU0xDUEY3RThr?=
+ =?utf-8?Q?urU5lOjMhWzboG0WU+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0159946f-2e40-4f6e-7095-08df1d7cc470
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7183.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:23:02.0963 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2Vqzi90hBV+UtlEz4QVpoMrq8FNyJXyVS0P8pYhSolf9C5YW5c1GzvIBABNsApfwnd/eJY/rNFgvh1Zpm8JruQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,172 +139,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add device tree overlays for the Raspberry Pi 5-inch and 7-inch
-MIPI-DSI panels (ILI9881C) on the Raspberry Pi 4 Model B.
 
-Both panels share the same I2C-connected display MCU at 0x45 on
-i2c0_1, which provides GPIO and PWM for reset and backlight
-control. The common parts are in a shared dtsi. Each panel overlay
-includes it and adds only the panel-specific compatible string, physical
-dimensions, and timing.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- arch/arm64/boot/dts/broadcom/Makefile              |  8 +++
- .../bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso         | 22 ++++++++
- .../bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso         | 22 ++++++++
- .../dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi  | 65 ++++++++++++++++++++++
- 4 files changed, 117 insertions(+)
+On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+> On 2026/09/24 18:55, Honglei Huang wrote:
+>> Add userptr blob objects so the guest kernel can pin an existing
+>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>
+>> - New virtio_gpu_object_userptr type for userptr resources
+>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>> - Mark writable pages dirty when unpinning
+>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>    cleanup_object() on the unref response or on create failure
+>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>> - Reject unaligned or overflowing userptr ranges at create time
+>> - Disallow PRIME export of userptr objects
+>> - Save CREATE_BLOB params and restore userptr resources after
+>>    hibernation without using the shmem restore path
+>>
+>> The hibernation restore path maps with the same attrs and direction
+>> used at create time, as documented next to the call. Like shmem
+>> blobs, the DMA API can still bounce through a buffer there. This
+>> design only avoids a second guest side shmem allocation and memcpy,
+>> nothing more.
+> 
+> I don't see the restore path is documented though this says "documented 
+> next to the call".
 
-diff --git a/arch/arm64/boot/dts/broadcom/Makefile b/arch/arm64/boot/dts/broadcom/Makefile
-index 01ecfa304184..d717dc8c4071 100644
---- a/arch/arm64/boot/dts/broadcom/Makefile
-+++ b/arch/arm64/boot/dts/broadcom/Makefile
-@@ -13,8 +13,16 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-400.dtb \
- 			      bcm2837-rpi-3-b.dtb \
- 			      bcm2837-rpi-3-b-plus.dtb \
- 			      bcm2837-rpi-cm3-io3.dtb \
- 			      bcm2837-rpi-zero-2-w.dtb
- 
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-4-b-dsi-ili9881-5inch.dtb
-+bcm2711-rpi-4-b-dsi-ili9881-5inch-dtbs := bcm2711-rpi-4-b.dtb \
-+	bcm2711-rpi-4-b-dsi-ili9881-5inch.dtbo
-+
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-4-b-dsi-ili9881-7inch.dtb
-+bcm2711-rpi-4-b-dsi-ili9881-7inch-dtbs := bcm2711-rpi-4-b.dtb \
-+	bcm2711-rpi-4-b-dsi-ili9881-7inch.dtbo
-+
- subdir-y	+= bcmbca
- subdir-y	+= northstar2
- subdir-y	+= stingray
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso
-new file mode 100644
-index 000000000000..99aac1105ac6
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-5inch.dtso
-@@ -0,0 +1,22 @@
-+/dts-v1/;
-+/plugin/;
-+
-+#include "bcm2711-rpi-4-b-dsi-ili9881.dtsi"
-+
-+&panel {
-+	compatible = "raspberrypi,dsi-5inch", "panel-mipi-dsi-bpf";
-+	width-mm = <62>;
-+	height-mm = <110>;
-+
-+	panel-timing {
-+		clock-frequency = <83333000>;
-+		hactive = <720>;
-+		vactive = <1280>;
-+		hfront-porch = <110>;
-+		hsync-len = <12>;
-+		hback-porch = <95>;
-+		vfront-porch = <100>;
-+		vsync-len = <2>;
-+		vback-porch = <100>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso
-new file mode 100644
-index 000000000000..809d9b354b89
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881-7inch.dtso
-@@ -0,0 +1,22 @@
-+/dts-v1/;
-+/plugin/;
-+
-+#include "bcm2711-rpi-4-b-dsi-ili9881.dtsi"
-+
-+&panel {
-+	compatible = "raspberrypi,dsi-7inch", "panel-mipi-dsi-bpf";
-+	width-mm = <90>;
-+	height-mm = <151>;
-+
-+	panel-timing {
-+		clock-frequency = <83330000>;
-+		hactive = <720>;
-+		vactive = <1280>;
-+		hfront-porch = <239>;
-+		hsync-len = <33>;
-+		hback-porch = <50>;
-+		vfront-porch = <20>;
-+		vsync-len = <2>;
-+		vback-porch = <30>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
-new file mode 100644
-index 000000000000..bd08e22581a3
---- /dev/null
-+++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Common DSI infrastructure for Raspberry Pi ILI9881C panels
-+ * (backlight, i2c mux, display MCU, DSI1 port wiring)
-+ *
-+ * Each panel overlay includes this and extends &panel with its own
-+ * compatible, dimensions, and panel-timing.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	panel_backlight: panel_backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 31>;
-+		num-interpolated-steps = <31>;
-+		default-brightness-level = <15>;
-+		pwms = <&display_mcu 0 200000 0>;
-+	};
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c0mux {
-+	status = "okay";
-+};
-+
-+&i2c0_1 {
-+	status = "okay";
-+
-+	display_mcu: display_mcu@45 {
-+		compatible = "raspberrypi,touchscreen-panel-regulator-v2";
-+		reg = <0x45>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		#pwm-cells = <3>;
-+	};
-+};
-+
-+&dsi1 {
-+	status = "okay";
-+
-+	panel: panel@0 {
-+		reg = <0>;
-+		reset-gpios = <&display_mcu 0 GPIO_ACTIVE_LOW>;
-+		backlight = <&panel_backlight>;
-+		dsi-lanes = <2>;
-+		mode-video;
-+		mode-lpm;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&dsi1_out>;
-+			};
-+		};
-+	};
-+
-+	port {
-+		dsi1_out: endpoint {
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
+Will fix in next version
 
--- 
-2.55.0
+> 
+>>
+...
+>> +        goto err_cleanup;
+>> +    }
+>> +
+>> +    userptr->sgt = sgt;
+>> +
+>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>> +        enum dma_data_direction dir =
+>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>> +
+>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>> +                      dir, 0);
+> 
+> I checked the ROCm code and documentation, and I do not see how this 
+> mapping satisfies the HIP coherence contract when bounce buffers or 
+> explicit DMA cache maintenance are required.
+> 
+> HIP distinguishes two coherence models:
+> 
+>  > Coarse-grained coherence: The memory is considered up-to-date only
+>  > after synchronization performed using hipDeviceSynchronize(),
+>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>  > null stream such as hipMemcpy(). To avoid the cache from being
+>  > accessed by a part of the system while simultaneously being written by
+>  > another, the memory is made visible only after the caches have been
+>  > flushed.
+>  >
+>  > Fine-grained coherence: The memory is coherent even while being
+>  > modified by a part of the system. Fine-grained coherence ensures that
+>  > up-to-date data is visible to others regardless of kernel boundaries.
+>  > This can be useful if both host and device operate on the same data.
+> 
+> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+> hip_runtime_api/memory_management/coherence_control.html
+> 
+> Fine-grained access requires coherence throughout execution; copying
+> between the original pages and a bounce buffer only at kernel boundaries
+> would not suffice. Coarse-grained access could support such copies, but
+> they must occur at the required synchronization points. I found no code
+> that synchronizes this DMA mapping at those points.
+>
+
+Whether dma_map_sgtable() bounces is decided by the platform's 
+IOMMU/SWIOTLB behind the device, not by we request. attrs=0 here just 
+matches the existing shmem blob path, and is exactly what native 
+(non-virtualized) ROCm's own userptr support does too:
+
+// drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+kfd_mem_dmamap_userptr()
+ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+
+And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
+as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
+set by whichever driver programs the real GPU's page tables for this memory:
+
+// drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+
+I really want to disable the bounce buffers in DMA, but it is a platform 
+behaviour, can not disable it in this layer. And in XEN, the dmapping 
+for it is another form of iovector/simple sgtable. And if use the 
+virtio-iommu or somthing else, the efficiency and the complexity of 
+driver integration are both lower than using iovector/sgtable directly.
+And for how to handle the DMA thing for userptr, since we have so many 
+concern about it, maybe we can drop this part in next version. But we 
+may have the AI review warn/error.
+
+Regards,
+Honglei
+
+> Regards,
+> Akihiko Odaki
+> 
+>> +        if (ret)
+>> +            goto err_cleanup;
+>> +
+>> +        userptr->dma_dir = dir;
+>> +        userptr->dma_mapped = true;
+>> +    }
+>> +
+>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, &nents);
+>> +    if (ret)
+>> +        goto err_cleanup;
+>> +
+>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
+>> params, ents,
+>> +                        nents);
+>> +
+>> +    userptr->base.params = *params;
+>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
+>> +
+>> +    *bo_ptr = &userptr->base;
+>> +    return 0;
+>> +
+>> +err_cleanup:
+>> +    virtio_gpu_cleanup_object(&userptr->base);
+>> +    return ret;
+>> +}
+> 
 
