@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA87CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 238FACA5FA7
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:15:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9A510E0C6;
-	Mon, 28 Sep 2026 14:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E11F10E0EA;
+	Mon, 28 Sep 2026 14:15:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GVB9k1zh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iFqBoOZ/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 131D610E0C6
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:04:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F5D10E0A4;
+ Mon, 28 Sep 2026 14:15:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D050E4183F;
- Mon, 28 Sep 2026 14:03:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884F61F000FF;
- Mon, 28 Sep 2026 14:03:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 85E73601FA;
+ Mon, 28 Sep 2026 14:15:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617621F000FF;
+ Mon, 28 Sep 2026 14:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790604239;
- bh=/WeJzN1uvcicAm7yj+fD8dy8nhPbclteUW1I7r2fMAY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GVB9k1zhWWDxLCa5/5bQUJcDNa9tZu3XJINUHNCfa30bEi0pSf1aIlXrCGvPEh03v
- fVf1vgSSg7BuUBJhywg+ApevisO9jNJl5JtPV4f8OsKINTYaA8UkMYb8Za7959Gs8u
- N+4I5yHSgFCEz0GCZi55OEFEYiJl0Fi4NVpeAJ4T3YZP6EoXSvFWreXDr+0lHQ3fbH
- pWTXCbYdWrBHPDGK8EFZImTwqb5g/N+4yAlV7AHNaDnKfSGvJUd2evqATZwhisEelv
- 33lPaZnadNiXwn6h/4WNjg7yw+yudb0HLKXoP9lARnxkij0U6vO1gohtA19qKQ1eZe
- ZmvrU7ycjInmQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 13/13] io_uring/rsrc: add dmabuf backed registered
- buffers
-To: "Pavel Begunkov" <asml.silence@gmail.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <f51f95d2e5e2f8c0c4fe0e17364b2b333b6e6cd6.1790602223.git.asml.silence@gmail.com>
-References: <cover.1790602223.git.asml.silence@gmail.com>
- <f51f95d2e5e2f8c0c4fe0e17364b2b333b6e6cd6.1790602223.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 14:03:59 +0000
-Message-Id: <20260928140359.884F61F000FF@smtp.kernel.org>
+ s=k20260515; t=1790604949;
+ bh=Skh8DQCp2nv3OaiAXzd2UCRfKEC6MN1BjZflxEjDB9U=;
+ h=Date:From:To:Cc:Subject;
+ b=iFqBoOZ/q7+B5CQwwc+M8uol5zHMsGlDQmpAYuFuc8s0lphnAjxwE2ju4epnoAKii
+ rIvcERcaUp9l8YicuDrzKdaPPjYg/kBMsUsV182dhBDU4IG1HfFiohiFttwKCKHlq3
+ 4NLGsGPfFc8+ZgLZCDwq9dFvT365MfEwGYmdL2mGF3Jb16rfZJzA9ufFLjE/3K/wVy
+ 0D+kWQmfQmIiDGEMCiurUB/JroNhWDojVONM8B01eosAFEgzSIZa/OPKsZ9xiTdaoX
+ JCmNM1NPEQu7pUsy4A5BNhm2lRQYvOdTEJrLNZ8kDOf6mV0Ba3bFUhs7iB5M4hc0QY
+ 7e8khmS5Gq4UA==
+Date: Mon, 28 Sep 2026 15:15:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, Song Li <songl@zju.edu.cn>
+Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
+Message-ID: <arp2kBw-3U_092_A@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="DpoZFWxevV8j37Ow"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,118 +57,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] io_uring: UAF of dmabuf map on async I/O reissue with partial prog=
-ress
-- [High] io_uring: UAF of driver module due to fput() race in io_release_re=
-g_dmabuf()
---
 
-commit 72563100c98fb5b83c9261811926c28b98fe4b8b
-Author: Pavel Begunkov <asml.silence@gmail.com>
+--DpoZFWxevV8j37Ow
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-io_uring/rsrc: add dmabuf backed registered buffers
+Hi all,
 
-This commit introduces support for dmabuf-backed registered buffers, allowi=
-ng
-users to register a dmabuf file descriptor and a target file. Direct I/O
-requests can then be issued against the target file using standard io_uring
-fixed read/write opcodes.
+Today's linux-next merge of the drm tree got a conflict in:
 
-> diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-> index 6e4fe70b316f0..535cc94a1421f 100644
-> --- a/io_uring/rsrc.c
-> +++ b/io_uring/rsrc.c
+  drivers/gpu/drm/vc4/vc4_v3d.c
 
-[ ... ]
+between commit:
 
-> +static void io_release_reg_dmabuf(void *priv)
-> +{
-> +	struct io_regbuf_dma *db =3D priv;
-> +
-> +	fput(db->target_file);
-> +	dma_buf_io_ctx_release(db->ctx);
+  94cf5971b1d04 ("drm/vc4: drain the hangcheck timer and works on V3D unbin=
+d")
 
-[Severity: High]
-Could this sequence create a race condition with module unloading?
+=66rom the drm-misc-fixes tree and commit:
 
-If fput() is called during process exit (PF_EXITING), it might schedule
-delayed_fput_work on the system workqueue. A concurrent worker thread could
-execute __fput(), dropping the final module reference of
-target_file->f_op->owner.
+  b4448823f151d ("drm/vc4: Use the reset controller to recover from a GPU h=
+ang")
 
-If that happens, and the original thread then proceeds to call
-dma_buf_io_ctx_release(db->ctx) which invokes ctx->dev_ops->release(ctx),
-would this execute unmapped memory if the target module is unloaded in the
-interim?
+=66rom the drm tree.
 
-> +	kfree(db);
-> +}
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-[ ... ]
+diff --cc drivers/gpu/drm/vc4/vc4_v3d.c
+index 0f0c090afa6e2,b40d98c9d1d28..0000000000000
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@@ -9,7 -9,7 +9,8 @@@
+  #include <linux/component.h>
+  #include <linux/platform_device.h>
+  #include <linux/pm_runtime.h>
++ #include <linux/reset.h>
+ +#include <linux/timer.h>
+ =20
+  #include <drm/drm_print.h>
+ =20
 
-> diff --git a/io_uring/rw.c b/io_uring/rw.c
-> index 755166e90746e..9867ae2905e31 100644
-> --- a/io_uring/rw.c
-> +++ b/io_uring/rw.c
-> @@ -367,8 +367,8 @@ static int io_init_rw_fixed(struct io_kiocb *req, uns=
-igned int issue_flags,
->  	if (io->bytes_done)
->  		return 0;
+--DpoZFWxevV8j37Ow
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-Does this early return leave a dangling pointer in the iterator if the
-request is being reissued after partial progress?
+-----BEGIN PGP SIGNATURE-----
 
-If an async I/O request on a dmabuf-backed fixed buffer makes partial
-progress (io->bytes_done > 0) but then completes asynchronously with
--EAGAIN, it appears io_complete_rw() unconditionally calls
-io_req_drop_dmabuf(), dropping the map reference.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6dpAACgkQJNaLcl1U
+h9CO8gf7BapEijDrI3TElqUFtxQoStsBUWQF4tc6K9wQCdCUkqeQ/+e1WP3nMVaa
+s1EBs4mdVfPUual6BlmGnnc6jtjs4ae8UbEOV0UejDdhuHsgPwBLdfxy34GWe6Rr
+ZXRZ1hng4gyNGAORh7NhZJ3GSIrUZYETt3gd8nBnOcQ0M1s7P2y1VVDejW243QtR
+FPe/Gkfwn7F10vF4rwg2zUEaxLqDe621whBF32YBXluW5SBYeEEo8AWp/lBME2Wf
+VZ/9zlEZWyy2NR529mqWkm4YS1aO++EyA+7XzYrMIAohx2eFmYatRVnJUXU4jp0y
+zgo29C1QMvEcThq+r3H+49sJVk4Xkg==
+=T1Ux
+-----END PGP SIGNATURE-----
 
-When the request is caught and requeued to io-wq (because
-__io_complete_rw_common() marks it with REQ_F_REISSUE), returning
-early here bypasses io_import_dmabuf(). Would the iterator then retain
-a dangling pointer to the previously freed map, leading to a
-use-after-free when the block layer processes the remaining bytes?
-
-> =20
-> -	ret =3D io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-> -				issue_flags);
-> +	ret =3D __io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-> +				  issue_flags, IO_REGBUF_IMPORT_ALLOW_DMABUF);
->  	iov_iter_save_state(&io->iter, &io->iter_state);
->  	return ret;
->  }
-
-[ ... ]
-
-> @@ -583,6 +583,8 @@ static void io_complete_rw(struct kiocb *kiocb, long =
-res)
->  	struct io_rw *rw =3D container_of(kiocb, struct io_rw, kiocb);
->  	struct io_kiocb *req =3D cmd_to_io_kiocb(rw);
-> =20
-> +	io_req_drop_dmabuf(req);
-
-[Severity: High]
-Is it safe to unconditionally drop the dmabuf map here before checking if
-the request will be reissued?
-
-If this request made partial progress but completes with -EAGAIN,
-__io_complete_rw_common() will see the result and set REQ_F_REISSUE.
-Since io_req_drop_dmabuf() has already dropped the map, would the
-reissued request in io-wq end up with a dangling map reference if
-io_init_rw_fixed() skips re-importing it?
-
-> +
->  	/* ring owner may block in freeze_super() before task_work runs */
->  	if (kiocb->ki_flags & IOCB_WRITE)
->  		io_req_end_write(req);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790602223.gi=
-t.asml.silence@gmail.com?part=3D13
+--DpoZFWxevV8j37Ow--
