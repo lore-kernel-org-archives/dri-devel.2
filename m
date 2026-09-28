@@ -4,126 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F11ACA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6728CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8E8E10EB1B;
-	Mon, 28 Sep 2026 16:23:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245DB10EB25;
+	Mon, 28 Sep 2026 16:23:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bwVKxqWM";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="wGAo4Usj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fReGh006";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QPuLWW9y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VT6VXm3n";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010041.outbound.protection.outlook.com [52.101.56.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B863510EB1B
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:23:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dYnHjlswy32KDS8zcj3GGiO29f9fpQFw7pDPddVcon3846gwKk9e2xZPxkYxY1Jb91XA1kHO124yhsoSxqqW9pfw6XaYXlp3IbmKhTLjURdniCi8m/8m5GwfyOmJ4x7ZzzrmAvGb188zvcq2E16AtS1Hc6hWJtfnFZaEuzlOxCj/l1HSA0uH5XFefLEszpteIUJ2gCNJFMpd5d1iQlgct3+lHJYoOxYh/2oWNbCqghWxw50tFUZGkVuFGwKhu2A7ioCt8Bs6XXHLOwrY5drGh6SYfEwCAvDK4i6mPJYgJ+QcQTHHCUkd/Jxu3K04Hhg0wVCaC7xsumyvWuWXNluz2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OJambJeQVS89QP5SS+oWw+80b9z2/pS8Cdgo5j+faok=;
- b=qTHtSKRaXIqAfelKzn30+zA8jwbLzPG84y3g0Kvd8z+hXCslRbX3F1MgxdHRe69E7FThK6nHFZkHhj+by6H78BvbQEI+tWp9mxi24y8i1ZhtVTpwhH1Hcbl4M/Pi3edn7SXBZtpogrNvwJuuka/TmTYOV1CUUxRiB1r5/B4L7cGemM6hXmTWWG8fXhE2poz+pIgxgGHYWMmf8yCsSH1/jPgUY7f/zoFwyMf8gtLOcr4CpCsQgjf9c7Ys9P1wx0hsL4whWoX8wKxDFLc7kpEimAo50iETgOr7sR+B5WZsXrjaUwLKN6rZwOYg+bIVwoe8ZVjBj2YmojoqH4DNp/OYQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OJambJeQVS89QP5SS+oWw+80b9z2/pS8Cdgo5j+faok=;
- b=bwVKxqWMtCdqAUdM6A09z+5IVELdObz4z3qiLtD4Q4DMOtVkCjb4O3vJjLusmSyfEH2ACcMcAq+I6yMkL1H72SAqlXu+GQ8SE/CoisVkXI6ie/hMeUtCbwlkzFUie2ya9pH5TxOsolsiJshHeI2bNkrFFWI75DITa3qzri8oU8c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7183.namprd12.prod.outlook.com (2603:10b6:510:228::20)
- by PH7PR12MB8105.namprd12.prod.outlook.com (2603:10b6:510:2b7::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 16:23:02 +0000
-Received: from PH8PR12MB7183.namprd12.prod.outlook.com
- ([fe80::d54c:d13c:6346:4009]) by PH8PR12MB7183.namprd12.prod.outlook.com
- ([fe80::d54c:d13c:6346:4009%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 16:23:02 +0000
-Message-ID: <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
-Date: Tue, 29 Sep 2026 00:22:50 +0800
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE0B10EB21;
+ Mon, 28 Sep 2026 16:23:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3E50B21E46;
+ Mon, 28 Sep 2026 16:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790612590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=wGAo4UsjMD4xRsACbux7hRF89PdH6VrG1OTX748DENa6i6k89nmkQ6TGc6ni64NamyIGAA
+ oh9TZRNNZ5KoqabCytIO+5CRxU+kip6tA5j76jIR8Y/pXHtxt/8944N1oLkBMFROITVOiY
+ 7+UH/IL9iwgIqp7UgS1nAgazCknsg7Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790612590;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=fReGh006NS774Tj0bv4hJ4K6bQi1acNPDg4Ch+xhvmt2yGGFZk+cdqRgogka1jJnvtJkvM
+ Vc7WdxoqiXU4rFCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QPuLWW9y;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VT6VXm3n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790612586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=QPuLWW9yvS1dyzDrKJG/L0OakwzEYR5bN5FTdfTBU4H+uDzfYxuVSGKNog5O6bCyaewatf
+ hR7RVyejbTeQOM9ZPStzGH3v/kvj4NkK4XSIJVkDJFxiqS0Nl3ex5Vjio+TIkxSZkX+YGT
+ hpfHXm2BgYy8LYAcYR21nwLetDeY9X8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790612586;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=+HJjOuO8xcq/OOsycAl+zKOkYJKewV7JxY1ayXejoZo=;
+ b=VT6VXm3naMz6oLGjwMcF7Ln9BZSSJj/687TeV+VL2+LaZRHNx/0r7IpBoocW7vmYhns/yd
+ JqqPodtSwASlSMBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 904EA133F1;
+ Mon, 28 Sep 2026 16:23:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /uN0D2mUumqpdQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 28 Sep 2026 16:23:05 +0000
+Message-ID: <f2fa45c2-8b6a-4097-a974-d3a85fb812d3@suse.de>
+Date: Mon, 28 Sep 2026 18:23:04 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
- dmitry.osipenko@collabora.com, airlied@redhat.com, kraxel@redhat.com
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+Subject: Re: [PATCH v3 1/7] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-1-f2ae987d861f@igalia.com>
+ <3a146579-b9c6-4d4c-835b-89871b0dcd6a@suse.de>
+ <a4593bf7-2036-432f-ba6a-85321fcb28df@suse.de>
 Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <a4593bf7-2036-432f-ba6a-85321fcb28df@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR01CA0012.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::8) To PH8PR12MB7183.namprd12.prod.outlook.com
- (2603:10b6:510:228::20)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7183:EE_|PH7PR12MB8105:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0159946f-2e40-4f6e-7095-08df1d7cc470
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|5023799004|11063799006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: jhXAjIbjc+Nqwdp+UjeIc7zcGiNMo2MnLwHW1V/hZSExjc4QIicbq2/Mcat1tx3kK2sVBUBRNELqJpYk8qT8l/B84gyFvXTZnntlrbnDY0qRKScgmbv0X6obpW3C7l8kitYL26Ru1p4yT/VE3Z9FUksFVqfO/9YXuw9iKlX/ykwgR/HnHhRMSmqZ/8nSXRCWb795K9aQlcL0qvRM8wUfFsC6iSmT5dv6dE0om7JFpj8KM1AtWpWEFCAB2j++akIbxeZWW+Lwg13NPPvvYqe/HNDcO+O9sli1fpVTjtnZA3TW36ovUGVYaElAdmRuHxnIfUsMjgNRMibua58wOF1/rxR6QKelmyDLT3ycQrvQrLGVCgkQldlszCMVCpP6HofD39l5/CvAiTPx+cPf8hHhhb52f+FhEtDMvq/WcK3SjPUFIf3uSCU40Bh1LoEaeWMMPfeR/EmtlgJI9W3eEKaoyQ2vQu1UOTS7d9O7DlPEVevbxciGdL6LtVjHhiWZaD8yS9WzTHViJ/aCj4O13bL9mQ36vIvU0Amy7p4aj8hFaQetD3XcG6tUZrgz5u5NzGgpQb6L6xEK/JRJ46o4/v7QB4HXn/Vxs/EcJu8tEXIFiLSPFDyPp7YpZtyWs+fVjojFoOxdfEbAFaZ/PrbzOHktu/ZdtMxl3HWnCBFZIUJZB0c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7183.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0JTUHF5amQ1QzhEdDd0dUJrY1l2SEpHRHlUYlphU0NZUHRnbis2aVJHMkFH?=
- =?utf-8?B?bnpFNGY4MFF0dFhZQlMyQ2FOUkl6VzV2MGhTSzNTS2lTS2UrUzZIcG5GTkJJ?=
- =?utf-8?B?WkR0ZXd5citvdFNRQ0doVWtHNlF3anNzNzQzK3NmUi9JbStUbHBjbSszdDRU?=
- =?utf-8?B?b1JTVkJzMU1BeFZoODNzNnc3SWVwaWR1bjlES2grT0Q0cUEwY3BIYlE2RUl4?=
- =?utf-8?B?TUNqK0pTTjVpaHgvdHhDUXB2VHNORVExSnBpejA1MysxZVVlZEFXSG5OR3Rl?=
- =?utf-8?B?N2huLzVQRXBpdG9FZjdiS2J4eFBpMTQ4dVdBRnh1Q3pFSmJNRkg1ejYrVkJ2?=
- =?utf-8?B?WXMxVVlCOG1vMmJRYk5lNWkvTE5ySGp4WVZsVUZmZHNRaCtpVG9LUUFzeHV1?=
- =?utf-8?B?eHY3OWhyWlByK05RcHBLREZoemxXWnBmc3BFZTZoaFlJczJqeXZXenV5d1dU?=
- =?utf-8?B?a0JnN2RscGJvbFhlckkyY3dlL1ZCNHdmM241a0hVNnEzUkxmcUM1V1lWalFZ?=
- =?utf-8?B?NXJoU3Z4Yk1Zd1Y2cHY2S3RvSm5sMzYrd0VZdUtVRi9OdXhIY0pyRldtdU1I?=
- =?utf-8?B?WC8xOFluL24wUGhiR0NoeUlySEZ1YUdYcktrSHNKaXA4ZTNROEd2WDFzZUM0?=
- =?utf-8?B?OEYvVWltb0c3RDlPYWxZMENqcytPZUNVMlVrcmcwSDFSQ2lMQUVHaEhSc0sv?=
- =?utf-8?B?dGFvblpwZmtUUVFiUW1SZnVoT2pscnhWUG1UMmJkd1dVZjZHZitrN0RHV0F4?=
- =?utf-8?B?YXZubFcrekFDUW82ZStUbFhMSkk5eE1FUVo2T0R1L3dHMDArL3FEYUt6U0dt?=
- =?utf-8?B?c1licXRmTnZxL3NXdkJYZ3o0ejhyTTZ6S2RaMG8xKy9IK2ZZQTMyZkM4M3h2?=
- =?utf-8?B?RTY5bUFmWVJmdnpWaWtmdWIyS25ZYmYvRTBHUVE3TFlnOEtzanBnVjJHQi8x?=
- =?utf-8?B?UEFMRkkwRHJBeUVMMHI5T1pHL2FuQ3RoU0dhOGprZlM1cmdEVHR3Y3lQMzhN?=
- =?utf-8?B?Nm52UVFsbGVEOWl5bU1MSFN1SEJwSTRKY0x5UTF2UkZuV2lsSGIyUGhsQ2pJ?=
- =?utf-8?B?MlZobHNVazlJNS9sakZ1SW1xL3BOWWpYT0dQR2FQa2ZXaW5mQ0hQLytDVFBW?=
- =?utf-8?B?Q0FDc1ZSUUZYQXpwMTBCcTVpcllaQ29ZMDVRcUhlTjhQQm81dkZxa1pYZmZG?=
- =?utf-8?B?cUkvbUNERGxnTCtWaHJqZVE1NDZjSlVPczRhb3dVMWVOa3ZoZ0labWNPSTRP?=
- =?utf-8?B?WllBaStiQ05LdlBzNEJFVnV5cEl2T2RqSFczUUZxemVocWF5ME84U2lJUHhz?=
- =?utf-8?B?VTlUOU9kY0RGV2ZwMnNUNU0rbmRSdTRoS0dMRTVoNHJndGl4S3JnV0xadlNz?=
- =?utf-8?B?bU0vSW00YTRDRHg1cURrenZKZk5iSnJBR2duSEZUMHBIN0ljNlBabGFOZjFC?=
- =?utf-8?B?ZW9sdkJLQkFqUkd2U2ZaMGhKRDkwbnlPeHBNeW5JTFRFMXgxNDJpZ1hqWVF2?=
- =?utf-8?B?eXU4Qys3VGhjLzBrN1loTzRNTXJRMWMxV3h1cEtHTG84Y3dqRnM2NU5aWWht?=
- =?utf-8?B?dEMvQjJPQnNaa0h2dXFwSi9SQ0VWM1hQUmRoaXUzUW5sV09idjc2RWlRZUdW?=
- =?utf-8?B?MFFlNkFDMFhxamdLSE4wTzhNT09HTnlNS3lTTTR6Z1ZTWXcxVW5DMnNXZldM?=
- =?utf-8?B?S0VBamhBOU1FMlNLbFhpcjNkalZ2cndPclNiaGs4ZXROcnhwczBEMjBHR0NR?=
- =?utf-8?B?L1FBV0w0NUlPK3BDR2VqVmRIanpqVkxRQzZROHB6NG9ORDBnZXJZeEhCdTJC?=
- =?utf-8?B?Z3dUc3Ntb3NYcjg1NGhqSENaampINHp3eFJWUXducWkwQmdLdnBsS1dqUFZz?=
- =?utf-8?B?b252OXhoRmE0bTJ0R1FKc1NNTURSdERoMDBmMUp3M0VqTzBnN1lrMzVsaWVZ?=
- =?utf-8?B?TmFZZ2YvSmdjZmZLRi9vcjRDYmJiQ29wUmFkejFRUWJsWitNdWZFVFhUOFg3?=
- =?utf-8?B?TzlQVTQ2K1hSVExLRXp6cXFUMUNZRHZTL2l5c2NXaFZ4SWNEWS9ZUHpoL0wy?=
- =?utf-8?B?cjBQV1FIcGxaTWIvZGs5VTNIY3RkVG1iS1QrWGVGSWFQNFFncjJSZklSTStI?=
- =?utf-8?B?K0t3L20vdEFWeWZUMWJvNk5TaFJzRktQQ3JXd3pnUEdxS2grQ3RlenFXRTQ2?=
- =?utf-8?B?YXNlVld3ZXA2Y0EvN1JISWg0b29kcGVNanMrRGRhLzdFU0tJS2RJY0JQdTRW?=
- =?utf-8?B?SUQwbVdWZGw5NEViRjhiVHR0QnF6VzN6N0lUaE9jcTM3RnEvU0xDUEY3RThr?=
- =?utf-8?Q?urU5lOjMhWzboG0WU+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0159946f-2e40-4f6e-7095-08df1d7cc470
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7183.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 16:23:02.0963 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2Vqzi90hBV+UtlEz4QVpoMrq8FNyJXyVS0P8pYhSolf9C5YW5c1GzvIBABNsApfwnd/eJY/rNFgvh1Zpm8JruQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8105
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 3E50B21E46
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,139 +164,228 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
-> On 2026/09/24 18:55, Honglei Huang wrote:
->> Add userptr blob objects so the guest kernel can pin an existing
->> userspace mapping and advertise it as CREATE_BLOB backing entries.
+Am 28.09.26 um 18:12 schrieb Thomas Zimmermann:
+>
+>
+> Am 28.09.26 um 18:03 schrieb Thomas Zimmermann:
+> [...]
+>>>   -/**
+>>> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
+>>> absolute value
+>>> - *
+>>> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+>>> - *
+>>> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+>>> - */
+>>> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
 >>
->> - New virtio_gpu_object_userptr type for userptr resources
->> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
->> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
->> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
->> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
->>    required; use DMA_TO_DEVICE for USE_READONLY blobs
->> - Mark writable pages dirty when unpinning
->> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
->>    cleanup_object() on the unref response or on create failure
->> - Clear userptr->pages on pin failure to avoid double-free on cleanup
->> - Reject unaligned or overflowing userptr ranges at create time
->> - Disallow PRIME export of userptr objects
->> - Save CREATE_BLOB params and restore userptr resources after
->>    hibernation without using the shmem restore path
->>
->> The hibernation restore path maps with the same attrs and direction
->> used at create time, as documented next to the call. Like shmem
->> blobs, the DMA API can still bounce through a buffer there. This
->> design only avoids a second guest side shmem allocation and memcpy,
->> nothing more.
-> 
-> I don't see the restore path is documented though this says "documented 
-> next to the call".
+>> As Jani noted, the types seem to be off here. The timeout should 
+>> likely by unsigned. Jiffies are counted in u64 and the helper should 
+>> return it as such.
+>
+> Scratch that. Jiffies are stored in unsigned long. So this should be 
+> returned.
 
-Will fix in next version
+Oh well, jiffies.h is confusing to me. There's a 32-bit and a 64-bit 
+interface. I guess the 32-bit variant is good enough for us for now. If 
+we ever need jiffies_64, we can add 64-bit variants of the DRM helpers 
+as well.
 
-> 
+Best regards
+Thomas
+
+>
 >>
-...
->> +        goto err_cleanup;
->> +    }
->> +
->> +    userptr->sgt = sgt;
->> +
->> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
->> +        enum dma_data_direction dir =
->> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
->> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
->> +
->> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
->> +                      dir, 0);
-> 
-> I checked the ROCm code and documentation, and I do not see how this 
-> mapping satisfies the HIP coherence contract when bounce buffers or 
-> explicit DMA cache maintenance are required.
-> 
-> HIP distinguishes two coherence models:
-> 
->  > Coarse-grained coherence: The memory is considered up-to-date only
->  > after synchronization performed using hipDeviceSynchronize(),
->  > hipStreamSynchronize(), or any blocking operation that acts on the
->  > null stream such as hipMemcpy(). To avoid the cache from being
->  > accessed by a part of the system while simultaneously being written by
->  > another, the memory is made visible only after the caches have been
->  > flushed.
->  >
->  > Fine-grained coherence: The memory is coherent even while being
->  > modified by a part of the system. Fine-grained coherence ensures that
->  > up-to-date data is visible to others regardless of kernel boundaries.
->  > This can be useful if both host and device operate on the same data.
-> 
-> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
-> hip_runtime_api/memory_management/coherence_control.html
-> 
-> Fine-grained access requires coherence throughout execution; copying
-> between the original pages and a bounce buffer only at kernel boundaries
-> would not suffice. Coarse-grained access could support such copies, but
-> they must occur at the required synchronization points. I found no code
-> that synchronizes this DMA mapping at those points.
+>> If you have the time, another such patch on top would be appreciated.
+>
+> ^ This.
+>
+> Best regards
+> Thomas
+>
+>
+>>
+>> Best regards
+>> Thomas
+>>
+>>
+>>> -{
+>>> -    ktime_t abs_timeout, now;
+>>> -    u64 timeout_ns, timeout_jiffies64;
+>>> -
+>>> -    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
+>>> -    if (timeout_nsec == 0)
+>>> -        return 0;
+>>> -
+>>> -    abs_timeout = ns_to_ktime(timeout_nsec);
+>>> -    now = ktime_get();
+>>> -
+>>> -    if (!ktime_after(abs_timeout, now))
+>>> -        return 0;
+>>> -
+>>> -    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+>>> -
+>>> -    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+>>> -    /*  clamp timeout to avoid infinite timeout */
+>>> -    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+>>> -        return MAX_SCHEDULE_TIMEOUT - 1;
+>>> -
+>>> -    return timeout_jiffies64 + 1;
+>>> -}
+>>> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>>> -
+>>>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>>>                     struct drm_file *file_private,
+>>>                     struct drm_syncobj_wait *wait,
+>>> diff --git a/drivers/gpu/drm/drm_timeout.c 
+>>> b/drivers/gpu/drm/drm_timeout.c
+>>> new file mode 100644
+>>> index 000000000000..35e10293e0a1
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/drm_timeout.c
+>>> @@ -0,0 +1,50 @@
+>>> +// SPDX-License-Identifier: MIT
+>>> +/*
+>>> + * Timeout conversion helpers for wait ioctls.
+>>> + *
+>>> + * Copyright 2017 Red Hat
+>>> + * Copyright 2016 Advanced Micro Devices, Inc.
+>>> + */
+>>> +
+>>> +#include <linux/export.h>
+>>> +#include <linux/jiffies.h>
+>>> +#include <linux/ktime.h>
+>>> +#include <linux/sched.h>
+>>> +
+>>> +#include <drm/drm_timeout.h>
+>>> +
+>>> +/**
+>>> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from 
+>>> absolute value
+>>> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+>>> + *
+>>> + * Calculate the timeout in jiffies from an absolute time in ns. 
+>>> The result is
+>>> + * clamped to MAX_SCHEDULE_TIMEOUT - 1 to avoid infinite timeouts.
+>>> + *
+>>> + * Returns:
+>>> + * The number of jiffies until the given timeout, or the upper limit.
+>>> + */
+>>> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>>> +{
+>>> +    ktime_t abs_timeout, now;
+>>> +    u64 timeout_ns, timeout_jiffies64;
+>>> +
+>>> +    /* make 0 timeout means poll - absolute 0 doesn't seem valid */
+>>> +    if (timeout_nsec == 0)
+>>> +        return 0;
+>>> +
+>>> +    abs_timeout = ns_to_ktime(timeout_nsec);
+>>> +    now = ktime_get();
+>>> +
+>>> +    if (!ktime_after(abs_timeout, now))
+>>> +        return 0;
+>>> +
+>>> +    timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+>>> +
+>>> +    timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+>>> +    /*  clamp timeout to avoid infinite timeout */
+>>> +    if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+>>> +        return MAX_SCHEDULE_TIMEOUT - 1;
+>>> +
+>>> +    return timeout_jiffies64 + 1;
+>>> +}
+>>> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>>> diff --git a/drivers/gpu/drm/lima/lima_gem.c 
+>>> b/drivers/gpu/drm/lima/lima_gem.c
+>>> index 0c73860bb501..97e1dc541c2e 100644
+>>> --- a/drivers/gpu/drm/lima/lima_gem.c
+>>> +++ b/drivers/gpu/drm/lima/lima_gem.c
+>>> @@ -10,7 +10,7 @@
+>>>     #include <drm/drm_file.h>
+>>>   #include <drm/drm_syncobj.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include <drm/lima_drm.h>
+>>>   diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c 
+>>> b/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> index 96a66d673ba6..70c05210ea84 100644
+>>> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+>>> @@ -18,7 +18,7 @@
+>>>   #include <drm/drm_ioctl.h>
+>>>   #include <drm/drm_print.h>
+>>>   #include <drm/drm_syncobj.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include "panfrost_device.h"
+>>>   #include "panfrost_drv.h"
+>>> diff --git a/drivers/gpu/drm/tegra/uapi.c 
+>>> b/drivers/gpu/drm/tegra/uapi.c
+>>> index c0ac6b45f2d7..bee310b07eb0 100644
+>>> --- a/drivers/gpu/drm/tegra/uapi.c
+>>> +++ b/drivers/gpu/drm/tegra/uapi.c
+>>> @@ -7,7 +7,7 @@
+>>>     #include <drm/drm_drv.h>
+>>>   #include <drm/drm_file.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>     #include "drm.h"
+>>>   #include "uapi.h"
+>>> diff --git a/drivers/gpu/drm/xe/xe_wait_user_fence.c 
+>>> b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> index 51eb940ceb4e..e241f3ec3547 100644
+>>> --- a/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> +++ b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+>>> @@ -7,7 +7,7 @@
+>>>     #include <drm/drm_device.h>
+>>>   #include <drm/drm_file.h>
+>>> -#include <drm/drm_utils.h>
+>>> +#include <drm/drm_timeout.h>
+>>>   #include <uapi/drm/xe_drm.h>
+>>>     #include "xe_device.h"
+>>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
+>>> new file mode 100644
+>>> index 000000000000..cd9621c52062
+>>> --- /dev/null
+>>> +++ b/include/drm/drm_timeout.h
+>>> @@ -0,0 +1,16 @@
+>>> +/* SPDX-License-Identifier: MIT */
+>>> +/*
+>>> + * Function prototypes for timeout conversion helpers for wait ioctls.
+>>> + *
+>>> + * Copyright 2017 Red Hat
+>>> + * Copyright 2016 Advanced Micro Devices, Inc.
+>>> + */
+>>> +
+>>> +#ifndef __DRM_TIMEOUT_H__
+>>> +#define __DRM_TIMEOUT_H__
+>>> +
+>>> +#include <linux/types.h>
+>>> +
+>>> +signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
+>>> +
+>>> +#endif
+>>> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+>>> index 7e077484c5bb..c61dee76451c 100644
+>>> --- a/include/drm/drm_utils.h
+>>> +++ b/include/drm/drm_utils.h
+>>> @@ -25,6 +25,4 @@ struct drm_panel_backlight_quirk {
+>>>   const struct drm_panel_backlight_quirk *
+>>>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>>>   -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+>>> -
+>>>   #endif
+>>>
+>>
 >
 
-Whether dma_map_sgtable() bounces is decided by the platform's 
-IOMMU/SWIOTLB behind the device, not by we request. attrs=0 here just 
-matches the existing shmem blob path, and is exactly what native 
-(non-virtualized) ROCm's own userptr support does too:
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-// drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
-kfd_mem_dmamap_userptr()
-ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
-
-And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
-property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
-as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
-set by whichever driver programs the real GPU's page tables for this memory:
-
-// drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
-mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
-
-I really want to disable the bounce buffers in DMA, but it is a platform 
-behaviour, can not disable it in this layer. And in XEN, the dmapping 
-for it is another form of iovector/simple sgtable. And if use the 
-virtio-iommu or somthing else, the efficiency and the complexity of 
-driver integration are both lower than using iovector/sgtable directly.
-And for how to handle the DMA thing for userptr, since we have so many 
-concern about it, maybe we can drop this part in next version. But we 
-may have the AI review warn/error.
-
-Regards,
-Honglei
-
-> Regards,
-> Akihiko Odaki
-> 
->> +        if (ret)
->> +            goto err_cleanup;
->> +
->> +        userptr->dma_dir = dir;
->> +        userptr->dma_mapped = true;
->> +    }
->> +
->> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, &nents);
->> +    if (ret)
->> +        goto err_cleanup;
->> +
->> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
->> params, ents,
->> +                        nents);
->> +
->> +    userptr->base.params = *params;
->> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
->> +
->> +    *bo_ptr = &userptr->base;
->> +    return 0;
->> +
->> +err_cleanup:
->> +    virtio_gpu_cleanup_object(&userptr->base);
->> +    return ret;
->> +}
-> 
 
