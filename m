@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31ADDC9830E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 01:31:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B8B4C9830E
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 01:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7408C10E4B9;
-	Mon, 28 Sep 2026 01:31:49 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [13.75.44.102])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9F50210E4B9
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:31:48 +0000 (UTC)
-Received: from zju.edu.cn (unknown [10.98.66.117])
- by mtasvr (Coremail) with SMTP id _____wDngzxxw7lqQME_AQ--.18158S3;
- Mon, 28 Sep 2026 09:31:29 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
- by mail-app3 (Coremail) with UTF8SMTPA id zS_KCgAX+6dxw7lq4NIaAA--.23320S2;
- Mon, 28 Sep 2026 09:31:29 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: lucas.demarchi@intel.com
-Cc: raag.jadav@intel.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v3] drm/xe/i2c: cancel the client work on remove
-Date: Mon, 28 Sep 2026 01:30:30 +0000
-Message-Id: <20260928013030.612592-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8559710E51E;
+	Mon, 28 Sep 2026 01:42:49 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WB0bBJ5P";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 880E310E51E
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 01:42:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A43E429C6;
+ Mon, 28 Sep 2026 01:42:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37BB1F00893;
+ Mon, 28 Sep 2026 01:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790559767;
+ bh=6y0ztU54hUhOYiYC/am70qRYd9AdAgArGk3hXOOhaaI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WB0bBJ5PoplqktgtdmoblaaGUd9xLvkcTIzbYA6pDgRI3SHu8VgOyrhGFMtvyBjR+
+ 6ppJ0jqVrxbUJu1mw0nt0IqiqbL7InEDevGUQsYHaCHO1fDNtGfzk/R1umaKNxLfQX
+ 9dvZIUMdr+KhN4nR9UlBlEQ6ceKllJ7ogP440gqp+tz7qtNrj6feUbs3wgWZecNbnd
+ 0YPMuJHVScjYH2GJA7ZdEzpPTuSFy5ts6BlCvHYjlS4pfsmhtTQ1VhA0eAkEug28ae
+ MGvhv6iIMm3Aksu/z5N4LLMxOGCP7lrAFOQ9yiuV3n0ua+LQLsulCdDhn8D0938Z4z
+ S5r3cESCquQzg==
+Date: Sun, 27 Sep 2026 20:42:43 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: erebion <erebion@erebion.eu>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
+Message-ID: <arnF0u2F9ipfnNP-@zenbook>
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zS_KCgAX+6dxw7lq4NIaAA--.23320S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xPWWJQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
- sfnbfYAegEspJ+qccDMUwRutu124ZyaTE3EU4k7BkgWOWCX6PgIqM1qRe4CLMsMP4/CcYP
- q5WdbJ2wszwILaV1EN/N5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxCFWrZrW3AF1UuFy7XF15KFX_yoW5tFyxp3
- 90gFW5GFWvqay2gw42va1xCFy8Ca1fJrWfCr17J3y3u3ZIkr17KrZxtFW5ZFyjyr4kZa4Y
- vrn0q3y29FWUAFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
- kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
- 6r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
- Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- 42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
- WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
- I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
- 4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
- 6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwmiiDUUUU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,86 +66,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To: lucas.demarchi@intel.com
-Cc: raag.jadav@intel.com,
-    matthew.brost@intel.com,
-    thomas.hellstrom@linux.intel.com,
-    rodrigo.vivi@intel.com,
-    airlied@gmail.com,
-    simona@ffwll.ch,
-    intel-xe@lists.freedesktop.org,
-    dri-devel@lists.freedesktop.org,
-    linux-kernel@vger.kernel.org
+On Sat, Sep 26, 2026 at 04:00:50PM +0200, erebion wrote:
+> Add a node for the camera flash LED found on the Xperia 10 III
+> 
+> Signed-off-by: erebion <erebion@erebion.eu>
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+Per
+https://www.kernel.org/doc/html/v4.19/process/submitting-patches.html#developer-s-certificate-of-origin-1-1
+please use your real name.
 
-xe_i2c_remove() tears down the AMC, unregisters the client devices,
-the bus notifier and the adapter platform device, but it never drains
-i2c->work. A work item that is still queued or running when the
-adapter is unregistered dereferences i2c->adapter in
-i2c_new_client_device() after platform_device_unregister() has
-released the adapter. The work item is also embedded in the
-devm-allocated struct xe_i2c, so a work item still queued after the
-drm device devm unwind frees that allocation runs its callback on
-freed memory.
+Regards,
+Bjorn
 
-The bus notifier is the only thing that schedules this work, and it is
-unregistered after the client devices. An instance that is still queued
-when the teardown runs can therefore write
-i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-clearing the same array, and an AMC client it instantiates late is only
-cleaned up by the adapter's own child sweep in i2c_del_adapter().
-
-Move bus_unregister_notifier() in front of the client teardown loop
-and cancel the work right after it, so no new instance can be
-scheduled and a queued instance is drained before the client array is
-touched. A running instance still finds a live adapter, since the
-adapter is unregistered later.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-
-Changes in v3:
-- rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
-- discussion: Link: above points at the v2 thread
-- unregister the bus notifier before the client teardown loop and
-  cancel the work before the loop as well: v2 cancelled the work only
-  after the loop, so an event arriving during the loop could still
-  schedule the work to race with the array teardown and leak a freshly
-  instantiated AMC client
- drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index f4f3819..b82caaf 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
- 	xe_i2c_irq_reset(xe);
- 	xe_amc_exit(i2c);
- 
-+	/* Stop the notifier from arming the client work before teardown. */
-+	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
-+
- 	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
- 		i2c_unregister_device(i2c->client[i]);
- 		i2c->client[i] = NULL;
- 	}
- 
--	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe->i2c = NULL;
- }
-
+> ---
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 6e2bbf4f060ac..79aa2521aed40 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,9 +4,11 @@
+>   */
+>  /dts-v1/;
+>  
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include "sm6350.dtsi"
+> +#include "pm6150l.dtsi"
+>  #include "pm6350.dtsi"
+>  
+>  / {
+> @@ -302,6 +304,19 @@ touchscreen@48 {
+>  	};
+>  };
+>  
+> +&pm6150l_flash {
+> +	status = "okay";
+> +
+> +	led-0 {
+> +		function = LED_FUNCTION_FLASH;
+> +		color = <LED_COLOR_ID_WHITE>;
+> +		led-sources = <1>;
+> +		led-max-microamp = <180000>;
+> +		flash-max-microamp = <1000000>;
+> +		flash-max-timeout-us = <1280000>;
+> +	};
+> +};
+> +
+>  &pm6350_gpios {
+>  	vol_down_n: vol-down-n-state {
+>  		pins = "gpio2";
+> 
+> -- 
+> 2.53.0
+> 
+> 
