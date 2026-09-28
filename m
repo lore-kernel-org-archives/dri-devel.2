@@ -4,177 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE2FC9833F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 13:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E97DC9833F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 14:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE8010EA90;
-	Mon, 28 Sep 2026 13:57:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AADA610EABE;
+	Mon, 28 Sep 2026 14:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z4tRZgHZ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IpdTYsG0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BTaRot/Y";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE6F10EA90
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:57:49 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68SBAJvN2404444
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:57:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=; b=Z4tRZgHZskb8ptT5
- TWLgXlXd5ZEfOMXoSIMOXv3xiSCfmZPrN/BXEN2Jx/EI7xgxsl/mhtg23qiOqhBr
- lotZeIr931hrlSEd5cQ/+wfndIUB7MMIEPhy0N4qQaoL3vx0QDP3gKzGCBMkjA4K
- qZEViEARpzKBw/bZJdJ6k6fM60UXmpX36/eFY3dIVjAN/AFSwPSLBAOzinZyFOZG
- 8mAxM8Svcg16uWsn2JDQlVfu7pS1jD7EKG1O73xL6IcpK9DHPvN80Fj2n8ZkDcIH
- gzgCPX/52m/fh2UgSttxIDJ4qB8q8S1LQf9euuiVEAdLjZcrqYl5RVZOicTCxXKu
- X1l8WA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj6t1ss8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 13:57:48 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-86ab8302b54so2399877b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 06:57:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790603868; cv=none;
- d=google.com; s=arc-20260327;
- b=g+2Kr9ic7IWsE0M7wXQmMUjUHWmrnnTgoDGGMaVELhxt4ZhhiP+ShMzu1TSE4eubsq
- +R29YibPvZ2zDUlSev1+xbFAwWadIcyjI2+ReiGa2ApeOIF9nTHesMhaiSBNCW1o2+J2
- nBn5IGeI7I3zMcVSzxaejDLzX6cRqKvq7SL98kjSb/H3GhRZHemoEmsgXfv/KFF5B8n9
- rNXKpSxo+AdTqMHKIP/tlWfZh0cCwnaaXALyVRqB5w1DOjtJF3JkLmmau0LPKKlJAQN6
- y9e0L4nLZ7jjojaa+DyEtxEyaUnHDCbgTxUNo2CBgGULGlvNv+MBEeCC7fBQZn+gZzS/
- PvSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
- fh=xc2JQrxXDYwgdwDLTohYpYW5GN9MAXhbS8zHv0iC2vc=;
- b=jWrNmY4SH8fF6671SvEHg2mzfYdF+WyDCVhvRxLT5efMKozYDLYzLgBaUDzriaRCOm
- ZQ1SxMOoyVXYpEYGcdgYcq6lWej6VxPm6taKS3yxtol/0YvRiC5urbXBPMlVJ8elHYe3
- 7SwuDN690MwvwagbN7UT0LRj8sl4Vap4ElnXDOiFHUe1NLu0cnhZinHgLJPm6WAO2vCy
- Ks50vqjbmjTRZbAKmNaq4BRcxF5ulKfKPuDgwCEys+z+hxk2mlh22UTZLH+ryukjG/dN
- 1v7wSJIlqIU7J0RlV8hDXmQ9opyfyT6lCmar5o4MyhNicwTbWTbOThbDEcT9YbIoiqLC
- TxNQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790603868; x=1791208668;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
- b=IpdTYsG0cZJTLs5Hyi1saGcKwVIzN6A7yX2PWm0EMZw/1/qVhHFdKyQpoSGJISDMkd
- 7kfcrltUOKArKYet7lXEQJWrJ1d3S5kIV4BKXv/I1qGILqVwecKq0nrWW+ZmZ+VsEZMO
- GCJZskNytHCceyZcELvZnTAzklfP4VYav5UUr+U+Vk1TeOMXiKM6n/urnFq7H+YX9HoJ
- JbvwC+59FgI0G7SaVrKiIC046Tefa+kvgnfIaliO+/18m2d0rWByIVpmIRKEf6AUPPtl
- ECe6VeOfdevuVYOMg45V89/FEQjTPLS2QRM96AjYGY/TzWix25GfzYvh3Cx+pmQL8VIX
- TOPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790603868; x=1791208668;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KNeJ1ZSGtxogqYjubG/I2m2j0TylLASWTRkIlPxaG/Y=;
- b=K+nJ31JqvzGvLW24smUVklV/Vfq+obzHE0MONPy859vR1sJifOAcV5AR22HOojwAc+
- +DVjCKN3E+z7BBR8nWCxIxdDed2nQOqdy+JTIv7MLhHR874ocDkfh+nLKjDKV/hfwbMg
- bRx2AAZwBxlnSh1ZfD/OEmWgb6ox2Te2uPd6JRjbkYTZvpCez0vLsOeYJEnV1L42Ul6D
- KX+jQPSjA32AR2Pyv7dAwB+61Y3kBLiP6eouOn5QEMlDjY0zuJ873zUe0UafdsJMTvHw
- uX9O4Npa5cjjZI8BokK26siR4WeMPiLonGzarkNLRA3JBNAsy+r+dkWwsiJTY+uGXUGB
- rfFw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwkpZmh9DDGtWxbMF5yhbigB/Nqwr2sKbwU4iH/mDI4yA6Fj/azfj+39kvvf6zyTlfY43AATYx7plk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLt1tiN5JbM0zUxDxA/hrG11nzS2PJo/wv+c9hTH+WYaKB+KOeM
- tXESVtjGghdimyxmSqq9RKuUTGDl9U71nG7OBNH1eVVP5OVcbxT320PFAEdfNmbk5be8YI3mKox
- 56baQDBIfcuzdh2pYpDxQBqKmTVl14ObM9MwTDYZa3T5Wc3uxrXBSu4O2RWDRrKZ3XhzUkbwRq9
- Yw+gOt+AcFw+iOQCTxBab8q2hrfK0rXw4TqoORxTn2idFnPA==
-X-Gm-Gg: AYBFou3eXNN19uxURzr1sItuBau9MlzlNuyQQrm6qU+XbQLDSPy4jj7DKIxPBlpSpbZ
- Ko3u3CzKzLF3IKuKWyQDgL0ay8ZcbCDVycnPArj8cE2a0BwuZoamkNp5TLHsCS6OGyJYfyJdWC3
- tXARVET7SkbQSGtQ4I40+BPhSIdTxsvIRjbaMiuGZR0t4AOHDRb/i/T4WjtA==
-X-Received: by 2002:a05:6a00:950f:b0:881:c881:96e8 with SMTP id
- d2e1a72fcca58-881c8819a45mr4006771b3a.23.1790603868171; 
- Mon, 28 Sep 2026 06:57:48 -0700 (PDT)
-X-Received: by 2002:a05:6a00:950f:b0:881:c881:96e8 with SMTP id
- d2e1a72fcca58-881c8819a45mr4006707b3a.23.1790603867726; Mon, 28 Sep 2026
- 06:57:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
-In-Reply-To: <20260921-msm8952-initial-support-v3-4-b96fd3fe298b@mainlining.org>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 15:57:35 +0200
-X-Gm-Features: AclHuK-nE9h16BssbY-0V-0Lcqrz78yNjoqqCVRnCD5BWpC1wzqbo2Hd-T05VXY
-Message-ID: <CAPx+jO9Vj=42dHEwLzTHe1b+nrvip+ibVv4iPquxwJKbFAkm=A@mail.gmail.com>
-Subject: Re: [PATCH v3 04/19] dt-bindings: power: rpmpd: Add MSM8952 power
- domains
-To: muzafferkadir@mainlining.org
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A63710EAA9
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 14:02:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B917600CB;
+ Mon, 28 Sep 2026 14:02:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C56B1F000FF;
+ Mon, 28 Sep 2026 14:02:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790604128;
+ bh=BOa3sIAG7r2EuI4F9nzIg8VrPUo/oQJA+Galf14HOsk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BTaRot/YtNOtkIPFG0j5W9lFu+AG++el3qopIo3RMW6zp2WeY8+Fq8WDF1MNbhzvu
+ 6xgi4MQk3ZXW3oD5NU0Hm4TeII9IVbPfhgECKgC8TqriQlYwCzAobD2YNEC2yBzYwW
+ NT4MiOOteYbCpa/ohsmt0PcMti/HwVgODhC8wiw9R4fchqa5Z9B5CtH2WIYesy8Oh1
+ sGmkp87r0+0OuySU+YdYXleGBU+vLRr1PK/YHd98OnGWV+nxtV8YNF9T5xsTMN/+lb
+ /H+SdzgaPd2T455gZsRvm6IgPNcLqQsyode02VoznN4UfifBm2fez3PD6b1e3aoUgh
+ rTHUKrF8nkefA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
+To: "Pavel Begunkov" <asml.silence@gmail.com>
+Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA1NSBTYWx0ZWRfX8K0Vi8UWAwwG
- m6/CSuSOCwCexLXLy+f7E2fNdnLPzw+wlNs19xP7d5289Un4nz0zqk8JjFJjp62aqhK+IwJtqfw
- D6Ljsa+anW16eTgMYHwv7R4jnZBbYxPOok550U7B4KbtoyzyBVKZTPOqX09dpSpydEpH4wRGT+G
- EtsHDufVphg7wSr4NONEwosw+gWRqxAmmrnCY1dneOUjPz9mLBdSzPIAgkK/gp+lGp5meqe1tbp
- jv0owob43R/zS84Vsyy4+erhTok15am/WndIWCaMfYsQcyvJ0s4iwF7jvtGFJN7tyh4KU8EaYgF
- 40XmDAGsV9p2yxQc3k48XwAWEcNU8GX9fLK+07oDauGvh0DxjXNZkbYn8D9Afunr9zR0xPmpYpY
- Hv4G7oB1I7FeyWJ3Ep5Tue5PEbYyqUNB1Ku6lVYrMYDILJ5hghJnBu+DsCkg2ZQ3PZn5JqRUApN
- nYbSR2gCbRuTCcui2ng==
-X-Proofpoint-ORIG-GUID: QQ-C4fa2lDijDXvj4VslKNCOkutHwd7W
-X-Authority-Analysis: v=2.4 cv=dZkVTnXe c=1 sm=1 tr=0 ts=6aba725c cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=OuZLqq7tAAAA:8
- a=xo1k5ONJVskqAlz3UKAA:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
- a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-GUID: QQ-C4fa2lDijDXvj4VslKNCOkutHwd7W
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA1NSBTYWx0ZWRfX1IfsXodcVBSi
- vTBsC2sVjZT8VsXf5E4ZB7RmLT6sfIboYJNElZPuz0RO+a4zWwouF+pn3BAiklhpC2iawq0pTdr
- NdF1A+jIE+pOYaG2fJx62exQ9lD8uIE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280055
+Date: Mon, 28 Sep 2026 14:02:07 +0000
+Message-Id: <20260928140208.0C56B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,43 +53,192 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 8:19=E2=80=AFPM Muzaffer Kadir via B4 Relay
-<devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
->
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->
-> Document the compatible for the rpmpd found on MSM8952.
->
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] block: out-of-bounds heap read in nvme_rq_setup_dmabuf_map all=
+ows arbitrary DMA
+- [High] mm: invalid kfree() on kvmalloc_flex() allocation in nvme_dma_buf_=
+io_map
+- [High] mm: heap buffer overflow in nvme_dma_buf_io_map due to truncated n=
+r_entries
+- [High] mm: double free of PRP lists on nvme_rq_setup_dmabuf_map error path
+--
 
-Applied for next, thanks!
+commit 0b541f35b5346961c2c0d5b3cd4aa8c755c332a2
+Author: Pavel Begunkov <asml.silence@gmail.com>
 
-Kind regards
-Uffe
+nvme-pci: implement dma-buf backed requests
 
+Enable BIO_DMABUF_MAP backed requests. On registration we map the
+dma-buf and store it as a prp list, which is then used to initialise
+requests. All attached contexts are stored in a new list dmabuf_ctxs,
+and additions/removals are synchronised with dmabuf_lock.
 
-> ---
->  Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Do=
-cumentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> index a70bfacbc5d1..8ee1c25a7c9d 100644
-> --- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> +++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
-> @@ -76,6 +76,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,msm8937-rpmpd
-> +              - qcom,msm8952-rpmpd
->            - const: qcom,msm8917-rpmpd
->        - items:
->            - enum:
->
-> --
-> 2.55.0
->
->
+> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+> --- a/drivers/nvme/host/pci.c
+> +++ b/drivers/nvme/host/pci.c
+
+[ ... ]
+
+> +static void nvme_rq_clean_dmabuf_map(struct nvme_dev *dev,
+> +		struct request *req)
+> +{
+> +	struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
+> +
+> +	nvme_dmabuf_map_sync_for_cpu(dev, req);
+> +
+> +	if (iod->nr_descriptors)
+> +		nvme_free_descriptors(req);
+> +}
+
+[ ... ]
+
+> +static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
+> +		struct nvme_queue *nvmeq)
+> +{
+> +	struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
+> +	struct bio *bio =3D req->bio;
+> +	struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+> +	unsigned bvec_done =3D bio->bi_iter.bi_offset;
+> +	unsigned map_idx =3D bvec_done / NVME_CTRL_PAGE_SIZE;
+> +	unsigned offset =3D bvec_done & (NVME_CTRL_PAGE_SIZE - 1);
+> +	int length =3D blk_rq_payload_bytes(req) - (NVME_CTRL_PAGE_SIZE - offse=
+t);
+> +	dma_addr_t *dma_list =3D map->dma_list;
+> +	u64 prp1_dma =3D dma_list[map_idx++] + offset;
+> +	u64 dma_addr, prp2_dma;
+> +	dma_addr_t prp_dma;
+> +	__le64 *prp_list;
+> +	unsigned i;
+> +
+> +	nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
+> +
+> +	if (length <=3D 0) {
+> +		prp2_dma =3D 0;
+> +		goto done;
+> +	}
+> +
+> +	if (length <=3D NVME_CTRL_PAGE_SIZE) {
+> +		prp2_dma =3D dma_list[map_idx];
+
+[Severity: Critical]
+Is map_idx checked against map->nr_entries here?
+
+If dmabuf->size is 4608 bytes, nr_entries is truncated to 1, allocating 1
+array element. Userspace could submit a 4608-byte IO. The driver calculates
+'length' up to 4608 and advances 'map_idx' to 1 for the remaining 512 bytes.
+It reads 'dma_list[1]' (which is out-of-bounds) and uses it as 'prp2_dma',
+potentially resulting in arbitrary physical DMA (read or write).
+
+> +		goto done;
+> +	}
+
+[ ... ]
+
+> +free_prps:
+> +	iod->cmd.common.dptr.prp1 =3D cpu_to_le64(prp1_dma);
+> +	iod->cmd.common.dptr.prp2 =3D cpu_to_le64(prp2_dma);
+> +	nvme_free_descriptors(req);
+> +	return BLK_STS_RESOURCE;
+
+[Severity: High]
+Does this code leave iod->nr_descriptors greater than 0 on the error path?
+
+If dma_pool_alloc() fails in nvme_rq_setup_dmabuf_map(), it jumps to
+'free_prps:', which calls nvme_free_descriptors() but leaves
+'iod->nr_descriptors' unchanged. The block layer may requeue the failed
+request.
+
+If the queue is subsequently torn down, the cancellation path invokes
+nvme_unmap_data() -> nvme_rq_clean_dmabuf_map(). Seeing the non-zero
+'nr_descriptors', it calls nvme_free_descriptors() again, resulting in a
+double free.
+
+> +}
+
+[ ... ]
+
+> +static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx =
+*ctx)
+> +{
+> +	unsigned nr_entries =3D ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
+> +	struct nvme_dma_buf_io_ctx *nvme_ctx =3D ctx->dev_priv;
+> +	struct dma_buf_attachment *attach =3D nvme_ctx->attach;
+> +	unsigned long tmp, i =3D 0;
+> +	struct nvme_dmabuf_map *map;
+> +	struct scatterlist *sg;
+> +	struct sg_table *sgt;
+> +	int ret;
+> +
+> +	dma_resv_assert_held(ctx->dmabuf->resv);
+> +
+> +	map =3D kvmalloc_flex(*map, dma_list, nr_entries);
+> +	if (!map)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	sgt =3D dma_buf_map_attachment(attach, ctx->dir);
+> +	if (IS_ERR(sgt)) {
+> +		ret =3D PTR_ERR(sgt);
+> +		sgt =3D NULL;
+> +		goto err;
+> +	}
+> +
+> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
+> +		dma_addr_t dma_addr =3D sg_dma_address(sg);
+> +		unsigned long sg_len =3D sg_dma_len(sg);
+> +
+> +		if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
+> +		    (dma_addr % NVME_CTRL_PAGE_SIZE)) {
+> +			ret =3D -EINVAL;
+> +			goto err;
+> +		}
+> +		while (sg_len) {
+> +			map->dma_list[i++] =3D dma_addr;
+
+[Severity: High]
+Does this loop overflow dma_list[]?
+
+'nr_entries' is computed via integer division of dmabuf->size. If the dmabuf
+size is not page-aligned (e.g., 4097 bytes), nr_entries truncates down (to =
+1).
+However, exporters often pad sg_table allocations to full pages (e.g., 8192
+bytes).
+
+The loop unconditionally writes all sg_len chunks to 'dma_list', exceeding =
+the
+allocated 'nr_entries' capacity.
+
+> +			dma_addr +=3D NVME_CTRL_PAGE_SIZE;
+> +			sg_len -=3D NVME_CTRL_PAGE_SIZE;
+> +		}
+> +	}
+> +
+> +	ret =3D dma_buf_io_init_map(ctx, &map->base, sgt);
+> +	if (ret)
+> +		goto err;
+> +	map->nr_entries =3D nr_entries;
+> +	map->sgt =3D sgt;
+> +	return &map->base;
+> +err:
+> +	if (sgt)
+> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+> +	kfree(map);
+
+[Severity: High]
+Is it safe to free a kvmalloc_flex() allocation with kfree()?
+
+If the dmabuf setup fails, the code jumps to the 'err' label and executes
+kfree(map). Calling kfree() on memory allocated via vmalloc() causes undefi=
+ned
+behavior, typically a kernel panic.
+
+> +	return ERR_PTR(ret);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790602223.gi=
+t.asml.silence@gmail.com?part=3D6
