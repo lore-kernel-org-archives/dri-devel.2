@@ -4,64 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9CBCA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 17:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06197CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 17:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86B4010E11E;
-	Mon, 28 Sep 2026 17:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE4810E955;
+	Mon, 28 Sep 2026 17:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BTTnwgHo";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="UNlde3uG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9607F10E11E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:24:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 48BCC40751;
- Mon, 28 Sep 2026 17:24:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A4B1F000FF;
- Mon, 28 Sep 2026 17:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790616271;
- bh=CzE2GE5JN/tI9+vf5ceSYktDtLDt2Ax4ATT81DGIpY4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=BTTnwgHo3e7c9o0rEnQRB7ZYUXhkhD5eIFXOeC520HyCwUZwp8jntGIY9n5YsIix9
- /Ym50PIIpYqM37fQQXINrRbjumZpkwgpqOull3Vidwl2FElBE4K/ZGUVeOGKt8cKu4
- a+UKkqCjaVec32acLq750VC4ry62UJhA1lTT4gGp/y+DstTdzx6MC0BJ24rg7StUJf
- dgv845cDIgkefff7Lc7OjPDgek/7/hApSlYTBXj74Uhnqg/3FzAsZ6YruF/Wkt4mBa
- F4lCS7i9EpYsGaacidhpQDKTKg3WlYFlUrNt18dgBccYqZ94wbeGNi0MRC87EwDbH+
- BDQNjNC1bQU2A==
-Date: Mon, 28 Sep 2026 19:24:21 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Maxime Ripard <mripard@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <arqhwHiVf00j94J7@beelink>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com
+ [74.125.230.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DB0910E955
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:29:42 +0000 (UTC)
+Received: by mail-qv2-f42.google.com with SMTP id
+ 6a1803df08f44-914488d0455so23108366d6.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 10:29:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1790616581; x=1791221381; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=F8wHi2lHLlVmnngzxn3a4naORn9qZPczzGL0TvCk5Do=;
+ b=UNlde3uG02It+D9U8tnuibWm+jideiDKzJTUzegC5TAI262cE8Evamj7r8EJe1gBtP
+ 0cUWIg5pGL+l0XzUAF9peZTtHQ/AO2cg/7XHnSOPmwXxcVgZs8zHhg3zUjK1pa7Sif5W
+ F6/z2UqxD24bqrAVOtgtUQyPvhYlXDi05sIoKxZg8zbX8FBKNIV/CJsE+LDL9jmFLfQa
+ zYEbxEaQIJCDU4P7OWtEHKqTQci5FXPyQjW0vB1GvNPI152RTnNMgM9lQeAiL0hOzSzs
+ MEKk9kJuhcs4LhQCxnj6tun0VaOjdoBFpKlov4urlTC1g0aCPY3gEe70QVc2epYiRt8K
+ MtiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790616581; x=1791221381;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=F8wHi2lHLlVmnngzxn3a4naORn9qZPczzGL0TvCk5Do=;
+ b=QUuxLjR0C6l5qpb3dj13Okgwg61DJQY778z5tg301pTW4D33ehm7rvqIkwHChtOxZm
+ 8tvCtUvoT8YC+B1Bq7Xk78qGpEDqjmSOI57lKEyJj2DB/OyW1EUWKxn6nXO8SdLFAQNw
+ oJUSRDfBlPaQTDjwQL6FA+GJA7NIDIl2X3KfLQYXJpSqh/ONRPBXspbgAk5rKMgb3K0G
+ uRrr/bnQuutzO5STuSdNRKfjFfXjWRa+vAOC8AybtZPMmjFT0WcRjJRvcyS2kMs6ZkVt
+ reUqoWUGm0yc3gQKD5mC5a5jrjiyX1XGDGJITPZojco0F6UkNpFAD53sGQhe/wQD7DGS
+ rXVQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByk/CIQ9U/SlWWFGw2IqY2Ph/j0hC4NV8iZnaLkubhrBT4RAq84j0gZvPeCoafugpl4t/LfhWktzc8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k+ySXksSTScxWnyCLdtfdKIw9H2oWOoNcpbLcGitURTYtk7DNg
+ +euD8hiogCI4zZLi7soi1/uthfPXwz2xpCDewr9GeBrglq5SV5kqdvqmxwOPSo67Cvw=
+X-Gm-Gg: AYBFou3nWlH0bGT4FTniXvC9jvItDt4qH0oIeJNuGw7VLhk7qh6C2V2olEklb654Juh
+ gtbfg5HBRvXC+jN3peT/l/HjveLBefbGzUjDQs+wySPyHPfcso6yWSUj251HWTTWIbxKs2aPolg
+ 2j5a8eVwHM33uye7rJJk/OTP/9mvK8fP1T52S5gryJ0DwY5pe0kbEeESi29vcVhKjio0I3th2z0
+ la4PfMPqnO4EyaYeGY+m9soUD/kT1KbZiALzHY66wS4Z7Z5FVoziJt0Q2yEwWr8msi7VjwszYqp
+ qCkz9vdYgIhpqr0rhbq9p+tIx4ADnZGgno/VI7AopY9gzwjkrdHrInV8VQK9KwpSAGjZoaq6GxW
+ BEzVKy7fVfeze+6iCZaZUAOAGOg3puwtd64wLsrB8/1GEsGFCHufgsEQ8EotX1C2CirgCBEnlqM
+ qxKmbWyGXmd9/ZdQMgiIwROSOJeF66wWOpSybRN2EKKqLE
+X-Received: by 2002:a05:6214:19c6:b0:916:7629:f1c with SMTP id
+ 6a1803df08f44-91676291098mr52487856d6.10.1790616581176; 
+ Mon, 28 Sep 2026 10:29:41 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91430df77adsm84361036d6.26.2026.09.28.10.29.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 10:29:40 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1xBFAZ-00000007NhG-43XU;
+ Mon, 28 Sep 2026 14:29:39 -0300
+Date: Mon, 28 Sep 2026 14:29:39 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: fengchengwen <fengchengwen@huawei.com>, Leon Romanovsky <leon@kernel.org>,
+ Michael Guralnik <michaelgur@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
+Message-ID: <20260928172939.GK163130@ziepe.ca>
+References: <20260731211601.3033906-1-zhipingz@meta.com>
+ <20260731211601.3033906-6-zhipingz@meta.com>
+ <f4ff7ced-63b6-42e6-8e01-9f01d2e59843@huawei.com>
+ <CAH3zFs24esHCGA=wPrkiH8oKQCv7SnOwcBbkMxrOEvOVtwstYg@mail.gmail.com>
+ <20260924233058.GA163130@ziepe.ca>
+ <CAH3zFs2rhg6-b-pVDps1V8LsM4Dn48t4J4LFVyKOZtT4axdY=Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAH3zFs2rhg6-b-pVDps1V8LsM4Dn48t4J4LFVyKOZtT4axdY=Q@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,83 +105,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sep 28 2026, Neil Armstrong wrote:
-> Hi,
+On Thu, Sep 24, 2026 at 11:17:57PM -0700, Zhiping Zhang wrote:
+> On Thu, Sep 24, 2026 at 4:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> >
+> > >
+> > On Wed, Sep 23, 2026 at 11:24:56PM -0700, Zhiping Zhang wrote:
+> > > I don't think this belongs in the importer. Every in-tree dma-buf
+> > > caller of pci_p2pdma_distance() is the exporter, in its .attach,
+> > > clearing attach->peer2peer -- amdgpu_dma_buf.c, xe_dma_buf.c,
+> > > habanalabs memory.c. There is no importer-side caller.
+> >
+> > Right, and they shouldn't be doing that, but it still has to be
+> > checked that the st is going directly to the peer device not the host
+> > bridge. Not using the distance, but by the PCI_P2PDMA_MAP_BUS_ADDR
+> > indication.
+> >
+> > I fear you will need some of Leon's series to make that happen.
+> >
+> > So probably the proposed change to dmabuf ops is far too simple.
+> >
+> > Jason
 > 
-> On 9/28/26 18:22, Maxime Ripard wrote:
-> > Hi,
-> > 
-> > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > difficult to support and require pretty much a panel driver for each
-> > panel produced. Most of them are pretty simple, and require an opaque
-> > initialization sequence that is usually poorly documented.
-> > 
-> > This creates a tension between OEMs and distros because OEMs will
-> > typically get a new panel to react to a sourcing issue during
-> > production, and thus need some swift turnaround between getting their
-> > new panel and it being operational in the OS. Distributions on the other
-> > hand can take years to ship a kernel with that new panel driver.
-> > 
-> > To solve this, I followed the example of HID-BPF and wrote a panel
-> > driver that will rely on BPF programs to perform the panel
-> > initialization. That way, we can ship the programs separately from the
-> > kernel, and with a different lifecycle. If this driver is accepted, the
-> > plan is to have a userspace component started by udev to identify and
-> > load the right BPF program for the panels found on the device.
+> Hi Jason,
 > 
-> This is kind of late for serious applications except if we manage to
-> solve the bootloader to Linux display engine transition.
+> Thanks for the comments.
 > 
-> > 
-> > This driver is fully functional and works with both 5" and 7" Touch
-> > Display 2 panels for the RaspberryPi. However, it breaks away from the
-> > typical panel driver in multiple ways:
-> > 
-> > - BPF programs can only be loaded by userspace. This leaves us with two
-> >    choices:
-> > 
-> >    * We prevent the driver from loading until the script itself is
-> >      loaded. This has the side effect of preventing any other output to
-> >      be used until the initramfs is ran at the earliest, and possibly
-> >      ever if the loader isn't installed for example.
+> Agreed -- the tag should not be handed out unless the routing is
+> PCI_P2PDMA_MAP_BUS_ADDR. That can be enforced conservatively on 7.3
+> with two changes. I can fold both into patch 4.
+> ```
+> In drivers/pci/p2pdma.c, make pci_p2pdma_map_type() callable from
+> tristate VFIO_PCI_CORE:
 > 
-> This adds a dependency on user-space behavior and if somehow the
-> initramfs doesn't load for a reason we won't have a way to display
-> an error.
-> 
-> > 
-> >    * Or we probe the driver all the time, but only report it as connected
-> >      once a program has been registered. This is somewhat unconventional,
-> >      but allows the other outputs to be functional, *and* allows the user
-> >      to force the output if their panel doesn't require any
-> >      initialization or during debugging. I chose this solution.
-> 
-> Both options are not really great...
-> 
-> > 
-> > - It's not a panel driver, but a bridge one, which is also pretty
-> >    unconventional. This is required because panel drivers don't have
-> >    access to a detect callback that is required for the above, but I also
-> >    think that the recent work from Luca blurs the line from panels and
-> >    bridges and we'll end up going that road anyway.
-> 
-> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
-> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
-> a proper way to describe the display/panel/monitor independently of the DDIC.
-> 
-> At first glance it's a nice driver, but moving the timings into a blob moves something
-> into possible proprietary binaries with possible closed licence and distribution
-> restriction so it's a downgrade for the same of bringing up a panel faster.
+>     EXPORT_SYMBOL_GPL(pci_p2pdma_map_type);
 
-Quick answer on this, because I had the very same questions regarding
-HID-BPF:
-- in BPF, you can require (and by default it does) that only GPL
-	compatible BPF programs are loaded, closing the argument of "closed
-	licence and distribution restriction"
-- also, a BPF program can be disassembled much easier than a binary
-	blob, and I remember Alexei showing me an example where you get almost
-	the source code from the BPF object in just one pass.
+No, that's been rejected several times already.
+ 
+> and in drivers/vfio/pci/vfio_pci_dmabuf.c,
+> vfio_pci_dma_buf_get_pci_tph() gains:
+> 
+>     struct dma_buf_attachment *attach;
+> 
+>     if (list_empty(&dmabuf->attachments))
+>         return -EOPNOTSUPP;
+> 
+>     list_for_each_entry(attach, &dmabuf->attachments, node)
+>         if (pci_p2pdma_map_type(priv->provider, attach->dev) !=
+>             PCI_P2PDMA_MAP_BUS_ADDR)
+>                 return -EOPNOTSUPP;
+> ```
 
-Cheers,
-Benjamin
+Also no, this has to be done via PCI_P2PDMA_MAP_BUS_ADDR which also
+enforces putting the determination in the right place in the code
+flow..
 
+> Two properties are worth stating explicitly:
+
+Ah! AI!
+
+Jason
