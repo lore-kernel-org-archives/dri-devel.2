@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E93E0C9832F
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DAD9C9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51A3E10E81E;
-	Mon, 28 Sep 2026 08:20:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="s3R1shks";
-	dkim-atps=neutral
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch
- [185.70.43.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 773B210E81D
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1790583640; x=1790842840;
- bh=sWR7+AcckXLzVN8kNNdUbAEI0EtHthjNSFtY23Le07s=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=s3R1shksSUw6ZHzawrEzuYla/HQ3wOCMyXwUgQAjHEluSJ+zRBDxME8kSzMVniN0h
- qFGqpUA6QW6gJIpNMVBZi7BsA8QfKYypT4Dm0kPHiPJ8c7wF53OOIYLmFwpbMMl6c6
- lmpdBl3cJ/HVY28nNf0EzIAO808pbMLe/iE8mTzLPKVy6aY23TgjDDY/OQBw2O9/hB
- nqGZVvHB/+oIAHH3NotFmIMlt79N09mZ8VAyOHAHEx8G4fvvGwPSWL1aU+MAMLW5Gi
- d+Dv0qybqWM/x3F7jvsDvZFCzOVdaszF81ok7zQFIsADZ20S9K+xnut5Cegs1XOvG8
- JQgQnybWCelww==
-X-Pm-Submission-Id: 4htZ4h5D8mz1DF4X
-From: Esben Haabendal <esben@geanix.com>
-To: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman"
- <jonas@kwiboo.se>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>,  Guido =?utf-8?Q?G=C3=BCnther?=
- <agx@sigxcpu.org>, "Fabio Estevam" <festevam@gmail.com>,  "Robert Chiras"
- <robert.chiras@nxp.com>,  "Sam Ravnborg" <sam@ravnborg.org>,
- <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
- "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,  "Oliver F. Brown"
- <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH v4 0/4] drm/bridge: nwl-dsi: Various fixes
-In-Reply-To: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
-References: <vfndbk9zi3OIqSxPrtQEXwhrwIF37_6XjQPApIjAJ1MRPGB62dWkOgynZc0CcQjqCmzn-OzHvMjxzYtTttZXgQ==@protonmail.internalid>
- <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
-Date: Mon, 28 Sep 2026 10:20:35 +0200
-Message-ID: <87qzidvlbg.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB2A610E820;
+	Mon, 28 Sep 2026 08:20:58 +0000 (UTC)
+Received: from cstnet.cn (unknown [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9050010E820
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:20:54 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+ by APP-03 (Coremail) with SMTP id rQCowAD3AD9AI7pqv1UICQ--.246S2;
+ Mon, 28 Sep 2026 16:20:17 +0800 (CST)
+Message-ID: <7442671c93a4e5d4b2d1f4c377566369ab249f77.camel@iscas.ac.cn>
+Subject: Re: [PATCH 0/2] drm/bridge: th1520-dw-hdmi: Two fixes
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Felix Gu <ustc.gu@gmail.com>, Drew Fustini <fustini@kernel.org>, Guo Ren
+ <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Andrzej Hajda	
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	 <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Mon, 28 Sep 2026 16:20:16 +0800
+In-Reply-To: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+References: <20260321-th1520-v1-0-ec877197770d@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: rQCowAD3AD9AI7pqv1UICQ--.246S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY67k0a2IF6F4UM7kC6x804xWl14x267AK
+ xVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+ A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j
+ 6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r
+ xl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv
+ 0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z2
+ 80aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF
+ 7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r4a6rW5Mx
+ C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+ wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+ vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+ 0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+ W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU87fHUUUUUU==
+X-Originating-IP: [120.85.96.244]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,87 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-"Esben Haabendal" <esben@geanix.com> writes:
+=E5=9C=A8 2026-03-21=E5=85=AD=E7=9A=84 03:12 +0800=EF=BC=8CFelix Gu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 
-> This series brings a few patches fixing horizontal sync timing, EOTP pack=
-et
-> behavior and hsync/vsync polarity selection when using DCSS endpoint, as
-> well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
->
-> The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly fr=
-om
-> NXP vendor tree, so I have kept Author unchanged, although I have modified
-> the commit message. Let me know if I should change Author for that.
->
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
+Applied to drm-misc-fixes.
 
-Is there anything I can or should do to get this patch series merged or
-at least some review feedback that I can work on?
-
-/Esben
+Thanks,
+Icenowy
 
 > ---
-> Changes in v4:
-> - Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
->   eliminate intermediate rounding errors.
-> - Drop patch 4 (will be included in follow-up patch series, together with
->   a patch addressing the unblanced resource teardown and PM runtime
->   underflow problems in the error path).
-> - Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9=
-d672e1@geanix.com
->
-> Changes in v3:
-> - Added Fixes and Cc: stable tags.
-> - Split patch 1 into two, with change of endpoint mux control in a separa=
-te
->   patch.
-> - Fixed mux_control_try_select() state argument.
-> - Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0=
-ac453f@geanix.com
->
-> Changes in v2:
-> - Added safeguard against small horizontal sync timings, protecting again=
-st
->   division by zero and integer underflow.
-> - Added error handling of nwl_dsi_mode_set() call.
-> - Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d91=
-8a86ad@geanix.com
->
-> To: Andrzej Hajda <andrzej.hajda@intel.com>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Robert Foss <rfoss@kernel.org>
-> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> To: Jonas Karlman <jonas@kwiboo.se>
-> To: Jernej Skrabec <jernej.skrabec@gmail.com>
-> To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Guido G=C3=BCnther <agx@sigxcpu.org>
-> To: Fabio Estevam <festevam@gmail.com>
-> To: Robert Chiras <robert.chiras@nxp.com>
-> To: Sam Ravnborg <sam@ravnborg.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
->
+> Felix Gu (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix error chec=
+k on dw_hdmi_probe()
+> return value
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/bridge: th1520-dw-hdmi: Fix remove() c=
+allback
+>=20
+> =C2=A0drivers/gpu/drm/bridge/th1520-dw-hdmi.c | 8 ++++----
+> =C2=A01 file changed, 4 insertions(+), 4 deletions(-)
 > ---
-> Esben Haabendal (3):
->       drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
->       drm/bridge: nwl-dsi: Limit LCDIF specific sync override
->       drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
->
-> Robert Chiras (1):
->       drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
->
->  drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++=
-------
->  1 file changed, 74 insertions(+), 13 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260710-nwl-dsi-fixes-c148b0adb685
->
+> base-commit: b5d083a3ed1e2798396d5e491432e887da8d4a06
+> change-id: 20260321-th1520-f4326138c9bf
+>=20
 > Best regards,
-> --
-> Esben Haabendal <esben@geanix.com>
+
