@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2607DC9833E
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:52:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C44CAC9832F
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 08:52:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 873F810E06E;
-	Mon, 28 Sep 2026 08:52:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385D210E825;
+	Mon, 28 Sep 2026 08:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iI69pSsC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I4PF3mIQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 117B810E06E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 08:52:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC8F10E2E0;
+ Mon, 28 Sep 2026 08:52:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D6E634145A;
- Mon, 28 Sep 2026 08:52:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625421F000FF;
- Mon, 28 Sep 2026 08:52:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 97D3C600E2;
+ Mon, 28 Sep 2026 08:52:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18421F000FF;
+ Mon, 28 Sep 2026 08:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790585532;
- bh=/Sq1noXbXBnB2GWfMFvmKf4awt7ORpfIpNJEoXkggBI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iI69pSsCL93SSBRphJ7+fdf9KaxxSRK/vt10HTxs3zobr8BF5KriZUt37itRzhdoM
- WwIPX6xA4IuLue7w/j5pQMvxVpNuglVf15pypy7PkN/ydYQ27nuT8Ba/5hrqsaggv/
- brrrAszQP5PBONGEwrux3wN3KstfZsttEuhoacy11aZlRk9mnz/QXVCQVTjUa9PsiD
- zKIXY8ymN8UChKm2bLwus5FTgnd3v8GCSOvNoL+WOKtMeA52xIg4kuqIfRt0cmwGbs
- ElHWWMfb7dK7rXSXFTc4c3Ajdtw3j4GAyoDeG9tJ40rSYUHAhmrFzY6qy75V6th07E
- 7a0fk6Rs7Zqfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/8] gpu: nova-core: add NVKV decoder
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre
- Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20260928-b4-nvkv-v3-5-f04504c262c2@nvidia.com>
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-5-f04504c262c2@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1790585567;
+ bh=GBWiIMmpScxYzj+2p1+R20a5UVJCHxzDufe+GyeONd4=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=I4PF3mIQyN65jDvd146w9975EvHc8idIik+0joAk5Mv4leEp8nknCuFSlJFte3UVd
+ RCN7u9T7xXz3hleSyU71irWimiTtxu6ZruDQ2u27vIMv2eOMBpSOLe94sSd2xebMA9
+ MYHI8g+z9/rgRRxX8xGswUYwNUC/gZnG2rCxxZRhdWWr+aZte739TTPVb+9csJhlYi
+ AC4km+RNQjk/rmcY/O1xaoZPhW7LeUuNcQWNxbatO6Sw0b5gYAQUfzCLca7CTTqF4W
+ o4DblrSO86u0xowuZRp/61yxEM4uYsBlNa18bVGVP2WwfzD4/IiMJzUWuOnmDCNe0f
+ tE5QTMFP/7ljA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 08:52:11 +0000
-Message-Id: <20260928085212.625421F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 10:52:44 +0200
+Message-Id: <DLQTLWC6YFPE.1FN6GSV00AWXM@kernel.org>
+Subject: Re: [PATCH 1/2] drm/sched: keep the current runqueue when no
+ scheduler is ready
+Cc: <vitaly.prosyak@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Alex Deucher" <alexander.deucher@amd.com>,
+ "Philipp Stanner" <phasta@kernel.org>
+To: "Matthew Brost" <matthew.brost@intel.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260928020018.120503-1-vitaly.prosyak@amd.com>
+ <arnPBVP3cnDNwTMn@gsse-cloud1.jf.intel.com>
+In-Reply-To: <arnPBVP3cnDNwTMn@gsse-cloud1.jf.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,73 +58,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] nova-core: NVKV decode corrupts array layouts on big-endian hosts
---
+On Mon Sep 28, 2026 at 4:20 AM CEST, Matthew Brost wrote:
+> To me, this looks like a lifetime issue that should be fixed in AMDGPU.
+> Either that, or we need to rework DRM to have proper lifetime management,
+> or, of course, just deprecate drm_sched.
 
-commit 561207bfbca10da1af8ade9ea863d375b4883ed5
-Author: Eliot Courtney <ecourtney@nvidia.com>
+Agreed. The lifetime and ownership model in drm_sched is not fundamentally
+wrong, but the implementation is not consistently keeping it up and drivers=
+ also
+don't always honor it.
 
-gpu: nova-core: add NVKV decoder
+> In other words, we need refcounting so that drm_sched_fini() cannot be
+> called while jobs are still in flight, nor can jobs be submitted before
+> drm_sched_init(). Alternatively, drm_dep could serve as a replacement.
 
-Add a decoder for NVKV. This is for receiving messages from GSP for
-GMCAPI calls. The NVKV format essentially encodes a sequence of function
-calls f(key, index, value).
+I'm not a huge fan of refcounting for those kind of things because it
+fundamentally incentivises the wrong lifetime model in the context of the d=
+river
+model. The driver model requires a bounded lifetime scope, but refcounting
+incentivises an unbounded lifetime model, which leads to other problems.
 
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
-core/gsp/nvkv/decode.rs
-> new file mode 100644
-> index 0000000000000..c4c24fe1108e9
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
-[ ... ]
-> +    /// Takes `count` bytes. If `count` is not a multiple of 8 (`u64` si=
-ze), bytes are discarded up
-> +    /// to the next multiple.
-> +    fn take_u8s(&mut self, count: usize) -> Result<&'a [u8]> {
-> +        let values =3D self.take_u64s(count.div_ceil(8))?;
-> +        values.as_bytes().get(..count).ok_or(EINVAL)
+So, especially for the sake of deferring drm_sched_fini() from running jobs=
+,
+drivers still have to make sure that all jobs are torn down and drm_sched_f=
+ini()
+is called *before* driver unbind completes. IOW, drivers should tear down t=
+he
+hardware and hence all jobs latest in remove() and then call drm_sched_fini=
+()
+subsequently.
 
-[Severity: High]
-Does Cursor::take_u8s() in drivers/gpu/nova-core/gsp/nvkv/decode.rs handle
-big-endian architectures correctly?
+Refcounting does not provide a lot of value in this regard, because we have=
+ to
+somehow guarantee that the hardware and all jobs are torn down at this spec=
+ific
+boundary anyway.
 
-Directly casting native u64 memory to u8 slices yields the bytes in reverse
-order within each 64-bit word on big-endian systems.
+This is also my biggest concern about drm_dep, it seems to be designed with
+exactly the idea of an unbounded lifetime model, which is not the correct d=
+esign
+for anything that represents a device resource (e.g. a GPU job).
 
-This could cause the NVKV protocol to fail to correctly decode (and encode)
-`Array8` arrays, causing GPU initialization (GSP RPC) to fail completely or
-receive corrupted data.
-
-> +    }
-> +
-> +    /// Takes `count` 32-bit values. If `count` is not a multiple of 2 (=
-`u64` size), bytes are
-> +    /// discarded up to the next multiple.
-> +    fn take_u32s(&mut self, count: usize) -> Result<&'a [u32]> {
-> +        let values =3D self.take_u64s(count.div_ceil(2))?;
-> +        <[u32]>::ref_from_prefix_with_elems(values.as_bytes(), count)
-
-[Severity: High]
-Can Cursor::take_u32s() corrupt array layouts on big-endian hosts?
-
-Directly mapping native-endian u64 memory to u32 slices swaps the order of
-packed elements on big-endian systems (e.g., swapping the first and second
-32-bit values within the 64-bit word).
-
-This defect prevents correctly decoding `Array32` and `Seq32` arrays on the=
-se
-platforms.
-
-> +            .map(|(elems, _)| elems)
-> +            .map_err(|_| EINVAL)
-> +    }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-b4-nvkv-v3=
--0-f04504c262c2@nvidia.com?part=3D5
+Now, to be fair, refcounting is really the only mechanism that we have in C=
+ to
+manage lifetimes, everything else is more or less just a convention. That s=
+aid,
+I'm not all against refcounting in general, but we have to be careful about=
+ how
+it influences the design in terms of a bounded and unbounded lifetime model=
+.
