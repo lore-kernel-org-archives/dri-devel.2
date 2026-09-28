@@ -4,93 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0526CA5FA3
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E513DCA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EACE610E58C;
-	Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15B9A10E961;
+	Mon, 28 Sep 2026 19:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rfIUkCMG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K1UpVHdb";
 	dkim-atps=neutral
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
- [74.125.225.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77ACB10E58C
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:39:10 +0000 (UTC)
-Received: by mail-wr2-f34.google.com with SMTP id
- ffacd0b85a97d-48884b926f0so2206670f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 12:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790624349; x=1791229149; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
- b=rfIUkCMGkqX7N8oqPWfUQrBoi89Nn6kg+Kyf38Is9zYOLbaJo3m1o5HJTU8Yi+L/+V
- HlZT/GZS4ZLUzQvuuU1FyC7OqrYLctinCXM5QDmTM7Wqbgifo09tLWFMi+6fXKJibttS
- XtAVXvu/ekFKouiVXnwUgDhpHR6GoGgIJgxUcxo8/zy0fnn9qIv/6eka143J7lTP7Usw
- zSkuEHo4afJiNC4fCOoT2wMLBHy+rZJKNuDmMLsd4Go5NMYy3lYjn65qdwL0lOXFp/yp
- BwHRcyyPq4PEc4yr5H4hRi05WqYErJifpA8znpHjNv4FTuB3TwyO7I4A9p+wqX+KMCyo
- WNIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790624349; x=1791229149;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=oxVLIRI0OWy7GmeotPDiP09/QY2zlDyWkimQu7VpxRs=;
- b=WI4W81uWOR7B+1xbzqIW4GZEl3WSHtRU71LYpYhAgkPr1MW0HH8wEe0M0rsXR0ahUR
- yE6TYDCFpWqMruCGWZHU9l68aZa7fL/iuPVsYcxj2kpJMXkGFYxKmZm5ST5oOeMijC79
- uKSrn5TEE1iRj1gL0FWKiEhYPfauq3Ph3Ul5wWsSx9IIJRttwzfDka6njdlLP37meB7l
- a1xxVEcs/ISd7Ph4hfT7BO5wpibpwsIuf8hzKc0637XJKlND9EMra7moHwYDWCsrRnEF
- J98Ji1qbbBb7pvbZWg7uCf4COdKlHJtwsat3Zio43PFG0mwYq/AgCVAU7Scd/UXqgrmX
- dyNQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwADDwy5sAEnIJcuZqB5H1epVXeQW/4FSR0nji3SbVhxFCB37LCvYHSzFGmGrOfwqqbe4rHQW3BL8U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYICavx4EnJWGLVvexKmszMFbdCZEq8SgsCn1q+0HSe2ip8w6SVu
- VE1+QF2nbzmMCmlHpeTCJ9Hq3CJpS1AUskUCSD2WpriHko2unYAHLUPS
-X-Gm-Gg: AYBFou1jgOlImBLKajJkEQxzmSZrUdNmjoH8+ZqtgsfoMi3ve+uchCUT6EJL5GBPDHp
- XIo1o125yO+eDoR7iNzfTcl+8jswFN8C8y98oq3DctebaddwAlD/b1zFXPIkR3d10AchJJ2SUTA
- mZP25940Q13k/mq5SmyZ3AqWy7s6pwvuRxkIP7+MCOoBlQ9gzjbE0DcqENk0LQd22yjYQsam9ik
- 30WqzGAtiaiEejmTA7KpFFNSJXlB0SVRNDmUEE01soNQjIQsd6cj1nSSPtvAsyMIIxCju75l4gj
- ZQA9lgHDJzR2/I0GI2YoiX3+OFqfX4TooFxEfjzC2nDsgIDDFP2jZZcNaanQo0WR6Z8q25ouK7R
- 2frvlYVVQFzZ10n2hNGvjIQEtWMHchLm79OivwKXlemF7hVDmIIM6+UBhqVyeFSB0yptPXiAt8Z
- jh2wDVhj9+XRBQrLxzO/1NsVHmyGiBrgHR3ydRMhthI2RORs2zklxuPe+0xxwTW3xJWcWALOiLG
- 0fZFUL3Uv9IfhBr118826bMsu7rBr0BdXCZv2z7wKn+kMxypvQc4yQtkvoAnlKnZjQbkulGeBZ1
- yGOJpwCPiVq77YL5I/ol39km8CwOb536p5iIctnHl/LkXfssyq/OWYreU++K6WQdv5Ldij3xjw=
- =
-X-Received: by 2002:a05:6000:3104:b0:48a:eff0:c31d with SMTP id
- ffacd0b85a97d-48aeff0c6e7mr1174394f8f.38.1790624348461; 
- Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
-Received: from unknown748F3CBA5068
- (dynamic-2a02-3100-acba-a601-4494-3582-465b-0eab.310.pool.telefonica.de.
- [2a02:3100:acba:a601:4494:3582:465b:eab])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4887a6456f8sm29487793f8f.26.2026.09.28.12.39.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Sep 2026 12:39:08 -0700 (PDT)
-Date: Mon, 28 Sep 2026 21:39:05 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Jianfeng Liu <liujianfeng1994@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
- Bryan O'Donoghue <bod.linux@nxsw.ie>, Dmitry Baryshkov <lumag@kernel.org>, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] Revert "dma-buf: Make DMABUF_DEBUG default to y on
- DEBUG_KERNEL kernels"
-Message-ID: <arrAvk4aYQ4sDEzN@gmail.com>
-References: <20260926022026.10539-1-liujianfeng1994@gmail.com>
- <17bf71c6-2442-4eaa-847d-29ef625870bd@amd.com>
- <CACSVV02WCQwQy9BpUUqziQTtKV7QyJruiM+iTiLE_SEVKtpVNQ@mail.gmail.com>
- <50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com>
- <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C355F10E961
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:49:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 974A8600D1;
+ Mon, 28 Sep 2026 19:49:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9F91F000FF;
+ Mon, 28 Sep 2026 19:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790624947;
+ bh=jdHpFCmsfbMWILh+4zQbXzTgvExVPPbHVQNyp37fwu8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=K1UpVHdbtKLuk0b6PGJwnkcMiQQc3FOtgp5i3jPSjc03nPPVWKJdRDDdCcoeo/JYz
+ ab6rp54bO+xE+cQVGENaJOpeQHykZTq08O5djVbP1x6QarrPDCUT6usoart9BrVN8P
+ exFxTaGfz1qKavaskz0rXWSPeg8og50p0Yd/s1iUTGKI0czkfywCXDWKIZQH9p/Kyb
+ U+SNhQ4ngEIfBnXPjoH1p7KE++RQn4cu3SYKv52+Aud9Gjy8+4689hKOj+Xw1S4OAy
+ KbiSdHV0nazW5sHdc5wG7ljabqYltoksk0H4xkxQGCHQwgr1RlxClJ9oaGn3DC6olh
+ jRna+5Lr3DITQ==
+Date: Mon, 28 Sep 2026 21:48:58 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <arrAqg5n87INTHE6@beelink>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
+ <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV02BPHGeGFo0vs8-Q2JvcvQ_gw_xe4kZj_nuzk8n6sW7kg@mail.gmail.com>
+In-Reply-To: <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,48 +79,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 04:21:41AM +0100, Rob Clark wrote:
-> On Mon, Sep 28, 2026 at 3:48 AM Christian König
-> > What I can offer is to set it to default N for another few month to give you more time to fix things.
+On Sep 28 2026, Neil Armstrong wrote:
+> On 9/28/26 19:24, Benjamin Tissoires wrote:
+> > On Sep 28 2026, Neil Armstrong wrote:
+> > > Hi,
+> > > 
+> > > On 9/28/26 18:22, Maxime Ripard wrote:
+> > > > Hi,
+> > > > 
+> > > > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > > > difficult to support and require pretty much a panel driver for each
+> > > > panel produced. Most of them are pretty simple, and require an opaque
+> > > > initialization sequence that is usually poorly documented.
+> > > > 
+> > > > This creates a tension between OEMs and distros because OEMs will
+> > > > typically get a new panel to react to a sourcing issue during
+> > > > production, and thus need some swift turnaround between getting their
+> > > > new panel and it being operational in the OS. Distributions on the other
+> > > > hand can take years to ship a kernel with that new panel driver.
+> > > > 
+> > > > To solve this, I followed the example of HID-BPF and wrote a panel
+> > > > driver that will rely on BPF programs to perform the panel
+> > > > initialization. That way, we can ship the programs separately from the
+> > > > kernel, and with a different lifecycle. If this driver is accepted, the
+> > > > plan is to have a userspace component started by udev to identify and
+> > > > load the right BPF program for the panels found on the device.
+> > > 
+> > > This is kind of late for serious applications except if we manage to
+> > > solve the bootloader to Linux display engine transition.
+> > > 
+> > > > 
+> > > > This driver is fully functional and works with both 5" and 7" Touch
+> > > > Display 2 panels for the RaspberryPi. However, it breaks away from the
+> > > > typical panel driver in multiple ways:
+> > > > 
+> > > > - BPF programs can only be loaded by userspace. This leaves us with two
+> > > >     choices:
+> > > > 
+> > > >     * We prevent the driver from loading until the script itself is
+> > > >       loaded. This has the side effect of preventing any other output to
+> > > >       be used until the initramfs is ran at the earliest, and possibly
+> > > >       ever if the loader isn't installed for example.
+> > > 
+> > > This adds a dependency on user-space behavior and if somehow the
+> > > initramfs doesn't load for a reason we won't have a way to display
+> > > an error.
+> > > 
+> > > > 
+> > > >     * Or we probe the driver all the time, but only report it as connected
+> > > >       once a program has been registered. This is somewhat unconventional,
+> > > >       but allows the other outputs to be functional, *and* allows the user
+> > > >       to force the output if their panel doesn't require any
+> > > >       initialization or during debugging. I chose this solution.
+> > > 
+> > > Both options are not really great...
+> > > 
+> > > > 
+> > > > - It's not a panel driver, but a bridge one, which is also pretty
+> > > >     unconventional. This is required because panel drivers don't have
+> > > >     access to a detect callback that is required for the above, but I also
+> > > >     think that the recent work from Luca blurs the line from panels and
+> > > >     bridges and we'll end up going that road anyway.
+> > > 
+> > > On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+> > > the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+> > > a proper way to describe the display/panel/monitor independently of the DDIC.
+> > > 
+> > > At first glance it's a nice driver, but moving the timings into a blob moves something
+> > > into possible proprietary binaries with possible closed licence and distribution
+> > > restriction so it's a downgrade for the same of bringing up a panel faster.
+> > 
+> > Quick answer on this, because I had the very same questions regarding
+> > HID-BPF:
+> > - in BPF, you can require (and by default it does) that only GPL
+> > 	compatible BPF programs are loaded, closing the argument of "closed
+> > 	licence and distribution restriction"
+> > - also, a BPF program can be disassembled much easier than a binary
+> > 	blob, and I remember Alexei showing me an example where you get almost
+> > 	the source code from the BPF object in just one pass.
 > 
-> If it is disabled by default in distro kernels, that sounds fine.
+> Right, it "solve" one of my question, but doesn't really solve the issue
+> of vendors providing "GPL" bpf programs with source available "somewhere".
+> 
+> Another big issue is the API, I don't want to keep the current API as-is,
+> we plan to support more advanced panel features and use try to use the
+> atomic states to support rate switching for example, and I'm not confident
+> it's a good idea since there's no "simple" and "forever valid" API
+> to initialize panels...
+> 
 
-Another option is to restore the earlier DMABUF_DEBUG default for now,
-although off by default is also fine with me:
+That's exactly where BPF shines. The simple rule of thumb is: there is
+no API stability guaranteed. Basically, thanks to the verifier and CORE
+(Compile Once Run Everywhere), you don't need to keep the API stable and
+available forever. There are multiple ways of dealing with it, but the
+gist is that if a BPF is trying to load an "old" API, it will be
+rejected by the verifier.
 
-	default y if DMA_API_DEBUG
+Then it's a matter of being nice enough in the kernel and provide ways
+to deal with those.
 
-I would like to help fix the affected importers, and have started work
-on several of them. Beyond msm, my LLM agent found paths that use the
-page or CPU-length fields of imported attachment tables in:
+To give you a few examples:
 
-  - rockchip, tegra, rcar-du/VSP, omapdrm and xen_drm_front;
-  - tegra-vde, staging ipu3, pxa_camera and sur40;
-  - fastrpc's SECUREMAP path;
-  - the IIO dmaengine buffer, USB FunctionFS and UVC gadget DMABUF paths.
+- in HID-BPF, in userspace, we keep old versions of APIs in separate
+	compiled objects. Each is incremented (by 10 so we have a little bit
+	of room in the middle). Then the loader tries first
+	0020-device-with-new-api.bpf.o, and if it fails, it tries
+	0010-device-with-old-api.bpf.o
 
-The host1x imported-buffer gather path also looks susceptible. There
-are less severe cases too: amdxdna rejects the affected import, while
-mali-dp loses MMU prefetch.
+	I'm not saying we should do the same here, but that's one idea
 
-For sur40, IIO, FunctionFS and UVC gadget, I have reproduced failures
-and tested local fixes in QEMU using local device models. The other
-entries above are findings from source inspection, not hardware tests.
-Some failures depend on the architecture and configuration, in
-particular whether NEED_SG_DMA_LENGTH is enabled.
+- recently, a BPF commit broke the ABI of a function while removing
+	implicits: bpf_wq_set_callback_impl() was replaced by
+	bpf_wq_set_callback() with a different number of arguments. I simply
+	had to add a new function in my header which basically does:
 
-Unfortunately, I don't have hardware for most of these drivers...
+	static inline int
+	hid_bpf_wq_set_callback(struct bpf_wq *wq,
+	                        int (*callback_fn)(void *, int *, void *),
+	                        unsigned int flags)
+	{
+      if (bpf_ksym_exists(bpf_wq_set_callback))
+              return bpf_wq_set_callback(wq, callback_fn, flags);
+      if (bpf_ksym_exists(bpf_wq_set_callback_impl))
+              return bpf_wq_set_callback_impl(wq, callback_fn, flags, NULL);
+  }
 
-I think the drivers managing their own IOMMU mappings also need a
-clearer supported path here. Simply switching from physical addresses
-to DMA addresses is not generally sufficient, since the latter belong
-to the attachment device's address space.
+  And then I changed the bpf.c to use hid_bpf_wq_set_callback() and the
+  bpf is compatible with both APIs
 
-I also have a draft warning-only mode for DMABUF_DEBUG that I can post
-as an RFC. It preserves the CPU fields and logs suspect accesses
-instead of deliberately breaking importers. Coverage is incomplete
-and the underlying bugs still need fixing; strict mode would remain
-available.
+- with CORE, struct fields are relocated on the fly when you load the BPF
+ 
+  So for instance, if my BPF only accesses fields .name, .phys and .id
+  in the BPF, I can define:
+  struct hid_device {
+    char                       name[128];
+    char                       phys[64];
+    unsigned int               id;
+  }
 
-Thanks,
-Karl
+  Then when loading the bpf, the verifier replaces all offset to the
+  ones actually used by the running kernel, and the program loads
+  transparently, even if you add fields before/after or change the
+  fields order in the kernel.
+
+Changing the mindset is the hardest part of it. But once you are making
+the shift, it's actually much better to work with. It doesn't mean you
+can go yolo. You still need to be careful in your choices knowing the
+impact on your users. But the API at version 0 is not frozen and you
+don't need to maintain it forever, especially if you control the loader
+and the headers used to compile the BPFs.
+
+Cheers,
+Benjamin
