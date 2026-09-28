@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBEA0CA5FA1
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B09CA5FA1
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 16:31:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6573510E8B1;
-	Mon, 28 Sep 2026 16:31:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11DED88735;
+	Mon, 28 Sep 2026 16:31:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JiK5wGki";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IRuSkJvi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1F7D10E5DA
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:31:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8D8C10EB12
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:31:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 256C3601F7
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:31:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903871F00893;
- Mon, 28 Sep 2026 16:31:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6ED2E406A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 16:31:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C711F000FF;
+ Mon, 28 Sep 2026 16:31:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790613076;
- bh=MvnqG76g7mMx6T13To0aLLamcHlUgL5UjoR/3//u60k=;
+ s=k20260515; t=1790613083;
+ bh=EnF1lpL8yOAVbciKvQW9ui5UiqpwepMChIPZqx1gRuM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JiK5wGkiCHd+AuQAMVbbB0bjav6CziarrTFptx2R/ujAOJmRPcF7z/Uuqg/kO6kQH
- OjgQGWLMoeUwxcn8CHtwLX8bAO3qOeLpNf3XZwC8PLOHz8VxO2qJW/yHfYyDsON7xD
- n2/DTmLQhcBxd9GJLOtveLJ+Vfng0PZsMi+XqkesBaq1UzpamplncJm5k6Xb2bwS21
- NpSwGhP9OJQ0uFTPKV1nK4iV6syKmMbqV8htp2VvZGv8qliqmfebJVZ6e5IJBbWhD1
- /8ImzKJeRCbdQbpAE/2GHciI1aFtdz+IN9HCQEG7cGPU8VbLKz5gyiQM9HXy6gVen3
- hAePqNz2evoAg==
+ b=IRuSkJvi7ERiOqzVWjSyCEYf/Y3fU2wxA8HSAlOJeLzpvLiMiLQz6WqeeV6/iqh/3
+ K81zJGtHSru8y3T0VPdTZN//WVr2UP59X1HbCpDsPv7JRIZHZIumOetrnGFI2SeYdA
+ tRYXuOOoMCpPwpsZbNwqTT80Ohq4RmMpvgIgQZE1Hrx4b3suEX6sXahcM27rnfJC43
+ HBpiplZ14fI6+TJpcp2d59zYMCI4nqf++Bddnv/2+C8hIQQ4F7LaRwQYWB20qCWP31
+ Sq9pDWwTyGLiRA/ia6ov7KcRT5qlUJ+hHzFZDX6+DItsGp9b5j/+9S+p0a86lw0yFb
+ STTXG75+jNG7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
-To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260928161605.2271412-1-arnd@kernel.org>
-References: <20260928161605.2271412-1-arnd@kernel.org>
+Subject: Re: [PATCH DO NOT MERGE 6/6] arm64: dts: broadcom: Add Raspberry Pi
+ ILI9881C DSI panel overlays
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-6-5244926aace4@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-6-5244926aace4@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 16:31:16 +0000
-Message-Id: <20260928163116.903871F00893@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 16:31:22 +0000
+Message-Id: <20260928163123.04C711F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +61,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/bridge: commit message and tree context mismatch
+- [Low] dt: node names use underscores instead of hyphens
 --
 
-commit ac5ab6aba140c1bdb755618fe3998cc33d9cf30b
-Author: Arnd Bergmann <arnd@arndb.de>
+commit 13a81e24cfdf82fcd1a6606b31ae481417af3552
+Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: add missing drm/drm_panel.h inclusions
+arm64: dts: broadcom: Add Raspberry Pi ILI9881C DSI panel overlays
 
-This commit adds <drm/drm_panel.h> includes to various drm/bridge drivers.
-The commit message states this is to fix implicit declaration build failures
-after devm_drm_of_get_bridge() was moved to drm_panel.h.
+This commit adds device tree overlays for the Raspberry Pi 5-inch and
+7-inch MIPI-DSI panels on the Raspberry Pi 4 Model B. It introduces a
+shared dtsi for the common display MCU and backlight components.
 
->     The devm_drm_of_get_bridge() declaration moved to drm_panel.h, but
->     not all callers include this, which leads to build failures in
->     some configurations:
->    =20
->     drivers/gpu/drm/imx/lcdc/imx-lcdc.c: In function 'imx_lcdc_probe':
->     drivers/gpu/drm/imx/lcdc/imx-lcdc.c:404:18: error: implicit declarati=
-on of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaration]
->       404 |         bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, =
-0, 0);
->           |                  ^~~~~~~~~~~~~~~~~~~~~~
->     drivers/gpu/drm/verisilicon/vs_bridge.c: In function 'vs_bridge_init':
->     drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit decla=
-ration of function 'devm_drm_of_get_bridge' [-Wimplicit-function-declaratio=
-n]
->       306 |         next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev=
-->dev->of_node,
->           |                ^~~~~~~~~~~~~~~~~~~~~~
->    =20
->     Include the new header in all files that need it.
->    =20
->     Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c=
-")
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dts=
+i b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
+> new file mode 100644
+> index 0000000000000..bd08e22581a31
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b-dsi-ili9881.dtsi
 
-[Severity: Medium]
-Is the premise of this commit accurate for the current tree?
+[ ... ]
 
-Looking at include/drm/drm_bridge.h, devm_drm_of_get_bridge() is still
-declared there:
+> +&{/} {
+> +	panel_backlight: panel_backlight {
 
-include/drm/drm_bridge.h:
-	struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct devic=
-e_node *node,
-						  u32 port, u32 endpoint);
+[Severity: Low]
+Should this node name use hyphens instead of underscores, such as
+panel-backlight? Devicetree naming conventions generally prefer hyphens,
+and using underscores here triggers node_name_chars_strict warnings when
+building the device trees with standard strict dtc checks enabled.
 
-Because the prerequisite commit aa8a8c7e4641 appears to be missing in this
-tree, the declaration remains in drm_bridge.h and the mentioned build
-failure does not exist here.
+> +		compatible =3D "pwm-backlight";
+> +		brightness-levels =3D <0 31>;
 
-Does this patch depend on another series, or is it premature for this
-particular branch?
+[ ... ]
+
+> +&i2c0_1 {
+> +	status =3D "okay";
+> +
+> +	display_mcu: display_mcu@45 {
+
+[Severity: Low]
+Similarly, could this node be named display-mcu@45 instead? Replacing the
+underscore with a hyphen avoids dtc compiler warnings for invalid node
+name characters.
+
+> +		compatible =3D "raspberrypi,touchscreen-panel-regulator-v2";
+> +		reg =3D <0x45>;
+> +		gpio-controller;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928161605.2271=
-412-1-arnd@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-drm-mipi-d=
+si-panel-ebpf-v1-0-5244926aace4@kernel.org?part=3D6
