@@ -4,56 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9E7CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C956CA5FA2
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 19:32:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FB6910E15E;
-	Mon, 28 Sep 2026 19:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E7110EBA9;
+	Mon, 28 Sep 2026 19:32:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cVvjom1U";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NY89sdfE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC2310E15E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:31:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 18C0643F3C;
- Mon, 28 Sep 2026 19:31:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A9C1F00898;
- Mon, 28 Sep 2026 19:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790623904;
- bh=286xF3v4g4VkJV4InXRiw/By35Qg9oOY3ehPiYz153w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=cVvjom1UoGrA2bqJJbCnXjnwQkYEv7k2rs1C/tSJh0FUb4zrWfpCI03kIPSJKwszr
- mhbxpnL9SuHjuX7B6zJ6CtzDPEC6DOfxMtKCRhsRfHN8FJ65RzmrnI5WkzZMxvle3/
- Vhe14YBeG3cI39X5zw0kSL8foaRQKzOCiQdBry4U1ATBGjNN4vHMaKbD/6yEKyqbl9
- oDmGBmSQL012fOd3u5Zaq8Lj8dD80F0z8RQjgn+ILK5K/+Qhjy8p4z6NkAIJuwbPzr
- fzX560Hp8ZgxT+DWp5nvUUTSQxqqBs0NTphUGPBhWSCP9c1NxsIXVOmGkeyA0PhEh3
- sMM1eNiOSCj8w==
-Date: Mon, 28 Sep 2026 14:31:43 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, linux-kernel@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: add Lenovo ThinkPad T14s
- Gen 7 (Mahua)
-Message-ID: <179062389959.407554.7248677417170944121.robh@kernel.org>
-References: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260918120515.595782-2-srinivas.kandagatla@oss.qualcomm.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F101810EBD4
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 19:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=Hp/CIWuSKdq6HDFc2/B4jN9WUMT+pr0dxBBjG8+5Spw=; b=NY89sdfEq/EgbYU4aFvtuosbwC
+ k5pSvBX5EvKVh0E0wWYQmx2ne1r6uunqjaGZL3D6nyhPQhYOxjfGoKaIOvvBI8OM9ZmCkrzfamo7l
+ fQtRClBeznw3yudYQNw72nICiyLtFqgMFRiE3vVyXkhc+VOh/JOvPRT5OeI4k/irkbmHSt9ohG4OT
+ D5IZkzlKZLYeP/T0R15wt11YE+nPci/RehLV17xQrxhwvz/cGprM7NaipEao2jUOKNPlWhDuA++CY
+ 91U56oXG8Orppiow1hEBoslM6IRd3P+HTn9RoXd+FamYCMMtrgjeX8LPhRisr/TBzRo7meSXYgdtX
+ 536DAekQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xBH5F-008Xh1-1G; Mon, 28 Sep 2026 21:32:17 +0200
+Message-ID: <ae2f040d-f4a2-41ef-8e84-0e8e69cd4a4b@igalia.com>
+Date: Mon, 28 Sep 2026 16:32:11 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918120515.595782-2-srinivas.kandagatla@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vc4: drain GEM timer and work on teardown
+To: Hongyan Xu <getshell@seu.edu.cn>, mripard@kernel.org,
+ dave.stevenson@raspberrypi.com
+Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn
+References: <20260928134100.420-1-getshell@seu.edu.cn>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260928134100.420-1-getshell@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,20 +85,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Hongyan,
 
-On Fri, 18 Sep 2026 13:05:13 +0100, Srinivas Kandagatla wrote:
-> Add lenovo,thinkpad-t14s-gen7 as a board compatible under qcom,mahua.
-> The T14s Gen 7 uses the Mahua SoC (a 12-core variant of Glymur with
-> cluster2 / cpu12-cpu17 fused off) rather than Glymur proper, matching
-> what the platform's ACPI MADT dump reports (12 enabled + 6 disabled
-> processors).
+This issue was already addressed in [1].
+
+[1] 
+https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/94cf5971b1d04c6382437387c4dc3836cc7a1437
+
+Best regards,
+- Maíra
+
+On 28/09/26 10:41, Hongyan Xu wrote:
+> The hangcheck timer can rearm itself or queue reset_work, while the V3D
+> interrupt queues job_done_work. vc4_gem_destroy() releases state
+> embedded in vc4_dev without first draining those asynchronous callbacks.
 > 
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Shut down the timer so it cannot be rearmed, then cancel both work items
+> before GEM state is destroyed.
+> 
+> Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+>   drivers/gpu/drm/vc4/vc4_gem.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+> index e231c906709c..2443b62df89c 100644
+> --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> @@ -1194,6 +1194,10 @@ static void vc4_gem_destroy(struct drm_device *dev, void *unused)
+>   {
+>   	struct vc4_dev *vc4 = to_vc4_dev(dev);
+>   
+> +	timer_shutdown_sync(&vc4->hangcheck.timer);
+> +	cancel_work_sync(&vc4->hangcheck.reset_work);
+> +	cancel_work_sync(&vc4->job_done_work);
+> +
+>   	/* Waiting for exec to finish would need to be done before
+>   	 * unregistering V3D.
+>   	 */
 
