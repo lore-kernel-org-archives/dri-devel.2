@@ -4,55 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E990CA5FA2
-	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FDACA5FA3
+	for <dri-devel@archiver.kernel.org>; Mon, 28 Sep 2026 18:09:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7800410E95E;
-	Mon, 28 Sep 2026 18:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6D9810EB52;
+	Mon, 28 Sep 2026 18:09:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c9XcudAT";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PJhbHkIR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3AF10E95E
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:07:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2E0A141960;
- Mon, 28 Sep 2026 18:07:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3BEB1F000FF;
- Mon, 28 Sep 2026 18:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790618861;
- bh=cMvGUI5cU3kfbw3YsxICXP5KybzlGFN2Dgqvultvh30=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=c9XcudATYAT8NcSMFwZuwbQQNidSplhH5RKB9Q+/yMDxBV3lvOQgaHDQfH0ahDahn
- vH1r6riKDuHBj3WQbG9pklKQc5cDs3OIe6rTZQep/lJv5iRh7eJSmE1yQalkNQc0Eb
- 4DRf3D1P79/b9qCQY3FqPqIB2qkxPlzl/NzM0/SLCzESeKfcE+OUGty9ss+j7JL0zO
- uBfNZU29rzlTPzvsMQmokNKsxYIvPyQ9KstzDSuvvmurT1a+lkekz6i9Ow56ubNei5
- 93jT/d/2qp2KqUNKaSl/S2iCCJO5Vqc2iAUlQcy6qHEOU7JeAlKAcN8AzSvRCU6tJw
- r/62kYFAAvfmQ==
-Date: Mon, 28 Sep 2026 13:07:37 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: Joel Selvaraj <foss@joelselvaraj.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Heidelberg <david@ixit.cz>, Simona Vetter <simona@ffwll.ch>,
- Chintan Patel <chintanlike@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, devicetree@vger.kernel.org,
- Jessica Zhang <jesszhan0024@gmail.com>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- phone-devel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 2/9] dt-bindings: vendor-prefixes: Add Shen Chao
- Optoelectronics
-Message-ID: <179061885724.141103.4454365057824821893.robh@kernel.org>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-2-f8de8be5b86f@minlexx.ru>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E47610EB48
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790618969;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WblzAY3JRV9CtwzNMKeAP2oGeUzXJbmdjxKWRmzPjT0=;
+ b=PJhbHkIRBFID5cswJ92776vll2KD9fgt0nDXJiPT4OZ0f/SvgmDkX8UF87Anx6/UkrWjPP
+ 5fzw94ZOd6SAHBX8zdIdHM+amGsRhWyLrT6KKRv9c8ZVZev/4ilzX8ghONdSJyg4rG8uGk
+ ohi3QePa1nJcfZw2sf5/pvMfBxfM0ZE=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-493-g_QVZ40QMQ-5OAQq0dsBEg-1; Mon, 28 Sep 2026 14:09:28 -0400
+X-MC-Unique: g_QVZ40QMQ-5OAQq0dsBEg-1
+X-Mimecast-MFC-AGG-ID: g_QVZ40QMQ-5OAQq0dsBEg_1790618967
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-49e7631c43aso34555905e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 11:09:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790618967; x=1791223767;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WblzAY3JRV9CtwzNMKeAP2oGeUzXJbmdjxKWRmzPjT0=;
+ b=OfOEsc+JJFOxNbsdIQk6PsebQO6mk6nkj9eS0RL8cH+r/FAIsimu3olJ9zA9yuBd/X
+ OnHuPuKp4X1jhvloSVWw9BEMHk890bw/8iekaFJTf+ZxzgKC2UBiKXJGUcoTPw4Y5Zn/
+ GqWfGeqAupa2ju7CH1Me6tmlXh2Xk+zT9A/ze9Fp9qWQMp2yjRQ8XeCwIq9DSZCP8gDq
+ TQ7jipyI6rq35EJla1Nt25jfFbnjodQblJFMPmAUvFOqq0Bq4VvWdpdHVXpacls0Z+bu
+ svVfFoBXikPLhe90/0gX/4gP/g3xJXBH3mvhTGitb9cGcNWeztZDq1N9EzSg/51oJGNR
+ +0pg==
+X-Gm-Message-State: AFuF++lYZSCSAKkmPRFb9XsPwnkIkkKmt3QdViH3k03G6LaswXnxSNy7
+ kupBBUXjukKfylT5m2GdfdKej9hA21btOEY3Hw/imxZiS1DCPjorxZeba/eFoQU7a5R64ENV+U3
+ SgvnSuz7csskc1ZQw1Mvrkhd609oWSYV4nuIrfcETCnxtkDMTsf888U6+J/H8LeiZ74ZAig==
+X-Gm-Gg: AYBFou0dmVWE5tqCb44Ipz3dGLGIeBzF75TQY8QOAEzJ3EmL9pCQ0KqoSYueImTZA5J
+ ttDWIrd/PjKG9hg3zLYA/iWXqcAltSZ/gea/6oaO4TTx2BFMhyaLpwJLNapXwx9PqGmI/KYfaWZ
+ Im7OHFOFYTfiMFRIt0G6kwkF0MuJ9YHXr9SAIv4wJDpO5WCG+hPw2KjAbHcHeQG+aDSVKuzGoxM
+ JvoAUARy0nfKn9CfY7FqWFHpnSuHcXExdEdjhcm2oI+xIZRdGgCOGaInCBewMjCkqQGT+LD6mxn
+ OmLFkFKYVK3z2xRyAf1qfHAuFwaimhsqmJWuai38zuKQFtPMp4O2uncXXMyw0z69mwIsRbx7MNe
+ T+ZgvNv7E5D8RGDf8SmVmlVkKNYToECMzl6DVwq4kvCKlKG1xoBtlg5ilIV2tLtjClg==
+X-Received: by 2002:a05:600c:1389:b0:49f:dcc8:c735 with SMTP id
+ 5b1f17b1804b1-49fe66f4c7dmr231739745e9.18.1790618966854; 
+ Mon, 28 Sep 2026 11:09:26 -0700 (PDT)
+X-Received: by 2002:a05:600c:1389:b0:49f:dcc8:c735 with SMTP id
+ 5b1f17b1804b1-49fe66f4c7dmr231739375e9.18.1790618966445; 
+ Mon, 28 Sep 2026 11:09:26 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a00d10cb7dsm3533065e9.0.2026.09.28.11.09.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Sep 2026 11:09:25 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, jani.nikula@linux.intel.com, Alexander.Deucher@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, sashiko-reviews@lists.linux.dev, Thomas
+ Zimmermann <tzimmermann@suse.de>, Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH v4 1/2] drm/fbdev: Move fbdev module parameters next to
+ module init
+In-Reply-To: <20260928080323.23909-2-tzimmermann@suse.de>
+References: <20260928080323.23909-1-tzimmermann@suse.de>
+ <20260928080323.23909-2-tzimmermann@suse.de>
+Date: Mon, 28 Sep 2026 20:09:23 +0200
+Message-ID: <xlv133utfdt8.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-nt36672a-panels-v2-2-f8de8be5b86f@minlexx.ru>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: nqpeAt9oAngaMjVFGPjeywsIpdR4Wsv3VyzV_jagM2k_1790618967
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,26 +104,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-On Thu, 17 Sep 2026 19:43:04 +0300, Alexey Minnekhanov wrote:
-> Shen Chao Optoelectronics Co., Ltd. is a manufacturer of LCD
-> displays based in Shenzhen. According to description in [1],
-> the company specializes in the design, R&D, testing, and
-> manufacturing of TFT-LCD liquid crystal display panels. Its
-> products are widely used in the 3C electronic display field,
-> covering a full range of display products including LCD monitors,
-> laptops, and mobile phones.
-> 
-> [1] https://www.qcc.com/firm/5b0330df7040fba496dbb0bd5723f6be.html
-> 
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-> 
-> ---
-> v2: correct company name, expand description, add a link
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+Hello Thomas,
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Define the parameters for fbdev emulation in the source file with the
+> module-initialization and exit code of drm_kms_helper.ko. The parameters
+> control some aspects of DRM's fbdev emulation. Common usage looks like
+>
+>   drm_kms_helper.drm_fbdev_overalloc=200
+>
+> on the kernel's command line. This has been possible for many years
+> and changing it would likely upset users.
+>
+> The emulation code is supposed to be moved into the module for DRM
+> clients. Keeping the parameters in drm_kms_helper.ko avoids breaking
+> systems the use them in the way described above.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
