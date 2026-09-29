@@ -4,79 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D82CA5FAB
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 00:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38499CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 01:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 120D410E1A1;
-	Tue, 29 Sep 2026 00:27:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B9110E7A8;
+	Tue, 29 Sep 2026 01:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cCyVJDwz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1290D10E1A1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D4A60447A1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B671F000FF
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790641666;
- bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
- EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
- kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
- MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
- MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
- eAfxlQdMmxqdg==
-Received: by mail-ej2-f42.google.com with SMTP id
- a640c23a62f3a-c2b40e4744eso343117966b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzh42OllRyzsJy/WfnET71BgGoaR3sgtOnhL40p3quS+3Z4tkZcy6DFgQkhJIXUGzeTeof9F0DeZZo=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mrwOTQYrD2Q+aXtdy0h8jyQbIPR/5/mSw9jS+kZ44guzU5A+4J
- lpq+I4UsKVql3Kx2lNaOUUbWPaW7vNgbL0Sz3vS7C+qIOtHaE1vNnnBFeIp+BkB5zy0kzYyxL1F
- hK3L/V7qgDXKIQH9c1fSoTXguF8ADq/1CGIOa9pY7NQ==
-X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
- a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
- 17:27:45 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 827DD10E534;
+ Tue, 29 Sep 2026 01:35:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wH+p+9BfHmEENw4zfDhmQL+kbvNoDdLYX8hpeXiA6BNB6WtnVvGyMr9vNDXl4G54O7zehuRBgFMqARhYULulVnTIK8wmi8C0Hyzwod031500poFmEGBQkVjbzhT4iQou6dUTKKW+D9PMLOw2SSuhMUEao2iTTGxe6T0pwFvIMSLYd1dp+Y1GB5FU0iVuxrkJ5QnJfGVyjhlqiEvKMdLHyQavVhZE575jogQU7QRA1FyW+Xl0btzMKZ3U6nJgZdXnzkjP650pGcBJ4v8/lP3FWIBOftrwDf8xJuG4PCfD3C6mO3+K2hCeZbthBd5jEMentwWeI48a7M97F3UdA3FtCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=58thUTr1TfraDnTYMSfiJGBoRksnF06GzOzV2SKTmJ4=;
+ b=rAf6Ue0aMCpO7GIoO/dSSJ18kvAsoy+Rake3JBDB7IVS6V1auz8nKGEiiKVUPljjgnSI8uLagqtCAC163NKda6o53DN0ltThLB4clrCI8pMZ3GgXaIoX4byWg7uXDkDca4k5n1PofvUrFZIz3RFfdlk4ve9mbmb6wYqqYK9eg8u/LdBYiWZhCl5h52rN7Q2I4vf1yUMUkgfesu36nf8awZlAxiMQKy/hWfw9MTMpwSeXOZK4aworwj/XBJ1xFBONUCFF4RBM0U4z9SKiA9Tdc0VaI9Ypy1Wz2fCPxY8H1W0u40ucyqYBL4FG+PjvLvfCydulMb4p4JHNV9Rn9qE4ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=58thUTr1TfraDnTYMSfiJGBoRksnF06GzOzV2SKTmJ4=;
+ b=cCyVJDwz4TQjU7EqbcMhJiP6IfpYHwFrltZpIwvnymU1HaGBN9SNrs/ZQhhXKz3Gz8zPMcpHibwHxcmftzUNUr2aWS8E4ruQgZZMnjKwj/jBa7GExTWAi9NFWVoMi0bOtkmcCZDmmlUPEkcTmX/dJWEcAq9bbyBkXkpkJ3R0nWE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by DS7PR12MB5813.namprd12.prod.outlook.com
+ (2603:10b6:8:75::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 01:35:06 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 01:35:06 +0000
+Message-ID: <392ba6d1-1ff8-4ba0-8b71-d794336cf4e9@amd.com>
+Date: Tue, 29 Sep 2026 09:35:01 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND 1/2] drm/amd/display: Use linear backlight curve in
+ power module
+To: Matthew Schwartz <matthew.schwartz@linux.dev>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20260916191102.1195881-1-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TYCP286CA0358.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:7c::9) To CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11)
 MIME-Version: 1.0
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
- <20260928151924.2686290-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Mon, 28 Sep 2026 14:27:33 -1000
-X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
- Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
- Karel Zak <kzak@redhat.com>, 
- util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|DS7PR12MB5813:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d18537c-df48-4d24-a821-08df1dc9e3f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: qPi4xmYIjgKCNJ2hMMMkMAzjsePUS0jsHa9Ra+uw9Ig5rgK97B4q1x8xNHU8zBi3IH7/PXDm5FXrHvbZ9zSpstMQcxHIdvdTxcb2fwda4u5gPvH2ypGPIku8ZiN0ffK6FHa9Hq2vqMZn83Qgb87WEenwWS54+QflmzFz41vRVv7LK0CvHfAWMuAklDl8Rbns88s4QnGfjHHEb+UlEs3UDvMHPJ4qU9mdKttTgsrI4FN408M9K9jjedVGVEPJyTjg67GVqrtK9DZ6Dz/bel4NsNWd4MXjiKuj9xOcmHnn17Og96+7b8P2zNTfT2eXrKPrWyKdPLKSQKKZVoFxHswv7hDuJ/vXmlKD1aa1bNsuln8g3Cb8AkL6D6MnCVwQxEi7g+k2IIxY57ZvZXi0QtYTOrKr2BqFAshUAMBeUdf6NzRhkdV2vmxDVbGPEjzAoSzoiMMGiySuQjI2FYjnTIzP3uQk5LpZCs/Mz2hG6sfWyvZsTst3GJ5BtWdbfOJz6boYhAg7TPwoMZL2FSTYColaZAPJarq3Pp176/ibYD2dWPcUuo6g1UjLAAXTVN4jQbGVU0WKwtVZACtLHi4Ysq1iFXIle/dJa+YmyqLze9Vm1C/dlUQXSSB1ROCAx+TDKFgRZY/1bAGzi5kSHkMl91moEK4hJlVIIrHSpCXT7SiSDoI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHAPR12MB999225.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkQydHZXTlZyeGkxYkVRYnhQcXJxOXVKMWNEeE93a1QzM0RUTUx5SWZvaVNY?=
+ =?utf-8?B?Vno1R3YvM3hZUVFPR1NLck5wUmJvVXJlZlA0czNIcmlKZzFIOC9LWUcyOGNh?=
+ =?utf-8?B?dU5lSDR2TEJSOEZvbzVMYkt6UmFhR3Z5ZGV2cGozeTFKYVBjVFZYQ2k5cGpN?=
+ =?utf-8?B?RkFuamhNYmdEN1ZCeUdVRjhocS85WWFBUDcxT05pV3RJS0kwMHpEWE9OQjdT?=
+ =?utf-8?B?MEtGeEJXSG5UT2w1WVJKZUxwTVB2Y012amwrcjRTNWRacDE4eEl1SEx5SDZD?=
+ =?utf-8?B?amYyQnl4dGNCWjlwSmpuZmx3SjZGemF6WjZwN3FoRXRNMmg1MXd0WXF1RlJT?=
+ =?utf-8?B?d2sveXVqYVNyQ0FBbU1TL2R6akR6NlNzaTRoVFplOVNGYmZQbXlQOWM0eEpa?=
+ =?utf-8?B?M0EyZlQvQ2xqV0t3VzMra0o5Wmd6WWhVUHlxREpXNlJ0eHExaXhFQjFVYnVp?=
+ =?utf-8?B?cGtrQWtrQ3FHc3hLT0hRQjMycERFV3cvSklzWmY2R2ZkRDljYnRyMEFNd1Bq?=
+ =?utf-8?B?dkQ0Z3JiSUhPWlFUdmJTWWRoM1JWNFRXeFF5a3orMHkrSEptalhORXg5LzFV?=
+ =?utf-8?B?M1ZNMy9SdXBTcVNYTkRHQnhWQVV1UVpuRjkxNExNYWorNE1JaTZaS2czQlFk?=
+ =?utf-8?B?ZjNQZWVGTjF1bXVJdGo3Uk9FZDFWQTFHVU1NVFpCU3duU1VFdGY2NThuMkNl?=
+ =?utf-8?B?Z1VWUmpIUTBZUyt5NDR3dGo3M2hGNFZrN2ZMTkErbjJUZHVkNXlCKzZCUS9L?=
+ =?utf-8?B?enBrSlJudnU3cE1zcWdTcFVBM2h3ekdscEd5NGVzTzFZRTVza0Z3YTU4K1Vj?=
+ =?utf-8?B?YXQwS255NEtwMUFwN2c1MEZwZTRKcjM2bWk3aVpqSjd2YlYySUkxZ2djVXlS?=
+ =?utf-8?B?SzFPVHdTRXBkMDYvWmFFWlgzSnFtdVJBQ2VJS2lEYk9nTW9BNzBtVnVHRUFq?=
+ =?utf-8?B?cllUWVJaSHRLOTl6VFhOMVN0TUlXM1Q2ckxJZ00rTlhBMTFIWUVqd2k3NHdH?=
+ =?utf-8?B?U0pJVktiSlhaS2txczlENkdFM0R1cjdYSWFBTFBJSXJaMGdRazBXbkxaVTMz?=
+ =?utf-8?B?Z1RzWk5ZeXp5Yllvc3cxVVJhTnhlUitTUERxMnlQZG5LQSt0YmVnQXBtczVl?=
+ =?utf-8?B?MXFSRHdJdVhpY2ovMEhlaHh0eEpFVlhoanFCZkRWUERBWDVWa20rSGk3LzRW?=
+ =?utf-8?B?bmNQVDdOcW5SQzFWVTA4MUE0c05TaUVsaGYzVjNzTmxkT0l3WGRtODhUblo1?=
+ =?utf-8?B?U0tnQmlteUsvSVIxLzMxVXpTMDZmeWQ5M3VVTXpQeHhmQjAyTTRBZ0pDbG1C?=
+ =?utf-8?B?akZNNHptSGszamxqaTdhUHJ1bWpjTHk2dnU0elFBdWdWY3k5RXo0dU43cW5w?=
+ =?utf-8?B?cmV6TVJmd2FQQWpLQXZ5VDlSaVgvVWxEb2g5K3FFb0tENC94UDdOSElCNkxO?=
+ =?utf-8?B?bUsveEczbWRoa2FlSHZQeHZzOWZOU1JONjkwVS9RME5TUVJuWTUxTlE5cHZp?=
+ =?utf-8?B?WUNvekJuV3pvZSt5b0VpaVc2UHJMeEgzZWxSWU15SktWMWVQbVZZTkRSQUNL?=
+ =?utf-8?B?b0J3L3MxYlBPMXNOZTZGeklCVkFzVnVsclBUMmZ2SlRiVHNTNWR3eVh0QytL?=
+ =?utf-8?B?TElUR0NrVjNDMW1vaDhVQXY2TGpTZndPTVJPZUQ5MmI0dXBQcURTbDhCV2tG?=
+ =?utf-8?B?TlZoajcvR2NwbzE4enk5ZkI2ZTN5YmlwSm85a3RHVnVTUHhHTytSMzZIKy9Y?=
+ =?utf-8?B?dmRZb0FRMnYzcWtlYmRsM3FkaFIrNTVtcm1FTFk1VFNyVXFvNHVoU2hCbDlN?=
+ =?utf-8?B?TU82OFJuK3N4bXo4UXZNMEYrSnJENnozYldGeFdIN3hsem5FWUhqWGpwc0wz?=
+ =?utf-8?B?Nk9xTmdSLzkvOWJId2RvakFhUkxUSjFieFpxbEtjYmFNOXo3V2ZZeW10WW5E?=
+ =?utf-8?B?SXdEbHFhNEVuR1REdGVXYUROTVdpRFFtTHlKWHYzMVpkc0doR2d5R0IxSVdM?=
+ =?utf-8?B?RXNJZk56ZlhkYytxMkJqVXMyUmo3MnlxazJ2NjM1cFlsRDJKN0VDUTd5Ynho?=
+ =?utf-8?B?bytRTU03U085V0x1Y1BZeDRiOU05cHZKY1J6QnVOR2dlWEdmTUdISkNjbG9K?=
+ =?utf-8?B?b1dGLzQ0dHpsdUdzZ2RwMUJBMjZOMVJWK1Brc29nNU5nb0ZHaUNZVk1TTk1N?=
+ =?utf-8?B?Nk5JdUh1TFRsYkMvaXZhaEVnNEFGYTk2R0MwSmZVWUFrMTZzNzZUOUd3d3JC?=
+ =?utf-8?B?OTZkNUNiL0Ewc2R1ZFNnbk9aY1M0WGdEQ01hRnNVcFlrT0poZGUyNWtob2NN?=
+ =?utf-8?B?M2loWDB6NWtLL0FRYW5MMFR2QldVcGpjUUpMNy9xQ2VQWWlIOHg1Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d18537c-df48-4d24-a821-08df1dc9e3f6
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 01:35:06.2599 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yLy81Qf8ihGUsxgI5cFvhRHHj2a+DWGXc8zh+trdkoB3AUoYp0ZMpObDfSWWkBi3kcfG/MPk/cGxDb9/mkxC9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5813
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,79 +140,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
+Hi Mathew,
+
+We have a similar change has already been merged into asdn DC 3.2.400 
+release.
+     commit: drm/amd/display: map PWM brightness through custom 
+backlight curve
+
+Could you give it a try? If you still see any other issues, please feel 
+free to send an updated patch.
+Thanks!
+
+On 9/17/2026 3:11 AM, Matthew Schwartz wrote:
+> amdgpu_dm already applies the ATIF custom brightness curve in
+> convert_custom_brightness() before handing the level to the power
+> module. The power module then builds its own percent to PWM LUT from
+> the same ATIF data in initialize_backlight_caps() and applies the curve
+> a second time. On the Lenovo Legion Go S this maps the bottom 40% of the
+> brightness range to under 12% PWM, where the panel no longer visibly
+> changes.
 >
-> Hi Chris,
+> Tell the power module to use its linear curve so the PWM is a straight
+> rescale of the level DM computed, matching the behavior before the power
+> module took over backlight programming.
 >
-> Thanks for resolving the conflicts yourself and reviewing it.
+> Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> > What is the high-level user-visible impact of this series?
->
-> Being able to use more interesting swap backends and logic when the
-> machine is not under memory pressure.  It is much easier to write a
-> swap backend that may occasionally allocate memory than one that is
-> guaranteed never to, so today such backends are either unsafe as swap
-
-I actually don't know of a swap backend that absolutely will not
-allocate memory on swap out yet. Some backends allocate more than
-others. Because the proactive reclaim can write to the non-offloaded
-swap backend. That brings me back to my original question, in what way
-this series helps.
-
-So the answer seems to be that previously, some backends were unusable
-by swap, due to possible memory allocation. With this series, those
-back ends are usable for the proactive reclaim now. It is a 0 to 0.5
-improvement because direct reclaim can't use it yet.
-
-
-> or ruled out (btrfs, for example, refuses swapfiles that are
-> copy-on-write, checksummed or compressed).
->
-> > I am curious: if we never run out of swap file space on the
-> > non-offload swap area, does that mean we don't need this patch series?
->
-> No: running out of conventional swap isn't the point.  Without the
-> series, any active swap area may be written under pressure, so a
-> backend that may allocate can't be used as swap at all, however much
-> conventional swap there is next to it.
-
-But proactive reclaim can also use the non-offload swap area. So if we
-have plenty of non-offload swap area, both proactive reclaim and
-direct reclaim can use that non-offload area. The value of this series
-isn't apparent. If you don't have a traditional swap-capable backend,
-then your non-offload area is zero.  That is considered a special case
-of running out of non-offload swap area: never having a traditional
-swap area in the first place.
-
->
-> > However, direct reclaim can use both types of swap areas.
->
-> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
-
-Sorry I meant proactive reclaim can use both types, nothing constrains
-proactive reclaim.
-
-> debugfs eviction may write new data to an offload-only area; direct
-> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
-> your suggestion to flip it round is closer to what I want: mark the
-
-Flipping it around might provide additional benefit. I know some users
-maintain off tree patches to turn off zswap on the direct reclaim path
-exactly because zswap might allocate more memory before it can free
-some. If the kernel can be smart about it. It provides additional
-value to the status quo.
-
-> areas whose writes may allocate, and keep pressure reclaim away from
-> those, rather than tying it to what started the reclaim.  I'll work
-> that into v3, together with Kairui's suggestion to build on the swap
-> tiers work.
-
-Yes, I feel that cluster-level marking might not be needed, you can
-remember which si has the offload flag. However the per cpu cache
-needs to know which context might require using a different cached
-cluster. That is the trickiest part. The rest of the patch is just
-enough plumbing to preserve whether the swap-out context is proactive
-or not.
-
-Chris
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ca795cda8084..63acefc0acfb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -455,7 +455,7 @@ STATIC_IFN_KUNIT int amdgpu_dm_init_power_module(struct amdgpu_display_manager *
+>   			!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
+>   		init_data[i].use_custom_backlight_caps = false;
+>   		init_data[i].custom_backlight_caps_config_no = 0;
+> -		init_data[i].use_linear_backlight_curve = false;
+> +		init_data[i].use_linear_backlight_curve = true;
+>   		init_data[i].def_varibright_enable = 0;
+>   		init_data[i].varibright_level = 0;
+>   		/*
