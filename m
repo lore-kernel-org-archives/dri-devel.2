@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 986CFCA5FAD
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FC7CA5FAE
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD62C10E0F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE17810EC4F;
 	Tue, 29 Sep 2026 02:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PknU8s14";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N0zA444o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD6910EC47
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED49E10EC4A
  for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7E0C1447A3;
+ by sea.source.kernel.org (Postfix) with ESMTP id 82643447A5;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4E099C4AF1D;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5B1E9C4AF15;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790648156;
- bh=SWfJYfIhU0ceNaMeMrQOIvNiAm90QJeCPkReTr2kGwU=;
+ bh=KcRjclGxWWucAqNsmHW4CsL7AkQm1OZEgwKhM/93SCI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=PknU8s14fcei++6tRffW0OFoKPk/CGnBTTfyjpYoKPuLanizHP0M/VxswI400k5hK
- oj6jDSh6tmp61i6rDAG8aJmAbIdR55DNiMghsGP40Obf6eSnpD8aMDNWQsv7PoW0HE
- 3WxiXGoqypkXthROl8blpQy7OD1U/mGJuvM5E619+QjezE6GtJ+urkhHUnQNnUWWl+
- v85dZP81grTIXfTJ/ryv+ZQUrfcIOvmGMZyInZGI5nf4q2/muUzO0lJ7CDsextcwCt
- Lq2PZxQpim8DaMP6kZYSNgQauGIW8NyZ5kskFLocO45QlrAhbYhQG63RWFOblrahQB
- 6pcWU6lHJG+Bw==
+ b=N0zA444oJE/c3+6D/NwuEebtUgg7rR0rjI8mi1w7os0cZLCFi4dTKXNOm54VMHzhO
+ iwsTmDBo6jWwxrLXA3oCUsJZEFthsPU7AT7RhexEXOh2w53BEa0IYkJgBbcFxIu73s
+ YwFVqWcg9k0Qb/j7LL0nJHIvDu20EX2+sBjhL+IKUYNOcwSpL098I4iTv76t2AL6W9
+ D+tyyM8AkUuCSqzCJfcBdnAGweMvuTKNVhTnv0+Z90KI51CjqeJwhbDX3vqyiealUr
+ /2DQQO0RgkvShAlVxb5lzR9RED2xCvCsfl3oev5jAuvWp7T061Y4WaxcSvyTm4Zyer
+ tZASUWQVZiI3g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 31115CA5FAE;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 41701CA5FAD;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 29 Sep 2026 10:15:53 +0800
-Subject: [PATCH v3 03/11] rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
+Date: Tue, 29 Sep 2026 10:15:54 +0800
+Subject: [PATCH v3 04/11] drm/tyr: add per-file VM pool
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-tyr-ioctls-v3-3-26955fb111d5@kylinos.cn>
+Message-Id: <20260929-tyr-ioctls-v3-4-26955fb111d5@kylinos.cn>
 References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
 In-Reply-To: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -63,11 +63,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=1389;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=4466;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=E65clxOu/qjNbqNDrRBBfaWHB/W/gvw7JStoVkgnAT4=;
- b=oJFnuxY+wm2TofFGyh+923zn8gVxU3T30QNNCDbfLO3AvpyY9RdvRRZu/O77US4y5OgA+x76B
- x9aJfoqpCD2BYz1U5apadhb5wm1qteXBA+TUC/bvVSXLzU6hF5tMD/d
+ bh=2k4Kro5Nu9GP4ZaXjA3FSWjNswGDeb0O0Mq0nSMnSeU=;
+ b=kDfugSFGH7eKdA5+2sLu99cdt5TWEtYM8IV+0Y/ncOgm/ISOJ7zGt4CcRwbDNwVbxi0+yDxxa
+ QuLPwX8bPXRD4aVNIF2NbenIspWPdfUYSapQ+0AOrEb7nAotBZKCqu0
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -90,42 +90,145 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-Drop the `'static` bound so that refcounted values borrowing from a
-driver registration scope can be foreign-owned by the XArray
-abstraction.
+Userspace needs multiple independent GPU address spaces per file,
+addressed by ID through the VM ioctls as in panthor. Store them in an
+IdPool (capped at 32 for panthor parity) plus an XArray. A failed
+insertion kills the VM before returning the error, and the pool kills
+every VM still stored when the file closes.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/sync/arc.rs | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/tyr/vm.rs | 106 +++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 105 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
-index 8ae0fe6f19ec0..9b582a815f888 100644
---- a/rust/kernel/sync/arc.rs
-+++ b/rust/kernel/sync/arc.rs
-@@ -363,11 +363,17 @@ pub fn into_unique_or_drop(this: Self) -> Option<Pin<UniqueArc<T>>> {
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index c5e307b1e2416..a2857820570cf 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -33,6 +33,7 @@
+         }, //
+     },
+     fmt,
++    id_pool::IdPool,
+     impl_flags,
+     io::PhysAddr,
+     iommu::pgtable::{
+@@ -53,7 +54,11 @@
+         ArcBorrow,
+         Mutex, //
+     },
+-    uapi, //
++    uapi,
++    xarray::{
++        AllocKind,
++        XArray, //
++    }, //
+ };
  
- // SAFETY: The pointer returned by `into_foreign` was originally allocated as an
- // `KBox<ArcInner<T>>`, so that type is what determines the alignment.
--unsafe impl<T: 'static> ForeignOwnable for Arc<T> {
-+unsafe impl<T> ForeignOwnable for Arc<T> {
-     const FOREIGN_ALIGN: usize = <KBox<ArcInner<T>> as ForeignOwnable>::FOREIGN_ALIGN;
+ use crate::{
+@@ -948,3 +953,102 @@ fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>)
  
--    type Borrowed<'a> = ArcBorrow<'a, T>;
--    type BorrowedMut<'a> = Self::Borrowed<'a>;
-+    type Borrowed<'a>
-+        = ArcBorrow<'a, T>
-+    where
-+        T: 'a;
-+    type BorrowedMut<'a>
-+        = Self::Borrowed<'a>
-+    where
-+        T: 'a;
- 
-     fn into_foreign(self) -> *mut c_void {
-         ManuallyDrop::new(self).ptr.as_ptr().cast()
+     Ok(())
+ }
++
++/// Maximum number of VMs a single file may hold, matching panthor's
++/// `PANTHOR_MAX_VMS_PER_FILE`.
++const MAX_VMS_PER_FILE: usize = 32;
++
++/// Per-open-file pool of VMs.
++#[pin_data(PinnedDrop)]
++pub(crate) struct VmPool<'drm> {
++    #[pin]
++    ids: Mutex<IdPool>,
++    #[pin]
++    vms: XArray<Arc<Vm<'drm>>>,
++}
++
++impl<'drm> VmPool<'drm> {
++    /// Creates a new [`VmPool`].
++    #[expect(dead_code)]
++    pub(crate) fn new() -> impl PinInit<Self> {
++        let ids = IdPool::new();
++        pin_init!(Self {
++            ids <- new_mutex!(ids),
++            vms <- XArray::new(AllocKind::Alloc),
++        })
++    }
++
++    /// Stores the VM and returns the allocated ID.
++    ///
++    /// On failure - ID space exhausted or store failure - the VM is killed
++    /// here and only the error is returned.
++    // TODO: allocate IDs with the XArray directly (once it grows range
++    // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
++    #[expect(dead_code)]
++    pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32> {
++        let id = {
++            let mut ids = self.ids.lock();
++            let unused = ids.find_unused_id(1).ok_or(ENOSPC)?;
++            if unused.as_usize() > MAX_VMS_PER_FILE {
++                return Err(ENOSPC);
++            }
++            unused.acquire()
++        };
++
++        let mut vms = self.vms.lock();
++        match vms.store(id, vm, GFP_KERNEL) {
++            Ok(prev_vm) => {
++                drop(prev_vm);
++                Ok(id as u32)
++            }
++            Err(err) => {
++                // Drop the XArray spinlock before acquiring the `ids` mutex.
++                drop(vms);
++                // Kill the VM and release the pooled id before returning.
++                err.value.kill();
++                self.ids.lock().release_id(id);
++                Err(err.error)
++            }
++        }
++    }
++
++    /// Removes the VM with the given ID.
++    ///
++    /// The caller is responsible for killing the returned VM.
++    #[expect(dead_code)]
++    pub(crate) fn remove(&self, id: u32) -> Result<Arc<Vm<'drm>>> {
++        let mut vms = self.vms.lock();
++        match vms.remove(id as usize) {
++            Some(vm) => {
++                drop(vms);
++                self.ids.lock().release_id(id as usize);
++                Ok(vm)
++            }
++            None => Err(EINVAL),
++        }
++    }
++
++    /// Gets a shared reference to the VM with the given ID.
++    #[expect(dead_code)]
++    pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
++        let vms = self.vms.lock();
++        let borrow = vms.get(id as usize)?;
++        Some(Arc::from(borrow))
++    }
++}
++
++#[pinned_drop]
++impl PinnedDrop for VmPool<'_> {
++    fn drop(self: Pin<&mut Self>) {
++        let this = self.project();
++        // Kill every VM left in the pool. The ID range is bounded by
++        // `MAX_VMS_PER_FILE`, so this loop is cheap and runs at file close.
++        for id in 1..=MAX_VMS_PER_FILE {
++            // Release the XArray lock guard before killing: `kill()` may sleep.
++            let vm = this.vms.lock().remove(id);
++            if let Some(vm) = vm {
++                vm.kill();
++            }
++        }
++    }
++}
 
 -- 
 2.43.0
