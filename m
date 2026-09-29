@@ -4,124 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64EC9CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA74DCA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF97C10E146;
-	Tue, 29 Sep 2026 11:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F07F10E4BA;
+	Tue, 29 Sep 2026 11:43:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="iT/bF8t/";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="KqTCPQpm";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="y72ExFnk";
 	dkim-atps=neutral
-Received: from flow-a1-smtp.messagingengine.com
- (flow-a1-smtp.messagingengine.com [103.168.172.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF6310E146
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 11:27:29 +0000 (UTC)
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
- by mailflow.phl.internal (Postfix) with ESMTP id 2486C1380204;
- Tue, 29 Sep 2026 07:27:25 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
- by ams-compute-02.internal (MEProxy); Tue, 29 Sep 2026 07:27:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1790681244;
- x=1790688444; bh=wTvvV6l4+D0DDEvQZ4FQw43WlY8/FKGuhNm/go7qrHc=; b=
- iT/bF8t/sH7Stz7uph9Y0fcqw3GQUD8oTyj95WXxH6cZxaVv3l9+WqCLaDFyvNn3
- j+3rERPsaqANGRlvCdUCN5FnYn5X7RWVmHG71amN9KfthA7WDQmyeFx0mkQAWFeS
- hAwUdDBzAVLyPNJsUYjilQsn4DmG0C61IiM0kN9mrhHPIwcKUZrk21f64cCVQAIJ
- ZCPvafg8lkk1eEgHa4xjhqGFDLEI3r6bpRG1/BOXWz1mZ0mKSpfn2SDRYQOJQo9s
- KboHWddWz8BDd8SyhZ+8bRol37acP1auXwa2KkURVSXlvfVbC69oOrHGGhD9mYgX
- UpBmkhDrJ4TKc+XFgh6XDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790681244; x=
- 1790688444; bh=wTvvV6l4+D0DDEvQZ4FQw43WlY8/FKGuhNm/go7qrHc=; b=K
- qTCPQpmyqsQFARj6k0N20Mz6aA92TcwRzMupe1fF3O8d6CjX4yHaOOFqAwv4r9mY
- zcpRWpTz28gdEf3NM2V9ouc/6PiTM4hqEQl2fus5hlwqiLh9fhQvBlQhp7juqEws
- hFYGjTCdGsja8lDlPj5OPz5V75P7jeBx/00a8ds4t2QHkoV10ZnrM3L+LfboKOag
- WjgXSx0B22B2caV5SU4GvBz5Fk31dLClKF1rocoPqZx4uYl3LFOb6MqhPYvt9mLb
- hRHVJFVZISxlSaKQWaX7TatUJ+3M2yy2XOA6FYobMwwUxdxHASjQPvvZXoaLuiFv
- ax4cqIlMGs5/BQW6azJQA==
-X-ME-Sender: <xms:i6C7aoI-jpEAOdaBrVX5V_qYGxK08UamsTSaBMWg8tQGWLV4Jr20bg>
- <xme:i6C7ai89IP0_SvJFrBUZdec9wW34sz22E1wmIEJsy9dwJN-q9ESldYdloRuY7GNi7
- 6uGIDXChIwXimeyWcGg8SXdCHD4fYGk204A1fPewtHXTAAkSEroEeqs>
-X-ME-Proxy-Cause: dmFkZTGEQyTqpDFAht/OKgejp9f8hYWmA/2GICdCvkSdg3uuYP50Haf1z67CR8BM6faFlK
- NALY3BpxgNxHIjm780QOA8qhvsbITTo9wOUnM2zMrM36EsLjvtjeJiitynZv8QTCkXD3DE
- DM0ToVVumES1jOvjudMBBTa0yOLxpqU4PQGgxpsfchLGW6y1+626bx82qpocXbtCqMJoxR
- Z1Z4EdQVrtimSPxQrOQJFLyKJn0lqc7NKABI6P2gFUwnL5KHmdLokQQDAU4r9w2jkSob6p
- +cTwJmxH8jt/ydTJUUKL52z+IeMzPNVguKInT5ePuqAP01yOUDEyPfdVaSaNNCwL8rSRrh
- oPMn/YZcvJAllqQrr7bh80UCmQAJXKnopk52y5QhfKN+dU36OohTX3A/kQFo1d3FuKjQo+
- pUcbL19ybCxrOQ+YKG36iqPjepZekmleiPK2hw86h8eVXh7Jw+Jj6VjAuo4bapmN3JoLCU
- P2uXGQ4nocZOhtDXMQrcCdwMEXpeV9i1x6KfBlj90X9lPGgNv0/+KEhnwtXmwqSx76U/3I
- zf1jj01trO1052OTFaHOgwP43HPP17CobSeubsQUvgQteYY2ixiNnvThNYLiEwih4phlzi
- DElpzYTGokMCKMp6UmnL2FJ7naxtXcoA3h6orVOircv3zTiW9VSHhDbGEytQ
-X-ME-Proxy: <xmx:kqC7amhcIvecj-ULK3l7n1TynvTXBl3_PvAatfksP4zzZJq9_Wi4sw>
- <xmx:kqC7ah59wSovxYe-98CML8954xHqOcg9DghZMo88o64o_eav3dr9_g>
- <xmx:kqC7ag9WV4hjEw5rIME_K9ZWON8Z4Z7j8avngkl5_zIESNokRzPNDw>
- <xmx:kqC7ao_T9qYlnLb7BNo6saZ9-_4P0gz0ILr4GttKO_dUMdx2a7Rv_g>
- <xmx:nKC7amE87G7xekMefKYKvjgHTV8kmgxCxo1RxbL6blpJS_s0NTCmDbhg>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
- id 2F97632A008D; Tue, 29 Sep 2026 07:27:07 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA7910E4BA
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 11:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1790682200;
+ bh=odX8h+v3SuO3LBAU4tzqREo252vsuXpN4nbA3pZgk4M=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=y72ExFnkOblYlkejvfz50psNdKfcbaTHptBCwG5Fs0LSKDtLdjoPF1A/pnJOgMB/R
+ vJl0KHdDt6OAxcRDdxMX1hmmIVBsKAd4EyeBjaC84sNrPxQrmOoWRA5g2rlAOSiAmO
+ IVvfN94A4Jf+aK0UZgxDy4bwu36RRmrgW+A0/BzMrju9b7Krr1ns3Rf285FSCi3J7/
+ RLwxRxZg6UnUsTKvGVwkd426DmWDJuDiORwQqlndhUjncGsGZP5c+X3OjN51rVCD10
+ K10j+YGrS+CJG8YDDDy3ZsJfuryhnGzBffduAaow9tb3p38Hgryzgt2qGrJRPiPk92
+ bl4Jv/7LhEk6w==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hvGWz0nfcz4wDx;
+ Tue, 29 Sep 2026 21:43:10 +1000 (AEST)
+Message-ID: <ed9a25ad-9a10-407d-b910-1b5cbdff88b4@ozlabs.org>
+Date: Tue, 29 Sep 2026 12:43:37 +0100
 MIME-Version: 1.0
-X-ThreadId: AxWFZG7AZFUJ
-Date: Tue, 29 Sep 2026 13:26:36 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Arnd Bergmann" <arnd@kernel.org>, "Dave Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>
-Cc: "Sasha Finkelstein" <k@chaosmail.tech>, "Janne Grunau" <j@jannau.net>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Manikandan Muralidharan" <manikandan.m@microchip.com>,
- "Dharma.B" <dharma.b@microchip.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Jagan Teki" <jagan@amarulasolutions.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>,
- "laurent.pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>,
- "Liu Ying" <victor.liu@nxp.com>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Doug Anderson" <dianders@chromium.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>,
- "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
- "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>,
- "Jessica Zhang" <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>,
- "Marijn Suijten" <marijn.suijten@somainline.org>,
- "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
- "Orson Zhai" <orsonzhai@gmail.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Chunyan Zhang" <zhang.lyra@gmail.com>, "Jyri Sarha" <jyri.sarha@iki.fi>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org, asahi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Message-Id: <4a566036-af8c-494e-9749-cd713d952d39@app.fastmail.com>
-In-Reply-To: <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
-References: <20260928161605.2271412-1-arnd@kernel.org>
- <DLRMF4TI56I2.3PTB24KN9ORJ3@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: add missing drm/drm_panel.h inclusions
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/9] dma-buf: Provide dma_buf_set_name()
+Content-Language: en-GB
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260924152159.49702-1-matt@ozlabs.org>
+ <20260924152159.49702-4-matt@ozlabs.org>
+ <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,45 +72,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026, at 09:27, Luca Ceresoli wrote:
-> On Mon Sep 28, 2026 at 6:04 PM CEST, Arnd Bergmann wrote:
+On 25/09/2026 09:39, Christian König wrote:
+> 
+> 
+> On 9/24/26 17:21, Matt Evans wrote:
+>> Allow exporters to set the name of buffers, during export or for
+>> subsequent updates.  This is useful to express buffer-specific debug
+>> information, indicate state particular to the exporter's usage, etc.
+>> Only exporters and userspace are expected to set names; it isn't
+>> sensible for importers to do it.
+>>
+>> Originally, the static dma_buf_set_name() was used for
+>> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
+>> this function as a generic set-name helper, taking a kernel-allocated
+>> string.  The SET_NAME ioctls now locally duplicate the __user string,
+>> and use the new function to set the name.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>   drivers/dma-buf/dma-buf.c | 78 ++++++++++++++++++++++++---------------
+>>   include/linux/dma-buf.h   |  2 +
+>>   2 files changed, 50 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 4c9add51f9ef..e4ec504e9288 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -404,34 +404,6 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+>>   	return events;
+>>   }
+>>   
+>> -/**
+>> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
+>> - * It could support changing the name of the dma-buf if the same
+>> - * piece of memory is used for multiple purpose between different devices.
+>> - *
+>> - * @dmabuf: [in]     dmabuf buffer that will be renamed.
+>> - * @buf:    [in]     A piece of userspace memory that contains the name of
+>> - *                   the dma-buf.
+>> - *
+>> - * Returns 0 on success. If the dma-buf buffer is already attached to
+>> - * devices, return -EBUSY.
+>> - *
+>> - */
+>> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+>> -{
+>> -	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
+>> -
+>> -	if (IS_ERR(name))
+>> -		return PTR_ERR(name);
+>> -
+>> -	spin_lock(&dmabuf->name_lock);
+>> -	kfree(dmabuf->name);
+>> -	dmabuf->name = name;
+>> -	spin_unlock(&dmabuf->name_lock);
+>> -
+>> -	return 0;
+>> -}
+>> -
+>>   #if IS_ENABLED(CONFIG_SYNC_FILE)
+>>   static long dma_buf_export_sync_file(struct dma_buf *dmabuf,
+>>   				     void __user *user_data)
+>> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
+>>   		return ret;
+>>   
+>>   	case DMA_BUF_SET_NAME_A:
+>> -	case DMA_BUF_SET_NAME_B:
+>> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
+>> +	case DMA_BUF_SET_NAME_B: {
+>> +		char *name = strndup_user((const char __user *)arg,
+>> +					  DMA_BUF_NAME_LEN);
+>> +
+>> +		if (IS_ERR(name))
+>> +			return PTR_ERR(name);
+>> +
+>> +		ret = dma_buf_set_name(dmabuf, name);
+>> +		if (ret)
+>> +			kfree(name);
+>> +
+>> +		return ret;
+>> +	}
+>>   
+>>   #if IS_ENABLED(CONFIG_SYNC_FILE)
+>>   	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
+>> @@ -874,6 +857,41 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>>   }
+>>   EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+>>   
+>> +/**
+>> + * dma_buf_set_name - Set a dmabuf's name
+>> + * Intended to be used by the exporter to set a name for debug
+>> + * purposes.  This can also change an existing name if the same piece
+>> + * of memory is used for multiple purposes over time.
+> 
+> Add something like "Importers should *NOT* use this function to overwrite the name." here and add some note under "DOC: locking convention" how this function is supposed to be called.
+> 
+> Apart from that looks good to me,
 
->
-> So I see two option for a better fix:
->
->  * Option 1 -- fix the really affected drivers by switching from the
->    deprecated API to the one they recommended one. Based on quick analysis
->    there are about 6.
->
->  * Option 2 -- a quick surgical fix:
->
->    In drm_of.h:
->
->      #if IS_ENABLED(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL_BRIDGE)
->       #include <linux/of.h>
->       #include <drm/drm_bridge.h>
->      -#include <drm/drm_panel.h>
->       #endif
->      +#include <drm/drm_panel.h> /* Temporary for *_of_get_bridge() */
->
->    This can easily be tracked and reverted once all
->    devm_drm_of_get_bridge() users are converted to
->    of_drm_get_bridge_by_endpoint().
->
-> I'm working right now on option 1, hoping to get a series in a few hours
-> from now.
+Thanks, Christian.  Good point, done.
 
-Sounds good to me.
+Re the locking convention, it appears dma_buf_set_name() is agnostic to 
+whether resv is held or not.  However, rather than adding that as a new 
+category to the 'DOC: locking convention', I've put this function in the 
+existing "don't hold resv" section.
 
-> I can switch to option 2 in case of unexpected issues with option
-> 1, or if a fix "really right now" is wanted.
+Whilst conservative, this matches existing (and this series's) usage, 
+and can then be relaxed in future.  If you think a new "resv is 
+permitted but not required to be held" category of API doc is better, do 
+say.
 
-It's only really a problem for randconfig build bots, so as long as
-you are fine with getting more reports (and possibly patches from
-others) until your fix is in linux-next, I don't think we need
-another workaround first.
+Thanks,
 
-I've added your new series on my randconfig tree in place of my
-patch and will let you know if something comes up. 
 
-     Arnd
+Matt
+
+
+> Christian.
+> 
+>> + *
+>> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
+>> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
+>> + *                   similar.  This takes ownership of the allocation
+>> + *                   on success, which will be kfree()d when the
+>> + *                   dmabuf is released or a new name assigned.
+>> + *
+>> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
+>> + * name (including terminator) exceeds DMA_BUF_NAME_LEN.
+>> + */
+>> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
+>> +{
+>> +	if (!name)
+>> +		return -EINVAL;
+>> +
+>> +	/* dmabuffs_dname() won't use the string if the length
+>> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
+>> +	 */
+>> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
+>> +		return -E2BIG;
+>> +
+>> +	spin_lock(&dmabuf->name_lock);
+>> +	kfree(dmabuf->name);
+>> +	dmabuf->name = name;
+>> +	spin_unlock(&dmabuf->name_lock);
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
+>> +
+>>   static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>>   {
+>>   	struct scatterlist *to_sg, *from_sg;
+>> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+>> index d15b2b31d3c9..952a2c196ad4 100644
+>> --- a/include/linux/dma-buf.h
+>> +++ b/include/linux/dma-buf.h
+>> @@ -571,6 +571,8 @@ void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
+>>   struct dma_buf *dma_buf_get(int fd);
+>>   void dma_buf_put(struct dma_buf *dmabuf);
+>>   
+>> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
+>> +
+>>   struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
+>>   					enum dma_data_direction);
+>>   void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+> 
+
