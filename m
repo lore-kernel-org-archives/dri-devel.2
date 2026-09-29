@@ -4,74 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1AECA5FB1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:16:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1867CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D557B10EC63;
-	Tue, 29 Sep 2026 02:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F11A10EC52;
+	Tue, 29 Sep 2026 02:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tm+bKImL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HGYpu6Ns";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE39710E0F5
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:15:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B92CD447D3;
- Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 95749C4AF19;
- Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790648156;
- bh=Pmrimhn8jhib2B77FdwNFznig4hflgTGceYUZXkt+sw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Tm+bKImLS7J+QMDCfLL5TqO30bLf7KeFMLqKMmPfwcFVcVJwe801771D9ymT7v3nC
- XKWlS3Y34IvmHX5h7z04A4/wBvfgfTRwu+6x9Utzz4hR19D6md9zpNB9x7ViphamYo
- ziXn3XplsWeeAfMqu0Yjdu14uJRnTkwOMS9vAOKOD59Zjwv8eYKcZUonZVi1q7AhlO
- pj6d4c/bgAt9n44H2txaSmHlftGKvaAF5j1JQcDkDGcfH/jG9AE3nE9ezraMX8EWxh
- vlbP7IDdISBz9yWaxzs1MLVxZCzOygrv6x2FLT1jgNRSPRB5I6jaOT2mzZeK/dbluf
- 15j39+xG2q1Pw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 77A8ACA5FAD;
- Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
-From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 29 Sep 2026 10:15:57 +0800
-Subject: [PATCH v3 07/11] drm/tyr: add VM-related ioctls
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010021.outbound.protection.outlook.com
+ [40.93.198.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3897D10E141;
+ Tue, 29 Sep 2026 02:22:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZVmO+UOjzlnjRRa1iE73WlgAjZGpci1lmEQF1MFAbcpXwDggZ20BUDLycltKvtf6o4abpMQTpdZP1/CZbERXsjb6uycvpUQNsm1sxzJDCQJCWOlx+3x1ufDiI0dmi5UOay/1/MTcW7091DVgSqGKkjyi/QgZGUwJBL2ueGttx6j/wiSQyib74Z/x1fx+obsRHMA6+crgvigOE0aroIfw1BVOOG8RxjwZNECASDlEfehTaJQkxD8ZbaT5D6E5rq0qeHVe6toDDK9H0PiW85CN4LMtJ4FcUtGE5K6Xbd1uxGV22BF+L4Wdeqm0hcXIad/AYvcCQu4+ml3qnwDi7S+7Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2ngi65xzURwX2GKt3gysuD3mFb+MmKsVvS4gibV8pwk=;
+ b=d7WfGbWL0TBkm3gqNCi5AdjKiuX2LtzY48sHj0nb6Cy93/NB1R69ep9ZSlx3uXubxCHkjO4nvYixSf3cHKPvQGfk0NnkntZjvwtUlcP9AGQjF+Sdd2ZQhi8C4rq0oQyNkfhDSNHCNfJuR4b8cFldl0D1zetjQ5cxVidKzSdsj0eSIWHZRs2Z0M+kQiI8Wq7V70xnIxz9voNAJWYCICy1eupMctklpGQnyKteyXOS5MXeRPNXtRsjr7VcRX2byyqphHintxDNoOW4R6cp/VlEeja3TKvF1YCgfvIjxuAtHcwLHhbBWQO5MpIEs7VsOkUSj/XRcdxTUYK/Xb6ACninKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2ngi65xzURwX2GKt3gysuD3mFb+MmKsVvS4gibV8pwk=;
+ b=HGYpu6NsM+sJwDb81/GnzcXX/Q4glm8e6mjIzFS+sro6C3ddxO9JpG9tMjzKekChZAZ1C21Gh0R7Fw8fkIc/Uyj55WK+CRJXt5e3oD6Tt6OlYxRxL1AbzolmQ5ISzeSdvj6w1x4cLbczMoFQtnho9rvcV50H2U5Sq6TXW6EpAA0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by PH7PR12MB5655.namprd12.prod.outlook.com (2603:10b6:510:138::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 02:22:52 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 02:22:51 +0000
+Message-ID: <ae305517-e678-4ac3-93d3-f250bd37b2be@amd.com>
+Date: Tue, 29 Sep 2026 10:22:41 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ dmitry.osipenko@collabora.com, airlied@redhat.com, kraxel@redhat.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <fd17a38e-a827-41a5-a46e-db2135bb9257@rsg.ci.i.u-tokyo.ac.jp>
+ <37c0ef9c-7249-4785-a3fd-646d816e2d4c@amd.com>
+ <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <47d7114c-f035-4628-a911-c7ab30d55a75@rsg.ci.i.u-tokyo.ac.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SE2P216CA0078.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c6::15) To CY8PR12MB7170.namprd12.prod.outlook.com
+ (2603:10b6:930:5a::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-tyr-ioctls-v3-7-26955fb111d5@kylinos.cn>
-References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
-In-Reply-To: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
- driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
- Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=21372;
- i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=RD/vCs6jJdsdTTjjVKJh76xUFD4hfYMpcPeRpb/DOO0=;
- b=6S5czXoLD8hBxcKWjEeesTWitauBaRwk7qYMI98/HkFLgwUdIKJBINIq4kwhF50P6qGUvsgRi
- lIdHIcajKo1CrjFF+QjnYoOF080CSN+TmbIminRecVqs+E6mG+xdY3G
-X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
-X-Original-From: Ke Sun <sunke@kylinos.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|PH7PR12MB5655:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc8ef4f1-fd97-4e78-53b7-08df1dd08f99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|7416014|1800799024|10067099003|5023799004|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QsSHVOx/SbBZaD25aufxDm5i5MD2vfivDbAjoV6ZuMykAEnkGe/xkoFHPN1LLTneD4ktTIl4HsbdH3GApIVZtfS0gwtLvtHsxwFA++nnolEgEWklutrUr5MB5o16iD19mP5St2AP8XftCnGlQoaHA/fXF/cQVQlR3SwqvCwnsOsEdYH4pQvv/+BF2emdCCdWWebDoQXse5CvtYGQ6U5P26yyXbsfgfl6oCVE2WMJuQzao/wsuJUr6Ibgf2MD7vRrRLuOBaKHrUuQK2EcJyVCo7Ksg1I7zHh+71A4bm7/YjojSi3jMaWeqleE7nBOlnL+mJFBzfNuDM3LNpj2xyRVfgL524RSKMteqUigXzvvQO0gGZqnba5tCJmcD+UmWqEB5bEnYrubMM65wQU0OIionCoh4B9+6cs154ppvlAABKEpir/XakrguEn1u4bThjdFTuJEX9rovjh4HTxD0p4EWx2oRtEsd54mZbx3gMeodtDJpSr+DUDAQ7PR6rnbQnYUmnsL35IuWjWNlm6xPAvJqUk6CHam+fO9ML9it95NLW2aQ4RGQvgd5hXGxpiAWPTyRZICDliU6E+3GHohpB59LVfbgKFeajZ5i5gOxalzJXrTrbQ4olIP6i1iICD/rY1Gr09Cif+hQHJwJRbCUjTTUSZVh4IfQOK09bYgBMtJSZY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(5023799004)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXJTdytkV2dtQnNoUWh2cHBIVnp2UVZnYk9ITjJUZlBWNzZaWFVYQmhJUWt4?=
+ =?utf-8?B?aVdsRXJTdStraHQxVDY5ZGJlbThRcC8ydG53QUk0cUdMUGlXSllJb29GM1NE?=
+ =?utf-8?B?M0lab1grTUZNN3pHdDRhYnRubWtOdjlsditXTmt6eEJXaW54SGxjNlo5UktG?=
+ =?utf-8?B?aGx6MGZLbWJ3TjZFSXdkbVF0bGh2WkMzUDIyMkNZb2NLMDJ6YUVVNDFhejFT?=
+ =?utf-8?B?TE52SVJJSENpYmpnYks4Ry9oUmRaempveWV0M29xTlFYY2QzazZHbUZIMkVE?=
+ =?utf-8?B?eEl1cUdrOHJPdXVyc3BsRThmejkxN0tFWVhsVUNWOS9GaWU3SWpSSnFWTmdC?=
+ =?utf-8?B?Z3d1SDJOS2xCOGVSWlBEMTNrZEVIZFROUUo5U1BpN0h6Vjl0aXZrZzFUaTJC?=
+ =?utf-8?B?S0xrUE9kbklNVFAwVjc3VmZzbVBDUHYvZnhUZXBZaFhyV0h6aHRBWGZ3TmtO?=
+ =?utf-8?B?MHJWT1ZZV2p5UlJlLzVuTHB5MGFpRlU0aklvUGQ0S1BOdm1xMFJacC9JSXdM?=
+ =?utf-8?B?Mk1RUHlPOGZ5Y1lkd1Raa2g1WGhaMUEyd2xCSld1WEVHZXY4MDNwb0MwS2ti?=
+ =?utf-8?B?TnBiRjJDMFp0RHdwcE1CTHVRakdBU05kSS9DeUJ0bUNHRS9LTVhxRnVKR0ly?=
+ =?utf-8?B?KzRxMHFOT0tZZUZ3akJKcHFYSS9FaGI0MFNSeDg1bUljWFBVbERBREExYzVa?=
+ =?utf-8?B?S1lXOFVJL3grMHhpZGJUa05pQkx5WnB1bXg4WlZ0ZjgycnAzZDZUU0l2SDdt?=
+ =?utf-8?B?bnZncVpsRTVpUXZBbjBmSGdtM2oxU3JWTWRyZVd5aDVrR3RJcTNFRU5zUzI2?=
+ =?utf-8?B?WUQzeWovSGpqVXdseGNLWEJSU1ZaRkV5Myt1UGRFZUV2NVQ5L0dpQnBsREhC?=
+ =?utf-8?B?TVlKaTA2VCtwcitZOXJESGZXT1o4c09XWC9LSVVJQUF4SEdmbURzakN2UVdF?=
+ =?utf-8?B?UUE3Z3NsWEFMUGE1RlgyNWU3N3VqS3VGazlpcDViQjM4QjI0N1BiaXo3UmVa?=
+ =?utf-8?B?SXhTblg2Y1dZZGhXMURzTWl6R1l2TzhvQUJLVEtVdTZRQU1wVVZlYmRxYkJE?=
+ =?utf-8?B?QW5MeUk1SUVKRWtCdDBNalNySHRES3loWm1OQ0RNT1dzM3djWDNMOVNQNksz?=
+ =?utf-8?B?QmtWamdXTEZtUFJOUnhZdmRNM25SbW1zbHduRm1HY2VJZ3QxMHloSGdVNFhH?=
+ =?utf-8?B?TmZOZ05QUy95dmRGcWtENlo5a0FCbG9lOTdKQjV0elg5ZmwvRjRJcGYvM2tS?=
+ =?utf-8?B?TGRtZEl1ZDhBODVtazMxM1pDbjMxMjhNVEVpcVpNMEttbzdqMml0SUZ6UXZn?=
+ =?utf-8?B?ZU9aMjkyRHNOTkR3My84U0ZmOUovUE9IbTNjU0dWVlNpcVROWGNKdHZmWFhB?=
+ =?utf-8?B?bXpRbXRIMUVYMHM3TkdDTHN1NkU4OVlmZ2EwSElYdlpMd3IrT3VnT1lPeGxk?=
+ =?utf-8?B?NjlscUQyWncrMHR2RjhONllRek1VVFM0MVVqU2daMmZzZVh2S3J4UEk1V2Rw?=
+ =?utf-8?B?dU9NVENNenNwMDZERXhnNkFjanlZU3pKVVpXTU03ZGRUUktlc1lCU0dadUht?=
+ =?utf-8?B?QXZWdTV6Sm9ZSzFWQW51cGZyN1FmTUdQWDEyS3BucjN0SXZ2SzVIL1VIYzNi?=
+ =?utf-8?B?Q3ppMFNPN0tTbllXdjRWeHV0a1d1WXJnQnRRNjJYMjZvcG14MVBvbFVUQ1lv?=
+ =?utf-8?B?TjVMcE92Rkp6UzBRNXN6SG91MFlQT3hKTkNqTHdweW5vdTVVeWorUWZtVi9v?=
+ =?utf-8?B?NGhDeVIzc056Rjh5L2pNZy9zMXV1Nk5tNERJWE1HOU1teXJtYVBocUxyZ1VV?=
+ =?utf-8?B?KzRzWU9EQTJNTmR6ZmVWc01qbkN1Ty9Xd3kxdkxMV0Z6eDZhWDdnK2htaUJV?=
+ =?utf-8?B?bDhJSjhOK2tidWVrR0RRVXpBdW9kVTAwSHM0OWszQUEyZzU3OVRhOXFMUW43?=
+ =?utf-8?B?R3lSa0dScE1KRm9UOVg1L29kOTRnSG1WYWFsQmo5d2s5TFk2ZzU0WUN2a3po?=
+ =?utf-8?B?WTBwV3pEVUtvY3JxUWg1TlE1Rjd2S0xDWDhsVUkvaUFiK3JPdkpLd0ZReTRw?=
+ =?utf-8?B?MytmV1ZMU1B0aGxXMDdKbkZTMTFmU3AralIrYnVGM3drODhQQWJ6MlA3WlBa?=
+ =?utf-8?B?TGMyOEgwNlFUUENFby9XWFE3cDhLT29aMFhlYU84YlB2Sm55aFpYR2ltNTVk?=
+ =?utf-8?B?WHdzbmZFQ2dRYWxTL2Z3RXlJVTM1dU1vakdGL09KTWZLbHpSYVBwVjgzYmNn?=
+ =?utf-8?B?aktnK1gveFFYaGM3Q2dSb1NxTzlKR1plUFpBVExVL2dSZVM5aDdSank1M0xQ?=
+ =?utf-8?Q?G+VV3bGE2Ky1z67xzP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc8ef4f1-fd97-4e78-53b7-08df1dd08f99
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:22:51.3190 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SE5SD5dFvQvuRo6IEW1kLDtbzKaZwM5LirXqe7GxNRfi/cNWAECwpXMF0ZjUnGZTVQ6CtGj2iEWU35kCHlFarg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5655
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,636 +140,199 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sunke@kylinos.cn
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alvin Sun <alvin.sun@linux.dev>
 
-Implement VM_CREATE, VM_DESTROY, VM_BIND and VM_GET_STATE. VM_CREATE
-hands the new VM to the per-file pool, which kills it if insertion
-fails, so an aborted creation never leaks a VM. VM_DESTROY removes the
-VM from the pool and kills it, even if in-flight jobs still hold
-references (matching panthor: such jobs are expected to fault).
-VM_BIND runs synchronously for now.
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/gpu/drm/tyr/driver.rs |  12 +-
- drivers/gpu/drm/tyr/file.rs   | 318 ++++++++++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/tyr/gem.rs    |   1 -
- drivers/gpu/drm/tyr/vm.rs     |  78 ++++++++---
- 4 files changed, 379 insertions(+), 30 deletions(-)
+On 9/29/2026 1:25 AM, Akihiko Odaki wrote:
+> On 2026/09/29 1:22, Huang, Honglei wrote:
+>>
+>>
+>> On 9/26/2026 7:33 PM, Akihiko Odaki wrote:
+>>> On 2026/09/24 18:55, Honglei Huang wrote:
+>>>> Add userptr blob objects so the guest kernel can pin an existing
+>>>> userspace mapping and advertise it as CREATE_BLOB backing entries.
+>>>>
+>>>> - New virtio_gpu_object_userptr type for userptr resources
+>>>> - Pin pages with pin_user_pages_fast() and FOLL_LONGTERM
+>>>> - Omit FOLL_WRITE when VIRTGPU_BLOB_FLAG_USE_READONLY is set
+>>>> - Charge FOLL_LONGTERM pins against RLIMIT_MEMLOCK
+>>>> - DMA-map the scatterlist only when virtio_gpu_use_dma_api() is
+>>>>    required; use DMA_TO_DEVICE for USE_READONLY blobs
+>>>> - Mark writable pages dirty when unpinning
+>>>> - Keep pages pinned until RESOURCE_UNREF is queued; drop them from
+>>>>    cleanup_object() on the unref response or on create failure
+>>>> - Clear userptr->pages on pin failure to avoid double-free on cleanup
+>>>> - Reject unaligned or overflowing userptr ranges at create time
+>>>> - Disallow PRIME export of userptr objects
+>>>> - Save CREATE_BLOB params and restore userptr resources after
+>>>>    hibernation without using the shmem restore path
+>>>>
+>>>> The hibernation restore path maps with the same attrs and direction
+>>>> used at create time, as documented next to the call. Like shmem
+>>>> blobs, the DMA API can still bounce through a buffer there. This
+>>>> design only avoids a second guest side shmem allocation and memcpy,
+>>>> nothing more.
+>>>
+>>> I don't see the restore path is documented though this says 
+>>> "documented next to the call".
+>>
+>> Will fix in next version
+>>
+>>>
+>>>>
+>> ...
+>>>> +        goto err_cleanup;
+>>>> +    }
+>>>> +
+>>>> +    userptr->sgt = sgt;
+>>>> +
+>>>> +    if (virtio_gpu_use_dma_api(vgdev->vdev)) {
+>>>> +        enum dma_data_direction dir =
+>>>> +            (userptr->flags & VIRTGPU_BLOB_FLAG_USE_READONLY) ?
+>>>> +            DMA_TO_DEVICE : DMA_BIDIRECTIONAL;
+>>>> +
+>>>> +        ret = dma_map_sgtable(drm_dev_dma_dev(vgdev->ddev), sgt,
+>>>> +                      dir, 0);
+>>>
+>>> I checked the ROCm code and documentation, and I do not see how this 
+>>> mapping satisfies the HIP coherence contract when bounce buffers or 
+>>> explicit DMA cache maintenance are required.
+>>>
+>>> HIP distinguishes two coherence models:
+>>>
+>>>  > Coarse-grained coherence: The memory is considered up-to-date only
+>>>  > after synchronization performed using hipDeviceSynchronize(),
+>>>  > hipStreamSynchronize(), or any blocking operation that acts on the
+>>>  > null stream such as hipMemcpy(). To avoid the cache from being
+>>>  > accessed by a part of the system while simultaneously being 
+>>> written by
+>>>  > another, the memory is made visible only after the caches have been
+>>>  > flushed.
+>>>  >
+>>>  > Fine-grained coherence: The memory is coherent even while being
+>>>  > modified by a part of the system. Fine-grained coherence ensures that
+>>>  > up-to-date data is visible to others regardless of kernel boundaries.
+>>>  > This can be useful if both host and device operate on the same data.
+>>>
+>>> https://rocm.docs.amd.com/projects/HIP/en/docs-10.0.0/how-to/ 
+>>> hip_runtime_api/memory_management/coherence_control.html
+>>>
+>>> Fine-grained access requires coherence throughout execution; copying
+>>> between the original pages and a bounce buffer only at kernel boundaries
+>>> would not suffice. Coarse-grained access could support such copies, but
+>>> they must occur at the required synchronization points. I found no code
+>>> that synchronizes this DMA mapping at those points.
+>>>
+>>
+>> Whether dma_map_sgtable() bounces is decided by the platform's IOMMU/ 
+>> SWIOTLB behind the device, not by we request. attrs=0 here just 
+>> matches the existing shmem blob path, and is exactly what native (non- 
+>> virtualized) ROCm's own userptr support does too:
+>>
+>> // drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c, 
+>> kfd_mem_dmamap_userptr()
+>> ret = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+>>
+>> And HIP's coarse-grained/fine-grained coherence isn't a DMA layer 
+>> property, it is a GPU VM/cache thing. In upstream KFD it's implemented 
+>> as GPU MMU page table attributes (MTYPE_CC/MTYPE_RW, the SNOOPED bit), 
+>> set by whichever driver programs the real GPU's page tables for this 
+>> memory:
+>>
+>> // drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_pte_flags()
+>> mapping_flags |= coherent ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
+>> pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+>>
+>> I really want to disable the bounce buffers in DMA, but it is a 
+>> platform behaviour, can not disable it in this layer. And in XEN, the 
+>> dmapping for it is another form of iovector/simple sgtable. And if use 
+>> the virtio-iommu or somthing else, the efficiency and the complexity 
+>> of driver integration are both lower than using iovector/sgtable 
+>> directly.
+>> And for how to handle the DMA thing for userptr, since we have so many 
+>> concern about it, maybe we can drop this part in next version. But we 
+>> may have the AI review warn/error.
+> 
+> Documentation/core-api/dma-attributes.rst says:
+> 
+>  > DMA_ATTR_REQUIRE_COHERENT
+>  > -------------------------
+>  >
+>  > DMA mapping requests with the DMA_ATTR_REQUIRE_COHERENT fail on any
+>  > system where SWIOTLB or cache management is required. This should only
+>  > be used to support uAPI designs that require continuous HW DMA
+>  > coherence with userspace processes, for example RDMA and DRM. At a
+>  > minimum the memory being mapped must be userspace memory from
+>  > pin_user_pages() or similar.
+>  >
+>  > Drivers should consider using dma_mmap_pages() instead of this
+>  > interface when building their uAPIs, when possible.
+>  >
+>  > It must never be used in an in-kernel driver that only works with
+>  > kernel memory.
+> 
+> This is exactly our use case. Although the platform decides whether a
+> mapping requires bouncing or cache maintenance, 
+> DMA_ATTR_REQUIRE_COHERENT lets the driver reject mappings that cannot 
+> meet this requirement.
+> 
+> The shmem path serves a different use case, but amdkfd is a relevant 
+> comparison. HIP's coherence guarantees depend on both the GPU VM/cache 
+> configuration and the DMA mapping established by the kernel driver. GPU 
+> page table attributes alone cannot make a bounce buffer coherent with 
+> the original userspace pages.
+> 
+> The amdkfd mapping you cited therefore warrants discussion with its
+> developers as well. I have CCed the maintainer.
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 0a48212b9bc03..9a7f147935e29 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -33,7 +33,7 @@
-         Mutex, //
-     },
-     time,
--    types::CovariantForLt, //
-+    types::ForLt, //
- };
- 
- use crate::{
-@@ -73,6 +73,9 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
-     /// Firmware sections.
-     pub(crate) fw: Firmware<'drm>,
- 
-+    /// Memory management unit for address space slots.
-+    pub(crate) mmu: Arc<Mmu<'drm>>,
-+
-     #[pin]
-     clks: Mutex<Clocks>,
- 
-@@ -164,6 +167,7 @@ fn probe<'bound>(
-         let reg_data = pin_init!(TyrDrmRegistrationData {
-                 pdev,
-                 fw: firmware,
-+                mmu,
-                 clks <- new_mutex!(Clocks {
-                     core: core_clk,
-                     stacks: stacks_clk,
-@@ -207,7 +211,7 @@ fn drop(self: Pin<&mut Self>) {}
- impl drm::Driver for TyrDrmDriver {
-     type Data = ();
-     type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
--    type File = CovariantForLt!(TyrDrmFileData);
-+    type File = ForLt!(TyrDrmFileData<'_>);
-     type Object = Bo;
-     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
- 
-@@ -216,6 +220,10 @@ impl drm::Driver for TyrDrmDriver {
- 
-     kernel::declare_drm_ioctls! {
-         (PANTHOR_DEV_QUERY, drm_panthor_dev_query, ioctl::RENDER_ALLOW, TyrDrmFileData::dev_query),
-+        (PANTHOR_VM_CREATE, drm_panthor_vm_create, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_create),
-+        (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
-+        (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
-+        (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
-     }
- }
- 
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 933a365cb016e..2c037b136406c 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -1,39 +1,64 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
- 
-+use core::mem::offset_of;
-+
- use kernel::{
-     drm::{
-         self,
-+        gem::BaseObject,
-         Registered, //
-     },
-     prelude::*,
--    uaccess::UserSlice,
-+    sizes::SizeConstants,
-+    transmute::FromBytes,
-+    uaccess::{
-+        UserSlice,
-+        UserSliceReader, //
-+    },
-     uapi, //
- };
- 
--use crate::driver::{
--    TyrDrmDevice,
--    TyrDrmDriver,
--    TyrDrmRegistrationData, //
-+use crate::{
-+    driver::{
-+        TyrDrmDevice,
-+        TyrDrmDriver,
-+        TyrDrmRegistrationData, //
-+    },
-+    vm::{
-+        UserVaRequest,
-+        Vm,
-+        VmBindOpType,
-+        VmMapFlags,
-+        VmPool, //
-+    }, //
- };
- 
- #[pin_data]
--pub(crate) struct TyrDrmFileData {}
-+pub(crate) struct TyrDrmFileData<'a> {
-+    reg: &'a TyrDrmRegistrationData<'a>,
-+
-+    #[pin]
-+    vm_pool: VmPool<'a>,
-+}
- 
- /// Convenience type alias for our DRM `File` type.
- pub(crate) type TyrDrmFile = drm::file::File<TyrDrmDriver>;
- 
--impl drm::file::DriverFile<'_> for TyrDrmFileData {
-+impl<'a> drm::file::DriverFile<'a> for TyrDrmFileData<'a> {
-     type Driver = TyrDrmDriver;
- 
-     fn open(
-         _device: &TyrDrmDevice<Registered>,
--        _reg_data: &TyrDrmRegistrationData<'_>,
-+        reg_data: &'a TyrDrmRegistrationData<'a>,
-     ) -> impl PinInit<Self, Error> {
--        Ok(Self {})
-+        try_pin_init!(Self {
-+            reg: reg_data,
-+            vm_pool <- VmPool::new(),
-+        })
-     }
- }
- 
--impl TyrDrmFileData {
-+impl TyrDrmFileData<'_> {
-     pub(crate) fn dev_query(
-         _ddev: &TyrDrmDevice<Registered>,
-         reg_data: &TyrDrmRegistrationData<'_>,
-@@ -65,4 +90,277 @@ pub(crate) fn dev_query(
-             }
-         }
-     }
-+
-+    pub(crate) fn vm_create(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        vmcreate: &mut uapi::drm_panthor_vm_create,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if vmcreate.flags != 0 {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid VM create flags: {:#x}\n",
-+                vmcreate.flags
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let ret: Result<u32, Error> = file.inner_with(|pfile| {
-+            let vm = Vm::new_for_user(
-+                pfile.reg.pdev.as_ref(),
-+                ddev,
-+                pfile.reg.mmu.as_arc_borrow(),
-+                &pfile.reg.gpu_info,
-+                UserVaRequest::from_uapi(vmcreate.user_va_range),
-+            )?;
-+            let user_va_range = vm.layout.user.end;
-+            let id = pfile.vm_pool.add(vm)?;
-+            vmcreate.user_va_range = user_va_range;
-+            vmcreate.id = id;
-+
-+            Ok(0)
-+        });
-+        ret
-+    }
-+
-+    pub(crate) fn vm_destroy(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        vmdestroy: &mut uapi::drm_panthor_vm_destroy,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if vmdestroy.pad != 0 {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid VM destroy pad: {:#x}\n",
-+                vmdestroy.pad
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let ret: Result<u32, Error> = file.inner_with(|pfile| {
-+            let vm = pfile.vm_pool.remove(vmdestroy.id)?;
-+            vm.kill();
-+            Ok(0)
-+        });
-+        ret
-+    }
-+
-+    pub(crate) fn vm_bind(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        vmbind: &mut uapi::drm_panthor_vm_bind,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        let async_flag = uapi::drm_panthor_vm_bind_flags_DRM_PANTHOR_VM_BIND_ASYNC;
-+
-+        if vmbind.flags & !async_flag != 0 {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid VM_BIND flags: {:#x}\n",
-+                vmbind.flags
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        if vmbind.flags & async_flag != 0 {
-+            dev_err!(ddev.as_ref(), "Async VM_BIND not supported\n");
-+            return Err(ENOTSUPP);
-+        }
-+
-+        let count = vmbind.ops.count as usize;
-+        if count == 0 {
-+            return Ok(0);
-+        }
-+
-+        // Accept any stride that covers the trailing `syncs` array
-+        // descriptor, so userspace built against older headers works.
-+        static_assert!(
-+            size_of::<VmBindOp>()
-+                == offset_of!(uapi::drm_panthor_vm_bind_op, syncs)
-+                    + size_of::<uapi::drm_panthor_obj_array>()
-+        );
-+        let min_size = offset_of!(uapi::drm_panthor_vm_bind_op, syncs)
-+            + size_of::<uapi::drm_panthor_obj_array>();
-+        if min_size > vmbind.ops.stride as usize {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid VM_BIND op stride {} (expected at least {})\n",
-+                vmbind.ops.stride,
-+                size_of::<VmBindOp>()
-+            );
-+            return Err(EINVAL);
-+        }
-+        let stride = vmbind.ops.stride as usize;
-+
-+        let total_len = stride.checked_mul(count).ok_or_else(|| {
-+            dev_err!(ddev.as_ref(), "VM_BIND ops length overflow\n");
-+            EINVAL
-+        })?;
-+        let mut reader =
-+            UserSlice::new(UserPtr::from_addr(vmbind.ops.array as usize), total_len).reader();
-+        let mut ops = KVec::new();
-+        for _ in 0..count {
-+            ops.push(reader.read::<VmBindOp>()?, GFP_KERNEL)?;
-+            read_padding_zero(&mut reader, stride - size_of::<VmBindOp>())?;
-+        }
-+
-+        let ret: Result<u32, Error> = file.inner_with(|pfile| {
-+            let vm = pfile.vm_pool.get(vmbind.vm_id).ok_or_else(|| {
-+                dev_err!(ddev.as_ref(), "Invalid VM_BIND vm_id: {}\n", vmbind.vm_id);
-+                EINVAL
-+            })?;
-+
-+            for (i, op) in ops.iter().enumerate() {
-+                if let Err(e) = vm_bind_exec_op(&vm, file, op) {
-+                    dev_dbg!(ddev.as_ref(), "VM_BIND op {} failed: {:?}\n", i, e);
-+                    vmbind.ops.count = i as u32;
-+                    return Err(e);
-+                }
-+            }
-+
-+            Ok(0)
-+        });
-+        ret
-+    }
-+
-+    pub(crate) fn vm_get_state(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        vmgetstate: &mut uapi::drm_panthor_vm_get_state,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        file.inner_with(|pfile| {
-+            let vm = pfile.vm_pool.get(vmgetstate.vm_id).ok_or_else(|| {
-+                dev_err!(
-+                    ddev.as_ref(),
-+                    "Invalid VM_GET_STATE vm_id: {}\n",
-+                    vmgetstate.vm_id
-+                );
-+                EINVAL
-+            })?;
-+            vmgetstate.state = if vm.is_unusable() {
-+                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_UNUSABLE
-+            } else {
-+                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_USABLE
-+            };
-+            Ok(0)
-+        })
-+    }
-+}
-+
-+fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
-+    if op.size == 0 {
-+        return Ok(());
-+    }
-+
-+    if op.syncs.count != 0 {
-+        dev_err!(vm.dev(), "VM_BIND op syncs not supported\n");
-+        return Err(EINVAL);
-+    }
-+
-+    let end = match op.va.checked_add(op.size) {
-+        Some(end) => end,
-+        None => {
-+            dev_err!(vm.dev(), "VM_BIND op VA range overflow\n");
-+            return Err(EINVAL);
-+        }
-+    };
-+    if op.va < vm.layout.user.start || end > vm.layout.user.end {
-+        dev_err!(
-+            vm.dev(),
-+            "VM_BIND op VA range {:#x}..{:#x} outside user range\n",
-+            op.va,
-+            end
-+        );
-+        return Err(EINVAL);
-+    }
-+
-+    if (op.va | op.size | op.bo_offset) & (u64::SZ_4K - 1) != 0 {
-+        dev_err!(vm.dev(), "VM_BIND op not GPU-page-aligned\n");
-+        return Err(EINVAL);
-+    }
-+
-+    match VmBindOpType::try_from(op.flags) {
-+        Ok(VmBindOpType::Map) => {
-+            // Once the VM is unusable only MAP ops are rejected; UNMAP
-+            // stays available for cleanup (see the UAPI docs).
-+            if vm.is_unusable() {
-+                dev_err!(vm.dev(), "VM_BIND map op on unusable VM\n");
-+                return Err(EINVAL);
-+            }
-+
-+            let map_flags = match VmMapFlags::try_from(op.flags & !VmBindOpType::MASK) {
-+                Ok(flags) => flags,
-+                Err(_) => {
-+                    dev_err!(vm.dev(), "VM_BIND op invalid map flags {:#x}\n", op.flags);
-+                    return Err(EINVAL);
-+                }
-+            };
-+            let bo = crate::gem::lookup_handle(file, op.bo_handle).map_err(|_| {
-+                dev_err!(vm.dev(), "VM_BIND op invalid BO handle {}\n", op.bo_handle);
-+                EINVAL
-+            })?;
-+            // Validate the BO window before mapping.
-+            let bo_size = bo.size() as u64;
-+            if op.size > bo_size || op.bo_offset > bo_size - op.size {
-+                dev_err!(vm.dev(), "VM_BIND op BO range out of bounds\n");
-+                return Err(EINVAL);
-+            }
-+            vm.map_bo_range(&bo, op.bo_offset, op.size, op.va, map_flags)
-+        }
-+        Ok(VmBindOpType::Unmap) => {
-+            // Unmap must not carry map-specific flags or BO references.
-+            if op.flags & !VmBindOpType::MASK != 0 || op.bo_handle != 0 || op.bo_offset != 0 {
-+                dev_err!(
-+                    vm.dev(),
-+                    "VM_BIND UNMAP carries flags/BO refs: flags={:#x} bo_handle={} bo_offset={}\n",
-+                    op.flags,
-+                    op.bo_handle,
-+                    op.bo_offset
-+                );
-+                return Err(EINVAL);
-+            }
-+            vm.unmap_range(op.va, op.size)
-+        }
-+        Err(_) => {
-+            dev_err!(
-+                vm.dev(),
-+                "VM_BIND op type {:#x} not supported\n",
-+                op.flags & VmBindOpType::MASK
-+            );
-+            Err(EINVAL)
-+        }
-+    }
-+}
-+
-+/// Reads `len` bytes of array padding, rejecting any nonzero byte with `E2BIG`.
-+fn read_padding_zero(reader: &mut UserSliceReader, len: usize) -> Result {
-+    let mut buf = [0u8; 64];
-+    let mut remaining = len;
-+    while remaining > 0 {
-+        let chunk = remaining.min(buf.len());
-+        reader.read_slice(&mut buf[..chunk])?;
-+        if buf[..chunk].iter().any(|&b| b != 0) {
-+            return Err(E2BIG);
-+        }
-+        remaining -= chunk;
-+    }
-+    Ok(())
- }
-+
-+#[repr(transparent)]
-+struct VmBindOp(uapi::drm_panthor_vm_bind_op);
-+
-+impl core::ops::Deref for VmBindOp {
-+    type Target = uapi::drm_panthor_vm_bind_op;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.0
-+    }
-+}
-+
-+// SAFETY: `VmBindOp` contains only integers, so any bit pattern is valid;
-+// the `#[repr(transparent)]` wrapper has the same layout as the UAPI struct.
-+unsafe impl FromBytes for VmBindOp {}
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 0e0989a48678f..60f6363995a5a 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -77,7 +77,6 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
- }
- 
- /// Look up a GEM object by handle for a DRM file.
--#[expect(dead_code)]
- pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
-     Bo::lookup_handle(file, handle)
- }
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 625ec7e95790f..9f4d2e23a3ab4 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -53,6 +53,11 @@
-     },
-     sync::{
-         aref::ARef,
-+        atomic::{
-+            Acquire,
-+            Atomic,
-+            Release, //
-+        },
-         Arc,
-         ArcBorrow,
-         Mutex, //
-@@ -172,7 +177,6 @@ pub(crate) enum UserVaRequest {
- 
- impl UserVaRequest {
-     /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
--    #[expect(dead_code)]
-     pub(crate) fn from_uapi(v: u64) -> Self {
-         match NonZeroU64::new(v) {
-             Some(size) => Self::Fixed(size),
-@@ -181,6 +185,38 @@ pub(crate) fn from_uapi(v: u64) -> Self {
-     }
- }
- 
-+/// Operation type, packed into the top nibble of
-+/// `drm_panthor_vm_bind_op::flags`.
-+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+pub(crate) enum VmBindOpType {
-+    /// Map a BO range into the VM.
-+    Map,
-+    /// Unmap a VA range.
-+    Unmap,
-+}
-+
-+impl VmBindOpType {
-+    /// Bits occupied by the op type in `drm_panthor_vm_bind_op::flags`.
-+    pub(crate) const MASK: u32 =
-+        uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MASK as u32;
-+}
-+
-+impl TryFrom<u32> for VmBindOpType {
-+    type Error = Error;
-+
-+    fn try_from(flags: u32) -> Result<Self, Self::Error> {
-+        const MAP: u32 = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MAP as u32;
-+        const UNMAP: u32 =
-+            uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_UNMAP as u32;
-+
-+        match flags & Self::MASK {
-+            MAP => Ok(Self::Map),
-+            UNMAP => Ok(Self::Unmap),
-+            _ => Err(EINVAL),
-+        }
-+    }
-+}
-+
- /// Final user/kernel VA layout for a VM.
- pub(crate) struct VmLayout {
-     /// Full GPU VA range covered by this VM.
-@@ -203,12 +239,6 @@ pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
-         const MIN_KERNEL_VA: u64 = u64::SZ_256M;
- 
-         if full.end <= MIN_KERNEL_VA {
--            pr_err!(
--                "Invalid VA range {:#x}..{:#x}, kernel VA min required: >{:#x}\n",
--                full.start,
--                full.end,
--                MIN_KERNEL_VA
--            );
-             return Err(EINVAL);
-         }
- 
-@@ -218,11 +248,6 @@ pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
-             UserVaRequest::Fixed(v) => {
-                 let user_size = v.get();
-                 if user_size > user_max {
--                    pr_err!(
--                        "Requested user VA range {:#x} exceeds maximum {:#x}\n",
--                        user_size,
--                        user_max
--                    );
-                     return Err(EINVAL);
-                 }
-                 user_size
-@@ -436,6 +461,8 @@ pub(crate) struct Vm<'drm> {
-     gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
-     /// VA layout for this VM.
-     pub(crate) layout: VmLayout,
-+    /// Whether the VM is unusable.
-+    unusable: Atomic<bool>,
- }
- 
- impl<'drm> Vm<'drm> {
-@@ -457,7 +484,6 @@ pub(crate) fn new_for_fw(
-     }
- 
-     /// Creates a user VM, splitting the GPU VA range per `user_va`.
--    #[expect(dead_code)]
-     pub(crate) fn new_for_user(
-         dev: &'drm Device<Bound>,
-         ddev: &TyrDrmDevice,
-@@ -524,6 +550,7 @@ fn new_internal(
-                 gpuvm,
-                 gpuvm_unique <- new_mutex!(gpuvm_unique),
-                 layout,
-+                unusable: Atomic::new(false),
-             }),
-             GFP_KERNEL,
-         )?;
-@@ -554,6 +581,7 @@ fn deactivate(&self) -> Result {
- 
-     /// Kills the VM by deactivating it and unmapping all regions.
-     pub(crate) fn kill(&self) {
-+        self.mark_unusable();
-         let _ = self.deactivate();
-         let _ = self
-             .unmap_range(
-@@ -565,6 +593,15 @@ pub(crate) fn kill(&self) {
-             });
-     }
- 
-+    /// Marks the VM unusable.
-+    fn mark_unusable(&self) {
-+        self.unusable.store(true, Release);
-+    }
-+
-+    pub(crate) fn is_unusable(&self) -> bool {
-+        self.unusable.load(Acquire)
-+    }
-+
-     /// Executes a virtual memory operation.
-     ///
-     /// This handles both map and unmap operations by coordinating between the
-@@ -676,6 +713,17 @@ pub(crate) fn map_bo_range(
-         };
-         let result = {
-             let mut gpuvm_unique = self.gpuvm_unique.lock();
-+            // Check under the GPUVM lock, which the kill path also takes to
-+            // unmap, so this serializes against a concurrent teardown.
-+            if self.is_unusable() {
-+                dev_err!(
-+                    self.dev,
-+                    "Failed to map VA {:#x}..{:#x}: VM is unusable\n",
-+                    req.region.start,
-+                    req.region.end
-+                );
-+                return Err(EINVAL);
-+            }
-             self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
-         };
-         // We flush the defer cleanup list now. Things will be different in
-@@ -1109,7 +1157,6 @@ pub(crate) struct VmPool<'drm> {
- 
- impl<'drm> VmPool<'drm> {
-     /// Creates a new [`VmPool`].
--    #[expect(dead_code)]
-     pub(crate) fn new() -> impl PinInit<Self> {
-         let ids = IdPool::new();
-         pin_init!(Self {
-@@ -1124,7 +1171,6 @@ pub(crate) fn new() -> impl PinInit<Self> {
-     /// here and only the error is returned.
-     // TODO: allocate IDs with the XArray directly (once it grows range
-     // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
--    #[expect(dead_code)]
-     pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32> {
-         let id = {
-             let mut ids = self.ids.lock();
-@@ -1155,7 +1201,6 @@ pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32> {
-     /// Removes the VM with the given ID.
-     ///
-     /// The caller is responsible for killing the returned VM.
--    #[expect(dead_code)]
-     pub(crate) fn remove(&self, id: u32) -> Result<Arc<Vm<'drm>>> {
-         let mut vms = self.vms.lock();
-         match vms.remove(id as usize) {
-@@ -1169,7 +1214,6 @@ pub(crate) fn remove(&self, id: u32) -> Result<Arc<Vm<'drm>>> {
-     }
- 
-     /// Gets a shared reference to the VM with the given ID.
--    #[expect(dead_code)]
-     pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
-         let vms = self.vms.lock();
-         let borrow = vms.get(id as usize)?;
 
--- 
-2.43.0
+Will add DMA_ATTR_REQUIRE_COHERENT in virtio GPU userptr in next version.
+And are there some places else need to be modified?
 
+
+Regards,
+Honglei
+
+> 
+> Regards,
+> Akihiko Odaki
+> 
+>>
+>> Regards,
+>> Honglei
+>>
+>>> Regards,
+>>> Akihiko Odaki
+>>>
+>>>> +        if (ret)
+>>>> +            goto err_cleanup;
+>>>> +
+>>>> +        userptr->dma_dir = dir;
+>>>> +        userptr->dma_mapped = true;
+>>>> +    }
+>>>> +
+>>>> +    ret = virtio_gpu_userptr_get_entries(vgdev, userptr, &ents, 
+>>>> &nents);
+>>>> +    if (ret)
+>>>> +        goto err_cleanup;
+>>>> +
+>>>> +    virtio_gpu_cmd_resource_create_blob(vgdev, &userptr->base, 
+>>>> params, ents,
+>>>> +                        nents);
+>>>> +
+>>>> +    userptr->base.params = *params;
+>>>> +    virtio_gpu_add_object_to_restore_list(vgdev, &userptr->base);
+>>>> +
+>>>> +    *bo_ptr = &userptr->base;
+>>>> +    return 0;
+>>>> +
+>>>> +err_cleanup:
+>>>> +    virtio_gpu_cleanup_object(&userptr->base);
+>>>> +    return ret;
+>>>> +}
+>>>
+>>
+> 
 
