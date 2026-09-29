@@ -4,143 +4,199 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543F8CA5FB5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7172DCA5FB8
 	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A8A10ED8F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7560010ED93;
 	Tue, 29 Sep 2026 08:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qRZqf5gJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hx0PHwlK";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v4LKtIRb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qp+H4KB/";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="qahxTxx4";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2F6710ED76;
- Tue, 29 Sep 2026 08:22:43 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DEDB521A57;
- Tue, 29 Sep 2026 08:22:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790670158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
- b=qRZqf5gJqh2DP28JAG4ZJtfGyANvL9//SOh+xLLF/vumlcM1ynmHjvynZRz3igpINFsWnc
- N+7LJHIcxqnnqNTER43X5jB9XQitMLNrmNd8Ztdskt6IDk0/ZLNXuwi2H4K/bf0bIzkAt8
- //omjzq72Amc/cfJO0lihFISj8/AHj8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790670158;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
- b=hx0PHwlKD1iwP7gQduDeNFmnoxBkk00AdleiOpzuv/cBjbJ+ji3x4vRxv4hMYL1N7G+jTq
- HVpPgxTOYH7bC5Dg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=v4LKtIRb;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="qp+H4KB/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790670153; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
- b=v4LKtIRbaJJrHEe88R86Nz+zKIhojBDiieyDIky8VRizIxo4T9X9JkUAPubuX5tXHBfMDQ
- VfqK6wejOVNg7DxLgIKKkuzs68TWlIsoSMvumfaLPj0h1cjBtkvGcrcnws3uZdlnJu2/EZ
- 0Zasxza6ZkDEKMM+jkIeM957Yw/k6/g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790670153;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eThddSy2KIXuB2qbWMK6C68b5mt/wMpc5TtS87JTgVI=;
- b=qp+H4KB/EhzpihIbc0FRfbSlGOZ3T3U00RrBcL1BBx9HZtS/U+lCTz0suAMVz76T+TaXvw
- cgma4GUgFngToGBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4F474136E4;
- Tue, 29 Sep 2026 08:22:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 93cwO0h1u2orSgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:22:33 +0000
-Message-ID: <a91b6a20-b54e-438b-a8c8-3b08948f4a45@suse.de>
-Date: Tue, 29 Sep 2026 10:22:32 +0200
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012071.outbound.protection.outlook.com
+ [40.107.200.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E73410E0F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:14:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r0ghaqXaAJ3lJ3MwBVGNCpEQ2YJcGvJOt9PfalpFPjVlKmMbzoot8iTPWV/ft+X15ptiyCCqlvbqyMFnbGrROfA7YR79zZEXq5CqWNHzuEoWsOubnk3zuxFTIz7pPMaDSAY3gSRnlY8MLcShO7k+dmqr8NDp3QCfjsgKDwjxY/n56vxLaXBr9nAuMObF74I1YTCh7loyLO+PBoF5nyk3wrRacT32f0/9cmAsNK/KgzMjZhRuh7h6dLOnqcY3MVjdxs1K+DTT5kshkyiLr6I/XTVXGqCheE3Nb1GILIYa1cndWQZ8L2SB2eRZ128YqujCbz838lE2aSijxfsxgz+vTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7axsDLzgMX171I6HFpbp6eD+lUjpFcqXXeMKrn5ML2c=;
+ b=QpLYc84M/TE6OXg4rv5i6jzFmWcIQ6/vesp/l9ERvMtYNZKgM0xCrYkvOtj3K9e9TSuGQEH1k2py5PhzIR4Uc/Hi9qfarFm+ZvYR0j7Z6cVELMg0wLf0Jy5VF/7yiUlSUCE4/KzkIImuuec5UHvdI2zQpuuJcuvsi5Sqjlx9xN20YbKBuY/qZYggQwqrOrFqtnQIKz4RrhefsMjCR//Kl3uX8vDkYVHHjcjHk3I07WaSAe0Ropy9da2vNVY29PKlxEOMUP9NaCMxzHdZ7u+WNlIb9JFxTE7FL/WNj0vs3cEJnoC3z/SA9v8F2RQ67UBIcC6FvGTHX41YEXLBslJsGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7axsDLzgMX171I6HFpbp6eD+lUjpFcqXXeMKrn5ML2c=;
+ b=qahxTxx4Y9sVw12ZcxEhP6kgeXM9CkOzfLULAQWDhEK/1iHwZpUNBsQvIaCOSaLxG4b0XUqFZ4LDe4ndcN9xKgBaL2LHACmQg7eYKioaYRUqK0DFV1ogNOAAzihzWm6HBT3waRcfzA9XfAmSasz+6Ljy1/ctzE7uDRmjih51N4T0UTrZycSzF4B/+8dP6280TGnLm3UmU3pdl065O9tqucIttsvIai1d3Zm2gSM2IHMPYfMpOhcWJrXaZJfrOIkQ3zNlQxXvXeSZYtIdShDkHxN0ILrk4xI/5IKuyAFF4W+NYhTflZUEGOx9w146FH8bLxt6Ni/wVEHVdoGlHFLH1A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS0PR12MB7769.namprd12.prod.outlook.com (2603:10b6:8:138::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Tue, 29 Sep
+ 2026 02:14:29 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 02:14:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 22:14:26 -0400
+Message-Id: <DLRFRHANY5WU.3PTO2OUJSFR1W@nvidia.com>
+Subject: Re: [PATCH v3 28/40] mm: rename is_vm_hugetlb_page() to
+ vma_is_hugetlb()
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
+ <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
+ <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
+ <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
+ "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
+ Moore" <paul@paul-moore.com>, "Stephen Smalley"
+ <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
+ "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
+ Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
+ Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
+ Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
+ <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
+ <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
+ <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
+ <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
+ <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
+ <vincent.guittot@linaro.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
+ Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
+ <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
+ <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
+ <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
+ <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
+ <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
+ Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
+ He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
+ <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
+ <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
+ Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
+ <xu.xin@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-28-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-28-4583d8a23bca@kernel.org>
+X-ClientProxiedBy: MN2PR07CA0010.namprd07.prod.outlook.com
+ (2603:10b6:208:1a0::20) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/7] drm/v3d: Use drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-4-f2ae987d861f@igalia.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260915-drm-timeout-helpers-v3-4-f2ae987d861f@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: DEDB521A57
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB7769:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f1f10e1-8987-46cf-6300-08df1dcf6468
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|7416014|921020|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 5qNFZMHTc8a4tZ/nOPkKiKSYwkHhKrJ0hZ4GmPVqyeIG2rK169YhvI9LzK89tDbs74gUtz0RTwo8A3RArLAs45d7NA6X6EUavDhF6cjiC08cl4KOGvjQFgKCH4hylQ3c3ei8SZ1vmZPf7juG7TumY+/fOJzPs8cx2sshNf4txmhhxXd4/sld5kuFl5HppkqblSTfnjqymwz9PQEa0Tm+FUrb+CFL9VkWP5X+8/LbClDPVrk+WkciXYBYib4l+I+FGxdUBNR4H81cJXPBPuu5wKq9l1TjykymyGuUCFvzQYoM/hbWTAHO/rbVqvVce4aAKe5XaCkOljg1R8Zueh2Z1pKxtIJINE8VZTzrzooTQFK9WBnxQSmGvywa4AYyRn7qofxqcfdPdECPMONd5UZF6bLELKh8p1du7pwtCNgfZbzY4jgPQFB9sLlMbRprPevu9PJ6j1iJnWTixaj1RqJQK65HzmBH66DYApC5TAdRKSG8MPtXR0GuHB5qtTP8zoW3UnzmFcx7KEn+1HmpDdsc2Phpy1ouEVtNNQBwLKFjhlXNARQbO/wY6SJ2PJN7zwNja8rC3/TtIS7cGZC2yxMBgbgmKhw/lJrFqQTroPbyX/TC4Kfbkl75cFK0kxCD8lx1386zZX/vlr5BWPJ6hmJyYyUKi0AQTvpBBKp92bVaprZ1w/7uHDuIvKKR13jvOOPHdwGbhLcoPpkXMW4scrQO1A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(921020)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzNma1picGxqK0RRN2hXb2RyVTBjUHBrc2MzWXhZS1NjVlo4YkIyWVhNVGZw?=
+ =?utf-8?B?bHNMcUl0ellOQU1ydkJpM2tZQXVpYmRxMVFvc1hkREYyWU05aHJiczlnMXZD?=
+ =?utf-8?B?MW96T1RCckZwVEd6T1FJRDlCLzg1SFcyckdZa1JYRzdxelBXMVIzdXgza05I?=
+ =?utf-8?B?RVFGaFVVU3h2UFdnQzd6VkhUNDNCNXRacDRqUXN0azN3Ynd1bHhqNVhKMzhh?=
+ =?utf-8?B?ZHNaUVlMS0pqOVB0aFdxTjRDT21jWDF5NFFwY1g0QzdPQkcvWStWK0VCOC9i?=
+ =?utf-8?B?SG5Yb0xpbFJVcG4vbmF3cGpIOG1uTVRBTVNLcUZnRmx1bE9RbjJ1NCtZczJB?=
+ =?utf-8?B?REZycU4vYnBDOTd1L3ErK3ZlYXl6RWVkL3V0TURuN1I3bjcvSXI1UlNqQjlX?=
+ =?utf-8?B?SFZTRDY0enFWdndiNXdTc0Y5aEk1NFdMMGhIcitwa05nelhaQXU1ZHlteXUr?=
+ =?utf-8?B?c3dIa1Izb3NMbHlqZ0JILzJHenlWaExveHZESTBuWnlsSUNFZ1REZUdEdWhJ?=
+ =?utf-8?B?MVhBVVoxcndBR2Fjb1haeUJvVml4SjRlMkhSV0JnbFFFbjR6SHU1Ri9sOEx3?=
+ =?utf-8?B?SmsyUkZoMkhRWXpQNEhaT1NkSnpMUXQrUWJ1cW5McUQyVmFPNmY4SEJpdFBH?=
+ =?utf-8?B?NlhVQ0pQY2hRTFE0d0xMS2hOanI2WEllQzQwcmdSdU9pOERWajBBWCtDRzgy?=
+ =?utf-8?B?R3hFWVhDMzdnZG84YmlCb0U1bi9qS1c1cTRCL3l4RUtiZis5YnQxOUJPaUJV?=
+ =?utf-8?B?cnBsaThOQmM0TW1jQTI3NmFIOWVpbzZlZjFYYVovUkZRNkVhd0lQTklPekdF?=
+ =?utf-8?B?c0o5dlE1bnZUbzRvOHlEaWY5UUllN1JReGNjcGk5VytiZFdrdWtqaDQ2NXhC?=
+ =?utf-8?B?TGpzbE1kK2Q1UEtxZkNqTVZnV3ZpU2kweVhhUU12RlRpTHpPQXFwSEQ3NFJ3?=
+ =?utf-8?B?ckJycGk5bWY0bHBVMkU3NTkzSXczZDRjWVhmaDNmQ3JlZjNVMXVadE1wWno5?=
+ =?utf-8?B?dUxhTUV0bG56bDlUaW1CL0lDMTF5Y1kxNjQ5aEpnVDIyTXBBOU1rSjBURUpR?=
+ =?utf-8?B?dVR5dHk4ZERLcW54bWJkM21nTmRra3VuYk9NbW9uVGJFSHZJcklyVWs4M0tu?=
+ =?utf-8?B?a3orSTh0Qjc1aE1NakE4Q1NHU1graVZqb0V5ajVucEliL2NDREorcExUSmI0?=
+ =?utf-8?B?aEFVL3lhNHN0dlVIRWFLSWJTSVM0MGFXb0p3RW1NUFpaUmUrNW85UEZuRmtF?=
+ =?utf-8?B?b2tPTk95cU1KdklNZkE5U01Vd0h2ZDVjN2lXVHhUZndKVEc0bjdMRFNrYVpR?=
+ =?utf-8?B?TkZRc2RKUEFCNGl6T1N0SjdlNGdxNjMzcEZvSy9VTkYyRmQwSmw5WlA1ZE5P?=
+ =?utf-8?B?UlFDSEJ4WUpLYUVWVkx4TVczcnRqQVlwNExVM1VPeDhJV2FkRGUxWlB2bUlQ?=
+ =?utf-8?B?ZnJPVSsyMTRRRkp1Njl0WE4xVElrcis3WGJna254MVU5N2p6QnpWM0RGR0Rh?=
+ =?utf-8?B?ZVQzZVc3OVRiTU43K0lxVEZpZVVoRklaSXNFVDBMQzR6TVkvZnVFWE04L202?=
+ =?utf-8?B?N0VudzArcmp6ckFKVlhPamtmVURyeEZIcFE1NkJEdVpKdnRRV0ZrcXVuZEM2?=
+ =?utf-8?B?Y0c5OWovRnBQVjdGdkhLVm5ueWdrQi9VVE9SZ3hVZGowZkh4WTJMYk9uK0RC?=
+ =?utf-8?B?OW1mcWtVQ1BiUXZ2SWFLQlJTNnQ0MGdIN1FESzZxYVRIcEJlT0I3ZXdGeXpY?=
+ =?utf-8?B?azZRdWFDeUF6R3VMTkJESUpOY3V1VVpyMkUvN2dSdXF1Vm9jdzFHTFdxUXpz?=
+ =?utf-8?B?S2t4MElIQ012MGhaZWY5dEZMbDg3aXRhb1VBU0gwOTNuTDZHU25UMnJScEFl?=
+ =?utf-8?B?QTBaenBLejFDajN5ZTNiSWJ5eXViRnlHR3IxWTNKRXZEREFCY2JLdkdRWUc3?=
+ =?utf-8?B?RkQwM3ZjT0hsWE9DOEt3cVNNc2JudGJ0dzVwYTZLR3hpd0hwV1RnVXBOUTlP?=
+ =?utf-8?B?dnNBQldub0FXcEk4L2ZhSXVzOUZneGxIdFFHNkxtcVE5QnJNb0RZVE9ITWMr?=
+ =?utf-8?B?NEgwSzBRNitaZDRieVArMDZNNGtFTGpLTWJ0clpxVTlQV2pvbVZ1VloyRVE3?=
+ =?utf-8?B?SjQ1VFYvWDBHMzczeitYWTk0T1ZDeTdHN09YNzBWU1RmL21hRmFseGlCR3g2?=
+ =?utf-8?B?RTFObGhuUHdYTXFWaTQzY3VaZDlvL05MeFBkVVlUYzlCNEZPczVtTUl0RVFZ?=
+ =?utf-8?B?RzFaRHQ3R2lsZHJZSkh0dExEdTdacll1bkZGU2NkZmV6UENhelRsQy9ZVW5O?=
+ =?utf-8?Q?EZtb+TmBnzDQSqadlO?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f1f10e1-8987-46cf-6300-08df1dcf6468
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:14:29.1054 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FqVJvlCUkQm1Y6qUscik0P4w1NSUabjgvguGmfya6HQzIK0rw82EYvzy/YEzTYZl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7769
+X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,85 +212,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-Am 15.09.26 um 21:42 schrieb Maíra Canal:
-> v3d carried an exact copy of i915's nsecs_to_jiffies_timeout(). Now
-> that the conversion lives in "drm_timeout.c", drop the copy and use it.
+On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> The is_vm_hugetlb_page() predicate is badly named - the mapping can span
+> more than a page and it is inconsistent with other VMA predicates that
+> typically are prefixed by vma_.
 >
-> The core helper also returns 0 for a zero timeout. i915 has that check in
-> to_wait_timeout(), but v3d only ever copied the conversion, so
-> DRM_IOCTL_V3D_WAIT_BO with timeout_ns == 0 was turned into a one jiffy
-> wait and could block for a tick before reporting -ETIME. It now returns
-> without waiting.
+> Rename to vma_is_hugetlb() for consistency, and while we're here update
+> some VM_BUG_ON_VMA() to VM_WARN_ON_ONCE_VMA() as to avoid unnecessary
+> oopses.
 >
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-
-i915 and the new helper return 0 if the given time is 0. It looks like 
-v3d always returned 1 in this case. Assuming that v3d can handle the 
-slightly different semantics:
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Best regards
-Thomas
-
-
+> No functional change intended.
+>
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Acked-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+> Acked-by: Anup Patel <anup@brainfault.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->   drivers/gpu/drm/v3d/v3d_bo.c  |  3 ++-
->   drivers/gpu/drm/v3d/v3d_drv.h | 10 ----------
->   2 files changed, 2 insertions(+), 11 deletions(-)
+>  arch/arm64/kvm/mmu.c                      |  4 ++--
+>  arch/powerpc/mm/book3s64/radix_tlb.c      |  6 +++---
+>  arch/powerpc/mm/nohash/e500_hugetlbpage.c |  2 +-
+>  arch/powerpc/mm/nohash/tlb.c              |  2 +-
+>  arch/riscv/kvm/mmu.c                      |  2 +-
+>  arch/riscv/mm/tlbflush.c                  |  2 +-
+>  arch/s390/mm/gmap_helpers.c               |  6 +++---
+>  arch/sparc/mm/init_64.c                   |  2 +-
+>  drivers/gpu/drm/drm_gpusvm.c              |  2 +-
+>  fs/coredump.c                             |  2 +-
+>  fs/hugetlbfs/inode.c                      |  2 +-
+>  fs/proc/task_mmu.c                        |  8 ++++----
+>  include/asm-generic/tlb.h                 |  2 +-
+>  include/linux/hugetlb.h                   |  4 ++--
+>  include/linux/mm.h                        | 19 ++++++++++++++++---
+>  include/linux/rmap.h                      |  2 +-
+>  kernel/events/core.c                      |  2 +-
+>  kernel/sched/fair.c                       |  2 +-
+>  mm/gup.c                                  |  4 ++--
+>  mm/huge_memory.c                          |  2 +-
+>  mm/hugetlb.c                              | 14 +++++++-------
+>  mm/internal.h                             |  2 +-
+>  mm/madvise.c                              |  4 ++--
+>  mm/memory.c                               | 12 ++++++------
+>  mm/mempolicy.c                            |  2 +-
+>  mm/migrate_device.c                       |  2 +-
+>  mm/mmap.c                                 |  2 +-
+>  mm/mmu_gather.c                           |  2 +-
+>  mm/mprotect.c                             |  2 +-
+>  mm/mremap.c                               |  6 +++---
+>  mm/page_vma_mapped.c                      |  4 ++--
+>  mm/pagewalk.c                             |  2 +-
+>  mm/swapfile.c                             |  2 +-
+>  mm/userfaultfd.c                          | 26 +++++++++++++------------=
+-
+>  mm/vma.c                                  |  8 ++++----
+>  mm/vmscan.c                               |  2 +-
+>  tools/testing/vma/include/stubs.h         |  2 +-
+>  37 files changed, 92 insertions(+), 79 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-> index a847d2f0ccf5..db95a2fac5d0 100644
-> --- a/drivers/gpu/drm/v3d/v3d_bo.c
-> +++ b/drivers/gpu/drm/v3d/v3d_bo.c
-> @@ -19,6 +19,7 @@
->   #include <linux/vmalloc.h>
->   
->   #include <drm/drm_print.h>
-> +#include <drm/drm_timeout.h>
->   
->   #include "v3d_drv.h"
->   #include "uapi/drm/v3d_drm.h"
-> @@ -281,7 +282,7 @@ v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
->   	ktime_t start = ktime_get();
->   	u64 delta_ns;
->   	unsigned long timeout_jiffies =
-> -		nsecs_to_jiffies_timeout(args->timeout_ns);
-> +		drm_timeout_rel_to_jiffies(args->timeout_ns);
->   
->   	if (args->pad != 0)
->   		return -EINVAL;
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 79ef20c89ff2..78de9fd69e0b 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> @@ -578,16 +578,6 @@ struct v3d_submit_ext {
->   						   (Wmax))
->   #define wait_for(COND, MS)		_wait_for((COND), (MS) * 1000, 10, 1000)
->   
-> -static inline unsigned long nsecs_to_jiffies_timeout(const u64 n)
-> -{
-> -	/* nsecs_to_jiffies64() does not guard against overflow */
-> -	if ((NSEC_PER_SEC % HZ) != 0 &&
-> -	    div_u64(n, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> -		return MAX_JIFFY_OFFSET;
-> -
-> -	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(n) + 1);
-> -}
-> -
->   /* v3d_bo.c */
->   struct drm_gem_object *v3d_create_object(struct drm_device *dev, size_t size);
->   void v3d_free_object(struct drm_gem_object *gem_obj);
->
+Makes sense
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+Acked-by: Zi Yan <ziy@nvidia.com>
 
+--=20
+Best Regards,
+Yan, Zi
 
