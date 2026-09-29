@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B05CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 03:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30CBCA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 03:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFB0F10E06B;
-	Tue, 29 Sep 2026 03:55:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 056AC10E109;
+	Tue, 29 Sep 2026 03:56:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JEc4I3vj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JQJYdaN3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C55D910E06B
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 03:54:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8935310E109
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 03:56:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7A78640716;
- Tue, 29 Sep 2026 03:54:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3296F1F000FF;
- Tue, 29 Sep 2026 03:54:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 462BD439F4;
+ Tue, 29 Sep 2026 03:56:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF231F000FF;
+ Tue, 29 Sep 2026 03:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790654099;
- bh=cQ77VYZ7Z4sW34S/reMTq7UIQwRfz5/ntdmbF2XFx3s=;
+ s=k20260515; t=1790654195;
+ bh=uooBTwwMlujkp7rQY/gVMQ9iWfA0Cbw/5bFZ4BtMb5A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JEc4I3vjzBWOhZSGdkz0LNsCt5bnhMK6cs3hJBLoODKgap+viOCQBAK147DhAK6BQ
- Gw/t1j7NFcILH7U7QHdXBEMwGczFWAt0YH1wht46LtTFOe1dRBeTVyUHsCTqHOS+X/
- JVrPF0xn2X+xRjbM4uyZhuR8uWysJxC2VSQopwuq90QZ+x9HRM21ga7pb9Cv2n2RLW
- LDy/pi99iei6ix+iC33n+BS7jb5fBl4NZrr3plK+zb3Yd3xaa9d+OjnxGSg09iJsOy
- 1o65OX0QcGTFIfZ91nOKBiqXJMyChrGz8mrHCNECpCRkPeWk26g4UF4VPvbFTjDf/s
- +dJrDLXo+IdcQ==
+ b=JQJYdaN324/5Bcuzaaeuco4M4Prbv452LAjBs8vZH3otacZK0xXPMInZwET1o++Wy
+ AVpONDKYsIBv1Uurj09xwNWM0EKQTL89enSAoRURVwOhIPoeuo8TDHB4dAifl/H3WH
+ cVvE/HGiZ/FaFIwRTf7omk6JXQVJ3AapJofhuVRqzmWBDKpT/wcd0ygXFwmF2t5cqU
+ +htEY2kD3JMBQ2albqGfakQhwyF7GbEMTQ5pp1Ey2N8ne+J43Iar1PH4o21LBbQUB8
+ mW4SevFfHfUcgAzQq6MX3miUSckQ8Dl+p297cGwwTCjgVsyshavE5HVARfsj6YQJdf
+ 5Gm9DoFKy501Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 11/15] drm/panfrost: Move perfcnt GPU disable
- sequence into a helper
+Subject: Re: [PATCH v12 05/15] drm/panfrost: Consolidate device clock
+ management and reset
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929-claude-fixes-v12-11-62beb08de207@collabora.com>
+In-Reply-To: <20260929-claude-fixes-v12-5-62beb08de207@collabora.com>
 References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-11-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-5-62beb08de207@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 03:54:58 +0000
-Message-Id: <20260929035459.3296F1F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 03:56:34 +0000
+Message-Id: <20260929035635.0BF231F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,79 +60,84 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/panfrost: inverted hardware disable sequence risks spurious du=
-mp
+- [Medium] clk: slow clk_prepare on runtime resume due to unprepare in susp=
+end
 --
 
-commit 3efe7a19ba3bb185c762f241fc91b732bd783ed3
+commit 9d5414aa4af3f7dd6f34ed2bea83b5c9b25db769
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Subject: drm/panfrost: Consolidate device clock management and reset
 
-drm/panfrost: Move perfcnt GPU disable sequence into a helper
+This commit gathers clock enables and disables into a single function to
+avoid repetition between driver init/fini and device resume/suspend. It
+also combines prepare/unprepare with enable/disable, under the assumption
+that clock preparation can simply increase the reference count of an already
+prepared clock.
 
-This commit introduces a helper function to avoid repetition of the hardware
-performance counter disable sequence.
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index 7020c0192e189..f71534e741b65 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -35,6 +35,16 @@ struct panfrost_perfcnt {
->  	struct completion dump_comp;
->  };
-> =20
-> +static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
-> +{
-> +	gpu_write(pfdev, GPU_PERFCNT_CFG,
-> +		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-> +	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
-> +	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
-> +	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
-> +	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-> +}
-
-[Severity: High]
-Does this sequence introduce a risk of a spurious hardware dump?
-
-The new helper turns off the GPU_PERFCNT_CFG register before disabling the
-individual block counters, which reverses the previous safe sequence in
-panfrost_perfcnt_disable_locked() where the EN registers were cleared first.
-
-Modifying the CFG register while TILER_EN is still active might trigger a
-spurious dump. This seems similar to hardware erratum PRLAM-8186, which
-requires TILER_EN to be off before modifying the CFG register to enable
-counters.
-
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index b3a53504bd016..9f2b1967a3984 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
 [ ... ]
-
-> @@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct pa=
-nfrost_device *pfdev,
->  	if (user !=3D perfcnt->user)
->  		return -EINVAL;
+> @@ -436,34 +450,17 @@ static int panfrost_device_runtime_resume(struct de=
+vice *dev)
+>  		if (ret)
+>  			return ret;
 > =20
-> -	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
-> -	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
-> -	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
-> -	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-> -	gpu_write(pfdev, GPU_PERFCNT_CFG,
-> -		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-> +	panfrost_perfcnt_hw_disable(pfdev);
+> -		ret =3D clk_enable(pfdev->clock);
+> -		if (ret)
+> -			goto err_clk;
+> -
+> -		ret =3D clk_enable(pfdev->bus_clock);
+> -		if (ret)
+> -			goto err_bus_clk;
+> -
+> -		ret =3D clk_enable(pfdev->bus_ace_clock);
+> -		if (ret)
+> -			goto err_bus_ace_clk;
+> +		ret =3D panfrost_clks_enable(pfdev, true);
+> +		if (ret) {
+> +			reset_control_assert(pfdev->rstc);
+> +			return ret;
+> +		}
+>  	}
 > =20
->  	perfcnt->user =3D NULL;
->  	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+>  	panfrost_device_reset(pfdev, true);
+[ ... ]
+> @@ -480,9 +477,7 @@ static int panfrost_device_runtime_suspend(struct dev=
+ice *dev)
+>  	panfrost_gpu_power_off(pfdev);
+> =20
+>  	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
+> -		clk_disable(pfdev->bus_ace_clock);
+> -		clk_disable(pfdev->bus_clock);
+> -		clk_disable(pfdev->clock);
+> +		panfrost_clks_disable(pfdev, true);
+>  		reset_control_assert(pfdev->rstc);
+>  	}
 
-[Severity: High]
-Could a spurious hardware dump here result in memory corruption?
+[Severity: Medium]
+Does this introduce a performance regression by fully unpreparing the clocks
+on every idle state?
 
-Because the inverted hardware disable sequence is invoked while TILER_EN is
-active, a spurious hardware dump would cause the GPU to write to the
-performance counter buffer asynchronously.
+Previously, this code only called clk_disable() during runtime suspend,
+leaving the clock prepared. Now panfrost_clks_disable() uses
+clk_disable_unprepare(), reducing the prepare refcount to 0.
 
-Since panfrost_perfcnt_disable_locked() immediately tears down and unmaps
-this memory via drm_gem_vunmap(), could the GPU perform a DMA write-after-f=
-ree,
-leading to an IOMMU fault or memory corruption?
+When the device wakes up, panfrost_device_runtime_resume() calls
+panfrost_clks_enable() which uses clk_prepare_enable(). Because the clock
+was unprepared here in suspend, the resume path will pay the penalty of
+executing the full sleep-capable prepare sequence from a cold state instead
+of just a fast atomic-safe enable.
+
+The commit message notes that "the clk_prepare_* family of functions can
+simply increase the refcnt of an already prepared clock". However, since the
+clocks are fully unprepared in this runtime suspend path, they won't be
+already prepared on resume.
+
+Was it intended to fully unprepare the clocks on every runtime suspend?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-claude-fix=
-es-v12-0-62beb08de207@collabora.com?part=3D11
+es-v12-0-62beb08de207@collabora.com?part=3D5
