@@ -4,43 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 364A8CA5FA7
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 21:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D63CBCA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 21:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 723E310E51F;
-	Tue, 29 Sep 2026 21:42:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1432410E1F9;
+	Tue, 29 Sep 2026 21:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BHEVbImS";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OUHHq+Bc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481C710E1F9
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 21:42:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D6EE41972;
- Tue, 29 Sep 2026 21:42:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C711F000FF;
- Tue, 29 Sep 2026 21:42:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1790718134;
- bh=K/yzJ7VDqnpk00dHp+/jme7+Nhb5NqHs2BdV51dsIto=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=BHEVbImSwMlHW1eNgK3t3SsQ3XyHFWRMuiU6tJzI6GKfJNrpx2sUkJplC2CpTynEA
- vei1Bv9F3/oyYxQ7QcUAYeX84gdU6LAZIj/W1xW3TWfyMTedtfsAknxpORObE1sFMR
- fP7dd/QNEMbiej2DstsDMf0PKzvhlaKPV1+drl1o=
-Date: Tue, 29 Sep 2026 14:42:13 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Linux Memory Management List <linux-mm@kvack.org>, Mark Brown
- <broonie@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 6375e61c01e93e35ee7acd336a689ac1fae4b509
-Message-Id: <20260929144213.94ba64f93121887c2a599d9f@linux-foundation.org>
-In-Reply-To: <202609300341.XNENLUI0-lkp@intel.com>
-References: <202609300341.XNENLUI0-lkp@intel.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43EA110E1F9
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 21:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=k0i4xXQuBFgzC5FmgzEvBOZAZVEwv8KDOiSjD9LHxwM=; b=OUHHq+BcYDEGqBfDUCg05k24EF
+ M5EMKRj41eJJ+hgYde5JNN4yXq4prDeJYYg9fm0spEEtqLfjH1hKPVm01e5n2zn180GaoydEi2muU
+ h1/ee8LmIn2VVrLVVA3JLbSANc3kgfLZ7UoOhhBOoPhAcPY6AFUvgB5eCryHXuGThj2DDn5Wtany0
+ xYDcNUextSWnQBAX91E0vsH61EjrQGpK+oQzhn5MQGZnPPlR/XjNkYA3wzw27fkVT74iwFUXm39Jo
+ mXMtbpK0isBYV62oNPWOMHF6ujVAXRYP3H+MkduWj+kJx1BJZx5x/o/UWs+H2l2abWyLKOfmcAngc
+ Bs9Ogy4Q==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xBfiu-0098QC-UG; Tue, 29 Sep 2026 23:50:53 +0200
+Message-ID: <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
+Date: Tue, 29 Sep 2026 18:50:47 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+ <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+ <20260923160049.1741651-1-holofermes@gmail.com>
+ <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,413 +87,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 30 Sep 2026 03:09:45 +0800 kernel test robot <lkp@intel.com> wrote:
+Hi Thomas,
 
-> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> branch HEAD: 6375e61c01e93e35ee7acd336a689ac1fae4b509  Add linux-next specific files for 20260928
+On 29/09/26 06:04, Thomas Zimmermann wrote:
+> (cc'ing v3d maintainers Maira and Melissa)
 > 
-> Error/Warning (recently discovered and may have been fixed):
+> Hi
 > 
->     https://lore.kernel.org/oe-kbuild-all/202609290155.PQiaOalK-lkp@intel.com
->     https://lore.kernel.org/oe-kbuild-all/202609290349.4ad3d90o-lkp@intel.com
->     https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.com
->     https://lore.kernel.org/oe-kbuild-all/202609291109.9RGna4XZ-lkp@intel.com
->     https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.com
+> Am 23.09.26 um 18:00 schrieb Fabio Piparo:
+>> Hi Thomas,
+>>
+>> Thanks for taking a look.
+>>
+>> On 14.09.26 10:43, Thomas Zimmermann wrote:
+>>> I assume you write these frames quickly one after the other? As i2c is
+>>> really slow, you might write to buffers that are still being transferred
+>>> in the background.
+>>>
+>>> Do you read back the status of the page flips? DRM should tell you when
+>>> it has completed transferring a frame. See [1]
+>> The test renders with the GPU: two dumb buffers allocated on the
+>> ssd130x device and shared with v3d over PRIME. It runs at 10 fps.
+>> Before each flip it calls glFinish(), then flips with
+>> DRM_MODE_PAGE_FLIP_EVENT and waits for the event before drawing into
+>> the other buffer. The same test drawing with the CPU instead comes out
+>> clean.
 > 
->     Documentation/filesystems/api-summary:20: ./fs/dcache.c:2010: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
->     arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dtb: clock-controller@100000 (qcom,gcc-sdm670): 'power-domains' is a required property
->     arch/arm64/boot/dts/qcom/sdm670-google-sargo.dtb: clock-controller@100000 (qcom,gcc-sdm670): 'power-domains' is a required property
->     drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c:336:11: error: call to undeclared function 'devm_drm_of_get_bridge'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
->     drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c:336:16: error: assignment to 'struct drm_bridge *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
->     drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c:336:18: error: implicit declaration of function 'devm_drm_of_get_bridge'; did you mean 'devm_drm_put_bridge'? [-Wimplicit-function-declaration]
->     drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c:336:9: error: incompatible integer to pointer conversion assigning to 'struct drm_bridge *' from 'int' [-Wint-conversion]
->     drivers/gpu/drm/verisilicon/vs_bridge.c:306:14: error: assignment to 'struct drm_bridge *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
->     drivers/gpu/drm/verisilicon/vs_bridge.c:306:16: error: implicit declaration of function 'devm_drm_of_get_bridge'; did you mean 'devm_drm_put_bridge'? [-Wimplicit-function-declaration]
->     drivers/gpu/drm/verisilicon/vs_bridge.c:306:7: error: incompatible integer to pointer conversion assigning to 'struct drm_bridge *' from 'int' [-Wint-conversion]
->     drivers/gpu/drm/verisilicon/vs_bridge.c:306:9: error: call to undeclared function 'devm_drm_of_get_bridge'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+> A number of things come to my mind.
+> 
+> - Dumb buffers (from ssd130x) are not meant for HW rendering. They are 
+> generally for software rendering only.
+> 
 
-(cc dri-devel for the above)
+This reminded me of an issue I recently saw involving GPU rendering to
+dumb buffers when combining simpledrm and Panthor. It had the same
+symptom: this trail of glitches.
 
-> Unverified Error/Warning (likely false positive, kindly check if interested):
-> 
->     drivers/gpu/drm/xe/xe_guc_pc.c:1400:17: sparse: sparse: Trying to use reserved word 'break' as identifier
->     drivers/gpu/drm/xe/xe_guc_pc.c:1400:17: sparse: sparse: Trying to use reserved word 'switch' as identifier
+After investigating that issue, I noticed that, on platforms where the
+GPU isn't DMA-coherent, when a shmem GEM buffer is exported via dma-
+buf to a GPU for rendering, the CPU can read stale data from its cache
+when later accessing the buffer, which manifests as rendering artifacts.
 
-I can't find any code in there which could cause this.  Using the correct HEAD.
+So, the GPU writes reach memory, but the CPU blit reads stale cache
+lines. drm_gem_fb_begin_cpu_access() only syncs imported buffers, and
+GEM dma_buf_ops have no begin/end_cpu_access, so nothing invalidates the
+CPU cache before the blit and the CPU reads stale cached data.
 
-> Error/Warning ids grouped by kconfigs
+I have a patch implementing begin/end_cpu_access to
+drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
+we would like to support this use case upstream because, as you
+mentioned, dumb buffers are usually used for software-rendering only.
+> - Hence, the ideomatic use for sharing graphics buffers is to model a 
+> producer-consumer relationship. Export the buffer from the device that 
+> generates the frame and import it to the buffer that displays it.
 > 
-> recent_errors
-> |-- arm64-randconfig-2404-20260927
-> |   |-- arch-arm64-boot-dts-qcom-sdm670-google-bonito-tianma.dtb:clock-controller-(qcom-gcc-sdm670):power-domains-is-a-required-property
-> |   `-- arch-arm64-boot-dts-qcom-sdm670-google-sargo.dtb:clock-controller-(qcom-gcc-sdm670):power-domains-is-a-required-property
-> |-- arm64-randconfig-r2306-20260929
-> |   |-- drivers-gpu-drm-xe-xe_guc_pc.c:sparse:sparse:Trying-to-use-reserved-word-break-as-identifier
-> |   `-- drivers-gpu-drm-xe-xe_guc_pc.c:sparse:sparse:Trying-to-use-reserved-word-switch-as-identifier
-> |-- i386-buildonly-randconfig-1001-20260929
-> |   |-- drivers-gpu-drm-bridge-synopsys-dw-mipi-dsi.c:error:assignment-to-struct-drm_bridge-from-int-makes-pointer-from-integer-without-a-cast
-> |   `-- drivers-gpu-drm-bridge-synopsys-dw-mipi-dsi.c:error:implicit-declaration-of-function-devm_drm_of_get_bridge
-> |-- i386-buildonly-randconfig-1005-20260929
-> |   |-- drivers-gpu-drm-bridge-synopsys-dw-mipi-dsi.c:error:call-to-undeclared-function-devm_drm_of_get_bridge-ISO-C99-and-later-do-not-support-implicit-function-declarations
-> |   |-- drivers-gpu-drm-bridge-synopsys-dw-mipi-dsi.c:error:incompatible-integer-to-pointer-conversion-assigning-to-struct-drm_bridge-from-int
-> |   |-- drivers-gpu-drm-verisilicon-vs_bridge.c:error:call-to-undeclared-function-devm_drm_of_get_bridge-ISO-C99-and-later-do-not-support-implicit-function-declarations
-> |   `-- drivers-gpu-drm-verisilicon-vs_bridge.c:error:incompatible-integer-to-pointer-conversion-assigning-to-struct-drm_bridge-from-int
-> |-- parisc-randconfig-r2200-20260929
-> |   |-- drivers-gpu-drm-verisilicon-vs_bridge.c:error:assignment-to-struct-drm_bridge-from-int-makes-pointer-from-integer-without-a-cast
-> |   `-- drivers-gpu-drm-verisilicon-vs_bridge.c:error:implicit-declaration-of-function-devm_drm_of_get_bridge
-> `-- x86_64-allnoconfig
->     `-- Documentation-filesystems-api-summary:.-fs-dcache.c:WARNING:Block-quote-ends-without-a-blank-line-unexpected-unindent.-docutils
+> - Since you're compositor's sharing happens in the opposite direction, 
+> ssd130x might not sync correctly. (I'm not sure of v3d requires a 
+> dedicated flush.)
 > 
-> elapsed time: 976m
+> - Or maybe v3d needs to do a final cache flush after drawing to imported 
+> buffers.
+
+I don't think so...  Once the job completes, the GPU writes are in
+memory. I believe the stale copy is in the CPU cache, so the
+invalidation should happen on the CPU side.
+
+Best regards,
+- Maíra
+
 > 
-> configs tested: 343
-> configs skipped: 11
+> If nothing else helpers, we could use map_wc for shared buffers in 
+> ssd130x, but it seems like papering over something else.
 > 
-> tested configs:
-> alpha                              allnoconfig    gcc-16.1.0
-> alpha                             allyesconfig    gcc-16.1.0
-> alpha                                defconfig    gcc-16.1.0
-> arc                               allmodconfig    clang-24
-> arc                               allmodconfig    gcc-16.1.0
-> arc                                allnoconfig    gcc-16.1.0
-> arc                               allyesconfig    clang-24
-> arc                               allyesconfig    gcc-16.1.0
-> arc                                  defconfig    gcc-16.1.0
-> arc                   randconfig-1000-20260929    clang-17
-> arc                   randconfig-1000-20260929    gcc-13.4.0
-> arc                   randconfig-1000-20260930    gcc-11.5.0
-> arc                   randconfig-1001-20260929    clang-17
-> arc                   randconfig-1001-20260929    gcc-8.5.0
-> arc                   randconfig-1001-20260930    gcc-11.5.0
-> arc                  randconfig-r2106-20260928    gcc-16.1.0 cocci
-> arc                  randconfig-r2201-20260929    gcc-10.5.0 smatch
-> arc                  randconfig-r2309-20260929    gcc-9.5.0  sparse
-> arc                     vdk_hs38_smp_defconfig    gcc-16.1.0
-> arm                                allnoconfig    clang-17
-> arm                                allnoconfig    gcc-16.1.0
-> arm                               allyesconfig    clang-24
-> arm                               allyesconfig    gcc-16.1.0
-> arm                         clps711x_defconfig    gcc-16.1.0
-> arm                                  defconfig    gcc-16.1.0
-> arm                          lpc32xx_defconfig    clang-17
-> arm                              mxs_defconfig    gcc-16.1.0
-> arm                          orion5x_defconfig    gcc-16.1.0
-> arm                   randconfig-1000-20260929    clang-17
-> arm                   randconfig-1000-20260929    gcc-11.5.0
-> arm                   randconfig-1000-20260930    gcc-11.5.0
-> arm                   randconfig-1001-20260929    clang-17
-> arm                   randconfig-1001-20260930    gcc-11.5.0
-> arm                   randconfig-1002-20260929    clang-17
-> arm                   randconfig-1002-20260929    clang-24
-> arm                   randconfig-1002-20260930    gcc-11.5.0
-> arm                   randconfig-1003-20260929    clang-17
-> arm                   randconfig-1003-20260929    gcc-10.5.0
-> arm                   randconfig-1003-20260930    gcc-11.5.0
-> arm                  randconfig-r2106-20260929    gcc-10.5.0 cocci
-> arm                  randconfig-r2303-20260928    gcc-16.1.0 sparse
-> arm                         spear6xx_defconfig    clang-17
-> arm64                             allmodconfig    clang-24
-> arm64                              allnoconfig    gcc-16.1.0
-> arm64                                defconfig    gcc-16.1.0
-> arm64                 randconfig-1000-20260929    clang-24
-> arm64                 randconfig-1001-20260929    clang-24
-> arm64                 randconfig-1002-20260929    clang-24
-> arm64                 randconfig-1003-20260929    clang-22
-> arm64                 randconfig-1003-20260929    clang-24
-> arm64                randconfig-r2306-20260928    gcc-14.3.0 sparse
-> csky                              allmodconfig    gcc-16.1.0
-> csky                               allnoconfig    gcc-16.1.0
-> csky                                 defconfig    gcc-16.1.0
-> csky                  randconfig-1000-20260929    clang-24
-> csky                  randconfig-1000-20260929    gcc-16.1.0
-> csky                  randconfig-1001-20260929    clang-24
-> csky                  randconfig-1001-20260929    gcc-15.2.0
-> csky                 randconfig-r2107-20260928    gcc-12.5.0 cocci
-> hexagon                           allmodconfig    gcc-16.1.0
-> hexagon                            allnoconfig    clang-24
-> hexagon                            allnoconfig    gcc-16.1.0
-> hexagon                              defconfig    gcc-16.1.0
-> hexagon               randconfig-1000-20260929    gcc-8.5.0
-> hexagon               randconfig-1001-20260929    gcc-8.5.0
-> hexagon              randconfig-r2102-20260928    clang-22   cocci
-> i386                               allnoconfig    gcc-14
-> i386                               allnoconfig    gcc-16.1.0
-> i386        buildonly-randconfig-1000-20260929    clang-22
-> i386        buildonly-randconfig-1001-20260929    clang-22
-> i386        buildonly-randconfig-1001-20260929    gcc-14
-> i386        buildonly-randconfig-1002-20260929    clang-22
-> i386        buildonly-randconfig-1002-20260929    gcc-14
-> i386        buildonly-randconfig-1003-20260929    clang-22
-> i386        buildonly-randconfig-1004-20260929    clang-22
-> i386        buildonly-randconfig-1005-20260929    clang-22
-> i386                                 defconfig    gcc-16.1.0
-> i386                  randconfig-1000-20260929    clang-22
-> i386                  randconfig-1000-20260929    gcc-13
-> i386                  randconfig-1001-20260929    clang-22
-> i386                  randconfig-1001-20260929    gcc-13
-> i386                  randconfig-1002-20260929    gcc-13
-> i386                  randconfig-1003-20260929    gcc-13
-> i386                  randconfig-1003-20260929    gcc-14
-> i386                  randconfig-1004-20260929    gcc-13
-> i386                  randconfig-1004-20260929    gcc-14
-> i386                  randconfig-1005-20260929    clang-22
-> i386                  randconfig-1005-20260929    gcc-13
-> i386                  randconfig-1006-20260929    clang-22
-> i386                  randconfig-1006-20260929    gcc-13
-> i386                  randconfig-1007-20260929    gcc-14
-> i386                  randconfig-1008-20260929    gcc-14
-> i386                  randconfig-1009-20260929    gcc-14
-> i386                  randconfig-1010-20260929    gcc-14
-> i386                  randconfig-1011-20260929    gcc-14
-> i386                  randconfig-1012-20260929    gcc-14
-> i386                  randconfig-1013-20260929    gcc-14
-> i386                  randconfig-2100-20260928    clang-22   cocci
-> i386                  randconfig-2100-20260929    gcc-13     cocci
-> i386                  randconfig-2101-20260928    gcc-14     cocci
-> i386                  randconfig-2101-20260929    clang-22   cocci
-> i386                  randconfig-2102-20260928    gcc-12     cocci
-> i386                  randconfig-2102-20260929    clang-22   cocci
-> i386                  randconfig-2103-20260928    clang-22   cocci
-> i386                  randconfig-2103-20260929    clang-22   cocci
-> i386                  randconfig-2200-20260928    clang-22   smatch
-> i386                  randconfig-2200-20260929    gcc-14     smatch
-> i386                  randconfig-2300-20260928    gcc-14     sparse
-> i386                  randconfig-2301-20260928    gcc-12     sparse
-> i386                  randconfig-2302-20260928    clang-22   sparse
-> i386                 randconfig-r2100-20260929    gcc-14     cocci
-> i386                 randconfig-r2104-20260929    gcc-14     cocci
-> i386                 randconfig-r2202-20260928    gcc-14     smatch
-> loongarch                         allmodconfig    clang-19
-> loongarch                         allmodconfig    clang-24
-> loongarch                          allnoconfig    clang-20
-> loongarch                          allnoconfig    gcc-16.1.0
-> loongarch                            defconfig    clang-24
-> loongarch                 loongson64_defconfig    clang-17
-> loongarch             randconfig-1000-20260929    gcc-8.5.0
-> loongarch             randconfig-1001-20260929    gcc-8.5.0
-> m68k                              allmodconfig    gcc-16.1.0
-> m68k                               allnoconfig    gcc-16.1.0
-> m68k                              allyesconfig    clang-24
-> m68k                              allyesconfig    gcc-16.1.0
-> m68k                        bvme6000_defconfig    gcc-16.1.0
-> m68k                                 defconfig    clang-24
-> m68k                           hp300_defconfig    clang-17
-> m68k                             q40_defconfig    clang-17
-> m68k                 randconfig-r2201-20260928    gcc-12.5.0 smatch
-> microblaze                         allnoconfig    gcc-16.1.0
-> microblaze                        allyesconfig    gcc-16.1.0
-> microblaze                           defconfig    clang-24
-> microblaze           randconfig-r2103-20260928    gcc-13.4.0 cocci
-> microblaze           randconfig-r2309-20260928    gcc-15.2.0 sparse
-> mips                              allmodconfig    gcc-16.1.0
-> mips                               allnoconfig    gcc-16.1.0
-> mips                              allyesconfig    gcc-16.1.0
-> mips                            ip30_defconfig    gcc-16.1.0
-> mips                 randconfig-r2302-20260928    clang-24   sparse
-> mips                 randconfig-r2306-20260929    gcc-15.2.0 sparse
-> nios2                             allmodconfig    gcc-11.5.0
-> nios2                              allnoconfig    clang-24
-> nios2                              allnoconfig    gcc-11.5.0
-> nios2                                defconfig    clang-24
-> nios2                 randconfig-1000-20260929    gcc-8.5.0
-> nios2                 randconfig-1001-20260929    gcc-8.5.0
-> nios2                randconfig-r2304-20260928    gcc-8.5.0  sparse
-> openrisc                          alldefconfig    gcc-16.1.0
-> openrisc                          allmodconfig    gcc-16.1.0
-> openrisc                           allnoconfig    clang-24
-> openrisc                           allnoconfig    gcc-16.1.0
-> openrisc                             defconfig    gcc-16.1.0
-> openrisc             randconfig-r2104-20260928    gcc-16.1.0 cocci
-> openrisc             randconfig-r2107-20260929    gcc-15.2.0 cocci
-> parisc                            allmodconfig    gcc-16.1.0
-> parisc                             allnoconfig    clang-24
-> parisc                             allnoconfig    gcc-16.1.0
-> parisc                            allyesconfig    clang-17
-> parisc                               defconfig    gcc-16.1.0
-> parisc                randconfig-1000-20260929    gcc-15.2.0
-> parisc                randconfig-1000-20260929    gcc-8.5.0
-> parisc                randconfig-1000-20260930    gcc-8.5.0
-> parisc                randconfig-1001-20260929    gcc-13.4.0
-> parisc                randconfig-1001-20260929    gcc-8.5.0
-> parisc                randconfig-1001-20260930    gcc-8.5.0
-> parisc               randconfig-r2200-20260928    gcc-8.5.0  smatch
-> parisc               randconfig-r2200-20260929    gcc-14.3.0 smatch
-> parisc               randconfig-r2300-20260928    gcc-16.1.0 sparse
-> parisc64                             defconfig    clang-24
-> powerpc                           allmodconfig    gcc-16.1.0
-> powerpc                            allnoconfig    clang-24
-> powerpc                            allnoconfig    gcc-16.1.0
-> powerpc                     gamecube_defconfig    gcc-16.1.0
-> powerpc                      ksi8560_defconfig    gcc-16.1.0
-> powerpc                    motionpro_defconfig    gcc-16.1.0
-> powerpc                  mpc837x_rdb_defconfig    gcc-16.1.0
-> powerpc               randconfig-1000-20260929    clang-17
-> powerpc               randconfig-1000-20260929    gcc-8.5.0
-> powerpc               randconfig-1000-20260930    gcc-8.5.0
-> powerpc               randconfig-1001-20260929    gcc-14.3.0
-> powerpc               randconfig-1001-20260929    gcc-8.5.0
-> powerpc               randconfig-1001-20260930    gcc-8.5.0
-> powerpc              randconfig-r2307-20260928    clang-24   sparse
-> powerpc              randconfig-r2308-20260929    clang-24   sparse
-> powerpc                      redwood_defconfig    clang-17
-> powerpc64             randconfig-1000-20260929    gcc-8.5.0
-> powerpc64             randconfig-1000-20260930    gcc-8.5.0
-> powerpc64             randconfig-1001-20260929    gcc-12.5.0
-> powerpc64             randconfig-1001-20260929    gcc-8.5.0
-> powerpc64             randconfig-1001-20260930    gcc-8.5.0
-> powerpc64            randconfig-r2101-20260929    gcc-10.5.0 cocci
-> powerpc64            randconfig-r2103-20260929    gcc-13.4.0 cocci
-> powerpc64            randconfig-r2105-20260928    clang-17   cocci
-> powerpc64            randconfig-r2305-20260928    gcc-8.5.0  sparse
-> powerpc64            randconfig-r2307-20260929    clang-24   sparse
-> riscv                             allmodconfig    clang-24
-> riscv                              allnoconfig    clang-24
-> riscv                              allnoconfig    gcc-16.1.0
-> riscv                             allyesconfig    clang-24
-> riscv                                defconfig    clang-24
-> riscv                                defconfig    gcc-16.1.0
-> riscv                 randconfig-1000-20260929    clang-24
-> riscv                 randconfig-1001-20260929    clang-24
-> riscv                 randconfig-2000-20260928    gcc-8.5.0
-> riscv                 randconfig-2000-20260929    gcc-11.5.0
-> riscv                 randconfig-2001-20260928    gcc-8.5.0
-> riscv                 randconfig-2001-20260929    gcc-9.5.0
-> s390                              allmodconfig    clang-17
-> s390                               allnoconfig    clang-24
-> s390                              allyesconfig    gcc-16.1.0
-> s390                                 defconfig    clang-18
-> s390                                 defconfig    gcc-16.1.0
-> s390                  randconfig-1000-20260929    clang-24
-> s390                  randconfig-1001-20260929    clang-24
-> s390                  randconfig-2000-20260928    clang-22
-> s390                  randconfig-2000-20260929    clang-24
-> s390                  randconfig-2001-20260928    gcc-16.1.0
-> s390                  randconfig-2001-20260929    gcc-8.5.0
-> s390                 randconfig-r2105-20260929    gcc-13.4.0 cocci
-> sh                                allmodconfig    gcc-16.1.0
-> sh                                 allnoconfig    clang-24
-> sh                                 allnoconfig    gcc-16.1.0
-> sh                                allyesconfig    clang-17
-> sh                                   defconfig    gcc-14
-> sh                                   defconfig    gcc-16.1.0
-> sh                         dreamcast_defconfig    clang-17
-> sh                           kfr2r09_defconfig    gcc-16.1.0
-> sh                    randconfig-1000-20260929    clang-24
-> sh                    randconfig-1001-20260929    clang-24
-> sh                    randconfig-2000-20260928    gcc-15.2.0
-> sh                    randconfig-2000-20260929    gcc-14.3.0
-> sh                    randconfig-2001-20260928    gcc-13.4.0
-> sh                    randconfig-2001-20260929    gcc-16.1.0
-> sh                   randconfig-r2202-20260929    gcc-16.1.0 smatch
-> sh                            se7721_defconfig    gcc-16.1.0
-> sh                            se7722_defconfig    gcc-16.1.0
-> sh                    secureedge5410_defconfig    gcc-16.1.0
-> sh                              shx3_defconfig    gcc-16.1.0
-> sparc                              allnoconfig    clang-24
-> sparc                              allnoconfig    gcc-16.1.0
-> sparc                                defconfig    gcc-16.1.0
-> sparc                 randconfig-1000-20260929    gcc-14
-> sparc                 randconfig-1001-20260929    gcc-14
-> sparc                 randconfig-2000-20260928    gcc-15.2.0
-> sparc                 randconfig-2000-20260929    gcc-14.3.0
-> sparc                 randconfig-2001-20260928    gcc-13.4.0
-> sparc                 randconfig-2001-20260929    gcc-12.5.0
-> sparc                randconfig-r2100-20260928    gcc-11.5.0 cocci
-> sparc64                           allmodconfig    clang-20
-> sparc64                              defconfig    clang-24
-> sparc64                              defconfig    gcc-14
-> sparc64               randconfig-1000-20260929    gcc-14
-> sparc64               randconfig-1001-20260929    gcc-14
-> sparc64               randconfig-2000-20260928    clang-20
-> sparc64               randconfig-2000-20260929    gcc-8.5.0
-> sparc64               randconfig-2001-20260928    clang-24
-> sparc64               randconfig-2001-20260929    clang-24
-> sparc64              randconfig-r2308-20260928    gcc-8.5.0  sparse
-> um                                allmodconfig    clang-17
-> um                                 allnoconfig    clang-17
-> um                                 allnoconfig    clang-24
-> um                                allyesconfig    gcc-16.1.0
-> um                                   defconfig    clang-24
-> um                                   defconfig    gcc-14
-> um                              i386_defconfig    gcc-14
-> um                    randconfig-1000-20260929    gcc-14
-> um                    randconfig-1001-20260929    gcc-14
-> um                    randconfig-2000-20260928    gcc-14
-> um                    randconfig-2000-20260929    clang-17
-> um                    randconfig-2001-20260928    gcc-14
-> um                    randconfig-2001-20260929    gcc-14
-> um                            x86_64_defconfig    clang-17
-> um                            x86_64_defconfig    clang-24
-> um                            x86_64_defconfig    gcc-14
-> x86_64                             allnoconfig    clang-22
-> x86_64                             allnoconfig    clang-24
-> x86_64      buildonly-randconfig-1000-20260929    clang-22
-> x86_64      buildonly-randconfig-1001-20260929    clang-22
-> x86_64      buildonly-randconfig-1002-20260929    clang-22
-> x86_64      buildonly-randconfig-1002-20260929    gcc-14
-> x86_64      buildonly-randconfig-1003-20260929    clang-22
-> x86_64      buildonly-randconfig-1003-20260929    gcc-14
-> x86_64      buildonly-randconfig-1004-20260929    clang-22
-> x86_64      buildonly-randconfig-1005-20260929    clang-22
-> x86_64                               defconfig    gcc-14
-> x86_64                                   kexec    clang-22
-> x86_64                randconfig-1000-20260929    clang-22
-> x86_64                randconfig-1000-20260929    gcc-13
-> x86_64                randconfig-1001-20260929    clang-22
-> x86_64                randconfig-1002-20260929    clang-22
-> x86_64                randconfig-1002-20260929    gcc-14
-> x86_64                randconfig-1003-20260929    clang-22
-> x86_64                randconfig-1004-20260929    clang-22
-> x86_64                randconfig-1005-20260929    clang-22
-> x86_64                randconfig-1006-20260929    gcc-13
-> x86_64                randconfig-1007-20260929    gcc-13
-> x86_64                randconfig-1008-20260929    gcc-13
-> x86_64                randconfig-1009-20260929    gcc-13
-> x86_64                randconfig-1010-20260929    gcc-13
-> x86_64                randconfig-1011-20260929    gcc-13
-> x86_64                randconfig-1012-20260929    clang-22
-> x86_64                randconfig-1013-20260929    clang-22
-> x86_64                randconfig-1014-20260929    clang-22
-> x86_64                randconfig-1015-20260929    clang-22
-> x86_64                randconfig-1016-20260929    clang-22
-> x86_64                randconfig-1017-20260929    clang-22
-> x86_64                randconfig-2100-20260928    gcc-14     cocci
-> x86_64                randconfig-2100-20260929    clang-22   cocci
-> x86_64                randconfig-2101-20260928    clang-22   cocci
-> x86_64                randconfig-2101-20260929    gcc-14     cocci
-> x86_64                randconfig-2102-20260928    gcc-14     cocci
-> x86_64                randconfig-2102-20260929    gcc-14     cocci
-> x86_64                randconfig-2103-20260928    gcc-12     cocci
-> x86_64                randconfig-2103-20260929    clang-22   cocci
-> x86_64                randconfig-2200-20260928    gcc-14     smatch
-> x86_64                randconfig-2200-20260929    clang-22   smatch
-> x86_64                randconfig-2300-20260928    gcc-14     sparse
-> x86_64                randconfig-2301-20260928    gcc-14     sparse
-> x86_64                randconfig-2302-20260928    clang-22   sparse
-> x86_64               randconfig-r2102-20260929    clang-22   cocci
-> x86_64               randconfig-r2301-20260928    clang-22   sparse
-> x86_64                                rhel-9.4    clang-22
-> x86_64                                rhel-9.4    gcc-14
-> x86_64                            rhel-9.4-bpf    gcc-14
-> x86_64                           rhel-9.4-func    clang-22
-> x86_64                           rhel-9.4-func    gcc-14
-> x86_64                     rhel-9.4-kselftests    clang-22
-> x86_64                     rhel-9.4-kselftests    gcc-14
-> x86_64                          rhel-9.4-kunit    gcc-14
-> x86_64                            rhel-9.4-ltp    gcc-14
-> x86_64                           rhel-9.4-rust    clang-22
-> x86_64                           rhel-9.4-rust    clang-22
-> xtensa                             allnoconfig    clang-24
-> xtensa                             allnoconfig    gcc-16.1.0
-> xtensa                            allyesconfig    gcc-16.1.0
-> xtensa                randconfig-1000-20260929    gcc-14
-> xtensa                randconfig-1001-20260929    gcc-14
-> xtensa                randconfig-2000-20260928    gcc-13.4.0
-> xtensa                randconfig-2000-20260929    gcc-16.1.0
-> xtensa                randconfig-2001-20260928    gcc-11.5.0
-> xtensa                randconfig-2001-20260929    gcc-10.5.0
-> xtensa               randconfig-r2101-20260928    gcc-14.3.0 cocci
+> Best regards
+> Thomas
 > 
-> --
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+> 
+>>
+>> I'm happy to send the test program if it would help.
+>>
+>> Best regards,
+>> Fabio
+> 
+
