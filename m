@@ -4,137 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E10FCA5FAE
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 14:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13407CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 14:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4BD10EF1B;
-	Tue, 29 Sep 2026 14:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5567D10EF29;
+	Tue, 29 Sep 2026 14:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="AyTEfj/N";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sAjqq+QF";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010020.outbound.protection.outlook.com [52.101.229.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1498E10EF17
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 14:29:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ln3WgRiC+StUAKdJ7zJeHGwXToAMVPeLZFdyoXFz6amfo58spZduaiq/RKnQFcdueHynowqodTtBeL7Y5xzZ85qZbBdxogVDb8/AV7UiOola0ANOntQVrGDz1eKqn5mt9h84vpYmWyLB/0Lxv4dmKzZWfHpFnaNKvpegi1rviEs279zxXJYU/Y2J1qHjj1vDT0iXUht7eLqZHh5YsvvLStrCelnco1AGvxmkPFHaaERBZLSurvT9jDSpm9UWOieH6Rh61MvjfLN+CwIs7MExgdL95O7itJr6z/x2yPyHv8rRKtGU+DTC0C5ncXQF4cFa5Xx1IVVKsYOMwlKb2xVDOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DC8DFkf9Hu0qnO95QZgdjsKakiTtrautR6DiaUnBkOU=;
- b=bu7SdvG4ZvzeaVvj2bDRA0MFIBuHaaeL0+e68zZQ5CznViHFbT9JRYnFGLSDMY22nE93MPH4yhRW1P0zgk3COZIZcRD2RBVC1i9+Mf1rN0FA1pUhlhp9AHPzQvfxgywR6A4PuuviWID/SZrI5xfVZaGPwAL+RU/a4LUA6GxApVSso1+Hn+hcl2qyCKeJWXPJpqaWD7L2ul+GijgCIGXvfNX66CIsSV/anYscjKDT6lP1KtLl8K2Oh1lX8RUkkzXkrKHt++qz9aEo5No/ri+75hMC3/TCR25sL3yaxz+YM1xIgvXmH9SHORveXXD/L5TNbk1MJ9tokDJD0+C2FzLZkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DC8DFkf9Hu0qnO95QZgdjsKakiTtrautR6DiaUnBkOU=;
- b=AyTEfj/NXkSvYuaC5i3LlqGErzjkI76olIAW5l1XXHegKPG0mzM6doNOiS3uM0ps9MCixD7c9xUxAZQfIvBD13PVrGiwK3Sj+rBQ68xW8t8iaPFCgvWsGRqJRtFsK1fGZYYu59UfZfJsYKBLUUuUzrFKgzdiTYEdO/HJq2rwuQM=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB14117.jpnprd01.prod.outlook.com (2603:1096:405:20e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 29 Sep
- 2026 14:29:39 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.026; Tue, 29 Sep 2026
- 14:29:39 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, "biju.das.au"
- <biju.das.au@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Geert Uytterhoeven
- <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, Tommaso
- Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: RE: [PATCH v3 07/13] drm: renesas: rz-du: Add support for RZ/G3L LVDS
- encoder
-Thread-Topic: [PATCH v3 07/13] drm: renesas: rz-du: Add support for RZ/G3L
- LVDS encoder
-Thread-Index: AQHdNYM06WuGUSGfTkWC4p/wivMAz7a359KAgC3qGdA=
-Date: Tue, 29 Sep 2026 14:29:39 +0000
-Message-ID: <TY3PR01MB113461633DDBD024F4CC08DE1868C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
- <20260826174854.199139-8-biju.das.jz@bp.renesas.com>
- <dfcd32d28aa0a450abfaa852e819ee7c25c925ee.camel@pengutronix.de>
-In-Reply-To: <dfcd32d28aa0a450abfaa852e819ee7c25c925ee.camel@pengutronix.de>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB14117:EE_
-x-ms-office365-filtering-correlation-id: 18a606d6-c4aa-4cab-ecfa-08df1e361859
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|18002099003|22082099003|38070700021|4143699003|10067099003|56012099006|5023799004|11063799006;
-x-microsoft-antispam-message-info: dtlgb1DE8Zh8NNY8H1GiEUw06kRhR/G+kyju1xpMaSwgBG4/ygHLb8NkRfNk6caVzfPdKc9g3wOqXi2UgIbo/KAwiQBpXXorMcLDkwNMftNmLVZDBcqLGslbLn2dJxS2da0bYhna6wKAZtNgCBMH1S1fKz6gk+4Vhdwk8JfCsk4PRmTwSfLcG/RNeQQmvfKlsRXyCQH70qLMMZUyY0LuPR2QYFkhh+wcnK+X24OqRtEIJ8a99fBD6XuJ9ZOv6V1DqwYstIiLL3vny3tSFYp2zjOkVQ+w8gB+23U9IUQ7mfVElnd91GPhUm1SsRqA9vqMdA+qoHE3nPFkQQLMbpe8d0oSaf3QszKWxAdmvvFMjQkVVjFwM67fS2lA7Mqfrk+vhJHffDMs+Ro5+RXfxJhOsN8ncjV8nFZHOBLvJrRU4POf9/t46SokLKm6LR10XGCE9xj+x2AF5+iX9zLuoLesUE3xryeQni8emTxDA/fjqHDD0SY4FjRrk8IIqMNC/TH4N1AxiMlftCXvKU+lQU1dELhvdXz9NRdx9MVjr9DLhWxUEtOZ3CkpxJU9NQ4FBFVSmwIEog0STEyfNlxYNdVeIn42JtX9XV6V65JYqOb55mu09S38VwABYA82U8Yg1KzRX+s4CSOKiiOWAEflXwne9K2BPJs/2TyjXuQZpUdEf94+2JYEJTQ+QP6C+FWDRYliHSVXVunlTwxts7mkvOO++srkUD/gu+IN4JgbygSSaiI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(38070700021)(4143699003)(10067099003)(56012099006)(5023799004)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZXV0MkZ3bnFMRVNYeFpIL1NGTGpMWkJIbTc3bXVvVnZQNDVCMlp0a3NKYmdh?=
- =?utf-8?B?emsvLzJla2xCWlZFeEhKSVVHTDlTdnlCdm9IWnp4VkVKdnZtaU9rV3dsc3N4?=
- =?utf-8?B?K3E0NEQzSWxmVHR5UXdNZVhpc2I4Umo1MDBaNldIeE04RExSdXo3SVR6MHA4?=
- =?utf-8?B?YnVYVFpCQmZIWThWWWZwR1NaRkJoa1dOR1huZ2N4djdjbTFHajBMNG82ajhM?=
- =?utf-8?B?NEwySnRRVjcwd28wQWFzVmE2dFVudnYxT01uWHhpMmVoUWFTRS82bE5wQ3c0?=
- =?utf-8?B?LzRqc3hzOFZ1ekRteERYb3JKSjZ1Y2svSmNzMDIzbC9WbHFYMnNrRDlPOVdI?=
- =?utf-8?B?d2VPVmZxRG1mNU5tbU9OL24zN3UrRHJiV2ZWMUlGelBzZXJpamh5dUszaE1X?=
- =?utf-8?B?N3luSWNPcExLYXB2SDlHY0lVT0h6TTRMN1Q2a29nNkxFdUN0cnNUWkJtVk5u?=
- =?utf-8?B?c0Rra3FXR0YrdXBTM2MwOTF4ZnFGZitvODIyVERzVHIwR0ZQc0l0LzV0Q3FZ?=
- =?utf-8?B?bmJ4ZlYxL1FxSDZyQXEwclVZZFk2aTBrK051MjRtMVp5YmNuY01NR3VhclZQ?=
- =?utf-8?B?LzMwc3BDOUFITGw4ZUFRQWFPVDYxSFpjcDk4cVI5cDlZbDNqeDNLejhZYUk2?=
- =?utf-8?B?VUh3ZXloNWROQjFuY2lteUMvazdONGlQYy93RTg1T2ZsQ01rWVRlQXBkYlhp?=
- =?utf-8?B?ODZGdDlndThYd3g3emNJL3lGZCtnSEd4cG1sV2RaMWE2OFdzMmphMisrcDd2?=
- =?utf-8?B?SUVOei9YODl1WDJTK01hekZQVEVHb3BTZ1RxcDNUSGZ1OHBGSHVNYnNEMnBn?=
- =?utf-8?B?VXFLRHJCWTZ0VjlnblpndUdGY0V1bmJpVGoyempwckFzNEY5aktHd3U0cndl?=
- =?utf-8?B?VHdrZUhZTXpXWEg2RFJuY3NiU0tycTYxTmRuNCtYeDdka0h5WEdWN05FNlVl?=
- =?utf-8?B?SkZ4N29xelk5SFdOTlV4dmVXZXNmNkVTVGZBa1RyQjdVQnk5U1Z1dFhWOE1D?=
- =?utf-8?B?blRsQy9pNjlLbDhvdmFzRm54STlVNm1lcnYvcHpoNHIyNU81c0Rodkg1Yjdq?=
- =?utf-8?B?V2VLTkxtZ2p4dWxUZmRzMzU1aXRKVUZFUjdpRlcyWG44VUFLZ2V0eVpYRitZ?=
- =?utf-8?B?cm4yWTR2aXpadUd5bVZ3UmlrejFBWjQ3RnZoeGxiakhvRDJkRDJCWU9YSGhh?=
- =?utf-8?B?QVdPOFVHWG9CbjBzd2ZTam5yY0NNeXZnaVBlRTF1M0RKMTBpRm4wL3dmZHZj?=
- =?utf-8?B?LzVwYm9DSjdydVI5OVB0S0hLdTdlcG5aWmtieE9VYmZOaFNFNHVobzl6aTRz?=
- =?utf-8?B?a1VId3JweE9PcCt1YlZpaEF2WGNIOFZ4SzNtUW05T2h6aTF0TElETTYveWlt?=
- =?utf-8?B?ZWZsa3BxalZ1NkI4LzFBbkpyMUQzTW11WElMMERjTFM1aHZJcGZvbVpqTC9K?=
- =?utf-8?B?TkNXSWZVVTRuaDJYSnJpK3pxb0xCN0JlUVdXOFExMW5HS1kyMVpSdUlBNHVm?=
- =?utf-8?B?clJ0RStKMWhLdTVNSjN5djB2T0JBaHYrZ01GSXV2cDY0ZHE3Mm5pdjYrcmhq?=
- =?utf-8?B?NUhBQzAvV3RrTGxBOUc0SVB4d0VNTHdqd0RtNGR5SHZDRk9DK0h6aFVjVEhz?=
- =?utf-8?B?MHh3SWVpdklXVkh2U2tTQ0ErbnNDdVVRWUdiU1FGSGVIYlhRb1dVUGVlZ21o?=
- =?utf-8?B?a3Q5SlYrY3NhT2pHckFQWGE0R0ZNMThsWWpWY3RLTXFmajdwclJsODhHMjdq?=
- =?utf-8?B?VGpQZEJKNXhGNlM2TUUrOGRuVVpMSXlFZWEzNnB6YkNMemtMd2dheC9uQ1Vq?=
- =?utf-8?B?djNmODVSTUp2VDJIYzNoTUFkM0NPbC9XdjJyQkhZOTRQK0pEZ1pEcWJlSFpY?=
- =?utf-8?B?OVd6MlVrYkhsU0tzRGE1TytsS0xSYXRJSFZsVk1mcG5tQ0ZESDBHZEtTTXh1?=
- =?utf-8?B?WVZ0YktMVTk2OU1wWmIvWjNMUFpYZGViOGEzd3Ntd2NIcjBGK0N1QkcrK084?=
- =?utf-8?B?QmM2L3NzSVZZRm5DNXVLKzY4UTdiUjUxOGZpSEVSNHQzOTBleFFUK0YwVTA0?=
- =?utf-8?B?K29kME5OSVNhaHlJOHlOeWd6UGg0VDVvWmVLb2EzSEUxcUNHODN4eGFUZUVE?=
- =?utf-8?B?Tm1jeGs3cERJeHRweXFNOTdONWw0Y1Nua0gzUXo0Nmh0NXgvTzVPSXg4N2w4?=
- =?utf-8?B?U2FHVk53WlVNMkpjUDlVTS9wSUM4eXljN0pISmg0b29Nb1dmckVJMXgxeitW?=
- =?utf-8?B?emxRZEo3UDFzZWpiUVZPVU1sTngyYWQ4VE9CcEdndzVZT3U1VStiVXpaVkI4?=
- =?utf-8?B?cE9mR1prSHhUS3pDdUlPdkQ3cVRvckFCRTVuZS90blMxR2xOY2VOZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46EE410E0F4
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 14:32:49 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hvLHd37HmzMlMZ;
+ Tue, 29 Sep 2026 16:32:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790692365; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eVPHcNKEnZbCUM6JPhhPFFrAPt2luGsLtj/T1FhlUww=;
+ b=sAjqq+QFsRWG4O8Ysdhye6ymk/YJpItyiAVQAOVpRMOvGZ74lyjGudKliWAOMPap0n5mKB
+ dpFmtgMR8tY+9Uj/3UCPK/yfi9XUbuu621WiuC/G55qt5fZEXAERBv0mHowPxJ8Hb8esO6
+ 2uk6hOywYa0FXkSGksUJglhaveT3yGMmfkhlx6WlRj9Q7VHeeNfGdflD8hKFmiJVQmY+pS
+ DqUoWaX+2DB2CJrVvnjGOz55FPNbo5DyxL+Bvc8ssLnBRTrFsNUZ2NpJpjp/4Ik84lMBEE
+ d7isf4Qknjqu3VwAmMgYOxH5CMhI3W3yjFFDK2AVoTX4F2G58FIY0zFzFSgkLg==
+Message-ID: <cc55db30a4a7ca274c95ff3351644515a404de67.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
+ <dakr@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Tue, 29 Sep 2026 16:32:43 +0200
+In-Reply-To: <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
+References: <20260923150308.1294592-2-phasta@kernel.org>
+ <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+ <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+ <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+ <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
+ <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+ <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
+ <3f00c8e4-b52d-4b8f-9eb1-30c05b02eb30@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18a606d6-c4aa-4cab-ecfa-08df1e361859
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Sep 2026 14:29:39.5322 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q4B7mD6wJvwE2raiAj0xOW3z5z/GoIFOowe4gHQ5Dq3kkOg/1ky+P8nq8N0FLIXd3ZpZqyGVCbDoJeMMB+s03B1RUCj/7GELLs8P5DdyXKc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB14117
+X-MBO-RS-META: 3b9ebjbwdr95psixijzyfucgu5xndqwe
+X-MBO-RS-ID: 0ea9bc353001fd077be
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,75 +71,199 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgUGhpbGlwcCwNCg0KVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suDQoNCj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGhpbGlwcCBaYWJlbCA8cC56YWJlbEBwZW5ndXRyb25p
-eC5kZT4NCj4gU2VudDogMzEgQXVndXN0IDIwMjYgMTA6MTcNCj4gU3ViamVjdDogUmU6IFtQQVRD
-SCB2MyAwNy8xM10gZHJtOiByZW5lc2FzOiByei1kdTogQWRkIHN1cHBvcnQgZm9yIFJaL0czTCBM
-VkRTIGVuY29kZXINCj4gDQo+IE9uIE1pLCAyMDI2LTA4LTI2IGF0IDE4OjQ4ICswMTAwLCBCaWp1
-IHdyb3RlOg0KPiA+IEZyb206IEJpanUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4N
-Cj4gPg0KPiA+IEFkZCBzdXBwb3J0IGZvciB0aGUgUlovRzNMIExWRFMgZW5jb2RlciBkcml2ZXIu
-IEl0IG9wZXJhdGVzIGluDQo+ID4gc2luZ2xlLWxpbmsgbW9kZSB3aXRoIDQgbGFuZXMgKERhdGEp
-ICsgMSBsYW5lIChDbG9jaykgYW5kIHN1cHBvcnRzDQo+ID4gcGl4ZWwgY2xvY2sgcmF0ZXMgZnJv
-bSAyNSB0byA4NyBNSHouIFRoZSBMVkRTIG1vZHVsZSBjYW5ub3QgYmUgdXNlZCBhdA0KPiA+IHRo
-ZSBzYW1lIHRpbWUgYXMgTUlQSS1EU0kuIEhvd2V2ZXIsIExWRFMgYW5kIHRoZSBEU0kgaW50ZXJm
-YWNlIHNoYXJlIGENCj4gPiBwZXJpcGhlcmFsIGNsb2NrIGFuZCB0aGUgTUlQSV9EU0lfUFJFU0VU
-X04gcmVzZXQgc2lnbmFsLiBBbHNvLCB0aGUNCj4gPiBNSVBJX0RTSV9DTU5fUlNUQiBhbmQgTUlQ
-SV9EU0lfQVJFU0VUX04gcmVzZXQgc2lnbmFscyBtdXN0IGJlIGFzc2VydGVkDQo+ID4gYmVmb3Jl
-IHVzaW5nIHRoZSBMVkRTIG1vZHVsZS4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFRvbW1hc28g
-TWVyY2lhaSA8dG9tbWFzby5tZXJjaWFpLnhyQGJwLnJlbmVzYXMuY29tPg0KPiA+IFRlc3RlZC1i
-eTogVG9tbWFzbyBNZXJjaWFpIDx0b21tYXNvLm1lcmNpYWkueHJAYnAucmVuZXNhcy5jb20+DQo+
-ID4gUmV2aWV3ZWQtYnk6IFRvbW1hc28gTWVyY2lhaSA8dG9tbWFzby5tZXJjaWFpLnhyQGJwLnJl
-bmVzYXMuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEJpanUgRGFzIDxiaWp1LmRhcy5qekBicC5y
-ZW5lc2FzLmNvbT4NCj4gPiAtLS0NCj4gWy4uLl0NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUv
-ZHJtL3JlbmVzYXMvcnotZHUvS2NvbmZpZyAgICAgICAgIHwgIDEzICsNCj4gPiAgZHJpdmVycy9n
-cHUvZHJtL3JlbmVzYXMvcnotZHUvTWFrZWZpbGUgICAgICAgIHwgICAxICsNCj4gPiAgZHJpdmVy
-cy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnM2xfbHZkcy5jICAgIHwgMjk1ICsrKysrKysrKysr
-KysrKysrKw0KPiA+ICAuLi4vZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzNsX2x2ZHNfcmVncy5o
-ICAgfCAgMjUgKysNCj4gPiAgNCBmaWxlcyBjaGFuZ2VkLCAzMzQgaW5zZXJ0aW9ucygrKQ0KPiA+
-ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnM2xf
-bHZkcy5jDQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9y
-ei1kdS9yemczbF9sdmRzX3JlZ3MuaA0KPiA+DQo+IFsuLi5dDQo+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzNsX2x2ZHMuYw0KPiA+IGIvZHJpdmVycy9n
-cHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnM2xfbHZkcy5jDQo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2
-NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjJhN2FlNjdmZjA4ZA0KPiA+IC0tLSAvZGV2L251
-bGwNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemczbF9sdmRzLmMN
-Cj4gPiBAQCAtMCwwICsxLDI5NSBAQA0KPiBbLi4uXQ0KPiA+ICtzdGF0aWMgaW50IHJ6ZzNsX2x2
-ZHNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikgew0KPiA+ICsJc3RydWN0IHJl
-c2V0X2NvbnRyb2wgKnJzdGMsICphcnN0YzsNCj4gPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZw
-ZGV2LT5kZXY7DQo+ID4gKwlzdHJ1Y3QgcnpnM2xfbHZkcyAqbHZkczsNCj4gPiArCXZvaWQgX19p
-b21lbSAqYmFzZTsNCj4gPiArCWludCByZXQ7DQo+ID4gKw0KPiA+ICsJbHZkcyA9IGRldm1fZHJt
-X2JyaWRnZV9hbGxvYyhkZXYsIHN0cnVjdCByemczbF9sdmRzLCBicmlkZ2UsDQo+ID4gKwkJCQkg
-ICAgICZyemczbF9sdmRzX2JyaWRnZV9vcHMpOw0KPiA+ICsJaWYgKElTX0VSUihsdmRzKSkNCj4g
-PiArCQlyZXR1cm4gUFRSX0VSUihsdmRzKTsNCj4gPiArDQo+ID4gKwlsdmRzLT5kZXYgPSBkZXY7
-DQo+ID4gKwlsdmRzLT5icmlkZ2Uub2Zfbm9kZSA9IHBkZXYtPmRldi5vZl9ub2RlOw0KPiA+ICsN
-Cj4gPiArCWJhc2UgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UocGRldiwgMCk7DQo+
-ID4gKwlpZiAoSVNfRVJSKGJhc2UpKQ0KPiA+ICsJCXJldHVybiBQVFJfRVJSKGJhc2UpOw0KPiA+
-ICsNCj4gPiArCWx2ZHMtPnJlZ21hcCA9IGRldm1fcmVnbWFwX2luaXRfbW1pbyhkZXYsIGJhc2Us
-ICZyemczbF9sdmRzX3JlZ21hcF9jb25maWcpOw0KPiA+ICsJaWYgKElTX0VSUihsdmRzLT5yZWdt
-YXApKQ0KPiA+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihsdmRzLT5yZWdt
-YXApLA0KPiA+ICsJCQkJICAgICAiZmFpbGVkIHRvIGluaXQgcmVnbWFwXG4iKTsNCj4gPiArDQo+
-ID4gKwlsdmRzLT5kb3RjbGsgPSBkZXZtX2Nsa19nZXQoZGV2LCAiZG90Y2xrIik7DQo+ID4gKwlp
-ZiAoSVNfRVJSKGx2ZHMtPmRvdGNsaykpDQo+ID4gKwkJcmV0dXJuIFBUUl9FUlIobHZkcy0+ZG90
-Y2xrKTsNCj4gPiArDQo+ID4gKwlyc3RjID0gZGV2bV9yZXNldF9jb250cm9sX2dldF9leGNsdXNp
-dmUoZGV2LCAicnN0Iik7DQo+ID4gKwlpZiAoSVNfRVJSKHJzdGMpKQ0KPiA+ICsJCXJldHVybiBk
-ZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihyc3RjKSwgImZhaWxlZCB0byBnZXQgcnN0XG4iKTsN
-Cj4gPiArDQo+ID4gKwlhcnN0YyA9IGRldm1fcmVzZXRfY29udHJvbF9nZXRfZXhjbHVzaXZlKGRl
-diwgImFyc3QiKTsNCj4gPiArCWlmIChJU19FUlIoYXJzdGMpKQ0KPiA+ICsJCXJldHVybiBkZXZf
-ZXJyX3Byb2JlKGRldiwgUFRSX0VSUihhcnN0YyksDQo+ID4gKwkJCQkgICAgICJmYWlsZWQgdG8g
-Z2V0IGFyc3RcbiIpOw0KPiANCj4gSXQgd291bGQgYmUgbmljZSB0byBoYXZlIGEgY29tbWVudCBh
-Ym91dCB0aGUgdHdvIE1JUEkgRFNJIHJlc2V0cyBoYXZpbmcgdG8gYmUgYXNzZXJ0ZWQgaGVyZSBh
-cyB3ZWxsLg0KDQpPay4NCg0KPiANCj4gQWxzbywgaXQgbG9va3MgbGlrZSB5b3UgY291bGQgcGFp
-ciB0aGVzZSB0d28gLi4uDQoNCk9rLg0KDQo+IA0KPiA+ICsNCj4gPiArCWx2ZHMtPnByc3RjID0g
-ZGV2bV9yZXNldF9jb250cm9sX2dldF9leGNsdXNpdmUoZGV2LCAicHJzdCIpOw0KPiA+ICsJaWYg
-KElTX0VSUihsdmRzLT5wcnN0YykpDQo+ID4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQ
-VFJfRVJSKGx2ZHMtPnByc3RjKSwNCj4gPiArCQkJCSAgICAgImZhaWxlZCB0byBnZXQgcHJzdFxu
-Iik7DQo+ID4gKw0KPiA+ICsJbHZkcy0+bHZkX3JzdGMgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0
-X2V4Y2x1c2l2ZShkZXYsICJsdmRyc3QiKTsNCj4gPiArCWlmIChJU19FUlIobHZkcy0+bHZkX3Jz
-dGMpKQ0KPiA+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihsdmRzLT5sdmRf
-cnN0YyksDQo+ID4gKwkJCQkgICAgICJmYWlsZWQgdG8gZ2V0IGNvcmUgcmVzZXRcbiIpOw0KPiAN
-Cj4gLi4uIGFuZCB0aGVzZSB0d28gaW50byBhIGRldm1fcmVzZXRfY29udHJvbF9idWxrX2dldF9l
-eGNsdXNpdmUoKSBlYWNoLg0KDQpBZ3JlZWQsIHdpbGwgZml4IHRoaXMgaW4gbmV4dCB2ZXJzaW9u
-Lg0KDQpDaGVlcnMsDQpCaWp1DQo=
++Cc Danilo
+
+On Tue, 2026-09-29 at 15:32 +0200, Christian K=C3=B6nig wrote:
+> On 9/25/26 10:42, Philipp Stanner wrote:
+> > On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
+> > > Some problems like the locking design are still WIP, but we are
+> > > slowly moving towards that.
+> >=20
+> > The question will be whether we can reach common ground with that
+> > one.
+>=20
+> I haven't had a chance to look into your alternative to using RCU,
+
+That was just a nasty, still half broken RFC that doesn't really work
+(yet), just to see how the rough idea might resonate.
+
+Basically, I think that at the heart of fence's problems are these
+issues:
+
+a) fence and fence_context can share a lock
+b) thus, the driver often protects driver data with that lock
+c) drivers now are allowed to take the fence-lock manually
+d) thus, the fence-state cannot consistently be protected with the lock
+
+The fundamental problems were IMO worked around with RCU.
+
+I think if we re-designed dma_fence today, we would do it like that:
+
+a) each fence has its own lock
+b) the driver cannot (legally) access a fence-lock
+c) the entire fence state is protected by the lock
+d) the fence lifetime is completely covered by refcounting
+e) signaling is the decoupling point. Signaled-state is guarded by the lock
+f) fence->ops access is, through the signaled-state guard, also guarded by =
+the lock.
+g) all fence API functions are locking-atomic. For example,
+   dme_fence_set_error() should not exist, but dma_fence_signal(err)
+   should take the code and do all operations while holding the
+   lock.
+
+If the driver can never take the lock, then there cannot be a lock
+inversion (unless the driver would signal while holding its own lock,
+which should be avoidable).
+
+
+So my idea would have been that, similarly to how you added the
+inline_lock a year ago, we add another super_lock to dma_fence, which
+is always present, for all users.
+
+We could then add this lock as a second locking layer around the
+existing inline / shared lock and implement the rules listed above with
+it.
+
+This is just a crazy idea =E2=80=93 it's obviously horribly dangerous and
+fragile because of locking order. So I'm not sure if it's worth
+exploring further.
+
+But if we had a time-machine I think that's what we would tell
+ourselves to do.
+
+
+> but you mentioned that you found a solution to the problem on the
+> RUST side so it sounded to me that we at least have a path forward.
+
+In Rust we just obey 100% to the current dma_fence contract. We do use
+RCU, and establish the signaled-state as strict decoupling point for
+driver-unload.
+
+Since all the code is new, we just don't implement deprecated
+callbacks, and we use inline_lock.
+
+I take the fence lock manually where necessary, and sometimes where
+half-necessary.
+
+Fence::is_signaled() for example takes and releases the lock like you
+do in the AMD code example below, so that all future API users know
+with 100% certainty that all callbacks have run once the function
+returns true.
+
+(what our Rust design, ironically, solves is ops->signaled() not being
+usable for users of drm_sched, because of drm_sched_fence being in
+between)
+
+>=20
+> > >=20
+> > > But some problems like parts of the dma_fence uAPI are unfixable
+> > > without time travel.
+> >=20
+> > I would be especially interested in learning about who the party is
+> > that apparently is spinning on dma_fence_is_signaled(), supposedly
+> > preventing us from getting the memory ordering right.
+>=20
+> Well there isn't spinning on it. It's just that in a SMP system it
+> takes some time for state to transfer between CPU cores and that
+> communication channel often becomes a bottleneck.
+
+No no, that's not what I mean. Having ops->signaled() is unrelated to
+my question.
+
+I'm asking about this:
+
+static inline bool
+dma_fence_is_signaled(struct dma_fence *fence)
+{
+	const struct dma_fence_ops *ops;
+
+	if (dma_fence_test_signaled_flag(fence))
+		return true;
+
+
+You said once that I cannot add lock protection to that if-evaluation.
+And IIRC the reason was that someone would complain about performance.
+Who is that someone?
+
+That's what I meant: that someone would have to be looping on
+dma_fence_is_signaled() to feel the lock.
+
+The reason I want the lock there is that I want to get rid of things
+like that:
+
+void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+{
+	[=E2=80=A6]
+
+	/* Make sure that all fence callbacks have completed */
+	dma_fence_lock_irqsave(vm->last_tlb_flush, flags);
+	dma_fence_unlock_irqrestore(vm->last_tlb_flush, flags);
+
+
+>=20
+> By implementing the is_signaled callback you avoid that device->CPU
+> core A->CPU core B signaling making things much more responsive.
+>=20
+> Even on ancient drivers like radeon people start to complain when the
+> is_signaled callback is removed, so it is definitely necessary.
+
+We can keep the callback, I think it being there is not a decisive
+issue.
+
+Though I don't get why it being there would make things faster. My
+understanding so far was that it's only good for parties that do not
+signal fences via interrupt.
+
+Who triggers the check via ops->is_signaled()? You once said it's
+typically the compositor.
+
+Since you mention Radeon I suppose it can indeed only be drivers that
+don't use drm_sched.
+
+> > Also learning more about the users that definitely *need* ops-
+> > > signaled() and ops->enable_signaling() would be interesting.
+> > > drm_sched
+> > users cannot make use of these, since the sched-fence does not pass
+> > the
+> > request through to the hardware fence.
+> >=20
+> > So who are the users? Parties like Nouveau implement these
+> > callbacks,
+> > but it's not clear whether they actually need them.
+>=20
+> The eviction fence and KFD fence in amdgpu as well as the preemption
+> fence in XE and i915 depend on that to note whenever somebody starts
+> depending on the fence.
+>=20
+> Additional to that I just last week have talked with some Qualcomm
+> folks who desperately want device to device signaling without waking
+> up the CPU. The enabling_signaling callback is necessary for that as
+> well.
+>=20
+> For Nouveau I think that it is pretty much pointless to implement
+> those callbacks, but I'm not 100% sure.
+
+I tried to remove them 1-2 years ago and then ran into massive
+performance degradations, which indicates that Nouveau uses them for
+some performance trick, maybe to reduce interrupt load. Didn't explore
+it further.
+
+
+P.
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > (btw, funnily enough, with the Rust-fence design we finally have
+> > the
+> > ability to fully support all callbacks with or without a scheduler,
+> > since the need for an intermediate fence disappeared)
+> >=20
+> >=20
+> > P.
