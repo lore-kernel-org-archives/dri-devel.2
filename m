@@ -4,69 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321D7CA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3A99CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97F2F10E395;
-	Tue, 29 Sep 2026 13:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2201910E9C1;
+	Tue, 29 Sep 2026 13:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="rREzCYs5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NoGTfQTU";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C67D010E395
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:22:24 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 24D251A1065;
- Tue, 29 Sep 2026 13:22:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E3F04601BD;
- Tue, 29 Sep 2026 13:22:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E4324103297BB; 
- Tue, 29 Sep 2026 15:22:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790688136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=FHgcVzckw7J9hKLtbO0xprD/AIvMCE5AqxCP6hOVswI=;
- b=rREzCYs57TauLcCmyy1DL91h0dU96/3qi9aWRsbrKpBJlyYKn6+1p4Z1Iq1IzIeXXLaXTa
- kkq1+U5xL+3X0/gtmGoyBH4m0XubttAXozmLBSL+g25FBjPSnoKpZB3TrzUOClghvgRGVi
- w8kR6pqXnhXOG9/9zVP63yGDrFQq7PddFN3sovGRXnWKbiOHRb+l1kWChR17B0l039IF8A
- JClQQixWJXQHu0hfr4dEsBEiQeHohjDiBjWnjNeh6BVE4ggU9ypyfSYmUgQUa6GIKdEb2m
- p6Sf7W5UZ41wK7GFTTlY6rTaRLw3QYtRRD7DU9JLVi2OFD+Xb0p2Nbt4SMIefg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 15:22:08 +0200
-Message-Id: <DLRTYPGLOGLJ.1RWIVEF7K6OCB@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 0/7] drm: remove deprecated *_of_get_bridge() from
- non-OF drivers (fixes build regression)
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Doug Anderson"
- <dianders@chromium.org>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Dave
- Stevenson" <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>
-X-Mailer: aerc 0.22.0
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
- <c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn>
-In-Reply-To: <c1b065c8bd926708500b7c42864279e055ed95d0.camel@iscas.ac.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5953C10E9C1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:23:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C25BE600D1;
+ Tue, 29 Sep 2026 13:23:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61431F000FF;
+ Tue, 29 Sep 2026 13:23:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790688190;
+ bh=cBZ5sMUeIN86VkUHCeicPmRVb3a2MPzoImdcUHqRfJ4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=NoGTfQTUx2Xl1sqyKbpdFhdMZdJ+noWXSNmnHsfFGXavFZTVe1Cx5urvzLzwqn5nr
+ 7mLn4mK8T8/R1zhpXkZdIIbFBOIvoM8jHFvRE6ejsR/Ks3EXaYbGQOU64qUGrhnvtx
+ vuhP22+ENXCWO9Aypfd3LyPbBzA+dGwphUQM/mo//I9W/U08USHbFfdsBJMauHQL7y
+ F0E9osDHf6p6oK2fJ5PQElXUNS3f14H9qI328tei2n9Zj0yX3cnBTCuyWdcGfNSa5J
+ uPFxCo2svfx4VA//t7fsv62syC3K5WdxJo4K67tFjVV3VdcaBMn1xyyTcOcsGpQ+KK
+ qk29TkAqSezVg==
+Date: Tue, 29 Sep 2026 16:23:05 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260929132305.GJ563127@unreal>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+ <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <607e8903-a979-4d78-bf08-447321c03119@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,45 +75,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Icenowy,
+On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
+> On 9/28/26 13:19, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Exporters keep the &struct p2pdma_provider backing a buffer in their own
+> > private data. An importer cannot reach it, so it has no way to learn how
+> > its own peer-to-peer traffic would be routed before it programs its
+> > hardware.
+> > 
+> > Add an optional @p2pdma_provider callback for an exporter to hand that
+> > provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
+> > class. Exporters keep the provider where it already lives, so this adds an
+> > operation rather than changing any existing signature or structure.
+> > 
+> > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/dma-buf/dma-buf-mapping.c | 39 +++++++++++++++++++++++++++++++++++++++
+> >  include/linux/dma-buf-mapping.h   |  3 +++
+> >  include/linux/dma-buf.h           | 19 +++++++++++++++++++
+> >  3 files changed, 61 insertions(+)
 
-On Tue Sep 29, 2026 at 12:46 PM CEST, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 12:36 +0200=EF=BC=8CLuca Ceresoli=
-=E5=86=99=E9=81=93=EF=BC=9A
->> After commit Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code
->> to
->> drm_panel.c") some drivers fail building:
->>
->> =C2=A0 error: implicit declaration of function 'devm_drm_of_get_bridge'
->>
->> This is because devm_drm_of_get_bridge() (and drmm_of_get_bridge())
->> have
->> been moved to drm-panel.h.
->>
->> The affected drivers are those which:
->>
->> =C2=A0* can be built without CONFIG_OF, and
->> =C2=A0* don't include drm_panel.h
->>
->> The affected drivers are 3, fix them (patches 1-3) by replacing the
->> deprecated *_of_get_bridge() calls with
->> of_drm_get_bridge_by_endpoint().
->
-> The comment of drm_of_find_panel_or_bridge() still suggests
-> devm_of_get_bridge(), and the documentation at the head of drm_bridge.c
-> also mentions it.
+<...>
 
-Ah, thanks for noticing. I'm taking a note to fix this later.
+> > +enum pci_p2pdma_map_type
+> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
+> > +			unsigned int tlp_flags)
+> > +{
+> > +	struct dma_buf *dmabuf = attach->dmabuf;
+> > +	struct p2pdma_provider *provider;
+> > +
+> > +	dma_resv_assert_held(dmabuf->resv);
+> > +
+> > +	if (!dmabuf->ops->p2pdma_provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
+> > +	if (!provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> 
+> 
+> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+> 
+> This function call here *must* be in the exporter and not the DMA-buf framework.
+> 
+> So clear NAK to putting that here.
 
-> BTW should drm_of_get_bridge_by_endpoint() has some drmm/devm variant?
+"Look, it is easy to complain you don't like how it looks, but this
+stuff is hard there are lots of competing concerns, if you have a
+better idea now is a good time to present it."
+https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
 
-Maybe, but not sure, as we introduce hotplug devm/drmm becomes pretty
-useless and even annoying. However I haven't checked all the cases, so we
-might reconsider this idea as we start converting more drivers though.
+Do you have a viable solution?
 
-Luca
+Thanks
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> 
+> Regards,
+> Christian.
