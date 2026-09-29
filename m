@@ -4,137 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DC80CA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5580ACA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:40:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9588D10E9CB;
-	Tue, 29 Sep 2026 09:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82FE710E9BD;
+	Tue, 29 Sep 2026 09:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n8UNefGK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G3etLlL8";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012017.outbound.protection.outlook.com [40.107.209.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4622110E9CB
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 09:34:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uOtiRmTnKgBw7qLcZVP6Ql+DeKZ29ek78juXbdTsvTXxp80Utz/MBxvDQIvd9aPPiQkEqubXUeudrwzHduoY6kj77rPc0A/pbNU3nNI7i72D3kkUYSvwkE4wkaBlUAxYEV/nomO0AlG9Wva6ikRt6G9G0DHqk7uYi+t41+So1iLwxaYLFhjCXBhjhMzvEzF8oT5UXIy5wUcUZtXbIpD9619rtT8n3H6Y9ExBay5rEk64xr4niavHewytSocEYzdth9Vv69ls6sy7WF9agcwEyNXSOhIfT+mlzfgsbLLIh/p16usJMhTepbNf2VOSobIu37yrAw6VPg35VJkiWbqHYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OgiE4v+ES9hU7TNohJ4+cvHed5bu5p/LR+bfNDswaYg=;
- b=gSnJyfi0D40TLHriqloRvgbbeJEq8Xgty/VigPWGq1Iz9bBWnxcV4sxSLi/kUKVynGs3tDbdilPfPwYDdVGMlluE05rSeAZZy/iTpXYgseNS2XLJ5DERZbtKiM+teJd+xb/NQAX5H4qoBwloEE1ZT9lCATxTEMG/QFTS1M4Rjx3oPAqsCElw2O9s/Rlsqafa9AHx7UKbhMrBxhtXQ3VP7pKCPs7Nzuu4DXZOUMPubDOCQpVGJANBn/2+h9Yo0OnNyIyRQjqgFJM1Fz100B7NcsiTQIUui7U1WesXod9kKv3B05+avyc33LJTEqyDpEkIzLuuGt7YkjKl8SYfwUUubA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OgiE4v+ES9hU7TNohJ4+cvHed5bu5p/LR+bfNDswaYg=;
- b=n8UNefGKm6nmPgGvHyA1f0DshXH9e64bISjbFB99KEQ3HaSzUASdzm+9wgZelZ+bCwwt18/MCLQLlEG0QIa7jeKgoa1rrVC9TiN9KTOpoExuI2F69uH9W3iEryFl2x+lVWOqL59V5VjVmJZSm6OiUl0futfeURWl25Qtm+/gl6s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB342319.namprd12.prod.outlook.com (2603:10b6:806:594::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 09:34:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 09:34:13 +0000
-Message-ID: <607e8903-a979-4d78-bf08-447321c03119@amd.com>
-Date: Tue, 29 Sep 2026 11:34:05 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>
-References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
- <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0405.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0010D10E9BD
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 09:39:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790674799; x=1822210799;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=mYHd2x9gH2QrqNkIN6yVLhGCn/puXKYOmZh0XNuYC4Q=;
+ b=G3etLlL8XXlUMaBWGmdyAxTCZvGatn0I/J5HMWkF0B7Q+24xAD/mEvll
+ xGbXb9oG0XUB018nkAptFXUVbptum0CE0Ig6U8atnMUQ2aIMmD2GnI2mS
+ ibBcFLu36Aw4vzsNtbHB+K49pASKI7ulRUtnH95fs2EjEJyH6W/jImZC6
+ VK550wwmUycfEm3SfXSfmXgEE1MsuIIu6NZkFDb++NyNn7j385CqhGkxo
+ gFoFqGBg8aRWwM70AY5JMMjkYnixpQ7tg5gFkkNQ/wDTp5z2jtyOT7waU
+ 7kRosw3+9KwooIIpZpdqh4gUngdbvBvTqnnZcguqlJ/KYr8D8SXCHojQ4 w==;
+X-CSE-ConnectionGUID: saVRYswDR0CjB87hpo7l6A==
+X-CSE-MsgGUID: juT67hUkSeyTetPQ1WQYWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90155116"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="90155116"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 02:39:58 -0700
+X-CSE-ConnectionGUID: p2+jYi8cQ4aeKms3L6icWg==
+X-CSE-MsgGUID: 0DgteiZ6Q4WQexaNFLOozA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="273453717"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.234])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 02:39:42 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 29 Sep 2026 12:39:37 +0300 (EEST)
+To: Sean Rhodes <sean@starlabs.systems>
+cc: LKML <linux-kernel@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Joshua Grisham <josh@joshuagrisham.com>, Will Deacon <will@kernel.org>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ Huacai Chen <chenhuacai@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com, 
+ Tzung-Bi Shih <tzungbi@kernel.org>, 
+ Brian Norris <briannorris@chromium.org>, 
+ Julius Werner <jwerner@chromium.org>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>, 
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>, 
+ Yidi Lin <yidilin@google.com>, Kees Cook <kees@kernel.org>, 
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ chrome-platform@lists.linux.dev, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Subject: Re: [PATCH v14 1/5] firmware: Move firmware attributes class
+ helper
+In-Reply-To: <5682c2228fa4a784d3953664b56a06e0dd9ccdef.1788284852.git.sean@starlabs.systems>
+Message-ID: <fd08c30b-c28f-2bac-f70f-143970de9a13@linux.intel.com>
+References: <cover.1788284852.git.sean@starlabs.systems>
+ <5682c2228fa4a784d3953664b56a06e0dd9ccdef.1788284852.git.sean@starlabs.systems>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB342319:EE_
-X-MS-Office365-Filtering-Correlation-Id: e096fc85-bcef-4cfe-e70f-08df1e0cd25a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|7416014|10067099003|11063799006|56012099006|5023799004|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: pEXa4dzaOAEdQGPBWnWyGWj8IaHW4orK+9nUfTJV7Wv/wCP6DDwzzCdKsR0yIObg8XaxC/qB3PGru797sjaPopDcBU5DErjABfLCv+r4NCRTKlHQBRym4zw+kBLS93fWLAcx6r3CGgbsQefSSjkZE6dwKlmuH7YXZhejFwpogvCyW1Gku0DqTr5XqMOjRuIYOC6lznwx3yrf2W4JWjFhdg8jRS1RupE63oSV4yZMB5a2HVih1FQMsIFevu/5jeLoDmM8lb4aGW6JRpnvTyLsAiKfa2idf0yecjDQU5xs0VQl4DeESkB4AUuJwsvWKJCzRk7YloxPnSa4Hl5/P9nLxSkLcRlaCNxaFKkhGx9UO7y4kRDlEES1MXtXwFLmpM3Uyitphfglmv4E+9rMUBOSqi3Oxb8/fTXNzCUuvcl0UwljK1pAoGuLdEXVXe/Ue9uHRAROjAqQgEgZdoPNcBw73jTyU07VvL2Rd3H0+JSNaXkq8K0g3yjPmyVVWpRZPVectasBFHNlarcTux1B33dLO0M6OObafUVl8oGHwnqsBKJeiQ32aM79FQ5EUYvY+u8d23v/gsob6DNpWtr4bk4LandVbB+uVVtY2ImsRqVHpP27JLCBtADR2rX4nCPyuCTjzHt1S9HP+9aIfYd8pXJCozSmmFCy339mS9kgwNdNdYs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(11063799006)(56012099006)(5023799004)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVAycjZWdWdoajdCc0ZOYzBFbHVPR1JoM25yWWZadGVXdW1nczBudnVvdmdI?=
- =?utf-8?B?MkhCa243SFRSUEx5eVQwK1V2OFBYcGJleUNKWmFBN2VUVW1jUXNSZ2J3NGJV?=
- =?utf-8?B?VVNFVUJFQnh3YmpiVnprNGFESjQxa1NaMUlnQVZSaTlNNlhsOENvalRRYit0?=
- =?utf-8?B?S1Q0cWZMWG1qNTM0MFRIajZXMzJsV3pqeWFlY1ZONFFKY2kveFh6MFc1NnZS?=
- =?utf-8?B?YlgvYmt6RGRmMGEyWkJnTFp2Z043ek00blArSjg3c0owelFwc09FRzdsek1t?=
- =?utf-8?B?WngvY3JjaFd0blp1TVdkR2wyNWVOTGM0cHpuKzJHUnVHMEJ4S0FLZ1Zrd1Zp?=
- =?utf-8?B?ZFMrbUVpTTZDRUQ1VUsrTkVLaWp4Mmt0YTdTTml5YmZpYzVxZDRpOVA1M2RB?=
- =?utf-8?B?UGk1a2RvdVVPKzVRdEpNM0pBUGRtc2RYQUlqemlhV09YR1V6VkVmdVJBYWVv?=
- =?utf-8?B?RElqcWNiNlF3U1FtdkFSNWE4NklvQlRhbURCQkNINy9BU2JNc0UveVlDdXVP?=
- =?utf-8?B?NHFwb1RuRUp4RlozcUFWMHRTMi9tSmFXY29oTDR3eWpQcUNMekFzdUF0NGN1?=
- =?utf-8?B?czRBdjdSYmxJdTBKQzVBSjZQUVlnZkNoRVJDa0x0TGxjOVZYMk9IMVlKaGNs?=
- =?utf-8?B?NEd3UmpGQjc0VUdsK1F2R2o1eWpSc2JuaWJLbG93bUo4US9xQkRvYnhvdGJX?=
- =?utf-8?B?Z0RaUkRpN25VdTZEdDR4WVlrM1Q5S0daTndSeGhZbkh3VmtUaWo4TEkvQUJl?=
- =?utf-8?B?MWcyZjFmTVVVVUVmaXhrdGVEc1EwWHEzWmtsZDdoVmltamFqVk9wMW5qOFZW?=
- =?utf-8?B?VFdIOHIxaFFvNlZzeFdnQmxleW81ZjJoRW1iRmUxNGFBQytIZzV2S2I3Q1li?=
- =?utf-8?B?ZlBRdkg3Nmh3dG13T0F1Y1VlcUVrSE9KVk1xUm9Ic0I5bVB6WnZjb080V2lR?=
- =?utf-8?B?eXRKcEIvang3MHFnS3I4STVSbWtjaThhT3pLOXJuOW9Yam8vT3V4L01VREZj?=
- =?utf-8?B?L3NMeWtIbG8vNXN4YkkyWHlVYzVSMy93eGc3Q2hKeFNVUU4vL0FKdDRlZUhX?=
- =?utf-8?B?alBJN2llNGpGUEswOW5QajFSeDZOcXBacjkxdnp0TFp5OUpaclRDdmtqeVls?=
- =?utf-8?B?M0cwcnp5dmhKT2REZFRYZmtCL0FVa0E4Ui9xanRJSVdRS2lYQ3puQXhCVmth?=
- =?utf-8?B?QU8rNThJNUdmSnZHeDdQdVVwQlFHWFNDUnIxQks3WDNMNExLakxydUMwMEdB?=
- =?utf-8?B?c3FwQmdhSXlzeGFIc01SMG5UT2JIaFlWUUNVcHlnWkRPNTV4Rm1xeHozM1E5?=
- =?utf-8?B?cVQzd1h5L0FMMStUOXhrR1BidFNBVjV0cnFRdGdDTElSZmpBZGNBQzV0R3VZ?=
- =?utf-8?B?T0J5UVdETW9wQUlCeXZpY2JVMS9KNWNxdkQzcDBLdExJdlFRQzcvS0pBaEdt?=
- =?utf-8?B?VFErSVhoRXpMUDI4YXJ4UlplRUVLNkpqYUREcmFyeUU4eTFCams4bGd1cXJ0?=
- =?utf-8?B?aGRCQTMzeWVjSXc3Y0t5eDE5QWIwQmcyRWFxT1NtbDRiRUxYV1A5V1dPbGhq?=
- =?utf-8?B?d1I4eGZhMGRCbkFNQnhSM1FrTmd3TC93Q04zTE1VbzJiWmpTYlJLd25zV1Nx?=
- =?utf-8?B?QWgwN2pkc0dQNnlXWVFNYmdFa0syUXVPb1pJc2ZWaWtkMGl5WTFlTzgxN1Ro?=
- =?utf-8?B?Z2cxZ0MwWDF3Z3g4bkpnTFFUemxJeGdiOWJJeUorWUJIUS9nMTM4REwwSWph?=
- =?utf-8?B?eEM4U3pPTEI0YjVJNVRwV3JzOFVyUW0zaXh4TFFjRjB5dnNzTFJxZlZmcTlq?=
- =?utf-8?B?a3RMMk1FWEhUWml5WS9JMllXMDVsajdGdXZTZDZiN3laSWFRdFdsaWMwcXow?=
- =?utf-8?B?Qm8yK2ZBWWJqSUV4M0lFUksxUXUzOTh2WXVWZHVTdW5yUnVPRTdMYzFtOFly?=
- =?utf-8?B?YXdBVVdETmJLclhSa2VrVUwzOGJuUHlzOUZ5OWN5S3RRcEk3RC9ETlN3dGlQ?=
- =?utf-8?B?THJZS0FNQTNqRXpnLzBEVjZjWlIyQUpYNi9idWFyYnAxM0ExK2FOQ0gzb3lL?=
- =?utf-8?B?eUJnRjQ3ZGk0ZVR3OFB0RHUvbzFHMEM4TG5mTlhYOENaNW9GOFMrM1RrYzcr?=
- =?utf-8?B?Z2tFNlVHM2Yxek0veHpuRXZDZWFhUWE5SURldzVFNVFQVzdxTmdTanY5TW9w?=
- =?utf-8?B?dGlxNEdZeVc4VkZ4Q2NUK0Z4ZUxLb3JmbHEwazE2NWsxd1RVbmxaNzU2WFY5?=
- =?utf-8?B?djc3L05NYWlHSlhsZE80cTJwNi9uVHdBcTJ5cmpZOVVrOG1jOVNOaVBWQ0Fo?=
- =?utf-8?Q?+Hm8PX1WDwoKIs710u?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e096fc85-bcef-4cfe-e70f-08df1e0cd25a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:34:13.0509 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0YwLZpdwY6Bnma6PogxhU0/bjnXebor00cj+IhHXEeja1ew2NAaHu5ltojfTIiP7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB342319
+Content-Type: multipart/mixed; boundary="8323328-661677443-1790674777=:1173"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,130 +104,295 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/28/26 13:19, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Exporters keep the &struct p2pdma_provider backing a buffer in their own
-> private data. An importer cannot reach it, so it has no way to learn how
-> its own peer-to-peer traffic would be routed before it programs its
-> hardware.
-> 
-> Add an optional @p2pdma_provider callback for an exporter to hand that
-> provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
-> class. Exporters keep the provider where it already lives, so this adds an
-> operation rather than changing any existing signature or structure.
-> 
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-661677443-1790674777=:1173
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Tue, 1 Sep 2026, Sean Rhodes wrote:
+
+> Move the firmware attributes class helper from drivers/platform/x86 to
+> drivers/firmware and expose its class declaration through a public Linux
+> header.
+>=20
+> The helper is not x86-specific. Keeping it in drivers/firmware lets
+> coreboot firmware drivers use the standard firmware-attributes ABI withou=
+t
+> living under platform/x86.
+>=20
+> Replace the affected drivers' relative helper includes directly with the
+> new public header.
+>=20
+> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Tested-by: Oliver Lin <oliver@liuxiaozhen.dev>
+> Signed-off-by: Sean Rhodes <sean@starlabs.systems>
 > ---
->  drivers/dma-buf/dma-buf-mapping.c | 39 +++++++++++++++++++++++++++++++++++++++
->  include/linux/dma-buf-mapping.h   |  3 +++
->  include/linux/dma-buf.h           | 19 +++++++++++++++++++
->  3 files changed, 61 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index 794acff2546a..41702045f803 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -6,6 +6,45 @@
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/dma-resv.h>
->  
-> +/**
-> + * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
-> + * @attach:	attachment of the importer that will issue the traffic
-> + * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
-> + *
-> + * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
-> + * behind @attach and the importer attached to it, so that an importer can
-> + * choose the TLP attributes that earn it a direct route before it programs
-> + * its hardware.
-> + *
-> + * The caller must hold the reservation lock. The provider is owned by the
-> + * exporter's driver binding, and exporters revoke under that lock before
-> + * letting an unbind proceed, so dropping it any earlier would leave this
-> + * racing a teardown that frees the provider.
-> + *
-> + * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
-> + * when the exporter names no &struct p2pdma_provider and nothing is known
-> + * about the route.
-> + */
-> +enum pci_p2pdma_map_type
-> +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> +			unsigned int tlp_flags)
-> +{
-> +	struct dma_buf *dmabuf = attach->dmabuf;
-> +	struct p2pdma_provider *provider;
+>  MAINTAINERS                                               | 8 ++++++++
+>  drivers/firmware/Kconfig                                  | 3 +++
+>  drivers/firmware/Makefile                                 | 1 +
+>  .../x86 =3D> firmware}/firmware_attributes_class.c          | 2 +-
+>  drivers/platform/x86/Kconfig                              | 3 ---
+>  drivers/platform/x86/Makefile                             | 2 --
+>  drivers/platform/x86/asus-armoury.c                       | 2 +-
+>  drivers/platform/x86/dell/dell-wmi-sysman/sysman.c        | 2 +-
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c              | 2 +-
+>  drivers/platform/x86/lenovo/think-lmi.c                   | 2 +-
+>  drivers/platform/x86/lenovo/wmi-other.c                   | 2 +-
+>  drivers/platform/x86/samsung-galaxybook.c                 | 2 +-
+>  .../linux/firmware_attributes.h                           | 6 +++---
+>  13 files changed, 22 insertions(+), 15 deletions(-)
+>  rename drivers/{platform/x86 =3D> firmware}/firmware_attributes_class.c =
+(94%)
+>  rename drivers/platform/x86/firmware_attributes_class.h =3D> include/lin=
+ux/firmware_attributes.h (60%)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 4dfc1fb14ef7..a8048eaf49e5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -10181,6 +10181,14 @@ F:=09include/linux/firewire.h
+>  F:=09include/uapi/linux/firewire*.h
+>  F:=09tools/firewire/
+> =20
+> +FIRMWARE ATTRIBUTES CLASS
+> +M:=09Hans de Goede <hansg@kernel.org>
+> +M:=09Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> +L:=09platform-driver-x86@vger.kernel.org
+> +S:=09Maintained
+> +F:=09drivers/firmware/firmware_attributes_class.c
+> +F:=09include/linux/firmware_attributes.h
 > +
-> +	dma_resv_assert_held(dmabuf->resv);
+>  FIRMWARE FRAMEWORK FOR ARMV8-A
+>  M:=09Sudeep Holla <sudeep.holla@kernel.org>
+>  L:=09linux-arm-kernel@lists.infradead.org (moderated for non-subscribers=
+)
+> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> index b7cc11e4fbfa..35dd6d422caf 100644
+> --- a/drivers/firmware/Kconfig
+> +++ b/drivers/firmware/Kconfig
+> @@ -8,6 +8,9 @@ menu "Firmware Drivers"
+> =20
+>  source "drivers/firmware/arm_scmi/Kconfig"
+> =20
+> +config FW_ATTR_CLASS
+> +=09tristate
 > +
-> +	if (!dmabuf->ops->p2pdma_provider)
-> +		return PCI_P2PDMA_MAP_NONE;
-> +
-> +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
-> +	if (!provider)
-> +		return PCI_P2PDMA_MAP_NONE;
-> +
+>  config ARM_SCPI_PROTOCOL
+>  =09tristate "ARM System Control and Power Interface (SCPI) Message Proto=
+col"
+>  =09depends on ARM || ARM64 || COMPILE_TEST
+> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+> index be46f1e1dc77..0e1e1b92a486 100644
+> --- a/drivers/firmware/Makefile
+> +++ b/drivers/firmware/Makefile
+> @@ -17,6 +17,7 @@ obj-$(CONFIG_FIRMWARE_MEMMAP)=09+=3D memmap.o
+>  obj-$(CONFIG_MTK_ADSP_IPC)=09+=3D mtk-adsp-ipc.o
+>  obj-$(CONFIG_RASPBERRYPI_FIRMWARE) +=3D raspberrypi.o
+>  obj-$(CONFIG_FW_CFG_SYSFS)=09+=3D qemu_fw_cfg.o
+> +obj-$(CONFIG_FW_ATTR_CLASS)=09+=3D firmware_attributes_class.o
+>  obj-$(CONFIG_SYSFB)=09=09+=3D sysfb.o
+>  obj-$(CONFIG_SYSFB_SIMPLEFB)=09+=3D sysfb_simplefb.o
+>  obj-$(CONFIG_TH1520_AON_PROTOCOL) +=3D thead,th1520-aon.o
+> diff --git a/drivers/platform/x86/firmware_attributes_class.c b/drivers/f=
+irmware/firmware_attributes_class.c
+> similarity index 94%
+> rename from drivers/platform/x86/firmware_attributes_class.c
+> rename to drivers/firmware/firmware_attributes_class.c
+> index 736e96c186d9..503ecc288086 100644
+> --- a/drivers/platform/x86/firmware_attributes_class.c
+> +++ b/drivers/firmware/firmware_attributes_class.c
+> @@ -3,7 +3,7 @@
+>  /* Firmware attributes class helper module */
+> =20
+>  #include <linux/module.h>
+> -#include "firmware_attributes_class.h"
+> +#include <linux/firmware_attributes.h>
+> =20
+>  const struct class firmware_attributes_class =3D {
+>  =09.name =3D "firmware-attributes",
+> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+> index 957034f39e4e..4851bf45157d 100644
+> --- a/drivers/platform/x86/Kconfig
+> +++ b/drivers/platform/x86/Kconfig
+> @@ -925,9 +925,6 @@ config DASHARO_ACPI
+> =20
+>  source "drivers/platform/x86/x86-android-tablets/Kconfig"
+> =20
+> -config FW_ATTR_CLASS
+> -=09tristate
+> -
+>  config INTEL_IMR
+>  =09bool "Intel Isolated Memory Region support"
+>  =09depends on X86_INTEL_QUARK && IOSF_MBI
+> diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefil=
+e
+> index 872ac3842391..cab20a4145e3 100644
+> --- a/drivers/platform/x86/Makefile
+> +++ b/drivers/platform/x86/Makefile
+> @@ -63,8 +63,6 @@ obj-$(CONFIG_X86_PLATFORM_DRIVERS_HP)=09+=3D hp/
+>  # Hewlett Packard Enterprise
+>  obj-$(CONFIG_UV_SYSFS)       +=3D uv_sysfs.o
+> =20
+> -obj-$(CONFIG_FW_ATTR_CLASS)=09+=3D firmware_attributes_class.o
+> -
+>  # IBM Thinkpad (before 2005)
+>  obj-$(CONFIG_IBM_RTL)=09=09+=3D ibm_rtl.o
+>  obj-$(CONFIG_SENSORS_HDAPS)=09+=3D hdaps.o
+> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/a=
+sus-armoury.c
+> index 93d9665717af..fb382de5b57b 100644
+> --- a/drivers/platform/x86/asus-armoury.c
+> +++ b/drivers/platform/x86/asus-armoury.c
+> @@ -21,6 +21,7 @@
+>  #include <linux/dmi.h>
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/fs.h>
+>  #include <linux/kernel.h>
+>  #include <linux/kmod.h>
+> @@ -35,7 +36,6 @@
+>  #include <linux/sysfs.h>
+> =20
+>  #include "asus-armoury.h"
+> -#include "firmware_attributes_class.h"
+> =20
+>  #define ASUS_NB_WMI_EVENT_GUID "0B3CBB35-E3C2-45ED-91C2-4C5A6D195D1C"
+> =20
+> diff --git a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c b/drivers=
+/platform/x86/dell/dell-wmi-sysman/sysman.c
+> index ab46a023cc34..ae89670f73b4 100644
+> --- a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
+> +++ b/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
+> @@ -10,13 +10,13 @@
+>  #include <linux/align.h>
+>  #include <linux/fs.h>
+>  #include <linux/dmi.h>
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/module.h>
+>  #include <linux/kernel.h>
+>  #include <linux/string.h>
+>  #include <linux/sysfs.h>
+>  #include <linux/wmi.h>
+>  #include "dell-wmi-sysman.h"
+> -#include "../../firmware_attributes_class.h"
+> =20
+>  #define MAX_TYPES  4
+>  #include <linux/nls.h>
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platf=
+orm/x86/hp/hp-bioscfg/bioscfg.c
+> index 309634c1cc20..d5a2d0963bbf 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -7,6 +7,7 @@
+> =20
+>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+> =20
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/fs.h>
+>  #include <linux/module.h>
+>  #include <linux/kernel.h>
+> @@ -14,7 +15,6 @@
+>  #include <linux/string.h>
+>  #include <linux/wmi.h>
+>  #include "bioscfg.h"
+> -#include "../../firmware_attributes_class.h"
+>  #include <linux/nls.h>
+>  #include <linux/errno.h>
+> =20
+> diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x=
+86/lenovo/think-lmi.c
+> index a0e3fa766e37..ebfc6182986e 100644
+> --- a/drivers/platform/x86/lenovo/think-lmi.c
+> +++ b/drivers/platform/x86/lenovo/think-lmi.c
+> @@ -14,13 +14,13 @@
+>  #include <linux/acpi.h>
+>  #include <linux/array_size.h>
+>  #include <linux/errno.h>
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/fs.h>
+>  #include <linux/mutex.h>
+>  #include <linux/string_helpers.h>
+>  #include <linux/types.h>
+>  #include <linux/dmi.h>
+>  #include <linux/wmi.h>
+> -#include "../firmware_attributes_class.h"
+>  #include "think-lmi.h"
+> =20
+>  static bool debug_support;
+> diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x=
+86/lenovo/wmi-other.c
+> index fbb32bf404f2..b175971bb308 100644
+> --- a/drivers/platform/x86/lenovo/wmi-other.c
+> +++ b/drivers/platform/x86/lenovo/wmi-other.c
+> @@ -33,6 +33,7 @@
+>  #include <linux/container_of.h>
+>  #include <linux/device.h>
+>  #include <linux/export.h>
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/gfp_types.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/idr.h>
+> @@ -50,7 +51,6 @@
+>  #include "wmi-capdata.h"
+>  #include "wmi-events.h"
+>  #include "wmi-helpers.h"
+> -#include "../firmware_attributes_class.h"
+> =20
+>  #define LENOVO_OTHER_MODE_GUID "DC2A8805-3A8C-41BA-A6F7-092E0089CD3B"
+> =20
+> diff --git a/drivers/platform/x86/samsung-galaxybook.c b/drivers/platform=
+/x86/samsung-galaxybook.c
+> index 99f72b204a51..88ef11004ad0 100644
+> --- a/drivers/platform/x86/samsung-galaxybook.c
+> +++ b/drivers/platform/x86/samsung-galaxybook.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/acpi.h>
+>  #include <linux/bits.h>
+>  #include <linux/err.h>
+> +#include <linux/firmware_attributes.h>
+>  #include <linux/i8042.h>
+>  #include <linux/init.h>
+>  #include <linux/input.h>
+> @@ -28,7 +29,6 @@
+>  #include <linux/uuid.h>
+>  #include <linux/workqueue.h>
+>  #include <acpi/battery.h>
+> -#include "firmware_attributes_class.h"
+> =20
+>  #define DRIVER_NAME "samsung-galaxybook"
+> =20
+> diff --git a/drivers/platform/x86/firmware_attributes_class.h b/include/l=
+inux/firmware_attributes.h
+> similarity index 60%
+> rename from drivers/platform/x86/firmware_attributes_class.h
+> rename to include/linux/firmware_attributes.h
+> index d27abe54fcf9..d4026ba1fcc2 100644
+> --- a/drivers/platform/x86/firmware_attributes_class.h
+> +++ b/include/linux/firmware_attributes.h
+> @@ -2,11 +2,11 @@
+> =20
+>  /* Firmware attributes class helper module */
+> =20
+> -#ifndef FW_ATTR_CLASS_H
+> -#define FW_ATTR_CLASS_H
+> +#ifndef _LINUX_FIRMWARE_ATTRIBUTES_H
+> +#define _LINUX_FIRMWARE_ATTRIBUTES_H
+> =20
+>  #include <linux/device/class.h>
+> =20
+>  extern const struct class firmware_attributes_class;
+> =20
+> -#endif /* FW_ATTR_CLASS_H */
+> +#endif /* _LINUX_FIRMWARE_ATTRIBUTES_H */
 
+Acked-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
-> +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+--=20
+ i.
 
-This function call here *must* be in the exporter and not the DMA-buf framework.
-
-So clear NAK to putting that here.
-
-Regards,
-Christian.
-
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_p2pdma_map_type, "DMA_BUF");
-> +
->  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
->  					 dma_addr_t addr)
->  {
-> diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-> index 09bde3f748e4..37b3da10b17a 100644
-> --- a/include/linux/dma-buf-mapping.h
-> +++ b/include/linux/dma-buf-mapping.h
-> @@ -7,6 +7,9 @@
->  #define __DMA_BUF_MAPPING_H__
->  #include <linux/dma-buf.h>
->  
-> +enum pci_p2pdma_map_type
-> +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> +			unsigned int tlp_flags);
->  struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
->  					 struct p2pdma_provider *provider,
->  					 struct phys_vec *phys_vec,
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d1203da56fc5..d56a48d41215 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -186,6 +186,25 @@ struct dma_buf_ops {
->  	 * if the call would block.
->  	 */
->  
-> +	/**
-> +	 * @p2pdma_provider:
-> +	 *
-> +	 * Returns the &struct p2pdma_provider backing this buffer, so that an
-> +	 * importer can ask how its peer-to-peer traffic would be routed before
-> +	 * it programs its hardware. Importers reach this through
-> +	 * dma_buf_p2pdma_map_type() rather than calling it directly.
-> +	 *
-> +	 * Exporters of MMIO memory that is reachable peer-to-peer should
-> +	 * implement this. Called with the &dma_buf.resv reservation lock held,
-> +	 * which is what lets an exporter refuse once it has revoked the buffer
-> +	 * and started tearing the provider down. This callback is optional.
-> +	 *
-> +	 * Returns:
-> +	 *
-> +	 * The provider backing the buffer.
-> +	 */
-> +	struct p2pdma_provider *(*p2pdma_provider)(struct dma_buf *dmabuf);
-> +
->  	/**
->  	 * @release:
->  	 *
-> 
-
+--8323328-661677443-1790674777=:1173--
