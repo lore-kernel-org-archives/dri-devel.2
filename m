@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A51A0CA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 12:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29E8CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 12:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A69A10EE82;
-	Tue, 29 Sep 2026 12:33:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0A110EE9D;
+	Tue, 29 Sep 2026 12:34:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LAl7W8CA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z/VyHBIR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05BB310EE82
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 12:33:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6419110EE8E
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 12:34:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C9A5B41FD1;
- Tue, 29 Sep 2026 12:33:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38EDF1F000FF;
- Tue, 29 Sep 2026 12:33:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3409B419A4;
+ Tue, 29 Sep 2026 12:34:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B731F000FF;
+ Tue, 29 Sep 2026 12:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790685223;
- bh=FD30Hf4tvtRlOhi3ZD/pZkldTc7PRNkVxsM8QYaofPY=;
+ s=k20260515; t=1790685242;
+ bh=YAMMelAZHfbe1qeiK8FghiyzqtsFG4ElypA+ShW5Sj8=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=LAl7W8CAanvxK2JbnSS59vy/6oHtMRILAYPk2wnD3UBrkiXBNhNX5WN+0y/HWopcz
- Ek5c5deSqU2SoYhwvpwNXnHvCfi/I9D4zv+BsV0yq5k8JK4bfNhn/+e6yGvdFqsKev
- 0YPaDyARWYLhkZRCQBYavr7LBOHVvvOJVLHngwlfMsZ/i5WiGhXP9YL5y+yvk4apNj
- i4i6CGdt1sv/YA1bsUAvl9/Awvp0ziQUqrxmj3H+ccHY7NyMuEXUndEYgtEDBKErXk
- A04iI8d1x7SXFnT42MH5gYjhAURTtecoheQsdKb6aqCAh8gad7rvEaeBebElpB2S7E
- OuUc65yJLsagQ==
-Message-ID: <d6b673647ec1175d4c9ab112a47497b8@kernel.org>
-Date: Tue, 29 Sep 2026 12:33:40 +0000
+ b=Z/VyHBIRhz7Mv7hefrMMY4o+uIBMEbRLquJgLc+kfIUwiLtTkD6GutbszRe2gGYEx
+ VuFfSoEYDwVtyQ8CDx3Qule+Wh9HJNvAgG3QUUTfOOQB1gHVWVjPu5+ddsen45CoyN
+ Zm/LaTUv5e5nvpU6Xvc7P191wgnSfz2zSJmPN/2E1raV/xii8U8uKmJ+Fuhm6QvzJU
+ tacwlNnRIDuqy9WZ5+YGPTEBM0MRuQPoIcbrbKkgn625EK655xQhdI4CHZzdK5JZli
+ QcMSv2r6Y7IOpDhmBhupWQT/TKm6QuxhHlKxA8YMrB6Z5GMGdsyOw9FwplWhPXt8R2
+ HpGG/3HVdA4Rg==
+Message-ID: <33164c650a0cbf3d9d97c42c399b07f0@kernel.org>
+Date: Tue, 29 Sep 2026 12:33:59 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 2/7] drm: verisilicon: stop using deprecated
+Subject: Re: [PATCH 3/7] drm/bridge: dw-mipi-dsi: stop using deprecated
  devm_drm_of_get_bridge()
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-2-ccb7e602daad@bootlin.com>
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-2-ccb7e602daad@bootlin.com>
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-3-ccb7e602daad@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v1-3-ccb7e602daad@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, "Andrzej
@@ -75,7 +75,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 29 Sep 2026 12:36:34 +0200, Luca Ceresoli wrote:
+On Tue, 29 Sep 2026 12:36:35 +0200, Luca Ceresoli wrote:
 > devm_drm_of_get_bridge() is deprecated, switch to
 > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
 ns
