@@ -4,77 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC8DCA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED699CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3028110EDB1;
-	Tue, 29 Sep 2026 09:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED0E10EDB5;
+	Tue, 29 Sep 2026 09:04:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vu5aeqK7";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="m975MruC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TF1XaOoo";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zIO+WMet";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ak/EpPFM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A074910EDB1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 09:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790672644; x=1822208644;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=fjTgkfgps1Gk7j6xMRcB1fFz/DjnVOKoczfByJwdpzQ=;
- b=Vu5aeqK7pQWJWUBgvtimQhagMDH7K5s9rS57iSmS/3bTi29QzzvyfRTy
- fxou6XhW89xPX99kxRsa8I02i1Wd2w2VaR7iIs2jmIooKmWpxr6xB9kUe
- 6SY8t2eU7zYN6bJiEnj1JxdYU1BzXWOdr/hVcBllZy6TUmQ9ROXFf93pi
- jCIbXkecNVV3VyZaBZGGPzx0MDE8L4IXyqvkvptXNQgHFmaul3WQfN8J0
- pXCfCy4c6EGAHadPz3WkTWBRcxjiTJSw1rNjVsWcZCuE+GQbmcuRgHYtw
- aqJw3D89KCMuFQHXwOz+bdkTf6//8kZlDK6NcfmMzYMRingh+2vrZVpF3 A==;
-X-CSE-ConnectionGUID: go+ESv95SEqzBzwkvdk34Q==
-X-CSE-MsgGUID: L5p1qMK9SZ+q4QbiGXfx2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91405284"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="91405284"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 02:04:03 -0700
-X-CSE-ConnectionGUID: L4F6TTbPScOGpDGQ/vD63w==
-X-CSE-MsgGUID: px97l+LIQsul4lmsr50Xug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="271804384"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.233])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 02:03:55 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nathan
- Chancellor <nathan@kernel.org>, Nick Desaulniers
- <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
- <justinstitt@google.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas
- <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Maxime Ripard <mripard@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
-Date: Tue, 29 Sep 2026 12:03:52 +0300
-Message-ID: <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 489A610EDB5
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 09:04:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AC57C1F458;
+ Tue, 29 Sep 2026 09:04:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790672658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5ywC+bmP0C6vOAEk09DYA7zPP4G5R5sbjTt9q1Uw+l4=;
+ b=m975MruCAad4/7O5tUi9ab18RAVNbfta3A/jA4MPQf9YiQEPmDEge9F6tZGmpeAaJS4hVh
+ zrSttiMOAdMTtoC0zEf1B+D2acmG0ejZ+6y1ZkVNiYY/XJSuILcknCE+KUDoAODENYomx5
+ mfbAVCIiGIxwP/ypun0CGLuXFnk1HIQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790672658;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5ywC+bmP0C6vOAEk09DYA7zPP4G5R5sbjTt9q1Uw+l4=;
+ b=TF1XaOoobidZLnSDplJwPQKHtA3KITyYEKTrgqIC6CE5dbwUVlT+CyX7KoYypApjKmwy1+
+ GVnIz6PHx162AFAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790672654; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5ywC+bmP0C6vOAEk09DYA7zPP4G5R5sbjTt9q1Uw+l4=;
+ b=zIO+WMetMsns4jaQOQGuii6elvnMzxtBh4jJONImgIomqv/zBoUfsr8JCT+Hh/EyTWOJnf
+ iSRn+yYczu3QBpAanUN08d84gTdfKddZXEevBARG04UokPVa6r02S92Miq+1UlrEih+DCw
+ z9QP1kv/ZThagMG686QsHXvNpDLOqU0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790672654;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5ywC+bmP0C6vOAEk09DYA7zPP4G5R5sbjTt9q1Uw+l4=;
+ b=ak/EpPFMfUyMyHJPlVfIYDeWQUVyhRw9SrRU/FOiYfnfMW5O+o8TsGbOGMoaKPu15kACTb
+ xbtwRz1VKBJhlkAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63C33136E4;
+ Tue, 29 Sep 2026 09:04:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3SCsDg5/u2oSdwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 09:04:14 +0000
+Message-ID: <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+Date: Tue, 29 Sep 2026 11:04:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+To: Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+ <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+ <20260923160049.1741651-1-holofermes@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260923160049.1741651-1-holofermes@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,igalia.com]; ARC_NA(0.00)[];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,52 +140,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 28 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
-> Panels in general, and MIPI-DSI panels in particular, are pretty
-> difficult to support and require pretty much a panel driver for each
-> panel produced. Most of them are pretty simple, and require an opaque
-> initialization sequence that is usually poorly documented.
+(cc'ing v3d maintainers Maira and Melissa)
+
+Hi
+
+Am 23.09.26 um 18:00 schrieb Fabio Piparo:
+> Hi Thomas,
 >
-> This creates a tension between OEMs and distros because OEMs will
-> typically get a new panel to react to a sourcing issue during
-> production, and thus need some swift turnaround between getting their
-> new panel and it being operational in the OS. Distributions on the other
-> hand can take years to ship a kernel with that new panel driver.
+> Thanks for taking a look.
 >
-> To solve this, I followed the example of HID-BPF and wrote a panel
-> driver that will rely on BPF programs to perform the panel
-> initialization. That way, we can ship the programs separately from the
-> kernel, and with a different lifecycle. If this driver is accepted, the
-> plan is to have a userspace component started by udev to identify and
-> load the right BPF program for the panels found on the device.
+> On 14.09.26 10:43, Thomas Zimmermann wrote:
+>> I assume you write these frames quickly one after the other? As i2c is
+>> really slow, you might write to buffers that are still being transferred
+>> in the background.
+>>
+>> Do you read back the status of the page flips? DRM should tell you when
+>> it has completed transferring a frame. See [1]
+> The test renders with the GPU: two dumb buffers allocated on the
+> ssd130x device and shared with v3d over PRIME. It runs at 10 fps.
+> Before each flip it calls glFinish(), then flips with
+> DRM_MODE_PAGE_FLIP_EVENT and waits for the event before drawing into
+> the other buffer. The same test drawing with the CPU instead comes out
+> clean.
 
-I'd think for most panels it would suffice to have a declarative
-language describing what to do at what points in time. For example, at
-poweron, enable this GPIO, wait a little, write this set of DSI
-commands, etc. You rarely need actual programming, or even ability to
-read-modify-write something.
+A number of things come to my mind.
 
-It could be, say, YAML converted to some binary representation. Maybe
-that could be in the DT, or maybe you could override it with the
-firmware loader. And obviously any vendor "blob" could be trivially
-converted back to YAML and upstreamed.
+- Dumb buffers (from ssd130x) are not meant for HW rendering. They are 
+generally for software rendering only.
 
-Where that falls short, you could always have a dedicated driver, or
-extend the declarative stuff.
+- Hence, the ideomatic use for sharing graphics buffers is to model a 
+producer-consumer relationship. Export the buffer from the device that 
+generates the frame and import it to the buffer that displays it.
 
-Now, the question is, how much more BPF solves over that, without
-requiring a dedicated driver, and is the added complexity worth it?
+- Since you're compositor's sharing happens in the opposite direction, 
+ssd130x might not sync correctly. (I'm not sure of v3d requires a 
+dedicated flush.)
 
-FWIW, on the Intel platforms that support DSI, all of the
-initialization, poweron/poweroff, backlight on/off etc. sequences like
-that are stored in the BIOS, defined by the OEM. A plethora of DSI
-panels, one driver. Don't look at it for examples how to implement it,
-but I think the basic idea is workable.
+- Or maybe v3d needs to do a final cache flush after drawing to imported 
+buffers.
+
+If nothing else helpers, we could use map_wc for shared buffers in 
+ssd130x, but it seems like papering over something else.
+
+Best regards
+Thomas
 
 
-BR,
-Jani.
-
+>
+> I'm happy to send the test program if it would help.
+>
+> Best regards,
+> Fabio
 
 -- 
-Jani Nikula, Intel
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
