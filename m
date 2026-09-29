@@ -4,80 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93992CA5FAC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2793CA5FB1
 	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3D2610E58D;
-	Wed, 30 Sep 2026 12:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3515010F353;
+	Wed, 30 Sep 2026 12:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WNA4MNor";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOOHA+WN";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B52C10F1DE
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:59:19 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396ccd5cf02so2582047a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 23:59:19 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 018E710EEA3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:06:39 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ d9443c01a7336-2dd4b43b20bso17689285ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 06:06:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790751559; x=1791356359; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
- b=WNA4MNor51ep913JKNLcZ1jLREgIQU67szfWJqJmarhcqxlKSfm2n1x8t0N9r/k+j8
- nQNUDwoheLk4BujqLFtHWIDWc6SsBFqdMQOyZLV6R+ZMys+elZiO7d+6rkHYb7qYujVP
- uWfC9ye/uNPkHqrvNHaWBN9qzztMcN73BxZYzIWzI9Esnee9mge8gkcLpQMVBSTBQIpC
- XPM4tdRdh2DBPfcETN/XpsUdxdD0/YOd6eECetA4bjrvTSC14X62UoTn6Hs2CzEJhoFk
- 4CgwYo/Buho1z31EFkQjScm0Pg65zCs5y/VmPbDaELaRaRfnSS3hHOzxwcL05WX8Rw0E
- 5Vqw==
+ d=gmail.com; s=20251104; t=1790687198; x=1791291998; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rGEWCLC1FPZDP0SnOnB5resnwfxQezT/YHoUyZYHjyE=;
+ b=MOOHA+WNwq22J5WIIaMf79scJ+QVvnzyFBXMmldy4MjZ98dZaxYrtMYh82jPHGm3DH
+ /pc+h+xBtjyTYtUSG0f1P2DT6jxzlB3jiH+bbBJ+4c43f/KfxTnQNaBGHYup2ngFOlIW
+ wtOQZIoQWA52GVYRXm2wY7SFRDpsEoz4q3T0UZ29O/yopprCWLMte1eXm2vfmrKPKh9f
+ +y7EEMJ89RMYpDsqzCUlPuZB59pXDvEMIgmHSufA4c5ACfDWaHHy3HiZ1Hhjikt2reua
+ vcBS7op1VCnKmcY5o1Lm9IOdmrk+6QNH+8PbRbUupyafjfobwKH9d86qg1VZBFhVTDGc
+ dadg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790751559; x=1791356359;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
- b=ySUVY51gEooKlRNb/DEU7nrWVJWJJuA1wDgJC3rCDREuKUAnzj5cwJR9A/l2T5+Mmu
- OBXybDQB5PrxpEJMR1P5ue1SO+9IqUQEmSSC79VyvhZVpqkwU3xdrhSzsMPRdr3miGu7
- v/+iwLUo17awVDDryvAsX932QJpT3XBA2gJcaM8sF/F3CTypvjhmV44Roqg276ufJASo
- fY84CUWVHmj1NREdbw6lIzS+bgYK0N1FTi+HkJrT1EgZJBnZggfzGRpS242Lll5zIpS+
- gWryUpZj0tlmbGodCmi4gLVZtjLQcbKJ7z+y1fC/eRXZ3N+4KD77CeLHZ47EDRDilEve
- PQDA==
-X-Gm-Message-State: AFq9FYK3U3sGkDvumizdQFceGA5Zsxzm0junXdrmI48Qj2yOR74hMeHo
- uxcgrOACcPgxfchlkaLt+Xy/1dFb3FN+862HH/sqbwIzmMSyIpzSzBdcn12v1vXZ
-X-Gm-Gg: AYBFou0S0HlIZvyJpfZnKmMDl9aWoHiSJiPP4BhsFB+xERTl5gooJvOM02Z8YkugKNJ
- Vj+IlK4+RjCwTSdsUiTu3mpsmQVsjMdcRburTQLtrDLGq4xlk+FD0YoXQToz6DECCtAg+1NO4eR
- 4IbtRDEmJzkqm6BUUJFHAvfXgjzfFPskKeKVGGNotOfThhDorw1l7QHqsegUQ17r5l7eTheHtef
- ztW4fF+8vQmuRrIshqHqjp7sqOng+Lz03Iq0J+YiO/mgigbp+0maa4vXm6nZXTdE5/WJ0Po+Ti5
- Hwak72K/nz3vFHE1QZV7TxG1TSm7wepnnwhmWrGMeqqZhdkOZNcBUTaU7AaXcLkrhyNBkJcak91
- 5MQ+Aq7mRFMb8UJZQ3Cg2MQUqNyOtcBJiGVp3zLUHkVOCKEHwj8uCfkZD2qDjQ+gYv62WHySzeg
- YA9Xz20MS2PQGbx04LwTfZNGO5rUWnSVmIezLr/ZTCW6PnSZTwUWvB6EXF/JkOuIpKvBpSzcJX5
- /mDBwbdLaDV6BNPcL3OKxOzl3ShRztSjIexZpZ3/gwW72P+svNlW4n1ajQ/KbKWSzjqAYlspQKc
- jYHqpq51fQ==
-X-Received: by 2002:a17:90b:1e42:b0:39e:6c69:f476 with SMTP id
- 98e67ed59e1d1-3a4d18c21bfmr485055a91.53.1790751558947; 
- Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com
- (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+ d=1e100.net; s=20260707; t=1790687198; x=1791291998;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rGEWCLC1FPZDP0SnOnB5resnwfxQezT/YHoUyZYHjyE=;
+ b=EiJ8Ovp7lpXN9y3hlsEBGGAuS7RILOL9oplUJkzBrqGP0vfjpGgc2zHqxmhtb46Jb3
+ yR3h7EUERcVbxumIIXa3MVgz/tLw5dK1FXrVIPThXcTioebFf1F2SdymFn4fnzuptn+2
+ xYVn3LgbW7KAT6E8wVhYP3fqPZwFEntPMsaupmQAhGC5AEYRQsQGCLfZJWKPa3QU2WU8
+ KbBkFkKAqZ7PKDzEn4D2FTBHsO/qB0HFE4olnMfGZKtxAQNsxKu0p/X2f73ghUSx6rx4
+ K6JRpF51CxstoouJQUXRUsz3wkNyePtO5Z9hqpqYsE+Cl2xVwmgMZA5cxNv7BEYXINVn
+ sRlQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxT5BHd0Hj2gR8KsAn6PDhET2unl2Zb6XbhMLvIpX9Vz5jY/6smMC/1zeJk5p/REBl3MEBLguu8MXA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKrT8z1XchIl6pdaATokf9CsuiOLGX1A2Fl71zZumVE9GlaGPmE
+ J7nU2XESvETk9WA62UNDPeEWXqm0T8Ez6EhkMPh7BInDtxqni6uxoU3A
+X-Gm-Gg: AYBFou173VlOOO8V4cWhp7Fnd97cEOA06U/qFwGyWDZi9BZ6fJnQZOK8vGGIN24lTIP
+ Uudk43SoysaYfhB2ja+GolnrduA6D7GddL6sgZj1lwbjGD92eM4YE6CAOGzZqKdVMBLx/tYvPJa
+ g6JOLMacRcUc6Mket0UpvLXXY/TpFWjMR+jGotgfdC+udiHqezZ0bNnV3S0gxbUthxGDsxeRLRW
+ IkUbn9NK+Np/jDq25VTXixWi/r/vZOKAwkOsFUwpZLZ0LCjhNWvowMrDllepFd7RfYJ7Avkct6p
+ PMZMYNA2kKrooy10dCQGYq+Av5X1G1Uqmu4wXHRf1/lHoKmnz9qtksJAsf+2vb5uH5djgePKzSL
+ HmTjlp++Y/DLFaf33IPHdlpojGhXJAzhdfLlv2etEbzQ+bdQSU4EsZlvVYkTnIOTQt/R/KtpNXy
+ ZPP3fKN2GSSYzFxYZitV95v8RW0WtEHWetA8TUFhDEIcFMnUkZUfznFhZuD+TjsHxpzcrXIcz6n
+ 9fTYrWiuWev/LNLgOIaRp9T
+X-Received: by 2002:a17:902:cec9:b0:2dd:ad74:ac2f with SMTP id
+ d9443c01a7336-2df7dea09b6mr135005155ad.24.1790687197690; 
+ Tue, 29 Sep 2026 06:06:37 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.18
+ d9443c01a7336-2df914024c4sm55838485ad.31.2026.09.29.06.06.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 3/5] drm/gud: Prevent shadow_buf UAF by flushing work
- before reallocating
-Date: Wed, 30 Sep 2026 06:59:12 +0000
-Message-ID: <20260930065914.393939-4-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
-References: <20260930065914.393939-1-benquike@gmail.com>
+ Tue, 29 Sep 2026 06:06:37 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Joonhoe Kim <26rote@gmail.com>
+Subject: [PATCH] drm/msm/dpu: compute the CRTC bandwidth from the state being
+ checked
+Date: Tue, 29 Sep 2026 22:06:33 +0900
+Message-ID: <20260929130633.977-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
@@ -96,49 +93,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In gud_fb_queue_damage(), freeing gdrm->shadow_buf on framebuffer
-dimension changes while the asynchronous worker gud_flush_work() is
-running causes a race condition where gud_flush_work() dereferences the
-freed gdrm->shadow_buf during a USB bulk transfer, triggering a slab
-Use-After-Free (UAF).
+_dpu_core_perf_calc_bw() is called with the new CRTC state but sums
+plane_fetch_bw over drm_atomic_crtc_for_each_plane(), i.e. the planes
+of the committed state. When the CRTC is re-enabled (DPMS on, system
+resume) the committed state has no planes attached, so the check
+computes bw_ctl = 0 and the display runs without an average bandwidth
+vote on the MDP path until some later commit changes a plane -- which
+may not happen for a long time on a static screen such as a lock
+screen.
 
-Flush any pending background work (flush_work(&gdrm->work)) prior to
-freeing and reallocating gdrm->shadow_buf when framebuffer dimensions
-change.
+Seen on a Lenovo TB323FU (SM8850) through the interconnect and DPU
+tracepoints: after DPMS off/on or s2idle, dpu_perf_crtc_update reported
+bw_ctl=0 and qnm_mdp was left at avg_bw=0 (peak 800000) instead of the
+3728793 kBps voted before, until the next mode change.
 
-Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by queuing damage
-on a resized framebuffer while background USB flush work (gud_flush_work)
-was actively reading shadow_buf: on the unfixed kernel KASAN detected
-BUG: KASAN: slab-use-after-free in gud_flush_damage(); whereas with this
-fix applied (flushing pending work before vfreeing shadow_buf), 0 KASAN
-warnings were generated.
+Iterate the plane states of the CRTC state being checked instead.
+drm_atomic_crtc_state_for_each_plane_state() falls back to the current
+plane state for planes that are not part of the commit, so the result
+is unchanged for commits that do touch the planes.
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Cc: stable@vger.kernel.org
+With this, bw_ctl is 3728793600 right after DPMS on and after resume.
+Only tested on this device.
+
+Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
 Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
- drivers/gpu/drm/gud/gud_pipe.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+_dpu_core_perf_calc_clk() walks the planes the same way; it is not
+touched here since I have not seen a wrong clock vote from it.
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index aa7792966287..f9726e3d849f 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -397,6 +407,16 @@ static int gud_fb_queue_damage(struct gud_device *gdrm, struct drm_framebuffer *
- 	struct drm_framebuffer *old_fb = NULL;
- 	struct iosys_map shadow_map;
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 24 ++++++++++---------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
-+	if (gdrm->shadow_buf && gdrm->fb &&
-+	    (fb->pitches[0] != gdrm->fb->pitches[0] || fb->height != gdrm->fb->height)) {
-+		flush_work(&gdrm->work);
-+		mutex_lock(&gdrm->damage_lock);
-+		vfree(gdrm->shadow_buf);
-+		gdrm->shadow_buf = NULL;
-+		gud_clear_damage(gdrm);
-+		mutex_unlock(&gdrm->damage_lock);
-+	}
-+
- 	mutex_lock(&gdrm->damage_lock);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index fea173e37464..343c41550637 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -54,24 +54,26 @@ u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+ /**
+  * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+  * @perf_cfg: performance configuration
+- * @crtc: pointer to a crtc
++ * @state: the CRTC state
+  * Return: returns aggregated BW for all planes in crtc.
+  */
+ static u64 _dpu_core_perf_calc_bw(const struct dpu_perf_cfg *perf_cfg,
+-		struct drm_crtc *crtc)
++		struct drm_crtc_state *state)
+ {
+ 	struct drm_plane *plane;
+-	struct dpu_plane_state *pstate;
++	const struct drm_plane_state *plane_state;
+ 	u64 crtc_plane_bw = 0;
+ 	u32 bw_factor;
+ 
+-	drm_atomic_crtc_for_each_plane(plane, crtc) {
+-		pstate = to_dpu_plane_state(plane->state);
+-		if (!pstate)
+-			continue;
+-
+-		crtc_plane_bw += pstate->plane_fetch_bw;
+-	}
++	/*
++	 * The planes of the CRTC state being checked: iterating the committed
++	 * state (drm_atomic_crtc_for_each_plane()) summed nothing when the CRTC
++	 * was being re-enabled (DPMS on, resume), whose old state has no
++	 * planes, and the display ran without a bandwidth vote until the next
++	 * plane update.
++	 */
++	drm_atomic_crtc_state_for_each_plane_state(plane, plane_state, state)
++		crtc_plane_bw += to_dpu_plane_state(plane_state)->plane_fetch_bw;
+ 
+ 	bw_factor = perf_cfg->bw_inefficiency_factor;
+ 	if (bw_factor) {
+@@ -131,7 +133,7 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+ 		return;
+ 	}
+ 
+-	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
++	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, state);
+ 	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+ 	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+ 	DRM_DEBUG_ATOMIC(
 
- 	if (!gdrm->shadow_buf) {
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+-- 
+2.43.0
+
