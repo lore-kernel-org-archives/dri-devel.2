@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1382ECA5FAB
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 00:00:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D82CA5FAB
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 00:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0490710E230;
-	Tue, 29 Sep 2026 00:00:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 120D410E1A1;
+	Tue, 29 Sep 2026 00:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k5RBNl8P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESq97FFa";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30E7C10E230
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:00:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1290D10E1A1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C50A2419A1;
- Tue, 29 Sep 2026 00:00:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D62A1F000FF;
- Tue, 29 Sep 2026 00:00:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D4A60447A1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B671F000FF
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:27:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790640044;
- bh=5ciXBmNzMw1rOwmbGcny8jZrQPt6zu0pPu4bcqSgV90=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=k5RBNl8PB8OGoynwm1uKQAMklBTFpJZYsdSZuoIPNw7W/JCVttZhhV+sZph6XOmnP
- hZ0JrZ/ChgCXA7+NuYWrjJjM4ywvwmJPQThJrCbm92do703ChvTscT8Hci7wR59UdE
- uPTajEomKbC0THWRaM2YY7ysdCRlcit38zgOpM56vEDON1WeUMtXSAVEo69lYZz+FI
- AvXu6iGmJ7cSZWJswqEn0glQLxNUasLzoagFkVwFpVr6M5AVzQ+96wa5uoHt39/fsP
- 0UNrb+yz+rmwrcish6+GmnJ/AjVnIrl6KN3Xpkxy7s0+B/B3m4ueEEOqXtUa70xQoD
- P6oRFG0uP6NXg==
-Date: Mon, 28 Sep 2026 14:00:43 -1000
-Message-ID: <3ff40909da4f1510419ac0e2f9f4e6a1@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Breno Leitao <leitao@debian.org>
-Subject: Re: [RFC v5 2/3] workqueue: Add support for real-time workers
-In-Reply-To: <20260923161251.45428-3-tvrtko.ursulin@igalia.com>
-References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
- <20260923161251.45428-3-tvrtko.ursulin@igalia.com>
+ s=k20260515; t=1790641666;
+ bh=APJhL/UXcBCjjwICTLFT+qLin1KDXiRR0y2N5bPp8T8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=ESq97FFaS8q6O+WGq8mTMUSToYKUb+XzvsNnBGTw4Yfq//3liXu2B3bAv7bcygdli
+ EcHwpI4uM9pG+PUVngoWR6FzLO0tgC/0cKz935SPY0E8pLtZbxVA2GkK9LZprUpqw2
+ kp586WFL9UgLZZQwTNyhbLUWzYUgkY8T2hW91Gxa2Jj7QLSxcnI/egjRJOFsyE6zTH
+ MQitmOsQu/01PuHkjjIBs3OQA+lJn8aPHg151owirTWk+5lo2DtlA/4bwfsWrrPey4
+ MOb1YDPRUwN4TweCY78GvrHPfK0ZNR7urK4fizgTgf4M+q8ttD/pIntwgzWSW9hTmc
+ eAfxlQdMmxqdg==
+Received: by mail-ej2-f42.google.com with SMTP id
+ a640c23a62f3a-c2b40e4744eso343117966b.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 17:27:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzh42OllRyzsJy/WfnET71BgGoaR3sgtOnhL40p3quS+3Z4tkZcy6DFgQkhJIXUGzeTeof9F0DeZZo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mrwOTQYrD2Q+aXtdy0h8jyQbIPR/5/mSw9jS+kZ44guzU5A+4J
+ lpq+I4UsKVql3Kx2lNaOUUbWPaW7vNgbL0Sz3vS7C+qIOtHaE1vNnnBFeIp+BkB5zy0kzYyxL1F
+ hK3L/V7qgDXKIQH9c1fSoTXguF8ADq/1CGIOa9pY7NQ==
+X-Received: by 2002:a17:907:a909:b0:c26:1649:47b4 with SMTP id
+ a640c23a62f3a-c2ac53fbdb4mr1170576266b.42.1790641665270; Mon, 28 Sep 2026
+ 17:27:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
+ <CACePvbWM8kMjtJbH4vc6Qt=TBZQ-0d-Yj9NOtkepZmtNN3wd9w@mail.gmail.com>
+ <20260928151924.2686290-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260928151924.2686290-1-matthias.goergens@gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Mon, 28 Sep 2026 14:27:33 -1000
+X-Gmail-Original-Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+X-Gm-Features: AclHuK_oifA42INPrgsCc_iqlMTCQtFcDVPMyqJSWfGYorE6tGAaJtv8iXHRTRc
+Message-ID: <CACePvbW=fZ3G1JwnbiRo+_qsteN2smbbf3jX0UPFmhVyWA5_6A@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
+ offload
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>, 
+ Youngjun Park <youngjun.park@lge.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ cgroups@vger.kernel.org, linux-api@vger.kernel.org, 
+ Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+ Karel Zak <kzak@redhat.com>, 
+ util-linux@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,62 +92,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
-
-On Wed, Sep 23, 2026 at 05:12:50PM +0100, Tvrtko Ursulin wrote:
-> For use cases such as the DRM scheduler submitting work to the GPU on
-> behalf of low latency userspace applications, where latter have sufficient
-> privileges to have had successfully obtained realtime Vulkan global
-> priority, competing with random background CPU load can create large
-> latency spikes which gets in the way of a smooth user experience.
-
-panthor's group_priority_permit() also allows realtime groups for DRM
-master without CAP_SYS_NICE. What's the usage model there? Should DRM
-master be enough to get RT workers?
-
-> @@ -374,8 +374,9 @@ enum wq_flags {
->  	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
->  	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
->  	WQ_HIGHPRI		= 1 << 4, /* high priority */
-> -	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
-> -	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
-> +	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
-> +	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
-> +	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
-
-Can we name it just WQ_RT? Also, I think WQ_RT is closer to WQ_BH. We can
-reorder the flags later if that helps but for now can you just put it in an
-empty slot?
-
-> @@ -127,6 +127,7 @@ enum wq_internal_consts {
->  	 */
->  	RESCUER_NICE_LEVEL	= MIN_NICE,
->  	HIGHPRI_NICE_LEVEL	= MIN_NICE,
-> +	RTPRI_NICE_LEVEL	= MIN_NICE - 1,
-
-Can we match the scheduler's representation instead by replacing
-attrs->nice with attrs->prio which uses the same encoding as p->prio?
-Normal pools would be NICE_TO_PRIO(nice) and WQ_RT pools would be in the RT
-range. create_worker() would then do:
-
-	if (rt_prio(pool->attrs->prio))
-		sched_set_fifo_low(worker->task);
-	else
-		set_user_nice(worker->task, PRIO_TO_NICE(pool->attrs->prio));
-
-> @@ -7606,7 +7626,10 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
->  	int written;
+On Mon, Sep 28, 2026 at 5:19=E2=80=AFAM Matthias Goergens
+<matthias.goergens@gmail.com> wrote:
 >
->  	mutex_lock(&wq->mutex);
-> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
-> +	if (wq->attrs->nice == RTPRI_NICE_LEVEL)
-> +		written = scnprintf(buf, PAGE_SIZE, "rt\n");
-> +	else
-> +		written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
+> Hi Chris,
+>
+> Thanks for resolving the conflicts yourself and reviewing it.
+>
+> > What is the high-level user-visible impact of this series?
+>
+> Being able to use more interesting swap backends and logic when the
+> machine is not under memory pressure.  It is much easier to write a
+> swap backend that may occasionally allocate memory than one that is
+> guaranteed never to, so today such backends are either unsafe as swap
 
-Can you also show rt in pr_cont_pool_info() and tools/workqueue/wq_dump.py?
+I actually don't know of a swap backend that absolutely will not
+allocate memory on swap out yet. Some backends allocate more than
+others. Because the proactive reclaim can write to the non-offloaded
+swap backend. That brings me back to my original question, in what way
+this series helps.
 
-Thanks.
+So the answer seems to be that previously, some backends were unusable
+by swap, due to possible memory allocation. With this series, those
+back ends are usable for the proactive reclaim now. It is a 0 to 0.5
+improvement because direct reclaim can't use it yet.
 
--- 
-tejun
+
+> or ruled out (btrfs, for example, refuses swapfiles that are
+> copy-on-write, checksummed or compressed).
+>
+> > I am curious: if we never run out of swap file space on the
+> > non-offload swap area, does that mean we don't need this patch series?
+>
+> No: running out of conventional swap isn't the point.  Without the
+> series, any active swap area may be written under pressure, so a
+> backend that may allocate can't be used as swap at all, however much
+> conventional swap there is next to it.
+
+But proactive reclaim can also use the non-offload swap area. So if we
+have plenty of non-offload swap area, both proactive reclaim and
+direct reclaim can use that non-offload area. The value of this series
+isn't apparent. If you don't have a traditional swap-capable backend,
+then your non-offload area is zero.  That is considered a special case
+of running out of non-offload swap area: never having a traditional
+swap area in the first place.
+
+>
+> > However, direct reclaim can use both types of swap areas.
+>
+> In v2 it can't: only memory.reclaim, per-node reclaim and MGLRU's
+
+Sorry I meant proactive reclaim can use both types, nothing constrains
+proactive reclaim.
+
+> debugfs eviction may write new data to an offload-only area; direct
+> reclaim, kswapd, MADV_PAGEOUT and DAMON reclaim may not.  But I think
+> your suggestion to flip it round is closer to what I want: mark the
+
+Flipping it around might provide additional benefit. I know some users
+maintain off tree patches to turn off zswap on the direct reclaim path
+exactly because zswap might allocate more memory before it can free
+some. If the kernel can be smart about it. It provides additional
+value to the status quo.
+
+> areas whose writes may allocate, and keep pressure reclaim away from
+> those, rather than tying it to what started the reclaim.  I'll work
+> that into v3, together with Kairui's suggestion to build on the swap
+> tiers work.
+
+Yes, I feel that cluster-level marking might not be needed, you can
+remember which si has the offload flag. However the per cpu cache
+needs to know which context might require using a different cached
+cluster. That is the trickiest part. The rest of the patch is just
+enough plumbing to preserve whether the swap-out context is proactive
+or not.
+
+Chris
