@@ -4,51 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A07C9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 05:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B0DC9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 05:48:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28AB510E4CB;
-	Tue, 29 Sep 2026 05:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B5BA10ECE6;
+	Tue, 29 Sep 2026 05:48:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C4R2pSzM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="flMYbRV7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3EB310E5E4;
- Tue, 29 Sep 2026 05:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790660687; x=1822196687;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OhQGSDVJEgRNIfOC/AVdpe8b99MkECr+O3vo0rHu8nY=;
- b=C4R2pSzMCuOp4Hk3YkRwSFMzZgnNX26ybHciBhVC5A6kQecm/oUbSSiG
- Oy7sdkyOZsMgciwLTNAd1/Z6p6TcL36ied5nXyylqWYM4mM4K3qpoeGby
- uOwSN5WuGrpNtys7MHMUwT5sJR32oDVcYh78g+WZnyLUfGnH3MhLThvuz
- zVEtM85vZoHeFq8ppJGXBhCA9aTFnfdaCzfeyfg//AAG7sStL32BU9N0e
- 43yE8vng2mcCd384PsOwfsbu2FbU8gbxtN/AYy0pfk2Qzl2+FHZNJzJ4R
- xDLyEA6Z/MsTuYst9hrV2kTmSPozVyMNTZ4PyRySQWyfdFzASSIAdOyCl Q==;
-X-CSE-ConnectionGUID: jpmoEm2rTxG/FdivBnlKsA==
-X-CSE-MsgGUID: 2mWb1Dg3T/6s0MVMQe7KOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90323228"
-X-IronPort-AV: E=Sophos;i="6.27,129,1787036400"; d="scan'208";a="90323228"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2026 22:44:46 -0700
-X-CSE-ConnectionGUID: b3o1/J0KQF66TedcD+wOzQ==
-X-CSE-MsgGUID: jYvclL3jSsKfksbBMzIRwg==
-X-ExtLoop1: 1
-Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
- by fmviesa003.fm.intel.com with ESMTP; 28 Sep 2026 22:44:46 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH] drm/xe/mmio: Fix xe_mmio_wait32() to honor delay/sleep
- maximums
-Date: Mon, 28 Sep 2026 22:44:45 -0700
-Message-ID: <20260929054444.1933871-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5F610ECE6
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 05:48:50 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49ccf3ca626so23198255e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 22:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790660928; x=1791265728; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=9WcZ52LtgxmvNFnY7nqHOBLnLq9Jyv8OCVXDEjqGBY8=;
+ b=flMYbRV719saamW0FJmwqANxzcjFzc0hTf7T6t0LvPJY+x+5/jnDP9axpWaphJeqV5
+ zdloxMdaFJT+UAYz7ja1HmPnXibLZhYRjTD7ZYwT2LOz413FKZPsncph9tSrgDtA6P6R
+ wOVZjfavcpP+dNXDTg2OmeDEITzwZqfmMZZURVULpsCrRtvnysUI5gbx3o/xEa6lpWUk
+ ZJ6TGfoo6w53Ead98fBeGYnR0c8gpP0NPPBOuTkZyWhRWi9QeANG9comATdMw3EuhlNk
+ A6/8By5TrWHQtwxAUUAwWhZJ+2AzM1q8tfB1yL+K8Q6uVJx0GoKwm39WJC6xWwKUwVTh
+ fkfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790660928; x=1791265728;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9WcZ52LtgxmvNFnY7nqHOBLnLq9Jyv8OCVXDEjqGBY8=;
+ b=L0Uov9kviVtNeqGQnkrpqRWYCJoe03NJLqIM8c3IEFr6drrNOk4TDZZRK7U1fRFxE+
+ OUQ16MNM/48IJIt2zZvBGjkP4zeoF9k4wL5le2mKXnxBxwGYJ9gHM5wSgb7QMBkhiHvW
+ fvogDJSACazPQLRlIXljsbjiX1Mh4sAwjRrGK2ikkskedKWH+8B7vRJxbyjK7JhvntjR
+ 1AYVZXqy1HV2bLk+hqt5SYUaFMgmdeqgrCLnDb3XfoCIrkEevIV9yCmiADN5lNEQAawy
+ 0MOs6v4QzkQh1L24LOhLOZ7+j1wOz6nq4F8AO4meVseaGMHmuuHmJ1J4/VTSeznTYpKi
+ Bnsw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwkGuknTvqigA0VjkzqFal+ql0Oih+e38KGClWdR0eklJf7XFnoTbwdFYL9LUkUgsqh0g/VyQd0bKE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k9aiwOMMsNI9pWZkBuvnDqS32Dwdtf8U9ATfHBQ79ooFpBSHyf
+ Lgpj8dT1GW9tYVwhgTTaip0ItIH/ii5cjJTiqn0UGsO0Eiqgu4BmskXl
+X-Gm-Gg: AYBFou1VaWj1wT/J1TBmYuVEReB7z2leJ8HvFQikbaBr9UdnTMf6AJ4Aula4raVUKiI
+ g/ctPaDtM7goqIXOzIlq37HCdajwqxgZOITFLywZSjVICN+3lWTDuBc4BwF8lxx4pigOE2Kdq9b
+ 6nv+nUz8LZLBGw2oOSyM/p+EdC8IW8WWhuqxYhBiLFRr/9U7WXBCOCiW5qQCRr15Y2E2wzIX5oQ
+ 8t0umINxTvVdpxxBxZ0HEpOZvmjNXIn5Z+k1NCVTzrKldMLeQOvYOZsgasg0MC0jyxrhDa7AGdL
+ HeL0Fp8yrst/3MMb2ul+1lOmzp7Qv1ug0VFBgcEwDDFv6z/JLFojyhfQ0qWDOyiK/HY/zAlJevm
+ 7VwREwG1q1yR4RnVVkAAxm4MDqRBo1To6yvWEyXMkdnFnBDP5gcTLqzojOsonpYBzjzoFKl9lzT
+ LiNj6UmD+xfflKLzqf+aSeAgI/MWVPfZW2yq/0z9kVAgGLkdcknVYQmXNFikub6cdoMGgvuaQbx
+ r/lnVapRHCPRlXQBdUHrR7JIaNkxYJESb4Z3S4zGqY2PqQf6DdTMKz9BhKu5MnoYbMB2UsHVRei
+ k+DYPhYgoMjUEsYp5vaefs8AmI2A/zG7BfxbzKEx6neK07qm+gooiHIahB9VP4hsSm02ABbyLs1
+ k
+X-Received: by 2002:a05:600c:530f:b0:49f:ffdc:939d with SMTP id
+ 5b1f17b1804b1-49fffdc9a4amr93691455e9.9.1790660928275; 
+ Mon, 28 Sep 2026 22:48:48 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-2a02-3100-9c32-f801-0451-cc94-d3ca-f56b.310.pool.telefonica.de.
+ [2a02:3100:9c32:f801:451:cc94:d3ca:f56b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a00cf8fa5bsm58477615e9.6.2026.09.28.22.48.46
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 28 Sep 2026 22:48:47 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2] udmabuf: respect the device's maximum segment size
+Date: Tue, 29 Sep 2026 07:48:35 +0200
+Message-Id: <20260929054835.94118-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,46 +96,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Check for overflow in udelay/usleep_range use in __xe_mmio_wait32
-and pick the correct helper according to the wait time and atomic.
-Implement a similar helper to replace DIV_ROUND_UP for 32-bit CPUs.
-Avoid growing delays becoming intollerably large by capping the
-in-loop wait time.
+get_sg_table() merges physically contiguous pages without accounting
+for the mapping device's maximum segment size. This affects both
+importer mappings and the udmabuf misc device mapping used for CPU
+access.
 
-v5: - Simplify: don't introduce additional redesign and
-      use min_t with a backoff to cap wait. (Rodrigo).
-v4: - Simplify using poll_timeout_us and poll_timeout_us_atopmic and
-      update all callstack to never use a param for atomic (Jani)
-v3: - Use div64_s64 kernel API for 32-bit vs 64-bit division.
-v2: - Fixed checkpatch failure.
-    - Added helper for 64-bit DIV_ROUND_UP on 32-bit CPU (Shasiko
-      review). Fixed bug max range in usleep_range(Shasiko review)
+With DMA_API_DEBUG enabled, DMA_BUF_IOCTL_SYNC on a 64 MiB udmabuf
+reports:
 
-Fixes: 5c09bd6ccd41 ("drm/xe/mmio: Move xe_mmio_wait32() to xe_mmio.c")
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Assisted-by: Github-Copilot:Claude-Sonnet-5-0
+  DMA-API: misc udmabuf: mapping sg segment longer than device claims to
+  support [len=65884160] [max=65536]
+
+Use sg_alloc_table_from_pages_segment() with the mapping device's
+maximum segment size. Return -EINVAL if the limit is smaller than
+PAGE_SIZE because the page-based allocator cannot honor it.
+
+Before commit 5bf888673e0d ("udmabuf: Do not create malformed
+scatterlists"), each entry covered one page.
+
+Fixes: 5bf888673e0d ("udmabuf: Do not create malformed scatterlists")
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_mmio.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
-index 7fa18dfcb5a2..c7c37e59dab0 100644
---- a/drivers/gpu/drm/xe/xe_mmio.c
-+++ b/drivers/gpu/drm/xe/xe_mmio.c
-@@ -350,10 +350,11 @@ static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u
- 			wait = ktime_us_delta(end, cur);
+Notes:
+    Changes in v2:
+    - Return -EINVAL when the maximum segment size reported by the device is
+      smaller than PAGE_SIZE instead of clamping it. (Christian)
+    - Add Jason Gunthorpe's Reviewed-by tag.
+    
+    Tested on v7.3-rc4-70-gfe2ec83746e5 in QEMU (x86_64, TCG) with
+    DMA_API_DEBUG (all_errors=1) and DMABUF_DEBUG, A/B against the same
+    base:
+    
+                                            before        after
+      DMA_BUF_IOCTL_SYNC, 64 MiB udmabuf    1 report      0
+      vivid import, 4 MiB udmabuf           2 reports     0
+      vivid import, 2 MiB hugetlb udmabuf   2 reports     0
+        frames captured                     5/5           5/5
+    
+    vb2-dma-contig rejected the non-contiguous import in both runs.
+    
+    For v2, a focused importer advertising PAGE_SIZE / 2 returned
+    -EINVAL under KASAN and DMA_API_DEBUG. No warning, BUG, or DMA-API
+    report was emitted.
+
+ drivers/dma-buf/udmabuf.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00462423..018937435356e 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -133,15 +133,22 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ {
+ 	struct udmabuf *ubuf = buf->priv;
+ 	struct sg_table *sg;
++	unsigned int max_segment;
+ 	int ret;
  
- 		if (atomic)
--			udelay(wait);
-+			udelay(min_t(s64, wait, MAX_UDELAY_MS));
- 		else
- 			usleep_range(wait, wait << 1);
--		wait <<= 1;
-+#define __XE_MMIO_WAIT_MAX_BACKOFF_100MS (100 * USEC_PER_MSEC)
-+		wait = min_t(s64, wait << 1, __XE_MMIO_WAIT_MAX_BACKOFF_100MS);
- 	}
++	max_segment = dma_get_max_seg_size(dev);
++	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
++	if (max_segment < PAGE_SIZE)
++		return ERR_PTR(-EINVAL);
++
+ 	sg = kzalloc_obj(*sg);
+ 	if (!sg)
+ 		return ERR_PTR(-ENOMEM);
  
- 	if (ret != 0) {
+-	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->pagecount, 0,
+-					ubuf->pagecount << PAGE_SHIFT,
+-					GFP_KERNEL);
++	ret = sg_alloc_table_from_pages_segment(sg, ubuf->pages, ubuf->pagecount,
++						0, ubuf->pagecount << PAGE_SHIFT,
++						max_segment,
++						GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto err_alloc;
+ 
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-2.43.0
+2.53.0
 
