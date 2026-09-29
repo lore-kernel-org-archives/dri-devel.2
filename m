@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE84CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:50:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0CECA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D3810ECD6;
-	Tue, 29 Sep 2026 04:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1782810ECD3;
+	Tue, 29 Sep 2026 04:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B9cnj0pv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ncMy1CsZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C775910ECC7
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:50:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44FFD10ECD3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:51:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8587A42ADB;
- Tue, 29 Sep 2026 04:50:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55AE01F000FF;
- Tue, 29 Sep 2026 04:50:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7E56D60515;
+ Tue, 29 Sep 2026 04:51:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AA9D1F000FF;
+ Tue, 29 Sep 2026 04:51:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790657400;
- bh=GOf+m4BIeSRqUv+X1t/puUgci4O5mcKwisr6Uya2Y9c=;
+ s=k20260515; t=1790657496;
+ bh=zs/3Tryyeomj1fm+fD9e1V/cQ/NCPO4y5lWgpBxNpeI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B9cnj0pvRQGZacqF/Cq+k5et2G1w7I0JwH2HZuMzU1zYsstFNjYZrjeUpSunmEXUc
- gX+nkCHKh4yWGNr8cHBBRgCHXrbys6ogDefoYdblhapCguo73kqw0FUR6Gr7SoxtLx
- 1OKdlPhnM8jV7B7j1cz4TrZTWMHhlmnnjeizZts+Dqk0M4Vr5Q5QkguCpeFU1/jNgG
- heKTKKo4U5qED/1W8HABJ/FXfrppaNODSdyVPQcQgmABUjmV6grPjO3Czbk5mjo9Kj
- kI3TjKtjd6mlKTokQ0wlvaFnxpr6uZ72qRZ0FDBW3yWTOTOsulYhMYx3zp8/MWf+cx
- hDJf6cGBGvCDQ==
+ b=ncMy1CsZI544WWZ+aNMqJUUcxgxZbItnAjM++hg3PPHcLFrZhPFNVl8RIknrCxOed
+ ebrrhd0+GllnIZSG5xWMi35MXO0f0fcCkrT0AXjbxej/OIYR1D9U/hwBdwx29aJUQU
+ 7ZIqEMzNYpTpODj1cQMOjH6mAyN0GaYCUI7XZVNIGQlDBmJ+ROPhGf1OO8ZIjcpGHP
+ D5WfOXzD7fmpbO+qxDiFgRCd9YDMTPaWThxgOtojogKwqxbC1st9sgTZZPj1tI7Kgi
+ s/GGUnisIYc5tqYw4jfo5BKvJZFuqYqPDDJX/XNTx/A+49ztEKzWnd1AOXAUgFkxrb
+ m3KKLmAxu13DA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/35] drm/msm/dp: add support for sending VCPF
- packets in DP controller
+Subject: Re: [PATCH v7 25/35] drm/bridge_connector: suppress hotplug for
+ IRQ_HPD without status changes
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929-msm-dp-mst-v7-12-4b81473185e7@oss.qualcomm.com>
+In-Reply-To: <20260929-msm-dp-mst-v7-25-4b81473185e7@oss.qualcomm.com>
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-12-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-25-4b81473185e7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 04:49:59 +0000
-Message-Id: <20260929045000.55AE01F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 04:51:35 +0000
+Message-Id: <20260929045136.0AA9D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,107 +60,69 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/msm/dp: bitwise OR of STATUS5 and STATUS7 without masking in=
- ISR
+- [Medium] drm: missing hotplug event due to TOCTOU race in HPD handler
 --
 
-commit 987123505b6cfcc4664c72feae6b070ad91b79a8
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+commit c7445c99ee548cba258205accae2588f4d6fc9bb
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: add support for sending VCPF packets in DP controller
+drm/bridge_connector: suppress hotplug for IRQ_HPD without status changes
 
-This commit adds support for sending VC Payload Fill (VCPF) sequences in the
-MSM DP controller when stream symbols are absent. It introduces interrupt
-handling for streams 0-3 using the STATUS5 and STATUS7 registers to signal
-VCPF completion.
+This commit suppresses hotplug events for DP IRQ_HPD notifications if there
+are no connection status changes. It checks the actual connector status
+after handling the notification using the bridge detect callback. Hotplug
+events are only sent if the connection state transitions, preventing
+unnecessary reprobes.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 9a0c9737e6d00..929e0f94f8ddb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -159,15 +159,28 @@ static void drm_bridge_connector_handle_hpd(struct =
+drm_bridge_connector *drm_bri
 [ ... ]
-
-> @@ -379,6 +398,34 @@ static void msm_dp_ctrl_config_psr_interrupt(struct =
-msm_dp_ctrl_private *ctrl)
->  	msm_dp_write_ahb(ctrl, REG_DP_INTR_MASK4, DP_INTERRUPT_MASK4);
->  }
+>  	mutex_lock(&dev->mode_config.mutex);
+> -	connector->status =3D status;
+> +	old_status =3D connector->status;
+>  	mutex_unlock(&dev->mode_config.mutex);
 > =20
-> +static u32 msm_dp_ctrl_get_mst_vcpf_interrupt_0_1(struct msm_dp_ctrl_pri=
-vate *ctrl)
-> +{
-> +	u32 intr, intr_ack;
-> +
-> +	intr =3D msm_dp_read_ahb(ctrl, REG_DP_INTR_STATUS5);
-> +	intr &=3D ~DP_INTERRUPT_STATUS5_MASK;
-> +	intr_ack =3D (intr & DP_INTERRUPT_STATUS5)
-> +			<< DP_INTERRUPT_STATUS_ACK_SHIFT;
-> +	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS5,
-> +			 intr_ack | DP_INTERRUPT_STATUS5_MASK);
-> +
-> +	return intr;
-> +}
-> +
-> +static u32 msm_dp_ctrl_get_mst_vcpf_interrupt_2_3(struct msm_dp_ctrl_pri=
-vate *ctrl)
-> +{
-> +	u32 intr, intr_ack;
-> +
-> +	intr =3D msm_dp_read_ahb(ctrl, REG_DP_INTR_STATUS7);
-> +	intr &=3D ~DP_INTERRUPT_STATUS7_MASK;
-> +	intr_ack =3D (intr & DP_INTERRUPT_STATUS7)
-> +			<< DP_INTERRUPT_STATUS_ACK_SHIFT;
-> +	msm_dp_write_ahb(ctrl, REG_DP_INTR_STATUS7,
-> +			 intr_ack | DP_INTERRUPT_STATUS7_MASK);
-> +
-> +	return intr;
-> +}
-
-[ ... ]
-
-> @@ -2801,6 +2877,16 @@ irqreturn_t msm_dp_ctrl_isr(struct msm_dp_ctrl *ms=
-m_dp_ctrl,
->  		ret =3D IRQ_HANDLED;
->  	}
+>  	drm_bridge_connector_hpd_notify(connector, status, event);
 > =20
-> +	isr =3D msm_dp_ctrl_get_mst_vcpf_interrupt_0_1(ctrl);
-> +	if (ctrl->num_pixel_clks > DP_STREAM_2)
-> +		isr |=3D msm_dp_ctrl_get_mst_vcpf_interrupt_2_3(ctrl);
-> +
-> +	if (isr & (DP_INTR_MST_DP0_VCPF_SENT | DP_INTR_MST_DP1_VCPF_SENT |
-> +		   DP_INTR_MST_DP2_VCPF_SENT | DP_INTR_MST_DP3_VCPF_SENT)) {
+> -	drm_kms_helper_connector_hotplug_event(connector);
+> +	mutex_lock(&dev->mode_config.mutex);
+> +	new_status =3D detect ? detect->funcs->detect(detect, connector) : stat=
+us;
+> +	connector->status =3D new_status;
+> +	changed =3D new_status !=3D old_status;
 
 [Severity: Medium]
-Does this bitwise OR of two different status registers cause false positive=
-s?
+Could this logic cause a missing hotplug event due to a race condition?
 
-The msm_dp_ctrl_get_mst_vcpf_interrupt_*() functions return the unmasked
-register values. Since the values from REG_DP_INTR_STATUS5 and
-REG_DP_INTR_STATUS7 are ORed together here, bits from one register could
-overlap with the VCPF bits checked for the other.
+If old_status =3D A is read, the lock is dropped. During the execution of
+drm_bridge_connector_hpd_notify(), a concurrent ioctl (like
+DRM_IOCTL_MODE_GETCONNECTOR) might acquire the lock, probe the hardware,
+update connector->status to B, and return state B to userspace.
 
-For example, if an unrelated interrupt sets bit 18 in REG_DP_INTR_STATUS5,
-and it gets ORed into `isr`, the condition will see bit 18 set and assume
-it's DP_INTR_MST_DP2_VCPF_SENT (which is bit 18 of REG_DP_INTR_STATUS7).
+If the hardware then changes back to A before this HPD handler reacquires
+the lock, the detect call could return A. The new_status becomes A, and the
+code calculates changed =3D (A !=3D A), which is false, suppressing the hot=
+plug
+event.
 
-This could cause a spurious completion of ctrl->idle_comp during a VCPF pus=
-h,
-allowing the driver to proceed while the hardware is still executing the
-pattern.
+In this scenario, userspace tracks state B, but the kernel tracks state A,
+and userspace never receives the hotplug event to notify it of the
+transition back to A.
 
-Should the return values of msm_dp_ctrl_get_mst_vcpf_interrupt_*() be masked
-against their respective VCPF bits before returning, or should they be chec=
-ked
-independently instead of ORing them together?
+Should old_status be read within the second critical section just before
+calling the detect function, so that we compare against the most recent
+state?
 
-> +		complete(&ctrl->idle_comp);
-> +		ret =3D IRQ_HANDLED;
-> +	}
+> +	mutex_unlock(&dev->mode_config.mutex);
 > +
->  	/* DP aux isr */
->  	isr =3D msm_dp_ctrl_get_aux_interrupt(ctrl);
+> +	if (changed || level_hpd)
+> +		drm_kms_helper_connector_hotplug_event(connector);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-msm-dp-mst=
--v7-0-4b81473185e7@oss.qualcomm.com?part=3D12
+-v7-0-4b81473185e7@oss.qualcomm.com?part=3D25
