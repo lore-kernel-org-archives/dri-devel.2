@@ -4,71 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED389CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E574CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E66310E651;
-	Tue, 29 Sep 2026 13:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E158810EEA0;
+	Tue, 29 Sep 2026 13:05:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nKzOvk4l";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="ipFrlXSL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A8E210EEA0
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:03:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 198B84479A
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:03:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018D11F0089C
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790686989;
- bh=37EPhNuTofFwtN/QAT2xqnB++jVEO++YPBVY4Xssh88=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=nKzOvk4lm01c9i6AFXI7ItCmLiSuPVH2ddKMA0U10rCgJ6SySxDHxB5Cl509EseUe
- pqf78FYA48f5OE55XybnweEdt9slRT+67vn2qOHODe3Rj8HMqHjF6ejfiz6EcZoMfY
- kBcKZ10rUM+DlTUhCJkmNUJ8PTV1bSgDuaKcJ8Fbp6nrOtxYCNNNZPIQbYZD8xGczR
- 7ruUrQFz9r7mPyZyeerbA1GUKBnrRHQJyw/6mw+xJDPdzAqrVMKBqtbjvn0U5XBtv1
- SOyWP/P90EClsPxkLzaOgLVEIel/E1EeDR0K39Dr90ZusUggVu/12fbw+5v4rwmsff
- yPtaf37Ch+HbA==
-Received: by mail-oa2-f12.google.com with SMTP id
- 586e51a60fabf-4693691fde7so2604305fac.3
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 06:03:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBxMwM4SH2qn3J/k3yehM6QQRkBLr0ii04rA4e8sX/NwvyVubrRKrL2BpMSHZ0K0V/QUKGtrqNEKFCg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k17NrzAv7YI+gknxshfv+5hhlVJGBiNkYlUucDoNDpdA0fc77J
- DxAdDpa7t9Gs0etrwMd2Hh/7LjKGQUNNeCsvH2uLH4RBGG1v44f64RTaPYhIhsHjrMkRz8XKBlz
- pTaW8HXYf9cFOF7bhmfU72zyublNC4/E=
-X-Received: by 2002:a05:6870:d404:b0:499:f197:d79 with SMTP id
- 586e51a60fabf-499f197114emr1076008fac.17.1790686988186; Tue, 29 Sep 2026
- 06:03:08 -0700 (PDT)
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 598D910EEA0
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:05:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=0WEQO4Duyi8rXvRZ4M+FLRW+QzZlNb/OqyioA9LGT5M=; b=ipFrlXSL+e7fUwTli4mrLPH2XB
+ BdPafufD+m35uIKe7zZk9bHqBlh0+zt67abCjpZyg91uqXfLtHPxYnFF9KbIgrdfgnidRcKRxYCYx
+ CThgGkYLZYyOgDGsclF9mHIFQegCzHQ69UHRm8DyPGJEgA79QmbPTCRT2lj1wM6vwRVxxW3RH/Dv7
+ 6Wp37CAlsptx3vvw81eYkJIrm/5SAeOiJohY/vcuE1KFJO+WvWLPfZePKvB8sgU4+wzmRIbcEG/oV
+ yLDWVv+TAqJDhuBTEaM0qyk2NnMbaUYeVpZHktyrpoVk7KNRoYCcUxOEqvAnJB0tIyMUWSJ46JH5v
+ BDn7tZKQ==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1xBXWl-0003wd-1b; Tue, 29 Sep 2026 15:05:47 +0200
+Received: from localhost ([127.0.0.1])
+ by sslproxy03.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1xBXWl-0005Y5-2Z; Tue, 29 Sep 2026 15:05:47 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/4] drm/bridge: tc358767: register DP aux bus even in
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR case
+Date: Tue, 29 Sep 2026 15:05:46 +0200
+Message-ID: <3975301.kQq0lBPeGt@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260624123138.7D2161F000E9@smtp.kernel.org>
+References: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
+ <20260624123138.7D2161F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 29 Sep 2026 15:02:54 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm2dVVKM075MDoStTudO+2hdECS-XucFiMGnM1H-Xk=TA@mail.gmail.com>
-X-Gm-Features: AclHuK-Qd0URk-jzkKvP69eKU__69SXNOlyvT8nHCDMV5m7lT3rRWZmfmDiZ-Kw
-Message-ID: <CAD++jLm2dVVKM075MDoStTudO+2hdECS-XucFiMGnM1H-Xk=TA@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DSI
- panel
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28138/Tue Sep 29 08:26:15 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,104 +64,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jun,
+Am Mittwoch, 24. Juni 2026, 14:31:37 CEST schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+>=20
+> Pre-existing issues:
+> - [High] The bridge detach function `tc_edp_bridge_detach` does not call =
+`drm_connector_cleanup()` for the connector initialized in `tc_edp_bridge_a=
+ttach()`, leading to a use-after-free when the module unloads.
+> --
+>=20
+> commit 29555064108dbff74cdded5aeba9baee8adfd8a7
+> Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+>=20
+> drm/bridge: tc358767: register DP aux bus even in DRM_BRIDGE_ATTACH_NO_CO=
+NNECTOR case
+>=20
+> This commit changes the bridge attach sequence to always register the DP =
+aux
+> bus. It achieves this by moving the check for the no-connector flag to af=
+ter
+> the aux registration is complete.
+>=20
+> > diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge=
+/tc358767.c
+> > index 7188935fdb826..a1663cc6c2236 100644
+> > --- a/drivers/gpu/drm/bridge/tc358767.c
+> > +++ b/drivers/gpu/drm/bridge/tc358767.c
+> > @@ -1833,14 +1833,14 @@ static int tc_edp_bridge_attach(struct drm_brid=
+ge *bridge,
+> >  			return ret;
+> >  	}
+> > =20
+> > -	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+> > -		return 0;
+> > -
+> >  	tc->aux.drm_dev =3D drm;
+> >  	ret =3D drm_dp_aux_register(&tc->aux);
+> >  	if (ret < 0)
+> >  		return ret;
+> > =20
+> > +	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+> > +		return 0;
+> > +
+> >  	/* Create DP/eDP connector */
+> >  	drm_connector_helper_add(&tc->connector, &tc_connector_helper_funcs);
+> >  	ret =3D drm_connector_init(drm, &tc->connector, &tc_connector_funcs, =
+tc->bridge.type);
+>=20
+> [Severity: High]
+> This isn't a bug introduced by this patch, but is a pre-existing issue. D=
+oes
+> tc_edp_bridge_detach() properly clean up the connector initialized here?
+>=20
+> Looking at the detach function in drivers/gpu/drm/bridge/tc358767.c:
+>=20
+> static void tc_edp_bridge_detach(struct drm_bridge *bridge)
+> {
+> 	drm_dp_aux_unregister(&bridge_to_tc(bridge)->aux);
+> }
+>=20
+> It seems drm_connector_cleanup() is never called for tc->connector.
 
-thanks for your patch!
+drm_connector_cleanup() is called from the drm_connector_funcs::destroy.
 
-On Mon, Jul 27, 2026 at 10:09=E2=80=AFAM Jun Nie <jun.nie@linaro.org> wrote=
-:
+>=20
+> Since tc_data (which embeds the connector) is allocated via devm_kzalloc,
+> could the freed connector remain linked in the active drm_device connector
+> list when the driver is unbound?
 
-> +#define R63455_MF_CMD_ACCESS_PROTECT   0xb0
-> +#define R63455_SEQ_CTL                 0xd6
-> +#define R63455_DSI_CTL                 0xb6
-> +#define R63455_DISP_MODE               0xb7
-> +#define R63455_GEN_OUTPIN_SET          0xb9
-> +#define R63455_DISP_SET1               0xc0
-> +#define R63455_DISP_SET2               0xf1
-> +#define R63455_DISP_SET3               0xc6
-> +#define R63455_DISP_SET3_2             0xcd
-> +#define R63455_DISP_SET4               0xcf
-> +#define R63455_DISP_SET5               0xec
-> +#define R63455_DISP_SET6               0xef
-> +#define R63455_TE_GPIO_CTL             0xbe
-> +#define R63455_PPS_SET                 0xe6
+What I can see is that the connector is removed from the list in
+drm_connector_remove() called by drm_connector_cleanup().
 
-This is more details than we usually get, which is nice.
 
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_MF_CMD_ACCESS_PROTECT, =
-0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_SEQ_CTL, 0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx,
-> +                            R63455_DSI_CTL,
-> +                            0x20, 0x6b, 0x80, 0x06, 0x33, 0x9a, 0x00, 0x=
-1a,
-> +                            0x7a);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_MODE,
-> +                            0x54, 0x00, 0x00, 0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_GEN_OUTPIN_SET,
-> +                            0xf, 0xe4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0=
-0,
-> +                            0xf, 0xb2, 0x00, 0x64);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3,
-> +                            0x08, 0x70, 0x28, 0x48, 0x00, 0x00, 0x13, 0x=
-21,
-> +                            0xff, 0x00, 0x0f, 0x01, 0x14, 0x17, 0x00, 0x=
-00,
-> +                            0x00, 0x02, 0x40, 0x0C, 0x00, 0x00, 0x00, 0x=
-20,
-> +                            0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x70, 0x=
-08,
-> +                            0xD0, 0x02, 0x21, 0x6F, 0x08, 0x5A, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET1,
-> +                            RTN, 0x86, LE16_BYTE0(VBP), LE16_BYTE1(VBP),=
- 0x08,
-> +                            0x70, BE16_BYTE0(VFP), BE16_BYTE1(VFP), 0x00=
-,
-> +                            0x00, 0x08, 0x3B, 0x00, 0x00, 0x19, 0x01, 0x=
-22);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET3_2, 0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET4,
-> +                            0x8b, 0x00, 0x80, 0x46, 0x61, 0x00, 0x8b);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET5,
-> +                            BE16_BYTE0(VID_VS_DELAY),
-> +                            BE16_BYTE1(VID_VS_DELAY),
-> +                            0x00, 0x00, 0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_DISP_SET6,
-> +                            0x00, 0x24, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x=
-00,
-> +                            0x03, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x0A, 0x0A, 0x00, 0x00, 0x00, 0x=
-03,
-> +                            0x1D, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x=
-00,
-> +                            0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x=
-00,
-> +                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x=
-00,
-> +                            0x00);
-> +       r63455_dsi_write_seq(ctx, dsi_ctx, R63455_TE_GPIO_CTL,
-> +                            0x00, 0x6A, 0x02);
+> Would this cause a use-after-free if the DRM core accesses the connector =
+list
+> after the module is unloaded or unbound?
+>=20
+>=20
 
-So for the commands above we have a little more knowledge than just
-opaque numbers about what the display controller is doing.
 
-If you have a datasheet for this display controller, then please add some
-one-line comments before each command to explain what is being set
-up.
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
-It still bugs me that we accept this much magic numbers in panel
-drivers but I guess I just take a deep breath and live with it.
 
-Yours,
-Linus Walleij
