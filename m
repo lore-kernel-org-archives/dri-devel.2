@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D482CA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213DACA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:48:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6FA10E6E1;
-	Tue, 29 Sep 2026 11:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8749F10EE4B;
+	Tue, 29 Sep 2026 11:48:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FgFdOrHS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FnZiF12G";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73AFA10E6CD;
- Tue, 29 Sep 2026 11:45:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790682332; x=1822218332;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=ve3q4OgY29qfgLVAAMpW86ylCqcJ65a++paFdqRS8Lw=;
- b=FgFdOrHSD+A8fDp1cU04KWVtTZOFC+0rxo1fbenrw60BhXGAOoMt5TFl
- 8GKf2pQHun60R4XMg2+lok6URPeFwk0ovRCFQqW+scYooYOeCOSnGCX3k
- F3jxeTJ6updxaxnWKRSFUJ4BwUFP2VQUF1CEqEASTJuo5Yong2yg6IHJb
- xawc5TKSSRBHXXblChQo+BOo4VEuYSyze7yuqZ/3am+J/x+PRGZ4G61eb
- NfJEYKdcy3+dy1ILfVQ55thsBoch3S05F1I+niVz+Gw3xJh84lYZFcUOS
- NUgYdAhtEFi3G1lq6OfQm7Gf0q6eIeLakSyY57CRaeuQ2mbo2p8EA+vD8 w==;
-X-CSE-ConnectionGUID: rGVMDkbzT22rfYvrNDXinA==
-X-CSE-MsgGUID: fXq8xDqARXu6dQScPnYUyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91496695"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="91496695"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 04:45:32 -0700
-X-CSE-ConnectionGUID: OZjUVBngTH6OyCeUoVFniQ==
-X-CSE-MsgGUID: IZ5+FHG2RlOElOuIZLfQmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="279175485"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.8])
- ([10.245.245.8])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 04:45:30 -0700
-Message-ID: <978a409e-4ac9-407b-8c57-557965b30469@intel.com>
-Date: Tue, 29 Sep 2026 12:45:28 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEC0A10EE4B
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 11:48:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DB07C601FB;
+ Tue, 29 Sep 2026 11:48:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4DC1F000FF;
+ Tue, 29 Sep 2026 11:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790682519;
+ bh=AonU/AJLf898mqei6BZExmDmc83WdKFP0llY4R7RD1k=;
+ h=From:To:Cc:Subject:Date;
+ b=FnZiF12GrREr3QxyD6B+1jDs94+Yrir+GbGQfCIcTBCXG3jVr2CvmYK9p63avXJCc
+ 0VrAqiFwUCRthNR2rj5aGUwjVxPYgKBv7E5pThePRrMpXTYVKydADto4pB5DSeCsmC
+ A9sXaQ0hJjfakGJhqpe67xwpEsM8w7NScWtlTNEhb0P5HR88DDkbDAZUwYjCeVrg2A
+ nCzGpVe3PW4vQihRzktZqvRvl9CfJduZOzKG4cL4ty7ckc9HwpfTUreBHqqRTuoQLB
+ 7w/ptJfo8iW/PwBep4xJmDCQUEmQRn0A99KzAo7b1/p8mMvFiyM+MzqCp7jjcSTACx
+ pegurF49auRsw==
+From: Sasha Levin <sashal@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Sasha Levin <sashal@kernel.org>, "kernelci.org bot" <bot@kernelci.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/panel: select DRM_KMS_HELPER
+Date: Tue, 29 Sep 2026 07:48:28 -0400
+Message-ID: <20260929114828.3260345-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] gpu/buddy: fix missing split-undo on
- allocation-search exhaustion
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,140 +60,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/09/2026 11:54, Arunpravin Paneer Selvam wrote:
-> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> 
-> __alloc_range_bias() only undid splits made during its search when
-> split_block() itself failed. Its DFS-exhaustion failure path (-ENOSPC,
-> when no suitable block is found) skipped the undo, leaving the buddy
-> tree needlessly fragmented over repeated failed allocation attempts.
-> 
-> Fix by recording every successful split_block() call in a list and
-> unconditionally undoing those splits on every failure exit, via a
-> new single-level gpu_buddy_merge_one_level() helper (the original
-> __gpu_buddy_undo_splits() cascaded merges upward, which is unsafe
-> when called per split-list entry).
-> 
-> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
-> regression.
-> 
-> v2:
->   - Drop the undo from __alloc_range(): it allocates every block it walks,
->     so freeing that list on failure already merges the splits. (Matthew)
-> 
-> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/buddy.c | 54 +++++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 52 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 2f2aaadafe35..e5c9e21cd077 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1240,6 +1240,52 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
->   	}
->   }
->   
-> +static void gpu_buddy_merge_one_level(struct gpu_buddy *mm,
-> +				      struct gpu_buddy_block *block)
-> +{
-> +	struct gpu_buddy_block *buddy = __get_buddy(block);
-> +	struct gpu_buddy_block *parent = block->parent;
-> +	enum gpu_block_state block_state;
-> +
-> +	if (!buddy || !gpu_buddy_block_is_free(block) ||
-> +	    !gpu_buddy_block_is_free(buddy))
-> +		return;
-> +
-> +	block_state = gpu_block_cached_state(block);
-> +	if (gpu_block_cached_state(buddy) != block_state)
-> +		block_state = GPU_BLOCK_MIXED;
-> +
-> +	rbtree_remove(mm, block);
-> +	rbtree_remove(mm, buddy);
-> +	mm->free_scoreboard[gpu_buddy_block_order(block)] -= 2;
-> +
-> +	gpu_block_free(mm, block);
-> +	gpu_block_free(mm, buddy);
-> +
-> +	__mark_free(mm, parent, block_state);
-> +}
-> +
-> +static void gpu_buddy_undo_splits(struct gpu_buddy *mm,
-> +				  struct gpu_buddy_block *block,
-> +				  struct list_head *splits)
-> +{
-> +	if (block)
-> +		gpu_buddy_merge_one_level(mm, block);
-> +
-> +	while (!list_empty(splits)) {
-> +		struct gpu_buddy_block *parent =
-> +			list_first_entry(splits, struct gpu_buddy_block,
-> +					 tmp_link);
-> +
-> +		list_del(&parent->tmp_link);
-> +
-> +		if (!gpu_buddy_block_is_split(parent))
-> +			continue;
-> +
-> +		gpu_buddy_merge_one_level(mm, parent->left);
-> +	}
-> +}
-> +
->   static struct gpu_buddy_block *
->   __alloc_range_bias(struct gpu_buddy *mm,
->   		   u64 start, u64 end,
-> @@ -1249,6 +1295,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   	u64 req_size = mm->chunk_size << order;
->   	struct gpu_buddy_block *block;
->   	LIST_HEAD(dfs);
-> +	LIST_HEAD(splits);
->   	int err;
->   	int i;
->   
-> @@ -1313,6 +1360,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   			err = split_block(mm, block);
->   			if (unlikely(err))
->   				goto err_undo;
-> +
-> +			list_add(&block->tmp_link, &splits);
+Since the panel_bridge code moved into drm_panel.c, any config with
+DRM built in but without the KMS helpers fails to link, for example
+arc haps_hs_smp_defconfig with allnoconfig and the kselftest fragment:
 
-Looking at this now, I also don't see any issue here? If we got here:
+  arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x28): undefined
+  reference to `drm_atomic_helper_bridge_duplicate_state'
+  arc-elf32-ld: drivers/gpu/drm/drm_panel.o:(.rodata+0x2c): undefined
+  reference to `drm_atomic_helper_bridge_destroy_state'
+  ...
 
-1. block_order >= order.
-2. adjust_end/start is aligned to order and fits within block.
+With DRM=m, modpost fails the same way:
 
-Given that there must be something in here that will eventually hit 
-block_order == order, given some number of splits, so either split fails 
-or we must hit the 'return block'?
+  ERROR: modpost: drivers/gpu/drm/drm_panel.ko: symbol
+  'drm_atomic_helper_bridge_duplicate_state' undefined!
 
+The panel_bridge used to live in bridge/panel.c, which was part of
+drm_kms_helper and was therefore only built when DRM_KMS_HELPER was
+enabled. drm_panel.c is built for DRM_PANEL instead, which
+DRM_PANEL_BRIDGE selects whenever DRM_BRIDGE is set, and DRM_BRIDGE
+is enabled for every DRM config. Nothing on that path selects
+DRM_KMS_HELPER, so the bridge and connector helpers used by the moved
+code can be missing.
 
->   		}
->   
->   		/*
-> @@ -1349,7 +1398,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   		}
->   	} while (1);
->   
-> -	return ERR_PTR(-ENOSPC);
-> +	err = -ENOSPC;
->   
->   err_undo:
->   	/*
-> @@ -1357,7 +1406,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   	 * bigger is better, so make sure we merge everything back before we
->   	 * free the allocated blocks.
->   	 */
-> -	__gpu_buddy_undo_splits(mm, block);
-> +	gpu_buddy_undo_splits(mm, block, &splits);
-> +
->   	return ERR_PTR(err);
->   }
->   
-> 
-> base-commit: 90780f2c3d30187116128f71bcf92c8ab63400e7
+The panel_bridge code in drm_panel.c is built unconditionally, so
+make DRM_PANEL select DRM_KMS_HELPER.
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Closes: https://d.kernelci.org/i/maestro:9ed7f4b210fa7c1d3bb109b0fcd62285e98c5b81
+Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/panel/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 0a79a0558101b..53a1fc2913fee 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -2,6 +2,7 @@
+ config DRM_PANEL
+ 	tristate
+ 	depends on DRM
++	select DRM_KMS_HELPER
+ 	help
+ 	  Panel registration and lookup framework.
+ 
+-- 
+2.53.0
 
