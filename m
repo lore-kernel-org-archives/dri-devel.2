@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D95C9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA1BC9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D635310ECC6;
-	Tue, 29 Sep 2026 04:44:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCF7910ECCF;
+	Tue, 29 Sep 2026 04:44:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nHiAZq0Y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BtG0NSsg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACFDC10ECC6
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:44:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 369B710ECD9
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:44:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9635A41AD5;
- Tue, 29 Sep 2026 04:44:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58BBD1F000FF;
- Tue, 29 Sep 2026 04:44:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7CEC860210;
+ Tue, 29 Sep 2026 04:44:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098D11F000FF;
+ Tue, 29 Sep 2026 04:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790657090;
- bh=doEWOzNhluIsNiJqhaTZ9ZqM30wYoBgELlElBRB9MEw=;
+ s=k20260515; t=1790657096;
+ bh=2RxnZM7cjCsq8M6+HmkT6QugwQD5l4YfV9OeVF+nF64=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nHiAZq0YtGLcN2t+1h0KW18Isdb21Oo2b9x73yJgQky0H4zso2PnlW+HIZcQ6lJVv
- CMt83Y8x2+tjJahOR3EeWSvBMpBrs6VKpidiODMnnqbPSBaD6D9VFqTXHLps9E4hh0
- 890qKo3VgZiru8Mw+aLIbTqBtQrUavpwi3vnsJgpbc7Rgym/tX98ZnxS4jf43/MFA2
- TyAx8kTH5VQEX2MFQAnS/mfWYAKXVi32JrxCFAjT0jwNMe1HHmJGOrWbRDnHPWU9cv
- nPx81u+zk4xIwCO5AqJMzZ24+OEuur5JkUrtcOEtuEBXnNnJn/ogMqzy/rYmO1tLwt
- ccNjUypN070Vg==
+ b=BtG0NSsghKSqRQjrhGcl6p0wxDaY/xZbg5uxrMU3W/I8/QEihD+2qJS3wRpDXLko2
+ OGCCV9M9QgfPCFNw9WhtZGNFIvDpRhxrBv5ez3QhLeFx30fMAs0EVJlOcMyTDPX/cq
+ fx/WSkkiuR52c2wJxzhQEROD3cNpt22sJqrUv0FdGfYuAmLN8HnEfvyC4iLDuwS3pO
+ JRuBa4SmoT6FFslqARWYDgXh7HLiPF4Ka2Pbs78rcOwD4LQLzLxJ6h5z/YYR/benOo
+ rDYWhYAG9CtMpLGJ8BO4w+GpZ6oAtRIz18v6xPCvGdnPcX+yqaUgojJSTcVLOmMHLh
+ 0POEFTbGTDPgg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/35] drm/msm/dp: introduce stream_id for each DP panel
+Subject: Re: [PATCH v7 17/35] drm/msm/dp: add msm_dp_display_get_panel() to
+ initialize DP panel
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929-msm-dp-mst-v7-4-4b81473185e7@oss.qualcomm.com>
+In-Reply-To: <20260929-msm-dp-mst-v7-17-4b81473185e7@oss.qualcomm.com>
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-4-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-17-4b81473185e7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 04:44:49 +0000
-Message-Id: <20260929044450.58BBD1F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 04:44:55 +0000
+Message-Id: <20260929044456.098D11F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,103 +60,93 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/msm/dp: recoverable warning converted to fatal error in pixe=
-l clk enable
-- [Low] drm/msm/dp: debug logs hardcode DP_STREAM_0 for stream_clks status
+- [High] drm/msm/dp: null-deref in msm_dp_write_pn() due to optional pixel_=
+base
+- [Medium] drm/msm/dp: devm_kzalloc leak and state desync in msm_dp_display=
+_get_panel()
 --
 
-commit 7e53604a5503e211e31129f82d37f5fe82b91f63
+commit 06b6470d2aa1e63fd1b8da09b3340d3557e87642
 Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-    drm/msm/dp: introduce stream_id for each DP panel
+drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
    =20
-    With MST, each DP controller can handle multiple streams. There shall be
-    one dp_panel for each stream but the dp_display object shall be shared
-    among them. To represent this abstraction, add a stream_id field to
-    struct msm_dp_panel and introduce the msm_dp_stream_id enum. For SST,
-    the field is initialized to DP_STREAM_0.
+Add an API msm_dp_display_get_panel() to initialize and return a DP
+panel to be used by DP MST module. Since some of the fields of
+DP panel are private, dp_display module needs to initialize these
+parts and return the panel back.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index e7bb9558c0b41..67f1da46b973f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1750,7 +1751,7 @@ int msm_dp_ctrl_core_clk_enable(struct msm_dp_ctrl =
-*msm_dp_ctrl)
-> =20
->  	drm_dbg_dp(ctrl->drm_dev, "enable core clocks \n");
->  	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
-> -		   str_on_off(ctrl->stream_clks_on),
-> +		   str_on_off(ctrl->stream_clks_on[DP_STREAM_0]),
-
-[Severity: Low]
-Will hardcoding DP_STREAM_0 here obscure the state of streams 1 through 3 in
-MST topologies?
-
-Since the core clocks are shared, printing only the stream 0 state could be
-misleading when multiple streams might be active.=20
-
->  		   str_on_off(ctrl->link_clks_on),
->  		   str_on_off(ctrl->core_clks_on));
-> =20
-
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 487c76e0f990d..1d1fb45024c6a 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
 [ ... ]
-
-> @@ -1800,7 +1801,7 @@ static int msm_dp_ctrl_link_clk_enable(struct msm_d=
-p_ctrl *msm_dp_ctrl)
-> =20
->  	drm_dbg_dp(ctrl->drm_dev, "enable link clocks\n");
->  	drm_dbg_dp(ctrl->drm_dev, "stream_clks:%s link_clks:%s core_clks:%s\n",
-> -		   str_on_off(ctrl->stream_clks_on),
-> +		   str_on_off(ctrl->stream_clks_on[DP_STREAM_0]),
-
-[Severity: Low]
-Does this similarly hide the status of the other stream clocks when enabling
-the link clocks?=20
-
->  		   str_on_off(ctrl->link_clks_on),
->  		   str_on_off(ctrl->core_clks_on));
-> =20
-
-[ ... ]
-
-> @@ -2190,38 +2191,39 @@ static bool msm_dp_ctrl_send_phy_test_pattern(str=
-uct msm_dp_ctrl_private *ctrl)
->  	return success;
+> @@ -529,6 +529,33 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_displ=
+ay_private *dp)
+>  	return rc;
 >  }
 > =20
-> -static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, un=
-signed long pixel_rate)
-> +static int msm_dp_ctrl_on_pixel_clk(struct msm_dp_ctrl_private *ctrl, un=
-signed long pixel_rate,
-> +				    enum msm_dp_stream_id stream_id)
->  {
->  	int ret;
-> =20
-> -	ret =3D clk_set_rate(ctrl->pixel_clk, pixel_rate * 1000);
-> +	ret =3D clk_set_rate(ctrl->pixel_clk[stream_id], pixel_rate * 1000);
->  	if (ret) {
->  		DRM_ERROR("Failed to set pixel clock rate. ret=3D%d\n", ret);
->  		return ret;
->  	}
-> =20
-> -	if (WARN_ON_ONCE(ctrl->stream_clks_on))
-> -		return 0;
-> +	if (WARN_ON_ONCE(ctrl->stream_clks_on[stream_id]))
-> +		return -EINVAL;
+> +struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_disp=
+lay,
+> +					      enum msm_dp_stream_id stream_id)
+> +{
+> +	struct msm_dp_display_private *dp;
+> +	struct msm_dp_panel *dp_panel;
+> +
+> +	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
+dp_display);
+> +
+> +	if (stream_id >=3D msm_dp_ctrl_get_stream_cnt(dp->ctrl)) {
+> +		DRM_ERROR("invalid stream_id %d\n", stream_id);
+> +		return NULL;
+> +	}
+> +
+> +	dp_panel =3D msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, dp->aux, d=
+p->link,
+> +				    dp->link_base, dp->mst2link_base, dp->mst3link_base,
+> +				    dp->pixel_base[stream_id]);
+
+[Severity: High]
+Can this cause a NULL pointer dereference later in msm_dp_write_pn()?
+
+If a device tree provides the clocks but not the optional pixel_base memory
+regions, dp->pixel_base[stream_id] will be NULL here. The bounds check above
+verifies against msm_dp_ctrl_get_stream_cnt() (the number of available cloc=
+ks),
+not the number of available memory regions.
+
+When the stream is later enabled, msm_dp_panel_timing_cfg() calls
+msm_dp_write_pn(), which blindly dereferences panel->pixel_base.
 
 [Severity: Medium]
-Does returning -EINVAL instead of 0 here turn a recoverable state mismatch=
-=20
-into a hard failure?
+Does this unconditionally allocate a new panel and risk a memory leak?
 
-Previously in msm_dp_ctrl_on_pixel_clk(), if the stream clock was already o=
-n,
-it would trigger a warning but return 0, allowing the driver to skip the=20
-enable step and proceed. By returning -EINVAL, the initialization sequence
-now aborts, potentially leaving the display blank if the internal state gets
-desynced.
+Since msm_dp_panel_get() uses devm_kzalloc() tied to the DP device, if the =
+KMS
+component is unbound and rebound, this will leak memory since it lacks a fr=
+eeing
+mechanism for dynamic binds.
+
+Furthermore, for DP_STREAM_0, does this create a duplicate panel alongside
+dp->panel? The newly allocated panels bypass early initialization steps (su=
+ch
+as msm_dp_ctrl_reset() and msm_dp_panel_read_link_caps()), which leaves
+critical fields empty and can cause features like msm_dp_panel_update_sdp()
+to malfunction.
+
+> +
+> +	if (IS_ERR(dp_panel)) {
+> +		DRM_ERROR("failed to initialize panel\n");
+> +		return NULL;
+> +	}
+> +
+> +	dp_panel->stream_id =3D stream_id;
+> +
+> +	return dp_panel;
+> +}
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-msm-dp-mst=
--v7-0-4b81473185e7@oss.qualcomm.com?part=3D4
+-v7-0-4b81473185e7@oss.qualcomm.com?part=3D17
