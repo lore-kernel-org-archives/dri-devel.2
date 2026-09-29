@@ -4,139 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 880B8CA5FA7
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 19:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4CC3CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 19:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A80CE10F077;
-	Tue, 29 Sep 2026 19:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0654F10EF26;
+	Tue, 29 Sep 2026 19:34:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PY0bdX05";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O7DTy/f7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J2Ury0OX";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7491110E1E4
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 19:26:26 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68THn9l5858077
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 19:26:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=; b=PY0bdX05WUzvsHGf
- 8RoMNUa8YwOF8uE3TT0Erj/VBvtbs0q0z411V5NjMcnbxdaWhUC8tiqOiQqD8xJv
- l4CYB0IF833ujdxwP6hA18mteyjrB6ZrtNf3+KUVsuLVvJZQSCddqHSZKwzxlCRi
- u+XOosmyZbCFUrYD9PGm5Hs/QJnQTjMC+fJFw3iySOGwkcot7G3GomBJqWImVyGD
- HvVRbbzGYlC2n+MBWLs32bH075tYlmDBQN39VPViFHidhy0i2AwiBXYsO5CpRPdF
- V+LPpHvI/Rk+0+uX/YiKvTTXbmDU6y1LUS79z2ygPL/ihRJFaXQRP2ab6Ccm5n0a
- wzv6Sg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h08e0k9gb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 19:26:25 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-313d1015161so456829eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 12:26:24 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648CE10EF26
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 19:34:37 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49ffe817151so18843845e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 12:34:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790709984; x=1791314784;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=;
- b=O7DTy/f7Ye4b6DljsR5WuFimRAV0PZnovTvvMzRJdE5e/IFkKkoWcbJSO/YGBB0Eee
- X79kTexXBEdQ4EwXckQRfP/t68wHTuMhSvPDIryWfLmvpBk4OhdyDs2TiconeReDSnOm
- JE3qbMYByRxpASXuvLae0Tz3qOXCh7xedanQQg+6KHCIFKj7mRF6a1tFemsU2fqECRBQ
- 4Oo5Pgtl8U/G+czOZisV1Je+IOzeZzBOrSZu2jO3eg3lpzvvdq5IeN0TrPSaVQt5DzRx
- WqQXZxc93F2scWN16VN5ij1533r4TneA6RkRyeMjrl1fEyGrDGwT0zcfgF01sIlNPrrv
- 4Bew==
+ d=gmail.com; s=20251104; t=1790710476; x=1791315276; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=acnZdYKptnO57K0FUhrjejxYfH3e0lZEcXBnvErIjnY=;
+ b=J2Ury0OXPmxB9Fjhvotr4qtn5k/jJEtHQQQ/NS2bkgbYBaxNVcAwxe49aGv3ORsfXp
+ oubfUP0DTaEqqXcolDBLwOMZ6hJRLDKnaWRSfx0tqM+Tt/4ZhjOAVHMEuzevjm9YGgIV
+ 6k7Ac2sSI8bDowDirwpYH9rLHrJ09Fh+aj8PNb+LcZ9N4IAPJweU0tlVdf+6Z/im2bvw
+ Ya5bheZw0yRR/+OmN0ox23fSGYdBIfMP/eTuaj0DNdQTJOYQ1SZAfoye5pkq9VWP2BzV
+ EP6TT9NIrFkOyCKWV4z8Fd0eDQjEOwopHckLxNNyVwXaXs/jlputQiNLhTKVX0RdKUJI
+ ww4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790709984; x=1791314784;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1790710476; x=1791315276;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Jcggai5cj02Q8AdG/I+0wRNZv2kOWaf+kgficKkoXVk=;
- b=vk4D7Z9aMjZI1X/BeO1Ec+IfqrjOHy7xnGcmUEICbTdiyBUOLC90QUlMIhtuV+ZTgB
- TRPTZmBo5twVJmYZK1IvgpN69IYRLC3m7klAq5yLgsyHeia/EMpUqK3J2+vievKfIxE8
- 4a9MlAfgY854INjo87JzSAOc37zU0f3kmdWw9F1kzXjiH/ukdiVxzOmHbwIs5daJVfuG
- cu9V/dXMK8ZKvHF/6Vj8jYa3VKJ5wXNSngVUfw57qh1fUfPFAbtf3kKzYI9z5rvwrQjv
- dWm7xq8o1AT5TEYD4syDqpAOCVLbXz1ogs/1Ba6oTbnEb7Gm+sldvpNzhaF2R2DNuZiR
- XxsA==
+ bh=acnZdYKptnO57K0FUhrjejxYfH3e0lZEcXBnvErIjnY=;
+ b=xB+RLF6LF9wPC/0h5rnXL0PN16Db9ZIxO9L2zp6CVAF+tMRyQRxTRQBCqouAGvzuWR
+ O+p4Rtc5QGgIjLmMYLlKIs/r5Z1RKK7seZHda+vB84zVaqHulupBBzcRRioTfLB+6woB
+ Rh/73WuHWlxcHD6cH3UmZpI6PyPeptw6o58BaG3m1BlAuMQPeXoOVUz7x9prc2Q5hpyN
+ RRGKUaSG9F//mYF6J0QOsSZZdskfzwesX0QBDemSR44CiOiDag0jZwcA1uYOA0muyxYk
+ I6CEx87+HkkdUJkN1m21MYo/YjlpPrFU4Khljsj2g2WFtWxNC8ZOR7jQsIoSUFXOXwoq
+ rumw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxKUkwg+m07sLYYk78I+iq6T3Vq47s2tLCQtB3BpWFhD57vyTY9ZJHaLzQGYkYDbIPUfI4xWo53NYM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJuI/VBIC4+sFQ01nRylR/pXTDRQVO/4qEp6rfrYxRcJXsYD+cy
- 7y1DHO2JvKYsx4diia93oDLoCvosJPNU6nmurVMIKBXPQF2Upv36UVlV+M+Ly/Z/LVwAJrzmmvh
- IZVD15oxZAWZHa+nYP/buIUzBjdPw0ztKhcdxrsN5/7mIZbBo9Z3PRZEDIlVYSyDPhVKvcXI=
-X-Gm-Gg: AYBFou1L+rBJXV1ukE0KhBsmWpwE7+NJR26f22XMO5EVNWxMeJ8wBQ3nClM69h1I8EC
- 4n/3chgDMf7Ki/sq+tRlUrRz2F4BZQGsohvYi+8yGMTltThk3i30vJkdEZmj2GzoyGTFLpQpT0f
- 0XlBUrbtrZvsLhum6o61jdWSbbtDmpaVg/wZ7iTcvQaMQmXuLronmpkN/0UheuNs7NbUp0dvBOl
- zl2ce/tguT9qnRgNJT0B+eYPadW/ca2R6VhKuku2Dapm4U+Su9Z79OGlT81iecrFp/0fCRsUzTa
- RIk5JMsLHzZrhfGv3n9kAItC/fUBTsohlyeD6OMx0NF1Xdeyb+7QwQg7FBoyd5hyWlsP9z6Ygme
- h+md5vW6yX5kq/r2ZQkZTwhU8gI45/kGjPwBwdAZthWQEXlZXevR/aA==
-X-Received: by 2002:a05:7300:d203:b0:34a:fc46:35c3 with SMTP id
- 5a478bee46e88-34c67ca5854mr293322eec.33.1790709983970; 
- Tue, 29 Sep 2026 12:26:23 -0700 (PDT)
-X-Received: by 2002:a05:7300:d203:b0:34a:fc46:35c3 with SMTP id
- 5a478bee46e88-34c67ca5854mr293278eec.33.1790709983268; 
- Tue, 29 Sep 2026 12:26:23 -0700 (PDT)
-Received: from [10.226.49.37] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ AKwUvByP448sN4YA9UBJFL2wAMHTW3KsTVg6sSPOlnrOfe+ZfsQ/8GE1G9sVsLHKiWOT7KTMQFkG8RZzDyM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ltgK8Zo0CMM6hBqbspayZLvtcS091fhDGkG1ravIUVqbokZVz2
+ yuZ8SF+Z9+HT2mXXEYTsfzezWkuynCNAmWztIYG0dN2iJDvHCZSSoOSM
+X-Gm-Gg: AYBFou1mw7ulxQFwd4L7NqFhlB2V4bqUnsLHdaTvsTtLyPz7VGAKczbIosk5GREmmLC
+ U012YeNYorhnpuO1NW7jDBlRWiJqrUUvhIz8QlMF35OJvQOOL0lHu4qo6dbTcUZBfJd4fs6hgyQ
+ FB8s6JObDeahwCL8QNeIa53nOpIcYLiY+1cMB0tx24X/nZM9IliCPvphEqxyesIZCaY/FXpxi3b
+ blJQWP9bNHmsdEoPvZjCYOzOoDK9HnTPwX+Qy8gE9FdX5rJZwfmNMVDpNpqVecWJOVv/U+6kmse
+ pgS3m29LXfElQ6k9MNJ61kHZWXpd3Zj958YwCguh72P0CPIu6wIahglZ7OqtLdQY8BI38G+Isn2
+ 1oEsbCZ7a+C73ZqdEWQG5Xs0vlYaSVJOJGwmvCXwvoldNSN7jP/ISOKgtKfT2WUoFfaq92bgQSJ
+ LjtLeIEKFEQAvt8vgirYxGEpF2OVG3UUnxnBBQsBG7gcEoN/B9juAqXRpIGcH4Y/ATgyfJAfz7y
+ mAnFZQZGY6/wbSK3FykrPfkPkT1uKeqKJ97M316anjIhE2W0f5O7le1I40=
+X-Received: by 2002:a05:600c:19d4:b0:49c:fa21:e73c with SMTP id
+ 5b1f17b1804b1-4a015032c77mr1786905e9.18.1790710475411; 
+ Tue, 29 Sep 2026 12:34:35 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34c38bf0948sm909179eec.25.2026.09.29.12.26.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Sep 2026 12:26:21 -0700 (PDT)
-Message-ID: <d9bf5c75-91b4-4933-ac2a-33aace58cbbf@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 13:25:26 -0600
+ 5b1f17b1804b1-4a014f29530sm4477685e9.1.2026.09.29.12.34.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Sep 2026 12:34:34 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Carlier <devnexen@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
+ import
+Date: Tue, 29 Sep 2026 20:34:32 +0100
+Message-ID: <20260929193432.100694-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jeffrey Boody <jeffrey.boody@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dma-fence: deliver set_deadline callback even if fence
- is already signaled
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20260922-dma-fence-set-deadline-v2-1-2338d6fac9aa@oss.qualcomm.com>
- <72e380d8-4b94-47d4-8721-a6f652dfd27b@amd.com>
-Content-Language: en-US
-In-Reply-To: <72e380d8-4b94-47d4-8721-a6f652dfd27b@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA3NyBTYWx0ZWRfX0ixCEZIEN1I3
- rnhIqpfKH33sJ8F7gm6ugXGR2k3bXm5OZmETc2HZq5d9jr2u2r+v7vK6dE4aDo83NUAkjzEHc6n
- DuwM4CZnUcL1ZAuixPy95G0ZVfbkWi0=
-X-Proofpoint-ORIG-GUID: rYU-LDQbPJVSIsT7--TJ_EeUJZxnQbKi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA3NyBTYWx0ZWRfX9Qu3LoSXHO+m
- lOS11M6qHE7KupSj/sDigfpdJHqiihTCk8aYq6CtebxEAxzLLebxKnC3ubNb8RUvnAUz4NF+GtN
- g/RXfxHy9f3IBQ+W+twpLAhieWsxq5LlJUDwjxQJ6638OkwxJFDaJpbzJY8yWPxqMfDINabat7Z
- jC5kYzsxaiGEblGuEpQK/rnY8C7LurCTaHsCZ6sQHLdEPGDtGQaU1RDsICe2anEuGz4JMvR5X+f
- 5l93Eo2xUarOKg7Nj5QRaaPFT7txMOfT8HbYlSX5opKXb4IViHFQ//uHoaL6qTern7crYVmLWZC
- eUx0/gtybgRUs4uvnnW5lnoCbHR5v2Kq8dhvCfTHk68pOuBJzFtvdGcA8G4nCDpP4yGuHiAodeb
- 465/FQpcqfQEvtsI2vBLsgdFx3reS1Lk6tyhv73V+H0fn5upS0A6Ebgc3Iz+9+O0a4ayqE5KMxm
- 0hQb4bjt4rl5PulFlPw==
-X-Authority-Analysis: v=2.4 cv=WJ7qzXsR c=1 sm=1 tr=0 ts=6abc10e1 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=a6woDCoF70UX9vXSefYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: rYU-LDQbPJVSIsT7--TJ_EeUJZxnQbKi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- adultscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,145 +92,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+The exporter records an importer when it answers NPA-REQ, so it can send
+NPA-REVOKE as soon as the BO is freed, before the importer has finished
+building the dma-buf for that handle. The revoke handler assumes a fully
+imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
+until the import completes, and drops the xarray reference the importing
+thread still relies on. The importer then links the node and marks it
+READY regardless, so the node can be freed while still on the per-remote
+list.
 
-I apologize for missing this issue and will follow up if we can find 
-another approach.
+Only tear down a node that is READY. A PENDING node is still being
+imported and nothing has been handed to user-space yet, so only mark it
+for teardown and send NPA-RELEASE. The importer checks for teardown under
+the xarray lock before linking the node and marking it READY, and unwinds
+otherwise. As NPA-REVOKE always follows NPA-RSP, a revoke that finds the
+node NOT_READY is stale, and one that finds it in teardown hits a node
+that is already being released, so both are ignored.
 
-Thank you for reviewing the change,
+Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
+Assisted-by: LLM
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+Changes in v3:
+- Handle the node state with a switch: tear down READY nodes, mark
+  PENDING ones for teardown, ignore the rest (Mukul).
+- Drop the npa_done completion on a NOT_READY node: the exporter only
+  records the importer after sending NPA-RSP, so such a revoke is stale
+  (Mukul).
+- No longer send NPA-RELEASE for a node already in teardown (Mukul).
+- Use dev_dbg() for the revoked-during-import message (Mukul).
 
-Jeff
+Changes in v2:
+- Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
+  in teardown neither dereferences a NULL dmabuf nor drops the node
+  reference twice (Sashiko).
+- Complete npa_done when a revoke arrives before NPA-RSP, so the importer
+  fails right away instead of timing out into a connection reset (Sashiko).
+- Use the current Assisted-by format.
 
-On 9/23/2026 1:35 AM, Christian König wrote:
-> On 9/22/26 18:57, Jeffrey Boody wrote:
->> The set_deadline callback is currently skipped if the fence has already
->> been signaled. This prevents GPU drivers from performing power
->> management adjustments when the deadline hint arrives after fence
->> completion.
->>
->> In triple-buffered rendering, a staged frame may be completed well
->> ahead of the vblank deadline. When a display driver delivers the
->> deadline hint, the fence has already been signaled and the callback is
->> silently dropped. This leaves the GPU driver unable to evaluate the
->> headroom between the fence signal time and the vblank deadline, and
->> therefore unable to reduce GPU frequency when the target headroom is
->> exceeded.
->>
->> Remove the dma_fence_is_signaled() guard from dma_fence_set_deadline()
->> so that the callback is invoked unconditionally when ops->set_deadline
->> is present. Implementations of set_deadline must already tolerate
->> concurrent and repeated calls; handling a post-signal invocation
->> requires no additional locking. The fence signaler can compare the fence
->> signal time against the supplied deadline to determine whether frequency
->> scaling is warranted.
-> Sorry but I have to clearly reject that patch.
->
-> No callback whatsoever is allowed to be used after the fence has signaled or otherwise we break module unloading for the originator of the fence.
->
-> So that approach you want to have here simply doesn't work at all.
->
-> Regards,
-> Christian.
->
->> Signed-off-by: Jeffrey Boody <jeffrey.boody@oss.qualcomm.com>
->> ---
->> Signed-off-by: Jeff Boody <jeffrey.boody@oss.qualcomm.com>
->> ---
->>   drivers/dma-buf/dma-fence.c     | 22 ++++++++++++++++++++--
->>   drivers/gpu/drm/msm/msm_fence.c |  3 +++
->>   include/linux/dma-fence.h       | 11 ++++++++++-
->>   3 files changed, 33 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->> index bd58688b81a7..ebc7c5ca6f69 100644
->> --- a/drivers/dma-buf/dma-fence.c
->> +++ b/drivers/dma-buf/dma-fence.c
->> @@ -999,8 +999,19 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
->>    * Multiple deadlines may be set on a given fence, even in parallel.  See the
->>    * documentation for &dma_fence_ops.set_deadline.
->>    *
->> + * The deadline hint may also be delivered *after* the fence has already been
->> + * signaled.  This is intentional and supports the case where a fence signaler
->> + * aware of a periodic deadline (e.g. vblank) and the fence's signal time can
->> + * evaluate the headroom between the two.  In triple-buffered rendering, for
->> + * example, a staged frame that is completed well ahead of the vblank deadline
->> + * represents excess headroom; delivering the deadline hint post-signal allows
->> + * the fence signaler to consider reducing frequency for subsequent workloads,
->> + * rather than holding an unnecessarily high frequency.  Implementations
->> + * of &dma_fence_ops.set_deadline must therefore tolerate invocation on
->> + * already-signaled fences.
->> + *
->>    * The deadline hint is just that, a hint.  The driver that created the fence
->> - * may react by increasing frequency, making different scheduling choices, etc.
->> + * may react by changing frequency, making different scheduling choices, etc.
->>    * Or doing nothing at all.
->>    */
->>
->> @@ -1016,6 +1027,13 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
->>    * to aid in power management decisions, such as boosting GPU frequency
->>    * if a periodic vblank deadline is approaching but the fence is not
->>    * yet signaled..
->> + *
->> + * This function may also be called after the fence has already been
->> + * signaled.  In that case the fence signaler can compare the fence's signal
->> + * time against the deadline to determine the available headroom.  If the
->> + * fence was signaled significantly ahead of the deadline, the fence
->> + * signaler may choose to reduce frequency for subsequent workloads to
->> + * avoid unnecessarily high power consumption.
->>    */
->>   void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->>   {
->> @@ -1023,7 +1041,7 @@ void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->>
->>          rcu_read_lock();
->>          ops = rcu_dereference(fence->ops);
->> -       if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
->> +       if (ops && ops->set_deadline)
->>                  ops->set_deadline(fence, deadline);
->>          rcu_read_unlock();
->>   }
->> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
->> index 3dca8e09c192..3c5de96d4092 100644
->> --- a/drivers/gpu/drm/msm/msm_fence.c
->> +++ b/drivers/gpu/drm/msm/msm_fence.c
->> @@ -136,6 +136,9 @@ static void msm_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->>          unsigned long flags;
->>          ktime_t now;
->>
->> +       if (dma_fence_is_signaled(fence))
->> +               return;
->> +
->>          spin_lock_irqsave(&fctx->spinlock, flags);
->>          now = ktime_get();
->>
->> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
->> index ffa99b930843..839ef2e5dad9 100644
->> --- a/include/linux/dma-fence.h
->> +++ b/include/linux/dma-fence.h
->> @@ -264,7 +264,16 @@ struct dma_fence_ops {
->>           * an upcoming deadline, such as vblank, by which point the waiter
->>           * would prefer the fence to be signaled by.  This is intended to
->>           * give feedback to the fence signaler to aid in power management
->> -        * decisions, such as boosting GPU frequency.
->> +        * decisions, such as boosting GPU frequency if the deadline has
->> +        * not yet been met, or reducing GPU frequency if the fence was
->> +        * signaled significantly ahead of the deadline.
->> +        *
->> +        * This callback may be invoked even after the fence has been
->> +        * signaled.  In this case, the signaler may use the deadline and
->> +        * the fence's signal time to evaluate whether the GPU frequency
->> +        * should be adjusted for future workloads.  Implementations must
->> +        * therefore be prepared to handle calls on already-signaled fences
->> +        * without error.
->>           *
->>           * This is called without &dma_fence.lock held, it can be called
->>           * multiple times and from any context.  Locking is up to the callee
->>
->> ---
->> base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
->> change-id: 20260917-dma-fence-set-deadline-a778746e9abd
->>
->> Best regards,
->> --
->> Jeff Boody <jeffrey.boody@oss.qualcomm.com>
->>
+Found by code analysis and compile-tested with W=1. Not tested on hardware,
+as it needs two UALink-connected accelerators in a vPod.
+
+v2: https://lore.kernel.org/all/20260926174406.346253-1-devnexen@gmail.com/
+v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 51 +++++++++++++++++-----
+ 1 file changed, 39 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index 8411ea17172f..ea18e7f2e0a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -3288,16 +3288,35 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+-	list_del_init(&imp_xa_node->list);
+-	xa_unlock(&adev->ualink.imp_xa);
++	switch (READ_ONCE(imp_xa_node->node_state)) {
++	case AMDGPU_UALINK_NODE_READY:
++		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
++		list_del_init(&imp_xa_node->list);
++		xa_unlock(&adev->ualink.imp_xa);
+ 
+-	/* Invalidate the GPUVM mappings */
+-	bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
+-	amdgpu_ualink_invalidate_import_mappings(bo);
++		/* Invalidate the GPUVM mappings */
++		bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
++		amdgpu_ualink_invalidate_import_mappings(bo);
+ 
+-	/* Drop the refcount for the node */
+-	amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
++		/* Drop the refcount for the node */
++		amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
++		break;
++	case AMDGPU_UALINK_NODE_PENDING:
++		/* The import is still building the dma-buf and nothing has
++		 * been handed to user-space yet. The importing thread sees
++		 * the teardown state and unwinds.
++		 */
++		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
++		xa_unlock(&adev->ualink.imp_xa);
++		break;
++	default:
++		/* NPA-REVOKE always follows NPA-RSP, so a NOT_READY node means
++		 * a stale revoke, and a node in teardown is already being
++		 * released by whoever moved it there.
++		 */
++		xa_unlock(&adev->ualink.imp_xa);
++		return;
++	}
+ 
+ 	r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+ 	if (r)
+@@ -3760,9 +3779,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+ 		return r;
+ 	}
+ 
+-	/* Add this node to the imported handles list for the remote GPU */
++	/* Add this node to the imported handles list for the remote GPU,
++	 * unless the exporter revoked the handle while the import was in
++	 * flight. The dmabuf is released with the last node reference.
++	 */
+ 	xa_lock(&adev->ualink.imp_xa);
++	if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
++		xa_unlock(&adev->ualink.imp_xa);
++		dev_dbg(adev->dev,
++			"IMPORT: handle:%llx:%llx revoked during import\n",
++			handle.handle_hi, handle.handle_lo);
++		return -EINVAL;
++	}
+ 	list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
++	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
+ 	xa_unlock(&adev->ualink.imp_xa);
+ 
+ 	return 0;
+@@ -3938,9 +3968,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+ 					"IMPORT: XA import failed for handle:%llx:%llx\n",
+ 					handle.handle_hi, handle.handle_lo);
+ 			goto cleanup;
+-		} else {
+-			WRITE_ONCE(imp_xa_node->node_state,
+-				   AMDGPU_UALINK_NODE_READY);
+ 		}
+ 	}
+ 
+-- 
+2.55.0
+
