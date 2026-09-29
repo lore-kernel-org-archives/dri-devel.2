@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3A99CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55F14CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 13:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2201910E9C1;
-	Tue, 29 Sep 2026 13:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9942210EEBD;
+	Tue, 29 Sep 2026 13:30:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NoGTfQTU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RIuUtXQ7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5953C10E9C1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:23:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B66310EEBD
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:30:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C25BE600D1;
- Tue, 29 Sep 2026 13:23:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61431F000FF;
- Tue, 29 Sep 2026 13:23:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A8AF3412E7;
+ Tue, 29 Sep 2026 13:30:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67FB61F00893;
+ Tue, 29 Sep 2026 13:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790688190;
- bh=cBZ5sMUeIN86VkUHCeicPmRVb3a2MPzoImdcUHqRfJ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NoGTfQTUx2Xl1sqyKbpdFhdMZdJ+noWXSNmnHsfFGXavFZTVe1Cx5urvzLzwqn5nr
- 7mLn4mK8T8/R1zhpXkZdIIbFBOIvoM8jHFvRE6ejsR/Ks3EXaYbGQOU64qUGrhnvtx
- vuhP22+ENXCWO9Aypfd3LyPbBzA+dGwphUQM/mo//I9W/U08USHbFfdsBJMauHQL7y
- F0E9osDHf6p6oK2fJ5PQElXUNS3f14H9qI328tei2n9Zj0yX3cnBTCuyWdcGfNSa5J
- uPFxCo2svfx4VA//t7fsv62syC3K5WdxJo4K67tFjVV3VdcaBMn1xyyTcOcsGpQ+KK
- qk29TkAqSezVg==
-Date: Tue, 29 Sep 2026 16:23:05 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-Message-ID: <20260929132305.GJ563127@unreal>
-References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
- <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
- <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ s=k20260515; t=1790688624;
+ bh=YddyNBlBeMGDVbqSqWAWeupeImPN1+vt/HIPaYWlt0Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=RIuUtXQ7pN1ntHH5E9SHtFiVxk4VlC3Lx05nbDdqWgnrCoGrr5Kaw9EB3EurZOqnd
+ ver7PIljjQDwRadvVv/c0J+hSkjXNlJWDffpZQLU4o93+0nCvAAl0Ux4SYrhGz087x
+ /Em+ZWodHWV8OvgVNkTQErGD8adcsGYl1RKaedB7Hpt6DTY+b0QeVKsaMmFWtR0wIy
+ 1brTzz3b1fmLHV899/10+jQutIesNgOTsfOa5laHgSWmjnUC6CSWuXFwsRIMHGnLYv
+ HGMSS19MSaUoKNmt7xqQq6t+vM1Gswc7Xht5EjiEDmf4hpi5r6Q6EcIVHkhsOwMVNz
+ JNZ4Kdafpc/Lw==
+Message-ID: <45963e29-f896-4e67-87ee-ac90131773e2@kernel.org>
+Date: Tue, 29 Sep 2026 15:30:16 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: core: Use EOPNOTSUPP for disabled blob return value
+To: Inochi Amaoto <inochiama@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Minas Harutyunyan <hminas@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ Longbin Li <looong.bin@gmail.com>
+References: <20260929084739.467082-1-inochiama@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260929084739.467082-1-inochiama@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,63 +77,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
-> On 9/28/26 13:19, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Exporters keep the &struct p2pdma_provider backing a buffer in their own
-> > private data. An importer cannot reach it, so it has no way to learn how
-> > its own peer-to-peer traffic would be routed before it programs its
-> > hardware.
-> > 
-> > Add an optional @p2pdma_provider callback for an exporter to hand that
-> > provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
-> > class. Exporters keep the provider where it already lives, so this adds an
-> > operation rather than changing any existing signature or structure.
-> > 
-> > Tested-by: Tushar Dave <tdave@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/dma-buf/dma-buf-mapping.c | 39 +++++++++++++++++++++++++++++++++++++++
-> >  include/linux/dma-buf-mapping.h   |  3 +++
-> >  include/linux/dma-buf.h           | 19 +++++++++++++++++++
-> >  3 files changed, 61 insertions(+)
+On 2026/09/29 10:47, Inochi Amaoto wrote:
+> Currently, the phy subsystem uses ENOSYS for dummy blob functions,
+> it does not reflect the function state correctly. As kernel already
 
-<...>
+s/function state/hardware capability ?
 
-> > +enum pci_p2pdma_map_type
-> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
-> > +			unsigned int tlp_flags)
-> > +{
-> > +	struct dma_buf *dmabuf = attach->dmabuf;
-> > +	struct p2pdma_provider *provider;
-> > +
-> > +	dma_resv_assert_held(dmabuf->resv);
-> > +
-> > +	if (!dmabuf->ops->p2pdma_provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
-> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
-> > +	if (!provider)
-> > +		return PCI_P2PDMA_MAP_NONE;
-> > +
+s/As kernel/As the kernel
+
+> has EOPNOTSUPP for disabled blob function, replace ENOSYS with
+
+What is "blob function" ? Are you talking about all the phy_xxx() functions?
+
+> EOPNOTSUPP for a clear return value. Also adapt the return value
+> changed in the following affect file:
+
+s/affect/affected
+
+> - ata/libahci_platform.c
+> - drm/bridge/analogix/analogix_dp_core.c
+> - usb/dwc2/platform.c
+> - usb/dwc3/core.c
 > 
-> 
-> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
-> 
-> This function call here *must* be in the exporter and not the DMA-buf framework.
-> 
-> So clear NAK to putting that here.
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
 
-"Look, it is easy to complain you don't like how it looks, but this
-stuff is hard there are lots of competing concerns, if you have a
-better idea now is a good time to present it."
-https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+The ata bits looks OK, but this still feels like a lot of churn for no
+functional change since the error is an internal one that is not exposed to the
+user, as far as I can tell. The code in many places also uses -ENODEV, so the
+error returned does not seem to be consistent anyway.
 
-Do you have a viable solution?
-
-Thanks
-
-> 
-> Regards,
-> Christian.
+-- 
+Damien Le Moal
+Western Digital Research
