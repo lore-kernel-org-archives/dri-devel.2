@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA74DCA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:43:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D482CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 11:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F07F10E4BA;
-	Tue, 29 Sep 2026 11:43:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6FA10E6E1;
+	Tue, 29 Sep 2026 11:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="y72ExFnk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FgFdOrHS";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA7910E4BA
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 11:43:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1790682200;
- bh=odX8h+v3SuO3LBAU4tzqREo252vsuXpN4nbA3pZgk4M=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=y72ExFnkOblYlkejvfz50psNdKfcbaTHptBCwG5Fs0LSKDtLdjoPF1A/pnJOgMB/R
- vJl0KHdDt6OAxcRDdxMX1hmmIVBsKAd4EyeBjaC84sNrPxQrmOoWRA5g2rlAOSiAmO
- IVvfN94A4Jf+aK0UZgxDy4bwu36RRmrgW+A0/BzMrju9b7Krr1ns3Rf285FSCi3J7/
- RLwxRxZg6UnUsTKvGVwkd426DmWDJuDiORwQqlndhUjncGsGZP5c+X3OjN51rVCD10
- K10j+YGrS+CJG8YDDDy3ZsJfuryhnGzBffduAaow9tb3p38Hgryzgt2qGrJRPiPk92
- bl4Jv/7LhEk6w==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hvGWz0nfcz4wDx;
- Tue, 29 Sep 2026 21:43:10 +1000 (AEST)
-Message-ID: <ed9a25ad-9a10-407d-b910-1b5cbdff88b4@ozlabs.org>
-Date: Tue, 29 Sep 2026 12:43:37 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73AFA10E6CD;
+ Tue, 29 Sep 2026 11:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790682332; x=1822218332;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ve3q4OgY29qfgLVAAMpW86ylCqcJ65a++paFdqRS8Lw=;
+ b=FgFdOrHSD+A8fDp1cU04KWVtTZOFC+0rxo1fbenrw60BhXGAOoMt5TFl
+ 8GKf2pQHun60R4XMg2+lok6URPeFwk0ovRCFQqW+scYooYOeCOSnGCX3k
+ F3jxeTJ6updxaxnWKRSFUJ4BwUFP2VQUF1CEqEASTJuo5Yong2yg6IHJb
+ xawc5TKSSRBHXXblChQo+BOo4VEuYSyze7yuqZ/3am+J/x+PRGZ4G61eb
+ NfJEYKdcy3+dy1ILfVQ55thsBoch3S05F1I+niVz+Gw3xJh84lYZFcUOS
+ NUgYdAhtEFi3G1lq6OfQm7Gf0q6eIeLakSyY57CRaeuQ2mbo2p8EA+vD8 w==;
+X-CSE-ConnectionGUID: rGVMDkbzT22rfYvrNDXinA==
+X-CSE-MsgGUID: fXq8xDqARXu6dQScPnYUyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="91496695"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="91496695"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 04:45:32 -0700
+X-CSE-ConnectionGUID: OZjUVBngTH6OyCeUoVFniQ==
+X-CSE-MsgGUID: IZ5+FHG2RlOElOuIZLfQmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="279175485"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.8])
+ ([10.245.245.8])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 04:45:30 -0700
+Message-ID: <978a409e-4ac9-407b-8c57-557965b30469@intel.com>
+Date: Tue, 29 Sep 2026 12:45:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/9] dma-buf: Provide dma_buf_set_name()
+Subject: Re: [PATCH v2 1/2] gpu/buddy: fix missing split-undo on
+ allocation-search exhaustion
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ Anand.Raghavendra@amd.com
+References: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
 Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260924152159.49702-1-matt@ozlabs.org>
- <20260924152159.49702-4-matt@ozlabs.org>
- <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <654a5994-97e4-4a0d-aba9-24090b495da5@amd.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,168 +74,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25/09/2026 09:39, Christian König wrote:
+On 29/09/2026 11:54, Arunpravin Paneer Selvam wrote:
+> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 > 
+> __alloc_range_bias() only undid splits made during its search when
+> split_block() itself failed. Its DFS-exhaustion failure path (-ENOSPC,
+> when no suitable block is found) skipped the undo, leaving the buddy
+> tree needlessly fragmented over repeated failed allocation attempts.
 > 
-> On 9/24/26 17:21, Matt Evans wrote:
->> Allow exporters to set the name of buffers, during export or for
->> subsequent updates.  This is useful to express buffer-specific debug
->> information, indicate state particular to the exporter's usage, etc.
->> Only exporters and userspace are expected to set names; it isn't
->> sensible for importers to do it.
->>
->> Originally, the static dma_buf_set_name() was used for
->> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
->> this function as a generic set-name helper, taking a kernel-allocated
->> string.  The SET_NAME ioctls now locally duplicate the __user string,
->> and use the new function to set the name.
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
->> ---
->>   drivers/dma-buf/dma-buf.c | 78 ++++++++++++++++++++++++---------------
->>   include/linux/dma-buf.h   |  2 +
->>   2 files changed, 50 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 4c9add51f9ef..e4ec504e9288 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -404,34 +404,6 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
->>   	return events;
->>   }
->>   
->> -/**
->> - * dma_buf_set_name - Set a name to a specific dma_buf to track the usage.
->> - * It could support changing the name of the dma-buf if the same
->> - * piece of memory is used for multiple purpose between different devices.
->> - *
->> - * @dmabuf: [in]     dmabuf buffer that will be renamed.
->> - * @buf:    [in]     A piece of userspace memory that contains the name of
->> - *                   the dma-buf.
->> - *
->> - * Returns 0 on success. If the dma-buf buffer is already attached to
->> - * devices, return -EBUSY.
->> - *
->> - */
->> -static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
->> -{
->> -	char *name = strndup_user(buf, DMA_BUF_NAME_LEN);
->> -
->> -	if (IS_ERR(name))
->> -		return PTR_ERR(name);
->> -
->> -	spin_lock(&dmabuf->name_lock);
->> -	kfree(dmabuf->name);
->> -	dmabuf->name = name;
->> -	spin_unlock(&dmabuf->name_lock);
->> -
->> -	return 0;
->> -}
->> -
->>   #if IS_ENABLED(CONFIG_SYNC_FILE)
->>   static long dma_buf_export_sync_file(struct dma_buf *dmabuf,
->>   				     void __user *user_data)
->> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
->>   		return ret;
->>   
->>   	case DMA_BUF_SET_NAME_A:
->> -	case DMA_BUF_SET_NAME_B:
->> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
->> +	case DMA_BUF_SET_NAME_B: {
->> +		char *name = strndup_user((const char __user *)arg,
->> +					  DMA_BUF_NAME_LEN);
->> +
->> +		if (IS_ERR(name))
->> +			return PTR_ERR(name);
->> +
->> +		ret = dma_buf_set_name(dmabuf, name);
->> +		if (ret)
->> +			kfree(name);
->> +
->> +		return ret;
->> +	}
->>   
->>   #if IS_ENABLED(CONFIG_SYNC_FILE)
->>   	case DMA_BUF_IOCTL_EXPORT_SYNC_FILE:
->> @@ -874,6 +857,41 @@ void dma_buf_put(struct dma_buf *dmabuf)
->>   }
->>   EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
->>   
->> +/**
->> + * dma_buf_set_name - Set a dmabuf's name
->> + * Intended to be used by the exporter to set a name for debug
->> + * purposes.  This can also change an existing name if the same piece
->> + * of memory is used for multiple purposes over time.
+> Fix by recording every successful split_block() call in a list and
+> unconditionally undoing those splits on every failure exit, via a
+> new single-level gpu_buddy_merge_one_level() helper (the original
+> __gpu_buddy_undo_splits() cascaded merges upward, which is unsafe
+> when called per split-list entry).
 > 
-> Add something like "Importers should *NOT* use this function to overwrite the name." here and add some note under "DOC: locking convention" how this function is supposed to be called.
+> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
+> regression.
 > 
-> Apart from that looks good to me,
-
-Thanks, Christian.  Good point, done.
-
-Re the locking convention, it appears dma_buf_set_name() is agnostic to 
-whether resv is held or not.  However, rather than adding that as a new 
-category to the 'DOC: locking convention', I've put this function in the 
-existing "don't hold resv" section.
-
-Whilst conservative, this matches existing (and this series's) usage, 
-and can then be relaxed in future.  If you think a new "resv is 
-permitted but not required to be held" category of API doc is better, do 
-say.
-
-Thanks,
-
-
-Matt
-
-
-> Christian.
+> v2:
+>   - Drop the undo from __alloc_range(): it allocates every block it walks,
+>     so freeing that list on failure already merges the splits. (Matthew)
 > 
->> + *
->> + * @dmabuf: [in]     dmabuf buffer that will be renamed.
->> + * @name:   [in]     The name of the dma-buf, allocated with kmalloc() or
->> + *                   similar.  This takes ownership of the allocation
->> + *                   on success, which will be kfree()d when the
->> + *                   dmabuf is released or a new name assigned.
->> + *
->> + * Returns 0 on success, -EINVAL if the name is NULL, or -E2BIG if the
->> + * name (including terminator) exceeds DMA_BUF_NAME_LEN.
->> + */
->> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
->> +{
->> +	if (!name)
->> +		return -EINVAL;
->> +
->> +	/* dmabuffs_dname() won't use the string if the length
->> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
->> +	 */
->> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
->> +		return -E2BIG;
->> +
->> +	spin_lock(&dmabuf->name_lock);
->> +	kfree(dmabuf->name);
->> +	dmabuf->name = name;
->> +	spin_unlock(&dmabuf->name_lock);
->> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
->> +
->>   static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
->>   {
->>   	struct scatterlist *to_sg, *from_sg;
->> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
->> index d15b2b31d3c9..952a2c196ad4 100644
->> --- a/include/linux/dma-buf.h
->> +++ b/include/linux/dma-buf.h
->> @@ -571,6 +571,8 @@ void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
->>   struct dma_buf *dma_buf_get(int fd);
->>   void dma_buf_put(struct dma_buf *dmabuf);
->>   
->> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name);
->> +
->>   struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->>   					enum dma_data_direction);
->>   void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
+> Assisted-by: Claude:claude-opus-4-8
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/buddy.c | 54 +++++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 52 insertions(+), 2 deletions(-)
 > 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 2f2aaadafe35..e5c9e21cd077 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1240,6 +1240,52 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+>   	}
+>   }
+>   
+> +static void gpu_buddy_merge_one_level(struct gpu_buddy *mm,
+> +				      struct gpu_buddy_block *block)
+> +{
+> +	struct gpu_buddy_block *buddy = __get_buddy(block);
+> +	struct gpu_buddy_block *parent = block->parent;
+> +	enum gpu_block_state block_state;
+> +
+> +	if (!buddy || !gpu_buddy_block_is_free(block) ||
+> +	    !gpu_buddy_block_is_free(buddy))
+> +		return;
+> +
+> +	block_state = gpu_block_cached_state(block);
+> +	if (gpu_block_cached_state(buddy) != block_state)
+> +		block_state = GPU_BLOCK_MIXED;
+> +
+> +	rbtree_remove(mm, block);
+> +	rbtree_remove(mm, buddy);
+> +	mm->free_scoreboard[gpu_buddy_block_order(block)] -= 2;
+> +
+> +	gpu_block_free(mm, block);
+> +	gpu_block_free(mm, buddy);
+> +
+> +	__mark_free(mm, parent, block_state);
+> +}
+> +
+> +static void gpu_buddy_undo_splits(struct gpu_buddy *mm,
+> +				  struct gpu_buddy_block *block,
+> +				  struct list_head *splits)
+> +{
+> +	if (block)
+> +		gpu_buddy_merge_one_level(mm, block);
+> +
+> +	while (!list_empty(splits)) {
+> +		struct gpu_buddy_block *parent =
+> +			list_first_entry(splits, struct gpu_buddy_block,
+> +					 tmp_link);
+> +
+> +		list_del(&parent->tmp_link);
+> +
+> +		if (!gpu_buddy_block_is_split(parent))
+> +			continue;
+> +
+> +		gpu_buddy_merge_one_level(mm, parent->left);
+> +	}
+> +}
+> +
+>   static struct gpu_buddy_block *
+>   __alloc_range_bias(struct gpu_buddy *mm,
+>   		   u64 start, u64 end,
+> @@ -1249,6 +1295,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>   	u64 req_size = mm->chunk_size << order;
+>   	struct gpu_buddy_block *block;
+>   	LIST_HEAD(dfs);
+> +	LIST_HEAD(splits);
+>   	int err;
+>   	int i;
+>   
+> @@ -1313,6 +1360,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>   			err = split_block(mm, block);
+>   			if (unlikely(err))
+>   				goto err_undo;
+> +
+> +			list_add(&block->tmp_link, &splits);
+
+Looking at this now, I also don't see any issue here? If we got here:
+
+1. block_order >= order.
+2. adjust_end/start is aligned to order and fits within block.
+
+Given that there must be something in here that will eventually hit 
+block_order == order, given some number of splits, so either split fails 
+or we must hit the 'return block'?
+
+
+>   		}
+>   
+>   		/*
+> @@ -1349,7 +1398,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>   		}
+>   	} while (1);
+>   
+> -	return ERR_PTR(-ENOSPC);
+> +	err = -ENOSPC;
+>   
+>   err_undo:
+>   	/*
+> @@ -1357,7 +1406,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>   	 * bigger is better, so make sure we merge everything back before we
+>   	 * free the allocated blocks.
+>   	 */
+> -	__gpu_buddy_undo_splits(mm, block);
+> +	gpu_buddy_undo_splits(mm, block, &splits);
+> +
+>   	return ERR_PTR(err);
+>   }
+>   
+> 
+> base-commit: 90780f2c3d30187116128f71bcf92c8ab63400e7
 
