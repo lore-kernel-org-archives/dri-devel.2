@@ -4,61 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF36CA5FA7
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8375CCA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 09:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED4510EDEF;
-	Tue, 29 Sep 2026 09:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D44E410E9BF;
+	Tue, 29 Sep 2026 09:51:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z3BLJSDD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UgMPglGg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED8D10EDE8;
- Tue, 29 Sep 2026 09:51:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790675464; x=1822211464;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=5IMzqzg26e1ZOe5msduUKZOodQmOMG4X1RMTOWhDaqs=;
- b=Z3BLJSDDXe1NPE/XWi+DGK/wtoMlLL09bGjwb8+GZna+M5FokzkaXwN7
- TKYxBI4ckAxnZDGrLPZrID53KJK10cQT8AXr33+V5q0eHLCi3niqKryZu
- dqcfTqV4s3RW+c0oNxLjlaEosXMgPeocX/ATQ8M9PYecuLATlCov3MoDH
- uer43WLfv1XXbpB53+oA/oUH5Hc1e08iyA5WhouquN6g1ZOGTllGnQ7ig
- 2Vgu4X+twNUBCgCjM2r+4f8PoIKe6IM/n+eoWkD7mEPUXm+TtfwJI3xai
- gc+vc/RyME6WHTLprvlETNz9uK9VaZ/dBVDsk1zkKAosD1tHmoY0k40zc Q==;
-X-CSE-ConnectionGUID: LhtZTUVJR8mOLXwJIu7kqg==
-X-CSE-MsgGUID: V1FE0yn9Tw+5cEKuUE8Znw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="100720951"
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="100720951"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 02:51:04 -0700
-X-CSE-ConnectionGUID: SbTQ6ONTRamNR6hrvV/fiA==
-X-CSE-MsgGUID: MvMNXFwcQBmEfevu2ItB2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; d="scan'208";a="274856017"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.8])
- ([10.245.245.8])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2026 02:51:02 -0700
-Message-ID: <74e8255e-acde-4270-a0c4-10e14e3d7ba4@intel.com>
-Date: Tue, 29 Sep 2026 10:50:59 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D976410E9BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 09:51:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF0C660008;
+ Tue, 29 Sep 2026 09:51:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2031F000FF;
+ Tue, 29 Sep 2026 09:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790675502;
+ bh=rjxi7vnicO9Bn6FaQImO+PHPnJ9/p8cEP6/V6gAY1qM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=UgMPglGghdbup+cDyxbdbC+c/5zlJ7gUUKrC/CL2ux1p+ZSlTvBMb3mfeVNTSxJ4A
+ ltE6GIfwe4Q1AJqmbxRnxG8Y8byNiQfcrO88rruj8gJCdiicAwQeA36Ws7CYflH+UY
+ XtNXeEKFFCgKP+IxXckxpHZgZXBvKTeGrR81zlf0ZapbQbbfkA23yYWOHmTDQbqXly
+ c4X698xvpvwu38JzGCTqHusJeiQ1ijevmDRt0hggZnmHLHD0QMpIjmf+RMkI6Oa1DI
+ wjwr2GLkvCp0WXaHfQaCpPkgXG0cZ1Yd/P3ilUwPqyAVBjnxzA6c3cGUpiKI/O7wEl
+ mozwuRzLb0tnQ==
+Message-ID: <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
+Date: Tue, 29 Sep 2026 11:51:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] gpu/buddy: fix missing split-undo on
- allocation-search exhaustion
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20260928175128.257266-1-arunpravin.paneerselvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260928175128.257266-1-arunpravin.paneerselvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+To: David Heidelberg <david@ixit.cz>
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
+ <20260929-dramatic-ocelot-of-support-2aa377@quoll>
+ <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,182 +116,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/09/2026 18:51, Arunpravin Paneer Selvam wrote:
-> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On 29/09/2026 11:41, David Heidelberg wrote:
+> On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
+>>> The reset was introduced with wrong polarity. Correct for the future
+>>> compatibles and keep current with reverted logic.
+>>>
+>>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+>>> gpiod_toggle_active_low() on the deprecated compatible.
+>>>
+>>> Assisted-by: LLM
+>>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>> ---
+>>>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
+>>>   1 file changed, 19 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>> index 5e1e997b83b36..99290913de69a 100644
+>>> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+>>> @@ -20,16 +20,17 @@
+>>>   #include "panel-samsung-dsi.h"
+>>>   
+>>>   struct s6e3ha8_desc {
+>>>   	const struct drm_panel_funcs *funcs;
+>>>   	const struct drm_display_mode *mode;
+>>>   	unsigned long mode_flags;
+>>>   	const struct regulator_bulk_data *supplies;
+>>>   	unsigned int num_supplies;
+>>> +	bool broken_reset_polarity;
+>>>   };
+>>>   
+>>>   struct s6e3ha8 {
+>>>   	struct drm_panel panel;
+>>>   	struct mipi_dsi_device *dsi;
+>>>   	const struct s6e3ha8_desc *desc;
+>>>   	struct drm_dsc_config dsc;
+>>>   	struct gpio_desc *reset_gpio;
+>>> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
+>>>   {
+>>>   	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+>>>   
+>>>   	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
+>>>   }
+>>>   
+>>>   static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
+>>>   {
+>>> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>> -	usleep_range(5000, 6000);
+>>>   	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>>>   	usleep_range(5000, 6000);
+>>>   	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+>>>   	usleep_range(5000, 6000);
+>>> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>>
+>> This breaks all users and this usage of ABI was already released.
 > 
-> __alloc_range_bias() and __alloc_range() only undid splits made during
-> their search when split_block() itself failed. Their DFS-exhaustion
-> failure paths (-ENOSPC, when no suitable block is found) skipped the
-> undo, leaving the buddy tree needlessly fragmented over repeated
-> failed allocation attempts.
+> See the gpiod_toggle_active_low() usage later in the patch which keep the logic 
+> for the original compatible as intended.
 > 
-> Fix by recording every successful split_block() call in a list and
-> unconditionally undoing those splits on every failure exit, via a
-> new single-level gpu_buddy_merge_one_level() helper (the original
-> __gpu_buddy_undo_splits() cascaded merges upward, which is unsafe
-> when called per split-list entry).
 
-At least for __alloc_range(), I thought if we do a split it should be 
-always guaranteed that some eventual side (left or right at some depth) 
-will be marked as allocated, unless the split itself fails, in which 
-case you might need the special undo path.  So I don't think you can 
-ever have two free buddies on the -ENOSPC path, in which case you don't 
-need any "undo splits", you can just trigger the normal 
-gpu_buddy_free_list_internal() path, which is what the code currently 
-does? What am I missing?
+OK, I went way too fast, that's correct part. But splitting fix is still
+just confusing. Backporting to stable is a different thing than fixing
+issues.
 
-> 
-> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
-> regression.
-> 
-> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/buddy.c | 64 ++++++++++++++++++++++++++++++++++++++++-----
->   1 file changed, 58 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 2f2aaadafe35..b741160d3d16 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1240,6 +1240,52 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
->   	}
->   }
->   
-> +static void gpu_buddy_merge_one_level(struct gpu_buddy *mm,
-> +				      struct gpu_buddy_block *block)
-> +{
-> +	struct gpu_buddy_block *buddy = __get_buddy(block);
-> +	struct gpu_buddy_block *parent = block->parent;
-> +	enum gpu_block_state block_state;
-> +
-> +	if (!buddy || !gpu_buddy_block_is_free(block) ||
-> +	    !gpu_buddy_block_is_free(buddy))
-> +		return;
-> +
-> +	block_state = gpu_block_cached_state(block);
-> +	if (gpu_block_cached_state(buddy) != block_state)
-> +		block_state = GPU_BLOCK_MIXED;
-> +
-> +	rbtree_remove(mm, block);
-> +	rbtree_remove(mm, buddy);
-> +	mm->free_scoreboard[gpu_buddy_block_order(block)] -= 2;
-> +
-> +	gpu_block_free(mm, block);
-> +	gpu_block_free(mm, buddy);
-> +
-> +	__mark_free(mm, parent, block_state);
-> +}
-> +
-> +static void gpu_buddy_undo_splits(struct gpu_buddy *mm,
-> +				  struct gpu_buddy_block *block,
-> +				  struct list_head *splits)
-> +{
-> +	if (block)
-> +		gpu_buddy_merge_one_level(mm, block);
-> +
-> +	while (!list_empty(splits)) {
-> +		struct gpu_buddy_block *parent =
-> +			list_first_entry(splits, struct gpu_buddy_block,
-> +					 tmp_link);
-> +
-> +		list_del(&parent->tmp_link);
-> +
-> +		if (!gpu_buddy_block_is_split(parent))
-> +			continue;
-> +
-> +		gpu_buddy_merge_one_level(mm, parent->left);
-> +	}
-> +}
-> +
->   static struct gpu_buddy_block *
->   __alloc_range_bias(struct gpu_buddy *mm,
->   		   u64 start, u64 end,
-> @@ -1249,6 +1295,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   	u64 req_size = mm->chunk_size << order;
->   	struct gpu_buddy_block *block;
->   	LIST_HEAD(dfs);
-> +	LIST_HEAD(splits);
->   	int err;
->   	int i;
->   
-> @@ -1313,6 +1360,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   			err = split_block(mm, block);
->   			if (unlikely(err))
->   				goto err_undo;
-> +
-> +			list_add(&block->tmp_link, &splits);
->   		}
->   
->   		/*
-> @@ -1349,7 +1398,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   		}
->   	} while (1);
->   
-> -	return ERR_PTR(-ENOSPC);
-> +	err = -ENOSPC;
->   
->   err_undo:
->   	/*
-> @@ -1357,7 +1406,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   	 * bigger is better, so make sure we merge everything back before we
->   	 * free the allocated blocks.
->   	 */
-> -	__gpu_buddy_undo_splits(mm, block);
-> +	gpu_buddy_undo_splits(mm, block, &splits);
-> +
->   	return ERR_PTR(err);
->   }
->   
-> @@ -1580,6 +1630,7 @@ static int __alloc_range(struct gpu_buddy *mm,
->   	struct gpu_buddy_block *block;
->   	u64 total_allocated = 0;
->   	LIST_HEAD(allocated);
-> +	LIST_HEAD(splits);
->   	u64 end;
->   	int err;
->   
-> @@ -1605,7 +1656,7 @@ static int __alloc_range(struct gpu_buddy *mm,
->   
->   		if (gpu_buddy_block_is_allocated(block)) {
->   			err = -ENOSPC;
-> -			goto err_free;
-> +			goto err_undo;
->   		}
->   
->   		if (contains(start, end, block_start, block_end)) {
-> @@ -1634,6 +1685,8 @@ static int __alloc_range(struct gpu_buddy *mm,
->   			err = split_block(mm, block);
->   			if (unlikely(err))
->   				goto err_undo;
-> +
-> +			list_add(&block->tmp_link, &splits);
->   		}
->   
->   		list_add(&block->right->tmp_link, dfs);
-> @@ -1642,7 +1695,7 @@ static int __alloc_range(struct gpu_buddy *mm,
->   
->   	if (total_allocated < size) {
->   		err = -ENOSPC;
-> -		goto err_free;
-> +		goto err_undo;
->   	}
->   
->   	list_splice_tail(&allocated, blocks);
-> @@ -1655,9 +1708,8 @@ static int __alloc_range(struct gpu_buddy *mm,
->   	 * bigger is better, so make sure we merge everything back before we
->   	 * free the allocated blocks.
->   	 */
-> -	__gpu_buddy_undo_splits(mm, block);
-> +	gpu_buddy_undo_splits(mm, block, &splits);
->   
-> -err_free:
->   	if (err == -ENOSPC && total_allocated_on_err) {
->   		list_splice_tail(&allocated, blocks);
->   		*total_allocated_on_err = total_allocated;
-> 
-> base-commit: 90780f2c3d30187116128f71bcf92c8ab63400e7
-
+Best regards,
+Krzysztof
