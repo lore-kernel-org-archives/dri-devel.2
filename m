@@ -4,49 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D03ACA5FA7
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 20:43:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1C60CA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 20:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A96F310E84C;
-	Tue, 29 Sep 2026 20:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBDE10E08C;
+	Tue, 29 Sep 2026 20:52:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VhOanSht";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FnBRxJie";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2658010E84C
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 20:43:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86FB410E08C
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 20:52:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2711A6022F;
- Tue, 29 Sep 2026 20:43:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856FC1F000FF;
- Tue, 29 Sep 2026 20:43:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2AAC04178E;
+ Tue, 29 Sep 2026 20:52:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6301F000FF;
+ Tue, 29 Sep 2026 20:52:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790714628;
- bh=1QdUQtGpZBOclXG/K5zrAwhgVwrWhwndx2juy1qfu6Y=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=VhOanShtKisgQOxdUhh0WvO1nLI4+lImCAPmIKhhdmgKgnLv664LZwqF7fK0hGhwI
- z1zbchdcqh9FDydsMDp5N5dR3c6cZT5S9sCipd1Q1lOjRlHKWoajlCg6ESGjk94CHC
- UXZN3iP/+yVPsCDlihDl4ZrootfmTmnOim0VsgcoMxAMHYr9H+oN+y9eBF+W3s6MRA
- 0os1Pj1botqPDDEg7THy2DOdzI0g9cKwIRzxmlUaSakJxWvu7uRpJiw+u9rdgCZJda
- QgcgTUnkTcxVqeZuWu5yXsHe5HfF4rRzSXFEKowQRvotqAqQZsKpWzW/ttCCaDTNPX
- oxBHoz5QvDvog==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Sep 2026 22:43:45 +0200
-Message-Id: <DLS3CUGE89P0.AV9LGT4GCLVV@kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: use a single try_pin_init!() block in
- probe()
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260927144417.1280385-1-dakr@kernel.org>
- <DLQIRUGZ3L4S.2HUCTWWXHIDII@nvidia.com>
- <DLQZW9ZSEQF8.EFP3CFEMUABB@kernel.org>
- <51dccdd0-eb85-4572-be62-6ca39038cbdf@nvidia.com>
-In-Reply-To: <51dccdd0-eb85-4572-be62-6ca39038cbdf@nvidia.com>
+ s=k20260515; t=1790715168;
+ bh=WKRMoTp7+IN8XnrAVGFYFXo21Tjr4j0cVDkiRsvfBRM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=FnBRxJieEPyR9E4fHeRNqHy4r4AQL4VhSOq5V6NZrpIoyz3lM0JBuYnM2DeHhLIaA
+ 0hKFQR69pNlHdul9AsMqNqAVmRxW/sjzHXkHz9RhFRXXmssO8xmmIvdfNWQTyQfRC6
+ kf6v8uBGf7FzZx2mf0ijCN99DBFiv1Ia0ynpIt9WHk/bUUt8WWGeWCbk9dGzpM092v
+ 6RciCU3fvBlcUiaKyAlRZ4Fop0mYaQU7WnvCrN7wfef0ymhzeFJjTKHesLZ2wyKUi1
+ pgCyh/SyKuIOTU73WrQHTArLiaehugiozFNa1rnR4snZdPxkXzweZiUY7oRFTJff9C
+ t7F3ITFOt4yHw==
+Date: Tue, 29 Sep 2026 15:52:46 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Robert Foss <rfoss@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Heiko Stuebner <heiko@sntech.de>, Alexandre Ghiti <alex@ghiti.fr>,
+ dri-devel@lists.freedesktop.org,
+ Dominique Belhachemi <db@domibel.de>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Graham Markall <hello@big-grey.co.uk>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Hal Feng <hal.feng@starfivetech.com>, linux-riscv@lists.infradead.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andy Yan <andy.yan@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Maud Spierings <maud_spierings@murena.io>,
+ Joshua Peisach <jpeisach@ubuntu.com>, Paul Walmsley <pjw@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Subject: Re: [PATCH v5 02/21] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+Message-ID: <179071516475.2696249.11006849650480539327.robh@kernel.org>
+References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103205eucas1p202b12d36f2ec9378ceb6dba29ee4ef32@eucas1p2.samsung.com>
+ <20260929-jh7110-clean-send-v5-2-82b4d8e3c6c7@samsung.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-jh7110-clean-send-v5-2-82b4d8e3c6c7@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,22 +88,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 29, 2026 at 10:31 PM CEST, John Hubbard wrote:
-> I really would like this restored. This is a high value thing to
-> print, because it acts as kind of a bookend, showing the beginning of
-> trying to boot up.
 
-Hm...the next print in the boot process is
+On Tue, 29 Sep 2026 12:30:59 +0200, Michal Wilczynski wrote:
+> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+> 
+> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+> functions as both a PHY provider for the controller and as a clock
+> provider for the variable pixel clock (hdmi_pclk), which it generates
+> from its refoclk.
+> 
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+> 
 
-	nova-core 0000:01:00.0: NVIDIA (Chipset: GA106, Architecture: Ampere, Revi=
-sion: a.1)
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-which is at the very beginning of probe and to me seems sufficient.
-
-But a debug print doesn't hurt, so if you prefer to keep it, no concerns fr=
-om my
-end.
-
-> I can post a trivial patch to restore it, if desired.
-
-That'd be great, thanks!
