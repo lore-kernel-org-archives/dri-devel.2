@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DA1BC9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA5F2CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCF7910ECCF;
-	Tue, 29 Sep 2026 04:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20EC210E059;
+	Tue, 29 Sep 2026 04:46:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BtG0NSsg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M0nLQ8/C";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 369B710ECD9
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:44:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5258510E059
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:46:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7CEC860210;
- Tue, 29 Sep 2026 04:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098D11F000FF;
- Tue, 29 Sep 2026 04:44:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2295A43600;
+ Tue, 29 Sep 2026 04:46:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06BA1F000FF;
+ Tue, 29 Sep 2026 04:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790657096;
- bh=2RxnZM7cjCsq8M6+HmkT6QugwQD5l4YfV9OeVF+nF64=;
+ s=k20260515; t=1790657207;
+ bh=RJgJLirqbYNMzI0F60LpFf1YOmVnFIWb5n7CwtH0Vn4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BtG0NSsghKSqRQjrhGcl6p0wxDaY/xZbg5uxrMU3W/I8/QEihD+2qJS3wRpDXLko2
- OGCCV9M9QgfPCFNw9WhtZGNFIvDpRhxrBv5ez3QhLeFx30fMAs0EVJlOcMyTDPX/cq
- fx/WSkkiuR52c2wJxzhQEROD3cNpt22sJqrUv0FdGfYuAmLN8HnEfvyC4iLDuwS3pO
- JRuBa4SmoT6FFslqARWYDgXh7HLiPF4Ka2Pbs78rcOwD4LQLzLxJ6h5z/YYR/benOo
- rDYWhYAG9CtMpLGJ8BO4w+GpZ6oAtRIz18v6xPCvGdnPcX+yqaUgojJSTcVLOmMHLh
- 0POEFTbGTDPgg==
+ b=M0nLQ8/CWTll8BNAMJBYhuNEyFOzDx65+MjYwhmKhwvfCl9X0iK62KSGT/OJYO2S4
+ 2QQDfkJKDy5SLuIs2uFQDUY9FyDaTxc0LimXU7TiqGi5Z4XRNhKJk2wqpuYl3vuSso
+ X0GhyPcDeT7UASC457Mlh3Xk9JrNzVk0puwvzeTPnHCGbQgQEZQ1KrlsDfcA+xi+q4
+ jb5hryPj8ILl01vKq8LKt5860OZG/cFUXLQdjLZyIRvwIWBMONeBVMIV1xa75+UncJ
+ vy1f3PGTYQmN0XV1gVWTy0hb0CxD/9rWikDYlz/LgqNKrUckECDhJM0Y2Kdhsmhohh
+ rO/nquKeenVwg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 17/35] drm/msm/dp: add msm_dp_display_get_panel() to
- initialize DP panel
+Subject: Re: [PATCH v7 22/35] drm/msm/dpu: add per-stream MST encoders
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929-msm-dp-mst-v7-17-4b81473185e7@oss.qualcomm.com>
+In-Reply-To: <20260929-msm-dp-mst-v7-22-4b81473185e7@oss.qualcomm.com>
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-17-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-22-4b81473185e7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 04:44:55 +0000
-Message-Id: <20260929044456.098D11F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 04:46:46 +0000
+Message-Id: <20260929044646.D06BA1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,95 +57,77 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dp: null-deref in msm_dp_write_pn() due to optional pixel_=
-base
-- [Medium] drm/msm/dp: devm_kzalloc leak and state desync in msm_dp_display=
-_get_panel()
+- [High] mm: memory leak of msm_dp_panel during DRM master bind/unbind
 --
 
-commit 06b6470d2aa1e63fd1b8da09b3340d3557e87642
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+commit cfe400464204530420fa599c1a7624cb1685cc3b
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
-   =20
-Add an API msm_dp_display_get_panel() to initialize and return a DP
-panel to be used by DP MST module. Since some of the fields of
-DP panel are private, dp_display module needs to initialize these
-parts and return the panel back.
+drm/msm/dpu: add per-stream MST encoders
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 487c76e0f990d..1d1fb45024c6a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+This commit establishes the per-stream encoder infrastructure required for
+DP MST support. It creates one DRM encoder per MST stream, associates it
+with a stream ID, and initializes it with MST-specific encoder helper
+callbacks.
+
 [ ... ]
-> @@ -529,6 +529,33 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_displ=
-ay_private *dp)
->  	return rc;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
+/dp_mst_drm.c
+> index 169b34f985c0e..88687b97ed6e6 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> @@ -145,6 +145,26 @@ static int msm_dp_mst_encoder_stream_id(struct msm_d=
+p_mst *mst,
+>  	return -1;
 >  }
 > =20
-> +struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_disp=
-lay,
-> +					      enum msm_dp_stream_id stream_id)
+> +int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int st=
+ream_id,
+> +			      struct drm_encoder *encoder)
 > +{
-> +	struct msm_dp_display_private *dp;
+> +	struct msm_dp_mst *mst =3D dp_display->msm_dp_mst;
 > +	struct msm_dp_panel *dp_panel;
 > +
-> +	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> +
-> +	if (stream_id >=3D msm_dp_ctrl_get_stream_cnt(dp->ctrl)) {
-> +		DRM_ERROR("invalid stream_id %d\n", stream_id);
-> +		return NULL;
-> +	}
-> +
-> +	dp_panel =3D msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, dp->aux, d=
-p->link,
-> +				    dp->link_base, dp->mst2link_base, dp->mst3link_base,
-> +				    dp->pixel_base[stream_id]);
+> +	dp_panel =3D msm_dp_display_get_panel(dp_display, stream_id);
 
 [Severity: High]
-Can this cause a NULL pointer dereference later in msm_dp_write_pn()?
+Does this code leak the struct msm_dp_panel allocations on DRM master
+bind/unbind cycles?
 
-If a device tree provides the clocks but not the optional pixel_base memory
-regions, dp->pixel_base[stream_id] will be NULL here. The bounds check above
-verifies against msm_dp_ctrl_get_stream_cnt() (the number of available cloc=
-ks),
-not the number of available memory regions.
+When KMS initialization executes during the DRM master bind sequence, it
+calls msm_dp_mst_attach_encoder(). This in turn allocates a new panel for
+each stream via the following chain:
 
-When the stream is later enabled, msm_dp_panel_timing_cfg() calls
-msm_dp_write_pn(), which blindly dereferences panel->pixel_base.
+msm_dp_mst_attach_encoder()
+  msm_dp_display_get_panel()
+    msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, ...)
+      devm_kzalloc(dev, sizeof(*panel), GFP_KERNEL);
 
-[Severity: Medium]
-Does this unconditionally allocate a new panel and risk a memory leak?
+The devres allocation is anchored to the persistent subordinate DP platform
+device rather than the ephemeral DRM master device. When the DRM master is
+unbound, KMS is torn down but the DP platform device remains bound. On the
+next DRM master bind cycle, new panels are allocated on the same DP
+platform device, permanently leaking the previous allocations.
 
-Since msm_dp_panel_get() uses devm_kzalloc() tied to the DP device, if the =
-KMS
-component is unbound and rebound, this will leak memory since it lacks a fr=
-eeing
-mechanism for dynamic binds.
+Can this lead to resource exhaustion if a user repeatedly unbinds and binds
+the DRM master via sysfs?
 
-Furthermore, for DP_STREAM_0, does this create a duplicate panel alongside
-dp->panel? The newly allocated panels bypass early initialization steps (su=
-ch
-as msm_dp_ctrl_reset() and msm_dp_panel_read_link_caps()), which leaves
-critical fields empty and can cause features like msm_dp_panel_update_sdp()
-to malfunction.
-
-> +
-> +	if (IS_ERR(dp_panel)) {
-> +		DRM_ERROR("failed to initialize panel\n");
-> +		return NULL;
+> +	if (!dp_panel) {
+> +		drm_err(dp_display->drm_dev,
+> +			"[MST] failed to allocate panel for stream %d\n", stream_id);
+> +		return -ENOMEM;
 > +	}
 > +
-> +	dp_panel->stream_id =3D stream_id;
+> +	mst->mst_encoders[stream_id].enc =3D encoder;
+> +	mst->mst_encoders[stream_id].stream_id =3D stream_id;
+> +	mst->mst_encoders[stream_id].dp_panel =3D dp_panel;
 > +
-> +	return dp_panel;
+> +	return 0;
 > +}
-> +
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-msm-dp-mst=
--v7-0-4b81473185e7@oss.qualcomm.com?part=3D17
+-v7-0-4b81473185e7@oss.qualcomm.com?part=3D22
