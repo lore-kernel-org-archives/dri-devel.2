@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A2B5C9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:07:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C903BCA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488A710E544;
-	Tue, 29 Sep 2026 08:07:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 174D610ED5F;
+	Tue, 29 Sep 2026 08:18:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="s/0deL0s";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5hCa7PoA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rqFZbwRq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OduqukU2";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ONJwU9Hu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0FCVc9UC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hR8lb9hO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FEhj0k4/";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3005610E544;
- Tue, 29 Sep 2026 08:07:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C53E10ED5F;
+ Tue, 29 Sep 2026 08:17:58 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DF10B21CE9;
- Tue, 29 Sep 2026 08:07:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D1E3F21C82;
+ Tue, 29 Sep 2026 08:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790669244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790669873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
- b=s/0deL0s1emqvjcVb2M+kwcjzHhGe79Z6ICC2aZXVhzxbMEGOjVZBhCT3HkL+ubboxd3K5
- ajwrOr6a7SVqMVir83d1G/KhCHHHgOBPToK6/ggHsVbMRzY3SzEeZhzIratJ8c6Ss8wMqK
- WxeHDECMPhwtWGTP91KFjOV6wdwV8zg=
+ bh=YyPk9R8Z4DIh7E/2QQNXg/tLTWibegSnItDMfbsCiqk=;
+ b=ONJwU9HuZnEU3+c9dBh2yGqq2anYAZZuGPRPfW8zqNDwp1bEf/hrqgW52zOOHkakd4fr1g
+ MGw3skvt1cIPdxQS/9GbWikfs2jg8d+mcV/FiLoaPbsHxlVm2JjbwtNoggLJk0INbcGT31
+ H8VARTDy5bX5hhLOrp2LqRafRxj7yGw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790669244;
+ s=susede2_ed25519; t=1790669873;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
- b=5hCa7PoANUTovHm+jPuhtG3sncL57tU5MISfOrXcWq2noxGzaHIijHszn6bjK1qh/gIbC9
- PBz6EJVQCbJS/wCg==
+ bh=YyPk9R8Z4DIh7E/2QQNXg/tLTWibegSnItDMfbsCiqk=;
+ b=0FCVc9UCKCwCWmr7oJ+3jTI6Fmal49wMWx5rG2xrwHRJE+JWVfVl4QYOB5euqrWCPmURF8
+ 6oP8u7EIPLDLETAg==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rqFZbwRq;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=OduqukU2
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hR8lb9hO;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="FEhj0k4/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790669239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790669868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
- b=rqFZbwRqx2PWf+ifQluQSSKeJkrFcOHsOyZZxNIChx/3CimfkbbEwzD2kag+G22MfWVfp2
- 5KwOvIKBkJulQMqiATfrXPokqlZ1jwxArB3FuofaWMOwhOBQCLDUjFcHFa7bRlY8RTvCfN
- uZXmSfU9XIzq1MQEdgonWpgdInfuRv4=
+ bh=YyPk9R8Z4DIh7E/2QQNXg/tLTWibegSnItDMfbsCiqk=;
+ b=hR8lb9hO/CaYy0ZDRY2q8bdEyeJ9OT+KqnoVdx9OrwoYjPXj8kVu85LmmnqcrbzXuayV1b
+ h05vw9df6nN/3X2LTsS8zb0I4AlGULZqpoaYbrIhE1EwVUhEiiAOsu9xdkuXh1SR8v7GUI
+ ZMwVDaRP7te4xb6hRfiDTX33u9yQ8gg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790669239;
+ s=susede2_ed25519; t=1790669868;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=L+QGPiP//e7Js9o0sP26yA6tf2Fm46JYPpPJ/rdE/QE=;
- b=OduqukU2zx3UkvpDYvUJyJLwsXi2S3Kv/SXZ38wC2UiZk0lILxfuNhGPU4VM73/ZpPPH4l
- rc3iXbgdgC0FcyAg==
+ bh=YyPk9R8Z4DIh7E/2QQNXg/tLTWibegSnItDMfbsCiqk=;
+ b=FEhj0k4/Z3WuBlmO4MJbbZZfxtFJUly34Y4maKpq6Hxur7ihB+Gm3p9segHIZ7PJaHu2zz
+ fytE3HvmWSY8VLCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46C63136E4;
- Tue, 29 Sep 2026 08:07:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A655133F1;
+ Tue, 29 Sep 2026 08:17:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id i/p9Abdxu2pMOQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:07:19 +0000
-Message-ID: <1a4e787f-c61f-4892-ae7e-344880f5c7bf@suse.de>
-Date: Tue, 29 Sep 2026 10:07:18 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yU20Nit0u2ogRQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 29 Sep 2026 08:17:48 +0000
+Message-ID: <b4aa7c7d-1502-4a28-bdea-41a3584c2980@suse.de>
+Date: Tue, 29 Sep 2026 10:17:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm: Add drm_timeout_rel_to_jiffies()
+Subject: Re: [PATCH v3 7/7] drm: Rename drm_utils.h to drm_panel_quirks.h
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
@@ -93,9 +93,8 @@ To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
- <20260915-drm-timeout-helpers-v3-2-f2ae987d861f@igalia.com>
- <7a19a212-194a-4d5b-b0a0-6d2bee24f636@suse.de>
- <7dda1960-9e73-43af-bbb8-e6e7ba32a8f3@igalia.com>
+ <20260915-drm-timeout-helpers-v3-7-f2ae987d861f@igalia.com>
+ <fe616885-5509-4236-8261-7cdb3b0ef67c@igalia.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -122,26 +121,28 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7dda1960-9e73-43af-bbb8-e6e7ba32a8f3@igalia.com>
+In-Reply-To: <fe616885-5509-4236-8261-7cdb3b0ef67c@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-3.31 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- MID_RHS_MATCH_FROM(0.00)[];
  FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MID_RHS_MATCH_FROM(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,suse.com:url];
+ URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,igalia.com:email];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: DF10B21CE9
+X-Rspamd-Queue-Id: D1E3F21C82
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,85 +161,176 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 28.09.26 um 20:09 schrieb Maíra Canal:
-> Hi Thomas,
->
-> Thank you for your review!
->
-> On 28/09/26 13:37, Thomas Zimmermann wrote:
->
-> [...]
->
->>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
->>> +{
->>> +    u64 secs;
->>> +    u32 rem;
->>> +
->>> +    /* Make 0 timeout means poll, as for the absolute variant. */
->>> +    if (timeout_nsec == 0)
->>> +        return 0;
->>> +
->>> +    /*
->>> +     * As nsecs_to_jiffies64() does not guard against overflow, split
->>> +     * the timeout into whole seconds and nanoseconds. This way
->>> +     * nsecs_to_jiffies64() is always handed a value below a second.
->>> +     */
->>> +    secs = div_u64_rem(timeout_nsec, NSEC_PER_SEC, &rem);
->>> +    if (secs >= MAX_JIFFY_OFFSET / HZ)
->>> +        return MAX_JIFFY_OFFSET;
->>> +
->>> +    return min_t(u64, MAX_JIFFY_OFFSET,
->>> +             secs_to_jiffies(secs) + nsecs_to_jiffies64(rem) + 1);
->>
->> The timeout is controled by user space, right? Can these additions 
->> overflow?  I see that secs is tested against MAX_JIFFY_OFFSET, but is 
->> that sufficient?
->
-> Although the timeout is controlled by user-space, the additions cannot
-> overflow here. The secs test bounds the multiplication, which is why it
-> is written as secs >= MAX_JIFFY_OFFSET / HZ rather than secs * HZ >=
-> MAX_JIFFY_OFFSET (which could overflow).
->
-> Past that check, we know that the remaining is smaller than one second
-> and therefore, nsecs_to_jiffies64(rem) <= HZ - 1. So, the sum + 1 is at
-> most MAX_JIFFY_OFFSET.
->
->>
->> BTW there was this NSEC % HZ test in the original code? What was it 
->> good for? It is no longer useful?
->>
->
-> I believe that NSEC_PER_SEC % HZ was only useful to check if it was a
-> plain division, which wouldn't overflow. With the current approach, I
-> believe it's no longer needed.
+Am 22.09.26 um 14:00 schrieb Maíra Canal:
+> Thomas, do you have any thoughts about this change?
 
-Thanks for answering my questions.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+I think this is good for this series.  There is potential to untangle 
+the quirks handling and link the rsp. object files into helper modules 
+instead of the DRM core. But that's for another series.
 
 Best regards
 Thomas
 
-
 >
 > Best regards,
 > - Maíra
->> Best regards
->> Thomas
+>
+> On 15/09/26 16:42, Maíra Canal wrote:
+>> Now that the timeout-related functions were removed from drm_utils.h,
+>> the header has exclusively panel orientation and backlight quirk 
+>> getters.
 >>
+>> Therefore, rename the header accordingly and update all files that
+>> include it. The files amdgpu_dm.c, amdgpu_dm_connector.c and 
+>> panthor_drv.c
+>> include the header but don't use it, so drop the include there.
 >>
->>> +}
->>> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
->>> diff --git a/include/drm/drm_timeout.h b/include/drm/drm_timeout.h
->>> index cd9621c52062..6ee222a3e97c 100644
->>> --- a/include/drm/drm_timeout.h
->>> +++ b/include/drm/drm_timeout.h
->>> @@ -12,5 +12,6 @@
->>>   #include <linux/types.h>
->>>   signed long drm_timeout_abs_to_jiffies(s64 timeout_nsec);
->>> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->>>   #endif
->>>
+>> No functional change.
+>>
+>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 -
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c | 2 +-
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 1 -
+>>   drivers/gpu/drm/drm_connector.c                             | 2 +-
+>>   drivers/gpu/drm/drm_panel_backlight_quirks.c                | 2 +-
+>>   drivers/gpu/drm/drm_panel_orientation_quirks.c              | 2 +-
+>>   drivers/gpu/drm/panthor/panthor_drv.c                       | 1 -
+>>   drivers/video/fbdev/efifb.c                                 | 2 +-
+>>   include/drm/{drm_utils.h => drm_panel_quirks.h} | 8 +++-----
+>>   9 files changed, 8 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 4426e18f7543..5f20fff2d466 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -98,7 +98,6 @@
+>>   #include <drm/drm_edid.h>
+>>   #include <drm/drm_eld.h>
+>>   #include <drm/drm_mode.h>
+>> -#include <drm/drm_utils.h>
+>>   #include <drm/drm_vblank.h>
+>>   #include <drm/drm_colorop.h>
+>>   #include <drm/drm_gem_atomic_helper.h>
+>> diff --git 
+>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+>> index b9e90ea449ca..3211bd1472b2 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+>> @@ -41,7 +41,7 @@
+>>   #include <linux/backlight.h>
+>>   #include <linux/power_supply.h>
+>>   #include <drm/drm_edid.h>
+>> -#include <drm/drm_utils.h>
+>> +#include <drm/drm_panel_quirks.h>
+>>     #include <acpi/video.h>
+>>   diff --git 
+>> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c 
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> index e7b555fa666f..9e43e70afe8d 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> @@ -62,7 +62,6 @@
+>>   #include <drm/drm_fixed.h>
+>>   #include <drm/drm_mode.h>
+>>   #include <drm/drm_probe_helper.h>
+>> -#include <drm/drm_utils.h>
+>>   #include <drm/display/drm_dp_mst_helper.h>
+>>   #include <drm/display/drm_hdmi_helper.h>
+>>   #include <drm/drm_privacy_screen_consumer.h>
+>> diff --git a/drivers/gpu/drm/drm_connector.c 
+>> b/drivers/gpu/drm/drm_connector.c
+>> index 8b4baed060f3..c4d844205971 100644
+>> --- a/drivers/gpu/drm/drm_connector.c
+>> +++ b/drivers/gpu/drm/drm_connector.c
+>> @@ -28,10 +28,10 @@
+>>   #include <drm/drm_file.h>
+>>   #include <drm/drm_managed.h>
+>>   #include <drm/drm_panel.h>
+>> +#include <drm/drm_panel_quirks.h>
+>>   #include <drm/drm_print.h>
+>>   #include <drm/drm_privacy_screen_consumer.h>
+>>   #include <drm/drm_sysfs.h>
+>> -#include <drm/drm_utils.h>
+>>     #include <linux/export.h>
+>>   #include <linux/platform_device.h>
+>> diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c 
+>> b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> index e417c7533053..dcb91e12bac6 100644
+>> --- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> +++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+>> @@ -5,7 +5,7 @@
+>>   #include <linux/export.h>
+>>   #include <linux/module.h>
+>>   #include <drm/drm_edid.h>
+>> -#include <drm/drm_utils.h>
+>> +#include <drm/drm_panel_quirks.h>
+>>     struct drm_panel_match {
+>>       enum dmi_field field;
+>> diff --git a/drivers/gpu/drm/drm_panel_orientation_quirks.c 
+>> b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+>> index 3a218fb592ce..813a204cd201 100644
+>> --- a/drivers/gpu/drm/drm_panel_orientation_quirks.c
+>> +++ b/drivers/gpu/drm/drm_panel_orientation_quirks.c
+>> @@ -12,7 +12,7 @@
+>>   #include <linux/export.h>
+>>   #include <linux/module.h>
+>>   #include <drm/drm_connector.h>
+>> -#include <drm/drm_utils.h>
+>> +#include <drm/drm_panel_quirks.h>
+>>     #ifdef CONFIG_DMI
+>>   diff --git a/drivers/gpu/drm/panthor/panthor_drv.c 
+>> b/drivers/gpu/drm/panthor/panthor_drv.c
+>> index 46a3080b0b20..4bb74102acb1 100644
+>> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+>> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+>> @@ -25,7 +25,6 @@
+>>   #include <drm/drm_ioctl.h>
+>>   #include <drm/drm_print.h>
+>>   #include <drm/drm_syncobj.h>
+>> -#include <drm/drm_utils.h>
+>>   #include <drm/gpu_scheduler.h>
+>>   #include <drm/panthor_drm.h>
+>>   diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+>> index ad8dec7807c3..3411be06d3e6 100644
+>> --- a/drivers/video/fbdev/efifb.c
+>> +++ b/drivers/video/fbdev/efifb.c
+>> @@ -18,8 +18,8 @@
+>>   #include <linux/sysfb.h>
+>>   #include <video/vga.h>
+>>   #include <asm/efi.h>
+>> -#include <drm/drm_utils.h> /* For drm_get_panel_orientation_quirk */
+>>   #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
+>> +#include <drm/drm_panel_quirks.h> /* For 
+>> drm_get_panel_orientation_quirk */
+>>     struct bmp_file_header {
+>>       u16 id;
+>> diff --git a/include/drm/drm_utils.h b/include/drm/drm_panel_quirks.h
+>> similarity index 63%
+>> rename from include/drm/drm_utils.h
+>> rename to include/drm/drm_panel_quirks.h
+>> index c61dee76451c..60711a49d403 100644
+>> --- a/include/drm/drm_utils.h
+>> +++ b/include/drm/drm_panel_quirks.h
+>> @@ -1,14 +1,12 @@
+>>   /* SPDX-License-Identifier: MIT */
+>>   /*
+>> - * Function prototypes for misc. drm utility functions.
+>> - * Specifically this file is for function prototypes for functions 
+>> which
+>> - * may also be used outside of drm code (e.g. in fbdev drivers).
+>> + * Function prototypes for panel-related quirks.
+>>    *
+>>    * Copyright (C) 2017 Hans de Goede <hdegoede@redhat.com>
+>>    */
+>>   -#ifndef __DRM_UTILS_H__
+>> -#define __DRM_UTILS_H__
+>> +#ifndef __DRM_PANEL_QUIRKS_H__
+>> +#define __DRM_PANEL_QUIRKS_H__
+>>     #include <linux/types.h>
 >>
 >
 
