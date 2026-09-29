@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 308ABCA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A1BCA5FA5
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B58D710EC4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C202310EC4E;
 	Tue, 29 Sep 2026 02:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OUntmLjX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DMAKe7lf";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFCF410E0F5
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA9210E0F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:15:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 71C12440B8;
+ by sea.source.kernel.org (Postfix) with ESMTP id AA4AE447C8;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41C2EC2BCC7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AC40C4AF4D;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1790648156;
- bh=tAJEHSAuTRx0EwppaN+WcZOoNCdsIpUxUwps4sDokJQ=;
+ bh=4fCA01lVKFUQcPLwCosahsFm/a/A5bH2c66xJdLxhxw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=OUntmLjXkQkD5gqD/fAnaZhEjU35i3NdeD0MDKAt5qMfvjV8dgzKTn9oIERB2ri1w
- T2TRxaOaxqM7EjMJ8UCcBzqirn2hhBT3nO9P54VKxxnMgFcXcU4NtHfEWmoGtvQuAc
- kTgHXBPwIDkObGcAtgBPsOOEQiKyj65zPCEzAwNZF5fLbFzlH8D2y3SRnE1pSt2BGP
- uYfWcF9ZwzcGo2B6z/ZfTg0VtJziwq4RIoQiS2MMLHGYfdWpscZ1AuB1KpKFaaCHX/
- SpXlzsWg7KY5lJC6HpZFQ/aQh3tORGPFPAJi/cHpI5JYirQOGWwZL9e47Mwi5bhEo5
- bQblDfhWr2YOw==
+ b=DMAKe7lftxZRvc4CM/LOqN5J6tJJPxXeFN/La7EdjfeuzswoI2CyUbjcy75d0BvbG
+ 6I7myWQe06wBb62MxaNJvt2w0u9pKacjoSaH10yFZUhnC8OTuJmczh6bKP0THD7UK9
+ UTsdG81EwUMm1ZSOjJBXRv71wGXOVleJ9RHfu6cGl8FiSqstsJcFEcFIxcPwqmCSrS
+ RZUBWuluvbtrOzR+0XduDx/powj47nc69gon5GM5tKK4Ap7X3VlN1AzLw7rbhJImcU
+ A2fUUZduwl+hxd8O6mm5x7cDJVX1UPdh48LjEYz2XPuw1RNLzWit9rTw7F7ncsr+HA
+ HnAPmLARN1e1w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2096DCA5FA1;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 64053CA5FB1;
  Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 29 Sep 2026 10:15:52 +0800
-Subject: [PATCH v3 02/11] rust: mm: add `task_size` helper
+Date: Tue, 29 Sep 2026 10:15:56 +0800
+Subject: [PATCH v3 06/11] drm/tyr: add BO creation and lookup helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-tyr-ioctls-v3-2-26955fb111d5@kylinos.cn>
+Message-Id: <20260929-tyr-ioctls-v3-6-26955fb111d5@kylinos.cn>
 References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
 In-Reply-To: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -63,11 +63,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
  Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=951;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=1988;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=JO+2MVB8/0ZEX96oFL0eP1mAOKrIibNCaD5F9FcB8NY=;
- b=4hJQWHlONdWWEYIBfTzQKm2FojtHl4B5GKRGXQ2cctUARsgYvoM5Bxw0nyFeRQMcltOUvr9di
- VOrWnAmOxmNBqTQMrnCvfAvmWk2XdvzQ4gQZIJzQ/NQjBo78LbPkID2
+ bh=ZYb1XxhHAj4Uxqn92uytJJHTXG1ZVMUU2ITsdjHTgjA=;
+ b=+6O6cKIGlAEi7wJ2xrjWJUVcJyAGE4JI7VGHVXVC45nRwLRPFOstS/WH7ffTqM4wmAbl2qgQp
+ 0wL6g38yR6PAYXBqWY6EpZx1G0+qLDnztLYkdRIgQ+c2UcVycdAYJ9W
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -90,33 +90,72 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-Expose the task's address space size. It is used by the Tyr driver
-for splitting a VM's GPU address space into user and kernel regions.
+Add helpers for the BO ioctls: new_object() creates a GEM object with
+the size aligned up to PAGE_SIZE, and lookup_handle() resolves a handle
+for a DRM file.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/mm.rs | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/tyr/gem.rs | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
-index 4764d7b68f2a7..d2dfbb7d43972 100644
---- a/rust/kernel/mm.rs
-+++ b/rust/kernel/mm.rs
-@@ -149,6 +149,13 @@ pub fn mmget_not_zero(&self) -> Option<ARef<MmWithUser>> {
-             None
-         }
-     }
-+
-+    /// The size of the process virtual address space.
-+    #[inline]
-+    pub fn task_size(&self) -> usize {
-+        // SAFETY: `self.as_raw()` is a valid pointer to an `mm_struct` per the type invariants.
-+        unsafe { (*self.as_raw()).__bindgen_anon_1.task_size }
-+    }
- }
+diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+index 3bf3787f5c3fd..0e0989a48678f 100644
+--- a/drivers/gpu/drm/tyr/gem.rs
++++ b/drivers/gpu/drm/tyr/gem.rs
+@@ -9,8 +9,10 @@
+ use kernel::{
+     drm::gem::{
+         self,
+-        shmem, //
++        shmem,
++        BaseObject, //
+     },
++    page::PAGE_SIZE,
+     prelude::*,
+     sync::{
+         aref::ARef,
+@@ -23,6 +25,7 @@
+         TyrDrmDevice,
+         TyrDrmDriver, //
+     },
++    file::TyrDrmFile,
+     vm::{
+         Vm,
+         VmMapFlags, //
+@@ -53,6 +56,32 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
+ /// Type alias for Tyr GEM buffer objects.
+ pub(crate) type Bo = gem::shmem::Object<BoData>;
  
- // These methods require `mm_users` to be non-zero.
++/// Create a new GEM buffer object.
++#[expect(dead_code)]
++pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
++    if size == 0 {
++        return Err(EINVAL);
++    }
++
++    let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
++
++    Bo::new(
++        ddev,
++        aligned_size,
++        shmem::ObjectConfig {
++            map_wc: true,
++            parent_resv_obj: None,
++        },
++        BoCreateArgs { flags },
++    )
++}
++
++/// Look up a GEM object by handle for a DRM file.
++#[expect(dead_code)]
++pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
++    Bo::lookup_handle(file, handle)
++}
++
+ /// Creates a dummy GEM object to serve as the root of a GPUVM.
+ pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
+     let bo = Bo::new(
 
 -- 
 2.43.0
