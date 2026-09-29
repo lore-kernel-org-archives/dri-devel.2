@@ -4,45 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E91CA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 10:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802B6CA5FAC
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 10:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51EBB10EE35;
-	Tue, 29 Sep 2026 10:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B7910EE3B;
+	Tue, 29 Sep 2026 10:54:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NdIFAZyh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ev4MJiiB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B827910EE35
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 10:51:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5094E439CD;
- Tue, 29 Sep 2026 10:51:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59021F000FF;
- Tue, 29 Sep 2026 10:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790679085;
- bh=UCYGDT2yDOhBVf3mGdvQ5gwxucliLQxv1MZclYlfDpM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NdIFAZyh7bstaEq/Yctu3S3D75eH78/IwN/Xv84sSQ1YML17iSRVZ06jBtnVix3An
- lMaWLfqfLHzk8x8usu7kxGrcyI6YN1he1D5bOW5wG+sa9LaP9yZWncBiSOm+qASToZ
- pp1jiZYv42EgLQMHWiidhf9RXdqT+0DOXV7XLcXG1gPXdHOGyxHBhrl8IfzjhEnu4r
- yaaiu64gIJjsDejagVVAT3BT7/qe6rwlMpUZyFZKaC1eNsM29u7HywQ4XBMFY5XJai
- ggQmPGjXpzVC+xVQdZjajK5Gao1WUL/fBeMifj1Dgw4UVYCMdfAjLYaQ2ixz61cTA5
- VnRQh87Pj7IxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] drm: verisilicon: stop using deprecated
- devm_drm_of_get_bridge()
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
- wsa+renesas@sang-engineering.com
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v1-2-ccb7e602daad@bootlin.com>
-References: <20260929-drm-fix-of_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com>
- <20260929-drm-fix-of_get_bridge-build-regression-v1-2-ccb7e602daad@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 10:51:24 +0000
-Message-Id: <20260929105124.E59021F000FF@smtp.kernel.org>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7730E10E15F;
+ Tue, 29 Sep 2026 10:54:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k5DsGKsXU3YuTDRQIoiNBhHxb6EBvmGJ4IhoXK1WzSybvgYeboi2gdHeeVuV/1Fk+0bWt02Bo90vrkKfbe3kZuF/qR8i302ZXGIW+QiAPhVrLOIWry//ltYo5AIVQdl3ZZ9EFDSUOPwxf3dZ8gMRs57Phmb2FpbsI5Hb75TbM6ktrTQLLVnxt2xsblBvmXQWtLC1QqO55lq7rceNUgPp0cQ0x4yvrru1+0IEsSU7pNI87Ptsv5Nap2BnJavnr/4+CMLVjydScsCO3cWjVo1KacKPSR0W5InkqRl1RsDLcj5a2HQKLMFYeTjt7N0TovFj4nlYfjX64FrVWGNkvw8w4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RmY+905tA6UI1hOzElYxI5iX0dPVN9AOAvxO9lieO2Y=;
+ b=s5dzMTiu9NDJobiayXCU63GpzwS/qBgVi776kta/RhfwhSFNbPm8ETXYWEppKbwjOymwltZGOSWqiaP+cESYi0S9RAPf3gNGI4YOt1+jT2RanOhs0AhBe90EnMorXlUZ8mKTCQzf0P5sPKMl0nZ+48ECN0684YAhmExU28moO6dHGDwTRAKr5XVMx+Ie5WdeFYQQq2IiPyJ+02m6hXodbxD1BP7M8+m8uteupa1xVj90di4bCrQTaeZbBTP7qoVC2L0IzgyjB1JzSY0vu/3vip8+igeO+vCx65oKRyiUhLSYIx+O5qzX8gC89YnfUjeghwA+2U5t5UDGqsoI8FT5yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RmY+905tA6UI1hOzElYxI5iX0dPVN9AOAvxO9lieO2Y=;
+ b=Ev4MJiiBQTS2WKN+xeGL0Jwy92tDHowSDRt5Ez6gQFXlocNYcXb+W50ChqxWvzYrDMHXF5QhI8lhhMzf++rDSuBYkKUE6OzEo1YYArEySPCCPGgrPhuPOM8gP+/Z97q62KyPf3j9ZT0B3BEKhH6gl1XvaJyu2mJwfWKLCa7ZgA8=
+Received: from DS2PEPF00004565.namprd21.prod.outlook.com
+ (2603:10b6:f:fc00::506) by DS0PR12MB8786.namprd12.prod.outlook.com
+ (2603:10b6:8:149::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 10:54:23 +0000
+Received: from DS3PEPF0000C380.namprd04.prod.outlook.com
+ (2603:10b6:f:fc00::20a) by DS2PEPF00004565.outlook.office365.com
+ (2603:10b6:f:fc00::506) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.7 via Frontend Transport; Tue, 29
+ Sep 2026 10:54:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C380.mail.protection.outlook.com (10.167.23.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 10:54:23 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 05:54:20 -0500
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+To: <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <Anand.Raghavendra@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 1/2] gpu/buddy: fix missing split-undo on allocation-search
+ exhaustion
+Date: Tue, 29 Sep 2026 16:24:06 +0530
+Message-ID: <20260929105407.484707-1-arunpravin.paneerselvam@amd.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C380:EE_|DS0PR12MB8786:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49402063-561e-4c48-743e-08df1e1805c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: tU4LJWPaI8p1kazD6kNlJJ+9St+fNqr94AmdTLH3zPKDRcZYPCaQ44Zm9cyHESDZn4mvcVT2bkH/+fBsdQZash1eJ9TU3veMkAgZi9zNuTmZuuTrmGgf829wZOoslKaGS8URnaJy5i1Zt7Q2I4WlJ3TxVDPi+ueADHqiKqtKLXTzRqOl/iJOY7U0zFhUov+rY4H5QaCAOuHr1oVUo7B36TKBmEy6buTUELbVcXdk7u/MJB6h7skSNsL6y7K8FpU3TGW0cuQbOZrg8u2cr0ISAHHLT6bJTqMDAXFHGc5sThyQoidh9S39UWQQYhefPkW4XPW0CNsc4bO53jRxwOROFs4bXCfJSRTTEMSa9nPkAvY5UFaV+zyODrUfE1PffMdRFEG5ncARmS6n/3yhxh4J6Go8vH9722Bb8A4C3SjJQerkfMFD7y7M4/vwjBTNqs2uMXw8cXfSNU9mfnNdiEoFBFlTT3qvQKc77MRZviGPGP3JzdVvt+k4oB6VjepB4hnp6y6dbTlFwnK79V1q8rrTDEb2xl+zRsILgp5+ukn+U7r+XjwMZeGXnmMdI2ktxPfM/nII06FB7tMDIVY9h+k7uTIz9HL1BwIyQ48XzWyvsSnVPuPWS3Ihq/3v85ZnVGmHhNHkrfES9hQcz0hgHIB4ZtkXc8DKHGPuj+3k/6EqeYZcU9Z8glTwXkocWcSf2oAe5G7yaa+/ID4Bu4PH+HscTQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: SQNm+T0PvJ0LBj8O1iek2akd4STck8SzkdcJusKeCWy/42FBEEBFlX5b3IS2wcOMb9mSMHPTgBUyZ9OzqVAnXIBpPxh2X4vY9YP3yctaRlJHEsfdG/z3nGrsB7lnUp+GAQ8MnWpDFdicgjSal/Xb4A8Y6syZg13a8bzUWYBiMkfQe6lLeJ7teSFchGfYgplWLDxvs+eWFrEkKWs3ztN1g5OfITu68/o9WPFSEHiXAg/Uiun+gtPaDqOpep0GzbunY6GOcZTW68uTVpfohf62wYVE7lSVTo8C8qQFS24ec7nvDgH3sFhYYyl/hNUEYcqHQQap+MKBxPglGZQCRbkrUslD/KBwMgZZ+te/aGLmmI9e98HHuViED/VXRd3aSwCG3v+hm7qp71jweQMI9lvcm/8UmR5ShzuqZ7eAGCzP4DHt4BqySmSuqkCaYyrRdPAb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 10:54:23.4494 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49402063-561e-4c48-743e-08df1e1805c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C380.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8786
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,61 +111,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/verisilicon: reference leak of next bridge when devm_drm_bri=
-dge_alloc fails
---
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-commit 49db4512b47fdbbe2150c6b5f4f559940d0929cd
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+__alloc_range_bias() only undid splits made during its search when
+split_block() itself failed. Its DFS-exhaustion failure path (-ENOSPC,
+when no suitable block is found) skipped the undo, leaving the buddy
+tree needlessly fragmented over repeated failed allocation attempts.
 
-drm: verisilicon: stop using deprecated devm_drm_of_get_bridge()
+Fix by recording every successful split_block() call in a list and
+unconditionally undoing those splits on every failure exit, via a
+new single-level gpu_buddy_merge_one_level() helper (the original
+__gpu_buddy_undo_splits() cascaded merges upward, which is unsafe
+when called per split-list entry).
 
-devm_drm_of_get_bridge() is deprecated, switch to
-of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-a refcounted bridge, ensure it is put by using bridge.next_bridge.
+Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
+regression.
 
-Link: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
+v2:
+ - Drop the undo from __alloc_range(): it allocates every block it walks,
+   so freeing that list on failure already merges the splits. (Matthew)
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/ve=
-risilicon/vs_bridge.c
-> index dc7c85b07fe32..f1e8112f0ed25 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-[ ... ]
-> @@ -303,8 +303,7 @@ struct vs_bridge *vs_bridge_init(struct drm_device *d=
-rm_dev,
->  		return NULL;
->  	}
-> =20
-> -	next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
-> -				      output, intf);
-> +	next =3D of_drm_get_bridge_by_endpoint(drm_dev->dev->of_node, output, i=
-ntf);
->  	if (IS_ERR(next)) {
->  		ret =3D PTR_ERR(next);
->  		if (ret !=3D -EPROBE_DEFER)
+Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
+Assisted-by: Claude:claude-opus-4-8
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c | 54 +++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 52 insertions(+), 2 deletions(-)
 
-[Severity: Medium]
-Will this leak the refcounted bridge next on error paths?
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 2f2aaadafe35..e5c9e21cd077 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1240,6 +1240,52 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+ 	}
+ }
+ 
++static void gpu_buddy_merge_one_level(struct gpu_buddy *mm,
++				      struct gpu_buddy_block *block)
++{
++	struct gpu_buddy_block *buddy = __get_buddy(block);
++	struct gpu_buddy_block *parent = block->parent;
++	enum gpu_block_state block_state;
++
++	if (!buddy || !gpu_buddy_block_is_free(block) ||
++	    !gpu_buddy_block_is_free(buddy))
++		return;
++
++	block_state = gpu_block_cached_state(block);
++	if (gpu_block_cached_state(buddy) != block_state)
++		block_state = GPU_BLOCK_MIXED;
++
++	rbtree_remove(mm, block);
++	rbtree_remove(mm, buddy);
++	mm->free_scoreboard[gpu_buddy_block_order(block)] -= 2;
++
++	gpu_block_free(mm, block);
++	gpu_block_free(mm, buddy);
++
++	__mark_free(mm, parent, block_state);
++}
++
++static void gpu_buddy_undo_splits(struct gpu_buddy *mm,
++				  struct gpu_buddy_block *block,
++				  struct list_head *splits)
++{
++	if (block)
++		gpu_buddy_merge_one_level(mm, block);
++
++	while (!list_empty(splits)) {
++		struct gpu_buddy_block *parent =
++			list_first_entry(splits, struct gpu_buddy_block,
++					 tmp_link);
++
++		list_del(&parent->tmp_link);
++
++		if (!gpu_buddy_block_is_split(parent))
++			continue;
++
++		gpu_buddy_merge_one_level(mm, parent->left);
++	}
++}
++
+ static struct gpu_buddy_block *
+ __alloc_range_bias(struct gpu_buddy *mm,
+ 		   u64 start, u64 end,
+@@ -1249,6 +1295,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+ 	LIST_HEAD(dfs);
++	LIST_HEAD(splits);
+ 	int err;
+ 	int i;
+ 
+@@ -1313,6 +1360,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 			err = split_block(mm, block);
+ 			if (unlikely(err))
+ 				goto err_undo;
++
++			list_add(&block->tmp_link, &splits);
+ 		}
+ 
+ 		/*
+@@ -1349,7 +1398,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 		}
+ 	} while (1);
+ 
+-	return ERR_PTR(-ENOSPC);
++	err = -ENOSPC;
+ 
+ err_undo:
+ 	/*
+@@ -1357,7 +1406,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	 * bigger is better, so make sure we merge everything back before we
+ 	 * free the allocated blocks.
+ 	 */
+-	__gpu_buddy_undo_splits(mm, block);
++	gpu_buddy_undo_splits(mm, block, &splits);
++
+ 	return ERR_PTR(err);
+ }
+ 
 
-Since of_drm_get_bridge_by_endpoint() returns a refcounted bridge, it
-appears a reference leak will happen in vs_bridge_init() if the subsequent
-allocation fails:
+base-commit: 90780f2c3d30187116128f71bcf92c8ab63400e7
+-- 
+2.43.0
 
-	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct vs_bridge, base,
-				       bridge_funcs);
-	if (IS_ERR(bridge))
-		return ERR_PTR(PTR_ERR(bridge));
-
-Does this error path need a call to drm_bridge_put(next) to properly release
-the reference before returning?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-drm-fix-of=
-_get_bridge-build-regression-v1-0-ccb7e602daad@bootlin.com?part=3D2
