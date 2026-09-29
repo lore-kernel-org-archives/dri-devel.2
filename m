@@ -4,80 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1EE1CA5FBE
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C7AFCA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E516E10F36A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B10CA10F364;
 	Wed, 30 Sep 2026 12:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rCY3f86Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kHoRkT4m";
 	dkim-atps=neutral
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com
- [74.125.229.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A226810F2F6
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:17:23 +0000 (UTC)
-Received: by mail-dl2-f42.google.com with SMTP id
- a92af1059eb24-144efd1ea76so3102498c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 04:17:23 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD2C310EEA4
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 13:06:25 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-396ccda24afso2144867a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 06:06:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790767043; x=1791371843; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790687185; x=1791291985; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=O8c6J6a8XxfczhTmsOGt/U+Fg7+WNxgVu0l55UiDc6U=;
- b=rCY3f86YxWsCrA7lZyAfJow6Sw/TDhDU/Yzt++CfSUUgGeR+3dcGQX6ESq8nfv8YHJ
- 5V/aasaJC2C2ESaXObDGi9F8Q/ZI5a4FrYhHSNnlwlHu0NsrvUJlLSvKYH8uz0fxvtcU
- DXKX0I6uD06fHVX8ipQmsNYMZDMahQ+fsLURxxDi7iuVRobiYoSFPxzVuhzeK22OqSLK
- WVVuepoA269e2a8/Vxb/C39HELS7+XsXnTanVic/k+00iVm2ysY4S8dYQBkODvroU2Wu
- xNmrkmgLwiGWBjPpzNEJvAAQOQGONbXthnA5ow50zNT1OYtZQb8aJANQZKO3GmAkWlFx
- bhrQ==
+ bh=8jE/aJ2E98iI2S/CWQodcOrB8SsgSTcF+14ugT3aOH8=;
+ b=kHoRkT4mMRV6wB2BnqCYxh/ZZJLKv0zCUrIkbc7F2DkRIBkn+cOIxXBrmMyqzvp+VM
+ B+NTtLoUaPFLf3Aonpu/wzE98c+8SOf6gdXfcYMX17K3YIZL5MqwfGadUJuceg8PBU9Z
+ A02vDToXD+CWl/aZhcJd0R0kSvvNVzoeqOt4Ok+79cAVGN1QJNPRAkdUD+swfa5UeLHD
+ 4n6/yF27/jnFaxOLKSivFsULmdBWNLgrsgEs7NRBI6PY0FQlnwSdXhg17ZB+jte6LXMG
+ Ep4AMncPG18dI9OB8fDI8BIYiFZSaJvCQCqVeX1pj+5mau1M6rk/VO4DkScLr/CDr4/w
+ P37Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790767043; x=1791371843;
+ d=1e100.net; s=20260707; t=1790687185; x=1791291985;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=O8c6J6a8XxfczhTmsOGt/U+Fg7+WNxgVu0l55UiDc6U=;
- b=kdI94UPCkNrfRghVmBcf1KRlyMv3KBrystspCeH7HbkXgd0BtzZQz+nUQl5Dy3nnCV
- c2OkPEyH//B/xQJ9q6G899l/DmAUJ4pHBfwrlk1wqPpOFtXMHeQ9o4xmidSE+HjIt1iX
- SkxSrgTkEH+v52+5+XkzSVz/TOJn+qvuCPeIAW6QafIdJ2bBjGX1qL5NJAWssNefcob4
- iflOx6muT8iI1knyOvSmR+m60Z5da6IC2MG9J/DdAwaPAzK9XGRFyR9b7yxIuqVvSqYl
- PtvErde7ufHCXSw9GYALK9gGbcsugFcakz5pmlZr/YERNRkZqvvIBfp2HryBhkYxbISS
- j3CA==
+ bh=8jE/aJ2E98iI2S/CWQodcOrB8SsgSTcF+14ugT3aOH8=;
+ b=nP/n1aChtp3TlTbWEzCxa/EMDf0FAwxLMuDupAUTQnyEpSMOAevOhsEbWGk23RE60z
+ JVRD1gtsvhLrvGSgOxS0E6tip60EBSk6j3P825FSApy8k/X3jQpXCuDhOchs6kNpuSPC
+ SYM8rsSEW0nA2oMc8yFOvzKIhnm57mRcNEsU4kCi62PDsEE4VI3gNBireaQBQK4XHDbA
+ igIeWHuMWuhXR5MJJM6+qm+CCuwmuy7WQ2HqgGfIFyEfkYRc561GV/tvqYS8CGGWGQoZ
+ WICrLvaxPiVjQqaqKh2hKgh91B9ZUKScTgQ8fOa5GXYoWtMLnQHLNSRozhO3SWQ35vw/
+ 7qng==
 X-Forwarded-Encrypted: i=1;
- AKwUvBznpjV24GPBRSWZWRhMatfI5MgdikOTqBTccVgJcx9icsOPy3JrtXMV6IJ3NLJdRW6rbzDvREj/hVg=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kxrAZxpY+NMMaGEpe/2YKqxX70Vqwq3aqiu4bl+9Awn2z5Hrc6
- Qlc91nGbWlvB8qq7acRGj1BKyWCHB2HHsxSQp+pPcPeLaHTlFjwiyNHr
-X-Gm-Gg: AYBFou3YWxN7Zzt1vIHbOh428QHJAbJstP1zY1yU+VkMugzjreH9dFmjh6UFnr0p77t
- WftZeo4CmJIVRytEgB3dv49dSYFdKeuy04iTDP7CMGyKeP3htw4FJu04VO7ijLz4jauFYvIlrig
- TiRc9KWEOYykP5/roUekrwmsakwVnkNmMYFr2Hhu+wSIOI6OXXbfWm4hFARUf+TCn8htlJu/inL
- /kfOqcZLUj7hNgMwkIv6Mpg/d9TgNvplYDGp3+RCr2FOIIPtw4mE1qoXx+lRoha+mW6fe0Ng8Kd
- +9wAMMddqMMB6aFdvLbp5btLoGOKuz/QJEV1hwG1n9NHCdgX2OVD4xEB7uCRQMzdCSrTlpKQlVD
- fQ0ToTxw+WFrzGOEXTyJH01J8MOFZKrNH/vJMMLhv835PlJfJUstaJ2ldw/b2be9ebf90ITyjpy
- JYKqh8yj7q94uShbWSIge7RxhEYkkj+nismPh0BAgiai8M+L343sT+8W8X010fqHn7lZmNSWAA0
- kRy2gSnqAk7tCwYaZECEegq0MerqXmHK2UlV1FjALjxQXjeKwI4x7nsI6w58l/Pbj7mRRYsJLKV
- 9xEgn7mMb0bKJ+uQ9osapas7OY5ro93qvFw=
-X-Received: by 2002:a05:7022:49c:b0:143:46a6:b01f with SMTP id
- a92af1059eb24-14d330b01admr1588765c88.31.1790767042676; 
- Wed, 30 Sep 2026 04:17:22 -0700 (PDT)
-Received: from rahuls-x2elite ([110.226.112.135])
+ AKwUvByahKc5WD3SfbBIHauFRcDBbcleCHY/9yJSf8bOUdkoG168GvS++dFgMvRTYAZYcM/4k/jZw5OnFvE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ11dfnJYnH1tVB+Ys8Wuj3IW06DxivBY+bprC2fXLQwVXlRSE0
+ Qa01roakU3zCfolOV2Vv3jWBJAeVm9j5fZpuT5+fa1x1Vye2SfNJNeYF
+X-Gm-Gg: AYBFou3QXzIKl8CcQlssTYdf0ePj72LA/a/QIArTOe5YrYDIJlkfoouS3JYRP2hFf2u
+ BKU6ZUeu2VNXHTfaN1W1oks8pfOTQ4QwVOkKqyDZnS7m0B6rAZUdRzcVnS/GUN3zXcTSCFHuQYX
+ wpWCRxqvy6CpPpar0ruTNsdMpCxTASejEIJ1eL4S8w1J1rcbqhL95c/rUT2QO+m2dpDVS0QtawS
+ g+quqkUwJhNP30oCnKO7c6cUmBLSM4LUexUf9fq3wp9EhSysW/s0HpDneU6IwGClC54SzDO1htD
+ co847ck98wxHmi3aVLVOY7M7Kti4291t+/0iMWdpTxbue2XKSzMu9h7qy0/DmJJSNNHjAPxMMAR
+ JLN5UUVsp/wk7bauACvJLe58FqYHBwifth5VT8CZwmJxU4hXIqVTkzhNlC9eCTTo+0STGaSOlEh
+ endU2iiNV1FLyHwYn3gD/EZfAnejcTaO65mOWIDImOyRCyvZ4Cn/sNkLMMKyMn2IWY2VRlzrNjl
+ psrCpoLXXgRugQ=
+X-Received: by 2002:a17:90a:d883:b0:3a0:4146:295b with SMTP id
+ 98e67ed59e1d1-3a0987255a0mr10559170a91.17.1790687185233; 
+ Tue, 29 Sep 2026 06:06:25 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14d063006f7sm4736344c88.2.2026.09.30.04.17.15
+ 98e67ed59e1d1-3a49858555csm6107928a91.5.2026.09.29.06.06.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 04:17:22 -0700 (PDT)
-From: Rahul Pon <theflyingrahul@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tue, 29 Sep 2026 06:06:24 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH msm-next] drm/msm/a8xx: report the GMEM size of the active
- slices
-Date: Wed, 30 Sep 2026 16:47:10 +0530
-Message-ID: <20260930111711.1160-1-theflyingrahul@gmail.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Joonhoe Kim <26rote@gmail.com>
+Subject: [PATCH] drm/msm/dpu: stop all video interfaces before cleaning up a
+ split encoder
+Date: Tue, 29 Sep 2026 22:06:21 +0900
+Message-ID: <20260929130621.943-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,86 +93,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A8xx GPUs split GMEM evenly between their slices, and parts can have
-slices fused off: a8xx_gpu_get_slice_info() reads the active slice mask
-and folds the slice count into the chip ID. The GMEM size reported to
-userspace (MSM_PARAM_GMEM_SIZE) is still the catalog value for all
-slices.
+dpu_encoder_virt_atomic_disable() disables the physical encoders one by
+one. For a video-mode master, dpu_encoder_phys_vid_disable() stops its
+timing engine, waits for the frame to finish and then runs
+dpu_encoder_helper_phys_cleanup(), which resets the CTL. With a split
+display (two interfaces driven from one CTL, e.g. bonded DSI) that CTL
+is shared with the slave, whose timing engine is still running at that
+point: the source pipe starts fetching the slave's next frame and is
+left stalled half-way through it (on SM8850, SSPP_CMN_STATUS 0x10030
+with the fetch and unpack counters frozen, where an idle pipe shows
+0x10003).
 
-On an HP OmniBook 5 (Snapdragon X2 Elite, Mahua), the Adreno X2-85 runs
-3 of 4 slices (chip ID 0x44070031) and the kernel reports 21 MB of GMEM.
-Mesa sizes its tiles and places its CCU caches at the top of that range,
-past the end of the GMEM that exists, and GPU-rendered output is visibly
-corrupted: noise bands and block garbage, across the whole desktop with
-GNOME Shell. Rendering without GMEM (FD_MESA_DEBUG=sysmem) is clean;
-disabling UBWC, LRZ or compressed scanout is not.
+The stall is cleared by a power collapse of the MDSS core GDSC, which
+normally happens between a disable and the next enable, so it goes
+unnoticed. When MDSS stays powered across the disable -- a full modeset
+within one commit, or another runtime-active user of MDSS such as the
+DP controller -- the next enable of the bonded DSI panel scans out
+nothing: the DPU keeps committing frames, the layer mixers produce no
+output (CRC 0), and the panel shows black with the backlight on. A CTL
+reset at enable does not clear it.
 
-Qualcomm's downstream driver reports GMEM for the active slices on this
-GPU: gen8_get_gmem_size() in KGSL returns
-gmem_size / GEN8_1_0_NUM_PHYSICAL_SLICES * active slices, 15.75 MB here.
-Do the same when reading the slice mask. The GMEM protection and UCHE
-setup still cover the full range, as in KGSL.
+Stop the timing engine of every video interface of the encoder before
+any of them is cleaned up. The master's existing wait for the frame to
+complete then covers both halves.
 
-Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
+Seen on a Lenovo Legion Tab Y700 gen 5 (TB323FU, SM8850) with a bonded
+DSI video-mode panel (CSOT PP8807HB1-1). It reproduces without any
+external display by keeping MDSS runtime-active:
+
+  echo on > /sys/bus/platform/devices/9800000.display-subsystem/power/control
+
+then DPMS off and on from the compositor: black 3/3 before this change.
+Every full modeset (e.g. a refresh rate change) went black the same way.
+With this change: DPMS off/on 13/13 and full modesets 4/4 show the
+picture, and an attached DP display is unaffected. Only tested on this
+device.
+
+Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
 Assisted-by: LLM
-Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c   | 4 ++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 ++
- 3 files changed, 8 insertions(+), 1 deletion(-)
+Saim Shujah's "drm/msm/dpu: clear pending flush state before physical cleanup"
+(https://lore.kernel.org/all/20260826182459.1506522-1-saimzst@gmail.com/)
+alone does not help here: still black 3/3 with only that change.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index add93c1fa039..9b95d9b3826a 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -112,6 +112,10 @@ void a8xx_gpu_get_slice_info(struct msm_gpu *gpu)
- 	/* Chip ID depends on the number of slices available. So update it */
- 	adreno_gpu->chip_id |= FIELD_PREP(GENMASK(7, 4), hweight32(slice_mask));
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f20695f81e3..a14156408126 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1380,6 +1380,35 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
+ 	mutex_unlock(&dpu_enc->enc_lock);
+ }
  
-+	/* GMEM is split evenly between slices: report the active share */
-+	adreno_gpu->gmem = adreno_gpu->info->gmem / info->max_slices *
-+			   hweight32(slice_mask);
++/*
++ * Stop the timing engine of every video-mode interface of the encoder before
++ * any of them is cleaned up. With a split display (two interfaces on one CTL,
++ * e.g. bonded DSI) the master's cleanup resets the shared CTL while the
++ * slave's timing engine would still be running; the source pipes then start
++ * fetching the slave's next frame and stall half-way through it. The stall
++ * survives until the MDSS core GDSC is power-collapsed, so when something else
++ * keeps MDSS powered (an active DP controller) the next enable scans out
++ * nothing.
++ */
++static void dpu_encoder_stop_video_timing(struct dpu_encoder_virt *dpu_enc)
++{
++	unsigned long lock_flags;
++	int i;
 +
- 	/* Update the gpu-name to reflect the slice config: */
- 	const char *name = devm_kasprintf(dev, GFP_KERNEL,
- 			"%"ADRENO_CHIPID_FMT,
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 5832dc25d6bf..dadfe4c69438 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -379,7 +379,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 		*value = adreno_gpu->info->revn;
- 		return 0;
- 	case MSM_PARAM_GMEM_SIZE:
--		*value = adreno_gpu->info->gmem;
-+		*value = adreno_gpu->gmem;
- 		return 0;
- 	case MSM_PARAM_GMEM_BASE:
- 		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
-@@ -1205,6 +1205,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	adreno_gpu->funcs = funcs;
- 	adreno_gpu->info = config->info;
- 	adreno_gpu->chip_id = config->chip_id;
-+	adreno_gpu->gmem = config->info->gmem;
++	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
++		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
++
++		if (phys->intf_mode != INTF_MODE_VIDEO || !phys->hw_intf ||
++		    !phys->hw_intf->ops.enable_timing ||
++		    phys->enable_state == DPU_ENC_DISABLED)
++			continue;
++
++		spin_lock_irqsave(phys->enc_spinlock, lock_flags);
++		phys->hw_intf->ops.enable_timing(phys->hw_intf, 0);
++		spin_unlock_irqrestore(phys->enc_spinlock, lock_flags);
++	}
++}
++
+ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
+ 					struct drm_atomic_commit *state)
+ {
+@@ -1412,6 +1441,9 @@ static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
  
- 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
- 	gpu->pdev = pdev;
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 114a40f79ef3..8e6a88103610 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -204,6 +204,8 @@ struct adreno_gpu {
- 	struct msm_gpu base;
- 	const struct adreno_info *info;
- 	uint32_t chip_id;
-+	/* GMEM size available to userspace, see a8xx_gpu_get_slice_info(): */
-+	uint32_t gmem;
- 	uint16_t speedbin;
- 	const struct adreno_gpu_funcs *funcs;
+ 	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
+ 
++	if (dpu_enc->num_phys_encs > 1)
++		dpu_encoder_stop_video_timing(dpu_enc);
++
+ 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+ 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
  
 
-base-commit: d33622598496c8994c35ba0a8a913de064dfc1a4
+base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
 -- 
-2.53.0
+2.43.0
 
