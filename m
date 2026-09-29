@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D77ACA5FAE
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 03:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA21ACA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 03:46:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4475A10EC7C;
-	Tue, 29 Sep 2026 03:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 071A910EC82;
+	Tue, 29 Sep 2026 03:46:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ByVSowkG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="MhHYz5ai";
 	dkim-atps=neutral
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4F510EC7C
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 03:45:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790653544; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54CDB10EC7C
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 03:46:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1790653556; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=MIwuizdpNvAwPqKs4y2/EAXjfXJ+zC1f4JMr0cjRv2vosAvGp17uRLYIFfhXjfyYe17A4QOgXJUlV9OWqzryD0tTkUMf0WLR/Y0CNQoZGmUhnIFJw+tLVkjdZ47ASWidSIeieJuUDqFB5T7loR2XTAJmIC+hddKfJcdyA69/NL8=
+ b=K1aQ3s1j96CCvCTdXb74GhAFq2SarM9mGQDImTCBdBoETsMw7ymvGQxbEeiDe332pM74122hqOdorG7la/cin4Qkx97/kY5TdG96Fq34r1Y6YC6qw8zUhb3+EMBieRjvTmx1FZ6KW/+KoVuamVycWX8TMMCy3h31kdFxOywY+UU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790653544;
+ s=zohoarc; t=1790653556;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mNxJxy2SiSufH0bn/vRhZOAvlJ5kVJf8B1ZEKhnZWHw=; 
- b=V1OtQwdm0kTDUwvBWNVHcf5rEnAtg7p2uUk/gu/sD3CfiGVE8KwnXq80ZxKvkwRryzXUqZ7EYmzS05RKqHPXUs8oe82XBhvFZjJdC5nhoxZYztiCnVRRLNlvnYIWQhYlFv6oZL2DZ0gA8meIl2Wl8EvPNNfnjZPbbrscskLn0zE=
+ bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=; 
+ b=S2HnYSiaXCEqHqLrt9lLGTWOzUZuEYT/Mb/4WfO0eNXFhcHQ7wow74VxYahV0DE2AUVhYXBGFxRFVOanyVLNsSVbA3Ztbqwyz2hXCpARXaDUtXtgJTwV2ZtmeEzJmriazxM1bchimnsP0gWsRYu4vWh8zbr9aos42+1nqj9bwBk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653544; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790653556; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=mNxJxy2SiSufH0bn/vRhZOAvlJ5kVJf8B1ZEKhnZWHw=;
- b=ByVSowkGZtkoMa7wpAHghFEkLELFu22pmJXxZhmstxcuF/gF6laSTBAjXVAB7T4a
- IWXEOR+a26l30TprYyh+Eoa+wWubd+AB/8kXsLSWmRmO6QINOw+M3aZPXVBkfNYgnG0
- r2HdNL/VmqtGEuP+rw35KPjP55P6YhH5IgRxM4r4=
-Received: by smtp.zohomail.com with SMTPS id 1790653542695170.05616378754496; 
- Mon, 28 Sep 2026 20:45:42 -0700 (PDT)
+ bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=;
+ b=MhHYz5aigWi6Ebq73DSvHun7fYZqeePzpWYRHyN+VIjSPd7hFY9P6XszdbqIIXzs
+ vN/FSxsU5Xj/+wiH0nbz1oc/c3T0+QPa2NKygY6srZF/pA5Y4TyvpuhRdItqufhYvkw
+ gw754yssANDvOZBJ8euFocQ5rQpIPf8PxNQ91KYg=
+Received: by smtp.zohomail.com with SMTPS id 1790653554870843.1004182142298;
+ Mon, 28 Sep 2026 20:45:54 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Tue, 29 Sep 2026 04:44:43 +0100
-Subject: [PATCH v12 09/15] drm/panfrost: Add warning messages to fatal
- error conditions
+Date: Tue, 29 Sep 2026 04:44:45 +0100
+Subject: [PATCH v12 11/15] drm/panfrost: Move perfcnt GPU disable sequence
+ into a helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-claude-fixes-v12-9-62beb08de207@collabora.com>
+Message-Id: <20260929-claude-fixes-v12-11-62beb08de207@collabora.com>
 References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
 In-Reply-To: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -61,18 +61,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1571;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=lA6x9qSUxtgT2vTBUbfDtwSj/JWblIzbdLpsN/oZ9es=;
- b=kA0DAAoBDiZ+TO5TQz0ByyZiAGq7NC6gZvYepyv+JY6Sx1avrsXDq+zAicGRrI14yW+cUfUbq
- IkBswQAAQoAHRYhBDJAMOjABRdd+TcHpA4mfkzuU0M9BQJquzQuAAoJEA4mfkzuU0M98PkL/iUS
- Oa/siqC6p1WfIzKShRoCaqp77bLELvx/az3ZNg3qfLxoA650OVI62l1OLHHA40J/CYvnTE82znw
- +j9Q2aCwc5joMyrNwkrFqaQhyw2t3OyJJcnMdFyjHMp67GezESfCry02JTqupP/SinGhuMwDpGq
- Z40FmZQxnxuE0x9qEgsPDx7MsYLsMbqL+s52dzey5C1rJAf/4pBN3va9SZERJ2aJvJEWai7Kx4a
- zWUySd4w3UETGjVfAmNEIpncWYUtQN/wkwjvN59ke3TohzW6thDrsKqtFqUriKqi0ORrKVpZPja
- UP7Kjl4EMSVo0H4mQWv2cYzCGr9nepEbVHbJvuRmgq6pfj1a30E4+lB4M419YS6FIHWWgqU7aMt
- eEGCvrJGvy7uLgWoKu7cpERIS3TbTPt9wYPQGLT2OZ+X66xzI5G3j9cQ6AucvTzYNTYUL7JB2Mb
- MJIMqzyRZ830t7gVi1YOarf87CgJLhdIw57OuUTmAOMTYconc1zibzNjMfxQ==
+ bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBquzQuGk22BwzeD6Ok71oYnxrUcd1JLK07kWLI3
+ ZCNectG36aJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCars0LgAKCRAOJn5M7lND
+ PTTFC/4vNF39PCA+t/2SzhZTRbmE5mFRmoNR5e1rDeEWlWLBciSgIhZR53Qos9B8SuevIDSxewJ
+ ejowpo+1/w04bKYjk9sogR1wDI7YBo62zQdrOKzhc1SuVoBwA/x8n/PL7RN0qgMWzNyyN/zk1xo
+ WRNq1eM3uKehAsm+eeMPiYMxcoK7oCgXBFcfZ/+nNgHaoiovciAWcrjJMQzW8UzN9dJ//y/1Zeu
+ G8TKEh/lX2geDBqQH3Cl1qiN7ATobKkYbpEaZ/Vx2oy2DHJFb1+ELM+F8b5hp9lY6modVw8pRNJ
+ 1fZ+TycN8X0aWfZDFyoLWhsh+jsXYlJiHYVut+4jrp++Lmt2fR8reLzlS/JQg2ATwSeECkNayuC
+ F6X/JBGsrZ8WW2k335fxtfPhc0pgXgX4oDd/jgN6kynkLuSj//xijzXrZ5MYlwQ+crCZhJb6NlZ
+ /xVfw2T2x8JLsWcNqKcqU8xPOyWwMbbArNWjUYULWkckaZO+9xdClGsVMWv1xm2Ol8Ook=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,46 +90,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rather than just failing silently, let's warn the user of device remove not
-being able to take an PM reference or the PM suspend path still reporting
-inflight jobs. Neither situation should ever happen.
+Just for the sake of avoiding repetition.
 
+Reviewed-by: Steven Price <steven.price@arm.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index c6bf3d0663df..09a5752a3f40 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -9,6 +9,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <drm/drm_drv.h>
-+#include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index 7020c0192e18..f71534e741b6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
+ 	struct completion dump_comp;
+ };
  
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
-@@ -357,7 +358,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 
- void panfrost_device_fini(struct panfrost_device *pfdev)
++static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
++{
++	gpu_write(pfdev, GPU_PERFCNT_CFG,
++		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
++	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++}
++
+ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
  {
--	pm_runtime_get_sync(pfdev->base.dev);
-+	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+ 	complete(&pfdev->perfcnt->dump_comp);
+@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
+ 	if (user != perfcnt->user)
+ 		return -EINVAL;
  
- 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
-@@ -516,7 +517,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
++	panfrost_perfcnt_hw_disable(pfdev);
+ 
+ 	perfcnt->user = NULL;
+ 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
+@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ 	perfcnt->bosize = size;
+ 
+ 	/* Start with everything disabled. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ 
+ 	init_completion(&perfcnt->dump_comp);
+ 	mutex_init(&perfcnt->lock);
+@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
+ void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
  {
- 	struct panfrost_device *pfdev = dev_get_drvdata(dev);
- 
--	if (!panfrost_jm_is_idle(pfdev))
-+	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
- 		return -EBUSY;
- 
- 	panfrost_devfreq_suspend(pfdev);
+ 	/* Disable everything before leaving. */
+-	gpu_write(pfdev, GPU_PERFCNT_CFG,
+-		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
+-	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
+-	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
++	panfrost_perfcnt_hw_disable(pfdev);
+ }
 
 -- 
 2.55.0
