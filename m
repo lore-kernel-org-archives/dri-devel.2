@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B18CA5FAC
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 20:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0BBACA5FAC
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 20:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5622110F083;
-	Tue, 29 Sep 2026 20:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF3C310F08D;
+	Tue, 29 Sep 2026 20:34:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Y5hNfTFk";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cPqlDVUc";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56F5810F083;
- Tue, 29 Sep 2026 20:34:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17AB010F08D;
+ Tue, 29 Sep 2026 20:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=4JFQSlkOpl/juhAvdKb3xT2ojX/cdAsls0KqZvgss9o=; b=Y5hNfTFk1mUA90tfQg9hhrcIYO
- 2tOQAlibMjy9T1UJnUw49AxQsAhL/Y52kceXdyqUiAFm13dBqZOOzDMWUI1aNLJvSBrAfCqcdRSHG
- p9r0RUEJoIB/2LAedYrFlPIQMzjMGPvLfahL3eUQUSjLZqp1lp+Hhjzcw5FD3On70R74lMZXy65jv
- aLMlA0zs9h2esZ/4CctjH23OZOLLa/V0jR3oWiChnsJujkMcjGCZrREJKwd9WxV/32WfYeo6ueN0A
- 0M9NXbsrhIYwNwrkP3fG26v3oM/9JwjImbVHnmZKjlb4Br514JTVSmJIJa1lD5MC1fydhIgX2SBpX
- jpq0CegQ==;
+ bh=iC0rPzMQI+Iz27Lx6x02hGWhWmmmEWXNSGie2PKlBYE=; b=cPqlDVUcympBIusM9qhmUz/CeO
+ iSDFbC2JyIdD7wDB+nIDtzvJNCuk4Mb/ZQYgNwCY1hwQmBR/rpa9THGKBfyUTRAKvDJTZjRMAkjEg
+ HZOmj6FEkmqW62os2WngSxwLP2U6t5ZjsnR2g0tfSj9fu5qohkm7+M/N+uo70Ko/X3zt8AbW3l6AC
+ kwmd32f1xYSQNZcwLK+6xYfm8XPajbaddi6sCGNdOnVdemItb0o3pw0J3TM9kmm12jhtvwVIjblXE
+ 4zvcgqyIhTUfg0SwiMbJRFwXMZdppebZNcz6PROq81BMdKWb8VGzKySIWOeiLRRYGAoYnF+g5Kddd
+ KTp+bkug==;
 Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
  helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xBeWu-0096Z5-LJ; Tue, 29 Sep 2026 22:34:24 +0200
+ id 1xBeWy-0096Z5-Uz; Tue, 29 Sep 2026 22:34:29 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Tue, 29 Sep 2026 17:34:04 -0300
-Subject: [PATCH 1/2] drm/amdgpu: make amdgpu_vm_update_funcs commit return void
+Date: Tue, 29 Sep 2026 17:34:05 -0300
+Subject: [PATCH 2/2] drm/amdgpu: free job when amdgpu_vm_ptes_update fails
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-amdgpu_vm_update_funcs_abort-v1-1-a8072140a7db@igalia.com>
+Message-Id: <20260929-amdgpu_vm_update_funcs_abort-v1-2-a8072140a7db@igalia.com>
 References: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
 In-Reply-To: <20260929-amdgpu_vm_update_funcs_abort-v1-0-a8072140a7db@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -64,158 +64,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As both SDMA and CPU implementations always return 0, they can as well
-just return void.
+When amdgpu_vm_update_range hits a failure at amdgpu_vm_ptes_update, it
+will skip calling update_funcs commit, which might lead to a memory
+leak.
 
+[ 2877.877264] kmemleak: unreferenced object 0xffff89b1f3cf0800 (size 1024):
+[ 2877.877273] kmemleak:   comm "vm_always_valid", pid 3027, jiffies 4295714403
+[ 2877.877275] kmemleak:   hex dump (first 32 bytes):
+[ 2877.877277] kmemleak:     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[ 2877.877279] kmemleak:     00 03 da 52 b1 89 ff ff 38 25 5f cb b1 89 ff ff  ...R....8%_.....
+[ 2877.877280] kmemleak:   backtrace (crc d52b9041):
+[ 2877.877282] kmemleak:     __kmalloc_noprof+0x4b3/0x770
+[ 2877.877288] kmemleak:     amdgpu_job_alloc+0x69/0x280 [amdgpu]
+[ 2877.877668] kmemleak:     amdgpu_job_alloc_with_ib+0x55/0xf0 [amdgpu]
+[ 2877.878023] kmemleak:     amdgpu_vm_sdma_prepare+0x4b/0xa0 [amdgpu]
+[ 2877.878350] kmemleak:     amdgpu_vm_update_range+0x24f/0x940 [amdgpu]
+[ 2877.878668] kmemleak:     amdgpu_vm_clear_freed+0x13b/0x290 [amdgpu]
+[ 2877.878983] kmemleak:     amdgpu_gem_object_close+0x1ac/0x270 [amdgpu]
+[ 2877.879300] kmemleak:     drm_gem_object_release_handle+0x35/0xd0
+[ 2877.879305] kmemleak:     idr_for_each+0x70/0xe0
+[ 2877.879310] kmemleak:     drm_gem_release+0x23/0x30
+[ 2877.879311] kmemleak:     drm_file_free+0x217/0x2a0
+[ 2877.879314] kmemleak:     drm_release+0x61/0xe0
+[ 2877.879317] kmemleak:     amdgpu_drm_release+0x62/0xd0 [amdgpu]
+[ 2877.879630] kmemleak:     __fput+0xfb/0x2d0
+[ 2877.879634] kmemleak:     __x64_sys_close+0x3d/0x80
+[ 2877.879637] kmemleak:     do_syscall_64+0x12d/0x6c0
+
+So introduce a amdgpu_vm_update_funcs abort hook that is empty for CPU
+and frees the job for SDMA and call it on any error path after the
+prepare hook has been successfully called.
+
+Fixes: 81417bea8755 ("drm/amdgpu: explicitly sync VM update to PDs/PTs")
+Fixes: c3546695830e ("drm/amdgpu: use the new VM backend for PTEs")
 Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 14 ++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c      |  8 +++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     | 11 +++--------
- 5 files changed, 13 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c          | 10 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c      |  7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c       |  7 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c     |  9 ++++++++-
+ 5 files changed, 28 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bcb5015bdede..201e3e114f07 100644
+index 201e3e114f07..be908ef3fe80 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1024,9 +1024,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 			goto error;
+@@ -1021,7 +1021,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 
+ 		r = amdgpu_vm_pde_update(&params, entry);
+ 		if (r)
+-			goto error;
++			goto error_abort;
  	}
  
--	r = vm->update_funcs->commit(&params, &vm->last_update);
--	if (r)
--		goto error;
-+	vm->update_funcs->commit(&params, &vm->last_update);
+ 	vm->update_funcs->commit(&params, &vm->last_update);
+@@ -1033,6 +1033,9 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 				 vm_status)
+ 		amdgpu_vm_bo_idle(entry);
  
- 	if (flush_tlb_needed)
- 		atomic64_inc(&vm->tlb_seq);
-@@ -1242,9 +1240,7 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
++error_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
+ error:
+ 	drm_dev_exit(idx);
+ 	return r;
+@@ -1234,7 +1237,7 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		tmp = start + num_entries;
+ 		r = amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
+ 		if (r)
+-			goto error_free;
++			goto error_abort;
+ 
+ 		amdgpu_res_next(&cursor, num_entries * AMDGPU_GPU_PAGE_SIZE);
  		start = tmp;
- 	}
+@@ -1249,6 +1252,9 @@ int amdgpu_vm_map_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
  
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	if (params.needs_flush) {
- 		amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
-@@ -1319,9 +1315,7 @@ int amdgpu_vm_unmap_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	amdgpu_vm_pt_leaves(&params, start, last + 1, NULL, flags);
- 
--	r = vm->update_funcs->commit(&params, fence);
--	if (r)
--		goto error_free;
-+	vm->update_funcs->commit(&params, fence);
- 
- 	amdgpu_vm_tlb_flush(&params, fence, tlb_cb);
  	amdgpu_vm_pt_free_list(adev, &params);
-@@ -3250,7 +3244,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
  
- 	amdgpu_vm_pt_leaves(&params, addr, addr + 1, dst, flags);
- 
--	r = vm->update_funcs->commit(&params, &vm->last_update);
-+	vm->update_funcs->commit(&params, &vm->last_update);
- 
- error_end_critical:
++error_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
+ error_free:
+ 	kfree(tlb_cb);
  	amdgpu_vm_end_critical(&params);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-index d03b9bbe20c7..ec715bcaa0f2 100644
+index ec715bcaa0f2..8565a2899e08 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-@@ -117,8 +117,8 @@ static int amdgpu_vm_cpu_update(struct amdgpu_vm_update_params *p,
-  *
-  * Make sure that the hardware sees the page table updates.
-  */
--static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
--				struct dma_fence **fence)
-+static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
-+				 struct dma_fence **fence)
- {
- 	struct amdgpu_device *adev = p->adev;
- 
-@@ -128,12 +128,10 @@ static int amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
- 	mb();
- 	/* A reset flushed the HDP anyway, so that here can be skipped when a reset is ongoing */
- 	if (!down_read_trylock(&adev->reset_domain->sem))
--		return 0;
-+		return;
- 
- 	amdgpu_device_flush_hdp(adev, NULL);
+@@ -134,9 +134,14 @@ static void amdgpu_vm_cpu_commit(struct amdgpu_vm_update_params *p,
  	up_read(&adev->reset_domain->sem);
--
--	return 0;
  }
  
++static void amdgpu_vm_cpu_abort(struct amdgpu_vm_update_params *p)
++{
++}
++
  const struct amdgpu_vm_update_funcs amdgpu_vm_cpu_funcs = {
+ 	.map_table = amdgpu_vm_cpu_map_table,
+ 	.prepare = amdgpu_vm_cpu_prepare,
+ 	.update = amdgpu_vm_cpu_update,
+-	.commit = amdgpu_vm_cpu_commit
++	.commit = amdgpu_vm_cpu_commit,
++	.abort = amdgpu_vm_cpu_abort,
+ };
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-index 8a0e5fcbd55b..e056999d8406 100644
+index e056999d8406..3d8cbd4530ac 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_internal.h
-@@ -119,8 +119,8 @@ struct amdgpu_vm_update_funcs {
- 	int (*update)(struct amdgpu_vm_update_params *p,
- 		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
+@@ -121,6 +121,7 @@ struct amdgpu_vm_update_funcs {
  		      unsigned count, uint32_t incr, uint64_t flags);
--	int (*commit)(struct amdgpu_vm_update_params *p,
--		      struct dma_fence **fence);
-+	void (*commit)(struct amdgpu_vm_update_params *p,
-+		       struct dma_fence **fence);
+ 	void (*commit)(struct amdgpu_vm_update_params *p,
+ 		       struct dma_fence **fence);
++	void (*abort)(struct amdgpu_vm_update_params *p);
  };
  
  uint64_t amdgpu_vm_pt_clear_flags(struct amdgpu_device *adev,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index dea80796f139..f9abafef6a4f 100644
+index f9abafef6a4f..e98a7a86bf3c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -433,7 +433,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+@@ -426,14 +426,17 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	r = vm->update_funcs->prepare(&params, NULL,
+ 				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
  	if (r)
- 		goto exit;
+-		goto exit;
++		goto exit_abort;
  
--	r = vm->update_funcs->commit(&params, NULL);
-+	vm->update_funcs->commit(&params, NULL);
+ 	flags = amdgpu_vm_pt_clear_flags(adev, vm, level);
+ 	r = vm->update_funcs->update(&params, vmbo, 0, 0, entries, 0, flags);
+ 	if (r)
+-		goto exit;
++		goto exit_abort;
+ 
+ 	vm->update_funcs->commit(&params, NULL);
++exit_abort:
++	if (r)
++		vm->update_funcs->abort(&params);
  exit:
  	drm_dev_exit(idx);
  	return r;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 6dc71687c398..0611ae38a9b5 100644
+index 0611ae38a9b5..7c48a370a6bc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -101,11 +101,9 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
-  * @p: see amdgpu_vm_update_params definition
-  * @fence: resulting fence
-  *
-- * Returns:
-- * Negativ errno, 0 for success.
-  */
--static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
--				 struct dma_fence **fence)
-+static void amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
-+				  struct dma_fence **fence)
- {
- 	struct amdgpu_ib *ib = p->job->ibs;
- 	struct amdgpu_ring *ring;
-@@ -143,7 +141,6 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_update_params *p,
- 		swap(*fence, f);
- 	}
- 	dma_fence_put(f);
--	return 0;
+@@ -298,9 +298,16 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 	return 0;
  }
  
- /**
-@@ -247,9 +244,7 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 		ndw -= p->job->ibs->length_dw;
- 
- 		if (ndw < 32) {
--			r = amdgpu_vm_sdma_commit(p, NULL);
--			if (r)
--				return r;
-+			amdgpu_vm_sdma_commit(p, NULL);
- 
- 			r = amdgpu_vm_sdma_alloc_job(p, count,
- 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
++static void amdgpu_vm_sdma_abort(struct amdgpu_vm_update_params *p)
++{
++	if (p->job)
++		amdgpu_job_free(p->job);
++}
++
+ const struct amdgpu_vm_update_funcs amdgpu_vm_sdma_funcs = {
+ 	.map_table = amdgpu_vm_sdma_map_table,
+ 	.prepare = amdgpu_vm_sdma_prepare,
+ 	.update = amdgpu_vm_sdma_update,
+-	.commit = amdgpu_vm_sdma_commit
++	.commit = amdgpu_vm_sdma_commit,
++	.abort = amdgpu_vm_sdma_abort,
+ };
 
 -- 
 2.47.3
