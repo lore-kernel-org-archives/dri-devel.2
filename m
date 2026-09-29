@@ -4,197 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B800CA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36229CA5FA7
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 08:22:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C97BA10ED6A;
-	Tue, 29 Sep 2026 08:22:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D54810ED74;
+	Tue, 29 Sep 2026 08:22:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="T+IY+X7k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UDec8Oir";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012041.outbound.protection.outlook.com [52.101.53.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9584D10EC62
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:37:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sVWGOtXKl4T52XwcVhhOAnUYkp8HUOGcNa3wYlrbmOxLHgx8rzUi/4hs5YS9ION6sQ2cuN6ut4UoQLshyZVD0R1k0o5KkynEUzUTDlRQN1+Hbk+9xErj5hF3qlbWaiA2FCrlH9Rs/INpEjeGd7A7UhTWTjI2cTlet3yrux4Q7tl9UXZ4J9XYqBippRnDMAeeJK2HTqbpC5xQrQWdfK8dpnGgDZdWTgjetdsTN5tM58TcXvlOi5+G9l3T3+QodVUWQ7sSbpsJtOeDZtBMxkTuYN/kc3cA+esb/KIChf1VGtb/b9xmDvqFnfrfjpQgy+2rvuxiS0I5CtZEqsInQy3uFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XCLTRohZgxrvH+esGkRGV3juLJpOde6+5uhyO00kSSE=;
- b=kwsCc67ZhbqMbUYowl8cXizD+MszX9P3u//eiz2KE88QhzkeLYfaWn68jCYmZFxOpvcGy7HOIRft3a0vhGztVtFB/eOoCT7k1NunSoHtc2ZSV87f7xzd0Dwwy2Lssxh2GvmPMoWP+1zHDXtrF1PysN1VESuICWfdoU4MW9YgMDGKEtsn80N/N3po5PCSIvrnbKfWYx3mHwQUJ/5jGYLHmhWMhokQYNfr9ViYGddRtRPGKDKqP5254aqL1crMkxO2tHDWLuIBGHVe7mK53Lm5zXdSJDuheBgu/2pkCyXruLeJk3htcSqQGcmVPX7Sevb97QoTDMWuQC3Im87RJvm5uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XCLTRohZgxrvH+esGkRGV3juLJpOde6+5uhyO00kSSE=;
- b=T+IY+X7kRNHe1piTaz/G3orZVzTk0jaqTOj+lkVPngLXEOxfJ9d+lgNbI8NDWMiNn/QxueHVfQb8UBLOpJqZRAJ67RT0HfcEE6SkuZefl1UegYuHfZXB8LaWB5icnXe85Qd9lRCLkFcIAUUNoXzuNiudWUODNcjB4+oOkVc20T82pBHtLfy/Ts+fkZTwtW9dRzwIqm9j5UG6sFBCVPoMhoz70/OU7ol0S8fZ9ku2r06BOxldcTP76kQ7Lgf1ztYuDfzIpuBonFptPTwqFkO7j2IvK9CamiJZCTDuxLFqM2cORszQ/S+bqGm2QdQUvU1vbpbnlBY+2IVNtuhxnXgaMA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CY8PR12MB7660.namprd12.prod.outlook.com (2603:10b6:930:84::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 02:36:53 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 02:36:53 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Sep 2026 22:36:46 -0400
-Message-Id: <DLRG8L762ZE1.3CCEQCRGI5DY@nvidia.com>
-Subject: Re: [PATCH v3 29/40] mm: drop some redundant checks around hugetlb
- VMAs
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
- <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
- Moore" <paul@paul-moore.com>, "Stephen Smalley"
- <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
- Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
- Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
- <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
- <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
- <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
- Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
- <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
- <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
- <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
- <vincent.guittot@linaro.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
- Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
- <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
- <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
- <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
- Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
- <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
- <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
- Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
- He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
- <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
- <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
- Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
- <xu.xin@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-29-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-29-4583d8a23bca@kernel.org>
-X-ClientProxiedBy: YQZPR01CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::10) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com
+ [74.125.225.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D9F10ED17
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 07:07:22 +0000 (UTC)
+Received: by mail-wm2-f12.google.com with SMTP id
+ 5b1f17b1804b1-49d1fb0cf5eso36236445e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 00:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790665641; x=1791270441; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
+ b=UDec8OirfmH2ZqFq2/bRbFVp/nRjjqCAgZjCF4pt34luPV0C32N0T4KK/tmo/j12H8
+ UN5CfRQ1g8SYLrVdioC0qvkCiSeafKVz4NI1fUhENen2xsIeRKb9//JE/o7BDYX1H5Kb
+ S/ToqClherWu8Zvo3aB7Fc74/SPBB4M4TdGx7ZhdtgIh4t/FthV5blRvBd1LLD5n5bLU
+ JxgQvNd3Fu3twOEzfKAfe4RXtEKT0Lvr+QYARW+yMTlq0R6wuv6b5/3ezl9TKF0wiJWu
+ vnz3XjRHOLB4ib2cFAtBVb8XHaVKumgHtVBqb6wBFe8LXnYWX4ITZVNSbLaERNb4Q8JZ
+ XJwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790665641; x=1791270441;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0kjavUluxIdj8vslb6mPPnH9lKklEmbuVjVAK6jlaIw=;
+ b=ajRoBqZRE01KNk3Pp3XRCnT6oEy0Vxl/DjbLA6U2YOJy28pTG2y7aJyhY8zHPtLAoM
+ D8jK6gyAIuKDAsMnFIJc0jHZwXVQnNfzeppn9bR7p+j8UKgNZFF0dTjaeSWgM1KS7mmz
+ BVgQ+BnGkqpkETB+tNkP9d+pBNnEo8Ja9Edh822G9UkgvzjzNlQ+3N1Gl8mhlCWFYabY
+ yrQgo02wLDm/D175gfxvKde3tsW0st5x9c4k8pEDLgCQgFBfKF8KD6i5DyzMw1E8LZqP
+ +/l/jEoVcVYKqoLG9/2iekVoMVp0HTLVNtgw3w7vnOfEsR88eVJl0DX7uXuO3fdICQnG
+ Xc0A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzI2a8XaCEuPDmJ6wXVt+J9c4ErIrzSDS0VbvB+YoQ0ZbtU2KiMUPUFMl7pLUtnf4lmV6qBfybCQ64=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nn3/Wzstv8Uz6ZXRyrI2TgtIgnTXoWUFqtCd6hPYt7jvaG6l4x
+ gH50mmMeVspfCGwOcq0kw77ElJJGAJdmFd4ekfyrIRv9dqX60HzBTNVQ
+X-Gm-Gg: AYBFou1nmRJZfjUgGYaYd8lTn4QCa2siBhJ4wLvuzBjbQ92DgFHDJGvZplK6j6sqFdj
+ oB0lS0E5ktasJDr45spJHrF7Oppzm0mTAXJFPiKbuLRF55l725iz9edn/pvjMuBnqm5/VYpBPaI
+ xSKw3iQdDtQVzBr0s3pa4G1SvlgHUiS5pFgD43gUw6IQcEUxbCtlM1Dlmc6nJbHDbtgX4LY+xHi
+ v8FnuNVuK6sR5MXAhQ8LBZuWcfrVA/VZyd2ze6Ph5GKPk6FxfatMBgqT2MZ5hWAt1IHzJRrAMmw
+ ngZZzOZDIij1cIM3WJuFNLua5YKi/bhTB3I6R/C7cZwSUcdkYoJ2AsJGk2vmW+FuLX3A8Ec51Z1
+ u9wUcZZIjQACIbut126vW8uWEeIyT7Ql3LoLwxTtyZlNrv6I8zIdfHb02egKzGOWFhF/hEkgoN4
+ SltOzQser7JBoX+tDvlWjHecefNSfK9CRb9q0VqLbBgZ7ynWVoVNWC6DTt9gpYv471Ix6myXDXm
+ iIxxeu5Q+kXbYNz6NZ52cmgh6aSGRwmEzQ6pHdimuMFLD50QOPoQIpsvXWqcOrgDu0=
+X-Received: by 2002:a05:600c:3556:b0:49f:bd3c:bc24 with SMTP id
+ 5b1f17b1804b1-49fe6708a46mr262115795e9.31.1790665640767; 
+ Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
+Received: from f3a6eae2255e.fritz.box
+ (dynamic-002-214-017-137.2.214.pool.telefonica.de. [2.214.17.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a00cfec770sm57919625e9.8.2026.09.29.00.07.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Sep 2026 00:07:20 -0700 (PDT)
+From: Abhin Parekadan Jose <abhinjoses@gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com,
+ Abhin Parekadan Jose <abhinjoses@gmail.com>
+Subject: [PATCH] drm/virtio: Destroy obj_restore_lock on the final
+ drm_dev_put()
+Date: Tue, 29 Sep 2026 07:07:14 +0000
+Message-ID: <20260929070714.169412-1-abhinjoses@gmail.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY8PR12MB7660:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5250cf3-9e87-49f3-4547-08df1dd285a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: R2CShBVTVO5kAP7NuRAknb3yqeDA+81WkQfNhB7rKCVlA0VLDx+nJ0Dt2jux/9OBjWSL8EQ7p0PcF8hceyPsG8jVbWaXgK9s/TbQ5/m92rudq9VqTKWNwodf19ppJVam7o7kWZ0ubWoaH5fazuMETLrjb8vSfofsSeH8cHq7TtnrNGytFONu3xZrhta+FuiCUbbbjIXoqgDtnLF6FXBtF+fDGcZKUTEXAMvl0vHWmwT0ZvuIQrHy0KcM6eKztvPQdJgXTy2umwy3/j+BxHSCQifr4jdZHlMBNEEvVXLMOhPJ7QDJbWeXlhwugmiM3wnj61Xxj7DTpluWGh5YPsWxwAylXXmryAh8FxJXKMVJuLW3LKPuZ8Cq8p2mi04eTKfYc1gsQp3qO9VRzi8T8XBiJdoxHxJsqsH74SRBdXegCEmTE088bDyNMmYOFCHijk4ytQc4HdQQFxW7J3c44ocfWLbj+bC77FgiOxfMviMMJ6Pv0EHl3BhMItleHfMRIKbwEBRdHDEwV4Lm6CYPH5XbCWepw/Z+Uh+Zf9WwYpGYxps/hVHX5NRo8GLbNI4HRzzxKdQ06tvwulUykZ42QnBDC1nz5Svfgv5s9vrgbfRfvuUx5ny6aheOFWfOJxUjGJscZAZB+iRWwlA/20WfxfoYSQLGrMCPk4Sdm29dmNe1BWvsN97EMyPZAwMn1B9m6u5UkluPCM+RzvE+y2TH03Xxng==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkF5NFZGeFcyZDRjTldCeEpWSWUyc2hQK3BQVUg2NWNNZXhPejJsVk45WXFV?=
- =?utf-8?B?NHJBZlNpWWVFdE82SS80WklZcHE0UDNyTnJwc3lKNlM0SDBnVDNUdmhrd3pU?=
- =?utf-8?B?OUQwOG9Sa1NYSVFRSlpXQVQ1NDJIMHd4QzQreWlIOGtaMnlzc05ZL3BtREF3?=
- =?utf-8?B?eXo4Zk41dW5DNkZFSVR4dUxobnRFcG9TdzRuTVFZajFhZUp1YkR6SUNHbUph?=
- =?utf-8?B?ckE2OTNKdnZxZnl2amFTbitCKzNMYkJocEREQnlENHBjM3ZFQ1VyeE1JSDNO?=
- =?utf-8?B?OWpOYUtZY1AvL3VHMXErTXVld3BkekVkRGpXN1cxTHBaazRIMUZPTTNXYXFk?=
- =?utf-8?B?QmE2RDlnU2phSG9rSkpYTjV1bVVoOW1NMU13cWUvYU1HTVA0RGQ3TFk3cWtO?=
- =?utf-8?B?OXNRekRUbTI0d1hZaFJYTVNXRWV2V1hPdnhMazhUUFlPdlM2MktZaXNrOGor?=
- =?utf-8?B?VC8yTkFXOG5jTW1YakpDeG5Ib1hiS05XNUJDOVdVUEh5RDM3VjFpT3JUZWdZ?=
- =?utf-8?B?QlJ1c0w2TGxyMnVaUk9KaEMvY0R6YnlVQWd6ZFlMaG5rKzRXcG5NYitiS2dr?=
- =?utf-8?B?VFZ1dlRkUjZMWDE0c1ltZzFJWnA5Z3Q1YXpjZUY3K0QzVEx1UTRaQ0xxRS9G?=
- =?utf-8?B?TUdFOUNjcU1Fam54eHRhdkI2RHZKck1ES0NJbFM5SzhxaXNvdjg5VE5QNDZm?=
- =?utf-8?B?UkVjcG1Ob01vSSswbDhTWWtuMUVITFVtZkt6OGplM0ovSWMwTXI4VHNaaWJP?=
- =?utf-8?B?VFUxdmxIQTEzS3VHcEpIOGJhZjlKZDlYNGVLRjJTWXo1a1VVVS9QdGM2UHFm?=
- =?utf-8?B?eUNzd3Npd0tNNFZmRGp4RkdDVGQ4eFNhZmRKRU9UUzF6ODZrMVU4S0pyb1BZ?=
- =?utf-8?B?YUw4NFZSdkdXYlBQQWlXWTBjck5sWjRtb2xidUlVbjFselV2MklaZkpOdzNw?=
- =?utf-8?B?NWw1U3FrWW5RdDczN1pKN0pBZXlWTVlKWllLalFWRmJKTmE0RVozZWRJSysv?=
- =?utf-8?B?cG1xYnhNV2lrODRpYktFb09kUTBqUjJMZnV5RnRoOEkzZ0N5NStJS2xKTjZi?=
- =?utf-8?B?cTNWKzVpZkI2V2N3ZGcvSlJzaTI5bU1CRUdyS2xmcE5VdHpNSW5LcW1GOXND?=
- =?utf-8?B?b3c2YktPRmd4bDdCUnJMWmY4UkZaenZNQ2c1ZkU0MGJSSndUZVhLNFNNN29I?=
- =?utf-8?B?SlhIaGJMZ3hzU0RrSEp3RmNUTTBWL3dpYTNvSklBYzZKOTZFemhzQW9nU3hE?=
- =?utf-8?B?WkJrZkY5OERzQ2hzSVc1QVZMRCt1ZUFSL1lLb2pBaXFZSjlJZTM1RlRsbkFD?=
- =?utf-8?B?SDZlWlZFbEE5OGh2SSt4NWdvQzJkL2xLdTdhTUsrS1kvVWFHbXN3Vk54MWtJ?=
- =?utf-8?B?UE96VDFKbmFhVGtaNEczQlp4K1VaVy9RTmhTU1BacEx0OEZML2VSQ0dEdngy?=
- =?utf-8?B?dUd2ZTN3QTc0YzRFQXl3TnoyUmQ3ZzZIQzkvS0tTYmtSZmhVL290NGpQQno4?=
- =?utf-8?B?eFEwY21tczQxdnVnZHF4QUVmNmJ4dnM3cHVVSkhXbkVwdllNbkJCMDYwV09U?=
- =?utf-8?B?NTYvaURiQ1RoMnRKdmprZDRuT08zeE1xK2JoV0JCWXU4MVRDMEtCcWt0UE9k?=
- =?utf-8?B?aWVCTStUMjlRWEpqaHlWUlQ5azB4aC9aVWkrZ2xoRFFDa1NUTkg3KzU1SDNC?=
- =?utf-8?B?dnNZN0tkVytqTEovcnREU3R6a2VrdkxhTlVTY2YrSXJaR1lvcjV5Q1FUSEFw?=
- =?utf-8?B?aHpnWnFxVDJ0WlNWQURTZDMzcm8vZ0ZBbGZDZWRlazVON0kwaG81YndzeVVS?=
- =?utf-8?B?Rng0akdYaDNUZm95azJyK2tZaGViVzFaNmNheGRrWTNCM1prT2dwRENvL3Nh?=
- =?utf-8?B?eXV3OXJTS1h4VnYzMzNHa01QaXh6cll1UnpvdEZ5UEpoMzhkdCs5QklYeW9j?=
- =?utf-8?B?QVArQ1kyZjMzYnlmUWF5NmhLTzU3SVQ0UDZxdUFQN2VlQ2hkd0Rpd3dIRm44?=
- =?utf-8?B?YUIvb3p2VUtZYi9tSkYvbm9mTnRqWGlMdWpjNmlWRHZpTEdxV1JaU3JKb01N?=
- =?utf-8?B?ZHhOMXljVUpSSW5hNm5EVXh2Wm9FV2pVVk5jMFJjUklTWE5vWmVVRGVlTFdV?=
- =?utf-8?B?RHB4T25mOUFaQ2dHTHpkL0UxL2dUdHdNVENRajBqd290cDF6TlE3MXV2MWd1?=
- =?utf-8?B?azBPbElMNjNFYVNBMUJZajhSQkZsOGQzSHArU0hBZ2R5QmxIVGtwZzRTakRs?=
- =?utf-8?B?Y1hwWUtQSk9NOG9xVWJTODlsS1hhWDJMSTc3enJDdFZNK0lZK2NFR241Zmwz?=
- =?utf-8?Q?Pv9y+VtxliQRqcJxUZ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5250cf3-9e87-49f3-4547-08df1dd285a0
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 02:36:53.3412 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 87GjufIGz/5BqgvvCCL9pO+7ud2Yfb4s8XtP6NeyAzoMFQtopv/8w3ZdrlpCZsQX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7660
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 29 Sep 2026 08:22:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -211,40 +98,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> Adjust code which inadvertently perform redundant checks on hugetlb VMAs
-> and clean them up:
->
-> * hugetlb VMAs have VMA_DONTEXPAND_BIT set so a VMA_SPECIAL_FLAGS check
->   suffices. (migrate_vma_setup() regains an explicit hugetlb test later i=
-n
->   the series, once VMA_SPECIAL_FLAGS is removed.)
->
-> * hugetlb VMAs unconditionally set vma->vm_ops, so they are never
->   anonymous.
->
-> * hugetlb VMAs do not set VMA_PFNMAP_BIT so checking for this is redundan=
-t.
->
-> While we're here also drop a VM_BUG_ON() which the simplified check above
-> makes unreachable, and use the new VMA flag API.
->
-> No functional change intended.
->
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/arm64/kvm/mmu.c         | 4 +---
->  drivers/gpu/drm/drm_gpusvm.c | 3 +--
->  mm/migrate_device.c          | 4 ++--
->  3 files changed, 4 insertions(+), 7 deletions(-)
->
-Makes sense.
+virtio_gpu_deinit() calls mutex_destroy() on obj_restore_lock, but
+deinit runs from virtio_gpu_remove() at unbind or PCI remove, and GEM
+objects can outlive that. An open /dev/fb0 keeps the fbdev buffer
+alive, and the fbdev DRM client holds a drm_device reference. When the
+fd is finally closed, the buffer is freed and takes the destroyed lock:
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+  fb_release()
+    drm_fbdev_shmem_fb_destroy()
+      drm_client_buffer_delete()
+        virtio_gpu_free_object()
+          virtio_gpu_remove_from_restore_list()
+            mutex_lock(&vgdev->obj_restore_lock)
 
+  DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+  WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0xf2c/0x12ec
 
---=20
-Best Regards,
-Yan, Zi
+virtio_gpu_deinit() should only do hardware teardown in this case
+related virtio, its queues and others. Software state that GEM callbacks
+still use belongs in virtio_gpu_release(), which runs on the final
+drm_dev_put().
+
+There are two equivalent ways to tie the mutex lifetime to the
+drm_device:
+
+ 1) Move mutex_destroy() from virtio_gpu_deinit() to the end of
+    virtio_gpu_release(). This is what this patch does. It is the
+    smallest change and keeps the teardown next to the rest of the
+    final-put software cleanup.
+
+ 2) Initialise the lock with drmm_mutex_init() (checking its return
+    value) and drop mutex_destroy() from virtio_gpu_deinit(), so DRM's
+    managed release destroys it. This also covers the virtio_gpu_init()
+    error path, where release returns early because dev_private is
+    NULL. Skipping mutex_destroy() there is harmless, since it only
+    matters for mutex debugging.
+
+Either fix removes the WARN. Option 1 is sent as the smaller change,
+and option 2 can be done instead if preferred.
+
+Reproduced on arm64 QEMU (-device virtio-gpu-pci) with DEBUG_MUTEXES
+and PROVE_LOCKING: open /dev/fb0, write 1 to
+/sys/bus/pci/devices/0000:00:01.0/remove, then close the fd. With this
+patch the WARN is gone, and rebinding brings back /dev/fb0 and
+/dev/dri/card0.
+
+Fixes: 54a970048296 ("drm/virtio: Add support for saving and restoring virtio_gpu_objects")
+Reported-by: syzbot+3590d97d8a586fa955c2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3590d97d8a586fa955c2
+Assisted-by: LLM
+Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_kms.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 1d4d3bf46a20..0ec755c35050 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -354,7 +354,6 @@ void virtio_gpu_deinit(struct drm_device *dev)
+ 	virtio_reset_device(vgdev->vdev);
+ 	virtio_gpu_reclaim_vbufs(vgdev);
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+-	mutex_destroy(&vgdev->obj_restore_lock);
+ }
+ 
+ void virtio_gpu_release(struct drm_device *dev)
+@@ -370,6 +369,8 @@ void virtio_gpu_release(struct drm_device *dev)
+ 
+ 	if (vgdev->has_host_visible)
+ 		drm_mm_takedown(&vgdev->host_visible_mm);
++
++	mutex_destroy(&vgdev->obj_restore_lock);
+ }
+ 
+ int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file)
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.51.1
 
