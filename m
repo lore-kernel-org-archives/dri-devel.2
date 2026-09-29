@@ -4,130 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81CCCA5FA5
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 21:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A6ECA5FAC
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 21:10:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD8D10F0E7;
-	Tue, 29 Sep 2026 21:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6C010F0F4;
+	Tue, 29 Sep 2026 21:10:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="b2mhPUbg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CNyWL6FD";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013050.outbound.protection.outlook.com
- [40.93.201.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDAB10F0E7;
- Tue, 29 Sep 2026 21:05:46 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012052.outbound.protection.outlook.com
+ [40.107.200.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB5210F0F1;
+ Tue, 29 Sep 2026 21:10:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xSo5hXkS0uEWytslRZZNXRW7bGVtnW7tAS6zo7buP2c+duVF50N1/Hqp7oGbSokNz5v+dImq8HVhDuTVia1wbaLJMeT5jTgZ7OxIpwV8zQx9w8xbO930fGc5erXevDrRjd/+z+y/wlnQn3a8C0MS/QbnAa+IQAYJBKsB/50EF46ubLEdAzz3qZEBpNwrFcpOnMlBzEOvCmqztQlyqnFUFz0Sv4JpIndx7clXWJ/Nzj6j3fYacb2t/zv/HbxfNJQrvr9TvEF71ztuIgMyb0C1Q5Yn2b3cuxiPUk7pRRqHD71Ql/UO2mZMZkYFTJgTu5FRfMJ2wlI26j2fdiZe+lR54w==
+ b=oEznLyJZLOWWCV6EpDZKmYNjJAD1AHx5QL5gXfd2ysLlBEgmeFe8gQT+0VFyBcoQWpvl5YZgjgyfjBDgDlvnZdaRp53Q73FiNgnA1rnEztdbsSk6k7DJTFR0sCYs1X0tmG1LUblNZwrFe/NpD2wMNhWFnhyZ5nJNSwFhe8VJ66WoHx5mz+tNLAUtZTPbXEwXhbulKArh0bNZ9cgOwNMuWVf78jJM8y6EyNYelopghQdmr4Okh69uWG20Iv8h3afem4BZSiKZJFfqaXZH2ksT66a9oH9QGMMMf4xfgtc7toj3XyaEU939tGnYczfzntSEZS0+bKfY51Un1qfzciNBWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9vb1TB2PYMFrr7rbptCKSe7zzawYmSC3BO89Ro+MC0c=;
- b=pBsw5yotzHgIro06CROSKK0kvXHliKbKA35FoPlt5VycXV5jiDH1z1rKxNrCvYfyQo5HSYerIVLg/xdFUGPqgDcanzvgSlx/Q+UNDNmulokfd82C8T2Rjv11cQrG+VzT/mCScbjYas3JbVAccn6mLAk+2Kag2LFuoPMExvHj2USAy4H38rrqOeJsxe88TgnYs15VjDpg7UodDidFXVFzdRM4h1MQEQ6KuGLotrdLK7hdTHqA85q0K6OzBnJQdL8OaVmJUTeWDJqqzhpW/BxiCM6F8qh5qE3JDpT0PVw00QaW3mnhqtGSbTWweILncfy1sMAr5cKyZj5CEjXEUxVrGQ==
+ bh=DHTMlUaOlxqR2xRRksanG+GbdWUIE+GncLK6zNx12+g=;
+ b=HoxbUmA3AEUra0d5CNn/jBg9oeHrsbNMKL2jxPZG8YjHirD8kjx1W3SVdBUe0H5KLoeCxpde1ikkfdJKCZZU6jj1s+KyxsCKri6LYT+rP6ajYr2IXI1e6q9U1RiH9G7bDEDiANf8gqbk86ouldzeZzzgs53KTuchzhb/e8Iw/2iNJ+FpRGyGU9VjY/caF/YTB0KOTaltJ6pU7iAAFkz8dnO9D0YPMfqUH8KtTrz1DVSkby34ClqIWdAXbuhxqnmDyS/Pz1ZtCu+bVUnjIuQPZQfB4s1P3RG7iRQ0ysqKazyEYX6FjZ6Ay+M0Cc6xjD1h3S/fUvN+GcHBLTJT6pnNNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9vb1TB2PYMFrr7rbptCKSe7zzawYmSC3BO89Ro+MC0c=;
- b=b2mhPUbg+37y/LpdPcYkfgnpyMq6071V6OyuwxL0riA3yTVii3sevW2FyyBUY7jXh906iHmeVV9hnCYR7x8kSGrwIdFioc/HXwDZ0LKoEUXTpcgjbXFI/m1WdV9xkgZrmXQoI6cxRTH+rsUqnCSvQr0c6yQqSXMQIYR5Qy9x5NFaku5paMWqFBi/d3mgeJKQYTnBjHHFbEgEF5r6jx7nkwXP2DsEwZNXsfJ955GW7crUebPECXkg7ps4XznDnF4omxnVZZqrZFSIXK4CPfu4fXh6XJ49zjnbqXbrM70mU4t3r2ulAQug+O3F0Kc+WMXf1zBobmKNEeAHkRNdS+ls5g==
+ bh=DHTMlUaOlxqR2xRRksanG+GbdWUIE+GncLK6zNx12+g=;
+ b=CNyWL6FDlZxrsCe6dVPPCLdz01dgPd5LWS5C1UNiVjFDmQi1raSiCWoAqtYz8Z41LEwbHsJHhl5YKIL6uJv4BqBxG5wiMVBRbuyLiUBu8fXpUIzI0Qg7jDVF6uoH+icPjDb5A6hprLj9BEr0D97g493GY3OdCjX9K6cPABMTbWE=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4925.namprd12.prod.outlook.com (2603:10b6:5:1b7::8) by
- LV2PR12MB5871.namprd12.prod.outlook.com (2603:10b6:408:174::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Tue, 29 Sep
- 2026 21:05:39 +0000
-Received: from DM6PR12MB4925.namprd12.prod.outlook.com
- ([fe80::9ac7:5274:235:5d72]) by DM6PR12MB4925.namprd12.prod.outlook.com
- ([fe80::9ac7:5274:235:5d72%4]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
- 21:05:37 +0000
-Date: Tue, 29 Sep 2026 16:05:35 -0500 (CDT)
-From: Vidith Madhu <vmadhu@nvidia.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-In-Reply-To: <mo2g3IAXRpOKy4yZocem9w@collabora.com>
-Message-ID: <4380e0bd-d4c4-a247-7f7b-eba0288b390b@nvidia.com>
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <1b722d71-93d2-93a4-acdd-bc02b9a36f95@nvidia.com>
- <mo2g3IAXRpOKy4yZocem9w@collabora.com>
-Content-Type: text/plain; charset=US-ASCII
-X-ClientProxiedBy: SN7PR04CA0203.namprd04.prod.outlook.com
- (2603:10b6:806:126::28) To DM6PR12MB4925.namprd12.prod.outlook.com
- (2603:10b6:5:1b7::8)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15) by SA3PR12MB9089.namprd12.prod.outlook.com
+ (2603:10b6:806:39f::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 21:10:36 +0000
+Received: from PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4]) by PHXPR12MB999256.namprd12.prod.outlook.com
+ ([fe80::9cc3:e12c:d992:4ce4%6]) with mapi id 15.21.0451.024; Tue, 29 Sep 2026
+ 21:10:36 +0000
+Message-ID: <2d3f2b27-c978-4ba9-9f51-a4666c4030bb@amd.com>
+Date: Tue, 29 Sep 2026 17:10:32 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: Fix NPA-REVOKE racing an in-flight UALink
+ import
+To: David Carlier <devnexen@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260929193432.100694-1-devnexen@gmail.com>
+Content-Language: en-CA
+From: Mukul Joshi <mukul.joshi@amd.com>
+In-Reply-To: <20260929193432.100694-1-devnexen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0375.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fd::10) To PHXPR12MB999256.namprd12.prod.outlook.com
+ (2603:10b6:510:3ca::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4925:EE_|LV2PR12MB5871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3873aa89-7d2b-47af-3b04-08df1e6d6926
+X-MS-TrafficTypeDiagnostic: PHXPR12MB999256:EE_|SA3PR12MB9089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 393c77d1-91b9-4d67-18ee-08df1e6e1b7b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: lNkkX7QTlYHK9TDPhDC2Q+yasxxYm8QDjcqwIXnaLOywND1ds8KNf6iG5+AO1SXNGo6UC6g7G+gcPd22RMQi7JARp7EB1Ha4TuqIJaEcdTbZqvdOxyCwLfCq1SShzw7UuEwNp01APL/k8Rks63XDm5cicvFYjxiwxRsWuDB0Xw7ywWvNv8sxYCsHrbHAovB4E3X2JVpV5qAr/IQ+6/p9S82O91M+yAHD9Pi5JH6mur6cYNXm7rSYPhb6Qsl5D/fg9AKCBmgVavFoi83b1OvI0xMkqfGNPC6ncJEow1081Dj8RkN0zkEoK3z2TlS/DO+dVim/ik4KkahW2xV4kQJmxmnXmc6+NFeZc/scf67TZ+/UPLmkFl/hJB8jY3Za5IugnyZ3vO3sbc4WJs/NigvQ7AiN08OzpjBU2OEvW99WzaNxRDcyi80NfLTnxaED2wM3Un03n1q/+8qHXxNxfuolJ/hUDB1QX3XMksvYhRiM8l+z7tuXeqCvHVJnhWmpPgmNN13fTfpTMFv3AirJQSWt+0KyEvqdSUWaB4XM5TiQjSKzuLEGjE2V7qFTJTPrz+IEBLyXMQq02/hgTgyi85YIAJbjcwFrBW1h8QKjECVJppl0Qi5niDMIPGiw/oX5ryciUCTalzi9++NC2021lnedVqO3CG2MpCSgz1ZujLJ8Abs=
+ ARA:13230040|376014|1800799024|366016|23010399003|5023799004|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: gshGno6WhMBRkx43j+ojTEJ7UIPoiELabI9329RlimezsaHibbCoecWo2zONpcpCR0he5QJ+7TRIq/LpdP4HqbfXsC/S9mwFh8og9Tgk8kmTTsN+53xJQmgHP9BSm1Sx45otp6tI41iA40z/BFEUinrAT0Ha/+i/PoVjUUYZWhAKkeXNLTpB5tE9J8iq2ev9cJJIDNlDfi7kWh1Eg11/WJ+EGTY3y4vUPTJ6WF31weeSJ/rbvhUJxtFtTd/x2QiMdbXuqO5dzHBXG6lQp/NzaagsVerJYFVPxlPy/pGw/zfKXJFPiex7dznk6RsKqQVRPreTpNL+sFv9PoUG3Z2y3uMS5Jrr0ng7UpbLbrBVuy/2GdrTXkZmuRBL2GTXqFpv3tPthiRxsAbtMbjKMfn+isZAAkh4dcmq/Mu67iLpFrcYuO5tJXae6qjBidq9nhsiBcUsMuzHsxRzxtC4P7hbFOOYUBIv99tt3qa4XTLfL85Kyg+GnAUl+GrpGlisdBLN9N0Ufi6/PCUDG7qByHQhbk63vfgjOWrYc0FnDsAe8zTB+xRYc7WKnclvCwtBmlkmfDE7IZOqNhxF2pddUGrwJ5CuPYJ6VSlZd6EvjJzJs6ibTDaKZrg2MQ/p2+EfqN9dHK4kSbtkHZBV5UIamiz8I9PXYXWxcxosPGcxd5XrKxs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4925.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:PHXPR12MB999256.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(5023799004)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nB2LN1W6tSRU6B9uxr/rQhTj4qBEDOgD0nBWfKIidtdaSbmx9HIPmlsfRuBT?=
- =?us-ascii?Q?O3SMbP+FflMMI9iCb/R5QfKFezavdb34svqGJuJvupFDp4/x1R0wPqUR8De8?=
- =?us-ascii?Q?2pXkJRFlr8jwIDLG5BS1IOmcaqiAkYtMWqs42WLUprghrjT50zbmqO4Fi+kf?=
- =?us-ascii?Q?UWFdFD/cfTQW1FfG2EOWRNasA8ExR5gywbsy7AJBq0+Cap/zE98d27YxZdPU?=
- =?us-ascii?Q?OIoqSE4Rf3WyGnBkzI3DzibVIuIVTNHi8IjiDfFUo1dIIer7mXmvVkmihCNb?=
- =?us-ascii?Q?lbTYe7qSnC49wtYEJz6NISBQqu7Wn3b8Rg/hjRYm2xFHqq6YN04nUoom5Dmi?=
- =?us-ascii?Q?VnaCR1bI47wDee+7MgQsIUGTJtWwjRKGVDHeAsvVCJMgKH1d4uEtikDrMWol?=
- =?us-ascii?Q?OSDSO6SgkH+Fq0ugpOZu+1DeHfUmL8Iy+XDXeCL5Ndn1a1pZU+clNDDXj1ZQ?=
- =?us-ascii?Q?sZmRo2FpFuyrjR/kJEc8b9+wk54DOakhJxXXc83OOxLIkYZaLE99nDk+2F5L?=
- =?us-ascii?Q?baQM+OT+R+eo6Unb/JDtlQvodekAqyqpWQyBGrARL5mgGvfwKXSAlL7EO1wF?=
- =?us-ascii?Q?QzMEYPIsGh5jMJ1th7H4Zsq3L9SqhFjtYmiMKin/HUFBMWJ0wiwtToweKETU?=
- =?us-ascii?Q?gqwO+6gx0WiRgR5Le0jyuTROXMVDNyJM8lVXx//7lb2eAtFkckAmLIszep5J?=
- =?us-ascii?Q?z6uOEMKgTiJ6PYyWnsVN+6UFChN0i3Ks7F7cfw8P9H6twj0xuRrwUDR9h49S?=
- =?us-ascii?Q?RFRzfvxB2Se4iHZFU0GgvnDw40r+c8o5BjOI9f8s/lm4zRFDOGMwDhxsRvKP?=
- =?us-ascii?Q?UegzGoZlXHdXVZ6YcgE0kyKBTppG9/K1aFJPuiud/+kwAMOtdvDhnJTsrwK8?=
- =?us-ascii?Q?wjBmKc5QbnTW0lOu3d1kEruPmQdTYgHh0Jxuz0G+0I3cg7hocl/W8gA5ErLr?=
- =?us-ascii?Q?5SwhGbKEIS0VC/mzdNm+jE5/vs2B58PAmuGD9fubgE7FcQ6BL4j85H8isvCH?=
- =?us-ascii?Q?1itJTkt40RWL9XGGnOhzJZFock7GuG94Zze8briDjjavo1i3rSUVG5QlGSzr?=
- =?us-ascii?Q?/VmRCemmWwALamS6wUEDgGB6jGT3RSBJzK17MykHb8S0Sc+V+d/mU0njbjmK?=
- =?us-ascii?Q?El4AQWnzi+tqIliq6i1Xwx5NQutXqJPXpU1Tc3dqHbXnmHwhnEBEdPQfqxTk?=
- =?us-ascii?Q?dZGFdslQM//Sh/eV6nqqIuyPoSAvVP1iIDfQER1BCS2ASmA5uVx1Om4CuVrH?=
- =?us-ascii?Q?KaROJg7hjLQiPwprt8YUSlOUHOiYOcPFwgRlIGErEhOr07+/VZD3KN5JMX87?=
- =?us-ascii?Q?1pM0UMIDTZdHHKCjDcAUHocXI7YQtuTC+sqX9XFvzjLOCkmIx6P4zUM2sf9q?=
- =?us-ascii?Q?VHOfwm239+kPwe5EIE22O/Xq1YMND/Gog+pBM96tFWgfIIj+ZMu97WCO2HS3?=
- =?us-ascii?Q?dqg2a0g3Z24/PVlsBK4JNRb/SSzaQAGwxDnjNxX4OOlrgLej1ym2Zlm2G6Tq?=
- =?us-ascii?Q?UKCivRGFnEYz0cGEyWtgjLtEqgSzs86DFfPhGqgyWD0LtL2UerfvbGwn566B?=
- =?us-ascii?Q?Y8glbBydZ3wXWsU9uekhMWljXxDNCgBb33QM1nCYa1jf6FldSBvRduBjGYXK?=
- =?us-ascii?Q?Fs0rh5D1CpmFmcMQwcgXIH4dB6a1QxHMcIUQdJiZuBcFCf/CJTCty6hET0i7?=
- =?us-ascii?Q?UWgS6+XjswwoWJ8Xq+ANte7SZc7lvwhS7FYsG4eqKxFjlBub?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3873aa89-7d2b-47af-3b04-08df1e6d6926
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4925.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFI5UWtWYTNTZW5iRHdpV3lrc3Jpem9GQWYwTitsQWZ1NzhUZzBOelRqeUEy?=
+ =?utf-8?B?bXIzbEtlbEd0eFdwejUrSjFKcnFJRjhxUWRJTGJZbkN1L25ja2xJMEJ6dVVt?=
+ =?utf-8?B?Y3ZMaHhTMlcvUDUvY09YMncvTU5wZ1BpZHRXaVJRYStBNHlTMllDTS9nNWRq?=
+ =?utf-8?B?WjlVK1hVUUpzQUdYU3dJUFRhOHhubzAraFZQR3JqSTBmUklrb3lpNExGRUxF?=
+ =?utf-8?B?eDNOUU5LVldoOXhyN3FKYmVoVEIxL0JXVmpxMklCRnN0NzJMY2svZjEvejNJ?=
+ =?utf-8?B?bm9CbVlqNVY5MU5XYXBKSkFvd0hhQlBkWFpSWEpINEZINkk0eG9ncUZLMkpy?=
+ =?utf-8?B?a2ltUVhXY0lVQ0tNMUVkN0p2blhENXFocjJpakpadUU4ZkN3cXNGcmNjeld1?=
+ =?utf-8?B?R0dQZTZQZ0xnaDJJazVlcmoxOVN1WmxHc3FzT3FBazNJM00xUmtvNE0yb3NC?=
+ =?utf-8?B?cUNkU3Q1T0lHeDJHeTBXa2VRWnVtcGxMeDVkQ3FYNEpuZTl3UCtqOW4zNzFG?=
+ =?utf-8?B?WjBDbDhsdmFSWndyRldETEhvc0dFT1Y3VWcydWMzdDlwNGhTZUVmdXlXdE5y?=
+ =?utf-8?B?NkVRVGdnazEzMU1FSFZqMUVsczU5M2xyRFFGM2QxeElqcTRuZ0M3OEJIRXRT?=
+ =?utf-8?B?TWkvMHRhd20va1FaaWZoMjNYaXFadVllTEFoREdYdXU4OUhMQW1LcjJZUGov?=
+ =?utf-8?B?RVo4U2h6bUduWm9rcktuZEZCZHgrS0MzWVhWVC9NSGIweDRTb2FlYUdDNWZj?=
+ =?utf-8?B?ZXFCQ2psN2Fsem9BcittczhCV2dNMndzSWYzdDJWc3JoQWdKMmJMUCtWQlhw?=
+ =?utf-8?B?dnpjU2VLanF1ZXdDN3FmTlB2WVBDN0FoQ2VmOXdzb2hFV1VjcTdtYTQ2TTYw?=
+ =?utf-8?B?RXczbXVWMXkzckswaUtvZVRFbUsrbUcydmhGN1RjMUNhRm12MnpOUXlGUFBq?=
+ =?utf-8?B?Q0x0c0JiZDdETE50TXZxRVBqNEsvWnM3WkdCNEdLZC9ZZkVsVUNWK2RXaTJw?=
+ =?utf-8?B?bFI0UlNIeVkyVHFaeVc0NlBXRDBVZElWTTB4UWExWmdoODBSZ3BqYnVaRFpu?=
+ =?utf-8?B?MWk1WThjNGZqK2Yxb0JhKzNoWDBya21nYjZocFFlME5KWVQ5N05GUU9sVFJ2?=
+ =?utf-8?B?TkFhaDNCRlorOEsyNEJzUy9oVzMvSk5QZTJtRHNJSUdJbjBMbzhaNFRCeCtV?=
+ =?utf-8?B?QWFWMlhYL3lwVkFTQlZmcHA1Q2xoT0lNTkRCOFdGaDh6MUQ5WHA5dmt3aldN?=
+ =?utf-8?B?LytYaHN1M25GVkZ1QlJQb2w0TzliNzdrNVBDZ2VXRmo1d1Z5d0hlUDl4bFlB?=
+ =?utf-8?B?WnJYYkh5RVd2cFVnRVpZTWYwZW9YcUlWMW5wTDVUYXBvaXRtTXM5cm1wOUtx?=
+ =?utf-8?B?ME1DbVU3VHd4UWFQa1crYTdpb3ZCYmNZV1M1cGF5UzFDQjZlaFNITUUxb0Nu?=
+ =?utf-8?B?SE9qRlgycXp5cFlIQ0NFeGx4Szc0RzM4NmVwTVJuYWxaak0zOUhyZGRXMkxx?=
+ =?utf-8?B?UEFmNkZDZm16LzI0eHB1emJkZnE4U1FKWG83c0FJbVRXcStKOEh4Ky9UUUV0?=
+ =?utf-8?B?TEZaU1hQZTA5ZnZUbWdDS2hRd3RkbktkOTdQZ0padGQ5a0NsSlg4Wk9sVW1W?=
+ =?utf-8?B?UTN0Y0dsa1hVb3B6emM0MnJpSnh0M3YvRDlTVzJaTXNTZkUrdTJrYURYWWZS?=
+ =?utf-8?B?Z3BLNUx1OUJMQUxjbU9SMHErN1hDVzFNTm1rSnBLdVVHSFhXdVhqRnhSRk05?=
+ =?utf-8?B?T2lka1NhaUV1a3ZQZGhJUXd6SUg5dURlQTQ1a1BNaFNWOTFiWncrOTFzMllN?=
+ =?utf-8?B?NHdPdCtzNlpCdGlKcDFtS2hiRFNqS0JHT2ZIa2FJNVhYOWYyRHBmN3c3WnpW?=
+ =?utf-8?B?bm5aYURYSnJUaExyaVp0QUw1YlpIZFRleUwzZkp5WWthTE5IN1JKM1dUNGdh?=
+ =?utf-8?B?QVdLMFlpekhzcHRRYTJHblgvcXNuSmxYVEtvVUs3aU1wVVZ1WWIyWGwzdXoz?=
+ =?utf-8?B?bXFSVVlpWGZmUStrV3gvTVVvVnB4QXd5anRMQzNYU3pZTDkzTUxvQ0IrQmgy?=
+ =?utf-8?B?Q1RjVUFMblVsam9PbFpEbnBxWTFYK2hyQi8yd2lIcURLczhWWFI3M0FMNzhG?=
+ =?utf-8?B?OGdvVGpld2JCaVpMdXQxWnMzbHQ0UXcrUHpBZmdWN00rN0dscFBHNHdTYW1G?=
+ =?utf-8?B?bEt6cHFWa3JKK3lTNSs2anhRV1dRL2dhM0Q1YmVZU3dhMGp6S2toNGhPUDlN?=
+ =?utf-8?B?R3dFVjY4dGoraUo2YW00TTlqbWxFZEtTT2pBL1hMYU0xYm9jaERpbFhyam53?=
+ =?utf-8?B?RFQ1Q3l5d3NOUkpVWHFPTXlESDZnSHIrR1A0dTAwYldQZjJqNkdhQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 393c77d1-91b9-4d67-18ee-08df1e6e1b7b
+X-MS-Exchange-CrossTenant-AuthSource: PHXPR12MB999256.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 21:05:37.5859 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 21:10:36.6924 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qr8OzOsJBjxClJQms8TJmqv1/65H3AUeo97GKJrxgdRKLV0Oi/jfZqd2cea4fYVM8EeZTyjOg3/UZZpENleh6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5871
+X-MS-Exchange-CrossTenant-UserPrincipalName: FTGnpFgyV1h73hHgVvw12hMSUj0xKjGcVdpPsU592k5Eg2mEIg+TlaPIFfa3g/UxJOhOruiL3V8rtl5Qu8VoMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9089
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,336 +143,140 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+On 9/29/2026 3:34 PM, David Carlier wrote:
+> The exporter records an importer when it answers NPA-REQ, so it can send
+> NPA-REVOKE as soon as the BO is freed, before the importer has finished
+> building the dma-buf for that handle. The revoke handler assumes a fully
+> imported node: it dereferences imp_xa_node->dmabuf, which is still NULL
+> until the import completes, and drops the xarray reference the importing
+> thread still relies on. The importer then links the node and marks it
+> READY regardless, so the node can be freed while still on the per-remote
+> list.
+>
+> Only tear down a node that is READY. A PENDING node is still being
+> imported and nothing has been handed to user-space yet, so only mark it
+> for teardown and send NPA-RELEASE. The importer checks for teardown under
+> the xarray lock before linking the node and marking it READY, and unwinds
+> otherwise. As NPA-REVOKE always follows NPA-RSP, a revoke that finds the
+> node NOT_READY is stale, and one that finds it in teardown hits a node
+> that is already being released, so both are ignored.
+>
+> Fixes: 7cc82cd90d35 ("drm/amdgpu: Implement mechanism to revoke exported memory")
+> Assisted-by: LLM
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-On Tue, 29 Sep 2026, Nicolas Frattaroli wrote:
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
 
-> On Tuesday, 29 September 2026 21:16:57 Central European Summer Time Vidith Madhu wrote:
-> > 
-> > On Mon, 21 Sep 2026, Nicolas Frattaroli wrote:
-> > 
-> > > Userspace may wish to set a target frame rate for the Variable Refresh
-> > > Rate mechanism. There are multiple possible ways such a target could be
-> > > communicated.
-> > > 
-> > > It's desirable for userspace to not only set a fixed target, but a
-> > > target range within which VRR may operate. This is because even if a
-> > > sink advertises a certain range as supported, said range may not be the
-> > > ideal range to use, as numbers on the extreme end of the range may
-> > > induce flickering or other glitches.
-> > My understanding is that flicker may also happen if the refresh rate 
-> > fluctuates significantly within the sinks' range, although I don't know 
-> > how common this is in practice. I would imagine these frame range limits
-> > would also be useful there to "dampen" the fluctuation.
-> 
-> Theoretically, the HDMI E-EDID extension does have a field to specify the
-> maximum change in VRR per frame that's allowed without visual issues, but
-> I'm not sure if any display sets this to a sensible value because such
-> issues can range from the mentioned brightness inconsistencies to pictures
-> that are positioned/scaled wrong in the vertical axis. In the absence of
-> evidence that this flag is used usefully, I've not implemented it in my
-> HDMI state helper implementation of VRR so far.
-> 
-> > In any case, if we expect userspace to use the frame range limits for the 
-> > purpose of flicker avoidance, it may make sense to expose a read-only 
-> > connector property for whether the display is susceptible to such
-> > flickering. For example, NVIDIA G-SYNC monitors are resilient to this and
-> > it would hinder the user experience to unnecessarily impose such a limit.
-> 
-> Short of keeping a whole quirks database, I don't think we can solve this
-> generally. The idea I've been working off of is that the compositor has
-> settings to explicitly specify such limits, much like e.g. KDE has a
-> checkbox in the monitor settings right now to enable/disable VRR for a
-> specific monitor, or weston.ini has an output config option. The user can
-> then impose a limit if they do notice issues with their particular monitor
-> in their particular use-case.
-> 
-> I can see adding an additional property to communicate a specific flavor
-> of VRR implementation, especially if this is non-trivial for userspace
-> to figure out otherwise, e.g. because some displays may use several and
-> the driver picks the best one.
-Right, this is what I had in mind. It would be nice if drivers at least 
-had the ability to supply a hint on what the VRR policy should be to 
-userspace.
+I will get this tested first internally before pushing this.
 
 Thanks,
-Vidith
-> 
-> I do encourage additional fleshing out of the problem space we're trying
-> to address here though, so if anyone or their loved one is entitled to
-> compensation for the hurt caused by flickery VRR, I'd love to hear
-> specifics. I have experienced it with dark gaming content on a
-> ASUS ROG STRIX XG27AQDMG connected over DisplayPort to an AMD GPU. At the
-> same time, I've yet to notice anything on that same monitor when
-> displaying VRR content over HDMI from a RK3588 SBC, but that might be
-> because SuperTuxKart happens to run too consistently frame-to-frame to
-> trigger it.
-> 
-> Kind regards,
-> Nicolas Frattaroli
-> 
-> > >
-> > > There's four choices to how one bracketing value for the target range
-> > > could be communicated:
-> > > 1. Target frame rate in something like millihertz
-> > > 2. Target frame period in something like usecs
-> > > 3. Target vtotal value
-> > > 4. Target frame rate as a fraction expressed by two integers
-> > > 
-> > > Choice 1 is unpleasant as it would introduce some amount of rounding to
-> > > common broadcast framerates like 24/1.001, which seems minor except that
-> > > exact matches to standard framerates would rely on making all userspace
-> > > and kernel agree on a specific method of rounding. This is sure to go
-> > > wrong, so is disqualified.
-> > > 
-> > > Choice 2 has the same problem as 1, with the added complication that
-> > > the EDID's VRR range is expressed in frames per second, and other HDMI
-> > > features express things in frames per second as well, which would
-> > > require possibly imprecise computations.
-> > > 
-> > > Choice 3 is disqualified as mechanisms other than VRR, such as FVA, may
-> > > also modify the vtotal value. Additionally, it has the same drawbacks of
-> > > choice 2 and 1.
-> > > 
-> > > Choice 4 is therefore what's implemented. The frame rate 24/1.001Hz, for
-> > > example, is expressed as nominator=24000 and denominator=1001. As there
-> > > is both a minimum and a maximum, there are 4 properties in total: two
-> > > numerators, and two denominators. A fixed rate with no variability is
-> > > expressed by setting the minimum fractional and the maximum fractional
-> > > properties to the same value.
-> > > 
-> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > > ---
-> > >  drivers/gpu/drm/drm_atomic_uapi.c | 24 +++++++++++++++++++++
-> > >  drivers/gpu/drm/drm_connector.c   | 45 +++++++++++++++++++++++++++++++++++++++
-> > >  drivers/gpu/drm/drm_crtc.c        |  8 +++++++
-> > >  drivers/gpu/drm/drm_mode_config.c | 20 +++++++++++++++++
-> > >  include/drm/drm_crtc.h            |  4 ++++
-> > >  include/drm/drm_mode_config.h     | 45 +++++++++++++++++++++++++++++++++++++++
-> > >  6 files changed, 146 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> > > index 1eebcf6f5e05..c9eb01d740b3 100644
-> > > --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> > > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> > > @@ -420,6 +420,22 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
-> > >  		return ret;
-> > >  	} else if (property == config->prop_vrr_enabled) {
-> > >  		state->vrr_enabled = val;
-> > > +	} else if (property == config->prop_vrr_min_numerator) {
-> > > +		if (val > U32_MAX)
-> > > +			return -EINVAL;
-> > > +		state->vrr_state.vrr_min_n = val;
-> > > +	} else if (property == config->prop_vrr_min_denominator) {
-> > > +		if (val > U32_MAX)
-> > > +			return -EINVAL;
-> > > +		state->vrr_state.vrr_min_d = val;
-> > > +	} else if (property == config->prop_vrr_max_numerator) {
-> > > +		if (val > U32_MAX)
-> > > +			return -EINVAL;
-> > > +		state->vrr_state.vrr_max_n = val;
-> > > +	} else if (property == config->prop_vrr_max_denominator) {
-> > > +		if (val > U32_MAX)
-> > > +			return -EINVAL;
-> > > +		state->vrr_state.vrr_max_d = val;
-> > >  	} else if (property == config->degamma_lut_property) {
-> > >  		const size_t elem_size = sizeof(struct drm_color_lut);
-> > >  		u64 lut_size;
-> > > @@ -505,6 +521,14 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
-> > >  		*val = (state->mode_blob) ? state->mode_blob->base.id : 0;
-> > >  	else if (property == config->prop_vrr_enabled)
-> > >  		*val = state->vrr_enabled;
-> > > +	else if (property == config->prop_vrr_min_numerator)
-> > > +		*val = state->vrr_state.vrr_min_n;
-> > > +	else if (property == config->prop_vrr_min_denominator)
-> > > +		*val = state->vrr_state.vrr_min_d;
-> > > +	else if (property == config->prop_vrr_max_numerator)
-> > > +		*val = state->vrr_state.vrr_max_n;
-> > > +	else if (property == config->prop_vrr_max_denominator)
-> > > +		*val = state->vrr_state.vrr_max_d;
-> > >  	else if (property == config->degamma_lut_property)
-> > >  		*val = (state->degamma_lut) ? state->degamma_lut->base.id : 0;
-> > >  	else if (property == config->ctm_property)
-> > > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> > > index fc7d9fcf9d9f..5c07bd221977 100644
-> > > --- a/drivers/gpu/drm/drm_connector.c
-> > > +++ b/drivers/gpu/drm/drm_connector.c
-> > > @@ -2579,6 +2579,51 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-> > >   *
-> > >   *	The driver may place further restrictions within these minimum
-> > >   *	and maximum bounds.
-> > > + *
-> > > + * VRR Limiter/Target Properties
-> > > + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > + *
-> > > + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
-> > > + * through which userspace can control the desired range of refresh rates in
-> > > + * which VRR is allowed to operate. Each rate is expressed as a
-> > > + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
-> > > + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
-> > > + *
-> > > + * If the minimum and maximum rate are set to the same value (and not 0), they
-> > > + * are understood as a fixed target rate. This is especially useful for media
-> > > + * playback, where the content's frame rate is both constant and known in
-> > > + * advance. In such cases, a refresh rate that is not an integer multiple of the
-> > > + * content's frame rate will introduce judder, since not every frame is
-> > > + * displayed for the same amount of time. A modeset of the display with a
-> > > + * compatible rate may in those cases be either undesirable or impossible, but
-> > > + * the rate can still effectively be reached through VRR.
-> > > + *
-> > > + * .. _VRR-MIN-NUMERATOR:
-> > > + *
-> > > + * "VRR_MIN_NUMERATOR":
-> > > + *	Default &drm_crtc integer property forming the numerator of a
-> > > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > > + *	target rate. Set to 0 to disable.
-> > > + *
-> > > + * "VRR_MIN_DENOMINATOR":
-> > > + *	Default &drm_crtc integer property forming the denominator of a
-> > > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-> > > + *	zero, it must be non-zero.
-> > > + *	Otherwise, must also be zero.
-> > > + *
-> > > + * .. _VRR-MAX-NUMERATOR:
-> > > + *
-> > > + * "VRR_MAX_NUMERATOR":
-> > > + *	Default &drm_crtc integer property forming the numerator of a
-> > > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > > + *	target rate. Set to 0 to disable.
-> > > + *
-> > > + * "VRR_MAX_DENOMINATOR":
-> > > + *	Default &drm_crtc integer property forming the denominator of a
-> > > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-> > > + *	zero, it must be non-zero. Otherwise, must also be zero.
-> > >   */
-> > >  
-> > >  /**
-> > > diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> > > index 63ead8ba6756..9244fbf97029 100644
-> > > --- a/drivers/gpu/drm/drm_crtc.c
-> > > +++ b/drivers/gpu/drm/drm_crtc.c
-> > > @@ -322,6 +322,14 @@ static int __drm_crtc_init_with_planes(struct drm_device *dev, struct drm_crtc *
-> > >  					   config->prop_out_fence_ptr, 0);
-> > >  		drm_object_attach_property(&crtc->base,
-> > >  					   config->prop_vrr_enabled, 0);
-> > > +		drm_object_attach_property(&crtc->base,
-> > > +					   config->prop_vrr_min_numerator, 0);
-> > > +		drm_object_attach_property(&crtc->base,
-> > > +					   config->prop_vrr_min_denominator, 0);
-> > > +		drm_object_attach_property(&crtc->base,
-> > > +					   config->prop_vrr_max_numerator, 0);
-> > > +		drm_object_attach_property(&crtc->base,
-> > > +					   config->prop_vrr_max_denominator, 0);
-> > >  	}
-> > >  
-> > >  	return 0;
-> > > diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> > > index 48a56f23dadb..da967d60f832 100644
-> > > --- a/drivers/gpu/drm/drm_mode_config.c
-> > > +++ b/drivers/gpu/drm/drm_mode_config.c
-> > > @@ -535,6 +535,26 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
-> > >  		return -ENOMEM;
-> > >  	dev->mode_config.prop_vrr_enabled = prop;
-> > >  
-> > > +	prop = drm_property_create_range(dev, 0, "VRR_MIN_NUMERATOR", 0, U32_MAX);
-> > > +	if (!prop)
-> > > +		return -ENOMEM;
-> > > +	dev->mode_config.prop_vrr_min_numerator = prop;
-> > > +
-> > > +	prop = drm_property_create_range(dev, 0, "VRR_MIN_DENOMINATOR", 0, U32_MAX);
-> > > +	if (!prop)
-> > > +		return -ENOMEM;
-> > > +	dev->mode_config.prop_vrr_min_denominator = prop;
-> > > +
-> > > +	prop = drm_property_create_range(dev, 0, "VRR_MAX_NUMERATOR", 0, U32_MAX);
-> > > +	if (!prop)
-> > > +		return -ENOMEM;
-> > > +	dev->mode_config.prop_vrr_max_numerator = prop;
-> > > +
-> > > +	prop = drm_property_create_range(dev, 0, "VRR_MAX_DENOMINATOR", 0, U32_MAX);
-> > > +	if (!prop)
-> > > +		return -ENOMEM;
-> > > +	dev->mode_config.prop_vrr_max_denominator = prop;
-> > > +
-> > >  	prop = drm_property_create(dev,
-> > >  			DRM_MODE_PROP_BLOB,
-> > >  			"DEGAMMA_LUT", 0);
-> > > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> > > index 9d58158af459..df37f4ebb58e 100644
-> > > --- a/include/drm/drm_crtc.h
-> > > +++ b/include/drm/drm_crtc.h
-> > > @@ -67,6 +67,10 @@ struct drm_crtc_vrr_state {
-> > >  	u8 vic;
-> > >  	u16 cur_vtotal;
-> > >  	u16 max_vtotal;
-> > > +	u32 vrr_min_n;
-> > > +	u32 vrr_min_d;
-> > > +	u32 vrr_max_n;
-> > > +	u32 vrr_max_d;
-> > >  	u16 base_vtotal;
-> > >  	bool dynamic;
-> > >  };
-> > > diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> > > index 084517beb924..c8d5286f9267 100644
-> > > --- a/include/drm/drm_mode_config.h
-> > > +++ b/include/drm/drm_mode_config.h
-> > > @@ -702,6 +702,51 @@ struct drm_mode_config {
-> > >  	 */
-> > >  	struct drm_property *prop_vrr_enabled;
-> > >  
-> > > +	/**
-> > > +	 * @prop_vrr_min_numerator: Default atomic CRTC property to indicate the
-> > > +	 * numerator of a numerator/denominator variable refresh rate minimum
-> > > +	 * target frame rate.
-> > > +	 *
-> > > +	 * If not zero, @prop_vrr_min_numerator divided by
-> > > +	 * @prop_vrr_min_denominator must result in a frame rate above the
-> > > +	 * sink's minimum VRR rate.
-> > > +	 */
-> > > +	struct drm_property *prop_vrr_min_numerator;
-> > > +
-> > > +	/**
-> > > +	 * @prop_vrr_min_denominator: Default atomic CRTC property to indicate
-> > > +	 * the denominator of a numerator/denominator variable refresh rate
-> > > +	 * minimum target frame rate.
-> > > +	 *
-> > > +	 * If @prop_vrr_min_numerator is set, @prop_vrr_min_denominator must not
-> > > +	 * be 0, and @prop_vrr_min_numerator divided by @prop_vrr_min_denominator
-> > > +	 * must result in a frame rate above the minimum VRR rate.
-> > > +	 */
-> > > +	struct drm_property *prop_vrr_min_denominator;
-> > > +
-> > > +	/**
-> > > +	 * @prop_vrr_max_numerator: Default atomic CRTC property to indicate the
-> > > +	 * numerator of a numerator/denominator variable refresh rate maximum
-> > > +	 * target frame rate range.
-> > > +	 *
-> > > +	 * The fraction expressed by this property divided by its corresponding
-> > > +	 * denominator must be equal to or greater than the value of
-> > > +	 * @prop_vrr_min_numerator.
-> > > +	 */
-> > > +	struct drm_property *prop_vrr_max_numerator;
-> > > +
-> > > +	/**
-> > > +	 * @prop_vrr_max_denominator: Default atomic CRTC property to indicate
-> > > +	 * the denominator of a numerator/denominator variable refresh rate
-> > > +	 * maximum target frame rate range.
-> > > +	 *
-> > > +	 * If @prop_vrr_max_numerator is set, @prop_vrr_max_denominator must not
-> > > +	 * be 0, and @prop_vrr_max_numerator divided by @prop_vrr_max_denominator
-> > > +	 * must result in a frame rate equal to or above @prop_vrr_min_numerator
-> > > +	 * divided by @prop_vrr_min_denominator.
-> > > +	 */
-> > > +	struct drm_property *prop_vrr_max_denominator;
-> > > +
-> > >  	/**
-> > >  	 * @dvi_i_subconnector_property: Optional DVI-I property to
-> > >  	 * differentiate between analog or digital mode.
-> > > 
-> > 
-> 
-> 
-> 
-> 
-> 
+
+Mukul
+
+> ---
+> Changes in v3:
+> - Handle the node state with a switch: tear down READY nodes, mark
+>   PENDING ones for teardown, ignore the rest (Mukul).
+> - Drop the npa_done completion on a NOT_READY node: the exporter only
+>   records the importer after sending NPA-RSP, so such a revoke is stale
+>   (Mukul).
+> - No longer send NPA-RELEASE for a node already in teardown (Mukul).
+> - Use dev_dbg() for the revoked-during-import message (Mukul).
+>
+> Changes in v2:
+> - Tear down only READY nodes, so a duplicate NPA-REVOKE for a node already
+>   in teardown neither dereferences a NULL dmabuf nor drops the node
+>   reference twice (Sashiko).
+> - Complete npa_done when a revoke arrives before NPA-RSP, so the importer
+>   fails right away instead of timing out into a connection reset (Sashiko).
+> - Use the current Assisted-by format.
+>
+> Found by code analysis and compile-tested with W=1. Not tested on hardware,
+> as it needs two UALink-connected accelerators in a vPod.
+>
+> v2: https://lore.kernel.org/all/20260926174406.346253-1-devnexen@gmail.com/
+> v1: https://lore.kernel.org/all/20260926171625.288519-1-devnexen@gmail.com/
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 51 +++++++++++++++++-----
+>  1 file changed, 39 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> index 8411ea17172f..ea18e7f2e0a3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+> @@ -3288,16 +3288,35 @@ static void amdgpu_ualink_process_npa_revoke_msg(struct amdgpu_device *adev,
+>  		return;
+>  	}
+>  
+> -	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> -	list_del_init(&imp_xa_node->list);
+> -	xa_unlock(&adev->ualink.imp_xa);
+> +	switch (READ_ONCE(imp_xa_node->node_state)) {
+> +	case AMDGPU_UALINK_NODE_READY:
+> +		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> +		list_del_init(&imp_xa_node->list);
+> +		xa_unlock(&adev->ualink.imp_xa);
+>  
+> -	/* Invalidate the GPUVM mappings */
+> -	bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
+> -	amdgpu_ualink_invalidate_import_mappings(bo);
+> +		/* Invalidate the GPUVM mappings */
+> +		bo = gem_to_amdgpu_bo(imp_xa_node->dmabuf->priv);
+> +		amdgpu_ualink_invalidate_import_mappings(bo);
+>  
+> -	/* Drop the refcount for the node */
+> -	amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+> +		/* Drop the refcount for the node */
+> +		amdgpu_ualink_imp_xa_entry_put(imp_xa_node);
+> +		break;
+> +	case AMDGPU_UALINK_NODE_PENDING:
+> +		/* The import is still building the dma-buf and nothing has
+> +		 * been handed to user-space yet. The importing thread sees
+> +		 * the teardown state and unwinds.
+> +		 */
+> +		WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_TEARDOWN);
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		break;
+> +	default:
+> +		/* NPA-REVOKE always follows NPA-RSP, so a NOT_READY node means
+> +		 * a stale revoke, and a node in teardown is already being
+> +		 * released by whoever moved it there.
+> +		 */
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		return;
+> +	}
+>  
+>  	r = amdgpu_ualink_send_npa_release_msg(adev, remote_acc_id, handle);
+>  	if (r)
+> @@ -3760,9 +3779,20 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
+>  		return r;
+>  	}
+>  
+> -	/* Add this node to the imported handles list for the remote GPU */
+> +	/* Add this node to the imported handles list for the remote GPU,
+> +	 * unless the exporter revoked the handle while the import was in
+> +	 * flight. The dmabuf is released with the last node reference.
+> +	 */
+>  	xa_lock(&adev->ualink.imp_xa);
+> +	if (READ_ONCE(imp_xa_node->node_state) == AMDGPU_UALINK_NODE_TEARDOWN) {
+> +		xa_unlock(&adev->ualink.imp_xa);
+> +		dev_dbg(adev->dev,
+> +			"IMPORT: handle:%llx:%llx revoked during import\n",
+> +			handle.handle_hi, handle.handle_lo);
+> +		return -EINVAL;
+> +	}
+>  	list_add(&imp_xa_node->list, &adev->ualink.imp_handles_list[remote_acc_id]);
+> +	WRITE_ONCE(imp_xa_node->node_state, AMDGPU_UALINK_NODE_READY);
+>  	xa_unlock(&adev->ualink.imp_xa);
+>  
+>  	return 0;
+> @@ -3938,9 +3968,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+>  					"IMPORT: XA import failed for handle:%llx:%llx\n",
+>  					handle.handle_hi, handle.handle_lo);
+>  			goto cleanup;
+> -		} else {
+> -			WRITE_ONCE(imp_xa_node->node_state,
+> -				   AMDGPU_UALINK_NODE_READY);
+>  		}
+>  	}
+>  
