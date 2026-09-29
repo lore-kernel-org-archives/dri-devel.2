@@ -4,42 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D517FCA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 06:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F85CA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 06:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 376F210ECEC;
-	Tue, 29 Sep 2026 06:20:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F88F10E085;
+	Tue, 29 Sep 2026 06:54:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LwYs8JCV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mPDvVPIs";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A0AD10ECEC
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 06:20:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7C6E10E085
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 06:54:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 11EF740457;
- Tue, 29 Sep 2026 06:20:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C640B1F000FF;
- Tue, 29 Sep 2026 06:20:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8129A42E7D;
+ Tue, 29 Sep 2026 06:54:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8AF81F000FF;
+ Tue, 29 Sep 2026 06:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790662842;
- bh=jBpFt6oF1ZbkrhU897fzUy4nbvzlRhqdlHCAyllp5rE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LwYs8JCV886qDfBaPd5/Q48muGz5EAtT2ZXXSz44FrTy+WOEQECAU9YA96W9J82Vg
- 8HE2gfIgOUA/sVIigSLdTqHR28+6SC9dr1JW4DkSmoUG2y+O85QgnnY/pJp+LQh+B1
- LBPu5kreadCunFBUmayoDEeGUrQb+EhayMADDuiAyhF2WMeLJUhyuZGUxKFV6AFdnY
- mBd9wF1tM21xNKH79mURf4vHBOJo84ZTlNLYf7spzwSbhiI/uz45MtpPvcLg791KJ6
- 8mbTnHZSe2it1tWwn927rlvSjhhsGo3Kw7JcJUKvDF6I/NTW8kAyI0VF1frHqlEr0P
- Ottt9SsCnM8ZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] atafb: avoid cast when assigning buffer address pointer
-To: "Helge Deller" <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929061223.55435-1-deller@gmx.de>
-References: <20260929061223.55435-1-deller@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 06:20:42 +0000
-Message-Id: <20260929062042.C640B1F000FF@smtp.kernel.org>
+ s=k20260515; t=1790664872;
+ bh=frSugISh6ArGwMVikkGuowUUcfyIsFmCGNO08QVoGlM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mPDvVPIsCW1jE6xXRRu36jGSKhoB6gkBF5/x2mZzSwevIThy1W8kgIJafiodO57Pw
+ jbIF4TZCI+++nk8+KoUXxQOP4eWq2i/rXQ966+/nMEE7rKBi5Z5UmQCJxzHhJCrX5x
+ sdjRWxnDr6NYga4Ofl4rZ2MqeG9crwkRKC3lzCHo0xLhzEYatEReSHb6KAkaJ5PXDV
+ O8ARPrqHDO+PgsRdHOF1KJ9KrJgCuejQZwYl+8RZg83+lZeEZTzPVZrfex1kx5TVTX
+ Gtsh+RKpwW0lbgEdfN/NlVldgQW7k2ljgKd0yh7fcOVCicVxslwl2bGi1VJSz7pqmM
+ GS0t1pNVgio6A==
+Date: Tue, 29 Sep 2026 08:54:28 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Albert Esteve <aesteve@redhat.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+Message-ID: <artcVqmYRxeZ4dHs@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928163711.GA210522@killaraus.ideasonboard.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="nqvv5v626rm3lewc"
+Content-Disposition: inline
+In-Reply-To: <20260928163711.GA210522@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,53 +76,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] fbdev: incorrect sparse warning suppression via union alias
---
 
-commit d3053bb9def82e951de5b1b68d5beb85bd502468
-Author: Helge Deller <deller@gmx.de>
+--nqvv5v626rm3lewc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+MIME-Version: 1.0
 
-atafb: avoid cast when assigning buffer address pointer
+Hi Laurent,
 
-This commit attempts to resolve a sparse warning about an __iomem address
-space cast by switching to the screen_buffer alias from the fb_info union.
+On Mon, Sep 28, 2026 at 07:37:11PM +0300, Laurent Pinchart wrote:
+> On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
+> > Panels in general, and MIPI-DSI panels in particular, are pretty
+> > difficult to support and require pretty much a panel driver for each
+> > panel produced. Most of them are pretty simple, and require an opaque
+> > initialization sequence that is usually poorly documented.
+> >=20
+> > This creates a tension between OEMs and distros because OEMs will
+> > typically get a new panel to react to a sourcing issue during
+> > production, and thus need some swift turnaround between getting their
+> > new panel and it being operational in the OS. Distributions on the other
+> > hand can take years to ship a kernel with that new panel driver.
+> >=20
+> > To solve this, I followed the example of HID-BPF and wrote a panel
+> > driver that will rely on BPF programs to perform the panel
+> > initialization. That way, we can ship the programs separately from the
+> > kernel, and with a different lifecycle. If this driver is accepted, the
+> > plan is to have a userspace component started by udev to identify and
+> > load the right BPF program for the panels found on the device.
+>=20
+> Interesting idea.
+>=20
+> How would that work for devices that want early display support ? In
+> particular, how does it interact with your recent work on "fastboot"
+> support (with the kernel drivers taking over a running display
+> configured by the boot loader) ?
 
-Closes: https://lore.kernel.org/oe-kbuild-all/202609261313.kgFtkz2t-lkp@int=
-el.com/
+That's a very good question, and I haven't really thought about it tbh.
+I don't think it would be super hard to implement though. For panels
+itself, we don't typically track anything in the state. panel_bridge
+however would still need to fill its own bridge state but that only
+contains the bus formats and flags which can be infered from the DT.
 
-> diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
-> index 5c3e5861543a2..c32576cb17202 100644
-> --- a/drivers/video/fbdev/atafb.c
-> +++ b/drivers/video/fbdev/atafb.c
-> @@ -2454,7 +2454,7 @@ static void svblit_fillrect(struct fb_info *info,
->  		((u32 *)info->pseudo_palette)[rect->color] : rect->color;
-> =20
->  	/* draw the first line with the CPU ... */
-> -	line =3D (u8 *)info->screen_base + rect->dy * pitch +
-> +	line =3D info->screen_buffer + rect->dy * pitch +
->  	       rect->dx * bytespp;
+Another thing we might need for the connector is whether it's active or
+not, but panel ICs typically don't tell you that anyway, and you can
+always infer it from the encoder / previous bridge state.
 
-[Severity: Low]
-This isn't a runtime bug, but does this improperly suppress the sparse warn=
-ing
-by type-punning through the union alias?
+And then, for the first kernel modeset, we end up in the same situation
+than a regular driver I suppose.
 
-By switching to screen_buffer in svblit_fillrect(), the code bypasses the
-__iomem static analysis checks without making the memory access structurally
-correct.=20
+> I'm also wondering about the incentives for vendors to upstream the
+> code. How will we avoid having a proliferation of out-of-tree drivers ?
 
-Shouldn't this use an explicit (__force) cast or proper I/O accessors rather
-than hiding the access through a non-__iomem union member?
+I'm not really concerned about that part, because:
 
->  	switch (bytespp) {
->  	case 1:
+* You can *already* support a panel with a proprietary out-of-tree
+  module, and it hasn't really affected us so far
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929061223.5543=
-5-1-deller@gmx.de?part=3D1
+* In fact, it's easier to decompile an hypothetical proprietary BPF
+  program than an compiled .ko file (that we wouldn't be able to load
+  anyway), so if we really end up there, it would be easy for us to get
+  to the source code again.
+
+* And panels are so trivial that I don't really see the importance of
+  having support for them in the kernel anyway. It's constant tedious
+  work that is barely documented, fragile, and provides very little
+  value. And the vast majority of the panels are not supported anyway
+  except for some willing OEMs (that are using panel-edp anyway) and
+  willing hobbyists/consultants. So we probably wouldn't miss much.
+
+Maxime
+
+--nqvv5v626rm3lewc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCartgoAAKCRAnX84Zoj2+
+dt9YAYDeU+GLtwcwZIrfjpOUwqvG0dXKTb7mMZ52PfHb8HcUxp3eaOBzW24xy6Y9
+WlLfWwkBgLLyxC4OO+6o0WjZXUX0tkDmLjSIY34SioQZFBv1MwyPij+tOMXuIS6y
+2wHe+UzVuQ==
+=+zAf
+-----END PGP SIGNATURE-----
+
+--nqvv5v626rm3lewc--
