@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7036C9832A
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D1BC9832A
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 04:55:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7A3B10ECDB;
-	Tue, 29 Sep 2026 04:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55B3F10ECD7;
+	Tue, 29 Sep 2026 04:55:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E8+60Tvj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NXPVdDyI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F7010ECD7
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:54:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0937A10ECD7
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 04:55:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ACA5960210;
- Tue, 29 Sep 2026 04:54:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457491F000FF;
- Tue, 29 Sep 2026 04:54:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 99DE143D3B;
+ Tue, 29 Sep 2026 04:55:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AF11F000FF;
+ Tue, 29 Sep 2026 04:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790657675;
- bh=FPcw/mPFE0XjkmELhOOTpWiIqZikoXbr/bhxyeQ68y0=;
+ s=k20260515; t=1790657726;
+ bh=OrF8cTNeM+ZMqq9vVrWuGsoI1nZYeXFppF/ELmbHExg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E8+60Tvj57bu+FaDfdbls0Hk8z+OmDIs6jNgplT1eeEc6QPtYFKHaEKyuzhe7DwdL
- 4+FgAEXoghQ0/6VSm6boNc2bgL3XYMC1HFZx1fb3pLFcMA5zPy8pc1pf4ZQmhUH5iJ
- wXo9uClSsOgBYzGPzFWq6UVT5rNn5yeIMgWZ1h299kBytb045KAjpZVV/k5EsmwRG/
- pqV2WQSU/bEZz4fDyPbfmijYEmhWgqebBs3JjBar6xsXmcjJXryAIK7F+ay0f1rIkW
- iYNdaSheQvU6MKkodShXtbRkIb0vGJQ3TlUxbg1Ntyea3JrkNUqgy36zJEXCStKNgJ
- MBsawqzClCd8A==
+ b=NXPVdDyIGRFDxSc/RZaRSIXwkzqdhc1RTgzPLMQHLIt6e/VyvMz7lN19uKv9wd2tn
+ kcHz/6/Wq6ZNbT1MO+stuJiNdByLOL2FSu9t0YeVVlbLGyfWqRS5/4vFk8hYXJgvvL
+ KdTW/Z6NFMVZhxJ9QjJvBbh3JP+UepVllYrxDAjxEZqTHTQeKiSuIawwxRRoQWA89t
+ iMsz+Kzy6mZH3flYv/F/9MSpG/dqW3JV5HEExm5t1EHgfwWLGmuJqilxOrQh5hIore
+ SJpcbzqmdcke14+p5nszIWtKjFWPB+HSJZ4cQdunhHBFqdKGjgc5wHKC0nUxCoJB4I
+ 1fes5mRijnDjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 34/35] drm/msm/dp: order IRQ HPD handling with plug
- state changes
+Subject: Re: [PATCH v7 35/35] soc: qcom: pmic-glink-altmode: skip retimer
+ reset on DP IRQ
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260929-msm-dp-mst-v7-34-4b81473185e7@oss.qualcomm.com>
+In-Reply-To: <20260929-msm-dp-mst-v7-35-4b81473185e7@oss.qualcomm.com>
 References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-34-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-35-4b81473185e7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 04:54:34 +0000
-Message-Id: <20260929045435.457491F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 04:55:25 +0000
+Message-Id: <20260929045526.53AF11F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +60,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/msm/dp: TOCTOU race in IRQ_HPD handling causes pm_runtime le=
-ak for SST/eDP
+- [High] soc: qcom: pmic-glink-altmode: destructive retimer reset on non-IR=
+Q updates
 --
 
-commit 99b95a07a6fbe8a19b13f048313ddac554ebf859
+commit 040403d2f53703bec3a8c1b6f7b327a08f248957
 Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: order IRQ HPD handling with plug state changes
+soc: qcom: pmic-glink-altmode: skip retimer reset on DP IRQ
 
-This commit orders IRQ HPD handling with plug state changes. It ensures
-the link is initialized via the plug path before handling the IRQ, and
-ignores stale IRQs if an unplug event is also present.
+A DP HPD IRQ reports a sink-side event and does not imply a Type-C routing
+change. Reprogramming the retimer for every IRQ can reset or disturb its
+datapath while link training or video transmission is in progress, causing
+intermittent DisplayPort link failures.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index ed0b93e3bd08f..94446bcf9448a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmi=
+c_glink_altmode.c
+> index e903d4910e9c8..5ae554dc01d9a 100644
+> --- a/drivers/soc/qcom/pmic_glink_altmode.c
+> +++ b/drivers/soc/qcom/pmic_glink_altmode.c
 [ ... ]
-> @@ -1818,6 +1821,9 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *br=
-idge,
->  	if (status =3D=3D connector_status_connected) {
->  		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
->  		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-> +			if (!dp->plugged)
-> +				msm_dp_hpd_plug_handle(dp);
+> @@ -200,10 +207,31 @@ static void pmic_glink_altmode_enable_dp(struct pmi=
+c_glink_altmode *altmode,
+>  	port->retimer_state.alt =3D &port->dp_alt;
+>  	port->retimer_state.data =3D &dp_data;
+>  	port->retimer_state.mode =3D TYPEC_MODAL_STATE(mode);
+> +	retimer_state_unchanged =3D port->retimer_dp_valid &&
+> +		port->retimer_dp_mode =3D=3D mode &&
+> +		port->retimer_dp_hpd_state =3D=3D hpd_state &&
+> +		port->retimer_dp_orientation =3D=3D port->orientation;
 > +
-[Severity: Medium]
-Can this lockless read of dp->plugged lead to a Time-Of-Check to Time-Of-Use
-race with concurrent threads (like userspace detect or modeset)?
+> +	/*
+> +	 * An HPD IRQ is a sink-side DP interrupt, not a Type-C routing change.
+> +	 * Avoid rewriting an already configured retimer while DP link training=
+ or
+> +	 * video transmission is in progress. The DRM HPD IRQ notification below
+> +	 * is deliberately still delivered.
+> +	 */
+> +	if (hpd_irq && retimer_state_unchanged)
+> +		return;
 
-If msm_dp_bridge_hpd_notify() checks if (!dp->plugged) here and evaluates it
-as true, it will prepare to call msm_dp_hpd_plug_handle(). Concurrently, if
-another thread (e.g., userspace polling via msm_dp_bridge_detect) takes the
-plugged_lock, gets a PM reference, and sets dp->plugged =3D true, this thre=
-ad
-will then call msm_dp_hpd_plug_handle() anyway.
+[Severity: High]
+Does this code unnecessarily reprogram the DP retimer when the IRQ status
+is cleared or when redundant state notifications arrive?
 
-Inside msm_dp_hpd_plug_handle(), we have:
+The retimer datapath is initially programmed with hpd_irq =3D 0. When an HP=
+D IRQ
+occurs (hpd_irq =3D 1), typec_retimer_set() is correctly skipped.
 
-    guard(mutex)(&dp->plugged_lock);
-    if (dp->plugged && dp->msm_dp_display.mst_active)
-        return 0;
-   =20
-    ret =3D pm_runtime_resume_and_get(&pdev->dev);
+However, when the IRQ status is subsequently cleared (or a redundant state
+notification arrives) with hpd_irq =3D 0, the condition if (hpd_irq &&
+retimer_state_unchanged) evaluates to false. This circumvents the cache che=
+ck
+and forces a call to typec_retimer_set() with the exact same DP state.
 
-Because mst_active is false for SST/eDP, it fails to abort when already
-plugged by the racing thread, proceeding to acquire a second PM reference.
-This can result in a permanent pm_runtime reference leak, preventing the DP
-controller from suspending, as unplug_handle() will only drop one reference.
+As noted in the commit message, reprogramming the retimer disrupts the acti=
+ve
+link, which seems to defeat the core purpose of this patch.
 
->  			msm_dp_irq_hpd_handle(dp);
->  		} else if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
->  			msm_dp_hpd_unplug_handle(dp);
+> =20
+>  	ret =3D typec_retimer_set(port->typec_retimer, &port->retimer_state);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-msm-dp-mst=
--v7-0-4b81473185e7@oss.qualcomm.com?part=3D34
+-v7-0-4b81473185e7@oss.qualcomm.com?part=3D35
