@@ -4,92 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D929ECA5FA1
-	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 01:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBABCA5FA1
+	for <dri-devel@archiver.kernel.org>; Tue, 29 Sep 2026 02:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B9610EC41;
-	Tue, 29 Sep 2026 01:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A70A210EC47;
+	Tue, 29 Sep 2026 02:15:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eTpZBSYr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tp+SEXJv";
 	dkim-atps=neutral
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com
- [74.125.227.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA8E510EC41
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 01:45:11 +0000 (UTC)
-Received: by mail-pj2-f41.google.com with SMTP id
- d9443c01a7336-2df964b6893so17116875ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 28 Sep 2026 18:45:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790646311; x=1791251111; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BbPZBkG6EW7o76TGvb+IbEd7phIKmf02Hwna+vyhxaI=;
- b=eTpZBSYrZ8WVn0pe2g8Yfyk3PteAJXCN8AoebOF29fTPUVCnNHM58qztC5M6KIBKBZ
- 5yEBT3u7oFxXyDtELlgdfz0rtGom0DcmKxMWAZbEMdSvCnoV6pezdn/uUe98wKqBCggC
- 9Zu6cvPhnLYQQKbhkvdUR3aaqnzf7Yjgl2RiSQJNrO1XuAmldNo4VhzCa4zOBaJVXU/A
- C3A3ASPmlhM4T+xGRW+COR0nBjMsRkOmlCqLAK1E2DUF3a8mbCNXQNuLfSyw+Ek6gp4L
- NX/4FmgGB/rBrZX+sWAG2YzzR/dc5IS25j88SD9QisTpAR1RjKIQzdkQsiBn8b4+5u7B
- u1LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790646311; x=1791251111;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BbPZBkG6EW7o76TGvb+IbEd7phIKmf02Hwna+vyhxaI=;
- b=uyjIi4m3fc2AhijHTW5er0hC4m5iQBgfBD+yucesY/GqedwC433HWBXNG82xbHwBON
- aUBPGlLRhJFYbjQbYrGhi6RD9I3jyxf2YcVFGxcatlNmB9CanWFMbkt32SFCHf7XFm2F
- T3Q07g6V5jcSVaV8lWFlMSLKTea9jr/29hQYq+hAbmIdvbyGhIvbh85VFUJ6Oqw0ya4c
- qazmuzJgS2bcLVTumKQ2hfecnE61t73FFlFafXbYReKBygNLbva3tgHT8NjBB38WsB93
- 3xjkL/D4APvxzUTjy2P8B6iMwL8CTL/bwU76wdYCiK9jIOMFKFkzCkJKCeuJ3jquN8rY
- ugLg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxPa0Llx+ooezdXroAT0W1tTi6Up6SPGS4aTkuhlqvayebt3O1ebEoGFd5j8g18uKhyauh/1gsCYhA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKAuLVNqhdkuy/fYV/ATftI+614QFVtkYvQRhAE4M7BonDy8l54
- N9Z1Bdz29+ngZqlQB+tDOwWotfZ1OzUrY3qxVFlJLDKERCmXM1xcV0WD
-X-Gm-Gg: AYBFou2ExUF9WUTEn/1bmp1SVB7Z/9OjSwKlvFd6WpoFg2zwO+ZJNMPS+8pZ8uhssaU
- 11vcJV6ys+wTh8DSK53s73Fxg+Xn9LIan8Bz2sMStGVQaP0JxZkF53a2a1bO0d7JHY02Z19kooB
- xpHJCXxtcVrEo94gMciwRBe17Qz6i/yKADmajnmDxLjicrmqO5BWY819tny0Xhc1N0wB+Xa9wVs
- iO+h+x8fXZV7Hloq/Ee9G/fyLJ70XH4b8rgCxQ14UhsakKx3SsS19uuGIEd4DPX92hZgUggJ56u
- mzgGX7BxfevhCQ9/L+2pVieZ1Vjng4K/elhNTSRIOSoFLQ7QYAbadbJEurzX9nyHuA6J/GHEADa
- Z4jQG39+j3GgcQvL2pOfSwKzLZezqJfNSY5XGqhb9MaRwpI2aGHqErwSpVKMinHcwHdiGWc30zD
- zAlDUBI2gdllTfmWdQ1dzQR15mFqW5eutImRYE78kn5qf8t/4+xtxnZ2unjeQOiIYN4SVjiozcU
- 1A3UcA7IgMQ65FhE8WOD4QZkcuhnSAKT5SAnjcod9WXnpR/ulyPGQw=
-X-Received: by 2002:a17:902:ebc7:b0:2df:9625:3ecd with SMTP id
- d9443c01a7336-2df9625400fmr82748415ad.8.1790646311363; 
- Mon, 28 Sep 2026 18:45:11 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2df913dd8d2sm48984825ad.20.2026.09.28.18.45.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Sep 2026 18:45:10 -0700 (PDT)
-Message-ID: <ed35ac8d-ebcb-4f7f-aafd-c1b1eb3616b7@gmail.com>
-Date: Tue, 29 Sep 2026 09:45:06 +0800
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5547B10E0F5
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 02:15:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 972C8447B9;
+ Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67D5FC4AF13;
+ Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1790648156;
+ bh=CbDUtz8HMPGFZwFsusXPwl5lhCma2afdN6ihXdY+cHc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=tp+SEXJvBqW5l+eOkYzloE6P9x9DrDtnJ9SwHmnazOzVXvXk8zyqqcc7AF30g1Pcq
+ lKiZcRB22OBRf1uRsNOBRT151Hz15DnNVnIVHt3iMbNUky5EWW1zXYUXQJY2oFQoM/
+ lwZ9cgAmpry8MC4rWX82yo7NZivqwN8Uv0gUtUWnvlQEDU7GKCuW3jLOYtD6jsFTFv
+ dJBAtgNBFyvsJPzD/oarPyyUTazIjhsndQtWkdJr2RGxibgmwAbeR4D3J79+Ibc1fr
+ ANHNdym/brdbhF+iO7DxGiTca75ylIyU38V8N7YRrr48Z5KNCbwy1nByv3LuzghQ2O
+ xtNktEg6JABtA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 52EEDCA5FB2;
+ Tue, 29 Sep 2026 02:15:56 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Date: Tue, 29 Sep 2026 10:15:55 +0800
+Subject: [PATCH v3 05/11] drm/tyr: add user and MCU VM specifications
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable
- clearing FB_EN
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-8-a0987203069@gmail.com>
- <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
- <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
- <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
- <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
- <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
- <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-tyr-ioctls-v3-5-26955fb111d5@kylinos.cn>
+References: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
+In-Reply-To: <20260929-tyr-ioctls-v3-0-26955fb111d5@kylinos.cn>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
+ Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790648153; l=11343;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=0leLzPWVMNSy7Zswji6iDvSoyrNUGJK89Zjw6GKgB48=;
+ b=5tYvawp7bc3rd2hZ452RQBlo/oAZsKV4iQmQDLBR+iWRY7Ghv3khkv04c/G7aC2ao7bLEHDN0
+ mn0eNofK0eaCKAAISOVQ8J9xHIlaFsB+fHr5nXy1xOXIEBeqVC3aGD+
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,90 +84,334 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sunke@kylinos.cn
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Alvin Sun <alvin.sun@linux.dev>
 
-Icenowy Zheng 於 2026/9/26 下午 12:48 寫道:
-> 在 2026-09-25五的 22:55 +0800，Icenowy Zheng写道：
->> 在 2026-09-21一的 15:49 +0800，Joey Lu写道：
->>> Icenowy Zheng 於 2026/9/21 下午 03:30 寫道:
->>>> Maybe it's better to just make it the 2nd patch in this patchset,
->>>> just
->>>> after the binding change.
->>>>
->>>> Waiting for something into drm-misc-fixes again will need another
->>>> fixes
->>>> pull and another RC back merge, which can consume weeks and miss
->>>> the
->>>> current merging window.
->>>>
->>>> In addition, it's possible that `drm/verisilicon: introduce per-
->>>> variant
->>>> hardware ops table` also gets backported for a more clean primary
->>>> plane
->>>> atomic_update disabling fix.
->>> Understood. I'll fold the FB_EN fix in as patch 2, right after the
->> Should I just apply this revision of patch with this reorder?
-> Oh I think more fixes are coming.
->
-> There's one more DC8200-specific problem (which might be problematic on
-> DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
-> be executed before vs_dc8200_panel_enable_ex, because some timing
-> parameters seem to be latched when the value going from 0 to 1, and
-> when a stale state is programmed before the driver is loaded (e.g. a
-> firmware driving the display) and the timing isn't the same with the
-> timing of the first modeset, the modeset will fail.
->
-> I'm thinking about sending a fix patchset first, which will pick the
-> FB_EN fix here, implement a fix for the stale state problem and maybe
-> implement fixes for the old state dereference problems for hidden
-> planes in their atomic_update callback (although this fix will
-> introduce a helper, which will then be moved and renamed in the DC8200
-> ops patch).
->
-> Thanks,
-> Icenowy
-Understood, happy to hold the DCUltraLite series until your fix
-patchset lands, and rebase the ops-table patch on top of it then.
+The MCU and user VMs need different VA layouts. Give each a dedicated
+constructor: new_for_fw() builds the kernel-only 4G layout, while
+new_for_user() splits the address space by task_size or a user-provided
+size, rejecting oversized requests rather than clamping. The resulting
+user range is what VM_CREATE reports back as user_va_range.
 
-On DC8000: its panel enable/disable path just toggles a plain
-FB_CONFIG_RESET bit, not the staged PANEL_CONFIG/PANEL_START latch
-registers DC8200 uses, so it doesn't look like it shares this specific
-ordering hazard from the register layout alone. I'll run the tests again 
-after
-applying our variant on top of it.
->> Thanks,
->> Icenowy
->>
->>> dt-bindings patch, targeting the current vs_primary_plane.c
->>> directly,
->>> so the ops-table patch just carries the already-corrected code
->>> forward
->>> into vs_dc8200.c. Agreed that's faster than round-tripping.
->>>
->>> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
->>> still
->>> has a real per-variant operation there (clearing FB_EN + commit),
->>> while
->>> DC8000 leaves it NULL and does nothing, so the suffix still
->>> reflects
->>> an actual per-variant difference, not just structure introduced by
->>> the
->>> refactor.
->>>
->>> While testing the cursor plane, I found the same class of bug
->>> there:
->>> the disable register write was being triggered from the plane's
->>> atomic_update() invisible-branch using the old plane state to look
->>> up
->>> the CRTC/output, which can be stale or NULL on a plane's very first
->>> commit if it's already invisible then. I've fixed it locally by
->>> having
->>> atomic_update() derive the CRTC/output from the state it already
->>> holds
->>> before checking visibility, instead of falling through to the
->>> old-state-based disable path. Just flagging it here for now -
->>> vs_cursor_plane.c isn't touched by any of my patches.
->>>
->>> Thanks.
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ drivers/gpu/drm/tyr/fw.rs |  19 +++---
+ drivers/gpu/drm/tyr/vm.rs | 170 ++++++++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 164 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 7edb5eff17077..d790b54e373e6 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -52,7 +52,6 @@
+         KernelBoVaAlloc, //
+     },
+     gpu::GpuInfo,
+-
+     mmu::Mmu,
+     regs::{
+         gpu_control::{
+@@ -223,10 +222,10 @@ pub(crate) fn new(
+         mmu: ArcBorrow<'_, Mmu<'drm>>,
+         gpu_info: &GpuInfo,
+     ) -> Result<Firmware<'drm>> {
+-        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
++        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
+         vm.activate()?;
+ 
+-        let result = (|| {
++        let sections = (|| -> Result<KVec<Section<'drm>>> {
+             let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
+             let mut sections = KVec::new();
+             for parsed in parsed_sections {
+@@ -256,18 +255,18 @@ pub(crate) fn new(
+                 sections.push(Section { data, mem }, GFP_KERNEL)?;
+             }
+ 
+-            Ok(Firmware {
+-                iomem,
+-                vm: vm.clone(),
+-                sections,
+-            })
++            Ok(sections)
+         })();
+ 
+-        if result.is_err() {
++        if sections.is_err() {
+             vm.kill();
+         }
+ 
+-        result
++        Ok(Firmware {
++            iomem,
++            vm,
++            sections: sections?,
++        })
+     }
+ 
+     pub(crate) fn boot(&self) -> Result {
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index a2857820570cf..625ec7e95790f 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -8,6 +8,7 @@
+ //! mapped into hardware address space (AS) slots for GPU execution.
+ 
+ use core::marker::PhantomData;
++use core::num::NonZeroU64;
+ use core::ops::Range;
+ 
+ use kernel::{
+@@ -44,6 +45,8 @@
+     new_mutex,
+     prelude::*,
+     sizes::{
++        LargeSizeConstants,
++        SizeConstants,
+         SZ_1G,
+         SZ_2M,
+         SZ_4K, //
+@@ -159,6 +162,103 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
+     }
+ }
+ 
++/// User VA size request for a user VM.
++pub(crate) enum UserVaRequest {
++    /// Split based on `task_size()` and the GPU VA range.
++    Auto,
++    /// Caller-specified size; construction guarantees `> 0`.
++    Fixed(NonZeroU64),
++}
++
++impl UserVaRequest {
++    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
++    #[expect(dead_code)]
++    pub(crate) fn from_uapi(v: u64) -> Self {
++        match NonZeroU64::new(v) {
++            Some(size) => Self::Fixed(size),
++            None => Self::Auto,
++        }
++    }
++}
++
++/// Final user/kernel VA layout for a VM.
++pub(crate) struct VmLayout {
++    /// Full GPU VA range covered by this VM.
++    pub(crate) full: Range<u64>,
++    /// User-accessible VA range. Empty for MCU VMs.
++    pub(crate) user: Range<u64>,
++}
++
++impl VmLayout {
++    /// Kernel VA range, reserved for future kernel object allocation.
++    #[expect(dead_code)]
++    pub(crate) fn kernel(&self) -> Range<u64> {
++        self.user.end..self.full.end
++    }
++
++    /// Compute a user/kernel split for a user VM from the full GPU VA range and
++    /// a user request.
++    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
++        // Minimum VA space reserved for kernel objects (heaps, ring buffers, ...).
++        const MIN_KERNEL_VA: u64 = u64::SZ_256M;
++
++        if full.end <= MIN_KERNEL_VA {
++            pr_err!(
++                "Invalid VA range {:#x}..{:#x}, kernel VA min required: >{:#x}\n",
++                full.start,
++                full.end,
++                MIN_KERNEL_VA
++            );
++            return Err(EINVAL);
++        }
++
++        let user_max = full.end - MIN_KERNEL_VA;
++
++        let user_end = match req {
++            UserVaRequest::Fixed(v) => {
++                let user_size = v.get();
++                if user_size > user_max {
++                    pr_err!(
++                        "Requested user VA range {:#x} exceeds maximum {:#x}\n",
++                        user_size,
++                        user_max
++                    );
++                    return Err(EINVAL);
++                }
++                user_size
++            }
++            UserVaRequest::Auto => {
++                let task_size = current!().mm().map(|mm| mm.task_size());
++                let candidate = match task_size {
++                    // `task_size()` returns usize; widen to u64 for the comparison.
++                    Some(t) if (t as u64) < full.end => t as u64,
++                    None | Some(_) => {
++                        // If the range exceeds 4G, split it in two so CPU and
++                        // GPU share the same addresses (SVM).
++                        if full.end > u64::SZ_4G {
++                            full.end / 2
++                        } else {
++                            user_max
++                        }
++                    }
++                };
++                candidate.min(user_max)
++            }
++        };
++
++        let delta = full.end - user_end;
++        // Pick a kernel VA range that's a power of two, to have a clear split.
++        let kernel_va_range = 1u64 << delta.ilog2();
++        let kernel_va_start = full.end - kernel_va_range;
++        let full_start = full.start;
++
++        Ok(Self {
++            full,
++            user: full_start..kernel_va_start,
++        })
++    }
++}
++
+ /// Arguments for a virtual memory map operation.
+ struct VmMapArgs<'drm> {
+     /// Access permissions and caching behavior for the mapping.
+@@ -334,26 +434,64 @@ pub(crate) struct Vm<'drm> {
+     /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
+     /// internal mapping tree, like GpuVm::obtain()
+     gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
+-    /// VA range for this VM.
+-    va_range: Range<u64>,
++    /// VA layout for this VM.
++    pub(crate) layout: VmLayout,
+ }
+ 
+ impl<'drm> Vm<'drm> {
+-    /// Creates a new GPU virtual address space.
++    /// Creates the MCU/firmware VM.
+     ///
+-    /// The VM is initialized with a page table configured according to the GPU's
+-    /// address translation capabilities and registered with the GPUVM framework.
+-    pub(crate) fn new(
++    /// The MCU VM is entirely kernel-managed: it has no user-accessible range.
++    pub(crate) fn new_for_fw(
++        dev: &'drm Device<Bound>,
++        ddev: &TyrDrmDevice,
++        mmu: ArcBorrow<'_, Mmu<'drm>>,
++        gpu_info: &GpuInfo,
++    ) -> Result<Arc<Vm<'drm>>> {
++        // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
++        let layout = VmLayout {
++            full: 0..u64::SZ_4G,
++            user: 0..0u64,
++        };
++        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
++    }
++
++    /// Creates a user VM, splitting the GPU VA range per `user_va`.
++    #[expect(dead_code)]
++    pub(crate) fn new_for_user(
+         dev: &'drm Device<Bound>,
+         ddev: &TyrDrmDevice,
+         mmu: ArcBorrow<'_, Mmu<'drm>>,
+         gpu_info: &GpuInfo,
++        user_va: UserVaRequest,
++    ) -> Result<Arc<Vm<'drm>>> {
++        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
++        let va_bits = mmu_features.va_bits().get();
++        let range = 0..(1u64 << va_bits);
++
++        let layout = VmLayout::compute(range.clone(), user_va).inspect_err(|_| {
++            dev_err!(
++                dev,
++                "Failed to split GPU VA range {:#x}..{:#x} into user and kernel regions\n",
++                range.start,
++                range.end
++            );
++        })?;
++        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
++    }
++
++    /// Initializes a VM with the given layout.
++    fn new_internal(
++        dev: &'drm Device<Bound>,
++        ddev: &TyrDrmDevice,
++        mmu: ArcBorrow<'_, Mmu<'drm>>,
++        gpu_info: &GpuInfo,
++        layout: VmLayout,
+     ) -> Result<Arc<Vm<'drm>>> {
+         let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
+         let va_bits = mmu_features.va_bits().get();
+         let pa_bits = mmu_features.pa_bits().get();
+ 
+-        let range = 0..(1u64 << va_bits);
+         let reserve_range = 0..0u64;
+ 
+         // dummy_obj is used to initialize the GPUVM tree.
+@@ -365,7 +503,7 @@ pub(crate) fn new(
+             c"Tyr::GpuVm",
+             ddev,
+             &*dummy_obj,
+-            range.clone(),
++            layout.full.clone(),
+             reserve_range,
+             GpuVmData::<'drm> {
+                 _phantom: PhantomData::<&()>,
+@@ -385,7 +523,7 @@ pub(crate) fn new(
+                 mmu: mmu.into(),
+                 gpuvm,
+                 gpuvm_unique <- new_mutex!(gpuvm_unique),
+-                va_range: range,
++                layout,
+             }),
+             GFP_KERNEL,
+         )?;
+@@ -416,10 +554,12 @@ fn deactivate(&self) -> Result {
+ 
+     /// Kills the VM by deactivating it and unmapping all regions.
+     pub(crate) fn kill(&self) {
+-        // TODO: Turn the VM into a state where it can't be used.
+         let _ = self.deactivate();
+         let _ = self
+-            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
++            .unmap_range(
++                self.layout.full.start,
++                self.layout.full.end - self.layout.full.start,
++            )
+             .inspect_err(|e| {
+                 dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
+             });
+@@ -556,14 +696,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+ 
+         let end = va.checked_add(size).ok_or(EINVAL)?;
+ 
+-        if va < self.va_range.start || end > self.va_range.end {
++        if va < self.layout.full.start || end > self.layout.full.end {
+             dev_err!(
+                 self.dev,
+                 "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
+                 va,
+                 end,
+-                self.va_range.start,
+-                self.va_range.end
++                self.layout.full.start,
++                self.layout.full.end
+             );
+             return Err(EINVAL);
+         }
+@@ -573,7 +713,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+             region: va..end,
+         };
+ 
+-        let full_vm = va == self.va_range.start && end == self.va_range.end;
++        let full_vm = va == self.layout.full.start && end == self.layout.full.end;
+ 
+         let mut resources = VmOpResources {
+             preallocated_gpuvas: if full_vm {
+
+-- 
+2.43.0
+
+
