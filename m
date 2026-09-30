@@ -4,78 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E9BCA5FCB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB85CA5FBB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79E1110F41A;
-	Wed, 30 Sep 2026 13:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7FA010F425;
+	Wed, 30 Sep 2026 13:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sujNf0Hb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JTI5pPOM";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1ADF10F41A
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=AlDA3CPqsRh/rGxDenJg9W0cfItR8cQBugDBRNACtuk=; b=sujNf0Hb8oOTg+9mBB8JtsFZI/
- YyElfyRziidNbxNMmDp+snq9a0MPnLkzbWgzB2jgdKQbjWUGPEsAykWSdKj+ePCunDvGo7yMvmGYx
- ybG0sOukkbARpUnv05RBoMj1qfcSNJpJnxWX78KHbBoFcBOc6dqIClfR7XdOf582UwpfIKfn+yA1f
- 2fQSN3fu8isZNrjDFGQSqBYdetQULKLpTsy3dmDZ7rHh1BdufACJof5mjXUYJsq7UNharkEllVMIM
- m9AG85fDmeQohg/jGRvdWwcRMXMeY1BYWfxA/YFDUil+8yadQ0OuS3i+2f558CByBScjGyMlWIw+Z
- ZSApMQaA==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xBugq-009Sou-Pb; Wed, 30 Sep 2026 15:49:44 +0200
-Message-ID: <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
-Date: Wed, 30 Sep 2026 10:49:41 -0300
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com
+ [74.125.224.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB98D10F427
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:53:00 +0000 (UTC)
+Received: by mail-yx2-f38.google.com with SMTP id
+ 956f58d0204a3-675617094f5so1846051d50.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:53:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790776379; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Ll0WhzykKhYBCUqCmrJn17Qwd0+p6D682SeOdq6og0DBe2O/xEIMF8v+bIHq6CGtN8
+ L7akpV6tl85uRjMZ5Xh12WigjIyh5H6qkkULPzJP/3uZDfOFPK/WT9JINiPF2QYSCRPj
+ hLCtPjlO/ESTxDpemoEU5J61OZq/5K36egPf4U8pKKS9U1qkJS96uLI+/vOsqQZVaabv
+ cI9yKKErR1tcAcy9B9dMawbJhoSlfhv0zl5a2Z0NUbCwVYnNFdMaBq+durrprd6yMp03
+ vnZjAO/LA+1WFdBr+wp3bsUDm7gA2TrH7Ukm7iG1f5esZZxQQ0/CD19c/b2Z9WfiDyHZ
+ DlNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+ fh=Z6YtaPgqzTg5JnSx+o8cBKqup38lyg6fWoVZW+qBgII=;
+ b=bkjBBx4JmlWf4nWSt7Dn2oLmCdjWU73suLICXeYnmaotveknsEFK8BFqchoW1YsJd0
+ 99fBE5EPnFvDwuo2FRPQmxnD/SMazdXwSgrcVKfFD4KXeeTiGQUz77jiH+4WQYfLfhJb
+ uxAIZWIVihrR8xArVIg8IZ8dfZHZ3uejoFCmn+62QB24WuziHZcSSe+vTCcvCiEpW285
+ Da/XkGEy+kF9jdCDZV7eM1ka1fRtb2FCccac12zoMbsoGyZqpx2icHsaL5g7gaK0FGqz
+ 3TFxNCHbV8tkuQktlBIYHUVIzl5T8AkdWVpD5q9wkH2o7RhygfR5Anad/LoEqgibxgWt
+ YJ3w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1790776379; x=1791381179; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+ b=JTI5pPOMQF6a/OURgtx3n6Y+SXpptfQdLTShbrz7OmSq/dSxb1hQA48m78DvHMKJCa
+ hf8gg9pLbwMvWi/d7DS56cGJsTO72qhGmn5X57VHpDrp6br6hjV5osYsOchza1TwolXK
+ 0gLBjttXG2d9ecRoEKaoAeL9/gAf7Tc/qDnR19APP4CIK7blcG2ndD/SD25wnObJhDBM
+ CQe3LuBik4o8bDTaKYBRZeupiNG1q5qZoU++BahI4vp6v79kEnh+C9yNVWlMxEdBPct8
+ aD5IcpYksO4/j/+XyOy9eVeS3Q2vGLGEY+4c8dnxl04Rc1Tm2vr9zYmIqBhbHArscFWM
+ fQQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790776379; x=1791381179;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+ b=PTbxsUTZpULC0tFusgwOhSplQuddVjmESCqjbEEGrPu6OaSRVMKb+B43NWYUDu3tZl
+ 9Me2hI+8YCwzikOEGwV16ku9V4xsDr+vZb+xovMmc5NgC5DrVcI3n+HoZtqN3Uy5KRlN
+ r0jalWKyY3UehXBY9GjmYSu8BxCZkyctxlNlfTHX/PmstYtGtZLXdDqaDo5x4elxwczs
+ JCMS7YOqDoqi/C0m3xNrYpIauqfRgFUt9nqO1wcwyxqPZ7NkeFCNZcWiSZS6e6ASyogF
+ aF0VJYUZvcRMXveUtcA2xnXNxvs1g5WLSzAjAvjLotxahZ9AveL2YVkWeOm/xHged3JN
+ y+iA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxgG+u1Z5gznlU34V0CB3T4GYcohyT+Umbq7IiAsaQPZmSbwS6dOCgqvK04SBu5uUEeQKWAO9o5WT0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK9dsMnzeW5LRZs/s+C/1QAQyPZnCToe1yuhk1DECcv/hjRIvUZ
+ DBG9qc/b4SG8SuQAdgXuf4P0uphgugQL1daNLHhprVL/DJgf0FPqacojVfei6uICKQ7yKDITuSa
+ lLnwV6HuUclFoO0wffREGHpDMLQgDfWHDgBPRFfsT/A==
+X-Gm-Gg: AYBFou2bfF1jjsoaW9H7U9y9zoXhjE6YLw2lvqgf5JwvOJPoU4SrpZYY6UDj+BDPb7h
+ m3tgWwgczKigbfitKwNiacJ8N34iCtCvOz2GP/KjI8VkwR+SgwfJ+JFJ8WY626WUVXk7T5hCkI7
+ YeVRP8Gff3yb0tnhcqLOg+Mm69PKz5yHjBo18AiwWu2BpgL+LGWS2ZdpDBpIZ6dc3dmmy/LWcS+
+ Ft4oRgzKUNv5h0uxtytegFzYeGCjTahSuDCsUHyGwcCCyEJsrGTHdJQmm6tWTPKPmEjQGJCDHOi
+ O+HLc/OEIcAiECAF7H/MXrREoWrGb/QLUlEcHrNSJaeSl+7aPvnYHo2I9xzkMxN7
+X-Received: by 2002:a53:bc0b:0:b0:676:24e2:c67e with SMTP id
+ 956f58d0204a3-6768351ba5fmr612451d50.89.1790776379376; Wed, 30 Sep 2026
+ 06:52:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
- framebuffer
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
- <1f383114-e367-4b67-899b-14a393fece94@suse.de>
- <20260923160049.1741651-1-holofermes@gmail.com>
- <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
- <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
- <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
- <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
+ <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+In-Reply-To: <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Wed, 30 Sep 2026 21:52:48 +0800
+X-Gm-Features: AclHuK_VxnR8JOsc80IMzuEQ7RuAU15Ps6hnH2uLVe_uy8XWpyeHRK9yzrHieFo
+Message-ID: <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
+ configurations
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,60 +121,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+9=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
+> > Some devices treat two independent physical DSI panels as a single
+> > logical panel from the CRTC's perspective. However, two separate DSI
+> > hosts are still required to drive the panels individually.
+> >
+> > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> > allows a panel driver to inform the DSI host that it is part of a
+> > dual-panel setup, enabling the host to coordinate both physical
+> > displays as one.
+> >
+> > This change does not force individual panel driver to manage
+> > system-level display topology if the driver does not intended to
+> > support dual panel topology. Only the driver that set the flag to
+> > true need to take care of panel topology.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  include/drm/drm_mipi_dsi.h | 2 ++
+> >  1 file changed, 2 insertions(+)
+>
+> Do you have a single MIPI DSI device, or are there two independent MIPI
+> DSI devices? In the latter case, the flag is wrongly placed.
 
-On 30/09/26 05:32, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
-> [...]
->>>> I have a patch implementing begin/end_cpu_access to
->>>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
->>>> we would like to support this use case upstream because, as you
->>>> mentioned, dumb buffers are usually used for software-rendering only.
->>> Before we fix anything, I think we should talk to someone with
->>> dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern is a
->>> producer-consumer relationship and HW rendering into dumb-buffers is not
->>> supported. Those buffers should have been allocated on the v3d side.
->>>
->>> IMHO we should write down these rules in the PRIME documentation and
->>> (soft-)enforce them in the implementation.
->>>
->> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
->> exported buffers (what Maíra is proposing as a fix) or there should be
->> documentation of the rules for cross-devices buffer sharing through 
->> PRIME.
-> 
-> This specific case only happens with v3d and only this driver can know 
-> when to flush caches. If we flush caches in begin_cpu_access, we easily 
-> end up paying the overhead on all systems.
-> 
+Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
+mipi device
+to notify host they are one of dual panels, so that horizontal
+configuration(width)
+in mipi host can be handled correctly. Where do you suggest to put this fla=
+g?
+Thanks!
 
-I believe that's the main issue. We would pay a reasonably big price to
-support this uncommon (and maybe even wrong) use case.
-
-P.S.: To be clear, I wasn't proposing a fix. I should have called my
-patch a "hack", because although it works, I don't believe we should
-support this use case for the reasons stated by Thomas.
-
-Best regards,
-- Maíra
-
-> 
->>
->> As mentioned, allocating buffers through v3d and importing into ssd130x
->> (or simpledrm) would work correctly, since the v3d driver already sets
->> bo->base.map_wc = true.
-> 
-> Hard enforcement would mean that drivers would reject to render to 
-> imported buffers.  It is most certainly too late to implement this now. 
-> But drivers such as v3d could at least print a warning when users 
-> attempt to do it.
-> 
-> Best regards
-> Thomas
-> 
-> 
->>
-> 
-
+Jun
+>
+> >
+> > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> > index 2ab651a36115d..889ef1421207a 100644
+> > --- a/include/drm/drm_mipi_dsi.h
+> > +++ b/include/drm/drm_mipi_dsi.h
+> > @@ -169,6 +169,7 @@ struct mipi_dsi_device_info {
+> >   * @host: DSI host for this peripheral
+> >   * @dev: driver model device node for this peripheral
+> >   * @attached: the DSI device has been successfully attached
+> > + * @dual_panel: the DSI device is one instance of dual panel
+> >   * @name: DSI peripheral chip type
+> >   * @channel: virtual channel assigned to the peripheral
+> >   * @format: pixel format for video mode
+> > @@ -186,6 +187,7 @@ struct mipi_dsi_device {
+> >       struct mipi_dsi_host *host;
+> >       struct device dev;
+> >       bool attached;
+> > +     bool dual_panel;
+> >
+> >       char name[DSI_DEV_NAME_SIZE];
+> >       unsigned int channel;
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> With best wishes
+> Dmitry
