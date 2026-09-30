@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F143CA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E09DCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:06:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9462B10E042;
-	Wed, 30 Sep 2026 07:05:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A64F910F1E1;
+	Wed, 30 Sep 2026 07:06:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IwfRP2uA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ifOG7dAH";
 	dkim-atps=neutral
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com
- [74.125.225.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960AE10E042
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:05:56 +0000 (UTC)
-Received: by mail-wr2-f12.google.com with SMTP id
- ffacd0b85a97d-482f63546c5so4420181f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:05:56 -0700 (PDT)
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com
+ [74.125.225.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59BFC10F1E1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:05:58 +0000 (UTC)
+Received: by mail-wr2-f35.google.com with SMTP id
+ ffacd0b85a97d-4887f6cf16bso3102715f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:05:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790751955; x=1791356755; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=l4ypwwp7JTLk+2ivLn91M7UclGnNz67wo1x4IhoVtME=;
- b=IwfRP2uAUI15yZCmZTF86FbLyxtP8jlrgRf7wLOtcl4L8i6Hv1+ZBmNowjD/Nvdxnx
- 12qDuvJAgLoaNKBsJcSVn8gc86fF/PaKq9JubUWgAAM3cv05OYvUEdrDwE/10m04oan6
- WV2JsnZq3JnWts9OVOYXMFFUDCGIDbQCzKi7cqNQiBaDobWj6DDfozJd9bjy1p5EGIFX
- XU+umADx/uqGCQZtCjRWNQ3K952pkr9tk+nF0egqfWH/Ka2jz9uWFiyMiC/kJXxxqzUT
- ZhWk3Tva7MNqyPCPL3ziCWuXu3dMFUOJlcUh/3hLT/2Bxl/BptjU1mbz9SBs/ojmUC0w
- WG8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790751955; x=1791356755;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1790751957; x=1791356757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=l4ypwwp7JTLk+2ivLn91M7UclGnNz67wo1x4IhoVtME=;
- b=gywBD7p2BKOsZn0eZMe1IB9r6paawVowN77/0RlrpWxx49Cygj7JefQ09X15/tionQ
- OYsX+bHtMhM5hAI7izvUkqdthofFAs9lXEn9/cns20pM6+nXOd09C1faAtD8OXMKYz0k
- e+dulSNMCLala72un/2WxbmQsSBLoTPVpkuzQOFM9OPpSM7oioX7bRpns2Pjpng9tzKZ
- 94rV9mb3C2qU/EscJ9DAetcknhq0js+WKKkF+q/4t0GMskioLdyL0dVMNPwuFTWthddO
- irntLe6DYWYQ28FiJXutHlOY+NMSCOGqQBRCc2yHApACd4hH5QHMH7DJrof8crlDiJOg
- t3hQ==
-X-Gm-Message-State: AFq9FYIiVq+Aw0wacANLVtKLmL4rWR08RI2oT4yoWVBxhD+aLUzpkMgV
- gEkeSc0Q2ONuBVF4F6kf4Y84dw0xlbalWON5s8tvkJiLe3pBm0HpQl1+
-X-Gm-Gg: AYBFou1ziPDNrm4cEtggMB4XK3xcPkQhLNBgM7Byc40o6xr0+O59GXBz7MXXtptCOvS
- +qOydWYRNs54skL3ukD/UzCjyeC2SEI92BV2wwZARLJkpBut91qltN/tTb+LkKVIsH+q/auHi1t
- hrOED+eAvVv3HWzAH4wMP3OePD9qF7ZkpDn2CuZgT8klxnUX/DgQblMugahSP7iiVF6YSlNDLb/
- pwYXpaJXO2ZQVgplfWRpR9rqeYpW7IEC2JZWjODLz+6NG05xEV/HEU/YdpKb1GUv1EGx+i9RkuG
- rHNYo5aVN6PTZEB4FPLFRldlnb7JoNFhVtBnnB2ayW3rdriivgFI0gfLDIjL07bXH0KnP1679NS
- WTtMwSfyeBIjsGWfOTj0H1Z3Zjb5Vll83V4/2TXdcWOm2WIiq/tlWCevnlsp1zKA9GazRbLBZJl
- H0OItx2vR54YqoJmprDmSlSPFs+XpZt46eAGjIe0REMxj8QnqDKyBfp+j5faYIlE2mTaY3wcI5j
- UPUZFHW3/TpwPUR9+g=
-X-Received: by 2002:a05:6000:18a3:b0:488:811c:c78 with SMTP id
- ffacd0b85a97d-48b024f7a40mr1076050f8f.32.1790751954748; 
- Wed, 30 Sep 2026 00:05:54 -0700 (PDT)
+ bh=u+ufq/9OYpFWz0jYyxkMsrt/5JaGVR8WMolNjJI/6Zo=;
+ b=ifOG7dAHtLZnhMjHJEwmmqvF8EnVhi0wX8pJ2a+rNx7aCasVPuKvLv+qHKkpswUa3K
+ lxgdlKF1jrlN1vUIUb9778WQafCk5T9NpXLECqPTOkzwBbQPzzaLAgLNHqOxhFJGadgN
+ yqK2+FDbFtc6IyzdhbUmRnNNXbeCFpt37E3Np/F8+4i9CMVKvy5BlnopL9POO/scHrWP
+ RCs6JcYxvj5bwMz1XQkI4743uPfBvUcc2A87N04aJAgtOlz2AQdTAIcwZAXtopXDu0c7
+ zQnghoJqrgw8/sf3r2YLHRfTSZxb+6gl9R6aGAUiNAPWes9VGH0Y7kEObbmRrf0o7+dA
+ uOAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790751957; x=1791356757;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=u+ufq/9OYpFWz0jYyxkMsrt/5JaGVR8WMolNjJI/6Zo=;
+ b=t+O8T4BEcrbOi+KAHiLPJGldLlMUMUhpUqNxcQEt0fJrLMxEOSU14j5ivxZzf+tXu+
+ fTLRoVLVbv1KBoWhZkuS/YQhigshaxcJzMvjiFgUBnaaj+u5xaLA6WT/aUSqWpw8uVGE
+ rdnWrlu/l3PKNL6Uvk3KdV/sF/4R/i+D/0RZosv7GB7bWO+noy1c+qlfbS43ksyLWXQs
+ AL/CACV6kNwrQNhlVI8J2Nw5t4AyyMaIUIH5/eIWCJE3pMGvN3eTEnhQdabgd63bBQmq
+ 5pH0rNHJJJNiY5jC3+0NuEFOEPaI18wT9K/izbbsqzDD03UfzzfoBrhfpU0OY/hgUa2h
+ p3cw==
+X-Gm-Message-State: AFq9FYLxMOzaeIAbG2lN9RCkJgIk5p9x+jPffHwTv0JWNeYAyi51iBoT
+ DleAvHcHDlX/VcxQ/qVgPEknGQRcLFuvrdLYiwicSAZv5FPtQ930sXVs
+X-Gm-Gg: AYBFou3D0Zv8YsoffBfoP/u3QF07jm8sD+3VM7uRPnrXxNfqqoSANG7dUtV0u+ztfS6
+ XZVss5yCm9z7Bu9zHkR/R6jaR5NBlmRfVEbZZ1Bs4t/0vwtvTZ10HmEHf91uRvGZJBBq7+NuOb9
+ fzLQ4l3GVPf8DdHilwoMpi67PZbSIgzXc9pm09Lu7BtFy11tqpqQUxapP0Dg5H0R9/dWiF+DBPz
+ qzePoRfcjIGOaMXtcFD+Q8ovPgzm3nv0ZQ9VWxzECUQvN1uEZEzraPuV0TvvbCZBllzU++84pV2
+ oK2N6hh/hZhzZH2yEG0xSi16IE802YS365/9quS3GRlUZ/4y+JePdzz62jRIKv57u632yrJFJhj
+ +PbLxEd7DvldILMQvvMgINHZuBh7M7Go+ZWYOBA6LNi8OvTnWiloX/wieQo3jdC8eYfEQbVLfrS
+ QYnjwoXSUiK//n81PZNRl226xbtxpJkqmBA7H95sfEPYbeAusGmRhlcm++pWy1EAxoGbBSbfZI8
+ TwNJvFxBsNpKOfLPP+ZF73VmVy8OJY=
+X-Received: by 2002:adf:e191:0:b0:487:aa6:c90d with SMTP id
+ ffacd0b85a97d-48b0244dde4mr898761f8f.1.1790751956592; 
+ Wed, 30 Sep 2026 00:05:56 -0700 (PDT)
 Received: from xeon ([188.163.112.76]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.05.53
+ ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.05.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 00:05:54 -0700 (PDT)
+ Wed, 30 Sep 2026 00:05:55 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -74,11 +75,12 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: [PATCH v1 0/6] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU
- interface
-Date: Wed, 30 Sep 2026 10:05:29 +0300
-Message-ID: <20260930070535.47130-1-clamor95@gmail.com>
+Subject: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+Date: Wed, 30 Sep 2026 10:05:30 +0300
+Message-ID: <20260930070535.47130-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930070535.47130-1-clamor95@gmail.com>
+References: <20260930070535.47130-1-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,42 +98,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-that closely resembles the MIPI DBI Type B protocol and is referred to as
-'8-bit CPU'.
+Expand existing DC register definitions with additional fields in
+preparation for adding the 8-bit CPU interface.
 
-Add DC parametrization options needed for fine tuning by bridges.
-Add 8-bit CPU interface in form of a bridge linking to RGB port.
-Add 2 DBI Type B panels used in LG Optimus 2X which work with
-the 8-bit CPU interface.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/gpu/drm/tegra/dc.c |  3 ++-
+ drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+ 2 files changed, 51 insertions(+), 6 deletions(-)
 
-Svyatoslav Ryhel (6):
-  drm/tegra: dc: Expand available registers layouts
-  drm/tegra: rgb: Parameterize configuration based on bus flags
-  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
-  drm/tegra: Add support for 8-bit CPU interface
-  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
-    LH400WV3 panels
-  drm/panel: Add Hitachi TX10D07VM0BAA and LG LH400WV3-SD04 MIPI DBI
-    panel driver
-
- .../display/panel/hit,tx10d07vm0baa.yaml      |  55 +++
- .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++
- drivers/gpu/drm/panel/Kconfig                 |  14 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 396 ++++++++++++++++
- drivers/gpu/drm/tegra/Kconfig                 |   7 +
- drivers/gpu/drm/tegra/Makefile                |   1 +
- drivers/gpu/drm/tegra/cpu-bridge.c            | 427 ++++++++++++++++++
- drivers/gpu/drm/tegra/dc.c                    |   3 +-
- drivers/gpu/drm/tegra/dc.h                    |  54 ++-
- drivers/gpu/drm/tegra/rgb.c                   |  36 +-
- 11 files changed, 1121 insertions(+), 11 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
- create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
- create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
-
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index b0bfa946e6979..5c67928bcabfa 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	if (dc->rgb) {
+ 		/* XXX: parameterize? */
+-		value = SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
++		value = SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
++			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+ 		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+index 0cb0515968b35..5679e1ca0c2a5 100644
+--- a/drivers/gpu/drm/tegra/dc.h
++++ b/drivers/gpu/drm/tegra/dc.h
+@@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_COM_CRC_CHECKSUM			0x301
+ #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+ #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
++#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+ #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+ #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
++#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
++#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+ #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+ #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+ #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+@@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+-#define H_PULSE0_ENABLE (1 <<  8)
+-#define H_PULSE1_ENABLE (1 << 10)
+-#define H_PULSE2_ENABLE (1 << 12)
++#define H_PULSE0_ENABLE				BIT(8)
++#define H_PULSE1_ENABLE				BIT(10)
++#define H_PULSE2_ENABLE				BIT(12)
++#define V_PULSE0_ENABLE				BIT(16)
++#define V_PULSE1_ENABLE				BIT(18)
++#define V_PULSE2_ENABLE				BIT(19)
++#define V_PULSE3_ENABLE				BIT(20)
++#define M0_ENABLE				BIT(24)
++#define M1_ENABLE				BIT(26)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+ 
+@@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define BASE_COLOR_SIZE_888    (  8 << 0)
+ #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+ #define BASE_COLOR_SIZE_121212 ( 12 << 0)
++#define DISP_COLOR_SWAP_BGR	BIT(16)
+ #define CMU_ENABLE_ENABLE      (1 << 20)
+ 
+ #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+-#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+-#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
++#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
++#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
++enum {
++	SC_H_QUALIFIER_DISABLE,
++	SC_H_QUALIFIER_NONE,
++	SC_H_QUALIFIER_HACTIVE,
++	SC_H_QUALIFIER_EXT_HACTIVE,
++	SC_H_QUALIFIER_HPULSE,
++	SC_H_QUALIFIER_EXT_HPULSE,
++};
++#define SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
++#define SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
++enum {
++	SC_V_QUALIFIER_NONE,
++	SC_V_QUALIFIER_RSVD,
++	SC_V_QUALIFIER_VACTIVE,
++	SC_V_QUALIFIER_EXT_VACTIVE,
++	SC_V_QUALIFIER_VPULSE,
++	SC_V_QUALIFIER_EXT_VPULSE,
++};
+ 
+ #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
+ #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+@@ -493,6 +521,22 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_DISP_CURSOR_POSITION_NS		0x441
+ 
+ #define DC_DISP_INIT_SEQ_CONTROL		0x442
++#define SEND_INIT_SEQUENCE			BIT(0)
++#define INIT_SEQUENCE_MODE_SPI			BIT(1)
++#define INIT_SEQUENCE_MODE_PLCD			0x0
++#define INIT_SEQ_DC_SIGNAL_SHIFT		4
++#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
++enum {
++	NO_DC_SIGNAL,
++	DC_SIGNAL_VSYNC,
++	DC_SIGNAL_VPULSE0,
++	DC_SIGNAL_VPULSE1,
++	DC_SIGNAL_VPULSE2,
++	DC_SIGNAL_VPULSE3,
++};
++#define INIT_SEQ_DC_CONTROL_SHIFT		7
++#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
++
+ #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
+ #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
+ #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
 -- 
 2.53.0
 
