@@ -4,91 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9BDDCA5FAC
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72425CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8DF10F3D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58A7B10F3E3;
 	Wed, 30 Sep 2026 13:33:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="abCToKFy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qnXrw3Ub";
 	dkim-atps=neutral
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com
- [74.125.225.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B87E010F3D5
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:02 +0000 (UTC)
-Received: by mail-wr2-f33.google.com with SMTP id
- ffacd0b85a97d-482f6351831so3170284f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:02 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787A810F3D5
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:03 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-48b02a2359aso239376f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790775181; x=1791379981; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=z7TzL9qAFKtaS7vfznZL2zUVepTC6ZMh9+7GhOWKsog=;
- b=abCToKFy04hUg8ON5sPJzwX4ll90X2h5h3yoFE78VN71PQJp2wfEdYF5jj8TV4YWQb
- FIP1jteeCbuTMgjwcppOO9R3z8Ld+m0+XUIBShPKhgLI/K2fOZW5dIgJqJpW29cWagY5
- Eco2Q711TI1OLQ2AFMNNf2LfXjbxyUpLi7vaO/VdoFHEM+xySMVI4VpXtb8lryEp0Fk0
- OB7LBv3zFJLL3g0bPwMTcUUJdiKMUAFSgXrrXQaZvxndEaZwPxOKOBIjvg6TrGyJXt08
- FZ0BASbtC/6nEIrcTpWwPucLccdbgd7/LNThFgKM3489IguhSiSfUvdo8f3AfdU2mkEH
- B/Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790775181; x=1791379981;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1790775182; x=1791379982; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=z7TzL9qAFKtaS7vfznZL2zUVepTC6ZMh9+7GhOWKsog=;
- b=Uxixj9mQsFk88tNZtYpGF2vAhadhz6aBBbcKdEqIFdzSGLf3yfY48TYKaLSy9JkFE6
- aJxoibAGkZKfOzsXYqAZbsijfZIQ1IxEmRtIm4ZiHbZYns4UhyPgZocdXy4B8RrOD0t+
- lHxSlNsLcR9LicOPOPS9cgXspVxr0xUGanYRo8k1Dmrp0DIi5CiDzDMBfkcqV9gr76ia
- FZGdhgZ6Qs3iGlm6H683df5nweVOiQM7FaN1Y2eAh2iuskczz2ti5fKH0eS8ZrWkbBIN
- SmLtqtRas5CR5txItj83HqABK/9c0DyAajJ+J6UC2RPvYCpjUtgAw3ZNKgkq2qjFcRMX
- SGKA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzuwUn/WlmmwacugaGgmchbg7Ao9r3byvkGr0XjwLTcr0DLLvuS//aj16ZIrElqLJVsWh5R+KYH9Fs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKB53eacol5ZorVLDLKlH3uHDlzbxvc82XvMcAfThjxi2F3mDY+
- 8Uw/Pmn87ox8IREklyI8L8ULSulstVRTK7KAXifpB89UZ8UZH6CFi1Fl
-X-Gm-Gg: AYBFou1aINiCJ+VTYQbYEWS6nK5yE8Cgej+uqTQAx5kh+4/pYtlYiJO8ES7NR4VBisV
- 9OJzSi2knb4UJuglS2lI4WKBDK9DiF/jBVT9VfGZlCkmDhZR9j/Rs+/9kyvMZdgdeVqS17ZMMjp
- LefhTPgItRzDAxjiGViNl1KAtuX+/EEbPo7sv7nXif17Dd758AfyIuzn5GhMVnoIR0i8GfEMayA
- fXxZzhi5bDTW2mLm2r4ZyoPiWCJGtGt7twsW/p0e8CDDlA2wKYd5+h0ktUl+iViytq/yXT4zz4m
- tZzC0NdofM7VtPmaJjtxdO9bOIPZPwp6lkEOeH59rVdOR6O2A+1RnwK3SxPoUkoktH4b+XV3Asb
- WG61QNHfZlEihZXDaFDGhoYP26Lx8R52OD7MoCD+mfC69hxuc1M/jjaJI72SUPUbfRpto77iqvA
- 8mpUWGs3ZQD93dVvjeldV5gd7QMNnQR/x6T9NBZpQ3IpFoWoXV2mPO5GXkswknprXrnZwMD0zL/
- 3R2+PMStM6VDYprZd99W3I=
-X-Received: by 2002:a05:6000:989:b0:48b:174:eab1 with SMTP id
- ffacd0b85a97d-48b02511718mr2875334f8f.36.1790775180889; 
- Wed, 30 Sep 2026 06:33:00 -0700 (PDT)
+ bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
+ b=qnXrw3UbMHSvh2iWWJM+zZaM1kcjJCRuaK4zCiAGZkPrcXuNRRdWxYZFqAhW3kQjyY
+ aKlApof/Ny/6XQoyWMhadS2pkzxMHMNb+6zgdXNxznNf+IqpXBY8SDy0ks8AMY5SRCxA
+ mHrCpzqhJSGMN0TlNk1BQNTGQ+Oij1PwBMjq5sMOYVpu+Hn+26F+iIX7mASszls37+Xb
+ vigVumBKzzTNQ6KDZwpnq2t8nNwaHgk13i4MOPhMPtIOGJuNGn3T6vVK8Xdv7Yxegytr
+ rpFtLhrtUnDBWLaIJ6vPE6hE8dOoEHiP2KR+Q8BWhFbl1tCM2SmwCx1/WVUlpiJy8HeN
+ WNLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790775182; x=1791379982;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
+ b=aACanFxj/+vngVUFnAJciC3G5Y5eVvcllIUz8j2j/GpbO6jw/qYkVme8uSL8RA2pRk
+ 1L3Jso6GeqQ203BEf8H8FsyfSnjEISgVlRCX8k5ZWmFuC93Etuxn0gUGvMkxHm+dgaUN
+ 9oFtuHPLnBNuwyAC2RCwvSh9X4rwpfjgAMi7BUhqQ4jvpd++Q4CJGNE0RRbPTlhPLmll
+ MFWwpOlcvccvACIj30UMIwNh4pVeQuu33mSz5GcKjob26UHtsMq7B1pJLgAD8oYZD+yh
+ IN29eaFqKv2pIOL1C4AABeXYNxfvrq2sY6kCl6626cPL9hhMySTBSdJM8dEO074rtzDs
+ cJ/A==
+X-Gm-Message-State: AFq9FYJYuU2ZfxpovGAytvpzPs+DUDLuRJ0n2caOCwSOSat0zeokgkVs
+ lKRexSmeK/15FJEjwgvx6KjN12tHP7vBZ7A1lQ3c3hEUewHFJcCy7S/L
+X-Gm-Gg: AYBFou1HsUbxVTADMXuN1mJKRVAsOIenjZlZUfJUM4n/b7VWPNBZzcuW9WyvsA/2n/x
+ Z34+QmAIjEV1hUZH72KfX8bh7ie6WP8q0onxmoFPZiOBeYn2NjoqcNkktGAgq81T7V0nq7SLbCW
+ iHXvIVqBdE0RXfZQKRdW6N1AtACGZA4s60d8Eyq1BXwylyE0btFfIH+lFGriAXMuzdWxSO0rOB4
+ JB/j/zfwaNoWQ6ZRyQgKtooq6tBnDZkp+cfjUqJADzsCV/6P44FW2KUdA4F0AFsh0lpTy9ZdO9w
+ sk6tWDBiSRAZLuDAiOkiIoHBsnQLBvDkShbLKfFp/A/W/MDz0ta0b3L/8r1V0W2U/5SSiBWN/wP
+ x06YXGhhd41aqXbKLcBPPytkoJeU/GsfSv/kO9MnLCiq5QZV05UZbSEa7gs5QECZE+ZqyWdchTU
+ Gdj5pAFPtUCCt75xLNzghJp3P1jl2vEhxcY+7ywt0OTS4aAoXas3032vZSy8uli9J6+vC85/IMk
+ WNp3byCU4U5C+XAlRVfpRE=
+X-Received: by 2002:a05:6000:288b:b0:488:7ace:9c5c with SMTP id
+ ffacd0b85a97d-48b0250c66cmr3650138f8f.23.1790775181803; 
+ Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a702:d301:bade:1500:bcd:b3ec])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.32.59
+ ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 06:33:00 -0700 (PDT)
+ Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Philipp Zabel <p.zabel@pengutronix.de>,
+To: Biju Das <biju.das.jz@bp.renesas.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v4 0/9] Add support for DU,
- LVDS and DSI on the Renesas RZ/G3L SoC
-Date: Wed, 30 Sep 2026 14:32:42 +0100
-Message-ID: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
+ Biju Das <biju.das.au@gmail.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Subject: [PATCH v4 1/9] drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val
+ to hw_info
+Date: Wed, 30 Sep 2026 14:32:43 +0100
+Message-ID: <20260930133257.23210-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
+References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,76 +99,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Hi All,
+Move the DSIDPHYCTRL0 initialization value into the hw_info structure as
+dphyctrl0_init_val, allowing SoC-specific D-PHY control register
+initialization to be defined per compatible. This prepares the driver for
+supporting SoCs that require a different initial DSIDPHYCTRL0 value.
 
-This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
-SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
-LVDS support.
-
-The LVDS series [1] is merged here to get an overall picture.
-
-[1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
-
+Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
 v3->v4:
- * Collected tag.
- * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
-   using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
- * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
-   devm_pwrseq_get().
- * Updated mode_clock_min from 5440->5400 kHz.
- * Added resets in pair for simplification.
- * Added comment in probe() for asserting resets.
- * Updated commit description for patch#8 and #9.
- * Updated license header  for patch#8 and #9.
- * Added HDMI audio support.
- * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
- * Renamed it6263 node name from it6263 to hdmi.
+ * No change.
 v2->v3:
- * Dropped binding patches as it is accepted.
+ * Collected tag.
 v1->v2:
- * Dropped renesas,sysc-pwrrdy property as it is modelled as power
-   sequence.
- * Switched to power sequence for handling pwrrdy signal.
- * Dropped header file regmap.h and mfd/syscon.h
- * Added header file pwrseq/consumer.h
- * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
- * Restored ports in DU bindings.
- * Replaced endpoint with port in ports node.
- * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
- * Dropped the variable rcdu from struct rzg2l_du_encoder.
- * Dropped the variable lvds from struct rzg2l_du_device.
- * Dropped renesas,sysc-pwrrdy from dsi node.
+ * No change.
+---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Biju Das (9):
-  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
-    struct
-  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
-  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
-  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
-  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
-    ITE6263
-
- arch/arm64/boot/dts/renesas/Makefile          |   6 +
- .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
- .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
- .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 +++++++++-
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 282 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
- 11 files changed, 756 insertions(+), 8 deletions(-)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 0590ade96b91..2128fd16ebc9 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -56,6 +56,7 @@ struct rzg2l_mipi_dsi_hw_info {
+ 	} cpg_plldsi;
+ 	u32 phy_reg_offset;
+ 	u32 link_reg_offset;
++	u32 dphyctrl0_init_val;
+ 	unsigned long min_dclk;
+ 	unsigned long max_dclk;
+ 	u8 features;
+@@ -493,9 +494,7 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	}
+ 
+ 	/* Initializing DPHY before accessing LINK */
+-	dphyctrl0 = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
+-		    DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR;
+-
++	dphyctrl0 = dsi->info->dphyctrl0_init_val;
+ 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
+ 	usleep_range(20, 30);
+ 
+@@ -1531,6 +1530,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+ 	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+ 	.dphy_conf_clks = rzg2l_dphy_conf_clks,
+ 	.link_reg_offset = 0x10000,
++	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
++			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
+ 	.min_dclk = 5803,
+ 	.max_dclk = 148500,
+ };
 -- 
 2.43.0
 
