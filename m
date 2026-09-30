@@ -4,45 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB4EFCA5FBA
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE43CA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA77310F35B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2D2D10F35D;
 	Wed, 30 Sep 2026 12:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="jsjvCGou";
+	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="Gms8TNCE";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28D110E8B4
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 02:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:MIME-Version:Content-Type:
- Message-Id:Date; bh=ngyVwzlsuinhFCEe3hVM9MZeEyarwngLyBlfTxiJEC8=;
- b=jsjvCGoueL3koUTM7pGvXEPSMkEetmxKofViAd1ozOBr6uRHgZ9yU268xxoOFs
- OHoBDqnjFT6i3GQ+MZYYBMvCogp1iafwiFE8hVzRJyU1Hpg3i7DsMqM65Fc2qOKn
- FV5ve7hZjQviDpKUhNRWbWUtsRtAaoOcZ88Pi7cSvlS34=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Eduard Bostina <egbostina@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: ti,
- tpd12s015: Convert to DT schema
-In-Reply-To: <20260929121235.GF171869@killaraus.ideasonboard.com>
-References: <20260929121235.GF171869@killaraus.ideasonboard.com>
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 992B310E16F
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 01:03:34 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-34b3e517e6dso658757eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 18:03:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=trailofbits.com; s=google; t=1790730214; x=1791335014;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=k02DnUfueq2SXs3UXLyiifb3Iga2OW/KGZeFQEVs3F0=;
+ b=Gms8TNCE2XMQs1rpfPQDMDNSl4FU5LIhmB1wyXJZS3pqxas3taX7xei8zvLelk5Z2n
+ ImksXDgNCU6mUYzZ2swnJ39wMAiTEQ+D90EM5XUiFZKXtyJGsXIG7CCjsuXktHbK+k4c
+ eaps5FcLR7qjBJydEFuwT3nFCQe7hQV+9CvAntOo6PZC8JNG7TMVDYYXvP9o5NUwxrCT
+ YiWcNAn2nUa0d9XzTaubhoR27ybyvcWZqB7R8qeU/rl2/B91kGY2/zPMvkX0FTgCPEUW
+ 4H+XGl+iKM6K12aMDfPVQz7kr9emNm896VYwXarhs+S7J6EPVeliiiwLJOoffWs9YR9/
+ /srA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790730214; x=1791335014;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=k02DnUfueq2SXs3UXLyiifb3Iga2OW/KGZeFQEVs3F0=;
+ b=ctJgQZxzlgP6fS2Fuyf+tnS2/szAA1wV7/JUjTzduKWC4lyqLQqqP/P/KWiBWIeJDd
+ Ko/O2CjqR+Y8+kyiROFWirncX3e2v81eZWPr23CZ6cMgVaHIFxvUL2frf8C5dfMGlFtY
+ yL8saCtzplEtZGEOoLD918NCKymvcsPSozdPFnDfj4A1jA50XtGlEEXmnjDvIRijdtvl
+ TXpskx1oSrPcndPof8bYF4oxNJgkLbIv2E/KjUfY7ygsiCiQI2HfeBgszJftdGWsIJ1O
+ 0doSppRkHB3XunKkDVuheV7DV2PKnLNJYrqMIR4WYUYMgP3w+vOIC6mUjJh3liTdQGBr
+ mNaA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxrEoS3cOTkjgpPzncuifiNUMjg9T7z2ZIaxm8QM9fONJJnApfxMym8NWWs9IxTC34OpcDR5uIPBAo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kE3+Ta+2sKJFkHw5vDKWRdW+H+Zxjfe2qiqfbKFPtlf4TekuIq
+ /dBUqib259nCuTrRvx4v0/enHEDV2MldAjDsjqvuKurJv7M8KgRSxXkHJlWnpnXk6Gs=
+X-Gm-Gg: AYBFou30unEb/aTRsp4kz2aLr94poWJQMiVL3CumrNSxfWtVPw7bf+dPWn8x+quWwhM
+ nS5z2HFzq9CY45RG1JRV5PzCW1MIC+jiJALgYmEtNSh+QPR0iLGpsOhTBlLOmnCySyIFItr3/eD
+ s3C6kdn9V3d/+2Qkx02F6o1IYkFhprs4OM84A7iyd7Ct907a2fDxTVidNyrgZbvL03V++GILeXw
+ 8GmWdBgFLBQc+B0X+9sH2tSWH6urw4AOqRUFyt5Z2XhQQzQOL+xaNDAlar9BevqYg8rzyXG7OlJ
+ rSQTFKT/wi8+xX9i2/0R67VQLyBKlmzGnPbrxCmtXNv+lAT2nnASW284KHY7TaoBpfQTkyIIluq
+ yJtGvXeAhFSIPfWu0cQdwrfXawBDzQw2BK+ilR5w2XvVKXsV2OOcj5Dz9Ig5qBa2J6DObtaIum3
+ swlvaU1QjCusiUh6jGiQCF0EPot1f7lil/eMFd6qX4nYhxa+yJAoLoVw/6w2nzenuheyynIU1ZY
+ NR5WwJc2yHHDOFC1/Yii5oks5DDfF5uiKquSyDtHBOFqFBIrPblzgAegJoYJr+DJKntGV0=
+X-Received: by 2002:a05:7301:4e46:b0:33b:f5b7:f4b3 with SMTP id
+ 5a478bee46e88-34c646ce08emr1028241eec.27.1790730213667; 
+ Tue, 29 Sep 2026 18:03:33 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-34c386c2723sm2179993eec.18.2026.09.29.18.03.27
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 29 Sep 2026 18:03:28 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y v2 0/2] drm/i915/hdcp: guard both capability checks
+Date: Tue, 29 Sep 2026 21:03:19 -0400
+Message-ID: <20260930010323.93999-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3J8zTcrxqxa_hBg--.51069S2
-Message-Id: <6ABC72D3.0795AD.00008@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KrWDWr15WF47tF1kXFWfAFb_yoW8uryrpa
- y3t3WIkrn5GF4Yy3WIvr40vaySvFs5KFW5JryFkry8u398Jr4xtrZFyF4j9a4DK3s3uw1j
- vFsI9w1ktF4YvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRsFxUUUUUU=
-Date: Wed, 30 Sep 2026 10:24:20 +0800 (CST)
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BOaEGq8ctOW9AAA3o
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,53 +100,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+Hi Greg, Sasha, and i915 maintainers,
 
-Thank you for taking the time.  Two of the three points came from the v1
-posting, one of them is a real miss on my side, and there is a fourth
-thing I should have found before posting at all -- I get to that below.
+Thanks for catching the second dereference.
 
-The message you replied to is the 09-15 posting.  v3 went out on 09-16:
+The code in patch 1 is unchanged from v1.
+As Sasha pointed out, on 6.6.y, however, intel_hdcp_info()
+calls intel_hdcp_capable() and then intel_hdcp2_capable(). Guarding only
+the first helper therefore moves the debugfs NULL dereference to the next
+call.
 
-  <20260916123210.107841-1-quchaosheng000406@163.com>
+Patch 2 adapts upstream commit d34f4f058edf ("drm/i915/hdcp: Add encoder
+check in hdcp2_get_capability") to the older layout. The 6.6.y tree
+predates commit 130849f8ec14 ("drm/i915/hdcp: Use intel_connector as
+argument for hdcp_2_2_capable"), so its dereference is still in the common
+intel_hdcp2_capable() helper rather than the DP and HDMI shims. The
+adaptation puts the encoder guard before that dereference and returns
+false through the older bool interface.
 
-and it rewrote the commit message to give the rationale you are missing:
-why "ti,tpd12s016" can only be a fallback of "ti,tpd12s015" (the driver
-matches on "ti,tpd12s015" alone, so a board using the 016 has to list
-both), and why gpios has to take three to five entries.  The v2 version
-of that description had capped gpios at three, which broke dtbs_check for
-omap5-igep0050.dts -- that board passes the three control/HPD lines plus
-the DDC SCL and SDA lines.  Rob Herring gave v3 his Reviewed-by on 09-24.
+The CNA record for CVE-2024-53050 starts its affected range at 6.7, but
+that range follows the later shim layout. The same unsafe conversion is
+already present in the common helper in 6.6.y.
 
-The Assisted-by tag is a fair hit, and it applies to v3 as well: v3 does
-not carry one either.  That is my oversight and I will add it.
+Together, the two patches make both debugfs capability checks return
+false before converting the missing encoder to a digital port. Both fixes
+entered mainline before v6.12, so every newer supported stable tree
+already contains them. The same common HDCP2 dereference is present in
+6.1.y and needs separate handling; this series is only for 6.6.y.
 
-Your third point also stands for v3.  The conversion and the gpios
-semantics change are still one patch.  Splitting them is right.
+Could you please queue both patches for 6.6.y?
 
-Now the part I should have caught myself.  This conversion is not new
-work.  Eduard Bostina posted the same conversion on 2026-07-30:
+An LLM helped adapt and validate both patches; I reviewed the resulting code
+and validation evidence.
 
-  <20260730092245.52034-1-egbostina@gmail.com>
+Changes in v2:
+- add the adapted HDCP2 guard identified during review;
+- send the two guards as one series because both are required for the
+  debugfs path.
 
-That series makes the same two binding changes -- the "ti,tpd12s016"
-fallback compatible and gpios up to five entries -- and its 2/2 renames
-the same tpd12s015 endpoint nodes that mine does.  Rob reviewed it on
-08-03.  It did not land: there is no ti,tpd12s015.yaml in mainline, v6.18,
-v6.17 or linux-next, and the .txt is still in all of them.  I did not find
-it before posting mine, and I have cc'd Eduard here.
-
-I would rather ask than add a fourth revision to the pile.  Which would
-you prefer:
-
-  - a v4 of mine, split into a pure conversion plus a separate semantics
-    patch, or
-  - for me to drop mine and leave this to Eduard's series?
-
-Either way I will not repost the current form.  If there is a reason the
-Bostina series stalled that I should not repeat, I would be glad to hear
-it.
+v1: https://lore.kernel.org/r/20260929031728.88004-1-artem@trailofbits.com
+Review: https://lore.kernel.org/r/2026-09-29-daily-reply-0012-re-i915-hdcp-encoder-check-v2-6-6@kernel.org
 
 Thanks,
-Chaosheng Qu
+Artem Dinaburg
 
+Suraj Kandpal (2):
+  drm/i915/hdcp: Add encoder check in intel_hdcp_get_capability
+  drm/i915/hdcp: Add encoder check in hdcp2_get_capability
+
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+
+base-commit: 79643295eba17affbd16ca97f3ef04c90266b28c
+-- 
+2.39.5
