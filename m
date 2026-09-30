@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50289C9830E
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 03:59:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B80C0CA5FAB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 04:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A212610E9EA;
-	Wed, 30 Sep 2026 03:59:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101D510F171;
+	Wed, 30 Sep 2026 04:00:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AeVzRd9e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nGaCaPCK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1B410F177
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:59:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEAAC10F171
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:59:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9B67B601DE;
- Wed, 30 Sep 2026 03:59:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315161F000FF;
- Wed, 30 Sep 2026 03:59:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 52764601DE;
+ Wed, 30 Sep 2026 03:59:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0CA1F000FF;
+ Wed, 30 Sep 2026 03:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790740768;
- bh=9skE9S0M7S5tQdYJ2NWP6PYTEv+Vm5X8FmVuQw7fbcg=;
+ s=k20260515; t=1790740799;
+ bh=oIQ113lNTA6DuZWdXyjlPJq3wkLfDPy/swHXpiMTpNo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AeVzRd9eB7MwVehrhY83VdQipre0DLkS8seIc7Q1SgIhX0U976Q440kWuqv1RlqZL
- UIO8IkqXDSQkadtVK9mUe2d42Ujgfzb9aVLeNZJuhSXUvy+7BfKZxWWvclQaE5fFh3
- YkeiVEmpoYG88z1RN7pi3S4vhYVlcNl1fYO/5E+NrMb1AnRfkcsMJK6JtEP0rrkRGF
- POaRkkw/z+wB1uV8NB2iU0irhOJTtRciGoMOW5y64E/e7HVtuCA4RtY1D6UydtMx2G
- xNy29zbHKig5FMvN3ehR0DJ36AdJervtD40ygMmYByOjw2xT0WDNS8DoO6EAeuujmO
- BoM/QfdiOBXNQ==
+ b=nGaCaPCKmyR2nAKkxyz4u/LLqNAhrxRQySAom3bGGp/3HmGP/zbVdbSA23DXn5f3/
+ UNJeC+lLfDFqzcQ5HMD22pmpvBU1U/TWlVTNeDYVj4OS6lmY4KyiBo+jg/ZpdUykig
+ UVwCuBNzHMu07ILPIa7woAIZGI655fDJBNo0DxYr6yAQf/Z4kIfHwc1uE+mZ9UnTz0
+ h54BR+qwtDhmo2dh3bFKv5LdTdpyVXtJ/yQz9+fsIF4P7ahv/U8AJswV3gObiVNz3v
+ c9C0mcyvhEFbtoM8RI0g1wFtjfQHj+54pgw+dt+HsFPnOl6yCeQFKMdoGp8R8QrAZZ
+ 3fjnXMbQt4+xw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V1 17/20] accel/amdxdna: Link SR-IOV VFs for power
- management sequencing
+Subject: Re: [PATCH V1 19/20] accel/amdxdna: Add stub hwctx_config for AIE4
 To: "David Zhang" <yidong.zhang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260930033233.1727265-18-yidong.zhang@amd.com>
+In-Reply-To: <20260930033233.1727265-20-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
  <20260930033233.1727265-1-yidong.zhang@amd.com>
- <20260930033233.1727265-18-yidong.zhang@amd.com>
+ <20260930033233.1727265-20-yidong.zhang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 03:59:27 +0000
-Message-Id: <20260930035928.315161F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 03:59:58 +0000
+Message-Id: <20260930035958.DC0CA1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,60 +60,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pm: device link between PF and VF permanently lost on first VF unb=
-ind
+- [Medium] amdxdna: aie4_hwctx_config unconditionally returns success for u=
+nsupported types
 --
 
-commit 2785e7a8d2421554408eee0ed2983e10f0090091
+commit 2fb62e44c1bbca14b0a25248c16851b8cb0c7aa6
 Author: David Zhang <yidong.zhang@amd.com>
 
-accel/amdxdna: Link SR-IOV VFs for power management sequencing
+accel/amdxdna: Add stub hwctx_config for AIE4
 
-This commit adds PM device links between the Physical Function (PF) and
-Virtual Functions (VFs) when SR-IOV is enabled. This ensures proper PM
-sequencing so that VFs are suspended before the PF, and the PF is
-resumed before VFs.
+XRT issues DRM_AMDXDNA_CONFIG_HWCTX during hardware context
+initialization. If hwctx_config is NULL, the ioctl returns -EOPNOTSUPP,
+causing userspace validation tests like GEMM to fail. Add a stub=20
+aie4_hwctx_config() returning 0 and wire it to aie4_vf_ops and
+aie4_classic_ops.
 
-> diff --git a/drivers/accel/amdxdna/aie4_sriov.c b/drivers/accel/amdxdna/a=
-ie4_sriov.c
-> index 0eea28f626763..bfea6ff00ec04 100644
-> --- a/drivers/accel/amdxdna/aie4_sriov.c
-> +++ b/drivers/accel/amdxdna/aie4_sriov.c
-
-[ ... ]
-
-> +static int aie4_link_vf(struct amdxdna_dev *xdna, struct pci_dev *pdev_v=
-f)
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie=
+4_pci.c
+> index 007b14be5245f..62ee7dfc7bd37 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -1369,12 +1369,19 @@ const struct amdxdna_dev_ops aie4_pf_ops =3D {
+>  	.runtime_suspend	=3D aie4_pf_runtime_suspend,
+>  };
+> =20
+> +static int aie4_hwctx_config(struct amdxdna_hwctx *hwctx, u32 type, u64 =
+value,
+> +			     void *buf, u32 size)
 > +{
-> +	struct pci_dev *pdev_pf =3D to_pci_dev(xdna->ddev.dev);
-> +	struct device_link *link;
-> +
-> +	link =3D device_link_add(&pdev_vf->dev,   /* consumer =3D VF */
-> +			       &pdev_pf->dev,   /* supplier =3D PF */
-> +			       DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER);
-
-[Severity: High]
-Could this device link be permanently lost on the first VF driver unbind?
-
-The DL_FLAG_AUTOREMOVE_CONSUMER flag automatically deletes the device link
-when the consumer (VF) driver unbinds. Since the link is only created by the
-PF driver during aie4_sriov_start() when SR-IOV is first enabled, it appears
-it won't be recreated if a driver is subsequently re-bound to the VF.
-
-If an administrator unbinds and rebinds a VF driver, would the missing
-PM device link allow the PM core to runtime-suspend the PF while the
-newly-bound VF is actively using it? Removing DL_FLAG_AUTOREMOVE_CONSUMER
-might ensure the link remains tied to the device lifecycle instead.
-
-> +	if (!link) {
-> +		XDNA_ERR(xdna, "Failed to link VF %s", pci_name(pdev_vf));
-> +		return -EINVAL;
-> +	}
-> +
-> +	XDNA_DBG(xdna, "Linked VF %s", pci_name(pdev_vf));
 > +	return 0;
 > +}
 
+[Severity: Medium]
+Does returning 0 unconditionally here falsely report success for unsupported
+hardware context configuration commands?
+
+If a userspace library like XRT calls the AMDXDNA_CONFIG_HWCTX ioctl with an
+unsupported type (such as DRM_AMDXDNA_HWCTX_ASSIGN_DBG_BUF), returning 0
+could cause userspace to assume the operation was successful. Could this
+cause userspace to read uninitialized or garbage data from the buffer since
+it relies on standard kernel error codes like -EOPNOTSUPP or -EINVAL to
+detect hardware capabilities?
+
+> +
+>  const struct amdxdna_dev_ops aie4_vf_ops =3D {
+>  	.init			=3D aie4_vf_init,
+>  	.fini			=3D aie4_vf_fini,
+>  	.debugfs_init		=3D aie4_debugfs_init,
+>  	.hwctx_init		=3D aie4_hwctx_init,
+>  	.hwctx_fini		=3D aie4_hwctx_fini,
+> +	.hwctx_config		=3D aie4_hwctx_config,
+>  	.cmd_submit		=3D aie4_cmd_submit,
+>  	.cmd_wait		=3D aie4_cmd_wait,
+>  	.get_aie_info		=3D aie4_get_info,
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930033233.1727=
-265-1-yidong.zhang@amd.com?part=3D17
+265-1-yidong.zhang@amd.com?part=3D19
