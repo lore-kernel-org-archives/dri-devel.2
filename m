@@ -4,86 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E1BECA5FB3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E24CA5FCE
 	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B8CE10F580;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A505C10E288;
 	Thu,  1 Oct 2026 06:52:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="e5YpwPeH";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e5YpwPeH";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="D1N0qPH6";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013017.outbound.protection.outlook.com [52.101.72.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB70810F1F3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 17:46:59 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=PQKxYcQH4nbNgXfMzBB+Do2cstm2cOU1t31Co2UdQjqBRhLANWjtDjQ3lc4w2BkzWdqO2TQhEV0wtqJwkuModjpxrcXVZdTqhCNSOCu0oY9rRMdELSkbJq6o+vvQII+jNx7/drvBAOGslfXWcEj84d+Bg1+kjOX6meyY3w5xlSrM8rYGx96NBAwaVzlpGZiOj/TGmBmqv9EHzZJzNQ65avOqBE8PkO2S00Qq8ov9MHUHaNBgxL6zgAST7TKqZhQtrPq3aGRcxdZXwOqJVkMvcmXJyHjNnRA5Zc/l4kr5J/XzwNIeAyttoBeY2l5DpfbY8IJ7gO/sUb4ip9TrqQ/eQQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
- b=OqZD3WLXSbPp6GI00Tv62UOmtfP5awf0bA2haPPon7BS9f+jt9r8iZOQkep1R4s327f7YCM6Ph6YfFUytRhhOrxKtm1Z7+j4qIpDav/fHAzfmCWE8gb4CCvBUHguw9Pztmj184Z7Iu/5ud9UDm+aK1aP2pKsfMJvsLo4pPqOGFGvJe8pNzDnnNxBpv+7aEnbxuWBUGXZkfh3TlEsdDbqns5n6qoKnuSdQROJEsPXNwL/uAIxUqMU/dF5t1U7//0qYx6GnsV4d2kDUYtQ00Ly94FA0zqWEnYTCpIEqgr4XsJPBpxrI7W762ngbQNM6hKTFybasvN3DdhY9RVyfUTx7A==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linux.dev smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
- b=e5YpwPeHK7pAtQ/qb0k69OTcEWf/KbpXCCJPLXQkuM8RXGXpBhD/XPcWItkbKTshWp5HIMPueTjwLWHAXHn4t9PsGA361buN5J/XU1M89pp9C/PNyWjkcNsKAMkkyZGxuuGzBHmaWDRIw9Bj2+WXSKzelCztognoPierPFf1d6w=
-Received: from DB9PR02CA0005.eurprd02.prod.outlook.com (2603:10a6:10:1d9::10)
- by VI0PR08MB11552.eurprd08.prod.outlook.com (2603:10a6:800:2fd::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.9; Wed, 30 Sep
- 2026 17:46:51 +0000
-Received: from DB1PEPF000509EC.eurprd03.prod.outlook.com
- (2603:10a6:10:1d9:cafe::2c) by DB9PR02CA0005.outlook.office365.com
- (2603:10a6:10:1d9::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 17:46:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 4.158.2.129) smtp.mailfrom=arm.com;
- dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DB1PEPF000509EC.mail.protection.outlook.com (10.167.242.70) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Wed, 30 Sep 2026 17:46:51 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFB6810E26A;
+ Wed, 30 Sep 2026 15:28:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kfkl2k50yIYjdGeMbUiIF0rrLLmt5/RkXdUnQVABHxYJT7Eh5OTIl9ZObXkohhFG/096DXxPKea0hK+UdBVNlB+rbDP7uCbeg8t2jb/PojZQarJ1Pq7hFRj0NDZ/5dm1E/3ESQk9QjWSDqa9mIaODPbhxpXkrbMBZ0+WsboP9vwclEhC1h2qhT4yqozVlGZgxkbrd54IDCGcrwprbr42T7K9hqSI3+VoDRa6hY9eBZf2laSJhfFIzeUiEs48q9IcvMZL21RmgNbsMoEa3eXqYx0EqNIMxVO/US3fFjvorKO4EOKTZ1R3TnjECWby5jX2YlQw3vwCGKR0YzXImFfEBg==
+ b=s8uTyHY6ca0S0gFpYdWeYhmt2qrfVim81f/ez5gEyTG7rnWCcA8/efKeY19pYTwnxwABRHXRKolDwQi2UhO6Qz7e2tw2LtkJhsBVye4eWtkujwDZZ27NbV2cskWBD4nzj1Dd3LmiOn4W3u3obhqoFQUlgEbfAT/rGvrdzux+FUcMcTWhIntHiV95U798sZ0k9HBVZ5bIWiu68czDL62rHBAnmeLn4IK07kBZs/ig5ErqAxPLXbvEKipxMPC6OIyzO6xtuBjjFcSmzsvMHjYPfjA5yanrW4EaKx+lblQaKX1kfhoTPznH15l3TzT35GNhWLmss4FkNHGG6SvIvUG8mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
- b=ZsggRuyxLjcd8+2f4JXPpiWJb7z/RdwMlc/1OsaKp3QfGH+7efVgUS7TRQ08hawPnxT9HZf0Io06NQwMx7j+vsSWq5URWBJVw9sLsLR2GraphdNuJscW6zflIaCHH/VRlwWOAb1g57Q3XS51Vg4QO4Ae8jm2ddAN89NCXmxeHIIrXnrbqSmZpUAe8CqLiabrAa9ZMZduVNzTwW8sqCtOIDiRW3qj1eNCtci7hVWc9hoDkgcKRT8lpEKnTS4wtgDGyRHQpTnF3mH5aMVZT0kPlClhF0tYKmwGQyNzhYcm+Bgezg9a0RlXWmcc2WOVk9GbmrodsgUUfb4Bt15Ani7PBQ==
+ bh=j8w1jBnA80+jx0tcZGoqUFaJ5onaLQirx/OFTHfw1Is=;
+ b=JtWj3321OWFasox9ZMgOhmSAZPBdcjqPps/So50HJ7tSj2RIaFzWfVwmg056K6Itl7SlkJcHCMMvQbbJTMO79OGYAlUlJuGtRtdVkL6sMFAexi7rnPCZHLYdW5ylCqSCWp9Tbtmwyu09O7a/B+uMNCtRv6iEaMwjKiTLORhoRLOqV/0Taa1tt9sChnpupDPn3t2atSyDikEKWBFyLPz6ExmCk3P8/RraolNwzkaYCWDAWdQNlhDsDztRxk7p+U8gIFWQke2ge3GUrf5TMVmjVdk8i+weC5bxjqn4edtnPcOmAcvjaRYdEw7K/USJ6WkTMuC5RDb/DfHvcDWyW50Ymw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9aEn4ubSlfZC8d5zvTQtfBiiaBLSDPSceR3sArTbNzQ=;
- b=e5YpwPeHK7pAtQ/qb0k69OTcEWf/KbpXCCJPLXQkuM8RXGXpBhD/XPcWItkbKTshWp5HIMPueTjwLWHAXHn4t9PsGA361buN5J/XU1M89pp9C/PNyWjkcNsKAMkkyZGxuuGzBHmaWDRIw9Bj2+WXSKzelCztognoPierPFf1d6w=
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by GVXPR08MB11787.eurprd08.prod.outlook.com (2603:10a6:150:316::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Wed, 30 Sep
- 2026 17:46:10 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0472.012; Wed, 30 Sep 2026
- 17:46:09 +0000
-Message-ID: <872cb298-8187-41b9-9553-b0db8ce0557d@arm.com>
-Date: Wed, 30 Sep 2026 18:46:04 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
+ bh=j8w1jBnA80+jx0tcZGoqUFaJ5onaLQirx/OFTHfw1Is=;
+ b=D1N0qPH6GDpjju4aIZpuxd1dhaa2+ullhx2NmCdQEzl3PVKYtQiHUacX80CpSDdjg0S1R5ugLiFraR2ypmUMTxGd3LzzhmR/rTewwQlyA92Mi3NJk3EQlxFcyrFGanZDy1OGzsQAUD7urm32U1uSNCKFWM7dEF8VvyJRYcckG81trDtDoXM+IP/gyS2UIZcfmNG4Lwk6NQHtbSLnUzilm8CMps9VuTI1+77XdaqWXsdqZUz2hwiQ3NL+9v2iT0+9kWqOl5A7DD0o3HbuAv6X5Y5zR2uE1C2tjPAIc1EOJrtUqptRVP22RCCLNS8C4ohXmhwm7eqoEgGQhlD+OCe9zQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.26; Wed, 30 Sep 2026 15:27:57 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 15:27:57 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
  David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
@@ -99,8 +61,8 @@ Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
  Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
  Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
  Youngjun Park <youngjun.park@lge.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
  Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
  Kumar Kartikeya Dwivedi <memxor@gmail.com>,
@@ -116,15 +78,15 @@ Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
  Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
  Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
  Kiryl Shutsemau <kas@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
  Alexander Potapenko <glider@google.com>,
  Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
  Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>,
  Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
  Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
  Ying Huang <ying.huang@linux.alibaba.com>,
@@ -135,10 +97,9 @@ Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
  Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
  Wei Xu <weixugc@google.com>, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
@@ -146,60 +107,72 @@ Cc: usama.anjum@arm.com, Andrew Morton <akpm@linux-foundation.org>,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
  kasan-dev@googlegroups.com, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 4/9] mm: convert PTE table entries in ptep_get()
-To: Anshuman Khandual <anshuman.khandual@arm.com>
+Subject: Re: [PATCH v3 1/9] mm: introduce hw_pte_t for PTE table storage
+Date: Wed, 30 Sep 2026 11:27:53 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <51D02557-E9CC-4806-917E-279C6E66AF1A@nvidia.com>
+In-Reply-To: <20260922-pte0-v3-1-5670b8cb9059@arm.com>
 References: <20260922-pte0-v3-0-5670b8cb9059@arm.com>
- <20260922-pte0-v3-4-5670b8cb9059@arm.com>
- <dhokijjou3rh3poqnqqpyoyac7wrqeprl4vlhzqokvh4lgjyya@g5hwn7sve3uw>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <dhokijjou3rh3poqnqqpyoyac7wrqeprl4vlhzqokvh4lgjyya@g5hwn7sve3uw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0519.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:3db::14) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+ <20260922-pte0-v3-1-5670b8cb9059@arm.com>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BL1PR13CA0112.namprd13.prod.outlook.com
+ (2603:10b6:208:2b9::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GVXPR08MB11787:EE_|DB1PEPF000509EC:EE_|VI0PR08MB11552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b58256c-5d5b-415d-2718-08df1f1acf12
-x-checkrecipientrouted: true
-NoDisclaimer: true
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: d214dff4-b381-4957-d09d-08df1f07674d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|23010399003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original: l9hI3Oabjw6gk2JG4lKodRzavQcorcEJkMoiVGYQoSx+pVgXjpBAlCH28YVA/H2bcu8jFMcs8yxnXb7xuyR2ZeeuN3A+u+X5jWuxffvkJQbZsvGB8tb2uBFZcMGLiivoy9dPd61bi2sHr35UxZvCyrTIrPQ76+Sh2sG/3DyjHP+QMizypilAoFcP8nV/cWA80tumvBfHgDXt8s0K5GgeCvYY30O1n0DPnxNUBEBPK+clJf86c/ecxBanrf0WDwK5w1+ohTRBoty/hYdwebuCRhj3cWPqashM4L0j6hDkKLqyQwS4J0YSQA/fplSLcEQGX1nPD6kXh+XgqZ6u1kmMaCT0thxOi//qNQRgYxJwV7Tww3rnybN+1/5+/OZFh3zTQRTc37nGRDbROuSbe44gV3OlKhLbhjydQHt9rXpzeKHFAxCsX4ymZEQn5KfvB9SPdu1nsJM5tQjBQIyHn+Ax5Lmxko0RWGD8vb4+F3SUxwt4u0CysC7ovuOkCU81v7Rv7a3BNzVKZn6M3zRo4+hWZaMuHrUz1Fk81k6aU40s+kApEGWtVaan+h7nng4xRstkSkwPCfXrCT6XRLfHKHjpddNUzRQL84YDM4N29vH/K1BYa1Hyqiiw1Z6rGf4ABzjRiNlIyrEPDqwbJOjoy3McCnuETTq+P+jtnn0aqiqe/oE=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: eoqglAgi1nBFmowgDYlmh5NsECyYCBBi4iKTD9HbyKVulUPH7OOZZLsafvPdLMO0oGoyPr7qaWHY2xesx2OQgVrH8JjZWtRk+t2XFLls+miJxEpk/QNUHsdCTIVRZIEYchd2GxPo17AQbM8nOhpZGYr16kOEfKUAasNgX6hcSVq8VsP38DSl9e0Y2dXy4RuwwYxY7Q7tBFLpU23WrT+9OyoCvb2Zu+xtx9O6NODp48Vj6lwcxGV6VqlXLdLC+Am5PnyTIMZsyGsZpqGmVHqTEhQOsvasmM9HQmSiTCySlMCmtES5hRd3FveryCz/uei0/g82wRy4F+uBe1UTxz5Qiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11787
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB1PEPF000509EC.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 99ea4608-baf6-473c-408a-08df1f1ab5ff
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|36860700016|82310400026|14060799003|35042699022|7416014|376014|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: CQRDLlbWaYxiSWsBWPPHazI2Pv/ae0NaWVaDt+sXmmhTrQuYsbwAoNl4YpArOFOUCVrbylm/YrV8RW8tG2fXm4338msT+b4lvgzTN1Oxk6fkUyBRalpP08Vvq3KNWzFh0fd4f9qHaUX2Cs7BgHrnafgNGrySE8Cog2OlGNOUFZj8T+/F8Q1C9WkK8aj17CMWAnUHvXGZzUyD+E09qmQTppcBgPQTL6uckcOQk/zD4lnG5JK5/kxbqNNPFfVB3/NutKzgRuUgurCVzxbZN0MikxFCK9FuzDihxqg3SyxEg5/SHVDEjChI4gE0WIFks7MI3omyKp0yoSkelFy19bNHt/bOMXoe/VnviC0TgpviP75Tg2pjqJ6C3weJ/jGeDW7BaQgz/Vn57aLr2rZ9vmvUXlKV49RvprqEL/WDR60UBSuStvIhs83+xIWmT//qWxTtYLc/Sz5ga7BtAvsN4jnnUOoj3YrLbs45Zkd/PT7npkCokrx5BLFDr7DOv4zlgeKvw3hixQ6AlsJTrRBwaQtczt94XurR/t4Blxbw2ksxFiVeb/z8UzIqEoTgjyy0rJt5h8ZDzPCir+WDz0ZZqwraXAHYl6uz+DPelNREUBRzJx8/gA52KGmlMovTAxReGsWq+gG13qAvYLPZck21t2EVLw5ct0crJ50ewLJfozjtOYDLcHMtie2qmjC6xqH/AXYc4UDskJgn8Xst5mjZR1D/eA==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(14060799003)(35042699022)(7416014)(376014)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|4143699003|11063799006|56012099006|10063799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NTMS7w3pkwbdyX8kXLQQPd6bmp7vgxhsw8wWUgoxv0BrTrWoioXQwXj9y2sXwxqK/qp94qzNdh/w34dJBNSvbrkk9mQbv2eUPT1dCR5tZ1ctxQM8bgU8kBHD7llfqbs2uDuPa0FCmoZMt4aJnvieWCKHKxci7qcqJAuMjkWfrFU8R5RZ0Pp+gWd6vaVst+KGOu7iQzlS6ZiiLCyEHCFhE5UTWJFFq6SPOOfeik7Z0B1OXZ2zH9V2SuK02wJNgjSYLbszkIqi50F10i5CEUJ3ZGuCkyo3DM/MwDsQAmHM8Bp6vKunIh4HqtMQOnv7zekcp+FzN5RAzsi0FWBm5ZLmamnACbJ3ID8Uhc2HbeBvXNONVsFjYpykdaOuaDLwRN1/WB3MpYmtTWpOhyqq8LIb7VFs6nvId/Ccql4GAZZPIAqWvI0kj6zudAav0tOCf5ocPxPGvqv0srNHGzljQMohQkc5knSeLiz0T7I3twibdB+LZUKnkqS4g6gZxOLx8jHHOrM7CcIMBFvSVOy124A+psloR+Sir++O4fteJpkRLIH2eo2XV3ANbGLdqlMLl7bvZevXSVQuXGwtEFUG0PQnGs49YCqwB44rR9hCbCcjSPAnPCpAXVR+pJ987rdeYw2WIN+jnl6TeeNBBReTpntyPBD6DV97FUla1GcpMqCM9h8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(10063799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KdIfxWzrJ0uQ5ezYzhTTA7ec/24UvpcOpkp4niD6aSq3i4sXLkkFlKUmePrf2wX+laCD4X7spotQ4hqFUpmVBftk8X/aevo7edexB0NTxx6FCLSw1sQvzyVONGEtI+OuXci+OQqGf0o/zQCNEJvbbiW0hAGtrVLliJE67Zva2/8P0vyz6h2s81FH7MIdPXS0V4gCpjWOwasg82DFLzodhEgz8uzVZEsPpxgRzpEYQ7PbKAEcoKxFl3a4EqcUn5ZE58ivMFVkKxLAGuqgwH4oxvQ0GhNIULyu3GEdtYNnl5NgDYC7WaC1slXRNjdhQhnrO8sEDTvR0a7z9RW3PADI/eELj+PWqPfgEcSCBOu5qremODnZsNT2LpoCR40vrG/hplltCh0npK5UU7UxJshSBWxj+G7p3QY9rqCDcoTARXiyQVaMtoPDhf9x9OnptJ5F
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 17:46:51.2843 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b58256c-5d5b-415d-2718-08df1f1acf12
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509EC.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11552
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MXu4eQniVxMuLf/9bfDbC7QY5S/GZmk+BEhdZPsCpb2Fwvz+snepEPRv42qo?=
+ =?us-ascii?Q?J+fGc6zIpN2r69MH3j1NbAw+66SPKNJSbZWhUSOYSaWDRf4WysG/w2mdz+cN?=
+ =?us-ascii?Q?vp3KKbYKM8MhsCZWkFB42OashkTTgzj6OZ6vq7YylqGondij1VlWCYNmcP8S?=
+ =?us-ascii?Q?6CXUVF1CZY8gLz31yQcOyjXSX5r+5W5adH8GV43S5daPLgy1FP1pch3Vqrlf?=
+ =?us-ascii?Q?LydlKNFlFcd6CQvLAmRZRg5f+x5EGG7YhPBj+3BMbN4LI/lNWXYIpqiHqL7j?=
+ =?us-ascii?Q?oXhMMivi1j3CAIyHtKjnBqsGsncsD9Df+DEDyitdDfZE5i1G5UrNPgcatcz/?=
+ =?us-ascii?Q?mOfTjD8IZ8ZR2rMuwlWGM7cKyWdpZ5SlTiRxY5CJuWwlCSWlWhK7Mn9edgn9?=
+ =?us-ascii?Q?Abtswnt7rCImfHaCNvjLM8bxzr2VL0lWfaOQoi0ZkND6Uxjx80xWYDeDdcLy?=
+ =?us-ascii?Q?E2M4AQSakyvohHmvNmzUGfYvmOf5UofkU4avmkfn0FAKO3HBNZ84eu6/qB0/?=
+ =?us-ascii?Q?BZkh42wfg4Tpp5AzexqE0YlzTTYdsEhTlxyMDpY0dY/493VkD3G3VmmenLvc?=
+ =?us-ascii?Q?rOsNrznL3Ai/WSC9dPAJ2ZVp4YFIfEewJtaYthUYeM1mHNwkHM57C3jhqJZE?=
+ =?us-ascii?Q?oE/mixWkz2wHs5AScj9awqrTKdoG+D2+UP55curGBCATRmTl/m7GNbhLI8DD?=
+ =?us-ascii?Q?/LpUx+iBAnEP2/sP4eK6DpVctibX9lPiiKkUQDwfqPwHb4HWHRBFrm7hyvbb?=
+ =?us-ascii?Q?1q0FRxmMe40oskj/VcMiMnLOYQolAHPLNrau928odO+HIqfP4yZRqOG4dD0h?=
+ =?us-ascii?Q?PwtkEzoBxPv+ezIzGXMVj6vnzZHj9k+INQcrtqClIA1ORalRBd8jzvtlji5b?=
+ =?us-ascii?Q?/2qlXjfsInReKmjefmVeIOG1K/qzZ5l/6e/Lwvopa6VTFuL+SrhYv9N/Yoc5?=
+ =?us-ascii?Q?j8+pg/TPURR8FqRiO5nzmXCWudtk9pQowrK1N1/noRFW++Oxh5J6KEGxWoBg?=
+ =?us-ascii?Q?bPvscNfCLhlUpVRhJ/HlU6qHXIHRVZT2ops9BEj/kj5gQGfI4gKjYUo8q2wm?=
+ =?us-ascii?Q?EnQA7IeJ2rTYpUTpOztbqVoqKIAugvcp5LpMgIaQJgYyR90PdeQk8rB206pU?=
+ =?us-ascii?Q?OEevidn/mt07l+4qXT8oBb9a22pTAX5Oz0iY9j1ManvQYZpzc2pC2r3XI/7w?=
+ =?us-ascii?Q?yFS4ZzYI7p519xaiDGAOAL210+5azfqWPKAg6FPBqpqqUj4RH+MzvfU0VjFl?=
+ =?us-ascii?Q?OmpY5RRcLDE94Cy1REYNVkR0ntXfbZovloDW2XYuRh1PRBAplbFbVz1CF6j5?=
+ =?us-ascii?Q?HNbo0gHXo8t5IB4239rfrJjNIMAv2hWLBuATBn9RDSclotP3/WVbOlTrrAcA?=
+ =?us-ascii?Q?alpY8++184I9GbRwPtp9oFf7AqX1so53T0aej11fWXSkDCa1pQAAGqrwk30V?=
+ =?us-ascii?Q?IMeN5jH8ijdgbAThHaaerWzyh9CUxr0uM5fjHYLb6lohDLNnl+7gCzQlXXVU?=
+ =?us-ascii?Q?kknZDCREfrCBcTH4jTRN6YVj+UUrdNs44QUakpZEqj9lZJvG3tCBCjQ5tiLa?=
+ =?us-ascii?Q?YWv8bBtBYiNnp4zT2e28zycu04Xl/sgRPaac3E0Vo5JfjdtnbDUBYehX0WWg?=
+ =?us-ascii?Q?lEcYH+QxwZlpE3cj0tzisjeSTXu2N+jw3p9Iel/2Fl9/zZx2i9uYQxMkEDjn?=
+ =?us-ascii?Q?GS3vsX2AB2EzWefPjnuPPbP5XqaqtZOHwLXLZGiQl5NHkVEOqH+nMbTsJp/E?=
+ =?us-ascii?Q?7DP2WO6Skg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d214dff4-b381-4957-d09d-08df1f07674d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:27:56.9730 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YLttr6nZbAZEgLwiA1BQTWtmyJC4gk3s+HBEIV2F7pIcz4C++d3nVT6aZtPTmkRN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
 X-Mailman-Approved-At: Thu, 01 Oct 2026 06:52:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -216,48 +189,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 30/09/2026 6:10 am, Anshuman Khandual wrote:
-> On Tue, Sep 22, 2026 at 06:12:32PM +0100, Muhammad Usama Anjum wrote:
->> ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
->> return a software PTE value. Add __pte_from_hw for both generic hw_pte_t
->> definitions. Read the hw_pte_t table element atomically before converting
->> it to pte_t.
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->> Changes since v1:
->> - Use software PTE value terminology.
->>
->> Changes since RFC v1:
->> - Define __pte_from_hw for the opted-in generic wrapper.
->> - Apply READ_ONCE() to hw_pte_t before converting it to pte_t.
->> ---
->>  include/linux/pgtable.h       | 2 +-
->>  include/linux/pgtable_types.h | 2 ++
->>  2 files changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
->> index 19098e302b75a..41337da0d65aa 100644
->> --- a/include/linux/pgtable.h
->> +++ b/include/linux/pgtable.h
->> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
->>  #ifndef ptep_get
->>  static inline pte_t ptep_get(hw_pte_t *ptep)
->>  {
->> -	return READ_ONCE(*ptep);
->> +	return __pte_from_hw(READ_ONCE(*ptep));
->>  }
-> 
-> Just curious - when would other pgtable levels (PMD, PUD, P4D and PGD) be converted
-> in this format as well ?
+On 22 Sep 2026, at 13:12, Muhammad Usama Anjum wrote:
 
-I've patches for conversion of all levels offline. But it would have been
-so much difficult and complex (to review and rebase) if I would have posted
-all of them. That's why this split was done. I'll be sending other conversion
-after acceptance of these current series. PMD conversions has some patches
-which require discussion. Other remaining levels are going to be straight
-forward. Maybe I'll send those together.
+> pte_t is used both for software PTE values and for entries stored in a PTE
+> table, so pte_t * does not distinguish a pointer to a software PTE
+> value from a pointer to table storage.
+>
+> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+> as a macro alias of pte_t by default. When an architecture selects
+> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
+> This preserves the representation while allowing converted architectures
+> to enforce the distinction at compile time.
+>
+> Name the generic wrapper structure __hw_pte_t so architectures can
+> forward-declare it when pgtable_t must be defined before the generic
+> hw_pte_t typedef is visible. This avoids header-order dependencies.
+>
+> Keep the C type definitions behind an __ASSEMBLY__ check because
+> architecture assembly sources can include this header indirectly. Include
+> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
+> they previously obtained from that header.
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+> Changes since v1:
+> - Name the generic wrapper structure __hw_pte_t so architectures can
+>   forward-declare it, and explain why this is required.
+> - Use software PTE value terminology.
+>
+> Changes since RFC v1:
+> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
+> - Exclude the C type definitions from assembly sources.
+> - Update the description for the new opt-in model.
+> ---
+>  MAINTAINERS                   |  1 +
+>  include/linux/pgtable_types.h | 17 +++++++++++++++++
+>  mm/Kconfig                    |  3 +++
+>  3 files changed, 21 insertions(+)
+>
+LGTM.
 
--- 
-Thanks,
-Usama
+Acked-by: Zi Yan <ziy@nvidia.com>
+
+Best Regards,
+Yan, Zi
