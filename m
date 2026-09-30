@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A016CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59537CA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD8910F233;
-	Wed, 30 Sep 2026 08:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84E0310F23B;
+	Wed, 30 Sep 2026 08:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JbjJdxQV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eDaDmgYY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0BE10F229;
- Wed, 30 Sep 2026 08:04:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D87110E5A5;
+ Wed, 30 Sep 2026 08:17:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790755495; x=1822291495;
+ t=1790756224; x=1822292224;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=aB8Cp4nhgf7pMdLW6i8ghQb1w1f/0/D8MNkDliazAv4=;
- b=JbjJdxQVlZ7af4VExL1DDfkhiTkrzmiYpL9eXfd0aDaYsp537+TKZk6T
- JreZSn6MqlYgPcjxU6Or7PFTU0GlXH51cVGsqAhdJ2xgUghK+4FwZ8x1s
- 8tgAphk0nr494vNh37JGoLLpa7b10T59gILa+aUuLkKt6sZ5eflnujLzk
- 2qVHm8kp/R+e1aLz2fDcSVa3DV2vGc/hAbvWm790VI4NTOH8EEfXZP/bW
- R2WCgBdprgSLv2xHQA5ovtpI+79sNcXjCSbFLzwrzcoauUZ25y8vVitOX
- Ph3QFrlAwXUHD0KahCrYjtXHyynSkcHouiEz3FnbT4+IRm2GgiZL3unn2 Q==;
-X-CSE-ConnectionGUID: BAgFCt9gQJ6Kg1QN/IDbxw==
-X-CSE-MsgGUID: xnjgwFPCS8eLKXPYYBwyXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107873331"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="107873331"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 01:04:54 -0700
-X-CSE-ConnectionGUID: Cu/v+AVgQF+x1mViGCxdEQ==
-X-CSE-MsgGUID: dg7Wz5AVSvSpELsP3mYYzg==
+ bh=aOEXaKJAmJS74O6U1Y7qs84BuAJX4TxGsf0cgkMOFCo=;
+ b=eDaDmgYYO5Vdt2RJY+ytLWYz5lveeaFJducO0XldQixPH0j4GGjkjvoX
+ DvnTb2X7BeaEKhzsZG7ZX8w0GFgOgHDZp2Sx1VFnANR3pugrLwhbYbEse
+ FwPfvD0gArzc3qylVvLzRQC+NNSO9SmOZfRCZ83F+p7qyMJO6gTRiayUu
+ ktXAL6+iKjIzqZ4rwBnA7aFXTOl3j4f/zoU+DJYBngCqaalzxHe3yTRe4
+ h5yMS4yazHRKctKfp/3P8DYYCMRRlEVQyqWmxLXQB6xQ6HtAtWb3rtW79
+ mzIIVU0Xn/GZSgF9wSa79eYm1/RUTtX9YhZropIhd10ZNVGm0YrjBNgjg g==;
+X-CSE-ConnectionGUID: yp7UuZVBSturhJXOegKLJw==
+X-CSE-MsgGUID: j7jdVK1hQT69yhGasMNntw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102163480"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="102163480"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:17:04 -0700
+X-CSE-ConnectionGUID: pCEx62D0Tyq5Ox6lp3EEHg==
+X-CSE-MsgGUID: gKn672HKQGWzGOhRHJ6geQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="275761811"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="280368873"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.107])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 01:04:51 -0700
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:17:01 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: Animesh Manna <animesh.manna@intel.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, suraj.kandpal@intel.com, Animesh Manna
  <animesh.manna@intel.com>
-Subject: Re: [PATCH v6 02/18] drm/i915/alpm: Move alpm sink capability
- readout into a separate function
-In-Reply-To: <20260915180449.277933-3-animesh.manna@intel.com>
+Subject: Re: [PATCH v6 12/18] drm/i915/alpm: Program LTTPR count for DP 2.1
+ ALPM
+In-Reply-To: <20260915180449.277933-13-animesh.manna@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260915180449.277933-1-animesh.manna@intel.com>
- <20260915180449.277933-3-animesh.manna@intel.com>
-Date: Wed, 30 Sep 2026 11:04:49 +0300
-Message-ID: <2ed6b4ccefd2d302433fb990401b0d62efa75c84@intel.com>
+ <20260915180449.277933-13-animesh.manna@intel.com>
+Date: Wed, 30 Sep 2026 11:16:59 +0300
+Message-ID: <4a87eed400a220652c2da3c478f02b267eaf63f5@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -76,103 +76,103 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Tue, 15 Sep 2026, Animesh Manna <animesh.manna@intel.com> wrote:
-> Abstract ALPM DPCD initialization into its own function.
+> Issue a AUX write transaction to DPCD DP_TOTAL_LTTPR_CNT (0xf000a)
+> with total number of LTTPR before link training.
 >
-> v2:
-> - Improve commit description. [Suraj, Jouni]
+> v2: Cosmetic changes. [Suraj]
+> v3:
+> - Use same encoding format for lttpr_count. [Jouni]
+> - Avoid reading alpm_ctl2 register. [Jouni]
 >
 > Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
 > Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_alpm.c | 11 +++++++++++
->  drivers/gpu/drm/i915/display/intel_alpm.h |  1 +
->  drivers/gpu/drm/i915/display/intel_dp.c   |  6 +-----
->  3 files changed, 13 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_alpm.c     |  7 ++++++-
+>  .../drm/i915/display/intel_dp_link_training.c | 21 +++++++++++++++++++
+>  2 files changed, 27 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
 i915/display/intel_alpm.c
-> index 10943539bc7c..a6743fe62d48 100644
+> index da653a407e97..06c1a59aa2c5 100644
 > --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 > +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-> @@ -43,6 +43,17 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *inte=
+> @@ -726,7 +726,7 @@ static void lnl_alpm_configure(struct intel_dp *intel=
+_dp,
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+>  	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
+> -	u32 alpm_ctl;
+> +	u32 alpm_ctl, alpm_ctl2, lttpr_count;
+>=20=20
+>  	if (DISPLAY_VER(display) < 20 || (!intel_psr_needs_alpm(intel_dp, crtc_=
+state) &&
+>  					  !crtc_state->has_lobf))
+> @@ -762,6 +762,11 @@ static void lnl_alpm_configure(struct intel_dp *inte=
 l_dp,
->  		(crtc_state->has_lobf && intel_alpm_aux_less_wake_supported(intel_dp));
+>=20=20
+>  	alpm_ctl |=3D ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_en=
+try_lines);
+>=20=20
+> +	lttpr_count =3D drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
+> +
+> +	alpm_ctl2 =3D ALPM_CTL2_NUMBER_OF_LTTPR(lttpr_count);
+> +
+> +	intel_de_write(display, ALPM_CTL2(display, cpu_transcoder), alpm_ctl2);
+>  	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
+>  	mutex_unlock(&intel_dp->alpm.lock);
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
+ers/gpu/drm/i915/display/intel_dp_link_training.c
+> index cb92cff90614..37c8306a1fa0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -2265,6 +2265,25 @@ intel_dp_128b132b_link_train(struct intel_dp *inte=
+l_dp,
+>  	return passed;
 >  }
 >=20=20
-> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp)
+> +static void intel_dp_update_lttpr_count(struct intel_dp *intel_dp,
+> +					int lttpr_count)
 > +{
-> +	u8 dpcd;
+> +	u8 val;
 > +
-> +	if (drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP, &dpcd) =
-< 0)
-> +		return false;
+> +	/*
+> +	 * Program only for DP2.1 and return if LTTPR revison is less than 0x20
+> +	 * where 0:3 represents minor rev and 4:7 represent major rev
+> +	 */
+> +	if (!intel_dp_is_edp(intel_dp) ||
+> +	    lttpr_count < 0 ||
+> +	    intel_dp->lttpr_common_caps[0] <=3D 0x20)
+> +		return;
 > +
-> +	intel_dp->alpm_dpcd =3D dpcd;
-> +	return true;
-> +}
+> +	val =3D intel_dp->lttpr_common_caps[DP_PHY_REPEATER_CNT -
+> +					  DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+> +	drm_dp_dpcd_writeb(&intel_dp->aux, DP_TOTAL_LTTPR_CNT, val);
 
-Why not propagate the original error instead of flattening to a boolean?
-What does boolean true/false mean for a function that's not a predicate
-function but "init"?
-
-From a maintenance perspective, the mixing of bool vs. int return values
-is a problem because you never know what is being checked for in the
-caller side:
-
-	if (!intel_alpm_init_dpcd())
-
-Does that return bool and false means failure? Or does that return int
-and false means success?!
-
+Please use the modern DPCD accessors throughout the series. See [1].
 
 BR,
 Jani.
 
 
+[1] https://lore.kernel.org/r/cover.1789547331.git.jani.nikula@intel.com
+
+> +}
 > +
->  void intel_alpm_init(struct intel_dp *intel_dp)
->  {
->  	mutex_init(&intel_dp->alpm.lock);
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/=
-i915/display/intel_alpm.h
-> index f8f605d94f96..56c3e1482e37 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.h
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.h
-> @@ -15,6 +15,7 @@ struct intel_connector;
->  struct intel_atomic_state;
->  struct intel_crtc;
+>  /**
+>   * intel_dp_start_link_train - start link training
+>   * @state: Atomic state
+> @@ -2304,6 +2323,8 @@ void intel_dp_start_link_train(struct intel_atomic_=
+state *state,
 >=20=20
-> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp);
->  void intel_alpm_init(struct intel_dp *intel_dp);
->  bool intel_alpm_compute_params(struct intel_dp *intel_dp,
->  			       struct intel_crtc_state *crtc_state);
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 0cd5e6b5034c..650c8b39270b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4783,7 +4783,6 @@ static bool
->  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *c=
-onnector)
->  {
->  	struct intel_display *display =3D to_intel_display(intel_dp);
-> -	int ret;
->  	u8 dprx;
+>  	intel_dp_prepare_link_train(intel_dp, crtc_state);
 >=20=20
->  	/* this function is meant to be called only once */
-> @@ -4829,10 +4828,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, str=
-uct intel_connector *connector
->  	 */
->  	intel_dp_init_source_oui(intel_dp);
->=20=20
-> -	/* Read the ALPM DPCD caps */
-> -	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP,
-> -				    &intel_dp->alpm_dpcd);
-> -	if (ret < 0)
-> +	if (!intel_alpm_init_dpcd(intel_dp))
->  		return false;
->=20=20
->  	/*
+> +	intel_dp_update_lttpr_count(intel_dp, lttpr_count);
+> +
+>  	if (intel_dp_is_uhbr(crtc_state))
+>  		passed =3D intel_dp_128b132b_link_train(intel_dp, crtc_state, lttpr_co=
+unt);
+>  	else
 
 --=20
 Jani Nikula, Intel
