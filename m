@@ -4,40 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40853CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 17:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E526CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 17:07:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 537C710E3AA;
-	Wed, 30 Sep 2026 17:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4797B10E57C;
+	Wed, 30 Sep 2026 17:07:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ex0E+w3S";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SfGPVjVu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9298E10E27E;
- Wed, 30 Sep 2026 17:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- To:From:From:Reply-To; bh=tnPMQqIX3sMv2i2odt5STz12Tj4ZHlCMpcZpEhmJXhc=; b=ex0
- E+w3SjMJYuZzYrg9cch4xncBLul+wt6jQdx5/Rt1YJPE3KcLS9kmA4+jvX2tCk6Agik0JS10jSYw/
- LLzQ0V7jLmTPqn7AqHr+4M3fWlE85kcPcimu9+81CmC3vlBZHnOXNTa09xCJH8/Zo3G7CK+ExlkSq
- yUX7nfYlm2kgkKnrJLAfnL1GNFG55EkeHLY7OzTaGXsFgvWGk1g811bdR1mBI3c0QsfE8E8gA/Ssm
- HaxUatwMTr56A00H0H/i4jteZKFmgCwaJRD5Ya6z/wDLGPfG1vGRNNvkysn+tSJurUtd0O06BAxAV
- plTuF9DL0YXhLh/Hg7RukSBZXnjRcBA==;
-Received: from [179.190.179.102] (helo=toolbx)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xBxjX-009XHC-I2; Wed, 30 Sep 2026 19:04:44 +0200
-From: Helen Koike <koike@igalia.com>
-To: rodrigo.vivi@intel.com, demarchi@kernel.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- tvrtko.ursulin@igalia.com, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, koike@igalia.com
-Subject: [PATCH v2] drm/xe/lrc: Restore CTX_CS_INDIRECT_CTX_OFFSET programming
- for ADL
-Date: Wed, 30 Sep 2026 14:04:30 -0300
-Message-ID: <20260930170434.317671-1-koike@igalia.com>
-X-Mailer: git-send-email 2.54.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF74E10E57C
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 17:07:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 42E9440489;
+ Wed, 30 Sep 2026 17:07:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFAB1F000FF;
+ Wed, 30 Sep 2026 17:07:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1790788075;
+ bh=LoCvUKsFiVkZ0OgbNetJUJHiVAMbX0MAeWb8y2960Qg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=SfGPVjVudHrPbq7dUkXQLJkZIpB/2477gsXulCc1JXP+xRCUg9SWGh4NoA1Q8S92J
+ TytoEprGc96pMmY3X5h5NkW5yWTNQFen+eeLZYzw7g4pc5uxu9y6qFjUflQ+VUPRk5
+ fi30kT3uGvGomS07WccIZnK1XU+gAlJwfZ0ZUlbE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 7.2 456/457] accel/ivpu: Drop IRQF_ONESHOT to allow IPC IRQ
+ threading on PREEMPT_RT
+Date: Wed, 30 Sep 2026 17:29:21 +0200
+Message-ID: <20260930152355.849561690@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930152346.024115587@linuxfoundation.org>
+References: <20260930152346.024115587@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -55,70 +60,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CTX_CS_INDIRECT_CTX_OFFSET default value is not retrieved from the GPU
-by inhibit+context save mechanism since it is not part of the Engine
-Context. Thus, at restore, 0x0 is programed back to the GPU, which is
-an invalid value according to the PRM.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-This causes sporadic hangs on Alder Lake when executing test
-IntelAngleEnd2EndTestCases (error VK_DEVICE_LOST).
+------------------
 
-Fix it by partially reverting commit c9dfd66cb91e ("drm/xe/lrc: Allow
-INDIRECT_CTX for more engine classes"). Re-add the programming of
-CTX_CS_INDIRECT_CTX_OFFSET for Alder Lake.
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
 
-Fixes: c9dfd66cb91e ("drm/xe/lrc: Allow INDIRECT_CTX for more engine classes")
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Helen Koike <koike@igalia.com>
+commit 799c8f0b9f3fd728b32594aed3852044703b7e5b upstream.
 
+The IPC RX hardirq handler matches consumers under a spinlock and
+allocates rx_msg buffers. On PREEMPT_RT these spinlocks become sleeping
+locks and the allocation may sleep, neither of which is allowed in true
+hardirq context, resulting in "sleeping function called from invalid
+context" splats.
+
+IRQF_ONESHOT makes genirq keep the primary handler in hardirq even when
+forced threading is enabled, so on PREEMPT_RT the handler cannot be
+threaded. Drop the flag so the primary handler is threaded on PREEMPT_RT
+and the IPC RX path runs in a context where sleeping is allowed. On the
+MSI interrupt chip (IRQCHIP_ONESHOT_SAFE) the flag was stripped anyway,
+so non-RT behaviour is unchanged.
+
+Fixes: 85c9cc2d25f8 ("accel/ivpu: Use threaded IRQ for IPC callback processing")
+Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Link: https://patch.msgid.link/20260617092031.3016582-1-karol.wachowski@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-v2:
-  - according to intel CI results, it seems that this default is not valid for
-    LNL and BMG platforms, so limit the change only to ADL.
-  - program the default only on ADL.
-  - restore the comment, but add note with exception for ADL.
-  - update the commit title/message with "for ADL".
----
- drivers/gpu/drm/xe/regs/xe_lrc_layout.h | 3 +++
- drivers/gpu/drm/xe/xe_lrc.c             | 7 ++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/accel/ivpu/ivpu_drv.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-index 4ab86fc369fd..e4c7c3549735 100644
---- a/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-+++ b/drivers/gpu/drm/xe/regs/xe_lrc_layout.h
-@@ -43,4 +43,7 @@
- #define INDIRECT_CTX_RING_START_UDW	(0x08 + 1)
- #define INDIRECT_CTX_RING_CTL		(0x0a + 1)
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -624,7 +624,7 @@ static int ivpu_irq_init(struct ivpu_dev
+ 	vdev->irq = pci_irq_vector(pdev, 0);
  
-+#define CTX_INDIRECT_CTX_OFFSET_MASK	REG_GENMASK(15, 6)
-+#define CTX_INDIRECT_CTX_OFFSET_DEFAULT	REG_FIELD_PREP(CTX_INDIRECT_CTX_OFFSET_MASK, 0xd)
-+
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index 35b4e8289b5f..923bc1ddc851 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1451,13 +1451,18 @@ setup_indirect_ctx(struct xe_lrc *lrc, struct xe_hw_engine *hwe)
- 
- 	/*
- 	 * Enable INDIRECT_CTX leaving INDIRECT_CTX_OFFSET at its default: it
--	 * varies per engine class, but the default is good enough
-+	 * varies per engine class, but the default is good enough, except on
-+	 * Alder Lake.
- 	 */
- 	xe_lrc_write_ctx_reg(lrc,
- 			     CTX_CS_INDIRECT_CTX,
- 			     (xe_bo_ggtt_addr(lrc->bo) + state.offset) |
- 			     /* Size in CLs. */
- 			     (state.written * sizeof(u32) / 64));
-+	if (GRAPHICS_VER(lrc_to_xe(lrc)) < 20)
-+		xe_lrc_write_ctx_reg(lrc,
-+				     CTX_CS_INDIRECT_CTX_OFFSET,
-+				     CTX_INDIRECT_CTX_OFFSET_DEFAULT);
- 
- 	return 0;
- }
--- 
-2.54.0
+ 	ret = devm_request_threaded_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
+-					ivpu_ipc_irq_thread_handler, IRQF_NO_AUTOEN | IRQF_ONESHOT,
++					ivpu_ipc_irq_thread_handler, IRQF_NO_AUTOEN,
+ 					DRIVER_NAME, vdev);
+ 	if (ret)
+ 		ivpu_err(vdev, "Failed to request an IRQ %d\n", ret);
+
 
