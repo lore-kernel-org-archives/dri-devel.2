@@ -4,125 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6475FCA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC5DFCA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C712510F496;
-	Wed, 30 Sep 2026 15:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12BD610E20E;
+	Wed, 30 Sep 2026 15:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hXAyY75A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qOeRiN3H";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bMtoRBs9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2kZ8xr85";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SNgaujhr";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 456CB10F496
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:03:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 949071F74C;
- Wed, 30 Sep 2026 15:03:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790780630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
- b=hXAyY75AaAwkJ0VZIQFFgrLZ7Y2KzEgxETO+AT08oYZG3WYfEuTHt0iDB74PbdZlKQGQPL
- 8FHnhMQ95VvTGlWXLbjdJbkBStkqsDXdK3EUYrRHQbSH8/6t3LKQBLQJT8z7T+qAPhQ11a
- edExXzF4/4WY/1YrcDhB1n8L0ndny28=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790780630;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
- b=qOeRiN3HSIHor81FYPYBB0CInxKHKb5hcMhGUjT3ERdTXNCPFBTmyuUJ/TwkSax8vS1UMS
- /hRLbsG6Cou5F3Dg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790780626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
- b=bMtoRBs9bUhcjPQPnuPmB8PvzpVMu5frAUg57rj/5vEzCJHoAoIExo5XxxFUs9BbIr+EEp
- o5eeYmY20RFkdbynZbthB38kJ9qR3ix0oPuXpXFybzGGDauaoUxruGTWM92Q0+Y2d0uphs
- rHYVG90gS/00tBKOe2/WGOUGDJyFE+w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790780626;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
- b=2kZ8xr85W1X+I5D7jjFR8qfs7M7AezEYEdoaQ+DLu1cw1zWnNK07CQalr9tM9YzWDvaq+y
- ks+bWUYAeZhv4KCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2384313722;
- Wed, 30 Sep 2026 15:03:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id g32wLtEkvWqsIAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 30 Sep 2026 15:03:45 +0000
-Message-ID: <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
-Date: Wed, 30 Sep 2026 17:03:45 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
-To: Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev
-Cc: kraxel@redhat.com, airlied@redhat.com, dmitry.osipenko@collabora.com,
- slp@redhat.com, mhrica@redhat.com, gurchetansingh@chromium.org,
- mripard@kernel.org, simona@ffwll.ch, linux-kernel@vger.kernel.org
-References: <20260930132707.500748-1-dbassey@redhat.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260930132707.500748-1-dbassey@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.com:url]
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F50C10E20E
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:12:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6862560239;
+ Wed, 30 Sep 2026 15:12:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C0B1F00893;
+ Wed, 30 Sep 2026 15:12:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790781161;
+ bh=flka+is39zX93jXZy+QnirmWxmLDppS0KvN39KT0GoE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SNgaujhr4C9QXyAUEpomzkgvUyRSDQwoSOxHStAVWFmB39zcm3vk9R9qKJB7AWrBC
+ +XMSAAmvYkkzEkT9BoqOR20x6mVF6O5s6bcnCG56Y0CHjs9SQGtFF7GeNmAXWGfLfX
+ Zb7IplgvkEM3kEMttTEzvWkAa2TWZtZGN8+dqtTp/GpWfaPKw4u7AJ/ivqXgXxd/gc
+ zX3isn6Duix+giK0A+MpgEdfvVrh068sgElWadEOdPQThR4jLYvTUt1QpDGQVDOt56
+ MkhWNXU3BjSlX19v6Xtj41Ix7w88YcXGn2wVbE+biakAXIssyFnOzsqLTfU44ZkZT5
+ AvrM8FzDWvs1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/9] gpu: nova-core: gsp: cmdq: validate checksum
+ earlier on receive
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, ojeda@kernel.org,
+ dri-devel@lists.freedesktop.org, "Danilo
+ Krummrich" <dakr@kernel.org>, gary@garyguo.net
+In-Reply-To: <20260930-cmdq-rpc-v3-1-91613f06520b@nvidia.com>
+References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
+ <20260930-cmdq-rpc-v3-1-91613f06520b@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 15:12:40 +0000
+Message-Id: <20260930151240.B7C0B1F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,53 +56,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
-> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
-> virtio-gpu primary planes. Without this, glmark2-drm fails at
-> startup because it selects ARGB visual configs by default, which
-> don't match the XRGB-only plane capabilities. This causes
-> drmModeSetCrtc to fail with EINVAL.
-
-But does the host also support ARGB on the primary plane? We usually 
-don't export formats that are not available in (virtual) hardware.
-
-Best regards
-Thomas
-
->
-> The virtio_gpu_translate_format() function already handles
-> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
-> so this just exposes the existing capability to userspace.
->
-> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
-> ---
->   drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> index b422eba42a5f..5f0bc1b1931b 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-> @@ -37,6 +37,7 @@
->   
->   static const uint32_t virtio_gpu_formats[] = {
->   	DRM_FORMAT_HOST_XRGB8888,
-> +	DRM_FORMAT_HOST_ARGB8888,
->   };
->   
->   static const uint32_t virtio_gpu_cursor_formats[] = {
-
--- 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] gpu: nova-core: TOCTOU race in GSP message checksum validation all=
+ows bypassing integrity checks
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit 7f9f9f297ff07c9a2fc40d814e38057d895893f1
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
+gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
+
+The checksum validation error message of wait_for_msg() prints the
+message's sequence number before validating the checksum. But the
+checksum is part of the transport layer, and it not validating indicates
+a corruption. Thus, this commit moves the checksum validation before
+we start looking at the message header, and drops the sequence number
+from the error message.
+
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index a5595da23407b..d293d28b09674 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -768,6 +768,15 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<Gsp=
+Message<'_>> {
+>          // Extract the `GspMsgElement`.
+>          let (header, slice_1) =3D GspMsgElement::from_bytes_prefix(slice=
+_1).ok_or(EIO)?;
+> =20
+> +        // Validate checksum after truncating the message to its exact l=
+ength.
+> +        if Cmdq::calculate_checksum(
+> +            SBufferIter::new_reader([header.as_bytes(), slice_1, slice_2=
+]).take(header.length()),
+
+[Severity: High]
+Does this regression create a TOCTOU race condition in wait_for_msg()?
+header appears to map directly to DMA memory, and header.length() is
+read here for the first time to determine the boundaries for the checksum
+validation.
+
+If the GSP (or a hardware glitch) modifies the length field in DMA to a
+larger value after this checksum passes, it is read again further down in
+wait_for_msg():
+
+        let payload_length =3D header.payload_length();
+
+        // Check that the driver read area is large enough for the message.
+        if slice_1.len() + slice_2.len() < payload_length {
+            return Err(EIO);
+        }
+
+Could this secondary read use the modified length, causing the slices to be
+truncated using the corrupted length and bypassing the integrity check for
+the unverified data passed to the RPC handler?
+
+> +        ) !=3D 0
+> +        {
+> +            dev_err!(&self.dev, "GSP receive: bad checksum\n");
+> +            return Err(EIO);
+> +        }
+> +
+>          dev_dbg!(
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-cmdq-rpc-v=
+3-0-91613f06520b@nvidia.com?part=3D1
