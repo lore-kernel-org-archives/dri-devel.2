@@ -4,78 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB5E7CA5FC4
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 20:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE53CA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 20:12:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10C9E10EC09;
-	Wed, 30 Sep 2026 20:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1057710E320;
+	Wed, 30 Sep 2026 20:12:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YayvKTzr";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="SOIb5aBW";
 	dkim-atps=neutral
-Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com
- [74.125.229.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C689E10F4D2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 20:03:37 +0000 (UTC)
-Received: by mail-dl2-f41.google.com with SMTP id
- a92af1059eb24-14936924913so762725c88.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:03:37 -0700 (PDT)
+Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com
+ [74.125.228.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A88010E320
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 20:12:56 +0000 (UTC)
+Received: by mail-ej2-f41.google.com with SMTP id
+ a640c23a62f3a-c2e1195040aso235421866b.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:12:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790798617; x=1791403417; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
- b=YayvKTzrZRVoCpfIAupEZxhGiQLSfp1KKZFfOksMwZLYDDtGLa6XaJYTz8kkcZmsAU
- XB1e8FHhnDkH/Tpx7YwGr5fnl7MW9LFEV2BzaWl3qVjOc7zeTVoublM7MBElYbSq5Z2E
- Tz21zWt3dzYBC6uv6jH0gHIFi3ygaVcMdSVfRIk6FTqshR77lubbQhbR5ACE1S3rNj1f
- 5DW559odl35oahYZZSY+hJ0E1LH4MCGKmZq3YkRmA385QHmfg288gUebg5PK9hL4Sv3x
- HNDZv6wmBYRXTA5V1AUP9h/KJv1ka2FVx0hrEnhNCS4tj1A1eBYrFwPtWfwpARUd9xEj
- vVhQ==
+ d=chromium.org; s=google; t=1790799175; x=1791403975;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7U6thcsc8Wz1xK8U5Qhc7QgqtaRZtBZlNvbNYRYr/EA=;
+ b=SOIb5aBWTsIviTE2mUBImL1mqTuy5Z9mzDjoOV2PPnDV82BjZzNH4CWchLMHu/xg2u
+ 9ZzDaFrqHhZOaWJcwszF3Re+fpATVe/kgyBpdAUxZM5EtdnaaNrNsaU2TqI6VDXMsXN6
+ VRdxL1MuMtvNkTaZy9Q4mAsc6JonMgUd74h0o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790798617; x=1791403417;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
- b=SQll25/KX4pxRCcOZOuzcav4bT7dGPpWwTenJT5eKMqX2Vl9fWRbJjeuG3/W2lYPqt
- H7fHzLXzNr1tP5lfo1V1TJaijlwhpbX4Bz1gQQDd3YXHUEE7umZWrHiwVssT5WbIO9j6
- IlQGBRtQCidrBbXyaXXRO79b5Zj+CdBFOBHIHo0qLJm07IOSwZubsabELscuFzpn0vwq
- Pzs83j97gd5r9vQhCEp4CgyA1VNOGfkc4zAVtSQGDoPTTcmBpt0d6ZvGZ+xXRLaNOSxk
- PowrtGh1wlw+dDYF5Lb17T7O/L2o5Uylu1cIJhE4JeoYqBMy6z1o6qrJjRDssLTRjWLs
- vHTA==
+ d=1e100.net; s=20260707; t=1790799175; x=1791403975;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7U6thcsc8Wz1xK8U5Qhc7QgqtaRZtBZlNvbNYRYr/EA=;
+ b=bwMzCTYQDmAp4j1CxQWi3lYW7W2E/z609d+5d9qQwwNobGyzo6CBRgQDoSGhGIekaM
+ qAS7j+W9ebBPhIdQ4rhdraIKhD2lvET0o/FyXyo84VwW6IKcddt/zSH4duSNWAzzy9e/
+ dxW3vL+Mk7iNOipcIU+SRG4g67z3kMnQVsWF9vm9HY1PO+7SYXLWfGmfp+3vIJs0TqdR
+ mxgt0h22cXNA9H8ufuU9ot0e3f5opF9QrnAQlv3EUIIyBpZlQV+1WMotFawb0T0Sd2BF
+ tU8O8Z/D6I1qBkA8/ukTSw5bFOaBbP6YykVbKB434CeWd8dhhNhcRzRSgeFD7Z2Lisfb
+ 3ftw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy5+WIq7FG3WA6a6xXDuWtioZG8S+eiR9RgpyS3HjFMZ9fIjsWlPVw2Lp4PlTtR2NN2aPGntkEpQDU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nZVGaVAYwraf2m/b4lSkuflvqT+UbnBK7j3FMiG7KveDRB28r7
- EfMCwmz+brpPcBOjFSXRVt22nyX+Xtjqp+q8xCnGvN64F81lveHoSj4h
-X-Gm-Gg: AYBFou3W9AOvHAhG4djSxqa38L8rzOk1fV6Pj0uIAq9AF0Vshr/cv/pZP/iC+aSPKA7
- bZPkCUDuhTRV22GsaB+00WSL4K8xEbhUOJ4yCvEcCD61DjZIaeQH+gNgbmEQMqBWTZvL6Y8aBOE
- VwrPGj+HMDiw77zvzau7Y3pdY9p0GS4PEBOC4ynu7jq1PBqjxf3yU66BACwOSyDNcUNefyeaY6k
- 499+y7Df4avlqUmcu6HoBsM3to7Q5dRHa1BHP1W8Xe50KE9rOg8CpmTOJqozTYarw0NXogtIXVp
- VUwk05aOKtOxJ9v2P4N4sL/zgbj14CBVnloFjAslJ8TiOuu6koH6/prN9yEmeCEeLR17T+4+1k5
- iSO6q2N8o7aJ6dEpks7jNhFpiuKs6Bq1hmgyCy4koxAVfmK8QZteN+ps1P3DvwkHA4SXRYUDGYz
- kw74wdC8Z9TOCPhDfzTwctxF6ZfOmFa8V991mi+FlIErGMT5mXNiLVo3YCgbY/FsxdzkjNKBRWY
- li2gqk=
-X-Received: by 2002:a05:7022:158b:b0:141:5281:8a41 with SMTP id
- a92af1059eb24-14d33494dfamr2639297c88.9.1790798616734; 
- Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
-Received: from G15-5520 ([36.255.19.64]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14df11858b3sm460601c88.2.2026.09.30.13.03.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] amdgpu: Use 2-argument strscpy() where destination size is
- known
-Date: Wed, 30 Sep 2026 20:03:25 +0000
-Message-ID: <20260930200326.42827-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AKwUvBzb6ZMhRiiEQMSNOmqOxJjkdPvHLqQYvAJJLxv5lbhribYBfKMfaBNrpKNF/9ehzlFWDV4QiloAGVg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kvA8UJ37PFxyHXi7xv6g1qKN3K/yVB/f5Oi7dHYt42JQo6zm2+
+ kfbzNPXr5TkxFaw/hcDNqoPixXZYo+gjhnDZXWYiNZYsA0INRLGlBodsh5vs+vZVPmzCCZ23a1Y
+ 9nFJUGA==
+X-Gm-Gg: AYBFou0zwJlMzJ1SIUgw/2opcFTJum1Qa02M4aZqJJJchCu4GF0GHssDYqL4T/zidMT
+ OScUqMzQM66r0QoO9G+2tc3KAopHzE9tbN2VMxgwucXV4Erl+rh08ye6bAxgZMeLhMTOjburrHC
+ G8KLjrKA2lS8/fp/3bRQibaU3xxVgjQ7oHdmn6J0ANmhtgxWQZ92m9pFEhjkGG1smjQEFkpsiXb
+ kWREq5sCO+N1MtW11+rHjmTP9ZpJ/tFneb4gBIPeqG5ZqOnT1PUwftT+Hfea584I6wcQdqfPwaM
+ TWZ08FpFroWF374No0zGMAP/W9VSpyIKVDHDGq66OyNj+3z+jEaJ2JZ3843Bb/WnwGT7AQJi07g
+ 72epNlbgDyBw3yZU3xSzwgxmSsUDj5+z8a1gbDixI0mCmcjKffbZVcYwlX3bafPS8t3ClycwFMP
+ hMbUjgGhg31aig8tjNL7YDyee0GOaxAdJZxaJH/5sh3WNNuiRRSyes2BxX5CiccGb141CFQeLxT
+ CvZ5GIb4k3iliehG02H11O5mj0N2LAF0F3trQ==
+X-Received: by 2002:a17:907:d1e:b0:c29:cf4b:5cac with SMTP id
+ a640c23a62f3a-c2e23749268mr217469766b.5.1790799174818; 
+ Wed, 30 Sep 2026 13:12:54 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com.
+ [74.125.225.98]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6ae5ca42180sm91439a12.10.2026.09.30.13.12.52
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Sep 2026 13:12:54 -0700 (PDT)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48b01c41135so765730f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:12:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz8rqmBbjTpWaT4+RE2uPaJvpj0uzPwi4JSQA0FXVzPNUbF1gi4yA7kukrsDgpOSivkzi3N3CRzgaM=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:2301:b0:488:89ed:4430 with SMTP id
+ ffacd0b85a97d-48b02522f7bmr5017118f8f.33.1790799171532; Wed, 30 Sep 2026
+ 13:12:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+ <179045227485.41069.12855843493298872118@gmail.com>
+In-Reply-To: <179045227485.41069.12855843493298872118@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 30 Sep 2026 13:12:39 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UXUmdt6MMdpmc8+Ef3K_BDA_=HBrm=55L6rN3CGFXrXQ@mail.gmail.com>
+X-Gm-Features: AclHuK8FcTnHffXPC8rDzSxRGLknuirXL0tZK5LTHVWoYw6G_lhLZa_jZ9uuWUA
+Message-ID: <CAD=FV=UXUmdt6MMdpmc8+Ef3K_BDA_=HBrm=55L6rN3CGFXrXQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/dp: don't mark the AUX backlight enabled when
+ enabling failed
+To: Oleg Keri <okerixx@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,85 +107,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Simplify the code by dropping the explicit size argument from strscpy()
-where the destination buffer has a compile-time known size.
+Hi,
 
-No functional change.
+On Sat, Sep 26, 2026 at 12:52=E2=80=AFPM Oleg Keri <okerixx@gmail.com> wrot=
+e:
+>
+> Hi Doug,
+>
+> Sorry for the muddy commit message. Unfortunately i cannot reproduce
+> the enable fail. I found the unchecked return while debugging eDP issues
+> on glymur. Please drop the second paragraph when applying, or drop the
+> patch if a code-inspection fix without a reproducer isn't worth taking.
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 2 +-
- drivers/gpu/drm/amd/amdgpu/atom.c                | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+OK, I pushed it to drm-misc-fixes while dropping the second paragraph:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 1e21e3444802..34defcfc563d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -327,7 +327,7 @@ static int amdgpu_atomfirmware_get_uma_carveout_info_v2_3(struct amdgpu_device *
- 			uma_info->entries[i].memory_carved_mb = (uint32_t)opts[i].memoryCarvedGb << 10;
- 
- 		uma_info->entries[i].flags = opts[i].uma_carveout_option_flags.all8;
--		strscpy(uma_info->entries[i].name, opts[i].optionName, MAX_UMA_OPTION_NAME);
-+		strscpy(uma_info->entries[i].name, opts[i].optionName);
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index 92c98e999efe..40829d2f9c97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -428,7 +428,7 @@ static void amdgpu_connector_add_common_modes(struct drm_encoder *encoder,
- 		mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
- 		if (!mode)
- 			return;
--		strscpy(mode->name, common_modes[i].name, DRM_DISPLAY_MODE_LEN);
-+		strscpy(mode->name, common_modes[i].name);
- 
- 		drm_mode_probed_add(connector, mode);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 9269e780feb7..aafcd60d2107 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3591,7 +3591,7 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
- 	 * remains intact for multi-GPU systems where this function is called
- 	 * once per device.
- 	 */
--	strscpy(buf, amdgpu_lockup_timeout, sizeof(buf));
-+	strscpy(buf, amdgpu_lockup_timeout);
- 
- 	while ((timeout_setting = strsep(&input, ",")) &&
- 	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f280e2..9796eeab73bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -1410,7 +1410,7 @@ static void atom_get_vbios_name(struct atom_context *ctx)
- 
- no_name:
- 	/* do not know where to find name */
--	strscpy(ctx->name, na, sizeof(ctx->name));
-+	strscpy(ctx->name, na);
- }
- 
- static void atom_get_vbios_date(struct atom_context *ctx)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index c3322058720f..a50d2885d786 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2356,7 +2356,7 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		for (i = 0; i < GFX9_NUM_SW_GFX_RINGS; i++) {
- 			ring = &adev->gfx.sw_gfx_ring[i];
- 			ring->ring_obj = NULL;
--			strscpy(ring->name, amdgpu_sw_ring_name(i), sizeof(ring->name));
-+			strscpy(ring->name, amdgpu_sw_ring_name(i));
- 			ring->use_doorbell = true;
- 			ring->doorbell_index = adev->doorbell_index.gfx_ring0 << 1;
- 			ring->is_sw_ring = true;
--- 
-2.53.0
-
+[1/1] drm/dp: don't mark the AUX backlight enabled when enabling failed
+      commit: 707ce102521496c67860d81221b20c56d8255f2f
