@@ -4,139 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C0BCA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68AECA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7237310F4D0;
-	Wed, 30 Sep 2026 19:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48D0A10F4CF;
+	Wed, 30 Sep 2026 19:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OILzZ7JK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iq+1l6iO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SuKZWSoh";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010011.outbound.protection.outlook.com [52.101.46.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC42D10F4D0;
- Wed, 30 Sep 2026 19:38:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m04L0K5Q623k45IjWXjm9dtAoJBwLsvXfDpHAhisXZOpd2XdiTGgYG8LhKvPntymvpL4lb/s/nTaEazMwUwpHc5EoRBD0tcfZx6b7HDbnkV7TG7ZwTlYOtEXGGK0RTgwLLU8DItxIxL6D1dDrn+WPjvIILgWCJmAiwROZeC6lTOkXGjjIZrWtJXVaN4+C+jAGwtL4AfZJwSs2P2yRtMGIT0+88sZDtXRIqwbk0wsq5DzAK1iAyMV2Ky3Pt3/EgojeKdMfrpf/0BuQV/Ux7d+b2uU5K1q+cRNurvyEiQPz6Vuc6QNzgFqbkGecWRSyily11kBgZjtQV2a/Te1g55kNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tY8M6grLcpB9pEpS4VnElnpg1muLYBzPiZkYhOVCRGA=;
- b=CyNhlvNGy7Lx2fAkfZy0gwOW2iwPQqAX8zDbmD4c41yzmvC3iYSho9Xx95J8oEjHhhU88oRtAVK2LuGAAGz7OjGlm9LKCSO/u3lbkmGFP8+iboOFzVK0QyRqjmq3Qfw2eX8TN05Rb9FksQ8RVGFXajJRfPfyREO5C8ZOKneCqv3Nh4dbTk+ZrmCSpDx4CzZo/Lq4uXQHMmG9ZWFrQU9Mg7z2OQgAYXwwzTWUAuUISXufEQ1GpshcvJVdTAmCm3UQ5bFFz2m0yDxYzrRYkgVrdK5tj9SBRP2wrPFIuK5+DbIryP4Y/qEdvJ53q5bkCBsKTfPVqV7K1jMhMm3SMinKkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tY8M6grLcpB9pEpS4VnElnpg1muLYBzPiZkYhOVCRGA=;
- b=OILzZ7JKmlNDzk7bzbPMBuecpvRriFsNYnFKY/xDJPNCS9lFxyGf57aiVlE/cyd1rfDZXFlL2icviX4XW3n1jhE1Jv2ztA4GUAgWMHP2TqSESAxsEcQ8oL0ah3s7xOyiPSEdny1QVN7Fl7/1qi+hKbxr8CBwjRkf5ZUS2ZIaYjA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by SN7PR12MB7912.namprd12.prod.outlook.com (2603:10b6:806:341::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 19:38:17 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 19:38:15 +0000
-Message-ID: <dd7a424f-c6bb-4fc2-8738-c969541aec94@amd.com>
-Date: Wed, 30 Sep 2026 15:38:06 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/11] drm/amd/display: don't ignore failure on blend
- colorop setup
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- louis.chauvet@bootlin.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, sebastian.wick@redhat.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E85D10F4CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:39:55 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68UHfm1U238927
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:39:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=; b=iq+1l6iOt43+HODB
+ OrP2L1N18QN8DVokSnxOSMoDoUYxGEViWcv2dXrfeH6pIW7NscwRUUD8yOm0ftDC
+ hzY1EHzXXhkPcXAFxgqIg5AVuNU6sKBKLrtgSuUIz5x4KOgVkOIQRo3AbV7Gb9T0
+ ORkpaU9j0dGWsf832oqkqVSEwYPal3KZUKiCPVkXsCvo8dTEFSs40d5+yh9CMvJY
+ 4jUSwTQlnMjY7JfGKNzXwh91020S0N1HPgBjS/2i8h97cECtAVb5+9kWhbQ+m5fd
+ igmq3trzbanjXQJIHCO9jLIUv+3eyCazHiVDU2UG04Ycv6H6h7AoaHx0RxkbsVbo
+ 7i0imw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0w143h02-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:39:55 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93a0b66ecd9so888027385a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:39:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790797194; x=1791401994;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=;
+ b=SuKZWSohclp37L91m5JVpntLPzXLC/ArwnPhwYcxoN8yR6WTm6kahp/88siL9A/Sw/
+ eyntZrsCum3Km3yW4QRJEItDZSQ8NgxTiM9H2OuRyQOGtuJIfLO4zI0PaxcG7lu4OWYJ
+ ZABOAy/ZwibrMKMaqYGEWnh49KSl1Y/f3g/WAbxf21gktUzMhJPo3YzF7os6XKMDVGhp
+ afO2Dr1QrM2KbsyurXE+GhoMN3rdlLGmPMyiIuTGhB3vvYSD58Xoh6lqSYSsyVuLUxHS
+ FYssmHAg2Ay04Srlfrw9JfJwmNVLhkyRs3clobxqyqN6HWade2Ob5TQBU2aCj5lrNkks
+ cfnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790797194; x=1791401994;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=;
+ b=c3TNSB3Su/J+nQyKVO2QIMJJKH9dBnaPFuegxNT6j1mIF1xVtqI4K3RFhQHnXy06zC
+ zsvKsSfUzJtcLu3l0x3QJ6ip2rv7tQSTjArUP//KgkxprUxaMl6K3/3HpydDOF0peCUa
+ DNQhhuY9LCD8Hi+4vfwRWCk2O8/kG8O/jkdIHEVoXcA2pw7SA92OrmHbj52Wt+molFnB
+ Ga5KWayOIvWylm+pr9zcv6zxehubsrcn6jQX3VEVnKbsWCvg/hyuJg12k22xxnaqAAXv
+ CG5Eh4cg+u+++ds40ZbnWQbdPWxJ1TvRk6Z1MIqYCoRFI7w5SJbhgJ2Tt9GaQ6FnZyb/
+ xErQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxmHUtcE06SCOKyi4NEs+S72hjyRf8NAKwbfw6udTkWFULJwudYEGRhzSDNzv++mKSho3GL4WDg+qM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kM7emuY+wN/jPJu9cTOlIu6Cuxf3/CjS3ejANOTQ27DwF4AnNT
+ sdhxbQwobYUPBq8JjAdMQYk9KYQPQIOeM6vYanapeZ/lJzobIP3qsnLo8YW2iF7dKCkq5XzpK/n
+ jxzhn00Zw/MKZecv2Zm/83caKpfUAUEeg/r8zbB5N14Qf6owRjdmKnPJt05WSEOxQPcWevbY=
+X-Gm-Gg: AYBFou1PfEtf6xqvh6gHIxeO+PpCx1VQ6v22pmoguJD/+jrZoloc+bXfj+IEamoQEgz
+ o8lWT4Q1O6TMmCa6wtaKuJqOM8wQtnGfBrIWSPuoNN3jPXlXUEqVEugZMNXs6jtjxpy5wobCFUY
+ lKd45JreX6I0MZHr9wYRcg02pC8Z1XhscPkR8L01HSGN+bxtmumn7YDCwd353dFQy0JX3SAzLmk
+ R1a7PKB2fogTAhXN1HJUnIhCKcmHJJDKKP1FPVVBtB+hT0/8uhX8vvmjIUco6zX5F6ivGiRX9ta
+ q4ZhrwXXJIpiU+yHT+H+zmkrDDvYV2LiBOXxpyWAUzC6x+nYrO8e6EwiqhnKjx1cwVYtJz7/ULw
+ HcVa+Y3t/LUhAddDonXVHulJ5m3OVq8cN2SvqvMxy6rUtcWofBz3VagLVZ1NBmozREZ58csGZkW
+ segtL6M1jP+UnM
+X-Received: by 2002:a05:620a:4728:b0:930:9091:f0ce with SMTP id
+ af79cd13be357-93cac0bc11emr385860285a.22.1790797193919; 
+ Wed, 30 Sep 2026 12:39:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:4728:b0:930:9091:f0ce with SMTP id
+ af79cd13be357-93cac0bc11emr385854385a.22.1790797193398; 
+ Wed, 30 Sep 2026 12:39:53 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a7717f21bfsm9587661fa.18.2026.09.30.12.39.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 12:39:52 -0700 (PDT)
+Date: Wed, 30 Sep 2026 22:39:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
-References: <20260811171011.184964-1-mwen@igalia.com>
- <20260811171011.184964-10-mwen@igalia.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260811171011.184964-10-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0394.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::23) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH v5 2/6] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <zr4c25viml2zz2wsveroirwg7ufs4ptlrv6tluqrjtngw7v3hr@firiyjbrj4cq>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-2-c042266b9eeb@linaro.org>
+ <5r6xd4iiwnv2v5ji7xeddihlqstmtajvw5ixmntlwxxmcvo7y6@zueqflvz3lr5>
+ <CABymUCP5Gs5Zx9C39RHj+1_mU7aLou9sfgZO=7yS=+fVPWHeLg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|SN7PR12MB7912:EE_
-X-MS-Office365-Filtering-Correlation-Id: 298eb0d8-fcc4-41c2-ac6f-08df1f2a5eda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: cGWZSWWmbLNlFbcwqlMGp+GXVxtwCx7IW2lHow7QclM04IctaNNXr8n51oKog9x5PtsQAoqbBVLCfU5/p80xQ8AtkcB5SXLgHZ1EbNZ9yog5g3FFm5R5DvIYV7nBnnrTLylVxHu8aqXOhSge/bAIF2+M5Z+tAKpr3EZ7z5R4R28a8lV9kUweOUhXDZSuSq15B4QNXhT/QFc7+ujiexM4/60fSij161ODN0xpckxl+vnOz5jPtobsaoesVe7gnC+t08Qut5bcKF+Ac3BeLsP8eAgG0+FacqFP9EW/wSaqR2SsROlgKDXQ4b6JWBcMJLy2mfd58m2LFesnaf16yluy5M40Tfi7nNX6fZFPmbwxphIJjgch/VVWZtjJ2lMA5Kx80mwIjotVytVz8s9yH2ITwtSm1MPKhGmbcAbVA/vAVqj2Kkwddaa6BU7sSzJiN5o1PA1vJdRDBu6AirE4ITHgTrn69It/Xx67T4378esO80Isvrz0fxUxn9IRnVLe37zvk8WJ+dofT18v5Od/icsYtXgyrfnOo0trHt7AaEWFHUEMWKPdMOF1xX2cKSSJWsR+UtQPyl84pMHlnMOdv5SMXtG5sJtxbtVxVNnGJiOFzWwGENNOxGU0HUfRWJrGHhGTVL941ztrquieav/RQqqScHwlBgcZvfNrKGwKaaX0WqEUqSIZflMRWn8QoeQWLGxrNyWi4dCVekl2Su+Bf8WRmw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(921020)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VGcwa0ZXL1BpU2FDNkxkUmNTY0xURXdheFFaUWdBa0Y4T0o4RGJVTUxUbWlz?=
- =?utf-8?B?bHIxNzV2S1RxVnpRdW96UGswWGVWdU9pWUg3QUpmUkJnZDNUd1RMNFRJYmF6?=
- =?utf-8?B?ak8wb1ZuNi9qK3JETFIrYzBvMDhGMk50TFpSK3ZlR3dqbDgzQWdYY1ZYVE1J?=
- =?utf-8?B?ZEE2eFkvZVdkazZuUjFuMUJWajF2NXNQMW5zNWdkUXlqNkgxZ0J2bzdqZlVI?=
- =?utf-8?B?T0xoSFdJOEVkbFF6cmw5Vk1USU14WWdmSHV1YW5UYjllWlM3Q3M2bWtYS0xs?=
- =?utf-8?B?RGNzYUp3SWNuZXdCMTJNMzRaU0lIWkhaVXFZdU1WOVZJY0pWTDk1V0xCSHJ3?=
- =?utf-8?B?N0k3aTB6emd4UU4wY0FTS1kxK2w1SFR5ZTM3VzRmQXpLV0hOeGN6c1UxL2J2?=
- =?utf-8?B?OUw1Yk1qNlYxTVA2NkRFQU9JZ2dXMUg3a0xKYzBZcURpSFNGeWhIa2lHQTN6?=
- =?utf-8?B?MkpWL2YvNkRTdzhDZXYrM1ZVdnlhYmVncTlZMzMzOFRnVHhNWmwyVWNoblVE?=
- =?utf-8?B?Mm8vZFowOWJjcE1aS2M3cG1iNlowQUtDVUJWZ0ZZSUNybXBhQWxYT2NXcWtO?=
- =?utf-8?B?ZXNjWkRPUG16WDR4c01ybVJ3M1dDQ21yUGd6L3ZtOFpCVGcwWDlOaGk5RTh0?=
- =?utf-8?B?SnBZd21lZ0RZUWw0V3lqZ2hoNWtTbTNjK0RCT3M2cThNZWJzbHg3VVhlNTRj?=
- =?utf-8?B?OFlOM3VkU0lPdUZreXVCMGlXU3R6Q0VjbHZ2Zm1BZmZEZUJlb0cvZnJWSWhU?=
- =?utf-8?B?OXN1LzJQUFJ6bWM2dnlIZlhPcGFSY0E3bHNXek1BR2ZrVzNCNUhPOENLTm5M?=
- =?utf-8?B?b1E1Vlg0akdwNjJ0UE5KS28xUE0rTlhRa2FrK3RlWlpMaTdFMU1nRjZqc3lo?=
- =?utf-8?B?TDR3YWdEck90UGFnRjg3bzU0RkFXUGlQY2VtUTlmVDlxblNqWks0dmdkOWxy?=
- =?utf-8?B?cHhXZHVadkpxY1VYK2UrUytUTEM5TzV6anhOQ2VrOGl4TGxIbEN1a1ZSQTd5?=
- =?utf-8?B?cW9KajZlNEFySi9mdXZXUkZYYlYvSjBHdFZuY21LSXBrVkNKSU5hNHdNNHEv?=
- =?utf-8?B?eTNGakZubkVQcXFqV1NiaUxtVnRkY01XZ2k0eGxwNDRRc0Z3ckVZOCs0L3J4?=
- =?utf-8?B?OUZ5cDlzc2hzdzNPekZNWlZPZnJTY1Q3MGFiMnVod0h2aDFxWS9qRjRqZ2p2?=
- =?utf-8?B?dXY4cHJPZzNGVzB4NzVUWitpc1FSQ2FqZkN0VzBCcysxSEVETGtkeTlqWnlp?=
- =?utf-8?B?Qkh4K1J5ZXgwNVFselg3TEdqU29wZE84cTFGWjc3Z25kR0FZcGdFamZkT0lI?=
- =?utf-8?B?aVl3VWRJb0NqYWdJMEM5U1ZDMFVMVHovNGxZME1la3pGVUpjZE1SYzl2VUw3?=
- =?utf-8?B?MWpKY1R4QUxhTnJXb3VwUy9PaFdubFEyN3ZqYXNqdXVjV0ZqWUZxUTNEUDVW?=
- =?utf-8?B?eGdCZFVpWjJWeUFNZ1NHYzR3TjVOczdPNjlFTG9veDBrQUd3SG0yVHhkVXN4?=
- =?utf-8?B?RDAxN1VUNithUmI3STc1Q2tML1dqa041WjgwM1RwZmZYTVUzNHFjSUVrZzYx?=
- =?utf-8?B?dG1CeTRTZmw0TEloNVRDSXhVb29WRWRLUmVodCttUCs4OXB2RmNSdU1zUHVB?=
- =?utf-8?B?cU1VWHBaSitRb1BjajZBSU5TWWpOT0VncG1lZUljSGhpREg1U1V1TGVXNlRI?=
- =?utf-8?B?TXZTVnVYeFlMMk9vckJ4NU9PWTdSeUw0TjNwSnd3cFhZVDdLRGlDMFdIazJM?=
- =?utf-8?B?ZUxJRDZpTEx6S3ZyaW9TWkw3bnRINzNueWZhamhhTUtYUEpsREM1cnF2SXVS?=
- =?utf-8?B?aWd6ZExzNkl1SzBnbFF2OW5xT0Q1S2JPM000Ti9DZ245L21VdTl0bTZURkYx?=
- =?utf-8?B?YlVrK3QrSjlZUFU2RXpJTUlDZ2h6ekFmNWJHcU1IL3VycmwwM2N6dWhrZGhV?=
- =?utf-8?B?TE54WUR1WnhJbGNQaFhpZGlWMzhvOHhDNHdXQnlBQ2IxOEdFTDhNN1NOcGl4?=
- =?utf-8?B?N3E4V3JwSGNqcXhpS1VwR2JTc1p1b0pQcVlxa1gwZlhnVm5pRWxhZGs0Q0FS?=
- =?utf-8?B?enovMEVHSnEzRGlLQ0F3ZGJsd0xkOWMyeFpuc0h2YUpraUNGU3g3Q0JyZmFz?=
- =?utf-8?B?YURvbGhZY3BBbTNCVHM0QUl4UXl0cWNXekx1QzY2bEtvMGpVblYyVUtNZ1ls?=
- =?utf-8?B?WWdWd3ZtQXJmL09VTVNnYnQ1Rkk3enB3c1lUbStLczZWanRwNGtCc25lUTJ6?=
- =?utf-8?B?TDQ5cXEwbUtYR004Ykhva094b0tULzF4OU1NTEh4V3N4RUdjRTRSQU5QU2VT?=
- =?utf-8?B?UXdVamtsbzBlWm9NTko3WVczd1YxVDRRb3hUeTVJcmU3bm9XVVNJQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 298eb0d8-fcc4-41c2-ac6f-08df1f2a5eda
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:38:15.2265 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t+GdBbSik/a0AK623PnmjQ4dBnf4JZC77ur1suZxfX6i2wIuSzFunlB2fLPj8k+5uc6/KDVp+QTHXyxpr35xUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7912
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABymUCP5Gs5Zx9C39RHj+1_mU7aLou9sfgZO=7yS=+fVPWHeLg@mail.gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX5Rt+YiRT/jDU
+ ZIGOjCH2iodRwp0rbWmjmb9rNsLyTkBjOM5dZs/zbwDaPsjubpA+tCqZAfiLGdYQf/a/IykP/04
+ WLYc3vFyj1Ce0zfLOqDxICuBhyR9/4U=
+X-Proofpoint-GUID: _MXEXSEad-m2CNkSoV9t6KEGu0UKlzRv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX3a+U+C6a4jTS
+ 2pbV7JG0/jt2Wwx3UbV1auJV6JUQbJ2wTOAz1AIg72ST5TrQbRoPcV5apPi1rbhL61lUzZhLsFH
+ 4h178hPsFowC18G3djKywDBM58kDZtxDBxcvrNGLuxF8mNze+gP20BpKLlpLaxDQahb6spkc4m6
+ NqbifyWzLez4qoKIqL7zC3wlD1HA337d5WFwh4F0oR2GoQsQwQ47oDyXtkirCT0NHN9vgaiskLK
+ DMLDM0mPfdmIW5RFqmMohisulOs/DSbuzJnA1Zu4kfp3y2rIVnV3GBH1MsTobrmkpvBoS9sGTHi
+ jfM7j8dfOYRhs5r/5adFkR16dRM+YcIK4Pee6UCZf9lMxfNAdk3kYR1eHfpGOyThddpznG9mWi5
+ sq6h7wwKG/MBHbRmXMlqqnGf4d66ySqijW3fnspBb0VJgNYeoqhOv5g5HjCjxEMhQnYtPxGPNnk
+ amRDkfrYc4Jao2Mt/9Q==
+X-Authority-Analysis: v=2.4 cv=J8Q/fwnS c=1 sm=1 tr=0 ts=6abd658b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=RAbU-raeAAAA:8 a=KKAkSRfTAAAA:8 a=GV4QO6qSl_99BXC8EjIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=JiizpSU_mAIq9zsZDqn2:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: _MXEXSEad-m2CNkSoV9t6KEGu0UKlzRv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,68 +163,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-08-11 12:45, Melissa Wen wrote:
-> __set_input_tf_32() can fail on ENOMEM and let the blend transfer
-> function setup in an unstable state. Check its return value and only
-> enable blend if transfer function was successfully configured.
+On Wed, Sep 30, 2026 at 09:42:41PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:03写道：
+> >
+> > On Mon, Jul 27, 2026 at 04:08:41PM +0800, Jun Nie wrote:
+> > > Some panels require multiple slice to be sent in a single DSC packet. And
+> > > this feature is a must for specific panels, such as Sharp ls026b3sa06. Add
+> > > a dsc_slice_per_pkt member into struct drm_dsc_config and support the
+> > > feature in msm mdss driver.
+> > >
+> > > Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+> > > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/dsi/dsi_host.c | 27 ++++++++++++---------------
+> > >  include/drm/display/drm_dsc.h      |  7 +++++++
+> > >  2 files changed, 19 insertions(+), 15 deletions(-)
+> > >
+> > > @@ -1719,8 +1709,14 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+> > >       msm_host->lanes = dsi->lanes;
+> > >       msm_host->format = dsi->format;
+> > >       msm_host->mode_flags = dsi->mode_flags;
+> > > -     if (dsi->dsc)
+> > > +     if (dsi->dsc) {
+> > >               msm_host->dsc = dsi->dsc;
+> > > +             /* for backwards compatibility, assume 1 if not set */
+> > > +             msm_host->dsc_slice_per_pkt = dsi->dsc->dsc_slice_per_pkt ?: 1;
+> > > +     } else {
+> > > +             msm_host->dsc = NULL;
+> > > +             msm_host->dsc_slice_per_pkt = 0;
+> > > +     }
+> >
+> > Why do you need the else branch? Isn't it already NULL / 0 by default?
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: 5ed78b44e4e6 ("drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT")
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> AI bot review comments reminding a case that panel device may be switched
+> to another panel. Not sure whether it is possible in real world. Just add this
+> for safe.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+No, thank you. Either it can happen (and so it should be handled, maybe
+at some other place) or it's just a pure AI dillusion.
 
-Harry
-
-> ---
->   .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 ++++++++++-----
->   1 file changed, 10 insertions(+), 5 deletions(-)
+> >
+> > >
+> > >       if (msm_host->format == MIPI_DSI_FMT_RGB101010) {
+> > >               if (!msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
+> > > @@ -1757,6 +1753,7 @@ static int dsi_host_detach(struct mipi_dsi_host *host,
+> > >       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> > >
+> > >       dsi_dev_detach(msm_host->pdev);
+> > > +     msm_host->dsc = NULL;
+> >
+> > If you are fixing something, it should come as a separate commit.
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index ad67106c6435..c528daefac5e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -1835,7 +1835,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   	const struct drm_color_lut32 *blend_lut = NULL;
->   	struct drm_device *dev = colorop->dev;
->   	uint32_t blend_size = 0;
-> -	int i = 0;
-> +	int i = 0, ret;
->   
->   	tf->type = TF_TYPE_BYPASS;
->   	dc_plane_state->cm.flags.bits.blend_enable = 0;
-> @@ -1870,8 +1870,10 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
->   		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> +		ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-> +		if (ret)
-> +			return ret;
->   		dc_plane_state->cm.flags.bits.blend_enable = 1;
-> -		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
->   	}
->   
->   	if (lut_state && !lut_state->bypass) {
-> @@ -1879,13 +1881,16 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
->   		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
->   		tf->tf = default_tf;
->   		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-> -		dc_plane_state->cm.flags.bits.blend_enable = 1;
->   		blend_lut = __extract_blob_lut32(lut_state->data, &blend_size);
->   		blend_size = blend_lut != NULL ? blend_size : 0;
->   
->   		/* Custom LUT size must be the same as supported size */
-> -		if (blend_size == lut_colorop->size)
-> -			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
-> +		if (blend_size == lut_colorop->size) {
-> +			ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-> +			if (ret)
-> +				return ret;
-> +			dc_plane_state->cm.flags.bits.blend_enable = 1;
-> +		}
->   	}
->   
->   	return 0;
+> The same case as above.
+> >
+> > >
+> > >       DBG("id=%d", msm_host->id);
+> > >
+> > > diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
+> > > index bbbe7438473d3..c522ab3d71853 100644
+> > > --- a/include/drm/display/drm_dsc.h
+> > > +++ b/include/drm/display/drm_dsc.h
+> > > @@ -267,6 +267,13 @@ struct drm_dsc_config {
+> > >        * Offset adjustment for second line in Native 4:2:0 mode
+> > >        */
+> > >       u16 second_line_offset_adj;
+> > > +
+> > > +     /**
+> > > +      * @dsc_slice_per_pkt:
+> > > +      * Number of DSC slices to be sent in a single packet. This is not
+> > > +      * part of DSC standard, and only used in some DSI panels so far.
+> > > +      */
+> > > +     unsigned int dsc_slice_per_pkt;
+> >
+> > If it's not a part of the standard, I think, it should not be a part of
+> > drm_dsc_config. In the end, drm_dsc_config is also being used by other
+> > parties, e.g. DP or HDMI. A year ago I saw a version of this patch,
+> > having this field in the struct mipi_dsi_device. I think it's a more
+> > correct place.
+> 
+> I will move to struct mipi_dsi_device in next version.
 
+Thanks
+
+> >
+> > --
+> > With best wishes
+> > Dmitry
+
+-- 
+With best wishes
+Dmitry
