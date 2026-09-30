@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A00ACA5FAC
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B69CA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:44:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8383F10E9F2;
-	Wed, 30 Sep 2026 11:41:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29E2610F312;
+	Wed, 30 Sep 2026 11:44:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NkJCUKXq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VSWXjJHV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981B310E9F2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:41:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0FD10F30E
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:44:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C11FC60008;
- Wed, 30 Sep 2026 11:41:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B9D1F000FF;
- Wed, 30 Sep 2026 11:41:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CDA0B40592;
+ Wed, 30 Sep 2026 11:44:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E935B1F00893;
+ Wed, 30 Sep 2026 11:44:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790768474;
- bh=0uhaapHh1fQl5mGq6fUQF0C1kT9MNPfYwDQo75yZQyo=;
+ s=k20260515; t=1790768641;
+ bh=045Gg/9FNTZlrsi+oP8Nxf9edT3+jF24v5WNbYcZjwE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NkJCUKXq/aO1S6/xTKpuIdo9dBO93tuXErXptUkEc+qiDt09wkTKPbGX0bSLT8wsu
- kQTDAFRh53cfcRYpGgL3CsY9zrgSKpmcc+nKt7Eo5+5tJ/VFWfBMbj5h9VCBG1wBDy
- 1uWSkLkycTrHPx6cuax16vYym4kRSmn/RCk8fSSPO1B2kTnVBcbfB0v2N1oUr1aSOt
- bCOPcTddnG+93WZtvpK0fjR7AUvIm2XviZ0ypVMPPy2CRbt0ZFKyN1fLPytuWhmHdD
- mcfvwiT+u+3QPb+ylJcPxOYCjgFv+idSPvV5b63Py++Nbe53LRf2JGAQ8vwidcCNad
- 6zOKlM5q/FKsA==
-Date: Wed, 30 Sep 2026 13:41:12 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <arz1BYJT30VTosYj@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
- <arzMF0wjcF_SVxpE@orome>
- <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
- <arzlR8mCg9d_z62L@orome>
- <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
- <arzpluDc-Ib7q-K7@orome>
- <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+ b=VSWXjJHVAsJ34fjRpCgdAAm2s+N2fiEQSsaLA83OWsLq4eONyJuVTUfPjdna+84/m
+ q1/1x2A3M5+juV1717SRNgmygTNIXSdte54KjqlagnfyYM5nvdvN6tmbfog6D74Gii
+ rtHNCGwAyKdmRpQAOB85aZYiTw8Zv4AvgiTBZj6t3Y3cLYzgx/Cbu8SdkN2WrV56d4
+ jjoxNRA8oUhe//pwutrYVjDKzCQE6/dOiGbSntP9Yt7b9G6O3cspwsYwROmB1m7da3
+ DTtTpp37fbHkG2hQ4G38CDwinoxY1+ALw5+CQhP61M6Kpz8Nuf7XXpD5Ucku+DcCIg
+ rEraZmriCvq5g==
+Date: Wed, 30 Sep 2026 14:43:56 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260930114356.GC3401365@unreal>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+ <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="r2niuoni5te5qsug"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,172 +81,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
+> On 9/30/26 10:18, Leon Romanovsky wrote:
+> > On Wed, Sep 30, 2026 at 09:00:57AM +0200, Christian König wrote:
+> >> On 9/29/26 19:57, Leon Romanovsky wrote:
+> >>> On Tue, Sep 29, 2026 at 03:39:42PM +0200, Christian König wrote:
+> >>>> On 9/29/26 15:23, Leon Romanovsky wrote:
+> >>>>> On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
+> >>>>>> On 9/28/26 13:19, Leon Romanovsky wrote:
+> >>>> ...>>
+> >>>>>>> +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+> >>>>>>
+> >>>>>> This function call here *must* be in the exporter and not the DMA-buf framework.
+> >>>>>>
+> >>>>>> So clear NAK to putting that here.
+> >>>>>
+> >>>>> "Look, it is easy to complain you don't like how it looks, but this
+> >>>>> stuff is hard there are lots of competing concerns, if you have a
+> >>>>> better idea now is a good time to present it."
+> >>>>> https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+> >>>>>
+> >>>>> Do you have a viable solution?
+> >>>>
+> >>>> Ok, that sounds like you haven't understood why I'm rejecting this.
+> >>>>
+> >>>> By moving the calls to pci_p2pdma functions into DMA-buf you bypass the NAK to expose those functions to drivers from the DMA maintainers.
+> >>>
+> >>> No, you have misunderstood Hellwig's position. His request was to ensure that only
+> >>> subsystems deal with P2P internals. He was perfectly fine with bringing P2P
+> >>> complexity into dma-buf, since it is the agreed-upon mechanism for sharing DMA
+> >>> regions between devices.
+> >>
+> >> Thanks for clearing that up, I indeed didn't realized that.
+> >>
+> >> But that is pretty much against my standpoint that I don't want any P2P complexity in DMA-buf.
+> >>
+> >>>
+> >>> So this is not a NAK bypass; it is a correct implementation of his request.
+> >>> He handled P2P-related complexity in the block layer.
+> >>>
+> >>> Let's add Christoph to the thread so he can correct me if I'm wrong.
+> >>>
+> >>>>
+> >>>> I unfortunately didn't understood that when the dma-buf-mapping.c code was added and just assumed that you just needed a place to put some common code.
+> >>>
+> >>> That is not correct. Devices A and B share a DMA region via the dma-buf
+> >>> mechanism. Where do you expect the code common to dma-buf to be placed?
+> >>
+> >> In the DMA layer!
+> >>
+> >>>>
+> >>>> So as long as that NAK from the DMA maintainers to expose the pci_p2p functions to drivers stand I will push hard to get that stuff removed again from DMA-buf as well.
+> >>>
+> >>> Are you seriously suggesting that every dma-buf driver in the world should
+> >>> have to reimplement this mess?
+> >>
+> >> Well I completely agree that this should probably not be replicated into each exporter, but that is the job of the DMA layer and not DMA-buf.
+> >>
+> >> The purpose of DMA-buf is to exchange DMA addresses between an exporter and one or more importers and handle things like lifetime and synchronization of accesses. 
+> >>
+> >> What the framework should do is to transport the capabilities of the importer to the exporter, e.g. what physical connections we have etc..
+> >>
+> >> What the framework can also do is to have additional information from the exporter to the importer regarding addresses and mappings, for example if they are bus, IOVA or some special internal DMA addresses or how to stitch together your PCIe TLP or whatever.
+> > 
+> > At a minimum, exporters need to pass `p2pdma_provider`.
+> 
+> No, exactly that is a no-go. The neither the framework nor the importer should see the p2pdma_provider.
+> 
+> Only fully translated addresses where the DMA access should happen.
+> 
+> > 
+> > If I keep the “dma-buf: Let exporters hand out the P2PDMA provider behind a
+> > buffer” patch, I can move the P2P TLP types back into `p2pdma.c` and export
+> > only the function that indicates whether ATS is required.
+> > 
+> > Is it ok?
+> 
+> What you can do is to forward declare enum pci_p2pdma_map_type and than pass that 1 to 1 from the exporter to the importer.
 
---r2niuoni5te5qsug
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+Unfortunately, neither suggestion applies to RDMA NICs. They need to know,
+before mapping addresses, whether to create the memory region with ATS
+enabled.
 
-On Wed, Sep 30, 2026 at 02:10:15PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
-> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:3=
-4 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
-> > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE =
-11:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > > >
-> > > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrot=
-e:
-> > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provide=
-d by
-> > > > > > > Tegra20/30 SoCs display controller.
-> > > > > > >
-> > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > ---
-> > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++=
-++++++++++
-> > > > > > >  1 file changed, 138 insertions(+)
-> > > > > > >  create mode 100644 Documentation/devicetree/bindings/display=
-/tegra/nvidia,tegra-8bit-cpu.yaml
-> > > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/=
-nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegr=
-a/nvidia,tegra-8bit-cpu.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 0000000000000..f0dab608b2936
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,=
-tegra-8bit-cpu.yaml
-> > > > > > > @@ -0,0 +1,138 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegr=
-a-8bit-cpu.yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > +
-> > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > +
-> > > > > > > +description: The display controller in Tegra20/30 SoCs featu=
-res an
-> > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Ty=
-pe B
-> > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display c=
-ontroller
-> > > > > > > +  provides two such interfaces, which can be used to send MI=
-PI DCS
-> > > > > > > +  commands to initialize and control the panel while image d=
-ata is
-> > > > > > > +  transmitted via 16/18/24-line RGB.
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: nvidia,tegra-8bit-cpu
-> > > > > >
-> > > > > > The description says that this is a feature of the display cont=
-roller,
-> > > > > > so adding a new binding and compatible string for this is not t=
-he right
-> > > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" alrea=
-dy, just
-> > > > > > need to extend that with whatever is new.
-> > > > > >
-> > > > >
-> > > > > How would you model it? I have tried to model 8bit-cpu as a bridg=
-e, similar
-> > > > > to how DSI bridges are modeled. This reflects interface used to l=
-ink RGB and
-> > > > > panel, without inflating existing DC binding. If you have any ide=
-as in modelling
-> > > > > this, I am open to any suggestions.
-> > > >
-> > > > My suggestion is to integrate this into the existing "rgb" node, or=
-, if
-> > >
-> > > Not an option since it is not clean RGB and there will be no way to
-> > > distinguish RGB from 8bit-CPU.
-> > >
-> > > > that becomes too convoluted, a separate "lcd" node (or "dbi", whate=
-ver).
-> > >
-> > > This is fine by me but nesting nodes without compatible feels weird. =
-Oh well.
-> > >
-> > > dc {
-> > >   compatible =3D "...";
-> > >   rgb {
-> > >     dbi {
-> > >       ...
-> > >     };
-> > >   };
-> > > };
-> >
-> > That's one option, but there's also many other ways you could
-> > differentiate between RGB and DBI. Could be a simple "nvidia,interface"
-> > property in the "rgb" node (that defaults to RGB if absent). It could
-> > also be a node that is a sibling to "rgb" (rather than a child). Or the
-> > child could work, too.
-> >
-> > Ultimately we're still describing aspects of the display controller here
-> > since this is all registers within the display controller's MMIO region.
-> > Nested nodes are purely for adding some logical structure for the
-> > description that makes sense.
-> >
->=20
-> From my understanding data is sent basically as RGB, at least RGB
-> configuration is still used in downstream. Panel commands are sent via
-> DBI
->=20
-> dc {
->    compatible =3D "...";
->=20
->    rgb {
->     port...
->    };
->=20
->    dbi {
->       ...
->    };
-> };
->=20
-> This would work nicely if DBI is modeled using bridge framework. I
-> would strongly insist on keeping it as a stand-alone configuration
-> separated from RGB and DC.
+The importer needs a way to obtain device information from the exporter so
+that it can configure itself correctly.
 
-Okay, maybe give that a try then. But to clarify: this should all be
-part of the Tegra DC driver and not need an extra compatible string or
-separate driver. The DC itself should be able to function as a bridge.
+Thanks
 
-Thierry
-
---r2niuoni5te5qsug
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq89VcACgkQ3SOs138+
-s6EHqQ//aYNTxuvXxI0k+05f8CFxJmke7aO8O+/XJmRJ/lLP9FC9z4B1y+S6Vu8v
-L3FZzMSQlcyWBJtj9s1kQ+qCcgGQr2XSphLpjKTruz6udXibHzijktJIihwE2Rz3
-XhQ/ryWzGFNkTnolHGJJdbowPZWXv+yF3RlghicR2L6zQhkGlTwKKLPFPscSUhLa
-s6cvlP3xSV58K5tVCzaBk8i/ItaK91Z7oPpysDP0xRbSNFsGtNwT71kL+b/p6JPi
-yqIKFsArZyCGzcm/r19mOyx00MDJpBttPjdM3w5ylL6pnaHYZ4dTkl6f/jUrKEOi
-5poQ3w6fmjGTA4IkvtuVSY0UzMfQBrKeLOYZqTuIYEfanUqAVblo78Q0QLGZcn7e
-DUTVjuzaKmYwfdgL0VfDMrNEHRX4Elq+1Wu9tphO1AsRLz0qcXjfcb8PpOWLgAa4
-17GBOuFWkki3N0pGkP0s/4cuyDKso2E92wLqPL1Pzgq0KJcsYDQhzcDEYsRg6uBo
-XzGpTZ/pOjtt6i9Dsb0NAOujaZdMeYQqyYqcwHZ+etOS0zqyHVplXvT0TBqzCw0Z
-ArytEAf+kXPX4yUgDdEnqkxDukSjjiudNMy1Xzzqn3L0bZLfwe1GyuBLkgugRLUG
-e+lk3rwrxcxs7dp9FKHQsZszLU9oX0nsyYaU0YJY5Aq0QPjrt8Y=
-=hL8m
------END PGP SIGNATURE-----
-
---r2niuoni5te5qsug--
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks
+> > 
+> > 
+> >>
+> >> As long as both the exporter and importer agree on what those values mean I have no problem at all with that.
+> >>
+> >> But how those DMA addresses come to be should *absolutely not* be part of DMA-buf! The complexity of that is seriously not something we should have here.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Thanks
+> >>>
+> >>>>
+> >>>> What you try to do here is seriously not ok and I will push back hard on that in the future.
+> >>>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>>>
+> >>>>> Thanks
+> >>>>>
+> >>>>>>
+> >>>>>> Regards,
+> >>>>>> Christian.
+> >>>>
+> >>>>
+> >>
+> 
