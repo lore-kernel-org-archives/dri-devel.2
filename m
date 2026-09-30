@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCD4CA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 09:12:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAABCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 09:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5502210EA25;
-	Wed, 30 Sep 2026 09:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7545910F289;
+	Wed, 30 Sep 2026 09:12:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ANwOoBv1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BS+48xZq";
 	dkim-atps=neutral
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
- [74.125.229.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA6610EA11
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:12:18 +0000 (UTC)
-Received: by mail-dy2-f42.google.com with SMTP id
- 5a478bee46e88-342c08bf64dso339712eec.2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 02:12:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790759538; cv=none;
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
+ [74.125.229.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26FDF10F289
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:12:35 +0000 (UTC)
+Received: by mail-dy2-f12.google.com with SMTP id
+ 5a478bee46e88-33bc6ff6cadso716026eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 02:12:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790759554; cv=none;
  d=google.com; s=arc-20260327;
- b=bE5qVOwUpElTi/KPt4TPEVfkboV0hfsNc34Th8yOUQ9Kt8As3nggQE/BakNiYHOpyN
- qtOufZMqRwpkryixjsKaaMtO/0P8ujAdhCY48jPsgU5In8y687h2ZzW76sv83nlzEsOr
- 4L3Ta4NZ1W2jTNbZMP/tVqATt4QHodwykqPMRxTkxvngzzV7iiTJO75pzqwM7BXqDH+J
- rFhzeVFOYo22aFlfevYDZwaOfrwxLQp+wzlOrw2BuffCZoEVP3jkMPbQasqgUWGyLTDy
- Fsj/GJrXgi1bRog1K+VRq+VIfrYGlAdHBV4A0M2wAsKCo0KToNeigI63W3t2l+V+rzlD
- DLKw==
+ b=eClT8/DgBA0MA077Jw886U4Dib1AbPp1AWnGS4u5ZzwKpBWoZLOJTG8XBbWBQ58eeL
+ L4aQz88shPBat+i0xIS35Ckp5QRnNNsjvYM7Fa6Uhx8LctY67G2yOX+xRpvXRrBDjKay
+ HOK4285/4eAuaEdWQetwh2Lupo+QsphU1XIi0JHzCrjvmJEjnDGiUiugg1oIwKkfNFS/
+ 2ofPtqnuVjPzkt156ufJpLkjCwxhPZOHlyvXyXshZNLROnia1kDQX+Ka0DNa1i5A/pRt
+ ru/7bVkgvzh9wgJMtbg/JnbvYHbmOW6YlvQZBIu3Y0zdMJulQ77jRoaUlrMe8GvgNEbf
+ PfYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
- fh=/Aueotkbrsh6ZtmEJyVFTZTp9KK7i8JIFsPwJaZGlTE=;
- b=AALrYiu38n3JezFFNDxkKqryGvSHc0ZYJAWDcmFTvAAFCMaGg55I0CBhlPKgL/FQQV
- M4MbBLzjXWQWz8y6wdUDZQ7SfBb7fHrODUbdVslrLSfDyvpbEG7zW5wwP0e8FMde0xkK
- 8KwRba0Hzi4wxCKIP72SzATl9PmhSr8OPt43fDyi/FqGDzAmq98JGykVFND69cU6cMhb
- fVnLj30YtCwQ3A6dUGkmYueHZz6uvkME13x/bRtKz9Aa4+vaIUL3Z9XuuUb42MCBoccP
- 7zPKGasD7IsJqwEx5Um0qIO4jZ4buauqNwhIT6f5+8bLOdnPUSs3bMthvBvRzIUa3GyF
- yvoA==; darn=lists.freedesktop.org
+ bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+ fh=g9r7U4LG1kkBarAt9X2f1AWYLz4S+OSWAkrg+usAnFs=;
+ b=UcefGjbub10tDHmzLOIUJaLzHmtWOLgYN8gjBXdqSY9HkGgaN6U59vMwYQSut2JuEL
+ V4KZuBOqnEce62L1wGNdSosEpkitypRJzToetMYkjF6aqmKYH6aPY8Gc7f9ZcMBywK+Q
+ NeWm8QvikVs86n62wwjMuzNkg//I3Gg5NVoTQLlwkeVPuRHXdIrnImgzHNd9gjR5t6/J
+ wtaIH1F3QrKDz4DaN06+XQsRtMVp4MN9teFcqD1GcCQH4Wno1e2OnBG6iua9mBlUW9Fv
+ L5q3Q/iRAHnrJjy4qrkdHGu+N1mDi3vSBCc8MHyT04POivLi1AcsMJBk/YKlOLybO8Bp
+ bQGQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790759538; x=1791364338; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790759554; x=1791364354; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
- b=ANwOoBv1YJggQKMZKU0+xPKQXd1Fv857VeTm6hl6iG00lUBps0nw1NdhxLaaLek2za
- wfxRKxNiXkmNdbq8DeSRsNRBrgFBNaPzUUyTu7sDsFnVQUOohp0Jg81wm8iiJzO0MCAd
- Z4lbRgStJYa5uet6QlRw8k5CVIwymqXdYCkKyLAg3BfF3OSBsDKXwM7hChFPsolCAwEY
- samB3FZsEaYPHMH/AINXw7QrITwNS8kpz4YeJ28pBWaWBGlWKfS28goE4mNiTP8hsYnb
- jCFb2GoTPJfpNZHvfwOfB4Wt25OZ+npux6laTf6/qymCAnkNs83vxQdUK9PpVqX3nRgf
- R0LQ==
+ bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+ b=BS+48xZqh3J63DrLIYszittwHdboneFDNbQlVsxrZkKByU/VMf1EMNhggdlfnxTipd
+ 8BVucSW9wSVBdnFl/Lgg8Du1ubR6FNqGWCNwb69Cl45+vNgM0XrkVlS/1U1Q/HJGsOZ/
+ 9twu0Stex/Vkgdcs1edP66rc47INbPuFFykyTD/xz5gDBxJAUUsZMDEaQkSzzAivWiI3
+ Zdh8eOs9+KFG3rPbm4po9uEoJMlaPcQtuHfVr/jN5YKDK55nQZrCEHhWOAgjWr2f2gzx
+ hWs77P7UzQAJsSRoPOQXFIN6RwP1YpySNdVwG1CzqhSbwXY8HOZL3Gm7ApvYsugqkwGT
+ QM9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790759538; x=1791364338;
+ d=1e100.net; s=20260707; t=1790759554; x=1791364354;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
- b=Mz9dGKAo1fmXY5PFLWaPUJg1MdOnTvC3ix2UsfSARYxsijpFSwXDarAxxSGOXqI3s6
- zZAdSjJCvMB6OWmBiinpCIMG45jvSVRovhmKwqPK2m5fX2laA9ovkiTznmyNdP2oNlQX
- q4SMDpgUsmflOzjcR/aI7XlR8n4hpnjZrTo8icdPr+penO/VadtTTjDxyqX0qLO3Q3OO
- 2XT8SXYixeaAoROLv34AwwXHg3nuuwlf5PbFNasknK+BS56WRkCAZn9gMtu4PpIveEqh
- IQ9ebRDWiuxy4321bIvJE2JFT7UHdqXdYTZYs/9Obo3QyvKiEX+JbkB3iul3fNPIK9C0
- OqaA==
+ bh=3sCYKDjhxCoL+MufuJuPd+TE5a5HbHhTgY09VgieO1Q=;
+ b=KtNhMmODxh4Eb6vUUGnZ80fwIZ9yfZPJ62dcElfGBGuj5ooH8uYK+iVm/x0i+6NzUD
+ vnchSfBcic85pl9FZAGiKtm6bPxMVyf+VG/uW5VnScsoF82ArH3QVUqugu/L/b+/wiJk
+ VomImQQNXJyj3Bpso6kBo4EVMHmnxQieDEOYU8MbOdG4E7AWVSJj5ZBWrVQHE8yDb2FW
+ CGp4+SjAEbYvX/whhoZpnsifPUk8Xb5Ad2X/mjoap+88ZqAGI/sBGIYJWUXbjgrj+w3l
+ IQ4kxiwc7wnK47nGvUK0BDOThMNWmcb7Qw2QhEoL0ig93gsHLiA1k0h1lyNcDxV+Ajhp
+ RqFQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw+5E/zafcuG4wWfA2lNwOznQwLWy/g3ybVYYcOyXUQmDSPljmwvaAgXt4h/J7XYaAlPKUXLbtWACA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLxiOP5thLoRb3gG1bSlghUx1HLmhFIM0NIZTyWNz+1e2b4Pyha
- Y5funKXlYqfT5L9QEGRrvXP/mxVrBx6KaYlHb0wlW4hjDz5e2Yi5kM2zJyfV10uW1DevfkhgRJK
- 5ghFIemkfc6iCnZ5wR8HntlZqbh2my5I=
-X-Gm-Gg: AYBFou20TesaOW6nIpi0Wh2WWtDZ4CqRG2YoA6tWrDW8PKA/pZPFl+QKzQvdf5avd4I
- uvvmEcLAvq6zmv1s1cOjY1zJ1un9A17faMpJg0YttEyy7G8G5n7UHf9lFZcwHp95S0S/Hqm2yq1
- VVGHCylJ8wFiujJhLzVfhKVnM1fpGbgfDpEe8L7tNuNHGt8Ic83fwTuAMKPe61baPf+Gd1gYEES
- 9rWur4Mu+UiAXyR9iaDlWm+gwRhGRTgDki4k0ETxw6rmt0VDp1TLavcWV0Gxyey+q0E34VkrpnE
- 4t1cV9DJ1LAbpcArPLBy0j8RqpFkn62usJHU1ISjpXpFZCKToyd7oI558Cb/wb/sqOFuBfG8Tay
- Oy6RrP5+sljetZagAVmzJ2hiYFwrt/GzXaYdRhFPeJNi88v1PRG5gOBHgtcGxNOebRKQ6CTVgAZ
- z4DYX6KnVEo/k7OGO/dU/2OPoXwr9FTsdUroAVVF3h260KlIrBLGA=
-X-Received: by 2002:a05:7301:6192:10b0:34b:101f:cdaf with SMTP id
- 5a478bee46e88-34cde6749bbmr2001616eec.1.1790759538076; Wed, 30 Sep 2026
- 02:12:18 -0700 (PDT)
+ AKwUvByUThf+T+KgTH6XN0yr24MZ6Poki5zzxOVDb8bVEg85I7Dl4ZpY4NMJk4xbVLuHYN6o1BtvTeuoSVs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJM6/l8CEr+oK9tZwxDqsJJFaS586YXKcTW/A5AtATQYoQst3zy
+ 4wgwKCncdPPBbsL5K/vkixrLOHQCC7+Vv4AzOZ+6KnUEsCnOTrYU9bBURdU7OjcGvdl4J5jmY3x
+ qbn6IHsj9ijkuAItd7I2Pm8bf37i7WNc=
+X-Gm-Gg: AYBFou27LlF/IRPATiCu8eW4Fy4pzC1ISiVXhLS2KRtJXkxXNN839nbwedFytmGK1CM
+ R1djgWor2yRnlV+mIXvQQkhBKmts/M08i/TOoqQAEN1WBzKnH+jeSvQk29cmmianMMLJ7XCvSJH
+ GJqj0VqURlmSAjSFW3yBpdRaFnksrm8Fg4O8f2EPoBLvQpv6XHN1pnQGPO3srwUF1NazczJkPe5
+ pFudviNsiJQRXf2eqXRTD9Ohpeg91069RyVHyEGeXmm50Fh3qvIGzkEGU8H0mFbq84AfISuit+D
+ X4UGfo0A/72iFtQK2nqc/CTSj8wl+TC9+6b4XaBbborhswUr9SUtlR+lQFXnzWekPJbw/QClc6q
+ bBKp7TwApVfPdVAdkQa5kxPfUvNQbAe0X7iK8NBF00rXIerW3utNVAQSnsTGq6SMOaAv3tDIIkS
+ WkhyLdUEBdE9/BkoJJTpwynPfx5xJJ+Ndz6BMkxIJk14AeGn6dkC/CzCNH4aSqaA==
+X-Received: by 2002:a05:7301:1503:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34cdbecb18fmr1744208eec.2.1790759554357; Wed, 30 Sep 2026
+ 02:12:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
-In-Reply-To: <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
+In-Reply-To: <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 30 Sep 2026 11:12:05 +0200
-X-Gm-Features: AclHuK9QlKMhXKITkkBnbYFPptADooLzR8_3Lk9f3AVt-2WcqKF5YbgcQH-UReU
-Message-ID: <CANiq72nuhGkeDFwyWG91xJTAV_uio5PM_PoYvXLCWF7ebKBLeQ@mail.gmail.com>
-Subject: Re: [PATCH v9 4/9] rust: sizes: implement SizeConstants for Alignment
+Date: Wed, 30 Sep 2026 11:12:21 +0200
+X-Gm-Features: AclHuK-0KwyFg0Dwivk-_8qXi4qsCxM4xdJVFSz7hSpIH-HUHIS-SB0FCeiFTpk
+Message-ID: <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
+Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
 To: Eliot Courtney <ecourtney@nvidia.com>
 Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
  Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
@@ -127,19 +127,12 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Wed, Sep 30, 2026 at 4:44=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
 m> wrote:
 >
-> Currently, constructing an alignment is quite verbose [1]:
+> Add some more size constants, mirroring include/linux/sizes.h. This is
+> useful for making `Alignment` implement `SizeConstants` in a following
+> patch, because these are more common alignment values.
 >
->     Alignment::new::<8>()
->
-> It's unfortunate because it disincentivizes using it at interface
-> boundaries. Implement `SizeConstants` for `Alignment` so we can write
-> e.g. `Alignment::SZ_8` instead.
-
-I don't find the former disincentivizing -- it is how I would expect
-to have to write such a call in general. We do have the other size
-constants already, and `SZ_` is well-known, so the short form is fine
-too here, but I just wanted to mention that I don't think we should be
-scared of seeing colons and angle brackets. :)
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
 If this ends up going through bitmap or DRM or similar this cycle:
 
