@@ -4,99 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E94CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:08:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6420CCA5FBE
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA00610E18F;
-	Wed, 30 Sep 2026 10:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE2C10E25A;
+	Wed, 30 Sep 2026 10:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dW7VvZFa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zz/TQ3Oj";
 	dkim-atps=neutral
 Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com
  [74.125.228.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11B4C10E18F
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:08:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7B9410E25A
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:09:48 +0000 (UTC)
 Received: by mail-ed2-f31.google.com with SMTP id
- 4fb4d7f45d1cf-6ad795d5205so670098a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:08:13 -0700 (PDT)
+ 4fb4d7f45d1cf-6ae19959791so385893a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:09:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790762892; x=1791367692; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790762987; x=1791367787; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=L6C6Fqcl7JBjpTUHBHO+U+uYrchMJCAF5saUsMOGnSk=;
- b=dW7VvZFax/5vZvUae82SckJNVs8RlD6+tOJvzldvEjxHCcgrKLdMI1eaCKtJxppY8X
- NJZoTdPJMYaAE6H/ZJ8xL1lzUSYRVJzGb6FxlLFwsDDkJC1/SGZe88CajCjiXj0P+8eV
- iX53/iUmrdAgxt2g+NhrYtbT2DhH7ujXLQgigpNJep2lZ+7NwBzvUsxrayg3WuGVnk2s
- cen9ZtOgR+yBP14YbUQjq+Sz8JNO/fO5WfL8q4UuGIygJdllNHL1TUj7cXvKEv5EoLQ6
- kAAft2l4xUVHQZ9CUAfRkDUaOLNIsSIjuU5aUKy9he+wB33/NjwhUbWDn5j42zfe4CDl
- zE2w==
+ :content-type; bh=ruocdeJmKgpaQFus+PucSGDLt7ZSCHmy/3XR1sTVzPs=;
+ b=Zz/TQ3OjgXuG2Polq/3bf55rGDqMt2e8wZNTWJUdsp/YW4ikAr3zKwLXrTvT7YHgky
+ HxOWlfUhE9+A7xDdklvn6NdKg+bOBBbcpMgfscX9AlhwQld3zNgI1QCIQKi1L8BVcf79
+ tpkVz4W8MfKogXPuhP9KjutTWCQ7u/GaXXcusWvEBBsxqxZqhf9TyOk2GWVVs4cXz08B
+ DP+09cdKjvd/emCCu8Ju6hW7FuNAsi8E95L3AJdLRjRSTiinzNuqWWUVhycE52VHetjK
+ 1cgARfP9R+74PDcdLZhlDN2+OyMIPJyATwHuCjlqV+2AUit1ChtZIGiFziPnVeyyxdQZ
+ Tjhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790762892; x=1791367692;
+ d=1e100.net; s=20260707; t=1790762987; x=1791367787;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=L6C6Fqcl7JBjpTUHBHO+U+uYrchMJCAF5saUsMOGnSk=;
- b=0c+48P5999vnjomfbPFCeBKRg8eU3b43gkqWnkThM5ycAzNAk3D19IA+Noqg4dIbQD
- ilx48pPABgmapZZ9daAYaJFmiHOK7Yo13XBJsGObfeBVFx7OEns/nmuQFSfbL4d4kS0c
- AtBrGD7AFEPwzEO2D5sogsVQPiQlseAathMMcdgTZHX04s3C4tbS2IxHz4t5nhrmTIOH
- Xm8D2hU4U62vUKCpQ1mCescdZQnJk7bsk52GLTMbesSTjW+OE1FSy+kcgUNilPVBVwAJ
- gs6uWF/zmU8OxrHq94S5OtEwfhWuqA3+94Kpk7+goLEJ210GMSIsr3HOVztXDmavXKNL
- Gd8A==
+ bh=ruocdeJmKgpaQFus+PucSGDLt7ZSCHmy/3XR1sTVzPs=;
+ b=kPyPWzysnt6gImGsul51x/w36sOG3bbdHgm7/uKPcMN/2j1vXDufdTUTNtqHjHqjUi
+ 1mnUUZ4blZZyTWT5wxXyejDat198jCIxp2CRwjWGP6gd4gLbp5eg6beWJlgTJlveNieo
+ QwaDflTjc1EHMFg+ZEAo+Go7R2pSoZZlqWuV0hPmFArMXl8+s8zE7xRnWiFmPlHZhjCQ
+ tajSSFuORMAP2dhur8RubRvh0f8nCmI+SA9JZecA1QF9qNdV4e1jUQb83U4DAMnZ4ahm
+ GMVYyzn/7hXOVQ/RWRCax/1SJyY72/Y6JF7pwvniZf2qI1zaTHVSbdWN+uY7YbGRk4Zs
+ XpCw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwzThuD6M61g2/Uu3ENFnxTYl3dE0EEB8aw0OY9Ye+I7jFfQX+RUulKYwPexbcksRxtu3dNgDWRZRI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIy4O4QoFc7e1INAq+0LMlyv4fgrLFwahw0W8dSQOLBy8FN0UGK
- xz+7YpYTzxRpT2uIX7yDn4idlkpeDHtcmrssWBQeQ0NN7IVoR79SPnLM
-X-Gm-Gg: AYBFou1CtQ8q4ZE7G0Ky8G3Wfh3YJHLkdH+u1sVsssM4iPmfQcxDOx72FAzbA6fXdgu
- jrhWaPITwsZqCVlzfpRJA1g8jQWVGvgaa1HQ95VctwGmXz5waHVdIK/zyZ2Delx5+K/NxXfDLMw
- rfj3bjoRBXzh/8PITOTsvYmtrjtbQmQKxQF/bG+c2y/mF/Pd2eseaFP8m0eD4vRQ1sl3GTxJaN1
- UVX6esTVYr9uR+G5ZZzIYBJverYKi05ozSaSAEr+p2E9Tc1f1Kza732a6GJnEsuffRUJfeARDod
- T/5dMDMNmZziHIDwv6NEq/zi3eJQFnKq+HKKG/7rTg1l5WHnUaUZCcWjAr2SeHYPxn7EbNvMBj7
- 5YuAuVtUgH6BEvrzZ/fdpAX1KHTVTrnPdmR4ID6rgsJFId0pabP/n8fy0q9dtwgYhZfqt1vjwuH
- FgOqNFgiMN/IilwoFw+l0uGBKyr29Dw8uqnwSJR9FwsKtBODw8s03QDFAKZB8DFJHxdLrfV9iHw
- uXCApjJCLGpwhafzWC3dfqYAJC+oNzcji6LLNkym7LByYS6bPzhk6DsY6lqpaTiMfTark/6+1ug
- hf0IFMPFiFzNs3LvKoDVCjca1K2/ZD3jw0cLJsuT99SF7CH+
-X-Received: by 2002:a05:6402:42c4:b0:6a9:a362:4646 with SMTP id
- 4fb4d7f45d1cf-6ae198f0fbfmr582772a12.14.1790762892209; 
- Wed, 30 Sep 2026 03:08:12 -0700 (PDT)
+ AKwUvBxfmlpSe8WOBVdQOVlBjUiNuFR9FAxavt8nTeoue1v9/Wnw0qZ5mq3UqTQGcIy/nmOw4MN36wfIxfk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIz2W+4hxfS3EL0WmZOBI7d8jbKejy9nFN4gadiZaHgmNOVJtpx
+ VTqO8eu2DhFZ3MEUtqaolLkQnk3s791QNBcGrExNq/6KwdeqiurgcLev
+X-Gm-Gg: AYBFou0kMLBkhNhD3J5ArxKV/xKYxDrt/4w5BrzCdK9SCF4LukXCXW1K3c0Z26bMah4
+ BpqarrDcDIVOQ61/0o9ttxBY8aNIKw+5kdMq6VvImymyisj4EKnf1cYD2H1RrPWHhUahWK5pGVC
+ 2XdEoxrYxtKbqngf6zTWbYFBJ56mAPtMxsiPwHftGIUhDLP8DD7WYonhn8WzHKX+sC07sycVCvG
+ iE/5vxCAdA01WbeLfA0/WsagQ3DrmLTdQL6V1GiYa55XYif43YzgN3pBtq0KDaPMMYQVPHfuVeN
+ GkLvhva54g/RpBpYRLWJ9fNb9WDEEuzE4nLtS1fCCNaNH7BHWOAnnYj2SYckZq2OIVSxiczC00q
+ l+BVatokw+8cnmwu3mT3cMRzVkYsvWPtqoN/KI2+79GBuKEebwo65KkUzVDZicWoJ700p6s+wE7
+ 3X8mmxmdH/jzUqLZ0Dyke2EZOhnn8txKEk4fR0IL3KEm/PSSBMDd7qwJrBYREe7zi86Li6joCDu
+ mKT5DQcXPKc870jSMUPf1rzrmuYA/h6PK8nKWBYsFcPm7wqck5vGU1G9dYcCWh+bCuBdIlOEqfr
+ bP5kMthS7fB6/beQGxumk79JG52PsmM1J/ZHZofMF7Uhx5ow
+X-Received: by 2002:a05:6402:27d0:b0:6aa:ec02:7de1 with SMTP id
+ 4fb4d7f45d1cf-6ae199152a4mr634773a12.24.1790762987076; 
+ Wed, 30 Sep 2026 03:09:47 -0700 (PDT)
 Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
  ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ae156adf4fsm527943a12.32.2026.09.30.03.08.10
+ 4fb4d7f45d1cf-6ae15690dbbsm551642a12.22.2026.09.30.03.09.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Sep 2026 03:08:11 -0700 (PDT)
-Message-ID: <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
-Date: Wed, 30 Sep 2026 11:08:06 +0100
+ Wed, 30 Sep 2026 03:09:46 -0700 (PDT)
+Message-ID: <77db5aa5-f160-48fb-ab59-a754b100bc34@gmail.com>
+Date: Wed, 30 Sep 2026 11:09:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
- infrastructure
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
- <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
+Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: agk@redhat.com, akpm@linux-foundation.org, anuj20.g@samsung.com,
+ axboe@kernel.dk, bmarzins@redhat.com, brauner@kernel.org,
+ christian.koenig@amd.com, dm-devel@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, hch@lst.de, io-uring@vger.kernel.org,
+ jack@suse.cz, joshi.k@samsung.com, kbusch@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-block@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-nvme@lists.infradead.org,
+ matthew.brost@intel.com, mpatocka@redhat.com, nj.shetty@samsung.com,
+ phil.cayton@intel.com, sagi@grimberg.me, snitzer@kernel.org,
+ sumit.semwal@linaro.org, tushar.gohad@intel.com, viro@zeniv.linux.org.uk,
+ william.power@intel.com
+References: <cover.1790602223.git.asml.silence@gmail.com>
+ <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+ <5a35ad21-c9d4-4dab-a4f0-97baee6e2301@wanadoo.fr>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
+In-Reply-To: <5a35ad21-c9d4-4dab-a4f0-97baee6e2301@wanadoo.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,56 +107,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/30/26 04:00, Matthew Brost wrote:
-> On Mon, Sep 21, 2026 at 02:38:45PM +0100, Pavel Begunkov wrote:
-...>> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
->> +{
->> +	struct dma_buf *dmabuf = ctx->dmabuf;
->> +	struct dma_buf_io_map *map;
->> +	long ret;
+On 9/29/26 16:45, Christophe JAILLET wrote:
+...>> +    for_each_sgtable_dma_sg(sgt, sg, tmp) {
+>> +        dma_addr_t dma_addr = sg_dma_address(sg);
+>> +        unsigned long sg_len = sg_dma_len(sg);
 >> +
->> +	guard(mutex)(&ctx->map_create_mutex);
+>> +        if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
+>> +            (dma_addr % NVME_CTRL_PAGE_SIZE)) {
+>> +            ret = -EINVAL;
+>> +            goto err;
+>> +        }
+>> +        while (sg_len) {
+>> +            map->dma_list[i++] = dma_addr;
+>> +            dma_addr += NVME_CTRL_PAGE_SIZE;
+>> +            sg_len -= NVME_CTRL_PAGE_SIZE;
+>> +        }
+>> +    }
 >> +
->> +	scoped_guard(mutex, &ctx->map_mutex) {
->> +		if (ctx->maps_killed)
->> +			return ERR_PTR(-ENOENT);
->> +		/* recheck under the lock in case it has already been re-created */
->> +		map = __dma_buf_io_get_map(ctx);
->> +		if (map)
->> +			return map;
->> +	}
->> +
->> +	dma_buf_io_wait_active_maps(ctx);
->> +
->> +	ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
->> +	if (ret)
->> +		return ERR_PTR(ret);
->> +
->> +	ret = dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
->> +				    true, MAX_SCHEDULE_TIMEOUT);
->> +	if (ret <= 0) {
->> +		if (!ret)
->> +			ret = -EAGAIN;
->> +		dma_resv_unlock(dmabuf->resv);
->> +		return ERR_PTR(ret);
->> +	}
->> +
->> +	map = ctx->dev_ops->map(ctx);
+>> +    ret = dma_buf_io_init_map(ctx, &map->base, sgt);
+>> +    if (ret)
+>> +        goto err;
+>> +    map->nr_entries = nr_entries;
+>> +    map->sgt = sgt;
+>> +    return &map->base;
+>> +err:
+>> +    if (sgt)
+>> +        dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+>> +    kfree(map);
 > 
-> I'm playing around this code now.
-> 
-> I think you need the dma_resv_wait_timeout after the 'map'?
-> 
-> If a device doesn't support p2p ->map() will typically trigger an async
-> migrate to system memory and data will be moving but the map is valid -
-> Xe 100% does this, I checked AMDGPU and fairly confident it has the same
-> async behavior.
+> kvfree()?
 
-There is a wait right before because I read somewhere in dma-buf
-comments that I need to do that, sounds a bit odd if I need to
-wait on fences before and after. I can add it, just curious how
-come that other dma_buf_map_attachment() callers don't need to do
-that. Or maybe they wait somewhere else?
+Sashiko also flagged this one. I'm going to apply the nits from
+both emails, thanks.
 
 -- 
 Pavel Begunkov
