@@ -4,129 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E04C9830E
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 04:55:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1A1BCA5FAB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 05:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E88B10E578;
-	Wed, 30 Sep 2026 04:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9E610F181;
+	Wed, 30 Sep 2026 05:05:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VObW+FSj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IzWJp0c2";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012066.outbound.protection.outlook.com [52.101.53.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E3110E578
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 04:55:13 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012061.outbound.protection.outlook.com
+ [40.107.200.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DEA10F181
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 05:05:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R6fKlc/irOqCzQ4uNOSMKPPQcEKVqY1VbJQQ4pFPA8qn0zBCaKgUlWWLmmQUDBebKh2XTewvQ0fkR6kWg+HT6uQ3/cRMiF4TM7DIRwrtynASCXBZy9ITM+QxJ616VYws8OQCeQfegaxFxxdRyZID+dZdtQrOjfBAUeeq2GMon29u14ti0x2QzZ7tZox3tklKDhhwcltzz2tAltE5TeXTOjncfLjwceWy5tBCf9o6eF0SNnT7IXR9pERLf5h1YUZOYqwjkTtbpgcHnEqIcO6JLrH6HnTWTzt7cpr7xKbDYezHBPmLZ5kPEw7WpYZYQ5X4M/7W3NuS5o1JdPVXDbwtlw==
+ b=PeWKRqRq411Ce3cREzpBy7mkbSAz5y/cIYbHAdCiGWskxwmaM6hQVmwi9bcGoVx76tYYlmBSFnuR5VDR/8kmuNlP7Gv84nTMZEuJk+wtt5ALsOgHfqvIZP8Kv8vCPLf4+YSmg7ZyYjFZzsLBTF3e+YXoHnWdchcGTcfz8RiubxlhWNF5tS3ZP42YpukS08mzOpDhIQSHmvU8aDZLqwAX1IzkrrB1Eah84EPudW0TcGDk525M3Dpv+4+u2BjoxC2Za90STOTGOb5eBe3mseirbHOOpnolNYp8inZVNNSqOCEBX8N1CUp0zfto7dENmOVtvN6P3vDdN0ftM8NdV9a2zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e5aa+nAS2Ob7YBT7h+PLOX6l4tuZcP9SmshkFgiaCjg=;
- b=T+7QAhqbq+PFXyapGf9WN9gkpwcRcvKXjTyjEdUAsg8AfytMzMy2MBk97mcfjz7N8uQ/y5xHpYd2bOL8+UEY3pP0D145BnJ3/da7Ainy1M0x0qx7qEyEFg0u0FjVKRbmJBwhgoAr9PMMcqv+4snPUKhczUoR2OqfwE5HAJugFf9Ei+dDCsAm2HPwVFqyiBAj7/tHpQb7wPDJHvw62Ah1XkKUL8qrnJ2gDveya0rywmq2YrZ7GPpv8vEKJZBEXCme08akIBWumOoZuNogdFC4io6sBxwiQEs1l1Zyr6jR97BOdhsgvahNK3lqBbqI/Cp8+AMgVtxhQZdzdR/kQhhX6g==
+ bh=Jw5cIa5GjyGy24dW1l87AJVmW3oyf3PVvrtB+QRL7Ug=;
+ b=nE5vyoAUnzuz0shHw6FG76JvX1u2d/hRxTmPfFtlS9xO1pNFUvZA4ub/DvR01u40kE0BX307HQJCK9wi0No1wdLdUY+f01bxsnqulCTaSGsLWramGxcNZCXy7Ay/QxECCY4spd76TM7Q9hxbr+YA/hsRjgYk6If38ba+6QJ1w6K07ZiC8FsV2tFv9sgJhGotf9oJE3WwMF3l0V8QJKzQq0uKQmw3tuPAg9hHwIgteZmzJB38NHuApBvWIybnTR5Gx4nQOue++GoU/c9T7ICNxrxGCVi0bbU+amIKkglJjCXXAM2dgduXNBimAcRSPg/kG2/Cq2k934eExNJ0uyX6Qg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e5aa+nAS2Ob7YBT7h+PLOX6l4tuZcP9SmshkFgiaCjg=;
- b=VObW+FSjJSlmG6FTfZF1ddDXrrZtWDsn33Znr46/YtGOg0DGlBtHPV2oxAD/AqgzjKbgFN068vXqpJ9vyhkx0NA6pG3ZXo9BRMbga6zbiBpZrkayHRU7BJ+vhFwVGWRA63pXxMhRLznvK0/5oiXXGXs1jotL7bKaf/pCJVed6YtjXyOwNratQRfkoQsTrc1m/IvMuZnOWNR8mmbNHl9EVfB1Wy9tXJ/k/+Tt1PjRcy+XutsuSz2uIvUxmNW0XIyG1M6FTpeQg+wySWdv4WLFzcsYFVlMw8IsGbft2m5QXgHW/qaQFVkMBh1cRt96a3yCgTz5ZDsZErvLxB8BFZvRDQ==
+ bh=Jw5cIa5GjyGy24dW1l87AJVmW3oyf3PVvrtB+QRL7Ug=;
+ b=IzWJp0c255zz4uUCCQh/qnwrYlMNdZz3eTcedmyAGuhlyC0crpFIhvz2coEZZSnXm8J9WKLpOjhxEANZNQkDNoJTggD2EBMJwUtSc0+WBNx/wGbtBX51as3Tdfe910g08ZW5CuMQhSKIaZwOcK6J/VyPFhN0yVFFn6UFChNEdAJidSrGAeSGk1cjOeuV74uaf3Los52jQkBq00IQODEhXup1rkwtevgkjDBoOkfFtUzZ4/aLmwAGJ6k0Yf3ipUprOBiNIzzqIs/hYK5OJEpDOltvTaB8aE0kD0AybhFO6KnxAZ3Hjoq1+xIWA27+3nuJoXWug4LUPjtmVGXmYEKAZA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CH4PR12MB026689.namprd12.prod.outlook.com (2603:10b6:610:506::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 04:55:10 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 04:55:10 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Wed, 30 Sep 2026 13:54:55 +0900
-Subject: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5gV0O0V4kutt2jjpjGjEYgv
- ntbXX5w/rOTQQVGl2InxUtMljnDnwqKQ5h7sKRsKl1Zu7ZynML0WBTcyRvGyYQVhpXPXeVbn2J
- omppy/VT8Jjm+3v627T4irt87Oo4PedzLpXsAAAA=
-X-Change-ID: 20260930-dalmore-fixes-dsi-reset-4f3191dca886
-To: Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Thierry Reding <treding@nvidia.com>, dri-devel@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TYCPR01CA0208.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::16) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 05:05:24 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0451.026; Wed, 30 Sep 2026
+ 05:05:24 +0000
+Date: Wed, 30 Sep 2026 01:05:22 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+Message-ID: <aryYkkB9j14xnWo3@yury>
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0210.namprd03.prod.outlook.com
+ (2603:10b6:408:f9::35) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|BL4PR12MB9505:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3245811f-79b8-4687-1dd6-08df1eaf0157
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CH4PR12MB026689:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2e753d1-c5a4-423d-1acc-08df1eb06f3f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|10070799003|376014|23010399003|11063799006|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: ayOCT1fG2T03x/lAAdp2qOlsoh+JqZqUiTX95B41wWTTWWYwaCKua2Zs22mP7nZKqOQEsKPcXYCSUhZLstJADzV55ZQu/J1DUJN79oswv+/3nRPs4P64qj+cSQCFRqrr42rups2BtLVK4SSnEhmqQp66CBByBPz1MnvT8ZJx2kAhRRUjY0uANtFVIyC+tCNAPJ7FwgtN2NLwk/+i0zzXNk0DR2Y3Gl3/CwchVF+iksgXrxCyqPDp0u54Mvq5QdoIKxPOjhWySeXpd6+Gwam+cMRwqrtuvQbdJkBb1gGhxc1vHPMu/tmANapOmIxfkCjykJ8vqfLGdCJP7HgGn+ujr96m/FDC5F65TFj4tZ01k7672eUDryP6ff1HgjAvdfG6EpGaDHGml0mPoMfCch35X2kdvEd74OKnwHfz1A50XxZGMiVml88Nn4n+GyGD8Qaf+2pLu5/Z25I5Qp75B8qGhMbBYq+8BS1h/Rqd5zSBNmh0hFIR84rpD2kYc+7CXbqK+XSu5KyJ7HEKub2NWneHjdQIO5SF8ztQ4Noe53/PDpYIAIMmfgqnR/9KdruYf9gqW6gyjC8aC+f7LYzox7x61Au0QAw6Dz+2DIwb3vwdb5181fN/EV7mq0JYcqicNgmAz5UWqw6XLznbU7dZot86kCSJzoA8VhVzPwCWwre6tvg=
+ ARA:13230040|23010399003|376014|7416014|366016|1800799024|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ZOQ4uOCx5vLHv91xem2jhcKQnF1lGfqCkhQgGiu6aImI7EPhpMPabbUL3lOvcOQweansDEFHb4K8LQZpteTwCkYpAOrqNGJcMvYX3jIGT1ZDCDI7lmvoGVNuPgIuYmd7oan/GmG1KyJLke9VO/B5EkOHzQWilC1HF5gcZXmHLCo1xUPARqn1FSo1dWSOR0PoWsno0RlBNFxmEFnF87MDfhTG5mOg9kKSR8VXixeOQEP88r2DjMnrzpEkNg0gioqvZY/LBEBcy3Lc3iZ30WKMboaBsB7KuWPeQEwlCbDbDjYs5evrTtpjlx5lhBWjQ07lcCCon5aOhp12JMPMSKV2KeUltekWmI94OCRztYvGOIUqROReSC2Zsa6BDjhlspkK3I7PqN5DN9hvmSCcpIf87fTtoqOrKLUvZwfiuD6oiTnsorNMIPIpr4BAdrDOmPw+KSwD5rX17GNUIAQdNTPfOtgSkuB/8lLQ/CzW7qS6kUTtxXy0ilY1bxJjRcDPLBsFX3THNBWLklQrstZJQmx2M5rfA1paMq0Hi/4atuBLSlG6MFn1Ccab8L5zG9rywMYJ1TZ1+CMbIrnPwu1JpJuCskhY6R2valcHwb+TnBfGLK+fzV8n3YbYWN1X+bPH1MsqTs4f4KTEbm8qDD8KewuB0M1Qz36is5gRV/ZF0Si4iIc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(23010399003)(11063799006)(10067099003)(56012099006)(18002099003);
+ IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFRIS2VXNFprQVBMSW1JZ3UydFNiai9kSWt0dGNwV0hBcjBVNkJCN1dTOW1z?=
- =?utf-8?B?NU1STWN5bGlTZis1N2tWMDk2dmhpQndpZHpTNmEwWXRvMldCalRIdm90eFVq?=
- =?utf-8?B?anhsekhEZXoyVnBrS3dUNUloblBVQXRSZ2RaT1Z1cU9GU0FHTTE0bXlGVVN1?=
- =?utf-8?B?SW8wM2ZvSlRrQVpRUFlSakRGMjVzNzhLWFZQd0VlS3pzd2N6aHQrb1BkMVZW?=
- =?utf-8?B?ZGZJMHVPazhQMko3emdiakFMcjM5VEM0QmhTczBFOS9KYTVRR3RFblVFWDh2?=
- =?utf-8?B?Rmpxaldud1BOSnI3ZW5nTkVNYWRuS255TjNHb3ZUUmpjeW9oVzlhSG1GbCtO?=
- =?utf-8?B?ZVZoanpFalJrMERMbHFuRFdnYmh4NHZSejFnYjVGbkI5VlVIUUJLSHB6Q2JH?=
- =?utf-8?B?MVpld3BtUUtycW91bjdBbTF2N2Z4WjNUNEZaSEV4RUNDbk1TNTJPY3Y5ME1w?=
- =?utf-8?B?OTJ6ZnZDQXQ1c0o1TytnTk9KVkZycm01dy8vQUk4TWdlZGQ5NkZGTDQxcysy?=
- =?utf-8?B?WmdsQmhDWWtKS29nc0NQVzBIdytZTDNMSkR5ZldmcGV2TXZqT21BUFl4STNy?=
- =?utf-8?B?clhDSVVKMXlqTWQvcTg0OVlkVk5uaXVkMFE1NlNoZGd2a0JoNEtRSjNvVWQ3?=
- =?utf-8?B?Nmg3SU9SK3JjZmxiY1VMUnkza1lOTTVCbFo5UndjdTRnYlFNVTdFTENLU0pN?=
- =?utf-8?B?VmRxRkpkVUlBdkM1M1YxVXRlek1vdEpSQm9xRi9abDVHM1UvdWI5UFJkNlRo?=
- =?utf-8?B?UDE2OE9kSjR1Q2wzdDY3ZllnZE1VcDEyOXozb1REQm5wSEtXb29RNUpsYVNG?=
- =?utf-8?B?YTZOMStkYUZpeEUydDBTZTFtV0JWSi9rRjhFVklZQWJ2UWx1bVlpMy9TejUr?=
- =?utf-8?B?Y3R6eE13Y0NiNndqdkpDUVJPR1NEdndabi9hSUlHL3RJK0dmYVpkOFFnVlI4?=
- =?utf-8?B?VGwwTCs3UXk5bUl6K0kyenBiTDZDbTc0NWJhblhQSEpxME01QXhvenl3cE8z?=
- =?utf-8?B?UG5ORjRJd2F5V05QMVhXcTVtai9ZbTJHUC95aUdCalZvaW1IaUFpWlRPdGFl?=
- =?utf-8?B?L3FkOUVNdzdSVEs1ZXU2dlVGeEFhUzZDTkRMTER6VEtuSmRDYnE1enVrdmxn?=
- =?utf-8?B?SU5tNkFYYy8wSm9uRGsydlFnOEhzQXFhWHdZdW1TbXV5S1kzRVZ3SHhQbkFu?=
- =?utf-8?B?dWVBUzMzYXg3eTlFMGxpMkRmOGJJRTNnRjBWbjI2OUFjcTREUmZxdzlrcmlw?=
- =?utf-8?B?Z0JqMlVtWFhkT0ljMFF2U3g3WDJjS3dXUUprS0tyTHNoZklwYUpBNlYzUXZl?=
- =?utf-8?B?SjlYZXBDSndiQ3Vkd01LOVoremhNaE9ibmNHVHlmT1hOaGdkUHNCUGZITStI?=
- =?utf-8?B?R1pLQjcvUVJ1RURiVXpORXNzTWQ1RFo2bGVFRndjR0NVRW5UcUlBMFdXMXUy?=
- =?utf-8?B?K2hhZWVuRXE4L2gyTk01RmNNd1IvRUIxK2p2NnZmL1dtaUtTeXZtK1J0MGFE?=
- =?utf-8?B?K1ljMnJsSWJOL29uK1B3NXZvT3dtRkZnODhrOXNvTVREdmRPV2xwZzBGd0s3?=
- =?utf-8?B?b0Z0Ylk3aXVtUlFiRzQwSzZ6VW5xSUszSlRmMHpET0tHZ3NINC8zTEVRM1RQ?=
- =?utf-8?B?Q2ViUENHb1ZrZ3NjM0VrdFFXc2czdXVtWk9kbm5aSXZjaEJLaFRuYitJV3Vy?=
- =?utf-8?B?S0Z0eFZ0ZUsvdjEzdloyTXhJRmJCQUVyR09HUGxzQmYxaTJEVHhVL2lCV2tx?=
- =?utf-8?B?UlkvTUlMMGlISU0welBtblpGYjdndGZpVEdOV2cxMS9lWWtVeWNheit2NlJG?=
- =?utf-8?B?VW1oSTNRbENyZEVZaHNKc3laZ3FiTGp0U0ZaUGEreHN2Yk9mbnc4KzN6MEpx?=
- =?utf-8?B?aFNlRnprTWpxRFhFRUdQM1M1WG5yUC94alZ3NkJQSFRsMXNHWTBoSHQyMTdT?=
- =?utf-8?B?NmcvTDNJeWhrZEw3VWVFYUdvcENHNnVhV3kvc0c2UWNsakZBbitlNkE3SXB0?=
- =?utf-8?B?dmk0K2tGQVNkai9ndWxqMERadDF6ZUhCcFNJMEY2VUY2TDhaaExXbGs4S2Ft?=
- =?utf-8?B?N3A4YnhyY0pONldydDljN09wOGVDd2J5SS9jd21Sd0UyeW9nVmJzS3M0aFIx?=
- =?utf-8?B?c3F1KzBoK2hrYlc2RWFLUGhGZjhPeE5KNytOYUJWR1VWWUkvSXdxc2grQXBU?=
- =?utf-8?B?aDYrdUxSR3h6cktpN2JhMjdnN2ZTajRIYU1LUUlNYk0wbzZqYXlhMlVUSnRz?=
- =?utf-8?B?UlgydmlmN2xLZ1B5QUpvQ0VZalR1VkNIemZod2ZIc05ZNzN2b3J4TG1hYUxX?=
- =?utf-8?B?K2FUdGEvN2NieEcwZVFDRFZwWE1hbmVnNUhLMDM3N0owYTVlL2pMWmwvUFMw?=
- =?utf-8?Q?DuUdDqBKER/ZXnj76J+2r1Ln120iQjaoIyL/P08HjNqRR?=
-X-MS-Exchange-AntiSpam-MessageData-1: m+6sC0ZkxdF5Uw==
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7J56jB3l7h+fMOIhn+obrpvTeLobS0hVmHsq3PVr3GTyrebbPa/3Qw8sM4KF?=
+ =?us-ascii?Q?3hkt5HD/cBpt3fL3KwXlb1im3U2crtpgl7QjnIZaJ75WSE0V3ElG++FCMG3J?=
+ =?us-ascii?Q?Xzk3y4n8I9Dla+b2eEyt+140FxcnMVZeDqmOHWtiB0yz9j4mWkwVlnkhQLO0?=
+ =?us-ascii?Q?WgfnRK6MNEfk29VsaMCi9CVIwQtkmtya5o4V53vf8/PuynFdJxqAoKKgl62h?=
+ =?us-ascii?Q?1induOwn9nwmD6GPjgJJwcsnLSBJ06R+wdGGzuTLPGy4D1O4xaKzyxu8MJWv?=
+ =?us-ascii?Q?NKNBn4POc/980+eNl2ZwqvZ4KHa1ZtMPk/ouwXyr419EYJ2Xl8mS9+0P0OIt?=
+ =?us-ascii?Q?vM+MVyifp9lwiomkUatHwwZqq/O6zipFw1tidUlXZ53rtpDlYq8rtFJVBRIy?=
+ =?us-ascii?Q?nKeavcv/8JxUKuppxeDhk89ZKAtWFTb+U4jSrRx9jZ7kS/ckB+33/5wj+ZMx?=
+ =?us-ascii?Q?Hr/V/Z/7P1Sf93UeAzQAqqGyafkQ3yEo4ikbiQNu7tLcGFHrOQDMt8zGVI/E?=
+ =?us-ascii?Q?zdhEMcnRJydnNyV74a+3W27+gppInyuOaxX34Ibg62mN8ljuaCBY9OcQeDuG?=
+ =?us-ascii?Q?jBoRTk7EuA3gyxflAw0zriGvxp6UIBck7kq4pyVVepgvmJAN4otwj3gbQCaA?=
+ =?us-ascii?Q?wpBPfii+gAuXVrkGo/QLcRYeqkG7iEZsPWmnX12j5+DRmOFGxNWFRAWlCl9J?=
+ =?us-ascii?Q?/Fub8DLgQSry2/8s3qEKLucWMN2LFwmMznHVNakYnuoXciTx9NRYa1VxzH0H?=
+ =?us-ascii?Q?cbEGdgB6KnlG+zVQTIDxzoK+Y94VOrGxVbUVx26WlEbQr3wcmVKqbyF+vb7Z?=
+ =?us-ascii?Q?0VLEVCMX54nbr4YTtykEaRuByzx9Mt37xLpTwFhSqjzhYvtY6aTEALn9cApO?=
+ =?us-ascii?Q?MIUcmWWEdPDWnG14XgTiqGcH+EGwQCHluFxWOV2jmkXuEwZmoOtDpB27P5G5?=
+ =?us-ascii?Q?OAYn8wirJ7fnmCnXyit1KwWQOEhQ7L02ld9QsQezdwcL+z5B1o5Cq1oeWBtd?=
+ =?us-ascii?Q?7sDXa/a2rczKgodnIZ7dhkx7FQEnCStQclIkzSbufeLWlvnp8db9sTKQVGve?=
+ =?us-ascii?Q?46AKH+aexelxp1zl7eycHLTVso1AsfpSqVoIIkD9D2nHo7WWX4idQRaEcb/9?=
+ =?us-ascii?Q?J0lvxwIYlrhHyDe6KspGARu3kGgecxuokH6lTYe6MXi4gwjbDuVgpyNFK0B8?=
+ =?us-ascii?Q?HQgalA+PVlSUwpRgU/vLFribg6Xfaea/3YXtyo3GkIbsx4hhTEiiL5qnWsQ6?=
+ =?us-ascii?Q?j6kHQcWYf/v2ucS3ozvz3iTZK5+4PTVOu4BMFmqVodbC608N/qst56tWMwSP?=
+ =?us-ascii?Q?Xosh29jMq+gJIPMBstTfkpNrkcxqhCF0pfXjlqO7O3mNni5kaIHLQ6AneUgA?=
+ =?us-ascii?Q?TFwW1TmsyLxVpiOcMypugvZ/018oj+rxp5fxwxLO4FaB8kB01Zy6gVNIg9Lf?=
+ =?us-ascii?Q?YA6cQM/sbKGgo88wLXaq/ON3kug3T0cDTxVf4oIsJyrCH4Z+WrF19B55YtCw?=
+ =?us-ascii?Q?S5P0LC/R18zfNNl7ANX3CgCGfF14WxloV4V3/FZc8bzBs2JsOigtiaFKsNrw?=
+ =?us-ascii?Q?qqo/HDvQ40JzNucz/ZI9mIcz7NodxowXxwlJ4tKDtraKb+SM/BW8VY4vURqj?=
+ =?us-ascii?Q?bHqXS0JXF6wV/n/yynQEGHinfVShjLw9ZyKbnLqU3wFLdQoq+CuNcBCrzoxN?=
+ =?us-ascii?Q?Tih2crblNRtk+dOPkQahhA2gomFAIAyB7Cxz+FZfMrslMbPg+YymJBjuYYiT?=
+ =?us-ascii?Q?AGVj1xUQHQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3245811f-79b8-4687-1dd6-08df1eaf0157
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2e753d1-c5a4-423d-1acc-08df1eb06f3f
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 04:55:10.3045 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 05:05:24.1170 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aB1jrY3AfGCuM13nsvS051+ENCrKS8LTpnBRGOkmjWWK7R7ILUIsC8sBF2ZcciVBxSb3IALtQ6orXYDGdC4PRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9505
+X-MS-Exchange-CrossTenant-UserPrincipalName: gJ+gSg9m+XU5lYB3F8rcQ7ITNVeri3V5BHyEDOpXoTGbhZoHCX9IDJnd8TSI5WhWmkXMlVOKWMkGtIHVtg7Ncg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB026689
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,101 +143,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DSI driver ignores the reset line if a power domain is configured.
-This was originally added to support Tegra210, where the power domain
-provider has to control the reset line -- at that time, older SoCs
-didn't have a power domain for DSI. Now, however, they do with the core
-power domain.
+On Wed, Sep 30, 2026 at 11:42:57AM +0900, Eliot Courtney wrote:
+> Current code in IdPool::with_capacity rounds the capacity up to
+> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> smaller than this and still uses an inline representation. Remove this
+> behaviour.
+> 
+> This allows specifying a real capacity of 0, which was not previously
+> possible. This breaks `grow_request` in this case, so change it to grow
+> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+> `shrink_request`.
+> 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  rust/kernel/id_pool.rs | 38 ++++++++++++++++++++++++++++++++------
+>  1 file changed, 32 insertions(+), 6 deletions(-)
+> 
+> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
+> index 06a4c71c4c6c..4f329249df9d 100644
+> --- a/rust/kernel/id_pool.rs
+> +++ b/rust/kernel/id_pool.rs
+> @@ -112,13 +112,8 @@ pub fn new() -> Self {
+>      }
+>  
+>      /// Constructs a new [`IdPool`] with space for a specific number of bits.
+> -    ///
+> -    /// A capacity below [`MAX_INLINE_LEN`] is adjusted to [`MAX_INLINE_LEN`].
+> -    ///
+> -    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      #[inline]
+>      pub fn with_capacity(num_ids: usize, flags: Flags) -> Result<Self, AllocError> {
+> -        let num_ids = usize::max(num_ids, BitmapVec::MAX_INLINE_LEN);
+>          let map = BitmapVec::new(num_ids, flags)?;
+>          Ok(Self { map })
+>      }
+> @@ -152,6 +147,13 @@ pub fn capacity(&self) -> usize {
+>      /// let resizer = alloc_request.realloc(GFP_KERNEL)?;
+>      /// pool.shrink(resizer);
+>      /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // A pool at the `MAX_INLINE_LEN` floor cannot shrink further.
+> +    /// assert!(pool.shrink_request().is_none());
+> +    ///
+> +    /// // Neither can a pool with a capacity below `MAX_INLINE_LEN`.
+> +    /// let small = IdPool::with_capacity(8, GFP_KERNEL)?;
+> +    /// assert!(small.shrink_request().is_none());
+>      /// # Ok::<(), AllocError>(())
+>      /// ```
+>      #[inline]
+> @@ -198,12 +200,36 @@ pub fn shrink(&mut self, mut resizer: PoolResizer) {
+>  
+>      /// Returns a [`ReallocRequest`] for growing this [`IdPool`], if possible.
+>      ///
+> +    /// Grows to at least [`MAX_INLINE_LEN`].
+>      /// The capacity of an [`IdPool`] cannot be grown above [`MAX_LEN`].
+>      ///
+> +    /// [`MAX_INLINE_LEN`]: BitmapVec::MAX_INLINE_LEN
+>      /// [`MAX_LEN`]: BitmapVec::MAX_LEN
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::{
+> +    ///     alloc::AllocError,
+> +    ///     bitmap::BitmapVec,
+> +    ///     id_pool::IdPool, //
+> +    /// };
+> +    ///
+> +    /// // Grow goes to at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let mut pool = IdPool::with_capacity(0, GFP_KERNEL)?;
 
-This happens to work on most systems due to DSI already being out of
-reset when booting the kernel, but on Tegra114 Dalmore, this is not the
-case and causes the system to hang during boot.
+Allocating a pool with 0-bit capacity is wrong. Please don't put it
+in the examples. I recall I pointed that this object would panic the
+kernel if, for example, you call pool.next_zero_bit(0) immediately
+after this. Sorry, but NAK.
 
-Ownership of the reset line is no longer a problem with reset
-acquire/release semantics, so control the DSI reset unconditionally
-from the DSI driver (possibly in addition to the power domain driver).
-The device tree bindings already require the reset and it is present
-on all platforms, so this is safe to do.
+This .with_capacity() should take num_ids: NonZero, after all...
 
-Fixes: 4cc90d4c043e ("ARM: tegra: Configure Tegra114 power domains")
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/dsi.c | 40 ++++++++++++++++++++++------------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index cb88aafbd36f..7124cf648a1a 100644
---- a/drivers/gpu/drm/tegra/dsi.c
-+++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -1113,14 +1113,14 @@ static int tegra_dsi_runtime_suspend(struct host1x_client *client)
- 	struct device *dev = client->dev;
- 	int err;
- 
--	if (dsi->rst) {
--		err = reset_control_assert(dsi->rst);
--		if (err < 0) {
--			dev_err(dev, "failed to assert reset: %d\n", err);
--			return err;
--		}
-+	err = reset_control_assert(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "failed to assert reset: %d\n", err);
-+		return err;
- 	}
- 
-+	reset_control_release(dsi->rst);
-+
- 	usleep_range(1000, 2000);
- 
- 	clk_disable_unprepare(dsi->clk_lp);
-@@ -1164,16 +1164,22 @@ static int tegra_dsi_runtime_resume(struct host1x_client *client)
- 
- 	usleep_range(1000, 2000);
- 
--	if (dsi->rst) {
--		err = reset_control_deassert(dsi->rst);
--		if (err < 0) {
--			dev_err(dev, "cannot assert reset: %d\n", err);
--			goto disable_clk_lp;
--		}
-+	err = reset_control_acquire(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "failed to acquire reset: %d\n", err);
-+		goto disable_clk_lp;
-+	}
-+
-+	err = reset_control_deassert(dsi->rst);
-+	if (err < 0) {
-+		dev_err(dev, "cannot deassert reset: %d\n", err);
-+		goto release_reset;
- 	}
- 
- 	return 0;
- 
-+release_reset:
-+	reset_control_release(dsi->rst);
- disable_clk_lp:
- 	clk_disable_unprepare(dsi->clk_lp);
- disable_clk:
-@@ -1623,12 +1629,10 @@ static int tegra_dsi_probe(struct platform_device *pdev)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = 4;
- 
--	if (!pdev->dev.pm_domain) {
--		dsi->rst = devm_reset_control_get(&pdev->dev, "dsi");
--		if (IS_ERR(dsi->rst)) {
--			err = PTR_ERR(dsi->rst);
--			goto remove;
--		}
-+	dsi->rst = devm_reset_control_get_exclusive_released(&pdev->dev, "dsi");
-+	if (IS_ERR(dsi->rst)) {
-+		err = PTR_ERR(dsi->rst);
-+		goto remove;
- 	}
- 
- 	dsi->clk = devm_clk_get(&pdev->dev, NULL);
-
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-dalmore-fixes-dsi-reset-4f3191dca886
-
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), BitmapVec::MAX_INLINE_LEN);
+> +    ///
+> +    /// // Grow doubles if at least BitmapVec::MAX_INLINE_LEN.
+> +    /// let resizer = pool.grow_request().ok_or(AllocError)?.realloc(GFP_KERNEL)?;
+> +    /// pool.grow(resizer);
+> +    /// assert_eq!(pool.capacity(), 2 * BitmapVec::MAX_INLINE_LEN);
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+>      #[inline]
+>      pub fn grow_request(&self) -> Option<ReallocRequest> {
+> -        let num_ids = self.capacity() * 2;
+> +        let num_ids = usize::max(BitmapVec::MAX_INLINE_LEN, self.capacity() * 2);
+>          if num_ids > BitmapVec::MAX_LEN {
+>              return None;
+>          }
+> 
+> -- 
+> 2.55.0
