@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89E8BCA5FCB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 17:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A41CA5FC4
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 17:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BEA10E5F7;
-	Wed, 30 Sep 2026 17:10:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B12810F144;
+	Wed, 30 Sep 2026 17:12:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m5wiJxag";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ibumzUvK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70C8E10E5F7;
- Wed, 30 Sep 2026 17:10:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B99B110F144;
+ Wed, 30 Sep 2026 17:12:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4154D411C9;
- Wed, 30 Sep 2026 17:10:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B9D1F00898;
- Wed, 30 Sep 2026 17:10:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E41F460258;
+ Wed, 30 Sep 2026 17:12:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F142C1F0089B;
+ Wed, 30 Sep 2026 17:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790788245;
- bh=cU6PJclq71Jgp1tR8r0LOkFVswLo6WSFupQMh4OLjwo=;
+ s=k20260515; t=1790788358;
+ bh=rcrhRvyt+QUZDK8arHLdmp7/DTv63vewJo7tvJBjxd4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=m5wiJxagPse0ss7IjQ7cOufShFp0I6jmUPONo2nF6HWDcFsCXMLaJgvTLEe7bP66O
- dZeKVTEc46oJWsbW2im/aDf984OZzKZ2+nugoCpKhgrfLvyHxW7kkJNZqc5jnWT8wp
- kEZ3IP7fMcbeESWVzB7dUxzZmVxX5Mxu/oQC7xy1xYWUVArEP/0zLHW1/MRpjv2xUi
- iHG+ixRZCG68yR4ATLLk2lAuLU6QnYBskbSPFY4VB7kyhjXBLwaZDFVm9XuqSi7w3s
- SN6qDZT2PBCjfZm8vw0D1mwmVcobTluHoXeHbFa2CbvKYuKa3zC0beqEt4yhPEBi3D
- YvSlf14a+xCHA==
-Date: Wed, 30 Sep 2026 19:10:41 +0200
+ b=ibumzUvK7zcKE6kZSzlnpMFeJHB4GdEoZ1f1cn7uhXxvY5WiDuP5Uf9/pS/9h0b3b
+ w7G4E7/D4vyp4z4uVzwHZOyDnn1AgYkE5kRYnbq0U+Stv9TvLaEl7BxwpFoOY6mwfU
+ Zvvvj17CcsFaDrtzbGe2kwu84XJx/QbLJBvjnXeKlynaXPtITLctisIFiZSMITpQwv
+ qZXc4oKd0t4EvVvY+xtudL3ysN8RHt7gx3mb+kF5E9DZOdJWaunJMgvzaH/GJKy9rY
+ RqJV8QpiPBGQ6QKWa8fIC5PNUN8mr2wbZZ3ypiXIvfclyuxe8HLjnnqnGHGrhLjewS
+ i0Uo2BmZIk7Eg==
+Date: Wed, 30 Sep 2026 19:12:35 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
  Jani Nikula <jani.nikula@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v3 4/8] drm/i915/gt/selftests: Use drm_* prints in
- aggregated gt selftests
-Message-ID: <ar1Cc3FDo-2RCsja@zenone.zhora.eu>
-References: <20260828100339.72304-1-krzysztof.karas@intel.com>
- <20260828100339.72304-5-krzysztof.karas@intel.com>
- <apGwueLe3rE7gPLj@zenone.zhora.eu>
- <dnxu2clblnzurzncqpvwztmcmgs6vygq2yd5w6zldcnjhtvtsc@shzi3wcxynvw>
- <aqHOZatceKX5Gljr@zenone.zhora.eu>
- <d6n6pdqhf62m33vvawh2b2ayzsratsoae6n6v57kyjbbrvyius@zs3wyc6jszov>
- <arws71LttyyKPINu@zenone.zhora.eu>
- <vhogge4e7tr5qv2zeiocmmainjykmk6llxrxgwmqfzoioect4c@hr7y4usgrgid>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 5/7] drm/i915: Use drm_timeout_rel_to_jiffies()
+Message-ID: <ar1C7umRWNYnWVy1@zenone.zhora.eu>
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+ <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-15
 Content-Disposition: inline
-In-Reply-To: <vhogge4e7tr5qv2zeiocmmainjykmk6llxrxgwmqfzoioect4c@hr7y4usgrgid>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915-drm-timeout-helpers-v3-5-f2ae987d861f@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +71,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Hi Maira,
 
-> > > > > > While reviewing everything I was thinking whether it would make
-> > > > > > sense to add an i915_err() like xe and gt.
-> > > > > The idea makes sense, the question is when to introduce this
-> > > > > macro. I have the v4 pretty much ready to send, apart from a few
-> > > > > minor issues I have to fix, but I am not against modifying it to
-> > > > > accomodate i915_* family of prints.
-> > > > > If we agreed on this, then we'd have this new macro ready when
-> > > > > we'd be replacing pr_* prints in other parts of the driver.
-> > > > > 
-> > > > > I think it would be worth to keep the series in the oven for a
-> > > > > few more days, especially when it is not that critical of a
-> > > > > change. What do you think?
-> > > > 
-> > > > yes, i915_* can come later, of course, it's out of the scope of
-> > > > this series.
-> > > > 
-> > > > Andi
-> > > 
-> > > I checked again and again these past two weeks for your reply
-> > > and none came into my inbox, only for me to notice today that it
-> > > was finally pulled by my mailer client recently. I posted
-> > > another version of this series, because I was under the
-> > > impression that silence meant I should introduce the i915_*
-> > > prints. That version was met with disapproval from Jani as well,
-> > > so please just ignore v4.
-> > > Sorry for the spam.
-> > 
-> > it's also true that I haven't been very active in reviews lately.
-> > 
-> > Are you now preparing a v5?
-> Truth be told, I prepared two versions simultaneously while
-> waiting for reviews on v3: one with and one without i915_*
-> prints, both addressing earlier reviews. I updated the local
-> version without i915_*, so it is pretty much ready to send, just
-> need to run final checks.
+On Tue, Sep 15, 2026 at 04:42:20PM -0300, Maíra Canal wrote:
+> nsecs_to_jiffies_timeout() originated here and has since been copied into
+> another driver. It is now available in "drm_timeout.c", so use it and drop
+> the local definition.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 
-cool! I'll wait for the v5, then :-)
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
+Thanks,
 Andi
