@@ -4,62 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59537CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891E2CA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:18:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84E0310F23B;
-	Wed, 30 Sep 2026 08:17:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B4110F23C;
+	Wed, 30 Sep 2026 08:18:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eDaDmgYY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KHnWXJca";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D87110E5A5;
- Wed, 30 Sep 2026 08:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790756224; x=1822292224;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=aOEXaKJAmJS74O6U1Y7qs84BuAJX4TxGsf0cgkMOFCo=;
- b=eDaDmgYYO5Vdt2RJY+ytLWYz5lveeaFJducO0XldQixPH0j4GGjkjvoX
- DvnTb2X7BeaEKhzsZG7ZX8w0GFgOgHDZp2Sx1VFnANR3pugrLwhbYbEse
- FwPfvD0gArzc3qylVvLzRQC+NNSO9SmOZfRCZ83F+p7qyMJO6gTRiayUu
- ktXAL6+iKjIzqZ4rwBnA7aFXTOl3j4f/zoU+DJYBngCqaalzxHe3yTRe4
- h5yMS4yazHRKctKfp/3P8DYYCMRRlEVQyqWmxLXQB6xQ6HtAtWb3rtW79
- mzIIVU0Xn/GZSgF9wSa79eYm1/RUTtX9YhZropIhd10ZNVGm0YrjBNgjg g==;
-X-CSE-ConnectionGUID: yp7UuZVBSturhJXOegKLJw==
-X-CSE-MsgGUID: j7jdVK1hQT69yhGasMNntw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102163480"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="102163480"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 01:17:04 -0700
-X-CSE-ConnectionGUID: pCEx62D0Tyq5Ox6lp3EEHg==
-X-CSE-MsgGUID: gKn672HKQGWzGOhRHJ6geQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="280368873"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.107])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 01:17:01 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Animesh Manna <animesh.manna@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, suraj.kandpal@intel.com, Animesh Manna
- <animesh.manna@intel.com>
-Subject: Re: [PATCH v6 12/18] drm/i915/alpm: Program LTTPR count for DP 2.1
- ALPM
-In-Reply-To: <20260915180449.277933-13-animesh.manna@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260915180449.277933-1-animesh.manna@intel.com>
- <20260915180449.277933-13-animesh.manna@intel.com>
-Date: Wed, 30 Sep 2026 11:16:59 +0300
-Message-ID: <4a87eed400a220652c2da3c478f02b267eaf63f5@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD51210F23C
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:18:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 988CD600D4;
+ Wed, 30 Sep 2026 08:18:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9851F000FF;
+ Wed, 30 Sep 2026 08:18:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790756318;
+ bh=Z5uqg8OGV8G3amtZGI+AAjssegRbH2Q3sF6MukzHR4Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KHnWXJca1OG7ubExZjIAsnSkTiQN7MaCsc/vSPXZmsAHD3sKNtk/npmzfYD81IYrg
+ h8Lj9rd/RPGayQMkU52JzXFhfUWksJ7TlRl7xUB45oYxoOPh21Ar01EXU4zfXbSsDn
+ Qx8hep+EjuWDQ7wLN1CF7mjbzVWtpSnXHMaK/a3HE/Dy/wL5ni8au2Tr96oPwO0QDT
+ 7B4erMxz79o2iObpm6+t9Njmp8GREh9GgdzEJAOTzh6WnT8jS413WaA+T2HtK6yklN
+ vciTXZuE1KJL3zD+ZEd4yVEG0DW9bj3eJpVgh6ta2ZvZ8Du4SNIsl3V3mE1ESo/Lkk
+ juuuE/eX51S/Q==
+Date: Wed, 30 Sep 2026 11:18:32 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260930081832.GA3401365@unreal>
+References: <20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com>
+ <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
+ <607e8903-a979-4d78-bf08-447321c03119@amd.com>
+ <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +79,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 15 Sep 2026, Animesh Manna <animesh.manna@intel.com> wrote:
-> Issue a AUX write transaction to DPCD DP_TOTAL_LTTPR_CNT (0xf000a)
-> with total number of LTTPR before link training.
->
-> v2: Cosmetic changes. [Suraj]
-> v3:
-> - Use same encoding format for lttpr_count. [Jouni]
-> - Avoid reading alpm_ctl2 register. [Jouni]
->
-> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
-> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_alpm.c     |  7 ++++++-
->  .../drm/i915/display/intel_dp_link_training.c | 21 +++++++++++++++++++
->  2 files changed, 27 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
-i915/display/intel_alpm.c
-> index da653a407e97..06c1a59aa2c5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-> @@ -726,7 +726,7 @@ static void lnl_alpm_configure(struct intel_dp *intel=
-_dp,
->  {
->  	struct intel_display *display =3D to_intel_display(intel_dp);
->  	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
-> -	u32 alpm_ctl;
-> +	u32 alpm_ctl, alpm_ctl2, lttpr_count;
->=20=20
->  	if (DISPLAY_VER(display) < 20 || (!intel_psr_needs_alpm(intel_dp, crtc_=
-state) &&
->  					  !crtc_state->has_lobf))
-> @@ -762,6 +762,11 @@ static void lnl_alpm_configure(struct intel_dp *inte=
-l_dp,
->=20=20
->  	alpm_ctl |=3D ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_en=
-try_lines);
->=20=20
-> +	lttpr_count =3D drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
-> +
-> +	alpm_ctl2 =3D ALPM_CTL2_NUMBER_OF_LTTPR(lttpr_count);
-> +
-> +	intel_de_write(display, ALPM_CTL2(display, cpu_transcoder), alpm_ctl2);
->  	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
->  	mutex_unlock(&intel_dp->alpm.lock);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
-ers/gpu/drm/i915/display/intel_dp_link_training.c
-> index cb92cff90614..37c8306a1fa0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -2265,6 +2265,25 @@ intel_dp_128b132b_link_train(struct intel_dp *inte=
-l_dp,
->  	return passed;
->  }
->=20=20
-> +static void intel_dp_update_lttpr_count(struct intel_dp *intel_dp,
-> +					int lttpr_count)
-> +{
-> +	u8 val;
-> +
-> +	/*
-> +	 * Program only for DP2.1 and return if LTTPR revison is less than 0x20
-> +	 * where 0:3 represents minor rev and 4:7 represent major rev
-> +	 */
-> +	if (!intel_dp_is_edp(intel_dp) ||
-> +	    lttpr_count < 0 ||
-> +	    intel_dp->lttpr_common_caps[0] <=3D 0x20)
-> +		return;
-> +
-> +	val =3D intel_dp->lttpr_common_caps[DP_PHY_REPEATER_CNT -
-> +					  DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
-> +	drm_dp_dpcd_writeb(&intel_dp->aux, DP_TOTAL_LTTPR_CNT, val);
+On Wed, Sep 30, 2026 at 09:00:57AM +0200, Christian König wrote:
+> On 9/29/26 19:57, Leon Romanovsky wrote:
+> > On Tue, Sep 29, 2026 at 03:39:42PM +0200, Christian König wrote:
+> >> On 9/29/26 15:23, Leon Romanovsky wrote:
+> >>> On Tue, Sep 29, 2026 at 11:34:05AM +0200, Christian König wrote:
+> >>>> On 9/28/26 13:19, Leon Romanovsky wrote:
+> >> ...>>
+> >>>>> +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+> >>>>
+> >>>> This function call here *must* be in the exporter and not the DMA-buf framework.
+> >>>>
+> >>>> So clear NAK to putting that here.
+> >>>
+> >>> "Look, it is easy to complain you don't like how it looks, but this
+> >>> stuff is hard there are lots of competing concerns, if you have a
+> >>> better idea now is a good time to present it."
+> >>> https://lore.kernel.org/all/20260921130858.GO11599@ziepe.ca/#t
+> >>>
+> >>> Do you have a viable solution?
+> >>
+> >> Ok, that sounds like you haven't understood why I'm rejecting this.
+> >>
+> >> By moving the calls to pci_p2pdma functions into DMA-buf you bypass the NAK to expose those functions to drivers from the DMA maintainers.
+> > 
+> > No, you have misunderstood Hellwig's position. His request was to ensure that only
+> > subsystems deal with P2P internals. He was perfectly fine with bringing P2P
+> > complexity into dma-buf, since it is the agreed-upon mechanism for sharing DMA
+> > regions between devices.
+> 
+> Thanks for clearing that up, I indeed didn't realized that.
+> 
+> But that is pretty much against my standpoint that I don't want any P2P complexity in DMA-buf.
+> 
+> > 
+> > So this is not a NAK bypass; it is a correct implementation of his request.
+> > He handled P2P-related complexity in the block layer.
+> > 
+> > Let's add Christoph to the thread so he can correct me if I'm wrong.
+> > 
+> >>
+> >> I unfortunately didn't understood that when the dma-buf-mapping.c code was added and just assumed that you just needed a place to put some common code.
+> > 
+> > That is not correct. Devices A and B share a DMA region via the dma-buf
+> > mechanism. Where do you expect the code common to dma-buf to be placed?
+> 
+> In the DMA layer!
+> 
+> >>
+> >> So as long as that NAK from the DMA maintainers to expose the pci_p2p functions to drivers stand I will push hard to get that stuff removed again from DMA-buf as well.
+> > 
+> > Are you seriously suggesting that every dma-buf driver in the world should
+> > have to reimplement this mess?
+> 
+> Well I completely agree that this should probably not be replicated into each exporter, but that is the job of the DMA layer and not DMA-buf.
+> 
+> The purpose of DMA-buf is to exchange DMA addresses between an exporter and one or more importers and handle things like lifetime and synchronization of accesses. 
+> 
+> What the framework should do is to transport the capabilities of the importer to the exporter, e.g. what physical connections we have etc..
+> 
+> What the framework can also do is to have additional information from the exporter to the importer regarding addresses and mappings, for example if they are bus, IOVA or some special internal DMA addresses or how to stitch together your PCIe TLP or whatever.
 
-Please use the modern DPCD accessors throughout the series. See [1].
+At a minimum, exporters need to pass `p2pdma_provider`.
 
-BR,
-Jani.
+If I keep the “dma-buf: Let exporters hand out the P2PDMA provider behind a
+buffer” patch, I can move the P2P TLP types back into `p2pdma.c` and export
+only the function that indicates whether ATS is required.
+
+Is it ok?
+
+Thanks
 
 
-[1] https://lore.kernel.org/r/cover.1789547331.git.jani.nikula@intel.com
-
-> +}
-> +
->  /**
->   * intel_dp_start_link_train - start link training
->   * @state: Atomic state
-> @@ -2304,6 +2323,8 @@ void intel_dp_start_link_train(struct intel_atomic_=
-state *state,
->=20=20
->  	intel_dp_prepare_link_train(intel_dp, crtc_state);
->=20=20
-> +	intel_dp_update_lttpr_count(intel_dp, lttpr_count);
-> +
->  	if (intel_dp_is_uhbr(crtc_state))
->  		passed =3D intel_dp_128b132b_link_train(intel_dp, crtc_state, lttpr_co=
-unt);
->  	else
-
---=20
-Jani Nikula, Intel
+> 
+> As long as both the exporter and importer agree on what those values mean I have no problem at all with that.
+> 
+> But how those DMA addresses come to be should *absolutely not* be part of DMA-buf! The complexity of that is seriously not something we should have here.
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks
+> > 
+> >>
+> >> What you try to do here is seriously not ok and I will push back hard on that in the future.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Thanks
+> >>>
+> >>>>
+> >>>> Regards,
+> >>>> Christian.
+> >>
+> >>
+> 
