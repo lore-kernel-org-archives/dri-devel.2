@@ -4,139 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96C0FCA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 06:48:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 785C0C9830E
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 06:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88ED10E4E3;
-	Wed, 30 Sep 2026 06:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1D6710E8BD;
+	Wed, 30 Sep 2026 06:54:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="QF6j0gXq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lSSsJ8y6";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dqmpU21l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lYZZNlON";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m11e1LMY";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F36210E4E3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:48:48 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 58D961F848;
- Wed, 30 Sep 2026 06:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790750922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oNNi0b9/KDAiIdnJzmOBnuHKAYhVEWpYywaYKcUcgB0=;
- b=QF6j0gXqFngo1GX7o4/2Qn59iuTVHpSPDXOze9nU6Sxe/5lZm9nXigaRO1frToJ7KQAP0Q
- tHmWbVYiVJ05zxL7XUp+6l/Xo3R9TvJknu/g4V7eAuzYPrBAsH9ChlYgyuoQM/z/emxbEJ
- HTD7UifSaOa30pt2O5tI9duRUaguWfw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790750922;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oNNi0b9/KDAiIdnJzmOBnuHKAYhVEWpYywaYKcUcgB0=;
- b=lSSsJ8y6zh3Fjhmo2F9Kphi5PkMG98L3+yyJaafgR5vFBQmICuTNOrqS8sC1LFDvm7jp56
- jKjbWoot/BqxJ2BQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dqmpU21l;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lYZZNlON
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790750918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oNNi0b9/KDAiIdnJzmOBnuHKAYhVEWpYywaYKcUcgB0=;
- b=dqmpU21lail9pnOW13qsRrkvsQw+t2rLxw6/O2Elniqh8gzsLTgyaIu2jz9OmOtX2j5Oxi
- ncyP+8DmqWr5W5pmzcH5oKpg7f9iGd0u/f3hraHoKw6kp0bmm5b6dasZDJ5vz0fC+V00AT
- H1RSEHCH8MTNvE/SCUKl62uirBo1lf4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790750918;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oNNi0b9/KDAiIdnJzmOBnuHKAYhVEWpYywaYKcUcgB0=;
- b=lYZZNlONsi7Y7v8m+ciEFF8jw9rhFVmWhn15aDhB14gbbANOE4DmPf7KgIpCZoYnS7b7oe
- P4XbdJK/wnxJ0DAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0A6AD136AD;
- Wed, 30 Sep 2026 06:48:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id TeAfLcWwvGpADgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 30 Sep 2026 06:48:37 +0000
-Message-ID: <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
-Date: Wed, 30 Sep 2026 08:48:37 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5813610E8BD
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:54:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790751287; x=1822287287;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=kVjil3wU86oBa35c2s5G/P1r2qxtfiRL61f5KNHLF3M=;
+ b=m11e1LMYmph+HCcsYUPAwHxxW4JM3XeVv09v+yMsymzwC/YWJbF19kLB
+ f00g9e+mmOej5XFQtT9nvVYCxYzckdsLkk8jSuoleF+w3oStw3pSuSqtY
+ M8qrFuRMGdhGK4m1HOFlWhgGg+Hfl5e2mSxiCcYWsu7BOPm72ySnUu1I/
+ /qteFJQ0QP7XaWezwz0IhYaXWPs6c37Bp9stlWspz8z6Y/S7IosF+fi6B
+ MYt1KLyN6aw7FJwrw63oh0oKb5caufGQKcziU9WfukPg8KKu2Vx1JsFr7
+ PZ6LMWheXqTyDfxccUHIoG3GvG/J55ENpSMl4auMRp9ELLrRrRZFKav4e w==;
+X-CSE-ConnectionGUID: DIqiFp64TMOuy0ZpykKUFQ==
+X-CSE-MsgGUID: REn9Tj07Sl+4+CsrNmw0YQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90246336"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="90246336"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 23:54:39 -0700
+X-CSE-ConnectionGUID: UnQuzdQDTcuqzXSz5pxUJQ==
+X-CSE-MsgGUID: w8sGXh9tTEmUOGkiai78tQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="278949635"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2026 23:54:38 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 29 Sep 2026 23:54:37 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 29 Sep 2026 23:54:37 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.6) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 29 Sep 2026 23:54:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z7hcAXrxTvJGR8dvlgs3F1hhDJX3RJFG1YuoRVWCmQ+vHehbNN8o6jYEdk4rLjmHokYp+OBi7aQreuSF3TrzQoCi9LxpmKtpbLWsBIo2uyPF3Nvq3kH+esM/UIkqZdD8D6XWIMy5myDnXzgq0wOb0nPl9DOcC64iWUlndRxPXzx7KSkyFJQTS6IrL8rrpKR1kgb4syA1GAyhrp7rSpVw047YT85+Xf25ptj9fyGlPcFBECJrGz9au0aOrsTsM5HECYYMm/kJZshw88n3WITwjguT8PONhvpx/QXSXnWcCE5aGjt1qL0TBcivCAO3ZMNnpckOF2XSUX76M3azrG7vvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxop2U/cAsogyjaoh5DHFboj3cLxyEPQ1F1wCRgD7Ww=;
+ b=s9+PUzwPsoZ/Emt3q1Pf1pDHgug7OQpsEucBVCzXWHa5rC4VE0Mh31XTcsNXeLKZ3G+xJ+Rgawfzl5hTLy0EPuO0lMzroV13UsbPMuF+kX7KF0Ql9303hACHjnjcMIqjN7hS9JYg+mgX9wTM6A4a6lVZrnXARv/8Y2fibPTcs6VFG9clifussk+T0rU/TIXsT6nXE1IDITL/bEh12pnOh9j4SMvCJ4byCznAknqHsNIbX3k7Kvjv9UHO6o00o6Iif2IZ7ZCh2HYDBJQ6q94j41NCoYcb1j9MzBAj+eyD1HpiObwNXGb7gQRSf6fYDa8dSfbgxe/h7QYyLTQmpt8S0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by BY1PR11MB8053.namprd11.prod.outlook.com (2603:10b6:a03:525::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 06:54:35 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
+ 06:54:34 +0000
+Date: Tue, 29 Sep 2026 23:54:32 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+CC: <sashiko-reviews@lists.linux.dev>, <media-ci@linuxtv.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+Message-ID: <aryyKMFpgK9JYQr0@gsse-cloud1.jf.intel.com>
+References: <cover.1789997898.git.asml.silence@gmail.com>
+ <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
+ <20260921135344.035B81F000FF@smtp.kernel.org>
+ <17884261-52ab-484e-a39a-01e67f7a1d2e@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <17884261-52ab-484e-a39a-01e67f7a1d2e@gmail.com>
+X-ClientProxiedBy: SJ2P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5da::7) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
- framebuffer
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org
-References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
- <1f383114-e367-4b67-899b-14a393fece94@suse.de>
- <20260923160049.1741651-1-holofermes@gmail.com>
- <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
- <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_TO(0.00)[igalia.com,gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 58D961F848
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|BY1PR11MB8053:EE_
+X-MS-Office365-Filtering-Correlation-Id: c990f216-6655-4f64-45c7-08df1ebfafde
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|11063799006|4143699003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: tIuk0+tsikxP/iqtSulD/GEuBRaMt6MdtGMbd0KEtkgBHIEt0oNTZWT/ELcygcRRbJ48d6K6TZ7wvTRaTAgpEHQfloxwBQ8trhEbtXbQ+kN8uZMNWJdLwDz69V+r3Pp6HjltWKWeDTJkk53Nk3TRzBi2mVCepr9Ou9jhEOSNlxXdrZGZ4HqAhHspk47kl29tKAre6KRAiAyccVVXy3AScH+d+tANkv+UzKTFc6XpI3Nm2zpRewuwWsYPqZzph/7/rXoA3xcB/aSMXF9ebNpJkpMomUz585Af4mhyC4+n1HhToU/HIH0AIlRkrjcWglnBzyexG9XRCJLo8I+xwdTAB5HzXSnUTyHhbUfn44m626dpDLZ8D9/OI63bZki8OUhOs6wEnKWHn5FOMki2Z+U+igaMLbJwpQwjsgpvTk9J/R8x8TdXboVIqWvsFZPn6PzxgspmCNadg0AYDYtHWSpZZM9248dxqP+wgsgEMozykjcJ0FD4DnBHd0jLr+F7toYoLQzamjzhGT1S5co8SlfYVrOkBou/fVoQ2CCTtbnZPtf8Xj4gFtWwh7ufo0Y1gOt7GKjwnntuANue/gdoDfhgffv9uRnNq33kwZA8YVCIeEFmDdqbvkl4Obqqw7VYFkvTFEmeymMXZiFz0xkXwIeyBTtakDv/hx5cTdV+Vt2VDms=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?o3ylus2cfN2E9ylnzVjLGYbZOXAEoy/pPDYibP76duSlwM3wjvCjyIPsLfSz?=
+ =?us-ascii?Q?pxP55+9HD09oR1cd8/4w7jgFa0F2P20l0KTzxgozxm+UhcsPIXmsfS3CAFJ6?=
+ =?us-ascii?Q?Vq3077BmsyUhbrMaiVtrFFxyyV+aQjl8gxquHnC5ugtSf6pYBOVV0C6Qw5FV?=
+ =?us-ascii?Q?S1R20PDGUnuEI2O7ETtVjI4hOo/EyIvPEc2B4Lr6MCYJ5krMyvXbDkZCfc1C?=
+ =?us-ascii?Q?MLxIunYGwUoBd5DoMSctN5sv7sR0yWmKfIyemBiYWckNiL2CZVT+ekEmJcUz?=
+ =?us-ascii?Q?ll0guhN2y2FIQXKim04GSwEajYedzLV/HuhbRfFzzKGdrprXMTybMbfRIIQv?=
+ =?us-ascii?Q?j5IumcioB7FD35oeAp+3bsoRdy6ih1UIOQVsGFXqVHoX8Q7yzDoScuqDDTzM?=
+ =?us-ascii?Q?z7fJ7+opXfMeQJziBfAbbAl6k0vX57jEPSCVyLcBT9F9ST+vEMCJ7+UxYB31?=
+ =?us-ascii?Q?LKzqn5tVfSrAdI4ct9JnceBL4BoVj7Y1pDQ3lo0ZoshVFUi2hTfCtoBVuH7R?=
+ =?us-ascii?Q?F8qd4I8Zhd7/lIFEwkFAguGmoBgbYbWfR1ZqDmOfRbjhLLNv5fglOD6FDLxz?=
+ =?us-ascii?Q?MgJKUUjDVhNfiPBJ3rToZCSdLKubgRuifHzonKS947ZRqXDet/XO7D1iGlw/?=
+ =?us-ascii?Q?uSbFovimTYijeDROxpvNBqzYom7NRXkqnHQrgeT6zpiq6mfHS335eZZSsc1H?=
+ =?us-ascii?Q?p4KVgjrLtLRgW0R9mk1eVSflSSq3qHof0jDuzDZjnnjh/BsVlmjcrtdrTg4p?=
+ =?us-ascii?Q?PszXNUVW/6i+SZnSqSidCTx/0+clKYxmVCHSJ+TtOQ6Hx/a/O91izqi32DlU?=
+ =?us-ascii?Q?WIkA33CbSjYR1I1BVtMpoBRuX0iWg26BuNYIOPf7Z9J9+MA3OYpSopWSM+c0?=
+ =?us-ascii?Q?GPGc0rSK45PNwqVbIuMqJ3mBit46N0K23M+/+fNaPW8m0RMHa4joU2y9uZx4?=
+ =?us-ascii?Q?rJ1Sj8dRWsaGKmXrhh1GIGzg4R1lN6VJMratI+CzAFQzoabwq6amcQQDiR3N?=
+ =?us-ascii?Q?XTDbdJs8PHz9uUCeZf7Br9aqZiqvavGRufSBUVl4l49eog6500oNu8Dv73HE?=
+ =?us-ascii?Q?wBGBhwCJoM/F3cVc8F59rOt/MoLP1af9MLZ2ZdOmROjEqNiiEoSdpuOOz4lj?=
+ =?us-ascii?Q?0nntbgeKiPXFVtySLw0o3O1hKWUMG5yrLggCtwVPgGRu7Xz78Zuw3WcxbpMr?=
+ =?us-ascii?Q?la6S6enXrgMzxNc6niHaSp+om1xHsoHyokfqwXRsnp/zJVjOHj4lxZqdQ/Xw?=
+ =?us-ascii?Q?deHawWO3dQPMjq6/0PRXVMTTgGuGCcJVtUgYAyPMLnqDuLSURyA8G0iK3p+b?=
+ =?us-ascii?Q?rITvE4pcAfxFoWbPANh01klm90WqhnSHMz/zsL4zLbFz6JuVaIXN+CmglBnq?=
+ =?us-ascii?Q?aQTEVWRDx3vwZxfGfGRbxK7OW8mD/ea05YXgUUGYd7TF47YTtEV+l+PhGKm3?=
+ =?us-ascii?Q?4H+lwUkyU9I5HOO5Aga3jOij/Sfr5UCPLYh1PHRulEVuPepR0lby6JirOsTJ?=
+ =?us-ascii?Q?h6B9HuO/FVq/yI+EUyBj7l7xpYT5D/3ehqpyv3fsRLeUZEhb0kresEjII31B?=
+ =?us-ascii?Q?smit28woxOxKznjT+x7E/iIWpbbd657jPB0n/vL3qgkmC7BeyV2atkO2smdS?=
+ =?us-ascii?Q?Z8wPtrdhmyMDc/0UMJLc3FB+h0wO7EDUMRRyhuBRW7luPx3jjj+mBwH6QKwE?=
+ =?us-ascii?Q?UbrMhxQirSCOEySmZHIwTVTd1uXW6q9idq6Xl0WIWPOBWUGm0NEKcfm/f0dS?=
+ =?us-ascii?Q?zCZN0cvYIBWZYdhrjPY6SGto25fpAdw=3D?=
+X-Exchange-RoutingPolicyChecked: N4aqt11mMZ6RENkt5tubx7XWJDFXvW4yCBfUhuFlVh6x41MPUeszR/SCAPaQc5CISZ2pX9eEBvZZ0sLSkT4XP/RO0BNnjVGHSygdWiuDc+hxkDRoa+d1y0wpPnPtdTvkfnsdQRkeebZ7rOAAiaf5v+8oP2a2R3eiw+RzpEQx5rITFivvjAqRT+UhblXXruYJG9HrddovVkXsVRuZlc8wIbCaLVTj7X+Olb+EjfnFbzx9zvA7qZyYKE8y9KYC9p195M07CqhQ6Yy8r+5gqXAmdXCmu6GT79eaiPmEa4kj7nbBGW/bDY9f6DMOVXl7NVUYrRxOgXa9xMEMPHmXHLdbTg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c990f216-6655-4f64-45c7-08df1ebfafde
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 06:54:34.9550 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vT233ozQwcI9OIzc/qiL1CuPudSBS+/0KqeU0KlXlcDsBmtoJbdX+8/+zMBv/9BFIig0CuFEbg+PUI5zsGYt4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB8053
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,121 +162,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Tue, Sep 22, 2026 at 10:08:38AM +0100, Pavel Begunkov wrote:
+> On 9/21/26 14:53, sashiko-bot@kernel.org wrote:
+> ...>>   }
+> > [ ... ]
+> > > +int dma_buf_io_init_map(struct dma_buf_io_ctx *ctx, struct dma_buf_io_map *map,
+> > > +			struct sg_table *sgt)
+> > > +{
+> > > +	unsigned seg_shift = ~0U;
+> > > +	struct scatterlist *sg;
+> > > +	unsigned long tmp;
+> > > +	int ret;
+> > > +
+> > > +	for_each_sgtable_dma_sg(sgt, sg, tmp)
+> > > +		seg_shift = min(seg_shift, __ffs(sg_dma_len(sg)));
+> > > +
+> > > +	ret = percpu_ref_init(&map->refs, dma_buf_io_map_refs_release, 0,
+> > > +			      GFP_KERNEL);
+> > 
+> > [Severity: High]
+> > Does this GFP_KERNEL allocation violate DMA-buf locking rules?
+> > 
+> > dma_buf_io_create_map() calls ctx->dev_ops->map(ctx) while holding the
+> > dmabuf->resv ww_mutex. If the driver then calls dma_buf_io_init_map() under
+> > this lock, the GFP_KERNEL allocation could deadlock if memory reclaim
+> > attempts to acquire dma_resv locks.
+> 
+> Most of these look trivial, going to fix them. This one, however,
+> doesn't sound true AFAIU, I haven't heard about any blank ban on
+> GFP_KERNEL allocation under resv lock.
+> 
 
-Am 29.09.26 um 23:50 schrieb Maíra Canal:
-> Hi Thomas,
->
-> On 29/09/26 06:04, Thomas Zimmermann wrote:
->> (cc'ing v3d maintainers Maira and Melissa)
->>
->> Hi
->>
->> Am 23.09.26 um 18:00 schrieb Fabio Piparo:
->>> Hi Thomas,
->>>
->>> Thanks for taking a look.
->>>
->>> On 14.09.26 10:43, Thomas Zimmermann wrote:
->>>> I assume you write these frames quickly one after the other? As i2c is
->>>> really slow, you might write to buffers that are still being 
->>>> transferred
->>>> in the background.
->>>>
->>>> Do you read back the status of the page flips? DRM should tell you 
->>>> when
->>>> it has completed transferring a frame. See [1]
->>> The test renders with the GPU: two dumb buffers allocated on the
->>> ssd130x device and shared with v3d over PRIME. It runs at 10 fps.
->>> Before each flip it calls glFinish(), then flips with
->>> DRM_MODE_PAGE_FLIP_EVENT and waits for the event before drawing into
->>> the other buffer. The same test drawing with the CPU instead comes out
->>> clean.
->>
->> A number of things come to my mind.
->>
->> - Dumb buffers (from ssd130x) are not meant for HW rendering. They 
->> are generally for software rendering only.
->>
->
-> This reminded me of an issue I recently saw involving GPU rendering to
-> dumb buffers when combining simpledrm and Panthor. It had the same
-> symptom: this trail of glitches.
->
-> After investigating that issue, I noticed that, on platforms where the
-> GPU isn't DMA-coherent, when a shmem GEM buffer is exported via dma-
-> buf to a GPU for rendering, the CPU can read stale data from its cache
-> when later accessing the buffer, which manifests as rendering artifacts.
+I can confirm this definitely not correct - see dma_resv_lockdep it
+acquires dma_resv then fs_reclaim_acquire(GFP_KERNEL). Shrinker enter
+direct reclaim and try to take dma-resv locks, but not block on the
+lock.
 
-Exactly what we're seeing here. Thanks for the analysis.
+Matt
 
->
-> So, the GPU writes reach memory, but the CPU blit reads stale cache
-> lines. drm_gem_fb_begin_cpu_access() only syncs imported buffers, and
-> GEM dma_buf_ops have no begin/end_cpu_access, so nothing invalidates the
-> CPU cache before the blit and the CPU reads stale cached data.
->
-> I have a patch implementing begin/end_cpu_access to
-> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
-> we would like to support this use case upstream because, as you
-> mentioned, dumb buffers are usually used for software-rendering only.
-
-Before we fix anything, I think we should talk to someone with 
-dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern is a 
-producer-consumer relationship and HW rendering into dumb-buffers is not 
-supported. Those buffers should have been allocated on the v3d side.
-
-IMHO we should write down these rules in the PRIME documentation and 
-(soft-)enforce them in the implementation.
-
-
->> - Hence, the ideomatic use for sharing graphics buffers is to model a 
->> producer-consumer relationship. Export the buffer from the device 
->> that generates the frame and import it to the buffer that displays it.
->>
->> - Since you're compositor's sharing happens in the opposite 
->> direction, ssd130x might not sync correctly. (I'm not sure of v3d 
->> requires a dedicated flush.)
->>
->> - Or maybe v3d needs to do a final cache flush after drawing to 
->> imported buffers.
->
-> I don't think so...  Once the job completes, the GPU writes are in
-> memory. I believe the stale copy is in the CPU cache, so the
-> invalidation should happen on the CPU side.
-
-OTOH it's not the exporter's (ssd130x here, but really _any_ driver) job 
-to take care of it either. :/
-
-Best regards
-Thomas
-
->
-> Best regards,
-> - Maíra
->
->>
->> If nothing else helpers, we could use map_wc for shared buffers in 
->> ssd130x, but it seems like papering over something else.
->>
->> Best regards
->> Thomas
->>
->>
->>>
->>> I'm happy to send the test program if it would help.
->>>
->>> Best regards,
->>> Fabio
->>
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+> -- 
+> Pavel Begunkov
+> 
