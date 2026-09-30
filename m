@@ -4,108 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB85CA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1961CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 14:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7FA010F425;
-	Wed, 30 Sep 2026 13:53:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5498A10E181;
+	Wed, 30 Sep 2026 14:02:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JTI5pPOM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oh80o+rV";
 	dkim-atps=neutral
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com
- [74.125.224.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB98D10F427
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:53:00 +0000 (UTC)
-Received: by mail-yx2-f38.google.com with SMTP id
- 956f58d0204a3-675617094f5so1846051d50.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:53:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790776379; cv=none;
- d=google.com; s=arc-20260327;
- b=Ll0WhzykKhYBCUqCmrJn17Qwd0+p6D682SeOdq6og0DBe2O/xEIMF8v+bIHq6CGtN8
- L7akpV6tl85uRjMZ5Xh12WigjIyh5H6qkkULPzJP/3uZDfOFPK/WT9JINiPF2QYSCRPj
- hLCtPjlO/ESTxDpemoEU5J61OZq/5K36egPf4U8pKKS9U1qkJS96uLI+/vOsqQZVaabv
- cI9yKKErR1tcAcy9B9dMawbJhoSlfhv0zl5a2Z0NUbCwVYnNFdMaBq+durrprd6yMp03
- vnZjAO/LA+1WFdBr+wp3bsUDm7gA2TrH7Ukm7iG1f5esZZxQQ0/CD19c/b2Z9WfiDyHZ
- DlNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
- fh=Z6YtaPgqzTg5JnSx+o8cBKqup38lyg6fWoVZW+qBgII=;
- b=bkjBBx4JmlWf4nWSt7Dn2oLmCdjWU73suLICXeYnmaotveknsEFK8BFqchoW1YsJd0
- 99fBE5EPnFvDwuo2FRPQmxnD/SMazdXwSgrcVKfFD4KXeeTiGQUz77jiH+4WQYfLfhJb
- uxAIZWIVihrR8xArVIg8IZ8dfZHZ3uejoFCmn+62QB24WuziHZcSSe+vTCcvCiEpW285
- Da/XkGEy+kF9jdCDZV7eM1ka1fRtb2FCccac12zoMbsoGyZqpx2icHsaL5g7gaK0FGqz
- 3TFxNCHbV8tkuQktlBIYHUVIzl5T8AkdWVpD5q9wkH2o7RhygfR5Anad/LoEqgibxgWt
- YJ3w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com
+ [74.125.224.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08D3810E181
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 14:02:02 +0000 (UTC)
+Received: by mail-yx2-f12.google.com with SMTP id
+ 956f58d0204a3-66e4aa8d881so5700592d50.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:02:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790776379; x=1791381179; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
- b=JTI5pPOMQF6a/OURgtx3n6Y+SXpptfQdLTShbrz7OmSq/dSxb1hQA48m78DvHMKJCa
- hf8gg9pLbwMvWi/d7DS56cGJsTO72qhGmn5X57VHpDrp6br6hjV5osYsOchza1TwolXK
- 0gLBjttXG2d9ecRoEKaoAeL9/gAf7Tc/qDnR19APP4CIK7blcG2ndD/SD25wnObJhDBM
- CQe3LuBik4o8bDTaKYBRZeupiNG1q5qZoU++BahI4vp6v79kEnh+C9yNVWlMxEdBPct8
- aD5IcpYksO4/j/+XyOy9eVeS3Q2vGLGEY+4c8dnxl04Rc1Tm2vr9zYmIqBhbHArscFWM
- fQQg==
+ d=linaro.org; s=google; t=1790776921; x=1791381721; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qs9QTXyZYNRiUfQ+wZvKCopWk12AffrP+uIc+6uA/NY=;
+ b=oh80o+rVcgAGdqPXZpde7DmF44LjLk2MUzoXnLfllonOPq0ZJW7Dvcb1WZfo5FxpP/
+ 4zw6ulx4IBbsoVE4FcTx4CAswx/WlzMZmaavsrOr1Q0JJQKizE3rQS2FuJjzlCYsvwhm
+ 2HKAIfAEzRzlloemLoY1mGuEILmBDlVoswh5xOHkpt6D6VKE8aT7n0StZpuufw68OI/Q
+ dyF2DRe734vs1dUrUQFfIJkXM18A/CYF7nDHhTw/q1D5rolHBZcAJOiVOpvXHINdJWJG
+ PF4BYjb1f62FlunsML5t7WzpGuUMLR2y2iBbaRqx/z/R22dv39NMCS51uYKLjpgIi8T7
+ AUmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790776379; x=1791381179;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
- b=PTbxsUTZpULC0tFusgwOhSplQuddVjmESCqjbEEGrPu6OaSRVMKb+B43NWYUDu3tZl
- 9Me2hI+8YCwzikOEGwV16ku9V4xsDr+vZb+xovMmc5NgC5DrVcI3n+HoZtqN3Uy5KRlN
- r0jalWKyY3UehXBY9GjmYSu8BxCZkyctxlNlfTHX/PmstYtGtZLXdDqaDo5x4elxwczs
- JCMS7YOqDoqi/C0m3xNrYpIauqfRgFUt9nqO1wcwyxqPZ7NkeFCNZcWiSZS6e6ASyogF
- aF0VJYUZvcRMXveUtcA2xnXNxvs1g5WLSzAjAvjLotxahZ9AveL2YVkWeOm/xHged3JN
- y+iA==
+ d=1e100.net; s=20260707; t=1790776921; x=1791381721;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qs9QTXyZYNRiUfQ+wZvKCopWk12AffrP+uIc+6uA/NY=;
+ b=qsvpnjlAD0cOquCQxOawxm0WYibr3JdA87ZP0Z+JFOAdip2+uVwDOY4xpRO0tD5BY3
+ Hargv998p4o2UwxFIiOGjZ9f2CNDfhG3L5n/Miu7+rB7sg1VEbnBQkwG2lLK+eFLU/a8
+ p1TIwi12hONJSiFYxVQ7w4vpknrywpmGpNV5AYsVSLiRryyRiAdmoJGvsnjSCdyU9h7J
+ AWiqZUeIHGBHBcK/u6YqisCQT+19XtzwqUbIUqJLzTC3kaClpso01kurmVCU3CfI9kIP
+ 4C0cP975dC44FzGR4XZKlmWVQjwNJCfjnqLdUapvi+vI6ThxgW+1kOQoqvVNA6q0NpAO
+ 3I8w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxgG+u1Z5gznlU34V0CB3T4GYcohyT+Umbq7IiAsaQPZmSbwS6dOCgqvK04SBu5uUEeQKWAO9o5WT0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK9dsMnzeW5LRZs/s+C/1QAQyPZnCToe1yuhk1DECcv/hjRIvUZ
- DBG9qc/b4SG8SuQAdgXuf4P0uphgugQL1daNLHhprVL/DJgf0FPqacojVfei6uICKQ7yKDITuSa
- lLnwV6HuUclFoO0wffREGHpDMLQgDfWHDgBPRFfsT/A==
-X-Gm-Gg: AYBFou2bfF1jjsoaW9H7U9y9zoXhjE6YLw2lvqgf5JwvOJPoU4SrpZYY6UDj+BDPb7h
- m3tgWwgczKigbfitKwNiacJ8N34iCtCvOz2GP/KjI8VkwR+SgwfJ+JFJ8WY626WUVXk7T5hCkI7
- YeVRP8Gff3yb0tnhcqLOg+Mm69PKz5yHjBo18AiwWu2BpgL+LGWS2ZdpDBpIZ6dc3dmmy/LWcS+
- Ft4oRgzKUNv5h0uxtytegFzYeGCjTahSuDCsUHyGwcCCyEJsrGTHdJQmm6tWTPKPmEjQGJCDHOi
- O+HLc/OEIcAiECAF7H/MXrREoWrGb/QLUlEcHrNSJaeSl+7aPvnYHo2I9xzkMxN7
-X-Received: by 2002:a53:bc0b:0:b0:676:24e2:c67e with SMTP id
- 956f58d0204a3-6768351ba5fmr612451d50.89.1790776379376; Wed, 30 Sep 2026
- 06:52:59 -0700 (PDT)
+ AKwUvBy8y9jBHzC/RwmohxmBSrva10KxTePmpoTf+50txgZ10VGxXYiRCq3+OY38IwmlH/zJSezWNl/p9GY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIPNjxAx8y1eCZ6kf6BMiH6XBog8ro9BXJDqpsZVYbjeVDDQW9d
+ kPQ6yXi+CYSRt3jtE2yQ163kbPBX2aijwdFTvxnAcKNR52LPw7y2mwFJZKxgsZt59mk=
+X-Gm-Gg: AYBFou2bqiSPPnZ2ONRqOo4O4IWcLjmojgDKlCT3otg91TPa1SgVl+kCxT6JqO9KCI+
+ aWCbYzzfVYSPLfhgr5pkxQXPG3t8tLEm5llpoWHeOXnI8g9Ogtu0HisKI+YUtfsvIviNmh6z6o1
+ vTAUzBQ78vJSZOfK0Ecdr3mI7kM97hd60fJRaChOAVFpccPeSPaZdE41VP88MSq0a+/PacE+S3o
+ J3dfdp+rJ0jqSYdL+HwDcPnYb+XBXBZ/36gSOxFaeyC/klyFvf3w50PcMrohJblz4M1ZxZ5Z4T3
+ YEcXCMC+CozkbwONq3NWR0wN3pVlvlGD6pifTq87COiw9DSfWNLlYRUmitbZT+2lN+dneXk6kj+
+ IpAj68mN0EdZ6eAEwK5XimfYbIcLr8JUwKM1z2AvysQTPcayFbs5fnojazccfj6bU3I0NijSGvK
+ G66IpepkJOEb7kDAwpn4XXZIb6ra9XtGAcsl6EZMV07c8dxnrDWxYSsqeNFh4f9y0s/ufrTbUpK
+ A7gbWYuSo2WokHRD1tezpY6mG5RbA1C36CsuRCGpHc8qIT/Ge50Ae4IGBCZ1bBrHWRguXcyaX6e
+ DCpwEiAFVMuohMM5kw==
+X-Received: by 2002:a05:690e:484d:b0:66f:c238:7657 with SMTP id
+ 956f58d0204a3-67683530372mr445880d50.76.1790776917625; 
+ Wed, 30 Sep 2026 07:01:57 -0700 (PDT)
+Received: from [10.21.51.184]
+ (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca.
+ [142.127.77.63]) by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-67680ac3521sm764290d50.1.2026.09.30.07.01.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Sep 2026 07:01:56 -0700 (PDT)
+Message-ID: <6c581ae0-2480-47a2-b46e-97afadbc7c1f@linaro.org>
+Date: Wed, 30 Sep 2026 16:01:52 +0200
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
- <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
-In-Reply-To: <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 30 Sep 2026 21:52:48 +0800
-X-Gm-Features: AclHuK_VxnR8JOsc80IMzuEQ7RuAU15Ps6hnH2uLVe_uy8XWpyeHRK9yzrHieFo
-Message-ID: <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
- configurations
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,71 +137,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-9=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
-> > Some devices treat two independent physical DSI panels as a single
-> > logical panel from the CRTC's perspective. However, two separate DSI
-> > hosts are still required to drive the panels individually.
-> >
-> > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
-> > allows a panel driver to inform the DSI host that it is part of a
-> > dual-panel setup, enabling the host to coordinate both physical
-> > displays as one.
-> >
-> > This change does not force individual panel driver to manage
-> > system-level display topology if the driver does not intended to
-> > support dual panel topology. Only the driver that set the flag to
-> > true need to take care of panel topology.
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  include/drm/drm_mipi_dsi.h | 2 ++
-> >  1 file changed, 2 insertions(+)
->
-> Do you have a single MIPI DSI device, or are there two independent MIPI
-> DSI devices? In the latter case, the flag is wrongly placed.
+On 9/29/26 11:03, Jani Nikula wrote:
+> On Mon, 28 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>> difficult to support and require pretty much a panel driver for each
+>> panel produced. Most of them are pretty simple, and require an opaque
+>> initialization sequence that is usually poorly documented.
+>>
+>> This creates a tension between OEMs and distros because OEMs will
+>> typically get a new panel to react to a sourcing issue during
+>> production, and thus need some swift turnaround between getting their
+>> new panel and it being operational in the OS. Distributions on the other
+>> hand can take years to ship a kernel with that new panel driver.
+>>
+>> To solve this, I followed the example of HID-BPF and wrote a panel
+>> driver that will rely on BPF programs to perform the panel
+>> initialization. That way, we can ship the programs separately from the
+>> kernel, and with a different lifecycle. If this driver is accepted, the
+>> plan is to have a userspace component started by udev to identify and
+>> load the right BPF program for the panels found on the device.
+> 
+> I'd think for most panels it would suffice to have a declarative
+> language describing what to do at what points in time. For example, at
+> poweron, enable this GPIO, wait a little, write this set of DSI
+> commands, etc. You rarely need actual programming, or even ability to
+> read-modify-write something.
 
-Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
-mipi device
-to notify host they are one of dual panels, so that horizontal
-configuration(width)
-in mipi host can be handled correctly. Where do you suggest to put this fla=
-g?
-Thanks!
+Yes we could have a similar panel-simple but with init tables, but
+in reality those panels offers much more features we don't handle because
+the DDIC vendors and panel integrators just don't care exposing those
+features, but they get handled by vendor implementation like for Phones.
 
-Jun
->
-> >
-> > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-> > index 2ab651a36115d..889ef1421207a 100644
-> > --- a/include/drm/drm_mipi_dsi.h
-> > +++ b/include/drm/drm_mipi_dsi.h
-> > @@ -169,6 +169,7 @@ struct mipi_dsi_device_info {
-> >   * @host: DSI host for this peripheral
-> >   * @dev: driver model device node for this peripheral
-> >   * @attached: the DSI device has been successfully attached
-> > + * @dual_panel: the DSI device is one instance of dual panel
-> >   * @name: DSI peripheral chip type
-> >   * @channel: virtual channel assigned to the peripheral
-> >   * @format: pixel format for video mode
-> > @@ -186,6 +187,7 @@ struct mipi_dsi_device {
-> >       struct mipi_dsi_host *host;
-> >       struct device dev;
-> >       bool attached;
-> > +     bool dual_panel;
-> >
-> >       char name[DSI_DEV_NAME_SIZE];
-> >       unsigned int channel;
-> >
-> > --
-> > 2.43.0
-> >
->
-> --
-> With best wishes
-> Dmitry
+> 
+> It could be, say, YAML converted to some binary representation. Maybe
+> that could be in the DT, or maybe you could override it with the
+> firmware loader. And obviously any vendor "blob" could be trivially
+> converted back to YAML and upstreamed.
+
+I don't think we want this, downstream vendors does that and we don't want
+to go there.
+
+> 
+> Where that falls short, you could always have a dedicated driver, or
+> extend the declarative stuff.
+> 
+> Now, the question is, how much more BPF solves over that, without
+> requiring a dedicated driver, and is the added complexity worth it?
+
+This is my global question, and this is what I'm evaluating here, and so
+far is created more problem that solutions.
+
+> 
+> FWIW, on the Intel platforms that support DSI, all of the
+> initialization, poweron/poweroff, backlight on/off etc. sequences like
+> that are stored in the BIOS, defined by the OEM. A plethora of DSI
+> panels, one driver. Don't look at it for examples how to implement it,
+> but I think the basic idea is workable.
+
+For _some_ panels, here, as a general solution no because we really
+want to have full support for panel features.
+
+Neil
+
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
+
