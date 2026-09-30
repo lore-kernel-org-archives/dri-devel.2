@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2045BCA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF4ACCA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B15A10E139;
-	Wed, 30 Sep 2026 07:38:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 277B210E23A;
+	Wed, 30 Sep 2026 07:40:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gc7P09mm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nGapFXny";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B669210E139
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:38:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC76910E23A
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:40:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 581CB42E95;
- Wed, 30 Sep 2026 07:38:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19041F000FF;
- Wed, 30 Sep 2026 07:38:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E1DA260236;
+ Wed, 30 Sep 2026 07:40:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145B01F000FF;
+ Wed, 30 Sep 2026 07:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790753889;
- bh=tEIlDpf8qZDfu9vXtL2PzehNLauFNtdfCT24Nh2LIw0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Gc7P09mm9ugKzX/dfcEqF4hf8Wb4QNpaxvHUrDuNkiOnrOyKadLTMGvyqZcX6OKph
- CWnK1pRjBdjYc/uv9v4sU4YIh3KwDoKMYMcCWtSyM/w0qbhUayrYXYprVGiSXxuH7X
- XVGYxxprJtBQdFLthH6KUGampePHIEoSXGJGCzUrAdwXHOfb6PNX4zmzPMABOvb+FD
- DyeTbyv5GE3ncnb/C7AtXMY1xe0KAYur4h4qZQX9ceqBHvui0+EdDv9p0crZnadhvQ
- rB8/QuJDyATnjPurZKhLQVBTXv//jPFDnw1UC92oTn7BQ87nxv8DCGM93fkK2OWU91
- xC/qXndpsWqfA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/6] drm/tegra: rgb: Parameterize configuration based
- on bus flags
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260930070535.47130-3-clamor95@gmail.com>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:38:08 +0000
-Message-Id: <20260930073808.E19041F000FF@smtp.kernel.org>
+ s=k20260515; t=1790754053;
+ bh=B4AtKkIc05Ww+ASuXgI/2gLWEVeT0HzPUFs3gF2J52w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nGapFXnyPQIyt/CzNo5tzdLuwmntlIQP6zAF1SQvsTDVkEHvHJnsGMlcUsn9wj4rm
+ PeII+TSoBabiw9OfgFMWD/+matVrhOThQJgQRSOKI2zU/m3hS5WsAMjiQfs66IdiHQ
+ /3+fqIMLVmcrAMNv9GTNDZdOVxBmK8rTJVcL6zA/zYryKHhPhlNQmdcRLTeXmLPJEB
+ 5NwKZKbQGZbkBdW+Xo1Adv4qUIQrVVKB5EVPi0UAE5+MSKk9CgRKJKT9GDkes0gADr
+ QIfcr2a+C/X99VjersGXWsJ2JDz23x6Es7IM4pWVsfMFaNAvD6bo6VG7XEI7scudpG
+ Cc61SZzXHxYZg==
+Date: Wed, 30 Sep 2026 09:40:51 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+Message-ID: <ary71zC1e-bySLFW@orome>
+References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="hjctq36rj64msexj"
+Content-Disposition: inline
+In-Reply-To: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,92 +57,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/tegra: rgb: NULL pointer deref in tegra_rgb_encoder_enable()
-- [High] drm/tegra: rgb: pixel clock polarity regression for legacy panels
---
 
-commit 54b0f3191ac9412b6aca8d1f4028b3159a42b6a2
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--hjctq36rj64msexj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
+MIME-Version: 1.0
 
-drm/tegra: rgb: Parameterize configuration based on bus flags
+On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
+> The DSI driver ignores the reset line if a power domain is configured.
+> This was originally added to support Tegra210, where the power domain
+> provider has to control the reset line -- at that time, older SoCs
+> didn't have a power domain for DSI. Now, however, they do with the core
+> power domain.
+>=20
+> This happens to work on most systems due to DSI already being out of
+> reset when booting the kernel, but on Tegra114 Dalmore, this is not the
+> case and causes the system to hang during boot.
+>=20
+> Ownership of the reset line is no longer a problem with reset
+> acquire/release semantics, so control the DSI reset unconditionally
+> from the DSI driver (possibly in addition to the power domain driver).
+> The device tree bindings already require the reset and it is present
+> on all platforms, so this is safe to do.
 
-This commit parameterizes the RGB display configuration based on bus flags
-passed from the bridge or panel. It updates pixel clock polarity, display
-enable polarity, and data alignment according to the input bus configuratio=
-n.
+That seems backwards to me. The whole point of doing this via power
+domains was because it's explicitly not safe to toggle that reset line
+outside of the powergate switching sequence.
 
-> --- a/drivers/gpu/drm/tegra/rgb.c
-> +++ b/drivers/gpu/drm/tegra/rgb.c
-> @@ -104,14 +105,19 @@ static void tegra_rgb_encoder_enable(struct drm_enc=
-oder *encoder)
->  	struct drm_display_mode *mode =3D &encoder->crtc->state->adjusted_mode;
->  	struct tegra_output *output =3D encoder_to_output(encoder);
->  	struct tegra_rgb *rgb =3D to_rgb(output);
-> -	u32 value;
-> +	struct drm_bridge_state *bridge_state;
-> +	u32 bus_flags, value;
-> =20
-> +	/* Get but flags from the bridge state. */
-> +	bridge_state =3D drm_bridge_get_current_state(output->bridge);
-> +	bus_flags =3D bridge_state->input_bus_cfg.flags;
+Also, the power domain code paths are supposed to work regardless of
+whether the DSI was already out of reset or not. If that's not working
+right now, I think that would qualify as a bug in the power domain code
+rather than the DSI driver.
 
-[Severity: High]
-Does this introduce a NULL pointer dereference for non-atomic bridges?
+Shouldn't this be fixed at the powergate level? My recollection is that
+DSI is tightly coupled to the display powergates, though it's been a
+long time. Do we maybe need to reflect that in DT? There's a TODO in
+tegra114.dtsi that seems to indicate that we're missing DIS and DISB
+powergate implementations, so maybe that's where we should start to try
+and resolve this.
 
-Looking at drm_bridge_get_current_state(), it can return NULL if the
-attached bridge does not support atomic state:
+Thierry
 
-static inline struct drm_bridge_state *
-drm_bridge_get_current_state(struct drm_bridge *bridge)
-{
-	...
-	if (!bridge->base.state)
-		return NULL;
+--hjctq36rj64msexj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	return drm_priv_to_bridge_state(bridge->base.state);
-}
+-----BEGIN PGP SIGNATURE-----
 
-Since bridge_state is unconditionally dereferenced to read
-input_bus_cfg.flags, will this crash the display pipeline during
-tegra_rgb_encoder_enable() for any devices using non-atomic bridges?
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8vQMACgkQ3SOs138+
+s6Hytw//RAQCgUFcgePzgSQiJkY2Q4//OYubpMTfdBZi6y4iNI2KUXVXbjgVxux2
+0H2Vrvs/+WhIZQovHTR+HxyfUk/hTuSzTYhvK/wSOa7PWVMkhqCK7rIlpQvJGncx
+U9NEH6nwx5waayDjGXIkEkqsyYkjeRl+OYcod65TzWTC1x7J8U8ZBT6scH9HOS1W
+0Fc3OiaHT9RjHiKRgLjRd0Vx+lJWm0fiPDF4K/wFOf9H+hjaj3PnatzAKZ9oQBC7
+luQwY+2MeIEhTHkgBUkcg+sv1ooRPMb1mdLUIhYvSDcLA7woOf9Wru+1S9S710Ke
+MAPERehibPQCHmSM2oah2TZ8Av+N9hfKqRIhO/XTwqydPoHpERZ8V+ioMQ8POxiN
+Lb4Mcq5wd+MGGwaKKuYoLsghSk+IAAx0L8Sc36kvvRsw06DOrOqX8X4culvByRff
+yBJd5Os8imMQs/rRjwGsGJnuj0Hd2McV8q2KE3SZ2nN4mZMChGYkvutuYqr6AcXu
+ORKzWQXvvsO7VnQ4ZlY5PgfCuzoVpp1yBHZrlCNnHlaIUAg2FzZ+zC7aSMwG+HUP
+tCjOlYkFQLmO+B9QYmFMrn3cg7/sOmEHMjDNJvHV8xYs1RGrA4dFro3lnRCGDjec
+e0TQP4YIahagZIHfF4oyiUFH/H/JEykDk8onjTEWc51CwS4BRw8=
+=9FPw
+-----END PGP SIGNATURE-----
 
-[ ... ]
-> -	/* configure H- and V-sync signal polarities */
-> +	/* configure H- and V-sync and pixel clock signal polarities */
->  	value =3D tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
-> =20
->  	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-> @@ -124,11 +130,31 @@ static void tegra_rgb_encoder_enable(struct drm_enc=
-oder *encoder)
->  	else
->  		value &=3D ~LVS_OUTPUT_POLARITY_LOW;
-> =20
-> +	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE)
-> +		value |=3D LSC0_OUTPUT_POLARITY_LOW;
-> +	else
-> +		value &=3D ~LSC0_OUTPUT_POLARITY_LOW;
-
-[Severity: High]
-Can this cause a regression for legacy panels by inverting the pixel clock?
-
-The previous code preserved the initial state of the
-LSC0_OUTPUT_POLARITY_LOW bit (which is initialized just prior to this block
-via tegra_dc_write_regs(..., rgb_enable, ...)).
-
-By forcefully clearing LSC0_OUTPUT_POLARITY_LOW when the
-DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE flag is absent, doesn't this break
-existing hardware relying on older device trees that do not explicitly
-specify this bus flag?
-
-> +
->  	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930070535.4713=
-0-1-clamor95@gmail.com?part=3D2
+--hjctq36rj64msexj--
