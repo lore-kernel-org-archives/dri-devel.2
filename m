@@ -4,44 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82629CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67E1DCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE96910F39F;
-	Wed, 30 Sep 2026 13:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EA810E281;
+	Wed, 30 Sep 2026 13:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RQiQA7nE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XKkb30sc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA24D10F39F
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:04:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A2B774013B;
- Wed, 30 Sep 2026 13:04:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1A81F00898;
- Wed, 30 Sep 2026 13:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790773482;
- bh=AQvh+O0NvybWlpdm77ulkfTvPy5MbCUMv7l3nTfxobg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RQiQA7nE0kAhwvSzRuMuffeYwv3jeivm+Qz+Y/VcIQWSjvbNuuGYxfcCA/0CHTSQU
- wb0FbM8Cxbwns5MM7ndWshIF5tS9+VZRZCAYnCdg6yIHwAIADY43Arpb9A3mPM/xeJ
- cUp5BxFWuNsfztKERp6ZIIHcEI8eIjcjcpkIlKvXMR6Mi0XEO0LcZyXFCemTBgJpmm
- LQIZwsLDJhStvN4zAaM0UEjkHi/BrOOaLVMUxUFD0iiVoaGnYtrS9qZklNJeId+YJg
- P7D/EevTrl402N9JwIlF3N2j4mhuHP6IOxRZ0RnmRyq7/6CYb1JbWUUeMiijK2JsV2
- 3v9BX8C30tGZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/13] drm/msm/dp: Add static HDR metadata support for
- DP and eDP
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
-References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
- <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E813F10E281
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:11:03 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-34b223602d7so1383625eec.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:11:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790773863; cv=none;
+ d=google.com; s=arc-20260327;
+ b=gFEadeL4uYUP9H65qfLSGUtU96/Rr0yS9uvdbQj9nE2yJ8ncy3VY+e8dqlt0ifV1Hb
+ /QkZ7hzu/3Lf/As49WDFxoS1NPR91ij2hwv1Q5OeDPNuj0Pz7opF7kdp6eoQ/KR4iAhh
+ seny6qd8ioxgT89RAEH6KkmKQhSST3J/CvZnPeYlUj/Iqo7VUR6fM1TBZ4JE+lMkL2Rx
+ InUD3QZCs786XyJq0I7XtZ1Ei1mQMaajubAOHAxFzxhoIOTSiuMr+s2LhmizjfkuJsMt
+ 7NOg0+ATqmkGKprFFZaSGlJ75CdtqSvwdC4+V4YFKaY7NIMwSUcDmBWWMA9jT+V/GqV4
+ LL7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LAcpYy8Y+KFMyBoefBiZVG5Vh10XWP5p2hVnta/lBBU=;
+ fh=cL+TXu9RcDG2czwDICBrfusHTC7j9GrHXJJSoMhd6xI=;
+ b=Cy5RKRClubBfmO+E9Bq9TkBDLeha0Ik7QoFZ1+AVZnGxSzjDUZJTplVF1UQ6AE7hHu
+ CloNqbSFKDl9V+562ftLkhgf27fi9TsN4OxJ6ScKx8+dzr5FXjBv1VOGEjHjHoXpmEdC
+ KMHy0R7thr4E440/IqDsrDbZ+D0lGYJvIJCAbsfaGrfo5FJNi32AxGXUyAPoxblqU57j
+ K6iWBpK2DKingd57xHTS+iDP9kbQkg5HreUV2b0Mf9c3mTdi0Z+U5QjupRJjqz+WzSEO
+ Nv+9YhLlGdJWYW9IM9Y3EL4oJ3Tz18pM/zufPAuc9xL3L4vZ9oHhtPSPEve8Kj+rBou9
+ QJSQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790773863; x=1791378663; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LAcpYy8Y+KFMyBoefBiZVG5Vh10XWP5p2hVnta/lBBU=;
+ b=XKkb30sc4FWOisngOlKVQskLVxv46pyvFesQCLiGhf8py9PF2rmxjIsTiL7fNLPUfK
+ zk2B6ZGbViNbh5+x/KsFmqTMJCW/ciehnlYqeQoE4c30XUuPSPB67fYV3AI0fLAa/RbO
+ Pz5e7Q9lBaBNtJwLIvt9UgwOQisDL5BtxuoVmlERmzGs63qyfOjkCiBGL88bOaD/Kklb
+ 6PbLTnoY5YhyshdAUn8PovLGnRn3K1aSWQjOZ4P8DsxNT8js9HKE21e84mwzzVquvDZ2
+ AWAuvMNV8KEQ88BVudgrzOxJGIu/DRJAlXvbVDx39Jolv0z4VNLvPq9uUPLItmPYL6Mz
+ 0UAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790773863; x=1791378663;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LAcpYy8Y+KFMyBoefBiZVG5Vh10XWP5p2hVnta/lBBU=;
+ b=JOl/s+mON8dTtqTxqpRfnPTe4gm54keftXkRwTcaPCEFlGRxkScQG1VjIS0zk3yNvG
+ QovKDVv74UlpJpurQbSm63TVm7hcWmbonxbxSIVg/+liSj7DNSSGAcseA+YCGqAYsU43
+ MWSTQm+GfwvyBcoMBZf1B6qcEmb4jd4xHE94u61Z6FuDv5aod1iCYoucbUEMuK8zCQvr
+ sSXmPTxBZ4tsDgHY8QPGFu2bUKoeHNH8xBBX3GZvbaFqQuHmn85xCEjBTThJujv5Z88l
+ KB+gDmFGF1YsLhr9W+/YTTL+Svtlp0D1KIXu80vzdNgcqLoTx7ckO1hskUUn1/669XZt
+ 3OBQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw2OrxoT+lscMxYZxENMa60Dw2vFcizX/o/P14Xneo/qJH5dNVU5fg7xmvKgLVOWtlEXnTIpCv8Chk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLP//x0QiJzWdwfQ7wKBRfN/FtkyxXP9sHN/EYgYA6UpZKzFP2k
+ pXKDdDefGB0e1xcbAAzSBdelwjV7briRuMgT5XugHLchSix4NUbz3Ak6mEgoz/yiPYHLpI88tyQ
+ wGt5O5Mzo1GLVJD7xWilFnxDsnY0iicg=
+X-Gm-Gg: AYBFou0jt6DYx2sMhGns7ZSdV3JGmJyZnbsy2A6FKBx21yCbAKyXRue8Ok8rqEsbwRM
+ C+trUgX4H9dqBJ1MZYpTM8I1a5sDcPyX6FFLwlLsdZfZYaS/Y1ZUwQ7x6pI2UKXh+v7sAJc31vB
+ Rvwdk2fqWUjblaE1tkMzk9HfCxT1sKNYM0mAYO+u41Wsirbn2YhO0CwgyJf8j6HNRFjuONw5zCJ
+ n9jcf5WqDjN7kQ1Jcfr1dRr9QDCUC01R3gFmf1dg2swZPKLJ0kayQ6QCIqjqYIimj7SEPBiHxhM
+ 7KMMODCx9YYkGWxPVDws1S23ZkfPpRXGlWs9luSh0TpZL3nQJ49Oq3JHGvQzqSlgEJmXLDx0/eX
+ tAwLi+0oOW9Iz
+X-Received: by 2002:a05:7301:4b06:b0:33c:16f1:2e11 with SMTP id
+ 5a478bee46e88-34cdb6ed6b1mr1708219eec.7.1790773862800; Wed, 30 Sep 2026
+ 06:11:02 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-4-clamor95@gmail.com>
+ <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
+ <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
+ <arzn-TNbOlqXqQgd@orome>
+ <CAPVz0n33c_uwfhsSguEfFfJ3FV=26SPtNTEpHes9f5RjnPDA_w@mail.gmail.com>
+ <arz1wzEI_7e7ruKi@orome>
+ <CAPVz0n12oiuc=5wjeNCuNtJpe-M7Ys=rHn0TOExc0qkweVQnuA@mail.gmail.com>
+ <ar0HCfSKR9yr9Z44@orome>
+In-Reply-To: <ar0HCfSKR9yr9Z44@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 16:10:50 +0300
+X-Gm-Features: AclHuK9PDl69Sotr67TThU9DWzl51KL70LQ5tx9814AsWsSrWDYmjdY2XxCFv1M
+Message-ID: <CAPVz0n26bPgAYjAdpqknPdMeQgYd=QEfZLX2VsACmkTQNJ581w@mail.gmail.com>
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 13:04:41 +0000
-Message-Id: <20260930130442.5C1A81F00898@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,99 +123,175 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/msm/dp: late HDR capability check in atomic_enable violates at=
-omic contract
---
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 15:58 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Sep 30, 2026 at 02:56:26PM +0300, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 14:46 =
+Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Wed, Sep 30, 2026 at 01:56:40PM +0300, Svyatoslav Ryhel wrote:
+> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13=
+:50 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Wed, Sep 30, 2026 at 12:52:18PM +0300, Svyatoslav Ryhel wrote:
+> > > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=
+=BE 12:19 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > > > >
+> > > > > > > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav R=
+yhel wrote:
+> > > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provi=
+ded by
+> > > > > > > > Tegra20/30 SoCs display controller.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > > ---
+> > > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++=
+++++++++++++
+> > > > > > > >  1 file changed, 138 insertions(+)
+> > > > > > > >  create mode 100644 Documentation/devicetree/bindings/displ=
+ay/tegra/nvidia,tegra-8bit-cpu.yaml
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegr=
+a/nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/te=
+gra/nvidia,tegra-8bit-cpu.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 0000000000000..f0dab608b2936
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidi=
+a,tegra-8bit-cpu.yaml
+> > > > > > > > @@ -0,0 +1,138 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,te=
+gra-8bit-cpu.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > > > +
+> > > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > > > +
+> > > > > > > > +description: The display controller in Tegra20/30 SoCs fea=
+tures an
+> > > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI =
+Type B
+> > > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display=
+ controller
+> > > > > > > > +  provides two such interfaces, which can be used to send =
+MIPI DCS
+> > > > > > > > +  commands to initialize and control the panel while image=
+ data is
+> > > > > > > > +  transmitted via 16/18/24-line RGB.
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: nvidia,tegra-8bit-cpu
+> > > > > > > > +
+> > > > > > > > +  dc-gpios:
+> > > > > > > > +    description: Data/command selection pin.
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  rw-gpios:
+> > > > > > > > +    description: Read/write pin.
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  cs-gpios:
+> > > > > > > > +    description: Chip select pin.
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  data-gpios:
+> > > > > > > > +    description: Specifies a set of 8 gpio pins used to tr=
+ansfer data.
+> > > > > > > > +    minItems: 8
+> > > > > > > > +    maxItems: 8
+> > > > > > >
+> > > > > > > Based on my admittedly brief research, according to the TRM t=
+he display
+> > > > > > > controller can drive all of these pins - of which there are t=
+wo fixed
+> > > > > > > sets as you mention - directly. So we'd need to describe whic=
+h interface
+> > > > > > > the display is connected to in DT, but not any GPIOs (which t=
+hey really
+> > > > > > > aren't).
+> > > > > > >
+> > > > > >
+> > > > > > I am perfectly fine to not expose any gpios in the binding, if =
+this is
+> > > > > > preferred. Only question, which method of interface checking wo=
+uld be
+> > > > > > preferred. I assume if primary then nothing, if secondary - boo=
+lean
+> > > > > > prop "nvidia,secondary"? Feel free to share your vision.
+> > > > >
+> > > > > The driver currently uses the GPIOs to program DBI commands, so I
+> > > > > suspect we do need some way of controlling those pins. Or is ther=
+e a way
+> > > > > to have the display controller program the pins and send commands=
+? That
+> > > > > would be much preferred because it would more accurately reflect =
+the HW
+> > > > > design and possibly also simplify the driver because it doesn't n=
+eed to
+> > > > > parse the GPIOs and then also not use the GPIO API to set the val=
+ues.
+> > > > >
+> > > >
+> > > > From what I know, GPIOs must be used and freed after use. Sets of
+> > > > GPIOs are defined and remain fixed for primary and secondary
+> > > > interface.
+> > >
+> > > So you're saying that we need the GPIO handling in the RGB/DBI driver=
+ to
+> > > prevent anyone else from using these GPIOs and potentially messing wi=
+th
+> > > the DBI communication?
+> > >
+> >
+> > No, gpios are used for dbi communcation while their sfio versions are
+> > used to transfer RGB data. So there is no risk in external
+> > intereference.
+> >
+> > > It feels like there should be a better mechanism for that than requir=
+ing
+> > > the DC driver to request all the GPIOs. Maybe these should be exclude=
+d
+> > > from the range of valid GPIOs?
+> > >
+> >
+> > NO! These gpios can be used for random purposes on devices with non-RGB=
+ setups.
+> >
+> > > We can make sure that device tree isn't going to use these on a given
+> > > platform, but there's still the risk of users grabbing them via sysfs=
+ or
+> > > the chardev API.
+> > >
+> >
+> > Well, defining them in the schema as it is now and adding a note that
+> > gpios specified in the binding cannot be re-used/shared may be a
+> > solution. But overall it is impossible to reuse gpios dedicated for
+> > dbi by hw design. They cannot be shared or used for other purposes if
+> > dbi is used.
+>
+> My concern was that somebody might try to use these pins as GPIOs, in
+> which case the GPIO and pin controllers are going to interoperate and
+> reprogram the pin functions, potentially making the DBI interface
+> malfunction.
+>
 
-commit dd06afce910f68ea34833e6875a317b2680f0949
-Author: Xilin Wu <sophon@radxa.com>
+If 8bit interface is in use these gpios cannot be used for anything
+else. You can be sure of that.
 
-drm/msm/dp: Add static HDR metadata support for DP and eDP
+> Or is there some other hardware mechanism to prevent this from
+> happening?
+>
 
-This commit adds static HDR metadata processing for DP and eDP displays.
-It introduces Generic2 packet formatting, revalidates sink capabilities,
-and forces a modeset on metadata changes.
+yes, pins are physically linked to the panel
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-[ ... ]
-> @@ -708,7 +718,7 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_dp=
-_display,
->  	const struct drm_display_info *info =3D &conn_state->connector->display=
-_info;
->  	struct msm_dp_display_private *dp;
->  	unsigned int clock =3D mode->clock;
-> -	int bpp;
-> +	int bpp, ret;
-> =20
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> =20
-> @@ -717,17 +727,25 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_=
-dp_display,
-> =20
->  	guard(mutex)(&dp->plugged_lock);
-> =20
-> +	ret =3D msm_dp_utils_pack_hdr_sdp(conn_state, &state->hdr_sdp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	state->hdr_enabled =3D !!conn_state->hdr_output_metadata;
-
-[Severity: High]
-Should the hardware capability validation for HDR be moved here?
-
-This is the correct function where the DP controller's hw_revision and all
-static sink HDR capability checks must be performed. Validating here ensures
-that userspace receives an error prior to the commit, rather than failing
-late during the enable phase.
-
-[ ... ]
-> @@ -760,6 +778,18 @@ static int msm_dp_display_prepare_link(struct msm_dp=
-_display_private *dp)
-> =20
->  	dp->stream_pm_active =3D true;
-> =20
-> +	if (dp->panel->hdr_enabled) {
-> +		const struct drm_display_info *info =3D &msm_dp_display->connector->di=
-splay_info;
-> +		const struct hdr_static_metadata *hdr =3D &info->hdr_sink_metadata.hdm=
-i_type1;
-> +		u8 eotf =3D dp->panel->hdr_sdp.db[2];
-> +
-> +		if (dp->panel->hw_revision < DP_HW_VERSION_1_0 ||
-> +		    !(hdr->metadata_type & BIT(HDMI_STATIC_METADATA_TYPE1)) ||
-> +		    !(hdr->eotf & BIT(eotf)) ||
-> +		    (eotf !=3D HDMI_EOTF_TRADITIONAL_GAMMA_SDR && info->bpc < 10))
-> +			return -EINVAL;
-> +	}
-> +
-
-[Severity: High]
-Does this late hardware capability validation violate the atomic contract?
-
-Returning an error during the atomic_enable phase (from=20
-msm_dp_display_prepare_link) causes a silent modesetting failure where the=
-=20
-hardware state diverges from the software state, leading to a wedged displa=
-y=20
-pipeline and DRM core warnings.
-
-If a local user with DRM master privileges submits an atomic commit with HD=
-R=20
-metadata on a DP controller with an older hw_revision, the commit passes=20
-validation but fails here. The atomic modesetting contract requires all suc=
-h=20
-configuration constraints to be rejected during msm_dp_display_atomic_check.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-msm-dp-hdr=
-10-v1-0-dbbf8b2b42bc@radxa.com?part=3D13
+> Thierry
