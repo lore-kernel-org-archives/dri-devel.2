@@ -4,79 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72425CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED806CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58A7B10F3E3;
-	Wed, 30 Sep 2026 13:33:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4453A10F3E4;
+	Wed, 30 Sep 2026 13:33:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qnXrw3Ub";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nY2UWjV0";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 787A810F3D5
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:03 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-48b02a2359aso239376f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:03 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C358D10F3E6
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:09 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48b00a0ac65so443939f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790775182; x=1791379982; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790775188; x=1791379988; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
- b=qnXrw3UbMHSvh2iWWJM+zZaM1kcjJCRuaK4zCiAGZkPrcXuNRRdWxYZFqAhW3kQjyY
- aKlApof/Ny/6XQoyWMhadS2pkzxMHMNb+6zgdXNxznNf+IqpXBY8SDy0ks8AMY5SRCxA
- mHrCpzqhJSGMN0TlNk1BQNTGQ+Oij1PwBMjq5sMOYVpu+Hn+26F+iIX7mASszls37+Xb
- vigVumBKzzTNQ6KDZwpnq2t8nNwaHgk13i4MOPhMPtIOGJuNGn3T6vVK8Xdv7Yxegytr
- rpFtLhrtUnDBWLaIJ6vPE6hE8dOoEHiP2KR+Q8BWhFbl1tCM2SmwCx1/WVUlpiJy8HeN
- WNLg==
+ bh=orKEr4pkx6Zt8Sr9/e1yt+mrcqNsohd1zJEtkEI7wlw=;
+ b=nY2UWjV0+yK9MAcjb4ThKECRSOezze6p8x2hpiO0NPB7wnvG5BnwpNWYNCHyiLjCLI
+ 2TIME1e/t6Ig4AQcuEmJDwiGDfnuoYAuoR4+7aHs8E4ZQs2+yErBC73dw8zN5TcaYV2Q
+ iUfbHZFM/C7uks2NbZh/UzsssZYxr2vPcoNYgT8yDrqs/JX68iJvYzJ+1G99+q0uJuXP
+ ct0onDn2EWNfzx6C469vajUDZjJWkbrAe/hMVod0ABxpXkA4ykaui3dmT0cn9At+ZfHt
+ HhLK3LHg9HVOM+4b9eA7xqJREWPNco1APH069uVaVZPEM4in5gpgEl2qjVQYQsVyw2+f
+ SXFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790775182; x=1791379982;
+ d=1e100.net; s=20260707; t=1790775188; x=1791379988;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6xG0P97LACQjd3EgbiKcVcaE0+HdMc9QDAIUrR6Re04=;
- b=aACanFxj/+vngVUFnAJciC3G5Y5eVvcllIUz8j2j/GpbO6jw/qYkVme8uSL8RA2pRk
- 1L3Jso6GeqQ203BEf8H8FsyfSnjEISgVlRCX8k5ZWmFuC93Etuxn0gUGvMkxHm+dgaUN
- 9oFtuHPLnBNuwyAC2RCwvSh9X4rwpfjgAMi7BUhqQ4jvpd++Q4CJGNE0RRbPTlhPLmll
- MFWwpOlcvccvACIj30UMIwNh4pVeQuu33mSz5GcKjob26UHtsMq7B1pJLgAD8oYZD+yh
- IN29eaFqKv2pIOL1C4AABeXYNxfvrq2sY6kCl6626cPL9hhMySTBSdJM8dEO074rtzDs
- cJ/A==
-X-Gm-Message-State: AFq9FYJYuU2ZfxpovGAytvpzPs+DUDLuRJ0n2caOCwSOSat0zeokgkVs
- lKRexSmeK/15FJEjwgvx6KjN12tHP7vBZ7A1lQ3c3hEUewHFJcCy7S/L
-X-Gm-Gg: AYBFou1HsUbxVTADMXuN1mJKRVAsOIenjZlZUfJUM4n/b7VWPNBZzcuW9WyvsA/2n/x
- Z34+QmAIjEV1hUZH72KfX8bh7ie6WP8q0onxmoFPZiOBeYn2NjoqcNkktGAgq81T7V0nq7SLbCW
- iHXvIVqBdE0RXfZQKRdW6N1AtACGZA4s60d8Eyq1BXwylyE0btFfIH+lFGriAXMuzdWxSO0rOB4
- JB/j/zfwaNoWQ6ZRyQgKtooq6tBnDZkp+cfjUqJADzsCV/6P44FW2KUdA4F0AFsh0lpTy9ZdO9w
- sk6tWDBiSRAZLuDAiOkiIoHBsnQLBvDkShbLKfFp/A/W/MDz0ta0b3L/8r1V0W2U/5SSiBWN/wP
- x06YXGhhd41aqXbKLcBPPytkoJeU/GsfSv/kO9MnLCiq5QZV05UZbSEa7gs5QECZE+ZqyWdchTU
- Gdj5pAFPtUCCt75xLNzghJp3P1jl2vEhxcY+7ywt0OTS4aAoXas3032vZSy8uli9J6+vC85/IMk
- WNp3byCU4U5C+XAlRVfpRE=
-X-Received: by 2002:a05:6000:288b:b0:488:7ace:9c5c with SMTP id
- ffacd0b85a97d-48b0250c66cmr3650138f8f.23.1790775181803; 
- Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
+ bh=orKEr4pkx6Zt8Sr9/e1yt+mrcqNsohd1zJEtkEI7wlw=;
+ b=Biq7M2aYL0nqujm5fXG5y0ndotZvYjyAOU4T5aFIvW2+qkxDWKRV48zCWf2ENWSPZC
+ ZnxmU+zqU5ni4SdFlkAARPz81lhBfltxcFFknUBi1Z1qtY97EVcVZeTT8PB1/7HfjNOI
+ tJAsNtcIuLe85yhCYL2WQSomArcagYeJgvpGpe6i83PdKO5iOLtroM97CLzx06JdlQKE
+ CkAZiFZLHsLQJorMPIeLidFimJm4v5DFRmot9k93kqUzbFv4r+sOavcjXZGKuuEvOAeQ
+ 6KuB8kZiCWvVUmp3x+H+lWjbPsSUsb+Nf9504Wtgwb9KvOq/6pCnANcicU5hUIPOHEla
+ TbSQ==
+X-Gm-Message-State: AFq9FYI38RByIfwOdW6qtPPX0wnLLqkLlewmOLplwIlhj16LWe8WztsI
+ ZUrN5npMUnxHChtUK/Gm+XQSlWofReIP1TgbNO0PnUaVEpMTnf8U9HUl
+X-Gm-Gg: AYBFou3nd6J9HsdkUPie3uPn22wpcp175U9MdL/+hFOekhh6KK+Z3wTGxwbysEIuB/6
+ CTwi3fNYdKatAHh+FSoR7uzLT+oJl5xZ07torTqimaOu6z38seNyAPKxue1mCi6hS4kfxXfA3Q+
+ MpRULEYFBn1qkb62RWNmo2fAT2DE9SMrBNSuO5jAzyqAmhKxoZwVyR2yYVLSKBP+5rxF4lqnTD5
+ FLGrg8wa4uMa6ff2WeXEAO1pp28+6ejtKEHTVKSpwpNM4pz/1qwaZnbEptVcq3dtRfz7gJ/5Zam
+ 7RTWSw4N/AbgZveAry6qaoLp4U0Op9+tTwPlPuT0JbvXbEHSvuwS+eSw07nN9tz02yeepMP/c+w
+ tJG4w8Jg/dnuVe2PO+Fw9IlPejDV/Plm6jeQUQvM14zatvVpi3SvatMT46XJUxPd3L++AX5Zz7V
+ I3Icn5712TzA2XRjbXgiJoXZuQf00DWsN4rvYhLNi3JQpAamWlw3oWBm7tcMKJL/eQWgiFhi3il
+ 8rXwTysngUOtaWS7GwyjO0=
+X-Received: by 2002:a05:6000:4807:b0:48a:f592:fb63 with SMTP id
+ ffacd0b85a97d-48b050badd7mr663766f8f.1.1790775188127; 
+ Wed, 30 Sep 2026 06:33:08 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a702:d301:bade:1500:bcd:b3ec])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.00
+ ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 06:33:01 -0700 (PDT)
+ Wed, 30 Sep 2026 06:33:07 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
+ Simona Vetter <simona@ffwll.ch>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-kernel@vger.kernel.org,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH v4 1/9] drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val
- to hw_info
-Date: Wed, 30 Sep 2026 14:32:43 +0100
-Message-ID: <20260930133257.23210-2-biju.das.jz@bp.renesas.com>
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v4 4/9] drm: renesas: rzg2l_mipi_dsi: Add support for DSI
+ PWRRDY
+Date: Wed, 30 Sep 2026 14:32:46 +0100
+Message-ID: <20260930133257.23210-5-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
 References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
@@ -99,56 +100,93 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Move the DSIDPHYCTRL0 initialization value into the hw_info structure as
-dphyctrl0_init_val, allowing SoC-specific D-PHY control register
-initialization to be defined per compatible. This prepares the driver for
-supporting SoCs that require a different initial DSIDPHYCTRL0 value.
+The register for controlling power to the DSI region is in the SYSC
+(System Controller) block. Add support for controlling the DSI PWRRDY
+signal so the driver can efficiently manage power to the DSI region.
 
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v3->v4:
- * No change.
+ * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
+   using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
+ * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
+   devm_pwrseq_get(). 
 v2->v3:
- * Collected tag.
+ * Updated powerseq API names.
 v1->v2:
- * No change.
+ * Switched to power sequence for handling pwrrdy signal.
+ * Dropped header file regmap.h and mfd/syscon.h
+ * Added header file pwrseq/consumer.h
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index 0590ade96b91..2128fd16ebc9 100644
+index d67e1230b70c..5263b2b8f1ca 100644
 --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
 +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -56,6 +56,7 @@ struct rzg2l_mipi_dsi_hw_info {
- 	} cpg_plldsi;
- 	u32 phy_reg_offset;
- 	u32 link_reg_offset;
-+	u32 dphyctrl0_init_val;
- 	unsigned long min_dclk;
- 	unsigned long max_dclk;
- 	u8 features;
-@@ -493,9 +494,7 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
- 	}
+@@ -18,6 +18,7 @@
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/pwrseq/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/units.h>
+@@ -38,6 +39,7 @@ MODULE_IMPORT_NS("RZV2H_CPG");
+ #define RZG2L_DCS_BUF_SIZE	128 /* Maximum DCS buffer size in external memory. */
  
- 	/* Initializing DPHY before accessing LINK */
--	dphyctrl0 = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
--		    DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR;
--
-+	dphyctrl0 = dsi->info->dphyctrl0_init_val;
- 	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
- 	usleep_range(20, 30);
+ #define RZ_MIPI_DSI_FEATURE_16BPP	BIT(0)
++#define RZ_MIPI_DSI_FEATURE_PWRRDY	BIT(1)
  
-@@ -1531,6 +1530,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
- 	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
- 	.dphy_conf_clks = rzg2l_dphy_conf_clks,
- 	.link_reg_offset = 0x10000,
-+	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
-+			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
- 	.min_dclk = 5803,
- 	.max_dclk = 148500,
- };
+ struct rzg2l_mipi_dsi;
+ 
+@@ -87,6 +89,8 @@ struct rzg2l_mipi_dsi {
+ 	struct clk *vclk;
+ 	struct clk *lpclk;
+ 
++	struct pwrseq_desc *pwrseq;
++
+ 	enum mipi_dsi_pixel_format format;
+ 	unsigned int num_data_lanes;
+ 	unsigned int lanes;
+@@ -1396,6 +1400,25 @@ static const struct dev_pm_ops rzg2l_mipi_pm_ops = {
+  * Probe & Remove
+  */
+ 
++static int rzg2l_mipi_dsi_pwrrdy_init(struct rzg2l_mipi_dsi *dsi)
++{
++	if (!(dsi->info->features & RZ_MIPI_DSI_FEATURE_PWRRDY))
++		return 0;
++
++	dsi->pwrseq = devm_pwrseq_get(dsi->dev, "dsi-pwrrdy");
++	if (IS_ERR(dsi->pwrseq)) {
++		/*
++		 * This platform requires a sequencer. If we can't get it, we
++		 * must return the error (including -EPROBE_DEFER to wait for
++		 * the provider to appear)
++		 */
++		return dev_err_probe(dsi->dev, PTR_ERR(dsi->pwrseq),
++				     "Failed to get required power sequencer\n");
++	}
++
++	return pwrseq_enable(dsi->pwrseq);
++}
++
+ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ {
+ 	unsigned int num_data_lanes;
+@@ -1454,6 +1477,10 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, dsi);
+ 
++	ret = rzg2l_mipi_dsi_pwrrdy_init(dsi);
++	if (ret)
++		return ret;
++
+ 	pm_runtime_enable(dsi->dev);
+ 
+ 	ret = pm_runtime_resume_and_get(dsi->dev);
 -- 
 2.43.0
 
