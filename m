@@ -4,89 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4D8CA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC06CA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B58710E154;
-	Wed, 30 Sep 2026 19:42:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42C9D10E966;
+	Wed, 30 Sep 2026 19:43:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="C0v8kbGa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MHZLvR+l";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CQDqNB0g";
 	dkim-atps=neutral
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com
- [74.125.228.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5146C10E154
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:42:33 +0000 (UTC)
-Received: by mail-ej2-f43.google.com with SMTP id
- a640c23a62f3a-c2a8b9acbc6so886983766b.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:42:33 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE35310E1B0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:43:20 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68UILf6L3655836
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:43:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 007PSKl5xLWMYdPRP2bDBtZ6gH/PmdJJeMhutR+eJOA=; b=MHZLvR+lJBkqEsIZ
+ Zs/mnDoPFEP6EiqWdJtGzMF52HeZLRW2KXrPLQciTRjzKqomyUnMry4XKgbuVqWX
+ eMK6bPuEYd+NOqe0CYLjR7rokFmy5StvslTdRKpoU0Bgs+2R+P1k+nKbuFkYbrxM
+ bl9YZ3PIOZYVmFHOFvE0lAF75gqDOTh/mxpNb/lyf1KvtqT0F2UkTYUfC+cGaW0x
+ Sau5pNyCk7VuPEJ4rZode64wBcZg8mNu96+Z+JHAKXM3/a0Tu3jDKf+02a01avL3
+ J6Ab2+O/9cwgCe4/i8TURpLAtFv82pCcmSedUAZxrcdTsxUmBVQrUhfvQHTIwp+B
+ ILN4nQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvr9uj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:43:20 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93ca4a2b9c4so199639485a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1790797352; x=1791402152;
+ d=oss.qualcomm.com; s=google; t=1790797399; x=1791402199;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Mtiohi+MWIdfMvXbDsV6odKf5ibvIBEkB5eaedtlMyU=;
- b=C0v8kbGaJ4ceG6/0Z6K94/wNQLtxGncKldMA4GerPB5nzyrC4SOvxVt2m+vu4RpE3I
- OfmxmebP4wBhc90YyNeDEwKtiV5mWxMBatKjtD/DEWTnAE+JFvtVLRjuAWi7qgTtw7Jv
- EdVIJ3OUzv/ivbtxrtyBFYjHLDbgCwtbH4LIk=
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=007PSKl5xLWMYdPRP2bDBtZ6gH/PmdJJeMhutR+eJOA=;
+ b=CQDqNB0gKGFqD/iQbFyHVrn8cvmSx2J7/YFMx6Z3N22aXhcU9NSa3ntsR2gWc3e0fj
+ f4q2XwxBfw/OJRxc8ZqD8uPoH+SYTW2OR8CuZlJmtMTadxT2ih3Dgc7Ff7d/7q1RZWVh
+ PyusJLXISdCGOHlaQuEdSRau6Wk3dXWkgUXVfUIurhs0Zktb/bsPyNOU2f9RFtFPsOV6
+ LGECCAM0I8yW/P604/eRn+fs27Qb4ZFq8NBe76Zt0FTa7gFTW/cwiXJ65dEqxcS5UbPR
+ NylTNa6enP63/LP4DB3WgVNhCu+X3PofcZb+zJMFzrMe8x+m+K4rKdXJscCVW+/dvMpq
+ +PPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790797352; x=1791402152;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Mtiohi+MWIdfMvXbDsV6odKf5ibvIBEkB5eaedtlMyU=;
- b=WqqvP+F1V3eUdubtu9YhqUki/oOd6xjwXjorN0e83D3sHnrxx6RkXKjRvptX+UVxoi
- Rogz/RuQwFCEyYH3gp1rFQ01/HpaXNtj2m8P5RJZYkpVwRz2YvT3Aa/XGYz9s/H15BRz
- kZqBVTdQqpcuQhacuLIM7x6oTC4scyzfTS6yhxZgWHaHqoHCPf+NFTmS8DDfrSLPSZX8
- 5E0ClU4uOWNzi4XzsQFCGAv5Gi8KbIeOe+3o3ehRXW725EA4WIODU2kvdaXf0YQNBhM4
- wL2CNDhHuLzWdENxcyr5xjQkmBvKpVuMub4M5JZgLB8tY8AxT4zs/sFwCLcygSSae7EH
- gKGg==
+ d=1e100.net; s=20260707; t=1790797399; x=1791402199;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=007PSKl5xLWMYdPRP2bDBtZ6gH/PmdJJeMhutR+eJOA=;
+ b=HWprL0JzZIiQTZK1erHPu3D5Caibe7q3apt4/tGRVkL+4REPAEXj9zOXlx7SB8FZpy
+ D55LMuOgVU7JD4p/ktbtfoyPnx1Uckt+w35McaxJNi0Ii3qrxlavuvC8yj8mWT8AIbfK
+ sO05/XhnP8AmfLmGW+a2JeV+X8Bs4bauTDd4aYKORGXZ2S6aM/X4I3yj7nXy7PmCTgYI
+ 9HrKsvJyM6n6dYU2Og3PUc5IpV1eCDgLKvGnW7zQDQH2FdHhXnPjMrxK+hRxSy4odr6K
+ 29tHOeU9sMDsJeE18mfQHjtMHsWxv6Qyczo23M8Tam19wSDsBCHuMwxIyNcZNdlX/Vzd
+ KDJQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBybUR2lRTlkvZNF/+EiKygFGmPLu++1JHm5sRAwih1TorSokxswusfflD6U7VRZF4zv0a02FTqV2tE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kqOzI15IijDFB1CBaKmhyFR8q1xnN/Gfb5477866n9q+osJvvM
- MlIHBiulZDJOfPlWWiGivLEfxCTZ71h+htMJZI3H5dyCIsOBkHyM7fbnoolZDIkCih/MF4+MRxi
- iKOjGfA==
-X-Gm-Gg: AYBFou3KPGuf4Z9p7cMHQ7/TmZg1ZAupROrEJ9ZHEMjRI2ZOLUpmzgeBVXPSqHZ8F16
- FDG7cDCgr8AZbxyGWPznPGAx+1Kl8j6Ckx9DzS4ej9tGA5Moo4c0fC5n99xMpYABXtqT3PUJ4RF
- ThFfo9gN+NGG7CnJ/PZMOcfOd0r5G0cUsuvUKhfBrNTzhoR46yIvEUNR0O+SU/JFTs3rL/r+w/y
- NXe9GvF5MZ61C6SEHgibbp64pfOdPVrlFTdlzaz7BBQQTmkEB+kBf1gR+FUdhqa8JZHMN88R7K5
- Sbfa2QuGssgcN37/7lEMX0FNeb40GQ8aTGGWqAfbIFcnnmXRP6hGTobv0mzlpmvM+YKR9pfr/TM
- RhDhiEss8O3KuLh9PKSRi0eO6U/f221g8lItF4uwTvmV58qbxgm2WLVPBHa3Qb1v+6ErFA0jU7H
- Nj/9OZih9w8gyc5tj4JtLO8kmH7luMHRssxc/fBkTrS49CjRHRdLvVQcf1ihhXJ5ncOGLrmPi+y
- IVKWWw2uaC51EuCSAI2mn5UGMx3hiJifDcs42I=
-X-Received: by 2002:a17:906:c155:b0:c2d:d1d8:b220 with SMTP id
- a640c23a62f3a-c2e23e0edf8mr215047766b.42.1790797351589; 
- Wed, 30 Sep 2026 12:42:31 -0700 (PDT)
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com.
- [74.125.225.140]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2e31dc70a2sm50238166b.64.2026.09.30.12.42.30
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Sep 2026 12:42:30 -0700 (PDT)
-Received: by mail-wm2-f12.google.com with SMTP id
- 5b1f17b1804b1-49ffbd83a92so36730845e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:42:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBy7ABiI9ZdqtcODQhpYCS0LVBQOtVxXtZ/hTiNqGviYuIc4twSO6HmA5yhY2npksHKhotGM3lAD6Tw=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:4f4b:b0:4a0:35c:8953 with SMTP id
- 5b1f17b1804b1-4a01afe8499mr48313695e9.7.1790797349053; Wed, 30 Sep 2026
- 12:42:29 -0700 (PDT)
+ AKwUvBxP0yg7rKA8XUiO5B6CqhYNSBl+xFyj03qk3yj7SiizQISX793YG7wHZ9B1GEwjVzurwfNZCcYuwFY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lnw5zy1/pj68crlcgjvXTwspeDMZc0Awk+6YrY3lPH4FGXcUSH
+ g9oGwUMS/OJbF+oSYqTDnavD6XTTGKB9Y3o/fD0YiiPnp/0WBYzlh+Enx1L0v5HjsoUPDiFFHs4
+ IZJdkFgb3wN4mtdcFwpYI4FZ+v7FNNbK3kyw1S7HLeYx2iSsB9h6Er2YIv7IVYpGaN+hnyEU=
+X-Gm-Gg: AYBFou29waDMhYc8SlLcYZRFTqPY06mACMFrXXKarGevChibtQK3XoNKG3ZnqPSMlCg
+ 19te6dNcpWeAse8MVOt2jzM5/VAbSUpwsuuCKwiz+XXemPEYyToTbJW6m+N8tF5T6JPdGdxf4Cc
+ m/j/rsanKsfKEsqsTtOsXTPNtxKCmo869mnX5NuYuU6BpeCySs0mIIg2fhs1qGBSHBkVufNkNip
+ 95y2rRdHLtx/JXnW3T0pbQi5zAQAvnFwJiDwKJ1UQpHD/culoYttD3Fk8XLKXqu7sTIKlV2NImY
+ 4be7le68KigNwGLiipyLZS2iUYZElru/HBNvQZfsCQwsa7bn2bRiuKvTZ3C04FWMNPIN6urcWn/
+ Etd9hzTr6hGTAxfuhMo5M/CW33SDuulrx0iylfNMs+XtJiIRqV790Uk0HkQsxKOyQ3qXNipKL+o
+ +QwEa5ePKdstbJ
+X-Received: by 2002:a05:620a:880a:b0:93b:d7a2:83d1 with SMTP id
+ af79cd13be357-93ca98aec8fmr429664485a.64.1790797399137; 
+ Wed, 30 Sep 2026 12:43:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:880a:b0:93b:d7a2:83d1 with SMTP id
+ af79cd13be357-93ca98aec8fmr429658785a.64.1790797398603; 
+ Wed, 30 Sep 2026 12:43:18 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ba44059773sm18477e87.11.2026.09.30.12.43.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 12:43:17 -0700 (PDT)
+Date: Wed, 30 Sep 2026 22:43:15 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
+ configurations
+Message-ID: <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
+ <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+ <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260930063856.183763-1-zhouhaikun5@huaqin.corp-partner.google.com>
-In-Reply-To: <20260930063856.183763-1-zhouhaikun5@huaqin.corp-partner.google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 30 Sep 2026 12:42:17 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VjKzh636bu4yNQFsGKj7bLZB4oWr6X=So58VHSp=UhAg@mail.gmail.com>
-X-Gm-Features: AclHuK8kkfbOUDtVvVwL4GpB8KVrlF-z76CfF7jLe5vynXwJYITtPiQlL47fZUk
-Message-ID: <CAD=FV=VjKzh636bu4yNQFsGKj7bLZB4oWr6X=So58VHSp=UhAg@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Support NV140WU2-M70 edp panel
-To: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Cc: neil.armstrong@linaro.org, sam@ravnborg.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- daniel@ffwll.ch, airlied@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
+X-Proofpoint-ORIG-GUID: vfC6qhV_jDJ3GMtu7Ra867bYmmUa1gJ5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX0bE7zQcqCvRo
+ jZW1jcBPv8NKCHI0Jpm3C5mVz1lFXexhQ7exwnERcLbl7EuU8TXwAi+zBAqobb0BOsWn+svDHF3
+ +xrq/mWJWJKcD7pVJNf3xnLEhzP04udDcWgV4w2X8HDduRjrHAbya6rRjnSFSRsBFTCFhKsHcHD
+ QyqT+tWn0Eg0uu9vFXhasGTEKMYZjOg+a++khSYwIX9zNE8oeJ2/WasFMxm8WCgBbzAAsddX8AI
+ djaKQEqhCJ3tQZ+i/tj/Z3sAEG7zh5IOdpBBMg1dI+WK/BV26TvP4sOwhhA+2T8t8YDGwm5cKmI
+ kHR9H9dwBGhJcOqeTPIdN3He2ULK8OS6kF/1nGPcvZkAynh78NX0uPlgJUQlx66+M/KM2Q+s/rN
+ fBY4rt83IbfFNHLCz0Jy3K6DXhDUtYpwVVjr+xNkRRuaKNjH2hhneZNdyFJHmIVLXyjmC6zeGFJ
+ kdKOBAxhQ2zThAB6C4A==
+X-Proofpoint-GUID: vfC6qhV_jDJ3GMtu7Ra867bYmmUa1gJ5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfXzPJMd8L3HdC5
+ akhpDFuwAVtuQ206+ItzdZE+ev9oPib3/Zj8+IvJeWzsaXJtZDXvGkPe7/olqGOkZJMmmS5f/EE
+ GWh3VuJ3kgKKH8ntOqCcToVfpOFqdyU=
+X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abd6658 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=KKAkSRfTAAAA:8 a=gnaAZu_HdrVRTMOkdIcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,36 +162,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:05写道：
+> >
+> > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
+> > > Some devices treat two independent physical DSI panels as a single
+> > > logical panel from the CRTC's perspective. However, two separate DSI
+> > > hosts are still required to drive the panels individually.
+> > >
+> > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> > > allows a panel driver to inform the DSI host that it is part of a
+> > > dual-panel setup, enabling the host to coordinate both physical
+> > > displays as one.
+> > >
+> > > This change does not force individual panel driver to manage
+> > > system-level display topology if the driver does not intended to
+> > > support dual panel topology. Only the driver that set the flag to
+> > > true need to take care of panel topology.
+> > >
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  include/drm/drm_mipi_dsi.h | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> >
+> > Do you have a single MIPI DSI device, or are there two independent MIPI
+> > DSI devices? In the latter case, the flag is wrongly placed.
+> 
+> Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
+> mipi device
+> to notify host they are one of dual panels, so that horizontal
+> configuration(width)
+> in mipi host can be handled correctly. Where do you suggest to put this flag?
+> Thanks!
 
-On Tue, Sep 29, 2026 at 11:42=E2=80=AFPM Haikun Zhou
-<zhouhaikun5@huaqin.corp-partner.google.com> wrote:
->
-> NV140WU2-M70 raw edid:
-> 00 ff ff ff ff ff ff 00 09 e5 ae 38 00 00 00 00
-> 14 24 01 04 a5 1e 13 78 07 7a 95 97 5d 59 95 29
-> 20 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 24 31 80 a0 70 b0 3c 40 30 20
-> 36 00 2d bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
-> 4c 10 01 0a 20 20 20 20 20 20 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
-> 00 4e 56 31 34 30 57 55 32 2d 4d 37 30 0a 01 35
->
-> 70 20 79 02 00 20 00 0c 9a 0e 00 ae 38 00 00 00
-> 00 14 1a 00 21 01 1d c8 0b 5d 07 80 07 b0 04 88
-> 74 b9 5d 99 85 95 97 42 20 02 35 54 b0 5c b0 5c
-> 66 32 12 78 22 00 14 3f 66 02 85 7f 07 9f 00 2f
-> 00 1f 00 af 04 3b 00 02 00 05 00 81 00 15 74 1a
-> 00 00 03 01 28 3c 00 00 53 42 53 42 3c 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 8d 90
->
-> Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+Into the msm DSI structures. We already have several Qualcomm-specific
+flags. I'm thinking from the 'generic device' point of view. The
+'dual_panel' doesn't mean anything if the device has more than two DSI
+hosts. You need to specify which hosts are mapped to L or R channels, etc.
 
-Pushed to drm-misc-next:
-
-[1/1] drm/panel-edp: Support NV140WU2-M70 edp panel
-      commit: 37b346eab23aead52d17a8fa687056bfc651a416
+-- 
+With best wishes
+Dmitry
