@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0489ECA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20659CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDFA710F36E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87DB610F36D;
 	Wed, 30 Sep 2026 12:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S4/ddbfS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WSCweCiP";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6543C10EFE3
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 17:50:27 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2dd77300825so24289985ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 10:50:27 -0700 (PDT)
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com
+ [74.125.227.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD88210F1DE
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:59:18 +0000 (UTC)
+Received: by mail-pj2-f38.google.com with SMTP id
+ d9443c01a7336-2e2da4743b0so2504665ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790704227; x=1791309027; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790751558; x=1791356358; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=DurJlfglRtxfoYGfZICWlyKpb6JqelzUeYbLyKTge0E=;
- b=S4/ddbfS6YjIUonyS9IdsM/QsSHKcpakvi5sgv3XJt0a5k/JK1/Lp7DjqEb+tG091v
- kDtBW+HGWWBUd7GzGI1nqKg3yy06Smqfbb4F75Tt92P4OZsdxcpr/HCZhTDRcB7DSX3c
- euOvm2ZeGJB6homoG6xtxQhaeRPRE3L2GpRXAUH4NIE3JkBguNL85mH4drzlSAFr1CRD
- 293GXy4C6Ban7MmmZhU+rQq9Adzo8p5Wh2y2f0EHpwT/fEzFKKkndkIUwCTMEOA2iIeI
- eKqJuTgfBANcaefgw9tc1GjIORFvW06SWr+uKcYfTKUV/+wgc4NmGbsEJmKBakSQjoXK
- G6oQ==
+ bh=MxNiWg+dHE1TqlcRBrYL3310bHI3Y0J25afbuRgW4f0=;
+ b=WSCweCiPU/f91Cda4Z8mNbULwogP+sgN027pg9/ajuGDWK5ESIRk4qo8AC1W+9+cFN
+ GUWxaw6KDbUtELMUlDkB3XK8zWSg1YMBBgQvht5k/IrNTQwbBKATHD8G4N8fRgBY9nix
+ IPwk2PiIV8lNBbJ9pKGoH3bsHrIg8ZO5B6aUGIbVI5Lkev+xbtIujAEOywLRe0sY7dwA
+ S697G1RMx1EUifzuFJXIguGhdTtuGONwQ4XTCo+N3SsRmo7Y/OHEQ06FjQRVkJAye8lA
+ qH2BfyROoKdGHUwxKiGTPPTHzdH4z+1P8bVKxy7WBO2rPZnnUxGBX/al/NoJryMN5+py
+ DduQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790704227; x=1791309027;
+ d=1e100.net; s=20260707; t=1790751558; x=1791356358;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=DurJlfglRtxfoYGfZICWlyKpb6JqelzUeYbLyKTge0E=;
- b=yJjNuSPLRG/b3iVQDQdk3S6kbKVPDn6SER6G2EGAgwjWQQV2/4hljpU+I2Q+faxPuP
- EJa3CU+yHZZNOBeYDRaW9nkxO/ImvvWeQcSEjDM/IRXo14aCQcoR4PMLV4ExRAB1jBE1
- F/428ODqOXe8+eLL1YXwiSMuNY+2fioZHkp3Q+oZqxddR/SSVLWfVhbUwV5LyX4WkS8Z
- yZEz0Vziy82UJrVIBM2K36+Rjt8RZqsJEjjM2hrWh4GF2GRRTlU5+xNJ8GoSs8d8Ssvr
- RMUg6ZmIIiSrrDh0MieUB2JTCxnE3UxOBIWHnrLydLkSRhnDk5rkupyX0Xx+B8qWcr5y
- L+Rw==
-X-Gm-Message-State: AFq9FYIYT/zSR3mFHJnUPCXBoi6t7ITBXQoiybZM7EDZvYXiatEZU+Ei
- 6luKO0ph0a8XzwCh5gwtKFxu1iQOnaLOXjOt+DfcjDbHQILELVy/7uS9
-X-Gm-Gg: AYBFou3/exLdvWxjl6zBCGaPFS9fqPtK4gLr0BtVoqQST80yJJdbm360RhdWowcWhcQ
- OnHMeLCPJqEhj8y3g7d3RsOkTLAIoLMtm/GliGtOtEY5i9UyzDFYG4JgKN/r/rBnukS3cOeaopo
- IjovNlV0NWdokTYXYGp0F9cO+I9Ij38xn9b6VERiVgdQOi1KpfHlnOwj8avSNJu00PqRuqyc7ux
- do6fO9PFBv4EjUlNSW5YtPkafexwmyV7WscMsc5w0Yx3D3EMWlXaAi7STqGXDd7wDKbY5URhNDy
- CQUiZWHZebmLYi8Ee4V3ygMFnJzQlUgE1hWv+ELraUpmSz4JC+ZGjuAeDxfmOVn1TRjFXMdoys/
- HYs2e5h+IArsJzBwh0nBuHwx7J61j2TulcRSuLdnEC3HFESvEGlG7C0W8x+W8YAMyoLlW+0HLt8
- rgPOVx9/BfDG8Sm8XkfiI+sIGx8pFprp1b7Ly8Ctwaty5sw6CWrf+sB89oz/qcQzoNzXBRlpRoH
- bBDLs1kYkIeRQ==
-X-Received: by 2002:a17:902:c406:b0:2dd:9b53:f9ba with SMTP id
- d9443c01a7336-2df7da5e366mr158748795ad.1.1790704226719; 
- Tue, 29 Sep 2026 10:50:26 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ bh=MxNiWg+dHE1TqlcRBrYL3310bHI3Y0J25afbuRgW4f0=;
+ b=Oj7hJBTyfRBWmmFm5CtnI232JcVUANw6t9vo4L4DbjhDdE4F7+RBfpXJqF5sA8DkFP
+ qOIEvq+0GfXaZltebKh50eLNwZX/OFDmzNm1vj5PfNwnZrGwf2xVtbQehbPAhHc4O6OK
+ zclI5kygop1YRrQAg6L93PsXAOYlKTXAn7DT0HKUe0IU+JIzI7FTK6VU/poobdb9UQp3
+ nwpS/x9V2VPFpJw0/cCc3pvaImE7g/YPO73tQBWohM88bFyxej1oFAZW3Yk4hwV9xqz7
+ kkVyWDjLp1/DCnKnsc//lljo3gEJkVycl5XqV0tKZ05ClAiy2kk2s1XrzL8SyniX7DZY
+ +Idg==
+X-Gm-Message-State: AFq9FYIK8uCx55uLnG5R35FsgRZ8Uz1q2HRNvT3EePL1Z9+fI2J/k1pB
+ TMzUuDQkX+FbscAUOLWP8R2TkVTYYTKYTISjRecJFqbn8CrcUvytVAWq
+X-Gm-Gg: AYBFou00nO95uy3rrokd9bVseAUz0IOips9FFgAIvoQ0C6WjuIhl2dFfimUg63q2bmK
+ V96Swp/pNsk68+HDIe6dDNYKWSNg2MYYlTACi++qU1Fk2NHTes2uU4cj6TBsee54IwGtKz0iDhr
+ pfMbA8ohfevQQYvou/QCv3/Re1a9Ok2PpxRxmaPxs19kQ+dKoKk9wXXwbXLAZvY2wCuFr2quXbL
+ kXzkk1bZ1i9vp/uLRo/eJd0O2S74HTsz022T5mqf9QTPKLNA0pp4HDq+IvkUUj3WFOgnXDJbTcm
+ sHYRwnSg625bUipK4tngmINpiaB/Q/jMAAHGAynkTAdSRIfyvnwcMcw40YAjgCpeIFjOn9dd18W
+ Zhb/Ct7FGaG42TFEUVpcP5uiVTFOw9XFX/8m4QXrt/zgDEOGEuqPz9bzCGBfSPsrs7pr3YA/1Kn
+ z8z5bpyWQ3DrGxaiVSr98o8eT11Ufj+OVGzraxJtkh0rio4e7lop/llB1Nf/o4N9GgyjbHa1hwi
+ aXTtMJcQNQQGFPbSEGmSyFzr4vWqaW06ifX+CKePWuCBk7USwyaFFwKWmyqJp7CuFe5mAosZn+Z
+ rOLSFKzUpQ==
+X-Received: by 2002:a17:90b:1811:b0:3a2:bb9f:f87d with SMTP id
+ 98e67ed59e1d1-3a4d2803bdcmr293672a91.21.1790751558335; 
+ Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2e2c794166fsm15247035ad.21.2026.09.29.10.50.22
+ 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Sep 2026 10:50:26 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, sashiko-bot@kernel.org,
- Joonhoe Kim <26rote@gmail.com>
-Subject: Re: [PATCH] drm/msm/dp: hold one runtime PM reference per plugged
- state
-Date: Wed, 30 Sep 2026 02:50:19 +0900
-Message-ID: <20260929175019.3899-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260929132029.911491F000FF@smtp.kernel.org>
-References: <20260929130627.959-1-26rote@gmail.com>
- <20260929132029.911491F000FF@smtp.kernel.org>
+ Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 2/5] drm/gud: Align both x1 and x2 to block_width in
+ gud_flush_damage()
+Date: Wed, 30 Sep 2026 06:59:11 +0000
+Message-ID: <20260930065914.393939-3-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
+References: <20260930065914.393939-1-benquike@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
@@ -93,36 +96,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 29 Sep 2026 13:20:29 +0000, sashiko-bot@kernel.org wrote:
-> Then, on the next plug, msm_dp_display_host_phy_init() will silently skip
-> PHY initialization because dp->phy_initialized was never reset to false:
-[...]
-> Can this sequence leave the hardware PHY uninitialized on replug, causing
-> link training to fail and the display to remain broken until reboot?
+In gud_flush_damage(), applying ALIGN_DOWN to damage->x1 without adjusting
+damage->x2 causes the rectangle width (x2 - x1) to become unaligned when
+block_width > 1, breaking rendering on block-compressed display formats.
 
-I tried it on the device (Lenovo TB323FU, a DP monitor over USB-C) by
-delaying the unplug handler by 5 s and forcing a detect in that window.
+Align damage->x1 with ALIGN_DOWN and damage->x2 with ALIGN to ensure the
+resulting rectangle width remains an exact multiple of block_width.
 
-- A normal unplug already leaves the PHY initialized across the
-  controller's runtime suspend: msm_dp_hpd_unplug_handle() only calls
-  msm_dp_display_host_phy_exit() when sink_count == 0, which it was not
-  here, and msm_dp_pm_runtime_suspend() does not touch the PHY for DP.
-  With this patch the controller suspended after the unplug, and a
-  replug 20 s later trained the link with phy_init=1 and brought the
-  picture back. The controller's runtime suspend does not power the PHY
-  down, so the flag still describes the PHY correctly.
+Tested in QEMU against Linux 7.3.0-rc3 with R1 (monochrome)
+block-compressed format damage updates: on the unfixed kernel damage->x1
+alignment alone produced unaligned rectangle width (x2 - x1) causing
+corrupted block flushes; whereas with this fix applied, both x1 and x2 are
+aligned to block_width, maintaining exact block-aligned damage bounds.
 
-- Tearing the PHY down in detect() when the sink is gone (the natural
-  fix for the scenario in the review) made it worse: the next detect()
-  initialized the PHY again and hit
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+ drivers/gpu/drm/gud/gud_pipe.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-    phy phy-88e8000.phy.3: phy_power_on was called before phy_init
+diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
+index aa7792966287..f8726e3d849f 100644
+--- a/drivers/gpu/drm/gud/gud_pipe.c
++++ b/drivers/gpu/drm/gud/gud_pipe.c
+@@ -327,7 +327,7 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
+ {
+ 	struct drm_format_conv_state fmtcnv_state = DRM_FORMAT_CONV_STATE_INIT;
+ 	const struct drm_format_info *format;
+-	unsigned int i, lines;
++	unsigned int i, lines, block_width;
+ 	size_t pitch;
+ 	int ret;
 
-  and the SoC reset shortly after.
+@@ -335,6 +335,13 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
+ 	if (format->format == DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_format)
+ 		format = gdrm->xrgb8888_emulation_format;
 
-So I would keep this patch as it is. detect() clearing plugged so that
-the unplug handler returns early is older than this change and is not
-affected by it.
-
-Thanks,
-Joonhoe
++	block_width = drm_format_info_block_width(format, 0);
++	if (block_width > 1) {
++		damage->x1 = ALIGN_DOWN(damage->x1, block_width);
++		damage->x2 = ALIGN(damage->x2, block_width);
++	}
++
+ 	/* Split update if it's too big */
+ 	pitch = drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
+ 	lines = drm_rect_height(damage);
