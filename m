@@ -4,116 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A0DCA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69464CA5FC5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC59810E1C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD3B710F56A;
 	Thu,  1 Oct 2026 06:52:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LUlR86nN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U+Cq7pqG";
 	dkim-atps=neutral
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com
- [74.125.225.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 059FD10E128
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 21:00:10 +0000 (UTC)
-Received: by mail-wr2-f11.google.com with SMTP id
- ffacd0b85a97d-48b05d75172so135609f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 14:00:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790802008; cv=none;
- d=google.com; s=arc-20260327;
- b=ooG8mDVg1Sgbvr3qXdt+xEQHGizd2uGCOMOy7r6BWLLMFmpRINgQhxd246KsmPC6uv
- w7R6B/VR1Ol1XhMqMs4wYPygH2K9O3QWNeXDJjvYut3nXNu0UKLkbbxLx5+l8e66fAmM
- F9AXAGV+b2XpWzGqD/rHAwLql7Eh+MfceuVP0As2pXJ2vmkBcesdTCm/l/7+vM+i7RxM
- CxYsFwtVlUZHkHKqdai81Gy3GOSTA8MyNhAmASduEaiOHtMx3BsH1FpPc0VZYdeUuQEI
- a6s+orRV7/5X++PLYqChbC1r7NACqmbaZvkSA+l6wlripTSJqNdMArip97LCDJ9ITDis
- v8LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
- fh=Yvp4eg0+szSt+okyvWHs+wN5TwUCKI/dRyEBpT4/S28=;
- b=cF6+C88VIIJy7uep1fTPsCv49pWke5sIr2+JW4i1hgf+oREQimt39PvN8Y2HU7xC2Y
- IqaZbURUvP7ORjDcM5IdE+DWXqpHORdXdo1RTFp8DWDZ/0evfybnbJW9Mzhm+AAhCSTg
- mbLUqU4M7UBFtENj0+ztR3Mujh9MuL6tmCXm0gEy8w0FIBfW6Qc5MRdN6enS2NPZ/+5f
- djTsbglb+SMdI5fxhXYjJ2/yb8b/h9DqOy1dw3+Nq39ZgS6GKRcixvQLxSyU9qC2Z/Iz
- vrqJWqJ/hJ/B+VtlA+eu7aRpY0Uiu4Tkr+n6UAah387YLz2d9XDQcb+yL2VLTJ88uDk9
- IRuQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com
+ [74.125.228.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70E5310F30A
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:38:35 +0000 (UTC)
+Received: by mail-pz2-f41.google.com with SMTP id
+ d2e1a72fcca58-85469e25400so2367353b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:38:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790802008; x=1791406808; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
- b=LUlR86nN6EvIxBGfJ3ZcmR6p+CeiCtHcd1iOJj8bkMp5wpo6XYl2d81py9F0QAaLeV
- /OP5zrL2L9jnFwT8649IlOBDrHRC7trKsG2Heoqo7m3oQ5vzmTat5/X6h1f+yD25OZ1M
- Gjt3vof4Wf5Os+QaRmebMDduWKVrruQDZBMCXmzTk5baU2XDJUK7eTdnxE461z3bGJnt
- /vmLbxccunfo2gbOEHpZat5/acl0qh6bxuSvYH5L+g3U2FEfG3PFBHoSEa1VFF0KDsNP
- c1fnDRxedQee4SI2MW7vht741NUtZ3VgFqIjynaSTd4LG4BWErLGcxG9sxRt7zfXnSTe
- ZQjg==
+ d=gmail.com; s=20251104; t=1790793515; x=1791398315; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=GGi6ovI4LcDEis/cX9YUCASZQ/XVD4U6AA7Pt2oLAug=;
+ b=U+Cq7pqGULDUtAu1j6HqNb9bTrHJ7GJqnukpR/cgZqnJuB477exSmSjoH/SuLSUzqq
+ l5iKT5wJmK7yU3DSL56IIsn94FpQLLMyG7FDue9/N7nOHnsu9y6ay/dObFO8TB89nYsq
+ 7fuFN+HRxp4q8rmz2inrSXVEVdwxn5SeMyY5skkkLgOczr4imt5nAHxzoSj0JAawaxB7
+ zl4D+haX+X1yZcfz8Ody/z7obp2OJZEvlesvg+VGs32TmtfAq3J6opeI2j+Lv8XLj8GP
+ qtuxzhaBP5nGBqLPCOE4xzBFR0yxaXvzh0+c0VvWkuf6vCzQMIfS+2RFP0hWYT20hxFr
+ bu6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790802008; x=1791406808;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=BdHV7DMCXxsggz4//I4AlWe1QoSNzGSaCcBE0kpC5j4=;
- b=t8lsGpIISQfEBTKE1Pn9wsEm0fRnoLu1wNL8qtXHek3GECAhgf9LzGXYf41rBxWuCz
- uXEeQkQGrvQkhXW0cTOlZ+wTNNrxiBysAyh+q4grnmgWK19CzcgZwIy3tinh0T1UC8vw
- os9we2Sk+8BMTPHjz5d+Dgt7w3XadrhS0GDciXkS/hEgCQkD4txtpv1yGcab3ZjQ20UZ
- YzUzXLdAvlKHWVvpy8xnSedpq6vzwEGLwYuVKc+sCjMwtBVgNynxFkz+hBOcZB8eY+JF
- 1nIK56VewWXtuTB7QkYwbLEFDIziN4fWopcR9OpSNEvI8F6rTU4pvshjEuaEsJrggwcD
- eD8A==
+ d=1e100.net; s=20260707; t=1790793515; x=1791398315;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GGi6ovI4LcDEis/cX9YUCASZQ/XVD4U6AA7Pt2oLAug=;
+ b=2DivBrBJ+5gWCoCA8ncdybuf1SZi8JKAT8cqGWaTKDZOk05/EKVAhJZwn4plFQunie
+ gTqy0QjlYdHVM5QMd2v89ACTQp33C4LcULdBipqmEiEXyIdL19Doj1X+HsXS6nGdGrpf
+ rqIiAIA8iYHwxJZybJv8lrv8udxvoFCqBP7hq1u8LRybsQJRV3lRLdFCZ41Mx6t/BAPR
+ BXx22GmnYbKTHGotPiRvOqai6/LUoKKNSybRldse2YT6NyDb3OBC0xv9/VYFHuKMjJ+i
+ y2TppZZ8SefEK06o5zzCt79ThaIaGe1/HZcEQ7l5khcgwqP66ekH0b/S4iF0fD+7UKY6
+ L34g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzHx7qYr8bbcI8A7mTyU3Etptpz/0lpcMaX/1041QMmMpXaFAfKEg1yd1nU0aAIGg9DDAqqLyFYWmE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKaBDT15kgQzdAyTJ/mo4qieidC+HG5Ei2GVwkdh6GYDD4oW4zH
- mxVFDX6u7XUVqXuy0IXAVIyP4Rn8L+FAncFg0HSGghvPJv1S3wzdy16br9wimFdL9vkSXrRcYll
- BQStdJh8FW+48glKfnMmSLHsycNqMt0o=
-X-Gm-Gg: AYBFou21e91vEOFdOm+fvU7UkVoCJAxmXtfpVxPp7sYU321lFk8LTI1/MxGvkg+uGOu
- Tfba68JM9wEI9DV4KdEgMeelHU1n5k/mRDraSAA13d8sKlLCDupSuglZJNiTka/gEwTdUTXzkoU
- /qYymdhoRDs7X9LPg/AMC7ahqzaDvt3ujxj0kBMp8MijMbgBjTQiGVC/jhsFEezHewlM1akKE+K
- MLcJPaReOAPinDrj/TAwtw3xyXBnmDjSa9S3Stt9NBVk5iI4gNY7eXQL3UsukZa6YBTbW95ddgg
- mSjueUJeaifpGCeBJdJSA861DJ9EqrwGNBSH8PsDkNIzJMPDS6QGIohl48QoQR4eHm8UmMIAMRw
- 1Askhmz5Byw30DeR+Px16LhsPAt9Crv85hUZYKdJkU5LujnrBpUtr/tre2AaaxpFHNZDmmA/A+E
- arbieHkW7rFIEOZ2v+VA==
-X-Received: by 2002:a05:6000:2dc6:b0:48b:68:594a with SMTP id
- ffacd0b85a97d-48b024c5716mr5289021f8f.12.1790802008034; Wed, 30 Sep 2026
- 14:00:08 -0700 (PDT)
+ AKwUvBz2qx55HD+D52rwONrY4Rxi01AbNByXlDCFYu0rt4yh2KiFAte3WNy/+dXlQVO45lmZU9+wY+t59lI=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++koccKyy7xwTFQrFfJ6z7ldZrqDmC8QqSe8SzqWsL8/VbQbMBVf
+ DleiKVntDFoTEMPlyK2FjvRw/KY8V5mKYcv/BOIMdt/tMlimwS4Vjui/
+X-Gm-Gg: AYBFou3HuL9D0WCveXYXXUj1/my7fS0KFW6qn9q/BzuZ3A5blrgHGQwjGYRjwjB7HKK
+ HjVe5OvkiGPit4DNHV3fyFZQnlFqJ6cPSAEjt/hNHboVz3zNJsGhQnvwW3xFlNA9OPBGI1Bxhg7
+ IfRcBVqH64FHC+drU/L93hOORqJgU3HqV7kInvSTysIPl3lgkfokZGt23oFarGcNxzZ56s44+WX
+ 5olI0/tc/J5gj492U5MY16zqJt7LwL2abu0TuckNodNOQsY9NHcD5tjwQ+Mm1vCIyphE/arD3UJ
+ 45OqlDaAJWnxTin2UzG4OWX3e6gB3y4aUGmc0SiUAEkyOw2ndjpRuxlemVVNZiact/oFCmlgrTX
+ dT957DwKhdVDxS/D1IIXPCpDq5QLFWYrJ+Hvqa49+MWQcYgK3ptcNL9zpEydpN0mMC/dcvoFgPz
+ 7lH66sp/EmZDEepS4WrXgL6XqlRD2y1Kt7Cas8CQXvn3LLToxmijNPKZDeo1QRZFHzXM5Kwm1D0
+ dv0CznWjyRRMlsSjQX+r5oedJGiO0975pBH7uCleeM3FVVltpyw+bGwIOgMhLs0JLCuqw07FYlX
+ OGT50EpkVWGklvCYHrOj75slDxPokNg3AjVdMS7d2nVASMU0
+X-Received: by 2002:a05:6a00:4f8d:b0:881:fa65:d4fb with SMTP id
+ d2e1a72fcca58-8874ceb9a8emr1764351b3a.56.1790793514815; 
+ Wed, 30 Sep 2026 11:38:34 -0700 (PDT)
+Received: from rahuls-x2elite ([157.51.37.69])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-888193d1fc9sm47224b3a.33.2026.09.30.11.38.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 11:38:33 -0700 (PDT)
+From: Rahul Pon <theflyingrahul@gmail.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH msm-next] drm/msm/a8xx: report the GMEM size of the active
+ slices
+Date: Thu,  1 Oct 2026 00:08:22 +0530
+Message-ID: <20260930183822.1158-1-theflyingrahul@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <d6cb8aa3-1360-47cf-9ec2-e2403974bbed@oss.qualcomm.com>
+References: <20260930111711.1160-1-theflyingrahul@gmail.com>
+ <d6cb8aa3-1360-47cf-9ec2-e2403974bbed@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
- <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
-In-Reply-To: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Date: Wed, 30 Sep 2026 22:59:30 +0200
-X-Gm-Features: AclHuK-U6pulImpn0m_SQCkcJ5kAgToTplTEZZASDrUoYoF9BUdVXxkuuMMc3Rg
-Message-ID: <CAP01T772Vgc4=ShFHQ5bFBAF0PYuQ07xe3h+biT7LST-tahHhg@mail.gmail.com>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 01 Oct 2026 06:52:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,129 +101,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 30 Sept 2026 at 15:57, Neil Armstrong <neil.armstrong@linaro.org> wrote:
+On 9/30/2026 6:48 PM, Akhil P Oommen wrote:
+> This commit text is incorrect, but the fix is valid. Please use this series
+> for Mahua GPU support:
 >
-> [...]
-> >>>
-> >>> Changing the mindset is the hardest part of it. But once you are making
-> >>> the shift, it's actually much better to work with. It doesn't mean you
-> >>> can go yolo. You still need to be careful in your choices knowing the
-> >>> impact on your users. But the API at version 0 is not frozen and you
-> >>> don't need to maintain it forever, especially if you control the loader
-> >>> and the headers used to compile the BPFs.
-> >>
-> >> It's really impressive, but there's no way this would become the de-facto
-> >> way to program the panels
-> >
-> > Nobody said it would? And like I said in my previous mail, I actually
-> > expect us to keep merging panel drivers. Do I think it should become the
-> > go-to solution for simple panels? yes. But we can always make
-> > exceptions, and for more complex panels we should totally do a more
-> > complex driver. Like HID has been doing.
-> >
-> >> and if the motivation is to make it simpler this implementation
-> >> requires adding bindings and bpf programs which that are the same as
-> >> native panel drivers, but won't be able to work until user-space
-> >> starts and will require to be in initramfs or rootfs to have
-> >> functional display.
-> >>
-> >> Not sure to understand what are the positive features here except
-> >> isolating the panel code in a safe bpf program (is this really needed
-> >> ?).
-> >
-> >  From the cover letter:
-> >
-> > """
-> > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > difficult to support and require pretty much a panel driver for each
-> > panel produced. Most of them are pretty simple, and require an opaque
-> > initialization sequence that is usually poorly documented.
-> >
-> > This creates a tension between OEMs and distros because OEMs will
-> > typically get a new panel to react to a sourcing issue during
-> > production, and thus need some swift turnaround between getting their
-> > new panel and it being operational in the OS. Distributions on the other
-> > hand can take years to ship a kernel with that new panel driver.
-> >
-> > To solve this, I followed the example of HID-BPF and wrote a panel
-> > driver that will rely on BPF programs to perform the panel
-> > initialization. That way, we can ship the programs separately from the
-> > kernel, and with a different lifecycle.
-> > """
-> >
-> > You can disagree with the solution, that's fair, we can also discuss on
-> > how to solve this problem, but I'd appreciate it if you weren't claiming
-> > it's all useless.
+> https://lore.kernel.org/lkml/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com/
+
+Thanks for the review, and sorry for the confusion. I hadn't seen your
+series. With Glymur's X2-90 entry the driver reported 3 of 4 slices
+active, and I took that for a part with a slice fused off.
+
+To be sure I have it right this time: the X2-85 in Mahua is a 3-slice
+GPU by design, with its own GMEM size (15.75 MB in your series), and
+not an X2-90 with one slice fused off. Is that correct?
+
+I've tested your series (patches 3 and 5) on this laptop (HP OmniBook
+5 16, X2E-84-100): the GPU now comes up as chip ID 0x44060030 (speed-bin
+fuse 357) with 15.75 MB of GMEM and the GMU firmware loaded, and with
+Mesa main, which has the 0x44060030 entry, GNOME Shell and glmark2 render
+on the GPU without corruption. I'll reply with my Tested-by on that
+thread.
+
+> Please add '()' to improve readability. And it would be easier on eyes, if you
+> don't break the line.
 >
-> I did read the cover-letter and I got the arguments from Benjamin, and
-> while in theory it could indeed solve the issue described, in reality
-> it won't for the reasons I exposed.
->
-> And since it's basically allowing to accept out-of-tree downstream
-> driver instead of upstreaming, I'm kind against TBH.
->
-> But I'm open to discussion, and I'll talk about display Panel in
-> XDC today, Plumbers and ELC next week so I hope we'll find time to
-> discuss about this in person!
->
+> Also, reword the commit text to exclude mentioning Mahua. We don't a partial slice SKU
+> commercialized yet.
 
-Hi Neil, Maxime, Benjamin, and others,
+Done in v2, which I'm sending now.
 
-I've been following the patch set over the past couple of days, mostly
-out of curiosity. You folks understand the details of your subsystem
-best, therefore I trust you with that, but I've seen a lot of
-misunderstandings which feed into unjustified worries about how some
-of this will work.
-
-For clarity, as several people have already pointed out:
-1) BPF programs ship with complete bytecode and line information from
-the source, so I don't think the concern about the program being a
-binary blob is justified in any sense. The verifier has to verify it
-after all, before it gets loaded into the kernel. They also must be
-licensed as GPL to have access to any kernel functionality.
-2) Adding BPF interfaces does not lock the kernel side ABI into a
-perpetual stability contract. There have been several thriving
-communities (sched_ext, HID-BPF) which have used BPF successfully in
-practice and have never had to make suboptimal technical choices
-because they support BPF-based customization. The interfaces have
-changed and in some cases completely rewritten without breaking users.
-Of course, you might decide to be less or more graceful w.r.t.
-backwards compatibility, but this is a choice left in the hands of
-subsystem maintainers.
-3) On top of all this, there are several mechanisms in BPF programs to
-detect availability of APIs and adapt it during load to allow programs
-to work across kernel versions, both for functions the program can
-call and data it can access.
-
-As far as people being able to carry downstream changes, I think, at
-this point, that is already trivial with or without BPF (esp. with
-LLMs), the only thing you change is how easy it is for users to avoid
-being tied to kernel release cycles.
-
-With the right incentives people will end up sharing their BPF
-programs with the rest of the community. sched_ext and HID-BPF are two
-strong examples of this. All programs get developed in the open with
-community involvement, even when several companies make use of them
-internally for their production use cases. The theoretical worries are
-fine, but as far as practical evidence goes it has worked out
-positively for everyone involved (not once, but twice).
-
-The only valid concern I saw was the dependency on user space to load
-these programs. We have had a bpf_preload mechanism in the tree since
-forever, it has not found much traction since existing use cases
-didn't often need the ability to load programs early. We'd be happy to
-explore how it could be adjusted, or reworked to better support
-whatever requirements emerge from this work.
-
-In any case, I am not equipped to decide what is best for your
-subsystem, but at least from the BPF side, I saw several
-misconceptions which I hope the above can address.
-
-Thanks
-
-> Neil
->
-> >
-> > Maxime
->
->
+Thanks,
+Rahul
