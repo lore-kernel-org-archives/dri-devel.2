@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83E3BCA5FAC
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D54CA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:14:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7CD310F375;
-	Wed, 30 Sep 2026 12:14:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EEB10F374;
+	Wed, 30 Sep 2026 12:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CzaBatxT";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="GY03ptDM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53C1710E270
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:13:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 327BF601DE;
- Wed, 30 Sep 2026 12:13:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483E81F000FF;
- Wed, 30 Sep 2026 12:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790770432;
- bh=k6PKVkFFdQkVOzBjY1QQQ7xkTUrcrzdRqFqZ7LnlOYg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=CzaBatxTnlcDDUj47mqRx04KHNsI5KYUKycPAWgY2lsjGykiTNrDUpWNQpKykJT1P
- St1D0g6tWWT/RdpHRf8J6Cwo2jKXUHvdopUINvfFoBAkf/pAuOYeQtsujRzLt2wqBq
- VA5YTdK9TX/64HU0gefk46zHkjcSAMhyDevS6rAMZ4USu1UMhmH9hTKD0gowoLP5h/
- AejYfAmjlQ5HokTagSwYo4RQTrSsRYeu6gKzBywSIzr38epOZz/KZ5HB1/vtPOIZAD
- P2IU3LkydOfpHdNzqZVociHrisqXu2Dre6PDH7st0mXjQNPrz5srdqkeBzYabLs/b+
- i9p0CC2ZMg7Tw==
-Date: Wed, 30 Sep 2026 15:13:49 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, fengchengwen <fengchengwen@huawei.com>,
- Michael Guralnik <michaelgur@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when
- registering dma-buf mr
-Message-ID: <20260930121349.GD3401365@unreal>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
- <20260731211601.3033906-6-zhipingz@meta.com>
- <f4ff7ced-63b6-42e6-8e01-9f01d2e59843@huawei.com>
- <CAH3zFs24esHCGA=wPrkiH8oKQCv7SnOwcBbkMxrOEvOVtwstYg@mail.gmail.com>
- <20260924233058.GA163130@ziepe.ca>
- <CAH3zFs2rhg6-b-pVDps1V8LsM4Dn48t4J4LFVyKOZtT4axdY=Q@mail.gmail.com>
- <20260928172939.GK163130@ziepe.ca>
- <CAH3zFs1mCujYjB=5ywo+huAjPJZQoe9u7NM4evNRYr5_ZQbcXQ@mail.gmail.com>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2061610F374
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:14:45 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hvv9t0CQPz8v1y;
+ Wed, 30 Sep 2026 14:14:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1790770482; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nWt4+mOnl4l6Yj23ltsIz8mR5DZl9PFyDnezgWo4IXA=;
+ b=GY03ptDMzalgEbRAj1q6q/LZaO2Myb8HtYK2fnrh4/DkTW3WL1J1AqvyyS+U4ZrYNHJwOI
+ djOeXYH7GPKRf9I0p/hRbZXW0O6u2p4IiwtzJZEyKVmEQOD5I5/nS/6SsfnST4sqjARAtv
+ FXmhbR/L+2txmOfutGbeiTCE+NLt/ky0A42g8dkxq6nwathMtClW85KmVZWphPYmf1+1O3
+ drIOooUsQtko7WKnIwF5kXph1PrwRSGuiF0uYL49n/KT0818ahRAvOhvcjXrQeN4osjjW1
+ d423y+6rB97t7/nUUZtb5kDBHvSzS1843yKlLWeAGUCWiVuG4Qg6ECYuKRFQzQ==
+Message-ID: <102995397e5c5ca19027b7acc75ff7205f57e871.camel@mailbox.org>
+Subject: Re: [PATCH v4] drm/sched: Protect entity->last_scheduled with spinlock
+From: Philipp Stanner <phasta@mailbox.org>
+To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+Date: Wed, 30 Sep 2026 14:14:37 +0200
+In-Reply-To: <20260922145441.619097-2-phasta@kernel.org>
+References: <20260922145441.619097-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAH3zFs1mCujYjB=5ywo+huAjPJZQoe9u7NM4evNRYr5_ZQbcXQ@mail.gmail.com>
+X-MBO-RS-META: dtionoohoakxj9iawxahyuqmsi3d6c93
+X-MBO-RS-ID: d3922876b93727a5916
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,91 +69,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 28, 2026 at 02:47:46PM -0700, Zhiping Zhang wrote:
-> On Mon, Sep 28, 2026 at 10:30 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > >
-> > On Thu, Sep 24, 2026 at 11:17:57PM -0700, Zhiping Zhang wrote:
-> > > On Thu, Sep 24, 2026 at 4:31 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> > > >
-> > > > >
-> > > > On Wed, Sep 23, 2026 at 11:24:56PM -0700, Zhiping Zhang wrote:
-> > > > > I don't think this belongs in the importer. Every in-tree dma-buf
-> > > > > caller of pci_p2pdma_distance() is the exporter, in its .attach,
-> > > > > clearing attach->peer2peer -- amdgpu_dma_buf.c, xe_dma_buf.c,
-> > > > > habanalabs memory.c. There is no importer-side caller.
-> > > >
-> > > > Right, and they shouldn't be doing that, but it still has to be
-> > > > checked that the st is going directly to the peer device not the host
-> > > > bridge. Not using the distance, but by the PCI_P2PDMA_MAP_BUS_ADDR
-> > > > indication.
-> > > >
-> > > > I fear you will need some of Leon's series to make that happen.
-> > > >
-> > > > So probably the proposed change to dmabuf ops is far too simple.
-> > > >
-> > > > Jason
-> > >
-> > > Hi Jason,
-> > >
-> > > Thanks for the comments.
-> > >
-> > > Agreed -- the tag should not be handed out unless the routing is
-> > > PCI_P2PDMA_MAP_BUS_ADDR. That can be enforced conservatively on 7.3
-> > > with two changes. I can fold both into patch 4.
-> > > ```
-> > > In drivers/pci/p2pdma.c, make pci_p2pdma_map_type() callable from
-> > > tristate VFIO_PCI_CORE:
-> > >
-> > >     EXPORT_SYMBOL_GPL(pci_p2pdma_map_type);
-> >
-> > No, that's been rejected several times already.
-> >
-> > > and in drivers/vfio/pci/vfio_pci_dmabuf.c,
-> > > vfio_pci_dma_buf_get_pci_tph() gains:
-> > >
-> > >     struct dma_buf_attachment *attach;
-> > >
-> > >     if (list_empty(&dmabuf->attachments))
-> > >         return -EOPNOTSUPP;
-> > >
-> > >     list_for_each_entry(attach, &dmabuf->attachments, node)
-> > >         if (pci_p2pdma_map_type(priv->provider, attach->dev) !=
-> > >             PCI_P2PDMA_MAP_BUS_ADDR)
-> > >                 return -EOPNOTSUPP;
-> > > ```
-> >
-> > Also no, this has to be done via PCI_P2PDMA_MAP_BUS_ADDR which also
-> > enforces putting the determination in the right place in the code
-> > flow..
-> >
-> > > Two properties are worth stating explicitly:
-> >
-> > Ah! AI!
-> >
-> > Jason
-> 
-> Thanks Jason, I see what you meant by Leon's series now:
->   https://lore.kernel.org/all/20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com/
-> 
-> Looking at v8, it seems patches 1-4 can stay functionally unchanged,
-> while patch 5 uses dma_buf_p2pdma_map_type() on its own attachment for
-> both the initial TPH query and revalidation. Is that what you expect?
-> 
-> If so, would you prefer that I wait for Leon's series and rebase the
-> whole stack on it, or split the series so patches 1-4 can land first
-> and patch 5 follows after Leon's series?
+On Tue, 2026-09-22 at 16:54 +0200, Philipp Stanner wrote:
+> The entity->last_scheduled field has always been set and read with
+> special RCU functions in addition to memory barriers.
+>=20
+> This was added in
+>=20
+> commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use r=
+cu for last_scheduled")
+>=20
+> however, no proper justification for that mechanism was provided. There
+> seems to be no obvious reason, since the entity lock is available and
+> taken at all places that evaluate the last_scheduled field. The only
+> exception is drm_sched_entity_error(), which is not performance critical
+> in any way.
+>=20
+> Improve robustness, readability and maintainability by replacing RCU and
+> barriers with the lock.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-I would like you to join me there and explain to Christian why the
-importer needs access to the exporter's internals.
+Applied that to misc-next.
 
-You are already second user for the same functionally.
-
-Thanks
-
-> 
-> Thanks,
-> Zhiping
+P.
