@@ -4,56 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC4BCA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A10CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F81410E1DD;
-	Wed, 30 Sep 2026 10:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D958C10E810;
+	Wed, 30 Sep 2026 10:39:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="URdDuFZY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fLTco5Pe";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AXoG5QNT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE99D10E1DD
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:39:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 188A960239;
- Wed, 30 Sep 2026 10:39:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA581F000FF;
- Wed, 30 Sep 2026 10:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790764745;
- bh=tGFtMM2F77TT7uxlHemaNZrtS7chdzgDhP0DLWrj3QE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=URdDuFZYMOB0KJ3EHnp/XFnKkA5OJRrie0b8tMbQgLKw5iE7YrjBIy1pxZGUlsT4u
- WUMueqTDoUT9Nt+yCPXvfKOTBa4Cp+438AM3xfumhShyR92YPfaBtI6k1PRlaxhVpV
- Nt1DVku/cbQzVUeLtwuw/1Y1RP30LJc5Ztiu9+3q/vrZ+I3CM6bZt7D84cqrReSSD2
- zB8Gq5C9FelfYvXQ20pvn9UDb3BPuUWfyg26VMWYoKLDXwZwXGnyIBrUc+QCJNe6PF
- Af03FNTHASTt0NeOs1zYtKFlpw67ugJxCplASx32oK9FsguwRWb3j/yxG6zvQbYurN
- khqawdi0AZ1+w==
-Date: Wed, 30 Sep 2026 12:39:03 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <arzmMa0tlhhJ2n78@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-5-clamor95@gmail.com>
- <arzMjoi2LcyfxCzN@orome>
- <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF7EE10E810
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:39:38 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68U7dV243330298
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:39:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ NxsDdgmSrXEpefiv4dLm4x7z/LQYERZV07k4WnFvesk=; b=fLTco5PeKrhH7QwP
+ /D2Q1oMQ5w0NSRXs4BBCB81BTKRePSuT32S7y6ZIuwUkch3S6ZsEa4zinCyLf28L
+ dE0N/rrl1LP8LfzblqA3FOusyhSMUwAaM0EIzt/1fHbeagEzmO8XPmGCJ0TDDFjL
+ Zmvvb4w8BlOS0od/vLrXab7Q82xgYDSZynNHU0RcGIzRaFkEw2Hxb47/zyIzeTyR
+ CrAi6VozFthWMh/S6HbHycEPDeLFEkFAlN9urLIzrFnHKyOaXMixNTgNVYC/6hus
+ O0otWeNhM+s5lTec+i5pIdq3m7yHzOJ1S/hQx6lQlzpI2TT4wcN3y09d8xX7qpwX
+ YhARLw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0nm3jwjc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:39:37 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-915e9e1a5f1so5318826d6.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:39:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790764777; x=1791369577;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=NxsDdgmSrXEpefiv4dLm4x7z/LQYERZV07k4WnFvesk=;
+ b=AXoG5QNTuyeLdpNgR38uOuvUNUvlItEHF89dd+hWkiasAIiYSyvzMri6AQ7C/3yBGb
+ 3NbsCGpVuFpT7Sx+pVkJmvVgRoDeePdsTrR8OOcK+Qpva9oMmTOfpihC1k3y2IKZ8F7M
+ opY6RxRHbL2hOGjwKG5+OfpxCz8s6GCrm3L4iKfIvTe7bhzsmMzQq9YtS4D7Ew5UjHmo
+ eNYouOIbu3IdwMTzL6aqCImjf/EEslfG2CwvRHYwavyA33hPNl8sifsgGj04jxXrqCVp
+ vASQG5woEzJbXkiUkxP/TGN8Ioh3qwbrH3yQ3Dz8g2toy1iTG6Pvgfm2MNnY3ZxjHp1A
+ sNqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790764777; x=1791369577;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NxsDdgmSrXEpefiv4dLm4x7z/LQYERZV07k4WnFvesk=;
+ b=tu0DGICWRt4lPqzjl/8eAMwVe18JXtdD6UMK4DE2yyodsOn8dyqScIzcGAh99Tot7H
+ CdzoXkOL5Y83NtNoMr7ODGbWxGXj4CR35FnKx6KDdID0mfaBC37jPz9xJAydbjruOemB
+ qDM1SnB9gZ9RxYOgwcyEaO96dNWMZdQaOR3qnTdvsv6eX0+ksKe1PFjXm7xiK1yp67ao
+ fDbAZcjM++sAg3jDLRHxNnaVPlOCsj3LB9f/l+Vd7PVj8NQlMCh9vx5qTZp+0lBtrhTj
+ 4fSt97TOydOuuUjGK/OWssnVqgJ/ZUnT2HL2FP6mqsTzmEMHYuAKgMZ67iKbrqtX5Ze4
+ m8UA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBycgf49hsOe87P3VClv6MA5UKXP0xsPrb30Uh45XB+SmHizipqF8pwrHJuEqyfj9wFkqqpKce2tjSQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mL1KeK3QVT6otNzz0e5xHCRV8k732J+bhpxtbv5xHrBZ1S4I/C
+ k/A8w1gQcIEXYdhcG1FYLyJk7katOgq+OFss0TrUXEUJe8mlSEOFeuDE8nlOtHEZzh1SGRDNnEE
+ I6pk+AgRB6U7fCJ9uikjk4evqWFdbFxp5IbPWI4VmMCnGCzJo22djYlUlwR46UOJrwZzXHo4=
+X-Gm-Gg: AYBFou0BtMRR3o3fJYICuHWbUIgbO8wmZXGRxUUkAGxLLm7cNwlr7PvVFv1DhBsTHPG
+ jpg1r09CKr1aAmVcuc+P185HdfxGNW4vHZUZLY5VU+/CYavSGKNeK4FD6NisdVY0OHjFZ+HJZ+W
+ vHUrtGt8MmeSAHqUJSoVOU+yJErkfMUf/4xrOt6esNo0oLSdqML7u5exYw2bWzOhlFvyxhUii9n
+ hXLOvzUsRFN0I09oG23hKEEAY/mYP1MWPvQ3iXTKclWbAOj55ER3Mse18KEm7s3iLLTRQUD9m6f
+ JVC/zgpcXXE1W7R1kvXX35aLUl3j9uDZitQS3cxbkRaIeOA2a8GAtpBf0gUp6GycPnZsgvPxxKW
+ i5pY2CATvzgn8ZXI2+YDA7w==
+X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id
+ af79cd13be357-93ca9880834mr131067685a.5.1790764776841; 
+ Wed, 30 Sep 2026 03:39:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:261c:b0:93b:c6ec:780d with SMTP id
+ af79cd13be357-93ca9880834mr131061285a.5.1790764776150; 
+ Wed, 30 Sep 2026 03:39:36 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c2e22f80f5asm47036666b.48.2026.09.30.03.39.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Sep 2026 03:39:35 -0700 (PDT)
+Message-ID: <667fe242-7779-4a8b-aa01-19277ff8d6d1@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 12:39:32 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mb6amis5vjytdup7"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n1WnhwOqz2xOp_0SsbgUFuYAf5YBByoMv_+XUDPANvhFw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
+ into common
+To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: XVz3AYzk9tdcP3ikopicHX389YQ-qJ_A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0MiBTYWx0ZWRfX0eJv9UDG6BuR
+ pyVsDvrACPOfL/qvVFU/lbKEmT3pZTIlAMFeRK22mRD80ROPFkROjvsoMZrF4E61nRqkgnvmCDd
+ ZFpVawb3d1NJrpjNoDJPMEAxy0i5gMfxf3zoaGcs07f1TChKkxSHOC5YuzyMBn6ps6sQbZR6LOy
+ pTwF9OhiPlEOgTG0tywiXTuK674TRI0Izd1t86KfyeQ5ICyAThnJbju7DAbIvNOF8dHKOunex+G
+ PvuDciGVb/v1O1W2nshL0/xwKwnXbeptU4KEqfi388sxp7A4AsJ/FHTmz/zoMuFkUl1K99Z5uMq
+ aOSr5t5bU5eWudKY8NcN4/8WtJLwn1+GadIYrjG8ym2EESOlkPjSvW+eOfQOY2unSXRVaCkOGy7
+ n8/PHBG0C9tZ1uhEzlJ6z3Q6h4bPD7oXmr4pGsH+X3Rhq7m2TVX7QVVvHIa3K5RMz6oNIMwj5IN
+ T1z0bOlSXVpIWJgCJnw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0MiBTYWx0ZWRfX7u2roB1XM3BO
+ eCLgC9IX5F/tgpbtYsEHz7klGLJHTskpOB2mt9Vgwmwhkt7bOMTrgL+eJwN3JNDf4HbmKohOpgv
+ 7UFcNUQuDLXxUH0Tw4olS9lHG2H6Qy0=
+X-Proofpoint-GUID: XVz3AYzk9tdcP3ikopicHX389YQ-qJ_A
+X-Authority-Analysis: v=2.4 cv=fqxJ914f c=1 sm=1 tr=0 ts=6abce6e9 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=LCudcodfsoFH-Sas34MA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300042
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,71 +155,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 9/24/26 4:01 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Both devices share the pinctrl configuration.
+> 
+> Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
 
---mb6amis5vjytdup7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-MIME-Version: 1.0
+no real reason for this to be separate but okay..
 
-On Wed, Sep 30, 2026 at 12:02:14PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:48 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 10:05:33AM +0300, Svyatoslav Ryhel wrote:
-> > > The display controller in Tegra20/30 SoCs features an 8-bit SPI inter=
-face
-> > > that closely resembles the MIPI DBI Type B protocol and is referred t=
-o as
-> > > '8-bit CPU'. Each display controller provides two such interfaces, wh=
-ich
-> > > can be used to send MIPI DCS commands to initialize and control the p=
-anel
-> > > while image data is transmitted via 16/18/24-line RGB.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/tegra/Kconfig      |   7 +
-> > >  drivers/gpu/drm/tegra/Makefile     |   1 +
-> > >  drivers/gpu/drm/tegra/cpu-bridge.c | 427 +++++++++++++++++++++++++++=
-++
-> > >  3 files changed, 435 insertions(+)
-> > >  create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
-> >
-> > This doesn't need to be a separate driver. It should all live in dc.c.
-> > Or maybe even rgb.c, since it uses pretty much the same pins and is
-> > quite similar to it.
-> >
->=20
-> I don't mind moving this to dc or rgb, my intention was to avoid
-> bloating them with smth that is not used often and is present only on
-> Tegra20 and Tegra30.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I don't think we've ever used rgb beyond Tegra30, so I wouldn't worry
-about that. Even with this integrated into rgb.c, we'll end up with
-around 1000 lines of code in that file, which is still quite manageable.
-
-Thierry
-
---mb6amis5vjytdup7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq85scACgkQ3SOs138+
-s6Gtuw/9FP+6Dk73iUJajgZE7NHK28W/1w8RCo3JUL+muKlehzTvBjzkctjLTRJF
-KjIhpyINwgN1yc+C6m/MpIBh7f1bD6HSfDY2rF0E+CpRh4gvUdVOX8gbCtHjyTRO
-zPZFGJaHjfJkICMU6mtRbdfQ/JEkMBR0b6GJo8Ws93bsnOXVSuhN8Xm9vO6GgQHA
-agtkwliX9oUy4Un82PHCqhcLZrvK2tZ75pcdVwpxeGvTWwEzEutbTafBXXUcShjq
-f3hSw22zFMsXdH4zSh+sw6+TY++ZcfgzipkTDh24AOn4tHd4bTBH7nT6mlo83Ge1
-/TFxTz/+Isq/7IBmQOSe8UXppM7uh6JD2qiPyC2yrijaz89t+k1DSqrUhkBgbRPZ
-MqVqPqACZRh22x3AlvfHVh3L3jVhTTdMwrQeCUVabzoMvoD2BXZCOtyKOYI6NcyK
-VoAXqfhC8q/4BBkCK0DbgWJDwLpC2mmf2xOahvStsV9UUnAhJVOpnVRsB5+BICb+
-akRnpzln4nePAjNWD1RmFvA4XAcR/ASnxqCchp8VLovXb6ViPmaTYIxDQ6ZvSkqz
-p8gkqtHIGPWNEmaCmeOjBFAI5qeyQpf8JGyVxV6aGa6YaOPgMdi1L6psDMLadYKt
-hwibuXj954+zq08AqId5nyBb+RIKDeO65IXEa0modmdB9eUaexQ=
-=OKun
------END PGP SIGNATURE-----
-
---mb6amis5vjytdup7--
+Konrad
