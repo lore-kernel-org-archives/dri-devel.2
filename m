@@ -4,45 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9597FCA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:15:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAEECA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:26:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44D410F47B;
-	Wed, 30 Sep 2026 15:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8344610E1EF;
+	Wed, 30 Sep 2026 15:26:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CBvpbfkq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JGiX/Y7n";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X4WY32uE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 763FB10F474
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:15:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 188AF437C1;
- Wed, 30 Sep 2026 15:15:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F4C1F0089A;
- Wed, 30 Sep 2026 15:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790781308;
- bh=up1jricRXtZ8EcLurURCpqCAifZjC7HhCGixLxH15oo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CBvpbfkq8QAOHGq4TyowL78QnHnO27ejRMe94TqqbxmlybnG7ZVR7rkQDlHaniGN4
- yultw3wMj4EEWPquZDuhR8jYBnAO9FfBmd/QVzkckv7WkUcCCo56jtmNfSsIHH6XDg
- zp4eEDcL2VOIxjrM3xZ1hm5wHOFfzzjch2isLY/jUsculfe6D7v3F/YTPc1QFuS3AX
- g3dB8ob9h1hn/5LUGJ/73ByudMmM4/RnAWLehS3yGTefmmgnwJtQNbkUzm0qwAtMkk
- MpQ6jU23lbM3merYd8QipQPK6ydi/qzxMa5qa6N/65Pnfd7EyuWo+lfc+bdbJ0FzLp
- R4Lmv5pkcWCcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/9] gpu: nova-core: gsp: cmdq: split the transport
- part of the receive path
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, gary@garyguo.net,
- "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260930-cmdq-rpc-v3-6-91613f06520b@nvidia.com>
-References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
- <20260930-cmdq-rpc-v3-6-91613f06520b@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 15:15:07 +0000
-Message-Id: <20260930151507.98F4C1F0089A@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7B810E05E
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:26:54 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 68UDxqxg3668540
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:26:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Dcex1xAebPX4V0UA2DmDO6IM9OBE2nimJwk
+ C2WwGyEM=; b=JGiX/Y7nw2ZjqIJRgzSr0GNYoSezaWXAwU69BVP7X/wC04Akdi3
+ dCTSW/79Ka/Rtef5PRuaZq6TKJfuNTpGuPMBL8nlXchQrAJJPvilc9EQgAPIQggy
+ wfmY1VexiAOZDnQVsj9e9hDz667wo8dQj9udK2ioorZwrkqxOlEI72DHvke95tMh
+ 6jAPl6rggSzPmnmdD0BzJ+5nrfkdmvdg0/tpGuLA/ufFMqIbRm3F8Q/MKirdUMmU
+ nrahXan0w6lTLkDISLADJwtmQSkjHRVV9jsdiQdvcaiGGS/463vAUzYFugv4NMNK
+ 9tP7OXfllCzkdMNWFZa3cj/LRevXUqPwsUg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rj2ujx0-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:26:53 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-530f49fc5ffso163508831cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:26:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790782013; x=1791386813;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Dcex1xAebPX4V0UA2DmDO6IM9OBE2nimJwkC2WwGyEM=;
+ b=X4WY32uEzJobrmwPlo594I/yKY4lWd6i93ghL668wLmMu1Ww0WmqxxlJm+QSbWLyV+
+ qb4rBJcZCPQEPOXkQmxCm8DTZEaINv+6fU+mkbQ2EbnOJZ97S3ZRSqclN4eASek8GC0P
+ lttGergSaQSo4BIAG6kFD2v+43d1mxDestMUFHaaZQtheuB92ePAuVyXw4HXNlPPyjqX
+ adVbQrDHP0R9Rwxs8HjSsAiGq5SfoGrvzS2ox86ZvNKIjQYnUUaC9EqO3zn2X5sYoYFv
+ Shdy77sEw3dhNMpn3394m7XtaMMiCqUEAKhNaex4Na2708UgEj5OClY9NSrSsr7itNEL
+ mXnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790782013; x=1791386813;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Dcex1xAebPX4V0UA2DmDO6IM9OBE2nimJwkC2WwGyEM=;
+ b=2E/wPgRk56Vb+vwdFWGO8hiGmEYVUGexBe2kNiSUoEmEAJfVgeNwKgyiVQvWDkw6yd
+ NB3g9qCP0OXEf0SkT/tbMgwt4+zlmY4eDL1cQFRhG/lD2PxE7IYlRL8WTLN/wMQHCiau
+ vRAH0EIOsZggGpms82es284OsPwmhbiiJltwgRPpHHHUd55Ovs+HyEMT7XFTe0T3ARci
+ 6kHKjb9gIeePjs+ReaeGptbQ90kMwzi5yM1NqrEkfXEkgF5tu/73M2lhXn9YLxGPMd39
+ AzV5V0w0rQjL2MNQjAE/IfWhiXimDCh5yUPPxIOYaHdpmhXDG+9l/GoMHRV6R9j4GqKt
+ 6Jsw==
+X-Gm-Message-State: AFuF++m+qPFmfGNcUhnN2SysBJZ81xQX4PEOxwxG7I0bnAsmTQnTwlfb
+ Maa8OS3WS8XmK2IS/l69fQwG1AZjfoMXTHma31iJlgH/HP3bFwxYHixGHKe8S6nO2cPIIVan7hR
+ fvS75u6GxZ3aZLRpk/SLkNOOIIkQMc2lXivd5dvLzetndfcGxaZi322GPUW2kVBefNhA7S03tJ9
+ vkQbw=
+X-Gm-Gg: AYBFou2JDhcoqcO7xcGgtvA53YcTN+6TDdfa61Yyx0ZElTvToN+FwZK7N60ujIXgh7s
+ 51jfauL+Chsp8T2pfHDOEzC6MR+J530lQnAm9NEK1a7I6E47XFN7MccjyR79q+7fpBaxzcp5Qgb
+ kBfknHOm/ozWqEO03dol/sMTW9ssdNXmTn3QO4EUUITfFtCY9JbqzDN9/MAOHZPsPzE+K8L1tum
+ fssVTwr9dsMyg3XwJ2TM7vneIWYb3zboO1esy3pOg+sOTzNxsR8XApJp7a3wLmMg645ton2VfSR
+ CDGQAuyZA9qUSYa28OXVQO4i2o25wRRGj4T7PjdSG+WWNcYux+yBsGYh5kl1UIZNwLXPRUR7rnd
+ FMqhKkCgBtSCTVJ7tcQshWo0fPdJhd6FI50ed6GJDEU0p6bRnwOitW9QwFywKN8SOyuQTnlrog2
+ yVkjxN2g==
+X-Received: by 2002:ac8:5946:0:b0:532:8ed7:534 with SMTP id
+ d75a77b69052e-53374d402f4mr32587191cf.37.1790782012826; 
+ Wed, 30 Sep 2026 08:26:52 -0700 (PDT)
+X-Received: by 2002:ac8:5946:0:b0:532:8ed7:534 with SMTP id
+ d75a77b69052e-53374d402f4mr32586621cf.37.1790782012128; 
+ Wed, 30 Sep 2026 08:26:52 -0700 (PDT)
+Received: from localhost
+ (ipagstaticip-a5183818-34e1-b901-fa5c-deea35ceefd1.sdsl.bell.ca.
+ [142.127.77.64]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-533824e35d3sm1719971cf.22.2026.09.30.08.26.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 08:26:51 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/dpu: Fix GAMMA LUT for sm8750 related DPUs
+Date: Wed, 30 Sep 2026 08:26:43 -0700
+Message-ID: <20260930152645.22194-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: ovIkEPyIRAeaBXPEyAH9YYIgdO1Zltv1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2MSBTYWx0ZWRfX1y4Lnsw7yCFt
+ rUSkZWu7WSW3QmPuk0fMb5H0JUPEO5GdMawARlqShSbfliBP8GbgGHsIIAEbNTypz19YOIWYRSD
+ E2S2CGpRWuJnPUmMQkIxMcT8fHiu9dy+6BNVOS/bOqEGNrxyxRqME/+6q5blBJfzWopiaWfjURY
+ aPEqQwi7ivam9TUJeJ30laRZg4p30OdJKOr5P87pOuWNB8Wo1miF3GgXlH8Pi57SFbyZKQ92QYZ
+ ZlEnPQXIGihREVGuTTz9b4IQx8J+0fzZYp6/Ye6i2hJZgcpNA9I3X1PUUm5P8Vzht01iIvE5uuJ
+ l/cowJUF/BOMKf3mAmAZvjvziZq/U6f0z5DFREKfCCp9azILHLlhVl9mr4/1tJLn/ueqV86rDTO
+ TgTz045ClO2BtxsYIl/oeOCDqi/2VlNDSYT/+lRyrWC3DHFTbGM+4d3LdO/uvpg+Fo7uLVbX/uH
+ GFEoF09SyMATWyHK8gw==
+X-Proofpoint-GUID: ovIkEPyIRAeaBXPEyAH9YYIgdO1Zltv1
+X-Authority-Analysis: v=2.4 cv=Ypya1IYX c=1 sm=1 tr=0 ts=6abd2a3d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=8VafS78ZeU61HtrzG+bZhw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=ILNf-aDmxzXD4JfHqJcA:9 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2MSBTYWx0ZWRfX8sKTtYTu3ZHT
+ kWBPx6MrqeU0UHRG1lFlPE87GddsBdCsMMSk9l45kfCGmIoPXSwl/w9DaPZiv4LVO4OlPCvJFC4
+ Kq63uNXziG27qbA2TUdz1vc51HOoge4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 impostorscore=0 spamscore=0 bulkscore=0 phishscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,160 +145,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] nova-core: ring buffer desynchronization via unvalidated element c=
-ount
---
+Add missing GC block.  Fixes GAMMA LUT on glymur/knp/etc.
 
-commit 1b11098df54520332b501e33775803bd797ce2f8
-Author: Alexandre Courbot <acourbot@nvidia.com>
+Reported-by: Connor Abbott <cwabbott0@gmail.com>
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-gpu: nova-core: gsp: cmdq: split the transport part of the receive path
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 9a993cdfab85..107150a8553f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -428,6 +428,8 @@ static const struct dpu_dspp_sub_blks sdm845_dspp_sblk = {
+ static const struct dpu_dspp_sub_blks sm8750_dspp_sblk = {
+ 	.pcc = {.name = "pcc", .base = 0x1700,
+ 		.len = 0x90, .version = 0x60000},
++	.gc = {.name = "gc", .base = 0x17c0,
++		.len = 0x40, .version = 0x10008},
+ };
+ 
+ /*************************************************************
+-- 
+2.55.0
 
-wait_for_msg mixes two layers: the transport layer which polls the
-queue, extracts the element header and validates the checksum, and the
-RPC layer which reads the RPC header and trims the payload slices to the
-length advertised by the RPC header.
-
-Move the transport layer into wait_for_element, and introduce
-consume_element, a transport-level method which reads the message's
-contents using an implementation of the MessageElement trait before
-advancing the CPU read pointer past it, and parse_rpc_message, which
-validates the RPC layer. This sets things up for moving the RPC code
-into its own module, leaving the transport agnostic of the message type.
-
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index b8a9e02b76fe5..07036972dbecf 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -805,7 +905,7 @@ fn send_command<M>(&mut self, command: M) -> Result
->      ///   message queue.
->      ///
->      /// Error codes returned by the message constructor are propagated a=
-s-is.
-> -    fn wait_for_msg(&self, timeout: Delta) -> Result<RpcMessage<'_>> {
-> +    fn wait_for_element(&self, timeout: Delta) -> Result<GspMessage<'_>>=
- {
->          // Wait for a message to arrive from the GSP.
->          let (slice_1, slice_2) =3D read_poll_timeout(
->              || Ok(self.gsp_mem.driver_read_area()),
-> @@ -827,108 +927,27 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<R=
-pcMessage<'_>> {
->              return Err(EIO);
->          }
-> =20
-> -        self.parse_rpc_message(GspMessage {
-> +        Ok(GspMessage {
->              header,
->              contents: (slice_1, slice_2),
->          })
->      }
-
-[Severity: High]
-Does this code allow a message with a maliciously large length to pass
-validation?
-
-Looking at wait_for_element() which validates the checksum using .take():
-
-nova-core/gsp/cmdq.rs:wait_for_element() {
-    ...
-    // Validate checksum after truncating the message to its exact length.
-    if Cmdq::calculate_checksum(
-        SBufferIter::new_reader([header.as_bytes(), slice_1, slice_2]).take=
-(header.length()),
-    ) !=3D 0
-    ...
-}
-
-Because .take() silently stops when the iterator is exhausted, this allows
-a message with a maliciously large length to pass validation if the
-truncated checksum matches.
-
-Since the RPC bounds check has been moved out of wait_for_element() and
-into M::read(), the length check is deferred until it is too late to
-prevent pointer advancement in consume_element().
-
-[ ... ]
-
-> -    fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Resu=
-lt<M>
-> -    where
-> -        // This allows all error types, including `Infallible`, to be us=
-ed for `M::InitError`.
-> -        Error: From<M::InitError>,
-> -    {
-> -        let message =3D self.wait_for_msg(timeout)?;
-> -        let function =3D message.header.function().map_err(|_| EINVAL)?;
-> -
-> -        // Extract the message. Store the result as we want to advance t=
-he read pointer even in
-> -        // case of failure.
-> -        let result =3D if function =3D=3D M::FUNCTION {
-> -            let (cmd, contents_1) =3D M::Message::from_bytes_prefix(mess=
-age.contents.0).ok_or(EIO)?;
-> -            let mut sbuffer =3D SBufferIter::new_reader([contents_1, mes=
-sage.contents.1]);
-> -
-> -            M::read(cmd, &mut sbuffer)
-> -                .map_err(|e| e.into())
-> -                .inspect(|_| {
-> -                    if !sbuffer.is_empty() {
-> -                        dev_warn!(
-> -                            &self.dev,
-> -                            "GSP message {:?} has unprocessed data\n",
-> -                            function
-> -                        );
-> -                    }
-> -                })
-> -        } else {
-> -            Err(ERANGE)
-> -        };
-> +    /// Errors from [`Self::wait_for_element`] and from [`MessageElement=
-::read`] are propagated
-> +    /// as-is.
-> +    fn consume_element<M: MessageElement>(&mut self, timeout: Delta) -> =
-Result<M> {
-> +        let message =3D self.wait_for_element(timeout)?;
-> +        let elem_count =3D u32::try_from(message.header.length().div_cei=
-l(GSP_PAGE_SIZE))?;
-> +        let result =3D M::read(self.dev, message);
-> =20
-> -        // Advance the read pointer past this message.
-> -        self.gsp_mem.advance_cpu_read_ptr(u32::try_from(
-> -            message.header.length().div_ceil(GSP_PAGE_SIZE),
-> -        )?);
-> +        self.gsp_mem.advance_cpu_read_ptr(elem_count);
-
-[Severity: High]
-Can this corrupt the ring buffer state by advancing the read pointer even if
-M::read() fails bounds checking?
-
-In consume_element(), the driver computes the queue advancement elem_count
-using message.header.length() (which retrieves the length from the
-unvalidated RPC header).
-
-If the GSP firmware sends a massive or padded length, M::read() correctly
-bounds-checks and rejects it, but consume_element() temporarily ignores
-this failure and unconditionally advances the CPU read pointer by the
-unvalidated, potentially massive elem_count.
-
-Recomputing elem_count via div_ceil instead of using the firmware-provided
-transport field message.header.element_count() guarantees desynchronization
-if the GSP ever pads messages.
-
-Can this be exploited by a malfunctioning or compromised GSP firmware
-to irrevocably corrupt the shared queue?
-
-> =20
->          result
->      }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-cmdq-rpc-v=
-3-0-91613f06520b@nvidia.com?part=3D6
