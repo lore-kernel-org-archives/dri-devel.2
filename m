@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66126CA5FC7
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 14:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61C7FCA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 14:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB72810E140;
-	Wed, 30 Sep 2026 14:27:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B7410E1BF;
+	Wed, 30 Sep 2026 14:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="pfLkZfGx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g3Vh/8iv";
 	dkim-atps=neutral
-X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
- Wed, 30 Sep 2026 14:27:21 UTC
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB49A10E140
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 14:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1790778442; x=1822314442;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=kCB4rMy72t6lstrsvtZpL3+kGrYokSHmdSQFAird/Fc=;
- b=pfLkZfGxT3HuD61MTnz9v9zFxi00F7skdyNqoXf2TulBZ5UzT+RYIx2S
- ZTnOPWQsgS1JwcC6LHccJvnwh5GudBTvBVUdQNnCQgBgVQk56Lf9wP6mz
- o6DAFkso04c3rRmgE7vr59ui2vXgiujoaokBm1Zf3QwVDx/W3ymRGGQPs
- IEbENou/AXLGp5ARfiNOA64d0t7kRYAW2n095FcX58owFaFkssUxh16wK
- iddPnnS53CcAKEZW1CpWHZ/Y7Usoa0PVH9IQinYF7493iWuFvYAhs/XTG
- rNpHDZrFTZs+EVjLCU1MbXGTpDWb/jvCU0p9enrehg2aoNaDmu149e2PF Q==;
-X-CSE-ConnectionGUID: 5UlyJrXIRiKfRQ7wTS9rwg==
-X-CSE-MsgGUID: 9gbWqOU1Ts6BYkfY4HLAGQ==
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
- d="asc'?scan'208";a="295783353"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 07:20:14 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Wed, 30 Sep 2026 07:20:13 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Wed, 30 Sep 2026 07:20:11 -0700
-Date: Wed, 30 Sep 2026 15:18:52 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Paul Walmsley
- <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Dominique
- Belhachemi <domibel@debian.org>, Michal Wilczynski
- <m.wilczynski@samsung.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, Icenowy
- Zheng <uwu@icenowy.me>
-Subject: Re: [RFC PATCH 0/2] drm: add a noncoherent mapping checking helper
-Message-ID: <20260930-zippy-container-d48f72432c1f@wendy>
-References: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="OqEFKY6wsUz/m5my"
-Content-Disposition: inline
-In-Reply-To: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0236210E1BF
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 14:27:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A93EE40091;
+ Wed, 30 Sep 2026 14:27:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6194B1F000FF;
+ Wed, 30 Sep 2026 14:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790778447;
+ bh=zmEzA22qFxZV8rV0BMR3gLi7QlBmvUPH/48u1OHCXYw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=g3Vh/8ivdo5be/qiiTzpDCIxpNAe5sy7I+92qZ5i4Y85hIgijmSNeaSbRSwr4WVSM
+ nEeDUo7kLKArPNxFDnAtC47UQyhU9AQ2Tv3OAxSroN5Kr2d6gcjDZY8o2lAUYQanzt
+ PwRSyAomaKZb57WY4wC61BOZDrcLY/atHO/vUP/QFLs7bJjDfqUTGqdvKMtQXhdLNt
+ npBoMmIEil9+AxJlOmFRDJ+zYPyilICHfpE4+eFKJnignSaPQ2Cil1SAL1tp7ZAJJ5
+ o0giHn9xMKQ4jD5fEIPfdXYiFm2kXzYi1w5kXFEb9mtXhjmqQBTV007kS6HBDB8K1Y
+ 5v6KWu7nimSGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/9] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+To: Biju <biju.das.au@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260930133257.23210-8-biju.das.jz@bp.renesas.com>
+References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
+ <20260930133257.23210-8-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 14:27:26 +0000
+Message-Id: <20260930142727.6194B1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,80 +54,207 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---OqEFKY6wsUz/m5my
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] drm/atomic: sleeping functions called from atomic context in bridg=
+e callbacks
+- [High] core: static resets array in probe causes devres double-free and d=
+ata races
+- [Medium] pm: PM_RUNTIME_ACQUIRE_IF_ENABLED guard prevents synchronous sus=
+pend
+- [Medium] pm: refcount underflow in atomic_disable due to early return in =
+atomic_enable
+- [Low] build: DRM_RZG3L_LVDS cannot be built under COMPILE_TEST without ba=
+se DU driver
+- [Low] clk: unused dotclk resource allocation wastes memory and references
+--
 
-On Wed, Sep 30, 2026 at 03:35:26PM +0800, Icenowy Zheng wrote:
-> This patchset tries to address the lack of uncached mapping support on
-> several SiFive-core-based SoCs, currently targeting JH7110 but EIC7700
-> would have the same problem (although it uses DC8000 display controller
-> instead of DC8200 and real display support is pending).
->=20
-> Because other users (either SoCs with Xuantie cores, which have
-> Xtheadmae extensions or non-RISC-V SoCs) of the driver have proper
-> writecombine support, a helper is added to check whether coherent
-> (cache-bypassing) mapping is available. This helper currently returns
-> true for all architectures except RISC-V, and checks whether
-> pgprot_writecombine() is a no-op on RISC-V.
->=20
-> The patch really enabling manual cache maintenance for the verisilicon
-> driver is picked from Dominique, and reworked to check both
-> dma-noncoherent property and the platform's mapping capaibility.
->=20
-> Tested on VisionFive 2 with the display enablement patchset at [1] (and
-> its dependency).
->=20
-> Also tested on Lichee Pi 4A (TH1520, which has Xtheadmae), operation is
-> not affected, map_noncoherent isn't set and Xorg says kernel dirty
-> updates aren't required.
->=20
-> [1] https://patch.msgid.link/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7=
-@samsung.com
+commit 40f44004822fcb3da6bccf8a2c28906d5abaa57d
+Author: Biju Das <biju.das.jz@bp.renesas.com>
 
-Out of curiosity, have you seen Bo Gan's series from a few months ago
-that creates an extension/erratum to get these devices working?
-https://lore.kernel.org/linux-riscv/20260316060328.1173634-1-ganboing@gmail=
-=2Ecom/
+drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
 
-I've been meaning to reply to it over and over again for the last number
-of months, but I just haven't had the time to actually understand the
-detail of the EIC7700 solution or check whether it works yet. I know
-this is just one driver because the JH7110 only has this problem for the=20
-display pipeline, but according to Bo Gan this applies to all
-peripherals on the EIC7700.=20
+Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
+mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
+from 25 to 87 MHz. The LVDS module cannot be used at the same time as
+MIPI-DSI.
 
->=20
-> Dominique Belhachemi (1):
->   drm: verisilicon: support non-coherent DMA framebuffers
->=20
-> Icenowy Zheng (1):
->   drm: add a helper function to check availbility of coherent mapping
->=20
->  drivers/gpu/drm/verisilicon/vs_cursor_plane.c |  9 ++++++
->  drivers/gpu/drm/verisilicon/vs_drm.c          | 32 ++++++++++++++++++-
->  drivers/gpu/drm/verisilicon/vs_drm.h          |  7 ++++
->  .../gpu/drm/verisilicon/vs_primary_plane.c    |  9 ++++++
->  include/drm/drm_cache.h                       | 21 ++++++++++++
->  5 files changed, 77 insertions(+), 1 deletion(-)
->=20
-> --=20
-> 2.55.0
->=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/Kconfig b/drivers/gpu/drm/rene=
+sas/rz-du/Kconfig
+> index 7f2ef7137ae53..0dbe86bd65d09 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/Kconfig
+> +++ b/drivers/gpu/drm/renesas/rz-du/Kconfig
+> @@ -26,3 +26,16 @@ config DRM_RZG2L_MIPI_DSI
+>  	def_tristate DRM_RZG2L_DU
+>  	depends on DRM_RZG2L_USE_MIPI_DSI
+>  	select DRM_MIPI_DSI
+> +
+> +config DRM_RZG3L_USE_LVDS
+> +	bool "RZ/G3L DU LVDS Encoder Support"
+> +	depends on DRM_BRIDGE && OF
+> +	depends on DRM_RZG2L_DU || COMPILE_TEST
+> +	default DRM_RZG2L_DU
+> +	help
+> +	  Enable support for the RZ/G3L Display Unit embedded LVDS encoder.
+> +
+> +config DRM_RZG3L_LVDS
+> +	def_tristate DRM_RZG2L_DU
+> +	depends on DRM_RZG3L_USE_LVDS
+> +	select DRM_KMS_HELPER
 
---OqEFKY6wsUz/m5my
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Low]
+Is it intended that this driver can never be built in a pure COMPILE_TEST
+configuration when the base driver is disabled?
 
------BEGIN PGP SIGNATURE-----
+Without a prompt, def_tristate DRM_RZG2L_DU unconditionally forces the
+module to 'n' if DRM_RZG2L_DU is 'n', ignoring the COMPILE_TEST intent.
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar0aTAAKCRB4tDGHoIJi
-0gIjAQCmqfpa8F+zRS9qou6Cpt/edun4UcrGLDrhAT9zS7xYcAEAxJhi1xxX/pOq
-tlDO5YLG1EFJ07bqeI4vPVUnFSYXcgU=
-=z16F
------END PGP SIGNATURE-----
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c b/drivers/gpu/drm=
+/renesas/rz-du/rzg3l_lvds.c
+> new file mode 100644
+> index 0000000000000..1658be8da545f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
 
---OqEFKY6wsUz/m5my--
+[ ... ]
+
+> +static void rzg3l_lvds_atomic_enable(struct drm_bridge *bridge,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +	const struct drm_bridge_state *bridge_state;
+> +	u32 fmt;
+> +
+> +	/* Get the LVDS format from the bridge state. */
+> +	bridge_state =3D drm_atomic_get_new_bridge_state(state, bridge);
+> +	if (WARN_ON(!bridge_state))
+> +		return;
+
+[Severity: Medium]
+Could this early return cause a PM runtime reference count underflow?
+
+Since rzg3l_lvds_atomic_disable() unconditionally calls
+pm_runtime_put_sync(), skipping the pm_runtime_get_sync() here due to an
+early return means the subsequent disable will drop a reference that was
+never acquired.
+
+> +
+> +	switch (bridge_state->output_bus_cfg.format) {
+> +	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
+> +		fmt =3D RZG3L_LVDS_MODE_JEIDA;
+> +		break;
+> +	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
+> +		fmt =3D RZG3L_LVDS_MODE_VESA;
+> +		break;
+> +	default:
+> +		fmt =3D RZG3L_LVDS_MODE_VESA;
+> +		dev_warn(lvds->dev, "Unsupported bus fmt 0x%04x\n",
+> +			 bridge_state->output_bus_cfg.format);
+> +		break;
+> +	}
+> +
+> +	if (WARN_ON(pm_runtime_get_sync(lvds->dev) < 0))
+> +		return;
+> +
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_BGR, LVDS_0_PHY_CH_EN_BGR);
+> +	fsleep(20);
+
+[Severity: High]
+Is it safe to call sleeping functions like pm_runtime_get_sync() and
+fsleep() here?
+
+Bridge atomic_enable callbacks run in atomic context during non-blocking
+commits, so these sleeping calls might cause kernel warnings or deadlocks.
+
+[ ... ]
+
+> +static void rzg3l_lvds_atomic_disable(struct drm_bridge *bridge,
+> +				      struct drm_atomic_commit *state)
+> +{
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +	int ret;
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(lvds->dev, pm);
+> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret < 0)
+> +		goto pm_put_sync;
+> +
+> +	regmap_update_bits(lvds->regmap, LVDS_CMN, LVDS_CMN_PHY_RESET, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_IO_EN0_MSK, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_LDO, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_BGR, 0);
+> +
+> +pm_put_sync:
+> +	pm_runtime_put_sync(lvds->dev);
+> +}
+
+[Severity: High]
+Similar to atomic_enable(), is it safe to call the sleeping function
+pm_runtime_put_sync() from the atomic context of atomic_disable()?
+
+[Severity: Medium]
+Additionally, does the PM_RUNTIME_ACQUIRE_IF_ENABLED guard prevent
+pm_runtime_put_sync() from synchronously suspending the device?
+
+The scoped guard holds a PM reference until the function returns. This
+means the usage counter remains > 0 when pm_runtime_put_sync() executes,
+causing the device to be suspended asynchronously instead.
+
+[ ... ]
+
+> +static int rzg3l_lvds_probe(struct platform_device *pdev)
+> +{
+> +	static struct reset_control_bulk_data resets[2];
+
+[Severity: High]
+Is there a reason this resets array is declared static?
+
+Because devm_reset_control_bulk_get_exclusive() stores the exact pointer to
+this array in the device's devres allocations list, making it globally
+shared across all device instances could lead to a double-free on device
+unbind, or data races during probe.
+
+> +	struct device *dev =3D &pdev->dev;
+> +	struct rzg3l_lvds *lvds;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	lvds =3D devm_drm_bridge_alloc(dev, struct rzg3l_lvds, bridge,
+> +				     &rzg3l_lvds_bridge_ops);
+> +	if (IS_ERR(lvds))
+> +		return PTR_ERR(lvds);
+> +
+> +	lvds->dev =3D dev;
+> +	lvds->bridge.of_node =3D pdev->dev.of_node;
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	lvds->regmap =3D devm_regmap_init_mmio(dev, base, &rzg3l_lvds_regmap_co=
+nfig);
+> +	if (IS_ERR(lvds->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(lvds->regmap),
+> +				     "Failed to init regmap\n");
+> +
+> +	lvds->dotclk =3D devm_clk_get(dev, "dotclk");
+> +	if (IS_ERR(lvds->dotclk))
+> +		return PTR_ERR(lvds->dotclk);
+
+[Severity: Low]
+Does the driver need to allocate this dotclk?
+
+It is fetched here but never referenced again, which might unnecessarily
+consume memory and a clock reference.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930133257.2321=
+0-1-biju.das.jz@bp.renesas.com?part=3D7
