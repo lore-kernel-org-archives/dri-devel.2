@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 663A5CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D9CBCA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC71410F31C;
-	Wed, 30 Sep 2026 11:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4794D10F31F;
+	Wed, 30 Sep 2026 11:44:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="PntTtYYR";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="quGJGZRd";
 	dkim-atps=neutral
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
  [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BADE310F31C;
- Wed, 30 Sep 2026 11:44:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 450AB10F31E;
+ Wed, 30 Sep 2026 11:44:12 +0000 (UTC)
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
  by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68UB7UFf3261300; Wed, 30 Sep 2026 12:43:56 +0100
+ 68UB8rAK3264227; Wed, 30 Sep 2026 12:43:58 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=f1NVjmqUIrj9iofAoxL6NL6
- iTmifSZ3Q1Ln10T52L8w=; b=PntTtYYRf44ADs5YvMAakvZ8pzdDziQfibCiWB7
- TUgy9ncqvl7lEiWTFcKkit1Omo21LzoCPBsfz0rbC92MGX5dZKFnwENjzGNHuOhG
- nYGsA17JCAqH3yGvU0PtntnWpJ7+WQ3c/yBfvF5Vop91V9ycp+//3PpW+pS9ghBv
- Qg1AZ7v181heMTb6D3phBoGbxWK/q2Dk8mvVHpY61YxibnBT76JRfA9T7fFSP6ZV
- l2L4wo0J6RWisrPauZAbb7PNOujMgTs5pPehpqYsvpn2uY6gLf9Wj8hpVBbfjUPJ
- uOAzYgs4jAFUewJIalZOCw1sPOEAAtMbDE2nuHDeMGkzRCg==
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=C
+ y8n4XuuIghEBpMqyBtRMtfdIVXhDq5hh3HMWVUuAAw=; b=quGJGZRdBPJyGZkSI
+ gD2BSck7E+Pg3eAo9gDbbLwDQQK56kBwaINfkfkgZrzj8Im3X5OSlkUbHgQ9RzyL
+ JC7Y042nk0Tzi0fJfhiTECkMEC7+GTib01Yym31iNADnOnqKv9mmH01RIa0Ky8pf
+ budSUfXRJUKvG2YdiUjGshX1+ZdjwdpifG2D9EG5NTP2KEl1a27g+R2IwyKTk9Kk
+ hCJATz1IXaCNHWe1ePeqVEccglnOzJsdMJVvLMDaZERoTfbkCkWgOU+NIUzWZ6QZ
+ wFgSs+mjC2j4W1RQQMX4mndIuYYZLmsJzlfqQgsaopjbLlHSfthej8JuRQKl5ve0
+ aI4Ig==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gx64t3h65-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gx64t3h67-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Sep 2026 12:43:55 +0100 (BST)
+ Wed, 30 Sep 2026 12:43:58 +0100 (BST)
 Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
- 2026 12:43:53 +0100
+ 2026 12:43:56 +0100
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Subject: [PATCH 0/2] drm/imagination: MMU defines updates and improvements
-Date: Wed, 30 Sep 2026 14:43:33 +0300
-Message-ID: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com>
+Date: Wed, 30 Sep 2026 14:43:35 +0300
+Subject: [PATCH 2/2] drm/imagination: Don't include MMU defines outside of
+ MMU code
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOX1vGoC/yWNwQ6CQAxEf4X0bJMFjIK/YjxAt6s10DW7rtEQ/
- t2KxzczebNA5iSc4VQtkPglWaIa1LsK6DbolVG8MTSuObi+dTjuUZSm4hnnuaDnIMoZo04fK7a
- MopVD3fZd58IxEIPZHsmW7+3pfPlzLuOd6fnTw7p+ASZ9TmaLAAAA
-X-Change-ID: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+Message-ID: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-2-291eadfde23b@imgtec.com>
+References: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com>
+In-Reply-To: <20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
  <luigi.santivetti@imgtec.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
@@ -56,32 +56,32 @@ To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
 CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, Alexandru Dadu <alexandru.dadu@imgtec.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790768633; l=801;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790768633; l=661;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=kY9PNrHnRsnK1pHNVTr1DX6hwQp5zWqpc7srOPMP4/8=;
- b=16T4LH1DdIwMiPzh5U3/9B0SFVZ72AsS4AI/RjeEInZJoLDUny3jLFO7/oaXHIfM5kJB7B6UY
- +8ByaAFUa5RCOAl02wbvu7GobG5sCEFbBAM+6UmvRPedzkZyR6PM+KV
+ bh=lnnnIzrs8v1sTqKWnBmXP0wQ5buykuCp3eWFfVKChxs=;
+ b=DmsP9nIrqdmbsuf89U4vYL3M7nSVTVYLJTfBD+vFkz9dcqvrcasph8NR8yjq4o1dMtOAu8Bor
+ rQf2at41btdDI5Ruu1gcxboUoi4U2UEGXiSl6dtvmzzyPp2BPcymKlS
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
 X-Originating-IP: [172.25.5.18]
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfXx3X+vNADi3O5
- UkmBQw+RzTt7W4CHhnQLG+ZASwJl0PGXUTEhwM+Q8EOcov3dq7/LtBjbxgSB2nLrBJOd54WxHRE
- LnFATEF2oXgL1Vl0I+stzaYjuSyCdO0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfX7Ye3WndlWsP1
- rboCjPy4Ci9+n99FLUHYWFfc6nsh9rIC54oP2A2bp32xuKYVMaryx49SnLcTnE8BtLWtJAaejN7
- 035DxYsSVaiJLUZFxFvnoaDqG5mDgoteWBQ+vmNwtTuVtnCpDJLCVaxonueZ9CwHtTL3evOjoBc
- YGVjJiflLyCKtnxtbC8E9rHrR3+0nL4Y5VV9pgPucyMR6agV8NMJLbvDgc/rt1ojM5VheGpk1Jc
- H0cwv9Jop7g9x4Lu2O2FdyKn2E/ECEVYAEsZeHoJQSrme4ytmTQ35gBEeMIojDASczl5Sy6Ht9G
- vR7iMOmD3laezP+kqqMk4xUSJkiNGSst3qiIE9tBURtfv98Hlus657ktcEuCOiHSVf/EO0Vkws/
- lVvwWM9PqW0QPjDqwjG/0hCDy/NKC5qxS4krg/x6UlhO/q5KZW/T1KRQ6sEloT/m3HQaNHrylNy
- U6Ai+j6V1YHOMCbhY6Q==
-X-Proofpoint-GUID: nB421Hgmj8e_GbclUzlRgQgxCmPNLBv5
-X-Proofpoint-ORIG-GUID: nB421Hgmj8e_GbclUzlRgQgxCmPNLBv5
-X-Authority-Analysis: v=2.4 cv=OasNnRTY c=1 sm=1 tr=0 ts=6abcf5fb cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfX373Bv3iNUGxQ
+ MjTO8SMnLaZ1U4UkAfW7iH0mwwfhU6kLXoAg80uiEn9B09MQD5v66daAPoBjKezD+qmbidRPd9T
+ imLGpEB84Ojd28nuguLTFTQfVn5/fPg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NiBTYWx0ZWRfX+n0WVuNHMXsT
+ VBIReteFONwCHglcJYvpdrBRkK9hpI7QcBvxOVG5trVQu7jIPhkmJ3dJHxXIa4pdx/IS/vLBEk4
+ SVsV3o+wZOP25P79JdxXoFIsITPOCOeWI2vJLwGbUjYrhTNdf6ToD0A/KiruCl/E8r/mK0r7HjW
+ NELvFQCOVs4GjEEtHiWc1vJrp11MfU39JRfi4aMpmcsPb/vrPBtp6GSzDEtTRxIt7DIIlC/Kh3+
+ P+a+O683Bu7bi3T1OFJRO3wd9jwSwHU+0OyUHwURaudzLKxJ3fZUVuOBfFT4J1uSB3/bHXK6Lt8
+ AKIVir1itaF427bB4dxHQ68xjKgTKworjoNQmat/UwUTvm0LhdMpqQdxHwKUZ11e4w91minL37x
+ PaesyCql6AnOGF3JNBAAArPZbEZ0Yyw4gr6wvZyDgZCjY32WmopT3pm91EoVkBbAtUaDwglaPT/
+ KP8sJBROXrZgbMdcq6g==
+X-Proofpoint-GUID: HJWUXxVfPjyzHJkYsL9WP492M7ATWw3w
+X-Proofpoint-ORIG-GUID: HJWUXxVfPjyzHJkYsL9WP492M7ATWw3w
+X-Authority-Analysis: v=2.4 cv=OasNnRTY c=1 sm=1 tr=0 ts=6abcf5fe cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=zqEJJt7gt7PNtOVAKBUA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=r_1tXGB3AAAA:8 a=jECmF5wTsQ93kalXHlwA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,24 +98,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-- Restrict the inclusion of MMU defines to MMU code.
-- Refactor MMU defines to use kernel style and access.
+From: Alessio Belle <alessio.belle@imgtec.com>
 
+Usage of Rogue MMU defines is already confined within pvr_mmu.c.
+
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
-Alessio Belle (2):
-      drm/imagination: Switch to kernel-style MMU defines and access
-      drm/imagination: Don't include MMU defines outside of MMU code
+ drivers/gpu/drm/imagination/pvr_vm.h | 2 --
+ 1 file changed, 2 deletions(-)
 
- drivers/gpu/drm/imagination/pvr_mmu.c            |  91 ++++-----
- drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h | 239 +++++++++++------------
- drivers/gpu/drm/imagination/pvr_vm.h             |   2 -
- 3 files changed, 151 insertions(+), 181 deletions(-)
----
-base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-change-id: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+diff --git a/drivers/gpu/drm/imagination/pvr_vm.h b/drivers/gpu/drm/imagination/pvr_vm.h
+index b0528dffa7f1..266d39f5c444 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm.h
++++ b/drivers/gpu/drm/imagination/pvr_vm.h
+@@ -4,8 +4,6 @@
+ #ifndef PVR_VM_H
+ #define PVR_VM_H
+ 
+-#include "pvr_rogue_mmu_defs.h"
+-
+ #include <uapi/drm/pvr_drm.h>
+ 
+ #include <linux/types.h>
 
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+-- 
+2.43.0
 
