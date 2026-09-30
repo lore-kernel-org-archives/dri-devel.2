@@ -4,138 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48E0CCA5FBA
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:04:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F91CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A190D10F2F2;
-	Wed, 30 Sep 2026 11:04:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91EAB10E5B2;
+	Wed, 30 Sep 2026 11:10:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="q2IhEGJk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hYu2CWOE";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010047.outbound.protection.outlook.com [52.101.56.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 638C010F305
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:04:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tz6chN9KCRmFCj3CcLjmWMQIoGZgdOgve6J8Q+U9AlYuIVpFOKkg5V2syspPGR1DFTibS0SJ5Uyn0T5fay9c9l4WIVs4P+4Uz1ZwX3/JLbeTmuMNNpFDGvtvRWa6rmeu7hsfxWePrNQQsl5eyfDcH+3wCK8Nw71DgbGWU4J6Q3PjE0R4A6v6el1B/QwepEmumrOiD92Jmwg9QWe8t118OyjldWfLnlbPaFyd/dCV0jzvbjDpbnewMV3XCgq20mzgGZA23oREEhjkzFP5IGDRKrIJyaYvip9Dm47KwM8GTYgcNCQec8iiGTSL0/cUKh9e1J9qW+7asW0HSBiEeRvQpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vwkGj2Cht22XH7o1YZ7wmig5egpobELSsJ5cDtoFTEc=;
- b=q9nwiOBG+y7jCSjG1KHlvnGjomUFhUaYcECQK4cJEoGqlrwcsya4uWtTyinoWxKBlAyHI+spfF7vmwHPVrZj0doYi0dH3jIsHio8+nu0hkwuKyT4UnrW+Uotu/7efxQlB4rwWuVdpCJLsP1kr1UOdJfNYT/48DBSOCbwwfSJPOTo/26/ERCfIS7N7Iy6Q8eo0HTY3AC49ztrKap7bAm8kVuf4iX6db11Vop8/O1HN8jQ/O6PKto3s32MTK9nQ5WN1nXvYIyioCzFKgTsvm4v6Ns+a77oKLTqHDXli4Hx+sOHYsEp68yJbd/lbi616dsnQbQTu0LWSBKRh8g4wRg7Jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vwkGj2Cht22XH7o1YZ7wmig5egpobELSsJ5cDtoFTEc=;
- b=q2IhEGJkBC5wgnVW/Ayub77ZU1S/t3rT91uE/uADOiU8hOv3ffRdmkb79HbikTTzIPFTrcb2JKUEoKsZhWJZR5zp1pQpsW4R+rJ1o/obHzCK0klmvS7bGlqPfu9Z4slho62elPqUlhP6LNh7L+Jws4xJOya+nnHOzg+oPB+5wKFyIOcExrMRFtV4/x3Uk8hXFXQAhK3ErVBpBr8WiZWdthlOPPDTMQOvtY3mc5OELEBFqt7TYQBL2/ylFQwNfGT3zoAiexjiBaEHkYZ/FHprh/vWesm7kfhtXqgrAcGSTnnju3HUyRCcut6HPJhpNcGqy6y9G+ODlEfl0lbXd01S4g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MW3PR12MB4348.namprd12.prod.outlook.com (2603:10b6:303:5f::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 11:04:11 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.015; Wed, 30 Sep 2026
- 11:04:10 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 20:04:07 +0900
-Message-Id: <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
-Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
- <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
-In-Reply-To: <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
-X-ClientProxiedBy: TY6PR01CA0018.jpnprd01.prod.outlook.com
- (2603:1096:405:3bb::16) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
+ [74.125.229.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A8210E5B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:10:28 +0000 (UTC)
+Received: by mail-dy2-f43.google.com with SMTP id
+ 5a478bee46e88-34b1743e9c7so853260eec.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 04:10:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790766627; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MyP8mxMC/F+sfmShCf6VQJEToCWV4Ncs7mhAHYxDql5SXVcni76KMIsohrAzuC51Zr
+ mGgFahjIOMTUd2RLjFFBfVm3EBtsx/tf3cKOuU0Ll9De+4PNR7NvyJy1sfAqZGWcqjxp
+ sKK80pKuRVOmEuB3IgE/e2Yz0W2GjL7ZpgUVQIkO+NBTzEQZl1fbMt6OtfqukIsYiFsR
+ PR8l9zVwwOOIVa9yZmcN/BPPIDDrplvzR8aH6t52c0/g74MoGRHTVXhfuSVv8a9drWWP
+ 9qhfzcAw8nxr6Lc039QNf9BMJdDW7miStMlwlZKSE6rrj3F1kpEi4XWElvwMIPzA5jho
+ RZQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
+ fh=t7z7A7eeuVSaT2uaguvRcc2/2EyOuuED9z+okF7qSno=;
+ b=BNA6kOwsrGSyQeOqs+aJsI5dKoTK1LH5V6PN8ljEfda/cqSnETTEYFH0TipRjBxvwI
+ QPYWJXWyHQx4LD7dUINttnXD6EXp0/FuKBhBj2IYY2ONlta+c0XAb6/R2jx9fR4xeBcq
+ 4d3o3Uxcs5JtK/+/NI9Bed7RbFXYoq5K6tj0+9G7gPhHLqC5ihqzo+e+L2miGhQR4axm
+ Z1AeCJCCFYX66ASHg9GgKDiqSfl5CTSOsHtPocU7VSQ5EsrZ08H1O1JZVE/bIt3W/A6d
+ 6XOU8fjoLOF7nY5pGtaFghNMCG2iNFdBPbBUPY+tJvtBxwCOj2sR0VbdMPFutVkDt/D4
+ ECcw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790766627; x=1791371427; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
+ b=hYu2CWOEAANRRZfrnqwOc//AMmMfIF1Sg1ljes0eK9JYyWiM2YnNb1V3oGqcQCV3SC
+ pcVJgowLTTW4/ZAJqOQkLL+0jvT+egMSK0mLwZ2iFcXt5yE+YAJ+ztMj51EpedcHMYsO
+ IGU0AvYZTkbFJVHDyRVhrlEaPBUcYswucPXqATviKPmbY2pmkSxQ+OCH9GGjXnh1Guzb
+ ls52vm85mGsudV+sqeHyBalSXuISw3gmE3rDLra2LEdV7YaSnOS4sLa7maRn7f4sgHIl
+ 40usqVObf9szapHIZyYNaQtl/FRfNvt8RfkYpnaQI8BeeunJW1JjGlSAwbikj3SSseQ+
+ K5tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790766627; x=1791371427;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
+ b=1UjmJ3kvjh0thFYA4zEecAfQ4IXdlPFH2XbTc9dQzG1ofM1EdNC/+UgCXVOsgrlDhe
+ 7j99zx0FmeR4/VaQ1hoU1zrv9HJAkzGl+gF34iOrMgDcPN0+nJ+bpYMHy/lL3nhfqlhT
+ e/EIvPDfLjloOEptvQq/4l2xiT+OyXbrIS+ajFb7FFzFpHfgfy5FdfBS6Z5bUihLQLrg
+ Rz/KBruAEwLZSrpW2GscqHNuqFWlq7FWBHjevvvBpNDaudSQ0hLK6eULRsaSF35Zn6co
+ XoCfSQBzKwEm9dMl38SWkG8RHtNXgEhLT5HaGl6k7OjQSUVKC7SdYTtIsUoahLA9GetK
+ jk1A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxjhGVKBBq/ZR0/xkTTRXK4n9hHxNH79gHHDll/9rMMx8vbD759aniSizKfo25VLvZ+k+BvcG2gaHI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL3VbOgOQp2HE0ZuWLIJFRx9/xdpQ4Ku9lNkoEL9xsspxfxKkNf
+ PIQGy9GyyiKzkI9nlqxrcbQjh1zDnSTJdXKGfP/B1Y2bhvSxUIEa/+RRRqEBx/2lRCmwH8E0fTf
+ n5uG8T0BlO1HE6QouvTljVnzCUC/1DH4=
+X-Gm-Gg: AYBFou0zLLh+m130o/HuO0jqrENXwatTk+KAht1ZMTsyf3gPDWoO3ZfcN2ew2yl+NOs
+ mCsHCLP2TmIzijz8BL5prtdXgXarx0xiIx6RA6V8mIiBYtDH55lwzQWFsBatbtpUwNDNve3JzXQ
+ gZIha08Wuw8R2HVJTu2pvoUO9yeSg2FOmRynqOdJbWlkfBQmDuAsE2IjhVksW0Vk1WOJnNNsanJ
+ bwMdy7xcCg1G9a+IjFbrHk4qLHX4037cXfpWimUI++7xJ2auAkiX1u8I0N7n06rBYOfcvSSYjEq
+ T7Dl/8vfhgUof49QY2YKXVO3QEnY/T0NbH7+KVEPRzDT+QkFnboJyOdMZLOMpRjY3uQ6MXr/jvV
+ 6xhezPS5A5Bwk
+X-Received: by 2002:a05:693c:66ce:10b0:34b:731a:7325 with SMTP id
+ 5a478bee46e88-34cdcbb4344mr1377981eec.29.1790766627375; Wed, 30 Sep 2026
+ 04:10:27 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW3PR12MB4348:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff9e9f28-f9b9-4e19-e7e9-08df1ee28e2b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|10070799003|23010399003|1800799024|366016|376014|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: orrQ7FW0tVh3kG08YNuVuGYN+BqJt2L8HxAs3dh64lbBsI1q2r34+zmc4uQXXQ0vLdlBrwBM1xuROwCJANczrL+Nq9ZS3BDL0/klmF6sytrOn8ajkZZEFtDKZhutHRSCCBgbUYhSFKw3rjqlfYa39IUMLvIFQcbEA76UR0YSN0HRPC6VwrYM4Dr0RcqXM23K1zWwouIlKG821HJYHfL0v0dWsWnJKPU6QKNYGyVOThM5B4LycMZPsvbsCgpxKFwIuLphSsD9XyUgZHUUDzPKbsZan3Re3TTeQJOmppaSJJAktsHZZPymXEB+9XWwZgPudGBDLr0Vhv5CfBCFhRPccV3AcAojQfs3N1sJwZ2mhaBMpf/WaeG3ojzyRTClzI6oTc0tm3MVK2eiFICE2wweFsA6GCEHxNIlysPPOkfkKkiLHKbKk6Mju0Pz/wUSdMaBFvwHvLLOOvABPNCh1PsME/V3qu+0dIKnMmx9ZuHTRznEyanHPaUQkTifc2Fh2RA/pxWApUosze8LgzobJc4qqcHPHbILay1ZSnnWWLpOOcGqYBqwytULc/JFnvWeWX8X9K2X4MMIhRESwJpaNMlvun+3jkOSq0VbooINV9WCV3E7kmrFKV/z8yfyaLlZdOmVkK1mlCodUF2p6tRMyzcyWEzK27t2xErUr2X3pw6WSew=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(10070799003)(23010399003)(1800799024)(366016)(376014)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cExqVkU2OU9vNVYrcFF5OFIzUlZZdVhBdkQwWkd5TUw2cm04L04vZUIrK2JS?=
- =?utf-8?B?eHNqMm1xeHJzZDk5dUl3QUJrdWxFdGlpRkhWZW5tbDRvWG1YNTBiSkw2L1V1?=
- =?utf-8?B?SFpjclZ5ZmFkU2o5b0kvVkROL2tUVkY4YklIYkZBQ1RobmtLYTFFcUtGQ0l4?=
- =?utf-8?B?VmVNT29pZ1c4RjMyTHVtQS9xWW00cWxuVHgrenY3N3NlRXpnRG9NTEowMTFw?=
- =?utf-8?B?cmFhWmI0SUtmMERjREFIQXp1dlhYZ3llVEs3K3V0b2ZGcDZ1OFlsUER1Qjh2?=
- =?utf-8?B?MjFsMU5VYVVvcGxzeEJLSVZVRkVsSkxhcGZmRnJjYXVVYjA1WlRDRUNPSyth?=
- =?utf-8?B?dmNBcDVTQTN4VGNJQ0JDWi9scjhjY2RYTlVlWllTSTJWc3k4OGgxMlVOM2l4?=
- =?utf-8?B?MlNqdnU0V2xZZjhuM0hLbkJtN1c1YTBOKzk3eDluVTQxQjdPWG8wenlxZHZV?=
- =?utf-8?B?cTBRNDZucitvMjRyUEtGTDM5Sno3ajNzeTI3UjlmNUVyV3ZJekFLNWxPcnY3?=
- =?utf-8?B?VlU3dzFXbUkvOHBRQUwzTmRDMFhXMXNoS0tLc2VtZmVuM1RYaDVabjNzcTBs?=
- =?utf-8?B?ZW5jT0swRnp3YmJPazRTVTRHd1VDaStEUFhYNEtSbU1vWk1qbHR1ZEFDQnRv?=
- =?utf-8?B?SGJhNGg4ZGROQ0lwWmVLY2FOZTBaUGtDMUVoMjRPZWxidmlEUExNTHU1SHJW?=
- =?utf-8?B?M0UvUXZUdGJra01WcE1nMEVSdSsxcXV4YzhGbzlXclRFQnNocVhjZ0NxVmx5?=
- =?utf-8?B?MVhwK0NFR0hLVnhqL2hldEtIRkZXQ3UyNGJEQVFnMXVFTmVlMkdka0RZWjAv?=
- =?utf-8?B?eFQxV1ExT2ptR0hxWTNJanh4YlhMNHdSNHgwZnVZV1JLQjhtK2srRVJtYUsy?=
- =?utf-8?B?LzhyRFozb0h3QjFTWE83c3l1ZmpqY0wvY25LcUZnMnRISDczL3E1THEzTUtn?=
- =?utf-8?B?NjlQcFNDdGlKYy8vODVYUHdYMi9QNTFIdkhERytuNFYwUWFkZ1BLVFlRaGJH?=
- =?utf-8?B?WE9tVTYrT0FlUlMzYlFrL1UxcXV2ODR4QnBXaGFUTW8wMFZhUGlqM0N4VVcx?=
- =?utf-8?B?azJXaUJ2MG9LVlhyZjVGcWRobEVlQktPUmVkV0RmV3c4bVNtTGlKdlV2WmRS?=
- =?utf-8?B?bHk4VVVja0pPTW9MVFp0ZGp4aGJTWTVhR3FKYTEvV3ZhZ3hleCtiNTlYeklv?=
- =?utf-8?B?WUU5eWZWSHp0eEd6WmRWK0xNbDFtN1JjbkIrdlNkQ0VmWkh0azJXTGY4MVNX?=
- =?utf-8?B?d24zbFBTQXhJc3ptZm1nL1I5NHFEbFRQSnVCKyt6YTBweG8yN2Q0Z2ZGTHJG?=
- =?utf-8?B?d1lvMXhsUDdPdEJZcEdDcHhFWEpZVFhBd251QU5uZXkyTDN2TmVwVXpnVE1h?=
- =?utf-8?B?Yit6dzJmZkJiVGpvbW9JWWtjRUlFMW9oRld5Ym96OFN5Y0o3SlR4QmJreEZk?=
- =?utf-8?B?WXVsSkNPeFJWbUNoK1BFeWU5anBDR0FGa2RVWjZJbjNwNUtzdDJJWXp5MmNT?=
- =?utf-8?B?dzYvSnZSQlBhQlNJdEtKM2xPSURNTVBRMkIydmxxemxGQzB5cDBNcWFLTGtT?=
- =?utf-8?B?Mzhpb0lKQSt6cEthdDcwZEVQelhITG1kdUM5S0d1REZDMzNTYWU3enMvQTZV?=
- =?utf-8?B?NlB2Y3BDV0x6eWlZaHJRTk0xTFhPUkN0bmpIMmgvYzQraUcrQnV5NlJ0dTRF?=
- =?utf-8?B?OHNSRnVsdEl3c1VsbkF4bmkxTFQ0blovWUZpcHhteEl4QWkzZGhoWkp2K1Vv?=
- =?utf-8?B?MTBqM3pncGRZYzNtakJ3dEFmZUM2TXNtUE00UjdqcFR1aHFMMlRWWS9IOVlS?=
- =?utf-8?B?U2E3MUhqQ0ZIajZ5Y2hlRXo2S3BOU2hNdXNKeHVZRjJUOE9iVWkzbER5aGNv?=
- =?utf-8?B?TTgwYzQzUUZRenNFWU53MldCaDJzYWVWUFpqUi83UnBGRkhQQnpYZkZqZGIw?=
- =?utf-8?B?a1lSWmgyWU5OVlRpNjgvL3VIdElEZkQ2eFpoWTk3OGxxZk13ME4vRy94ZnZL?=
- =?utf-8?B?aENTdVpxM3ZJTFpVSkFtby9ZcWtBR2tFdnRCajdQelpIUWlnZ3g4bG5xbG1y?=
- =?utf-8?B?S08wcmFRbFJtbk9SME9HYjZLQlpndFpSa1FyVkd6ZDlCV3o2Mk1JTm1yVXdH?=
- =?utf-8?B?Ri9sajhPRlFIYThUY1N3eGd2RzFPKzlQYjZheklNWDhHL1ZaMXJNRCtEL2Z4?=
- =?utf-8?B?a2E0S1RzcnUrNGhjbWl0UjRjOHBoY21JTnBNZjltQ2xWeWpXR0gySXg4SkVG?=
- =?utf-8?B?TEs4ZmFpcDFhdnVtL0ZGb2pBUUJ6SWtGc25HYk9aQWVFN1hDZ094dGRMUVor?=
- =?utf-8?B?UVphUnAxV0RvUWJ0VUFtVm5nS24vemQxaTNSZXJqL3RKUjV6b2VGcHc1WFNs?=
- =?utf-8?Q?yTlXNrhQKcFgOHbpZ9KGVU6bvig0BI/8Aj224aTKBPvRo?=
-X-MS-Exchange-AntiSpam-MessageData-1: PeCwiEhLcrC0+A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff9e9f28-f9b9-4e19-e7e9-08df1ee28e2b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 11:04:10.8904 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R8vDd0VkM7lLwwRGzBRLgyJZCWHgEF9fyXn0ETD5OjfOKso7ISCKIlgiBgUGUBuojRniXdizwsaQYnBgE11w7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4348
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-4-clamor95@gmail.com>
+ <arzMF0wjcF_SVxpE@orome>
+ <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
+ <arzlR8mCg9d_z62L@orome>
+ <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
+ <arzpluDc-Ib7q-K7@orome>
+In-Reply-To: <arzpluDc-Ib7q-K7@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 14:10:15 +0300
+X-Gm-Features: AclHuK-5MVKqwWOaWtZXWbiTTg2vtWkQnodr3EENyxfP5JkvZ2csH4Wtodn2Zmg
+Message-ID: <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,28 +123,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Miguel,
-
-On Wed Sep 30, 2026 at 6:12 PM JST, Miguel Ojeda wrote:
-> On Wed, Sep 30, 2026 at 4:44=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.=
-com> wrote:
->>
->> Add some more size constants, mirroring include/linux/sizes.h. This is
->> useful for making `Alignment` implement `SizeConstants` in a following
->> patch, because these are more common alignment values.
->>
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> If this ends up going through bitmap or DRM or similar this cycle:
+> On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:34 =
+Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
+> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11=
+:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrote:
+> > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided =
+by
+> > > > > > Tegra20/30 SoCs display controller.
+> > > > > >
+> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > ---
+> > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++=
+++++++++
+> > > > > >  1 file changed, 138 insertions(+)
+> > > > > >  create mode 100644 Documentation/devicetree/bindings/display/t=
+egra/nvidia,tegra-8bit-cpu.yaml
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nv=
+idia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/=
+nvidia,tegra-8bit-cpu.yaml
+> > > > > > new file mode 100644
+> > > > > > index 0000000000000..f0dab608b2936
+> > > > > > --- /dev/null
+> > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,te=
+gra-8bit-cpu.yaml
+> > > > > > @@ -0,0 +1,138 @@
+> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > +%YAML 1.2
+> > > > > > +---
+> > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-=
+8bit-cpu.yaml#
+> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > +
+> > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > > > > +
+> > > > > > +maintainers:
+> > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > +
+> > > > > > +description: The display controller in Tegra20/30 SoCs feature=
+s an
+> > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Type=
+ B
+> > > > > > +  protocol and is referred to as '8-bit CPU'. Each display con=
+troller
+> > > > > > +  provides two such interfaces, which can be used to send MIPI=
+ DCS
+> > > > > > +  commands to initialize and control the panel while image dat=
+a is
+> > > > > > +  transmitted via 16/18/24-line RGB.
+> > > > > > +
+> > > > > > +properties:
+> > > > > > +  compatible:
+> > > > > > +    const: nvidia,tegra-8bit-cpu
+> > > > >
+> > > > > The description says that this is a feature of the display contro=
+ller,
+> > > > > so adding a new binding and compatible string for this is not the=
+ right
+> > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" already=
+, just
+> > > > > need to extend that with whatever is new.
+> > > > >
+> > > >
+> > > > How would you model it? I have tried to model 8bit-cpu as a bridge,=
+ similar
+> > > > to how DSI bridges are modeled. This reflects interface used to lin=
+k RGB and
+> > > > panel, without inflating existing DC binding. If you have any ideas=
+ in modelling
+> > > > this, I am open to any suggestions.
+> > >
+> > > My suggestion is to integrate this into the existing "rgb" node, or, =
+if
+> >
+> > Not an option since it is not clean RGB and there will be no way to
+> > distinguish RGB from 8bit-CPU.
+> >
+> > > that becomes too convoluted, a separate "lcd" node (or "dbi", whateve=
+r).
+> >
+> > This is fine by me but nesting nodes without compatible feels weird. Oh=
+ well.
+> >
+> > dc {
+> >   compatible =3D "...";
+> >   rgb {
+> >     dbi {
+> >       ...
+> >     };
+> >   };
+> > };
 >
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> That's one option, but there's also many other ways you could
+> differentiate between RGB and DBI. Could be a simple "nvidia,interface"
+> property in the "rgb" node (that defaults to RGB if absent). It could
+> also be a node that is a sibling to "rgb" (rather than a child). Or the
+> child could work, too.
 >
-> Otherwise, I can pick this one up this cycle.
+> Ultimately we're still describing aspects of the display controller here
+> since this is all registers within the display controller's MMIO region.
+> Nested nodes are purely for adding some logical structure for the
+> description that makes sense.
+>
 
-I am considering picking the series through DRM, but it also has a
-dependency on the `cv!` macro [1].
+From my understanding data is sent basically as RGB, at least RGB
+configuration is still used in downstream. Panel commands are sent via
+DBI
 
-Is this ok if we take the patch introducing `cv!` through DRM as well?
+dc {
+   compatible =3D "...";
 
-[1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.com/
+   rgb {
+    port...
+   };
+
+   dbi {
+      ...
+   };
+};
+
+This would work nicely if DBI is modeled using bridge framework. I
+would strongly insist on keeping it as a stand-alone configuration
+separated from RGB and DC.
+
+> Thierry
