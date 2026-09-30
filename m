@@ -4,129 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC419CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E9BCA5FCB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7D110F421;
-	Wed, 30 Sep 2026 13:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E1110F41A;
+	Wed, 30 Sep 2026 13:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W+4N5gEf";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sujNf0Hb";
 	dkim-atps=neutral
-Received: from mail-oo2-f36.google.com (mail-oo2-f36.google.com
- [74.125.231.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B4A10F41C
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:49:17 +0000 (UTC)
-Received: by mail-oo2-f36.google.com with SMTP id
- 006d021491bc7-6d77aa5735aso2365379eaf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:49:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790776157; x=1791380957; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=9WE422/LqnhCl3fPXNYCzqJOoTlv5wcGeIDmvarusck=;
- b=W+4N5gEfxFRbSiNDnL2GcNjAwBu+q5J6WYBmnfV+kpkLB27H4Uuvh+38uzMML4KWPP
- X98BPG4lLtBCqIbJvWazrkr+kdv8RjEKZxkTkHphnwTkGtSeBqZzo8q+jiGHWuFOTPQv
- HR2YT7Yf5+gHOJVNHx6bon2eI9K4rN7/J9iY5NgJ2FNi3R89OxCTgsualQvaVf4MhvLe
- Aj7mdUoCZs8f7DHFo5BojrTatR2sRBWHgIQUp7/4x/BMoqD0wl9PthtZm/cjJeLGu0rs
- GYHKIuXRPai9MF/9f2Uwb/KuKI4k/v4YwbYDVW2S+IBj5/Vjt7/u4qJZ3jJHAEyWO6t3
- 41uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790776157; x=1791380957;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=9WE422/LqnhCl3fPXNYCzqJOoTlv5wcGeIDmvarusck=;
- b=YU4xF7tzWvtL85TKYy14+UeYfDDN+ASDGLRrgy9Yz8jifXXTTo6R2OjtUS530R2pxD
- 1ZNCIEgR6gklDf6P7K1DTRlFJRnE+obvSDFSojAuR/a92MXeKVyiJ0hd1SwD6subUS8o
- 07WkE4uPzakdfQWILXTzJ1mm/YkhDRWODvDoLufuXj14Dnf8rYsdphwbyZG30Z/X1DU1
- TlTd0/82OZgzZGwQHEsUXm4NsrkyRzHSrYu0vAKwJnfbVagsdesVMNxH+sEBtlvqlRMz
- cGT+KuPHWENeANXuxqUHErghP9F4HoNw9n+GDErITiRiNE5tbTV+Hqxa/+Uy8dyPidyg
- eiIg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxIfL2oSFYUqIQqSAU/lHR+gJzjvdgNUZlc3v5VDZvf8DGQzC51JpwuRWoQL4XLcW5MqOjrAV35n7s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mcrErBj42bXRUF2WOeRHV5vTVu16kAdfjeD4Rjd60oqMiuiTa+
- cQuabyy8Gu1hdOsCgWsg2B7TXGmy2SCfpPu7oMVuQLIYvTNtnBKqroyWYE4ce8z52TA=
-X-Gm-Gg: AYBFou3uRor4xVSC1G7TZpP+x2DSZO7nr0UuT6kuKFZuKzBeYq27BvVibWPkdYm2Bc/
- 4Exsr/Yul2y3TDATiZMZE2OHaaYLNP+DfeRtj2FZX10vmpP/MLZiKrCBt1AA3JVNr0GUkRKrnw2
- C7gcwltGb5F4x2UfK+S+M6TfH90nLKxFwLM7aW8bV2VYb4ys5h5LbCgUGZo68ZY4JISJJxjSV6t
- 3/Poyv1UYCCfYjPzKPYKSk65e+ta/7xXpJFiUGjuBg4+nwJb1v0ohOA22tRVps4dR0Z/DdVOF6n
- bnCNTw7iwaFd5M3rM75E1ep7aSwvT33t17Ih78zs5aBBoqfnmBT46jMIkXFcJmoJwaN8x3EB1me
- +qgpOsXKY3LOYzm2J7ImaVJFJYvtAcL8GKFNZm+FPT9ADSzUyzAiImXW81oHaC7S9MO3bIvyzSe
- wbqRnnIZHHJcCPSGAdHStbxEiHFOehrv4wMIUgEOXQT0Bji6Jt5yS4/bn81COkKfj+r9Y2c1Toa
- 7IG6HuiquYm7h4BPdh06gLVeJKa3lIRI5NvJkbAt7ekWo6slWM9okduKiY6FjWan+pUZgMRe19C
- ht+eNhw=
-X-Received: by 2002:a05:6820:1c98:b0:6dc:e1c3:b2c1 with SMTP id
- 006d021491bc7-6dcf5b2761cmr1487919eaf.56.1790776156586; 
- Wed, 30 Sep 2026 06:49:16 -0700 (PDT)
-Received: from [10.21.51.184]
- (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca.
- [142.127.77.63]) by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6dd98ccc807sm52578eaf.15.2026.09.30.06.49.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Sep 2026 06:49:15 -0700 (PDT)
-Message-ID: <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org>
-Date: Wed, 30 Sep 2026 15:49:12 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1ADF10F41A
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=AlDA3CPqsRh/rGxDenJg9W0cfItR8cQBugDBRNACtuk=; b=sujNf0Hb8oOTg+9mBB8JtsFZI/
+ YyElfyRziidNbxNMmDp+snq9a0MPnLkzbWgzB2jgdKQbjWUGPEsAykWSdKj+ePCunDvGo7yMvmGYx
+ ybG0sOukkbARpUnv05RBoMj1qfcSNJpJnxWX78KHbBoFcBOc6dqIClfR7XdOf582UwpfIKfn+yA1f
+ 2fQSN3fu8isZNrjDFGQSqBYdetQULKLpTsy3dmDZ7rHh1BdufACJof5mjXUYJsq7UNharkEllVMIM
+ m9AG85fDmeQohg/jGRvdWwcRMXMeY1BYWfxA/YFDUil+8yadQ0OuS3i+2f558CByBScjGyMlWIw+Z
+ ZSApMQaA==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xBugq-009Sou-Pb; Wed, 30 Sep 2026 15:49:44 +0200
+Message-ID: <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
+Date: Wed, 30 Sep 2026 10:49:41 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+To: Thomas Zimmermann <tzimmermann@suse.de>,
  Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <artlIYhgbskRJXDQ@houat>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <artlIYhgbskRJXDQ@houat>
+ Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+ <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+ <20260923160049.1741651-1-holofermes@gmail.com>
+ <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+ <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
+ <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
+ <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,131 +88,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/29/26 09:27, Maxime Ripard wrote:
-> On Mon, Sep 28, 2026 at 09:20:12PM +0200, Neil Armstrong wrote:
->> On 9/28/26 19:24, Benjamin Tissoires wrote:
->>> On Sep 28 2026, Neil Armstrong wrote:
->>>> Hi,
->>>>
->>>> On 9/28/26 18:22, Maxime Ripard wrote:
->>>>> Hi,
->>>>>
->>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
->>>>> difficult to support and require pretty much a panel driver for each
->>>>> panel produced. Most of them are pretty simple, and require an opaque
->>>>> initialization sequence that is usually poorly documented.
->>>>>
->>>>> This creates a tension between OEMs and distros because OEMs will
->>>>> typically get a new panel to react to a sourcing issue during
->>>>> production, and thus need some swift turnaround between getting their
->>>>> new panel and it being operational in the OS. Distributions on the other
->>>>> hand can take years to ship a kernel with that new panel driver.
->>>>>
->>>>> To solve this, I followed the example of HID-BPF and wrote a panel
->>>>> driver that will rely on BPF programs to perform the panel
->>>>> initialization. That way, we can ship the programs separately from the
->>>>> kernel, and with a different lifecycle. If this driver is accepted, the
->>>>> plan is to have a userspace component started by udev to identify and
->>>>> load the right BPF program for the panels found on the device.
->>>>
->>>> This is kind of late for serious applications except if we manage to
->>>> solve the bootloader to Linux display engine transition.
->>>>
->>>>>
->>>>> This driver is fully functional and works with both 5" and 7" Touch
->>>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
->>>>> typical panel driver in multiple ways:
->>>>>
->>>>> - BPF programs can only be loaded by userspace. This leaves us with two
->>>>>      choices:
->>>>>
->>>>>      * We prevent the driver from loading until the script itself is
->>>>>        loaded. This has the side effect of preventing any other output to
->>>>>        be used until the initramfs is ran at the earliest, and possibly
->>>>>        ever if the loader isn't installed for example.
->>>>
->>>> This adds a dependency on user-space behavior and if somehow the
->>>> initramfs doesn't load for a reason we won't have a way to display
->>>> an error.
->>>>
->>>>>
->>>>>      * Or we probe the driver all the time, but only report it as connected
->>>>>        once a program has been registered. This is somewhat unconventional,
->>>>>        but allows the other outputs to be functional, *and* allows the user
->>>>>        to force the output if their panel doesn't require any
->>>>>        initialization or during debugging. I chose this solution.
->>>>
->>>> Both options are not really great...
->>>>
->>>>>
->>>>> - It's not a panel driver, but a bridge one, which is also pretty
->>>>>      unconventional. This is required because panel drivers don't have
->>>>>      access to a detect callback that is required for the above, but I also
->>>>>      think that the recent work from Luca blurs the line from panels and
->>>>>      bridges and we'll end up going that road anyway.
->>>>
->>>> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
->>>> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
->>>> a proper way to describe the display/panel/monitor independently of the DDIC.
->>>>
->>>> At first glance it's a nice driver, but moving the timings into a blob moves something
->>>> into possible proprietary binaries with possible closed licence and distribution
->>>> restriction so it's a downgrade for the same of bringing up a panel faster.
+Hi,
+
+On 30/09/26 05:32, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
+> [...]
+>>>> I have a patch implementing begin/end_cpu_access to
+>>>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
+>>>> we would like to support this use case upstream because, as you
+>>>> mentioned, dumb buffers are usually used for software-rendering only.
+>>> Before we fix anything, I think we should talk to someone with
+>>> dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern is a
+>>> producer-consumer relationship and HW rendering into dumb-buffers is not
+>>> supported. Those buffers should have been allocated on the v3d side.
 >>>
->>> Quick answer on this, because I had the very same questions regarding
->>> HID-BPF:
->>> - in BPF, you can require (and by default it does) that only GPL
->>> 	compatible BPF programs are loaded, closing the argument of "closed
->>> 	licence and distribution restriction"
->>> - also, a BPF program can be disassembled much easier than a binary
->>> 	blob, and I remember Alexei showing me an example where you get almost
->>> 	the source code from the BPF object in just one pass.
+>>> IMHO we should write down these rules in the PRIME documentation and
+>>> (soft-)enforce them in the implementation.
+>>>
+>> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
+>> exported buffers (what Maíra is proposing as a fix) or there should be
+>> documentation of the rules for cross-devices buffer sharing through 
+>> PRIME.
+> 
+> This specific case only happens with v3d and only this driver can know 
+> when to flush caches. If we flush caches in begin_cpu_access, we easily 
+> end up paying the overhead on all systems.
+> 
+
+I believe that's the main issue. We would pay a reasonably big price to
+support this uncommon (and maybe even wrong) use case.
+
+P.S.: To be clear, I wasn't proposing a fix. I should have called my
+patch a "hack", because although it works, I don't believe we should
+support this use case for the reasons stated by Thomas.
+
+Best regards,
+- Maíra
+
+> 
 >>
->> Right, it "solve" one of my question, but doesn't really solve the issue
->> of vendors providing "GPL" bpf programs with source available "somewhere".
+>> As mentioned, allocating buffers through v3d and importing into ssd130x
+>> (or simpledrm) would work correctly, since the v3d driver already sets
+>> bo->base.map_wc = true.
 > 
-> Would you be ok if I was to make a tool to decompile a BPF program into its
-> source file equivalent?
-
-Not really, I don't see the point TBH.
-
+> Hard enforcement would mean that drivers would reject to render to 
+> imported buffers.  It is most certainly too late to implement this now. 
+> But drivers such as v3d could at least print a warning when users 
+> attempt to do it.
 > 
->> Another big issue is the API, I don't want to keep the current API as-is,
->> we plan to support more advanced panel features and use try to use the
->> atomic states to support rate switching for example, and I'm not confident
->> it's a good idea since there's no "simple" and "forever valid" API
->> to initialize panels...
+> Best regards
+> Thomas
 > 
-> So, a couple of things here. First, I really don't think we should
-> extend the panel API, like at all. But let's discuss that at Plumbers, I
-> don't think it's very relevant to this discussion anyway.
-
-It is, and I'll expose why we need to get out of this deprecated API
-as soon as possible, we are seriously keeping the ability to provide
-support for advanced panel features which are implemented in vendor
-kernels.
-
-The API was ok when DSI was added and we didn't have generalized atomic
-modesetting, why would you not want panels to embrace atomic ?
-
-I don't understand, please elaborate.
-
 > 
-> Second, you don't have to use this driver, like, at all. For anything
-> more complicated than what this driver can provide, I totally expect to
-> still merge dedicated panel drivers if it makes sense. I also expect
-> that this driver would be enough for 90% of our panel drivers and
-> would allow us to support most of the cruft.
+>>
 > 
-> Finally, the BPF API is flexible. You can extend it later on and old
-> programs would still work. The verifier would fail only if a program
-> uses a new function in a kernel that doesn't support it. I was kind of
-> expecting to put drm_display_mode in there at some point, if the state
-> makes sense then why not.
-> 
-> Maxime
 
