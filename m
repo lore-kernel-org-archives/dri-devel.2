@@ -4,88 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1671ECA5FBA
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A0DCA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0813410F35E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8370610F363;
 	Wed, 30 Sep 2026 12:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="ddBuN2zg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVrAHEmC";
 	dkim-atps=neutral
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
- [74.125.229.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD85110E930
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 01:03:40 +0000 (UTC)
-Received: by mail-dy2-f42.google.com with SMTP id
- 5a478bee46e88-342773d94a7so2964826eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 18:03:40 -0700 (PDT)
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com
+ [74.125.228.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 636D210F1DE
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:59:17 +0000 (UTC)
+Received: by mail-pz2-f37.google.com with SMTP id
+ 41be03b00d2f7-cc7c9c2df74so371012a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790730220; x=1791335020;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
- b=ddBuN2zgwAb3C2/PPsOg9EosO+Pwe2QaQXKAt1r4leL8SnwAXtcv9Mi6AmNltbvZy3
- c30IBxPmPBfh/RyWEH7a3enHs3PXa+lPokmeIvqnVoQAQbi1zzUgi4JxxxiZPIoJU6/z
- kS1mna+9eY5UHie1aAJiC9yWrxbwv8vhn40u28jMB0vNLHg3+GdXcNJD9TpCjpzIa1sM
- PUNJxnkf+0OuK3qLKLt6aW2D0g+PqjbI5j4QMWwBGNrKX0k4gEGU4pgAnEM6AbMDTEMx
- WEGnTXuK9avveUDQJMjlGoSNMeUQnF0JBw4bQKoEOhd98p+cRdwQQifM1vW4pdK71mZ6
- 96SA==
+ d=gmail.com; s=20251104; t=1790751557; x=1791356357; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=mx0iaoPR7zXZchCwtDWxvwWQjv0it6r14y9G6mnX/DE=;
+ b=RVrAHEmC7vSSjwIe12GS5Qaer5fgMW/OdpGrJ2kBCvQxGCCYtjdmTCTVfqYRjvQNQn
+ YSmokPRIOgkxN9CgygAGmPJCTTNoGb+REUWBGOhisIDtxanFsqAms/uhD2p2air1XquM
+ EDXsBns6xtAXKBPopm/0P5Y/ivj0pmONqtH1/JTsZZHb12zObmuiZ4Kdoo6+kPWBOBT8
+ gAEKFrlGdK1HuvKS/ns8iBGn6uiwVhlx2mGDbipmIiJBQYAEjoMx7pJ3gkMmCjRYjYPo
+ NiIJSxdMGkUG/nQ38KbGKWYShH8laEAWyru3m136bIhFal12YW1XrvH6Oqiz0H5BwJAW
+ hcjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790730220; x=1791335020;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=PFwFCHroA09S10Beb/3mqXg3PAfAFcLcaaVX6WAqpVQ=;
- b=QRk3mfNmLqwMmh+pAbmIxBtM/OX8L7zlUty1Yg2z3oAIFLSCm5odqtXsjezP+TLS36
- LIa5zWo7KQH8mWbX3aukh2/rBsY3C0pPW/3Goky1lG2MVs3R5rdC8Vk8+rvAtAEEkEd3
- 8UeDf9jqqQU5v954lf50V9JL6MHwr5mTGKU1tm48v0XsnUlB09UkKuz28U2yE7sunA9e
- KM0HdPP9uVUjQfzUZQV0mBjVLuirybkAWWYvW9UpWjUMfEslPRUiUgTp0UIzge7647HR
- SD8HoGReKOuv4maNEX/5fUKcOnzdIXFMTnXNLksB7mzhdp4eU7QFlKE8kNh+/uyFJdo1
- K5nQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzqy49vNSxUkUfszmgJF4KOK7diC0NpAnlT667sh57J+9ARjWs42mAM0wgA1C18kFSJ6BbN2qD1Kcc=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lOKeBlnAUO2XQhuOIPyNAxdrpVv+ADiRMKJNJmun0fSmtYgId4
- KiAfvx8sUw3yX4VoyFetQVPNnHkywu9fSAagEuC1mEd1dVqVXlfRWRN+Ggvu/5NZQFs=
-X-Gm-Gg: AYBFou2Zfiphxq8ydM6GBT/WHJczU8jIVXKqrWAvywTwLya+CnBtDFqN/d54k3CpnrS
- Lwmx4ywC7jv3xUtuuz8zDXW4A+cLqEbFC7HAMj4WQXf5Ihs8d6t8lX+0AKdk2ZZxJTOrXMGK+E0
- DKxR9rV5eJFf0zRKRF46qM5kKFRhOnEuCy97A3R15ekVRAPVB9YATx07YNZkSx9hfdEY7Slijpj
- nt8LnROKtQ2Tg2Wa/rZCYmLKlCsNb9XQCFmABkUiZw54xyvCX/cPWlucBkbxlHpuiQ7Tw5f3QlV
- UB0/lsCKvGve1XFTq3vwhe1us2g10GdKqeeD9zj0tA4PMEQCjmM/wg00zyBJvg+B1vwIQNfpXW/
- hxc4g3H+oxMWMGpTNVbXhh6gZCXt0rSgr6WyUOxWao4nlqsJm2b7XAeBSj5sM7S1zhgrv4Ak3nJ
- y03X9erxxMReivjHDoCg+AjGa6+LIePTtJUHL1wUGQcRLe5NIWsyKl6yV8VGVm+n5o/c2LV1REA
- Ipgz3wt+AiKiN9UDvwSxGQ3Mu8RTMaK4gFOrvBUHr9HUzy3Ml+eh66GKHd8ebIb/PDTb+I=
-X-Received: by 2002:a05:7301:701:b0:341:b570:8d75 with SMTP id
- 5a478bee46e88-34c6605302dmr1125938eec.14.1790730219815; 
- Tue, 29 Sep 2026 18:03:39 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:3481:cbb6:f339:9e4e])
+ d=1e100.net; s=20260707; t=1790751557; x=1791356357;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=mx0iaoPR7zXZchCwtDWxvwWQjv0it6r14y9G6mnX/DE=;
+ b=taLHa8SGVtQLJb+UZ8tgHlKlYf7fq1M6zZIoKKZBccEFHnblogiX/mACS3Rl8XuwIv
+ lWSbdu9XgXKunqV2xaSxrfY6GaQX6qRI3Zj8dutoPzKHEf8WN4qgptSH1wI4PF1GFyTo
+ Z5CvW5IJIVqyXIZpNO0jAP+cdLg3IANaRI7WaSeE7ikwKYm8gukV2IOG7zQZ4/YyWL6T
+ oII+LlzlGlMrN3v/6QrDDPGtHZZTr3BV/VfJpaH3Ja5P5kWYvyFNELVc7BsZMnhy2MGj
+ 56iZKC0baXoDkSudpbudesfUCJBBcjw0umKP/i/poYLhmwszYsU1IByiCDZEcdtppZ0O
+ yZSA==
+X-Gm-Message-State: AFq9FYIORLXH+3/mGj26FMnTyHGKHDjj6g0TEDl89KRdjf3wNR8VPDpJ
+ gUZk5EXBKdJO8hu5A/jdobJoRgnNvk0q1t7VMs1Eymsb6jmUGFGVHiOAhVUJDBJb
+X-Gm-Gg: AYBFou1kyEaj9Bw9mMb/LZeYYbs7lx2ULDiTKJXk/5Aerc3a0+WIyRxbO1LJFvnfi0E
+ 5kcnhU2bP8K/+goecL+v6V5onemjkibsHcLsJWYwndQFpljr8ZeQ0GL4fw66haRfozvrO2K/j2A
+ WXz6a2avAkaG3kyTOuXJyhmHRmuGT+rVuLoqnsxcf/GWljENL53RoIRBJ8FM4FI16juzbfOf3uF
+ moOP/db2DzjjdRMDIPlJf2w9tQHq7G7Rmv3DH0JUHJarxmrFAR7i38fWUiI0U2ARa05lMoy87KQ
+ NTmTdtpZdyuFxKBbcYQ0a6ue4jole5ZHj9iVyVhY4FOvXP91FSU5meqOC1/+Tx5OD+Nv17aVsbl
+ EZsCcxTOz6kjcwV9LR6DxlGgTzQ3dJiUaupgJNBpoJ2BpvEloQbfS0ubN9P/1cJLUL+gyd/nKMv
+ l651bPEkWKPeZGCP6u+7tLqx9R1h4A6UPUZ7IoKmfYK95YtyUZf2pMGsugxd32UMcSrRetbTjml
+ i2rHC3qunyF+oeFxKwwwkXjfO/ch9xKC/wJJ8MJJAFWNnIAF2E+7wWvQ8eXEHhXLWMMUnmm8mYO
+ Ie0s5bSnXA==
+X-Received: by 2002:a17:90a:dfc8:b0:3a4:b3a4:e7a6 with SMTP id
+ 98e67ed59e1d1-3a4d276b9bamr261177a91.11.1790751556720; 
+ Tue, 29 Sep 2026 23:59:16 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34c386c2723sm2179993eec.18.2026.09.29.18.03.33
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 29 Sep 2026 18:03:38 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y v2 1/2] drm/i915/hdcp: Add encoder check in
- intel_hdcp_get_capability
-Date: Tue, 29 Sep 2026 21:03:20 -0400
-Message-ID: <20260930010323.93999-2-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930010323.93999-1-artem@trailofbits.com>
-References: <20260930010323.93999-1-artem@trailofbits.com>
+ 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Sep 2026 23:59:16 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 0/5] drm/gud: fix probe validation, shadow_buf UAF,
+ and bulk_len divide-by-zero
+Date: Wed, 30 Sep 2026 06:59:09 +0000
+Message-ID: <20260930065914.393939-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
@@ -104,53 +93,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+This patch series addresses multiple memory safety, concurrency, and
+validation bugs in drivers/gpu/drm/gud/:
 
-[ Upstream commit 31b42af516afa1e184d1a9f9dd4096c54044269a ]
+- Patch 1 moves display descriptor validation in gud_probe() to after
+  drmm_mode_config_init() and field assignments, preventing unconditional
+  probe failure (-EINVAL) on non-DMA USB display devices.
+- Patch 2 aligns both x1 and x2 coordinates to block_width in
+  gud_flush_damage(), keeping rectangle width aligned for compressed
+  block display formats.
+- Patch 3 flushes pending background work (flush_work(&gdrm->work)) prior
+  to freeing gdrm->shadow_buf on framebuffer resize, eliminating the
+  Use-After-Free (UAF) race between queue_damage and gud_flush_work().
+- Patch 4 guards lines = gdrm->bulk_len / pitch against zero pitch or
+  lines in gud_flush_damage(), preventing divide-by-zero in DIV_ROUND_UP().
+- Patch 5 resets damage state on vcalloc() ENOMEM failure in
+  gud_fb_queue_damage(), preventing damage height underflow in subsequent
+  flushes.
 
-Sometimes during hotplug scenario or suspend/resume scenario encoder is
-not always initialized when intel_hdcp_get_capability add
-a check to avoid kernel null pointer dereference.
+All 5 patches have been dynamically verified in QEMU against Linux 7.3.0-rc3
+with KASAN enabled; detailed test methods and outcomes are documented in
+each commit body.
 
-[ Backport to 6.6.y: this tree uses the older intel_hdcp_capable()
-  helper name. Apply the same guard there; the code change is otherwise
-  unchanged. ]
+Changes in v2:
+- Split single monolithic patch into 5 distinct, single-purpose patches
+  as requested by maintainers and reviewers.
+- Included QEMU test methods, expected vs unfixed behaviors, and KASAN trace
+  details in commit bodies.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-2-suraj.kandpal@intel.com
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-CVE: CVE-2024-53051
-Upstream: 31b42af516afa1e184d1a9f9dd4096c54044269a
-Code change unchanged from v1; only the retained backport note was added.
-v1: https://lore.kernel.org/r/20260929031728.88004-1-artem@trailofbits.com
+Hui Peng (5):
+  drm/gud: Fix probe failure on non-DMA devices by moving descriptor check
+  drm/gud: Align both x1 and x2 to block_width in gud_flush_damage()
+  drm/gud: Prevent shadow_buf UAF by flushing work before reallocating
+  drm/gud: Fix bulk_len divide-by-zero in gud_flush_damage()
+  drm/gud: Reset damage state on vcalloc ENOMEM failure
 
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/gud/gud_drv.c  |  6 ++++++
+ drivers/gpu/drm/gud/gud_pipe.c | 22 +++++++++++++++++++++-
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index f377c4484e18..f7987fb90bb1 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -142,11 +142,16 @@ int intel_hdcp_read_valid_bksv(struct intel_digital_port *dig_port,
- /* Is HDCP1.4 capable on Platform and Sink */
- bool intel_hdcp_capable(struct intel_connector *connector)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_digital_port *dig_port;
- 	const struct intel_hdcp_shim *shim = connector->hdcp.shim;
- 	bool capable = false;
- 	u8 bksv[5];
- 
-+	if (!intel_attached_encoder(connector))
-+		return capable;
-+
-+	dig_port = intel_attached_dig_port(connector);
-+
- 	if (!shim)
- 		return capable;
- 
 -- 
-2.39.5
+2.47.3
