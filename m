@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08E5CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A016CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2150910F22C;
-	Wed, 30 Sep 2026 08:04:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD8910F233;
+	Wed, 30 Sep 2026 08:04:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QJ1Jkh88";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JbjJdxQV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA89610F229
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:04:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 00C5360258;
- Wed, 30 Sep 2026 08:04:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A8A1F000FF;
- Wed, 30 Sep 2026 08:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790755483;
- bh=lAhm/IRtE5TnsstmivWqwHlXEeHp6zXLoKL6Dpf/08M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=QJ1Jkh88NS099T5XThWkiHUyHFMuaUi05aDIb0DuSfK6cbpnRq28RDtuRmH0kFGSv
- NZBn9sJRMspdyRlciqW7jBwuSJhhmVl+ihgUSFAiPw2uKl7PbI1UZnfLJPikMcnOyU
- ovoPJtoyeUD0pBgYjEK81upp+9g5hXAzTVbnwNByddsnhUHGbTh4oyjWwPnTpHoiyE
- W+veZ7MG2gdJLu5Tu2tBbHeKkaorg36xo5setYHOfmWCoJ7iQrrSg5BXX6WjPsfC16
- p8iXs5bEn9clABquAKOv4qGbKnFg2BCrgrFqzkP/nj5meGWrDZhxZks/v9wThWHD3f
- jOxH1OsmTZDig==
-Date: Wed, 30 Sep 2026 10:04:39 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <ary8IdL9zVXfS2fA@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
- <20260929222822.GA2933878-robh@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D0BE10F229;
+ Wed, 30 Sep 2026 08:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790755495; x=1822291495;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=aB8Cp4nhgf7pMdLW6i8ghQb1w1f/0/D8MNkDliazAv4=;
+ b=JbjJdxQVlZ7af4VExL1DDfkhiTkrzmiYpL9eXfd0aDaYsp537+TKZk6T
+ JreZSn6MqlYgPcjxU6Or7PFTU0GlXH51cVGsqAhdJ2xgUghK+4FwZ8x1s
+ 8tgAphk0nr494vNh37JGoLLpa7b10T59gILa+aUuLkKt6sZ5eflnujLzk
+ 2qVHm8kp/R+e1aLz2fDcSVa3DV2vGc/hAbvWm790VI4NTOH8EEfXZP/bW
+ R2WCgBdprgSLv2xHQA5ovtpI+79sNcXjCSbFLzwrzcoauUZ25y8vVitOX
+ Ph3QFrlAwXUHD0KahCrYjtXHyynSkcHouiEz3FnbT4+IRm2GgiZL3unn2 Q==;
+X-CSE-ConnectionGUID: BAgFCt9gQJ6Kg1QN/IDbxw==
+X-CSE-MsgGUID: xnjgwFPCS8eLKXPYYBwyXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="107873331"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="107873331"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:04:54 -0700
+X-CSE-ConnectionGUID: Cu/v+AVgQF+x1mViGCxdEQ==
+X-CSE-MsgGUID: dg7Wz5AVSvSpELsP3mYYzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="275761811"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.107])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2026 01:04:51 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Animesh Manna <animesh.manna@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jouni.hogander@intel.com, suraj.kandpal@intel.com, Animesh Manna
+ <animesh.manna@intel.com>
+Subject: Re: [PATCH v6 02/18] drm/i915/alpm: Move alpm sink capability
+ readout into a separate function
+In-Reply-To: <20260915180449.277933-3-animesh.manna@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260915180449.277933-1-animesh.manna@intel.com>
+ <20260915180449.277933-3-animesh.manna@intel.com>
+Date: Wed, 30 Sep 2026 11:04:49 +0300
+Message-ID: <2ed6b4ccefd2d302433fb990401b0d62efa75c84@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="k3ccvqemgn4avxba"
-Content-Disposition: inline
-In-Reply-To: <20260929222822.GA2933878-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,182 +75,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 15 Sep 2026, Animesh Manna <animesh.manna@intel.com> wrote:
+> Abstract ALPM DPCD initialization into its own function.
+>
+> v2:
+> - Improve commit description. [Suraj, Jouni]
+>
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_alpm.c | 11 +++++++++++
+>  drivers/gpu/drm/i915/display/intel_alpm.h |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c   |  6 +-----
+>  3 files changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
+i915/display/intel_alpm.c
+> index 10943539bc7c..a6743fe62d48 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> @@ -43,6 +43,17 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *inte=
+l_dp,
+>  		(crtc_state->has_lobf && intel_alpm_aux_less_wake_supported(intel_dp));
+>  }
+>=20=20
+> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp)
+> +{
+> +	u8 dpcd;
+> +
+> +	if (drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP, &dpcd) =
+< 0)
+> +		return false;
+> +
+> +	intel_dp->alpm_dpcd =3D dpcd;
+> +	return true;
+> +}
 
---k3ccvqemgn4avxba
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-MIME-Version: 1.0
+Why not propagate the original error instead of flattening to a boolean?
+What does boolean true/false mean for a function that's not a predicate
+function but "init"?
 
-On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
-> On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
-> > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > > > regulators and GPIOs, perform a reset pulse with specific timing,
-> > > > send a vendor-supplied sequence of DSI commands, then enable the
-> > > > display. The only truly panel-specific part is the init sequence
-> > > > and power-on/off timing.
-> > > >=20
-> > > > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-> > > > with a single generic driver whose panel-specific behavior is
-> > > > provided by BPF programs loaded from userspace at runtime,
-> > > > following the HID-BPF model. This enables new panel support
-> > > > without kernel patches.
-> > > >=20
-> > > > Panel DT nodes use a two-entry compatible with the panel-specific
-> > > > string first and "panel-mipi-dsi-bpf" as fallback. The generic
-> > > > driver matches on the fallback, while the first compatible is used
-> > > > to identify which BPF program to load.
-> > >=20
-> > > If you need the 1st compatible anyways, what is the point of the
-> > > second one?
-> >=20
-> > The whole point of this driver is that you don't need to modify the
-> > kernel when you add support for a new panel.
->=20
-> What reads the most specific compatible?
+From a maintenance perspective, the mixing of bool vs. int return values
+is a problem because you never know what is being checked for in the
+caller side:
 
-The BPF loader, so either in kernel loader or userspace loader through
-uevents, depending on how the driver discussions are going.
+	if (!intel_alpm_init_dpcd())
 
-> > > Also, I assume there is at least some panel supported in the kernel
-> > > you might want to convert to this. That panel would not have the
-> > > fallback (and the DT is fixed).
-> >=20
-> > Yeah, that's true. I'd still need to identify the parts though. I guess
-> > using a generic compatible but a specific model would work?
->=20
-> What? You can't add a generic compatible in these cases.
+Does that return bool and false means failure? Or does that return int
+and false means success?!
 
-generic-*hci all have a generic component *and* a platform specific part
-for quirks, and yet none of them require a platform specific compatible
-to be added to work. PCI has that too.
 
-This driver has a generic part and a platform specific part for quirks.
+BR,
+Jani.
 
-> > > And I agree with Neil's comment. At least until we start embedding BPF
-> > > into DT directly. ;)
-> >=20
-> > And from Neil:
-> >=20
-> > > I don't see how this can be a valid hardware description, bfp is a
-> > > software implementation and has nothing to do in the bindings.
-> >=20
-> > I'm quite a bit surprised by that argument though.
-> >=20
-> > We have in the main dt-schema repos bindings like:
-> >=20
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-options/u-boot.yaml
->=20
-> Self contained in a node that's specifically not h/w.
->=20
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-bootph.yaml
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-post-init-providers.yaml
->=20
-> Extra hints that are safe to ignore.
->=20
-> >=20
-> > Or, in Linux:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
->=20
-> Virtual h/w which tends to have special needs.
 
-How is that not a description of the binding we're discussing?
+> +
+>  void intel_alpm_init(struct intel_dp *intel_dp)
+>  {
+>  	mutex_init(&intel_dp->alpm.lock);
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/=
+i915/display/intel_alpm.h
+> index f8f605d94f96..56c3e1482e37 100644
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.h
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.h
+> @@ -15,6 +15,7 @@ struct intel_connector;
+>  struct intel_atomic_state;
+>  struct intel_crtc;
+>=20=20
+> +bool intel_alpm_init_dpcd(struct intel_dp *intel_dp);
+>  void intel_alpm_init(struct intel_dp *intel_dp);
+>  bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+>  			       struct intel_crtc_state *crtc_state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034c..650c8b39270b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4783,7 +4783,6 @@ static bool
+>  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *c=
+onnector)
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+> -	int ret;
+>  	u8 dprx;
+>=20=20
+>  	/* this function is meant to be called only once */
+> @@ -4829,10 +4828,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, str=
+uct intel_connector *connector
+>  	 */
+>  	intel_dp_init_source_oui(intel_dp);
+>=20=20
+> -	/* Read the ALPM DPCD caps */
+> -	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CAP,
+> -				    &intel_dp->alpm_dpcd);
+> -	if (ret < 0)
+> +	if (!intel_alpm_init_dpcd(intel_dp))
+>  		return false;
+>=20=20
+>  	/*
 
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
->=20
-> Shrug. Weird Qcom shit...
-
-Cool. What can I do to add this binding to the list of "weird Maxime
-shit" or is this kind of exception only for Qualcomm?
-
-Or should we do it the other way and ship the binding anyway, and in two
-years, when it will have been in device tree in the wild and
-we-cannot-change-it-we-swear, we will be able to upstream it?
-
-And in the process reward the ones *not* playing the upstream game.
-
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/sound/simple-card.yaml
->=20
-> Just a container... Though I can't say I really like any of the audio=20
-> bindings.
->=20
-> All really irrelevant to this discussion other than the panel binding...
-
-Not really. The discussion was "but you're describing something that
-isn't hardware". And none of the above are. And were acked. Some
-recently.
-
-> > All of them have been reviewed or acked by you, and yet none of them
-> > relate to any hardware description.
->=20
-> There are things which aren't h/w, but this is h/w and we've already=20
-> made decisions about how panels in particular are represented. We of=20
-> course have some remanents of how we don't want to do things.
->=20
-> > panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> > quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> > attach to anything and will just open a tunnel to userspace, which is
-> > somewhat equivalent but more dramatic than what this driver is doing.
-> > simple-card or its variations will just instantiate a kernel driver from
-> > the DT and is used pretty much everywhere.
-> >=20
-> > I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> > by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> > past the "oh but we didn't know what we were doing back then" argument.
-> >=20
-> > So, let's phrase this differently: what's different about the
-> > description than panel-mipi-dsi-spi, or any other binding already in
-> > tree?
->=20
-> There's all of 3 panels supported. Compared to all the other panels we=20
-> have, hardly the rule over the exception. You can always fine "bad"=20
-> examples or exceptions.
->=20
-> That one defines a single supply. Any other MIPI SPI panel with=20
-> different supplies or GPIO controls probably has its own binding. Trying=
-=20
-> to parameterize that in DT doesn't work. We've rejected trying to do=20
-> that in DT over and over. What's your story here for that?
-
-Sigh... Look, I really don't care about an argument DT maintainers use
-at their discretion for this. We both know full well that it's been and
-still is inconsistenly applied, and you also know that it's not like
-I've been playing the DT game since pretty much the beginning (on ARM
-anyway). So it's not like I don't want to make it work, I do. But what I
-care about is enabling that driver to work.
-
-I reused exactly the same binding than the last major binding that was
-merged for panels, and support about the same number of panels. I guess
-that was a mistake, so sorry for that.
-
-I'm fine with reworking the binding any way you want as long as it still
-allows for the same use-case, but I would have hoped for a better
-feedback on how to do so than "oh what a huge pile of shit this is".
-
-Maxime
-
---k3ccvqemgn4avxba
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarzCkwAKCRAnX84Zoj2+
-dpc3AYDOB9XdH/2zapSanqxE4H56ffYrbVAeb+qx5XxwVM0vnMt7lzv9vg5HaAOo
-S/xSzu0Bfi/5SfsSXC39fs4ZPIdQyMs+eNZexW71Ze0mJnl6LF6ImBE4OXEw7pa4
-QGknAZNTfg==
-=jVxm
------END PGP SIGNATURE-----
-
---k3ccvqemgn4avxba--
+--=20
+Jani Nikula, Intel
