@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3497CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 14:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EF4CA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 14:15:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C0210F414;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCD710F416;
 	Wed, 30 Sep 2026 14:15:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IXLyUOWq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CdmVcyGy";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C989010E14E;
- Wed, 30 Sep 2026 14:15:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A02E10E796;
+ Wed, 30 Sep 2026 14:15:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790777719; x=1822313719;
+ t=1790777720; x=1822313720;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=+Y+W1NtAVnX4cXff5RXSRzwok/ylodMDatebHTE6VAM=;
- b=IXLyUOWqdvbl+wOrP6EA+QBpR+cOhwTN6b23ZUulDinMpUmkxUtJb8f7
- qDRjaThe6fcAabP4TGiJ1XxXDpmETdBYw6G905kv8NCBqbcAbfkjzN2qD
- dPewk97zvgyyQTkbk9WzzLpj5Osqb4dAeuBiLeu9yQ7a3mO904Zc06s0f
- h8InQY+GurqUoL4PBsp69UdoBuZssy7EJrrSAG5GYRSkqZhOVvRM6sLeP
- C68NbtlF9ADx1li8mey70V+6ZbVNWKFg9GqfkkdaqdoKSuTjN7jjFLpij
- CyCVApptqTQPd5MzQ7/ucQ0SXHUYgSexcvKX8UAaZLCbStGrN2hQ0awX7 g==;
-X-CSE-ConnectionGUID: UnOyI6ooS/KdFl4PTqUnvw==
-X-CSE-MsgGUID: nkfpToCrRcSxGXEHRUQoXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90470000"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="90470000"
+ bh=r6J6OMUuexc90xruyZevzc+hksoDZaaD+TsUNdnaTAg=;
+ b=CdmVcyGyVtAutZXuHI1uW+5AvZeZoPhkfLnUjtWgU4hVKDHC+5hUS5hF
+ 3ieR2nM6elFvB91zO3RG76o7Yb8CO0on6z9LHo8lGNbpPzIYbhYYsM1cj
+ GVRUeh5AZOBb0feeB2ohNDEITnvlLd+hbPvTTOAB+Y9E+iRn6Ew3T0oKK
+ PxiIIHZ+RhFR+aoMKDsTXufn/kizaAKKH1OcMwLZ5emb+WaecUi5Dx3Cp
+ l1SmE+DoTziuGv/iju/GDFc2K2Ee+u58YDJR0A3DZOJkiz+2j/vF1/W1p
+ aKKndg86E1VKlJ7uYcr+ZCm+5lvrd4ThifLGCX4bms0U3IyzU8Ip9Nr+z Q==;
+X-CSE-ConnectionGUID: S2CC8zicSo+gJtMKWwaiaQ==
+X-CSE-MsgGUID: qlx/F08uQBWYbeszK41TbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90470011"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="90470011"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2026 07:15:02 -0700
-X-CSE-ConnectionGUID: zAYicykvTDOhJOiV1qnzkw==
-X-CSE-MsgGUID: 9bu09rbVR+uzybqT6FC05w==
+ 30 Sep 2026 07:15:06 -0700
+X-CSE-ConnectionGUID: fOVCP+umQgCtQQCqJjmfTA==
+X-CSE-MsgGUID: TdFU7jRiTDiSb5/IIIHGYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="279499583"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; d="scan'208";a="279499634"
 Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
  by orviesa005-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:14:59 -0700
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:15:02 -0700
 From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Wed, 30 Sep 2026 17:14:46 +0300
-Subject: [PATCH v3 1/2] mtd: mtd_intel_dg: add survivability partition
+Date: Wed, 30 Sep 2026 17:14:47 +0300
+Subject: [PATCH v3 2/2] drm/xe/nvm: define survivabilty partition
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-cri_surviv-v3-1-357aeed5fc60@intel.com>
+Message-Id: <20260930-cri_surviv-v3-2-357aeed5fc60@intel.com>
 References: <20260930-cri_surviv-v3-0-357aeed5fc60@intel.com>
 In-Reply-To: <20260930-cri_surviv-v3-0-357aeed5fc60@intel.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -61,11 +61,11 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  Menachem Adin <menachem.adin@intel.com>, 
  Alexander Usyskin <alexander.usyskin@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790777694; l=4348;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790777694; l=2014;
  i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=+Y+W1NtAVnX4cXff5RXSRzwok/ylodMDatebHTE6VAM=;
- b=tYKbzy7Y6Glx6HLyf6ObdWEdMyUCTTZw3pMGpVmSL03oDAEJpNLBmA193phfO0t81nBB04GCp
- nXYcxT5Bpd0DXpUIldtHdI+SW9vLUQFxLyyueb2xpXHEv5uTxIPPheR
+ bh=r6J6OMUuexc90xruyZevzc+hksoDZaaD+TsUNdnaTAg=;
+ b=JvPy//bs0zDBw4pGxJbZY8ZpVFjuqHVy5C93fVA5jAW0TcsKYD53soRLZiE2I2Whnjms8mPR/
+ uRjQj4eFtBEDKgxP8+WyvXmH3/7GS/0yzpArkMTk8wh9rdsIdxPSzOK
 X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
  pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,143 +83,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add option to expose additional fixed-sized partition starting
-from the beginning of storage.
-Xe driver can request this partition exposure if firmware or hardware
-have detected failure that may involve corrupted partition table.
-Fixed-sized partition allows full storage re-write in this situation.
+Define 8M survivability partition for CRI when
+storage is open for write override.
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- drivers/mtd/devices/mtd_intel_dg.c | 65 ++++++++++++++++++++++++++++----------
- include/linux/intel_dg_nvm_aux.h   |  1 +
- 2 files changed, 50 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/xe/xe_nvm.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mtd/devices/mtd_intel_dg.c b/drivers/mtd/devices/mtd_intel_dg.c
-index a566e86eb5e3..976246e94e79 100644
---- a/drivers/mtd/devices/mtd_intel_dg.c
-+++ b/drivers/mtd/devices/mtd_intel_dg.c
-@@ -31,6 +31,7 @@ struct intel_dg_nvm {
- 	void __iomem *base;
- 	void __iomem *base2;
- 	bool non_posted_erase;
-+	bool survivability_enabled;
- 
- 	size_t size;
- 	unsigned int nregions;
-@@ -430,6 +431,15 @@ static int intel_dg_nvm_init(struct intel_dg_nvm *nvm, struct device *device,
- 	/* clean error register, previous errors are ignored */
- 	idg_nvm_error(nvm);
- 
-+	if (nvm->survivability_enabled) {
-+		nvm->size = nvm->regions[0].offset + nvm->regions[0].size - 1;
-+		dev_dbg(device, "Registered survivability region %s size=%lld\n",
-+			nvm->regions[0].name,
-+			nvm->regions[0].size);
-+		n = 1;
-+		goto out;
-+	}
-+
- 	ret = idg_nvm_is_valid(nvm);
- 	if (ret) {
- 		dev_err(device, "The MEM is not valid %d\n", ret);
-@@ -481,6 +491,7 @@ static int intel_dg_nvm_init(struct intel_dg_nvm *nvm, struct device *device,
- 			n++;
+diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+index 51a1a431ad85..783c3103a8a4 100644
+--- a/drivers/gpu/drm/xe/xe_nvm.c
++++ b/drivers/gpu/drm/xe/xe_nvm.c
+@@ -56,10 +56,11 @@ static bool xe_nvm_non_posted_erase(struct xe_device *xe)
  	}
+ }
  
-+out:
- 	nvm->non_posted_erase = non_posted_erase;
- 
- 	dev_dbg(device, "Registered %d regions\n", n);
-@@ -753,15 +764,19 @@ static int intel_dg_mtd_probe(struct auxiliary_device *aux_dev,
- 
- 	device = &aux_dev->dev;
- 
--	/* count available regions */
--	for (nregions = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
--		if (invm->regions[i].name)
--			nregions++;
--	}
-+	if (invm->survivability_size) {
-+		nregions = 1;
-+	} else {
-+		/* count available regions */
-+		for (nregions = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
-+			if (invm->regions[i].name)
-+				nregions++;
-+		}
- 
--	if (!nregions) {
--		dev_err(device, "no regions defined\n");
--		return -ENODEV;
-+		if (!nregions) {
-+			dev_err(device, "no regions defined\n");
-+			return -ENODEV;
-+		}
- 	}
- 
- 	nvm = kzalloc_flex(*nvm, regions, nregions);
-@@ -771,21 +786,39 @@ static int intel_dg_mtd_probe(struct auxiliary_device *aux_dev,
- 	kref_init(&nvm->refcnt);
- 	mutex_init(&nvm->lock);
- 	nvm->nregions = nregions;
-+	nvm->survivability_enabled = !!invm->survivability_size;
- 
--	for (n = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
--		if (!invm->regions[i].name)
--			continue;
--
-+	if (invm->survivability_size) { /* survivability partition */
- 		char *name = kasprintf(GFP_KERNEL, "%s.%s",
--				       dev_name(&aux_dev->dev), invm->regions[i].name);
-+				       dev_name(&aux_dev->dev), "DATA");
- 		if (!name) {
- 			ret = -ENOMEM;
- 			goto err_norpm;
- 		}
- 
--		nvm->regions[n].name = name;
--		nvm->regions[n].id = i;
--		n++;
-+		nvm->regions[0].name = name;
-+		nvm->regions[0].id = 0;
-+		nvm->regions[0].offset  = 0;
-+		nvm->regions[0].size = invm->survivability_size;
-+		nvm->regions[0].is_readable = true;
-+		nvm->regions[0].is_writable = true;
-+		n = 1;
-+	} else {
-+		for (n = 0, i = 0; i < INTEL_DG_NVM_REGIONS; i++) {
-+			if (!invm->regions[i].name)
-+				continue;
-+
-+			char *name = kasprintf(GFP_KERNEL, "%s.%s",
-+					       dev_name(&aux_dev->dev), invm->regions[i].name);
-+			if (!name) {
-+				ret = -ENOMEM;
-+				goto err_norpm;
-+			}
-+
-+			nvm->regions[n].name = name;
-+			nvm->regions[n].id = i;
-+			n++;
-+		}
- 	}
- 
- 	ret = devm_pm_runtime_enable(device);
-diff --git a/include/linux/intel_dg_nvm_aux.h b/include/linux/intel_dg_nvm_aux.h
-index 625d46a6b96e..84b5b6e0c4ea 100644
---- a/include/linux/intel_dg_nvm_aux.h
-+++ b/include/linux/intel_dg_nvm_aux.h
-@@ -21,6 +21,7 @@ struct intel_dg_nvm_dev {
- 	struct auxiliary_device aux_dev;
+-static bool xe_nvm_writable_override(struct xe_device *xe)
++static bool xe_nvm_writable_override(struct xe_device *xe, size_t *survivability_size)
+ {
+ 	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
  	bool writable_override;
- 	bool non_posted_erase;
-+	size_t survivability_size;
- 	struct resource bar;
- 	struct resource bar2;
- 	const struct intel_dg_nvm_region *regions;
++	size_t s_size = 0;
+ 	struct xe_reg reg;
+ 	u32 test_bit, test_val;
+ 
+@@ -68,6 +69,7 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
+ 		reg = PCODE_SCRATCH(0);
+ 		test_bit = FDO_MODE;
+ 		test_val = FDO_MODE;
++		s_size = SZ_8M;
+ 		break;
+ 	case XE_BATTLEMAGE:
+ 		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
+@@ -91,12 +93,17 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
+ 		break;
+ 	default:
+ 		drm_err(&xe->drm, "Unknown platform\n");
++		*survivability_size = 0;
+ 		return true;
+ 	}
+ 
+ 	writable_override = (xe_mmio_read32(mmio, reg) & test_bit) == test_val;
+-	if (writable_override)
++	if (writable_override) {
+ 		drm_info(&xe->drm, "NVM access overridden by jumper\n");
++		*survivability_size = s_size;
++	} else {
++		*survivability_size = 0;
++	}
+ 	return writable_override;
+ }
+ 
+@@ -143,7 +150,7 @@ int xe_nvm_init(struct xe_device *xe)
+ 	if (!nvm)
+ 		return -ENOMEM;
+ 
+-	nvm->writable_override = xe_nvm_writable_override(xe);
++	nvm->writable_override = xe_nvm_writable_override(xe, &nvm->survivability_size);
+ 	nvm->non_posted_erase = xe_nvm_non_posted_erase(xe);
+ 	nvm->bar.parent = &pdev->resource[0];
+ 	nvm->bar.start = GEN12_GUNIT_NVM_BASE + pdev->resource[0].start;
 
 -- 
 2.53.0
