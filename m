@@ -4,109 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6E66CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BC59CA5FCB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB4A10F40F;
-	Wed, 30 Sep 2026 13:42:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB3F10F40C;
+	Wed, 30 Sep 2026 13:45:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ChZsXolk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rNgyxCQ/";
 	dkim-atps=neutral
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com
- [74.125.224.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF1A310F40E
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:42:53 +0000 (UTC)
-Received: by mail-yx2-f40.google.com with SMTP id
- 956f58d0204a3-66e4aa8d881so5667187d50.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:42:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790775772; cv=none;
- d=google.com; s=arc-20260327;
- b=NaGHC6wnZ0X7qociUfTRZ7oQecWgbZ7YKr+xTzkT61dqv5AchFwek06QshXme/2ieQ
- cszgU8m8Wm0Mo02a7wXmBhyNA7lYn6MASJNcFrbGKy5uEWmzpTa2toCb1h5u7YyhuuFJ
- /QJLtiG03MlaiUSZuH2fNa7BM07Y3bI/FPriC9B+BC0SkAS9tBthjwgGsS/9V0WBhrnG
- i+KsymL9joJItMvImPdmMfruHSV1vtiBbxHIsyInlQDkh48uHyEi6fRAWdfD0xo+1+ma
- aFfXjbG0iTdUgbS5ceUQy9VibW6L0KQ8Kx2ed8mhI3kDyJrFwsBp0O87Yf0WiLDiwBQy
- IGlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=DhCRdy2JCa2oSL6X3aWOWI051OiTlXnSfcThJ9UZLT0=;
- fh=0Z8ArQYdmNGxmRaZ8MVihgPJioqhPQnqX6JrWdXdKDs=;
- b=mB/86/C8IAojcGvLIOB1hoEBwXy1t31RUcIqr5dCijj32UUX3uUd310+KKX50XMMHa
- Yhu+XzpDMBGL3Y1CSCv6huYgOqGYI/4PQiFZJXJhnGs6060l7m/fG/SQjb9RyNNIv3mB
- iJu//vbkyDLWB0VoqQ/Y6ruiTNZhD87Na+/ZiMr0ZfeY/EoRDm4pfGu9mPja0d/p3VZV
- g/gt2zLx1y/pOtm+aK42PDmC/LoEptI6KbCToKu9gQjpRJWnzGRXhDtSrVi5VcHZQcFC
- dtMhLFCApCj1VKwNKYVpf/gRD9IZj0ZwGmdHvbd1Bp29TCuVmz7FdFmkzRN7yZXoBr7+
- t3dw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790775772; x=1791380572; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=DhCRdy2JCa2oSL6X3aWOWI051OiTlXnSfcThJ9UZLT0=;
- b=ChZsXolkmZ/DMqggF2jaSejG9X7LZXIVsWCuMX9Kl7yjJe7X7blKAbXV9V9fUZEYSB
- XJIyqmn01fqZsoYAv+7ykg6evNzlpNbqeWIV1sfyW3TIT2dEcAhvs2kuduOekIvqyDhk
- ML3onsvA2bo1+9rzNpmMFJ3Rv+aSoaKPB4wFIi3BTpLLonPvkgZGxp+RYJtu3EQ//MeQ
- P0bORkD1mq0vjdgMXuZ3jgHdAssGWIhdLe1+vsjz0ZQHV8H+b6s1rKJkr/QHtGABYvBc
- h7e2ktk/nFiOg1UkInOHSHh1EqDYAFIbhHSpowAvcF3dkr7U0/NK+Z9H+cEXTCMJJlOy
- /WKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790775772; x=1791380572;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=DhCRdy2JCa2oSL6X3aWOWI051OiTlXnSfcThJ9UZLT0=;
- b=OQuEzAGzNUEy5hgSXohtaJeLcs13nfJP5Nh331h2RG3Ff2c7uBl4k8J3u0deh74WKh
- GXRac3//+0JRSwwgpmnP/Vv/Nryaa1PVEzYKq4eyryyEiIVq6fXtD+/ne3o87nulO4CH
- 8vWZVkp/60Wye1Uc34q0MjlDDlhvlXwVyuBY9CAjmE6V19/T25P8aSEKfPYzrjr5HMsr
- OgoIC48H4O0kfphJWim7IN1IfDM4ihOeivE5Pa4PZeMsDSA5aHbOpMpmAcb6ng+TGSzM
- xWIS7471DXuxiw+Urjhh/3M0J4nhNBJjfwGXmwYle1I8bmhhyBFzK+SmHeqVCOTNYvqb
- 1nww==
-X-Forwarded-Encrypted: i=1;
- AKwUvByiVxUUUfpGr2hDeONig/aoHqOmAIy953EVPv1g8f/eSF+ey4e1Exqf5+pQEimo1afZhT9LXUXOwTg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKzGCM1/d2Zlsq/gjRlrW9F9fRhGYZYdsP/ka+Az1ZfhmI5OhTO
- KBMqFWFcixnrjCm/tMG8j39zKRsGaSX3xnijYBKFOuTbaOkSiok3MWQLUcLeqi2ax8toUSJbDC3
- +J4I1Sq7TzR/QNIyZW+poIfbzXLHhlH8cCv7dDy4kwA==
-X-Gm-Gg: AYBFou3bDCOCFKYJ5/6/TKGlOlIzzyh3k9PCj+1YXCitcyOPtxZVSUXvOZfBFMU/Jof
- 7hsy8oWC7hNQpl/J9Jb3NSd9vVE7ri089VT2mEBmFgAPTuTJ8bP460sZ91Gxku12DoucstthHXg
- 4HmPeM8moqhvA9sT/0Hz6WICP0CJ5uA8nI/oPg52XZ706hExjEy3LnNPEFeJ542odjYQOh+mibZ
- dBwh/7HsnCAPJxlWmAcdVmO6lBnuSBA1GoekQpBAa1bBoW2fxMQjArillCT3kyF7gcga9vCY7y0
- uQo0KZbHib8nv/It5xaFWXbZ0FS/8y2ryQCrvZUJjoK7S0hgh6Bvlstd8QA4/Rlk7ee3PiCSQrk
- =
-X-Received: by 2002:a05:690e:4888:20b0:671:464a:46e7 with SMTP id
- 956f58d0204a3-676834802cfmr493380d50.28.1790775772498; Wed, 30 Sep 2026
- 06:42:52 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013021.outbound.protection.outlook.com
+ [40.93.201.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD1C10F3EF
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:45:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VamHs5yW8z53WNdBIV6AFlsihBz9RvRfayuUEzZEKa9j5v9ekGFLW2MwKolXJqc2E4imdWLJbQ1naF9KBtgLRW1vQpAnD6FbFyuMPNOQNmuIzNz8mwAK+Y6z7YLth6xjy6JTWcsJZKJGXCzV5oaFGsdtKKkZZ47T5repSsf4d9xBKTXUc6fYUa6BhX1BtxfwI/31FcvSJcjQctUSWieEBq1ER1X2jMupJE9qw515F3WWDIrhab3k+uYYE9bUz3/2b+fXNp5zmWoprHYy+mGFW0/mVHrBfbgHIK7R3YlcwNeBAgfhUc5jyUaqN6RDnmeHAc8bxaM5NCMmrg/WP2Oqog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cEcbgzCFp2LWuFu0gDnoBdXNAgiMz3UvE8B3Esk6PB0=;
+ b=KYDIFSY3YMdlwzHmlCUGZviHrXwm41KKo6Clrae9BCDUGXSa6CTt0RxwMWR/oZvddAdg6lElyzLgLlvkCYRdyCxKlb7PLZEr/4B3P3pe1L+L9yn/pr+28psMmjmj32AqnIagjWQYdw4HXFzO6oKmxvOA5V2AWa22GEmjuP56eFCJW1bOTkt6RRxZ7L/gZ0ieqNOTZz3wvbuy8sHFTOLDn66BeL1RLR/mmNrg7VJbw2zeNTNcyONKufRcRT3lz9wVKzc73QSH7453lrWbSPoZ5Niazlf5ySFJx7VPuDVCgFedgBFtkqpRQOyG56xUgCz6q6L1CkPNEYJbd4w+IMp1CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cEcbgzCFp2LWuFu0gDnoBdXNAgiMz3UvE8B3Esk6PB0=;
+ b=rNgyxCQ/R6syDf00XWkgoZCrH/y7U+GBYphvC+ydaSX7++attO6XG5PHbGwzSKHxIMQ0MZClcZSEWmV0CrMMxgwjORniGkr+GARol958e5KtA1aR1+xRu22JHMuv/tW/jcudAoMzOr9pQHP1OXDIutde4Rxa8Zxyw+TqMF5VcCY=
+Received: from SJ0PR05CA0209.namprd05.prod.outlook.com (2603:10b6:a03:330::34)
+ by DS7PR12MB8274.namprd12.prod.outlook.com (2603:10b6:8:da::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 13:45:14 +0000
+Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
+ (2603:10b6:a03:330:cafe::af) by SJ0PR05CA0209.outlook.office365.com
+ (2603:10b6:a03:330::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Wed,
+ 30 Sep 2026 13:45:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 13:45:13 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 08:45:10 -0500
+Received: from [10.254.92.204] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 30 Sep 2026 08:45:08 -0500
+Message-ID: <2c7f90d9-1f47-4406-bc7c-828ac14fe6d6@amd.com>
+Date: Wed, 30 Sep 2026 09:45:07 -0400
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-2-c042266b9eeb@linaro.org>
- <5r6xd4iiwnv2v5ji7xeddihlqstmtajvw5ixmntlwxxmcvo7y6@zueqflvz3lr5>
-In-Reply-To: <5r6xd4iiwnv2v5ji7xeddihlqstmtajvw5ixmntlwxxmcvo7y6@zueqflvz3lr5>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 30 Sep 2026 21:42:41 +0800
-X-Gm-Features: AclHuK8pN-tKG1Z4oDPKCBz_In7b0hfp5ejCHcZi1g56pqmcGmYpl4iWM_GNAmM
-Message-ID: <CABymUCP5Gs5Zx9C39RHj+1_mU7aLou9sfgZO=7yS=+fVPWHeLg@mail.gmail.com>
-Subject: Re: [PATCH v5 2/6] drm/msm/dsi: support DSC configurations with
- slice_per_pkt > 1
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jonathan Marek <jonathan@marek.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/atomic-helper: Skip redundant disabled plane commits
+To: James Lin <PingLei.Lin@amd.com>, <dri-devel@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
+ <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Chenyu Chen <Chen-Yu.Chen@amd.com>
+References: <20260921143049.46985-1-PingLei.Lin@amd.com>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20260921143049.46985-1-PingLei.Lin@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|DS7PR12MB8274:EE_
+X-MS-Office365-Filtering-Correlation-Id: e74478c7-a0b0-4a70-5a34-08df1ef90db2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|42112799006|23010399003|36860700016|82310400026|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: WCBGISrsqKeNldwxsCKnyyR6OLNRD2wHfNG0c+b5yOmlHTv6pwG/i6xHzIlcGluhWFETDr1Wz55nF58W0taEKhBlEU6zSKFTm1u+tyRCVQH1W6SOEMjYbaq4A2BIKQdUtoOwMfTWJAc+EoPjBFpX3lOrUxn4auhBGUs/k6zBT/P3v9sxWJfPUiyCNuS+GgcCQCf3TNgLt5iKloAuKcGfUDnFI4JfSedE/mHHKyAjnyscxtXMiVHvWfPCpjyVOzk8oJ8NtBOxNVyhZCzveJGeGLWFWvqIiRo+2fJWXYHJC4kP7BsW58/Nk5MpPExQ0WP+E8JYQ/cQ5zwvSjwitAYub+hyWYPgr38k8BUd9rgnXjtViWX80KB4F5dnabTBYziKWbRSv6cKaXLxldt0bhnlfLhc70yDC16CweT1ug0zg4PNuRXD+AWb4LLYizRo7WnHXbWI1n3fB6CCLVo17bpo0QZ5dE5O+jBgwxIPA2dRlKAN39AiELo/vA7Jx3y8ED7btwU8miqJxjpqJtOGlHkT5xrs8ew7UUZfXT+4ZS9o6E07sRiXyDCiNqYN35rUVechoBZYXAxJj24Xry3pmNzluXjMVkxEuIMTdZj63FvASjNzUOjK8qzPwRGSnOvvY2AGjFQN+zh/KS5v1wGDaNsk1M9UsASaD67dXIUDks4r1UsQPK/3GUnO2knwujMz/3D0QAPRXtqSeSJezwpVXvv2yg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(42112799006)(23010399003)(36860700016)(82310400026)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jzeyPe4DxJ0KKJPhlvhb2kIOS6/CmcW7ypLSkaSSKNITjyZ/Y0bTuP9FxWwlmnQW5NDJvRqsSfuiXivg9u8uc7i5uMQG3brNp1imU4eCfoN1E/Y+BdAWywQG9EZ9s+6LIWvzVx+zmVyscplUx8VxfZKfr1cne51zyhISNiAu85ELdK930Cj91xFRGPJUgzqPYscDZyA7js6M/Rxt3892hWEAOxQNXCO+a+w4/dbpE4fn3u6OFnqM6/bGlAMwUbm7VGluTGPQ4PJqxhkXRrkfBzhAbV56DhxGlVJMEr8+LsIPwhYxRthDe8Q7jGkhnVlI+pHdDA1g8aVzPmxJr97QUpw/VhARwKcxyOG0OZOBjoCv8SxkZmmQpg8zge8nz7ClbT4M45sx2CF7Z2Xau6Cu7Rn7roxbVVkzQ+S6NK9WJD2IRZJwjMeSCqwRHXYpKZvt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 13:45:13.4729 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e74478c7-a0b0-4a70-5a34-08df1ef90db2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8274
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,92 +118,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-9=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:03=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, Jul 27, 2026 at 04:08:41PM +0800, Jun Nie wrote:
-> > Some panels require multiple slice to be sent in a single DSC packet. A=
-nd
-> > this feature is a must for specific panels, such as Sharp ls026b3sa06. =
-Add
-> > a dsc_slice_per_pkt member into struct drm_dsc_config and support the
-> > feature in msm mdss driver.
-> >
-> > Co-developed-by: Jonathan Marek <jonathan@marek.ca>
-> > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 27 ++++++++++++---------------
-> >  include/drm/display/drm_dsc.h      |  7 +++++++
-> >  2 files changed, 19 insertions(+), 15 deletions(-)
-> >
-> > @@ -1719,8 +1709,14 @@ static int dsi_host_attach(struct mipi_dsi_host =
-*host,
-> >       msm_host->lanes =3D dsi->lanes;
-> >       msm_host->format =3D dsi->format;
-> >       msm_host->mode_flags =3D dsi->mode_flags;
-> > -     if (dsi->dsc)
-> > +     if (dsi->dsc) {
-> >               msm_host->dsc =3D dsi->dsc;
-> > +             /* for backwards compatibility, assume 1 if not set */
-> > +             msm_host->dsc_slice_per_pkt =3D dsi->dsc->dsc_slice_per_p=
-kt ?: 1;
-> > +     } else {
-> > +             msm_host->dsc =3D NULL;
-> > +             msm_host->dsc_slice_per_pkt =3D 0;
-> > +     }
->
-> Why do you need the else branch? Isn't it already NULL / 0 by default?
 
-AI bot review comments reminding a case that panel device may be switched
-to another panel. Not sure whether it is possible in real world. Just add t=
-his
-for safe.
->
-> >
-> >       if (msm_host->format =3D=3D MIPI_DSI_FMT_RGB101010) {
-> >               if (!msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR=
-_6G,
-> > @@ -1757,6 +1753,7 @@ static int dsi_host_detach(struct mipi_dsi_host *=
-host,
-> >       struct msm_dsi_host *msm_host =3D to_msm_dsi_host(host);
-> >
-> >       dsi_dev_detach(msm_host->pdev);
-> > +     msm_host->dsc =3D NULL;
->
-> If you are fixing something, it should come as a separate commit.
 
-The same case as above.
->
-> >
-> >       DBG("id=3D%d", msm_host->id);
-> >
-> > diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_ds=
-c.h
-> > index bbbe7438473d3..c522ab3d71853 100644
-> > --- a/include/drm/display/drm_dsc.h
-> > +++ b/include/drm/display/drm_dsc.h
-> > @@ -267,6 +267,13 @@ struct drm_dsc_config {
-> >        * Offset adjustment for second line in Native 4:2:0 mode
-> >        */
-> >       u16 second_line_offset_adj;
-> > +
-> > +     /**
-> > +      * @dsc_slice_per_pkt:
-> > +      * Number of DSC slices to be sent in a single packet. This is no=
-t
-> > +      * part of DSC standard, and only used in some DSI panels so far.
-> > +      */
-> > +     unsigned int dsc_slice_per_pkt;
->
-> If it's not a part of the standard, I think, it should not be a part of
-> drm_dsc_config. In the end, drm_dsc_config is also being used by other
-> parties, e.g. DP or HDMI. A year ago I saw a version of this patch,
-> having this field in the struct mipi_dsi_device. I think it's a more
-> correct place.
+On 2026-09-21 10:30, James Lin wrote:
+> Return early when the plane has neither a CRTC nor a
+> framebuffer to avoid redundant disabled plane commits.
+> 
+> Signed-off-by: James Lin <PingLei.Lin@amd.com>
 
-I will move to struct mipi_dsi_device in next version.
->
-> --
-> With best wishes
-> Dmitry
+Makes sense to me, __drm_atomic_helper_disable_plane clears CRTC and FB so this can avoid redundant calls.
+
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 51f39edc31ed..30cc9c07f455 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -3470,6 +3470,11 @@ int drm_atomic_helper_disable_plane(struct drm_plane *plane,
+>  		goto fail;
+>  	}
+>  
+> +	if (!plane_state->crtc && !plane_state->fb) {
+> +		ret = 0;
+> +		goto fail;
+> +	}
+> +
+>  	if (plane_state->crtc && plane_state->crtc->cursor == plane)
+>  		plane_state->state->legacy_cursor_update = true;
+>  
+
