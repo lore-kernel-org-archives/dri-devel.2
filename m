@@ -4,108 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38F91CA5FBA
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:10:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95430CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 11:23:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91EAB10E5B2;
-	Wed, 30 Sep 2026 11:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B9C10F2F5;
+	Wed, 30 Sep 2026 11:23:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hYu2CWOE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n6/MbUGl";
 	dkim-atps=neutral
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
- [74.125.229.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A8210E5B2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:10:28 +0000 (UTC)
-Received: by mail-dy2-f43.google.com with SMTP id
- 5a478bee46e88-34b1743e9c7so853260eec.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 04:10:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790766627; cv=none;
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com
+ [74.125.229.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD7010F2F5
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:23:03 +0000 (UTC)
+Received: by mail-dy2-f41.google.com with SMTP id
+ 5a478bee46e88-343bdca7590so209179eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 04:23:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790767382; cv=none;
  d=google.com; s=arc-20260327;
- b=MyP8mxMC/F+sfmShCf6VQJEToCWV4Ncs7mhAHYxDql5SXVcni76KMIsohrAzuC51Zr
- mGgFahjIOMTUd2RLjFFBfVm3EBtsx/tf3cKOuU0Ll9De+4PNR7NvyJy1sfAqZGWcqjxp
- sKK80pKuRVOmEuB3IgE/e2Yz0W2GjL7ZpgUVQIkO+NBTzEQZl1fbMt6OtfqukIsYiFsR
- PR8l9zVwwOOIVa9yZmcN/BPPIDDrplvzR8aH6t52c0/g74MoGRHTVXhfuSVv8a9drWWP
- 9qhfzcAw8nxr6Lc039QNf9BMJdDW7miStMlwlZKSE6rrj3F1kpEi4XWElvwMIPzA5jho
- RZQw==
+ b=o4L8GOO49cT+64b3oUP5arvxB6zFEq1ueDInl38rDMf/6wVba00YiEbF8sfuPOsJct
+ CWlo80xdxDx3clmzsJ9QD87OCvio6fyCMT8NoWgIKGtHoXqtehkv1AQzHwaSXYjo5gaQ
+ NYsG9QXXXsyoD00hPshwqCy2Wi0bbiQEAYx39x3Ayq27m6RSDJlSVoGTEoUy7nhQck5Z
+ 7S3fDhfrsEOeVhgRHlve/iWaLl0krDVshsrjoTI+io6kt45V7mbkrs5apZDimmbJbR31
+ 2WznnJUw0uM9Bg4WApvfrytKeUEpt3gMnsLeNmtSjTLy0ZlN5Yu2KZ0/AGIJaAOKXCqN
+ gyiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
- fh=t7z7A7eeuVSaT2uaguvRcc2/2EyOuuED9z+okF7qSno=;
- b=BNA6kOwsrGSyQeOqs+aJsI5dKoTK1LH5V6PN8ljEfda/cqSnETTEYFH0TipRjBxvwI
- QPYWJXWyHQx4LD7dUINttnXD6EXp0/FuKBhBj2IYY2ONlta+c0XAb6/R2jx9fR4xeBcq
- 4d3o3Uxcs5JtK/+/NI9Bed7RbFXYoq5K6tj0+9G7gPhHLqC5ihqzo+e+L2miGhQR4axm
- Z1AeCJCCFYX66ASHg9GgKDiqSfl5CTSOsHtPocU7VSQ5EsrZ08H1O1JZVE/bIt3W/A6d
- 6XOU8fjoLOF7nY5pGtaFghNMCG2iNFdBPbBUPY+tJvtBxwCOj2sR0VbdMPFutVkDt/D4
- ECcw==; darn=lists.freedesktop.org
+ bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
+ fh=uq1lP4Xwf3I1+/w8F0b4m7iWFVPFF1gMgPK1L2xmuxo=;
+ b=SlKHkkWozd720W4XqvkmGpV7aKw8DYTAMxpqrC1coIRnovayF6xBesrFBF2Pt+aUMG
+ GbQTEhr9Vhpx7PeR+Mk0b6mbxmSx4rodeOwAzgPu4cnjC3peC261FF9lHDxdX5ABADaR
+ RGFSXt098+83vrNG2jJjDjkjr+q1KMzptAqugLG/VNdaZbIfPV3JwvZ6jVNbOX81b9Az
+ 0XdWRLuxeSTNwlZDCuvIux7zQq0pEaXEVqSwZOKrQupdgzGqJgm1791L7+sRRswa3/E2
+ GztsPmNUyv97qOd6ST9tC81KaGlZgK2qL9Dy9e7VO5eqWX6oLkMoL+5SOU0pwmhmRyiY
+ FHmQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790766627; x=1791371427; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790767382; x=1791372182; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
- b=hYu2CWOEAANRRZfrnqwOc//AMmMfIF1Sg1ljes0eK9JYyWiM2YnNb1V3oGqcQCV3SC
- pcVJgowLTTW4/ZAJqOQkLL+0jvT+egMSK0mLwZ2iFcXt5yE+YAJ+ztMj51EpedcHMYsO
- IGU0AvYZTkbFJVHDyRVhrlEaPBUcYswucPXqATviKPmbY2pmkSxQ+OCH9GGjXnh1Guzb
- ls52vm85mGsudV+sqeHyBalSXuISw3gmE3rDLra2LEdV7YaSnOS4sLa7maRn7f4sgHIl
- 40usqVObf9szapHIZyYNaQtl/FRfNvt8RfkYpnaQI8BeeunJW1JjGlSAwbikj3SSseQ+
- K5tw==
+ bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
+ b=n6/MbUGllnUq80rjvJcuBxqB/aru7KCJq18y1TJ5cMzv0PanZl5WJxBAgew2Qm4zxm
+ i9TTy0KV7xgT2J8RmmQd1AC4XlatGayeiaD0k9ykDFjQZX2li3mnkLdNPC3U+II0o53R
+ 7cNvqDXO4//f8MGylOoc+FleNc0YbO5OlEIXbUFKA4VfO3i4YLO16LOj5M87qMHDQJX0
+ UO8s7Kk8x47Bgqy+UUS2BJUxiijaXoj6bFt8UR4i9oM6h3Pchc+gW2bmiJfB4j84ax7t
+ oGERHb8pFXPVfxMGHMwnBF53+zVIAmRWzt8xUj7cjSOOlH2DJ8Ch8gPxSgTPFcbk/J2P
+ ZZyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790766627; x=1791371427;
+ d=1e100.net; s=20260707; t=1790767382; x=1791372182;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=OEhQm76+qWHV8H86aGRhLc+e8lMqxBXJwP8RftuJrxE=;
- b=1UjmJ3kvjh0thFYA4zEecAfQ4IXdlPFH2XbTc9dQzG1ofM1EdNC/+UgCXVOsgrlDhe
- 7j99zx0FmeR4/VaQ1hoU1zrv9HJAkzGl+gF34iOrMgDcPN0+nJ+bpYMHy/lL3nhfqlhT
- e/EIvPDfLjloOEptvQq/4l2xiT+OyXbrIS+ajFb7FFzFpHfgfy5FdfBS6Z5bUihLQLrg
- Rz/KBruAEwLZSrpW2GscqHNuqFWlq7FWBHjevvvBpNDaudSQ0hLK6eULRsaSF35Zn6co
- XoCfSQBzKwEm9dMl38SWkG8RHtNXgEhLT5HaGl6k7OjQSUVKC7SdYTtIsUoahLA9GetK
- jk1A==
+ bh=Q967mc0EqT+NcQxMSEBQMD45Gc4hGwPZY4Sm4dYQidk=;
+ b=wAdjoXM5fN17xAYPVJ/PCas/4YCdm3D+HV40Cp1sqOPjYxMrq/AJvbtUIM4UDnvVIf
+ cht2N/Qln6O7QnpI4/d2raDJk+4AlSwm+mztw95Go+dZNBwl/2DQ3+GZV+s6qhLHCIxh
+ k+kq7UXK2h33iHyH7v+R9EryB216W230KaRO+JGn6pKffolLxhJzC9lJ/um23uHrn7kP
+ 1DabTov+hZT8yP0ktMqZq6qUZQbAa8s2Dve1NeZhjC2NUqzYa6h21ilU0Z1HD4Gc4b93
+ gji8THKh4/K11SocIEUSSxAF4ERtjmFuE5WUG6UxAu3u+6kO7GpTSQMxZ0WkZodiLS8G
+ mJ4Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxjhGVKBBq/ZR0/xkTTRXK4n9hHxNH79gHHDll/9rMMx8vbD759aniSizKfo25VLvZ+k+BvcG2gaHI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL3VbOgOQp2HE0ZuWLIJFRx9/xdpQ4Ku9lNkoEL9xsspxfxKkNf
- PIQGy9GyyiKzkI9nlqxrcbQjh1zDnSTJdXKGfP/B1Y2bhvSxUIEa/+RRRqEBx/2lRCmwH8E0fTf
- n5uG8T0BlO1HE6QouvTljVnzCUC/1DH4=
-X-Gm-Gg: AYBFou0zLLh+m130o/HuO0jqrENXwatTk+KAht1ZMTsyf3gPDWoO3ZfcN2ew2yl+NOs
- mCsHCLP2TmIzijz8BL5prtdXgXarx0xiIx6RA6V8mIiBYtDH55lwzQWFsBatbtpUwNDNve3JzXQ
- gZIha08Wuw8R2HVJTu2pvoUO9yeSg2FOmRynqOdJbWlkfBQmDuAsE2IjhVksW0Vk1WOJnNNsanJ
- bwMdy7xcCg1G9a+IjFbrHk4qLHX4037cXfpWimUI++7xJ2auAkiX1u8I0N7n06rBYOfcvSSYjEq
- T7Dl/8vfhgUof49QY2YKXVO3QEnY/T0NbH7+KVEPRzDT+QkFnboJyOdMZLOMpRjY3uQ6MXr/jvV
- 6xhezPS5A5Bwk
-X-Received: by 2002:a05:693c:66ce:10b0:34b:731a:7325 with SMTP id
- 5a478bee46e88-34cdcbb4344mr1377981eec.29.1790766627375; Wed, 30 Sep 2026
- 04:10:27 -0700 (PDT)
+ AKwUvBz+AC5vye6F3zRtoBRZnhGR46jZlG65nbQgM+5EY7G/E29zPij2cnqZU6SFA4j+OzGq7lIbBu8HXcY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKeDJXayfciEOUeDP9Z6cV6JnQyny0CgnqTVUlXPB2MYSC7FkG+
+ sd2lGV8p8RSIOQJaO79cVi/WOD+23CuJZTCNgvfXv8qonh1k/U8kzxQ0Y4ETEGn+8p2QvNpm6Nf
+ OEJuFPFxUabN9vm25crkwWkO7hmoU1tU=
+X-Gm-Gg: AYBFou2hEAS44C5Kbo1pT1sUsGIKEIt2ZbKbqHqYamuqmksAMCSijp24VMqKc++1UeO
+ SUha2khlaUtZ1Iv5IkPJzJXkJFw5jaIbZd6nK6/UXJvmv22NJLehRN79TvURqKQkR+QGCJUGbcy
+ Td6KLmahVV3P7CFjqD7OJAnVUh3YXTVP0q7/JSH8ANEuXzhXn2z3CferbMu+MfvrhGPxJQzudnB
+ uEHadye+yemJUylh+pD3uKkju6PFtkbV3cns0fJSxgFT1Ndulnq4F4ib4okBenR6zfN4zYUPiFB
+ zOiu7a4YogPloJ4GykOv/GhHTOO4Wm+KVOEj5hbuzBDS+4VWhbduINFuWDbtFkwt4QRrgshFK2E
+ 4KGMGh0W9V3xge0ekyENP5umyYMcY2fub8G4X9D1CvJVGXtsD7azuCFetRaefpdWRPWZIb8PUSv
+ +ZB8T42TIQ0ZKAVPI5B6ufF51cdoNnk5R6ESrJVpiR0K7RD85bJgk=
+X-Received: by 2002:a05:693c:8085:b0:34c:f181:85e4 with SMTP id
+ 5a478bee46e88-34cf1818b1fmr2066899eec.1.1790767382465; Wed, 30 Sep 2026
+ 04:23:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
- <arzMF0wjcF_SVxpE@orome>
- <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
- <arzlR8mCg9d_z62L@orome>
- <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
- <arzpluDc-Ib7q-K7@orome>
-In-Reply-To: <arzpluDc-Ib7q-K7@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 14:10:15 +0300
-X-Gm-Features: AclHuK-5MVKqwWOaWtZXWbiTTg2vtWkQnodr3EENyxfP5JkvZ2csH4Wtodn2Zmg
-Message-ID: <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
+ <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
+ <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
+In-Reply-To: <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 13:22:49 +0200
+X-Gm-Features: AclHuK_tZvjMuy0Rny6WfvK_GwQlWAvr20_A4Fja8oGIX-etyz8meHHBtoM6IgM
+Message-ID: <CANiq72n5jjW8U9VkYJZYFpL9Z5rPe=nRfs3DqmUdfxCW39oMgQ@mail.gmail.com>
+Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+ Burak Emir <burak.emir@gmail.com>, Yury Norov <yury.norov@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -123,135 +126,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+On Wed, Sep 30, 2026 at 1:04=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
 >
-> On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
-> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:34 =
-Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
-> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11=
-:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrote:
-> > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided =
-by
-> > > > > > Tegra20/30 SoCs display controller.
-> > > > > >
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > ---
-> > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++=
-++++++++
-> > > > > >  1 file changed, 138 insertions(+)
-> > > > > >  create mode 100644 Documentation/devicetree/bindings/display/t=
-egra/nvidia,tegra-8bit-cpu.yaml
-> > > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nv=
-idia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/=
-nvidia,tegra-8bit-cpu.yaml
-> > > > > > new file mode 100644
-> > > > > > index 0000000000000..f0dab608b2936
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,te=
-gra-8bit-cpu.yaml
-> > > > > > @@ -0,0 +1,138 @@
-> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-=
-8bit-cpu.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > +
-> > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > > > > +
-> > > > > > +maintainers:
-> > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > +
-> > > > > > +description: The display controller in Tegra20/30 SoCs feature=
-s an
-> > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI Type=
- B
-> > > > > > +  protocol and is referred to as '8-bit CPU'. Each display con=
-troller
-> > > > > > +  provides two such interfaces, which can be used to send MIPI=
- DCS
-> > > > > > +  commands to initialize and control the panel while image dat=
-a is
-> > > > > > +  transmitted via 16/18/24-line RGB.
-> > > > > > +
-> > > > > > +properties:
-> > > > > > +  compatible:
-> > > > > > +    const: nvidia,tegra-8bit-cpu
-> > > > >
-> > > > > The description says that this is a feature of the display contro=
-ller,
-> > > > > so adding a new binding and compatible string for this is not the=
- right
-> > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" already=
-, just
-> > > > > need to extend that with whatever is new.
-> > > > >
-> > > >
-> > > > How would you model it? I have tried to model 8bit-cpu as a bridge,=
- similar
-> > > > to how DSI bridges are modeled. This reflects interface used to lin=
-k RGB and
-> > > > panel, without inflating existing DC binding. If you have any ideas=
- in modelling
-> > > > this, I am open to any suggestions.
-> > >
-> > > My suggestion is to integrate this into the existing "rgb" node, or, =
-if
-> >
-> > Not an option since it is not clean RGB and there will be no way to
-> > distinguish RGB from 8bit-CPU.
-> >
-> > > that becomes too convoluted, a separate "lcd" node (or "dbi", whateve=
-r).
-> >
-> > This is fine by me but nesting nodes without compatible feels weird. Oh=
- well.
-> >
-> > dc {
-> >   compatible =3D "...";
-> >   rgb {
-> >     dbi {
-> >       ...
-> >     };
-> >   };
-> > };
+> I am considering picking the series through DRM, but it also has a
+> dependency on the `cv!` macro [1].
 >
-> That's one option, but there's also many other ways you could
-> differentiate between RGB and DBI. Could be a simple "nvidia,interface"
-> property in the "rgb" node (that defaults to RGB if absent). It could
-> also be a node that is a sibling to "rgb" (rather than a child). Or the
-> child could work, too.
+> Is this ok if we take the patch introducing `cv!` through DRM as well?
 >
-> Ultimately we're still describing aspects of the display controller here
-> since this is all registers within the display controller's MMIO region.
-> Nested nodes are purely for adding some logical structure for the
-> description that makes sense.
->
+> [1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.com/
 
-From my understanding data is sent basically as RGB, at least RGB
-configuration is still used in downstream. Panel commands are sent via
-DBI
+I asked Gary yesterday if there was any more recent discussion on the
+tag thing from v3. Does anyone want to do some cleanups this cycle
+through rust-next with `cv!`?
 
-dc {
-   compatible =3D "...";
-
-   rgb {
-    port...
-   };
-
-   dbi {
-      ...
-   };
-};
-
-This would work nicely if DBI is modeled using bridge framework. I
-would strongly insist on keeping it as a stand-alone configuration
-separated from RGB and DC.
-
-> Thierry
+Cheers,
+Miguel
