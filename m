@@ -4,79 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 178A2CA5FAC
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21CBCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7049910E5D4;
-	Wed, 30 Sep 2026 12:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBAB10F3D0;
+	Wed, 30 Sep 2026 12:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FLvkdCHG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F2x4rqgr";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34A1F10E5D4
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:56:36 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-49ffe817151so22665175e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 05:56:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790772994; x=1791377794; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=VY+X5tJHlWDJqPcaN2ImTpGqbW514tD+lvMI3ALHW7g=;
- b=FLvkdCHGWftjLSm7TbU5MUPuv4jwCp/neYi6E8otH1BGX9Y28HxOi1ZZAYLYCpNW0V
- lbf1nIFxw2H9G4RUPv6E75cHIfMtT67RHivJlW7ac44dcKMYqwcL/ngbPuCKSJ66H+7+
- qXjIrSbr7hidMTgAjKqzFW62jLjT/T5ZDabi9g22ASWYxINlRQjdvTX77tjSMxSyzuMU
- Xmj/pZg8VxarClMglroNejF0VR50i2p18BUTmfix6jdm5bqHkA/rb5Lj9uQl5pehySCU
- eViETKFnKAbvMranyTA6j1GOAOfyDYPch+biCw5LamnBGSUVf/BLD7MHUS8zhqqGd54x
- tqCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790772994; x=1791377794;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=VY+X5tJHlWDJqPcaN2ImTpGqbW514tD+lvMI3ALHW7g=;
- b=WMTL0mHA9f5rtURftAMFGh5iGuyfUR3MPoidCrdn6iHNICNMP8DliW+sfQxshtvdnE
- tt7F81mWdhFdUem9JihXp1KqXoUXZ1uHIgF8a4HQfTGLOKGO7MA5FJEAwwttFqNyg7LB
- W06XXUUO8Q/3y4sFE9EvS+BCRJK1R3jjm3rjwmz/6TGhjI8dobzEL3qk9d+2vTNM/wH3
- 85KfauITGGAVNRTIF0RERpyf74KUGwfh4QqtjmsKdPkFrIAhThu6i7kC0plFlD1BoMmb
- 52XUFhheKqbNl04XCJzkWo22iSCAd2yxEpsb9LsIFzZtUPwMQIotvIMR3u5va5piFULH
- IhhA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzZYEzuHuV2HQFuZMFL0JBNpgReut74ZR964+BHx7tp8IwLdLEOWEKR3Iwb5wqF60RgjjtShXpJjY8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nfg+w9Mgfr6tlMsWeexebv3aYxcjUFbjjZIDrnGA3ov6vGBcXb
- T/TLiqyO3Nvw5vLJDcvrl87ac1MJsQ0yze+6MYymRSksdpnveN61+yUr
-X-Gm-Gg: AYBFou1Q/dcZfRnebNnCy+IKwYh2FNLFsXFiUXX9AZ62Lip/rqOFIGKdDos6lPtaRrB
- OH8KuMPJtZKoS0IlnLRtd71WXokJOq4pR8gZInObEF0KabwaewmZwZcoVzls858nR/clJaIvUia
- 4drOez/O+6HIxzqfkRABdojk19UjtnOIXFSWtXPyS0sck3N3a9GHcHfiGU/3xyWQws0cLxdoHvc
- EnA+n+hqBCXARi/XxOaNoHf2JYVvi56afCF6GvxcvQtcFaAlMO6OvgrU0UVLrsF6RNemOI8EZbH
- JhhAmS3uHqVQN+oYAVeLz7+9OD1glGni3UjMhVvDmgT7P1OGLHdGoBv/vpyxyl79u9sp0wmqmqP
- bQXiwKqqshGVian6OIWhHxw9if+itMCuIrGmG5xce68a6552Gqqk6xrn+dx3LUCCEepjqyKPcGN
- 8qHNNeLCEr3X3SvkxpfCyHCtbQxvmLpc0Okb6IZemj+yHedgxVwHVlQbmMLg/ecY5YZM7UlGreM
- 9r22a+qFL7nSw==
-X-Received: by 2002:a05:600c:800e:b0:49f:ff6b:bc82 with SMTP id
- 5b1f17b1804b1-4a01b00d9a1mr22489405e9.20.1790772994331; 
- Wed, 30 Sep 2026 05:56:34 -0700 (PDT)
-Received: from toolbox.. ([87.200.95.144]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a01771b0e8sm62084555e9.12.2026.09.30.05.56.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 05:56:33 -0700 (PDT)
-From: Christian Hewitt <christianshewitt@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/panfrost: reset the Amlogic GXM GPU on runtime resume
-Date: Wed, 30 Sep 2026 12:56:29 +0000
-Message-ID: <20260930125629.2691968-1-christianshewitt@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC38210F3AB
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:57:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 48D3943D6C;
+ Wed, 30 Sep 2026 12:57:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011DB1F000FF;
+ Wed, 30 Sep 2026 12:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790773060;
+ bh=Dg10WxJnrnZlxPq6/Eyc+g3b13lNM4i3pQCpDYfopVA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=F2x4rqgrrNTNCmcCfIdgFU1W6XxxF+r8omzeHbILURWmRPDIwGMXEwLOvzdjmej7A
+ xZ+SxP4j87K4b9D19R8H/bWPyFBP8C42SPxcm5OC3GfIOu2ix6W09/5psLANbPpBij
+ P7hHmalMP6lGk+dPNtsR7UXc9c81ViODwtdFYUCOy+P7GEBHUIDYAOnXlG4DcAH0nS
+ y34whpbYKq7W50RsToPs8Wqf94Nb1vpt/OLBdUvhX0RhLr/tF3+Le3+WWtUfGfQ/78
+ 3dmika4TuHfAsknifvGbGEG3Uzh12b7rqGWg2UuLLKAWqJjI97MiJNoxroBHJUG0it
+ Kxg89GK0p5C2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/13] drm/msm/dp: Signal BT.2020 RGB on DP and eDP
+To: "Xilin Wu" <sophon@radxa.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260930-msm-dp-hdr10-v1-10-dbbf8b2b42bc@radxa.com>
+References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
+ <20260930-msm-dp-hdr10-v1-10-dbbf8b2b42bc@radxa.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 12:57:39 +0000
+Message-Id: <20260930125740.011DB1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,52 +53,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After its first runtime suspend, every power-off of the Mali-T820 in
-Amlogic GXM SoCs times out and floods the log with shader, tiler and L2
-power transition timeouts. Following a soft reset the cores report not
-ready but PWRTRANS never clears, however long the driver waits.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/msm/dp: PSR state mismatch causes blank screen for YUV420 modes
+--
 
-The transitions complete normally when the GPU comes out of a hardware
-reset, as it does at probe. Use runtime PM with reset and clock control
-for GXM so the GPU is reset on every resume.
+commit 1a1587a85fbd9d8b79a76366fd11f806251ab09b
+Author: Xilin Wu <sophon@radxa.com>
+Subject: drm/msm/dp: Signal BT.2020 RGB on DP and eDP
 
-Fixes: 22aa1a209018 ("drm/panfrost: Really power off GPU cores in panfrost_gpu_power_off()")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+This commit exposes the DP Colorspace property and handles VSC packets
+in the bridge atomic state. It disables PSR in the controller and sink
+while colorimetry VSC packets are active, as they cannot share the
+automatic PSR packet generator.
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 36cc2e67a308..df8a41a9a70f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -1092,6 +1092,13 @@ static const struct panfrost_compatible amlogic_data = {
- 	.vendor_quirk = panfrost_gpu_amlogic_quirk,
- };
- 
-+static const struct panfrost_compatible amlogic_gxm_data = {
-+	.num_supplies = ARRAY_SIZE(default_supplies) - 1,
-+	.supply_names = default_supplies,
-+	.vendor_quirk = panfrost_gpu_amlogic_quirk,
-+	.pm_features = BIT(GPU_PM_RT),
-+};
-+
- static const char * const mediatek_pm_domains[] = { "core0", "core1", "core2",
- 						    "core3", "core4" };
- /*
-@@ -1156,7 +1163,7 @@ static const struct panfrost_compatible mediatek_mt8370_data = {
- static const struct of_device_id dt_match[] = {
- 	/* Set first to probe before the generic compatibles */
- 	{ .compatible = "amlogic,meson-gxm-mali",
--	  .data = &amlogic_data, },
-+	  .data = &amlogic_gxm_data, },
- 	{ .compatible = "amlogic,meson-g12a-mali",
- 	  .data = &amlogic_data, },
- 	{ .compatible = "renesas,r9a08g046-mali", .data = &default_pm_rt_data },
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_=
+drm.c
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -208,12 +208,13 @@ static int msm_edp_bridge_atomic_check(struct drm_b=
+ridge *drm_bridge,
+>  	if (WARN_ON(!conn_state))
+>  		return -ENODEV;
+> =20
+> -	conn_state->self_refresh_aware =3D dp->psr_supported;
+> +	conn_state->self_refresh_aware =3D dp->psr_supported &&
+> +		conn_state->colorspace =3D=3D DRM_MODE_COLORIMETRY_DEFAULT;
 
+[Severity: High]
+Does this logic create a state mismatch for YUV420 modes between software
+and hardware?
+
+In msm_dp_display_atomic_check(), state->vsc_enabled is correctly set to
+true for YUV420 modes:
+
+msm_dp_display_atomic_check() {
+    ...
+    state->vsc_enabled =3D drm_mode_is_420_only(info, mode) ||
+                         state->colorspace !=3D DRM_MODE_COLORIMETRY_DEFAUL=
+T;
+    ...
+}
+
+When vsc_enabled is true, hardware PSR is then disabled in
+msm_dp_display_post_enable():
+
+msm_dp_display_post_enable() {
+    ...
+    if (msm_dp_display->psr_supported)
+        msm_dp_ctrl_config_psr(dp->ctrl, dp->panel, !dp->panel->vsc_enabled=
+);
+    ...
+}
+
+However, msm_edp_bridge_atomic_check() only checks the colorspace against
+DRM_MODE_COLORIMETRY_DEFAULT to determine if the connector is self-refresh
+aware. Because it misses the check for YUV420 modes, the DRM core might
+believe PSR is supported and active, while the driver explicitly disables
+hardware PSR.
+
+Could this cause the host to stop transmitting video data for self-refresh
+while the panel is not actually in self-refresh mode, leading to a blank
+screen or PSR entry timeouts?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-msm-dp-hdr=
+10-v1-0-dbbf8b2b42bc@radxa.com?part=3D10
