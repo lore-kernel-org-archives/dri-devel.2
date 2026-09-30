@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A4C5CA5FBA
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A173CA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D5E110E0B9;
-	Wed, 30 Sep 2026 10:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8308B10E18D;
+	Wed, 30 Sep 2026 10:34:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lHeN8bl4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nLFelxOT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF5310E0B9
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:23:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFF810E18D
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:34:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A9F4600D4;
- Wed, 30 Sep 2026 10:23:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE551F000FF;
- Wed, 30 Sep 2026 10:23:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DD59C60239;
+ Wed, 30 Sep 2026 10:34:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EAEC1F008A1;
+ Wed, 30 Sep 2026 10:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790763789;
- bh=Y6/eisC/1PFb58SA29sI1vLKdk/wVao3FROKDUJrtpE=;
+ s=k20260515; t=1790764445;
+ bh=wdtdcWDvIX3RhUgrcDsVcvdnSRLIn02KRn8evUdU690=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lHeN8bl4qsZssVq0G+AKebLkMTNz5dsor1PkFzGDB+Fo2ksKyhPNcWDNf3c1oW8AY
- SXRyEup0Z6PhB1unC/Za3hEb8fCraiDSrAIdgUk5f7mOMUpKb7UQ2iuKLBPVFdWbkO
- Xd2yb175oTanKHzoLQk/Xfu3cX3pq2QP1qHe06uMrJOkxAdvC/01OMdzpZEu16E5Qv
- JAlnpQPUgYbezTQU6fB+sTFDdNApoezixWJhLASufOfh3x5Ve7/mBGmDFSKXlU6sJE
- +ldKbJ4qgrqVSuFdOuRtS92TxcnbufO1EcWK/uC0jBU1NaeZBm5yeRjgsixw9aKjRZ
- Eg3tKpKpJDWlw==
-Date: Wed, 30 Sep 2026 12:23:07 +0200
+ b=nLFelxOTnK5+4PmA3eQcRLkA5rLE3e5PcOCSBzAlgsE8zjuww7gr7DQhD9o2BuCGK
+ 3hYt3adxfH4KCIgG/Wh8Z4YFoGfQaIQ/+wslJg2J8VOnMsOios7ZQVLGsiW5FTEzXz
+ rqgnlpfoU7rZBeyHU0SyB5929t87Deuua8qTkbVg5OiMNG/y2IH9aVcwXtQIlxxWjJ
+ lsG4V4v1+QfvEURoJpkNwgvug0WFZcFmJhzv/C6trPT7sljjJEQ6/ZPqzaZSOlbimT
+ ixqqsPlfCpX7iz3lxxgpaluHXQJ/dkLsMcZEebVrfAATKWHHhpg9K9eZQNWI3Qukdx
+ pOFdKVQ4e1Egw==
+Date: Wed, 30 Sep 2026 12:34:03 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -43,18 +43,18 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-Message-ID: <arzilGz4akKvRF1K@orome>
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Message-ID: <arzlR8mCg9d_z62L@orome>
 References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-7-clamor95@gmail.com>
- <arzNgbx465QIKYdX@orome>
- <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
+ <20260930070535.47130-4-clamor95@gmail.com>
+ <arzMF0wjcF_SVxpE@orome>
+ <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="c2npe4egdsdkxc2s"
+ protocol="application/pgp-signature"; boundary="5qqv5e64sjmxmngg"
 Content-Disposition: inline
-In-Reply-To: <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
+In-Reply-To: <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,74 +71,99 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---c2npe4egdsdkxc2s
+--5qqv5e64sjmxmngg
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
 MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:02 Th=
+On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:47 Th=
 ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrote:
-[...]
-> > > +static const struct of_device_id panel_dbi_of_match[] =3D {
-> > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void *)PANEL_=
-DBI_TX10D07VM0BAA },
-> > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *)PANEL_D=
-BI_LH400WV3 },
 > >
-> > Why the detour through that PANEL_DB_* enum? You could just pass the
-> > panel funcs pointers directly via .data here.
+> > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wrote:
+> > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> > > Tegra20/30 SoCs display controller.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++=
+++
+> > >  1 file changed, 138 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/display/tegra/n=
+vidia,tegra-8bit-cpu.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,t=
+egra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
+,tegra-8bit-cpu.yaml
+> > > new file mode 100644
+> > > index 0000000000000..f0dab608b2936
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8b=
+it-cpu.yaml
+> > > @@ -0,0 +1,138 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-c=
+pu.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > +
+> > > +maintainers:
+> > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > +
+> > > +description: The display controller in Tegra20/30 SoCs features an
+> > > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
+> > > +  protocol and is referred to as '8-bit CPU'. Each display controller
+> > > +  provides two such interfaces, which can be used to send MIPI DCS
+> > > +  commands to initialize and control the panel while image data is
+> > > +  transmitted via 16/18/24-line RGB.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: nvidia,tegra-8bit-cpu
+> >
+> > The description says that this is a feature of the display controller,
+> > so adding a new binding and compatible string for this is not the right
+> > move. This is all covered by the "nvidia,tegra{20,30}-dc" already, just
+> > need to extend that with whatever is new.
 > >
 >=20
-> Passing API/OPS via .data is discouraged.
+> How would you model it? I have tried to model 8bit-cpu as a bridge, simil=
+ar
+> to how DSI bridges are modeled. This reflects interface used to link RGB =
+and
+> panel, without inflating existing DC binding. If you have any ideas in mo=
+delling
+> this, I am open to any suggestions.
 
-No it's not. We do it all the time.
-
-> > Also, looking at the enable/disable sequences these are in fact two
-> > different drivers, with the only commonality being that they happen to
-> > be used in the same device. Rolling them both into one driver seems a
-> > bit odd.
->=20
-> I did this to simplify maintainance. Both panels are used in the LG
-> Optimus 2X. My assumption is that LG switched one to another at some
-> point, hence they share same timings, controls and supplies, but
-> differ in en/disable sequence. Additionally, these are the the only
-> DBI Type B-only panels in the kernel, from what I can see.
-
-That's just one more reason to put them into more of a generic driver,
-which would allow people to find it and extend/improve it as needed.
-
-> > If you really want to avoid duplication, maybe they should go
-> > into some kind of "simple" or "generic" DBI driver.
->=20
-> DBI Type B is not well supported in the kernel.
-
-Well, you always start somewhere.
+My suggestion is to integrate this into the existing "rgb" node, or, if
+that becomes too convoluted, a separate "lcd" node (or "dbi", whatever).
 
 Thierry
 
---c2npe4egdsdkxc2s
+--5qqv5e64sjmxmngg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq84wgACgkQ3SOs138+
-s6Eiuw//RQ2fm/9EQCbJc7rzzjSmpYsrALrOL8ogrNgRr+Us7Js++rkpBy77jMCa
-90Qnk6xN1CIf9BhJTiguaDmm5iYpvItlJttFThldrtaVCWR0dlS5YhTDgabxCcXh
-CGvcXuGxPZfmx5/+IYpBkO48k83Czq+9CHDjL33IVSNmOXikAHLC9YeetQEky5vT
-p8AANLuVKSig8r6ZpamwRiiiPDNhaQP2ohSJ58uaK3e0224iYTm7AYfEj6VZPKdG
-yzO/ZrgFtpveqy6/XuY6h9GP2uF+lIE1ZAw1RseBYGuQe3/fROaZcCo+48T3h3cA
-EKVOOGEFkbZVJtqojDA9vFrZyptANBNtFnB6TtNV4252NoMwkVpRs6zgcMO0F8k4
-VBvzfEVE8Q8O5YD7Alugjsg5bdu+AmyxB9LnnqbvAIDwjPpbjGCo7b0slLaNxpq4
-XMuzqsM8l5YvLFzgK3APfk13aBRbZoraA1NxE0pDOiJuz2jU2GQM93ApmReILD3a
-wdC6598g1AkPaxNOSe/NIbe/uSg8a5AGE17AL7o5QJsbdgC58eHte8NsrplzK3h8
-HXFCnZIhsl9F6PtqtEccus3qYk0kZENOYgEjwkIHVlMHVAUDOufngzwrX+QERknV
-7mWpdUkxp9lUlmS5BXUcZRb1PR6e5ucdggcIjv6SFJYsWmdFf2Q=
-=5XM7
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq85ZsACgkQ3SOs138+
+s6E7XBAAuKQS8yR2SKtcJ9URq8iBstKVNV6cBYIfMkUMoznqJ8AofgjCNOXarHhT
+OHOBwd+Uzir7Fq8eoqvuUuDqAi8imORaQ7KH4PWcrR+a/xEb3zQ8KW8DiRGyCEfp
+QwnM2x7thvTxOA1OBDtqw1Y9rSAaaPmNj5jkTOekoU/zzWjJ9VoGqhb7T5S5BaYI
+8xmQ12nMe6j4Y90n/hYwDwNAqt5ANugLi9jlJWA+vq3IgnezDXgYQyWklLHxwVPW
+13smeQCeDVXhCa5jUSUyA6ZkEOhg3zX1DTLn8+1eUm0kMtEbaIjkz5gV2Hsw4VkO
+RV94lLXCh069LMmcECHWhuhY4iReXyKZcRwoTy7gstWMzPyiXLmh4gfd/q/SSffm
+RbBfr9gUkLfHHy6NsiFts6pyPPn7Zu3rJs0aSCKineH789EWeivIRqXgajUosk5r
+h10A43EXwPMxCjM7DXOnHVbS+bIakm5eD+1gx6W4r/manLqyGv7kBHD8AJv7OVM4
+iMaDifVlyo4T19XOnDsfNAvt4TqStn+IcDJshdC21RbtOD+siUe5OAhgTUeUn2Nk
+ECZ2u+nUFBMD0Nl/5qLSgZq4x9mOzERH2jxr8n8TjZ+Q2r0s94RCNjGB6J0spTi0
+brXx83ivY0QXxITb9vaeXp1QqNTXIsBSphMiOUzrBIfFnNJV2e4=
+=9KZ+
 -----END PGP SIGNATURE-----
 
---c2npe4egdsdkxc2s--
+--5qqv5e64sjmxmngg--
