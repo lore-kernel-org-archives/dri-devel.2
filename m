@@ -4,59 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C862CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18961CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:43:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A03410E8C2;
-	Wed, 30 Sep 2026 10:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7515D10EF92;
+	Wed, 30 Sep 2026 10:43:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UyfPVZnz";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="uwMIm2Zg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE1410E8C2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:43:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B47EB60236;
- Wed, 30 Sep 2026 10:43:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D730A1F0089A;
- Wed, 30 Sep 2026 10:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790765003;
- bh=7yyzSOInAkUGRq5dHL3pz4TbnD3aTRaw+i+69ZVaw08=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=UyfPVZnzF+lD5Jp+7EFCb7CYkScPiVCdFblzNg5UF2sN19BrGW8kEdAE7MFLYRU8I
- aIT8oFXeDvdrWFPncK8LpYS1zlbLGOswJoX1wwr5242gNkAH8rFFpfghYSvSVZrV8s
- f8W30eA7lu1Mj6WOLPwYao2nxwFXHKCNOG+UcW7MjHa5kuKIfB2pSItfbtwD4p/elS
- PkoPxO3D4qviX4Sb9bIlMIVfeSz68wQiZJI4/d5Xn1A4BKUtAzg5BuSJ9Pain3QHND
- xrEeXT/PGrUUSI1DG+kO3P2PR+5Uc+0/yN7hju6H8UP/Ri7yVqKP7biUT/0it1kDmx
- nl9D8cJttopwQ==
-Date: Wed, 30 Sep 2026 12:43:21 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F6910ED9B
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:43:38 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id AD8261A1075;
+ Wed, 30 Sep 2026 10:43:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 79C9160749;
+ Wed, 30 Sep 2026 10:43:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6EB92103282F2; 
+ Wed, 30 Sep 2026 12:43:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1790765014; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=SkK7nzvmdXccAthjxNIG0aZSr8ABcmG303myl+zYPu4=;
+ b=uwMIm2ZgNp+9UTQoK8f6qN0jFJlsClA7TYMdrOhRR30NVVR+4ZdxQGjNgpKEgLZFZW8nIZ
+ SrNoCIqlXzss7mn1ttQ/Qxs9iwIOqGwaiIyHS7f8XJRsoU/PdS3L7SfsaglWWl5EzdiZS2
+ fKkGKYH+p5A7avdTSZ+Ksneuesud+ZDK58ji934XC/j2wQoha9yjpQq+D1sCwh7KV9K4cl
+ yWQ8zQiO6j8FZv5fMBwbnYrCNdB2ASYJVZK0k16+VvCMtx4suIiKP5ypE9nkNENHEehtFt
+ lpEE48vI9N0KOP0Tc4A9tCy5r4AU1j21Swd8J7sOxaEPlmJPQM9Rfk/zt+9VFg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-Message-ID: <arznE4HKl9r_mPX2@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-7-clamor95@gmail.com>
- <arzNgbx465QIKYdX@orome>
- <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
- <arzilGz4akKvRF1K@orome>
- <CAPVz0n0-baCzHOXjWLOCLjv8fb5GbE9a2v=8tBYr3RgHkEu+qg@mail.gmail.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Francesco Dolcini <francesco@dolcini.it>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
+In-Reply-To: <20260917140042.118181-1-francesco@dolcini.it>
+References: <20260917140042.118181-1-francesco@dolcini.it>
+Subject: Re: (subset) [PATCH v5 0/4] drm: mxsfb: Support LCDIF interface
+ bus width
+Message-Id: <179076500400.452568.15346989916115503276.b4-ty@b4>
+Date: Wed, 30 Sep 2026 12:43:24 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="inabyhftcsvajn5l"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n0-baCzHOXjWLOCLjv8fb5GbE9a2v=8tBYr3RgHkEu+qg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,98 +79,33 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---inabyhftcsvajn5l
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-MIME-Version: 1.0
+On Thu, 17 Sep 2026 16:00:35 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> The width of the physical LCDIF output bus can differ from the input bus
+> format advertised by the downstream panel or bridge.
+> 
+> Such a distinction is required when the LCDIF bus width does not match the
+> width of the downstream display interface. For example, an 18-bit or
+> 16-bit LCDIF bus can drive a 24-bit display by wiring the available color
+> bits to the appropriate display inputs. Configuring LCDIF solely from the
+> display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
+> mode, changing the color-bit assignment on the LCD_DATA pins and resulting
+> in incorrect colors.
+> 
+> [...]
 
-On Wed, Sep 30, 2026 at 01:34:19PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:23 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
-> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:0=
-2 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrote:
-> > [...]
-> > > > > +static const struct of_device_id panel_dbi_of_match[] =3D {
-> > > > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void *)PA=
-NEL_DBI_TX10D07VM0BAA },
-> > > > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *)PAN=
-EL_DBI_LH400WV3 },
-> > > >
-> > > > Why the detour through that PANEL_DB_* enum? You could just pass the
-> > > > panel funcs pointers directly via .data here.
-> > > >
-> > >
-> > > Passing API/OPS via .data is discouraged.
-> >
-> > No it's not. We do it all the time.
-> >
->=20
-> I have had some controversial experience with MFD, with passing cell
-> composition. If DRM subsystem allows this, I am more then happy to
-> pass panel ops directly.
->=20
-> > > > Also, looking at the enable/disable sequences these are in fact two
-> > > > different drivers, with the only commonality being that they happen=
- to
-> > > > be used in the same device. Rolling them both into one driver seems=
- a
-> > > > bit odd.
-> > >
-> > > I did this to simplify maintainance. Both panels are used in the LG
-> > > Optimus 2X. My assumption is that LG switched one to another at some
-> > > point, hence they share same timings, controls and supplies, but
-> > > differ in en/disable sequence. Additionally, these are the the only
-> > > DBI Type B-only panels in the kernel, from what I can see.
-> >
-> > That's just one more reason to put them into more of a generic driver,
-> > which would allow people to find it and extend/improve it as needed.
-> >
->=20
-> This driver cannot be "generic". Both panels don't fall into any
-> category of being "generic". They are grouped solely cause they share
-> same timings, controls and supplies (only these 2 panels, other will
-> definitely differ) and are used in the same device. I have no problems
-> in splitting them into 2 distinct drivers.
+Applied, thanks!
 
-The driver can still be mostly generic. And I suspect that the panels
-might have different names for the supplies and controls as well, they
-just happen to match in schematics or sources that you used as reference
-because they are for the same device.
+[1/4] dt-bindings: lcdif: Add endpoint bus-width property
+      commit: 54d28d79d91d85090814fadc39ee050920de84e1
+[2/4] drm: mxsfb: Add optional DPI output bus-width configuration
+      commit: aafd4205a75de54cb46458bbc70f35a0be1d7533
 
-My point is, you can keep a lot of boilerplate in a generic DBI driver
-and then parameterize the things that aren't the same across them. That
-gives you the best of both worlds.
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-The reason why I objected is that you have a very specific name for the
-driver file and the second panel doesn't match that at all, so it's
-confusing.
 
-Thierry
-
---inabyhftcsvajn5l
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq858gACgkQ3SOs138+
-s6HGhg/+JmLTUMGSPe575o/yuo3LDz+vlWdqi3tAABk0qwu0WkwJ6b2OX3HhmecD
-4CixZaHzeRglHA3Qp5OIofMnSAqI+7Y2iPcLI+eKHvqaSbMBoNqaJ9poZb59OJ0t
-YeKeQDC0w/mj1uRl5U2Lw06Rx32bF+JCmsztzwKAfm1uQF3kTwKfctHfVkf2UBlM
-HVvux9gvrvKR3BYdVK1nx7gkqBXifwTTWyqLY5piAtcfF045P44PtPkpQKuJ7T49
-2b1SLJ2o9JEN3Quf3F0FR0ZHu7mx0/+NXOpcl0XrntZ2MzPzkGAnCYZxEHxU9Yop
-HJ+IDi8vcI/ETbX4j+l6JbEFTqa03S/xKubknmYBoQkXBWUj7G4+UWO9DnjHfoUb
-Vk0KwJSA8SL/qz4+BsiYJ+Q7wvQ13OeKsYTVeUyfTc0YaY3IeRXI4/lqba783rtV
-VdC5olXPhhVwMyLA6W9JbBkLV3du4Pxx+d32g9asdrXRT9n7sXwDiO0uTfNCfxUM
-A42abW7eMYfKAY8sS/sokWMIFW920TFJOXMXPqXPepK0p0/6V8iFH5JtgWEG2OWj
-GesX6c1knAuzGdvxU71W9I//rJzEyAXHq0MB0/ViDduX1i5Q0ARsSZNp105MunDf
-bHTIOfRRp/T7Q/r+hydWkxQh4Ps6/1zYMGgq/wnfOAynLDkfak8=
-=mzl7
------END PGP SIGNATURE-----
-
---inabyhftcsvajn5l--
