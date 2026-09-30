@@ -4,136 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B2ACA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 20:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E02A7CA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 20:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1363B10E3F9;
-	Wed, 30 Sep 2026 20:16:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DDD310E7B7;
+	Wed, 30 Sep 2026 20:23:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XeK3nG/A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jqkZIfSv";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011029.outbound.protection.outlook.com [52.101.70.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52F7A10E0E6
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 20:16:06 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 184A710E0E6;
+ Wed, 30 Sep 2026 20:23:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kiC8n1H5GMXoJZlr02+6nNOPJeaMs8zkhmQM7Ki1JTz4klH2BHA8Zz/gLNZBhFJv2+P5YQ2GnX2kRaE5G/otYzrbFCgmLne8bLU+vVdyxyB6KRYa50k4mU0pOXk3uYy5Rsm6NQ8hB0cn/e8FiOW9P60nXn7sHyM1wxD23QHZ+9ZQRoEznWV5K6XGb9nQD6Bx+bOrZCmGTqgUZNP5uvt0peQTbndLbunkFbXgPwH6dUwH3wZ8fTfNA5VitkbSa3MrQztQZLNq0WgyIDjR4cWUlTmKkdlpAwmn66JYAGKr2Su3K9tC1ZG+N9h8wzMUCu8zQTSoysr22PyAOXpO1q2Ydg==
+ b=D3QTbNRl19pUCwscrQOJMaWc2quDZGPuRE0AVid9D2VlQJyb6ojvYM4R0M/KEGgEawdss/Td2JCSuHyrEJVbKXDcACFBn5qMaq1lCXtW2PAPFwwg2C/755HkccO7ThJHmeqhFYkD63xrNlN/WrF78WYp7advTdR7TatbP/WISzD/D/u+kZZNxUo7JVHBSFHkRdObkQX2XlKrh60XXyzA61zdrv/QLMYGd/meRlqVGs/q3gxFo6eOZzwwPo+wQgN/HSry96c/PdziErVShUCGJDFOv0aI2QXq9bBRpYy+s2vrD/vtxjpUXCMEAX9WOCG85bI/n1yQAytnGfuhL/nfqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F5PaiNh3EyNZsj0pxCQpPqHKxifj7rHe0obR3cqwHnY=;
- b=Np3cre3strrIY0pXoEfpK9iNnX0J7n0AJanZUv3sQYGziIztFAmUmTK/vL1G+mltUxRvZEoVhz88rGLkGK/RJbFHOTpLhFc2YM+/SfWy5EkXEYMnjkxE3c5JikB/JVqcAQ313xrv89WkREyKMkSHFrFg9dF6lAHoLLraIy132NVH9ivgv3FHA61kk4RnKjEBWlG7STnWv8zjR9ECQKe/WSLnwTue4YJO1ovfveeO283nFhmi4qqYf/mSWSKleBjPnM+qISbOEXGLLKoE93A51wZkZiB9fQ2W590cZ8jmAEOU+U576eDZ9M7qbvYWsPBACsKEBCCjhHq2ETUw2LiBcg==
+ bh=5Gj+INULE9nl2GH9ztnQnKZbZpZmqz1qWfAEtrWFKCQ=;
+ b=eE8gAVdJndK/rXqVEsM1rDl22pI+lk3AMtnQOnzebuLEPrGhjuYxvkhbQ9aRisjH4YvIkX1IzvA3YT8cVDAcX3BrFCye2wdAZ+etiWhUT/oMysZ9SCdQkIAfIakLq76NgyLhhHCpgVcTpw3O+K7zInrlZkqPggP0Eg9qLKFFO+V+GzcyF69s94AIxccuVIZA5YTD0JSy2WmLHG/uJBeSDH59fYWMjYsPz5qqdOvTWxF10mVF8zmkz7UKZNRmUqLrdajV8QbHYdmXpa8y5QzmsykZRePmnLJW4F27KceHZmo/WsMRQW/A3piv9mUnsMXqne2RiuszjalzEBmzSNtOwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F5PaiNh3EyNZsj0pxCQpPqHKxifj7rHe0obR3cqwHnY=;
- b=XeK3nG/AZZNht+IxGpMnNA+nbPwUWX+P6fgXEasEdgLqA1N/p3T/PE7rPb+zOWLeyVQM5kk93wtOTnRB1z7kByQUfGyQx8R0ww4H6yaekkdAxG6vWIjN/U1cfg8EwztTO7kHk8gs3bwSPXn22ng+P+7VA6QIuuFFk6lrt6YPe0PanTlQaY4RfIhJYWf3MUyBunTuWMULrvbiQxa2V+C/JbJOtlywVf2mIC+PjP5H6lfuFavNhJ6sRC+ySq67ZtRmOhNp7Wf35y9FT01b2FEr5YhObV8iU7AzhpB2BfOH5wYL4kbL51mOf0YG2b2GWimoJzuLquLuwubv03r+5iz33g==
+ bh=5Gj+INULE9nl2GH9ztnQnKZbZpZmqz1qWfAEtrWFKCQ=;
+ b=jqkZIfSvh9Mw04zu1Y9JSDW8ems4yOxYWdWP0Lq/cMTp1ueUlIqO1QIatFGPxfyF76O4gRzWDblqg0+cWc706F72VLYLP3FGZfVsuIA9ceDEVBARzEYSDqifdgA/7dq45eiqT7uFRCGDl6tnnGXG1H5pJIJsxeNvX2R2I2cMRWM=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MRWPR04MB12096.eurprd04.prod.outlook.com (2603:10a6:501:98::17)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by EAYPR12MB923140.namprd12.prod.outlook.com (2603:10b6:303:2fd::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Wed, 30 Sep
- 2026 20:16:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 20:16:01 +0000
-Date: Wed, 30 Sep 2026 16:15:51 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH v3 15/18] dmaengine: ste_dma40: Use power domain for LCLA
- SRAM
-Message-ID: <ar1t923YOnflDFXc@lizhi-Precision-Tower-5810>
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-15-9352be6b86b1@kernel.org>
- <CAPx+jO_KJJ6ORKuw6VJmtZAOEnzVz0+bq3bEFupAK_4UROKBAA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO_KJJ6ORKuw6VJmtZAOEnzVz0+bq3bEFupAK_4UROKBAA@mail.gmail.com>
-X-ClientProxiedBy: CY5PR18CA0008.namprd18.prod.outlook.com
- (2603:10b6:930:5::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 20:23:18 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 20:23:18 +0000
+Message-ID: <17e7178a-e5d0-4a3a-b8a5-10255fca2a33@amd.com>
+Date: Wed, 30 Sep 2026 16:23:07 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/11] drm/amd/display: distinguish colorop setup error
+ from no colorop support
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
+ louis.chauvet@bootlin.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, sebastian.wick@redhat.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260811171011.184964-1-mwen@igalia.com>
+ <20260811171011.184964-12-mwen@igalia.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260811171011.184964-12-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0388.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:108::29) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB12096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 253a9240-77da-46e1-0e78-08df1f2fa55b
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|EAYPR12MB923140:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7bf50a2-8e6b-4f6d-8971-08df1f30aa05
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|23010399003|19092799006|1800799024|376014|18002099003|22082099003|4143699003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: XgLFCFocmmfYG9DUGLCMd/s8ICbRxHnHSF0f2sBSLJqCX+KILYkFle4vHBxgkgR7yCszSvAhFKFivuae9U/52jwUoTh2UJwzTwZx4Xvp4VbZrRzrs3FVM1BvnDHtYabRCT4EixicXZfjMsHZLAcMUltMhhDD9nYGFYffTa0PGKMlT02TE9EmAAWowcE+jp7opFL3w+Nf2Qmf+uiMV2/ObFlOimQvtW46NlFgvRyCLW1g3ptT+XJaiyldFGwZ4qWcK3K+teI67qND+NuqnAus3dNYbQEE/VH6VubOnzVD3y+El9YP58SqY+zFEuRHZaEIBOFJb62lIdiRhWnMUrU1kYVYB6uCLijZCi/UawTdZugTFQnvyJSOb2o4XabV3RwnQwS6CLWdMB3aOFdbnbqbJxw7CzSGq2v35V3YM7JRWidXo4ZNdn8XDDG/yautZfMqHQenAagkxy8LW0LLlTWDtjsLwuLTuqsj9zAj3gWMhxbjVsdkWYESmCCKAqJo7Qff3joUOaRdT7EB8hMIrujm0mmZYqFYl8lpJVQnWOxJsdo4RPrVRb6QRt6/aipINEYGy38lcmspRBf6cQKryoWjDxBwJOW+Gky4krVSc35wPDg5EPYy4WCbSamfkF4LncCj
+ ARA:13230040|1800799024|376014|366016|7416014|23010399003|10067099003|56012099006|260925021911599003|260925022911599003|260925021311599003|4143699003|921020|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: fvsTIElWMK/jH/bhNqjJaVUSkNlX8dQZmEzs91RFcoaKDf3eHImsTOSbK0tCiWp9Wp9K0M7FvA5IMik0Mm0xAHDe3Ovd2x5cFVM+LLz0qIaPdAObXTFqrhDty/HzWJW/Yy9VTtyFWIdSiFHh4Jrb8z7jMa3NkixU7CJStuwXeom/nc6axcrz5EQ2esrefvKftxaQdL1dd3wvI+UP9vFiUhaUatWvQtfUFH2QzKlDoUf45MhxbSMVQ91x+RDXgr5z7JZ4zQAxerKa0MGMQyBQaAuEycnC6pN1dVxrGKLje04jNnB+VT+DUCunXN5h14FvXtXWfsP7Pgxos32/W21eiLy/Rg17sSz9/JjcOAmaCeJK7lVJctTPP8euiUtEdvlyNN3dYfLkt7xwrU5puZfltQr8ZtSIVcZA1bkiCutQcPwf9sd5UGlkGiNUEvpOPkb8szFOk/11WC1jlMlV2YBfz1NR8UcRdTsYntEtRQrS0kvq9lU/Ft9HH1Cwxv3rY/hom5hP0E2nqOU7bJ97WrsW5naV3gGfS6fzLKt11J9f/zaf/AESxfw/DdGOrJoMphHzhCGLST2E8t6S7UtAS0l2RazY0I19jfLJDjD0y66K+qbaK++XOd9WG9c7CWHbB+3kt9ZrdHy2CmlahYiuVD0C6fp/+ibQw02tMiUSioA+/sdOSpQtFE9NFBmZbR+XaXSxX8iZCMwNTa45kakNzCKPOg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(23010399003)(19092799006)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(10067099003)(56012099006)(260925021911599003)(260925022911599003)(260925021311599003)(4143699003)(921020)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1ZnWG4zT0F3b05XdyswNDdBQWpnZnNDaUJLSUlsaDhyeXc1dkI5TklPOFhs?=
- =?utf-8?B?OUVBTG1mRXRuWGdwRVYyTTJwT2xEQ2xTT1dCS09YZE5ZRXlYUFVPQU5KRzZO?=
- =?utf-8?B?ak16WGFPR3BMdjYvWGh5cCt6NlVSWmRrWTFvdVloSG9CdWlHTXQvcmVUYzAx?=
- =?utf-8?B?S0VQeXNvSVp0UjlqOTdLbnJ0blo2aHlLTkJ6MW9ONC9XVkVBbGNWdXpyRXRa?=
- =?utf-8?B?cGdlMVQyRXIwTHdyOFhGazFrUVUwY0tMQTRHM2hxYTVCVlcwdEQ3OTdwUThs?=
- =?utf-8?B?MU1NbkFqM0tlUWtHQ3BUTUk4UzdpT01sbVRoZ3dBc1lZZUQvN3RvZWh4R0ow?=
- =?utf-8?B?SjlBNmYvOWtVSHlqeEJncUZJNk1BVDB1RXlqYVB0clBXUnJSUCt4blVKRXhy?=
- =?utf-8?B?clJnd2NEb1dQUENReTdXbDZUTjRMSXkxdUN0ZDV4M0tDRkdVd1hrNGZHbklR?=
- =?utf-8?B?dGlmT3FQcmwwWUJ0ZTh5eGpOcENwM2RWREZHYzdjRHZWZW9MK2J4UmVHWDNj?=
- =?utf-8?B?Rys3ajlFZDQ0YWFFcnNaN0R2dDlvcERTM2FDYnEycVREandWYXNCYWtTUysr?=
- =?utf-8?B?QzJGaGJTWVRvL0U2YUJ3eWtiSTl4eWpWSEhQYW5EOHZRWkJydXhaNld6TWNl?=
- =?utf-8?B?eDhiRmp4bC9OSzQ0Mk1MZW5xWVJDc3BEVVovZTY3cldVZk9zbDBLcFFtbEZQ?=
- =?utf-8?B?RkdvZFdHNVlPQXFIQzArV3JxeXl5L2pmb09pS1I1dkNVTXRsKzAzSWsyVHhK?=
- =?utf-8?B?Z3dlRENtSVVzT0UyNFB0QVZFRjd4US9YUnROa3lhOEhXaDhVWDRNeWM3WmVW?=
- =?utf-8?B?djdBSlBEZTFrMU80QldSVU9haEJYdWhVQW16MHV6dTNrV3Q5b3c2RlJsc2M2?=
- =?utf-8?B?TjRoU0ptaTBoamorc0N5dDVoSk1zb0lYc3pCRXd0MzBWQTBmemx0NzNzT21o?=
- =?utf-8?B?bjVyNWxaYjlrb08rSFRKNTIya21BNEVoWXFKeERzQ3VnckRrUWF6WllsNlI5?=
- =?utf-8?B?bEFxRnVHYTFqeGs3TmFJWW4ybGxZVkIvKy9VOWpCeHhKY0JocUdmd0h4SSs4?=
- =?utf-8?B?bGFDWmsrRWNTZEZTYVhXNnBlYzNVRUsxWklZTFNTbG0yRWViQ3ByVngrT3FF?=
- =?utf-8?B?SXUrOTRkRFNxcXU2RFRHRGFZcXZhM0FFWmRISEIrZXVnSG9OZTVjN0g4ejV4?=
- =?utf-8?B?bEJSczk0UXhEbEc3Yzdnbk13czlMQXNkaGR1Mm41QmRhMDBEZjFXMnE2bHJH?=
- =?utf-8?B?UXRSVzMzRndHUFlndTh1WnFwSWttVGRldUtkWTJjRTlqSHdaTHZyM0ZMS3gw?=
- =?utf-8?B?VDN6L2liQ0hrMmpvLzVoWXpMcWxBT0NFZEpORllkcVViNWsyN0szTExmQk0r?=
- =?utf-8?B?cjVXVlRDQ2gyT1A5U3hSb1NSdm1JTjZLSllyOHo2TU1qbEkvdGIzOUJtMjNh?=
- =?utf-8?B?MDVEaGlMdkFBak1VRkFibDRLUkxpY29tSHZWdm12bXkwSVRlTTFPaTlOMFor?=
- =?utf-8?B?OTZrU0pXYkZHSUVobkZFdVg3ay9XaCtLNnozbzhnRHB2SmdiRWJBK011NmFN?=
- =?utf-8?B?VVBCR0d3TUV4MGd1UWV1TGdDeG5OZFNrWUo2WE45Ylo0dk96dEdmYk9tRmJ5?=
- =?utf-8?B?U1Z1UUFiSnVHZDlhd0V1UCtINnpPYUFQSjJzVWdtRitYWUxKYmxBc0hWallj?=
- =?utf-8?B?dTRyZHJqaTBDblBwNlpSbDRlNHptc2NZL1A2L051U00vcWpvQ0ZJUC9DL0tn?=
- =?utf-8?B?a0l1NVIrQnp6cDF0V3BKNUYvZlI2MGJGd0dEL0E2K0EzbDRDVnE3ejRjcjlv?=
- =?utf-8?B?bm8wb3FCMit2V1ByaXZiaGd1aGdHQW0rdWwxSXBvSkY0OTllZ0Zjb3pUaTBw?=
- =?utf-8?B?Tm9sT1NSbnRVUEZmQ3JuQm1kWFdEcnV3NkpQbHlLbk1oWmVWalgxamNHaUJ3?=
- =?utf-8?B?SEdOZ2lsYUZtM2xOMTVqR2VjR2I5V2Uvb3RIL01vd2loMkNDSkJ2Mkd2ZTA1?=
- =?utf-8?B?RkpsRitSU0lOSFJXVmErVDZBUmZ6TjJKMkZVS240dXNIWFp5UGVmK0MyeG1X?=
- =?utf-8?B?Rm0xcE5TbVBQSnRKaGhYMTJHUldBQzhmenhYN05TbFE0LzhsNmpBK3VnSlpG?=
- =?utf-8?B?ZkowT1huS09xd0Y4czZkVUFvK0tXeXZrZkQxSlVZbCtqclVpOVpQaFIvQkFU?=
- =?utf-8?B?M3ZWMFVlTm10Q25RUEZxZWd2cHpiSDdLTzhTSy9GYlhudkZXaHMvczJ6Skx3?=
- =?utf-8?B?eU9xcW9FV1N1aldmZDg0VXZPbXovekl6RnpFRTRPQWZtb0YzWTNKeFNEZzkz?=
- =?utf-8?B?U3RtM0s4djVoYTBUV2RwQ242R3RUQUVVK28vZ051VEdURFFSSXMrcWZHUTFR?=
- =?utf-8?Q?okQf9ikAX6oZrPlssSTuZ9qdCBkj4Pc8zwVvx?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 253a9240-77da-46e1-0e78-08df1f2fa55b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1VNWFc5Z2FoR3ltM0RybzhKMC9kbUZKbGNoUzg5ZzVzYUtQcVhWQVFMcDl1?=
+ =?utf-8?B?TlZ4NzQ4NTRIdXBWTjdrVUxPUGl1MXJFcEdQVk5pUEx3MitnN2JMMlp1WUdN?=
+ =?utf-8?B?ZDF0dmszbmwxWUxxcmhqb0lYdDRMYnhOUVVhV3ZuVkVzbXpSNit6N3NxeDVG?=
+ =?utf-8?B?UVhMclMzMXg1N1JZSGZTcDI3Q0JyQnd4YUpZN3prNzhxUERpbHgyRW9jVk9x?=
+ =?utf-8?B?NWdmVmxlWllRbTBpWEgxaGtaclAyTlgyRzVJUTNRbkV0cUgzVmpjUVBtZEk2?=
+ =?utf-8?B?WUIxQUZ6Q2lva3NjN04rRFRMQkVwUXovWjkzQXNnU3ZLNk9yMkhDZXgrelhV?=
+ =?utf-8?B?MzBRTnA2K2p5R2JVMm9nZjVHaTNNR2ZDSXhCMHU2Vlo5aFNsMEZSbnVkN0gz?=
+ =?utf-8?B?N2pmY0dnUzJaMHFBYVpUd29hUkl4MHZiOFEyRGhESTE4Z3pzblhqb0JmSTRU?=
+ =?utf-8?B?RjBENWZMdmtQN3V6TDlQdnl2VUtZdGkxalFvL203NDVLOUkzYitTNi93d0V1?=
+ =?utf-8?B?dS9Bc290Wk9lNlYzRTk1RktrNE50MmpkQ2VEQ2pXMk9PQ1p1WDFSa3l3S1Fw?=
+ =?utf-8?B?UWhOU1JCU2RLRVZ1VHo0VC9uRmwzSXZwbXpoM3o0QUhRZjR1RVVSNEROQmZ0?=
+ =?utf-8?B?azREOGF3cU5VdEJ0Z2RRaFZWNDl4UDc5bWRSbU9sQ2NCaStFdGtDOTVMMTdP?=
+ =?utf-8?B?YVFxRldPMExJdWZXQkExV1hrdUxRSm5uUnF2eG1GT1NBM3VsMXZ5MGduNGxL?=
+ =?utf-8?B?VXZBMGIrSzcvN0daczF5MHk4SmEyVitWTVRLVVRDM0tOTFBWVUtlVzBrS1pk?=
+ =?utf-8?B?QWcrUW1pZEhQR2IwTmpIV0lzc3BBUGpOdGRsQTl3Vm82VTNQNndWVC9tRWtW?=
+ =?utf-8?B?S0RLdXdkQUEzd3J6dURGa2gzWHB1Z1ZZRGN0YXRITTE3L1VmTXFkOWQyMlZP?=
+ =?utf-8?B?V0tuTlMveUZiVSsrbjJLT0ZuQjdHYXZBbUVqZE5xdzNuaFUrcjBlelR1RExx?=
+ =?utf-8?B?OUN2TXdSR1dZMkVGbUhlUWVvN0dDbWZNQ2RPRkk3LzQxS3g4S2lJckxsZFgz?=
+ =?utf-8?B?NDBJdXM4eHBmZmF0NXNIT1o1ZzA5czU3VnpxOFVtRDFYbVV3OU1ZeW8vSjNk?=
+ =?utf-8?B?SVdMZlhYamZkUW1DMmU1TEh1TTlBWXF2UUFINk5rSmw5cFY4TVd2QVlFbXlR?=
+ =?utf-8?B?NCtRZHRPS2RXbW1WM3YycGhzWlRrSmRtR0NPRENyOEQ0NkhsL3pxei9iNnkr?=
+ =?utf-8?B?L0Uwbmx1VkFGYlVpS1FleHY4Q3FFN3A1VWU5NGVtTXBxTlNpa1VJZ1JQU3Fj?=
+ =?utf-8?B?dHVqQkErSDFhWVZ4QXhYQ05kcEFKZnd2MGd3bVEwQlZlN3VkcDEwbjBqOTVH?=
+ =?utf-8?B?bVpjWlZQbGhhODNsYzNEWDU3cm9CUGxhajJPdTJCQXZJSmFpWkpGMHJ2OFk2?=
+ =?utf-8?B?V0h4V0FkSWg2Qy9POG8vcnhqeWl5dGUxeEk2S3VlNjRHZjYyaU8wVk9iMGc4?=
+ =?utf-8?B?aDI4TjRwNGNvVStiS3lEdVBLSG1XQktoR3N1TjdTRjJ5Y3JGbnBlM0JyUXN2?=
+ =?utf-8?B?MlRkcnQ5aVNhck9LajZJb0xOQ1hCV3Fvc3djN281KytYRlFDTS9TekJaZUVO?=
+ =?utf-8?B?TkhGRW4wQjdsMVBrcTVmNStYa0doNmZ1ck5KdVl4UXo0Lzd4ZEJETmJzRmUx?=
+ =?utf-8?B?Q0NrT0paSHJIVFdIZzRiT3h4U08wM3hXNUJkTVN1VXl1SHpaYzdmam9EVkZ3?=
+ =?utf-8?B?MEVDaGhrYUdnN3BnbUZ4NmN4UWJqczJvNlR3Q0p0YVdQYXFKVmprSGJoQ00z?=
+ =?utf-8?B?d3BJOFcvTEhmV1N6c3NlSzBhYmpjbUpleVlXelNKVW9INFhLSmloWndjQTE2?=
+ =?utf-8?B?S3NXTHBBdmkvekN1N1lOeGZ5a2xzYVBXb2l6Mkk5ejU3UWQvV0tIbGpHd2dC?=
+ =?utf-8?B?VHVTME9mVndMZytJS2xpOE9tZGZGeUVlenFrQUFkODJ2ZmljZ2VOejRzdHNK?=
+ =?utf-8?B?VjR3SWR6S1FSNDBUSEczcDJodGFnM1k4VmtiVG1ENUYyVDY1QXlMbnZ3L0w3?=
+ =?utf-8?B?b09LZ05ZR0NJcmNFellibTVDR1ZkdDFmM1BCSkg5aDNzQ3NHK3hYcUl5dlpP?=
+ =?utf-8?B?K25nTlI5Rzl4ZlFFVk5Cby9FaENrMmFWVWM4VWNrTEV6VGdYR2YvV1ZsT1NQ?=
+ =?utf-8?B?QTB3aHdHUjZsSHE3Vk9HNFI4N2k1b3UrT3lpL3Zna0djbEJ6Z0pXNnA4ZHlE?=
+ =?utf-8?B?NWFZRTk5ODhzdkt0NFcycXBqdmt4UktoT2JBQUNSMGNCekFFTVZuV1V1UnBs?=
+ =?utf-8?B?aHM3UG8weWl6MlQ2V2tKNHRBc1JDdHNGRzFYYXRBOHArQjc1cU1Zdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7bf50a2-8e6b-4f6d-8971-08df1f30aa05
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:16:01.0378 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 20:23:18.3006 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KLLCGhfIxeiNfUNaeegt4EF8NV68SLx3EU9UytSPs7K3zgnmnJWHiVdQXiMhw9wBiAVDQsSXNW80KqLcBPG0B3tRDkjlBTEKQ0JhUZ+JJqLIHc4HA0RY7NnnMOuYeUfD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12096
+X-MS-Exchange-CrossTenant-UserPrincipalName: MoppP6SZAueZt/jnCNZo7JUmcdhQehOpEKAITrG4NWPcGcJIYQe+qrj/rTsFxZQUPpPs2gvVE47TEDZHA8raYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB923140
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,361 +152,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Sep 24, 2026 at 03:26:47PM +0200, Ulf Hansson wrote:
-> On Mon, Sep 21, 2026 at 12:49 AM Linus Walleij <linusw@kernel.org> wrote:
-> >
-> > Replace the LCLA ESRAM regulator with runtime PM.
-> >
-> > Use the SRAM device that owns the ESRAM34 power domain.
-> >
-> > Hold that domain while DMA transfers are active. The DMA controller is
-> > runtime PM IRQ-safe, so keep taking explicit LCLA runtime PM references
-> > from the descriptor preparation path instead of relying on a runtime PM
-> > device link from the atomic transfer path.
->
-> A bit of an orthogonal problem, but related to the above. The irqsafe
-> thing have been discussed in the past for DMA controller drivers.
->
-> Would it possible to get rid of the irqsafe configuration for the dma
-> controller device, altogether?
->
-> I don't recall exactly, but not the entire consumer DMA API is allowed
-> to be called in atomic context, but perhaps that is not sufficient to
-> allow us to drop the irqsafe configuration for the DMA controller
-> device?
->
-> If not, I wonder if the consumer of the DMA (like an mmc controller)
-> should be assigned as a consumer device (using device links and
-> DL_FLAG_PM_RUNTIME) of the DMA controller device. In this way, the
-> consumer (mmc) would be able to control the supplier (DMA) through the
-> device link directly using runtime PM.
+On 2026-08-11 12:46, Melissa Wen wrote:
+> amdgpu_dm_plane_set_colorop_properties() returns -EINVAL both when the
+> plane has no color pipeline selected, where falling back to the legacy
+> color properties is correct, and when programming an active pipeline
+> fails, so the caller treats every failure as the former and silently
+> programs the plane from the legacy properties, leaving it in a mixed
+> state and userspace with no error. Check if plane_state->color_pipeline
+> is set instead, so the legacy path is only taken when no pipeline is set
+> and any other failure is propagated out of the atomic check.
+> 
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 
-Yes, I support this method.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-there are someworks. welcome to join discussion to make it move forward.
+Harry
 
-https://lore.kernel.org/dmaengine/aNVufDmHjLRauKYo@lizhi-Precision-Tower-5810/
-https://lore.kernel.org/dmaengine/20250903-v6-16-topic-sdma-v1-9-ac7bab629e8b@pengutronix.de/
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index f6a2af5d2e96..f2731989499c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -1906,10 +1906,10 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+>   	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
+>   	int ret;
+>   
+> -	/* 1D Curve - DEGAM TF */
+> -	if (!colorop)
+> +	if (drm_WARN_ON(dev, !colorop))
+>   		return -EINVAL;
+>   
+> +	/* 1D Curve - DEGAM TF */
+>   	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
+>   	if (ret)
+>   		return ret;
+> @@ -2080,8 +2080,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>   		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
+>   	}
+>   
+> -	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
+> -		return 0;
+> +	if (plane_state->color_pipeline)
+> +		return amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state);
+>   
+>   	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+>   }
 
-Frank
-
-> This could potentially avoid
-> the requirement of having to use irqsafe for the DMA controller
-> device. Maybe someone already tried this?
->
-> If the irqsafe configuration can be dropped, in some way or the other,
-> this patch could become less intrusive, as all that would be needed is
-> to create a device link to sram device using DL_FLAG_PM_RUNTIME.
->
-> Kind regards
-> Uffe
->
-> >
-> > Add a stateless device link so system PM keeps the DMA controller ordered
-> > after the LCLA SRAM supplier.
-> >
-> > Suggested-by: Frank Li <Frank.li@oss.nxp.com>
-> > Assisted-by: LLM
-> > Signed-off-by: Linus Walleij <linusw@kernel.org>
-> > ---
-> >  drivers/dma/ste_dma40.c | 130 ++++++++++++++++++++++++++++++++----------------
-> >  1 file changed, 88 insertions(+), 42 deletions(-)
-> >
-> > diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-> > index eda3f91741ed..2841af5b160b 100644
-> > --- a/drivers/dma/ste_dma40.c
-> > +++ b/drivers/dma/ste_dma40.c
-> > @@ -21,8 +21,8 @@
-> >  #include <linux/of.h>
-> >  #include <linux/of_address.h>
-> >  #include <linux/of_dma.h>
-> > +#include <linux/of_platform.h>
-> >  #include <linux/amba/bus.h>
-> > -#include <linux/regulator/consumer.h>
-> >
-> >  #include "dmaengine.h"
-> >  #include "ste_dma40.h"
-> > @@ -383,6 +383,7 @@ struct d40_lli_pool {
-> >   * @node: List entry.
-> >   * @is_in_client_list: true if the client owns this descriptor.
-> >   * @cyclic: true if this is a cyclic job
-> > + * @lcla_pm_active: LCLA SRAM power domain is held for this descriptor.
-> >   *
-> >   * This descriptor is used for both logical and physical transfers.
-> >   */
-> > @@ -402,6 +403,7 @@ struct d40_desc {
-> >
-> >         bool                             is_in_client_list;
-> >         bool                             cyclic;
-> > +       bool                             lcla_pm_active;
-> >  };
-> >
-> >  /**
-> > @@ -571,7 +573,8 @@ struct d40_gen_dmac {
-> >   * to phy_chans entries.
-> >   * @plat_data: Pointer to provided platform_data which is the driver
-> >   * configuration.
-> > - * @lcpa_regulator: Pointer to hold the regulator for the esram bank for lcla.
-> > + * @lcla_dev: SRAM device for the ESRAM bank used by LCLA.
-> > + * @lcla_link: Device link to keep system PM ordered against LCLA.
-> >   * @phy_res: Vector containing all physical channels.
-> >   * @lcla_pool: lcla pool settings and data.
-> >   * @lcpa_base: The virtual mapped address of LCPA.
-> > @@ -606,7 +609,8 @@ struct d40_base {
-> >         struct d40_chan                 **lookup_log_chans;
-> >         struct d40_chan                 **lookup_phy_chans;
-> >         struct stedma40_platform_data    *plat_data;
-> > -       struct regulator                 *lcpa_regulator;
-> > +       struct device                    *lcla_dev;
-> > +       struct device_link               *lcla_link;
-> >         /* Physical half channels */
-> >         struct d40_phy_res               *phy_res;
-> >         struct d40_lcla_pool              lcla_pool;
-> > @@ -628,6 +632,36 @@ static struct device *chan2dev(struct d40_chan *d40c)
-> >         return &d40c->chan.dev->device;
-> >  }
-> >
-> > +static void d40_transfer_runtime_get(struct d40_base *base)
-> > +{
-> > +       pm_runtime_get_sync(base->dev);
-> > +}
-> > +
-> > +static int d40_lcla_runtime_get(struct d40_base *base)
-> > +{
-> > +       if (!base->lcla_dev)
-> > +               return 0;
-> > +
-> > +       return pm_runtime_resume_and_get(base->lcla_dev);
-> > +}
-> > +
-> > +static void d40_desc_lcla_runtime_put(struct d40_chan *d40c,
-> > +                                     struct d40_desc *d40d)
-> > +{
-> > +       struct d40_base *base = d40c->base;
-> > +
-> > +       if (!d40d->lcla_pm_active)
-> > +               return;
-> > +
-> > +       d40d->lcla_pm_active = false;
-> > +       pm_runtime_put(base->lcla_dev);
-> > +}
-> > +
-> > +static void d40_transfer_runtime_put(struct d40_base *base)
-> > +{
-> > +       pm_runtime_put_autosuspend(base->dev);
-> > +}
-> > +
-> >  static bool chan_is_physical(struct d40_chan *chan)
-> >  {
-> >         return chan->log_num == D40_PHY_CHAN;
-> > @@ -818,6 +852,7 @@ static void d40_desc_free(struct d40_chan *d40c, struct d40_desc *d40d)
-> >
-> >         d40_pool_lli_free(d40c, d40d);
-> >         d40_lcla_free_all(d40c, d40d);
-> > +       d40_desc_lcla_runtime_put(d40c, d40d);
-> >         kmem_cache_free(d40c->base->desc_slab, d40d);
-> >  }
-> >
-> > @@ -1516,7 +1551,7 @@ static struct d40_desc *d40_queue_start(struct d40_chan *d40c)
-> >         if (d40d != NULL) {
-> >                 if (!d40c->busy) {
-> >                         d40c->busy = true;
-> > -                       pm_runtime_get_sync(d40c->base->dev);
-> > +                       d40_transfer_runtime_get(d40c->base);
-> >                 }
-> >
-> >                 /* Remove from queue */
-> > @@ -1535,6 +1570,7 @@ static struct d40_desc *d40_queue_start(struct d40_chan *d40c)
-> >                         d40_desc_remove(d40d);
-> >                         d40_desc_free(d40c, d40d);
-> >                         d40c->busy = false;
-> > +                       d40_transfer_runtime_put(d40c->base);
-> >                         return ERR_PTR(err);
-> >                 }
-> >         }
-> > @@ -1583,7 +1619,7 @@ static void dma_tc_handle(struct d40_chan *d40c)
-> >                 if (d40_queue_start(d40c) == NULL) {
-> >                         d40c->busy = false;
-> >
-> > -                       pm_runtime_put_autosuspend(d40c->base->dev);
-> > +                       d40_transfer_runtime_put(d40c->base);
-> >                 }
-> >
-> >                 d40_desc_remove(d40d);
-> > @@ -1637,6 +1673,7 @@ static void dma_tasklet(struct tasklet_struct *t)
-> >                 } else if (!d40d->is_in_client_list) {
-> >                         d40_desc_remove(d40d);
-> >                         d40_lcla_free_all(d40c, d40d);
-> > +                       d40_desc_lcla_runtime_put(d40c, d40d);
-> >                         list_add_tail(&d40d->node, &d40c->client);
-> >                         d40d->is_in_client_list = true;
-> >                 }
-> > @@ -2067,7 +2104,7 @@ static int d40_free_dma(struct d40_chan *d40c)
-> >                 d40c->base->lookup_phy_chans[phy->num] = NULL;
-> >
-> >         if (d40c->busy)
-> > -               pm_runtime_put_autosuspend(d40c->base->dev);
-> > +               d40_transfer_runtime_put(d40c->base);
-> >
-> >         d40c->busy = false;
-> >         d40c->phy_chan = NULL;
-> > @@ -2246,6 +2283,7 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
-> >         dma_addr_t dst_dev_addr;
-> >         struct d40_desc *desc;
-> >         unsigned long flags;
-> > +       bool got_lcla_pm = false;
-> >         int ret;
-> >
-> >         if (!chan->phy_chan) {
-> > @@ -2255,11 +2293,20 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
-> >
-> >         d40_set_runtime_config_write(dchan, &chan->slave_config, direction);
-> >
-> > +       ret = d40_lcla_runtime_get(chan->base);
-> > +       if (ret) {
-> > +               chan_err(chan, "Failed to enable LCLA power domain\n");
-> > +               return NULL;
-> > +       }
-> > +       got_lcla_pm = !!chan->base->lcla_dev;
-> > +
-> >         spin_lock_irqsave(&chan->lock, flags);
-> >
-> >         desc = d40_prep_desc(chan, sg_src, sg_len, dma_flags);
-> >         if (desc == NULL)
-> >                 goto unlock;
-> > +       desc->lcla_pm_active = got_lcla_pm;
-> > +       got_lcla_pm = false;
-> >
-> >         if (sg_next(&sg_src[sg_len - 1]) == sg_src)
-> >                 desc->cyclic = true;
-> > @@ -2297,6 +2344,8 @@ d40_prep_sg(struct dma_chan *dchan, struct scatterlist *sg_src,
-> >         d40_desc_free(chan, desc);
-> >   unlock:
-> >         spin_unlock_irqrestore(&chan->lock, flags);
-> > +       if (got_lcla_pm)
-> > +               pm_runtime_put(chan->base->lcla_dev);
-> >         return NULL;
-> >  }
-> >
-> > @@ -2628,7 +2677,7 @@ static int d40_terminate_all(struct dma_chan *chan)
-> >         d40_term_all(d40c);
-> >         pm_runtime_put_autosuspend(d40c->base->dev);
-> >         if (d40c->busy)
-> > -               pm_runtime_put_autosuspend(d40c->base->dev);
-> > +               d40_transfer_runtime_put(d40c->base);
-> >         d40c->busy = false;
-> >
-> >         spin_unlock_irqrestore(&d40c->lock, flags);
-> > @@ -2931,29 +2980,11 @@ static int __init d40_dmaengine_init(struct d40_base *base,
-> >  #ifdef CONFIG_PM_SLEEP
-> >  static int dma40_suspend(struct device *dev)
-> >  {
-> > -       struct d40_base *base = dev_get_drvdata(dev);
-> > -       int ret;
-> > -
-> > -       ret = pm_runtime_force_suspend(dev);
-> > -       if (ret)
-> > -               return ret;
-> > -
-> > -       if (base->lcpa_regulator)
-> > -               ret = regulator_disable(base->lcpa_regulator);
-> > -       return ret;
-> > +       return pm_runtime_force_suspend(dev);
-> >  }
-> >
-> >  static int dma40_resume(struct device *dev)
-> >  {
-> > -       struct d40_base *base = dev_get_drvdata(dev);
-> > -       int ret = 0;
-> > -
-> > -       if (base->lcpa_regulator) {
-> > -               ret = regulator_enable(base->lcpa_regulator);
-> > -               if (ret)
-> > -                       return ret;
-> > -       }
-> > -
-> >         return pm_runtime_force_resume(dev);
-> >  }
-> >  #endif
-> > @@ -3509,7 +3540,10 @@ static int __init d40_probe(struct platform_device *pdev)
-> >         struct device *dev = &pdev->dev;
-> >         struct device_node *np = pdev->dev.of_node;
-> >         struct device_node *np_lcpa;
-> > +       struct device_node *np_lcla;
-> > +       struct device_node *np_lcla_parent;
-> >         struct d40_base *base;
-> > +       struct platform_device *lcla_pdev;
-> >         struct resource *res;
-> >         struct resource res_lcpa;
-> >         int num_reserved_chans;
-> > @@ -3610,21 +3644,32 @@ static int __init d40_probe(struct platform_device *pdev)
-> >         irq_requested = true;
-> >
-> >         if (base->plat_data->use_esram_lcla) {
-> > +               np_lcla = of_parse_phandle(np, "sram", 1);
-> > +               if (!np_lcla) {
-> > +                       dev_err(dev, "no LCLA SRAM node\n");
-> > +                       ret = -EINVAL;
-> > +                       goto destroy_cache;
-> > +               }
-> >
-> > -               base->lcpa_regulator = regulator_get(base->dev, "lcla_esram");
-> > -               if (IS_ERR(base->lcpa_regulator)) {
-> > -                       d40_err(dev, "Failed to get lcpa_regulator\n");
-> > -                       ret = PTR_ERR(base->lcpa_regulator);
-> > -                       base->lcpa_regulator = NULL;
-> > +               np_lcla_parent = of_get_parent(np_lcla);
-> > +               of_node_put(np_lcla);
-> > +               if (!np_lcla_parent) {
-> > +                       dev_err(dev, "no LCLA SRAM parent node\n");
-> > +                       ret = -EINVAL;
-> >                         goto destroy_cache;
-> >                 }
-> >
-> > -               ret = regulator_enable(base->lcpa_regulator);
-> > -               if (ret) {
-> > -                       d40_err(dev,
-> > -                               "Failed to enable lcpa_regulator\n");
-> > -                       regulator_put(base->lcpa_regulator);
-> > -                       base->lcpa_regulator = NULL;
-> > +               lcla_pdev = of_find_device_by_node(np_lcla_parent);
-> > +               of_node_put(np_lcla_parent);
-> > +               if (!lcla_pdev) {
-> > +                       ret = -EPROBE_DEFER;
-> > +                       goto destroy_cache;
-> > +               }
-> > +               base->lcla_dev = &lcla_pdev->dev;
-> > +               base->lcla_link = device_link_add(dev, base->lcla_dev,
-> > +                                                 DL_FLAG_STATELESS);
-> > +               if (!base->lcla_link) {
-> > +                       ret = -ENODEV;
-> >                         goto destroy_cache;
-> >                 }
-> >         }
-> > @@ -3663,16 +3708,17 @@ static int __init d40_probe(struct platform_device *pdev)
-> >                                  SZ_1K * base->num_phy_chans,
-> >                                  DMA_TO_DEVICE);
-> >
-> > -       if (!base->lcla_pool.base_unaligned && base->lcla_pool.base)
-> > +       if (!base->lcla_pool.base_unaligned && base->lcla_pool.base &&
-> > +           base->lcla_pool.pages)
-> >                 free_pages((unsigned long)base->lcla_pool.base,
-> >                            base->lcla_pool.pages);
-> >
-> >         kfree(base->lcla_pool.base_unaligned);
-> >
-> > -       if (base->lcpa_regulator) {
-> > -               regulator_disable(base->lcpa_regulator);
-> > -               regulator_put(base->lcpa_regulator);
-> > -       }
-> > +       if (base->lcla_link)
-> > +               device_link_del(base->lcla_link);
-> > +       if (base->lcla_dev)
-> > +               put_device(base->lcla_dev);
-> >         if (irq_requested)
-> >                 free_irq(base->irq, base);
-> >         if (runtime_pm_enabled)
-> >
-> > --
-> > 2.55.0
-> >
