@@ -4,148 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC6FCA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6475FCA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03BD010F488;
-	Wed, 30 Sep 2026 15:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C712510F496;
+	Wed, 30 Sep 2026 15:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="erUXk/cz";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hXAyY75A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qOeRiN3H";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bMtoRBs9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2kZ8xr85";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010019.outbound.protection.outlook.com
- [40.93.198.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7345810F488
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:03:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UNr2F4hvVELtdt4l3yb9UWXxwLKzErBKqnDysvlpDygh3gHO6fbGSfj8pQNgufz5H2tZl116GK2WVT+211POC6psQeki/sZH8nJue7laMVcO3dHq3rMsqYFm+gs0BadfQN6cC5WNA+OD/mTjYcHqBJV6ZXwGrhF/isZI/m1zLbhG3Ic8C/A9InjE0N6+hwi0EHp818ExoGFMi0tcge4X9wmrY6h/zYx/U5nsSdIUqD+V1eJISW5cTUqZfVP+4U5eXtqhyt/IIzFEfYZHr/eVLtKNbrN2oFVa3U6Ygx3it8K0b3SH2PqpX/kB26VlTP1XsEM56isISB70+/oMzA5e7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+JGRjOuqYfm4gb+GLMSqBwtsApOklEQyA2jSI1XAsBs=;
- b=Yg15MzWarFhyrpxI2L5AeJam8y+/JK5zAFiGHLXl/Rc/ZY+Jk1UQL7wcuQLe9I2eHHgNy3gwJreRZIDIPYngthvT6SlYZ6Oimsyh6cpF0TAzDgoIOnjmOJoBvaihAzoB1CaEkHOY4RgGDhlJTGEXd0y8/J+J70Jg3GBLvysSaNA2zFI1uRJ9tH32NzLk124R8Ob4h3bgA6jizYoTG8xqTCYTu3pbFV4RrmwPZZZ80BSxcXnEf+bOaWStAsxIQcJ2AjmE0nyYNNEqJT+coLK+42pmrE8HI7TRLzLtV6BNQW67m1HkHpPv1T+qdsHvnJ4XanrLVBbtLIeIlBGDFuXzHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+JGRjOuqYfm4gb+GLMSqBwtsApOklEQyA2jSI1XAsBs=;
- b=erUXk/czrmmw398Vvfm+7dLnBfTVXeGQLqLU2h13c/N3FX5FRrSVTustP3edtDNR+PcFeMqmzGm7Zq4rFUsqTa/pi3qnkFlCN0pN+yq1jB5BrcJnFbIL89wl9Lsi10oVXToBGgDhiyVaK4ePEkK1SFhYCLHX0Bp+qlnmwlsciBE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 15:03:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 15:03:31 +0000
-Message-ID: <31fdf414-1345-4db2-9fb7-08265a7bb6d6@amd.com>
-Date: Wed, 30 Sep 2026 17:03:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
- traffic is routed
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
- <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- kvm@vger.kernel.org, Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>
-References: <20260928-fix-p2p-acs-v4-0-v8-16-404453b9c435@nvidia.com>
- <607e8903-a979-4d78-bf08-447321c03119@amd.com>
- <20260929132305.GJ563127@unreal>
- <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
- <20260929175737.GK563127@unreal>
- <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
- <20260930081832.GA3401365@unreal>
- <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
- <20260930114356.GC3401365@unreal>
- <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
- <20260930143237.GI3401365@unreal>
- <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0022.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f1::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456CB10F496
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:03:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 949071F74C;
+ Wed, 30 Sep 2026 15:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790780630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
+ b=hXAyY75AaAwkJ0VZIQFFgrLZ7Y2KzEgxETO+AT08oYZG3WYfEuTHt0iDB74PbdZlKQGQPL
+ 8FHnhMQ95VvTGlWXLbjdJbkBStkqsDXdK3EUYrRHQbSH8/6t3LKQBLQJT8z7T+qAPhQ11a
+ edExXzF4/4WY/1YrcDhB1n8L0ndny28=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790780630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
+ b=qOeRiN3HSIHor81FYPYBB0CInxKHKb5hcMhGUjT3ERdTXNCPFBTmyuUJ/TwkSax8vS1UMS
+ /hRLbsG6Cou5F3Dg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790780626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
+ b=bMtoRBs9bUhcjPQPnuPmB8PvzpVMu5frAUg57rj/5vEzCJHoAoIExo5XxxFUs9BbIr+EEp
+ o5eeYmY20RFkdbynZbthB38kJ9qR3ix0oPuXpXFybzGGDauaoUxruGTWM92Q0+Y2d0uphs
+ rHYVG90gS/00tBKOe2/WGOUGDJyFE+w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790780626;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Rkx0NYyI2w6p6HwAnGuOmn3OxWooUjXVkmFrvel6pAg=;
+ b=2kZ8xr85W1X+I5D7jjFR8qfs7M7AezEYEdoaQ+DLu1cw1zWnNK07CQalr9tM9YzWDvaq+y
+ ks+bWUYAeZhv4KCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2384313722;
+ Wed, 30 Sep 2026 15:03:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id g32wLtEkvWqsIAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 30 Sep 2026 15:03:45 +0000
+Message-ID: <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
+Date: Wed, 30 Sep 2026 17:03:45 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9457:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa5f3c06-9614-4b6e-c419-08df1f03fdc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|23010399003|1800799024|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: FpNND/XMs6D8Q3O0+ukZoUzLOkUBcdoYL8MbYnOFzBevW68KY4Qq5snEzo9yku1j/P7QEmG8EYqxZWoYUjIJQS0wrEN5mNMvziymB8/ZYv82H1eQPdMP02pjkAz05gjDXvcKoxrzVEMrLzb9iw3jR8nDEDm09OXGKe41MBzsw3xsumscerE+N9gdEQn2bmXk7ydyDOcpS8oGl91u0xmHzTydS+ynlp73Y0mXJcuY5dzOAQR1Xto/llQwO2Y2/Y9DzKR1mNl5xOypLv+sN42V9rffhodnAIN4Ugy9BushUmtbJPHp7as4fcNV3DssDMM4hgsQX/x69Ut6TL+jY3k29jFfZJoV3mVEekU7nxENsM/iDwt/+2VC6BAarpPnCng7Lote3ZdFjU6xM2LngEi/AfhrN96ruFe7BjcwWW3aRdnzeYqXzMrSAdv9k1+vvLCBo7C2+hlW/W24EW31LjPmRfN0mvYM5+0MN9iiUZ5Sx183B21nZ3UJnDQm+hlCVoCSPiHGilMNT02NeG57/ETG7BF8+suATstpTQeKNoYURc1VZs1zs+HsrHt1/P4KtSAZuW4FlVZWDieuYhatrfzyq09Oy72dXErDkNS0X7wqNUwTZyKjGqg3lPZJXMzF76YTz9C6ERLmXjWcMF3xeV6LNSe9trmB0A06cYpB+HTv204=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dW10Y0hubkYrci9ua08vcnkzSmQyaGl6VkhlR1poOGdrRnN5L0RNRnJaSndl?=
- =?utf-8?B?cXdvR29OcmhudnR1a2lxRldZbGo5Rm50c1ZnT0pvOUt1NzlRQ1d2S0ZvZDUw?=
- =?utf-8?B?cDI0bUgxOElaOFJxUTdrQWVUaldHbHkzUnBzblkzdjVscUdrUkZPZEZoa1No?=
- =?utf-8?B?QjhQcDdxZW1yWElDTkkxNFNpTE10TkRqbnJ6TlBrR2F5TUxMS1ZDa08waitl?=
- =?utf-8?B?Q0FDUVFXRUoySjhBVUtWcmo4L0t4aVREeVlJY0gzN1M4Nkd3dDkydXYzalFj?=
- =?utf-8?B?bzd3aDRqaTVSdkFxejBLZDNod2pQY2RxK3FZL1JGNVJYaE5FY25EbmkxOW4r?=
- =?utf-8?B?THVhOFVmQnJXOXUxVDlzWExaVlorbzhvV2FzdFZKT3NMdUJqV3dCUTJkanZo?=
- =?utf-8?B?MjlWUHdsdUNvYUVYZUpHaGtFeGFxNUpicHdoQjVmWWM0azZIQ2hVSndVaDQy?=
- =?utf-8?B?c3psSHEwcVhxajZLeWRKampIQkJNTEpiUnQrSE5ucVYxeFFHVk5uenFuNFda?=
- =?utf-8?B?amRLUGpmMVJBT0REMDJWeTBMbnZud29kUFJKNGk5ZFBDaE9hN2xMM3NIKzBR?=
- =?utf-8?B?OC9QR21NU3RsN3RuSXJKemlHeVVZSUF6cDBBcmh2RW9jVlhDY0czSXlyeFE5?=
- =?utf-8?B?NlJncm1rWDBud0FrUCs4cjNDVUEyaXRQYUxnM1lnbVQ2UnB0bTRZQkp6Tit6?=
- =?utf-8?B?MHo5NmFFZjFkSGpickRrSURsS3VjdEs0eGJzSVZ5bXBlWDdQRzZLRFZsQ3pr?=
- =?utf-8?B?VkpPcDR6UlBkd2ZBNjIvUHdxVjZvSWZhdS80K255RVRkWWdSQktMbkI0UUo4?=
- =?utf-8?B?Y2pEQTd1dlVwSWdWNHhRSEZyVGd5a2NUNHJFd2JUL3JTeW9Sdmo3dy94dmRs?=
- =?utf-8?B?ekdDRzR3dkxJVklaMFY4bCtSTlQxZmxpTitmMSs1NWllNUhsY0tIL1lmZzY5?=
- =?utf-8?B?cHQrVDc1dHVsUVJHd2c0VWtxZW8yL2QzQVAxYzNObkZMTFRQeGw3cFk3RXB4?=
- =?utf-8?B?S2tKWlFrTnVVUStCN005Yk5Nditub0tJaE1TYXkzallOdStsUmZsbUNKdVpV?=
- =?utf-8?B?UHZhODhxWUoxUC93UC9DUVg5dFZjaWIxYzlLdy84aGtvRk9sUmhjU0ZlY0ho?=
- =?utf-8?B?SENxMERpZ25VSjYwazlXWDQ5TExaNmk2NjhEMERwclg4V1ROTUsrWU5LNWhv?=
- =?utf-8?B?b1NyejBjTUYyeDhtTzNkS3VEaTArQkxwRjRsejhod254dDJheE4zMFZqVHFm?=
- =?utf-8?B?RVhXZjVCMjVSL2JPWVJNZVBVNkk1ZHVtcHltTk9LbmUxbVlqbWJNN3BxdTdo?=
- =?utf-8?B?aFJXZ3A4cjdtNTNmUGFDZHpIdFN5Z3h2N1JiaG9sSG5pNnFiU21iMmE2c1Fv?=
- =?utf-8?B?UnV5eDVFTkpUdmJ1OVAxaHd0cndTTGFaQXpIdW1sNUdZTzJaY3F0V2c3RGEx?=
- =?utf-8?B?bnQrVUlEZTdlVUxKbitPenBzNzZXZUhSTlZ1RkVEaGF6Y0ppY250UERoR0p2?=
- =?utf-8?B?Ky85Q2lyTVBvS0V4V3U3NldKbm8yVjBIWTR3amdITHY4Mi8wNUdvWGo1bElC?=
- =?utf-8?B?LzFRNkVMZmtFc0p3eSs2dDJNcGxlN3FoNkhZM0lXamk3ck13RFdsRlY2YXd4?=
- =?utf-8?B?MklnUS9kcmM3MWU1RmUreU9BeWFUVlpHV2tOcXgxRTN0UExpT0hvV3ZUVmxZ?=
- =?utf-8?B?c2I4WkNVQzU1RkhQR2x3WU9yajVFaDdlbWFHcWUrclBZVW82eW96dUt3aTFR?=
- =?utf-8?B?UC9IV21zYVF6d213TlJ1cmlIYXRpWlRWR2pMNkZLbTJHZzM0dXNabTMzNi9v?=
- =?utf-8?B?dkVqZWE4bW1xWWwrdVdVRDFHcTQvSU1IUzY1SnYvU08yMFY2aDdUQW9uMWJE?=
- =?utf-8?B?bnNMZFNObE8vVDhlejJtVm9kdVdTK3FhcHdkUktYTGxFNjlIOGJBY2RjRmw3?=
- =?utf-8?B?WUJIenA3UXY5N2tkOU9VcWM3cDNFSzZzamIzTm45WnRWVzdEUWxGbTFhZlA1?=
- =?utf-8?B?Vi9IVi93djNTTmVHc2pGUWhpYTlGa1lxOVZOSTArdDRvQ01FQWUvT0NaSG44?=
- =?utf-8?B?MFVsNXdxaFliS2h4RlRwTHJZUldSdlRJN012RHlSMStJL0RuNERURUc0Z2Q4?=
- =?utf-8?B?bGFGemJuMmRYNUFlanBSWWV2dnhXRGpBaGh6Z3ZSV0pMZGJZV2p6cDhteHFC?=
- =?utf-8?B?US9QSCszbFpqempGUVJtRVlaVDZHVitqc2QvYjlHQXcrU2dEMHlnbzErdjFp?=
- =?utf-8?B?RjQ0MnNHSi9vazIzQkZQaDI3VlFQOTVpaUdHWFZoNGprb2ZvbXVjTEZ2dGRV?=
- =?utf-8?Q?sV0Jlu9oMcxfTr8gQ/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa5f3c06-9614-4b6e-c419-08df1f03fdc3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:03:31.4750 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: watFlT0cA5KKclqD9Jkahtwq9XhWwv2KWSDNXL/RgYl/Ok3jl3Gj3m+giT7IGiJb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9457
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
+To: Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+Cc: kraxel@redhat.com, airlied@redhat.com, dmitry.osipenko@collabora.com,
+ slp@redhat.com, mhrica@redhat.com, gurchetansingh@chromium.org,
+ mripard@kernel.org, simona@ffwll.ch, linux-kernel@vger.kernel.org
+References: <20260930132707.500748-1-dbassey@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260930132707.500748-1-dbassey@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,108 +138,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/30/26 16:57, Thomas Hellström wrote:
-> On Wed, 2026-09-30 at 17:32 +0300, Leon Romanovsky wrote:
->> On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
->>> On 9/30/26 13:43, Leon Romanovsky wrote:
->>>> On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
->>>>> On 9/30/26 10:18, Leon Romanovsky wrote:
->>> ...
->>>>>>
->>>>>> At a minimum, exporters need to pass `p2pdma_provider`.
->>>>>
->>>>> No, exactly that is a no-go. The neither the framework nor the
->>>>> importer should see the p2pdma_provider.
->>>>>
->>>>> Only fully translated addresses where the DMA access should
->>>>> happen.
->>>>>
->>>>>>
->>>>>> If I keep the “dma-buf: Let exporters hand out the P2PDMA
->>>>>> provider behind a
->>>>>> buffer” patch, I can move the P2P TLP types back into
->>>>>> `p2pdma.c` and export
->>>>>> only the function that indicates whether ATS is required.
->>>>>>
->>>>>> Is it ok?
->>>>>
->>>>> What you can do is to forward declare enum pci_p2pdma_map_type
->>>>> and than pass that 1 to 1 from the exporter to the importer.
->>>>
->>>> Unfortunately, neither suggestion applies to RDMA NICs. They need
->>>> to know,
->>>> before mapping addresses, whether to create the memory region
->>>> with ATS
->>>> enabled.
->>>
->>> The design principle here is that the final location and access
->>> path of the data isn't determined when the buffer is created.
->>>
->>> The importer first need to attach before it can query such
->>> information from the exporter.
->>
->> In attach yes, this is why importer digs in dma_buf ops to get
->> p2pdma_provide, however it is before addresses are known.
->>
->>>> The importer needs a way to obtain device information from the
->>>> exporter so
->>>> that it can configure itself correctly.
->>>
->>> That won't work with DMA-buf then, the exporter is completely
->>> opaque to the importer and that is for really good reasons.
->>>
->>> Why in the world does the importer needs to know the information
->>> from the exporter before the mapping is created?
->>>
->>> It is the exporter who decides how data is accessed by the importer
->>> and not the other way around.
->>
->> There are several reasons:
->>
->> 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on
->> the ODP
->>    mechanism, which requires an MKEY to be created first. See commit
->>    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory
->> region”).
->> 2. P2P routing is a property of devices, not memory. It is known and
->> remains
->>    stable.
->> 3. See the VFIO TPH ST discussion, where the requirement to obtain
->> the
->>    exporter’s P2P information in the importer was raised again.
->>
->> Thanks
-> 
-> 
-> Returning again to Jason's series. Let's say we'd add just the mapping
-> type infrastructure, converted users of pcie_p2pdma only to use that
-> and then we'd have access to per-mapping-type data. This could actually
-> be done as a prereq for this series and merged separately. It's a
-> couple of patches only.
-> 
-> Jason's match() and finish() callbacks could compute the interesting
-> routes at attach time,  perhaps even condesed to whether IOVA is used
-> and whether ATS translated packages have a direct route (which is what
-> mlx5 care about AFAICT). This information is kept outside core dma-buf
-> and would be specific to the pcie_p2p mapping type (interconnect) only
-> rather than having functions and callbacks bloating the core dma-buf
-> structures.
+Hi
 
-We need to move that to the mapping time because that is when the final location is committed, but apart from that the approach sounds sane to me.
+Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
+> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
+> virtio-gpu primary planes. Without this, glmark2-drm fails at
+> startup because it selects ARGB visual configs by default, which
+> don't match the XRGB-only plane capabilities. This causes
+> drmModeSetCrtc to fail with EINVAL.
 
-Otherwise the information can change any time there is a new importer attached.
+But does the host also support ARGB on the primary plane? We usually 
+don't export formats that are not available in (virtual) hardware.
 
-DMA-buf is basically just the frontend for passing mapping information between the exporter and the importer here.
+Best regards
+Thomas
 
-Regards,
-Christian.
-> Then exactly where the cross-subsystem match() and finish()
-> implementations should live I figure remain up for discussion and
-> guidance by Christoph?
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
+>
+> The virtio_gpu_translate_format() function already handles
+> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
+> so this just exposes the existing capability to userspace.
+>
+> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+> ---
+>   drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> index b422eba42a5f..5f0bc1b1931b 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+> @@ -37,6 +37,7 @@
+>   
+>   static const uint32_t virtio_gpu_formats[] = {
+>   	DRM_FORMAT_HOST_XRGB8888,
+> +	DRM_FORMAT_HOST_ARGB8888,
+>   };
+>   
+>   static const uint32_t virtio_gpu_cursor_formats[] = {
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
