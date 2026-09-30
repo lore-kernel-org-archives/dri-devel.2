@@ -4,46 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512B5CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93992CA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B55E410F376;
-	Wed, 30 Sep 2026 12:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3D2610E58D;
+	Wed, 30 Sep 2026 12:12:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="VmFlGgfp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WNA4MNor";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA3CF10E23A
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Message-Id:Date; bh=PL4Ft7v/JyB4yYo
- qsmQzVyzNnO5ByprM+v3I7ZTprvE=; b=VmFlGgfp8gE8FB0JR0Z3rfh9AZPDsNK
- EkJ6eBaZx/EPOC6SDdwF0Kkw0erHDF2IDq23HES6YCcZYa1FvcnbKpFTrzWh4MIF
- rmSAVglnORX2ecAoF5+5IWSAEgXegKYKVGZzuY4agdii9Oo6siMOAweqsjR/yT7d
- +qK1ExZ0hJHY=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Eduard Bostina <egbostina@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: ti,
- tpd12s015: Convert to DT schema
-In-Reply-To: <20260930052925.GA931211@killaraus.ideasonboard.com>
-References: <20260916015833.112753-1-quchaosheng000406@163.com>
- <20260916123210.107841-1-quchaosheng000406@163.com>
- <179028680032.1886779.12172352669683602550.robh@kernel.org>
- <20260930052925.GA931211@killaraus.ideasonboard.com>
-X-CM-TRANSID: _____wD33_7YvLxqrVnvBg--.1786S2
-Message-Id: <6ABCBCD9.079C08.00008@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFyfWFyktF4kGF4DAFW7XFb_yoWkZwb_u3
- WDGrZ7Jw18Crn7Ja17GrsIva13ta18urs5XF1vqFWI9ryrZFs8W34xZrn3WF1kGw4rtrs8
- G3s5JF1ku34akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRErb1DUUUUU==
-Date: Wed, 30 Sep 2026 15:40:10 +0800 (CST)
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BkvpGq8vNmTeQAA3v
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B52C10F1DE
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:59:19 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-396ccd5cf02so2582047a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 23:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790751559; x=1791356359; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
+ b=WNA4MNor51ep913JKNLcZ1jLREgIQU67szfWJqJmarhcqxlKSfm2n1x8t0N9r/k+j8
+ nQNUDwoheLk4BujqLFtHWIDWc6SsBFqdMQOyZLV6R+ZMys+elZiO7d+6rkHYb7qYujVP
+ uWfC9ye/uNPkHqrvNHaWBN9qzztMcN73BxZYzIWzI9Esnee9mge8gkcLpQMVBSTBQIpC
+ XPM4tdRdh2DBPfcETN/XpsUdxdD0/YOd6eECetA4bjrvTSC14X62UoTn6Hs2CzEJhoFk
+ 4CgwYo/Buho1z31EFkQjScm0Pg65zCs5y/VmPbDaELaRaRfnSS3hHOzxwcL05WX8Rw0E
+ 5Vqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790751559; x=1791356359;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=XY/E2j9XnFuNBK9WaF/nFTrbzu9uvpf+6HkIq2bPSfU=;
+ b=ySUVY51gEooKlRNb/DEU7nrWVJWJJuA1wDgJC3rCDREuKUAnzj5cwJR9A/l2T5+Mmu
+ OBXybDQB5PrxpEJMR1P5ue1SO+9IqUQEmSSC79VyvhZVpqkwU3xdrhSzsMPRdr3miGu7
+ v/+iwLUo17awVDDryvAsX932QJpT3XBA2gJcaM8sF/F3CTypvjhmV44Roqg276ufJASo
+ fY84CUWVHmj1NREdbw6lIzS+bgYK0N1FTi+HkJrT1EgZJBnZggfzGRpS242Lll5zIpS+
+ gWryUpZj0tlmbGodCmi4gLVZtjLQcbKJ7z+y1fC/eRXZ3N+4KD77CeLHZ47EDRDilEve
+ PQDA==
+X-Gm-Message-State: AFq9FYK3U3sGkDvumizdQFceGA5Zsxzm0junXdrmI48Qj2yOR74hMeHo
+ uxcgrOACcPgxfchlkaLt+Xy/1dFb3FN+862HH/sqbwIzmMSyIpzSzBdcn12v1vXZ
+X-Gm-Gg: AYBFou0S0HlIZvyJpfZnKmMDl9aWoHiSJiPP4BhsFB+xERTl5gooJvOM02Z8YkugKNJ
+ Vj+IlK4+RjCwTSdsUiTu3mpsmQVsjMdcRburTQLtrDLGq4xlk+FD0YoXQToz6DECCtAg+1NO4eR
+ 4IbtRDEmJzkqm6BUUJFHAvfXgjzfFPskKeKVGGNotOfThhDorw1l7QHqsegUQ17r5l7eTheHtef
+ ztW4fF+8vQmuRrIshqHqjp7sqOng+Lz03Iq0J+YiO/mgigbp+0maa4vXm6nZXTdE5/WJ0Po+Ti5
+ Hwak72K/nz3vFHE1QZV7TxG1TSm7wepnnwhmWrGMeqqZhdkOZNcBUTaU7AaXcLkrhyNBkJcak91
+ 5MQ+Aq7mRFMb8UJZQ3Cg2MQUqNyOtcBJiGVp3zLUHkVOCKEHwj8uCfkZD2qDjQ+gYv62WHySzeg
+ YA9Xz20MS2PQGbx04LwTfZNGO5rUWnSVmIezLr/ZTCW6PnSZTwUWvB6EXF/JkOuIpKvBpSzcJX5
+ /mDBwbdLaDV6BNPcL3OKxOzl3ShRztSjIexZpZ3/gwW72P+svNlW4n1ajQ/KbKWSzjqAYlspQKc
+ jYHqpq51fQ==
+X-Received: by 2002:a17:90b:1e42:b0:39e:6c69:f476 with SMTP id
+ 98e67ed59e1d1-3a4d18c21bfmr485055a91.53.1790751558947; 
+ Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 3/5] drm/gud: Prevent shadow_buf UAF by flushing work
+ before reallocating
+Date: Wed, 30 Sep 2026 06:59:12 +0000
+Message-ID: <20260930065914.393939-4-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
+References: <20260930065914.393939-1-benquike@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,37 +96,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+In gud_fb_queue_damage(), freeing gdrm->shadow_buf on framebuffer
+dimension changes while the asynchronous worker gud_flush_work() is
+running causes a race condition where gud_flush_work() dereferences the
+freed gdrm->shadow_buf during a USB bulk transfer, triggering a slab
+Use-After-Free (UAF).
 
-You are right, and the two extra entries should not be in the binding.
+Flush any pending background work (flush_work(&gdrm->work)) prior to
+freeing and reallocating gdrm->shadow_buf when framebuffer dimensions
+change.
 
-Both drivers take exactly three GPIOs:
+Tested in QEMU against Linux 7.3.0-rc3 with KASAN enabled by queuing damage
+on a resized framebuffer while background USB flush work (gud_flush_work)
+was actively reading shadow_buf: on the unfixed kernel KASAN detected
+BUG: KASAN: slab-use-after-free in gud_flush_damage(); whereas with this
+fix applied (flushing pending work before vfreeing shadow_buf), 0 KASAN
+warnings were generated.
 
-  drivers/gpu/drm/bridge/ti-tpd12s015.c:150,157,164
-  drivers/video/fbdev/omap2/omapfb/displays/encoder-tpd12s015.c:237,246,255
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+ drivers/gpu/drm/gud/gud_pipe.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-They ask for indices 0, 1 and 2 -- CT_CP_HPD, LS_OE and HPD.  Nothing reads
-index 3 or 4, and neither file mentions scl, sda or ddc.
+diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
+index aa7792966287..f9726e3d849f 100644
+--- a/drivers/gpu/drm/gud/gud_pipe.c
++++ b/drivers/gpu/drm/gud/gud_pipe.c
+@@ -397,6 +407,16 @@ static int gud_fb_queue_damage(struct gud_device *gdrm, struct drm_framebuffer *
+ 	struct drm_framebuffer *old_fb = NULL;
+ 	struct iosys_map shadow_map;
 
-The text binding I replaced said the same thing:
++	if (gdrm->shadow_buf && gdrm->fb &&
++	    (fb->pitches[0] != gdrm->fb->pitches[0] || fb->height != gdrm->fb->height)) {
++		flush_work(&gdrm->work);
++		mutex_lock(&gdrm->damage_lock);
++		vfree(gdrm->shadow_buf);
++		gdrm->shadow_buf = NULL;
++		gud_clear_damage(gdrm);
++		mutex_unlock(&gdrm->damage_lock);
++	}
++
+ 	mutex_lock(&gdrm->damage_lock);
 
-  - gpios: CT CP HPD, LS OE and HPD gpios
-
-omap5-igep0050.dts passes two more, and there is no pinctrl group for them
-and nothing in-tree consumes them.  v3 raised maxItems to five only so that
-dtbs_check would keep passing for that board.  That was the wrong direction:
-it wrote a defect of the DT source into the binding instead of holding the
-binding to what the hardware and the driver use.
-
-So it splits the way you pointed at earlier:
-
-  - the conversion keeps gpios at three entries, which is what the driver
-    requires, and
-  - a separate patch drops the two extra entries from omap5-igep0050.dts.
-
-My earlier question still stands: would you rather have that as a v4 from
-me, or should I leave it to Eduard's series?
-
-Thanks,
-Chaosheng Qu
-
+ 	if (!gdrm->shadow_buf) {
