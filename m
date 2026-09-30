@@ -4,130 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D87ECA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9BDDCA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 13:33:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A06C10F3D2;
-	Wed, 30 Sep 2026 13:32:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8DF10F3D5;
+	Wed, 30 Sep 2026 13:33:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="AlyvTR88";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="abCToKFy";
 	dkim-atps=neutral
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com
- [74.125.229.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3080B10F3D2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:32:28 +0000 (UTC)
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b8c1b8d7b5so4761898e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:32:28 -0700 (PDT)
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com
+ [74.125.225.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B87E010F3D5
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:33:02 +0000 (UTC)
+Received: by mail-wr2-f33.google.com with SMTP id
+ ffacd0b85a97d-482f6351831so3170284f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:33:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790775146; x=1791379946; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=00vEEH7L1j3RTeCAPOrHPZHBxJBgpO2ITSxaC+oPgZQ=;
- b=AlyvTR88h6nMbVLVLFWNch5xRSA9Bmh7HsMbvgHzU+T1aSBAIgPqnU36Rx8H/Kn6AY
- JBuNm8A6GqcLiwwweXpU8Kj2VOT4LEBHEMEYFYxKF/5ztFrL2wRVapl2ZlH2Wfg9LR3j
- H6y6XdGWqHzAqqoRo5Lv0yyXwURFpMvbnw/lA/G8qlLi6hc17T8qKhpLzqHC2UjMdrCE
- ZjcXcOz4BEod2d2E+UICUXI2yfasuCn5g/OEsoEZFBWUyzk5tC5fMs/V47KN6k/goEEN
- 4LfJSLCm5mNj2+ZSHGkU1mhaLELh2yEGoaWQaeqe7mdbxl6hH+0vLDZzhh+5NyX8VB9w
- 6U8A==
+ d=gmail.com; s=20251104; t=1790775181; x=1791379981; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=z7TzL9qAFKtaS7vfznZL2zUVepTC6ZMh9+7GhOWKsog=;
+ b=abCToKFy04hUg8ON5sPJzwX4ll90X2h5h3yoFE78VN71PQJp2wfEdYF5jj8TV4YWQb
+ FIP1jteeCbuTMgjwcppOO9R3z8Ld+m0+XUIBShPKhgLI/K2fOZW5dIgJqJpW29cWagY5
+ Eco2Q711TI1OLQ2AFMNNf2LfXjbxyUpLi7vaO/VdoFHEM+xySMVI4VpXtb8lryEp0Fk0
+ OB7LBv3zFJLL3g0bPwMTcUUJdiKMUAFSgXrrXQaZvxndEaZwPxOKOBIjvg6TrGyJXt08
+ FZ0BASbtC/6nEIrcTpWwPucLccdbgd7/LNThFgKM3489IguhSiSfUvdo8f3AfdU2mkEH
+ B/Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790775146; x=1791379946;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=00vEEH7L1j3RTeCAPOrHPZHBxJBgpO2ITSxaC+oPgZQ=;
- b=saZSCWYUk5rO/xgVIKRXr5JNb+CSKRSrzlz86GYZNf1Bem+WEw7E25a74Y5Exob+ee
- Q7AFzC4N3AFhVDlfy1kaqg9pvGN/VzNf6LwSLCgwK3KMqQbIrsB5nCYLZ/NhEvwBTBj2
- hqYJA0nqZ/dNTsWB9BinWZdR3TRrOBS8ASizvvLjMlcwD2qE8rXy0Dx/9ui7nn6KsOQ8
- GVBLxTZbA3KNMU/XufyzX3I1H+QwlBO4m/d0B5+M+7Scyk2wUnU8C0VZY+n3LF2wd2DY
- AsU6a6krI8EEV9TwTsVuN+ov3qjZ/bHKU5VaArWPK6/yHMWr3CJPJpSf6ei4uP9EWOJ+
- kC2g==
+ d=1e100.net; s=20260707; t=1790775181; x=1791379981;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=z7TzL9qAFKtaS7vfznZL2zUVepTC6ZMh9+7GhOWKsog=;
+ b=Uxixj9mQsFk88tNZtYpGF2vAhadhz6aBBbcKdEqIFdzSGLf3yfY48TYKaLSy9JkFE6
+ aJxoibAGkZKfOzsXYqAZbsijfZIQ1IxEmRtIm4ZiHbZYns4UhyPgZocdXy4B8RrOD0t+
+ lHxSlNsLcR9LicOPOPS9cgXspVxr0xUGanYRo8k1Dmrp0DIi5CiDzDMBfkcqV9gr76ia
+ FZGdhgZ6Qs3iGlm6H683df5nweVOiQM7FaN1Y2eAh2iuskczz2ti5fKH0eS8ZrWkbBIN
+ SmLtqtRas5CR5txItj83HqABK/9c0DyAajJ+J6UC2RPvYCpjUtgAw3ZNKgkq2qjFcRMX
+ SGKA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxjq1U+CaXCf7XZWEaGEivX+A1IkRjxc/PdhO5Z+0qBVF5eDHJqozHRzcD6T/QT3HrxKSNZ3Q+4Wp4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYISsn3SFePNtKtfqjdu9goiHCYPZicnm+6Ik8fA4RviFZsXi2iO
- J8Jh9JtjqnRHhFNOtxgKVFKvkJnLJK5285sYDIRbSqWHBA6l0giZCgzz8bNePW5wwAk=
-X-Gm-Gg: AYBFou0Duc9kVTiyeDYfSQxuDDO9vV9Lt9zeCuNX1bg/3mvWvCbPq6JVLS6PnrggpGR
- X+H84m+3VioHw3HEttuKRUURDeMnvl38fWfCXsLMIexxHwliGDpYeOksEgvQQWrZ6ZdKwj+/hco
- 34GSMbpQTjnud+nYPOfJiOFOH+jkgw7Up4tON4bFW2OmeymsOx3IM2tyx1qLpPfXwrfZx8mHXVg
- l79bwW6Mtt6ulbLvldhseGbVjW4tWvFJBmdcNvVqXMzRjrfdOaMkJhTWirU0Ol4tLxKl9Q1446R
- AYejuiJ5UtyxyoGcHGrhE+kTd2eLLb/hf2BW6g8A2EIjtGaENdcl6Fcovfu2c++6a9wPEe2+kNY
- q2HwvqFWDhPUmQJ/GIM2yKAuWvsMm4KiH31bRfoL7CTkMt73GAD+Q+Pn/3cEWQzuCU9h+kg3pOD
- hIc34IUKnkze93Z8sxwOdDIDy3iraBSHqwS4/QlXOW/JN1UVJ6FtZ1dSDBA2zKEp7naoaIh7C9K
- gvYqfH76htulNp0w6sDBpcFIY0dBkU1jjjk68t3naOrLvlaBcQzdyZplJanum2Lh+IhRaPyjipf
- dSSLUw4=
-X-Received: by 2002:a05:6512:290b:b0:5b8:ea1d:ce0f with SMTP id
- 2adb3069b0e04-5ba40600866mr515249e87.67.1790775146114; 
- Wed, 30 Sep 2026 06:32:26 -0700 (PDT)
-Received: from [10.21.51.184]
- (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca.
- [142.127.77.63]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ba3fbbc003sm357173e87.12.2026.09.30.06.32.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Sep 2026 06:32:25 -0700 (PDT)
-Message-ID: <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
-Date: Wed, 30 Sep 2026 15:32:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-To: Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
+ AKwUvBzuwUn/WlmmwacugaGgmchbg7Ao9r3byvkGr0XjwLTcr0DLLvuS//aj16ZIrElqLJVsWh5R+KYH9Fs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKB53eacol5ZorVLDLKlH3uHDlzbxvc82XvMcAfThjxi2F3mDY+
+ 8Uw/Pmn87ox8IREklyI8L8ULSulstVRTK7KAXifpB89UZ8UZH6CFi1Fl
+X-Gm-Gg: AYBFou1aINiCJ+VTYQbYEWS6nK5yE8Cgej+uqTQAx5kh+4/pYtlYiJO8ES7NR4VBisV
+ 9OJzSi2knb4UJuglS2lI4WKBDK9DiF/jBVT9VfGZlCkmDhZR9j/Rs+/9kyvMZdgdeVqS17ZMMjp
+ LefhTPgItRzDAxjiGViNl1KAtuX+/EEbPo7sv7nXif17Dd758AfyIuzn5GhMVnoIR0i8GfEMayA
+ fXxZzhi5bDTW2mLm2r4ZyoPiWCJGtGt7twsW/p0e8CDDlA2wKYd5+h0ktUl+iViytq/yXT4zz4m
+ tZzC0NdofM7VtPmaJjtxdO9bOIPZPwp6lkEOeH59rVdOR6O2A+1RnwK3SxPoUkoktH4b+XV3Asb
+ WG61QNHfZlEihZXDaFDGhoYP26Lx8R52OD7MoCD+mfC69hxuc1M/jjaJI72SUPUbfRpto77iqvA
+ 8mpUWGs3ZQD93dVvjeldV5gd7QMNnQR/x6T9NBZpQ3IpFoWoXV2mPO5GXkswknprXrnZwMD0zL/
+ 3R2+PMStM6VDYprZd99W3I=
+X-Received: by 2002:a05:6000:989:b0:48b:174:eab1 with SMTP id
+ ffacd0b85a97d-48b02511718mr2875334f8f.36.1790775180889; 
+ Wed, 30 Sep 2026 06:33:00 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:bade:1500:bcd:b3ec])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.32.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 06:33:00 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <artyl8fD3zzng8Uh@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v4 0/9] Add support for DU,
+ LVDS and DSI on the Renesas RZ/G3L SoC
+Date: Wed, 30 Sep 2026 14:32:42 +0100
+Message-ID: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,49 +103,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/29/26 10:39, Maxime Ripard wrote:
-> Hi,
-> 
->
-<snip>
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-> 
-> panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> attach to anything and will just open a tunnel to userspace, which is
-> somewhat equivalent but more dramatic than what this driver is doing.
-> simple-card or its variations will just instantiate a kernel driver from
-> the DT and is used pretty much everywhere.
-> 
-> I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> past the "oh but we didn't know what we were doing back then" argument.
-> 
-> So, let's phrase this differently: what's different about the
-> description than panel-mipi-dsi-spi, or any other binding already in
-> tree?
+Hi All,
 
-The panel-mipi-dsi-spi still describes a class of H/W control interface,
-not a pure software driver implementation type.
+This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
+SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
+LVDS support.
 
-"panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplus"
-would be the same problem.
+The LVDS series [1] is merged here to get an overall picture.
 
-> 
-> If it's the BPF part, BPF is not Linux-only, and there's hardware with
-> direct BPF support these days, so it can be considered OS-agnostic and
-> not an implementation detail.
+[1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
 
-If somehow panels used a standardized MIPI firmware we could define this
-in DT, but here we're basically inventing our own type of firmware from
-thin air.
+v3->v4:
+ * Collected tag.
+ * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
+   using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
+ * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
+   devm_pwrseq_get().
+ * Updated mode_clock_min from 5440->5400 kHz.
+ * Added resets in pair for simplification.
+ * Added comment in probe() for asserting resets.
+ * Updated commit description for patch#8 and #9.
+ * Updated license header  for patch#8 and #9.
+ * Added HDMI audio support.
+ * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
+ * Renamed it6263 node name from it6263 to hdmi.
+v2->v3:
+ * Dropped binding patches as it is accepted.
+v1->v2:
+ * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+   sequence.
+ * Switched to power sequence for handling pwrrdy signal.
+ * Dropped header file regmap.h and mfd/syscon.h
+ * Added header file pwrseq/consumer.h
+ * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+ * Restored ports in DU bindings.
+ * Replaced endpoint with port in ports node.
+ * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
+ * Dropped the variable rcdu from struct rzg2l_du_encoder.
+ * Dropped the variable lvds from struct rzg2l_du_device.
+ * Dropped renesas,sysc-pwrrdy from dsi node.
 
-Neil
+Biju Das (9):
+  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
+    struct
+  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
+    ITE6263
 
-> 
-> Maxime
+ arch/arm64/boot/dts/renesas/Makefile          |   6 +
+ .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
+ .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
+ drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
+ .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 +++++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 282 ++++++++++++++++++
+ .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
+ 11 files changed, 756 insertions(+), 8 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+
+-- 
+2.43.0
 
