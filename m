@@ -4,62 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A744DCA5FC6
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B21DCA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E1DA10F360;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1449C10F361;
 	Wed, 30 Sep 2026 12:13:00 +0000 (UTC)
-Received: from winds.org (winds.org [68.75.195.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961C710E5B4
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:20:51 +0000 (UTC)
-Received: by winds.org (Postfix, from userid 100)
- id 26A288F95F83; Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
- by winds.org (Postfix) with ESMTP id 2557E13363343;
- Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-Date: Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-From: Byron Stanoszek <gandalf@winds.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-cc: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Emil Renner Berthing <kernel@esmil.dk>, 
- Hal Feng <hal.feng@starfivetech.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Dominique Belhachemi <db@domibel.de>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-riscv@lists.infradead.org, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Maud Spierings <maud_spierings@murena.io>, 
- Graham Markall <hello@big-grey.co.uk>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Joshua Peisach <jpeisach@ubuntu.com>, 
- =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 00/21] drm: starfive: jh7110: Enable display subsystem
-In-Reply-To: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
-Message-ID: <e946786b-e063-6ddc-6b07-2fb67ff7a459@polinggroup.com>
-References: <CGME20260929103200eucas1p17af134cc3b93c242227964f574f13aa5@eucas1p1.samsung.com>
- <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F0FJz83Y";
+	dkim-atps=neutral
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 390FE10F1DE
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 06:59:18 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-396ccb65437so2941050a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 23:59:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790751558; x=1791356358; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gnkiJ0/c9WOQ2H9znsdbaGBhfqk/SIJ50HBt6f4ERZ4=;
+ b=F0FJz83Y0rDbaA885adKem4fzUKjR0sH5J2Y5+vA3oNJMcAUjzbIQR/itixFK/np5B
+ DDFAHBHkUCIfVkktcyI1HL1uarr2+0kl251vNf5pH9jZwLNbUM6mMuXKonwu8i8M/QWB
+ uj7qE5znRN2TGa8fRc6fIDnR0FP4x6jvRunmnI4/N4LUYWlqWaoI1ruth5LFj1x+6RNZ
+ Q9OzDEQaAupfSo41vSjdupy1mIBMocW1DlKuSAeG/gGDsW1tD5M0M3N3dvMRNi/KSHTv
+ SOcJeFmzCzDLRfocGN61SZbEUE88gZ8+ElkFLchmrl74UUkZ2v1s52cY8mocUoOiYIKU
+ sVwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790751558; x=1791356358;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gnkiJ0/c9WOQ2H9znsdbaGBhfqk/SIJ50HBt6f4ERZ4=;
+ b=LD4oELvbMQysBWYig7AWaXzQEa0zIVKPePepKzkRVT9+KMYz8aqoT8S3iLW6IrjHGq
+ 4ujPGv1wokfR160//2jSkrcPq6iWcttOEp329amRLd5Izm3ZvYj2GTK8MbByDf/30qHh
+ z0BhV2eMvU2tMxc2xra+n9jtWrVeEFQgArlBc3IEhP9SMLpaOwQfNfYisY8Rup/SmAup
+ kVfcU5s3b7L0uJIyRH1AWUdt2W6eU9WiGDDPWG4gX/gUAFokf7AKjZ/liso767KtScIe
+ do8AB50e9TikaMuMWT777YJQHza3Mz5S2HcoHKGqjswIkWgErrjsxhDtocH7H2TAVHeK
+ vNxA==
+X-Gm-Message-State: AFq9FYLK6vTKeqByOyQWAopjSA491sBoTR+mPHy1Jw6CDLlbn9qOOyB9
+ jXqDok4iz3Vqv5qFS6MhdAmI32iPZMJ5gu8I1Oz9DSW7ioMIGUVEnP6xNehXdPFR
+X-Gm-Gg: AYBFou28HpDN6ebsiViUmcRUADyCkmywJJ0QpWIABMpendLHdMEXk+xvbi8SbURJBTn
+ wM2d9ehtmc4RyUZN3seYU8CSLeZnPSblIOl5anR1Mf9GKM32rGshxAgXJTTNQVnrabrBxz7HB+r
+ 4h48xHDAQu1m+wBJ1J0FOtultHm2S8eknYG65mbbSgMSjYuWsotE/VKZKtNeu3ae1pXnFo4PHwN
+ ia03Z56Wj7CB1bOSkhEXZGfPAHoBcUcmQf6K3OtU5HNi//RLIjkGfR2QkG5BkmzO+ieYaxH49sP
+ 69cOoE09EbatW2/Ubg/W1TCQkRqh/2MNgyau5OFjt15KI/NuV8yFNkgs1VvHqN6iJ5uyr2hqGoB
+ pWt9SrXfbh/40fr+QoenL9sd9VhLxLfF00eM9EJo/KbBP8OK4ssARigkQamvF3hMG7kF0WWed6p
+ mP8qUuNtkM6cehJ7Cu9vp7pgIzHqSW2BOaItZJdvwO5v2FJlcjc/ROOa+oDU9sJVSKvgKlUv59D
+ RK3SUWMTk5oSAlfHT3IhxLI199i7L/o7pl6cnnpyWNIhZh080lVcEIvfadRR3/ZG5nCBP+JdP2h
+ ZFbr4QWVCw==
+X-Received: by 2002:a17:90b:5446:b0:3a4:acde:1e3b with SMTP id
+ 98e67ed59e1d1-3a4d197e168mr401773a91.13.1790751557599; 
+ Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com
+ (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a4cae9ffaesm2010442a91.16.2026.09.29.23.59.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Sep 2026 23:59:17 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: =?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2 1/5] drm/gud: Fix probe failure on non-DMA devices by
+ moving descriptor check
+Date: Wed, 30 Sep 2026 06:59:10 +0000
+Message-ID: <20260930065914.393939-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20260930065914.393939-1-benquike@gmail.com>
+References: <20260930065914.393939-1-benquike@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Sep 2026 12:12:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,34 +96,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 29 Sep 2026, Michal Wilczynski wrote:
+In gud_probe(), evaluating drm->mode_config.min_width before
+drmm_mode_config_init() and before assigning fields from the display
+descriptor causes the check to evaluate against 0, returning -EINVAL
+and unconditionally failing driver probe on non-DMA USB display devices.
 
-> This series enables the display subsystem on the StarFive JH7110.
->
-> [...]
-> - New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
->  been swapped in inno-hdmi since the driver was merged. The hardware
->  puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
->  other way round. Almost all CEA modes drive both syncs with the same
->  polarity, so the two writes are indistinguishable and the bug only
->  shows on a mode whose polarities differ - a band of black rows at the
->  top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
->  independently by Dominique Belhachemi, Maud Spierings and Byron
->  Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
->  this is a Rockchip fix too.
-> - Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
->  mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
->  as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
->  no sink that asks for it, so it is untested on my hardware.
+Move the display descriptor min/max width and height validation to after
+drmm_mode_config_init() and field assignments.
 
-Hi Michal,
+Tested in QEMU against Linux 7.3.0-rc3 with a non-DMA USB GUD display
+device: on the unfixed kernel gud_probe() evaluates zero-initialized
+drm->mode_config fields before drmm_mode_config_init() and returns -EINVAL
+(failing device initialization); whereas with this fix applied, gud_probe()
+validates descriptor min/max bounds after initialization, allowing the
+driver to probe cleanly.
 
-I confirm that the hsync/vsync polarity and 201 MHz mode are both working on my
-setup in v5. Tested against 7.3-rc5 with af384d6e0573 and Bo Gan's cache
-coherency fixes. Thanks again for your work on this series!
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+ drivers/gpu/drm/gud/gud_drv.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-
-Best regards,
-  -Byron
-
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 3a1b9e2a2eaa..f7826e3d849f 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -506,6 +506,12 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id
+ 	drm->mode_config.max_width = le32_to_cpu(desc.max_width);
+ 	drm->mode_config.min_height = le32_to_cpu(desc.min_height);
+ 	drm->mode_config.max_height = le32_to_cpu(desc.max_height);
++
++	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
++	    drm->mode_config.max_width < drm->mode_config.min_width ||
++	    drm->mode_config.max_height < drm->mode_config.min_height)
++		return -EINVAL;
++
+ 	drm->mode_config.funcs = &gud_mode_config_funcs;
+ 	drm->mode_config.helper_private = &gud_mode_config_helpers;
+ 
