@@ -4,142 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AFEDCA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487EBCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB7B910F23D;
-	Wed, 30 Sep 2026 08:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9915410F23A;
+	Wed, 30 Sep 2026 08:35:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="IsCxmgXI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="viP8mKYq";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qeE9ckHg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QWufbFjP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YOWdOO1O";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B04F10F242
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:32:33 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B7F781F891;
- Wed, 30 Sep 2026 08:32:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790757147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8wVNbM9SBgsNnLK0GreRNfRT8YMdR8OamAAINskvcyE=;
- b=IsCxmgXIusnWI3Wo8uSOhew7uc0ljC5jEneDM1ECj5Bn+BpLCOIGFf6diXqWY7bK4hpPb2
- MGEhlGKuJyHJKT/VC19noA1iKhzKuTQEUhGh+7Ro+zmdqQzwUUjHV5N0hA7RAgNbpRmEUi
- 1V+7H7JFvsLJVTHftOm6Qy/x6lX+eFA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790757147;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8wVNbM9SBgsNnLK0GreRNfRT8YMdR8OamAAINskvcyE=;
- b=viP8mKYqKh4LV8NkknvH1JF4C7d+z8qJmqULYGAzVaOksMG9dA8ljiUj+uyJxtYWHlr3C3
- KpneU+yyySf1D2Cw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qeE9ckHg;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QWufbFjP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790757143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8wVNbM9SBgsNnLK0GreRNfRT8YMdR8OamAAINskvcyE=;
- b=qeE9ckHgZT0VViWg7hXoww6F8PAn7XdXCQnDY6w8M6skd0Kj3qbYXrGEbferc6YTvMlvGJ
- +/aWEAZdSRFaVe3CgK7cGcf/mi50IeR4raEGARIY4rdGFpCvCyqH4FQW7C0pE2lPAxi3Fq
- ELL/luyNYusNbqelJAbno5nlcnJpvzg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790757143;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8wVNbM9SBgsNnLK0GreRNfRT8YMdR8OamAAINskvcyE=;
- b=QWufbFjPYSva14WYXoeWeNwklhSQtrxCjhd7MnB3Kjvd6a6/3lTrlnQ2zyB4x1yxnaJkth
- YQsbHH3xz+B4rVDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6C2C013722;
- Wed, 30 Sep 2026 08:32:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MHIWBhfJvGobfQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 30 Sep 2026 08:32:23 +0000
-Message-ID: <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
-Date: Wed, 30 Sep 2026 10:32:22 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF75F10F23A
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:35:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 84E7341605;
+ Wed, 30 Sep 2026 08:35:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A281F000FF;
+ Wed, 30 Sep 2026 08:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790757300;
+ bh=HmmuXY1dhET9hXohl3geSgtGl1ur+YkaIpC1O3vWiSg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YOWdOO1OmdzlKOayaKWfTLJfhShKZq7oZOxhbrhqWeUWZq9OVGrVvh5CZ3GZhq2Kn
+ lG0Gy4RuB+WAFtkJAjGIXicvap3bVB/chNozf41O3Z9eyYW5tl1Ozzyd3kYk/ZvrSh
+ hnvmbFMENtGBtTJVZJfd5YZy6v1JPiU90Yj1HzgEVSkA/g1za2/uCqakigHBYvhzq/
+ L7Xp4X480mUn/NZPFdEpnQuMudgUrFbJf+8XMIu+PoSO6y7+sY6KQqnCv7eBh7ojlM
+ Yu3IeHhFduCBjhDmaRFLaT+pBCHyD2WUlB8acfZNYwhVtzhFAUhMbWc3ESQdfzOmR3
+ d9In/lRM2sbyg==
+Date: Wed, 30 Sep 2026 10:34:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+Message-ID: <arzI6PXbGAgXs9Uh@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-2-clamor95@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
- framebuffer
-To: Javier Martinez Canillas <javierm@redhat.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
- <1f383114-e367-4b67-899b-14a393fece94@suse.de>
- <20260923160049.1741651-1-holofermes@gmail.com>
- <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
- <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
- <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
- <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[redhat.com,igalia.com,gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_TLS_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: B7F781F891
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="6xcfjcqu5qqwldk2"
+Content-Disposition: inline
+In-Reply-To: <20260930070535.47130-2-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,53 +67,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
-[...]
->>> I have a patch implementing begin/end_cpu_access to
->>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
->>> we would like to support this use case upstream because, as you
->>> mentioned, dumb buffers are usually used for software-rendering only.
->> Before we fix anything, I think we should talk to someone with
->> dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern is a
->> producer-consumer relationship and HW rendering into dumb-buffers is not
->> supported. Those buffers should have been allocated on the v3d side.
->>
->> IMHO we should write down these rules in the PRIME documentation and
->> (soft-)enforce them in the implementation.
->>
-> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
-> exported buffers (what Maíra is proposing as a fix) or there should be
-> documentation of the rules for cross-devices buffer sharing through PRIME.
+--6xcfjcqu5qqwldk2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+MIME-Version: 1.0
 
-This specific case only happens with v3d and only this driver can know 
-when to flush caches. If we flush caches in begin_cpu_access, we easily 
-end up paying the overhead on all systems.
+On Wed, Sep 30, 2026 at 10:05:30AM +0300, Svyatoslav Ryhel wrote:
+> Expand existing DC register definitions with additional fields in
+> preparation for adding the 8-bit CPU interface.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c |  3 ++-
+>  drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+>  2 files changed, 51 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> index b0bfa946e6979..5c67928bcabfa 100644
+> --- a/drivers/gpu/drm/tegra/dc.c
+> +++ b/drivers/gpu/drm/tegra/dc.c
+> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
+c *crtc,
+> =20
+>  	if (dc->rgb) {
+>  		/* XXX: parameterize? */
+> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+>  		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+>  	}
+> =20
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..5679e1ca0c2a5 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define DC_COM_CRC_CHECKSUM			0x301
+>  #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+>  #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> +#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+>  #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+>  #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> +#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
+> +#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+>  #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+>  #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+>  #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+> -#define H_PULSE0_ENABLE (1 <<  8)
+> -#define H_PULSE1_ENABLE (1 << 10)
+> -#define H_PULSE2_ENABLE (1 << 12)
+> +#define H_PULSE0_ENABLE				BIT(8)
+> +#define H_PULSE1_ENABLE				BIT(10)
+> +#define H_PULSE2_ENABLE				BIT(12)
+> +#define V_PULSE0_ENABLE				BIT(16)
+> +#define V_PULSE1_ENABLE				BIT(18)
+> +#define V_PULSE2_ENABLE				BIT(19)
+> +#define V_PULSE3_ENABLE				BIT(20)
+> +#define M0_ENABLE				BIT(24)
+> +#define M1_ENABLE				BIT(26)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+> =20
+> @@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define BASE_COLOR_SIZE_888    (  8 << 0)
+>  #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+>  #define BASE_COLOR_SIZE_121212 ( 12 << 0)
+> +#define DISP_COLOR_SWAP_BGR	BIT(16)
+>  #define CMU_ENABLE_ENABLE      (1 << 20)
+> =20
+>  #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+> -#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+> -#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
+> +#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
+> +#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
+> +enum {
+> +	SC_H_QUALIFIER_DISABLE,
+> +	SC_H_QUALIFIER_NONE,
+> +	SC_H_QUALIFIER_HACTIVE,
+> +	SC_H_QUALIFIER_EXT_HACTIVE,
+> +	SC_H_QUALIFIER_HPULSE,
+> +	SC_H_QUALIFIER_EXT_HPULSE,
+> +};
 
+Let's stick with regular defines for this, there's really no advantage
+in using enums for this and the other enums introduced by this patch.
 
->
-> As mentioned, allocating buffers through v3d and importing into ssd130x
-> (or simpledrm) would work correctly, since the v3d driver already sets
-> bo->base.map_wc = true.
+Thierry
 
-Hard enforcement would mean that drivers would reject to render to 
-imported buffers.  It is most certainly too late to implement this now.  
-But drivers such as v3d could at least print a warning when users 
-attempt to do it.
+--6xcfjcqu5qqwldk2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards
-Thomas
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8ybEACgkQ3SOs138+
+s6HtwxAAiaxDlHnN4aptkVD4LviQS+58GCUsQFpauwktU417bgBtaEY2IR5bhnfB
+v1aTOT50EqEBPvh7/gQp60S9oc9tFNhwlVmLU/KYRlmcoPkusRlQVbI9Y+akKeti
+NGLkDd+dx/2+rBtMTC+dkfRcD+pakl1LHkmgyGkI6+JgFp/MpnaV0f5QwrgmuP0x
+rFC2I15ojWSnkDRGi4BG/n1LrdIXSnU2+y6LOuEkRpyIiFXDiHHfkLavBS4UkdTX
+C41Xra+HkTVy0auwYYkoWMPPpQXls82+OyXmBiK/eeLmv5ECrJUjIEJaR+6R4frG
+6DA7OgJGsUne483UmmNe62lTxvK2BlPX7aRSS+3yyhEUW2HUdgghnFx0VLJlwhAG
+nO1iOpc4/8KwrJsiCpAyc1bsW+G8whJ1XJBQhdylkGRjulciBSBoRU+EO8g1flKa
+u4kpC19nVL6RY66YlVVxhrOrjSUc2MKkUOz5A7rJxAbJenvlEQKgnsY8nRvm2iQ+
+LqXc/3/nlivdMrY323Q3GmABGf+9LI7ZK4nSkzLWhjkh2kMAL3yeXskRoShIZ3BB
+xyHhjrG8hSfNBYz2E7rl+N9iXfCndvqtCJ/CBGSqJdwOAyYSfLht/zblkgn75GdJ
+lH8hBcIBf/4FrCdbbjiuOsj4yHW8jhaZZrit5BXeQgRbib1M2B0=
+=fYMI
+-----END PGP SIGNATURE-----
 
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+--6xcfjcqu5qqwldk2--
