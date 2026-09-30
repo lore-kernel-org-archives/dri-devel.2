@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47588CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 18:51:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFEC9CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 18:54:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF8A10F322;
-	Wed, 30 Sep 2026 18:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7C810E2AA;
+	Wed, 30 Sep 2026 18:54:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="InYaUdIL";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S5Qu6kf6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QJG6Rbqk";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kmD6mCRS";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48EED10F313
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:51:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9A4E10E2AA
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:54:15 +0000 (UTC)
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68UIMGNf3657207
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:51:33 GMT
+ 68UILhLd3655859
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:54:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=STICXhlmydY5ugMIn/MSZsMe
- t0adQStm/p3f87Ly+2E=; b=InYaUdILg3kHLwOu2C2SrlnKcrJZQhfPkm+Psw2E
- igUObzQrIIdGG1KyDU2F1F1/Ns54YvQuTVYguiRe/pdUqU0eVJ+bwgvt6mipUSRg
- icwgybb8mgMjbvIQAlVDpZ5EX5s6zl+6vm24yC3oL+0eWPXzfczAlpPq4YlVSecL
- O4qb2S80/JX/HSk0FWl1OleyahNwVi8lpTzIPQzv1mCi7G5KbU8TVTLRJFieyUSi
- ecXidL3dzHKURycfGAXN6CyFvXPul3jJLVbLJ3ukqzMmhQ86PkQC/sdABeUBEK9V
- vnzOs2QaxtsJ61AwnM6U3xDNDZ8Ch49/TPw7u5IXQO2MmQ==
+ :references:subject:to; s=qcppdkim1; bh=gnnRitNHQsGGZhY39Q2WfcsA
+ gBctnLcpoJur/qokc8I=; b=QJG6RbqkWltaOXjdWTCf37r8Jt47ICQMxogyCmWu
+ 1Pz2SKFiT32S09RpePoOLYEAMOc95KUtX3ELA8b/wk2qLDBRI8DDWGMhiVlR1DOF
+ WF5eCQ5NeSo7x6ekXDtMGJzF17qEfb794vdPLbQaRcCNPk1ue4YZ1ej14knc2lmE
+ QtIEwfRyw6x5PW+g1k1Myf1MSzsO6DBgngl0wWWU6s5ho+Yc/LCGRnbWdQN3MpxL
+ 8hX4LvFyBUys7r2nrI2guUqoGtQOZEUWNG69zrYpjORWBXosS3i76JAIaK+VbvDC
+ /fxvlr61OYa+vTYIpO5Ytf3yRJIvjtUHccm9fK1oafd+Gg==
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
  [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvr42u-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvr4c3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:51:32 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:54:15 +0000 (GMT)
 Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93cafdbdb7cso18424585a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:51:32 -0700 (PDT)
+ af79cd13be357-939f248907fso550864485a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 11:54:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790794292; x=1791399092;
+ d=oss.qualcomm.com; s=google; t=1790794454; x=1791399254;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=STICXhlmydY5ugMIn/MSZsMet0adQStm/p3f87Ly+2E=;
- b=S5Qu6kf6iJGUxVmPLkldZv/0rkxNWh8ENXdgqISvQuXK4AWNbGepUw31/y493vHx5+
- L+SJMPzV8uz+1FqvhoorA1KaqZLE4jHE6N7a1n5ZiiHDb0ZI1s8C6BHzhe/J5uzgezxD
- cdgOEIr2Ki4bcxtE1geOkby+4Rva1u3nPzFQA6CiE/m3pC6FSCji5+pZSqnBz3tjUyMS
- u89JIRJOkwxC9Ldo76asxxWUk4GD82e9fWiPjDtb5DM6MVvgal2EJLLB+uxDI8cIhXpB
- dfKQzSZBqdLaPZZoZ/P/u7ekUQisLu2dxIRzpCwZyUB1I+gpP4WvqfBYBkX95Oa8umNX
- mONQ==
+ bh=gnnRitNHQsGGZhY39Q2WfcsAgBctnLcpoJur/qokc8I=;
+ b=kmD6mCRSydQd1jwpe3nY5bTs4UiSplOWHt1GgKO+WbtrBpV7QjFuoYiztHVuEZwUE/
+ YHh+e8djgX6TclRZgvGMTe2D6WpjTZnOqhIwEfEFVSRpFI1TC3+GWwvHyhWF+ElaWtqU
+ V8qJNFc8inmj80+VNfUQZAojKwvwCc8wqGuE3qfb9HBTJnkDXgbw+wfxq5mPUaioL9ER
+ 04ZI62MtCP/LcrvmYhx0RhQjEmT34QFgkZ+jLh/+lehnXjcDJbJVIQdMUCFhcanTPUxk
+ 1Vp2kaMhj/Vq/xr+vmvwZyw0wWle6piUk3Q+RN4KQWTFeEvBiL4OSE/511qk5G+QfA/E
+ nWsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790794292; x=1791399092;
+ d=1e100.net; s=20260707; t=1790794454; x=1791399254;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=STICXhlmydY5ugMIn/MSZsMet0adQStm/p3f87Ly+2E=;
- b=n2gSkiZKWrgVcrA/fjsYqxx4M7DtWdoIU3B6If64RpVR3S0bRlhp2FVpDaOtFke66Z
- PQtGfaAxWg/MNEkhHzlY1YNZx2AzE9Wfh6aMu6bmp5KZ726M+mcXfXsKepXYCooOFOrR
- Mhp7dNeEgRHO86GZv5PbSSSudn+CJ1ld72aBK02P4jT8W9v9HLt1AwAXiPXpTGrtYHJW
- qXb3ZVkZKEE9eTT762/4yrmVRuD46wuZKg39uIrWxuLbxh0eHZJO5RpCqIG/UGlNKTGq
- P3Nmvcb7lsHxl5krm136LtHRuIpnTLKvP3++84TyFddsnTyBmGU2skqseXKWpdETEBPn
- hfWA==
+ bh=gnnRitNHQsGGZhY39Q2WfcsAgBctnLcpoJur/qokc8I=;
+ b=mrbrvY4UP0Ft7nw494d9luTihLmzSkxwcTjmlOn+0knayYbJUuV3litjB1yoed7iJK
+ of2xvgJPmxb95lah2PY5V2qrCjIQwZ498AZOaf9OKLY/0CBbkI+9Mi3T2QZh9KkSZWN8
+ YkibYpxregHNgOQxtAuYp0Lq/Z6CRyGpVu9HE6l53oPZVs84GaGB1n0AcWhHs3X3x+MB
+ Z1y8VpMCMcs4epVcTG+KA8k6yw2z8f2J/DsLo7lmJnl6OFc/LdojUm+s6UBQ2NFnH8Fx
+ pW7FL/5bvO4Ii0FZ7zjSbb+3rFVEKEE9/EB2ObVD1qeJyVPW2CB9F+gXe4vyup3/1aHS
+ +Xmw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxFbzWFhay1WpwdeM9GK2JBFhbk6ksQ7jBYx3ixthQrDTq98h/XKkU0MSETbY+SgWGikQ+MwGWPrNE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nW5TfYx6G9CH1sB9Scw+6NnNmHQonGBIeyLX0K4pNaHKt+d3V/
- HFtBMt1cd4Yy7EGV+6ICg3jANf4I51aPM8fFuvjrCoko7fnpQjV43uYNPAKnmkjoe4WWLrg0pTa
- DpalU+EEi/i3w3P2hk2PXG9sAdoKK2sUlEkw9ScAfJc7bMur9YEvOwiL7RzhGH883j4bmcyo=
-X-Gm-Gg: AYBFou2O1MfZ2jN4e0bozSnntHUcoGi/exrjQetd2G6XWrDeV7WEZWus7N+I0uJqgyz
- fS1+jXjkFqAidshVtn0wHPH9hnyp+b0S/ULqSCOYUzMZZugDtznmkCE40aQL7y0qLaXwWh5zFMP
- CURju+rTLiZC9Ok8XlIa3nQUE5grniRuoEB2udygPssYItmw6pJKQAxcYCFCXgFk4KHkbMN9Zoz
- DLDWcMMyocwhd2uwxI3b1lU3HbGnRE6hTOo/aaTHAZxba/Vsj84cAJdjN8GwlyjfLcoA4rGG/3c
- ikAWiFNTp4ePxM8TSGVbh9rtEgGYoN1Qge3NgOOb4Anl6VMDrlLKncFcij45Nqr4Zdeq32K5vzx
- q61TahMYPViTa2qRqjL1WIMi+d1fvxkB1QpBZId7QAQxmeP3O0ER3+XkcWDpH+w3N1GyV0WUqgU
- 6XLpk9VqqD+zvL
-X-Received: by 2002:a05:620a:6086:b0:939:af12:f5a0 with SMTP id
- af79cd13be357-93cb5b4b547mr103741585a.23.1790794291847; 
- Wed, 30 Sep 2026 11:51:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:6086:b0:939:af12:f5a0 with SMTP id
- af79cd13be357-93cb5b4b547mr103736085a.23.1790794291254; 
- Wed, 30 Sep 2026 11:51:31 -0700 (PDT)
+ AKwUvBwk1mz2cz/ooIVUvzOOtumVsH3xJLMnFiufPqI/AZ69bxpULdQSWVrjykTzPuPV8RY1uFyo5kex9KU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lNgIeC4ho7AQQqb9xiyWixjpzreGgivS2F/MLQ/kdiUMGHa9R9
+ z1ESVSFWWpTMUfLd1kJXxEbpHQpREG7G0s13Wxy+JPB2kfnrxGrL+cuNr/q90JaYimFgCQFjF25
+ WypE5AQ37FB9jrReFMvYXvWYlIUhtTq7Ja33sxzfQyy2NL1906oFxSP+j7onkRlNBveLVT1M=
+X-Gm-Gg: AYBFou0GrP1m3uIScJPKUvXN0pEqvObhEDdyvXXo8gcqoqSPqd5smyF9QWJa/egan0K
+ UexHFKPfmzvVG1WdsFeUTndeSq6Pe5IZZUKdA9m/vWcFRKvvRVGbGuLqCLJjlO7ptf/hKOeks4D
+ d5ShCMCpsxJh37T3NYzmPZ5nufBudAa/9GEpc3mFr3p9ZzvA7FG4dEh/4FcEpYRaacpbMHt8Hv3
+ YuydTNs18toQf3UHsCAaON+8QMg6bK1tSmS7j+kHvHm4I1iKR6xiQxBTu3GPvN+tmEagmYItGwT
+ IwgaymizUkXoYDr4Njs7KacPUutOXrx9TETZX3Yqy3MYGIunClQK1DzbQIMHWaWypmRFqAad+Kb
+ 2E9o5ppJKogiUCFx6J4ilFHcWsJJ6aChxiAUc1dfqSGusoJf3YjFGEczpuw/C7oBk9iN72fZHqT
+ yJ7BdWk9ispm//
+X-Received: by 2002:a05:620a:838e:b0:93b:c581:2e16 with SMTP id
+ af79cd13be357-93ca96f18cbmr421034285a.30.1790794454208; 
+ Wed, 30 Sep 2026 11:54:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:838e:b0:93b:c581:2e16 with SMTP id
+ af79cd13be357-93ca96f18cbmr421029985a.30.1790794453655; 
+ Wed, 30 Sep 2026 11:54:13 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ba42fb2702sm167395e87.34.2026.09.30.11.51.28
+ 2adb3069b0e04-5ba42fbf388sm163284e87.75.2026.09.30.11.54.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 11:51:29 -0700 (PDT)
-Date: Wed, 30 Sep 2026 21:51:26 +0300
+ Wed, 30 Sep 2026 11:54:12 -0700 (PDT)
+Date: Wed, 30 Sep 2026 21:54:10 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Xilin Wu <sophon@radxa.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -103,33 +103,34 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 11/13] drm/msm/dp: Initialize the debugfs connector pointer
-Message-ID: <f3pxrfm5gjrcu7j7y3f7l2vb7o5fjcy6qeb66ko7vcpqf6uccc@2svugdnka7dn>
+Subject: Re: [PATCH 13/13] drm/msm/dp: Add static HDR metadata support for DP
+ and eDP
+Message-ID: <uaqcvnjhzcj3d6zoq2begzhu6ld4ehfmmsedoc725ubodmmuxv@mjpvzey6ysuz>
 References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
- <20260930-msm-dp-hdr10-v1-11-dbbf8b2b42bc@radxa.com>
+ <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930-msm-dp-hdr10-v1-11-dbbf8b2b42bc@radxa.com>
-X-Proofpoint-ORIG-GUID: mAZMR64Yr1R-hTsbyMokepqzmZ2UygvG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfXz0vI5vadsUzK
- T2Ab7LQE9EZK0JztRNNTborEIioqJrxKb9hd56gp8p7u6LtDmoIOr3H9yAvrM1yRh5GuJhz/hrW
- K5hm9dnBKYqFtgJGAkVPK3TYe/JA7UYC24CqPyD4kjNSRyJwpNu3mnuC7Z046Dv+d9QhPR3VAaG
- VJM3dB4dwehnSPMx7ID6qmwEf69rv9M9sUE2EelQ16QxqPFa/2ab2gHc1oTSN09bYPPhqBL5Bvr
- ag4N8LPGpMVgO+PfNj3wZJOsyR9YzmRYjXZSvR6yslIBvSgRwggw+s8lqlebITVg2HPgu2pJAT3
- qqagu2I0UFJojZjMFmd5m50lkWpnaDOOycsqPy7vsmb/SM7/6ZQIlW1562VDai27+k2aA28khfM
- Ncrf5Ls5K2IKZbG73JuQdW7+B80lqR4S979LKQQtJ64il0fcxKuxVxEZN8x8UCzW4U5SCs1rOZ5
- rxTgduuQnzzzgMUBj3g==
-X-Proofpoint-GUID: mAZMR64Yr1R-hTsbyMokepqzmZ2UygvG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfX1Rc7P/IxImtG
- fLQY4AAD2jB5Jiksriiw7nz/QGmlT2sa18qkBbOWTal5Jk6JtJhXBgC2NJ8xKbO2Vvk41PHd1NM
- cR0s51AzrvEpJ99bEdeAJBiB/BkUuEY=
-X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abd5a34 cx=c_pps
+In-Reply-To: <20260930-msm-dp-hdr10-v1-13-dbbf8b2b42bc@radxa.com>
+X-Proofpoint-ORIG-GUID: nVZJC_ftW2_j7PKjFf5ZyP_k05my5F7y
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfX+VDoD+t8kZcH
+ 4RntotxZ6CO204eojSKHNTGaGxMzlMNiZSm6UQy4gGNiqyPFbbBeuCGccTuDtIujtXghpwj74YQ
+ gD1SNBv1DLy6BE2PwKaQvlsRSGt/EvscVZZCNudaa+1YqAmW/KX1oeNOB9+r1hsoyKV/DWHJu2j
+ tlZlO91bsmXOd6KD+cCwjwSIQY3i/o6jSgA/QQJrlYGLBlmTIg7PRycA5BiRNXLrGQuKAj9Go0Z
+ dsgIK90vZ2oLxQwL//KvbcYra/R0OTVw7bXgd1YM92wQXu/HVwLFhywiiPyVeumrNo396ZIOefC
+ Unn/uaAHakVttDuuGiGRWkJsLAd439Fx0PERraN4ighiR2I7KkLbhieIqFnEK2MlEmzlhBa92c6
+ RLPRgbzNmYRIT3kxMpTATfS7x/+Is8CM/IxC44TFZJtwerce2iR8Gz+tZhLk0yeu0TBOFnqlKJL
+ TmI5rsIEL4FAgxvu4yQ==
+X-Proofpoint-GUID: nVZJC_ftW2_j7PKjFf5ZyP_k05my5F7y
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA3NyBTYWx0ZWRfX0fRVqkhtR0RU
+ jjm1fRi7ZMPEzSQl8Nps6HSSxHIvLw1VeFc//IBivYqsCWoGjgh3j+6l86xTzMegZFB40JvxLBx
+ s1jeWKxjXGXNa8a16Sbbq5ZS1ApS06o=
+X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abd5ad7 cx=c_pps
  a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=ksxQWNrZAAAA:8
- a=EUspDBNiAAAA:8 a=5ERa0XqK_cGZVxZ2II4A:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=l7WU34MJF0Z5EO9KEJC3:22
+ a=CHs-XZVRUtj_WxdIW8AA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=l7WU34MJF0Z5EO9KEJC3:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
@@ -154,31 +155,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2026 at 08:41:55PM +0800, Xilin Wu wrote:
-> The debugfs cleanup removed the connector assignment from the debug
-> context, but the video-pattern test files still dereference that pointer
-> to check connector status. Reading those files can therefore dereference
-> NULL.
+On Wed, Sep 30, 2026 at 08:41:57PM +0800, Xilin Wu wrote:
+> Expose HDR_OUTPUT_METADATA and validate and pack it during atomic check.
+> Program Generic2 from the checked bridge state on every stream enable.
+> Reuse the DRM metadata conversion and infoframe packing helpers, omit
+> the HDMI checksum when constructing the DP SDP, and zero reserved bytes.
 > 
-> Store the supplied connector before creating the debugfs files.
+> Require 10 bpc for HDR transfer functions and reject insufficient
+> bandwidth after link training instead of silently reducing color depth.
+> Revalidate sink HDR capabilities after powering up an eDP panel, using
+> the stream enable failure path if the requested output is unsupported.
 > 
-> Fixes: ab8420418c2e ("drm/msm/dp: cleanup debugfs handling")
+> Force a modeset for metadata changes and include metadata enable and
+> disable in peripheral flush requests. Keep HDR streams out of PSR and
+> clear Generic2 enable state when disabling the stream. Preserve the
+> software metadata across teardown so that every stream rebuild restores
+> the checked packets.
+> 
+> Give checked HDR modesets precedence over SDR video-pattern tests. Reject
+> new test requests with NAK while HDR is configured and return -EBUSY from
+> the debugfs test control. Clear the test override under plugged_lock when
+> applying HDR so that a request arriving after atomic check cannot replace
+> the checked output depth. Keep pending test colorimetry from overriding
+> HDR signalling. Atomic checks leave the running test state untouched.
 > 
 > Assisted-by: LLM
 > Signed-off-by: Xilin Wu <sophon@radxa.com>
-
-Please don't add empty lines between the tags. With the commit message
-fixed:
-
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
 > ---
->  drivers/gpu/drm/msm/dp/dp_debug.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/msm/Kconfig         |  1 +
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 ++++--
+>  drivers/gpu/drm/msm/dp/dp_display.c | 39 +++++++++++++++++++++---
+>  drivers/gpu/drm/msm/dp/dp_drm.c     |  4 ++-
+>  drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 33 ++++++++++++++++++++
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  3 ++
+>  drivers/gpu/drm/msm/dp/dp_utils.c   | 61 ++++++++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/msm/dp/dp_utils.h   |  5 ++-
+>  9 files changed, 145 insertions(+), 12 deletions(-)
 > 
+> @@ -717,17 +727,25 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
+>  
+>  	guard(mutex)(&dp->plugged_lock);
+>  
+> +	ret = msm_dp_utils_pack_hdr_sdp(conn_state, &state->hdr_sdp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	state->hdr_enabled = !!conn_state->hdr_output_metadata;
+
+This should be done in atomic_check. Also please make sure that we don't
+copy data from the state to the long-term structures. I'd rather pass
+state pointer around.
+
+>  	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc,
+>  				      clock, dp->panel->link_caps_valid ?
+>  				      dp->panel->link_info.rate : 0,
+> -				      dp->panel->link_info.num_lanes);
+> +				      dp->panel->link_info.num_lanes,
+> +				      state->hdr_enabled && state->hdr_sdp.db[2] !=
+> +				      HDMI_EOTF_TRADITIONAL_GAMMA_SDR);
+>  	if (bpp < 0)
+>  		return bpp;
+>  
+>  	state->bpp = bpp;
+>  	state->colorspace = conn_state->colorspace;
+>  	state->vsc_enabled = drm_mode_is_420_only(info, mode) ||
+> -			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT;
+> +			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT ||
+> +			     state->hdr_enabled;
+>  	if (!state->vsc_enabled)
+>  		return 0;
+>  
 
 -- 
 With best wishes
