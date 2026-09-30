@@ -4,96 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE46CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 22:34:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D6D5CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 22:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E33F110E0D3;
-	Wed, 30 Sep 2026 22:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD3710E2D4;
+	Wed, 30 Sep 2026 22:53:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lqN7HRln";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FfQ2vSEW";
 	dkim-atps=neutral
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com
- [74.125.224.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6E210E0D3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 22:34:13 +0000 (UTC)
-Received: by mail-yx2-f39.google.com with SMTP id
- 00721157ae682-8aa75b338d6so36074957b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:34:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790807652; cv=none;
- d=google.com; s=arc-20260327;
- b=nVGXCoP/02bHZ8a1YoJ3ZP6ohq8VWewgnJVYpPJ39iBUSCS4d6HzXlPrybGbdmSevS
- ugfQutkQaaIgJlDV3r0MAFaC2ZMIUEHYrWOBhkfNRwglBqs2ECJ9CRJBaUrsan8opA/+
- Gw+gK79+YEZSLpWWt+m9B+CqES7c1zM3mrVzR/I1e7C08+tNkWZQIDNLUtB+GzDmc2Xq
- 9txeOH7oUWO63vcP1A3wLRH9Me+mf+/uM0kqBQ70MaaMwCn/wx5HvMrK0c8tjjhC/CTU
- cKxk8iBo2v6/2+MuCkRXm3s3HMXYytOVWdRGXY6qutrx6kEQf2bOh8i/sSiDKuFYdmm1
- RzoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
- fh=0r/CiuY+scB5q5Wp3YSAvuvYXZ4zbjCC1VrLhRr8LY8=;
- b=DgkKEofKe+QD0bUgcrBkeN0DqG/vXkTXToZpkqaTIOs04l/v961YNHJI66dM9IMvIP
- KzqAyHkESVvDgiXamTu7fFr6JvrsgwtfmAc34RIZw+KfOgDYF4BvSbO7Uno3IjwO2NNZ
- WujmFF5beEAb003jgfeEYt3Y2U/FrqWCuaPjnRcIUyswBTD8kQqB1MgOFs7cPwf6Vc8g
- /hPRTBdnzDg76vy2B5n1YCFtfR1zXJb2hdmqO7YQhpHf9CRXUmcJv2G9XM1TQOWPc5OW
- 7+JnI/li3TfpNbP5w2KeolovogZUrwnXopIc+rkuJd/sDI8ZwJukQ7cibfBxeHo2BepG
- 6NnQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790807652; x=1791412452; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
- b=lqN7HRlnTuaGLqAgKoxt1JeQZtefGgDFuzFhME1dTfiTWDshhLw6I7U58aXr6wsYN1
- AA0E19aZpAMpAj7GWST1Hmcy+2ZxPwEePVSyBrw6SiTAJQeqx8VMiRKzc40amgS6Ylpr
- ML0YKRkxxT3AGzDRkZ5GrkuowmV6WV5vfHKzOjXh0QEzStPGturROiDCloNDgIvJHRsR
- ShFa5VBD9Bhpg7cUjh3JNQnHvIUZK++V+6vFgcevRDODrmCn9oKJEbdgbvU8cDLMUEz9
- rCfSPjGIL30CVyJcM5l4IuGZQby83l6IyZYirskUIFzoyC4mibl9oKsRNVLe/hLMpaVk
- C+Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790807652; x=1791412452;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=oUkmfFRhu+PfGBj+HhIfsuAp+eP4DBxyfph1aN2q324=;
- b=cyldkCwcyaRHbZd+BrE+D0uBrfVZM1oZtDYLk9vSeZ4lZ916JSNpZKftd8QJC30z7r
- /NRvDWsSRCNEYX9J4g/Yj4gKfwJbMoLzCBLfW1+PIKYKFxrjM//Z+PZu+t6mcv5yKee1
- Ad+C4bpbVthv667W8kQQ5GBhui4uisCcYVcN0/9BrZ52yegRy+WilN2HBL6LYj4R7GlZ
- kg+Zm4wCtbHTh8zfZbmqfJFQrxczBXFfTIQWLLEXeuJ295JZJPwC/BsyX+VaOLKVgmZ5
- sxr4a7zgLHw9tmzUdqMrQBt7DZfuOJ/v2WpvKyAerm041G3zUIsugke0MX78vfFTr3F3
- LtUw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzVb7LjJYHijJ4r4GlkwwN7luIgiqQQj4pbJEqKz6skAIV+WuOmhNyH193fzZumN0+e2/OZ0K6gVyg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL0n7fOI3KdsjnS+BPkIsaFQUwfIvDeiCgcQyiABE09hWmFzVkD
- zMUR5VVGAkqYv3UNBFF863qKsbcCzQGcik04asj9n2VxaIMlCnlBfyxOUycMlljr3R5AK2zGAFz
- wQfHeC5I9PhNXibbJTrf2NKeO5kdAyCU=
-X-Gm-Gg: AYBFou25SBdQkzI4UxgbByHLSQFTI6SPtugEBe3UIoa3xJ7qoWyRcwkV3nT0KUDa15c
- haxoVZc2mH06DWWehfqCDmAEBNS57wNSACksK2nXFHzvv59SJK/TVWqennf00mIULUnZFdnQ5it
- QXpNh89jnfs+apPdTI6ndJDKEng+iedpN3ECEa+WzGCmCHgJlk//8TCdyGWGLRNa5OprzpBJj3N
- gcdzIHmRJvfEgwoy9FGcwdexlAjIuw902XoNbSYdsz+o3I438O6TVW0MdMVdFEvomhyZW5SoabB
- o781MMJBQWCeipgsjgZb/5mvTrqcbmrf0LldgZCmJZ4xEgU2ZEF3jAkO3ZFnoe0wsMu3r2vRw/1
- fpyk74G7SX/0YKdb5hyMn8Vdq6Bh6WZdCmNPr6emU+8VQ7tRMmHtBr/dSj7qD6mUUIQcyr0NDrQ
- ==
-X-Received: by 2002:a05:690c:4486:b0:8a8:86cc:f0d9 with SMTP id
- 00721157ae682-8ac947b8c1amr15185617b3.66.1790807652652; Wed, 30 Sep 2026
- 15:34:12 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F03710F533;
+ Wed, 30 Sep 2026 22:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=dGITI3UKm1UsTqozCD6UHgqpVbOmz2+56VYRT69rTQk=; b=FfQ2vSEWcCDVQ3GjX6gqKtqWzl
+ e49+9g5lw5QwUr0USvWMb04f50SRqPrqbZs7r2KyyslEy2LdDRDThmHN1IK/7T8R5ont9zsmX3M3U
+ pGX4ETCfo6aWDbSTYk7YRQPwM2+6Q6uLk4Vg94mlRD2g9VNZQ0hiDIE68Q2bDBFcSx4eAT39vqVAY
+ J7D5gS91SBcGbT60jRAWeAnN87dyd/wS4lQ0QMKCDn9WjfULkexJxUcbkUUpdVB+jtL60Z0Ogz6Kr
+ xFO6vGVpXsJJHOvW6mlkZHG44KkQqYHpDALSFPzlITkIpQ5NQqNPR7B7yeneLK5pzHrC4qcjvXSep
+ pXEUxuOw==;
+Received: from [179.105.94.163] (helo=prince)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xC3B2-009eAA-61; Thu, 01 Oct 2026 00:53:28 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/7] drm: Consolidate the wait timeout conversion
+ helpers
+Date: Wed, 30 Sep 2026 19:51:58 -0300
+Message-ID: <179080871440.2011110.3586029540448216497.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
+References: <20260915-drm-timeout-helpers-v3-0-f2ae987d861f@igalia.com>
 MIME-Version: 1.0
-References: <20260930164704.1049735-1-max.zhen@amd.com>
-In-Reply-To: <20260930164704.1049735-1-max.zhen@amd.com>
-From: Eva Crystal <0xiviel@gmail.com>
-Date: Thu, 1 Oct 2026 10:37:16 +1300
-X-Gm-Features: AclHuK8jqvs2xKPcwrh1EjUjBtMkQLDOpjFfC1OF9RWzwzIg9hc1qWQAaXEwGyg
-Message-ID: <CA+pz=kLERMEUwN5OQf7=aDDqkH93CHXHUuD+aA0tuYN2xCk3tQ@mail.gmail.com>
-Subject: Re: [PATCH V1] accel/amdxdna: eliminate GFP_KERNEL allocation from
- mailbox send path
-To: Max Zhen <max.zhen@amd.com>
-Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com, 
- dri-devel@lists.freedesktop.org, mario.limonciello@amd.com, 
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com, 
- linux-kernel@vger.kernel.org, sonal.santan@amd.com, 
- Min Ma <mamin506@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,32 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Max,
 
-> +#define MSG_BUF_SZ(chann)                                    \
-> +     (mailbox_get_ringbuf_size(chann, CHAN_RES_X2I) +        \
-> +      sizeof(struct mailbox_msg))
+On Tue, 15 Sep 2026 16:42:15 -0300, Maíra Canal wrote:
+> DRM wait ioctls express their timeout in one of two ways: as an absolute
+> deadline in ns, or as a duration in ns. The core has a helper for the first
+> form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+> some accel drivers use. However, there is no equivalent for the second
+> form, so the drivers that take a duration convert it themselves.
+> 
+> For example, i915 has a local helper to handle the relative timeout case,
+> and v3d carries a copy of it. This series moves that conversion into a DRM
+> helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+> and converts the drivers that were open-coding either form.
+> 
+> [...]
 
-> +     mb_chann->msg_buf = kcalloc(n_msg, MSG_BUF_SZ(mb_chann), GFP_KERNEL);
+Applied to drm-misc-next with Jani's suggestions applied to the first
+two commit messages. Thanks for all the reviews!
 
-rb_size comes from the firmware-provided channel info, and with this
-change it now sizes a host allocation as well as the ring itself.
-Nothing bounds it before the kcalloc(), so a bad or compromised
-firmware value turns directly into an arbitrarily large kernel
-allocation. Could rb_size be checked against the ring window it
-describes before the pool is allocated?
+[1/7] drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      commit: ae72b9c39d280e02b1c9e6c91f1f7dd23b550a85
+[2/7] drm: Add drm_timeout_rel_to_jiffies()
+      commit: 421cf7ccfc61cb990f38d671ddfe3a901519e21d
+[3/7] drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      commit: 5ce81ba29a4cfbce8be5cc2999292f2fc3962031
+[4/7] drm/v3d: Use drm_timeout_rel_to_jiffies()
+      commit: 226666556a9b3b51f04f9dad83662e5b9c78a325
+[5/7] drm/i915: Use drm_timeout_rel_to_jiffies()
+      commit: a92c785f810ea330e6ae4c79b5aa0eb031ee7d65
+[6/7] drm/vc4: Use drm_timeout_rel_to_jiffies()
+      commit: 88b7a9fb64afd206b3aad92a96425d2b562774d4
+[7/7] drm: Rename drm_utils.h to drm_panel_quirks.h
+      commit: 1628e34ee666fbd8bf974c52613cf7c8f957986a
 
-> +     if (!mb_chann->msg_buf)
-> +             return -ENOMEM;
-
-This adds another failure path out of xdna_mailbox_start_channel()
-before request_irq(). On failure the caller still holds the freed
-channel pointer, which "accel/amdxdna: clear the mailbox channel
-pointer when starting it fails" (Reviewed-by: Lizhi Hou) fixes, so the
-two patches should be fine in either order.
-
-Thanks,
-
-Eva Crystal (0xiviel)
-XSource Security
-https://xsourcesec.com
+Best regards,
+- Maíra
