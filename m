@@ -4,75 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49678CA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D0ECA5FC3
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51FCE10F214;
-	Wed, 30 Sep 2026 07:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85A5210F213;
+	Wed, 30 Sep 2026 07:46:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QqijGpMZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KEKsWVYP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 137F610F213
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C7D10F213
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:46:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C1A5443F39
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FBB1F008A1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 903E960252;
+ Wed, 30 Sep 2026 07:46:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0CC1F000FF;
+ Wed, 30 Sep 2026 07:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790754259;
- bh=FtLOcaaScRzLoTwiQLz6MZYTj7kinYwBxEJCUpaO0oc=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=QqijGpMZuiw88teEb5g++MFkOcXc14m0SFfKeu2eH5Sfl49kEEcnwbqrf8v9FipWi
- X+l0v14h3whYKb5O8HGh0TKYQlNo7wuaF6i6jIrWtRI9+/hD5ar3seKJfRQHHzMWBd
- bSMtr3WRUGbq5GyparrcSbbggvDs5UgjO3n4H6r7+3lsxbqwr8wt0FtRkIc+73+adf
- It+OLyUiactbFJUATBtvkXFH98pLvGh5rZVFl2HFFSvKz/foivBWNMAmVVFZHoNq4n
- 23IYvrcxkga/LNozwcE9K9EGYKXeVqCnxCz3DwnKNU/YYE9wKsF3sM95MZVhpIj4uH
- oBXKHnAK1bBFw==
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5b8eacb7c8fso4388129e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:44:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwrdg1ppDRr9O4b9CDmxavVKoNr7lDmbERlnulZ0zqx1k4V6thpOgT4usInP/w7NJ2odd+7yWkIi9c=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJPn9gA5hOeRU4bkjVr3zlwUzYxN9REBsousoXHFL+zgcV+/G/B
- nfs1j8eh54/00RZ+Nb4UxOfhHeQ2iFW/VX4fHYBoZVJUHiWzoUYY1Vhu60zB+O8t6nyNmmKSGEO
- OhumvzKFpZaqM/kUV+7lQjVFGZkf10Os=
-X-Received: by 2002:a05:6512:3592:b0:5ba:3b1c:2f5f with SMTP id
- 2adb3069b0e04-5ba406088a3mr140468e87.60.1790754258346; Wed, 30 Sep 2026
- 00:44:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
-In-Reply-To: <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 09:44:06 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
-X-Gm-Features: AclHuK9JQOplVIXeKlWlmUy3qK_WlTaornnEdXd3kmRQorHCOhHPlOKdxs8zWKE
-Message-ID: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ s=k20260515; t=1790754369;
+ bh=NEZLRfJEE2yMEeE/pnBEK97HeFezwmJM+lGHnGQ637w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KEKsWVYP7mjgWJ47nXn/927/Hwaqv7suFlvWXQDw3CVH5uR/weeyO7QOd/6aIDt/F
+ tRZqkNmFpnXnFmVG9Khhm2aRq0OkPAEEc1CjanGbaikZrw/6NgxoiNdkXhKrYeoE12
+ C5fjlUX4ZUyMNBGYDX4cN1z7L2bzLb6mFsbM2CCraudQXdEwQXiv9Q4VRLI3Cb6BkR
+ i+GcFmx/5QhcWZpLEmQGY8QeU/rsyLfmlT2bqOlcoWgpmjzyV8fbug7SI0HWCZvsCH
+ SuKsZvD400mm2TniP8LileIXuTfzVbOaMnWiioVFax8EVWir3SHGH0hZkFwbRUoh2l
+ vVgKviC+cF4fg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] misc: fastrpc: Fix double free and races in
+ fastrpc_req_mmap() error path
+To: "Yao Yiqi" <yaoyiqi3@huawei.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
+References: <20260930071340.2969948-1-yaoyiqi3@huawei.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 07:46:08 +0000
+Message-Id: <20260930074609.1C0CC1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,49 +53,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 3:35=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] fastrpc: DMA use-after-free by DSP due to missed invoke_interr=
+upted_mmaps transfer
+--
 
-> This entire binding seems like stitching two devices together, which
-> might be fine (I don't even remember this stuff... two months old) or
-> might be artificial grouping of separate devices.
+commit 77b5628f93f366d6c2407907756d94941e50a6f7
+Author: Yao Yiqi <yaoyiqi3@huawei.com>
 
-I think that's a good point and fair pushback.
+misc: fastrpc: Fix double free and races in fastrpc_req_mmap() error path
 
-Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
-https://www.youtube.com/watch?v=3D6tNGW8PoSzw
+This commit defers adding the newly allocated buffer to the fl->mmaps list
+until after copy_to_user() succeeds. If the copy fails and the subsequent
+unmap operation also fails, the buffer is re-added to the list to prevent
+a leak.
 
-The current binding does not reflect the physical topology of the
-actual device, and the bindings need improvements. I have a feeling
-there is one display controller with two physical panels.
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+[ ... ]
+> @@ -2153,22 +2153,26 @@ static int fastrpc_req_mmap(struct fastrpc_user *=
+fl, char __user *argp)
+[ ... ]
+>  err_assign:
+> -	fastrpc_req_munmap_impl(fl, buf);
+> +	if (fastrpc_req_munmap_impl(fl, buf)) {
+> +		spin_lock(&fl->lock);
+> +		list_add_tail(&buf->node, &fl->mmaps);
+> +		spin_unlock(&fl->lock);
+> +	}
+> =20
+>  	return err;
+>  }
 
-In that case I think it's better if we do:
+[Severity: Critical]
+Is there a risk of a DMA use-after-free if the unmap operation is
+interrupted by a signal?
 
-panel: panel@0 {
-    /* This is the two-panel package with one display controller */
-    compatible =3D "sharp,ls026b3sa06", "synaptics,r63455";
-    reg =3D <0>;
-    #address-cells =3D <1>;
-    #size-cells =3D <0>;
+When fastrpc_req_munmap_impl() is interrupted, fastrpc_internal_invoke()
+handles this by moving the buffer to the invoke_interrupted_mmaps list to
+intentionally leak it and prevent the DSP from accessing freed memory:
 
-    panel@0 {
-        reset-gpios =3D <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>;
-        reg =3D <0>;
-         ....
-    };
+drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
+    ...
+    if (err =3D=3D -ERESTARTSYS) {
+        spin_lock(&fl->lock);
+        list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+            list_del(&buf->node);
+            list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+        }
+        spin_unlock(&fl->lock);
+    }
+    ...
+}
 
-    panel@1 {
-        reset-gpios =3D <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
-        reg =3D <1>;
-        ....
-    };
+Because this patch defers adding the buffer to fl->mmaps until after
+copy_to_user(), fastrpc_internal_invoke() will not find the buffer in
+fl->mmaps when called from this error path, missing the transfer to the
+interrupted list.
 
-...
-};
+If fastrpc_req_munmap_impl() returns -ERESTARTSYS, this err_assign path
+then manually adds the buffer back to fl->mmaps. When the process later
+exits, fastrpc_user_free() will reclaim this buffer while the DSP may still
+be using it, which could corrupt newly allocated kernel memory.
 
-
-Yours,
-Linus Walleij
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930071340.2969=
+948-1-yaoyiqi3@huawei.com?part=3D1
