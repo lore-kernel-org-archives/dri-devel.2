@@ -4,109 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A575FCA5FB1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D433CA5FBA
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 10:58:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A28610E268;
-	Wed, 30 Sep 2026 10:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BEA10EEF4;
+	Wed, 30 Sep 2026 10:58:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hoxc/iEN";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BpMdo1Tz";
 	dkim-atps=neutral
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com
- [74.125.229.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0DF10E268
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:56:53 +0000 (UTC)
-Received: by mail-dy2-f41.google.com with SMTP id
- 5a478bee46e88-34ca54bfc48so690778eec.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 03:56:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790765813; cv=none;
- d=google.com; s=arc-20260327;
- b=OKSzdLZ1lfNmmAoNl67MVi0WQ/o/E6nH+Xghyu/kbuyW0SLplbK/a96R4jz7eezOVK
- VDhu53uAfGkpJALpzie6kLjdifAFTupxqgliTfqmvAA6/WvPq5D5iMMOsdgxKhsybTQk
- BzifxYcpN9Li9hkeQ4CgmTfIdXPMS1zAQKOn3TQPkblhYPWGvlZZBuss4KneogmVEsDk
- 64m4bJbXEvJTIk4UvVHPl8BdP4JL1efx0J6RpVqPj9ja5XavIcyBsm0V1EU4CHsVNUQA
- dKgP3zjQA/WmRCJMKOKTQ3/EayJEPzL2zyULQ8gXfBjySEOsMbhPFliCddekJjJeDEZQ
- kzzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9e1cJ5TO1cnYCQwoGNWZgRp51pppadHuJRrjli9Xnp0=;
- fh=nkUVBi0UF9+IJC7iocNyE3QYdWnoO2H1YC36375/l9w=;
- b=G4nZgsCS1s+o67VnwGlWcmpU9anLZtBwTjr06joKmlNzeUY7zSoay5VFDpDiBoBUOn
- lQx2bpCPoaPy1DJSTxWMLsS/0NS7tl4eOzJxtYUUttyPU3OH5NfHfSD8f32NaKknlTIe
- FC8G2M03Dg5/Oi8BoV8XLqiamLHiLUFZ5rQ/ZdPhfRoy4h90TkXpfSISVtmMmx8cMN+2
- 5Ul/LozDwhmXRYll3pVEfeONqAKM6sbkXcW5ga7tVz2Z1Ux84HhL8Ws3ChbfomKRxqSg
- ZY2OCzsuM2clW/PlJP2CiXmM/uQz1S5VsBGSF+Ii/drFN5Q9EyKr+h36vX3CqxltR/6d
- K+jQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790765813; x=1791370613; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=9e1cJ5TO1cnYCQwoGNWZgRp51pppadHuJRrjli9Xnp0=;
- b=hoxc/iENYBGeMpRztAgA22FALYUrhBBaROFWZabPjYweEAf9D8N2QS0meUGcthWaB+
- vnOF2r5gS3VTGC83z2Wr4edp7vwmwV77HYfMIrFgoK6Iwy17uhIiobG+lGl/lKCC4r/1
- 0P7/0rfonpR3OyxpMCQgBg7jdUWPb9mZcNzT7v40wrE7s9RefZn3ipSv2pR1Q/ODf4h/
- k1CWXuXpLaDnP39XDOdODSixsIqZ0h41H4IKFWwbi6+EyHoEuV1/Jad8HWYMkYBu7cqn
- UsdGap/IcQVyo6fkkijPOmXUlBsATE/ETWqMuUiGSneNPh0+xixucEMAih2hUGvnxhIH
- F70A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790765813; x=1791370613;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=9e1cJ5TO1cnYCQwoGNWZgRp51pppadHuJRrjli9Xnp0=;
- b=p/aAsWHBUj0md+iyBomc3hsZJ4NCEEx5XwWiItvxdSI0CUC5hTLZBIa33OG7lXXVhZ
- isc99gg0Sgd693fFOB79VfLU25BEjb+XEgvu/ryJ/bQyCNCXF3I3MMcSBME3dTumSdLh
- DEHcI35wDjfQgI4U3b0EuDibGZahBvHWK2YzllvWc1Om2luEQcasJsM1rWfuuPTisCii
- k0SSjQjeAUl8j5gta1iVaEfk4o0wIKrSz46Fd1aunBR6BN2MAAx8aubwX2+GcBJgQVZN
- TE8K8+SUAcz3NhfJdN87lrUtLLNY4JY2dt9Jzl5Tiex4KlenAWOz4u6h9AVb6we/uYfQ
- kTTA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzQuphwOV8nzSXqf/BHigsd4AiwycnjgDazHBfj5kGeQB4FUKSuLtLZrMUldFJC5Bd87vmQL7OSp+8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLOVF4u1in+avFiUTf8D+wyuaX2pbeIVDamD4aStlFecin6q2ja
- pM4vQUeY0kHPdd6as80SleZg3uowZyzZK58wgT3uSo/hEJQZro0Ob+7J0Xrc/p5A1pOoJiqQ40S
- GVvd1WMr9ubgQtSbf6/u3DrQOH6FB+B4=
-X-Gm-Gg: AYBFou25C3mP5xvrTEOkBMtdxoLIFNFwVyukOHcgGgm6kSUPScd04RT6gIJCRm3gl8o
- xTyZGUuA5wKY71v0+nUgI3fiubg0nQJJ5/8WhaMAqy1uxRwhOOzNYcIck3JfKGndZ07TtJECZ+Z
- S4IXLr6enwzuAKCxuK2D2V9BpQZYMY2OM1SDLAQxKcp/ivs5/zq9uYlxdHn/Mm8qPiy0TpmgQ2E
- b42CgQzM8oFo18s8FfiXWW2hvOkkHCtZOyhcxGngV06ZhoBIbolR4q+MT4dS4uwi99LtNeooUpk
- bkm2JGoT0WIVqL1zncwH37XBMZOj913S8Jqz9FZcf5lkJcspLADOiP1wVqbXIOzCA6HVzmyVqSQ
- ETcATUbrWHlT7uE7kY+ibnO0=
-X-Received: by 2002:a05:693c:42c8:b0:33e:a0c3:4163 with SMTP id
- 5a478bee46e88-34cdcca9e48mr1323411eec.24.1790765812417; Wed, 30 Sep 2026
- 03:56:52 -0700 (PDT)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C8D710EEF4
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 10:58:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EPd0IohEr+H97R04lBzC9ooM7flJniVkbfgzfgNxcw02JGlNh1aqPQ6qDcy6EA/n0/mnLBzGmZ9iyUS9mUJQzJ+nDLu81cSg+KKqPm2TQcYPhwHqqc1eQWfw6vyqvMY0zi4X1H8mzTwjPlWn1iY7CSqrLLy5QAjJpv+pvD05FHnOaWYI4xF5BVsskuAkf/OexAa7OjrmGziWeLGBMXOtPTk7aEr6OqypDy5tdQtGBePrKR7o8mtfhCOu9jO7s0uc9OgEoIikQdHkqC12qrC/jjVCakjVjsNEv1DXXv+UL9wOfVF1/89SVz/9ZVXHt/4BmLxD+20TxgqakY8M6hFGbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FH4rkFzXotimjSWGZMuYEkLqMeKVLbJgTyZE577KJXo=;
+ b=PgrMGGLWraPcP5PUyeGmaJlEacF3SgqQPdIkta++DWIw1xkpzmMd2kzRkUFNTZpCNw23C1neZpTds1ZkT+pK0oYmcvUIdMHaxXdUMcLaBtOMVfnUSY8CGYRbMqHyBuVJMqXyL7NBQ7S6qaMgsSPpmr4P18I8cF5cEgsW6AbRfDoiTuy1bs6s6Cy0yG5gkqBafaTTDBYqdu1Z4ywVB19pgfHErDLWAYoQp5dL3ELRZLOna4bk3qIQSnYCbQO+PpAQFoz/zj4Fmxa2hVdsR281dB1ajcjA8u+yHtEP2ECz27XKt5UIfMGcZuuZtE6sZnwhjQy9XHJ4DFcUgna/T6dkcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FH4rkFzXotimjSWGZMuYEkLqMeKVLbJgTyZE577KJXo=;
+ b=BpMdo1Tz6BBGRyBSfM/HOoNymTfyj7kPFFk6UzG+TJISgr7jvWTcVou7uRYvqEwyY/86rgl01RZ+IRXFDCTtbACzFD0XUmNWhSZP9y1oDLCyBtZijrKmy2ys6IXZ6sN2w3RfHRQz/JtZzhqCQLfOGWIYxps38rNr3mw0sWf9HQNotip0xhakTbgkzf7GyQKxn5gB4iTQkb1+E6v9umFVDdwXk6wBhIXrRkC7UsPooQgVdyesrbji+YsCGjO0eO31WEHLo6JSH5dEdzP3FFFKv0CfPVhyRVze+OcW/xuq9DqBhR0cHv6hOat00LPZBGrd7dvW2HuNzUkgOrrZpearkQ==
+Received: from BN9PR03CA0033.namprd03.prod.outlook.com (2603:10b6:408:fb::8)
+ by DS4PR12MB999099.namprd12.prod.outlook.com (2603:10b6:8:2fd::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
+ 2026 10:58:22 +0000
+Received: from LV8PEPF0000005B.namprd02.prod.outlook.com
+ (2603:10b6:408:fb:cafe::45) by BN9PR03CA0033.outlook.office365.com
+ (2603:10b6:408:fb::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Wed,
+ 30 Sep 2026 10:58:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ LV8PEPF0000005B.mail.protection.outlook.com (10.167.245.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 10:58:21 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 03:58:02 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 30 Sep
+ 2026 03:58:02 -0700
+Received: from inno-dell.home (10.127.8.11) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Wed, 30
+ Sep 2026 03:57:51 -0700
+From: Zhi Wang <zhiw@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, Zhi Wang
+ <zhiw@nvidia.com>, Boqun Feng <boqun@kernel.org>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Peter Colberg <peter@colberg.org>, "Simon
+ Song" <xinmengs@nvidia.com>
+Subject: [PATCH 0/7] Rust VFIO PCI support and NVIDIA vGPU driver
+Date: Wed, 30 Sep 2026 13:57:42 +0300
+Message-ID: <cover.1790764573.git.zhiw@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
- <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
- <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
- <arzn-TNbOlqXqQgd@orome>
-In-Reply-To: <arzn-TNbOlqXqQgd@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 13:56:40 +0300
-X-Gm-Features: AclHuK9oLMebZiHh4azYE1DFmusVvYbZfHXPOcFGt1h-TD62cN-nNm6dZ6ICVfc
-Message-ID: <CAPVz0n33c_uwfhsSguEfFfJ3FV=26SPtNTEpHes9f5RjnPDA_w@mail.gmail.com>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005B:EE_|DS4PR12MB999099:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd9cef92-e6f5-4cc6-229a-08df1ee1be42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|82310400026|1800799024|376014|36860700016|3023799007|13003099007|10067099003|11063799006|56012099006|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: DxeeAshvcExNfjNz67TEjun6dPs5b/Fdr6tQrb9zEIFLM2dq2qJ+o3KFdllHICHtz5/zt/ucwBiA0pBkYQ3O3rXaxWfQI7DeanW1lF/sE5bAyMLgkq5O1nt+V/LkwPkND9UcgNwXFklFDfeD6j4I68gg4XH1KVqs02omlyElqZplHVB4myWk9WBXirncOcHmiebTu3jWFD1sltmg+sfcOlF9Snph1A10ym0JELFd7G687zY8MG4kk59Vz1jPXj0gv/eKBL4/s9Q9qeyyGvDiMnmYZgqlcNC1ll+Ih8TmB858ZfRX6mOc91H53OeVnOHU6Fxz1UWGh7Z2qayMGMqGyEIijTkPh6Ygs2ESnXXYIDG1zp0p4Xy+RJ+52ZHBlkB8KAg3qLX2ad103R9NxbIaYwEoPLhnDBtoIqfKpoq6f0v9ATIbPPLNlj0x6fBYSpcgXv5WWpixM38t1bAIf9pcHaGYRiwcp868YS6aP2YDiueHde7JQlIVQM/mA3a5L9pPY1ErIhTovWE4o5sXOA6JZKaMesp+7gUekHNDAFiA0z17vEC5r6Qg6h++To6hcEy88A0W5/iaUhjMVDR5GPMoUKAlgefsEi3GW/QGaDcGEdKQVANFkgRhY0ja6HzuUhq7BB0P5k2Eqb4jxnb26jGzN/WYMzN6HhHadIpWFcVt70g3FtIwNgOOAQKXdNzDT6kIBOElE+xhkezqpxBhadFR6A==
+X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(376014)(36860700016)(3023799007)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: iL9RtLDO0za0vMhhPo9o8OY3FqgoGAWets8vuLaMmmipbIrW5/drMT7u87hb3OaMZR6org4kOCmY4U2c8giWbKAJ4ixQKgQ3sB4/o9zecBeXYcPT1gh6VQyXAMwWcILVGYkdm7/oz5aPyvrgTm/yiX3i5bEVFeWPwxN2WurHNFyYSSZe16tIhKGPlFHOTj+AyGd1hVCPwLqaddGb3JfcyeqgMwIVFEkWN69H0Q2asZ9jgvPIm18deF7ElB26S1PdxEPU7CgzRreUd7ob+M9ubymQyVZgkPiCVbPbX0xzX7CrtGip0yRy8e5S2VeKjnkQ2i0SCjRgGmgvoyDS8gL3uKhcVUP2sCO6Gtss7WWzFaxrlCLOPhW8DR040FZbItCTMWavunPHJEnABM9uhJONgbnQpox9RnwMtIMIh6nxWWxwqufYkuyKcgElnqsmCRBk
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 10:58:21.6887 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd9cef92-e6f5-4cc6-229a-08df1ee1be42
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999099
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,145 +133,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:50 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Sep 30, 2026 at 12:52:18PM +0300, Svyatoslav Ryhel wrote:
-> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:19 =
-Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel wro=
-te:
-> > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > > > Tegra20/30 SoCs display controller.
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++=
-++++
-> > > >  1 file changed, 138 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/display/tegra=
-/nvidia,tegra-8bit-cpu.yaml
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia=
-,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvid=
-ia,tegra-8bit-cpu.yaml
-> > > > new file mode 100644
-> > > > index 0000000000000..f0dab608b2936
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-=
-8bit-cpu.yaml
-> > > > @@ -0,0 +1,138 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit=
--cpu.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > > +
-> > > > +maintainers:
-> > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > +
-> > > > +description: The display controller in Tegra20/30 SoCs features an
-> > > > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> > > > +  protocol and is referred to as '8-bit CPU'. Each display control=
-ler
-> > > > +  provides two such interfaces, which can be used to send MIPI DCS
-> > > > +  commands to initialize and control the panel while image data is
-> > > > +  transmitted via 16/18/24-line RGB.
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: nvidia,tegra-8bit-cpu
-> > > > +
-> > > > +  dc-gpios:
-> > > > +    description: Data/command selection pin.
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  rw-gpios:
-> > > > +    description: Read/write pin.
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  cs-gpios:
-> > > > +    description: Chip select pin.
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  data-gpios:
-> > > > +    description: Specifies a set of 8 gpio pins used to transfer d=
-ata.
-> > > > +    minItems: 8
-> > > > +    maxItems: 8
-> > >
-> > > Based on my admittedly brief research, according to the TRM the displ=
-ay
-> > > controller can drive all of these pins - of which there are two fixed
-> > > sets as you mention - directly. So we'd need to describe which interf=
-ace
-> > > the display is connected to in DT, but not any GPIOs (which they real=
-ly
-> > > aren't).
-> > >
-> >
-> > I am perfectly fine to not expose any gpios in the binding, if this is
-> > preferred. Only question, which method of interface checking would be
-> > preferred. I assume if primary then nothing, if secondary - boolean
-> > prop "nvidia,secondary"? Feel free to share your vision.
->
-> The driver currently uses the GPIOs to program DBI commands, so I
-> suspect we do need some way of controlling those pins. Or is there a way
-> to have the display controller program the pins and send commands? That
-> would be much preferred because it would more accurately reflect the HW
-> design and possibly also simplify the driver because it doesn't need to
-> parse the GPIOs and then also not use the GPIO API to set the values.
->
+This series adds Rust support for VFIO PCI variant drivers and an NVIDIA
+vGPU driver using Nova's typed SR-IOV PF services.
 
-From what I know, GPIOs must be used and freed after use. Sets of
-GPIOs are defined and remain fixed for primary and secondary
-interface.
+It follows the discussion of the original C NVIDIA vGPU VFIO variant [1]
+and builds on Danilo Krummrich's Rust vGPU/VFIO proof of concept [2],
+including his PCI helpers, VFIO abstractions and NVIDIA variant driver.
+Keeping the variant in Rust preserves the ownership and lifetime
+relationships with nova-core across the PF/VF interface, and allows
+registration and first-open/last-close resources to use Rust's RAII model.
 
-> As for selecting the interface to use, it could probably be just a
-> simple, single-cell value with two valid values. That's a bit clearer
-> than a boolean, because with a boolean you need to explicitly document
-> what happens when it is absent.
->
+The VFIO core prerequisite is the work of Simon Song and Alex Williamson,
+discussed in [3]. VFIO core previously required PCI driver data to point
+directly to a vfio_pci_core_device, conflicting with Rust's typed private
+data. Their changes let each driver's PM, AER and VGA callbacks recover
+the core device from its own private data and pass it to shared VFIO
+helpers. This addresses the concern raised in the earlier thread: the
+Rust driver can retain its typed PCI private data without adding a
+separate VFIO pointer to struct pci_dev.
 
-I can describe boolean too, but if you want set it like "nvidia,head".
-Fine by me.
+The main changes from the PoC are:
 
-> > > > +
-> > > > +  nvidia,init-sequence:
-> > > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > > > +    description: Device specific set of values used in DC DISP_SPI=
-_INIT_SEQ
-> > > > +      registers.
-> > > > +    minItems: 4
-> > > > +    maxItems: 4
-> > >
-> > > And AIUI this is panel-specific DBI commands the display controller w=
-ill
-> > > transmit. So ideally the display driver should receive this data from
-> > > the panel driver.
-> > >
-> >
-> > This is not panel driver data, but it is panel or maybe even more
-> > interface itself specific. TRM has no clear method of generation of
-> > this seq I am aware of. Maybe I have missed smth. These 4 entries
-> > co-respond to DC_DISP_SPI_INIT_SEQ_DATA_A_0,
-> > DC_DISP_SPI_INIT_SEQ_DATA_B_0, DC_DISP_SPI_INIT_SEQ_DATA_C_0 and
-> > DC_DISP_SPI_INIT_SEQ_DATA_D_0 registers of DC. Maybe you have some
-> > info to shed some light onto method of generation of this seq. Then it
-> > could be simply removed from binding and calculated internally. Thank
-> > you!
->
-> Even if this is interface-specific data, it is still defined by the
-> panel that's being used, right?
->
-> As such it'd make sense to integrate it into the panel driver and have
-> some side-channel to feed it to the display controller. If there's no
-> good standard way of doing so, having the display controller read it
-> from the panel node and programming it at the appropriate time could
-> work, too.
->
-> Thierry
+  - Separate common VFIO device and callback-data handling from the PCI
+    wrapper. Require covariant registration data when restoring erased
+    lifetimes, keep callback borrows distinct from data lifetimes, and
+    extend callback-scoped access to open, write and mmap.
+
+  - Add a VFIO PCI adapter for PM, AER, reset and VGA callbacks. Register
+    VFIO after publishing initialized PCI private data, and unregister
+    before releasing that data.
+
+  - Connect the typed PF instance handle to the existing Nova manager's
+    implemented open, close and reset operations. Make PF service access
+    fallible and reject PCI segments that do not fit the firmware's DBDF
+    format.
+
+  - Match all NVIDIA device IDs and classes through an override-only
+    entry, with PCI passthrough for devices without Nova services. Wire
+    up IOMMUFD PASID callbacks and passthrough BAR DMA-buffer operations.
+
+  - Enforce the assigned BAR1 aperture for read, write and mmap as well
+    as region-info queries. Set the guest device ID in VFIO's virtual
+    configuration space and retain the subsystem-ID read override.
+
+Integration branch:
+https://github.com/zhiwang-nvidia/nova-core/tree/zhi/nova-vgpu-20260930
+
+[1] https://lore.kernel.org/all/20260905081116.106613-13-zhiw@nvidia.com/
+[2] https://lore.kernel.org/nova-gpu/DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org/
+[3] https://lore.kernel.org/all/20260929144243.5cb913a0@nvidia.com/
+
+Danilo Krummrich (5):
+  rust: pci: add VFIO override device IDs
+  rust: pci: expose the VF index within its PF
+  rust: pci: allow drivers to manage DMA ownership
+  rust: vfio: add PCI variant driver abstractions
+  vfio/nvidia-vgpu: add the Rust VFIO variant driver
+
+Zhi Wang (2):
+  rust: vfio: separate common device handling from PCI
+  gpu: nova-core: publish typed SR-IOV PF APIs
+
+ drivers/gpu/Makefile                        |   15 +-
+ drivers/gpu/nova-core/driver.rs             |   47 +
+ drivers/gpu/nova-core/nova_core.rs          |    2 +
+ drivers/gpu/nova-core/vgpu/vgpu_api.rs      |   82 +-
+ drivers/vfio/pci/Kconfig                    |    2 +
+ drivers/vfio/pci/Makefile                   |    2 +
+ drivers/vfio/pci/nvidia-vgpu/Kconfig        |   20 +
+ drivers/vfio/pci/nvidia-vgpu/Makefile       |    3 +
+ drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs |  366 +++++++
+ rust/bindings/bindings_helper.h             |    4 +
+ rust/kernel/lib.rs                          |    2 +
+ rust/kernel/pci.rs                          |   11 +
+ rust/kernel/pci/iov.rs                      |    8 +
+ rust/kernel/vfio.rs                         |  290 ++++++
+ rust/kernel/vfio/pci.rs                     | 1038 +++++++++++++++++++
+ 15 files changed, 1888 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Kconfig
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Makefile
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
+ create mode 100644 rust/kernel/vfio.rs
+ create mode 100644 rust/kernel/vfio/pci.rs
+
+
+base-commit: 808dda6545c8775ea0abce0490308ddfeb5b8178
+-- 
+2.53.0
