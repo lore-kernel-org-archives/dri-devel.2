@@ -4,71 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33592CA5FBE
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08E5CA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 08:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 733A010F21E;
-	Wed, 30 Sep 2026 07:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2150910F22C;
+	Wed, 30 Sep 2026 08:04:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="G/99nNpV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QJ1Jkh88";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF41610F218;
- Wed, 30 Sep 2026 07:50:38 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hvnK72P1czKnd1;
- Wed, 30 Sep 2026 09:50:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1790754635;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Rb4nWwlxaPy2o69lqksbAluMfoEqrzWeYPEQbVBWoFQ=;
- b=G/99nNpVvjN+Q4t0ht6oc9WzRJSmnV1DgJ/PvIQS3FkjTeoiT4PpJrrETsDyYBulpx3DFh
- 1MygqaTB5J0gxRy2nzvPif1T0eoIR0rRfMMokq8CM2UVlIzJ2C1wxerxl9FaZcfrR6MfB9
- 0QJxx9lP5f1nSfL223tsigokddcdZY5e0Fuq7cIpm+QR80SNfkhxIK2i70luRqutJT1IGy
- fG9W6cJ7lc4NclOYhTCv55AY4IGFUzyujT/zM8is1SxeQY41bygWNZM9geTXJAiCeeIXmk
- VCbYbkFpkaaYZfE6euWAPK3k2cjFPKVQk0qpEvjzMoq0aYCFyhMQHcvn+nd+zg==
-Message-ID: <d1280ea9-ef96-42c5-a613-a4db8de0e9f2@mailbox.org>
-Date: Wed, 30 Sep 2026 09:50:27 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA89610F229
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:04:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 00C5360258;
+ Wed, 30 Sep 2026 08:04:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A8A1F000FF;
+ Wed, 30 Sep 2026 08:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790755483;
+ bh=lAhm/IRtE5TnsstmivWqwHlXEeHp6zXLoKL6Dpf/08M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=QJ1Jkh88NS099T5XThWkiHUyHFMuaUi05aDIb0DuSfK6cbpnRq28RDtuRmH0kFGSv
+ NZBn9sJRMspdyRlciqW7jBwuSJhhmVl+ihgUSFAiPw2uKl7PbI1UZnfLJPikMcnOyU
+ ovoPJtoyeUD0pBgYjEK81upp+9g5hXAzTVbnwNByddsnhUHGbTh4oyjWwPnTpHoiyE
+ W+veZ7MG2gdJLu5Tu2tBbHeKkaorg36xo5setYHOfmWCoJ7iQrrSg5BXX6WjPsfC16
+ p8iXs5bEn9clABquAKOv4qGbKnFg2BCrgrFqzkP/nj5meGWrDZhxZks/v9wThWHD3f
+ jOxH1OsmTZDig==
+Date: Wed, 30 Sep 2026 10:04:39 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <ary8IdL9zVXfS2fA@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
+ <20260929222822.GA2933878-robh@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
-To: Vidith Madhu <vmadhu@nvidia.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
- <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
- <FJ8OpdCORV2b1oivG9-G9Q@collabora.com>
- <9dccf035-2806-7b92-ce17-00f95bcf773a@nvidia.com>
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <9dccf035-2806-7b92-ce17-00f95bcf773a@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: g68zfnwjayxji9kxshey3fmwfqszuo7m
-X-MBO-RS-ID: e699964b73b7c292c05
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="k3ccvqemgn4avxba"
+Content-Disposition: inline
+In-Reply-To: <20260929222822.GA2933878-robh@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,72 +81,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/29/26 20:55, Vidith Madhu wrote:
-> On Sat, 26 Sep 2026, Nicolas Frattaroli wrote:
->> On Friday, 25 September 2026 05:48:54 Central European Summer Time Vidith Madhu wrote:
->>
->>> Maybe it would make sense to extend the qms_enabled connector property 
->>> introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
->>> a standard path to control the VRR state on the sink, separately from
->>> vrr_enabled.
->>
->> An earlier version of the patch series I was working on internally had a
->> VRR limiter property that would either be Off (i.e. Game), Game-Limited,
->> QMS-Limited, and it self-inflicted some amount of confusion because of
->> the way things were named, so I refactored it to the limiter values being
->> what determines whether a limiter is used, and the QMS enable to determine
->> whether QMS is used to apply said limit. So my initial reaction is to be
->> hesitant about expanding the collection of possible states exposed through
->> the uAPI.
->>
->> To help my understanding: what does
->>
->>  vrr_enabled=true
->>  $new_property=Off
->>
->> mean for presentation?
-> In this case, it should be acceptable to disable VRR on both the source 
-> and sink and effectively ignore vrr_enabled=true. From reading
-> https://elixir.bootlin.com/linux/v7.2.8/source/drivers/gpu/drm/drm_connector.c#L2370
-> vrr_enabled is essentially a hint and there is no need to reject commits 
-> because of its value (at least, that is how we handle it in the NVIDIA 
-> driver).
 
-I presume you're referring to this:
+--k3ccvqemgn4avxba
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+MIME-Version: 1.0
 
- *	The driver will take this property as a hint to enable variable
- *	refresh rate support if the receiver supports it, ie. if the
- *	"vrr_capable" property is true on the &drm_connector object.
+On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
+> On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
+> > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > > > regulators and GPIOs, perform a reset pulse with specific timing,
+> > > > send a vendor-supplied sequence of DSI commands, then enable the
+> > > > display. The only truly panel-specific part is the init sequence
+> > > > and power-on/off timing.
+> > > >=20
+> > > > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
+> > > > with a single generic driver whose panel-specific behavior is
+> > > > provided by BPF programs loaded from userspace at runtime,
+> > > > following the HID-BPF model. This enables new panel support
+> > > > without kernel patches.
+> > > >=20
+> > > > Panel DT nodes use a two-entry compatible with the panel-specific
+> > > > string first and "panel-mipi-dsi-bpf" as fallback. The generic
+> > > > driver matches on the fallback, while the first compatible is used
+> > > > to identify which BPF program to load.
+> > >=20
+> > > If you need the 1st compatible anyways, what is the point of the
+> > > second one?
+> >=20
+> > The whole point of this driver is that you don't need to modify the
+> > kernel when you add support for a new panel.
+>=20
+> What reads the most specific compatible?
 
-My reading of that is simply: "If vrr_capable=0, VRR_ENABLED=1 has no effect" (i.e. kind of stating the obvious :). Not sure I see the justification for VRR_ENABLED being "just a hint" beyond that.
+The BPF loader, so either in kernel loader or userspace loader through
+uevents, depending on how the driver discussions are going.
 
+> > > Also, I assume there is at least some panel supported in the kernel
+> > > you might want to convert to this. That panel would not have the
+> > > fallback (and the DT is fixed).
+> >=20
+> > Yeah, that's true. I'd still need to identify the parts though. I guess
+> > using a generic compatible but a specific model would work?
+>=20
+> What? You can't add a generic compatible in these cases.
 
->> Another state I'm curious about is
->>
->>  vrr_enabled=false
->>  $new_property=Game
->>
->> which I assume is the case you're interested in, where the compositor does
->> not want VRR presentation but we're keeping the sink in Game mode to avoid
->> having the display go blank.
-> That's right, in this case VRR is enabled on the sink but deactivated 
-> source-side. For NVIDIA, there is a distinct HW "deactivated" state of 
-> VRR, but we could achieve the same result by setting the frame range 
-> limits to a fixed value as you suggested.
->>
->> is that correct, and something that does need an expanded property? I feel
->> like userspace could be smart enough to do that by keeping vrr_enabled=true
->> and then setting a fixed target, if the goal is to have non-VRR but with the
->> display still in VRR mode.
-> I agree, I am a little concerned though about the transition period for 
-> compositors to adopt this new model. I know for example KDE is using the 
-> vrr_enabled property for their "AdaptiveSync" option, and it seems like it 
-> would be a regression if all of a sudden toggling it caused display 
-> blanking on newer kernels.
+generic-*hci all have a generic component *and* a platform specific part
+for quirks, and yet none of them require a platform specific compatible
+to be added to work. PCI has that too.
 
-Yes it would be, also for mutter, which currently sets VRR_ENABLED to 1 only while there's a surface fully covering the screen.
+This driver has a generic part and a platform specific part for quirks.
 
+> > > And I agree with Neil's comment. At least until we start embedding BPF
+> > > into DT directly. ;)
+> >=20
+> > And from Neil:
+> >=20
+> > > I don't see how this can be a valid hardware description, bfp is a
+> > > software implementation and has nothing to do in the bindings.
+> >=20
+> > I'm quite a bit surprised by that argument though.
+> >=20
+> > We have in the main dt-schema repos bindings like:
+> >=20
+> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
+options/u-boot.yaml
+>=20
+> Self contained in a node that's specifically not h/w.
+>=20
+> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
+bootph.yaml
+> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
+post-init-providers.yaml
+>=20
+> Extra hints that are safe to ignore.
+>=20
+> >=20
+> > Or, in Linux:
+> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
+>=20
+> Virtual h/w which tends to have special needs.
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+How is that not a description of the binding we're discussing?
+
+> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+>=20
+> Shrug. Weird Qcom shit...
+
+Cool. What can I do to add this binding to the list of "weird Maxime
+shit" or is this kind of exception only for Qualcomm?
+
+Or should we do it the other way and ship the binding anyway, and in two
+years, when it will have been in device tree in the wild and
+we-cannot-change-it-we-swear, we will be able to upstream it?
+
+And in the process reward the ones *not* playing the upstream game.
+
+> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
+tree/Documentation/devicetree/bindings/sound/simple-card.yaml
+>=20
+> Just a container... Though I can't say I really like any of the audio=20
+> bindings.
+>=20
+> All really irrelevant to this discussion other than the panel binding...
+
+Not really. The discussion was "but you're describing something that
+isn't hardware". And none of the above are. And were acked. Some
+recently.
+
+> > All of them have been reviewed or acked by you, and yet none of them
+> > relate to any hardware description.
+>=20
+> There are things which aren't h/w, but this is h/w and we've already=20
+> made decisions about how panels in particular are represented. We of=20
+> course have some remanents of how we don't want to do things.
+>=20
+> > panel-mipi-dsi-spi is a generic panel that will load a firmware, and
+> > quite similar to this one. google,android-pipe and qcom,fastrpc don't
+> > attach to anything and will just open a tunnel to userspace, which is
+> > somewhat equivalent but more dramatic than what this driver is doing.
+> > simple-card or its variations will just instantiate a kernel driver from
+> > the DT and is used pretty much everywhere.
+> >=20
+> > I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
+> > by rob, and acked by a panel maintainer, and 4 years ago, so we're way
+> > past the "oh but we didn't know what we were doing back then" argument.
+> >=20
+> > So, let's phrase this differently: what's different about the
+> > description than panel-mipi-dsi-spi, or any other binding already in
+> > tree?
+>=20
+> There's all of 3 panels supported. Compared to all the other panels we=20
+> have, hardly the rule over the exception. You can always fine "bad"=20
+> examples or exceptions.
+>=20
+> That one defines a single supply. Any other MIPI SPI panel with=20
+> different supplies or GPIO controls probably has its own binding. Trying=
+=20
+> to parameterize that in DT doesn't work. We've rejected trying to do=20
+> that in DT over and over. What's your story here for that?
+
+Sigh... Look, I really don't care about an argument DT maintainers use
+at their discretion for this. We both know full well that it's been and
+still is inconsistenly applied, and you also know that it's not like
+I've been playing the DT game since pretty much the beginning (on ARM
+anyway). So it's not like I don't want to make it work, I do. But what I
+care about is enabling that driver to work.
+
+I reused exactly the same binding than the last major binding that was
+merged for panels, and support about the same number of panels. I guess
+that was a mistake, so sorry for that.
+
+I'm fine with reworking the binding any way you want as long as it still
+allows for the same use-case, but I would have hoped for a better
+feedback on how to do so than "oh what a huge pile of shit this is".
+
+Maxime
+
+--k3ccvqemgn4avxba
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarzCkwAKCRAnX84Zoj2+
+dpc3AYDOB9XdH/2zapSanqxE4H56ffYrbVAeb+qx5XxwVM0vnMt7lzv9vg5HaAOo
+S/xSzu0Bfi/5SfsSXC39fs4ZPIdQyMs+eNZexW71Ze0mJnl6LF6ImBE4OXEw7pa4
+QGknAZNTfg==
+=jVxm
+-----END PGP SIGNATURE-----
+
+--k3ccvqemgn4avxba--
