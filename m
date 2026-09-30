@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1313CA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:10:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A4ECA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6DA10F1F2;
-	Wed, 30 Sep 2026 07:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95CF310F1FC;
+	Wed, 30 Sep 2026 07:15:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XNA1jd/G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W+4eq34k";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFBE510F1F2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:10:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CE22600D4;
- Wed, 30 Sep 2026 07:10:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5581F000FF;
- Wed, 30 Sep 2026 07:10:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790752204;
- bh=B+39851crvy7gNAFdzL9By/3zlqtRb9FMHA8cuJgnfw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XNA1jd/GN7Jd296mYvchK3yLQJPZrKVH9p2ADJKsS8bKHw5wuy2+QYNddq2O/VVSP
- 0vhbc0jlUoRBcyjx7AzAyS/XK8XUQO/oC0SrH7OW2TjaMRXNGFSAoH9PVu08qk4P31
- e2tyP0h3n6DyFDjNsB9aIyO0NdGZNilPREMGsyaY6XahmC0I6YZ4B+OdmTk7SMeHbh
- fvxmxeIcI5ITS4Cf8Wlm2hPG8Eg1ysvAJ/qpNbQkjl6iINCqEqjIk1ZPQivqvjl5D5
- mNXkkUefF/xqbF5XpsaQmVsToxawhcGuFGCJxTBgWc0E3GO+/j+iktA4tM3C5aZB2v
- 77Azp+1MWTnKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] misc: fastrpc: Fix race and double free in
- fastrpc_req_mmap() error path
-To: "Yao Yiqi" <yaoyiqi3@huawei.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260930063738.2966346-1-yaoyiqi3@huawei.com>
-References: <20260930063738.2966346-1-yaoyiqi3@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:10:03 +0000
-Message-Id: <20260930071003.BF5581F000FF@smtp.kernel.org>
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93BE910F1FC
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:15:25 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49e6c0fce17so26586895e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790752524; x=1791357324; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=2prECYlfUYJhHJY0ODA9AKxpvoyiJexfpX9S3WhkkKk=;
+ b=W+4eq34kpUBsvEhGE561pkbnuN5vT4/5HmbE8PjZOLVLe6TUXZ+lAi+YUZQp/CCxyC
+ LMM0luJxAunU3Z3G5TeHpDpZX7SaZd92SyEGH6TD8PJyKxwG0le7eq89OrPm7V50HFqP
+ AWXpBaFw42KZmn03brrS0i2yW6QKfOrMnfR6m/FpN2LtqW9xKWemxLczK8iW3EejtclV
+ 0xSpEfeMtH74HZghnPxJufiJTz9lVhCLBQJfZ9Le/5nmT5IR2NJhtEZR6O9UFqfKUF/Q
+ RXQOrOycG8M2c8gR1xkA1GDBtyxm7F83Z+tzSQ6T9erWB3KJryhFWzgbSUfg2jFss2Im
+ 6PBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790752524; x=1791357324;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=2prECYlfUYJhHJY0ODA9AKxpvoyiJexfpX9S3WhkkKk=;
+ b=EcxiMRJgWKh5szYtcTGaDAz0Wl1tfikLjqUhw0P+cgt6rZSbrTRb8jCl+GmCKr5M1+
+ 1L1MBkQEQR5L5/DZZPS1F7xs0C1HTVopNZGRVKZTb5+P9j917x6/3bVg/bmjBmeMy1hL
+ 7GfDXrWpAmet+8A7suWqLQlGHm/gohNY8/K2GSjpogarXErO9HpbVgcWrDYAIap9KSkX
+ VeikjGjT5q3lkEDRJqxFlXvNl/4kpqtUjgkIRASjwKEck4yjzBX+FupounzQvQ1eWnnR
+ B6NLogbgKdvMKIPZQsqNBVGPGnmQl61TcnV5eYZ1YRvgw4L3Wrj5HXMriVIv8MeUCVSf
+ vw2g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw18z35fAoTFhnU5Az0CbV/z/p03WCJKbEFcquRxtNN1r1FI5nDNlPUwadhGulotLn2H/F7hk6wnD4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nVe1+GMAgiVQfEGcISQI2QfH7B4XCrVqGNg7rB6+nUyhshGbWx
+ yP7q4b1ZdxUPYP6d3OHNKsHU+kR78RjiJFLBDO/hsVf1sFpk4VyU5afY
+X-Gm-Gg: AYBFou0gCFgffsKEbswXW315tSohu+FvAR9lY+OpAl9Vg3PufS2pjHQHnL3yGLZ/W3e
+ 0uVoBQ+ebuaTINYQXsZI008PydnhpYPxr/OLN2UJIGA7k1XYQTF1YAOVza4fgAwHFu5R1aEWhom
+ NyFk5s//2C2fzOXAnC7Cljc2QyehujWyyd4SzndzUWvGtFgDKhDX7d9endCJXsP2IOedLjC26+Z
+ mQja/1h9mB2TOv/stDvr+7eQPUtQbI7dDM8j07uNnIr9DIC5ZmvzxpdyeaXVEK9YPOqskkorCKN
+ HnY/BqNz95TJWyLlYEfquwK7aNBqNWv2bTzGd7nnve6Ee1VtpZGIgisV5IimA40foCFspgy6CHP
+ 2QVryLZX6JxkDgOFc0Vt0ncOXDL7OCcmp13Dq3dGtHBvLbTEIk+fdYVnS9dtWKKZWwUcDu6kkEd
+ i4B+nkXpY74m0f6lpg/I12Lkl7AJFJwYbfDmglMElXkRSrK2ucLIGzE1EeDJYPvYDkkQpGvZWMs
+ G9Zf9RqWMpKEe4Qqo6p
+X-Received: by 2002:a05:600c:8b08:b0:4a0:4a8:d444 with SMTP id
+ 5b1f17b1804b1-4a01b00226dmr7192805e9.33.1790752523915; 
+ Wed, 30 Sep 2026 00:15:23 -0700 (PDT)
+Received: from xeon ([188.163.112.76]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48b029be7e4sm1256979f8f.12.2026.09.30.00.15.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 00:15:23 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v1 0/3] mfd: aat2870: Convert to use OF bindings
+Date: Wed, 30 Sep 2026 10:15:10 +0300
+Message-ID: <20260930071513.54697-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,85 +88,26 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] misc: fastrpc: memory leak in fastrpc_req_mmap error path
---
+Document Skyworks AAT2870 into schema, convert existing driver to
+use OF bindings and remove platform data, add support for
+in-supplies.
 
-commit 9824ed05459dfdc017a5b781dcfa0dc08576a6f0
-Author: Yao Yiqi <yaoyiqi3@huawei.com>
+Svyatoslav Ryhel (3):
+  dt-bindings: mfd: Document Skyworks AAT2870
+  mfd: aat2870: Convert to use OF bindings
+  mfd: aat2870: Add support for VIN and IN-LDO power supplies
 
-misc: fastrpc: Fix race and double free in fastrpc_req_mmap() error path
+ .../bindings/leds/skyworks,aat2870.yaml       | 127 ++++++++++++++++++
+ drivers/mfd/aat2870-core.c                    | 120 +++++------------
+ drivers/regulator/aat2870-regulator.c         |  71 +++++++---
+ drivers/video/backlight/aat2870_bl.c          |  54 ++++----
+ include/linux/mfd/aat2870.h                   |  95 +------------
+ 5 files changed, 237 insertions(+), 230 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
-This commit defers adding the allocated buffer to fl->mmaps until after
-copy_to_user() succeeds. This prevents concurrent threads from accessing
-the buffer prematurely, fixing a race condition and a double free.
+-- 
+2.53.0
 
-Cc: stable@vger.kernel.org
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca867..d2c09bffd0af4 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -2153,15 +2153,15 @@ static int fastrpc_req_mmap(struct fastrpc_user *=
-fl, char __user *argp)
->  		}
->  	}
-> =20
-> -	spin_lock(&fl->lock);
-> -	list_add_tail(&buf->node, &fl->mmaps);
-> -	spin_unlock(&fl->lock);
-> -
->  	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
->  		err =3D -EFAULT;
->  		goto err_assign;
->  	}
-> =20
-> +	spin_lock(&fl->lock);
-> +	list_add_tail(&buf->node, &fl->mmaps);
-> +	spin_unlock(&fl->lock);
-> +
-
-[Severity: High]
-Could this introduce a permanent DMA memory leak on the error path?
-
-fastrpc_req_mmap() is reachable via the FASTRPC_IOCTL_MMAP ioctl. If
-copy_to_user() or qcom_scm_assign_mem() fails (which is trivial to force fr=
-om
-userspace by passing an invalid address), the error path jumps to err_assign
-and calls fastrpc_req_munmap_impl(fl, buf).
-
-If the IPC call to unmap the buffer from the DSP fails,
-fastrpc_req_munmap_impl() intentionally leaves the buffer unfreed to prevent
-reuse while the DSP still has access:
-
-drivers/misc/fastrpc.c:fastrpc_req_munmap_impl() {
-    ...
-	if (!err) {
-		dev_dbg(dev, "unmmap\tpt 0x%09lx OK\n", buf->raddr);
-		fastrpc_buf_free(buf);
-	} else {
-		dev_err(dev, "unmmap\tpt 0x%09lx ERROR\n", buf->raddr);
-	}
-}
-
-Previously, since the buffer was already on fl->mmaps, it would eventually =
-be
-cleaned up by fastrpc_user_free(). Because this patch delays adding the buf=
-fer
-to fl->mmaps until after copy_to_user() succeeds, the kernel loses its only
-reference to the allocation if the DSP unmap fails.
-
-Can we ensure the buffer is still tracked for cleanup in this scenario?
-
->  	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
->  		buf->raddr, buf->size);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930063738.2966=
-346-1-yaoyiqi3@huawei.com?part=3D1
