@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92044CA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:16:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB46DCA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB7210F205;
-	Wed, 30 Sep 2026 07:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F10810EA01;
+	Wed, 30 Sep 2026 07:18:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IGowmX1/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pzf0dyAq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCAA410F205
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:15:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DA610EA01
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:17:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B275A44799;
- Wed, 30 Sep 2026 07:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FE91F000FF;
- Wed, 30 Sep 2026 07:15:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A197740B0F;
+ Wed, 30 Sep 2026 07:17:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA8D1F000FF;
+ Wed, 30 Sep 2026 07:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790752557;
- bh=4Iu0D3Yqdsu7mM8afgIndpUi4hxmhLKzg/ExQRzjPAo=;
+ s=k20260515; t=1790752679;
+ bh=sVlPijSGwS/YJsioGWYavvm+inL7noio4yizPKHD384=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IGowmX1/cnITUIIbAUQD/3dx3DXLvpUlWsYFFKSSSM0dITFUM83u5CMYbPHghL1X+
- a3UXB66VmWD37PDbpO5CzWYmyV1JlbTX+zByAM3dRwGrXuK6T0W8KU28zqes15Gvwk
- WFqHtvZk4FX/gNDyLrqGhEGv1F6L1ny8OZ/xKvgoieB1i6DjEIyEMamH2pRwTX2ALZ
- JMpTmxo8iS+HKhC1zI/H3T5dzPnel++K/9sfxTe53z7U6XZPuie/ewNtTlCjwOP7HX
- vX4sh/nyzD696OME+2xHQMrPb9Zq6ohkNzOrOWd2aBlJz+mrazJbaSFNFUl+kVp2hX
- ZzKwfTyqAIoeQ==
+ b=Pzf0dyAqIRTs15tk1DTWoLXllzel6UV++jSc404qWn5OrSFbjpYFfoPVLkphL20qN
+ EI2onN3FmLmHX+SXmies0zLTQyYa6sqhkh284LKLr7WMWFBPyjW1t4EeR6LfZHl2IW
+ kP+butbKHqi4W0R+7Cqtg7g/DThxa1C+oQ8k2/+ry23gOSlo7LrtyRDfCf2T6bwbBc
+ 3jKKxN5l6geosCIXThxHn3brMZcGGg6q8Zftu/M/8cVSae8ffsDjvq0rj/s3kEpO0W
+ R2mebFLwRD3N+FZ/kNM4K++XLkY7bmztFed5rAcegk4pSKfixDw+4zIgvaCxcoGRZS
+ /eQz71u0jIbGw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
+Subject: Re: [PATCH v1 5/6] dt-bindings: display: panel: Document Hitachi
+ TX10D07VM0BAA and LG LH400WV3 panels
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260930070535.47130-4-clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260930070535.47130-6-clamor95@gmail.com>
 References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
+ <20260930070535.47130-6-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:15:56 +0000
-Message-Id: <20260930071557.47FE91F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 07:17:58 +0000
+Message-Id: <20260930071759.2FA8D1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,99 +59,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] dt-bindings: tegra: internal DC engine modeled as standalone bridge
+- [Medium] dt-bindings: display: panel: hit,tx10d07vm0baa: additionalProper=
+ties: false breaks schema references
+- [Medium] dt-bindings: display: panel: hit,tx10d07vm0baa: missing mandator=
+y properties in required list
+- [Low] dt-bindings: display: panel: hit,tx10d07vm0baa: non-standard avci-s=
+upply property
 --
 
-commit 01a8f6463a12799df86627d43eafd7a2899a713e
+commit 2cbee11e4ba06826f435f0f2b5e954558da48338
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-dt-bindings: display: tegra: Document 8-bit CPU parallel interface
-   =20
-Introduces a device tree binding for the 8-bit CPU parallel MIPI DBI Type B
-interface provided by the Tegra20/30 SoCs display controller.
+dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG LH400WV3=
+ panels
 
-> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
--8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,teg=
-ra-8bit-cpu.yaml
+This commit documents the device tree bindings for the Hitachi TX10D07VM0BAA
+and LG LH400WV3 MIPI DBI 4" WVGA panels.
+
+> diff --git a/Documentation/devicetree/bindings/display/panel/hit,tx10d07v=
+m0baa.yaml b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0=
+baa.yaml
 > new file mode 100644
+> index 0000000000000..ab839d9e4e111
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-c=
-pu.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.y=
+aml
 [ ... ]
-> +description: The display controller in Tegra20/30 SoCs features an
-> +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> +  protocol and is referred to as '8-bit CPU'. Each display controller
-> +  provides two such interfaces, which can be used to send MIPI DCS
-> +  commands to initialize and control the panel while image data is
-> +  transmitted via 16/18/24-line RGB.
-> +
 > +properties:
 > +  compatible:
-> +    const: nvidia,tegra-8bit-cpu
-
-[Severity: High]
-Does this modeling break Devicetree hardware hierarchy principles? By
-defining a separate compatible string and standalone top-level node for what
-is fundamentally an internal engine of the display controller, the driver is
-forced to traverse the OF graph to its remote endpoint's parent and blindly
-cast its drvdata to struct tegra_dc *.=20
-
-If the Devicetree incorrectly connects this bridge to a non-Tegra DC node,
-can the driver perform invalid memory writes and corrupt memory?
-
+> +    items:
+> +      - enum:
+> +          - hit,tx10d07vm0baa
+> +          - lg,lh400wv3-sd04
 > +
-> +  dc-gpios:
-> +    description: Data/command selection pin.
-> +    maxItems: 1
-[ ... ]
-> +  data-gpios:
-> +    description: Specifies a set of 8 gpio pins used to transfer data.
-> +    minItems: 8
-> +    maxItems: 8
-> +
-> +  nvidia,init-sequence:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: Device specific set of values used in DC DISP_SPI_INIT_=
-SEQ
-> +      registers.
+> +  avci-supply: true
 
-[Severity: High]
-Does this property confirm the node programs the display controller's
-internal registers? Lacking a reg property or a strict parent-child
-relationship to map them seems to further indicate this should not be
-modeled as a standalone bridge.
+[Severity: Low]
+Is it intentional to use "avci-supply" here? In MIPI DBI/DSI displays, the
+standard terminology for the analog/core voltage is usually "vci-supply" or
+"avdd-supply". Using "avci-supply" might introduce a typoed or non-standard
+name into the stable device tree ABI that drivers will be forced to support.
 
-> +    minItems: 4
-> +    maxItems: 4
+> +  iovcc-supply: true
 > +
-> +  panel:
-[ ... ]
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Video port for DBI output (panel or connector).
+> +  reset-gpios: true
 > +
-> +    required:
-> +      - port@0
-> +      - port@1
+> +  backlight: true
+> +  port: true
 > +
 > +required:
 > +  - compatible
-> +  - ports
 
-[Severity: High]
-Should data-gpios and the control GPIOs be marked as required? If the driver
-unconditionally accesses priv->data_gpios->ndescs during MIPI DCS
-transmission, omitting these bit-banged pins in the device tree allows
-incomplete nodes to pass schema validation but causes a NULL pointer
-dereference crash at runtime.
+[Severity: Medium]
+Does this list omit mandatory hardware constraints?
+
+Since the panel driver unconditionally requires the power supplies and the =
+port
+node, device trees omitting "avci-supply", "iovcc-supply", or "port" will
+pass schema validation but fail at runtime. Specifically,
+devm_regulator_bulk_get_const requires the power supplies, and
+of_graph_get_remote_node in panel_dbi_prepare() returns -ENODEV if the port
+node is missing.
 
 > +
-> +unevaluatedProperties: false
-> +
-> +examples:
+> +additionalProperties: false
+
+[Severity: Medium]
+Could this strict constraint cause valid device trees to fail schema valida=
+tion?
+
+Because this schema inherits from panel-common.yaml via a $ref, using
+additionalProperties: false instead of unevaluatedProperties: false will
+strictly forbid standard panel properties (like rotation, width-mm, or
+height-mm) that aren't explicitly listed in this local properties block.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930070535.4713=
-0-1-clamor95@gmail.com?part=3D3
+0-1-clamor95@gmail.com?part=3D5
