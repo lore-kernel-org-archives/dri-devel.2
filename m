@@ -4,33 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93796CA5FBE
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:44:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B21BACA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C282010F3A7;
-	Wed, 30 Sep 2026 12:44:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B97010E9FB;
+	Wed, 30 Sep 2026 12:44:53 +0000 (UTC)
 Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D1010F385;
- Wed, 30 Sep 2026 12:44:31 +0000 (UTC)
-X-QQ-mid: zesmtpip3t1790772137t8b4fd8d6
-X-QQ-Originating-IP: fnE+b+i/ohPAIiUkRgiQdMNu/77rhCqcRG5r0WQ/Qj4=
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA41C10F385;
+ Wed, 30 Sep 2026 12:44:46 +0000 (UTC)
+X-QQ-mid: zesmtpip3t1790772143t79ee699b
+X-QQ-Originating-IP: zOO+HqN63uHDLco1J9sZubYYQJGF3SjCLO8JhGcq5sM=
 Received: from [192.168.30.32] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 30 Sep 2026 20:42:08 +0800 (CST)
+ id ; Wed, 30 Sep 2026 20:42:21 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14742789130746556607
+X-BIZMAIL-ID: 12881138118086274213
 EX-QQ-RecipientCnt: 16
 From: Xilin Wu <sophon@radxa.com>
-Subject: [PATCH 00/13] drm/msm/dp: Add static HDR support for DP and eDP
-Date: Wed, 30 Sep 2026 20:41:44 +0800
-Message-Id: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
+Date: Wed, 30 Sep 2026 20:41:46 +0800
+Subject: [PATCH 02/13] drm/msm/dp: Support multiple generic SDP slots
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS2MD3dziXN2UAt2MlCJDA90UC5NUQ0MjCyNjQ0sloJaCotS0zAqwcdG
- xEH5xaVJWanIJyAyl2loAaLeMbnAAAAA=
-X-Change-ID: 20260930-msm-dp-hdr10-d84e11282319
+Message-Id: <20260930-msm-dp-hdr10-v1-2-dbbf8b2b42bc@radxa.com>
+References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
+In-Reply-To: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -43,32 +41,32 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  Xilin Wu <sophon@radxa.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3484; i=sophon@radxa.com;
- h=from:subject:message-id; bh=B+91dZfpNQgBpc8obPUqZz2vS/XeV4198Uu6VYr4rlc=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mRfkqJ/eZdqRefLh82MztReE/mYXUzWK5RDcsTH47
- e+8p5zBHaUsDGJcDLJiiiwK8Qxz2Stzrz0VK9WDmcPKBDKEgYtTACaywYXhfz6bxykmu/V6mtd1
- 3K5ODLD/abbl9rN85W3iKX0OG0w2FjP803A6JZUpe3U102+rH7NkqrasrW7wyjbeYVqd1Z965Cs
- HEwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4973; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=q8kaetrGFNEPEL5KF0HC44382x67d587QU+JcdIqgLQ=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFl7mZcu/85/2tdX97t8pl9mun9n6OeTbq33P2w5rnUk8
+ 15imOaWjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABOZNYmRod03TbeCeXvhtvj+
+ rW77jqjUN29wnZGotqFMPOUB++GGWIa/Yl/XFC/4rtJS4xJUnhl5Yl9Tw4ZJ/1IMDllP0Uz3iP7
+ PAwA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NbLMjDNEDlGtKmPY65M7t3Fl4jh27QtstDR8Qyi888qhGuC+jxatiSGy
- hO56JMIn4Horakfl8sAmJBb2zb/KPNTFUTYDP2o44vVCI+KoVkTS4YkwP64Pkg6jsQfpEL6
- xNxiQdSSz7BOkPbw1Lk5Tmb2tRkq7e5PlsDnu87vqTKYXEe7wCVjKoFyrtMU8ST+tcvlpdS
- WuS2Z12uB6qQV6vsmUtKPKcemlovbuEzhcE7PQQjo10SgLTgoU9wBWKqwY62GY9LAcur+Az
- njplyfy5w8RHuQFmq91kY4rLSqNSGv3jSwRKFGn8p1Eg1/wgGnp/BOSYd2EJg11aww1DQ7I
- KE/cpv1MYeqiBxnbzcHm2O1FJwqMEy3yZkO7TWW0H7JtZ/7QZll+HrWku52reSaKpL4h9ku
- okE4qUJ5DFSrBdlgM1ZcmBVmg/+FlK7FmsG9DKD5WWkQjn7HG2KWYLLymnW4lbDCiFS+CFL
- 7O88xOCLWvAI74M3aMAhkVuzQcZSlXms4vcSt6REMI/SAleUC2E1kEf5hG1xSTQM0bKs431
- 0aTJr9p2hcAPyNZat4BiBZlyjErKCijXpWa8OwicI8tUsdIvzoeCZtrfZxQJLw/9VcEzTa7
- b+LYZbFLkiE8RkaeoqvRNSKP9ZoWGDdYHHY7zEAODGPhehk1Rh6byBCENuy5TEWEdlsLTeS
- Pa3YibXkKJnVyO/0T/bVzPlTKbkYe7nVGkD2RR924I1KseZiDR2iQfbk5WcZISw7A4IZkLb
- zw7NaKaQ590n++e9oheksnRoziu2y28MihCtKg0f18SmDn/kQJXFWjWMmFQW7Lh1J8q2DGb
- gCneyehx0CNN6ebSSbX5i0E5LsdWX7StnWbDEtFMGcQhJAz7/Zua4Z/E2uN/Yn3JaD/b9EO
- 2X5fvFg8GD7oZTfYBFSsUgHSa+vBDemm1RZv8dLj6cVMx9dT0neccvba2ELJiAAbqgooIze
- eRYaZksFc21nXnPRjXNWiWYFqfqpu1Ko+MQ9HSgJ3+zMuGWr8PxZFlFS27NZ27cscsoCWBg
- j1dWHyS4mH+qjEL4cUgKVQkXxK4i8=
+X-QQ-XMAILINFO: NhdiEwnVOUqE1gnLn6MZhwV6u6VX9ARHdX25nGpIWkmWq3+uJ0bRCKZj
+ 3Vx1uqzWXDPvdoXOlZgt2N1L2mGgdzs2wCrd0Ej07P3iYaWUitq2zGXALxP7Eu0lWGHYOkl
+ IiQQ4ZE5+IAPgd27ILbwxY+KE05eHf2K0yPWwRU8miox/Sw7WkpQiqFpCuhRJCt67RK/OlT
+ /VZdhNDtkIcAmm9pgu1ec7Cfab0W9P/AIJvpdyj9UA2/LSPpySAZfmFJSG07ziqI+9bZkoH
+ +cY+XMyO+mc59RtP8oTvL8PQUSpgrTA0Q0EjVoQuhEJod7vBomeFfXzAQBWbTZsQC4nKeM6
+ Ejz9fmdFUKv8p5CHgyib4vWPjO8eVFLp/8pahgcXxxXo0oNeBgZz4tXlCFSv0tbgwhUFvju
+ tsabVgjti6irPGK8ckQ/oANRSTTdp6JmA8odXGJhqOntxUV8q17zsTVZtsEdzCtA8X1sjAs
+ 89eSP5OLf2pBGO0q+Xd/vuEPb5LkCfsHekcQu8WBYJgZc3jgTXu0fR3AHu36FuzMhuH1UUm
+ 2Ix6mRZ8vOPHbVbWzeY9rKdD2zZdYyjzB5WIw96Xi02ezE4mbvQjEJDtxVJUIfiXWuOvD/N
+ 3bKCasJpdsUY1mk4OZTxOgZ0pfc9zAhGMRV/73vrugCxyC9jKKFsnac6eAVu1nApES8QkWF
+ aaEdiGzUC2LpppqiHRlUbmfHCytmkIe0EGPswbfnir8lhv1Q7gn8Dp6UzkwG8ix6AEg3jhD
+ ADxgu6ejIOTGGjjMOeyb9FSZyWZxTjlaWIA12sPvRIIAbA89KCgHzfjcshfUvI5RSAi43Dx
+ wHOW+c7vormpX0AbsfSR9a+UKVNDVWHAcuLptpuCfVMloOmor+XpGKu22xMHjvdT6RL6PYl
+ 4J8tboVmP+BcePt5O59Liz7oQg9epbHmVR7Lbq2Rhp7a3eObFFaBR0giIBL1f3zApZOL0ww
+ XkpwAawq5e7cvPKEn0aZEAI8QA0FTWeEJ9W59xAHwAvVYfIymwagxFznRhf+JV5Kb1YwUxr
+ 4vi91K2yeJoTmON6TzTTwSqo9MaXE=
 X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,71 +84,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds standard KMS static HDR metadata and BT.2020 RGB
-signalling to MSM DP and eDP, with HDR10 as the intended use case. It uses
-HDR_OUTPUT_METADATA, Colorspace and max bpc. Userspace supplies the HDR
-pixel content; DSC, dynamic HDR and tone mapping are outside this series.
+The SDP writer currently targets Generic0 for VSC packets. Static HDR
+metadata needs a separate slot so that both packets can be sent on the
+same stream.
 
-Patch 1 allows max bpc registration before connector state allocation and
-initializes the corresponding state defaults. Patch 2 prepares generic
-SDP slots. Patches 3-5 establish PHY power ownership, serialize HPD state
-updates and add complete stream enable rollback, including AUX recovery
-for a connected external peer. New error returns are introduced together
-with their cleanup paths.
+Allow the SDP writer to address a generic packet slot, and define the
+Generic2 registers needed for static HDR metadata. Use unaligned
+little-endian loads for the payload words and accept a const SDP header.
 
-Patches 6-8 add deferred link-status notification, capability cache
-validity and stream reconstruction for modesets leaving eDP self refresh.
-Patches 9-10 add atomic output depth selection and BT.2020 RGB signalling.
-The BT.2020 patch includes its own PSR disable/restore handling.
+The existing VSC packet continues to use Generic0 without changing its
+layout or enable sequence.
 
-Patch 11 independently fixes the uninitialized debugfs connector pointer.
-Patch 12 serializes SDR video-test state changes with mode programming.
-Patch 13 adds complete static HDR support: metadata validation and packing,
-10 bpc enforcement, Generic2 programming and teardown, stream restoration,
-PSR exclusion and arbitration with video-pattern tests. A test request
-arriving after atomic check cannot replace the checked HDR output depth.
-
-This series is tested on a Lenovo Yoga Slim 7x using x1e80100.
-
+Assisted-by: LLM
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
-Xilin Wu (13):
-      drm/atomic: Handle max bpc properties before connector state allocation
-      drm/msm/dp: Support multiple generic SDP slots
-      drm/msm/dp: Track PHY power ownership
-      drm/msm/dp: Serialize HPD state updates
-      drm/msm/dp: Unwind resources when enabling a stream fails
-      drm/msm/dp: Report stream enable failures through link status
-      drm/msm/dp: Track validity of cached sink link capabilities
-      drm/msm/dp: Rebuild the eDP stream on modesets leaving self refresh
-      drm/msm/dp: Track output bit depth in bridge atomic state
-      drm/msm/dp: Signal BT.2020 RGB on DP and eDP
-      drm/msm/dp: Initialize the debugfs connector pointer
-      drm/msm/dp: Serialize video test state changes
-      drm/msm/dp: Add static HDR metadata support for DP and eDP
+ drivers/gpu/drm/msm/dp/dp_panel.c | 22 ++++++++++------------
+ drivers/gpu/drm/msm/dp/dp_reg.h   |  4 ++++
+ drivers/gpu/drm/msm/dp/dp_utils.c |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_utils.h |  3 ++-
+ 4 files changed, 18 insertions(+), 14 deletions(-)
 
- drivers/gpu/drm/drm_atomic_state_helper.c |   5 +
- drivers/gpu/drm/drm_connector.c           |   6 +-
- drivers/gpu/drm/msm/Kconfig               |   1 +
- drivers/gpu/drm/msm/dp/dp_ctrl.c          | 127 +++++++++---
- drivers/gpu/drm/msm/dp/dp_ctrl.h          |   4 +-
- drivers/gpu/drm/msm/dp/dp_debug.c         |  26 +--
- drivers/gpu/drm/msm/dp/dp_debug.h         |   8 +-
- drivers/gpu/drm/msm/dp/dp_display.c       | 319 ++++++++++++++++++++++++++----
- drivers/gpu/drm/msm/dp/dp_display.h       |   8 +-
- drivers/gpu/drm/msm/dp/dp_drm.c           | 118 ++++++++++-
- drivers/gpu/drm/msm/dp/dp_drm.h           |  12 ++
- drivers/gpu/drm/msm/dp/dp_panel.c         | 103 +++++-----
- drivers/gpu/drm/msm/dp/dp_panel.h         |   8 +
- drivers/gpu/drm/msm/dp/dp_reg.h           |   4 +
- drivers/gpu/drm/msm/dp/dp_utils.c         | 121 +++++++++++-
- drivers/gpu/drm/msm/dp/dp_utils.h         |  21 +-
- 16 files changed, 738 insertions(+), 153 deletions(-)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-msm-dp-hdr10-d84e11282319
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index e76dad0f6663..fdf1a3f437ba 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -14,6 +14,7 @@
+ 
+ #include <linux/io.h>
+ #include <linux/types.h>
++#include <linux/unaligned.h>
+ #include <asm/byteorder.h>
+ 
+ #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
+@@ -442,22 +443,19 @@ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel)
+ 	msm_dp_write_p0(panel, MMSS_DP_DSC_DTO, 0x0);
+ }
+ 
+-static void msm_dp_panel_send_vsc_sdp(struct msm_dp_panel_private *panel, struct dp_sdp *vsc_sdp)
++static void msm_dp_panel_send_sdp(struct msm_dp_panel_private *panel,
++				  const struct dp_sdp *sdp, u32 base)
+ {
+ 	u32 header[2];
+-	u32 val;
+ 	int i;
+ 
+-	msm_dp_utils_pack_sdp_header(&vsc_sdp->sdp_header, header);
++	msm_dp_utils_pack_sdp_header(&sdp->sdp_header, header);
++	msm_dp_write_link(panel, base, header[0]);
++	msm_dp_write_link(panel, base + 4, header[1]);
+ 
+-	msm_dp_write_link(panel, MMSS_DP_GENERIC0_0, header[0]);
+-	msm_dp_write_link(panel, MMSS_DP_GENERIC0_1, header[1]);
+-
+-	for (i = 0; i < sizeof(vsc_sdp->db); i += 4) {
+-		val = ((vsc_sdp->db[i]) | (vsc_sdp->db[i + 1] << 8) | (vsc_sdp->db[i + 2] << 16) |
+-		       (vsc_sdp->db[i + 3] << 24));
+-		msm_dp_write_link(panel, MMSS_DP_GENERIC0_2 + i, val);
+-	}
++	for (i = 0; i < sizeof(sdp->db); i += 4)
++		msm_dp_write_link(panel, base + 8 + i,
++				  get_unaligned_le32(&sdp->db[i]));
+ }
+ 
+ static void msm_dp_panel_update_sdp(struct msm_dp_panel_private *panel)
+@@ -487,7 +485,7 @@ void msm_dp_panel_enable_vsc_sdp(struct msm_dp_panel *msm_dp_panel, struct dp_sd
+ 	cfg2 |= GENERIC0_SDPSIZE_VALID;
+ 	msm_dp_write_link(panel, MMSS_DP_SDP_CFG2, cfg2);
+ 
+-	msm_dp_panel_send_vsc_sdp(panel, vsc_sdp);
++	msm_dp_panel_send_sdp(panel, vsc_sdp, MMSS_DP_GENERIC0_0);
+ 
+ 	/* indicates presence of VSC (BIT(6) of MISC1) */
+ 	misc |= DP_MISC1_VSC_SDP;
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index dda4b642c81b..6767a215b662 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -232,10 +232,12 @@
+ #define MMSS_DP_AUDIO_CTRL_RESET		(0x00000214)
+ 
+ #define MMSS_DP_SDP_CFG				(0x00000228)
++#define GEN2_SDP_EN				BIT(19)
+ #define GEN0_SDP_EN				(0x00020000)
+ #define MMSS_DP_SDP_CFG2			(0x0000022C)
+ #define MMSS_DP_AUDIO_TIMESTAMP_0		(0x00000230)
+ #define MMSS_DP_AUDIO_TIMESTAMP_1		(0x00000234)
++#define GENERIC2_SDPSIZE_VALID			BIT(20)
+ #define GENERIC0_SDPSIZE_VALID			(0x00010000)
+ 
+ #define MMSS_DP_AUDIO_STREAM_0			(0x00000240)
+@@ -291,6 +293,8 @@
+ #define MMSS_DP_GENERIC1_8			(0x00000348)
+ #define MMSS_DP_GENERIC1_9			(0x0000034C)
+ 
++#define MMSS_DP_GENERIC2_0			(0x000003D8)
++
+ #define MMSS_DP_VSCEXT_0			(0x000002D0)
+ #define MMSS_DP_VSCEXT_1			(0x000002D4)
+ #define MMSS_DP_VSCEXT_2			(0x000002D8)
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
+index 4a5ebb0c33b8..226b370ce8fe 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.c
++++ b/drivers/gpu/drm/msm/dp/dp_utils.c
+@@ -74,7 +74,8 @@ u8 msm_dp_utils_calculate_parity(u32 data)
+ 	return parity_byte;
+ }
+ 
+-void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2])
++void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
++				  u32 header_buff[2])
+ {
+ 	header_buff[0] = FIELD_PREP(HEADER_0_MASK, sdp_header->HB0) |
+ 		FIELD_PREP(PARITY_0_MASK, msm_dp_utils_calculate_parity(sdp_header->HB0)) |
+diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
+index 2e4f98a863c4..2fdb89efc57c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_utils.h
++++ b/drivers/gpu/drm/msm/dp/dp_utils.h
+@@ -31,6 +31,7 @@
+ u8 msm_dp_utils_get_g0_value(u8 data);
+ u8 msm_dp_utils_get_g1_value(u8 data);
+ u8 msm_dp_utils_calculate_parity(u32 data);
+-void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2]);
++void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
++				  u32 header_buff[2]);
+ 
+ #endif /* _DP_UTILS_H_ */
 
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+-- 
+2.55.0
 
