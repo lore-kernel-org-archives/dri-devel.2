@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9026BCA5FAC
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:17:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E5FCA5FAC
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 12:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEA5910E270;
-	Wed, 30 Sep 2026 12:17:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D95010E573;
+	Wed, 30 Sep 2026 12:28:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="TkbjctR2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZW7CboBu";
 	dkim-atps=neutral
-X-Greylist: delayed 313 seconds by postgrey-1.36 at gabe;
- Tue, 29 Sep 2026 14:07:19 UTC
-Received: from mail-proxy25229.mail.163.com (mail-proxy25229.mail.163.com
- [103.129.252.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6DD210E492
- for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 14:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vj
- bTBB8DwF7g9ji0l50jBGPJhPvM44ev2BgqTyu3dIY=; b=TkbjctR20LRlfwvrAB
- KVBHS85+oqhRKGYSn1vgukFqgOhXrRCMw8Js2AzqwfwK8DgudcQbh2UZehvEH9iE
- adHzmP5zg8OcuqWTOC6nnFrQbCMTz1M5VvCvHz/9kDzu2yifaE8WLFWUwn/tAu4L
- RNepQx1NAcFFefcG2OhGy9/bk=
-Received: from localhost.localdomain (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgB3SLFPxLtqLmV_Bw--.47547S2;
- Tue, 29 Sep 2026 21:59:48 +0800 (CST)
-From: Kaiqi Guo <chaoji_xinren@163.com>
-To: rust-for-linux@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Jesung Yang <y.j3ms.n@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Danilo Krummrich <dakr@kernel.org>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kaiqi Guo <chaoji_xinren@163.com>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v6 10/10] gpu: nova-core: use conversion derives for two
- register enums
-Date: Tue, 29 Sep 2026 21:58:55 +0800
-Message-ID: <20260929135855.36775-11-chaoji_xinren@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260929135855.36775-1-chaoji_xinren@163.com>
-References: <20260929135855.36775-1-chaoji_xinren@163.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04CA810E573
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:28:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B2C1B43BED;
+ Wed, 30 Sep 2026 12:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4421F000FF;
+ Wed, 30 Sep 2026 12:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790771301;
+ bh=3homTzU0A5b5rw9eK11AZ6XdME+l9JWLnwxZWPVmGdc=;
+ h=From:To:Cc:Subject:Date;
+ b=ZW7CboBubk39tvnYuGIZ5tXL+A0YFTPJJ2igNcxtbe8dp9Kh5SjalN1XLxq+NljCt
+ 3P78bGnK4azx8QEdlT+glzg356U4xxF0CSLLQqo0+f5A/stM8VfMNwMSwKI36T2oZt
+ 7aXL1FWA8l0ZwioPGA2ugwMIYKFQOFqlPiFuv0KZVBZekXPlAa/h8EnAxL8CcljzkC
+ zt8H/MDI7YHtHwBSCpjpxpfq72fBkDmhQTbsQyw3Yt5G20YFXfNw6DT8W/4exY2rET
+ ya5edFpNyiAXfkUNNoaihAjxXu5FWqhznT7HFyx8iO5U80og+97E4rUt9Zd+1m8lxL
+ DvMTQWREcqLag==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] rust: DmaFence: Remove static lifetime
+Date: Wed, 30 Sep 2026 14:27:56 +0200
+Message-ID: <20260930122755.1657820-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PSgvCgB3SLFPxLtqLmV_Bw--.47547S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJF48Wr13Xw47Wr47AFy5urg_yoW5Aw1rpF
- 45KrZ2kr17Zwn3Xa4xA3WUZFW3Cas3GFZ8uF47Jw1DursFyF10k3ykXrWFq34DG34IkrW2
- gryvk345ua4UK37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXTm-UUUUU=
-X-CM-SenderInfo: pfkd0yplb0x0xuhqqiywtou0bp/xtbC4hXPS2q7xFWmOAAA3t
-X-Mailman-Approved-At: Wed, 30 Sep 2026 12:17:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,94 +67,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace bounded_enum! for Architecture with TryFrom and Into using the
-shared convert helper. Keep the six discriminants, Bounded<u32, 6> input
-and output, and Error/EINVAL on invalid inputs.
+A FenceCallbackRegistration can stem from another party than the one
+that has created a Fence. Should that party forget the registration
+object (for example through a refcount cycle) and then unload the
+module, a fence signaling would run into the unloaded module, causing
+UAF bugs.
 
-Use From and Into for FalconCoreRevSubversion, which covers every value
-of Bounded<u32, 2>. Its existing infallible conversion and blanket
-TryFrom error type remain unchanged. Leave other register enums and
-Chipset conversion behavior in place.
+So far, this has been solved by demanding that the payload data of the
+registration object demanding static lifetime.
 
-This exercises both fallible and exhaustive conversions in actual
-register field users without changing register accesses or GPU
-initialization logic.
+It turns out, however, that this is harmful because the static lifetime
+bubbles up to all users, ultimately potentially causing a large amount
+of driver data to be static, which renders the lifetime obsolete.
 
-Link: https://lore.kernel.org/rust-for-linux/DHHJCEG8BC47.2VC6GLDRRZH1B@nvidia.com/
-Signed-off-by: Kaiqi Guo <chaoji_xinren@163.com>
+Solve this issue instead through an unsafe requirement which demands
+that the user does not forget the registration object. This is also the
+solution chosen by ScopedWork.
+
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Reviewed-by: Onur Özkan <work@onurozkan.dev>
 ---
- drivers/gpu/nova-core/falcon.rs | 19 +++++++++----------
- drivers/gpu/nova-core/gpu.rs    | 22 ++++++++++------------
- 2 files changed, 19 insertions(+), 22 deletions(-)
+Changes in v2:
+  - Safety Docu: Be more precise about what must not be forgotten.
+    (Gary)
+---
+ rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
-index 65cb12d26e2b..15bbbda7df28 100644
---- a/drivers/gpu/nova-core/falcon.rs
-+++ b/drivers/gpu/nova-core/falcon.rs
-@@ -59,16 +59,15 @@ pub(crate) enum FalconCoreRev with TryFrom<Bounded<u32, 4>> {
-     }
- }
- 
--bounded_enum! {
--    /// Revision subversion number of a falcon core, used in the
--    /// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
--    #[derive(Debug, Copy, Clone)]
--    pub(crate) enum FalconCoreRevSubversion with From<Bounded<u32, 2>> {
--        Subversion0 = 0,
--        Subversion1 = 1,
--        Subversion2 = 2,
--        Subversion3 = 3,
--    }
-+/// Revision subversion number of a falcon core, used in the
-+/// [`crate::regs::NV_PFALCON_FALCON_HWCFG1`] register.
-+#[derive(Debug, Copy, Clone, kernel::macros::From, kernel::macros::Into)]
-+#[convert(Bounded<u32, 2>)]
-+pub(crate) enum FalconCoreRevSubversion {
-+    Subversion0 = 0,
-+    Subversion1 = 1,
-+    Subversion2 = 2,
-+    Subversion3 = 3,
- }
- 
- bounded_enum! {
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index fd1414004dd0..66249bb5b369 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -14,7 +14,6 @@
- };
- 
- use crate::{
--    bounded_enum,
-     driver::Bar0,
-     falcon::{
-         gsp::Gsp as GspFalcon,
-@@ -155,17 +154,16 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-     }
- }
- 
--bounded_enum! {
--    /// Enum representation of the GPU generation.
--    #[derive(fmt::Debug, Copy, Clone)]
--    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
--        Turing = 0x16,
--        Ampere = 0x17,
--        Hopper = 0x18,
--        Ada = 0x19,
--        BlackwellGB10x = 0x1a,
--        BlackwellGB20x = 0x1b,
--    }
-+/// Enum representation of the GPU generation.
-+#[derive(fmt::Debug, Copy, Clone, kernel::macros::TryFrom, kernel::macros::Into)]
-+#[convert(Bounded<u32, 6>)]
-+pub(crate) enum Architecture {
-+    Turing = 0x16,
-+    Ampere = 0x17,
-+    Hopper = 0x18,
-+    Ada = 0x19,
-+    BlackwellGB10x = 0x1a,
-+    BlackwellGB20x = 0x1b,
- }
- 
- #[derive(Clone, Copy)]
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 18a43e1bb442..a1d851656562 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
+ ///     }
+ /// }
+ /// ```
+-pub trait FenceCallback: Send + 'static {
++pub trait FenceCallback: Send {
+     /// Called when the fence is signaled.
+     ///
+     /// This is called from the fence signaling path, which may be in interrupt
+@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
+ /// When this object is dropped, the callback is automatically removed if it
+ /// hasn't been called yet.
+ #[pin_data(PinnedDrop)]
+-pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
++pub struct FenceCallbackRegistration<T: FenceCallback> {
+     #[pin]
+     callback_foreign: Opaque<bindings::dma_fence_cb>,
+     callback: ManuallyDrop<T>,
+@@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
+     /// On success the callback is pinned in place and will fire when the fence
+     /// signals. On `AlreadySignaled` the callback is returned to the caller so
+     /// that owned resources can be reclaimed.
+-    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
++    ///
++    /// # Safety
++    ///
++    /// The callback registration must not be forgotten.
++    pub unsafe fn new<'a>(
++        fence: &'a Fence,
++        callback: T,
++    ) -> impl PinInit<Self, CallbackError<T>> + 'a
+     where
+         T: 'a,
+     {
+@@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// let cb_data = CallbackData { };
+ /// let waiting_fence = ARef::from(fence.as_fence());
+-/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
++/// // SAFETY: `cb_data` is not forgotten.
++/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
+ /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
+ ///
+ /// // TODO signalling guards
+
+base-commit: 6bd5eaeb9827ca7ba953b68fb27948fdb3e40630
+-- 
+2.55.0
 
