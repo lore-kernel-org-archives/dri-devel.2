@@ -4,52 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46B0FCA5FC4
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:56:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F890CA5FC4
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F66510F4EB;
-	Wed, 30 Sep 2026 19:56:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72A4210E226;
+	Wed, 30 Sep 2026 19:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iNGjo0oj";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mWOQjY2X";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FC510E226
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:56:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3EAA10E226
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:57:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=JXE85jrzFjbk6/QfMqI+Uw070/twEtJtTh/QS1FoC3M=; b=iNGjo0ojb45IOgdXHTyHlN5qIo
- HaHyZBjnKsPrfgZlztNJU7IJ++k2yrUthAMgJrBi/pb8ykn+uDjlHlCgjfLuDVNmrWnEH8ovaSUE+
- Xgxnell7107XTCiYPIpfzZrrsLPVQQnakHnnWGXIrFBpoRin0JjQ04DDff1/ndo3iFD46w7EFv1in
- hwhBGrhaXSq/lPDreNoJNK5My27TThrOHWCiBolrgkv4tBLOljcLk52dIniEZLIe+GiTy7uwhqmAY
- B6mac3awxfPiLfq+5mI215caaTDc3fZqfqYqG7LYXSqIUd8bBtc1ao4W7N0rGRLOShqCzV+7e5iJ7
- cAPAjcfQ==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1]
- helo=quatroqueijos.cascardo.eti.br)
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=9uRhRIM9N9lTLFr05LQkm/kSBTaCoOqThIafkrjyz3M=; b=mWOQjY2XCXDBVzzF2dgQbbH9Pu
+ tddnSu5j1QL7csjceBGtbacRLIMia9bXF7m8R84yY93LTl2W9aHOiERcIoIIFbx7fCwNYn9PCJCYF
+ IW39BTfTUIre/p1+kyJJeeK8F97VzjZLpLo4jw5LsyiFj5Txms5BbMgVbKUx5y/OXNu5whu3H5f1X
+ Wmz50LEFicxVkfQVmKRvtWXHiGvejs4flK/J6hhzESV1Twttj8CUeBJWvwri59Vb1H4Fch9Ollv7x
+ B0jTc0hDpHEiO2M0aMmwFeWVSxQBaIzZivYkKuYAAHlp05y5k77kZa6LlyLiinOfxsGA4jwrGCFrS
+ KdcFOjDg==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xC0Pn-009auO-8x; Wed, 30 Sep 2026 21:56:31 +0200
-Date: Wed, 30 Sep 2026 16:56:25 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>
-Cc: Iago Toral <itoral@igalia.com>,
- Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH 2/2] drm/vc4: Use kvmalloc_objs() for the BO cache size
- list
-Message-ID: <ar1paQbdOB8iLz9Q@quatroqueijos.cascardo.eti.br>
-References: <20260930190721.1897264-1-mcanal@igalia.com>
- <20260930190721.1897264-2-mcanal@igalia.com>
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xC0R5-009avV-BK; Wed, 30 Sep 2026 21:57:51 +0200
+Message-ID: <3bfe2517-a5d3-4e86-99bd-6c28556f0f2d@igalia.com>
+Date: Wed, 30 Sep 2026 16:57:47 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Fabio Piparo
+ <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Chema Casanova <jmcasanova@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+ <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+ <20260923160049.1741651-1-holofermes@gmail.com>
+ <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+ <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
+ <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
+ <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
+ <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
+ <xlv1jyo2enyv.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <xlv1jyo2enyv.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260930190721.1897264-2-mcanal@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,70 +94,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2026 at 04:06:51PM -0300, Ma�ra Canal wrote:
-> The BO cache size list has one entry per BO page count, so its size
-> scales with the largest BO ever freed. A 64 MiB BO already needs at
-> least an order-6 allocation, which fails under fragmentation and
-> triggers a warn_alloc() splat on BO close:
-> 
->   page allocation failure: order:7, mode:0x40cc0(GFP_KERNEL|__GFP_COMP)
->   Call trace:
->    ...
->    warn_alloc+0x118/0x190
->    __alloc_pages_slowpath+0x4a8/0x520
->    ...
->    __kmalloc_noprof+0x3ac/0x5d8
->    vc4_free_object+0x128/0x370 [vc4]
->    drm_gem_object_handle_put_unlocked+0xb8/0x158 [drm]
->    drm_gem_object_release_handle+0x74/0xe8 [drm]
->    drm_gem_handle_delete+0x6c/0xa8 [drm]
->    drm_gem_close_ioctl+0x34/0x50 [drm]
-> 
-> The list doesn't need physically contiguous memory. Use kvmalloc_objs()
-> so large lists can fall back to vmalloc(), avoiding the allocation
-> failure.
-> 
-> Fixes: c826a6e10644 ("drm/vc4: Add a BO cache.")
-> Signed-off-by: Ma�ra Canal <mcanal@igalia.com>
++ cc Chema (Mesa developer in V3D)
 
+Hi,
 
-Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+On 30/09/26 12:52, Javier Martinez Canillas wrote:
+> Maíra Canal <mcanal@igalia.com> writes:
+> 
+> Hello Maíra,
+> 
+>> Hi,
+>>
+>> On 30/09/26 05:32, Thomas Zimmermann wrote:
+>>> Hi
+>>>
+>>> Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
+>>> [...]
+>>>>>> I have a patch implementing begin/end_cpu_access to
+>>>>>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sure
+>>>>>> we would like to support this use case upstream because, as you
+>>>>>> mentioned, dumb buffers are usually used for software-rendering only.
+>>>>> Before we fix anything, I think we should talk to someone with
+>>>>> dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern is a
+>>>>> producer-consumer relationship and HW rendering into dumb-buffers is not
+>>>>> supported. Those buffers should have been allocated on the v3d side.
+>>>>>
+>>>>> IMHO we should write down these rules in the PRIME documentation and
+>>>>> (soft-)enforce them in the implementation.
+>>>>>
+>>>> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
+>>>> exported buffers (what Maíra is proposing as a fix) or there should be
+>>>> documentation of the rules for cross-devices buffer sharing through
+>>>> PRIME.
+>>>
+>>> This specific case only happens with v3d and only this driver can know
+>>> when to flush caches. If we flush caches in begin_cpu_access, we easily
+>>> end up paying the overhead on all systems.
+>>>
+>>
+>> I believe that's the main issue. We would pay a reasonably big price to
+>> support this uncommon (and maybe even wrong) use case.
+>>
+>> P.S.: To be clear, I wasn't proposing a fix. I should have called my
+>> patch a "hack", because although it works, I don't believe we should
+>> support this use case for the reasons stated by Thomas.
+>>
+> 
+> Yes, I agree with you. Making v3d to warn as Thomas suggested seems to be
+> the best compromise.
 
-> ---
->  drivers/gpu/drm/vc4/vc4_bo.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+I was thinking about Thomas' suggestion, and I might be missing
+something. If v3d warns when rendering to imported buffers, it will
+warn on every RPi 4/5, as Mesa renders the display path into dumb
+buffers imported from vc4. That works because vc4 buffers are WC and
+scanned out by hardware, so the CPU never reads them [1].
+
+ From my point of view, the issue here is cross-device sharing of a dumb
+buffer that the exporter reads with the CPU through a cached mapping.
+
+[1] Right after writing this paragraph, I decided to read the
+documentation in drm_dumb_object.c and I found:
+
+* Note that dumb objects may not be used for gpu acceleration, as has been
+* attempted on some ARM embedded platforms. Such drivers really must have
+* a hardware-specific ioctl to allocate suitable buffer objects.
+
+Does anyone know why Mesa kmsro create dumb buffers for rendering? Maybe
+I understood the documentation incorrectly, but it looks like we
+shouldn't be doing that.
+
+Best regards,
+- Maíra
+
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-> index ea1be891ac78..7b8b3364000f 100644
-> --- a/drivers/gpu/drm/vc4/vc4_bo.c
-> +++ b/drivers/gpu/drm/vc4/vc4_bo.c
-> @@ -204,7 +204,7 @@ static struct list_head *vc4_get_cache_list_for_size(struct drm_device *dev,
->  		struct list_head *new_list;
->  		uint32_t i;
->  
-> -		new_list = kmalloc_objs(struct list_head, new_size);
-> +		new_list = kvmalloc_objs(struct list_head, new_size);
->  		if (!new_list)
->  			return NULL;
->  
-> @@ -224,7 +224,7 @@ static struct list_head *vc4_get_cache_list_for_size(struct drm_device *dev,
->  		for (i = vc4->bo_cache.size_list_size; i < new_size; i++)
->  			INIT_LIST_HEAD(&new_list[i]);
->  
-> -		kfree(vc4->bo_cache.size_list);
-> +		kvfree(vc4->bo_cache.size_list);
->  		vc4->bo_cache.size_list = new_list;
->  		vc4->bo_cache.size_list_size = new_size;
->  	}
-> @@ -1052,7 +1052,7 @@ static void vc4_bo_cache_destroy(struct drm_device *dev, void *unused)
->  	cancel_work_sync(&vc4->bo_cache.time_work);
->  
->  	vc4_bo_cache_purge(dev);
-> -	kfree(vc4->bo_cache.size_list);
-> +	kvfree(vc4->bo_cache.size_list);
->  
->  	for (i = 0; i < vc4->num_labels; i++) {
->  		if (vc4->bo_labels[i].num_allocated) {
-> -- 
-> 2.55.0
+>> Best regards,
+>> - Maíra
+>>
 > 
+
