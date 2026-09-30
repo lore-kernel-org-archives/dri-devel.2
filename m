@@ -4,61 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF99CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 725A0CA5FC5
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 15:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 336E610E040;
-	Wed, 30 Sep 2026 15:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D535C10E071;
+	Wed, 30 Sep 2026 15:52:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XE6fwnUA";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gca6jdSR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 900C810E040
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:48:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21DB940498;
- Wed, 30 Sep 2026 15:48:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4B11F00899;
- Wed, 30 Sep 2026 15:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790783299;
- bh=Q3dyweEFIw9MMaAQ3qtHiJGRvzjhtsRVs97Lrtaxxi0=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=XE6fwnUAwglbhcdAUGpYMPdG6pAocT+0GJ5tREtciyKq9M/ayirFD3z5tatqi/m2y
- XdnU+DEV3c5XAPWOkwrLafhvFCPr+WvbtIWvwMFLr8oJJpojVgbaRASMJn5fVHsRN6
- TslBl21/rtXKG4Bvps/fJmnjganr3OjcNR2VXt9jURpgGNhl0y2wLQf/JRbdHHPo7C
- Ra8AJpFvppqxFtYgVPFoyzk+GNHG8yTfdcMxAY2+zGOzicmp7EiQkAxuzvZk03oRdO
- 8D3na2MB1l0tLPvqflMEvx3Pm41YQ605NginVf9qZWEzym/LrxgeI6AZ/rmr/nZrn3
- DGtyGapgXY0kA==
-Mime-Version: 1.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 563F010E071
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 15:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1790783535;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RFU8URWKTSV6gu/ogdffHhx8mfCXrnRrbyQhdu1z3o4=;
+ b=gca6jdSRokjivFekRj1ogfL6OXRJNNWV/bMEzgxdQf35BMiJRzrjKYmghgiAqKPJ59VSFF
+ SWjGj9gz0JXPRLiqvsqyhabdabso5b79qS3KWmhBLMCzNAh4NacRpVipH0nlwsByP29bYN
+ 6nrzD6UMk7J3G6+vO93cnocV+A96hro=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-631-rnoYqAPsPyew9dz59P-52w-1; Wed, 30 Sep 2026 11:52:13 -0400
+X-MC-Unique: rnoYqAPsPyew9dz59P-52w-1
+X-Mimecast-MFC-AGG-ID: rnoYqAPsPyew9dz59P-52w_1790783532
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-49e635a6002so63396955e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 08:52:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790783532; x=1791388332;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QBXo7CJfd1cvgAIpakqjsUb7YInVtLPKngVCOikL9co=;
+ b=s9fsr7CS/Dh9m2qVH+ljWdtUY2I4BNc78jHpFqCfbic1yTeD9PZTzkJ/P6tLRQfdTw
+ AJB4vpfx1CgwkWktFJNdZeK6zvfCgwlsoX19C3aerpO2a5uNzpqwazx4slvrt8c0elhC
+ 07qxhBWUu4i7rTSERl9TYQsUEHZedbWiyGQrithOEuwRrqNo4NbRmJNNdV2kcC15o9OP
+ j3I2/0s7BvuutUHpuRwZMibXs0RPV6gzAA42Npnfxb4kkjPfz0cbGaBoDzZtfw1hMfJa
+ dIz+b3mSGe72oklEqo5h8YDe0bpOIaFQrVI3MMQNtJHQ78FKd2pHnXchDEjFowEEcS1J
+ asKg==
+X-Gm-Message-State: AFuF++nCUluTYbPa6tQW/nfZlII3wH6h5lYs1rZ+5a+fyW0g1gHkbPKD
+ Kx96qaNfbYhepO0ypX3geDgZJCgJzLO9GgRH75G6H+TGm4Nahm7dr9eo+r6njynGizur3L2K2wP
+ BBCWwIpNDQtuJPjU6LJ3a0VeDxNBXEpSMiYHUv++LwYFD157ul0oJ+e7tf2zItoIkWVOrww==
+X-Gm-Gg: AYBFou0dKdrz3AuARzK32nQVHHAp5FDNxmLcWM1nzX1OjBqftX9wxIqCW2cgdUQBSBi
+ Z6E5YEVgUF2tSyAmQlhJRMFDOU0WbCCWwlbOrJxR3VmAG6s2GQeisqzPYTOzbZv7elzHXvbD9G4
+ 9NmKxJS1BuFeLvR62bcoZ67niBTRg8lpFI7JxsfBfT0lYZNoZjhO6bRe3u8b8gmFeOMPGT2FhXw
+ FBIGq0Ha8TxwwDBUMssykxaQawwaCtkkGHt05ShSdwj0boXNHkkSW0oClAFlgQegk2yhUIDdYHG
+ MCp+88HydR7bDu/E+FfsBmYInqKtQb1b3a7RUL7lS+xyFx1iGLfgrOYc7uIQ6O3M2VTlS4cHmfS
+ Ox8D9Vyl4xH72Lgv7mgugph0rgkQ5ul4h9jK0lieBBtRDj9C3hHda4cezBsWiuhpqkg==
+X-Received: by 2002:a05:600c:4fc9:b0:49f:c331:39e4 with SMTP id
+ 5b1f17b1804b1-4a01aff3ba9mr31642045e9.7.1790783531782; 
+ Wed, 30 Sep 2026 08:52:11 -0700 (PDT)
+X-Received: by 2002:a05:600c:4fc9:b0:49f:c331:39e4 with SMTP id
+ 5b1f17b1804b1-4a01aff3ba9mr31641665e9.7.1790783531291; 
+ Wed, 30 Sep 2026 08:52:11 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a01e662383sm7878545e9.12.2026.09.30.08.52.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 08:52:10 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: =?utf-8?Q?Ma=C3=ADra?= Canal <mcanal@igalia.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Fabio Piparo <holofermes@gmail.com>, Melissa Wen
+ <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
+ framebuffer
+In-Reply-To: <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
+References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
+ <1f383114-e367-4b67-899b-14a393fece94@suse.de>
+ <20260923160049.1741651-1-holofermes@gmail.com>
+ <4a5917cb-d7d8-489a-85c1-a217b442a355@suse.de>
+ <cbf22c0b-b36e-4bec-8461-27dfcb171d7b@igalia.com>
+ <5cf16665-40a5-4321-a0c8-98af1d0263a0@suse.de>
+ <xlv1pkxvdvs0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
+ <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
+Date: Wed, 30 Sep 2026 17:52:08 +0200
+Message-ID: <xlv1jyo2enyv.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: bc3nv8S_lDT87BIr3JFxJhRlAaKaNdRXYHNDTJpo2uU_1790783532
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Sep 2026 17:48:08 +0200
-Message-Id: <DLSRP1M7HK6V.PJ3SDXZ991JU@kernel.org>
-Subject: Re: [PATCH 2/7] rust: pci: expose the VF index within its PF
-Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir
- Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>, "Peter
- Colberg" <peter@colberg.org>, "Simon Song" <xinmengs@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <cover.1790764573.git.zhiw@nvidia.com>
- <5828df56a42b784ce9da005b338e8580ea63294c.1790764573.git.zhiw@nvidia.com>
-In-Reply-To: <5828df56a42b784ce9da005b338e8580ea63294c.1790764573.git.zhiw@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,29 +108,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Sep 30, 2026 at 12:57 PM CEST, Zhi Wang wrote:
-> @@ -40,6 +40,14 @@ pub fn is_virtfn(&self) -> bool {
->          // SAFETY: `self.as_raw` is a valid pointer to a `struct pci_dev=
-`.
->          unsafe { (*self.as_raw()).is_virtfn() !=3D 0 }
->      }
-> +
-> +    /// Return the zero-based VF index within its PF, or an error for a =
-non-VF device.
-> +    pub fn vf_id(&self) -> Result<u32> {
-> +        // SAFETY: `self.as_raw()` points to a live PCI device; the help=
-er checks VF membership.
-> +        let id =3D unsafe { bindings::pci_iov_vf_id(self.as_raw()) };
-> +        to_result(id)?;
-> +        Ok(id as u32)
-> +    }
+Ma=C3=ADra Canal <mcanal@igalia.com> writes:
 
-In my PoC I had this implemented for Device<Bound>, but here it is implemen=
-ted
-for just Device I think? It's not visible from the context, but IIRC you mo=
-ved
-is_virtfn() in an impl Device block (which is correct).
+Hello Ma=C3=ADra,
 
-So, if this is correct, please move it under Device<Bound>, as offset and s=
-tride
-are not guaranteed to not be concurrently modified otherwise.
+> Hi,
+>
+> On 30/09/26 05:32, Thomas Zimmermann wrote:
+>> Hi
+>>=20
+>> Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
+>> [...]
+>>>>> I have a patch implementing begin/end_cpu_access to
+>>>>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm not sur=
+e
+>>>>> we would like to support this use case upstream because, as you
+>>>>> mentioned, dumb buffers are usually used for software-rendering only.
+>>>> Before we fix anything, I think we should talk to someone with
+>>>> dma-buf/PRIME credentials.=C2=A0 As I outlined, the ideomatic pattern =
+is a
+>>>> producer-consumer relationship and HW rendering into dumb-buffers is n=
+ot
+>>>> supported. Those buffers should have been allocated on the v3d side.
+>>>>
+>>>> IMHO we should write down these rules in the PRIME documentation and
+>>>> (soft-)enforce them in the implementation.
+>>>>
+>>> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
+>>> exported buffers (what Ma=C3=ADra is proposing as a fix) or there shoul=
+d be
+>>> documentation of the rules for cross-devices buffer sharing through=20
+>>> PRIME.
+>>=20
+>> This specific case only happens with v3d and only this driver can know=
+=20
+>> when to flush caches. If we flush caches in begin_cpu_access, we easily=
+=20
+>> end up paying the overhead on all systems.
+>>=20
+>
+> I believe that's the main issue. We would pay a reasonably big price to
+> support this uncommon (and maybe even wrong) use case.
+>
+> P.S.: To be clear, I wasn't proposing a fix. I should have called my
+> patch a "hack", because although it works, I don't believe we should
+> support this use case for the reasons stated by Thomas.
+>
+
+Yes, I agree with you. Making v3d to warn as Thomas suggested seems to be
+the best compromise.
+
+> Best regards,
+> - Ma=C3=ADra
+>
+
+--=20
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
