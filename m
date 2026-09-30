@@ -4,47 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF4ACCA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49678CA5FB1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:44:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277B210E23A;
-	Wed, 30 Sep 2026 07:40:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51FCE10F214;
+	Wed, 30 Sep 2026 07:44:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nGapFXny";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QqijGpMZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC76910E23A
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:40:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 137F610F213
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E1DA260236;
- Wed, 30 Sep 2026 07:40:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145B01F000FF;
- Wed, 30 Sep 2026 07:40:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C1A5443F39
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FBB1F008A1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790754053;
- bh=B4AtKkIc05Ww+ASuXgI/2gLWEVeT0HzPUFs3gF2J52w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=nGapFXnyPQIyt/CzNo5tzdLuwmntlIQP6zAF1SQvsTDVkEHvHJnsGMlcUsn9wj4rm
- PeII+TSoBabiw9OfgFMWD/+matVrhOThQJgQRSOKI2zU/m3hS5WsAMjiQfs66IdiHQ
- /3+fqIMLVmcrAMNv9GTNDZdOVxBmK8rTJVcL6zA/zYryKHhPhlNQmdcRLTeXmLPJEB
- 5NwKZKbQGZbkBdW+Xo1Adv4qUIQrVVKB5EVPi0UAE5+MSKk9CgRKJKT9GDkes0gADr
- QIfcr2a+C/X99VjersGXWsJ2JDz23x6Es7IM4pWVsfMFaNAvD6bo6VG7XEI7scudpG
- Cc61SZzXHxYZg==
-Date: Wed, 30 Sep 2026 09:40:51 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-Message-ID: <ary71zC1e-bySLFW@orome>
-References: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
+ s=k20260515; t=1790754259;
+ bh=FtLOcaaScRzLoTwiQLz6MZYTj7kinYwBxEJCUpaO0oc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=QqijGpMZuiw88teEb5g++MFkOcXc14m0SFfKeu2eH5Sfl49kEEcnwbqrf8v9FipWi
+ X+l0v14h3whYKb5O8HGh0TKYQlNo7wuaF6i6jIrWtRI9+/hD5ar3seKJfRQHHzMWBd
+ bSMtr3WRUGbq5GyparrcSbbggvDs5UgjO3n4H6r7+3lsxbqwr8wt0FtRkIc+73+adf
+ It+OLyUiactbFJUATBtvkXFH98pLvGh5rZVFl2HFFSvKz/foivBWNMAmVVFZHoNq4n
+ 23IYvrcxkga/LNozwcE9K9EGYKXeVqCnxCz3DwnKNU/YYE9wKsF3sM95MZVhpIj4uH
+ oBXKHnAK1bBFw==
+Received: by mail-lf2-f13.google.com with SMTP id
+ 2adb3069b0e04-5b8eacb7c8fso4388129e87.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 00:44:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwrdg1ppDRr9O4b9CDmxavVKoNr7lDmbERlnulZ0zqx1k4V6thpOgT4usInP/w7NJ2odd+7yWkIi9c=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJPn9gA5hOeRU4bkjVr3zlwUzYxN9REBsousoXHFL+zgcV+/G/B
+ nfs1j8eh54/00RZ+Nb4UxOfhHeQ2iFW/VX4fHYBoZVJUHiWzoUYY1Vhu60zB+O8t6nyNmmKSGEO
+ OhumvzKFpZaqM/kUV+7lQjVFGZkf10Os=
+X-Received: by 2002:a05:6512:3592:b0:5ba:3b1c:2f5f with SMTP id
+ 2adb3069b0e04-5ba406088a3mr140468e87.60.1790754258346; Wed, 30 Sep 2026
+ 00:44:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hjctq36rj64msexj"
-Content-Disposition: inline
-In-Reply-To: <20260930-dalmore-fixes-dsi-reset-v1-1-58c9d12f5ebd@nvidia.com>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+In-Reply-To: <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 09:44:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+X-Gm-Features: AclHuK9JQOplVIXeKlWlmUy3qK_WlTaornnEdXd3kmRQorHCOhHPlOKdxs8zWKE
+Message-ID: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Sep 29, 2026 at 3:35=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 
---hjctq36rj64msexj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/tegra: dsi: Unconditionally manage reset line
-MIME-Version: 1.0
+> This entire binding seems like stitching two devices together, which
+> might be fine (I don't even remember this stuff... two months old) or
+> might be artificial grouping of separate devices.
 
-On Wed, Sep 30, 2026 at 01:54:55PM +0900, Mikko Perttunen wrote:
-> The DSI driver ignores the reset line if a power domain is configured.
-> This was originally added to support Tegra210, where the power domain
-> provider has to control the reset line -- at that time, older SoCs
-> didn't have a power domain for DSI. Now, however, they do with the core
-> power domain.
->=20
-> This happens to work on most systems due to DSI already being out of
-> reset when booting the kernel, but on Tegra114 Dalmore, this is not the
-> case and causes the system to hang during boot.
->=20
-> Ownership of the reset line is no longer a problem with reset
-> acquire/release semantics, so control the DSI reset unconditionally
-> from the DSI driver (possibly in addition to the power domain driver).
-> The device tree bindings already require the reset and it is present
-> on all platforms, so this is safe to do.
+I think that's a good point and fair pushback.
 
-That seems backwards to me. The whole point of doing this via power
-domains was because it's explicitly not safe to toggle that reset line
-outside of the powergate switching sequence.
+Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+https://www.youtube.com/watch?v=3D6tNGW8PoSzw
 
-Also, the power domain code paths are supposed to work regardless of
-whether the DSI was already out of reset or not. If that's not working
-right now, I think that would qualify as a bug in the power domain code
-rather than the DSI driver.
+The current binding does not reflect the physical topology of the
+actual device, and the bindings need improvements. I have a feeling
+there is one display controller with two physical panels.
 
-Shouldn't this be fixed at the powergate level? My recollection is that
-DSI is tightly coupled to the display powergates, though it's been a
-long time. Do we maybe need to reflect that in DT? There's a TODO in
-tegra114.dtsi that seems to indicate that we're missing DIS and DISB
-powergate implementations, so maybe that's where we should start to try
-and resolve this.
+In that case I think it's better if we do:
 
-Thierry
+panel: panel@0 {
+    /* This is the two-panel package with one display controller */
+    compatible =3D "sharp,ls026b3sa06", "synaptics,r63455";
+    reg =3D <0>;
+    #address-cells =3D <1>;
+    #size-cells =3D <0>;
 
---hjctq36rj64msexj
-Content-Type: application/pgp-signature; name="signature.asc"
+    panel@0 {
+        reset-gpios =3D <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>;
+        reg =3D <0>;
+         ....
+    };
 
------BEGIN PGP SIGNATURE-----
+    panel@1 {
+        reset-gpios =3D <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
+        reg =3D <1>;
+        ....
+    };
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8vQMACgkQ3SOs138+
-s6Hytw//RAQCgUFcgePzgSQiJkY2Q4//OYubpMTfdBZi6y4iNI2KUXVXbjgVxux2
-0H2Vrvs/+WhIZQovHTR+HxyfUk/hTuSzTYhvK/wSOa7PWVMkhqCK7rIlpQvJGncx
-U9NEH6nwx5waayDjGXIkEkqsyYkjeRl+OYcod65TzWTC1x7J8U8ZBT6scH9HOS1W
-0Fc3OiaHT9RjHiKRgLjRd0Vx+lJWm0fiPDF4K/wFOf9H+hjaj3PnatzAKZ9oQBC7
-luQwY+2MeIEhTHkgBUkcg+sv1ooRPMb1mdLUIhYvSDcLA7woOf9Wru+1S9S710Ke
-MAPERehibPQCHmSM2oah2TZ8Av+N9hfKqRIhO/XTwqydPoHpERZ8V+ioMQ8POxiN
-Lb4Mcq5wd+MGGwaKKuYoLsghSk+IAAx0L8Sc36kvvRsw06DOrOqX8X4culvByRff
-yBJd5Os8imMQs/rRjwGsGJnuj0Hd2McV8q2KE3SZ2nN4mZMChGYkvutuYqr6AcXu
-ORKzWQXvvsO7VnQ4ZlY5PgfCuzoVpp1yBHZrlCNnHlaIUAg2FzZ+zC7aSMwG+HUP
-tCjOlYkFQLmO+B9QYmFMrn3cg7/sOmEHMjDNJvHV8xYs1RGrA4dFro3lnRCGDjec
-e0TQP4YIahagZIHfF4oyiUFH/H/JEykDk8onjTEWc51CwS4BRw8=
-=9FPw
------END PGP SIGNATURE-----
+...
+};
 
---hjctq36rj64msexj--
+
+Yours,
+Linus Walleij
