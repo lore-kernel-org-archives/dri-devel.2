@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BEECA5FBB
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 535ACCA5FBB
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 07:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5C7410EA04;
-	Wed, 30 Sep 2026 07:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB61610F1FA;
+	Wed, 30 Sep 2026 07:25:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PEh1wrjh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VhChLs/o";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF66F10EA04
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:25:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE3B10F1FA
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 07:25:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C14304164D;
- Wed, 30 Sep 2026 07:25:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB6D1F000FF;
- Wed, 30 Sep 2026 07:25:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 90A1A4164D;
+ Wed, 30 Sep 2026 07:25:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308E61F000FF;
+ Wed, 30 Sep 2026 07:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790753111;
- bh=szEAWm8vXvUGdw5LnGMd7rh8Pq4FstLVk5HenOVxV30=;
+ s=k20260515; t=1790753117;
+ bh=cJDnMtLIfVoK8vRkhL4ukVQxTCdaTUJSL9bCAduq2/4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PEh1wrjh0rxj28jxtg6Z6N3M2qDkjqA4+R+ULkzAvMrXg0z+9InMpziRx67stvjoL
- 5A4oNncgWCQUNb0T/3EWEU09wJIMdcyIBAOxyM8q1ULdlGpCgPZzLJzATHP0ueGsp0
- CfE8Q691QcgJ3jptyY425wqANciE6HFGgc311T+ot5cCVRzXg7kqoCRfppO9lw8G9o
- +bRun9I9FySV/hl/uftwJCb24JP4OmwJAGA2iJfc2xCKdebQxKdCIxqfG24lqNyhOJ
- nobTw5TmPI51ouCZW69XLqYEvonrSmRjPdiX+Fvvj3psP6J0QcJAOjyVzAfiv6je7G
- YcZ0il9QVE+RA==
+ b=VhChLs/o2HmyGhpU1nPGpatIewBiGQKeAOtD35a1wtQhHqJsnnRWQ7u657uPPOW7U
+ SecZnRIe/01h72JLLuh5NU0J6AOWT2WndbAWNuwKdHusb3UyRm5kR98AvVUQO4NHx4
+ NdhQofYEfYscwGu+mneKdE0rlwbEHJbdToDl+mAs7BgtXckG3oNLYdQlVZjPBNuR3B
+ VcxQYf64Zm358T0K/7Vv+E+rZWlvniy2ed/mYcKXEGhuFmWjn+uQ3pADJvLlV2lNLs
+ AGuFWkUP4EpKC0mU9TC27btO9dEaoKea0LQ7EWdFIbv4SOgbTZyBtgzuxLKE9AXKGY
+ AvIKTXmGG5MBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/3] dt-bindings: mfd: Document Skyworks AAT2870
+Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260930071513.54697-2-clamor95@gmail.com>
-References: <20260930071513.54697-1-clamor95@gmail.com>
- <20260930071513.54697-2-clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260930070535.47130-5-clamor95@gmail.com>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-5-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:25:10 +0000
-Message-Id: <20260930072511.3DB6D1F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 07:25:16 +0000
+Message-Id: <20260930072517.308E61F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,69 +58,202 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [Medium] leds: incorrect scaling for led-max-microamp constraints
+- [Critical] drm: Use-after-free of GPIO descriptors during bridge atomic_d=
+isable
+- [High] drm: Double free of panel bridge resource via manual release
+- [High] gpio: devm resource leak on transient GPIO allocation failures
+- [Medium] drm: display controller platform device reference leak in attach
+- [Medium] gpio: devm_gpiod_put(NULL) on absent optional GPIOs triggers WAR=
+N_ON
+- [Medium] drm: Duplicate drm_panel_enable()/disable() causes bridge orches=
+tration warnings
+- [Medium] drm: Missing drm_panel_put() causes panel reference leak
 --
 
-commit 629a67ba3ff0e9f6e02a0fa733445881d67a7d0c
+commit 7416e1ec1121b26f661bbd6bfc2ff22ea8f657f1
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-dt-bindings: mfd: Document Skyworks AAT2870
-   =20
-Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
-Management Unit.
+drm/tegra: Add support for 8-bit CPU interface
 
-> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml=
- b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'. Each display controller provides two such interfaces, which
+can be used to send MIPI DCS commands to initialize and control the panel
+while image data is transmitted via 16/18/24-line RGB.
+
+> diff --git a/drivers/gpu/drm/tegra/cpu-bridge.c b/drivers/gpu/drm/tegra/c=
+pu-bridge.c
 > new file mode 100644
-> index 0000000000000..6dfcd1fa399ca
+> index 0000000000000..63ca87a0be909
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-> @@ -0,0 +1,127 @@
+> +++ b/drivers/gpu/drm/tegra/cpu-bridge.c
 [ ... ]
-> +  backlight:
-> +    $ref: /schemas/leds/backlight/common.yaml#
-> +    unevaluatedProperties: false
+> +static int tegra_cpu_bridge_prepare_gpios(struct tegra_cpu_bridge_priv *=
+priv)
+> +{
+> +	struct device *dev =3D priv->dev;
 > +
-> +    properties:
-> +      compatible:
-> +        const: skyworks,aat2870-backlight
+> +	if (priv->prepared)
+> +		return 0;
 > +
-> +      led-max-microamp:
-> +        minimum: 450000
-> +        maximum: 27900000
-> +        default: 450000
+> +	/*
+> +	 * Control and data GPIOs are shared between SPI and DPI. The bridge
+> +	 * driver must get and put the required GPIOs each time DCS commands
+> +	 * are transmitted.
+> +	 */
+> +
+> +	priv->data_gpios =3D devm_gpiod_get_array_optional(dev, "data", GPIOD_O=
+UT_LOW);
+> +	if (IS_ERR(priv->data_gpios)) {
+> +		dev_err(dev, "Failed to get data gpios %ld\n", PTR_ERR(priv->data_gpio=
+s));
+> +		return PTR_ERR(priv->data_gpios);
+> +	}
+> +
+> +	if (priv->data_gpios && priv->data_gpios->ndescs > CPU_BRIDGE_DATA_PINS=
+_MAX) {
+> +		dev_err(dev, "Too many data gpios\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	priv->cs_gpio =3D devm_gpiod_get_optional(dev, "cs", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(priv->cs_gpio)) {
+> +		dev_err(dev, "Failed to get CS GPIO: %ld\n", PTR_ERR(priv->cs_gpio));
+> +		return PTR_ERR(priv->cs_gpio);
+
+[Severity: High]
+If one of these subsequent allocations fails, does it leak the memory=20
+allocated for the earlier devm_gpiod_get_array_optional()?
+
+Since this function is called inside a repeatable lifecycle function=20
+(the atomic enable/disable paths), a transient failure could repeatedly=20
+allocate devres memory without freeing it. This could permanently bind the=
+=20
+GPIO to the device and prevent successful recovery on subsequent modesets.
+
+[ ... ]
+> +static void tegra_cpu_bridge_atomic_enable(struct drm_bridge *bridge,
+> +					   struct drm_atomic_commit *state)
+> +{
+[ ... ]
+> +	ret =3D tegra_cpu_bridge_prepare_gpios(priv);
+> +	if (ret)
+> +		return;
+> +
+> +	if (priv->output.panel)
+> +		drm_panel_enable(priv->output.panel);
 
 [Severity: Medium]
-Are these constraints for led-max-microamp mathematically correct? The valu=
-es
-range from 450,000 to 27,900,000 uA, which corresponds to 450 mA to 27.9 Am=
-ps.
+Does the DRM core already handle this? The panel is part of the bridge chain
+via devm_drm_panel_bridge_add_typed(), meaning the atomic helpers should=20
+automatically call drm_panel_enable() and drm_panel_disable().
 
-Real hardware limits appear to be 0.45 mA to 27.9 mA, which would be 450 to
-27,900 uA. Defining a physically correct value (e.g., <27900>) in a device
-tree will fail schema validation.
+Manually calling it here could duplicate the work and trigger a "Skipping
+enable of already enabled panel" warning in the kernel logs.
 
 > +
-> +      max-brightness:
-> +        default: 255
-[ ... ]
-> +            backlight {
-> +                compatible =3D "skyworks,aat2870-backlight";
+> +	gpiod_set_value(priv->cs_gpio, 0);
 > +
-> +                skyworks,channels =3D /bits/ 8 <0xff>;
-> +                led-max-microamp =3D <27900000>;
+> +	devm_gpiod_put(priv->dev, priv->dc_gpio);
+> +	devm_gpiod_put(priv->dev, priv->rw_gpio);
+> +	devm_gpiod_put(priv->dev, priv->cs_gpio);
 
 [Severity: Medium]
-Does this example propagate the erroneous 27.9 Amps value?
+What happens if the optional GPIOs are absent and return NULL during=20
+allocation?
 
-The follow-up driver patch (commit mfd: aat2870: Convert to use OF bindings)
-propagates this incorrect scaling, meaning correct values will be wrongly
-clamped to minimum brightness.
+devm_gpiod_get_optional() returns NULL without adding a devres cleanup=20
+action. Unconditionally calling devm_gpiod_put() on a NULL pointer could=20
+cause the devres subsystem to search for a NULL action and trigger a WARN_ON
+stack trace in devm_release_action().
 
-> +            };
+> +
+> +	devm_gpiod_put_array(priv->dev, priv->data_gpios);
+
+[Severity: Critical]
+Could freeing the GPIO array here lead to a use-after-free during the disab=
+le
+sequence?
+
+During a modeset disable, the panel's disable callback is invoked first.
+This sends MIPI DCS commands via tegra_cpu_bridge_dbi_command(), which=20
+calls tegra_cpu_bridge_write().
+
+tegra_cpu_bridge_write() accesses priv->data_gpios:
+
+	gpiod_set_array_value(priv->data_gpios->ndescs, priv->data_gpios->desc,
+			      priv->data_gpios->info, value_bitmap);
+
+But since tegra_cpu_bridge_atomic_disable() hasn't run yet to re-allocate
+the GPIOs, this would execute using the dangling priv->data_gpios pointer
+that was freed here during the previous enable.
+
+[ ... ]
+> +static int tegra_cpu_bridge_attach(struct drm_bridge *bridge,
+> +				   struct drm_encoder *encoder,
+> +				   enum drm_bridge_attach_flags flags)
+> +{
+[ ... ]
+> +	dc_pdev =3D of_find_device_by_node(dc_node);
+> +	of_node_put(dc_node);
+> +	if (!dc_pdev)
+> +		return -ENODEV;
+> +
+> +	priv->dc =3D platform_get_drvdata(dc_pdev);
+> +	if (!priv->dc)
+> +		return -ENODEV;
+
+[Severity: Medium]
+Does this code leak the reference count to the platform device?
+
+of_find_device_by_node() increments the kobject reference count for the=20
+device. Is it necessary to call put_device() on the returned device after=20
+getting the driver data so it isn't permanently pinned?
+
+[ ... ]
+> +static int tegra_cpu_bridge_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	ret =3D drm_of_find_panel_or_bridge(np, 1, 0, &panel, &bridge);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (panel) {
+> +		bridge =3D devm_drm_panel_bridge_add_typed(dev, panel,
+> +							 DRM_MODE_CONNECTOR_DPI);
+> +		if (IS_ERR(bridge))
+> +			return PTR_ERR(bridge);
+
+[Severity: Medium]
+If we return an error here, do we leak the panel reference?
+
+drm_of_find_panel_or_bridge() acquires a reference to the panel object,=20
+but there doesn't seem to be a matching drm_panel_put() on this error path=
+=20
+or during normal module teardown in tegra_cpu_bridge_remove().
+
+[ ... ]
+> +static void tegra_cpu_bridge_remove(struct platform_device *pdev)
+> +{
+> +	struct tegra_cpu_bridge_priv *priv =3D platform_get_drvdata(pdev);
+> +
+> +	drm_bridge_remove(&priv->bridge);
+> +	if (priv->output.panel)
+> +		drm_panel_bridge_remove(priv->output.bridge);
+
+[Severity: High]
+Does this explicitly free a resource that is already managed by devres?
+
+The bridge was allocated using devm_drm_panel_bridge_add_typed(), which
+schedules automatic cleanup. Manually calling drm_panel_bridge_remove()
+here will decrement the bridge reference count, likely causing a double-free
+when the devres subsystem executes its own teardown action on module remova=
+l.
+
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930071513.5469=
-7-1-clamor95@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930070535.4713=
+0-1-clamor95@gmail.com?part=3D4
