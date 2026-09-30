@@ -4,104 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6203CA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 09:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCD4CA5FC1
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 09:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BBC010F29C;
-	Wed, 30 Sep 2026 09:08:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5502210EA25;
+	Wed, 30 Sep 2026 09:12:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d0XcirBS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ANwOoBv1";
 	dkim-atps=neutral
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com
- [74.125.229.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2AD410E238
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:08:53 +0000 (UTC)
-Received: by mail-dy2-f43.google.com with SMTP id
- 5a478bee46e88-34abf779ac9so1452703eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 02:08:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790759333; cv=none;
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
+ [74.125.229.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFA6610EA11
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:12:18 +0000 (UTC)
+Received: by mail-dy2-f42.google.com with SMTP id
+ 5a478bee46e88-342c08bf64dso339712eec.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 02:12:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790759538; cv=none;
  d=google.com; s=arc-20260327;
- b=UOFvvEY0cI9eJNXbnU7w89PNCST6VCTf8rAFxw/uXtavIGLKtH1S5iZJK2skqY8rpp
- 7hFgACFTuHFMC+1XLYxvJ+G1UrkrC712HwkaUYuhUAjTD/q4evHKCL0FiXw5J9ncEB8i
- laX4JwdM33fmQibGTvIfg9usq98bNwvd3SAs8/SuzCk9HZID8RuWf6jqzmht8ngj0xkl
- kuQ1WrREhV6Wv9nimwFDjso5rsuo/hOT2AcrrsDL65OOBkDnpsMs+PoG4VYORBFBV7KX
- AyIBVIkWc4v6oLrmj5dy95Y3NZmGkfVzRPtSjJfh07czx+gKVdY1Gp+YK5stqHptPp/M
- 34Sg==
+ b=bE5qVOwUpElTi/KPt4TPEVfkboV0hfsNc34Th8yOUQ9Kt8As3nggQE/BakNiYHOpyN
+ qtOufZMqRwpkryixjsKaaMtO/0P8ujAdhCY48jPsgU5In8y687h2ZzW76sv83nlzEsOr
+ 4L3Ta4NZ1W2jTNbZMP/tVqATt4QHodwykqPMRxTkxvngzzV7iiTJO75pzqwM7BXqDH+J
+ rFhzeVFOYo22aFlfevYDZwaOfrwxLQp+wzlOrw2BuffCZoEVP3jkMPbQasqgUWGyLTDy
+ Fsj/GJrXgi1bRog1K+VRq+VIfrYGlAdHBV4A0M2wAsKCo0KToNeigI63W3t2l+V+rzlD
+ DLKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=V7p6Z4nnBygY3IGhowKUKWBqT1Jl8ZZYivkVdoMSSWE=;
- fh=6YC0BeJ6QWa1FJgptP2ISOBsH1svIx1LiXbse3a5uvI=;
- b=PYFeiOVlw2QRT0N86ILkklC8HsS5maQq65Kg+/8JceykkRHRKuYOsnY0ZEBVduq97+
- ZX28lDrQNyRmOyxvzYcyMqGPrBHhDmqg3l0P4LtABWshAV1q5grNMNoPKUI70D4k1WlT
- W24m/gK9AhiP8Bin24AVg6sFqPZy3Yy1ExNkJ2bm/BYVMqlbqwnwXseWUTnKDHQehW5i
- 60O2yK1wqHXH9/gddzxCQWk0IJtL2BZXMjtisg+Judg6fipfuxM44iIYB78qn0SW0bpl
- jJtFlrJzdzG/XQj2LYNHrH5TfDBWm5DKfUjtzix/MqXAPrQaVrrgH7Cndsy0DL0ds0AO
- vxkg==; darn=lists.freedesktop.org
+ bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
+ fh=/Aueotkbrsh6ZtmEJyVFTZTp9KK7i8JIFsPwJaZGlTE=;
+ b=AALrYiu38n3JezFFNDxkKqryGvSHc0ZYJAWDcmFTvAAFCMaGg55I0CBhlPKgL/FQQV
+ M4MbBLzjXWQWz8y6wdUDZQ7SfBb7fHrODUbdVslrLSfDyvpbEG7zW5wwP0e8FMde0xkK
+ 8KwRba0Hzi4wxCKIP72SzATl9PmhSr8OPt43fDyi/FqGDzAmq98JGykVFND69cU6cMhb
+ fVnLj30YtCwQ3A6dUGkmYueHZz6uvkME13x/bRtKz9Aa4+vaIUL3Z9XuuUb42MCBoccP
+ 7zPKGasD7IsJqwEx5Um0qIO4jZ4buauqNwhIT6f5+8bLOdnPUSs3bMthvBvRzIUa3GyF
+ yvoA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790759333; x=1791364133; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790759538; x=1791364338; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=V7p6Z4nnBygY3IGhowKUKWBqT1Jl8ZZYivkVdoMSSWE=;
- b=d0XcirBS2EveLwmEbGw2QVbSYeJ/L2MsiCaSu/t4DSi9Qffl06sK2svSaIo3YtWD0V
- zxZtOH5wl6FLDBJYsDXA007QX5NthsYmdX04vABLkc5ZZyWQCqOpqlWEulDux0HSoyyE
- PsIO9Rj3qZjGaa5rWi+8JwMLqMwEPlgxbhzmroNWkaO80S5Cmryxxk1Lu66rI9MXXcwE
- 1cvN8CFbrYBNU8/C1J8eO+j+hNgteZzFXAgNdynEgm5/fPWIWs02tpxI0dj5LomlJYBc
- Y4xorVM8CcpMr4UJPE+4ak6O3usBGfI4sxX0kU/gJd1J05TlSYjWTRKblmz6suUDhT5g
- lc/Q==
+ bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
+ b=ANwOoBv1YJggQKMZKU0+xPKQXd1Fv857VeTm6hl6iG00lUBps0nw1NdhxLaaLek2za
+ wfxRKxNiXkmNdbq8DeSRsNRBrgFBNaPzUUyTu7sDsFnVQUOohp0Jg81wm8iiJzO0MCAd
+ Z4lbRgStJYa5uet6QlRw8k5CVIwymqXdYCkKyLAg3BfF3OSBsDKXwM7hChFPsolCAwEY
+ samB3FZsEaYPHMH/AINXw7QrITwNS8kpz4YeJ28pBWaWBGlWKfS28goE4mNiTP8hsYnb
+ jCFb2GoTPJfpNZHvfwOfB4Wt25OZ+npux6laTf6/qymCAnkNs83vxQdUK9PpVqX3nRgf
+ R0LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790759333; x=1791364133;
+ d=1e100.net; s=20260707; t=1790759538; x=1791364338;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=V7p6Z4nnBygY3IGhowKUKWBqT1Jl8ZZYivkVdoMSSWE=;
- b=shyUJfea0TMaw7KYv36oLUAPcXXORGql20dWOmetrgD42ArWAPPxbN2z+qteXPr7e4
- QT+felNl/scWlXFB9By0Ljy/P+rPhxUoc2IZKuDHbB2EW4g9vCz6YUMngiwA+mg/G+Fi
- I7l8oRUXxRr2rgDmzrhM0dL2OIdz0rNPOIEtncgZKWLncdgSrLfj7FJro86Njm4YK/am
- I1lQiwp75cXYUXzQyhMxOsRTdDXWBCoapXwKUG5WFokUO9NlUqsZ3jtukbYECPDpGNST
- 3oXYuTZ/4c1WLj2mRFqykJ7AyUrwB5UPuSofpPHE+er1pEYc+rD4yuqjPkuVs9D2E5Gk
- a9qg==
+ bh=yNQ3x0EFDEytueLl/Xid8kyTJCTBY14KPltDPVK8LHU=;
+ b=Mz9dGKAo1fmXY5PFLWaPUJg1MdOnTvC3ix2UsfSARYxsijpFSwXDarAxxSGOXqI3s6
+ zZAdSjJCvMB6OWmBiinpCIMG45jvSVRovhmKwqPK2m5fX2laA9ovkiTznmyNdP2oNlQX
+ q4SMDpgUsmflOzjcR/aI7XlR8n4hpnjZrTo8icdPr+penO/VadtTTjDxyqX0qLO3Q3OO
+ 2XT8SXYixeaAoROLv34AwwXHg3nuuwlf5PbFNasknK+BS56WRkCAZn9gMtu4PpIveEqh
+ IQ9ebRDWiuxy4321bIvJE2JFT7UHdqXdYTZYs/9Obo3QyvKiEX+JbkB3iul3fNPIK9C0
+ OqaA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz0D8nI2U+OreclBKQIrmuTMqLchbU61Y5bYoUMP88DTMmZZsDrUUdIsjE86x/u+NfFZ26JPSjsTVg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIRHL5mmzvl5ZISjmrKi+pgTF1JQwqbHSWBlxd6UUf3yUX44jcw
- 70RAxfyi5HWwZKuYFOeRufefcTFjCnCowiFDRlZixDfS20Hs1TGEFa4NSFVn33GqFCz0eSztn0b
- CLA5GQr8b1eszQw+y2WrC8qRMuWXKzX8=
-X-Gm-Gg: AYBFou2hLbslxVTlYM0nz8D3xFnkeQXczc9kRN1IrLzNWzOsw0QtKarXn36hCTCK1Si
- MYIqWyaCfxmx6Q5pMlaJP7LAWXeZ96kHZUAN379t5wL/N1IeeU4oOWqaiMrvuCkLWoGV3lXGl5m
- TNAWoFcm7VvfutEzcSfWoazM6XZHRJbQlnYocVtKw9pmu0+lMjqpjDinuYLcPaYuJ6ZpVyawoud
- FtxRk4dfbImamhEURZQCwFVbrLXEyStHjUaBf1Y4INjENc+n9pnMHFw1DclZtlBekcIfip1RpJT
- FjWEum3afv8ni1bupATZAZkoW2nY7KoUef1jYusOSwXYip28hyIwC8EJQ+a93r1p6WM+Gx5RKa7
- 28QsPb9RwtbNK
-X-Received: by 2002:a05:7301:9a93:b0:341:fd68:89ce with SMTP id
- 5a478bee46e88-34cdc6bd821mr1056387eec.23.1790759332923; Wed, 30 Sep 2026
- 02:08:52 -0700 (PDT)
+ AKwUvBw+5E/zafcuG4wWfA2lNwOznQwLWy/g3ybVYYcOyXUQmDSPljmwvaAgXt4h/J7XYaAlPKUXLbtWACA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLxiOP5thLoRb3gG1bSlghUx1HLmhFIM0NIZTyWNz+1e2b4Pyha
+ Y5funKXlYqfT5L9QEGRrvXP/mxVrBx6KaYlHb0wlW4hjDz5e2Yi5kM2zJyfV10uW1DevfkhgRJK
+ 5ghFIemkfc6iCnZ5wR8HntlZqbh2my5I=
+X-Gm-Gg: AYBFou20TesaOW6nIpi0Wh2WWtDZ4CqRG2YoA6tWrDW8PKA/pZPFl+QKzQvdf5avd4I
+ uvvmEcLAvq6zmv1s1cOjY1zJ1un9A17faMpJg0YttEyy7G8G5n7UHf9lFZcwHp95S0S/Hqm2yq1
+ VVGHCylJ8wFiujJhLzVfhKVnM1fpGbgfDpEe8L7tNuNHGt8Ic83fwTuAMKPe61baPf+Gd1gYEES
+ 9rWur4Mu+UiAXyR9iaDlWm+gwRhGRTgDki4k0ETxw6rmt0VDp1TLavcWV0Gxyey+q0E34VkrpnE
+ 4t1cV9DJ1LAbpcArPLBy0j8RqpFkn62usJHU1ISjpXpFZCKToyd7oI558Cb/wb/sqOFuBfG8Tay
+ Oy6RrP5+sljetZagAVmzJ2hiYFwrt/GzXaYdRhFPeJNi88v1PRG5gOBHgtcGxNOebRKQ6CTVgAZ
+ z4DYX6KnVEo/k7OGO/dU/2OPoXwr9FTsdUroAVVF3h260KlIrBLGA=
+X-Received: by 2002:a05:7301:6192:10b0:34b:101f:cdaf with SMTP id
+ 5a478bee46e88-34cde6749bbmr2001616eec.1.1790759538076; Wed, 30 Sep 2026
+ 02:12:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-7-clamor95@gmail.com>
- <arzNgbx465QIKYdX@orome>
-In-Reply-To: <arzNgbx465QIKYdX@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 12:08:41 +0300
-X-Gm-Features: AclHuK_GrgB1ybpXzB5TqGoO9XwCnkq9EQsObVGEae8urTG4uQ6PfBurcWJJG5Q
-Message-ID: <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
+In-Reply-To: <20260930-chid-v9-4-0d6cca376cff@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 30 Sep 2026 11:12:05 +0200
+X-Gm-Features: AclHuK9QlKMhXKITkkBnbYFPptADooLzR8_3Lk9f3AVt-2WcqKF5YbgcQH-UReU
+Message-ID: <CANiq72nuhGkeDFwyWG91xJTAV_uio5PM_PoYvXLCWF7ebKBLeQ@mail.gmail.com>
+Subject: Re: [PATCH v9 4/9] rust: sizes: implement SizeConstants for Alignment
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -119,220 +124,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:02 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+On Wed, Sep 30, 2026 at 4:44=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
 >
-> On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrote:
-> > Add a driver for panels used in LG Optimus 2X P990. Both panels are 4"
-> > WVGA MIPI DBI Type B linked to DRM encoder via RGB to DBI bridge.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panel/Kconfig                 |  14 +
-> >  drivers/gpu/drm/panel/Makefile                |   1 +
-> >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 396 ++++++++++++++++++
-> >  3 files changed, 411 insertions(+)
-> >  create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> >
-> > diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kcon=
-fig
-> > index 747f47347521a..47962197a9c76 100644
-> > --- a/drivers/gpu/drm/panel/Kconfig
-> > +++ b/drivers/gpu/drm/panel/Kconfig
-> > @@ -273,6 +273,20 @@ config DRM_PANEL_HIMAX_HX8394
-> >
-> >         If M is selected the module will be called panel-himax-hx8394.
-> >
-> > +config DRM_PANEL_HITACHI_TX10D07VM0BAA
-> > +     tristate "Hitachi TX10D07VM0BAA and LG LH400WV3 MIPI DBI panels"
-> > +     depends on OF
-> > +     depends on BACKLIGHT_CLASS_DEVICE
-> > +     select DRM_MIPI_DBI
-> > +     select VIDEOMODE_HELPERS
-> > +     help
-> > +       Say Y here if you want to enable support for the HITACHI
-> > +       TX10D07VM0BAA and LG LH400WV3 MIPI DBI panels found in the
-> > +       LG Optimus 2X P990 smartphone.
-> > +
-> > +       To compile this driver as a module, choose M here: the module w=
-ill
-> > +       be called panel-hitachi-tx10d07vm0baa.
-> > +
-> >  config DRM_PANEL_HYDIS_HV101HD1
-> >       tristate "Hydis HV101HD1 panel"
-> >       depends on OF
-> > diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Mak=
-efile
-> > index f2c9c80a218f0..414267a49d922 100644
-> > --- a/drivers/gpu/drm/panel/Makefile
-> > +++ b/drivers/gpu/drm/panel/Makefile
-> > @@ -27,6 +27,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) +=3D panel-him=
-ax-hx83112a.o
-> >  obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) +=3D panel-himax-hx83112b.o
-> >  obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) +=3D panel-himax-hx83121a.o
-> >  obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) +=3D panel-himax-hx8394.o
-> > +obj-$(CONFIG_DRM_PANEL_HITACHI_TX10D07VM0BAA) +=3D panel-hitachi-tx10d=
-07vm0baa.o
-> >  obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) +=3D panel-hydis-hv101hd1.o
-> >  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) +=3D panel-ilitek-ili7807s.o
-> >  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7836A) +=3D panel-ilitek-ili7836a.o
-> > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driv=
-ers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > new file mode 100644
-> > index 0000000000000..d2c3b63649288
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > @@ -0,0 +1,396 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +#include <linux/array_size.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/err.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/media-bus-format.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of_platform.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/property.h>
-> > +#include <linux/regulator/consumer.h>
-> > +
-> > +#include <video/mipi_display.h>
-> > +
-> > +#include <drm/drm_mipi_dbi.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_of.h>
-> > +#include <drm/drm_panel.h>
-> > +#include <drm/drm_probe_helper.h>
-> > +
-> > +enum panel_dbi_id {
-> > +     PANEL_DBI_NONE,
-> > +     PANEL_DBI_TX10D07VM0BAA,
-> > +     PANEL_DBI_LH400WV3,
-> > +};
-> > +
-> > +static const struct regulator_bulk_data panel_dbi_supplies[] =3D {
-> > +     { .supply =3D "avci" }, { .supply =3D "iovcc" },
-> > +};
-> > +
-> > +struct panel_dbi {
-> > +     struct drm_panel panel;
-> > +     struct mipi_dbi *dbi;
-> > +
-> > +     struct regulator_bulk_data *supplies;
-> > +     struct gpio_desc *reset_gpio;
-> > +};
-> > +
-> > +static inline struct panel_dbi *to_panel_dbi(struct drm_panel *panel)
-> > +{
-> > +     return container_of(panel, struct panel_dbi, panel);
-> > +}
-> > +
-> > +#define panel_dbi_command(priv, cmd, seq...) \
-> > +({ \
-> > +     const u8 d[] =3D { seq }; \
-> > +     struct drm_panel *panel =3D &(priv)->panel; \
-> > +     struct device *dev =3D panel->dev; \
-> > +     int ret; \
-> > +     ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE=
-(d)); \
-> > +     if (ret) \
-> > +             dev_err_ratelimited(dev, "error %d when sending command %=
-#02x\n", ret, cmd); \
-> > +     ret; \
-> > +})
-> > +
+> Currently, constructing an alignment is quite verbose [1]:
 >
-> [...]
-> > +static int panel_dbi_probe(struct platform_device *pdev)
-> > +{
-> > +     struct device *dev =3D &pdev->dev;
-> > +     const struct drm_panel_funcs *panel_dbi_funcs;
-> > +     struct panel_dbi *priv;
-> > +     enum panel_dbi_id id;
-> > +     int ret;
-> > +
-> > +     id =3D (uintptr_t)of_device_get_match_data(dev);
-> > +
-> > +     switch (id) {
-> > +     case PANEL_DBI_TX10D07VM0BAA:
-> > +             panel_dbi_funcs =3D &hitachi_tx10d07vm0baa_panel_funcs;
-> > +             break;
-> > +
-> > +     case PANEL_DBI_LH400WV3:
-> > +             panel_dbi_funcs =3D &lg_lh400wv3_panel_funcs;
-> > +             break;
-> > +
-> > +     default:
-> > +             return dev_err_probe(dev, -ENODEV, "Unknown device %d\n",=
- id);
-> > +     }
+>     Alignment::new::<8>()
 >
-> This is a bit pointless. The only reason you need that default here is
-> because you have an enum that is "none" but that PANEL_DBI_NONE is never
-> even used.
->
-> > +
-> > +     priv =3D devm_drm_panel_alloc(dev, struct panel_dbi, panel,
-> > +                                 panel_dbi_funcs, DRM_MODE_CONNECTOR_D=
-PI);
-> > +     if (IS_ERR(priv))
-> > +             return PTR_ERR(priv);
-> > +
-> > +     ret =3D devm_regulator_bulk_get_const(dev, ARRAY_SIZE(panel_dbi_s=
-upplies),
-> > +                                         panel_dbi_supplies, &priv->su=
-pplies);
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret, "Failed to get supplies\n"=
-);
-> > +
-> > +     priv->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_=
-OUT_HIGH);
-> > +     if (IS_ERR(priv->reset_gpio))
-> > +             return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> > +                                  "Failed to get reset gpio\n");
-> > +
-> > +     ret =3D drm_panel_of_backlight(&priv->panel);
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret, "Failed to get backlight\n=
-");
-> > +
-> > +     ret =3D devm_drm_panel_add(dev, &priv->panel);
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret, "Failed to add panel\n");
-> > +
-> > +     platform_set_drvdata(pdev, priv);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static const struct of_device_id panel_dbi_of_match[] =3D {
-> > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void *)PANEL_DB=
-I_TX10D07VM0BAA },
-> > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *)PANEL_DBI=
-_LH400WV3 },
->
-> Why the detour through that PANEL_DB_* enum? You could just pass the
-> panel funcs pointers directly via .data here.
->
+> It's unfortunate because it disincentivizes using it at interface
+> boundaries. Implement `SizeConstants` for `Alignment` so we can write
+> e.g. `Alignment::SZ_8` instead.
 
-Passing API/OPS via .data is discouraged.
+I don't find the former disincentivizing -- it is how I would expect
+to have to write such a call in general. We do have the other size
+constants already, and `SZ_` is well-known, so the short form is fine
+too here, but I just wanted to mention that I don't think we should be
+scared of seeing colons and angle brackets. :)
 
-> Also, looking at the enable/disable sequences these are in fact two
-> different drivers, with the only commonality being that they happen to
-> be used in the same device. Rolling them both into one driver seems a
-> bit odd.
+If this ends up going through bitmap or DRM or similar this cycle:
 
-I did this to simplify maintainance. Both panels are used in the LG
-Optimus 2X. My assumption is that LG switched one to another at some
-point, hence they share same timings, controls and supplies, but
-differ in en/disable sequence. Additionally, these are the the only
-DBI Type B-only panels in the kernel, from what I can see.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-> If you really want to avoid duplication, maybe they should go
-> into some kind of "simple" or "generic" DBI driver.
+Otherwise, I can pick this one up this cycle.
 
-DBI Type B is not well supported in the kernel.
+Thanks!
 
->
-> Thierry
+Cheers,
+Miguel
