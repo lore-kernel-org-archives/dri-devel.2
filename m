@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFD32CA5FC5
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 16:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A250CA5FC7
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 16:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1836A10F4EA;
-	Wed, 30 Sep 2026 16:05:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030F910E234;
+	Wed, 30 Sep 2026 16:07:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CSkxcT2e";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J3lM07Yb";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ceg/Sbhc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N7/Buv1A";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E5F10F4DF
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:05:52 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8093710E234
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:07:13 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 68UEvYuh274512
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:05:52 GMT
+ 68UDxpiw3063756
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:07:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=lVSSkheA67JcJaOOxaTY5iya
- 49LPdhkaRKnKJzVkXi0=; b=CSkxcT2e2v3iw0zQDW8ukNDekQ1EQyJ90AyZpxrk
- fJ1EA2EAd/6v6jQErtU70Dv6BAnGdNfKcYb7iZ2bZZSPm749W+a74EqVYlgAGA8X
- WQjhYe5Huy5G0d0AbtBZQxoPRmu8jyLcslGCSDEmQhWVDmPtbi8QZT35TeSCmJ3v
- sCZuayG/N7MLbQkK33Td3lJxb3tc6B+7vTAx68TDwWIpu17SjPeUGsX4aQIVN3MW
- XkBHd5vBMZ9zCymIjxSZwDfBHXTuXuuR3uYp5wNAE/FMJghJOb2L+mSq6PhXA2My
- LnVdFYNKcHczR2WWNvBIbgQHC8mEnuYW8GSue1hdn2d2ag==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h14n20ay0-1
+ :references:subject:to; s=qcppdkim1; bh=59fvn6HNCxIB5d75o9AyYwbT
+ 6TRJJUb8uFgR5eg9RW0=; b=Ceg/SbhcGM1koch9h2BSx3RC0GoFx/hQKhQuktDZ
+ lPBh6arfjeh/UObm74Ri1KTrpPCFZHKA525CHGg9fn8Q0RehXPxNCJhDZLok1sGc
+ /3QIFqci9rQ7F/Brxd+mtc9QRfvianNIZvpaJi9eeEBh9nNJl0Wrbb+rjN9c10O7
+ dIyuM5/K5ZJGzHrk1YiTSr21OW9Fbwwnyj/New3naAB6cy1ZFT07LIJi6YiyewOk
+ L5sCXR6kVS5FOSclPkLHmu8pDHuY9GFVzAAij17eJts3mEEh2hgcLubIxXZEoyEa
+ mzKmFDI7s48MK13Q2027bDDuBheXB6jCr1Zk5eBHs7ModA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0smjkfkk-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:05:51 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-98087b0c5deso4300931241.2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:05:51 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 16:07:13 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-7a77961b860so1049436137.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 09:07:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790784351; x=1791389151;
+ d=oss.qualcomm.com; s=google; t=1790784432; x=1791389232;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=lVSSkheA67JcJaOOxaTY5iya49LPdhkaRKnKJzVkXi0=;
- b=J3lM07Yb12nkMXHg02G5E/gkRyGexzvfWiW8O6rDf5jJJ49vVknCmv+nC+htHddcHb
- a1X8reMyqbehH2VdwqwhLcLK/zrmo+YD9qy5NKzfu0sosmHbwnQ3wA3VH4XBsEYl9tZr
- OucTXC2UyCoWFzL3VJNm7r0430gpOn+od+i7C2gDQsZjOnbJNgMFHz29QYhXvE/HkAlQ
- JNmFdE3HYu7TpSgbqpsIL9oyfc3nP2vy/LaDzKADj4kCm6koNfBbXlL9dEKVGBFIxfRz
- XWUM7HN4RK545Ibot04fRrzNUxtH6wecyw1EwDDMea6TaMZb/yQybscxYX5a9WOP21pz
- ZYHg==
+ bh=59fvn6HNCxIB5d75o9AyYwbT6TRJJUb8uFgR5eg9RW0=;
+ b=N7/Buv1AwweqTKlKwSFEgG+5o+hYgkkc93Vu23oaNRwufaE3dQM1IBNFB2SY9g+BjI
+ zMJFqEV2Igtm0dbTGdgxKwE9HnF7/ga/rPKUmkRZRlCtg8P3QXmVmFyT802x3dqYAJpQ
+ F1Kux0fYLPNtAKoisfoshX/8SZBpIzbyCk6r40c9sH6mov1AyknaeA3FKC/C53TAMjiK
+ ur/+k0cTlBSU6R8Ljlne80HLJwNuCeVKlpF0Sb6JIRrtxMoJ6koYCaYz4KfoMhTQQ3uF
+ R1nNG7nXJ8KFPxYgya3vqlCn13UyGC4smBcj2x2Cmo0YI6uWaxq4y4xB5DZy68+jMVMn
+ H5gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790784351; x=1791389151;
+ d=1e100.net; s=20260707; t=1790784432; x=1791389232;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=lVSSkheA67JcJaOOxaTY5iya49LPdhkaRKnKJzVkXi0=;
- b=JX7cAeOuxV4PkScjWcv/MDD70XbZ2Fh7ZSEZazTZIl5vKNuyxVEMqdVsxiR8Am8Zud
- jEjekB/0+6ptnm847Xhmipzwgy47UIMeiow0OIzIbJXsHYroavC9mKPLrpvNiWJsn1gk
- S/J4iRe08av5ROWuHuPQySXxHeJ3RVkouWcOuol5K4fEu/udQc3w4uzEOCtEHI4h56Gs
- 90SF9s74Kuvob92Sg2bFxBuFpnyK5Bed8R/Zt+fnVJd0vHzHko1rNTzZ4n223yaNt4Nz
- 2jteTT4JBUnMy5imsEUdcxQc9DOyLhjs/ZYX+zWFWcxkQzMZrk61eIPI7aw/jrdrbXau
- QkUA==
+ bh=59fvn6HNCxIB5d75o9AyYwbT6TRJJUb8uFgR5eg9RW0=;
+ b=EGSkI6JSQIxaNL5eEzDbkdmaMq3EzI8r/qmKGjQr7/nVLo0wfk01SLVkTrTgxuWdOV
+ 3A+jN/iXutQGt4nD3WmwQTkYSHljA+ZRgWgFOvAiKXrK0GN5K8u44Ks3x7z/0EY2brJs
+ D4hBZEKG/RPVnsTt7S6U+KgxRhKWtJG/hD6CCSiP1I1/YgYp4oGKsfhPl9+yD+GDnd0H
+ 41N7oWNbz9G5sU9IrJkj++T6GZh0GtrD6UfvIoflZA+EmGBHs94r8lL7g65jlgQDe0O7
+ hdogMV90vItWc/iFwu/iBI+ngQGX2T2ZdscajMHyI9cBIFNF0qV9jygp0tNhn1oNml2n
+ asZg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxaApXfFGKvrkUsh4ohoMyfh0l57og9kBOV153+ouSJTBAEYiICxWBe8/SSksJEi2yRvGiCNJ+1a4c=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIP0P4ehlox2ns+xkCcqYvcQZTMrH8d5pHJas8z6NxiP4TurXmB
- tL/C/lzMZmFZ2y2iRaVULZN0xD6CZEzwhK8ag3NL8HbpN1GMFyKkB/C1+wXhnTK7H6ZymY8jQGo
- kh5T628HodijkqO9GGhAGqlxklV1l3xp32mPf7YJ5DrHTBMAIUPsQd1jiYAl+/ZZxZZCGH3s=
-X-Gm-Gg: AYBFou1GhncRWxdeinEue+7K0DZ0Pjy3QZqZQvfwNM12eRlHHDF6db0HPCto8XzGEdV
- YFZEGIQxprpNl5QgenDr/b0MGQpOICsf9t2l2ZB6Ufe8TYql1gqVlJZ+dJiSzhfxQ9vzhQT9wN9
- rAgqo2eiUgJXxRAkbXnBN88KBlZiPSlzEErVhfdAyAL9jYMtBdbRGh4X/LvG6a6PFehoq7hi0Sj
- xV4S5iGY1q3aX648gkhplUGNCr9klS2cRAsQjVxB2AoSZsVj1itJTE9cwenj64cZmQEfQJu8JLb
- rcx0qfy8LYDkn4tIIy9D/cr0sWPqykZ/PWO41Hu59zsqj2Mx4qsAAGR3qXlNsnucQDwLz6DrhT3
- 4miUSyMgr9PIQLvnQOxZjCalcW6ZBsuFCu8zz1/W7e6ulWw9rWL6iedm/RMB1zQpQxbogHBsMEI
- 12KAOWan8F9gUQ
-X-Received: by 2002:a05:6102:2924:b0:7a1:f7c3:3a41 with SMTP id
- ada2fe7eead31-7be72da8338mr544560137.14.1790784351093; 
- Wed, 30 Sep 2026 09:05:51 -0700 (PDT)
-X-Received: by 2002:a05:6102:2924:b0:7a1:f7c3:3a41 with SMTP id
- ada2fe7eead31-7be72da8338mr544540137.14.1790784350574; 
- Wed, 30 Sep 2026 09:05:50 -0700 (PDT)
+ AKwUvBxK720IzFQ36LdTMW94x4AjXCPD5fx4uasIG4dKCLdwdQVuQr0HVj0nQvmIC9NgLND6GqA1VJK4PjE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIDPIRP08TvVx3R8FU/gW6jH6w5TM3i0HuJAbAEE82m6cwnEAOu
+ 9A0tShUyPT5KhlEu7k56khV4GVeGWOgUyfAWqY7MqBP5K7+0rK3XWLkh2n0EF35FpphtuPYS3pV
+ 1LK2z+Bnibi+POdN1Vosio//1X0YNZZeKKhqWSU5xCPIUXhApokcpwinXb3jeN2wq4QjzLY2DhI
+ npLZo=
+X-Gm-Gg: AYBFou2dKvTk2SFLRAcKWX+Ed+7vlxG8HTjcNEipRNzG/tsaXF4vcvCMaV4RRrWnbcO
+ wcx9TbmSJO6FqHRXvVo3O4paiTNWoRIYmgsNxvgMWKcuunPH8dt5xL03ERGHZWamJ2bdZOFPy9s
+ RK9s+G+CcJddZ2RdDNmaILJxacLQ3L8sV3UoPeXjVF8VebLxkc4TVtO1nutxQF81FJnLrjg+300
+ UF2O+Z5XKGdER67aMHcduSDYEJPTMyMeJ6kC2UVJKK83wgXVC2jf7Oub78rkEG3Amxa+Xaq/563
+ npp3jMQjrfqcuE4rTiHDLjhO5MZ2VQOV6v3F3h8+1isW2JfCADZ1LsEJGAW/iDPukFGTCN32Uh6
+ pNjl/980dIIu/xafGhWVf0PLL1u/MCDF7I/RuPIgZ7f5Wd26vdL7p1cauiwZiylU3KIPP83UMlA
+ xF3vJzn6NInYkN
+X-Received: by 2002:a05:6102:91d:b0:7a8:6ffc:1c25 with SMTP id
+ ada2fe7eead31-7be72ca7984mr386858137.18.1790784431900; 
+ Wed, 30 Sep 2026 09:07:11 -0700 (PDT)
+X-Received: by 2002:a05:6102:91d:b0:7a8:6ffc:1c25 with SMTP id
+ ada2fe7eead31-7be72ca7984mr386837137.18.1790784431400; 
+ Wed, 30 Sep 2026 09:07:11 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ba42f7d653sm89094e87.5.2026.09.30.09.05.49
+ 2adb3069b0e04-5ba42faa8cbsm82075e87.23.2026.09.30.09.07.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 09:05:49 -0700 (PDT)
-Date: Wed, 30 Sep 2026 19:05:47 +0300
+ Wed, 30 Sep 2026 09:07:10 -0700 (PDT)
+Date: Wed, 30 Sep 2026 19:07:08 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Xilin Wu <sophon@radxa.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -103,39 +104,39 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 02/13] drm/msm/dp: Support multiple generic SDP slots
-Message-ID: <exo4twskpmrpvuspuka7pstg5psenkeztcj66cmzebhfusjjme@fda4wrt7czzh>
+Subject: Re: [PATCH 04/13] drm/msm/dp: Serialize HPD state updates
+Message-ID: <zzsqfw3ncrse7mtxrp5dmny6fd3grtulhxhpawo6gahugtu7ft@qqshhudt7jen>
 References: <20260930-msm-dp-hdr10-v1-0-dbbf8b2b42bc@radxa.com>
- <20260930-msm-dp-hdr10-v1-2-dbbf8b2b42bc@radxa.com>
+ <20260930-msm-dp-hdr10-v1-4-dbbf8b2b42bc@radxa.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930-msm-dp-hdr10-v1-2-dbbf8b2b42bc@radxa.com>
-X-Authority-Analysis: v=2.4 cv=Gr3XaU1C c=1 sm=1 tr=0 ts=6abd335f cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260930-msm-dp-hdr10-v1-4-dbbf8b2b42bc@radxa.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX4WzVmbB30swZ
+ wnnsFml+dyXfT8SxIHXEMZl3Zm2KaJWe7c4b4D0dSfPuKiKKJYefn5414n0sny0RDw9yHFMWKO3
+ X6E6u/LuhNzWsifT/3eBztdfzdKQQM4=
+X-Proofpoint-GUID: 9Ggoy4IUGAUEbABlkYT6PaC2h1xaTznE
+X-Proofpoint-ORIG-GUID: 9Ggoy4IUGAUEbABlkYT6PaC2h1xaTznE
+X-Authority-Analysis: v=2.4 cv=KfxHIgYD c=1 sm=1 tr=0 ts=6abd33b1 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=ksxQWNrZAAAA:8
- a=EUspDBNiAAAA:8 a=dRvoGPQ9uURqmwrP_ZcA:9 a=CjuIK1q_8ugA:10
- a=TD8TdBvy0hsOASGTdmB-:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX5omYtGSVR6B0
- 3ZROedR4dKh+vH3yDkDpRPnFE+Mtj+vL2Vwo0Uxi/S2GpbXB0e+ymSKjfIXKMipllAPYSxA2fDv
- LRMtjSMFDqKy6eJMJfuUZI4LIsFdhC4=
-X-Proofpoint-GUID: LmgEX3xYzDlLlnk0sB3N941U6vZ2A886
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX4gpVRcf/0aVC
- CHJDkQvrYEr/dVgveNasNnljbs6DJWWUCV6esQbNekL08nR9M34iGY09vWLiW5OELjAhL3zwgfr
- He0ESMHT2uXagpKcDYFGwsRS4QDVbSrzCdUhCKBBN7gKro4hodeTQWQRHy/NzoJTCEPLPaZJJXH
- n+VcW05AqWzMsQzLkGfaBxQN95X+EFpO5LZoKGp2yKOg8rYDM4p5G1TuDzhAUKMiZrgAmF4FUjN
- h5H0VZlcf7Ucf4bnakARcLLa4rvErB0+2pAGsuckcS1g7aCwsaBdA15xnzgjr2u5Hro/NBtPohA
- PXWTjzarnJOwRlQiuHfrp+b2TNYm4Fyl2ENhaF76y4rmtCsbvlKqPYpDxTAv+Yc5ui5CpumP4FE
- A5lwyPmVeFP3WC0yxy90tFL9vWzdENSxVUjgZAZvz6Ti6j+eKKxOyqao+Y3qrm0Sh95y/UyK8gX
- QJ9osacB9YDsLVeAbaQ==
-X-Proofpoint-ORIG-GUID: LmgEX3xYzDlLlnk0sB3N941U6vZ2A886
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=ksxQWNrZAAAA:8
+ a=EUspDBNiAAAA:8 a=zIYKY0NWTygHEUM1x6YA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=-aSRE8QhW-JAV6biHavz:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2NCBTYWx0ZWRfX9CGNaoryc7Hv
+ rtn7HAdxA9E6QTHWKYXqvtxpOAxRwV3VV6cMkPgPGRmrShSWp/6ALfAbpEECQuMr07VMkLUcjF8
+ O+xBWLeRWgV0b9AOYLTCIjnbk4rEQdpDmza9jpYFfO2wSE4GeCUxRJLIUVBiA/v7JBYfC1dBBUD
+ 9TpB/z6Exk6Oo7yQNZZViWr2UNfzW5LEyjbFoRv+Cd1yiPQDX6ICv4vpluLKB5tpcaQ7PmEolJk
+ YS5lDbmGC8B8wHN4ANVm+KOlHIuKThv7lw6LW1pTXzH8MUTTNFGGrT1g9oiTuY+JNXDcPVyWHE1
+ QjtKMxdNpzyV1Hd9osTeFEeLe1WVpQ/1vFCJJR9w/Abj9j2Md6MBtXO6HsN/LCDjW0Q86ibkJLl
+ MJvtInLZ9raPYDd3ZBrx1K6gaBwcHtK25B+GXYJ6EQ18y8eEJUo4EbSPugDm6o7lMgwxZYbxsSd
+ xM+JWoMEqEABFjPVsyQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 impostorscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300064
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -153,69 +154,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2026 at 08:41:46PM +0800, Xilin Wu wrote:
-> The SDP writer currently targets Generic0 for VSC packets. Static HDR
-> metadata needs a separate slot so that both packets can be sent on the
-> same stream.
+On Wed, Sep 30, 2026 at 08:41:48PM +0800, Xilin Wu wrote:
+> The plug and detect paths hold plugged_lock while accessing the sink
+> state, but IRQ-HPD processing updates the same state without that lock.
+> Unplug also changes the video-test flag and AUX transfer gate before
+> acquiring the lock.
 > 
-> Allow the SDP writer to address a generic packet slot, and define the
-> Generic2 registers needed for static HDR metadata. Use unaligned
-> little-endian loads for the payload words and accept a const SDP header.
-> 
-> The existing VSC packet continues to use Generic0 without changing its
-> layout or enable sequence.
+> Cover those updates with plugged_lock so that users of the connection
+> lock cannot observe partially updated HPD state. This also lets stream
+> failure cleanup decide whether to preserve AUX while excluding HPD
+> processing.
 > 
 > Assisted-by: LLM
 > Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_panel.c | 22 ++++++++++------------
->  drivers/gpu/drm/msm/dp/dp_reg.h   |  4 ++++
->  drivers/gpu/drm/msm/dp/dp_utils.c |  3 ++-
->  drivers/gpu/drm/msm/dp/dp_utils.h |  3 ++-
->  4 files changed, 18 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_display.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
-> index 4a5ebb0c33b8..226b370ce8fe 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_utils.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_utils.c
-> @@ -74,7 +74,8 @@ u8 msm_dp_utils_calculate_parity(u32 data)
->  	return parity_byte;
->  }
->  
-> -void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2])
-> +void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
-> +				  u32 header_buff[2])
-
-Nit: separate commit for this one, please.
-
-Feel free to use for both of them:
-
-
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-
-
->  {
->  	header_buff[0] = FIELD_PREP(HEADER_0_MASK, sdp_header->HB0) |
->  		FIELD_PREP(PARITY_0_MASK, msm_dp_utils_calculate_parity(sdp_header->HB0)) |
-> diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
-> index 2e4f98a863c4..2fdb89efc57c 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_utils.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_utils.h
-> @@ -31,6 +31,7 @@
->  u8 msm_dp_utils_get_g0_value(u8 data);
->  u8 msm_dp_utils_get_g1_value(u8 data);
->  u8 msm_dp_utils_calculate_parity(u32 data);
-> -void msm_dp_utils_pack_sdp_header(struct dp_sdp_header *sdp_header, u32 header_buff[2]);
-> +void msm_dp_utils_pack_sdp_header(const struct dp_sdp_header *sdp_header,
-> +				  u32 header_buff[2]);
->  
->  #endif /* _DP_UTILS_H_ */
-> 
-> -- 
-> 2.55.0
-> 
 
 -- 
 With best wishes
