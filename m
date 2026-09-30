@@ -4,54 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23CFC9830E
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 05:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0489AC9830E
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 05:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D04410F19D;
-	Wed, 30 Sep 2026 05:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3533210E5AC;
+	Wed, 30 Sep 2026 05:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KmSZYoM3";
+	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="bjfaviDB";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334DA10F19D
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 05:30:28 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8D758C24;
- Wed, 30 Sep 2026 07:28:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1790746115;
- bh=aAIJo6SDmYNK5YNMvXjeLNu+ET1+P6HzBtQ0gfLZN4A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KmSZYoM3Chsg4wB9FSC2ESz6nW1if3JAAUznP8aMWHLRohZXZa258fJczEoYJYm1s
- 6MhlDWuGoW5OrnnLoCCw6Vq1OIUXWcgDJ0Jyn1rDYEVBmzKwNAnrcx9Nb6XWmOKxgb
- PCvQ3qf9BU8jgCMPoByBSwXTBL011EtmeSgYrm2o=
-Date: Wed, 30 Sep 2026 08:30:25 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
- David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kevin Hilman <khilman@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Roger Quadros <rogerq@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com,
- simona.toaca@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com
-Subject: Re: [PATCH 1/2] dt-bindings: display: ti: Convert ti, tpd12s015 to
- DT schema
-Message-ID: <20260930053025.GB931211@killaraus.ideasonboard.com>
-References: <20260730092245.52034-1-egbostina@gmail.com>
- <20260730092245.52034-2-egbostina@gmail.com>
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20B0F10E5AC
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 05:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
+ s=smtpauto.stravinsky;
+ h=X-Debian-User:Content-Transfer-Encoding:Content-Type
+ :Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
+ Reply-To:Content-ID:Content-Description;
+ bh=HOfe6eGDXWWjbg16M03Zk0OLLSQFcWlNyWNgDc1U1cw=; b=bjfaviDBFHWVxeZ6pMpxtnv8Sx
+ 0Vz3JjbyRuT6RnU+pFdwhMcvBDa7lQbk71QYnp6xe4+lCtYnRo8osNnuUu+uNYRzhksl7Dkfv/dWx
+ HBNGnEReIvhjsBI9EgV9XgFNOXkFhrthn0rDrFpqKHprTb5W/BFVJCo18IXvrtAR9SqrLU3EU9XxW
+ Qd3bh2GMG0yzll0ODJmpEZIZuXdc/0jSRa5K6NW/CSZgegddaQsbMTTMI5A2F0pHReOCzk9uNTC8e
+ UxkK5PxATb9id/2zQN9Wv8mPuWaUO5IhkCaIjPSJdmQjcDjKVlip+aO9IJE9SKp+XLuV9Yu1q51OH
+ 6AXY68DQ==;
+Received: from authenticated-user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
+ (Exim 4.96) (envelope-from <domibel@debian.org>) id 1xBnFh-008yCi-1e
+ for dri-devel@lists.freedesktop.org; Wed, 30 Sep 2026 05:53:14 +0000
+Received: by mail-pz2-f42.google.com with SMTP id
+ d2e1a72fcca58-86dd69a1b15so1044700b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 29 Sep 2026 22:53:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzXK8qgJL77oi2sJ0iygD22b6G9ADNGi4PJtz2IfRVjier524j735RcTQmtpcY4JbbI3XKHgYv2rd8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mYBCNYYSYZWyLkDmodPv0hWljrJxoriMniOd16Cxp4HhjTM1rO
+ 52X8aQ4ujxYm+d4sx3kNoUz/aRW2bGcWio8h/XHL+++X/R8zHRPPBhXha+ju7z3UxPjrgsocrfm
+ piWG201TxSYKbv6F/dnLjffFPs3OR1HQ=
+X-Received: by 2002:a05:6a21:1f8c:b0:3dd:65a5:a33 with SMTP id
+ adf61e73a8af0-3de9ef4e6e0mr252959637.10.1790747589916; Tue, 29 Sep 2026
+ 22:53:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260730092245.52034-2-egbostina@gmail.com>
+References: <20260505042631.1916555-1-domibel@debian.org>
+ <8d1e3735c40b452f7ab89228ad5a0040f5f41b35.camel@iscas.ac.cn>
+ <CAAvaLCy7jC-jFM5ZpPVeg7gKpweAW4nPKn4HXR+xpqUHD2soXQ@mail.gmail.com>
+ <84e4511ea8e3e6bdff72ce2038bf3a3272744619.camel@iscas.ac.cn>
+In-Reply-To: <84e4511ea8e3e6bdff72ce2038bf3a3272744619.camel@iscas.ac.cn>
+From: Dominique Belhachemi <domibel@debian.org>
+Date: Wed, 30 Sep 2026 01:52:58 -0400
+X-Gmail-Original-Message-ID: <CAAvaLCw1ZPBAAURvCR02zxoDrTSxiHaqDp8cjqHsyL7MsTr=Sw@mail.gmail.com>
+X-Gm-Features: AclHuK9-oOR0f56IMuemEpm996PDXvOYEpnJvgiFTYENcHWnCYFGQ9svkIM_Dn0
+Message-ID: <CAAvaLCw1ZPBAAURvCR02zxoDrTSxiHaqDp8cjqHsyL7MsTr=Sw@mail.gmail.com>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Simona Vetter <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>,
+ Michal Wilczynski <m.wilczynski@samsung.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, ganboing@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Debian-User: domibel
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,165 +82,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 12:22:44PM +0300, Eduard Bostina wrote:
-> Convert the Texas Instruments TPD12S015 HDMI level shifter and
-> ESD protection chip bindings to DT schema.
-> 
-> During the conversion, the following updates were made:
-> - Added the 'ti,tpd12s016' compatible string, which is used in
->   am57xx device trees.
-> - The 'gpios' property now allows up to 5 items, as the
->   omap5-igep0050 device tree routes additional control pins
->   beyond the standard 3 documented in the old text file.
+On Tue, Sep 29, 2026 at 3:27=E2=80=AFAM Icenowy Zheng <zhengxingda@iscas.ac=
+.cn> wrote:
+>
+> =E5=9C=A8 2026-09-28=E4=B8=80=E7=9A=84 01:21 -0400=EF=BC=8CDominique Belh=
+achemi=E5=86=99=E9=81=93=EF=BC=9A
+> > On Fri, Sep 11, 2026 at 11:33=E2=80=AFAM Icenowy Zheng
+> > <zhengxingda@iscas.ac.cn> wrote:
+> > >
+> > > I am still thinking how to decide whether to use dirty-tracking-
+> > > based
+> > > cache coherent maintenance or writecombine/uncached mapping.
+> > >
+> > Hi Icenowy,
+> >
+> > I looked into this again and writecombine/uncached mapping is the way
+> > to go.
+>
+> I think drm/imagination really requires it (because the correspoding
+> userspace driver advertises only one memory type with
+> `HOST_COHERENT_BIT` set), however in the future it could also add cache
+> maintenance support for performance reasons.
+>
+> > I used Bo Gan's XPbmtUC series and Michal Wilczynski's jh7110 display
+> > series and finally got the integrated BXE-4-32 GPU to work.
+>
+> The XPbmtUC series is problematic -- it "supports EIC7700" "with a
+> hypervisor", which means it cannot run on EIC7700 natively. This
+> severely restricts its usage.
+>
+> Samuel Holland from SiFive is working on patching the PTE on-the-fly,
+> but that will change all code accessing PTE in the kernel and thus is a
+> heavy work.
+>
+> P.S. For the JH7110 rascal+dust power issue, I did a try-and-error hack
+> at [1]. The basical register definition of this register (called
+> RGX_CR_POWER_EVENT) is available in their KM volcanic part (but it
+> seems to apply for rogue too), but the individual bits for domains are
+> undocumented, and the highest 8-bit seems to be some kind of multi-core
+> mask on Rogue.
+>
+>
+> [1]
+> https://github.com/Icenowy/linux/commit/09db317c9c229ef359e35463f8c08efd3=
+e23c685
+>
+Wow, thanks for sharing this. It works reliably and helped me get rid
+of the double-insmod for powervr.
+I integrated it into my branch with updated #defines.
 
-Isn't this an issue in the omap5-igep0050 DT sources, rather than in the
-binding ?
+Best
+-Dominique
 
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 -----------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 78 +++++++++++++++++++
->  2 files changed, 78 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> deleted file mode 100644
-> index 26e6d32e3..000000000
-> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-> +++ /dev/null
-> @@ -1,44 +0,0 @@
-> -TPD12S015 HDMI level shifter and ESD protection chip
-> -====================================================
-> -
-> -Required properties:
-> -- compatible: "ti,tpd12s015"
-> -
-> -Optional properties:
-> -- gpios: CT CP HPD, LS OE and HPD gpios
-> -
-> -Required nodes:
-> -- Video port 0 for HDMI input
-> -- Video port 1 for HDMI output
-> -
-> -Example
-> --------
-> -
-> -tpd12s015: encoder@1 {
-> -	compatible = "ti,tpd12s015";
-> -
-> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
-> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
-> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
-> -
-> -	ports {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -
-> -		port@0 {
-> -			reg = <0>;
-> -
-> -			tpd12s015_in: endpoint@0 {
-> -				remote-endpoint = <&hdmi_out>;
-> -			};
-> -		};
-> -
-> -		port@1 {
-> -			reg = <1>;
-> -
-> -			tpd12s015_out: endpoint@0 {
-> -				remote-endpoint = <&hdmi_connector_in>;
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 000000000..bda4bbab7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments TPD12S015 HDMI level shifter and ESD protection
-> +
-> +maintainers:
-> +  - Eduard Bostina <egbostina@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    minItems: 3
-> +    maxItems: 5
-> +    description: CT CP HPD, LS OE, HPD, and optional supplementary control gpios
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Video port for HDMI input
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Video port for HDMI output
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - ports
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    encoder {
-> +        compatible = "ti,tpd12s015";
-> +
-> +        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>, /* 60, CT CP HPD */
-> +                <&gpio2 9 GPIO_ACTIVE_HIGH>,  /* 41, LS OE */
-> +                <&gpio2 31 GPIO_ACTIVE_HIGH>; /* 63, HPD */
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +
-> +                tpd12s015_in: endpoint {
-> +                    remote-endpoint = <&hdmi_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +
-> +                tpd12s015_out: endpoint {
-> +                    remote-endpoint = <&hdmi_connector_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-
--- 
-Regards,
-
-Laurent Pinchart
+> >
+> > https://lore.kernel.org/all/20260316060328.1173634-1-ganboing@gmail.com=
+/
+> > https://lore.kernel.org/all/20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc=
+8@samsung.com/
+> > https://github.com/domibel/visionfive2_gpu_bringup
+> >
