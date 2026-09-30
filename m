@@ -4,76 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C46DCA5FC1
-	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 19:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB5E7CA5FC4
+	for <dri-devel@archiver.kernel.org>; Wed, 30 Sep 2026 20:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8518E10E311;
-	Wed, 30 Sep 2026 19:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C9E10EC09;
+	Wed, 30 Sep 2026 20:03:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n470vNXa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YayvKTzr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F6310E28B
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CF64E41AAA
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C841F008A6
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790798345;
- bh=D/tJ8XO5I/d4e+Rte4uhp801DYYIQLeDeH32x1bw40c=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=n470vNXaLCPDVYGZ/r3nlV6tajokuBHd+PHbSK0cEQ+vv2GulqzwQiy66EZ4VBmjT
- 69NLtDKBO86cNARwGsnk+cRv+A5DyBlFf9vpdDurovVZsaw0DdczKUbMZuq6rewqkH
- PiEyze6nTwpI/c223FfDLgyeJYdNjW28PcWxK0XTTsRlRNlSgsVyApfojdQD+QFsu/
- 87OHFEi8nbeiHUG0DXEd7/4Kqyv+7nxGOda9dvd7YSPTrbso+XKqepnLjJTLUjnBAY
- jOzdTna7aVE0e3RJ33nvCEiST8pBalurkjU8EHpBy7/aGuCl6klNJJXd4wv6pV+n8/
- oszjDqjdABKxg==
-Received: by mail-lr2-f35.google.com with SMTP id
- 38308e7fff4ca-3a77ef47f6eso6361801fa.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 12:59:05 -0700 (PDT)
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com
+ [74.125.229.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C689E10F4D2
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 20:03:37 +0000 (UTC)
+Received: by mail-dl2-f41.google.com with SMTP id
+ a92af1059eb24-14936924913so762725c88.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 13:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790798617; x=1791403417; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
+ b=YayvKTzrZRVoCpfIAupEZxhGiQLSfp1KKZFfOksMwZLYDDtGLa6XaJYTz8kkcZmsAU
+ XB1e8FHhnDkH/Tpx7YwGr5fnl7MW9LFEV2BzaWl3qVjOc7zeTVoublM7MBElYbSq5Z2E
+ Tz21zWt3dzYBC6uv6jH0gHIFi3ygaVcMdSVfRIk6FTqshR77lubbQhbR5ACE1S3rNj1f
+ 5DW559odl35oahYZZSY+hJ0E1LH4MCGKmZq3YkRmA385QHmfg288gUebg5PK9hL4Sv3x
+ HNDZv6wmBYRXTA5V1AUP9h/KJv1ka2FVx0hrEnhNCS4tj1A1eBYrFwPtWfwpARUd9xEj
+ vVhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790798617; x=1791403417;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cASLx32ym87jdhS0h2FvPN2AduCc3BT2HfqD8zMngx0=;
+ b=SQll25/KX4pxRCcOZOuzcav4bT7dGPpWwTenJT5eKMqX2Vl9fWRbJjeuG3/W2lYPqt
+ H7fHzLXzNr1tP5lfo1V1TJaijlwhpbX4Bz1gQQDd3YXHUEE7umZWrHiwVssT5WbIO9j6
+ IlQGBRtQCidrBbXyaXXRO79b5Zj+CdBFOBHIHo0qLJm07IOSwZubsabELscuFzpn0vwq
+ Pzs83j97gd5r9vQhCEp4CgyA1VNOGfkc4zAVtSQGDoPTTcmBpt0d6ZvGZ+xXRLaNOSxk
+ PowrtGh1wlw+dDYF5Lb17T7O/L2o5Uylu1cIJhE4JeoYqBMy6z1o6qrJjRDssLTRjWLs
+ vHTA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzCDR3QzxDiJ5/h+0I4aU1twY/jAbcVjuKlmGhJJrG889J5C6lJ+BVYZbQTLG+sK8LRmGz6Vj/ygoE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKIWlcI/yn95XXRkbZe3SP1hCYCmPkGs7yk7OFHLFAHhLrhbQJg
- eOt0XJBjIaxR6PN/ISKlatQE1JeCxWc8TiGMLQzsidCzTYpfLYEUOQMhioS2vf7SEnktMQpf1Hg
- MvQclT11322Et+Mio6cWi5t6Bxj77uJg=
-X-Received: by 2002:a05:651c:2107:b0:3a6:70bf:622e with SMTP id
- 38308e7fff4ca-3a7791d1688mr7596131fa.4.1790798344186; Wed, 30 Sep 2026
- 12:59:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
- <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
- <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
-In-Reply-To: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 21:58:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
-X-Gm-Features: AclHuK9gg0cHcaEM-2OSIkVk8KJVeFTXpszMdFCa2oeVci2UZbbhBGtCUcsPNPs
-Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Jun Nie <jun.nie@linaro.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
+ AKwUvBy5+WIq7FG3WA6a6xXDuWtioZG8S+eiR9RgpyS3HjFMZ9fIjsWlPVw2Lp4PlTtR2NN2aPGntkEpQDU=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nZVGaVAYwraf2m/b4lSkuflvqT+UbnBK7j3FMiG7KveDRB28r7
+ EfMCwmz+brpPcBOjFSXRVt22nyX+Xtjqp+q8xCnGvN64F81lveHoSj4h
+X-Gm-Gg: AYBFou3W9AOvHAhG4djSxqa38L8rzOk1fV6Pj0uIAq9AF0Vshr/cv/pZP/iC+aSPKA7
+ bZPkCUDuhTRV22GsaB+00WSL4K8xEbhUOJ4yCvEcCD61DjZIaeQH+gNgbmEQMqBWTZvL6Y8aBOE
+ VwrPGj+HMDiw77zvzau7Y3pdY9p0GS4PEBOC4ynu7jq1PBqjxf3yU66BACwOSyDNcUNefyeaY6k
+ 499+y7Df4avlqUmcu6HoBsM3to7Q5dRHa1BHP1W8Xe50KE9rOg8CpmTOJqozTYarw0NXogtIXVp
+ VUwk05aOKtOxJ9v2P4N4sL/zgbj14CBVnloFjAslJ8TiOuu6koH6/prN9yEmeCEeLR17T+4+1k5
+ iSO6q2N8o7aJ6dEpks7jNhFpiuKs6Bq1hmgyCy4koxAVfmK8QZteN+ps1P3DvwkHA4SXRYUDGYz
+ kw74wdC8Z9TOCPhDfzTwctxF6ZfOmFa8V991mi+FlIErGMT5mXNiLVo3YCgbY/FsxdzkjNKBRWY
+ li2gqk=
+X-Received: by 2002:a05:7022:158b:b0:141:5281:8a41 with SMTP id
+ a92af1059eb24-14d33494dfamr2639297c88.9.1790798616734; 
+ Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
+Received: from G15-5520 ([36.255.19.64]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-14df11858b3sm460601c88.2.2026.09.30.13.03.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Sep 2026 13:03:36 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] amdgpu: Use 2-argument strscpy() where destination size is
+ known
+Date: Wed, 30 Sep 2026 20:03:25 +0000
+Message-ID: <20260930200326.42827-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,39 +91,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Sep 30, 2026 at 6:43=E2=80=AFPM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
-> On 9/30/26 09:44, Linus Walleij wrote:
-> > On Tue, Sep 29, 2026 at 3:35=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
+Simplify the code by dropping the explicit size argument from strscpy()
+where the destination buffer has a compile-time known size.
 
-> > The current binding does not reflect the physical topology of the
-> > actual device, and the bindings need improvements. I have a feeling
-> > there is one display controller with two physical panels.
->
-> No there's really 2 controller and 2 separate panels, but they are not
-> classic panel, they are a pair of panels+lens which are in front of
-> the eyes which forms a single "image" for the brain, so they are
-> technically a single display and requires to be hard synchronized.
+No functional change.
 
-OK
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 2 +-
+ drivers/gpu/drm/amd/amdgpu/atom.c                | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c            | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-> See it like a single physical panel with 2 controllers which
-> shouldn't be used separately.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index 1e21e3444802..34defcfc563d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -327,7 +327,7 @@ static int amdgpu_atomfirmware_get_uma_carveout_info_v2_3(struct amdgpu_device *
+ 			uma_info->entries[i].memory_carved_mb = (uint32_t)opts[i].memoryCarvedGb << 10;
+ 
+ 		uma_info->entries[i].flags = opts[i].uma_carveout_option_flags.all8;
+-		strscpy(uma_info->entries[i].name, opts[i].optionName, MAX_UMA_OPTION_NAME);
++		strscpy(uma_info->entries[i].name, opts[i].optionName);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index 92c98e999efe..40829d2f9c97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -428,7 +428,7 @@ static void amdgpu_connector_add_common_modes(struct drm_encoder *encoder,
+ 		mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
+ 		if (!mode)
+ 			return;
+-		strscpy(mode->name, common_modes[i].name, DRM_DISPLAY_MODE_LEN);
++		strscpy(mode->name, common_modes[i].name);
+ 
+ 		drm_mode_probed_add(connector, mode);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 9269e780feb7..aafcd60d2107 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3591,7 +3591,7 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ 	 * remains intact for multi-GPU systems where this function is called
+ 	 * once per device.
+ 	 */
+-	strscpy(buf, amdgpu_lockup_timeout, sizeof(buf));
++	strscpy(buf, amdgpu_lockup_timeout);
+ 
+ 	while ((timeout_setting = strsep(&input, ",")) &&
+ 	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f280e2..9796eeab73bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1410,7 +1410,7 @@ static void atom_get_vbios_name(struct atom_context *ctx)
+ 
+ no_name:
+ 	/* do not know where to find name */
+-	strscpy(ctx->name, na, sizeof(ctx->name));
++	strscpy(ctx->name, na);
+ }
+ 
+ static void atom_get_vbios_date(struct atom_context *ctx)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index c3322058720f..a50d2885d786 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2356,7 +2356,7 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		for (i = 0; i < GFX9_NUM_SW_GFX_RINGS; i++) {
+ 			ring = &adev->gfx.sw_gfx_ring[i];
+ 			ring->ring_obj = NULL;
+-			strscpy(ring->name, amdgpu_sw_ring_name(i), sizeof(ring->name));
++			strscpy(ring->name, amdgpu_sw_ring_name(i));
+ 			ring->use_doorbell = true;
+ 			ring->doorbell_index = adev->doorbell_index.gfx_ring0 << 1;
+ 			ring->is_sw_ring = true;
+-- 
+2.53.0
 
-If you have one reset line to them each, and as proven
-by the driver in this series also grab and assert both, they
-are by definition *already* used separately.
-
-DT needs to describe the hardware.
-
-Defining two nodes below the main node for the two
-controllers and adding a reset line to each describes the
-hardware perfectly fine?
-
-It's not like I don't understand that this will complicate things
-on the drivers side, of course it does. But a binding is a binding
-is a binding. It needs to describe the hardware.
-
-Yours,
-Linus Walleij
