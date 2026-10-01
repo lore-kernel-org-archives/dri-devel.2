@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3B7CA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0F9BCA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6553010E3C0;
-	Thu,  1 Oct 2026 11:59:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55CFA10F614;
+	Thu,  1 Oct 2026 12:01:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDcRhGPE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BSyIQHM1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCFE810E3C0
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 11:59:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C366810F614
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:01:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 21928601E4;
- Thu,  1 Oct 2026 11:59:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F881F000FF;
- Thu,  1 Oct 2026 11:59:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 17F1A601E4;
+ Thu,  1 Oct 2026 12:01:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7738B1F00899;
+ Thu,  1 Oct 2026 12:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790855972;
- bh=tx5M2Oghx5c0OqYMdtecxSSBoIbMKDpofbQ49tmB7hE=;
+ s=k20260515; t=1790856073;
+ bh=C4J0R9HBIZKYjc5evTkydqc/3Ah1h/+1eQj/E3deQyU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JDcRhGPEP6NtxD4FkWKf28dFizbzAFRGJLL/iMvPI3dTBiRiQdH9Ja0tIHDVxtyFq
- XAhz1GA51l5ZDjj4viVsNCl9Jq6NNUHnw9z8t4NG3E1VrBfs0yP9Y+yNiATA0RTLn4
- LYOyNab5w88V70XgnnWO32/IzvUIc0lmr0rHtsdtSvFe7/L7Vz5vRyhzhbtUPGWnsF
- bR2V5UBYV7r7uYB0MJws7RlWf+aU9PJedwA/o/qe/+LxOAAUDA2F38UV1RgaY594JJ
- 7hwpyDtTekO/a7h3WeeNLW24mjTxETTo0mRZvXrwKtgiqtBuW7N0mbJOoYxreaR3+z
- sHzFgtn2aSAUg==
+ b=BSyIQHM1LvBRo3wXtUsF56Yhx1m0Qt/C2Qynf2u0ivFBLoRjNAXYzPKqkO9LRMjLd
+ rjEnjY6UsU4zACGv6z2G3v2ttF/fjsxM8aKcArTgoRrQFBHu8hiyvD1YvaH2Y81Vli
+ Rw8yQJNgmQpyjBH8AehpKWs0zW6Izgcy9LwvcPpg3CrvgLORMa9tOYsekDi+cAMsDH
+ Fg4UTkOKc8P7eBd/k4WvbGzuYlesUCpmI9uYkn0/JtqcHPLmznhecOqjgQMRhiW8By
+ L0WEcdfIph+03Ks5ojsekOpIs+K/p8mRzwnWv7WHEcEHYk4FMbpWnfAPZgXeRhRJN6
+ 5JLIQfjNyqJGw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 05/18] PCI/P2PDMA: Document directional ACS routing
+Subject: Re: [PATCH v9 06/18] PCI/P2PDMA: Collect the path's ACS controls
+ before deciding
 To: "Leon Romanovsky" <leon@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org,
- linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-5-1a8e0f50ddd9@nvidia.com>
+Cc: kvm@vger.kernel.org, linux-rdma@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-6-1a8e0f50ddd9@nvidia.com>
 References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
- <20261001-fix-p2p-acs-v4-0-v9-5-1a8e0f50ddd9@nvidia.com>
+ <20261001-fix-p2p-acs-v4-0-v9-6-1a8e0f50ddd9@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 11:59:32 +0000
-Message-Id: <20261001115932.75F881F000FF@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 12:01:13 +0000
+Message-Id: <20261001120113.7738B1F00899@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +60,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] doc: repeated sentence in disable_acs_redir description
---
+> From: Leon Romanovsky <leonro@nvidia.com>
+>=20
+> calc_map_type_and_dist() reads each divergence port's ACS Control register
+> and folds the result into running counters as it goes. Any routing proper=
+ty
+> that depends on the kind of TLP being routed would have to be threaded
+> through that code, so there is nowhere to put one without reading the
+> registers again for each kind.
+>=20
+> Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
+> first, then decide from it. pci_p2pdma_route() applies the same rule as
+> before: a path routes directly only when both directions do.
+>=20
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-commit 83321a8abe2362759f10e2c9273854fa000319e6
-Author: Leon Romanovsky <leon@kernel.org>
-
-PCI/P2PDMA: Document directional ACS routing
-
-P2PDMA documentation describes ACS controls as path-wide, although Request
-and Completion controls apply to different transaction directions. This
-commit documents the fixed client and provider roles, the divergence port
-checked, and clarifies which controls disable_acs_redir changes.
-
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentat=
-ion/admin-guide/kernel-parameters.txt
-> index 68647ff4bdd24..bc83e07dd5fce 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5291,12 +5291,15 @@ Kernel parameters
->  		disable_acs_redir=3D<pci_dev>[; ...]
->  				Specify one or more PCI devices (in the format
->  				specified above) separated by semicolons.
-> -				Each device specified will have the PCI ACS
-> -				redirect capabilities forced off which will
-> -				allow P2P traffic between devices through
-> -				bridges without forcing it upstream. Note:
-> -				this removes isolation between devices and
-> -				may put more devices in an IOMMU group.
-> +				Each device specified will have the PCI ACS P2P
-> +				Request Redirect, Completion Redirect, and Egress
-> +				Control features forced off. This may allow P2P
-> +				traffic through bridges that would otherwise be
-> +				redirected upstream. This may allow P2P traffic
-> +				through bridges that would otherwise be redirected
-
-[Severity: Low]
-This isn't a bug, but there is a repeated sentence ("This may allow P2P=20
-traffic through bridges that would otherwise be redirected upstream.") in=20
-this block.
-
-> +				upstream and thus this removes isolation between
-> +				devices and may cause affected devices to share
-> +				an IOMMU group.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-p2p-ac=
-s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D5
+s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D6
+
