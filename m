@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C8CCA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:04:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECB7CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0FB10F61A;
-	Thu,  1 Oct 2026 12:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D3910F624;
+	Thu,  1 Oct 2026 12:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EE41+fzX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d+uVEg0I";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54D6910F61A
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:04:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2DCD10F624
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:04:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 10A77403A9;
- Thu,  1 Oct 2026 12:04:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7041F000FF;
- Thu,  1 Oct 2026 12:04:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DABAC403A9;
+ Thu,  1 Oct 2026 12:04:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735081F000FF;
+ Thu,  1 Oct 2026 12:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790856244;
- bh=5z3oEw7PaUyQs6b4y/rnbrXQwKYoX0vuE4x8zOk8vFU=;
+ s=k20260515; t=1790856250;
+ bh=KZ+9knHWFZ60Z1hvetFWx4nv/zUuLcYYrzjsKCKJ/jU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EE41+fzXOJWMpMMz7fBBfxtXPahyOlANFdfBsBdd7BUzBb117LfHYrczizjgcrG/K
- guvikNoTV6WvUPO8Tv8yx5xKy+48h0DQrfjDXca2Xbp2fJx8LP0nYmB17GhDKnzz8N
- AGIRGVef8KuCA1YFrvK6vQHvTJOGAbfo6lfI1qzV97t4qEcyqZWEZVUtadVvlItPzF
- Q//tj1iJ7a6dD/2rt6m+XWpqanAwlzUr0tKqEC7veroflnMJYfzvcVsGQ0mmy+Uz9v
- CvyJw9CUKAuN+9Iu0F4KVzmt/96q9nCjV5Di7HP8+HPVmqadsEvr1bEU8eSrDCTNzH
- TwwBSn03ndJnA==
+ b=d+uVEg0I5f3F0pAxAao4gd4rY4iC3cQYxufbdd+NcmPspG+OVSZtJiW3Duvfy+3S9
+ vGwB9CPqfe86KMqWvfyGCRAbhD8eoDanRjJV0sFxkvexo/xBQZaRGBPP20wnFCZzn4
+ XVhBgG8O9UcPtM8aJd3tpGoQqWGyAOatMwc2Qgqq1eXvn+mRMnEph8kC/j+GsUs7QU
+ 4Idxlaer50+Pv9P5l/ByqbxlPfUK4he2F2KY1jA4qfMAr7exIW3I1hjJUxO4W70kJ9
+ 9ymGATUWPbXfk+JSxSTeqV8phSYbHNOwaAcjF7+Wmqw4BOOg+kjofvFhQCMbHJ6KQy
+ ao5BSOMczt9Wg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 18/18] PCI/P2PDMA: Test the routing of clients with
- ATS enabled
+Subject: Re: [PATCH v9 08/18] PCI/P2PDMA: Route Relaxed Ordering Completions
+ directly
 To: "Leon Romanovsky" <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org, media-ci@linuxtv.org,
- kvm@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-18-1a8e0f50ddd9@nvidia.com>
+Cc: linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, media-ci@linuxtv.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-8-1a8e0f50ddd9@nvidia.com>
 References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
- <20261001-fix-p2p-acs-v4-0-v9-18-1a8e0f50ddd9@nvidia.com>
+ <20261001-fix-p2p-acs-v4-0-v9-8-1a8e0f50ddd9@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 12:04:04 +0000
-Message-Id: <20261001120404.9B7041F000FF@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 12:04:10 +0000
+Message-Id: <20261001120410.735081F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,20 +62,24 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 > From: Leon Romanovsky <leonro@nvidia.com>
 >=20
-> A client that enables ATS for the whole device must never be handed a
-> bus address, and Translation Blocking must reject its peer-to-peer
-> traffic even when the caller asks for the default class. That has to
-> hold for answers taken from the cache as well.
+> ACS P2P Completion Redirect leaves Completions carrying the Relaxed
+> Ordering attribute alone. PCIe r7.0 sec 6.12.1.1 redirects only those "th=
+at
+> do not have the Relaxed Ordering Attribute bit set", and sec 7.7.12.5
+> describes the enable bit as "applicable only to Completions whose Relaxed
+> Ordering Attribute is clear". P2PDMA reports one answer for every kind of
+> TLP, so a client whose provider returns such Completions is sent through
+> the host bridge for a redirect that never happens to it.
 >=20
-> Cover those on the fabricated fabric, together with a client that
-> declared per-mapping ATS keeping the per-class answers and a client
-> without ATS answering for the Untranslated Requests it will issue.
+> Add enum pci_p2pdma_tlp_flags and let a caller state that property.
 >=20
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Tested-by: Tushar Dave <tdave@nvidia.com>
 > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-p2p-ac=
-s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D18
+s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D8
 
