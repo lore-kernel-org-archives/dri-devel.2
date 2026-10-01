@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4AABCA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:44:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B23CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3361B10F65C;
-	Thu,  1 Oct 2026 12:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7047B10F65D;
+	Thu,  1 Oct 2026 12:44:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="aBPKzM7g";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="fFy9NQWq";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A02B110F65C
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:21 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED9710F65D
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:30 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 72BB91A24DD;
- Thu,  1 Oct 2026 12:44:20 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 1CE884E416CC;
+ Thu,  1 Oct 2026 12:44:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 42C2560341;
- Thu,  1 Oct 2026 12:44:20 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E302560341;
+ Thu,  1 Oct 2026 12:44:28 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E3F3E103280C2; 
- Thu,  1 Oct 2026 14:44:09 +0200 (CEST)
+ with ESMTPSA id E18E4103280FE; 
+ Thu,  1 Oct 2026 14:44:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790858654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1790858663; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=WapcN4u4O2P2Y+ZdWXKtu9oaGnwPkCOTy0BexZllVJ4=;
- b=aBPKzM7g8VsMMRJ6dD92iJu+e9xBuoG91dnx+NjfTvZY4daWydYrbRK3OEY1q2sDB8QgLa
- bMJe5HarR/RyCZMGwGHePJNbBtVgZbqbsr+VU6pbFQ+fS7r9igQAIxQcAJKk4wAwytNe9q
- vYdW06HwfKqcGXQK8QX7c9zI0ARqj5jAN7xB9A0TEVnZo/d0gjyE+SEdcsxbDTedFjZKRP
- MRhHWm+SOCwcCja8bGdxTXnD0KnhwoaWrKKPjwBqlrFIOmcnfTGiB/zcktScPT/eNFNvsa
- imua9heDWQ+eXKqQLPyxmUrh/I2K6crsDT0gdIef3pDU88Wf2KxQrAkc3lvnjw==
+ bh=aOfkoQ9imkkPwg3cJ8LAELQnUwhwSzX3LqlhAmQUNGs=;
+ b=fFy9NQWqfRfFs8FMQ2JGN4Az2Da/aMdqZZ0iWZt57kaTlyuEm3BNALwQb+RM3AnOJm3Lfk
+ G+HrlHjQE1GhGLO+vpNN3bb0/hcEZ4YYE8VmIHF5vgiKA7ypqu2RH/jgi4gxjw0BigNE0k
+ nTCF7Er28lQi7T+Q/5dtF7BdSY5nkeFpn+X5VHdqxFAfE4ynGms25KLM/GKlfjmcVTy6lJ
+ 3Yjf78CGhIuiK0cz7GMnIj3UK5wdUxYDEQSX9g/vb46OJwxDGxqAcGtynbRVdC9inKk2R0
+ 8fkTabyXCdz39kittZO1VkFUWmSZOghJVJCPAmnyz+aDSL7MrNxNvComZgC/Bg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:38 +0200
-Subject: [PATCH RFC v2 16/24] drm/mipi-dsi: notify about DSI attach
+Date: Thu, 01 Oct 2026 14:42:39 +0200
+Subject: [PATCH RFC v2 17/24] drm/bridge: add drm_bridge_get_next() and
+ supporting func
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-16-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-17-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -79,50 +80,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation to support DRM bridge hotplug, let the drm_mipi_dsi code
-emit an event when a DSI device is attached to the corresponding DSI host,
-so that this event can trigger the actions needed to deconfigure the
-pipeline and unregister the connector as appropriate.
+For bridge hotplug we need to successfully probe a card with an incomplete
+bridge chain, i.e. a chain whose last bridge currently in bridge_chain
+needs another bridge at its output. Such a card would have no connector,
+and be able to add one as soon as the followong bridges are added up to the
+bridge that requires no further ones (like a panel or a connector_bridge).
 
+So we need a way to know whether the pipeline is complete in the hardware
+(all bridges probed)), in order to complete it in software (attach all
+bridges not yet attached). Currently common DRM code has no way to know
+that.
+
+Add drm_bridge_get_next() and a supporting get_next_bridge func so each
+bridge can expose its next bridge, and whether there's supposed to be one.
+
+A subsequent commit will use this function to detect whether the pipeline
+is complete in the hardware or not.
+
+Link: https://lore.kernel.org/r/20260624-vagabond-neon-gorilla-cd6487@houat
+Suggested-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/Kconfig        | 1 +
- drivers/gpu/drm/drm_mipi_dsi.c | 3 +++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 28 ++++++++++++++++++++++++++++
+ include/drm/drm_bridge.h     | 26 ++++++++++++++++++++++++++
+ 2 files changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 17c86244c75a..59015e89de92 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -45,6 +45,7 @@ config DRM_MIPI_DBI
- config DRM_MIPI_DSI
- 	tristate
- 	depends on DRM
-+	select DRM_EVENT_NOTIFIER
- 
- config DRM_KMS_HELPER
- 	tristate
-diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
-index 3ac1dd5ad640..eaa474da4a51 100644
---- a/drivers/gpu/drm/drm_mipi_dsi.c
-+++ b/drivers/gpu/drm/drm_mipi_dsi.c
-@@ -34,6 +34,7 @@
- #include <linux/slab.h>
- 
- #include <drm/display/drm_dsc.h>
-+#include <drm/drm_event_notifier.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_print.h>
- 
-@@ -386,6 +387,8 @@ int mipi_dsi_attach(struct mipi_dsi_device *dsi)
- 
- 	dsi->attached = true;
- 
-+	drm_event_notifier_notify(DRM_MIPI_DSI_ATTACHED, dsi);
-+
- 	return 0;
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index c825e80b9a7f..6a00dba0c2c8 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -710,6 +710,34 @@ void drm_bridge_detach(struct drm_bridge *bridge)
+ 	drm_bridge_put(bridge);
  }
- EXPORT_SYMBOL(mipi_dsi_attach);
+ 
++/**
++ * drm_bridge_get_next - return the bridge at this bridge's output port
++ *
++ * Return the next bridge, i.e. the bridge that is connected at the output
++ * port of @bridge. The next bridge might or not be in the encoder chain.
++ *
++ * Returns:
++ * * Pointer to a bridge connected to the output port of this bridge,
++ *   with refcount incremented; call drm_bridge_put() when done
++ * * ERR_PTR(-ENODEV): this bridge has an output port where a next bridge
++ *                     needs to be present for video output, but the next
++ *                     bridge is not currently available
++ * * NULL: this bridge does not have an output port where a next bridge
++ *         is expected
++ * * ERR_PTR(-ENOENT): the bridge does not implement the func
++ * * Another negative error returned by the bridge func
++ */
++struct drm_bridge *drm_bridge_get_next(struct drm_bridge *bridge)
++{
++	if (!(bridge->ops & DRM_BRIDGE_OP_GET_NEXT_BRIDGE)) {
++		drm_warn_once(bridge->dev, "get_next_bridge func not implemented!");
++		return ERR_PTR(-ENOENT);
++	}
++
++	return bridge->funcs->get_next_bridge(bridge);
++}
++EXPORT_SYMBOL(drm_bridge_get_next);
++
+ /**
+  * DOC: bridge operations
+  *
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 1981d24a700d..f020e0c2a268 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -62,6 +62,26 @@ enum drm_bridge_attach_flags {
+  * struct drm_bridge_funcs - drm_bridge control functions
+  */
+ struct drm_bridge_funcs {
++	/**
++	 * @get_next_bridge:
++	 *
++	 * Return a pointer to the bridge connected at the output port of
++	 * this bridge.
++	 *
++	 * Returns:
++	 * * Pointer to a bridge connected to the output port of this bridge,
++	 *   with refcount incremented; call drm_bridge_put() when done
++	 * * PTR_ERR(-ENODEV): this bridge has an output port where a next
++	 *                     bridge needs to be present for video output,
++	 *                     but the nextbridge is not currently
++	 *                     available
++	 * * NULL: this bridge does not have an output port where a next
++	 *         bridge
++	 *         is expected
++	 * * Another negative error returned by the bridge func
++	 */
++	struct drm_bridge *(*get_next_bridge)(struct drm_bridge *bridge);
++
+ 	/**
+ 	 * @attach:
+ 	 *
+@@ -1021,6 +1041,11 @@ enum drm_bridge_ops {
+ 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
+ 	 */
+ 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
++	/**
++	 * @DRM_BRIDGE_GET_NEXT_BRIDGE: The bridge implements the
++	 * &drm_bridge_funcs->get_next_bridge callback.
++	 */
++	DRM_BRIDGE_OP_GET_NEXT_BRIDGE = BIT(11),
+ };
+ 
+ /**
+@@ -1270,6 +1295,7 @@ void drm_bridge_remove(struct drm_bridge *bridge);
+ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+ 		      struct drm_bridge *previous,
+ 		      enum drm_bridge_attach_flags flags);
++struct drm_bridge *drm_bridge_get_next(struct drm_bridge *bridge);
+ 
+ #ifdef CONFIG_OF
+ struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np);
 
 -- 
 2.55.0
