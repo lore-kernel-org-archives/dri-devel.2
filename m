@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75326CA5FD4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADE3CA5FD6
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA2910E3EA;
-	Thu,  1 Oct 2026 16:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB3C10E32D;
+	Thu,  1 Oct 2026 16:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NveddBqq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="brveh8nj";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2857210F732;
- Thu,  1 Oct 2026 16:23:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2085C10F750;
+ Thu,  1 Oct 2026 16:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790871832; x=1822407832;
+ t=1790871833; x=1822407833;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sQCorAY6dTeK+nAPVWPOObCINCaoqTSQl4vujLCxDZc=;
- b=NveddBqqOhNuJN3IFxB8DyOfLlj3GuBJqxd9PUbIqwZPDefIElKsEp2V
- jdBTZDy/AfUMCCNiyHrE5zDHy+/tib++ofw8OO2wDyEOjo4uZ+tLPBOYG
- sjcZu6591Aw7B9iI4IJVovBxz/+zv1c1tzmXUqhvYBgGHnQ4UgstRWuhy
- 2wMhR2moMaWFwuJQBn/TF4ZkKeO5HrPjhvKcEcqzqsdm7531ZZSHueY53
- O6OYjNqcQ0m3IV4p+P9DEQq6iMrWQzV4MR09FBjXN16iBCla9QNcMfyQ7
- SM9qSmJyG65vXC1UoDt6TJR3lBFXmlj6SFt0vUWAtX2RrKI23KwJqVK1E A==;
-X-CSE-ConnectionGUID: 0Y0TKioPRZ6/sgqNUb8Wtg==
-X-CSE-MsgGUID: x/Zjrt28Qgyb58+fSJM/Hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102310965"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="102310965"
+ bh=7p2/0ufTY76RhZESCVR4gplMNHzihUi+X75tUfbRCz0=;
+ b=brveh8njMeJQaUCTfFXRJzQuZ62tZKMQku4uVakRJoZMM7WEUqjWT0Dc
+ VlyPpqxqSH8sJmkKO4wipkNPbzGb42NrLrwiwJ2JMeQJ5XyJONqSEssz+
+ GHyx/XLv/GTWE1jZvbqezkIPagu6SYyus5lotik0kffy1DyQmcn+JJ8XB
+ rEyNQpHbaQhPuQ9BARHyJUnBqHZfxYZ4hWH/Jz3MjZRgz2XpEulBvCJEz
+ dab+KtBAN6GSTaLZYLpNdaBu4J6X7O67i/p4tebKeRm1xgmrGNk9Y0dVf
+ I/tGxkk+Yloe0OGUGNegzAd/Z9Y0MWYHCrLs4X8tgI9dRe8h3IJHMmyCJ A==;
+X-CSE-ConnectionGUID: IIOtA/k5TgGSuKwhQZkHsw==
+X-CSE-MsgGUID: bBNDfcAPRSSpg/dsXaLeoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102310975"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="102310975"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 09:21:13 -0700
-X-CSE-ConnectionGUID: GiUovF/6QPe5uhS01IiyIg==
-X-CSE-MsgGUID: miIX5n+LTNSKMvCWmOUv+Q==
+ 01 Oct 2026 09:21:14 -0700
+X-CSE-ConnectionGUID: xvmniJQWS9+Evzm9MEMXRQ==
+X-CSE-MsgGUID: 8beNYhWNTI6zTY1AYoI2Yg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="305531777"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="305531781"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Oct 2026 09:20:11 -0700
@@ -61,9 +61,9 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Steven Price <steven.price@arm.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 4/5] drm/msm: use DRM_GPUVM_RESV_PROTECTED for VM_BIND VMs
-Date: Thu,  1 Oct 2026 09:20:00 -0700
-Message-Id: <20261001162001.3123877-5-matthew.brost@intel.com>
+Subject: [PATCH v2 5/5] drm/msm: lock the resident BOs of a VM_BIND submit last
+Date: Thu,  1 Oct 2026 09:20:01 -0700
+Message-Id: <20261001162001.3123877-6-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261001162001.3123877-1-matthew.brost@intel.com>
 References: <20261001162001.3123877-1-matthew.brost@intel.com>
@@ -85,29 +85,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_gem_vm_create() creates every drm_gpuvm without
-DRM_GPUVM_RESV_PROTECTED, on the grounds that it makes
-drm_gpuvm_bo_evict() lose track of evicted external objects. It does not:
-drm_gpuvm_bo_evict() still sets drm_gpuvm_bo::evicted on an extobj, and
-drm_gpuvm_prepare_objects() moves any such extobj onto the evicted list
-before drm_gpuvm_validate() looks at it. The VM_BIND submit path always
-calls the two in that order.
+A VM_BIND submit locks the resv of every BO mapped in the VM, then
+validates the evicted ones, which means getting their pages and mapping
+them again. That is slow, and external objects can be shared with other
+processes, so all of it happens while holding resv locks other processes
+may be waiting on, for BOs which needed no work at all.
 
-Userspace managed VMs already touch the extobj and evicted lists only
-with the VM's resv held: VMAs are created and linked by VM_BIND under
-the VM resv, msm_gem_vma_close() asserts it, and every drm_gpuvm_bo_put()
-which can drop the last reference of a VM_BIND vm_bo runs with it held,
-via msm_gem_lock_vm_and_obj(), with_vm_locks() or the object free path.
-The internal spinlocks buy nothing there, so set
-DRM_GPUVM_RESV_PROTECTED for those VMs.
+Use the two pass locking gpuvm now provides. The early pass locks only
+the evicted external objects and validates them, along with the evicted
+private ones, which the VM resv held from the start covers. The late
+pass locks the external objects which were resident, and still validates
+in case one of them was evicted meanwhile. When nothing is evicted,
+drm_gpuvm_needs_two_pass() says so and the submit keeps using a single
+pass.
 
-Kernel managed VMs are left alone. The legacy submit path holds a vm_bo
-reference per BO and drops it in msm_submit_retire() with only the
-object's resv held, which could be the last reference once the VMA is
-gone.
+Both passes run in the same drm_exec transaction, nothing is unlocked in
+between, and they take disjoint sets of objects, so reserving one fence
+slot in each still reserves it exactly once per object.
 
-This is also what two pass locking in drm_gpuvm requires, which a
-following patch makes use of.
+This moves validation from after drm_sched_job_arm() and fence
+attachment into the locking loop, ahead of everything else, which is
+also where a failure is easiest to unwind. The order does not matter to
+the shrinker: it skips any BO mapped in a VM whose resv it cannot
+trylock, and the submit holds the VM resv throughout, so a BO mapped in
+this VM cannot be evicted while it is locked, whether or not a fence is
+attached to it yet. The same means the early pass can never evict a BO
+the late pass is about to lock, the property Xe gets from
+xe_vm_set_validating().
 
 Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
 Cc: Alice Ryhl <aliceryhl@google.com>
@@ -134,36 +138,116 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Assisted-by: LLM
 ---
- drivers/gpu/drm/msm/msm_gem_vma.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 82 ++++++++++++++++++++++------
+ 1 file changed, 64 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 1badec3caa7b..c7cdd32a798f 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -818,11 +818,18 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
- 		  u64 va_start, u64 va_size, bool managed)
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 5862db05297a..7fcd322db34f 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -266,6 +266,69 @@ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+ 	return ret;
+ }
+ 
++/*
++ * Lock and validate every BO mapped in a VM_BIND VM.  Unlike the legacy path,
++ * where submit_pin_objects() only validates the BOs userspace attached to the
++ * submit, userspace does not tell us which BOs a VM_BIND submit uses, so the
++ * entire VM has to be validated.
++ *
++ * When something is evicted, the locks are taken in two passes.  The early
++ * pass locks only the external objects which need validating, i.e. the
++ * evicted ones, and validates them along with the evicted private objects,
++ * which the VM resv held from the start already covers.  The late pass then
++ * locks the external objects which were resident.  Validation means getting
++ * pages and mapping them, which is slow, and an external object can be shared
++ * with another process, so there is no point in stalling that process on the
++ * resv of a resident BO for the duration of it.  The late pass still
++ * validates, in case one of those BOs got evicted meanwhile.
++ *
++ * Both passes run in the same drm_exec transaction, nothing is unlocked in
++ * between, and they take disjoint sets of objects, so reserving one fence
++ * slot in each reserves it exactly once per object.
++ *
++ * The shrinker cannot evict a BO the early pass is about to validate, nor one
++ * it has validated already: it only evicts a BO after trylocking the resv of
++ * every VM the BO is mapped in, and the VM resv is held throughout.
++ */
++static int submit_prepare_vm_objects(struct msm_gem_submit *submit)
++{
++	struct drm_gpuvm *vm = submit->vm;
++	struct drm_exec *exec = &submit->exec;
++	int ret;
++
++	ret = drm_gpuvm_prepare_vm(vm, exec, 1);
++	if (ret)
++		return ret;
++
++	/*
++	 * With nothing evicted there is no validation to keep the resident
++	 * objects unlocked for, so do not pay for the second walk.
++	 */
++	if (!drm_gpuvm_needs_two_pass(vm)) {
++		ret = drm_gpuvm_prepare_objects(vm, exec, 1);
++		if (ret)
++			return ret;
++
++		return drm_gpuvm_validate(vm, exec);
++	}
++
++	ret = drm_gpuvm_prepare_objects_pass(vm, exec, 1,
++					     DRM_GPUVM_EXEC_PASS_EARLY);
++	if (ret)
++		return ret;
++
++	ret = drm_gpuvm_validate_pass(vm, exec, DRM_GPUVM_EXEC_PASS_EARLY);
++	if (ret)
++		return ret;
++
++	ret = drm_gpuvm_prepare_objects_pass(vm, exec, 1,
++					     DRM_GPUVM_EXEC_PASS_LATE);
++	if (ret)
++		return ret;
++
++	return drm_gpuvm_validate_pass(vm, exec, DRM_GPUVM_EXEC_PASS_LATE);
++}
++
+ static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
  {
- 	/*
--	 * We mostly want to use DRM_GPUVM_RESV_PROTECTED, except that
--	 * makes drm_gpuvm_bo_evict() a no-op for extobjs (ie. we loose
--	 * tracking that an extobj is evicted) :facepalm:
-+	 * Userspace managed (VM_BIND) VMs only ever touch the gpuvm's extobj
-+	 * and evicted lists with the VM's resv held, so use
-+	 * DRM_GPUVM_RESV_PROTECTED for those.  drm_gpuvm_bo_evict() cannot
-+	 * put an extobj on the evicted list there, but it records the
-+	 * eviction and drm_gpuvm_prepare_objects() moves it onto the list
-+	 * before drm_gpuvm_validate() runs, so nothing is lost.
-+	 *
-+	 * Kernel managed VMs keep the internal spinlocks, since the legacy
-+	 * submit path can drop the last vm_bo reference with only the
-+	 * object's resv held (see msm_submit_retire()).
- 	 */
--	enum drm_gpuvm_flags flags = 0;
-+	enum drm_gpuvm_flags flags = managed ? 0 : DRM_GPUVM_RESV_PROTECTED;
- 	struct msm_gem_vm *vm;
- 	struct drm_gem_object *dummy_gem;
- 	int ret = 0;
+ 	unsigned flags = DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES;
+@@ -276,12 +339,7 @@ static int submit_lock_objects_vmbind(struct msm_gem_submit *submit)
+ 	submit->has_exec = true;
+ 
+ 	drm_exec_until_all_locked (&submit->exec) {
+-		ret = drm_gpuvm_prepare_vm(submit->vm, exec, 1);
+-		drm_exec_retry_on_contention(exec);
+-		if (ret)
+-			break;
+-
+-		ret = drm_gpuvm_prepare_objects(submit->vm, exec, 1);
++		ret = submit_prepare_vm_objects(submit);
+ 		drm_exec_retry_on_contention(exec);
+ 		if (ret)
+ 			break;
+@@ -784,18 +842,6 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 
+ 	submit_attach_object_fences(submit);
+ 
+-	if (msm_context_is_vmbind(ctx)) {
+-		/*
+-		 * If we are not using VM_BIND, submit_pin_vmas() will validate
+-		 * just the BOs attached to the submit.  In that case we don't
+-		 * need to validate the _entire_ vm, because userspace tracked
+-		 * what BOs are associated with the submit.
+-		 */
+-		ret = drm_gpuvm_validate(submit->vm, &submit->exec);
+-		if (ret)
+-			goto out;
+-	}
+-
+ 	/* The scheduler owns a ref now: */
+ 	msm_gem_submit_get(submit);
+ 
 -- 
 2.34.1
 
