@@ -4,46 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1CCCA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:07:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17E7CCA5FD9
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E03E410E3AC;
-	Thu,  1 Oct 2026 16:07:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22A7F10F71E;
+	Thu,  1 Oct 2026 16:11:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="i6XkEaCQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HrH16TKr";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC5C510E3AC
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 16:07:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=CJ3R2JUY4xO9H62iGWpET+BpJYBXdE9+xoIpWRMkabI=; b=
- i6XkEaCQv1s0tHoRBT7DrY5/RDKVkz5OVqIPc7g7srSiHiJLDHM/P7pehcPmmzn1ZfIuHRPJbeZFI
- kpJzDyLVDSBCYuL61JVJIhaPQ+jE0Yfi8Hb1FTl+s+yf/4euDqd6fdy4ryCTchsXgY7A6pK+6MglX
- QmgpA2D/tlg17YvUP9IBWt40fKwZRLgzswxtMV+lPjT786quX5IUDCHvPk4eZQNPJK2HQtGux8DCk
- DKDOzbKnu6ZkJWifGjZ12ff2MyHHS01nx0CYntTVYKORFo7Hdeu2jmB2VWw+YMyzw+mzxcEfUaRB5
- rPTVSk8pIpS1/OxHv5Q4jlH32+opp+kTbw==;
-Received: from [81.79.79.1] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xCJJV-00ABvr-34; Thu, 01 Oct 2026 18:07:17 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
-Subject: [RFC v6 2/3] workqueue: Add support for real-time workers
-Date: Thu,  1 Oct 2026 17:07:10 +0100
-Message-ID: <20261001160711.59888-3-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001160711.59888-1-tvrtko.ursulin@igalia.com>
-References: <20261001160711.59888-1-tvrtko.ursulin@igalia.com>
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012016.outbound.protection.outlook.com
+ [40.93.195.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE1E10F715;
+ Thu,  1 Oct 2026 16:11:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yEzqDX29Yv6Lo+ATO91rhhjMiEyj+dWsYVne9N4YT2SJs+xGiYq1auQ7+lnl8FH+fBi+Nh8Oov/VoeYlebJ7Y2ridjn1Hot7OaPnJtRoMU+iQKP75Z7CKEQM/NPWQTyxRFHeCj1faxMIV+RTGNjwLeRGL+q+xPZ1ogPxtAqJ+6JTRb2BUDIT+X5ndyIvKQCSytwAewkQOZsPCTrHqhH889MxiZOz2nP5qjeRUlTZIFheTJzZe0ysGA+SGjPFTCtpl2nU3FtfeTvdX1lymz0pMwbHUvPMZLR/eDBz3KHrjynrxBp1Zkqq7PAc5DHUett7w1E77vAPljofsuOdY67tdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KoJULxXcdNe5WLnfrBOmWVMM8hYWC4Z1edJYaTBaQgs=;
+ b=NzjTpABNhJrmlSxUb0Cxi1A+VrrcL43ZzmEy3g0a4tYs652qZwgxCtaYi4MsuXdLNaFgBs2wdKcFdAL0zksTSRBtRLmin24UxEeRhlK7HH+JQROU8YmhffkOEwloMXWOL+SC2DvGt2iFrCQDF64+hR38vhpiowTBJduBZIMoZV9knLaZX56pGtYoAeoE5jhvjueFnq+j21dFIDUjEcdyeLYVUJPJvsD609m1aNv4ojtH7omLJB0KjVUJL1vpBeU6NdcJBkIKU3sj8NlDsIjIuKEpNLeZIzyMmFTEvd+c4ED27IJno49FcspXZjpqlQrztcyP1Zsw2bReWEJ9ny7cMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KoJULxXcdNe5WLnfrBOmWVMM8hYWC4Z1edJYaTBaQgs=;
+ b=HrH16TKrmuh2oQXh3W6a51zomKRSzxlTZJEsiawKv08g+AcA74NE1zqpxxDYVDnNhvJwmPdFEYitqEX8eFf2n9qxS0VyaGVUG+EA1Lh5c8OsaTyR9mcFhjy+LrPV0srn6D6O8ZxFNCZ1CmTTyJlRSSgatqbAmIbEL0gWXCLKlkM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SJ2PR12MB7918.namprd12.prod.outlook.com (2603:10b6:a03:4cc::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 16:10:56 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0472.016; Thu, 1 Oct 2026
+ 16:10:56 +0000
+Message-ID: <acf55259-f4b4-42bb-b16c-e5bb79cbecbb@amd.com>
+Date: Thu, 1 Oct 2026 11:10:52 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+Content-Language: en-US
+To: Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ amd-gfx@lists.freedesktop.org,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
+ <32f96551-358b-4874-8fd1-a685b02853e1@amd.com> <arJwOSq6-oSywTK6@houat>
+ <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de> <arJ0huW356NjqpGR@houat>
+ <8727cba2-aa4d-4480-9b76-a9dedc57d8ee@suse.de> <ar6ElW7Wg5m6A-1m@houat>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <ar6ElW7Wg5m6A-1m@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0205.namprd03.prod.outlook.com
+ (2603:10b6:610:e4::30) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ2PR12MB7918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 648217f6-91e3-4009-cc4b-08df1fd692b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|1800799024|366016|6133799003|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: QMg1MGRitl8+j6D9yDy0DSZVn9Z5Flc8pgvM0H7iFXEguKUEERO/b0uwF9XM/eCaHTsJTtQiExnL2V2klAfuXzXX7bUEll0W5HIGl5ajxYW5DNqdAZGSsH972evZODr6BDX4ViCJ90qKPEnZLO0de7Zy0nmJ/rIAj/LOOjyFe3IAmZx/7AivDC/UKJdranROTTn6C3kNSpiZDj49RPoRWMINxSfI8zIQwbIy7TVEdo62/gOJw1XWHtmfuWtcXCUsMxs940Tdss2g5Vo0cirUoSSLMqtLnfIqJKhKCtiO3AkXrQsfCIv3KNsCY6+waulrhthetmHHWzmgh6s8TLLIusSbUz50HQnoByE0LmoyIWwNUvWpD2DcHTjz3Od6Q0d6LVzGpMNnrRXWecCp8socC3cb5S5DJepUqu1hJXAdf9Vx/qCL9BRPiSsQw9Kd5ZYBbMmAy5byVsFlQL758kIM2G42Y8L0xGB3+yZRpputOr3U+TT/rNtlSGzICe27zFVX5bheagXT4BPs2MIJfg4SFWRboPuwoNpEDzJcY1SAHxmdfa6Enc6k4cLLmDA3dK+bccdMhpV0A72FQShJkWRfscJMY1uz2BJ9zrV/BTF/Rp2GjmtnaKqBTjXFiOZOpLP8ECdi+Lr/BEqmzEZUg+MtyOYvgj9XqUo1otqAvdaxD/4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUJnZDVQNGw3YjVBdURzdFdRNk5Jb1VlOE1XdGJyU0t6M0c5cm5Kd0doc0ty?=
+ =?utf-8?B?L2tuZ3UxVExkR1hNMTJBUzFQVzdrYjNGYlZsWituN1JzVUhoM1ljblVldWI4?=
+ =?utf-8?B?Q1h6UG83ZUxLcUxYd3l1UGJmcHBLUU4ybGQ3MXV1eURNT0JGQ0xxOEY1Z1Vt?=
+ =?utf-8?B?NUNBTVpLSnR4c0F4Snh1RkJOdHNPRExvK0w5eXFYL2NiZXpoWDNRQkJxZjlY?=
+ =?utf-8?B?ZHJEYmE0Z2hpWnVidmoyeExNRnpiMFNDZHhCS3QzRlgzNHJXVzg3WTg4czJ1?=
+ =?utf-8?B?UWJaYXFQeTRwTC9veE1hMzV2ZVFEckZSRUNTYk0vdm1IRkpJb3M2Vm1wTmpZ?=
+ =?utf-8?B?Ry9neVpKS2dMZTUzTTdKOExoVU5XYkhZbDJjK2UweHBQUmgwcnYzVXRObGlD?=
+ =?utf-8?B?U0RNNDQ0NkszTnVVTVZ2bTNjQ2pyOVpwNFI4YUVEOThjSUpleGhxU2VKd01Q?=
+ =?utf-8?B?VWN5UHVzOXhsaitTbDNKZ0U2KzVGa1QxbVo4MzZLc2x4Qmh5cmxqRTNhdnJ6?=
+ =?utf-8?B?R201OXp3N2Jkc2hndEQwaFdTQ0t4YWwzaGI0RmV2SFI4VkhFSzgyUzhmYmNm?=
+ =?utf-8?B?bHlyekwvakVmYkk3VzRwazExN00yLzBDdzYwM25lMnk4ZkhPeEFOend0T3p2?=
+ =?utf-8?B?aE4wdXVVK0NsQVpUdSs5RnVGQjRWYlF0VlNER1BnVWVEWFROczYrS05pWVZ4?=
+ =?utf-8?B?NjB3eUREZlozU0hQNkVOaEtzUTBnRWFmVmFMNU9tdE1YMkpGSnRjdHFlbi9F?=
+ =?utf-8?B?QUpwVnRZaUFlY3RtTE5NR0M4YVhFOVJSMC9kdzFJTy8zdGtHSmVzRU5pRmd4?=
+ =?utf-8?B?RC9IWnp3MXdTSzJ6YlByUFFxSWZQSE9ILzM4NGNCRHZCc0w4VS85U01ialli?=
+ =?utf-8?B?RlRBdHNCdnNuV3hZeDNueEVVdDdZZUZ0SWdzamdFa28zckVjYWpFTVBab0d1?=
+ =?utf-8?B?RUZ5cllKdkpvVm5SNGhJbVBWZGlDOGcvQ0prZzFnNVdvc0tZTXFFUW1ISXdt?=
+ =?utf-8?B?anlTOGR3M1VmZDdwaEJQNUhaeEsrVXNYMGtraEkzZ2hnWmYrVXFkMzB1Z2ZJ?=
+ =?utf-8?B?SytTOFRCc3c1QUhrcTBRa0dhaWdPazR6aGN5NDdyRFQvRnJRbG5hdFZFL1NZ?=
+ =?utf-8?B?K1phK3ErQzdCd254ak5Zb0M0cFlzMU1ENWFOcUw0MUhGNStSNmMwZ1NtcE9o?=
+ =?utf-8?B?UXBmaFgwQUVjU2ZDTG9PVm42Rnk0aWVUWit0cG9YazcyU2tyNjN0ZmczNjl5?=
+ =?utf-8?B?TnJuR2JCUjNJSzRIeDhOWG5yakZqUUllV1FLNUtZRlhUdlpsd3hrMHBYU3hW?=
+ =?utf-8?B?NXh4Z0VTMWZTUHJOQ25yeTVyNGJhVkE5cnpOcEhEblRQMjVOUU1xR2owQkZj?=
+ =?utf-8?B?YWZEUnlQQ1JoNXVJbjFTUW1qWXZ5aTF0Um93VzU4aWZWU2JRazl4Q3Nwb21Y?=
+ =?utf-8?B?ZHVLS1RLa0RVbDh2elRERDVTNjYvNS9Rbk5iajg3YjNSYmFJajRSYm1Bc3hk?=
+ =?utf-8?B?SUVpOEUvdzBhVFZQQ1drVVBRQWFYSzhFY2p6R2trNHFXWnRwcEpoeUs5Mk9E?=
+ =?utf-8?B?YVk5WGFnWit0S3NVTVhKd1YwdEVpN3JBMTI5VlVYTnN1WDZLTngvQXRDeFJH?=
+ =?utf-8?B?VWhwNGJtU2xQS1M3QUxBaE5vOUo1YndUNjB6NXFHZllsNjl0cnhGcVR1TW02?=
+ =?utf-8?B?c3VwSjdkV0hBaVI3Y0ppWHRSbWREN2I0QjlFRmNoQks3WW5aeWV3QTl2azNM?=
+ =?utf-8?B?cEVycHQ4N0hIbkVweTU2VUJNV1BsWTFZaWJFVjNDTmVtZkZ3alIrVGxjclJZ?=
+ =?utf-8?B?NWx6UXA3RE5VRmFFbDZvYmJna3htcU4yMXRCNG5CQjZsN01EaDd0RVIrZGU2?=
+ =?utf-8?B?KzBBMHhKdUNpVUpVdXNCSmhkVHpFRlhqY3ZEUnNBbnNhdkIzRldSR0x4QVpW?=
+ =?utf-8?B?VGNQNFl2ODFCaktFU3l6NUdkeWdCT3owYnFzVWxROWtyQ2tGRzl1M3R3OU01?=
+ =?utf-8?B?QzRqNGxEZHRSUDlPcmZvL1NkTnc0anY4d2lWZFVEUytvdnRuWFBLUkdldjNn?=
+ =?utf-8?B?Mk4rbWpDZlZadGpLWHN1UkJNZCtmU3dhcmx5S25FVjNnRU95SHAxUnk1Nkh2?=
+ =?utf-8?B?MnBBb0hRVW5qRUhPUkZSSHlmVGc3NUNORFFaRHRGcFhraTkzVXM5N1o5Tjh5?=
+ =?utf-8?B?SmU2YzljaEFuc2wwbFc3dEFjbVFuSEo5QTlYN2FVMlJpelBPZ1hkQ3Fma1Fx?=
+ =?utf-8?B?QmdEZHg3c3h6UFE1aWlCVDloeUpFOW9pcHo1Uk9NMGhRVnZIOUhMOXRiY3M4?=
+ =?utf-8?B?VVpMZS9PVzhsSmlUZ2RtNWJzMjBTQUdGL1VVT05MU2dFa3FybmRVUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 648217f6-91e3-4009-cc4b-08df1fd692b6
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 16:10:55.8896 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B3tSSiOYa2/TP47/ZdeZ+sBFU3J1mJwNZF3PT51nQD3u5QWKxbgMlmN2X+r7G7e1+cbu4+ZuXDJBEvEJLoLqrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7918
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,437 +148,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For use cases such as the DRM scheduler submitting work to the GPU on
-behalf of low latency userspace applications, where latter have sufficient
-privileges to have had successfully obtained realtime Vulkan global
-priority, competing with random background CPU load can create large
-latency spikes which gets in the way of a smooth user experience.
 
-For these situations the existing WQ_HIGHPRI does not bring a noticeable
-improvement and a stronger hint is needed.
 
-Lets add WQ_RT which creates workers with a SCHED_FIFO scheduling class to
-improve this.
+On 10/1/26 11:06, Maxime Ripard wrote:
+> On Wed, Sep 23, 2026 at 08:39:33AM +0200, Thomas Zimmermann wrote:
+>> Am 22.09.26 um 14:35 schrieb Maxime Ripard:
+>>> On Tue, Sep 22, 2026 at 02:23:17PM +0200, Thomas Zimmermann wrote:
+>>>> Hi
+>>>>
+>>>> Am 22.09.26 um 14:16 schrieb Maxime Ripard:
+>>>>> On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
+>>>>>> On 9/22/26 03:33, Javier Martinez Canillas wrote:
+>>>>>>> Hello Mario,
+>>>>>>>
+>>>>>>> On Tue, Sep 8, 2026 at 6:41 AM Mario Limonciello
+>>>>>>> <mario.limonciello@amd.com> wrote:
+>>>>>>>> At Display Next Hackfest 2026 we reviewed progress moving brightness
+>>>>>>>> control into the DRM connector properties.
+>>>>>>>>
+>>>>>>>> There is a range LUMINANCE property that will default to 0->0.
+>>>>>>>> Once a driver attaches a backlight it will be updated to 1->max.
+>>>>>>>> If the panel supports the minimum backlight turning off the display
+>>>>>>>> the range can later be updated to 0->max instead of 1->max.
+>>>>>>>>
+>>>>>>>> The legacy sysfs interface is synchronized with the DRM connector.
+>>>>>>>> When a compositor using this feature is loaded, sysfs writes are disabled
+>>>>>>>> to prevent legacy tools from going out of sync with the compositor.
+>>>>>>>>
+>>>>>>> I don't think I agree with the direction of this series. The main
+>>>>>>> issue for me is that if the sysfs interface is disabled, then I don't
+>>>>>>> understand the value of doing all the hops between the DRM and
+>>>>>>> backlight subsystems...
+>>>>>> The reason for all the hops is that users can switch between compositors
+>>>>>> that support this and don't.  If you're in a compositor that supports it
+>>>>>> that compositor will want to affirm it's in control.  If you're in a
+>>>>>> compositor without support then you should still have a way to change
+>>>>>> things, and that's what the sysfs interface exists for.
+>>>>> Couldn't we make a sysfs write trigger an atomic commit then? That way,
+>>>>> it would always go through the atomic commit path, no matter whether
+>>>>> you're on a "legacy" compositor or not.
+>>>>>
+>>>>> It would also somewhat untangle the uapi from the backlight subsystem,
+>>>>> because it's only really relevant for panels. For all the other use
+>>>>> cases, you might want to control the brightness but you have no matching
+>>>>> backlight device.
+>>>> I suggested to treat these backlight changes like display-hotplug events.
+>>>> When it happens, we'd send a uevent to user space, so it can update its
+>>>> internal state.  Such an event could then come from any source besides
+>>>> backlight's sysfs.   Compositors could also implement policies that are
+>>>> currently implicit in this series, such as brightness of 0 means "display
+>>>> off".  This is likely something a compositor should track.
+>>>>
+>>>> Would that work?
+>>> It probably would, but it would create a precedent I'm not really
+>>> familiar with. Hotplug events are kind of separate because it really is
+>>> a hardware event most of the time: you get an interrupt, and report it
+>>> to userspace. And it's largely outside of the properties space (except
+>>> maybe for things like edid).
+>>>
+>>> If we start having the argument that a property changing must trigger a
+>>> uevent, then it means that we can expect *any* property to do so, and
+>>> "the compositor needs to be in control of it" can apply to many, like
+>>> color formats, positions, tiling, etc.
+>>
+>> I'd explicitly not treat this like a change to the DRM property. More like
+>> as if the user pressed a hardware button. The property update only comes
+>> later from what ever the compositor does with the event.
+> 
+> I don't think that would work unfortunately, because then that means
+> that any system that used to rely on sysfs but wouldn't handle that new
+> event (however it is sent) would effectively have a regression.
+> 
+> That being said, it does look like we already notify userspace on
+> property change for HPCD, so maybe it's not too bad.
+> 
+> Maxime
 
-We use a minimum priority level since we only care about winning the
-contest against normal background CPU load.
+Earlier iterations of my development of the series had a userspace 
+notification.  It was very heavy.  The problem is that your DE may 
+change a brightness in a slider and try to smooth it out and then that 
+turns into hundreds of calls to notify userspace.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Bradley Morgan <include@grrlz.net>
-Cc: Chia-I Wu <olv@google.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Tejun Heo <tj@kernel.org>
----
-v2:
- * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
-   affinitity. (Tejun)
- * Fixed commit message typos. (AI)
- * Fixed sysfs handling, max_active setting and user modified nice
-   application. (AI)
-
-v3:
- * Fix worker->pool null pointer dereference race by moving the
-   global decrement to detach_dying_workers().
- * Rebase for upstream changes.
-
-v4:
- * Fixed onion unwind.
- * Moved affinity setting to default attributes.
-
-v5:
- * Dropped global and local limits.
- * Documented in workqueue.rst.
- * Added NR_WQ_ATTRIBUTES.
- * Reverted BH handling changes.
-
-v6:
- * Dropped separate attr->prio in favour of RTPRI_NICE_LEVEL checks. (Tejun)
- * Reworked on top of tj/for-7.4.
-
-v7:
- * Convert to attrs->prio encoded analoguous to task_struct->prio.
- * Rename flag to WQ_PRIO and do not re-order enums.
- * Forbid WQ_RT affinity modifications via sysfs.
- * Added wq_dump.py support.
----
- Documentation/core-api/workqueue.rst |   8 +++
- include/linux/workqueue.h            |   5 +-
- kernel/workqueue.c                   | 101 +++++++++++++++++++--------
- tools/workqueue/wq_dump.py           |   9 ++-
- 4 files changed, 90 insertions(+), 33 deletions(-)
-
-diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
-index bb770f556568..d699c3832b19 100644
---- a/Documentation/core-api/workqueue.rst
-+++ b/Documentation/core-api/workqueue.rst
-@@ -225,6 +225,14 @@ resources, scheduled and executed.
-   each other.  Each maintains its separate pool of workers and
-   implements concurrency management among its workers.
- 
-+``WQ_RT``
-+  Real-time priority workqueues must be created as unbound and will be
-+  configured with the strict CPU affinity set. Their worker threads use the FIFO
-+  scheduling policy with the lowest applicable priority.
-+
-+  To be used sparingly for use cases such as the real-time GPU rendering
-+  contexts accessible to privileged clients.
-+
- ``WQ_CPU_INTENSIVE``
-   Work items of a CPU intensive wq do not contribute to the
-   concurrency level.  In other words, runnable CPU intensive
-diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
-index a283766a192a..ebec9dcc9e5f 100644
---- a/include/linux/workqueue.h
-+++ b/include/linux/workqueue.h
-@@ -147,9 +147,9 @@ enum wq_affn_scope {
-  */
- struct workqueue_attrs {
- 	/**
--	 * @nice: nice level
-+	 * @prio: priority encoded analoguous to task_struct->prio.
- 	 */
--	int nice;
-+	int prio;
- 
- 	/**
- 	 * @cpumask: allowed CPUs
-@@ -404,6 +404,7 @@ enum wq_flags {
- 	 */
- 	WQ_POWER_EFFICIENT	= 1 << 7,
- 	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
-+	WQ_RT			= 1 << 9, /* real-time priority, valid only with WQ_UNBOUND */
- 
- 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
- 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index c83d68d7d0ee..afe39a18ad9e 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -47,6 +47,7 @@
- #include <linux/jhash.h>
- #include <linux/hashtable.h>
- #include <linux/rculist.h>
-+#include <linux/sched/rt.h>
- #include <linux/nodemask.h>
- #include <linux/moduleparam.h>
- #include <linux/uaccess.h>
-@@ -126,7 +127,8 @@ enum wq_internal_consts {
- 	 * all cpus.  Give MIN_NICE.
- 	 */
- 	RESCUER_NICE_LEVEL	= MIN_NICE,
--	HIGHPRI_NICE_LEVEL	= MIN_NICE,
-+	HIGHPRI_PRIORITY	= NICE_TO_PRIO(MIN_NICE),
-+	RT_PRIORITY		= MAX_PRIO,
- 
- 	WQ_NAME_LEN		= 32,
- 	WORKER_ID_LEN		= 10 + WQ_NAME_LEN, /* "kworker/R-" + WQ_NAME_LEN */
-@@ -1275,7 +1277,7 @@ static bool assign_work(struct work_struct *work, struct worker *worker,
- 
- static struct irq_work *bh_pool_irq_work(struct worker_pool *pool)
- {
--	int high = pool->attrs->nice == HIGHPRI_NICE_LEVEL ? 1 : 0;
-+	int high = pool->attrs->prio == HIGHPRI_PRIORITY ? 1 : 0;
- 
- 	return &per_cpu(bh_pool_irq_works, pool->cpu)[high];
- }
-@@ -1290,7 +1292,7 @@ static void kick_bh_pool(struct worker_pool *pool)
- 		return;
- 	}
- #endif
--	if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+	if (pool->attrs->prio == HIGHPRI_PRIORITY)
- 		raise_softirq_irqoff(HI_SOFTIRQ);
- 	else
- 		raise_softirq_irqoff(TASKLET_SOFTIRQ);
-@@ -2959,7 +2961,8 @@ static int format_worker_id(char *buf, size_t size, struct worker *worker,
- 		if (pool->cpu >= 0)
- 			return scnprintf(buf, size, "kworker/%d:%d%s",
- 					 pool->cpu, worker->id,
--					 pool->attrs->nice < 0  ? "H" : "");
-+					 pool->attrs->prio < NICE_TO_PRIO(0) ?
-+					 "H" : "");
- 		else
- 			return scnprintf(buf, size, "kworker/u%d:%d",
- 					 pool->id, worker->id);
-@@ -3018,7 +3021,12 @@ static struct worker *create_worker(struct worker_pool *pool)
- 			goto fail;
- 		}
- 
--		set_user_nice(worker->task, pool->attrs->nice);
-+		if (rt_prio(pool->attrs->prio))
-+			sched_set_fifo_low(worker->task);
-+		else
-+			set_user_nice(worker->task,
-+				      PRIO_TO_NICE(pool->attrs->prio));
-+
- 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
- 	}
- 
-@@ -3910,7 +3918,7 @@ static void bh_worker(struct worker *worker)
- 
- 	if (budget_exhausted)
- 		trace_workqueue_bh_budget_yield(pool, restarts, timeout,
--						pool->attrs->nice == HIGHPRI_NICE_LEVEL);
-+						pool->attrs->prio == HIGHPRI_PRIORITY);
- }
- 
- /*
-@@ -3969,7 +3977,7 @@ static void drain_dead_softirq_workfn(struct work_struct *work)
- 	 * don't hog this CPU's BH.
- 	 */
- 	if (repeat) {
--		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+		if (pool->attrs->prio == HIGHPRI_PRIORITY)
- 			queue_work(system_bh_highpri_wq, work);
- 		else
- 			queue_work(system_bh_wq, work);
-@@ -4001,7 +4009,7 @@ void workqueue_softirq_dead(unsigned int cpu)
- 		dead_work.pool = pool;
- 		init_completion(&dead_work.done);
- 
--		if (pool->attrs->nice == HIGHPRI_NICE_LEVEL)
-+		if (pool->attrs->prio == HIGHPRI_PRIORITY)
- 			queue_work(system_bh_highpri_wq, &dead_work.work);
- 		else
- 			queue_work(system_bh_wq, &dead_work.work);
-@@ -5015,7 +5023,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
- static void copy_workqueue_attrs(struct workqueue_attrs *to,
- 				 const struct workqueue_attrs *from)
- {
--	to->nice = from->nice;
-+	to->prio = from->prio;
- 	cpumask_copy(to->cpumask, from->cpumask);
- 	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
- 	to->affn_strict = from->affn_strict;
-@@ -5046,7 +5054,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
- {
- 	u32 hash = 0;
- 
--	hash = jhash_1word(attrs->nice, hash);
-+	hash = jhash_1word(attrs->prio, hash);
- 	hash = jhash_1word(attrs->affn_strict, hash);
- 	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
- 		     BITS_TO_LONGS(nr_cpumask_bits) * sizeof(long), hash);
-@@ -5060,7 +5068,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
- static bool wqattrs_equal(const struct workqueue_attrs *a,
- 			  const struct workqueue_attrs *b)
- {
--	if (a->nice != b->nice)
-+	if (a->prio != b->prio)
- 		return false;
- 	if (a->affn_strict != b->affn_strict)
- 		return false;
-@@ -5928,8 +5936,19 @@ static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
- 	if (!attrs)
- 		return NULL;
- 
--	if (wq->flags & WQ_HIGHPRI)
--		attrs->nice = HIGHPRI_NICE_LEVEL;
-+	if (wq->flags & WQ_RT) {
-+		attrs->prio = RT_PRIORITY;
-+		/*
-+		 * RT workqueues have strict CPU affinity for low
-+		 * latency execution.
-+		 */
-+		attrs->affn_scope = WQ_AFFN_CPU;
-+		attrs->affn_strict = true;
-+	} else if (wq->flags & WQ_HIGHPRI) {
-+		attrs->prio = HIGHPRI_PRIORITY;
-+	} else {
-+		attrs->prio = DEFAULT_PRIO;
-+	}
- 
- 	if (wq->flags & __WQ_ORDERED)
- 		attrs->ordered = true;
-@@ -6115,6 +6134,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
- 			return NULL;
- 	}
- 
-+	if (flags & WQ_RT) {
-+		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
-+			         WQ_UNBOUND))
-+			return NULL;
-+	}
-+
- 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
- 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
- 		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
-@@ -6671,9 +6696,9 @@ static void pr_cont_pool_info(struct worker_pool *pool)
- 	pr_cont(" flags=0x%x", pool->flags);
- 	if (pool->flags & POOL_BH)
- 		pr_cont(" bh%s",
--			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
-+			pool->attrs->prio == HIGHPRI_PRIORITY ? "-hi" : "");
- 	else
--		pr_cont(" nice=%d", pool->attrs->nice);
-+		pr_cont(" nice=%d", PRIO_TO_NICE(pool->attrs->prio));
- }
- 
- static void pr_cont_worker_id(struct worker *worker)
-@@ -6682,7 +6707,7 @@ static void pr_cont_worker_id(struct worker *worker)
- 
- 	if (pool->flags & POOL_BH)
- 		pr_cont("bh%s",
--			pool->attrs->nice == HIGHPRI_NICE_LEVEL ? "-hi" : "");
-+			pool->attrs->prio == HIGHPRI_PRIORITY ? "-hi" : "");
- 	else
- 		pr_cont("%d%s", task_pid_nr(worker->task),
- 			worker->rescue_wq ? "(RESCUER)" : "");
-@@ -7606,7 +7631,11 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
- 	int written;
- 
- 	mutex_lock(&wq->mutex);
--	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
-+	if (wq->attrs->prio == RT_PRIORITY)
-+		written = scnprintf(buf, PAGE_SIZE, "rt\n");
-+	else
-+		written = scnprintf(buf, PAGE_SIZE, "%d\n",
-+				    PRIO_TO_NICE(wq->attrs->prio));
- 	mutex_unlock(&wq->mutex);
- 
- 	return written;
-@@ -7632,19 +7661,21 @@ static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
- {
- 	struct workqueue_struct *wq = dev_to_wq(dev);
- 	struct workqueue_attrs *attrs;
--	int ret = -ENOMEM;
-+	int ret, nice = 0;
-+
-+	if (sscanf(buf, "%d", &nice) != 1 || nice < MIN_NICE || nice > MAX_NICE)
-+		return -EINVAL;
- 
- 	mutex_lock(&wq_pool_mutex);
- 
- 	attrs = wq_sysfs_prep_attrs(wq);
--	if (!attrs)
-+	if (!attrs) {
-+		ret = -ENOMEM;
- 		goto out_unlock;
-+	}
- 
--	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
--	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
--		ret = apply_workqueue_attrs_locked(wq, attrs);
--	else
--		ret = -EINVAL;
-+	attrs->prio = NICE_TO_PRIO(nice);
-+	ret = apply_workqueue_attrs_locked(wq, attrs);
- 
- out_unlock:
- 	mutex_unlock(&wq_pool_mutex);
-@@ -7716,6 +7747,10 @@ static ssize_t affinity_scope_store(struct device *dev,
- 	struct workqueue_attrs *attrs;
- 	int affn, ret = -ENOMEM;
- 
-+	/* Do not allow affinity changes for RT workers. */
-+	if (wq->flags & WQ_RT)
-+		return -EINVAL;
-+
- 	affn = parse_affn_scope(buf);
- 	if (affn < 0)
- 		return affn;
-@@ -7748,6 +7783,10 @@ static ssize_t affinity_strict_store(struct device *dev,
- 	struct workqueue_attrs *attrs;
- 	int v, ret = -ENOMEM;
- 
-+	/* Do not allow affinity changes for RT workers. */
-+	if (wq->flags & WQ_RT)
-+		return -EINVAL;
-+
- 	if (sscanf(buf, "%d", &v) != 1)
- 		return -EINVAL;
- 
-@@ -7786,6 +7825,10 @@ static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
- 	if (!(wq->flags & WQ_UNBOUND))
- 		return SYSFS_GROUP_INVISIBLE;
- 
-+	/* Do not allow priority changes for RT workers. */
-+	if ((wq->flags & WQ_RT) && !strcmp(attr->name, "nice"))
-+		return 0444;
-+
- 	return attr->mode;
- }
- 
-@@ -8310,13 +8353,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
- 	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
- }
- 
--static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
-+static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int prio)
- {
- 	BUG_ON(init_worker_pool(pool));
- 	pool->cpu = cpu;
- 	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
- 	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
--	pool->attrs->nice = nice;
-+	pool->attrs->prio = prio;
- 	pool->attrs->affn_strict = true;
- 	pool->node = cpu_to_node(cpu);
- 
-@@ -8339,7 +8382,7 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
- void __init workqueue_init_early(void)
- {
- 	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
--	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
-+	int std_prio[NR_STD_WORKER_POOLS] = { DEFAULT_PRIO, HIGHPRI_PRIORITY };
- 	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
- 		{ bh_pool_kick_normal, bh_pool_kick_highpri };
- 	int i, cpu;
-@@ -8391,7 +8434,7 @@ void __init workqueue_init_early(void)
- 
- 		i = 0;
- 		for_each_bh_worker_pool(pool, cpu) {
--			init_cpu_worker_pool(pool, cpu, std_nice[i]);
-+			init_cpu_worker_pool(pool, cpu, std_prio[i]);
- 			pool->flags |= POOL_BH;
- 			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
- 			i++;
-@@ -8399,7 +8442,7 @@ void __init workqueue_init_early(void)
- 
- 		i = 0;
- 		for_each_cpu_worker_pool(pool, cpu)
--			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
-+			init_cpu_worker_pool(pool, cpu, std_prio[i++]);
- 	}
- 
- 	system_wq = alloc_workqueue("events", WQ_PERCPU | __WQ_DEPRECATED, 0);
-diff --git a/tools/workqueue/wq_dump.py b/tools/workqueue/wq_dump.py
-index 9313ebe0c525..371601b086ca 100644
---- a/tools/workqueue/wq_dump.py
-+++ b/tools/workqueue/wq_dump.py
-@@ -24,7 +24,7 @@ Worker Pools
- Lists all worker pools indexed by their ID. For each pool:
- 
-   ref       number of pool_workqueue's associated with this pool
--  nice      nice value of the worker threads in the pool
-+  prio      priority of the worker threads in the pool
-   idle      number of idle workers
-   workers   number of all workers
-   cpu       CPU the pool is associated with (per-cpu pool)
-@@ -122,6 +122,8 @@ POOL_BH                 = prog['POOL_BH']
- WQ_NAME_LEN             = prog['WQ_NAME_LEN'].value_()
- cpumask_str_len         = len(cpumask_str(wq_unbound_cpumask))
- 
-+rt_prio = prog.constant('RT_PRIORITY', filename='kernel/workqueue.c')
-+
- print('Affinity Scopes')
- print('===============')
- 
-@@ -163,7 +165,10 @@ for pi, pool in idr_for_each(worker_pool_idr):
- 
- for pi, pool in idr_for_each(worker_pool_idr):
-     pool = drgn.Object(prog, 'struct worker_pool', address=pool)
--    print(f'pool[{pi:0{max_pool_id_len}}] flags=0x{pool.flags.value_():02x} ref={pool.refcnt.value_():{max_ref_len}} nice={pool.attrs.nice.value_():3} ', end='')
-+    prio = pool.attrs.prio.value_()
-+    if prio == rt_prio:
-+        prio = 'rt'
-+    print(f'pool[{pi:0{max_pool_id_len}}] flags=0x{pool.flags.value_():02x} ref={pool.refcnt.value_():{max_ref_len}} prio={prio:3} ', end='')
-     print(f'idle/workers={pool.nr_idle.value_():3}/{pool.nr_workers.value_():3} ', end='')
-     if pool.cpu >= 0:
-         print(f'cpu={pool.cpu.value_():3}', end='')
--- 
-2.55.0
-
+It was heavy enough that it lagged on a beefy system.  I don't think 
+this direction makes sense unless it was rate limited.
