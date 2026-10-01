@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F93CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A7F6CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C389210EBD3;
-	Thu,  1 Oct 2026 14:41:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F2310ED64;
+	Thu,  1 Oct 2026 14:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YIVWfdLu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mADkDgnN";
 	dkim-atps=neutral
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com
- [74.125.227.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 236F910EBD3
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 14:41:38 +0000 (UTC)
-Received: by mail-pj2-f42.google.com with SMTP id
- 98e67ed59e1d1-39e57ee1cb0so999634a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 07:41:38 -0700 (PDT)
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com
+ [74.125.227.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB53D10ED64
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 14:41:40 +0000 (UTC)
+Received: by mail-pj2-f43.google.com with SMTP id
+ d9443c01a7336-2d6ff23d81eso5133685ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 07:41:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790865698; x=1791470498; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790865700; x=1791470500; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Go8DGdYlWNQ1d6XhNdqWJy2/p+jQ4I2nLWIimGwFQbE=;
- b=YIVWfdLuqX6nELth186hVH345fXf8K8t0uNZQ/E/44yMfp0/rduyKK1j6vS9DOPhSc
- lIchBl9aJ/YBKRea/jNa4LeoCCl5TxrDl531s5d+XF9v0F5V0raPuO5oIRSoEDpFl9yG
- K+yqxT2BOsOENMesGtQCR2c44BQU277VgltsfBetflRVwSqw3S8GvKdOQYKlEqUVa7VZ
- kzIi918ecAgjMy3q1lnJGChqc5hF/7ipWQ8DWyDJvTWfop2kBd5OEc6+mEtCpznBowFp
- fDW3WwlJpE2XsMy533kQ4et85b4qH/bzeM3cRvypkvz7yf2Qs7yTXJjBXVrymyHv4EDT
- Zh/w==
+ bh=axlNHfZzsUJ2jTlluF8xGyi9fyNGfB6yycE/A2l+NZw=;
+ b=mADkDgnNZJffKVFh1JUWC42XwC6Ely1pzhKJO74RUlNj0E7iAJ0NxVBMUHsF3D7XV2
+ v7d0jlF5pWCnCnea76kcN257Ioj+Ymy0+2Bgba/LkQOUb5BAiVYb8yReTJ4PHE5/htRC
+ Ja7/4T36dPFBHWYUWq2oiNHUK9VNZbTtVvcanqEFD2C2TWRPJQ90JcngJw64bB88VYGC
+ M2Z+WtEsr+42AZoLxBpePo4kCB9RuYtnDBmiSou4nKxCngbrLfEa8MX5wcgWHcSwxhQF
+ eKFrmR2wWkKIhoK0L7ZKffcRbOpq61qjIB3LJRMokvyGSLlBkjVAM2fXyJiFW/wgQCd3
+ rg4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790865698; x=1791470498;
+ d=1e100.net; s=20260707; t=1790865700; x=1791470500;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Go8DGdYlWNQ1d6XhNdqWJy2/p+jQ4I2nLWIimGwFQbE=;
- b=mDunV0WTh4T5iwNYtlufGureMcR2G7BIQA3PuA0DrN18czH7suandSir2El1r9DSIl
- H2nG+DayI7mLKzkYw6fRm3OxxIWBwcM2XpN3UCrI0KAoj4YQpq81MOOzmccKULiI0XcF
- i1iB5EEjulB/nyfvh9lKvvRREhw9Iu1prU7+HlgiY2EVItMt/7qlilogAZQx9ekQlRGp
- Ym/4mjqJAl9FLhJWr4uMfL8k7l2ViIo96drKSUuJSFmUNdTMng+tFIRWGvlqqL796DJt
- zAxGEasQuLNgxPi+FcMeKhxbTFRPZGE44VFITXY02ujCMOq4+Y1I3Hhxpw01KqGroDd+
- qvfQ==
+ bh=axlNHfZzsUJ2jTlluF8xGyi9fyNGfB6yycE/A2l+NZw=;
+ b=OcYs8pGBBIDdKmjQHdrKsewKHjcm66I1BbpMbONEP15ui0zhFZUwwm5qk+mETAV2h5
+ foB6NiHRiUIat5fymyhtMJkURVXkx/HVwQvUPMBkrAAA6CIx9eVqbV7EudX8Y1xxUvut
+ XyCuP3LnE4DpurV8kumRnaMXadAk40IA0GgPfm0tNIDSzXD8OX2EvKN6IGRLZ2g+0agv
+ Z7lbXgv285Y45fiWukfEs/46fA6TanIZboRu1xGk1A4lqS1LOZrMqHG4Ft0sCJUodcwx
+ BejyUPRRMbMFofM6rYB7IKIOG6Ioh8bUBNVrcsAzKP72MsfOcFECmq+efRn8eoLH9OC5
+ n0wA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx2rN2Hu+GLRVuD+xm0iGgiNR6V+4mNIaL4xJyuzx1/G0OmZg87t6OnG/VOdjpOaO4YERhMfMHq668=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKsHVbMtLq41xO94KoXur6bCjOJDty1SzojvZ0dwZRvxyo54vVT
- nlEYsP6uaGUBxKUiaey0dnLCZ4WZAhpWorLwNzISoIBasiUhpUdZd5oI
-X-Gm-Gg: AYBFou07XU7XjB0Y4FNxo2H5DAYb2x7HZd9aeHggMeZOOCwKMkO0A0/rf1y7Sbg/byP
- NXlk7RLk93u4OUypxgx6MsHXufZX+wBcckrUJStkVzUhiZtj4nxg/3ry1oTZTOsm9i/iJj9Ykjy
- 3Iq4XF702WSCKOxFkFfCfFKtv1veEw43C345JkvgZisNI/bOjFyHbLroTqu5vGWdJastCQx3ADU
- fiHKLVd8lI8iDz/fNZ5DZqdr3/0NK0uIc23R84+jxNTVdaq1amjr3FPqwW82vjllYqUnW2dlkmN
- B8tHW8EIogrlkkSnJCEcEvLIBhh/Zfx76CPzDpyUWty53v8Pdjdtyx9B7HmBu5IaR9njkCEhphu
- C87zqBziHkDBGFlc19Gb1kKybu9NddWqy3jcnmcaQob/DDNu/tfuABDb3v4MpNhOj85eAa2AGfM
- nU0RfcBAxENDMByzxZDq4FEM8Jbm8xNJi+/XK1j3EOXeilRO2PICiZhZnGZvJyEfKZWGmJcg==
-X-Received: by 2002:a17:90b:588d:b0:3a0:e7ef:bc81 with SMTP id
- 98e67ed59e1d1-3a4d19343dbmr6803741a91.3.1790865697501; 
- Thu, 01 Oct 2026 07:41:37 -0700 (PDT)
+ AKwUvBw3nvpODxThapIXR/Vhud4Pwvly1cU/Btn+us/Zc0zZyrsiney9rIS1ZoZ2vKe5DhPjAZ+YqFGp2CU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLmE3bQqweGEG8OuzfiULGd4bl4Q5Tu53wFd07SphbLNEouEFt/
+ vobSeu3r+RDslIZh9OdkaQlN8jR1n4VmannAgDX1clXBNU09oMSC1+5K
+X-Gm-Gg: AYBFou2E5SIbHONRJcKDQxqiHBSuP2wwwDkRq1/P7Ge2LwUeHVGatWls7qXX2LAyRhX
+ wEPWUcMgdI7EzQ4ft2ewWZwuTbLCAi3L6OfwDSAT/1+CPIAi9ZayIdPfWjVOmhYs4fi3plNVFlY
+ FcfL4X07fwrU41lKkVZJU649WgBNS0x6+c2hZGizVpFSmbo4UQPppqsuktsRJkiG5H93lADCLmY
+ JLv66mvBwGldCMtiOkfrj7WrJd3Al5pp8mDkLPZ0xYcWCPa84cjJsJ0DDEIerIf6YFdzvHBCagc
+ qJHhzlHaViuhCovMHW5fYTpo/Fg4uK4t6xOI53CPpkbkV6gS4chbMFJNdzH+QwvIv6GQpbss6Mo
+ IxxJO5hBRt7c+u6pW+qFnIepk07moWtTLsQMxdAiywRy/KRBxJQ9/M4r64KOyB6XwylVUW776xz
+ nERv3BoGCZNfYpbT9W7wqwKJMLskfvTcIvPG0oGvlw2lxBd3zL+NHHQLvVT//UQVbS+KO916iqI
+ gXSC+w=
+X-Received: by 2002:a17:902:f690:b0:2e2:dbfe:8623 with SMTP id
+ d9443c01a7336-2e2e49100acmr64405475ad.1.1790865700336; 
+ Thu, 01 Oct 2026 07:41:40 -0700 (PDT)
 Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a4f445d356sm4976256a91.11.2026.10.01.07.41.36
+ d9443c01a7336-2e300ae77ccsm11886435ad.36.2026.10.01.07.41.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 07:41:37 -0700 (PDT)
+ Thu, 01 Oct 2026 07:41:39 -0700 (PDT)
 From: Adam Azuddin <azuddinadam@gmail.com>
 To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
@@ -70,10 +71,9 @@ Cc: jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch,
  andersson@kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Adam Azuddin <azuddinadam@gmail.com>
-Subject: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875 display
- controller
-Date: Thu,  1 Oct 2026 22:41:25 +0800
-Message-ID: <20261001144128.2336301-2-azuddinadam@gmail.com>
+Subject: [PATCH v3 2/2] drm/tiny: Add RAiO RA8875 display controller driver
+Date: Thu,  1 Oct 2026 22:41:26 +0800
+Message-ID: <20261001144128.2336301-3-azuddinadam@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261001144128.2336301-1-azuddinadam@gmail.com>
 References: <20261001144128.2336301-1-azuddinadam@gmail.com>
@@ -94,113 +94,790 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The binding is for SPI-connected RA8875 TFT display controller by RAiO
-Technology Inc. It supports display resolutions of up to 800x480.
+Add a DRM tiny driver for the RAiO RA8875 SPI-connected TFT display
+controller. The driver supports display resolutions up to 800x480
+and uses the GEM shmem helper for buffer management.
 
 Assisted-by: LLM
 Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 ---
- .../bindings/display/panel/raio,ra8875.yaml   | 77 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 79 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+ MAINTAINERS                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig  |  13 +
+ drivers/gpu/drm/tiny/Makefile |   1 +
+ drivers/gpu/drm/tiny/ra8875.c | 713 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 733 insertions(+)
+ create mode 100644 drivers/gpu/drm/tiny/ra8875.c
 
-diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4d108339f44e..0dfe8bbea97e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8449,6 +8449,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/raydium,rm67191.yaml
+ F:	drivers/gpu/drm/panel/panel-raydium-rm67191.c
+ 
++DRM DRIVER FOR RAIO RA8875 PANELS
++M:	Adam Azuddin <azuddinadam@gmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
++F:	drivers/gpu/drm/tiny/ra8875.c
++
+ DRM DRIVER FOR SAMSUNG DB7430 PANELS
+ M:	Linus Walleij <linusw@kernel.org>
+ S:	Maintained
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index f0e72d4b6a47..7901ffce490b 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -195,6 +195,19 @@ config TINYDRM_REPAPER
+ 
+ 	  If M is selected the module will be called repaper.
+ 
++config DRM_RA8875
++	tristate "DRM support for RA8875 display panels"
++	depends on DRM && SPI
++	select DRM_CLIENT_SELECTION
++	select DRM_KMS_HELPER
++	select DRM_GEM_SHMEM_HELPER
++	select VIDEOMODE_HELPERS
++	help
++	  DRM driver for the following RAiO RA8875 based LCD panels:
++	  * East Rising 5.00" TFT LCD (ER-TFTM070-5V4)
++
++	  If M is selected the module will be called ra8875.
++
+ config TINYDRM_SHARP_MEMORY
+ 	tristate "DRM support for Sharp Memory LCD panels"
+ 	depends on DRM && SPI
+diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
+index 48d30bf6152f..ed4602097fbb 100644
+--- a/drivers/gpu/drm/tiny/Makefile
++++ b/drivers/gpu/drm/tiny/Makefile
+@@ -14,4 +14,5 @@ obj-$(CONFIG_TINYDRM_ILI9341)		+= ili9341.o
+ obj-$(CONFIG_TINYDRM_ILI9486)		+= ili9486.o
+ obj-$(CONFIG_TINYDRM_MI0283QT)		+= mi0283qt.o
+ obj-$(CONFIG_TINYDRM_REPAPER)		+= repaper.o
++obj-$(CONFIG_DRM_RA8875)		+= ra8875.o
+ obj-$(CONFIG_TINYDRM_SHARP_MEMORY)	+= sharp-memory.o
+diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
 new file mode 100644
-index 000000000000..4283de927b13
+index 000000000000..d990d052e947
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-@@ -0,0 +1,77 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/gpu/drm/tiny/ra8875.c
+@@ -0,0 +1,713 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * DRM driver for RAiO ra8875 controller
++ *
++ * Copyright 2026 Adam Azuddin <azuddinadam@gmail.com>
++ */
 +
-+title: RAiO RA8875 Display Controller
++#include "linux/gfp_types.h"
++#include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/container_of.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/device/devres.h>
++#include <linux/err.h>
++#include <linux/iosys-map.h>
++#include <linux/module.h>
++#include <linux/spi/spi.h>
++#include <linux/string.h>
++#include <video/of_display_timing.h>
++#include <video/of_videomode.h>
++#include <video/videomode.h>
 +
-+maintainers:
-+  - Adam Azuddin <azuddinadam@gmail.com>
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_device.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_fbdev_shmem.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_managed.h>
++#include <drm/drm_mode.h>
++#include <drm/drm_mode_config.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_print.h>
 +
-+description:
-+  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
-+  It can be connected to the controller via 8080/6800 parallel interface,
-+  SPI or I2C. This binding describes the SPI-connected device.
++#define RA8875_TXBUF_ROWS	 16
++#define RA8875_CMD_DATA_BUF_SIZE 2
 +
-+allOf:
-+  - $ref: panel-common.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++#define RA8875_RESET_WAIT_MS 10 /* datasheet min: 1 ms after RST# rises */
++#define RA8875_MAX_WIDTH     800
++#define RA8875_MAX_HEIGHT    480
 +
-+properties:
-+  compatible:
-+    const: raio,ra8875
++#define RA8875_DATAWRITE	 0x00
++#define RA8875_CMDWRITE		 0x80
++#define RA8875_CMDREAD		 0xC0
++#define RA8875_PWRR		 0x01
++#define RA8875_PWRR_DISPON	 BIT(7)
++#define RA8875_PWRR_DISPOFF	 0x00
++#define RA8875_PWRR_SOFTRST	 BIT(0)
++#define RA8875_MRWC		 0x02
++#define RA8875_PLLC1		 0x88
++#define RA8875_PLLC1_PLLDIVN_11	 0x0B
++#define RA8875_PLLC2		 0x89
++#define RA8875_PLLC2_DIVK_4	 0x02
++#define RA8875_SYSR		 0x10
++#define RA8875_SYSR_16BPP	 0x0C
++#define RA8875_PCSR		 0x04
++#define RA8875_PCSR_PCLK_INV	 BIT(7) /* PDAT at falling edge */
++#define RA8875_PCSR_2CLK	 0x01
++#define RA8875_HDWR		 0x14
++#define RA8875_HNDFTR		 0x15
++#define RA8875_HNDFTR_HNDFT(n)	 ((n) & GENMASK(3, 0)) /* fine tune, 2px/step */
++#define RA8875_HNDR		 0x16
++#define RA8875_HSTR		 0x17
++#define RA8875_HPWR		 0x18
++#define RA8875_VDHR0		 0x19
++#define RA8875_VDHR1		 0x1A
++#define RA8875_VNDR0		 0x1B
++#define RA8875_VNDR1		 0x1C
++#define RA8875_VSTR0		 0x1D
++#define RA8875_VSTR1		 0x1E
++#define RA8875_VPWR		 0x1F
++#define RA8875_HSAW0		 0x30
++#define RA8875_HSAW1		 0x31
++#define RA8875_VSAW0		 0x32
++#define RA8875_VSAW1		 0x33
++#define RA8875_HEAW0		 0x34
++#define RA8875_HEAW1		 0x35
++#define RA8875_VEAW0		 0x36
++#define RA8875_VEAW1		 0x37
++#define RA8875_MWCR0		 0x40
++#define RA8875_MWCR0_GFXMODE	 0x00
++#define RA8875_MWCR0_LRTD	 0x00
++#define RA8875_CURH0		 0x46
++#define RA8875_CURH1		 0x47
++#define RA8875_CURV0		 0x48
++#define RA8875_CURV1		 0x49
++#define RA8875_P1CR		 0x8A
++#define RA8875_P1CR_ENABLE	 BIT(7)
++#define RA8875_P1CR_DISABLE	 0x00
++#define RA8875_P1CR_SYS_CLK_DIV2 0x01
++#define RA8875_P1DCR		 0x8B
++#define RA8875_P1DCR_FULL	 0xFF
++#define RA8875_P1DCR_HALF	 0x80
++#define RA8875_P1DCR_MIN	 0x00
 +
-+  reg:
-+    maxItems: 1
++DEFINE_DRM_GEM_FOPS(ra8875_fops);
 +
-+  vdd-supply:
-+    description:
-+      3.3 V supply for the IO pins, the oscillator IO pins, the ADC pins
-+      and the internal LDO. The 1.8 V core rail is generated internally.
++struct ra8875_device {
++	struct drm_device drm;
++	struct spi_device *spi;
++	struct gpio_desc *rst_gpio;
++	struct drm_crtc crtc;
++	struct drm_plane plane;
++	struct drm_encoder encoder;
++	struct drm_connector connector;
++	struct drm_display_mode mode;
++	u8 cmd_buf[RA8875_CMD_DATA_BUF_SIZE];
++	u8 data_buf[RA8875_CMD_DATA_BUF_SIZE];
++	u8 *txbuf;
++};
 +
-+  reset-gpios:
-+    description:
-+      GPIO connected to the active-low RST# pin. Optional, since the board
-+      may instead use an RC reset circuit.
-+    maxItems: 1
++static const struct drm_mode_config_funcs ra8875_modeconfig_funcs = {
++	.fb_create = drm_gem_fb_create_with_dirty,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - display-timings
-+  - vdd-supply
++static const struct drm_connector_funcs ra8875_connector_funcs = {
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
 +
-+unevaluatedProperties: false
++static int ra8875_connector_get_modes(struct drm_connector *connector)
++{
++	struct ra8875_device *ra8875 =
++		container_of(connector, struct ra8875_device, connector);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++	return drm_connector_helper_get_modes_fixed(connector, &ra8875->mode);
++}
 +
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++static const struct drm_connector_helper_funcs ra8875_connector_helper_funcs = {
++	.get_modes = ra8875_connector_get_modes
++};
 +
-+        panel: display@0 {
-+            compatible = "raio,ra8875";
-+            reg = <0>;
-+            spi-max-frequency = <16000000>;
-+            vdd-supply = <&vcc_3v3>;
-+            reset-gpios = <&gpio 25 GPIO_ACTIVE_LOW>;
++static int ra8875_write_reg(struct ra8875_device *ra8875, u8 reg, u8 val)
++{
++	int ret;
 +
-+            display-timings {
-+                native-mode = <&timing0>;
-+                timing0: timing0 {
-+                    clock-frequency = <25000000>;
-+                    hactive = <800>;
-+                    vactive = <480>;
-+                    hfront-porch = <40>;
-+                    hsync-len = <40>;
-+                    hback-porch = <40>;
-+                    vfront-porch = <10>;
-+                    vsync-len = <10>;
-+                    vback-porch = <20>;
-+                };
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..99d5113fb035 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1395,6 +1395,8 @@ patternProperties:
-     description: Radxa
-   "^raidsonic,.*":
-     description: RaidSonic Technology GmbH
-+  "^raio,.*":
-+    description: RAiO Technology Inc.
-   "^ralink,.*":
-     description: Mediatek/Ralink Technology Corp.
-   "^ramtron,.*":
++	ra8875->cmd_buf[0] = RA8875_CMDWRITE;
++	ra8875->cmd_buf[1] = reg;
++	ret = spi_write(ra8875->spi, ra8875->cmd_buf, 2);
++	if (ret)
++		goto err;
++
++	ra8875->data_buf[0] = RA8875_DATAWRITE;
++	ra8875->data_buf[1] = val;
++	ret = spi_write(ra8875->spi, ra8875->data_buf, 2);
++	if (ret)
++		goto err;
++
++	return 0;
++err:
++	dev_err(&ra8875->spi->dev,
++		"write_reg(0x%02x, 0x%02x) failed: %d\n", reg, val, ret);
++	return ret;
++}
++
++static int ra8875_write_pixels(struct ra8875_device *ra8875, size_t len)
++{
++	int ret;
++
++	ra8875->cmd_buf[0] = RA8875_CMDWRITE;
++	ra8875->cmd_buf[1] = RA8875_MRWC;
++	ret = spi_write(ra8875->spi, ra8875->cmd_buf, 2);
++	if (ret)
++		return ret;
++
++	return spi_write(ra8875->spi, ra8875->txbuf, 1 + len);
++}
++
++static int ra8875_hw_init(struct ra8875_device *ra8875,
++			  struct drm_display_mode *mode)
++{
++	u8 hdwr, hndr, hstr, hpwr, vpwr;
++	u16 vdhr, vndr, vstr;
++	int ret;
++
++	if (ra8875->rst_gpio) {
++		gpiod_set_value_cansleep(ra8875->rst_gpio, 1);
++		usleep_range(1000, 1200);
++		gpiod_set_value_cansleep(ra8875->rst_gpio, 0);
++		msleep(RA8875_RESET_WAIT_MS);
++	}
++
++	/* Soft Reset Sequence */
++	ret = ra8875_write_reg(ra8875, RA8875_PWRR, RA8875_PWRR_SOFTRST);
++	if (ret)
++		return ret;
++
++	usleep_range(1000, 2000);
++	ret = ra8875_write_reg(ra8875, RA8875_PWRR, 0);
++	if (ret)
++		return ret;
++
++	/* PLL */
++	ret = ra8875_write_reg(ra8875, RA8875_PLLC1, RA8875_PLLC1_PLLDIVN_11);
++	if (ret)
++		return ret;
++	usleep_range(200, 500);
++
++	ret = ra8875_write_reg(ra8875, RA8875_PLLC2, RA8875_PLLC2_DIVK_4);
++	if (ret)
++		return ret;
++	usleep_range(200, 500);
++
++	/* PCLK period = 2x System Clock period */
++	ret = ra8875_write_reg(ra8875, RA8875_PCSR, RA8875_PCSR_PCLK_INV | RA8875_PCSR_2CLK);
++	if (ret)
++		return ret;
++
++	/* 16bpp, 8-bit MCU interface */
++	ret = ra8875_write_reg(ra8875, RA8875_SYSR, RA8875_SYSR_16BPP);
++	if (ret)
++		return ret;
++	usleep_range(1000, 2000);
++
++	/* Graphics mode, left-to-right top-to-down write direction */
++	ret = ra8875_write_reg(ra8875, RA8875_MWCR0,
++			       RA8875_MWCR0_GFXMODE | RA8875_MWCR0_LRTD);
++	if (ret)
++		return ret;
++
++	/* Horizontal timing */
++	hdwr = (mode->hdisplay / 8) - 1;
++	hndr = ((mode->htotal - mode->hdisplay) / 8) - 1;
++	hstr = ((mode->hsync_start - mode->hdisplay) / 8) - 1;
++	hpwr = ((mode->hsync_end - mode->hsync_start) / 8) - 1;
++
++	ret = ra8875_write_reg(ra8875, RA8875_HDWR, hdwr);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_HNDFTR, RA8875_HNDFTR_HNDFT(0));
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_HNDR, hndr);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_HSTR, hstr);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_HPWR, hpwr);
++	if (ret)
++		return ret;
++
++	/* Vertical timing */
++	vdhr = mode->vdisplay - 1;
++	vndr = mode->vtotal - mode->vdisplay - 1;
++	vstr = mode->vsync_start - mode->vdisplay - 1;
++	vpwr = mode->vsync_end - mode->vsync_start - 1;
++
++	ret = ra8875_write_reg(ra8875, RA8875_VDHR0, vdhr & 0xFF);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VDHR1, (vdhr >> 8) & 0x01);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VNDR0, vndr & 0xFF);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VNDR1, (vndr >> 8) & 0x01);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VSTR0, vstr & 0xFF);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VSTR1, (vstr >> 8) & 0x01);
++	if (ret)
++		return ret;
++	ret = ra8875_write_reg(ra8875, RA8875_VPWR, vpwr);
++	if (ret)
++		return ret;
++
++	/* PWM1: enabled, PWM output, full brightness */
++	ret = ra8875_write_reg(ra8875, RA8875_P1CR,
++			 RA8875_P1CR_ENABLE | RA8875_P1CR_SYS_CLK_DIV2);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_P1DCR, RA8875_P1DCR_FULL);
++	if (ret)
++		return ret;
++	usleep_range(10000, 11000);
++
++	/* Display on */
++	ret = ra8875_write_reg(ra8875, RA8875_PWRR, RA8875_PWRR_DISPON);
++	if (ret)
++		return ret;
++	usleep_range(10000, 11000);
++
++	return 0;
++}
++
++static int ra8875_clear_screen(struct ra8875_device *ra8875,
++			       struct drm_display_mode *mode)
++{
++	int width = mode->hdisplay;
++	int height = mode->vdisplay;
++	int y, rows, ret;
++	u8 *txbuf = ra8875->txbuf;
++	int rows_per_chunk = RA8875_TXBUF_ROWS;
++
++	/* Set active window to full screen */
++	ret = ra8875_write_reg(ra8875, RA8875_HSAW0, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_HSAW1, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_VSAW0, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_VSAW1, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_HEAW0, (width - 1) & 0xFF);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_HEAW1, ((width - 1) >> 8) & 0x03);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_VEAW0, (height - 1) & 0xFF);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_VEAW1,
++			       ((height - 1) >> 8) & 0x01);
++	if (ret)
++		return ret;
++
++	/* Set cursor to 0,0 */
++	ret = ra8875_write_reg(ra8875, RA8875_CURH0, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_CURH1, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_CURV0, 0);
++	if (ret)
++		return ret;
++
++	ret = ra8875_write_reg(ra8875, RA8875_CURV1, 0);
++	if (ret)
++		return ret;
++
++	memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
++	txbuf[0] = RA8875_DATAWRITE;
++
++	for (y = 0; y < height; y += rows) {
++		rows = min(rows_per_chunk, height - y);
++		ra8875_write_pixels(ra8875, 1 + rows * width * 2);
++	}
++
++	return 0;
++}
++
++static void ra8875_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
++{
++	struct ra8875_device *ra8875 =
++		container_of(crtc->dev, struct ra8875_device, drm);
++	struct drm_crtc_state *crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_display_mode *mode = &crtc_state->mode;
++	int ret;
++
++	ret = ra8875_hw_init(ra8875, mode);
++	if (ret) {
++		drm_err(&ra8875->drm, "Failed to initialize hardware\n");
++		return;
++	}
++
++	ret = ra8875_clear_screen(ra8875, mode);
++	if (ret) {
++		drm_err(&ra8875->drm, "Failed to clear screen\n");
++		return;
++	}
++}
++
++static void ra8875_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
++{
++	struct ra8875_device *ra8875 =
++		container_of(crtc->dev, struct ra8875_device, drm);
++
++	ra8875_write_reg(ra8875, RA8875_P1CR, RA8875_P1CR_DISABLE);
++	ra8875_write_reg(ra8875, RA8875_P1DCR, RA8875_P1DCR_MIN);
++
++	ra8875_write_reg(ra8875, RA8875_PWRR, RA8875_PWRR_DISPOFF);
++}
++
++static void ra8875_fb_dirty(struct ra8875_device *ra8875, struct iosys_map *src,
++			    struct drm_framebuffer *fb, struct drm_rect *rect)
++{
++	unsigned int width = drm_rect_width(rect);
++	int rows = 0;
++	struct iosys_map dst;
++	struct drm_format_conv_state fmtcnv_state = DRM_FORMAT_CONV_STATE_INIT;
++
++	if (ra8875_write_reg(ra8875, RA8875_HSAW0, rect->x1 & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_HSAW1, (rect->x1 >> 8) & 0x03))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_VSAW0, rect->y1 & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_VSAW1, (rect->y1 >> 8) & 0x01))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_HEAW0, (rect->x2 - 1) & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_HEAW1, ((rect->x2 - 1) >> 8) & 0x03))
++		goto err;
++
++	if (ra8875_write_reg(ra8875, RA8875_VEAW0, (rect->y2 - 1) & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_VEAW1, ((rect->y2 - 1) >> 8) & 0x01))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_CURH0, rect->x1 & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_CURH1, (rect->x1 >> 8) & 0x03))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_CURV0, rect->y1 & 0xFF))
++		goto err;
++	if (ra8875_write_reg(ra8875, RA8875_CURV1, (rect->y1 >> 8) & 0x01))
++		goto err;
++
++	for (int y = rect->y1; y < rect->y2; y += rows) {
++		struct drm_rect chunk;
++
++		rows = min(RA8875_TXBUF_ROWS, rect->y2 - y);
++		chunk = DRM_RECT_INIT(rect->x1, y, width, rows);
++
++		iosys_map_set_vaddr(&dst, ra8875->txbuf + 1);
++		drm_fb_swab(&dst, NULL, src, fb, &chunk, false, &fmtcnv_state);
++
++		ra8875_write_pixels(ra8875, 1 + rows * width * 2);
++	}
++
++	drm_format_conv_state_release(&fmtcnv_state);
++	return;
++err:
++	drm_format_conv_state_release(&fmtcnv_state);
++	dev_err_once(fb->dev->dev, "Failed to update display\n");
++}
++
++static void ra8875_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
++{
++	struct ra8875_device *ra8875 = container_of(plane->dev, struct ra8875_device, drm);
++	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
++	struct drm_framebuffer *fb = plane_state->fb;
++	struct drm_rect rect;
++	struct iosys_map *map = &shadow_plane_state->data[0];
++	int idx;
++
++	if (!drm_dev_enter(&ra8875->drm, &idx))
++		return;
++
++	if (iosys_map_is_null(map)) {
++		drm_err(&ra8875->drm, "Shadow map is null\n");
++		goto exit;
++	}
++	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
++		ra8875_fb_dirty(ra8875, map, fb, &rect);
++exit:
++	drm_dev_exit(idx);
++}
++
++static enum drm_mode_status ra8875_mode_valid(struct drm_crtc *crtc,
++					      const struct drm_display_mode *mode)
++{
++	if (mode->hdisplay % 8 != 0 || mode->hsync_start % 8 != 0 ||
++	    mode->hsync_end % 8 != 0 || mode->htotal % 8 != 0) {
++		drm_dbg_kms(crtc->dev,
++		   "mode timings must be 8-pixel aligned (hdisplay=%d hsync_start=%d hsync_end=%d htotal=%d)\n",
++			    mode->hdisplay, mode->hsync_start, mode->hsync_end, mode->htotal);
++		return MODE_H_ILLEGAL;
++	}
++	return MODE_OK;
++}
++
++static int ra8875_plane_atomic_check(struct drm_plane *plane, struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *crtc_state;
++
++	if (!new_plane_state->crtc)
++		return 0;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
++	if (!crtc_state)
++		return -EINVAL;
++
++	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
++						   DRM_PLANE_NO_SCALING,
++						   DRM_PLANE_NO_SCALING,
++						   false, true);
++}
++
++static const u32 ra8875_formats[] = {
++	DRM_FORMAT_RGB565,
++};
++
++static const struct drm_encoder_funcs ra8875_encoder_funcs_cleanup = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static const struct drm_crtc_funcs ra8875_crtc_funcs = {
++	.atomic_create_state = drm_atomic_helper_crtc_create_state,
++	.destroy = drm_crtc_cleanup,
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
++};
++
++static const struct drm_crtc_helper_funcs ra8875_crtc_helper_funcs = {
++	.mode_valid = ra8875_mode_valid,
++	.atomic_enable = ra8875_crtc_atomic_enable,
++	.atomic_disable = ra8875_crtc_atomic_disable,
++};
++
++static const struct drm_plane_funcs ra8875_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	.destroy = drm_plane_cleanup,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
++};
++
++static const struct drm_plane_helper_funcs ra8875_plane_helper_funcs = {
++	.prepare_fb = drm_gem_plane_helper_prepare_fb,
++	.begin_fb_access = drm_gem_begin_shadow_fb_access,
++	.end_fb_access = drm_gem_end_shadow_fb_access,
++	.atomic_check = ra8875_plane_atomic_check,
++	.atomic_update = ra8875_plane_atomic_update,
++};
++
++static const struct drm_driver ra8875_driver = {
++	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
++	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
++	.fops = &ra8875_fops,
++	.name = "ra8875",
++	.desc = "RAiO RA8875",
++	.major = 1,
++	.minor = 0,
++};
++
++static const struct of_device_id ra8875_of_match[] = {
++	{ .compatible = "raio,ra8875" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ra8875_of_match);
++
++static const struct spi_device_id ra8875_id[] = {
++	{ "ra8875", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, ra8875_id);
++
++static int ra8875_probe(struct spi_device *spi)
++{
++	struct device *dev = &spi->dev;
++	struct ra8875_device *ra8875;
++	struct drm_connector *connector;
++	struct drm_device *drm;
++	struct videomode vm;
++	int ret;
++	size_t buf_size;
++
++	ra8875 = devm_drm_dev_alloc(dev, &ra8875_driver, struct ra8875_device,
++				    drm);
++
++	if (IS_ERR(ra8875))
++		return PTR_ERR(ra8875);
++
++	drm = &ra8875->drm;
++	connector = &ra8875->connector;
++
++	ra8875->rst_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ra8875->rst_gpio))
++		return dev_err_probe(dev, PTR_ERR(ra8875->rst_gpio),
++			     "failed to get reset GPIO\n");
++
++	ra8875->spi = spi;
++
++	spi->mode = SPI_MODE_0;
++
++	ret = spi_setup(spi);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to setup SPI\n");
++
++	buf_size = 1 + RA8875_TXBUF_ROWS * RA8875_MAX_WIDTH * 2;
++	ra8875->txbuf = devm_kzalloc(&spi->dev, buf_size, GFP_KERNEL);
++	if (!ra8875->txbuf)
++		return -ENOMEM;
++
++	ret = of_get_videomode(dev->of_node, &vm, OF_USE_NATIVE_MODE);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get videomode\n");
++	drm_display_mode_from_videomode(&vm, &ra8875->mode);
++
++	if (!ra8875->mode.hdisplay || !ra8875->mode.vdisplay ||
++	    ra8875->mode.hdisplay > RA8875_MAX_WIDTH ||
++	    ra8875->mode.vdisplay > RA8875_MAX_HEIGHT)
++		return dev_err_probe(dev, -EINVAL,
++				"Invalid display size %ux%u from device tree\n",
++				     ra8875->mode.hdisplay, ra8875->mode.vdisplay);
++
++	ra8875->mode.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
++
++	drm_mode_set_name(&ra8875->mode);
++	ret = drmm_mode_config_init(drm);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to initialize mode config\n");
++
++	drm->mode_config.min_width = ra8875->mode.hdisplay;
++	drm->mode_config.max_width = ra8875->mode.hdisplay;
++	drm->mode_config.min_height = ra8875->mode.vdisplay;
++	drm->mode_config.max_height = ra8875->mode.vdisplay;
++
++	drm->mode_config.funcs = &ra8875_modeconfig_funcs;
++
++	drm_connector_helper_add(connector, &ra8875_connector_helper_funcs);
++	ret = drmm_connector_init(drm, connector, &ra8875_connector_funcs,
++				  DRM_MODE_CONNECTOR_SPI, NULL);
++
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to init connector:\n");
++
++	drm_plane_helper_add(&ra8875->plane, &ra8875_plane_helper_funcs);
++	ret = drm_universal_plane_init(drm, &ra8875->plane, 0,
++				       &ra8875_plane_funcs,
++				       ra8875_formats, ARRAY_SIZE(ra8875_formats),
++				       NULL,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to initialize plane\n");
++
++	drm_crtc_helper_add(&ra8875->crtc, &ra8875_crtc_helper_funcs);
++	ret = drm_crtc_init_with_planes(drm, &ra8875->crtc, &ra8875->plane, NULL,
++					&ra8875_crtc_funcs, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to initialize CRTC with planes\n");
++
++	ra8875->encoder.possible_crtcs = drm_crtc_mask(&ra8875->crtc);
++	ret = drm_encoder_init(drm, &ra8875->encoder, &ra8875_encoder_funcs_cleanup,
++			       DRM_MODE_ENCODER_NONE, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to initialize encoder\n");
++
++	ret = drm_connector_attach_encoder(connector, &ra8875->encoder);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to attach connector to encoder\n");
++
++	drm_plane_enable_fb_damage_clips(&ra8875->plane);
++
++	spi_set_drvdata(spi, drm);
++	drm_mode_config_reset(drm);
++
++	ret = drm_dev_register(drm, 0);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to register device\n");
++
++	drm_client_setup(drm, drm_format_info(DRM_FORMAT_RGB565));
++
++	return 0;
++}
++
++static void ra8875_remove(struct spi_device *spi)
++{
++	struct drm_device *drm = spi_get_drvdata(spi);
++
++	drm_dev_unplug(drm);
++	drm_atomic_helper_shutdown(drm);
++}
++
++static void ra8875_shutdown(struct spi_device *spi)
++{
++	drm_atomic_helper_shutdown(spi_get_drvdata(spi));
++}
++
++static struct spi_driver ra8875_spi_driver = {
++	.driver = {
++		.name = "ra8875",
++		.of_match_table = ra8875_of_match,
++	},
++	.id_table = ra8875_id,
++	.probe = ra8875_probe,
++	.remove = ra8875_remove,
++	.shutdown = ra8875_shutdown,
++};
++module_spi_driver(ra8875_spi_driver);
++
++MODULE_DESCRIPTION("RAiO RA8875 DRM driver");
++MODULE_AUTHOR("Adam Azuddin <azuddinadam@gmail.com>");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
