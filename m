@@ -4,86 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4CDCA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D22CA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5FA510F663;
-	Thu,  1 Oct 2026 13:58:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0000810F6BC;
+	Thu,  1 Oct 2026 14:00:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="cxEv0u3l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BgtnYXwi";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SAhyY8M+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ma0duzFG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="lLWq7OOU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f3XMIRPs";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EZpYv4j4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JYsGOKYE";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF8A10F663
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:58:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871BC10F6B0;
+ Thu,  1 Oct 2026 14:00:10 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9BC5A21CEE;
- Thu,  1 Oct 2026 13:58:38 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E80E821B50;
+ Thu,  1 Oct 2026 14:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790863122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790863205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
- b=cxEv0u3lAdy8Eoc4xA90MfkwjfvLo6/ZOkVv+wUhxcUq8av86WkVX7ZoWx/GDQjme0HSVt
- 4EECUO/5MxQhj28NXTUKs7jjPsrXuOtFh3szfvOJ5J0X8TYS2JBiFJlwci8pJXzqlAGnXW
- zBp8ZeB2vxLu16pfgsMi+LyacYLIR4M=
+ bh=j0wGgKxSt5bUL+Ls3+gxgXJOVw/f/EYO8cJqpPeyPnc=;
+ b=lLWq7OOU00cm4YoTYuFfHomb/coimlXryrYsfqd5dCbSDGFYdcDobX58RriuAIUJNn8zGF
+ R3evWwGg1JKuUFa1yFT2Qif6V8GbMhF4q+KDUpBCLzWcaJQiLQRp3lBqUfH4rM5GXnOgWP
+ BMrg7D+X63ZvQ3N8OyOzb6qO1jZhFWw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790863122;
+ s=susede2_ed25519; t=1790863205;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
- b=BgtnYXwiBRoZ02SMK2ABKhNvO378S/ZQy8b+dviuUSeSv9V/4fZcFVSL172tF8gYg73PWi
- ncFa4rWu4zng9BBA==
+ bh=j0wGgKxSt5bUL+Ls3+gxgXJOVw/f/EYO8cJqpPeyPnc=;
+ b=f3XMIRPs0na9Shhz80fWOI7fq2H08eGV8Z/A3aTjRdeU4bnKJpOQftM/hvrwNOsUvbXMzj
+ caUWIJPA9t13cvBA==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SAhyY8M+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ma0duzFG
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=EZpYv4j4;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JYsGOKYE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790863118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790863200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
- b=SAhyY8M++a2tQ3w1+2KIhA5HilEMNeKXwF++z+nc62jyyPIfKkwPZNb/kGsKp3dzR1GpjQ
- uADmxxkZ8WB+CAcqxrVZjXBlChXmWZfNISm6Kg9AyzAFN3zAi1PzQqgk0Y9cl7do+uxd88
- yxvq1KadEDZKpVCaKR138kVuKSsKp9Q=
+ bh=j0wGgKxSt5bUL+Ls3+gxgXJOVw/f/EYO8cJqpPeyPnc=;
+ b=EZpYv4j4WZCVBEDYc+2fSVVY72VtDp9Xy4o59MUyRxEDud36+EAAVDuzQdw2NtH6RfX8t3
+ qNVCwKKVCb/msJ3ZUXh7YFC7rdwuOZqfFIcMtVFTKV5q5UpAehHO0sFndX+NUHRGK+NSvr
+ yWlMN94aPIYas4r4hYsptZcEgwEUnvg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790863118;
+ s=susede2_ed25519; t=1790863200;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
- b=ma0duzFGFH39Ha38EJlGPfRjGUl6TIZOjAVXouXUt0VYv9swDzOSjY/j7Z/SVKuBLfU4H5
- AzPRZkIWy34GH5Bw==
+ bh=j0wGgKxSt5bUL+Ls3+gxgXJOVw/f/EYO8cJqpPeyPnc=;
+ b=JYsGOKYEpwdmlAqNnbyNSUMAmBrBzQ8IozDxPfZk4J+wXyqOILjHDCxfAZix9jVxO1CeI2
+ 4LpHh6iS5CQ0Q2DA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 67D6D134B3;
- Thu,  1 Oct 2026 13:58:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61CF4134B3;
+ Thu,  1 Oct 2026 14:00:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Vn9/Dg5nvmrxUAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:58:38 +0000
-Message-ID: <74d49d9b-133c-49de-913a-9f526bcfc883@suse.de>
-Date: Thu, 1 Oct 2026 15:58:37 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id IEfgAmBnvmp1UgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 14:00:00 +0000
+Message-ID: <eba0a9c0-6b2f-4bd4-bb8e-f95e0fb70b54@suse.de>
+Date: Thu, 1 Oct 2026 15:59:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct drm_simple_display_pipe
- and helpers
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20261001133736.802604-1-tzimmermann@suse.de>
- <20261001133736.802604-3-tzimmermann@suse.de>
- <20261001134714.67EF61F00898@smtp.kernel.org>
+Subject: Re: [PATCH v2] drm/qxl: return -ENODEV for unsupported revisions
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261001092506.76201-1-matheus.aalmeida@inf.ufrgs.br>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -110,27 +112,27 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261001134714.67EF61F00898@smtp.kernel.org>
+In-Reply-To: <20261001092506.76201-1-matheus.aalmeida@inf.ufrgs.br>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9BC5A21CEE
+X-Rspamd-Queue-Id: E80E821B50
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.49 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.18)[-0.881]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCPT_COUNT_SEVEN(0.00)[11];
+ TO_DN_SOME(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,vger.kernel.org];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- TO_DN_NONE(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:mid,suse.de:email,suse.de:dkim];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
  DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,67 +151,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 01.10.26 um 15:47 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Low] drm/kms-helper: build breakage in imx-lcdc due to removed drm_simple_display_pipe
+Am 01.10.26 um 11:25 schrieb Matheus Alves de Almeida:
+> The qxl driver currently returns -EINVAL when the emulated qxl revision
+> is too old. This is not a driver initialization failure but rather a
+> match rejection, which should return -ENODEV.
+>
+> Change the value returned when the qxl revision is below 4 to -ENODEV.
+> Switch the DRM_ERROR() call to a dev_err() call.
+>
+> Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 
-drm-misc-next already contains the fix for this problem.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-> - [Low] doc: spelling mistake introduced in fbtft/TODO
-> --
+Thanks for the fix.
+
+> ---
+> v2: Use dev_err() instead of dev_info()
 >
-> commit d4d7a38057f45dc5b1cce9536154c93423caeae1
-> Author: Thomas Zimmermann <tzimmermann@suse.de>
-> Subject: drm/kms-helper: Remove struct drm_simple_display_pipe and helpers
+>   drivers/gpu/drm/qxl/qxl_drv.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> This commit removes the struct drm_simple_display_pipe data type and its
-> associated helper functions from the DRM subsystem. It cleans up the
-> remaining TODO items related to simple-pipe, under the premise that all
-> drivers have been updated to use regular atomic helpers.
->
->>      There are no drivers using struct drm_simple_display_pipe. Remove
->>      the data type and all related helpers.
-> [Severity: Low]
-> Is this description accurate?
->
-> The imx-lcdc driver appears to still use struct drm_simple_display_pipe and
-> its helper functions. Compiling with CONFIG_DRM_IMX_LCDC enabled will result
-> in a build failure because the driver still relies on this structure in its
-> device setup:
->
-> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:imx_lcdc() {
-> 	...
-> 	struct drm_simple_display_pipe pipe;
-> 	...
-> }
->
-> As well as during initialization:
->
-> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:imx_lcdc_probe() {
-> 	...
-> 	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
-> 					   &imx_lcdc_pipe_funcs,
-> 					   imx_lcdc_formats,
-> 					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
-> 	...
-> }
->
->> diff --git a/drivers/staging/fbtft/TODO b/drivers/staging/fbtft/TODO
->> index e72a08bf221cf..72df3ea3a52ce 100644
->> --- a/drivers/staging/fbtft/TODO
->> +++ b/drivers/staging/fbtft/TODO
->> @@ -1,3 +1,3 @@
->> -* convert all these over to drm_simple_display_pipe and submit for inclusion
->> -  into the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any new
->> -  drivers anymore.
->> +* convert all these over to DRM and submit thme for inclusion into
->                                                ^^^^
->
-> [Severity: Low]
-> This isn't a bug, but there is a typo here (thme instead of them).
->
->> +  the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any
->> +  new drivers anymore.
+> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+> index 97df9d3d6..85743f235 100644
+> --- a/drivers/gpu/drm/qxl/qxl_drv.c
+> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
+> @@ -82,9 +82,9 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>   	int ret;
+>   
+>   	if (pdev->revision < 4) {
+> -		DRM_ERROR("qxl too old, doesn't support client_monitors_config,"
+> -			  " use xf86-video-qxl in user mode");
+> -		return -EINVAL; /* TODO: ENODEV ? */
+> +		dev_err(&pdev->dev,
+> +			"qxl too old, doesn't support client_monitors_config, use xf86-video-qxl in user mode\n");
+> +		return -ENODEV;
+>   	}
+>   
+>   	qdev = devm_drm_dev_alloc(&pdev->dev, &qxl_driver,
 
 -- 
 --
