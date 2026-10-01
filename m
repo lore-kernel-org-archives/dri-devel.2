@@ -4,68 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A64CDCA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE89CA5FC5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06FBC10E1CC;
-	Thu,  1 Oct 2026 06:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1700B10E2E1;
+	Thu,  1 Oct 2026 06:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cAgppL2M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MDZNw6Up";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB0C10F588
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:57:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE5B10E2E1
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:58:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A0B4443E2D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:57:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CC4A1F008A7
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:57:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A92E16022B;
+ Thu,  1 Oct 2026 06:58:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F641F000FF;
+ Thu,  1 Oct 2026 06:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790837851;
- bh=+vEDDkcFwBHCvKCzpx6c5APxZ16rpEBRvEPSZ/ZRrQc=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=cAgppL2MTf0dT8UdP/8BSRxZkKtLz3ainVz+6sGytzZJybPbPpKqnMWYPAqNIttgh
- R6XWoEkuOOLBcmhF/TFbfeQ+wCaZq8Cr6M7jATMCZxXOJ3egSUOQgnuNI+MeIRTWm9
- B9XXohTvkaRCrHlKnVktpnIOz2I54mpq992J9308jdQZM/xSkWmlt43lbnLGY5X0rL
- Iw5GZwZ6e10CPf0NIytcmld5Dsosgk114rQItDxVgnuCIHEMk81bRxfS1cR/GuasjJ
- ZC13CpY/8shizbuSo9HFGAgn9jj3f8PTsVj+QHEnXkKb6J3h54U7eK1NPM9EBg26hk
- bKTpVYYjUH3VA==
-Received: by mail-lf2-f13.google.com with SMTP id
- 2adb3069b0e04-5bb54bd5076so128363e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 23:57:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwalwIvc83EShCrJKoZwwiPP8OWa3CyjEojCYIsO4dzFlPDkh/Z052pZbz/H+O3mzWFsKvAsVYRp7g=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ5JsRYmZK/hGIVezrAdawtKxe+VqibntvuM/UH4qoXPDWNrtDm
- QGqqnMzjMe6fczgyZ/4cqrh99VwOyWEwbSuMl6vBdHojiuU7bpO3zukwdeUjI03bkvNPC4aVPfw
- pjhH259iL5UJI2/+QsjwP2ehqd+tMrG8=
-X-Received: by 2002:a05:6512:669a:20b0:5bb:783a:72ac with SMTP id
- 2adb3069b0e04-5bb783a73bdmr66950e87.16.1790837850121; Wed, 30 Sep 2026
- 23:57:30 -0700 (PDT)
+ s=k20260515; t=1790837880;
+ bh=81kEnYAelRd0XHmBaUvxl0RHg1sbtHt2E19WInGRtNs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=MDZNw6UpJ4RrYVDZlxRVi0yXGd9Sb4FRvsWgrwq1Z6aun26SLmR/88MHKnoNF5l73
+ kXBOXmbwJll3CYn/Vc3l9uLd+e2CAjjCV3JnRLYmfUn7jbkw1ChV//Kjl2/uJsq5I5
+ ffJ1y0wnKuAO4OiB/VvrrKUv1h7heGJulSr02F7iGBo0XCaS8/O/RXCsH8LEtSPE1e
+ DpO4OCT3reAhQDAntXufYrh7ZlUDKwuRbEVtT5wXiAkzSi49zElDEoLGHsC50xVr74
+ 1rmo42KUUvD4yzFpLS0YvEz5kozljYcFi+v3qD2wL4TVT0BduzNl2+oWE5VVwH1DbL
+ 56njWFJrKskXg==
+Message-ID: <997cefa0-384c-466f-b318-077939946768@kernel.org>
+Date: Thu, 1 Oct 2026 08:57:52 +0200
 MIME-Version: 1.0
-References: <cover.1789994813.git.osama.abdelkader@gmail.com>
- <66eccc200bb4f5e26a3464a46448b1a4c03b53a6.1789994813.git.osama.abdelkader@gmail.com>
-In-Reply-To: <66eccc200bb4f5e26a3464a46448b1a4c03b53a6.1789994813.git.osama.abdelkader@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 08:57:16 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn0sVWy4E5aksRXrVqpHA5ayK_EhD2MgSi1SZsZascpgA@mail.gmail.com>
-X-Gm-Features: AclHuK8o8MoLB-ogaYd0O7Ruv7BqFzDty6wVukicfWiBSFsjsYqIvJXIMV7AZQY
-Message-ID: <CAD++jLn0sVWy4E5aksRXrVqpHA5ayK_EhD2MgSi1SZsZascpgA@mail.gmail.com>
-Subject: Re: [PATCH v7 2/3] drm/panel: Use managed helpers in Novatek and
- Raydium panels
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Robert Chiras <robert.chiras@nxp.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
+ <20261001-private-wooden-chachalaca-51aa57@quoll>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261001-private-wooden-chachalaca-51aa57@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,17 +112,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Sep 21, 2026 at 3:19=E2=80=AFPM Osama Abdelkader
-<osama.abdelkader@gmail.com> wrote:
+On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
+> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+>> Some boards drive the ILI7807S panel's backlight from an external
+>> WLED driver whose enable input is wired to a GPIO, typically modeled
+>> as a fixed regulator (e.g. vreg_wled).
+> 
+> You describe something else. What's fixed regulator should not matter
+> here. Which pin is it in ILI7807S?
+> 
+> It seems you just want to represent GPIO with a regulator. This is just
+> confusing and typical downstream workaround.
 
-> Use the managed MIPI DSI attach and panel add helpers in Novatek and
-> Raydium panel drivers and drop the corresponding manual detach and panel
-> remove calls from remove paths.
->
-> Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
+just sneak the same stuff 3 months after like the review never happened.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+NAK
 
-Yours,
-Linus Walleij
+Best regards,
+Krzysztof
