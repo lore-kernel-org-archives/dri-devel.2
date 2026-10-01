@@ -4,60 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A40CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4CDCA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:58:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F7C10F653;
-	Thu,  1 Oct 2026 13:58:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5FA510F663;
+	Thu,  1 Oct 2026 13:58:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NEHl4Zgv";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="cxEv0u3l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BgtnYXwi";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SAhyY8M+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ma0duzFG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2E10F653
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790863117; x=1822399117;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Dmv7kxzmF3LNiceVqTDooUMhXIo1zxSUmy6h/NcP0tc=;
- b=NEHl4Zgv4mmc/PKK1ieD5i4ZfhqDXTErJrofS3MexWB7rbvoJq2DlBoz
- /wetvY0RKQzpGFFDRqnEWqCbFXG987HTUJBNvs8KOUjFASGiMpeSKsBdI
- GJDdiNnQn2XVdfEVDo5B58rRJNw2p4967chqn2u+XUW+4GMlcoXmxzm8k
- o+k+heqID/gSWW4EZTyoQ3BNGFBKJKG+FivpEmXeJRW9eGRN6HD2zU1sS
- kAIMlrn8Ecq3wdm33FlwbOSxRzqyH+sw1gm8QLH3Rv6L6WTRonanDdHTK
- 4jBRZ+ePijS2IrX8PL0tb94c49ZK30ZHQ+qEq+soub6dU8V/wY50Eq2KX A==;
-X-CSE-ConnectionGUID: QDRxRFXTSZi5PCuvRTI9hw==
-X-CSE-MsgGUID: ZoLlb+NCTwmsHSTjvSxT9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="102143160"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="102143160"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 06:58:37 -0700
-X-CSE-ConnectionGUID: uvqnCGTZR+CWY+tt1Ex+oQ==
-X-CSE-MsgGUID: 5oq4r9CMTz2dRRhnc3MWGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="279303325"
-Received: from unknown (HELO [10.94.255.201]) ([10.94.255.201])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 06:58:34 -0700
-Message-ID: <2bdfd36d-fbf0-45e3-8c70-3ffbd065483d@linux.intel.com>
-Date: Thu, 1 Oct 2026 15:58:32 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF8A10F663
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:58:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9BC5A21CEE;
+ Thu,  1 Oct 2026 13:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790863122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
+ b=cxEv0u3lAdy8Eoc4xA90MfkwjfvLo6/ZOkVv+wUhxcUq8av86WkVX7ZoWx/GDQjme0HSVt
+ 4EECUO/5MxQhj28NXTUKs7jjPsrXuOtFh3szfvOJ5J0X8TYS2JBiFJlwci8pJXzqlAGnXW
+ zBp8ZeB2vxLu16pfgsMi+LyacYLIR4M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790863122;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
+ b=BgtnYXwiBRoZ02SMK2ABKhNvO378S/ZQy8b+dviuUSeSv9V/4fZcFVSL172tF8gYg73PWi
+ ncFa4rWu4zng9BBA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SAhyY8M+;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ma0duzFG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790863118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
+ b=SAhyY8M++a2tQ3w1+2KIhA5HilEMNeKXwF++z+nc62jyyPIfKkwPZNb/kGsKp3dzR1GpjQ
+ uADmxxkZ8WB+CAcqxrVZjXBlChXmWZfNISm6Kg9AyzAFN3zAi1PzQqgk0Y9cl7do+uxd88
+ yxvq1KadEDZKpVCaKR138kVuKSsKp9Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790863118;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=JefXXGjGXYBipBajIfXp0RgCgzM+4oFcHKX48E330sk=;
+ b=ma0duzFGFH39Ha38EJlGPfRjGUl6TIZOjAVXouXUt0VYv9swDzOSjY/j7Z/SVKuBLfU4H5
+ AzPRZkIWy34GH5Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 67D6D134B3;
+ Thu,  1 Oct 2026 13:58:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Vn9/Dg5nvmrxUAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:58:38 +0000
+Message-ID: <74d49d9b-133c-49de-913a-9f526bcfc883@suse.de>
+Date: Thu, 1 Oct 2026 15:58:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] accel/ivpu: Convert hw_ip_gen/btrs_gen to enum types
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com
-References: <20261001110401.2866557-1-dawid.osuchowski@linux.intel.com>
- <20261001110401.2866557-3-dawid.osuchowski@linux.intel.com>
+Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct drm_simple_display_pipe
+ and helpers
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+References: <20261001133736.802604-1-tzimmermann@suse.de>
+ <20261001133736.802604-3-tzimmermann@suse.de>
+ <20261001134714.67EF61F00898@smtp.kernel.org>
 Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20261001110401.2866557-3-dawid.osuchowski@linux.intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261001134714.67EF61F00898@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 9BC5A21CEE
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.49 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.18)[-0.881]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_NONE(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,134 +147,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01-Oct-26 13:04, Dawid Osuchowski wrote:
-> Change the hw_ip_gen and btrs_gen members of struct ivpu_device, and
-> their accessors, from u32/int to enum vpu_hw_ip/enum vpu_hw_btrs, and
-> drop the default: labels from the switch statements in ivpu_hw_ip.c
-> that dispatch on them. Switching on the real enum types lets the
-> compiler treat these switches as exhaustive at compile time, so a
-> missing case for a new generation now warns instead of silently
-> hitting default:.
-> 
-> This compile-time guarantee holds because ivpu_ip_gen_init() now fails
-> probe on an unrecognized PCI device ID instead of leaving these fields
-> at 0, so the switches never see an unhandled value.
-> 
-> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_drv.h   | 28 ++++++++++++++++------------
->   drivers/accel/ivpu/ivpu_hw_ip.c | 14 ++++++++++----
->   2 files changed, 26 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-> index 87953d0474fb..ce9cb118c0c4 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.h
-> +++ b/drivers/accel/ivpu/ivpu_drv.h
-> @@ -31,17 +31,9 @@
->   #define PCI_DEVICE_ID_WCL	0xfd3e
->   #define PCI_DEVICE_ID_NVL	0xd71d
->   
-> -#define IVPU_HW_IP_37XX 37
-> -#define IVPU_HW_IP_40XX 40
-> -#define IVPU_HW_IP_50XX 50
-> -#define IVPU_HW_IP_60XX 60
-> -
->   #define IVPU_HW_IP_REV_LNL_B0 4
->   #define IVPU_HW_IP_REV_NVL_A0 0
->   
-> -#define IVPU_HW_BTRS_MTL 1
-> -#define IVPU_HW_BTRS_LNL 2
-> -
->   #define IVPU_GLOBAL_CONTEXT_MMU_SSID   0
->   /* SSID 1 is used by the VPU to represent reserved context */
->   #define IVPU_RESERVED_CONTEXT_MMU_SSID 1
-> @@ -107,6 +99,18 @@
->   		ivpu_dbg(vdev, MISC, "Using WA: " #wa_name "\n");	\
->   } while (0)
->   
-> +enum vpu_hw_ip {
-> +	IVPU_HW_IP_37XX = 37,
-> +	IVPU_HW_IP_40XX = 40,
-> +	IVPU_HW_IP_50XX = 50,
-> +	IVPU_HW_IP_60XX = 60,
-> +};
-> +
-> +enum vpu_hw_btrs {
-> +	IVPU_HW_BTRS_MTL = 1,
-> +	IVPU_HW_BTRS_LNL = 2,
-> +};
-> +
->   struct ivpu_wa_table {
->   	bool punit_disabled;
->   	bool clear_runtime_mem;
-> @@ -136,8 +140,8 @@ struct ivpu_device {
->   	struct drm_device drm;
->   	void __iomem *regb;
->   	void __iomem *regv;
-> -	u32 hw_ip_gen;
-> -	u32 btrs_gen;
-> +	enum vpu_hw_ip hw_ip_gen;
-> +	enum vpu_hw_btrs btrs_gen;
->   	u32 platform;
->   	u32 irq;
->   
-> @@ -259,12 +263,12 @@ static inline u16 ivpu_device_id(struct ivpu_device *vdev)
->   	return to_pci_dev(vdev->drm.dev)->device;
->   }
->   
-> -static inline int ivpu_hw_ip_gen(struct ivpu_device *vdev)
-> +static inline enum vpu_hw_ip ivpu_hw_ip_gen(struct ivpu_device *vdev)
->   {
->   	return vdev->hw_ip_gen;
->   }
->   
-> -static inline int ivpu_hw_btrs_gen(struct ivpu_device *vdev)
-> +static inline enum vpu_hw_btrs ivpu_hw_btrs_gen(struct ivpu_device *vdev)
->   {
->   	return vdev->btrs_gen;
->   }
-> diff --git a/drivers/accel/ivpu/ivpu_hw_ip.c b/drivers/accel/ivpu/ivpu_hw_ip.c
-> index c604c1c37e99..bd6bb3fa49ff 100644
-> --- a/drivers/accel/ivpu/ivpu_hw_ip.c
-> +++ b/drivers/accel/ivpu/ivpu_hw_ip.c
-> @@ -688,7 +688,7 @@ static void pwr_island_delay_set(struct ivpu_device *vdev)
->   		post2 = 0;
->   		status = high ? 46 : 3;
->   		break;
-> -	default:
-> +	case IVPU_HW_IP_60XX:
->   		post = high ? 198 : 17;
->   		post1 = 0;
->   		post2 = high ? 198 : 17;
-> @@ -801,10 +801,15 @@ static void ivpu_hw_ip_tbu_mmu_enable_40xx(struct ivpu_device *vdev)
->   
->   void ivpu_hw_ip_tbu_mmu_enable(struct ivpu_device *vdev)
->   {
-> -	if (ivpu_hw_ip_gen(vdev) == IVPU_HW_IP_37XX)
-> +	switch (ivpu_hw_ip_gen(vdev)) {
-> +	case IVPU_HW_IP_37XX:
->   		return ivpu_hw_ip_tbu_mmu_enable_37xx(vdev);
-> -	else
-> +
-> +	case IVPU_HW_IP_40XX:
-> +	case IVPU_HW_IP_50XX:
-> +	case IVPU_HW_IP_60XX:
->   		return ivpu_hw_ip_tbu_mmu_enable_40xx(vdev);
-> +	}
->   }
->   
->   static inline u64 get_entry_point_addr(struct ivpu_device *vdev)
-> @@ -940,8 +945,9 @@ int ivpu_hw_ip_soc_cpu_boot(struct ivpu_device *vdev)
->   		ret = soc_cpu_boot_40xx(vdev);
->   		break;
->   
-> -	default:
-> +	case IVPU_HW_IP_60XX:
->   		ret = soc_cpu_boot_60xx(vdev);
-> +		break;
->   	}
->   
->   	if (ret)
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+
+Am 01.10.26 um 15:47 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Low] drm/kms-helper: build breakage in imx-lcdc due to removed drm_simple_display_pipe
+
+drm-misc-next already contains the fix for this problem.
+
+> - [Low] doc: spelling mistake introduced in fbtft/TODO
+> --
+>
+> commit d4d7a38057f45dc5b1cce9536154c93423caeae1
+> Author: Thomas Zimmermann <tzimmermann@suse.de>
+> Subject: drm/kms-helper: Remove struct drm_simple_display_pipe and helpers
+>
+> This commit removes the struct drm_simple_display_pipe data type and its
+> associated helper functions from the DRM subsystem. It cleans up the
+> remaining TODO items related to simple-pipe, under the premise that all
+> drivers have been updated to use regular atomic helpers.
+>
+>>      There are no drivers using struct drm_simple_display_pipe. Remove
+>>      the data type and all related helpers.
+> [Severity: Low]
+> Is this description accurate?
+>
+> The imx-lcdc driver appears to still use struct drm_simple_display_pipe and
+> its helper functions. Compiling with CONFIG_DRM_IMX_LCDC enabled will result
+> in a build failure because the driver still relies on this structure in its
+> device setup:
+>
+> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:imx_lcdc() {
+> 	...
+> 	struct drm_simple_display_pipe pipe;
+> 	...
+> }
+>
+> As well as during initialization:
+>
+> drivers/gpu/drm/imx/lcdc/imx-lcdc.c:imx_lcdc_probe() {
+> 	...
+> 	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
+> 					   &imx_lcdc_pipe_funcs,
+> 					   imx_lcdc_formats,
+> 					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
+> 	...
+> }
+>
+>> diff --git a/drivers/staging/fbtft/TODO b/drivers/staging/fbtft/TODO
+>> index e72a08bf221cf..72df3ea3a52ce 100644
+>> --- a/drivers/staging/fbtft/TODO
+>> +++ b/drivers/staging/fbtft/TODO
+>> @@ -1,3 +1,3 @@
+>> -* convert all these over to drm_simple_display_pipe and submit for inclusion
+>> -  into the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any new
+>> -  drivers anymore.
+>> +* convert all these over to DRM and submit thme for inclusion into
+>                                                ^^^^
+>
+> [Severity: Low]
+> This isn't a bug, but there is a typo here (thme instead of them).
+>
+>> +  the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any
+>> +  new drivers anymore.
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
