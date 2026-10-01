@@ -4,52 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E8ACA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 09:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E785CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 09:28:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD76110E30D;
-	Thu,  1 Oct 2026 09:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EAE610F5FC;
+	Thu,  1 Oct 2026 09:28:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gJ1qlBvE";
+	dkim=pass (2048-bit key; unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="HU3jFeIi";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EC4410E30D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 09:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=KAS9nccWQxy7wzoQ15glvxQifDTF+AyI7CQ7dcp9lhk=; b=gJ1qlBvEzACCa6Mdid844+KLcI
- fbNS6zt1QsyDfxRXycWA7N6VqIMZRSh+K81gKN1eoYwrSFwLI5ktpTXLlOPl/kT670yvhWovaSAZl
- bQvKPqOUJYzVTSjWqYMF/+xVe8RONhygONMkID81A7L44BRyBfk2Pb1AW8jKTzEfHaZH38pJXOmVd
- 1DtjhjbnZdmfbu4TUt4j2r0gzs7XeEc/0TPvBeVxJCM7f286Xv72LghyelI4dozyWWbdTVYyUIQj1
- 904MRMxQhYLnw01U2YZjmxRObfhlhJINepQsRVJaZgyZ2U/h8cM38iCu7BGBv07pbDHWeJfhktIZr
- icKv2n2g==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xCCzj-009p35-O7; Thu, 01 Oct 2026 11:22:27 +0200
-Message-ID: <04153ee4-0d2a-4499-849d-e3a5ec87e863@igalia.com>
-Date: Thu, 1 Oct 2026 10:22:26 +0100
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 084F110E253;
+ Thu,  1 Oct 2026 09:28:42 +0000 (UTC)
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [186.210.30.235])
+ by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 2DA56121044;
+ Thu,  1 Oct 2026 06:28:37 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+ s=dkim2026; t=1790846919;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=3OgB654oRo0gCP4kTojqjma900bs/fn+J1noC4FWW5Y=;
+ b=HU3jFeIielxd+Fd8wwyuv6IEYiFrzIonkg25EA0TyUcq3tYAlQRA2YTw2p7KFs5WY5G4tg
+ IwCj+SK7fJBlHFLpPgW4vTwPPA/+QzSc/FbJyO3oEYMgJvAMy2E3TgXZz0ps/IhtcJcun8
+ vUgCy9i3Xbs1tkK7B5UyI5lMxjGwiV7ywICO0f6+OT6lTO1ogIQUWeZMUrKBtMmK/qWju6
+ uxc1A/eU047QAM3VOH+a4IPjO1vVCFqDpenfp/LoePp04VX7e8vQU9xYX3K8AKeZXXLAaX
+ jTEKvkl2FHNP1HKeBZm/puHINlBItpV1hZS/pcV44a8EK+pR62rSnP5q/O/Xwg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v2] drm/qxl: return -ENODEV for unsupported revisions
+Date: Thu,  1 Oct 2026 06:25:06 -0300
+Message-ID: <20261001092506.76201-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v5 2/3] workqueue: Add support for real-time workers
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
- <20260923161251.45428-3-tvrtko.ursulin@igalia.com>
- <3ff40909da4f1510419ac0e2f9f4e6a1@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <3ff40909da4f1510419ac0e2f9f4e6a1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,79 +60,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The qxl driver currently returns -EINVAL when the emulated qxl revision
+is too old. This is not a driver initialization failure but rather a
+match rejection, which should return -ENODEV.
 
-On 29/09/2026 01:00, Tejun Heo wrote:
-> Hello,
-> 
-> On Wed, Sep 23, 2026 at 05:12:50PM +0100, Tvrtko Ursulin wrote:
->> For use cases such as the DRM scheduler submitting work to the GPU on
->> behalf of low latency userspace applications, where latter have sufficient
->> privileges to have had successfully obtained realtime Vulkan global
->> priority, competing with random background CPU load can create large
->> latency spikes which gets in the way of a smooth user experience.
-> 
-> panthor's group_priority_permit() also allows realtime groups for DRM
-> master without CAP_SYS_NICE. What's the usage model there? Should DRM
-> master be enough to get RT workers?
+Change the value returned when the qxl revision is below 4 to -ENODEV.
+Switch the DRM_ERROR() call to a dev_err() call.
 
-Usage model is one active compositor per device with the logind 
-orchestrating on switch. So I'd say yes, it makes sense to allow the 
-compositor RT. I shall improve the commit text to mention this.
+Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+v2: Use dev_err() instead of dev_info()
 
->> @@ -374,8 +374,9 @@ enum wq_flags {
->>   	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
->>   	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
->>   	WQ_HIGHPRI		= 1 << 4, /* high priority */
->> -	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
->> -	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
->> +	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
->> +	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
->> +	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
-> 
-> Can we name it just WQ_RT? Also, I think WQ_RT is closer to WQ_BH. We can
-> reorder the flags later if that helps but for now can you just put it in an
-> empty slot?
+ drivers/gpu/drm/qxl/qxl_drv.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Sure, I thought it makes sense to group the related features together 
-but if you prefer a smaller diff I will do that.
-
-> 
->> @@ -127,6 +127,7 @@ enum wq_internal_consts {
->>   	 */
->>   	RESCUER_NICE_LEVEL	= MIN_NICE,
->>   	HIGHPRI_NICE_LEVEL	= MIN_NICE,
->> +	RTPRI_NICE_LEVEL	= MIN_NICE - 1,
-> 
-> Can we match the scheduler's representation instead by replacing
-> attrs->nice with attrs->prio which uses the same encoding as p->prio?
-> Normal pools would be NICE_TO_PRIO(nice) and WQ_RT pools would be in the RT
-> range. create_worker() would then do:
-> 
-> 	if (rt_prio(pool->attrs->prio))
-> 		sched_set_fifo_low(worker->task);
-> 	else
-> 		set_user_nice(worker->task, PRIO_TO_NICE(pool->attrs->prio));
-
-Ack.
-
->> @@ -7606,7 +7626,10 @@ static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
->>   	int written;
->>
->>   	mutex_lock(&wq->mutex);
->> -	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
->> +	if (wq->attrs->nice == RTPRI_NICE_LEVEL)
->> +		written = scnprintf(buf, PAGE_SIZE, "rt\n");
->> +	else
->> +		written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->attrs->nice);
-> 
-> Can you also show rt in pr_cont_pool_info() and tools/workqueue/wq_dump.py?
-> 
-> Thanks.
-
-Of course, I wasn't aware of that tool. Do you prefer in the same patch 
-or separate?
-
-Regards,
-
-Tvrtko
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 97df9d3d6..85743f235 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -82,9 +82,9 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	int ret;
+ 
+ 	if (pdev->revision < 4) {
+-		DRM_ERROR("qxl too old, doesn't support client_monitors_config,"
+-			  " use xf86-video-qxl in user mode");
+-		return -EINVAL; /* TODO: ENODEV ? */
++		dev_err(&pdev->dev,
++			"qxl too old, doesn't support client_monitors_config, use xf86-video-qxl in user mode\n");
++		return -ENODEV;
+ 	}
+ 
+ 	qdev = devm_drm_dev_alloc(&pdev->dev, &qxl_driver,
+-- 
+2.43.0
 
