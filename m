@@ -4,48 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0572DCA5FCE
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 22:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEFA2CA5FCE
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 22:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57CEB10E3BC;
-	Thu,  1 Oct 2026 22:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F419B10F78E;
+	Thu,  1 Oct 2026 22:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TWa34CTK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GOgQRLCr";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2DA10E3BC
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 22:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790894327;
- bh=Ce99go+3vupPq2f3UCVbyFhLf2s/xrWTlRWZdehqMnE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TWa34CTKCuZSwmN1O0YAQHIEvIZY0r45I2EIdRU1JUqdNL8avwARylakkbuzTnbzj
- KH4woYCgClPxhoITigAJ4R06VgAapQXiC5CxUz3QWkpSY9nh+0p9LkWBbXmqT0VQ5v
- ojjslwFpq0AXibSg23JF/o+9598W9Zdy6Udxy5mjYgXCDO6mQpU5xNtBx7Mp+tYoDQ
- EHcghK8Q2Ht6xCD7bpP9GyZ+Aw2TG5+q986MZ/02A2NefAaurafElr9hjk/Vp4ATlT
- vTYpzNSerGkMr+8uChrk0zipzwkWMoGSq8eM1yOwC2RLKI1qQstBv8NQJQe6j6YNbV
- m2ZYSpTCJOELw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E2C9F17E02EB;
- Fri, 02 Oct 2026 00:38:46 +0200 (CEST)
-Message-ID: <b7e5e5bf-f1ce-4a4e-88aa-fde929ff6ee1@collabora.com>
-Date: Fri, 2 Oct 2026 01:38:46 +0300
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
+ [74.125.227.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D250510EE53
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 22:45:50 +0000 (UTC)
+Received: by mail-pj2-f12.google.com with SMTP id
+ 98e67ed59e1d1-39b1a806664so922822a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790894750; x=1791499550; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+ b=GOgQRLCrOX3be7+7VUVGwn6kiYp5E5C2z1UuGttX/+M6DIzifKVuW4VjrGL+F7W00H
+ kGmUZaHUtvpjYLa7oKiirO/JcmHGquTVSBw+fZuV6yuMohx5JbgB3HUUkJC6GYYAV3M1
+ 0ELM0UzXqRxrJZ+Wk6rankPGnpRvZnGJyxg5WkRRRMwE/edsDSPKDbH15wsaYSmOW7yL
+ /X2KUIOkC3B5iHfeHZq/iYkoN++7jHMRGG1F7Ojpw88vGOjY22u1BA8h3EPsm6FP1spZ
+ DHpEknAXZGwvIi5U8mDemXPV5kWYJbE8k+Y4WgoHBw5VPDMuMh79uI+Dq7Gn/5CEFssu
+ p0nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790894750; x=1791499550;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+ b=Fs6CXk+V40YmVJoTMQ2sMXRzStHRCzj1cFuex6MnoqHg3d6tFWRb9WK3sra5QEbivK
+ xFzMR3GMgkI8LaTprAL9Oz+10NMVS3/lMeoZPdzUqXAiIEqNpeO/pP4i/i/0BCiQGZvv
+ 8hO4C6B+QNj7znmqNB1qXzC6/5DBaXxCSOYzVYbXDPfwxorwWPtz0ZUaj2DaHmwWgM3a
+ gKl2uXBU50UdbsbS8ubeKhLcn6uquKCcuXFplz2t4+3uJn6NmnVMutbbDe3/KRtrJkxW
+ ESpUqJpj+/DyjY931c89IFJx9AQvFpNEYVcnqo3yzHrENG+seHPdls0fDw30nsvVb6qo
+ VqTg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzgVotxk+7NMgkMqERjmbqvy0hI/dLR9ntw0BQHUHpn3/wqfkuyFjE0jeNuQe17F2eWikG3ltsXgSQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKMWymfx0uWbsGUNpzgDLZMtcgMcQ/ZVzuEsOtuf8lEYciiF9bZ
+ 94tP73La90/Xzm6FqpXzW7/e5Mk2SoXpE1r7zICTg2upvb/PV8jjRSJS
+X-Gm-Gg: AYBFou1x3UYnjbjBicXIfJ50aHl59VTQq8aWrCU5lXNYA18lDac3AawmrMeCA9WxO9n
+ ODja7sGDDdAKGmPyC8VTOVsrYE16Ak1WYzIqhF1hNyknRITCMzm1pqYVGq9P+ABSe506Rd0f7v9
+ u1Xspzj/Wb9+fbaxUBoZNr/divyK86xT3743UGJgNG+FG2BKx5hluUT3buABoty06UtjPNhNwXz
+ zBuBXyr2eW1dC2HM2FzSNrHeY+A/IpEfZTzud4dnqXG5sG5//z+Q0CAdM9b15KZX9tCTaLf+Urx
+ gTp1VcSsXNrG2PhYTS7wSWEIFFFJN3bL/+EftZvO/hU8Q6Lqab0Ue8BwSW6lHk0Y8rED/Eazv/C
+ oj06LnP+JINhRgnfSiCCmdoQ/r23geeembeNdN+N4ocfqzkFh6DUs525x33ASGikwLlvLvFL6dY
+ TF/HKdQr1wLY5EeyBnFJoeJquVZNfqmxoG9F996Tl26sXa/CQAL3UU1N3EovhDHSkX8kzw2R72E
+ ZkMxrQ=
+X-Received: by 2002:a17:90b:4b0d:b0:3a4:9fcd:6189 with SMTP id
+ 98e67ed59e1d1-3a6ce69ac99mr1528647a91.2.1790894750283; 
+ Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
+Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3a6ccc92646sm1146396a91.1.2026.10.01.15.45.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2026 15:45:49 -0700 (PDT)
+Date: Fri, 2 Oct 2026 06:45:47 +0800
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
+ airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <ar7im3iTb_UF8VxU@marchy>
+References: <20261001144128.2336301-1-azuddinadam@gmail.com>
+ <20261001144128.2336301-2-azuddinadam@gmail.com>
+ <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [bug report] drm/display: hdmi: Add HDMI 2.0 scrambling
- management helpers
-To: Dan Carpenter <error27@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-References: <arJo7A7L5hud3tyc@stanley.mountain>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <arJo7A7L5hud3tyc@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +98,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/22/26 2:39 PM, Dan Carpenter wrote:
-> Hello Cristian Ciocaltea,
+On Thu, Oct 01, 2026 at 07:54:19PM +0100, Conor Dooley wrote:
+> On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
+> > +description:
+> > +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
+> > +  It can be connected to the controller via 8080/6800 parallel interface,
+> > +  SPI or I2C. This binding describes the SPI-connected device.
 > 
-> Commit d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling
-> management helpers") from Sep 1, 2026, leads to the following Smatch
-> complaint:
+> This binding describes all three, or at least it should describe both
+> i2c and spi in the current state. I have no idea what the parallel
+> interfaces look like in dt, but if what you've got covers spi it should
+> also cover i2c. Probably remove this last sentence.
+> pw-bot: changes-requested
+
+Understood, I'll drop that last sentence.
+
+> > +        panel: display@0 {
 > 
->     drivers/gpu/drm/display/drm_hdmi_helper.c:663 drm_connector_hdmi_sync_scdc()
->     warn: variable dereferenced before check 'connector' (see line 657)
-> 
-> drivers/gpu/drm/display/drm_hdmi_helper.c
->    656		struct drm_connector_hdmi *hdmi = &connector->hdmi;
->    657		struct drm_device *dev = connector->dev;
->                                          ^^^^^^^^^^^^^^
-> Dereference.
-> 
->    658		struct drm_connector_state *conn_state;
->    659		struct drm_crtc *crtc;
->    660		u8 config;
->    661		int ret;
->    662	
->    663		if (!connector || !plugged || !ctx)
->                      ^^^^^^^^^
-> Checked too late.
-> 
->    664			return 0;
->    665	
+> Drop the unused panel label if there's a respin.
 
-Hmm, wondering why Sashiko didn't catch this...
+Will do.
 
-I submitted a fix:
-
-https://lore.kernel.org/all/20261002-hdmi-sync-scdc-fix-deref-v1-1-d99b4f544dd4@collabora.com/
-
-Regards,
-Cristian
-
-
-> This email is a free service from the Smatch-CI project [smatch.sf.net].
-> 
-> regards,
-> dan carpenter
+Thanks for the review,
+Adam
