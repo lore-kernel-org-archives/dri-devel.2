@@ -4,131 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8151CA5FC4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A98E0CA5FC1
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26E4F10F554;
-	Thu,  1 Oct 2026 02:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABA3B10E08B;
+	Thu,  1 Oct 2026 02:45:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PvRKvfY/";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="inW0qWgk";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GTKFzCum";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ah9L4kaA";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFE9D10F554
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 02:41:11 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB26810E08B
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 02:45:20 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6910jhD92098503
- for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 02:41:11 GMT
+ 6910jiqH171516
+ for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 02:45:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Ghkjprac1hGwE2HrmUj6yg2z
- I5ZEjbwo3mW27+l4U7w=; b=PvRKvfY/1bUonhpvDd9QQ/hrqKiYaxUFb8gHFmFB
- ThPOeFz4qpeTor4WGlUrdwmr9QzJ5IREGcnVnbWL3Z9lX2mthrLxN/4uGIPXvoUI
- mxMYUWday3aUaOW3YCjSK97Hdy1f86elKjKfp+Rvr7vWEh8x5Ny3udRHseCPPT+j
- /0qiB/uAqWkWD4jSngjM4gLEyLrGzjpUUhoojPNTgFtYWHod44GH9d69yD463h4p
- FOKcTsDthSi5UH+6R1PnULwBYldXQdqnd5gc4OPEgfk0havfZi08GyG7C3IDvsZM
- PmZztik015SRYUNkW/6kYIeiC1TmBgTDhA6eBnoyPj5Hng==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h136tk1t3-1
+ :references:subject:to; s=qcppdkim1; bh=9Ol1nfVGYFnGbDrY614OUc6R
+ zJCOeVGBluvM0xZNXmY=; b=GTKFzCumBRrV0y2mly2vCB8Wm3knCgVMjMKC1chI
+ 3HjBPCmkOUXrwHOgqprIOPtCkcuAPIGrO4aBvBbGa8rye88d55aNEVM5JABsLXII
+ 3NWVfSfKEJ9xlzorppNGZGyjMXBcYaxNyDoURKDLRUq/44+ZsLBdPATNTKvoVKEQ
+ 4CbfLRQmc7byRS/NnhEoT2nqjwJ0JDzXR0kUIix+96G3CKja/DVRFGfi8zaUre/G
+ 5e0kzWWrF7XcR+oVC+7xp2HwgxJLK199EENhm4iQp7c8Ihbn1ZvUDFYKDl21mtRm
+ WJh1P4tZgW8IBizwxhs1dIuK+51P8OpQmnAmhKDO+X3z9w==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wcsway-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 02:41:11 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-939c30aa9a0so642074185a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:41:11 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 02:45:19 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-34d749e0e0fso147935eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790822470; x=1791427270;
+ d=oss.qualcomm.com; s=google; t=1790822719; x=1791427519;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Ghkjprac1hGwE2HrmUj6yg2zI5ZEjbwo3mW27+l4U7w=;
- b=inW0qWgkaREShw8dc8NrLvNP+BXrmFDrGiaR8/YgFxDKgXr533xmtVF+sb4Sv1uutW
- 9Xw+7ROe9AK9Pf+CMOwV9tkiUZaeY27AMlU6LYcoB7S4ToGHsl0BxyWOQvEMOWZlFWQj
- 4vOar+MtEzjcp+Yr2LWi+4K6MexgIgqflcm4m9npFt1D7cIPKt4oukATkXy8mAUj0OPX
- rJFRyzI6SfUl4Vjg5x+xpR4uD8CYsKGPipD/Ura4gqyrqRr7gDtr/uLoETUpHJGcnEJ1
- JLyHo/m2y+edGm+HplFGkpV6PEE5F6CkwvAQ1CVjZbrHNw6Y+C7JYcaZp8Njc7YRZ4Tl
- 67XA==
+ bh=9Ol1nfVGYFnGbDrY614OUc6RzJCOeVGBluvM0xZNXmY=;
+ b=Ah9L4kaAsmlg5Zh6P59Tt24o7IZj8p4pMowbma5EChqoKc6W9qE8r+cDYh10asNJmh
+ 6X6Chci1zMoYmdkWuChbrgvl4Li4eguEtxNNjsCrEpiYApQtQjSLgP851YgriVjNgzEL
+ UQx7eowr3itMSF4jRBZuJvbJwka8FSpS8VW5j1lViQ49bR4hUW8Ojr3WQfVz0/edOv5P
+ PB6/sF1TaUZduc4yhiq3JjPoQ5qJTzFKgZqvJRPrfupC299Lz3vThGAmCIJjeCwA2iQx
+ gTciFVM5t09keVszJ3ZgnIz/c9eB3tDlGnDmnujLTV3s2y4bEpxOV8fkWRWvLbIIJF4l
+ /fGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790822470; x=1791427270;
+ d=1e100.net; s=20260707; t=1790822719; x=1791427519;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Ghkjprac1hGwE2HrmUj6yg2zI5ZEjbwo3mW27+l4U7w=;
- b=gU0UFOWScEVLno28npmGeeyy6bPPj8+weF1QhLe/ReKGzgH10i0dg35xlkATlFs23U
- QiZCLwhT6Ft45im4sdLf1QQ4WtWeG3WlSzZFwKMvy690Fh6fx+k7WB2fl1mn+3n4z1vw
- LwhSjeFrlbsR0tXO00/voxIwScnwR5WZ8Zk2iwZxfWteAQqTkMLwGp2We3QskEZEBZpA
- p8Ha+zBVNm1FQApjPW/abMBOFqSeMp8E2KZvRx7aCZixnOUXYY1f8HpUgJlBw++I9wcv
- GK1iJeYLWNYdxjm31D42P5Og8v1AcShct6SrI4K3+hhr9/zix9JLj56ycVm7rmwKby9N
- JB9w==
+ bh=9Ol1nfVGYFnGbDrY614OUc6RzJCOeVGBluvM0xZNXmY=;
+ b=eJlqnyskw5JLWsW48hcl55i2b4i60y3qkJPMtt9iWctVL+6Z78DnhXVO51kQwki8Nb
+ GUx8+qDE//0mOTvqbUw/0dg2ZXYbCVpHQRwbUM57rPkNR0d/F+LA58ZC6BKcA76XmvBj
+ eTsLlqpYGDGfdjo76bl5kFFU6tNlGaR/z/uNei4piC6t/ByBpPDYNv+bn+tePLwmcXQK
+ AMMYVGKqja4XUBwppSg9nBs8PVnnHmGjWE/7XwNWye/7Y6mNa1yzi+iEEZkkd6Jzupxi
+ GPOfR7MW+ovsV0cZBdiDdXbkSNKj03AKutlr9adWo0lh9rQ+SH7MJL+zAMQCaVXm7Inv
+ XVJA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx2l7vS7Aa2/OUd8oUMCJztJFyYnrBvZo+PhyQpvySIYBknFK1eQV4ljxBCKctHiRRFapDQjgsH+YE=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l3adMpiD2oW/zaGPDCYAJxZRNrJMci+/LA9yrRuL5J4wojpyS9
- jbpJTYR7I2C0z1YpZnlDnYW0BBD11iSStPTSj2wBJ28LVYmc4i8GdoiEVF391kEY2UGfVaCRSGw
- xkMQMRN4ia5EdlaBux5o+pINYDTPn+DdxdN/jxLCTaqo8Or5SvLFkbklvrGLNPzTEfq5GOp4=
-X-Gm-Gg: AYBFou2xDobfz2705WK4gV43zixbYWq7xlqmY2qZYWUCc0fObzI3ign+Dn4oMdm20HO
- etsqe0anO4lWP/0Dgc+dqq8lFvNM+Jb8POw2APWid28jph/4jtqL3xLdr4s0xiYt2A+aWAgJP8e
- RdeQvlj+0U37yhh0MLbylWbED+KPQ2UUnmpNNF9o0loX6eZHmKex8JLQmo/yVMKKnmpt39HuHkn
- cIPZ92VQGQzjgswsRBvLlTty5GAsiOO5TLLVmbRdCh2THKaMJEpRkXS0YQIgSnBohv4hFF2eJC3
- IUzBwf8l97pwzwHXxIGE5jFtyEZkUsjzBEL790NvpwLIhZbgltgMWc5jI2kxDDMqDBKjtTuQZHg
- Xl7y7XOm69RxJQ0IAJqnlkte1K2C5SUEn7A/pW2Cen+dYVPGI7AP/IZOKK45/hTx45ume/WvH+i
- HDIN7LVuAG6YLf
-X-Received: by 2002:a05:620a:4448:b0:93a:824:ac8d with SMTP id
- af79cd13be357-93ca96d83a2mr651722885a.27.1790822470113; 
- Wed, 30 Sep 2026 19:41:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:4448:b0:93a:824:ac8d with SMTP id
- af79cd13be357-93ca96d83a2mr651720685a.27.1790822469619; 
- Wed, 30 Sep 2026 19:41:09 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AKwUvBzwG1A/B3BROH0Jqur2gHyCVZZRKSsKnCTTkbSZxkgQjacMKDhG8OMkLvrhfAfPaRnpTEDVUcZjeyU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYISUqy1LLrQjySOYZaxrA4ICwviwVq38mj0T0g1CLwhwNudwrP1
+ fR4/cdbHyqliCG+7gZa5DfRIvcJJ/C+7OA5CcengfGFacbBA6gAf8V70kLykSYl8uTz6xrA0NRx
+ 39ZsLp0k50ft+XZiomtW6yGxi5MGGKYV4RQZbxt3rXzbF8RbGFfsNOmwGc3xDrXsPHYWhrSw=
+X-Gm-Gg: AYBFou0EV3UUZ+OBAbcJ9mWSwRCM08xRXw/C162zHYnBLmARyga9JRK748m1ugCfv4c
+ ch7AURGPlcTaT49ZW8jWueKXp9oBZkQqYBTKLKhVA1JKC2ns2JjswoRZR/MtLF6hdYVU3bJVeNj
+ 0/GsQF73sNrzr3yWyFa86ligapIo8ckpOKzgJ5n96B/vN48njBUh9qc8eYFLsGrMQ43ArY7VtgJ
+ eQFpu8IyEYRClxkFW4SKEy9O/E9bcN8feBL5iKiC5wPmJu2W1utq1MesQ002X831mZoe1N0Kloo
+ q+PZElvNHBQ2DoSCp0BwLix/zXUGQl5fdt91BdfoXtRD+JS8iKfJkMVCPcvyhUSIBFS/flnnKwa
+ frwMOvHQvLCYa+dxXsKsUWuhLwIJmNctGKAJ38x2PHHWO2ShDpHQsyXJw4nld90CIaMdBui6MT0
+ ei/uDmRbvW29wsMqzvCxY=
+X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34cdbcd280emr6207088eec.2.1790822718471; 
+ Wed, 30 Sep 2026 19:45:18 -0700 (PDT)
+X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34cdbcd280emr6207045eec.2.1790822717785; 
+ Wed, 30 Sep 2026 19:45:17 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a77192c19csm12699581fa.29.2026.09.30.19.41.07
+ 5a478bee46e88-34db4c1ef93sm3065432eec.28.2026.09.30.19.45.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 19:41:07 -0700 (PDT)
-Date: Thu, 1 Oct 2026 05:41:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: compute the CRTC bandwidth from the state
- being checked
-Message-ID: <5rpjfokvikv2m2bayq72ar4z2i72esaarwzsui3yrceh3urvil@fuopy4uqypyv>
-References: <20260929130633.977-1-26rote@gmail.com>
+ Wed, 30 Sep 2026 19:45:17 -0700 (PDT)
+Date: Thu, 1 Oct 2026 08:15:07 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yi Zhang <zhanyi@qti.qualcomm.com>,
+ Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+ Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+ venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c bridge
+Message-ID: <ar3JM7CHzLZgT4xB@hu-vishsain-blr.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+ <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+ <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929130633.977-1-26rote@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX9YZEJpwqcZmz
- 9IgYFbGCHH90CjTtj/Y3uE7A7ZKOcMC0dzAVFZujjz/eVgqu0a6uORo5A8CF0b4bnA+X/sNvyU3
- leRNIY03CFqr2BLAB2M5aQ35puq5czI=
-X-Authority-Analysis: v=2.4 cv=aPFlOr9m c=1 sm=1 tr=0 ts=6abdc847 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
- a=9aN-E-HqI_eRP4b4jg4A:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: CLOmvpSMlcr5d04QxqxBhnij_hufMAk3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX1jYxkQ4Jv/aE
- vWYvKTmucWbnabF81WoYke7g5OVssXDHG+5LZRPGdjwjFUIxYbwy/ibVWMC9Z7n5kCrlUOAqOxL
- LgR+Jy5YwN82A1jxpXpoIT1uR7J9CSQ6aJPeeSMpAkXLhFEFx0dFximN1YjY/YCFmVyzENmS6wO
- qBPjhborUFMVmtB1BfTX3qBUQ8mjpBDjJTXjOBSQg/npO5zNmPjlezRzkEz+GSt16pjHPEy9Dkm
- NYfojTyFrMFM/FBIzir1nXVjWOTjBNlzTi94q4iX6WILPRcDmgxooTx9/GQSzYqOMrbzhZYLFrs
- rA3AN0kdjdNdiVKPLqVVg2y8TAyDZDDKTMJ1hqDmJUBrywXSnTfmaIDBTZ6N/dPMaPuPoOOKFjx
- X9tgrp2RqYL8qDKbrhhUko3o/4qnOxsdK+SHe2Fj2a5uXw/11CJzwAVHcq0EawSFRMh9SNVdHhA
- eVzVN0RBu1NQWNZcXmw==
-X-Proofpoint-GUID: CLOmvpSMlcr5d04QxqxBhnij_hufMAk3
+In-Reply-To: <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX0d+V0+k765kY
+ fB1Vym/jVFfzg4CbwjVT3Zy94cH7lJgV4Vd5kF3ddLi+ZhLsLvVW7iVh3000biPVzmb3fYSfKiA
+ FOW/gtP2L+JXWZVEZ5xtjVKOcUskTz8DPMQIhyG1U8tDwNQ9hbnX2zDD3mhZyFT0vHiSEYYwbWF
+ DaKCEd1jSM8HpqOd1mKZIjPmbOAy2E4bGxN4OAF+dM50BSiQG1vJnZRcB/UH8sDAH5bPwmhRDO+
+ EVrSO68vO2GBFV7Fsa4ojKfAGEkHWk11scLwxkazMwg/WKyA60ZtuYAx8oSoOHAMKUYncS79/Tv
+ jBMP5iMQlMV5B3fPmilFJj+I03OAsmRy+crUcJGpqNh1Dl17CN5QFUlFzXkGj8HcU2sVHCNpUWM
+ 3M3LUIw3TpGblnXnUGgW4hXroZCLcPxFo5efqnWIN/YrNOLr7AYhQg53Rin3sp8w2NQKkYgxfbz
+ pv4hlxmuCO8wRvBMjUg==
+X-Proofpoint-GUID: VoUB_uCuMlArAAtRNbkVJu0D74hnXkjA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX+qL1Qr7JH7QH
+ Iu8k1FVQ5ngZhi8oM5EXMR3pL98DNZvKR8RJaTMqdXmByH4DM4WQP9x/AYACkUWvJy0U4cYSWiP
+ RAW3s8cer5pN/L9XxIAACV63cKNiURo=
+X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abdc93f cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=10iAqneoWiIgQKNWSb8A:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: VoUB_uCuMlArAAtRNbkVJu0D74hnXkjA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 phishscore=0 spamscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010010
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -146,98 +158,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 10:06:33PM +0900, Joonhoe Kim wrote:
-> _dpu_core_perf_calc_bw() is called with the new CRTC state but sums
-> plane_fetch_bw over drm_atomic_crtc_for_each_plane(), i.e. the planes
-> of the committed state. When the CRTC is re-enabled (DPMS on, system
-> resume) the committed state has no planes attached, so the check
-> computes bw_ctl = 0 and the display runs without an average bandwidth
-> vote on the MDP path until some later commit changes a plane -- which
-> may not happen for a long time on a static screen such as a lock
-> screen.
+On Fri, Sep 25, 2026 at 03:23:28PM +0200, Philipp Zabel wrote:
+> On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> > From: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > 
+> > LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> > Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> > Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> > bridge configuration by detecting and handling both LT9211 and LT9211C
+> > variants from a single driver.
+> > 
+> > Chip detection in lt9211_read_chipid() is extended to identify the
+> > LT9211C by its distinct chip ID registers, and cross-checked against
+> > the chip type requested by the DT compatible string to catch a
+> > mismatched board/compatible combination.
+> > 
+> > Add LT9211C-specific regmap support and use lt9211_chip_data with
+> > i2c_get_match_data() to provide per-chip configuration.
+> > 
+> > Five new functions implement the LT9211C DSI-to-LVDS initialisation
+> > sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
+> > lt9211c_configure_timing(), lt9211c_configure_plls() and
+> > lt9211c_configure_tx().
+> > 
+> > Defer the remaining LT9211C initialization to a work item scheduled
+> > from atomic_enable(), since RX auto-detection requires an active DSI
+> > stream.
 > 
-> Seen on a Lenovo TB323FU (SM8850) through the interconnect and DPU
-> tracepoints: after DPMS off/on or s2idle, dpu_perf_crtc_update reported
-> bw_ctl=0 and qnm_mdp was left at avg_bw=0 (peak 800000) instead of the
-> 3728793 kBps voted before, until the next mode change.
+> This is still wrong, and I don't understand why you need it.
 > 
-> Iterate the plane states of the CRTC state being checked instead.
-> drm_atomic_crtc_state_for_each_plane_state() falls back to the current
-> plane state for planes that are not part of the commit, so the result
-> is unchanged for commits that do touch the planes.
-> 
-> With this, bw_ctl is 3728793600 right after DPMS on and after resume.
-> Only tested on this device.
-> 
-> Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
-> Assisted-by: LLM
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
-> ---
-> _dpu_core_perf_calc_clk() walks the planes the same way; it is not
-> touched here since I have not seen a wrong clock vote from it.
-> 
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 24 ++++++++++---------
->  1 file changed, 13 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> index fea173e37464..343c41550637 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
-> @@ -54,24 +54,26 @@ u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
->  /**
->   * _dpu_core_perf_calc_bw() - to calculate BW per crtc
->   * @perf_cfg: performance configuration
-> - * @crtc: pointer to a crtc
-> + * @state: the CRTC state
->   * Return: returns aggregated BW for all planes in crtc.
->   */
->  static u64 _dpu_core_perf_calc_bw(const struct dpu_perf_cfg *perf_cfg,
-> -		struct drm_crtc *crtc)
-> +		struct drm_crtc_state *state)
->  {
->  	struct drm_plane *plane;
-> -	struct dpu_plane_state *pstate;
-> +	const struct drm_plane_state *plane_state;
->  	u64 crtc_plane_bw = 0;
->  	u32 bw_factor;
->  
-> -	drm_atomic_crtc_for_each_plane(plane, crtc) {
-> -		pstate = to_dpu_plane_state(plane->state);
-> -		if (!pstate)
-> -			continue;
-> -
-> -		crtc_plane_bw += pstate->plane_fetch_bw;
-> -	}
-> +	/*
-> +	 * The planes of the CRTC state being checked: iterating the committed
-> +	 * state (drm_atomic_crtc_for_each_plane()) summed nothing when the CRTC
-> +	 * was being re-enabled (DPMS on, resume), whose old state has no
-> +	 * planes, and the display ran without a bandwidth vote until the next
-> +	 * plane update.
-> +	 */
+> All scheduling initialization as a work item should allow is for
+> downstream bridges and/or panels to be atomic_enabled while
+> lt9211_work_func() is waiting for a vblank interrupt.
+> They expect the LVDS signal to be active at this point. If LVDS is
+> enabled at some unknown later point in time by the work item, any
+> startup timing requirements the panel might have can not be applied
+> correctly.
 
-This again duplicates commit message. Please drop it. The patch LGTM.
+Sorry for late, delayed work is now called at first vblank irq itself. I think it will
+not miss the initial few frames. But i will check more on DSI host side.
+ 
+> Also, deferring initialization as a work item shouldn't have any
+> influence on the upstream DSI signal. That should already be active
+> when lt9211c atomic_enable is called. Could it be that there is a bug
+> in your display controller or DSI bridge driver that causes the DSI
+> signal to still not be completely active at this point?
 
-> +	drm_atomic_crtc_state_for_each_plane_state(plane, plane_state, state)
-> +		crtc_plane_bw += to_dpu_plane_state(plane_state)->plane_fetch_bw;
->  
->  	bw_factor = perf_cfg->bw_inefficiency_factor;
->  	if (bw_factor) {
-> @@ -131,7 +133,7 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
->  		return;
->  	}
->  
-> -	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
-> +	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, state);
->  	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
->  	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
->  	DRM_DEBUG_ATOMIC(
-> 
-> base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-> -- 
-> 2.43.0
-> 
+yes there is some issue in msm/dsi host driver as DSI signal is not active at atomic_enable
 
--- 
-With best wishes
-Dmitry
+> > Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> > Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> 
+> I have not tested this version (yet).
+Ok, i will remove in next revision.
+> 
+> regards
+> Philipp
