@@ -4,113 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7BB6CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 21:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77030CA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 21:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18C7610E1F2;
-	Thu,  1 Oct 2026 21:38:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A556C10E12F;
+	Thu,  1 Oct 2026 21:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="No80NpFh";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="BfTPewuI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Onvfailm";
 	dkim-atps=neutral
-Received: from fhigh-b6-smtp.messagingengine.com
- (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A73610E1F2
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 21:38:43 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id AAA607A00E6
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 17:38:42 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Thu, 01 Oct 2026 17:38:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1790890719;
- x=1790977119; bh=foKCvGIwn36eZyqZp/q9QEf+xEnfIfo5MgV4pCykpWw=; b=
- No80NpFh9VtJzEPjVzH6YjHk/JHyrKah20k7zCtEejB1VI8Ls9wpDybxcKJ1HQ01
- pFfAGh6RxSB6ujy81M8t2rLnFBzgf4nGCOK779mWtNG4WfN3ZdVypjuox5TM/Qim
- Xv/W8uBxFn1HoFp33BeYhidJhO7Eu+0i8v6uWL7S+a+OfKE07V/HUKd+BT+a4Aow
- PH7kTvz5u3LW0AME/XXhlOkcl52xs6AepBcM9DxzyXelSDLfraFym55q+nIdL6jM
- jK23jRVT1ozskGTx5zHa03bFEAZts27RHKJk/MRezvBg9aUN3i1NFoX9K5hb8+xt
- yQv3p4TdGxCguqGIVukPGg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790890719; x=
- 1790977119; bh=foKCvGIwn36eZyqZp/q9QEf+xEnfIfo5MgV4pCykpWw=; b=B
- fTPewuI9zRNqULFSWOmlXCr6FMXqvafnYUeXrZu13Cosbsm4gu2mZ928ir2BW6fI
- pdsweg0x7chGqPO4O9x58lbhcO6fr3hgPdL+VY0LMvJecX2v+1ToA8dZsaXXJz+m
- ffvL4CUvM71yT+Mk5YFPOBw2+zN75SVw3X8KgvbWn5NItZppvPOM3NvtirrD+YTC
- dgRrn3wvrTLBzggOQpo3dEeLobMocY+mcDeCAIt2mSY+FFHmyxZ22z6AG4MO/m1+
- DCwDAckefc2w3ELV9bp/TqBuXf5nGGidnpJHKbhdyQtMt/VKHZ2uqFf4dSA5es0Y
- 7I82cPIXckdfC+5RfKxjA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
- action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1790890719; d=shazbot.org;
- mf=PGFsZXhAc2hhemJvdC5vcmc+;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:ccuyACQBuWNmn/GhcdM32rUnu8lWhwX4vxB6Xfbrj5UItGc
- NaD0Z1YHdXYt/5pgsM+oPa/T30kcLYdznaS2TXK9inhHVZEPGp0wScrgWMfolHPf
- LWFpu3Vk2ReJPRZA6Exhc63otbEWVwNvRvDUh/xAvFYK4swFjxIdwEEakBwTPcsN
- THKQ05f49mqPj1kcnCGsemD/J4wNRld+8C7nlbQNeiqupVKf4TwT0Y9Z6BMfKgNW
- ZrF8WVpSvQkHPFj07oO46CKT5vnvj3MJKOHOO4MZkZ6xpsCWgpjvp/Yw+MP9GSVx
- jhTuZDRLTNuIE0Yx5b3aYK3+9ejsvtFhKewlGuA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
- repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
- action=mi-m=1; hc=12;
- hn=cc,content-transfer-encoding,content-type,date,feedback-id,
- from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1;
- h=sha256:nmZX/2Jo9x6oEAom8tVOzN6xUvhAb+27SXfcDDazOMk=:A3Kob3V4Yu3iHrD9Ak0AoUPAtSE9doe/SGvyKrqKS04=;
-X-ME-Sender: <xms:3tK-ahLuGtB7ifDqzbCX8YvLK1FqDI5SnD1y-Fbg6XSYqCKjwKbsew>
- <xme:3tK-amN_YjvdXPgjoEtLNaEF-IbqN8WQHubA0KGMlYj7mMN-bz_MAjZVtgmmvAgr8
- 8w9GMFuoUDfcP7Ai4gDLnz9912R9JLg-Jxf6BhhoHQIKs--S-sU-Q>
-X-ME-Received: <xmr:3tK-aiyMExU9nP8QcP9Iw876aPvs7PgS-IGXJW-h60HlySoIampFBX4-0Q545A>
-X-ME-Proxy-Cause: dmFkZTGH7Rp125fuiTBE0ZthBe9aERn5bLSNSBdrsSiiYO3UBnkmLsJVXBmJQepqh/shKm
- +5cqXfcLVfT1zhRzeZ8fhTajDsOs6e+PLlMZQGpC0Y6MdxvdjHAv4K604xkJoTVV9fYqC1
- mmtNH9CdK6jEua7RIMtBR2PbpBVqLP+1nsR9xjHN+LaP0ypBSQSMFZSSDzbjd3gJGwYwqQ
- 2Bl2O02m0MFuZr7V6XeXMiFcYaFMklhVwkqNqMyeQ4JVgv4YG4RX2A77VLwMEIn3dYNqo3
- uRrz48p8tZMZWGkBWiEvtlJLArr3o9I3ZcT0S/kzDV7jVehDt/MgUTe1HQlsPUbHRVimlL
- 1EuaWlSCgYvwTo0JUoRcivblyxEsheGLQ69Q6XIqgXkrm95QhVoWAUu2pt6mhsnEVVIBj1
- 8fQ9GoGP7UDobsWtDOhqLHtTryltwXmgSjASkKekXQ5U4MnmhvkWAak3A4/k6R15emG6tu
- mtrpHTb5Ei2AKxhRCTSjjFoUMpgjTV4CPNn4yHHAsrTZtH0ftKaCBfMdaNHXdWNJe1vpc/
- 71DrgR7qlZFMiDh/3ct8HVu8LjNCxbQPTcXEwH80HLSU5rENNchIEBepJAumJNfxgEgVbG
- cpz3A2SzME7kxu4arVJZkAJdthhEMqzwgo9EjD3OfxtBMf0t78DjNFqY8oWQ
-X-ME-Proxy: <xmx:3tK-auK1tApIYxv8QbiLFJ_snJ0N0zhvygpROwNE_27wncHkgUgTXg>
- <xmx:3tK-ahqEiumQaccuT3mJ2kPBSp-NYaA6xVBzQtxW3WlL29H-MeZDiA>
- <xmx:3tK-aktSUh6hDnyKnaGOfy_AC7cMwdB2qWgSXyUEFx01bX2vXIuaWw>
- <xmx:3tK-ahJBqPyBEG056ngxcEbETy2P7nNeabtK9fqW5X54yOmpTh5Wwg>
- <xmx:39K-amoJdlU5be1Kh4XsC_M5aDdEyqUQxRaiNifiMidDvpUNNH7xcnkX>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 1 Oct 2026 17:38:36 -0400 (EDT)
-Date: Thu, 1 Oct 2026 15:38:34 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
- Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
- Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
- Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org, Manish
- Honap <mhonap@nvidia.com>
-Subject: Re: [PATCH v7 0/9] vfio/pci: Add mmap() for DMABUFs
-Message-ID: <20261001153834.4a2528a2@shazbot.org>
-In-Reply-To: <20260924152159.49702-1-matt@ozlabs.org>
-References: <20260924152159.49702-1-matt@ozlabs.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com
+ [74.125.224.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6A4110E12F
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 21:48:49 +0000 (UTC)
+Received: by mail-yx2-f40.google.com with SMTP id
+ 956f58d0204a3-67567ff2e77so3309349d50.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 14:48:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790891328; cv=none;
+ d=google.com; s=arc-20260327;
+ b=beHNLpS+AbRxzms8HYWVUlArs1HYfJXatF6RzQnKsO6IzXUmr+6uBPvfZMaS8gRF0B
+ 2X+Us9lZsefEvRz/mesdjLUj/OMfRrw9uDADSw38sL81L/J4mmTndTQhMofjMJpXUFDu
+ O9tuWkVkwVbZWBcs0F9S8037alLTPFyeAo8iOi/l76nSYLQZ97IRlepYy/CW3vwFKf+D
+ pcv+1GMfloBP0XOPHJXnp2IyPagbmYxLOf9tYKFiImbmpeiKKowVTi//X1EOyjSIY4oF
+ YC/WfVNRRhAbfxT54VttLVk6AdkBWI766XEFx1aDH7iTEXpqSdl4tqMXvpOKbz+k/Wg3
+ AWKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=FxEBbkBDr98zgUdqxxzSaXIdqAeCMXlZGMeNUHK5+N8=;
+ fh=kAGRFKDN7aRGd6VO33HQbsOy3CoTfL4nr4GTMsDqfhg=;
+ b=liKebB3VDogDs3abuStbLJI6ifZDERqjtRKsYFAJ3waMEXGg7pmxsIasBkrEEWBVfV
+ +Thz1RLHFGVOI/ii16z9IkO6uIE2P2LQjFXDjE4wKNX/GSB+SVVhxFMsOp1WqGl0GgMF
+ +U+Kvwizj1QvXZNmU6ULzqgPhFgQpiikEjVpLTpmc083TA+BC/AMBxz49MiwGfJhbd9t
+ WiobnSiilKUehWmRT4uWgUayAR/pe/fWB4pwko78IOteNewe6yiddXl+YJDwlGbDoqlP
+ 78kB6lfwKP5bb9ov2nGyNnFJOQcENfT0pJuj2H1hM8OXLTPl8LwvGM6JNEgGMKgM+yjb
+ vYtw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790891328; x=1791496128; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FxEBbkBDr98zgUdqxxzSaXIdqAeCMXlZGMeNUHK5+N8=;
+ b=Onvfailm8hnQjZ8kI8Le1ZMgwsIaWMcmWMJN4j+HiRhcdM4YyGXxKzTQ6ez73nPDsg
+ M0zbfpCGP4UJonMt5u7SjdnHAoCO4IZHPEiC01HmJq5FQ8dq32rgO6WamLX9qcXA88wp
+ QEJ9nvd4iI5MbyFJAhYz4jlEw3/FhUOMdgGnr0hvOK82pnK4p67b6IL3hQD9WJn5KN2s
+ OEhSaykuFK5doKw9oYclH7DYuvbfIZIzB0kl+CUqimt9zHC6nfe0uv7VuzaX9aQX1qyx
+ cgqw5svNo0d0Kj/Hg9Tc8YDVI1ZmzgHswVUtuQC6sOEACkr+WQbx2fOCeKP0lHUBcE8w
+ EVCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790891328; x=1791496128;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FxEBbkBDr98zgUdqxxzSaXIdqAeCMXlZGMeNUHK5+N8=;
+ b=xzuhz/bEcDYDVhcWdBlvX1wxKOjxyfuy3MPBBvxlIP7WO74MPlDkL4aULZzKti/dYf
+ uIzmS9fGQW0nJErovFdQnIsruDFOAubxkBe7+O1aBkVQRjgp2gobyKZIvbKibzWTdaYq
+ XYuSPPY169zmq/4Feh34HG9a3J4lA6KCvYf65MAa16y2VKd68cDrT/CxbEbIwtSB/Np8
+ I908JZ1BCOY4FgnZEawcC9TLk070cMM7CW3x6PmW5fd/B5M45FUL2jAG238rnrwmiETO
+ ZHDmDWAbykHrlOOgPzgIzvUWQUOewRsb8xSh6NUw5vA3mbAPKskSIt/uOOJX4t3UOh46
+ A0qw==
+X-Gm-Message-State: AFq9FYJ3ALKP2DUIDm/HhZT7SJfssmPo55cSShBX2WrBrerD0gmD+4Mt
+ iv1WaVIVNyYdwwo5f0RtfA+kgrevrYxGC/cOhCQoSkZK6WqX+HAUaDjfWw+774AnVIUkO1tIdT1
+ ypRf67sLG4lrCLGFJ9CDPDrCkXNe9bns=
+X-Gm-Gg: AYBFou0a4jzz9HHQ+z1lgzhXbHban0FdDdPQeMfIPaX9LuJAJFm8pxO2x388Kt4scVc
+ wRKHB+G1i9PWHy1rC7tFb0qqAklVw/HGuQz5UDrqTlO5dFd0X0L8SBAHQ9DA+n/yNlQl/TJ3tkS
+ y6oorTnI+oljkJ56RP57AUqRNMv301AnD7Yy6UynRsKgtatjZgBQrg5Gr/38ce74H11j2rkQAqp
+ G/WdZhZVyFJyv0J8nVRGdSRraTD1iO9tpee9xyJCEpzNnY/RkuFB37qLxDykR63yw9CTsqfV26c
+ pS8rGA9mJtBAKVWFNlzmpykGrsdOxUBDtnh+txj4GO/pndavLFx3me1xW22Eg5mN7tU/3vgOf2s
+ VlHeiIFlF6iq7MxF9d/YL9sgOJwDJJKuXHg==
+X-Received: by 2002:a05:690e:168e:b0:673:1df3:86b2 with SMTP id
+ 956f58d0204a3-677ac0a5637mr405865d50.66.1790891328358; Thu, 01 Oct 2026
+ 14:48:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+ <20260923-dd-cmap-part2-clean-v11-32-9b6c217fdf2f@gmail.com>
+ <20260923225318.68FA81F000FF@smtp.kernel.org>
+In-Reply-To: <20260923225318.68FA81F000FF@smtp.kernel.org>
+From: jim.cromie@gmail.com
+Date: Thu, 1 Oct 2026 15:48:21 -0600
+X-Gm-Features: AclHuK89WETVF5kBKceq7LGgHNh99DFnvQVhaT61KjOm5bX44GqQ2b5VPPdB404
+Message-ID: <CAJfuBxw6=rmCZ-YXyDjxUVZCKpXf+5oLUgGqDnmeXu=PfrLJ4Q@mail.gmail.com>
+Subject: Re: [PATCH v11 32/38] dyndbg: resolve "protection" of class'd pr_debug
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,113 +106,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 24 Sep 2026 16:21:43 +0100
-Matt Evans <matt@ozlabs.org> wrote:
-> Dear Reviewers,
-> ===============
-> 
-> Along the way several related issues came up that warrant more
-> eyes, and I'd be grateful for your input:
-> 
-> 1. If VFIO fd is opened O_RDONLY, it currently can't be mmap()ed
->    (because PROT_WRITE is rejected in do_mmap(), and PROT_READ alone
->    drops the VM_SHARED so VFIO's mmap rejects it).  BUT it seems we
->    can export a DMABUF from it, and then pass the resulting fd around
->    for P2P writes.
-> 
->    I don't know if this is intentional/relied on/a known limitation,
->    or a bug?
+On Wed, Sep 23, 2026 at 4:53=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] dyndbg: race during module load bypasses ABI protection perman=
+ently
+> --
+>
+> commit c8a052c030fff7b63aa2d9e4c2dc3aa455948704
+> Author: Jim Cromie <jim.cromie@gmail.com>
+>
+> dyndbg: resolve "protection" of class'd pr_debug
+>
+> This patch implements an ABI protection mechanism for dynamically debugge=
+d
+> classes by binding a controlling sysfs parameter to classmaps. If a modul=
+e
+> parameter is configured, it protects class'd callsites from being
+> accidentally modified by un-classed wildcard queries.
+>
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index 636a88994a774..d300d44c1a82e 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+>
+> [ ... ]
+>
+> > @@ -252,7 +294,28 @@ static bool ddebug_match_desc(const struct ddebug_=
+query *query,
+> >           dp->lineno > query->last_lineno)
+> >               return false;
+> >
+> > -     return true;
+> > +     /*
+> > +      * above are all satisfied, so we can make final decisions:
+> > +      * 1- class FOO or implied class __DEFAULT__
+> > +      * 2- site.is_classed or not
+> > +      */
+> > +     if (query->class_string) {
+> > +             /* class FOO given, exact match required */
+> > +             return (dp->class_id =3D=3D selected_class);
+> > +     }
+> > +     /* query class __DEFAULT__ by omission. */
+> > +     if (dp->class_id =3D=3D _DPRINTK_CLASS_DFLT) {
+> > +             /* un-classed site */
+> > +             return true;
+> > +     }
+> > +     /* site is class'd */
+> > +     site_map =3D ddebug_find_map_by_class_id(di, dp->class_id);
+> > +     if (!site_map) {
+> > +             WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP de=
+finitions", dp->class_id, di->mod_name);
+> > +             return false;
+> > +     }
+> > +     /* module(-param) decides protection */
+> > +     return !ddebug_class_wants_protection(site_map);
+> >  }
+>
+> [Severity: Medium]
+> Does this code expose a race condition when a module is loading?
+>
+> Looking at ddebug_add_module(), the module is added to ddebug_tables and =
+the
+> ddebug_lock is dropped before map->controlling_param is initialized:
+>
+> lib/dynamic_debug.c:ddebug_add_module() {
+>         ...
+>         mutex_lock(&ddebug_lock);
+>         list_add_tail(&dt->link, &ddebug_tables);
+>         mutex_unlock(&ddebug_lock);
+>
+>         if (dt->info.maps.len)
+>                 ddebug_apply_class_maps(&dt->info);
+>         ...
+> }
+>
+> If a concurrent wildcard query (like echo -p > /proc/dynamic_debug/contro=
+l)
+> is processed while the lock is dropped but before ddebug_apply_class_maps=
+()
+> finishes binding the parameter, site_map->controlling_param will be NULL.
+>
+> This causes ddebug_class_wants_protection() to return false, bypassing th=
+e
+> protection and erroneously enabling the callsites.
+>
 
-Seems like a bug.  In practice it's probably not very meaningful, the
-user can still potentially change the device power state and trigger a
-reset, but being able to source a writable dmabuf to a region on the
-device fd that isn't itself writable seems semantically wrong.
- 
->    a) We could reject export w/ -EPERM unless the device fd's f_mode
->       has O_RDWR, to reflect the RW abilities of P2P
+yes, theres a narrow window where a module w classd pr-debugs
+is changeable with "+p" flags, before the controlling-param is set up.
 
-This seems sufficient...
+Once the protection is in place, "-p" will not be able to undo the "+p".
+Only toggling the param itself will undo those "+p"s
 
->    If we agree it's a bug, I want to do this fix (a), as we can now
->    export a DMABUF RW from an O_RDONLY device fd and then succeed to
->    mmap() the DMABUF with RW.  (That said, even with an O_RDONLY
->    device fd, the device state can still be changed/reset.  But it
->    feels cleaner to prevent export for a O_RDONLY device fd, and match
->    the device fd mmap() behaviour.)
-> 
->    In future, we could consider finer-grained RD/WR if there's a
->    future goal to tie DMABUF permissions to, say, iommufd
->    IOMMU_READ/IOMMU_WRITE permissions:
-> 
->    b) Instead of just failing if !O_RDWR, we could limit the
->       get_dma_buf.open_flags to the VFIO device fd's f_mode, such as:
-> 
->        VFIO device fd perms:    Export flags:           Result:
->        O_RDWR                   O_RDWR, O_RDONLY        OK
->        O_RDONLY                 O_RDONLY                OK
->        O_RDONLY                 O_RDWR                  -EPERM
->        O_WRONLY                 *			-EPERM
->        *                 	O_WRONLY                -EPERM
-> 
->      (Skipping WRONLY because a PROT_WRITE-only mmap() won't work,
->       though it probably should be included for P2P.)
+v12 addresses this by setting the controlling-param before the module
+is added to the ddebug-tables list, and not in the class-map-attach
 
-Certainly more complete, but I'm not sure there's a use case here that
-really warrants the effort.
 
-Another angle to the dmabuf permissions is the region permissions
-themselves.  We don't currently hit this since we're only exporting PCI
-BARs, but for instance Manish wants to protect the HDM decoder range in
-the vfio-cxl series[1].  Again, there's probably a simple solution to
-simply consult the excluded ranges list, added in that series, and
-reject dmabuf exports overlapping it.  I don't expect any action item
-for this series though.
 
-[1]https://lore.kernel.org/all/20260916183540.3813685-1-mhonap@nvidia.com/
 
-> 2. The mmap fault handler takes a bunch of locks non-interruptibly,
->    and potentially depends on a lot of DMABUF-related activities
->    completing.  I'd had a go at converting them to
->    interruptible/killable forms, but that revealed there seems to be a
->    wider issue if move/revoke doesn't complete in a timely fashion
->    (due to buggy importers).  Where I got to was that just updating
->    the fault handler won't fix the user experience of an unkillable
->    task, and move()/revocation will need thought too.  I don't intend
->    to fix this here but wanted to start discussion so we can address
->    it in a follow up.  There's now a dependency between mmap_lock in
->    the fault handler and the DMABUF resv (which might take a while to
->    resolve), though revocation will be rare in practice.
-> 
-> 3. vfio_basic_config_write() has an error path if
->    vfio_default_config_write() fails that releases memory_lock but
->    doesn't un-revoke BARs in the case of PCI_COMMAND.MSE being
->    cleared.  When can the write fail, in practice, perhaps surprise
->    removal?
-> 
->    The effect on this series would be: a write of MSE=0 revokes BARs,
->    vconfig[PCI_COMMAND]'s MSE becomes 0, but if the physical write
->    fails then the physical MSE remains 1 and BAR VMAs stay revoked.
-> 
->    This seemed a mess; fixing isn't as simple as un-revoking on the
->    error path since vfio_default_config_write() has already trampled
->    vconfig so that'd need unwinding.  It felt like a catastrophic
->    scenario where BARs staying revoked isn't a bad outcome, but want
->    to hear your experience of the likelihood of this issue.
-
-Our vfio-pci story around surprise removal and DPC is pretty weak, I'm
-hoping that some of our parallel error handling work will shut down the
-device when this occurs.  For now, leaving the dmabuf revoked seems
-like a reasonable thing to do.  In practice, I don't really see this
-coming up other than in testing surprise removal of NVMe drives.
-
-> 4. The exchange of a VFIO fd mmap()'s vma->vm_file with an implicitly
->    created DMABUF's file has implications on LSM.  For example, an
->    mmap will be checked against the policy for a VFIO fd, but a
->    subsequent mprotect() relates to the policy of the DMABUF file
->    (which is anon/unique to the mapping).  This is pretty confusing.
-
-Maybe I'm not seeing the issue, but this seems like correct behavior to
-me.  Policy decisions are made at creation time and later changing
-protections on one object doesn't affect the other.  Thanks,
-
-Alex
+> [ ... ]
+>
+> > @@ -772,11 +833,14 @@ static int param_set_dyndbg_module_classes(const =
+char *instr,
+> >                                          const struct kernel_param *kp,
+> >                                          const char *mod_name)
+> >  {
+> > -     const struct ddebug_class_param *dcp =3D kp->arg;
+> > -     const struct ddebug_class_map *map =3D dcp->map;
+> > +     struct ddebug_class_param *dcp =3D kp->arg;
+> > +     struct ddebug_class_map *map =3D dcp->map;
+> >       u32 inrep, new_bits, old_bits, old_val;
+> >       int rc, totct =3D 0;
+> >
+> > +     if (map && !map->controlling_param)
+> > +             map->controlling_param =3D dcp;
+>
+> [Severity: Medium]
+> Is it safe to assign map->controlling_param here without holding
+> ddebug_lock or using WRITE_ONCE()?
+>
+> Since this shared state is accessed by concurrent queries, could this
+> cause a data race?
+>
+> [ ... ]
+>
+> > @@ -1332,25 +1395,40 @@ static void ddebug_sync_classbits(const struct =
+kernel_param *kp, const char *mod
+> >       }
+> >  }
+> >
+> > -static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+> > -                                   const struct ddebug_class_map *map,
+> > -                                   const char *mod_name)
+> > +static struct ddebug_class_param *
+> > +ddebug_get_classmap_kparam(const struct kernel_param *kp,
+> > +                        const struct ddebug_class_map *map)
+> > +{
+> > +     struct ddebug_class_param *dcp;
+> > +
+> > +     if (kp->ops !=3D &param_ops_dyndbg_classes)
+> > +             return NULL;
+> > +
+> > +     dcp =3D (struct ddebug_class_param *)kp->arg;
+> > +     return (map =3D=3D dcp->map)
+> > +             ? dcp : (struct ddebug_class_param *)NULL;
+> > +}
+> > +
+> > +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+> > +                                   struct ddebug_class_map *map,
+> > +                                   const char *mod_name)
+> >  {
+> > +     struct ddebug_class_param *dcp =3D ddebug_get_classmap_kparam(kp,=
+ map);
+> >
+> >       if (dcp && dcp->map =3D=3D map) {
+> > +             /*
+> > +              * Bind controlling_param to activate ABI protection in
+> > +              * ddebug_match_desc(), shielding callsites from non-clas=
+s
+> > +              * wildcard (>control) queries.
+> > +              */
+> > +             map->controlling_param =3D dcp;
+> >               v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->=
+bits);
+> >               vpr_cm_info(map, " %s maps ", mod_name);
+> >               ddebug_sync_classbits(kp, mod_name);
+> >       }
+> >  }
+>
+> [Severity: Medium]
+> Can the delayed assignment of map->controlling_param combined with
+> ddebug_sync_classbits() result in permanent desynchronization?
+>
+> During the race window in ddebug_add_module() mentioned above, callsites
+> can be erroneously enabled by a concurrent query. Once the module loading
+> thread resumes, it binds map->controlling_param here and calls
+> ddebug_sync_classbits().
+>
+> However, ddebug_sync_classbits() passes 0 for old_bits:
+>
+> lib/dynamic_debug.c:ddebug_sync_classbits() {
+>         ...
+>         case DD_CLASS_TYPE_DISJOINT_BITS:
+>                 val =3D READ_ONCE(*dcp->bits);
+>                 new_bits =3D val;
+>                 v2pr_info("  %s: classbits: 0x%x\n", KP_NAME(kp), new_bit=
+s);
+>                 ddebug_apply_class_bitmap(dcp, &new_bits, 0, modname);
+>         ...
+> }
+>
+> Because old_bits is 0, the function skips resetting any class bits that a=
+re
+> supposed to be off (since it sees new_bits (0) =3D=3D old_bits (0)). Does=
+n't this
+> prevent the synchronizer from noticing and clearing the erroneously enabl=
+ed
+> callsites?
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dd-cmap-=
+part2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D32
