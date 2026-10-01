@@ -4,92 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10FACA5FC4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8151CA5FC4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D61D110E143;
-	Thu,  1 Oct 2026 02:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E4F10F554;
+	Thu,  1 Oct 2026 02:41:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ok4GVxs6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q2Ipj2CJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PvRKvfY/";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="inW0qWgk";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C60210E143
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 02:39:56 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFE9D10F554
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 02:41:11 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6910jX9V271291
- for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 02:39:56 GMT
+ 6910jhD92098503
+ for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 02:41:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=yV+S3P5jvvM8EKpEwldy3Siv
- yc4WzqDSMEhXoGR4RgQ=; b=Ok4GVxs68iJYunI5nhauD3cKd+DxWRTgTtM/HqOe
- /L8l7ACxHEdeJEzjwfMEc+yPFkbYf+W6N8jcm3hEEmBOd2c9yqloq9wjoRWebz+S
- Krcd/U4PCAJaKSsoobkOzLI/ZGti3m9A5BQw1u+vSE11DPebiB8CUCtrg/S5kkTs
- tdgjAEtvlQmJfY+awzNBtsO89oFC2gUUziMo/mHYoOqvN2ZOUBSxBgdD2bx70HD8
- fslJzdps4R+cX2PukniSVGmao/sj274pgDHLSDvn89Qy/TkEzyy1ebCWaii8YxDl
- wojPtJN2a+rZY3yUjRTUVXA6Avj/Wzm8XYlIEh1BZ3NCZQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvsk4g-1
+ :references:subject:to; s=qcppdkim1; bh=Ghkjprac1hGwE2HrmUj6yg2z
+ I5ZEjbwo3mW27+l4U7w=; b=PvRKvfY/1bUonhpvDd9QQ/hrqKiYaxUFb8gHFmFB
+ ThPOeFz4qpeTor4WGlUrdwmr9QzJ5IREGcnVnbWL3Z9lX2mthrLxN/4uGIPXvoUI
+ mxMYUWday3aUaOW3YCjSK97Hdy1f86elKjKfp+Rvr7vWEh8x5Ny3udRHseCPPT+j
+ /0qiB/uAqWkWD4jSngjM4gLEyLrGzjpUUhoojPNTgFtYWHod44GH9d69yD463h4p
+ FOKcTsDthSi5UH+6R1PnULwBYldXQdqnd5gc4OPEgfk0havfZi08GyG7C3IDvsZM
+ PmZztik015SRYUNkW/6kYIeiC1TmBgTDhA6eBnoyPj5Hng==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h136tk1t3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 02:39:55 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93c444b438aso1298109385a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:39:55 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 02:41:11 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-939c30aa9a0so642074185a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 19:41:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790822395; x=1791427195;
+ d=oss.qualcomm.com; s=google; t=1790822470; x=1791427270;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=yV+S3P5jvvM8EKpEwldy3Sivyc4WzqDSMEhXoGR4RgQ=;
- b=Q2Ipj2CJd6gv0XIEzhh2g9znoVBilJ19U46iOOgulI5VhCGVTO2k1Iip3YE4NjE/DY
- jBrBwS7U/hgvz4NunDb4CXwez3wJvqJobAJfPT0G2bFtSwT3otmI4GbGoLG3FqdAOMqC
- s6oYX9YJI+xib2VUKalqYYTrcOdrPRq59OymG4Tu4QOXeNtxHFju6imhUJUy/50aBGAd
- BVX9ftDt6Ud+Tc1S6gpVavVPLH/ZL4hnGcyAsx288qCvJ1wMyJcgyidDyoGVjIxDwchR
- C0Vfk83iPNRpulOVpBU3ZiXe+TOb+/h2+ngXYlvfNi42TdijoPdD4XhsyfcaXvBQ5RY5
- ab3Q==
+ bh=Ghkjprac1hGwE2HrmUj6yg2zI5ZEjbwo3mW27+l4U7w=;
+ b=inW0qWgkaREShw8dc8NrLvNP+BXrmFDrGiaR8/YgFxDKgXr533xmtVF+sb4Sv1uutW
+ 9Xw+7ROe9AK9Pf+CMOwV9tkiUZaeY27AMlU6LYcoB7S4ToGHsl0BxyWOQvEMOWZlFWQj
+ 4vOar+MtEzjcp+Yr2LWi+4K6MexgIgqflcm4m9npFt1D7cIPKt4oukATkXy8mAUj0OPX
+ rJFRyzI6SfUl4Vjg5x+xpR4uD8CYsKGPipD/Ura4gqyrqRr7gDtr/uLoETUpHJGcnEJ1
+ JLyHo/m2y+edGm+HplFGkpV6PEE5F6CkwvAQ1CVjZbrHNw6Y+C7JYcaZp8Njc7YRZ4Tl
+ 67XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790822395; x=1791427195;
+ d=1e100.net; s=20260707; t=1790822470; x=1791427270;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=yV+S3P5jvvM8EKpEwldy3Sivyc4WzqDSMEhXoGR4RgQ=;
- b=2fYm9Hg20oEDA3rv9c4PMerYTO+eSJfYoA0LV7UAIFMTt1RnCkEuOYjy3P0ZUrpC/A
- hZRknTPqNukv6BLY3fNuu8h9Nf4Ui14cJ6dV8F0wskJok1GeZIoghNsTy4AjEiG5MMKv
- 2eFP0yePNDiqHrC8729hDiPN3lREoVrPDLyrf0bnxCNd4PLLOtHoaQdzR86GnyJOADDT
- 2gGwDH+HiYGHRwmus/IDNqLoA9rhDt6L+8W5SsPOM4AVknpxVsRVPQHwOJQOaRggH/Lo
- LsCw0DK9rDlAYy5dNYA1R7748k6MxGSm1TDU5/LyRqVORCpDzN72vFmzwRcoUZEBWCwd
- FxFA==
+ bh=Ghkjprac1hGwE2HrmUj6yg2zI5ZEjbwo3mW27+l4U7w=;
+ b=gU0UFOWScEVLno28npmGeeyy6bPPj8+weF1QhLe/ReKGzgH10i0dg35xlkATlFs23U
+ QiZCLwhT6Ft45im4sdLf1QQ4WtWeG3WlSzZFwKMvy690Fh6fx+k7WB2fl1mn+3n4z1vw
+ LwhSjeFrlbsR0tXO00/voxIwScnwR5WZ8Zk2iwZxfWteAQqTkMLwGp2We3QskEZEBZpA
+ p8Ha+zBVNm1FQApjPW/abMBOFqSeMp8E2KZvRx7aCZixnOUXYY1f8HpUgJlBw++I9wcv
+ GK1iJeYLWNYdxjm31D42P5Og8v1AcShct6SrI4K3+hhr9/zix9JLj56ycVm7rmwKby9N
+ JB9w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy76MHZVQfmXb58uCxdwBY2ZrksD4jd/IV4TIpb8fPqujCSFkqVNQOcAkopCReKCFMlDLSesZ3BM4E=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kSZ80/Pb5RJjrbwhIoR4N3gx7CecLCZEnZdbodaKccW5onmd6d
- su62OpcsmPdDOf8wYEnVu3Ra9//tvmP/zmxrp2aBXTFm/icXquIpnfrG2MJqTMNJgiEaA/SxQtz
- LFvRAjouRmsMKIGDTjBSixjSYtjDyKM51DjtofVWZhFMXuNSc7jmVQ1Gafwvc0sOcytFfYH8=
-X-Gm-Gg: AYBFou1VP65MRp3cVQppcdGgxpmPwU/u2qmUAH5upsohuJHBBgH0SF8Nb1Vi2PxGv2o
- Y8bP4WGegqKlFSS8C8e3fqZ8pM4eVitlY3C6SRKX1QXtica62nzLnhR1Xuqyo//jg27annswDAW
- UDGd9s506O9hT3pH/+8IuKGWFv2dzmO70WEAnLAqYGWKATuaq/FrC/NelcPpIGtl5jGAH5FTtWv
- 7le/R72l52wmEgnEWK7qD6FH7spN8fqjeuiSUaS8jf7BhtlKLkql1xdDjPNYuRZe2yZdboagATm
- SnGTup0WTevVh0YhDoLd3raCRV2jblyUOpM3MAbm4VMU3gwcFwS5F2U7EElTTFZYONuvA2cVbTc
- n91jo28AXuMYL0J7CgG2P/qY3dSv76XDb5pWrfpCI2eHALeNZL8lLVxjeHx1RbTpXpqRvdhjQPr
- iQo8Y97lfU3vr5
-X-Received: by 2002:a05:620a:4056:b0:93c:bdb4:2be7 with SMTP id
- af79cd13be357-93cbdb43333mr28832585a.60.1790822394865; 
- Wed, 30 Sep 2026 19:39:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:4056:b0:93c:bdb4:2be7 with SMTP id
- af79cd13be357-93cbdb43333mr28828085a.60.1790822394239; 
- Wed, 30 Sep 2026 19:39:54 -0700 (PDT)
+ AKwUvBx2l7vS7Aa2/OUd8oUMCJztJFyYnrBvZo+PhyQpvySIYBknFK1eQV4ljxBCKctHiRRFapDQjgsH+YE=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l3adMpiD2oW/zaGPDCYAJxZRNrJMci+/LA9yrRuL5J4wojpyS9
+ jbpJTYR7I2C0z1YpZnlDnYW0BBD11iSStPTSj2wBJ28LVYmc4i8GdoiEVF391kEY2UGfVaCRSGw
+ xkMQMRN4ia5EdlaBux5o+pINYDTPn+DdxdN/jxLCTaqo8Or5SvLFkbklvrGLNPzTEfq5GOp4=
+X-Gm-Gg: AYBFou2xDobfz2705WK4gV43zixbYWq7xlqmY2qZYWUCc0fObzI3ign+Dn4oMdm20HO
+ etsqe0anO4lWP/0Dgc+dqq8lFvNM+Jb8POw2APWid28jph/4jtqL3xLdr4s0xiYt2A+aWAgJP8e
+ RdeQvlj+0U37yhh0MLbylWbED+KPQ2UUnmpNNF9o0loX6eZHmKex8JLQmo/yVMKKnmpt39HuHkn
+ cIPZ92VQGQzjgswsRBvLlTty5GAsiOO5TLLVmbRdCh2THKaMJEpRkXS0YQIgSnBohv4hFF2eJC3
+ IUzBwf8l97pwzwHXxIGE5jFtyEZkUsjzBEL790NvpwLIhZbgltgMWc5jI2kxDDMqDBKjtTuQZHg
+ Xl7y7XOm69RxJQ0IAJqnlkte1K2C5SUEn7A/pW2Cen+dYVPGI7AP/IZOKK45/hTx45ume/WvH+i
+ HDIN7LVuAG6YLf
+X-Received: by 2002:a05:620a:4448:b0:93a:824:ac8d with SMTP id
+ af79cd13be357-93ca96d83a2mr651722885a.27.1790822470113; 
+ Wed, 30 Sep 2026 19:41:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:4448:b0:93a:824:ac8d with SMTP id
+ af79cd13be357-93ca96d83a2mr651720685a.27.1790822469619; 
+ Wed, 30 Sep 2026 19:41:09 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ba42fb2970sm385438e87.41.2026.09.30.19.39.52
+ 38308e7fff4ca-3a77192c19csm12699581fa.29.2026.09.30.19.41.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Sep 2026 19:39:52 -0700 (PDT)
-Date: Thu, 1 Oct 2026 05:39:50 +0300
+ Wed, 30 Sep 2026 19:41:07 -0700 (PDT)
+Date: Thu, 1 Oct 2026 05:41:06 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Joonhoe Kim <26rote@gmail.com>
 Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
@@ -97,42 +97,40 @@ Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: stop all video interfaces before cleaning
- up a split encoder
-Message-ID: <tcpvnconbaogukmtektdvzbmz623txosdpvlmcemmirekzc4pd@jf64s7vwfbvi>
-References: <20260929130621.943-1-26rote@gmail.com>
+Subject: Re: [PATCH] drm/msm/dpu: compute the CRTC bandwidth from the state
+ being checked
+Message-ID: <5rpjfokvikv2m2bayq72ar4z2i72esaarwzsui3yrceh3urvil@fuopy4uqypyv>
+References: <20260929130633.977-1-26rote@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929130621.943-1-26rote@gmail.com>
-X-Proofpoint-ORIG-GUID: SnIAf4-UVoSmGn78EkUqTvY13ExDqQCa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfXy2AukvsKsptz
- xr7dsgYwWX6F1vV/U5NMnYK2x3NViwCRdUH3BUrHdvYKEmcONGmOtHZtxZCp1J+y4I/CTrGbu/5
- DvwEgX67Ta3MtLODeuHHrp/nx7pRQE5WNUjB+JFn/wxEk/1b4ZeGShkhKH8fitFYeG7dURo34ig
- G8AeHAfUExSOfVuQAkVUgJG+hxHKRb6MbuQeqGyepGNyhVkeP7eA30cA/DW/BCR9c+UBMgihC6x
- ozrG8hPDlGByRbjVreWUA5Pc0mIa1438t30P8JqhCU6GB1BB8BQv2ajSNg/c9jsPY4idXehAvBE
- 3BFY/TL7ppKbq1FOiKF4nfVguxTlhw5Ug/oXDbcgXaLQUqHacAqDmiieD7N/IJqnpYTl/R7k4+u
- 4Nnbx7O4NotpvokAeewexoLRL7sVNa5/yNwy7pmq/TXQWi4Luze2vMvlpRV7rEKqfJu53ptAqaw
- gtB778dqmnUrJpJoYsw==
-X-Proofpoint-GUID: SnIAf4-UVoSmGn78EkUqTvY13ExDqQCa
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX+2Wwg6MOmTXL
- 3HS5dQC6YhVsSGFwONsFs1iWtjSJgk8UU7e0j28CzQ7J9aptMDok1CtgHnpakbtnQV9arrke0AQ
- ebXB/XKol5dJjRrpGw4ekPXBaa9K2y8=
-X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abdc7fb cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260929130633.977-1-26rote@gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX9YZEJpwqcZmz
+ 9IgYFbGCHH90CjTtj/Y3uE7A7ZKOcMC0dzAVFZujjz/eVgqu0a6uORo5A8CF0b4bnA+X/sNvyU3
+ leRNIY03CFqr2BLAB2M5aQ35puq5czI=
+X-Authority-Analysis: v=2.4 cv=aPFlOr9m c=1 sm=1 tr=0 ts=6abdc847 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=oWT2rLAf9-omjay-2P0A:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=pGLkceISAAAA:8
+ a=9aN-E-HqI_eRP4b4jg4A:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: CLOmvpSMlcr5d04QxqxBhnij_hufMAk3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX1jYxkQ4Jv/aE
+ vWYvKTmucWbnabF81WoYke7g5OVssXDHG+5LZRPGdjwjFUIxYbwy/ibVWMC9Z7n5kCrlUOAqOxL
+ LgR+Jy5YwN82A1jxpXpoIT1uR7J9CSQ6aJPeeSMpAkXLhFEFx0dFximN1YjY/YCFmVyzENmS6wO
+ qBPjhborUFMVmtB1BfTX3qBUQ8mjpBDjJTXjOBSQg/npO5zNmPjlezRzkEz+GSt16pjHPEy9Dkm
+ NYfojTyFrMFM/FBIzir1nXVjWOTjBNlzTi94q4iX6WILPRcDmgxooTx9/GQSzYqOMrbzhZYLFrs
+ rA3AN0kdjdNdiVKPLqVVg2y8TAyDZDDKTMJ1hqDmJUBrywXSnTfmaIDBTZ6N/dPMaPuPoOOKFjx
+ X9tgrp2RqYL8qDKbrhhUko3o/4qnOxsdK+SHe2Fj2a5uXw/11CJzwAVHcq0EawSFRMh9SNVdHhA
+ eVzVN0RBu1NQWNZcXmw==
+X-Proofpoint-GUID: CLOmvpSMlcr5d04QxqxBhnij_hufMAk3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010010
+ priorityscore=1501 suspectscore=0 adultscore=0 phishscore=0 spamscore=0
+ malwarescore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010010
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,99 +146,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 10:06:21PM +0900, Joonhoe Kim wrote:
-> dpu_encoder_virt_atomic_disable() disables the physical encoders one by
-> one. For a video-mode master, dpu_encoder_phys_vid_disable() stops its
-> timing engine, waits for the frame to finish and then runs
-> dpu_encoder_helper_phys_cleanup(), which resets the CTL. With a split
-> display (two interfaces driven from one CTL, e.g. bonded DSI) that CTL
-> is shared with the slave, whose timing engine is still running at that
-> point: the source pipe starts fetching the slave's next frame and is
-> left stalled half-way through it (on SM8850, SSPP_CMN_STATUS 0x10030
-> with the fetch and unpack counters frozen, where an idle pipe shows
-> 0x10003).
+On Tue, Sep 29, 2026 at 10:06:33PM +0900, Joonhoe Kim wrote:
+> _dpu_core_perf_calc_bw() is called with the new CRTC state but sums
+> plane_fetch_bw over drm_atomic_crtc_for_each_plane(), i.e. the planes
+> of the committed state. When the CRTC is re-enabled (DPMS on, system
+> resume) the committed state has no planes attached, so the check
+> computes bw_ctl = 0 and the display runs without an average bandwidth
+> vote on the MDP path until some later commit changes a plane -- which
+> may not happen for a long time on a static screen such as a lock
+> screen.
 > 
-> The stall is cleared by a power collapse of the MDSS core GDSC, which
-> normally happens between a disable and the next enable, so it goes
-> unnoticed. When MDSS stays powered across the disable -- a full modeset
-> within one commit, or another runtime-active user of MDSS such as the
-> DP controller -- the next enable of the bonded DSI panel scans out
-> nothing: the DPU keeps committing frames, the layer mixers produce no
-> output (CRC 0), and the panel shows black with the backlight on. A CTL
-> reset at enable does not clear it.
+> Seen on a Lenovo TB323FU (SM8850) through the interconnect and DPU
+> tracepoints: after DPMS off/on or s2idle, dpu_perf_crtc_update reported
+> bw_ctl=0 and qnm_mdp was left at avg_bw=0 (peak 800000) instead of the
+> 3728793 kBps voted before, until the next mode change.
 > 
-> Stop the timing engine of every video interface of the encoder before
-> any of them is cleaned up. The master's existing wait for the frame to
-> complete then covers both halves.
+> Iterate the plane states of the CRTC state being checked instead.
+> drm_atomic_crtc_state_for_each_plane_state() falls back to the current
+> plane state for planes that are not part of the commit, so the result
+> is unchanged for commits that do touch the planes.
 > 
-> Seen on a Lenovo Legion Tab Y700 gen 5 (TB323FU, SM8850) with a bonded
-> DSI video-mode panel (CSOT PP8807HB1-1). It reproduces without any
-> external display by keeping MDSS runtime-active:
+> With this, bw_ctl is 3728793600 right after DPMS on and after resume.
+> Only tested on this device.
 > 
->   echo on > /sys/bus/platform/devices/9800000.display-subsystem/power/control
-> 
-> then DPMS off and on from the compositor: black 3/3 before this change.
-> Every full modeset (e.g. a refresh rate change) went black the same way.
-> With this change: DPMS off/on 13/13 and full modesets 4/4 show the
-> picture, and an attached DP display is unaffected. Only tested on this
-> device.
-> 
-> Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
+> Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
 > Assisted-by: LLM
 > Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 > ---
-> Saim Shujah's "drm/msm/dpu: clear pending flush state before physical cleanup"
-> (https://lore.kernel.org/all/20260826182459.1506522-1-saimzst@gmail.com/)
-> alone does not help here: still black 3/3 with only that change.
+> _dpu_core_perf_calc_clk() walks the planes the same way; it is not
+> touched here since I have not seen a wrong clock vote from it.
 > 
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 32 +++++++++++++++++++++
->  1 file changed, 32 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 24 ++++++++++---------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1f20695f81e3..a14156408126 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1380,6 +1380,35 @@ static void dpu_encoder_virt_atomic_enable(struct drm_encoder *drm_enc,
->  	mutex_unlock(&dpu_enc->enc_lock);
->  }
->  
-> +/*
-> + * Stop the timing engine of every video-mode interface of the encoder before
-> + * any of them is cleaned up. With a split display (two interfaces on one CTL,
-> + * e.g. bonded DSI) the master's cleanup resets the shared CTL while the
-> + * slave's timing engine would still be running; the source pipes then start
-> + * fetching the slave's next frame and stall half-way through it. The stall
-> + * survives until the MDSS core GDSC is power-collapsed, so when something else
-> + * keeps MDSS powered (an active DP controller) the next enable scans out
-> + * nothing.
-> + */
-
-Please instruct your AI to stop generating the narrative comments which
-duplicate commit messages. Otherwise LGTM (please respond to Sashiko
-though).
-
-> +static void dpu_encoder_stop_video_timing(struct dpu_encoder_virt *dpu_enc)
-> +{
-> +	unsigned long lock_flags;
-> +	int i;
-> +
-> +	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> +		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-> +
-> +		if (phys->intf_mode != INTF_MODE_VIDEO || !phys->hw_intf ||
-> +		    !phys->hw_intf->ops.enable_timing ||
-> +		    phys->enable_state == DPU_ENC_DISABLED)
-> +			continue;
-> +
-> +		spin_lock_irqsave(phys->enc_spinlock, lock_flags);
-> +		phys->hw_intf->ops.enable_timing(phys->hw_intf, 0);
-> +		spin_unlock_irqrestore(phys->enc_spinlock, lock_flags);
-> +	}
-> +}
-> +
->  static void dpu_encoder_virt_atomic_disable(struct drm_encoder *drm_enc,
->  					struct drm_atomic_commit *state)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index fea173e37464..343c41550637 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -54,24 +54,26 @@ u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
+>  /**
+>   * _dpu_core_perf_calc_bw() - to calculate BW per crtc
+>   * @perf_cfg: performance configuration
+> - * @crtc: pointer to a crtc
+> + * @state: the CRTC state
+>   * Return: returns aggregated BW for all planes in crtc.
+>   */
+>  static u64 _dpu_core_perf_calc_bw(const struct dpu_perf_cfg *perf_cfg,
+> -		struct drm_crtc *crtc)
+> +		struct drm_crtc_state *state)
 >  {
+>  	struct drm_plane *plane;
+> -	struct dpu_plane_state *pstate;
+> +	const struct drm_plane_state *plane_state;
+>  	u64 crtc_plane_bw = 0;
+>  	u32 bw_factor;
+>  
+> -	drm_atomic_crtc_for_each_plane(plane, crtc) {
+> -		pstate = to_dpu_plane_state(plane->state);
+> -		if (!pstate)
+> -			continue;
+> -
+> -		crtc_plane_bw += pstate->plane_fetch_bw;
+> -	}
+> +	/*
+> +	 * The planes of the CRTC state being checked: iterating the committed
+> +	 * state (drm_atomic_crtc_for_each_plane()) summed nothing when the CRTC
+> +	 * was being re-enabled (DPMS on, resume), whose old state has no
+> +	 * planes, and the display ran without a bandwidth vote until the next
+> +	 * plane update.
+> +	 */
+
+This again duplicates commit message. Please drop it. The patch LGTM.
+
+> +	drm_atomic_crtc_state_for_each_plane_state(plane, plane_state, state)
+> +		crtc_plane_bw += to_dpu_plane_state(plane_state)->plane_fetch_bw;
+>  
+>  	bw_factor = perf_cfg->bw_inefficiency_factor;
+>  	if (bw_factor) {
+> @@ -131,7 +133,7 @@ static void _dpu_core_perf_calc_crtc(const struct dpu_core_perf *core_perf,
+>  		return;
+>  	}
+>  
+> -	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, crtc);
+> +	perf->bw_ctl = _dpu_core_perf_calc_bw(perf_cfg, state);
+>  	perf->max_per_pipe_ib = perf_cfg->min_dram_ib;
+>  	perf->core_clk_rate = _dpu_core_perf_calc_clk(perf_cfg, crtc, state);
+>  	DRM_DEBUG_ATOMIC(
+> 
+> base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
+> -- 
+> 2.43.0
+> 
 
 -- 
 With best wishes
