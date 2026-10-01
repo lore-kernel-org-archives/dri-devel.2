@@ -4,62 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 474FECA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:56:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C71CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E96410E39F;
-	Thu,  1 Oct 2026 11:56:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E47110F617;
+	Thu,  1 Oct 2026 11:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mnX/q5ZG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FYyd4L1s";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1194F10E39F
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 11:56:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BBD010E3AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 11:58:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EBDE7408FC;
- Thu,  1 Oct 2026 11:56:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6631F00899;
- Thu,  1 Oct 2026 11:56:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EFD37601E4;
+ Thu,  1 Oct 2026 11:58:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59BC21F000FF;
+ Thu,  1 Oct 2026 11:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790855816;
- bh=b8xMLV7p9JhteAfTAaXYXGWAPPpzeBoIObqNjYHNZZc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mnX/q5ZGh9QvoKViirbZ+0zoCYxQCU+qGhCAeUJMpcagryn+sDJAnarzkPMf6klND
- fw2oxioFH3OspfgLXlsNrqSPhEv/28440YQT1iM/XZJD1BGZ2OW4JfuwgYjsBFGAQC
- n5qNwrPFqG8Hq5Eamz3XDh2hnRqkdb7Lyce917X6CQUyGn/foj5YIX2CjbWznsIuqb
- Qicl+1f7WYFxwI9V9IrAB7d9Xazllb1otM2X3UCzVSvYGDHqtmJfb1PAM8Zontty0e
- /wLhGtBmaFrt4Q8KGKXOwavjBWGTlYfKOGJM/QJvhBack0KE6VMIWmNCy1+3wVpBIf
- GAnVID1Z9H5fg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v9 18/18] PCI/P2PDMA: Test the routing of clients with ATS
- enabled
-Date: Thu,  1 Oct 2026 14:55:26 +0300
-Message-ID: <20261001-fix-p2p-acs-v4-0-v9-18-1a8e0f50ddd9@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
+ s=k20260515; t=1790855890;
+ bh=BIQan3/ClmeV3Y7g/xTCMnl6f3UCtjGKp4VR/xu7dwo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FYyd4L1smGcDXlFtNbNGuTTdfaBUKl8qB4uWV1ds3nOaMpg/5y7rBURoA8YXTUFGV
+ gci5/tY4w2tcJSRzgCgm3ISDT1t6h/AcmCd6cVsIZgmvFtWAzkNogfOhQWv+fFxmRh
+ DGYAqIcStlyv5b3JEYV8sxaew9nRe9ywcZ0JGngmSAmGAhmiuyE5sKN2ArpswWTrEL
+ L/JCuRCw8ETh7v0HK7f6GJ8vWSnTvCHiCK7Skksfgo42G1UTij9f5T4OMHTaETqGTr
+ 5rtqxaXzrWp9UgvgQ1u9d6+ASH3TcjRNGMvEAbGXIcuUCVBoDMvaOGocJk16Z+ViNd
+ j9herOahVX8mQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 01/18] PCI/P2PDMA: Document the TLP attribute
+ assumptions
+To: "Leon Romanovsky" <leon@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org, media-ci@linuxtv.org,
+ kvm@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-1-1a8e0f50ddd9@nvidia.com>
 References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+ <20261001-fix-p2p-acs-v4-0-v9-1-1a8e0f50ddd9@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 11:58:09 +0000
+Message-Id: <20261001115810.59BC21F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,224 +55,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+> From: Leon Romanovsky <leonro@nvidia.com>
+>=20
+> P2PDMA selects a mapping without receiving the Request's ordering or
+> Address Type attributes. Its ACS handles only strictly ordered Requests
+> carrying an Untranslated address.
+>=20
+> Document that the result is not defined for Relaxed Ordering or
+> ATS-translated Requests because those TLP attributes can select different
+> routes through the fabric.
+>=20
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-A client that enables ATS for the whole device must never be handed a
-bus address, and Translation Blocking must reject its peer-to-peer
-traffic even when the caller asks for the default class. That has to
-hold for answers taken from the cache as well.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Cover those on the fabricated fabric, together with a client that
-declared per-mapping ATS keeping the per-class answers and a client
-without ATS answering for the Untranslated Requests it will issue.
-
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/pci/p2pdma.c       |   8 +--
- drivers/pci/pci.h          |   5 ++
- drivers/pci/pci_acs_test.c | 123 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 133 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9d17a3d2bf1f..38c712d77f15 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1595,14 +1595,15 @@ void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
- }
- EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
- 
--static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
--						unsigned int tlp_flags)
-+VISIBLE_IF_KUNIT unsigned int
-+pci_p2pdma_client_tlp_flags(struct pci_dev *client, unsigned int tlp_flags)
- {
- 	if (client->ats_enabled)
- 		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
- 
- 	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_tlp_flags);
- 
- /*
-  * A client that translates every address it is handed cannot be handed a bus
-@@ -1611,7 +1612,7 @@ static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-  * translation carries the IOVA to the host bridge, so that route has to work
-  * as well.
-  */
--static enum pci_p2pdma_map_type
-+VISIBLE_IF_KUNIT enum pci_p2pdma_map_type
- pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 			   bool per_mapping, enum pci_p2pdma_map_type type)
- {
-@@ -1629,6 +1630,7 @@ pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
- 
- 	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- }
-+EXPORT_SYMBOL_IF_KUNIT(pci_p2pdma_client_map_type);
- 
- /**
-  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index a4a07f31f744..8b10965ab536 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1144,6 +1144,11 @@ enum pci_p2pdma_map_type calc_map_type_and_dist(struct pci_dev *provider,
- 						int *dist,
- 						unsigned int tlp_flags,
- 						bool verbose);
-+unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+					 unsigned int tlp_flags);
-+enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, enum pci_p2pdma_map_type type);
- #endif
- 
- #ifdef CONFIG_PCI_QUIRKS
-diff --git a/drivers/pci/pci_acs_test.c b/drivers/pci/pci_acs_test.c
-index 6a2cd38d968f..a9a3b80ea0ac 100644
---- a/drivers/pci/pci_acs_test.c
-+++ b/drivers/pci/pci_acs_test.c
-@@ -698,6 +698,125 @@ static void acs_walk_unreadable_control_test(struct kunit *test)
- 			PCI_P2PDMA_MAP_NOT_SUPPORTED);
- }
- 
-+/*
-+ * Route the way pci_p2pdma_map_type_tlp() does once it has a client: the
-+ * client decides which flags apply, and the answer is then checked against
-+ * what the client can be handed.
-+ */
-+static enum pci_p2pdma_map_type acs_client_map(struct acs_fabric *f,
-+					       bool per_mapping,
-+					       unsigned int tlp_flags)
-+{
-+	enum pci_p2pdma_map_type type;
-+	int dist;
-+
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(f->client, tlp_flags);
-+	type = calc_map_type_and_dist(f->provider, f->client, &dist, tlp_flags,
-+				      false);
-+	return pci_p2pdma_client_map_type(f->provider, f->client, per_mapping,
-+					  type);
-+}
-+
-+/*
-+ * A client with ATS enabled for the whole device translates whatever it is
-+ * handed, so it never gets bus addresses even on a direct route, and
-+ * Translation Blocking rejects it even when its caller asks for the default
-+ * class.
-+ */
-+static void acs_client_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, false, 0),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * The cache holds what the topology allows, filled when the client first
-+ * asked. A client whose ATS was enabled after that must still be kept off the
-+ * bus addresses the cache recorded.
-+ */
-+static void acs_client_ats_cached_test(struct kunit *test)
-+{
-+	enum pci_p2pdma_map_type type[PCI_P2PDMA_TLP_CLASSES], hit;
-+	struct acs_fabric f = {};
-+	unsigned long cached;
-+	unsigned int flags;
-+	int dist;
-+
-+	acs_build_fabric(test, &f);
-+	for (flags = 0; flags < PCI_P2PDMA_TLP_CLASSES; flags++)
-+		type[flags] = calc_map_type_and_dist(f.provider, f.client,
-+						     &dist, flags, false);
-+	cached = pci_p2pdma_map_types_pack(type);
-+
-+	f.client->ats_enabled = 1;
-+	flags = pci_p2pdma_client_tlp_flags(f.client, 0);
-+	hit = pci_p2pdma_map_types_unpack(cached, flags);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			pci_p2pdma_client_map_type(f.provider, f.client, false,
-+						   hit),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
-+/*
-+ * A client that declared per-mapping ATS picks the Address Type per mapping,
-+ * so it keeps the per-class answers even with ATS enabled.
-+ */
-+static void acs_client_ats_per_mapping_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.client->ats_enabled = 1;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+
-+	f.client_leaf->acs_cap = 0x100;
-+	f.client_leaf->acs_capabilities = PCI_ACS_TB;
-+	f.client_leaf_cfg.ctrl = PCI_ACS_TB;
-+
-+	KUNIT_EXPECT_EQ(test, acs_client_map(&f, true, 0),
-+			PCI_P2PDMA_MAP_BUS_ADDR);
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, true, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_NOT_SUPPORTED);
-+}
-+
-+/*
-+ * A client with ATS disabled cannot issue Translated Requests, so a caller
-+ * asking about them gets the answer for the Untranslated ones it will issue.
-+ */
-+static void acs_client_no_ats_test(struct kunit *test)
-+{
-+	struct acs_fabric f = {};
-+
-+	acs_build_fabric(test, &f);
-+	f.dn1->acs_cap = 0x100;
-+	f.dn1->acs_capabilities = PCI_ACS_RR | PCI_ACS_DT;
-+	f.dn1_cfg.ctrl = PCI_ACS_RR | PCI_ACS_DT;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			acs_client_map(&f, false, PCI_P2PDMA_TLP_TRANSLATED),
-+			PCI_P2PDMA_MAP_THRU_HOST_BRIDGE);
-+}
-+
- static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE_PARAM(pci_acs_p2pdma_request_test,
- 			 acs_request_gen_params),
-@@ -723,6 +842,10 @@ static struct kunit_case pci_acs_test_cases[] = {
- 	KUNIT_CASE(acs_walk_tb_above_divergence_test),
- 	KUNIT_CASE(acs_walk_unreadable_control_test),
- 	KUNIT_CASE(acs_map_types_pack_test),
-+	KUNIT_CASE(acs_client_ats_test),
-+	KUNIT_CASE(acs_client_ats_cached_test),
-+	KUNIT_CASE(acs_client_ats_per_mapping_test),
-+	KUNIT_CASE(acs_client_no_ats_test),
- 	{}
- };
- 
-
--- 
-2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-p2p-ac=
+s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D1
 
