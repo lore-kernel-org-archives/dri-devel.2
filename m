@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6B8ACA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:44:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB56FCA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDB3110F64B;
-	Thu,  1 Oct 2026 12:44:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2748810F658;
+	Thu,  1 Oct 2026 12:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="l6E/hJpN";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kVSUQTrD";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5895910F64B
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:04 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADBB110F658
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:13 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 2D7EB1A24E0;
- Thu,  1 Oct 2026 12:44:03 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 746BD4E41E84;
+ Thu,  1 Oct 2026 12:44:12 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0068060341;
- Thu,  1 Oct 2026 12:44:03 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 46CA860341;
+ Thu,  1 Oct 2026 12:44:12 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 16164103280FE; 
- Thu,  1 Oct 2026 14:43:56 +0200 (CEST)
+ with ESMTPSA id B6EA11032811E; 
+ Thu,  1 Oct 2026 14:44:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790858641; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1790858645; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=AUKPK9U8OAs79EQDiMTTQ3omvx3FyhTr7rZYJ0m5H1E=;
- b=l6E/hJpNkQvA4979IIyCGoMsI3IbAeqg3adfvKdcQbRoG6V90lKidwMJvnOVOb5XJ1a0Ew
- ZKGpu6EQCbBYPxGD4rm3/mMS4JAyjXINFHmH+9ZIqPLbI9svK+hQzphUTGuF8KtLuQUWXg
- J1w7EqltNnacx2KseALb3/76VS4W+ipguuSFsVwYXMHTqcVm8QFH4TuzmKT7c6BWm3ddeC
- 0q+lCn41kKLRWYi1eLllE1C3/ZxMGaHcj12lTOawri9q3GdR9c87zu5wpoBvL9MhWWcP1l
- Xfh2F10t8BKnV2fOUpS78O0xuQ+j63GyrB7PiEU7ZYs9P6C8+wuUET1AXZDReA==
+ bh=BXiFyAdA2pKb+DolrUPc5utozhi6bB8a1GkxVqd6DwY=;
+ b=kVSUQTrDvpjesOOUIcBa/CId/m8TyMLerCQnWIk/cCgjDCQ+NWb3siCi5znX1J+bA8jiyk
+ mE3lWx7yz3SPb8bpSXtIxvbvSAeY3bODbJpgTU+COE4vmF2aOxbhGIVvDSD+A6f9VeI5SB
+ TLup0fYYHZvIvh70TF96ILGK9OuAAXqEoesxqBtLqPsQ6hH13wxRyR+5VJF6iuaoCD8AnF
+ /9ytnbYyzGg25x/+NebwY3+lx07F43R2cnqFXvl6n1edOlufyQzV8w0OccUhTPSXhd1ID3
+ lKLXO1Zrmjo0+atMBDmWSVP239IN20nF28mH7pkcvkj8El7KhIhWp4YouoVEhg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:36 +0200
-Subject: [PATCH RFC v2 14/24] drm: event-notifier: add mechanism to notify
- about hotplug events
+Date: Thu, 01 Oct 2026 14:42:37 +0200
+Subject: [PATCH RFC v2 15/24] drm/bridge: notify about detached bridges
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-14-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-15-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -80,173 +79,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for supporting DRM bridge hotplug, add an event notifier to
-allow interested parties to be notified about events they need to react to.
-
-For the initial implementation of bridge hotplug, two events are needed:
-bridge detach (happening in drm_bridge.c) and MIPI device attach to MIPI
-host (happening in drm_mipi_dsi.c).
-
-For this reason implement the event notifier in a new common file that
-event producers can easily use to send events.
+In preparation to support DRM bridge hotplug, let the drm_bridge code emit
+an event when a bridge is detached, so that this event can trigger the
+actions needed to deconfigure the pipeline and unregister the connector as
+appropriate.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
-
-A different approach I have considered is keeping the event notifier in
-drm_bridge.c (as in [0]) instead of a new centralized file. But then
-another notifier would be needed in drm_mipi_dsi.c for the DSI attach
-event. That would be particularly awkward because the designated component
-to implement hotplug is the drm_bridge_connector, which would then need to
-depend on DRM_MIPI_DSI even though it does nothing MIPI specific.
-
-Changes in v2:
-- added missing include
-
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-12-9d6f2c9c3058@bootlin.com/
----
- drivers/gpu/drm/Kconfig              |  3 ++
- drivers/gpu/drm/Makefile             |  2 ++
- drivers/gpu/drm/drm_event_notifier.c | 58 ++++++++++++++++++++++++++++++++++++
- include/drm/drm_event_notifier.h     | 38 +++++++++++++++++++++++
- 4 files changed, 101 insertions(+)
+ drivers/gpu/drm/Kconfig      | 1 +
+ drivers/gpu/drm/drm_bridge.c | 4 ++++
+ 2 files changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 9bdd9110e754..e661241ed1df 100644
+index e661241ed1df..17c86244c75a 100644
 --- a/drivers/gpu/drm/Kconfig
 +++ b/drivers/gpu/drm/Kconfig
-@@ -33,6 +33,9 @@ endmenu
- 
- if DRM
- 
-+config DRM_EVENT_NOTIFIER
-+	tristate
-+
- config DRM_MIPI_DBI
- 	tristate
- 	depends on DRM
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index cadc8529c995..ac75a13592c4 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -94,6 +94,8 @@ drm-$(CONFIG_DRM_DRAW) += drm_draw.o
- drm-$(CONFIG_DRM_RAS) += drm_ras.o drm_ras_nl.o drm_ras_genl_family.o
- obj-$(CONFIG_DRM)	+= drm.o
- 
-+obj-$(CONFIG_DRM_EVENT_NOTIFIER) += drm_event_notifier.o
-+
- obj-$(CONFIG_DRM_PANEL) += drm_panel.o
- obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
- obj-$(CONFIG_DRM_PANEL_BACKLIGHT_QUIRKS) += drm_panel_backlight_quirks.o
-diff --git a/drivers/gpu/drm/drm_event_notifier.c b/drivers/gpu/drm/drm_event_notifier.c
-new file mode 100644
-index 000000000000..76af4dd4cdb0
---- /dev/null
-+++ b/drivers/gpu/drm/drm_event_notifier.c
-@@ -0,0 +1,58 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Internal event notifier for DRM drivers
-+ *
-+ * Copyright (C) 2026 GE HealthCare
-+ * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/notifier.h>
-+
+@@ -17,6 +17,7 @@ menuconfig DRM
+ # device and dmabuf fd. Let's make sure that is available for our userspace.
+ 	select KCMP
+ 	select VIDEO
++	select DRM_EVENT_NOTIFIER
+ 	help
+ 	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+ 	  introduced in XFree86 4.0. If you say Y here, you need to select
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index c0a2f7f1ce62..c825e80b9a7f 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -34,6 +34,7 @@
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
 +#include <drm/drm_event_notifier.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+@@ -702,6 +703,9 @@ void drm_bridge_detach(struct drm_bridge *bridge)
+ 		bridge->funcs->detach(bridge);
+ 
+ 	list_del_init(&bridge->chain_node);
 +
-+static BLOCKING_NOTIFIER_HEAD(drm_event_notifier);
++	drm_event_notifier_notify(DRM_BRIDGE_DETACHED, bridge);
 +
-+/**
-+ * drm_event_notifier_register - Register to be notified of DRM events
-+ * @nb: the notifier block to be registered
-+ *
-+ * @nb will be notified of events defined in &drm_event_notifier_event
-+ *
-+ * Returns 0 on success, %-EEXIST on error.
-+ */
-+int drm_event_notifier_register(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_register(&drm_event_notifier, nb);
-+}
-+EXPORT_SYMBOL(drm_event_notifier_register);
-+
-+/**
-+ * drm_event_notifier_unregister - Unregister from be notified of DRM events
-+ * @nb: the notifier block to be unregistered
-+ *
-+ * @nb will stop being notified of events defined in &drm_event_notifier_event
-+ *
-+ * Returns zero on success or %-ENOENT on failure.
-+ */
-+int drm_event_notifier_unregister(struct notifier_block *nb)
-+{
-+	return blocking_notifier_chain_unregister(&drm_event_notifier, nb);
-+}
-+EXPORT_SYMBOL(drm_event_notifier_unregister);
-+
-+/**
-+ * drm_event_notifier_notify - Emit an event to be notified to registered
-+ *                             entities
-+ * @event: event ID as defined in &drm_event_notifier_event
-+ * @data: metadata associated to the event
-+ */
-+void drm_event_notifier_notify(unsigned long event, void *data)
-+{
-+	blocking_notifier_call_chain(&drm_event_notifier, event, data);
-+}
-+EXPORT_SYMBOL(drm_event_notifier_notify);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Luca Ceresoli <luca.ceresoli@bootlin.com>");
-+MODULE_DESCRIPTION("Notifier for DRM components addition/removal and attach/detach");
-diff --git a/include/drm/drm_event_notifier.h b/include/drm/drm_event_notifier.h
-new file mode 100644
-index 000000000000..2457719d50fe
---- /dev/null
-+++ b/include/drm/drm_event_notifier.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Internal event notifier for DRM drivers
-+ *
-+ * Copyright (C) 2026 GE HealthCare
-+ * Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
-+ */
-+
-+#ifndef _DRM_EVENT_NOTIFIER_H_
-+#define _DRM_EVENT_NOTIFIER_H_
-+
-+#include <linux/notifier.h>
-+
-+/**
-+ * enum drm_event_notifier_event - DRM bridge events
-+ */
-+enum drm_event_notifier_event {
-+	/**
-+	 * @DRM_MIPI_DSI_ATTACHED: A MIPI DSI device has just been attached
-+	 * to its MIPI DSI host. @data is a pointer to the &struct
-+	 * mipi_dsi_device that has just attached.
-+	 */
-+	DRM_MIPI_DSI_ATTACHED,
-+	/**
-+	 * @DRM_BRIDGE_NOTIFY_DETACHED: A bridge has just been detached
-+	 * from the encoder bridge chain. Emitted at the end of
-+	 * drm_bridge_detach(), after removing the bridge from the encoder
-+	 * chain. @data is a pointer to the &struct drm_bridge that has
-+	 * just been detached.
-+	 */
-+	DRM_BRIDGE_DETACHED,
-+};
-+
-+int drm_event_notifier_register(struct notifier_block *nb);
-+int drm_event_notifier_unregister(struct notifier_block *nb);
-+void drm_event_notifier_notify(unsigned long event, void *data);
-+
-+#endif /* _DRM_EVENT_NOTIFIER_H_ */
+ 	bridge->dev = NULL;
+ 	drm_bridge_put(bridge);
+ }
 
 -- 
 2.55.0
