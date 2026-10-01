@@ -4,104 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E4CCA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 592A9CA5FA5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 317C510E219;
-	Thu,  1 Oct 2026 08:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA6C210E269;
+	Thu,  1 Oct 2026 08:10:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pxI2WJS4";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TaSfPzZY";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7E210E20F
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:07:54 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4a01b560392so6028725e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 01:07:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790842073; cv=none;
- d=google.com; s=arc-20260327;
- b=DB25vCeLCLawHIYvHhlcvjkte+Iww6ymft1YJmlD1+Xzm11+N19yAehv8VrgSqT+Vv
- j2YFE2pMuqA1a6uQqkjEZWSnyFdhf5V1MC7f3xo939LYAN9ODQfQstA1Z2ZL09mKtPAP
- ysZnt+8gLtMKSV0hi+BYOwKtuCOLzAilFLmwPiDvLr8QM5rYgqnXsps7sOaYJ1vw2t2f
- k/lB7htlxZgjU14YHm4DZL8c9BVOqk+Oyz4ya79bcV2fsmzurdGsdbELRsSbPWz4KwsZ
- yWQrkvFryCpVk+LHKzHH7zntxKoZZ6t6Z2QX2JMFMUb5Dr5VT1JqmBlEKEweKuunmIrT
- uTJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
- fh=GLMp9UgBEizH9D1dJjhWbesmqBH+xZ2Y5n1cTnBp6wk=;
- b=dvsRXphb+pFiyh+03Oe8hjXB8jkhNKOqauADAd0Ol1BCFcHnTd95SBkjl9p0bbcotM
- 8RR901z9x22zImSRYka0aBR3074Ebr39SwnJtH9bIT9VZ0CTh1Zaet6ACXIgQ5uPi+A+
- O9zv8IczZdYHbJjv/ThhCwcwPYDGwEOUh1sFUXWMOIvs8hiXI9naSer481A4uxWeaypL
- HXdSrmMYOliUJX31fV70HpLnfBUKF1+Fhb9jz3y6CnZb4nEsqrpGRNUkXpu8PNliguma
- Ic90rrFHBDiRBQEvZRfUjw6djRqHHmcqX58FS5T3JP3rAnU/+8EKIUr+eEO17GU3eDtt
- gFVg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790842073; x=1791446873; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
- b=pxI2WJS4pJm8AFJN2IWifRD80G+iM8MOvy0380TpawC/NT7OTc2MTzVua2/FvBVn4v
- 5jVTNKP4d2zivNYX1gcGASrXNMtgH9HhBkMlX4v5yyq3Kg9inqj1SrNEPWroQL9laN/P
- Rkieq1VuUciXL4fXWhPTZj0ptRBYlOh/qJg2QZbKpsN9phjxWcBEo6bnGye1JMNnd+uh
- Grc+mJX5JuxUWFBwlvRsepXRZOVWyzD3G/PWh62b/30wCwa0OwV0s9P5/P6I6kZscwx3
- i0xyE5WDu2xc/YdhZJC3T9ffo77fL8lbR0U6kx22rVzat7zRmr7ydhYxhTwlcZXfO0Un
- 2MdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790842073; x=1791446873;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=18zLq0gxDFVMpNFIuebbzGpXcEbEbepSMRwKNaKe0Ds=;
- b=umZ2os2hjywgecPA1P+C960TdnoL/wMN4b3cK741AYCY5TWSpxY9X7e3c6h9Mxm2gs
- 3n4cY+8s2F30fMBaH4grqBPjKEpQlzDfR9FW4IHr/PKnIOEhUHKOBMBpdkZJenRuDVfq
- 58QJl+tmEgIprze9hi8CfiXiW/s0w3MDrzn6FKqxobHZhdDvbAdxkVsov7LeddKOqgiw
- ay7x8BW4YP9LgMn+bDV8FWtrPcebj+v4tHXBECVUb7moZ1AsXnAjPa5oj7CvQzdtRqsh
- 3nLA3Q3d0dJatTbWICyT8CfliTCQLsh+5jdmb5kwJoMwjv4xotyJL1Z/JxsDaAJ2mtYE
- qv1Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx9spYVQDxm20lKh4s492knQtqb2sYOR6VSD1kh2vXZtfTP7ZZitY/Z9mjdwhhtMvzDFqSjER0q39U=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ms8/08BpjmSHcC1YhCyen2ehSoFi3ZqPaPURBrb4X5z+cCEVYs
- OOpuQ/9hq8wo4HQ/1CGmrOdLGYZJorod9154QG5AizG85yeYawdx+R9MWmQ/UgLKBC0LzzlKwlS
- feE+H+sGN1K74tLET93yqUB39XaG76/Y=
-X-Gm-Gg: AYBFou0R/R7POkWrZEXE2g5lx2AKMMHO6GuobyhIDdVS7JLHVedZ5gJUaI6tVC5MzCt
- F0QXSXiIyh3/MtWmPFTDC4IuofIUWycbXB8e77X1qAbki6ZZxqW4Ud5Rqg9z4FfndRlQahLux19
- ULshD9VoooqrAmXJqq9Ma3pW2/O/a/Du7JQWgGhdjZeOjNsW4Lt4MtWYU/9RUaZVpK9kaqikFFu
- ymD7J3QGw9OCt4/R/UexMbgrX7ejOk5JW9i2Vkz4VUdI41qkLuSeNIFlPxXCVffNbaTV2wH0BuB
- s4EKSsT3GgyUS4kE018cqWYanSVVeCcgZuwcbNhGA0jUpJrK/HKdHhjoj2xhW4HPnCtMZChcUIa
- zYvqtQo0a7guYT7W2GTaR+qDvYSkvMePjlsxHwIAvCQ==
-X-Received: by 2002:a7b:c319:0:b0:49f:bd43:5a1c with SMTP id
- 5b1f17b1804b1-4a01eb388aemr28276965e9.15.1790842072599; Thu, 01 Oct 2026
- 01:07:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
- <20260930133257.23210-5-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260930133257.23210-5-biju.das.jz@bp.renesas.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 1 Oct 2026 09:07:25 +0100
-X-Gm-Features: AclHuK9cX00JQ5BRsiOahPrZyoL_jqZij1NEb2GdYg1yn5CCJaNcWxmYljLqQbc
-Message-ID: <CA+V-a8tQZONUkeZYFBTvO+L+FTnrq6AE_aJQsm7MFX9CBnA-8w@mail.gmail.com>
-Subject: Re: [PATCH v4 4/9] drm: renesas: rzg2l_mipi_dsi: Add support for DSI
- PWRRDY
-To: Biju <biju.das.au@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59D7010F5B7
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:10:55 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E9F5E4E410ED;
+ Thu,  1 Oct 2026 08:10:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B9F4760341;
+ Thu,  1 Oct 2026 08:10:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id F17D9103290CF; 
+ Thu,  1 Oct 2026 10:10:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1790842251; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=1iEXv1MzdrgaIRYlO6IHAkcD/PzrlJhsiGovH6P/zgo=;
+ b=TaSfPzZYx75PUEp1as/SOZwnqw+vAb7IWcXpDNW4dcPjGWosHLHT0VabrjEwdirzGLZqS7
+ jngsLORTHpV8vfvGRDoN2XYRLPUa/cKaRJsPaG4C5Z/GJM+oWP8zPu72qnbLinphCk6jQD
+ lFeEGgtltO2wtzB5QDOd3k2mgohWRf6yuY6ZL7mrJkKAU5mx/VnWo4CDFGKPNeF4V5FtKs
+ W8JoNWgykWDPmsDm7bUxT1xs16ZZMLTFYZppy0yfI5F2h5WqrNaOuUVER/Mwy6gwC5ndKM
+ pJnQwLqsQATFwFnLgpEIG1H1fCDMPjuXdWg1tHwMw6Fl4SDe1KklXU8Ty3Rq8Q==
+Message-ID: <3fdc30dfdddfb5f529398541aefe92ae86a07b3e.camel@bootlin.com>
+Subject: Re: [PATCH v2 4/7] drm/bridge: dw-mipi-dsi2: stop using deprecated
+ devm_drm_of_get_bridge()
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+ Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
+ <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Thu, 01 Oct 2026 10:10:40 +0200
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-4-6da431d8f180@bootlin.com>
+References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
+ <20260929-drm-fix-of_get_bridge-build-regression-v2-4-6da431d8f180@bootlin.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
+MIME-Version: 1.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,117 +80,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
+Hi Luca (and not Lucas, sorry),
 
-Thank you for the patch.
+Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
+=C2=A0:
+> devm_drm_of_get_bridge() is deprecated, switch to
+> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
+ns
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-On Wed, Sep 30, 2026 at 3:47=E2=80=AFPM Biju <biju.das.au@gmail.com> wrote:
->
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> The register for controlling power to the DSI region is in the SYSC
-> (System Controller) block. Add support for controlling the DSI PWRRDY
-> signal so the driver can efficiently manage power to the DSI region.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+
+With one nitpick below.
+
+>=20
 > ---
-> v3->v4:
->  * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
->    using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
->  * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
->    devm_pwrseq_get().
-> v2->v3:
->  * Updated powerseq API names.
-> v1->v2:
->  * Switched to power sequence for handling pwrrdy signal.
->  * Dropped header file regmap.h and mfd/syscon.h
->  * Added header file pwrseq/consumer.h
+>=20
+> Changes in v2:
+> - fix bridge reference leak on attach error and detach paths
 > ---
->  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 27 +++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
-/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> index d67e1230b70c..5263b2b8f1ca 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -18,6 +18,7 @@
->  #include <linux/of_graph.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/pwrseq/consumer.h>
->  #include <linux/reset.h>
->  #include <linux/slab.h>
->  #include <linux/units.h>
-> @@ -38,6 +39,7 @@ MODULE_IMPORT_NS("RZV2H_CPG");
->  #define RZG2L_DCS_BUF_SIZE     128 /* Maximum DCS buffer size in externa=
-l memory. */
->
->  #define RZ_MIPI_DSI_FEATURE_16BPP      BIT(0)
-> +#define RZ_MIPI_DSI_FEATURE_PWRRDY     BIT(1)
->
->  struct rzg2l_mipi_dsi;
->
-> @@ -87,6 +89,8 @@ struct rzg2l_mipi_dsi {
->         struct clk *vclk;
->         struct clk *lpclk;
->
-> +       struct pwrseq_desc *pwrseq;
-> +
->         enum mipi_dsi_pixel_format format;
->         unsigned int num_data_lanes;
->         unsigned int lanes;
-> @@ -1396,6 +1400,25 @@ static const struct dev_pm_ops rzg2l_mipi_pm_ops =
-=3D {
->   * Probe & Remove
->   */
->
-> +static int rzg2l_mipi_dsi_pwrrdy_init(struct rzg2l_mipi_dsi *dsi)
-> +{
-> +       if (!(dsi->info->features & RZ_MIPI_DSI_FEATURE_PWRRDY))
-> +               return 0;
-> +
-> +       dsi->pwrseq =3D devm_pwrseq_get(dsi->dev, "dsi-pwrrdy");
-> +       if (IS_ERR(dsi->pwrseq)) {
-> +               /*
-> +                * This platform requires a sequencer. If we can't get it=
-, we
-> +                * must return the error (including -EPROBE_DEFER to wait=
- for
-> +                * the provider to appear)
-> +                */
-> +               return dev_err_probe(dsi->dev, PTR_ERR(dsi->pwrseq),
-> +                                    "Failed to get required power sequen=
-cer\n");
-> +       }
-> +
-> +       return pwrseq_enable(dsi->pwrseq);
-Do we want to add a devm action to disable the pwrseq when the DSI
-driver is removed?
+> =C2=A0drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c | 11 +++++------
+> =C2=A01 file changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+> b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+> index 7fd2f1e60654..eb7d5713bd28 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
+> @@ -192,7 +192,6 @@ struct cmd_header {
+> =C2=A0struct dw_mipi_dsi2 {
+> =C2=A0	struct drm_bridge bridge;
+> =C2=A0	struct mipi_dsi_host dsi_host;
+> -	struct drm_bridge *panel_bridge;
+> =C2=A0	struct device *dev;
+> =C2=A0	struct regmap *regmap;
+> =C2=A0	struct clk *pclk;
+> @@ -528,12 +527,12 @@ static int dw_mipi_dsi2_host_attach(struct mipi_dsi=
+_host
+> *host,
+> =C2=A0	dsi2->format =3D device->format;
+> =C2=A0	dsi2->mode_flags =3D device->mode_flags;
+> =C2=A0
+> -	bridge =3D devm_drm_of_get_bridge(dsi2->dev, dsi2->dev->of_node, 1, 0);
+> +	bridge =3D of_drm_get_bridge_by_endpoint(dsi2->dev->of_node, 1, 0);
+> =C2=A0	if (IS_ERR(bridge))
+> =C2=A0		return PTR_ERR(bridge);
+> =C2=A0
+> =C2=A0	bridge->pre_enable_prev_first =3D true;
+> -	dsi2->panel_bridge =3D bridge;
+> +	dsi2->bridge.next_bridge =3D bridge;
+> =C2=A0
+> =C2=A0	drm_bridge_add(&dsi2->bridge);
+> =C2=A0
+> @@ -547,6 +546,7 @@ static int dw_mipi_dsi2_host_attach(struct mipi_dsi_h=
+ost
+> *host,
+> =C2=A0
+> =C2=A0err_remove_bridge:
+> =C2=A0	drm_bridge_remove(&dsi2->bridge);
+> +	drm_bridge_clear_and_put(&dsi2->bridge.next_bridge);
+> =C2=A0	return ret;
+> =C2=A0}
+> =C2=A0
+> @@ -564,8 +564,7 @@ static int dw_mipi_dsi2_host_detach(struct mipi_dsi_h=
+ost
+> *host,
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	drm_bridge_remove(&dsi2->bridge);
+> -
+> -	drm_of_panel_bridge_remove(host->dev->of_node, 1, 0);
+> +	drm_bridge_clear_and_put(&dsi2->bridge.next_bridge);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> @@ -884,7 +883,7 @@ static int dw_mipi_dsi2_bridge_attach(struct drm_brid=
+ge
+> *bridge,
+> =C2=A0	encoder->encoder_type =3D DRM_MODE_ENCODER_DSI;
+> =C2=A0
+> =C2=A0	/* Attach the panel-bridge to the dsi bridge */
+> -	return drm_bridge_attach(encoder, dsi2->panel_bridge, bridge,
+> +	return drm_bridge_attach(encoder, dsi2->bridge.next_bridge, bridge,
+> =C2=A0				 flags);
 
-Rest LGTM.
+Same remark as for the patch 3/7, it would look a bit better to have the
+'bridge' moved to the second line.
 
 Cheers,
-Prabhakar
-
-> +}
-> +
->  static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
->  {
->         unsigned int num_data_lanes;
-> @@ -1454,6 +1477,10 @@ static int rzg2l_mipi_dsi_probe(struct platform_de=
-vice *pdev)
->
->         platform_set_drvdata(pdev, dsi);
->
-> +       ret =3D rzg2l_mipi_dsi_pwrrdy_init(dsi);
-> +       if (ret)
-> +               return ret;
-> +
->         pm_runtime_enable(dsi->dev);
->
->         ret =3D pm_runtime_resume_and_get(dsi->dev);
-> --
-> 2.43.0
->
->
+-Paul
