@@ -4,76 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912D3CA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E08A6CA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:40:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E22C310F6A1;
-	Thu,  1 Oct 2026 13:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 366C510F682;
+	Thu,  1 Oct 2026 13:40:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F7HUCIjl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q1pXbXnf";
 	dkim-atps=neutral
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com
- [74.125.227.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7892F10E429
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:39:57 +0000 (UTC)
-Received: by mail-pj2-f40.google.com with SMTP id
- 98e67ed59e1d1-3a0d31bda43so4172717a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 06:39:57 -0700 (PDT)
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
+ [74.125.228.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242F210F6AB
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:40:00 +0000 (UTC)
+Received: by mail-pz2-f42.google.com with SMTP id
+ 41be03b00d2f7-cc4d04d73b8so2568977a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 06:40:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790861997; x=1791466797; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=3/yY7EGLa578fMnsnENYv1TYQDj2Pi2TjDEnt2TLl9Y=;
- b=F7HUCIjlPNfsWzFrLGbVaVQmRKP9xzr+YzAmIQA0sE4TkyjDe7TL95S3rqNg4Q/fBS
- DH/qNq3aBP9oVCGx3P+nx2adlh3g8kAzIEh5yTwJ1lqMgxNII7u2IMzuKcfPBweI9VX9
- oKA3/my8k5mX6qyPJMdR0M5Ml0l/NWLj22YrcDoxS3oN5LkisRX9tLtq/jgim3Qyk6/n
- n5tOQGqEnMN2rGZ3hwMWnoktic6It968jGSnOY0SSWt5iEy+dDPgayJAkwpapg705UWC
- +WF/WfG55zPh7Axoqi1aVEXkimXOiu+3ONpl/sDzW1VJn1X0ZVxgcBQw/+h+bwUAlxgJ
- tIlg==
+ d=gmail.com; s=20251104; t=1790861999; x=1791466799; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
+ b=q1pXbXnfFl2EEV02D4aZOzq9ioYS9qKkgT+hEhnaIfeyQKXqcO7t75WC438iqA1G7a
+ loaci+0XkcK13UvvhCGNqKPAt/A1ygm0ZXUERmhKFLKqv1kBZ87E1XoANVgpls0nqBd9
+ mUjO1WoGOs1DrtZNiq9xV/EFuYcsambhcZtvSq6wQyaXaySrMfKz/X3GEzHSHal6b/sS
+ klbRUnekEBIVmFsCtTyTqa1kH4n+f9CdmTjHN+7Gm467pMjaDlnYsoZ2bGXhYw2Pd7wT
+ CTzu/iIsKyuGY+OseWjIWchynYyU5BGptTm3K15iGahsHQZ0cxG5WKAlvHl3ygkXP5vd
+ pdjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790861997; x=1791466797;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=3/yY7EGLa578fMnsnENYv1TYQDj2Pi2TjDEnt2TLl9Y=;
- b=MAxBnSC+vOoGTAltIAEbGahQt7lKVfe8JmEivknzojRnr28MB7+rH7tzL7/9bf8kC4
- pyqsj/aBJ7FRaJxs68mrj9xGMkOZgcmDu2TuQagn7I2+I7LBxdkKvktSaLubZCxQtIt/
- ckPmle4hr7hqHo6q75pOT25Zwwj3T7G7BRXciovbm+0BT8K5rBvzUURE9j4P3D0B4ryJ
- BcDG1pv8947UHsCQu1wz6zCRr5KRnqg8pSHjOKOZPp4fjjuQZZfi3bGKufVL0GM4WtXU
- qAo4lpzr1N58+ASwboAbGj0qVxkjCC/aGw0KSqD+44u/SdE5en8jy9tk7Cy7q4GJom4P
- eCkQ==
+ d=1e100.net; s=20260707; t=1790861999; x=1791466799;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
+ b=E8Elu+OBx3+AYaFH0G/EvZQNTvU0q0N67gM32APa1YbX7F/OMYgvHxQ1zZFTkpCNp4
+ NjjW0ngAOCDky7qQsPTgARE+v4VNtlepw8I7q1FUDvMq3v+ZfkwwpJOCXelGOK7TqjIY
+ 0XVba4XgIcv3yGu3REDaKq66/kNkcPZye3UdXRJDAmu+gs5I7IC3GedjcKdbTk1Lv6ud
+ zlAOah02ioNU5iEcbC65vOjNHY9iugcOxX/iNkVJb2eydz+sTAPDi5ZPWivP7zGwA8VH
+ 6Lrk5YJzh2jYg//p24loQ+ZDn1PyT4nOjOdWzi/3/fgd+KC1gzvGVe6y+28qJyF12thQ
+ T/yw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx999W+Jn1f5T2nV9K7+A+s8Z8dEzcPeMFoQZBp/81aOyTXb31mih0RmurVThWYQ72a3EMgmj6KwaU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJSb/+wUSF0LoZlAXIq5dIFZ23mJY4nvs2tjbSXQFGjou7BIX7q
- TXWNLLMCi1swwIJANu3Ppraa3LV8lskSUVIFfSPO9EJY/Pp1sd0Lxgn/
-X-Gm-Gg: AYBFou12Ndl9UttHXPdDyZIejWFbRoRAdyerxLNMcQv8Lv5U3s9PEq9Fb2XEn/LioL1
- tIUkeQePJxjxoPpCF34MsQfJDZcD8IHdp1M2A6axauq52sdtwihdUHPTap0/vTJ9Q8ZWtMlae0t
- ZWpFAyHTMY/QJCQHZwcGIvg1XVSOxi6G8md+4tsJZ4+9RHxqoY78Fg1gTe4e0kS5jFm/0Wa1wzY
- KXyuz2TDy5BHAZ7YLnH0v+xvqHseffsXHpKEyAswXKmS7aLgJcew7aOg2oLTVzRuXHlqokYsnok
- nT4dwm2QxnUgHT+5+veN0h+ZtHJ/UPYHaMKQPF9ZNtVBwU5kB8IXXc9O6tMYcQH+YRKrz7lZ5F7
- wksaWZEj8ROZTiNz/6JdAfm0sfU+Xx9LjzgHxfsQXGv93knGnusIm1WbKHuOgy3rPZDW3nhdX+A
- oMks6O8C+fIXQVo2Pj5ClReTJ11LxujogIOUT3AO6NQ/r0yb6v9dHPXtxlWIWrurM=
-X-Received: by 2002:a17:90b:1c85:b0:3a0:ab20:9e97 with SMTP id
- 98e67ed59e1d1-3a4d197a3f7mr3920815a91.15.1790861996631; 
- Thu, 01 Oct 2026 06:39:56 -0700 (PDT)
+ AKwUvBwSw39EcTDbxezAT1EfsTA5MDU8yoQD1gM7DnQZ/smkTwOqbFQbF/KhmsvZV69w34G9Y0w8SgT+Ewk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIwERxl7LD3MbW2M+2/cAc2faoO5MwUa37CB4jcpLbNst5BjZu3
+ SbEVREyjWgRHa36nyUe9qti8WjO4/MO81Mb4fqEgq81T8RRz6O+pc6VG
+X-Gm-Gg: AYBFou1vk5jnNG/RJ1gCHr/eqTeExN7bOglacG2iKglWVFInQSYhhB347PVCxrJ3FPY
+ me3J7HthC5+HN2b00OB8mK+pUMWdP+s3phUyahBJeLTvWEEQhsUrvOGPEhD3ZRtChcibeNbKpAF
+ BHmuItuZUjPTtgalKmCOuTx+To+x7gXN031/IaVVR66NYRtbHjQaTWrdhT75YILni5e6Asa9l59
+ aBW39jYxhBTBI26uFyEuaVZidJ3aOXfsr9hgGvqcysdjS9Nboxw407r5CQTjG4tMcERlccmfxeG
+ ioAeJoy45e3gjikBC95ueUGWdbYKMAm0B2O25Hv4tq2cd60dkmt/8x2NLhM0I2IElRczd9YO8oX
+ ahZsiY7m4Ppe6ESi6u3frGnKz+dcsAi70/RWqwvstvXmBu2g8vMY7kb/9J/ZQtLOwD109Gf0Np+
+ n4LdgfPpVHKlkCHwTjk/vN3boKjlimjKk0vgiBgaG9Zpxbwwhp16B+3qsmM9SgkOc=
+X-Received: by 2002:a17:90b:4b0d:b0:3a0:ddd6:896c with SMTP id
+ 98e67ed59e1d1-3a6c2276bcfmr375685a91.17.1790861999525; 
+ Thu, 01 Oct 2026 06:39:59 -0700 (PDT)
 Received: from [127.0.1.1] ([1.243.227.27]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.54
+ 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 06:39:56 -0700 (PDT)
+ Thu, 01 Oct 2026 06:39:58 -0700 (PDT)
 From: Gyeyoung Baek <gye976@gmail.com>
-Subject: [PATCH v2 0/2] drm/imagination: Fix pre-existing bugs flagged by
- Sashiko's review of a VM_BIND series
-Date: Thu, 01 Oct 2026 22:39:11 +0900
-Message-Id: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
+Date: Thu, 01 Oct 2026 22:39:12 +0900
+Subject: [PATCH v2 1/2] drm/imagination: Fix reference and vm_bo handling
+ in remap()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAH9ivmoC/22OTQ6CMBCFr0K6drQ0AsWV9zAsOqXCGAukxUZDu
- LstxJ27+eb95C3MG0fGs0u2MGcCeRqHCOKQMd2roTNAbWQmuCh5LSqYgoM7vY0HBWcuq7KViCg
- KFhOTM5sUA7dmZ//Ch9FzqkgOVN4AOjXoPr1aZ8GS16ffsVcnZ09+Ht1nGxby1Ph/Q8iBQ3UvM
- JcKa1mra2cVPY96tKxZ1/ULWJP9MuIAAAA=
-X-Change-ID: 20260927-pvr-fixes-a-40876d8bbb25
+Message-Id: <20261001-pvr-fixes-a-v2-1-f58254e5dfb8@gmail.com>
+References: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
+In-Reply-To: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -99,42 +97,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These two patches fix pre-existing bugs in this driver that a VM_BIND
-series depends on. They address what Sashiko flagged while reviewing
-that series (see Link below).
+When a map overlaps part of an existing mapping, pvr_vm_gpuva_remap()
+splits the mapping into prev/next parts covering what the request did
+not take, instead of creating something new. It gets two things wrong.
 
-This series is based on drm-misc-fixes, which already includes the
-"Fixes for map() path" series (see Link below). Patch 2 is built on top
-of 0a8224058a58 from that series.
+- A GEM reference is taken for each part but it's never needed and never
+  dropped, so it leaks one reference per split (remap-next-in-2m in
+  tests/imagination/pvr_vm_map.c):
 
-tests/imagination/pvr_vm_map.c, sent separately to igt-dev (see Link
-below) and not yet merged, tests these paths and passes with this
-series applied.
+    CRITICAL: 33558528 bytes of shmem still held after close
 
-Link: https://lore.kernel.org/all/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com/ # VM_BIND series Sashiko reviewed
-Link: https://lore.kernel.org/all/20260926152341.783867-1-gye976@gmail.com/ # IGT reproducer (not yet merged)
-Link: https://lore.kernel.org/all/20260922-mmu_fix-v4-0-12f1a871456a@imgtec.com/ # "Fixes for map() path" v4
+- The parts still belong to the original object being split, but
+  pvr_vm_gpuva_remap() links them to ctx->gpuvm_bo, the new object's
+  vm_bo:
+
+    prev_va --obj--> BO_A          BO_B <--obj-- vm_bo (ctx->gpuvm_bo)
+            \___________link___________/  (mismatch: BO_A != BO_B)
+
+  drm_gpuva_link() catches the mismatch:
+
+    WARNING: drivers/gpu/drm/drm_gpuvm.c:2108 at drm_gpuva_link+0x2ec/0x310
+      drm_WARN_ON(obj != vm_bo->obj)
+    Call trace:
+     drm_gpuva_link
+     pvr_vm_gpuva_remap
+     __drm_gpuvm_sm_map
+     pvr_vm_map
+     pvr_ioctl_vm_map
+
+  Link them to op->remap.unmap->va->vm_bo instead.
+
+The locking of the GPUVA lists of the other objects touched by a split is
+not addressed here; it is handled by switching the GPUVM to immediate
+mode.
+
+Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
 Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
-Changes in v2:
-- Drop v1 patch 2, already fixed by 7b824c293a6b ("drm/imagination:
-  Propagate map failures correctly from pvr_mmu_map_sgl()").
-- Patch 2: add 0a8224058a58 to Fixes, as requested by Brajesh.
-- Link to v1: https://patch.msgid.link/20260927-pvr-fixes-a-v1-0-7f5b18ab989a@gmail.com
+ drivers/gpu/drm/imagination/pvr_vm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
----
-Gyeyoung Baek (2):
-      drm/imagination: Fix reference and vm_bo handling in remap()
-      drm/imagination: Size page table preallocation by device address
+diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
+index 55cc999f370..cbdd15ed74f 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm.c
++++ b/drivers/gpu/drm/imagination/pvr_vm.c
+@@ -418,6 +418,8 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
+ static int
+ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ {
++	/* The split parts belong to the object of the mapping being split. */
++	struct drm_gpuvm_bo *vm_bo = op->remap.unmap->va->vm_bo;
+ 	struct pvr_vm_bind_op *ctx = op_ctx;
+ 	u64 va_start = 0, va_range = 0;
+ 	int err;
+@@ -433,14 +435,12 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ 	drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->remap);
+ 
+ 	if (op->remap.prev) {
+-		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
+-		drm_gpuva_link(&ctx->prev_va->base, ctx->gpuvm_bo);
++		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
+ 		ctx->prev_va = NULL;
+ 	}
+ 
+ 	if (op->remap.next) {
+-		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
+-		drm_gpuva_link(&ctx->next_va->base, ctx->gpuvm_bo);
++		drm_gpuva_link(&ctx->next_va->base, vm_bo);
+ 		ctx->next_va = NULL;
+ 	}
+ 
 
- drivers/gpu/drm/imagination/pvr_mmu.c | 25 ++++++++++++-------------
- drivers/gpu/drm/imagination/pvr_vm.c  |  8 ++++----
- 2 files changed, 16 insertions(+), 17 deletions(-)
----
-base-commit: 4d0e2704118511e37790641d591454354e7c0d6c
-change-id: 20260927-pvr-fixes-a-40876d8bbb25
-
-Best regards,
---  
-Gyeyoung Baek <gye976@gmail.com>
+-- 
+2.43.0
 
