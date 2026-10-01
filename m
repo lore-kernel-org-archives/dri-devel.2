@@ -4,44 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B09CA5FD4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C59BDCA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AFE610F689;
-	Thu,  1 Oct 2026 13:31:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384C310F68A;
+	Thu,  1 Oct 2026 13:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A+XTjbJy";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kaL7u6iW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="djilZshW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ej3W9TlK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o2uZgkBj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FED10F68C
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:31:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6445543F58;
- Thu,  1 Oct 2026 13:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116BE1F00899;
- Thu,  1 Oct 2026 13:31:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790861500;
- bh=YRIXMT91xwfN7EXeoTmdITQO3Y/Hp4+WgaSJVnHWCkQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A+XTjbJyGnuqzzPTpS+JJF/gp0L1VD45EBwWvPnbI1eTNx9fOZWimAPCdLnvshpoD
- 6o+BZWatmmdhV8x5jYlmoOIbt3MZnT5gNpF4cmS7nXtum+eU5McwOvFiE97ijK9ytt
- Bm2h1l9QysOzUUOBzTcCKRiygxoAUrcL8hDKo1flEL3EbfcQB2St3NZcECIPj4JYgD
- 3PENBLAakJiyT2k8VCxWt1g44hozitW4XEiwga+O2GqL9Btr1b4dpNN4P8RGgCSsqv
- CXbIo5RWxD7VGTsemgYUXRHOsFsvtla7A3w97X39Pyys2+kYbC5GbLe1jT+eAFe4mq
- uOvAx8p1YPQHQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 23/24] drm: drm_hotplug_helper: new helper to
- implement bridge hotplug
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev
-In-Reply-To: <20261001-drm-bridge-hotplug-v2-23-8e34986dcb68@bootlin.com>
-References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
- <20261001-drm-bridge-hotplug-v2-23-8e34986dcb68@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 13:31:39 +0000
-Message-Id: <20261001133140.116BE1F00899@smtp.kernel.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7761310F68A
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:32:04 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D20CB21E12;
+ Thu,  1 Oct 2026 13:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790861519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+ b=kaL7u6iWf8sotKKPaoe6fU8Sb1XKx21Pf79Iv2dRTK9PvQT/8LttQ9AgKiYb12HQ6TGxUF
+ ZSs2kKxyLiKPJ7+A+vLe3wKHR9oXi9xMG7E19qp/kPo5rKooWhU5DA/YvvHMrCz7fLbKIb
+ kSgnfn2LGQNCkueLw/zYZ1oX78eEXmA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790861519;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+ b=djilZshWooWkUUp/BBTA46AWBtaJ2hsf5bieBJv6h5VJLtweuF8V4pCoNwLvpRB8yJLBc1
+ NqIjjsq/Ekff/ECg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1790861514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+ b=ej3W9TlKotkEQfzPZLbIRy5zjKrFFCIe3mVTnp2tUPEjVk2y+N1skbS3cHTewyY3rWrwJa
+ zXnWqqEzg0a+HroLdgGOqQyXiQsa2jOYVQc5qzF0qVenkOTzIt3jEX4Q7IE8klMWHdsSCM
+ EiJqF/nHo6PDHRqEGP2IAmKBI2O/t0Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1790861514;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Vv3pggW5gTjEwGmDFZGHtA9x8pwZYxunJguuvJPpvsA=;
+ b=o2uZgkBjUxaMuvIUaYIWxeX3L6dzp4w9hzvCrhYSBp1MZ71H9J05IrMgXAX/U2ByL9fv/x
+ gxFn4tVZuavMGJDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6355E13B78;
+ Thu,  1 Oct 2026 13:31:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RzS0EMpgvmoENAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:31:54 +0000
+Message-ID: <067c22f6-206a-421f-8837-1f8a88f55299@suse.de>
+Date: Thu, 1 Oct 2026 15:31:53 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: add ARGB8888 support for primary planes
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Dorinda Bassey <dbassey@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev
+Cc: kraxel@redhat.com, airlied@redhat.com, slp@redhat.com, mhrica@redhat.com, 
+ gurchetansingh@chromium.org, mripard@kernel.org, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+References: <20260930132707.500748-1-dbassey@redhat.com>
+ <94f11a7e-7563-4480-8b00-6e3374865669@suse.de>
+ <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <b8064104-99dd-472d-883d-56b362d60371@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.19)[-0.950]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,200 +138,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] drm: NULL pointer dereferences of last_bridge and optional attach =
-callback
-- [High] drm: refcount underflow on bridge returned by drm_bridge_get_next()
-- [Medium] drm: drmm_hotplug_helper_init returns NULL on success violating =
-API contract
-- [Medium] drm: data race on hotplug_helper->connector outside of connector=
-_mutex
-- [Medium] drm: duplicate invocation of attach callback bypassing drm_bridg=
-e_attach()
-- [Medium] drm: TOCTOU race misses hotplug events due to late notifier regi=
-stration
-- [Low] drm: spurious drm_WARN_ON triggered on normal teardown of incomplet=
-e pipeline
+Hi
+
+Am 01.10.26 um 12:46 schrieb Dmitry Osipenko:
+> On 9/30/26 18:03, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 30.09.26 um 15:27 schrieb Dorinda Bassey:
+>>> Add DRM_FORMAT_HOST_ARGB8888 to the list of supported formats for
+>>> virtio-gpu primary planes. Without this, glmark2-drm fails at
+>>> startup because it selects ARGB visual configs by default, which
+>>> don't match the XRGB-only plane capabilities. This causes
+>>> drmModeSetCrtc to fail with EINVAL.
+>> But does the host also support ARGB on the primary plane? We usually
+>> don't export formats that are not available in (virtual) hardware.
+>>
+>> Best regards
+>> Thomas
+>>
+>>> The virtio_gpu_translate_format() function already handles
+>>> ARGB8888 translation to VIRTIO_GPU_FORMAT_B8G8R8A8_UNORM,
+>>> so this just exposes the existing capability to userspace.
+>>>
+>>> Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+>>> ---
+>>>    drivers/gpu/drm/virtio/virtgpu_plane.c | 1 +
+>>>    1 file changed, 1 insertion(+)
+> For primary plane, alpha channel often doesn't matter as primary has
+> fixed z=0 order and a usual alpha blending mode would account only
+> overlay's alpha channel. Many real hw drivers expose alpha-channel
+> formats for primary plane for compatibility with userspace, even though
+> for them the alpha has no meaning for the primary plane.
+
+We decidedly do not offer formats that are not native to the hardware; 
+except for adding XRGB888.
+
+
+>
+> QEMU is most popular VMM using virtio-gpu, but there are others. For a
+> stricter compatibility we can translate B8G8R8A8 to X8R8G8B8 for the
+> primary plane in the driver code, but I assume in practice it's very
+> unlike this will be necessary and we can always do it later on if will
+> be needed.
+
+No in-kernel format conversion please; again except for adding XRGB8888.
+
+Best regards
+Thomas
+
+
+>
+> The change looks okay, will apply after testing.
+>
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-commit 251bdf083a0bf54162b14a9598f43ad560284a46
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm: drm_hotplug_helper: new helper to implement bridge hotplug
-
-This commit adds a new helper to support cards implementing hotpluggable
-DRM bridges. It registers to get notified of relevant events and reacts
-by creating a bridge if the pipeline is complete, and destroying it on
-bridge removal.
-
-> diff --git a/drivers/gpu/drm/display/drm_hotplug_helper.c b/drivers/gpu/d=
-rm/display/drm_hotplug_helper.c
-> index 0000000000000..1b89b14b52aa2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/display/drm_hotplug_helper.c
-
-[ ... ]
-
-> +static bool drm_hotplug_helper_pipeline_is_complete(struct drm_hotplug_h=
-elper *hotplug_helper)
-> +{
-> +	struct drm_bridge *last_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_chain_get_last_bridge(hotplug_helper->encoder);
-> +
-> +	/* We expect at least one bridge */
-> +	if (!last_bridge) {
-> +		drm_dbg_driver(hotplug_helper->drm, "no bridges in pipeline (yet)\n");
-> +		return false;
-> +	}
-> +
-> +	struct drm_bridge *next_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_get_next(last_bridge);
-
-[Severity: High]
-Does this code cause a refcount underflow? The pointer returned by
-drm_bridge_get_next() directly returns the pointer from the callback without
-incrementing its kref reference count.
-
-When the function returns, drm_bridge_put() executes and decrements the
-reference count. Since a reference was never acquired, this leads to an
-underflow and a use-after-free vulnerability.
-
-[ ... ]
-
-> +static void drm_hotplug_helper_connector_remove(struct drm_hotplug_helpe=
-r *hotplug_helper)
-> +{
-> +	guard(mutex)(&hotplug_helper->connector_mutex);
-> +
-> +	if (drm_WARN_ON(hotplug_helper->drm, !hotplug_helper->connector))
-> +		return;
-
-[Severity: Low]
-Will this trigger a spurious kernel warning during normal device teardown?
-
-drmm_hotplug_helper_init() registers drm_hotplug_helper_fini() to run
-unconditionally on teardown, which calls this function. If a bridge was
-never hotplugged or the pipeline was incomplete, hotplug_helper->connector
-legitimately remains NULL.
-
-[ ... ]
-
-> +static void drm_hotplug_helper_try_complete(struct drm_hotplug_helper *h=
-otplug_helper)
-> +{
-> +	int err;
-> +
-> +	/*
-> +	 * drm_connector already present, the new bridge must be for
-> +	 * another card
-> +	 */
-> +	if (hotplug_helper->connector)
-> +		return;
-
-[Severity: Medium]
-Can this unprotected read lead to a data race on hotplug_helper->connector?
-
-The connector pointer is documented as protected by the connector_mutex.
-Since the DRM event notifier uses a blocking notifier chain, concurrent
-events could locklessly observe the connector as NULL before the addition
-path completes, potentially leading to duplicate bridge attach attempts.
-
-> +
-> +	/* Propagate the attach call chain to newly hotplugged bridge(s) */
-> +	struct drm_bridge *last_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_chain_get_last_bridge(hotplug_helper->encoder);
-> +	err =3D last_bridge->funcs->attach(last_bridge, hotplug_helper->encoder,
-> +					 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-
-[Severity: High]
-Can this code cause a NULL pointer dereference?
-
-drm_bridge_chain_get_last_bridge() returns NULL if the chain is empty,
-which can occur if an unrelated global DRM_MIPI_DSI_ATTACHED event triggers
-this on an empty pipeline. Unconditionally dereferencing last_bridge->funcs
-would crash.
-
-Additionally, the attach callback in struct drm_bridge_funcs is documented
-as optional. Unconditionally dereferencing it will crash for bridges that
-omit it.
-
-[Severity: Medium]
-Could this also lead to a duplicate invocation of the attach callback?
-
-Because last_bridge is already in the bridge chain, it has already been
-attached during initialization. Bypassing the standard drm_bridge_attach()
-API and manually calling the internal attach callback on the same bridge
-breaks driver state expectations, potentially causing memory leaks or
-hardware state corruption.
-
-[ ... ]
-
-> +struct drm_hotplug_helper *drmm_hotplug_helper_init(struct drm_device *d=
-rm,
-> +						    struct drm_encoder *encoder)
-> +{
-> +	struct drm_hotplug_helper *hotplug_helper;
-> +	int ret;
-> +
-> +	hotplug_helper =3D drmm_kzalloc(drm, sizeof(*hotplug_helper), GFP_KERNE=
-L);
-> +	if (!hotplug_helper)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	mutex_init(&hotplug_helper->connector_mutex);
-> +	hotplug_helper->drm =3D drm;
-> +	hotplug_helper->encoder =3D encoder;
-> +	hotplug_helper->drm_event_nb.notifier_call =3D drm_hotplug_helper_handl=
-e_event;
-> +
-> +	if (drm_hotplug_helper_pipeline_is_complete(hotplug_helper)) {
-> +		ret =3D drm_hotplug_helper_connector_add(hotplug_helper);
-> +		if (ret)
-> +			return ERR_PTR(ret);
-> +	}
-> +
-> +	ret =3D drmm_add_action_or_reset(drm, drm_hotplug_helper_fini, hotplug_=
-helper);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	ret =3D drm_event_notifier_register(&hotplug_helper->drm_event_nb);
-
-[Severity: Medium]
-Does the gap between evaluating pipeline completeness and registering for
-notifications create a time-of-check to time-of-use race?
-
-If a bridge is hotplugged in the exact window between the pipeline check
-above and this notifier registration, the DRM_MIPI_DSI_ATTACHED event is
-missed, leaving the pipeline permanently incomplete.
-
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	ret =3D drmm_add_action_or_reset(drm, drm_hotplug_helper_notifier_unreg=
-ister,
-> +				       &hotplug_helper->drm_event_nb);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return 0;
-
-[Severity: Medium]
-Does returning 0 violate the API contract?
-
-The function signature and kernel-doc state it returns a struct
-drm_hotplug_helper pointer on success, or an error pointer on failure.
-The success path executes return 0, returning a NULL pointer. Callers
-correctly checking IS_ERR() will assume success and any subsequent
-dereference of the returned pointer will crash.
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-drm-bridge=
--hotplug-v2-0-8e34986dcb68@bootlin.com?part=3D23
