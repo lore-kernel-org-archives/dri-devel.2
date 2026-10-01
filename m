@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A270BCA5FCE
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0BCCA5FCF
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:41:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B993B10F5B2;
-	Thu,  1 Oct 2026 07:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 173A210F5AD;
+	Thu,  1 Oct 2026 07:41:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EAT6YoQL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LN7gurBS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C1510F5AE;
- Thu,  1 Oct 2026 07:41:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1A110E241;
+ Thu,  1 Oct 2026 07:41:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790840491; x=1822376491;
+ t=1790840497; x=1822376497;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=SH8wrH8c76tnQaZdcVuoby0mlT992wzzTix6LHot7qk=;
- b=EAT6YoQLqkSelco1yvsq3sHRwn+QSF2a1SDGE1hD8u9Mgz72Yw35GWe4
- M+ccisTryASbQ0H75qGPcGMSjjknlRvGGY8Qs7sS6KWBcr8hlrZD87HrQ
- BWe9IqAOR32H6aXmTIOR0oKzbf9UV4qm6B9BklZvU5jJxX7Ge0IJzc0xn
- 1+xVq2SJUtpMpLlh8HrZYakJaa6Iexs1dli4ryTKj5pKo0q1p6rIKrmuo
- 7EcW1LQTeg/x9W+s4FsBQAy8eePzDaB0Besh4tzItFtMyn3QdpB+okWdH
- fa7I+W5Y94CC+oN0NBgZbVeOeq+CXwYpV334xLMISIVm5FTDdDkc3eN5n A==;
-X-CSE-ConnectionGUID: bQIUGDEfTkaiOBLcPNbmHA==
-X-CSE-MsgGUID: KejFxzf3SE6ZTkejJGK7UQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="79151476"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="79151476"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 00:41:31 -0700
-X-CSE-ConnectionGUID: yME5z0TkQ5ict828EOoA3A==
-X-CSE-MsgGUID: UUUkIXvfSJS30Bmll3ZTKA==
+ bh=DaXQw9O1GetHe9diUjX9Fvudufu+gUhp9gMvNFd+tUM=;
+ b=LN7gurBShJg/MDx5QBK9kkHVKY5nmGZoGVq0kXKAqDcNI/S3UEbR1j8P
+ G3rkXpSfwW0AkIyhe6Cd7hOwrqnPlGCo49TIyW7Zy8iFuPIuhyNyBP1ew
+ 7QQHe6Se/OW3lw4CmypkRTPBLtJzNnswlQxfj/+nMsDsw49b1gMFpBPnM
+ 2TL0kEAFmAEZ+yDNCKdIFkooNMgC3V6qpcRnREXPJSOE5PJhqSWcabwVY
+ oMkpD1jLXvmng2l2AH2mJkHfSHgrT7j3swKlgQ1cJHBrehi/nPBZT7gLv
+ mVY5Kjlgnnbo+5/RUyI6R3/j5FJaMooWnCB1V4Fy+5zQvN0SQIkhWp8ZB A==;
+X-CSE-ConnectionGUID: aaE4rlEXR6eeIeqL6glHkg==
+X-CSE-MsgGUID: 2BCHWylNTeufMVy7x+Gh8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="102114375"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="102114375"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 00:41:37 -0700
+X-CSE-ConnectionGUID: oyVXK6pBS06ZUH24jn4Tjg==
+X-CSE-MsgGUID: FLgyi5KuThWVxFkOKtjtPw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="279216750"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 00:41:31 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 00:41:37 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 00:41:30 -0700
+ 15.2.2562.49; Thu, 1 Oct 2026 00:41:36 -0700
 Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 00:41:30 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.10) by
+ 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 00:41:36 -0700
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.25) by
  edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 00:41:30 -0700
+ 15.2.2562.49; Thu, 1 Oct 2026 00:41:36 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wm+nfwcoy8yCMfIJ4DdQjQkc+HktNoWJ6CeAKIXnGU+CrDfkizrlC/qR98QWet2xiSS69jDCBkIfMqkMKflQzp2BSJhEBBSawWR4t2dmVPb1w7cXgSMj9Qwm/vhT0QblUw09IWVpyVx+r+r/1dcKPnlj6t3Q0w9lJKuTueNZ+BWTe2rb1oTOTXEkbUB+hDBFCwGZc3i014KsXoST8fZ7SPRY2t1yV6CYcEXWrH5lrexHjW6Wql16hcRC1rmUVZfYOKpqrTcLoIxDcg4K+WwGyLkHCsQnkh9C7fvm+syicaQ67eQxZhsEgwhgyUAdsoBgXxo/oGjBVxC020Q/y/u/Uw==
+ b=raYsp17/8G5ga+PrF9KTWF7F3wGimMsm8XK1dDOZeqkjJejRlSq/4Zpz+RjGdZtFHjUAEBH1zRyWMoxM6kHoBVY90XVjhmnfrvSQhW2QZXOckb1+ccmHnSJH9DVWqXTbaYmoNMkmKwuH+R3dBIvEX38CZMlRVHd/kZzRrFt/360p0ISHK5soDAg7z/3F0FmS2XHZxsEAQb0pgNFTJlFQV/x8MsEHKpEFx/9HUuc855yZyn1FATorg6CAh3HyZO0wMM0UGAqc/U2v+qdkg1oGLjs6yfshDdEbsfZ40AMLzTSt6w9dQjzGVdno9llDsQxtF3bmNMirhl4l07NK/r6KZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PnMDlGihlVqNBrNdiRknji0ufy1yVz8ggtcVfeYj9mg=;
- b=bDfwNiepC4GKsquE9hHvB/ovfrmR96MVVP4vd4t6UuONndmd4Spxoz94AIfCi2REvmBAbOsjZCSvuWr6/1Rwe38r9APBS7Z6Nic5QqIeVfRjj/PDOpcRNeyL2ZVJE4Lq+qkV6cVXfC+5P84eHMS88i7n7IOQOO+bVPX1e/GY2gXBt2gvYOyoHv4zTmV++OYTdfvYXpIKxPQCSnMJz3rj6H4nbBnYCLp1X7ZjyblkjY7PWKabwaQUaN0UORW5I5YJBzUaeeVT1kKgQgH1fjuzFd4SuN7Od++X7/WgHs5gaio0XSXHz+93xJZRVLf8rC9TnpgDDng0dWOeaOUarWWDrg==
+ bh=gQ+jbQlgYDXd8RSmrCLb4zzVZS5pchvTDAx8v7a3A08=;
+ b=mkxGwl4i4zPFx2CMMcwyRHIXvgQYcxR1K2WEKltlvpmnCAWPqSjzaKQKYLAtQ+Heyb56UAkGrTpGMIeAjRfnOmvSaWuXTW3OS9UfZ91GsFW9274gZcngMMdfDSf8wbCPRTH+K0b7BGnyx36J34MdyAwPipFNjtIDGxbXFhV2jiEcuweLwuyeTVFTgu+72IWALAoPUQ+HyiT0WUcLstPhQfKBy0hXyFGZmHkBpWJCZ2DCfXG4Z3O9hAKLAUbR8wHUDe1I5+RDStxIxxKu5UU3UQwLF3en6/+DGQyie6np5kji0tqf4Q4K3ypH5qjVylC4LKKau8+8IJRqpI4+IINAiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -69,11 +68,11 @@ Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
  by DM4PR11MB6285.namprd11.prod.outlook.com (2603:10b6:8:a8::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Thu, 1 Oct
- 2026 07:41:27 +0000
+ 2026 07:41:33 +0000
 Received: from PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
  ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 07:41:27 +0000
+ 07:41:33 +0000
 From: Krzysztof Karas <krzysztof.karas@intel.com>
 To: <intel-gfx@lists.freedesktop.org>
 CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
@@ -81,10 +80,10 @@ CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
  <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
  <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [PATCH v5 2/6] drm/i915/selftests: Use gt_*/drm_* prints in selftest
- helpers
-Date: Thu, 1 Oct 2026 07:40:56 +0000
-Message-ID: <20261001074100.2694888-3-krzysztof.karas@intel.com>
+Subject: [PATCH v5 4/6] drm/i915/gt/selftests: Use gt_* prints in gt
+ standalone tests
+Date: Thu, 1 Oct 2026 07:40:58 +0000
+Message-ID: <20261001074100.2694888-5-krzysztof.karas@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261001074100.2694888-1-krzysztof.karas@intel.com>
 References: <20261001074100.2694888-1-krzysztof.karas@intel.com>
@@ -96,56 +95,56 @@ X-ClientProxiedBy: TLZP290CA0014.ISRP290.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM4PR11MB6285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1694e5b8-0469-4fc9-22cf-08df1f8f66b8
+X-MS-Office365-Filtering-Correlation-Id: ed96ca3c-6abc-4771-8482-08df1f8f6a32
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 1lS7gsIO9GycAV1nFrWlGGqokBuLr+dAPgUgSCnfayuhnROKNtR1u5bBi1yDj/lMW55hzldvbCtgbzbJCuE7ypuQlNmt2Lkvt59hXtce9qPCopU6wS3sMRZ5jRgY9LXdaSK5Qj+l8xCpWrtlL/OGdg+3gsQV67+BkTlcQOACWGsMrQMqB7xPE9GXcY8YqMh7BSMrKRICHZy9/UC+erPG/eiOhjAXnmJS357cVkh+Db+90lAKpHlyW9KCfQwm6F0oUKStb9yKAUxNqDn38nL/J2VB6aVQ70ukuGSBSWcGcKD2NzTtneuRMyoL1LT6JonY+uRpAMNPxBiSSEj3eRHLlxgEJS3TbirVpoXKEJ26yAfNImzj8qOR7enartdJUW9Sc/zhXORSz9cdWTWWIhT6Jtfplt3Fyi2Ijt2ZBIAfcjwAEMgG40+xkEqTDNYyzgPPcr3YHLV+K2KGJAkN+2VmEbAVQKbMlo25mgzk9Iqrgck0Lj82LGEXkA5AJSN2QMoA0211Et2gYF6EoU9p4Jhw+pbOLEnaHFSWcU7IbX4/nMyIK6NywNMV97y5qVOvwvySw3o8AbtxZibzvnjk547NP4vc/b6G3BuJvkRCi0OzQn579nrOaiZJYkQtme/vvTKiog9CJ+BfaiILdG8fTOFByMBnHK+XzTwNTECTnaN06Vo=
+ ARA:13230040|1800799024|376014|366016|23010399003|10067099003|56012099006|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: OxWF88AaRz52sjWCxWEbNhCNGPfQLFozlCzdPfFWtVriZnZ+PWn+CI352gpd9T++CDLbCvrgFIqwxNtAuTu4d0db+vxVAjjOmG9Zf30S7I8tnKkdu9+BtmkcbNdNSx1p5NfCpZiI4eAO37rj61a61vSaXOl8rYJf+X5H4MQTZvuy2h4ayyWGoImRSbgaZcaPJQqtWIkJZB5z0lYWMj4TjG2ljaa50OZtJcfYru2B3qbDH73c91VzCkQVoqlhgc4zsd+YWm1iTbcH+2aL4U0K7QVRfcgoIle6/JRvf3h4vHkmvZ9qGVep4MEC3RGOOOClxMDvchVSzB7Xd8kUYMILreTB61BWepEKieCvAUX6uw3U/2jMlL+Gs2e2pvxM0vMpsiYcpmMe8DNXn8f/NCPunELWWxGBrK0CrJRMuN7vrLjobkpAyzeRqyXAjau6XfkSbUfBGqTuJfmz/WDchu56CVS6jBwkY7TEn1n86zmyVeRAEo08gepm8xpLLyHYv77QvRdkIinT5aKCU1Hp9dyD7ygo52ltmuTjIfvV0VwJQfai5hb6tHn+9osyOZ/m7AzF1Yazd/RBrv9FQUqx6F8/q7gKVWNn1qhpPFOOpK2dUXT6ar0JoBahcgEtaKQx4h175TSeH+5zMJsgPsKzOpvsbczKrbS8qNxcljG9145iGtg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(3023799007)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VZ1CbF4EfmxDQ/xCKW1HY4SpUWLYugbVhLnHaGhrrIj531ZAhvALlwAXOOu6?=
- =?us-ascii?Q?eABgQq0KwNW9nkcUogvSp8qENuI/eoJuSvbUG8omRPgpwrawp8gZQqG0cTTt?=
- =?us-ascii?Q?A5Z06lStEpgzftD0VGBIYZOzNpEZKHYsgcZrAPJOpa+lBz3pyg1hiXWsAp2l?=
- =?us-ascii?Q?Xf4yy1EVuuViWIHM3Iql447r0LXJD5PA1D8HFl3WCsrJbONw/gFSq9qGmNhc?=
- =?us-ascii?Q?jiGKPgwm+w60FvaxGJw4vITdeARBTEKhRTgVA81uY88znBjrhhWL3VDhkvbI?=
- =?us-ascii?Q?75430I1jL+abP/ZNs8BuPjGINzJoleEIxfU5/pOdE8LTZIgC5lFIj6t7ZnBx?=
- =?us-ascii?Q?jP8SC4mqCx76AEWwsi9je2Aoks/qXvzI1FI3x+OJAl1fFmg44VQT1/OsfBLp?=
- =?us-ascii?Q?NTaSfqBlvqgXf8c3UJxRqjlReKBh/mxPZEVAPqJnvZByUwjD6IW6RQzWY5co?=
- =?us-ascii?Q?jnCPwRmhXkll9x4D/wkAjnsmYB8t8ZPoYfvaU7OGKEigkJtD7niZtTo9U/sO?=
- =?us-ascii?Q?WVmEYFcYmjPFjoXFb6ys2saDMDcAHD4a2B5cM4p/+q8Fx6/PDG4zjIltQZ4T?=
- =?us-ascii?Q?jgUfZ3Ye42WUlcPghOdPx/GcgVzMsKrHXMcMqeQ/C+yjK2ZDmIxpwX3D2qoD?=
- =?us-ascii?Q?LnH3qEoZQtbbwWzvWlg1SMYCHh+8RquK4rKl/lPbyVwqVGeaXFNpwkhtQ42o?=
- =?us-ascii?Q?YyCUFDkujGZhXf8xxoka9MFASTpVIj0HbTlen8Js3Shm6k/X1YOPAjlzNAIP?=
- =?us-ascii?Q?qUods5LD9qi4PeTbDb3wFtEUF2voBywFeT4tes72DjhRkGYoUnHzX1LhvPas?=
- =?us-ascii?Q?bMAWlxUkK5IyoyTD0nRhNLSwcu3RRzcU+DnSiPB3nsmqjzND9BaKsydg9B9Z?=
- =?us-ascii?Q?x3G96+QvzTJH00UHLMizHcnQQL52+dDXGVbFl9mfKirjmmNJ9dGSj0s2n+bN?=
- =?us-ascii?Q?AhRKfJO1LygBJWQRTqJNKrMJQu8q8PNWJsE76kzg9lruGqX55cgyDYDTu5UA?=
- =?us-ascii?Q?vfTqu2N0Yp9Gf5Aoqjl1JxnNo39FNXBcwEU/DwEJRnLTCCqmoWs0iziQGPE4?=
- =?us-ascii?Q?LPNgvSz4xqMwdgjgEzVI13lCwrir1xSQry3z/Z6hdlUS0Haqbl81DgxR78k1?=
- =?us-ascii?Q?pWhCJw2/SZt7rIqEEbFiifkIbOe2p3irYDCTuwhxTao+uzMW5fCFvp95jcr8?=
- =?us-ascii?Q?5Eb+Qr8hy1VwZgQa2nr2Lg3XYw09ybpr1qT5h2LqeS0XpCWp55TvK8qWysIV?=
- =?us-ascii?Q?ZwxnBAz4bZs7rSkky/iv5Q4Ip4w2DHyNNHs+OFP4PwmsBTsPtMpSBbtNXxPo?=
- =?us-ascii?Q?4Nhs7uKlsyKi2HtKXWa3QUYVahXoRU0400mh/P34pItjtR17xBnXtEDTKthY?=
- =?us-ascii?Q?eQOb6ZxVG3FYTMw4QhynBMYN+4/uSg3oY98dGIZEe0baGt5kAAvtAH2TUsB1?=
- =?us-ascii?Q?tAC5NYLLfiI/mlDaVglL4zZOYjZIkj4AOgmiAiStgYKsTVTljDCUs1piI5n0?=
- =?us-ascii?Q?stuWhb8cQ9WgNuPjnh0zE9rmLv0bdGO39UlTfm8x4uSibwg17ZJu+PkT633L?=
- =?us-ascii?Q?Cky0X+y2/MwRYf36VUQz+GuM9hP6caRmBNz22e5Upc2Qf9vS05Yef7pC+rqf?=
- =?us-ascii?Q?Hp3gccS02/ddK6RqgkMogH/+41TU9BTyn/Z/xdkKpTPEhrV/9uuk1199SYts?=
- =?us-ascii?Q?VKdlK6dm9G4+MNOcOKrdrhhIhv1deUbyAXpBgySLcfbO6nUQvoB0jOL8Maqx?=
- =?us-ascii?Q?7Crug0UTtWkxYCg1ezBIP+Z6J3HfRy0=3D?=
-X-Exchange-RoutingPolicyChecked: MhqIUkEHuXi2Fx1qJ+EaQjd1ENGbZybOlk5k9+ni02DEqFb+Ho8rVZV5qsx1XehhM7LUYACBvge+zPepd6WkDE4VBSaKcboWARSHG1NVXe2gGCAv0ht4nFf04RuQEdWkVahP7AK3ULj0AjYDg1PX8z3+P/oimw4+etyeyIFCONyGOmOii2zeAevb71tV+Vl7TjYdWHt/jm3u6Ic18O6CELqNDGPf17UggPvYL3mNEzLR36yIfW2N8gg8U9Vx0OpChNs/mb7IgFF4dyyCEnIS8YjCzKRbgJrGyujnQyRR868PpNuD+dU5DipLAysatzL0ACkXmytCpfu+5fGeFZdeOA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1694e5b8-0469-4fc9-22cf-08df1f8f66b8
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jmmk+iZwKiqzOY4cYteoSiRBiRXpQXE1ucvnXNMeMKnGmsAd8UxR/4NgrFbO?=
+ =?us-ascii?Q?bFBfbtUGDaRcU+L/i0VE6Felu4km250fbygZctXG77ECgxwqyLaqhguJ14uV?=
+ =?us-ascii?Q?AuFmjjbpsiiaP1QNutGJM0WNYPSvzglj8pybvdoQ+MHaDN3eOSSYpbKy6HcJ?=
+ =?us-ascii?Q?1Fm37RnS2ktkDo/+zoUwdrXfQujDw0Hwfry76cf/aYUQGVFjLo12Yoes3hBE?=
+ =?us-ascii?Q?i4Mk8HWUYH23nbiRiaGRmCe1l1q0l7qRONbaqjnjNtuLhmksB8kBN8Cxgkvm?=
+ =?us-ascii?Q?uo77Qh9wyC3ECpA5Jm7J3rUgVtRT1p/WMDGvn+PzQWrF08bu9d0sLkyGwRy9?=
+ =?us-ascii?Q?NWKd4K8d18QFkpAKSXZKc6olIqWcHGgyifgEZmHEALy/vbDjaSECS9KlkfCK?=
+ =?us-ascii?Q?lMApJUZnUAyGqM5Tg0g1CM0ozdulHjm04cY888TWMZJMxgmfNzaGhgSkH9aD?=
+ =?us-ascii?Q?mpFOovcl0WpgrjV2ShISN/MGUEU8iV2vTKANQ+fxqnsk9/0/rjf+NHQM9jVF?=
+ =?us-ascii?Q?ReFncq32OJNkIZxZ5goL7xGumKIcG5vqsEfM/xnKWqO4ZqLQ5GnL1ZFRxGUn?=
+ =?us-ascii?Q?lpc7kYZH7pvqBK8Yq25EcS3Z8CTLqlqK2AwDMJzlXvnWlJcGJy8t9acgcrAf?=
+ =?us-ascii?Q?vdpHtKYbTGtNXAxqXAY2G3gTpIWDNDs6SCFcBvmI/xGjC6Ve6g5nExZBUzPj?=
+ =?us-ascii?Q?74xQmmeBtwtm/BRpy6XVAFffEHetqDLIGZZxhLsEaAfqXHDK4//qNJ2Kso/n?=
+ =?us-ascii?Q?xxThyvU3Xgd/Aq49XGGe/KTyCN6cfA2yW6tKNYoXzZwn0DW9Xznz9TUn5CKR?=
+ =?us-ascii?Q?jmc5y3Ol2Rm2Uh0ax392wPo2EvxQNfzNfR7TdYaU7NEiSUBGx88gVaw+Ee/t?=
+ =?us-ascii?Q?LRfGQg/PnH8VXggcKaccLzMZWdKkK81obne2LzFkBMrs5WBe+aAajY221obg?=
+ =?us-ascii?Q?mxpwkclfNyLFOKhrcdNsmm9ylClIpwHIZhSwr/wpVED9brt74WGO9xkMcios?=
+ =?us-ascii?Q?8LquFZL6K0My1j556D7UDgJITaHyqwMUxOSPPXHnSlhpZfU6Wq6jnDK2uD0e?=
+ =?us-ascii?Q?BRWrCTWXppPQ2qd3GY3n7EgkYKZZWJus3LZSxHKxa4Ne3SJvxa/Iw/xoSsf5?=
+ =?us-ascii?Q?2vVXC22iT//LjC8Js7q/kVyBsbUxVgLS/v4ScsTUvHaJVmAVy9aLq7vGQ1T5?=
+ =?us-ascii?Q?9wwA7clhSVn2lGS8ER2QnfFFhmso7+6KhfupHTlwCeEz6bHG54rErP0wphme?=
+ =?us-ascii?Q?xiEWJDT08S3fXRAQfse+DpvvMpxQe8nVWyIZxQ3Hj5mwFDiJgQtwNE6IKfh4?=
+ =?us-ascii?Q?5TOtkU8KTAU2y13Yey/esQHDpDAn9HViirQ3opo5oRE5FamI4MyGycdXC9V3?=
+ =?us-ascii?Q?oRsGj7q1zJPOU7kWKT85/KmFgQXGXQ9foUsUVZcUa7mgqnRRYmoiIeMrya3z?=
+ =?us-ascii?Q?sNoxxWhD7BRpzjQ+CUzPO9vbNzKvZ2Gs0AfrSJvpVzySPgRu3B0OQ8stpNwV?=
+ =?us-ascii?Q?t+254sUHjccXRzXZKhNwRJY85fO5h8zmaCZ9HoRKUA+wkuR3f9TmdMa1LmwL?=
+ =?us-ascii?Q?k1BBWlPoTpsW9GzcclvneyaDPAExX/6T64l/T6HFq66O3uRedaX34ZGcgocD?=
+ =?us-ascii?Q?kZN/2VavwQd0HVRCt23TGKnL4+4JI2ZnCaQmneVWqwn31DbiiCxkV6h4kBVJ?=
+ =?us-ascii?Q?5iJM34ifnLXBHzKHT8qWMtdTEq+LJkGMQKKUshYaogN8XF4wA0I/vnd4kwtX?=
+ =?us-ascii?Q?pA8eMDEiTFLe/beolL5dxGvDj1FFHQk=3D?=
+X-Exchange-RoutingPolicyChecked: YDYeq9iLToHk290rwZ+GElMgSAxLm0oqzFkHKhRwvFjCY/3QNYoLXIDifUUA3TvIjJRTBSoLYBdBUXF6bwzUfBzdoEgUBsY5YC9MA63kayoXV2qQYTggLmcbJweZnjVVRhOZO/J8qoa2LQFMH6zdw7nNzTfVROVu5owkBciNVX9VgA8KvCkMzWpYm7ZL6D6FJSDNDwe5kxTr3GullP/fuDUNUl0JNkAZTSszuXhuOT56NzS85RV7c0HagDuRtYDIezBNh7YHNxTPN3Kl45htbTkssNH2GL/fHrSq34TrJJfiEOznzvjvWVVbQFXan+LvWyFQcYUWmkOOW5pDSNZ5iw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed96ca3c-6abc-4771-8482-08df1f8f6a32
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:41:27.5703 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:41:33.5646 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eEcr2cIs8LnaptctndHPhlC66GavciGeDLhBgLXuCBkTVGGbAWktys8cNAUjlqWzHZN9Rr8p5/fNW99ivhzxgLq9J2O0Yj6weQGYzyrX5/w=
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZwEmvdfY0v2t11SWvPT6xzAexOgAafqQianxB8yVXcNM3Y+ts4lC0vjEQ5y0vWWhanWD+QbsWTnRqt9dYJnA5cZaiQyqd4rJK6VSVZc2sVM=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6285
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -164,179 +163,522 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Move away from generic pr prints to GT aware gt_* versions,
-which tag each message with both the device and the tile it
-came from.
-
-igt_live_test.c and i915_active.c now use drm_* prints: both are
-driven by a bare struct drm_i915_private and have no unambiguous
-GT to attribute the message to.
-
-For mocked device in mock_gem_device.c use dev_err() instead.
+which tag each message with device and the tile it came from.
 
 Assisted-by: GitHub-Copilot:claude-opus-5
 Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 ---
 v5:
- * Drop i915_* macros' usage;
- * Remove prior r-bs due to change in igt_reset.c from drm_*
-   to gt_* prints;
+ * No changes since v4;
 
- drivers/gpu/drm/i915/selftests/i915_active.c         | 12 +++++++-----
- drivers/gpu/drm/i915/selftests/igt_flush_test.c      |  4 +++-
- drivers/gpu/drm/i915/selftests/igt_live_test.c       |  6 +++---
- drivers/gpu/drm/i915/selftests/igt_reset.c           |  4 +++-
- .../gpu/drm/i915/selftests/intel_scheduler_helpers.c |  7 +++++--
- drivers/gpu/drm/i915/selftests/mock_gem_device.c     |  4 +++-
- 6 files changed, 24 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_rc6.c |  32 ++++---
+ drivers/gpu/drm/i915/gt/selftest_rps.c | 126 ++++++++++++++++---------
+ 2 files changed, 103 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c b/drivers/gpu/drm/i915/selftests/i915_active.c
-index 9fea2fabeac4..79b55df1e71a 100644
---- a/drivers/gpu/drm/i915/selftests/i915_active.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_active.c
-@@ -115,7 +115,7 @@ __live_active_setup(struct drm_i915_private *i915)
- 			err = i915_active_add_request(&active->base, rq);
+diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+index 68fb1830d411..a88b39733364 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
++++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+@@ -6,6 +6,7 @@
+ #include "intel_context.h"
+ #include "intel_engine_pm.h"
+ #include "intel_gpu_commands.h"
++#include "intel_gt_print.h"
+ #include "intel_gt_requests.h"
+ #include "intel_ring.h"
+ #include "intel_rps.h"
+@@ -80,7 +81,8 @@ int live_rc6_manual(void *arg)
+ 	res[1] = rc6_residency(rc6);
+ 	rc0_freq = intel_rps_read_actual_frequency_fw(rps);
+ 	if ((res[1] - res[0]) >> 10) {
+-		pr_err("RC6 residency increased by %lldus while disabled for 1000ms!\n",
++		gt_err(gt,
++		       "RC6 residency increased by %lldus while disabled for 1000ms!\n",
+ 		       (res[1] - res[0]) >> 10);
+ 		err = -EINVAL;
+ 		goto out_unlock;
+@@ -92,10 +94,12 @@ int live_rc6_manual(void *arg)
+ 
+ 		if (!rc0_power) {
+ 			if (rc0_freq)
+-				pr_err("No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
++				gt_err(gt,
++				       "No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
+ 				       rc0_freq);
+ 			else
+-				pr_err("No power and freq measured while in RC0\n");
++				gt_err(gt,
++				       "No power and freq measured while in RC0\n");
+ 			err = -EINVAL;
+ 			goto out_unlock;
+ 		}
+@@ -114,7 +118,8 @@ int live_rc6_manual(void *arg)
+ 	dt = ktime_sub(ktime_get(), dt);
+ 	res[1] = rc6_residency(rc6);
+ 	if (res[1] == res[0]) {
+-		pr_err("Did not enter RC6! RC6_STATE=%08x, RC6_CONTROL=%08x, residency=%lld\n",
++		gt_err(gt,
++		       "Did not enter RC6! RC6_STATE=%08x, RC6_CONTROL=%08x, residency=%lld\n",
+ 		       intel_uncore_read_fw(gt->uncore, GEN6_RC_STATE),
+ 		       intel_uncore_read_fw(gt->uncore, GEN6_RC_CONTROL),
+ 		       res[0]);
+@@ -124,21 +129,25 @@ int live_rc6_manual(void *arg)
+ 	if (has_power) {
+ 		rc6_power = div64_u64(NSEC_PER_SEC * rc6_sample_energy[1],
+ 				      ktime_to_ns(dt));
+-		pr_info("GPU consumed %lluuW in RC0 and %lluuW in RC6\n",
++		gt_info(gt,
++			"GPU consumed %lluuW in RC0 and %lluuW in RC6\n",
+ 			rc0_power, rc6_power);
+ 
+ 		if (2 * rc6_power > rc0_power) {
+-			pr_err("GPU leaked energy while in RC6!\n"
++			gt_err(gt,
++			       "GPU leaked energy while in RC6!\n"
+ 			       "GPU Freq: %uMHz in RC6 and %uMHz in RC0\n"
+ 			       "RC0 energy before & after sleep respectively: %lluuJ %lluuJ\n"
+ 			       "RC6 energy before & after sleep respectively: %lluuJ %lluuJ\n",
+-			       rc6_freq, rc0_freq, rc0_sample_energy[0], rc0_sample_energy[1],
++			       rc6_freq, rc0_freq,
++			       rc0_sample_energy[0], rc0_sample_energy[1],
+ 			       rc6_sample_energy[0], rc6_sample_energy[1]);
+ 
+ 			diff = res[1] - res[0];
+ 			threshold = (9 * NSEC_PER_MSEC * sleep_time) / 10;
+ 			if (diff < threshold)
+-				pr_err("Did not enter RC6 properly, RC6 start residency=%lluns, RC6 end residency=%lluns\n",
++				gt_err(gt,
++				       "Did not enter RC6 properly, RC6 start residency=%lluns, RC6 end residency=%lluns\n",
+ 				       res[0], res[1]);
+ 			err = -EINVAL;
+ 			goto out_unlock;
+@@ -265,12 +274,13 @@ int live_rc6_ctx_wa(void *arg)
+ 			}
+ 
+ 			intel_gt_pm_wait_for_idle(gt);
+-			pr_debug("%s: CTX_INFO=%0x\n",
+-				 engine->name, READ_ONCE(*res));
++			gt_dbg(gt, "%s: CTX_INFO=%0x\n",
++			       engine->name, READ_ONCE(*res));
+ 
+ 			if (resets !=
+ 			    i915_reset_engine_count(error, engine)) {
+-				pr_err("%s: GPU reset required\n",
++				gt_err(gt,
++				       "%s: GPU reset required\n",
+ 				       engine->name);
+ 				add_taint_for_CI(gt->i915, TAINT_WARN);
+ 				err = -EIO;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_rps.c b/drivers/gpu/drm/i915/gt/selftest_rps.c
+index be77fba2ec49..0c5bccfddd3a 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_rps.c
++++ b/drivers/gpu/drm/i915/gt/selftest_rps.c
+@@ -15,6 +15,7 @@
+ #include "intel_gpu_commands.h"
+ #include "intel_gt_clock_utils.h"
+ #include "intel_gt_pm.h"
++#include "intel_gt_print.h"
+ #include "intel_rc6.h"
+ #include "selftest_engine_heartbeat.h"
+ #include "selftest_rps.h"
+@@ -204,12 +205,12 @@ static void show_pstate_limits(struct intel_rps *rps)
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 
+ 	if (IS_BROXTON(i915)) {
+-		pr_info("P_STATE_CAP[%x]: 0x%08x\n",
++		gt_info(rps_to_gt(rps), "P_STATE_CAP[%x]: 0x%08x\n",
+ 			i915_mmio_reg_offset(BXT_RP_STATE_CAP),
+ 			intel_uncore_read(rps_to_uncore(rps),
+ 					  BXT_RP_STATE_CAP));
+ 	} else if (GRAPHICS_VER(i915) == 9) {
+-		pr_info("P_STATE_LIMITS[%x]: 0x%08x\n",
++		gt_info(rps_to_gt(rps), "P_STATE_LIMITS[%x]: 0x%08x\n",
+ 			i915_mmio_reg_offset(GEN9_RP_STATE_LIMITS),
+ 			intel_uncore_read(rps_to_uncore(rps),
+ 					  GEN9_RP_STATE_LIMITS));
+@@ -264,7 +265,8 @@ int live_rps_clock_interval(void *arg)
  		i915_request_add(rq);
- 		if (err) {
--			pr_err("Failed to track active ref!\n");
-+			drm_err(&i915->drm, "Failed to track active ref!\n");
- 			break;
+ 
+ 		if (!igt_wait_for_spinner(&spin, rq)) {
+-			pr_err("%s: RPS spinner did not start\n",
++			gt_err(gt,
++			       "%s: RPS spinner did not start\n",
+ 			       engine->name);
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+@@ -290,7 +292,8 @@ int live_rps_clock_interval(void *arg)
+ 						  GEN6_RP_CUR_UP_EI),
+ 			     10)) {
+ 			/* Just skip the test; assume lack of HW support */
+-			pr_notice("%s: rps evaluation interval not ticking\n",
++			gt_notice(gt,
++				  "%s: rps evaluation interval not ticking\n",
+ 				  engine->name);
+ 			err = -ENODEV;
+ 		} else {
+@@ -330,20 +333,23 @@ int live_rps_clock_interval(void *arg)
+ 			u32 expected =
+ 				intel_gt_ns_to_pm_interval(gt, dt);
+ 
+-			pr_info("%s: rps counted %d C0 cycles [%lldns] in %lldns [%d cycles], using GT clock frequency of %uKHz\n",
++			gt_info(gt,
++				"%s: rps counted %d C0 cycles [%lldns] in %lldns [%d cycles], using GT clock frequency of %uKHz\n",
+ 				engine->name, cycles, time, dt, expected,
+ 				gt->clock_frequency / 1000);
+ 
+ 			if (10 * time < 8 * dt ||
+ 			    8 * time > 10 * dt) {
+-				pr_err("%s: rps clock time does not match walltime!\n",
++				gt_err(gt,
++				       "%s: rps clock time does not match walltime!\n",
+ 				       engine->name);
+ 				err = -EINVAL;
+ 			}
+ 
+ 			if (10 * expected < 8 * cycles ||
+ 			    8 * expected > 10 * cycles) {
+-				pr_err("%s: walltime does not match rps clock ticks!\n",
++				gt_err(gt,
++				       "%s: walltime does not match rps clock ticks!\n",
+ 				       engine->name);
+ 				err = -EINVAL;
+ 			}
+@@ -424,7 +430,8 @@ int live_rps_control(void *arg)
+ 		i915_request_add(rq);
+ 
+ 		if (!igt_wait_for_spinner(&spin, rq)) {
+-			pr_err("%s: RPS spinner did not start\n",
++			gt_err(gt,
++			       "%s: RPS spinner did not start\n",
+ 			       engine->name);
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+@@ -434,7 +441,8 @@ int live_rps_control(void *arg)
  		}
  
-@@ -124,12 +124,13 @@ __live_active_setup(struct drm_i915_private *i915)
- 
- 	i915_active_release(&active->base);
- 	if (READ_ONCE(active->retired) && count) {
--		pr_err("i915_active retired before submission!\n");
-+		drm_err(&i915->drm, "i915_active retired before submission!\n");
- 		err = -EINVAL;
- 	}
- 	if (atomic_read(&active->base.count) != count) {
--		pr_err("i915_active not tracking all requests, found %d, expected %d\n",
--		       atomic_read(&active->base.count), count);
-+		drm_err(&i915->drm,
-+			"i915_active not tracking all requests, found %d, expected %d\n",
-+			atomic_read(&active->base.count), count);
- 		err = -EINVAL;
- 	}
- 
-@@ -236,7 +237,8 @@ static int live_active_barrier(void *arg)
- 
- 	__i915_active_wait(&active->base, TASK_UNINTERRUPTIBLE);
- 	if (!READ_ONCE(active->retired)) {
--		pr_err("i915_active not retired after flushing barriers!\n");
-+		drm_err(&i915->drm,
-+			"i915_active not retired after flushing barriers!\n");
- 		err = -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_flush_test.c b/drivers/gpu/drm/i915/selftests/igt_flush_test.c
-index c383d31d46b0..c59425e7ccae 100644
---- a/drivers/gpu/drm/i915/selftests/igt_flush_test.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_flush_test.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include "gt/intel_gt.h"
-+#include "gt/intel_gt_print.h"
- #include "gt/intel_gt_requests.h"
- 
- #include "i915_drv.h"
-@@ -35,7 +36,8 @@ int igt_flush_test(struct drm_i915_private *i915)
- 
- 		/* 2x longest preempt timeout, experimentally determined */
- 		if (intel_gt_wait_for_idle(gt, HZ * timeout_ms / 500) == -ETIME) {
--			pr_err("%pS timed out, cancelling all further testing.\n",
+ 		if (rps_set_check(rps, rps->min_freq) != rps->min_freq) {
+-			pr_err("%s: could not set minimum frequency [%x], only %x!\n",
 +			gt_err(gt,
-+			       "%pS timed out, cancelling all further testing.\n",
- 			       __builtin_return_address(0));
++			       "%s: could not set minimum frequency [%x], only %x!\n",
+ 			       engine->name, rps->min_freq, read_cagf(rps));
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+@@ -451,7 +459,8 @@ int live_rps_control(void *arg)
+ 		limit = rps_set_check(rps, f);
  
- 			GEM_TRACE("%pS timed out.\n",
-diff --git a/drivers/gpu/drm/i915/selftests/igt_live_test.c b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-index 7d41874a49c5..c1fbd98d3164 100644
---- a/drivers/gpu/drm/i915/selftests/igt_live_test.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-@@ -59,9 +59,9 @@ int igt_live_test_end(struct igt_live_test *t)
- 		return -EIO;
+ 		if (rps_set_check(rps, rps->min_freq) != rps->min_freq) {
+-			pr_err("%s: could not restore minimum frequency [%x], only %x!\n",
++			gt_err(gt,
++			       "%s: could not restore minimum frequency [%x], only %x!\n",
+ 			       engine->name, rps->min_freq, read_cagf(rps));
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+@@ -474,7 +483,8 @@ int live_rps_control(void *arg)
+ 		igt_spinner_end(&spin);
+ 		st_engine_heartbeat_enable(engine);
  
- 	if (t->reset_global != i915_reset_count(&i915->gpu_error)) {
--		pr_err("%s(%s): GPU was reset %d times!\n",
--		       t->func, t->name,
--		       i915_reset_count(&i915->gpu_error) - t->reset_global);
-+		drm_err(&i915->drm, "%s(%s): GPU was reset %d times!\n",
-+			t->func, t->name,
-+			i915_reset_count(&i915->gpu_error) - t->reset_global);
- 		return -EIO;
+-		pr_info("%s: range:[%x:%uMHz, %x:%uMHz] limit:[%x:%uMHz], %x:%x response %lluns:%lluns\n",
++		gt_info(gt,
++			"%s: range:[%x:%uMHz, %x:%uMHz] limit:[%x:%uMHz], %x:%x response %lluns:%lluns\n",
+ 			engine->name,
+ 			rps->min_freq, intel_gpu_freq(rps, rps->min_freq),
+ 			rps->max_freq, intel_gpu_freq(rps, rps->max_freq),
+@@ -483,7 +493,8 @@ int live_rps_control(void *arg)
+ 
+ 		if (limit != rps->max_freq) {
+ 			if (throttle)
+-				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++				gt_warn(gt,
++					"%s: GPU throttled with reasons 0x%08x\n",
+ 					engine->name, throttle);
+ 			show_pstate_limits(rps);
+ 		}
+@@ -523,14 +534,14 @@ static void show_pcu_config(struct intel_rps *rps)
+ 
+ 	wakeref = intel_runtime_pm_get(rps_to_uncore(rps)->rpm);
+ 
+-	pr_info("%5s  %5s  %5s\n", "GPU", "eCPU", "eRing");
++	gt_info(rps_to_gt(rps), "%5s  %5s  %5s\n", "GPU", "eCPU", "eRing");
+ 	for (gpu_freq = min_gpu_freq; gpu_freq <= max_gpu_freq; gpu_freq++) {
+ 		int ia_freq = gpu_freq;
+ 
+ 		snb_pcode_read(rps_to_gt(rps)->uncore, GEN6_PCODE_READ_MIN_FREQ_TABLE,
+ 			       &ia_freq, NULL);
+ 
+-		pr_info("%5d  %5d  %5d\n",
++		gt_info(rps_to_gt(rps), "%5d  %5d  %5d\n",
+ 			gpu_freq * 50,
+ 			((ia_freq >> 0) & 0xff) * 100,
+ 			((ia_freq >> 8) & 0xff) * 100);
+@@ -669,7 +680,8 @@ int live_rps_frequency_cs(void *arg)
+ 
+ 		if (wait_for(intel_uncore_read(engine->uncore, CS_GPR(0)),
+ 			     10)) {
+-			pr_err("%s: timed loop did not start\n",
++			gt_err(gt,
++			       "%s: timed loop did not start\n",
+ 			       engine->name);
+ 			goto err_vma;
+ 		}
+@@ -680,7 +692,8 @@ int live_rps_frequency_cs(void *arg)
+ 		max.freq = rps->max_freq;
+ 		max.count = measure_cs_frequency_at(rps, engine, &max.freq);
+ 
+-		pr_info("%s: min:%lluKHz @ %uMHz, max:%lluKHz @ %uMHz [%d%%]\n",
++		gt_info(gt,
++			"%s: min:%lluKHz @ %uMHz, max:%lluKHz @ %uMHz [%d%%]\n",
+ 			engine->name,
+ 			min.count, intel_gpu_freq(rps, min.freq),
+ 			max.count, intel_gpu_freq(rps, max.freq),
+@@ -692,7 +705,8 @@ int live_rps_frequency_cs(void *arg)
+ 				   2, 3)) {
+ 			int f;
+ 
+-			pr_err("%s: CS did not scale with frequency! scaled min:%llu, max:%llu\n",
++			gt_err(gt,
++			       "%s: CS did not scale with frequency! scaled min:%llu, max:%llu\n",
+ 			       engine->name,
+ 			       max.freq * min.count,
+ 			       min.freq * max.count);
+@@ -706,7 +720,8 @@ int live_rps_frequency_cs(void *arg)
+ 				if (act < f)
+ 					break;
+ 
+-				pr_info("%s: %x:%uMHz: %lluKHz [%d%%]\n",
++				gt_info(gt,
++					"%s: %x:%uMHz: %lluKHz [%d%%]\n",
+ 					engine->name,
+ 					act, intel_gpu_freq(rps, act), count,
+ 					(int)DIV64_U64_ROUND_CLOSEST(100 * min.freq * count,
+@@ -807,7 +822,8 @@ int live_rps_frequency_srm(void *arg)
+ 			goto err_vma;
+ 
+ 		if (wait_for(READ_ONCE(*cntr), 10)) {
+-			pr_err("%s: timed loop did not start\n",
++			gt_err(gt,
++			       "%s: timed loop did not start\n",
+ 			       engine->name);
+ 			goto err_vma;
+ 		}
+@@ -818,7 +834,8 @@ int live_rps_frequency_srm(void *arg)
+ 		max.freq = rps->max_freq;
+ 		max.count = measure_frequency_at(rps, cntr, &max.freq);
+ 
+-		pr_info("%s: min:%lluKHz @ %uMHz, max:%lluKHz @ %uMHz [%d%%]\n",
++		gt_info(gt,
++			"%s: min:%lluKHz @ %uMHz, max:%lluKHz @ %uMHz [%d%%]\n",
+ 			engine->name,
+ 			min.count, intel_gpu_freq(rps, min.freq),
+ 			max.count, intel_gpu_freq(rps, max.freq),
+@@ -830,7 +847,8 @@ int live_rps_frequency_srm(void *arg)
+ 				   1, 2)) {
+ 			int f;
+ 
+-			pr_err("%s: CS did not scale with frequency! scaled min:%llu, max:%llu\n",
++			gt_err(gt,
++			       "%s: CS did not scale with frequency! scaled min:%llu, max:%llu\n",
+ 			       engine->name,
+ 			       max.freq * min.count,
+ 			       min.freq * max.count);
+@@ -844,7 +862,8 @@ int live_rps_frequency_srm(void *arg)
+ 				if (act < f)
+ 					break;
+ 
+-				pr_info("%s: %x:%uMHz: %lluKHz [%d%%]\n",
++				gt_info(gt,
++					"%s: %x:%uMHz: %lluKHz [%d%%]\n",
+ 					engine->name,
+ 					act, intel_gpu_freq(rps, act), count,
+ 					(int)DIV64_U64_ROUND_CLOSEST(100 * min.freq * count,
+@@ -915,7 +934,7 @@ static int __rps_up_interrupt(struct intel_rps *rps,
+ 	i915_request_add(rq);
+ 
+ 	if (!igt_wait_for_spinner(spin, rq)) {
+-		pr_err("%s: RPS spinner did not start\n",
++		gt_err(engine->gt, "%s: RPS spinner did not start\n",
+ 		       engine->name);
+ 		i915_request_put(rq);
+ 		intel_gt_set_wedged(engine->gt);
+@@ -923,7 +942,8 @@ static int __rps_up_interrupt(struct intel_rps *rps,
  	}
  
-diff --git a/drivers/gpu/drm/i915/selftests/igt_reset.c b/drivers/gpu/drm/i915/selftests/igt_reset.c
-index a2838c65f8a5..6be63451317a 100644
---- a/drivers/gpu/drm/i915/selftests/igt_reset.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_reset.c
-@@ -8,6 +8,7 @@
- 
- #include "gt/intel_engine.h"
- #include "gt/intel_gt.h"
-+#include "gt/intel_gt_print.h"
- 
- #include "../i915_drv.h"
- 
-@@ -16,7 +17,8 @@ void igt_global_reset_lock(struct intel_gt *gt)
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
- 
--	pr_debug("%s: current gpu_error=%08lx\n", __func__, gt->reset.flags);
-+	gt_dbg(gt, "%s: current gpu_error=%08lx\n", __func__,
-+	       gt->reset.flags);
- 
- 	while (test_and_set_bit(I915_RESET_BACKOFF, &gt->reset.flags))
- 		wait_event(gt->reset.queue,
-diff --git a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
-index e14ac0ab1314..2441887e3b28 100644
---- a/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
-+++ b/drivers/gpu/drm/i915/selftests/intel_scheduler_helpers.c
-@@ -7,6 +7,7 @@
- 
- //#include "gt/intel_engine_user.h"
- #include "gt/intel_gt.h"
-+#include "gt/intel_gt_print.h"
- #include "i915_drv.h"
- #include "i915_selftest.h"
- 
-@@ -24,7 +25,7 @@ struct intel_engine_cs *intel_selftest_find_any_engine(struct intel_gt *gt)
- 	for_each_engine(engine, gt, id)
- 		return engine;
- 
--	pr_err("No valid engine found!\n");
-+	gt_err(gt, "No valid engine found!\n");
- 	return NULL;
- }
- 
-@@ -60,7 +61,9 @@ int intel_selftest_modify_policy(struct intel_engine_cs *engine,
- 		break;
- 
- 	default:
--		pr_err("Invalid scheduler policy modification type: %d!\n", modify_type);
+ 	if (!intel_rps_is_active(rps)) {
+-		pr_err("%s: RPS not enabled on starting spinner\n",
 +		gt_err(engine->gt,
-+		       "Invalid scheduler policy modification type: %d!\n",
-+		       modify_type);
++		       "%s: RPS not enabled on starting spinner\n",
+ 		       engine->name);
+ 		igt_spinner_end(spin);
+ 		i915_request_put(rq);
+@@ -931,14 +951,16 @@ static int __rps_up_interrupt(struct intel_rps *rps,
+ 	}
+ 
+ 	if (!(rps->pm_events & GEN6_PM_RP_UP_THRESHOLD)) {
+-		pr_err("%s: RPS did not register UP interrupt\n",
++		gt_err(engine->gt,
++		       "%s: RPS did not register UP interrupt\n",
+ 		       engine->name);
+ 		i915_request_put(rq);
  		return -EINVAL;
  	}
  
-diff --git a/drivers/gpu/drm/i915/selftests/mock_gem_device.c b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-index 796c9b070e41..c0dadcd961bb 100644
---- a/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-+++ b/drivers/gpu/drm/i915/selftests/mock_gem_device.c
-@@ -169,7 +169,9 @@ struct drm_i915_private *mock_gem_device(void)
- 	i915 = devm_drm_dev_alloc(&pdev->dev, &mock_driver,
- 				  struct drm_i915_private, drm);
- 	if (IS_ERR(i915)) {
--		pr_err("Failed to allocate mock GEM device: err=%ld\n", PTR_ERR(i915));
-+		dev_err(&pdev->dev,
-+			"Failed to allocate mock GEM device: err=%ld\n",
-+			PTR_ERR(i915));
- 		devres_release_group(&pdev->dev, NULL);
- 		put_device(&pdev->dev);
+ 	if (rps->last_freq != rps->min_freq) {
+-		pr_err("%s: RPS did not program min frequency\n",
++		gt_err(engine->gt,
++		       "%s: RPS did not program min frequency\n",
+ 		       engine->name);
+ 		i915_request_put(rq);
+ 		return -EINVAL;
+@@ -955,13 +977,15 @@ static int __rps_up_interrupt(struct intel_rps *rps,
+ 	i915_request_put(rq);
  
+ 	if (rps->cur_freq != rps->min_freq) {
+-		pr_err("%s: Frequency unexpectedly changed [up], now %d!\n",
++		gt_err(engine->gt,
++		       "%s: Frequency unexpectedly changed [up], now %d!\n",
+ 		       engine->name, intel_rps_read_actual_frequency(rps));
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (!(rps->pm_iir & GEN6_PM_RP_UP_THRESHOLD)) {
+-		pr_err("%s: UP interrupt not recorded for spinner, pm_iir:%x, prev_up:%x, up_threshold:%x, up_ei:%x\n",
++		gt_err(engine->gt,
++		       "%s: UP interrupt not recorded for spinner, pm_iir:%x, prev_up:%x, up_threshold:%x, up_ei:%x\n",
+ 		       engine->name, rps->pm_iir,
+ 		       intel_uncore_read(uncore, GEN6_RP_PREV_UP),
+ 		       intel_uncore_read(uncore, GEN6_RP_UP_THRESHOLD),
+@@ -981,13 +1005,15 @@ static int __rps_down_interrupt(struct intel_rps *rps,
+ 	rps_set_check(rps, rps->max_freq);
+ 
+ 	if (!(rps->pm_events & GEN6_PM_RP_DOWN_THRESHOLD)) {
+-		pr_err("%s: RPS did not register DOWN interrupt\n",
++		gt_err(engine->gt,
++		       "%s: RPS did not register DOWN interrupt\n",
+ 		       engine->name);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (rps->last_freq != rps->max_freq) {
+-		pr_err("%s: RPS did not program max frequency\n",
++		gt_err(engine->gt,
++		       "%s: RPS did not program max frequency\n",
+ 		       engine->name);
+ 		return -EINVAL;
+ 	}
+@@ -999,14 +1025,16 @@ static int __rps_down_interrupt(struct intel_rps *rps,
+ 	sleep_for_ei(rps, timeout);
+ 
+ 	if (rps->cur_freq != rps->max_freq) {
+-		pr_err("%s: Frequency unexpectedly changed [down], now %d!\n",
++		gt_err(engine->gt,
++		       "%s: Frequency unexpectedly changed [down], now %d!\n",
+ 		       engine->name,
+ 		       intel_rps_read_actual_frequency(rps));
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (!(rps->pm_iir & (GEN6_PM_RP_DOWN_THRESHOLD | GEN6_PM_RP_DOWN_TIMEOUT))) {
+-		pr_err("%s: DOWN interrupt not recorded for idle, pm_iir:%x, prev_down:%x, down_threshold:%x, down_ei:%x [prev_up:%x, up_threshold:%x, up_ei:%x]\n",
++		gt_err(engine->gt,
++		       "%s: DOWN interrupt not recorded for idle, pm_iir:%x, prev_down:%x, down_threshold:%x, down_ei:%x [prev_up:%x, up_threshold:%x, up_ei:%x]\n",
+ 		       engine->name, rps->pm_iir,
+ 		       intel_uncore_read(uncore, GEN6_RP_PREV_DOWN),
+ 		       intel_uncore_read(uncore, GEN6_RP_DOWN_THRESHOLD),
+@@ -1043,7 +1071,8 @@ int live_rps_interrupt(void *arg)
+ 	with_intel_gt_pm(gt, wakeref)
+ 		pm_events = rps->pm_events;
+ 	if (!pm_events) {
+-		pr_err("No RPS PM events registered, but RPS is enabled?\n");
++		gt_err(gt,
++		       "No RPS PM events registered, but RPS is enabled?\n");
+ 		return -ENODEV;
+ 	}
+ 
+@@ -1186,7 +1215,8 @@ int live_rps_power(void *arg)
+ 		i915_request_add(rq);
+ 
+ 		if (!igt_wait_for_spinner(&spin, rq)) {
+-			pr_err("%s: RPS spinner did not start\n",
++			gt_err(gt,
++			       "%s: RPS spinner did not start\n",
+ 			       engine->name);
+ 			igt_spinner_end(&spin);
+ 			st_engine_heartbeat_enable(engine);
+@@ -1207,28 +1237,33 @@ int live_rps_power(void *arg)
+ 		igt_spinner_end(&spin);
+ 		st_engine_heartbeat_enable(engine);
+ 
+-		pr_info("%s: min:%llumW @ %uMHz, max:%llumW @ %uMHz\n",
++		gt_info(gt,
++			"%s: min:%llumW @ %uMHz, max:%llumW @ %uMHz\n",
+ 			engine->name,
+ 			min.power, intel_gpu_freq(rps, min.freq),
+ 			max.power, intel_gpu_freq(rps, max.freq));
+ 
+ 		if (10 * min.freq >= 9 * max.freq) {
+-			pr_notice("Could not control frequency, ran at [%d:%uMHz, %d:%uMhz]\n",
++			gt_notice(gt,
++				  "Could not control frequency, ran at [%d:%uMHz, %d:%uMhz]\n",
+ 				  min.freq, intel_gpu_freq(rps, min.freq),
+ 				  max.freq, intel_gpu_freq(rps, max.freq));
+ 
+ 			if (throttle)
+-				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++				gt_warn(gt,
++					"%s: GPU throttled with reasons 0x%08x\n",
+ 					engine->name, throttle);
+ 			continue;
+ 		}
+ 
+ 		if (11 * min.power > 10 * max.power) {
+-			pr_err("%s: did not conserve power when setting lower frequency!\n",
++			gt_err(gt,
++			       "%s: did not conserve power when setting lower frequency!\n",
+ 			       engine->name);
+ 
+ 			if (throttle)
+-				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++				gt_warn(gt,
++					"%s: GPU throttled with reasons 0x%08x\n",
+ 					engine->name, throttle);
+ 
+ 			err = -EINVAL;
+@@ -1273,9 +1308,9 @@ int live_rps_dynamic(void *arg)
+ 		return -ENOMEM;
+ 
+ 	if (intel_rps_has_interrupts(rps))
+-		pr_info("RPS has interrupt support\n");
++		gt_info(gt, "RPS has interrupt support\n");
+ 	if (intel_rps_uses_timer(rps))
+-		pr_info("RPS has timer support\n");
++		gt_info(gt, "RPS has timer support\n");
+ 
+ 	for_each_engine(engine, gt, id) {
+ 		struct i915_request *rq;
+@@ -1318,18 +1353,21 @@ int live_rps_dynamic(void *arg)
+ 		min.freq = wait_for_freq(rps, rps->min_freq, 2000);
+ 		min.dt = ktime_sub(ktime_get(), min.dt);
+ 
+-		pr_info("%s: dynamically reclocked to %u:%uMHz while busy in %lluns, and %u:%uMHz while idle in %lluns\n",
++		gt_info(gt,
++			"%s: dynamically reclocked to %u:%uMHz while busy in %lluns, and %u:%uMHz while idle in %lluns\n",
+ 			engine->name,
+ 			max.freq, intel_gpu_freq(rps, max.freq),
+ 			ktime_to_ns(max.dt),
+ 			min.freq, intel_gpu_freq(rps, min.freq),
+ 			ktime_to_ns(min.dt));
+ 		if (min.freq >= max.freq) {
+-			pr_err("%s: dynamic reclocking of spinner failed\n!",
++			gt_err(gt,
++			       "%s: dynamic reclocking of spinner failed\n!",
+ 			       engine->name);
+ 
+ 			if (throttle)
+-				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++				gt_warn(gt,
++					"%s: GPU throttled with reasons 0x%08x\n",
+ 					engine->name, throttle);
+ 
+ 			err = -EINVAL;
 -- 
 2.34.1
 
