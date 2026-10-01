@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080A3CA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:08:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E02BCA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6509110E410;
-	Thu,  1 Oct 2026 12:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60C010E0C1;
+	Thu,  1 Oct 2026 12:08:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jhU2fX0S";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bjgPjIns";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 619FB10E410;
- Thu,  1 Oct 2026 12:08:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47EA610F63D
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:08:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BF86A60A52;
- Thu,  1 Oct 2026 12:08:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04401F0089C;
- Thu,  1 Oct 2026 12:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1790856483;
- bh=p6LV3W68TcyZMyH7qsUALOR/0REEYV7OftxrXkIXaFo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jhU2fX0S2p03+kVwHCivDDisFZvCwqmENmY/QGJdkRVa5+SWuyz/fBtwS9kUvNFHX
- OQOAaH2v+5VPvVH3wYxEXJ+cY4AfsugkfcDs7UfpIdQ7YqfD5lWqSFuyGDfV8fczKj
- OgKGFdwFyk6jjvgXejRnafzRYb4NnuW22miBSRpg=
-Date: Thu, 1 Oct 2026 13:52:59 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: nirbhayykumarr@proton.me
-Cc: "Usyskin, Alexander" <alexander.usyskin@intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH] misc: mei: prevent reusing disconnecting clients in
- mei_ioctl_connect_vtag
-Message-ID: <2026100107-handshake-french-7080@gregkh>
-References: <EMSkNBZm4uu_WZkFgR0kROn545GxY2HBpddaVmMEc5GggQEgOo5yFDDeY8r5Imj5te7fffDZwld1HeGzwFBtFZomlgCTvAetlLTaTaHHJQY=@proton.me>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <EMSkNBZm4uu_WZkFgR0kROn545GxY2HBpddaVmMEc5GggQEgOo5yFDDeY8r5Imj5te7fffDZwld1HeGzwFBtFZomlgCTvAetlLTaTaHHJQY=@proton.me>
+ by sea.source.kernel.org (Postfix) with ESMTP id 0429740324;
+ Thu,  1 Oct 2026 12:08:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8723F1F000FF;
+ Thu,  1 Oct 2026 12:08:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790856487;
+ bh=8XnpDC09BNoRMybmiRSa9+I7xUKWavYhyhSmyNVYC6k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bjgPjInsFyhwmqymJYKpov2q8feT/1Ml+EARJOciCawPTrCW+uoevRG+fQE3km94E
+ DpuEPnAQ3P53F6Vcv3ZP41MuWV8shgEHV6E8Dbicg7M03nIox3+pFEojGKe0kChJYo
+ vTw5iMH60yfra0rEnFuJjsP0gcWLdmw/kTFjA57C5emiBDmq2v0eAVlhIIhZEARjwq
+ +zDWMns7yK7nc9LEhMrAVS4n18e0f767iHOuqsIxQKTZaXvD18fmc5eauGNUzFEfMd
+ z3at4hqivNXJaf1PHn2QewmyPDCXx0X9/GNo3PtJ0LK9cIU3+SzCiXRCsT6LZ6zcj0
+ TtaG7pch3wy2Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 16/18] PCI/P2PDMA: Let a client declare that it
+ selects ATS per mapping
+To: "Leon Romanovsky" <leon@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org, linux-pci@vger.kernel.org, kvm@vger.kernel.org
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-16-1a8e0f50ddd9@nvidia.com>
+References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
+ <20261001-fix-p2p-acs-v4-0-v9-16-1a8e0f50ddd9@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 12:08:07 +0000
+Message-Id: <20261001120807.8723F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,94 +55,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Sep 04, 2026 at 03:59:58AM +0000, nirbhayykumarr@proton.me wrote:
-> This issue was discovered using a custom multi-threaded C fuzzer
-> designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
-> multiplexing over /dev/mei0. By concurrently racing rapid vtag
-> connections against file descriptor closures and streaming I/O, a
-> race condition is triggered during client teardown.
-> 
-> In mei_release(), closing the last file descriptor holding a virtual tag
-> invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(),
-> dev->device_lock is dropped while awaiting the firmware disconnect ACK
-> on cl->wait.
-> 
-> During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTAG
-> call on the same UUID scans dev->file_list. Because
-> mei_ioctl_connect_vtag() only verified pos->me_cl without checking
-> pos->state, it matched the tearing-down client (in
-> MEI_FILE_DISCONNECTING), repointed file->private_data to pos, and added a
-> new vtag to pos->vtag_map.
-> 
-> When the disconnect ACK arrived, __mei_cl_disconnect() called
-> mei_cl_set_disconnected(pos), setting pos->me_cl = NULL and pos->state =
-> MEI_FILE_DISCONNECTED. Because pos->vtag_map now contained the second
-> thread's tag, mei_release() skipped unlinking and freeing pos. The second
-> thread then attempted to reuse this disconnected client, causing packet
-> demuxing mismatches, continuous CSME hardware link resets, and DRM/i915
-> display freezes.
-> 
-> Fix this by:
-> 1. Validating pos->state in mei_ioctl_connect_vtag() to ensure only
->    active clients (MEI_FILE_CONNECTED or MEI_FILE_CONNECTING) are reused.
-> 2. Setting cb->vtag during callback allocation in mei_io_cb_init() via
->    mei_cl_vtag_by_fp().
-> 3. Demuxing incoming read packets in mei_cl_irq_read_msg() by matching
->    vtag against cl->rd_pending rather than blindly dequeuing the head.
-> 
-> Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
-> ---
->  drivers/misc/mei/client.c    | 24 ++++++++++++-
->  drivers/misc/mei/client.h    |  1 +
->  drivers/misc/mei/interrupt.c | 65 +++++++++++++++++++++++-------------
->  drivers/misc/mei/main.c      | 24 +++----------
->  4 files changed, 69 insertions(+), 45 deletions(-)
-> 
-> diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
-> index 5f648481024..b10c483673a 100644
-> --- a/drivers/misc/mei/client.c
-> +++ b/drivers/misc/mei/client.c
-> @@ -379,7 +379,7 @@ static struct mei_cl_cb *mei_io_cb_init(struct mei_cl *cl,
->  	cb->cl = cl;
->  	cb->buf_idx = 0;
->  	cb->fop_type = type;
-> -	cb->vtag = 0;
-> +	cb->vtag = mei_cl_vtag_by_fp(cl, fp);
->  	cb->ext_hdr = NULL;
->  
->  	return cb;
-> @@ -1313,6 +1313,28 @@ const struct file *mei_cl_fp_by_vtag(const struct mei_cl *cl, u8 vtag)
->  	return ERR_PTR(-ENOENT);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] pci/p2pdma: pure clients cannot set ats_per_mapping because pdev=
+->p2pdma is NULL
+--
+
+commit f332086fc4a4273d099c81fafb33298021d47d1a
+Author: Leon Romanovsky <leon@kernel.org>
+
+PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+
+The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot tell
+from it whether a client will translate a given address. Most devices
+translate any address once ATS is enabled, but some choose ATS per DMA
+mapping and can still use bus addresses for the rest.
+
+Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device can
+declare that before P2PDMA starts treating clients with ATS enabled as
+translating everything.
+
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index cf190bd572d4a..6a63901c65fb6 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+
+[ ... ]
+
+> @@ -1562,6 +1563,32 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool=
+ publish)
 >  }
->  
+>  EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+> =20
 > +/**
-> + * mei_cl_vtag_by_fp - obtain the vtag by file pointer
+> + * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a client
+> + * @pdev: PCI device that initiates peer-to-peer DMA
 > + *
-> + * @cl: host client
-> + * @fp: pointer to file structure
-> + *
-> + * Return: vtag value on success, otherwise 0
+> + * Declare that @pdev issues Translated Requests only for the DMA mappin=
+gs its
+> + * driver sets up to use ATS, rather than for any address once ATS is en=
+abled.
+> + * P2PDMA then routes this client's Requests with the Address Type each =
+query
+> + * asks about, rather than the one its ATS Enable bit implies.
 > + */
-> +u8 mei_cl_vtag_by_fp(const struct mei_cl *cl, const struct file *fp)
+> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
 > +{
-> +	struct mei_cl_vtag *cl_vtag;
+> +	struct pci_p2pdma *p2p;
 > +
-> +	if (!cl || !fp)
-> +		return 0;
-> +
-> +	list_for_each_entry(cl_vtag, &cl->vtag_map, list)
-> +		if (cl_vtag->fp == fp)
-> +			return cl_vtag->vtag;
+> +	p2p =3D rcu_dereference_protected(pdev->p2pdma, 1);
+> +	if (!p2p)
+> +		/*
+> +		 * ats_per_mapping is a performance optimization,
+> +		 * if pcim_p2pdma_init() didn't set pdev->p2pdma pointer
+> +		 * for some reason, let's simply use ATS global settings.
+> +		 */
+> +		return;
 
-Where is the locking here and elsewhere in this patch?  WHat prevents
-the list from changing while you walk it?  And what prevents this from
-changing right after you get it?
+[Severity: Medium]
+Will this silently fail for pure P2PDMA clients?
 
-thanks,
+It looks like pdev->p2pdma is only allocated when a device registers as a
+P2P memory provider via pcim_p2pdma_init():
 
-greg k-h
+drivers/pci/p2pdma.c:pcim_p2pdma_init() {
+	...
+	p2p =3D devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
+	...
+}
+
+If a driver for a pure P2PDMA client (e.g., an NVMe initiator without CMB)
+calls pcim_p2pdma_set_ats_per_mapping() to declare its ATS behavior, won't
+pdev->p2pdma be NULL since it never called pcim_p2pdma_init()?
+
+If so, wouldn't this cause the client to silently fall back to suboptimal
+global ATS routing, as it can never successfully set the ats_per_mapping fl=
+ag?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-p2p-ac=
+s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D16
