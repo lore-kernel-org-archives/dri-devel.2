@@ -4,134 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE50CA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 10:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4DE3CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DBC310E063;
-	Thu,  1 Oct 2026 10:56:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3F4010E012;
+	Thu,  1 Oct 2026 11:02:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="fhD3kAlR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NpzTndIV";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M+kvjd/J";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010011.outbound.protection.outlook.com [52.101.229.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35D510E063
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 10:56:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iOwX2mYiT+T3ON9/y7xw86+TfPR5/xcJcVEc1ZdfG6BhjNaEWutm4/W6JLC9lQrgcNZSjU2BBtypZaeuBASBZZL23uoXNeyqjW6tY+hL3qp4BofVEi6VK1Kyd5JiU0/WYMV9Bh/dPIKyShUrgqbl/h7riBTx7ilLEWb5VG/GT82KteWA0EAabU6vUgdvUrkizaXHCEhN0ovNNgXo1gF0cTu/OIZMeKOB5+Hr9B6aFGS+M0xXvOoTFBFn0XtLQ5IHyA+fINz5f5+hqwxQg9WW8YcNhSbuZBx1Kx1fA9dQ0XBiscrrmmt2RFSDYrh5SkTmJ5vIQrTtL94zVUIthYadAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
- b=r+qQZTCBCa+X3rr0YNtdQxsYtmDq23b85YsVAmgXuYnQXMNo8pZXWSQ53C1UsIO6o9MuqpvyCRyE46efm/uvvDLZ+iV1JwFXX+l4zX1UVVuWMO0pSoMpI+/2YC78HHcWB+GJ/IQKMtq99SyPXu1X+mWlt8IXt8aXbVTl1C7f2xw8wckNEts6V+DvEVNDnd5eEoP4zACLwuiGWiiWrge1GSZU3qeq9k3cSnniWiFnmL5jBeaZ2eUyoh8vSFRKMcKoBoc7OyqI/BuDSs1STIF/AH30nDqF4nCRWvyk23BoIPFXJ/K9Cd/Rt76FhqzxH94WHR+PXdXrH8nGHrfqmkbfsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
- b=fhD3kAlR4naWdCmdBtzvVQy4Sb7jgjAORdtrHANy9GzNKHF+go2oJJrhC6l6NCzUk7u2Hd8Bult39HPPGAS3SJYUz9jUEKoqWzLxOrptNdyyJzSg5936PtjK78ZuU158MpM8qgx44gODKoudf1/nMXkt/9OE6DX2H0rJqBu5eVY=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB12418.jpnprd01.prod.outlook.com (2603:1096:405:f8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 10:56:37 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
- 10:56:37 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: "biju.das.au" <biju.das.au@gmail.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
- Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>
-CC: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Tommaso Merciai
- <tommaso.merciai.xr@bp.renesas.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>, Prabhakar Mahadev Lad
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>
-Subject: RE: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
- RZ/G3L SoC
-Thread-Topic: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
- RZ/G3L SoC
-Thread-Index: AQHdUYjx9uHffJnf20W6dhJCyerXp7bog3uA
-Date: Thu, 1 Oct 2026 10:56:36 +0000
-Message-ID: <TY3PR01MB11346526530C7998D0FDEA560868A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12418:EE_
-x-ms-office365-filtering-correlation-id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|921020|11063799006|56012099006|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: iUNlFvvhNa7ZXx5A3xeW9b/7YCUb0eCVzYQ7nkC/+qXQHmduxuV1l88iywpNT09t3ldwGqhDjRG66k+ioqFxWQDlrWjiri7wBFoEy1E+r/bYQ97SfYzc/boNbdM635r0g7Ufs8ilB10D2O8kiIxA1klCeW6LLMCHrbLqM0IXUbwNQY1iFB4yUGjvDPSMjuM8jdGBdTotpFcIHsl6UJYGX7MN1IlTcCy6humKy1OkXNAcSgAVh7ODO3pvU82KTguuqrcnDDgnLaOQkAZzpfawcf74kQ6EZbSGRGTd/nyNgSpJnRJBDXPRKX4zqXdBjuCzr50BPmDmLM5EW6SPXeEv//uQhdGQDM3IOxnUT1q3oSRkxFzx7Gh+O9qBkMuMl+XfonuWx96Eb8emVj4I7Abxe08fVtSw4yksvU2KZpFL3EN6C9kHPRxNatEz4Vh/k4ySyxY6h+lYkTD9bav+9/btXzSSNOT44zz+sMA190urdmJkUysbsQU1t4JrDqUE9vSaL/utrj3t+CKQyICUEbrpUYydXIg6Xfw1WOexdOVZ78Iu2A4cXYNHKo+m2kG7EB9R9YFr4dxpaOmj0lF713JPo1jje1jTTJ+bl1TgkuYu94bF3s+lQ98bSQ0AJ7jnv2ieWXMeGTqdpwskwD/6+f2LldtjR0xjM+kb12IK+LLu1E69lXgRlQ0b9UEcjIQh7zfTM3LLbVZc2PR07OFucj3JaN4t6L4Hv5IXzZOzwKj1MgQY55kCOV0c/CXnLfFfIGcv
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(921020)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cXPrE/rDxnXIDzx4k3ctqyijUAPDRJgWDaPbtpnPK+VvCW+EK3rpCiUHM6JA?=
- =?us-ascii?Q?iQNjsFnnEo4aWIMl/r1fo+XKiw4L7tM5g2IqV7X9kyk/THOpSt9kN/wv8hDF?=
- =?us-ascii?Q?ChapHedvRNU2TY6cttR4Ni1PFY9MH4n66KVEnioAkExQfWgnJuxHP/hFLu4b?=
- =?us-ascii?Q?9DO+Zk3GETASSU+xQoTnRj1gp9HIrWS8AfBMSdfQSD+RN9xkqLT77TTjIY28?=
- =?us-ascii?Q?uvm7FlN59Bu1vfpewLRasUlTzuriOrEzgSFhZEImggYPbC8RoQAm0HY3fzHG?=
- =?us-ascii?Q?hsdMr+jl3XjptvVpEdpcC9+xw6B2e58UiBaIT/8Fxczq6regVaYulPcC58yr?=
- =?us-ascii?Q?4kNXpQf0A+dTb1iyUKJbWG7SyDx0lgZcu4YbEQR/3D3O3AU2ClHjX200ONDr?=
- =?us-ascii?Q?a4aiecRlYkoQ+GFp5SHFFF5NtjzExCm0M1KDXI+wBsK1XQ8m/+a+17JLyIrU?=
- =?us-ascii?Q?KsXavPJSDb1MRU/O4rDnqu15cKmm4xQlSY05F+lusH2LGakiN8F7MI0qEMeY?=
- =?us-ascii?Q?OFMROyLViieXhuO6KfF3N1idnFpYQ14cAEWjNVO0fGOI3tK/bx/ySihRx6Ad?=
- =?us-ascii?Q?+zPva85zV8D+zKBMbTYIuqdGzkYadY7kusEXBmd4K0lp7KAP4k4PtN2925eL?=
- =?us-ascii?Q?33N9R+tUwulyFGZN2fL5HnBDXHZs9nNbHNRkaQI/VtV5WUSMrBCehg8Jt2LD?=
- =?us-ascii?Q?q+FdJpSolOKGDJ07Xbgyo1smaQuplemjB6FVhDcQK7vWDwuzizUJJvmjZy5u?=
- =?us-ascii?Q?YY7SU7stF8FQffcqbqu0tsX0E6Fd48R3hOdbcZlngdrB3YXg5aXNeNR4jlk+?=
- =?us-ascii?Q?wpObYZ2kV1J3hzarEqh22scWqOc4p5ZVzH724yyvb7y1mbjMEMzcS0fJtLDx?=
- =?us-ascii?Q?rHsWwwR/uJL27r0ynJiG7O+dxdZFPF3LnQ0vztVI7dNhsJztT9gUvGVXEiXG?=
- =?us-ascii?Q?TuHbtpCqroV5+7vq20XMKQGZnNXQzU986gn8Czrrj7oevVwgMOAUVM8jLISv?=
- =?us-ascii?Q?srEaZOH/FrJAl0HXbj0mQrnpp4Vs0Jl4aJzZLF2zhdOgMtahgnoh00DQBs3y?=
- =?us-ascii?Q?ROWmAQN93ixjJyM7dkXbnVhKNyk3fSrV2AvuReuJn033qpYsScDQAVSOY6HY?=
- =?us-ascii?Q?M3/jVPjh3xk3tU97EhEYb1lqCDt0w7CAGv+qosg+e7xxQbmam2Ft6t5KgCNW?=
- =?us-ascii?Q?OYYuGb9EItUh8ID4ZIF6hrkuVJvqsBRnRM5wMumvP/fZ9P9wxiypHPgS1V7x?=
- =?us-ascii?Q?/2BwBtBjRlDoi0d00Tfw/aHDPr9AdIKDMvJd/gX8pL3No7xT85IE/M2ne9Aq?=
- =?us-ascii?Q?E2ISU8/5v0mOX9ArWFpB88CPcV5WZI21ggU2ZSQRlrl99JstM5MERylZMJew?=
- =?us-ascii?Q?d/pDlPxa0rIHqiJx6yE2/Ta2Mr1R4MB8AQ2XyedM48WShofAENKZTOmqH7WS?=
- =?us-ascii?Q?l+1JXfbZccMfjTp+jF+bjTcfQa8qVkYHQ/1iwL9iPkMWjVs1AUs0wpe16lFg?=
- =?us-ascii?Q?RZt0YVPMcMN3Wspxbgd7vIFKtsgXZm4UbR8bg1y8/aX5XGibwd9auuVTGDkS?=
- =?us-ascii?Q?OZx6tNUfieycNNg5SEWAi0oUn2CvQNogLGb0bQQ48aJxn+T2CXh8pa/R0ZCO?=
- =?us-ascii?Q?NEUhGDlzbaQkEijgr1s9opmEb6KyMGamL+MxPvANzcMpUI/QHVdAoimuwpfn?=
- =?us-ascii?Q?t7G9fl7/qiR4TgeUzWqRr1egvWL5x218ciIRglaShajX9GUAZEtPPI2HZi9k?=
- =?us-ascii?Q?TiBRMSRZaw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7493C10E012
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 11:02:15 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6916xfvZ1511890
+ for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 11:02:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ DkDbVRw9K0aMKne+WgAK+QVXIJQUCz5NzjDL4TgnTpo=; b=NpzTndIVx/e7yEO9
+ DeCI7pfme7aKB/HMXORZ4AinIdJTVzu2XwSanrEdD19TzFL+1JFZHAUy0MQ7R3b3
+ mUV8uU+thpH6Ffnq0+jJGSBuUksTPjnw62Vg2folDZbGKUdtcs0q2dLCqX5UALV6
+ 3ZWduSqf/9vQz23ZktCg75XH2JlNjPl+IG4WnZW9JHPg162yh139Omem7zxQpVOU
+ AwesmdvzwF/cQ4iYQeQ/E5OEjNiCAhq/IvOfw/+vgcmRUViYAZUEyfwO4hhInLst
+ xFxUUDnp57IC9NMbbWBNUWDAuctsVSjCuOSKzz4LqNpHR6ghIGkDtits6b1TH8IT
+ OJRamw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188sucb5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 11:02:14 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-cc1b80835d5so3861198a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 04:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790852533; x=1791457333;
+ darn=lists.freedesktop.org; 
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=DkDbVRw9K0aMKne+WgAK+QVXIJQUCz5NzjDL4TgnTpo=;
+ b=M+kvjd/JG+b5Jc+mhG6z2/BRHijFSNaN5hKC5gELFvVbjQ+83qllUYDKFh6Z1vA7bp
+ pn5zrXOueB73EkxK09CfRMrUugwM6K5rQD+Y0oIv//xqabmwEQa63ItJUDUALJT+r0uc
+ 68tDZwXOYpWj9YGqvsy8t7d3R1yVjpA/fvHM5jj6tZ9tUPYAkP9rdttPiukEXPTZzBJC
+ 0KAuhwRL+RkAdAOauzZhVYoDntQIvHlNw67ujE4ksloYxMEiejLTIf+JNU3T7BNuWfxU
+ 7T116UG47PdCr6wLmvJjsL4xBBOeBUmqvGqY0Yj4C4bVfy0MGboKUNVNSogdVJ8MCkpJ
+ R+rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790852533; x=1791457333;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DkDbVRw9K0aMKne+WgAK+QVXIJQUCz5NzjDL4TgnTpo=;
+ b=OB6pOB2tpEQnFl44nWrVlsdMu7uLsalwMTGgEn+aXVwjPXJkwHo9hfIIlBsRnSRGHe
+ O8Vkv4xvmHONNfxUWfLAGT1QUrMBlELpH3NwB7KbxaA1I5PnSn5c7YBgnM+GHoD4TZRm
+ xfhoHGbyAbqnkiGE5jvK8MWsQGw9ehoe6Kr2ClTpPZ7I4VcLWvSfODGVuIvNyEkWU8go
+ ewvuyucaF3IKSZoJobZlFQIS1DH1UQlGB1N3gXjxUasXRwn/vrwG5ekWhkS/orKQ0f1d
+ 6ESaU8jLqgOe3lBbKhrX5j6hxiRc02+LwU3usOOQXwQ5GRGqTDVJdZe/74KelQblMPEP
+ 5Vvw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBypiCjosWiyeII8DjOI+juT5qHNf5n7M0mf/roDIhgvTh6l52wbCQuxHJrzCU4fel4plpBn9MQR+N8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kVUF4lA+Q9DccgYbDj+tGsnUq5mDZA54bCV9vXU/8AGizx2IgL
+ H3N6P03KhGTnclBGv1pbWt+bpZwfGW3UHw0nfwGVg49oM4iL96jUGyrKtsbE/58ksGYt5TQn96C
+ zLituGsMitv0x7HDGJ7sZPlDKxLq0v2q4dyeGW/In7nLEV5dq8cI68XSJpKMIITxinxdjMrA=
+X-Gm-Gg: AYBFou1OYghqpwwodIJfbGqRWdqCWxWTqsFuRw8KC8W+HqEoDta3NQKXccsaKOYaleQ
+ c3j+eRHiGJl+YNk5WwH2jVU83JqkYVrN7fAsNuEdSlpzfgkpL9qEvKJFYl8sFq1jB6ZH5gJ4NaE
+ OAq/qS3GY0zTlRqFncGcTY6mC02C1aNrjkhJHQlpUCToTSDr0t+lo0sDDxE/taG4dqe5Z3zkQQx
+ nI2whJAcBTXgLChCyvlkS32PYTT051MPwudAwYtZPFdbqgNQFXa3Fv6CMxD/F8ezKP22ktqYWLW
+ zmnlqXO0naSNVgIJOjRvKxT2EpLHUWsVjGeoo5sXuSwhOColyxvnhnbc3gONvBE6vrhkiMoKLYn
+ MW8/Vw2lJzjXo1wIBJ5GV1V7HSHoXFOtYrg==
+X-Received: by 2002:a05:6a00:218e:b0:882:99c8:8678 with SMTP id
+ d2e1a72fcca58-8874a79f1eemr3714171b3a.16.1790852533099; 
+ Thu, 01 Oct 2026 04:02:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:218e:b0:882:99c8:8678 with SMTP id
+ d2e1a72fcca58-8874a79f1eemr3714120b3a.16.1790852532506; 
+ Thu, 01 Oct 2026 04:02:12 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-888197ced69sm886049b3a.48.2026.10.01.04.02.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2026 04:02:11 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Date: Thu, 01 Oct 2026 16:31:25 +0530
+Subject: [PATCH 1/2] misc: fastrpc: fix NULL rpdev dereference when session
+ alloc fails
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 10:56:36.9519 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9JBgsXPDpyFB0p4sNF8xGWHXElGO25XUJR9K8/XeV7rQdSTLbS8I944OTul3AlouAfDq4NQVshQylm0FCN575DzliJMd14xuYHIXpMWYtfQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12418
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-fastrpc-probe-fixes-v1-1-1376d93b8b3e@oss.qualcomm.com>
+References: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
+In-Reply-To: <20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Escande <thierry.escande@linaro.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790852523; l=2369;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=03XIH2O6sdDp8jBNtcMZmDL3Sp8Yt02H690f7pWeLgQ=;
+ b=PUC+a/kjGMciW26JOjwX7e+QyLjNCCIp5KkBOyrnvDjoTZ+eDBlQlWoDkBxjFltJr5gjub0VJ
+ 97iRYxSD9RdAS87H1Rl5ojgtXjFYeVut9GpUvMim4uA1KTJH+61UBUJ
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX2CiajIFqycO0
+ G+cd0UynrVb+SXKWy1DapfAaV/mjctn1arIs103/5DaeBoc7kjIvszzPF+MvMbpXwGGgNiN1Yvz
+ oPR//nkiIOmqQewbRdz/14Dk/6whsK0=
+X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abe3db6 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=HPkHAgnwbDoOiCnvmVMA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: xUBWtIJdPI8UGmzq8_5QrAMHETaEoFdV
+X-Proofpoint-GUID: xUBWtIJdPI8UGmzq8_5QrAMHETaEoFdV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX8nziBvbZ/lK7
+ pysH4H4BlXpjOFMZWCIXwEzip2+Kei6gTGwxsO8WczBDddScsSrTrn2l5e+HKRjrGJYe7Uku9Uc
+ ecUzfi4avHKZQWtpuUpp8SbgLBSCUDHKb0QmCdfprJCeC04MGj5x45e9rlxkC8/BzwsheXlZQ+Q
+ StpQlUdEhm15+9c3hzONwF3L0FQQl38wCiUTA4lD6TGcl6sNl/dcuOb3Lv6KN5jEE6lMrZp5jOl
+ 5VIAf/32DY/9lPP+GGG709qVG6cjg5wgUISOLZwWHaFxx65Ny5xKEjfxKMmhTfMNX0IfQn1GjSm
+ uWlRMdi6a0BgwxpXPc7CVNNLsAA8tsbkphGKDxpvZjAeyd6AmCSHAHE6D+3K4ytrURcUTg/qREj
+ GsLTgnoZj4coOEDp8kUcg2rV0q2fNP6QEExSYPaXiTqh97HiWEaaRbr9yaUeQ5SD7v1EBh6hcfJ
+ Ki+zjkrDs0/SO19mL0g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010043
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,103 +158,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi All,
+When a fastrpc client process dies abnormally without closing its file
+descriptor, fastrpc_device_release() is never called and the compute-cb
+session slot is never freed. The abnormal client death on the DSP side
+triggers a glink channel teardown which propagates up through the rpmsg
+bus and calls fastrpc_rpmsg_remove().
 
-> -----Original Message-----
-> From: Biju <biju.das.au@gmail.com>
-> Sent: 01 October 2026 10:40
-> Subject: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas R=
-Z/G3L SoC
->=20
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Hi All,
->=20
-> This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L SM=
-ARC EVK. The RZ/G3L LCDC is
-> similar to the one found on RZ/G2L, but has LVDS support.
->=20
-> The LVDS series [1] is merged here to get an overall picture.
->=20
-> [1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.re=
-nesas.com/
->=20
-> v4->v5:
->  * Collected tag.
->  * Restored mode_clock_min to 5440 kHz.
->  * Replaced static resets array in probe with global resets array.
->  * Updated rzg3l_lvds_atomic_disable() to fix the
->    PM_RUNTIME_ACQUIRE_IF_ENABLED guard that prevents synchronous suspend.
->  * Updated rzg3l_lvds_atomic_enable() to fix refcount underflow in
->    atomic_disable due to early return in atomic_enable.
->  * Dropped dotclk from struct rzg3l_lvds.
-> v3->v4:
->  * Collected tag.
->  * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
->    using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
->  * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
->    devm_pwrseq_get().
->  * Updated mode_clock_min from 5440->5400 kHz.
->  * Added resets in pair for simplification.
->  * Added comment in probe() for asserting resets.
->  * Updated commit description for patch#8 and #9.
->  * Updated license header  for patch#8 and #9.
->  * Added HDMI audio support.
->  * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
->  * Renamed it6263 node name from it6263 to hdmi.
-> v2->v3:
->  * Dropped binding patches as it is accepted.
-> v1->v2:
->  * Dropped renesas,sysc-pwrrdy property as it is modelled as power
->    sequence.
->  * Switched to power sequence for handling pwrrdy signal.
->  * Dropped header file regmap.h and mfd/syscon.h
->  * Added header file pwrseq/consumer.h
->  * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
->  * Restored ports in DU bindings.
->  * Replaced endpoint with port in ports node.
->  * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS=
-.
->  * Dropped the variable rcdu from struct rzg2l_du_encoder.
->  * Dropped the variable lvds from struct rzg2l_du_device.
->  * Dropped renesas,sysc-pwrrdy from dsi node.
->=20
-> Biju Das (9):
->   drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
->   drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
->   drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
->     struct
->   drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
->   drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
->   drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
->   drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
->   arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
->   arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
->     ITE6263
->=20
->  arch/arm64/boot/dts/renesas/Makefile          |   6 +
->  .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
->  .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
->  drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
->  drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
->  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
->  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 ++++++++++-
->  drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 275 ++++++++++++++++++
->  .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
->  11 files changed, 749 insertions(+), 8 deletions(-)  create mode 100644
-> arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
->  create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-i=
-te6263.dtso
->  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
->  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
->=20
-> --
-> 2.43.0
+fastrpc_rpmsg_remove() nulls cctx->rpdev before calling
+misc_deregister(). If a concurrent open() enters fastrpc_device_open()
+in this window and fastrpc_session_alloc() returns NULL (sessions
+exhausted by the leaked slot), the error path dereferences
+cctx->rpdev->dev causing a NULL pointer dereference:
 
-Applied patches 1..7 on drm-misc-next.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  pc : fastrpc_device_open+0x1b8/0x258 [fastrpc]
+  Call trace:
+   fastrpc_device_open+0x1b8/0x258 [fastrpc] (P)
+   misc_open+0xd8/0x1a0
 
-Cheers,
-Biju
+Fix by moving misc_deregister() before rpdev = NULL. misc_open() and
+misc_deregister() both take misc_mtx, so misc_deregister() will either
+block until fastrpc_device_open() completes or prevent new opens from
+entering it entirely.
+
+Fixes: 7c11df42d0c7 ("misc: fastrpc: Fix device_open when no session is available")
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+ drivers/misc/fastrpc.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index b29c1fd00de2..7ab1cbbf19bb 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2706,6 +2706,12 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	struct fastrpc_user *user;
+ 	unsigned long flags;
+ 
++	if (cctx->fdevice)
++		misc_deregister(&cctx->fdevice->miscdev);
++
++	if (cctx->secure_fdevice)
++		misc_deregister(&cctx->secure_fdevice->miscdev);
++
+ 	/* No invocations past this point */
+ 	spin_lock_irqsave(&cctx->lock, flags);
+ 	cctx->rpdev = NULL;
+@@ -2713,12 +2719,6 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 		fastrpc_notify_users(user);
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+-	if (cctx->fdevice)
+-		misc_deregister(&cctx->fdevice->miscdev);
+-
+-	if (cctx->secure_fdevice)
+-		misc_deregister(&cctx->secure_fdevice->miscdev);
+-
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+
+-- 
+2.34.1
 
