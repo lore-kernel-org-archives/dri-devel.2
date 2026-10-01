@@ -4,125 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70AD9CA5FCF
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87711CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DEC610F599;
-	Thu,  1 Oct 2026 07:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D889310F597;
+	Thu,  1 Oct 2026 07:07:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="krhaS3cH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="36AwCbZQ";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBC6310F588;
- Thu,  1 Oct 2026 07:06:48 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCD510F597
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 07:07:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jly2eLCpsPs7NqIa+fyJaa8ECoIHXUvSLhDL7rjyknzyvPmulf/Wc4nKljO7pIlsAKEyU6scBb2QiGejIIhqo36OXIuV5S5kY/tYjXA4VmrEe2aTeUEU8SMer6mZzvBMQFa/V/6DN7vRy8OZJ3zkPJVhBn3EpB1bu+0uJiZcEUs0qgoJCJXEYyQbfxfmrQfXKqLNXCzBOO9M/3/ReblwZ9TQ9pdxNHXsacfGTP2Z0gUaanT6aY5ICXdV1UTOYQ1a+mUdJ2wZMJMAj1JK/wPPiYdSmIMhCn1fgsPpXdF6/jwkmhsB1RD1Q3LxM35N7qNV5ihWGkSGsuTAcokykQCRfw==
+ b=dVMZMwFU66itSTulAHUSoEdloZ12DaCH9TSJITtPQOa4Sa+doquJzT8ikhaS71TdtM4ap0UXBOCOAOhfP8TI5uOe3p2R77AxnaGR8P4j/mkLJTl5QnLePHcds5GhRQuA4tFjEduxMkgtAWozDfIfd+1AEbpt1SVVg/nlTvzGPzgi9mNHHdO1EthBfNfqsOhghblIOI9GEKfLMIFLxUU7t4QgPIQV4xQ1eTugVKlZ04QQ58tqMDEjhDx5tCRJ+kT23FXKgtkppXfQ4ez/zgolX6Ci9QnV8J9wPUjLB9Eo58/7JZXOl7YUnhdpmEO3YZWPrrJSMFJPNFQrQF/Frb9XRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5B28Rx9qjJTF+t2XlztnyKuGIXN6faO8SmdEZpaozPs=;
- b=X0SqdDiJw1WtA01M/rEhcirI8jty4sy30DQ7sHt8eNo5XfJOGe8d3RS+YaN/hO4jRRh1uV76797kKeVMrIlEVrD4PZOi8P9UZmFUnr2yD25+JJ0/z4Y+mdfkckRlw3JIVmGMT4g3M4g86WksOjj4BxpWleIg+ZmWMg+cjcQS39ADl5pdfjXw5xQXWraumY9415s0ccg8PzADdBBnLAI7f6BaGLu4BSNP6isU+yNpKx+9iLO2r6o8X/a4XvEIPe4fdSV61op5e4C/HOtE0UsVRcGgqFPomlV0BzZbPZ2tLi8nYDUIo+mqmznwzpNESuDhEbxz7P4t5L1vwpxTy3w+yA==
+ bh=nkk+zx2foG7LAhjHNK/8EYmVjGaH3Cl4gw98xP5af3c=;
+ b=oHJ9fVrINfXyTqaAqi2RxDrMgexGZ7mVdQQ7AHMDGERcY9AqPfWpNAZJdtL2/2RxgeW9G/HXtZXlmN3hi+9EYXoBBE5enRFYDORQkdxT34Ci+PDE5+wT/yAY0fbregnBruukCH2zUpMt4wtXF7ATfSAkUV277AZMPf8s4njsVqUUEQRZtShZHi4rqQmrD3q8NLeDTJlf/aIrkRARnQlfIrE38U45U6NqMDxiOtR9WZ3mZJKOlhySTTn5NKt1X4qbW56/+3XgoGF7PCR/J8sam9V0gdMEIIRRlmh4kDFGWXWrSCph1P4GmqIB/f57a7HWFMnjRW5nSENlFdiM/cJO4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5B28Rx9qjJTF+t2XlztnyKuGIXN6faO8SmdEZpaozPs=;
- b=krhaS3cHXtH8Tak1bPKhLQApjL3VAHvMBUkjMBVlvlIx3L/dlEgi6jIciXDBT5osNb0loO46ofZ/d4ievSvIIMftMGBVvCqo+AI6Cz7uZaaHkVO2UfTAoROWeirUEoSbmizcWw+TAf41ro3Z65L7bIRRXu/uOdRM7fQXBOcVzXc=
+ bh=nkk+zx2foG7LAhjHNK/8EYmVjGaH3Cl4gw98xP5af3c=;
+ b=36AwCbZQGVvHIzdm7bfnwKmAyEIOrVJmckvIUL995DXcLVnVDzQE2UPhFR0SpwTsrQ2Yavr2mkIu0rb777vLZx1s5QjL4pdh1jwBDXrFFX6jCB1m2qNgdB2JKdF6gcfDOoEY8OITms+xT5oMlN53ANVhIfcOLqfapGbIIUuXq/0=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by SN7PR12MB6886.namprd12.prod.outlook.com (2603:10b6:806:262::6) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 07:06:42 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 07:06:42 +0000
-Message-ID: <f69f88dc-0003-4ffe-ab99-94f533894ad2@amd.com>
-Date: Thu, 1 Oct 2026 12:36:35 +0530
+ 2026 07:07:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 07:07:01 +0000
+Message-ID: <f5c5319b-e8fd-4a54-b7ea-6bb64a4ff7e2@amd.com>
+Date: Thu, 1 Oct 2026 09:06:54 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: add range-restricted contiguous allocation
- fallback
-To: matthew.auld@intel.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Sumit Semwal <sumit.semwal@linaro.org>
+References: <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
+ <20260930143237.GI3401365@unreal>
+ <ed393791-46d5-40ad-998b-4ac0e1e9c6fa@amd.com>
+ <20261001061752.GJ3401365@unreal>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <20260930062117.585089-1-arunpravin.paneerselvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261001061752.GJ3401365@unreal>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0248.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:21a::19) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+X-ClientProxiedBy: BLAPR03CA0160.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|SN7PR12MB6886:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b7bb957-581a-4212-5768-08df1f8a8b9b
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5596:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0955ad18-71e4-4dbd-3fb4-08df1f8a970d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|11063799006|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: m0YGUP6lGBYFrnj/Wb8pNn84PnkpGKt+16qPZzbpk8jfA7BAofD/XOpeqGmoO7FOWEzdqfXTsQh0hK00TGvNkEOhvON/1OVTj7gucjle97O9QhD7IEkaP8aoKsA2hga0h395rRxIkBAAhxO6SRmuiWq9pjAnQZR4zNAxb/CcT8Hzp+DwgVNDQFw1O/oWyxJPFI7McJoQpPVNUyike4f6h5X6+EBJ0lqj3io8QeSxx+WOgJl7NUMQO1NRU3Lxcg29MgiyblRxMH5o6bjIAtsK45JU+t4CNDU01q/AFTP3IlAfZN0dMrp7AaVr92VLKVt9sRU0ylo0inTBovh8ux51ev5sPeAgWr/J78tdD9rnEGILLE6yN5u2w1K35bc6G02vnr3Vx6+yJ8sugrqSmif5HsJc74z/R4zqNhvxcdwsEks45yzPidJMVdfroS4oejgusq/31aVQnScGKnfxmhIzMM/N1Y3LEVUk5E8OpgxZTZSLtNm6jLXQ9Mndo+Q/9P73CUZPN9+tUoIl31qsIjoD1Fq+mXBPHVbWd8eNqgesYQ81AzY7ybqyL4gXeRB6vzYrYB4M+RMGNuBFqnwHgmQ8N0qwpZTPLug19mNP0zEZUjvvbrJSTtf8j9vTIk/QOAZY9jNJK/LTyujOIRaXX0GUhDKrg+/PFkzRytRXNKA/PwY=
+ ARA:13230040|23010399003|366016|1800799024|7416014|376014|22082099003|18002099003|56012099006|4143699003|4133799003|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: kcnPMq4M1I5/G8ZOuj1CBfW5wcwdlpnGudn1QOzEj/Fg20tBUpi+QQdc4GcGU9C6H5xko5I04Ab/V05jG8On2ZSYNKTo9JoxyC4YQBCEZTFCsy64xx5QlUwy49aWeFb3DMZfYah80ONN8pd1YysFiKR02vUc7jWgQCeJOHLBPZcV8X0fSVE2uiGGHStpmQbBGUqk4AzVBH2uMCQPyhpxSD8R++Y7qXST6rmZ42R9NpzNFmGBdatdM7Zw56Aygra1EVBwMdg3PYj7VTP6nYJsvw3CR/kUGkkwKA/2RInOU+M3nwgocsI/hdokOzmPOuVw0iBM5Zl91/uQgBrZLMu28uGhkafN/0963ZdlCaM8Cc6Ah32Ti3NvkSEwVafj85TQvA0TSod3H4AJnChXs/JOorYD0/MJHLuqKyBHGy6gPb8T0dUy/YiXcQ98OmiQUPX+aTEqIcOYhPSJ7/Ahur/z3X7SwC993RNTU26cjxx2XyTpeITa4RStJAcNrkvLqUVKBzPey5xNgy6xDptEkrkOL19VnhYGSORH/+8yI4+XPcgrTdce2/C7NTvJR6oik772IvJrMfbDrk/Ll0GyG9jLP+2g6uwpNk+3PYa6WeMhIJefcAv8R0dQAeA3oH7txv8b
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(56012099006)(4143699003)(4133799003)(10067099003)(5023799004)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFFSaHQ0aDBuVEpVYkZmcmNoRmJlZVNvenZQdmJkaWh0MUttM1JsSlM1TUhy?=
- =?utf-8?B?Y2lSRGorUU9GZnBaQmczdXVuSG5URG84T2phNFErUzRONmlEckExZnVIbDhR?=
- =?utf-8?B?dUZBeWYzVy9BaUNESitIcWRqZ3lFL2Roa3JueVE0eDEveHdrMW94VHdydWpw?=
- =?utf-8?B?cjFSU0hDajNzRHRhdGtBMnA1RUgzNjdkZCsyTWVmM2xxcU1Qd2lJV01RNWMz?=
- =?utf-8?B?VWlJVzZGWTN6RTBRa3BsMldwS3BYWXB6R3pISHpSQmg0K09HVnRtK0tlMGFW?=
- =?utf-8?B?cmdyY0FzU01RWGtUS0dQWGdqYjhqTUN4UjNJeHJCMytxQmFraGcwcG9DYTln?=
- =?utf-8?B?V25xclVUaXMvTmlib0RLSUJnWE1qSDVxb1VYMEs3RjAxNk5MY1U1K2lwMXRi?=
- =?utf-8?B?SFVwL09mWXhwekhZUzFaTmlyTWpMaUV3K3ZxbmszMHM2bDBObmZxeDhWTUtC?=
- =?utf-8?B?MEM4bGtxdlZnYW9aUmp0L0dnQkFpcnE2Z1U4aXdXRHlaWlJiWXByYXdNNkpT?=
- =?utf-8?B?OXRMcktySGlYQmppZGt1dE1HMmp4NEpBNS85TWtuU3BxNTlCd2s2bm1OeHFx?=
- =?utf-8?B?UmdrUFFhWmZsbnBNT0M1T3ZZeGhlcTFXSklLUmd4MmMxeitLYkhYbmVpSkc2?=
- =?utf-8?B?bHQ0RU1ybXR6Mnc2QkZ2am9TaytNVUlHQys5cUZHdlQrNEVhTFBOTTJLWHp3?=
- =?utf-8?B?d3VxeGhxakpCeWt0d0FMNWd5MDZBeUlESVJDSG55L1ZGRjEvRnk3YnNic2JF?=
- =?utf-8?B?Um50M2lpRUpKb3ZBQ0VvV1g0eFhQdytGT1RNNnc1OFdXcXFNQjF3STMxcmIz?=
- =?utf-8?B?QkVHQWk3cU9tQ0w4RmNTZmxBZDBTSndlWUQ3d3BiMXdvSjlua3lJN2dkcG9F?=
- =?utf-8?B?MVFEVGtVVG5OV1JJYjczMTZ3SmUyaHE5c0ZzbG5hVlg4aWE1aG9uSzVKSENR?=
- =?utf-8?B?RWo4TC94V2dGVkNVSnVZQTUrcnlzQXIvNDc4c2xsNUE3YTNaMEpubXlzMEVH?=
- =?utf-8?B?dW9kQnlNRkxVUDBhOVh6cWI1cHRhMTV3SWdkV1QzeEg1UlhXYWRUSXU0amlx?=
- =?utf-8?B?RE14L2hsUEdwVk5BWFRqZEovUDZVYlI2STdQS29CUXZ2d2VYU1d2VVRMSHYy?=
- =?utf-8?B?YjhnNmhQMktLR2N5bGN4VFVDRk5USThXbkNFUTExR2kvTHFBOGo0SXl0VWhs?=
- =?utf-8?B?VlBaRnpUTlVHVk42clJnZ3pGaU9CMVNLeklIOHR3RHNaemVyVUNHNWN6RW55?=
- =?utf-8?B?ajdmVFJhRjl0eUhqTEZtUmxDdlRMU1FieUx6M1J6clJjNFUyQnRHbHJYV2RR?=
- =?utf-8?B?VEtzeE5UT3ZkTWhrUFRMeUd6ck1OY0k5QSsxeHRRV2pYTG5oZitxbzZUQ0pT?=
- =?utf-8?B?dWlyTEMvU29qWGVZUHRieHR6TXZQdmNsdmRKbTFFMTc1UisrUnlGNkpiS1dJ?=
- =?utf-8?B?emFwL2NTZEZQVDlobjVJWGFqWlFEK1ZqRlpmeURSTnlGQitqRHVZd3V6RU96?=
- =?utf-8?B?WXcyN2p5UHdmcFVUalRpaHZHdStBZXFvdVJENkdRY3VBcEV1ck80Mlo2RWVi?=
- =?utf-8?B?WVlzS1c0bFBEYnBWdDBubmw5dlVJNmp4ZWdnM0NXZEJUNU5MUXhSL09rNkl1?=
- =?utf-8?B?NDc3cTR6YnJYSmlvRE5oZFNUMXd6bzZNdEZYWGtEMndqTDZoU0FQc0diUnQ2?=
- =?utf-8?B?YUtEQlhMMEVDM1ptR1FHNXlkNFpIKzVTdVlxMGt0M08wdTNGUHE4blAzQ1Rq?=
- =?utf-8?B?clEySktOc3hmQjFmUWtPT3ZSSU1XOUtXa0RSSFlMZVQzUWNFcEF5eVF1bVdy?=
- =?utf-8?B?L2REdlpQTkdqTXp5bWJXK1NmenJLdFlDdUdLQmNoL3hMWVhUR1BvZkZ3MDhn?=
- =?utf-8?B?dSszVHhpVEpGV1RLQkRnakNqNG9BRE11WFBOdFZJdktvZTJtVGRDbTMxdlo2?=
- =?utf-8?B?M3VwNzNTcDRwRlRUVjVwMFlBREZBbkdEVHV5TTJrRGZWUGVCbSs1UTJPTkpG?=
- =?utf-8?B?Ry9TbVloNTVJSE5lRmtzRmJNaTQrV0xYQ0UrSlhkRk90Rkk3azI5TFIyQXR1?=
- =?utf-8?B?VGFheEdEQ1hSelVEOTlzM0ExRVREbDBINzNGNmJXc0FNNEs2ZlhoOGZtbVd3?=
- =?utf-8?B?L2g0U0xFZXZCcDFpMnI5QTAzaERlYlJpQU1YQ1FUM2lTTWVacDEwNFFLc1pV?=
- =?utf-8?B?NDRkb2hiY2IreTJudUZBS0trd2lWc3ZCQTNFLzNESmg3N01sK2x4ekwrc09q?=
- =?utf-8?B?MzhUM040UmdaVk5WUU9CZlltaDUrbEdmbW1kK0JRcUlOeXZIZ3NjbXVZaHdq?=
- =?utf-8?B?MytmbDZsS3QyUklPSDlXUmMrUURTMUJrZHFkTEdrV1VkMGNKWVNEUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VEpQR0c0NmlnN3BJdmh0MjN3aHZINFN1ZUMwWmt2MEduRmxzeTlsSU1aZGs4?=
+ =?utf-8?B?RGl5cXI5UnAvR2w5RlNndWxDU2lnUmdzVG9VNzVObzJqdG5ta014VCtiQ21m?=
+ =?utf-8?B?dXY2WFdrc2svK1VoZUdIYkxFTmJKM3ZrbTVjTlVFUi8xTGZjSGM4WTMvd0ZW?=
+ =?utf-8?B?RUZOKytIazNQRkg2K0xyczlMSjcyYlBSN3lET1IzU1NRSEgvUkVBSlpvN0h6?=
+ =?utf-8?B?RWlLYnA2dkI2aEkwdmpUVGxDMGpVNWozWklzRzAzaW9EakFrRnhFRmtSbDli?=
+ =?utf-8?B?SEdkU0U2akR1Q1B4YjZZWk9QclhtV2VXODRQTjd5S29LSEZSZFJqazNORThi?=
+ =?utf-8?B?OWZpSGk1WVhlWG5iM01STDExN3VhWll0TnhReTR3YXEvRU5Gc3BaQWNoSnk4?=
+ =?utf-8?B?cGIxdWFhRXZ5ek41czAxSkc2RThtUytnZHhIMXhIZlZtd1NueDlRVGN3akdZ?=
+ =?utf-8?B?cDdwcmErelEwYUh4bTl0SUdibVQyTDRHZ2RoL2c1S0hVWEpCSmFGMGhiQnlx?=
+ =?utf-8?B?TWJPTUw4QUJUeHFVQmpwR1ZwcWxIRXRQUmtVMENuQ25PWW5xSzdVQllLZTls?=
+ =?utf-8?B?WVJvV0RIQ3ZYRDRvUksrdnZXcTFZMkNDUU1xNnZKYXdzYnBlQUZob1VUNVpk?=
+ =?utf-8?B?T2JReXdrMHpNeHJpdVBFbk5tVEdPU29pd3E5b2pyczhvb2pJREl2QUMxQVNx?=
+ =?utf-8?B?Q09CSnFmTXRDVEt0Z0ltclZNZ2pTMXZtRTlGNGJmc1RYUzU3dmZpcDZWUG50?=
+ =?utf-8?B?QVFjTlU5QWgxWER1Q21lTW41eVlWSmdCM2d6Q1hKZTRQMGFxOEQ1SHpYd1RD?=
+ =?utf-8?B?Y0djSzc4U3dUQ0RIOEs0ejV6V2x1ZVovL0lGd3hnMW9DOHBiZzdIc1NSRlF4?=
+ =?utf-8?B?OFZQbkRQUXZNaGdDNk5BTzlWTnozd2xBejVCK3FHTlZoTnZvZEhFSnUzYnJS?=
+ =?utf-8?B?UDgxaEhzcXJ4TkM0SHZ3Ny9WQTh6NUd3YW5RN2QvTlFEWTQ0RWMxSXZkNzh2?=
+ =?utf-8?B?R1NOSWpwODc4T0Z1TXpIV0srUGhmZ2hGODVMYysxZzR1WVFhMUVZNlFDT0Yx?=
+ =?utf-8?B?WmlNY2Q1T0xPMUFWMWdHRGl6cjczS3QyVTlZV0ZqdVFYdmtoN1I3bjUwNVBJ?=
+ =?utf-8?B?ZG5ON2ozRUFXZEs2M3hsTFB5ZTd2SkFSMDloaDVjc3M4MWVKaXFheUwxVUgz?=
+ =?utf-8?B?TDVYYU11eEc5a0JEQVM4N2VkaGh5RHRkWDdhV2dYWTZmYXVGYmx4QkphV0N6?=
+ =?utf-8?B?emREV050dVhZMWVBTUw4Y2g1enJqL0tqeWYzb3hWYUtOU3dBMjF4dnJUdnBs?=
+ =?utf-8?B?VXVlWEVsdDZBWStCU0xHN2dBazg4RWkvdWQ4NmNHQVFaZGZLWWxxZFpKN2Zq?=
+ =?utf-8?B?ald3WS84T0ZtMGtHWFVtb2VnV1h5ZkhjMDBZOXZkb1BxOTdNUDFuY0ZNZ2Nh?=
+ =?utf-8?B?ekM5alc3Z3h4STJvZEZDM2FYeGtSaEoxUGJZYWVZeUJzMDFLQVRJcUJLTFBk?=
+ =?utf-8?B?L0ZyR1hOS2xBTzJIYUF1NmFhUm12RzM0RkNBZ09MaXJIZDRzOGROV2tSVllX?=
+ =?utf-8?B?R1NSOFZldHprcWNMbmppNDlNdDdpT3J3d1o0QUgwS1JLQXE3enRReVo1K3Yy?=
+ =?utf-8?B?ZDFLenRuWnJQREN0ZURFcmkrb2plUmNaZHVWaTR5L3hRV0NkVklMLytWLzBi?=
+ =?utf-8?B?cm9TS3VWbXBJMzQ2U2wxSTc1aDU3dFg2eHNyamNHdjVFZWplM1VVbHhFUVBs?=
+ =?utf-8?B?ZEN3SVFtTG0wdFlUR0RiVWVoYW4xTHl4VFFPOFI4Ujk1QTdXL2FOY2RTdU1D?=
+ =?utf-8?B?OUV0TlE1T2pIbmpKLzYrUXMvR1l6aVF1UnRKenFTWnAyUGN0Q2cyL21oL3VN?=
+ =?utf-8?B?RTVib3gwTjdLaFl2M3R3M3g3Y1FUUnc0cmg1YmJwTHVnRHJpWVZ6bkxXMHVI?=
+ =?utf-8?B?emZ6SjM5TGV1SnB3QlliZDFGUUh1NEdyZDJpOUJ2YXYxakl6YUh3WUNrcmhG?=
+ =?utf-8?B?KytpQWNyamNPRWNnTXNwQkplWnlScEpWck01cFErNE1HNDU1U2lOSU5nMGdP?=
+ =?utf-8?B?S0duNGNGRitqaUdYeHltQ1Yrcis5WUJIMnFmVjN5Y0RHRGVWaXUvN0QzdHRs?=
+ =?utf-8?B?QXl1bWVuOTRJM0FXZlJEYTVTSU10OUtYWVhIaXoyMlQ5MTBNREVkVjgvNmV3?=
+ =?utf-8?B?bmVjWmkvNW9DMHBjMGdVQ0hRTW1ZckpoeEtoOG5GSnA4cjF0Umt3T2JveUVr?=
+ =?utf-8?B?L0ZuZVRESWs2Q3dOLzBlb3Y1a2tUNVNIV1MzK3MreDJSczJrTTZpMFYzOUhQ?=
+ =?utf-8?Q?zbhqywhZ8Qzdl1n8Y+?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b7bb957-581a-4212-5768-08df1f8a8b9b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0955ad18-71e4-4dbd-3fb4-08df1f8a970d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:06:42.1384 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:07:01.2609 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yr7YnuQcUa76JgK2V1BcEn9JxPfCsq/NmFwo7YGIjClzHwW23HpmIng0LkvDhp90XsvcmQgrlukfde6kzMB0zw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6886
+X-MS-Exchange-CrossTenant-UserPrincipalName: UqJyBsK/boQWkN8i2F/SEK7tUlPl5F4cvGB9AQjK+xpT8szTa2bPgDEBNqLGLqem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5596
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,305 +161,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matthew,
-Could you please review this patch.
+On 10/1/26 08:17, Leon Romanovsky wrote:
+> On Wed, Sep 30, 2026 at 04:52:20PM +0200, Christian König wrote:
+>> On 9/30/26 16:32, Leon Romanovsky wrote:
+>>> On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
+>> ...
+>>>>> The importer needs a way to obtain device information from the exporter so
+>>>>> that it can configure itself correctly.
+>>>>
+>>>> That won't work with DMA-buf then, the exporter is completely opaque to the importer and that is for really good reasons.
+>>>>
+>>>> Why in the world does the importer needs to know the information from the exporter before the mapping is created?
+>>>>
+>>>> It is the exporter who decides how data is accessed by the importer and not the other way around.
+>>>
+>>> There are several reasons:
+>>>
+>>> 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on the ODP
+>>>    mechanism, which requires an MKEY to be created first. See commit
+>>>    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory region”).
+>>
+>> I know that patch, but I absolutely don't understand where the problem is.
+>>
+>>> 2. P2P routing is a property of devices, not memory. It is known and remains
+>>>    stable.
+>>
+>> No, absolutely not. You are making completely incorrect assumptions how DMA-buf works.
+> 
+> Maybe, but I understand how the kernel, PCI, and P2P DMA work, and dma-buf
+> seems to operate in a parallel reality that is not aligned with any of them.
 
-Thanks,
-Arun.
+Yes, but that behavior predates the P2P DMA work by over a decade.
 
-On 9/30/2026 11:51 AM, Arunpravin Paneer Selvam wrote:
-> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->
-> A range + contiguous allocation (e.g. a scanout FB confined to the
-> CPU-visible VRAM aperture) rounds its size up to a power of two and
-> requires a naturally aligned free block of that size; on a fragmented
-> aperture no such aligned block may exist even though enough contiguous
-> space is free, so the allocation fails with -ENOSPC.
->
-> The non-range contiguous path already recovers from this via
-> __alloc_contig_try_harder(), which stitches an exact-size span from
-> smaller adjacent blocks, but that fallback was unreachable once
-> GPU_BUDDY_RANGE_ALLOCATION was set. Give __alloc_contig_try_harder()
-> a [range_start, range_end) window and route the range + contiguous
-> case through it: each candidate placement is confined to the window
-> and aligned to min_block_size. Non-range callers pass [0, mm->size),
-> where the guards are no-ops, so the existing behaviour is unchanged.
-> A KUnit regression test covers the fragmentation pattern.
->
-> Resolves the igt@kms_plane@plane-panning-bottom-right@pipe-a/pipe-b
-> regression.
->
-> v2:
->   - Drop the split-undo patch; the range-bias search always descends to
->     an exact-order block or fails the split (already handled), so the
->     extra undo was redundant. (Matthew)
->   - Verified this fallback alone fixes the kms_plane regression.
->
-> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/buddy.c                | 88 ++++++++++++++++--------------
->   drivers/gpu/tests/gpu_buddy_test.c | 83 ++++++++++++++++++++++++++--
->   2 files changed, 126 insertions(+), 45 deletions(-)
->
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 2f2aaadafe35..5265e1f6a318 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1685,26 +1685,14 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->   			     blocks, total_allocated_on_err);
->   }
->   
-> -static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
-> -					u64 unaligned_offset,
-> -					u64 size,
-> -					u64 min_block_size,
-> -					unsigned long flags,
-> -					struct list_head *blocks)
-> -{
-> -	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
-> -
-> -	return __gpu_buddy_alloc_range(mm, aligned_offset, size, flags,
-> -				       NULL, blocks);
-> -}
-> -
->   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
-> +				     u64 range_start, u64 range_end,
->   				     u64 size,
->   				     u64 min_block_size,
->   				     unsigned long flags,
->   				     struct list_head *blocks)
->   {
-> -	u64 rhs_offset, lhs_offset, filled;
-> +	u64 rhs_offset, lhs_offset, filled, aligned;
->   	struct gpu_buddy_block *block;
->   	struct rb_root *root;
->   	struct rb_node *iter;
-> @@ -1734,20 +1722,24 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   					       flags, &filled, blocks);
->   		if (err && err != -ENOSPC)
->   			return err;
-> -		if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-> +		if (!err && IS_ALIGNED(rhs_offset, min_block_size) &&
-> +		    rhs_offset >= range_start && rhs_offset + size <= range_end)
->   			return 0;
->   		if (!err) {
->   			/* Allocate the unaligned RHS offset using round_down */
->   			gpu_buddy_free_list_internal(mm, blocks);
-> -			err = __alloc_contig_aligned_retry(mm, rhs_offset,
-> -							   size,
-> -							   min_block_size,
-> -							   flags, blocks);
-> -			if (!err)
-> -				return 0;
-> -			if (err != -ENOSPC) {
-> -				gpu_buddy_free_list_internal(mm, blocks);
-> -				return err;
-> +
-> +			aligned = round_down(rhs_offset, min_block_size);
-> +			if (aligned >= range_start &&
-> +			    aligned + size <= range_end) {
-> +				err = __gpu_buddy_alloc_range(mm, aligned, size,
-> +							      flags, NULL, blocks);
-> +				if (!err)
-> +					return 0;
-> +				if (err != -ENOSPC) {
-> +					gpu_buddy_free_list_internal(mm, blocks);
-> +					return err;
-> +				}
->   			}
->   			goto next;
->   		}
-> @@ -1759,15 +1751,17 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   
->   		/* Allocate the unaligned LHS offset using round_down */
->   		gpu_buddy_free_list_internal(mm, blocks);
-> -		err = __alloc_contig_aligned_retry(mm, lhs_offset,
-> -						   size,
-> -						   min_block_size,
-> -						   flags, blocks);
-> -		if (!err)
-> -			return 0;
-> -		if (err != -ENOSPC) {
-> -			gpu_buddy_free_list_internal(mm, blocks);
-> -			return err;
-> +
-> +		aligned = round_down(lhs_offset, min_block_size);
-> +		if (aligned >= range_start && aligned + size <= range_end) {
-> +			err = __gpu_buddy_alloc_range(mm, aligned, size,
-> +						      flags, NULL, blocks);
-> +			if (!err)
-> +				return 0;
-> +			if (err != -ENOSPC) {
-> +				gpu_buddy_free_list_internal(mm, blocks);
-> +				return err;
-> +			}
->   		}
->   next:
->   		gpu_buddy_free_list_internal(mm, blocks);
-> @@ -2021,11 +2015,18 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->   	min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
->   
->   	if (order > mm->max_order || size > mm->size) {
-> -		if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
-> -		    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
-> -			return __alloc_contig_try_harder(mm, original_size,
-> +		if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
-> +			u64 range_start, range_end;
-> +
-> +			range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? start : 0;
-> +			range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? end : mm->size;
-> +
-> +			return __alloc_contig_try_harder(mm, range_start,
-> +							 range_end,
-> +							 original_size,
->   							 original_min_size,
->   							 flags, blocks);
-> +		}
->   
->   		return -EINVAL;
->   	}
-> @@ -2058,9 +2059,14 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->   			 * Try contiguous block allocation through
->   			 * try harder method.
->   			 */
-> -			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
-> -			    !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
-> -				err = __alloc_contig_try_harder(mm,
-> +			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
-> +				u64 range_start, range_end;
-> +
-> +				range_start = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? start : 0;
-> +				range_end = (flags & GPU_BUDDY_RANGE_ALLOCATION) ? end : mm->size;
-> +
-> +				err = __alloc_contig_try_harder(mm, range_start,
-> +								range_end,
->   								original_size,
->   								original_min_size,
->   								flags,
-> @@ -2068,9 +2074,9 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
->   				if (!err)
->   					return 0;
->   				if (err != -ENOSPC)
-> -					return err;
-> -				goto err_free;
-> +					goto err_free;
->   			}
-> +
->   			err = -ENOSPC;
->   			goto err_free;
->   		} while (1);
-> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-> index b75d32ca6ca0..2c445870b808 100644
-> --- a/drivers/gpu/tests/gpu_buddy_test.c
-> +++ b/drivers/gpu/tests/gpu_buddy_test.c
-> @@ -1251,6 +1251,77 @@ static void gpu_test_buddy_alloc_contiguous(struct kunit *test)
->   	gpu_buddy_fini(&mm);
->   }
->   
-> +static void gpu_test_buddy_alloc_range_contiguous(struct kunit *test)
-> +{
-> +	const unsigned long ps = SZ_4K, mm_size = 16 * ps;
-> +	const unsigned long range_end = 8 * ps;
-> +	struct gpu_buddy_block *block, *prev;
-> +	LIST_HEAD(allocated);
-> +	struct gpu_buddy mm;
-> +	LIST_HEAD(pin_lo);
-> +	LIST_HEAD(pin_hi);
-> +	u64 total;
-> +
-> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, ps),
-> +			       "buddy_init failed\n");
-> +
-> +	/*
-> +	 * Idea is to confine the test to the sub-range [0, 32K), which a 12K
-> +	 * contiguous request (rounded up to 16K) splits into two naturally
-> +	 * aligned 16K slots: [0, 16K) and [16K, 32K). We pin the first 4K page
-> +	 * of each slot ([0, 4K) and [16K, 20K)) so that neither aligned slot
-> +	 * can satisfy the rounded-up 16K allocation, yet the freed remainder
-> +	 * still leaves a contiguous 12K hole at offset 4K, which is page-aligned
-> +	 * but not 16K-aligned. A 12K contiguous+range allocation must therefore
-> +	 * fall back to stitching that span instead of returning -ENOSPC.
-> +	 */
-> +	KUNIT_ASSERT_FALSE_MSG(test,
-> +			       gpu_buddy_alloc_blocks(&mm, 0, ps, ps, ps,
-> +						      &pin_lo, 0),
-> +			       "failed to pin low page\n");
-> +	KUNIT_ASSERT_FALSE_MSG(test,
-> +			       gpu_buddy_alloc_blocks(&mm, 4 * ps, 5 * ps, ps,
-> +						      ps, &pin_hi, 0),
-> +			       "failed to pin high page\n");
-> +
-> +	/* No aligned 16K block is free; the range-aware fallback must stitch
-> +	 * the unaligned [ps, 4*ps) hole instead of returning -ENOSPC.
-> +	 */
-> +	KUNIT_ASSERT_FALSE_MSG(test,
-> +			       gpu_buddy_alloc_blocks(&mm, 0, range_end, 3 * ps,
-> +						      ps, &allocated,
-> +						      GPU_BUDDY_CONTIGUOUS_ALLOCATION |
-> +						      GPU_BUDDY_RANGE_ALLOCATION),
-> +			       "range-restricted contiguous alloc failed\n");
-> +
-> +	/* The result must be exactly 3*ps, contiguous, and inside the range. */
-> +	total = 0;
-> +	prev = NULL;
-> +	list_for_each_entry(block, &allocated, link) {
-> +		u64 offset = gpu_buddy_block_offset(block);
-> +		u64 bsize = gpu_buddy_block_size(&mm, block);
-> +
-> +		KUNIT_EXPECT_TRUE_MSG(test, offset + bsize <= range_end,
-> +				      "block [%llx, %llx) outside range\n",
-> +				      offset, offset + bsize);
-> +		if (prev)
-> +			KUNIT_EXPECT_EQ_MSG(test,
-> +					    gpu_buddy_block_offset(prev) +
-> +					    gpu_buddy_block_size(&mm, prev),
-> +					    offset,
-> +					    "block at %llx not contiguous\n",
-> +					    offset);
-> +		prev = block;
-> +		total += bsize;
-> +	}
-> +	KUNIT_EXPECT_EQ(test, total, 3 * ps);
-> +
-> +	gpu_buddy_free_list(&mm, &allocated, 0);
-> +	gpu_buddy_free_list(&mm, &pin_lo, 0);
-> +	gpu_buddy_free_list(&mm, &pin_hi, 0);
-> +	gpu_buddy_fini(&mm);
-> +}
-> +
->   static void gpu_test_buddy_alloc_pathological(struct kunit *test)
->   {
->   	u64 mm_size, size, start = 0;
-> @@ -1534,10 +1605,13 @@ static void gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
->   				     GPU_BUDDY_RANGE_ALLOCATION);
->   	KUNIT_EXPECT_EQ(test, err, -EINVAL);
->   
-> -	/* CONTIGUOUS + RANGE should return -EINVAL (no try_harder for RANGE) */
-> -	err = gpu_buddy_alloc_blocks(&mm, 0, mm_size, size, SZ_4K, &blocks,
-> -				     GPU_BUDDY_CONTIGUOUS_ALLOCATION | GPU_BUDDY_RANGE_ALLOCATION);
-> -	KUNIT_EXPECT_EQ(test, err, -EINVAL);
-> +	/* CONTIGUOUS + RANGE should succeed via the range-aware try_harder */
-> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, size,
-> +							    SZ_4K, &blocks,
-> +							    GPU_BUDDY_CONTIGUOUS_ALLOCATION |
-> +							    GPU_BUDDY_RANGE_ALLOCATION),
-> +			       "range contiguous alloc hit an error size=%llu\n", size);
-> +	gpu_buddy_free_list(&mm, &blocks, 0);
->   
->   	gpu_buddy_fini(&mm);
->   }
-> @@ -1603,6 +1677,7 @@ static struct kunit_case gpu_buddy_tests[] = {
->   	KUNIT_CASE(gpu_test_buddy_alloc_pessimistic),
->   	KUNIT_CASE(gpu_test_buddy_alloc_pathological),
->   	KUNIT_CASE(gpu_test_buddy_alloc_contiguous),
-> +	KUNIT_CASE(gpu_test_buddy_alloc_range_contiguous),
->   	KUNIT_CASE(gpu_test_buddy_alloc_clear),
->   	KUNIT_CASE(gpu_test_buddy_alloc_range),
->   	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
->
-> base-commit: 744f262401cc2e1f3827496c72a47e072d31a852
+You can't ignore how existing drivers work just because you want PCI P2P to work this way.
+
+>> Again: What is exported and from which path is up to the exporter and only determined when you create a DMA-buf mapping!
+> 
+> Let's discuss the PCI P2P case, where `p2pdma_provider` is present. In this
+> flow, the exporter has a PCI device, and the importer also has one when it
+> attaches.
+
+No, they don't.
+
+> The decision about how to construct the addresses is made at that
+> point. Note that both the exporter and importer are PCI P2P devices, so the
+> importer should make the request.
+
+Again, no.
+
+The decision where to place things is done when the first mapping is created and that is documented and full intentional behavior since the very first merged version in 2011.
+
+>> In most cases you don't even have a single device which is the DMA-buf exporter.
+> 
+> How is it possible for exporter with p2pdma_provider?
+> 
+>>
+>> Only while creating the mapping the underlying access path is finally determined. It can be that P2P is used, it can be that internal connections are used, it can be that the data is moved to system memory....
+> 
+> But we are talking about in-tree exporters: RDMA, VFIO e.t.c
+> 
+>>
+>> That's why we have the distinction between attaching and importer and the importer creating a mapping.
+>>
+>>> 3. See the VFIO TPH ST discussion, where the requirement to obtain the
+>>>    exporter’s P2P information in the importer was raised again.
+>>
+>> As far as I can see there isn't any. The TPH/ST information are just passed through from the exporter to the importer.
+>>
+>> We could define a bit better what needs to come first the mapping or the TPH/ST query but for their use case that is actually irrelevant.
+> 
+> They need an access to p2pdma_provider too.
+> https://lore.kernel.org/linux-rdma/CAH3zFs2rhg6-b-pVDps1V8LsM4Dn48t4J4LFVyKOZtT4axdY=Q@mail.gmail.com/
+
+No they don't. They just need the routing information the same way as you do it here.
+
+And Zhiping reply actually makes it 100% clear were the misunderstanding is here:
+
+> Two properties are worth stating explicitly:
+
+>  - The metadata and its callback are per-dmabuf, while routing is per
+> attachment, so this deliberately uses a conservative all-or-nothing
+> gate across the current attachments. It may withhold TPH from a direct
+> importer when another attachment is not BUS_ADDR, but it cannot return
+> a tag while any current attachment has a non-direct route.
+
+Yes that is fully correct.
+
+> An importer
+> attaching later does not change an existing importer's route, and
+> future queries reevaluate the current attachment list.
+
+No, that is incorrect! An importer attaching later eventually *does* change the routing!
+
+The final routing is only determined on the first mapping call.
+
+In other word the semantics is like this:
+
+attachmentA = dma_buf_attach(dma_buf, importerA);
+...
+attachmentB = dma_buf_attach(dma_buf, importerB);
+...
+...
+dma_resv_lock(dma_buf->resv, NULL);
+...
+pci_info = dma_buf_get_tph_st_and_routing(attachmentA);
+mappingA = dma_buf_map_attachment(attachmentA, ...);
+...
+dma_resv_add_fence(dma_buf->resv, async_signal_preventing_unmap);
+dma_resv_unlock(dma_buf->resv);
+
+So that PCI info including TPH, ST and routing is only valid as long as you hold the lock of the DMA-buf.
+
+When another dma_buf_attach() call comes after the mapping is already created the invalidate mappings callback is called and eventually the buffer is moved to a completely different location.
+
+So on the next mapping call you can get different TPH, ST and routing information and depending on the internal topology of the exporter eventually a different PCI device you can do P2P with.
+
+What can be is that not all importers support the invalidate mappings callback and/or dma_buf-pin() is called, but then exporters usually don't allow PCI P2P in the first place or at least only under restrictive limits (like for example cgroups).
+
+And yes that semantics has been the one of DMA-buf for 15 years now and yes we can't change any of that on existing exporters since that is uAPI.
+
+I hope that I finally made it clear how things work here. I'm kind of running out of ideas how to explain that.
+
+Regards,
+Christian.
+
+> 
+> Thanks
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks
+>>
 
