@@ -4,86 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDB1CA5FC4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 01:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE985CA5FC4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 01:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F3C10E2EC;
-	Thu,  1 Oct 2026 01:11:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C3810F10D;
+	Thu,  1 Oct 2026 01:15:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VDZARZnS";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JjmWbhc1";
 	dkim-atps=neutral
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com
- [74.125.230.234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4168810E2EC
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 01:11:43 +0000 (UTC)
-Received: by mail-qk2-f42.google.com with SMTP id
- af79cd13be357-93bef17c191so505739285a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 18:11:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790817102; cv=none;
- d=google.com; s=arc-20260327;
- b=g2lwasVlbi2ULXus4dr5B/a4SEFkc/514oDlcLeKZ6BNwdRgEF7TlhVIdu4eLsedQw
- ow0niLdps5l+xmovyHeAeI2eGzSbFGmM5l9xSNmCfpQm2NhJ1DGno8UBpzhg4OaupWYl
- GVtRSjMWWGvXTjUoR27/dzwUqcDP+8PeMqLzsikQ2nMp7jHNj35OVWhIaE9TugAcYWVA
- owhaA3vny7GAXr363cXFwGsmd0ZxvshO1xFv3ZAuPcoVRHsu/8q8Rd9wKvQgvI22Df+9
- PU0E5F3wba+JYMugwsgKlgmXpZWWszWykoZD6X3wopSe3s6vTBRoBayy00koBj7CyNDi
- 1/3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=j2lUHQEvxQq6oSekhyIH0GMwW8MfXgmP2gtiBIUWvJU=;
- fh=8F9HNHqchQMvgzLuIZzf74ZZNRkTs1q2x7A1+wC43bA=;
- b=JCaNF2g2hPNd8GPKbTx+FDr26WhtF1q/oKBKdrDIlexNLDubPYRr1AFYxrXNZKk4CL
- 4N+Rs6bPuF8XqUiRH3BD64mnqJZcan4nGuc3Eu6jc254bXws1ssIQss+VFlKXATrA6vJ
- VwNQpOq87Rn3ei2TH0X5tMbX1GbKgux1LHT8ayWE2s3xwIqelGd6HGamWqbqNOIWgRSJ
- kVPsYB+N5EUCFl3elTZBEO4TOXyUQKX7WUf8gnmqhudDaxhC68NWnJ2GX6dIOI78PGg6
- S0LGTWHOj0PgVYd5Pp8Z7fitUdCJ3/2c8WilVOsohsjeGX2PuZuZ3XrFZX6DjLUTJv6w
- PR9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790817102; x=1791421902; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=j2lUHQEvxQq6oSekhyIH0GMwW8MfXgmP2gtiBIUWvJU=;
- b=VDZARZnSHQMTs8f74zIx8UWXh8AsW7fEFf2fCvtEV7wUr4FiM2vD8C+hKBw22tMzg5
- oLu7pnjthD7zNPIct6f0H+9S1jsLwII9kWPDF3oK732+N4Ru139PJMICRBfIcuootBjQ
- OmLCFJXjG4WBkQEBmG8G3s+oueeuhGhSImq4dbOU7GdMm46auKJfL/22jkziDmKFZuxn
- XrrVjqZK2Y5dFy1FrTbIdUGV8TinS3i5IlFMDDbJMndcxlx9JE2RnlunI9g8I4f28t7K
- DmQUO/JoFu19gdB+MBgWIcb5RIDQYOWsmYR6Gibu5tJTdW/rMye4rkKCQ0u68xEZQRlN
- o5IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790817102; x=1791421902;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=j2lUHQEvxQq6oSekhyIH0GMwW8MfXgmP2gtiBIUWvJU=;
- b=YSF4VKftRn/JDfZJlbX+jMDvljUyxENKLOt1KrEeooVHhSpKgFi67hyexDMrz3eWie
- YJWJKXZNySP5+98zFvOvDchLmTgC+YE0Ff9rsxfjCgnNZK/likSXXr/C8n9ZGhx258g3
- 9mEbuiLnLQkbSs1R+ZxliLYxyAv4y1h6EwAOgH6j/rreEjMtmIWnJEBrwqHxF6Kfhd5U
- CIuKpw0c8682mKAa3T6rmyMCQ4mUwwA8fwYXxsu2n+J1iK0g2n6dTdQ314TUMsq9ufP/
- HJ5soiXNk8b8VTBXpwOq6cI0hS7x2sZvTLxbh4Jy98tlqeECIVsDTejqJvta5vFj4QE6
- oxKA==
-X-Gm-Message-State: AFuF++n3/h8yi4sSadSTcb4J22f1hK6xOLIKI4QeNLsMWPGaZeUAn2Ba
- 1AhhMs+kJvt5b+7N5ll/gddcTn3I62mPMUi58MvnSiXLgzi2ckMcwBjpGOYHrzQGZ+NxjMdbEu9
- 9ihwXaL1GOjSqrTfZhLwr+wTb+wcvY+s=
-X-Gm-Gg: AYBFou2OWd952r4aNwoFyKlJuK0K34iYbsp3FQWSodJHzz+TNMfkF8tYUQX8DlIZupd
- IryAyp62xb/8BT3JCTHaHTUs+ttffsIxYDfqaJBTnuFthMMSuTL4XLRrTNidOvUaypAD2ruLZvU
- 1gSpeyg3zVti+uUnhMe8L9kVONrko8qWlxtyD8KAtt5QmR/jpUxiyy60a76SinmqVdTfMfNMdZ7
- +9H9MFMM5htov5qheOW2tiNxytTqFKAclfXAiQ2YX+0seaOqbyc0qNUvpDBartyb6gQmLw4Clkz
- 7xkXyM7q2kMnFmLpCR52edFwE+w+Pm6ltfP5Iix4ZQb0FF81FXq0mgL/WzB5L+oMcXH73lrP62f
- RTg3T7vY8iDoHRSEaD3WWCvai2OYl25TZjiueoPzi
-X-Received: by 2002:a05:620a:410f:b0:93a:48a:167 with SMTP id
- af79cd13be357-93ca973260fmr620112285a.39.1790817101420; Wed, 30 Sep 2026
- 18:11:41 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7529310E303
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 01:14:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1790817297;
+ bh=GOwaAXoYGkU8Dmsfbd0ly6CQtUQz/aO+7qSW3lRVFfc=;
+ h=From:Subject:Date:To:Cc:From;
+ b=JjmWbhc1cshW4EJhs0xurwV4/ppkoW5zKF5sLR4SQ9SakSuYgJfEeql4zeH7FUHZD
+ +Uv8nYGthylw1Tr65U0pl/qfbo30qEkAJXsbXh9wo9yY7ngudH2EhwHTcLlyQwk7P4
+ Bx1e/WNwfzx56NxoGJM6N93bmgIw4owgzTXp9oR2GScJyn6+dH78bJQorV+Mu6OUPP
+ wlOMSjiNU+RR0nnl4FzhsY/nfx63xtJYIGYe2ESBBKzZhlyfFd3xAe/3qZ0uXUjpyP
+ 0f5nVaX20r3DPioaQNfjZyx/zUxYSEFHbOpoWqJDJvbu/fMXpwyCbmzQQtbiLL/CPj
+ DOVNoB69B4xdQ==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D448C17E017E;
+ Thu, 01 Oct 2026 03:14:57 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH 0/8] drm: Advertise supported HDMI version in HDMI drivers
+Date: Thu, 01 Oct 2026 04:14:31 +0300
+Message-Id: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 1 Oct 2026 11:11:30 +1000
-X-Gm-Features: AclHuK_SqvGAge7WzM1f7vJNZGejVdSGb3A7pHevUcMQPH0euaaJnITn3-QqX3Q
-Message-ID: <CAPM=9tzd3LteJG-Au=na-_X5Rff4tacFZ3X_cp5g0bCcQkV_jA@mail.gmail.com>
-Subject: [git pull] vgaarb rework topic branch
-To: Dave Airlie <airlied@gmail.com>, Alex Williamson <alex@shazbot.org>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Helgaas <bhelgaas@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g1kRttFr1JcjJNYU6iVREUQ7
+ 96pXX4P3r+Di6k43KsdTFZ1/YwF4VJBHtL4FFQuhkjxFogCdqZc1sSr2IwDvxVzmhyvTByJGqo
+ jQ3lPJr1uZ/nR/u1L95I8/3JwHF9ERRI8ewAAAA==
+X-Change-ID: 20261001-bridge-advert-hdmi-caps-5d0d2004032d
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andy Yan <andy.yan@rock-chips.com>, Liu Ying <victor.liu@nxp.com>, 
+ Phong LE <ple@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,46 +75,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi me,
+This series consists of patches 50-57 from "[PATCH v11 00/74] Add HDMI
+2.0 support to DW HDMI QP TX" [1], to set the supported HDMI version for
+the HDMI connector/bridge drivers that currently leave it unset - except
+the MediaTek HDMI driver (for now), as it requires non-trivial changes:
+there is a core library shared between two variants, one being HDMI 2.0
+compliant.
 
-I will merge this to drm-next today, the topic branch remains
-available for vfio if they want to base things on it.
+The infrastructure patches have been merged and there are no remaining
+dependencies, so these are now sent as a separate series, rebased on top
+of the latest drm-misc-next.  The Reviewed-by tags from Maxime Ripard on
+v11 have been collected; no functional changes were made since v11.
 
-Dave.
+[1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
 
-topic/pci-vgaarb-rework-2026-10-01:
-pci/vgaarb rework for drm/vfio
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Cristian Ciocaltea (8):
+      drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
+      drm/bridge: inno-hdmi: Advertise HDMI 1.2 capabilities
+      drm/bridge: ite-it6263: Drop redundant .mode_valid hook
+      drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
+      drm/bridge: ite-it66121: Advertise HDMI 1.2 capabilities
+      drm/bridge: lontium-lt9611: Advertise HDMI 1.4 capabilities
+      drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4 capabilities
+      drm/sun4i: hdmi: Convert to drmm_connector_hdmi_init()
 
-This reworks the vgaarb API to be a bit more sane.
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 22 +++----------------
+ drivers/gpu/drm/bridge/inno-hdmi.c           |  1 +
+ drivers/gpu/drm/bridge/ite-it6263.c          | 33 ++--------------------------
+ drivers/gpu/drm/bridge/ite-it66121.c         | 13 ++++-------
+ drivers/gpu/drm/bridge/lontium-lt9611.c      | 16 +++-----------
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c       |  2 ++
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c       | 25 ++++++++++-----------
+ 7 files changed, 26 insertions(+), 86 deletions(-)
+---
+base-commit: 37b346eab23aead52d17a8fa687056bfc651a416
+change-id: 20261001-bridge-advert-hdmi-caps-5d0d2004032d
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git
-tags/topic/pci-vgaarb-rework-2026-10-01
-
-for you to fetch changes up to 93d41424caf7569ab50092a922477e2a881232b4:
-
-  PCI/VGA: pass a data pointer to be used in the decode callback (v2)
-(2026-09-30 17:21:59 +1000)
-
-----------------------------------------------------------------
-pci/vgaarb rework for drm/vfio
-
-This reworks the vgaarb API to be a bit more sane.
-
-----------------------------------------------------------------
-Dave Airlie (1):
-      PCI/VGA: pass a data pointer to be used in the decode callback (v2)
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-----
- drivers/gpu/drm/i915/display/intel_vga.c   |  7 ++++---
- drivers/gpu/drm/loongson/lsdc_drv.c        |  4 ++--
- drivers/gpu/drm/nouveau/nouveau_vga.c      |  6 +++---
- drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-----
- drivers/pci/vgaarb.c                       | 13 +++++++++----
- drivers/vfio/pci/vfio_pci_core.c           |  9 +++++----
- include/linux/vgaarb.h                     |  8 +++++---
- 8 files changed, 36 insertions(+), 29 deletions(-)
