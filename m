@@ -4,69 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06709CA5FCE
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:01:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4941ACA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D66910F596;
-	Thu,  1 Oct 2026 07:01:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F43710E266;
+	Thu,  1 Oct 2026 07:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Lp7ep3St";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S5z4Ap+7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7842410F596
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 07:01:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BE9D10E266
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 07:02:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5C74843987;
- Thu,  1 Oct 2026 07:01:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96BC1F000FF;
- Thu,  1 Oct 2026 07:01:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DAE89429E2;
+ Thu,  1 Oct 2026 07:02:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABEF51F000FF;
+ Thu,  1 Oct 2026 07:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790838064;
- bh=KS0Ss/ffTJUp5L49rLpdU43wb6+7z7lGoeJJi6W0x3M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Lp7ep3StOohbLecY2bxsRKPlsyxwPZfsGjFriRa7GH7Nfor7FnoL75V0NjDj+zOvd
- Y9t9D6A7+m5aTs/Sqz9t9LWMcr5BcY0JM6d2NUmPsI2QTXaAOQfHJgPoslvv0/tNpx
- Cx39zhzVS8o1qi3wjpFQoxtVq64z+KgWcDXHC7zSI1OWkt+VD7g+GcxYlkP4Z9bwIV
- tVDvkYjaL/SDbQhOuIcNbi9HtP8RehenrFceEPX82uX36A313KnmeYWoXjaL2RqxTU
- +cZ7rFe4V9yoavp9cAp9Xl/NO7hI1ETfYBKgQowxS+PoVHPxJlnEfICZIDYTGxDumw
- +LkDLNqgJhpfQ==
-Date: Thu, 1 Oct 2026 09:01:01 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <ar4C329Cm5hzB3kH@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <artlIYhgbskRJXDQ@houat>
- <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org>
+ s=k20260515; t=1790838126;
+ bh=snozG5gNH8eLpJpsYYT4lqY8pI6qTX+oQMwkT1PWlYU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=S5z4Ap+7YNcRdPYqqWgNSxCVJ5MGd6dMSW+Vl84wgDD/vJ/Z//ioIBTJ3BNNa04AI
+ T4p/KFUNFluk4oysUjD4W6uQ8HF+bZuCuaYv4RlimU1U1OJKayAGqgFS1qkfEuO8OX
+ R/pXdAwJ9l7LNePcIBA/Z9xQT2J1WZfWKY1HVSsfCvY2kYIYQfRvptKDN5A8fsRkGP
+ OBfM3WGkG5Qsea6IT2h8Uj1D8B9ZYuLxM2GaJ+FPrvCSTvcMcZuz8Hjjel5VfaLpiR
+ Ieso+x4LtB8MHPVH5kLk62t9YrlmK6arcVi62sgQgRPF2tIdaWL0Gc49e0lyI1Czna
+ pPmLwfJC8BaFg==
+Message-ID: <88e6b793-6488-46d7-b731-8687e219de3b@kernel.org>
+Date: Thu, 1 Oct 2026 09:01:59 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="bnu55xk7ah7f6vwr"
-Content-Disposition: inline
-In-Reply-To: <27bc999f-ef3a-450d-a4ea-57ac45508705@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/panel: ili7807s: Add WLED supply
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-2-75d0a83b4b00@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260929-wled-supply-series-v1-2-75d0a83b4b00@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,207 +111,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 29/09/2026 15:12, Arpit Saini wrote:
+> Some boards drive the panel's backlight from an external WLED driver
+> whose enable input is wired through a supply, typically modeled as a
+> fixed regulator (e.g. vreg_wled).
+> 
+> Add the WLED supply to the panel's bulk regulator list so it can be
+> enabled/disabled along with the other panel supplies.
+> 
+> Fixes: dd7ec83f4567 ("drm/panel: add Ilitek ILI7807S panel driver")
 
---bnu55xk7ah7f6vwr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+Not a fix. Read review you already received four months ago.
 
-On Wed, Sep 30, 2026 at 03:49:12PM +0200, Neil Armstrong wrote:
-> On 9/29/26 09:27, Maxime Ripard wrote:
-> > On Mon, Sep 28, 2026 at 09:20:12PM +0200, Neil Armstrong wrote:
-> > > On 9/28/26 19:24, Benjamin Tissoires wrote:
-> > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > Hi,
-> > > > >=20
-> > > > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > > > Hi,
-> > > > > >=20
-> > > > > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > > > > difficult to support and require pretty much a panel driver for=
- each
-> > > > > > panel produced. Most of them are pretty simple, and require an =
-opaque
-> > > > > > initialization sequence that is usually poorly documented.
-> > > > > >=20
-> > > > > > This creates a tension between OEMs and distros because OEMs wi=
-ll
-> > > > > > typically get a new panel to react to a sourcing issue during
-> > > > > > production, and thus need some swift turnaround between getting=
- their
-> > > > > > new panel and it being operational in the OS. Distributions on =
-the other
-> > > > > > hand can take years to ship a kernel with that new panel driver.
-> > > > > >=20
-> > > > > > To solve this, I followed the example of HID-BPF and wrote a pa=
-nel
-> > > > > > driver that will rely on BPF programs to perform the panel
-> > > > > > initialization. That way, we can ship the programs separately f=
-rom the
-> > > > > > kernel, and with a different lifecycle. If this driver is accep=
-ted, the
-> > > > > > plan is to have a userspace component started by udev to identi=
-fy and
-> > > > > > load the right BPF program for the panels found on the device.
-> > > > >=20
-> > > > > This is kind of late for serious applications except if we manage=
- to
-> > > > > solve the bootloader to Linux display engine transition.
-> > > > >=20
-> > > > > >=20
-> > > > > > This driver is fully functional and works with both 5" and 7" T=
-ouch
-> > > > > > Display 2 panels for the RaspberryPi. However, it breaks away f=
-rom the
-> > > > > > typical panel driver in multiple ways:
-> > > > > >=20
-> > > > > > - BPF programs can only be loaded by userspace. This leaves us =
-with two
-> > > > > >      choices:
-> > > > > >=20
-> > > > > >      * We prevent the driver from loading until the script itse=
-lf is
-> > > > > >        loaded. This has the side effect of preventing any other=
- output to
-> > > > > >        be used until the initramfs is ran at the earliest, and =
-possibly
-> > > > > >        ever if the loader isn't installed for example.
-> > > > >=20
-> > > > > This adds a dependency on user-space behavior and if somehow the
-> > > > > initramfs doesn't load for a reason we won't have a way to display
-> > > > > an error.
-> > > > >=20
-> > > > > >=20
-> > > > > >      * Or we probe the driver all the time, but only report it =
-as connected
-> > > > > >        once a program has been registered. This is somewhat unc=
-onventional,
-> > > > > >        but allows the other outputs to be functional, *and* all=
-ows the user
-> > > > > >        to force the output if their panel doesn't require any
-> > > > > >        initialization or during debugging. I chose this solutio=
-n.
-> > > > >=20
-> > > > > Both options are not really great...
-> > > > >=20
-> > > > > >=20
-> > > > > > - It's not a panel driver, but a bridge one, which is also pret=
-ty
-> > > > > >      unconventional. This is required because panel drivers don=
-'t have
-> > > > > >      access to a detect callback that is required for the above=
-, but I also
-> > > > > >      think that the recent work from Luca blurs the line from p=
-anels and
-> > > > > >      bridges and we'll end up going that road anyway.
-> > > > >=20
-> > > > > On this point, DDIC _are_ bridges, but in the current panel API w=
-e blur the line between
-> > > > > the panel and the DDIC. So being a bridge is fine, but in a gener=
-al way we lack
-> > > > > a proper way to describe the display/panel/monitor independently =
-of the DDIC.
-> > > > >=20
-> > > > > At first glance it's a nice driver, but moving the timings into a=
- blob moves something
-> > > > > into possible proprietary binaries with possible closed licence a=
-nd distribution
-> > > > > restriction so it's a downgrade for the same of bringing up a pan=
-el faster.
-> > > >=20
-> > > > Quick answer on this, because I had the very same questions regardi=
-ng
-> > > > HID-BPF:
-> > > > - in BPF, you can require (and by default it does) that only GPL
-> > > > 	compatible BPF programs are loaded, closing the argument of "closed
-> > > > 	licence and distribution restriction"
-> > > > - also, a BPF program can be disassembled much easier than a binary
-> > > > 	blob, and I remember Alexei showing me an example where you get al=
-most
-> > > > 	the source code from the BPF object in just one pass.
-> > >=20
-> > > Right, it "solve" one of my question, but doesn't really solve the is=
-sue
-> > > of vendors providing "GPL" bpf programs with source available "somewh=
-ere".
-> >=20
-> > Would you be ok if I was to make a tool to decompile a BPF program into=
- its
-> > source file equivalent?
->=20
-> Not really, I don't see the point TBH.
-
-Cool, another moving goalpost then.
-
-> > > Another big issue is the API, I don't want to keep the current API as=
--is,
-> > > we plan to support more advanced panel features and use try to use the
-> > > atomic states to support rate switching for example, and I'm not conf=
-ident
-> > > it's a good idea since there's no "simple" and "forever valid" API
-> > > to initialize panels...
-> >=20
-> > So, a couple of things here. First, I really don't think we should
-> > extend the panel API, like at all. But let's discuss that at Plumbers, I
-> > don't think it's very relevant to this discussion anyway.
->=20
-> It is, and I'll expose why we need to get out of this deprecated API
-> as soon as possible, we are seriously keeping the ability to provide
-> support for advanced panel features which are implemented in vendor
-> kernels.
-
-I guess I'm not the one working on out-of-tree panel drivers then. But
-yeah, I don't dispute that statement.
-
-> The API was ok when DSI was added and we didn't have generalized atomic
-> modesetting, why would you not want panels to embrace atomic ?
->=20
-> I don't understand, please elaborate.
-
-Again, you're putting words in my mouth. I never said I don't want
-panels to embrace atomic. I said we shouldn't extend the panel API, I
-told you twice what I meant exactly by that:
-
-https://lore.kernel.org/ksummit/20260604-grinning-determined-falcon-0e8b01@=
-houat/
-
-> I acknowledge it might sound a bit like "let's burn the whole thing to
-> the ground", but what you just described sounds an awful lot like what
-> the bridge API already does.
->
-> Let's acknowledge that drm_bridge isn't just about bridge anymore, make
-> panels bridges, and we're done.
-
-https://lore.kernel.org/dri-devel/20260928-drm-mipi-dsi-panel-ebpf-v1-0-524=
-4926aace4@kernel.org/
-
-> It's not a panel driver, but a bridge one, which is also pretty
-> unconventional. This is required because panel drivers don't have
-> access to a detect callback that is required for the above, but I also
-> think that the recent work from Luca blurs the line from panels and
-> bridges and we'll end up going that road anyway.
-
-So, yeah, my point is we already have an atomic API to support panels:
-it's the bridge one. If your plan is to make the panel API an equivalent
-to the bridge API, then it just makes no sense when all consumers are
-handling bridges anyway. Just write a bridge driver for your panel IC,
-and you're done. It works today, and you don't have to extend anything.
-And you can embrace your atomic panel.
-
-Maxime
-
---bnu55xk7ah7f6vwr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4FLAAKCRAnX84Zoj2+
-dkWqAX9zUZI4E7mxKZN1Y1GCLbXBhkAvgliVL8C1FEaYE4+MjOPRi3MnEf78Hsxk
-/9MrBfcBgOofz+9iFoZkLYhZfn5hVc6U6621zAhtiqRzZNvaqK9allN+rkgXh1zN
-RDrtanF4bQ==
-=1Xtb
------END PGP SIGNATURE-----
-
---bnu55xk7ah7f6vwr--
+Best regards,
+Krzysztof
