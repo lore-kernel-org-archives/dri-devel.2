@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE985CA5FC4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 01:15:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD58CA5FC4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 01:15:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8C3810F10D;
-	Thu,  1 Oct 2026 01:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2FDC10F4F1;
+	Thu,  1 Oct 2026 01:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JjmWbhc1";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QKjUZ+4W";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7529310E303
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE6A310E303
  for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 01:14:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1790817297;
- bh=GOwaAXoYGkU8Dmsfbd0ly6CQtUQz/aO+7qSW3lRVFfc=;
- h=From:Subject:Date:To:Cc:From;
- b=JjmWbhc1cshW4EJhs0xurwV4/ppkoW5zKF5sLR4SQ9SakSuYgJfEeql4zeH7FUHZD
- +Uv8nYGthylw1Tr65U0pl/qfbo30qEkAJXsbXh9wo9yY7ngudH2EhwHTcLlyQwk7P4
- Bx1e/WNwfzx56NxoGJM6N93bmgIw4owgzTXp9oR2GScJyn6+dH78bJQorV+Mu6OUPP
- wlOMSjiNU+RR0nnl4FzhsY/nfx63xtJYIGYe2ESBBKzZhlyfFd3xAe/3qZ0uXUjpyP
- 0f5nVaX20r3DPioaQNfjZyx/zUxYSEFHbOpoWqJDJvbu/fMXpwyCbmzQQtbiLL/CPj
- DOVNoB69B4xdQ==
+ s=mail; t=1790817298;
+ bh=MrnZcDi6Cud4qnR8PAi3Iq/gCi093xmi9A1U/fSvV6o=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=QKjUZ+4Wf17nLTLYk75TopwxD2mqqPEklOHPyWR9vKGxg49oAeEa0+kxqxBOi4i4j
+ dXps7jY5JHWk2cZHqKWHpPCus6/tih/z5PAJnZmSjp/dT5QzVxe6Pad7u8WUncj95N
+ Lljy37PvzlK475ER1oFHHO3PdrSN+BZvPRI5x+t4TUWspCjWgBLryvpqFMiFZtisaH
+ FCca3Fp45bG1HC3MXbNVrXk+udNm3BzIuZ0e4s12b88buKN95KMZNvuRP2uo0elt96
+ DqHgnXSCrnfBnxTOTfamabfoBk2m9KWcc8xiuE2GM5EsAqAdhQOwKXcsbubtPVTL+s
+ wGqYYQ02DYHsA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D448C17E017E;
- Thu, 01 Oct 2026 03:14:57 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8C7E217E05F4;
+ Thu, 01 Oct 2026 03:14:58 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH 0/8] drm: Advertise supported HDMI version in HDMI drivers
-Date: Thu, 01 Oct 2026 04:14:31 +0300
-Message-Id: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
+Date: Thu, 01 Oct 2026 04:14:32 +0300
+Subject: [PATCH 1/8] drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g1kRttFr1JcjJNYU6iVREUQ7
- 96pXX4P3r+Di6k43KsdTFZ1/YwF4VJBHtL4FFQuhkjxFogCdqZc1sSr2IwDvxVzmhyvTByJGqo
- jQ3lPJr1uZ/nR/u1L95I8/3JwHF9ERRI8ewAAAA==
-X-Change-ID: 20261001-bridge-advert-hdmi-caps-5d0d2004032d
+Message-Id: <20261001-bridge-advert-hdmi-caps-v1-1-f8806570e243@collabora.com>
+References: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
+In-Reply-To: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -75,41 +73,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series consists of patches 50-57 from "[PATCH v11 00/74] Add HDMI
-2.0 support to DW HDMI QP TX" [1], to set the supported HDMI version for
-the HDMI connector/bridge drivers that currently leave it unset - except
-the MediaTek HDMI driver (for now), as it requires non-trivial changes:
-there is a core library shared between two variants, one being HDMI 2.0
-compliant.
+Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+supported HDMI version.  This is not yet enforced, but will become
+mandatory once the migration to the new caps-based HDMI connector
+initialization API is completed.
 
-The infrastructure patches have been merged and there are no remaining
-dependencies, so these are now sent as a separate series, rebased on top
-of the latest drm-misc-next.  The Reviewed-by tags from Maxime Ripard on
-v11 have been collected; no functional changes were made since v11.
+Since max_mode_clock_khz does not exceed 165 MHz for any of the chip
+variants handled by the driver, advertise HDMI 1.2 as the supported
+version and set the bridge's max_tmds_char_rate so the connector limit
+inferred from supported_hdmi_ver is overridden by the chip-specific
+hardware constraints.
 
-[1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
+drm_bridge_connector_atomic_check() runs
+drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
+computed TMDS character rate exceeds the connector limit before invoking
+the driver's .tmds_char_rate_valid() hook, making
+adv7511_bridge_hdmi_tmds_char_rate_valid() redundant. Drop it.
 
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
-Cristian Ciocaltea (8):
-      drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
-      drm/bridge: inno-hdmi: Advertise HDMI 1.2 capabilities
-      drm/bridge: ite-it6263: Drop redundant .mode_valid hook
-      drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
-      drm/bridge: ite-it66121: Advertise HDMI 1.2 capabilities
-      drm/bridge: lontium-lt9611: Advertise HDMI 1.4 capabilities
-      drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4 capabilities
-      drm/sun4i: hdmi: Convert to drmm_connector_hdmi_init()
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 22 +++----------------
- drivers/gpu/drm/bridge/inno-hdmi.c           |  1 +
- drivers/gpu/drm/bridge/ite-it6263.c          | 33 ++--------------------------
- drivers/gpu/drm/bridge/ite-it66121.c         | 13 ++++-------
- drivers/gpu/drm/bridge/lontium-lt9611.c      | 16 +++-----------
- drivers/gpu/drm/rockchip/rk3066_hdmi.c       |  2 ++
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c       | 25 ++++++++++-----------
- 7 files changed, 26 insertions(+), 86 deletions(-)
----
-base-commit: 37b346eab23aead52d17a8fa687056bfc651a416
-change-id: 20261001-bridge-advert-hdmi-caps-5d0d2004032d
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 038b852405b5..c3ef44074477 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -8,6 +8,7 @@
+ #include <linux/clk.h>
+ #include <linux/device.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/slab.h>
+@@ -775,11 +776,6 @@ static int adv7511_connector_init(struct adv7511 *adv)
+  * DRM Bridge Operations
+  */
+ 
+-static const struct adv7511 *bridge_to_adv7511_const(const struct drm_bridge *bridge)
+-{
+-	return container_of(bridge, struct adv7511, bridge);
+-}
+-
+ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_commit *state)
+ {
+@@ -817,19 +813,6 @@ static void adv7511_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	adv7511_power_off(adv);
+ }
+ 
+-static enum drm_mode_status
+-adv7511_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+-					 const struct drm_display_mode *mode,
+-					 unsigned long long tmds_rate)
+-{
+-	const struct adv7511 *adv = bridge_to_adv7511_const(bridge);
+-
+-	if (tmds_rate > 1000ULL * adv->info->max_mode_clock_khz)
+-		return MODE_CLOCK_HIGH;
+-
+-	return MODE_OK;
+-}
+-
+ static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
+ 						      const struct drm_display_info *info,
+ 		const struct drm_display_mode *mode)
+@@ -1006,7 +989,6 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 
+-	.hdmi_tmds_char_rate_valid = adv7511_bridge_hdmi_tmds_char_rate_valid,
+ 	.hdmi_clear_audio_infoframe = adv7511_bridge_hdmi_clear_audio_infoframe,
+ 	.hdmi_write_audio_infoframe = adv7511_bridge_hdmi_write_audio_infoframe,
+ 	.hdmi_clear_avi_infoframe = adv7511_bridge_hdmi_clear_avi_infoframe,
+@@ -1359,6 +1341,8 @@ static int adv7511_probe(struct i2c_client *i2c)
+ 
+ 	adv7511->bridge.vendor = "Analog";
+ 	adv7511->bridge.product = adv7511->info->name;
++	adv7511->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
++	adv7511->bridge.max_tmds_char_rate = 1000ULL * adv7511->info->max_mode_clock_khz;
+ 
+ #ifdef CONFIG_DRM_I2C_ADV7511_AUDIO
+ 	adv7511->bridge.ops |= DRM_BRIDGE_OP_HDMI_AUDIO;
+
+-- 
+2.55.0
 
