@@ -4,67 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 592A9CA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 110E8CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA6C210E269;
-	Thu,  1 Oct 2026 08:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5802410E443;
+	Thu,  1 Oct 2026 08:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TaSfPzZY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ibhKZBd7";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59D7010F5B7
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:10:55 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id E9F5E4E410ED;
- Thu,  1 Oct 2026 08:10:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B9F4760341;
- Thu,  1 Oct 2026 08:10:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id F17D9103290CF; 
- Thu,  1 Oct 2026 10:10:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790842251; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=1iEXv1MzdrgaIRYlO6IHAkcD/PzrlJhsiGovH6P/zgo=;
- b=TaSfPzZYx75PUEp1as/SOZwnqw+vAb7IWcXpDNW4dcPjGWosHLHT0VabrjEwdirzGLZqS7
- jngsLORTHpV8vfvGRDoN2XYRLPUa/cKaRJsPaG4C5Z/GJM+oWP8zPu72qnbLinphCk6jQD
- lFeEGgtltO2wtzB5QDOd3k2mgohWRf6yuY6ZL7mrJkKAU5mx/VnWo4CDFGKPNeF4V5FtKs
- W8JoNWgykWDPmsDm7bUxT1xs16ZZMLTFYZppy0yfI5F2h5WqrNaOuUVER/Mwy6gwC5ndKM
- pJnQwLqsQATFwFnLgpEIG1H1fCDMPjuXdWg1tHwMw6Fl4SDe1KklXU8Ty3Rq8Q==
-Message-ID: <3fdc30dfdddfb5f529398541aefe92ae86a07b3e.camel@bootlin.com>
-Subject: Re: [PATCH v2 4/7] drm/bridge: dw-mipi-dsi2: stop using deprecated
- devm_drm_of_get_bridge()
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li	 <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Icenowy Zheng	
- <zhengxingda@iscas.ac.cn>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance	
- <kernel-list@raspberrypi.com>, Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Thu, 01 Oct 2026 10:10:40 +0200
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-4-6da431d8f180@bootlin.com>
-References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
- <20260929-drm-fix-of_get_bridge-build-regression-v2-4-6da431d8f180@bootlin.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F7E10E443
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790842320; x=1822378320;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=51A+0uGzwTXigzlmR2tcEbHZm+8G4JffQQe6Pb6jmvI=;
+ b=ibhKZBd7hUoGlfE7N+q31KOLUwd1PGMlfRR3GJpkMcAELwrN98KwKLDN
+ oSoMW9p320UUl3ITwYQd4gKTybGBW/qg+YUDClSN+5yqWlxdq9YBQW7Zj
+ ffyxy96R+Vx0oJtCPZW9chxPm6EP/okMgro+eJiKEJU2VeKRnyQuIpFTY
+ ZZ6RSkxs9Tnh+lncKwSDUR7y+VqVInaEzLVLb4/xXUWHRHp5jxQpqvHQB
+ zisiN3d3GeTBxTh2vuQfdtTTUfbBtLkVazQrOtsZ06MX7zFcEfnEEhPf3
+ Ztpx1b9C2w1btkqaiAecJSzdIo1IK9rBlu1zZOU7PSdagELA7Drh+VfBY Q==;
+X-CSE-ConnectionGUID: DFSALtC3SlefQUsKcR/zyQ==
+X-CSE-MsgGUID: GXBgDIwcT5iGlvRvAK9GCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90359173"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="90359173"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 01:12:00 -0700
+X-CSE-ConnectionGUID: HwuLrs5LTRKMghWlxeiDhw==
+X-CSE-MsgGUID: jwpBUmWqQJ6IyoRCXZ55Pg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="303866842"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.16])
+ ([10.245.244.16])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 01:11:54 -0700
+Message-ID: <044e3316569c030a224625151bd80a7333fc2b79.camel@linux.intel.com>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Bjorn
+ Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, Jason
+ Gunthorpe <jgg@ziepe.ca>,  "Joerg Roedel (AMD)"	 <joro@8bytes.org>, Will
+ Deacon <will@kernel.org>, Robin Murphy	 <robin.murphy@arm.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev, Tushar Dave
+ <tdave@nvidia.com>, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,  Chaitanya Kulkarni	
+ <kch@nvidia.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens
+ Axboe	 <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>, Ankit Agrawal
+ <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Sumit
+ Semwal	 <sumit.semwal@linaro.org>
+Date: Thu, 01 Oct 2026 10:11:51 +0200
+In-Reply-To: <20261001063747.GK3401365@unreal>
+References: <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
+ <20260930143237.GI3401365@unreal>
+ <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
+ <20261001063747.GK3401365@unreal>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,94 +94,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca (and not Lucas, sorry),
-
-Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
-=C2=A0:
-> devm_drm_of_get_bridge() is deprecated, switch to
-> of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
-ns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+On Thu, 2026-10-01 at 09:37 +0300, Leon Romanovsky wrote:
+> On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > On Wed, 2026-09-30 at 17:32 +0300, Leon Romanovsky wrote:
+> > > On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian K=C3=B6nig wrote:
+> > > > On 9/30/26 13:43, Leon Romanovsky wrote:
+> > > > > On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian K=C3=B6nig
+> > > > > wrote:
+> > > > > > On 9/30/26 10:18, Leon Romanovsky wrote:
+> > > > ...
+> > > > > > >=20
+> > > > > > > At a minimum, exporters need to pass `p2pdma_provider`.
+> > > > > >=20
+> > > > > > No, exactly that is a no-go. The neither the framework nor
+> > > > > > the
+> > > > > > importer should see the p2pdma_provider.
+> > > > > >=20
+> > > > > > Only fully translated addresses where the DMA access should
+> > > > > > happen.
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > If I keep the =E2=80=9Cdma-buf: Let exporters hand out the P2=
+PDMA
+> > > > > > > provider behind a
+> > > > > > > buffer=E2=80=9D patch, I can move the P2P TLP types back into
+> > > > > > > `p2pdma.c` and export
+> > > > > > > only the function that indicates whether ATS is required.
+> > > > > > >=20
+> > > > > > > Is it ok?
+> > > > > >=20
+> > > > > > What you can do is to forward declare enum
+> > > > > > pci_p2pdma_map_type
+> > > > > > and than pass that 1 to 1 from the exporter to the
+> > > > > > importer.
+> > > > >=20
+> > > > > Unfortunately, neither suggestion applies to RDMA NICs. They
+> > > > > need
+> > > > > to know,
+> > > > > before mapping addresses, whether to create the memory region
+> > > > > with ATS
+> > > > > enabled.
+> > > >=20
+> > > > The design principle here is that the final location and access
+> > > > path of the data isn't determined when the buffer is created.
+> > > >=20
+> > > > The importer first need to attach before it can query such
+> > > > information from the exporter.
+> > >=20
+> > > In attach yes, this is why importer digs in dma_buf ops to get
+> > > p2pdma_provide, however it is before addresses are known.
+> > >=20
+> > > > > The importer needs a way to obtain device information from
+> > > > > the
+> > > > > exporter so
+> > > > > that it can configure itself correctly.
+> > > >=20
+> > > > That won't work with DMA-buf then, the exporter is completely
+> > > > opaque to the importer and that is for really good reasons.
+> > > >=20
+> > > > Why in the world does the importer needs to know the
+> > > > information
+> > > > from the exporter before the mapping is created?
+> > > >=20
+> > > > It is the exporter who decides how data is accessed by the
+> > > > importer
+> > > > and not the other way around.
+> > >=20
+> > > There are several reasons:
+> > >=20
+> > > 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely
+> > > on
+> > > the ODP
+> > > =C2=A0=C2=A0 mechanism, which requires an MKEY to be created first. S=
+ee
+> > > commit
+> > > =C2=A0=C2=A0 90da7dc8206a (=E2=80=9CRDMA/mlx5: Support dma-buf based =
+userspace
+> > > memory
+> > > region=E2=80=9D).
+> > > 2. P2P routing is a property of devices, not memory. It is known
+> > > and
+> > > remains
+> > > =C2=A0=C2=A0 stable.
+> > > 3. See the VFIO TPH ST discussion, where the requirement to
+> > > obtain
+> > > the
+> > > =C2=A0=C2=A0 exporter=E2=80=99s P2P information in the importer was r=
+aised again.
+> > >=20
+> > > Thanks
+> >=20
+> >=20
+> > Returning again to Jason's series. Let's say we'd add just the
+> > mapping
+> > type infrastructure, converted users of pcie_p2pdma only to use
+> > that
+> > and then we'd have access to per-mapping-type data.=C2=A0This could
+> > actually
+> > be done as a prereq for this series and merged separately. It's a
+> > couple of patches only.
 >=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> I afraid that you over optimistic about the amount of work.
 
-Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+I was thinking something like this
+https://gitlab.freedesktop.org/thomash/xe-vibe/-/commit/0ab1cefa5c1439701e2=
+a09d2de2d03722b63b509
 
-With one nitpick below.
+Although I have a couple of review comments on the infrastructure, and
+it doesn't include re-negotiation at map-time.
 
 >=20
-> ---
+> >=20
+> > Jason's match() and finish() callbacks could compute the
+> > interesting
+> > routes at attach time,=C2=A0 perhaps even condesed to whether IOVA is
+> > used
+> > and whether ATS translated packages have a direct route (which is
+> > what
+> > mlx5 care about AFAICT). This information is kept outside core dma-
+> > buf
+> > and would be specific to the pcie_p2p mapping type (interconnect)
+> > only
+> > rather than having functions and callbacks bloating the core dma-
+> > buf
+> > structures.
+> >=20
+> > Then exactly where the cross-subsystem match() and finish()
+> > implementations should live I figure remain up for discussion and
+> > guidance by Christoph?
 >=20
-> Changes in v2:
-> - fix bridge reference leak on attach error and detach paths
-> ---
-> =C2=A0drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c | 11 +++++------
-> =C2=A01 file changed, 5 insertions(+), 6 deletions(-)
+> Maybe I'm wrong, and everything will work out. However, given
+> Christian's
+> feedback to determine the mapping type when the mapping is
+> established, this
+> approach won't work for an RDMA exporter.
+
+I'm not 100% clear as to whether Christian meant the mapping-type would
+be re-negotiated if an agreed mapping type failed, or whether we would
+just allow a transparent fallback to system memory dma-buffers?
+Christian?
+
+In any case, IMHO the infrastructure must allow for an importer to
+rather fail a mapping if the original attach-agreed mapping type was
+severed at mapping time, and then you'd get the same behaviour as you
+are sketching now? Or you could chose to take an unlikely slowpath to
+perform whatever's necessary to accomodate the new mapping type, even
+if that includes having to re-fault already ODP-faulted memory. Pinning
+would also be an option, I figure.
+
+Thanks,
+Thomas
+
+
 >=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
-> b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
-> index 7fd2f1e60654..eb7d5713bd28 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c
-> @@ -192,7 +192,6 @@ struct cmd_header {
-> =C2=A0struct dw_mipi_dsi2 {
-> =C2=A0	struct drm_bridge bridge;
-> =C2=A0	struct mipi_dsi_host dsi_host;
-> -	struct drm_bridge *panel_bridge;
-> =C2=A0	struct device *dev;
-> =C2=A0	struct regmap *regmap;
-> =C2=A0	struct clk *pclk;
-> @@ -528,12 +527,12 @@ static int dw_mipi_dsi2_host_attach(struct mipi_dsi=
-_host
-> *host,
-> =C2=A0	dsi2->format =3D device->format;
-> =C2=A0	dsi2->mode_flags =3D device->mode_flags;
-> =C2=A0
-> -	bridge =3D devm_drm_of_get_bridge(dsi2->dev, dsi2->dev->of_node, 1, 0);
-> +	bridge =3D of_drm_get_bridge_by_endpoint(dsi2->dev->of_node, 1, 0);
-> =C2=A0	if (IS_ERR(bridge))
-> =C2=A0		return PTR_ERR(bridge);
-> =C2=A0
-> =C2=A0	bridge->pre_enable_prev_first =3D true;
-> -	dsi2->panel_bridge =3D bridge;
-> +	dsi2->bridge.next_bridge =3D bridge;
-> =C2=A0
-> =C2=A0	drm_bridge_add(&dsi2->bridge);
-> =C2=A0
-> @@ -547,6 +546,7 @@ static int dw_mipi_dsi2_host_attach(struct mipi_dsi_h=
-ost
-> *host,
-> =C2=A0
-> =C2=A0err_remove_bridge:
-> =C2=A0	drm_bridge_remove(&dsi2->bridge);
-> +	drm_bridge_clear_and_put(&dsi2->bridge.next_bridge);
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> @@ -564,8 +564,7 @@ static int dw_mipi_dsi2_host_detach(struct mipi_dsi_h=
-ost
-> *host,
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	drm_bridge_remove(&dsi2->bridge);
-> -
-> -	drm_of_panel_bridge_remove(host->dev->of_node, 1, 0);
-> +	drm_bridge_clear_and_put(&dsi2->bridge.next_bridge);
-> =C2=A0
-> =C2=A0	return 0;
-> =C2=A0}
-> @@ -884,7 +883,7 @@ static int dw_mipi_dsi2_bridge_attach(struct drm_brid=
-ge
-> *bridge,
-> =C2=A0	encoder->encoder_type =3D DRM_MODE_ENCODER_DSI;
-> =C2=A0
-> =C2=A0	/* Attach the panel-bridge to the dsi bridge */
-> -	return drm_bridge_attach(encoder, dsi2->panel_bridge, bridge,
-> +	return drm_bridge_attach(encoder, dsi2->bridge.next_bridge, bridge,
-> =C2=A0				 flags);
-
-Same remark as for the patch 3/7, it would look a bit better to have the
-'bridge' moved to the second line.
-
-Cheers,
--Paul
+> As I mentioned, mlx5 uses on-demand paging (ODP), creating mappings
+> in
+> response to page faults. To handle these faults with reasonable
+> performance,
+> mlx5 must create a memory region (MR), with or without ATS, and it is
+> needed to be created before first page fault.
+>=20
+> I'm afraid we're going in circles, so I'll drop the dma-buf patches
+> for now
+> and focus on fixing only the PCI ATS flow.
+>=20
+> Thanks
+>=20
+> >=20
+> > Thanks,
+> > Thomas
+> >=20
+> >=20
+> >=20
