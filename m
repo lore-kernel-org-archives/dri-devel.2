@@ -4,96 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB58BCA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEBFCA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B44B10E0D9;
-	Thu,  1 Oct 2026 06:03:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00B8E10E0B0;
+	Thu,  1 Oct 2026 06:18:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=canonical-com.20251104.gappssmtp.com header.i=@canonical-com.20251104.gappssmtp.com header.b="UmDCLgwy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Uiy59Iu7";
 	dkim-atps=neutral
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com
- [74.125.230.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBF610E03D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:03:40 +0000 (UTC)
-Received: by mail-lr2-f34.google.com with SMTP id
- 38308e7fff4ca-3a772de44c5so13956981fa.1
- for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 23:03:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790834618; cv=none;
- d=google.com; s=arc-20260327;
- b=L8lBbVwcFbpHW5Nqxi3/6nKdXirwtyrmmccSWenrel5Lkc+hRif/FVW78Qqj1m1F/u
- 6vEAtqNJNtlqOw5j1JiObBDK+tEIwk1BLuDeOCV1c1Y6kT3SBnEhGdvQhBIYY028qRMs
- ZlUJ1kP8ltINRIcFsrE0QAPe17tgXZKanlooqEPwNvX98pqO4aBHbBeTt/6MCpvLm/fs
- 8PTo/IECDEvTyLLcJq7IZe5o8p4dd4RfEHCXYtclfCZdzSOJ67vZrryiIwCeCPUeIpa1
- N+njrAik1zRWkyZo9sPhy6Yay6ZZaN+/EKiSm08Iky+cWen1I64ghVQ8PiprP+C6196c
- r0fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
- fh=msAaavPfRDJ5cwcMsHMnp2iLnXE3RvpJLcY7SS7yPaU=;
- b=Qb8SB5f/lJZqcxsqWxgFq6wrmmnnLjbE2xInFStoWN1XtJYEtW+CPHo2nRg4hIio6A
- Az0uiy3xCsz1/kyL6Kpmy/snOrn2sGVXebs1sIp0dBvYM16ZFoOtKG7K/8bTnYiRZ1mO
- DLeKvIn57/PLbzYuP8aiwMlXIJkUsQri6+hgDNo8rjTWVeB4kvNy7pxjud1sx1aBGMis
- oylPmpyC0loTtr3TR+GmPVQAiVeQ+TI3d/cU/h1VyfCez4tbGbEF9gEm01PTW+cfEOd7
- jlAhV8Sr9Jpw6//NMif2fxaWX166UA6EUaT0rSWQljVljcJg+hyhk01t/zXa4o0VYE0M
- Rr3A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=canonical-com.20251104.gappssmtp.com; s=20251104; t=1790834618; x=1791439418;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
- b=UmDCLgwyu2y0Bl7jt0nGhbCYhW71SSnmVQrlD4G/qfuCSI1mULoPqxJBnDYeBJZlpj
- sODBDPpEjtX9t/2/a73FmEQVqftYnb0fzHbBnZKaiHLeKb2FzoVV8dQK/MWjVj6FezUZ
- sSZKtZtU7Oxj/NnnvwRYIckmXM29AdHet3Lx9MGMLmBKkgvr+/WtDXSmbMxAgCOaiIMq
- JApw208jnsHG+B3gM63/KYD1Re4oFM7rcgHmJWhhDNcTla6tU9xTYA4p/GjQpzX0llKE
- mljwUov9YaT8p9vvhfOwsRH4jdOGCblSIniPrAX2iWNDuLHysFP8O06OWro+LaRBOOaM
- tZWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790834618; x=1791439418;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Hgp1C/l5toz2Y4Urz7dWHnR34B0fNj/IjonzU3eqplI=;
- b=RQvW8Ah2liavaAZj16TQQQlkMmjT+Huyq+jmw5MSAZBz4xCacdvudqNaNkE/JuKTKj
- Gbm6F0DIVJhP3puYjIf4STDMcBKpmBv0Xwt3Wy8yhV85oHX9EUxkpChVjEt0+UipaEqY
- YSamBzC+IGym9/HkIA556r50CdHDrh0lEVxVGgWdOVEpcMh2lkFBPAU0KA5Hre6vzUBB
- IKSV4BvbfpSd4P6FZWOdadAljyHXu63GkVG7zNPtAepP+75lWd37ePeJ9fbpHJ3qZe1d
- hu5iRgC44MXz+hJAzHTmqMduY9cJ4NfehqYx/e4d6Hdbd05yH0mf5n+dMmKHsRWuEBlL
- wzLA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxStpZG0ROdYz/vtBO9ZfPdrtmurKQxp5r1og9JLMNKnvYeyM+nn5ccltvOmojj4sf4xJskzygUBfU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI6VoIsO0mLDxX509E7M2GcCvKysFhOLTa3IKUfX4qRjvRddPri
- R+h6+biMhIiEv28F35eNTxtjsVVxmwYDvs09GDhzIP9rxev9E+o5D/oJ6xzgrYa7f3yiQE04MZb
- /muwqNovBlC+lcunkokmgl9jHT10ziaQ=
-X-Gm-Gg: AYBFou0/ub6xADkTG/N5ONXFDmPU03ygET7n2sRfxS1xSIsouuKIiuuYLbHNFkJdl85
- DmkKyEAhZFjwjwArCOPfSADRH86DqHymhAJdDDPGFhtjiXqtxoxlFFG+BDYscUSIHTNFLdQayPp
- w1CjoV1VJP2NNXd1x/56vwqrCXBVdsJUfZWB8ypC6mhQWfeMuildQbW91CpkQ2BOm6mBwECumPI
- MsxwTAiC48VUUwC7OagAEmaZcsibH2QizTMzbyZLwvnG+ICa4LPnLF/eSwZyeJuXw4ccZtIUVOO
- y/r1UBWmiImq2VMOdrT8yQTR8UP57+2ZRkjO6yHONNIpQYXVNXR44o0=
-X-Received: by 2002:a2e:be07:0:b0:3a6:568f:40eb with SMTP id
- 38308e7fff4ca-3a7792077a2mr11432771fa.27.1790834617800; Wed, 30 Sep 2026
- 23:03:37 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 948B610E0B0
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:17:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A2432601F6;
+ Thu,  1 Oct 2026 06:17:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82AC01F000FF;
+ Thu,  1 Oct 2026 06:17:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790835477;
+ bh=PzeZRK3gY0+Qmg3bEyZe//3N5u+pNkNVRn1dnWCLqAE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Uiy59Iu7dkAPfC5+dQN02uWT3FtS5tIi1Bu/Hml2SIogm+MBBYrhVrawxx4gjJW7i
+ kep9+QGlBZDlLynjNcLYdzvhCno0eW7ZZtDCje7IAXYWdWjtEHvtQ4ktJpcPXDcg9y
+ QKepGUrqcPvxI0/e3Os06WyFUjrHiwNs0ilGv8Y7Wvd9WbfAeeT5VVEsTux6YVZWls
+ gsorZV+cvm3ZjW+pc9iKFENVLt71++wgb7vz8Xhi8OECk7Yp23kGMQOlNryrkm0zfr
+ Z0/c50xGiUKCoTBHoWMJ8Z6srtBvC19W7YjlHqU5wnPwM35/reXMJ5LMsDSuIG6LwJ
+ RCiP09TZEDVsQ==
+Date: Thu, 1 Oct 2026 09:17:52 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20261001061752.GJ3401365@unreal>
+References: <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
+ <20260930143237.GI3401365@unreal>
+ <ed393791-46d5-40ad-998b-4ac0e1e9c6fa@amd.com>
 MIME-Version: 1.0
-References: <20260114011917.241196-1-acelan.kao@canonical.com>
- <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
-In-Reply-To: <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
-From: AceLan Kao <acelan.kao@canonical.com>
-Date: Thu, 1 Oct 2026 14:03:26 +0800
-X-Gm-Features: AclHuK8bG-XKFgjsQDqse9lVQ8q5WyIRi7oBeYeYkMJTSBRhJ-JWaOzReixkG5Y
-Message-ID: <CAMz9Wg_E686NQe5XigWX6s2mbWE4t2DoTvW+GmtMzN6bP0tQ4Q@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on dmabuf
- filesystem
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ed393791-46d5-40ad-998b-4ac0e1e9c6fa@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,71 +82,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-AceLan Kao <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B44=E6=9C=8813=
-=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=884:10=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> Chia-Lin Kao (AceLan) <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B41=
-=E6=9C=8814=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=889:19=E5=AF=AB=E9=
-=81=93=EF=BC=9A
-> >
-> > The VFS now warns if an inode flagged with S_ANON_INODE is located on a
-> > filesystem that does not have SB_I_NOEXEC set. dmabuf inodes are
-> > created using alloc_anon_inode(), which sets S_ANON_INODE.
-> >
-> > This triggers a warning in path_noexec() when a dmabuf is mmapped, for
-> > example by GStreamer's v4l2src element.
-> >
-> > [   60.061328] WARNING: CPU: 2 PID: 2803 at fs/exec.c:125 path_noexec+0=
-xa0/0xd0
-> > ...
-> > [   60.061637]  do_mmap+0x2b5/0x680
-> >
-> > The warning was introduced by commit 1e7ab6f67824 ("anon_inode: rework
-> > assertions") which added enforcement that anonymous inodes must be on
-> > filesystems with SB_I_NOEXEC set.
-> >
-> > Fix this by setting SB_I_NOEXEC and SB_I_NODEV on the dmabuf filesystem
-> > context, following the same pattern as commit ce7419b6cf23d ("anon_inod=
-e:
-> > raise SB_I_NODEV and SB_I_NOEXEC") and commit 98f99394a104c ("secretmem=
-:
-> > use SB_I_NOEXEC").
-> >
-> > Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index a4d8f2ff94e46..dea79aaab10ce 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -221,6 +221,8 @@ static int dma_buf_fs_init_context(struct fs_contex=
-t *fc)
-> >         if (!ctx)
-> >                 return -ENOMEM;
-> >         ctx->dops =3D &dma_buf_dentry_ops;
-> > +       fc->s_iflags |=3D SB_I_NOEXEC;
-> > +       fc->s_iflags |=3D SB_I_NODEV;
-> >         return 0;
-> >  }
-> >
-> > --
-> > 2.51.0
-> >
-> Hi all,
->
-> Please help to review this patch.
-> It does the same thing as
->    ce7419b6cf23d ("anon_inode: raise SB_I_NODEV and SB_I_NOEXEC")
-> and
->    98f99394a104c ("secretmem: use SB_I_NOEXEC")
-> Thanks.
+On Wed, Sep 30, 2026 at 04:52:20PM +0200, Christian König wrote:
+> On 9/30/26 16:32, Leon Romanovsky wrote:
+> > On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
+> ...
+> >>> The importer needs a way to obtain device information from the exporter so
+> >>> that it can configure itself correctly.
+> >>
+> >> That won't work with DMA-buf then, the exporter is completely opaque to the importer and that is for really good reasons.
+> >>
+> >> Why in the world does the importer needs to know the information from the exporter before the mapping is created?
+> >>
+> >> It is the exporter who decides how data is accessed by the importer and not the other way around.
+> > 
+> > There are several reasons:
+> > 
+> > 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on the ODP
+> >    mechanism, which requires an MKEY to be created first. See commit
+> >    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory region”).
+> 
+> I know that patch, but I absolutely don't understand where the problem is.
+> 
+> > 2. P2P routing is a property of devices, not memory. It is known and remains
+> >    stable.
+> 
+> No, absolutely not. You are making completely incorrect assumptions how DMA-buf works.
 
-A gentle ping
+Maybe, but I understand how the kernel, PCI, and P2P DMA work, and dma-buf
+seems to operate in a parallel reality that is not aligned with any of them.
 
---=20
-Chia-Lin Kao(AceLan)
-http://blog.acelan.idv.tw/
-E-Mail: acelan.kaoATcanonical.com (s/AT/@/)
+> 
+> Again: What is exported and from which path is up to the exporter and only determined when you create a DMA-buf mapping!
+
+Let's discuss the PCI P2P case, where `p2pdma_provider` is present. In this
+flow, the exporter has a PCI device, and the importer also has one when it
+attaches. The decision about how to construct the addresses is made at that
+point. Note that both the exporter and importer are PCI P2P devices, so the
+importer should make the request.
+
+> 
+> In most cases you don't even have a single device which is the DMA-buf exporter.
+
+How is it possible for exporter with p2pdma_provider?
+
+> 
+> Only while creating the mapping the underlying access path is finally determined. It can be that P2P is used, it can be that internal connections are used, it can be that the data is moved to system memory....
+
+But we are talking about in-tree exporters: RDMA, VFIO e.t.c
+
+> 
+> That's why we have the distinction between attaching and importer and the importer creating a mapping.
+> 
+> > 3. See the VFIO TPH ST discussion, where the requirement to obtain the
+> >    exporter’s P2P information in the importer was raised again.
+> 
+> As far as I can see there isn't any. The TPH/ST information are just passed through from the exporter to the importer.
+> 
+> We could define a bit better what needs to come first the mapping or the TPH/ST query but for their use case that is actually irrelevant.
+
+They need an access to p2pdma_provider too.
+https://lore.kernel.org/linux-rdma/CAH3zFs2rhg6-b-pVDps1V8LsM4Dn48t4J4LFVyKOZtT4axdY=Q@mail.gmail.com/
+
+Thanks
+
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks
+> 
