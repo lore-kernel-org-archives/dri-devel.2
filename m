@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9326DCA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972B6CA5FA5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C77A10E40D;
-	Thu,  1 Oct 2026 08:03:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECCFC10F5C1;
+	Thu,  1 Oct 2026 08:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MG5n5IPR";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="KnWwUC6Z";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0375710E40D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:03:06 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F417010F5C2
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:04:41 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 3F5F04E410EE;
- Thu,  1 Oct 2026 08:03:05 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 9AB901A109C;
+ Thu,  1 Oct 2026 08:04:40 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0CAAB60341;
- Thu,  1 Oct 2026 08:03:05 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6252060341;
+ Thu,  1 Oct 2026 08:04:40 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0E319103292AE; 
- Thu,  1 Oct 2026 10:02:47 +0200 (CEST)
+ with ESMTPSA id 13AE21032989B; 
+ Thu,  1 Oct 2026 10:04:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790841779; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1790841876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=bBnYNPx0m93XbkdYJmwrk/PdDLQ8lp47f6etNXtdmtI=;
- b=MG5n5IPRudGzRrmo8ILDJDWYoecFzTS0SG5Pj68X1y0b04+2YpsJIH//yybBHJhI+y+AtC
- 5pMeaxML0tMeFxax6tyAu+LzwoDoQ/c/Ah0PkiwYB28ckeY49nocfOg/a/WqtSABY3QZu0
- 5dticPDGy2Um1s2hSW0775Oluy3hNAKx+IZtru3r40kkA10tbG9o3CxLOC2vH/9reQwCaE
- foJ1gnJY4fZCSlBTVS3bJE4jECObDVBX9sCymzvRuZ8w7tT/lSd8l3M4NZ007dO41l1aHu
- L/lIqeuW8sQ6UWKOhQ374hDboAQFhi9uYFcx5erlR0oDpCFxyNKucgPpquU6yQ==
-Message-ID: <78ca2d861e27bb5712db12de83a199b52e5dbae5.camel@bootlin.com>
-Subject: Re: [PATCH v2 1/7] drm/imx/lcdc: stop using deprecated
+ bh=LkMJWvScoP2McGwOycO3kVpr2pNA3Xtxnmqw1hXAFHU=;
+ b=KnWwUC6ZHSn8mpdNupHA/dHpj5qX3sIhg2HSqXsmRildXlcFrAmHjrCEh7zER92HE8xVT0
+ T8K6OKFc8QSdC+0CgAcNa4T+SHsGE/olwDhSf0bN+xPda4U88zGr/VkrEt8zIZfFEYlrni
+ nVwYJyVIYfRVSBSrWx8z3k81LbgNimJVNUBl447LidVcv3Oio+K8bPwdWGSjg28J2t6EWX
+ VO9gEr/J8owPvcdrPYpzlugsm+d4KFkxffsenC21HdwmUflDnvZ2eD+VIGmJRSt/Fqq19f
+ sOxp4VOTXiNS8Jk2haRtzWa+jKljofRIuvDOzqfSM9mftQeQE1ibajBF6VdyYQ==
+Message-ID: <7db03f6fa24930ce7386bef277124a63a5807fcb.camel@bootlin.com>
+Subject: Re: [PATCH v2 2/7] drm: verisilicon: stop using deprecated
  devm_drm_of_get_bridge()
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
@@ -55,11 +55,11 @@ Cc: Arnd Bergmann <arnd@kernel.org>, Doug Anderson <dianders@chromium.org>,
  Thomas Petazzoni	 <thomas.petazzoni@bootlin.com>,
  dri-devel@lists.freedesktop.org, 	imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Thu, 01 Oct 2026 10:02:45 +0200
-In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-1-6da431d8f180@bootlin.com>
+ linux-renesas-soc@vger.kernel.org, kernel test robot <lkp@intel.com>
+Date: Thu, 01 Oct 2026 10:04:25 +0200
+In-Reply-To: <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
 References: <20260929-drm-fix-of_get_bridge-build-regression-v2-0-6da431d8f180@bootlin.com>
- <20260929-drm-fix-of_get_bridge-build-regression-v2-1-6da431d8f180@bootlin.com>
+ <20260929-drm-fix-of_get_bridge-build-regression-v2-2-6da431d8f180@bootlin.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -87,14 +87,21 @@ Le mardi 29 septembre 2026 =C3=A0 15:39 +0200, Luca Ceresoli a =C3=A9crit=
 > devm_drm_of_get_bridge() is deprecated, switch to
 > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() retur=
 ns
-> a refcounted bridge, ensure it is put.
+> a refcounted bridge, ensure it is put by using bridge.next_bridge.
 >=20
 > Fixes build failure when CONFIG_OF is disabled.
 >=20
 > Fixes: aa8a8c7e4641 ("drm/bridge: panel: move all code to drm_panel.c")
 > Reported-by: Arnd Bergmann <arnd@kernel.org>
-> Link: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.org
-> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Closes: https://lore.kernel.org/r/20260928161605.2271412-1-arnd@kernel.or=
+g
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes:
+> https://lore.kernel.org/oe-kbuild-all/202609291109.OIsGTysr-lkp@intel.com=
+/
+> Closes:
+> https://lore.kernel.org/oe-kbuild-all/202609290408.BOs7sk55-lkp@intel.com=
+/
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
@@ -102,34 +109,72 @@ Reviewed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 Cheers,
 -Paul
 
-> ---
-> =C2=A0drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> index c67fe80b8115..805a659e3f85 100644
-> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> @@ -385,7 +385,6 @@ static int imx_lcdc_probe(struct platform_device *pde=
-v)
+> ---
+>=20
+> Changes in v2:
+> - fix bridge reference leak on attach error path
+> - mention lkp report
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 11 ++++++-----
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.h |=C2=A0 1 -
+> =C2=A02 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> index dc7c85b07fe3..3a5091c0ac2c 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> @@ -29,7 +29,7 @@ static int vs_bridge_attach(struct drm_bridge *bridge,
 > =C2=A0{
-> =C2=A0	struct imx_lcdc *lcdc;
-> =C2=A0	struct drm_device *drm;
-> -	struct drm_bridge *bridge;
-> =C2=A0	int irq;
-> =C2=A0	int ret;
-> =C2=A0	struct device *dev =3D &pdev->dev;
-> @@ -401,7 +400,8 @@ static int imx_lcdc_probe(struct platform_device *pde=
-v)
-> =C2=A0	if (IS_ERR(lcdc->base))
-> =C2=A0		return dev_err_probe(dev, PTR_ERR(lcdc->base), "Cannot get IO
-> memory\n");
+> =C2=A0	struct vs_bridge *vbridge =3D drm_bridge_to_vs_bridge(bridge);
 > =C2=A0
-> -	bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-> +	struct drm_bridge *bridge __free(drm_bridge_put) =3D
-> +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
-> =C2=A0	if (IS_ERR(bridge))
-> =C2=A0		return dev_err_probe(dev, PTR_ERR(bridge), "Failed to find
-> bridge\n");
+> -	return drm_bridge_attach(encoder, vbridge->next_bridge,
+> +	return drm_bridge_attach(encoder, vbridge->base.next_bridge,
+> =C2=A0				 bridge, flags);
+> =C2=A0}
+> =C2=A0
+> @@ -303,8 +303,7 @@ struct vs_bridge *vs_bridge_init(struct drm_device
+> *drm_dev,
+> =C2=A0		return NULL;
+> =C2=A0	}
+> =C2=A0
+> -	next =3D devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 output, intf);
+> +	next =3D of_drm_get_bridge_by_endpoint(drm_dev->dev->of_node, output,
+> intf);
+> =C2=A0	if (IS_ERR(next)) {
+> =C2=A0		ret =3D PTR_ERR(next);
+> =C2=A0		if (ret !=3D -EPROBE_DEFER)
+> @@ -321,12 +320,14 @@ struct vs_bridge *vs_bridge_init(struct drm_device
+> *drm_dev,
+> =C2=A0
+> =C2=A0	bridge =3D devm_drm_bridge_alloc(drm_dev->dev, struct vs_bridge, b=
+ase,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bridge_funcs);
+> -	if (IS_ERR(bridge))
+> +	if (IS_ERR(bridge)) {
+> +		drm_bridge_put(next);
+> =C2=A0		return ERR_PTR(PTR_ERR(bridge));
+> +	}
+> =C2=A0
+> =C2=A0	bridge->crtc =3D crtc;
+> =C2=A0	bridge->intf =3D intf;
+> -	bridge->next_bridge =3D next;
+> +	bridge->base.next_bridge =3D next;
+> =C2=A0
+> =C2=A0	if (intf =3D=3D VSDC_OUTPUT_INTERFACE_DPI)
+> =C2=A0		enctype =3D DRM_MODE_ENCODER_DPI;
+> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.h
+> b/drivers/gpu/drm/verisilicon/vs_bridge.h
+> index 70fee1749699..2b0ed94e4520 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_bridge.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.h
+> @@ -25,7 +25,6 @@ struct vs_bridge {
+> =C2=A0	struct drm_connector *conn;
+> =C2=A0
+> =C2=A0	struct vs_crtc *crtc;
+> -	struct drm_bridge *next_bridge;
+> =C2=A0	enum vs_bridge_output_interface intf;
+> =C2=A0};
 > =C2=A0
