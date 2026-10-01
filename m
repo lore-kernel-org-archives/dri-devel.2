@@ -4,137 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80549CA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 15:11:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD8ECA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 15:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D59B110F6DE;
-	Thu,  1 Oct 2026 15:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF5210F6D9;
+	Thu,  1 Oct 2026 15:16:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uk2LgLKX";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cTVB2f6T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fnuR1zgV";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD5310F6DE
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 15:11:24 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 691DjsB41304109
- for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 15:11:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- iYBzGParazZeDHgmm6OmKxdz2ZT6O24nTmp5HoaQ7xc=; b=Uk2LgLKXwlosQNrL
- lM/U1nQlnjCv68l4yxb7IIXVi+aCxd94Hedfj1kJCkEm3sEeJMdW6hAOTNDntS2T
- HyF65uzhOjFf3/ZeZN3vD2DltxF0a9h6EWOjXVAloPl0DkKi0F6ch6u7T9zH2HId
- 7JrEBWlKC4r/zZ5hALYb4wnIvCzsB1Pa10kzvEEpPsTlxgJMXI1qiAPgpnllDG6D
- g1919t7U7hCj2xftOqOnf33sPsnBQ9PLoIINTMY0LUariHvvhzBb5xaImxsb8+z/
- WaEk5JeVzpdun1n/FwfvIZENjTwmQOZD5VSWtVeGheI1/RK3ep/GHSr8BD5CI7sb
- pkzn/A==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1bh5cg1s-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 15:11:23 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id
- a1e0cc1a2514c-97e9b747ad1so68512241.1
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 08:11:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790867482; x=1791472282;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=iYBzGParazZeDHgmm6OmKxdz2ZT6O24nTmp5HoaQ7xc=;
- b=cTVB2f6Tmjgy8Rzx0y1h63U2jgx6Jc2GHCjTLqrk4lsRD0uiKS2/6kdJHAtkTecZJx
- YrNpRdiFfZ0FIkhlfukftoD6JuejxrF6eNnKHkM3vId3TOPp46ibXsKsQdC+PjS37bNF
- Mp1+Bqaa9AIdeZYVgHpM9hHQlI/Trow2BZK5g1Wg1L2saC1/edJVCcgjKIvCXOydkjWN
- hvQbnuQms0xf8fpDp1dlaIGyWfJl052k4OBqXnDVVTSjM/o9tveSQzUjoGP3XZl7HGgB
- p1hs9jtai8kiU+OhEuBedjFHdpMztpSqKpCt9VhbLgPjHPJxRayF5dgS3AT7N6aat2ri
- QT3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790867482; x=1791472282;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iYBzGParazZeDHgmm6OmKxdz2ZT6O24nTmp5HoaQ7xc=;
- b=XheQWDSirCwpxrQHR196P2lUo1OxLxFuracKlU6GcSglxuUz7Ri76x8e3/Dw+ucrmg
- rgyP56ENN9MEF6Q72EziNewcSQK36mys4hLBsbAwZB4B9by0xme5MtieL9u6TUjuuzfM
- rRQLcXkdn2q2AUZ4UFTkjVFiOfGo03cBuqsP9ocoPL309wUXLNUyHmOF5QtQdek2btUH
- lEdL0LYXrM6BjDv393lIKHPZAGtDirMfek7hRKlBBza0cSlJPFY73tgDRJ0H+PA/RTPk
- C6sv9iHoJnHMMzbq7aNj9WfCZKaJU1Absv9zOaNkfUvt3YWvduBUlqe2EoL3VxQ14fSe
- kRsg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzt2lBEGZgfyOHxlHZJDZ1YjMgJPpm3sX7qgGVTlAb8DTcx43qx+yKdpXUQtp80o9+c7YTgoaliliA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKAaubz12rBcB8ZqMXcG1b5Z9x8PWyUKc/EwjiQsU0Z9YaT9Xcr
- 7tP7GsJoSeUF1b9eYMzqdVGyduxnOi0BTHc8JFzo+xrUP3PoFgJz98EDr9Rtrc319gQqCu5rsoE
- wZS1P5zJRbEs7ELwDJsL/wq4MpHqiiUg07mXFeHNZ/muoO2b6oxMzZqGcjxn+mpnZovV4sKJRxH
- SfXCE=
-X-Gm-Gg: AYBFou0R9OKRia6ybFvnUDJubxsS2ww0SAzl2eJ3a0rwx/7iplWZTYYi99P0RezV0y8
- ebVTP9b5nPvmKh+7WoW+iiGYMNg9A0IRB+2zq1/ZNEGir3TJS+vmhHnH++2SB/nPDH0eWlvAQ+L
- bFH2fgXoNx9dfsNDFdjnIfReML00hkK8nZhq39GDKJ2MTz2cQnx884U19tRG8pyvOiYpgYWOtGB
- lvwtD//YOBn9+fAQky17xrSTRCB2qQ4yAAre/gShLmtIrpfY3aVKzqTSU38hLvJQQh2+uNiaNcH
- wEUmuvHpPVTrE9J0AR4uKPM2K6rgiMOcqscnj8HDnvd/BHOQpzvVeiW364aEaFvM4MHOxvDZ65O
- 85nQ6R7uJLbE8IAV4T6ND+g==
-X-Received: by 2002:a05:6102:6a8b:b0:7ae:544d:b50b with SMTP id
- ada2fe7eead31-7be72cb1e6emr1260208137.3.1790867482147; 
- Thu, 01 Oct 2026 08:11:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:6a8b:b0:7ae:544d:b50b with SMTP id
- ada2fe7eead31-7be72cb1e6emr1260203137.3.1790867481730; 
- Thu, 01 Oct 2026 08:11:21 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2e31ce3ea9sm187363566b.32.2026.10.01.08.11.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Oct 2026 08:11:21 -0700 (PDT)
-Message-ID: <20cfacef-2238-4967-a7f6-eff0e883df00@oss.qualcomm.com>
-Date: Thu, 1 Oct 2026 17:11:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misc: fastrpc: map ADSP remote heap into remoteproc
- IOMMU domain
-To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, quic_bkumar@quicinc.com,
- quic_chennak@quicinc.com
-References: <20261001-fastrpc-kvm-iommu-v2-v2-1-6c32ad6f662f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261001-fastrpc-kvm-iommu-v2-v2-1-6c32ad6f662f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX3V0NU8heIldw
- 0nfaE0db8VK/Xn/rMyh1B9awkmCEBJd3ercH60PJRSU/xPjSXs/Y+YAMwHjVTZU/pdb41a2RjnE
- oKL/sMMm2T7gQXyCj848pl24Wb+1dVBtLruNW8Bc+NBtaPEM9ut9Aud/eOnLGDbIhf/KthTr62a
- sbh/p1+T+pJugbn3LikPKc0WRrnBoeVC0RgAFDICmLQByacQD6zSwV9Jdsb8BVNQHSJVnXTxNUy
- pXkG6wq/FjSJts92jKTXiT2/SuxOatAhZWtRwXLIpoC+qWQSyC9m8MjjcdAT9AM1E6kqCTgcxa2
- XiZ9U48e8MNR1e9HeSslFHkKHKkruyqz/Rh+NxcVtyBQjHbo1tTt4z1XRVWd06YVxdVcFo0VpP4
- X8prw4iz3N6pHnhoDewOQQ+qCLVK9izSDGYHZT31yE+lWC4ZFR7X5W7Vw09FTsgO6OQRn5tX5cE
- +6ql4IzRJmgPz75FU7Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA2MCBTYWx0ZWRfX6NYhil1koEDt
- KLTgkphOkQQVRvP50wGxHu1+ne8hOj/xlJyPaVqZK4I2iUdjYpQoNpFXe59Xi2OTMt2fPlCSD74
- 2tpC6UcftdcRAskv/z5xk5X7lvN8IuI=
-X-Proofpoint-ORIG-GUID: YSchmf5yGh9JnpLSnPpAh6MIN-0T5mCE
-X-Proofpoint-GUID: YSchmf5yGh9JnpLSnPpAh6MIN-0T5mCE
-X-Authority-Analysis: v=2.4 cv=NrJE4MdJ c=1 sm=1 tr=0 ts=6abe781b cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=JJHmHs2BdlmLsZ1y3_4A:9 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 bulkscore=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010060
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5AB710F6D9
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 15:16:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4847240648;
+ Thu,  1 Oct 2026 15:16:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39CD1F000FF;
+ Thu,  1 Oct 2026 15:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790867811;
+ bh=RUjEDmZnwRB1ypBhZCH/z/8Ofg8faxkU2peSdfOzHwE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fnuR1zgVNn9nNtHIqYHtR25YRCcmQeWogveQ6dkdsxCHDf2jjhVwu+DEZqNaXnkS2
+ z9B1Cvc+h24fNVVgv2DJpakV5lx+IUrhYBNzI5dzVWQgdZE4umhCTe9zZaZfZW3XPF
+ xGAJNof5w/+qZ8iaEy4O6rFIQ6yCuw3EcIxCDymW1KnVrNC6Rt/RZybh3e73pG/5Oc
+ ZfCy4wxLiAW8Z4bJkPHA9TcGVnSqBj85X3bWmvz35oCzf6+ZPmwuxN21nnkCesPOh/
+ lMp1TKoaLNrdkfRjqaSxXMyUMXjjacCW2O3SU9pL90IY2A6I8wp5SYVkJBmyCZ1fgr
+ 38qeqy0c5TXrA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] iio: adc: add stm32 mdf support
+To: "Olivier Moysan" <olivier.moysan@foss.st.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261001145702.2628429-3-olivier.moysan@foss.st.com>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-3-olivier.moysan@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 15:16:50 +0000
+Message-Id: <20261001151650.F39CD1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,12 +53,411 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/1/26 5:00 PM, Anandu Krishnan E wrote:
-> On KVM-based targets the kernel runs at EL2 without a separate
+Thank you for your contribution! Sashiko AI review found 20 potential issue=
+(s) to consider:
+- [High] mm: memory leak of adc->buffer on teardown
+- [High] stm32-mdf: race condition in MDF core startup and clock locking
+- [High] iio: adc: heap overflow in adc->channels allocation
+- [High] iio: adc: triggered buffer resources leaked on removal
+- [High] iio: adc: misaligned cyclic DMA buffer size causes OOB read
+- [High] iio: adc: unbalanced iio_device_unregister on error path
+- [High] stm32-mdf: UAF in IRQ from unprotected list_for_each_entry
+- [High] stm32-mdf: dangling sitf pointer on unbind (Use-After-Free)
+- [High] stm32-mdf-core: lockless RMW corrupts hardware state in clk_cckx_g=
+ate_endisable
+- [High] iio: adc: TOCTOU race on adc->cb causes NULL pointer deref
+- [High] stm32-mdf: interleaved SITFs fail to start
+- [Medium] of: resource leak of fwnode references
+- [Medium] iio: adc: uninitialized channels exposed to subsystem
+- [Medium] stm32-mdf-serial: clock reference leak on unbind
+- [Medium] iio: adc: off-by-one error leaks first backend on error path
+- [Medium] iio: adc: 32-bit overflow when computing settling time discard c=
+ount
+- [Medium] stm32-mdf-core: rigid gcd() restricts cckdiv to powers of 2
+- [Medium] stm32-mdf-core: clk_rate_exclusive_get error ignored
+- [Low] kconfig: selecting non-existent COMMON_CLK_REGMAP
+- [Low] pm: missing pm_ptr() macro wrapper causes dead code
+--
 
-"On Qualcomm platforms without Gunyah/QHEE"
+commit b396898f85019ba218650a01b961b3f92e6b164b
+Author: Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: iio: adc: add stm32 mdf support
 
-Konrad
+This commit introduces the STM32 Multi-function Digital Filter (MDF) core,
+serial interface, and digital filter drivers. It supports converting bitstr=
+eams
+from sigma-delta modulators or digital microphones into samples via IIO.
+
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+[ ... ]
+> +config STM32_MDF_ADC
+> +	tristate "STMicroelectronics STM32 MDF adc"
+> +	depends on (ARCH_STM32 && OF) || COMPILE_TEST
+> +	select STM32_MDF_CORE
+> +	select COMMON_CLK_REGMAP
+
+[Severity: Low]
+This isn't a bug, but COMMON_CLK_REGMAP does not appear to exist in the
+kernel tree. Does selecting an undeclared config symbol cause unmet depende=
+ncy
+issues during build?
+
+> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
+adc.c
+[ ... ]
+> +static int mdf_adc_set_samp_freq(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	adc->nbdis =3D DIV_ROUND_UP(adc->stu * sample_freq, 1000000);
+
+[Severity: Medium]
+Could this multiplication overflow on 32-bit architectures? Both variables
+are 32-bit types, so a large settling time (e.g., 100ms) and sample frequen=
+cy
+(48kHz) might exceed U32_MAX before the division.
+
+[ ... ]
+> +static int stm32_mdf_adc_start_conv(struct iio_dev *indio_dev)
+> +{
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret =3D stm32_mdf_sitf_start(adc->sitf);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret =3D stm32_mdf_adc_start_filter(adc);
+
+[Severity: High]
+Are the serial interfaces for interleaved instances omitted here? The start
+process cascades to interleaved filters via stm32_mdf_adc_start_filter(),
+but it seems we only ever call stm32_mdf_sitf_start() on the primary
+adc->sitf.
+
+[ ... ]
+> +static void stm32_mdf_adc_dma_buffer_done(void *data)
+> +{
+> +	struct iio_dev *indio_dev =3D data;
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int available =3D stm32_mdf_adc_dma_residue(adc);
+> +	size_t old_pos;
+[ ... ]
+> +	while (available >=3D indio_dev->scan_bytes) {
+> +		s32 *buffer =3D (s32 *)&adc->rx_buf[adc->bufi];
+> +
+> +		adc->bufi +=3D indio_dev->scan_bytes;
+> +		if (adc->bufi >=3D adc->buf_sz) {
+
+[Severity: High]
+Is it possible for adc->bufi to overshoot adc->buf_sz without hitting it
+exactly? Since adc->buf_sz in stm32_mdf_set_watermark() is calculated
+based on sizeof(u32), if scan_bytes is not a multiple of sizeof(u32), this
+loop might read out of bounds of the physical allocation before wrapping
+around.
+
+> +			if (adc->cb)
+> +				adc->cb(&adc->rx_buf[old_pos], adc->buf_sz - old_pos, adc->cb_priv);
+
+[Severity: High]
+Is this vulnerable to a race condition? If an external consumer concurrently
+calls stm32_mdf_release_buff_cb() and clears adc->cb and adc->cb_priv
+without locks, the callback might be evaluated as non-NULL but executed as
+NULL, or executed with a NULL cb_priv.
+
+[ ... ]
+> +static irqreturn_t stm32_mdf_irq(int irq, void *arg)
+> +{
+[ ... ]
+> +	if (flags & MDF_DFLTISR_FTHF_MASK) {
+> +		/* Reading the data register clear the IRQ status */
+> +		regmap_read(regmap, MDF_DFLTDR_REG, ptr++);
+> +
+> +		if (MDF_IS_FILTER0(adc))
+> +			list_for_each_entry(adc_inter, &adc->mdf->filter_list, entry)
+
+[Severity: High]
+Could this list traversal crash the kernel if the list is mutated
+concurrently? The interrupt handler iterates adc->mdf->filter_list while
+stm32_mdf_adc_remove() performs list_del(&adc->entry) without locks or
+RCU primitives.
+
+[ ... ]
+> +static int stm32_mdf_get_sitf(struct device *dev, struct stm32_mdf_adc *=
+adc,
+> +			      struct fwnode_handle *sitf_node)
+> +{
+> +	struct stm32_mdf_sitf *sitf;
+> +
+> +	/* Look for sitf interface from node handle */
+> +	list_for_each_entry(sitf, &adc->mdf->sitf_list, entry) {
+> +		if (sitf->node =3D=3D sitf_node) {
+> +			adc->sitf =3D sitf;
+> +			break;
+> +		}
+> +	}
+
+[Severity: High]
+Is there a risk of a Use-After-Free if the sibling sitf device is unbound?
+The ADC driver stores a raw pointer to sitf (allocated via devm_kzalloc
+by the sibling device) without establishing a device link or reference coun=
+t.
+
+[ ... ]
+> +static int stm32_mdf_adc_postenable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	while (adc->channels[i].backend && i < indio_dev->num_channels) {
+> +		ret =3D iio_backend_enable(adc->channels[i].backend);
+> +		if (ret < 0) {
+> +			while (--i > 0)
+> +				iio_backend_disable(adc->channels[i].backend);
+
+[Severity: Medium]
+Does this loop completely miss disabling the backend at index 0? If
+iio_backend_enable() fails when i =3D 1, the decrement evaluates to 0,
+stopping the loop before it can disable adc->channels[0].backend.
+
+[ ... ]
+> +static int stm32_mdf_audio_init(struct device *dev, struct iio_dev *indi=
+o_dev)
+> +{
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	struct iio_chan_spec *ch;
+> +	int ret;
+> +
+> +	ch =3D devm_kzalloc(&indio_dev->dev, sizeof(*ch), GFP_KERNEL);
+> +	if (!ch)
+> +		return -ENOMEM;
+> +
+> +	adc->channels =3D devm_kzalloc(&indio_dev->dev, sizeof(*adc->channels),=
+ GFP_KERNEL);
+> +	if (!adc->channels)
+> +		return -ENOMEM;
+> +
+> +	ret =3D stm32_mdf_adc_chan_init(indio_dev, ch);
+
+[Severity: High]
+Can this cause a heap overflow? The ch and adc->channels arrays are
+allocated with exactly one element, but stm32_mdf_adc_chan_init() iterates
+over all child nodes lacking a "compatible" string. If more than one such
+node exists in the device tree, it will write out of bounds.
+
+[ ... ]
+> +static int stm32_mdf_adc_init(struct device *dev, struct iio_dev *indio_=
+dev)
+> +{
+[ ... ]
+> +	indio_dev->num_channels =3D num_ch;
+> +	indio_dev->channels =3D ch;
+
+[Severity: Medium]
+Are we exposing uninitialized trailing channels here? While num_ch is the
+total count of child nodes, stm32_mdf_adc_chan_init() skips nodes containing
+a "compatible" string, resulting in fewer initialized channels than num_ch.
+
+[ ... ]
+> +	ret =3D iio_triggered_buffer_setup(indio_dev,
+> +					 &iio_pollfunc_store_time, NULL,
+> +					 &stm32_mdf_buffer_setup_ops);
+
+[Severity: High]
+Does this leak the triggered buffer and pollfunc on unbind? The manual
+setup here lacks a corresponding iio_triggered_buffer_cleanup() call in
+stm32_mdf_adc_remove(). Using devm_iio_triggered_buffer_setup() might
+resolve this.
+
+[ ... ]
+> +static int stm32_mdf_adc_parse_of(struct platform_device *pdev, struct s=
+tm32_mdf_adc *adc)
+> +{
+[ ... ]
+> +	if (device_property_present(&pdev->dev, "st,sync")) {
+> +		filt_node =3D fwnode_find_reference(dev_fwnode(dev), "st,sync", 0);
+[ ... ]
+> +	adc->buffer =3D kcalloc(buf_size, sizeof(u32), GFP_KERNEL);
+> +	if (!adc->buffer)
+> +		return -ENOMEM;
+> +
+> +	/* Retrieve serial interface */
+> +	ret =3D fwnode_property_get_reference_args(dev_fwnode(dev), "st,sitf", =
+NULL, 1, 0, &args);
+
+[Severity: High]
+Are the memory for adc->buffer and the fwnode references leaked on teardown?
+The buffer is allocated with a non-managed kcalloc and never released in
+stm32_mdf_adc_remove().
+
+[Severity: Medium]
+Additionally, both fwnode_find_reference() and
+fwnode_property_get_reference_args() increment the node reference counts,
+but they appear to be discarded without a corresponding fwnode_handle_put()
+anywhere.
+
+[ ... ]
+> +static int stm32_mdf_adc_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	if (dev_data->type =3D=3D STM32_MDF_AUDIO) {
+> +		ret =3D of_platform_populate(node, NULL, NULL, dev);
+> +		if (ret < 0) {
+> +			dev_err_probe(dev, ret, "Failed to find an audio DAI\n");
+> +			goto err_unregister;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +err_unregister:
+> +	iio_device_unregister(iio);
+
+[Severity: High]
+Could this lead to an unbalanced unregister call? Interleaved filters
+(other than 0) intentionally bypass iio_device_register(), so jumping to
+err_unregister here would call iio_device_unregister() on a device that
+was never registered.
+
+[ ... ]
+> +static struct platform_driver stm32_mdf_adc_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "stm32-mdf-adc",
+> +		.of_match_table =3D stm32_mdf_adc_match,
+> +		.pm =3D &stm32_mdf_adc_pm_ops,
+> +	},
+
+[Severity: Low]
+Should the PM ops be wrapped with the pm_ptr() macro? Unconditional
+assignment leads to the PM structure and callbacks becoming dead code when
+CONFIG_PM is disabled. This pattern is also present in stm32_mdf_driver and
+stm32_mdf_sitf_driver.
+
+> diff --git a/drivers/iio/adc/stm32-mdf-core.c b/drivers/iio/adc/stm32-mdf=
+-core.c
+[ ... ]
+> +int stm32_mdf_core_start_mdf(struct stm32_mdf *mdf)
+> +{
+> +	struct stm32_mdf_priv *priv =3D to_stm32_mdf_priv(mdf);
+> +	struct device *dev =3D &priv->pdev->dev;
+> +	int ret;
+> +	u32 val;
+> +
+> +	if (atomic_inc_return(&priv->n_active_ch) =3D=3D 1) {
+> +		ret =3D pm_runtime_resume_and_get(dev);
+
+[Severity: High]
+Is this vulnerable to a race condition? If there are concurrent callers,
+the first one enters the block to power on the hardware, but the second one
+skips the block (since the atomic counter is > 1) and will return
+immediately, potentially accessing powered-off hardware before the first
+caller finishes.
+
+[ ... ]
+> +		if (!priv->exclusive_flg) {
+> +			clk_rate_exclusive_get(priv->kclk);
+> +			priv->exclusive_flg =3D true;
+> +		}
+
+[Severity: Medium]
+Should the return value of clk_rate_exclusive_get() be checked? If the lock
+fails but priv->exclusive_flg is set to true, a subsequent
+clk_rate_exclusive_put() could lead to an unbalanced clock rate lock.
+
+[ ... ]
+> +int stm32_mdf_core_stop_mdf(struct stm32_mdf *mdf)
+> +{
+> +	struct stm32_mdf_priv *priv =3D to_stm32_mdf_priv(mdf);
+> +	int ret =3D 0;
+> +
+> +	if (atomic_dec_and_test(&priv->n_active_ch)) {
+
+[Severity: High]
+Similar to the start function, does this need locking to prevent racing
+with concurrent starts?
+
+[ ... ]
+> +static int stm32_mdf_core_cck_divider_set_rate(struct platform_device *p=
+dev,
+> +					       struct stm32_mdf_priv *priv,
+> +					       unsigned long parent_rate)
+> +{
+[ ... ]
+> +	cckdiv =3D gcd(ratio, MDF_CKG_CCKDIV_MAX);
+> +	procdiv =3D ratio / cckdiv;
+
+[Severity: Medium]
+Because MDF_CKG_CCKDIV_MAX (16) is a power of 2, doesn't gcd(ratio, 16)
+erroneously restrict the resulting cckdiv strictly to powers of 2 (1, 2,
+4, 8, 16)? If a valid clock configuration actually required cckdiv to be 9,
+this would compute 1 instead and could unnecessarily overflow procdiv.
+
+[ ... ]
+> +static void clk_cckx_gate_endisable(struct clk_hw *hw, int enable)
+> +{
+> +	struct clk_cckx_gate *gate =3D to_clk_cckx_gate(hw);
+> +	unsigned long flags =3D 0;
+> +	u32 reg;
+> +
+> +	if (gate->lock)
+> +		spin_lock_irqsave(gate->lock, flags);
+> +	else
+> +		__acquire(gate->lock);
+> +
+> +	reg =3D clk_cckx_gate_readl(gate);
+> +
+> +	if (enable)
+> +		reg |=3D BIT(gate->bit_idx);
+> +	else
+> +		reg &=3D ~BIT(gate->bit_idx);
+> +
+> +	clk_cckx_gate_writel(gate, reg);
+
+[Severity: High]
+Is gate->lock ever initialized? Since clk_cck0 and clk_cck1 statically
+zero-initialize their contents, gate->lock is NULL and this falls back to
+the empty __acquire annotation. This causes a non-atomic read-modify-write
+on MDF_CKGCR_REG that bypasses regmap's internal locking and will corrupt
+concurrent updates from regmap_set_bits().
+
+[ ... ]
+> +static int stm32_mdf_core_parse_of(struct platform_device *pdev, struct =
+stm32_mdf_priv *priv)
+> +{
+[ ... ]
+> +		for (i =3D 0; i < count; i++) {
+> +			handle =3D fwnode_find_reference(fwnode, "st,interleave", i);
+> +			if (IS_ERR(handle)) {
+> +				dev_err(dev, "Failed to read filter handle: %ld\n",
+> +					PTR_ERR(handle));
+> +				return PTR_ERR(handle);
+> +			}
+> +			priv->mdf.fh_interleave[i] =3D handle;
+> +		}
+
+[Severity: Medium]
+These fwnode references are stored in the fh_interleave array, but they
+don't seem to be released with fwnode_handle_put() anywhere on the
+teardown path, which leads to reference leaks.
+
+> diff --git a/drivers/iio/adc/stm32-mdf-serial.c b/drivers/iio/adc/stm32-m=
+df-serial.c
+[ ... ]
+> +static int stm32_mdf_sitf_get_clk(struct device *dev, struct stm32_mdf_s=
+itf *sitf)
+> +{
+> +	struct clk *sck;
+> +
+> +	/* Optional clock. Clock not needed in Manchester mode */
+> +	sck =3D clk_get_optional(sitf->dev, 0);
+
+[Severity: Medium]
+Does this leak the clock reference on unbind? The reference is acquired
+manually with clk_get_optional() but there is no corresponding clk_put() in
+stm32_mdf_sitf_remove(). Switching to devm_clk_get_optional() could
+prevent this.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001145702.2628=
+429-1-olivier.moysan@foss.st.com?part=3D2
