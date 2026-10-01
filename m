@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 619B6CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A95FCA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA3E10E3E7;
-	Thu,  1 Oct 2026 12:43:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9497210E404;
+	Thu,  1 Oct 2026 12:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="iZmIuRuw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="r80KNzmN";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3936510E3E7
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:43:44 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6D910E404
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:43:49 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 02A8A4E416CC;
- Thu,  1 Oct 2026 12:43:43 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 638581A24E0;
+ Thu,  1 Oct 2026 12:43:48 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C986960341;
- Thu,  1 Oct 2026 12:43:42 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 343EF60341;
+ Thu,  1 Oct 2026 12:43:48 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3E9A110328112; 
- Thu,  1 Oct 2026 14:43:36 +0200 (CEST)
+ with ESMTPSA id 484B6103280C2; 
+ Thu,  1 Oct 2026 14:43:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790858620; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1790858626; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=0XTtfuZMf/px2Gzgaw2H+GrIyxEhvdX74xCMTddevdQ=;
- b=iZmIuRuwWoly8Yq/YGcvocO2Sh1+h8k4Kp25aR/WIyDgzyn118jJvJMXd+W2no6kLX+nGg
- S79Pn337JFilco5no50DOGFSjMvUdw4Qg/JVibC1IL2PF0szWnYwzq8m0u3APfkQl9oJ9w
- Q7dCzE5LHmaQGxwbycpDwqyl3q9zMaFw4gyJ5FVmGIu8e6hzNn/OAQUzV8k8Vgs+qf7I7h
- 7VQpKzSr55brH1B7jjHzJ9ERpceVnv5DEW9bvSWWKPleozJlzu3bRD7RdF5NE2cSy3h2bv
- xZFFcqHZsBnMgdqDxz9i2qjQmuufDWP5bs6dQNhsg3cXZc6ROStjOwJn7qWkAQ==
+ bh=uKuUcofX5/ZyNl98LW21rjHuBTltvMLL1DsGp6AUZAQ=;
+ b=r80KNzmNp8jEbtHPvg2txOMWdKfq0sSrS9ipdXjF2s6Npb0+CucV6Ux582/U9iTxQCb4aA
+ 23WX3vQyGKFjh9CEjQD9imBecUY67gcfo17lyy1Mw7UdyrYRsOH3gGP/v3FDR5wFtMu+EQ
+ klZvXK7Uyxw7wOgtdmNTj3F8tYUSELGTdfTURa74zAlXosA+WoGuhbe8ux0U2AZpUXAej6
+ wYNGsqYKFtwMyVPB9jfr1YjPHs8LcMults+oY49FOS9sVphdaKfz7Zn/lk3ouTLD5BFEDt
+ lzSVlPgTmHeirtKFsSkoOmLNc2wSIU0B2ONjlQi2O2gb58SujQMi4Fo7xBY6Jg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:32 +0200
-Subject: [PATCH RFC v2 10/24] drm/encoder: add drm_encoder_cleanup_from()
+Date: Thu, 01 Oct 2026 14:42:33 +0200
+Subject: [PATCH RFC v2 11/24] drm/atomic: move
+ drm_atomic_helper_disable_all() and drm_atomic_helper_shutdown() from
+ drm_atomic_helper to drm_atomic
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-10-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-11-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -79,99 +81,276 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Supporting hardware whose final part of the DRM pipeline can be physically
-removed requires the ability to detach all bridges from a given point to
-the end of the pipeline.
+drm_atomic_helper_shutdown() is needed to support the upcoming DRM bridge
+hot-unplug, and will have to be called by the encoder code when a bridge
+device is removed in order to detach it from the encoder chain. However
+this would create a module dependency loop between the drm module (where
+drm_encoder is) and the drm_kms_helper module where
+drm_atomic_helper_shutdown() function currently is.
 
-Introduce a variant of drm_encoder_cleanup() for this.
+Solve by moving it, along with its callee drm_atomic_helper_disable_all(),
+to drm_atomic which is in the drm module. Use identical names except for
+dropping the "_atomic" infix, and make the original functions a deprecated
+wrapper to the new ones.
 
-Take particular care to not try to detach non-attached bridges. This is
-needed because when 2 or more bridges are removed not in the backwards
-order, drm_encoder_cleanup_from() is called more than once for bridges
-closer to the panel.
+No changes to the functions body.
+
+No functional changes except for moving the code to a different module.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
+ drivers/gpu/drm/drm_atomic.c        | 115 ++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_helper.c |  76 ++----------------------
+ include/drm/drm_atomic.h            |   3 +
+ 3 files changed, 124 insertions(+), 70 deletions(-)
 
-Note: in theory drm_encoder_cleanup() is now a superset of
-drm_encoder_cleanup_from() and may be simplified to jut call
-drm_encoder_cleanup_from() and then do the extra actions. However the
-common code is subtly different in terms of locking and checks, so this
-would complicate the code in this patch and has thus been kept separate for
-the time being. Reimplementing drm_encoder_cleanup() by using
-drm_encoder_cleanup_from() is still an option, either in a new iteration of
-this patch or as a future patch.
-
-A much simpler and now obsolete version of this patch (missing locking and
-checks) previously appeared in
-https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-13-9d6f2c9c3058@bootlin.com/
----
- drivers/gpu/drm/drm_encoder.c | 38 ++++++++++++++++++++++++++++++++++++++
- include/drm/drm_encoder.h     |  1 +
- 2 files changed, 39 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_encoder.c b/drivers/gpu/drm/drm_encoder.c
-index 0d5dbed06db4..40ece477b302 100644
---- a/drivers/gpu/drm/drm_encoder.c
-+++ b/drivers/gpu/drm/drm_encoder.c
-@@ -179,6 +179,44 @@ int drm_encoder_init(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 61fd7f12a474..d39aaa8c9b8d 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -2087,6 +2087,121 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
  }
- EXPORT_SYMBOL(drm_encoder_init);
+ EXPORT_SYMBOL(__drm_atomic_helper_set_config);
  
 +/**
-+ * drm_encoder_cleanup_from - remove a given bridge and all the following
-+ * @encoder: encoder whole list of bridges shall be pruned
-+ * @bridge: first bridge to remove
++ * drm_atomic_disable_all - disable all currently active outputs
++ * @dev: DRM device
++ * @ctx: lock acquisition context
 + *
-+ * Removes from an encoder all the bridges starting with a given bridge
-+ * and until the end of the chain.
++ * Loops through all connectors, finding those that aren't turned off and then
++ * turns them off by setting their DPMS mode to OFF and deactivating the CRTC
++ * that they are connected to.
 + *
-+ * Does nothing if the bridge is not attached to an encoder chain.
++ * This is used for example in suspend/resume to disable all currently active
++ * functions when suspending. If you just want to shut down everything at e.g.
++ * driver unload, look at drm_atomic_helper_shutdown().
 + *
-+ * This should not be used in "normal" DRM pipelines. It is only useful for
-+ * devices whose final part of the DRM chain can be physically removed and
-+ * later reconnected (possibly with different hardware).
++ * Note that if callers haven't already acquired all modeset locks this might
++ * return -EDEADLK, which must be handled by calling drm_modeset_backoff().
++ *
++ * Returns:
++ * 0 on success or a negative error code on failure.
++ *
++ * See also:
++ * drm_atomic_helper_suspend(), drm_atomic_helper_resume() and
++ * drm_atomic_helper_shutdown().
 + */
-+void drm_encoder_cleanup_from(struct drm_encoder *encoder, struct drm_bridge *bridge)
++int drm_atomic_disable_all(struct drm_device *dev,
++			   struct drm_modeset_acquire_ctx *ctx)
 +{
-+	struct drm_bridge *next;
-+	LIST_HEAD(tmplist);
++	struct drm_atomic_commit *state;
++	struct drm_connector_state *conn_state;
++	struct drm_connector *conn;
++	struct drm_plane_state *plane_state;
++	struct drm_plane *plane;
++	struct drm_crtc_state *crtc_state;
++	struct drm_crtc *crtc;
++	int ret, i;
 +
-+	/*
-+	 * We need the bridge_chain_mutex to modify the chain, but
-+	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
-+	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
-+	 * deadlock. Avoid it by first moving all the bridges to a
-+	 * temporary list holding the lock, and then calling
-+	 * drm_bridge_detach() without the lock.
-+	 */
-+	mutex_lock(&encoder->bridge_chain_mutex);
-+	if (!list_empty(&bridge->chain_node))
-+		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain, chain_node)
-+			list_move_tail(&bridge->chain_node, &tmplist);
-+	mutex_unlock(&encoder->bridge_chain_mutex);
++	state = drm_atomic_commit_alloc(dev);
++	if (!state)
++		return -ENOMEM;
 +
-+	while (!list_empty(&tmplist))
-+		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, chain_node));
++	state->acquire_ctx = ctx;
++
++	drm_for_each_crtc(crtc, dev) {
++		crtc_state = drm_atomic_get_crtc_state(state, crtc);
++		if (IS_ERR(crtc_state)) {
++			ret = PTR_ERR(crtc_state);
++			goto free;
++		}
++
++		crtc_state->active = false;
++
++		ret = drm_atomic_set_mode_prop_for_crtc(crtc_state, NULL);
++		if (ret < 0)
++			goto free;
++
++		ret = drm_atomic_add_affected_planes(state, crtc);
++		if (ret < 0)
++			goto free;
++
++		ret = drm_atomic_add_affected_connectors(state, crtc);
++		if (ret < 0)
++			goto free;
++	}
++
++	for_each_new_connector_in_state(state, conn, conn_state, i) {
++		ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
++		if (ret < 0)
++			goto free;
++	}
++
++	for_each_new_plane_in_state(state, plane, plane_state, i) {
++		ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
++		if (ret < 0)
++			goto free;
++
++		drm_atomic_set_fb_for_plane(plane_state, NULL);
++	}
++
++	ret = drm_atomic_commit(state);
++free:
++	drm_atomic_commit_put(state);
++	return ret;
 +}
-+EXPORT_SYMBOL(drm_encoder_cleanup_from);
++EXPORT_SYMBOL(drm_atomic_disable_all);
 +
- /**
-  * drm_encoder_cleanup - cleans up an initialised encoder
-  * @encoder: encoder to cleanup
-diff --git a/include/drm/drm_encoder.h b/include/drm/drm_encoder.h
-index eded7c34481a..d2a59f95692f 100644
---- a/include/drm/drm_encoder.h
-+++ b/include/drm/drm_encoder.h
-@@ -324,6 +324,7 @@ static inline struct drm_encoder *drm_encoder_find(struct drm_device *dev,
++/**
++ * drm_atomic_shutdown - shutdown all CRTC
++ * @dev: DRM device
++ *
++ * This shuts down all CRTC, which is useful for driver unloading. Shutdown on
++ * suspend should instead be handled with drm_atomic_helper_suspend(), since
++ * that also takes a snapshot of the modeset state to be restored on resume.
++ *
++ * This is just a convenience wrapper around drm_atomic_helper_disable_all(),
++ * and it is the atomic version of drm_helper_force_disable_all().
++ */
++void drm_atomic_shutdown(struct drm_device *dev)
++{
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
++
++	if (dev == NULL)
++		return;
++
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
++
++	ret = drm_atomic_disable_all(dev, &ctx);
++	if (ret)
++		drm_err(dev,
++			"Disabling all crtc's during unload failed with %i\n",
++			ret);
++
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++}
++EXPORT_SYMBOL(drm_atomic_shutdown);
++
+ static void drm_atomic_private_obj_print_state(struct drm_printer *p,
+ 					       const struct drm_private_state *state)
+ {
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 9d006f98413a..3b8301a385b5 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3539,6 +3539,8 @@ EXPORT_SYMBOL(drm_atomic_helper_set_config);
+  * @dev: DRM device
+  * @ctx: lock acquisition context
+  *
++ * Deprecated wrapper to drm_atomic_disable_all().
++ *
+  * Loops through all connectors, finding those that aren't turned off and then
+  * turns them off by setting their DPMS mode to OFF and deactivating the CRTC
+  * that they are connected to.
+@@ -3560,61 +3562,7 @@ EXPORT_SYMBOL(drm_atomic_helper_set_config);
+ int drm_atomic_helper_disable_all(struct drm_device *dev,
+ 				  struct drm_modeset_acquire_ctx *ctx)
+ {
+-	struct drm_atomic_commit *state;
+-	struct drm_connector_state *conn_state;
+-	struct drm_connector *conn;
+-	struct drm_plane_state *plane_state;
+-	struct drm_plane *plane;
+-	struct drm_crtc_state *crtc_state;
+-	struct drm_crtc *crtc;
+-	int ret, i;
+-
+-	state = drm_atomic_commit_alloc(dev);
+-	if (!state)
+-		return -ENOMEM;
+-
+-	state->acquire_ctx = ctx;
+-
+-	drm_for_each_crtc(crtc, dev) {
+-		crtc_state = drm_atomic_get_crtc_state(state, crtc);
+-		if (IS_ERR(crtc_state)) {
+-			ret = PTR_ERR(crtc_state);
+-			goto free;
+-		}
+-
+-		crtc_state->active = false;
+-
+-		ret = drm_atomic_set_mode_prop_for_crtc(crtc_state, NULL);
+-		if (ret < 0)
+-			goto free;
+-
+-		ret = drm_atomic_add_affected_planes(state, crtc);
+-		if (ret < 0)
+-			goto free;
+-
+-		ret = drm_atomic_add_affected_connectors(state, crtc);
+-		if (ret < 0)
+-			goto free;
+-	}
+-
+-	for_each_new_connector_in_state(state, conn, conn_state, i) {
+-		ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
+-		if (ret < 0)
+-			goto free;
+-	}
+-
+-	for_each_new_plane_in_state(state, plane, plane_state, i) {
+-		ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
+-		if (ret < 0)
+-			goto free;
+-
+-		drm_atomic_set_fb_for_plane(plane_state, NULL);
+-	}
+-
+-	ret = drm_atomic_commit(state);
+-free:
+-	drm_atomic_commit_put(state);
+-	return ret;
++	return drm_atomic_disable_all(dev, ctx);
  }
+ EXPORT_SYMBOL(drm_atomic_helper_disable_all);
  
- void drm_encoder_cleanup(struct drm_encoder *encoder);
-+void drm_encoder_cleanup_from(struct drm_encoder *encoder, struct drm_bridge *bridge);
+@@ -3670,6 +3618,8 @@ EXPORT_SYMBOL(drm_atomic_helper_reset_crtc);
+  * drm_atomic_helper_shutdown - shutdown all CRTC
+  * @dev: DRM device
+  *
++ * Deprecated wrapper to drm_atomic_shutdown().
++ *
+  * This shuts down all CRTC, which is useful for driver unloading. Shutdown on
+  * suspend should instead be handled with drm_atomic_helper_suspend(), since
+  * that also takes a snapshot of the modeset state to be restored on resume.
+@@ -3679,21 +3629,7 @@ EXPORT_SYMBOL(drm_atomic_helper_reset_crtc);
+  */
+ void drm_atomic_helper_shutdown(struct drm_device *dev)
+ {
+-	struct drm_modeset_acquire_ctx ctx;
+-	int ret;
+-
+-	if (dev == NULL)
+-		return;
+-
+-	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+-
+-	ret = drm_atomic_helper_disable_all(dev, &ctx);
+-	if (ret)
+-		drm_err(dev,
+-			"Disabling all crtc's during unload failed with %i\n",
+-			ret);
+-
+-	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++	return drm_atomic_shutdown(dev);
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_shutdown);
  
- /**
-  * drm_for_each_encoder_mask - iterate over encoders specified by bitmask
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 3ae35b09c0cf..aa6de7d959b2 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -1409,5 +1409,8 @@ drm_atomic_get_old_bridge_state(const struct drm_atomic_commit *state,
+ struct drm_bridge_state *
+ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
+ 				struct drm_bridge *bridge);
++int drm_atomic_disable_all(struct drm_device *dev,
++			   struct drm_modeset_acquire_ctx *ctx);
++void drm_atomic_shutdown(struct drm_device *dev);
+ 
+ #endif /* DRM_ATOMIC_H_ */
 
 -- 
 2.55.0
