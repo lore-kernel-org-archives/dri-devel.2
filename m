@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E08A6CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:40:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F70CA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366C510F682;
-	Thu,  1 Oct 2026 13:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7417310F68E;
+	Thu,  1 Oct 2026 13:40:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q1pXbXnf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PwF0fiHG";
 	dkim-atps=neutral
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com
- [74.125.228.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 242F210F6AB
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:40:00 +0000 (UTC)
-Received: by mail-pz2-f42.google.com with SMTP id
- 41be03b00d2f7-cc4d04d73b8so2568977a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 06:40:00 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com
+ [74.125.227.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0A2410E1DF
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:40:02 +0000 (UTC)
+Received: by mail-pj2-f13.google.com with SMTP id
+ 98e67ed59e1d1-396ccb1a98fso4674396a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 06:40:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790861999; x=1791466799; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790862002; x=1791466802; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
- b=q1pXbXnfFl2EEV02D4aZOzq9ioYS9qKkgT+hEhnaIfeyQKXqcO7t75WC438iqA1G7a
- loaci+0XkcK13UvvhCGNqKPAt/A1ygm0ZXUERmhKFLKqv1kBZ87E1XoANVgpls0nqBd9
- mUjO1WoGOs1DrtZNiq9xV/EFuYcsambhcZtvSq6wQyaXaySrMfKz/X3GEzHSHal6b/sS
- klbRUnekEBIVmFsCtTyTqa1kH4n+f9CdmTjHN+7Gm467pMjaDlnYsoZ2bGXhYw2Pd7wT
- CTzu/iIsKyuGY+OseWjIWchynYyU5BGptTm3K15iGahsHQZ0cxG5WKAlvHl3ygkXP5vd
- pdjA==
+ bh=36wHVkYrC+tsJPWWup994ozux9gG08Y2bixz1oomwOE=;
+ b=PwF0fiHGEqQkdS+SaZ0cZ9uMc+vtW9BCO1aCKntML0A9I/VLMDeJnLYSNa9sD7niFV
+ mMP3J4COpU//WkkT1GXFIgUO1QfpPZ9Q7r2XxdrLnjaIsHIPyXivnWGAYZGEwSiYoqyZ
+ FA7r+QmXH4ujMWFA2M/oCu6qLLpDEh2Id+ITdy3W1zO1fBKjzy4B7rLSVPs9akEru2LX
+ uLBVcpcNKI+4uzoJf+uO5/jMsc4z9e9y0DMuQ4kGqHi/s7IUtuJsvA/jSRGr72lfiRNP
+ U2HoVP5voXk/vg4siX5+bN2VN2ZjJn7pNKou5zn+12TETnfQXwGZMsMu1738DneJePG8
+ AqfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790861999; x=1791466799;
+ d=1e100.net; s=20260707; t=1790862002; x=1791466802;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=RMOf9/GogbibFylj3xpGTq6kKy08fEk3RcF0K8Q5mJc=;
- b=E8Elu+OBx3+AYaFH0G/EvZQNTvU0q0N67gM32APa1YbX7F/OMYgvHxQ1zZFTkpCNp4
- NjjW0ngAOCDky7qQsPTgARE+v4VNtlepw8I7q1FUDvMq3v+ZfkwwpJOCXelGOK7TqjIY
- 0XVba4XgIcv3yGu3REDaKq66/kNkcPZye3UdXRJDAmu+gs5I7IC3GedjcKdbTk1Lv6ud
- zlAOah02ioNU5iEcbC65vOjNHY9iugcOxX/iNkVJb2eydz+sTAPDi5ZPWivP7zGwA8VH
- 6Lrk5YJzh2jYg//p24loQ+ZDn1PyT4nOjOdWzi/3/fgd+KC1gzvGVe6y+28qJyF12thQ
- T/yw==
+ bh=36wHVkYrC+tsJPWWup994ozux9gG08Y2bixz1oomwOE=;
+ b=XsHvLovSLjUsGI2A7aUL6DNpnm81mMVEWWjczCmZNGPVpg5SIh87XC27xqGwH365zK
+ P1u36g0IxeIJaXNLzch3ad1pJ3rWn8/vf0E/aYjvWa7XJox6KG0OGCKlG2gWzM3bkOF9
+ whydOYZx8cqE3wG/kmb6i4ybDoBzAOtrmiVFMGW1NK/zfamS6UArT2QYkYBRKzqLxL+6
+ 6POUtX6BXQG2ylr2nuPDTm673mvSRMPZRZriy1PuFqjgkc/jxb9VximDOL1e4Tj3Si9h
+ WhJcfEWCRaBW00XJSbsVNL3HPCTdGrDTQQhWds1MObpxi3zfWZdyEeBuuxIkfEvtagiu
+ ppyQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwSw39EcTDbxezAT1EfsTA5MDU8yoQD1gM7DnQZ/smkTwOqbFQbF/KhmsvZV69w34G9Y0w8SgT+Ewk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIwERxl7LD3MbW2M+2/cAc2faoO5MwUa37CB4jcpLbNst5BjZu3
- SbEVREyjWgRHa36nyUe9qti8WjO4/MO81Mb4fqEgq81T8RRz6O+pc6VG
-X-Gm-Gg: AYBFou1vk5jnNG/RJ1gCHr/eqTeExN7bOglacG2iKglWVFInQSYhhB347PVCxrJ3FPY
- me3J7HthC5+HN2b00OB8mK+pUMWdP+s3phUyahBJeLTvWEEQhsUrvOGPEhD3ZRtChcibeNbKpAF
- BHmuItuZUjPTtgalKmCOuTx+To+x7gXN031/IaVVR66NYRtbHjQaTWrdhT75YILni5e6Asa9l59
- aBW39jYxhBTBI26uFyEuaVZidJ3aOXfsr9hgGvqcysdjS9Nboxw407r5CQTjG4tMcERlccmfxeG
- ioAeJoy45e3gjikBC95ueUGWdbYKMAm0B2O25Hv4tq2cd60dkmt/8x2NLhM0I2IElRczd9YO8oX
- ahZsiY7m4Ppe6ESi6u3frGnKz+dcsAi70/RWqwvstvXmBu2g8vMY7kb/9J/ZQtLOwD109Gf0Np+
- n4LdgfPpVHKlkCHwTjk/vN3boKjlimjKk0vgiBgaG9Zpxbwwhp16B+3qsmM9SgkOc=
-X-Received: by 2002:a17:90b:4b0d:b0:3a0:ddd6:896c with SMTP id
- 98e67ed59e1d1-3a6c2276bcfmr375685a91.17.1790861999525; 
- Thu, 01 Oct 2026 06:39:59 -0700 (PDT)
+ AKwUvBzM5LHwJ1kR3koQ9oxMMkpsGjO9sOBTRX6A5DsWS9+bc+s5bXzoC3nRo9U6Jzf5flna427mgcbUk2c=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKk4YIEvpX9OtVXckKrNyV0Xu4/zA8WlorTlTZbsGMX3MD+y8gd
+ 0y9GgaSjrtzROlPmi+Lv1GXUrN78ItcLyhrjc3r6dMBPo/u2CdJ1qv5G
+X-Gm-Gg: AYBFou2+PkNAvXTwlWCARnECVaY2hNNKc2sWNo9DMt9MpIfboYhYG/5ncan71NMxgnX
+ qVIiyI7gRt1Y1XrCoLBUTYopFnzb7mVDHnkir7WEvISK9SAuE0r1xi8y5Anr93pZbdPyFrGd7dc
+ MpANGGxcu6hPkA9fVCLXsFHOOBaJ45iQZTicKkZtnkX3lmmOQvYn3LTZncik+7W42XdwCVvAr5x
+ 6VUWRUk3/B0ch63Ub1gaeUvEBEXzsOYcTKF/Tj6nUjSc8ornCuLiLJDvEdliUe93l2VMUCmMTar
+ bCq96k/kmwmkrgtp1Z7EWCFlKhIMIyGxzxnhNzrFhaB3XVP93550QoLUOvWp9Bi9ws7bzkouf9B
+ NIiCNQNYL+Zp8QJ8V1G+rmaOp+uIPwAkggDuNSAlNWcOYcUTVYEsoJy0b21dYIdpnneSdnEKiwC
+ egmJCp8V+NXyWqc2CQzEwd3XSC4G9R720Pv4G8oyc2acUB5MaDi+XoUuLWMiP8FN8Q7hc1RAA53
+ A==
+X-Received: by 2002:a17:90b:2545:b0:3a0:574f:5854 with SMTP id
+ 98e67ed59e1d1-3a4d18cb4a1mr4364490a91.39.1790862002057; 
+ Thu, 01 Oct 2026 06:40:02 -0700 (PDT)
 Received: from [127.0.1.1] ([1.243.227.27]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.56
+ 98e67ed59e1d1-3a4f47cb357sm4673435a91.17.2026.10.01.06.39.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 06:39:58 -0700 (PDT)
+ Thu, 01 Oct 2026 06:40:01 -0700 (PDT)
 From: Gyeyoung Baek <gye976@gmail.com>
-Date: Thu, 01 Oct 2026 22:39:12 +0900
-Subject: [PATCH v2 1/2] drm/imagination: Fix reference and vm_bo handling
- in remap()
+Date: Thu, 01 Oct 2026 22:39:13 +0900
+Subject: [PATCH v2 2/2] drm/imagination: Size page table preallocation by
+ device address
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-pvr-fixes-a-v2-1-f58254e5dfb8@gmail.com>
+Message-Id: <20261001-pvr-fixes-a-v2-2-f58254e5dfb8@gmail.com>
 References: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
 In-Reply-To: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
@@ -97,77 +98,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a map overlaps part of an existing mapping, pvr_vm_gpuva_remap()
-splits the mapping into prev/next parts covering what the request did
-not take, instead of creating something new. It gets two things wrong.
+Commit 0a8224058a58 ("drm/imagination: Fix page count for page table for
+map() interface") passed the device address to
+pvr_mmu_op_context_create(), but the preallocation is still sized from
+device_addr + sgt_offset with an exclusive end. The offset into the
+object's pages has no place in a device-virtual range, and the exclusive
+end allocates one table too many when the range ends on a table
+boundary.
 
-- A GEM reference is taken for each part but it's never needed and never
-  dropped, so it leaks one reference per split (remap-next-in-2m in
-  tests/imagination/pvr_vm_map.c):
+Count the tables from device_addr and the inclusive end of the range.
 
-    CRITICAL: 33558528 bytes of shmem still held after close
-
-- The parts still belong to the original object being split, but
-  pvr_vm_gpuva_remap() links them to ctx->gpuvm_bo, the new object's
-  vm_bo:
-
-    prev_va --obj--> BO_A          BO_B <--obj-- vm_bo (ctx->gpuvm_bo)
-            \___________link___________/  (mismatch: BO_A != BO_B)
-
-  drm_gpuva_link() catches the mismatch:
-
-    WARNING: drivers/gpu/drm/drm_gpuvm.c:2108 at drm_gpuva_link+0x2ec/0x310
-      drm_WARN_ON(obj != vm_bo->obj)
-    Call trace:
-     drm_gpuva_link
-     pvr_vm_gpuva_remap
-     __drm_gpuvm_sm_map
-     pvr_vm_map
-     pvr_ioctl_vm_map
-
-  Link them to op->remap.unmap->va->vm_bo instead.
-
-The locking of the GPUVA lists of the other objects touched by a split is
-not addressed here; it is handled by switching the GPUVM to immediate
-mode.
-
+Fixes: 0a8224058a58 ("drm/imagination: Fix page count for page table for map() interface")
 Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
 Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
-Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_vm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/imagination/pvr_mmu.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index 55cc999f370..cbdd15ed74f 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -418,6 +418,8 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
- static int
- pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
+index 62eae7fcd5a..67e73d7d5d0 100644
+--- a/drivers/gpu/drm/imagination/pvr_mmu.c
++++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+@@ -2337,7 +2337,7 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx)
+  * @ctx: MMU context associated with owning VM context.
+  * @sgt: Scatter gather table containing pages pinned for use by this context.
+  * @device_addr: Virtual device address at the start of the requested mapping.
+- * @sgt_offset: Start offset of the requested device-virtual memory mapping.
++ * @sgt_offset: Offset into @sgt of the start of the requested mapping.
+  * @size: Size in bytes of the requested device-virtual memory mapping. For an
+  * unmapping, this should be zero so that no page tables are allocated.
+  *
+@@ -2350,7 +2350,6 @@ struct pvr_mmu_op_context *
+ pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *sgt,
+ 			  u64 device_addr, u64 sgt_offset, u64 size)
  {
-+	/* The split parts belong to the object of the mapping being split. */
-+	struct drm_gpuvm_bo *vm_bo = op->remap.unmap->va->vm_bo;
- 	struct pvr_vm_bind_op *ctx = op_ctx;
- 	u64 va_start = 0, va_range = 0;
+-	u64 start_addr = device_addr + sgt_offset;
  	int err;
-@@ -433,14 +435,12 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
- 	drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->remap);
  
- 	if (op->remap.prev) {
--		pvr_gem_object_get(gem_to_pvr_gem(ctx->prev_va->base.gem.obj));
--		drm_gpuva_link(&ctx->prev_va->base, ctx->gpuvm_bo);
-+		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
- 		ctx->prev_va = NULL;
- 	}
+ 	struct pvr_mmu_op_context *op_ctx = kzalloc_obj(*op_ctx);
+@@ -2365,18 +2364,18 @@ pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *sgt,
  
- 	if (op->remap.next) {
--		pvr_gem_object_get(gem_to_pvr_gem(ctx->next_va->base.gem.obj));
--		drm_gpuva_link(&ctx->next_va->base, ctx->gpuvm_bo);
-+		drm_gpuva_link(&ctx->next_va->base, vm_bo);
- 		ctx->next_va = NULL;
- 	}
+ 	if (size) {
+ 		/*
+-		 * The number of page table objects we need to prealloc is
+-		 * indicated by the mapping size, start address and the sizes
+-		 * of the areas mapped per PT or PD. The range calculation is
+-		 * identical to that for the index into a table for a device
+-		 * address, so we reuse those functions here.
++		 * The page tables needed are set by the device-virtual range
++		 * being mapped: one level 1 table per 1GiB region and one
++		 * level 0 table per 2MiB region the range touches. Tables that
++		 * already exist are not consumed, so this is an upper bound.
+ 		 */
+-		const u32 l1_start_idx = pvr_page_table_l2_idx(start_addr);
+-		const u32 l1_end_idx = pvr_page_table_l2_idx(start_addr + size);
+-		const u32 l1_count = l1_end_idx - l1_start_idx + 1;
+-		const u32 l0_start_idx = pvr_page_table_l1_idx(start_addr);
+-		const u32 l0_end_idx = pvr_page_table_l1_idx(start_addr + size);
+-		const u32 l0_count = l0_end_idx - l0_start_idx + 1;
++		const u64 last_addr = device_addr + size - 1;
++		const u64 l1_count =
++			(last_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT) -
++			(device_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT) + 1;
++		const u64 l0_count =
++			(last_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT) -
++			(device_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT) + 1;
  
+ 		/*
+ 		 * Alloc and push page table entries until we have enough of
 
 -- 
 2.43.0
