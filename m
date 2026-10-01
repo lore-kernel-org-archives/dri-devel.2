@@ -4,99 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE89CA5FC5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C60E6CA5FC5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:59:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1700B10E2E1;
-	Thu,  1 Oct 2026 06:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2613010F590;
+	Thu,  1 Oct 2026 06:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MDZNw6Up";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZTEqIekg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE5B10E2E1
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:58:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C2410F588
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:59:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A92E16022B;
- Thu,  1 Oct 2026 06:58:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F641F000FF;
- Thu,  1 Oct 2026 06:57:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5CD344795
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:59:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96DD91F0089B
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:59:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790837880;
- bh=81kEnYAelRd0XHmBaUvxl0RHg1sbtHt2E19WInGRtNs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=MDZNw6UpJ4RrYVDZlxRVi0yXGd9Sb4FRvsWgrwq1Z6aun26SLmR/88MHKnoNF5l73
- kXBOXmbwJll3CYn/Vc3l9uLd+e2CAjjCV3JnRLYmfUn7jbkw1ChV//Kjl2/uJsq5I5
- ffJ1y0wnKuAO4OiB/VvrrKUv1h7heGJulSr02F7iGBo0XCaS8/O/RXCsH8LEtSPE1e
- DpO4OCT3reAhQDAntXufYrh7ZlUDKwuRbEVtT5wXiAkzSi49zElDEoLGHsC50xVr74
- 1rmo42KUUvD4yzFpLS0YvEz5kozljYcFi+v3qD2wL4TVT0BduzNl2+oWE5VVwH1DbL
- 56njWFJrKskXg==
-Message-ID: <997cefa0-384c-466f-b318-077939946768@kernel.org>
-Date: Thu, 1 Oct 2026 08:57:52 +0200
+ s=k20260515; t=1790837966;
+ bh=adKEV0wp8fnkm3B2gVtkxUbYQ0N4xZbbOvQZcLnu0xk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=ZTEqIekgpZghTg8Qn8vwEmbcMeMYl2MORgJxn3aIHii9lmlTTHXZULIZaVG6qSbBU
+ P1GpvEyVhrBhMi/mxpGoxmyOhDj0twY5/81waMYx34MNJYpyJW/LGUPeAxIk4Gb3tS
+ 291yIQxl1AzJd+hKdqlRFd6inzcyYydgb3tNfWPDRy9FVVDUzeGQbpXp2S02THGyJO
+ cBNMWgzFXyDjGvG+KjD2jVAWTdEuZ5SPtgBv4hf/VJBW5T/eR3p7ntSCwVWjJbxHS/
+ EtdsuoEljzPiJkqs+B/W+oywc3R6jty9xcO198geJNwEC8Z9ZM5JTuumBUxhIb+jXo
+ 21JWDU1ZRilHQ==
+Received: by mail-lf2-f12.google.com with SMTP id
+ 2adb3069b0e04-5ba3ae12b79so1533517e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 23:59:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxRncNesTLmH5e7bbGkU6Q3cGjjcUdzKbREYe0XWsK44yuxrEQLYgixW3+zUqmsz7UHJpgJVx11SDg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKkpB2H0VHnNavVW8lnbOx6CFaFoi7j446DdZclhbq/OfeePIK4
+ wqmjJFUbqmyaWaqGPwGDX5TzxRxyN8dcVJnLL8ct0rw4Z9Vh1Y1HVgIZYTjZT1xujap8bL0T4C0
+ KX36aC2ZlmiTklPAFSpygmbXTIVU9KpQ=
+X-Received: by 2002:a05:6512:3ba0:b0:5ba:3b01:36a5 with SMTP id
+ 2adb3069b0e04-5ba405ee75amr1389712e87.14.1790837964923; Wed, 30 Sep 2026
+ 23:59:24 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-7-83afb4f1a707@bootlin.com>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-7-83afb4f1a707@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 08:59:09 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkhYNZ4R4Z60zTzNoZwCtk4rcL-pCbgdHpNEzV-4oO_Wg@mail.gmail.com>
+X-Gm-Features: AclHuK8feDgrhg1tWHz9y2oJ4IDmaC5Th2MaGXRPg_l1XDpQ6IeWaj3r9RadEo0
+Message-ID: <CAD++jLkhYNZ4R4Z60zTzNoZwCtk4rcL-pCbgdHpNEzV-4oO_Wg@mail.gmail.com>
+Subject: Re: [PATCH v3 07/19] drm/panel: deprecate panel-bridge APIs
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
-References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
- <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
- <20261001-private-wooden-chachalaca-51aa57@quoll>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261001-private-wooden-chachalaca-51aa57@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+ asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,22 +100,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
-> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
->> Some boards drive the ILI7807S panel's backlight from an external
->> WLED driver whose enable input is wired to a GPIO, typically modeled
->> as a fixed regulator (e.g. vreg_wled).
-> 
-> You describe something else. What's fixed regulator should not matter
-> here. Which pin is it in ILI7807S?
-> 
-> It seems you just want to represent GPIO with a regulator. This is just
-> confusing and typical downstream workaround.
+On Wed, Sep 16, 2026 at 3:46=E2=80=AFPM Luca Ceresoli <luca.ceresoli@bootli=
+n.com> wrote:
 
-What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
-just sneak the same stuff 3 months after like the review never happened.
+> Now that a drm_bridge is embedded into every drm_panel, the panel_bridge =
+is
+> not needed anymore. Its APIs are just accessing the embedded drm_bridge
+> transparently.
+>
+> Deprecate them all, encouraging to use the drm_bridge API.
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-NAK
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Best regards,
-Krzysztof
+Yours,
+Linus Walleij
