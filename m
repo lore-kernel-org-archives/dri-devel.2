@@ -4,54 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2744CA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48CB5CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 11:50:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D8E10E153;
-	Thu,  1 Oct 2026 11:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9AA10E18A;
+	Thu,  1 Oct 2026 11:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VObuAAiQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aoGqLTqx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D559110E153;
- Thu,  1 Oct 2026 11:46:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 107F760A5F;
- Thu,  1 Oct 2026 11:46:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14F21F00898;
- Thu,  1 Oct 2026 11:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790855217;
- bh=O9HPu+v9+wBog9bi9ISNUhwjTjMx5TMEZ/vPQ5YFebM=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=VObuAAiQigL402sEg1PHo0WktvUqNB7A8ZhmfM1gh2ccG+gjPxn4b/crq/9AkMzeR
- d4h846WdBgOc7zopfg3x7q2gnXZALduWllV30fH++UI/rqCv+vf9LEYwSR0wIb55tJ
- UYDikfs4gSMgN4fdDHbFh9rARwlRQ23AcHnz0CLixwQ0sbBkzHSYHtgXlyYEgYF9QW
- YwLVixQgUl5lrZ0n+/tsUv6UxlwqmAZvMbdriTvfxrpyWdd7mFy1h4AIV+UNfX+C0K
- vF2N6imvTICUX+TYc/4aRfRLuayJxfXDkNX8F0T3q1YSliItfJI82JA3r8AfWk3FPF
- XxwpemWkOK1GQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D67AB10E18A
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 11:50:24 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48afe625404so287161f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 04:50:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790855423; x=1791460223; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FT0Dgt5e18RHtkOZyURX3IzLv5nYyC3WvwY8rFhFXVw=;
+ b=aoGqLTqxhWV1W/H6YVrLokmCnpEH4Pdr/Hty3bRgtd79DCUMpWfHectrd15FMV6klC
+ YUQMJOSUVHCyHE35CQEKODnuq1Sd1497W884Q61dPSBTJA3SvaIcm8fHzeKq7FwJSJjr
+ +AMonRK0N/zRWdXWznKNc26n6fa7M2ZW1CxJ0nO5z3qen+fvFku4giCET3bcdXEMOs6G
+ fpkr2QdGlehWWAwGQB6FVPOcu8aa4ivgtJ7OGuWyR270yLv07K6PZHRynwaNitaYuVBT
+ yrwQUhIm43dJUwkG7huRoAJTYPrXDj2LlFrkyBd5+9NF9SUemYOPLrjqURBU+fEJXAlx
+ cIaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790855423; x=1791460223;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FT0Dgt5e18RHtkOZyURX3IzLv5nYyC3WvwY8rFhFXVw=;
+ b=XxY68u5eQ1+FgpN0Y223n3p9swlpLEUKbVIdOFFrOIvsJfNi1mfNVQayDd7mf6l36W
+ 7b/1hSR5tjtHfHeAB4d7b1E1a7JKzIOBap4lX4aKRmEPc/PF6V3eU2oP2d0ySg3yU3z+
+ 35a78SUgkxNosVTEpvwHGMw4I32F7raX8/EYRJy5YfMht09IpkrdmLSlvRFbotHLQ5Ko
+ zhY6T8KW5W+zZLOiJ2cI9tTzoIDeJid0sUSDQx+u+nNOZrz2brRmgAMnc3vu4ZLzXCly
+ G6DO9byJ6PGrB7l3A3IFMd+CYn0JFmcl6UTO6tXwqj9xCVAkcCKO2F+LWwbBAjxYPEYR
+ 052w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwu0u9uDXuql9hti4lsB4kzDF9yUx3OOf9/xSZQerNOHbG0/tzmtIyA8GV+F1Gyv24LempfQv20Ba4=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nA0IdLO7lxUfFSHIDhf0lGxklmIdQTx0Iywhmx/TsDM/5O8YpY
+ 97QQs57Vyi/b8BZK2veRLgFjQd+IrrfANV8yoiIh4WpXKnxfsHjnLASq
+X-Gm-Gg: AYBFou0Rqsadhj/Ey+Rdasj+ja/zeilrGnzLCHmriIr9rquiobusLTl13C92FCASGOj
+ PpmSrkZcCwBt8KAl3iqw7xnoXBIpzXIeBg2WxT8z1a4kGg0KqPBjaTVC9m8AX8W3HlAG9NTlDmf
+ LiRh2aZ0obJOzMsq7O5m764b0tRnsnmJV/vLW3BtAfvWW+FkMEtQYUGyRWtGh9vGr6D168YAmWm
+ M+NWbSqjNy993EFzF3AP9xDmfTJm1i1vHftigpICWP9bbnjzngjW6f6VT9+qImJ9W6yJ7mO2pCW
+ pEVuNMeRjS9yynBMXEs5HzDAmDC4Soae28NSnLSh2uBXRXqtsElllcC/pY6wkPFx3ShTaeIdhSg
+ qBzt8AEoAK52jmsJISY9uHh3igH4zhCw7N0gb83DQnEVZeCt/YWLwjr7L6CT/84FYm9/SPgmWz2
+ UIOmgC9pRMLZQQtnC0xl5yvfE9/rMeW9ZvCErt6snByLhgf72S9TB0BJNhFx2HrBllZ7iKRGE5Z
+ M+XBfaYKAYgLV4B73HmAUW5XxS+JKSR4uh/pkH4ToyAr3FFKtMJWAZeK6sBRgsOVovHOffHGFKs
+ Zg==
+X-Received: by 2002:a05:600c:8b6e:b0:4a0:73b:a222 with SMTP id
+ 5b1f17b1804b1-4a01ab4e548mr75513495e9.0.1790855422802; 
+ Thu, 01 Oct 2026 04:50:22 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B894800E6F933EC01173D6E.dsl.pool.telekom.hu.
+ [2001:4c4e:1b89:4800:e6f9:33ec:117:3d6e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a023ebe694sm37475235e9.10.2026.10.01.04.50.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2026 04:50:22 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: =?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
+ and some numbers
+Date: Thu,  1 Oct 2026 13:49:58 +0200
+Message-ID: <20261001114958.24236-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903185147.49411-1-royalnet026@gmail.com>
+References: <20260801131656.58450-1-royalnet026@gmail.com>
+ <ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwiboo.se>
+ <286e8418-fae6-4979-96d1-e13abb04b3a1@kwiboo.se>
+ <3204a0d0-969d-4ac6-adfd-29c57f1c3e0a@kwiboo.se>
+ <20260819125932.5853-1-royalnet026@gmail.com>
+ <82c8b17e-7215-45ea-84d1-9991ba6fb541@kwiboo.se>
+ <20260819184807.6665-1-royalnet026@gmail.com>
+ <f5241666-9657-4f49-958f-476fd366e408@gmx.com>
+ <20260902110432.22069-1-royalnet026@gmail.com>
+ <20260903091646.7183-1-royalnet026@gmail.com>
+ <2f88072c-6aa3-4294-a35d-722d1c7a405c@email.android.com>
+ <20260903185147.49411-1-royalnet026@gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 13:46:52 +0200
-Message-Id: <DLTH6V7D5VNW.TD696VJNM98E@kernel.org>
-Subject: Re: [PATCH 1/3] drm/gpuvm: allow locking external objects in two
- passes
-Cc: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, "David Airlie" <airlied@gmail.com>,
- "Jonathan Corbet" <corbet@lwn.net>, "Liviu Dudau" <liviu.dudau@arm.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Steven
- Price" <steven.price@arm.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>
-To: "Matthew Brost" <matthew.brost@intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260814073258.893007-1-matthew.brost@intel.com>
- <20260814073258.893007-2-matthew.brost@intel.com>
-In-Reply-To: <20260814073258.893007-2-matthew.brost@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,162 +111,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 14, 2026 at 9:32 AM CEST, Matthew Brost wrote:
-> So let a driver set drm_gpuvm_exec::two_pass and have
-> drm_gpuvm_exec_lock() acquire its locks in two steps:
->
->   DRM_GPUVM_EXEC_PASS_EARLY validates what the transaction already
->   holds. The GPUVM's own dma-resv is locked from the start, so that is
->   every private object, and the driver validates the evicted ones. The
->   pass also opportunistically locks the external objects which are
->   evicted, since those need validating anyway, and the driver validates
->   those too. The resident external objects are left unlocked, then
->
->   DRM_GPUVM_EXEC_PASS_LATE locks everything else, i.e. exactly what the
->   early pass left out. The driver validates anything which raced with
->   the early pass and does whatever needs every lock held, such as
->   attaching its job's fence.
->
-> Both passes share one drm_exec transaction. The early pass keeps
-> everything it locked and the late pass only ever adds to it, so there is
-> no window in which another thread can undo the early pass' work, and no
-> recheck or retry logic is needed. The extra.fn callback is invoked once
-> per pass, with drm_gpuvm_exec::pass telling it which one it is in.
->
-> Only the external objects are divided up like this. The passes have to
-> agree on which objects belong to which, and the GPUVM's common dma-resv
-> is what gives that, so it is held throughout.
+Hi Hüseyin,
 
-That's a nice optimization!
+A correction to my two mails of 3 September in this thread, where I
+told you that the NPU readback from BL31 was the counter and not the
+request. You were right and I was wrong.
 
-> The early pass reads drm_gpuvm_bo::evicted without holding the object's
-> dma-resv, that being the lock it is trying not to take. The race is
-> benign: an object evicted just after being skipped is validated by the
-> late pass instead, exactly as if it had been evicted a moment later
-> still.
+The reading stopped at clk_scmi_npu_get_rate() in rk3588_clk.c. The
+call goes through plat_scmi_clock_get_rate() in
+plat/rockchip/common/scmi/scmi_clock.c, which returns the last
+accepted rate (clock->cur_rate) whenever ->get_rate() returns 0. So
+"no fallback" was false: a zero in NPUGRF+0x24 comes back as the last
+rate the firmware accepted, which at an accepted OPP is the rate asked
+for, and that is exactly what I saw, 1000000000 in all 104 samples at
+the 1 GHz OPP. The GPU readback on the same BL31 moved (1047 to
+1054 MHz), so on the GPU a counter is being read. The TRM lists NPU
+GRF 0x24 as NPU_GRF_NPUTOP_CON, but the GPU status word your commit
+reads at GPU GRF 0x18 is not in the TRM either, so the offset alone
+settles nothing. What I have is the EL1 read of NPU GRF 0x24, 0 in all
+20 samples, and this: on 15 September, with the rail pinned at 850 mV,
+requests of 800, 900 and 1000 MHz read back exactly 800, 900 and 1000,
+although your table programs the same ring length for all three. One
+counter cannot return three numbers for one ring at one voltage.
 
-I only read this after I stumbled across this in the code below.  Leaving t=
-his
-as-is is still a data race per LKMM and I'd expect KCSAN to flag it.
+What stands: the CRU selector (CLKSEL_CON74 bit 0) shows the PVTPLL
+path, and the inference numbers in those mails and in the v2 cover are
+unchanged. What I withdraw: "secure world sees the counter", "the
+counter is alive in silicon", "EL3 reports raw measurements" and "the
+readback is the counter"; "constant to the MHz", which I offered in
+place of "locks", goes with them as a statement about the hardware;
+and "the clean telemetry path for rocket DVFS" holds for the GPU and
+the CPUs, not for the NPU. The actual NPU PVTPLL frequency is not
+measured on my board. I will say the same in the v3 cover. Sorry for
+arguing with you about it.
 
-In any case, please also add the corresponding WRITE_ONCE() as well as a co=
-mment
-that explains why in this specific case it is OK to read the value without =
-the
-dma-resv lock held and why ordering is not an issue.
+An LLM (Claude) found the fallback and drafted this mail in English;
+I read it back in Serbian before sending.
 
-> Two pass locking requires a DRM_GPUVM_RESV_PROTECTED drm_gpuvm.
-
-This is unfortunate, I don't want to have any second class citizens.
-
-That said, I think I can make nouveau switch to DRM_GPUVM_RESV_PROTECTED. W=
-ith
-this, only MSM is left, and it says
-
-	* We mostly want to use DRM_GPUVM_RESV_PROTECTED, except that
-	* makes drm_gpuvm_bo_evict() a no-op for extobjs (ie. we loose
-	* tracking that an extobj is evicted) :facepalm:
-
-which is probably similar to why nouveau didn't do it in the first place. I
-could have a look after LPC so we can get rid of !DRM_GPUVM_RESV_PROTECTED
-entirely, which I think would be great.
-
-> Assisted-by: GitHub_Copilot:claude-opus-5
-
-Please use Assisted-by: LLM instead.
-
-> +/**
-> + * DOC: Two pass locking
-
-I think this should say that this is about "preparing" objects and object
-validation.
-
-Maybe "GPUVM EXEC two-pass locking"?
-
-> +static bool
-> +drm_gpuvm_prepare_skip(struct drm_gpuvm_bo *vm_bo,
-> +		       enum drm_gpuvm_exec_pass pass)
-> +{
-> +	drm_gpuvm_pass_assert_held(vm_bo->vm, pass);
-> +
-> +	switch (pass) {
-> +	case DRM_GPUVM_EXEC_PASS_EARLY:
-> +		vm_bo->lock_skipped =3D !READ_ONCE(vm_bo->evicted);
-
-Ick! Not a huge fan of this, but I guess it makes sense. AFAICS this can ra=
-ce
-with drm_gpuvm_bo_evict() though.
-
-> +int
-> +drm_gpuvm_prepare_objects_pass(struct drm_gpuvm *gpuvm,
-> +			       struct drm_exec *exec,
-> +			       unsigned int num_fences,
-> +			       enum drm_gpuvm_exec_pass pass)
-> +{
-> +	if (pass !=3D DRM_GPUVM_EXEC_PASS_ALL &&
-> +	    drm_WARN_ON(gpuvm->drm, !drm_gpuvm_resv_protected(gpuvm)))
-
-drm_WARN_ON_ONCE() seems to make more sense here.
-
-> @@ -1360,6 +1603,10 @@ drm_gpuvm_exec_lock(struct drm_gpuvm_exec *vm_exec=
-)
->  	unsigned int num_fences =3D vm_exec->num_fences;
->  	int ret;
-> =20
-> +	if (vm_exec->two_pass &&
-> +	    drm_WARN_ON(gpuvm->drm, !drm_gpuvm_resv_protected(gpuvm)))
-
-Same here...
-
-> @@ -1422,6 +1680,9 @@ drm_gpuvm_exec_lock_array(struct drm_gpuvm_exec *vm=
-_exec,
->  		unsigned int num_objs;
->  	} args;
-> =20
-> +	if (drm_WARN_ON(vm_exec->vm->drm, vm_exec->two_pass))
-
-...and here.
-
-> +int
-> +drm_gpuvm_validate_pass(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
-> +			enum drm_gpuvm_exec_pass pass)
->  {
->  	const struct drm_gpuvm_ops *ops =3D gpuvm->ops;
-> =20
->  	if (unlikely(!ops || !ops->vm_bo_validate))
->  		return -EOPNOTSUPP;
-> =20
-> +	if (pass !=3D DRM_GPUVM_EXEC_PASS_ALL &&
-> +	    drm_WARN_ON(gpuvm->drm, !drm_gpuvm_resv_protected(gpuvm)))
-
-That's really a lot of !drm_gpuvm_resv_protected() checks needed. :(
-
-> +bool
-> +drm_gpuvm_has_evicted(struct drm_gpuvm *gpuvm, enum drm_gpuvm_exec_pass =
-pass)
-
-The name is a bit confusing, as the scope of the function is limited to an
-exec_pass, but not the VM in general.
-
-Even though a bit verbose, I think drm_gpuvm_exec_pass_has_evicted() is bet=
-ter.
-I'd probably also use the drm_gpuvm_exec_pass prefiy consistently for the
-functions newly introduced for the feature.
-
-> @@ -680,6 +799,18 @@ struct drm_gpuvm_bo {
->  	 */
->  	bool evicted;
-> =20
-> +	/**
-> +	 * @lock_skipped: Indicates that the current &drm_exec transaction does
-> +	 * not hold this &drm_gpuvm_bo's dma-resv, because
-> +	 * %DRM_GPUVM_EXEC_PASS_EARLY skipped it as not needing validation.
-> +	 * Unlike @evicted this is stable for the duration of a locking
-> +	 * sequence, which is what makes it safe for drm_gpuvm_validate_pass()
-> +	 * to key off, and what tells %DRM_GPUVM_EXEC_PASS_LATE which objects
-> +	 * are still missing. Field protected the same way as the &drm_gpuvm's
-> +	 * extobj list.
-> +	 */
-> +	bool lock_skipped;
-
-That's a bit nasty, but it works and I can't think of a cleaner solution.
+Igor
