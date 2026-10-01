@@ -4,65 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E102ACA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6E97CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8F810E33A;
-	Thu,  1 Oct 2026 13:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 214A510E373;
+	Thu,  1 Oct 2026 13:37:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="QWxlbl74";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ap8fwlFG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CCeMtSll";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bmsg7QoY";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1DrlmJS9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9+zRUqF7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="S4unxRWc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1c3ynNbx";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2510110E33A
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:37:51 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB6710E364
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:37:53 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 77E9321A57;
- Thu,  1 Oct 2026 13:37:41 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5593D1FCDC;
+ Thu,  1 Oct 2026 13:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790861865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IU1IGmz/Zs2YU5nNzdx+yfrU4S/GWs8tkSN0HFIgvQA=;
- b=QWxlbl74nZob55th1gnSBrQbb8CplZI3g5L9m4hR+ul77/GKK/at4fKca5XIUF6VBF6cY3
- ZvIosav1FS0FQ9iPiqQJD6r4jsL0WaveVm3+WW5kMHkEfIqAHXiSXl5uZBZtQ1725RGLLw
- 7i9PuJbyCG7e+9GFIGCi/xClL8s9SSw=
+ t=1790861866; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EbPLpreX6eGjQmUmM/w1A6keJ/9bXneRkMYVcc27vQo=;
+ b=1DrlmJS9EwCDOa5e/nOk/zqN46kAbqLqB8+NXshGewnKbTobnofNwFP8QQ5vdw2Ui/FAjM
+ lg0Ff7i+UzAgXFmrzAOVKD+cuhEZtcWgGWP6a+8zgPjj+dfS/sQ+fFYgzxgo7Azh4Pu3u2
+ k4N470+bFhIPvDS+fj3V5NNuBEPgz5E=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790861865;
+ s=susede2_ed25519; t=1790861866;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IU1IGmz/Zs2YU5nNzdx+yfrU4S/GWs8tkSN0HFIgvQA=;
- b=Ap8fwlFGto4xSx0T60nOsxplZP/eSdEd0aOqsqroKxCE56r08efafICDd3W3VUSO/ILRcH
- MEjUFsViyHk6JZAg==
-Authentication-Results: smtp-out1.suse.de;
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EbPLpreX6eGjQmUmM/w1A6keJ/9bXneRkMYVcc27vQo=;
+ b=9+zRUqF7AH03c/Z3TZ2yAEaBOAvOGl5ecinU3V7EUce9bv7W3/iQdCHbcTjXzYAagKUDyO
+ VrEancfxLOjmiACw==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790861861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IU1IGmz/Zs2YU5nNzdx+yfrU4S/GWs8tkSN0HFIgvQA=;
- b=CCeMtSllTJMEbtnRGU2QklQ+QQhsF8KPR+WirgUABqpijGmk8fuPwwN4WhyK0D7HACjcVW
- 1qyboegFeWkSsSfgL4C3dflgNAQlgx16Y6YE5Yd+Zj1uOfUUev07Dmov4VSxur11xfUnFg
- LIW10hNi5xSuaBLhTMmgOr5TrOF9wRQ=
+ t=1790861862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EbPLpreX6eGjQmUmM/w1A6keJ/9bXneRkMYVcc27vQo=;
+ b=S4unxRWc87gV6g/WTw0BOyIn0MxQCFmMRlinU696qQHPN0gxjBmdz2mb0KSuz8uS16DhzD
+ IjS+3/E/UzkGbpUzIAMxVv0wHIk5F3oOL6/OpYrj9/n1JL/Qw/WJ6aZsvmBVOe+RPqFEzh
+ pJpNSScAtteEnOoY1R3PwGVgFd4clEU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790861861;
+ s=susede2_ed25519; t=1790861862;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IU1IGmz/Zs2YU5nNzdx+yfrU4S/GWs8tkSN0HFIgvQA=;
- b=bmsg7QoYSihzmHoyL4bDCC2tON2waM7EwYJnOLk8iE1YFV6UcDMi6IbZqzIEG09Mshonvf
- PMzH9cdIxqSfYBBw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EbPLpreX6eGjQmUmM/w1A6keJ/9bXneRkMYVcc27vQo=;
+ b=1c3ynNbxR4+FDpZkykoKSYmG85mpuV/JIQeUscLmyOUYhfl+QJ0E3ujMllcINxYbf5L5Vt
+ d7ueJ92Cfou4d6Dg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF302134B3;
- Thu,  1 Oct 2026 13:37:40 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3E1E13B7B;
+ Thu,  1 Oct 2026 13:37:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Ih09KyRivmrGOQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:37:40 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ih09KyRivmrGOQAAD6G6ig:T3
+ (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 13:37:41 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com,
@@ -70,24 +78,30 @@ To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
  sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 0/2] drm: Remove simple-display pipe
-Date: Thu,  1 Oct 2026 15:35:36 +0200
-Message-ID: <20261001133736.802604-1-tzimmermann@suse.de>
+Subject: [PATCH 2/2] drm/kms-helper: Remove struct drm_simple_display_pipe and
+ helpers
+Date: Thu,  1 Oct 2026 15:35:38 +0200
+Message-ID: <20261001133736.802604-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261001133736.802604-1-tzimmermann@suse.de>
+References: <20261001133736.802604-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain];
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[15]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
  FREEMAIL_TO(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,microsoft.com,linux.microsoft.com,linuxfoundation.org];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[15];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
+ FROM_EQ_ENVFROM(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
- RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,25 +117,628 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There are no drivers using struct drm_simple_display_pipe left. Remove
-the related helpers from DRM and clear any TODO items. Hyperv-drm needs
-a minor fix to include some additonal headers.
+There are no drivers using struct drm_simple_display_pipe. Remove
+the data type and all related helpers.
 
-Thomas Zimmermann (2):
-  drm/hyperv: Add missing include statements
-  drm/kms-helper: Remove struct drm_simple_display_pipe and helpers
+The idea behind struct drm_simple_display_pipe was to provide an
+easier way for writing DRM drivers besides regular atomic helpers.
+It turned out to be more complicated. With all drivers being updated
+to use atomic helpers, it's time to remove simple-pipe. Also clean
+up the related TODO items.
 
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
  Documentation/gpu/todo.rst              |  17 --
  drivers/gpu/drm/drm_gem_atomic_helper.c |  92 -------
  drivers/gpu/drm/drm_simple_kms_helper.c | 328 ------------------------
- drivers/gpu/drm/hyperv/hyperv_drm.h     |   5 +
  drivers/staging/fbtft/TODO              |   6 +-
  include/drm/drm_gem_atomic_helper.h     |  28 --
  include/drm/drm_simple_kms_helper.h     |  56 +---
- 7 files changed, 10 insertions(+), 522 deletions(-)
+ 6 files changed, 5 insertions(+), 522 deletions(-)
 
-
-base-commit: 9ecc25f4cc83ac280099d6c39e044d911774018d
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index a437ae5c71f4..e6d36f8da086 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -29,23 +29,6 @@ refactorings already and are an expert in the specific area
+ Subsystem-wide refactorings
+ ===========================
+ 
+-Replace struct drm_simple_display_pipe with regular atomic helpers
+-------------------------------------------------------------------
+-
+-The data type struct drm_simple_display_pipe and its helpers were supposed
+-to simplify driver development. Instead they only added an intermediate layer
+-between atomic modesetting and the DRM driver.
+-
+-There are still drivers that use drm_simple_display_pipe. The task here is to
+-convert them to use regular atomic helpers. Search for a driver that calls
+-drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
+-into the driver, such that no simple-KMS interfaces are required. Please also
+-rename all inlined functions according to driver conventions.
+-
+-Contact: Thomas Zimmermann, respective driver maintainer
+-
+-Level: Easy
+-
+ Remove custom dumb_map_offset implementations
+ ---------------------------------------------
+ 
+diff --git a/drivers/gpu/drm/drm_gem_atomic_helper.c b/drivers/gpu/drm/drm_gem_atomic_helper.c
+index dd9efa7e3216..c952cfed84c1 100644
+--- a/drivers/gpu/drm/drm_gem_atomic_helper.c
++++ b/drivers/gpu/drm/drm_gem_atomic_helper.c
+@@ -10,7 +10,6 @@
+ #include <drm/drm_gem.h>
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "drm_internal.h"
+ 
+@@ -367,94 +366,3 @@ void drm_gem_end_shadow_fb_access(struct drm_plane *plane, struct drm_plane_stat
+ 	drm_gem_fb_vunmap(fb, shadow_plane_state->map);
+ }
+ EXPORT_SYMBOL(drm_gem_end_shadow_fb_access);
+-
+-/**
+- * drm_gem_simple_kms_begin_shadow_fb_access - prepares shadow framebuffers for CPU access
+- * @pipe: the simple display pipe
+- * @plane_state: the plane state of type struct drm_shadow_plane_state
+- *
+- * This function implements struct drm_simple_display_funcs.begin_fb_access.
+- *
+- * See drm_gem_begin_shadow_fb_access() for details and
+- * drm_gem_simple_kms_cleanup_shadow_fb() for cleanup.
+- *
+- * Returns:
+- * 0 on success, or a negative errno code otherwise.
+- */
+-int drm_gem_simple_kms_begin_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+-					      struct drm_plane_state *plane_state)
+-{
+-	return drm_gem_begin_shadow_fb_access(&pipe->plane, plane_state);
+-}
+-EXPORT_SYMBOL(drm_gem_simple_kms_begin_shadow_fb_access);
+-
+-/**
+- * drm_gem_simple_kms_end_shadow_fb_access - releases shadow framebuffers from CPU access
+- * @pipe: the simple display pipe
+- * @plane_state: the plane state of type struct drm_shadow_plane_state
+- *
+- * This function implements struct drm_simple_display_funcs.end_fb_access.
+- * It undoes all effects of drm_gem_simple_kms_begin_shadow_fb_access() in
+- * reverse order.
+- *
+- * See drm_gem_simple_kms_begin_shadow_fb_access().
+- */
+-void drm_gem_simple_kms_end_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+-					     struct drm_plane_state *plane_state)
+-{
+-	drm_gem_end_shadow_fb_access(&pipe->plane, plane_state);
+-}
+-EXPORT_SYMBOL(drm_gem_simple_kms_end_shadow_fb_access);
+-
+-/**
+- * drm_gem_simple_kms_create_shadow_plane_state - creates shadow-buffered plane state
+- * @pipe: the simple display pipe
+- *
+- * This function implements struct drm_simple_display_pipe_funcs.create_plane_state
+- * for shadow-buffered planes.
+- *
+- * Returns:
+- * A pointer to a new plane state on success, or an ERR_PTR()-encoded
+- * error code otherwise.
+- */
+-struct drm_plane_state *
+-drm_gem_simple_kms_create_shadow_plane_state(struct drm_simple_display_pipe *pipe)
+-{
+-	return drm_gem_create_shadow_plane_state(&pipe->plane);
+-}
+-EXPORT_SYMBOL(drm_gem_simple_kms_create_shadow_plane_state);
+-
+-/**
+- * drm_gem_simple_kms_duplicate_shadow_plane_state - duplicates shadow-buffered plane state
+- * @pipe: the simple display pipe
+- *
+- * This function implements struct drm_simple_display_funcs.duplicate_plane_state
+- * for shadow-buffered planes. It does not duplicate existing mappings of the shadow
+- * buffers. Mappings are maintained during the atomic commit by the plane's prepare_fb
+- * and cleanup_fb helpers.
+- *
+- * Returns:
+- * A pointer to a new plane state on success, or NULL otherwise.
+- */
+-struct drm_plane_state *
+-drm_gem_simple_kms_duplicate_shadow_plane_state(struct drm_simple_display_pipe *pipe)
+-{
+-	return drm_gem_duplicate_shadow_plane_state(&pipe->plane);
+-}
+-EXPORT_SYMBOL(drm_gem_simple_kms_duplicate_shadow_plane_state);
+-
+-/**
+- * drm_gem_simple_kms_destroy_shadow_plane_state - resets shadow-buffered plane state
+- * @pipe: the simple display pipe
+- * @plane_state: the plane state of type struct drm_shadow_plane_state
+- *
+- * This function implements struct drm_simple_display_funcs.destroy_plane_state
+- * for shadow-buffered planes. It expects that mappings of shadow buffers
+- * have been released already.
+- */
+-void drm_gem_simple_kms_destroy_shadow_plane_state(struct drm_simple_display_pipe *pipe,
+-						   struct drm_plane_state *plane_state)
+-{
+-	drm_gem_destroy_shadow_plane_state(&pipe->plane, plane_state);
+-}
+-EXPORT_SYMBOL(drm_gem_simple_kms_destroy_shadow_plane_state);
+diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/drm_simple_kms_helper.c
+index 5e324c77ad27..1d048282ed50 100644
+--- a/drivers/gpu/drm/drm_simple_kms_helper.c
++++ b/drivers/gpu/drm/drm_simple_kms_helper.c
+@@ -16,10 +16,6 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ 
+-static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup = {
+-	.destroy = drm_encoder_cleanup,
+-};
+-
+ void *__drmm_simple_encoder_alloc(struct drm_device *dev, size_t size,
+ 				  size_t offset, int encoder_type)
+ {
+@@ -28,329 +24,5 @@ void *__drmm_simple_encoder_alloc(struct drm_device *dev, size_t size,
+ }
+ EXPORT_SYMBOL(__drmm_simple_encoder_alloc);
+ 
+-static enum drm_mode_status
+-drm_simple_kms_crtc_mode_valid(struct drm_crtc *crtc,
+-			       const struct drm_display_mode *mode)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->mode_valid)
+-		/* Anything goes */
+-		return MODE_OK;
+-
+-	return pipe->funcs->mode_valid(pipe, mode);
+-}
+-
+-static int drm_simple_kms_crtc_check(struct drm_crtc *crtc,
+-				     struct drm_atomic_commit *state)
+-{
+-	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+-	int ret;
+-
+-	if (!crtc_state->enable)
+-		goto out;
+-
+-	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+-	if (ret)
+-		return ret;
+-
+-out:
+-	return drm_atomic_add_affected_planes(state, crtc);
+-}
+-
+-static void drm_simple_kms_crtc_enable(struct drm_crtc *crtc,
+-				       struct drm_atomic_commit *state)
+-{
+-	struct drm_plane *plane;
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->enable)
+-		return;
+-
+-	plane = &pipe->plane;
+-	pipe->funcs->enable(pipe, crtc->state, plane->state);
+-}
+-
+-static void drm_simple_kms_crtc_disable(struct drm_crtc *crtc,
+-					struct drm_atomic_commit *state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->disable)
+-		return;
+-
+-	pipe->funcs->disable(pipe);
+-}
+-
+-static const struct drm_crtc_helper_funcs drm_simple_kms_crtc_helper_funcs = {
+-	.mode_valid = drm_simple_kms_crtc_mode_valid,
+-	.atomic_check = drm_simple_kms_crtc_check,
+-	.atomic_enable = drm_simple_kms_crtc_enable,
+-	.atomic_disable = drm_simple_kms_crtc_disable,
+-};
+-
+-static struct drm_crtc_state *drm_simple_kms_crtc_duplicate_state(struct drm_crtc *crtc)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->duplicate_crtc_state)
+-		return drm_atomic_helper_crtc_duplicate_state(crtc);
+-
+-	return pipe->funcs->duplicate_crtc_state(pipe);
+-}
+-
+-static void drm_simple_kms_crtc_destroy_state(struct drm_crtc *crtc, struct drm_crtc_state *state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->destroy_crtc_state)
+-		drm_atomic_helper_crtc_destroy_state(crtc, state);
+-	else
+-		pipe->funcs->destroy_crtc_state(pipe, state);
+-}
+-
+-static int drm_simple_kms_crtc_enable_vblank(struct drm_crtc *crtc)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->enable_vblank)
+-		return 0;
+-
+-	return pipe->funcs->enable_vblank(pipe);
+-}
+-
+-static void drm_simple_kms_crtc_disable_vblank(struct drm_crtc *crtc)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(crtc, struct drm_simple_display_pipe, crtc);
+-	if (!pipe->funcs || !pipe->funcs->disable_vblank)
+-		return;
+-
+-	pipe->funcs->disable_vblank(pipe);
+-}
+-
+-static const struct drm_crtc_funcs drm_simple_kms_crtc_funcs = {
+-	.atomic_create_state = drm_atomic_helper_crtc_create_state,
+-	.destroy = drm_crtc_cleanup,
+-	.set_config = drm_atomic_helper_set_config,
+-	.page_flip = drm_atomic_helper_page_flip,
+-	.atomic_duplicate_state = drm_simple_kms_crtc_duplicate_state,
+-	.atomic_destroy_state = drm_simple_kms_crtc_destroy_state,
+-	.enable_vblank = drm_simple_kms_crtc_enable_vblank,
+-	.disable_vblank = drm_simple_kms_crtc_disable_vblank,
+-};
+-
+-static int drm_simple_kms_plane_atomic_check(struct drm_plane *plane,
+-					struct drm_atomic_commit *state)
+-{
+-	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state,
+-									     plane);
+-	struct drm_simple_display_pipe *pipe;
+-	struct drm_crtc_state *crtc_state;
+-	int ret;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	crtc_state = drm_atomic_get_new_crtc_state(state,
+-						   &pipe->crtc);
+-
+-	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+-						  DRM_PLANE_NO_SCALING,
+-						  DRM_PLANE_NO_SCALING,
+-						  false, false);
+-	if (ret)
+-		return ret;
+-
+-	if (!plane_state->visible)
+-		return 0;
+-
+-	if (!pipe->funcs || !pipe->funcs->check)
+-		return 0;
+-
+-	return pipe->funcs->check(pipe, plane_state, crtc_state);
+-}
+-
+-static void drm_simple_kms_plane_atomic_update(struct drm_plane *plane,
+-					struct drm_atomic_commit *state)
+-{
+-	struct drm_plane_state *old_pstate = drm_atomic_get_old_plane_state(state,
+-									    plane);
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->update)
+-		return;
+-
+-	pipe->funcs->update(pipe, old_pstate);
+-}
+-
+-static int drm_simple_kms_plane_prepare_fb(struct drm_plane *plane,
+-					   struct drm_plane_state *state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->prepare_fb) {
+-		if (WARN_ON_ONCE(!drm_core_check_feature(plane->dev, DRIVER_GEM)))
+-			return 0;
+-
+-		WARN_ON_ONCE(pipe->funcs && pipe->funcs->cleanup_fb);
+-
+-		return drm_gem_plane_helper_prepare_fb(plane, state);
+-	}
+-
+-	return pipe->funcs->prepare_fb(pipe, state);
+-}
+-
+-static void drm_simple_kms_plane_cleanup_fb(struct drm_plane *plane,
+-					    struct drm_plane_state *state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->cleanup_fb)
+-		return;
+-
+-	pipe->funcs->cleanup_fb(pipe, state);
+-}
+-
+-static int drm_simple_kms_plane_begin_fb_access(struct drm_plane *plane,
+-						struct drm_plane_state *new_plane_state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->begin_fb_access)
+-		return 0;
+-
+-	return pipe->funcs->begin_fb_access(pipe, new_plane_state);
+-}
+-
+-static void drm_simple_kms_plane_end_fb_access(struct drm_plane *plane,
+-					       struct drm_plane_state *new_plane_state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->end_fb_access)
+-		return;
+-
+-	pipe->funcs->end_fb_access(pipe, new_plane_state);
+-}
+-
+-static bool drm_simple_kms_format_mod_supported(struct drm_plane *plane,
+-						uint32_t format,
+-						uint64_t modifier)
+-{
+-	return modifier == DRM_FORMAT_MOD_LINEAR;
+-}
+-
+-static const struct drm_plane_helper_funcs drm_simple_kms_plane_helper_funcs = {
+-	.prepare_fb = drm_simple_kms_plane_prepare_fb,
+-	.cleanup_fb = drm_simple_kms_plane_cleanup_fb,
+-	.begin_fb_access = drm_simple_kms_plane_begin_fb_access,
+-	.end_fb_access = drm_simple_kms_plane_end_fb_access,
+-	.atomic_check = drm_simple_kms_plane_atomic_check,
+-	.atomic_update = drm_simple_kms_plane_atomic_update,
+-};
+-
+-static struct drm_plane_state *
+-drm_simple_kms_plane_create_state(struct drm_plane *plane)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->create_plane_state)
+-		return drm_atomic_helper_plane_create_state(plane);
+-
+-	return pipe->funcs->create_plane_state(pipe);
+-}
+-
+-static struct drm_plane_state *drm_simple_kms_plane_duplicate_state(struct drm_plane *plane)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->duplicate_plane_state)
+-		return drm_atomic_helper_plane_duplicate_state(plane);
+-
+-	return pipe->funcs->duplicate_plane_state(pipe);
+-}
+-
+-static void drm_simple_kms_plane_destroy_state(struct drm_plane *plane,
+-					       struct drm_plane_state *state)
+-{
+-	struct drm_simple_display_pipe *pipe;
+-
+-	pipe = container_of(plane, struct drm_simple_display_pipe, plane);
+-	if (!pipe->funcs || !pipe->funcs->destroy_plane_state)
+-		drm_atomic_helper_plane_destroy_state(plane, state);
+-	else
+-		pipe->funcs->destroy_plane_state(pipe, state);
+-}
+-
+-static const struct drm_plane_funcs drm_simple_kms_plane_funcs = {
+-	.update_plane		= drm_atomic_helper_update_plane,
+-	.disable_plane		= drm_atomic_helper_disable_plane,
+-	.destroy		= drm_plane_cleanup,
+-	.atomic_create_state	= drm_simple_kms_plane_create_state,
+-	.atomic_duplicate_state	= drm_simple_kms_plane_duplicate_state,
+-	.atomic_destroy_state	= drm_simple_kms_plane_destroy_state,
+-	.format_mod_supported   = drm_simple_kms_format_mod_supported,
+-};
+-
+-int drm_simple_display_pipe_attach_bridge(struct drm_simple_display_pipe *pipe,
+-					  struct drm_bridge *bridge)
+-{
+-	return drm_bridge_attach(&pipe->encoder, bridge, NULL, 0);
+-}
+-EXPORT_SYMBOL(drm_simple_display_pipe_attach_bridge);
+-
+-int drm_simple_display_pipe_init(struct drm_device *dev,
+-			struct drm_simple_display_pipe *pipe,
+-			const struct drm_simple_display_pipe_funcs *funcs,
+-			const uint32_t *formats, unsigned int format_count,
+-			const uint64_t *format_modifiers,
+-			struct drm_connector *connector)
+-{
+-	struct drm_encoder *encoder = &pipe->encoder;
+-	struct drm_plane *plane = &pipe->plane;
+-	struct drm_crtc *crtc = &pipe->crtc;
+-	int ret;
+-
+-	pipe->connector = connector;
+-	pipe->funcs = funcs;
+-
+-	drm_plane_helper_add(plane, &drm_simple_kms_plane_helper_funcs);
+-	ret = drm_universal_plane_init(dev, plane, 0,
+-				       &drm_simple_kms_plane_funcs,
+-				       formats, format_count,
+-				       format_modifiers,
+-				       DRM_PLANE_TYPE_PRIMARY, NULL);
+-	if (ret)
+-		return ret;
+-
+-	drm_crtc_helper_add(crtc, &drm_simple_kms_crtc_helper_funcs);
+-	ret = drm_crtc_init_with_planes(dev, crtc, plane, NULL,
+-					&drm_simple_kms_crtc_funcs, NULL);
+-	if (ret)
+-		return ret;
+-
+-	encoder->possible_crtcs = drm_crtc_mask(crtc);
+-	ret = drm_encoder_init(dev, encoder, &drm_simple_encoder_funcs_cleanup,
+-			       DRM_MODE_ENCODER_NONE, NULL);
+-	if (ret || !connector)
+-		return ret;
+-
+-	return drm_connector_attach_encoder(connector, encoder);
+-}
+-EXPORT_SYMBOL(drm_simple_display_pipe_init);
+-
+ MODULE_DESCRIPTION("Helpers for drivers for simple display hardware");
+ MODULE_LICENSE("GPL");
+diff --git a/drivers/staging/fbtft/TODO b/drivers/staging/fbtft/TODO
+index e72a08bf221c..72df3ea3a52c 100644
+--- a/drivers/staging/fbtft/TODO
++++ b/drivers/staging/fbtft/TODO
+@@ -1,3 +1,3 @@
+-* convert all these over to drm_simple_display_pipe and submit for inclusion
+-  into the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any new
+-  drivers anymore.
++* convert all these over to DRM and submit thme for inclusion into
++  the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any
++  new drivers anymore.
+diff --git a/include/drm/drm_gem_atomic_helper.h b/include/drm/drm_gem_atomic_helper.h
+index d41877f77b77..f605a8a7b017 100644
+--- a/include/drm/drm_gem_atomic_helper.h
++++ b/include/drm/drm_gem_atomic_helper.h
+@@ -9,8 +9,6 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_plane.h>
+ 
+-struct drm_simple_display_pipe;
+-
+ /*
+  * Plane Helpers
+  */
+@@ -126,30 +124,4 @@ void drm_gem_end_shadow_fb_access(struct drm_plane *plane, struct drm_plane_stat
+ 	.begin_fb_access = drm_gem_begin_shadow_fb_access, \
+ 	.end_fb_access = drm_gem_end_shadow_fb_access
+ 
+-int drm_gem_simple_kms_begin_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+-					      struct drm_plane_state *plane_state);
+-void drm_gem_simple_kms_end_shadow_fb_access(struct drm_simple_display_pipe *pipe,
+-					     struct drm_plane_state *plane_state);
+-struct drm_plane_state *
+-drm_gem_simple_kms_create_shadow_plane_state(struct drm_simple_display_pipe *pipe);
+-struct drm_plane_state *
+-drm_gem_simple_kms_duplicate_shadow_plane_state(struct drm_simple_display_pipe *pipe);
+-void drm_gem_simple_kms_destroy_shadow_plane_state(struct drm_simple_display_pipe *pipe,
+-						   struct drm_plane_state *plane_state);
+-
+-/**
+- * DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS -
+- *	Initializes struct drm_simple_display_pipe_funcs for shadow-buffered planes
+- *
+- * Drivers may use GEM BOs as shadow buffers over the framebuffer memory. This
+- * macro initializes struct drm_simple_display_pipe_funcs to use the rsp helper
+- * functions.
+- */
+-#define DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS \
+-	.begin_fb_access = drm_gem_simple_kms_begin_shadow_fb_access, \
+-	.end_fb_access = drm_gem_simple_kms_end_shadow_fb_access, \
+-	.create_plane_state = drm_gem_simple_kms_create_shadow_plane_state, \
+-	.duplicate_plane_state = drm_gem_simple_kms_duplicate_shadow_plane_state, \
+-	.destroy_plane_state = drm_gem_simple_kms_destroy_shadow_plane_state
+-
+ #endif /* __DRM_GEM_ATOMIC_HELPER_H__ */
+diff --git a/include/drm/drm_simple_kms_helper.h b/include/drm/drm_simple_kms_helper.h
+index 2b31c25c57a9..beb5c8a19bb7 100644
+--- a/include/drm/drm_simple_kms_helper.h
++++ b/include/drm/drm_simple_kms_helper.h
+@@ -11,61 +11,9 @@
+ #ifndef __LINUX_DRM_SIMPLE_KMS_HELPER_H
+ #define __LINUX_DRM_SIMPLE_KMS_HELPER_H
+ 
+-#include <drm/drm_crtc.h>
+-#include <drm/drm_encoder.h>
+-#include <drm/drm_plane.h>
++#include <linux/types.h>
+ 
+-struct drm_simple_display_pipe;
+-
+-struct drm_simple_display_pipe_funcs {
+-	enum drm_mode_status (*mode_valid)(struct drm_simple_display_pipe *pipe,
+-					   const struct drm_display_mode *mode);
+-	void (*enable)(struct drm_simple_display_pipe *pipe,
+-		       struct drm_crtc_state *crtc_state,
+-		       struct drm_plane_state *plane_state);
+-	void (*disable)(struct drm_simple_display_pipe *pipe);
+-	int (*check)(struct drm_simple_display_pipe *pipe,
+-		     struct drm_plane_state *plane_state,
+-		     struct drm_crtc_state *crtc_state);
+-	void (*update)(struct drm_simple_display_pipe *pipe,
+-		       struct drm_plane_state *old_plane_state);
+-	int (*prepare_fb)(struct drm_simple_display_pipe *pipe,
+-			  struct drm_plane_state *plane_state);
+-	void (*cleanup_fb)(struct drm_simple_display_pipe *pipe,
+-			   struct drm_plane_state *plane_state);
+-	int (*begin_fb_access)(struct drm_simple_display_pipe *pipe,
+-			       struct drm_plane_state *new_plane_state);
+-	void (*end_fb_access)(struct drm_simple_display_pipe *pipe,
+-			      struct drm_plane_state *plane_state);
+-	int (*enable_vblank)(struct drm_simple_display_pipe *pipe);
+-	void (*disable_vblank)(struct drm_simple_display_pipe *pipe);
+-	struct drm_crtc_state * (*duplicate_crtc_state)(struct drm_simple_display_pipe *pipe);
+-	void (*destroy_crtc_state)(struct drm_simple_display_pipe *pipe,
+-				   struct drm_crtc_state *crtc_state);
+-	struct drm_plane_state * (*create_plane_state)(struct drm_simple_display_pipe *pipe);
+-	struct drm_plane_state * (*duplicate_plane_state)(struct drm_simple_display_pipe *pipe);
+-	void (*destroy_plane_state)(struct drm_simple_display_pipe *pipe,
+-				    struct drm_plane_state *plane_state);
+-};
+-
+-struct drm_simple_display_pipe {
+-	struct drm_crtc crtc;
+-	struct drm_plane plane;
+-	struct drm_encoder encoder;
+-	struct drm_connector *connector;
+-
+-	const struct drm_simple_display_pipe_funcs *funcs;
+-};
+-
+-int drm_simple_display_pipe_attach_bridge(struct drm_simple_display_pipe *pipe,
+-					  struct drm_bridge *bridge);
+-
+-int drm_simple_display_pipe_init(struct drm_device *dev,
+-			struct drm_simple_display_pipe *pipe,
+-			const struct drm_simple_display_pipe_funcs *funcs,
+-			const uint32_t *formats, unsigned int format_count,
+-			const uint64_t *format_modifiers,
+-			struct drm_connector *connector);
++struct drm_device;
+ 
+ void *__drmm_simple_encoder_alloc(struct drm_device *dev, size_t size,
+ 				  size_t offset, int encoder_type);
 -- 
 2.55.0
 
