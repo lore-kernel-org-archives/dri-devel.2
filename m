@@ -4,164 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3164CA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 10:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D462DCA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 10:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2E5310F5F9;
-	Thu,  1 Oct 2026 10:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E3B10F602;
+	Thu,  1 Oct 2026 10:23:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gxGwP4r+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MIrt2Iam";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RSaKobFV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E80D710E14A;
- Thu,  1 Oct 2026 10:21:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790850107; x=1822386107;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=HVJclnFbLGdkCL4c68Af7aq/z7WFbfwKzpxIWnJ8pH0=;
- b=gxGwP4r+9XVlz1pyn28jTRhtcYKteLQ0Fbt64r1qAQ7n5bSbbHdc+Tgk
- T3UYOKIgrhTaRyOqnsu/xQLX1lin0tmTZaqz2bK1UeHfOrMHg6jWAkalN
- gC1/LQ6X2APDftdUbaZGKVlOZFKT56kGnJIa+4S+TmltMsIpbPWEvswA3
- PcTm6o5hqHMQ/Tfu3iGOT+ZohJhIJiqiGHdmzfkz+ziFsNCn1xPRCwcPB
- 9EP0EbIpu/+rB0DNzKjzz7qpWdkGwN7wMvgcPySCAgtu2daZef6I9HS4k
- u72bxUPqAk3r02kEVAZ2LH5CCd44P0icvEkI8d9krqfrMid16WakBAQ6z w==;
-X-CSE-ConnectionGUID: HY9fg2dYSjytII24SmFnRQ==
-X-CSE-MsgGUID: uEO/g665TICWEo2eXAYSlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="79162744"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="79162744"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 03:21:46 -0700
-X-CSE-ConnectionGUID: +6nCuMFjQ4qY5D/j3R00yA==
-X-CSE-MsgGUID: W0bQG3ZbRSCjtG+VeI7EoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="272386776"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 03:21:46 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 03:21:45 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 03:21:45 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.44) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 03:21:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t1GfNaJ25R68KkKrZNGrXwdW5DHFp2bf8yzShmfUsh0mq4yV+tRL1B2Kc7Yzt+x8L5pec0RQLeQf4V6KNuK2IS070EeQGCtQMVarDvA15+5IOIY5z7m30/irduDu9ZLNTM8ZDdxaT6moWIhE0/u9Cdn4XyhQ/dCep+bR1JB4zm9G9x5xhEV4X90XdFbjwQMFQQCDogbKrcouC0wEsIqgstEfdItZci1GqfJm8uuOfqKNW6M21LX6FzbrUVWzgQLoAhn6jn5CaZfnX2ZU/8nXkjWBweNgwarn3Q/Et1uuqRCbB4hh7T2EzC6u7mzCnV0Lh0DyS89EF1/0qbaEH2K8Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XSOeASaclkiaBYg4LcaVh3nuUXxNXCmhW0mrUVdl9E4=;
- b=hYdpXRRCIaoFJEHEL8P/vbbOfY7AgN7ec/8AuxlwRkNcNd7Ks86qzzrg1cPQNIPFl7lTPEuvXtTnc3sRCcZnO9LJsdZcfApVv/Of4iXif+RVWg+Hv5I/HgpORFSRP8sSE3QFU4V0ljLZRjEojmwvnU4Y18d7+kilgXn4dycWLwpx7WKpNbS2kshbA8sFnwbS68SL7A7DWKKBPHR5e8/UaBA8fba8+/lET0a+kkZ9En5qvcX3j+OS89qBH4rR3GJBQb3XD0UzZBmxczxFCvVyox/VMU1zElcTwV2oVUvMW8FkRyeQRizrtbXqWKbQdVjauxxjDV8CgWjMggBhgPWndQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by LV2PR11MB528201.namprd11.prod.outlook.com (2603:10b6:408:40f::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 10:21:44 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 10:21:43 +0000
-Date: Thu, 1 Oct 2026 10:21:29 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <iommu@lists.linux.dev>, Andi Shyti <andi.shyti@linux.intel.com>, "Robin
- Murphy" <robin.murphy@arm.com>, =?utf-8?Q?Micha=C5=82?= Grzelak
- <michal.grzelak@intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v6 4/7] iommu/dma: Catch scatterlist length overflows
-Message-ID: <jhhax2joj7vgernd4vh5oidwm4onzwncb54eyjlisw6ub2oyq4@wkjijoachhh4>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260902082525.1149367-1-krzysztof.karas@intel.com>
- <20260902082525.1149367-5-krzysztof.karas@intel.com>
- <aqMrxRny29Kbtkdq@zenone.zhora.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <aqMrxRny29Kbtkdq@zenone.zhora.eu>
-X-ClientProxiedBy: TLZP290CA0002.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:9::8)
- To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D5210F601
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 10:23:49 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6916xgQB962581
+ for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 10:23:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=yzAz2SWMqrTWqYRsucc7HPMS
+ f2cC52cQm3KTbr2oPBs=; b=MIrt2IameCE0cj5sY1K8wpPRBmwy65JqkGjc1Qsp
+ prgKmPwhBAAB6qFYeHuDUQMpfCYM4x6X1BVIKr+3XO0g/lkaW8PeRlGdzGN9Sqwu
+ HZkmowlmhOIWGYgd+I3u3rTAZb7bTa7zaa9zn9yP628KQX3pCW3c+Gv2kF/RWdKj
+ 5Hpz8FktqStmcNBdS6HuXDy8ZigDmmvwqAuNhqoL5TdfEZRAct9V51WA2dmjoyFI
+ x84w0mQr80Vww7ZLFxvkLwOGd3U6IbQLAirCaDg20JbOnSNgxzgZt6mTXnPy2+LQ
+ sCi/ZTypQqPDvRnlduXsOjQgn9qGGvYO5YIgm93lWg5uHA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wcup0h-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 10:23:48 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-936708f129aso1273425585a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 03:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790850228; x=1791455028;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=yzAz2SWMqrTWqYRsucc7HPMSf2cC52cQm3KTbr2oPBs=;
+ b=RSaKobFV7jlrZfEaqKuJjgUEjLub07nu++rLlm6zYIzNTVUgzgHHoClbzgBTcXOcGZ
+ cHTFLMzikICNEluSgVZ04mgsYo9LM5Eb0YqB5RoDrg/gDnIdSpCb993Ai127DpADlUlO
+ DuTjAn/eJc2X1Qu25rhxRtIu93y3++tPA5LNsKok97cQUf2CyY/xDB1Q/VY8FLOOrzkz
+ tQyQ9QHRlH8Isqhu/oF18THkLBlbfp8e0seSSHYW2WzRFKV9SsaRM5U2yg9+YdVWAXPu
+ pVm8U5d+FcHSZosuHeB6TalsK+kq2tIfu72Uut4kB3wre5uma8Zmj14CuaYwHxC9NN4W
+ pTMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790850228; x=1791455028;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=yzAz2SWMqrTWqYRsucc7HPMSf2cC52cQm3KTbr2oPBs=;
+ b=YKdJznHwNSsqQHgz+STY8IbEM4v6TJ5OpjnxfRqCnH/3/GwGPGhvB5yjBoMDSHvxtC
+ GBnaww++NKZTAnHvjonHZISBHK9ZAOiJxMywLu0TV67+vgKaDOS6YrO1HVk8wfswl2ug
+ 7xtFdw4iQ4oqtz7xSL8w5vK2pEVHi/bO0TedOTycIbjLG8p5G7um7MaR/8ikHk746Zyt
+ 5LWMM8hXiCKpVv4pK8JrznG8PXuqzK9uxPDDVYGJ/RNGiIJ+OsS5ZyIRivvZX7mw05jU
+ Vfroxo5vZeyK6Y025yDiOa5XZwHkYS9mgnppdE+qAM84K2f5hfLyJV+ODumZQfTq/hfd
+ G7fA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxISsYLba6VLRPeEjTUCB3I2dqbvFfjW7YuY8YikAEF6OBNUn4tgeU0Ed3CdCyZK9tvMa8Cw0cRruc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n8YM5GsuKzhV81DsWauvXuUVFnSyLVouVuF5XgRLa46w2dgKnq
+ Hplae19RBxLwsheq8Eb+nnDqcCoEDQtvGoJ2SBqGCswkXoZsmBrpjdXe60ZkzOm+FYuxRxdbBhV
+ ta/FX8tOf3puDSFB+xgtX8ZbVIHZ2Fz/TbWXRbi0doDS6VslmQGjzl0J7xP9s1WcVXjOAmqU=
+X-Gm-Gg: AYBFou11e1MUYBtaMLRXb+Y7VrjC8t7ybfr/fN2gPBUh3uZ+moWJdUvFQ9cXXPD9P0l
+ TC7MpzPl3rg+oxevC+/9zOB5hc8rfdI+IgF3uEWoIWMHz318IWbE+/NyFoyK10Ve28436yQ7Ca4
+ MJT4kzHQAmX5kAFnQIExRnb43WfgspffRVfbsjnPbzgNClneCRWEI5g9QJz4+YgPt88BLH9q7ya
+ +I3k6cAsHTYjbYzS47RgYputGYryJBfWYcZsZ/d4B9X0eytaqdXrQmu4twZDcPX6r5k9KyqRIHY
+ 3qKe4yvaTR6OlGhRPiG1u+wM3Ko7VH7xfEqlCntjk0VQCk1oeXO9VBQtP5uCYnhrsHWb+IuQfHs
+ AhQKMBt5Z8DxHL8COAZLpEmi6ZH1eI/OOomzufR1WLCyNXcke//vdA/YTlhYHQpJdj7gyDRMi7G
+ rKYY3nozQ4eDCJ
+X-Received: by 2002:a05:620a:6844:b0:939:5f4d:67b0 with SMTP id
+ af79cd13be357-93cabf2a14emr658671985a.8.1790850227813; 
+ Thu, 01 Oct 2026 03:23:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:6844:b0:939:5f4d:67b0 with SMTP id
+ af79cd13be357-93cabf2a14emr658668585a.8.1790850227258; 
+ Thu, 01 Oct 2026 03:23:47 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ba42fc529dsm618361e87.80.2026.10.01.03.23.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2026 03:23:46 -0700 (PDT)
+Date: Thu, 1 Oct 2026 13:23:44 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+Subject: Re: [PATCH v7 04/35] drm/msm/dp: introduce stream_id for each DP panel
+Message-ID: <cef7gvd3v3oosjsgtoij2m2doaddnlrt3q7gaq7t7ih5w3em5l@a562vfmjv7y6>
+References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
+ <20260929-msm-dp-mst-v7-4-4b81473185e7@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|LV2PR11MB528201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 417ff8d4-371e-406b-c9ec-08df1fa5ca5c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|4143699003|10067099003|56012099006|11063799006|22082099003|18002099003|7136999003;
-X-Microsoft-Antispam-Message-Info: ySk3vTO10VgP6bbVDf7TptOZA063h+uUXRGCYQwJLiNEGEQMX8o/pSqoqMljBy43FagBksVJm6PQmZJ7iCp42XP5KJmMZpJNsK+wTshUTzIsmORWbRWJjwJx1Sxl6LVgTtsINSZ8uCd7hHEW56s+XuyukxysInBBu1FJB2UyJX2Uj9YZWHGbjpUZF++FclFZgSmKm13W4ARW2EqYMaMr6qG5Qh9i2Ln+7+474H7w3zOuEehw0gFScGzX+02n/IMfM/V7B0V3qWIk7dyvGIM2s6rvDsDOl3gK7cpY5SIRaF+hBbdhYn/DOpXqWME/1YR99pVeEtF9KSLsUfK2Te5una142vr2V0IeN9yYuVUeaSmASDx3VI65Q5LzoFMBdT6vTd/3q/NyAj542Aq0BXsW12Gd5U2sDziToTOOxwb2/+4meUu72FB3RLwuDkcRri9cuyWyJLfuic7uS/lOPGrar20Bmho0NfNQtFmvbhtwsEfcsQVrpGWu/25Z6si5evm6Fp6uJOCOewRAFFAbtchHuY5OmZxyugTSqC6KaG7BsTraNs09ZKpAnz7ISTXMfRzmaMaPdzwMOr9E+xSo6jloda8EbiBYpVhBYeKkbRrD90Ew6ZglyJsXLv7dA82qn947+u1WKVU4+zwBkQDsmU68n0MV+8sl0zKk5J/lxoaNzKc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(4143699003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(7136999003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFhiNFF5a1hOOGo5czRYNWN5aTN6SEpzKzJUYzVpL0NmNCt5NlpoRFlRUm9M?=
- =?utf-8?B?eUp1Sjc0VFFjWjNjZW55QUY0T0xCaTUwcW0yVENHRysrMndvQ3MxZll2RVhr?=
- =?utf-8?B?RS91SWxqd3p0QjMvMGV3VFdudEJmZVZCQklMcHBkSzhvUjY5TVVsZ2hMSXR4?=
- =?utf-8?B?eVYrZ0d1aiszNWFYVkhGR09JRmxDcFRVaGFnM05sUWQvSnBDWHAzNDU3dlAz?=
- =?utf-8?B?RU9JeXNUazN0c2U2YnZ5Ky9tZzRyUU1JQVdqanZnYm5NMU1nU2ZzSVVGRk9W?=
- =?utf-8?B?VVFESVNzV0xVMjdmMlUzemlNZUJ5Vm42OWR6N1ZPSHJOSS8yOHpQK3RTRkVL?=
- =?utf-8?B?ek1vZ1JIWUl4YnhkMnpVYkFOcm9jRTE4c3hvMzNlQkNtbnpQQk8xeDdUaGZx?=
- =?utf-8?B?MWIzUUptcVFQVXZxNUxPWU44SE5kKzFCNnM2WXdSeFZzT3NUb0lwd3E4ZzNP?=
- =?utf-8?B?YVUrVW5VVDV6aVF3c3NYSFV0bmlDVjRrdjVsUmQ5WFljbEtwT2tIcG5lUnFH?=
- =?utf-8?B?djVUSHMrb29TdkxBVzByOVkraDJ5MXZ3UElzZFZFZ2gzeHR2MTVCai9qVHFL?=
- =?utf-8?B?bFA5Q2h0RmFCbmZ3c1NDdEtMMlA4WTZUN1hXSTFmeXhZMmgzRWtSbzRKVUJH?=
- =?utf-8?B?ZmVlYldZUTFxbFRpS3ZOTFpMQm1yUmpVdzFLRWNUSEs2NE0zVER3NzZZQ0Nv?=
- =?utf-8?B?QUxvOUFRNng4aEVNSUZrYnFCZTMwakZXd2ZabE95Y2J6YmZLQWhvWWJ1cUQ5?=
- =?utf-8?B?SmdUdVZsbi9qN3VSVFN3YkZ3R0dUQ2k3Uk5hdGsyQnBDSkQxZW1ieDRTZ1p1?=
- =?utf-8?B?eXdhNlVQOWRzeFFWVWRoSm5HZDV6NGtXL084VHJQWUxTd2ZKSU5Rc3IxS2Vt?=
- =?utf-8?B?RFJFQll1SURzKzNyVFNhdUl1YWxwNXpqZVd4NElwWE1mQ0VSM0VBZ2RDOWdN?=
- =?utf-8?B?SlFVeWtqZzV2cEpTbEk5YmIyYWdmN2xpNjlCS2xzUG5qVVRmTFFYb1NvVXpP?=
- =?utf-8?B?YXdFYzdGbEhvejA5MkZmUGoxQTB6djR6NkNwK0JYRDBUTjVyMitHUDZIL3RV?=
- =?utf-8?B?d0Z3Y0hPZ2JldWUrdHNGS0thOHBOUlZYcFVMWFFKaHpJNTcyZzAwNVZRQnVs?=
- =?utf-8?B?U2hLbmtObGtFK3JxZmM0aTFFczBKT25VcWJzczZ2bkVEdnQ0WjZoVXNJT0lT?=
- =?utf-8?B?VWNVZSszL0xnc0pDQkRSaUoyRklQVUV1R3AzRFJrdndGMW9xUVBkazJZcFVu?=
- =?utf-8?B?NkhFN3B4UVVNbWhSRno1SllDYWViSjVWSTkzV1hTRFdMTXh0UnphNHBOZWsz?=
- =?utf-8?B?Y1VBWHRFVkJKOHdTMXJTWGhtWnVKOUpmdXNEaFdhQkVPUUQ0RDN1bDRqVWph?=
- =?utf-8?B?enFXY3M0MCtyMVNnbWJWdWZucmpYTlVoT3BUemUzbll2NHBidmRGV2RGSDkv?=
- =?utf-8?B?K0lrMWZmeksrcXR0TzJoWk5QdGhxS3UzSWswQ28xdi9YTEZxdDRNUmpGRitv?=
- =?utf-8?B?QUVsOWN6OHVxZlBEMjVSWUVQRzF4eWlnWkdYd3I0Nnd1VlFKenNNNUo1ME5a?=
- =?utf-8?B?VFdveW5RalR3T25BaTRBbmlXUXAwRG42UXZiNWxRWVo4VzJNeDdoTkhTNExK?=
- =?utf-8?B?dERPbkRhdy9WNlFmUVlldCtRNWlrMHhFcFg3aXM5bzZqUGM1MlBnYkRZRkNK?=
- =?utf-8?B?Smd5OTA5VzFOMGZ4VkREMWdFMWVqQzBINnlxN3EwLzRscFE2L0FLa2pMZm9T?=
- =?utf-8?B?WWN6V3ljUktvZitqVm5XUWhhbHJnVkNrQm5XS3NIWk1hRjljSHJlWGtsU1lj?=
- =?utf-8?B?MnU4K0UvMUEydk1WNCtKU1FZOGJkWW5lejBhMkE2WkVoTGNWdDFna1kxNEJQ?=
- =?utf-8?B?bjU1OC9JZ012Z3A0WjhoNzIzc0xKcml1aE1lWlZNWEN4OGRoOFc4akd0V3Jz?=
- =?utf-8?B?VnVIRXo5S3ZQL1hPR2dyODZYdkdXQjFCUnlKYjhZTHY2Wis5aG9NeFIrbWRn?=
- =?utf-8?B?NkljbXpuOWhNSFFtM2JLQVZYTVljMDNYNGpLb3QrK2FWOXhkVFlsSDNSWlBo?=
- =?utf-8?B?c3cxOFlUNlVIR2FkMllnZllhUDhrZEM0cWhOaCthdi8xMHpwWTRkc1RPZmVm?=
- =?utf-8?B?NDBiYTdLdEM3Y3BQbTFhdm9QcHlxcVJyUmpWWnVNR2lxL1BWSjdoelFaYTVJ?=
- =?utf-8?B?aWRWSlozdXd5MzBvTjNmN2dUUU9OM2liMmtjLzRjY1haRXRxSTEwL3ZkeTdL?=
- =?utf-8?B?a1hRTXlEZmNuQTlLUGhTRE52YkgzUTlCK2xQYlVhQm5QV09DeURBWHhWS3Jn?=
- =?utf-8?B?ZjNxcmUraTVDN21MNHJwalBnd0dtM0wzSkNtd2tFV1NZU3RnbHIxZGhBbExs?=
- =?utf-8?Q?/PgSbMOZmqiWj5jw=3D?=
-X-Exchange-RoutingPolicyChecked: yoDPg5vj/vK7lZMvKc20O33VKo+yNeSPGOT4/XnJAFmq1vfWxu4ud6+8Khx3+pBkC/7Lpm9xVWS+Yasj/370dFtUKDZQ7MTdvhJyI+AOSTYweERIpCTbwpK5fzfFjXlXJXKzgGbPZedf0Od5GzZQ03W8GHItYdWDjzX/8bgdHLeMPHTpgNDHfJWlS0X7vRwIGps6YHJLKX4waYFaV/uLqA/gi4FW2Xoa1oaa3mcYPT7V+uWBuoUXXKtVfju3taWt/x5olbVEjQ3/7nPq/u4gLXTBsFFDZ5bK+GkeHn/NnH3M8ApL3XH1ms0VcYUzdqOYkF6iZrlqXBcTy3VECSD3Cg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 417ff8d4-371e-406b-c9ec-08df1fa5ca5c
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 10:21:43.6819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: plvNtXPnhWJjVa4zOz5wClXSJwJdnM57yZeA4KOgydkYdJKlyO52wdgLslplDF0vI0I8hX6ovz7xwGgnS20S6q3AJrZVYrZTiXna7PWczEU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB528201
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-msm-dp-mst-v7-4-4b81473185e7@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfX1DCs6MeVQhil
+ Zqwn/8wOlaJXfx+/oL2K+nA9B9IYZ29t+mztxVxo3niedTymu4IoEdluRw6EjyBnaYsVAUS600W
+ dl2gaCjgsG0+jpaJ/kMRWwA/xLUnGQPvJfwydKclbxZ6ZE/I2m6O2XaXuSiA0TalTAmHZlE1rZU
+ Zzb4B++aGyGxEl9jgJY3L6Pr0OE18VkutF8rDe4WTKIRKeqQ1jolcKcDzsXz21nNYQy2yh9cVMU
+ sbc1kdzCNAHcG1B9yQbsE/Geu3x6hOU7CHyq7yXYmTOM2wix18rgPgtl/V399xZS8Nxj24eLxPb
+ SWAiXDNbg5C2OxNb+lIjw+Jd/oRIHH5CU1lDRsNIi5cHkbWNLT2muPWcLtraRKVtMNHwb7nl1sQ
+ lynAMgRi2rkG3GgDDYTeo/1eEtjJOzqHW4GvPOJyhJE8oV90YJOhjRY9vd86Idobh/ydA594uhW
+ IO2KBxrOy3iNwnILQcg==
+X-Proofpoint-GUID: omby20yqZB5dccVoQb9UcMSjcPsGgDRE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MSBTYWx0ZWRfX32+hMjjIvjyZ
+ 7N4OTERvMI4OldMQVfWhCdRbT6nBfLZu6LaILMdHpEfugeBIpkexKHwNcIAZlqtAQ1BWG582PMw
+ yjYFxWa86s6AgJibM0JfnHpKZSHZjtQ=
+X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abe34b4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=einhxy-9zUKzVd8CT48A:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: omby20yqZB5dccVoQb9UcMSjcPsGgDRE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010041
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,58 +150,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Andi,
+On Tue, Sep 29, 2026 at 12:25:28PM +0800, Yongxing Mou wrote:
+> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> With MST, each DP controller can handle multiple streams. There shall be
+> one dp_panel for each stream but the dp_display object shall be shared
+> among them. To represent this abstraction, add a stream_id field to
+> struct msm_dp_panel and introduce the msm_dp_stream_id enum. For SST,
+> the field is initialized to DP_STREAM_0.
+> 
+> In the MST path, each panel will be assigned an actual stream_id at
+> stream-enable time by the MST layer (added in later patches).
+> 
+> Use the stream ID to control the pixel clock of that respective stream by
+> extending the clock handles and state tracking of the DP pixel clock to
+> an array of max supported streams. The maximum streams currently is 4.
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 70 +++++++++++++++++++++++--------------
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_panel.c   |  1 +
+>  drivers/gpu/drm/msm/dp/dp_panel.h   | 11 ++++++
+>  5 files changed, 57 insertions(+), 29 deletions(-)
+> 
 
-On 2026-09-11 at 00:21:15 +0200, Andi Shyti wrote:
-> Hi Krzysztof,
-> 
-> ...
-> 
-> > @@ -1477,6 +1477,10 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
-> >  		sg_dma_len(s) = s_length;
-> >  		s->offset -= s_iova_off;
-> >  		s_length = iova_align(iovad, s_length + s_iova_off);
-> > +		if (overflows_type(s_length, s->length)) {
-> > +			ret = -EOVERFLOW;
-> 
-> the value of ret here doesn't really matter because it returns
-> anyway an -EINVAL. We can completely remove this assignment.
-Assigning an error to ret here lets us return that EINVAL.
-Without the assignment, we'd be checking against an
-uninitialized variable. I'd rather have this temporary error set
-than use garbage value.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 
-> > +			goto out_restore_sg;
-> > +		}
-> >  		s->length = s_length;
-> >  
-> >  		/*
-> > @@ -1493,7 +1497,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
-> >  		 *   time through here (i.e. before it has a meaningful value).
-> >  		 */
-> >  		if (pad_len && pad_len < s_length - 1) {
-> > -			prev->length += pad_len;
-> > +			unsigned int new_prev_len;
-> 
-> Please add a blank line here.
-> 
-> > +			/*
-> > +			 * For large mappings spanning multiple GBs we
-> > +			 * may not be able to fit all needed padding into
-> > +			 * sg->length.
-> > +			 */
-> > +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-> > +				ret = -EOVERFLOW;
-> 
-> same goes here.
-> 
-> Thanks,
-> Andi
-> 
-> > +				goto out_restore_sg;
-> > +			}
 
 -- 
-Best Regards,
-Krzysztof
+With best wishes
+Dmitry
