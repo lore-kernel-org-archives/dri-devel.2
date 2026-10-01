@@ -4,66 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD97DCA5FCF
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D6DCA5FC1
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 02:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F6610F552;
-	Thu,  1 Oct 2026 02:13:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 425BE88CE4;
+	Thu,  1 Oct 2026 02:21:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YCzSWA/r";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gllPMmqp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41A4E10F54F;
- Thu,  1 Oct 2026 02:13:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C7735400AA;
- Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A780AC2BCB9;
- Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1790820816;
- bh=DuNWW2/4c2h8l/+mCS129Lv1oKgRWfY4Vpu4QEuPlGk=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=YCzSWA/rG5zVl/G0Z5N6DFntPfxH9iOvDAF1WS+8WeyAM1FtkiifDiRkiuJp7EsSQ
- venGZziP8Lff/9fyiCIvihxfsv/NCRo6g65ehCbxoQkMOFeLhGDhCk/oagvytTgqsC
- xDnsC3fWfCU1qJTOJ8zTpCtgCXO2bWE96mVObnKXuUGCrM+2LuZ3o+SD1nXBY0cEta
- ji7fgMHnuYTz/tE5hZB+zdnsYa+rCCN3jPAF+X1hbmIjUv5bde7CG74ZhN4KpXOSbF
- pE+H1OFkXlTPdCWidSnPWNjKC8MiGzugR4tqPUW9itOuCV+ABtJT7ov0/hPZOXNUVR
- 2u8/a6yv0fHFA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 80A81CA5FC1;
- Thu,  1 Oct 2026 02:13:36 +0000 (UTC)
-From: David Medina via B4 Relay <devnull+b2amedina.gmail.com@kernel.org>
-Date: Wed, 30 Sep 2026 22:13:36 -0400
-Subject: [PATCH RFC] drm/amd/display: Disable CRTC on MST connector unregister
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE0088CE4;
+ Thu,  1 Oct 2026 02:21:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bfiEgeR5jTgrKrq4AnZr/kxcjvywHzaMrn76e2BLuvrC91otEZC0sxK1inxda6kdpG1QVOhKydlD62HuFy98iOCMUol73VEIPMs4G8OpEXth5UQ0/wplCPI6tDHL/FkpKHh0qEbTvUhziNjlZAmsEmit6kIgmLubtGKFx2t55Ws7JlGV0mMUXLJVyx95X127D/+iw/cS/oLojWfolhgl9MS8kRoPZHsjcw/gT7HaN1gwE7lQs8cxLb+hxftM4c87r0/adHjcqCY+C/KZ3ZPl9Mo0RWqq5BzSNfYuu2Sn++P0p/DqVzF85aK2cItXYQzaI8sRuL+kAiOumUNjpFrfTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ErGDj2QMtzPs7qvuXPtIuEhQDeK3FHTg1rSbl6vt2/E=;
+ b=RNraxDo4/QNgmxvDf8W3N+m6qOg/zFwSyvSy4KzHjx842cmI1ZqbMXKXMFJ85NcFLTlksAO1cOEF9/xKfyO5efUV+a6CAB6OdQRKlJaC+djod/Vi5AtMpv3iD6u7/kh4UpAaPCz7ZBoOqHuhnw56k3Qsl6ePvHLHCiKGly9IosRlpl5jC8BH7VVq5FS6g2x7Ld6MwbjNrqeWIHldqSVdLaTIHrkLb0Kq28+A/x1A78wZtB/eqmmdPbt+PL1kBYXErgEJj4adh+fhjJsw+tHEGSWOWhJOEdAWN4VKVY/tr/7D+3AnjznskbMz8IJrTFGMquxqO+h/YMCtKmJ3MmpGuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ErGDj2QMtzPs7qvuXPtIuEhQDeK3FHTg1rSbl6vt2/E=;
+ b=gllPMmqp/xRt5vRPwZ5SEw70dfjuLdFc4aGlcHw5FNhz6Qb5VsKWifXrhbdXpq3Ybr4avqLrsme0ddWBgxYJ4S+y7SY1lOVl3zN+ii5++VbmDNWwAubwIKY+1uBaNcWaLgE6p2oFbMLo5B09UYQSWkaE0kQrzIBsl0vwRHQkFBCdo+4IFy4Rt3yI33z10KUTdr+Mh3Ds0T8bMvY+BzfE3GfScdma0jV13a6OqdYSkVVSfUwZMl5Gmlf7pBF/J5zZgqMAHwijG7KoYBQpuz5X1IC0zqYUKQz8+fnWDivizxTYpTfMZbsiY14Bbix5thVKr9BbzNdd4t3TQvnSYoHlZQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DS0PR12MB7970.namprd12.prod.outlook.com (2603:10b6:8:149::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.15; Thu, 1 Oct 2026 02:21:44 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 02:21:44 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 11:21:41 +0900
+Message-Id: <DLT564CV8CI0.1GHQWYK054K8V@nvidia.com>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v3 4/9] gpu: nova-core: gsp: cmdq: split the transport
+ part of the send path
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com>
+ <20260930-cmdq-rpc-v3-4-91613f06520b@nvidia.com>
+In-Reply-To: <20260930-cmdq-rpc-v3-4-91613f06520b@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0030.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:263::20) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-amd-mst-teardown-v1-1-16a39ebdd4de@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS2MD3cTcFN3c4hLdktTEopT88jzd5MQki0Rjc2NDU0szJaC2gqLUtMw
- KsJHRSkFuzkqxEMHi0qSs1OQSkGFKtbUAKYzzU3kAAAA=
-X-Change-ID: 20260930-amd-mst-teardown-cab8a3731596
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, David Medina <b2amedina@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790820815; l=4851;
- i=b2amedina@gmail.com; s=20261001; h=from:subject:message-id;
- bh=ACruRfV2/ag5NwIsG5RQC9W31bSPTFkiXG9HJmO8Xf8=;
- b=GyBptfxYhz4vHnlsYJz54kDnkBdXkCtlEy9z0/PHR5jo03HeDgHd/gVGXvEa1EZE6OuOD+8s/
- FD0RCaUs2NIDTi65kZnyA2obdEkkGAh5ujUtJ6QQ+NWA7hvi2G9MfkX
-X-Developer-Key: i=b2amedina@gmail.com; a=ed25519;
- pk=6kajg3wsf4T4/+F2W+hj7g5W4lTch1OgfXS+6o1FsFY=
-X-Endpoint-Received: by B4 Relay for b2amedina@gmail.com/20261001 with
- auth_id=1091
-X-Original-From: David Medina <b2amedina@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS0PR12MB7970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75531535-d2e5-498c-c2a7-08df1f62bca3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|10070799003|376014|23010399003|10067099003|11063799006|4143699003|6133799003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: WGrMaR+tN1JbuWLH3cGtKig+aa1sfThREIMvucSVoN7DuQHsvaN/YcXjGcYEMZlfp3lU8bxRY93LrZM+ueP4/D7jBgvv3pT/0tItawA2RomUz2Jrz7bRc/Pl61ujkdFIydu9bxG5PgOGiMLLW0/CF+nx5vc+/3jEDoRCbD/sLKOtfz8GlX+dsLT8vPB30LdvdD6Df0sIBytWtcrALLOXv7FnsYSIzCc8bkoQ/VHLU9wulBBlEjpZ2TLl1Xe6eNCirFV401j4QWbiq1o3GWgCZOXiCKgR+F/lhBVeIg6nCjUvb2ir/IH6RraHIJ1BXolKkkgb2FFIxJrl7922bnr7fxFJ5yavs6WIk0SXQHA5ksENjTaxPm21cJR5kOIEPS2/C9u6H6BCUtsNyO23ZVlsr+XsaBmdWoGEyYm6ca1rE0iC2w1/X1jWwUW8DNIvL+4CyAxySnzrEig1tcltss1fo2DQ9E0avDTX8pw0Pn1A1k9wF3eFYiDFWJzX7Y9ZAYMXt0A7Vns5QgmdAWbkoWHRertxM7eUFskojLr73yW1Mh9VyXLz89tANxotWmDhrcytjqer+h98ah0wzqXhQKDey7Z79/c0p/58VMuQ0Ab2rv+2chWVaNE5Hjyeru2PXTn7mYnuWE21nDmPYxItxJpdA6Y0EZ3310nOEuM9EtDYhvI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(10070799003)(376014)(23010399003)(10067099003)(11063799006)(4143699003)(6133799003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHZFRGU5RmlqbUUyQUl3WHVVeTN2bmJaODdDdGorY2F6NVMyd0IreXp6NlVZ?=
+ =?utf-8?B?Z1VTWnZQcFBVWkJWc3plWmxjbjU2RitxbU50dHB4Sk5DUExzVnZNVFV3TFJ3?=
+ =?utf-8?B?NFpwUitWNmE4YVp3SHRDejdWNWhkNCtqbDVWeFkvVHFhK2NYTFNQbWw1WWk4?=
+ =?utf-8?B?S0ZCS2dwWEh5bVl0MFd0UjBRSE9SUEJEQjVZV05WMUpJSm9Dd0xKNTh3dDlK?=
+ =?utf-8?B?WFNJVnROVC9FVldIVGVOSkhYTjcxODEvWHRTVERwaStHK3hKMTRFUi9uU3k1?=
+ =?utf-8?B?NXdoK0c5Tk13MUVjblNsRFQ4TzdHblBaWGtIRzlXbHNJaDQvMmRKdUwzZGxG?=
+ =?utf-8?B?YmR1Unlwd0RVZXRaQ1pGZWhJRG5pYit5WFdabWVPblhkSFJSZldjOTRtK2Yy?=
+ =?utf-8?B?OGVzb3NPeHc4VG5nRG1sMGJVWTB6c09BMDRyZEVRME1rbHowYTZmSFVUU3E2?=
+ =?utf-8?B?Q3NQUHFQV0Z5djJaWVYwSFZzV1NCTDVHMFA1R1ZxWmtJVytxdTBNSlRQZUhY?=
+ =?utf-8?B?VEVoejgwcUkzQzM3c3B3ZVpYVEV3MUVhcEdZd3VCSE5wcnAxblNkOXNjeTRV?=
+ =?utf-8?B?VDhmcjNYTmwwaS9QeU5PQ0VsdU9oWVhDMVFkaVVNT0FsSGNuQThnck5vV2RW?=
+ =?utf-8?B?UU5JbUxwOGc1SEV0aEpKNm9tQXpBKzdXU0w4RitSYnQwNnpjZUlJRkIrcUV0?=
+ =?utf-8?B?V0ZCdDRlenAwRDRBc3dCWUIyZWRLdmV2TE1FcmxLclJNMzdEczJ2RXNTTDRT?=
+ =?utf-8?B?bUNrN2U0K3R5UVdkTVV5dXRFazhMajJWVFJhRGlqakFEZFlhQnJ1TDdCdlA2?=
+ =?utf-8?B?YldZR0M5VE5xTTZnWE11R2JxSzN3WWZ4dm9NQTdheUh4TWJhQisyMzJPSjky?=
+ =?utf-8?B?aDlWQncvbzd3YlhMc25EUWdkQXFMWlhrNi9CVGpuNmRCMjE4LzlVTk9aUjhZ?=
+ =?utf-8?B?MS9yUzlzb2hwVVBMVDhPcjl5UzdybnVVcGUvSE9hREhmVTlaWVBubGFIRlRs?=
+ =?utf-8?B?MWxjZlpsMXdiVWR4K3VhblZ4cm5pZC9IYjJkTTUzTVU4a1owMEkyaVc5MG9M?=
+ =?utf-8?B?Qk14K0orMERQV0FJZG1rMGlDU3ZkN0VJMGJ3MTh6SXZMeFh6VnhqNVVCb2NH?=
+ =?utf-8?B?MW5aelpiQ0ZNaUVONDg3dENERVJQTkFxTHR3UlFuVStQR2IvQXlQeWU1NmhK?=
+ =?utf-8?B?OThoTVJpTDJhdEpjQmVFUWYvYm91YUVQbFo2VU54cWpDSkwwcWhoY09qL2M0?=
+ =?utf-8?B?YkQ3QXdlNzJERnQzNUtySEEzMFVsRnY1VHFxZFg0L2k1WXVWQnZBaVd5Rzd4?=
+ =?utf-8?B?aVpna3hKc2dXallHNkF3OUJyTEF6MkVWYnV3bkhEUnVUaktIdDBxcG5TS2pv?=
+ =?utf-8?B?eUVZTW96YXNFTUc5WTRkeFllMUQwZlk1bzlocEdqRCtNSGk5MUR5QWRYS2JK?=
+ =?utf-8?B?emR1OXhhUnNCc21odWJMUWU0ZGtHN2tReFlSZ1VwTlp0UnpxVHJYZEdOd0kz?=
+ =?utf-8?B?azZ4UXZTSHBBek9LTU1ZUTlFallkS2lsa0svbTZRWEI4SXhDSWVxTmR0VEdu?=
+ =?utf-8?B?dCs0aE5obU5Tb3BjaEtVNmhld3A4bjdQeFdFS3hMNmJDVEFlL2F1djRBZTJM?=
+ =?utf-8?B?bGRCMGFyRUZ3czRJNEJqdGZxSy9kb2hmZ0FPeVgrRDNOK2xCeUMyR2FXTXkv?=
+ =?utf-8?B?MnpFUld1TGNNREIrTXdFemEvQ2FoQy9tdTl1SUxCc2lPSzM3L3BlSHhIOXNa?=
+ =?utf-8?B?RlBsdTZkMUVHTldrL0ZrY2hSYjk3cVZ2TndYYnZZOHpWZHVYVW1CUjJWVnpi?=
+ =?utf-8?B?MHdQdXhDRURyNGVtNHk2Vjh3N21vNFJZckVVbU5TRTZqblhBSXE5LzlHdXpR?=
+ =?utf-8?B?ZGRIam5KbHppdlZnT0ZUa1J3UDFyaXQ2Tk5SUVhybitHMVhJWXZqbWphM2Ns?=
+ =?utf-8?B?WTgvWDV5WS9LRkh0Nkc0aVF0MHhZNys1S3Rxcjdlb0dtbEF0N3JqakhlVHhw?=
+ =?utf-8?B?VmRMQ0twdHhnd0hxMVNxUTYzUEZXdTdkVWthQ2V1Q3FNRkNMZWQ0clVvdlRW?=
+ =?utf-8?B?UFk0OG1JS3Z5WE0xenN2VGlWMGhSWnQrakUwL2ZZS2JTand3eSthcE1HQ0Z6?=
+ =?utf-8?B?b3pORytiRmdsNng3cWUrbURUeXJ2bEpZdFZxak82ZXhwQXdqOStxRU1oWVMy?=
+ =?utf-8?B?cENXMVZPaTdkOUxBblV6bTJyUVp2blJwMEVBMnkxYXNFbVAzZDc2VHBGaUsr?=
+ =?utf-8?B?aUlza3hTTXZzK1J6eml0c25RUVV4WG9vVUVRZkNlSGhCSmJCaXZwU0xEa1hs?=
+ =?utf-8?B?c2xsa2VwdHVaUlJKOC9EL0tjbm5HelRKUTNJR2lvMU1HQkk2MTBMS2ZneFFl?=
+ =?utf-8?Q?MG1+48k7wSawiJ6pYLMHye2ptezcJRwu94w9cF4KQJtsq?=
+X-MS-Exchange-AntiSpam-MessageData-1: 0//CVX8X2mb9rQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75531535-d2e5-498c-c2a7-08df1f62bca3
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 02:21:44.3744 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9LBd1z/mTZyO54gc5Dh3CdGsA2z86m9eEY7cQamdtT7MrioErV64iPPNKg56X+wAWQTryKuHART7isbgURBy7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7970
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,132 +143,162 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: b2amedina@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Medina <b2amedina@gmail.com>
+On Wed Sep 30, 2026 at 11:55 PM JST, Alexandre Courbot wrote:
+> Introduce the `CommandElement` trait and `RpcCommandElement` wrapper
+> type to define how messages (independently of their type) are sent
+> through the transport layer. `send_single_command` becomes
+> `send_command_element`, which allocates the queue slots, writes the
+> element header, and delegates the writing of the message itself to the
+> implementation of `CommandElement` before computing the checksum,
+> advancing the write pointer and ringing the doorbell.
+>
+> The RPC part of `send_single_command` (writing the RPC header and the
+> command payload) is now part of the `CommandElement` implementation.
+> This sets things up for moving the RPC code into its own sub-module,
+> leaving the transport agnostic of the message type.
+>
+> No functional change intended.
+>
+> Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 133 +++++++++++++++++++++++---------=
+------
+>  1 file changed, 80 insertions(+), 53 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index bda79f23626d..d8a7716fc500 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -35,10 +35,7 @@
+>      },
+>  };
+> =20
+> -use continuation::{
+> -    ContinuationRecord,
+> -    SplitState, //
+> -};
+> +use continuation::SplitState;
+> =20
+>  use pin_init::pin_init_scope;
+> =20
+> @@ -67,6 +64,19 @@
+>  /// reply type are sent using [`Cmdq::send_command_no_wait`].
+>  pub(crate) struct NoReply;
+> =20
+> +/// Trait implemented by types that can be sent as a single command queu=
+e element.
+> +///
+> +/// The command queue allocates `size()` bytes after the `GspMsgElement`=
+ header and calls `write()`
+> +/// to fill them.
+> +trait CommandElement {
+> +    /// Size in bytes of the element, not including the `GspMsgElement` =
+header.
+> +    fn size(&self) -> usize;
+> +
+> +    /// Writes the contents of the command into `dst`. `dev` is the queu=
+e's device (to be used for
+> +    /// logging), `seq` is the sequence number of the element.
+> +    fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand=
+<'_>) -> Result;
+> +}
+> +
+>  /// Trait implemented by types representing a command to send to the GSP=
+.
+>  ///
+>  /// The main purpose of this trait is to provide [`Cmdq`] with the infor=
+mation it needs to send
+> @@ -129,6 +139,62 @@ fn size(&self) -> usize {
+>      }
+>  }
+> =20
+> +/// Wrapper type for sending a RPC command as a command queue element.
+> +///
+> +/// [`CommandElement`] cannot be directly implemented for all [`CommandT=
+oGsp`] with a blanket
+> +/// implementation as it would conflict with other future command types.
+> +struct RpcCommandElement<M>(M);
+> +
+> +impl<M> CommandElement for RpcCommandElement<M>
+> +where
+> +    M: CommandToGsp,
+> +    Error: From<M::InitError>,
+> +{
+> +    fn size(&self) -> usize {
+> +        self.0.size()
+> +    }
+> +
+> +    fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand=
+<'_>) -> Result {
+> +        let command =3D &self.0;
+> +        let size_in_bytes =3D command.size();
+> +        // Extract area for the command itself. The GSP message header a=
+nd the command header
+> +        // together are guaranteed to fit entirely into a single page, s=
+o it's ok to only look
+> +        // at `dst.contents.0` here.
+> +        let (cmd, payload_1) =3D M::Command::from_bytes_mut_prefix(dst.c=
+ontents.0).ok_or(EIO)?;
+> +        let rpc_header_init =3D RpcMessageHeader::init(size_in_bytes, M:=
+:FUNCTION);
+> +        // SAFETY: `dst.header.rpc_header_mut()` is a valid reference, a=
+nd is not touched if the
+> +        // initializer fails.
+> +        unsafe {
+> +            pin_init::raw_try_init(
+> +                core::ptr::from_mut(dst.header.rpc_header_mut()),
+> +                rpc_header_init,
+> +            )?;
+> +        }
+> +        // SAFETY: `cmd` is a valid reference, and is not touched if the=
+ initializer fails.
+> +        unsafe {
+> +            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.ini=
+t())?;
+> +        }
+> +
+> +        // Fill the variable-length payload, which may be empty.
+> +        let mut sbuffer =3D SBufferIter::new_writer([&mut payload_1[..],=
+ &mut dst.contents.1[..]]);
+> +        command.init_variable_payload(&mut sbuffer)?;
+> +
+> +        if !sbuffer.is_empty() {
+> +            return Err(EIO);
+> +        }
+> +
+> +        dev_dbg!(
+> +            dev,
+> +            "GSP RPC: send: seq# {}, function=3D{:?}, length=3D0x{:x}\n"=
+,
+> +            seq,
+> +            M::FUNCTION,
+> +            size_in_bytes,
+> +        );
+> +
+> +        Ok(())
+> +    }
+> +}
+> +
+>  /// Trait representing messages received from the GSP.
+>  ///
+>  /// This trait tells [`Cmdq::receive_msg`] how it can receive a given ty=
+pe of message.
+> @@ -638,24 +704,18 @@ impl CmdqInner<'_> {
+>      /// Timeout for waiting for space on the command queue.
+>      const ALLOCATE_TIMEOUT: Delta =3D Delta::from_secs(1);
+> =20
+> -    /// Sends `command` to the GSP, without splitting it.
+> +    /// Allocate enough send slots to store `command`, initialize them u=
+sing
+> +    /// [`CommandElement::write`], and send the command to the GSP.
 
-amdgpu_dm_mst_connector_early_unregister() releases the connector's
-sink but leaves the CRTC it was driving active and its MST encoder
-assigned. Because the connector is unregistered in the same step,
-userspace has no chance to disable the CRTC before it is gone. When the
-same display is re-plugged a new MST connector is created, and the
-re-commit fails in drm_atomic_helper_check_modeset() because the stale
-connector still owns the encoder (handle_conflicting_encoders), leaving
-the display dark until a full modeset (e.g. a session restart) tears
-everything down.
+nit: not sure what send slots are / seems like a new term? - I think the
+caller doesn't need to understand that it's per page anyway
 
-Disable the CRTC from the driver when the connector is torn down, so the
-MST encoder is released and the DC stream dropped. Reuse the
-drm_atomic_helper_disable_all() pattern: deactivate the CRTC, clear the
-mode, and disconnect the connector.
-
-Reproduced 100% of the time by unplugging and re-plugging the Thunderbolt
-dock driving the LG ULTRAWIDE: on re-plug the display stays dark and
-dmesg shows drm_atomic_helper_check_modeset() failing with an encoder
-conflict (handle_conflicting_encoders). Verified over four unplug/replug
-cycles with this patch applied.
-
-I am not certain that forcing a modeset from early_unregister() is the
-right approach, and the disable here is intentionally minimal: it
-deactivates the CRTC and disconnects the connector but does not
-add/detach the CRTC's affected planes the way
-drm_atomic_helper_disable_all() does. The minimal version resolves the
-failure in testing; I would welcome guidance on whether the full
-affected-planes teardown (or a different location) is required.
-
-Fixes: a1b27e99229a ("drm/amd/display: Implement MST Aux device registration")
-Signed-off-by: David Medina <b2amedina@gmail.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 53 ++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 045a7f88b754..24b146068739 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -29,6 +29,7 @@
- #include <drm/display/drm_dp_mst_helper.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_uapi.h>
- #include <drm/drm_fixed.h>
- #include <drm/drm_edid.h>
- #include "dm_services.h"
-@@ -227,6 +228,7 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 	struct amdgpu_dm_connector *root = aconnector->mst_root;
- 	struct dc_link *dc_link = aconnector->dc_link;
- 	struct dc_sink *dc_sink = aconnector->dc_sink;
-+	struct drm_crtc *crtc = connector->state ? connector->state->crtc : NULL;
- 
- 	drm_dp_mst_connector_early_unregister(connector, port);
- 
-@@ -250,6 +252,57 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 
- 	aconnector->mst_status = MST_STATUS_DEFAULT;
- 	drm_modeset_unlock(&root->mst_mgr.base.lock);
-+
-+	/*
-+	 * The connector is being removed from the MST topology. If a CRTC is
-+	 * still driving it, force a modeset that disables the CRTC so that the
-+	 * MST encoder is released and the DC stream dropped. Otherwise, on a
-+	 * subsequent re-plug the stale CRTC/encoder assignment triggers an
-+	 * encoder conflict in drm_atomic_helper_check_modeset() and the display
-+	 * stays dark.
-+	 */
-+	if (crtc) {
-+		struct drm_atomic_commit *state;
-+		struct drm_connector_state *conn_state;
-+		struct drm_crtc_state *crtc_state;
-+		struct drm_modeset_acquire_ctx ctx;
-+		int ret;
-+
-+		drm_modeset_acquire_init(&ctx, 0);
-+retry:
-+		state = drm_atomic_commit_alloc(connector->dev);
-+		if (!state)
-+			goto out;
-+		state->acquire_ctx = &ctx;
-+
-+		crtc_state = drm_atomic_get_crtc_state(state, crtc);
-+		ret = PTR_ERR_OR_ZERO(crtc_state);
-+		if (!ret)
-+			crtc_state->active = false;
-+		if (!ret)
-+			ret = drm_atomic_set_mode_prop_for_crtc(crtc_state, NULL);
-+		if (!ret) {
-+			conn_state = drm_atomic_get_connector_state(state, connector);
-+			ret = PTR_ERR_OR_ZERO(conn_state);
-+		}
-+		if (!ret)
-+			ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
-+		if (!ret)
-+			ret = drm_atomic_commit(state);
-+
-+		drm_atomic_commit_put(state);
-+		if (ret == -EDEADLK) {
-+			drm_modeset_backoff(&ctx);
-+			goto retry;
-+		}
-+		if (ret)
-+			drm_err(connector->dev,
-+				"DM_MST: failed to disable CRTC for removed connector %s (%d)\n",
-+				connector->name, ret);
-+out:
-+		drm_modeset_drop_locks(&ctx);
-+		drm_modeset_acquire_fini(&ctx);
-+	}
- }
- 
- static const struct drm_connector_funcs dm_dp_mst_connector_funcs = {
-
----
-base-commit: 551c722f40809618230001baccf219193e22fc5a
-change-id: 20260930-amd-mst-teardown-cab8a3731596
-
-Best regards,
---  
-David Medina <b2amedina@gmail.com>
-
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
