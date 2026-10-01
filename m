@@ -4,146 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B811ACA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 05:23:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31771CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2074B10E0B4;
-	Thu,  1 Oct 2026 05:23:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0C110E1B8;
+	Thu,  1 Oct 2026 06:00:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lasVHYib";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XjB9SPhx";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013065.outbound.protection.outlook.com
- [40.93.201.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DC610E0D9;
- Thu,  1 Oct 2026 05:23:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ny5M4b2Eups9jqmTGlG6D5m8WFs7zgrUjD8eQ7HbfX6/VpPbExBEIs9oIWiX74MIGtmJCLOb1vtQoosi6BNbzf+DlO3FJ2I6vV5AKlkio+ZMyhwvZ3UNSaQs7JIi1++j5gjzQmYUHys3CcYCL+ZcxLdrSnOrgZH9u0ba4NHrCkAyJaH3Ry5rhEwwgHuaPmji4qs91UdQrT1vDqvlCu9RHpzCJ+7+roZV5YZR7rISGXYGuG9xcNPmCe3FwgvegNoie2mWU5mkzKt7/AahT+Fw9aROfXpsOBmpgD+YcNT4zSB1qx6iYAiJk4v95wlnrLt6vdyZSz4c6E23jSUjuZGbxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RdHdRee8Kb1IZqFh7XXmCVmRZehQfNmWnZiYzlsf+cQ=;
- b=uB71Vnrw+YItgzE2z8/HFeYYKdcU98dOqjANug9zmCjtEf6uu0KHjdzIVRvqYdTw1xN7PvjuceKXq34YPiALN6UsFz16soADAIUwrzLHh0vOcimMTKLGSHhZ0lTMeNMgwK11UQsONqZNaQIYbzy7QvPNpRIemn0MPdYywdeN4qmDQnfY/7FJTL5Lb9SeGjEXdmrLY8EK1R0y7MUR+vwZw8pAEc3+F+O138Kxg5CsHuNPiU1CS5GzTIsYqOj+pZUu27MCv2tldwzGS+H2bdmFhcr6u6Kd4ZO+btCrA1IkX/6v14xvYt2fnEw65QFiOPeqeKAF9cOAfZANNY9QcuZ4Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RdHdRee8Kb1IZqFh7XXmCVmRZehQfNmWnZiYzlsf+cQ=;
- b=lasVHYibSGy3eWNXOFHInbe4TbKG2W6wJiDYGUDHlvJVa9C50IUsttG7i6MGNnR5wNzR90MyGSzSig1+hE9zu23A3uNuXz8NWjspQgJmX9ukCy8UCqJpNPmxh1oprpCry4In2vG4n7txOUh5+1GOc/W0WYAi4H5FSN+mtoZgSkjXjMvjxpGWXE3KAtUAtKEC6kdDK17vZ4xpLpwcj3+DYQO0CY1Qki9mf2jGkE2dbxcAWbwqx+Ei+DP3vsAM9hL9rTNKCmUTI6uxDgPVAB5DNIYzj3K+tkN1YaaVQX8Y4BXot2zRrPgu8LM54eGYYMoT1m8ErQ0xAfq7FxgZwf57fQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MN2PR12MB4455.namprd12.prod.outlook.com (2603:10b6:208:265::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
- 2026 05:23:28 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 05:23:27 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 01 Oct 2026 14:23:23 +0900
-Message-Id: <DLT9190WEBPX.1X4UCVWUMNKEG@nvidia.com>
-Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
- <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
- <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
- <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
- <CANiq72n5jjW8U9VkYJZYFpL9Z5rPe=nRfs3DqmUdfxCW39oMgQ@mail.gmail.com>
- <DLT30TMEHB4P.3PX7HPU1C6UDR@garyguo.net>
-In-Reply-To: <DLT30TMEHB4P.3PX7HPU1C6UDR@garyguo.net>
-X-ClientProxiedBy: TY4PR01CA0096.jpnprd01.prod.outlook.com
- (2603:1096:405:37d::19) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com
+ [74.125.224.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF5810E1B8
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:00:41 +0000 (UTC)
+Received: by mail-yx2-f13.google.com with SMTP id
+ 956f58d0204a3-67109935888so5909735d50.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 30 Sep 2026 23:00:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790834440; cv=none;
+ d=google.com; s=arc-20260327;
+ b=HAG/lw06w5Z2dG7xoEQTkImjmzx1AQTyEUBTqw3RUJ9qjJ+t00oSDzvik7zZCtbgsE
+ CT0xvTru5m79PTA3ovxp4WVqpGKMwaivHunCKSzhV5ToM/JN2ixJl6RNvbCAS0Ku+++v
+ h5Cd2xyB6oAvBH/eTlLFoVCNmg4L9xihOPI+gtpXQfTaOD4ZvNSSNjJ80NV4FLh3bEhH
+ 7yd0zPiXkFTA16TFO2TZSKaSaOtAt2Zta4urToNVtQk+ti2z4YTkqIQepddou0DPuQ9W
+ fgTY91vpJU6Ivl1JxIE8+nF/X4UFR5bZV1t+qHOrV33vOJ97GKPtlYfGAU40RTMeGm90
+ XYEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
+ fh=rAxPypXgwmgYoJlA35lwVTKEftk9Z7yspQN3wWsxjeo=;
+ b=AG1FxZ3T49AqxbOIfP5pRzZkOHxskSaTQpymg2gMfUpcQ9U1hssM/kBK0z+xeMCK+g
+ PVojhiGJp3YxGqXEQethP3NtBTmH3QvLm6CjIDNIcSTI18RB/1MyWZpK/cjrMJ3vVNej
+ D9DpBJoypQ1GtfMnVtxR7uPIKJALwjgHFu3KYSzy3BpYw/Xb+JyYpddceSs2567Q7Qjo
+ KL2rCP+zrAay5PWC3roKyXjZaZo8V/yp2lqgnNGjpAwV65aIXNYNqnRIP3RlX7ce1Vxr
+ yVGnyR53Led7uMzswmxjJOdh4vJMEXbV3CHT2GG/UOpo7u88D4cOVmzhJUph7RwilcAX
+ xl1w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790834440; x=1791439240; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
+ b=XjB9SPhxwpPeVfsOLncxUxJYw4q1kYteZPKg/XE2qVvcSqn4GnPT/PAvShA5F0CMow
+ fsH+73Z45juk0cvbUJPl5eX20u7BYmE38vb7Tj1DapnjxhcEPIZHDweTNi9uNUQiA3vN
+ 6KGgBZrY/BGKQSLWw6CItZnjlaGCRnKyTs7klCU2CeRQlTQNh/psr9Kk8lBB1lz9nXsY
+ Fd0X2xEdQ5JA4ZXcGozZWwrBIWpEBuZvNX8zUhUvwsNk/n5jduUVqlUtULHsMqMRa4pM
+ B3ydGIEMLKFapTvJ2mxUqxfVHbkUVuHA7cq+biNrX9SgNXD+Sr9nomFPMLcCevtLaJ0l
+ WYCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790834440; x=1791439240;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xN7BcKnsbu8UTgMaoDBZRZB/C6V11nckFkUqzqAfWz0=;
+ b=kHybrn5jKQn2Cpo9t1LL8OeFJdgTafebUrlu6d3xxStKFk2SAsX0V4vPTECGb8Z7fh
+ Px6uv7s7UUhk93FEM6s8HXhzpzS9N9q6GZ2yNaVcQ7uKjtced+qWLV6Kb/eCWGodJNpq
+ 8SW2cP2hd0h8UlVWOyXQOc82w4mgMVqvoN9fO0UTuU52jHiTlmUqJLcXIjIB89o1UfIl
+ XIiTmkVCjjOSHDfmdBIE9VXXJ1iRhhkNAKHbE7kzL92aiv81TOY0/EaKs67qkIU48mMC
+ T3ogc+WjkdBZY0lp8LsXV8qM9qmXd9PWXqSsd1OvcAPR0fMUjV8pJ6KQt3T0ZRB0Gh6/
+ j/fQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByEsMv8QkLuTljNSZ4z2HacjA57P54PGQ+PhB4nuDrWwp8IWvu4ChiDEj6v7Ly2V2QX2xYjq8QBzTM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJzyWChUjzvMSIGjy+TTKtuOO5C5IcVRS2u4drCKhTRzmOS0nW3
+ 0iEkjkZCeOHx2Vm4dCe5Y4F1GBv5sVvS4Ot0HE8XqUiQL4meLCnVL5PoRgHDE8OhxFqf4biWFuk
+ 5v8vRlIyv1fB0D54ZbHZ5F8+Yie4JLes=
+X-Gm-Gg: AYBFou3G6LtDmcG8GFSeLVxXtE5t1yoye3KG3HW8o3LE6JIAHeoXCAYxvpcBYhBx8GG
+ 8mXz3sD2DM9KAFekmcTtoMl931h/PsxWp0nDtcUzi+9h/rDuGpP/CN+BPXM4vRu/SEsmoEF/+u/
+ cFFgzc7Aaa2DbOQybyHCNjq62jb2jfyUcpwe3oZ7zBVbElbr4BzOewW9YN5SPqNDaRq1CKunwQW
+ tx8+Q2ngDbLGoiDLqRHfDxsUAVxLDbSgm0V+04WZ8SH7x3+z4fAAB75q8dqFVdt9DYfGfwKXMlx
+ by9FeuF0IxQ6SXd8WlEX81H43SqqS0uAc/0BWEzp4SVKfZ5KxIsjSWUzddFM1QgKAJQ=
+X-Received: by 2002:a05:690e:4419:b0:675:5fea:d08d with SMTP id
+ 956f58d0204a3-67683540c18mr1462188d50.95.1790834439646; Wed, 30 Sep 2026
+ 23:00:39 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MN2PR12MB4455:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36f2ece2-b0f0-4d74-d8d9-08df1f7c1f78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: T8HGHVWlFJN6BfFobAFXklLMvX2iCn/Z7os1EQCj1u/wmkhroW/KrEnZFMOa/8OUU7/Tr4MCfDh6776P3+AglxR3EpfZHLJg9IRQGA51UH7uWRtBan0EAM6ettAN/79F0A0hrt/1IPWXaSZyIy+ilJSNGJNfMgbEKOEZ4JUuWKwfE9J+hvD1FYf8FWMVVjDLU18DMWesE+CYe6hkZ1308PIDfD57tCkEEzzGYUmhUJ2+AxBN61FTvdFQgym4WTwIJWEXEA4tvcXLcjv3jhiQY5Mzh7vBYXtxnP1uxbQpblnXxRmRlqZTACBz8io9zEEYiAs6c0+TFoXnqsWoy8bdG0eqdSYfyBlGJ2Mz7q8jYEqqjDA2tpnTrjOG5ToS4eDLXuOH3zkYbTfy84VvXWf8qj/wcJBDDSExi3mMq+rORZrZVBM/AQEggkZoyVWZJ2YVmT74j3ajYoXK2h+iSrUm+ehmGs07Rlco/znJtf4bxKmtsIBZCw7uGtYH5bemgWSxG+q1bW3Gn+Q9mFt1yltJOK/fvFraxI8FEfzt4tvbkelDkL/IuVpRrRxKfaSoGRwZDtHDatjZKgPP2kC8CnRL+jF+8MF6I2ApC4EqToFLIAjWBJateUn9GA3I9SGlCjDQGG0H2OnzsJ4q2wTHnSo6I1K3lEu1bV/jAhAK7KD/9Qo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eU10d3cwMVRvWTNnemtuNVp2WEZkWm5INXNUMEhiejRQdlR5RGlPelFsTGFO?=
- =?utf-8?B?WG9senZMLzdOYm9xZ2ltQmpsRFhJNGt0TUtkYWNvUXVtZll2YnNUcGtGSCt5?=
- =?utf-8?B?N0tGK0FDWVNHdVEwbDJub2NrQnZYaTlLNFQ4elZyNkRXOFVBR3ZjaUJvdVVh?=
- =?utf-8?B?cmlPelFYWTMxWDlHKy8rNlhjc0hWU3h3cXYrTkE3UllpbTlzVEpsVXhUeS9T?=
- =?utf-8?B?U3JOZDdjem5NSUJWK0hoZ1FQS2ptV1V5MXVLa1dpR2dabWRoQzFJdWpWNWZI?=
- =?utf-8?B?bHN1ZnFtdnM4dTRxeGc5WlN4VXc0UWFjbUFwOE1SNTZkK0FBaThCVjhpN3hJ?=
- =?utf-8?B?L0JsL3VrN09aQmRDS0dvc2tjaUxuREpKN0QzdERTVzViaWNTOWpGS0RCOTUy?=
- =?utf-8?B?cjZYK0dsSTNWUjB3VkcwakxEMVB5ODVkYWwyemE2T201eTFFMmRWYnpvdTBn?=
- =?utf-8?B?MGJZMVdadG5zblk4N3U2YTZDZzlkdnBwTXJSMjNPYVRYOXhSWjA3LzNWNEQy?=
- =?utf-8?B?VUExMmpieHdhd1NzUW9mOTlsMnR3WWpzbWt2U1hCbXEwRjE1YlM4V2FIdVRK?=
- =?utf-8?B?TlAwN1FLdk4zN29ldGVVc1Y5NXJXZDFCQmNnclorVndsQ25BNGRCRHcvaGs1?=
- =?utf-8?B?a3JmdVpsYlVIZEtjTWVKREF1SGE0VkpGbnVqRTlWUzAxYUpFd1dqckRSUnNX?=
- =?utf-8?B?QUl2eW9WbEdkaTVwK3lNZXl0RzRTZkZueUZNQXhhUUVZSUVvdGZiNHJ2SVVT?=
- =?utf-8?B?S1NMTTVSVFAyUVhIV0tsemhiNUh2Rk1zVzd5eWphdTJDUTc3S0VpVDNKbWZJ?=
- =?utf-8?B?SHArdlZRS0VUOGUybjRmQjZlOGFRNEZoWFkwOHZqYWtNYlQ2S0FHUGlEVzY5?=
- =?utf-8?B?S0labmE5aFZPZkZqRzllRFVjemQ3cG9aM2d2S0hMeGZnQUZZeVBJVFZvNWhv?=
- =?utf-8?B?VUhtOHF1TUlYMWFQL0NuaURWK29XYTAvRWE0SE9QYjlGYWZCL2dLTFlzWUYw?=
- =?utf-8?B?ZEIvc3lIN1dhbStwano2Y0t0SDl1eXEvVS9NZVNYejhIdGFRZk5TRzE5TGtq?=
- =?utf-8?B?dTlFUEdUUWRqVEdxazZkTUYyQmFmQXpvMXl4ZVFmM1p3ZGNYa0Z5bElVZnZs?=
- =?utf-8?B?Nm5RODNwd1V0UVAvU3Q2N3E1SkxGdXNPNThSeU42dVRjUnYyNTNEYUxITVpw?=
- =?utf-8?B?c1lKNkYyR2lpdkNUM1RpRDZOL05Zc1VUQjltTFUwYURZN1hWYXRTU0hMRS9W?=
- =?utf-8?B?MG51S2VScVN0RG5YQ25Kam5wckNaeVd3U0hxQzJ0N2xWaUpFaFEydzhHTXhv?=
- =?utf-8?B?TWpNSG1iOFM3dThRMmNnQm1RWis0bkdiK2FuQjI1akxhSVlYdHdJeXpFMXIy?=
- =?utf-8?B?NlBxOVhPeVA5SHV6aDV0WkdmTUVKdDBkZCtFUW9zNTJpTzhwS3dMMmFva2ww?=
- =?utf-8?B?NkFVZ3c3RnFTSDFIbGp1dDQxcDFMUFVKeElxbG42TkZZKzlBVFA5RndFMThk?=
- =?utf-8?B?WFVsWUpESktXUGl1UWxYWENDMm9aZG8vdzM5dkVCVU4xWG9acHRsL0ozelR2?=
- =?utf-8?B?Zi9PcWpXWGZrejM4OEwyNHdPZDc4YVZ1cEFWR0Q1RTRaUVJFMkc2eGh3TFcr?=
- =?utf-8?B?V0JhU2k5T3BIWGxUUEhHWVR1UEowVXN4VUsxVjN1dlhlUFZ6K1M2c1A0S1pW?=
- =?utf-8?B?M2xvUkZCK3NJT0I3Vlg4V3F3L3hOKy95MDJ3WFczcURpRzU2b3BlSnB1MlBa?=
- =?utf-8?B?eDRkWFI3TlQxRWs1OWpHTGtEMDUzbk1ud2U2d0VzcXMyWjA1eFZPdUV3MFYz?=
- =?utf-8?B?OC9Qakd4WHRlQnBCa2wzWG5UbllLbGlMN2RPcXBqT3NBMGN1RG1GSEhkNGpm?=
- =?utf-8?B?dzNSdEtuV0dGVDI1WHVuRkxxb1RzMkhCNWRydDhOZnprQ1FiV25jK3VHNG9s?=
- =?utf-8?B?bWdldDRDREhQclNHV0xWRkg1UXo0TDFkYkpSMG1mL254eU1kOXlBZFVCT3ZD?=
- =?utf-8?B?K0FpTHRKZXlXaFhwR3RBbGtQeFNmL1Q5WUdiUjROZlo0TGUrOU5DSDJJcmNT?=
- =?utf-8?B?NHhEYXMyL1NxNGEyU29KL0R3dExSeC9NZWZrbzMwb0RXSkFZMytKZVhjUGNo?=
- =?utf-8?B?SGY0NHFkNzNBVXRwNTdoT0lVQXpVMEpUQ01yeXVRWFpkUUdqbGRiRko3ODBG?=
- =?utf-8?B?UGtWZ0t3eElLdnZrRGpvNjRGRHY3SC9Db1FuQkpKMTJycFAxaXdJSWhCWUps?=
- =?utf-8?B?NUFUVjRmTFNqNGtkNU1sdDJFMDJ2RVBDczR4bXlmTFNWSEUwRkpkaStlRFUr?=
- =?utf-8?B?cE1CMmg2MEVoT1NJWnlhbEhmSzlvOE1TeHpMSGs5ZzhzRk9La0hkL0NieWEx?=
- =?utf-8?Q?ukTnufYbtClt49bDzQaWXO9L4DX9UM287bzz8YYWO4fNB?=
-X-MS-Exchange-AntiSpam-MessageData-1: aatfsWzF4dMu9g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36f2ece2-b0f0-4d74-d8d9-08df1f7c1f78
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 05:23:27.5636 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q+nFRS57vW8icFDiYLX6BV3KBYfxb9/zXwuG0Ic1Dif/GCodZbkaX18J6Kt9uxALz2lLr+GUvWbskSgAj7vb6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4455
+References: <20260927-pvr-fixes-a-v1-0-7f5b18ab989a@gmail.com>
+ <20260927-pvr-fixes-a-v1-3-7f5b18ab989a@gmail.com>
+ <26a436bd27cc66407d776947c5f91ea7ae518600.camel@imgtec.com>
+ <b15cab8d1c5074d702f8acc1924911e06076e25f.camel@imgtec.com>
+In-Reply-To: <b15cab8d1c5074d702f8acc1924911e06076e25f.camel@imgtec.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Thu, 1 Oct 2026 15:00:28 +0900
+X-Gm-Features: AclHuK-fQjrBk_jWbe2V4mvWX0gdKe-JZOGe_2GT2zX42Yv18CEwrrb6vROL82c
+Message-ID: <CAKbEznsX8y_KAtEuk2Rp9VrcRbTO7Cn0B373ke5pGKvTq5GQOw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/imagination: Size page table preallocation by
+ device address
+To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
+Cc: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "airlied@gmail.com" <airlied@gmail.com>,
+ Alessio Belle <Alessio.Belle@imgtec.com>, 
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
+ "mripard@kernel.org" <mripard@kernel.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,27 +118,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Oct 1, 2026 at 9:40 AM JST, Gary Guo wrote:
-> On Wed Sep 30, 2026 at 12:22 PM BST, Miguel Ojeda wrote:
->> On Wed, Sep 30, 2026 at 1:04=E2=80=AFPM Alexandre Courbot <acourbot@nvid=
-ia.com> wrote:
->>>
->>> I am considering picking the series through DRM, but it also has a
->>> dependency on the `cv!` macro [1].
->>>
->>> Is this ok if we take the patch introducing `cv!` through DRM as well?
->>>
->>> [1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.co=
-m/
->>
->> I asked Gary yesterday if there was any more recent discussion on the
->> tag thing from v3. Does anyone want to do some cleanups this cycle
->> through rust-next with `cv!`?
->
-> Given close proximity to LPC probably not.
->
-> Best,
-> Gary
+Sure!
 
-I have a cleanup series locally already, I was planning to send it next
-cycle.
+On Thu, Oct 1, 2026 at 1:47=E2=80=AFPM Brajesh Gupta <Brajesh.Gupta@imgtec.=
+com> wrote:
+>
+> On Mon, 2026-09-28 at 09:03 +0000, Brajesh Gupta wrote:
+> > On Sun, 2026-09-27 at 17:25 +0900, Gyeyoung Baek wrote:
+> Hi Gyeyoung,
+> > Hi Gyeyoung,
+> > > pvr_mmu_op_context_create() preallocates the page tables a mapping
+> > > needs. How many is set by the device-virtual address being mapped, no=
+t
+> > > by the offset into the object's pages, which it used instead.
+> > >
+> > > Size the preallocation from the device address instead.
+> > >
+> > This issue is recently fixed under
+> > https://patchwork.freedesktop.org/patch/755274/. Please have a look.
+> >
+> > Thanks,
+> > Brajesh
+> > > Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
+> > > Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/imagination/pvr_mmu.c | 27 ++++++++++++++-----------=
+--
+> > >  drivers/gpu/drm/imagination/pvr_mmu.h |  3 ++-
+> > >  drivers/gpu/drm/imagination/pvr_vm.c  |  5 +++--
+> > >  3 files changed, 19 insertions(+), 16 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/=
+imagination/pvr_mmu.c
+> > > index 3e494bfa936..dd5f6d32864 100644
+> > > --- a/drivers/gpu/drm/imagination/pvr_mmu.c
+> > > +++ b/drivers/gpu/drm/imagination/pvr_mmu.c
+> > > @@ -2335,7 +2335,8 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_=
+op_context *op_ctx)
+> > >   * pvr_mmu_op_context_create() - Create an MMU op context.
+> > >   * @ctx: MMU context associated with owning VM context.
+> > >   * @sgt: Scatter gather table containing pages pinned for use by thi=
+s context.
+> > > - * @sgt_offset: Start offset of the requested device-virtual memory =
+mapping.
+> > > + * @sgt_offset: Offset into @sgt of the start of the requested mappi=
+ng.
+> > > + * @device_addr: Device-virtual address at the start of the requeste=
+d mapping.
+> > >   * @size: Size in bytes of the requested device-virtual memory mappi=
+ng. For an
+> > >   * unmapping, this should be zero so that no page tables are allocat=
+ed.
+> > >   *
+> > > @@ -2346,7 +2347,7 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_=
+op_context *op_ctx)
+> > >   */
+> > >  struct pvr_mmu_op_context *
+> > >  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_tab=
+le *sgt,
+> > > -                     u64 sgt_offset, u64 size)
+> > > +                     u64 sgt_offset, u64 device_addr, u64 size)
+> > >  {
+> > >     int err;
+> > >
+> > > @@ -2362,18 +2363,18 @@ pvr_mmu_op_context_create(struct pvr_mmu_cont=
+ext *ctx, struct sg_table *sgt,
+> > >
+> > >     if (size) {
+> > >             /*
+> > > -            * The number of page table objects we need to prealloc i=
+s
+> > > -            * indicated by the mapping size, start offset and the si=
+zes
+> > > -            * of the areas mapped per PT or PD. The range calculatio=
+n is
+> > > -            * identical to that for the index into a table for a dev=
+ice
+> > > -            * address, so we reuse those functions here.
+> > > +            * The page tables needed are set by the device-virtual r=
+ange
+> > > +            * being mapped: one level 1 table per 1GiB region and on=
+e
+> > > +            * level 0 table per 2MiB region the range touches. Table=
+s that
+> > > +            * already exist are not consumed, so this is an upper bo=
+und.
+> > >              */
+> > > -           const u32 l1_start_idx =3D pvr_page_table_l2_idx(sgt_offs=
+et);
+> > > -           const u32 l1_end_idx =3D pvr_page_table_l2_idx(sgt_offset=
+ + size);
+> > > -           const u32 l1_count =3D l1_end_idx - l1_start_idx + 1;
+> > > -           const u32 l0_start_idx =3D pvr_page_table_l1_idx(sgt_offs=
+et);
+> > > -           const u32 l0_end_idx =3D pvr_page_table_l1_idx(sgt_offset=
+ + size);
+> > > -           const u32 l0_count =3D l0_end_idx - l0_start_idx + 1;
+> > > +           const u64 last_addr =3D device_addr + size - 1;
+> > > +           const u64 l1_count =3D
+> > > +                   (last_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT)=
+ -
+> > > +                   (device_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIF=
+T) + 1;
+> > > +           const u64 l0_count =3D
+> > > +                   (last_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT)=
+ -
+> > > +                   (device_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIF=
+T) + 1;
+> > >
+> We identified over allocation of page tables due to incorrect calculation=
+ of end
+> offset. And your change is correctly takes that into account.
+> Can you please update your patch on top
+> https://patchwork.freedesktop.org/patch/755274?
+>
+> Also update fixes tag to include https://patchwork.freedesktop.org/patch/=
+755274?
+>
+> Thanks,
+> Brajesh
+>
+> > >             /*
+> > >              * Alloc and push page table entries until we have enough=
+ of
+> > > diff --git a/drivers/gpu/drm/imagination/pvr_mmu.h b/drivers/gpu/drm/=
+imagination/pvr_mmu.h
+> > > index a8ecd460168..7088f80805e 100644
+> > > --- a/drivers/gpu/drm/imagination/pvr_mmu.h
+> > > +++ b/drivers/gpu/drm/imagination/pvr_mmu.h
+> > > @@ -99,7 +99,8 @@ dma_addr_t pvr_mmu_get_root_table_dma_addr(struct p=
+vr_mmu_context *ctx);
+> > >  void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx);
+> > >  struct pvr_mmu_op_context *
+> > >  pvr_mmu_op_context_create(struct pvr_mmu_context *ctx,
+> > > -                     struct sg_table *sgt, u64 sgt_offset, u64 size)=
+;
+> > > +                     struct sg_table *sgt, u64 sgt_offset,
+> > > +                     u64 device_addr, u64 size);
+> > >
+> > >  int pvr_mmu_map(struct pvr_mmu_op_context *op_ctx, u64 size, u64 fla=
+gs,
+> > >             u64 device_addr);
+> > > diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/i=
+magination/pvr_vm.c
+> > > index c5ae0b79fe6..7bb58ca14e4 100644
+> > > --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> > > +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+> > > @@ -276,7 +276,8 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bi=
+nd_op,
+> > >             goto err_bind_op_fini;
+> > >
+> > >     bind_op->mmu_op_ctx =3D
+> > > -           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, offset, s=
+ize);
+> > > +           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, offset,
+> > > +                                     device_addr, size);
+> > >     err =3D PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
+> > >     if (err) {
+> > >             bind_op->mmu_op_ctx =3D NULL;
+> > > @@ -318,7 +319,7 @@ pvr_vm_bind_op_unmap_init(struct pvr_vm_bind_op *=
+bind_op,
+> > >     }
+> > >
+> > >     bind_op->mmu_op_ctx =3D
+> > > -           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0);
+> > > +           pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0, 0)=
+;
+> > >     err =3D PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
+> > >     if (err) {
+> > >             bind_op->mmu_op_ctx =3D NULL;
+> > >
+> >
+>
+
+
+--=20
+Thanks,
+Gyeyoung
