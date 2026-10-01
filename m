@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE7FCA5FE1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0DE1CA5FD2
 	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 22:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9BCF10F15D;
-	Thu,  1 Oct 2026 22:06:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31AD010EADC;
+	Thu,  1 Oct 2026 22:06:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZuSDbCZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TEmBaizf";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6300A10E90D;
- Thu,  1 Oct 2026 22:06:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5E110E498;
+ Thu,  1 Oct 2026 22:06:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790892402; x=1822428402;
+ t=1790892400; x=1822428400;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nShlwXN3ugnLH6PEjrBBAK63VVeVaCaBg/2DmPXujvY=;
- b=ZuSDbCZ3RCOpqRb352gTPe/bEmcqUtmU8uV9j81lWqAhx+zPVWPf7wcx
- 5NXzomeIEWvIO8Bak5kWZQT8EJ0v+jaA1t37fs3gMUUu8V7Q33a+lAsMa
- Tc0hNiVr1m5mKim0etNiTcY3U0GX8781WgYWE+p3v+X6+cxxeqnarpC08
- JLeE+pcm6uSXKPTTGQ+8kcgZnLPU7bv9geI8mRrKL5UG29Nf8qr4lkY3x
- xeEakXfV5vWbe+XBswW8iU618FI+ezahvv4IUb9avw4z/8NvV9EO/6+cE
- 2cndt2G2Mv2LjflJO8mWCqX5Y4Hx8fLhR4p/Czgac4EkzoinPrcW+quwB Q==;
-X-CSE-ConnectionGUID: kozaVphJQeygN+qJMkPQEg==
-X-CSE-MsgGUID: 8RMgdHYMSAS/7vq1D33D4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91526901"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="91526901"
+ bh=Gkxa/ZU0HTT7FVxnBWmRJa+T4WwiFvy6mY2mMlw4J7k=;
+ b=TEmBaizf4DtV0XJ7qiSHl3x5RW8e91x3rd1MHqcSLXmQQ/v6g2FZWF2l
+ +p6K5R8n59Bt2j9SHK+GUPs3JAyWjMc93fjYLSXZGxQ7VyIvNawhbr7dZ
+ kIpugcceFWPfslOVZJ9lng4iXAJrIPJkwY4rkdD6NMGVXSwZMbB/3Fu2T
+ FhlQWhdX3P1WyHisZCn41pCyLTEAD9jzqXmn7BdIryyYoegdXOt/kdw7V
+ y8M5vWpgYwJTwbFgxQCv8aBb1cNDqyYLwvnksnNv1BKGBW6XPVuP7cLMq
+ xSfXGfbnt2eSCao4brOZL6TAArxQNDZhEUbS1+eLVmshCeoiNkaVMhoOa Q==;
+X-CSE-ConnectionGUID: yS9AombAQ5K5kSdjMDrydA==
+X-CSE-MsgGUID: ythuSmTaTdaoC2PAFBSCVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91526820"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="91526820"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 15:06:39 -0700
-X-CSE-ConnectionGUID: EVoH8hZLQmOkrzcczCffOQ==
-X-CSE-MsgGUID: CZ7be2fDROOrygK9oWL/zw==
+ 01 Oct 2026 15:06:38 -0700
+X-CSE-ConnectionGUID: HeBkCAX0RXuhHHOsVR8zNw==
+X-CSE-MsgGUID: Dt+EZiP9Tqa46xOAbC72bg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="274190036"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="274190019"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 15:06:39 -0700
+ 01 Oct 2026 15:06:38 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -62,9 +62,9 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Steven Price <steven.price@arm.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 8/8] drm/nouveau: lock the resident BOs of an exec last
-Date: Thu,  1 Oct 2026 15:06:32 -0700
-Message-Id: <20261001220632.3190896-9-matthew.brost@intel.com>
+Subject: [PATCH v3 3/8] drm/panthor: lock the resident BOs of a submit last
+Date: Thu,  1 Oct 2026 15:06:27 -0700
+Message-Id: <20261001220632.3190896-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261001220632.3190896-1-matthew.brost@intel.com>
 References: <20261001220632.3190896-1-matthew.brost@intel.com>
@@ -86,21 +86,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_exec_job_submit() locks every BO mapped in the VM, then
-validates the evicted ones while holding all of those locks. A client
-paging a large working set back in therefore keeps the dma-resv of every
-BO it shares, e.g. with the compositor it presents to, locked for as
-long as that takes, stalling the other side for no reason.
+panthor_vm_prepare_mapped_bos_resvs() locks every external object mapped
+in the VM and then validates the evicted ones. Validation here means
+panthor_vm_bo_validate(), which swaps the BO's pages back in and restores
+its VMAs. That is slow, and an external object is one which can be shared
+with another process, so the whole of it happens while holding dma-resv
+locks other processes may be waiting on.
 
-Use the two-pass locking drm_gpuvm now provides. Validation moves from
-after drm_gpuvm_exec_lock() into its per-pass extra.fn callback, so the
-early pass validates the evicted BOs while the resident external ones
-are still unlocked, and the late pass locks those and validates
-anything that was evicted in the meantime. drm_gpuvm_exec_lock() falls
-back to a single pass when nothing is evicted.
+Nothing is gained by holding those. A resident object needs no swapping
+in; only the evicted ones do. Split the locking into the two passes
+gpuvm now understands: the early pass takes just the evicted external
+objects and swaps them in, and the late pass takes the ones which were
+resident and are therefore normally ready to use as they are. Private
+objects are covered by the VM resv, which is held from the start, so
+evicted ones are still validated in the early pass.
 
-Validation now runs under the uvmm mutex, like it already does for bind
-jobs in bind_lock_validate().
+The split is only worth it when there is something to validate, so
+drm_gpuvm_exec_pass_needs_split() decides, and a submit with nothing
+evicted keeps doing exactly what it does today in a single pass.
+
+Both passes run in the same drm_exec transaction, so nothing is unlocked
+in between and the late pass only ever adds locks. They take disjoint
+sets of objects, so passing slot_count to both still reserves it exactly
+once per object.
+
+The early pass reads the evicted state without the object's dma-resv,
+that being the lock it is trying not to take. The race is benign: an
+object evicted right after the early pass skipped it is picked up by the
+late pass instead, which is why that pass still validates.
+
+Validation here allocates pages, which can recurse into panthor's own
+shrinker, so it is worth being explicit about what the early pass can
+evict. There is no deadlock: drm_gem_lru_scan() acquires the resv with
+ww_mutex_trylock() and skips what it cannot get. VM-exclusive BOs share
+the VM resv, which is held across both passes, so those are always
+skipped. External objects are not held by the early pass, though, so
+reclaim can evict one while the early pass validates something else.
+
+That is handled, and is why the late pass validates rather than only
+locking: it picks up anything evicted after the early pass looked at it.
+The cost is that the swapin for such a BO happens under the full set of
+locks, i.e. it degrades to the current behaviour for that one object.
+
+Xe avoids this by refusing to evict BOs bound to a VM the current task is
+validating (xe_bo_eviction_valuable() and xe_vm_is_validating()). Panthor
+has no equivalent guard. Adding one would make the split more effective
+under memory pressure, but it is not needed for correctness, so it is left
+as a follow up.
 
 Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
 Cc: Alice Ryhl <aliceryhl@google.com>
@@ -128,62 +160,90 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Assisted-by: LLM
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 ---
 v3:
- - New patch (Danilo)
+ - Follow the drm_gpuvm_exec_pass_ function renames (Danilo)
 ---
- drivers/gpu/drm/nouveau/nouveau_exec.c | 27 +++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 55 ++++++++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_exec.c b/drivers/gpu/drm/nouveau/nouveau_exec.c
-index eea6619cffaa..b9ab7da125b1 100644
---- a/drivers/gpu/drm/nouveau/nouveau_exec.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_exec.c
-@@ -85,6 +85,18 @@
-  * the corresponding VM_BIND jobs they depend on - attached to them.
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d75d575473da..d4b968ab094e 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -3258,6 +3258,26 @@ int panthor_vm_unmap_range(struct panthor_vm *vm, u64 va, u64 size)
+  * need to reserve a slot on all BOs mapped to a VM and update this slot with
+  * the job fence after its submission.
+  *
++ * When something is evicted the locks are taken in two passes; when nothing
++ * is, a single pass is used, as before. The early pass only takes the external
++ * objects which actually need validating, i.e. the evicted ones, and swaps
++ * them back in. Private objects are covered by the VM resv, which is held
++ * from the start, so they are validated here too. The late pass then takes
++ * the external objects the early pass left out, which were resident and so
++ * normally need no swapping in; it still validates, since one of them may
++ * have been evicted in the meantime.
++ *
++ * The point is that panthor_vm_bo_validate() swaps pages back in, which is
++ * slow, and an external object is one which can be shared with another
++ * process. Doing that while holding the resv of a resident shared BO would
++ * stall whoever else needs it, for no benefit, since a resident object is
++ * ready to use as it is.
++ *
++ * Both passes run in the same drm_exec transaction: nothing is unlocked in
++ * between and the late pass only ever adds locks. The passes take disjoint
++ * sets of objects, so reserving @slot_count in each still reserves it
++ * exactly once per object.
++ *
+  * Return: 0 on success, a negative error code otherwise.
   */
- 
-+/*
-+ * Called once per pass of drm_gpuvm_exec_lock(), validating whatever that pass
-+ * locked. The early pass validates the evicted BOs before the resident ones
-+ * are locked, so that a BO shared with another client, e.g. a compositor, is
-+ * not held locked while this job's evicted BOs are moved back in.
-+ */
-+static int
-+nouveau_exec_job_validate(struct drm_gpuvm_exec *vme)
-+{
-+	return drm_gpuvm_exec_validate(vme);
-+}
-+
- static int
- nouveau_exec_job_submit(struct nouveau_job *job,
- 			struct drm_gpuvm_exec *vme)
-@@ -99,21 +111,14 @@ nouveau_exec_job_submit(struct nouveau_job *job,
+ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm *vm,
+@@ -3270,11 +3290,42 @@ int panthor_vm_prepare_mapped_bos_resvs(struct drm_exec *exec, struct panthor_vm
  	if (ret)
  		return ret;
  
-+	vme->two_pass = true;
-+	vme->extra.fn = nouveau_exec_job_validate;
+-	ret = drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
++	/*
++	 * With nothing evicted there is no validation to keep the resident
++	 * objects unlocked for, so do not pay for the second walk.
++	 */
++	if (!drm_gpuvm_exec_pass_needs_split(&vm->base)) {
++		ret = drm_gpuvm_prepare_objects(&vm->base, exec, slot_count);
++		if (ret)
++			return ret;
 +
- 	nouveau_uvmm_lock(uvmm);
- 	ret = drm_gpuvm_exec_lock(vme);
--	if (ret) {
--		nouveau_uvmm_unlock(uvmm);
--		return ret;
--	}
- 	nouveau_uvmm_unlock(uvmm);
++		return drm_gpuvm_validate(&vm->base, exec);
++	}
++
++	ret = drm_gpuvm_exec_pass_prepare_objects(&vm->base, exec,
++						  slot_count,
++						  DRM_GPUVM_EXEC_PASS_EARLY);
++	if (ret)
++		return ret;
++
++	ret = drm_gpuvm_exec_pass_validate(&vm->base, exec,
++					   DRM_GPUVM_EXEC_PASS_EARLY);
+ 	if (ret)
+ 		return ret;
  
--	ret = drm_gpuvm_exec_validate(vme);
--	if (ret) {
--		drm_gpuvm_exec_unlock(vme);
--		return ret;
--	}
--
--	return 0;
-+	return ret;
+-	return drm_gpuvm_validate(&vm->base, exec);
++	ret = drm_gpuvm_exec_pass_prepare_objects(&vm->base, exec,
++						  slot_count,
++						  DRM_GPUVM_EXEC_PASS_LATE);
++	if (ret)
++		return ret;
++
++	/*
++	 * Objects the early pass skipped were resident then, but another
++	 * process may have evicted one since. Now that everything is locked,
++	 * pick up whatever is left.
++	 */
++	return drm_gpuvm_exec_pass_validate(&vm->base, exec,
++					    DRM_GPUVM_EXEC_PASS_LATE);
  }
  
- static void
+ unsigned long
 -- 
 2.34.1
 
