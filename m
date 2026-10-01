@@ -4,148 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184FBCA5FCE
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 20:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD8A4CA5FD4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 20:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CFBA10E467;
-	Thu,  1 Oct 2026 20:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06D9A10E008;
+	Thu,  1 Oct 2026 20:48:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GSDzvt8y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bsVHvhxU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458BB10E463;
- Thu,  1 Oct 2026 20:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790887465; x=1822423465;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=cP8XzuT1oEAH6pqBDTOCHr3XpFs1ilmDro5fzHtDes8=;
- b=GSDzvt8yXLHfzmSjGxnzWm8EJS5GBiENjpihnUAaVwD1g5UfZYWG1q7M
- rbQ127HVlUcfyOSi7+OPUHdbSw1kWQ0OUFogWWZAY1pPgJsjFwvemxXdU
- AqpPG6cxvtaP+F6CyYWKQNpRU9K1WNw+wzh/7mKsCXkHXQOxZGNUmPfFB
- +kEPJ2YDuD3NYfhLp4nsxmDrK9Akq5ruqWo/U4fewTXkiB8w5y5B63sPr
- +MtRsyZNNxWTggR+hOA+9Epv/hxu4yNTEvmwkbC6nlk9gLwEYJgCQaVx8
- 9xs+1L7saCU8KYjM7T54NYvSVM6f53baCI9qOKwmYPU7rZPTA7bf2PBNm w==;
-X-CSE-ConnectionGUID: 6h6FpdJAR26EQVYwemD4Yw==
-X-CSE-MsgGUID: sjmn8tozSzmAUNdKQtg7yw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94369891"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="94369891"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 13:44:25 -0700
-X-CSE-ConnectionGUID: B0aLDyNbSlm/oy5/IOH9Ag==
-X-CSE-MsgGUID: K4mRTUPrTl6E24aCOw8GMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="275638889"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 13:44:25 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 13:44:24 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 13:44:24 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.54)
- by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 13:44:24 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tsu+OiqLSPxGQX5SRHrq8YiuvPb0uvfJFn0FKajAI+UVaJLkwybMY9YvPxcW5u3G3GwKWPNsvYk2fTQfOJJObXsy8Azs4A/S0lg9HZFZdRGzpJq07RCug35V2GaBxUWAtluZFuUIrrQw6lT/ESUd2OQqZczmVhEh6A99aBc/N5Yks7xKUXvAPTgd+zEHAHnckgS73fqTjVkAXsDTeJD67nBaBP21VcQ2iNZ4kz3/MnGlA5nmF/N0L/zbVYm4Ebl2/beLmoTL36GIp6IuHz09gEEmVszsLVo6xvDzlj4w1SLm348HOyPgIdQndu8VsFib9H3fg9Zn55wDunlWQfopww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aXN+T15egAJ4EdFv1MsHOqCd9ZFgU69kkQAb0Vx09l4=;
- b=OXWljtFT6AGCKSffOwA4FMz1edFfzuZCbw2dWKkoH87W58oGYRv0MII8ThTGdAfdStu++6RetUMGEhE357seJZVBp79OcIKT/1NUVbBr+LCCSdKkr30AmFaQMlwL0qLH8C2o6hvejK7ZmWoY1KY7lJ71tWfhdwXEsDd+0i4Bif6d0pYwS57kiXyE5YlzR6irGvDCrV29dfKFfRKw4lp+gilCVAddUjhQrLgcZ5dx1qn58LEh/QyxfYXN1oLFvNuusA4CnOvMEu95+qUragqbm4+wf1atxaNtrZGELQ5o7T2kY7tMhVCjsxexaiz4JS4GfTtezgo1l6eg3WoYBi/agw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
- by CY5PR11MB6317.namprd11.prod.outlook.com (2603:10b6:930:3f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 20:44:21 +0000
-Received: from IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
- ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 20:44:21 +0000
-Date: Thu, 1 Oct 2026 16:44:04 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Aryan Sinha <sinha.aryan03@gmail.com>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe: use resource_size() in xe_pagemap_create()
-Message-ID: <ar7GFPJa3suzkPGl@intel.com>
-References: <20261001163328.51556-1-sinha.aryan03@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261001163328.51556-1-sinha.aryan03@gmail.com>
-X-ClientProxiedBy: SI2PR01CA0001.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::13) To IA0PR11MB7187.namprd11.prod.outlook.com
- (2603:10b6:208:441::12)
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com
+ [74.125.224.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AAD110E008
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 20:48:49 +0000 (UTC)
+Received: by mail-yx2-f41.google.com with SMTP id
+ 956f58d0204a3-6756d2aff02so3396007d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 13:48:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790887728; cv=none;
+ d=google.com; s=arc-20260327;
+ b=jQTxEfPh9W4af4ZRWyJcLUHnzD7D9aSs7h3SadCTqHba08tp4I3zEFw37vxOcJGF01
+ W7xoDCkgG7rSb4iFVnNU1CgtKntpi/WGFiDtH+EtzUhSV0bINLT3uCX4PpR9NUsxgMjE
+ XVF+WaumO6S9XTiRiwSZ4wjAhuBSsZcTa97bxqRshVayp52UC1OFnOj65khXj3PAfCw4
+ /dd+Saf9oUXNjqXKuCj0EyKGUChyuZJX9Ql4uzPRCZaYq1zvRaCRWXyGm7ybaqrTQA01
+ lBHWCYExCbm5g1ZJulZAtI51tl4l5eulv/OEISXt8yBdhHrg6tAO0cZvks8TZ6EVnL+n
+ 2+4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=hXzdK5QWID3MCeLjE3WVpfx7nvstpzl0h0tds4vVtak=;
+ fh=kAGRFKDN7aRGd6VO33HQbsOy3CoTfL4nr4GTMsDqfhg=;
+ b=G1jg5OpBbhkqsnjznfjCIPN4opXTZ2hrGj59ln9X6uM2OESeLtQNRjGQtt78A/GKft
+ ckxJMuTmyaxdS9m8MqFmVBgNrLgOMbL8+eXuXJ+SMYufs1m8556f0tITP+ktUz35eFc4
+ RJhC8lw3weyvNKNuQ9mGazis6fbJ6nIrm82kFAuGndAhGJlUVj/Z2efkJVcddexGWpwB
+ GTCA/YQJ7H/HMAtI5F2VjHj+CBrbA5ozMvJcnLwPRsGftSReJM5Dlh06jZ50uaTA4BD3
+ HvvjkiAlihux/rEZJMg0MPky2sPNhb51IdJ0l5WdAoVWLwdczWvVEMmWYGnDGD9to33D
+ QzLQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790887728; x=1791492528; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hXzdK5QWID3MCeLjE3WVpfx7nvstpzl0h0tds4vVtak=;
+ b=bsVHvhxUaKgKG+/IgWNiC6wnLR+a4NXxgd/MIXVcjaYuzBQQbpi/wgNdCXUhnbacxx
+ 7Efv9D2+BSZ+9P8kNU/irDVLxeK6j2FKt+vBwFnBcl0WZSs8jFWLBJgRwUm/6kG1t1TV
+ qak9md9hLnfWemOS2WGQKJrprYtDGVZucy892K2ujO0InD1X3fFf73pKs6lOF/fm7lA+
+ uIXuJxv8jg/1dB1/1qC+RGuoHO37gwq21FCWwLDM/260OKqslJeQiirf1l+8rzlb2cu0
+ S0UlsBz8SPMaCkV0bjNbK+kH3qN9bCkQUaN494eagvHVUcx/8tEmMWM9JXlfrHkjCIUj
+ aepQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790887728; x=1791492528;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hXzdK5QWID3MCeLjE3WVpfx7nvstpzl0h0tds4vVtak=;
+ b=Wd9tS+2ectEmDY057wNt0EqYtV4xsm3aI1esNlVgC9xoO7WjdGqOwkgSTKBsVRW3JJ
+ /nDVp1fnO8fgXrRFAQMWn/AzfAKBXLVGyGEHRXI25VYAlhbcsBEeNni3c4BKNEYOXxhR
+ IrvTmMsgnLcqyC+jFQg6KWq7olch/xlfNBQ+udBij1b8KuVVaPzkvrDGqD53UXULfEvY
+ hCRTSDnoOU6f6E05RgyRZb4x0GLE0Hc/imETG2TRXN85P2HeI/s4RaR9OOhEpuIdO74q
+ tEye78pezwM2eXaC2uZp3eQhreOUAmuY9KBR3dAj+apDjMO27j2d4VZRbzG1Pl7LRBBz
+ TJkQ==
+X-Gm-Message-State: AFq9FYJlMwG4T67OwF9Zg+mP4DMCO4pm9N7NbMuWkUP1/0K7hd8vO/m6
+ tGbmFpNZkWv6eDf0fcCRQ/bIfiMGWZ3FY2bjbtuv13NwwPlx1jpAVb2GNv04VhIk37hGApy9Gsj
+ U1ur1rf/sXXtpvB+2wezx+S4ADqpai6k=
+X-Gm-Gg: AYBFou3+IQ/HS7EKfEAA5/OoApkR0jJ3fMYo3Gqy7oEwXU2Som4q9unjnZkdBT/DhEt
+ uxqq6HJoeOv/z5ch/u0w1TMoaaubF5zwcIp5GGAD2DKLAHNmnPkxpKSaCTj4MZaepyWjCJst5GF
+ 6NlD/2PsGgvRDmOW3gG3JUoZA/T3kRDmbqQRvtv6dhezfDWz53UGNG1v6IHkAc7bwK/muEhMKFs
+ 7U5W/fYmoMA9sNc9+GhO1zQstb6rr40w49yrNckxnMD0lgDxMV8IivSQY56uYPXY58lvAWSOoqv
+ dhOssb90lW0pV5S9AP2ZeIsyeI/FwNFORQdwGyyg0xk9sSaHizww/jhpDJuqUrmScG1mDN4rYrR
+ x0cEm/TS2ew8KA80P09W4U84xayd0db9i8HlC8kf3fd/4
+X-Received: by 2002:a05:690e:43c2:b0:675:3b2f:149d with SMTP id
+ 956f58d0204a3-677abdedee8mr177654d50.6.1790887728087; Thu, 01 Oct 2026
+ 13:48:48 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CY5PR11MB6317:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62932d2c-68b9-40c1-f740-08df1ffcc53f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: blF5VMoLXABzQO+r8upRNfXdJSns/vrrPWfCriSSYzcfG/Kp/iGbq0E3azadhO1luq7F3OfaFSY4jM6Sp2VIGWoec1NN8ZAkW865HiHPrvNldLUDWwFc9C3aO31LIDE4FBwLqFkiPmrq5ayjqT663aFipfM4NVMOiMV8ZWu2Ytw0koS2sMK2cqABasPtGsB/NwhejJvVJk+wXzf4hV0NZB+rBLfbX9876cgHAqVzoB3B9uGwEvwkfzM+vvLNuY6fRv5nIwGnn4oSK7DW8ONx7AA/0JPapDdPRuCej1mf9jTx+OTOYgveGcu/iwcOGGxC36081MCH9JJAPs1DMJ6TCdU0Ep1LtnFDLHWMTJEooZOMMglOqck2FcFzvUoS7vEoifel9IDl0GI0WpDxWHSD5B+SMYDj3bJ40Pj0Px/x5NwQxv3DhuQdwcI9FMhQ7DOOkqpSWpSEb8r+OO9gXy6elWv/pnVTda6oKSSkV/LIFS1+Y2rxRVh2WuAoNsyVpwIRpwinr1nYDL71zouo+fMcnWu+QTFK00vop75Tu4OUig3/W2wLvT9GsiOYpETuwudrdUonNbNqPG2B/LmU/mOVUAJme5CdNT4LzV/gQFlJjRCh4vy6/tteyCIJGNOLRVGpZl75xV9H0UOtvo9AZgopMD4l1sbMgAaZ7wbEmF0x4JM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vKKI/zcWnctGU5n+ayygAy5dubxFG1oa/m8AdK0QTzFobU+/+MgAWULvzhvv?=
- =?us-ascii?Q?kORH+AnECWjfCs8dUm/huJr4uQcpIehan2849mfq4+6m0Ikhfz1ctFWMEdUk?=
- =?us-ascii?Q?WgVnkRbVWKtjWmmpfS0F7sywVfyjQGL/mIIcJCrvIN2IiVmdzXWdEz6GDhKS?=
- =?us-ascii?Q?sJ9HpSlb+KSXDdg5GUszCR4KOGdhZ3nC9398y//CwYQU4CPXqqfDhr1CWHGg?=
- =?us-ascii?Q?J80W7NOX/kaGarV/N/mWylILdtooMbByJ4CyJqwVaxba12RAJ/ZMKktiCz0F?=
- =?us-ascii?Q?XsKvNJnzJzflWuYjxop/QlLMSRfbaItWHADMSpD8qv3X9JzCTCDA8kPCQWv0?=
- =?us-ascii?Q?7V4PFavpH6CNjl+oeBpsuaCe1nehjEs3+CLQAK/HoCoYgf4Yrma4nsEGwp4b?=
- =?us-ascii?Q?Rl1naNWTLRq16sgSbsf+ttO/sNFdoqtynLM7y+UCdnpdGTPAx2o6HCO/hohB?=
- =?us-ascii?Q?iqFoAwvcb2X81jmfk8LrPwxqGhvzU2hbXudU6OvnxozerVXJeHByeNpusYsF?=
- =?us-ascii?Q?MAk0u81PrgEtHOxLRiUGs7PZ43leT+963ah8f5+kIIvF5zj30gCN3tv9OHYW?=
- =?us-ascii?Q?dX9rsLNN/6QZlr1ITs6wxVIOpoZAqjAF+DVFg4/PpCXnhwGw+6iPOQoySr2w?=
- =?us-ascii?Q?q8BkMiW1WzYkv+CLZcHxrn3DbwocKOKKccc+prbh7xG2TLzgiBAYbrHLdVhH?=
- =?us-ascii?Q?GgJ/f5oD75M14+YWLf3pZnTRww+VWzypxQaMwhEjpJ+R3uSkdvKDUOtvBtGY?=
- =?us-ascii?Q?vXFvNXBIETLtXoSZUbfJN2jGPTAb5SQ8Je1Qkh4i0Xs0oq7dGp81fKq5CWKS?=
- =?us-ascii?Q?msMZNGcncQtDw9WrlGMHnFW/jrOGqyPZ5329g9gpDMQgK1kqhnIzeqsC88xd?=
- =?us-ascii?Q?+PX3dbFp7I88El7F7cX+3f1c4icz7knQKEhn22vCApOdeORxsHNwHMDJb8xk?=
- =?us-ascii?Q?RlUvhnJgl67Fj0NbhZ6C1WpbvaYcIkwWBsqK8FA5z7MbCIuJ2qJUHLp3hr0z?=
- =?us-ascii?Q?mFT9Opu5wtJLDBTxCoTWjuF9ihPN/N9s0MWlLyh9dmG+yHuAWNeUTOPa9N8W?=
- =?us-ascii?Q?C6JoZjQIpzNies0mn0y0Ng3WNW0RU95+JeHS+v8wiBR+EKfmARxLA2usZTZn?=
- =?us-ascii?Q?hKIMH3yR0bpHLxDusYqrO4weSwpOfKHEmL51TDQP+dLWOlUTbr4pfNPSSMuS?=
- =?us-ascii?Q?5GLffrmzZOUpwGcOEGvINaxfuTf4oc7Tzef7i64opUkPjdjMKI4XXx6bRtGZ?=
- =?us-ascii?Q?sE7qAOVgP2Gt+W3fjubETaxS6orxvTw1lmMiNcummmMI2iAvcXXirStUv5ih?=
- =?us-ascii?Q?+NoUbdF4bo9c2kurxAEWeZMsRgoSwfk4oKZ2DpwEva5NKom5JXw7o+qvGWUm?=
- =?us-ascii?Q?lIjZfjcOJAsWqwG047dXVluRBdfbwKzDfyl4LUHixeARwPgLNPh86gsnnzV5?=
- =?us-ascii?Q?3l3k/+Ti7J1OSXWvPvAVbxwhNMxGjxcNI19ly4vpf1KssS0o7OKMD+LpnCB3?=
- =?us-ascii?Q?3WxDORE0uCsv0nCk2shc2CCIhnKP4Bf5K9rDiHEOQS+MF9DAVBUMId7q6Gxz?=
- =?us-ascii?Q?wGOPKsRnqn9hh0YMZfheYq0o56q4IT5+za5Gsalh5NsWCbb1jirGf/hhSg3o?=
- =?us-ascii?Q?HpcRys+SCDXfdCR6CZPwEOggc+NkyyEnTog8E9IjckrD1iSxDyCyQlU01SiO?=
- =?us-ascii?Q?BIRLt2N56BNKS43oBXDiE3AtZAzenlMzNOP9JOb2Zw1g9V8zVLgaODi5zhTP?=
- =?us-ascii?Q?kzVX4RJoR9Mb+0dDXdBaOJKX9YP9RKk=3D?=
-X-Exchange-RoutingPolicyChecked: u4SSEF4DwS4XqqWUMnxcsK1baPk/mp7dY9Lo0KGRqxerBG2pX+3eMv/8DM4UilgZL0jEx2rBnhEGvtT1l4+LS8q9wlIlC/WyyEHPU2EFlhXwFCN2cXuajS5+3js45lUx+SIGuoVB+TAM4CxacuRQ1EFx4Fq6aV3MFISrtS8evpgjbZXrWg88yETrKjR92aZG150NQEG5WYSk8aEKabx5gIpbxciMy9SBOK6DC0Cj9oNM/Wnr5tQq6vz7h7Peqqh79JDct0us57IPw7OGcTlNun0WSmgBT39U1lZFtCsouJufWAQSBgTF5CLlLAwayOf2U7daB3F2v0N0SDaQ5zI0dw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62932d2c-68b9-40c1-f740-08df1ffcc53f
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 20:44:21.5901 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 35iAf9g7hasFKETQJS34QtKHxNSITUqNDUuFyk5wpODY0XRCOQNzbHt4HW3O/kBz2wPLWC0LGjQ6lDvlJ0q25w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6317
-X-OriginatorOrg: intel.com
+References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+ <20260923-dd-cmap-part2-clean-v11-17-9b6c217fdf2f@gmail.com>
+ <20260923224758.ABDB11F000FF@smtp.kernel.org>
+In-Reply-To: <20260923224758.ABDB11F000FF@smtp.kernel.org>
+From: jim.cromie@gmail.com
+Date: Thu, 1 Oct 2026 14:48:22 -0600
+X-Gm-Features: AclHuK_fnG9ePBcpefBAaL1OxTkmt0Q1XqH_AAR2O6UruMjbb77-3ueG2XaC4OU
+Message-ID: <CAJfuBxzR+rHmMw7HPscwb4eAVn1SsnHpFVLGcYxJOq9icQyQWw@mail.gmail.com>
+Subject: Re: [PATCH v11 17/38] dyndbg: replace classmap list with an
+ array-slice
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,38 +107,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 01, 2026 at 10:03:22PM +0530, Aryan Sinha wrote:
-> The open coded res->end - res->start + 1 is what resource_size() does.
+On Wed, Sep 23, 2026 at 4:47=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] dyndbg: interleaved classmaps are orphaned due to contiguous s=
+lice assumption
+> --
+>
+> commit 8936e7007afda568cebc34aa496a40887ac6a5a1
+> Author: Jim Cromie <jim.cromie@gmail.com>
+>
+> dyndbg: replace classmap list with an array-slice
+>
+> Classmaps are currently individually list-linked onto dyndbg's per-module
+> ddebug_table for operation. This commit replaces the list building operat=
+ion
+> with an approach that treats packed classmaps as an array-start-address a=
+nd
+> array-length, reusing the select-by-modname condition to find the bounds.
+>
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+>
+> [ ... ]
+>
+> > -static void ddebug_attach_module_classes(struct ddebug_table *dt,
+> > -                                      struct ddebug_class_map *classes=
+,
+> > -                                      int num_classes)
+> > +static void ddebug_attach_module_classes(struct ddebug_table *dt, stru=
+ct _ddebug_info *di)
+> >  {
+> >       struct ddebug_class_map *cm;
+> > -     int i, j, ct =3D 0;
+> > +     int i, nc =3D 0;
+> >
+> > -     for (cm =3D classes, i =3D 0; i < num_classes; i++, cm++) {
+> > +     /*
+> > +      * Find this module's classmaps in a subrange/wholerange of
+> > +      * the builtin/modular classmap vector/section.  Save the start
+> > +      * and length of the subrange at its edges.
+> > +      */
+> > +     for (cm =3D di->classes, i =3D 0; i < di->num_classes; i++, cm++)=
+ {
+>
+> [Severity: Medium]
+> Since the scan in ddebug_attach_module_classes() always restarts at index=
+ 0,
+> could this cause regressions if multiple descriptor tables exist for the
+> same interleaved module? When distinct compiled objects share the same
+> KBUILD_MODNAME, it seems they might all incorrectly bind to the first blo=
+ck
+> instead of finding their respective fragments.
+>
+> >
+> >               if (!strcmp(cm->mod_name, dt->mod_name)) {
+>
+> [ ... ]
+>
+> > +                     if (!nc) {
+> > +                             v2pr_info("start subrange, class[%d]: mod=
+ule:%s base:%d len:%d ty:%d\n",
+> > +                                       i, cm->mod_name, cm->base, cm->=
+length, cm->map_type);
+> > +                             dt->classes =3D cm;
+> > +                     }
+> > +                     nc++;
+> > +             } else if (nc) {
+> > +                     /* end of matching classmaps */
+> > +                     break;
+> >               }
+> >       }
+>
+> [Severity: Medium]
+> Does this premature break in ddebug_attach_module_classes() enforce an
+> assumption that classmaps are strictly contiguous?
+>
 
-nit: we should use imperative telling the change and why. this is just the why...
+Yes, it explicitly enforces that assumption, because contiguous packing
+is a fundamental invariant of the Kbuild object model and linker script:
 
-> 
-> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
-> ---
->  drivers/gpu/drm/xe/xe_svm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> index b228a737c..e6ab5a5b3 100644
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
-> @@ -1848,7 +1848,7 @@ static struct xe_pagemap *xe_pagemap_create(struct xe_device *xe, struct xe_vram
->  out_no_pages:
->  	drm_pagemap_release_owner(&xpagemap->peer);
->  out_no_owner:
-> -	devm_release_mem_region(dev, res->start, res->end - res->start + 1);
+0. In Linux, all translation units (.c files) comprising a loadable
+   module or composite built-in object are linked together via
+   $(LD) -r into a single intermediate object (e.g. foo.o) before final
+   vmlinux or .ko generation. All contributions to custom ELF sections
+   (__dyndbg_classes, __dyndbg_class_maps) within that object are
+   placed contiguously.
 
-I noticed we are not including the linux/ioport.h here.
-We should do this explicit. I know, we should had done it already when using the
-struct resource. But now it makes more important. Please add it.
+1. Built-in module definitions do not interleave across directories or
+   link units. Core dyndbg already relies on this exact contiguous
+   invariant for callsite descriptors: dynamic_debug_init() scans
+   __start___dyndbg_descs sequentially from index 0 and allocates a
+   struct ddebug_table whenever strcmp(modname, iter->modname)
+   transitions. If Kbuild interleaved objects for the same module
+   across arbitrary boundaries, descriptor tables would already break.
 
-Thanks for the contribution,
-Rodrigo.
+2. An array slice (start, len) inherently represents a single contiguous
+   memory extent. By definition, a slice cannot represent fragmented,
+   disjoint ranges. Replacing struct list_head link with a slice saves
+   memory and pointer indirection overhead per classmap, backed by
+   standard section layout guarantees.
 
-> +	devm_release_mem_region(dev, res->start, resource_size(res));
->  out_err:
->  	drm_pagemap_put(dpagemap);
->  	return ERR_PTR(err);
-> -- 
-> 2.46.0
-> 
+> If classmaps for a module are interleaved, breaking early means only the
+> first contiguous block is bound. Subsequent classmap fragments might be
+> permanently orphaned, leaving class'd pr_debug calls in those fragments
+> uncontrolled.
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-dd-cmap-=
+part2-clean-v11-0-9b6c217fdf2f@gmail.com?part=3D17
