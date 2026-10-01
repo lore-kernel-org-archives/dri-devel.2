@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC698CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88791CA5FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 13:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A2310E3BE;
-	Thu,  1 Oct 2026 13:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D75B210E3CE;
+	Thu,  1 Oct 2026 13:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KarDmcX0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YS0Q1KkA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD6A10E3BE
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:20:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1975510E379
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 13:23:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 190E760A52;
- Thu,  1 Oct 2026 13:20:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2C51F000FF;
- Thu,  1 Oct 2026 13:20:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F0280411A9;
+ Thu,  1 Oct 2026 13:23:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D3521F000FF;
+ Thu,  1 Oct 2026 13:23:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790860845;
- bh=Ix4sdki6oL8m7b+Fgxal19OG4zKC9Zat0nSmdfuifGI=;
+ s=k20260515; t=1790861011;
+ bh=1KhjO7Ve+bwC1EXPvDPnP9O0N3bQ4V/TYRMKRG3+ks4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KarDmcX01yDPYS458qHjGaVKK3s7Wk26qq1nrEdvKHvJGWEobAIbNmZsGhIdtF1Bv
- Ntt8YGheFfbo8Od99DLTRqcjC3sFABr2G7CmN4hAdMKRvtLAZqzw+n2N6nHe9idCu5
- vCdE1ZAPNcwRgRoxgiy+wiNbXUkNuJIB03ANFLE4Z/lP9AEkKawePt5kDLZ8A1iW6i
- +JWu78TXbvsinfUy4O8VxT7RKHsdO/BWBgRG04f+224pCWA5xR/Nukg3gk+R76nzld
- PSBPZKaWNomdj44eNWHFwZXdo8jI0Y59dDgEBVNcWczUnA6QpbmSUXk9QU93uANl1W
- vdvRsAyB7BPVQ==
+ b=YS0Q1KkArPuhX28FaP5MSKeMIOxhmSz/MgC7f/XUGMCYq7AKbd51rdhaYAHfeC/LE
+ UTxPev2x8J0uQO4f8YvbX7ffMwCNGjP6tjZr6djv4JE81b1l+YippKo4Rh8CgfzawJ
+ l9pcva8RIALWf/df7HDoZtWbbO5y9fKGLY15HmNok+lCOCU5deHuJ7O+QE7XfUDF78
+ w8oJGZM7o+YZBoYiRtyg0CkzHfx/YbNcTc83dXkQFxOAkYk6qLWDH8fciv+NkgTYLK
+ kADqL3fjjxVJfSdAbJYwaLWsHa6H9zUIYYCX57PtD7HsCdlx2gx0QZop5ojRJUcdcY
+ nf6IaBbOzg++Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 17/24] drm/bridge: add drm_bridge_get_next() and
- supporting func
+Subject: Re: [PATCH RFC v2 20/24] drm/bridge: ti-sn65dsi83: implement
+ .get_next_bridge
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20261001-drm-bridge-hotplug-v2-17-8e34986dcb68@bootlin.com>
+Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
+In-Reply-To: <20261001-drm-bridge-hotplug-v2-20-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
- <20261001-drm-bridge-hotplug-v2-17-8e34986dcb68@bootlin.com>
+ <20261001-drm-bridge-hotplug-v2-20-8e34986dcb68@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 13:20:45 +0000
-Message-Id: <20261001132045.7A2C51F000FF@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 13:23:31 +0000
+Message-Id: <20261001132331.9D3521F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,151 +58,53 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] doc: get_next_bridge incorrectly specifies PTR_ERR instead of ERR_P=
-TR
-- [Low] kernel-doc: mismatch in enum drm_bridge_ops documentation for DRM_B=
-RIDGE_OP_GET_NEXT_BRIDGE
-- [Low] kernel-doc: missing @bridge parameter description in drm_bridge_get=
-_next()
-- [Low] typo: spelling errors in commit message and documentation
+- [High] drm/bridge: ti-sn65dsi83: missing refcount increment in get_next_b=
+ridge
 --
 
-commit 3521ec7ceaf6e88e9c48a699f2fdf587e7cc4f93
+commit cea7189b53e4a71deaaf15ff6f56ed70a0d97448
 Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/bridge: add drm_bridge_get_next() and supporting func
+drm/bridge: ti-sn65dsi83: implement .get_next_bridge
 
-For bridge hotplug we need to successfully probe a card with an incomplete
-bridge chain, i.e. a chain whose last bridge currently in bridge_chain
-needs another bridge at its output. Such a card would have no connector,
-and be able to add one as soon as the followong bridges are added up to the
-bridge that requires no further ones (like a panel or a connector_bridge).
+This commit adds the get_next_bridge callback to expose the next bridge in
+the chain for the ti-sn65dsi83 driver.
 
-So we need a way to know whether the pipeline is complete in the hardware
-(all bridges probed)), in order to complete it in software (attach all
-bridges not yet attached). Currently common DRM code has no way to know
-that.
-
-Add drm_bridge_get_next() and a supporting get_next_bridge func so each
-bridge can expose its next bridge, and whether there's supposed to be one.
-
-A subsequent commit will use this function to detect whether the pipeline
-is complete in the hardware or not.
-
-Link: https://lore.kernel.org/r/20260624-vagabond-neon-gorilla-cd6487@houat
-
-> For bridge hotplug we need to successfully probe a card with an incomplete
-> bridge chain, i.e. a chain whose last bridge currently in bridge_chain
-> needs another bridge at its output. Such a card would have no connector,
-> and be able to add one as soon as the followong bridges are added up to t=
-he
-
-[Severity: Low]
-This isn't a bug, but there's a typo ("followong") in the commit message.
-
-> bridge that requires no further ones (like a panel or a connector_bridge).
->=20
-> So we need a way to know whether the pipeline is complete in the hardware
-> (all bridges probed)), in order to complete it in software (attach all
-
-[Severity: Low]
-This isn't a bug, but there's a typo ("probed))") in the commit message.
-
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index c84129100d20a..97a142ef0348e 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -706,6 +706,34 @@ void drm_bridge_detach(struct drm_bridge *bridge)
->  	drm_bridge_put(bridge);
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> index eb5b249cc43c7..76fc0ca8cd196 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -295,6 +295,13 @@ static struct sn65dsi83 *bridge_to_sn65dsi83(struct =
+drm_bridge *bridge)
+>  	return container_of(bridge, struct sn65dsi83, bridge);
 >  }
 > =20
-> +/**
-> + * drm_bridge_get_next - return the bridge at this bridge's output port
-> + *
-> + * Return the next bridge, i.e. the bridge that is connected at the outp=
-ut
-> + * port of @bridge. The next bridge might or not be in the encoder chain.
-> + *
-
-[Severity: Low]
-Could we add a description for the @bridge parameter in this kernel-doc
-block? Omitting it causes a warning when building kernel documentation.
-
-> + * Returns:
-> + * * Pointer to a bridge connected to the output port of this bridge,
-> + *   with refcount incremented; call drm_bridge_put() when done
-> + * * ERR_PTR(-ENODEV): this bridge has an output port where a next bridge
-> + *                     needs to be present for video output, but the next
-> + *                     bridge is not currently available
-> + * * NULL: this bridge does not have an output port where a next bridge
-> + *         is expected
-> + * * ERR_PTR(-ENOENT): the bridge does not implement the func
-> + * * Another negative error returned by the bridge func
-> + */
-> +struct drm_bridge *drm_bridge_get_next(struct drm_bridge *bridge)
-
-[ ... ]
-
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 1981d24a700d2..f020e0c2a2684 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -62,6 +62,26 @@ enum drm_bridge_attach_flags {
->   * struct drm_bridge_funcs - drm_bridge control functions
->   */
->  struct drm_bridge_funcs {
-> +	/**
-> +	 * @get_next_bridge:
-> +	 *
-> +	 * Return a pointer to the bridge connected at the output port of
-> +	 * this bridge.
-> +	 *
-> +	 * Returns:
-> +	 * * Pointer to a bridge connected to the output port of this bridge,
-> +	 *   with refcount incremented; call drm_bridge_put() when done
-> +	 * * PTR_ERR(-ENODEV): this bridge has an output port where a next
-
-[Severity: Low]
-Does this documentation incorrectly specify PTR_ERR instead of ERR_PTR?
-Following this kernel-doc would result in returning an integer as a pointer,
-causing compilation errors.
-
-> +	 *                     bridge needs to be present for video output,
-> +	 *                     but the nextbridge is not currently
-
-[Severity: Low]
-This isn't a bug, but there's a typo ("nextbridge") here.
-
-> +	 *                     available
-> +	 * * NULL: this bridge does not have an output port where a next
-> +	 *         bridge
-> +	 *         is expected
-> +	 * * Another negative error returned by the bridge func
-> +	 */
-> +	struct drm_bridge *(*get_next_bridge)(struct drm_bridge *bridge);
+> +static struct drm_bridge *sn65dsi83_get_next_bridge(struct drm_bridge *b=
+ridge)
+> +{
+> +	struct sn65dsi83 *ctx =3D bridge_to_sn65dsi83(bridge);
 > +
+> +	return ctx->panel_bridge ?: ERR_PTR(-ENODEV);
+> +}
 
-[ ... ]
+[Severity: High]
+Does this need to increment the refcount of the returned panel bridge?
 
-> @@ -1021,6 +1041,11 @@ enum drm_bridge_ops {
->  	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
->  	 */
->  	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME =3D BIT(10),
-> +	/**
-> +	 * @DRM_BRIDGE_GET_NEXT_BRIDGE: The bridge implements the
+The API contract for the get_next_bridge callback in include/drm/drm_bridge=
+.h
+states that it must return a bridge with its refcount incremented, as calle=
+rs
+are expected to invoke drm_bridge_put() when they are done.
 
-[Severity: Low]
-Does this documented name mismatch the actual enum value
-DRM_BRIDGE_OP_GET_NEXT_BRIDGE? This mismatch causes an unresolved reference
-during kernel-doc generation.
-
-> +	 * &drm_bridge_funcs->get_next_bridge callback.
-> +	 */
-> +	DRM_BRIDGE_OP_GET_NEXT_BRIDGE =3D BIT(11),
->  };
+Since ctx->panel_bridge is returned directly without calling drm_bridge_get=
+(),
+could a caller traversing the chain cause a refcount underflow? This could
+potentially lead to a use-after-free of the panel bridge object when the
+caller drops its reference.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-drm-bridge=
--hotplug-v2-0-8e34986dcb68@bootlin.com?part=3D17
+-hotplug-v2-0-8e34986dcb68@bootlin.com?part=3D20
