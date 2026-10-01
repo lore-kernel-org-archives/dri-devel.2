@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69EFCCA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62CFCA5FD4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF82310EDC5;
-	Thu,  1 Oct 2026 14:46:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E53210F110;
+	Thu,  1 Oct 2026 14:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bnu0cgts";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YVLemYKE";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41C6B10EDC5
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 14:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790865984;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CuGmcOB5B7OU7vPcQ5Kxs9sP8F6GWHF+e8A0rz6DPVU=;
- b=bnu0cgtsDC7TTD+g9P2qdakhJ4ghf9AvIsR9zUYcPjpjlwY2dDe0IKvPlsR5FUZhmJ63hv
- DnN8QkTzQSCNKun2TwM0RzXrbKx+rwLmDAWpM61ah0Ycp5UdIHfHsRZ9UkSOsjVebobEQo
- 2D+cBp6+Ec2871uYcMyi0tfZOeuzeqA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-81-5vxh-MXjOlq5_i0FBMTMwg-1; Thu, 01 Oct 2026 10:46:23 -0400
-X-MC-Unique: 5vxh-MXjOlq5_i0FBMTMwg-1
-X-Mimecast-MFC-AGG-ID: 5vxh-MXjOlq5_i0FBMTMwg_1790865982
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4a022fee32fso6260155e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 07:46:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790865982; x=1791470782;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=CuGmcOB5B7OU7vPcQ5Kxs9sP8F6GWHF+e8A0rz6DPVU=;
- b=GOwA7MR7ZwTOr7HwxsivDSNGFsHtrivuxOCxzYgkFwk+y25UeM9F6S6E8+53OQ8MWD
- 1VgxHIB2azr9DtlprisTAohZ0wOSTXT3ydCw5BsVW72xN0D7YJyndFAgjfX0vB1W3elV
- NwEFNAw1JVyBsTHEjo9NG+pj9Vtf/SfXxpu+QgdEB0yIOSKnqIqpGKPP6pLKqBxsi5qP
- sw6BR0bzYoyG3d+EFKY5aOJqua02z+PMjCP3fY6SnJg0Kzf9ypy/iAOqDVLf+Nsbr2Wb
- FMtPDHjYde0i4PIgUl02AyUCecdLXbln5Ghx/i7bwND72Sd2LS9g0WIsnQYZOa1bBXSu
- U8lw==
-X-Gm-Message-State: AFuF++nQhO1qy42OKCJRVTMQ4yEmziguQt/RfBBkDs7cQtzWvRa2188m
- YGo/wZgmC9JISN8zXTFXFtq5ZkqMxvSeFKaDEgvpGko0E32GHHg3fviIIRI5AteJ8fwgoCg0Jsu
- A8mMEFRpQG+VTQVFjqay76lC1c8lbxgCbi4eNF/wqU+DkVrbPsLzfmQbGAPd3fhQkLD4MMw==
-X-Gm-Gg: AYBFou1mhT962bOx/OGCgh8hlPbvNlIPZw5F6uJREMOuhqMRalv3rtG4W038LconsmC
- LzgwhYPOlNKy4uF/w5IYWOgyQEiGz3Ll6YVwwoQoO35Cdc5bplHO8iS30yn+IAbTgNPBF/NSnwS
- tZhDF7ZaLcnQkEiU2raisF3ZgiFOclxgof9QLYGMJviPE5YfU3ssdmHmxZwu+DOAz5b7ysx7cQ+
- AQWcp3R25f4EsEug04JiJ4CsN1zYNXHuZbzflAGjPupKtWtPjPhsnXZ+x3E97tBQBwpPKI8u8oQ
- vh9/xLs8mW2pLgPonV9yqjvW4pY/IZFT6yp6coRtvkb63dPTTZ0cnxEZEuJgIKx9oESsjrBHVrv
- nXEgNHyX/xyxwiGtCsk6230RAFu+lgLKANPdyePSQvM/12pvm39yb5i1zVfpzBac9yw==
-X-Received: by 2002:a05:600c:4e41:b0:4a0:c01:1902 with SMTP id
- 5b1f17b1804b1-4a01ad9e5d2mr78126215e9.2.1790865981668; 
- Thu, 01 Oct 2026 07:46:21 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e41:b0:4a0:c01:1902 with SMTP id
- 5b1f17b1804b1-4a01ad9e5d2mr78125495e9.2.1790865981098; 
- Thu, 01 Oct 2026 07:46:21 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a0226201aasm59955425e9.6.2026.10.01.07.46.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 07:46:20 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com,
- ssengar@linux.microsoft.com, andy@kernel.org, gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct
- drm_simple_display_pipe and helpers
-In-Reply-To: <20261001133736.802604-3-tzimmermann@suse.de>
-References: <20261001133736.802604-1-tzimmermann@suse.de>
- <20261001133736.802604-3-tzimmermann@suse.de>
-Date: Thu, 01 Oct 2026 16:46:19 +0200
-Message-ID: <xlv1jyo1fphg.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39AC710EEFD;
+ Thu,  1 Oct 2026 14:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790866155; x=1822402155;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ewa1wuVn35rcjvk+PaepGF5+VMjomWfPBtsBrSoXF1Q=;
+ b=YVLemYKEhS9KOLwJC7vSa4u3f0A2AWTKlBi/oRbymVziMly7HNwTmUXL
+ bNFhFRfhyuUYmqh6rgnThA88dUi/ZkRV7vjBvfAAoeNsHIO1z6uXKjTmx
+ mPutuphv8EUmqVQvG/wQbS+nlu13zCMynYVwWHhxs7NPrxZGl+KTLAfXx
+ 2E7/8mYL2CxQHG9epKSsfHSiZJVPiGm5RVBelrLllLDQzrCEwSy4jTjIN
+ 561O16KT3rxvWUhXhEKCCEfRJfXUfjwGJWE1arwUwehhLNmKOc7fkumcy
+ +QGw82K0VIt5K0lOB2P2nS1oKSGR6J3kVLdECbu+697G/n7JHzmQ3NaGD g==;
+X-CSE-ConnectionGUID: PAqENUgoQrGf37kfCxbwQw==
+X-CSE-MsgGUID: 8iqdlKpGTtW9mxJTifE/uA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90759344"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="90759344"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 07:49:14 -0700
+X-CSE-ConnectionGUID: IzSc/ACRRI6RBNLwMVV3pg==
+X-CSE-MsgGUID: lJLGLy+fS4SerSuUBsP8Og==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="272435477"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.111])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 07:49:10 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org, Uma
+ Shankar <uma.shankar@intel.com>, ville.syrjala@linux.intel.com
+Subject: [PULL] drm-intel-fixes
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Date: Thu, 01 Oct 2026 17:49:08 +0300
+Message-ID: <5a9a11777f605b59550783923add4568e974a6ea@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: -jF0FL1qdBXFK2kZLlRbq1nfda94eCI2a5PEBeXvAYc_1790865982
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,42 +75,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Hello Thomas,
+Hi Dave & Sima -
 
-> There are no drivers using struct drm_simple_display_pipe. Remove
-> the data type and all related helpers.
->
-> The idea behind struct drm_simple_display_pipe was to provide an
-> easier way for writing DRM drivers besides regular atomic helpers.
-> It turned out to be more complicated. With all drivers being updated
-> to use atomic helpers, it's time to remove simple-pipe. Also clean
-> up the related TODO items.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  Documentation/gpu/todo.rst              |  17 --
->  drivers/gpu/drm/drm_gem_atomic_helper.c |  92 -------
->  drivers/gpu/drm/drm_simple_kms_helper.c | 328 ------------------------
->  drivers/staging/fbtft/TODO              |   6 +-
->  include/drm/drm_gem_atomic_helper.h     |  28 --
->  include/drm/drm_simple_kms_helper.h     |  56 +---
+drm-intel-fixes-2026-10-01:
+drm/i915 fixes for v7.3-rc6:
+- Disable VRR DC balance by default to fix timing issues
 
-There are no more users of struct drm_simple_display_pipe but still some
-drivers include the drm_simple_kms_helper.h header. Latest drm-misc-next: 
+BR,
+Jani.
 
-git grep "drm_simple_kms_helper.h" -- drivers/gpu/drm/*/ | wc -l
-21
+The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
 
-So it seems you need more  preparatory patches. For this patch though:
+  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-10-01
+
+for you to fetch changes up to c034e8a46e4cb703018fe7e10fe5a3a974d6a7c3:
+
+  drm/i915/vrr: Disable DC balance by default (2026-09-28 12:14:43 +0300)
+
+----------------------------------------------------------------
+drm/i915 fixes for v7.3-rc6:
+- Disable VRR DC balance by default to fix timing issues
+
+----------------------------------------------------------------
+Mitul Golani (1):
+      drm/i915/vrr: Disable DC balance by default
+
+ drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
+ drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Jani Nikula, Intel
