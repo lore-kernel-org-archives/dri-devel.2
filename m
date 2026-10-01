@@ -4,66 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F02CA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 05:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B811ACA5FA5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 05:23:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36C1410E09D;
-	Thu,  1 Oct 2026 05:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2074B10E0B4;
+	Thu,  1 Oct 2026 05:23:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="qeOpMIHq";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lasVHYib";
 	dkim-atps=neutral
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com
- [165.173.180.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99C2110E09D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 05:21:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1790832099; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=mMFw8cCuCMzUEVMfJF3aKZ1neIlbin6WcRqxVN2oUpSmY3mthZUi3rbTPVw4LXqJrmpYw2e6f8Je8I9Eb+CaGshT6YlFRYiHY+8exwpRiSo3J4RYwhDUdJqJe+gqiPv1uKy8myK3nqZH/8LDXLfSVLvOGJwpAIGNrqb4ieLuuoc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1790832099;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=; 
- b=EFxTNTjLePxt3iHQb2Ba0jJeFfoP96hTmNrDCC05/pM31i33xwSi3Ax8SOMikyRYZaT+FPoI+bWmRMxKbtE6SVMV1wnMdE1P/lULXCoz6wNswJepj/CnIJa26tMk7ssXYRAqthXRcre1gHhbr6Hn5soDfwiYTUKXuybhSq+Uggo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790832099; 
- s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=lz+9c0nkenhND9sDVxJDz3WjWh9rFaj9ZD4c+CCam6g=;
- b=qeOpMIHqj1lSX3vGn5zRrQcXblWXrJn6zCXKct6mSEhyE3JIpF/41Snh0wFP3YeK
- rSBzgz53J4Fr7Za9KWvSY9gTbD6EW48oHJGicSgQfI9rgVI2gCp8PHyx+bZZRd6Ga1p
- +NfdDnuYYb97D3bDwoh5c9zNxjBJTeCCgYbn5c6DY6qUPvJJ9CB8qd7oeoZMVjtYdd+
- /u733hGh6GKkT4WHZY8mlAG4QGQ96vA4EafqEm1T5X6Z65k69t5wot50HeGbLY+wW6y
- Sb252PWO9qGeoF+hwHxoL6DjHJeOvpaWyUf5kjOd3Sy23wcsf/2u1FVKK2+aozJW5G8
- trKoR2xWSg==
-Received: by smtp.zohomail.com with SMTPS id 1790832098016772.1720132572663;
- Wed, 30 Sep 2026 22:21:38 -0700 (PDT)
-Message-ID: <3e8bc62a01f5b0162373cb8016d7409c6a4c269b.camel@icenowy.me>
-Subject: Re: [RFC PATCH 0/2] drm: add a noncoherent mapping checking helper
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Conor Dooley <conor@kernel.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Paul Walmsley <pjw@kernel.org>, Samuel
- Holland <samuel.holland@sifive.com>, Dominique Belhachemi	
- <domibel@debian.org>, Michal Wilczynski <m.wilczynski@samsung.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org
-Date: Thu, 01 Oct 2026 13:21:32 +0800
-In-Reply-To: <20260930-reoccupy-pupil-6a5d0cace243@spud>
-References: <20260930073528.3369325-1-zhengxingda@iscas.ac.cn>
- <20260930-zippy-container-d48f72432c1f@wendy>
- <32baa664ee2f66618a54c260849b311c581febfc.camel@icenowy.me>
- <20260930-reoccupy-pupil-6a5d0cace243@spud>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.201.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14DC610E0D9;
+ Thu,  1 Oct 2026 05:23:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ny5M4b2Eups9jqmTGlG6D5m8WFs7zgrUjD8eQ7HbfX6/VpPbExBEIs9oIWiX74MIGtmJCLOb1vtQoosi6BNbzf+DlO3FJ2I6vV5AKlkio+ZMyhwvZ3UNSaQs7JIi1++j5gjzQmYUHys3CcYCL+ZcxLdrSnOrgZH9u0ba4NHrCkAyJaH3Ry5rhEwwgHuaPmji4qs91UdQrT1vDqvlCu9RHpzCJ+7+roZV5YZR7rISGXYGuG9xcNPmCe3FwgvegNoie2mWU5mkzKt7/AahT+Fw9aROfXpsOBmpgD+YcNT4zSB1qx6iYAiJk4v95wlnrLt6vdyZSz4c6E23jSUjuZGbxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RdHdRee8Kb1IZqFh7XXmCVmRZehQfNmWnZiYzlsf+cQ=;
+ b=uB71Vnrw+YItgzE2z8/HFeYYKdcU98dOqjANug9zmCjtEf6uu0KHjdzIVRvqYdTw1xN7PvjuceKXq34YPiALN6UsFz16soADAIUwrzLHh0vOcimMTKLGSHhZ0lTMeNMgwK11UQsONqZNaQIYbzy7QvPNpRIemn0MPdYywdeN4qmDQnfY/7FJTL5Lb9SeGjEXdmrLY8EK1R0y7MUR+vwZw8pAEc3+F+O138Kxg5CsHuNPiU1CS5GzTIsYqOj+pZUu27MCv2tldwzGS+H2bdmFhcr6u6Kd4ZO+btCrA1IkX/6v14xvYt2fnEw65QFiOPeqeKAF9cOAfZANNY9QcuZ4Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RdHdRee8Kb1IZqFh7XXmCVmRZehQfNmWnZiYzlsf+cQ=;
+ b=lasVHYibSGy3eWNXOFHInbe4TbKG2W6wJiDYGUDHlvJVa9C50IUsttG7i6MGNnR5wNzR90MyGSzSig1+hE9zu23A3uNuXz8NWjspQgJmX9ukCy8UCqJpNPmxh1oprpCry4In2vG4n7txOUh5+1GOc/W0WYAi4H5FSN+mtoZgSkjXjMvjxpGWXE3KAtUAtKEC6kdDK17vZ4xpLpwcj3+DYQO0CY1Qki9mf2jGkE2dbxcAWbwqx+Ei+DP3vsAM9hL9rTNKCmUTI6uxDgPVAB5DNIYzj3K+tkN1YaaVQX8Y4BXot2zRrPgu8LM54eGYYMoT1m8ErQ0xAfq7FxgZwf57fQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ MN2PR12MB4455.namprd12.prod.outlook.com (2603:10b6:208:265::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 1 Oct
+ 2026 05:23:28 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
+ 05:23:27 +0000
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 01 Oct 2026 14:23:23 +0900
+Message-Id: <DLT9190WEBPX.1X4UCVWUMNKEG@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v9 3/9] rust: sizes: add sub-1K size constants
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda"
+ <miguel.ojeda.sandonis@gmail.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-3-0d6cca376cff@nvidia.com>
+ <CANiq72kcqVfvVj_b7KTHKrCDj63LMKpsfP30zafoYB8c924i2Q@mail.gmail.com>
+ <DLSLNL9HDUKM.HN7Z0MACZZSB@nvidia.com>
+ <CANiq72n5jjW8U9VkYJZYFpL9Z5rPe=nRfs3DqmUdfxCW39oMgQ@mail.gmail.com>
+ <DLT30TMEHB4P.3PX7HPU1C6UDR@garyguo.net>
+In-Reply-To: <DLT30TMEHB4P.3PX7HPU1C6UDR@garyguo.net>
+X-ClientProxiedBy: TY4PR01CA0096.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::19) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 MIME-Version: 1.0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MN2PR12MB4455:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36f2ece2-b0f0-4d74-d8d9-08df1f7c1f78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: T8HGHVWlFJN6BfFobAFXklLMvX2iCn/Z7os1EQCj1u/wmkhroW/KrEnZFMOa/8OUU7/Tr4MCfDh6776P3+AglxR3EpfZHLJg9IRQGA51UH7uWRtBan0EAM6ettAN/79F0A0hrt/1IPWXaSZyIy+ilJSNGJNfMgbEKOEZ4JUuWKwfE9J+hvD1FYf8FWMVVjDLU18DMWesE+CYe6hkZ1308PIDfD57tCkEEzzGYUmhUJ2+AxBN61FTvdFQgym4WTwIJWEXEA4tvcXLcjv3jhiQY5Mzh7vBYXtxnP1uxbQpblnXxRmRlqZTACBz8io9zEEYiAs6c0+TFoXnqsWoy8bdG0eqdSYfyBlGJ2Mz7q8jYEqqjDA2tpnTrjOG5ToS4eDLXuOH3zkYbTfy84VvXWf8qj/wcJBDDSExi3mMq+rORZrZVBM/AQEggkZoyVWZJ2YVmT74j3ajYoXK2h+iSrUm+ehmGs07Rlco/znJtf4bxKmtsIBZCw7uGtYH5bemgWSxG+q1bW3Gn+Q9mFt1yltJOK/fvFraxI8FEfzt4tvbkelDkL/IuVpRrRxKfaSoGRwZDtHDatjZKgPP2kC8CnRL+jF+8MF6I2ApC4EqToFLIAjWBJateUn9GA3I9SGlCjDQGG0H2OnzsJ4q2wTHnSo6I1K3lEu1bV/jAhAK7KD/9Qo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eU10d3cwMVRvWTNnemtuNVp2WEZkWm5INXNUMEhiejRQdlR5RGlPelFsTGFO?=
+ =?utf-8?B?WG9senZMLzdOYm9xZ2ltQmpsRFhJNGt0TUtkYWNvUXVtZll2YnNUcGtGSCt5?=
+ =?utf-8?B?N0tGK0FDWVNHdVEwbDJub2NrQnZYaTlLNFQ4elZyNkRXOFVBR3ZjaUJvdVVh?=
+ =?utf-8?B?cmlPelFYWTMxWDlHKy8rNlhjc0hWU3h3cXYrTkE3UllpbTlzVEpsVXhUeS9T?=
+ =?utf-8?B?U3JOZDdjem5NSUJWK0hoZ1FQS2ptV1V5MXVLa1dpR2dabWRoQzFJdWpWNWZI?=
+ =?utf-8?B?bHN1ZnFtdnM4dTRxeGc5WlN4VXc0UWFjbUFwOE1SNTZkK0FBaThCVjhpN3hJ?=
+ =?utf-8?B?L0JsL3VrN09aQmRDS0dvc2tjaUxuREpKN0QzdERTVzViaWNTOWpGS0RCOTUy?=
+ =?utf-8?B?cjZYK0dsSTNWUjB3VkcwakxEMVB5ODVkYWwyemE2T201eTFFMmRWYnpvdTBn?=
+ =?utf-8?B?MGJZMVdadG5zblk4N3U2YTZDZzlkdnBwTXJSMjNPYVRYOXhSWjA3LzNWNEQy?=
+ =?utf-8?B?VUExMmpieHdhd1NzUW9mOTlsMnR3WWpzbWt2U1hCbXEwRjE1YlM4V2FIdVRK?=
+ =?utf-8?B?TlAwN1FLdk4zN29ldGVVc1Y5NXJXZDFCQmNnclorVndsQ25BNGRCRHcvaGs1?=
+ =?utf-8?B?a3JmdVpsYlVIZEtjTWVKREF1SGE0VkpGbnVqRTlWUzAxYUpFd1dqckRSUnNX?=
+ =?utf-8?B?QUl2eW9WbEdkaTVwK3lNZXl0RzRTZkZueUZNQXhhUUVZSUVvdGZiNHJ2SVVT?=
+ =?utf-8?B?S1NMTTVSVFAyUVhIV0tsemhiNUh2Rk1zVzd5eWphdTJDUTc3S0VpVDNKbWZJ?=
+ =?utf-8?B?SHArdlZRS0VUOGUybjRmQjZlOGFRNEZoWFkwOHZqYWtNYlQ2S0FHUGlEVzY5?=
+ =?utf-8?B?S0labmE5aFZPZkZqRzllRFVjemQ3cG9aM2d2S0hMeGZnQUZZeVBJVFZvNWhv?=
+ =?utf-8?B?VUhtOHF1TUlYMWFQL0NuaURWK29XYTAvRWE0SE9QYjlGYWZCL2dLTFlzWUYw?=
+ =?utf-8?B?ZEIvc3lIN1dhbStwano2Y0t0SDl1eXEvVS9NZVNYejhIdGFRZk5TRzE5TGtq?=
+ =?utf-8?B?dTlFUEdUUWRqVEdxazZkTUYyQmFmQXpvMXl4ZVFmM1p3ZGNYa0Z5bElVZnZs?=
+ =?utf-8?B?Nm5RODNwd1V0UVAvU3Q2N3E1SkxGdXNPNThSeU42dVRjUnYyNTNEYUxITVpw?=
+ =?utf-8?B?c1lKNkYyR2lpdkNUM1RpRDZOL05Zc1VUQjltTFUwYURZN1hWYXRTU0hMRS9W?=
+ =?utf-8?B?MG51S2VScVN0RG5YQ25Kam5wckNaeVd3U0hxQzJ0N2xWaUpFaFEydzhHTXhv?=
+ =?utf-8?B?TWpNSG1iOFM3dThRMmNnQm1RWis0bkdiK2FuQjI1akxhSVlYdHdJeXpFMXIy?=
+ =?utf-8?B?NlBxOVhPeVA5SHV6aDV0WkdmTUVKdDBkZCtFUW9zNTJpTzhwS3dMMmFva2ww?=
+ =?utf-8?B?NkFVZ3c3RnFTSDFIbGp1dDQxcDFMUFVKeElxbG42TkZZKzlBVFA5RndFMThk?=
+ =?utf-8?B?WFVsWUpESktXUGl1UWxYWENDMm9aZG8vdzM5dkVCVU4xWG9acHRsL0ozelR2?=
+ =?utf-8?B?Zi9PcWpXWGZrejM4OEwyNHdPZDc4YVZ1cEFWR0Q1RTRaUVJFMkc2eGh3TFcr?=
+ =?utf-8?B?V0JhU2k5T3BIWGxUUEhHWVR1UEowVXN4VUsxVjN1dlhlUFZ6K1M2c1A0S1pW?=
+ =?utf-8?B?M2xvUkZCK3NJT0I3Vlg4V3F3L3hOKy95MDJ3WFczcURpRzU2b3BlSnB1MlBa?=
+ =?utf-8?B?eDRkWFI3TlQxRWs1OWpHTGtEMDUzbk1ud2U2d0VzcXMyWjA1eFZPdUV3MFYz?=
+ =?utf-8?B?OC9Qakd4WHRlQnBCa2wzWG5UbllLbGlMN2RPcXBqT3NBMGN1RG1GSEhkNGpm?=
+ =?utf-8?B?dzNSdEtuV0dGVDI1WHVuRkxxb1RzMkhCNWRydDhOZnprQ1FiV25jK3VHNG9s?=
+ =?utf-8?B?bWdldDRDREhQclNHV0xWRkg1UXo0TDFkYkpSMG1mL254eU1kOXlBZFVCT3ZD?=
+ =?utf-8?B?K0FpTHRKZXlXaFhwR3RBbGtQeFNmL1Q5WUdiUjROZlo0TGUrOU5DSDJJcmNT?=
+ =?utf-8?B?NHhEYXMyL1NxNGEyU29KL0R3dExSeC9NZWZrbzMwb0RXSkFZMytKZVhjUGNo?=
+ =?utf-8?B?SGY0NHFkNzNBVXRwNTdoT0lVQXpVMEpUQ01yeXVRWFpkUUdqbGRiRko3ODBG?=
+ =?utf-8?B?UGtWZ0t3eElLdnZrRGpvNjRGRHY3SC9Db1FuQkpKMTJycFAxaXdJSWhCWUps?=
+ =?utf-8?B?NUFUVjRmTFNqNGtkNU1sdDJFMDJ2RVBDczR4bXlmTFNWSEUwRkpkaStlRFUr?=
+ =?utf-8?B?cE1CMmg2MEVoT1NJWnlhbEhmSzlvOE1TeHpMSGs5ZzhzRk9La0hkL0NieWEx?=
+ =?utf-8?Q?ukTnufYbtClt49bDzQaWXO9L4DX9UM287bzz8YYWO4fNB?=
+X-MS-Exchange-AntiSpam-MessageData-1: aatfsWzF4dMu9g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36f2ece2-b0f0-4d74-d8d9-08df1f7c1f78
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 05:23:27.5636 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: q+nFRS57vW8icFDiYLX6BV3KBYfxb9/zXwuG0Ic1Dif/GCodZbkaX18J6Kt9uxALz2lLr+GUvWbskSgAj7vb6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4455
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,169 +159,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 17:30 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Wed, Sep 30, 2026 at 10:38:07PM +0800, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-30=E4=B8=89=E7=9A=84 15:18 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Wed, Sep 30, 2026 at 03:35:26PM +0800, Icenowy Zheng wrote:
-> > > > This patchset tries to address the lack of uncached mapping
-> > > > support
-> > > > on
-> > > > several SiFive-core-based SoCs, currently targeting JH7110 but
-> > > > EIC7700
-> > > > would have the same problem (although it uses DC8000 display
-> > > > controller
-> > > > instead of DC8200 and real display support is pending).
-> > > >=20
-> > > > Because other users (either SoCs with Xuantie cores, which have
-> > > > Xtheadmae extensions or non-RISC-V SoCs) of the driver have
-> > > > proper
-> > > > writecombine support, a helper is added to check whether
-> > > > coherent
-> > > > (cache-bypassing) mapping is available. This helper currently
-> > > > returns
-> > > > true for all architectures except RISC-V, and checks whether
-> > > > pgprot_writecombine() is a no-op on RISC-V.
-> > > >=20
-> > > > The patch really enabling manual cache maintenance for the
-> > > > verisilicon
-> > > > driver is picked from Dominique, and reworked to check both
-> > > > dma-noncoherent property and the platform's mapping
-> > > > capaibility.
-> > > >=20
-> > > > Tested on VisionFive 2 with the display enablement patchset at
-> > > > [1]
-> > > > (and
-> > > > its dependency).
-> > > >=20
-> > > > Also tested on Lichee Pi 4A (TH1520, which has Xtheadmae),
-> > > > operation is
-> > > > not affected, map_noncoherent isn't set and Xorg says kernel
-> > > > dirty
-> > > > updates aren't required.
-> > > >=20
-> > > > [1]
-> > > > https://patch.msgid.link/20260929-jh7110-clean-send-v5-0-82b4d8e3c6=
-c7@samsung.com
-> > >=20
-> > > Out of curiosity, have you seen Bo Gan's series from a few months
-> > > ago
-> > > that creates an extension/erratum to get these devices working?
-> > > https://lore.kernel.org/linux-riscv/20260316060328.1173634-1-ganboing=
-@gmail.com/
-> > >=20
-> > > I've been meaning to reply to it over and over again for the last
-> > > number
-> > > of months, but I just haven't had the time to actually understand
-> > > the
-> > > detail of the EIC7700 solution or check whether it works yet. I
-> > > know
-> > > this is just one driver because the JH7110 only has this problem
-> > > for
-> > > the=20
-> >=20
-> > I personally think his EIC7700 solution unacceptable -- it's not
-> > running directly on EIC7700, but some custom hypervisor (because
-> > the
-> > uncached offset of EIC7700 doesn't behave as a simple OR
-> > opertaion),
-> > which requires 3rd party code and prohibits KVM usage of the
-> > kernel.
->=20
-> I was actually reading through Bo Gan's patchset when I noticed this
-> series, trying to get my thoughts in order and figured a second set
-> of
-> eyes and thoughts would be helpful to me.
->=20
-> I've got a similar opinion to yours about the EIC7700 solution, it's
-> quite invasive (it'd only be 3rd party if it wasn't accepted) but I
+On Thu Oct 1, 2026 at 9:40 AM JST, Gary Guo wrote:
+> On Wed Sep 30, 2026 at 12:22 PM BST, Miguel Ojeda wrote:
+>> On Wed, Sep 30, 2026 at 1:04=E2=80=AFPM Alexandre Courbot <acourbot@nvid=
+ia.com> wrote:
+>>>
+>>> I am considering picking the series through DRM, but it also has a
+>>> dependency on the `cv!` macro [1].
+>>>
+>>> Is this ok if we take the patch introducing `cv!` through DRM as well?
+>>>
+>>> [1] https://lore.kernel.org/all/20260917-cv-v4-1-547ef5727451@nvidia.co=
+m/
+>>
+>> I asked Gary yesterday if there was any more recent discussion on the
+>> tag thing from v3. Does anyone want to do some cleanups this cycle
+>> through rust-next with `cv!`?
+>
+> Given close proximity to LPC probably not.
+>
+> Best,
+> Gary
 
-It'd always be 3rd party if Eswin doesn't accept it. The Linux kernel
-cannot deliver such a hacked firmware.
-
-> would consider something invasive firmware wise to be worthwhile if
-> no
-> peripheral on the device worked without it.
->=20
-> > > display pipeline, but according to Bo Gan this applies to all
-> > > peripherals on the EIC7700.=20
->=20
-> And, as I said, Bo Gan was of the opinion that all of the peripherals
-> require it. Of course I suspect that actually meant all DMA capable
-> peripherals require it, not all peripherals (especially given there's
-> been patchsets adding simpler peripherals).
-
-All DMA peripherals on EIC7700 is non-coherent, but some of them will
-still work without uncached mapping.
-
-Only peripherals that really share the same buffer between CPU and the
-device will be affected, because otherwise the coherency is kept by
-cache maintenance instead of uncached mapping. (Display framebuffer is
-a borderline situation -- it is accessed by the CPU and the DC in the
-same time, but the DC does read-only access, so manual cache
-maintenance is still doable although with price).
-
->=20
-> That said, Samuel's solution does exist and if the feedback was
-> implemented by someone that cared about the eic7700 it'd be much more
-> acceptable. The fact that you've got a solution here at at least
-> works
-> on an interim basis for the JH7110 (although I have no idea what the
-> DRM
-> folks will think of it) is another point in Samuel's method's favour.
-
-I think the major problem of Samuel's method is that it's invasive to
-other kernel subsystems, which would make the review time much much
-longer; but I still expect it.
-
-(A minor problem is that his mail server is too strict -- on SPF rules,
-which prevented his mails to be forwarded by mailing lists.)
-
-Thanks,
-Icenowy
-
->=20
-> Thanks. I've got a much better idea of what to say to Bo Gan now.
->=20
-> Conor.
->=20
-> > In fact JH7100 suffers from the same problem too, so JH7110 put
-> > some
-> > DMA peripherals to the L2 front AXI bus; however although this bus
-> > keeps coherency with the CPU, its bandwidth is questionable (I
-> > think
-> > the bottleneck could be exhibited if you attach a not-too-bad NVMe
-> > SSD
-> > on JH7110's PCIe).
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > >=20
-> > > >=20
-> > > > Dominique Belhachemi (1):
-> > > > =C2=A0 drm: verisilicon: support non-coherent DMA framebuffers
-> > > >=20
-> > > > Icenowy Zheng (1):
-> > > > =C2=A0 drm: add a helper function to check availbility of coherent
-> > > > mapping
-> > > >=20
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c |=C2=A0 9 +++++=
-+
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 32
-> > > > ++++++++++++++++++-
-> > > > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 ++++
-> > > > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 =
-|=C2=A0 9 ++++++
-> > > > =C2=A0include/drm/drm_cache.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 21
-> > > > ++++++++++++
-> > > > =C2=A05 files changed, 77 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > --=20
-> > > > 2.55.0
-> > > >=20
+I have a cleanup series locally already, I was planning to send it next
+cycle.
