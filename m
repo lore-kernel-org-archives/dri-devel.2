@@ -4,129 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A2BCA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F207CA5FA5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 06:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE5A10E202;
-	Thu,  1 Oct 2026 06:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E488710E160;
+	Thu,  1 Oct 2026 06:37:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Xmw7i+fN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7G5PfiZC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Lh3TKrC1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bSdW+A1k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EMj51tOD";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFF6E10E201;
- Thu,  1 Oct 2026 06:34:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B3ABE1FCE0;
- Thu,  1 Oct 2026 06:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790836491; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
- b=Xmw7i+fNdkhXPieHqMW3SiMl/2GZyxhoXHY9k75gBULA7euGjBPMFspQjmDVzZR6zPmbij
- yOup6mBJtOc/sKzb1ttXUcYhloinw1uBAJxPar5tWl1YxPZ018Y4DCXJQ3dyQwLFxQ2708
- eHimu0oobSpymXCt6lel++SzdX7iBQY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790836491;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
- b=7G5PfiZChxZB9Lcy+U48Xb31Q3PaicXw27oyl5HxB4TD67EWsf1KBo/8UXlJt+i5K+/hSO
- fcB08A4gm27g7wDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790836487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
- b=Lh3TKrC1z/6mi1+I9rWuCMDxGGfF3RPTRw9ARdODh3LFgW4BNFKZcktB7CfEz5ZJsKZ37b
- wwL/kEu4x9ksOA/Lkw2+48bN3BvqL3ElC4G/Zrcrdd/RE4SCoHN2DkhiA/rTak5ZX9VG99
- 5tOEXK4sxvRriXSS8bIlEn2ii4SStNo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790836487;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=4D94+aD2lxb4ojHdj7SPcqQJjAlLd/kctVG9KVw8hcU=;
- b=bSdW+A1kvm1x0HLqwpblX0QPwiPXmJS2+CV2etU1lK515XKj65kUKezMjnlkpkt33u6vld
- LVnFnPaS1seskOAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42FF11368E;
- Thu,  1 Oct 2026 06:34:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4sAxBgf/vWoeawAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 01 Oct 2026 06:34:47 +0000
-Message-ID: <82a6538d-a401-403b-b10d-0abae6ca5e8a@suse.de>
-Date: Thu, 1 Oct 2026 08:34:46 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A3C10E160
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 06:37:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 23C79601F6;
+ Thu,  1 Oct 2026 06:37:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFA41F000FF;
+ Thu,  1 Oct 2026 06:37:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790836671;
+ bh=X2yG9C10oNzGkh3Q87HvKsn9L3yVCds4Sm/K2JQM8aM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=EMj51tODtUfKbgPh4IO5i7MmvgaToTcylrTMg0RILrRDsivA3MJdxfofL4/hF3JhN
+ LPRGbF6J0rhnXmajfYlkAaf3IfaFyCM9JLycu6mbYtTqlbDkCOjCH9BMAGdxzgKFic
+ 3JAbeh529NFx5rbISpZvuPqTO5mrujoixRvIB2jzSFz4bmzHQaWXq/oga+T8bqIIMa
+ fls5ZFM8A59T+zDE1f73qjU5FENioHEd12uHY+ggnOU03mm9N4kaqWYlbdev7BFFua
+ mK9PZMO45uCurwd1tqcPjFAnfEnFtsGa/dIcLcZJYwJqdye860qW3ldcHI/khTHRn7
+ Lq6iv0ZeBTTKA==
+Date: Thu, 1 Oct 2026 09:37:47 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v8 16/23] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20261001063747.GK3401365@unreal>
+References: <20260929132305.GJ563127@unreal>
+ <720dbac3-24f6-4c91-899e-e205865c1fd1@amd.com>
+ <20260929175737.GK563127@unreal>
+ <eeef5951-825e-459f-b474-bf8c59588446@amd.com>
+ <20260930081832.GA3401365@unreal>
+ <4549640c-f4a5-4dac-9be3-2e5aa127555c@amd.com>
+ <20260930114356.GC3401365@unreal>
+ <fbdc710d-7be1-4021-83c2-548c798d9d14@amd.com>
+ <20260930143237.GI3401365@unreal>
+ <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/qxl: return -ENODEV for unsupported revisions
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alon Levy <alevy@redhat.com>,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260930222214.69443-1-matheus.aalmeida@inf.ufrgs.br>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260930222214.69443-1-matheus.aalmeida@inf.ufrgs.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[12]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,lists.linux.dev,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:mid]
+In-Reply-To: <b2e766389e57a55da959369c5ad4b9e39e425659.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,53 +82,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Wed, Sep 30, 2026 at 04:57:04PM +0200, Thomas Hellström wrote:
+> On Wed, 2026-09-30 at 17:32 +0300, Leon Romanovsky wrote:
+> > On Wed, Sep 30, 2026 at 01:52:39PM +0200, Christian König wrote:
+> > > On 9/30/26 13:43, Leon Romanovsky wrote:
+> > > > On Wed, Sep 30, 2026 at 10:34:56AM +0200, Christian König wrote:
+> > > > > On 9/30/26 10:18, Leon Romanovsky wrote:
+> > > ...
+> > > > > > 
+> > > > > > At a minimum, exporters need to pass `p2pdma_provider`.
+> > > > > 
+> > > > > No, exactly that is a no-go. The neither the framework nor the
+> > > > > importer should see the p2pdma_provider.
+> > > > > 
+> > > > > Only fully translated addresses where the DMA access should
+> > > > > happen.
+> > > > > 
+> > > > > > 
+> > > > > > If I keep the “dma-buf: Let exporters hand out the P2PDMA
+> > > > > > provider behind a
+> > > > > > buffer” patch, I can move the P2P TLP types back into
+> > > > > > `p2pdma.c` and export
+> > > > > > only the function that indicates whether ATS is required.
+> > > > > > 
+> > > > > > Is it ok?
+> > > > > 
+> > > > > What you can do is to forward declare enum pci_p2pdma_map_type
+> > > > > and than pass that 1 to 1 from the exporter to the importer.
+> > > > 
+> > > > Unfortunately, neither suggestion applies to RDMA NICs. They need
+> > > > to know,
+> > > > before mapping addresses, whether to create the memory region
+> > > > with ATS
+> > > > enabled.
+> > > 
+> > > The design principle here is that the final location and access
+> > > path of the data isn't determined when the buffer is created.
+> > > 
+> > > The importer first need to attach before it can query such
+> > > information from the exporter.
+> > 
+> > In attach yes, this is why importer digs in dma_buf ops to get
+> > p2pdma_provide, however it is before addresses are known.
+> > 
+> > > > The importer needs a way to obtain device information from the
+> > > > exporter so
+> > > > that it can configure itself correctly.
+> > > 
+> > > That won't work with DMA-buf then, the exporter is completely
+> > > opaque to the importer and that is for really good reasons.
+> > > 
+> > > Why in the world does the importer needs to know the information
+> > > from the exporter before the mapping is created?
+> > > 
+> > > It is the exporter who decides how data is accessed by the importer
+> > > and not the other way around.
+> > 
+> > There are several reasons:
+> > 
+> > 1. This is how DMA-BUF MRs are built in RDMA. In mlx5, they rely on
+> > the ODP
+> >    mechanism, which requires an MKEY to be created first. See commit
+> >    90da7dc8206a (“RDMA/mlx5: Support dma-buf based userspace memory
+> > region”).
+> > 2. P2P routing is a property of devices, not memory. It is known and
+> > remains
+> >    stable.
+> > 3. See the VFIO TPH ST discussion, where the requirement to obtain
+> > the
+> >    exporter’s P2P information in the importer was raised again.
+> > 
+> > Thanks
+> 
+> 
+> Returning again to Jason's series. Let's say we'd add just the mapping
+> type infrastructure, converted users of pcie_p2pdma only to use that
+> and then we'd have access to per-mapping-type data. This could actually
+> be done as a prereq for this series and merged separately. It's a
+> couple of patches only.
 
-Am 01.10.26 um 00:22 schrieb Matheus Alves de Almeida:
-> The qxl driver currently returns -EINVAL when the emulated qxl revision
-> is too old. This is not a driver initialization failure but rather a
-> match rejection, which should return -ENODEV.
->
-> Change the value returned when the qxl revision is below 4 to -ENODEV.
-> Switch the xf86-video-qxl suggestion log to be info level, as this is
-> not an error.
->
-> Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->   drivers/gpu/drm/qxl/qxl_drv.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-> index 97df9d3d6..35b83b1bb 100644
-> --- a/drivers/gpu/drm/qxl/qxl_drv.c
-> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
-> @@ -82,9 +82,9 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->   	int ret;
->   
->   	if (pdev->revision < 4) {
-> -		DRM_ERROR("qxl too old, doesn't support client_monitors_config,"
-> -			  " use xf86-video-qxl in user mode");
-> -		return -EINVAL; /* TODO: ENODEV ? */
-> +		dev_info(&pdev->dev,
-> +			 "qxl too old, doesn't support client_monitors_config, use xf86-video-qxl in user mode\n");
+I afraid that you over optimistic about the amount of work.
 
-This call should become dev_err() instead.
+> 
+> Jason's match() and finish() callbacks could compute the interesting
+> routes at attach time,  perhaps even condesed to whether IOVA is used
+> and whether ATS translated packages have a direct route (which is what
+> mlx5 care about AFAICT). This information is kept outside core dma-buf
+> and would be specific to the pcie_p2p mapping type (interconnect) only
+> rather than having functions and callbacks bloating the core dma-buf
+> structures.
+> 
+> Then exactly where the cross-subsystem match() and finish()
+> implementations should live I figure remain up for discussion and
+> guidance by Christoph?
 
-Best regards
-Thomas
+Maybe I'm wrong, and everything will work out. However, given Christian's
+feedback to determine the mapping type when the mapping is established, this
+approach won't work for an RDMA exporter.
 
-> +		return -ENODEV;
->   	}
->   
->   	qdev = devm_drm_dev_alloc(&pdev->dev, &qxl_driver,
+As I mentioned, mlx5 uses on-demand paging (ODP), creating mappings in
+response to page faults. To handle these faults with reasonable performance,
+mlx5 must create a memory region (MR), with or without ATS, and it is
+needed to be created before first page fault.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+I'm afraid we're going in circles, so I'll drop the dma-buf patches for now
+and focus on fixing only the PCI ATS flow.
 
+Thanks
 
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
