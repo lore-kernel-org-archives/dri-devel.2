@@ -4,160 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4982CA5FA5
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B23CA5FA5
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 07:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16B1410E24F;
-	Thu,  1 Oct 2026 07:42:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DDC810F5C0;
+	Thu,  1 Oct 2026 07:44:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fhAGAq60";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hPqrST1l";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6493F10E24F;
- Thu,  1 Oct 2026 07:42:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 574EF10F5C0
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 07:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790840566; x=1822376566;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=C0lOPz4cDMIBhtBrqyoxpXOK82X+cGjQpw/GpG0y/k4=;
- b=fhAGAq60FrcL+cjAxZ96tnSzCnGzPdEMumX7Q2BL6eDhTjU0StRFrDOP
- mhU4FeoCaNmssHZH8MTur8JTuF4s8rr4CsWJwwuvajlsWtpuhjhYLg7DJ
- pSalvcWEWoJRYPdHYWjLGya4vzD6WoFkfWe1l3uKexhsvW0jOt9DnqLgF
- 55eiahBY3Xo9acumwpCCKgNUvbEDnNryNF0NEk5n4vbjAbH+JmsIKZWjB
- 7dkvxrn36pFqk8q3e1YVTzTTE03tmuJ+zNtqmT8sWgFkNsc4Ny2WNM6nj
- gSjEEvfQxbELssiuysSoHpPiOMxEbB0ezQ4TmB8EEp4eOuJ6ti8kCLRF2 A==;
-X-CSE-ConnectionGUID: GdaS1LuwTVu8ZYK0wJIocg==
-X-CSE-MsgGUID: cSoSgcfrTS2f4eWAoTosBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90491393"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="90491393"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 00:41:45 -0700
-X-CSE-ConnectionGUID: uVsd8RNzSA6U29mj+0jwuQ==
-X-CSE-MsgGUID: Ext6S9k4S12BPrmkVe8o9w==
+ t=1790840696; x=1822376696;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=G08Na7UTKGRH5/549OBd1VB7wTVdtemrarq6HS5OcUM=;
+ b=hPqrST1lMuGqlLU7po/cWqpbOVLAa8REUGuvh7ePUE5XGjTw+P+mlo9z
+ exZkd+eVe55Fnj6a8TueAwoUELe5jzpuy8oIBTKrSN+Fenrz1S+eGEPGh
+ rrkzd36dBn56HwgDuFXLPGK4EVhbcIUHOkh2Fgu/MSPL0fiIa5b+Rw0om
+ 3Ebqe/+Vh61wkjFF3aFydveP6k0dzMrUbv3N70ktcrgdY9gmMivOka3km
+ jKzN+XF0UGBM5oz9mXwiyHfq+RB6RdeONo5oQMul4S9IgU5++wfXQiD87
+ EIF1TYn9noiD8d7U3KIrlULrk7q4xBlVBukZF8PUyzNFkVR9UlbCwNdpb A==;
+X-CSE-ConnectionGUID: 6IFzlO1yQ9OtjRqSY9l+QQ==
+X-CSE-MsgGUID: UZttNx/jRfGsCK2ySyneYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="107971948"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="107971948"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 00:44:56 -0700
+X-CSE-ConnectionGUID: wmShosyrR6i1G4NnWYw3Hw==
+X-CSE-MsgGUID: EzLFEzsTQiqs+W9nkUSLlQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="279705675"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 00:41:44 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 00:41:44 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 00:41:44 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.18) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 00:41:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IV7pK4MqN9dLx5tT/aHTn0twqCY1z4bM+tNy2eix/24eZTa9VVkjIlmNxQSjYnPJG1T1VM0Kj48FTyEbfHhH/GW5lY8TU0s8+ei1W2nj2SMSrwUUPgMgYn8wkrv3VFYlohUQ+iKDkuwAExQB8JLx2WxkDtJS1lqlk187JVY9NT/oqSlk1jxrOVDBbg59AtPvFeZ5d//ZPjNEkIiAZ+dK/axfKeHjy+XkiJASJRwXdPrQ8oq9WNnr7dpUUVlCfKJ3GEAfKbkTQ6itQu5EOL/tuQNmsC19cti/X9q2xIIzyUcak/KbEWQwdR12iYpPREf8+ga0ZSVpUgh9XO/U6asGUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XWftuTadtloRU2XSAdlv9YVsfDcgQWFvymCZqFOWZ/k=;
- b=A0l5DlLKWCp5SkPcKIDbtUGaPHBtUZGKlFjcG8BPjdA2bb1ZgbRvvyvCWQ1RmQnaXRZ4ignlkQ/InXeUsH/9kW+W5kQFAPj6adQoeSSyJgQjU3TMKzXQCkUB9LQ9WYhO0xmOghxuZ5fCTgoXHzHpfShWch7rUcUcXqvwRrYkiS6+EzUpGFMs1tj3TapOAitpjGuZeXeysClp176iac42Iu2PZcZBvnCDbTKhATrzzBwNhrmfL+95G+2B/bk3L6j4CTqMsnhDTS1iQuqDTbJuwaKNfRqejP/454oV/hxa/pDPZ393FJ3OFganTZtB/1hPgvHdbfzjMszzP84zJ+5aOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by DM4PR11MB6285.namprd11.prod.outlook.com (2603:10b6:8:a8::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Thu, 1 Oct
- 2026 07:41:36 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Thu, 1 Oct 2026
- 07:41:36 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [PATCH v5 5/6] drm/i915/gt/selftests: Use gt_* prints in gt selftest
- helpers
-Date: Thu, 1 Oct 2026 07:40:59 +0000
-Message-ID: <20261001074100.2694888-6-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261001074100.2694888-1-krzysztof.karas@intel.com>
-References: <20261001074100.2694888-1-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TLZP290CA0014.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::13) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; d="scan'208";a="283981556"
+Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.114])
+ ([10.217.180.114])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 00:44:54 -0700
+Message-ID: <b24a13be-1642-4e94-a27f-ea40dc992606@linux.intel.com>
+Date: Thu, 1 Oct 2026 09:44:52 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM4PR11MB6285:EE_
-X-MS-Office365-Filtering-Correlation-Id: cebbfe71-7b8b-46df-9b2d-08df1f8f6c02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vhh00403NN+kBCgJDHxXFIaz2fB5FHjJLjILkXtB4pABz1cRzpzqYT0zCMg+AnkwT/GVpqUqZuM5+Dg441QFrxlTkwG3Nwn0OMLJWK2mpDL+7+Wf9r9RCRytiWI9gaSP5oimKpeFRpzu3CkooaUF6b6ADx+P7lYytNivleCRWU4IDCWY/tlVUKINYMprQ8BZci+G0KWxTbvpyvbNEfqw10+cjq1p+bLHfBBEbtF2YqeZjk+aZpLiUkOWyem5gEwqnHQ1dPYJn/G4GGXzgNQhKdhol28W6rFxHIRp/pPyr7+ApW1Ao6BJflYbwxlXoH/Ix3CaVOQ0p+pTseiv35NNQtXebt8GdV7weW/aJyzMd2kWan/lnjwFhgloxgnrJY6BN63zoANA4mAcH0nvqCOVcjeJenrAycqZm1nNqCAPYLjoRsm2YicatiJFSveszj7SFSgYdC9yLM1htPL1WZ+Zl5ptjCu2z4lsCC6bI5sBlzIRAV0VtLFgNlQJYAqJjVizpESjCal23Zv8VQ0Wz2/48H3h1Xzn+yGNjjzS0OHS9muoKFg7VBAsy/PZ0K7Ols2wPS6dLDQegmO4VaeJ7nRL4YEWJZWQfJ9/cG7js/DsTHZc/JkEHRv+otky8yUbRoesXRRrrqJJT0DJ1byzH+hiPusECpqIpQk30cBnOyarSyE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YkswVTRRdk9TbGsva1llUWRCTHcvamV0QzBKNHVTYTJBalE3cW0zMWpUa3VM?=
- =?utf-8?B?TytFTzRqMGNHTlI5NzNkemNzMjNpQkhoaEhsdlZIQ1pjdG0rVXhrNUxralRO?=
- =?utf-8?B?OG9PUGExblVnRjVoZmVEck14WUZveEV5Y2ZWU1JXNm1OWmRQN2d4c0ZkYzYr?=
- =?utf-8?B?ZUhFbGhQOS8xMi9WY2pTSnhsNGxWZmVDSVdLTUd2eFk4RkFYcVJGZzB5VWRC?=
- =?utf-8?B?YThZUitGUURQMnBocWpBbFVIdDBsbUlKMWhJRXg0RlpaV0dIWlJXaWlmRlJl?=
- =?utf-8?B?dlB1KzUxTng1WVVnYlMyNWdUc1YvbjZiSUUveG05M3VLdHI4U01YbGZWTnU1?=
- =?utf-8?B?VGtUQXpyU0swVk9takNtcnZYQ1JOVTZDTHhiaWpQbzlETXJudFU3Qlhkei9l?=
- =?utf-8?B?RjRMaWluOHBzVkZNNjQ5enVsc3ZINnRmOUVzWTRJY2lmYkVxMEpsTTRyQllB?=
- =?utf-8?B?eWFxWW1wUUxqYkNYWms2aEVmZ2dGK2p1ODVSR3crREZUN0h3WWcza0pkby9J?=
- =?utf-8?B?ZFJ0dXZUVXR1UEIySWRDdFhuSUlTRzVoOE1PVzhrWWlQa2EyamR0Zml3cGlW?=
- =?utf-8?B?czJITmFFZnNoT2ZpWEhYWW5qNHNlQ09uTWRoeWoxVCtTYlo5K0dPY1l6dDF3?=
- =?utf-8?B?bXhWL3dCaElHL3I4OU5UVC92TGI2VzhVdGtmaHVwdTU4MTYxUUg5MkVIRXp5?=
- =?utf-8?B?NlpoYXc5ZzZtbUV1cTczK2xmNXlCRWxBZ3BaR21WcGdFaXlSeXlqTmZ0N0Jo?=
- =?utf-8?B?enRQbVdETVd3enBvSzdVUDM0UlIyODRmUXVQRU42UGI5azFEbzdoeGIzZnFn?=
- =?utf-8?B?U1p0SW11WHBwVGxqeCtIRDcxbi9xK1V4dWxHN1NKYUtxalFpc3RrcHRINlVy?=
- =?utf-8?B?SnBCTk1JQzc3Yi9QZjhwMWJPdnE5NHNTdSt0Y1Btc01OZ05sNUhOVkladkJ1?=
- =?utf-8?B?TTJpTWZPRGI4MGkwMlh4b1FmdFM3Vjl3SnhJMjcyUCs2Skp2VFYybFF6RlRh?=
- =?utf-8?B?VDMzVE9qN1dJRGxXMncwTTQ0T041ZWFFVUxINUQ0NFFJbE1BS05HUzRMVTdC?=
- =?utf-8?B?S3JOVEo0bDExT1dDT1dlYnZRMnJVTytmR1Q3d2JONElVdmdxU0tKWEhZU1J2?=
- =?utf-8?B?bmx2bUNnUlhDcDNVM2lIeXJTbHFrQTBNMnlmUTFYY2UvVCtuTkFhazAyWG44?=
- =?utf-8?B?L1Zhcm5FWXJjZmZkQVU5eXR3T3RkVG4rYkc0U2FNbTZxaExvdXdUOGRmTk9X?=
- =?utf-8?B?SU5oYmJqSGQyS2VaVXllb3B0OU8yU2hPblhMUDk4SVMyU1hyRklTYkVYY2Ru?=
- =?utf-8?B?T3U5OTFiZ0tVT05rQW5ScUVWS1Z5K1IvL1BnK0dkK1pTd3dPU0FsM3JhblM2?=
- =?utf-8?B?bHpzQ1A3anNWWkhLRmtaSzZKZTVzR0wrUzdiam04b1F6UjF0bVJrVmtuQXAx?=
- =?utf-8?B?QVgvSmNtUjgxeTFhMnZaWUFXcHhIS0E5dS96d2NjNmY3U21NSUw5Z2lYNHlD?=
- =?utf-8?B?SGdqUm9mTUNWWExxRWFUbmJzODJDRThMandoeGVZaVRLc0pBMG5hZEN2MWVV?=
- =?utf-8?B?VEd6TEdaeldGcktncGlvWUd4RzhHNVVDakozY2w1VWRuMngyb292aVMzUHFX?=
- =?utf-8?B?NHloVnpzLy9LVHNNYWJEUDJlU1JFcE9CdlI3SjRJb1dGb0tkbjdHd2ZPRjh5?=
- =?utf-8?B?eTNWOHdhUFBpcWUvVkdsQVBUZ2lOaHdqakh5aEgwNDBTWWZvMTh1MzlhSi9S?=
- =?utf-8?B?YVpuM2RGWUNSeHdsQ2JqYWpxRWd0NTBrUjJnL0hvaEdQQW96a21hdVFQV2ly?=
- =?utf-8?B?TlY3R0lnUyt5RS9WWWhTL1Bsa1dwOVZtdWU4eEdHN1p4MlJndFVBdWlZR015?=
- =?utf-8?B?Zi9sTjhCYlBjYWRvQ3R6V3lBejZjMlprSEdCQ24vM0xicHJmQ0RWNG9wRFND?=
- =?utf-8?B?NVhHRmVmTWNBOXpaejBnR0swdFhMSzllRDdESFRjeFlyZGpDaHpKSGsvd01W?=
- =?utf-8?B?bTF2aUpvYjNWU2cxOU5OSmNDRTFCNzNHVzZna2QwcEt1Rk9ETE5ub2xvdUNV?=
- =?utf-8?B?aUNHbU1nUW96SHBNdTBXcVUvdFNIQWZZZ0N4WUk0Q3VlOHJ6a1RQRFYxNm5r?=
- =?utf-8?B?WlA5U01iaE52bmhmR05JVkc4YkVCMHg4WXNJcjRMdzlWOHQyWjJzam96eWlS?=
- =?utf-8?B?cGlsMm95VFR5NmZXTkZxYTBkQzFDY0VqMGRoZVgrQjFRbmNyVEpNalowR1Vq?=
- =?utf-8?B?VEFjZ0V4WVN6b3pBdlN0eW1GdG1pTm1lc21SUlhqSXdyekV3WFJENUUzL1Nu?=
- =?utf-8?B?eVY3ZzRnWFVyeWRjTjMzbC91SjBBM05GT1EyMER5YVBrclgvZzN1bmFINGFT?=
- =?utf-8?Q?p59sYLQ1Li/+Q7VM=3D?=
-X-Exchange-RoutingPolicyChecked: yDkcQqUwuZa8HfqVhPFmYcEy/rk4LOf/KqBPGJqzrRUk22MRDgV39iqgpFO8kVn1c+K5qnNslI08k/g5CEzassjlBPjAwgm1jKKht9OrbNSAKjCcx0woJG6EcKw46BDHTIeZcIYZ+DIPDVq8WSLLgvtdOxuluV0CxuY5KpP8+YhXIefFGD6ysszG2K4+drxFhnx/4mpW+9Jx+WNhmNO17PqxJPA8E5sWxsgcNFQsMfPAIqwFcW8QFRCA0mR59PqEposacH3Sz950+CTgCgSwXppiEPPZLjBgGFlfZg7KQJOa22Qb9WpSqux7puqW/dUt4m7YFcCpZU2YyG8aNQpY3Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cebbfe71-7b8b-46df-9b2d-08df1f8f6c02
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:41:36.4138 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HYyrBu59avzID0S5JFOkltEtE58oGI6FVw/ISjBcv2XY++o+Bcibak7jKqWI3/W4nEjq8/GJZWs5c+3jgzc3UfHdJRmLiPJX2rqJ1+0B7Iw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6285
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Drop MTL interrupt clear-with-zero workaround
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ dawid.osuchowski@linux.intel.com
+References: <20260930160348.1562800-1-andrzej.kacprowski@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20260930160348.1562800-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,121 +72,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move away from generic pr prints to GT aware gt_* versions,
-which tag each message with device and the tile it came from.
+On 30-Sep-26 18:03, Andrzej Kacprowski wrote:
+> Early MTL steppings needed a runtime check for BTRS interrupt status
+> registers that cleared by writing 0 instead of the usual write-1-to-clear
+> flow.
+> 
+> Those pre-production steppings are no longer supported. Remove the
+> workaround flag, probe helper, and conditional IRQ clear path, and always
+> clear handled MTL BTRS interrupt status bits by writing the interrupt
+> status value.
+> 
+> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> ---
+>   drivers/accel/ivpu/ivpu_drv.h     |  1 -
+>   drivers/accel/ivpu/ivpu_hw.c      |  4 ----
+>   drivers/accel/ivpu/ivpu_hw_btrs.c | 24 +-----------------------
+>   drivers/accel/ivpu/ivpu_hw_btrs.h |  1 -
+>   4 files changed, 1 insertion(+), 29 deletions(-)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
+> index 86d7c9966cac..210f723cf251 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.h
+> +++ b/drivers/accel/ivpu/ivpu_drv.h
+> @@ -110,7 +110,6 @@
+>   struct ivpu_wa_table {
+>   	bool punit_disabled;
+>   	bool clear_runtime_mem;
+> -	bool interrupt_clear_with_0;
+>   	bool disable_clock_relinquish;
+>   	bool wp0_during_power_up;
+>   	bool disable_d0i2;
+> diff --git a/drivers/accel/ivpu/ivpu_hw.c b/drivers/accel/ivpu/ivpu_hw.c
+> index 647dc045c231..c039eee501ae 100644
+> --- a/drivers/accel/ivpu/ivpu_hw.c
+> +++ b/drivers/accel/ivpu/ivpu_hw.c
+> @@ -67,9 +67,6 @@ static void wa_init(struct ivpu_device *vdev)
+>   	vdev->wa.punit_disabled = false;
+>   	vdev->wa.clear_runtime_mem = false;
+>   
+> -	if (ivpu_hw_btrs_gen(vdev) == IVPU_HW_BTRS_MTL)
+> -		vdev->wa.interrupt_clear_with_0 = ivpu_hw_btrs_irqs_clear_with_0_mtl(vdev);
+> -
+>   	if ((ivpu_device_id(vdev) == PCI_DEVICE_ID_LNL &&
+>   	     ivpu_revision(vdev) < IVPU_HW_IP_REV_LNL_B0) ||
+>   	    (ivpu_device_id(vdev) == PCI_DEVICE_ID_NVL &&
+> @@ -90,7 +87,6 @@ static void wa_init(struct ivpu_device *vdev)
+>   
+>   	IVPU_PRINT_WA(punit_disabled);
+>   	IVPU_PRINT_WA(clear_runtime_mem);
+> -	IVPU_PRINT_WA(interrupt_clear_with_0);
+>   	IVPU_PRINT_WA(disable_clock_relinquish);
+>   	IVPU_PRINT_WA(wp0_during_power_up);
+>   	IVPU_PRINT_WA(disable_d0i2);
+> diff --git a/drivers/accel/ivpu/ivpu_hw_btrs.c b/drivers/accel/ivpu/ivpu_hw_btrs.c
+> index a17c829adb89..2f4f5156d62e 100644
+> --- a/drivers/accel/ivpu/ivpu_hw_btrs.c
+> +++ b/drivers/accel/ivpu/ivpu_hw_btrs.c
+> @@ -24,9 +24,6 @@
+>   			   (REG_FLD(VPU_HW_BTRS_LNL_INTERRUPT_STAT, IMR1_ERR)) | \
+>   			   (REG_FLD(VPU_HW_BTRS_LNL_INTERRUPT_STAT, SURV_ERR)))
+>   
+> -#define BTRS_MTL_ALL_IRQ_MASK (BTRS_MTL_IRQ_MASK | (REG_FLD(VPU_HW_BTRS_MTL_INTERRUPT_STAT, \
+> -			       FREQ_CHANGE)))
+> -
+>   #define BTRS_IRQ_DISABLE_MASK ((u32)-1)
+>   
+>   #define BTRS_LNL_ALL_IRQ_MASK ((u32)-1)
+> @@ -59,18 +56,6 @@
+>   #define DCT_ENABLE                     0x1
+>   #define DCT_DISABLE                    0x0
+>   
+> -int ivpu_hw_btrs_irqs_clear_with_0_mtl(struct ivpu_device *vdev)
+> -{
+> -	REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, BTRS_MTL_ALL_IRQ_MASK);
+> -	if (REGB_RD32(VPU_HW_BTRS_MTL_INTERRUPT_STAT) == BTRS_MTL_ALL_IRQ_MASK) {
+> -		/* Writing 1s does not clear the interrupt status register */
+> -		REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, 0x0);
+> -		return true;
+> -	}
+> -
+> -	return false;
+> -}
+> -
+>   static void freq_ratios_init_mtl(struct ivpu_device *vdev)
+>   {
+>   	struct ivpu_hw_info *hw = vdev->hw;
+> @@ -729,14 +714,7 @@ bool ivpu_hw_btrs_irq_handler_mtl(struct ivpu_device *vdev, int irq)
+>   	}
+>   
+>   	/* This must be done after interrupts are cleared at the source. */
+> -	if (IVPU_WA(interrupt_clear_with_0))
+> -		/*
+> -		 * Writing 1 triggers an interrupt, so we can't perform read update write.
+> -		 * Clear local interrupt status by writing 0 to all bits.
+> -		 */
+> -		REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, 0x0);
+> -	else
+> -		REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, status);
+> +	REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, status);
+>   
+>   	if (schedule_recovery)
+>   		ivpu_pm_trigger_recovery(vdev, "Buttress IRQ");
+> diff --git a/drivers/accel/ivpu/ivpu_hw_btrs.h b/drivers/accel/ivpu/ivpu_hw_btrs.h
+> index d6343d734570..e545284fcfa2 100644
+> --- a/drivers/accel/ivpu/ivpu_hw_btrs.h
+> +++ b/drivers/accel/ivpu/ivpu_hw_btrs.h
+> @@ -19,7 +19,6 @@
+>   
+>   int ivpu_hw_btrs_info_init(struct ivpu_device *vdev);
+>   void ivpu_hw_btrs_freq_ratios_init(struct ivpu_device *vdev);
+> -int ivpu_hw_btrs_irqs_clear_with_0_mtl(struct ivpu_device *vdev);
+>   int ivpu_hw_btrs_wp_drive(struct ivpu_device *vdev, bool enable);
+>   int ivpu_hw_btrs_wait_for_clock_res_own_ack(struct ivpu_device *vdev);
+>   int ivpu_hw_btrs_d0i3_enable(struct ivpu_device *vdev);
 
-Assisted-by: GitHub-Copilot:claude-opus-5
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
----
-v5:
- * No changes since v4;
-
- .../drm/i915/gt/selftest_engine_heartbeat.c   |  7 +++---
- drivers/gpu/drm/i915/gt/selftest_llc.c        | 25 ++++++++++++-------
- 2 files changed, 20 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-index b893a8fde895..1164dd4aea11 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-@@ -7,6 +7,7 @@
- 
- #include "i915_drv.h"
- 
-+#include "intel_gt_print.h"
- #include "intel_gt_requests.h"
- #include "i915_selftest.h"
- #include "selftest_engine_heartbeat.h"
-@@ -202,7 +203,7 @@ static int __live_heartbeat_off(struct intel_engine_cs *engine)
- 	engine->serial++;
- 	flush_delayed_work(&engine->heartbeat.work);
- 	if (!delayed_work_pending(&engine->heartbeat.work)) {
--		pr_err("%s: heartbeat not running\n",
-+		gt_err(engine->gt, "%s: heartbeat not running\n",
- 		       engine->name);
- 		err = -EINVAL;
- 		goto err_pm;
-@@ -215,14 +216,14 @@ static int __live_heartbeat_off(struct intel_engine_cs *engine)
- 	engine->serial++;
- 	flush_delayed_work(&engine->heartbeat.work);
- 	if (delayed_work_pending(&engine->heartbeat.work)) {
--		pr_err("%s: heartbeat still running\n",
-+		gt_err(engine->gt, "%s: heartbeat still running\n",
- 		       engine->name);
- 		err = -EINVAL;
- 		goto err_beat;
- 	}
- 
- 	if (READ_ONCE(engine->heartbeat.systole)) {
--		pr_err("%s: heartbeat still allocated\n",
-+		gt_err(engine->gt, "%s: heartbeat still allocated\n",
- 		       engine->name);
- 		err = -EINVAL;
- 		goto err_beat;
-diff --git a/drivers/gpu/drm/i915/gt/selftest_llc.c b/drivers/gpu/drm/i915/gt/selftest_llc.c
-index 779fadcec7c4..71ea688be154 100644
---- a/drivers/gpu/drm/i915/gt/selftest_llc.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_llc.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2019 Intel Corporation
-  */
- 
-+#include "intel_gt_print.h"
- #include "selftest_llc.h"
- #include "intel_rps.h"
- 
-@@ -22,8 +23,8 @@ static int gen6_verify_ring_freq(struct intel_llc *llc)
- 	for (gpu_freq = consts.min_gpu_freq;
- 	     gpu_freq <= consts.max_gpu_freq;
- 	     gpu_freq++) {
-+		u32 scaler = GRAPHICS_VER(i915) >= 9 ? GEN9_FREQ_SCALER : 1;
- 		struct intel_rps *rps = &llc_to_gt(llc)->rps;
--
- 		unsigned int ia_freq, ring_freq, found;
- 		u32 val;
- 
-@@ -32,17 +33,21 @@ static int gen6_verify_ring_freq(struct intel_llc *llc)
- 		val = gpu_freq;
- 		if (snb_pcode_read(llc_to_gt(llc)->uncore, GEN6_PCODE_READ_MIN_FREQ_TABLE,
- 				   &val, NULL)) {
--			pr_err("Failed to read freq table[%d], range [%d, %d]\n",
--			       gpu_freq, consts.min_gpu_freq, consts.max_gpu_freq);
-+			gt_err(llc_to_gt(llc),
-+			       "Failed to read freq table[%d], range [%d, %d]\n",
-+			       gpu_freq, consts.min_gpu_freq,
-+			       consts.max_gpu_freq);
- 			err = -ENXIO;
- 			break;
- 		}
- 
- 		found = (val >> 0) & 0xff;
- 		if (found != ia_freq) {
--			pr_err("Min freq table(%d/[%d, %d]):%dMHz did not match expected CPU freq, found %d, expected %d\n",
--			       gpu_freq, consts.min_gpu_freq, consts.max_gpu_freq,
--			       intel_gpu_freq(rps, gpu_freq * (GRAPHICS_VER(i915) >= 9 ? GEN9_FREQ_SCALER : 1)),
-+			gt_err(llc_to_gt(llc),
-+			       "Min freq table(%d/[%d, %d]):%dMHz did not match expected CPU freq, found %d, expected %d\n",
-+			       gpu_freq, consts.min_gpu_freq,
-+			       consts.max_gpu_freq,
-+			       intel_gpu_freq(rps, gpu_freq * scaler),
- 			       found, ia_freq);
- 			err = -EINVAL;
- 			break;
-@@ -50,9 +55,11 @@ static int gen6_verify_ring_freq(struct intel_llc *llc)
- 
- 		found = (val >> 8) & 0xff;
- 		if (found != ring_freq) {
--			pr_err("Min freq table(%d/[%d, %d]):%dMHz did not match expected ring freq, found %d, expected %d\n",
--			       gpu_freq, consts.min_gpu_freq, consts.max_gpu_freq,
--			       intel_gpu_freq(rps, gpu_freq * (GRAPHICS_VER(i915) >= 9 ? GEN9_FREQ_SCALER : 1)),
-+			gt_err(llc_to_gt(llc),
-+			       "Min freq table(%d/[%d, %d]):%dMHz did not match expected ring freq, found %d, expected %d\n",
-+			       gpu_freq, consts.min_gpu_freq,
-+			       consts.max_gpu_freq,
-+			       intel_gpu_freq(rps, gpu_freq * scaler),
- 			       found, ring_freq);
- 			err = -EINVAL;
- 			break;
--- 
-2.34.1
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 
