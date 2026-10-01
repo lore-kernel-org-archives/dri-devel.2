@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CA0FCA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F404CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 08:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6623E10E232;
-	Thu,  1 Oct 2026 08:28:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7B8010E2EE;
+	Thu,  1 Oct 2026 08:29:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aS3/O4L+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R4tHI92J";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9E410E232
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:28:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6104810E31E
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 08:29:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 526966022B;
- Thu,  1 Oct 2026 08:28:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FE381F000FF;
- Thu,  1 Oct 2026 08:28:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A4EA06022B;
+ Thu,  1 Oct 2026 08:29:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5BA1F000FF;
+ Thu,  1 Oct 2026 08:29:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790843332;
- bh=jtlnioyZElbz8ugOrc7hlVY7Dm6ti5mP/kZWdCnL0xI=;
+ s=k20260515; t=1790843348;
+ bh=yS9qbaAkLlPU9Fc9KuYA84WC0RRI4KwBqAJVX7ftcuQ=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=aS3/O4L+0prg4o9Ac7Pz8qUr0Hvf6tmu2Hz2EpAjfJEV68bRJHJvHUB+i8jk/XuWY
- p4U1+0dwJqg+Okw0T/5wLUkajLTkA0aKK+971zYluVCI5ISDiV0oDMu7T8SRlTkWsO
- +ZxmCoDEJf1TtpqpBbasTXa7jNTMz4/LtnVUeXBVMv3ZcMR4y5PrJb6/skmOIjNcxK
- N+eTUVDTxzPGeZoQXYma/2QIi7hIJ5VwBF+YF4VlsBDktAy73fjTJ+t8LcA70mPrcg
- 39z3KQVbFUPjg1S92GJw7XsyK1KvkAHHjAf2Yi1s9/x6L1iFTxryG61XZUw2IP5D8r
- VZaFd0S9NlROA==
-Message-ID: <f90b5b37f0afda1ebf866a16c1502780@kernel.org>
-Date: Thu, 01 Oct 2026 08:28:48 +0000
+ b=R4tHI92JvKEw/vHIct1JvsK2mQ54ppWRhnTscr6hbAmLUHyF+NWc298/5Ex/4Ilp9
+ B1wMpNd06/ARRd7DMcAP7LxxNppYh6hpfeirvmxEctAUOBkyIkYLi2qgXWYkMOs2cE
+ GFl8zgvc4d9nBOg8wNp5nUTaOLU6lCl0mtm2h7FWgcbHvd5RxYaNSvBXHYJZoAGIie
+ T0CtcFb5kXdwn73f2b72kP/hpBr/LVj+JiT1Z1W5tjG4WLh/Xau8n//UMJHpRJLQi0
+ gkWkvXseL3PK7a4nN1eyKVBYF9Jxs/QEkWBIQxKcvTBZchecE6ewL1wAB+TidYfcMl
+ fiUyg0AP8VNEw==
+Message-ID: <8f9d3c610b98db28ca77b2b57175845a@kernel.org>
+Date: Thu, 01 Oct 2026 08:29:05 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH 1/2] drm/rockchip: rk3066_hdmi: Convert to
- devm_drm_bridge_alloc() API
-In-Reply-To: <20261001-bridge-alloc-conv-v1-1-f0a1fe040a86@collabora.com>
-References: <20261001-bridge-alloc-conv-v1-1-f0a1fe040a86@collabora.com>
+Subject: Re: [PATCH 2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge
+ funcs assignment
+In-Reply-To: <20261001-bridge-alloc-conv-v1-2-f0a1fe040a86@collabora.com>
+References: <20261001-bridge-alloc-conv-v1-2-f0a1fe040a86@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, "Andrzej
@@ -69,12 +69,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 1 Oct 2026 11:25:11 +0300, Cristian Ciocaltea wrote:
-> Bridge drivers are expected to use devm_drm_bridge_alloc() instead of
-> devm_kzalloc() for allocating and partially initializing a private
-> driver struct embedding a struct drm_bridge.
+On Thu, 1 Oct 2026 11:25:12 +0300, Cristian Ciocaltea wrote:
+> The driver already allocates its private data via
+> devm_drm_bridge_alloc(), which initializes the bridge funcs pointer.
+> Remove the leftover manual assignment in the probe function.
 > 
-> Perform the API conversion and drop the now redundant manual
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > 
 > [ ... ]
 
