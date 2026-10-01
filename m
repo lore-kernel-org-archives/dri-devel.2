@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4028CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5765CA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1701F10F666;
-	Thu,  1 Oct 2026 12:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2190D10F667;
+	Thu,  1 Oct 2026 12:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GeRCdvCS";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oZmPZJ8c";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF5210F666
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:54 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D407310F67A
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:44:58 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 050914E416CC;
- Thu,  1 Oct 2026 12:44:53 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A8A1E1A24DD;
+ Thu,  1 Oct 2026 12:44:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C57F460341;
- Thu,  1 Oct 2026 12:44:52 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7490460341;
+ Thu,  1 Oct 2026 12:44:57 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9206510328105; 
- Thu,  1 Oct 2026 14:44:45 +0200 (CEST)
+ with ESMTPSA id D2282103280C2; 
+ Thu,  1 Oct 2026 14:44:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1790858690; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1790858695; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=rpVfkIZMmQdurRVLSRng0OFRynPKl3AukF6MjWLjGoQ=;
- b=GeRCdvCSP0ELtOglNNDwnlP0we9U0+IuG6VnbWKcKH18jyqSH84UZH2DYCE+/E1+HGobQl
- 1OGI9ngUc0cb8709QVWw3B54YA0+KzFactSZ7eIr1Tyut03da7bddK8n3w/M45MKzHWAeD
- oHl4+UBxKspLMYctwlS8KTrSD/GAeZElS5DUVT+VArK+NSbgCmgyOroBlhIGR4tmgcZBdE
- HwiDVRXojzT4hW+abfy14J963Unn3I2VqZ96p0AD5JV0MrLhKc1Qbu511F5p5KvGyz9sPx
- N0wkcUjJlAlv/jAA0t901JmKpqSlE06myX/dpHLwwV2fbq0P1sb+IL/5oFogiA==
+ bh=J37od7VylY8s1OgC3uLV5wfOGm4SfNZZc7AuhkqKTIM=;
+ b=oZmPZJ8cm2BuGFlIWQ+DWojJEuh5j4c1xhUnrfCUYiiel1PdZN35fW8a3KgomlbdeXwYAZ
+ v+rC5qKObqmmyna/2kTcyU2b9XUguN+IwHlPuuM6GV2uIjS59/4e6JXiz571GejwI9MXfu
+ 3rEd9OJ33Lnly+L9b+Pj8/Ov4pzNntBPtQXv2RIHEXNHZTPl8fEv5l7N7kgv/UMC8/WEe9
+ 80q1DO03c3SLHVHRRvdzaq91BP4PqSWx9YS7vqsi8E9Hzqd6iQPUgCmVwIdOefKqU2m4/E
+ 1QLhtXUIlBANFioif9w02x4wvPX1YTGuASrDRel/Lq98lMU2G68yFfbvLfJi3A==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 01 Oct 2026 14:42:43 +0200
-Subject: [PATCH RFC v2 21/24] drm/bridge: ti-sn65dsi86: implement
+Date: Thu, 01 Oct 2026 14:42:44 +0200
+Subject: [PATCH RFC v2 22/24] drm/bridge: samsung-dsim: implement
  .get_next_bridge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-drm-bridge-hotplug-v2-21-8e34986dcb68@bootlin.com>
+Message-Id: <20261001-drm-bridge-hotplug-v2-22-8e34986dcb68@bootlin.com>
 References: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 In-Reply-To: <20261001-drm-bridge-hotplug-v2-0-8e34986dcb68@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -84,46 +84,43 @@ Add get_next_callback func to expose the next bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi86.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/samsung-dsim.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index 369c13183232..7196097f68aa 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -768,6 +768,13 @@ static int ti_sn_attach_host(struct auxiliary_device *adev, struct ti_sn65dsi86
- 	return devm_mipi_dsi_attach(&adev->dev, dsi);
+diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+index 6c48404fd60a..2da3a13260b9 100644
+--- a/drivers/gpu/drm/bridge/samsung-dsim.c
++++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+@@ -1821,6 +1821,13 @@ static void samsung_dsim_mode_set(struct drm_bridge *bridge,
+ 	drm_mode_copy(&dsi->mode, adjusted_mode);
  }
  
-+static struct drm_bridge *sn65dsi86_get_next_bridge(struct drm_bridge *bridge)
++static struct drm_bridge *samsung_dsim_get_next_bridge(struct drm_bridge *bridge)
 +{
-+	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
++	struct samsung_dsim *dsi = bridge_to_dsi(bridge);
 +
-+	return pdata->next_bridge ?: ERR_PTR(-ENODEV);
++	return dsi->bridge.next_bridge ?: ERR_PTR(-ENODEV);
 +}
 +
- static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+ static int samsung_dsim_attach(struct drm_bridge *bridge,
  			       struct drm_encoder *encoder,
  			       enum drm_bridge_attach_flags flags)
-@@ -1358,6 +1365,7 @@ static void ti_sn_bridge_hpd_disable(struct drm_bridge *bridge)
+@@ -1835,6 +1842,7 @@ static int samsung_dsim_attach(struct drm_bridge *bridge,
  }
  
- static const struct drm_bridge_funcs ti_sn_bridge_funcs = {
-+	.get_next_bridge = sn65dsi86_get_next_bridge,
- 	.attach = ti_sn_bridge_attach,
- 	.detach = ti_sn_bridge_detach,
- 	.mode_valid = ti_sn_bridge_mode_valid,
-@@ -1496,8 +1504,9 @@ static int ti_sn_bridge_probe(struct auxiliary_device *adev,
- 	pdata->bridge.type = pdata->next_bridge->type == DRM_MODE_CONNECTOR_DisplayPort
- 			   ? DRM_MODE_CONNECTOR_DisplayPort : DRM_MODE_CONNECTOR_eDP;
+ static const struct drm_bridge_funcs samsung_dsim_bridge_funcs = {
++	.get_next_bridge		= samsung_dsim_get_next_bridge,
+ 	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state			= drm_atomic_helper_bridge_create_state,
+@@ -2200,6 +2208,7 @@ int samsung_dsim_probe(struct platform_device *pdev)
  
-+	pdata->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 	if (pdata->bridge.type == DRM_MODE_CONNECTOR_DisplayPort) {
--		pdata->bridge.ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
-+		pdata->bridge.ops |= DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
- 		if (client->irq)
- 			pdata->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 		/*
+ 	dsi->bridge.of_node = dev->of_node;
+ 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
++	dsi->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
+ 
+ 	/* DE_LOW: i.MX8M Mini/Nano LCDIF-DSIM glue logic inverts HS/VS/DE */
+ 	if (dsi->plat_data->hw_type == DSIM_TYPE_IMX8MM)
 
 -- 
 2.55.0
