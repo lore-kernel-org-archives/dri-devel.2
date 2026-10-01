@@ -4,72 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20BB1CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB5E8CA5FDD
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 16:06:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF9D10F705;
-	Thu,  1 Oct 2026 16:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3277A10F714;
+	Thu,  1 Oct 2026 16:06:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K/WOfh/6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lm6I3OB+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC4910F705
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 16:03:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B117F10F70A;
+ Thu,  1 Oct 2026 16:06:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 49D6E60A68;
- Thu,  1 Oct 2026 16:03:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D301F000FF;
- Thu,  1 Oct 2026 16:03:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6004342A49;
+ Thu,  1 Oct 2026 16:06:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A5D1F000FF;
+ Thu,  1 Oct 2026 16:06:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790870609;
- bh=OSUIn2vvgZY9nja7L+v/qJsWqMEJTAmZepfV/Nzm4+g=;
+ s=k20260515; t=1790870778;
+ bh=h84bDGijr6XtJ5sZv1vQuI0WtaMIwCu5WedQZywXQrM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=K/WOfh/6qDstRLC9ZRaNs7cNIQQwjOtWjnTQtkFB6PNQpgptrztf0vSZh4DTnZump
- ufgp5zI8dj1FfYTNwcct0yW+pbJ1cnXRsx64fvIJT7k/mTHFbB7QbfmdWqlgA2okEj
- MqOQaSGg/aeB4V2gt+drRL1DnXmxFWq04iX9rTbWvptKsLY/gt1wHPRSKfeVtnuziW
- ICrWJnbBeXEXGsj90XEOLMUTGz++GUwx2BKWLFPOO3CIMQdxaXRTsMjkVK05zO/J+W
- hMhw3abDTOyagZDekqC93G3fX0z6NIHa5uJorfvpgC75831IR/qGvdzjKV+I6P0zg9
- xksO8IEdJu0iw==
-Date: Thu, 1 Oct 2026 11:03:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ b=lm6I3OB+TtBvrp8UNWdRkoCyohrCYfCXo1ZeVHfC81gSGwdA+DSYqJlgD4SAy7u3o
+ ym/n90vM5jl0Uow9W9eI+bu2CnzgZNzLmWWtGkHbXmf0V5CF/jXGBPSLCJRd7PcacP
+ mzUNWUamE/aNt7gYhWA15JPCpXa8VF5I7nzt5isYfHhPndhFrmYVM3eEC0xzTKq7FR
+ TDidTJkvMm1O/jshZBcYWuJsk+qHGdHmKwE7e0TyTrRcA4S/hVnTVXd3dy+ErUMLeo
+ ytGbMIGdOcaUHRNpOEw3mLdjE5Je3XLHaWxi3/3jIYVt6HU/RuCyfrOjHFddT8Do8r
+ hHCDKHFNUs5oA==
+Date: Thu, 1 Oct 2026 18:06:14 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, 
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <20261001160327.GA512699-robh@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
- <20260929222822.GA2933878-robh@kernel.org> <ary8IdL9zVXfS2fA@houat>
- <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
- <ar4HOuO-vox9VIKZ@houat>
+ David Airlie <airlied@gmail.com>, 
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, 
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+Message-ID: <ar6ElW7Wg5m6A-1m@houat>
+References: <20260908044035.62093-1-mario.limonciello@amd.com>
+ <CAFOAJEfgXY7cfLvizuxbS75CJd7mF5tewxp+PH=EhTtpy+aZXg@mail.gmail.com>
+ <32f96551-358b-4874-8fd1-a685b02853e1@amd.com>
+ <arJwOSq6-oSywTK6@houat>
+ <08e47991-0d72-471f-9955-0b4ebbcffcdf@suse.de>
+ <arJ0huW356NjqpGR@houat>
+ <8727cba2-aa4d-4480-9b76-a9dedc57d8ee@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7efl36kddwnyzj6m"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ar4HOuO-vox9VIKZ@houat>
+In-Reply-To: <8727cba2-aa4d-4480-9b76-a9dedc57d8ee@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,106 +73,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 01, 2026 at 09:22:48AM +0200, Maxime Ripard wrote:
-> On Wed, Sep 30, 2026 at 02:07:39PM -0500, Rob Herring wrote:
-> > On Wed, Sep 30, 2026 at 3:04 AM Maxime Ripard <mripard@kernel.org> wrote:
-> > >
-> > > On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
-> > > > On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
-> > > > > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> > > > > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > > > > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > > > > > > regulators and GPIOs, perform a reset pulse with specific timing,
-> > > > > > > send a vendor-supplied sequence of DSI commands, then enable the
-> > > > > > > display. The only truly panel-specific part is the init sequence
-> > > > > > > and power-on/off timing.
-> > 
-> > [snip a bunch of irrelevant shit]
-> > 
-> > > > > So, let's phrase this differently: what's different about the
-> > > > > description than panel-mipi-dsi-spi, or any other binding already in
-> > > > > tree?
-> > > >
-> > > > There's all of 3 panels supported. Compared to all the other panels we
-> > > > have, hardly the rule over the exception. You can always fine "bad"
-> > > > examples or exceptions.
-> > > >
-> > > > That one defines a single supply. Any other MIPI SPI panel with
-> > > > different supplies or GPIO controls probably has its own binding. Trying
-> > > > to parameterize that in DT doesn't work. We've rejected trying to do
-> > > > that in DT over and over. What's your story here for that?
-> > >
-> > > Sigh... Look, I really don't care about an argument DT maintainers use
-> > > at their discretion for this. We both know full well that it's been and
-> > > still is inconsistenly applied, and you also know that it's not like
-> > > I've been playing the DT game since pretty much the beginning (on ARM
-> > > anyway). So it's not like I don't want to make it work, I do. But what I
-> > > care about is enabling that driver to work.
-> > >
-> > > I reused exactly the same binding than the last major binding that was
-> > > merged for panels, and support about the same number of panels. I guess
-> > > that was a mistake, so sorry for that.
-> > >
-> > > I'm fine with reworking the binding any way you want as long as it still
-> > > allows for the same use-case, but I would have hoped for a better
-> > > feedback on how to do so than "oh what a huge pile of shit this is".
-> > 
-> > When you can answer my question above rather than make up shit I
-> > didn't say, maybe I'll reply again on this thread. Otherwise I'm done
-> > here. I don't need this abuse for the thankless job of DT
-> > maintainership.
-> 
-> It's been the whole tone of the reviews, so I'm sorry if you were caught
-> in the crossfire and you didn't mean that. And I'm sorry it made your DT
-> maintainership work harder than it already is.
-> 
-> I do mean what I said before though. I have no problem changing the
-> binding the way you want, but I need to know what to change in the first
-> place, otherwise it's really no better than a NAK, or we're bound to
-> have the same exchange for the v2, and I'd rather not.
-> 
-> I indeed missed your question, but now I'm not sure I understand what
-> you mean by "paremeterize that in DT"? The supplies in the binding are
-> an aggregate of all the possible supplies a panel can take. They are not
-> a wildcard, but they all have their own semantics that are used by
-> panels right now.
 
-I read a bit more of the series and understand it a bit better now.
+--7efl36kddwnyzj6m
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 00/14] Add support for a DRM backlight capability
+MIME-Version: 1.0
 
-> I don't expect any new supply to be introduced, unless there's a major
-> panel technology change such as the one we had with the introduction of
-> OLED.
-> 
-> Would you prefer to reduce the number of supplies to the minimum we need
-> right now, and extend it as needed?
+On Wed, Sep 23, 2026 at 08:39:33AM +0200, Thomas Zimmermann wrote:
+> Am 22.09.26 um 14:35 schrieb Maxime Ripard:
+> > On Tue, Sep 22, 2026 at 02:23:17PM +0200, Thomas Zimmermann wrote:
+> > > Hi
+> > >=20
+> > > Am 22.09.26 um 14:16 schrieb Maxime Ripard:
+> > > > On Tue, Sep 22, 2026 at 06:41:32AM -0500, Mario Limonciello wrote:
+> > > > > On 9/22/26 03:33, Javier Martinez Canillas wrote:
+> > > > > > Hello Mario,
+> > > > > >=20
+> > > > > > On Tue, Sep 8, 2026 at 6:41=E2=80=AFAM Mario Limonciello
+> > > > > > <mario.limonciello@amd.com> wrote:
+> > > > > > > At Display Next Hackfest 2026 we reviewed progress moving bri=
+ghtness
+> > > > > > > control into the DRM connector properties.
+> > > > > > >=20
+> > > > > > > There is a range LUMINANCE property that will default to 0->0.
+> > > > > > > Once a driver attaches a backlight it will be updated to 1->m=
+ax.
+> > > > > > > If the panel supports the minimum backlight turning off the d=
+isplay
+> > > > > > > the range can later be updated to 0->max instead of 1->max.
+> > > > > > >=20
+> > > > > > > The legacy sysfs interface is synchronized with the DRM conne=
+ctor.
+> > > > > > > When a compositor using this feature is loaded, sysfs writes =
+are disabled
+> > > > > > > to prevent legacy tools from going out of sync with the compo=
+sitor.
+> > > > > > >=20
+> > > > > > I don't think I agree with the direction of this series. The ma=
+in
+> > > > > > issue for me is that if the sysfs interface is disabled, then I=
+ don't
+> > > > > > understand the value of doing all the hops between the DRM and
+> > > > > > backlight subsystems...
+> > > > > The reason for all the hops is that users can switch between comp=
+ositors
+> > > > > that support this and don't.  If you're in a compositor that supp=
+orts it
+> > > > > that compositor will want to affirm it's in control.  If you're i=
+n a
+> > > > > compositor without support then you should still have a way to ch=
+ange
+> > > > > things, and that's what the sysfs interface exists for.
+> > > > Couldn't we make a sysfs write trigger an atomic commit then? That =
+way,
+> > > > it would always go through the atomic commit path, no matter whether
+> > > > you're on a "legacy" compositor or not.
+> > > >=20
+> > > > It would also somewhat untangle the uapi from the backlight subsyst=
+em,
+> > > > because it's only really relevant for panels. For all the other use
+> > > > cases, you might want to control the brightness but you have no mat=
+ching
+> > > > backlight device.
+> > > I suggested to treat these backlight changes like display-hotplug eve=
+nts.
+> > > When it happens, we'd send a uevent to user space, so it can update i=
+ts
+> > > internal state.=C2=A0 Such an event could then come from any source b=
+esides
+> > > backlight's sysfs.=C2=A0 =C2=A0Compositors could also implement polic=
+ies that are
+> > > currently implicit in this series, such as brightness of 0 means "dis=
+play
+> > > off".=C2=A0 This is likely something a compositor should track.
+> > >=20
+> > > Would that work?
+> > It probably would, but it would create a precedent I'm not really
+> > familiar with. Hotplug events are kind of separate because it really is
+> > a hardware event most of the time: you get an interrupt, and report it
+> > to userspace. And it's largely outside of the properties space (except
+> > maybe for things like edid).
+> >=20
+> > If we start having the argument that a property changing must trigger a
+> > uevent, then it means that we can expect *any* property to do so, and
+> > "the compositor needs to be in control of it" can apply to many, like
+> > color formats, positions, tiling, etc.
+>=20
+> I'd explicitly not treat this like a change to the DRM property. More like
+> as if the user pressed a hardware button. The property update only comes
+> later from what ever the compositor does with the event.
 
-No. You've defined some arbitrary list of supply names not just in the 
-binding, but in the kernel. I think both are a mistake. Can't the BPF 
-prog define the supply names and pass those to the kernel? Then when you 
-have a panel with 'foo' and 'bar' supplies, you don't need a kernel 
-change or some remapping to the existing set of names. The only real 
-exception we have there is if it's a single supply, just use 
-'power-supply'. It's the same issue with GPIOs, but there's generally 
-less variability with them.
+I don't think that would work unfortunately, because then that means
+that any system that used to rely on sysfs but wouldn't handle that new
+event (however it is sent) would effectively have a regression.
 
-The whole point of requiring specific compatibles and not doing "generic 
-bindings" is that's the only way the OS implementation can evolve 
-without changing the DT. You can have a specific driver or a generic 
-driver or a generic driver using BPF and which one can change over time 
-if needed, but from a DT perspective we don't care.
+That being said, it does look like we already notify userspace on
+property change for HPCD, so maybe it's not too bad.
 
-So first, make this BPF stuff work with any existing panels (or some 
-defined set). I'm not saying convert everything, only that you could. 
-Otherwise you've failed the test of if the driver implementation 
-changes, does the binding have to change.
+Maxime
 
-After that, the remaining problem is only how do you make it 
-work with unknown panels (only unknown to the kernel as any new panel 
-still needs a binding). There's 2 ways we can solve that. Either make 
-the kernel be able to bind to a generic driver without a compatible 
-match or have a fallback compatible. The former could be done by 
-userspace (though I saw gregkh added a taint for userspace bind 
-recently) or we could somehow make the kernel bind to any DSI child 
-devices without a match.
+--7efl36kddwnyzj6m
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rob
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar6E8gAKCRAnX84Zoj2+
+dlrIAX46V8/e/Kxw6JfRY2HmiAKQntwyIkzhsfQQCMH8FlfvJCGeO+wuRZ0cwwjI
+7a/u8lIBgOW96iJdOsM8xE9lcmCdtLN8tIWhK7mbUwhe02B64JNmUhk1kyRp0mOy
+IedT9d19ig==
+=QGqo
+-----END PGP SIGNATURE-----
+
+--7efl36kddwnyzj6m--
