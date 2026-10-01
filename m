@@ -4,138 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68799CA5FB3
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 10:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE50CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 10:56:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA41410E21C;
-	Thu,  1 Oct 2026 10:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DBC310E063;
+	Thu,  1 Oct 2026 10:56:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FafYS09y";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aD3jF4vO";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="fhD3kAlR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11F4610F61B
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 10:52:31 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6916xRxm1289079
- for <dri-devel@lists.freedesktop.org>; Thu, 1 Oct 2026 10:52:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=seNlxQsU0wllHJnL2cV3aBSv
- wJpkeEtX02XCtF/70CY=; b=FafYS09yqsvT65Yhy3dpAw0dLe2AMzE50o4dWqC0
- bKlv01b6jJ5EUHqvdap6B/wT7rCxVcn9qcevFkPyQfJkzsq8LDHO3ZNv8nHlHQ47
- kD1/EGik/UOcKqKpR4RVaAnGQCXyKv4GbxOfI7dN4x4hqkROIcEIbSI3wruTTeQg
- HBOJ/xDJJVwWT3OGjnVPh+I2+sR12pSurH3PRxVy8Ogfs4QWTJIc/YsK9ZP+ybPe
- cdy2kwZQklyZKfajKHFjJaBsj+vRYA8InJrpd7/rk93pWWbPLHBCl8UAGoYaNDuX
- okGh74rAmv3rBBu6rFc218GDYvmLs6NFH7+rgATcFKSkfg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17pjbjgh-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 10:52:30 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-936aa34873bso1165501485a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 03:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790851949; x=1791456749;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=seNlxQsU0wllHJnL2cV3aBSvwJpkeEtX02XCtF/70CY=;
- b=aD3jF4vOqCVRud/7DDX87DwST5QylTtstMdaxyQC93AhPiHdeGz/JwhpFnOXjAbERI
- trClxoRE5p0q99s/xfkCuElbHFMgxNA9HktHlHe+VJVBXJUMU1sQJgaO+ZDEa/79dnMT
- cTx75n1VVvGqDQoDzVampCmJrCVsiutjIof2m3HQmNDiib+Npn5JfINxCc0hBIgqN2YC
- C8Wn8vdPPS/ZrnsAJGcZ0c3qhkmBwkAAgerogUkcQb5dfgDflEalTDuOnjSszkxS2vB8
- bTaZ4cA5bEz+98ZewrDPSKtjQWrKNDzHsLG7ae1Vl308ErGHN+D4I69eznIzPNmuMxbG
- HdhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790851949; x=1791456749;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=seNlxQsU0wllHJnL2cV3aBSvwJpkeEtX02XCtF/70CY=;
- b=EdWaoKVZeGaqIRAPqjGl9MQiZw8BP4aK+urtCJjsbXf7Ihr/ZUYl/I8kpy20iKpmt+
- M6+G73KDgamN6H4I1dZwk/jwZPLuCiCq1r3B+iU4YYrmvzPvEt8dLpUTp+esT2R12kZ/
- oZgzCcdrIOaipXlbtaIT9owWXMEN0mj5qtJu1u8BKuom7iFWVy3cAkBFcmo05lMJNrMq
- McqEiaY1I3//0BvlCmLrpwIOVH1TdJOWBE3E0gdcY7OtEPX6HQDva6yVuoXn3l075kVd
- Z3QkvKnDoYYeGgoR86HevvmLcPnqeW9tbs85mXj/QUZvHs8jv1EJpjnjZ0aJFuKzTRd4
- GfDA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxt6pCEozsp7GVBKwG8QIgisZEp5Z2XaKEi+wtp6XVH2W/PaPPGQTuIDrcXiV76S3/Qjfa+lOn3SBI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lgg+3IUXX8y590t/p09qsPZrJQaQ4LyUHob1xcl8pi9qSEiNgm
- vj+kl2c6uZIrjBkRZRF95YVrtnRegz6lAJTk3Pd11/mddt9n9OPS2dJwOne2zp0r55PvJv0CO8t
- xlaBGzunS/44uxpu+7YofsGNgln6tDKCrbNf2bqH3fWxmRSf89ObgD6vM3Un1ckwW8rrBwms=
-X-Gm-Gg: AYBFou1G2+7u10oXfCcjOQqqEWlmJg8UosZ/LD2o2o8MpIoLuGE2a021tMdc5KJGzxI
- AFuz+zR0wLK+nG4Og1DeP6D/HdW/mkLz9SAmCUH08+2qRRy3VOFMiZzvMaHHA5bA0BacGdOHR7U
- dvXIqiEujf1jrmwfGbsIftQRaloJMRjlCgFM8CXCq+kOdsUGhFSIAxA2y+Z8pRbP4ExsezC3kAo
- 5Etdes8XpJR4tEd7sratJpjQhHyc3BR/WUg2wbx4B0F8z2JfSZD7HzTuJNebbT5ViU5cdX1oFs4
- Yn8QYKR6fvWaQdwaRnyNfN6ZkRkOvYs6hd+iE5rDevENn568SfNr3Y6ty24Zfu/M8zKulLkdNlh
- Dy37v3RQ8xLlT8hF5Ritw674FBodEVZfSM290on5SQ1LCN1QYaRAhhxEcuIpkL8uF2p7ZbI2+4P
- femHH8PILJbgcJ
-X-Received: by 2002:a05:620a:1d05:b0:93a:3d67:391f with SMTP id
- af79cd13be357-93ca95da7demr801489185a.7.1790851949377; 
- Thu, 01 Oct 2026 03:52:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:1d05:b0:93a:3d67:391f with SMTP id
- af79cd13be357-93ca95da7demr801485185a.7.1790851948771; 
- Thu, 01 Oct 2026 03:52:28 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a7be8b7333sm4165741fa.23.2026.10.01.03.52.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 03:52:27 -0700 (PDT)
-Date: Thu, 1 Oct 2026 13:52:25 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: Re: [PATCH v7 13/35] drm/msm/dp: add support for MST channel slot
- allocation
-Message-ID: <agm7esy726no4u4cntecmllz5kxdtxaue7xcn7vdhkuh73lxau@r6mqybgiyl7f>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com>
- <20260929-msm-dp-mst-v7-13-4b81473185e7@oss.qualcomm.com>
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010011.outbound.protection.outlook.com [52.101.229.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C35D510E063
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 10:56:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iOwX2mYiT+T3ON9/y7xw86+TfPR5/xcJcVEc1ZdfG6BhjNaEWutm4/W6JLC9lQrgcNZSjU2BBtypZaeuBASBZZL23uoXNeyqjW6tY+hL3qp4BofVEi6VK1Kyd5JiU0/WYMV9Bh/dPIKyShUrgqbl/h7riBTx7ilLEWb5VG/GT82KteWA0EAabU6vUgdvUrkizaXHCEhN0ovNNgXo1gF0cTu/OIZMeKOB5+Hr9B6aFGS+M0xXvOoTFBFn0XtLQ5IHyA+fINz5f5+hqwxQg9WW8YcNhSbuZBx1Kx1fA9dQ0XBiscrrmmt2RFSDYrh5SkTmJ5vIQrTtL94zVUIthYadAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
+ b=r+qQZTCBCa+X3rr0YNtdQxsYtmDq23b85YsVAmgXuYnQXMNo8pZXWSQ53C1UsIO6o9MuqpvyCRyE46efm/uvvDLZ+iV1JwFXX+l4zX1UVVuWMO0pSoMpI+/2YC78HHcWB+GJ/IQKMtq99SyPXu1X+mWlt8IXt8aXbVTl1C7f2xw8wckNEts6V+DvEVNDnd5eEoP4zACLwuiGWiiWrge1GSZU3qeq9k3cSnniWiFnmL5jBeaZ2eUyoh8vSFRKMcKoBoc7OyqI/BuDSs1STIF/AH30nDqF4nCRWvyk23BoIPFXJ/K9Cd/Rt76FhqzxH94WHR+PXdXrH8nGHrfqmkbfsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZqqBuEWcTxhjtjSU4S0TREMb8anPcvdIBEYdQIHT6g8=;
+ b=fhD3kAlR4naWdCmdBtzvVQy4Sb7jgjAORdtrHANy9GzNKHF+go2oJJrhC6l6NCzUk7u2Hd8Bult39HPPGAS3SJYUz9jUEKoqWzLxOrptNdyyJzSg5936PtjK78ZuU158MpM8qgx44gODKoudf1/nMXkt/9OE6DX2H0rJqBu5eVY=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYYPR01MB12418.jpnprd01.prod.outlook.com (2603:1096:405:f8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
+ 2026 10:56:37 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.026; Thu, 1 Oct 2026
+ 10:56:37 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: "biju.das.au" <biju.das.au@gmail.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
+ Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>
+CC: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+ <linux-renesas-soc@vger.kernel.org>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>, "biju.das.au"
+ <biju.das.au@gmail.com>
+Subject: RE: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
+ RZ/G3L SoC
+Thread-Topic: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas
+ RZ/G3L SoC
+Thread-Index: AQHdUYjx9uHffJnf20W6dhJCyerXp7bog3uA
+Date: Thu, 1 Oct 2026 10:56:36 +0000
+Message-ID: <TY3PR01MB11346526530C7998D0FDEA560868A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12418:EE_
+x-ms-office365-filtering-correlation-id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|921020|11063799006|56012099006|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: iUNlFvvhNa7ZXx5A3xeW9b/7YCUb0eCVzYQ7nkC/+qXQHmduxuV1l88iywpNT09t3ldwGqhDjRG66k+ioqFxWQDlrWjiri7wBFoEy1E+r/bYQ97SfYzc/boNbdM635r0g7Ufs8ilB10D2O8kiIxA1klCeW6LLMCHrbLqM0IXUbwNQY1iFB4yUGjvDPSMjuM8jdGBdTotpFcIHsl6UJYGX7MN1IlTcCy6humKy1OkXNAcSgAVh7ODO3pvU82KTguuqrcnDDgnLaOQkAZzpfawcf74kQ6EZbSGRGTd/nyNgSpJnRJBDXPRKX4zqXdBjuCzr50BPmDmLM5EW6SPXeEv//uQhdGQDM3IOxnUT1q3oSRkxFzx7Gh+O9qBkMuMl+XfonuWx96Eb8emVj4I7Abxe08fVtSw4yksvU2KZpFL3EN6C9kHPRxNatEz4Vh/k4ySyxY6h+lYkTD9bav+9/btXzSSNOT44zz+sMA190urdmJkUysbsQU1t4JrDqUE9vSaL/utrj3t+CKQyICUEbrpUYydXIg6Xfw1WOexdOVZ78Iu2A4cXYNHKo+m2kG7EB9R9YFr4dxpaOmj0lF713JPo1jje1jTTJ+bl1TgkuYu94bF3s+lQ98bSQ0AJ7jnv2ieWXMeGTqdpwskwD/6+f2LldtjR0xjM+kb12IK+LLu1E69lXgRlQ0b9UEcjIQh7zfTM3LLbVZc2PR07OFucj3JaN4t6L4Hv5IXzZOzwKj1MgQY55kCOV0c/CXnLfFfIGcv
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(921020)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?cXPrE/rDxnXIDzx4k3ctqyijUAPDRJgWDaPbtpnPK+VvCW+EK3rpCiUHM6JA?=
+ =?us-ascii?Q?iQNjsFnnEo4aWIMl/r1fo+XKiw4L7tM5g2IqV7X9kyk/THOpSt9kN/wv8hDF?=
+ =?us-ascii?Q?ChapHedvRNU2TY6cttR4Ni1PFY9MH4n66KVEnioAkExQfWgnJuxHP/hFLu4b?=
+ =?us-ascii?Q?9DO+Zk3GETASSU+xQoTnRj1gp9HIrWS8AfBMSdfQSD+RN9xkqLT77TTjIY28?=
+ =?us-ascii?Q?uvm7FlN59Bu1vfpewLRasUlTzuriOrEzgSFhZEImggYPbC8RoQAm0HY3fzHG?=
+ =?us-ascii?Q?hsdMr+jl3XjptvVpEdpcC9+xw6B2e58UiBaIT/8Fxczq6regVaYulPcC58yr?=
+ =?us-ascii?Q?4kNXpQf0A+dTb1iyUKJbWG7SyDx0lgZcu4YbEQR/3D3O3AU2ClHjX200ONDr?=
+ =?us-ascii?Q?a4aiecRlYkoQ+GFp5SHFFF5NtjzExCm0M1KDXI+wBsK1XQ8m/+a+17JLyIrU?=
+ =?us-ascii?Q?KsXavPJSDb1MRU/O4rDnqu15cKmm4xQlSY05F+lusH2LGakiN8F7MI0qEMeY?=
+ =?us-ascii?Q?OFMROyLViieXhuO6KfF3N1idnFpYQ14cAEWjNVO0fGOI3tK/bx/ySihRx6Ad?=
+ =?us-ascii?Q?+zPva85zV8D+zKBMbTYIuqdGzkYadY7kusEXBmd4K0lp7KAP4k4PtN2925eL?=
+ =?us-ascii?Q?33N9R+tUwulyFGZN2fL5HnBDXHZs9nNbHNRkaQI/VtV5WUSMrBCehg8Jt2LD?=
+ =?us-ascii?Q?q+FdJpSolOKGDJ07Xbgyo1smaQuplemjB6FVhDcQK7vWDwuzizUJJvmjZy5u?=
+ =?us-ascii?Q?YY7SU7stF8FQffcqbqu0tsX0E6Fd48R3hOdbcZlngdrB3YXg5aXNeNR4jlk+?=
+ =?us-ascii?Q?wpObYZ2kV1J3hzarEqh22scWqOc4p5ZVzH724yyvb7y1mbjMEMzcS0fJtLDx?=
+ =?us-ascii?Q?rHsWwwR/uJL27r0ynJiG7O+dxdZFPF3LnQ0vztVI7dNhsJztT9gUvGVXEiXG?=
+ =?us-ascii?Q?TuHbtpCqroV5+7vq20XMKQGZnNXQzU986gn8Czrrj7oevVwgMOAUVM8jLISv?=
+ =?us-ascii?Q?srEaZOH/FrJAl0HXbj0mQrnpp4Vs0Jl4aJzZLF2zhdOgMtahgnoh00DQBs3y?=
+ =?us-ascii?Q?ROWmAQN93ixjJyM7dkXbnVhKNyk3fSrV2AvuReuJn033qpYsScDQAVSOY6HY?=
+ =?us-ascii?Q?M3/jVPjh3xk3tU97EhEYb1lqCDt0w7CAGv+qosg+e7xxQbmam2Ft6t5KgCNW?=
+ =?us-ascii?Q?OYYuGb9EItUh8ID4ZIF6hrkuVJvqsBRnRM5wMumvP/fZ9P9wxiypHPgS1V7x?=
+ =?us-ascii?Q?/2BwBtBjRlDoi0d00Tfw/aHDPr9AdIKDMvJd/gX8pL3No7xT85IE/M2ne9Aq?=
+ =?us-ascii?Q?E2ISU8/5v0mOX9ArWFpB88CPcV5WZI21ggU2ZSQRlrl99JstM5MERylZMJew?=
+ =?us-ascii?Q?d/pDlPxa0rIHqiJx6yE2/Ta2Mr1R4MB8AQ2XyedM48WShofAENKZTOmqH7WS?=
+ =?us-ascii?Q?l+1JXfbZccMfjTp+jF+bjTcfQa8qVkYHQ/1iwL9iPkMWjVs1AUs0wpe16lFg?=
+ =?us-ascii?Q?RZt0YVPMcMN3Wspxbgd7vIFKtsgXZm4UbR8bg1y8/aX5XGibwd9auuVTGDkS?=
+ =?us-ascii?Q?OZx6tNUfieycNNg5SEWAi0oUn2CvQNogLGb0bQQ48aJxn+T2CXh8pa/R0ZCO?=
+ =?us-ascii?Q?NEUhGDlzbaQkEijgr1s9opmEb6KyMGamL+MxPvANzcMpUI/QHVdAoimuwpfn?=
+ =?us-ascii?Q?t7G9fl7/qiR4TgeUzWqRr1egvWL5x218ciIRglaShajX9GUAZEtPPI2HZi9k?=
+ =?us-ascii?Q?TiBRMSRZaw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-msm-dp-mst-v7-13-4b81473185e7@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=eqpKXYpX c=1 sm=1 tr=0 ts=6abe3b6e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=B9W9OPTfjs53PBBgks0A:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: Y0q8KJB3Te4GM70myPccs9UgjRjUqFjc
-X-Proofpoint-ORIG-GUID: Y0q8KJB3Te4GM70myPccs9UgjRjUqFjc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfX7MEHTvyeZvbU
- FAcUzfmz7hCvPNNpz6vW2Woeu0r8SS/12cTO5ZzNE8INFO9JNBkTjztsc9iVuB0RjydwL4wfvuD
- vxgmHskm+Z720mBnXyWhNvFx3iLb1+M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDA0MyBTYWx0ZWRfXwxSlyLWdDLOv
- +MIMrd+1sB3f1xJyfsmW/RA8jXHt9UInzTHtOPsFJUrqyjL1msmc48vjP+cUrvoLgghAHjq9Zhr
- IZ39GottY3R+nHp0oaups4OnBQ/Yt67xRstUogPwZUTCqf7xGt2lZXHPVfOUjZv1vdrW3fGLTvc
- E1lm/+4jogU5BllFjNtBWgd96P5gAOcJ9zP42Cf8COvXWDkk0Hp/2LtKfHoK1qcDEzfw5LHPUgi
- o86KuxgGBIZY/lBFKoCvanosjSCotGlIscHhrLVfIOXXCrczv89AKV1j9xeG3V7uAnQ1/TG3f86
- 72warJ+wfXPolzb2u2tvsdNOjSlzRXq6Mw1R8R8G1AGFg/bk3Kd0o0I9dZckU6IUvLKXKJO7Fl/
- M90hKSV6g/0W6xwUfpNdvoqkUJ9dszDNpuoQpo+E99Xh2QsvRA1XVtTQSCEW7VWibS/ORoVdw7W
- PO/vKK9HkWeoogwmwFQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 malwarescore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010043
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5ae6c2b-49e9-4d3d-4fff-08df1faaaa60
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2026 10:56:36.9519 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9JBgsXPDpyFB0p4sNF8xGWHXElGO25XUJR9K8/XeV7rQdSTLbS8I944OTul3AlouAfDq4NQVshQylm0FCN575DzliJMd14xuYHIXpMWYtfQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12418
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,69 +147,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Sep 29, 2026 at 12:25:37PM +0800, Yongxing Mou wrote:
-> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> DP MST streams share 64 MTP slots in a time-multiplexed manner. Add
-> support for calculating the rate governor, slot allocation, and slot
-> reservation in the DP controller.
-> 
-> Each MST stream can reserve its slots by calling
-> msm_dp_display_set_stream_info() from its bridge callbacks.
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 187 ++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |   4 +
->  drivers/gpu/drm/msm/dp/dp_display.c |  13 +++
->  drivers/gpu/drm/msm/dp/dp_display.h |   2 +
->  4 files changed, 206 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 929e0f94f8dd..02732bd4efa1 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -83,6 +83,7 @@
->  #define MR_LINK_PRBS7 0x100
->  #define MR_LINK_CUSTOM80 0x200
->  #define MR_LINK_TRAINING4  0x40
-> +#define DP_MAX_TIME_SLOTS 64
->  
->  enum {
->  	DP_TRAINING_NONE,
-> @@ -119,6 +120,12 @@ struct msm_dp_vc_tu_mapping_table {
->  	u8 tu_size_minus1;
->  };
->  
-> +struct msm_dp_mst_ch_slot_info {
-> +	u32 start_slot;
-> +	u32 tot_slots;
-> +	u32 pbn;
-> +};
+Hi All,
 
-How other drivers handle slot programming? Is it something to be shared
-between the drivers? If so, maybe it would be better to update MST
-helpers. Or, asking differently, why do we store it this way? I don't
-see where msm_dp_display_set_stream_info() will be called from, but
-isn't it a part of the calculated state? if so, all the slot allocation
-should be stored in the state structures rather than storing them
-directly in the private structure.
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 01 October 2026 10:40
+> Subject: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas R=
+Z/G3L SoC
+>=20
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Hi All,
+>=20
+> This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L SM=
+ARC EVK. The RZ/G3L LCDC is
+> similar to the one found on RZ/G2L, but has LVDS support.
+>=20
+> The LVDS series [1] is merged here to get an overall picture.
+>=20
+> [1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.re=
+nesas.com/
+>=20
+> v4->v5:
+>  * Collected tag.
+>  * Restored mode_clock_min to 5440 kHz.
+>  * Replaced static resets array in probe with global resets array.
+>  * Updated rzg3l_lvds_atomic_disable() to fix the
+>    PM_RUNTIME_ACQUIRE_IF_ENABLED guard that prevents synchronous suspend.
+>  * Updated rzg3l_lvds_atomic_enable() to fix refcount underflow in
+>    atomic_disable due to early return in atomic_enable.
+>  * Dropped dotclk from struct rzg3l_lvds.
+> v3->v4:
+>  * Collected tag.
+>  * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
+>    using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
+>  * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
+>    devm_pwrseq_get().
+>  * Updated mode_clock_min from 5440->5400 kHz.
+>  * Added resets in pair for simplification.
+>  * Added comment in probe() for asserting resets.
+>  * Updated commit description for patch#8 and #9.
+>  * Updated license header  for patch#8 and #9.
+>  * Added HDMI audio support.
+>  * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
+>  * Renamed it6263 node name from it6263 to hdmi.
+> v2->v3:
+>  * Dropped binding patches as it is accepted.
+> v1->v2:
+>  * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+>    sequence.
+>  * Switched to power sequence for handling pwrrdy signal.
+>  * Dropped header file regmap.h and mfd/syscon.h
+>  * Added header file pwrseq/consumer.h
+>  * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+>  * Restored ports in DU bindings.
+>  * Replaced endpoint with port in ports node.
+>  * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS=
+.
+>  * Dropped the variable rcdu from struct rzg2l_du_encoder.
+>  * Dropped the variable lvds from struct rzg2l_du_device.
+>  * Dropped renesas,sysc-pwrrdy from dsi node.
+>=20
+> Biju Das (9):
+>   drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+>   drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+>   drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
+>     struct
+>   drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+>   drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+>   drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+>   drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+>   arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+>   arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
+>     ITE6263
+>=20
+>  arch/arm64/boot/dts/renesas/Makefile          |   6 +
+>  .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
+>  .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
+>  drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+>  drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
+>  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
+>  .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 ++++++++++-
+>  drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 275 ++++++++++++++++++
+>  .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
+>  11 files changed, 749 insertions(+), 8 deletions(-)  create mode 100644
+> arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+>  create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-i=
+te6263.dtso
+>  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+>  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+>=20
+> --
+> 2.43.0
 
-> +
->  struct msm_dp_ctrl_private {
->  	struct msm_dp_ctrl msm_dp_ctrl;
->  	struct drm_device *drm_dev;
-> @@ -153,6 +160,8 @@ struct msm_dp_ctrl_private {
->  	bool link_clks_on;
->  	bool stream_clks_on[DP_STREAM_MAX];
->  	bool mst_active;
-> +
-> +	struct msm_dp_mst_ch_slot_info mst_ch_info[DP_STREAM_MAX];
->  };
->  
->  static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private *ctrl, u32 offset)
+Applied patches 1..7 on drm-misc-next.
 
--- 
-With best wishes
-Dmitry
+Cheers,
+Biju
+
