@@ -4,45 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E02BCA5FCB
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611C8CA5FB3
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 12:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D60C010E0C1;
-	Thu,  1 Oct 2026 12:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B690D10F63D;
+	Thu,  1 Oct 2026 12:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bjgPjIns";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jFuxNW7m";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47EA610F63D
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:08:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB8A210F63D
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:08:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0429740324;
- Thu,  1 Oct 2026 12:08:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8723F1F000FF;
- Thu,  1 Oct 2026 12:08:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 092FF60A57
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:08:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B493E1F000FF
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 12:08:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790856487;
- bh=8XnpDC09BNoRMybmiRSa9+I7xUKWavYhyhSmyNVYC6k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bjgPjInsFyhwmqymJYKpov2q8feT/1Ml+EARJOciCawPTrCW+uoevRG+fQE3km94E
- DpuEPnAQ3P53F6Vcv3ZP41MuWV8shgEHV6E8Dbicg7M03nIox3+pFEojGKe0kChJYo
- vTw5iMH60yfra0rEnFuJjsP0gcWLdmw/kTFjA57C5emiBDmq2v0eAVlhIIhZEARjwq
- +zDWMns7yK7nc9LEhMrAVS4n18e0f767iHOuqsIxQKTZaXvD18fmc5eauGNUzFEfMd
- z3at4hqivNXJaf1PHn2QewmyPDCXx0X9/GNo3PtJ0LK9cIU3+SzCiXRCsT6LZ6zcj0
- TtaG7pch3wy2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 16/18] PCI/P2PDMA: Let a client declare that it
- selects ATS per mapping
-To: "Leon Romanovsky" <leon@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- media-ci@linuxtv.org, linux-pci@vger.kernel.org, kvm@vger.kernel.org
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-16-1a8e0f50ddd9@nvidia.com>
-References: <20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com>
- <20261001-fix-p2p-acs-v4-0-v9-16-1a8e0f50ddd9@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1790856530;
+ bh=Efy2GeD05EfphIFlVWVsMtlBk1ymm+KYQ4arEyy8BdA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=jFuxNW7mZ6qbHWx10RpXY9VNIRo4YZY2IZO+QYiVSPtGw0ROAJE0HCnGRCXFPMs82
+ vdPe+j6DjROF9Xhzx3kcKTcR9jVUXE0WLj5JNDWaU9IqtI4JmsSTPApfuwRbp0FEI5
+ OxGSK1shFcVAlFD3IMwK9ktrLibYGUFV/CmxWTanATzan5kRr1W46mtgGKPbg2f8ez
+ MD7iDcGg5ZeR06dEa1ngOCbJ1YAZ3sL5g49Ks0lMioEN1T4iCen72sANcOGa2C4Y5R
+ IcH28i0lmwQWnAwGirOTo0bJOkv3bmQ47J99vL8084ix7NQJe44onCLJ/c2NtV1ZM8
+ JDgOHDrKPWqZQ==
+Received: by mail-oo2-f39.google.com with SMTP id
+ 006d021491bc7-6b4bff33ceaso3763624eaf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 05:08:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByGZbNyioCmGr+9LbQTRPmQAayKEOUI+UUVqF6W3x7rQ2ZO4OyUG10QnXUQ3i8MReCKII8hUsGA/QM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mbjz3XN7sZVPhfFwbmqUY+6pRk3KsIrrihDS71dLUgDlERKbC3
+ CyTXqgDDU5kftR8wtt9gCldmuw9XEqmHfv+f9Dltemo8pZnFRE5rxuM4Pc5GgEeJDyL5B7hLBu9
+ a4Z5D2Q+RDfFEW6rsw0NOsXUnPWAUYtk=
+X-Received: by 2002:a05:6820:709a:10b0:6dd:fdda:290b with SMTP id
+ 006d021491bc7-6ddfdda4299mr1394070eaf.57.1790856530140; Thu, 01 Oct 2026
+ 05:08:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+ <20260908-ebbg-ft8719-fixups-v2-3-5454ae1f5581@ixit.cz>
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-3-5454ae1f5581@ixit.cz>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 14:08:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=KPyt384bEcrTR1V6y4WH3Nkz6w7rsVxZUjnJZc6_uTQ@mail.gmail.com>
+X-Gm-Features: AclHuK-CfO2vaNrbhnpcNDH7OQiVrROdFcvCpCkNzNhxCoBuSHJS-Mb8OG4p1GY
+Message-ID: <CAD++jL=KPyt384bEcrTR1V6y4WH3Nkz6w7rsVxZUjnJZc6_uTQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/panel: ebbg-ft8719: Split initialization into
+ enable/disable fn
+To: david@ixit.cz
+Cc: Joel Selvaraj <foss@joelselvaraj.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 12:08:07 +0000
-Message-Id: <20261001120807.8723F1F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,87 +77,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] pci/p2pdma: pure clients cannot set ats_per_mapping because pdev=
-->p2pdma is NULL
---
+On Tue, Sep 8, 2026 at 2:45=E2=80=AFPM David Heidelberg via B4 Relay
+<devnull+david.ixit.cz@kernel.org> wrote:
 
-commit f332086fc4a4273d099c81fafb33298021d47d1a
-Author: Leon Romanovsky <leon@kernel.org>
+> From: David Heidelberg <david@ixit.cz>
+>
+> Move the MIPI commands into enable/disable callbacks since they
+> are called between prepare/unprepare callbacks.
+>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+LGTM
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot tell
-from it whether a client will translate a given address. Most devices
-translate any address once ATS is enabled, but some choose ATS per DMA
-mapping and can still use bus addresses for the rest.
-
-Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device can
-declare that before P2PDMA starts treating clients with ATS enabled as
-translating everything.
-
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index cf190bd572d4a..6a63901c65fb6 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-
-[ ... ]
-
-> @@ -1562,6 +1563,32 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool=
- publish)
->  }
->  EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
-> =20
-> +/**
-> + * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a client
-> + * @pdev: PCI device that initiates peer-to-peer DMA
-> + *
-> + * Declare that @pdev issues Translated Requests only for the DMA mappin=
-gs its
-> + * driver sets up to use ATS, rather than for any address once ATS is en=
-abled.
-> + * P2PDMA then routes this client's Requests with the Address Type each =
-query
-> + * asks about, rather than the one its ATS Enable bit implies.
-> + */
-> +void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
-> +{
-> +	struct pci_p2pdma *p2p;
-> +
-> +	p2p =3D rcu_dereference_protected(pdev->p2pdma, 1);
-> +	if (!p2p)
-> +		/*
-> +		 * ats_per_mapping is a performance optimization,
-> +		 * if pcim_p2pdma_init() didn't set pdev->p2pdma pointer
-> +		 * for some reason, let's simply use ATS global settings.
-> +		 */
-> +		return;
-
-[Severity: Medium]
-Will this silently fail for pure P2PDMA clients?
-
-It looks like pdev->p2pdma is only allocated when a device registers as a
-P2P memory provider via pcim_p2pdma_init():
-
-drivers/pci/p2pdma.c:pcim_p2pdma_init() {
-	...
-	p2p =3D devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
-	...
-}
-
-If a driver for a pure P2PDMA client (e.g., an NVMe initiator without CMB)
-calls pcim_p2pdma_set_ats_per_mapping() to declare its ATS behavior, won't
-pdev->p2pdma be NULL since it never called pcim_p2pdma_init()?
-
-If so, wouldn't this cause the client to silently fall back to suboptimal
-global ATS routing, as it can never successfully set the ats_per_mapping fl=
-ag?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-p2p-ac=
-s-v4-0-v9-0-1a8e0f50ddd9@nvidia.com?part=3D16
+Yours,
+Linus Walleij
