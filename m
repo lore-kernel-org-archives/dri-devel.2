@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A763CA5FD4
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 15:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FCA8CA5FD4
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 15:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8424110E082;
-	Thu,  1 Oct 2026 15:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A060510E107;
+	Thu,  1 Oct 2026 15:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="ToqdSVrd";
+	dkim=pass (1024-bit key; secure) header.d=murena.io header.i=@murena.io header.b="TCEoFDBb";
 	dkim-atps=neutral
 Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0194A10E082
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 15:38:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1833010E107
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 15:40:12 +0000 (UTC)
 Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mail2.ecloud.global (Postfix) with ESMTPSA id 3A32C720B98;
- Thu, 01 Oct 2026 15:38:31 +0000 (UTC)
+ by mail2.ecloud.global (Postfix) with ESMTPSA id F0DEB720BA3;
+ Thu, 01 Oct 2026 15:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
- t=1790869113;
+ t=1790869209;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xx70lC/bWUp788wCvnZl/epp/8zx5Fhu34iv8tJWVos=;
- b=ToqdSVrd1HsEwQzmjfBFjYDZriKj3Sm05yKCCOdKEyfTliJyEP2YF4EEk8MenyLA9MSni7
- GG43lHUfIUmAetKOeV1Ptr15wnRIInrp1qj7QaJKcQOslpMkya+w288xPjrp06HiB9VkwE
- WXIw4BIPap4JOIojeomLaOpZ/sdWYWw=
-ARC-Seal: i=1; a=rsa-sha256; d=murena.io; s=mail2; cv=none; t=1790869113;
- b=Ko5QVLSK+WrA7oMsstFqO36iwQ4nJpom37gtaBSd3BXP7TUrNUIDhYeZVK9BeJt3RMRkKj
- vzWcU8F9J8ZrlYnMOUcDK6T404QQg1U0Gsx6kLkH1JPbEJkf6kFJyDFAP39PSJadud8ohU
- e3c/yGRhMRfGyQuktdMVJ7V+6ZLnsNI=
+ bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
+ b=TCEoFDBbjYRUo3c3fevSgQ02QIdoN8xUTOuZX4DnbNjkrxZf3NsSMJCDP/MJ2ahHmsp/ob
+ CZm9EzW0JqyQepC+Mnx/wD6iInO/gE6qqTN6uPkLE2YHijtYT2D6xeDv6kzMtQ2zw9Yp6m
+ oqIa9aQsK+srkNwKqeXCFbnHDAubzL8=
+ARC-Seal: i=1; a=rsa-sha256; d=murena.io; s=mail2; cv=none; t=1790869209;
+ b=VNETGM+K8h+iqT1UgCB1Tyj/1jgj3s+OJmVqwrK8EC6gaoplSJXbAgezfVTDHlQqR7w31Y
+ pJJjeVIznq7magjlH4S0Y4KzwY/p8b8liSEVRALNAhMz6cVOJT5tnFoOv1mhJrF2LsWiVD
+ RwXYI5A6T6b7Ep9svcPR2Rxzh01/mPM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
- s=mail2; t=1790869113;
+ s=mail2; t=1790869209;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xx70lC/bWUp788wCvnZl/epp/8zx5Fhu34iv8tJWVos=;
- b=KPA9poo3H1N3+NopbQsllMRGvV20jq2v4Z9vJVtKN2JJKhB3uNRwhvrNu7iSWLfZvfTH0G
- 1fynS3FwlDKdQJiNqQhOIDExt0R1yFuv8eNBmGwcEvIpkwnw6luXLOgu1Nw0747QfDpET6
- IZf+7KD7h27N9TPbnX3mv2Y7mMc8R/g=
+ bh=qKDPtfxAhV/dREsJEcSyq7SoOHuO3ciIber1G1Mlbkk=;
+ b=ZNq50gAmDVE09SbtqXvrb4VyxebLiZgRYzrViBFsX459PliBv+F2kxIilSuf95+w28YMvk
+ pKYEUbbhSKrCyLVj+Klf7A5Rg3h61gXuL5gSAokYwrBVKrb0/Rr3OS4KugTIbU9NALael8
+ V9nPlJRRQHNAr/SJI/WBGam7iDaXO7w=
 ARC-Authentication-Results: i=1; mail2.ecloud.global;
  auth=pass smtp.mailfrom=maud_spierings@murena.io
-Message-ID: <7d41064a-1f7f-4461-a4ea-513d6afce267@murena.io>
-Date: Thu, 1 Oct 2026 17:38:30 +0200
+Message-ID: <6462d084-5861-4df6-94ca-dbd23e619a61@murena.io>
+Date: Thu, 1 Oct 2026 17:40:06 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 13/21] drm/bridge: inno-hdmi: Make the register clock
- source selectable
+Subject: Re: [PATCH v5 01/21] drm/bridge: inno-hdmi: fix swapped HSYNC and
+ VSYNC polarity
 To: Michal Wilczynski <m.wilczynski@samsung.com>,
  Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
@@ -80,13 +80,14 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>,
  Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Byron Stanoszek <gandalf@winds.org>
 References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
- <CGME20260929103233eucas1p1bc0682334aad710c3894271f46ba1f47@eucas1p1.samsung.com>
- <20260929-jh7110-clean-send-v5-13-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103203eucas1p14cb6262ba2c7bbaf36856f24f7bdc9e7@eucas1p1.samsung.com>
+ <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
 Content-Language: en-US
 From: Maud Spierings <maud_spierings@murena.io>
-In-Reply-To: <20260929-jh7110-clean-send-v5-13-82b4d8e3c6c7@samsung.com>
+In-Reply-To: <20260929-jh7110-clean-send-v5-1-82b4d8e3c6c7@samsung.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,63 +107,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Michal,
 
-Can confirm that this is fixed now! Thanks for integrating this!
+Fixed! Thanks!
 
 Tested-by: Maud Spierings <maud_spierings@murena.io>
 
 Kind regards,
 Maud
 
-On 9/29/26 12:31, Michal Wilczynski wrote:
-> inno_hdmi_init_hw() drives the register interface from the system clock
-> on every platform, by setting v_REG_CLK_SOURCE_SYS unconditionally in
-> HDMI_SYS_CTRL.
+On 9/29/26 12:30, Michal Wilczynski wrote:
+> v_HSYNC_POLARITY() and v_VSYNC_POLARITY() write the wrong bits: the
+> hardware puts HSYNC in bit 2 and VSYNC in bit 3, the macros do the
+> opposite. Most CEA modes drive both syncs with the same polarity so it
+> goes unnoticed; it only shows up on modes where the two differ.
 > 
-> That is not right everywhere. On the JH7110 a Framework 13 (fml13v01)
-> panel flickers continuously with the system clock selected and behaves
-> once the TMDS clock drives the register interface instead. Maud Spierings
-> found this by diffing HDMI_SYS_CTRL against the StarFive vendor kernel,
-> which leaves the bit clear.
-> 
-> Add a plat_data flag for it rather than changing the bit for everyone.
-> The Rockchip integrations keep the system clock, so this is a no-op for
-> them; only a platform that asks for it gets the TMDS clock.
-> 
+> Fixes: 412d4ae6b7a5 ("drm/rockchip: hdmi: add Innosilicon HDMI support")
 > Reported-by: Maud Spierings <maud_spierings@murena.io>
 > Closes: https://lore.kernel.org/all/e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io/
+> Reported-by: Byron Stanoszek <gandalf@winds.org>
+> Closes: https://lore.kernel.org/all/b8b046ee-c574-3e16-6079-2fc415633dae@winds.org/
+> Suggested-by: Dominique Belhachemi <db@domibel.de>
 > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 > ---
->   drivers/gpu/drm/bridge/inno-hdmi.c | 4 +++-
->   include/drm/bridge/inno_hdmi.h     | 2 ++
->   2 files changed, 5 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/bridge/inno-hdmi.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-> index 56f7d41cdae49ae872599a86799412c421158369..db92013a3b1e7c1b6668e9257523a0ca8d2c23d7 100644
+> index dd35f5a875d3d842fee6d2ead0de88503f9914e1..d7c33b92e2ddf4ced84d17304463f44be52270b8 100644
 > --- a/drivers/gpu/drm/bridge/inno-hdmi.c
 > +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -580,7 +580,9 @@ static void inno_hdmi_init_hw(struct inno_hdmi *hdmi)
->   	usleep_range(100, 150);
+> @@ -122,8 +122,8 @@ enum {
+>   #define v_VIDEO_MUTE(n)			((n) << 0)
 >   
->   	msk = m_REG_CLK_INV | m_REG_CLK_SOURCE | m_POWER | m_INT_POL;
-> -	val = v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS | v_PWR_ON | v_INT_POL_HIGH;
-> +	val = v_REG_CLK_INV | v_PWR_ON | v_INT_POL_HIGH;
-> +	val |= hdmi->plat_data->reg_clk_source_tmds ? v_REG_CLK_SOURCE_TMDS :
-> +						      v_REG_CLK_SOURCE_SYS;
->   	hdmi_modb(hdmi, HDMI_SYS_CTRL, msk, val);
+>   #define HDMI_VIDEO_TIMING_CTL		0x08
+> -#define v_HSYNC_POLARITY(n)		((n) << 3)
+> -#define v_VSYNC_POLARITY(n)		((n) << 2)
+> +#define v_VSYNC_POLARITY(n)		((n) << 3)
+> +#define v_HSYNC_POLARITY(n)		((n) << 2)
+>   #define v_INETLACE(n)			((n) << 1)
+>   #define v_EXTERANL_VIDEO(n)		((n) << 0)
 >   
->   	inno_hdmi_standby(hdmi);
-> diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
-> index 1e9974401c39e3773bb339eaec0b45ff1dd9c975..620f035eb9846762ff91cd933b30e07eaeeae8ed 100644
-> --- a/include/drm/bridge/inno_hdmi.h
-> +++ b/include/drm/bridge/inno_hdmi.h
-> @@ -32,6 +32,8 @@ struct inno_hdmi_plat_data {
->   	const struct inno_hdmi_plat_ops *ops;
->   	struct inno_hdmi_phy_config *phy_configs;
->   	struct inno_hdmi_phy_config *default_phy_config;
-> +	/* Clock the register interface from the TMDS clock, not the system clock. */
-> +	bool reg_clk_source_tmds;
->   };
->   
->   struct inno_hdmi *inno_hdmi_bind(struct device *pdev,
 > 
 
