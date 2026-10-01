@@ -4,92 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0749CA5FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31ABCCA5FCB
+	for <dri-devel@archiver.kernel.org>; Thu,  1 Oct 2026 14:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1468C10F6BF;
-	Thu,  1 Oct 2026 14:03:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9601510F6CB;
+	Thu,  1 Oct 2026 14:04:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dzb5Ywyd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mk4WOmCx";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E09A10F6BF
- for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 14:02:59 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c20ce3c118aso441666266b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 07:02:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790863377; cv=none;
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com
+ [74.125.230.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 624E710F6CB
+ for <dri-devel@lists.freedesktop.org>; Thu,  1 Oct 2026 14:04:04 +0000 (UTC)
+Received: by mail-lr2-f35.google.com with SMTP id
+ 38308e7fff4ca-3a7756096e7so19279981fa.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 07:04:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790863442; cv=none;
  d=google.com; s=arc-20260327;
- b=Ec6iPGug0IFjM729/o4ZYp+HkHqhXtX9dU3wTbS32hEueCdJFGThIRyi7PfAhO/YQP
- bcMKzNj4oUowqsTXzg37pLIwNppRYxyhen+q1iUxv4KQ3Qwhe4Gs6VOaNPDSQWue2LSQ
- JdiLciKLhy7a/yO/Cu7ockiqWdVWaKd1o3NDELLqfqqD+/aSAJB0aYmSPwoxpkCDHNuV
- vBjvHefW9NTW4OD7HGA1EK8f/T2aRTTtDzXchFyeZILFQsOGRUuoWzWjuhZZfdSPNkvU
- LMiKXMI1YNJboeLUGtbxqhRQAM/2mSCaX5VXZKKw9mSqgUN5p2vGF6Xbv4lre+s9fvVV
- UqtQ==
+ b=BA9rnKqsoM4QlXtFPaTqChJAV6X5re6EW/DvQ944e+etfHu9cdBGFOkWRPHWub5GaA
+ GbvBso1pNDnUnehxCN4QtGPYcb/+1kI6wapByuDNOyiJ+UQmH1dh8ChZsb1C1Dg9KAWM
+ RxwruMXp2s0XUourJOGIL2KxI2hEte5tThe6LUf+h5TjyKTWu+ABCRPD+fgaK5BlwUz1
+ b+fcRlH1VmuAe9bUwOXHRPVuHzBB9UPqrfVvdjmlpq30k+C0evrXWLx2tXQyzalxZOTY
+ cCKPjxHISGxYQR3Rqkcs7ZqKQO7WvvZzQfF+v5IZrjRiWsJq20fGJyXkAq4pZl2Kz+9m
+ k5Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=N8/7CE4ZuKqaD2pkivrDjqtKal/kq71Tiz2qeo/N8RI=;
- fh=GtZkIAydsnAdlU1mGXJPUjNLiNR+8ZehgTjRASVkO2s=;
- b=Th42zvyVtjX7RdATrUAJJuuOFULDH/EPvi506vp08531muDy4ARKM9oYgEHrOYIKMx
- h6qy/xUdancsMQqcS79p+AecNKwjRuAKKMAXqWRH1lOaWnTMDsqOWnkQ2qqOEfxiT4s1
- CVVZcO//qvTr/fSR3jlY761VMczUBDXHJRD8GKVYqkHIlr9cXg7LBobvXja6CNIQjVfH
- 3gkO9ei7QnjsEDiLiT+5y4+HvlEE7fsubiwJQqRNOM+q80laIyeP4PD53pogWbzJsC8v
- yDrys4m4Gxl98RIw0hUKDuw7fFqhCoxzuO3p0D+bggpTy+F+uPIVGfapanBGVbhdCSmC
- 4z3w==; darn=lists.freedesktop.org
+ bh=U9jLK7/wc7B6mGa6+VCwGx4Ieg2jj91kEAwv06rg/rQ=;
+ fh=qNQtGL0YXtGbdqhUGWow+OvvsXJFcPEGRlrFUMnmkWU=;
+ b=bwySHhVpeWYGJCySsepO5VgPSHPhycCnjsUn7GrU64cvxZ8rI3OiSHOQLHBqI2A3gD
+ Vm9scNaVCa94o/kUXGVPPkym204kDa4DmcEaoJGIsU4WF8Z77GjuJdinxK3egZL9L0w1
+ E9C0MhkkQy1ZZct0RY6Nnm2sedry7Aww7wyoROTSyyruUUIsBVrWN2mOQzzr/Y3eayVh
+ ifV9MJHWI0UU+qNpT3eKT3hAyI6e3IBJgwBeGWDpz6/OwJFZI45Q7ZilwJEpg34UVwA0
+ ydZpDR6xY8711xPlTcWYINARjFHcnNwy6WZpT2RW8Ksju5mSvtbJM6DZIYK0BOYTxbnT
+ Ie/Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790863377; x=1791468177; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790863442; x=1791468242; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=N8/7CE4ZuKqaD2pkivrDjqtKal/kq71Tiz2qeo/N8RI=;
- b=Dzb5Ywyd+gFChhbydMiVJoFxYgVX6TYOWDW/aGuIb1CsajtxruKc2FXgGpGcjdHKmY
- ilf9VMykumX/FMGGK9m8fkhm+UT2mcQbOrhCjJEw0YYlw42OAyu3IGjzA/PltVFvSkG1
- W0pL8/IFIIYsvqvRiMdWYHmMdxppWxNQDUouxnADqQC58haUnsupDLdK499FFfF+aEos
- 9oJZRBQIyoD2WPfPFBfj3CZ+jKFLGY02Z3fdsI2qV6ymRfZfK3cVmCCzVLNj5WEFbz1T
- P/ZlHqjRZg3QcU0cYhaI33W7bg4fhSlfwITpO65f8UvboDYHsvRkhRq0GveBa/aJTcnl
- 7gFg==
+ bh=U9jLK7/wc7B6mGa6+VCwGx4Ieg2jj91kEAwv06rg/rQ=;
+ b=mk4WOmCxUGd2xfciwRQV2mrprzVhHtqLFVS8tf7w77B1hzOyTtQW7S4lW/uJ6DJRZ1
+ d+r1ajcsKVHQis/5Jv1h9LZkqO1nGkwoLx0TxjH/r46ioJ3A4Hp/AHE4iHqdQ+4skAtQ
+ hUYp3xS2y088HGT8F1/fu4197hhM68+gbcYfWdSXEfQwXtsE/wS3qePqswZdUGTxpPz3
+ 3hezsLqFApRwZLqbSpx+WQ/g/favLo/B6Rr++7C2Fx2bWIwlVZF/MevZOZvwHZk+gMga
+ pbk0Y8hnxVV60tMc8tGbK7qIW7U/PXvgSvXSfNHf0p1v8OpsJNvGjHJ45dQ0AR6baI2Z
+ mD4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790863377; x=1791468177;
+ d=1e100.net; s=20260707; t=1790863442; x=1791468242;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=N8/7CE4ZuKqaD2pkivrDjqtKal/kq71Tiz2qeo/N8RI=;
- b=tqdn278G67Je22rmD/IsK6VcMhuJ7o/gf2FTd1hOXEp+9H3oyPBCKjxZCRy1Wl0/Wa
- YvccIcA1Zzo9KAYA8s/nEjHYyICX7drghw5UApM+d5M5k5ammFggZ9PFS7SeJNa6gqf+
- klNg944yyZFh99rLd9pufBr2YvDN63NwQHFFqOObUOkhV2ckkb5z50iDhhpDs/9/LrKX
- EGNgHiMdKf2UwRxZZvLqMlk09CAKVKBa/r60PasIID8ierJ/0Eg54pb20z2gmFjllpZP
- rLJVu4lPCv+vSfQJyqe+tYnijmtff1QfRj3KluUUe3stKpDE9HyW2WiOkaiLo3y2Q6V9
- GKng==
+ bh=U9jLK7/wc7B6mGa6+VCwGx4Ieg2jj91kEAwv06rg/rQ=;
+ b=KCAncXthGPvbNiImw23FoQRZLREk3y9UQyqVhmbPiKgorZfq8RKa5gpeM6Ui7gI+z2
+ 1yZsF4e8/UaGgri36BOlkiMQX1EcWG7aygAP1q8upIU9QRkr8eH0MV3EswYxn3OkqLm7
+ 1VxoCCWepQHxwhrYQ7y4v7isnhUKHUyuK6ZFJVRGjqs7mWxOhBblZ+aFAlwE3OLMPM0C
+ DHGFxgpCBy3GzsA1Tujch8el3lg4juz7WjkEpoQ2DE30h1BKONqBeBGUheuPtXB1qQZl
+ 9JHEgvG2VT+9tizERp8C14M97TeEER5ccRZaKZnV+3d2fdOoInagEiEOySj/oVCkYwuL
+ PBjA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzPFU+htZfo+VDxLdANJNjswxL9PydMxHEhC/Iy3cokJYXpv9WwypGQRzuBNISiXDXZHBNXCqD7NO8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ncNRxf1UpyleK3zmQ1NBs3sFH+5TDiEXWFuryxlJ5ySIV7PZRj
- 7aXmFMqVtt79o/oW4VE5irX/CIjmU4NqWemFTd7fZC0BMtb9NxBl3NE+oXm6o7VgB0gdiQ4ubNT
- kj5DV9LJczEO58Qpv6lzmpVhQXukqb/s=
-X-Gm-Gg: AYBFou1b1dkYIFL7W90cxJQNt/ovq3sN4JxT3+MH/TnL73iv3Gva0hwC7HpsAq6pSsM
- r9yK3GHrYvKE2RflKVgKBLoHsUmnkiJCdgqT03ulW7Yh97r17/zYp1NwjHmHQ32RwZrQOoVgNlI
- vj4zsluIVaKx+KXdMHQYmd6rSXsN6fltQAurSsNJHAW0R4anpeVBTWCHmOqa60jFonYjH/o112N
- ISgY1tfb0BLYxCkZezRxbOgbkWet1wDeHYr1K3yPetyxSl4bkzl7PNekGxrQDirtLYY3SmaVWjO
- lYKI53gSayVpYYHZAbKEQKZko95hGLPOAQST6zv8klsnA55kVGRXPHW8nbcV90tQYUPLDzsN9UG
- nvPqAZw9CWUto/URFiB7d4mafKZdKtqNMnW+Re/rW4ZDwhrWw35ZtQnUdAcsA3ZLUoC5uKhBFrK
- a402c6C2HI5igO+sidBTYIjEz68+X5nV43ON65+ciZ
-X-Received: by 2002:a17:907:9625:b0:c2e:2275:1168 with SMTP id
- a640c23a62f3a-c2e33fa28d3mr242508666b.19.1790863377337; Thu, 01 Oct 2026
- 07:02:57 -0700 (PDT)
+ AKwUvByN3PCacpqjig3hhT1eY2MurIRdFl5vlLdocIvjzp0a0xYIUyLv6RZ2n7nulJSAPAYGTF+SU/f0rww=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJTclmOc1m016h1p+fU1MNt0WTV6Qm+8lSPLXHhcS9VwXhCEEi1
+ IuyxCU8GIu6ACxPB32DtXXcX4gpvdB8T5V7ldyAFHtd0+N52PPcqTilkzI1mLZcGSOwapX1Lu7p
+ su75hmlcO/IRg2KMhJxjYPAb47VdNJsU=
+X-Gm-Gg: AYBFou31ltPHyKqpciA9c5ywiXQsetxOl9TmY01ihCfvn9vYjUWgJkmOeYGnmcM7dps
+ 9z7RJUCehJ7Yw0WJ4k6fdlMt5tcYgC47UQk2gEm815BFNH7gjYclTd2XzLabzXIy5m3jlZC4HFE
+ G40PfLyye/Vq/Z6DDsOWQqUwUL6PFhfx9BuAQSMpXysLXl2rmxhamphdg+ESDUcOGL7HRdxvCKW
+ 8wCnoVHz1JyPUbyzwx12B9TYqJKfpM0+JltuedmWZvDjng6UtPIijyKnO/uxDyBdvuvRsBj8hEG
+ qwuIBf75DxOWDvHBqz8KfWkNMEhbkUHZTlGg9iBNFSGx8k0zRKRerTzKG/kVWjo6J50B8oJYNcv
+ EZD1kPpU5/1vvRxBZQPe+Wz6i+Z2N/C7qDTA39sE79oDg/M6gtCCz/x45JyxdtDSUY5heGVvw1f
+ heop2FKm51IxklYSJ7PguIGysC6afFMP+lJtJiRZPG
+X-Received: by 2002:a05:651c:2121:b0:3a6:27ba:be0b with SMTP id
+ 38308e7fff4ca-3a77928dc6cmr16119671fa.20.1790863442038; Thu, 01 Oct 2026
+ 07:04:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20261001133736.802604-1-tzimmermann@suse.de>
- <20261001133736.802604-3-tzimmermann@suse.de>
-In-Reply-To: <20261001133736.802604-3-tzimmermann@suse.de>
+In-Reply-To: <20261001133736.802604-1-tzimmermann@suse.de>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 1 Oct 2026 17:02:20 +0300
-X-Gm-Features: AclHuK-Ck5Qo38vd623LvGwdR2qBOOVXPJ98wewQWMKyHiuuGCBfZRXpFz9rHO4
-Message-ID: <CAHp75Ve1-LhMaLczyOyLYhXaHzhRVOTsG4Wi6c-KPT1VQJ-nKA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/kms-helper: Remove struct drm_simple_display_pipe
- and helpers
+Date: Thu, 1 Oct 2026 17:03:25 +0300
+X-Gm-Features: AclHuK-MGGGgGsa7XTJEX30X4AH0rHlA77AtOEFwmZmXzvdKsC2XJRDqSMsLZSA
+Message-ID: <CAHp75Vf80MzmPvOK7Qpy99dxoKY1JSiJWM6KUVswoO12LgtuBw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] drm: Remove simple-display pipe
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
  simona@ffwll.ch, decui@microsoft.com, longli@microsoft.com, 
@@ -114,35 +112,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Oct 1, 2026 at 4:38=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse.=
+On Thu, Oct 1, 2026 at 4:37=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse.=
 de> wrote:
 >
-> There are no drivers using struct drm_simple_display_pipe. Remove
-> the data type and all related helpers.
->
-> The idea behind struct drm_simple_display_pipe was to provide an
-> easier way for writing DRM drivers besides regular atomic helpers.
-> It turned out to be more complicated. With all drivers being updated
-> to use atomic helpers, it's time to remove simple-pipe. Also clean
-> up the related TODO items.
+> There are no drivers using struct drm_simple_display_pipe left. Remove
+> the related helpers from DRM and clear any TODO items. Hyperv-drm needs
+> a minor fix to include some additonal headers.
+
+additional
 
 ...
 
-> +++ b/drivers/staging/fbtft/TODO
-> @@ -1,3 +1,3 @@
-> -* convert all these over to drm_simple_display_pipe and submit for inclu=
-sion
-> -  into the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any =
-new
-> -  drivers anymore.
-> +* convert all these over to DRM and submit thme for inclusion into
-
-them
-
-(spell checking?)
-
-> +  the DRM subsystem under drivers/gpu/drm - fbdev doesn't take any
-> +  new drivers anymore.
+Makes a lot of sense,
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+with the spelling fix in the patch 2/2.
 
 --=20
 With Best Regards,
