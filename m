@@ -4,95 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E224CA5FDD
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 23:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C00FCA5FDD
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 23:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C75610E501;
-	Fri,  2 Oct 2026 23:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58CA710E045;
+	Fri,  2 Oct 2026 23:45:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cd4svtH8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yh290ElD";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lda2KohY";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35A9910E501
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 23:30:10 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-9178e92b27bso2624756d6.0
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 16:30:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790983809; cv=none;
- d=google.com; s=arc-20260327;
- b=FPZM8FrIipoOuTWsm+hBQTIjYFcEFFZLpNMkG/+ye1/HRMGJVCy1/QUtWIf7Jm2I+4
- JNY9ey3LOMZ1iDF5Ptu1neX0QCNQ44v4dfNAt3aSOvAwf7UDkf0+Ct3Sjkpbt7s1rIBF
- dlcpOgGA/bf8QsuFYFNeyCMnLvgfc+8bK6qsxVwQCVjaAVq5pbzQ7L/Ul9qIsEaTRjXC
- v9HhQ8iNZijnpdLbZ2xJUcYQlsO/tFxWTZO5qYWodytUYT2OOPkGUeafZrE3FGjp6dhP
- 33irKcLItjAFCM2JVPqrYTb8yoTGAEC9Ed95qxNE0pQf8OZ4X9UsstyPhQLvdxZxOovP
- 27CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
- fh=/1aKwgeiSnSC3mR+KjgcQNx2t8n4UX+nuEBynB4xUbM=;
- b=bHCAAcw3tXVNqoFENNTYFXcwSDTnJuzQxypQA3j8FtjFnOYBJ88YJ/oGU5qdNJhYQw
- R0OQcdPShhwV4Y4fMYOuaVL227Djm+A58qgyuOofk++DWkrr3ubr2wkIIh4Z66iGoiso
- wooLF8cMvvjw12p0qd+JXrPYACh/FHazkvvuHQHOer4q89IxZt0VW3oIR1g2sVKkVh//
- e0jngekgI/86dJq4IbsP4FEmgBzDTJ8WqqHjj/YogPcEKPM4I4dTsnh3iIsrnIm4Ahnk
- KgBDbdnM2k4ZkBOYR8b3OOL6HuwGZqfyCf51HuTdPMJwpjVpNsmu2/j1Oc8MwNShfscA
- E3og==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1ED10E045
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 23:45:36 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 692NeVRM1956799
+ for <dri-devel@lists.freedesktop.org>; Fri, 2 Oct 2026 23:45:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=YgTkQRn9Jl78hxcy8EjhxfN7
+ hIYcFJc0FMzXtgfR1Ok=; b=Yh290ElDF1DpR2zJdaxME98AIGCHkl+uInh5Unad
+ Wg3ed2JCCKBa4K+wRgy8+tAlMB0+S9XFExsGJqiM+PdhZmUeEMkWD0LeSrbm/GRt
+ OA9ru21SavhVJOTkzLJeNFixju1+31I1s0rj5QLkRngjLDJWRdvjY0+V6FUYMGRT
+ 9XpBDrgCRoQSl75CaegdDQ9BspGdjXTMawqDY+bWHotSwIa9ol6vB1nIs2HP/BYu
+ ae3Pp3yBatvjS2AgQMGaU4KDMbai889dSZtiZyvLMGl+sT2uENOgtmkFlHq4ZlID
+ GCfWllYQdutKDU6R2Hg79+Grs/MPC/2Hx1/WotvxH6uvmA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2j0ks0bh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 23:45:34 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93a1de6d5c3so20681585a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 16:45:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790983809; x=1791588609; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
- b=cd4svtH8jdnn1x9zacpLRg2ful/24zl+TxzYRkOQg3zndUopbiN0p8gZgNqudwMXaF
- bcn3MWiWbySSrZhcJDfPRlQPK5L5XyvRldlgUp6AwfEZxZYGemCzYAjMEzZJ+Agdkf6k
- cksy5HGeSUmkW7BhO1Cbgn+dfZecFP/DmLStET65wHy8J/x4HvSpHrdTrNdyH9Jh2Xx0
- 3eOEjHpHhy8u8hspxM4NfU+hYpyiU651ZGx1Xbr0y5xyOkDCUUE5A33/ZEKXQS/a5QQp
- qB6DSrX2vFu64s85fdGr45ij1P+HsCOWuCi1nt3v53vjeB03vYx9FZiZQz1ETHwmo7jA
- GPHg==
+ d=oss.qualcomm.com; s=google; t=1790984733; x=1791589533;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YgTkQRn9Jl78hxcy8EjhxfN7hIYcFJc0FMzXtgfR1Ok=;
+ b=Lda2KohYZx+ncvcQNZcFuDbc+p9hRXLxx8Th76pEtxe7ZLGOOOMXJAV2d+NSoQnICz
+ qarz79Nb9ZSnx2oS7TWOU2QuT4F6OchEhvLmaPZxlVCuHeeveiGs8HDuJTzFhbS/wvs/
+ I25SO2mPhN3ukQsqiJsLfW2kzdmKVdhBhvFngXpPNYogZjBzdugOZUuNnj4ej7stY6wm
+ A0z2j/FFnMA9FZfP8sHbYdjM2X0g58v0S+fuRUBLFAgMmvGSGh0iyL4MJVe+tw/28F3v
+ 5RD/FcPtRgZljfgjVV6f56kCgSeR0ysWpsDwC75NEAlUYQSCTR8lNf+kb0BHnZvWB8vb
+ rTcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790983809; x=1791588609;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Bovas2WAEGD9Xsa1cngl8uKLJL1gfGRL2y54+LLnPkg=;
- b=hdgRnGxwqJpuAwp9tjsWjqVx5YUgol0uWDwUAmPB1QUqJ41DBRvR3N6OulENzRx5cg
- ESAOoEthMvexVCwnyPmyxfLHWwQd2ypifuQ2XFzC03+B/WGz+kJUr3xR7LajdjGCj+h4
- KVUqILwa/QKKJcEgDC0bowSUANNDXVAujLUZSzN0EFvTdIvBCcNYFSXho4vKfCk7FYbX
- 606j4AVXuNLKuRg3VYDbNMSv31RCd2KOUGTpPncqPuK84+1IPhZjBKAkXKiD5GTbEnnu
- lEfh+kBXL+3X9yN4Qhi8L//i10DPYtDRiXdyEbRFliCKD870iYOAn/ft50SdTcby+gXT
- EnkQ==
-X-Gm-Message-State: AFuF++nsV5kHIWXucT7esoJu8696boWmU3OTH3Dlnlzx0gm135KAJF7a
- qDSS84jph3gSzNhUBmYke83c3LCRp0nIRCSWJYj/M5Y7GoqconQG4fcNmqHOsQcopBgTBbGKz7v
- yYIHG6XPCpqBWjdTaZZpNuDp3KEKjV9Q=
-X-Gm-Gg: AYBFou1lVkaU/mJ2R7v5k6lrfrtlnJ6gdLSn8OnwliD5TipKkQd1uHn15x+kdfxGSR/
- 3kDgJSSEhSR7oWp5zvJzM86dVOokLU2IB93GBjWFDNtwRGcn2IZpoQdZMsQ+jexu0ZcIehxIy8C
- +qEyVIShtFfMYHTUwUYq7bg6yb4Ck4odqEWRdOuUkipz7DCjHehaqUAzHQOml4haPpahQmH4yTr
- 9E9U2OmZLlqUfzj1GDoqMY+CCiLTYLm7sohGm0SRx7S6gSxObqFck7F4op29aXpEyg1TMD7AS7F
- adAWAPmn+67laWBNZ4Ze5yPBF5HYJy6Dwx5Fbqy5JckImANSZ3+gQLom2o66l560elBp8kSpy9D
- ACpjzFBVGCWk32n0WDNN6kS2BgMgfxIZC/qXVBakUcA==
-X-Received: by 2002:a05:620a:172b:b0:93a:2e8:5afa with SMTP id
- af79cd13be357-93e50feb9ccmr188518785a.30.1790983808980; Fri, 02 Oct 2026
- 16:30:08 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1790984733; x=1791589533;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YgTkQRn9Jl78hxcy8EjhxfN7hIYcFJc0FMzXtgfR1Ok=;
+ b=wHUqXZbegebXuZE0kRQwVAYFxZm+e/EzEkoLiSxZfCfre35A9lqulBVuokrIl0e/ne
+ 2fuUf28GwZo5jzKcPcZPU7JE75h7xP7XY43xccfPDAYX1hvvXWz82o1JPhOh6R3D6gWz
+ z8qPdPTa2tpCsq1SwNFlEMf3Fn3TZX3C8LPxa/uDZQh4ZejWWdVpBn5AfrP3NSoAQh1A
+ rEwWCt5ntIOw0HkKplBaxpwUfvuUQheKjVl/5zao2/3H7OiML7/SGH3KCilqgAWQG9NM
+ 97RpB/dbqF8daNYmsX6mMx8BEUtZul3QGWQOiQFZSTExTnE5xJ+fOXW+6DSuQbjRqx2p
+ knog==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByijyvyirXL3vVRoYp4P4ImvlQHMdv4m2/DGMBqKQzjtqVMAq8YlAAeYs32Za23z1jB6mm/LhqCj5U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mGtZ5gUpqH61gsjLbKLq19rT8UBt9eBA7PYHY1EPyB4nhp4PMn
+ hcAdSdRCzNInOfYwTC1C6/qSqiqSF18dPr0eOWbb2g1oooRaq/LAQOMZNCetFwR6Xfm4f6F9uFs
+ xsAsviyzCUmA5foasRUTPoW8FEYh4Xhnst3+HiUpV8Sp91oNk5z4dLG41C/1Edo5j/z6LWao=
+X-Gm-Gg: AYBFou0lxRZoJOjzEoPFObJpcrrQMdsN2HkdiqAxisBthpx7wmm4bohkbk2UNdgPz2Q
+ hGgPPwe52238qDDUSAw6otbqtqojRcEx1OnP9DBv26efIxL2afyKVaXC6a/WXUbiKCt56MHoDbi
+ rWYQwrLJnm9Q3qDS09ZxAWZ0SJox5ijFB8PvczORGZByCW2wOSv03d3JMnRpiJelq5vGjwbSR5L
+ 3qnbBhkfyn6/X6y24GkhDmhlibPaaayjTxs61taYdkLLwfR931dPJ6Rmwf36tX3Tr41ng+dK/pZ
+ TV0KSug/Gq5lwikq+ZLPrwqIehYB3fU+Me00P4InYZamgrEMM0L2Mcb5Ie/3K7e1d6ks5eHky69
+ L7dQVB5G4hMO7O6g2CWjCz8+X52VsaCX1C47wAjgujDhnLBy0obhtc5PpCqUF2OzSO1lZQxROPh
+ csYGtIh9rGAhaR
+X-Received: by 2002:a05:620a:a0db:10b0:93c:c6d0:1969 with SMTP id
+ af79cd13be357-93cf170b7e1mr616285985a.15.1790984733186; 
+ Fri, 02 Oct 2026 16:45:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:a0db:10b0:93c:c6d0:1969 with SMTP id
+ af79cd13be357-93cf170b7e1mr616283185a.15.1790984732607; 
+ Fri, 02 Oct 2026 16:45:32 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bb7c7959bcsm1119191e87.35.2026.10.02.16.45.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Oct 2026 16:45:31 -0700 (PDT)
+Date: Sat, 3 Oct 2026 02:45:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Oleg Keri <okerixx@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dp: don't report link training success after a
+ reinit
+Message-ID: <vjjdhsbkjxomgzeirl4n6qyvyz3wu7xaoyie3vakada4r73hxj@gicg3pz2wjuz>
+References: <20260925125314.16563-1-okerixx@gmail.com>
 MIME-Version: 1.0
-References: <20261002212833.9674-1-fzeruhn@icloud.com>
-In-Reply-To: <20261002212833.9674-1-fzeruhn@icloud.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 3 Oct 2026 09:29:56 +1000
-X-Gm-Features: AclHuK9rjOUUMpjG387IHnEilLqBy4AfDp78Y1XLf07vnG-EkqsHFL56vRwAE6c
-Message-ID: <CAPM=9tw91hPiAfwRP=y6Dr=CFgYboO+Z94_1dVwt41exGokj5w@mail.gmail.com>
-Subject: Re: [PATCH] drm/dp: keep MOT set between messages when no_zero_sized
- is set
-To: Finn Zeruhn <fzeruhn@icloud.com>
-Cc: dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925125314.16563-1-okerixx@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA5NCBTYWx0ZWRfX2VDeGK62aPL5
+ ZFuyGp2m/G2hCQ+j9Q3WyYFIJGxJrfrJNr6G9GCGIoWm4ufgy9HI6w4G8Rj/eu4P6t06ot28Ojs
+ zA28JSiLf4FcVYgcNPZfb1NCWNc4F/DFeaDByg8H/dNLLyOXzzncqPtI5QfMhVZOzLEW+qaKSt3
+ F48r2VSTDTgPQXflXQEchl3L8WdeXE3zAKSSxJzMt6p6wQUEEadR1yPXXyTG2ZzSPMCMMf5K6Ym
+ 2CEolfH+2T/2zqnQVfaRmFgGJfd0nrK6iAUw4Vg8g/CW68eUxMEYgAhxb0BifZlwRIO0V8znWQ1
+ sRT+gyBstVloVNUFg7IrWwDw2PxooIjKF4XGTxc13ZwEVCIB2b0znphvaM0uZ8cUfKrVo12ygG3
+ ZVpIRF/JT3LGU62sR3f/qr8JX2gous+ip2ANqt+fIi18KrI2v64YhpPkLyNtV8dLo4NoBO/vdE3
+ 5G/Z5nwiB5sceJV9tTg==
+X-Proofpoint-GUID: lZa5XhfPsRQ0MGw4TKV7h8nJPOjE5g5_
+X-Authority-Analysis: v=2.4 cv=Z8B5j3RA c=1 sm=1 tr=0 ts=6ac0421e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=m9j_GCGoi3mryc8sS7EA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA5NCBTYWx0ZWRfX2F3caLfmH7Yh
+ pR3oE/oGnHF1P8oOKlB11rTwEN0lajpXQRLcuU3QatFjlpWa6GnvagTT89L8OjbPtJK80I947T7
+ GhGCgzDQsPyu9gBEiphXHkhAPZyoOBw=
+X-Proofpoint-ORIG-GUID: lZa5XhfPsRQ0MGw4TKV7h8nJPOjE5g5_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020094
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,60 +150,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 3 Oct 2026 at 07:28, Finn Zeruhn <fzeruhn@icloud.com> wrote:
->
-> When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
-> address packet to close the transaction, so it clears MOT on the last
-> data packet instead. The check only looks at the position within the
-> current i2c_msg, so MOT is cleared at the end of every message and each
-> one is terminated by an I2C stop.
->
-> This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
-> messages: a write of the segment pointer to 0x30, a write of the offset
-> to 0x50, and the read. The stop after the first message resets the
-> segment pointer, so the read returns segment 0 again.
->
-> On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
-> extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
-> reads back as a copy of block 0. The checksum is valid, so nothing is
-> reported, and the connector only offers fallback modes.
->
-> Clear MOT only on the last packet of the last message, as the commit
-> that added the option describes. With this, block 2 reads correctly and
-> the native 7104x3840 modes are listed for the Dream Air.
->
-> The same problem was pointed out by the Sashiko review of the patch that
-> sets no_zero_sized for all DisplayPort connectors in nouveau.
-
-nice catch,
-
-Reviwed-by Dave Airlie <airlied@redhat.com>
->
-> Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
-> Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
+On Fri, Sep 25, 2026 at 02:53:14PM +0200, Oleg Keri wrote:
+> When every training attempt fails, the retry loop in
+> msm_dp_ctrl_on_link() ends on a successful
+> msm_dp_ctrl_reinitialize_mainlink(), leaving rc at 0. The caller then
+> enables the stream on an untrained link and the display stays dark.
+> 
+> The retry counter only reaches zero in that case, so treat it as a
+> training failure.
+> 
+> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+> Signed-off-by: Oleg Keri <okerixx@gmail.com>
 > ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 488fd123a01a..7676285c19f8 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
->                         msg.buffer = msgs[i].buf + j;
->                         msg.size = min(transfer_size, msgs[i].len - j);
->
-> -                       if (j + msg.size == msgs[i].len && aux->no_zero_sized)
-> +                       if (aux->no_zero_sized && i == num - 1 &&
-> +                           j + msg.size == msgs[i].len)
->                                 msg.request &= ~DP_AUX_I2C_MOT;
->                         err = drm_dp_i2c_drain_msg(aux, &msg);
->
->
-> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
-> --
-> 2.56.0
->
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
