@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F6ACA5FF7
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7EB0CA5FFA
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0849110EAEF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89F5A10EAEE;
 	Sun,  4 Oct 2026 17:19:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VYMXCvOl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OsNQ0Bc9";
 	dkim-atps=neutral
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com
- [74.125.227.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1294510E178
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 10:28:01 +0000 (UTC)
-Received: by mail-pj2-f12.google.com with SMTP id
- 98e67ed59e1d1-396ccc09d65so458419a91.3
- for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 03:28:01 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 787F510FA39
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 20:48:32 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-4a02726f225so41525e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 13:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791109680; x=1791714480; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=aOHR60kWFiiTF2Paz1Sgg2dVxODMmAsE+5qedw3hT08=;
- b=VYMXCvOlIhetP6VQgXtkyMh284tBOOTnQ9RkJi9YSobtxGLxhg0twBdMFyin43HuAj
- ytgiwaRBiU3U9kXtGqNkEUqVYCxBz07a4qHjqKYEV4G7bCl1UrHkybVEwUslAPNac19A
- 9bCJlJ8xrzURtCl6R5U7WHEKR7AA75SWyxYTnw4XWF9d7JyhdVzzcTKbPBVy1T2zWIPK
- X86ZvqeLMi/R5MN4qj/6gP2H7+Mc49LnArVd0QXc2sGzsqA3tliDrtPReIgYkRVnmh1v
- ZCgdg9h3nu3NLCsoPwE9+mfslYhnkoNlR1HHxFFsK/idwWbMd5nTZ0meVerFFNT0gZ8L
- ZLkg==
+ d=gmail.com; s=20251104; t=1790974111; x=1791578911; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Xn8v821wbWVD9E8elR4jk6DR05TUKT+raE3vBfYoiWk=;
+ b=OsNQ0Bc9KSV4FOlD11iEb7A8HDozFP2X0NSDxhL2889SE4fj0Ws5OTdKguhGsG/NoC
+ +AFG19yw8ar5OgGb1TfR4u2Wgfx/n1aYi6IbxzDjUpLu9RxRl4o7bKSI2nPTfuOfSraj
+ O54Eml7TH8X+L99FmFLFSKMMNrIM+yu2aIaYAOyiM08O7BCsjDiD2bE79ZlkGYixmiKN
+ f2mCRMVofllnSsasFUha6wcDzoa33A7wr8Fv1YKlzsiLkTpCCEiVieIAM9275zVILA4W
+ N68ZMCRf5mt2nBXLnc4vuBHDr9uvCzJdZkL0lRtAv2N3yaWOCz8/JHg+yEL9RQ0i3S7H
+ wMig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791109680; x=1791714480;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=aOHR60kWFiiTF2Paz1Sgg2dVxODMmAsE+5qedw3hT08=;
- b=tTqVLi5MNm81GHpTpHHqkwIcSsW2w4aqe8okaQN0yEa5gP2C7JH0g8AMOZEP+dOU1m
- zwGc6UCUjVHqJ2Wib/tpWOa8Rb9M2lPrM8M/KWoCltV8d2qmPZQqWl/Yx6EXwitl1zvD
- SHVd8REFORprv7wYJRfOkpEtq7OC53HIvslmCBd9XTCAQQnMSKBV3zHi36L6TVf3m+lh
- Lk6SwmAy75I3JCd8P2oW9jjwzWQ7zCFydwhIg7+HJexNYalfnlO8dieEHJn7mJtfAqjj
- sObc5k4yog/OQNdPrl2WYT62cSN5TzitCU3XKX/WNIqlxJVzc7k3h+gDw93/ARIM8HCQ
- VD/g==
+ d=1e100.net; s=20260707; t=1790974111; x=1791578911;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Xn8v821wbWVD9E8elR4jk6DR05TUKT+raE3vBfYoiWk=;
+ b=XMpBclZWnjbChUOlgv+d0L9h87IBzK9BQSpJCyDyI5AHmILTd5LRtJnpCQbRczmKJn
+ iBasLFOLIGeofMpGmCD2FyYWSBN2joq8GPden/5muqGF25WKMjgQyMAUh1qSiB/1y8ed
+ 6Fmr3diaAYWBsDNHBeGNL/CNsX/5CgJsH42EC6sY3u/eDDls387cz8veTH1Wi/OSzV+t
+ I+NiNFH6MEwjeKrQ+5dSkW8GRNO5tqKDy/OahkbqPC9SWQkaRobjllGHrY2In31Pj56y
+ YkCjEmCMYVt5Wsl8QOJTMvf0R8g4Ya5VLplbqrLWvLfj4O2QWHu68bMzHER4bL5pmWUm
+ TGCA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxIISFlmZzMbfOtC+RKwqfI/Cfc4VNVG9KJwRZ/WYOiKKPJQoIDgy5++HyzBnv7XPKfHLAnR1SlU84=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKjwOhNa3HNBkV/aFtwpcCPTuCjPf/l885zmKfICi+goBjPLokk
- 5ZGetWuhIxKwR31qY/fhKbFUSIXkXSNPAcm5tBeRaIsr2nTupV1T6QJE
-X-Gm-Gg: AYBFou1vrqLVIFMRwhcPoEW8EndF4X9ATAkPqB2MrrWGzQsTFGeMPhWIdx5aDLisXAd
- aRIPkKnnIeAfeuZVJ4CST+qcj9RDD34UZUw4q5Lv++DbT2feMG5N4HHlJC107AEGQIhSd7OhpGZ
- 4zfBjtaY2hmGWoYPcT0YNbNFMRf4lzH1Ov8lkq7avrFpLgC0vhuUCdKacSDVbc+beH3I8zICaDd
- wXbeLIg4lijgGwolkzmVi8xAdsP+YyKHabpS9EnnIk/LSgWsDN/yFVgvIyr3zLkfh2MY497GM1s
- R9r9KOlze2AX0TC3010z3T7kjtnMT6WWv8e+1BNhQ3eWyaUFSCpxkBhSOwG677fYZmLVlkPfaQ0
- uFGVpvGEVNEpEEAGqc/jBg06No6UqzF5cKXU1tbEtZCk59+uv9Qk19yZ0kFpYUlKhuhMEAwwhLE
- p1NQDF3JwLHCoGdf3NhMN4qZyaczLFkbfgB7D3VdIyRDvY8WAXYYEOuh/Zs8hYL/9cZTVvfxSuG
- ofBZCl7hIIHow==
-X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id
- 98e67ed59e1d1-3a6f90b2630mr5714179a91.6.1791109680484; 
- Sun, 04 Oct 2026 03:28:00 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ AKwUvBwSzw9gIXgO6aBTVlWFtaP0zfD9k3BI0IOfEtIyo+v+QyCYEBOoTogNzg3paN9pViLHXn5r1lJc9VY=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mgmIhfK8SMcKkqWHw7tC44aECkbrkaL+TQHhToHsDPqlhFKi10
+ m+44yZD2h3GGXDzTos8zEyv1ED/paivZ4yWJx1lKg3gUi/EIJ8W83iMa
+X-Gm-Gg: AYBFou3R+MDH9iVkbGe74C3lb5ltIkASc0fYw73ojs3IwkT6QsWfIY0sT2vGwuX4fnY
+ uIQ6U8Rg3T8lY/5IFT0EXo0Mg8lG70MUm0X8hyiwxh17+00nWXgWTmBDQDWv3FGpS+ZQhX7rPhU
+ Mt4NbFndhZKEDXW7pntUVkS1+KY5NpljVtA+qaKwUOBZKinlZI3ivVTV0eAmjITyC7yAcoqibc/
+ Z7w9tM5HrHxrdd8K4sI5CpdXIbhYwBZPD6bFOysODpXliCf3VSJ6uIX1cTYE47/bT6wiwInqT7W
+ M8ZetolC/Ery02VvrCvdJAB74XA0BcWkt4Qbp5VBmH9jIm4RkM8fX+ii6a9EqPNNLiftUslFeCO
+ 1XiGltm++wq7PWBdYzVjP+ZtwENvIP9A4FO0JYD8tb6Cl82Uf+4xI4owmzQC9tJ5kEd7QQL6tXD
+ fsOoqtx9g0uLgtq1JxYmZ280ntJjoW1+ORtaBjL9HN5l+j+3jmBYDOgxpIe0JoJ/1Jr0ILVSyn9
+ HNy0xkGDxTgbAlCbnPnWKwso5kHlFJqBA==
+X-Received: by 2002:a05:600c:609a:b0:4a0:1c98:de52 with SMTP id
+ 5b1f17b1804b1-4a02755c4d1mr65627725e9.1.1790974110562; 
+ Fri, 02 Oct 2026 13:48:30 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.71.106])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a78e4262cfsm6192927a91.6.2026.10.04.03.27.56
+ 5b1f17b1804b1-4a03ff3cab2sm39343925e9.2.2026.10.02.13.48.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Oct 2026 03:27:59 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jun Nie <jun.nie@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
- Pengyu Luo <mitltlatltl@gmail.com>, Alexander Koskovich <akoskovich@pm.me>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: round up the compressed INTF width
-Date: Sun,  4 Oct 2026 19:27:58 +0900
-Message-ID: <20261004102758.84436-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+ Fri, 02 Oct 2026 13:48:29 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, alexander.deucher@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, skhan@linuxfoundation.org,
+ Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix kernel-doc warnings for cgs register
+ typedefs
+Date: Fri,  2 Oct 2026 21:46:40 +0100
+Message-ID: <20261002204803.27695-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
+References: <981f01e1-0c3b-4854-9d72-8bf22af9fc64@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,57 +96,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For DSI with DSC, drm_mode_to_intf_timing_params() scales the INTF
-active width by bpp / (3 * bits_per_component) and rounds down. The DSI
-host computes the same width with DIV_ROUND_UP, both for the pixel clock
-(dsi_adjust_pclk_for_compression()) and for the active width it programs
-(dsi_timing_setup(), from bytes per line). When the division is not
-exact the INTF line is one pclk shorter than the DSI line, and the DSI
-FIFO overflows.
+Hi Christian,
 
-Example: a bonded DSI video-mode panel, 952 pixels per link, DSC 8 bpp at
-10 bpc: 952 * 8 / 30 = 253.87, so the INTF uses 253 and the DSI 254.
+On 10/2/26 13:38, Christian König wrote:
+> We should potentially just completely nuke those typedefs since they
+> are actually an unnecessarily layer of indirection.
 
-Round up, as the DSI host does. Qualcomm's downstream SDE driver also
-rounds this width up, and Pengyu Luo needed the same rounding on the
-Legion Y700 gen 4 [1].
+Yes, the cleanup is necessary, but the four comments don't just name the typedefs, they're the only prose describing the operations (MMIO vs indirect access, offset/space/index semantics, return values). Should i relocated onto the struct cgs_ops members or the cgs_read_register macros?
 
-Tested on a Lenovo Legion Tab Y700 gen 5 (SM8850) with that panel, with a
-module parameter selecting the rounding: rounding down, DPMS off/on gives
-no vblank and 14000-17000 DSI FIFO error interrupts per second
-(dsi_err_worker: status=4); rounding up, the picture comes back and there
-are no errors. Only tested on this device.
-
-Link: https://lore.kernel.org/all/CAH2e8h6oinKxN1ndcvHCSc+=bFLXVVDZVAVF0cQHoiaMvEwhPQ@mail.gmail.com/ [1]
-Fixes: f9ce482d7dc0 ("drm/msm/dpu: fix video mode DSC for DSI")
-Assisted-by: LLM
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-This does not touch the divisor discussed in the RGB101010 thread
-(bits_per_component * 3 vs 24, with and without widebus); that patch
-was dropped from the series pending that discussion [2]. This one only
-makes the rounding match the DSI host. The panel here uses widebus.
-
-[2] https://lore.kernel.org/all/20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me/
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index ba810f26ea30..2ac517db50fc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -134,8 +134,8 @@ static void drm_mode_to_intf_timing_params(
- 		 * TODO: replace drm_dsc_get_bpp_int with logic to handle
- 		 * fractional part if there is fraction
- 		 */
--		timing->width = timing->width * drm_dsc_get_bpp_int(dsc) /
--				(dsc->bits_per_component * 3);
-+		timing->width = DIV_ROUND_UP(timing->width * drm_dsc_get_bpp_int(dsc),
-+					     dsc->bits_per_component * 3);
- 		timing->xres = timing->width;
- 		timing->dce_bytes_per_line = msm_dsc_get_bytes_per_line(dsc);
- 	}
--- 
-2.43.0
-
+Thanks,
+Omokefe
