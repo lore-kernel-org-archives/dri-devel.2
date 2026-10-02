@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35578CA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 337AACA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6794710E3DD;
-	Fri,  2 Oct 2026 09:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6FB10E54E;
+	Fri,  2 Oct 2026 09:13:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnSGRACq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OSwNg7VL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14B8F10E3DD
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 09:13:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6EAB10E52B
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ED85D60A70;
- Fri,  2 Oct 2026 09:13:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF6E1F0089A;
- Fri,  2 Oct 2026 09:13:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 562FA41FB1;
+ Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12D61F000FF;
+ Fri,  2 Oct 2026 09:13:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790932415;
- bh=mTM/uNwlQySIkOhOsg0k2aABtwwtHnfyJyo0WlGMcAU=;
+ s=k20260515; t=1790932419;
+ bh=lQpHxXrgcHGmPDso1i/PAHUzqg8Z2HyjirRrA/Ae8zo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VnSGRACqHkE3w5OgmrPWX3/mA+s9CXGStLpSFEcTouUQQrJTHv6oabrvihVyAUlkP
- t9mRMkHA1dlVkE/8LHEuRWkZ4kHiiFHtOu66bUMpJTPWIcvJfTNUKV+5Q91o4aHVkt
- 5YZo8J8uwiI2Uk8Qbl9VEQzkMhH5vKGh+lR4HyHPRQSUdV1kSu1Ripa8EzP6VxIg0F
- 5ucKgXfeKmPF3x6Z/Qh4pTEm7Nd7+wI2SsMjt4qaPTjIsHoIb7KWDqabYPUSEvpFx2
- KVdJwd32rnaG5Xrx1pP4Mrp6/7FBe0UvWb2PBKYu341BQFrqKakZtEDgZM4iAGVqFs
- bZ4YJN0lW1kSw==
+ b=OSwNg7VLR/j3w13dQYgKLRQ9WmVytoSIdeVBm2PxwwgcqyRpHdZK0dgfSumPbzJwJ
+ f11gXiNBZUZCId8hNp6Vagi6MOr3cvo7/8/I1eGcGkd8bSiM6uKmElowxwbNfJcut7
+ X+HhHp7je37mH48jy7GFmBeSwEDrqhu+iJL5LhzJ+5WlTbBvxHx4TCe3CpH+SAJsUr
+ neane66/6hr0YhzTwjOs6/f7IoGWwqO7ucqgO3ViGTqRTW7bOxkAJDWR9ypLIC+Y8H
+ o5SvXgUsBkCD+w7TG4V+fBR62zuP76SZajMnW3THKd+eWp7An3V5nnxr63zFaNyFO3
+ xAgebCk0ZDkIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] misc: fastrpc: fix context leak and hang on
- signal-interrupted invoke
-To: "Anandu Krishnan E" <anandu.e@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261002-anandu-fastrpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com>
-References: <20261002-anandu-fastrpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com>
+Subject: Re: [PATCH RFC v4 06/13] dt-bindings: display: add a boot logo node
+ under /chosen
+To: =?utf-8?b?TcOgeGltIFBlZHJhemEgUGFkaWxsYQ==?= <maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20261001195847.141192-7-maximpedraza@gmail.com>
+References: <20261001195847.141192-1-maximpedraza@gmail.com>
+ <20261001195847.141192-7-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:13:35 +0000
-Message-Id: <20261002091335.7AF6E1F0089A@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:13:38 +0000
+Message-Id: <20261002091338.E12D61F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,184 +59,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] fastrpc: missing 'sent' flag causes indefinite hang and UAF on ret=
-ry
-- [High] fastrpc: resumed context uses stale user-space pointers for DSP ou=
-tput
-- [High] fastrpc: Use-After-Free in fastrpc_rpmsg_callback due to concurren=
-t teardown
-- [Medium] fastrpc: memory leak of timed-out contexts on channel teardown
+- [Medium] dt-bindings: display: boot-logo memory zeroing leads to spurious=
+ drm_err
 --
 
-commit 6840686b144525cb6d359cfc50b159c177c03bae
-Author: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+commit 3ef097b6e764420e6247f9d9dcc28aba1f88538d
+Author: M=C3=A0xim Pedraza Padilla <maximpedraza@gmail.com>
 
-misc: fastrpc: fix context leak and hang on signal-interrupted invoke
+dt-bindings: display: add a boot logo node under /chosen
 
-fastrpc invokes work by sending an RPC message to the DSP and blocking
-in wait_for_completion_interruptible() until the DSP responds. If a
-signal arrives during this wait, the syscall returns -ERESTARTSYS and
-the invoke context which holds the in-flight DMA buffers and
-completion state is left stranded in fl->pending.
+Products built on the same board often differ only in branding. On UEFI
+systems the firmware hands the operating system its boot logo through
+the ACPI BGRT; a device tree system has no such table, so today the logo
+is built into the kernel, and each product needs its own kernel image.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 5ac7b3e78ba7e..f51cb772e6831 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
+> diff --git a/Documentation/devicetree/bindings/display/boot-logo.yaml b/D=
+ocumentation/devicetree/bindings/display/boot-logo.yaml
+> new file mode 100644
+> index 0000000000000..b540a04deb789
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/boot-logo.yaml
+> @@ -0,0 +1,151 @@
 [ ... ]
-> @@ -1370,9 +1444,21 @@ static int fastrpc_internal_invoke(struct fastrpc_=
-user *fl,  u32 kernel,
->  		return -EPERM;
->  	}
-> =20
-> -	ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
-> -	if (IS_ERR(ctx))
-> -		return PTR_ERR(ctx);
-> +	if (!kernel)
-> +		ctx =3D fastrpc_context_restore_interrupted(fl, handle, sc);
+> +  memory-region:
+> +    maxItems: 1
+> +    description: |
+> +      Reserved memory region the bootloader loaded the BMP file into, st=
+arting
+> +      at the beginning of the region. The BMP header says how much of the
+> +      region is image.
 > +
-> +	if (ctx) {
-> +		/* ctx->args is already populated from before the interruption. */
-> +		resumed =3D true;
-> +	} else {
-> +		ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
-> +		if (IS_ERR(ctx))
-> +			return PTR_ERR(ctx);
-> +		ctx->handle =3D handle;
-> +	}
+> +      This keeps the image out of the device tree, so that it can be cha=
+nged
+> +      without rebuilding the device tree, for instance by loading it fro=
+m a
+> +      partition of its own that userspace can update.
 > +
-
-[Severity: High]
-Does this code ignore the new args structure provided by the retrying user-=
-space
-caller?
-
-The code appears to retain the stale pointers captured before the interrupt=
-ion,
-failing to update ctx->args with the retry's arguments. When the DSP respon=
-ds,
-fastrpc_put_args() might copy the output to the original, potentially freed=
- or
-repurposed user-space addresses.
-
-> +	if (resumed)
-> +		goto wait;
-
-[Severity: High]
-Can skipping the message sending cause a thread to get permanently hung?
-
-Because the missing 'sent' flag check fails to detect that the message wasn=
-'t
-delivered initially, the resumed context may incorrectly skip sending the
-message here.
-
-> =20
->  	err =3D fastrpc_get_args(kernel, ctx);
->  	if (err)
-[ ... ]
-> @@ -1409,21 +1496,13 @@ static int fastrpc_internal_invoke(struct fastrpc=
-_user *fl,  u32 kernel,
->  		goto bail;
-> =20
->  bail:
-> -	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
-> -		/* We are done with this compute context */
-> -		spin_lock(&fl->lock);
-> -		list_del(&ctx->node);
-> -		spin_unlock(&fl->lock);
-> -		fastrpc_context_put(ctx);
-> -	}
-> -
->  	if (err =3D=3D -ERESTARTSYS) {
-> +		fastrpc_context_save_interrupted(ctx);
-> +	} else {
-
-[Severity: High]
-Is the context unconditionally parked as resumable without verifying if the
-message was actually sent?
-
-The commit message mentions this is handled via a 'sent' flag, but the flag
-appears to be missing in the patch, which could park unsent contexts as
-resumable.
-
->  		spin_lock(&fl->lock);
-> -		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
-> -			list_del(&buf->node);
-> -			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
-> -		}
-> +		list_del_init(&ctx->node);
->  		spin_unlock(&fl->lock);
-> +		fastrpc_context_put(ctx);
->  	}
+> +      Memory keeps its contents across a reset, and may even across a sh=
+ort
+> +      power cycle, so a bootloader that loads no image into the region h=
+as to
+> +      clear it: the operating system cannot tell a stale image from a fr=
+esh
+> +      one.
 
 [Severity: Medium]
-When a context times out (err =3D=3D -ETIMEDOUT), does this code remove it =
-from the
-tracking lists?
+Does clearing the memory region result in the OS trying to parse zeroed mem=
+ory?
 
-This would make it unreachable for the fastrpc_notify_users() cleanup sweep,
-potentially leaking the context and its DSP reference if the DSP never resp=
-onds
-and the channel is torn down.
+If the bootloader follows this documentation and zeroes the memory region w=
+hen
+there is no image, the kernel will still parse the static /chosen/logo node=
+ and
+map the memory region.
 
-[ ... ]
-> @@ -2669,13 +2762,22 @@ static void fastrpc_notify_users(struct fastrpc_u=
-ser *user)
->  		ctx->retval =3D -EPIPE;
->  		complete(&ctx->work);
->  	}
-> +
-> +	/* Drops only the worker ref; the invoker ref is released by fastrpc_us=
-er_free(). */
-> +	list_for_each_entry(ctx, &user->interrupted, node) {
+This causes drm_splash_bmp_to_scanout() in drivers/gpu/drm/clients/drm_spla=
+sh.c
+to read 0x0000 for the magic bytes:
 
-[Severity: Medium]
-Because the timed-out contexts are removed from fl->pending and fl->interru=
-pted,
-does this teardown routine miss cleaning them up when the DSP reference is =
-still
-held?
+	bmp_id =3D get_unaligned_le16(&file_header->id);
+	if (bmp_id !=3D BMP_FILE_MAGIC_ID) {
+		drm_err(client->dev, "splash: invalid BMP magic 0x%04X", bmp_id);
+		return -EINVAL;
+	}
 
-> +		ctx->retval =3D -EPIPE;
-> +		complete(&ctx->work);
-> +		if (!ctx->put_work_scheduled) {
-> +			ctx->put_work_scheduled =3D true;
-> +			schedule_work(&ctx->put_work);
-> +		}
-> +	}
->  	spin_unlock(&user->lock);
->  }
-[ ... ]
-> @@ -2778,9 +2877,11 @@ static int fastrpc_rpmsg_callback(struct rpmsg_dev=
-ice *rpdev, void *data,
->  	/*
->  	 * The DMA buffer associated with the context cannot be freed in
->  	 * interrupt context so schedule it through a worker thread to
-> -	 * avoid a kernel BUG.
-> +	 * avoid a kernel BUG. fastrpc_context_schedule_put_work() guards
-> +	 * against a concurrent fastrpc_notify_users() also scheduling this
-> +	 * same work item for an interrupted context.
->  	 */
-> -	schedule_work(&ctx->put_work);
-> +	fastrpc_context_schedule_put_work(ctx);
-> =20
->  	return 0;
->  }
+Because of this, the kernel will emit a spurious error on every boot where =
+no
+splash is provided.
 
-[Severity: High]
-Can a concurrent channel teardown or file descriptor closure cause a
-use-after-free here?
-
-Earlier in this function, the context is found in the IDR and the cctx->loc=
-k is
-dropped without elevating the refcount. Concurrent teardown paths can drop =
-both
-the invoker and DSP references, freeing the context before the callback rea=
-ds
-ctx->ctxid or accesses it here.
+Would it be better for the bootloader to dynamically inject the /chosen/logo
+node or the memory-region property only when an image is successfully loade=
+d,
+rather than relying on the OS to parse and reject zeroed memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-anandu-fas=
-trpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001195847.1411=
+92-1-maximpedraza@gmail.com?part=3D6
