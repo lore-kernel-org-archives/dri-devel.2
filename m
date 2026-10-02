@@ -4,106 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD5F8CA5FEC
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D1A1CA5FE0
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:10:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB3210F9EA;
-	Fri,  2 Oct 2026 19:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACE6510F9A1;
+	Fri,  2 Oct 2026 19:10:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fJItptgC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VQNl8Fku";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012012.outbound.protection.outlook.com [52.101.53.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1651810F9E0;
- Fri,  2 Oct 2026 19:02:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jVAWG65PkBF8+VZKynkB/9grCo4dNb4EK9ZcgF35DU+yDvaNhJTtpvkpp/vIZ5YDm1grLtwQ0VIUhR+zlvYyYPpzJHgXMpd7ZQUGk7xNiWfuWnbmhzMsuTAC8LaDBsb3few/DSuc3AVqWo7EOWaiD8+3yKwRFR5nQrjTFJLhvYD4qybYXwU4aVC5DH+bQH7KSkQA4lsqQIZtrOswQnSPy+dvFwe2Kn1rFytnfCN7P5B/U6qgHYpRMHiUWP/s3B9Cfr9alFfIzt8OYRNt4hQO6NSO3NNIDHrQqXP6e8fb5OFdVm0NEI2LJFNwZsIlhA0prTQcKNM8DstqKDQ1QnZzmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
- b=EVISodsWdidbcZQVSDqtP8PMv8Qs2LkrnoKKs+M6CnNeHq/rd5RF70XtndPYVeyYp6pAN68piXXr5AcD4yhWbygboLiFgQFZH/hNYCEPziGwqGK0Q+wB2iaAfSKyAUuH4HgQ/3+Q4vybPb2baeaIlY4v34NAGbm7czfc0WI8xSrLqjCcybJE30H3xFCryrL2tcElBfyajakn44LA6daBKgdahD1bmBnLuKddBcQJK74brgt/V+aGu3S82U5CT4z+Khw0cZ1xghDGleIpZnzhAuqDl5Bo1nBmH1zx95wd+CM6B3XwSfz9awx4gcUe6zU3GmocpUhK6+Lh0V4f8ZioUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
- b=fJItptgC16aT/BoUhRIIzJHT/hi19rV/fZ9fvwaoBZ+eXu/VrHuDcksYXnOy8WUeXSUDtpBi+0+JufcUDEEz0NhXzsfchCzpO+hbsZRIWwyHSByjkOgF93jgAPVJ41cost3UlZW2FAUVrDrmQvIcI6KqcLVZCWC78rQ8uw/7nfs=
-Received: from PH7P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::19)
- by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
- 2026 19:01:56 +0000
-Received: from MW1PEPF00016160.namprd21.prod.outlook.com
- (2603:10b6:510:32b:cafe::c) by PH7P220CA0048.outlook.office365.com
- (2603:10b6:510:32b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
- Oct 2026 19:01:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 19:01:55 +0000
-Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 14:01:25 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>
-CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: [PATCH v9 20/21] drm/bridge: add PS8622 connector luminance support
-Date: Fri, 2 Oct 2026 14:00:29 -0500
-Message-ID: <20261002190030.211356-21-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261002190030.211356-1-mario.limonciello@amd.com>
-References: <20261002190030.211356-1-mario.limonciello@amd.com>
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
+ [74.125.227.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8592A10F9A1
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:10:38 +0000 (UTC)
+Received: by mail-vs2-f42.google.com with SMTP id
+ 71dfb90a1353d-5c8319dd4a5so3214919e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:10:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790968237; cv=none;
+ d=google.com; s=arc-20260327;
+ b=g4PB7noICA9tJZgj/DA2CbJdLFuODEw58x8INrtvqHg/Z6UUiG0B/81wnzM0itGebS
+ /idTBqZzfrImKB+hmkIqziN7TnltizUHaFytjVd8iyee8q7sysRNQW4iI8GZ4sUpJ4No
+ urNkJA/6rrsC5ScbzQLk9JSb/puXS6UENcbLjtVATZhyloxea/NqoVmpGtx8g05oYlwu
+ MwL+sU3ltGhKJJuGrxErrdyGipa1nxM4u8qVEClrQwajJnWhBFBEfd1Lf5JMMjibgjWZ
+ g1o1IWrGZvakvRq6sxBcErtJCu3+X7SBqOxhAeV2swD3DZF/fr2kf6LNU3Qemq8rKERl
+ GiaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
+ fh=pYHdDzPVUp8r1j9UDWLy4pWedde5LAIHtK/STjsKE3g=;
+ b=BExYaj749LG6N1LJzvrHu44oOADU4xxPasmuRsV7EijhRxY7yxZIncKuojcb6v1t9D
+ 8KZFkih5T8N3w7036lSkvg0uJ9L5gacmdfVN/fNp4A60+tIcKhx1s5AICjp/AxBFfaze
+ pITIRm40K489i2AYpf8XWnNsb3fsSggYWpI+CvTlirajk52pWvbjcDOMTVqRY/mLmL0j
+ 6o+gQiHQjZbXMqbfa7tc0vQ8J2D/D5HE7vJJOBy2EwlA/vKR4zuHU0KFvKTNIyuVTyyF
+ 59OsMCxcR1d8Dh7h53y0jYO0wr2fBhCX+fnKh7dgNcR0ckXg79y4p84D10jZg3TVl1kT
+ XXvg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790968237; x=1791573037; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
+ b=VQNl8FkuMKr8slWOAOhQtFiKqXlz0IT803RzsY6TxzjlGd/ufSDUm99lvHx+ryZygF
+ mIH5UH7DxOVtiDOXR7jsI4mg/oq+/SyYLu/omM9MwVbrpwwvUnDKshZqxt3d1GDVvJ0i
+ BRhwF/dsOB5ZMrmDFOzzmMurO7kXITnNEOAbe7m4/h3s4QDUTMm7cUWclyliEZdAd6Mx
+ F8wCD+LRZq92qWi/UysJU5LC4RHHZdKAVSydb+ZhjEFCa91FRR5ghfKpAKvkSOloRwxD
+ iRk0/4cdOjHC2evLrHCNJ42Nfph5o7pDmI0km31Z1t3SWrvuWRL8zdqibcgJNIsMg8Fi
+ /WgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790968237; x=1791573037;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
+ b=0Gxv33j8Fi3qrPbH033o4Vi8sC6sMFvLX9QFYroGEp70OPqeR6TB7p4UUN3lOdHYHM
+ 4bkp30V7wSYEFOGjaHFNJQAK2FpKvFLJG1mtxLjaaidWiy7vrZ0PANEYr7j/eZ+6hVNK
+ LDsDMabScghfzPjAkrmyiIhvZ0LfhDqSLLrkPKnIJhnZognXOhRl8eXy79IoukjBRPD+
+ 1OtmvHDgQ7OL1TDpyugzy28+acVYzMaNPW40c+K/y5Ovv9xnbQfgY1jZ3zupbiLLntep
+ FLU8LsAZnuRk3MbIQRIW2Z5ud8fWD+w1Ns+dPVC39u5zyLc+xxe5bVZpbwMjUD91kmUB
+ aiaQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwLGhMKtKzd1+qnPPDj+gtN2TpK/CTkC9ZAfjf7YKZ65itMAATDAYIQ0GhR2oFpx/+xHca2P3fr/40=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJFd4LpA772Vs6M9MYuq2aDIK0Gz86nUzhmvBOHQwJIUoB+o9jr
+ U1sm3LtAQQ+BxM7IiUtbFW/dSEpw90Rd33qc+2+dEiMGdQBxA4uBW/WXSvz9UKDU83Ff8iuWS9Z
+ DHQh4OhgP+8U1ewOLvuWPKiCKqPlI/tY=
+X-Gm-Gg: AYBFou1cMOzjZsQAs70HHw7kQ8dwBJyml7sSX/rI4WeyTZDNzVyEUDdv10kb0GFcAUB
+ MWRJO+kNUYTCPiDXPw9QAnAJgzS039CpoEtkKQ7HP3c7OQHEkvG229TrKX2JR8vVbqazpiJMc1s
+ FIzJmM+JjLzsMAts2V0bxs9lNZ5EqdtU+eCHOtA8MO/3i6GvHvvVz6M/T10cVsyQXohFa88/13C
+ cEexOI/xCKSgxVhfps1gdmeZ+Qk5d+oGTW+vVXmI2fqybd4ToJrvuJC6t1+cFdG4cCgQe2lO5XJ
+ KJfxhR76pKLgVqYAJnvQHorKOGGG65daCAkLHdvLtegHycv78Sz/U19uNJtVgisOcOzo/77qb4a
+ HiInVMTw6HlBb7RI1FoQLlH0hdMEQBCeOGQ==
+X-Received: by 2002:a05:6102:e0a:b0:7b5:4700:3a58 with SMTP id
+ ada2fe7eead31-7c0f54adbebmr792755137.31.1790968237259; Fri, 02 Oct 2026
+ 12:10:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|SN7PR12MB6716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|7416014|1800799024|23010399003|376014|82310400026|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: v4ox/QFJ95eVGktJi0UNbPyXQEA5XplkvY1BMNVuN17iJ6Xi/1BpFDilsw696NjuRCHWY86rR3Ld9EBxkMbBn7CS32+hMrfmC0us5TGauBukGsBwW9hFKPI8UnqLLLg6JINmJmCgOWgrMxc7AEOhjr31b306RKO/vREmeyC0wPecOJImzQedCvZhiZ5vn1iRkXLathIAeOj+wS9POqGOf970z56yTa4oY4rI26v9WjzxsVEFQs61f4+47ny99QcgFww3T92N370M1Jbpl8o5MLzbVEWj+L3lPR7TOOmwoH8awRn80S5JlggWuDxCCo8N1V6KKolkjf/4DNpQACCcLq1ZuVS152RZnXMQfu+9+wt7gUELoWaDZ6cT1QB8YJpJhJc4B3IJLgg/guklVhmwpfJ5u+1FMLuCoImYfBaJgG526k1Ay2bHzuds9QQu1zeGEiDFcAsKLEh0Y+huv3e/yIkBT8wchOeBnQHp+vEgmj0Pc/ht3NQG/eedFoBHXg+TA/aqc3AJDF079gnyhEx+e2dZgrkvXL8fqban+h4IieajFVbezKXCdeaxJ1lC19ueXYbsIXOj72OuScplvnNC/rvN0lwvZKKk7qF79udFe3wDZKs/y9VMFyEdpiIXZZ6/5WIbsqRcSXQXiixDi+aNXLgFh7vg4NG7/brpJqKeivvTQg3hd9IySivBHkwVmvPInx1yCjxgM/i3hTy80xIJ4w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(7416014)(1800799024)(23010399003)(376014)(82310400026)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +slbPXnoV1m4M3LFlphOwEnGQwKHVlFvk3AEBowRaboPS/NicnAswfxNmaMB44nYeY3e1sNdhSsq1aIXAesY5rVwgpEZCeQJnUTGK7jBRyXXYc5jMgjnsrVN7jR3xoflksgl6Y/VCwPKH81ihyEGiiDw2b3CnnoQIfJ6X6xnuUJeE3Y2/sfOYkEGBvdfPra8qikXKzXGDM3a517cRlvIbwWjwc8EodsDm83p44LeaD5fds+KUp/rpYw9Oz8rNqup+Bwl8We16sYryX3xjk2XwjDk5dYdFw/6bp4wjAge7wl3okuqpu0qM0v6cSXTGfjItUwClM3crqbtk695YzgrLFm2/U7I4Xa7PldnA3fdN51M4R9yNnstONnmZ3He7HcB9M9a7suQDv6gifU1BfjqmYE7faoCw5G38Pc/lReKPzajQRm3QrHUPwkHj7cGbtT1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:01:55.7513 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016160.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
+References: <20260815-null-fixes-v1-2-0df9dda951fb@gmail.com>
+ <20261002171818.281885-1-Capitain_Jack@yahoo.com>
+In-Reply-To: <20261002171818.281885-1-Capitain_Jack@yahoo.com>
+From: jim.cromie@gmail.com
+Date: Fri, 2 Oct 2026 13:10:10 -0600
+X-Gm-Features: AclHuK8zRY0hMOMSSnnxlFny3tvMylToD5uT6sSAGguetyweFEx6Xv_BTi4bCcs
+Message-ID: <CAJfuBxwGvKQrT_CVtvk7xX7pbf8WyE+LS=KAFyc9zSxD=v686Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/nouveau: Fix NULL pointer dereference in
+ GET_ZCULL_INFO ioctl
+To: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,129 +114,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose PS8622 brightness through bridge luminance operations when
-DRM_LUMINANCE is enabled. Keep registering the backlight class device
-otherwise.
+hi Daniel,
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/bridge/Kconfig         |  2 +-
- drivers/gpu/drm/bridge/parade-ps8622.c | 45 +++++++++++++++++++-------
- 2 files changed, 34 insertions(+), 13 deletions(-)
+thanks for testing this -
+I didnt want to screw with my firmware,
+but you're clearly prepared to do so.
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 837db36cdf48e..d78eb9f117d1e 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
- 	depends on OF
- 	select DRM_PANEL
- 	select DRM_KMS_HELPER
--	select BACKLIGHT_CLASS_DEVICE
-+	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
- 	help
- 	  Parade eDP-LVDS bridge chip driver.
- 
-diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
-index 3a2ec482037df..229d9d7218c4e 100644
---- a/drivers/gpu/drm/bridge/parade-ps8622.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8622.c
-@@ -45,6 +45,7 @@ struct ps8622_bridge {
- 	struct drm_bridge *panel_bridge;
- 	struct regulator *v12;
- 	struct backlight_device *bl;
-+	u8 brightness;
- 
- 	struct gpio_desc *gpio_slp;
- 	struct gpio_desc *gpio_rst;
-@@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
- 
- 		/* FFh for 100% brightness, 0h for 0% brightness */
- 		err = ps8622_set(cl, 0x01, 0xa7,
--				ps8622->bl->props.brightness);
-+				ps8622->brightness);
- 		if (err)
- 			goto error;
- 	} else {
-@@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
- 	int ret, brightness = backlight_get_brightness(bl);
- 
-+	ps8622->brightness = brightness;
-+
- 	if (!ps8622->enabled)
- 		return -EINVAL;
- 
-@@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	return ret;
- }
- 
-+static void ps8622_set_luminance(struct drm_bridge *bridge,
-+				 unsigned int luminance)
-+{
-+	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
-+
-+	ps8622->brightness = luminance;
-+	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
-+}
-+
- static const struct backlight_ops ps8622_backlight_ops = {
- 	.update_status	= ps8622_backlight_update,
- };
-@@ -438,6 +450,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
- 	.atomic_disable = ps8622_disable,
- 	.atomic_post_disable = ps8622_post_disable,
- 	.attach = ps8622_attach,
-+	.set_luminance = ps8622_set_luminance,
- };
- 
- static const struct of_device_id ps8622_devices[] = {
-@@ -502,18 +515,25 @@ static int ps8622_probe(struct i2c_client *client)
- 		ps8622->lane_count = ps8622->max_lane_count;
- 	}
- 
-+	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
- 	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
--		ps8622->bl = backlight_device_register("ps8622-backlight",
--				dev, ps8622, &ps8622_backlight_ops,
--				NULL);
--		if (IS_ERR(ps8622->bl)) {
--			DRM_ERROR("failed to register backlight\n");
--			ret = PTR_ERR(ps8622->bl);
--			ps8622->bl = NULL;
--			return ret;
-+		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
-+			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bridge.luminance = ps8622->brightness;
-+		} else {
-+			ps8622->bl = backlight_device_register("ps8622-backlight",
-+							       dev, ps8622,
-+							 &ps8622_backlight_ops, NULL);
-+			if (IS_ERR(ps8622->bl)) {
-+				DRM_ERROR("failed to register backlight\n");
-+				ret = PTR_ERR(ps8622->bl);
-+				ps8622->bl = NULL;
-+				return ret;
-+			}
-+			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bl->props.brightness = ps8622->brightness;
- 		}
--		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
--		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
- 	}
- 
- 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
-@@ -529,7 +549,8 @@ static void ps8622_remove(struct i2c_client *client)
- {
- 	struct ps8622_bridge *ps8622 = i2c_get_clientdata(client);
- 
--	backlight_device_unregister(ps8622->bl);
-+	if (ps8622->bl)
-+		backlight_device_unregister(ps8622->bl);
- 	drm_bridge_remove(&ps8622->bridge);
- }
- 
--- 
-2.43.0
+I just sent rev-3, with another null-ptr fix I need locally.
+Im pretty certain the patch you tested is unchanged,
+but if you could test rev3 that would be marvelous.
 
+fwiw - mine is a GA107
+
+01:00.0 VGA compatible controller: NVIDIA Corporation GA107M [GeForce
+RTX 3050 Ti Mobile] (rev a1) (prog-if 00 [VGA controller])
+Subsystem: ASUSTeK Computer Inc. Device 125c
+Physical Slot: 0
+Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+Stepping- SERR- FastB2B- DisINTx+
+Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort-
+<TAbort- <MAbort- >SERR- <PERR- INTx-
+Latency: 0, Cache Line Size: 64 bytes
+Interrupts: pin B disabled, MSI(X) routed to IRQ 101
+IOMMU group: 10
+Region 0: Memory at fb000000 (32-bit, non-prefetchable) [size=3D16M]
+Region 1: Memory at fe00000000 (64-bit, prefetchable) [size=3D4G]
+Region 3: Memory at ff00000000 (64-bit, prefetchable) [size=3D32M]
+Region 5: I/O ports at f000 [size=3D128]
+Expansion ROM at fc000000 [disabled] [size=3D512K]
+Capabilities: <access denied>
+Kernel driver in use: nouveau
+Kernel modules: nouveau
+
+
+On Fri, Oct 2, 2026 at 11:18=E2=80=AFAM Daniel Campos Ramos
+<Capitain_Jack@yahoo.com> wrote:
+>
+> Hi Jim, Lyude,
+>
+> This one repeats here every time.
+> Setup: an RTX 3060 (GA106) passed through to a VM, kernel 7.3-rc1,
+> Mesa 26.1.6 (Debian testing), firmware-nvidia-gsp not installed.
+> nouveau probes with "gr: firmware unavailable", so nvxx_gr() is NULL.
+> As soon as KWin starts, Mesa's NVK asks for the zcull info and the
+> kernel oopses:
+>
+>   BUG: kernel NULL pointer dereference, address: 00000000000000f0
+>   RIP: 0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
+>   Comm: kwin_wayland
+>
+> kwin_wayland dies with it, so the whole session goes, not only
+> acceleration.
+>
+> With this patch alone the zcull oops is gone, but the next NULL
+> dereference follows right away, in GETPARAM with
+> NOUVEAU_GETPARAM_GRAPH_UNITS:
+>
+>   RIP: 0010:nvkm_gr_units+0x9/0x30 [nouveau]
+>
+> With this patch plus Zhenhao Wan's "drm/nouveau: prevent NULL deref of
+> gr in GETPARAM_GRAPH_UNITS", there is no oops: KWin starts and
+> composites, and NVK refuses the device cleanly (vkEnumeratePhysicalDevice=
+s
+> returns VK_ERROR_INITIALIZATION_FAILED).
+>
+> To reproduce: a Turing or newer card on nouveau without
+> firmware-nvidia-gsp, then start any Vulkan or zink client.
+> Both fixes are needed for a desktop to survive a missing firmware
+> package.
+> Whatever helped find it, the bug is real, it repeats, and the check is
+> the obvious one.
+>
+> Disclosure: I did this testing with an AI assistant, Claude Code
+> (Claude Opus 5.5). It built the kernels, ran the VM and read the
+> traces under my direction; I checked the results on the hardware.
+>
+> For this patch, tested together with Zhenhao's:
+>
+> Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+>
+> Daniel
