@@ -4,165 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 870A9CA5FE3
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35578CA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE8910F7DA;
-	Fri,  2 Oct 2026 09:09:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6794710E3DD;
+	Fri,  2 Oct 2026 09:13:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I5rhh37F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnSGRACq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5325610E460;
- Fri,  2 Oct 2026 09:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790932140; x=1822468140;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=/TqWXSIZf3m4s2MdDX3ehiZVJ2LIGZi05HtoeSZ/lYc=;
- b=I5rhh37FwqE/wpB53Nq1m9xYfWsQMS0lTOrWIA03XmtXi7mAYkAfKPpJ
- /GTmM+ir7gGGOAbUg8qhOREmFVSvz//u26QU5mQMMYYTSYLpPn8fgVT2c
- vBF8Qfk8cVEKrX89c71En+MOfMuY08c3PbpaosTa+wFjJeFJ+UZILG/Fm
- 1QyO/H5DEFM5iS2XKY0rJCrae0pENsiJJGMfNmRoG1gtHVl/tfVjnE54k
- iZN3vxFg/aQSs7q9o2fByeTFNEvTOFkTQrQhxZDkhZrL4yMMZTL6kwpF+
- CSSr7av7DuEw/0/obM4qxfqmOI8mqoJatRaG81yYSgu+WdZInFpjp3Cbi g==;
-X-CSE-ConnectionGUID: aF9HbIyAR0i9mZA1fVtK6g==
-X-CSE-MsgGUID: VNZ+osQ9T82It276a3AH4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90728239"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90728239"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 02:08:59 -0700
-X-CSE-ConnectionGUID: EJ9IQV9dSHWxKaFBQyXemg==
-X-CSE-MsgGUID: kJ/8Pb+uQIa1xcTxa7hINQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="302461805"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2026 02:08:58 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 02:08:58 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 2 Oct 2026 02:08:58 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.47) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 2 Oct 2026 02:08:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iwFmOTG8UJoyk5BDll/Jfer7LaqQY5rxspVvACbKu00LK/qvZzHxBM5tawCYD4fNXTFZjzcwBmZZAh6ihPYcJeqzII8yOZlksvSkUfaM6YP3bFKm5qDt5XX9+mRrjN5uloE6H9inU+cGdvylBXMjhm5gRykBydFbbLPNk2iWrGxVSgonJaQfHnfMv0dFWccCDyu5/11gy3BTyG7M+iJh/gqc7Cmpp+oD2D43U3BURsU3yjcSZ5SsYjLLixqcebszTr7lsCb+nSz/JJf+Mzr6OHNydH2iCb0aF0+2c5WBYa4ChCVcr439gzTuQfybeB45X9sLbnTtRjlQroVj5D5qgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/TqWXSIZf3m4s2MdDX3ehiZVJ2LIGZi05HtoeSZ/lYc=;
- b=o0dsoVq+EQVXABkHcuKv8/J+Gbq6NbqLLMEDeq/QxVNDDIfFh+FK5ydw2qHgdkizIAtYvEaAC+eUXRwcoGUXg7SsQo7zKOZ31D7qI3Ewu4Zt9OZIcx0aFU67Y9ylrApC+WIgi+Q3a1hmyHDaby1B/fRs+X3/PoDQUVit2XbGtZr+tcyJhvNkWg4+6yRtUDSsuLzJG70lAiAKRvvNCNWVFf6MFMMmTClolZNyQQ0V2P7gGsWVRkqDFoXc4Zlis7SA2UH5aXIUoYBUAY1IEd0LMylE230NfRxFzFIYVPbwpeKFThecW7faLVwZ7f85Txf9azYVNGL9bIuprHfrSproSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
- IA1PR11MB7943.namprd11.prod.outlook.com (2603:10b6:208:3fc::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 09:08:55 +0000
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
- 09:08:55 +0000
-From: "Hogander, Jouni" <jouni.hogander@intel.com>
-To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Manna,
- Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>
-CC: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>
-Subject: Re: [PATCH v6 17/18] drm/i915/alpm: Program zero-based LFPS half
- cycle duration
-Thread-Topic: [PATCH v6 17/18] drm/i915/alpm: Program zero-based LFPS half
- cycle duration
-Thread-Index: AQHdRUGfM6nioix+jkmcbT1cqaua3rbqEMeA
-Date: Fri, 2 Oct 2026 09:08:55 +0000
-Message-ID: <9ee54c5ac453ad0b26404734ad9cbb2fe130345f.camel@intel.com>
-References: <20260915180449.277933-1-animesh.manna@intel.com>
- <20260915180449.277933-18-animesh.manna@intel.com>
-In-Reply-To: <20260915180449.277933-18-animesh.manna@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|IA1PR11MB7943:EE_
-x-ms-office365-filtering-correlation-id: 31068b71-c2db-49b0-83cc-08df2064c92b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|38070700021|11063799006|56012099006|4143699003|22082099003|10067099003|18002099003;
-x-microsoft-antispam-message-info: 5gFYsIscNKQUVspsSOPj5C3DBJy4wA6uzgQu1B1NnwwBjyEfwfzatIDuegwx7298kDUc4aT5wMa4O8s50qwyZri2kp4lBcndQBESMCKCCJnSsz9VNQMrmB5Mmplw4hAS5hjznDoqwSKoR/GIPS3PX/JM5C9E1QnSdqV8IqEyl0rx00yBQcOmuLXapLcwPzioNkVVCtjmLNODT6fpg6ll9sOGHc2dMdGoJZ+iVjAb8XhIs/lEAVjuKg8Sr+sglqoEISPrZ5Wp5Ef5e171vhWRZQmcWxohzfCKE4JxHBsuRdxj4keAgJ4MStwsSSOjtBeDRVHeOwnGDPeU+JTt/GVn37vPRRwIBU5fI2vmfsFs0LGF92nH1BQIPTlycmoePJF8Qm8MfMaFkzyugmb9Ouukwqude8Hcvvg9x7iSEDuBRk90tmFEwOR561dPnhb4MHeTx5WOLEwshSb1zwDOM9BP+UVHMRXLudqQXvr1K6V1b/IoL3DCGyNKJhPnp0dM5k9wsTO60vlf2Dtb9DXq8Ldz0XGGDneQnwVu2XWd6ZlgUWlVLemrqm5+yiPticp4W/M0C3k8L82Aj0frvthSukXCD3kmsOCDlF7jibY16kxRKyk2MhXKWA988THXfcgTYYD+Wmvi3zvkHlvZi1Qi+VlcqEquvC4jZG+R0lnwIs9MI53EjJ7cnVzYQU7Ay0nhj0xi1qkcDF3OZ7d+d5vzo3w8UgtdGgVTJd75qVRCTc5imHk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(11063799006)(56012099006)(4143699003)(22082099003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SVVtK2J0U2daa2Z4ckhaOWJ6LzJFSVZJd1R2bFV6N25qQW4vTjNGWm9oSldx?=
- =?utf-8?B?RUxHbTB3eVVUK0N2WHZDWVBBTlY3bENiOUIvTlg0UGYzQlVnVDE1eTlLVFVZ?=
- =?utf-8?B?VS8xRU9VVHlKeVUveGNEdE5mWTdGdjdhTU9XbkFzUVBabWRIeFMrZE9rVnNj?=
- =?utf-8?B?NCtaTDJrc2xtSkVqQXVYNGNuWUFucXNnTGlXTlRxRjNmZ2JHTUV2M1lkc001?=
- =?utf-8?B?VVljVXVXOVpXY3RpR1lGSzhZd0ozMGtYZElOeGZMOFVsMUozWFN6VTNIc2Iw?=
- =?utf-8?B?R2tIbUp2NVpNZW9aS2Qwc1NLQS93SjMxVmdrRWl5NXlwUnZJOWZ1S2ZqTkJR?=
- =?utf-8?B?aXF3Ly9WbXcvZDlSYXBVeGxuc2tTK1Z6U3BKV3hXSTR6OXQyTXJhWnRLTDha?=
- =?utf-8?B?SFVUSTRzdHJzZlV1Rk1aWXM0WnVINVpLTW5zVWRFTVByZ3JPSHVWekxkN0hm?=
- =?utf-8?B?c0twS2Mxb3BpR3NONU9Gbit6NlV1d0JnajVqQTB2UlF1N2NTcThyMWh2OTFP?=
- =?utf-8?B?UUwrOThJSzcvMWVYYnlkN29Sd3lBSld3VDVRQXZsSWs2dFJtVVNaWXBYa05s?=
- =?utf-8?B?b0RGZGphMFcxS1N5Yko0K204aXZ3TjduV09rMU5sOG40V25KdW9qdVhJVktw?=
- =?utf-8?B?amt1SW1pWk8wRURoeDRIZDVUVHRxSCt2MWtHaXpmYy9jSTh4V28vcUlOREdk?=
- =?utf-8?B?QnVkRndSUzhxOEtFTlB2YmlXMVpWa1R3SXhEZDFJOWZQTmdjKzU5bTViRVkv?=
- =?utf-8?B?Y2RLWmNnVWp2eUtTU0Z6RmZOMjFQSkt3MXRkUjkzKzhmczlndXJYR25sZnMv?=
- =?utf-8?B?QjVlUFl5aEZ5M0RCbU9RTnJPNGJ3T0M2WWw4WDJZeTJ2b3Q3SStsbm9BS2l4?=
- =?utf-8?B?QTYyK2NVaTlHUjkyU0RqQlp5TjF6ZXVqWDFISjBlQmVremZKc1VjVU05NU9R?=
- =?utf-8?B?NmZVNUx6Y1FKSEloaEhCbzBPZXNPQUFOS0tkQlE2L3hZcGtacXJldkxpREs5?=
- =?utf-8?B?bHVyRzBHTEhrWjhtTWFKMzB4QWhSbmxpa1BkNWp3MXNxVHlGSXFrc2V6a0FT?=
- =?utf-8?B?dWtUZUV4eHlSdWN0K0Y4MStnNzhEb3dEMW5xQUFmQ1JtWWRwVkprVHpqRjRF?=
- =?utf-8?B?VTlLbWpoeWhrT0NXa0lpZDc0MktPZmNVOVVtM0loTEpUT1pSMUJaaFlaMFR4?=
- =?utf-8?B?bVNsWFNITjc2T2l6aHlndkluU3U1TlZ0eXZyMUQwRzZYaTFiSHhwaGFVeFZD?=
- =?utf-8?B?T05JQ2MvSk9sMVJuTVo2WmdWL2RVRVBqVWJCUHlMS0s4REt5OThlbkdVamoz?=
- =?utf-8?B?dXA4UHYyaGNlSVY5cWp5TWZ4cnQ2Qk50NmVaUzhaWnpnUUYzVFpyT3A3dDVi?=
- =?utf-8?B?WldHWGhibjBsejJKUDJxK2VYV2N4RnJyK01lQUVvL1VKWUlybUFLaFlCSXM4?=
- =?utf-8?B?TW05c0V1cW9IdXRhWVJZNHFpcjJmZkFDSkdpWHVIOTFYV1FzQk1CQ05aWU0v?=
- =?utf-8?B?cERKWEgvemtXYkFZQnJJdC9qN0U1WWRBcEZ5NmVXSU0wNktiZ3dxOGJnU0NK?=
- =?utf-8?B?V2MzQ2p0TThqQW1SRDNuaTVnYmtheWpGQ0dic3N6S1EvTm5mSGdhaVI0NlVu?=
- =?utf-8?B?MGtwZ1BZaXJKeWloL1paSGRmWUIwZk1mZ24zVVh6YUdkOHV4Zk5TeVBMMVQy?=
- =?utf-8?B?NUFVVmRGa3dSMnZ1TlBXTWl0NHdFRjJ0NUdqUkpCc1owOFlMN0oreUQwTE9F?=
- =?utf-8?B?cjRyWmNDQlpOUjBGQjI0NWJhbnJOcXNCVkZVUnEwQzJ4NFJPOU9aV0VibGhK?=
- =?utf-8?B?N2J1K01vQkREeFJaUXRGU2FSR3ArQ2N5R0NseVhjb0YzREVHK1Yzc2JxeDVN?=
- =?utf-8?B?OWZUdVhXTTB3eGtpdjdrRlJNcm0yVjZ6R2NTRmNrREI2dFJNa3k4bzVRbTVN?=
- =?utf-8?B?blc5QjFheUN6U1BWRUl2S1RscU1ZUCsrM25MK0lVU0FZaWd2ODhiK0lUR0V3?=
- =?utf-8?B?OXVlck12em5IbW9MamxtRFRNWkVQQ2dtNGk4aU15VDRtcGh0dGcvYWIvb2tP?=
- =?utf-8?B?K0ZmZm1hZzRLUHhBWmw5UjNpTnB3dnlKMDhaWEI3dVhzR2dPWDN2a2tDa2F1?=
- =?utf-8?B?UzFuT1VUOUxSK1JtM0RLMGs0a2tkcWZ0LzdKVitWSTJZRnB4VUJQOTBYSnJh?=
- =?utf-8?B?Vy9zSitoRVdmK0pVWEw0N1VjYjM1OWRBMHRPTnVYOW9jYkZsd0p2V1A1NWJk?=
- =?utf-8?B?b3dZZ2p0UmppR3lNZ1lpQWg1Y1pCT1IzWnRaZjJxQldwL2Rhd0ticWRoQzFU?=
- =?utf-8?B?QmRYNWJUYTFMZGYxODhhWUNYR2VHN0YrNUl3bWFCUCs5Tmx3VE5ONnZhL3py?=
- =?utf-8?Q?MbKZi/OcMapt6dvA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <13623CE3FF33AE4FA1F5E09ABAF8F7B7@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: NMQOtd+jqjfegiqTW1wGNzLV388pKW/x2QEZUYRsPUU6NSfIDluhab/iDZVAugmi6hLx6l7cqUJaRqReHW6tUSwQoKEFdu495Pf/4IITnY7ZfRRl6JGfBgtEnvRMrvbCz62Y2bYWwfgbqQgxQ1SgmiJL7le3MonuF/iAcXIW6XpjWmq9F+iP+pYYSg8cCOOVX79x1oLTZSpsSS1yxdvjONJJgEbrDmP4dRpgYQerJkbFnHrg8lVlyQ20DHQt8dnk8BIc1CXvSZkm0KVdQ8gylEIcfFevhiPYlJ9SpJFYwmNPu8dAMZvwvMH/FU1m7psKsODVOTdPcg9VWl21fKSiqw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31068b71-c2db-49b0-83cc-08df2064c92b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 09:08:55.3606 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lk/3EU4JEDp49sejiP5/bLDUcGJX3IbrM7e+Y2d792cD7Zc5PJziILzdYkMHFDZNwO+JjcwuqHA5tnGHTyusuRKiN45Wr9DQMmDpc/v8/ts=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7943
-X-OriginatorOrg: intel.com
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14B8F10E3DD
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 09:13:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id ED85D60A70;
+ Fri,  2 Oct 2026 09:13:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF6E1F0089A;
+ Fri,  2 Oct 2026 09:13:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790932415;
+ bh=mTM/uNwlQySIkOhOsg0k2aABtwwtHnfyJyo0WlGMcAU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VnSGRACqHkE3w5OgmrPWX3/mA+s9CXGStLpSFEcTouUQQrJTHv6oabrvihVyAUlkP
+ t9mRMkHA1dlVkE/8LHEuRWkZ4kHiiFHtOu66bUMpJTPWIcvJfTNUKV+5Q91o4aHVkt
+ 5YZo8J8uwiI2Uk8Qbl9VEQzkMhH5vKGh+lR4HyHPRQSUdV1kSu1Ripa8EzP6VxIg0F
+ 5ucKgXfeKmPF3x6Z/Qh4pTEm7Nd7+wI2SsMjt4qaPTjIsHoIb7KWDqabYPUSEvpFx2
+ KVdJwd32rnaG5Xrx1pP4Mrp6/7FBe0UvWb2PBKYu341BQFrqKakZtEDgZM4iAGVqFs
+ bZ4YJN0lW1kSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] misc: fastrpc: fix context leak and hang on
+ signal-interrupted invoke
+To: "Anandu Krishnan E" <anandu.e@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261002-anandu-fastrpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com>
+References: <20261002-anandu-fastrpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 09:13:35 +0000
+Message-Id: <20261002091335.7AF6E1F0089A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,60 +53,188 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI2LTA5LTE1IGF0IDIzOjM0ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
-PiBUaGUgTEZQUyBIYWxmIEN5Y2xlIER1cmF0aW9uIGZpZWxkLCBhcyB3ZWxsIGFzIHRoZSBGaXJz
-dCBhbmQgTGFzdA0KPiBMRlBTDQo+IEhhbGYgQ3ljbGUgRHVyYXRpb24gZmllbGRzLCBpbiBQT1JU
-X0FMUE1fTEZQU19DVEwgYXJlIHplcm8tYmFzZWQ6IHBlcg0KPiBCc3BlYyB0aGUgdmFsdWUgcHJv
-Z3JhbW1lZCBtdXN0IGJlIE5fU3ltYm9sIC0gMS4gVGhlIG51bWJlciBvZg0KPiBzeW1ib2xzDQo+
-IHdhcyBwcm9ncmFtbWVkIGRpcmVjdGx5LCBtYWtpbmcgZWFjaCBoYWxmIGN5Y2xlIG9uZSBzeW1i
-b2wgY2xvY2sgdG9vDQo+IGxvbmcuDQo+IA0KPiBTdWJ0cmFjdCBvbmUgaW4gdGhlIFBPUlRfQUxQ
-TV9MRlBTX0NUTF9MRlBTX0hBTEZfQ1lDTEVfRFVSQVRJT04sDQo+IFBPUlRfQUxQTV9MRlBTX0NU
-TF9GSVJTVF9MRlBTX0hBTEZfQ1lDTEVfRFVSQVRJT04gYW5kDQo+IFBPUlRfQUxQTV9MRlBTX0NU
-TF9MQVNUX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTiBmaWVsZCBtYWNyb3Mgc28gdGhlDQo+IHBy
-b2dyYW1tZWQgdmFsdWUgbWF0Y2hlcyB0aGUgemVyby1iYXNlZCBmaWVsZCBlbmNvZGluZy4NCj4g
-DQo+IEJzcGVjOiA3MTYzMg0KPiBDYzogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBp
-bnRlbC5jb20+DQo+IEFzc2lzdGVkLWJ5OiBDbGF1ZGU6Y2xhdWRlLW9wdXMtNC04DQo+IFNpZ25l
-ZC1vZmYtYnk6IEFuaW1lc2ggTWFubmEgPGFuaW1lc2gubWFubmFAaW50ZWwuY29tPg0KDQpSZXZp
-ZXdlZC1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBpbnRlbC5jb20+DQoNCj4g
-LS0tDQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3JfcmVncy5oIHwg
-MTIgKysrKysrKysrLS0tDQo+IMKgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMyBk
-ZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
-bGF5L2ludGVsX3Bzcl9yZWdzLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
-dGVsX3Bzcl9yZWdzLmgNCj4gaW5kZXggOGY2MGI2NzE3NTVhLi4zODdlZGY4ZGY2ZTkgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyX3JlZ3MuaA0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzcl9yZWdzLmgNCj4g
-QEAgLTMzOSwxMSArMzM5LDE3IEBADQo+IMKgI2RlZmluZcKgIFBPUlRfQUxQTV9MRlBTX0NUTF9M
-RlBTX0NZQ0xFX0NPVU5UX01JTgkJNw0KPiDCoCNkZWZpbmXCoA0KPiBQT1JUX0FMUE1fTEZQU19D
-VExfTEZQU19DWUNMRV9DT1VOVCh2YWwpCQlSRUdfRklFTERfUFJFUChQT1JUX0FMUE1fTEZQU19D
-VExfTEZQU19DWUNMRV9DT1VOVF9NQVNLLCh2YWwpLVBPUlRfQUxQTV9MRlBTX0NUTF9MRlBTX0NZ
-Q0xFX0NPVU5UX01JTikNCj4gwqAjZGVmaW5lwqANCj4gUE9SVF9BTFBNX0xGUFNfQ1RMX0xGUFNf
-Q1lDTEVfQ09VTlRfWEUzTFBEKHZhbCkJUkVHX0ZJRUxEX1BSRVAoUE9SVF9BTFBNX0xGUFNfQ1RM
-X0xGUFNfQ1lDTEVfQ09VTlRfTUFTS19YRTNMUEQsKHZhbCktUE9SVF9BTFBNX0xGUFNfQ1RMX0xG
-UFNfQ1lDTEVfQ09VTlRfTUlOKQ0KPiArLyoNCj4gKyAqIFRoZSBMRlBTIGhhbGYgY3ljbGUgZHVy
-YXRpb24gZmllbGRzIChpbmNsdWRpbmcgdGhlIGZpcnN0IGFuZCBsYXN0DQo+IGhhbGYNCj4gKyAq
-IGN5Y2xlKSBhcmUgemVyby1iYXNlZCwgaS5lLiB0aGUgdmFsdWUgcHJvZ3JhbW1lZCBpcyBOX1N5
-bWJvbCAtIDEuDQo+ICsgKg0KPiArICogQnNwZWM6IDcxNjMyDQo+ICsgKi8NCj4gwqAjZGVmaW5l
-wqANCj4gUE9SVF9BTFBNX0xGUFNfQ1RMX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTl9NQVNLCVJF
-R19HRU5NQVNLKDIwLCAxNikNCj4gLSNkZWZpbmXCoA0KPiBQT1JUX0FMUE1fTEZQU19DVExfTEZQ
-U19IQUxGX0NZQ0xFX0RVUkFUSU9OKHZhbCkJUkVHX0ZJRUxEX1BSRVAoUE9SVF9BTFBNX0xGUFNf
-Q1RMX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTl9NQVNLLHZhbCkNCj4gKyNkZWZpbmXCoA0KPiBQ
-T1JUX0FMUE1fTEZQU19DVExfTEZQU19IQUxGX0NZQ0xFX0RVUkFUSU9OKHZhbCkJUkVHX0ZJRUxE
-X1BSRVAoUE9SVF9BTFBNX0xGUFNfQ1RMX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTl9NQVNLLCh2
-YWwpLTEpDQo+IMKgI2RlZmluZcKgDQo+IFBPUlRfQUxQTV9MRlBTX0NUTF9GSVJTVF9MRlBTX0hB
-TEZfQ1lDTEVfRFVSQVRJT05fTUFTSwlSRUdfR0VOTUFTSygxMg0KPiAsIDgpDQo+IC0jZGVmaW5l
-wqANCj4gUE9SVF9BTFBNX0xGUFNfQ1RMX0ZJUlNUX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTih2
-YWwpCVJFR19GSUVMRF9QUkVQDQo+IChQT1JUX0FMUE1fTEZQU19DVExfRklSU1RfTEZQU19IQUxG
-X0NZQ0xFX0RVUkFUSU9OX01BU0ssIHZhbCkNCj4gKyNkZWZpbmXCoA0KPiBQT1JUX0FMUE1fTEZQ
-U19DVExfRklSU1RfTEZQU19IQUxGX0NZQ0xFX0RVUkFUSU9OKHZhbCkJUkVHX0ZJRUxEX1BSRVAN
-Cj4gKFBPUlRfQUxQTV9MRlBTX0NUTF9GSVJTVF9MRlBTX0hBTEZfQ1lDTEVfRFVSQVRJT05fTUFT
-SywgKHZhbCkgLSAxKQ0KPiDCoCNkZWZpbmXCoA0KPiBQT1JUX0FMUE1fTEZQU19DVExfTEFTVF9M
-RlBTX0hBTEZfQ1lDTEVfRFVSQVRJT05fTUFTSwlSRUdfR0VOTUFTSyg0LCAwKQ0KPiAtI2RlZmlu
-ZcKgDQo+IFBPUlRfQUxQTV9MRlBTX0NUTF9MQVNUX0xGUFNfSEFMRl9DWUNMRV9EVVJBVElPTih2
-YWwpCVJFR19GSUVMRF9QUkVQKFBPUlRfQUxQTV9MRlBTX0NUTF9MQVNUX0xGUFNfSEFMRl9DWUNM
-RV9EVVJBVElPTl9NQVNLLHZhbCkNCj4gKyNkZWZpbmXCoA0KPiBQT1JUX0FMUE1fTEZQU19DVExf
-TEFTVF9MRlBTX0hBTEZfQ1lDTEVfRFVSQVRJT04odmFsKQlSRUdfRklFTERfUFJFUChQT1JUX0FM
-UE1fTEZQU19DVExfTEFTVF9MRlBTX0hBTEZfQ1lDTEVfRFVSQVRJT05fTUFTSywodmFsKS0xKQ0K
-PiDCoA0KPiDCoCNlbmRpZiAvKiBfX0lOVEVMX1BTUl9SRUdTX0hfXyAqLw0KDQo=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] fastrpc: missing 'sent' flag causes indefinite hang and UAF on ret=
+ry
+- [High] fastrpc: resumed context uses stale user-space pointers for DSP ou=
+tput
+- [High] fastrpc: Use-After-Free in fastrpc_rpmsg_callback due to concurren=
+t teardown
+- [Medium] fastrpc: memory leak of timed-out contexts on channel teardown
+--
+
+commit 6840686b144525cb6d359cfc50b159c177c03bae
+Author: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+
+misc: fastrpc: fix context leak and hang on signal-interrupted invoke
+
+fastrpc invokes work by sending an RPC message to the DSP and blocking
+in wait_for_completion_interruptible() until the DSP responds. If a
+signal arrives during this wait, the syscall returns -ERESTARTSYS and
+the invoke context which holds the in-flight DMA buffers and
+completion state is left stranded in fl->pending.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 5ac7b3e78ba7e..f51cb772e6831 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+[ ... ]
+> @@ -1370,9 +1444,21 @@ static int fastrpc_internal_invoke(struct fastrpc_=
+user *fl,  u32 kernel,
+>  		return -EPERM;
+>  	}
+> =20
+> -	ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
+> -	if (IS_ERR(ctx))
+> -		return PTR_ERR(ctx);
+> +	if (!kernel)
+> +		ctx =3D fastrpc_context_restore_interrupted(fl, handle, sc);
+> +
+> +	if (ctx) {
+> +		/* ctx->args is already populated from before the interruption. */
+> +		resumed =3D true;
+> +	} else {
+> +		ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
+> +		if (IS_ERR(ctx))
+> +			return PTR_ERR(ctx);
+> +		ctx->handle =3D handle;
+> +	}
+> +
+
+[Severity: High]
+Does this code ignore the new args structure provided by the retrying user-=
+space
+caller?
+
+The code appears to retain the stale pointers captured before the interrupt=
+ion,
+failing to update ctx->args with the retry's arguments. When the DSP respon=
+ds,
+fastrpc_put_args() might copy the output to the original, potentially freed=
+ or
+repurposed user-space addresses.
+
+> +	if (resumed)
+> +		goto wait;
+
+[Severity: High]
+Can skipping the message sending cause a thread to get permanently hung?
+
+Because the missing 'sent' flag check fails to detect that the message wasn=
+'t
+delivered initially, the resumed context may incorrectly skip sending the
+message here.
+
+> =20
+>  	err =3D fastrpc_get_args(kernel, ctx);
+>  	if (err)
+[ ... ]
+> @@ -1409,21 +1496,13 @@ static int fastrpc_internal_invoke(struct fastrpc=
+_user *fl,  u32 kernel,
+>  		goto bail;
+> =20
+>  bail:
+> -	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
+> -		/* We are done with this compute context */
+> -		spin_lock(&fl->lock);
+> -		list_del(&ctx->node);
+> -		spin_unlock(&fl->lock);
+> -		fastrpc_context_put(ctx);
+> -	}
+> -
+>  	if (err =3D=3D -ERESTARTSYS) {
+> +		fastrpc_context_save_interrupted(ctx);
+> +	} else {
+
+[Severity: High]
+Is the context unconditionally parked as resumable without verifying if the
+message was actually sent?
+
+The commit message mentions this is handled via a 'sent' flag, but the flag
+appears to be missing in the patch, which could park unsent contexts as
+resumable.
+
+>  		spin_lock(&fl->lock);
+> -		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+> -			list_del(&buf->node);
+> -			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+> -		}
+> +		list_del_init(&ctx->node);
+>  		spin_unlock(&fl->lock);
+> +		fastrpc_context_put(ctx);
+>  	}
+
+[Severity: Medium]
+When a context times out (err =3D=3D -ETIMEDOUT), does this code remove it =
+from the
+tracking lists?
+
+This would make it unreachable for the fastrpc_notify_users() cleanup sweep,
+potentially leaking the context and its DSP reference if the DSP never resp=
+onds
+and the channel is torn down.
+
+[ ... ]
+> @@ -2669,13 +2762,22 @@ static void fastrpc_notify_users(struct fastrpc_u=
+ser *user)
+>  		ctx->retval =3D -EPIPE;
+>  		complete(&ctx->work);
+>  	}
+> +
+> +	/* Drops only the worker ref; the invoker ref is released by fastrpc_us=
+er_free(). */
+> +	list_for_each_entry(ctx, &user->interrupted, node) {
+
+[Severity: Medium]
+Because the timed-out contexts are removed from fl->pending and fl->interru=
+pted,
+does this teardown routine miss cleaning them up when the DSP reference is =
+still
+held?
+
+> +		ctx->retval =3D -EPIPE;
+> +		complete(&ctx->work);
+> +		if (!ctx->put_work_scheduled) {
+> +			ctx->put_work_scheduled =3D true;
+> +			schedule_work(&ctx->put_work);
+> +		}
+> +	}
+>  	spin_unlock(&user->lock);
+>  }
+[ ... ]
+> @@ -2778,9 +2877,11 @@ static int fastrpc_rpmsg_callback(struct rpmsg_dev=
+ice *rpdev, void *data,
+>  	/*
+>  	 * The DMA buffer associated with the context cannot be freed in
+>  	 * interrupt context so schedule it through a worker thread to
+> -	 * avoid a kernel BUG.
+> +	 * avoid a kernel BUG. fastrpc_context_schedule_put_work() guards
+> +	 * against a concurrent fastrpc_notify_users() also scheduling this
+> +	 * same work item for an interrupted context.
+>  	 */
+> -	schedule_work(&ctx->put_work);
+> +	fastrpc_context_schedule_put_work(ctx);
+> =20
+>  	return 0;
+>  }
+
+[Severity: High]
+Can a concurrent channel teardown or file descriptor closure cause a
+use-after-free here?
+
+Earlier in this function, the context is found in the IDR and the cctx->loc=
+k is
+dropped without elevating the refcount. Concurrent teardown paths can drop =
+both
+the invoker and DSP references, freeing the context before the callback rea=
+ds
+ctx->ctxid or accesses it here.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-anandu-fas=
+trpc-interrupted-invoke-v3-v3-1-31e90439d2ba@oss.qualcomm.com?part=3D1
