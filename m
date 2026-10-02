@@ -4,129 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BF3CA5FD4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 17:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B76E1CA5FDD
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 17:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45FB810E2BE;
-	Fri,  2 Oct 2026 17:15:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D95410E656;
+	Fri,  2 Oct 2026 17:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dXMuxogA";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hh+jIOJR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PgoBQtbD";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A31410E2BE
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
+ [74.125.229.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48C5910E66F
  for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 17:15:40 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 692H6O501278553
- for <dri-devel@lists.freedesktop.org>; Fri, 2 Oct 2026 17:15:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- zbsnwXTq0OoV45hgow4KHvYsJLjC6m32dKDmrYd1IQA=; b=dXMuxogAwmwYkXVx
- 0cXUL2XR4xHSJFDVHtA+Gv3KoP15+/A41yQpq9hkQUyOR9XI98y3WJ1sgCSYmMEr
- aycvq9l4Lv2q2x8aaP29bcR23JkY4u5bLQOqQi/uOZp1rDpcXHPqH5PfrjRyJvED
- W8dt3VWpa03SE4y29Tn48zxZa9uh8z7irBFVLnAUvMT6/jY6sYLB1BI9/AceZPRS
- fW7LY0zFLRxQFLubRmiXeK/vmS8D5f/K70n6H0PkBr1zsBY3IMrb15w3gb9V4DUC
- MiOejtOhwj6XbLTfwojQYn72O4BH9DzsmVs4evwMDSLWi5Suwq9W+i3Y2IXnN/xE
- sNDoVA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2dxdgvxs-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:15:39 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-39e3c10ac70so11026630a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 10:15:39 -0700 (PDT)
+Received: by mail-dy2-f12.google.com with SMTP id
+ 5a478bee46e88-32be7127c64so969453eec.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 10:15:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790961339; cv=none;
+ d=google.com; s=arc-20260327;
+ b=l8GlJJZkq11tbymK1Qgq+m/MGnWkSMmYTiU2QFdTQuzImhKeqSgzrqZdGJuTCy2BKB
+ e+Q0vfaMRvYLv7oUUMua78b+P8vQkmiZE61tPinoqyyciVCKbg0GlSxYJ5YkdPrZgC7M
+ ZgJUvef+5ygYn6lpHrJdBIGgMfnWeBMO10EGMtfAtdaaQ5XpQ7EKSRHpanJGAUsopUwJ
+ o9rH7B77lOOHF+g/Op/elkYTDY/RaF17icsdSKlF/K3O/58nI1Aa5bmInHVD2fdz8OyU
+ ek+8Ilj5n48CQXOP4jpLZR7O38yMawftnWg0OXuluoxDNygOIgoOL2zUoiLT6I0miQAs
+ 5Flw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+ fh=Lc4yW5LESWMRyH3ay7BWXp3t0pKfiVNcDqtKLagZxEY=;
+ b=YXZzzcaGnhtIi34BNwH8b4MFQs10knS//l3sjcM/+BYeDSBMotxvN+Qy6k8UgVbcuE
+ cwzx4DX/6Fz6ZdE5FlR9twIjUpzIwzrDulW4CK4IXbxr2KqLnp/QwqoBKKcedmOu1xAU
+ NIlotjiwP1SVC9S51an5KNMLxvazzZjO2ax8v6OoLhpqCRGA0iBtdg3hKXjX/3L19Og7
+ shsK6Fm0VnhVpiu7a29Q+D0Ed2Ri/64DW8sb0i/+4qdixb/D/S3wIeAopQASodW/i24c
+ TzqpPTSn+bgnhq6sbZRas405ZSkglJRF1WOpVPPMZPrXS4UaeAS325mYZmFvazBZYyo4
+ OQqw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790961339; x=1791566139;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=zbsnwXTq0OoV45hgow4KHvYsJLjC6m32dKDmrYd1IQA=;
- b=hh+jIOJRrZhi+kmefMmuT4MOEt/vc2+ttwhIlDWFMHCsAJqzAx8pnhITNZ01ehFQ27
- vYA6qmDYC1nube18RiKC1oE0pJYkOnC5bMEq0JxM/JN6+8fiezu6shl+QLn3QjNDq+hK
- 2qLIK6/Izi6FHEU1IHmGWnaeh/IsO+ArmXHCVCViwiMBFul4aq+moVF6q+/PIvpzPAOS
- ZO9IDAQO684YNi45TSOHTbjjT3bV1QCbWkK5IKEijQ4337vcN6SStwANrq33FEwYN95H
- OuTT08oNuFNuLjdkjo8i5p30135/Asnh2/p74p0ZALZB+PjEh+gGuCjkQxJTmyaE5rtM
- ePeQ==
+ d=gmail.com; s=20251104; t=1790961339; x=1791566139; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+ b=PgoBQtbD28YpghSbTdXVEq8jwTHLy6FldqKfUkCYAQ0wrexHlHus7lpnoG4v5ZxW2k
+ lRQDZrSW1Kf+kDWaXq6VCsBJTNYuwWRVtE79kttvzEKG1+bZemgfnQk+44my9frEMrE1
+ vGxYy0P8kACrm0wcNfqCirSjTG6gC++phcBuGfXhobF3wg2my5s2TZ4bIv4w6sa2UF+a
+ z8c6uOFApbjW52tTnbMzT2PfgxwukzLtZX6lczAl5qsI+WlZTirMcipubd/WtVBe+4iG
+ kJUt2XPc2WE/jxAgBfWMoo3s6W24f0Ts6FGG+fRo8uwp++vY5HvHGW7iER0YPohKPi2j
+ ds+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20260707; t=1790961339; x=1791566139;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zbsnwXTq0OoV45hgow4KHvYsJLjC6m32dKDmrYd1IQA=;
- b=rmEA4LIAAGWBySgRbSxmaawIZqGdGYSLq5XhUSVii0+fRFXva+iHFWQb26OESuIkMn
- 3kcKDgpt9k4Ck9XEylYUotE7MSkg1t2k0iz7If06vO30Q1qln2ZQfDiX60Nn/gOATBGN
- QygK8H4UT8j9EzfE2czG0inLjoWVufXx58rcG3vZQGnww+9v+FFZVqCOMftZh+qdtibp
- wlKEpVfWoz7YTy29YkG0fDg1+E86evzcyfFa2DYQulioWlpbUrm4mXIh2mCZhzZ7MmNJ
- wBiZ3DbOwJ28/Y8nBrPbkeq9k+zSPLbIeUBRCOvXY0iLhK+9vt+2PAubCyN5B6WrrpHh
- uemw==
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EN1cEQoe0e3LCZQ89Wmj7iyw49pEd9peoNHzrA2Y4aU=;
+ b=zy3aYcsA60aUlOpwy36yJfbu54VRalFWezmwTCU+x4ceLX5Jo1krqyeVxgljN4vqGh
+ auFXH3lCeTTkxM2evodEJ0tZVchTkW5umx+Hd9qusFIRBanC1VLxnhLZJV45Gh8lG+SA
+ 9KWQ4vVX7XZRX6Y4keDP9ABuSLRz75rge/S57ezyfE/CGqnIHCB3LiIlqyW8cxJoJICE
+ Jv3y1pxZVfJAzXQw8zmZzmPXhtM5TI/lq0KGFUjuI/L4ghce6P5dK1u834vEVx6Q751I
+ VNKiSOdZ/wZ3xcjVtdlFSXoiXwshgNxrLuzQ4bSVA2t41c5oGW0sG6zzm9ciE4pGNWMi
+ T0VQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByTsmGWdLk8bm3L/BYqIBByIz2+S9rxIbIeJLp0I7TL+umrFNzr8TVPnbrHffEHYGjzo0VxUhvVWnM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJzykIci/0XOohG68dikGuy2MqW5rhgw7iIkgc1Nw+Q3K3OZLpM
- e4zvinR9LmT90i6BojRBvqzdbsHHJS2Wraw5jf/ksEBLaqwLYmfrV9CcgzLdFuNXDF+KBnfwq97
- D85IaNWyX+pfgTdDE9RdeqedkQj6PULVL+9eBOKlsk41t2GThyzVE1gaRL5Jdm8SrKms4vsk=
-X-Gm-Gg: AYBFou3Gn4LtIwgqrn4+ZT3AeE+dB182puLhoLskkNyqK4zQPkq5/v2khApK80FNduD
- ZTyHBvtzVJwM6DDSy4g155LxgJi+3RWlOzc71hy0Z/gq4fMqI6aed+epU7BCu3S0znxokUssTKY
- OMms2ouFQSoFLp6In2j8AbEi7EiXM50ou/492+WDmAvA3qrSdZsxXYMTDyguFJxd7a0tcGDMdEk
- hFMw4quD9UiLKbPCaH82pYqPyjnTKUIxSDeyJROvQeSJGfwomC+OQuPc3cTYEX0iAZb/tw1oMjI
- RJNzUyUn2RK69/vqLaLm/Yj7esn6nyVfy+A0n+d+Ujl2FtnJSMxwx4DCVOVTAsDyBhlsqu0mJGX
- xAptb7nzW9yvQNCKM+4et+pbK0OL8U2nqf7T7i33R+dTSES8JQw==
-X-Received: by 2002:a17:90a:d2cf:b0:3a4:e635:a8b8 with SMTP id
- 98e67ed59e1d1-3a6cecf86aemr3187606a91.60.1790961338758; 
- Fri, 02 Oct 2026 10:15:38 -0700 (PDT)
-X-Received: by 2002:a17:90a:d2cf:b0:3a4:e635:a8b8 with SMTP id
- 98e67ed59e1d1-3a6cecf86aemr3187588a91.60.1790961338379; 
- Fri, 02 Oct 2026 10:15:38 -0700 (PDT)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3a6dd1c308csm1772910a91.2.2026.10.02.10.15.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Oct 2026 10:15:38 -0700 (PDT)
-Message-ID: <656b3e9e-4668-4369-8bde-d17bda52bd2f@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 11:15:36 -0600
+ AKwUvBzHlLwbyqlKowhE8x0/wZY5ykZplqTLLnS9r893Dn6OR4jTlix9qUiNf5UjerTPSOXqSkXwWOWtLOg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIJP+tIwWHThV/1ARrT1/6s3D+y9KeDbOuXZJNQ/PvHVHnaua3h
+ W5+UnuZZzIerMPjELxdsSW/Uq3u3BbAQcjSfY1nu6wLjQbaIXSdgY5xc2aE8cFdBBuRiGRGEjjl
+ PAQQLonD1UwflLkySM0SGUCdIDgh/1YQ=
+X-Gm-Gg: AYBFou0i67MVjDXAF0dvmbjXUyCTv7om2MZoiZ9UdLjHi5UxX3GNj4alIwXm4SwS6O+
+ CFPPRlXWqUxF0u5ntM8jXUmZxnE0JcGg5VpQrpg94NZLRXcqT8rQLp/OvfU7Bs8MPUWkNrHubpr
+ THcniFHaNoxCJvbxxELRixw2rRB3Mkkuky9vxwbCUPw4xn0sCIvhQrsofq61qtumZ55qOP5jmMK
+ cUofE2Z7ozsyk4EthA2EYaaI7oo2/XzD6gMrRDVSDjzvorRyHqxXdI3aQo6K2TAMmEZbZleG8bp
+ yQ/B/iM0JiDLW/5Os5Zl6GYexFrPmrzQD953IN1WLiJY6jQTIIV3b8l901aIiFSITW4aoMkVcK4
+ flDrYIajw5Ab2XxdXaFe64eOpWfqwRjn2V5MMJAAI+8a92V7bn2BeDGBO8ebJB7MNjh53GJbIAN
+ lvNxFTjx1uHac6X9ucVis2MQX+7azt1NSXC/0bOyX/8wxMhYiXZ5A=
+X-Received: by 2002:a05:693c:8951:20b0:34c:15b5:b4e7 with SMTP id
+ 5a478bee46e88-34f1503d60cmr5903420eec.2.1790961339293; Fri, 02 Oct 2026
+ 10:15:39 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: tolerate absent crashdump state during cleanup
-To: Slavin Liu <bolin.liu@seu.edu.cn>, ogabbay@kernel.org
-Cc: carl.vanderlip@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260913125201.109964-1-bolin.liu@seu.edu.cn>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260913125201.109964-1-bolin.liu@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2OCBTYWx0ZWRfX4HM28Ahutx9K
- 3aN8q52QH4v+yEAGk2ujP3wHMTd3Yib5Ryq3s0QlNE7vi5XfZBpXnRdBFH7QWZGhNeuLK2Qyrjp
- Fw2hYgdu/XgKATsNm63zsr4pApGbYqw=
-X-Authority-Analysis: v=2.4 cv=Ko/YSmWN c=1 sm=1 tr=0 ts=6abfe6bb cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=GiR1NQjo400kaVoCfNoA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: LiytTVODIbCTfxgTk4wi5uCdB71rNexg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2OCBTYWx0ZWRfX97FpLmWeO/NH
- 75QNrV7GotkEmkVnbCMaFd6a/MbeYk3YdxUsvw9IbpXBOIUyKFta+rvK1H/RbNd3BGfsmglmsZt
- uSMdh+CFtGzipCahrwBtbqmb7/sULQSHi2+7JIbf6gZsMuewWuZ/wHtokniR73+axvSPbwYPTZW
- FtHLemBSNcjQdOPJBfyqoJ9U/ZQLOISqD6dYDAC5WUVb/B6zR/3iOU/mMqkXxoiKwvvob2kXnd+
- pXX7Ok0BoDHCFU18rH+F99/8WKS7k3RutWoTnuJ0jMp9UvImcODnymUAgS1pKnSDZI+fmfaqO7Z
- T4ur47Zo7GsNY4JBliaRJDMbwon8fYyhZBpIQcocZHarOrbpPdcbaoP/yWqWRUv0UIsMF9KwId1
- EBFsgyqT8uccwTabe9v3loCNRmlipE+EvTQWDtTBpVf1jQ/2TvXXtW6tN0U0IX2ST7ebjySxwrT
- qdij+lvnUA37+R4s2dQ==
-X-Proofpoint-GUID: LiytTVODIbCTfxgTk4wi5uCdB71rNexg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020068
+References: <20260902-cv-v3-0-0f90659e711d@nvidia.com>
+ <20260902-cv-v3-1-0f90659e711d@nvidia.com>
+ <DLFPWSS3LZSN.12G96EM0FI18C@nvidia.com>
+ <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
+In-Reply-To: <DLHFKT44IHW9.2QWQB0O0LJHJJ@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 19:15:27 +0200
+X-Gm-Features: AclHuK8WU7MmTRz2zVr217nxxpeT8qmaOpCUrJpN90HnuhJSuc8jn6MdcGDQfTo
+Message-ID: <CANiq72mrp7qw5jikznfRoWMjcWk3Vwm3dzPdWcC1AZ8jGzdibw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] rust: num: add cv! macro to create values from
+ constant expressions
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, 
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,41 +127,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/13/2026 6:52 AM, Slavin Liu wrote:
-> A negative response can be sent before crashdump state is assigned.
-> If queuing that response fails, cleanup receives NULL. Treat that as
-> no owned crashdump resources instead of dereferencing it.
+On Thu, Sep 17, 2026 at 9:59=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
+>
+> Will send the next version based on drm-rust-next, but Miguel please let
+> us know if it's ok to take through drm-rust-next. Thanks!
 
-Please describe the exact sequence of functions which triggers this 
-scenario.  I don't see it.
+Ok, given the recent discussions, let's move this forward... I have
+replied in v4 with the Acked-by, although with some feedback.
 
-The change clearly protects against the ssr_crash parameter being NULL, 
-but that doesn't occur in relation to queuing responses.
-
-> Detected by static analysis and reviewed with AI-assisted source auditing.
-> 
-> Fixes: 6bc1fe6c748c ("accel/qaic: Collect crashdump from SSR channel")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
-> ---
->   drivers/accel/qaic/qaic_ssr.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/qaic/qaic_ssr.c b/drivers/accel/qaic/qaic_ssr.c
-> index a98928654959..d9ba1d333cdb 100644
-> --- a/drivers/accel/qaic/qaic_ssr.c
-> +++ b/drivers/accel/qaic/qaic_ssr.c
-> @@ -194,7 +194,11 @@ struct dump_file_meta {
->   
->   static void free_ssr_dump_info(struct ssr_crashdump *ssr_crash)
->   {
-> -	struct ssr_dump_info *dump_info = ssr_crash->dump_info;
-> +	struct ssr_dump_info *dump_info;
-> +
-> +	if (!ssr_crash)
-> +		return;
-> +	dump_info = ssr_crash->dump_info;
->   
->   	ssr_crash->dump_info = NULL;
->   	if (!dump_info)
-
+Cheers,
+Miguel
