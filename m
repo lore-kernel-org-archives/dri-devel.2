@@ -4,150 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F090CA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 05:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AE9ACA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 05:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3E6210E23D;
-	Fri,  2 Oct 2026 05:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBBEF10E0A9;
+	Fri,  2 Oct 2026 05:58:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zb12rzMU";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DFTp48kS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5466E10E171;
- Fri,  2 Oct 2026 05:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790919219; x=1822455219;
- h=from:to:cc:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=JDbSo6jQM7jOB4H3aO7jKmtb3cQDFRnwUtZ/3hwK+io=;
- b=Zb12rzMUy7EjI07xEVOMAgPjFiDyHaSQyUCKu03nL3BuhxXkuZ1Py7SC
- Tc8UiW8lMnPRqOz6lP9PrBhgEap3N4BMA2m7YuFjOZIyw+DpQMxCVUEJn
- oC3uWJIinRvVi2oW3fVxx3omI185QEbgtbcN0YVmC+dPyMOkIhQgH9o0F
- CGzSO0KokhxJsrgDQQak+bgs/VvZB7BRpHWluETiOC8/heSL2wGkoqphm
- dgEe5gHk1xHqvwx4wZXacjuQybRSFzD9fZoggYq0I8QQ53if6bWKqyb1Z
- KAOWOcuy+pwIaR+kD2ngfQxZcKEHrXDEo/Vtlu3OhIuXMq/U/joMrGiMs g==;
-X-CSE-ConnectionGUID: MhmUhQqiTmuFl/dlHe5kIA==
-X-CSE-MsgGUID: X5DgkwnXQhSaKXJhfRYPTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90639308"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90639308"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 22:33:38 -0700
-X-CSE-ConnectionGUID: JOPF+o1AQWe26o6GGVGS8w==
-X-CSE-MsgGUID: Ik/5NK9FQbuLZGODUKx5sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="305675405"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 22:33:37 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 22:33:37 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 22:33:37 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.70) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 1 Oct 2026 22:33:37 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBE810E0A9
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 05:58:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LovMcdikip6QlRrEGWk7y4hKK5uWtHtySJUrZ2AWlA6Rjv09Ne0GJNSobCaylf2ZTDBkk0HEPJdM6UAL8Ach84YBdKz7AQXpiVg6h0kCXipaMtDnm74wDNV9WHMg7WbJ0JRXKSh/c36zc+pBjOnJNgPxjOa81E//EtqzzJyccN1CKgLhg93PZSSxCXkbL9UdHygTpz4pbjdbxytYaRiGQGYFlRZt6xds4M4+xniDJlR7oDdbIG2JxaAgnS6oj5ScWpyVEpG/MrV4x6e8DwZz0IsvaRaq6MUKKqw556yFarR+215KAwMgKmYNZRtQN39pN+nlgUbT84TOtYN7YbrCFw==
+ b=kOwyzIo5PHbfKj1lHpwn4oK7jEsMXqXHHIx0cGGg8W7HsbjFthh/9rt7UGUwWGHezfc11ns5bH2jRfYRkUEtXPvWm0MD2/PWYL+9BDKgCsPFslIxKrLu8J7MLS+aCcR9G7ZsHIknzdm4wRTF6IJWSfTdxKRlr60uT+AQHshIWr04uc+tZDY2Tolm/ahv2G9L5HQQEKGQrW18p+S899pjQR54msseYh0TLe76Qsj+kZwYkxKwR24GasJR0+kQ1P58vuU5rYZvyldq63sIN5QHzW42rGvKu5xzmqgfAn2M+8iiDRRHiLF1hHHKy2jR0QL1CQfyy7d4/RQafXfd2MsfdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ub5Ho8XgCYfQ5j0k6VaCLQnCicxp2BP/SjfSOvu1h94=;
- b=XuYh+Yro4Ik4sLQH2FETchWlNS0HfDIrT5fG5Z21h4b4F2/U4bgKgmgjyu5k4REPRKGKhmRZy1piNEHItps2IUI6OHc0iK/5tAGDzJsrmg7VvMkJl3novw01+uuPTWFl9Ap6DSffiC9ABw52tZEpPbuibcc7GciD9exzPNix2BqKPDHcPkGyUHYTqw6sYZHEA9R8CysMjHOEolGWosYqm11XNMTStRk4le7dwUjLXw7cF1On25YYMGP48HVrhpOAqASBGl/foOru1TR0B2Dg4U2Ys9KlxSn8PGj0LC+x8+uBsdysKBK5IWHt3X6NgLg+OvRs8oHqA1DN30oY3HpX4Q==
+ bh=BB5KBxAamQ6zR9xW5Hp/pKjPyPIs1imxHtISJ9ALM7U=;
+ b=c++PjLDaMnOwz3UTkmJ0UHM3ocV+z4rGDNm6s3JRwiUjXq6fF0bw9zN686xUFB7/8OaQ3jxnEYBELjWmOG94K5z6ARJtBw0SM7ZMfjYrRFhQhYbRyLBUCsdemgMGH7wwxjh9ilquEMYT6ljnFhl3n1Wuf5KVoc0MkDEPMyd0H5dV+iroA1dknfsDJji6uhw5Q3AqNThaL55bn5k7pRpOTRmAkWvTOplI7XOXx4DuI4uN6RSHpzqQfIsknvL038i3khfO9/svTI/92M9Q2gdueaVvtv6B2FdpoUfQtAekyIU6spE2casUu5hTUToBHri6BfI2mw9ignZP+7XUnv3ghQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BB5KBxAamQ6zR9xW5Hp/pKjPyPIs1imxHtISJ9ALM7U=;
+ b=DFTp48kS7hfHJij31KVCmT8CbKMVqj93977e8x1qSw7ARwYR/fwq0pvr+YZqnAvQKQSp8rIn5EWIOff8v6h0ADNlCRm0kC8S8uW7UnmXo25890KlLjauVYstva6pJDP1vFr6UTZ+pmJtImjoJ1PXDCXQqDMpCtenJ9vwKcY4N8gCXJqw8WiUmIqT799Notgljyfn6PEXbVOlov58OavL9p0zHconAH7M8luyGIVJ2T6fkoeAllBqSjqQzSg6seCCGRCYIIiUPx3S3gFDWUihDN5GMn9+aPbtZ6nzjUKZ4HKeWDFr8fy/CfAnGy7bLo4ETEL27zN96/4/cUUm8YXYZw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by DM4PR11MB5325.namprd11.prod.outlook.com (2603:10b6:5:390::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 05:33:35 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
- 05:33:34 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <iommu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-CC: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, "Will
- Deacon" <will@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>, "Janusz
- Krzysztofik" <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] iommu/dma: Catch scatterlist length overflows
-Date: Fri, 2 Oct 2026 05:33:20 +0000
-Message-ID: <20261002053320.3145901-1-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL0P290CA0010.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::14) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS7PR12MB5887.namprd12.prod.outlook.com (2603:10b6:8:7a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.22; Fri, 2 Oct 2026 05:58:16 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 05:58:16 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Date: Fri, 02 Oct 2026 14:58:07 +0900
+Message-ID: <eQa8TjBRRm61cRN6L1lZ3Q@nvidia.com>
+In-Reply-To: <CAPVz0n2mwC1r+Wsm8j13J-zoZyzjEH2sepsYKVbf847Gqnapgw@mail.gmail.com>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
+ <CAPVz0n2mwC1r+Wsm8j13J-zoZyzjEH2sepsYKVbf847Gqnapgw@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0060.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b5::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM4PR11MB5325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 405b074e-4a86-4e01-90a0-08df2046b3d0
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PR12MB5887:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dbb346d-dffb-4e3d-d156-08df204a2706
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: pNwXgeAdlEDtUpytcwLNfvBR8crB+sbj5F6up7nbLxse9QkGTz+lgF82sjohnvbJFGjn1aRGp+iHOMtHpDutChv9zgtSOPmcOxX+0waTf1uf2qQLIBEHnyJ9Jj8KvuT/FgfOknHQ2Q367vwO6etu9uWcgaYcMg0Nc0l+36zSiBTfArIgQrJc8Qo+pc3Pu1hvrovX+Ey5r0hIUW7abBpa/KNDiC2jGdXz8J5R9lWDhmQZZZmQ8ZqBrhi5k0oni1yVISjoKAh78XaYGuCtoFzbZecqrveh4hx7nfNEAKBtLYjXpUbZoQVneBW+a2TWHDzYxctIFbQOBHs1aiVJvTHJU6/eiQDdlf4U8IxeX7Ataz4dSMW4MQNpz4FFeWOH9juBnH0fXJnfGhlJ7XctHAZC3U0EZ/ZGZCXuzQS2FPaxN5OnldjSKazAMOItiIZ227jlFawZpkXRU7NfNiacs+zxkgUDX8Lu6lm0rX1nif8XRc5VNpAz5BxMcuv7kHn3Pg9DjfsF8vTE1Uj0a9MZM8gTijj0063y/dgMJHaxar0IVm7A5f0JeGv30dG5O0PKhxd8jm4MwkvnWo9J95a/NiOTRzkRVPT1Tu6nlvYW2HERr+x7jHxP50ksPL9fze7ZJRThA581jSdOAQJXvsbjJPVMdkqDPOlm4optlzaKg0/YtoM=
+ ARA:13230040|376014|1800799024|23010399003|366016|7416014|10070799003|3023799007|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qQOpCB7bW4Yku5d/2VnIiA1WrebvOC+uKvr8tGHIXjnkAFHfnafyd3X92ak9lnztH+eIakZPfeFGzj7P/IfKF0hWZq/3Lb2A3PnDqH33ryxBXAqwUMbNPLhjvugETXR6PC7ww33/NJ11erNpLVTis9SCpI79frVjrWVzKszbX/o8QPgHGBlGz2P++DnxOjdMCIsVW4efnqCbZup8FhHE990ntQFTcKy/33KR5e6vpcbHYHjNr72npJ3qIVnK1WND1A82piEXYQtyYGTN3VbrPAIiq9jnbIwpaxA3DMDt9/o4aaNAIZadtaaT4CP9Y4GGK6r9keIz+dul+dab/K+GFi94ujwjJG8t0akqExBCuiw1q8ZIxgMaTl2XsFM1DQvxcylhJFItZqbnRQjhshcP0DFk7dqs/zun0KueTI8n5iERycPvP2PaIsPsJSnsF8xTDezRJBIKIxrWM6tetq/oSSrbwBhiu+YtB1Cgbu7tXvcsXT3b0m0+QwR6U2v2Ym6Ug2c0FJLIk/3ZiDLUHaGgtnrHTqKjc8UwmmU0AmKF2UYEIbGmkMdvCTJD9ZLajLwpuOh2VtcHTZxks/7pitcgz0XT2ru4IROTBTz+Hqec5uKV2ExwnC5dRnaMzOl3y/hHsdnww0TK/rYI+19cHO4ek6GSYfveWkSoXZ+0eGA2aYk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(7416014)(10070799003)(3023799007)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yQn0uh1yuyr4Vwhm0lZnDR0VI5wHtvis6ATjsyZns5miCixKxBfk+IjM6l4t?=
- =?us-ascii?Q?rnPHGPoIkAY90YAz7dD1F4GT8cGUTBxJ21w9jbW0SZKN1oKPnrNdN1Lj9niw?=
- =?us-ascii?Q?6ZA15WDkkGMNV0PjaRfSb36r+aqkaL4Is/AXXAo1ENW6PaGCpV5qeEekjvRk?=
- =?us-ascii?Q?l/2ExRmlg2H/QXwMLeiZzrQbrOo6jtblgF29+it53ci0oyF8u1VTEOX0AJNV?=
- =?us-ascii?Q?Z4I9M8aj4UycbrQ/nmT3JT6QgkkpWulnMppI1C3y1CCMVGdnAzYyg6txqs2j?=
- =?us-ascii?Q?jLLamH/vpn2zTekV2pNbsXeJERPm3MpbKE9pszKDofkbspTTK8FrZM4WQuf3?=
- =?us-ascii?Q?6psw1dAyIHFMuRMbOLwO2PwKrHGnuAYo9kMq47fnVu7q9f+QpY44mAA1koQa?=
- =?us-ascii?Q?aZJGff0rhc6bEw7c86/MXVkezPRDclwcUkGEJTBTOvUbtXoB3/kQ2Ebcqx8p?=
- =?us-ascii?Q?itLGBlF9vXqWZjbPA2jk2HlU+9NhMn1yoEvbXc/IZDWzQbV3sXuQsYtH5WQR?=
- =?us-ascii?Q?V6B2b+NUKUiMN1u5g3wCzESHqWd2bU2uNLgOdPNU0EzMS0BlzrZi0w3iBxzS?=
- =?us-ascii?Q?JO0m62/tejFufOrWKePmm1i7zou4DA+MPUaKmoPjjTNFvk29QrHsXdtbYic2?=
- =?us-ascii?Q?jFMBrlBbJqundfb8juP0tqwIY2Fo22eD+JkT/gWeKEWyH0Z/nHpuxE+YSYiM?=
- =?us-ascii?Q?md3X+MvzrgV8xtx1Jf25dNTFoQKFVOdNggnjW4x2vY0whzl5jlm/LD0NJO4d?=
- =?us-ascii?Q?Hj0+5GPy0PCTYUWloJfMHz2txsxDe24pb9a2L5YkA8f7JKUGVPve3e9PjuOW?=
- =?us-ascii?Q?DoxzE93YKG4OuIkM9Xs79D3YoUHUPP0qAXipPwAfYetTYisUKAX5BCzHJ4qQ?=
- =?us-ascii?Q?78e+TO3KdNLUvznVqw+3bc6OIzfr9XLiMEgygpVUlXHfcC8cPMVWne1Lk12L?=
- =?us-ascii?Q?rFKhNfU87z88JgMocKiruoO31U5F1mifXfstwsB2UOVF7arLwFRTeZQU+pTl?=
- =?us-ascii?Q?UdKeyCTgH/WHzYvql9xbtesf3IlQw1CAugkRgm5VTAQoUDxUOPmqFQAW/Oc5?=
- =?us-ascii?Q?hPMHsiqaUVTOlcCdOG+qChGSm0vL6qPCrFP4182Wcb+IpwdjyaXvkTHC+Vir?=
- =?us-ascii?Q?71P3WzQtbYlDBt7BDZUYj+QTR9ujEOjqMNroCfM7CQGuwobytCItsWQgvd5W?=
- =?us-ascii?Q?MaDaCGajh5J9bL1uW5lh3fe+yug2hTL6PyBkcZ8HnbvDwLoiLrY0YAPPwFZQ?=
- =?us-ascii?Q?xVip3CBieRcznOX3rQa8mtksItbtczmTArQN1KYs9AFTkf1voas72C507UuH?=
- =?us-ascii?Q?Z211ZoShPmHmOQaKZwx3F3sM8lK0tduHvxhfa43amiw3qxgTKFkmC0Yo5Y7G?=
- =?us-ascii?Q?oDKA2OvobQlbDQt/yBHCeKne0NgyAg8D3SpUgJRiTNzZJAp0nQUurbUeUFSx?=
- =?us-ascii?Q?zO5KLmgj9s0N1856xzXz6hmaSQAxzTMC/VYZsViLPCYtpVpK+MGHheDpHB3B?=
- =?us-ascii?Q?JzFV8mILV6QTslW7a42dqwBEJXhMIxRVRpM0rTWf5ZdHJRD64wy2JJG5+oF2?=
- =?us-ascii?Q?dK9E2p7s3xcXl1utLkR61pFQCAXC7MqR5QN0qHKMowIL5gGBjkxuOtM9O2sB?=
- =?us-ascii?Q?LEqdLcetAwFCsBU99Q1MF548eXVz/9RKUwnHTWzQCLpjgatgfA8WCKQX5DhN?=
- =?us-ascii?Q?+Bwc/KQaklz6otvLddVyoAKZQ+OwLE89JK4w0vU7LBsgtLJH7fvuixF2ObYH?=
- =?us-ascii?Q?OY29HUHYy+zo/O7+Ym2Kk3GnFxx+XCA=3D?=
-X-Exchange-RoutingPolicyChecked: ez4KCc8J7lettFUdTf86lM1YSLrVFIlHaSIC55+UYyxTcNBpAet+9SWOsI/NMZV3HdP+rcwoDOjXheiZXRmcHRGVtRse4VhnlmpvjHuRdgMX40XaMiTuSnzug84wVEdTmXzsxeFCs4ubI0zRk+MJSDo7Fzv+xGVM/F/G8aXCfMUMkF2K9drSdG7IYJG52XVF7D7WZ28sVRUE6b9did9whd0DOR1OtFBHY0aCjGZ1oyQ5VVZ/Ia4YZgt0rQEPA6VotrJM4bIaCsUjxuCmXibwwRykQJzQNZlMhff6kLuPDFxsAG6V/+5c6RVVCYtM/3kiEaf0bLOUGxnBayB6FsJlmw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 405b074e-4a86-4e01-90a0-08df2046b3d0
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnZ6VXJoNkpWSGN5bHNuSFJtRFc0eTJacGJEUTVBRlh3RndGbGl2d3YwU0E4?=
+ =?utf-8?B?Z09SU0lkQ09sSTk0eUk4c2tTMmxUOU5ER1M2YzFzV2RrY1huSkM5aUc1QTdY?=
+ =?utf-8?B?MlRqcVloODRJRk1xUVYyRkRtdmFzY1dRUXNXSjBkWkJ5OTQ4OXFVcTFXRCtC?=
+ =?utf-8?B?UVgwd1A1aC8vY0cyL3dXeGFuQ2Q0ZDdnSnFIaVZjWEdrS1BLdTIzcEZWVFVU?=
+ =?utf-8?B?VVh4UUpXNzEwblFIa1RxODB6K1pCV2c3S3dycDZxNWl0ZVYyaml1M1RpU2RH?=
+ =?utf-8?B?NktSSU9SWTROVUlZNHB0WU05MzV2UDFhdHZIanFEMWRDR1NnN2FpcVNiUUJn?=
+ =?utf-8?B?WUg1a1NJdlM4VHlwQXZYbWN1Q2JYUVliMkdMNFFUdGlRc3R3c1lBN2pqUktI?=
+ =?utf-8?B?am5kMUxSeHk1VVBEVWFTbEplWWI0c1I2T2g4dDBVenBwbDlvbGRTSXZacVd6?=
+ =?utf-8?B?OGNBc3luTTBBREU2R0RaL0FsdFFqbG5jbW5RbFpUcVIyWUl4TWo3TGVLOXdu?=
+ =?utf-8?B?QS9sT2JjZEtUQ21BUVdCVWFuRENlWFhxQWZLQlVtQmFhaldlM0ZESXRySjl4?=
+ =?utf-8?B?ZllrZDVrWE0wLy85THg1dWViZDN4RHNKdGhjNUp2SG5VTHpvT0Z4YWJtQmdG?=
+ =?utf-8?B?RE1IdmY5Sk1QWGN5TFltbzBEMERSSmJFdVd5T012SkJueDNLRmYreU9yelNs?=
+ =?utf-8?B?NmlHQlFxR3lZY0dwU0g5SmdvZGE2NTB2cnZTWndYeld5OGxoSUFwM3lCOU1z?=
+ =?utf-8?B?dmZrWDJpc1lhalYxZWNXZXg4eGJTY05KdnVxVCs4YXJiWExkNHFSQlVJSGdL?=
+ =?utf-8?B?Vjh4Q0ozR0xUb2V2ZE16aWdiOThsSTdEUFlGWkpBcGJodnpLc1JMV2lQZXFw?=
+ =?utf-8?B?M01hTkRreXZsaTNsc1kyem9tSlhKOEVGb2kvQjd0cm5Ea2F3WkZaakNObEk4?=
+ =?utf-8?B?cDFIcFZzQ3hXd2kyLzk0RGpQdjJLNERLWm1rTTd2NU1rZk05aUJhWFpoUlk0?=
+ =?utf-8?B?WVkrZ0RUdENnZm9aOWNtUXRUZGFWa1FGZVVuMFRFMGx0NWY0SHBVeEE5VHN5?=
+ =?utf-8?B?VjlkeGxCL01nUlRzVit2bjkxUWpqWXdvV0N6VVhYM0Z6bkJ1QXNmaWlIMXd0?=
+ =?utf-8?B?eHpzWlBwcGRZQzArK3ZhTjdSK1crRG9uUFZmcFBmWGZOVENETFJiNVhPVXhP?=
+ =?utf-8?B?WkNicXo2T1hXbUQwS2R0VEE1Slkwb0xOSU9ROTllTUV2bUtqZ000aXdJaFNk?=
+ =?utf-8?B?UDNiUXJUQ2FMazE5S0FIS1RCcTB0QjVnL20wWnFYUVloQ2N2dWI3UkpJOXdl?=
+ =?utf-8?B?cm41TkNBaEljby9FMFdHdU96eHptbHlTdTlLeGl5T1lLR0hNaGJuNmhOZHl5?=
+ =?utf-8?B?b29xN0NSZEhGZmJ4SnIzVUxnRHhZUS9kTG1nOTh1WkVEY0NuV3BwM1RtMEta?=
+ =?utf-8?B?Wm05N01qQmhsS1lqNHdWVmlUdVhGSXhHbE9XZXJmcE5RbTM2SU40Z0g4V0ZX?=
+ =?utf-8?B?RlBkOVRPTS9rYWdFeVZTYWFZQ3lmWndETCszSTJnSXFHdkUvZGJ4YWpGbXRl?=
+ =?utf-8?B?WHI3akV0a3hlWU13M1BCc2VpUUZEMmxySnZlaWtLVnJ2OUEzczVjV2RBQ0VQ?=
+ =?utf-8?B?R25YeFNZV0RuRE1nblJrckN3aDBWWEF5bC9WVTMzM2kzSzdnSmx1TlhuY0Nz?=
+ =?utf-8?B?Q1lHUEpQSzNaUjBubU94N013VkdHYXRBem8wK0lFQ3dGR3FqRHpnQ2lOL0hw?=
+ =?utf-8?B?c2lFTENxRmZGVllvOTJSSjlhbWhza2hlQ25WK0FBakZIOVdWRXpHMVFjeHpy?=
+ =?utf-8?B?MVJTT3ZTeDZ5YVNMSVVweFN5U2JkQ09MN25pMVRtSEdiaTZCbVltVmFWUTlT?=
+ =?utf-8?B?SGY2UkYyK1pTdERnb09jY1o0QVQ3dHZmY0tINnRDajFTT21TcUJ1TGJFdGVB?=
+ =?utf-8?B?dEVqaU5NaTRjckloZXJrK1VtaGpQRy9IcU9kR3RlUXNnckZ3RHUvZXJMT09n?=
+ =?utf-8?B?NjM1Y1dBSGMvRHhlUkVRR2FKQU9RTEpmcm5JcTZaTzFBMVEraEplNUc2N0FO?=
+ =?utf-8?B?bUdzRnlRZ0p5Z3VycFR0cmRKSXlKWVhkenROMG93eE1pV2tDQms0ckdYYm1Q?=
+ =?utf-8?B?dDhtWVVuR2lTa1dCa3l6K3ovWUlQZGxTYnI3MFRlSlBYTXhlMWViR2lsZ3Qv?=
+ =?utf-8?B?OWUwcUxnMGlYUkl3dDRsNnhtNEdxa3hGRlBNTUFMczlueVgyVzdrZlZnOFN3?=
+ =?utf-8?B?VHNHRGRlYTBlSnpNSWpoYk1OMXg4R29sTUM2bEhyU0cvUHZWNlNjOHhWVnli?=
+ =?utf-8?B?ZFgvMG5NYVlSa3hCb3VPYzlmWjQvRkp0d3NRNXpWRzkxazRYOVpSRGZuMFVy?=
+ =?utf-8?Q?8WfsnahVlmSwcrDyo5XUjfXPQqxpIapsQ8g2NNqcbPa13?=
+X-MS-Exchange-AntiSpam-MessageData-1: tU2usQjfUqZ0Hg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dbb346d-dffb-4e3d-d156-08df204a2706
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 05:33:34.8291 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 05:58:16.7105 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4MjqhDRCVMzcAnYWonaBYYMpGgQCy0/1SPlFeO+JLVLpOz96+08BJGEWwr9BlNyYj1gSz3P1+iQdrWPwj7JhVoSFhRPzdoSq+kntKsVX+do=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5325
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: X5fMeviREp/FT3RAQravlNN1EjoGasVH6xIHZgcjwxsnIkqGP6SEkdDI1xNgq0jsAUif25sBSf+Xx+fcVdAxXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5887
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,74 +147,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It is possible, when a very large mapping uses only one
-scatterlist, that padding overflows scatterlist's length field.
-This results in:
- 1) silently wrapping the value
- 2) smaller than desired mappings produced by iommu_map_sg
- 3) leaving mapped bytes in memory (no iommu_unmap)
+On Thursday, October 1, 2026 3:03=E2=80=AFAM Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:19 Mi=
+kko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel wrote=
+:
+> > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> > > Tegra20/30 SoCs display controller.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++=
+++
+> > >  1 file changed, 138 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/display/tegra/n=
+vidia,tegra-8bit-cpu.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,t=
+egra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
+,tegra-8bit-cpu.yaml
+> > > new file mode 100644
+> > > index 0000000000000..f0dab608b2936
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8b=
+it-cpu.yaml
+> > > @@ -0,0 +1,138 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-c=
+pu.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > +
+> > > +maintainers:
+> > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > +
+> > > +description: The display controller in Tegra20/30 SoCs features an
+> > > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
+> > > +  protocol and is referred to as '8-bit CPU'. Each display controlle=
+r
+> > > +  provides two such interfaces, which can be used to send MIPI DCS
+> > > +  commands to initialize and control the panel while image data is
+> > > +  transmitted via 16/18/24-line RGB.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: nvidia,tegra-8bit-cpu
+> > > +
+> > > +  dc-gpios:
+> > > +    description: Data/command selection pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  rw-gpios:
+> > > +    description: Read/write pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  cs-gpios:
+> > > +    description: Chip select pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  data-gpios:
+> > > +    description: Specifies a set of 8 gpio pins used to transfer dat=
+a.
+> > > +    minItems: 8
+> > > +    maxItems: 8
+> >
+> > Based on my admittedly brief research, according to the TRM the display
+> > controller can drive all of these pins - of which there are two fixed
+> > sets as you mention - directly. So we'd need to describe which interfac=
+e
+> > the display is connected to in DT, but not any GPIOs (which they really
+> > aren't).
+> >
+>=20
+> Thierry, Mikko.
+>=20
+> I am not sure how to approach GPIOs defined outside of Device Tree.
+> All GPIO interactions are done either by ofnode/fwnode or software
+> nodes. Global gpio declaration is in process of being removed and
+> legacy GPIO API seem to be not long-therm sustainable. How to resolve
+> this? Should I keep above layout with GPIOs defined in the tree?
 
-Address this issue by adding overflow detection for scatterlist
-length field.
+I looked a bit closer and I now think the initialization sequences=20
+cannot be done entirely through the display controller - so this is=20
+correct, we do need the GPIO stuff.
 
-Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
----
-This patch was previously part of "drivers: Improve memory
-management for large object allocations when i915/shmem is used
-with iommu" series, but was extracted and posted separately on
-request of one of the reviewers (Andi Shyti). There have been no
-functional changes since last version.
+>=20
+> > > +
+> > > +  nvidia,init-sequence:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > +    description: Device specific set of values used in DC DISP_SPI_I=
+NIT_SEQ
+> > > +      registers.
+> > > +    minItems: 4
+> > > +    maxItems: 4
+> >
+> > And AIUI this is panel-specific DBI commands the display controller wil=
+l
+> > transmit. So ideally the display driver should receive this data from
+> > the panel driver.
+> >
+> > Thank you
+> > Mikko
+> >
+> > > +
+> > > +  panel:
+> > > +    type: object
+> > > +    description: Node of supported panel driven by the bridge.
+> > > +
+> > > +  ports:
+> > > +    $ref: /schemas/graph.yaml#/properties/ports
+> > > +
+> > > +    properties:
+> > > +      port@0:
+> > > +        $ref: /schemas/graph.yaml#/$defs/port-base
+> > > +        unevaluatedProperties: false
+> > > +        description: Video port for RGB input.
+> > > +
+> > > +        properties:
+> > > +          endpoint:
+> > > +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+> > > +            unevaluatedProperties: false
+> > > +
+> > > +            properties:
+> > > +              bus-width:
+> > > +                enum: [ 16, 18, 24 ]
+> > > +
+> > > +      port@1:
+> > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > +        description: Video port for DBI output (panel or connector).
+> > > +
+> > > +    required:
+> > > +      - port@0
+> > > +      - port@1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - ports
+> > > +
+> > > +unevaluatedProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    #include <dt-bindings/gpio/gpio.h>
+> > > +
+> > > +    dbi-bridge {
+> > > +        compatible =3D "nvidia,tegra-8bit-cpu";
+> > > +
+> > > +        dc-gpios =3D <&gpio 110 GPIO_ACTIVE_HIGH>;
+> > > +        rw-gpios =3D <&gpio 11 GPIO_ACTIVE_HIGH>;
+> > > +        cs-gpios =3D <&gpio 108 GPIO_ACTIVE_HIGH>;
+> > > +
+> > > +        data-gpios =3D <&gpio 32 GPIO_ACTIVE_HIGH>, <&gpio 33 GPIO_A=
+CTIVE_HIGH>,
+> > > +                     <&gpio 34 GPIO_ACTIVE_HIGH>, <&gpio 35 GPIO_ACT=
+IVE_HIGH>,
+> > > +                     <&gpio 36 GPIO_ACTIVE_HIGH>, <&gpio 37 GPIO_ACT=
+IVE_HIGH>,
+> > > +                     <&gpio 38 GPIO_ACTIVE_HIGH>, <&gpio 39 GPIO_ACT=
+IVE_HIGH>;
+> > > +
+> > > +        nvidia,init-sequence =3D <0x0000002c 0x0 0x0 0x00005000>;
+> > > +
+> > > +        panel {
+> > > +            compatible =3D "hit,tx10d07vm0baa";
+> > > +
+> > > +            reset-gpios =3D <&gpio 175 GPIO_ACTIVE_LOW>;
+> > > +
+> > > +            avci-supply =3D <&vcc_2v8_lcd>;
+> > > +            iovcc-supply =3D <&iovcc_1v8_lcd>;
+> > > +
+> > > +            backlight =3D <&backlight>;
+> > > +
+> > > +            port {
+> > > +                panel_input: endpoint {
+> > > +                    remote-endpoint =3D <&bridge_output>;
+> > > +                };
+> > > +            };
+> > > +        };
+> > > +
+> > > +        ports {
+> > > +            #address-cells =3D <1>;
+> > > +            #size-cells =3D <0>;
+> > > +
+> > > +            port@0 {
+> > > +                reg =3D <0>;
+> > > +
+> > > +                bridge_input: endpoint {
+> > > +                    remote-endpoint =3D <&dpi_output>;
+> > > +                };
+> > > +            };
+> > > +
+> > > +            port@1 {
+> > > +                reg =3D <1>;
+> > > +
+> > > +                bridge_output: endpoint {
+> > > +                    remote-endpoint =3D <&panel_input>;
+> > > +                };
+> > > +            };
+> > > +        };
+> > > +    };
+> > > --
+> > > 2.53.0
+> > >
+> > >
+> >
+> >
+> >
+> >
 
-this version:
- * Added separating blank lines (Andi);
- * Added IOMMU maintainers suggested by get_maintainer.pl
-   script to CC (Andi);
 
- drivers/iommu/dma-iommu.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 58c624513cd43..06edb4056dc1b 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1477,6 +1477,11 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
- 		sg_dma_len(s) = s_length;
- 		s->offset -= s_iova_off;
- 		s_length = iova_align(iovad, s_length + s_iova_off);
-+		if (overflows_type(s_length, s->length)) {
-+			ret = -EOVERFLOW;
-+
-+			goto out_restore_sg;
-+		}
- 		s->length = s_length;
- 
- 		/*
-@@ -1493,7 +1498,20 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
- 		 *   time through here (i.e. before it has a meaningful value).
- 		 */
- 		if (pad_len && pad_len < s_length - 1) {
--			prev->length += pad_len;
-+			unsigned int new_prev_len;
-+
-+			/*
-+			 * For large mappings spanning multiple GBs we
-+			 * may not be able to fit all needed padding into
-+			 * sg->length.
-+			 */
-+			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-+				ret = -EOVERFLOW;
-+
-+				goto out_restore_sg;
-+			}
-+
-+			prev->length = new_prev_len;
- 			iova_len += pad_len;
- 		}
- 
--- 
-2.34.1
 
