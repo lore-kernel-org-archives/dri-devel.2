@@ -4,90 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805F5CA5FE0
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 10:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD731CA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 11:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC87A10E572;
-	Fri,  2 Oct 2026 10:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123D210E3C7;
+	Fri,  2 Oct 2026 11:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UsaPElRP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rq724k8A";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8FA10E572
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 10:44:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B16DD60A87;
- Fri,  2 Oct 2026 10:44:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755A91F00898;
- Fri,  2 Oct 2026 10:44:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790937851;
- bh=h7N9N0HQ+Zh/gY8vIC7G35LJ75G5/SbSrtWyyePbhUk=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject;
- b=UsaPElRPg/30Lnrhk4Ik3ymnfcyrOgc99vuVvDOLJXtYT3ZFZmtKEcJ5ntZTr4fi4
- ti4hkjw6BzSsQPBOVVVtH/ZGri4F8DMUUctmAJQVgGL1fpiqOL6Urwc4OKEliZ4eOZ
- 7ISxv9n0Dd853wwyosUF9xU26eDcbSG13N7RYqY9e3xw15h6NElqJWm89NGKSPHPZF
- rToWFBqc7zwXWAMWh3ajKxaMAszweHynuyTf5jKRYNEzsp+l3Yicd1H4TF4FapPzVg
- 0FO/fclE+/V7/m8hDXTxwA2WMimJKb3jco/s88KvWdXjUHSFrfm2r/XZSRaqno6VTc
- ioun6aWDg4WEA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
- by mailfauth.ams.internal (Postfix) with ESMTP id E29DA198003A;
- Fri,  2 Oct 2026 06:44:07 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
- by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 06:44:07 -0400
-X-ME-Sender: <xms:84q_akNtFc_m8IqPCfS01lwOwwnlb6iwWNsSeaP5LZ8Jjrp2-u3vaQ>
- <xme:84q_alyLnBtn5FwbzjNapuvaHdpW6B-9vMFARV_dsiXL0fQeSzgwbddu0dCiSkc9Q
- 8a2BM8XfbeYmeTnHApNqSlnH258O4q4an5JOkGoh9Bf2h4vXoUmWHXOXQ>
-X-ME-Proxy-Cause: dmFkZTF7v0Xj1DEnpcO6BUVol6zWmZrAP6o7CWAwbHkhXdIDi5sSS7yp1xr9ZZPwIBhJBB
- GkXBQz9VF+JXcH7vt+0sFjJAGbofjSSmv/RNp/LtXy9wWYXx2hZ+b1RMskCVZPHKUMdb/m
- ZOatOHoCpXj0a+5ph5ldA1jKzb1ltDN2+7xxma8A6JrRxHKh638T16bFurO/dM3C7Lti8D
- l/JWE5GelKR6yNokvgG58ndMj85oi1Q3eGlSCRPSxw3CuPN09v6V+xYj8U2BkOzdi/fyBS
- Xeh6AuR5w7wBeoV114P0zZ9HmLX+orpjQGx0T/RZyJ/U+SYak5JNnunLMEXnRZNElXI3XV
- OmfKF7I5/l5lJnHfEL1ffIWJ6vZSfAFCrcfhH2R4hURERo3ZLyFgUBJy6AkKWfx5oahjhO
- kjKgD+tn6FMYK89N3OwEmM57+lmjU8qMO3A9WB7oNAkRwqmBeA0AGLLdfJqFVcdIYOYwDV
- eOzEY0V5ipQDOL6KuHdtjC2oOw5qfkEDmH14PvAQ1UL/G99OsCNlKojPtxe2MiYvhCEFXd
- ogosyg4Dsto/Hmajt8Kjzp/RXiqy1ufa5tQqCnEpscgFXTTte47mdqfwnxJ+2KgJLVZsNF
- M9zx7lZhfKryMkBBxV+1yQBZIpjjYmZmVW2IPzuUKeoMh4/QNIgBPgM2vR4A
-X-ME-Proxy: <xmx:94q_ak_C4KXvsHtNobGGfNaogyMfAk7tajGtMizHpGLeRGI7KN3JPQ>
- <xmx:94q_aqL784SESyq09pYFL_dX5zdWPonTeW-K4xVghEmHPEnLG2wN2Q>
- <xmx:94q_ap9rnmPKD8H6SvD-Ar5lpL9lk22OtJkTznBkS8wPTWnTfhtGWA>
- <xmx:94q_amFF_UHjAHVfwQESOn13ThpYvSt5tGXuLALn_hdrm_xAzwHLAw>
- <xmx:94q_apMIXONDJhbdtCTvo8nI1N2KYDTGljkHYRXIG5A1aaccZY-RK2sY>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
- id 99395F80090; Fri,  2 Oct 2026 06:44:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B437E10E34E;
+ Fri,  2 Oct 2026 11:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790939214; x=1822475214;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=iVs/6MWO+8q0fKTudkDlTIGtM1VvF7ZOENUVyUx0evs=;
+ b=Rq724k8AaYXkD0Z4+arBJ/gPlo/GYjgNcyCt06G5w1GlSfIh7UsNqNOj
+ aYq0PUoHb34a10HCzLPaJTvDgZewi3iKpIZQeMKNlY1iOHXkOE3MuTSJT
+ essOnLjN56VOyeQN1LSfWgBS4HAJ/648szFHWeV0BLBwxSljuncqJoHEH
+ Dp3stbhVVxy5zi3HpD1uv4Uu8eKSDwjmI+2F/yGl3n3F/89J14AFu0cSD
+ DFfRikLm9APtEgRSVYbxspyYM+cFInrByo6D+IsCGS5eSfAdaQ31YBH4S
+ xFnpAbECXRhr3UUqyUNjZ7hlOFpkwKNodmj7BjKeIFP5WVTZNojnCCm0A Q==;
+X-CSE-ConnectionGUID: FnSFY8DvRSeFnp+eQkjQiA==
+X-CSE-MsgGUID: 4KDnwxybTVmxORB1MjJosQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90840786"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90840786"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 04:06:53 -0700
+X-CSE-ConnectionGUID: QgNatFWjTVWtaEFzHzuunQ==
+X-CSE-MsgGUID: 7jABSax3Tsy0UNm4lm3j2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="scan'208";a="252607"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.243])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 04:06:44 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 2 Oct 2026 14:06:40 +0300 (EEST)
+To: Armin Wolf <W_Armin@gmx.de>
+cc: Alex Deucher <alexdeucher@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux@weissschuh.net" <linux@weissschuh.net>, 
+ "rafael@kernel.org" <rafael@kernel.org>, 
+ "lenb@kernel.org" <lenb@kernel.org>, 
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>, 
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
+ "mripard@kernel.org" <mripard@kernel.org>, 
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, 
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>, 
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, 
+ "tursulin@ursulin.net" <tursulin@ursulin.net>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "matthew.brost@intel.com" <matthew.brost@intel.com>, 
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+In-Reply-To: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
+Message-ID: <1ff7a529-15bb-e166-5bf1-3dad34119bcd@linux.intel.com>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+ <11976ed3784675ad241646287a909286a42675a8@intel.com>
+ <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
+ <62d7da838e7042df8456e76190db792093065b57@intel.com>
+ <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
+ <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com>
+ <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
+ <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 12:43:43 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- "Jani Nikula" <jani.nikula@linux.intel.com>
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Francesco Valla" <francesco@valla.it>,
- "Mario Limonciello" <mario.limonciello@amd.com>,
- "Javier Martinez Canillas" <javierm@redhat.com>,
- "Jocelyn Falempe" <jfalempe@redhat.com>, "Sam Ravnborg" <sam@ravnborg.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <9cf259a5-6083-433c-8544-ca3f6286334e@app.fastmail.com>
-In-Reply-To: <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
- <20261001195847.141192-3-maximpedraza@gmail.com>
- <5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com>
- <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
-Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image
- size
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; BOUNDARY="8323328-2070456929-1790935925=:1156"
+Content-ID: <75628c1c-0bd3-f8c4-b5a1-0f09ab6ce72d@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,46 +106,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Fri, 2 Oct 2026, at 12:31, M=C3=A0xim Pedraza Padilla wrote:
-> Hi Jani,
->
-> On Fri, 02 Oct 2026, Jani Nikula wrote:
->> Data is not an interface.
->>
->> If these will be used more, perhaps it would be better to wrap access=
- to
->> them in functions? I think most of the time it will help with
->> maintenance.
->>
->> And you can add stubs for CONFIG_ACPI_BGRT=3Dn where they belong,
->> i.e. include/linux/efi-bgrt.h instead of drm_splash.c like in patch 11
->> of this series.
->
-> Agreed, and the same goes for your comment on patch 3. For v5 I would
-> replace the export with accessors in efi-bgrt.c, stubbed in
-> efi-bgrt.h for CONFIG_ACPI_BGRT=3Dn:
->
->       bool efi_bgrt_has_image(void);
->       phys_addr_t efi_bgrt_image_address(void);
->       size_t efi_bgrt_image_size(void);
->       u8 efi_bgrt_status(void);
->       u32 efi_bgrt_image_offset_x(void);
->       u32 efi_bgrt_image_offset_y(void);
->
-> The splash client then drops its own wrappers and stubs, and the
-> "static inline" in drm_splash.c go as well.
->
-> drivers/acpi/bgrt.c is the only other user of bgrt_tab and
-> bgrt_image_size. I can move it to the accessors too, so that both
-> variables become static, if that is wanted; otherwise they stay
-> global for it and are no longer exported.
->
-> Ard, this changes the patch you acked, so I will not carry your
-> Acked-by unless the above works for you. Both variables become
-> __ro_after_init either way, as you asked.
->
+--8323328-2070456929-1790935925=:1156
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <09d346bc-de98-fbe2-c9e5-d57da5cc6f1a@linux.intel.com>
 
-This sounds good to me - please cc me again on the result and
-I'll take another look.
+On Tue, 22 Sep 2026, Armin Wolf wrote:
 
+> Am 18.09.26 um 15:03 schrieb Alex Deucher:
+>=20
+> > On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
+intel.com>
+> > wrote:
+> > > On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
+> > > > Hi,
+> > > >=20
+> > > > On 16-Sep-26 09:16, Jani Nikula wrote:
+> > > > > On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
+> > > > > > Am 15.09.26 um 14:31 schrieb Jani Nikula:
+> > > > > >=20
+> > > > > > > On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.=
+intel.com>
+> > > > > > > wrote:
+> > > > > > > > GPU people heads up!!
+> > > > > > > >=20
+> > > > > > > > On Wed, 2 Sep 2026, Armin Wolf wrote:
+> > > > > > > >=20
+> > > > > > > > > Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+> > > > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > > > > > > > > > > index 12e4a41bf1f0..50305630f533 100644
+> > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> > > > > > > > > > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
+> > > > > > > > > > >          # ACPI_VIDEO's dependencies must also be
+> > > > > > > > > > > selected.
+> > > > > > > > > > >          select INPUT if ACPI
+> > > > > > > > > > >          select ACPI_VIDEO if ACPI
+> > > > > > > > > > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+> > > > > > > > > > > -     select X86_PLATFORM_DEVICES if ACPI && X86
+> > > > > > > > > > The change below makes sense, but this one looks like i=
+t
+> > > > > > > > > > should remain
+> > > > > > > > > > unless X86_PLATFORM_DEVICES is handled some other way?
+> > > > > > > > > >=20
+> > > > > > > > > > Alex
+> > > > > > > > > AFAIK the dependency on X86_PLATFORM_DEVICES was only
+> > > > > > > > > necessary because
+> > > > > > > > > ACPI-WMI depended on it in the past.
+> > > > > > > > > By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES o=
+r X86
+> > > > > > > > > anymore.
+> > > > > > > > Hi all,
+> > > > > > > >=20
+> > > > > > > > Could more GPU people besides Alex take a look on this. I'd=
+ want
+> > > > > > > > to make
+> > > > > > > > progress with this series within this cycle but would prefe=
+r to
+> > > > > > > > have Acks
+> > > > > > > > from GPU side.
+> > > > > > > I share the same concern with Alex. It seems to me we could n=
+ow
+> > > > > > > end up
+> > > > > > > with x86 configurations without X86_PLATFORM_DEVICES, which h=
+andle
+> > > > > > > e.g. backlight on a lot of platforms.
+> > > > > > >=20
+> > > > > > > I think the safer option might be to go for:
+> > > > > > >=20
+> > > > > > >     depends on X86_PLATFORM_DEVICES || !X86
+> > > > > > >=20
+> > > > > > > in all of the cases that select/depend on X86_PLATFORM_DEVICE=
+S in
+> > > > > > > drm.
+> > > > > > >=20
+> > > > > > > The alternative is to find out, and handle the fallout, if an=
+y.
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > BR,
+> > > > > > > Jani.
+> > > > > > Alright, should i leave the original "select X86_PLATFORM_DEVIC=
+ES if
+> > > > > > ..." statements
+> > > > > > as-is or should is change them to "depends on X86_PLATFORM_DEVI=
+CES
+> > > > > > || !X86" everywhere?
+> > > > > There are some places that depends on X86_PLATFORM_DEVICES. I thi=
+nk
+> > > > > it's
+> > > > > almost always a mistake to have some places select and some place=
+s
+> > > > > depends on, and select should anyway be used with care. I'd go fo=
+r
+> > > > > depends on.
+> > > > I'm a bit late to the party here, sorry.
+> > > >=20
+> > > > Note that X86_PLATFORM_DEVICES is an option which enables / disable=
+s
+> > > > a menu and does nothing more.
+> > > >=20
+> > > > Enabling it or depending on it by itself does nothing.
+> > > >=20
+> > > > The select used to be there since it must be selected to be able
+> > > > to select ACPI_WMI (which is no longer the case after this series).
+> > > >=20
+> > > > To depends on in XE was probably copy pasted from the existing
+> > > > select-s and then changed to a depends and already was a completely
+> > > > no-op since depending on ACPI_WMI was enough as that itself
+> > > > dependend on ACPI_WMI.
+> > > >=20
+> > > > As for X86_PLATFORM_DEVICES being needed for some backlight
+> > > > interfaces, depending on it by itself does not result in those
+> > > > interfaces being there. That requires enabling the actual drivers
+> > > > providing those interfaces.
+> > > >=20
+> > > > And I don't think that the GPU drivers should start depending
+> > > > on those since that will become very unyielding.
+> > > >=20
+> > > > TL;DR: I believe Armin's original patch is fine and this is
+> > > > a welcome cleanup / simplification of the DRM drivers Kconfig
+> > > > bits.
+> > > Your explanation makes sense, thanks.
+> > Yeah, sounds good.  Thanks!
+> >=20
+> > Alex
+>=20
+> Nice, i suppose we can apply this series as-is then?
+
+Hi all,
+
+I don't see anyone opposing this anymore and the discussion has died down=
+=20
+so I took this into the review-ilpo-next branch.
+
+If somebody still feels there's something wrong with this, please let me=20
+know soonish.
+
+--=20
+ i.
+--8323328-2070456929-1790935925=:1156--
