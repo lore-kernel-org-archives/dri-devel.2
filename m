@@ -4,80 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0720CA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 07:29:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C217CA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 07:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E72D910EC76;
-	Fri,  2 Oct 2026 07:29:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B18F910EF62;
+	Fri,  2 Oct 2026 07:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="W5hbAON0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ApXqPPY/";
 	dkim-atps=neutral
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
  [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2649310EC76
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 07:29:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDD710EF62
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 07:30:14 +0000 (UTC)
 Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-4a0977b9c20so4266335e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 00:29:03 -0700 (PDT)
+ 5b1f17b1804b1-49e7bcb94d3so55538675e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 00:30:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790926141; x=1791530941; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1790926213; x=1791531013; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6zplr7QU6lV0JIsmwOjHD1EDA7HxZc99c9t5ZOt0FqI=;
- b=W5hbAON0WLnXcOtEPMIac2vLgmjxrf06yjQMdmdCGMr44Tf7VnL3YjR/rpT7mvyFdZ
- VUpuk2y+8Bg8Bk60UpWb+RYW6S9n/92uCsEL1RDbV37BVlJIAJ8ahYO/hXzu6cIXG93A
- G+akIxNUeR6SZj3K/7C7Alhv+tNQKWhsnUa1W8lBe179IIDRrusPopG8sqYT0m3ipF19
- 8ixRf0/VwVwDQnTFt7br66HbAViq7gbU6m24Xx58ba7ubR53y7jUZ18zRWI0xmvY8MUu
- g1gaue7FqRr7ITQKjiFbFiyDRcL79pgQA32GkvuQD5LxF0LfA7I+QMsdTTB1RcZON6xX
- ajTw==
+ bh=pk49vmsIM+yCxOu67mrioHkagQNao6fvAH0GFEMFZCU=;
+ b=ApXqPPY/qlfK4hpaDS4nUe3n9I8zzg45ndyWfdhTjzL1cIIZ7Qm0bTorcI/++zhsQz
+ W0upsv7hUCpZD60TUuZvUgjDW57IamA7prjeCiVWh6pPsBkZx9yM1u94z1wez6d023En
+ xf5kcbH3LHBmXhVfwxY1oXjzRxxFimP0axE5HxPdMUlxFv8sqGRJeOSB0+ndIcZlt0QR
+ PEjw5FTTYf/Z505NKNfCQUSCyJB6IT4CVhTXdCcSZrjI/GXif/id+vrRbKzWcjyFTEq9
+ H7vDA+Tk0IhPpbur3cl5kWPAJHUSFuYDwrRt+B/Jg8wuCaDMZpiiKEhfIGmZLM3Cirup
+ 3Y5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790926141; x=1791530941;
+ d=1e100.net; s=20260707; t=1790926213; x=1791531013;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=6zplr7QU6lV0JIsmwOjHD1EDA7HxZc99c9t5ZOt0FqI=;
- b=pvfPVeR3b/Wu25iYtSDTuOXUy5K6KSgeIczjKyWxFvsvN9bUMDKqV68lZEIwUly/5l
- XG+HikASyY2PGLb26seR7XMXgXnX2wrmxr1811HfMuYUY2Oh/uubZC06eyc/DXMCOUG9
- 7f4PhuJCQh90460ERMZkdNGCscQ5nAA9ZYsVHomt7iHqVwsNJyc9AP/s5z/aLFp03be9
- eboXRrkO3Px8JIvOkX/3+zaIcLeyNUm7lDrXGptWNjMvalIgbOX08URoprrH/Apxs5SB
- QAq6bWu2Us5S3h+x1LQcQwtmnaPJSvEz9MGPg5wXpT5fIl3sIZk4cbGzuSlBaHpjUuS4
- berQ==
+ bh=pk49vmsIM+yCxOu67mrioHkagQNao6fvAH0GFEMFZCU=;
+ b=HiHVL8sKgaM35WQpAGDtp5Maon6Iz7b35WLO3Fb9mLPJl0ki562oyq9l1rS+CtRI3y
+ 7I9tLJl9z9l6L39ia9weNmXGkuB1TzTmiDwsCkcdXIv77TKa+sIWdJFxwRkfsaURuZYx
+ AJ9ois2Yc31SvNxpCmMVTViOHpc4TIJxCf6c5B6L8TqoAmEvAkwvTDsht/fsGAtMU9/f
+ 7lnVaY1gv7PxkkvhWv7mKXSij11kn6Sf34f08Qv+4Z0XzXl1bpYG7yDfn1vFEuN/rAap
+ 6CRi3bw428cJ976Ql8cBq8/iK7lSnaFeKY49CA5NWO+T4zsXXD0seSE0IKIXEjQXfR7C
+ ZzhA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw8uQiVBMquzpR6YMjE1rTTY/Tq0D8sRDbgvobIqt0LC5Oo3yxM5TGrEGV0O9vfggN5STphH+EqIU8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mGVG9u/CsikM4PXPQTkzGTOBstml8aOjDDVpFBx8+btKHrYPU3
- 0LtKf/B2sRqmz2l5qpTKUQe5S4vGSj5NsrX4dqmj2+OzA+srP8u1g0ilOr8uQi1QaeE=
-X-Gm-Gg: AYBFou342LxpAoEtbfwgitvEVqgJ0McjvddcoeuWhjg6C27infraP4jE4ufz30JpqlB
- oGJNdhBvHsmm4OptgnsfwzIa6iY0mlrfXk6sFvWQdcOWqNb7lEdMJZvhZ7B11YT8BHWTi+PxzVR
- N0QN4q5fPXqGeZ4oNYeZjd3rYM01SQIRrgO97uBMSY+WvDKnH8QoFuNRzaS6n4l7vVvtY7T2Ofx
- xy78zZpIdYjNclsqLfbPRHCsZlZBXMwt2tVED3f3p5ITD8qlk9K0SP9TSFtFRM15CrWHgSEPGxL
- tD2u1+H1bwtkVbwlsMxCWU7icP/BSmGEN6fPig0Og5I4hsiCA7aWWqcjd15D11+JQ76hBwWTJ1Y
- zg9pibPPROrD/H8Bu3xw8qodoRJx4p4Yy4WMTqyzw1piZ4KiFwB/lGqdwONYKmZjJDoQOvJX8rN
- lTekqrT6rLuFpgTgTOIC/1v+BgcVspIEVcTSoKTHzLPqJIw7KvdHGa9cXhM/x11yUr43kT2tZUO
- Hn4fUF1fUyY9FUyx/EOLhZsOrr9tyiXdDEWh60qUJZkcvz3ze4aXgDZgvUTWg==
-X-Received: by 2002:a05:600c:1911:b0:499:b65e:49c9 with SMTP id
- 5b1f17b1804b1-4a02756643dmr30178595e9.10.1790926141218; 
- Fri, 02 Oct 2026 00:29:01 -0700 (PDT)
+ AKwUvBzy6w03P3Q5mYm8VxTfgwKr9ZTMQdZrU9Anu/VFXxU5kQRd/GkwTOdVT5RPrDC9aU2Bc3pMhLZ58Wo=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lOHgeLJ0C0zPKCEzZGjoHhYv8lHm9r1bGSAnLChMcxTJZx8vHN
+ MUcztPU9oAvobPxhZnCA54JKmodVhSFo00ds/LSYUsU7prStezO7upyeUWwMcC1fZy0=
+X-Gm-Gg: AYBFou16QTgklJEdjmwtyD3aFaZF/E3+DKZMt8k/z4W1cG8KCkraooVdjaSwQOzGcU5
+ WqyU5MU0RLTFGJsTFYUpk3Jwl1bWNdkscyMj4f4bBEE1TZIlzXMyZiXk8GRE2Nj5Fc0KuX0ehlI
+ hiG3S+pF0NKJei9q+JZx/cv+lh0PuC4+U5dq+M9NQcTq/cyFQCNZ1yByelZgCgaWwhwvwSBoI0N
+ 7E2sFOW2+mYa0QGBLhLUBCpsBvr4xTSKmn5aMmxKgVIVvuIKiN61hzyvG5hERu/IAbsSY+EX7oV
+ tV8Jd7GtE7XxgocGaX9maDt1vPydreyaP/R63I39T52fx+YJ5qY1eQs64qBVbFTNYu5r/x5pjpE
+ t+nl1fCv9VzBB3PsRDtapn0nkO8K6UVsO+m5gLmwxBez9tdUKWQVZw0QMqvTlDgsIPzbLZZCD2S
+ bB76WxojPGr9TZtWWfgpOSDCrosBdLk6uaCNz+UI18msjpnXOubuDljoaix68/RV9kbWYrvOgXj
+ 6YxcSJSkCqz60URHs44jNrRPWP1IeN4ZaFF99EDXAa5JFYSKedN
+X-Received: by 2002:a05:600c:1911:b0:49c:ffab:551f with SMTP id
+ 5b1f17b1804b1-4a0275657a1mr32220045e9.22.1790926211263; 
+ Fri, 02 Oct 2026 00:30:11 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e?
  ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a039505568sm42454685e9.3.2026.10.02.00.28.59
+ ffacd0b85a97d-48b38104e07sm3611058f8f.31.2026.10.02.00.30.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Oct 2026 00:29:00 -0700 (PDT)
-Message-ID: <ebe0714e-cb96-4091-a718-97dd9c081710@linaro.org>
-Date: Fri, 2 Oct 2026 09:28:59 +0200
+ Fri, 02 Oct 2026 00:30:10 -0700 (PDT)
+Message-ID: <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
+Date: Fri, 2 Oct 2026 09:30:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
 To: Maxime Ripard <mripard@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Benjamin Tissoires <bentiss@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
@@ -90,15 +91,15 @@ Cc: Rob Herring <robh@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
  <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
- <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org> <ar4G864IgYTvfNNy@houat>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
+ <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -125,7 +126,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <ar4G864IgYTvfNNy@houat>
+In-Reply-To: <ar4CRTMQGs5_nGKY@houat>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -144,54 +145,69 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/1/26 09:09, Maxime Ripard wrote:
-> On Wed, Sep 30, 2026 at 03:32:19PM +0200, Neil Armstrong wrote:
->> On 9/29/26 10:39, Maxime Ripard wrote:
->>> Hi,
+On 10/1/26 08:50, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 03:37:58PM +0200, Neil Armstrong wrote:
+>> On 9/29/26 09:55, Javier Martinez Canillas wrote:
+>>> Maxime Ripard <mripard@kernel.org> writes:
 >>>
+>>>> On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
+>>>>> On 9/28/26 21:48, Benjamin Tissoires wrote:
+>>>>>> On Sep 28 2026, Neil Armstrong wrote:
+>>>>>>> On 9/28/26 19:24, Benjamin Tissoires wrote:
+>>>>>>>> On Sep 28 2026, Neil Armstrong wrote:
+>>>>>>>>> Hi,
+>>>>>>>>>
+>>>>>>>>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>>>>>>>>> Hi,
+>>>>>>>>>>
+>>>>>>>>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>>>>>>>>> difficult to support and require pretty much a panel driver for each
+>>>>>>>>>> panel produced. Most of them are pretty simple, and require an opaque
+>>>>>>>>>> initialization sequence that is usually poorly documented.
+>>>>>>>>>>
+>>>>>>>>>> This creates a tension between OEMs and distros because OEMs will
+>>>>>>>>>> typically get a new panel to react to a sourcing issue during
+>>>>>>>>>> production, and thus need some swift turnaround between getting their
+>>>>>>>>>> new panel and it being operational in the OS. Distributions on the other
+>>>>>>>>>> hand can take years to ship a kernel with that new panel driver.
+>>>>>>>>>>
+>>>>>>>>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>>>>>>>>> driver that will rely on BPF programs to perform the panel
+>>>>>>>>>> initialization. That way, we can ship the programs separately from the
+>>>>>>>>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>>>>>>>>> plan is to have a userspace component started by udev to identify and
+>>>>>>>>>> load the right BPF program for the panels found on the device.
+>>>>>>>>>
+>>>>>>>>> This is kind of late for serious applications except if we manage to
+>>>>>>>>> solve the bootloader to Linux display engine transition.
+>>>>>>>>>
 >>>
->> <snip>
+>>> Besides what Maxime already mentioned (that most general purpose Linux distributions
+>>> built the drivers as modules anyways), it doesn't have to be mutually exclusive.
+>>>
+>>> A simple panel could be supported using this BPF-based driver and then a panel driver
+>>> added to the kernel, if is found that some applications need to have it built-in and
+>>> earlier in the boot path.
+>>>
+>>> I don't see why this would be any different than HDI-BPF or other BPF-based infra,
+>>> such as sched_ext.
 >>
->>>
->>> panel-mipi-dsi-spi is a generic panel that will load a firmware, and
->>> quite similar to this one. google,android-pipe and qcom,fastrpc don't
->>> attach to anything and will just open a tunnel to userspace, which is
->>> somewhat equivalent but more dramatic than what this driver is doing.
->>> simple-card or its variations will just instantiate a kernel driver from
->>> the DT and is used pretty much everywhere.
->>>
->>> I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
->>> by rob, and acked by a panel maintainer, and 4 years ago, so we're way
->>> past the "oh but we didn't know what we were doing back then" argument.
->>>
->>> So, let's phrase this differently: what's different about the
->>> description than panel-mipi-dsi-spi, or any other binding already in
->>> tree?
->>
->> The panel-mipi-dsi-spi still describes a class of H/W control interface,
->> not a pure software driver implementation type.
->>
->> "panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplus"
->> would be the same problem.
+>> I don't want to add a supplementary maintenance burden for the sake of using a cool
+>> technology which has serious drawbacks and dependencies on user-space even if looks
+>> really cool.
 > 
-> Rob explicitly said the bpf part wasn't the problem. Also, I don't care
-> for the compatible itself, so what would be an acceptable compatible for
-> you?
-> 
->>> If it's the BPF part, BPF is not Linux-only, and there's hardware with
->>> direct BPF support these days, so it can be considered OS-agnostic and
->>> not an implementation detail.
->>
->> If somehow panels used a standardized MIPI firmware we could define this
->> in DT, but here we're basically inventing our own type of firmware from
->> thin air.
-> 
-> That's not what panel-mipi-dsi-spi is.
+> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
+> you can have a built-in panel driver that works without user-space
+> intervention. So this is not a topic of discussion anymore.
 
-What you describe is how it's implemented in software
+It will still have users-space dependency, meaning the BPF files will need to
+exist in the fs when drivers probes.
 
 Neil
 
 > 
 > Maxime
+> 
+> 
+> will work
 
