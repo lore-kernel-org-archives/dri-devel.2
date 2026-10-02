@@ -4,99 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D1A1CA5FE0
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16845CA5FDD
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:14:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACE6510F9A1;
-	Fri,  2 Oct 2026 19:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0D710F9B2;
+	Fri,  2 Oct 2026 19:14:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VQNl8Fku";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OtiA6iRa";
 	dkim-atps=neutral
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com
- [74.125.227.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8592A10F9A1
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:10:38 +0000 (UTC)
-Received: by mail-vs2-f42.google.com with SMTP id
- 71dfb90a1353d-5c8319dd4a5so3214919e0c.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:10:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790968237; cv=none;
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com
+ [74.125.229.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B519210F9A5
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:14:45 +0000 (UTC)
+Received: by mail-dl2-f41.google.com with SMTP id
+ a92af1059eb24-14a08c1a158so363187c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:14:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790968485; cv=none;
  d=google.com; s=arc-20260327;
- b=g4PB7noICA9tJZgj/DA2CbJdLFuODEw58x8INrtvqHg/Z6UUiG0B/81wnzM0itGebS
- /idTBqZzfrImKB+hmkIqziN7TnltizUHaFytjVd8iyee8q7sysRNQW4iI8GZ4sUpJ4No
- urNkJA/6rrsC5ScbzQLk9JSb/puXS6UENcbLjtVATZhyloxea/NqoVmpGtx8g05oYlwu
- MwL+sU3ltGhKJJuGrxErrdyGipa1nxM4u8qVEClrQwajJnWhBFBEfd1Lf5JMMjibgjWZ
- g1o1IWrGZvakvRq6sxBcErtJCu3+X7SBqOxhAeV2swD3DZF/fr2kf6LNU3Qemq8rKERl
- GiaQ==
+ b=D79dQh0fTiBk1M8kIs0xM4CHBC3bjYfULap5sRGFsvPlKHV5W60ao91VwACfOMBViO
+ /39Le8OjWLzVMpCyqBgVkejLg5GKdEcRPK35OCE91LQw0qr61Z4Z5wacC1W9qlMaGiVK
+ i82UUz8c6nwz5sWyw4q5fXBp1KXmd2KKifofpHUTTu+mbIH8HLYyN/8ZEFICDsIl3uBD
+ GF+L5rkiEFDrcexRm92XwBMluPqei/RCTtpJG6lt4H1Nr6lq7hpT2w9sZM2h5eNNq9rs
+ kBQCC1LpBq0IP/jNIlmT4a0RNAgF0ghy7w3tzGYrl5sXAgxZl0dZxneFG2fiucyY8qmp
+ EWJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
- fh=pYHdDzPVUp8r1j9UDWLy4pWedde5LAIHtK/STjsKE3g=;
- b=BExYaj749LG6N1LJzvrHu44oOADU4xxPasmuRsV7EijhRxY7yxZIncKuojcb6v1t9D
- 8KZFkih5T8N3w7036lSkvg0uJ9L5gacmdfVN/fNp4A60+tIcKhx1s5AICjp/AxBFfaze
- pITIRm40K489i2AYpf8XWnNsb3fsSggYWpI+CvTlirajk52pWvbjcDOMTVqRY/mLmL0j
- 6o+gQiHQjZbXMqbfa7tc0vQ8J2D/D5HE7vJJOBy2EwlA/vKR4zuHU0KFvKTNIyuVTyyF
- 59OsMCxcR1d8Dh7h53y0jYO0wr2fBhCX+fnKh7dgNcR0ckXg79y4p84D10jZg3TVl1kT
- XXvg==; darn=lists.freedesktop.org
+ bh=voU7OB+CZXi4ZHgSiPxmOqD4lJvre4cV7SUx/WB01Kg=;
+ fh=sA6c1KCrdbt8wNVgPOTK/V3Ir6O9jdoITcOPyVwJsqs=;
+ b=A5psEmfPgzK4NFJe8QfY+IPCc3n/jh8QEdR17pyhAiR5i20h0A7+6SuUb/QZFQCNlZ
+ ngQ2tEIrg6hkXoXMQNcJwemP4893598N9eM2BG4n5rcQbEzkj0kFdE4MnrxViyT9cgBh
+ E2a6e2xD1W4xB65xKL76QNrDvkWsM01wUgIfdI/iVa3ctQglRIEww5955ZRdz8tKwbSy
+ csV2ychuUl3WOqeiZDrNMs5cHAyCHxP6g2nCNLSW1bgdBVO0U5WtYcyqbdXhn7JsEZ8f
+ KBv0/SVOErYyhXSIEwMAVNWvI1qONqPwVQLdo2AB5QmXVBAq2uPXiC8oy/AjCwmRLRJb
+ kUHw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790968237; x=1791573037; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1790968485; x=1791573285; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
- b=VQNl8FkuMKr8slWOAOhQtFiKqXlz0IT803RzsY6TxzjlGd/ufSDUm99lvHx+ryZygF
- mIH5UH7DxOVtiDOXR7jsI4mg/oq+/SyYLu/omM9MwVbrpwwvUnDKshZqxt3d1GDVvJ0i
- BRhwF/dsOB5ZMrmDFOzzmMurO7kXITnNEOAbe7m4/h3s4QDUTMm7cUWclyliEZdAd6Mx
- F8wCD+LRZq92qWi/UysJU5LC4RHHZdKAVSydb+ZhjEFCa91FRR5ghfKpAKvkSOloRwxD
- iRk0/4cdOjHC2evLrHCNJ42Nfph5o7pDmI0km31Z1t3SWrvuWRL8zdqibcgJNIsMg8Fi
- /WgQ==
+ bh=voU7OB+CZXi4ZHgSiPxmOqD4lJvre4cV7SUx/WB01Kg=;
+ b=OtiA6iRaiomODLYz6uSG/KFfrdbEMwJbOvX/Ml9R81lMjQWQ+sXaCrTubFs60PY//0
+ likTvYbTKkINo6Bg8x2wE4sBOZyCNOQUV3k85q8PHq6UkTolL+Yt08hlql08Cc2veCxf
+ DzXKZl9BwQhvE5YN7A0hYFXFoEcwOl6TfJ5Sfl2IwkuDMmJ2YVAHfAhXVGMV0lCZI+mo
+ AWlFRByKNLWh/qwyc8ecFVLHi71Occy6+qs5x2UhjOxgNyTaARtCFBs3YafXHGA5FUXK
+ ZrG5mT4xP2RC0zGqxDx2fXyQCbrZw7QvfPqaYXBSLKjMGuCM1ka+yHgNoJgZkQN8/lUz
+ VqUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790968237; x=1791573037;
+ d=1e100.net; s=20260707; t=1790968485; x=1791573285;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=1g3omsTMsYA6NLMPlVoAQ+bgFVlwbEDqlJ8MBK/lW3M=;
- b=0Gxv33j8Fi3qrPbH033o4Vi8sC6sMFvLX9QFYroGEp70OPqeR6TB7p4UUN3lOdHYHM
- 4bkp30V7wSYEFOGjaHFNJQAK2FpKvFLJG1mtxLjaaidWiy7vrZ0PANEYr7j/eZ+6hVNK
- LDsDMabScghfzPjAkrmyiIhvZ0LfhDqSLLrkPKnIJhnZognXOhRl8eXy79IoukjBRPD+
- 1OtmvHDgQ7OL1TDpyugzy28+acVYzMaNPW40c+K/y5Ovv9xnbQfgY1jZ3zupbiLLntep
- FLU8LsAZnuRk3MbIQRIW2Z5ud8fWD+w1Ns+dPVC39u5zyLc+xxe5bVZpbwMjUD91kmUB
- aiaQ==
+ bh=voU7OB+CZXi4ZHgSiPxmOqD4lJvre4cV7SUx/WB01Kg=;
+ b=pTmjxGXre6hTuflR3up0sC/ugNKjeYQ+kmso7TpCc79R6Z9F2nT1MtD1hpRkBhmcdx
+ 2GjObdEQPLtEeTBGkw1beiXY/L0y8XmZi04DXpX/m6XfjNWbxmcacZb/ujmg2Nii1UNf
+ If0o9pt9dAnPfq1tb0jUts6gTrwT2iI3jBGCi9eKS8ylG1TsZYt6GjLZ2KVPE03KtkYV
+ bksHlzIk1qvsQZ8aj0g6nOOqohLSEPK+XttUpT67YgpmaJFXHDHjSKVycMMbo3mfQyqW
+ JO1LI8bakJDfFixzNECMPEv4zCdfwBv9xp3X4S0gjudQLiGPQtU3ndw44NWc5akHnsXl
+ cHtA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwLGhMKtKzd1+qnPPDj+gtN2TpK/CTkC9ZAfjf7YKZ65itMAATDAYIQ0GhR2oFpx/+xHca2P3fr/40=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJFd4LpA772Vs6M9MYuq2aDIK0Gz86nUzhmvBOHQwJIUoB+o9jr
- U1sm3LtAQQ+BxM7IiUtbFW/dSEpw90Rd33qc+2+dEiMGdQBxA4uBW/WXSvz9UKDU83Ff8iuWS9Z
- DHQh4OhgP+8U1ewOLvuWPKiCKqPlI/tY=
-X-Gm-Gg: AYBFou1cMOzjZsQAs70HHw7kQ8dwBJyml7sSX/rI4WeyTZDNzVyEUDdv10kb0GFcAUB
- MWRJO+kNUYTCPiDXPw9QAnAJgzS039CpoEtkKQ7HP3c7OQHEkvG229TrKX2JR8vVbqazpiJMc1s
- FIzJmM+JjLzsMAts2V0bxs9lNZ5EqdtU+eCHOtA8MO/3i6GvHvvVz6M/T10cVsyQXohFa88/13C
- cEexOI/xCKSgxVhfps1gdmeZ+Qk5d+oGTW+vVXmI2fqybd4ToJrvuJC6t1+cFdG4cCgQe2lO5XJ
- KJfxhR76pKLgVqYAJnvQHorKOGGG65daCAkLHdvLtegHycv78Sz/U19uNJtVgisOcOzo/77qb4a
- HiInVMTw6HlBb7RI1FoQLlH0hdMEQBCeOGQ==
-X-Received: by 2002:a05:6102:e0a:b0:7b5:4700:3a58 with SMTP id
- ada2fe7eead31-7c0f54adbebmr792755137.31.1790968237259; Fri, 02 Oct 2026
- 12:10:37 -0700 (PDT)
+ AKwUvBwVbEKJo7MTCrvaCBJ8+D3YeUvyluDQP7GCBlReRSZGRfwB2eDM8xngDczXvIIugf+17ZDydzNc8lw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nP2qv7J3k+VTrAG0ddr6ngALtw0yNPUraW3wN6sMxaR3yM+2Nb
+ EwrHwh/cCOVN537fSr1PtvmnqIy+H3TX5NAr8oL1lVoj3wlnCT7UbD0tDVLKkSGTRKj/QBJXgh3
+ EVX8M4cg+pNNP7ghirQzpdj86QVC3OoU=
+X-Gm-Gg: AYBFou3M5e2z59ZSQjTyM5xsVo3FxwT92PwYChi4ElOyyI9H6UbPmpXdWXy1oY1Edhv
+ 8/71LnYd5Paflf3XGECuD357It6xRxqlfUJ4o2wwyPTGQHZXVIxRU4L6Kmrrk+Gza8o15DQMTMw
+ oaARH7pWko8GkWdyH564uvsDMf+xhdgHPiOLzESgeRRlNxHrYhwO8p+Bq5AQr6vaJtDi132smGo
+ 2S1cxAGElK2Xya5ZL4kPZkB0+Dq3W079cuU4II2k31LHu3KM0WN9LX5ybkdIn5DA+Op4DfOTCQF
+ ZZBDA+ufJ0iCRe6VPWHv+XAALUF2zWVrmkQ3e/9XLMQDYe8vaN+cvvg3UV5HxwTAY+G/gNLDJFU
+ 3y9lHauzURFSTCJ5eMQruqhcH1ySzkXJiBXSbjFrbsw==
+X-Received: by 2002:a05:7022:b04b:20b0:143:5c2a:e45f with SMTP id
+ a92af1059eb24-14f56063178mr6211422c88.0.1790968484825; Fri, 02 Oct 2026
+ 12:14:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260815-null-fixes-v1-2-0df9dda951fb@gmail.com>
- <20261002171818.281885-1-Capitain_Jack@yahoo.com>
-In-Reply-To: <20261002171818.281885-1-Capitain_Jack@yahoo.com>
-From: jim.cromie@gmail.com
-Date: Fri, 2 Oct 2026 13:10:10 -0600
-X-Gm-Features: AclHuK8zRY0hMOMSSnnxlFny3tvMylToD5uT6sSAGguetyweFEx6Xv_BTi4bCcs
-Message-ID: <CAJfuBxwGvKQrT_CVtvk7xX7pbf8WyE+LS=KAFyc9zSxD=v686Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/nouveau: Fix NULL pointer dereference in
- GET_ZCULL_INFO ioctl
-To: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Zhenhao Wan <whi4ed0g@gmail.com>
+References: <20261002022927.2023779-1-lihaojie@kylinos.cn>
+In-Reply-To: <20261002022927.2023779-1-lihaojie@kylinos.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 2 Oct 2026 15:14:33 -0400
+X-Gm-Features: AclHuK8PKQQPk1kESOt7OcPB_kJ58FIVMzXW3sN4fHbG7TXMREHm7ha7Ma1-Ouk
+Message-ID: <CADnq5_NQBVuejzH_NbejF9TMvGOawFiVX1hfgz0CETfAfjvqHg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: fix dma_buf reference leak in get_dmabuf_info
+To: Haojie Li <lihaojie@kylinos.cn>
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com, 
+ christian.koenig@amd.com, xiaogang.chen@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,83 +108,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-hi Daniel,
+Applied.  Thanks!
 
-thanks for testing this -
-I didnt want to screw with my firmware,
-but you're clearly prepared to do so.
-
-I just sent rev-3, with another null-ptr fix I need locally.
-Im pretty certain the patch you tested is unchanged,
-but if you could test rev3 that would be marvelous.
-
-fwiw - mine is a GA107
-
-01:00.0 VGA compatible controller: NVIDIA Corporation GA107M [GeForce
-RTX 3050 Ti Mobile] (rev a1) (prog-if 00 [VGA controller])
-Subsystem: ASUSTeK Computer Inc. Device 125c
-Physical Slot: 0
-Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
-Stepping- SERR- FastB2B- DisINTx+
-Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort-
-<TAbort- <MAbort- >SERR- <PERR- INTx-
-Latency: 0, Cache Line Size: 64 bytes
-Interrupts: pin B disabled, MSI(X) routed to IRQ 101
-IOMMU group: 10
-Region 0: Memory at fb000000 (32-bit, non-prefetchable) [size=3D16M]
-Region 1: Memory at fe00000000 (64-bit, prefetchable) [size=3D4G]
-Region 3: Memory at ff00000000 (64-bit, prefetchable) [size=3D32M]
-Region 5: I/O ports at f000 [size=3D128]
-Expansion ROM at fc000000 [disabled] [size=3D512K]
-Capabilities: <access denied>
-Kernel driver in use: nouveau
-Kernel modules: nouveau
-
-
-On Fri, Oct 2, 2026 at 11:18=E2=80=AFAM Daniel Campos Ramos
-<Capitain_Jack@yahoo.com> wrote:
+On Fri, Oct 2, 2026 at 8:52=E2=80=AFAM Haojie Li <lihaojie@kylinos.cn> wrot=
+e:
 >
-> Hi Jim, Lyude,
+> When kzalloc fails for metadata_buffer in
+> amdgpu_amdkfd_get_dmabuf_info(), the function returns -ENOMEM directly
+> without calling dma_buf_put(), leaking the dma_buf reference obtained
+> earlier via dma_buf_get().
 >
-> This one repeats here every time.
-> Setup: an RTX 3060 (GA106) passed through to a VM, kernel 7.3-rc1,
-> Mesa 26.1.6 (Debian testing), firmware-nvidia-gsp not installed.
-> nouveau probes with "gr: firmware unavailable", so nvxx_gr() is NULL.
-> As soon as KWin starts, Mesa's NVK asks for the zcull info and the
-> kernel oopses:
+> Fix both issues by:
+> - Adding an error check after the first amdgpu_bo_get_metadata() call
+> - Replacing the direct return with r =3D -ENOMEM and goto out_put to
+>   ensure dma_buf_put() is called on all error paths
 >
->   BUG: kernel NULL pointer dereference, address: 00000000000000f0
->   RIP: 0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
->   Comm: kwin_wayland
+> Fixes: f54ce9e8cbd3 ("drm/amdkfd: Let driver decide buffer size at AMDKFD=
+_IOC_GET_DMABUF_INFO ioctl")
+> Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 >
-> kwin_wayland dies with it, so the whole session goes, not only
-> acceleration.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_amdkfd.c
+> index 054870e9078d..ca5860e493a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -598,14 +598,18 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_dev=
+ice *adev, int dma_buf_fd,
+>                 /* first get metadata_size by buffer =3D NULL */
+>                 r =3D amdgpu_bo_get_metadata(bo, NULL, 0,
+>                                            metadata_size, NULL);
+> +               if (r)
+> +                       goto out_put;
 >
-> With this patch alone the zcull oops is gone, but the next NULL
-> dereference follows right away, in GETPARAM with
-> NOUVEAU_GETPARAM_GRAPH_UNITS:
+>                 /* user buf_size is bigger than bo metadata_size
+>                  * allocate a buf at kernel space and copy */
+>                 if (*metadata_size <=3D buffer_size) {
+>                         *metadata_buffer =3D kzalloc(*metadata_size, GFP_=
+KERNEL);
 >
->   RIP: 0010:nvkm_gr_units+0x9/0x30 [nouveau]
+> -                       if (!*metadata_buffer)
+> -                               return -ENOMEM;
+> +                       if (!*metadata_buffer) {
+> +                               r =3D -ENOMEM;
+> +                               goto out_put;
+> +                       }
 >
-> With this patch plus Zhenhao Wan's "drm/nouveau: prevent NULL deref of
-> gr in GETPARAM_GRAPH_UNITS", there is no oops: KWin starts and
-> composites, and NVK refuses the device cleanly (vkEnumeratePhysicalDevice=
-s
-> returns VK_ERROR_INITIALIZATION_FAILED).
+>                         r =3D amdgpu_bo_get_metadata(bo, *metadata_buffer=
+, *metadata_size,
+>                                                    NULL, &metadata_flags)=
+;
+> --
+> 2.25.1
 >
-> To reproduce: a Turing or newer card on nouveau without
-> firmware-nvidia-gsp, then start any Vulkan or zink client.
-> Both fixes are needed for a desktop to survive a missing firmware
-> package.
-> Whatever helped find it, the bug is real, it repeats, and the check is
-> the obvious one.
->
-> Disclosure: I did this testing with an AI assistant, Claude Code
-> (Claude Opus 5.5). It built the kernels, ran the VM and read the
-> traces under my direction; I checked the results on the hardware.
->
-> For this patch, tested together with Zhenhao's:
->
-> Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
->
-> Daniel
