@@ -4,51 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0325DCA5FF5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3187CA5FE6
 	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24F1510EAFD;
-	Sun,  4 Oct 2026 17:19:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6B6510EAF0;
+	Sun,  4 Oct 2026 17:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=saltyming.net header.i=@saltyming.net header.b="xUh3KfUZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KW1j1IFO";
 	dkim-atps=neutral
-Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F6C10E2E5
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 23:45:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net;
- c=relaxed/relaxed; 
- h=MIME-Version:Message-ID:Date:Subject:To:From:Content-Type; t=1791071147;
- x=1791675947; bh=hxN7kjCEhLnn1+Ezysc3TnjEFzT6AYEfF7E3Sz1y6Gg=; b=xUh3KfUZFx
- DexYy5b1FZq7L+fk8wKQJALT7UNT+fhPEwDlM+9/hZRoux9A0vcZ+iFaWr+VNeZKtt4eLumMZeU
- CM8zNuyMxq7gY4c8YRBUM793XvB6+YiYA4dBpIbdYn7Fw+v8ZgqIJnsDHLBXcANJZ7p1rJ6Mat3
- R+CAEIL1X4/D9QsE2RGyL5oF5Ry4QU+93RAt9pMQ+UEroqtTZAXsXLAA4qyRPrufryKMWXdl5eR
- ylyhRJhY894ZtaoqKs5pPf1bPfutWqMf+MDcnfSQtmyg+1eNTFOgIHwp52Spart6PSuJIjbVBzH
- D28DEkVt9QC27FYbfgejMw24vhYqAUbQ==;
-Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
- (version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256)
- (No client certificate requested)
- id 455f2149-f629-4f38-9c76-c196b5d4287d
- for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 23:45:31 +0000
-X-Virus-Status: Clean
-X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none,
- av_clean, ham
-From: Hamin Sung <hamin@saltyming.net>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE0F10E636
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 18:29:30 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48b01c41135so151120f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 11:29:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790965768; x=1791570568; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+rrH8jPIjco9vZfHT3xe2ptHn3BuOpvxKbC3e4I9zuk=;
+ b=KW1j1IFO3zdo7iEqP2t/F48xDslEDU7NWGDiJzTXUTW9RJNi7GiQIljfwW+lwV5UhA
+ t6NpuAVPDaj07pSCQgeAO9WIkTQ+sOgpwmYfbRhb+ZX3S4PBjla07WxbpuVOuJ+nL29G
+ xA760DYA4QlqX1A8Of3+1rb9QQsJ/Mj9upXIgRHdJPMs+mcAMashaBLjG4aAIo0cFhfW
+ abVdW45KYnDfoiTzwMMB0ie7hcQaU2Kc6byNWy0E/Z5Xfne7Dg45OECQLPkGppt1gKL6
+ 1+AZn+wWXxOIPVGZDvMHgzebS/dSm2s87V4y9WBi8k4SgyreOtlkJt9s8rB7uonwkhXa
+ PiOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790965768; x=1791570568;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+rrH8jPIjco9vZfHT3xe2ptHn3BuOpvxKbC3e4I9zuk=;
+ b=QW/M0JlCs0xdj993uGABNL48fTjMEpiAsdMtPaUY/faTuLHpDoIPUAfGtPE4UW0T1y
+ Yf2CtV96TRGu2TVAQIj51/J2OKvaaJYn/11xyKwM1b95oAgSbGPnVGReaaybFr18vsQd
+ 2w4NU6MiFeVBsKYvswda3Myuu5cN0o52ExBSXIOZ0/VWUMwLz8uFyGMlrAvnEi4VlHlq
+ P8+76Sk0dt+fbyd6rGZnN6MwegD4GpsHg9ctC8arRrKKJBsZjo2dnDXEOd4ORpshm4Mr
+ OhuBcbCt0U0Td4VYvN491zAz401t6/7VhZdF6X1KwS/ez1DNmZP+lA3g4xz0RgCKwDbE
+ MvKg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy1vJ5lqD2x2dpkc3egYeu5ibYG5cBBytg7/GhneuhXWXcVJwbq/p8BpnFlHbTdTX4w39yy1Hujqh4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLxOu/+FNMeFEfUQQCgvrkPcaBXi2KlBqWQ3g8iNKBtYlt+2w7y
+ i/fEFY5kajGqNKAOZ3pD7eN0PdY+f58gM0R6s1LxEhEIqAohK2tUrVmj
+X-Gm-Gg: AYBFou2R+P6bAg56cr6erOxsmgU4if5hMP4t321N9MNYkK2xCw+9rmW5BMohvW2weqK
+ jeeNmo3OyYJw4zfKwmBd4HD8YkHNRKS1Ew6hepDxJxlu6TjqUZcqUyHQy6PEdQDFEPi7siY3hOw
+ 6hPjjeO6zGSEmZZsjQaUsUU4UxAbmEd08GPS2IhCVcs0EJ5u3LTxAgKOcaA/Ffo8q5gvHEE0Ck0
+ 0c9SvYjmZG9jIhjgkwhs/GrsKRV0B6VcV3Fyn9JRNfu7AOt8CA9hLTtUKAdJrev7FmO5Z+H7dDe
+ VnaVYDygN6JbvlaVLtO7NV0I6PiCZkgMCziDhaM5e8lINx5ZXDSZbUyOFTzANyAmCeiwhpT2w5J
+ awNEc/VBAJR60sNqMl8HWn4llxJ35GGOsZvRJX21o4TfNStqJD4KrnvETe6n7GxEt42ATwmpxOR
+ HYgy3WxZHClqRU1Vp085sRwno7webzwH/LY6QQWuMHW4Y2ESb/lGmjPqT1hqR1CmSvS6xrexfgn
+ POu7w==
+X-Received: by 2002:a5d:64e2:0:b0:48b:508:1cb9 with SMTP id
+ ffacd0b85a97d-48b126f1568mr6613899f8f.4.1790965768312; 
+ Fri, 02 Oct 2026 11:29:28 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.11])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-48b380faaf9sm7429656f8f.22.2026.10.02.11.29.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Oct 2026 11:29:27 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Aaron Kling <webgeek1234@gmail.com>, Hamin Sung <hamin@saltyming.net>
-Subject: [RFC PATCH 1/2] drm/nouveau/pmu/gt215: add graphics engine load
- counters
-Date: Sun,  4 Oct 2026 08:45:20 +0900
-Message-ID: <20261003234520.69573-1-hamin@saltyming.net>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+Date: Fri,  2 Oct 2026 20:29:18 +0200
+Message-ID: <179096555582.4050.16689195326008531646@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003223420.77993-1-hamin@saltyming.net>
-References: <20261003223420.77993-1-hamin@saltyming.net>
+In-Reply-To: <CACSVV00GwWvMFDR5QC7h8gonC-9qYbaG958nZHSxtUdWXGG_sg@mail.gmail.com>
+References: <CACSVV00GwWvMFDR5QC7h8gonC-9qYbaG958nZHSxtUdWXGG_sg@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,163 +102,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The PDAEMON in GT215, GT216, GT218 and MCP89 has idle counters that
-count PMU clock cycles depending on the state of a selected set of
-engine idle signals.  Nothing in nouveau uses them on these GPUs;
-gk20a_devfreq.c drives the same counter block on Tegra.
+On Fri, Oct 02, 2026, Rob Clark wrote:
+> Can you share `dmesg | grep drm`?  In my case the initrd is missing fw
+> so gpu is initialized later, I guess when the compositor starts.
 
-Add nvkm_pmu_perfmon_init() and nvkm_pmu_perfmon_read() and implement
-them for these GPUs: one counter counts every cycle, a second one the
-cycles during which the graphics engine is not idle, and reading returns
-and clears both.  The counters are only programmed once
-nvkm_pmu_perfmon_init() is called, so nothing changes for existing
-users.
+Here it is. The kernel is built without modules and with the firmware
+built in, so the GPU is brought up right at boot. The GMU firmware is
+gen80100_gmu.bin from linux-firmware (v5.2.38).
 
-The next patch uses them to select performance levels through devfreq.
+[    0.620358] msm_dpu ae01000.display-controller: [drm] Using Transparent Hugepage
+[    0.621120] [drm:dpu_kms_hw_init:1168] dpu hardware revision:0xc0020000
+[    0.625910] [drm] Initialized msm 1.13.0 for ae01000.display-controller on minor 0
+[    0.626015] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/gen80100_sqe.fw from new location
+[    0.626115] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/gen80100_gmu.bin from new location
+[    0.626994] [drm] Loaded GMU firmware v5.2.38
+[    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for response
+[    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
+[    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -110
+[    1.652389] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
+[    1.652401] platform 3d6c000.gmu: [drm:a6xx_hfi_stop] *ERROR* HFI queue 2 is not empty
+[    1.858322] msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb frame buffer device
+[    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU firmware initialization timed out
+[    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
+[    8.187443] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU firmware initialization timed out
+[    8.187650] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
 
-Link: https://envytools.readthedocs.io/en/latest/hw/pm/pdaemon/counter.html
-Assisted-by: Claude:claude-opus-5-5 sparse # max effort
-Assisted-by: Claude:claude-fable-5-1 # max effort, review
-Signed-off-by: Hamin Sung <hamin@saltyming.net>
----
-Sorry for the duplicate copies of the cover letter, and of the two
-nouveau fixes I sent with it: my mail server delivered each of them
-twice to most recipients.
-
- .../gpu/drm/nouveau/include/nvkm/subdev/pmu.h |  2 +
- .../gpu/drm/nouveau/nvkm/subdev/pmu/base.c    | 29 ++++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c   | 40 +++++++++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/pmu/priv.h    |  5 +++
- 4 files changed, 76 insertions(+)
-
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
-index f57a3a5a288d..de844e69a5e6 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
-@@ -39,6 +39,8 @@ int nvkm_pmu_send(struct nvkm_pmu *, u32 reply[2], u32 process,
- 		  u32 message, u32 data0, u32 data1);
- void nvkm_pmu_pgob(struct nvkm_pmu *, bool enable);
- bool nvkm_pmu_fan_controlled(struct nvkm_device *);
-+int nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu);
-+int nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
- 
- int gt215_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
- int gf100_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
-index e556b1905702..fb51db6a2ca3 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
-@@ -51,6 +51,35 @@ nvkm_pmu_pgob(struct nvkm_pmu *pmu, bool enable)
- 		pmu->func->pgob(pmu, enable);
- }
- 
-+/*
-+ * Set up the PMU counters that nvkm_pmu_perfmon_read() samples.  PMU
-+ * initialisation resets the PMU, so this has to be repeated after resume.
-+ */
-+int
-+nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu)
-+{
-+	if (!pmu || !pmu->func->perfmon.init)
-+		return -ENODEV;
-+
-+	pmu->func->perfmon.init(pmu);
-+	return 0;
-+}
-+
-+/*
-+ * Return the number of PMU clock cycles that passed, and how many of them the
-+ * graphics engine was busy for, since the previous call or since
-+ * nvkm_pmu_perfmon_init(), and restart counting.
-+ */
-+int
-+nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
-+{
-+	if (!pmu || !pmu->func->perfmon.read)
-+		return -ENODEV;
-+
-+	pmu->func->perfmon.read(pmu, busy, total);
-+	return 0;
-+}
-+
- static void
- nvkm_pmu_recv(struct work_struct *work)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
-index 32cee21ed858..37310a8ebe81 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
-@@ -260,6 +260,44 @@ gt215_pmu_init(struct nvkm_pmu *pmu)
- 	return 0;
- }
- 
-+/*
-+ * PDAEMON idle counters.  Each one has a mask of engine idle signals at
-+ * 0x10a504, a cycle count at 0x10a508 (bit 31 clears it) and a mode at
-+ * 0x10a50c: bit 0 counts cycles in which all masked signals are set, bit 1
-+ * cycles in which they are all clear, and both together count every cycle.
-+ * Idle signal bit 0 is the graphics engine.
-+ */
-+#define GT215_PMU_COUNTER_TOTAL 0
-+#define GT215_PMU_COUNTER_GR    1
-+
-+static void
-+gt215_pmu_perfmon_init(struct nvkm_pmu *pmu)
-+{
-+	struct nvkm_device *device = pmu->subdev.device;
-+
-+	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000000);
-+	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000003);
-+	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
-+
-+	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_GR * 0x10, 0x00000001);
-+	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_GR * 0x10, 0x00000002);
-+	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
-+}
-+
-+static void
-+gt215_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
-+{
-+	struct nvkm_device *device = pmu->subdev.device;
-+
-+	*busy = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10);
-+	*total = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10);
-+	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
-+	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
-+
-+	*busy &= 0x7fffffff;
-+	*total &= 0x7fffffff;
-+}
-+
- const struct nvkm_falcon_func
- gt215_pmu_flcn = {
- };
-@@ -278,6 +316,8 @@ gt215_pmu = {
- 	.intr = gt215_pmu_intr,
- 	.send = gt215_pmu_send,
- 	.recv = gt215_pmu_recv,
-+	.perfmon.init = gt215_pmu_perfmon_init,
-+	.perfmon.read = gt215_pmu_perfmon_read,
- };
- 
- static const struct nvkm_pmu_fwif
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
-index 2d0a8fa6f196..880a7785589a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
-@@ -30,6 +30,11 @@ struct nvkm_pmu_func {
- 	void (*recv)(struct nvkm_pmu *);
- 	int (*initmsg)(struct nvkm_pmu *);
- 	void (*pgob)(struct nvkm_pmu *, bool);
-+
-+	struct {
-+		void (*init)(struct nvkm_pmu *pmu);
-+		void (*read)(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
-+	} perfmon;
- };
- 
- extern const struct nvkm_falcon_func gt215_pmu_flcn;
--- 
-2.55.0
-
-
+Oleg
