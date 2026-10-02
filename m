@@ -4,84 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D591CA5FD4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA76CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98D1510E58A;
-	Fri,  2 Oct 2026 09:16:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF9A10F811;
+	Fri,  2 Oct 2026 09:21:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="iO9+iAzp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mD27VtXp";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69AE10F80E
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 09:16:31 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a01b560392so10839705e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 02:16:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1790932590; x=1791537390; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
- b=iO9+iAzp7WPDRIC0Qmo7uEnFAlcaQ0jphBOSaaeKjCBUzicBWo9PWhZ4nN+SOLkud7
- s9li7P0bv1ZjEqIZ5v48H/yDkPBx42hyiLgvvIFcOidTvdLo9XJigjypaM9jLU5+d27E
- Z2LTPTXg2U/vjbznSXdJgVghoET5XKIEFoRTFKD9/33PUoltihukYiwa5cvWRn9zOWOK
- +rfsJOAje3s4ppUiXx0i3ObtbAM9zpZB0Vwc8G9xyuUhow3PFGMPlUFs2NR7RXULK4Nq
- ovd7LUspnM91oy5+iLZTMIrkhizEEbEdsdQEVBNtS9qbwuk6cLkBHzc4H2aH52Xm5+fH
- 55SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790932590; x=1791537390;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
- b=NdHOVBiApyTmiSJ3PnIG+qa2/+PfHL1G0UBjm7uDZQTQdfnkWTUiJW66FSgu6iPXs5
- 1YiZXCFk8vIaxJ0do/6C94qPYTpH1z/uSQzLMiVyixBuK+cO3QVJtj5HUjJ43EwtsLkk
- Se4OJMlnMwZBjbcUgbK5TP01oYjQeM04OlgGgDy7KwolzhZB7LsFxb6LwnMYbZKCTiR2
- VY9iG6fBCah7F0vQ8E/4N/C/uoVFOQWFkHB03NZASd3v2H8+NzulhRB7TpEouZz+cy3z
- j+iLu5kGjIYHxmWRttntU+0tTpFzFESzBJCQjgJP93Apf4gSOa30nyRLB9uiwfF/149r
- R/ag==
-X-Gm-Message-State: AFuF++lBqzNg0tcOFlwk5GerQ89V0V2Q/9Kw+llgyRd77rnF1DuwiASy
- 8foL6XblsXBT+RNLnLgxyJV0CZB6NJJePeOvR67aG0FjP++KovLPX/6tU5yTgkpqxyo=
-X-Gm-Gg: AYBFou1S0hfEzluUZ+lA17gw/tGCSJpg7Y6O/a7S1XoFRRsc20ZH7k/DWito1naeLDn
- 31JT2OQABMPTfleV7XgWQKj/PuZeGsKYoyqsDkNz1e85jnGn7VzAaMDKbbFybN2pm/fbayY/Gyy
- sFRUsOh7tY4ziMWBdPsa9XSGhmAIq5sRu032Cg3TzcAmW2+a57WBz+iHqaTlIUXXCWlsR4Bbj+h
- 6rZcyJvN0FbbtJfZP9sHrAD3gxtaLaZuRp0ZVC8s69UVaCoC/Scl1DbvPHWoR6cxwivZiowUPhZ
- 4mqj7IFUrthwA22VZ+aBw3l4nDuwxwoYC5+0yAFJRq7AcRPDtTntXiDd6ahtdOvpo8mUQgFJ/kd
- 9huTTB8l3Dc+jwXT8jYKVhcKckyI7eUumob0MuQFFEmr3tKs8eIv4PlUoD4WvORvM0rz5o/TLKL
- 49bPEkLIr45tFAAeXFfSYVQqIq6mwpkp+kd7moiEnlKHjo75Ezhtmavx/VEoSnW93MtaCoSS7uy
- QZvH3tHETsODuS42ZQ=
-X-Received: by 2002:a05:600c:5888:b0:49f:d742:97ea with SMTP id
- 5b1f17b1804b1-4a01eab3237mr86257095e9.0.1790932589833; 
- Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
-References: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Document Raydium
- RM69220 DDIC
-Message-Id: <179093258899.2282096.1855528319289622159.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:28 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1058310E424;
+ Fri,  2 Oct 2026 09:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790932884; x=1822468884;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=4vYXbS5N0wrk0QB36Cvdfxop/53SZQBVGCH1DIOvIV0=;
+ b=mD27VtXp9ZuCf59ZL3yNEBaKju9uGAMqSkBdo+UdR1cgikMDRl39QXq3
+ o4sWeB4m0UJqV//7WMX+LwwlqChz9FqdDoPN9eB9j7ydgmgnqNidc42r2
+ 6xdcvgwz0WlMpm5JpCdWDURR4Ark9iIo63axVgHn7+G5Jr5BdZza9MO/Q
+ m9I4A/gyPtaxSU9vDBjbXsalagsiLZyYdweL62Yjgpw8IZHBHPMcUwJKK
+ B6LXsKuwPSUaH6wzu1Bbkto5TWANxesEkXUyWc2H9OwzSvlpsofgr10ib
+ DUzLuEOzMyy1vQ9f0OBGyitBzfZIzGKKIONnv4genK6zIvmBiyF8hEFoc w==;
+X-CSE-ConnectionGUID: 9/5AO1pvRg6e3/cZvsKh9w==
+X-CSE-MsgGUID: CZCcF5dVT7S5hOTUI0uvag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90728933"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="90728933"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 02:21:23 -0700
+X-CSE-ConnectionGUID: uhzSw154Siec8f0GPq9KxA==
+X-CSE-MsgGUID: RSCYN8imRSWQtN6/P8aR/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="302464397"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.196])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 02:21:21 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: FNU VISHWANATHA <fnu.vishwanatha@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, FNU VISHWANATHA
+ <fnu.vishwanatha@intel.com>
+Subject: Re: [PATCH 1/2] drm/mst: Fix sporadic second display not detected
+ after warm boot/G3
+In-Reply-To: <20261001215705.3891147-1-fnu.vishwanatha@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261001215705.3891147-1-fnu.vishwanatha@intel.com>
+Date: Fri, 02 Oct 2026 12:21:19 +0300
+Message-ID: <3ddffda7b123f83a4dc94d26f299dec08da27fba@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,17 +72,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, 01 Oct 2026, FNU VISHWANATHA <fnu.vishwanatha@intel.com> wrote:
+> The intermittent detection failure of the second display over MST HUB is caused
+> by a race condition in MST port status detection during warm boot/G3 resume.
+>
+> When a port transitions from input to output state during topology reprobe, the
+> driver was not forcing a re-probe of the link address. This caused ports that
+> were temporarily incorrectly marked as input ports to never create connectors.
+>
+> Force a link address reprobe when a port transitions from input (1) to output
+> (0) state, giving the MST hub another chance to properly report the port status.
+>
+> Signed-off-by: FNU VISHWANATHA <fnu.vishwanatha@intel.com>
 
-On Fri, 02 Oct 2026 01:51:41 +0000, Alexander Koskovich wrote:
-> Document the Raydium RM69220 DDIC and the BOE BF068MWM-TD0 6.77"
-> 1080x2392 AMOLED display panel used in the Nothing Phone (3a).
+Is there a bug report about this with logs?
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
-
-[1/2] dt-bindings: display: panel: Document Raydium RM69220 DDIC
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/dfb7ce7880264ec69579db6c309c00f6c788256a
+> ---
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index be749dcad3b5..cc340e4235cc 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -2377,7 +2377,11 @@ drm_dp_mst_handle_link_address_port(struct drm_dp_mst_branch *mstb,
+>                 changed = true;
+>                 created = true;
+>         } else if (port->input && !port_msg->input_port) {
+> +               /* Port transitioned from input to output (e.g., during warm boot/G3 resume)
+> +                * We need to force link address reprobe to get proper port info
+> +                */
+>                 changed = true;
+> +               mstb->link_address_sent = false;
+>         } else if (port->connector) {
+>                 /* We're updating a port that's exposed to userspace, so do it
+>                  * under lock
 
 -- 
-Neil
-
+Jani Nikula, Intel
