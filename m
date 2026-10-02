@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E74CA5FD4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A5DCA5FC4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E439D10E584;
-	Fri,  2 Oct 2026 09:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E1AC10E579;
+	Fri,  2 Oct 2026 09:14:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FMlEm9g2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GCICvzDJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C39E610E584;
- Fri,  2 Oct 2026 09:14:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3B7110E579;
+ Fri,  2 Oct 2026 09:14:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC8CB41087;
- Fri,  2 Oct 2026 09:14:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617E81F00893;
- Fri,  2 Oct 2026 09:14:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AC62C41FB1;
+ Fri,  2 Oct 2026 09:14:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C611F00899;
+ Fri,  2 Oct 2026 09:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790932470;
- bh=8pdfmfs36HJsST5ZhqymEx8i55HW4Q35sSRnv116vLY=;
+ s=k20260515; t=1790932479;
+ bh=RTxxqsKUPiaSlwtwX86o8zFLZcYkmN/awyVKx0TsUQs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FMlEm9g2H3l+byH4NKCeQMGl+OrLOZcMVzAAX+LK+KQCEGm0rJZF5wowp/JGgssPh
- kFPY4UTfPjgO1qbfB9o/9ZvKjRrSDbsSHIOadtpcq7fv++wyIs20sgR3vbcQE0+qwT
- rPcaMKVE0UJicEU9pPO0jqEPymqqfB/H51tDukFMY617FqyRPB6KQw5fd3XKIxE6yL
- rwe1n+AJEI1Y/F9ykd1prIpUBX3D7dWIHR//jh2EP/44qeFz9HfWGianJiT3LnvG/3
- J/IueOPZumrFxa/nw7KLsV50aMhEAo8U1418hpGHXVw+1JQfsaGhYKBN+9jm28GF0e
- eK7PNcVBVEE4A==
+ b=GCICvzDJvIymBDEtB1O65e0/v+Xq0zQFcU7OWdnOy0SUqni8tXnJutHNqickyvyHO
+ kvHEvaY2cYUXHAYn0wfK943aGPyxy3EMnOJ2GhphLfd3Q2TZF1e/r0c2jVyjtVtRwb
+ RYdHPOlbM6kS+t7u7nCq96DHQyYkqX0bOCeoa9qmt1qD+6xz9RdAqy+QzaDYyvIp47
+ QAGfdqHnVHoFMT/JN838ygXn0kt5JY23Nidc5FoGAcDVv+m/qWV3sMHTfNsQZpX9j9
+ 7G+KNHiqqPhnmdSTtQ7vARiSsntSPXaJ5iartlthMkAYE4xRxsqDkbq8c4hxkZSV2u
+ R/7avxwjKTzMg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] iommu/dma: Catch scatterlist length overflows
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Subject: Re: [PATCH] drm/i915: look up shmem folios by index for writeback
+To: "Matthias Goergens" <matthias.goergens@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261002053320.3145901-1-krzysztof.karas@intel.com>
-References: <20261002053320.3145901-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261002073107.2209644-1-matthias.goergens@gmail.com>
+References: <20261002073107.2209644-1-matthias.goergens@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:14:30 +0000
-Message-Id: <20261002091430.617E81F00893@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:38 +0000
+Message-Id: <20261002091439.59C611F00899@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,50 +58,96 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] iommu/dma: missed scatterlist length overflow on 32-bit architec=
-tures
+- [High] i915: soft lockup in __shmem_writeback() on large sparse objects
 --
 
-commit c8808dcafa857db06b75cf791820b2414095b3cc
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
+commit 13d0555b9d9183775f7e6a194865fdfde399b137
+Author: Matthias Goergens <matthias.goergens@gmail.com>
 
-iommu/dma: Catch scatterlist length overflows
+drm/i915: look up shmem folios by index for writeback
 
-It is possible, when a very large mapping uses only one scatterlist, that
-padding overflows scatterlist's length field. Address this issue by adding
-overflow detection for scatterlist length field.
+This commit reverts to walking the object by index using the folio API
+instead of using writeback_iter(), because writeback_iter() misses
+shmem folios that do not set PAGECACHE_TAG_DIRTY. It introduces a
+manual loop in __shmem_writeback() to find folios by index.
 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 58c624513cd43..06edb4056dc1b 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -1477,6 +1477,11 @@ int iommu_dma_map_sg(struct device *dev, struct sc=
-atterlist *sg, int nents,
->  		sg_dma_len(s) =3D s_length;
->  		s->offset -=3D s_iova_off;
->  		s_length =3D iova_align(iovad, s_length + s_iova_off);
-> +		if (overflows_type(s_length, s->length)) {
-> +			ret =3D -EOVERFLOW;
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
+i915/gem/i915_gem_shmem.c
+> index ef94401662955..54424e434f3b3 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+
+[ ... ]
+
+>  void __shmem_writeback(size_t size, struct address_space *mapping)
+>  {
+> -	struct writeback_control wbc =3D {
+> -		.sync_mode =3D WB_SYNC_NONE,
+> -		.nr_to_write =3D SWAP_CLUSTER_MAX,
+> -		.range_start =3D 0,
+> -		.range_end =3D LLONG_MAX,
+> -	};
+> -	struct folio *folio =3D NULL;
+> -	int error =3D 0;
+> +	pgoff_t nr_pages =3D size >> PAGE_SHIFT;
+> +	pgoff_t index =3D 0;
+> =20
+>  	/*
+> +	 * shmem marks folios dirty with noop_dirty_folio(), which does not
+> +	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
+> +	 * them.  Look up each folio of the object by index and test its
+> +	 * dirty flag.
+> +	 *
+>  	 * Leave mmapings intact (GTT will have been revoked on unbinding,
+>  	 * leaving only CPU mmapings around) and add those folios to the LRU
+>  	 * instead of invoking writeback so they are aged and paged out
+>  	 * as normal.
+>  	 */
+> -	while ((folio =3D writeback_iter(mapping, &wbc, folio, &error))) {
+> -		if (folio_mapped(folio))
+> -			folio_redirty_for_writepage(&wbc, folio);
+> +	while (index < nr_pages) {
+> +		struct folio *folio;
 > +
-> +			goto out_restore_sg;
+> +		/*
+> +		 * Skip folios that are absent or locked: this runs from the
+> +		 * shrinker and the OOM notifier, so do not wait for a lock.
+> +		 */
+> +		folio =3D __filemap_get_folio(mapping, index,
+> +					    FGP_LOCK | FGP_NOWAIT, 0);
+> +		if (IS_ERR(folio)) {
+> +			index++;
+> +			continue;
 > +		}
+                 ^^^^
 
-[Severity: Medium]
-Does this catch scatterlist length wrapping on 32-bit architectures?
+[Severity: High]
+Can this loop cause a soft lockup for large sparse objects?
 
-If a caller provides a scatterlist segment with a length close to 4GB
-on a 32-bit system, s_length and s_iova_off are both size_t. Their addition
-and the subsequent iova_align() will silently wrap around in 32-bit
-arithmetic before the overflows_type() check is reached.
+If the object has a large hole, __filemap_get_folio() will return -ENOENT f=
+or
+missing folios. The loop then handles this error by stepping forward only 1
+page at a time.
 
-Because s_length has already wrapped, overflows_type() will evaluate if the
-wrapped 32-bit value fits inside a 32-bit unsigned int (s->length), which
-always returns false.
+For extremely large sparse objects under memory pressure, could this result=
+ in
+an unbounded CPU stall without yielding, blocking kswapd or direct reclaim,
+since there is no cond_resched() in the loop?
 
-In contrast, the subsequent pad_len check correctly uses
-check_add_overflow(), avoiding this pitfall. Could a similar approach be
-used here?
+> +
+> +		index =3D folio->index;
+> +		if (!folio_mapped(folio) && folio_clear_dirty_for_io(folio))
+> +			shmem_writeback_folio(folio);
+>  		else
+> -			error =3D shmem_write_folio(folio);
+> +			folio_unlock(folio);
+> +
+> +		/* Writing may have split the folio, so read its size only now. */
+> +		index +=3D folio_nr_pages(folio);
+> +		folio_put(folio);
+>  	}
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002053320.3145=
-901-1-krzysztof.karas@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002073107.2209=
+644-1-matthias.goergens@gmail.com?part=3D1
