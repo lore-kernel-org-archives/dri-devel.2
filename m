@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A6F0CA5FE0
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D217CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9A0110F7ED;
-	Fri,  2 Oct 2026 09:13:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E539310E52B;
+	Fri,  2 Oct 2026 09:14:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WBkJoOWw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Az27+C14";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C9A210F7ED;
- Fri,  2 Oct 2026 09:13:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD77A10E579;
+ Fri,  2 Oct 2026 09:14:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E5E0460A79;
- Fri,  2 Oct 2026 09:13:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4161F000FF;
- Fri,  2 Oct 2026 09:13:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A14260A70;
+ Fri,  2 Oct 2026 09:14:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABE31F00893;
+ Fri,  2 Oct 2026 09:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790932436;
- bh=6nWr69HDxmm+vFpnQEK8/qJOpOn5sUvuGNijObMZabg=;
+ s=k20260515; t=1790932464;
+ bh=bOCsSpDsbRqW1FZraevF9iUzX3ugv2JxJo8iotLiqAM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WBkJoOWwfPnKW3DThlJuXz+JjbpY4tYGpXTFUER8tRMNzgM+ubvazMcHxpSyEBzj3
- p01i8yFKNPkxhcG4bctcHIVn/gcMNQKosFZH98+DQbyehv1D5nnfcpkQWeJpUqVmgE
- Z6g2MpegjSt21IPTJ1paVj4xnxEkAuzq/EbTpTxzdN4TJ+g7Cg/0GVNZWQyllLcQk/
- Akq8a7XNONYhEqAEGGqoTiP6JNCn2OxALYd0btnYdIGELSJ8dvxOow4M4lI0velAza
- tUV40M3gR+dNGadZSqbGHGhyAL6dWSg4m94Oftq8fqcMU+B7e9dxixLSVlp4w1NWbU
- UFGVqPC5Aiiqw==
+ b=Az27+C14GEeolAWhXyU1hUJpJ3umOHdwvE533qtEvuqXkuW2/UPXWNqStqLacxXjO
+ y79YevFdRqofcyWDGugUe/QSxL6VDi4lS9y+hsx4SFa4nFY/nDbBP73fgmetSe46wZ
+ MJyIE71YL2zBBTPWZ0sG6tfdAnuyZt8o3J2VONoGLwSOHw9FIaltYZO16GvErN0vu+
+ WFPKmj7E9w8gcv4qPeSaYp7WOa1YhrbheAb046Pl9Izbw0zvJ/eywteFSvq/UgMdEM
+ NWWZjlijPWZe241jOiIJom/ppFth3MK+yK8n6sEi/y8YeaSTXWAob72N4q6vZIh7WL
+ R8QImWBzKeshA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/8] drm/nouveau: use DRM_GPUVM_RESV_PROTECTED
+Subject: Re: [RFC PATCH] drm/exec: track the first few locked objects inline
 To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261001220632.3190896-8-matthew.brost@intel.com>
-References: <20261001220632.3190896-1-matthew.brost@intel.com>
- <20261001220632.3190896-8-matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261002003816.3233277-1-matthew.brost@intel.com>
+References: <20261002003816.3233277-1-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:13:55 +0000
-Message-Id: <20261002091355.EE4161F000FF@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:23 +0000
+Message-Id: <20261002091424.BABE31F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +58,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/nouveau: silently ignored lock failure causes unprotected list=
- access
+- [Medium] drm: memory waste in drm_exec due to unaligned kvmalloc size
 --
 
-commit 8fab8734d6eb64d1f1dd2d598d76c6f17c6efddd
+commit c9e9f41b6b460bbc9dee72fd6820d00dc1915559
 Author: Matthew Brost <matthew.brost@intel.com>
-Subject: drm/nouveau: use DRM_GPUVM_RESV_PROTECTED
 
-This commit sets DRM_GPUVM_RESV_PROTECTED for the nouveau drm_gpuvm. It
-introduces nouveau_uvmm_lock_vm_and_obj() to lock the VM's dma-resv together
-with the object's dma-resv when dropping a reference to a drm_gpuvm_bo.
+drm/exec: track the first few locked objects inline
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nou=
-veau/nouveau_uvmm.c
-> index fc125fd44a9b7..13e11905b5f97 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+This commit adds tracking for the first few locked objects inline within
+the drm_exec structure. This avoids early allocations and prevents
+-ENOMEM failures on paths that only need to lock a few objects.
+
+Link: https://sashiko.dev/#/patchset/20261001220632.3190896-1-matthew.brost=
+%40intel.com
+
+> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+> --- a/drivers/gpu/drm/drm_exec.c
+> +++ b/drivers/gpu/drm/drm_exec.c
 [ ... ]
-> @@ -1184,6 +1184,27 @@ bind_validate_region(struct nouveau_job *job)
->  	return 0;
->  }
-> =20
-> +/*
-> + * Lock the VM's common dma-resv together with the one of @obj, as neede=
-d to
-> + * drop what may be the last reference of a &drm_gpuvm_bo.
-> + */
-> +static void
-> +nouveau_uvmm_lock_vm_and_obj(struct nouveau_uvmm *uvmm, struct drm_exec =
-*exec,
-> +			     struct drm_gem_object *obj)
-> +{
-> +	int ret;
+> @@ -140,9 +148,16 @@ static int drm_exec_obj_locked(struct drm_exec *exec,
+>  {
+>  	if (unlikely(exec->num_objects =3D=3D exec->max_objects)) {
+>  		size_t size =3D exec->max_objects * sizeof(void *);
+> -		void *tmp;
+> -
+> -		tmp =3D kvrealloc(exec->objects, size + PAGE_SIZE, GFP_KERNEL);
+> +		struct drm_gem_object **tmp;
 > +
-> +	drm_exec_init(exec, DRM_EXEC_IGNORE_DUPLICATES, 2);
-> +	drm_exec_until_all_locked(exec) {
-> +		ret =3D drm_exec_lock_obj(exec, drm_gpuvm_resv_obj(&uvmm->base));
-> +		if (!ret)
-> +			ret =3D drm_exec_lock_obj(exec, obj);
-> +		drm_exec_retry_on_contention(exec);
-> +		if (drm_WARN_ON(uvmm->base.drm, ret))
-> +			break;
+> +		if (exec->objects =3D=3D exec->inline_objects) {
+> +			tmp =3D kvmalloc(size + PAGE_SIZE, GFP_KERNEL);
 
-[Severity: High]
-If drm_exec_lock_obj() fails with an error like -ENOMEM (which can occur
-during internal memory allocations), the loop hits this break and returns.
+[Severity: Medium]
+When falling back from the inline storage, size is 64 bytes (8 pointers).
+The code requests kvmalloc(64 + 4096), which is 4160 bytes. Does this
+cause the slab allocator to round up to the kmalloc-8k cache, wasting
+nearly half the allocation?
 
-Does this mean the function returns without fully acquiring the necessary
-locks, while hiding the failure from the caller because of the void return
-type?
-
-> +	}
-> +}
-[ ... ]
-> @@ -1594,9 +1625,11 @@ nouveau_uvmm_bind_job_cleanup(struct nouveau_job *=
-job)
->  			drm_gpuva_ops_free(&uvmm->base, op->ops);
+> +			if (tmp)
+> +				memcpy(tmp, exec->objects, size);
+> +		} else {
+> +			tmp =3D kvrealloc(exec->objects, size + PAGE_SIZE,
+> +					GFP_KERNEL);
+> +		}
+>  		if (!tmp)
+>  			return -ENOMEM;
 > =20
->  		if (!IS_ERR_OR_NULL(op->vm_bo)) {
-> -			dma_resv_lock(obj->resv, NULL);
-> +			struct drm_exec exec;
-> +
-> +			nouveau_uvmm_lock_vm_and_obj(uvmm, &exec, obj);
->  			drm_gpuvm_bo_put(op->vm_bo);
+>  		exec->objects =3D tmp;
+>  		exec->max_objects +=3D PAGE_SIZE / sizeof(void *);
 
-[Severity: High]
-If nouveau_uvmm_lock_vm_and_obj() fails and returns without holding the
-dma_resv locks, will calling drm_gpuvm_bo_put() here result in unprotected
-concurrent list operations?
-
-The caller assumes the locks are securely held. Functions like
-drm_gpuvm_bo_put() can modify obj->gpuva.list and gpuvm->extobj.list.
-
-Under memory pressure on a shared GEM object, could this lead to list
-corruption or a use-after-free?
-
-> -			dma_resv_unlock(obj->resv);
-> +			drm_exec_fini(&exec);
->  		}
-> =20
->  		if (obj)
-[ ... ]
+[Severity: Medium]
+Since max_objects started at 8, adding PAGE_SIZE / sizeof(void *) makes
+max_objects 520. When the array grows again, size will be 4160 and
+kvrealloc will request 8256 bytes, forcing kmalloc-16k. Does this continue
+to waste memory at every growth step because the total object count remains
+unaligned to the page size?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001220632.3190=
-896-1-matthew.brost@intel.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002003816.3233=
+277-1-matthew.brost@intel.com?part=3D1
