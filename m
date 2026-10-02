@@ -4,82 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DC3CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4127BCA5FF5
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1937E10EAD9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 321BE10EADB;
 	Sun,  4 Oct 2026 17:18:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=icloud.com header.i=@icloud.com header.b="VzjL+WHW";
-	dkim-atps=neutral
-X-Greylist: delayed 509 seconds by postgrey-1.36 at gabe;
- Fri, 02 Oct 2026 21:37:11 UTC
-Received: from outbound.st.icloud.com (st-2002d-snip4-6.eps.apple.com
- [57.103.78.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD60310E60E
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 21:37:11 +0000 (UTC)
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
- by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPS id
- 61D1D180070A; Fri, 02 Oct 2026 21:28:38 +0000 (UTC)
-X-ICL-RepId: 01a0fe84-e89c-78f2-85a0-2a3521161b67
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKCkMFWhxBDUkdXA5bEhVdRVUXUhlHGFc4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgNCGRBWAVhWXQVNGlwYWQ8cA01WWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNUBtfAkIPHBNWFRMAXg8PTAtIAVsGWwJCC0kBVQRYHEkPTwdABkZUClwKRgVZK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
- t=1790976522; x=1793568522; bh=aJsmC1mviHb37getbq+iRvVXVUnaonvh2KuAc9UpK0Q=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
- b=VzjL+WHWzkmGeRW/57/513c8MRKJqjVXa0MvzylFzyk/YQm5Latbd7tRiSdvDCdN835RL1K7ad8hzTxtXuPJy7JvN1LONuoImOq9htmyJxML/9FKeeTmkK9IqbvyIPUlBISF8p3oCkSmo6Wrbc3O4Eja68GewsJ06c9Ls7uSiNzSr67mY96aBi4w7ezr/4M8vFqIKuqU9KjSWWz7J5G3COaeTQFWLtcql/HGbiMIhsCA2plKFoZERnq10e9h/lL/ZgFzezQs/fRUWQ/92UK/nLLA5mmwNXcRfR1nLvOIjRXXwZJGVJF3OxmyzCdkqlnvu9Vc/Idw0Pc8oagSKkddBw==
-Received: from 252-PC-L.device.rit.edu (unknown [17.156.216.30])
- by p00-icloudmta-asmtp-us-east-1a-60-percent-9 (Postfix) with ESMTPSA id
- 3F1AE18007D1; Fri, 02 Oct 2026 21:28:37 +0000 (UTC)
-From: Finn Zeruhn <fzeruhn@icloud.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Finn Zeruhn <fzeruhn@icloud.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/dp: keep MOT set between messages when no_zero_sized is
- set
-Date: Fri,  2 Oct 2026 17:28:33 -0400
-Message-ID: <20261002212833.9674-1-fzeruhn@icloud.com>
-X-Mailer: git-send-email 2.56.0
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2087E10E0A0;
+ Fri,  2 Oct 2026 02:29:39 +0000 (UTC)
+X-UUID: 199e108cbe0911f19a56ed5b684f684d-20261002
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+ HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+ IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, SA_EXISTED
+ SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+ CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+ ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:03af6a82-d9d5-44f9-87d2-6962a2984c51, IP:10,
+ URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:5
+X-CID-INFO: VERSION:1.3.19, REQID:03af6a82-d9d5-44f9-87d2-6962a2984c51, IP:10,
+ UR
+ L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:5
+X-CID-META: VersionHash:7db8b62, CLOUDID:bda16b6feca7198f7e003168cf5ffc0b,
+ BulkI
+ D:261002102934BPRYS1KQ,BulkQuantity:0,SF:17|19|66|78|102|127|850|865|898,T
+ C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+ l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+ 0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 199e108cbe0911f19a56ed5b684f684d-20261002
+X-User: lihaojie@kylinos.cn
+Received: from localhost.localdomain [(223.104.132.2)] by mailgw.kylinos.cn
+ (envelope-from <lihaojie@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1238829769; Fri, 02 Oct 2026 10:29:31 +0800
+From: Haojie Li <lihaojie@kylinos.cn>
+To: alexander.deucher@amd.com
+Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com, xiaogang.chen@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Haojie Li <lihaojie@kylinos.cn>
+Subject: [PATCH] drm/amdkfd: fix dma_buf reference leak in get_dmabuf_info
+Date: Fri,  2 Oct 2026 10:29:27 +0800
+Message-Id: <20261002022927.2023779-1-lihaojie@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=U4KfzOru c=1 sm=1 tr=0 ts=6ac02207
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
- a=UWokjQvqbcQA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
- a=tmjPn7o2apbUsHgEkIAA:9
-X-Proofpoint-ORIG-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA4NSBTYWx0ZWRfXzbmsrKE2psOA
- xup8hGPRrsgRj1iK+FU3T80jsfjf9FBXxBBclepIYFoQc91yW+eqhhaSUuJPhv66pSf9vx6GtLW
- q/BwF9ZShwI7GDLS9lOiZi8Ym+Zg55M5j3cyuNkhvrtmAq3OtVqBTvWldh5DhZImm+eL73Gpanf
- LQGix2chVlCqeS+TEPVORuPxATWeoqwRqPwhhK5/R+hPhEN8skDmw9ThWmng1cxwpM/VhHiCFD/
- J7hSfW8VS5EqHpakkRIQnBE5ZNfgGVknGZVrvERvzGPbSvom1dx7pNVHjNCtDqIeqBdWN2VZ/cf
- iP3hgeS4xu6FW+a9caqtXoybpZickU+ZP3csWhFwsLUSqHLc++JRL69Of2DVi4=
-X-Proofpoint-GUID: Rk3qkKmZ0gbJTD9A2W_CcYbjnSmjo3j-
-X-JNJ: AAAAAAABIX1DDu2r6CLCwNqrpo53j7UPSFCGV0xf2o7uDj4nKm+2DT0na4iiQnAkqlSq9p
- fd1oND7MDu/jefloDBNTXfT46NbSI3BbdjxIijySz6tblQaNxpAXjXbOdUd67NBHUSORx5
- caRIevSIRVV7Br585QQajTetwXgtPJokMMXGImmrG69Vi4aNgy7Bm9T4KDSK9T0EICj+EF
- 4ocLEm979UtKHMyOg8xK25zYurszrfAcRhUiRwvaKz1ZuuBcvK8btWeYAu2+T5Hw3eh134
- oCToOZZc/bQIjSu0s9jfnZR4cpaj4FQYtTKNn4slL5s/TCGhokxJzD504m3n6GjW+rG3c+
- 0reoln2gpes93hnLJAx++evdvYTJLx2p9TA/Kxo49zr8O5IzBUU/vLGImyk0XvXTD0TvVH
- 29eM9iOh8CbYUc7m/VwSXduISjcUMlB3vprql7RpBZzjKvvAc5rQZRDgqrzwjmLzTt47pE
- 4tjlryrUS9D7gYmLAFI2G+dYOxX8yMPLYxSQ3Y8nZ3bo2M66yVpQGqbpmHVBMUjae8eEMB
- 1Y9JFbZcxVWLaw3eaKFEQ8JKbomHsHh6NQEqSiRKPq5Oxw19BfZJZ0eBsL2oRkN2k9HSpL
- JXBP7Xwyl2xha2o3UCdNqurTSWkoJfJkU8W9HviC2d5jdVNBb1kZxNzm3d+9ZKCskTFLRI
- KYQ8o5zJPwIXNzo8TL7AccuCkqvwH8QDkQTD+ClhsQVigP/zb5ezCj+S2hwonLxlwu1fHs
- 9c0wf/xm1QaqkkJePWdA6aOXInwiBwfDjqESPWT6cX4xXLSxalrqI7isoQDKh5XyWYaRE8
- J1rWD9eb7LOxyaXgSeJFIuCn8JXtAOTg5rXHuIUVEAU5MtpqB07gqFQSuqKb9ymOEp5uj/
- 6ivTBKncKIimPx8fR0a0zGyiqntvDDHjH+yNiO6AN8D9rBYdUT+2V0Eu+30UApjHrtslU5
- pTGyVzEe1vDSTbiwHzJgnq+W2AleEtdJBNaykqHcUnHjpS4uXH0BgNOuyRijRiNZSUOgqo
- mQL5FIpiiIXDDfCUaQiHeSJV4UsTBTGiV4ut8ZeN8vQ26zfJjEuK+ojJOI8pO38SK/g3Wg
- gzmHIZujVYhY5P4kVWtcKENCyJingqGkDrw6YkdT/76qWhPtroukH3cu8TvhL55R6aFD+w
- Pa2/YFeAfqU/vMdvhrIvOdaq2fleuQbAXaUVGbAB2l/PTNoBJir2kAskNruk816za6oLC9
- zZVoGcCrCrkElepvrHG7g+WuSlkSm3eCqJt1UWCg3Ay+fnHf7HvP/0rRYAgGuBuJj2JdXv
- 9dGZQZyO9d4mlEHspPhwPd4OIm3tRH2H0dPhDFkCncndDhcU21thWu/3WAWZtjjPJ16g==
-X-Apple-Category-Label: MTE1NzgzMjUxMzU6JGNhdGVnb3J5JF9QZXJzb25hbCw=
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,54 +73,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When aux->no_zero_sized is set, drm_dp_i2c_xfer() cannot use a bare
-address packet to close the transaction, so it clears MOT on the last
-data packet instead. The check only looks at the position within the
-current i2c_msg, so MOT is cleared at the end of every message and each
-one is terminated by an I2C stop.
+When kzalloc fails for metadata_buffer in
+amdgpu_amdkfd_get_dmabuf_info(), the function returns -ENOMEM directly
+without calling dma_buf_put(), leaking the dma_buf reference obtained
+earlier via dma_buf_get().
 
-This breaks E-DDC reads of EDID blocks 2 and up. Those are read as three
-messages: a write of the segment pointer to 0x30, a write of the offset
-to 0x50, and the read. The stop after the first message resets the
-segment pointer, so the read returns segment 0 again.
+Fix both issues by:
+- Adding an error check after the first amdgpu_bo_get_metadata() call
+- Replacing the direct return with r = -ENOMEM and goto out_put to
+  ensure dma_buf_put() is called on all error paths
 
-On a Pimax Dream Air (three EDID blocks, native timings in a DisplayID
-extension in block 2) connected to an RTX 5070 Ti with nouveau, block 2
-reads back as a copy of block 0. The checksum is valid, so nothing is
-reported, and the connector only offers fallback modes.
-
-Clear MOT only on the last packet of the last message, as the commit
-that added the option describes. With this, block 2 reads correctly and
-the native 7104x3840 modes are listed for the Dream Air.
-
-The same problem was pointed out by the Sashiko review of the patch that
-sets no_zero_sized for all DisplayPort connectors in nouveau.
-
-Fixes: f0ddbb1eed18 ("drm/dp: add option to disable zero sized address only transactions.")
-Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Finn Zeruhn <fzeruhn@icloud.com>
+Fixes: f54ce9e8cbd3 ("drm/amdkfd: Let driver decide buffer size at AMDKFD_IOC_GET_DMABUF_INFO ioctl")
+Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 488fd123a01a..7676285c19f8 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
- 			msg.buffer = msgs[i].buf + j;
- 			msg.size = min(transfer_size, msgs[i].len - j);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 054870e9078d..ca5860e493a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -598,14 +598,18 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 		/* first get metadata_size by buffer = NULL */
+ 		r = amdgpu_bo_get_metadata(bo, NULL, 0,
+ 					   metadata_size, NULL);
++		if (r)
++			goto out_put;
  
--			if (j + msg.size == msgs[i].len && aux->no_zero_sized)
-+			if (aux->no_zero_sized && i == num - 1 &&
-+			    j + msg.size == msgs[i].len)
- 				msg.request &= ~DP_AUX_I2C_MOT;
- 			err = drm_dp_i2c_drain_msg(aux, &msg);
+ 		/* user buf_size is bigger than bo metadata_size
+ 		 * allocate a buf at kernel space and copy */
+ 		if (*metadata_size <= buffer_size) {
+ 			*metadata_buffer = kzalloc(*metadata_size, GFP_KERNEL);
  
-
-base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+-			if (!*metadata_buffer)
+-				return -ENOMEM;
++			if (!*metadata_buffer) {
++				r = -ENOMEM;
++				goto out_put;
++			}
+ 
+ 			r = amdgpu_bo_get_metadata(bo, *metadata_buffer, *metadata_size,
+ 						   NULL, &metadata_flags);
 -- 
-2.56.0
+2.25.1
 
