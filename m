@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22844CA5FDD
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 12:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59659CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 12:51:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C53410E5C8;
-	Fri,  2 Oct 2026 12:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9783910E5DD;
+	Fri,  2 Oct 2026 12:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="atIgTIth";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fN56wsxK";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73C910E5C8
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 12:51:19 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8319710E5DD
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 12:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1790945479;
+ s=mimecast20190719; t=1790945495;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PXxRsRzuT/lLVwUTudBZrzfm5MyaTiR0eopkV7RSLVU=;
- b=atIgTIthjjOpKzHImRlDobJ+m2Iyw8z1/NmGSnbF67y+owkubwGOd3415wUIUamObxr+3A
- jeeDe69AGUSQ4ZePWxkBFThVBjyCq2Kfy4Ah1dUEl4v0Uvc0Xzo7q+9RDhus9xbBiW4RZ5
- uwqvSkZyLrX1G9GAusMUaaaI6KV1cSc=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=GUF14AtWHioqMuqb6hp7f6A6RAbZhDlhHrFpBFNr570=;
+ b=fN56wsxKxAfHrE2DxWI+4XyqqglAhXQvC0ZvnO+1Wi+rie8k5cMxz7uvmg/GdcVBiWRBDJ
+ rPr/nYjLTS+giVDkr1vKtwx7esJlgz1qQtncFftnlixcONOymyO80GtUcz95cgbAmK8zHQ
+ gsWCPtzrwUQHLDbj2G1/IaRQSConsys=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-263-Nn4DaDm5PHuUrvMthQqCpw-1; Fri, 02 Oct 2026 08:51:17 -0400
-X-MC-Unique: Nn4DaDm5PHuUrvMthQqCpw-1
-X-Mimecast-MFC-AGG-ID: Nn4DaDm5PHuUrvMthQqCpw_1790945476
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4a022fee32fso56855e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 05:51:17 -0700 (PDT)
+ us-mta-634-Xyy2pEtsPqmJsJFZeTqy8Q-1; Fri, 02 Oct 2026 08:51:34 -0400
+X-MC-Unique: Xyy2pEtsPqmJsJFZeTqy8Q-1
+X-Mimecast-MFC-AGG-ID: Xyy2pEtsPqmJsJFZeTqy8Q_1790945492
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-48b02e93a1eso2515712f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 05:51:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790945476; x=1791550276;
+ d=1e100.net; s=20260707; t=1790945492; x=1791550292;
  h=content-type:mime-version:message-id:date:references:in-reply-to
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PXxRsRzuT/lLVwUTudBZrzfm5MyaTiR0eopkV7RSLVU=;
- b=HBz8dn69w2T+sWvMc/Ew0lt+5h9Rxkh3bYckUzJhuE6I2WXtq7d43JgXxHtqouQ/Y+
- Tu3ko0TYfCqfIn3M4eZy3Ye/wTVUkfqXzZSzTZH00S80b1xIbtoDgtvBK0yGPFzK3+MH
- O8gZWY4kRfhT/9EN+oCeGuCPk3TM1e/flo8gp4cWSvf16/fh0raG/ZtbHTu6nVmZRNUE
- smNHm+qjsXWMyEfu27Ck60V+WkM7Ca9DHI2pGXSVl6SGtiX95WNzUEs3VpXiM2tDCEs/
- FsbhDC6WN6ImL8sePkDGB0/C5oRhMCPmf81uHsUGD15WssP06OpGoJPyCd3A5Dujuxoz
- R0pg==
-X-Gm-Message-State: AFuF++nP/dmGA8nA8zN37ajVSX4Z+lCA5VpxvIfXPni0kzVGlhL0lKAo
- bQsIQGTJG8XmlFCNQ6S0vRhRkjh+QnA1inBld42ya5p0udiaAhLr0RgZPxXggKZTW3eOr4yzrpr
- jxvS489hx0OcxphzAxYpkWx6yKrtgbXuSsE/wRihnjPP+4dA/bySWd1jjHz3m13RkagsgMg==
-X-Gm-Gg: AYBFou0giBvQYdoI2UFwQTv/QAi51RE+lzUnQG3xHvPq1zstdPQhdbrbbuY+HDNxi3A
- l5WEHPAaqZ1BHB7WP6mVwIShGtkXrA3C0/C1gEvKE3F1fYaZJJMRI6ixiPxrKUFgdaP0Jhbk3OF
- SkRy1uvXLDhkvieMZU0CKi5UvmYlByY721qIuTiMwaguSd7xlmkOrCgiAb78pkd260CW7aeDZG6
- vzm8jMPd9zYuXBD51amk5+ZCg1rgnhUKY3xvYjdkDzZg+Vva9BelS9I0nHTcxaoNmrhCgV9XZ6D
- HnxRKYflMuPSgtPvEtnkP0EYBJNh2Lh+F2Dqw+t8JuHckCA4iYF8sU3ZMPLjnhDEV/F5nAeyAWc
- 0vZjG/D0Thp2Z+PMkp4Dx6kzZ6ns7NcbsoMnYF9qLGDIjG/0rS6zENhdbLtM+7/7O9A==
-X-Received: by 2002:a05:600c:6098:b0:4a0:1b14:e283 with SMTP id
- 5b1f17b1804b1-4a0274e9d3dmr46216585e9.1.1790945476434; 
- Fri, 02 Oct 2026 05:51:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:6098:b0:4a0:1b14:e283 with SMTP id
- 5b1f17b1804b1-4a0274e9d3dmr46216415e9.1.1790945476056; 
- Fri, 02 Oct 2026 05:51:16 -0700 (PDT)
+ bh=GUF14AtWHioqMuqb6hp7f6A6RAbZhDlhHrFpBFNr570=;
+ b=zjKuUGzvwATLrqeT1Ctg7Jf7fPa7hO7T/YRA9wjgXUjzgqQ85TPRJc7lZdPPc4oTos
+ nRW8Db37/Gy0o6FbCrpaNPe9+kBqFMHjBp0ggWafB99fkJYYpRwJJMCCuPeegCL9Jov+
+ EqEUqVIsn3ZHGN88nHWGN2itwJvP9IvRo8VodI9wmu7mr+f4YGy3LGZy8dQRDvdrbGMk
+ gDZmRlrLa4GUdeDVa9WWp50XHN7qiMTH2cgXVkSh/oiqR4tdYj+3dOzEmhBnhAtAkY02
+ uRiJg8MFbn9qthAcvbJLxGqJrlznuBFODUfaY6F3KM8phuXUt5izliXdBlZ4iuvFvfkI
+ lVXQ==
+X-Gm-Message-State: AFq9FYKa34gDfCgEYLdTaDXXzQHYj5YbycZuDZFsESnE+fpqFO/nyn5e
+ rnXRioUw9eTXbxwbFBj7J0Ffcr6Cm1b5oE0x8venHeZrC9hrcICNDO50Kgd3G0tRQ2V7gIqhLzW
+ oDTK0KBZa48lAlzI8mSJ3I3KSN3XvgA06dJdlRCX9IaE1Cv8JclzeOZpRLT7igX0a9NmdoQ==
+X-Gm-Gg: AYBFou3hre2C0He3oSa38N1OaRVHytlPnfBQiXRayfjoaF/U8Y7ekqS12x4xvCu+sjW
+ P7RCP/dFPOCQ7zaPZWMPn2xRY/sD9J1GzHumjS05n2Raw8jucCmbNQkIhwTpjzB3ctHW5zSL347
+ OLqiwtJSOmedLw6YBYNJRUa5VmXqAIOjK/M1C4GDxyBg2Q0zUKgCNjyVVlw+tDT2f94BtuBGFzW
+ YLKpU/sU1+PkF4zlFMEXpOZB97cy5D4DbkwkFWgGR8rDUwXPGrbepEiBzojMU4ljmZ84NZgFToV
+ AH1bxJd0qWTu2HlbgdjCKKGVku+WCLTHvnwZYFLu3MhAP1F3MxyOvOuYQMpuX9SHIwVtfcuySKK
+ tdrCIukVsenwQ4kkfV+Jz7L8q/qgJW2BiJ/BP+ZJb9rSwWMjZblcMLZYgRXtIpGoYgg==
+X-Received: by 2002:a05:6000:27cd:b0:48b:fc4:e84a with SMTP id
+ ffacd0b85a97d-48b1271cdb0mr3218132f8f.11.1790945491976; 
+ Fri, 02 Oct 2026 05:51:31 -0700 (PDT)
+X-Received: by 2002:a05:6000:27cd:b0:48b:fc4:e84a with SMTP id
+ ffacd0b85a97d-48b1271cdb0mr3218095f8f.11.1790945491489; 
+ Fri, 02 Oct 2026 05:51:31 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a0280bcf0fsm88527965e9.6.2026.10.02.05.51.15
+ ffacd0b85a97d-48b82253ae9sm4879135f8f.2.2026.10.02.05.51.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 05:51:15 -0700 (PDT)
+ Fri, 02 Oct 2026 05:51:31 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
@@ -74,16 +74,16 @@ To: Thomas Zimmermann <tzimmermann@suse.de>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
  sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v2 4/7] drm/hisilicon/hibmc: Do not include
+Subject: Re: [PATCH v2 5/7] drm/tegra: Do not include
  <drm/drm_simple_kms_helper.h>
-In-Reply-To: <20261002124456.741011-5-tzimmermann@suse.de>
+In-Reply-To: <20261002124456.741011-6-tzimmermann@suse.de>
 References: <20261002124456.741011-1-tzimmermann@suse.de>
- <20261002124456.741011-5-tzimmermann@suse.de>
-Date: Fri, 02 Oct 2026 14:51:14 +0200
-Message-ID: <xlv1ece86zb1.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <20261002124456.741011-6-tzimmermann@suse.de>
+Date: Fri, 02 Oct 2026 14:51:29 +0200
+Message-ID: <xlv1bj9c6zam.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 1aau-F74YCgD7_s71P1Kx00k26QWGnGsEffWIOdy0do_1790945476
+X-Mimecast-MFC-PROC-ID: jHb79lsrzi7EBYprX_rfFCGH1bNqXcVmTV1xPglatK0_1790945492
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -103,7 +103,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-> The hibmc driver does not require anything from the simple-kms
+> The tegra driver does not require anything from the simple-kms
 > header. Do not include it.
 >
 > Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
