@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9CE2CA5FEB
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD5F8CA5FEC
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 19:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 445E010F9E2;
-	Fri,  2 Oct 2026 19:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB3210F9EA;
+	Fri,  2 Oct 2026 19:02:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lgXUhGaZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fJItptgC";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011040.outbound.protection.outlook.com [52.101.52.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E2410F9DE;
- Fri,  2 Oct 2026 19:02:01 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012012.outbound.protection.outlook.com [52.101.53.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1651810F9E0;
+ Fri,  2 Oct 2026 19:02:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k5sCyhxHJq8ZP+MbgAYfrVE6iP8XhJE0AFjtjugj2AkHIENHeLA0QYpJ7mmlQ/NuAtvzHzWwBjQgR7/eMLZRrVzyqxxt7P8splrm2DQTxCKo1fuugcFhNnOsvWWh1k5xpyp6ig6bkrjjLL5QInUJkIdU1zeTeo7Hz1q97O1oCtM+EfBPZjLRmgwzPahU5tHjpWZbIsNi2rrUQ9dQFA+xiBimElzcpD9iJJAV7pDbeAHFiklnG+GHjATvhaSXQNpH881jQrW+60z9eArGg+ifTQeE+DH97D95iTkyLYUYI85Cows4JB7cCZdmCyE9LzbJUBDaCT1O59eEUj1j6H/ERA==
+ b=jVAWG65PkBF8+VZKynkB/9grCo4dNb4EK9ZcgF35DU+yDvaNhJTtpvkpp/vIZ5YDm1grLtwQ0VIUhR+zlvYyYPpzJHgXMpd7ZQUGk7xNiWfuWnbmhzMsuTAC8LaDBsb3few/DSuc3AVqWo7EOWaiD8+3yKwRFR5nQrjTFJLhvYD4qybYXwU4aVC5DH+bQH7KSkQA4lsqQIZtrOswQnSPy+dvFwe2Kn1rFytnfCN7P5B/U6qgHYpRMHiUWP/s3B9Cfr9alFfIzt8OYRNt4hQO6NSO3NNIDHrQqXP6e8fb5OFdVm0NEI2LJFNwZsIlhA0prTQcKNM8DstqKDQ1QnZzmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s628hrZ71BPsBGVoLoq6CtvqdB/jbf+ci5Nxw/e4Lio=;
- b=o/L/S26CZt+h5IJsuKx39kPj+hBPBEqi4xOJMR0NH5Qvd2pe2UnvaZFXRIZ/VB/6OZS1lQ/zxz+16gF7m1l3PPreKBQ0V8CEV1R2yTx+nEEZCFuGa1DvCVas/g6tgdlzkLt79s2uRcuA0X8OisCYSmW0CaeEqfzBnPMGL4/udVyMJNJtkk1OtS1Xjv0D//VkwzM0j48rWUqkvkmyi/HtNxug0qWpPjqW3/3hBfQRGXdIYNHFms4WeJNtGMf4ZIwtdlV+PiKzYHtyg4zIxpZtdbtM63ejIfnMVvwzjmKPeJ/yZDBWwxFJd0Zg9ZDYiuSZ9hqSKJOpl+MuUHJc/s93qQ==
+ bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
+ b=EVISodsWdidbcZQVSDqtP8PMv8Qs2LkrnoKKs+M6CnNeHq/rd5RF70XtndPYVeyYp6pAN68piXXr5AcD4yhWbygboLiFgQFZH/hNYCEPziGwqGK0Q+wB2iaAfSKyAUuH4HgQ/3+Q4vybPb2baeaIlY4v34NAGbm7czfc0WI8xSrLqjCcybJE30H3xFCryrL2tcElBfyajakn44LA6daBKgdahD1bmBnLuKddBcQJK74brgt/V+aGu3S82U5CT4z+Khw0cZ1xghDGleIpZnzhAuqDl5Bo1nBmH1zx95wd+CM6B3XwSfz9awx4gcUe6zU3GmocpUhK6+Lh0V4f8ZioUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s628hrZ71BPsBGVoLoq6CtvqdB/jbf+ci5Nxw/e4Lio=;
- b=lgXUhGaZMMDpcAkeVUq1KaaY7+mSMqpj2/275RdmuZZ3GkXWOiEbvsszwd2KGTzeqrPZCQfpLIXikQqvzOHF4hMt0+dUqqg+W1arpQ8ai1dnrnHcd1R3wzoMSSlZt+HaWODVcoRJ35S4kY+ohh7Di+OSx1raP2JihdY3USa9Wz4=
-Received: from PH8P220CA0033.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:348::11)
- by DS4PR12MB9770.namprd12.prod.outlook.com (2603:10b6:8:29d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 19:01:57 +0000
-Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
- (2603:10b6:510:348:cafe::8) by PH8P220CA0033.outlook.office365.com
- (2603:10b6:510:348::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 19:01:57 +0000
+ bh=3/G4R0A85UtzLrPEumDeAEeXzg6NhUsjyoeO5M2/Bx0=;
+ b=fJItptgC16aT/BoUhRIIzJHT/hi19rV/fZ9fvwaoBZ+eXu/VrHuDcksYXnOy8WUeXSUDtpBi+0+JufcUDEEz0NhXzsfchCzpO+hbsZRIWwyHSByjkOgF93jgAPVJ41cost3UlZW2FAUVrDrmQvIcI6KqcLVZCWC78rQ8uw/7nfs=
+Received: from PH7P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::19)
+ by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Fri, 2 Oct
+ 2026 19:01:56 +0000
+Received: from MW1PEPF00016160.namprd21.prod.outlook.com
+ (2603:10b6:510:32b:cafe::c) by PH7P220CA0048.outlook.office365.com
+ (2603:10b6:510:32b::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
+ Oct 2026 19:01:55 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
+ MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 19:01:56 +0000
+ 15.21.496.3 via Frontend Transport; Fri, 2 Oct 2026 19:01:55 +0000
 Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 2 Oct
- 2026 14:01:26 -0500
+ 2026 14:01:25 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -67,9 +67,9 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Mario Limonciello
  <mario.limonciello@amd.com>
-Subject: [PATCH v9 21/21] drm/solomon: add SSD130x connector luminance support
-Date: Fri, 2 Oct 2026 14:00:30 -0500
-Message-ID: <20261002190030.211356-22-mario.limonciello@amd.com>
+Subject: [PATCH v9 20/21] drm/bridge: add PS8622 connector luminance support
+Date: Fri, 2 Oct 2026 14:00:29 -0500
+Message-ID: <20261002190030.211356-21-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261002190030.211356-1-mario.limonciello@amd.com>
 References: <20261002190030.211356-1-mario.limonciello@amd.com>
@@ -81,29 +81,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|DS4PR12MB9770:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f0d25dd-8201-4ae3-4304-08df20b7a17d
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|SN7PR12MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|7416014|82310400026|1800799024|376014|6133799003|11063799006|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: j3aLRSGFgBtgkUucs7yzZkw11LZy7b6FylF8e4lCjXYxMIo+nDZlk9Y5rqWi1lpp/VCnQ7QEEz+GFqstuM8yoi6LG2mIKoGZuWaJss54UeRrULlh0SBgGVGCM8HhsMrngyfcchRo91nU7LkyE4FtTDtirCF1vL2bB/Hqw7ZlPVlUahJeM/AeMC4fnEaUhvLh56lI48TuR1HTTFblxb1NRuKW+J9QmdU3LpuOnWb0ehgrugv5ptfWHiFreRmYeTwK5DV3o3/kwaY8MQihhmdUFJ9e8w30aT968L3an8MEHUJ0VWK9jK7RyrNHVrDPN0bJr4t3Z8r+6XFTfOpJJn1q7W2B13fcdS9zMxeJ0xhcORkB0kGAXMbtAzQ88A27W6f8vsWnVVvIesU6JK5W1E8/JTXM/6rY5XBJk+izYv12B74gWTCub8P1ZIMWNQYy7bfTEvXfkeOd3ZAWpdFRZ7xeSpLhu9l2/8sRyEtaiijxpXhpd2qMAwMqF1PcdAmbU0pu6ivlNxnysCO0r51t50brkJFmkWAieFQZrd1wqxZaVy+jYrmfks5Eoy1+d/vgpGFcpeWqT2Xi3G9O3t2+WhXwJRQX23HUgFCNwczJ7Uq884uqcXtsqshwW6FKvf4TZ2WoFm/03VD0eE4/2mW8SvgJTknQ8rKimcl28jyMHQc0h3REuxyL7x9bNGGSABHK04y/+jkRVms4uZ1aAYEHI1bRLA==
+ ARA:13230040|36860700016|7416014|1800799024|23010399003|376014|82310400026|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: v4ox/QFJ95eVGktJi0UNbPyXQEA5XplkvY1BMNVuN17iJ6Xi/1BpFDilsw696NjuRCHWY86rR3Ld9EBxkMbBn7CS32+hMrfmC0us5TGauBukGsBwW9hFKPI8UnqLLLg6JINmJmCgOWgrMxc7AEOhjr31b306RKO/vREmeyC0wPecOJImzQedCvZhiZ5vn1iRkXLathIAeOj+wS9POqGOf970z56yTa4oY4rI26v9WjzxsVEFQs61f4+47ny99QcgFww3T92N370M1Jbpl8o5MLzbVEWj+L3lPR7TOOmwoH8awRn80S5JlggWuDxCCo8N1V6KKolkjf/4DNpQACCcLq1ZuVS152RZnXMQfu+9+wt7gUELoWaDZ6cT1QB8YJpJhJc4B3IJLgg/guklVhmwpfJ5u+1FMLuCoImYfBaJgG526k1Ay2bHzuds9QQu1zeGEiDFcAsKLEh0Y+huv3e/yIkBT8wchOeBnQHp+vEgmj0Pc/ht3NQG/eedFoBHXg+TA/aqc3AJDF079gnyhEx+e2dZgrkvXL8fqban+h4IieajFVbezKXCdeaxJ1lC19ueXYbsIXOj72OuScplvnNC/rvN0lwvZKKk7qF79udFe3wDZKs/y9VMFyEdpiIXZZ6/5WIbsqRcSXQXiixDi+aNXLgFh7vg4NG7/brpJqKeivvTQg3hd9IySivBHkwVmvPInx1yCjxgM/i3hTy80xIJ4w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(1800799024)(376014)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);
+ SFS:(13230040)(36860700016)(7416014)(1800799024)(23010399003)(376014)(82310400026)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: MonugbOm1jI61EuSa2UtUOlBm4q35tI4AovoxYKMNcjgm6Z09s328kEw7hYEoqt2fMuzMH69zVkxN9/O4QqYOTttZhU/8+xP6VpP7vVG2tZ5D14dhzADfqxpxtLHOl9M5rhOb4votXzoNyyiNr2v/D+hS8dm+bT5C9qP3ckQsnrG7zZVPgVqo9k1Bqt6EouFPmAaciNXPS3YSkd0gVWsJc5hNLd7Le94v4f3kvQbTTeS9PgUzi4eV4hPntiWJdr2CFD+K03XzUNoCqMZwdvyNuROFf/x0DoMrFZX189PLb4MatEHEr5gqChqR4Hczm1e+nFFJgv9Z3lbPg8qnKpdqGLz8Y6mv01mrCBgakmx4rlNAYlO/pFpkmxn1dInQorTVsAU0sX/atS/rSI5P48uwCip0WsxUdHAwysQZ2Zsoma7VsPtWeL4LPHNTgg7F349
+X-MS-Exchange-AntiSpam-MessageData-0: +slbPXnoV1m4M3LFlphOwEnGQwKHVlFvk3AEBowRaboPS/NicnAswfxNmaMB44nYeY3e1sNdhSsq1aIXAesY5rVwgpEZCeQJnUTGK7jBRyXXYc5jMgjnsrVN7jR3xoflksgl6Y/VCwPKH81ihyEGiiDw2b3CnnoQIfJ6X6xnuUJeE3Y2/sfOYkEGBvdfPra8qikXKzXGDM3a517cRlvIbwWjwc8EodsDm83p44LeaD5fds+KUp/rpYw9Oz8rNqup+Bwl8We16sYryX3xjk2XwjDk5dYdFw/6bp4wjAge7wl3okuqpu0qM0v6cSXTGfjItUwClM3crqbtk695YzgrLFm2/U7I4Xa7PldnA3fdN51M4R9yNnstONnmZ3He7HcB9M9a7suQDv6gifU1BfjqmYE7faoCw5G38Pc/lReKPzajQRm3QrHUPwkHj7cGbtT1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:01:56.9232 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0d25dd-8201-4ae3-4304-08df20b7a17d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 19:01:55.7513 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66aa3da3-9e15-41c7-0d44-08df20b7a0cc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615B.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016160.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9770
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,200 +119,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Expose SSD130x contrast through the connector LUMINANCE property when
-DRM_LUMINANCE is enabled. Program contrast directly and retain the
-backlight class interface otherwise.
+Expose PS8622 brightness through bridge luminance operations when
+DRM_LUMINANCE is enabled. Keep registering the backlight class device
+otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/solomon/Kconfig   |  2 +-
- drivers/gpu/drm/solomon/ssd130x.c | 79 +++++++++++++++++++++++--------
- 2 files changed, 61 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig         |  2 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c | 45 +++++++++++++++++++-------
+ 2 files changed, 34 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/solomon/Kconfig b/drivers/gpu/drm/solomon/Kconfig
-index 400a6cab3a671..f0d52bc71cdfc 100644
---- a/drivers/gpu/drm/solomon/Kconfig
-+++ b/drivers/gpu/drm/solomon/Kconfig
-@@ -1,7 +1,7 @@
- config DRM_SSD130X
- 	tristate "DRM support for Solomon SSD13xx OLED displays"
- 	depends on DRM && MMU
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 837db36cdf48e..d78eb9f117d1e 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
+ 	depends on OF
+ 	select DRM_PANEL
+ 	select DRM_KMS_HELPER
 -	select BACKLIGHT_CLASS_DEVICE
 +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
- 	select DRM_KMS_HELPER
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 324467ae9309f..8aec74ecdcb6d 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -1831,7 +1831,8 @@ static void ssd130x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	help
+ 	  Parade eDP-LVDS bridge chip driver.
  
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 3a2ec482037df..229d9d7218c4e 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -45,6 +45,7 @@ struct ps8622_bridge {
+ 	struct drm_bridge *panel_bridge;
+ 	struct regulator *v12;
+ 	struct backlight_device *bl;
++	u8 brightness;
  
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
+ 	struct gpio_desc *gpio_slp;
+ 	struct gpio_desc *gpio_rst;
+@@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
  
- 	return;
+ 		/* FFh for 100% brightness, 0h for 0% brightness */
+ 		err = ps8622_set(cl, 0x01, 0xa7,
+-				ps8622->bl->props.brightness);
++				ps8622->brightness);
+ 		if (err)
+ 			goto error;
+ 	} else {
+@@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
+ 	int ret, brightness = backlight_get_brightness(bl);
  
-@@ -1857,7 +1858,8 @@ static void ssd132x_encoder_atomic_enable(struct drm_encoder *encoder,
++	ps8622->brightness = brightness;
++
+ 	if (!ps8622->enabled)
+ 		return -EINVAL;
  
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1882,7 +1884,8 @@ static void ssd133x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1907,7 +1910,8 @@ static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1921,7 +1925,8 @@ static void ssd130x_encoder_atomic_disable(struct drm_encoder *encoder,
- 	struct drm_device *drm = encoder->dev;
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 
--	backlight_disable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_disable(ssd130x->bl_dev);
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_OFF);
- 
-@@ -1958,8 +1963,44 @@ static int ssd130x_connector_get_modes(struct drm_connector *connector)
- 	return drm_connector_helper_get_modes_fixed(connector, &ssd130x->mode);
+@@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+ 	return ret;
  }
  
-+static int ssd130x_set_luminance_value(struct ssd130x_device *ssd130x,
-+				       unsigned int luminance)
++static void ps8622_set_luminance(struct drm_bridge *bridge,
++				 unsigned int luminance)
 +{
-+	int ret;
++	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
 +
-+	ssd130x->contrast = luminance;
-+
-+	switch (ssd130x->device_info->family_id) {
-+	case SSD133X_FAMILY:
-+		return ssd133x_set_contrast(ssd130x, luminance);
-+	case SSD135X_FAMILY:
-+		return ssd135x_set_contrast(ssd130x, luminance);
-+	default:
-+		ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-+		if (ret < 0)
-+			return ret;
-+		return ssd130x_write_cmd(ssd130x, 1, luminance);
-+	}
++	ps8622->brightness = luminance;
++	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
 +}
 +
-+static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, conn_state->luminance);
-+}
-+
-+static void ssd130x_connector_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, 0);
-+}
-+
- static const struct drm_connector_helper_funcs ssd130x_connector_helper_funcs = {
- 	.get_modes = ssd130x_connector_get_modes,
-+	.set_luminance = ssd130x_connector_set_luminance,
-+	.disable_luminance = ssd130x_connector_disable_luminance,
+ static const struct backlight_ops ps8622_backlight_ops = {
+ 	.update_status	= ps8622_backlight_update,
+ };
+@@ -438,6 +450,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
+ 	.atomic_disable = ps8622_disable,
+ 	.atomic_post_disable = ps8622_post_disable,
+ 	.attach = ps8622_attach,
++	.set_luminance = ps8622_set_luminance,
  };
  
- static const struct drm_connector_funcs ssd130x_connector_funcs = {
-@@ -1996,20 +2037,9 @@ static const struct drm_driver ssd130x_drm_driver = {
- static int ssd130x_update_bl(struct backlight_device *bdev)
- {
- 	struct ssd130x_device *ssd130x = bl_get_data(bdev);
--	int brightness = backlight_get_brightness(bdev);
--	int ret;
--
--	ssd130x->contrast = brightness;
--
--	ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
--	if (ret < 0)
--		return ret;
- 
--	ret = ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return ssd130x_set_luminance_value(ssd130x,
-+					  backlight_get_brightness(bdev));
- }
- 
- static int ssd133x_update_bl(struct backlight_device *bdev)
-@@ -2030,7 +2060,7 @@ static int ssd135x_update_bl(struct backlight_device *bdev)
- 	return ssd135x_set_contrast(ssd130x, ssd130x->contrast);
- }
- 
--static const struct backlight_ops ssd130xfb_bl_ops[] = {
-+static const struct backlight_ops ssd130xfb_bl_ops[] __maybe_unused = {
- 	[SSD130X_FAMILY] = {
- 		.update_status	= ssd130x_update_bl,
- 	},
-@@ -2191,6 +2221,13 @@ static int ssd130x_init_modeset(struct ssd130x_device *ssd130x)
+ static const struct of_device_id ps8622_devices[] = {
+@@ -502,18 +515,25 @@ static int ps8622_probe(struct i2c_client *client)
+ 		ps8622->lane_count = ps8622->max_lane_count;
  	}
  
- 	drm_connector_helper_add(connector, &ssd130x_connector_helper_funcs);
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0,
-+							      MAX_CONTRAST,
-+							     ssd130x->contrast);
-+		if (ret)
-+			return ret;
-+	}
++	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
+ 	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
+-		ps8622->bl = backlight_device_register("ps8622-backlight",
+-				dev, ps8622, &ps8622_backlight_ops,
+-				NULL);
+-		if (IS_ERR(ps8622->bl)) {
+-			DRM_ERROR("failed to register backlight\n");
+-			ret = PTR_ERR(ps8622->bl);
+-			ps8622->bl = NULL;
+-			return ret;
++		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
++			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
++			ps8622->bridge.luminance = ps8622->brightness;
++		} else {
++			ps8622->bl = backlight_device_register("ps8622-backlight",
++							       dev, ps8622,
++							 &ps8622_backlight_ops, NULL);
++			if (IS_ERR(ps8622->bl)) {
++				DRM_ERROR("failed to register backlight\n");
++				ret = PTR_ERR(ps8622->bl);
++				ps8622->bl = NULL;
++				return ret;
++			}
++			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
++			ps8622->bl->props.brightness = ps8622->brightness;
+ 		}
+-		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
+-		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
+ 	}
  
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret) {
-@@ -2223,7 +2260,9 @@ static int ssd130x_get_resources(struct ssd130x_device *ssd130x)
- struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
+ 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
+@@ -529,7 +549,8 @@ static void ps8622_remove(struct i2c_client *client)
  {
- 	struct ssd130x_device *ssd130x;
-+#ifndef CONFIG_DRM_LUMINANCE
- 	struct backlight_device *bl;
-+#endif
- 	struct drm_device *drm;
- 	int ret;
+ 	struct ps8622_bridge *ps8622 = i2c_get_clientdata(client);
  
-@@ -2248,6 +2287,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	if (ret)
- 		return ERR_PTR(ret);
+-	backlight_device_unregister(ps8622->bl);
++	if (ps8622->bl)
++		backlight_device_unregister(ps8622->bl);
+ 	drm_bridge_remove(&ps8622->bridge);
+ }
  
-+#ifndef CONFIG_DRM_LUMINANCE
- 	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
- 					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
- 					    NULL);
-@@ -2258,6 +2298,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	bl->props.brightness = ssd130x->contrast;
- 	bl->props.max_brightness = MAX_CONTRAST;
- 	ssd130x->bl_dev = bl;
-+#endif
- 
- 	ret = ssd130x_init_modeset(ssd130x);
- 	if (ret)
 -- 
 2.43.0
 
