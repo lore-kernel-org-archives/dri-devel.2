@@ -4,59 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0EC0CA5FCE
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 00:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E1CCCA5FE1
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 01:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B53910E110;
-	Fri,  2 Oct 2026 00:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECDE10E09F;
+	Fri,  2 Oct 2026 01:09:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M0pQ1Cvb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qwkg+LJS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B7C10E09F;
- Fri,  2 Oct 2026 00:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1790901503; x=1822437503;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=J3utxBYWapNuzsgJiM2xNv+dVDyB6qQmcrEPJ8HMbxI=;
- b=M0pQ1CvbVsDvpXouWVML7cE7hMFkmGxN6VRmVIA1G0pyj+FYrd/xWmeb
- u3praDIxfrps5pDaeZZNNIIpiJO/PL5aa17AHf/QLmMZi5ZdkGK/TYw6R
- pPLI58QcinuGisq5l16O9fZMuOI8qHRrID0rjqE3DZuhtoErI/ob/KQ5B
- EmIgAOKSqQXe8hKdlKthYh7XkAVSoAebXD+11IR0cnigaKpCqvog2jQE3
- UYhPRODStusy9RW7nfO8ZFETrrkaC9wTeLIh+J0atXwFoNnZdBsuZz6HX
- DK7hznOwHF7/knfYR/SguGcRvZp6yZ6x1c16P6+uH8Nh3Zqnfsbma4hFz g==;
-X-CSE-ConnectionGUID: g67UicQrQJKiDmxoM0601g==
-X-CSE-MsgGUID: cuRLrA06TKS+oy78/qNEow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="91693215"
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="91693215"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 17:38:22 -0700
-X-CSE-ConnectionGUID: Z84WhmAaTLKXie5L8J0qHA==
-X-CSE-MsgGUID: +tr2yjb+TpSNbehLerEgEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="276240069"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2026 17:38:21 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/exec: track the first few locked objects inline
-Date: Thu,  1 Oct 2026 17:38:16 -0700
-Message-Id: <20261002003816.3233277-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com
+ [74.125.224.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEF9810E09F
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 01:09:00 +0000 (UTC)
+Received: by mail-yx2-f40.google.com with SMTP id
+ 956f58d0204a3-6762de1c77eso2556506d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 18:09:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790903339; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Uj9Jxj7mzIKqR+P07nDbxpyYhNyEQnUPxjNqwWqD+1H7/iCFzlje2Q0VILVfSO0zrk
+ wPjkH8YyMBFY+5ENlaAxHmTsTYpk4xMflC6zc3MQXXOABa5nHyqke/672RhbSjUN16EJ
+ KhUtDuggZ9ghshz5IFJ3oslynoDHi+Rb9bNcAIWQUYLzpf92zRsKpHTyYPV0ajlbSExi
+ IN5294W3wuNVBiIOX4Kjp8xBu6Dlfu4jVA/gXxesxA9XKfcGi1KtK8R4usKKctihNFKI
+ HZLNK9QDnViBCgpFTuyGLKvHiV8dsefPIlGlrRK7BNmRsvUORsOQQiz3TeuhW6KuKi5t
+ wLaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=OP5zp61MrjKPY8CNhX4kYBCEBteI7PfiFh3wprS0txc=;
+ fh=fFkqZkZqEdnUEUNmR8mAFXAVU/zcyYPrZ7SqdMDE+Ss=;
+ b=KAMNzqdEfI/r6BmvDNAyccXiENAnqsquL5VYbQvkoi68e6prEePRWR4vBAcoLhKOPm
+ UbA/PlF09b9VxsxV44s90CcxjLfupyHMJlAuwDUl0ie58OW7F1dSlG7hYclalEKV7xyt
+ Lfcm/YeEWcNxW+RwSXGZ8v6AJ0gxiJYnceFCHcLajNsGjFz+wmJwmtUPwZP1w/PwW3Nm
+ /bru499F6eiz+onvhoXnNHivx930qyJPfsTBgC8B5iFyEAXTJfhKPeAbqRVky85r7WiU
+ OmC3G6A2SV8+2Kozv19Twi4qACzUxFqIgTnI5QvjQgc6QEzo18uVE1ib04V6iLDvS/1L
+ WOeQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790903339; x=1791508139; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=OP5zp61MrjKPY8CNhX4kYBCEBteI7PfiFh3wprS0txc=;
+ b=Qwkg+LJSMXwyfSzzpnzHflbIvkFMt41+5RKcbig/9FMSD4WZ4S75cV+IlIXJus/mvJ
+ NcavV8vVdoxwEKkndx2FxmKFzJEvwR4BgQxgJIRSPJD2ReA0CIcGEWuJcAMjn/i8ej1v
+ GIEf1TJ5pme3X3rLcZbMzihGpJcoqBU8Grttw+8cWsB4N7cQh9M0ScYLLtrkZheq1FLy
+ KDjLC+G5swob54DhNwZwrWvK5uaWfhAbthONTM9grH7fgvZLq1iJkZ2Z5LtwaePnDzKm
+ J/8of66/LjyxK9kQ+cFqi5XtmKqYgPRkJNLzHRPOyQWmIH1ampioKRpbitZxffjs4rK1
+ XUGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790903339; x=1791508139;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=OP5zp61MrjKPY8CNhX4kYBCEBteI7PfiFh3wprS0txc=;
+ b=sQ7w1Sw6SPeAprSngESxzu+qsZMzpBW/w1NCMaN+2QilLb7+Fk5TkmSxuVAGQCePNk
+ 8I8Rk0a6STNBRzs5RU4HNZUtyF6uBHWqEJUy5O/cCX2t7PSZfiCG6Ni5vUXod7+YHeJM
+ 4ElRYdHvLwo0E8nEnwhyIAXT01MR6ZMby5mS4PTqiOuM51GM6/UiTwLkUFHoFt3h/RDj
+ k5WoKqCxHjbAmDE2R7t/moH+RBKXjdbWkaDA2gK0tAyCaz+v+R1joBSVYIfbdmc1pwgh
+ D0iK/8PcpH32X3f0Ow4bizxs2gvTGFM2EK9O1hWtdYSs/cjaqWwT/i2hLlEsqkCfdscL
+ TSLQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByAEcnEk8tAfjMKPCvABGfionJM8o4/Crz/DJcrjCTj/lnnb8xfjQY7TDNzZ5O3r1jzOmEXvWWl/3I=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ2II0l2/31Kba1kvIncTWFuNiEGPrXUvAVnVBce+2xsP8yjJ/f
+ zMF6tM5+pAHof8AwzDQNd30VtX5b7wKREGXbg79DvQM3nYsfmFbrrVl9f5sUZyLEM1iHkpm7HKL
+ rHs4VtNJ7ly4t6A1Yu7XWOUrHB8XWBdM=
+X-Gm-Gg: AYBFou3I0GXw16/InU6AKCiLryA+qBBml4tnLOkToiryyGkuiovch6h4bl/TMJ1CKda
+ bgRFOn2lQeWaAVHg3nvSs9B+fgEmWL5rBUccOE3Qow+Ph6T5DweL4LulknkXT8TJyOymZix8BTv
+ aRB1TDJzE+daDRkY2y5jASEIKf1Zc4M7eKdRxKRN9HR3ZNIs0eienpPYD5T8fau8ZQlZYbEtKrw
+ 93fpd0gd5MRzvSVtWY2BxfjXShR48ARKo5U6Xt8wER9pqSrAMJGtO9QwL6ub+/3WOqARDppx+n/
+ cRFirOf15hG8yrlNSrl5ype4zQ5mqTNpdcbzieLYsYtFR7GPexV3UAYobD/m9xVob3M=
+X-Received: by 2002:a05:690e:1d2:b0:673:2e61:1720 with SMTP id
+ 956f58d0204a3-677ac0ae6bbmr380025d50.82.1790903339575; Thu, 01 Oct 2026
+ 18:08:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261001-pvr-fixes-a-v2-0-f58254e5dfb8@gmail.com>
+ <20261001-pvr-fixes-a-v2-2-f58254e5dfb8@gmail.com>
+ <0e62e6395ca0ea1c0cb6d5f973eef05a57df2136.camel@imgtec.com>
+In-Reply-To: <0e62e6395ca0ea1c0cb6d5f973eef05a57df2136.camel@imgtec.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Fri, 2 Oct 2026 10:08:48 +0900
+X-Gm-Features: AclHuK-OHWJzRH5kn9gO-J8iY5okJLINZwSskhDvYeT2xdlw8ABFwgR8e13fUWU
+Message-ID: <CAKbEznvLy3dio5FigiVzcAggES0e1fjd_xFUzq_SZ4+zv0Rw5w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/imagination: Size page table preallocation by
+ device address
+To: Brajesh Gupta <Brajesh.Gupta@imgtec.com>
+Cc: Luigi Santivetti <Luigi.Santivetti@imgtec.com>, 
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "airlied@gmail.com" <airlied@gmail.com>,
+ Alessio Belle <Alessio.Belle@imgtec.com>, 
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
+ Alexandru Dadu <Alexandru.Dadu@imgtec.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "imagination@lists.freedesktop.org" <imagination@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,245 +115,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_exec_init() always allocates the table of locked objects, a whole
-page of it unless the caller asks for a specific size. Many users only
-ever lock a handful of objects, often just a VM's common dma-resv and
-one BO, yet still pay for an allocation, and any of them can fail with
--ENOMEM. That is awkward on paths which can't fail, such as dropping
-what may be the last reference of a drm_gpuvm_bo, which needs both the
-VM's and the BO's dma-resv held; drivers end up open coding the ww_mutex
-dance instead.
+Hi Brajesh,
 
-Keep room for DRM_EXEC_INLINE_OBJECTS (8) objects within struct drm_exec
-itself and track the first locked objects there. Only once more are
-locked does the table move to an allocation, which then grows as before.
-A caller passing nr larger than that still gets an allocated table of
-that size up front, falling back to the inline one should that fail.
+> > -             const u32 l1_start_idx = pvr_page_table_l2_idx(start_addr);
+> > -             const u32 l1_end_idx = pvr_page_table_l2_idx(start_addr + size);
+> > -             const u32 l1_count = l1_end_idx - l1_start_idx + 1;
+> > -             const u32 l0_start_idx = pvr_page_table_l1_idx(start_addr);
+> > -             const u32 l0_end_idx = pvr_page_table_l1_idx(start_addr + size);
+> > -             const u32 l0_count = l0_end_idx - l0_start_idx + 1;
+> > +             const u64 last_addr = device_addr + size - 1;
+> > +             const u64 l1_count =
+> > +                     (last_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT) -
+> > +                     (device_addr >> ROGUE_MMUCTRL_VADDR_PC_INDEX_SHIFT) + 1;
+> > +             const u64 l0_count =
+> > +                     (last_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT) -
+> > +                     (device_addr >> ROGUE_MMUCTRL_VADDR_PD_INDEX_SHIFT) + 1;
+> Shouldn't we use 'device_addr + sgt_offset' instead of just 'device_addr' as
+> start address for l0/l1 count calculation? Only account for requested mapping
+> instead of whole memory.
+>
 
-As a result, locking up to DRM_EXEC_INLINE_OBJECTS objects never
-allocates memory and cannot fail with -ENOMEM, and callers passing
-nr == 0 no longer allocate a page they mostly don't need. The cost is
-64 bytes more of struct drm_exec, which typically lives on the stack.
+This already counts only the requested mapping. `device_addr` is not
+the start of the BO but the GPU address where this mapping starts, and
+[device_addr, device_addr + size) is exactly the range pvr_mmu_map()
+fills.
 
-Since objects may now point into the struct itself, a struct drm_exec
-must not be moved or copied after drm_exec_init(); no user does so.
+Adding sgt_offset does not narrow the range; it shifts it by
+sgt_offset, which is an offset into the BO, not a GPU address. This
+can leave too few preallocated tables, and VM_MAP then fails with
+-ENOMEM.
 
-Add a KUnit test which locks one object more than fits inline, checking
-that the table moves out of the struct only then, that every object is
-tracked across the move, and that a large nr skips the inline table.
-
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Assisted-by: LLM
-
----
-This came out of a Sashiko review of the two-pass GPUVM series [1],
-which flagged a nouveau cleanup path dropping a drm_gpuvm_bo with
-drm_exec and silently carrying on if locking failed with -ENOMEM.
-Grabbing a small number of locks on paths which cannot fail is quite
-common, and drm_exec should provide a ww transaction wrapper for that
-which can't fail, rather than drivers open coding the ww_mutex dance.
-
-[1] https://sashiko.dev/#/patchset/20261001220632.3190896-1-matthew.brost%40intel.com
----
- drivers/gpu/drm/drm_exec.c            | 39 +++++++++++++------
- drivers/gpu/drm/tests/drm_exec_test.c | 55 +++++++++++++++++++++++++++
- include/drm/drm_exec.h                | 18 ++++++++-
- 3 files changed, 99 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 2453ec41360f..bdc9c79359b3 100644
---- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -70,19 +70,26 @@ static void drm_exec_unlock_all(struct drm_exec *exec)
-  *
-  * Initialize the object and make sure that we can track locked objects.
-  *
-- * If nr is non-zero then it is used as the initial objects table size.
-- * In either case, the table will grow (be re-allocated) on demand.
-+ * The first %DRM_EXEC_INLINE_OBJECTS locked objects are tracked within @exec
-+ * itself, so locking no more than that never allocates memory. If nr is larger
-+ * than that, it is used as the initial size of an allocated objects table
-+ * instead. In either case, the table will grow (be re-allocated) on demand.
-  */
- void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)
- {
--	if (!nr)
--		nr = PAGE_SIZE / sizeof(void *);
-+	exec->objects = NULL;
-+	if (nr > DRM_EXEC_INLINE_OBJECTS)
-+		exec->objects = kvmalloc_objs(*exec->objects, nr);
- 
--	exec->flags = flags;
--	exec->objects = kvmalloc_objs(*exec->objects, nr);
-+	/* If allocation here fails, just delay that till it is needed */
-+	if (exec->objects) {
-+		exec->max_objects = nr;
-+	} else {
-+		exec->objects = exec->inline_objects;
-+		exec->max_objects = DRM_EXEC_INLINE_OBJECTS;
-+	}
- 
--	/* If allocation here fails, just delay that till the first use */
--	exec->max_objects = exec->objects ? nr : 0;
-+	exec->flags = flags;
- 	exec->num_objects = 0;
- 	exec->contended = DRM_EXEC_DUMMY;
- 	exec->prelocked = NULL;
-@@ -99,7 +106,8 @@ EXPORT_SYMBOL(drm_exec_init);
- void drm_exec_fini(struct drm_exec *exec)
- {
- 	drm_exec_unlock_all(exec);
--	kvfree(exec->objects);
-+	if (exec->objects != exec->inline_objects)
-+		kvfree(exec->objects);
- 	if (exec->contended != DRM_EXEC_DUMMY) {
- 		drm_gem_object_put(exec->contended);
- 		ww_acquire_fini(&exec->ticket);
-@@ -140,9 +148,16 @@ static int drm_exec_obj_locked(struct drm_exec *exec,
- {
- 	if (unlikely(exec->num_objects == exec->max_objects)) {
- 		size_t size = exec->max_objects * sizeof(void *);
--		void *tmp;
--
--		tmp = kvrealloc(exec->objects, size + PAGE_SIZE, GFP_KERNEL);
-+		struct drm_gem_object **tmp;
-+
-+		if (exec->objects == exec->inline_objects) {
-+			tmp = kvmalloc(size + PAGE_SIZE, GFP_KERNEL);
-+			if (tmp)
-+				memcpy(tmp, exec->objects, size);
-+		} else {
-+			tmp = kvrealloc(exec->objects, size + PAGE_SIZE,
-+					GFP_KERNEL);
-+		}
- 		if (!tmp)
- 			return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
-index 7a374e462348..434ab9c59878 100644
---- a/drivers/gpu/drm/tests/drm_exec_test.c
-+++ b/drivers/gpu/drm/tests/drm_exec_test.c
-@@ -204,6 +204,60 @@ static void test_multiple_loops(struct kunit *test)
- 	KUNIT_SUCCEED(test);
- }
- 
-+static void test_inline_objects(struct kunit *test)
-+{
-+	struct drm_exec_priv *priv = test->priv;
-+	const unsigned int count = DRM_EXEC_INLINE_OBJECTS + 1;
-+	DECLARE_BITMAP(seen, DRM_EXEC_INLINE_OBJECTS + 1) = {};
-+	struct drm_gem_object *gobj, *obj;
-+	struct drm_exec exec;
-+	unsigned int i;
-+	int ret = 0;
-+
-+	gobj = kunit_kcalloc(test, count, sizeof(*gobj), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, gobj);
-+
-+	for (i = 0; i < count; i++)
-+		drm_gem_private_object_init(priv->drm, &gobj[i], PAGE_SIZE);
-+
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, exec.objects, &exec.inline_objects[0]);
-+	drm_exec_until_all_locked(&exec) {
-+		for (i = 0; i < count; i++) {
-+			ret = drm_exec_lock_obj(&exec, &gobj[i]);
-+			drm_exec_retry_on_contention(&exec);
-+			if (ret)
-+				break;
-+
-+			/* Only spills out of the struct past the inline ones */
-+			if (exec.num_objects <= DRM_EXEC_INLINE_OBJECTS)
-+				KUNIT_EXPECT_PTR_EQ(test, exec.objects,
-+						    &exec.inline_objects[0]);
-+			else
-+				KUNIT_EXPECT_PTR_NE(test, exec.objects,
-+						    &exec.inline_objects[0]);
-+		}
-+	}
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, exec.num_objects, count);
-+	/* Contention may reorder them, but each must be tracked once */
-+	drm_exec_for_each_locked_object(&exec, obj) {
-+		KUNIT_ASSERT_TRUE(test, obj >= gobj && obj < gobj + count);
-+		KUNIT_EXPECT_FALSE(test, test_and_set_bit(obj - gobj, seen));
-+	}
-+	KUNIT_EXPECT_TRUE(test, bitmap_full(seen, count));
-+	drm_exec_fini(&exec);
-+
-+	/* A larger initial size skips the inline objects altogether */
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, count);
-+	KUNIT_EXPECT_PTR_NE(test, exec.objects, &exec.inline_objects[0]);
-+	KUNIT_EXPECT_EQ(test, exec.max_objects, count);
-+	drm_exec_fini(&exec);
-+
-+	for (i = 0; i < count; i++)
-+		drm_gem_private_object_fini(&gobj[i]);
-+}
-+
- static struct kunit_case drm_exec_tests[] = {
- 	KUNIT_CASE(sanitycheck),
- 	KUNIT_CASE(test_lock),
-@@ -212,6 +266,7 @@ static struct kunit_case drm_exec_tests[] = {
- 	KUNIT_CASE(test_prepare),
- 	KUNIT_CASE(test_prepare_array),
- 	KUNIT_CASE(test_multiple_loops),
-+	KUNIT_CASE(test_inline_objects),
- 	{}
- };
- 
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index cc2937185a9f..ddbdd745efd9 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -15,6 +15,12 @@
-  */
- #define DRM_EXEC_DUMMY ((void *)~0)
- 
-+/*
-+ * Number of locked objects tracked inside &struct drm_exec itself. Locking at
-+ * most this many objects never allocates memory for tracking them.
-+ */
-+#define DRM_EXEC_INLINE_OBJECTS	8
-+
- struct drm_gem_object;
- 
- /**
-@@ -42,7 +48,8 @@ struct drm_exec {
- 	unsigned int		max_objects;
- 
- 	/**
--	 * @objects: array of the locked objects
-+	 * @objects: array of the locked objects, either @inline_objects or
-+	 * allocated once more objects need tracking than it can hold
- 	 */
- 	struct drm_gem_object	**objects;
- 
-@@ -55,6 +62,15 @@ struct drm_exec {
- 	 * @prelocked: already locked GEM object due to contention
- 	 */
- 	struct drm_gem_object *prelocked;
-+
-+	/**
-+	 * @inline_objects: storage for the first %DRM_EXEC_INLINE_OBJECTS
-+	 * locked objects, so that locking only a few objects does not need to
-+	 * allocate memory, and therefore cannot fail with -ENOMEM. As @objects
-+	 * may point here, a &struct drm_exec must not be moved or copied after
-+	 * drm_exec_init().
-+	 */
-+	struct drm_gem_object	*inline_objects[DRM_EXEC_INLINE_OBJECTS];
- };
- 
- /**
 -- 
-2.34.1
-
+Thanks,
+Gyeyoung
