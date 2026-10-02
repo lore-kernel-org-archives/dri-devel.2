@@ -4,132 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A44CA5FDD
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 16:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C964CA5FE2
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 16:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094FE10F91D;
-	Fri,  2 Oct 2026 16:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EDA310E639;
+	Fri,  2 Oct 2026 16:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gfFy4hUi";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V40mNmfv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ppWn5pNO";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B141610F91D
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 16:54:22 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 692GimkF1834387
- for <dri-devel@lists.freedesktop.org>; Fri, 2 Oct 2026 16:54:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hX1xIGHHDooaGka+HXLnczXa7BVx4zuQ7NYunE/26TU=; b=gfFy4hUiW+vRlYvL
- w+n0LBB5D80p6R61k2IN4LwIbpN/RyKYij3Tl//E4xRP1XJMOTWXC+p0f921FEsh
- m6P5+PcaodR77rQsnY6EjAhcgf1nH1qqiHdvrCaa3t+3KLiUzoUdCMvXNPjh4Dnc
- NfvsS033E7to4QZ4MtNxmvn35ZP6LJsawDpOd6ymyFHRWdjYm/h3YjZRWO1EVCSl
- WPkQcsKKn4JfI9JpY36Qi+dZMemrrE/Av9tZaFIHsqopYGoFUMralWYeBER2xUpe
- EYOsXxkzVTy/uRVO/M5PyyJM/ETV73SORVyefcfXjc9s67xrXn6byJNIcfZOsaoi
- y6r4SQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ec98jux-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 16:54:21 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-30c0d568830so15105988eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 09:54:21 -0700 (PDT)
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com
+ [74.125.229.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4948110E639
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 16:59:47 +0000 (UTC)
+Received: by mail-dy2-f12.google.com with SMTP id
+ 5a478bee46e88-33bc6ff6cadso1188943eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 09:59:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790960386; cv=none;
+ d=google.com; s=arc-20260327;
+ b=FFwG1FVMHoXqSgIizQCkLyvMd6ybVLLHv+M8lmxvFDWDHfwt8FF0TJAMb+t+o/l8do
+ Bw2CLmh+CJ+fGkb0SVgePBuYEl/U1OeP50DMgs+mqMBZCJXmz0vYQ4SFL1ZHVq+GNyrG
+ cHQMfgWqBkHLqZgW0skSxF5SftmXA3Xz/5x36M4vLtnAFLb1lgf0QWGWCfk+TNy+bbyR
+ M3TdMR0mStkrrrZn9flEtlwiEp0smDlMaFNSPHHtWLMPaWWcq2JFogIaR8OLPYoEjECn
+ o0+2rPkkrO/ZwceKrOdAQKR4zX1I9wRVH/RS1sfHuTWiEUeC0WTNEgNLfWEjO5r9iIso
+ /qZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+ fh=JjrUam8UZtXTgCEH71mvy8Z1Lyvs3UwQZASQ65871PI=;
+ b=SwRHGKS3xcD5CbL51eXR2moHKdzLYAAv+8a+MFoiyVYfsiAxGrcw2Six+2xWp8sogC
+ clJ5PIFRG5iQUUiMjw6rFvu9Spfn78ZEc3wYBbixO3eyRGibT6usAIabXGbftjs6fsUL
+ JipfTjoHz/wZ5mHM0ITE/A6yg4NU52GoM9+FF3Gx1sepI9B2gDoDB1R9MzJji6MhwJ9L
+ ycecUTfEOhvuJAVKJTe3usp/j3jymqECIpAZUQXaYYjCwyJgWnhw3+Voow6NT2M2fNrr
+ K63Mm6rYu63R87Mww8Kt04l8GOWp6B1997+xTiTfB+huaXICAcsgEqJdaPs/eirJybmB
+ QZVw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790960061; x=1791564861;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=hX1xIGHHDooaGka+HXLnczXa7BVx4zuQ7NYunE/26TU=;
- b=V40mNmfvNhWAU+aoOyn7WrqKscnNx3BScN6mwNseNke9xQeLt9XBw5YU3a6aO79Ve6
- APiyNjI0VvzrC92fzSANtWdj+416IkT94yRUetEnSR241a7aAZoxVUfcGu9tqqcWPnHy
- hWngJ8DcNW7VMnV2P4R+Ktc089i3k5tHmplsyKdIX03qskjrEK/c+HD6e+IWcMMKXedl
- ul9uTpx+QiACEJ00S3D4u2RovCR+6m+wfxUwiGG6GlUpoE3BYDkrRUbBAWSilphXpd6o
- S//EsGxqX1brydhAF+2it2d0ekJ+mRYPBOJmw44hMC8Q4UfhLOFD/vhRwuHGnMeW9Tvr
- EYeA==
+ d=gmail.com; s=20251104; t=1790960386; x=1791565186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+ b=ppWn5pNO0cGSUBeJzUGH0WLW1q2G7BqK8FAWyAzMSJvbmuNRAzE1QtW/lfT5UHW+DY
+ Hgqawcc1VFay0SEBbZQtlNWR2kHJM+JHq5v6fqGXZEOpZl4bGBAwN+i71Zzjscf5mopB
+ tGye8Yvch0wGoIl7txU31nIgnD4pyWuPOlhKdPuU080VL1o2EHxo4i5rn5nSWctjY751
+ DWxpPGdex2ZMmabM3ayP6njw/ZViqp53nuU4ZLBqvK2o9U+lCp6uWyl0gCI083wyZslW
+ xVPp7JkLoO18gzWa9F3l5b9Xaw5oQKc+SaoZwkOeZwQNLRcPRIKIF7e6u+OuU2zSEYaE
+ QDTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790960061; x=1791564861;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hX1xIGHHDooaGka+HXLnczXa7BVx4zuQ7NYunE/26TU=;
- b=gvpzHQoV1kVMhjJM/FWJxc06m5UD1N08ubuFC64sGG8xe3HKd6HT3ZN0a68AnvAdee
- x+CqiIiRS3J8beC70GAgDxLzjQ/xhHHuy8wnH7gA3j3vbNMZLAWkbWeGpJg7n6U4Xvqv
- 4TCdgcCvPqOaIDXWn5MDv+PoeceVU/HVPCUqNYMlfryqPkckKGLRBy70SdaobxLgNmwv
- 6AF1jYt+PWGZz4fAlPIEu/2vN2ZLkojuweYcTQnsJza+kCuxqp0bMts3Y8Jh+p9WyQty
- wPUwVtI8ledOvWr7jDL7F4dIbb95GutzaiPc2bUKwmBdOVHblwV2cm5uNqnWguOnnB9A
- VhDQ==
+ d=1e100.net; s=20260707; t=1790960386; x=1791565186;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=oTUdZg9mDghQf1o9x+wxMpJYTch+gpQ19dcPDYZue7Y=;
+ b=b93jsrGMtyozwDF9KBg3u5yFTbSuECQ8YgpZLqYr6Zfd3QyTFZll9zrr7fEqOLB6bj
+ qC7WgMHA+s3EVnMnrTo8c7m5+OC5MLoH8d3waeC1Q2cNnOB9QvqWIz0KO6bt1zI3G8Ly
+ yRwMYopCI4xrL29JiWL7TsW2dhS0Y64uDZ2e9s3K/uY4WvJahDZAmOH6TuqfA6hBKp/z
+ c5sGQVSh2JkD0UeKYTo4GYHp+XPP/HN3ku/lj/FHk694ko4zolnk3kGBkML4uc6500rR
+ lVBZzr+uNhXbyhWFX+itGuzI4YcnFozcoqc6FeeZoR2RwIzsxN4u8uOdzdDsxvmQSKGn
+ 0gaA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxwJYgPzWwHsQDSbo0X+P5crv6ybMw8y85++i0EpHT6u3d1n6UM93Fpn+4Pv/VOdRzQlTuVJgLfQtw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kzUSr7qO9iCq71u3/eD6eJvgmmTSJgpTU7qiOMzIJgELDXyiDH
- 6Ba4Kc+msW6f43cpZrJ5M9311tfpaRF3gB3qktH2cILv32q9pCtfbnmdXcbiARoqFnQNRTM4CCe
- 854XwV3S6rUBN4K8Ewewjv1F5pSFf052n5D0WWEZH2YrXI2xfQ9wT4c3HMm1HMwIR4K6QWR8=
-X-Gm-Gg: AYBFou00i5s7A0+eapdJUa1s7h1ec/DIFxPJififC3D2PlD/KgsHvBT/tfy8Z+l/XqJ
- mAsLlny65pcoubYtKP6WteSgeWlEXOC0G7UzU+pnos42qPNVDrAchroRhQtb14pL18cc3wIWT5n
- kzoqhl2wg2r8gbyVf6fIvWdfPd4v78c/J0DsKijd0I3gaNGl4SKIodULg3tdxiqnoBo9HqvQ/Ei
- LoO+hYizxF/2uJqzLfjnZx3LiBvHm8RCoUvW83DpEOU2PS3r8omL0nnd9HAWHtVjXju1ggc6L3W
- /IQw+pIqjZI4THZ5jFe7jHO56ZsylFbARnTBrCgY14BEMKHBMK8krjT1VHosS5Quxfgc3ValZqb
- Nmkucvkj31jqoD2cqVHRUJ8mYSh0hxvPNXJvXN2pR4ZuyJfZ4UQ==
-X-Received: by 2002:a05:7023:a8e:b0:144:c12d:c6a3 with SMTP id
- a92af1059eb24-14f5d1b778amr3833459c88.45.1790960060668; 
- Fri, 02 Oct 2026 09:54:20 -0700 (PDT)
-X-Received: by 2002:a05:7023:a8e:b0:144:c12d:c6a3 with SMTP id
- a92af1059eb24-14f5d1b778amr3833415c88.45.1790960059958; 
- Fri, 02 Oct 2026 09:54:19 -0700 (PDT)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14f810bb13esm6472764c88.13.2026.10.02.09.54.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Oct 2026 09:54:19 -0700 (PDT)
-Message-ID: <bb26e5a3-6113-4593-ae38-e16da9591690@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 10:54:18 -0600
+ AKwUvBxGLZT8ViiPPaEYekz8W/fJZpzvyj8orQ9KeEm8hfhA0efKwg44BtNKfsEY7LaubrV4AdeKUuQ3/GY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYImrqB6NzITmBqFHezDZOxbXwxcGQTwIJzQhPl57+kTONwcw5Bh
+ 16fS48JbHrS5sGaGgGz43pjO7SJM4P5kqZqPWPBye14HXvjE/8R6YreNdgJbv82scCqL9cWP18S
+ oZknVzyqLF1mL7axVSukZmWHmClhYOnQ=
+X-Gm-Gg: AYBFou3DDAPpm5GUqhtJ10agxK7tjQu6ixYzmgTqq4sMhRXPzc1IEGIQA3PMlubDfrC
+ H90abq3dzajtzb/lnRlB4ViYiQaB7P2qTOlIuFs0fxeGa2Mv+soYmyrE8VVak5oUnloXKiYUvRI
+ oFOV2rv48x8cWY5J07DaZvm/HsN27QkYs4JcuAxvP1aepTguVvEptLul/MNDNK6NNZyQjmMNl6Z
+ BJPwPqooTnMVfOXMJ1ogo1XgY7r1vV/dfrVS+5AvFBCM6w5U3JaCsRRY06uKRFWX+xnVIaG3J6R
+ ZPItxKUCQjgLMt/GPjupd2p73nWAYTsUvU5WiZ5pWsmyaLXeO/NppJGoeo9nlFHiknzW+VI2mxi
+ YoYinV2RuV3q0/fjKoTPcNUTJkivfQGs/Z5lkDzNjNAaKkjPLCT+V5P3N6yegkCA9cJ8zPu9rpf
+ TwltCvZSGxNqqwJ/PKRJCfm9rjkX5ZXj3PdmgSfy1VhNgm1Nk5bKiX6W9KpStjaw==
+X-Received: by 2002:a05:7301:468a:b0:340:f698:fd56 with SMTP id
+ 5a478bee46e88-34f1507015fmr4716231eec.2.1790960386330; Fri, 02 Oct 2026
+ 09:59:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Move register poll timeouts to vdev->timeout
-To: Karol Wachowski <karol.wachowski@linux.intel.com>,
+References: <20260917-cv-v4-0-547ef5727451@nvidia.com>
+ <20260917-cv-v4-1-547ef5727451@nvidia.com>
+In-Reply-To: <20260917-cv-v4-1-547ef5727451@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 2 Oct 2026 18:59:31 +0200
+X-Gm-Features: AclHuK_QhqfJYiyMedO2piq5-wcrguEMff8QxYGEopB8UiRg5ASf89kljYpIsb8
+Message-ID: <CANiq72m0PLhT=-ODzQtX7k3jn6=XXpESDUbnHcAmR-1gFqR7uQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] rust: num: add cv! macro to create values from
+ constant expressions
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, dawid.osuchowski@linux.intel.com,
- Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-References: <20260914082649.891871-1-karol.wachowski@linux.intel.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260914082649.891871-1-karol.wachowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: FQhX7kQkDguowf8mFzkp82vYYcWYdo8r
-X-Authority-Analysis: v=2.4 cv=Ie8Symqa c=1 sm=1 tr=0 ts=6abfe1bd cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=QyXUC8HyAAAA:8 a=F60lk71BOrkGg07CRk8A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA2NyBTYWx0ZWRfXwmE+AtvCK9Oj
- JINQ5MrKpoKZhVPVFvrEpReuata6PCVFQnR46hJV7P8wgoduuog5ovZH88QehuesUav+ecFkDs6
- xBhOEMQtxPoRYDCdk9LYbzsXI1zIGvg=
-X-Proofpoint-ORIG-GUID: FQhX7kQkDguowf8mFzkp82vYYcWYdo8r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA2NyBTYWx0ZWRfX8tbMCqfa/3cj
- K7gfp5nPTJPc/3qHoOysgYSAbvbxuvi9qu4O4UHoA76sEecygC3P9/xxvVYvI5TR/cNvqkF8U5F
- ozoAn7QaITb4oM76WCb9svxcNLsUco+qedBJgxHQjkYPknJhkPKP3k5+7roFZVl7IaCgAnmnYH/
- 5tRDEdGHqgjs39nqmz8klpsMLxNaiLPByP8pYsUN5W8YuP42R+/GCfekciyqTf+6EmVG7gOi7rP
- TgdV3sjpGowjYGs8DpF+stAmiP8wFtu5w68w7Io9/NW9HPhfgeICJyrQiIHE1wErGmCGi/+pa3e
- 8f8D5b0fAF9elGOEmjBBJ4go89fFTWP9YPflyO5fmMvgk72uSyc/9EiRLNHxmqKWlBfJ4cqNOM8
- jHW7U1BqxpCf5SXkpHql83X16YrQaVR1JGl9dPoKZ0puRnbycGKgnIYyrWHZYVav0wQOjjxin3t
- j8c0HeIKPwu2U1PPKNw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_04,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020067
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,15 +124,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/14/2026 2:26 AM, Karol Wachowski wrote:
-> From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-> 
-> Use the vdev->timeout structure for register poll timeouts. This allows
-> adjusting those timeouts depending on the platform type.
-> For FPGA set MMU timeouts to 10x.
-> 
-> Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+On Thu, Sep 17, 2026 at 10:35=E2=80=AFAM Eliot Courtney <ecourtney@nvidia.c=
+om> wrote:
+>
+> from constants without a verbose turbofish syntax.
+> For example, `const { NonZero::new(1).unwrap() }` can be written as
 
-Karol, this is missing your SOB.
+Word wrap or newline?
 
--Jeff
+> +/// Creates a value from an integer constant expression, with validity c=
+hecked at build time.
+
+Maybe:
+
+  ... a constant value ("cv") ...
+
+since we explain that in the commit message, but not in the actual
+documentation :)
+
+I would also say "at compile time", and possibly mention it is usable
+in const context (we use "build time" for things like `build_assert!`,
+which can be much later, e.g. link time).
+
+> +    };
+> +    // Using `FromConst<V>::VALUE` means const generic expressions can't=
+ be used, since it requires
+
+Newline between these two lines?
+
+> +/// Types that can be created from an integer constant expression valida=
+ted at build time.
+
+Ditto (please see above).
+
+> +/// Implement this trait to make a type usable with [`cv!`]. Use the [`c=
+v`] macro, not this trait
+
+The second intra-doc link should also have a `!` for consistency.
+
+> +    /// Fails the build if `V` is not a valid value for `Self`.
+
+[`Self`]
+
+> +                // CAST: the macro is only used for types up to 64 bits =
+wide, so `MIN` and `MAX`
+
+"CAST: The"
+
+> +                // CAST: the assert above confirmed that `V` fits in `$t=
+ype`.
+
+Ditto.
+
+> +                // SAFETY: the assert above confirmed that `value` can b=
+e represented within `N`
+
+Ditto.
+
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+
+One thing before that, though: are these assertions expected to fail?
+
+    const X: i64 =3D 1 << 31;
+    const Y: i64 =3D cv!(1 << 31);
+    assert_eq!(X, Y);
+
+Or:
+
+    const X: u64 =3D 2 << 31;
+    const Y: u64 =3D cv!(2 << 31);
+    assert_eq!(X, Y);
+
+Because that is quite surprising, especially since we say "with the
+target type inferred from the context" in the documentation.
+
+I hope that helps & thanks Eliot for working on this!
+
+Cheers,
+Miguel
