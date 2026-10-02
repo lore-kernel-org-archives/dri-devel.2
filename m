@@ -4,106 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBE9ACA5FE0
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:32:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCF5DCA5FE2
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:37:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A033E10E557;
-	Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B8110E834;
+	Fri,  2 Oct 2026 08:37:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="AJjAU0FO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oBuue33U";
 	dkim-atps=neutral
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
- [74.125.225.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0503A10E557
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
-Received: by mail-wm2-f13.google.com with SMTP id
- 5b1f17b1804b1-4a022e9cbebso10852035e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 01:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1790929944; x=1791534744; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=uu76vZAe0vP3OUBixd56EJdM+FLc8teUMApi5uLuSIQ=;
- b=AJjAU0FOlE5WGULbDmqKYOmkHMJOLBwznf7gMu3oMI0rL1nUO69P53S/IXc1VgcOsU
- a4Gz++6ubbpk2s6P3ga8wA6jBDhMKicVhRtNGuneCy5/NAj18m9nnCx53h2Z8ECdSeNo
- zJzWoSe71fHfqz9GIINDkBtV6cLuXK4Rl3G5kBG2UkImQeySEYHbCBOyS4ZkdpTMGRgz
- w/K6Ovc6eWMaQUJWwghfpuq513Qj0c99DusztmDmhl/sTpzgXzahS48UxI2xQLkBtejz
- lIJ5yaSQQsFcfX7KNDuz0uwjLYUS+XSFsqNG5NH2BQL3jbIjl7x3adft7urY+pYhsKOO
- UA6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790929944; x=1791534744;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=uu76vZAe0vP3OUBixd56EJdM+FLc8teUMApi5uLuSIQ=;
- b=ueL2J4PKkA7Al9Ni+eQNS/Ama/BGPHDOq4iAVcgtEIz3sGcaL29Q0GeKODVCoNgWIt
- BAFuvlYz8ryUy9fPnUm1omUM58L0Swfv+zh1vsWP1tkBg4ZyVoHxvyIax73KIfhcQADe
- Ppyx+2air8rDd4P/1IyVqlHwUBoR0PVyMoZibb0dLOoHBK2x8tgokdt21NfwOn4Q1LDg
- J7mqRWwebgjDMAsGZrY7IIeONwtIKvHacgbWOHuQZ+BnAuRsOr7yhPSWS0p5cdicftxc
- 2c1yQJqAqYlSY2UeuA19BNMx8Dh5xvDvCFVMsC2yBPTOjNzomqveMSX9OKARTX2laKvq
- H6dg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByGaoyTEZmmsXYYqJ2VdrYLI4FADmz7TFeT36sfGn1usxrwVdVzruNW+yrWtXuCXfcJV/yIEePI4/s=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mf1skamJCN2M+NCxc/N8OU2CKEEKYcsoYq843IdxRHe7/VLxs+
- +FP2oPQ5mDxXvRm5mM7DDHwAfVEJnCR8M+rIbRbh3eyCVz6x1Wp/aTc8T615l3Fg3r0=
-X-Gm-Gg: AYBFou0vXoS0I3UQM9cudRE6AQ2rrl4QRw3+Oqwq8WcK0nJ6+IsWkLZGqfH0Mt4BUjk
- Oe7BxjdMMyKsf2Yz8LI2j+oacFB80DhkMDDbfRx0nS2h0f/GHTEBdVtLc9ojJ8AqKJm1IAiQR59
- N0Z6U5RIura9JvEGpqR/YKSmKohUGdYM8q6Zl/ac6Qrd0ZgaxyXwF7tcsqi3822r5nbcNnORWpk
- l/kRer8bfKqVcMsNsWKRTv+pf1uMyfbZf64ZJcX7dZytEoeufQyk2Ro6wQwDkEkOinxR697vtjd
- XBzPZC6NJwWCq/F+vVlARS8R5Hiwp5rEi0/3QGfbdlN3eMn0w7NDvlvnwuq675iRn/DdjLMHmXb
- TiA9iV/5JPRCjqUeH81MmX2vNBbRP4j1SgQWhpV0gaMmW2sD62ugArdVjaQ019b6ASsv5SRncRN
- lm2dZRbpYQ1j0SVuaqfPNiTMdczJ6DyEKZV25vS6TSpM/BgXzgHcFUu9i+HMIaTbdHKk+gl49U8
- qmk
-X-Received: by 2002:a05:600c:3b19:b0:4a0:25d5:e853 with SMTP id
- 5b1f17b1804b1-4a02759a425mr35351595e9.35.1790929944126; 
- Fri, 02 Oct 2026 01:32:24 -0700 (PDT)
-Received: from zovi.suse.cz ([2001:af0:8000:1409:193:86:92:181])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a03feed16bsm42507905e9.4.2026.10.02.01.32.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 01:32:23 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rudolf Marek <r.marek@assembler.cz>,
- Andi Shyti <andi.shyti@kernel.org>, Chris Snook <chris.snook@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>,
- Yehezkel Bernat <YehezkelShB@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>,
- Chas Williams <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] drivers: Replace __MODULE_STRING() with __stringify()
-Date: Fri,  2 Oct 2026 10:31:02 +0200
-Message-ID: <20261002-module-string-v2-2-fc7438acaf4d@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
-References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A35C10E179;
+ Fri,  2 Oct 2026 08:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790930248; x=1822466248;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=IjNJM3XbXwFqb3mlBdpa5MUxs4Lv3SlVjsLlRGshCf0=;
+ b=oBuue33UXbh0vPv4N0D9u3BOs3DZnHuIXQB0duxJ6trsqbzgGFnuCvUP
+ MrAkpRUrP8KyPuZWy4AjCHaTFPjVagJ5SXjcTGHorc4kdFaNfqysVFEZt
+ +3CXPCeyKfK+5kBbOOmGRakgwBSwZpmo/svRj/boz/h362BfTlvSNzPpk
+ b7q/CM4nva7zRGqDHK/yW44mkQzU2SBoMyw4EMaXzp8DhQcE9Ew+ApU1H
+ UFgCGMjndrjQkCGS2IN0bbiitByLikS7I7DtbQIFmzj5tTnbnwpV42H3W
+ M1KcAZ2FHnQ6+nFmk0MTADsMOWuOv41em1t1OoSPeemPTz931cnC8hkRg A==;
+X-CSE-ConnectionGUID: wYyne8fBTBuna5DXb1s1ZA==
+X-CSE-MsgGUID: n7Bn3vs1TCyMHqfYvnQXGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="103069451"
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="103069451"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 01:37:27 -0700
+X-CSE-ConnectionGUID: G/0+/9zhQwi4UgHkYgCjcw==
+X-CSE-MsgGUID: 84DoVFqFSuisTjKcnkkRsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; d="scan'208";a="275754258"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2026 01:37:27 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 01:37:26 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 2 Oct 2026 01:37:26 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.23) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 2 Oct 2026 01:37:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iHXa+618qlVY8EdeXP+daJsmItM5djLs3/4czmRzIwFCP8q4Wzw3Aiuo1Wi8eJZlsWNRnTOVnrour9LemwJIz5pzhVYiN42KtFaP5YtxQ5A0Swko2j0JdgdpKsVpL6kecBLD9FZKNc1Bvuj2fZp2sZipaMoOYYfg/QkuRdeVMpZAb4XebcJ6p/OfUB4fZI+x/ku37gna9M6REyf6uT2L4tpezYiD42PkcYK2nRSyoqzc1pCnkQqpcT9qOgkF1B1itShdYNbeQAjQNPTskuorb2DAHyasK01gsPHXGdr5W5xReyv1+YBONWLVWPK1HgjaMElzwTXw7jRokdFIO2PvMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IjNJM3XbXwFqb3mlBdpa5MUxs4Lv3SlVjsLlRGshCf0=;
+ b=S8go5nBdYIN0r4xs9XbzDrim3UyhIS6zysRsUKVTW7jFYM3nAxJ87/FQuzQPmJOirRC4LX/BWQruybOr4vewFE04Xwl7r4YeaWWIeElgu39RYOO6l2LQLrf7tQv+4Z+UgLC3RF6TaswUz/cR1iiXkqaMXRh33qoi/JCZEquRiL6BoDLsTDVQ5z2c30Ytxr/Dw3g7dA1SiQ1hDwPdUhMyVZpNQhfu2rC7DvhwVDNAMVzNb07XKt5Z6TJrhdQbT7reOZDuS7q7Ld57E2CNmb/LvKI9h/WM9ifm0d2apzTU4+IUMzC2dzxFvngFsu20Q79vl79Bzu6TrjAiTWMLehzsNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
+ AT6PR11MB620428.namprd11.prod.outlook.com (2603:10b6:170:10a::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 08:37:20 +0000
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 08:37:19 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Manna,
+ Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+CC: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>
+Subject: Re: [PATCH v6 15/18] drm/i915/alpm: Introduce has_alpm to decouple
+ from pr/psr2/lobf
+Thread-Topic: [PATCH v6 15/18] drm/i915/alpm: Introduce has_alpm to decouple
+ from pr/psr2/lobf
+Thread-Index: AQHdRUGbByydi1keRkyUxxKzKraWBLbqB/OA
+Date: Fri, 2 Oct 2026 08:37:19 +0000
+Message-ID: <0f8a973c6a38ce4414e079d704b6ed7edc83ab16.camel@intel.com>
+References: <20260915180449.277933-1-animesh.manna@intel.com>
+ <20260915180449.277933-16-animesh.manna@intel.com>
+In-Reply-To: <20260915180449.277933-16-animesh.manna@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|AT6PR11MB620428:EE_
+x-ms-office365-filtering-correlation-id: 7bc4f214-20a5-4375-cc87-08df20605f4d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|22082099003|18002099003|38070700021|4143699003|6133799003|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: xwHa4mUbcraQE1018wDUd/43MGrnv72BK3lD4KejKxZWLxs5Y2CwkgCHyr6dXGvoBcAP1Z2GfA5v9zap597fa1H3i2mZpDiC8aLbOQHOK23hPjFgNiqvhgeFLP+6uNdFCTEjeurp4QhegixV+rWhC2pnEYe/x47dlh0yzpIPGSVxOEhXt1A4c7bCnvvRmuJJpRrXAuArd0vYNh1yIq7KHBn3IpjpYhkzSaEZXvbXBbpGJ0k3/9NpfD+psWM93auXjruaZwocQmcDObut5hHe6HPNuHBEBueM68m1n8ez+u6EEqcMsGCX99d1y5SOv/VL/76jxcHZoSb4iYzWwzNoxfAPPkWrEzGhnbATtnZFPB4M06bHOpj2i+aktOGwziQUB5mvXzUlXNoc6Oh7ZmkGh0Hazd1XGpCOK3XRujnJEsBU3nYQvkw0PIVk87qU3OMZVu+RiZtX5q3v3LuL37TEdAMcpaCFIHhj6lIq8OfHaoODHTH43mPC9e0vIRqtHF57njQw1ECi7j+e5ajBzVRe08iQX2rA0B6dh6pFuRE42/3l5Y2BgOs/wW6EzKn3iQFMYPcydspSn0n1TaaP+ZqjFH1AbPjPXP+l/ils8aDhbI6KYva9XLHdPX9d5wf+xmssI+OkBCFxISdt8wdwjpVNvHaNwCL5ErmBsJ5x4ogK9OVHbkNdAwgs32ZOVFubMCqsnr58KIudaglnHjWNrv3JP2UT/UxYtY0e7y8+I/U5+Yo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(22082099003)(18002099003)(38070700021)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?V0hMU3N3TDA0STU0dGxhOHNmU3FDd3ZyM041KzRrcUlmQXhxOUhYVnpFa1g0?=
+ =?utf-8?B?OGxNQUU0QjhhSzJDNW42Z2wrY0U5NFBzQTZGKzRyYmEvbmhxeFJBQWYrRktD?=
+ =?utf-8?B?WHNGQjlRdzRjTDY2OE9SbzZUVjN0aHU4NzdCcHk0TG9RZWxWQlZTVStzMnVv?=
+ =?utf-8?B?bW9BM1Y3WTMzR2MwUWpQS0xxclV0cWQwbVJSNjIzWGxPbFpXVVN6dFlhN3Zn?=
+ =?utf-8?B?NEdxR3IzeFo4Ri9peEpZeGh4UkRuN3RlMDNzd01jNjFnU3FKbEdyUWJQaVFW?=
+ =?utf-8?B?bFBjVGNhNVlkeEdNODBKWFJZUEs0c1dVdE02dkhodHpWZjFRNzFUT0tXRUZ5?=
+ =?utf-8?B?ckdBUmdyQWlUWnpOTGJNSVNMTERkU3ZBUklpNnd5SEQvdWFtbkhhTFhMYmxr?=
+ =?utf-8?B?K2tPWkgrV0kyRHRXMlZNeFMzK1VMdXJuQXdXMTBJSVRkdGZkaUJQTmVYVnFY?=
+ =?utf-8?B?cTZCWDJ5aFVneEVtWjlXWnBkZWY5UlNGUFY1ZGEyWHZFV2cyUGRWYTI1R0lT?=
+ =?utf-8?B?RmErM29hM21UZm53VjZad2VjbUlBWE9WcTJrd0NJajhWZ01QN0NjMU9PY00r?=
+ =?utf-8?B?TzhKNVQ1Q3dOMVZnTGl3WnVWNTVyZlkzVmZ5emIxWFR4dkVkR3BpdnYwZ3BG?=
+ =?utf-8?B?RHI2Wmg2cDd1N0tyZXI3a1lPSTdRTWlWZS93RHhjTWsvdUxGejZBSEVhMnln?=
+ =?utf-8?B?MlY5RjZYYjByMEJmY3g4Y0wxZHFaVTFQQ1Z3YnVBL2o2bCtrQXJPSklBdHlD?=
+ =?utf-8?B?SnBiUU5IQmpLbnMwZjFoUkhub2xBQTBHRkZwSytnQThzcmgrdWlYR1B0ZlZk?=
+ =?utf-8?B?RCsrRVBiTXd2dkovK1YxeVhUZHJSZVpBMTE1YVRBb1ovTWFuTTArT1F0eWVO?=
+ =?utf-8?B?cDRTMjRIUE9Vb0cyL1B6RXh5T1ZYUWYzWHI0K2paWXh1eEYyKzM1THRpaWZY?=
+ =?utf-8?B?eUhaS2dJQjk2WE5kTHpsUXJGU0FaWG5MNkZrTkVjNnhOcUxoUkNiWGlvTXBV?=
+ =?utf-8?B?eHdSRU92WDltbUxFWUQ4OFFZbDE3L0VveERVTDBTcWpuU29NeVJ5cm1Ecnk5?=
+ =?utf-8?B?MUh5RTQwUjJGRmpTdkIvTEhRVkI1VTcxNVRBdnZVb0VnQTNnNzM0YkRLYVV2?=
+ =?utf-8?B?czFMNDljZWZqeFNDY3JYVGlOUjVndEc5eExFKzlTT3luSjRsMUsxL2ZsVWM3?=
+ =?utf-8?B?K2JEMHdUZXN5SGhjeFZpaDZCa2FtTE80OThGVW1PczFOVWNDN29VQncwS3R0?=
+ =?utf-8?B?bVVxVWx0SHRIdnNtbVJuVDNVNG1MVnRqZjZQNFV2eW1Dc1ZFZ3FRbTAwZ0hQ?=
+ =?utf-8?B?eFZaSytidFlISk1DQVVtbDJjTzIzOVBCMXd2RzVSQXViMnM0eWYwZWFQalJH?=
+ =?utf-8?B?dTVuYkpRdDBDelFpRlFEUEJKQkgzZE14UUxBMVZWZTJ5N2IwUlNBUlRoR0px?=
+ =?utf-8?B?d084dG9IN04yclM2emxQSkVQRWE1eWppZkRhcXNXeGdjK0pSQ0xTYTRJL3A2?=
+ =?utf-8?B?enk0TlJGN0l5aWlrb0EzcTkzeElZT0hCbkRPQWxUMDNBSTRucnVJVFdiWmlx?=
+ =?utf-8?B?K29pV0dqR3NackZaOHpsTUlkL0R6UEVIRWZrbldGSkF4K3RHcVU0NjN5SU52?=
+ =?utf-8?B?WERib1pZbUR4Y21aRFVJdVZIR0JUSUZ3b3FidE5LQjhOZHFTVnNtOFJFdnpJ?=
+ =?utf-8?B?algvb2V5V0xHMGlpMmh5WHVld3ZabFF0RkUrcDJwbXNSbElNeWdoVzN4TVdl?=
+ =?utf-8?B?dzhTQVVXbjIxQitsRjY2WGVSYkJkRmMwMm9zUmNzVTZkN3BvSDZPVXcvUWJC?=
+ =?utf-8?B?UnhUZ29YbjF0MGtqS3N2VmtmanZwYXloaGxmRGF0YTVLdDRaTmE5T3UzaW15?=
+ =?utf-8?B?NjR6bnpjMXI4MjlZK0NXM3pyLyt3UGNjaWRMbGZ0dEcyYXZNWVA2SytVK0tB?=
+ =?utf-8?B?cS9GeHorZjlIZ3RDRW52bjdkZ2ZsUnFRdlhnLzFoQWRSM2J5MWFpNW5LOXFp?=
+ =?utf-8?B?dmNBcmFtOC9BaEhoY3h0a3BPSnVBa0xVYkxZc3RsN0tMNFRwaVBSOHU3YW9R?=
+ =?utf-8?B?R1B2R0dTLzdLSGdMTjg0VXdQb0FtS2FJa2xtK0ZvVjVHM3B4WTJ6aTdKeERC?=
+ =?utf-8?B?dExiZXF6UGd5Sk1scXh1ckNSZmtYUzFFUkFJWkEyQWZyL1R0OGFTQksxZUlh?=
+ =?utf-8?B?NUJHQ3ExVEVLQTF5dnJZUytHZG1pWG9GOTB6Z0hZc1dPL294SllIUDVsejBz?=
+ =?utf-8?B?NUJUZVRNR2NyRjJkNG5nb0VFcWVTSXJWVFdJQ1R5WXpNbWZiOUlodXhvMm9M?=
+ =?utf-8?B?MW0wZGx0VEVqZzQ2WDg5bWhLcTgzcEV0emNpQmNIRWtyOEk3MmljR0ZnLzFZ?=
+ =?utf-8?Q?vYfaj++/YWHQoYbQ=3D?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-ID: <A865DBB6885832419E35F2664AB84C97@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: KjtkeFytlcheXsap/D2XgPxgTlC2M/SF0txHlq0cQwXLGB6ZKuhoeFLngM+riseUPhr4URh+L2e3WDMO1FClEcm9qKLpZ2Egtoi0ooT2wqR2ZV9PO+biTNclVEQMTR0JwIGINnYe/R+zZ46QLFNu+vXkUnXFXY9XHa5nu7/6U8DEgjQZ9dtXD3qLrjg2xapGHEulVtRqkTZKdziK0X5CRYKygakkAZ0lQoGbiJFLFwjBfS9p/glVsZrqX7HYuOk9Z1AMOLPvD97SJwRc+gYgCBtmU83RQ7fzvIr4Rz7gOXniU9mxKMDqW3hjiUBjnm418L75FlL6823UOlqR5PCLcA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bc4f214-20a5-4375-cc87-08df20605f4d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 08:37:19.7608 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wXqSyzDAts2UZCJnI4Gw5/iXOeK1ShI7yNegbObV/6fKkzsYGHLyvMDIyDK4Rwye6yK3T16a/LLFD/qb9RKuuR9mt54FyZ37N96X1ljUXM8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR11MB620428
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,612 +178,269 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-__MODULE_STRING() has been an alias for __stringify() since "[PATCH]
-MODULE_PARM support for older modules" [1] in 2002-12. That change also
-moved it to the graveyard section at the end of linux/module.h
-
-Replace the remaining uses of __MODULE_STRING() with __stringify() in
-preparation for its removal.
-
-Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Acked-by: Andi Shyti <andi.shyti@kernel.org>
-Acked-by: Ian Abbott <abbotti@mev.co.uk>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
----
- drivers/comedi/comedi_fops.c                          |  5 +++--
- drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
- drivers/i2c/busses/i2c-kempld.c                       |  3 ++-
- drivers/net/ethernet/atheros/atl1e/atl1e_param.c      |  9 +++++----
- drivers/net/ethernet/atheros/atlx/atl1.c              |  3 ++-
- drivers/net/ethernet/atheros/atlx/atl2.c              | 11 ++++++-----
- drivers/net/ethernet/intel/e1000/e1000_param.c        | 15 ++++++++-------
- drivers/net/ethernet/intel/e1000e/param.c             | 16 ++++++----------
- drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c |  7 ++++---
- drivers/platform/cznic/turris-omnia-mcu-watchdog.c    |  3 ++-
- drivers/rtc/rtc-ds1374.c                              |  3 ++-
- drivers/thunderbolt/tb.c                              |  3 ++-
- drivers/thunderbolt/tunnel.c                          |  5 +++--
- drivers/tty/serial/8250/8250_platform.c               |  3 ++-
- drivers/usb/atm/speedtch.c                            | 15 ++++++++-------
- drivers/usb/atm/usbatm.c                              | 17 +++++++++--------
- 16 files changed, 66 insertions(+), 55 deletions(-)
-
-diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-index c09bbe04be6c..05d14839c5a6 100644
---- a/drivers/comedi/comedi_fops.c
-+++ b/drivers/comedi/comedi_fops.c
-@@ -29,6 +29,7 @@
- #include <linux/io.h>
- #include <linux/uaccess.h>
- #include <linux/compat.h>
-+#include <linux/stringify.h>
- 
- #include "comedi_internal.h"
- 
-@@ -82,14 +83,14 @@ unsigned int comedi_default_buf_size_kb = CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB;
- module_param(comedi_default_buf_size_kb, uint, 0644);
- MODULE_PARM_DESC(comedi_default_buf_size_kb,
- 		 "default asynchronous buffer size in KiB (default "
--		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
-+		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_SIZE_KB) ")");
- 
- unsigned int comedi_default_buf_maxsize_kb =
- 	CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB;
- module_param(comedi_default_buf_maxsize_kb, uint, 0644);
- MODULE_PARM_DESC(comedi_default_buf_maxsize_kb,
- 		 "default maximum size of asynchronous buffer in KiB (default "
--		 __MODULE_STRING(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
-+		 __stringify(CONFIG_COMEDI_DEFAULT_BUF_MAXSIZE_KB) ")");
- 
- static DEFINE_MUTEX(comedi_board_minor_table_lock);
- static struct comedi_device
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index d4664ed468b2..36009bb02c25 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -31,6 +31,7 @@
- 
- #include <linux/console.h>
- #include <linux/export.h>
-+#include <linux/stringify.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -54,7 +55,7 @@ static int drm_fbdev_overalloc = CONFIG_DRM_FBDEV_OVERALLOC;
- module_param(drm_fbdev_overalloc, int, 0444);
- MODULE_PARM_DESC(drm_fbdev_overalloc,
- 		 "Overallocation of the fbdev buffer (%) [default="
--		 __MODULE_STRING(CONFIG_DRM_FBDEV_OVERALLOC) "]");
-+		 __stringify(CONFIG_DRM_FBDEV_OVERALLOC) "]");
- 
- /*
-  * In order to keep user-space compatibility, we want in certain use-cases
-diff --git a/drivers/i2c/busses/i2c-kempld.c b/drivers/i2c/busses/i2c-kempld.c
-index 9b4c7cba62b6..d0438960c272 100644
---- a/drivers/i2c/busses/i2c-kempld.c
-+++ b/drivers/i2c/busses/i2c-kempld.c
-@@ -13,6 +13,7 @@
- #include <linux/i2c.h>
- #include <linux/delay.h>
- #include <linux/mfd/kempld.h>
-+#include <linux/stringify.h>
- 
- #define KEMPLD_I2C_PRELOW	0x0b
- #define KEMPLD_I2C_PREHIGH	0x0c
-@@ -66,7 +67,7 @@ struct kempld_i2c_data {
- static unsigned int bus_frequency = KEMPLD_I2C_FREQ_STD;
- module_param(bus_frequency, uint, 0);
- MODULE_PARM_DESC(bus_frequency, "Set I2C bus frequency in kHz (default="
--				__MODULE_STRING(KEMPLD_I2C_FREQ_STD)")");
-+				__stringify(KEMPLD_I2C_FREQ_STD)")");
- 
- static int i2c_bus = -1;
- module_param(i2c_bus, int, 0);
-diff --git a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-index 6b1d6df8da97..ff3423a4dc2e 100644
---- a/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-+++ b/drivers/net/ethernet/atheros/atl1e/atl1e_param.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/netdevice.h>
-+#include <linux/stringify.h>
- 
- #include "atl1e.h"
- 
-@@ -181,7 +182,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Ddescription Count",
- 			.err  = "using default of "
--				__MODULE_STRING(ATL1E_DEFAULT_TX_DESC_CNT),
-+				__stringify(ATL1E_DEFAULT_TX_DESC_CNT),
- 			.def  = ATL1E_DEFAULT_TX_DESC_CNT,
- 			.arg  = { .r = { .min = ATL1E_MIN_TX_DESC_CNT,
- 					 .max = ATL1E_MAX_TX_DESC_CNT} }
-@@ -200,7 +201,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Memory size of rx buffer(KB)",
- 			.err  = "using default of "
--				__MODULE_STRING(ATL1E_DEFAULT_RX_MEM_SIZE),
-+				__stringify(ATL1E_DEFAULT_RX_MEM_SIZE),
- 			.def  = ATL1E_DEFAULT_RX_MEM_SIZE,
- 			.arg  = { .r = { .min = ATL1E_MIN_RX_MEM_SIZE,
- 					 .max = ATL1E_MAX_RX_MEM_SIZE} }
-@@ -220,7 +221,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Interrupt Moderate Timer",
- 			.err  = "using default of "
--				__MODULE_STRING(INT_MOD_DEFAULT_CNT),
-+				__stringify(INT_MOD_DEFAULT_CNT),
- 			.def  = INT_MOD_DEFAULT_CNT,
- 			.arg  = { .r = { .min = INT_MOD_MIN_CNT,
- 					 .max = INT_MOD_MAX_CNT} }
-@@ -239,7 +240,7 @@ void atl1e_check_options(struct atl1e_adapter *adapter)
- 			.type = range_option,
- 			.name = "Speed/Duplex Selection",
- 			.err  = "using default of "
--				__MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR),
-+				__stringify(MEDIA_TYPE_AUTO_SENSOR),
- 			.def  = MEDIA_TYPE_AUTO_SENSOR,
- 			.arg  = { .r = { .min = MEDIA_TYPE_AUTO_SENSOR,
- 					 .max = MEDIA_TYPE_10M_HALF} }
-diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-index a981c4bcf8ed..2883e9462f6f 100644
---- a/drivers/net/ethernet/atheros/atlx/atl1.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-@@ -56,6 +56,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/string.h>
-+#include <linux/stringify.h>
- #include <linux/tcp.h>
- #include <linux/timer.h>
- #include <linux/types.h>
-@@ -198,7 +199,7 @@ static void atl1_check_options(struct atl1_adapter *adapter)
- 			.type = range_option,
- 			.name = "Interrupt Moderator Timer",
- 			.err = "using default of "
--				__MODULE_STRING(DEFAULT_INT_MOD_CNT),
-+				__stringify(DEFAULT_INT_MOD_CNT),
- 			.def = DEFAULT_INT_MOD_CNT,
- 			.arg = {.r = {.min = MIN_INT_MOD_CNT,
- 					.max = MAX_INT_MOD_CNT} }
-diff --git a/drivers/net/ethernet/atheros/atlx/atl2.c b/drivers/net/ethernet/atheros/atlx/atl2.c
-index c9aca219ec9c..5d3b3357d53d 100644
---- a/drivers/net/ethernet/atheros/atlx/atl2.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl2.c
-@@ -29,6 +29,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/string.h>
-+#include <linux/stringify.h>
- #include <linux/tcp.h>
- #include <linux/timer.h>
- #include <linux/types.h>
-@@ -2921,7 +2922,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Bytes of Transmit Memory */
- 	opt.type = range_option;
- 	opt.name = "Bytes of Transmit Memory";
--	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_TX_MEMSIZE);
-+	opt.err = "using default of " __stringify(ATL2_DEFAULT_TX_MEMSIZE);
- 	opt.def = ATL2_DEFAULT_TX_MEMSIZE;
- 	opt.arg.r.min = ATL2_MIN_TX_MEMSIZE;
- 	opt.arg.r.max = ATL2_MAX_TX_MEMSIZE;
-@@ -2939,7 +2940,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Receive Memory Block Count */
- 	opt.type = range_option;
- 	opt.name = "Number of receive memory block";
--	opt.err = "using default of " __MODULE_STRING(ATL2_DEFAULT_RXD_COUNT);
-+	opt.err = "using default of " __stringify(ATL2_DEFAULT_RXD_COUNT);
- 	opt.def = ATL2_DEFAULT_RXD_COUNT;
- 	opt.arg.r.min = ATL2_MIN_RXD_COUNT;
- 	opt.arg.r.max = ATL2_MAX_RXD_COUNT;
-@@ -2960,7 +2961,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Interrupt Moderate Timer */
- 	opt.type = range_option;
- 	opt.name = "Interrupt Moderate Timer";
--	opt.err = "using default of " __MODULE_STRING(INT_MOD_DEFAULT_CNT);
-+	opt.err = "using default of " __stringify(INT_MOD_DEFAULT_CNT);
- 	opt.def = INT_MOD_DEFAULT_CNT;
- 	opt.arg.r.min = INT_MOD_MIN_CNT;
- 	opt.arg.r.max = INT_MOD_MAX_CNT;
-@@ -2973,7 +2974,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* Flash Vendor */
- 	opt.type = range_option;
- 	opt.name = "SPI Flash Vendor";
--	opt.err = "using default of " __MODULE_STRING(FLASH_VENDOR_DEFAULT);
-+	opt.err = "using default of " __stringify(FLASH_VENDOR_DEFAULT);
- 	opt.def = FLASH_VENDOR_DEFAULT;
- 	opt.arg.r.min = FLASH_VENDOR_MIN;
- 	opt.arg.r.max = FLASH_VENDOR_MAX;
-@@ -2986,7 +2987,7 @@ static void atl2_check_options(struct atl2_adapter *adapter)
- 	/* MediaType */
- 	opt.type = range_option;
- 	opt.name = "Speed/Duplex Selection";
--	opt.err = "using default of " __MODULE_STRING(MEDIA_TYPE_AUTO_SENSOR);
-+	opt.err = "using default of " __stringify(MEDIA_TYPE_AUTO_SENSOR);
- 	opt.def = MEDIA_TYPE_AUTO_SENSOR;
- 	opt.arg.r.min = MEDIA_TYPE_AUTO_SENSOR;
- 	opt.arg.r.max = MEDIA_TYPE_10M_HALF;
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_param.c b/drivers/net/ethernet/intel/e1000/e1000_param.c
-index f4154ca7fcb4..5faf6d6280c8 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_param.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_param.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright(c) 1999 - 2006 Intel Corporation. */
- 
-+#include <linux/stringify.h>
- #include "e1000.h"
- 
- /* This is the only thing that needs to be changed to adjust the
-@@ -259,7 +260,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(E1000_DEFAULT_TXD),
-+				__stringify(E1000_DEFAULT_TXD),
- 			.def  = E1000_DEFAULT_TXD,
- 			.arg  = { .r = {
- 				.min = E1000_MIN_TXD,
-@@ -287,7 +288,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 			.type = range_option,
- 			.name = "Receive Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(E1000_DEFAULT_RXD),
-+				__stringify(E1000_DEFAULT_RXD),
- 			.def  = E1000_DEFAULT_RXD,
- 			.arg  = { .r = {
- 				.min = E1000_MIN_RXD,
-@@ -354,7 +355,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Transmit Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_TIDV),
-+			.err  = "using default of " __stringify(DEFAULT_TIDV),
- 			.def  = DEFAULT_TIDV,
- 			.arg  = { .r = { .min = MIN_TXDELAY,
- 					 .max = MAX_TXDELAY }}
-@@ -372,7 +373,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Transmit Absolute Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_TADV),
-+			.err  = "using default of " __stringify(DEFAULT_TADV),
- 			.def  = DEFAULT_TADV,
- 			.arg  = { .r = { .min = MIN_TXABSDELAY,
- 					 .max = MAX_TXABSDELAY }}
-@@ -390,7 +391,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Receive Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_RDTR),
-+			.err  = "using default of " __stringify(DEFAULT_RDTR),
- 			.def  = DEFAULT_RDTR,
- 			.arg  = { .r = { .min = MIN_RXDELAY,
- 					 .max = MAX_RXDELAY }}
-@@ -408,7 +409,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Receive Absolute Interrupt Delay",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_RADV),
-+			.err  = "using default of " __stringify(DEFAULT_RADV),
- 			.def  = DEFAULT_RADV,
- 			.arg  = { .r = { .min = MIN_RXABSDELAY,
- 					 .max = MAX_RXABSDELAY }}
-@@ -426,7 +427,7 @@ void e1000_check_options(struct e1000_adapter *adapter)
- 		opt = (struct e1000_option) {
- 			.type = range_option,
- 			.name = "Interrupt Throttling Rate (ints/sec)",
--			.err  = "using default of " __MODULE_STRING(DEFAULT_ITR),
-+			.err  = "using default of " __stringify(DEFAULT_ITR),
- 			.def  = DEFAULT_ITR,
- 			.arg  = { .r = { .min = MIN_ITR,
- 					 .max = MAX_ITR }}
-diff --git a/drivers/net/ethernet/intel/e1000e/param.c b/drivers/net/ethernet/intel/e1000e/param.c
-index 3132d8f2f207..c6f400e6cdea 100644
---- a/drivers/net/ethernet/intel/e1000e/param.c
-+++ b/drivers/net/ethernet/intel/e1000e/param.c
-@@ -4,6 +4,7 @@
- #include <linux/netdevice.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/stringify.h>
- 
- #include "e1000.h"
- 
-@@ -238,8 +239,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Transmit Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_TIDV),
-+			.err  = "using default of " __stringify(DEFAULT_TIDV),
- 			.def  = DEFAULT_TIDV,
- 			.arg  = { .r = { .min = MIN_TXDELAY,
- 					 .max = MAX_TXDELAY } }
-@@ -258,8 +258,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Transmit Absolute Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_TADV),
-+			.err  = "using default of " __stringify(DEFAULT_TADV),
- 			.def  = DEFAULT_TADV,
- 			.arg  = { .r = { .min = MIN_TXABSDELAY,
- 					 .max = MAX_TXABSDELAY } }
-@@ -278,8 +277,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Receive Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_RDTR),
-+			.err  = "using default of " __stringify(DEFAULT_RDTR),
- 			.def  = DEFAULT_RDTR,
- 			.arg  = { .r = { .min = MIN_RXDELAY,
- 					 .max = MAX_RXDELAY } }
-@@ -301,8 +299,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Receive Absolute Interrupt Delay",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_RADV),
-+			.err  = "using default of " __stringify(DEFAULT_RADV),
- 			.def  = DEFAULT_RADV,
- 			.arg  = { .r = { .min = MIN_RXABSDELAY,
- 					 .max = MAX_RXABSDELAY } }
-@@ -324,8 +321,7 @@ void e1000e_check_options(struct e1000_adapter *adapter)
- 		static const struct e1000_option opt = {
- 			.type = range_option,
- 			.name = "Interrupt Throttling Rate (ints/sec)",
--			.err  = "using default of "
--				__MODULE_STRING(DEFAULT_ITR),
-+			.err  = "using default of " __stringify(DEFAULT_ITR),
- 			.def  = DEFAULT_ITR,
- 			.arg  = { .r = { .min = MIN_ITR,
- 					 .max = MAX_ITR } }
-diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-index 81fc5a6e3221..6a1a6678bd1a 100644
---- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-+++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c
-@@ -7,7 +7,8 @@
-  */
- 
- #include "pch_gbe.h"
--#include <linux/module.h>	/* for __MODULE_STRING */
-+#include <linux/module.h>
-+#include <linux/stringify.h>
- 
- #define OPTION_UNSET   -1
- #define OPTION_DISABLED 0
-@@ -440,7 +441,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
- 			.type = range_option,
- 			.name = "Transmit Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(PCH_GBE_DEFAULT_TXD),
-+				__stringify(PCH_GBE_DEFAULT_TXD),
- 			.def  = PCH_GBE_DEFAULT_TXD,
- 			.arg  = { .r = { .min = PCH_GBE_MIN_TXD,
- 					 .max = PCH_GBE_MAX_TXD } }
-@@ -456,7 +457,7 @@ void pch_gbe_check_options(struct pch_gbe_adapter *adapter)
- 			.type = range_option,
- 			.name = "Receive Descriptors",
- 			.err  = "using default of "
--				__MODULE_STRING(PCH_GBE_DEFAULT_RXD),
-+				__stringify(PCH_GBE_DEFAULT_RXD),
- 			.def  = PCH_GBE_DEFAULT_RXD,
- 			.arg  = { .r = { .min = PCH_GBE_MIN_RXD,
- 					 .max = PCH_GBE_MAX_RXD } }
-diff --git a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-index 3ad146ec1d80..daabd88eb913 100644
---- a/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-+++ b/drivers/platform/cznic/turris-omnia-mcu-watchdog.c
-@@ -9,6 +9,7 @@
- #include <linux/device.h>
- #include <linux/i2c.h>
- #include <linux/moduleparam.h>
-+#include <linux/stringify.h>
- #include <linux/types.h>
- #include <linux/units.h>
- #include <linux/watchdog.h>
-@@ -25,7 +26,7 @@ MODULE_PARM_DESC(timeout, "Watchdog timeout in seconds");
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--			   __MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+			   __stringify(WATCHDOG_NOWAYOUT) ")");
- 
- static int omnia_wdt_start(struct watchdog_device *wdt)
- {
-diff --git a/drivers/rtc/rtc-ds1374.c b/drivers/rtc/rtc-ds1374.c
-index 8c247215d611..2ed6777e7035 100644
---- a/drivers/rtc/rtc-ds1374.c
-+++ b/drivers/rtc/rtc-ds1374.c
-@@ -26,6 +26,7 @@
- #include <linux/workqueue.h>
- #include <linux/slab.h>
- #include <linux/pm.h>
-+#include <linux/stringify.h>
- #ifdef CONFIG_RTC_DRV_DS1374_WDT
- #include <linux/fs.h>
- #include <linux/ioctl.h>
-@@ -381,7 +382,7 @@ MODULE_PARM_DESC(wdt_margin, "Watchdog timeout in seconds (default 32s)");
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default ="
--		__MODULE_STRING(WATCHDOG_NOWAYOUT)")");
-+		__stringify(WATCHDOG_NOWAYOUT)")");
- 
- static const struct watchdog_info ds1374_wdt_info = {
- 	.identity       = "DS1374 Watchdog",
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 4da608ccbccb..57c11ba13459 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -10,6 +10,7 @@
- #include <linux/errno.h>
- #include <linux/delay.h>
- #include <linux/pm_runtime.h>
-+#include <linux/stringify.h>
- 
- #include "tb.h"
- #include "tb_regs.h"
-@@ -46,7 +47,7 @@ static unsigned int asym_threshold = TB_ASYM_THRESHOLD;
- module_param_named(asym_threshold, asym_threshold, uint, 0444);
- MODULE_PARM_DESC(asym_threshold,
- 		"threshold (Mb/s) when to Gen 4 switch link symmetry. 0 disables. (default: "
--		__MODULE_STRING(TB_ASYM_THRESHOLD) ")");
-+		__stringify(TB_ASYM_THRESHOLD) ")");
- 
- /**
-  * struct tb_cm - Simple Thunderbolt connection manager
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index ffd2d04b3bfa..2b911372001c 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -11,6 +11,7 @@
- #include <linux/list.h>
- #include <linux/ktime.h>
- #include <linux/string_helpers.h>
-+#include <linux/stringify.h>
- 
- #include "tunnel.h"
- #include "tb.h"
-@@ -89,12 +90,12 @@ static int dprx_timeout = TB_DPRX_TIMEOUT;
- module_param(dprx_timeout, int, 0444);
- MODULE_PARM_DESC(dprx_timeout,
- 		 "DPRX capability read timeout in ms, -1 waits forever (default: "
--		 __MODULE_STRING(TB_DPRX_TIMEOUT) ")");
-+		 __stringify(TB_DPRX_TIMEOUT) ")");
- 
- static unsigned int dma_credits = TB_DMA_CREDITS;
- module_param(dma_credits, uint, 0444);
- MODULE_PARM_DESC(dma_credits, "specify custom credits for DMA tunnels (default: "
--                __MODULE_STRING(TB_DMA_CREDITS) ")");
-+		 __stringify(TB_DMA_CREDITS) ")");
- 
- static bool bw_alloc_mode = true;
- module_param(bw_alloc_mode, bool, 0444);
-diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
-index 0570366a71d0..972e474654ac 100644
---- a/drivers/tty/serial/8250/8250_platform.c
-+++ b/drivers/tty/serial/8250/8250_platform.c
-@@ -16,6 +16,7 @@
- #include <linux/moduleparam.h>
- #include <linux/once.h>
- #include <linux/platform_device.h>
-+#include <linux/stringify.h>
- 
- #include <linux/serial_8250.h>
- 
-@@ -389,6 +390,6 @@ module_param_hw(share_irqs, bool, other, 0644);
- MODULE_PARM_DESC(share_irqs, "Share IRQs with other non-8250/16x50 devices (unsafe)");
- 
- module_param(nr_uarts, uint, 0644);
--MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __MODULE_STRING(CONFIG_SERIAL_8250_NR_UARTS) ")");
-+MODULE_PARM_DESC(nr_uarts, "Maximum number of UARTs supported. (1-" __stringify(CONFIG_SERIAL_8250_NR_UARTS) ")");
- 
- MODULE_ALIAS_CHARDEV_MAJOR(TTY_MAJOR);
-diff --git a/drivers/usb/atm/speedtch.c b/drivers/usb/atm/speedtch.c
-index 000f8eb24ead..b834eba09656 100644
---- a/drivers/usb/atm/speedtch.c
-+++ b/drivers/usb/atm/speedtch.c
-@@ -19,6 +19,7 @@
- #include <linux/moduleparam.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
-+#include <linux/stringify.h>
- #include <linux/timer.h>
- #include <linux/types.h>
- #include <linux/usb/ch9.h>
-@@ -77,31 +78,31 @@ static unsigned int num_ModemOption;
- module_param(altsetting, uint, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(altsetting,
- 		"Alternative setting for data interface (bulk_default: "
--		__MODULE_STRING(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
--		__MODULE_STRING(DEFAULT_ISOC_ALTSETTING) ")");
-+		__stringify(DEFAULT_BULK_ALTSETTING) "; isoc_default: "
-+		__stringify(DEFAULT_ISOC_ALTSETTING) ")");
- 
- module_param(dl_512_first, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(dl_512_first,
- 		 "Read 512 bytes before sending firmware (default: "
--		 __MODULE_STRING(DEFAULT_DL_512_FIRST) ")");
-+		 __stringify(DEFAULT_DL_512_FIRST) ")");
- 
- module_param(enable_isoc, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(enable_isoc,
- 		"Use isochronous transfers if available (default: "
--		__MODULE_STRING(DEFAULT_ENABLE_ISOC) ")");
-+		__stringify(DEFAULT_ENABLE_ISOC) ")");
- 
- module_param(sw_buffering, bool, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(sw_buffering,
- 		 "Enable software buffering (default: "
--		 __MODULE_STRING(DEFAULT_SW_BUFFERING) ")");
-+		 __stringify(DEFAULT_SW_BUFFERING) ")");
- 
- module_param(BMaxDSL, uint, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(BMaxDSL,
--		"default: " __MODULE_STRING(DEFAULT_B_MAX_DSL));
-+		"default: " __stringify(DEFAULT_B_MAX_DSL));
- 
- module_param(ModemMode, byte, S_IRUGO | S_IWUSR);
- MODULE_PARM_DESC(ModemMode,
--		"default: " __MODULE_STRING(DEFAULT_MODEM_MODE));
-+		"default: " __stringify(DEFAULT_MODEM_MODE));
- 
- module_param_array(ModemOption, byte, &num_ModemOption, S_IRUGO);
- MODULE_PARM_DESC(ModemOption, "default: 0x10,0x00,0x00,0x00,0x20");
-diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
-index 7b0c791399ea..d4052d206e00 100644
---- a/drivers/usb/atm/usbatm.c
-+++ b/drivers/usb/atm/usbatm.c
-@@ -64,6 +64,7 @@
- #include <linux/signal.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
-+#include <linux/stringify.h>
- #include <linux/timer.h>
- #include <linux/wait.h>
- #include <linux/kthread.h>
-@@ -103,26 +104,26 @@ static unsigned int snd_buf_bytes = UDSL_DEFAULT_SND_BUF_SIZE;
- module_param(num_rcv_urbs, uint, S_IRUGO);
- MODULE_PARM_DESC(num_rcv_urbs,
- 		 "Number of urbs used for reception (range: 0-"
--		 __MODULE_STRING(UDSL_MAX_RCV_URBS) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_RCV_URBS) ")");
-+		 __stringify(UDSL_MAX_RCV_URBS) ", default: "
-+		 __stringify(UDSL_DEFAULT_RCV_URBS) ")");
- 
- module_param(num_snd_urbs, uint, S_IRUGO);
- MODULE_PARM_DESC(num_snd_urbs,
- 		 "Number of urbs used for transmission (range: 0-"
--		 __MODULE_STRING(UDSL_MAX_SND_URBS) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_SND_URBS) ")");
-+		 __stringify(UDSL_MAX_SND_URBS) ", default: "
-+		 __stringify(UDSL_DEFAULT_SND_URBS) ")");
- 
- module_param(rcv_buf_bytes, uint, S_IRUGO);
- MODULE_PARM_DESC(rcv_buf_bytes,
- 		 "Size of the buffers used for reception, in bytes (range: 1-"
--		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
-+		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
-+		 __stringify(UDSL_DEFAULT_RCV_BUF_SIZE) ")");
- 
- module_param(snd_buf_bytes, uint, S_IRUGO);
- MODULE_PARM_DESC(snd_buf_bytes,
- 		 "Size of the buffers used for transmission, in bytes (range: 1-"
--		 __MODULE_STRING(UDSL_MAX_BUF_SIZE) ", default: "
--		 __MODULE_STRING(UDSL_DEFAULT_SND_BUF_SIZE) ")");
-+		 __stringify(UDSL_MAX_BUF_SIZE) ", default: "
-+		 __stringify(UDSL_DEFAULT_SND_BUF_SIZE) ")");
- 
- 
- /* receive */
-
--- 
-2.55.0
+T24gVHVlLCAyMDI2LTA5LTE1IGF0IDIzOjM0ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
+PiBGb3IgRFAyLjEsIEFMUE0gKEFkdmFuY2VkIExpbmsgUG93ZXIgTWFuYWdlbWVudCkgaXMgb3B0
+aW9uYWw6IFBhbmVsDQo+IFJlcGxheSBjYW4gYmUgc3VwcG9ydGVkIHdpdGhvdXQgQUxQTS4gVW50
+aWwgbm93IEFMUE0gZW5hYmxlbWVudCB3YXMNCj4gZGVyaXZlZCBpbXBsaWNpdGx5IGZyb20gb3Ro
+ZXIgZmVhdHVyZXMgLSBlRFAgUGFuZWwgUmVwbGF5IGFuZCBQU1IyDQo+IGFsd2F5cyBpbXBsaWVk
+IEFMUE0gKGludGVsX3Bzcl9uZWVkc19hbHBtKCkpLCB3aGlsZSBMT0JGIHdhcyB0cmFja2VkDQo+
+IHNlcGFyYXRlbHkgdmlhIGhhc19sb2JmIC0gc28gdGhpcyBzY2F0dGVyZWQsIGZlYXR1cmUtY291
+cGxlZCBsb2dpYw0KPiBjYW5ub3QgZXhwcmVzcyAiUGFuZWwgUmVwbGF5IHdpdGhvdXQgQUxQTSIu
+DQo+IA0KPiBJbnRyb2R1Y2UgYSBzaW5nbGUgY3J0Y19zdGF0ZS0+aGFzX2FscG0gZmxhZyBhcyB0
+aGUgc291cmNlIG9mIHRydXRoDQo+IGZvcg0KPiB3aGV0aGVyIEFMUE0gaXMgZW5hYmxlZCBmb3Ig
+YSBwaXBlIGNvbmZpZ3VyYXRpb24sIGNvbXB1dGVkIGR1cmluZw0KPiBjb25maWcNCj4gdmFsaWRh
+dGlvbjoNCj4gDQo+IMKgLSBQYW5lbCBSZXBsYXk6IGZyb20gYWxwbV9jb25maWdfdmFsaWQoKSB3
+aGVuIEFMUE0gaXMgcG9zc2libGU7IGVEUA0KPiDCoMKgIFBhbmVsIFJlcGxheSBhZGRpdGlvbmFs
+bHkgcmVxdWlyZXMgaGFzX2FscG0uDQo+IMKgLSBQU1IyIC8gU2VsZWN0aXZlIFVwZGF0ZTogZnJv
+bSBpbnRlbF9hbHBtX2lzX3Bvc3NpYmxlKCkuDQo+IMKgLSBMT0JGOiBmcm9tIGhhc19sb2JmLg0K
+PiANCj4gVGhlIFBhbmVsIFJlcGxheSBwYXRoIHNldHMgaGFzX2FscG0gc3BlY3VsYXRpdmVseSwg
+c28gY2xlYXIgaXQgd2hlbg0KPiBQYW5lbCBSZXBsYXkgaXMgbm90IHRoZSBmaW5hbGx5IHNlbGVj
+dGVkIGZlYXR1cmUsIGVuc3VyaW5nIGEgUFNSMQ0KPiBmYWxsYmFjayBuZXZlciBlbmFibGVzIEFM
+UE0uDQo+IA0KPiBVc2UgaGFzX2FscG0gaW4gcGxhY2Ugb2YgdGhlIGZlYXR1cmUtc3BlY2lmaWMg
+Y2hlY2tzIGluIHRoZSBBTFBNDQo+IGNvbmZpZ3VyZSwgcG9ydCBjb25maWd1cmUsIHNpbmsgZW5h
+YmxlIGFuZCBNQUMtdHJhbnNtaXQtTEZQUyBwYXRocywNCj4gYW5kDQo+IGtleSB0aGUgbGF0ZSB3
+YWtlLWxpbmUgc2VsZWN0aW9uIG9mZiBoYXNfYWxwbSAvIGhhc19wYW5lbF9yZXBsYXkuDQo+IA0K
+PiBBbHNvIHJlbmFtZSBpbnRlbF9hbHBtX2lzX2FscG1fYXV4X2xlc3MoKSB0byBpbnRlbF9hbHBt
+X2lzX2F1eF9sZXNzKCkNCj4gYW5kIGJhc2UgdGhlIGF1eC1sZXNzIGRlY2lzaW9uIG9uIGhhc19w
+YW5lbF9yZXBsYXksIGtlZXBpbmcgdGhlDQo+IHNvdXJjZQ0KPiBwcm9ncmFtbWluZyBjb25zaXN0
+ZW50IHdpdGggdGhlIHNpbmsncyBEUF9BTFBNX01PREVfQVVYX0xFU1MuIFRoZSBub3cNCj4gdW51
+c2VkIGludGVsX3Bzcl9uZWVkc19hbHBtKCkgaXMgcmVtb3ZlZC4NCj4gDQo+IENjOiBKb3VuaSBI
+w7ZnYW5kZXIgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogQW5p
+bWVzaCBNYW5uYSA8YW5pbWVzaC5tYW5uYUBpbnRlbC5jb20+DQo+IC0tLQ0KPiDCoGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYWxwbS5jwqDCoMKgwqAgfCAyNSArKysrKy0tLS0t
+DQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmjCoMKgwqDCoCB8
+wqAgNCArLQ0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3gwX3BoeS5j
+wqAgfMKgIDYgKystDQo+IMKgLi4uL2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheV90eXBl
+cy5owqDCoMKgIHzCoCAxICsNCj4gwqBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2x0X3BoeS5jwqDCoCB8wqAgMiArLQ0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfcHNyLmPCoMKgwqDCoMKgIHwgNDggKysrKysrKysrKystLS0tLS0NCj4gLS0NCj4gwqBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5owqDCoMKgwqDCoCB8wqAgMSAt
+DQo+IMKgNyBmaWxlcyBjaGFuZ2VkLCA0NyBpbnNlcnRpb25zKCspLCA0MCBkZWxldGlvbnMoLSkN
+Cj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Fs
+cG0uYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYWxwbS5jDQo+IGlu
+ZGV4IDI5YTkzYTI1MmZlOS4uMjM2MzQxYWEzYzhkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiBAQCAtMzcsMTEgKzM3LDExIEBAIGJvb2wgaW50
+ZWxfYWxwbV9hdXhfbGVzc193YWtlX3N1cHBvcnRlZChzdHJ1Y3QNCj4gaW50ZWxfZHAgKmludGVs
+X2RwKQ0KPiDCoAlyZXR1cm4gaW50ZWxfZHAtPmFscG1fZHBjZCAmIERQX0FMUE1fQVVYX0xFU1Nf
+Q0FQOw0KPiDCoH0NCj4gwqANCj4gLWJvb2wgaW50ZWxfYWxwbV9pc19hbHBtX2F1eF9sZXNzKHN0
+cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsDQo+IC0JCQkJIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlDQo+ICpjcnRjX3N0YXRlKQ0KPiArYm9vbCBpbnRlbF9hbHBtX2lzX2F1eF9sZXNzKHN0
+cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsDQo+ICsJCQnCoMKgwqAgY29uc3Qgc3RydWN0IGludGVs
+X2NydGNfc3RhdGUNCj4gKmNydGNfc3RhdGUpDQo+IMKgew0KPiAtCXJldHVybiBpbnRlbF9wc3Jf
+bmVlZHNfYWxwbV9hdXhfbGVzcyhpbnRlbF9kcCwgY3J0Y19zdGF0ZSkNCj4gfHwNCj4gLQkJKGNy
+dGNfc3RhdGUtPmhhc19sb2JmICYmDQo+IGludGVsX2FscG1fYXV4X2xlc3Nfd2FrZV9zdXBwb3J0
+ZWQoaW50ZWxfZHApKTsNCj4gKwlyZXR1cm4gY3J0Y19zdGF0ZS0+aGFzX3BhbmVsX3JlcGxheSB8
+fA0KPiArCcKgwqDCoMKgwqDCoCAoY3J0Y19zdGF0ZS0+aGFzX2xvYmYgJiYNCj4gaW50ZWxfYWxw
+bV9hdXhfbGVzc193YWtlX3N1cHBvcnRlZChpbnRlbF9kcCkpOw0KPiDCoH0NCj4gwqANCj4gwqBi
+b29sIGludGVsX2FscG1fc291cmNlX3N1cHBvcnRlZChzdHJ1Y3QgaW50ZWxfY29ubmVjdG9yICpj
+b25uZWN0b3IpDQo+IEBAIC01MzcsNiArNTM3LDcgQEAgdm9pZCBpbnRlbF9hbHBtX2xvYmZfY29t
+cHV0ZV9jb25maWdfbGF0ZShzdHJ1Y3QNCj4gaW50ZWxfZHAgKmludGVsX2RwLA0KPiDCoA0KPiDC
+oAljcnRjX3N0YXRlLT5oYXNfbG9iZiA9IChjcnRjX3N0YXRlLT5zZXRfY29udGV4dF9sYXRlbmN5
+ICsNCj4gY3J0Y19zdGF0ZS0+dnJyLmd1YXJkYmFuZCkgPg0KPiDCoAkJCcKgwqDCoMKgwqDCoCAo
+Zmlyc3Rfc2RwX3Bvc2l0aW9uICsNCj4gd2FrZXRpbWVfaW5fbGluZXMpOw0KPiArCWNydGNfc3Rh
+dGUtPmhhc19hbHBtID0gY3J0Y19zdGF0ZS0+aGFzX2xvYmY7DQo+IMKgfQ0KPiDCoA0KPiDCoHZv
+aWQgaW50ZWxfYWxwbV9sb2JmX2NvbXB1dGVfY29uZmlnKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxf
+ZHAsDQo+IEBAIC03MTksNyArNzIwLDcgQEAgdm9pZCBpbnRlbF9hbHBtX3ByX2FzX3NkcF91cGRh
+dGUoY29uc3Qgc3RydWN0DQo+IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpDQo+IMKgCQlp
+bnRlbF9kcCA9IGVuY190b19pbnRlbF9kcChlbmNvZGVyKTsNCj4gwqANCj4gwqAJCWlmICghaW50
+ZWxfZHAtPmFzX3NkcF9zdXBwb3J0ZWQgfHwNCj4gLQkJwqDCoMKgICFpbnRlbF9hbHBtX2lzX2Fs
+cG1fYXV4X2xlc3MoaW50ZWxfZHAsDQo+IGNydGNfc3RhdGUpKQ0KPiArCQnCoMKgwqAgIWludGVs
+X2FscG1faXNfYXV4X2xlc3MoaW50ZWxfZHAsIGNydGNfc3RhdGUpKQ0KPiDCoAkJCWNvbnRpbnVl
+Ow0KPiDCoA0KPiDCoAkJbXV0ZXhfbG9jaygmaW50ZWxfZHAtPmFscG0ubG9jayk7DQo+IEBAIC03
+MzUsOCArNzM2LDcgQEAgc3RhdGljIHZvaWQgbG5sX2FscG1fY29uZmlndXJlKHN0cnVjdCBpbnRl
+bF9kcA0KPiAqaW50ZWxfZHAsDQo+IMKgCWVudW0gdHJhbnNjb2RlciBjcHVfdHJhbnNjb2RlciA9
+IGNydGNfc3RhdGUtPmNwdV90cmFuc2NvZGVyOw0KPiDCoAl1MzIgYWxwbV9jdGwsIGFscG1fY3Rs
+MiwgbHR0cHJfY291bnQ7DQo+IMKgDQo+IC0JaWYgKERJU1BMQVlfVkVSKGRpc3BsYXkpIDwgMjAg
+fHwNCj4gKCFpbnRlbF9wc3JfbmVlZHNfYWxwbShpbnRlbF9kcCwgY3J0Y19zdGF0ZSkgJiYNCj4g
+LQkJCQkJwqAgIWNydGNfc3RhdGUtPmhhc19sb2JmKSkNCj4gKwlpZiAoRElTUExBWV9WRVIoZGlz
+cGxheSkgPCAyMCB8fCAhY3J0Y19zdGF0ZS0+aGFzX2FscG0pDQo+IMKgCQlyZXR1cm47DQo+IMKg
+DQo+IMKgCW11dGV4X2xvY2soJmludGVsX2RwLT5hbHBtLmxvY2spOw0KPiBAQCAtNzQ0LDcgKzc0
+NCw3IEBAIHN0YXRpYyB2b2lkIGxubF9hbHBtX2NvbmZpZ3VyZShzdHJ1Y3QgaW50ZWxfZHANCj4g
+KmludGVsX2RwLA0KPiDCoAkgKiBQYW5lbCBSZXBsYXkgb24gZURQIGlzIGFsd2F5cyB1c2luZyBB
+TFBNIGF1eCBsZXNzLiBJLmUuDQo+IG5vIG5lZWQgdG8NCj4gwqAJICogY2hlY2sgcGFuZWwgc3Vw
+cG9ydCBhdCB0aGlzIHBvaW50Lg0KPiDCoAkgKi8NCj4gLQlpZiAoaW50ZWxfYWxwbV9pc19hbHBt
+X2F1eF9sZXNzKGludGVsX2RwLCBjcnRjX3N0YXRlKSkgew0KPiArCWlmIChpbnRlbF9hbHBtX2lz
+X2F1eF9sZXNzKGludGVsX2RwLCBjcnRjX3N0YXRlKSkgew0KPiDCoAkJYWxwbV9jdGwgPSBBTFBN
+X0NUTF9BTFBNX0VOQUJMRSB8DQo+IMKgCQkJQUxQTV9DVExfQUxQTV9BVVhfTEVTU19FTkFCTEUg
+fA0KPiDCoAkJCUFMUE1fQ1RMX0FVWF9MRVNTX1NMRUVQX0hPTERfVElNRV81MF9TWU1CT0xTDQo+
+IDsNCj4gQEAgLTc5MiwxMCArNzkyLDEwIEBAIHZvaWQgaW50ZWxfYWxwbV9wb3J0X2NvbmZpZ3Vy
+ZShzdHJ1Y3QgaW50ZWxfZHANCj4gKmludGVsX2RwLA0KPiDCoAllbnVtIHBvcnQgcG9ydCA9IGRw
+X3RvX2RpZ19wb3J0KGludGVsX2RwKS0+YmFzZS5wb3J0Ow0KPiDCoAl1MzIgYWxwbV9jdGxfdmFs
+ID0gMCwgbGZwc19jdGxfdmFsID0gMDsNCj4gwqANCj4gLQlpZiAoRElTUExBWV9WRVIoZGlzcGxh
+eSkgPCAyMCkNCj4gKwlpZiAoRElTUExBWV9WRVIoZGlzcGxheSkgPCAyMCB8fCAhY3J0Y19zdGF0
+ZS0+aGFzX2FscG0pDQo+IMKgCQlyZXR1cm47DQo+IMKgDQo+IC0JaWYgKGludGVsX2FscG1faXNf
+YWxwbV9hdXhfbGVzcyhpbnRlbF9kcCwgY3J0Y19zdGF0ZSkpIHsNCj4gKwlpZiAoaW50ZWxfYWxw
+bV9pc19hdXhfbGVzcyhpbnRlbF9kcCwgY3J0Y19zdGF0ZSkpIHsNCj4gwqAJCWludCBsZnBzX2N5
+Y2xlID0gZ2V0X2xmcHNfY3ljbGVfY291bnQoY3J0Y19zdGF0ZSk7DQo+IMKgCQl1MzIgbGZwc19j
+eWNsZV92YWw7DQo+IMKgDQo+IEBAIC04NTQsMTMgKzg1NCwxMiBAQCB2b2lkIGludGVsX2FscG1f
+ZW5hYmxlX3Npbmsoc3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwNCj4gwqB7DQo+IMKgCXU4
+IHZhbDsNCj4gwqANCj4gLQlpZiAoIWludGVsX3Bzcl9uZWVkc19hbHBtKGludGVsX2RwLCBjcnRj
+X3N0YXRlKSAmJg0KPiAhY3J0Y19zdGF0ZS0+aGFzX2xvYmYpDQo+ICsJaWYgKCFjcnRjX3N0YXRl
+LT5oYXNfYWxwbSkNCj4gwqAJCXJldHVybjsNCj4gwqANCj4gwqAJdmFsID0gRFBfQUxQTV9FTkFC
+TEUgfCBEUF9BTFBNX0xPQ0tfRVJST1JfSVJRX0hQRF9FTkFCTEU7DQo+IMKgDQo+IC0JaWYgKGNy
+dGNfc3RhdGUtPmhhc19wYW5lbF9yZXBsYXkgfHwgKGNydGNfc3RhdGUtPmhhc19sb2JmICYmDQo+
+IC0JCQkJCcKgwqDCoMKgDQo+IGludGVsX2FscG1fYXV4X2xlc3Nfd2FrZV9zdXBwb3J0ZWQoaW50
+ZWxfZHApKSkNCj4gKwlpZiAoaW50ZWxfYWxwbV9pc19hdXhfbGVzcyhpbnRlbF9kcCwgY3J0Y19z
+dGF0ZSkpDQo+IMKgCQl2YWwgfD0gRFBfQUxQTV9NT0RFX0FVWF9MRVNTOw0KPiDCoA0KPiDCoAlk
+cm1fZHBfZHBjZF93cml0ZWIoJmludGVsX2RwLT5hdXgsIERQX1JFQ0VJVkVSX0FMUE1fQ09ORklH
+LA0KPiB2YWwpOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9hbHBtLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0u
+aA0KPiBpbmRleCBlYTkwZWJhNzZjYTcuLjVkNDA0ZTdiMDdkZSAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmgNCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmgNCj4gQEAgLTM1LDggKzM1LDggQEAgdm9p
+ZCBpbnRlbF9hbHBtX2xvYmZfZW5hYmxlKGNvbnN0IHN0cnVjdA0KPiBpbnRlbF9jcnRjX3N0YXRl
+ICpuZXdfY3J0Y19zdGF0ZSk7DQo+IMKgdm9pZCBpbnRlbF9hbHBtX2xvYmZfZGVidWdmc19hZGQo
+c3RydWN0IGludGVsX2Nvbm5lY3RvciAqY29ubmVjdG9yKTsNCj4gwqBib29sIGludGVsX2FscG1f
+YXV4X3dha2Vfc3VwcG9ydGVkKHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHApOw0KPiDCoGJvb2wg
+aW50ZWxfYWxwbV9hdXhfbGVzc193YWtlX3N1cHBvcnRlZChzdHJ1Y3QgaW50ZWxfZHAgKmludGVs
+X2RwKTsNCj4gLWJvb2wgaW50ZWxfYWxwbV9pc19hbHBtX2F1eF9sZXNzKHN0cnVjdCBpbnRlbF9k
+cCAqaW50ZWxfZHAsDQo+IC0JCQkJIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlDQo+ICpj
+cnRjX3N0YXRlKTsNCj4gK2Jvb2wgaW50ZWxfYWxwbV9pc19hdXhfbGVzcyhzdHJ1Y3QgaW50ZWxf
+ZHAgKmludGVsX2RwLA0KPiArCQkJwqDCoMKgIGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRl
+DQo+ICpjcnRjX3N0YXRlKTsNCj4gwqBib29sIGludGVsX2FscG1fcHJfYXNfc2RwX3NraXBfZnJh
+bWVzX2VuYWJsZWQoc3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwNCj4gwqAJCQkJCcKgwqDC
+oMKgwqAgY29uc3Qgc3RydWN0DQo+IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUpOw0KPiDC
+oHZvaWQgaW50ZWxfYWxwbV9wcl9hc19zZHBfdXBkYXRlKGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRj
+X3N0YXRlDQo+ICpjcnRjX3N0YXRlKTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2Rpc3BsYXkvaW50ZWxfY3gwX3BoeS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9jeDBfcGh5LmMNCj4gaW5kZXggZGJlYmQ3MjEwODQ4Li4yNmE1ZDQwMjg5YWMg
+MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3gwX3Bo
+eS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3gwX3BoeS5j
+DQo+IEBAIC0zNDQ5LDggKzM0NDksMTAgQEAgdm9pZCBpbnRlbF9sbmxfbWFjX3RyYW5zbWl0X2xm
+cHMoc3RydWN0DQo+IGludGVsX2VuY29kZXIgKmVuY29kZXIsDQo+IMKgCWludCBpOw0KPiDCoAl1
+OCBvd25lZF9sYW5lX21hc2s7DQo+IMKgDQo+IC0JaWYgKERJU1BMQVlfVkVSKGRpc3BsYXkpIDwg
+MjAgfHwNCj4gLQnCoMKgwqAgIWludGVsX2FscG1faXNfYWxwbV9hdXhfbGVzcyhlbmNfdG9faW50
+ZWxfZHAoZW5jb2RlciksDQo+IGNydGNfc3RhdGUpKQ0KPiArCWlmIChESVNQTEFZX1ZFUihkaXNw
+bGF5KSA8IDIwIHx8ICFjcnRjX3N0YXRlLT5oYXNfYWxwbSkNCj4gKwkJcmV0dXJuOw0KPiArDQo+
+ICsJaWYgKCFpbnRlbF9hbHBtX2lzX2F1eF9sZXNzKGVuY190b19pbnRlbF9kcChlbmNvZGVyKSwN
+Cj4gY3J0Y19zdGF0ZSkpDQo+IMKgCQlyZXR1cm47DQo+IMKgDQo+IMKgCW93bmVkX2xhbmVfbWFz
+ayA9IGludGVsX2N4MF9nZXRfb3duZWRfbGFuZV9tYXNrKGVuY29kZXIpOw0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgNCj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfdHlwZXMuaA0KPiBp
+bmRleCBhNWYxOGFjOGE3ZDAuLmUyY2M3M2M5ODQ3OSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgNCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmgNCj4gQEAgLTE0NDgs
+NiArMTQ0OCw3IEBAIHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlIHsNCj4gwqAJCXU4IHNpbGVuY2Vf
+cGVyaW9kX3N5bV9jbG9ja3M7DQo+IMKgCQl1OCBsZnBzX2hhbGZfY3ljbGVfbnVtX29mX3N5bXM7
+DQo+IMKgCX0gYWxwbV9zdGF0ZTsNCj4gKwlib29sIGhhc19hbHBtOw0KPiDCoA0KPiDCoAkvKiB0
+byB0cmFjayBjaGFuZ2VzIGluIHBsYW5lIGNvbG9yIGJsb2NrcyAqLw0KPiDCoAlib29sIHBsYW5l
+X2NvbG9yX2NoYW5nZWQ7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2x0X3BoeS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9sdF9waHkuYw0KPiBpbmRleCA0ZmUwMTBkZjIwYmUuLjhlYmJkYzNjMDE4NCAxMDA2NDQNCj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9sdF9waHkuYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2x0X3BoeS5jDQo+IEBAIC0yMzcx
+LDcgKzIzNzEsNyBAQCB2b2lkIGludGVsX3hlM3BscGRfbWFjX3RyYW5zbWl0X2xmcHMoc3RydWN0
+DQo+IGludGVsX2VuY29kZXIgKmVuY29kZXIsDQo+IMKgCXN0cnVjdCByZWZfdHJhY2tlciAqd2Fr
+ZXJlZjsNCj4gwqAJdTggb3duZWRfbGFuZV9tYXNrOw0KPiDCoA0KPiAtCWlmICghaW50ZWxfYWxw
+bV9pc19hbHBtX2F1eF9sZXNzKGludGVsX2RwLCBjcnRjX3N0YXRlKSkNCj4gKwlpZiAoIWNydGNf
+c3RhdGUtPmhhc19hbHBtIHx8DQo+ICFpbnRlbF9hbHBtX2lzX2F1eF9sZXNzKGludGVsX2RwLCBj
+cnRjX3N0YXRlKSkNCj4gwqAJCXJldHVybjsNCj4gwqANCj4gwqAJd2FrZXJlZiA9IGludGVsX2x0
+X3BoeV90cmFuc2FjdGlvbl9iZWdpbihlbmNvZGVyKTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+IGluZGV4IDg3MmUyNTNkYjE3OC4uMWYxNGRiZTU3NTEy
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5j
+DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMNCj4gQEAg
+LTE2NDgsNiArMTY0OCw4IEBAIHN0YXRpYyBib29sDQo+IGludGVsX3NlbF91cGRhdGVfY29uZmln
+X3ZhbGlkKHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlLA0KPiDCoAljcnRjX3N0
+YXRlLT5lbmFibGVfcHNyMl9zdV9yZWdpb25fZXQgPQ0KPiBwc3IyX3N1X3JlZ2lvbl9ldF92YWxp
+ZChjb25uZWN0b3IsDQo+IMKgCQkJCQkJCQnCoMKgwqDCoA0KPiDCoMKgIGNydGNfc3RhdGUtPmhh
+c19wYW5lbF9yZXBsYXkpOw0KPiDCoA0KPiArCWNydGNfc3RhdGUtPmhhc19hbHBtID0gaW50ZWxf
+YWxwbV9pc19wb3NzaWJsZShpbnRlbF9kcCk7DQoNCkZvciBQU1IyIHJpZ2h0IHBsYWNlIGZvciB0
+aGlzIGlzIGluIGludGVsX3BzcjJfY29uZmlnX3ZhbGlkLiBUaGVyZSBpcw0KYWxyZWFkeSBhbHBt
+X2NvbmZpZ192YWxpZCBjYWxsLg0KDQpJIHdvdWxkIHJhdGhlciBzZXQgaXQgaW4gb25lIHBsYWNl
+LiBBdCB0aGUgZW5kIG9mDQppbnRlbF9wc3JfY29tcHV0ZV9jb25maWdfbGF0ZSBpZiBkb2luZyBp
+dCB0aGlzIHdheS4NCg0KSSB3b3VsZCByYXRoZXIgdGFyZ2V0IHRvIGhhdmUgOg0KDQoxLiBhbHBt
+X2NvbXB1dGVfY29uZmlnICgpDQogICBkb2luZyBpbnRlbF9hbHBtX2NvbXB1dGVfcGFyYW1zLiBT
+ZXR0aW5nIHR3byBuZXcgZmxhZ3MgaW4NCmFscG1fc3RhdGUtPmF1eF9sZXNzX3Bvc3NpYmxlIGFu
+ZCBhbHBtX3N0YXRlLT5hdXhfd2FrZV9wb3NzaWJsZS4gQWxzbw0KZG9pbmcgd2hhdCBsb2JmX2Nv
+bXB1dGVfY29uZmlnIGlzIGRvaW5nIG5vdy4NCg0KMi4gcHNyX2NvbXB1dGVfY29uZmlnDQogICB1
+c2luZyB2YWx1ZXMvZmxhZ3MgY29tcHV0ZWQgYnkgYWxwbV9jb21wdXRlX2NvbmZpZyBhbmQgY2hv
+b3NpbmcgIA0KcHNyL3BzcjIvcHIgYmFzZWQgb24gdGhvc2UuDQouLi4NCg0KMy4gcHNyX2NvbXB1
+dGVfY29uZmlnX2xhdGUNCiAgIG5vIGNoYW5nZXMuDQoNCjQuIGFscG1fY29tcHV0ZV9jb25maWdf
+bGF0ZQ0KICAgc2V0IGhhc19sb2JmIGFuZCBoYXNfYWxwbSBiYXNlZCBvbiBjYWxjdWxhdGlvbiBi
+eQ0KYWxwbV9jb21wdXRlX2NvbmZpZywgcHNyX2NvbXB1dGVfY29uZmlnIGFuZCBwc3JfY29tcHV0
+ZV9jb25maWdfbGF0ZS4NCg0KTmV4dCBsb2dpY2FsIG1vdmUgYWZ0ZXIgdGhpcyB3b3VsZCBiZSB0
+byBoYXZlIHRoZSBjb25maWd1cmF0aW9uIG9mIEFMUE0NCmhhcHBlbmluZyBpbiBvbmUgcGxhY2Uu
+IE5vdCBuZWVkZWQgaW4gdGhpcyBwYXRjaCBzZXQgdGhvdWdoLg0KDQpCUiwNCkpvdW5pIEjDtmdh
+bmRlcg0KDQo+ICsNCj4gwqAJcmV0dXJuIHRydWU7DQo+IMKgDQo+IMKgdW5zdXBwb3J0ZWQ6DQo+
+IEBAIC0xNzM1LDExICsxNzM3LDE3IEBAIHN0YXRpYyBib29sDQo+IF9wYW5lbF9yZXBsYXlfY29t
+cHV0ZV9jb25maWcoc3RydWN0IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsDQo+IMKgCWNy
+dGNfc3RhdGUtPmxpbmtfb2ZmX2FmdGVyX2FzX3NkcF93aGVuX3ByX2FjdGl2ZSA9DQo+IGNvbXB1
+dGVfbGlua19vZmZfYWZ0ZXJfYXNfc2RwX3doZW5fcHJfYWN0aXZlKGNvbm5lY3Rvcik7DQo+IMKg
+CWNydGNfc3RhdGUtPmRpc2FibGVfYXNfc2RwX3doZW5fcHJfYWN0aXZlID0NCj4gY29tcHV0ZV9k
+aXNhYmxlX2FzX3NkcF93aGVuX3ByX2FjdGl2ZShjb25uZWN0b3IpOw0KPiDCoA0KPiArCWlmIChp
+bnRlbF9hbHBtX2lzX3Bvc3NpYmxlKGludGVsX2RwKSkNCj4gKwkJY3J0Y19zdGF0ZS0+aGFzX2Fs
+cG0gPSBhbHBtX2NvbmZpZ192YWxpZChpbnRlbF9kcCwNCj4gY3J0Y19zdGF0ZSwgdHJ1ZSwgdHJ1
+ZSwgZmFsc2UpOw0KPiArDQo+IMKgCWlmICghaW50ZWxfZHBfaXNfZWRwKGludGVsX2RwKSkNCj4g
+wqAJCXJldHVybiB0cnVlOw0KPiDCoA0KPiDCoAkvKiBSZW1haW5pbmcgY2hlY2tzIGFyZSBmb3Ig
+ZURQIG9ubHkgKi8NCj4gwqANCj4gKwlpZiAoIWNydGNfc3RhdGUtPmhhc19hbHBtKQ0KPiArCQly
+ZXR1cm4gZmFsc2U7DQo+ICsNCj4gwqAJaWYgKHRvX2ludGVsX2NydGMoY3J0Y19zdGF0ZS0+dWFw
+aS5jcnRjKS0+cGlwZSAhPSBQSVBFX0EgJiYNCj4gwqAJwqDCoMKgIHRvX2ludGVsX2NydGMoY3J0
+Y19zdGF0ZS0+dWFwaS5jcnRjKS0+cGlwZSAhPSBQSVBFX0IpDQo+IMKgCQlyZXR1cm4gZmFsc2U7
+DQo+IEBAIC0xNzYyLDkgKzE3NzAsNiBAQCBzdGF0aWMgYm9vbCBfcGFuZWxfcmVwbGF5X2NvbXB1
+dGVfY29uZmlnKHN0cnVjdA0KPiBpbnRlbF9jcnRjX3N0YXRlICpjcnRjX3N0YXRlLA0KPiDCoAkJ
+cmV0dXJuIGZhbHNlOw0KPiDCoAl9DQo+IMKgDQo+IC0JaWYgKCFhbHBtX2NvbmZpZ192YWxpZChp
+bnRlbF9kcCwgY3J0Y19zdGF0ZSwgdHJ1ZSwgdHJ1ZSwNCj4gZmFsc2UpKQ0KPiAtCQlyZXR1cm4g
+ZmFsc2U7DQo+IC0NCj4gwqAJcmV0dXJuIHRydWU7DQo+IMKgfQ0KPiDCoA0KPiBAQCAtMTg4OCw2
+ICsxODkzLDE1IEBAIHZvaWQgaW50ZWxfcHNyX2NvbXB1dGVfY29uZmlnKHN0cnVjdCBpbnRlbF9k
+cA0KPiAqaW50ZWxfZHAsDQo+IMKgCWNydGNfc3RhdGUtPnBhbmVsX3JlcGxheV9kc2Nfc3VwcG9y
+dCA9IGNvbm5lY3Rvci0NCj4gPmRwLnBhbmVsX3JlcGxheV9jYXBzLmRzY19zdXBwb3J0Ow0KPiDC
+oAljcnRjX3N0YXRlLT5oYXNfcGFuZWxfcmVwbGF5ID0NCj4gX3BhbmVsX3JlcGxheV9jb21wdXRl
+X2NvbmZpZyhjcnRjX3N0YXRlLCBjb25uX3N0YXRlKTsNCj4gwqANCj4gKwkvKg0KPiArCSAqIGhh
+c19hbHBtIG1heSBoYXZlIGJlZW4gc2V0IHNwZWN1bGF0aXZlbHkgd2hpbGUgZXZhbHVhdGluZw0K
+PiBQYW5lbA0KPiArCSAqIFJlcGxheS4gSXQgaXMgb25seSB2YWxpZCBpZiBQYW5lbCBSZXBsYXkg
+d2FzIGFjdHVhbGx5DQo+IHNlbGVjdGVkOw0KPiArCSAqIG90aGVyd2lzZSB0aGUgZmluYWxseSBj
+aG9zZW4gZmVhdHVyZSAoUFNSMi9TVSBvciBMT0JGKQ0KPiBkZWNpZGVzIGl0IGFuZA0KPiArCSAq
+IGEgUFNSMSBmYWxsYmFjayBtdXN0IG5vdCBlbmFibGUgQUxQTS4NCj4gKwkgKi8NCj4gKwlpZiAo
+IWNydGNfc3RhdGUtPmhhc19wYW5lbF9yZXBsYXkpDQo+ICsJCWNydGNfc3RhdGUtPmhhc19hbHBt
+ID0gZmFsc2U7DQo+ICsNCj4gwqAJY3J0Y19zdGF0ZS0+aGFzX3BzciA9IGNydGNfc3RhdGUtPmhh
+c19wYW5lbF9yZXBsYXkgPyB0cnVlIDoNCj4gwqAJCV9wc3JfY29tcHV0ZV9jb25maWcoaW50ZWxf
+ZHAsIGNydGNfc3RhdGUsDQo+IGNvbm5fc3RhdGUpOw0KPiDCoA0KPiBAQCAtNDU1NSwxNiArNDU2
+OSw2IEBAIHZvaWQgaW50ZWxfcHNyX2Nvbm5lY3Rvcl9kZWJ1Z2ZzX2FkZChzdHJ1Y3QNCj4gaW50
+ZWxfY29ubmVjdG9yICpjb25uZWN0b3IpDQo+IMKgCQkJCcKgwqDCoCBjb25uZWN0b3IsDQo+ICZp
+OTE1X3Bzcl9zdGF0dXNfZm9wcyk7DQo+IMKgfQ0KPiDCoA0KPiAtYm9vbCBpbnRlbF9wc3JfbmVl
+ZHNfYWxwbShzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLCBjb25zdCBzdHJ1Y3QNCj4gaW50ZWxf
+Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSkNCj4gLXsNCj4gLQkvKg0KPiAtCSAqIGVEUCBQYW5lbCBS
+ZXBsYXkgdXNlcyBhbHdheXMgQUxQTQ0KPiAtCSAqIFBTUjIgdXNlcyBBTFBNIGJ1dCBQU1IxIGRv
+ZXNuJ3QNCj4gLQkgKi8NCj4gLQlyZXR1cm4gaW50ZWxfZHBfaXNfZWRwKGludGVsX2RwKSAmJiAo
+Y3J0Y19zdGF0ZS0NCj4gPmhhc19zZWxfdXBkYXRlIHx8DQo+IC0JCQkJCcKgwqDCoMKgIGNydGNf
+c3RhdGUtDQo+ID5oYXNfcGFuZWxfcmVwbGF5KTsNCj4gLX0NCj4gLQ0KPiDCoGJvb2wgaW50ZWxf
+cHNyX25lZWRzX2FscG1fYXV4X2xlc3Moc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwNCj4gwqAJ
+CQkJwqDCoCBjb25zdCBzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZQ0KPiAqY3J0Y19zdGF0ZSkNCj4g
+wqB7DQo+IEBAIC00NTc4LDE1ICs0NTgyLDE3IEBAIHZvaWQgaW50ZWxfcHNyX2NvbXB1dGVfY29u
+ZmlnX2xhdGUoc3RydWN0DQo+IGludGVsX2RwICppbnRlbF9kcCwNCj4gwqAJaW50IHZibGFuayA9
+IGludGVsX2NydGNfdmJsYW5rX2xlbmd0aChjcnRjX3N0YXRlKTsNCj4gwqAJaW50IHdha2VfbGlu
+ZXM7DQo+IMKgDQo+IC0JaWYgKGludGVsX3Bzcl9uZWVkc19hbHBtX2F1eF9sZXNzKGludGVsX2Rw
+LCBjcnRjX3N0YXRlKSkNCj4gLQkJd2FrZV9saW5lcyA9IGNydGNfc3RhdGUtDQo+ID5hbHBtX3N0
+YXRlLmF1eF9sZXNzX3dha2VfbGluZXM7DQo+IC0JZWxzZSBpZiAoaW50ZWxfcHNyX25lZWRzX2Fs
+cG0oaW50ZWxfZHAsIGNydGNfc3RhdGUpKQ0KPiAtCQl3YWtlX2xpbmVzID0gRElTUExBWV9WRVIo
+ZGlzcGxheSkgPCAyMCA/DQo+IC0JCQnCoMKgwqDCoCBwc3IyX2Jsb2NrX2NvdW50X2xpbmVzKGNy
+dGNfc3RhdGUtDQo+ID5hbHBtX3N0YXRlLmlvX3dha2VfbGluZXMsDQo+IC0JCQkJCQnCoMKgwqAg
+Y3J0Y19zdGF0ZS0NCj4gPmFscG1fc3RhdGUuZmFzdF93YWtlX2xpbmVzKSA6DQo+IC0JCQnCoMKg
+wqDCoCBjcnRjX3N0YXRlLT5hbHBtX3N0YXRlLmlvX3dha2VfbGluZXM7DQo+IC0JZWxzZQ0KPiAr
+CWlmIChjcnRjX3N0YXRlLT5oYXNfYWxwbSkgew0KPiArCQlpZiAoY3J0Y19zdGF0ZS0+aGFzX3Bh
+bmVsX3JlcGxheSkNCj4gKwkJCXdha2VfbGluZXMgPSBjcnRjX3N0YXRlLQ0KPiA+YWxwbV9zdGF0
+ZS5hdXhfbGVzc193YWtlX2xpbmVzOw0KPiArCQllbHNlDQo+ICsJCQl3YWtlX2xpbmVzID0gRElT
+UExBWV9WRVIoZGlzcGxheSkgPCAyMCA/DQo+ICsJCQkJwqDCoMKgwqANCj4gcHNyMl9ibG9ja19j
+b3VudF9saW5lcyhjcnRjX3N0YXRlLT5hbHBtX3N0YXRlLmlvX3dha2VfbGluZXMsDQo+ICsJCQkJ
+CQkJwqDCoMKgDQo+IGNydGNfc3RhdGUtPmFscG1fc3RhdGUuZmFzdF93YWtlX2xpbmVzKSA6DQo+
+ICsJCQkJwqDCoMKgwqAgY3J0Y19zdGF0ZS0NCj4gPmFscG1fc3RhdGUuaW9fd2FrZV9saW5lczsN
+Cj4gKwl9IGVsc2Ugew0KPiDCoAkJd2FrZV9saW5lcyA9IDA7DQo+ICsJfQ0KPiDCoA0KPiDCoAkv
+Kg0KPiDCoAkgKiBEaXNhYmxlIHRoZSBQU1IgZmVhdHVyZXMgaWYgd2FrZSBsaW5lcyBleGNlZWQg
+dGhlDQo+IGF2YWlsYWJsZSB2YmxhbmsuDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+aTkxNS9kaXNwbGF5L2ludGVsX3Bzci5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9wc3IuaA0KPiBpbmRleCBkNTQ1ZmRhYTBkZTcuLjQ5MDViYTRkYTRiOCAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuaA0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5oDQo+IEBAIC03OSw3ICs3
+OSw2IEBAIHZvaWQgaW50ZWxfcHNyX3RyaWdnZXJfZnJhbWVfY2hhbmdlX2V2ZW50KHN0cnVjdA0K
+PiBpbnRlbF9kc2IgKmRzYiwNCj4gwqBpbnQgaW50ZWxfcHNyX21pbl9zZXRfY29udGV4dF9sYXRl
+bmN5KGNvbnN0IHN0cnVjdCBpbnRlbF9jcnRjX3N0YXRlDQo+ICpjcnRjX3N0YXRlKTsNCj4gwqB2
+b2lkIGludGVsX3Bzcl9jb25uZWN0b3JfZGVidWdmc19hZGQoc3RydWN0IGludGVsX2Nvbm5lY3Rv
+cg0KPiAqY29ubmVjdG9yKTsNCj4gwqB2b2lkIGludGVsX3Bzcl9kZWJ1Z2ZzX3JlZ2lzdGVyKHN0
+cnVjdCBpbnRlbF9kaXNwbGF5ICpkaXNwbGF5KTsNCj4gLWJvb2wgaW50ZWxfcHNyX25lZWRzX2Fs
+cG0oc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwgY29uc3Qgc3RydWN0DQo+IGludGVsX2NydGNf
+c3RhdGUgKmNydGNfc3RhdGUpOw0KPiDCoGJvb2wgaW50ZWxfcHNyX25lZWRzX2FscG1fYXV4X2xl
+c3Moc3RydWN0IGludGVsX2RwICppbnRlbF9kcCwNCj4gwqAJCQkJwqDCoCBjb25zdCBzdHJ1Y3Qg
+aW50ZWxfY3J0Y19zdGF0ZQ0KPiAqY3J0Y19zdGF0ZSk7DQo+IMKgdm9pZCBpbnRlbF9wc3JfY29t
+cHV0ZV9jb25maWdfbGF0ZShzdHJ1Y3QgaW50ZWxfZHAgKmludGVsX2RwLA0KDQo=
