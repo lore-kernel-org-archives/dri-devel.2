@@ -4,46 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95013CA5FD6
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 01:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 401D5CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 04:41:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 932E810E40F;
-	Fri,  2 Oct 2026 01:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A442010E325;
+	Fri,  2 Oct 2026 04:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="YLEcWYUO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dEqmp5wg";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8440110E3FE
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 01:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1790905911; x=1791165111;
- bh=/mor2t7+zGxmTy+WpeseCaJm18rfuGj4yLAW0d0L4mA=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=YLEcWYUOJJxiUnYM8i5IZTZbmRbBSJRYQsgpAk2HAk9SJVG9SHX17yEHV4OMEmPZf
- fLICk3vLdVPF1InZVyYNupfh/cVbxMtawG1qwsNCWa1BEueW0TuE7tD8TIfukRnzdG
- wx38qVXD7m9ASbMxxWbp30F6vfk1FTc6XEPze2AdJENQeQegtSmBGUplVrjPs3hAlW
- aMUz8M7Sv4smXiihcoKD0jnRqCpAs8c7iCkskMdesdGd67DqTAB8pTLSZ1PcaZyNX/
- qSHcaLrj8aHoDSRRpKmhXtMTs1/UkoKi8s3Gh9NtJbU9nOAaIUIvX8+U1dM69adzh7
- n7bi5SXv/5yUQ==
-Date: Fri, 02 Oct 2026 01:51:46 +0000
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v4 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-Message-ID: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 3893ef6421dfb228631305b12ed3dd37f44d937d
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5BA110E0C2;
+ Fri,  2 Oct 2026 04:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1790916101; x=1822452101;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=PvbfeFV/PSVuE9nb+BAXb6mUGUz8m9FhVp06mBzUikQ=;
+ b=dEqmp5wgqondhihjB8du7pEv0MeP4RrnTA+IvjPOdgvkXwFuY46Uz2fL
+ kbZp+pKdJ3sjAgajWdYXmiZJLqEcsr6/4R6eR+C512QZ3AxNwaFRyoDJ7
+ JLQmww7aIyLYuLTVCLGA6k3it4i0gTIr4LVX/xXXpOKzwBO4HtEfeCQVo
+ pj4mLuESH6G1lNcgFlqRsM2St9alEbncndeR1V7J3NlWkOah9k0gVZ9HS
+ /J8gLbi+Uwhewi+ya75Bt+Md5RQj7hVTcnqtD6sf2P+RKau8vBUqJTBLy
+ YcaE7I4/Gc0jWEpgpTOc4X8L7/TQ/RcHr+PioNjX3qSvdaWOplSwg+Jzi Q==;
+X-CSE-ConnectionGUID: Zp7rN8rzTRG4CWszktNMwQ==
+X-CSE-MsgGUID: WFDkGOMzSNuhNUC1cVDn1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94396060"
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="94396060"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 21:41:40 -0700
+X-CSE-ConnectionGUID: iWt4zQnVSZqQUJ2kr09RHw==
+X-CSE-MsgGUID: U6psyuyRS26I0bwiBSe48w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,135,1787036400"; d="scan'208";a="304126612"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2026 21:41:40 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 21:41:39 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 1 Oct 2026 21:41:39 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.69) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 1 Oct 2026 21:41:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HooiK2qp0XRCK1IY5anp+k2LOtn7uzsmoOz+48F2LMJjHQkuG+MWwoqGgrj68LmlmkgJktwX5jT+dgnESEL/Pno0VWEZMN0Tmy84dTixu6KY/hatzXpIu/t0NpNbOGGbv4zHU6MFTXPqBDj+uZv6olo88Ez99tlS7EkjnHGif/LTz0u7myKoHOO/42fmUmXi+9WeLkHbw1hwwAToWwfgKnyGl2OxpKoYrA0/P8KRp7IVMYiUhqQdrhdrnRWMOx8+hUkiwXDAdbspc+Q9PcYqd7kyg+Es9VzjAZIcBTzmdTDAwnqzg69bTjzvakUHGTWCjHXoq4hSHnG8Q0vE+evFLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PvbfeFV/PSVuE9nb+BAXb6mUGUz8m9FhVp06mBzUikQ=;
+ b=pqG0C98lyTpXXztcPO1IO0UKflpHVTCvE0PG2XsfIXx2N1+Ptxiue16dYG3m2WjWsEYmPCHs6V+uWt9rhDVBeqn45KibfT12lp9wTxhCMJQvmdRjEhCv/EsQjzJ9VkhkyZoQUM+ozasr24Vn9m0a9VlivQWLGq350JsErKXAYyYI0fZ5TZ3oEhSWFAdigkSJ/LqGIoeKyWMwu1Ha8DM+0GWyGWF7IYRXlN6EtJnUJEo3tojSPgREFf5g+YU78dVxqY3E5XVWQ1w7Hi2m9ZDBLgrcqs7Qz8AcwISJhpWA3r9J+wjfFLNR134EpjYjLWL1ktda0chWNivW0yxb26516w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
+ CY8PR11MB7289.namprd11.prod.outlook.com (2603:10b6:930:99::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.26; Fri, 2 Oct 2026 04:41:37 +0000
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
+ 04:41:37 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Manna,
+ Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+CC: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>
+Subject: Re: [PATCH v6 12/18] drm/i915/alpm: Program LTTPR count for DP 2.1
+ ALPM
+Thread-Topic: [PATCH v6 12/18] drm/i915/alpm: Program LTTPR count for DP 2.1
+ ALPM
+Thread-Index: AQHdRUGVVMFGhCiNkUm287L0pvh1tLbpxhiA
+Date: Fri, 2 Oct 2026 04:41:37 +0000
+Message-ID: <c2ca60e3b9742c58002c14c4800bfa1d0ea88e7b.camel@intel.com>
+References: <20260915180449.277933-1-animesh.manna@intel.com>
+ <20260915180449.277933-13-animesh.manna@intel.com>
+In-Reply-To: <20260915180449.277933-13-animesh.manna@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|CY8PR11MB7289:EE_
+x-ms-office365-filtering-correlation-id: a60791fe-b9af-45db-9b04-08df203f719a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|4143699003|10067099003|56012099006|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: jo2DxfZVyRH7TBdioHJl3EvaRMLl3pBF4p/IVN6bB/r591uyhJKadY1GlfH1HEwApWhDE9XL1hpyBaawPMu4O4zgvR9WsFS5pQ4vfK2fRqV0Uoo6Cdwnsqmcy7F7qVQZRKM68ZuJyfs6aK6LgnIZNn+SSQ0aPhGZ5DAXOSPK3H29gClKXN2IBEDN3R3W+WkX9R4lUPoG7bXDZ5+c/ZLhMEwFoW2l+g1WVtMRWz7hqRApkQsczOMwKEZM1rIHReug72i3NSf3l9YvcuGObut6V3t8KJOxAy6dARJ6VePQbGo6Kt8ZCMCPKQzqRWgTUiNOKKxX0MXV6Lp+BRLvf0dKZxpfJ/7Fo3r3DmbzQzcz1q38wFjXCb0OvXsydyGB56gjU0F61j2KOZhuPuRSlztuHeX1d/3kaW6a+FU3FMysiAipmo/nwdSRwCcGi6vhjATyE9eXrxac3vyXpYzPPjPlUJ2iA9VuWnek7y19QiN9Zz6KoR0WoJTVLaMRKndoiBPdtpLiv7EFbyq5AsccjXDnZGiy1ktwvGR+3RFv5IIqhSxgWkFy94EGi2EX2QQuDmGiM2no1zn7m1MgZ1axmGvyxEvMK2UwFvukq8djFTTNwPe8EUPtl8nfnk5oPEvY6Lm9H9UDDS1ba8SFeJdEZrIsUx9OQNvqOyPkrslDaYy5gwODJ0fsIH30QhrsUFtbEJ01BljBPzqTgpNPPog1SKDFvaYSMb4xXkR7f9PdhvJ5b2Y=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UTg4Y3NpTzd2dXRUZmcvRXBxc0VNQitFSk45OGhJY09Cd1MwRGVVOTdCbWgw?=
+ =?utf-8?B?TkQzVnp4cXB5NzVxNllYcXR6NGNmSmJsZ1A0aHMwSUZzTUFlR2lpMys1TU5G?=
+ =?utf-8?B?OGNyb3E3NzdOMy81cUxNREk0QjZuSks4bG5lcmgvQkY4L2VoRG1CUnhrYmdP?=
+ =?utf-8?B?NExXZU9xZzFKSTROYTM2L2RrbXRNMlJmYk0rbXA4cEZSVnBzenA2UnJIMU9L?=
+ =?utf-8?B?QlZoZXV6WEJnaHYxelhmT3dzMklrRm96Nm9Pak9hN1g0WVpSNk1CaXFVVk9t?=
+ =?utf-8?B?a0VRakZCdXFhUmJTZmhvZFNXV0R1aDNaY3k5VThXb01KcDR5dm9CbXdNVkMw?=
+ =?utf-8?B?c0R1a2c2N1NhcEZvVWNhRHpFeDFmL1dacWxUaFpGNzY0RzEyZkMyVHdUUjlM?=
+ =?utf-8?B?WnB3T3E4aDJQbDg5TVRIN1BLZW9oSFJmaDhZNjdPT3lWNGVMdzA0M3VuZk0x?=
+ =?utf-8?B?L2kzSW85SytQeTFxUEhySGNPZVBTYWJHdURZelJ0bG45V3BEenlLZk9STHJp?=
+ =?utf-8?B?bmFJdU9PendoeVZHTGw0UGtvbEVtckZycU9pRUxjeHhCd0l1cWpBdGhmWVZT?=
+ =?utf-8?B?US9VL0lPWXVDWlJ4UkFlWVdXd3hvQVFCWmFhRTJkYzN5Z3Iyd3hFeFMzTWxo?=
+ =?utf-8?B?UWUvcEx6RDBvbnpzS0pUZUtUdzVqd3VTU0QyR0JxbXk5S1hZN3dieW9SOFd6?=
+ =?utf-8?B?MmllTWpqUGN1T0J0Q3hIMEdiRk9CTTBPQlZRby9FU3l4M3V2dkZMKzFMUWdN?=
+ =?utf-8?B?eGtwcTViVDVnUUNLRHp2QlJUV1hUdVd4WDVtUXJ6RUJBVEJ6RzE5ZUxaS3J1?=
+ =?utf-8?B?RlJ3WG5GeG10RkRmQTRSaUFyWm4zZ241SHIyc0JHKzdYeDBZUDVIeGxCbGJk?=
+ =?utf-8?B?TmZlUE9aTG1TS2k1V0kyYWFhamlvZ1Nselpmc2xhcy9WN3pvWkdTUy94TVJw?=
+ =?utf-8?B?WmdyVzZ1N2cveTA0ZXRTc21NVytDZ2U5cDZHU3dYRzI1WjFvZVJlQ3V2dVFq?=
+ =?utf-8?B?YWxha0xKL3MvSktxV0llV3FWRDNPRVg4VU9QUk5YSjloVFhpZFRpWTN0L1F5?=
+ =?utf-8?B?UlN0cG5vaHFpa0VVVmg1QklZWDdubVI5NzRnSTJkTVdGUk1BeFhjSWVXeEcx?=
+ =?utf-8?B?V1VlMThZV0NBMVdsMEI5VmdOWURiZGIwZ0ZHWTZlbEp3czhqQ21DeXlZWk9B?=
+ =?utf-8?B?amk0dEtRMHpSNWhPaEl3K0h2Y3llcFA1MWVzdDR0dXQ2ejFvK0c0dS9YUHJy?=
+ =?utf-8?B?dnJuVmhVaDcxZHNkbWxvaENkWXlsVDIzV29xMk1FcVp4bUo0Y21DQmFHOHZp?=
+ =?utf-8?B?RFRRNGhLbm4vVjlVZU8yUWd3Z040RzQ1UWR5T01BK3dBbjR2Qi9NRVdXN3Rh?=
+ =?utf-8?B?QlJNaFE3NFRIRFpGVVh2TmowRi9EWnkzT3c1am5CRFh3NUwyRkYxcjRJYTgw?=
+ =?utf-8?B?MnQ2M0FXQ0RGSHVISC9mWmhmYjVUNlhnNlROUTJzNnduaVl0bGJ4cVpVa0la?=
+ =?utf-8?B?MG5XSVFvQWFwV0x4dTQ2YlNVOVVWbUNYdGtwN2hCa1QxZ2xSZUVQMWs3ZHpD?=
+ =?utf-8?B?R3EzbDFaV09CWW1wZnlTNXcwVFhLUk1URjdSQnVZVTBmYkhoTlFDYStLUWZE?=
+ =?utf-8?B?ak9jbUxpTGtuMzFWRDRtd1o5T3UvQXpnYm5QVzlNSSsrK1FJTmhLQXA2LzNK?=
+ =?utf-8?B?czZkK1RZZFU5dWxBQ3BtaXVrVy9pK09nWkJVcmsxeFk1a1JNcHYzK0pvZDQ0?=
+ =?utf-8?B?eEVhNm8yNlFSaEovODFpaEQ4ZHYxdVFxSVJtQjVuUzBZVkV2bTM3UExUVXN6?=
+ =?utf-8?B?dmI3ei82R2ovay80VCt6aUFDTFlZWm8xdVNwRGNxSzhkUEZRRXduS3RJTnVn?=
+ =?utf-8?B?U3ZPZFdYVnNtKy85VlZuMkpxOTRvQ3ovMGM3RkJjcGo0YXZQUTdNV1l5UGpS?=
+ =?utf-8?B?WnRleDY5dmxVOW5YS3ZjaDA1QVpacGhVdzhBMGt3K1YxUWlna0ZtQU5yTzkr?=
+ =?utf-8?B?T21EamVsaUFTcGtUK1Y4eHBvdGgrQ0dHY2ZFa0xiZ1hxYkxnNnRpNmF1QnJz?=
+ =?utf-8?B?RlNqZUhTeGJIdllNMmRSZDBMZGdlSEdlK0lITDhmbEhlTjlwcm85cEVXZWs2?=
+ =?utf-8?B?UEhxdUxhSnVqQVNGSWtJZzNCZkE3aDIzMlArdHVtS2dBcXVJV0ZBN1I1VC8r?=
+ =?utf-8?B?elFkU2gxV0VXWHFjQU13dzZkRWxvT3lYVjBWeXRhYkJ0WFhHKzdIVFZ3Y1g0?=
+ =?utf-8?B?MElTU3dKaVE3RHpUQ2JLRTNpMjNmaDBxUlhCUTQwVlNvNThucjEzM0tkWE5i?=
+ =?utf-8?B?NytpWUdkMDhubEhob0hmQ2x6enNJZndJVG1SaUI5VzVhN3ErSXdia0h4THo2?=
+ =?utf-8?Q?XLJQlg2Exls6+7cc=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B25F22AAA31071478442586ABBCA5979@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: nUVBx0useoc7R6tMCRf6cfxvzEoCTAVBaZSqzzbZ8FTIuW+iD3/mFiO9qFCPUP+6e4nHr608y0GgpLVICIv6jHjutIxsIOiP+AZhiv7WuZWhUMky52sge8NPadmC7xuzr9m8nl8zijouXjBvPSlwednHRyj90Jc8Zd3Hpdm3EdQ29fPu4ASk0JphsO99ozcOuwNqdc08aOHygmWhmvkyVXKqL5BV7F+dCqWGmRj+Ovts6u9nWgY89qItuUp2kN1dGEErIwy0l71YSg+WcPVMk4DN/aSf4AeoaI0NDkQv/CnJPgLVt6bJZyIJjUN0zH7AaVkpaPz9HTJ3kL2NnDOBaQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a60791fe-b9af-45db-9b04-08df203f719a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 04:41:37.0665 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rpkjVsjrojc+la8MCd15Qd4FpFX2oQkzmlvAutZoz7xxY0GhmDQVdDRXXl6fetCxUIzutuvzS5+9BeWw8M5b6DkT6w/lmhPB5SpuEfKH264=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7289
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,501 +178,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a panel driver for Raydium RM69220 DDIC based displays such as the
-BOE BF068MWM-TD0 found in the Nothing Phone (3a).
-
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- MAINTAINERS                                   |   1 +
- drivers/gpu/drm/panel/Kconfig                 |  15 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-raydium-rm69220.c | 417 ++++++++++++++++++++++=
-++++
- 4 files changed, 434 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6702142b117d..1e4d309e4792 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8587,6 +8587,7 @@ DRM DRIVER FOR RAYDIUM RM69220 PANELS
- M:=09Alexander Koskovich <akoskovich@pm.me>
- S:=09Maintained
- F:=09Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
-+F:=09drivers/gpu/drm/panel/panel-raydium-rm69220.c
-=20
- DRM DRIVER FOR SAMSUNG DB7430 PANELS
- M:=09Linus Walleij <linusw@kernel.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 53a1fc2913fe..61c047891f50 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -850,6 +850,21 @@ config DRM_PANEL_RAYDIUM_RM692E5
- =09  Say Y here if you want to enable support for Raydium RM692E5-based
- =09  display panels, such as the one found in the Fairphone 5 smartphone.
-=20
-+config DRM_PANEL_RAYDIUM_RM69220
-+=09tristate "Raydium RM69220-based DSI panel"
-+=09depends on OF
-+=09depends on DRM_MIPI_DSI
-+=09depends on BACKLIGHT_CLASS_DEVICE
-+=09select DRM_DISPLAY_DSC_HELPER
-+=09select DRM_DISPLAY_HELPER
-+=09help
-+=09  Say Y here if you want to enable support for Raydium RM69220-based
-+=09  display panels, such as the BOE BF068MWM-TD0 which can be found in
-+=09  the Nothing Phone (3a).
-+
-+=09  To compile this driver as a module, choose M here: the module
-+=09  will be called panel-raydium-rm69220.
-+
- config DRM_PANEL_RAYDIUM_RM69380
- =09tristate "Raydium RM69380-based DSI panel"
- =09depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefil=
-e
-index f2c9c80a218f..00c06d956e8b 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -83,6 +83,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67191) +=3D panel-raydiu=
-m-rm67191.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67200) +=3D panel-raydium-rm67200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) +=3D panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) +=3D panel-raydium-rm692e5.o
-+obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69220) +=3D panel-raydium-rm69220.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) +=3D panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) +=3D panel-renesas-r61307.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) +=3D panel-renesas-r63419.o
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm69220.c b/drivers/gpu/dr=
-m/panel/panel-raydium-rm69220.c
-new file mode 100644
-index 000000000000..3030f8b89760
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm69220.c
-@@ -0,0 +1,417 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Generated with linux-mdss-dsi-panel-driver-generator from vendor device=
- tree.
-+ * Copyright (c) 2026 Alexander Koskovich <akoskovich@pm.me>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/device-id/of.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct raydium_rm69220 {
-+=09struct drm_panel panel;
-+=09struct mipi_dsi_device *dsi;
-+=09struct drm_dsc_config dsc;
-+=09struct regulator_bulk_data *supplies;
-+=09struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data raydium_rm69220_supplies[] =3D {
-+=09{ .supply =3D "vddio" },
-+=09{ .supply =3D "dvdd" },
-+=09{ .supply =3D "vci" },
-+};
-+
-+static inline
-+struct raydium_rm69220 *to_raydium_rm69220(struct drm_panel *panel)
-+{
-+=09return container_of(panel, struct raydium_rm69220, panel);
-+}
-+
-+static void raydium_rm69220_reset(struct raydium_rm69220 *ctx)
-+{
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+=09usleep_range(1000, 2000);
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09usleep_range(1000, 2000);
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+=09msleep(32);
-+}
-+
-+static int raydium_rm69220_on(struct raydium_rm69220 *ctx)
-+{
-+=09struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-+
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x76);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x77);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x78);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x79);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0xf0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1a, 0xe0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa9, 0x68);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xab, 0x22);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc0, 0xa6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbf, 0x87);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x82);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x90);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd4);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa2, 0x04);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd2);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x97, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0x11);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0xab);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3a, 0x30);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3b, 0x80);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3d, 0x09);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x58);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x04);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x0d);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4a, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x0e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x20);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4e, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4f, 0x39);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0x0c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0xd3);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x18);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5b, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5c, 0xf0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5d, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5e, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5f, 0x20);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x06);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x0f);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x0f);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x33);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x0e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x46);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6a, 0x54);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6b, 0x62);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x69);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x70);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6e, 0x77);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x79);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x7b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x7d);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x7e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x22);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7a, 0xbe);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7b, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7c, 0xfc);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7d, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7e, 0xfa);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7f, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0xf8);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x83, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x84, 0x78);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x85, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x86, 0xb6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x4b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x88, 0xf6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x89, 0x4c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8a, 0x34);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8b, 0x4c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8c, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8d, 0x5c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8e, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8f, 0x8c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0xf4);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x92, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x93, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x94, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x95, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x96, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x06);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x49);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa1);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x67);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0xa7);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc1, 0x03);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc2, 0x03);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x0d, 0xbb);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 80);
-+=09mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+=09mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
-+
-+=09return dsi_ctx.accum_err;
-+}
-+
-+static int raydium_rm69220_off(struct raydium_rm69220 *ctx)
-+{
-+=09struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-+
-+=09mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 100);
-+=09mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 100);
-+
-+=09return dsi_ctx.accum_err;
-+}
-+
-+static int raydium_rm69220_prepare(struct drm_panel *panel)
-+{
-+=09struct raydium_rm69220 *ctx =3D to_raydium_rm69220(panel);
-+=09struct device *dev =3D &ctx->dsi->dev;
-+=09struct drm_dsc_picture_parameter_set pps;
-+=09int ret;
-+
-+=09ret =3D regulator_bulk_enable(ARRAY_SIZE(raydium_rm69220_supplies), ctx=
-->supplies);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+=09=09return ret;
-+=09}
-+
-+=09raydium_rm69220_reset(ctx);
-+
-+=09ret =3D raydium_rm69220_on(ctx);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-+
-+=09ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "failed to transmit PPS: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "failed to enable compression mode: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09msleep(28);
-+
-+=09return 0;
-+
-+err:
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->suppl=
-ies);
-+=09return ret;
-+}
-+
-+static int raydium_rm69220_unprepare(struct drm_panel *panel)
-+{
-+=09struct raydium_rm69220 *ctx =3D to_raydium_rm69220(panel);
-+=09struct device *dev =3D &ctx->dsi->dev;
-+=09int ret;
-+
-+=09ret =3D raydium_rm69220_off(ctx);
-+=09if (ret < 0)
-+=09=09dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->suppl=
-ies);
-+
-+=09return 0;
-+}
-+
-+static const struct drm_display_mode raydium_rm69220_mode =3D {
-+=09.clock =3D (1080 + 36 + 4 + 36) * (2392 + 72 + 4 + 52) * 120 / 1000,
-+=09.hdisplay =3D 1080,
-+=09.hsync_start =3D 1080 + 36,
-+=09.hsync_end =3D 1080 + 36 + 4,
-+=09.htotal =3D 1080 + 36 + 4 + 36,
-+=09.vdisplay =3D 2392,
-+=09.vsync_start =3D 2392 + 72,
-+=09.vsync_end =3D 2392 + 72 + 4,
-+=09.vtotal =3D 2392 + 72 + 4 + 52,
-+=09.width_mm =3D 71,
-+=09.height_mm =3D 157,
-+=09.type =3D DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int raydium_rm69220_get_modes(struct drm_panel *panel,
-+=09=09=09=09=09    struct drm_connector *connector)
-+{
-+=09return drm_connector_helper_get_modes_fixed(connector, &raydium_rm69220=
-_mode);
-+}
-+
-+static const struct drm_panel_funcs raydium_rm69220_panel_funcs =3D {
-+=09.prepare =3D raydium_rm69220_prepare,
-+=09.unprepare =3D raydium_rm69220_unprepare,
-+=09.get_modes =3D raydium_rm69220_get_modes,
-+};
-+
-+static int raydium_rm69220_bl_update_status(struct backlight_device *bl)
-+{
-+=09struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-+=09u16 brightness =3D backlight_get_brightness(bl);
-+=09int ret;
-+
-+=09dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-+
-+=09ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-+
-+=09return 0;
-+}
-+
-+static const struct backlight_ops raydium_rm69220_bl_ops =3D {
-+=09.update_status =3D raydium_rm69220_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+raydium_rm69220_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+=09struct device *dev =3D &dsi->dev;
-+=09const struct backlight_properties props =3D {
-+=09=09.type =3D BACKLIGHT_RAW,
-+=09=09.brightness =3D 2946,
-+=09=09.max_brightness =3D 3442, /* 4095 is HBM max */
-+=09};
-+
-+=09return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+=09=09=09=09=09      &raydium_rm69220_bl_ops, &props);
-+}
-+
-+static int raydium_rm69220_probe(struct mipi_dsi_device *dsi)
-+{
-+=09struct device *dev =3D &dsi->dev;
-+=09struct raydium_rm69220 *ctx;
-+=09int ret;
-+
-+=09ctx =3D devm_drm_panel_alloc(dev, struct raydium_rm69220, panel,
-+=09=09=09=09   &raydium_rm69220_panel_funcs,
-+=09=09=09=09   DRM_MODE_CONNECTOR_DSI);
-+=09if (IS_ERR(ctx))
-+=09=09return PTR_ERR(ctx);
-+
-+=09ret =3D devm_regulator_bulk_get_const(dev,
-+=09=09=09=09=09    ARRAY_SIZE(raydium_rm69220_supplies),
-+=09=09=09=09=09    raydium_rm69220_supplies,
-+=09=09=09=09=09    &ctx->supplies);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+=09if (IS_ERR(ctx->reset_gpio))
-+=09=09return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+=09=09=09=09     "Failed to get reset-gpios\n");
-+
-+=09ctx->dsi =3D dsi;
-+
-+=09dsi->lanes =3D 4;
-+=09dsi->format =3D MIPI_DSI_FMT_RGB101010;
-+=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
-+=09=09=09  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM |
-+=09=09=09  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
-+
-+=09ctx->panel.prepare_prev_first =3D true;
-+
-+=09ctx->panel.backlight =3D raydium_rm69220_create_backlight(dsi);
-+=09if (IS_ERR(ctx->panel.backlight))
-+=09=09return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+=09=09=09=09     "Failed to create backlight\n");
-+
-+=09ret =3D devm_drm_panel_add(dev, &ctx->panel);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09/* This panel only supports DSC; unconditionally enable it */
-+=09dsi->dsc =3D &ctx->dsc;
-+
-+=09ctx->dsc.dsc_version_major =3D 1;
-+=09ctx->dsc.dsc_version_minor =3D 1;
-+=09ctx->dsc.slice_height =3D 13;
-+=09ctx->dsc.slice_width =3D 540;
-+
-+=09ctx->dsc.slice_count =3D 1080 / ctx->dsc.slice_width;
-+=09ctx->dsc.bits_per_component =3D 10;
-+=09ctx->dsc.bits_per_pixel =3D 8 << 4; /* 4 fractional bits */
-+=09ctx->dsc.block_pred_enable =3D true;
-+
-+=09return devm_mipi_dsi_attach(dev, dsi);
-+}
-+
-+static const struct of_device_id raydium_rm69220_of_match[] =3D {
-+=09{ .compatible =3D "boe,bf068mwm-td0" },
-+=09{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, raydium_rm69220_of_match);
-+
-+static struct mipi_dsi_driver raydium_rm69220_driver =3D {
-+=09.probe =3D raydium_rm69220_probe,
-+=09.driver =3D {
-+=09=09.name =3D "panel-raydium-rm69220",
-+=09=09.of_match_table =3D raydium_rm69220_of_match,
-+=09},
-+};
-+module_mipi_dsi_driver(raydium_rm69220_driver);
-+
-+MODULE_AUTHOR("Alexander Koskovich <akoskovich@pm.me>");
-+MODULE_DESCRIPTION("DRM driver for RM69220-equipped DSI panels");
-+MODULE_LICENSE("GPL");
-
---=20
-2.53.0
-
-
+T24gVHVlLCAyMDI2LTA5LTE1IGF0IDIzOjM0ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
+PiBJc3N1ZSBhIEFVWCB3cml0ZSB0cmFuc2FjdGlvbiB0byBEUENEIERQX1RPVEFMX0xUVFBSX0NO
+VCAoMHhmMDAwYSkNCj4gd2l0aCB0b3RhbCBudW1iZXIgb2YgTFRUUFIgYmVmb3JlIGxpbmsgdHJh
+aW5pbmcuDQo+IA0KPiB2MjogQ29zbWV0aWMgY2hhbmdlcy4gW1N1cmFqXQ0KPiB2MzoNCj4gLSBV
+c2Ugc2FtZSBlbmNvZGluZyBmb3JtYXQgZm9yIGx0dHByX2NvdW50LiBbSm91bmldDQo+IC0gQXZv
+aWQgcmVhZGluZyBhbHBtX2N0bDIgcmVnaXN0ZXIuIFtKb3VuaV0NCj4gDQo+IENjOiBKb3VuaSBI
+w7ZnYW5kZXIgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogQW5p
+bWVzaCBNYW5uYSA8YW5pbWVzaC5tYW5uYUBpbnRlbC5jb20+DQo+IC0tLQ0KPiDCoGRyaXZlcnMv
+Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfYWxwbS5jwqDCoMKgwqAgfMKgIDcgKysrKysrLQ0K
+PiDCoC4uLi9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RwX2xpbmtfdHJhaW5pbmcuYyB8IDIxDQo+
+ICsrKysrKysrKysrKysrKysrKysNCj4gwqAyIGZpbGVzIGNoYW5nZWQsIDI3IGluc2VydGlvbnMo
+KyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfYWxwbS5jDQo+IGluZGV4IGRhNjUzYTQwN2U5Ny4uMDZjMWE1OWFhMmM1IDEwMDY0NA0K
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0KPiBAQCAtNzI2LDcg
+KzcyNiw3IEBAIHN0YXRpYyB2b2lkIGxubF9hbHBtX2NvbmZpZ3VyZShzdHJ1Y3QgaW50ZWxfZHAN
+Cj4gKmludGVsX2RwLA0KPiDCoHsNCj4gwqAJc3RydWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXkg
+PSB0b19pbnRlbF9kaXNwbGF5KGludGVsX2RwKTsNCj4gwqAJZW51bSB0cmFuc2NvZGVyIGNwdV90
+cmFuc2NvZGVyID0gY3J0Y19zdGF0ZS0+Y3B1X3RyYW5zY29kZXI7DQo+IC0JdTMyIGFscG1fY3Rs
+Ow0KPiArCXUzMiBhbHBtX2N0bCwgYWxwbV9jdGwyLCBsdHRwcl9jb3VudDsNCj4gwqANCj4gwqAJ
+aWYgKERJU1BMQVlfVkVSKGRpc3BsYXkpIDwgMjAgfHwNCj4gKCFpbnRlbF9wc3JfbmVlZHNfYWxw
+bShpbnRlbF9kcCwgY3J0Y19zdGF0ZSkgJiYNCj4gwqAJCQkJCcKgICFjcnRjX3N0YXRlLT5oYXNf
+bG9iZikpDQo+IEBAIC03NjIsNiArNzYyLDExIEBAIHN0YXRpYyB2b2lkIGxubF9hbHBtX2NvbmZp
+Z3VyZShzdHJ1Y3QgaW50ZWxfZHANCj4gKmludGVsX2RwLA0KPiDCoA0KPiDCoAlhbHBtX2N0bCB8
+PSBBTFBNX0NUTF9BTFBNX0VOVFJZX0NIRUNLKGNydGNfc3RhdGUtDQo+ID5hbHBtX3N0YXRlLmNo
+ZWNrX2VudHJ5X2xpbmVzKTsNCj4gwqANCj4gKwlsdHRwcl9jb3VudCA9IGRybV9kcF9sdHRwcl9j
+b3VudChpbnRlbF9kcC0NCj4gPmx0dHByX2NvbW1vbl9jYXBzKTsNCg0KWW91IHNob3VsZCBjaGVj
+ayB0aGUgcmV0dXJuIHZhbHVlIGhlcmUuDQoNCj4gKw0KPiArCWFscG1fY3RsMiA9IEFMUE1fQ1RM
+Ml9OVU1CRVJfT0ZfTFRUUFIobHR0cHJfY291bnQpOw0KPiArDQo+ICsJaW50ZWxfZGVfd3JpdGUo
+ZGlzcGxheSwgQUxQTV9DVEwyKGRpc3BsYXksIGNwdV90cmFuc2NvZGVyKSwNCj4gYWxwbV9jdGwy
+KTsNCj4gwqAJaW50ZWxfZGVfd3JpdGUoZGlzcGxheSwgQUxQTV9DVEwoZGlzcGxheSwgY3B1X3Ry
+YW5zY29kZXIpLA0KPiBhbHBtX2N0bCk7DQo+IMKgCW11dGV4X3VubG9jaygmaW50ZWxfZHAtPmFs
+cG0ubG9jayk7DQo+IMKgfQ0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9kcF9saW5rX3RyYWluaW5nLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2RwX2xpbmtfdHJhaW5pbmcuYw0KPiBpbmRleCBjYjkyY2ZmOTA2MTQuLjM3
+YzgzMDZhMWZhMCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9p
+bnRlbF9kcF9saW5rX3RyYWluaW5nLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9kcF9saW5rX3RyYWluaW5nLmMNCj4gQEAgLTIyNjUsNiArMjI2NSwyNSBAQCBp
+bnRlbF9kcF8xMjhiMTMyYl9saW5rX3RyYWluKHN0cnVjdCBpbnRlbF9kcA0KPiAqaW50ZWxfZHAs
+DQo+IMKgCXJldHVybiBwYXNzZWQ7DQo+IMKgfQ0KPiDCoA0KPiArc3RhdGljIHZvaWQgaW50ZWxf
+ZHBfdXBkYXRlX2x0dHByX2NvdW50KHN0cnVjdCBpbnRlbF9kcCAqaW50ZWxfZHAsDQo+ICsJCQkJ
+CWludCBsdHRwcl9jb3VudCkNCj4gK3sNCj4gKwl1OCB2YWw7DQo+ICsNCj4gKwkvKg0KPiArCSAq
+IFByb2dyYW0gb25seSBmb3IgRFAyLjEgYW5kIHJldHVybiBpZiBMVFRQUiByZXZpc29uIGlzDQo+
+IGxlc3MgdGhhbiAweDIwDQo+ICsJICogd2hlcmUgMDozIHJlcHJlc2VudHMgbWlub3IgcmV2IGFu
+ZCA0OjcgcmVwcmVzZW50IG1ham9yDQo+IHJldg0KPiArCSAqLw0KPiArCWlmICghaW50ZWxfZHBf
+aXNfZWRwKGludGVsX2RwKSB8fA0KDQpUaGlzIGlzIHdyb25nLiBZb3UgcHJvYmFibHkgbWVhbnQN
+CmludGVsX2RwX2lzX2VkcChpbnRlbF9kcClpbnRlbF9kcF9pc19lZHAoaW50ZWxfZHApLg0KDQo+
+ICsJwqDCoMKgIGx0dHByX2NvdW50IDwgMCB8fA0KDQpObyBuZWVkIHRvIGNoZWNrIHRoaXMuIEl0
+J3MgYWxyZWFkeSBzZXQgYXMgMCBpbiBzdGFydF9saW5rX3RyYWluIGlmIDwNCjAuDQoNCkJSLA0K
+Sm91bmkgSMO2Z2FuZGVyDQoNCj4gKwnCoMKgwqAgaW50ZWxfZHAtPmx0dHByX2NvbW1vbl9jYXBz
+WzBdIDw9IDB4MjApDQo+ICsJCXJldHVybjsNCj4gKw0KPiArCXZhbCA9IGludGVsX2RwLT5sdHRw
+cl9jb21tb25fY2Fwc1tEUF9QSFlfUkVQRUFURVJfQ05UIC0NCj4gKwkJCQkJwqANCj4gRFBfTFRf
+VFVOQUJMRV9QSFlfUkVQRUFURVJfRklFTERfREFUQV9TVFJVQ1RVUkVfUkVWXTsNCj4gKwlkcm1f
+ZHBfZHBjZF93cml0ZWIoJmludGVsX2RwLT5hdXgsIERQX1RPVEFMX0xUVFBSX0NOVCwgdmFsKTsN
+Cj4gK30NCj4gKw0KPiDCoC8qKg0KPiDCoCAqIGludGVsX2RwX3N0YXJ0X2xpbmtfdHJhaW4gLSBz
+dGFydCBsaW5rIHRyYWluaW5nDQo+IMKgICogQHN0YXRlOiBBdG9taWMgc3RhdGUNCj4gQEAgLTIz
+MDQsNiArMjMyMyw4IEBAIHZvaWQgaW50ZWxfZHBfc3RhcnRfbGlua190cmFpbihzdHJ1Y3QNCj4g
+aW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gwqANCj4gwqAJaW50ZWxfZHBfcHJlcGFyZV9s
+aW5rX3RyYWluKGludGVsX2RwLCBjcnRjX3N0YXRlKTsNCj4gwqANCj4gKwlpbnRlbF9kcF91cGRh
+dGVfbHR0cHJfY291bnQoaW50ZWxfZHAsIGx0dHByX2NvdW50KTsNCj4gKw0KPiDCoAlpZiAoaW50
+ZWxfZHBfaXNfdWhicihjcnRjX3N0YXRlKSkNCj4gwqAJCXBhc3NlZCA9IGludGVsX2RwXzEyOGIx
+MzJiX2xpbmtfdHJhaW4oaW50ZWxfZHAsDQo+IGNydGNfc3RhdGUsIGx0dHByX2NvdW50KTsNCj4g
+wqAJZWxzZQ0KDQo=
