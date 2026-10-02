@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5572CCA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0318CCA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A9110E204;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 599E810E604;
 	Fri,  2 Oct 2026 14:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="RgNXgWMI";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="oxS9WC2X";
 	dkim-atps=neutral
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com
- [74.125.228.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A991D10E204
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:49:55 +0000 (UTC)
-Received: by mail-ej2-f41.google.com with SMTP id
- a640c23a62f3a-c2e32f913c3so19759266b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:49:55 -0700 (PDT)
+Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com
+ [74.125.228.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A78810E204
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:49:56 +0000 (UTC)
+Received: by mail-ed2-f31.google.com with SMTP id
+ 4fb4d7f45d1cf-6af85996a92so1265293a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=fairphone.com; s=fair; t=1790952594; x=1791557394; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=azHVxl5Zr31CbdI5TNnzZtKhiO2dgRAGT9lgdHF1uxw=;
- b=RgNXgWMI0f3OoNK7RpCt2NlYOXNIjf82ZDJk/JT4TjkZIubrUGKM3iCfWcLg4kp76G
- +mvA9tRxAYkXnLTW0LnGKVScfCzHkqiJ8kYSOgMreFcMQHVGgOgXRXorgSI+wXLRhUke
- 3V6Nf0f2O57Tg47qFRP5RFw1jai3iGMn43yRTjTeML3J7ggCr+6uOYzxNR8QbDuz5lEh
- wFL/Pek2OuyO0m+B0zKX3FVPnb74PdkHCFrqyvpZwDBTsNQsjrNsODjU6NigK8H3Zt6Y
- zOl5srvQ9QUipiJJ+MpptOTNL+uSUc+b8efS0YVfapT9oxHejdSPwdncS2TFfV1muzmS
- qp6Q==
+ bh=Q9dINPrQCPR0iqwn2K3Vkhxxuj3wUNi7Zp3ZQDcumLQ=;
+ b=oxS9WC2XGg5XxZbxf2drieU/roGQBrDut0xGeX9pcf9aNP9uCtS2QrTkjofhc4vajo
+ m6KqLH7m7s+ucbAzte75bUevHCz5NCNH0cxTj/UWKtHjp8inhXoEXIbeAyS8dyVOZl8/
+ 1nPYeZAhglFNAjLOnnxYX/V6H9Vo6dpCN35mV75kzpmvlatM5P7UBjIhO8JLcFJ43shY
+ 73zG4wvcpGSQMwQy1Xa572IqpZMsb8Z2DrmzmIaCuEwzQuU70D3b70/A9X9GXtcYZyPM
+ SfInYPvkf4pdHbRW2EhIFx6ne0r250AXb10YI55xbt3YoIOXMwE5y3QihMrLJJ06GOj7
+ RFTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20260707; t=1790952594; x=1791557394;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=azHVxl5Zr31CbdI5TNnzZtKhiO2dgRAGT9lgdHF1uxw=;
- b=E8wrLZ85VbSw0hQCCel2ZVgFiszqBpT+WFHzUnH3DeaQs1SGIdU4t/oiBmM4BCeaZj
- UbVAWbL9pWDsG5nlLFKnU/W9L9oPdtjXINSssSZlzU0+lpEgp2ERkELy2/vz0KUc2ozK
- kpn+g6+JIYlqTVwVgzRT/xeYagLSdkpQ10pid/qRin71avkxF2wS9m0YonbSqAls1y6C
- xvngzSlhza+8RzV5vwgKPZ/dFkqus/nNhwB9cVtS71Tmsl8Pw9OB4qgtlZrrBSBcSWHa
- QoDEm9fBTKzzcrRsDCkqOaHEbPTUKD8mqVNANVwqbv3FTCR4X8FM8TKHsqWOTIdHF4r5
- rMiw==
+ bh=Q9dINPrQCPR0iqwn2K3Vkhxxuj3wUNi7Zp3ZQDcumLQ=;
+ b=wgZHVS8oSxY74fR634PVNHivTn+HFpptGAshM4tBN9Fym5iNXZWL4eFk5qZ+FlMqYu
+ G64S2mdAOn26lFxMtGBXCH8bX5ZMCuRpPbKuU0GNWj8za6s8yhpBt1jk2cIpCQk+jRMO
+ /qG5Px/y8gmsHbH9wDcjM5LjSjxO7gRjEbmJDZL0Qh5oAVceEQ2vCxpln8wXUnI7F84h
+ ZkDfa3/yaehr/A5UZOiSXIAYNe3+Yj+BnIRhTw19S8lfZf6k/TEHDgxBqaTuYLOXtIy9
+ eq0D1Rui90izwTLiIwmJ4Kt6RIW5/Mg7YvW9YObO9IMWSLpRgVQFCvw4/ySh6Zal5wz9
+ g5gw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwZYm0aLrgAnK7aWpsQnkHBQAqI3BPu+LX6XRGGNNGcfO2MQ5gEyG4CdHYUIoRk61C8i/bMOObMKSA=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mmUE9YsDRIBKd5VJYjN/Mn6liKq8aeX4T++EZZLUR5vywWOB4+
- wd+WuO4tNha88e4pHMZRU/hqRQ8hIXCvNXKL+NlA6C8Zc54PvKPCBqK3n34gvMSAkqk=
-X-Gm-Gg: AYBFou32Ih9ZjKErxK0EDJpBVOUkJ6RcKt9au0AYdcNJLh+38Oe993HGiRujOmsn2z2
- fdCnR1t/WWWbqRgDRBMhZFU+9kHkhlIkTlhOOqYiQwJ/BFOZBnsmCfllehQafntMnSvYtoViX3E
- TcGsg032jY3ZPMkuxcommT6t21b56yO8eKNARQLtH+xEc2W2gsgcQylcT7zZBvZR+7FEyj8Booh
- m+gB5XyHk81X5vJstq2IKleeZd1B1WIdAzfX7h6SktOJufGV8qP9XE+0eAxMsiEYXk1uAComiVk
- nywWpvD36ZGnH7LWz1jIr3+DPsK7hinwo5YZMpB1dudit2W1Z3CAmcf0+0tn3oCqeKYJ26ytc8O
- Na8dHAaYSk3PYiFBy7HEwoTtHkHNkB3k37j6lZ4zKNVXwpu1FYEdnGcir+Z58R4KRa7xCxoWzTz
- Ai5zz+z9f82yKfiZpy0c/gZqMWZ662YQwIUMfdbEdc0zqo4GE1xeYvunCdrFsDWc5PXpmDojQ4D
- wKMXLCKVpsES2Y1uky2cAb1FkMunhqECkJ4CwTQ3oyhrwR2UcVQ
-X-Received: by 2002:a17:907:9403:b0:c2a:f8e2:4233 with SMTP id
- a640c23a62f3a-c2e4af31f56mr209928066b.19.1790952593938; 
- Fri, 02 Oct 2026 07:49:53 -0700 (PDT)
+ AKwUvByd8BUYUt+ALbfjVe2Yologo2RYKroDIxCrYhb0JcUZxZWuayetM6zGThoFuUUFqzHTzxQmt8ZbWcw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJtVll4eneB9eXSdajX8HeSkllglh9H6I0/f9LLHZd0YZWl/soD
+ FvVliLPIhoe3bryM54ocnyCY159zIFJvtjC87YaEcJXjXeFUryYlZHXwuDfYy0OLQAY=
+X-Gm-Gg: AYBFou0DaCcjrG76HgFT61UJC0EOZjsBI3OvTy+qinn4zrHgoK3tJsf16tTU5Bx8xgU
+ 8sX9jQXo6dQxo+XJLNiITcvKJRXfslfWilsOPo+sV2WEEErJu/UiGYVsh5bIsHtaKQKLUB4cNB2
+ HiOzQWW8Z0TO9xm/r/YuRuMotMhESL+q3Nno4KLri2nULymAYCFk95PTYF8PBZRPnufiV6ib6tS
+ os/25TJKs/j7csUPjZrlCWZUJEvi4uJr0sGCaW3CuzRBXS1Ey1a2h6j3HQuZ+7vPZz/l7xwS3BY
+ 4lXpDNlk00FuIU1TZnLWsEuKZycCmbmKCMPLS/rzEab/QV34F8s+hHyVxAL3yj/nXMsbMp5m+cA
+ FbrDndqgveK2yucPrt/E3hhZhXzT6+9yupRFc8td4cgLXdyBhOiXmI2f9tElkn3afq2bbg1TrGT
+ dtPY1sEM+Oz4OhSaJbYNu1LowLdakotpjnCRiKA++98I8tYMH7Jcr70Ua3OS+rlcq2Xd06EErwo
+ VCWEjetc5PBv7IwF6C3F+LkdwHWpkJlWJF16a+9jb8Y/q+LYmqR
+X-Received: by 2002:a17:906:ba87:b0:c2a:4847:231b with SMTP id
+ a640c23a62f3a-c2e4ae235a3mr249670166b.24.1790952594706; 
+ Fri, 02 Oct 2026 07:49:54 -0700 (PDT)
 Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl.
  [144.178.202.142]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2e4cfa656bsm94539066b.74.2026.10.02.07.49.53
+ a640c23a62f3a-c2e4cfa656bsm94539066b.74.2026.10.02.07.49.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 07:49:53 -0700 (PDT)
+ Fri, 02 Oct 2026 07:49:54 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 02 Oct 2026 16:49:50 +0200
-Subject: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a: Tighten
+Date: Fri, 02 Oct 2026 16:49:51 +0200
+Subject: [PATCH 2/2] dt-bindings: display: panel: himax,hx83112b: Tighten
  compatible matching
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
+Message-Id: <20261002-hx83112-compatible-contains-v1-2-d558635ab7fc@fairphone.com>
 References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
 In-Reply-To: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -85,11 +85,11 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790952592; l=810;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790952592; l=816;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=KsRR3Q6/pxPTL+LOpQhlv999N3C0D2jsPRy7RKoQGk4=;
- b=d1WlKoOFC109aIkEZsjUlraQFJKKd8F3U5nRRs1tjiGq40q6Pq3YfqVmFt5pLUIkq+oIHMRia
- 4hFq1w3iyYqAdDwXY5xfl9gr0XD50R9ZuRDHegvB59n4o2aUr+lAUDW
+ bh=UFIj2wMvo5XUOBicWCPYVsxIWkd4wo9mTw61yb2XBXA=;
+ b=PdkVOKEXFAm0sgIKoBhGPzu1gFBftu0qHcNL1NRDXWSJcJrDJjbnmsITJ+q/d43jScGvZmi84
+ 7Ed2SsdoD+nCXXCG78S/8INaau1afyaoLL/nPkm+xz2NKKuEYhhR0vd
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -107,25 +107,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
+The compatible was defined too wide, we just want "djn,98-03057-6598b-i"
 and nothing else.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | 3 +--
+ Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-index 2c60d0cd704e..3dd9b25ff13f 100644
---- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
+index e58bb3d45331..34e97003d293 100644
+--- a/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
++++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112b.yaml
 @@ -18,8 +18,7 @@ allOf:
  
  properties:
    compatible:
 -    contains:
--      const: djn,9a-3r063-1102b
-+    const: djn,9a-3r063-1102b
+-      const: djn,98-03057-6598b-i
++    const: djn,98-03057-6598b-i
  
    reg:
      maxItems: 1
