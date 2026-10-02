@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972D0CA5FDD
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F80CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A2610E5EE;
-	Fri,  2 Oct 2026 14:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B09E10E5F2;
+	Fri,  2 Oct 2026 14:38:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ZolcFSF1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESPwCmmb";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1ED3110E5EE
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:37:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 448B2497;
- Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
-Received: from [10.0.129.26] (e122027.cambridge.arm.com [10.0.129.26])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C4983F86F;
- Fri,  2 Oct 2026 07:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1790951834; bh=3dn54dCsXnCXYpAf3hPzLT2h82Gv0QxovmmmqR8Z4VY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZolcFSF1k/4mgxhd7ju3tNWLJZj/nQ2OI9v9kQjBmnIShSIOihLVCuTpuNbDgys9C
- oh4h2c769yFE6v+NiQpj9HYlZYaI9I+29pgCkZDBcCgBmfohB3LLy+49KpNtreEwhE
- wBgg5x14GqF2ZaIc4wyUFbAlqONHPvIumAwTHDWk=
-Message-ID: <6c2953cd-ec0e-4579-ad7a-be189fa1838a@arm.com>
-Date: Fri, 2 Oct 2026 15:37:08 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 473CB10E5F2;
+ Fri,  2 Oct 2026 14:38:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3797F60A70;
+ Fri,  2 Oct 2026 14:38:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA141F000FF;
+ Fri,  2 Oct 2026 14:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1790951901;
+ bh=vr/kXgpSdbluBG408YmUZzV6TEB4wE4HF3eq4todiMw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ESPwCmmbvS4roqugTIjMlpxH6T7COA9RFBZ5x5GlWxxrYfETOQs+QuLGJTMILlBcq
+ XNbEM2umzd5MAT3Ct/QxjCLZDAtkj6A0GW3e3syo4KV4YpNWJEvE2midCyrfSAhDSy
+ YR3PzUERnsH/x9+7ZWoRKdgRw+oeWyfB/RQurPIW+WEvwW+kS5tUyMkHsX1xj6A1P5
+ HpzBKAEfw3hdg/nUsNNyaT5csu1xQjmHGzS6GgNYCBXw8JPOXk3bPddtNl45109dnK
+ C3o8fumCA6enXzeiyzkpCoVIuAqNAvGqzLEL9KR1ADhuUbgIgy0mwIZJhvoNANzxUD
+ gdgK/Uqe4DoJw==
+Date: Fri, 2 Oct 2026 09:38:18 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+Message-ID: <ar_AuRr1eaZzOfw9@baldur>
+References: <20260516-a8xx-clx-support-v1-0-62508bf651ac@oss.qualcomm.com>
+ <20260516-a8xx-clx-support-v1-3-62508bf651ac@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 08/15] drm/panfrost: Move all DRM device
- initialisation into device_init()
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260929-claude-fixes-v12-8-62beb08de207@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260516-a8xx-clx-support-v1-3-62508bf651ac@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,199 +65,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/09/2026 04:44, Adrián Larumbe wrote:
-> Ideally the probe() function will do as little as possible, and all device
-> initialisation and registration should happen inside the panfrost device
-> subsystem, just like it's done in Panthor. This also simplifies resource
-> unwinding in the error path.
+On Sat, May 16, 2026 at 01:37:51AM +0530, Akhil P Oommen wrote:
+> Add the CLX domain table and the IFF/PCLX limits tables to the catalog to
+> enable CLX feature support on Adreno X2-85 GPU present in the Glymur
+> chipset.
 > 
-> Do the same thing for DRM driver remove, as in, sweep most of the action
-> into panfrost_device_fini(), just like we did for device probe.
-> 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+This patch landed in next-20261001 and while it works on my Glymur CRD
+(COB), on the Asus Zenbook A14 I see the following failure during boot:
 
+[    4.843643] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt [msm]] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for response
+[    4.853804] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
+[    4.853878] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu [msm]] *ERROR* gpu hw init failed: -110
+[    4.863980] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
+[    4.864038] platform 3d6c000.gmu: [drm:a6xx_hfi_stop [msm]] *ERROR* HFI queue 2 is not empty
+[    5.128548] ------------[ cut here ]------------
+
+And then as one can expect there's no more GPU.
+
+Reverting this single patch makes next-20261001 work again.
+
+#regzb introduced: 93b6c8d10fad ("drm/msm/a8xx: Enable CLX feature on Adreno X2-85")
+
+Regards,
+Bjorn
+
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 49 ++++++++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_drv.c    | 52 +-----------------------------
->  2 files changed, 50 insertions(+), 51 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 86 +++++++++++++++++++++++++++++++
+>  1 file changed, 86 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> index 9f2b1967a398..c6bf3d0663df 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -8,6 +8,7 @@
->  #include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
-> +#include <drm/drm_drv.h>
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> index c503912a61c7..9ad13eb173de 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1799,6 +1799,90 @@ static const struct adreno_reglist_pipe x285_dyn_pwrup_reglist_regs[] = {
+>  };
+>  DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
 >  
->  #include "panfrost_device.h"
->  #include "panfrost_devfreq.h"
-> @@ -228,8 +229,15 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
->  
->  int panfrost_device_init(struct panfrost_device *pfdev)
->  {
-> +	bool device_initialised = false;
->  	int err;
->  
-> +	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
-> +	if (!pfdev->comp)
-> +		return -ENODEV;
+> +static const struct a6xx_hfi_clx_table_v2_cmd x285_clx_tbl = {
+> +	.version = (2 << 16) | 1,
+> +	.domain = {
+> +		/* GX DOMAIN */
+> +		{
+> +			.data = CLX_DATA(60, 11, 0, 1),
+> +			.clxt = 0,
+> +			.clxh = 0,
+> +			.urg_mode = 1,
+> +			.lkg_en = 0,
+> +			.curr_budget = 100,
+> +		},
+> +		/* MXG DOMAIN */
+> +		{
+> +			.data = CLX_DATA(60, 3, 1, 1),
+> +			.clxt = 0,
+> +			.clxh = 0,
+> +			.urg_mode = 1,
+> +			.lkg_en = 0,
+> +			.curr_budget = 100,
+> +		},
+> +	},
+> +};
 > +
-> +	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
+> +struct a6xx_hfi_limits_tbl x285_limits_tbl[] = {
+> +	{
+> +		.feature_id = GMU_MIT_IFF,
+> +		.domain = GMU_GX_DOMAIN,
+> +		.feature_rev = 0,
+> +		.cfg = {
+> +			.enable = 1,
+> +			.msg_path = 0,
+> +			.lkg_en = 0,
+> +			.mode = 0,
+> +			.sid = 12,
+> +			.mit_time = 5,
+> +			.curr_limit = 18000,
+> +		},
+> +	},
+> +	{
+> +		.feature_id = GMU_MIT_IFF,
+> +		.domain = GMU_MX_DOMAIN,
+> +		.feature_rev = 0,
+> +		.cfg = {
+> +			.enable = 1,
+> +			.msg_path = 0,
+> +			.lkg_en = 0,
+> +			.mode = 0,
+> +			.sid = 18,
+> +			.mit_time = 2000,
+> +			.curr_limit = 6000,
+> +		},
+> +	},
+> +	{
+> +		.feature_id = GMU_MIT_PCLX,
+> +		.domain = GMU_GX_DOMAIN,
+> +		.feature_rev = 0,
+> +		.cfg = {
+> +			.enable = 1,
+> +			.msg_path = 0,
+> +			.lkg_en = 0,
+> +			.mode = 0,
+> +			.sid = 6,
+> +			.mit_time = 3,
+> +			.curr_limit = 66000,
+> +		},
+> +	},
+> +	{
+> +		.feature_id = GMU_MIT_PCLX,
+> +		.domain = GMU_MX_DOMAIN,
+> +		.feature_rev = 0,
+> +		.cfg = {
+> +			.enable = 0,
+> +			.msg_path = 0,
+> +			.lkg_en = 0,
+> +			.mode = 0,
+> +			.sid = 6,
+> +			.mit_time = 3,
+> +			.curr_limit = 18000,
+> +		},
+> +	},
+> +};
+> +DECLARE_ADRENO_LIMITS_TABLE(x285_limits);
 > +
->  #ifdef CONFIG_DEBUG_FS
->  	mutex_init(&pfdev->debugfs.gems_lock);
->  	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-> @@ -291,8 +299,35 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	if (err)
->  		goto out_perfcnt;
->  
-> +	device_initialised = true;
-> +
-> +	/* The reason we must manually set the PM status and usage counter is
-> +	 * we have just powered the device up but did not go through the PM
-> +	 * runtime resume callback, so we need to update these ourselves.
-> +	 */
-> +	pm_runtime_get_noresume(pfdev->base.dev);
-> +	pm_runtime_set_active(pfdev->base.dev);
-> +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> +	pm_runtime_enable(pfdev->base.dev);
-> +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> +	pm_runtime_use_autosuspend(pfdev->base.dev);
-> +
-> +	/*
-> +	 * Register the DRM device with the core and the connectors with
-> +	 * sysfs
-> +	 */
-> +	err = drm_dev_register(&pfdev->base, 0);
-> +	if (err < 0)
-> +		goto err_disable_rpm;
-> +
-> +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> +
->  	return 0;
->  
-> +err_disable_rpm:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +	panfrost_gem_fini(pfdev);
->  out_perfcnt:
->  	panfrost_perfcnt_fini(pfdev);
->  out_job:
-> @@ -311,11 +346,22 @@ int panfrost_device_init(struct panfrost_device *pfdev)
->  	panfrost_reset_fini(pfdev);
->  out_pm_domain:
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	if (device_initialised) {
-> +		pm_runtime_set_suspended(pfdev->base.dev);
-> +		pm_runtime_put_noidle(pfdev->base.dev);
-> +	}
-> +
->  	return err;
->  }
->  
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> +	pm_runtime_get_sync(pfdev->base.dev);
-> +
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> +	pm_runtime_disable(pfdev->base.dev);
-> +
->  	panfrost_gem_fini(pfdev);
->  	panfrost_perfcnt_fini(pfdev);
->  	panfrost_jm_fini(pfdev);
-> @@ -326,6 +372,9 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
->  	panfrost_clk_fini(pfdev);
->  	panfrost_reset_fini(pfdev);
->  	panfrost_pm_domain_fini(pfdev);
-> +
-> +	pm_runtime_set_suspended(pfdev->base.dev);
-> +	pm_runtime_put_noidle(pfdev->base.dev);
->  }
->  
->  #define PANFROST_EXCEPTION(id) \
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 907d4a14a0b5..f77780c72a1a 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -830,7 +830,6 @@ static const struct drm_driver panfrost_drm_driver = {
->  static int panfrost_probe(struct platform_device *pdev)
->  {
->  	struct panfrost_device *pfdev;
-> -	int err;
->  
->  	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
->  				   struct panfrost_device, base);
-> @@ -839,50 +838,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, pfdev);
->  
-> -	pfdev->comp = of_device_get_match_data(&pdev->dev);
-> -	if (!pfdev->comp)
-> -		return -ENODEV;
-> -
-> -	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
-> -
-> -	err = panfrost_device_init(pfdev);
-> -	if (err) {
-> -		if (err != -EPROBE_DEFER)
-> -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> -		goto err_out0;
-> -	}
-> -
-> -	/* The reason we must manually set the PM status and usage counter is
-> -	 * we have just powered the device up but did not go through the PM
-> -	 * runtime resume callback, so we need to update these ourselves.
-> -	 */
-> -	pm_runtime_get_noresume(pfdev->base.dev);
-> -	pm_runtime_set_active(pfdev->base.dev);
-> -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> -	pm_runtime_enable(pfdev->base.dev);
-> -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> -
-> -	/*
-> -	 * Register the DRM device with the core and the connectors with
-> -	 * sysfs
-> -	 */
-> -	err = drm_dev_register(&pfdev->base, 0);
-> -	if (err < 0)
-> -		goto err_out1;
-> -
-> -	pm_runtime_put_autosuspend(pfdev->base.dev);
-> -
-> -	return 0;
-> -
-> -err_out1:
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
-> -	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -err_out0:
-> -	return err;
-> +	return panfrost_device_init(pfdev);
->  }
->  
->  static void panfrost_remove(struct platform_device *pdev)
-> @@ -891,13 +847,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  
->  	drm_dev_unregister(&pfdev->base);
->  
-> -	pm_runtime_get_sync(pfdev->base.dev);
-> -	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> -	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-> -	pm_runtime_set_suspended(pfdev->base.dev);
-> -	pm_runtime_put_noidle(pfdev->base.dev);
-> -
->  }
->  
->  static ssize_t profiling_show(struct device *dev,
+>  static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
+>  	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+>  	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+> @@ -2227,6 +2311,8 @@ static const struct adreno_info a8xx_gpus[] = {
+>  				},
+>  				{ /* sentinel */ },
+>  			},
+> +			.clx_tbl = &x285_clx_tbl,
+> +			.limits_tbl = &x285_limits,
+>  		},
+>  		.speedbins = ADRENO_SPEEDBINS(
+>  			{ 0,   0 },
 > 
-
+> -- 
+> 2.51.0
+> 
+> 
