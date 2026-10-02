@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA2FFCA5FD4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A6F0CA5FE0
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 09:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E3C10E566;
-	Fri,  2 Oct 2026 09:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9A0110F7ED;
+	Fri,  2 Oct 2026 09:13:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gzJfGaL3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WBkJoOWw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D417310E54E
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 09:13:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C9A210F7ED;
+ Fri,  2 Oct 2026 09:13:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 579FC60A6F;
- Fri,  2 Oct 2026 09:13:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64EB1F00893;
- Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E5E0460A79;
+ Fri,  2 Oct 2026 09:13:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4161F000FF;
+ Fri,  2 Oct 2026 09:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790932420;
- bh=YuS2t0RyM6ZUcZcxmciZXs1Kr+MRiGKNscW4T4dBREU=;
+ s=k20260515; t=1790932436;
+ bh=6nWr69HDxmm+vFpnQEK8/qJOpOn5sUvuGNijObMZabg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gzJfGaL34ICpS2OuEPP9oCD7ivNkwpBqkMJmBEuxvVRWdUNXB4CrbgJPDJfZhlIvl
- i+ZTDsZhntCE8SGbjxdVgAaxS9JO6Wdr3sJ1XHMgwksVU5tPMNOXWFRWUs5Q30A+92
- /q89ulqTsRrLVxnnlgqd4AV2Euaqqeppm5SeT+3bnMfpYPygpoDw0S+G4L/ycr2RMt
- qiQRxr5TfTFDGqBunjV2kJ50K43iGw99pJVMmUAg5dYuodVT7lGvucdOiIrWWo+nKf
- boKySPREZXqZ+DnCMQ3HZ+4geI34RJY8X8iqGF8Rq8TJo3kyqSwb67QcAgrXvNh6Hi
- pTrGBWP2Rc9kw==
+ b=WBkJoOWwfPnKW3DThlJuXz+JjbpY4tYGpXTFUER8tRMNzgM+ubvazMcHxpSyEBzj3
+ p01i8yFKNPkxhcG4bctcHIVn/gcMNQKosFZH98+DQbyehv1D5nnfcpkQWeJpUqVmgE
+ Z6g2MpegjSt21IPTJ1paVj4xnxEkAuzq/EbTpTxzdN4TJ+g7Cg/0GVNZWQyllLcQk/
+ Akq8a7XNONYhEqAEGGqoTiP6JNCn2OxALYd0btnYdIGELSJ8dvxOow4M4lI0velAza
+ tUV40M3gR+dNGadZSqbGHGhyAL6dWSg4m94Oftq8fqcMU+B7e9dxixLSVlp4w1NWbU
+ UFGVqPC5Aiiqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 03/13] drm: client: add splash client
-To: =?utf-8?b?TcOgeGltIFBlZHJhemEgUGFkaWxsYQ==?= <maximpedraza@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261001195847.141192-4-maximpedraza@gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
- <20261001195847.141192-4-maximpedraza@gmail.com>
+Subject: Re: [PATCH v3 7/8] drm/nouveau: use DRM_GPUVM_RESV_PROTECTED
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20261001220632.3190896-8-matthew.brost@intel.com>
+References: <20261001220632.3190896-1-matthew.brost@intel.com>
+ <20261001220632.3190896-8-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:13:39 +0000
-Message-Id: <20261002091339.B64EB1F00893@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:13:55 +0000
+Message-Id: <20261002091355.EE4161F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,174 +57,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/client: splash: UAF of drm_framebuffer on hotplug error path
-- [Medium] drm/client: splash: memory leak of scanout array on hotplug -ENO=
-DEV
-- [Medium] drm/client: splash: firmware blob leak if render thread exits wi=
-th -EBUSY
+- [High] drm/nouveau: silently ignored lock failure causes unprotected list=
+ access
 --
 
-commit 86a0b0be0de60a4b9d33ab49ce7a129fe48448a6
-Author: Francesco Valla <francesco@valla.it>
-Date:   Thu Oct 1 19:58:37 2026 +0000
+commit 8fab8734d6eb64d1f1dd2d598d76c6f17c6efddd
+Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/nouveau: use DRM_GPUVM_RESV_PROTECTED
 
-    drm: client: add splash client
-   =20
-    Add a DRM client that draws a simple splash, with possibility to show:
-   =20
-      - the logo provided by EFI BGRT;
-      - a static BMP image (loaded as firmware);
-      - a colored background.
+This commit sets DRM_GPUVM_RESV_PROTECTED for the nouveau drm_gpuvm. It
+introduces nouveau_uvmm_lock_vm_and_obj() to lock the VM's dma-resv together
+with the object's dma-resv when dropping a reference to a drm_gpuvm_bo.
 
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clien=
-ts/drm_splash.c
-> new file mode 100644
-> index 0000000000000..66c192139d9c4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -0,0 +1,1028 @@
-
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nou=
+veau/nouveau_uvmm.c
+> index fc125fd44a9b7..13e11905b5f97 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
 [ ... ]
-
-> +static void drm_splash_fw_callback(const struct firmware *fw, void *cont=
-ext)
+> @@ -1184,6 +1184,27 @@ bind_validate_region(struct nouveau_job *job)
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * Lock the VM's common dma-resv together with the one of @obj, as neede=
+d to
+> + * drop what may be the last reference of a &drm_gpuvm_bo.
+> + */
+> +static void
+> +nouveau_uvmm_lock_vm_and_obj(struct nouveau_uvmm *uvmm, struct drm_exec =
+*exec,
+> +			     struct drm_gem_object *obj)
 > +{
-> +	struct drm_splash *splash =3D context;
-> +	struct drm_client_dev *client =3D &splash->client;
+> +	int ret;
 > +
-> +	if (!fw || !fw->data) {
-> +		drm_err(client->dev, "splash: no firmware");
-> +		release_firmware(fw);
-> +		fw =3D NULL;
-> +	}
-> +
-> +	scoped_guard(spinlock, &splash->fw_lock)
-> +		splash->fw =3D fw;
-
-[ ... ]
-
-> +static int drm_splash_render_thread(void *data)
-> +{
-> +	struct drm_splash *splash =3D data;
-> +	struct drm_client_dev *client =3D &splash->client;
-> +
-> +	while (!kthread_should_stop()) {
-
-[ ... ]
-
-> +		if (draw_count > 0) {
-> +			ret =3D drm_client_modeset_commit(client);
-> +			/* If commit returns EBUSY, another master showed up.
-> +			 * This means that the splash is no more required.
-> +			 */
-> +			if (ret =3D=3D -EBUSY) {
-> +				drm_info(client->dev, "splash: not master anymore, exiting");
-> +				break;
-> +			}
-
-[Severity: Medium]
-Can the firmware blob be leaked if the render thread exits early here?
-
-If drm_client_modeset_commit() returns -EBUSY, the thread breaks out of the
-loop and exits. If the firmware request later completes,
-drm_splash_fw_callback() stores the firmware in splash->fw. Since the thread
-is already dead, won't this firmware remain unreleased until the DRM device=
- is
-completely unregistered?
-
-> +		}
-
-[ ... ]
-
-> +static int drm_splash_init_client(struct drm_splash *splash)
-> +{
-
-[ ... ]
-
-> +	/* And point every modeset at the buffer of its scanout */
-> +	i =3D 0;
-> +	drm_client_for_each_modeset(modeset, client) {
-> +		unsigned int idx =3D i++;
-> +
-> +		if (idx >=3D 32)
+> +	drm_exec_init(exec, DRM_EXEC_IGNORE_DUPLICATES, 2);
+> +	drm_exec_until_all_locked(exec) {
+> +		ret =3D drm_exec_lock_obj(exec, drm_gpuvm_resv_obj(&uvmm->base));
+> +		if (!ret)
+> +			ret =3D drm_exec_lock_obj(exec, obj);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (drm_WARN_ON(uvmm->base.drm, ret))
 > +			break;
-> +
-> +		for (k =3D 0; k < splash->n_scanout; k++) {
-> +			struct drm_splash_scanout *scanout =3D &splash->scanout[k];
-> +
-> +			if (scanout->buffer && (scanout->modesets & BIT(idx))) {
-> +				modeset->fb =3D scanout->buffer->fb;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	mutex_unlock(&client->modeset_mutex);
-> +
-> +	return (fb_count =3D=3D 0) ? -ENODEV : 0;
-> +}
-
-[ ... ]
-
-> +static int drm_splash_client_hotplug(struct drm_client_dev *client)
-> +{
-> +	struct drm_splash *splash =3D client_to_drm_splash(client);
-> +	struct task_struct *thread;
-> +	int ret =3D 0;
-> +
-> +	guard(mutex)(&splash->hotplug_lock);
-> +
-> +	/* The modesets that get a splash are defined at first hotplug event */
-> +	if (splash->initialized)
-> +		return 0;
-> +
-> +	ret =3D drm_splash_init_client(splash);
-> +	if (ret =3D=3D -ENODEV) {
-> +		drm_info(client->dev, "splash: no modeset found");
-> +		return 0;
-> +	} else if (ret) {
-
-[Severity: Medium]
-Could this error path leak the splash->scanout array?
-
-If drm_splash_init_client() successfully extends the array using krealloc()
-but fails to create any buffers, it returns -ENODEV. This early return hand=
-les
-the -ENODEV case but does not free the array.
-
-Could subsequent hotplug events keep appending to it and leaking memory on
-every failure?
-
-> +		drm_err(client->dev,
-> +			"splash: failed to init client: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Create the render thread, waken later */
-> +	thread =3D kthread_create(drm_splash_render_thread, splash,
-> +				"drm_splash_%s", client->dev->unique);
-> +	if (IS_ERR(thread)) {
-> +		ret =3D PTR_ERR(thread);
-> +		drm_err(client->dev,
-> +			"splash: failed to create render thread: %d", ret);
-> +		drm_splash_free_scanout(client);
-> +		return ret;
-> +	}
 
 [Severity: High]
-Does this error path leave dangling pointers in the client's modeset array?
+If drm_exec_lock_obj() fails with an error like -ENOMEM (which can occur
+during internal memory allocations), the loop hits this break and returns.
 
-In drm_splash_init_client(), modeset->fb is assigned the framebuffer of the
-newly created buffer. If we fail here and call drm_splash_free_scanout(), t=
-he
-buffers and their framebuffers are freed, but modeset->fb is not cleared.
+Does this mean the function returns without fully acquiring the necessary
+locks, while hiding the failure from the caller because of the void return
+type?
 
-Since the client remains registered on dev->clientlist even after a hotplug
-error, could a subsequent modeset commit or sysrq trigger a use-after-free
-by dereferencing the freed modeset->fb?
+> +	}
+> +}
+[ ... ]
+> @@ -1594,9 +1625,11 @@ nouveau_uvmm_bind_job_cleanup(struct nouveau_job *=
+job)
+>  			drm_gpuva_ops_free(&uvmm->base, op->ops);
+> =20
+>  		if (!IS_ERR_OR_NULL(op->vm_bo)) {
+> -			dma_resv_lock(obj->resv, NULL);
+> +			struct drm_exec exec;
+> +
+> +			nouveau_uvmm_lock_vm_and_obj(uvmm, &exec, obj);
+>  			drm_gpuvm_bo_put(op->vm_bo);
+
+[Severity: High]
+If nouveau_uvmm_lock_vm_and_obj() fails and returns without holding the
+dma_resv locks, will calling drm_gpuvm_bo_put() here result in unprotected
+concurrent list operations?
+
+The caller assumes the locks are securely held. Functions like
+drm_gpuvm_bo_put() can modify obj->gpuva.list and gpuvm->extobj.list.
+
+Under memory pressure on a shared GEM object, could this lead to list
+corruption or a use-after-free?
+
+> -			dma_resv_unlock(obj->resv);
+> +			drm_exec_fini(&exec);
+>  		}
+> =20
+>  		if (obj)
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001195847.1411=
-92-1-maximpedraza@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001220632.3190=
+896-1-matthew.brost@intel.com?part=3D7
