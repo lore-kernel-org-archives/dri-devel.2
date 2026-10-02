@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5152CA5FE2
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E6AACA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 911D310E5D6;
-	Fri,  2 Oct 2026 14:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D264410E5DE;
+	Fri,  2 Oct 2026 14:21:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="xN0d9leM";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="W0a731y6";
 	dkim-atps=neutral
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com
- [74.125.228.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20BB110E5CD
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:21:55 +0000 (UTC)
-Received: by mail-ej2-f41.google.com with SMTP id
- a640c23a62f3a-c2e0f2c945eso449814866b.3
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:21:55 -0700 (PDT)
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com
+ [74.125.228.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F93410E5DE
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:21:57 +0000 (UTC)
+Received: by mail-ej2-f43.google.com with SMTP id
+ a640c23a62f3a-c2e309aeb38so337016766b.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:21:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1790950913; x=1791555713; darn=lists.freedesktop.org;
+ d=fairphone.com; s=fair; t=1790950915; x=1791555715; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=trob71jrLJmnCTpqAQkVdV8k9io4Vh7M+IWZZGLBcWY=;
- b=xN0d9leMHpGl/Nw6ULVyqd9Og2Rt5HGjNWDnTYJ4Dm6kENGJJZUTcfCyHnsefbwfiB
- YjUSwbyJURMueqBpr4iYPc62dagFkVEsqmr6CBr5iK0YVqvI0ikkjF8iwOde0Dg2SPz/
- seencbsHkrFiqWg6ON/4FqUcnW9lwIy+Qjtxmlh8Z5ZSV9XsgxlUQN5UCgLviReHzNTw
- zD7SP7uGvaNmBIOdnsBb7ufGVS3D2jYkSK/0CEbmG+jiL+p/5QPJsi6PwhbrIPFHHY4t
- iQa4ZTlSAy0ZV6cSADWVz1ASv80MLOWJ4XnsZPhcw24pgKvM2CbZyTZ7HkGH9QGUGdsE
- 8XKw==
+ bh=365rpWbQTI8r+XdiFb+KF1sTOX5DYF/iothdwDHKaSc=;
+ b=W0a731y6ohXkHV7tz1ELfGa2H0C4cRRlio9mIqSmYe5LuFMUWTN9haRHxk63r6Wp0u
+ NxG8c40XKhz7akAFHpzI23JTAKPjEmWhAO9N4Cat4M4qONY2gZlExr1Bmt3hcdVcg71A
+ +O/Yp0c2EkJFexgRKEJz2gXsBAMv+0+Rxb9q1itDL6ctgVJnUFSRNWoND/qC1kZwMDEb
+ vlUAAKt0UB/FdnQM8+uxU1Yq4WGsyHn5uznAsC/BHApZFfGw/xoayrHt6fJ+AWU8sqzL
+ 3hNUTXNkGLiFDywgyuRLI6QZvvN4A0EUy5Hs9nmYnG5f3aEzLGSHQdixVCkA6Zq56vuE
+ 7Q4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790950913; x=1791555713;
+ d=1e100.net; s=20260707; t=1790950915; x=1791555715;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=trob71jrLJmnCTpqAQkVdV8k9io4Vh7M+IWZZGLBcWY=;
- b=m4fyKVEy4aKmIE+5uunsMyS2h8vdf4dvL87Ynv+KyxuZYMLwZmEzwaoTEZAyKwC0yH
- RitCNy8483T2jN5Abl9+XvnfUoSbnuLnydkpGlTQYYmvFNTuQd67j97HmgNmN5Ck1E/j
- iMIuLXv30n7cgOHAToaQbmwOw5X1uxUGc2UASl3o3THZxH1bAfMVf89xOPSbOFCoDOUj
- +JtUWqaiPL4OzVPgqFKwT0LkuJieiJQZNlnb/wosGE4UyhfL15zbK5WTBAnsF5cXUHuu
- FnQ8YTJbfrPT2jkryqpfkNhsCldLTnPBVg8iCF/mEzrmrgDNmoOvbz47qMDHUL+Y7pvB
- ZUeg==
+ bh=365rpWbQTI8r+XdiFb+KF1sTOX5DYF/iothdwDHKaSc=;
+ b=iCbg77Xrib/Flq+yXchy/m2GG6DdPb+5Ghofd3OcDwfd9R2uNV3RfKLdkDCTvPBSqh
+ vXIyzxdd5vR+MZ744APDnohGLS/auMA/a7FHOR+78Krm9rVQRXVCQtrEhpP09SPmt+He
+ 8q6xYiSZYAmB5Rt0EhWNm6pvjdi2Dbw5SmMKhLl8B3audc9lF6G4QlugfaH2WkEWgHs/
+ IYmLcsI04LK973XIwNYxvpqJPUFKuHknLe/f2X1ED6BZkucto0Z58wXCKQrCPokIT6QF
+ YDGD/On5THyNqr4ZxLf/3S8s7eAf17vW0QA6HjzfiKf8fQyvxHCUZcpOscsBM34VewpH
+ 3/AA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBztxfKTWuvyN27y31M481h4tT1QXe0l2NHycMAiLp4Vv9HmFGzTU5bo0G8ksq+6iTyq1U3WOx5zer8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m04Bj7luR8zvyjJlolmgBEvkc+Tpoqs2Y/qHGK5w0NBffskNrE
- EIBQvrttAQL+rH0uRgcq+TQzKtmFeDVNIpS7OADNFuLY/8yKSwmjteVncVlC/bM+lbM=
-X-Gm-Gg: AYBFou0HVA+ei/t/n85WCaipndrcbNtJxmad+SIFKv5iyWtyIA3bwxGTWPAGOXikWXG
- a8Cu6hTYKzhjo6aQXV6glKnndi4ChmeawR2QrZkBITLstANxt12lET2YAErpVs/0Y2QoUAhNKJE
- 8gPlI8pYEIkHcH1NtBd6zmQSxlslPFxjomN23TVQECznQkM+a2+WJzpjH7bd63w9JFSfgzbv2wL
- XNLrBhSG0hux9JwJ/srNvDqf2+Uq4nWqRwoRPn88OYjeTf8eQrmUnFGh9BMpAuMl4U2NkaUdH/n
- 2nmVY0iLANc3Z+1SNsJC1/TdTiHRs9dl3FOW1/xBOhDjP7XPXJF6NKiCM1PaN2EnbuufguaZLk4
- iUSI4Frtu+jYslqN6/VSz9PK+PkLRSY1aVtf4Tp5E2VrPHLmsCjNIA8jVi7za6juEb/2P44UD8C
- aiYuFH/rkbUp1N9HUiB8bRNFUx2ZXSy4O59uCuOMEXHQuFRtKBVW3vptdVSq7PWcoDJYJTQg0Mr
- rjLF+d0B0BdNMgmNaeTgZ9WJRWGFcHG/YyK8P0v2XNiJ9vzwIhD
-X-Received: by 2002:a17:907:c486:b0:c29:462b:f908 with SMTP id
- a640c23a62f3a-c2e4afa70cemr214706366b.10.1790950913549; 
- Fri, 02 Oct 2026 07:21:53 -0700 (PDT)
+ AKwUvBwgzBjh+AlWeOmHDrksV8Bz3hOeVMz/6NomH8E0FlaZbRFHwmMIkofoBrCk5wtE2K/s4cyYE48ayUM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n6lPyhBx7Z+dLSqja6gTIBExTlI+12uojQb3gpgJBlK0cDL+Y1
+ 1nSGG1GXTeUu7gdOvM+t78lJ5DWBxSQP69R4KFnWQfNlqjjwE8RN3RPOZ7d3XWX+R9w=
+X-Gm-Gg: AYBFou2tkEl17AMjjYW3RB3xuu8DRN8ccsO5QHtG2YtbeOODpfaJlTKpMVpUJbChisW
+ /9Jz1j5sP9663xkM2D4maiAaLWNAq8/C8r9YCcSufDQoTrzh9pq9WPU7mBD/we+uMo07jEK7TH2
+ wYkPGZriB1tofZxtesjgTkts5RTLovdrR9BLy1DEV+3pCmn+9VEbbQYSdKl5mduP/2BVPKESFJt
+ 6Ump/NcY2SLIzByHjljvi90E9374S2qFgaLKw+LYvXRO6TloyS7hwt0AJdqIF1Izn7M8D9r8ebV
+ FPBGIqtXiJWpnS6qyykItjfhLBaTCV3AdSGMq5m99XnWKuqYo1T144iV1cWe0rqp+E6mYEjLexa
+ LKWVNAEm9m5msJ6fO955j3pVMEohi2zd57q0ZFT4iPBUlYjg6vuMN3ihQdS8sTV/hhywHpzxCKQ
+ EYWh8o2uCdd5fJOyuCCEKNzv+kwz+aijbgGBlwbPYrNY+HEK3lyc7Ggl35Kh42hzecb7WC/Mzp/
+ zgtakMlVzfIMNKSu4yyd+OOPdVf1qfLmRbLXwlD44apOkFYufBt
+X-Received: by 2002:a17:907:96a2:b0:c2e:4a61:d436 with SMTP id
+ a640c23a62f3a-c2e4ae24de7mr253246566b.36.1790950915541; 
+ Fri, 02 Oct 2026 07:21:55 -0700 (PDT)
 Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl.
  [144.178.202.142]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c2e4cf684e3sm89307166b.51.2026.10.02.07.21.52
+ a640c23a62f3a-c2e4cf684e3sm89307166b.51.2026.10.02.07.21.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 07:21:52 -0700 (PDT)
+ Fri, 02 Oct 2026 07:21:53 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 02 Oct 2026 16:21:47 +0200
-Subject: [PATCH v3 3/4] arm64: defconfig: Enable Novatek NT37705 panel
+Date: Fri, 02 Oct 2026 16:21:48 +0200
+Subject: [PATCH v3 4/4] arm64: dts: qcom: milos-fairphone-fp6: Enable display
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-fp6-panel-v3-3-4b80f83bc936@fairphone.com>
+Message-Id: <20261002-fp6-panel-v3-4-4b80f83bc936@fairphone.com>
 References: <20261002-fp6-panel-v3-0-4b80f83bc936@fairphone.com>
 In-Reply-To: <20261002-fp6-panel-v3-0-4b80f83bc936@fairphone.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -85,13 +85,14 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  Luca Weiss <luca.weiss@fairphone.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790950908; l=791;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790950908; l=2284;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=Ow1g5nb84JaBXwtId7U1Ei7JzeZxrlP38LbY2puBam8=;
- b=vnNsKzfbkcaR8E0y2/h+wIatu+JyKUI5twpCAlB8F/NPQKE/TnVb4EiB5ijJkaLsyDesPU73e
- g1IiPWSVy6KDdSr2cBXQC2rSEdzpAJQHV+IejXByTjAlp4igx2Zxo2g
+ bh=K/UuwAdCDzSNTdbtCp/oiK4VjRQqMyDj/QIu8/Tze7s=;
+ b=0miXsdcT4VeM7yvVFtm0Wm/kXPYBFutnMKbTczS6I6lMKnzluxR7nVoKsN9W/y0nt8zJB2u6F
+ MQE8ldE2YMNB7Ct6Fs5g8EPCGfsf2IZOaucOYjNGRNOcB8ACveXIb1P
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,26 +110,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable the NT37705 panel driver which is used on Fairphone (Gen. 6).
+Configure the MDSS nodes for the phone and add the panel node.
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 64 ++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 6ec8d3a69c98..1d4afc733c8a 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1023,6 +1023,7 @@ CONFIG_DRM_PANEL_KHADAS_TS050=m
- CONFIG_DRM_PANEL_MANTIX_MLAF057WE51=m
- CONFIG_DRM_PANEL_NOVATEK_NT36672A=m
- CONFIG_DRM_PANEL_NOVATEK_NT36672E=m
-+CONFIG_DRM_PANEL_NOVATEK_NT37705=m
- CONFIG_DRM_PANEL_NOVATEK_NT37801=m
- CONFIG_DRM_PANEL_RAYDIUM_RM67191=m
- CONFIG_DRM_PANEL_RAYDIUM_RM692E5=m
+diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+index 4e8777162b53..11015c3fa331 100644
+--- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
++++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+@@ -709,6 +709,49 @@ &ipa {
+ 	status = "okay";
+ };
+ 
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l4b>;
++
++	status = "okay";
++
++	panel@0 {
++		compatible = "boe,bj631jhm-t71-d900";
++		reg = <0>;
++
++		reset-gpios = <&tlmm 12 GPIO_ACTIVE_LOW>;
++
++		vci-supply = <&vreg_l19b>;
++		vddio-supply = <&vreg_l9b>;
++		dvdd-supply = <&vreg_oled_dvdd_1p2>;
++
++		pinctrl-0 = <&disp_reset_n_active>, <&mdp_vsync>;
++		pinctrl-1 = <&disp_reset_n_suspend>, <&mdp_vsync>;
++		pinctrl-names = "default",
++				"sleep";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l2b>;
++
++	status = "okay";
++};
++
+ &pm8550vs_c {
+ 	status = "okay";
+ };
+@@ -872,6 +915,20 @@ &tlmm {
+ 			       <13 1>, /* NC */
+ 			       <63 2>; /* WLAN UART */
+ 
++	disp_reset_n_active: disp-reset-n-active-state {
++		pins = "gpio12";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp_reset_n_suspend: disp-reset-n-suspend-state {
++		pins = "gpio12";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	sdc2_card_det_n: sdc2-card-det-state {
+ 		pins = "gpio65";
+ 		function = "gpio";
+@@ -906,6 +963,13 @@ pm8008_int_default: pm8008-int-default-state {
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
++
++	mdp_vsync: mdp-vsync-state {
++		pins = "gpio129";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
+ };
+ 
+ &uart5 {
 
 -- 
 2.56.0
