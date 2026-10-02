@@ -4,86 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48FECCA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55726CA5FD9
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD3010F7A5;
-	Fri,  2 Oct 2026 08:12:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9728410E408;
+	Fri,  2 Oct 2026 08:19:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RwMxqI6C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XZ2Q3u/1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oYUr4K7a";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I23bQ1iV";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="w1p8+UmZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4M4RXEru";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uBVGOTST";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IgyoMVEn";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F6B510F7A5
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:12:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CE4A10E408
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:19:04 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BAF641FE33;
- Fri,  2 Oct 2026 08:12:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EC7231FE4A;
+ Fri,  2 Oct 2026 08:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790928751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790929139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eOLciC3EFO6+x6OdmqxNHBlj9SqcRISQTR/fa8SqC1w=;
- b=RwMxqI6CJKywu0Nhutkodzt1RwbplGhZXqvy7Ur8Pg0NOmuZRaVoC6gB1colWp7Kr1V6Vu
- P8q3rRGwGjEefCkiyrvKF13Ns3ki1by6Kq/QbZ0ouGiDNFYZA9T7Gq3AO2eN5z1dQ60bUN
- CL6f2kDTqcnPPYgmsjnyocYZDvg2JUY=
+ bh=XtBXZ0JkDs240gbP+IGU+r1W4igVuXvEIdsYKkT8e8I=;
+ b=w1p8+UmZnVvEGPcE9KlxfHZKfPkiKZFRwjQqK9UGPRb7WRr+k8jeV1HLHzHIsdzfE2vStS
+ +IHyu1E5kjDlsNoFsULFBzoQheRl9udDUjMlYseEJMqXWk1U9bA78PrgoHwpRBOa/VrJ/S
+ Vt3R2fgF1QXnHbn1tWDECXhcgdOKzyM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790928751;
+ s=susede2_ed25519; t=1790929139;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eOLciC3EFO6+x6OdmqxNHBlj9SqcRISQTR/fa8SqC1w=;
- b=XZ2Q3u/1usmdGJfhlwNm9G+MCQXx52Xs2FXn55HhhzEx6MOrr+R4j7TvbdBBFH/DolyKK8
- t5o1BSesH6/4dnAg==
+ bh=XtBXZ0JkDs240gbP+IGU+r1W4igVuXvEIdsYKkT8e8I=;
+ b=4M4RXErukf6NQaFbE8SKCIubwcc+TIJunAD3vy01/iQGA1FdwPgiL4Nhzlu5HZWjDBLNm4
+ MlnDK2kPYsMcvUAw==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oYUr4K7a;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=I23bQ1iV
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uBVGOTST;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IgyoMVEn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1790928747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1790929134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eOLciC3EFO6+x6OdmqxNHBlj9SqcRISQTR/fa8SqC1w=;
- b=oYUr4K7av+aqQpm0XxUlO930mwFbW7iGkgQTCgs5R6XuTd/7KCeAWadPcOsknOpmaeHFWn
- 3ckGrdF+GOO5BLolLBmMqqccfgmezc1PW6XZRvJ8L7qaSza+hlrOCuUYJP5ZpFKJzGtE0B
- TRPWzp6D2AgqnWLTkHy27ruM5+7DtlE=
+ bh=XtBXZ0JkDs240gbP+IGU+r1W4igVuXvEIdsYKkT8e8I=;
+ b=uBVGOTST0f3vUfPW4B4uNekenODD0ZKKpV66ouXX6+0CwaZYYR9DBt6dHXvwHX1A0W26L7
+ OOY0jlKqPQbkJPrU3fAirq8Z5S/zcmf6uV0wHKwLthdJ1oJc1/iOnHiyNstsfnDdHzrBts
+ cH72nkHrU6AyT7V8cdYiZWMrNrN7o9w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1790928747;
+ s=susede2_ed25519; t=1790929134;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eOLciC3EFO6+x6OdmqxNHBlj9SqcRISQTR/fa8SqC1w=;
- b=I23bQ1iVyVZfT3AI5TRgYvY2p2Qq+8p8XfHXuBaUYdAXwG6+uwXM3rXCsMIrulB9WTF3JA
- JuCO236pBKHDZcCg==
+ bh=XtBXZ0JkDs240gbP+IGU+r1W4igVuXvEIdsYKkT8e8I=;
+ b=IgyoMVEnxJXwz2OfXQ374imsl74p7zl+cOKGb0XiBcMLJ0t/td66miNMXy3ILw5l2MnHoK
+ qdSG7jB96CWrsHDw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72F1413691;
- Fri,  2 Oct 2026 08:12:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FBE513BEC;
+ Fri,  2 Oct 2026 08:18:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id G/DLBWtnv2ocKwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 08:12:27 +0000
-Message-ID: <55914ef9-517d-48dd-a084-0f553f04cb8a@suse.de>
-Date: Fri, 2 Oct 2026 10:12:26 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vbcXFO5ov2qfMgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 02 Oct 2026 08:18:54 +0000
+Message-ID: <4041bbf5-d864-43c7-8d3f-e05efd1ce65e@suse.de>
+Date: Fri, 2 Oct 2026 10:18:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: drm/ssd130x: stale pixels when the GPU renders into the
  framebuffer
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Fabio Piparo <holofermes@gmail.com>, Melissa Wen <mwen@igalia.com>,
- Chema Casanova <jmcasanova@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
+To: Fabio Piparo <holofermes@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, dri-devel@lists.freedesktop.org
 References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
  <1f383114-e367-4b67-899b-14a393fece94@suse.de>
  <20260923160049.1741651-1-holofermes@gmail.com>
@@ -94,7 +93,7 @@ References: <CAB3Lz5ZuAJcgKpx0L-O3a-1psk+vwBMeH_Eux+OAgaYcyfFm6A@mail.gmail.com>
  <a8814ebf-1d6b-4f71-8f53-77b7476ba0d7@suse.de>
  <a9f52cac-e8bc-4ec2-b452-0fdcb32c4713@igalia.com>
  <xlv1jyo2enyv.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <3bfe2517-a5d3-4e86-99bd-6c28556f0f2d@igalia.com>
+ <CAB3Lz5Y-N4Tyecu19PMzeTseDrJLvU3ik+sBQcLWdxAMS+jxog@mail.gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -121,30 +120,30 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <3bfe2517-a5d3-4e86-99bd-6c28556f0f2d@igalia.com>
+In-Reply-To: <CAB3Lz5Y-N4Tyecu19PMzeTseDrJLvU3ik+sBQcLWdxAMS+jxog@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BAF641FE33
-X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[igalia.com,redhat.com,gmail.com];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[gmail.com,redhat.com];
  RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
  ARC_NA(0.00)[];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_FIVE(0.00)[5]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: EC7231FE4A
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,122 +161,49 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 30.09.26 um 21:57 schrieb Maíra Canal:
-> + cc Chema (Mesa developer in V3D)
+Am 30.09.26 um 20:45 schrieb Fabio Piparo:
+> Hi all,
 >
-> Hi,
+> On Wed, Sep 30, 2026 at 2:48 AM Thomas Zimmermann wrote:
+>> Those buffers should have been allocated on the v3d side.
+> Ah! Now I think I see what's happening. Some context on where I'm
+> coming from, since I think I explained it badly.
 >
-> On 30/09/26 12:52, Javier Martinez Canillas wrote:
->> Maíra Canal <mcanal@igalia.com> writes:
->>
->> Hello Maíra,
->>
->>> Hi,
->>>
->>> On 30/09/26 05:32, Thomas Zimmermann wrote:
->>>> Hi
->>>>
->>>> Am 30.09.26 um 09:48 schrieb Javier Martinez Canillas:
->>>> [...]
->>>>>>> I have a patch implementing begin/end_cpu_access to
->>>>>>> drm_gem_prime_dmabuf_ops, which fixed the issue. However, I'm 
->>>>>>> not sure
->>>>>>> we would like to support this use case upstream because, as you
->>>>>>> mentioned, dumb buffers are usually used for software-rendering 
->>>>>>> only.
->>>>>> Before we fix anything, I think we should talk to someone with
->>>>>> dma-buf/PRIME credentials.  As I outlined, the ideomatic pattern 
->>>>>> is a
->>>>>> producer-consumer relationship and HW rendering into dumb-buffers 
->>>>>> is not
->>>>>> supported. Those buffers should have been allocated on the v3d side.
->>>>>>
->>>>>> IMHO we should write down these rules in the PRIME documentation and
->>>>>> (soft-)enforce them in the implementation.
->>>>>>
->>>>> Yeah, I think either drm_gem_fb_begin_cpu_access() needs to also sync
->>>>> exported buffers (what Maíra is proposing as a fix) or there 
->>>>> should be
->>>>> documentation of the rules for cross-devices buffer sharing through
->>>>> PRIME.
->>>>
->>>> This specific case only happens with v3d and only this driver can know
->>>> when to flush caches. If we flush caches in begin_cpu_access, we 
->>>> easily
->>>> end up paying the overhead on all systems.
->>>>
->>>
->>> I believe that's the main issue. We would pay a reasonably big price to
->>> support this uncommon (and maybe even wrong) use case.
->>>
->>> P.S.: To be clear, I wasn't proposing a fix. I should have called my
->>> patch a "hack", because although it works, I don't believe we should
->>> support this use case for the reasons stated by Thomas.
->>>
->>
->> Yes, I agree with you. Making v3d to warn as Thomas suggested seems 
->> to be
->> the best compromise.
+> My program opens the panel's card and lets Mesa handle the buffers.
 >
-> I was thinking about Thomas' suggestion, and I might be missing
-> something. If v3d warns when rendering to imported buffers, it will
-> warn on every RPi 4/5, as Mesa renders the display path into dumb
-> buffers imported from vc4. That works because vc4 buffers are WC and
-> scanned out by hardware, so the CPU never reads them [1].
-
-Oh, that's not good. It actually convinces me that v3d (and every other 
-driver) should have warned about this situation. See my example below.
-
-
+>      fd   = open("/dev/dri/card2", O_RDWR);        /* ssd130x */
+>      gbm  = gbm_create_device(fd);
+>      surf = gbm_surface_create(gbm, 128, 32, GBM_FORMAT_XRGB8888,
+>                                GBM_BO_USE_SCANOUT | GBM_BO_USE_RENDERING);
+>      bo = gbm_surface_lock_front_buffer(surf);
 >
-> From my point of view, the issue here is cross-device sharing of a dumb
-> buffer that the exporter reads with the CPU through a cached mapping.
-
-The whole workaround with WC doesn't fully capture the issue.
-
-Imagine the renderer would have used discrete video memory (e.g. like on 
-an old PCI device). Rendering to an imported buffer would simply not 
-work at all. After rendering a frame into the video memory, the render 
-driver would have to memcpy the result from the video memory to the 
-imported buffer. This would need to be done on every frame because the 
-importer doesn't know when exactly the exporter requires the image.  
-  Sharing buffers in the other direction would work fine.  The importer 
-(now ssd130x) can always setup a page mapping from the dma-buf's 
-provided s/g table. The s/g table can refer directly to the video memory 
-on the PCI device.
-
-
+> On a Pi 4/5 Mesa hands me dumb buffers from ssd130x with v3d drawing
+> into them. On a Pi 0-3 it goes the other way, the GPU makes the
+> buffers and ssd130x imports them, and that works fine.
 >
-> [1] Right after writing this paragraph, I decided to read the
-> documentation in drm_dumb_object.c and I found:
+> Reading this thread convinced me that what I was doing was wrong for
+> my use case, and that my program should own the buffers itself. So now
+> it does the producer-consumer thing:
 >
-> * Note that dumb objects may not be used for gpu acceleration, as has 
-> been
-> * attempted on some ARM embedded platforms. Such drivers really must have
-> * a hardware-specific ioctl to allocate suitable buffer objects.
+>      gpu = gbm_create_device(open("/dev/dri/renderD128", O_RDWR)); /* v3d */
+>      bo  = gbm_bo_create(gpu, 128, 32, GBM_FORMAT_XRGB8888,
+>                          GBM_BO_USE_RENDERING | GBM_BO_USE_LINEAR);
+>      drmPrimeFDToHandle(fd, gbm_bo_get_fd(bo), &handle);
+>      /* AddFB2 with that handle, draw into bo through an EGLImage, page flip */
 >
-> Does anyone know why Mesa kmsro create dumb buffers for rendering? Maybe
-> I understood the documentation incorrectly, but it looks like we
-> shouldn't be doing that.
+> That's clean on a stock kernel and stock Mesa.
 
-The first bullet point talks specifically about GPU acceleration. Mesa 
-creates dumb buffers for _software rendering_. Ssd130x scans out the 
-final result and transfers it to the panel. No GPU rendering involved there.
+Great to hear that it works now
 
 Best regards
 Thomas
 
-
 >
-> Best regards,
-> - Maíra
+> By the way, I found one other report that looks like the same thing,
+> from March 2024: https://github.com/notro/gud/issues/22
 >
->>
->>> Best regards,
->>> - Maíra
->>>
->>
->
+> Thanks,
+> Fabio/
 
 -- 
 --
