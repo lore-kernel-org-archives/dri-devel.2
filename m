@@ -4,78 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EED62CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C323DCA5FF6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE04010EAC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4DFE10EAC2;
 	Sun,  4 Oct 2026 17:18:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VrkUHQ1g";
+	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="ErPMe3zF";
 	dkim-atps=neutral
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com
- [74.125.229.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CADF10E550
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:07:40 +0000 (UTC)
-Received: by mail-dy2-f42.google.com with SMTP id
- 5a478bee46e88-341d0522b4dso11825348eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 01:07:40 -0700 (PDT)
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com
+ [74.125.229.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ABB510E6A2
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:40:38 +0000 (UTC)
+Received: by mail-dl2-f42.google.com with SMTP id
+ a92af1059eb24-144f47a9b57so7822155c88.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:40:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790928460; x=1791533260; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Z54n6VzC+kkkl/3Ijn5IvZJnQmri9nkKbsWlxFk/GYk=;
- b=VrkUHQ1gaD82K8RsdlOEMUQ3L07BGnfLQXjJ7LPRlFO1xZIjSIhW7+Orn2eVHH89+S
- nE/IWjH+Ti1p4H799zxn9/TeQ+Y5M9cTWJDDCVQwEfJJdr9J4pA+W5TPatQfJsr2E7Cc
- HnGrcPKe3i7+VeVREBcnbQxVfrAfJ1bG55GqQa+upXZZ5oHE7pMWAWEVRzvt5a+hV9O2
- HXLe+vP2iEavKJeq0seYkT3ibGTUhkCJxNOSH90mV1LLRQJk3bGMZFow+RJFp+A5a8b2
- uIrRwVbSX37HF5ZN4KRsDmsGOYmRG2zcozvRjcRxPINBMgldUChT/i56GnQXe+Kzla/P
- +OwQ==
+ d=trailofbits.com; s=google; t=1790970038; x=1791574838;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
+ b=ErPMe3zFoNPj71oqQZxaOfkvJcPEeqdNIs83wW1Mp2UPFzOEMpQzva9J4DvEvjYgnk
+ VRgtK0hoKuZrWe0h0V9op6b1jF6mxbQOUQ3ntMpcrA1+J7Ck0P07nenXVKywf+ZZXDnY
+ GqSQp8IeFDpj/Dwd723RnneFm4mKEUnQuey0rPdwkXQ4Bx/nMjiaEDCBzD0y9KLZT/oa
+ b8Qp46VGjC/BQf9dfpNHOu5cELqSJOe+aW95/WtIjekL4mNHBhA/0KWWPJxPJTjjewXo
+ +T4z+NCCMRH1oZUJTKGYwExNnq4YGIXf7+UtgxoE2y8eAZYy+Urzj056pGI9hvD/bFlw
+ 5IhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790928460; x=1791533260;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Z54n6VzC+kkkl/3Ijn5IvZJnQmri9nkKbsWlxFk/GYk=;
- b=WPmzbDiWEPNdfXDJYOPpkMgRsxlMPon//LlvePX2mhyLMjXtdCHgIj2WQNFRABfZv4
- QCyGE5hFF+5e9FZEC8KkVkRP1P91rWkYGPZgPFszXR+6o5/VrqF3BciCqfr1ONRZkE4s
- 6YUOntFZGEyIwXR05rZxDXW5ple8gQ+3/nz/qq6vCgb2zMuw1xZBI8Ax+jtg8eufWqQN
- Av7sTNh8O+BEwibdtMZwBmbm/EBoft8dbpD4/ULtfS1MpVfGdTSO+Acm6Kx7fYUtHMBz
- B24QeD9pg6ufxD4ZsyJN5zdyWwh24iOUHHTUmBrOsUKXTEByGfnBrUdm7j9Ej1+H2SCz
- tawQ==
+ d=1e100.net; s=20260707; t=1790970038; x=1791574838;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
+ b=arV7q9IPBb+9h7uvZOgR5gsVx0W7a3fk+IPDau7hF3zgA4vIqB4QMVVclBhqA5qlhP
+ rWmiIRhnEVENUqrker7gyCKXnd+Di5NmZ9OBEg8b5CLyxAy6wBu6E2osOFpT6+wWzDJT
+ h1rPbnQceU79l2VzYcLXCaELA021IAVpvGF3F0LJ2NNK3z9j1ehSZelWyws3Ptinbnhv
+ P6x6Jse42slf4LdqZFUezlMwVgOicsb/Li7mC2Oa6yJ4ZN45EpK1qHNAIrBsKf6HDRMz
+ tmuuP9NVX50VXfMobrKXY1kIW7n65Vf407W3dj/tCwW6Df7v1bb15tB3hWXhedKYHtD9
+ foUw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw4lC2EzDg1UNgtBF7Oa20NW0PH9UhYUkLNxPolUdpqnqCmQrCzgmAjyfuGA8gxthft1waUWm9Pmf4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL3Ke9JyOzSQX6Eu2DuUZcPrY5A9r2/JjvhPByV4VCOSnoUsrTo
- 8F2uqJUQO8f7/9PSUR3biarcTcghHo1Y5JnhSG2oWI2Qb+uFEPPyFfEy
-X-Gm-Gg: AYBFou0QUtPjdUeq+UdIP4tQp71wvZhhxG75YSQCnTxVtOOL/t/L5e7LhdHoh4Hkqmx
- YlBVXOmq++0unDRRICizfZf8hR4ev7m9H029gJKt+EO2+h3AlOn/q2i+ari+orNNohv4B2LRslF
- BiHo+kKEAhm8nBPSDiND4kJN99VP3G2tlkFxtLaGunizwvDClYfcfuTNM3EGylBrd+BILvHdpu5
- 20aPvQrhIy5K5ydQ39iEcIhva/kQ8Xn24PmYZYwhgjVD98H7Z0yrhcxLcGjJy5WxA7jhh6Ndgs0
- zctOvWqoy7QfGJMwrJz6o24QZHdaKXe9FPwyUWs6nI3XQynW6s8pFATdQE86EmO/HwmY96UI6vL
- phPT1z6fGK1ajUbmyQRI0zk+IPsk79rO6c2dx1Jtx7quxvwPqlNvr8TLco6vOGvyNO0JiSpwm1V
- MrpRZbf1Jh4uG4dpJ+HG+p321DGJPWUxn04dgxn7DB9M7KP8j54i+cPqiH09pRg+5tcW20KPYiy
- jiTqJII18ZKyDNQi2fDa815eJbxWYvau8fMXPkO6iXlnoKsis9oNsgFDNPKSPJWw/fwqkbyHb00
- xnyoDDI=
-X-Received: by 2002:a05:7300:e9d7:20b0:350:7852:f7df with SMTP id
- 5a478bee46e88-3507852fc50mr1336424eec.0.1790928459675; 
- Fri, 02 Oct 2026 01:07:39 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1c0e:3312:2cff:28c9])
+ AKwUvBziwODKvU+KUlttuFx17y5ENpiMsz9JiHrO2NBuf+uDI/TTLCYbl04W59tP2ftokjLqphdhs7NN14w=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m+zMXy42DsaeBYiFVLpZeEwDiL8NKOpq8M255n76OP+SzWupd2
+ ehJtPUftWrOI1lDMy3T0q4hgiHh6jQtAMdEtWE2hSeB/sRADVbrf8NF6XxsFVsonlto=
+X-Gm-Gg: AYBFou2Q+ZqjPq/cfS3p57abDwD8cbX4nZ4pNVKFlChFoKJeG8CuogcbkMe4OitjDnd
+ QRjl5DaeuaYxzRH+O1SS5/I08YgIYn/k9I5zoHWDAQTSSqmOdphrZTaBxOAXMe7DZahp7++iaJu
+ Dgzyccp70M3C+858N3TpOZYNAknURPi3uG0YBEKTPnw2qPFvt84ZhvAPlBSCyHJtyclCZfIDgNw
+ W13iRP1ANcqPvz0hi4y/7c2gpKlXgdO04pQnubw+1B0msbzvpLIjXqvx/X07V+8MBsNMIlnM2BP
+ KYMIVuVxq7MNhv1wfOYdU8teUeQdMkKjlgx09rVJmuS7hl/ZVUiuXHwlFhAyCTxM/RX75VIa9x2
+ Ge4gc8simVc0SSpPtQl1cmE7I8oUpzibLkWnh43Nh5xFq8kFIgmaRiahHX0AbUGgRuuxmZA74dx
+ 4vpOS2wf+JFE5l0fdsEg4Al8RhswvzcPCRc8gu3XZ+rQ94EPrG0URGeZ3tTtMpdXxfctdSOSBxI
+ G7zzrjnX8wRE2dM/Na84reUf5cwRwUU1txujA591HTEz8OmDcfijbcrUVGkXWTqwV08Vn5qEIR/
+ krWtTg==
+X-Received: by 2002:a05:701b:2096:10b0:143:2719:566e with SMTP id
+ a92af1059eb24-14f5d3b9a1fmr3905150c88.42.1790970037645; 
+ Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34f14f303e3sm5492739eec.5.2026.10.02.01.07.35
+ a92af1059eb24-14f47a57592sm7450113c88.17.2026.10.02.12.40.36
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 02 Oct 2026 01:07:39 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH v2] drm/xe: use resource_size() in xe_pagemap_create()
-Date: Fri,  2 Oct 2026 13:36:59 +0530
-Message-ID: <20261002080731.13992-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+ Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org
+Subject: [PATCH 6.1.y 2/2] drm/i915/hdcp: Add encoder check in
+ hdcp2_get_capability
+Date: Fri,  2 Oct 2026 15:40:27 -0400
+Message-ID: <20261002194030.20489-3-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261002194030.20489-1-artem@trailofbits.com>
+References: <20261002194030.20489-1-artem@trailofbits.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,41 +105,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use resource_size() instead of open coding res->end - res->start + 1.
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Include linux/ioport.h explicitly, since the file relies on struct
-resource and now on the helper as well.
+[ Upstream commit d34f4f058edf1235c103ca9c921dc54820d14d40 ]
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+Add encoder check in intel_hdcp2_get_capability to avoid
+null pointer error.
+
+[ Backport to 6.1.y: upstream adds the check in the DP shim's
+  intel_dp_hdcp2_get_capability(), which does not exist here. This tree
+  predates the intel_connector conversion of the shims: its
+  intel_dp_hdcp2_capable() takes a digital port, and the
+  intel_attached_dig_port() lookup is still done in the common
+  intel_hdcp2_capable() helper. Put the same encoder guard there, before
+  that lookup, and return false through the bool API when no encoder is
+  attached. ]
+
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-3-suraj.kandpal@intel.com
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
-v2: elaborate more in the commit message, and include
-    linux/ioport.h. Both as per Rodrigo suggestions.
+Hi Greg, Sasha, and drm i915 maintainers,
 
-Link to v1: https://lore.kernel.org/all/20261001163328.51556-1-sinha.aryan03@gmail.com/
- drivers/gpu/drm/xe/xe_svm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I am working through the small CVE backports still missing from 6.1.y.
+This one addresses CVE-2024-53050. It adds the same encoder check to the
+HDCP2.2 capability query, which the debugfs path calls right after the
+HDCP1.4 one.
 
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index b228a737c..a9b087c43 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2024 Intel Corporation
-  */
+The 6.6.y backport went out as the same 2-patch series and has been
+picked up for 6.6.y. The fix is already present in 6.12.y, 6.18.y, and
+7.2.y, but not in 6.1.y.
+The target-specific adjustment is recorded in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+CVE: CVE-2024-53050
+Upstream: d34f4f058edf1235c103ca9c921dc54820d14d40
+
+AI assistance: An LLM helped identify, adapt, and validate this backport; I
+reviewed the resulting code and validation evidence.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 507721c94f2fdd..d31c1f1f0e5074 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -208,11 +208,16 @@ bool intel_hdcp_capable(struct intel_connector *connector)
+ /* Is HDCP2.2 capable on Platform and Sink */
+ bool intel_hdcp2_capable(struct intel_connector *connector)
+ {
+-	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
++	struct intel_digital_port *dig_port;
+ 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+ 	struct intel_hdcp *hdcp = &connector->hdcp;
+ 	bool capable = false;
  
-+#include <linux/ioport.h>
- #include <linux/pci-p2pdma.h>
- 
- #include <drm/drm_drv.h>
-@@ -1848,7 +1849,7 @@ static struct xe_pagemap *xe_pagemap_create(struct xe_device *xe, struct xe_vram
- out_no_pages:
- 	drm_pagemap_release_owner(&xpagemap->peer);
- out_no_owner:
--	devm_release_mem_region(dev, res->start, res->end - res->start + 1);
-+	devm_release_mem_region(dev, res->start, resource_size(res));
- out_err:
- 	drm_pagemap_put(dpagemap);
- 	return ERR_PTR(err);
++	if (!intel_attached_encoder(connector))
++		return capable;
++
++	dig_port = intel_attached_dig_port(connector);
++
+ 	/* I915 support for HDCP2.2 */
+ 	if (!hdcp->hdcp2_supported)
+ 		return false;
 -- 
-2.46.0
+2.39.5
 
