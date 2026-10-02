@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80FF3CA5FC4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA93CA5FE3
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 08:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A963710E523;
-	Fri,  2 Oct 2026 08:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6AE10E644;
+	Fri,  2 Oct 2026 08:32:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="Czb6Qrpv";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="MQGRQXc0";
 	dkim-atps=neutral
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
- [74.125.225.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37B8C10E523
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:32:24 +0000 (UTC)
-Received: by mail-wr2-f34.google.com with SMTP id
- ffacd0b85a97d-48af9f88c95so1174262f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 01:32:24 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9680710E65F
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 08:32:27 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49b912df756so55587135e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 01:32:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1790929942; x=1791534742; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1790929946; x=1791534746; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=5JuY5wMUTyN0P+KeYJB0ZAeckebQaYADB7Uozry53MU=;
- b=Czb6QrpvMSPlhsitLa04drRbTHRUAAWaXtceAEm3GY7XO6ffHna+oGKJkxHwAyrvsE
- nUHuIOi32frbD1mWXtB1mIjFLljNQRwRNSb3J440fUDCzkmxadRDN702iJqPvfdhW2d/
- W7xCTRcbQUoWMoDzZruh1mYJ9swted7IOsKruX/brMGMXyrMTjUdDrKrc2aQekufw83P
- tD6F73FpOR+l2K0fYYARsf7hByMw9FSfbmDsfgv65IWx8SThl/TDsUj5W2Vup8qti5Zk
- Km0VU7mTqL491Hc2rGJa7y6spT3yqziFFGUnoiOdhQZMRFALiIYhhSUHsAehzqtmkvLP
- ErHg==
+ bh=Ys5uWke9XBV3Ke8D3pwy0Lwn7XKjGlruZIy2p0X3uuk=;
+ b=MQGRQXc0ssRQFHaUPES2WGQuEiusRxvcRYaB8QHJS99++57gmvm3z/Os4/QPZQyJVp
+ yyWDvhwtYMloV8wWRc2xUsHlarKKseDJtve5/JBXaddoa0aGLnJ5D2pvjOvDg6P1yKJ7
+ FiDfRuELeoKBFMwcMfzT12mQcamUwuB8ql/x6rI1LFH20RTBsz3soT4cANvBbyFbPV10
+ m/HMbe+ugLNKPC/dtvaMm14oKcOpmzGUECl9j7wJENK3Wxcwj9LfG5zAfAy+cr5u8DXV
+ iDFoNDE5tRUNtpG2sxVgs/ur83J0LfhKAUizSYUmZjdf6Cjdyeu31gvm6Eu4tNlcS9+1
+ AQ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790929942; x=1791534742;
+ d=1e100.net; s=20260707; t=1790929946; x=1791534746;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=5JuY5wMUTyN0P+KeYJB0ZAeckebQaYADB7Uozry53MU=;
- b=i3/Y+7sOxRBdZwIptdCZBFfbAVSnsCE+XOKWzffDUXe6t3DrS5fJYBYyj2gOfbN5Q0
- h9Q5xRwtAGb1KRrd42RSy8GVlpWJZILlr3wV49PtlfZBlUXZSZrHQXlfK5k1dWewL5Au
- GiPe2/aC/TfNrzEa202iFs/0me5JC1XOPWd24YCf6NIm84l0FxVGxjquv6fYvX49Jqel
- 8GV9NiAw2zSZAPTPaXCMm49TzH1NwEio/ztP7alqtyn6X0HKre5WM697VORUCmo38Vw9
- zsZQ6ovIQxjd5sw4jA1hrJii0m6yrlyaBRh87o9+CvB5jWSl5TbbbqB9za4ONzDXSNED
- rw+g==
+ bh=Ys5uWke9XBV3Ke8D3pwy0Lwn7XKjGlruZIy2p0X3uuk=;
+ b=SRaif3GqlP48Y+SbliFd3/fCceFukiC6cfAGG1udZg0j3mHA1O60nnShne2GUbTVSX
+ rEWuho8orRPMojHAWmG+a+D7m7GJQeltz86p6bV+v4gcCmTWU4Kgsvl4W7yxfXMg7RwN
+ mNDMPEUyf2iC5k7S9TXlXHQUeTxR0dD60Ad/oeuBc+kj5PaYxDlRQ37Oy14d0ANV6+do
+ PkzNxrxaWrLh+AaZ+OKZ4G/1wAciYGKkE1oWvwBU7/c8V0JBgSRIVeFVq5Cx1Iu3GytF
+ ltWw90FJb+5pvBbqpDyFeYPRCfMhaOghEc5sf8ipVEBLLDwjLrgrwPeu+Kh6KjbhHXZ5
+ 2YOw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxacx6lnyqP1ATz4V5qirdcoljnsWEXmSeg/btNGPUh1liKxiSJnuXWNEONK8K9kUaPbSctPhCN2ow=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kwvmiVHnrzNiCXwPwCli3UjDZFzGjnu6m/r3onz2bM7YupxnVc
- 8ySKm3xv/v9ZurfeM3yDHApwkSBBFCgUUpkkLyQ2/A01yP2Fev7tQaTfUyPc3yMiWKE=
-X-Gm-Gg: AYBFou0y2xWcj+vmmJHo7ZRItN7F85yr9ZQL6bOIlzLbytIISq9B7p8rl6YuR1c+9DJ
- rOEKScD/ToEr2W5N+cm2BCqb27igmhZjlBdppcicTQsrfw27ASZ+Puc6Tg2zHP8pBZNXAEWFtwz
- ZOrSBy2hcQEax235ly0jk1VUxsX5s/gK2ymvXiHleIuumCsD2tw9w9x/MKNdAuIg+DsGibSaj5s
- lsYmHM8jGqaCdu8b+3/Lpcy2RSK9NKyl8od0b+SbGBD4rP/aUcxOucpXUT/TQdo0IKjSL334418
- cef2SHeHSa6DPc8ynITdq9R1aR/B1CYSCM242+0VaJJPEWnjl87tCtY4KyNj39K0ucV2Bpt15/F
- KQMBAcQQyaMMThdQlzXc1fwqcVmDuSAPgNcBbFXE68IwxR0Q9DHkLUORG6JKp/xg37DL/9yxKAp
- b5joFkoWtSGZayUQMPk1qDcF77Ft3K6ZpNNyWHxY38f+tJJIyRuczPwIvtarHMOWNVooE=
-X-Received: by 2002:a05:600c:548c:b0:49e:65f2:db64 with SMTP id
- 5b1f17b1804b1-4a027534bd7mr33259805e9.5.1790929942490; 
- Fri, 02 Oct 2026 01:32:22 -0700 (PDT)
+ AKwUvBx/AkqTUpnQYCXZzbHgVRUbtIfOr0UArj3AAwQpEFHMcGon0DUaWJqZxrzPsxpIwErupDDJU/BfGK0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mXpdGzlrxuzIPwtZOoBSe2/PdGqXSxUwZ63emKxDGnzPY1zFKf
+ FY6Ju4V9P8PdGJxGHECzgJALeTC3lkW7wcEG0FvYc5yYyGHmLadOz4Kberl8FJqRQak=
+X-Gm-Gg: AYBFou2uL8P4FC+f+D4yBpIiXusfHQ20T8ClWUod00iloH/tjyBLqS7U+SvrX+Aq3Xr
+ /P91fx8YxBWvyJKLwe9Bnu/F1yHr8++0viKOpNuLrDOV4Vy1IyqeqnP6LMK3Lj6f3WODsUpmyv7
+ OeekUKUN9gCb0xM1MSKHeEQuyqVTq60R5YjGX2evOWz391t7rtSacSn3hEYh2q58PZpXyOT3Srj
+ X2b3PYcgxwWNMmLXDFoO7u54PWik+c8qjuRSaO8YI0d7cuSTF9Loxj4hd9TKKCuIChZ9sB5fl39
+ InBv7hk1nPUiYMZXOJbwuneMjwSIHF+M99ZN6VqD55awK8lM62mQsviSYyss2KCRXtlvUdKPJ0O
+ E6fpDX2hL+niDxZmQWCwFA/GJoSA96OPIHS3b6CrKjMk2UGe8B0hgz1zOjoIbjdcRZU1ST0+GZY
+ jMJ0N9mkbHRCWdt4UynS0Timdp37maJJuGxyHagKOh2FVYJFi/LI69BTaqa+IudrwmxBM=
+X-Received: by 2002:a05:600c:4307:b0:4a0:b6:4619 with SMTP id
+ 5b1f17b1804b1-4a0274569f9mr25694905e9.0.1790929945843; 
+ Fri, 02 Oct 2026 01:32:25 -0700 (PDT)
 Received: from zovi.suse.cz ([2001:af0:8000:1409:193:86:92:181])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a03feed16bsm42507905e9.4.2026.10.02.01.32.21
+ 5b1f17b1804b1-4a03feed16bsm42507905e9.4.2026.10.02.01.32.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 01:32:22 -0700 (PDT)
+ Fri, 02 Oct 2026 01:32:25 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
  Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
@@ -94,9 +94,9 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
  linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
  linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] hwmon: Replace __MODULE_STRING() with __stringify()
-Date: Fri,  2 Oct 2026 10:31:01 +0200
-Message-ID: <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
+Subject: [PATCH v2 3/3] module: Remove obsolete __MODULE_STRING()
+Date: Fri,  2 Oct 2026 10:31:03 +0200
+Message-ID: <20261002-module-string-v2-3-fc7438acaf4d@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
 References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
@@ -122,114 +122,31 @@ __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
 MODULE_PARM support for older modules" [1] in 2002-12. That change also
 moved it to the graveyard section at the end of linux/module.h
 
-Replace the remaining uses of __MODULE_STRING() with __stringify() in
-preparation for its removal.
+Remove __MODULE_STRING() now that all remaining uses have been replaced
+directly with __stringify().
 
 Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- drivers/hwmon/fschmd.c         | 3 ++-
- drivers/hwmon/nct7904.c        | 5 +++--
- drivers/hwmon/sch56xx-common.c | 3 ++-
- drivers/hwmon/w83793.c         | 5 +++--
- 4 files changed, 10 insertions(+), 6 deletions(-)
+ include/linux/module.h | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/hwmon/fschmd.c b/drivers/hwmon/fschmd.c
-index 019fc32bf318..df9418a86c83 100644
---- a/drivers/hwmon/fschmd.c
-+++ b/drivers/hwmon/fschmd.c
-@@ -35,6 +35,7 @@
- #include <linux/miscdevice.h>
- #include <linux/uaccess.h>
- #include <linux/kref.h>
-+#include <linux/stringify.h>
+diff --git a/include/linux/module.h b/include/linux/module.h
+index f6f90cd88f15..37de77340032 100644
+--- a/include/linux/module.h
++++ b/include/linux/module.h
+@@ -896,10 +896,6 @@ extern const struct kobj_type module_ktype;
  
- /* Addresses to scan */
- static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
-@@ -43,7 +44,7 @@ static const unsigned short normal_i2c[] = { 0x73, I2C_CLIENT_END };
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+	__stringify(WATCHDOG_NOWAYOUT) ")");
+ #define symbol_request(x) try_then_request_module(symbol_get(x), "symbol:" #x)
  
- enum chips { fscpos, fscher, fscscy, fschrc, fschmd, fschds, fscsyl };
- 
-diff --git a/drivers/hwmon/nct7904.c b/drivers/hwmon/nct7904.c
-index 976b8a008e44..04e1a8e6db37 100644
---- a/drivers/hwmon/nct7904.c
-+++ b/drivers/hwmon/nct7904.c
-@@ -23,6 +23,7 @@
- #include <linux/i2c.h>
- #include <linux/hwmon.h>
- #include <linux/watchdog.h>
-+#include <linux/stringify.h>
- 
- #define VENDOR_ID_REG		0x7A	/* Any bank */
- #define NUVOTON_ID		0x50
-@@ -113,12 +114,12 @@
- static int timeout;
- module_param(timeout, int, 0);
- MODULE_PARM_DESC(timeout, "Watchdog timeout in minutes. 1 <= timeout <= 255, default="
--			__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
-+			__stringify(WATCHDOG_TIMEOUT) ".");
- 
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--			__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+			__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- static const unsigned short normal_i2c[] = {
- 	0x2d, 0x2e, I2C_CLIENT_END
-diff --git a/drivers/hwmon/sch56xx-common.c b/drivers/hwmon/sch56xx-common.c
-index a385aae3bb0f..febb8ba7dc2c 100644
---- a/drivers/hwmon/sch56xx-common.c
-+++ b/drivers/hwmon/sch56xx-common.c
-@@ -18,13 +18,14 @@
- #include <linux/watchdog.h>
- #include <linux/uaccess.h>
- #include <linux/slab.h>
-+#include <linux/stringify.h>
- #include "sch56xx-common.h"
- 
- /* Insmod parameters */
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
--	__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+	__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- #define SIO_SCH56XX_LD_EM	0x0C	/* Embedded uController Logical Dev */
- #define SIO_UNLOCK_KEY		0x55	/* Key to enable Super-I/O */
-diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
-index c6ef04c69856..e1f2708b5db6 100644
---- a/drivers/hwmon/w83793.c
-+++ b/drivers/hwmon/w83793.c
-@@ -34,6 +34,7 @@
- #include <linux/notifier.h>
- #include <linux/reboot.h>
- #include <linux/jiffies.h>
-+#include <linux/stringify.h>
- 
- /* Default values */
- #define WATCHDOG_TIMEOUT 2	/* 2 minute default timeout */
-@@ -57,13 +58,13 @@ static int timeout = WATCHDOG_TIMEOUT;	/* default timeout in minutes */
- module_param(timeout, int, 0);
- MODULE_PARM_DESC(timeout,
- 	"Watchdog timeout in minutes. 2<= timeout <=255 (default="
--				__MODULE_STRING(WATCHDOG_TIMEOUT) ")");
-+				__stringify(WATCHDOG_TIMEOUT) ")");
- 
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout,
- 	"Watchdog cannot be stopped once started (default="
--				__MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+				__stringify(WATCHDOG_NOWAYOUT) ")");
- 
- /*
-  * Address 0x00, 0x0d, 0x0e, 0x0f in all three banks are reserved
+-/* BELOW HERE ALL THESE ARE OBSOLETE AND WILL VANISH */
+-
+-#define __MODULE_STRING(x) __stringify(x)
+-
+ #ifdef CONFIG_GENERIC_BUG
+ void module_bug_finalize(const Elf_Ehdr *, const Elf_Shdr *,
+ 			 struct module *);
 
 -- 
 2.55.0
