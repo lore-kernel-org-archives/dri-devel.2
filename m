@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C323DCA5FF6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C787CA5FF5
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DFE10EAC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E939E10EAC3;
 	Sun,  4 Oct 2026 17:18:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="ErPMe3zF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PchpSqVh";
 	dkim-atps=neutral
-Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com
- [74.125.229.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ABB510E6A2
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:40:38 +0000 (UTC)
-Received: by mail-dl2-f42.google.com with SMTP id
- a92af1059eb24-144f47a9b57so7822155c88.2
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:40:38 -0700 (PDT)
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
+ [74.125.225.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F42D10E0A0
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 02:18:02 +0000 (UTC)
+Received: by mail-wr2-f34.google.com with SMTP id
+ ffacd0b85a97d-48b01fd0ff1so343308f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 19:18:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790970038; x=1791574838;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
- b=ErPMe3zFoNPj71oqQZxaOfkvJcPEeqdNIs83wW1Mp2UPFzOEMpQzva9J4DvEvjYgnk
- VRgtK0hoKuZrWe0h0V9op6b1jF6mxbQOUQ3ntMpcrA1+J7Ck0P07nenXVKywf+ZZXDnY
- GqSQp8IeFDpj/Dwd723RnneFm4mKEUnQuey0rPdwkXQ4Bx/nMjiaEDCBzD0y9KLZT/oa
- b8Qp46VGjC/BQf9dfpNHOu5cELqSJOe+aW95/WtIjekL4mNHBhA/0KWWPJxPJTjjewXo
- +T4z+NCCMRH1oZUJTKGYwExNnq4YGIXf7+UtgxoE2y8eAZYy+Urzj056pGI9hvD/bFlw
- 5IhQ==
+ d=gmail.com; s=20251104; t=1790907481; x=1791512281; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=K3VaIb3BtBdftLmeTIXBSMEw6OrRCg+sJcH/2TWbb2M=;
+ b=PchpSqVhMDNMvnT2jyoCBoKAcihCJzRbwLyxMBBA8uRGM5eFH6AsawRfcdVAkA09ww
+ CVG6FmvdSBRon0a9OoTwPophn9lATJWy3TL8wH121A9GbxZT4MGZ4NK2hozDn9pvQdi3
+ Y2HqRCfOUTt7wiYB0MGuFXFcA4gDs45YXxf0W8pe+sKacq67TJIV9uPRyqhCYTHqwOzb
+ NNU0rEGR7wHSKY9QBKBiskrn3WzJzqmMKdPNCbiHPxnUdhWKMojU346kpBKX96KWgCVk
+ ja93wZCMeoE0QIRqbmGcT2uQNfKj1e2h9jbLcM7OXVY9kl1rnigi1bARd25txb8KjrCI
+ 8ALQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790970038; x=1791574838;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Cik4OmGCLcSffV9aIni80ba9p8veycKB8eAV/ioP5eU=;
- b=arV7q9IPBb+9h7uvZOgR5gsVx0W7a3fk+IPDau7hF3zgA4vIqB4QMVVclBhqA5qlhP
- rWmiIRhnEVENUqrker7gyCKXnd+Di5NmZ9OBEg8b5CLyxAy6wBu6E2osOFpT6+wWzDJT
- h1rPbnQceU79l2VzYcLXCaELA021IAVpvGF3F0LJ2NNK3z9j1ehSZelWyws3Ptinbnhv
- P6x6Jse42slf4LdqZFUezlMwVgOicsb/Li7mC2Oa6yJ4ZN45EpK1qHNAIrBsKf6HDRMz
- tmuuP9NVX50VXfMobrKXY1kIW7n65Vf407W3dj/tCwW6Df7v1bb15tB3hWXhedKYHtD9
- foUw==
+ d=1e100.net; s=20260707; t=1790907481; x=1791512281;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=K3VaIb3BtBdftLmeTIXBSMEw6OrRCg+sJcH/2TWbb2M=;
+ b=Tg+HEQFiVbZn+gu/h0r/GsZ93GaYBdpU+JdPPdtUv92k8J1qHBtdOOyrKoFR1OB4kq
+ uLG+OqyOr0OrLHOtmirLxO1iXCEHs51rM5jPF18lU3XfCqOiwELvd0aiBNygNFZ5pOtC
+ aUPviGP6jQE0DkdtOR1t+TpDsWwUnb+jXYbUHYJN3CwGjOhAY9QTkg9dExfjqg7gbbAu
+ TI3Yg+IBefI6NUkUkarobvJPvdugwNc7OIG51AmPLA/ylq1inZd7NbNKkmxfZ+jjamuR
+ CP5KpAu/TZ2+PygMaw6bMmMA6oA1nS0uAcAXCBxvONG+o517rOx94dyWr8rdQuAXZWMQ
+ jmCA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBziwODKvU+KUlttuFx17y5ENpiMsz9JiHrO2NBuf+uDI/TTLCYbl04W59tP2ftokjLqphdhs7NN14w=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m+zMXy42DsaeBYiFVLpZeEwDiL8NKOpq8M255n76OP+SzWupd2
- ehJtPUftWrOI1lDMy3T0q4hgiHh6jQtAMdEtWE2hSeB/sRADVbrf8NF6XxsFVsonlto=
-X-Gm-Gg: AYBFou2Q+ZqjPq/cfS3p57abDwD8cbX4nZ4pNVKFlChFoKJeG8CuogcbkMe4OitjDnd
- QRjl5DaeuaYxzRH+O1SS5/I08YgIYn/k9I5zoHWDAQTSSqmOdphrZTaBxOAXMe7DZahp7++iaJu
- Dgzyccp70M3C+858N3TpOZYNAknURPi3uG0YBEKTPnw2qPFvt84ZhvAPlBSCyHJtyclCZfIDgNw
- W13iRP1ANcqPvz0hi4y/7c2gpKlXgdO04pQnubw+1B0msbzvpLIjXqvx/X07V+8MBsNMIlnM2BP
- KYMIVuVxq7MNhv1wfOYdU8teUeQdMkKjlgx09rVJmuS7hl/ZVUiuXHwlFhAyCTxM/RX75VIa9x2
- Ge4gc8simVc0SSpPtQl1cmE7I8oUpzibLkWnh43Nh5xFq8kFIgmaRiahHX0AbUGgRuuxmZA74dx
- 4vpOS2wf+JFE5l0fdsEg4Al8RhswvzcPCRc8gu3XZ+rQ94EPrG0URGeZ3tTtMpdXxfctdSOSBxI
- G7zzrjnX8wRE2dM/Na84reUf5cwRwUU1txujA591HTEz8OmDcfijbcrUVGkXWTqwV08Vn5qEIR/
- krWtTg==
-X-Received: by 2002:a05:701b:2096:10b0:143:2719:566e with SMTP id
- a92af1059eb24-14f5d3b9a1fmr3905150c88.42.1790970037645; 
- Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
+ AKwUvBxJlFd/BpyNhVGNllpBvH8Fqkfbt+YW1Epk2o7PHdpkB7KLtr8h4loPkmORAbLFJTCBUuwXI7fcWZc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJNk7DndTkAdsWKg+2x+at6mLf8zl3WB8/DNPlsUVM2QZTkk6yu
+ saSERvfdKbLT0ewjiRO3NOe2vZBxrhhR+bKbj5PD9FVp57oI038TWZ8v
+X-Gm-Gg: AYBFou3GDt81R7/EH4Ks1pxNFzo39QEbOXDOu88lhDS9R8HWTvA36HDt0p7hh5G1QY4
+ 8iVfvwb+pfhfIP/SQ6ojWf619g/ijZCsvZUbzEUOzJiqZ5H6DryXT9/8YUrPFQ+nnF9JPh0T9U5
+ xC+qamf6ZLHNr9sZExes/bgRg/FlmJi7ZsUkleGZMw6A+BewfGgXiM9DZ7jsz9CrxcHDBETjxp7
+ 49XXOqzmB2tVLrQrfMrkSQgxpFnzn/0SGsoKUNvtrcZFAc/lcNCIUSZrNbp3Gu02G6qzGiVqtrf
+ 2MsaCqFShbFvjBH/3MbwfjyOyumLOxibJ1PHLRUFvTfj1KcGLED3TVuI9+bgAiOdQocJv4ORWIX
+ uFLGJGU0G/IEwZj+u3+A8dXrpUPJ8H6dk9Q+/LWGlYQmsijc1ESEv9Z0fI6N1X8l56aVhdb67hh
+ xnyk9apIP1ocZ0uk4e0ri/CcmPvDVhM8bJqv9CLnQK3A0/DLyvvMbUaNEIbb5z86/n/Le7F19Ip
+ 3cn9XuKdjvwFFvour8MpA==
+X-Received: by 2002:a05:6000:2007:b0:48a:f4c1:4301 with SMTP id
+ ffacd0b85a97d-48b127206d0mr2096245f8f.6.1790907480475; 
+ Thu, 01 Oct 2026 19:18:00 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.71.106])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14f47a57592sm7450113c88.17.2026.10.02.12.40.36
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 02 Oct 2026 12:40:37 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org
-Subject: [PATCH 6.1.y 2/2] drm/i915/hdcp: Add encoder check in
- hdcp2_get_capability
-Date: Fri,  2 Oct 2026 15:40:27 -0400
-Message-ID: <20261002194030.20489-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261002194030.20489-1-artem@trailofbits.com>
-References: <20261002194030.20489-1-artem@trailofbits.com>
+ ffacd0b85a97d-48b82253e6bsm1605411f8f.6.2026.10.01.19.17.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Oct 2026 19:18:00 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, emmaonana18@gmail.com, skhan@linuxfoundation.org
+Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for cgs register
+ typedefs
+Date: Fri,  2 Oct 2026 03:17:50 +0100
+Message-ID: <20261002021750.13596-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
@@ -105,76 +90,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+kernel-doc reports prototype mismatches for the cgs register accessor
+typedefs, whose comments do not use the documented typedef format, e.g.:
 
-[ Upstream commit d34f4f058edf1235c103ca9c921dc54820d14d40 ]
+  drivers/gpu/drm/amd/include/cgs_common.h:89 ... expecting prototype
+  for cgs_read_register(). Prototype was for uint32_t() instead
 
-Add encoder check in intel_hdcp2_get_capability to avoid
-null pointer error.
+Use the typedef comment format for all four accessors (also restoring
+the dropped _t suffix) and replace the wrong @offset with the real
+@space/@index params in the two indirect-register comments.
 
-[ Backport to 6.1.y: upstream adds the check in the DP shim's
-  intel_dp_hdcp2_get_capability(), which does not exist here. This tree
-  predates the intel_connector conversion of the shims: its
-  intel_dp_hdcp2_capable() takes a digital port, and the
-  intel_attached_dig_port() lookup is still done in the common
-  intel_hdcp2_capable() helper. Put the same encoder guard there, before
-  that lookup, and return false through the bool API when no encoder is
-  attached. ]
-
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240722064451.3610512-3-suraj.kandpal@intel.com
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
-Hi Greg, Sasha, and drm i915 maintainers,
+ drivers/gpu/drm/amd/include/cgs_common.h | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-I am working through the small CVE backports still missing from 6.1.y.
-This one addresses CVE-2024-53050. It adds the same encoder check to the
-HDCP2.2 capability query, which the debugfs path calls right after the
-HDCP1.4 one.
-
-The 6.6.y backport went out as the same 2-patch series and has been
-picked up for 6.6.y. The fix is already present in 6.12.y, 6.18.y, and
-7.2.y, but not in 6.1.y.
-The target-specific adjustment is recorded in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-CVE: CVE-2024-53050
-Upstream: d34f4f058edf1235c103ca9c921dc54820d14d40
-
-AI assistance: An LLM helped identify, adapt, and validate this backport; I
-reviewed the resulting code and validation evidence.
-
-Thanks,
-Artem Dinaburg
-
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 507721c94f2fdd..d31c1f1f0e5074 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -208,11 +208,16 @@ bool intel_hdcp_capable(struct intel_connector *connector)
- /* Is HDCP2.2 capable on Platform and Sink */
- bool intel_hdcp2_capable(struct intel_connector *connector)
- {
--	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_digital_port *dig_port;
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	struct intel_hdcp *hdcp = &connector->hdcp;
- 	bool capable = false;
+diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
+index f40b6a03fe63..3a25c3c75a3a 100644
+--- a/drivers/gpu/drm/amd/include/cgs_common.h
++++ b/drivers/gpu/drm/amd/include/cgs_common.h
+@@ -81,7 +81,7 @@ struct cgs_firmware_info {
+ typedef unsigned long cgs_handle_t;
  
-+	if (!intel_attached_encoder(connector))
-+		return capable;
-+
-+	dig_port = intel_attached_dig_port(connector);
-+
- 	/* I915 support for HDCP2.2 */
- 	if (!hdcp->hdcp2_supported)
- 		return false;
+ /**
+- * cgs_read_register() - Read an MMIO register
++ * typedef cgs_read_register_t - Read an MMIO register
+  * @cgs_device:	opaque device handle
+  * @offset:	register offset
+  *
+@@ -90,7 +90,7 @@ typedef unsigned long cgs_handle_t;
+ typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
+ 
+ /**
+- * cgs_write_register() - Write an MMIO register
++ * typedef cgs_write_register_t - Write an MMIO register
+  * @cgs_device:	opaque device handle
+  * @offset:	register offset
+  * @value:	register value
+@@ -99,9 +99,10 @@ typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned off
+ 				     uint32_t value);
+ 
+ /**
+- * cgs_read_ind_register() - Read an indirect register
++ * typedef cgs_read_ind_register_t - Read an indirect register
+  * @cgs_device:	opaque device handle
+- * @offset:	register offset
++ * @space:	indirect register space
++ * @index:	register index
+  *
+  * Return:  register value
+  */
+@@ -109,9 +110,10 @@ typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum
+ 					    unsigned index);
+ 
+ /**
+- * cgs_write_ind_register() - Write an indirect register
++ * typedef cgs_write_ind_register_t - Write an indirect register
+  * @cgs_device:	opaque device handle
+- * @offset:	register offset
++ * @space:	indirect register space
++ * @index:	register index
+  * @value:	register value
+  */
+ typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
 -- 
-2.39.5
+2.43.0
 
