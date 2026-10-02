@@ -4,91 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB302CA5FD4
-	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:00:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF509CA5FD4
+	for <dri-devel@archiver.kernel.org>; Fri,  2 Oct 2026 14:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 005B810F85D;
-	Fri,  2 Oct 2026 14:00:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32FA110F84B;
+	Fri,  2 Oct 2026 14:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="mnw9/1hh";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MyIc5aB1";
 	dkim-atps=neutral
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com
- [74.125.228.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A341810F85D
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:00:53 +0000 (UTC)
-Received: by mail-ed2-f12.google.com with SMTP id
- 4fb4d7f45d1cf-6a60591ae54so12153295a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:00:53 -0700 (PDT)
+Received: from mail-wr2-f39.google.com (mail-wr2-f39.google.com
+ [74.125.225.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAF3F10F84B
+ for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 14:02:33 +0000 (UTC)
+Received: by mail-wr2-f39.google.com with SMTP id
+ ffacd0b85a97d-48af929e59dso2987014f8f.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 07:02:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1790949652; x=1791554452; darn=lists.freedesktop.org;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=FhuCqWE46Oix2LB6rL8UWqZIc/9YnixRqUY7dkp01xw=;
- b=mnw9/1hhkM3z7LEz2iwhH0I8m+JBwIl80IBzW1KO1S2sLvmECBM/kWAPt35he6ZQ39
- KbtDejgZtWVrjJn/ltwWXF8NN3VUMQm99b/0xY+sb7T2zTxwj50ccIYLDdD7g5nq13V6
- bFJjwy2Df3fYxJ63XJM4y3BP8xYTG9LNFmttcaUynUoj3DtafpJeMg6wJj2rZnatScra
- mUz1VVLCwhA/9h3fP4pyQAAsIeX80zw8yySbfAGUuR1kMawA/kMc3aMtPluewdFS5PfT
- hIG7O0O7kJBUPWE9vyFT3Hyj0Y0v+kMds+s7nK8BPKrIVs8HkMhNec4jjRHCEs8HiZ70
- ZX1w==
+ d=linaro.org; s=google; t=1790949752; x=1791554552; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
+ b=MyIc5aB1ukqLN/7v7QCfToRwgnZO/Kl6sP12gkHEUZZ+RKjbCwZAXpk+pZ+Pt1U8UH
+ ZWdVnBxlG3J15h5xUR8BHwm8SenLyhH7ZKSyJS46RXVb5RpRKg5n4N/5jbs+91pcZpWt
+ cx9MheThBroWDgbu9+up6SKgnNQzu1GFgkPsLQGnByu3cMdaZc7kZ57KOJ43GID9xaYW
+ 2/ETtMqpKsw9PJN7J7L4IXiAaJdYx8FuvAWkpIFLO2Yv2Q28aqak/hFbtzXF8zxKzNSu
+ XPiuaWpOrN/AagqJwDKVyA8VZ0LpkbPSF6LUDgGunaPZphZeL5aKktjyPD8kSI5x6J+X
+ aKIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790949652; x=1791554452;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FhuCqWE46Oix2LB6rL8UWqZIc/9YnixRqUY7dkp01xw=;
- b=gqja250sEYqAaVGNkS8EklCk+al/MVSwKUVtLRQdXezaaWITqixzllP2Gy/XKHNMD3
- XDzkcZYeuF7PVE+vA/AHP6gW66q4IlYf8jQISyKyt5zqP8tWanvB+8aa93QoVdT0s2RD
- lWLpNlUbiMZlBDFPECkt4m57/HduPbeCrx6K2X480nnrHjGvkL7qJOYHFkZMtWeSz9W4
- 0GU8N+8PihmU4d2ZEYluYhhQOw0lpFOy0SQHd5BRRMKikIkVc5GCdqdXpjfbCWKFNmBX
- wMgIUEk2BhjeX77mwIBY8pd465ydPEIKRCynWOqqqkGzxLSioMQwVY4uda7h/xMhEaRq
- k1bQ==
+ d=1e100.net; s=20260707; t=1790949752; x=1791554552;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qb3iCujopSE8wIGt0Gx78GxDd4scP1isaUjBiUrVvNQ=;
+ b=y6oY0z0D1vKTKEXnct7obCRpnWJ0geaIlZkbz0F1JtYzeSk+tvKcltVizNnCu65LZ8
+ PKvv3tBJnO932Ch34xVWQCtYMtsqcKPLp/766kXANr++ttxLwmUjznjWQUjvsZbdmgyB
+ r+wjXlz4EtorA2t5ZKHPbAWJVK4noGQYgXPuIqBR13i4RUwfMUp46tXEe8c7zxbZus/q
+ CJSzL4yMAg0T8tSUN5ldEIQ9ETQJ2/jYjdnuorZ3v5Rxfg1WElmNGcaILB9PkAOge+YR
+ Ea2w9D0zi2E4VeIi62Yi8TyEdTgj8kqDJ/Rm259j6Zfht/2hTd2qE5LL0Jx8MIvvaY9/
+ Xt7w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz2H+/NIIifys+TIb3fyhavaZlD/264LByTk0Z9Udq3C0xK8WYUkEZ3bynriIwigwwGyzMd0eQxFus=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKnb/Msg7J+P1cj+P5CINQsKWhcoVgtYDpZOc/zM/xhxzSvux9L
- 1m8F+X3gM7iF+KX3E3oBP61BNkEci6EjhqWqVLKkUOEuFN8pwlRXMkMJd6KX4cr8p24=
-X-Gm-Gg: AYBFou3PtQNkwG1lO1DUtIvrsTvNN9BI3U9PfaZWwCnDOjea3T/nM3tYzH8SBJPGgEX
- SGonsOItsAH6ewFAC4rFhpNOl9oTohNBJEZB4bbToq73jVKl31dnlVKrSzi9ra0fxFpDxGY4i03
- JJHTV2ExcSAFqb0lQucDUFu9iybP40/Cz/hmuMXV60GmVArFj44VpG/Whlxw0d/cmJ+vXAndYJd
- SUwExyYtMYHFaxak0xtgFKdZEToP37X/gGTbgWcsY+wg0VsW+CtltfkcVrnbn+e37V0fvZsiupt
- upnDl9mNqVaHYIHv6uNsP1IkCWip0F+oZOGpL5uVqEgsTuI712xEeSjivxhVMvxshfqhKYy5LsH
- juo9U14IsVlHTq90P8ErfHxvpo7lPJj+f5s0nmoh1fXZCy1DBESlBWrHrA20yB8WKEjj/IxGrQr
- vVaSEQXPl5F//+C0gPZPj93EVW8RsECiv8UxHY5OmGUispP1W/WJO/qcePZtUM7udhnVXLIEker
- B6nMPOqG9TVskj4Wx5mY3wssR46xMAu4mod38UxQu0=
-X-Received: by 2002:a05:6402:3228:b0:6ac:7d0c:2cb8 with SMTP id
- 4fb4d7f45d1cf-6af9e342728mr1802843a12.30.1790949651896; 
- Fri, 02 Oct 2026 07:00:51 -0700 (PDT)
-Received: from localhost (144-178-202-142.static.ef-service.nl.
- [144.178.202.142]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6af9d8a5361sm944608a12.21.2026.10.02.07.00.50
+ AKwUvByn+e1jgzUV1SJveoFJaUzBmLmIoNYajyL2H74pxsEUfJhKEhJC6+6At1Yx5sQX/h7fri7PUcwLjQU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKMJ4LcX1aYzrAtp/t4iWM4k8BvM1lR54WA7l5UO9PzHr3u6cW8
+ PfjC1bS6vRSTIK3Zpqw1o5c+bojVJdTp1Iz1R/yV986xLm/VAbxjznq2TLr2UQ/vtbk=
+X-Gm-Gg: AYBFou0I+ErWKU/xVjQf47pnFBq0QEh/jIrV99C6ZM50QyyUw16P0AFfT8X7ZPYcxqX
+ iJiPWzMbssc/zMUkpSPd/XXEml7nBD97Wj/mqtY+/iWY0aP3wXN2bwkddHfDMTc/8bCy8qapv7f
+ 1SqDCV7TDuySF3jcjQrl6lhDlbGTZQnY7n1q7MVtQphwD+QexId06VTu34IBUh50r77DQKchRON
+ xmHO7wlBiI0oGT35HKm97UFTUAuH0inFMtHyCcMuhiNNjz2vFvXlNwGl91XoqwzB4bmyT7bnXSl
+ FD1t1bTCiVkOFE8lWD3TnMUWJaqvlErCSYDgvBhK5AHo4DKGnFQLS2wLRiobRcCAfaTZzNb9TkB
+ wTm+CqtAz1OmGsYxsfWS+xpzOjja6OX2XjE796sczuPUyJPjUmLq6hCVwRYt5rHPb8yW2WfSbv8
+ f5OF3QoxqCrSPkSoX+o0eSQKEiW9GI/F2NtT1HMm/mQugenpoKeWGNHYgRP7rE1phZR/CQdQAZA
+ 5FwV7cKfblgDbmZHx3cSy77guwL0nVvE+VUGpX0QHs9FRUspmw=
+X-Received: by 2002:a05:6000:2287:b0:48a:f354:aefe with SMTP id
+ ffacd0b85a97d-48b1274facdmr5552169f8f.39.1790949751982; 
+ Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e?
+ ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48b38105239sm8006009f8f.33.2026.10.02.07.02.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Oct 2026 07:00:50 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 02 Oct 2026 16:00:49 +0200
-Message-Id: <DLUENYYQNULZ.BMYEQYCFZ258@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Rob Herring" <robh@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Add Novatek NT37705
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
- <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
- <20260918213518.GA2337779-robh@kernel.org>
-In-Reply-To: <20260918213518.GA2337779-robh@kernel.org>
+ Fri, 02 Oct 2026 07:02:31 -0700 (PDT)
+Message-ID: <e37d41db-5218-494e-96fe-bbf4e028763e@linaro.org>
+Date: Fri, 2 Oct 2026 16:02:30 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel-simple: take i2c adapter module reference
+To: Johan Hovold <johan@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260716132334.1565183-1-johan@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260716132334.1565183-1-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,129 +119,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Rob,
+On 7/16/26 15:23, Johan Hovold wrote:
+> The i2c subsystem currently blocks during adapter deregistration
+> whenever there are consumers holding a reference.
+> 
+> Switch to using of_get_i2c_adapter_by_node() which also takes a
+> reference to the adapter module so that an attempt to unload the module
+> while in use fails gracefully instead of blocking uninterruptibly.
+> 
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>   drivers/gpu/drm/panel/panel-simple.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index c09bf3db5e78..f58e83aa4ebe 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -701,7 +701,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
+>   
+>   	ddc = of_parse_phandle(dev->of_node, "ddc-i2c-bus", 0);
+>   	if (ddc) {
+> -		panel->ddc = of_find_i2c_adapter_by_node(ddc);
+> +		panel->ddc = of_get_i2c_adapter_by_node(ddc);
+>   		of_node_put(ddc);
+>   
+>   		if (!panel->ddc)
+> @@ -746,7 +746,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
+>   	pm_runtime_disable(dev);
+>   free_ddc:
+>   	if (panel->ddc)
+> -		put_device(&panel->ddc->dev);
+> +		i2c_put_adapter(panel->ddc);
+>   
+>   	return ERR_PTR(err);
+>   }
+> @@ -791,7 +791,7 @@ static void panel_simple_remove(struct device *dev)
+>   	pm_runtime_dont_use_autosuspend(dev);
+>   	pm_runtime_disable(dev);
+>   	if (panel->ddc)
+> -		put_device(&panel->ddc->dev);
+> +		i2c_put_adapter(panel->ddc);
+>   }
+>   
+>   static const struct drm_display_mode ampire_am_1280800n3tzqw_t00h_mode = {
 
-On Fri Sep 18, 2026 at 11:35 PM CEST, Rob Herring wrote:
-> On Fri, Sep 18, 2026 at 04:40:04PM +0200, Luca Weiss wrote:
->> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
->>=20
->> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
->> from BOE) using it.
->>=20
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@ker=
-nel.org/
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 +++++++++++++++=
-+++++++
->>  1 file changed, 72 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt3=
-7705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705=
-.yaml
->> new file mode 100644
->> index 000000000000..1c796599f6fc
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.ya=
-ml
->
-> Did novatek,nt37705 get dropped as a compatible, but the filename=20
-> remains?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-That's how himax,hx83112a.yaml and himax,hx83112b.yaml are as well,
-which I have upstreamed before. I *really* don't have strong opinions
-either way, but as in the email referred to in "Link:" the versions I
-have upstreamed before have been accepted without issue, and even
-discussion pointing in the way I have done things here.
-
->
->> @@ -0,0 +1,72 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Novatek NT37705-based DSI display panels
->> +
->> +maintainers:
->> +  - Luca Weiss <luca.weiss@fairphone.com>
->> +
->> +description:
->> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED =
-panels.
->> +
->> +allOf:
->> +  - $ref: panel-common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    contains:
->
-> As sashiko reports, "contains" is too loose.
-
-Will fix, seems to also be an issue in the hx83112a/b yamls.
-
->
->> +      const: boe,bj631jhm-t71-d900
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  vddio-supply:
->> +    description: I/O voltage rail
->> +
->> +  dvdd-supply:
->> +    description: Digital voltage rail
->> +
->> +  vci-supply:
->> +    description: Analog voltage rail
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reset-gpios
->> +  - vddio-supply
->> +  - dvdd-supply
->> +  - vci-supply
->> +  - port
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/gpio/gpio.h>
->> +
->> +    dsi {
->> +        #address-cells =3D <1>;
->> +        #size-cells =3D <0>;
->> +
->> +        panel@0 {
->> +            compatible =3D "boe,bj631jhm-t71-d900";
->> +            reg =3D <0>;
->> +
->> +            reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
->> +
->> +            vci-supply =3D <&vreg_l19b>;
->> +            vddio-supply =3D <&vreg_l9b>;
->> +            dvdd-supply =3D <&vreg_oled_dvdd_1p2>;
->> +
->> +            port {
->> +                panel_in_0: endpoint {
->> +                    remote-endpoint =3D <&dsi0_out>;
->> +                };
->> +            };
->> +        };
->> +    };
->> +
->> +...
->>=20
->> --=20
->> 2.55.0
->>=20
-
-
+Thanks,
+Neil
