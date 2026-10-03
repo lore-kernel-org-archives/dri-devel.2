@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67297CA5FE6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA9DCCA5FEC
 	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE36810E95A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D187510E95B;
 	Sat,  3 Oct 2026 17:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DS4qz6P6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E+sMmNlc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7509B10E951
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D7010E955
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5F32641924;
- Sat,  3 Oct 2026 17:56:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BA91F0089F;
- Sat,  3 Oct 2026 17:56:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E5738412AD;
+ Sat,  3 Oct 2026 17:56:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041461F0089E;
+ Sat,  3 Oct 2026 17:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791050202;
- bh=Qlw/6VopiASWFUc39bJ7XH+NISe/U4KYCR82r/LcIN0=;
+ s=k20260515; t=1791050200;
+ bh=We9SPyjRDJvyFxiU73xJrKbNsJY8jWQtDNcOJSCIRZE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DS4qz6P6V6hUruZYG+z1kg2IvxXKDdUD+71B2y/D2P5zu9a6w9s4TStWnDhDQW+pj
- x2uPwUW522e4ua5HOvit62HiYLLJcXjHTPfsQvC5l/ORN556P3wDrSgev6MWS19BSJ
- DFNE57Z4SsRAehpdpeOnl0rFBb+pHwcpZdqteYogEqeKuGlCv87pT4c+/2A14ltLiJ
- Byq3mjRn1rArBGA1/OlyODnmkohuZtiNmjme2cA0pqzZC4q/Q9NtRN9Qzm1Fthh0cG
- QN66PWQsEeqjdUhoVc7VTsl1hdwF1Kff0F1J9ZyIE9+KehylgEuK5onlAZUFt/pJW9
- k2ZL66B1D6tOg==
+ b=E+sMmNlcwWMdOivJYnnKbEA/WJgQE7x7RnJNKHzxmBmif0O9Kb9/6K9UDgx8WPC45
+ yWy3qtW6fW7eWrBWWLH2cRsoq6UEsK8M+957iQxzLZrHHKiCM8nl75ga9PW6kbRc41
+ paqUVUe+twpgQZ4Uv2lqv1ZbNjbnT05/iVbKs4encEJs8sxRu+A0aC7wxaHty5KVK4
+ oMvPxd/ZIQWOM+4wbvRtfcZsycJ196lj1ealjtFDg3pws3fnXygg32raO1poNF03IP
+ N3NOOzpYXdRT5knlSOqXIa+csOyEnGgIaIWT4fubtAYNFhzVy1rD87d4NuzJusfquN
+ QFZERzH4uG++g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 13/38] bpf: arena: mark arena_map_mmap() mappings
- VM_MIXEDMAP
+Subject: Re: [PATCH v4 11/38] selinux: reject writable opens of policy file,
+ drop mmap shared/write check
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: "Oliver Upton" <oupton@kernel.org>, linux-trace-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Heiko
- Carstens" <hca@linux.ibm.com>, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-s390@vger.kernel.org, "Marc
- Zyngier" <maz@kernel.org>, "Vasily Gorbik" <gor@linux.ibm.com>,
- selinux@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- "Alexander Gordeev" <agordeev@linux.ibm.com>
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-13-a1f052500fd7@kernel.org>
+Cc: "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ linux-perf-users@vger.kernel.org, linux-scsi@vger.kernel.org,
+ kvm@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, selinux@vger.kernel.org,
+ linux-rdma@vger.kernel.org, bpf@vger.kernel.org, kvmarm@lists.linux.dev,
+ "Oliver Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>,
+ linux-s390@vger.kernel.org, "Vasily Gorbik" <gor@linux.ibm.com>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-11-a1f052500fd7@kernel.org>
 References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
- <20261003-b4-mmap-prepare-vma-flag-sanify-v4-13-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-11-a1f052500fd7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 17:56:40 +0000
-Message-Id: <20261003175641.52BA91F0089F@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 17:56:39 +0000
+Message-Id: <20261003175640.041461F0089E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,43 +65,28 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set =
-to
-> one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
-> or arena_map_mmap().
+> The policy file has no write method and is exposed read-only (S_IRUGO in
+> selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+> CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, as
+> kernfs does.
 >=20
-> It is convention in mm to mark mappings whose pages the kernel manages
-> itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
-> page cache or anonymous memory.
+> The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+> clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARED
+> check in sel_mmap_policy() cannot be reached. Remove it.
 >=20
-> The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
-> use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and =
-so
-> marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
-> explicitly.
+> This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that =
+is
+> neither a PFN map nor a mixed map, ahead of the core enforcing that only
+> such mappings may do so.
 >=20
-> However, the exception to this is arena_map_mmap(), which doesn't set the
-> flag.
->=20
-> This patch corrects this and updates the comment to reflect it.
->=20
-> The pages are refcounted and vm_normal_page() finds them regardless of the
-> flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
-> thus unmergeable). The one effect is that NUMA balancing now skips these
-> VMAs, as it already does for the other bpf map mappings, which is the
-> reason array_map_mmap() gives for setting the flag.
->=20
-> The intent of this patch is to be able to establish the invariant that on=
-ly
-> PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
-> in bpf_map_mmap().
->=20
-> Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> Reviewed-by: Jann Horn <jannh@google.com>
+> Acked-by: Paul Moore <paul@paul-moore.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-b4-mmap-pr=
-epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D13
+epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D11
 
