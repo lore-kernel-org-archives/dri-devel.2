@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DBE2CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A3ECA5FEC
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9367610E921;
-	Sat,  3 Oct 2026 17:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7309210E93E;
+	Sat,  3 Oct 2026 17:56:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Np70/OiC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KSluAIY1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0139710E921
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D77E10E93E
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E33AF60D9B;
- Sat,  3 Oct 2026 17:56:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722451F0089E;
- Sat,  3 Oct 2026 17:56:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 940E160DA3;
+ Sat,  3 Oct 2026 17:56:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245AE1F0089B;
+ Sat,  3 Oct 2026 17:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791050179;
- bh=65MYVtRr+AsHYBhw14zpuag7QigfoC/MqBgFcjUMWZk=;
+ s=k20260515; t=1791050180;
+ bh=73/rz23PogBRV/7yykNRlJYRFeXCxc/ylqxUAmYO5UY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Np70/OiCdHlSyPnXDucl2wF+PKHeI8/smbYcInkALjnkLuwWFhxY3jYhUgOSfzRYb
- Eo68dzk6GrzJC/zEeZ46R3voTDvmbfZTlOW6pWsaqrsQ5hvSqSqew8eS5SwMTmtkuX
- bwFgPdG+6L7bFzuEvqWXOQ+sNyz8FelK0HXB1tlxRPhnisgoGyfC6onic2CLL40738
- QonGhFAjYQLX9Y+r85eIcCjxCkS5DjWxlpZP4gHlatv17cLB16sFNpMidjwmyszk+K
- i2F8iAJU7+byfCZJ3vldZObhxNsEODj9OSWr7RtmXM85BXgCGoCB/YzeZWz3OHZpBk
- 6WSaIm00jrntw==
+ b=KSluAIY17rUf41glsPg1xK0OJSTz+26i5x6n8X3rpUY6vIhH8vlmu4+mmRsSMy7gg
+ aGOVQukEJTrbp9UWAoFOTnEFpyyYfVae99EAC34Rfksn+8ljDKuHh2L8cuzE50uRP/
+ xqQE1FdLoVA7g8iF/d+lPh7auQXJm6JHbxRHZ6kv3GZRnThO8q5KWca0YyL4nLuNMh
+ IHm9zXl7Irl3FBzO7RcMx3vaCP2WVH5OFp26hvW6f/75tifQ3d8++7nEDDHo9fdIEe
+ 2wc2QvVpXcJGNnZFSg+GSzC+SAfxOt5B9ZQHswEIz27pPc3tr0YBy0LqPnSTnUaz9w
+ MqNSzdqjXaznw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RESEND PATCH v2 2/2] drm/amd: fix HDMI signal type for EDID
- overrides
+Subject: Re: [RESEND PATCH v2 1/2] drm: add edid_overridden flag to
+ drm_connector
 To: =?utf-8?b?Sm9oYW5uZXMgV8O8bGxlcg==?= <johanneswueller@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261003161525.23600-3-johanneswueller@gmail.com>
+In-Reply-To: <20261003161525.23600-2-johanneswueller@gmail.com>
 References: <20261003161525.23600-1-johanneswueller@gmail.com>
- <20261003161525.23600-3-johanneswueller@gmail.com>
+ <20261003161525.23600-2-johanneswueller@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Sat, 03 Oct 2026 17:56:19 +0000
-Message-Id: <20261003175619.722451F0089E@smtp.kernel.org>
+Message-Id: <20261003175620.245AE1F0089B@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,71 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] amdgpu: missing EDID override check in rgb_output_is_limited_ran=
-ge()
+- [Medium] drm: edid_overridden flag not set in fallback override path
 --
 
-commit 8529835fe6f32deeb33be0fa62706033cd8f1243
+commit e2139c9168877ee02f537cbf19084a0d24c136be
 Author: Johannes W=C3=BCller <johanneswueller@gmail.com>
 
-    drm/amd: fix HDMI signal type for EDID overrides
+drm: add edid_overridden flag to drm_connector
 
-This commit updates AMD display code to trust the physical connector type
-over the EDID for HDMI capabilities when an EDID override is active. This
-fixes cases where the overriding EDID does not advertise HDMI capabilities.
+When an EDID override is in effect, the physical connector may not
+match reported capabilities. Adds a drm_connector flag that allows
+drivers to detect such mismatches.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index ad3383169d83f..2bce57b060374 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -2134,7 +2134,14 @@ VISIBLE_IF_KUNIT void create_eml_sink(struct amdgp=
-u_dm_connector *aconnector)
->  		return;
->  	}
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 42f4e41c459fd..9ea6f5f19131f 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -2424,6 +2424,7 @@ static struct edid *_drm_do_get_edid(struct drm_con=
+nector *connector,
+>  	struct edid *edid, *new;
+>  	size_t alloc_size =3D EDID_LENGTH;
 > =20
-> -	if (connector->display_info.is_hdmi)
-> +	/*
-> +	 * If an EDID override is active, it may not advertise HDMI capability
-> +	 * even though the physical connector is HDMI. Trust the connector type.
-> +	 */
-> +	if (connector->display_info.is_hdmi ||
-> +	    (connector->edid_overridden &&
-> +	     (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA ||
-> +	      connector->connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIB)))
+> +	connector->edid_overridden =3D false;
+>  	override =3D drm_edid_override_get(connector);
+>  	if (override) {
+>  		alloc_size =3D override->size;
+> @@ -2431,6 +2432,7 @@ static struct edid *_drm_do_get_edid(struct drm_con=
+nector *connector,
+>  		drm_edid_free(override);
+>  		if (!edid)
+>  			return NULL;
+> +		connector->edid_overridden =3D true;
 
 [Severity: Medium]
-Does this same logic need to be applied to rgb_output_is_limited_range()
-in the same file?
+Does this new flag also need to be set when falling back to an override EDID
+after a failed DDC probe?
 
-Looking at rgb_output_is_limited_range(), it relies directly on
-display_info.is_hdmi to determine the default RGB range:
+If an EDID override is provided but the physical DDC probe fails (e.g. due =
+to
+broken DDC lines), drm_helper_probe_get_modes() skips reading the EDID and
+falls back to drm_edid_override_connector_update(). This fallback applies t=
+he
+override but appears to miss setting this new flag:
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c:rgb_output_is_l=
-imited_range()
-{
-	switch (connector_state->hdmi.broadcast_rgb) {
+drivers/gpu/drm/drm_edid.c:drm_edid_override_connector_update() {
+	const struct drm_edid *override;
+	int num_modes =3D 0;
+
+	override =3D drm_edid_override_get(connector);
+	if (override) {
+		if (drm_edid_connector_update(connector, override) =3D=3D 0)
+			num_modes =3D drm_edid_connector_add_modes(connector);
+
+		drm_edid_free(override);
 	...
-	default:
-		return connector_state->connector->display_info.is_hdmi &&
-		       dc_crtc_timing->vic > 1;
 }
 
-If a user supplies an EDID override without HDMI capabilities for a physical
-HDMI connector, display_info.is_hdmi evaluates to false here. This causes
-the function to incorrectly default to Full Range RGB instead of Limited
-Range RGB for standard TV formats (VIC > 1). This results in incorrect
-color range output (crushed blacks and clipped whites).
+If a driver relies on this flag to apply HDMI signal type workarounds, could
+this cause it to read a false value and fail to apply the necessary quirks?
 
-Could this override check also be added to rgb_output_is_limited_range()
-so TV formats correctly output limited range RGB?
-
->  		init_params.sink_signal =3D SIGNAL_TYPE_HDMI_TYPE_A;
+>  		goto ok;
+>  	}
 > =20
->  	aconnector->drm_edid =3D drm_edid;
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003161525.2360=
-0-1-johanneswueller@gmail.com?part=3D2
+0-1-johanneswueller@gmail.com?part=3D1
