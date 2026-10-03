@@ -4,55 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58369CA5FEC
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 14:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39C9CA5FEC
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 14:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F91010E0E2;
-	Sat,  3 Oct 2026 14:08:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 067FA10E0C6;
+	Sat,  3 Oct 2026 14:22:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bif7+x+D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HupJsVVB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 490DF10E0D7;
- Sat,  3 Oct 2026 14:08:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E8010E0C6
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 14:22:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 010F6433BF;
- Sat,  3 Oct 2026 14:08:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000C81F0089C;
- Sat,  3 Oct 2026 14:08:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5BEA1432D2;
+ Sat,  3 Oct 2026 14:22:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444FD1F0089B;
+ Sat,  3 Oct 2026 14:22:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791036517;
- bh=qEHnNgHl6Utuo0Yg67pBnePzE8jinMcZX2WPmLe8Mro=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=bif7+x+DqzNjs2X7CY/CPmtejxOgzW0Ng0gidGTZK5352SXDhtUoniF3Qxm+3XIFO
- c5raHqQ36dZLbY2OLh2FNuKt0N4aE6Z3th+3vkZIUoObG0mEwPnPGhtpEpkIh/j7Yi
- tWoaencFLhM7gNE4qTYmYj009CzKk7bz5+4pxJp6WuTiOjfqIqnpHXN32CRZYVwmsB
- 5iFDr1uarqAMjJFaZ6IUmSjiUPYsu62hlAhRRrkWVKL6zLnGhITkYTrM9hNm/ywPvM
- 2+jRvdRnUhMQF1PhUtOzT1pg/JI6RlTh9t+rgwpjyyRa7yTN5OabrmvdyExXWz4GHc
- wEASpzmYEtLgA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 16:08:34 +0200
-Message-Id: <DLV9GFX4NNUB.153H8Q8R27VVW@kernel.org>
-Subject: Re: [PATCH v3 0/3] drm, drm/xe: Protect against premature module
- unloads
-Cc: <intel-xe@lists.freedesktop.org>, "Matthew Brost"
- <matthew.brost@intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Matthew Auld" <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
- <DLOJ7S2IZW0R.2BNLLO5M3YL7M@kernel.org>
- <7fc614d0b666fb5ae9777c29ea2e79647030b198.camel@linux.intel.com>
- <DLQVBJX4PK5G.2AK3E5K8U8UY7@kernel.org>
- <fdbc3d2ed7b23b09216df023e2be9ed707820c75.camel@linux.intel.com>
- <DLQYY4O71Q54.2FZ1ZV8G5ZZPN@kernel.org>
- <3389776905c6ef2c20b2b3dd78041ea5db638a96.camel@linux.intel.com>
-In-Reply-To: <3389776905c6ef2c20b2b3dd78041ea5db638a96.camel@linux.intel.com>
+ s=k20260515; t=1791037342;
+ bh=wU5rDB+VrDABQDIH5NSBgXFhWETxK1QagBiSzme5jbg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HupJsVVBF1dHKykTQ4kDj6W1v0bhCqz3zdZNM5z8Ua2I8J6c937ttT5WgloXKLeE8
+ vxqbwr6qEMHwnyXZ9IVNbXssGaaTYPFsjcVYcOOqEnOoAzOqNLYN0gl1rRtc2e51IK
+ S5XS0v6dBZWkMEru1s6uq63ih7+LVa840i2CC2Fhhnq6GhoXw/YY4jVaC9YY86Giz5
+ iFADACWg+h+gBa/4m9pvN04TpYbQWis4MhKNIv1hgvP+f17JDQDLIxtRjSnyA6jY8u
+ oKkGSZUp6GjuXpcahihgrxXGzVsYSV4PsQvWfDV9Iqk1YvncaLW5D6Is8IWrY2wytJ
+ rkQdqjWQ524dQ==
+Date: Sat, 3 Oct 2026 16:22:18 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>,
+ Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 16/20] phy: Add common Innosilicon HDMI PHY helpers
+Message-ID: <asEPmpQTwXYADwTk@parshuram>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,104 +89,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Sep 28, 2026 at 3:37 PM CEST, Thomas Hellstr=C3=B6m wrote:
-> It doesn't have to in a model where all users are removed before the
-> drm device is freed. Following your argument, shouldn't that drm_device
-> reference should also be accompanied by a module reference? Except that
-> will block rmmod?
+On 15-09-26, 17:32, Michal Wilczynski wrote:
+> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+> where the PHY register block sits in the register space and in which
+> pixel clocks they support, but the pre-PLL programming sequence and the
+> layout of its registers are the same.
+> 
+> Add a small library holding that shared part: the pre-PLL configuration
+> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+> and the pre-PLL register programming. Callers pass a regmap, a register
+> offset for the PHY block, and their own pixel clock table.
+> 
+> No driver uses it yet; the users are converted separately.
 
-Yes, if we establish that a DRM device must outlive a GPUVM (which by conve=
-ntion
-we implicitly do by storing a pointer) then you don't need a reference coun=
-t.
+Is there anything in phy patches here that has dependency with rest? If
+not consider splitting it up...
 
-However, there's nothing that ensures the caller sticks to the convention. =
-And
-given that the DRM device is reference counted already, taking the referenc=
-e
-count is the correct thing to do.
+> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
+> +{
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
+> +	if (ret)
+> +		return 0;
+> +
+> +	return val;
 
-(As a side note, in Rust you can actually model and enforce this lifetime
-relationship at compile time without a reference count. You can even establ=
-ish
-more granular lifetime relationships. For instance, you could have:
+why not just return regmap_read()
 
-	struct GpuVm<'a> {
-		drm: &'a drm::Device<Registered>,
-	}
+There is no logic here, nothing. This is really not ideal.
+Also why add a wrapper and not use regmap directly?
 
-and establish that a GPUVM can only ever live as long as the DRM device is
-registered and therefore implicitly also establish that the GPUVM can't out=
-live
-driver unbind, as a DRM device can't be registered beyond driver unbind and
-hence the lifetime 'a is guaranteed to end before driver unbind.
+> +/**
+> + * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
+> + * @pll: pre-PLL instance
+> + * @req: rate request, updated with the rate the PHY would produce
+> + *
+> + * The PHY can only generate the pixel clocks described by its table, so a
+> + * request that does not appear there is rejected rather than rounded.
+> + *
+> + * Return: 0 on success, -EINVAL if the rate is not supported.
+> + */
+> +int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
+> +					 struct clk_rate_request *req)
+> +{
+> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
+> +	unsigned long rate = rounddown(req->rate, 1000);
+> +
+> +	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
 
-In C you can only establish this by convention, and at least take the refer=
-ence
-count.)
+Is there a chance of null/garbage if we reach end of table? You dont
+know the size of table, and incrementing pointer without bounds does not
+look good to me.
 
-The module reference seems orthogonal though, GPUVM is not actively emittin=
-g
-calls into anything (unlike a workqueue for instance), it's a passive data
-structure. So, there's no need for any defensive measure AFAICS.
 
-> Without knowing for sure, I think this was the route taken with
-> hotplugging.
-
-Sure, both approaches are there to cover hotplugging. Almost all class devi=
-ce
-implementations have to consider hotplugging as it is depends on the bus th=
-e
-physical device sits on whether hot(un)plug can happen.
-
-> But isn't essentially what you describe a design where we release all
-> dma_buf, file- and drm_pagemap references of struct drm_device at
-> module_unload time. That would replace their references with SRCU
-> protecting the drm_device pointer, falling back to a stub behaviour
-> when unbind has been called. So the "Can I access hardware?" would be
-> replaced by a "Can I access the DRM device?".
-
-I think the question is not "Can I access the DRM device?", the question is=
- "Is
-the DRM device still registered?", or IOW, "Is the DRM device still backed =
-by a
-driver?".
-
-There's a bounded lifetime when a driver is allowed to operated a device, w=
-hich
-is between probe and remove. This is (typically) the same scope as the clas=
-s
-device (e.g. DRM) is registered.
-
-After the driver is unbound from it's (physical) bus device, there's no val=
-ue
-anymore in letting the driver operate the class device (which is exactly wh=
-at
-register() / unregister() describes) in the first place.
-
-There's nothing hardware specific left at this point, so it is not a driver=
- job
-anymore; the lifetime decoupling can be at subsystem / component level (e.g=
-. DMA
-fence).
-
-> That's an interesting idea, but would probably need careful work so
-> fence waits etc. doesn't block the SRCU read sections. And ofc to avoid
-> user-space regressing.
-
-For the fence waits specifically, this can (or should) never happen. Driver
-fences must be signaled on driver unbind. The hardware is gone at this poin=
-t,
-there's nothing left that could signal them otherwise.
-
-> FWIW, IIRC that SRCU is only strictly needed when non-driver code
-> (pagemap, files and dma-buf) drops the last drm_device reference
-> without having a module reference. And there is no such code (yet)
-> AFAIK, so I can drop that patch to when we think it's necessary and we
-> have other driver buy-ins.
-
-I think those components should do the lifetime decoupling work instead. On=
-ce
-the driver is unbound, none of the driver callbacks are "special" anymore a=
-s
-there's nothing hardware specific left at this point.
+-- 
+~Vinod
