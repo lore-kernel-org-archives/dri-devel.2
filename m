@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FB3CCA5FE6
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E01CA5FED
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D065E10E99F;
-	Sat,  3 Oct 2026 17:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A007A10E9A7;
+	Sat,  3 Oct 2026 17:57:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UND+Awsu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yl+B+hZR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5B910E9A0
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:57:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90FB710E9A0
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:57:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25E0840B71;
+ by sea.source.kernel.org (Postfix) with ESMTP id 795ED41A18;
+ Sat,  3 Oct 2026 17:57:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CADC1F00A02;
  Sat,  3 Oct 2026 17:57:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CE41F0089E;
- Sat,  3 Oct 2026 17:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791050232;
- bh=8h4tuJTv3NW1SzOFi173ubTgIepYCAu1HbVvRKWCxdo=;
+ s=k20260515; t=1791050233;
+ bh=QOQ+cwBU9GT41cprgA0JdPora2bEFAvJcCZV0BYlW7M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UND+AwsuBMBdmW6gj6mziA913gg3gdgdPu2jexWyhTl0Crl1UVChoP9iwdgoeZM5m
- D9nPft3MdfLSH8q2EtQJLJ5YmeyPTuhF/aFeKF/Ur5PoUoXEWnbko670LLyGettGpl
- HzQJTt0PwBqMhSc03K9y8e4Gn+iBIgsJhs4SG2v0gf69OcR7HzWi+dcFiMNJE2K7cr
- D4NWtUfPg5IpHS55hNoRjeus4Ul1ZbWLgVMbUjbUG2R6I1g6EgQl0jLmVp6XteBnbK
- Wic7H5FjmG9m30pK+3AYKJM+MA7oFXAzoFyDbbtfGHAU5KJhWH9cISebmPvBFLW5dk
- k/G2FNzzC9epw==
+ b=Yl+B+hZRLnwuVSdDrCpD6WunqOte3h2sHjmBF3eQv2dhSPB7OZCqfkPhcAZNDnWs0
+ RBoPIdGDrugtmRBiA4MxaEHbqb2U3kLCYmjJnm3tfCaT3Td62NS/xAxri6Dbi3Wia2
+ WbQEMJUYbraAXYiuZii+kUgWSbsJpoUU9k7/Md3QpeT8RQB9bniUyLNxClKJzGKya7
+ 2MN1SLmuyyiEa3Z19MKU+ocb6ZQ1d8v1Aj5Tr4VD9jJicQAKlD4LKrs6t9xUnyKzIe
+ V0w2wTyfkkdRE97ZH24ALE90k5fZ6GKbkELgo2j43opST2j4wN6G2n4gcgM3Qzuhy5
+ xO2Xqyvkql/FA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 31/38] mm/uffd: use predicates for userfaultfd checks
+Subject: Re: [PATCH v4 32/38] mm/madvise: use predicates for madvise(...,
+ MADV_DOFORK)
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kvm@vger.kernel.org, bpf@vger.kernel.org,
- "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Heiko
- Carstens" <hca@linux.ibm.com>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- linux-perf-users@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>, linux-scsi@vger.kernel.org, selinux@vger.kernel.org,
- "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-31-a1f052500fd7@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-s390@vger.kernel.org, bpf@vger.kernel.org, selinux@vger.kernel.org,
+ "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ kvmarm@lists.linux.dev, linux-scsi@vger.kernel.org, kvm@vger.kernel.org,
+ "Oliver
+ Upton" <oupton@kernel.org>, "Heiko Carstens" <hca@linux.ibm.com>, "Marc
+ Zyngier" <maz@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-32-a1f052500fd7@kernel.org>
 References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
- <20261003-b4-mmap-prepare-vma-flag-sanify-v4-31-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-32-a1f052500fd7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 17:57:10 +0000
-Message-Id: <20261003175711.39CE41F0089E@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 17:57:12 +0000
+Message-Id: <20261003175712.8CADC1F00A02@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,19 +67,26 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Rather than directly checking VMA flags, use the newly introduced
-> vma_is_mm_managed() and vma_is_mm_backed() helpers in userfaultfd
-> when assessing VMA suitability for userfaultfd and UFFDIO_MOVE.
+> Make it clear what we're blocking in MADV_DOFORK. Previously we simply
+> disallowed VM_SPECIAL i.e. mappings not managed by core mm, fixed mappings
+> and
+> VMA_IO_BIT.
 >=20
-> Update vma_move_compatible() so it's expressed in terms of VMA
-> characteristics rather than arbitrary flags.
+> Now the invariant is established that mm-managed mappings may not set
+> VMA_IO_BIT, the VMA_IO_BIT check is redundant.
 >=20
-> Additionally, update the use of the deprecated VMA flag API when checking
-> VMA_SHADOW_STACK_BIT.
+> The rest is equivalent to testing for a fixed or non-mm-managed mapping,
+> i.e. exactly the same check as whether the VMA is permitted to be merged.
 >=20
-> A VMA_IO_BIT check is no longer required but that is fine as a hard
-> invariant has been established that mm-managed mappings may not set
-> VMA_IO_BIT so the check is now redundant.
+> This was established by commit 0b2758f48f22 ("Require (reasonably) normal
+> mappings for MADV_DOFORK") containing my hands-down favourite call out of
+> all time.
+>=20
+> Express the same thing differently - if we wouldn't be allowed to merge i=
+t,
+> then we aren't allowed to manipulate CoW behaviour on fork.
+>=20
+> No functional change intended.
 >=20
 > Acked-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
@@ -87,5 +95,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-b4-mmap-pr=
-epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D31
+epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D32
 
