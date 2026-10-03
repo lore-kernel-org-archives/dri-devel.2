@@ -4,141 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D3DBCA5FE3
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 01:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD5FCA5FE3
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 02:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D22310E027;
-	Sat,  3 Oct 2026 01:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C00C310E66E;
+	Sat,  3 Oct 2026 02:39:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aYEjQtRk";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="D/PV9svv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gJ5GRrMC";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0705310E027
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 01:52:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nR0QoyvjdMcqzbl5L1bySdkYi3cvdQ5AY0aIvFPEx285e5O3eZbuTlD0opI/GydGza1rYIT1ZKiPHb21hcsV9cq/Sj8ntdN49UpRaUsEsFIio5imeD4HAItUUh6MxG3t63w+sn5wzvAFR+8zOYJxJ0vW9XBSq65u31JJa0ZU1dh4mawfmOeYCtVmijOarriE7yEKCdjOxvKjlTYx1WCu/Gwuf+zJHnMl4EbTt9TOdoIWIql39eVPXyory6TNU0/piNSqC4iSK/2Y/a98U+/iQ0FgrSXilKR+xejbgCynmvJsqusrWnyQJaGBbkhyyPljQTUHogv+bTeKQr3FngQD0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qZ2wGqfdZcsExFQs1t/crp9XjAHoT8maiqXMI3z6P1k=;
- b=UHiWT+pYKYqd39MvUkYLHX4exY/EGx5HJj9kSXmPkfPYWvY3KSVx89n/P79awrwntWs79Zjfac+WaxI3z+5fuZQiAiNaNz1SYABDaK8Ty/bOAmIp5ltaeKJ+AciQsHdK6LM/Tsd5nfomp9N6ImnMu+QRm4Xddy7wQpUzE19qmtcMxzDdopuvpvYq5uw41n0WepzNhHmwCX4oQEOCKM9/gD28jGqHbDgvIjbH4CyA3KF0a8m79UOHfH2C2SjVxErA4XJfMZ6++ns6FDwLCnO4trL2FgAgE3KfHs41BmP7bIG3zinD4eDmIA+XMUwFzlvGt/ilD1AT1ThfQrRJHpHlfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qZ2wGqfdZcsExFQs1t/crp9XjAHoT8maiqXMI3z6P1k=;
- b=aYEjQtRk7dM2hIcxbthEmv4uggrDdvalq2rxo/Kk0sfgaSwr51xYCcfuyDN6vcPlqcNW28/7wUghcmpfIZT4a21hbWauGff6OjSWGiYfc9TwZmTj+oUjrv3cWq8Fh4lijYumaEyht2izZkcFQvkjqqb/MBxdk0Vzd3znvu/MFTm/AN+jDA0gKYFay6HcAMxzyitnpWRi3n+NrQ9GT8s0zBvuodPk4r+EcOO/n4i0UnnkHxD68dDIpv+9e1V2jQfdpeF1R1XI5EWW26jmdQNevXmlRI6xLNXcyZPirjBssoqYNeXQ4OnRYJlZGD0U4NK7wPQIqUzeWAlskFlqAArDWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SJ2PR12MB9210.namprd12.prod.outlook.com (2603:10b6:a03:561::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Sat, 3 Oct
- 2026 01:51:55 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Sat, 3 Oct 2026
- 01:51:54 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 10:51:52 +0900
-Message-Id: <DLUTSDP614AJ.2JU6SDKECJOCU@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- "Robin Murphy" <robin.murphy@arm.com>, <aliceryhl@google.com>,
- <ojeda@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <abdiel.janulgue@gmail.com>, <daniel.almeida@collabora.com>,
- <a.hindborg@kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] rust: scatterlist: honor the device's maximum
- segment size
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Matteo Kloiber" <kernel@matt3o12.de>
-References: <20260831233215.287881-1-kernel@matt3o12.de>
- <20260831233215.287881-3-kernel@matt3o12.de>
- <DL8QLYLQJEL1.3F653J67DYZ47@nvidia.com>
- <20260913210806.125589-1-kernel@matt3o12.de>
- <DLEMH1X0KQA1.D1PYVJD0E6SR@nvidia.com>
- <DLEY8AHWZFCQ.QUHP2NHJW1QX@kernel.org>
- <DLEYQNUGTQYU.34AISCMMZXG8B@garyguo.net>
- <ea8caba1-eb78-40cd-b025-e8c02009f2d7@arm.com>
- <DLF2GNSEGHKR.2UI219W5RK94F@garyguo.net>
- <DLF3BLOLU8HS.1AXNNXWVQUFNU@kernel.org>
- <DLHH0K25NLX5.616R4D860TXU@nvidia.com>
- <20260927224446.1053037-1-kernel@matt3o12.de>
- <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
-In-Reply-To: <DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0289.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C0B410E66E
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 02:39:04 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6930Jjgd2790579
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 02:39:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=V4R6vTFZHRxxof56ea7ZkuigJ6CJbKK/4sD
+ 1d+syM7Y=; b=D/PV9svvGzfEUxvJ296QVavCvtrmj6yxbxL9MZ231vs/OG1hd9k
+ OvDPctZWYBhKI9hlsHD9stB76aMnOj8ZV2v27D/V2QaYG6FtGmaRyKO/mnrcC3Gn
+ T6eLbJNASJv00rw0Sr5/6ANM1JU1fAscvV/bU3FwfsRv4QhmPRLihkc7Kjpk31k2
+ HqCWlIyH0FPMhZi7PYORIZ05o9bwk+hF7A/FrB8GSTH+mlLIW2TdPkBl0sAOWgiR
+ RqzyOfD90Ze2xVLGkslcqx9MEJh2VN29gEmoZ6VdGTV7J9D9uiqh9lW/rH5U+jkS
+ f0F/LAxip+a4PdiAv+AMT73SJ0HeddRZ5WQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2q2nr7xn-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 02:39:03 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-3282d5302ffso265665eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 19:39:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1790995142; x=1791599942;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=V4R6vTFZHRxxof56ea7ZkuigJ6CJbKK/4sD1d+syM7Y=;
+ b=gJ5GRrMCD81ri+o2f01OsSLWLBtrtn611uZ77DCFhzw+cz4ovCdjZek0ai7wORvJIW
+ am38RdZ+hLAYNvops/5nLvyyWReE5+NgbNjDOonFWBMD5F6hZayCp3+aO7gwWi+3SdH9
+ qOz7xZMv20pyFiBG/oSDDzTvaoXfT44NDhvbv3Vk75mhNrTM8JVUlode+bdDCZYJHTXy
+ yqv2Y1YY9AObhHF1bFF3KKnhv8NYXVn21DGqjARSXzVvBJxZmwBSkNaKVVotQ7z6K2l1
+ pGEnZBBrG9/G4DD4AiaY8tLvqln3W3b5eSBU79Ihb5Q+ANOEw5E0KtUUXHjX5+/iAH+Z
+ zaSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790995142; x=1791599942;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V4R6vTFZHRxxof56ea7ZkuigJ6CJbKK/4sD1d+syM7Y=;
+ b=c7ZtYtusfVJ1Kkb56RV7Bv9r4vVNGRcs8MuYBo2mUOEbSu4trAaN/+f1KDF7ZKBIcM
+ tsxq5lzsGhze877PZVk85/2Ag0Fc8eBJJHcJkefZIS4N9Ax6HXPtxkgkmqMYKCwYU06N
+ DiInRoZ+1F1UP6LX5XO2zQqIt6glUzhhxO/QX6BqyMnhm7pFPlMdKr1m5LBsKHmDSnax
+ Wh0aCKffAehfi9gZIqQosiiaahf7eJE6ROjlJZBLKkvZybOTtQ/TJJz3wgdIPAXyLYqU
+ uUfl4yUdvlJwT1kXVjgloVuhC+yFHn8Atg2pf2zcptb3FhADeWrOQanSc2LUFhGCbhTL
+ UPKg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw0VIhqCRdLdMTl3tNhdN47luv01JnpOvKTFxAkZV4Y72Reg8chbaVWSeEdS7jp+OO1dQn5P3ZNTq4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJMSM1S9ZTMwZ0wE8YGd2QSsREqXcIVAY5HVYCBJP0Moa/Ykm2+
+ J/vRIVy+hiaashfKFh2JTcaKQT/bjtNV6NUrIzXZ0aefkF6a10JGb7yRwpJxscsfVthM4TcC5my
+ B0ibEKxOuEfZxZ1ox2BzWGC3IWIY3amNYlnKRyP8HsDBFA2k5e04YYijfTqXqxAfybMLKzUQ=
+X-Gm-Gg: AYBFou1gyqM650SkXWSbz3q2YA+vDdkT7n3261YTa6n+csb/v13uo0h3XIATuLsuDKS
+ tHSVX/Y7joX49XLQRyWof9Au3MPXjYa7fpUleZTiovhuNBXlpNmRmvoBFaNWVhdEYY/oAJAA9eL
+ N5b2Z6VSnksjPqYekSZG2jikBPIHNapvYsfgH9a2OyCZFaX7KjQu84+jxnFB0NJ2+9P89JN78xC
+ aXncFO4jNjels3U28XReW+ST7IkwUQVL0K1re158oCvtVCNIJ/kQ+zDk7ogOCOV9V7j5arL3II1
+ H9YJbqAsu4N5RRM2eE3lMXlIOt6qgBTAOWpaaPUnv/anO0vHmeh89kwztNarTzCNuDIZlzRQ/Tf
+ jadRvMQ8CV9YZQmF7NUTvBx/r89jpv2ieW41BY3CJXteDpTdYa8tIwf+y
+X-Received: by 2002:a05:7301:46a6:b0:34d:7c41:cdf7 with SMTP id
+ 5a478bee46e88-34f150db269mr4243385eec.6.1790995142353; 
+ Fri, 02 Oct 2026 19:39:02 -0700 (PDT)
+X-Received: by 2002:a05:7301:46a6:b0:34d:7c41:cdf7 with SMTP id
+ 5a478bee46e88-34f150db269mr4243359eec.6.1790995141678; 
+ Fri, 02 Oct 2026 19:39:01 -0700 (PDT)
+Received: from carlv-linux.qualcomm.com (i-global254.qualcomm.com.
+ [199.106.103.254]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3510752b575sm7665736eec.6.2026.10.02.19.39.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Oct 2026 19:39:01 -0700 (PDT)
+From: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>
+To: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
+ troy.hanson@oss.qualcomm.com, zachary.mckevitt@oss.qualcomm.com
+Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 0/6] accel/qaic: Use DRM Scheduler for submitting BO reqs
+Date: Fri,  2 Oct 2026 19:38:12 -0700
+Message-ID: <20261003023818.1161666-1-carl.vanderlip@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ2PR12MB9210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67f6d5f1-0fc4-46e3-83c3-08df20f0e6c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|10070799003|7416014|376014|6133799003|22082099003|18002099003|10067099003|3023799007|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: iC0sApzAJXxOev1jar5GMC4M362srcrr2/mdBgwPt030g5cloHg4f9MBWHmkJ/YBEvZu96Ys2fN7ojLIFJHTVSTP12SjccvQ2YLkniqK3EjVw3hGOO7o80poQAo5kkIcQnMKN6iK8tZsIHPMKCrz9yD1mjQLSCNKAsrY3NtRfy9GFFA+NZ5aOHj+aQ/jph1Uh1QCXAeXVqEEKVrNYbKV0/O2p8wnBhSbq2dW7mnDp4XFIE3gpf6eJyEeFhCVtWMBkAtoQlZQxsPjQYr0Bdh050TgJEms+wGTwP7tr67bu8a7gDccqT9uKTWVo2UYTzX99evMP1HWcwXO5fhYDPe/hTGr38FyhVZORt8JsnbXOQr4Ku0plcGhN+NZnyup/NapSs6DeBv8UFzxqApXEVjZ80viI/3tR/i1a6nCWR9HtBaamPoJKtFt3SGb15Mee+w9T+Swrf7fAQQ3AwJYyVhtN1bULQFKN2R6kJZXcbh83EOudX4tZYLteWgiwFW5EoJVtNMvLX4kAi2JXip9L2FsWx2c8ffyAyRCgjw6nLiZ+snVAdu41cDjOS09X9iAGVYZ0fnWolFNRzKc1tBuebsf4/7zowWdhQzcI9gZz3cQcfJiqR4OJeJXymF4AkRLjL2QIGw+KqfA3xM1cca1Fk7YWn2DgRkFzOi08K5FRMuYWys=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(10070799003)(7416014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnN5aEZPRGRrODFPU2FTbUlhdWMrNGVJZUE5SmVlQXNnK09vLytHMG82S3Vj?=
- =?utf-8?B?bFJXZE8vb1dNS3dYeEdxK3Y3MHN4d2psVG5OZXE5aHRYbG5xU00rODF5ZkRG?=
- =?utf-8?B?SERBTTBSQXNoU0Y0ZVE0V0tLcVdycHJXcnhqQkkzU0d4N243dmFxSjV6Ymli?=
- =?utf-8?B?Z0hVTncvNmxEL2ZCa1NOaytNTHRaLzNtNGFCejE1Z0xHblZBaEdJc1ZsMnVS?=
- =?utf-8?B?bmUrSmtvQ282TENpTmtsMkZEemJQSlZnMFRNUFZyT3N2cEJNSnRpejQrUFJl?=
- =?utf-8?B?cHFFTTdlVkhsbDloK2ZYK0xQWFRxWVhrWldaQTdsV20wK2JsUlJKMnNGWnBw?=
- =?utf-8?B?TTZXc2I4OGM2QXFFS2RPU1FTMkJLV2FUVUhEK0lqcmJDVGpUYnRkTVRtV2Ux?=
- =?utf-8?B?NjMyVm0wQUZSOVk1YTVvazhjV3RZTWF1YVIvNjltSE5uQ1JPY2VLSEdaVkNy?=
- =?utf-8?B?ZzZzaW81YUZLdXdDalc3Z3lRRGd5VndtMzV5NlFhQ25Dc0pTczc3bFRtYklN?=
- =?utf-8?B?bnkxZm5KYkdJczZnS1Z4VHRwVjZwRGFpVE1ZSUJxQ0Rob1RZUHBrTlNld3hl?=
- =?utf-8?B?TWdaMEc4eCtqTUc2cHk4TytHK3E5bUtLcHlZT1k0V1BvNjMzbWlNSmJESUw4?=
- =?utf-8?B?TUh4QktFeXVyS0hwQmsyd1hhbUpWRGh1SC9maXdUZlhwTHg2Q3orSzFkZHBh?=
- =?utf-8?B?UW1vUmJxNW03YVRhc3ovMkJsQ1VHQW12OVRyMEkxczhXRGhNSVB5KzBEVzM0?=
- =?utf-8?B?SVN4VmhBRkFUcTJFZzZFVTNyZll6SnovZUJoU2NzQ0ZJTnZJNlBhdXVCK1dp?=
- =?utf-8?B?WlF0R3JwZGNCSXNFY0NsSzd2OWZrb3pJcFZiMk5MUHpwTXdRd25MM1ltbGt5?=
- =?utf-8?B?ZzJCcEFBY2lqSDcybzZGUms2Uk5aQTVDK0gyU2lKRGNXQ1NBOG05eVJPYi9v?=
- =?utf-8?B?ZHRzc1IrVlBLT0RRY2VwMEhTZ3V1eFM0SUpkdXN2eGUrdW5KMVp0eTBVSTgr?=
- =?utf-8?B?M3ZtZ0FCZTA1MlVyMXlQTExVR3cwOXhhU0FuTzAwM1FBOXhzRW5vUVJYL3Np?=
- =?utf-8?B?QmxDb0ZoSEYvS3E3SDBMbGxoZDFqaGZjZjhYdG5BRCtITDBjVlh5U3I4TFIx?=
- =?utf-8?B?Y0lxQTR1a3lRS1lZK3dWcUFPOTRqT3cydTUxVElXTjhCTEl4cUNvRGxLWVVj?=
- =?utf-8?B?WkNtUXNma2EzSVI5cEYxbkVHdXRhS2R1Y3FTT3BBRXVlS1hpWnNqRjJGVmtj?=
- =?utf-8?B?bzVPTmpjME11Q3l3ZmJTTTJRK2ZyemZZQnJldGJHT1NxV05xLzVEVWNidFJz?=
- =?utf-8?B?TDc3SWFjcEtZWUQ5cHd1WmVHMWtTRk9IeFdsQzZ6UjZ1MTZhU3dFNEh0MjVz?=
- =?utf-8?B?RWFvdnFOcVpQQXE1eWdFNlU5cC9ZM0l3TTVFVWpyRXBkVlZxUER5ZFYrb00z?=
- =?utf-8?B?SGJBS1UxTkRmM3VmWDhTMVJDR1c5anhXc2lWZU56blgvT2FuSEJkeEQrZkdG?=
- =?utf-8?B?V21XSERVUnBUdFFPKzhSNWRPL256OERzTmhZNHNzVE5KR1I1MnBLbHNCNWU4?=
- =?utf-8?B?b01OeHlaVTZpWEJlNEVZS0VyMlJGSjdXbm4xVVhBSDJrdzBHa204UzR4anZq?=
- =?utf-8?B?YXhOYWt0am83NWpZQ0dwcTBVWnJUc2h3OEZSaEF1SFhiSWNZRWdGRWphVFIw?=
- =?utf-8?B?enJGbDFFY1g5QnRmMTNFaDlSZXhxY0V1bVZLMXduek8rYzhsQWZRY1NsTWlj?=
- =?utf-8?B?ZE96RzlYakxmTlg3dW5aMGN0ZXowbGM0ZzlFd1VBSnZNK2xKekhIa0V1NFpR?=
- =?utf-8?B?SVNWTFBzUDN2Rjk5T05aSlFVOEtsWVozeDFGcTd3ekI2UDF5NE8ySUNncCtF?=
- =?utf-8?B?WkEzRW45K3Q0c1pmSkxZQnJHSGlrR3FvUUl2cmZPcWlySXhBbDVLR3lwbzNu?=
- =?utf-8?B?WTh1RUNnbW1FU2k4bzhNbkgrVE8rVDVXSUxxOEpSVDR5TGc0TkNVWW1FcWhP?=
- =?utf-8?B?bWlDaW5oV2phM3E4QTlzRGpnUzV2SWRaNkVodUJJUDA5Zm5UakZCY0lHNisx?=
- =?utf-8?B?dGk5TWNsWGI0VGxUUGM5YUoyVzJlcFQrdGd1UytJNmRYOUg5cUxLdHk2ZmJ4?=
- =?utf-8?B?L0dGL0N2K1RWeVlXdFB6Sm5PMjEySVUzcmM4Nk9JWTdPbUVzNzhNUlVZYk1G?=
- =?utf-8?B?c0JmVmJmRzdNTlZUdy9PWTlHektPTk1tQlFrcWE3MndBS3lXakNxVVpYaW44?=
- =?utf-8?B?V2ZTTUxnS0tLZDIvd25XYmZ1VWx4Q0QxTXJNTU15NXlVSVB3cmg0dXBxU0dL?=
- =?utf-8?B?NFRZSHBLVHZaaWN1VnVJV01EVTlkMm5VR0w0dC9pN1NoMVcvdVgvNE1KSVFu?=
- =?utf-8?Q?0r7r/pHjko6rlsKcFgokIZ4uB4EswAucYcxSr/mM4NxgY?=
-X-MS-Exchange-AntiSpam-MessageData-1: qW2AKgg8G3TMNQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67f6d5f1-0fc4-46e3-83c3-08df20f0e6c0
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 01:51:54.8419 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o1jizDDVqAP54Z0nz3R6SeOs+CjSzrMGxE/E5Dd1ITVz5SajDhFlGZQidaOuG1ylxfifAAnw/k1AC3Qsd+ZBwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9210
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAxMCBTYWx0ZWRfXyqDmvS2RpN3Y
+ OzcR2ACFe1UxElfJ+7nbg16SfTah1haIFrYnMMxRmaxrL2Zut6MM9eSftSQWizLaglgRLOv2Jkc
+ s/Yr6jx0DYjLR+wCPgOdjIWRj0a3qmQ=
+X-Proofpoint-ORIG-GUID: togUjW4olBAmxsbyPK5ATFj8PZnqDYYH
+X-Proofpoint-GUID: togUjW4olBAmxsbyPK5ATFj8PZnqDYYH
+X-Authority-Analysis: v=2.4 cv=SKHXx+vH c=1 sm=1 tr=0 ts=6ac06ac7 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=zmZmqXXhmGQ7dVXqUE4A:9
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAxMCBTYWx0ZWRfX5LbrgDXhFX23
+ gbe5RVeWyMP7hZD0aovojKoAa4rwUOfIbT4flsmKSC4zTG0BbaXzQY0XRtilKDHePFCOvfwD03y
+ lY7sWoiZ7EoV+euZBxouFflvUgzpWelTsbrWqchlQpYNLLVJ/XcPt9bvE0u7p8ktC0dfo6+FccF
+ M/xG/tZwkQ9E0PxqBipB00YCNN2DenPMGEAGKG8Sa/Byx1WdDAjrCjMum0rW7gm+J/PujHxDm/f
+ gSvQ8WPIxDBo+pQ0dc+KV8R+p9gvUcq8iUhHdjxZRFv50MYFyzuo81Fv9I84iV6WzfXuhg30BZ8
+ Dp7401J88VdVjoLf/fYVi3YM7FQeKm0l69tdNv2OCkF7w3J2WSgFfs5plwhHTbuQ53BHanh6xrj
+ TGmbmYpbb7eP8x7th4TJzG0RHgHPXkj4kqqdBakpMGcfjHrgU/jSPQB53EDeiglj//cJNLpZD2i
+ FJaLpfhBON6okhjeGGw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030010
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,46 +137,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Sep 29, 2026 at 12:05 AM JST, Alexandre Courbot wrote:
-> On Mon Sep 28, 2026 at 7:44 AM JST, Matteo Kloiber wrote:
->> First of all, thanks for merging my first two patches and sorry about my=
- late reply.
->>
->> What I think Alex meant and what I agree with is that the new API should=
- focus on
->> making semantic bugs harder, not to necessarily make it easier to write =
-safer
->> drivers. That being said, I think we can do both with this change.
->>
->> The key change here is that we introduce a structure that defines dma
->> parameters for a device. This structure deliberately has no default
->> implementation and new fields should be added even if they require chang=
-es for
->> all dma drivers.
-> <...>
->
-> Thanks for the detailed plan; I think it mostly makes sense.
->
-> A few details that we have discussed offline with Danilo:
->
-> - The `probe` methods should not take the `dma::Setup` token directly,
->   but rather a bus-specific struct that contains it and can be augmented
->   with other capabilities. Drivers would have to deconstruct it using
->   the `..` operator to make sure code doesn't break if we add new tokens
->   to it.
-> - The token should not assume default parameters and only call functions
->   corresponding to parameters explicitly set; converting the token to a
->   handler means the driver acknowledged all the settings, so we should
->   not make any parameter mandatory (the doc should of course detail what
->   drivers *should* do).
->
-> With that and your plan I believe you have a solid basis to send a
-> RFC/PoC. :)
+Hi,
 
-Stumbled upon the notes I took while discussing with Danilo so sharing
-the extra info that was there:
+This series converts QAIC_(PARTIAL_)EXECUTE_BO to use the DRM Scheduler.
 
-- As a consequence of this, the `DmaDevice` trait is likely to go away.
-- The name of the capabilities struct is not clear yet, but something
-  like `pci::InitTokens` could work (because it would only contain such
-  tokens that reference the device).
+The immediate user-visible change is that BOs can use DMA-BUF resv
+objects to track their use. Completion fences are attached to the BOs
+sent with an EXEC ioctl, allowing userspace to synchronize through
+DMA-BUF polling/epoll rather than relying on WAIT_BO.
+
+The scheduler's credit system is used to prevent oversubmission. This
+removes the requirement that every request generated by a BO fit within
+the device's FIFO at the time it is submitted. BOs with large request
+lists, including those resulting from fragmented memory, are split into
+multiple jobs and submitted as space becomes available.
+
+Implementation Notes:
+
+Each DBC has its own scheduler and one scheduler entity, rather than
+creating a entity per execute command or BO. This is to keep as close to
+the current submission ordering.
+
+When splitting BOs into multiple jobs, a dependency fence is added to
+each subsequent job. This prevents the final request, which contains the
+relevant semaphore and doorbell commands, from being submitted before the
+rest of the BO is sent.
+
+Each job is assigned credits in proportion to the number of DBC request
+entries it submits. Since the requested size of the submission buffer
+is not known until DBC activation, and the DBCs are initialized during
+driver initialization, each scheduler is created with a fixed 64K
+credit. At DBC activation, a per-DBC scaling ratio is calculated from
+the FIFO size. The ratio is rounted up when necessary, which can lead to
+small amounts of the FIFO being unused.
+
+The final patch uses this and the DRM Scheduler's credit limit to support
+buffers smaller than those requested by the user (preventing failures
+occuring due to limited DMA-coherent memory).
+
+Each scheduler is given a WQ_PERCPU submission workqueue with one active
+worker. The default ordered workqueue showed a throughput regression
+when large (32+) numbers of devices submitted large (1K+) numbers of
+jobs since the single workqueue provided could not dispatch fast enough.
+
+Testing:
+  - Ran checkpatch.pl
+  - Built and performed functional testing against v7.3-rc3
+  - Production use with kernels v6.8 through v7.0 with 96+ devices and
+    16k+ in-flight jobs.
+
+Target tree: drm-misc-next
+
+Carl Vanderlip (6):
+  accel/qaic: Centralize execution info
+  accel/qaic: Replace transfer completion with dma-fence
+  accel/qaic: Isolate hw submission
+  accel/qaic: Use DRM_SCHED to handle FIFO submission
+  accel/qaic: Split oversized BO requests into multiple jobs
+  accel/qaic: Use reduced size allocation for FIFOs
+
+ drivers/accel/qaic/Kconfig        |   1 +
+ drivers/accel/qaic/Makefile       |   2 +
+ drivers/accel/qaic/qaic.h         | 182 +++++++-
+ drivers/accel/qaic/qaic_control.c |  36 +-
+ drivers/accel/qaic/qaic_data.c    | 710 ++++++++++++++++--------------
+ drivers/accel/qaic/qaic_debugfs.c |   4 +-
+ drivers/accel/qaic/qaic_drv.c     |  16 +-
+ drivers/accel/qaic/qaic_fence.c   | 173 ++++++++
+ drivers/accel/qaic/qaic_sched.c   | 249 +++++++++++
+ include/uapi/drm/qaic_accel.h     |   2 +-
+ 10 files changed, 1001 insertions(+), 374 deletions(-)
+ create mode 100644 drivers/accel/qaic/qaic_fence.c
+ create mode 100644 drivers/accel/qaic/qaic_sched.c
+
+
+base-commit: 0915fb19e08f7f14a03df78c67d081bbfa8ff1fa
+-- 
+2.43.0
+
