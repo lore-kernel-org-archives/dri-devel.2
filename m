@@ -4,139 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20056CA5FDD
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F6CCA5FDD
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C28410E6EE;
-	Sat,  3 Oct 2026 00:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C5810E6FE;
+	Sat,  3 Oct 2026 00:27:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CLF+z5tS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RxqKTEGu";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="d84gb3nL";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZVcEsiyY";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E00610E6EE
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:20:26 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EECE10E6F2
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:27:17 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 692NeJnw2309789
- for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:20:26 GMT
+ 692Ne2sZ1503811
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:27:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=f2ZdA70TwBLUT8+duBJwyLHt
- iJMHfNP6ZQ0iT51JS3k=; b=CLF+z5tSG0fKu2HioWxaPqDeh3Mln78SV/in48ax
- 59WAlfgsZjRosxCu/HfQF/FucwjhB3iBYU+U6amzIdYX7K39kSfWBnENCoyzaDnV
- +wto62eJt4yIBp+Ei0bPv061uxCqikYJ1GaA1PagTbhoFq9MnzVwvjRE2e/EP62C
- 8eadC1gery4fq+4QZfzmftS/M1Z6GxWv4hISIpxl6rBMQ16Oq9cg2eyIOJoAlc5j
- n+ajfsEBq1LhDepxjD779NM1lWUFxpoNrEikx9MxzuYdUXhOCvSa9V21VnaXY0ct
- JtYnvpi4JN/k2R5pUARqD8+YSyOs854V+/zxw1ui8egndw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2f3da1vv-1
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=6I+4tIDQ+8/sqCH9j4z8H5
+ jdVNNAL5C2YjWEtdn/+rk=; b=d84gb3nLh7RyFzY18RBY9hRmmdhYrhAEBFZLe8
+ Q1QhBphkwsu9q3rWol+3Zvt//4zcrlim7knGYAxnRl+Rev/Z0CBLyaqyLa9BpGjp
+ EQjXC/q+deqYEeRYSmwbDbv5VlLi1mgGCD+yLvGGvxccZlfYXkC8z3NIbh7jCeav
+ ZPu5wfwTkYNw2Hnssjjmn0aHAifXqIc+QoUiUiNXCXL+R8cx/SOYALKAAn2il+KU
+ s8/Yvv0U+9QoiNg6rnTiSHSL5/OC57RLeuJYYZlCmfwu6MNw9s920v2PtTKFGT4a
+ gULcKztyg8cigDyMS17nSyrJAfCfxiLbC9BrD/0ahDKHdmvA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2n2rrcr0-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:20:25 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93ca9b53afaso32086285a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:20:25 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:27:16 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-9123be39eeaso8133176d6.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:27:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790986825; x=1791591625;
+ d=oss.qualcomm.com; s=google; t=1790987235; x=1791592035;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=f2ZdA70TwBLUT8+duBJwyLHtiJMHfNP6ZQ0iT51JS3k=;
- b=RxqKTEGu8Mgn/Pu4F4yirpqdjvN0SC554E+hCghIL7knpzVGlTwS3PjUc76F3x8slx
- gHhJZ138ZUFiHrRkCkjRvny0ln/4dceMLavwOeHSP73NpHhdYj0qtsSghsuVkP7bgwXm
- aUw2bwNUiGscaJLRsT4uPjcwvDl57w/tIEn1bC3VbZmtdejMr5w0LGR+2vs4VcG7cce3
- kfxKZ/GuMHMdgS8PgKVTmCtTqVjKkkE8hu9MFI9cBapeXnKu8rVTuIIGW36hLqmDtAwE
- vSStZBFlLne2Bcnl6f8PqSKti9CaU8yQ0gOtztkSgs1mzou6VqtJaB6GrpBeWDCbV0i+
- bt7g==
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=6I+4tIDQ+8/sqCH9j4z8H5jdVNNAL5C2YjWEtdn/+rk=;
+ b=ZVcEsiyYVyT/EsS2lOmsaUXd4wXMYFfKeCFBIVSw9tgoCdmxzJpB9nD5s66XxRt/9L
+ sxrZeKNPr5K6OiQ10idc5aNMw0uNH72bcDdbsOiZ42hBHkLiEquDStzvSwCs/6oLEx5j
+ 8i+eJYf0UTwvBql/HlLBfCSdPuNA23KmmvG/a2yIhwT78w6lD9zaVCEqn5q5YDXnVrVw
+ PZWF8A/CbsDkg6Uf08l+Q7cdthGyjQgq+f99ZBF+3XB7SRHJILx92RUL6mv8tKHW0i9i
+ b+Pip1tXyQuQfeXtM8cMqJXLhRfN3i15b+DoG98N134VUPSQoQ5hJYjMESJyEQ5dX2TP
+ 6Irg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790986825; x=1791591625;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=f2ZdA70TwBLUT8+duBJwyLHtiJMHfNP6ZQ0iT51JS3k=;
- b=PKy868XAC+TriKZa/TRVQHLR4JLiepNs9KL4r2xbt9oN62v2NS5s7EZwlQpLoA/Ews
- O8BCsv7np/AxAH+o+BaXixjeL99yYaPV6HXCgcsB4jeFcQ5+W+KuYoUL9c3PV7pTEe1V
- F7hY1Sot1oqhWwFUzKp1/y5cxFT2Xnf+X+576iDbp1U09Rkz8+TcgPSXhv6DI+Yqzd3d
- 05WNxuhWI/px8lY4fDOrBhUSUSOadcnwxinYLg1NMJxtTyCW5edt1MRUNoU1lcNfoljB
- NGfB8EM6MQDFbfze1SAvpTK/RU3ej3c5tC69rVvY4Ww0TzT1oc8NB5EWsgbDV01Wf8Kn
- 8xAg==
+ d=1e100.net; s=20260707; t=1790987235; x=1791592035;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=6I+4tIDQ+8/sqCH9j4z8H5jdVNNAL5C2YjWEtdn/+rk=;
+ b=LNJjV9OyL0rckIxioKHwqbmYv5LEIwaqsz8FFTSxK8QQc6kIYlO4wMvjlokHTc5exD
+ dopqEEVXxg/uEfd7siOOtbxhzh4a2dvN8e9O7OrgPwWKX+kCqGvp3KofzJhyAyzweXxC
+ lxy9/V6L3Nl0ClMJFfMVkrSZWp2tXy9cQSSJulzjciURGIDLcmoQWy0a4MI1Vkubyihd
+ ftD8C2fpjDFFgRXLy+D9SWwkK2PLhZ1oq1Rtk9W9CYMXCdYlkGx+4UiQQo4aHW5vAGFa
+ MYxM1SjY9QwYQhcCjRBZYjYaPAba0CSGqRymmiSY/6YIhRCP4RChC8vyWVVnqyxxUtf3
+ gjpQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx6hfZzgf1Nau09mGoMShL2KkR+iOG6JziyBvXxytX6bG8HIWLUXTWZX9uH64wbR3kcxGkhW/hqrE8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++k2ry2Cy2CBcm+JwD+U005bJUrSdg6spEiMhxS/9ERytcTr28ic
- 9/ZpsQEtUaas1hc5rgs+r5Ec+GtCWet5P8jr3fRlPTil07nStZW7NGCiJEyVTXTJPtH3lSwbNlH
- uQa1P0bf8mfss9zMFWEOSOAl5ywAQaUjrVnrUOynlxXLrFIvj8pj4zP7sAc+ItrSDZw15r3g=
-X-Gm-Gg: AYBFou1Vk0b8bqQt6uJRZ+jxZpVb2k47okT4c0tKmcVg4KnTcIeDZnOWmLgG+bAiwTC
- F1ymPjRGk2/fqgjQdFWjM/WAitxoyCCppLw/qc8T/jXmArVSYZ7zhuqEzdj7rLiln7CWMbDyOuM
- FFdmBvcRzK1Kmeg3mCRGJBtn87Jl2qpYDrZpiYmjhlYsuICG5QlNzgTI8kprHhE9M+rDv4ielqC
- PiXwwJ7J0jufxbX5M5Z9qRPxKSEg5pIzoasb0YRUR3Sg3Z4a4uYKN0ic0lTvUh03A/AAeSYNHqd
- 6KELMB6D3TMPKBvSYMjTKSmKo62NVxBhD3hfCS1QSt4sRSFp2R1dCXwx/oNmSZZr6khaU1ewORR
- wxEZ/NCBc5hLNk/TlfpPCX5Wzv2V6HYR0YPgJxqR4x3N/6iYnUNONMLpn9DvD26Pb+dsR2OBxmj
- aHR4CxQlrzhzip
-X-Received: by 2002:a05:620a:4113:b0:93c:6507:a6e2 with SMTP id
- af79cd13be357-93cf1a62b30mr751647285a.65.1790986824884; 
- Fri, 02 Oct 2026 17:20:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:4113:b0:93c:6507:a6e2 with SMTP id
- af79cd13be357-93cf1a62b30mr751644085a.65.1790986824308; 
- Fri, 02 Oct 2026 17:20:24 -0700 (PDT)
+ AKwUvBynMUNo8THm/+wOYDobO3JiFJiwevgsC1tQT75PZ/bgwugh/yBRCirsWAWQ5QR6ATwM+A8RyECG/us=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++ksqbrj41mtqrAuI4rsxeLrkAPDkKSVc22/rMHkvBMAuocACNmy
+ TeN/x1aHYjZJWMCzJ3qksnccDeVhPRwdVp81ScwpEtU7OX7oEhsREI4NoUjeSesh1rzPRSysA0Y
+ B1U7fjkvuryQeiNaXmOiCRoXkqzphPr2aw0JYV+NZfHmncAsbwNH+kU5a+4PoJgB1czq55SQ=
+X-Gm-Gg: AYBFou2dFoFEYSWsQGC+fYKQ89+6wdGlmr//4p9cRfFGGEsdotpEAmbWCaA+0IRhGzE
+ qJBBZSSICdTyzdTgskjuYq0qZlD6PMnzgnOvOH23DL+tCjwyLF053QUGgSHZNg1ZNitRUBbOiwA
+ fhUbexoPsXCn1V/Y5XWGKKnM+TgXKFYM8G9tq4+Y6jc4URtLImYnK+yj2NimUqr48WJ90OhRdA9
+ gBXpY//tFSiRrTUGwVjgd4G5whJbKCJ1EKNzpg2ixeUQs8si+iOzUM26dErY3LtN7rdQkWzOtHw
+ 6lV+MErDa/3i/tkAFdW2zNCdT2VhfH6zYzsrWR1J6mm+B0rp5kHQuFKwGkFQ+3QQ/pTojsCULN1
+ 7jOs71iyOOSjydYpJbegxHnqJtay0ha08colv0YcnlxWqSYxr0ZU6b5AT9SpK7ksQq7p+F6yCDe
+ Q4Hnj5LpwMKWKG
+X-Received: by 2002:a05:620a:2855:b0:93b:c350:a31e with SMTP id
+ af79cd13be357-93cf19d7c43mr902504385a.38.1790987235372; 
+ Fri, 02 Oct 2026 17:27:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:2855:b0:93b:c350:a31e with SMTP id
+ af79cd13be357-93cf19d7c43mr902500585a.38.1790987234860; 
+ Fri, 02 Oct 2026 17:27:14 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a87e2f7dc8sm13737291fa.6.2026.10.02.17.20.20
+ 2adb3069b0e04-5bb86e68806sm1120705e87.4.2026.10.02.17.27.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 17:20:22 -0700 (PDT)
-Date: Sat, 3 Oct 2026 03:20:19 +0300
+ Fri, 02 Oct 2026 17:27:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
- case
-Message-ID: <olwdkzm3nefubm7j37se3vmmpkfyxdfkrmgyiytbiv4jdz2w2q@op7vykeopdi2>
-References: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
+Subject: [PATCH 00/11] drm/msm: fix the error handling of the KMS init
+Date: Sat, 03 Oct 2026 03:27:08 +0300
+Message-Id: <20261003-msm-kms-destroy-fixes-v1-0-e062b7dae77f@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
-X-Proofpoint-GUID: VbnbBiv-buaj-1OY1ZT4xTGTD8oI6zhT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfX08VgZMQIYU1Z
- A1/YSHIMGP3UcJDa4CiSAi6sZoddHoGYopGoELv9brpdinoHt96syar1ZR7+fkZ1icGfl+2bKxQ
- pPx8kk+Y+/jl34HhSWjZMtl4U+oYKGY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfX5wV0C54bTghW
- KwwEpIODyY0VCTVmJPdrt/jz6V+hELdmsA1AT3lwdeo3Jypit1GbTOVHSuZ9LTw9I5Y7nbR4tVd
- YX+6LGIRLACXR2MdrjS7TCjx+UKtBB+Rfy5YiwAIVMI4/0zJ8nToRKd6L4V8cSUdIBHTFf7YQTP
- wpKjPR63W5QbPfog2FZ8Y+mcFZeCOmRlPQyfrW+aoafTZMgR8egMd3YO4bj2+yDya9BXCyIkf/g
- ccAgwY2uBDN6zXDxP/jvuG+nbtBFzf0TGAo6HCCE22lxi1VvmY3XLRh/qn7G7n0EdHemiSTW+ao
- 5oZEbKd+WEiIKPrqt0Ty8vmuNX5wcS8Z6JADX519ifvw3vTJy9ISjapWqzpcM467gVE/LF3aKkm
- zE2wUInnBJCaNNcuMEJS1ayuNvkqSzj3Rxa0kP/zT6VY76+B2YfH7Eack1OLOc1bR6GfDbSzJ5z
- up81bzgN+ggTDjVN2rw==
-X-Authority-Analysis: v=2.4 cv=L9SI0OT8 c=1 sm=1 tr=0 ts=6ac04a49 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN1LwGoC/yXMQQqDQAyF4atI1gaiI6V6leLCcaKNMlomtiji3
+ R3r8uPxvx2Ug7BClewQ+Ccq8xSRpQm072bqGcVFQ075g0pD6NXj6BUd6xLmDTtZWZE6KmzmTGm
+ fBmL7CfwfYvqqb+vXDtwu1xkcxwk9hNgLeQAAAA==
+X-Change-ID: 20260930-msm-kms-destroy-fixes-0f04b1d39b83
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3900;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=8vBOKHWuLr/9BOjuKKDaDSg8Rie4eNeOOmctMKqw2iE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqwEvfDIFRGGnsvtZ1Y8MrI6hNIc0fOjZ0bJdd3
+ tX4wY12xCOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCasBL3wAKCRCLPIo+Aiko
+ 1bBoB/9X0dEj3+Z0pCYjxTrjNGwtZm7lDy2WloyGD0DgIF5gjJasJxHB9OS8UrB0nkTgtZsC3rr
+ rbzyMH36e+IEB9fvX67mBV7WMYI+wzQqOGYLf2yYsJHR265zX8VD0s8H88NYAtOGZQNNyAwitVL
+ HvjgVOugSFWaexbE/lmV9ZANR6erix4H0lzYptc41bWZnRmPdFVAJXoTSUReZnJE8T1lXPaCuV2
+ zIbnpaJ3fVyefXmJYscbcvNBA8B2nurbxnl/0pfhaK/SeZNHX5DXeRAugDImyn1Av6FnAAu6/1S
+ MILUeJg/CVPZWWBdpUdTcIHPft7M7/U1yDAuzP5tehP+JPWx
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=d/VgWhjE c=1 sm=1 tr=0 ts=6ac04be4 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8
- a=COk6AnOGAAAA:8 a=DT45myXMZceectMb0b8A:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22
- a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: VbnbBiv-buaj-1OY1ZT4xTGTD8oI6zhT
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=w1plCvtmiwo6cpt_-wcA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: gXGms6EKWkURJA2yRe6oGr84GwjsfHlC
+X-Proofpoint-GUID: gXGms6EKWkURJA2yRe6oGr84GwjsfHlC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfXxDYR6vbauGxe
+ GJ6coXqwDKVXMzN4xiLYaKXrFcj8CneO1jSBcYloSKlLQY2JlyvCG6rkNaDfNbncb3fMxsOaXVh
+ MyS98xM28zk5f2nOmFiZ8mLGUpbBWe0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfXxByc2+UeMWEu
+ nW1OxdEqJD4CCwqekoUrMgqD2a8ZfFYMwNINGcUqA/BYUjnIOBeqUA9tCo5XblonkUrT3mFnEC5
+ E9tc0klQ1Ci6abC2raAOP14wx1B2zJKxio429zwRFRLklQg70ncb0pVg4H+om/JqrWSBc5nVM/j
+ C7mDkZLM6q7GQF2JAOwEe4DHv+gMUpfWXPhHdOmYNdaSJ+NJsi2LTtwEp9uNa9NgDMwfZ18bnIl
+ XewtqpsE6MPEAZPvIZPPXFjn0ex0DASK0Tjo5MzFMEJt30x4hAsW4bqMPvCWkwWEguhNgXM9sRi
+ Tb8UE5dEDMEEPuw1NIKrPyoMOHP36Zrnwfl0SpLdTjYoktVrOp30vbLWJw9LvlIyOZvD3JSXo5D
+ JMVHk9JIWbXPpRE+WVGjjzjIaApC7VpmZVaOMb2KTPvPeS/utrgOlVlOpGZAc3w1fVsO31GFZvo
+ 1a8LEmRF11kEv4+cZ1g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0 spamscore=0
- adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030001
+ lowpriorityscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610030001
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,35 +162,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2026 at 05:33:26PM +0800, Jun Nie wrote:
-> To support high-resolution cases that exceed the width constrain
-> or scenarios that surpass the maximum MDP clock rate, additional
-> pipes are necessary to enable parallel data processing within
-> the width constraints and MDP clock rate.
-> 
-> Expand pipe array size to 4. Request 4 mixers and 4 DSCs for
-> high-resolution cases where dual interfaces are enabled for virtual
-> plane case. More use cases can be incorporated later if quad-pipe
-> capabilities are required.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Patchwork: https://patchwork.freedesktop.org/patch/675418/
-> Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v16-10-ff6232e3472f@linaro.org
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+When setting up the KMS fails, msm_drm_kms_init() cleans up by calling
+the ->destroy() callback of the kms driver. That makes ->destroy()
+responsible for tearing down a KMS in any state, from "not initialised at
+all" to "fully initialised", and the drivers get it wrong in several
+ways:
 
-Jun, thanks for your work and your efforts. I hope you don't mind me
-taking your patch, testing it thoroughly and finally polishing the LM
-allocation conditions. I can say that without your energy and
-persistency the series had no chance of being implemented and landed.
+ - dpu_kms_hw_init() and mdp5_init() already clean up after their own
+   failures, and ->destroy() then finalises the global state object a
+   second time;
 
-I've posted the (hopefully) final bits at [1]. I will run them through
-the CI and if everything works, it will land in 7.4.
+ - mdp4_destroy() dereferences mdp4_kms->dev, which isn't set yet when
+   mdp_kms_init() fails;
 
-[1] https://patch.msgid.link/20261003-dpu-quad-pipe-fixed-v1-0-6a6a00917b71@oss.qualcomm.com
+ - msm_kms_init() leaves a NULL workqueue behind when it fails to
+   allocate it, which msm_kms_destroy() passes to destroy_workqueue();
 
--- 
+ - msm_drm_kms_init() hands a half initialised KMS to the full teardown
+   of msm_drm_kms_uninit(), and the snapshot init ignores the failure to
+   create its worker.
+
+Most of these were pointed out by Sashiko while reviewing the "drm/msm:
+fix SMMU fault dumps" series, which has been carrying the first fixes.
+Rather than teaching ->destroy() about ever more partial states, this
+series switches the KMS init to the usual kernel convention: every init
+function undoes its own steps when it fails, and ->destroy() only ever
+tears down a KMS which was initialised successfully. This reverses the
+approach of commit 93c125e4ea98 ("drm/msm: don't tear down KMS twice when
+KMS init fails"), which moved all of the cleanup into ->destroy().
+
+To keep every step safe and bisectable, the drivers are converted one at
+a time: a temporary flag tells msm_drm_kms_init() that a driver cleans up
+its own failures, and both the flag and ->hw_init(), which gets folded
+into the drivers' kms_init(), are removed once all the drivers have been
+converted. The last patches are follow-ups which the new rules allow:
+unwinding the DPU hardware setup step by step, disabling the MDP4 vdd
+regulator on teardown, and dropping the runtime PM flags which
+->destroy() no longer needs.
+
+Tested on DB820c (MSM8996) with both the MDP5 and the DPU drivers, with
+failures injected into the msm_kms_init(), the MDP5 kms_init(), the DPU
+hardware setup and after a successful kms_init(): each of them now fails
+the bind cleanly, without warnings. MDP4 is build-tested only.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (11):
+      drm/msm: fail the snapshot init when its worker cannot be created
+      drm/msm: unwind msm_drm_kms_init() on failure
+      drm/msm: clean up after a failed msm_kms_init()
+      drm/msm: let the kms drivers clean up a failed kms_init()
+      drm/msm/mdp5: unwind a failed mdp5_kms_init()
+      drm/msm/mdp4: unwind a failed mdp4_kms_init()
+      drm/msm/dpu: don't tear down a failed hw_init twice
+      drm/msm: tear down only a successfully initialised KMS
+      drm/msm/dpu: unwind a failed dpu_kms_hw_init() step by step
+      drm/msm/mdp4: disable the vdd regulator on teardown
+      drm/msm: drop the runtime PM flags from the KMS teardown
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c      | 55 ++++++++++++------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h      |  1 -
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c     | 63 +++++++++++++++++-----------
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h     |  2 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c     | 47 +++++++++++----------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h     |  2 -
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.c | 12 +++++-
+ drivers/gpu/drm/msm/msm_drv.c                | 27 +++++++++---
+ drivers/gpu/drm/msm/msm_kms.c                | 43 ++++++++++---------
+ drivers/gpu/drm/msm/msm_kms.h                | 17 +++++---
+ 10 files changed, 159 insertions(+), 110 deletions(-)
+---
+base-commit: a15fac810c76397ec9f62a6fc26c4d7ab6e238a7
+change-id: 20260930-msm-kms-destroy-fixes-0f04b1d39b83
+
+Best regards,
+--  
 With best wishes
 Dmitry
+
