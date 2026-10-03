@@ -4,45 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7632DCA5FE4
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 20:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1B5CA5FE4
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 20:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B08EB10E58C;
-	Sat,  3 Oct 2026 20:12:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E635710E150;
+	Sat,  3 Oct 2026 20:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q9hxfL4P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OZEj4F1n";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 424B210E58C
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 20:12:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DD710E150
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 20:45:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4ED0A600CB;
- Sat,  3 Oct 2026 20:12:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4A21F0089B;
- Sat,  3 Oct 2026 20:12:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B5CC460120;
+ Sat,  3 Oct 2026 20:45:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333BB1F0089B;
+ Sat,  3 Oct 2026 20:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791058348;
- bh=PETVYlALKVpYI3mZ6kwLDBMO2S9eWoODGUp/4KNKTeA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Q9hxfL4PvJjthTELW+6DEXd+Qd0x3NLqX8FbXmnPRh9IcZumW4rZ/KRkLQwmR6tdI
- NZ1/YLiMio24cmxkfw+PWI+AlypJUYZGsshH183I23bNeH34Jv9dDAxzi0X4/wKr28
- tVdOAM2jWBwkXFRMdL+J8ao6fMknUQQhx2lMb65S2C+NLTtTLrzJ7NLRZwdfbRGthv
- Zi5+W3jR6XQxDoTd2OBcf4+QGiS7tIxY+pCxmxYS65Fo0kiDt0ZFupJF11J3f6dqp9
- elgzOEGPuf9ac5ua6Vw2eq8uKph7D/Qw8tSEV87iDkyyYyDPdgo+OKL1Y7SNbdRUFT
- x9UPJIoFBrpdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: mediatek: mt8188: Add the MFGCFG
- phandle to the GPU
-To: =?utf-8?b?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20261003200132.866240-4-michal@nozomi.space>
-References: <20261003200132.866240-1-michal@nozomi.space>
- <20261003200132.866240-4-michal@nozomi.space>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 20:12:27 +0000
-Message-Id: <20261003201227.9D4A21F0089B@smtp.kernel.org>
+ s=k20260515; t=1791060329;
+ bh=X8iuOQXnVYYdSG0NuC0FpqYPqJ9aUVdctLVwjWuIw3s=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=OZEj4F1nQ7bdjYU+XZTkdEJ7/ssHip5lidQLNVWEi/QuA6awBDOVhvWhzQXm6yFj4
+ eKotg0qzyzRTMIrQc4GaFLTN1IG6xzhob5Q7l6ys9J4THnxp1Rid4s3b+62yu3V7Zq
+ 5/kv8sJp35n9cpbZ5F9opovWevocGak0PMALOgcHIIOZ/zmullKw1j81ZRkbGHScO6
+ c9oEPZeC/1yIBZ6Yv2C8ujWVbyvUIo99ndVuw+6hJjXEIKpmm/0hCgCO5X3bBNH63x
+ jHELs+T79aqduVbESmXLEyYl7qMd5rPThx+TF0J5HF/PJQtqqUmyUQZVlPTgb9xi50
+ lZCZLAfDvkq+g==
+Message-ID: <3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
+Date: Sat, 3 Oct 2026 22:45:16 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+ <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+ <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,66 +134,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/panfrost: missing GPU timestamp quirk on MT8370
---
+On 03/10/2026 17:36, Michal Wilczynski wrote:
+> 
+> 
+> On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+>> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>>> +  clocks:
+>>>>> +    maxItems: 1
+>>>>> +    description: Reference oscillator.
+>>>>
+>>>> This barely counts as a resource, so usual question: no resources here?
+>>>> no MMIO? Even the user of this phy is the block itself.
+>>>>
+>>>> This makes me wonder if this should be a device node in the first place
+>>>> (instead folded into the parent).
+>>>
+>>> The PHY has no reg because the reg is shared with the controller and
+>>> owned by the parent - patch 9 lets the bridge take its regmap from
+>>> there.
+>>>
+>>> The user of the PHY is not only the block itself. It is the pixel clock
+>>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>>> it is the only intended source for that clock. The parent has to be
+>>> assigned explicitly so the general PLL does not end up driving the pixel
+>>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>>
+>>> So it has to be its own node. The HDMI block has two independent
+>>
+>> I do not see the logic which lead to this conclusion. Pixel clock
+>> provider, so a clock controller, cannot be a user of a phy. Clock
+>> controller does not have a physical layer.
+> 
+> Sorry I think the wording was not perfect. I meant the PHY node is a
+> pixel clock provider. voutcrg consumes a clock not a PHY.
+> 
+> voutcrg: clock-controller@295c0000 {
+>          clocks = <&syscrg ...>, <&hdmi_phy>;
+>          clock-names = ...,"hdmitx0_pixelclk";
+> };
+> 
+> The consumer of the PHY is only the hdmi controller.
+> 
+> What matters for the node layout is where that clock goes. voutcrg is the
+> SoC display clock controller - it is not part of the HDMI block:
+> 
+> hdmi_phy -- pixel clock -> voutcrg
+>                               |
+>                               - pclk/mclk/bclk -> hdmi_controller
+>                               - pix0/pix1 -> dc8200
+> 
+> hdmi_phy and hdmi_controller are the same register block with one reg
+> owned by the parent. So if that block is described as a single node:
+> 
+> hdmi_node - pixel clock -> voutcrg
+>      ^                          |
+>      --- pclk/mclk/bclk --------
+> 
+> the node provides a clock to voutcrg and consumes three clocks from
+> voutcrg. That is a cycle in the device tree description.
 
-commit ad326344199c9c294e6415c92318bcef828d8630
-Author: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
+There is no cycle. Internal signals to the block are not represented in DT.
 
-arm64: dts: mediatek: mt8188: Add the MFGCFG phandle to the GPU
+What you have is a driver problem and you create some sort of DT
+structure to solve that. DT purpose is NOT to solve your driver
+dependencies or circular connections.
 
-This commit adds the MFGCFG phandle to the GPU node in the MT8188 device
-tree. The GPU driver requires this configuration block to enable the GPU
-timestamp counter, which otherwise reads zero.
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8188.dtsi
-> index 14a320f0c70cb..b4be89bf55bf7 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> @@ -2266,6 +2266,7 @@ gpu: gpu@13000000 {
->  				     <GIC_SPI 382 IRQ_TYPE_LEVEL_HIGH 0>,
->  				     <GIC_SPI 381 IRQ_TYPE_LEVEL_HIGH 0>;
->  			interrupt-names =3D "job", "mmu", "gpu";
-> +			mediatek,mfgcfg =3D <&mfgcfg>;
-
-[Severity: Medium]
-Since we are enabling the GPU timestamp counter via the MFG configuration
-block for the MT8188, does the MT8370 SoC also need its corresponding quirk
-updated in the panfrost driver to avoid breaking userspace timestamp querie=
-s?
-
-Looking at drivers/gpu/drm/panfrost/panfrost_drv.c, the mediatek_mt8370_data
-struct is defined as:
-
-static const struct panfrost_compatible mediatek_mt8370_data =3D {
-	.num_supplies =3D ARRAY_SIZE(default_supplies) - 1,
-	.supply_names =3D default_supplies,
-	.num_pm_domains =3D 2,
-	.pm_domain_names =3D mediatek_pm_domains,
-	.pm_features =3D BIT(GPU_PM_CLK_DIS) | BIT(GPU_PM_VREG_OFF),
-	.gpu_quirks =3D BIT(GPU_QUIRK_FORCE_AARCH64_PGTABLE),
-};
-
-This struct lacks .vendor_quirk =3D panfrost_gpu_mt8188_quirk.
-
-When the driver probes on MT8370 using the mediatek,mt8370-mali compatible,
-the missing quirk means the MFG configuration block is never enabled. As a
-result, the GPU timestamp counter will read zero on the MT8370 SoC.
-
-Could this be an omission, or is it intentional to skip the vendor quirk
-for MT8370?
-
->  			nvmem-cells =3D <&gpu_speedbin>;
->  			nvmem-cell-names =3D "speed-bin";
->  			operating-points-v2 =3D <&gpu_opp_table>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003200132.8662=
-40-1-michal@nozomi.space?part=3D3
+Best regards,
+Krzysztof
