@@ -4,100 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17D69CA5FE3
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645FFCA5FDD
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:30:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 632B410FA74;
-	Sat,  3 Oct 2026 00:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7CBD10FA67;
+	Sat,  3 Oct 2026 00:30:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mrW99CZF";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZGWoiE2Q";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QNJGTYJq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X8uwlbEr";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06C1E10FA71
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:30:52 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3646810FA71
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:30:54 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 692Ne0653883843
- for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:30:51 GMT
+ 692NfO5B2504039
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:30:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- eHOhCOzc/mfTLMETVqcNmf3tHPYnwjCQ14Z/p/+aNzc=; b=mrW99CZFoTtWEbva
- ASB9L6EE7QSfHG/biXyu7a8cz+yORecTwEvGWfLwpRxiZ+VO5/qKZsk4NW0VeSU+
- zyPKTJ4FA4//2OAahM9oxuuCof6aF6Nhj1pCGjL2FOqLTAhLS7lpt7NCBrw1KGJF
- grVRXWRc5r58jay+WApPoCYfQeDks2WDDgTZF+wPTGeHwXz8QSqAC0sCC2PSrzj0
- ENi/1EjaUUY+1kfgp1twV494gRhbCkOAUzC4sAXHKZfFcYrhw54Z7NTEGN3cUcXq
- cE7Gx+eoAcUFp48OrwAcJCjYKbfHDl4VpQToz7Ppb84wmgDmE70kmJa715CUfZ9j
- lr2CEQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h26bp40y7-1
+ TKSzVpF9Y5u9f1YmazNZW9NP4SNsefNUw/+8xaOI3ao=; b=QNJGTYJqYbva8TwF
+ BeM3Umn0WIG+tM6NsEM14V0TP8J9qt0lfoFkNpcHD/rN1qMQT9jFWEdBEwf6Ji1+
+ gdHc/I2Uf7MCT/AxVT83+UE+X4zbzDMi9ehVGqLg7i0jwhPillfFi9UAMMr7EDM3
+ miuJzD/eflCilqXQjmbgpb26JRKGYL5Vgyd1qeT8Wp3dYsLp+omeyvTHrW+DzbeS
+ dXjQ6sBvv8c21YSlekTYWmWc8Z7CyyZFZFgiWQyEBniBIJx2gy+PoZHOfoJGwyxa
+ 8A5pO6KAyuOMwlpQwRihd2gAnUcUIP2+TYi5ZnD5P4xevlzfJthaYfnOEThozHD9
+ GVcvvQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ft8ss35-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:30:51 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93c58ee2116so25400885a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:30:51 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:30:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-934963b2bc0so18135385a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790987450; x=1791592250;
+ d=oss.qualcomm.com; s=google; t=1790987452; x=1791592252;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=eHOhCOzc/mfTLMETVqcNmf3tHPYnwjCQ14Z/p/+aNzc=;
- b=ZGWoiE2QhsRdxuTL4mu+wEsq0YZFkdf1kDOq7dDbqDm0BczB0aYprrManFuI5WW//D
- w8wS23JYAIbcehW+QNbx1VrEkgdWQmCVivJAC9KNwMuWTJibciMzFe7vMppgcWjS6k+3
- kvMPFO1NZ+OsZY0GpRny4E8gzonwe3B8DkuRvkSZnX+TOK3WkF2WJigYlCzXQ8FnqGZT
- uIfVQmX+E3MSFZdbZ8LumqkSEdaqI82L6Cq02dTLhlB7tJj4lQylxCVjYVSRUnNq0l/q
- ucM5sd3ZwLHb8Iyod3SGXawkhdEeCAVhSkZ/vcTV83JUjSSdH9sJkj8tamoxuRuk0TRc
- lu5w==
+ bh=TKSzVpF9Y5u9f1YmazNZW9NP4SNsefNUw/+8xaOI3ao=;
+ b=X8uwlbErb9kyog4sYZxRtCLvL27xzVBhZJdWaVJPN5YvS+ZpmSBwOmqxS4l5QwoOQT
+ VmEcKW9dA/NevXlst/Gx4gqHrLtdi6V7Y97rHpjLCwRtJYITdCjSATgj9yDMBDxzLMtv
+ JnwJn7Nixe1GwmSGR0FLxE0cGCkbtfIbXodLksW3sa/9nvDnSX6oMmK5FyscT24C0Z8g
+ 0O38x2cH5iCTegG0Nlb1fnYMkOzvba30wJi7Q74m8jiubO+MFGaEyAHXhUe7wLLssMzE
+ DyQrE/D3LykecBOoCNJMKOY7zijtimGM0FZapbFzQdX1oxOROMzv0yrHhoLV4dVo8MlJ
+ tS6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790987450; x=1791592250;
+ d=1e100.net; s=20260707; t=1790987452; x=1791592252;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=eHOhCOzc/mfTLMETVqcNmf3tHPYnwjCQ14Z/p/+aNzc=;
- b=iB7TkB6crCxkGSQmoPcjgtUkPRDCiJzyQtDR8HmAlTdWTZfK8KyyeJQfQnYFEJ7Vs5
- EO3eG/oXYKLcr7gcWFoKdEZ/AkrKZXVb5W24znJXBDrriIVpiLiDZFI30uiW83vSdq1s
- UsAo3GHDhZd/TL5KDnAeZz0PTLoRdmJa5XwOb5Dp5q2RAybH+eAOVLpr/6hA5Dk4FrWv
- c/U7i0+8OsYbzwgzvQkX503eX4xQr6axmpTffSwCbK6dOA8hNXi87i/MbBmbwuGVmdxW
- KJRPPUiDXIOLIzUPrVkpALAg0hsPIdTkRCTMUq+enlq7UghHZRYtf78LjRSecNHgj2un
- NxKQ==
+ bh=TKSzVpF9Y5u9f1YmazNZW9NP4SNsefNUw/+8xaOI3ao=;
+ b=H4tqTZDw6G50vjv+vnzproL24RoC/KPXQop8+0RqsX1n8o5fmIAiAfeDYyowjyxTBp
+ lrr5yKWOjhDZ7cOrnJhafiYFOmmaC58bOIJx5rybizNR/yWJ51Z6ZXTEmd3EuQJNHh+Y
+ siszy+Ao9LSumbjssCeo5urtmKrhGwtAChS1RY8ImcdmA10AS07XCVBoeR3QyBAw2621
+ vDwiz2ybNbMennhvnRE1BeErg85clJ8+59ClMREaBZeJ73wtKQHMtV/21tjMmZnQ7BoJ
+ ywNzHCCXKihnWF0O8WkYIQaIJQ4Qtq7MrMUNXNWV2BTHY3Qq5QEoybtl2zVgjmWhODLA
+ Hv5g==
 X-Forwarded-Encrypted: i=1;
- AKwUvByQP93Ah+UVEPvdVqI5YJPKWXwJEhRNp0/lUvpoR9NUV5DHoGTEn4dxfjyjNpHZzhBjdHj/eYtj5cI=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++keagshRzgHqiWPxzin9QDj4fcEdELJxMYfNC6XyighfQpWCnt3
- yX7Y5qia2v6gTLllH6u3y4juJ+vM1MJVkaBP/TLLNnpq4KPQ7klav/SxdKyVZL/dCtUBZjO5rXh
- +mm63QkvXukWknVsxYmXhfDFI4jRHf12BslONLX160WD7ORUSIlpQMPRp8+7un71T+zQbrUg=
-X-Gm-Gg: AYBFou35UbYZx9I5a8zY+XCioqiIOhaW1NreNOlzOFJf/WvHS4Yvx1gKNbgpY/WGEKs
- kLP5gpzihNA51KTAnmTuMpzuhYKt3Gdy7OK00CfX4LWxLvLpUhcXI5MAeKjv/n+8dgcQlrBkZWu
- KFQHnMC1JNe+cO1qpAD1iden0HcFqXShEVKnlLuEV2lQRZ9Yg1PUxd16eWzPLFLE28QDR9rQ/XH
- 5gGfL+S8PrBHdXFrWtaYBSttZrPEdXaXRdW3C24lJI/aELEZecVS0zWbqDhp+WZc+UL6sy78QEH
- 7HhKKBtpykStEf46WmKXjtvy+ZjUe2b5pB6fPmfPGGQPY2MiDPdCv7HrWykLb2wrgl0h+gfJuNl
- M/LnCuOy/WLfqsphj1G5g7q10iF0zBE3swJCuq4jP+VSHFaEAsVdwS5bJbcWLvm90ZswKQ5N4kL
- TSA9ersEijgpw2
-X-Received: by 2002:a05:620a:370e:b0:92e:45e4:c6e with SMTP id
- af79cd13be357-93ce7c126a2mr814747485a.22.1790987450508; 
- Fri, 02 Oct 2026 17:30:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:370e:b0:92e:45e4:c6e with SMTP id
- af79cd13be357-93ce7c126a2mr814742185a.22.1790987449819; 
- Fri, 02 Oct 2026 17:30:49 -0700 (PDT)
+ AKwUvBxyNcqpVnyPTz4aaJI3QnDqYskQ6l3qJzrUr/Go1ewkdBIdLbHF64TQG//UIhz9HAOs4XCARP0JdxA=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nqNm8YdpycwEqzscJgxRLQeGo5ql83ZR0Dr/Xrw485EIeZj2wj
+ GN8juL+SU8zuK7WYZTzN835NvoZhgld5f3GppqVtlIuJN5sq2WHCx4670jtlFYNS/EeYBbRQKNq
+ 2WHuQukjhFypxwWBYiFqlx4dkI9/lzmVO1Tt8+Ui/5JgDMkTU0JV3CrnZHqdrd48g1merD6U=
+X-Gm-Gg: AYBFou0HkHSO2ZyiEw5WEi2we+aNp7fHpEF2yKSH1z1NWP3UGMnyo0QhHkT0r+x/42q
+ H/JAaGNwMMH+4vazVKcWGBGw/2hokI8rymHrUt7/PgDiwgJ7DvclNNx7UwYJmLV5SkNCT8iMlwb
+ jElAITffmd1zOeHOsCGc0NfDz/qOQHF85RLiqo3es7ZJqMaWD1Ct9bgJV4BODAjDgOtcLPRRx6E
+ nwMIfcTCwZpwgXwI6fOXdXcZDRiBcXHGXiMeg2ccWRNk64/E5o+q43Fg8kHUGhDUDMrIqbGG9It
+ xxbDgzjD/pIoQ1gaIWD5rwEvhcTxVaz7Yo2tCtzkUyUNjlVuQTjt4E19t66uMmcNJScZc2+iJYk
+ aVxHEyVh+xq3f5VaIYLwWC5dYXti1gpNqwVV0p6kMM/sPdi6aHPRkHGiLHtZJOiwrJensfEKcu0
+ 6Viq7aBYxu6O2M
+X-Received: by 2002:a05:620a:a2cb:20b0:93c:9edd:7e6b with SMTP id
+ af79cd13be357-93cf170bfbamr599120385a.29.1790987452196; 
+ Fri, 02 Oct 2026 17:30:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:a2cb:20b0:93c:9edd:7e6b with SMTP id
+ af79cd13be357-93cf170bfbamr599116685a.29.1790987451614; 
+ Fri, 02 Oct 2026 17:30:51 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bb7c7957d0sm1133979e87.31.2026.10.02.17.30.47
+ 2adb3069b0e04-5bb7c7957d0sm1133979e87.31.2026.10.02.17.30.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 17:30:48 -0700 (PDT)
+ Fri, 02 Oct 2026 17:30:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 03 Oct 2026 03:30:23 +0300
-Subject: [PATCH v4 08/10] drm/msm/dpu: clear the DSC blocks left by a
- previous reservation
+Date: Sat, 03 Oct 2026 03:30:24 +0300
+Subject: [PATCH v4 09/10] drm/msm/dpu: only reassign resources when the
+ encoder is reprogrammed
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-fd-kms-fix-smmu-v4-8-2a44d4d8ac77@oss.qualcomm.com>
+Message-Id: <20261003-fd-kms-fix-smmu-v4-9-2a44d4d8ac77@oss.qualcomm.com>
 References: <20261003-fd-kms-fix-smmu-v4-0-2a44d4d8ac77@oss.qualcomm.com>
 In-Reply-To: <20261003-fd-kms-fix-smmu-v4-0-2a44d4d8ac77@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -116,42 +116,42 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1863;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4595;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Tcm1wwjFUx6qr560GHqjRbA//0DsF7WwB3VWVPjtYn0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqwEyeHM3qodO1Z4dWypShC9HlO1P5tnDPFr6/S
- c53ThRUNNKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCasBMngAKCRCLPIo+Aiko
- 1SPpB/47Q77z17jpxRb0zyfwxmrG21V9owc/wpGMXOjNrvrBp73o7zHvOh9yD5inwpjcIrd9ewJ
- jqqE/akhDolwoF//pVDm1CB0RkCP0Rxzf/++W06MnXJfjmKr/8gzRStduh0a5cpJ+BF3XLfJxVd
- Up9uDma0k/ldJxYyIu6H21VVuwKeJIFbSxQNBe3yTGxIPxxDLx6hk62fiAOyWwbZeGhsCuqkIdc
- mEVxbyuw9ym0Y1z4o0M4XjJpecjmUSeKYr49h7xJtJewkTMHZKAqH20eIBOS+MW5BbH+PkifPzA
- PWQ7csibinNcvqdoZ+SQ2tWQl8XY8/B9Jc+iRed5eLqg39ld
+ bh=9SDSxKOaGPLQHPgJJ/MJ9sA9C1jx4gbbbbOh77Pqu4g=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqwEyed8IZzZGwq30zWZitw+ph3kFy0hD5iced0
+ HynY3ZqVieJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCasBMngAKCRCLPIo+Aiko
+ 1VklCACNn7rkJtTd/eFXEXonWfW2YKR7qyLoPYl6sZPBfDd1NWWakc7215rba5CUGoGIuvVLhJ4
+ atIHIm5wUuK/xGLzKdzARtyWbqBXAFbPafHGGEMdg8qv0xZATS8iOe8Ir4plnULmOxM1ZBvfKg1
+ JbG9E7qIRP/KbjFp2eLEjHwsb2R0nNr+frfn3fNbW5AW+ATyhfQYdyeoij1oqCoY1z90Yw6IEae
+ 2K3+kMc3/0evFg6DuWGYLQw5pIQmDKOMVpeDcKcexT/eaDMzCR987ictRMLtEgG1t4qrZqzz5Gv
+ Tu05Efwh020EvGg5jTmHx6Ejj9dVzbBrOflPo2i5JhaBTUJE
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=OMqyTiaB c=1 sm=1 tr=0 ts=6ac04cbb cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: 0Hb1azByXlqnVClvmRpvFf7Pe_NpXbn4
+X-Proofpoint-GUID: 0Hb1azByXlqnVClvmRpvFf7Pe_NpXbn4
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6ac04cbd cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=mN6KdvlfDCua2x_U6QQA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: qFruuS9XEvAX6JqsveMo1sRf_Iyh82XS
-X-Proofpoint-ORIG-GUID: qFruuS9XEvAX6JqsveMo1sRf_Iyh82XS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfX2OB5Qh/JEMJk
- FWaDILUVycT/58Hjht1b/5/7935CKjjEBY6ckFr0FgyL0GpIWXzs9lm6+7nT+bjfSaTI737rcrn
- uDLyt2gT2Zg2Sb38kEcI0EtxdOnHNJ8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfXyqQs+hNhsizq
- lb71Hp+5Fnf/dpP/jZ6pCO8EXZwarCUIXjpL5gm1SJUgwXJ/Ktno5YG5VqgLRYA4miD9mr++W0D
- +AX0KpWVGe3gDMeChFXXq43YVeYI/8VrBhSO5tcGm5/ZoUWlkEZyme+pojHiLPtfx1I55V55kui
- T68WLjLZSvba3jp2rViz4Bne06R9mkEE+c0mFcaTNZQs/fzDYV4iUw4MF8vtcRYYBA797Gamlm5
- ssW/b7Qzg8pKex9PM0o/llFOnJhwVPnCCctVsOdztkb3hxVAjdsEbMsxeehOd/ha+Q3w8tmCaiG
- cDhW0AA1Y5/btxT+T8B1UGuhtuI3Bpul0L8G7tWInfa91+yLnJnbR6vAzNY8DvJvPuC+mYnPriM
- PxWgfByhpLKlWzQulpkJCFlvQx6dCaeiDaFVb9P07zRIGt+tJHRHjL//ytXbSnSJ/MYrhMJFsP/
- To01B36jFeLoq0sdknw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=A1gMwnIAOo8MrSanVxoA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfX/xpenJNoqkQk
+ xavhW+zSftA+3MmuDdqxOyiDPHpNqE7xhtpwhMndlo30rnuocjt1m6MUhF9AIlgkCvtMld/as1S
+ giGil4Mj+odLf+U4WbrVv3iW4FZQ9BM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAwMSBTYWx0ZWRfX1G/dztz3CtTz
+ vFhzU6mvXuhcNwJ78t0KTJ9OcpHa4WC5iwwhwuqZ58Ihcj/TpOd7NRUo/4qz8nOQ4DYGQOYsdet
+ eYogEIvWff/N+yMg1/nNfSR5MvzfXFg5f0RI6Q+zAP+YwIRi8zrgkeTOynqU+XzXHONLpaz47WT
+ z/IeBemQ5pu8EMn04mU9sgAbheJrtaZPIhaMT0aD6TEP8nJ+4mHj46Bcbq4xzS6lf2MWpdfCzF5
+ Vp25eyOySphMCjAG0eo4YE/ilEXWGPSZkfhBwAdVXu9XJD0i8Ny1XihQBoFG8p7m32rhJZiUXGO
+ 18Yj8UXvCO+ul0BaztDF2ttC1eNSPOOVt7N92W5rTdVoWtqljhF160PEPRaBYOdEGGVoiZiTNEG
+ BA3i2vXDcFr/yFCyH/Xe5UNAbAEsuoCEitCyOl/nfMPjsMqHeKZAdXiJTfiU0T+/4bEXalN3Bjr
+ 7qcT1DEke3Ks8yoqCRw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- bulkscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030001
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -169,45 +169,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dpu_encoder_virt_atomic_mode_set() fills dpu_enc->hw_dsc[] with the DSC
-blocks of the new reservation, but only the first num_dsc entries.  The
-array is never cleared, so an encoder which once drove two DSC blocks
-keeps pointing at the second one after it has been given a topology with
-a single DSC.
+Running kms_plane@pixel-format-source-clamping causes SMMU faults
+(fsr=0x402, iova=0x0001fb00): it sets a CTM, after which the display stops
+updating, so the test times out waiting for a CRC and the pipe is still
+fetching the framebuffers released when the runner kills it.
 
-dpu_encoder_use_dsc_merge() counts the non-NULL entries of the whole
-array and compares them against the number of interfaces, so the leftover
-pointer makes it report DSC merge for a topology which has none, and
-dpu_encoder_prep_dsc() then programs DSC_MODE_MULTIPLEX into the only DSC
-block that is really used.
+dpu_crtc_atomic_check() reassigns resources whenever color_mgmt_changed is
+set, but crtc_set_mode() only calls ->atomic_mode_set() for mode_changed or
+connectors_changed.  A colour management update therefore re-reserves and
+can get a different CTL: cstate->mixers[].lm_ctl points at the new one
+while phys->hw_ctl still points at the old, so the flush mask is
+accumulated on one and triggered on the other.  CTL_FLUSH is written with
+zero, so the pipe is not reprogrammed again until the next modeset.
 
-Assign NULL when the new reservation has no block for the slot.
+Reassign only when the encoder is reprogrammed too.  Enabling colour
+management still needs a modeset, as that is when DSPPs join the topology,
+so ask for one in dpu_crtc_check_mode_changed() and only there.  Drop the
+msm_atomic_check() hack, which forced a modeset both ways, ignored
+GAMMA_LUT and overrode allow_modeset behind userspace's back.
 
-Fixes: 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in encoder")
+Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 28 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/msm_atomic.c         | 17 +----------------
+ 2 files changed, 27 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 6129b01c35e6..c9ea303a4b2f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1224,9 +1224,10 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
- 	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
- 						drm_enc->crtc, DPU_HW_BLK_DSC,
- 						hw_dsc, ARRAY_SIZE(hw_dsc));
--	for (i = 0; i < num_dsc; i++) {
--		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
--		dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-+	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-+		dpu_enc->hw_dsc[i] = i < num_dsc ? to_dpu_hw_dsc(hw_dsc[i]) : NULL;
-+		if (dpu_enc->hw_dsc[i])
-+			dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
- 	}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 2ff0dab33710..b1aea5769777 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1496,6 +1496,26 @@ static int dpu_crtc_assign_resources(struct drm_crtc *crtc,
+  *
+  * Check if the changes in the object properties demand full mode set.
+  */
++static bool dpu_crtc_needs_dspp(const struct drm_crtc_state *crtc_state)
++{
++	return crtc_state->ctm || crtc_state->gamma_lut;
++}
++
++static bool dpu_crtc_has_dspp(const struct drm_crtc_state *crtc_state)
++{
++	const struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
++	unsigned int i;
++
++	if (!cstate->num_mixers)
++		return false;
++
++	for (i = 0; i < cstate->num_mixers; i++)
++		if (!cstate->mixers[i].hw_dspp)
++			return false;
++
++	return true;
++}
++
+ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
+ 				struct drm_crtc_state *new_crtc_state)
+ {
+@@ -1506,6 +1526,11 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
  
- 	dpu_enc->dsc_mask = dsc_mask;
+ 	DRM_DEBUG_ATOMIC("%d\n", crtc->base.id);
+ 
++	/* DSPPs are only reserved during a modeset */
++	if (dpu_crtc_needs_dspp(new_crtc_state) &&
++	    !dpu_crtc_has_dspp(old_crtc_state))
++		new_crtc_state->mode_changed = true;
++
+ 	/* there might be cases where encoder needs a modeset too */
+ 	drm_for_each_encoder_mask(drm_enc, crtc->dev, new_crtc_state->encoder_mask) {
+ 		if (dpu_encoder_needs_modeset(drm_enc, new_crtc_state->state))
+@@ -1535,8 +1560,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
+ 
+ 	/* don't reallocate resources if only ACTIVE has beeen changed */
+-	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
+-	    crtc_state->color_mgmt_changed) {
++	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
+ 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
+ 		if (rc < 0)
+ 			return rc;
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1dbe0d..7b480981becc 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -185,22 +185,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+-	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+-	struct drm_crtc *crtc;
+-	int i, ret = 0;
+-
+-	/*
+-	 * FIXME: stop setting allow_modeset and move this check to the DPU
+-	 * driver.
+-	 */
+-	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+-				      new_crtc_state, i) {
+-		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+-		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
+-			new_crtc_state->mode_changed = true;
+-			state->allow_modeset = true;
+-		}
+-	}
++	int ret = 0;
+ 
+ 	if (kms && kms->funcs && kms->funcs->check_mode_changed)
+ 		ret = kms->funcs->check_mode_changed(kms, state);
 
 -- 
 2.47.3
