@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 339FACA5FE2
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 01:33:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E03CA5FE3
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 01:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB9010E714;
-	Sat,  3 Oct 2026 01:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD6110E70E;
+	Sat,  3 Oct 2026 01:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f/RB3EHt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UFsVCNgB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE73710E714;
- Sat,  3 Oct 2026 01:33:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6218010E70E
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 01:34:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5CB8160A97;
- Sat,  3 Oct 2026 01:33:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90DC1F0089A;
- Sat,  3 Oct 2026 01:33:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B37940108;
+ Sat,  3 Oct 2026 01:34:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2A91F00893;
+ Sat,  3 Oct 2026 01:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790991197;
- bh=tRwtVOpXEQqgWSgqNTVcB1+XqGOHmZ/GNHN5nYpi64Q=;
+ s=k20260515; t=1790991241;
+ bh=sGDH335QcaRLqAJ/OklwALfDIQHzoib1B2aIh5c2qO8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f/RB3EHtr7Oyy8GYV73aXx2SsTUlZDOaT4KcOCMZowVaI9WQZonqrKZ4UWy1z+GMP
- 4z2EJkWNHyT43Ad3jQDTfcnql8AiC76WaPwmHhVVcE5HLww/cl34lqQmLg3MYvLLEc
- cXWoG26v0omFySLEfKgXK9drd3W44fEaa7xGqs+daumTdpdiCfolp8Ab/GqLMpUVbN
- tvdQcEktgbJyOqff/GN+F+hkJgsBRaFKfEDOx0yqSg2q3l1gh2p5nacwv7y9s8egxQ
- Aig2nz5KlNXB/nss9PmRoOmvs9BUgDEZAb3M+rdID/2UVJaiPTMk4DwPLkkAfRvPFU
- 01HmZcUEjOfeA==
+ b=UFsVCNgBcCeDHkxayCg1rVOHycC1m/NUV//Wh1dQIAc7jnG6lN7DOv3/vHefHNXM+
+ qcwC46quTvIcU7rF/hS2rvmowaI3JJngGq8iENV+fOgx5v1y8r+AzRGAqoPMmCCU96
+ 7naGG04Kv/yV7dRHvD+0a9G+Bqln19hPFZ+jDvzV6sAPpreLocQBMLqOqVYiHlgdQm
+ LyfHchv5yZjyXCHhzchQqhf8Ye0J0zJ7Rimw7jfP92iAcgMYALyekxFniAetecMPDs
+ xPhBsjUGmR2WkMFLuCnbyxXFYLehuIaiuWBrQyFTKrKQGylvDUjaPt1Dn8HKKmB43e
+ kwFol2MIb+2cQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t
- from spinlock_t
-To: "Anubhav Shelat" <ashelat@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261002161137.297365-1-ashelat@redhat.com>
-References: <20261002161137.297365-1-ashelat@redhat.com>
+Subject: Re: [PATCH] drm/dp: keep MOT set between messages when
+ no_zero_sized is set
+To: "Finn Zeruhn" <fzeruhn@icloud.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261002212833.9674-1-fzeruhn@icloud.com>
+References: <20261002212833.9674-1-fzeruhn@icloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 01:33:16 +0000
-Message-Id: <20261003013316.E90DC1F0089A@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 01:34:00 +0000
+Message-Id: <20261003013400.DE2A91F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,55 +59,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] i915/pmu: sleep in atomic (PREEMPT_RT) lock inversion in i915_pmu_=
-gt_parked()
+- [Medium] drm/dp: 0-length final I2C message leaves MOT bit set hanging th=
+e bus
 --
 
-commit 4674b42fb5bd16ec1392c65ea4ec0e37639b3618
-Author: Anubhav Shelat <ashelat@redhat.com>
+commit 1eb9f4115ff3f3b4a53072c0af9a5f8cf025a748
+Author: Finn Zeruhn <fzeruhn@icloud.com>
 
-drm/i915/pmu: convert i915_pmu->lock to raw_spinlock_t from spinlock_t
+drm/dp: keep MOT set between messages when no_zero_sized is set
 
-This commit converts the pmu lock from spinlock_t to raw_spinlock_t. The
-conversion aims to avoid a sleep-in-atomic error on PREEMPT_RT kernels when
-perf operations are called under a raw spinlock.
+This commit modifies drm_dp_i2c_xfer() to clear the Middle-Of-Transaction
+(MOT) bit only on the last packet of the last message when aux->no_zero_siz=
+ed
+is set. This addresses an issue where EDID blocks 2 and up reads break
+because the stop after the first message resets the segment pointer.
 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
-pmu.c
-> index 1c3bafda9c708..65771e54b9b51 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
-[ ... ]
-> @@ -304,7 +304,7 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
->  	if (!pmu->registered)
->  		return;
+Link: https://lore.kernel.org/all/20260827015758.0B4FB1F000E9@smtp.kernel.o=
+rg/
+
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
+splay/drm_dp_helper.c
+> index 488fd123a01ad..7676285c19f87 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -2192,7 +2192,8 @@ static int drm_dp_i2c_xfer(struct i2c_adapter *adap=
+ter, struct i2c_msg *msgs,
+>  			msg.buffer =3D msgs[i].buf + j;
+>  			msg.size =3D min(transfer_size, msgs[i].len - j);
 > =20
-> -	spin_lock_irq(&pmu->lock);
-> +	raw_spin_lock_irq(&pmu->lock);
-> =20
->  	park_rc6(gt);
+> -			if (j + msg.size =3D=3D msgs[i].len && aux->no_zero_sized)
+> +			if (aux->no_zero_sized && i =3D=3D num - 1 &&
+> +			    j + msg.size =3D=3D msgs[i].len)
+>  				msg.request &=3D ~DP_AUX_I2C_MOT;
 
-[Severity: High]
-Does this introduce a lock inversion on PREEMPT_RT kernels?
+[Severity: Medium]
+Will this leave the MOT bit set and hang the bus if the final message has a
+length of 0?
 
-The patch converts pmu->lock to raw_spinlock_t, but i915_pmu_gt_parked() ca=
-lls
-into a path that acquires a regular spinlock_t while this raw lock is held:
+If a caller issues a multi-message transfer where the final message
+(msgs[num-1]) has a length of 0, the inner loop:
 
-i915_pmu_gt_parked()
-  raw_spin_lock_irq(&pmu->lock);
-  park_rc6()
-    __get_rc6()
-      intel_rc6_residency_ns()
-        spin_lock_irqsave(&uncore->lock, flags);
+    for (j =3D 0; j < msgs[i].len; j +=3D msg.size) {
 
-Because uncore->lock is still a standard spinlock_t, it can sleep on PREEMP=
-T_RT
-kernels. Acquiring it while holding the raw pmu->lock violates the lock
-hierarchy and can cause a sleep-in-atomic panic during normal power managem=
-ent
-operations.
+is bypassed entirely for that message.
+
+Because the clearing of the DP_AUX_I2C_MOT bit is now restricted to
+i =3D=3D num - 1 inside this loop, the MOT flag would never be cleared for
+the preceding messages.
+
+Furthermore, because aux->no_zero_sized prevents the driver from sending
+the fallback bare address packet at the end of the function, the hardware
+is never signaled to terminate the transaction.
+
+>  			err =3D drm_dp_i2c_drain_msg(aux, &msg);
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002161137.2973=
-65-1-ashelat@redhat.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002212833.9674=
+-1-fzeruhn@icloud.com?part=3D1
