@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19866CA5FED
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0FDCA5FE6
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55B8810E95F;
-	Sat,  3 Oct 2026 17:56:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7358D10E9A5;
+	Sat,  3 Oct 2026 17:56:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ITluEL17";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F0txGX9L";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0667810E95F
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFEEA10E95F
  for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7CE7460DAC;
+ by sea.source.kernel.org (Postfix) with ESMTP id D38A943ADF;
+ Sat,  3 Oct 2026 17:56:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2EA41F0089D;
  Sat,  3 Oct 2026 17:56:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 661101F0089E;
- Sat,  3 Oct 2026 17:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791050206;
- bh=fNKwmJ2FDVtdTL3y0GyvDzG8/ozv3dIUrcZXx4kuy5U=;
+ s=k20260515; t=1791050207;
+ bh=F79EdhQDIa5J/GDSfxMqJXg3D3l3+KznnazyjR3v5m0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ITluEL17r/l5dxzeCCMkWLqEdNBuvzRsEvb3UDBJbboW/2tLB6eYdO8tMNFWwx6rB
- +TEhLX2hqPLhJA05tAalVcTKxFUmB8SUxJ6BYYdDxUcoIQBs+kW6S3Yi96C7dhTOsV
- qkGM9XaKxkMYnzfCanEJA+oy/N6wYtQjwAWZpRduOAlrHvW/jduWOkAxGnaGNx5+ZX
- ekFnfxI1d7cIx+m/p6JTMAXu3bQUgCnnv+K8oeo5Z6tGLHUQYIRIrcKIZh0If66BEy
- m77u7gzPh1gKp1b2fHeyZ5vgF7CHrR83qsgU9MQE+pxoCz5f7L+rteJWw4JQ9BA3LM
- aDRvYVqR0H2tQ==
+ b=F0txGX9LdHZC0b5XiS0jHGGAh4q3LJ1eple4n7gumsiXsALv7qJ84uhVWCk0aClxB
+ wNtGFlcVhyCVdMoZcv+NSPPadMLpTqT+GtqD/WbWv2kogK8bS0IKUtjghFWPBU8bih
+ STyqxTAqgyfGXnRGC0gNZ2uX3J0XQEqDtxAzVDVutS2SK/FfT5jL5Dm58fx3+PLynF
+ DlJD+yd2I/rEGm/zsVPLxBmQzOXNa6NfD2S4YcXB37oIjEJWYb1PjZQ68g3iyIigP2
+ Uq+ACYDE7fQR3Kg+d0/8ZYxQUv8isPbYd4zfV/gs0kPFihVpEmbxMC+D/9kd6OriS5
+ duk7FM0z0IJQg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 26/38] mm: remove hugetlb_inline.h
+Subject: Re: [PATCH v4 04/38] mm/vma: ensure mmap_prepare doesn't set
+ actions on a mergeable vma
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
- "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Oliver Upton" <oupton@kernel.org>,
- "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, linux-perf-users@vger.kernel.org,
- "Heiko Carstens" <hca@linux.ibm.com>, dri-devel@lists.freedesktop.org,
- kvmarm@lists.linux.dev, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, "Marc
- Zyngier" <maz@kernel.org>, selinux@vger.kernel.org, linux-rdma@vger.kernel.org
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-26-a1f052500fd7@kernel.org>
+Cc: selinux@vger.kernel.org, "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, kvm@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, dri-devel@lists.freedesktop.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, "Oliver Upton" <oupton@kernel.org>, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>,
+ linux-s390@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-rdma@vger.kernel.org, kvmarm@lists.linux.dev
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-4-a1f052500fd7@kernel.org>
 References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
- <20261003-b4-mmap-prepare-vma-flag-sanify-v4-26-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-4-a1f052500fd7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 17:56:44 +0000
-Message-Id: <20261003175645.661101F0089E@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 17:56:46 +0000
+Message-Id: <20261003175646.B2EA41F0089D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +65,21 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> This header really makes little sense - every place it is included mm.h is
-> also included, and the header itself includes mm.h, so it does nothing to
-> reduce header size.
+> When a user requests an mmap_action be performed in mmap_prepare, this
+> involves populating the VMA range with data.
 >=20
-> It also oddly does an #ifdef around checking VMA_HUGETLB_BIT, however
-> VMA_HUGETLB_BIT is unconditionally available, and will never be set if
-> hugetlb is not enabled.
+> However, if the VMA is mergeable, it might then mistakenly be merged with
+> another VMA without having populated the range.
 >=20
-> Simply remove the header, eliminate the odd ifdeffery and place the
-> predicates in mm.h.
+> Every mmap action currently available sets VMA flags such that the VMA
+> cannot be merged.
 >=20
-> The naming of these predicates is odd, but to keep changes separate, we
-> will address this in a separate patch.
+> However, to ensure that no future mmap action falls foul of this, assert
+> that this is the case upon mmap_prepare validation.
 >=20
-> The file was never put into MAINTAINERS so there's no change required
-> there.
->=20
-> No functional change intended.
->=20
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
@@ -92,5 +87,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-b4-mmap-pr=
-epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D26
+epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D4
 
