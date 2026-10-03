@@ -4,80 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D286BCA5FDD
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 21:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E3C3CA5FDD
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 22:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3642D10EA2E;
-	Sat,  3 Oct 2026 21:20:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCBD10E173;
+	Sat,  3 Oct 2026 22:20:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com header.i=@yahoo.com header.b="NRFZcNdS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQ4mZEd3";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EkBE/2jb";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-usea1-0019.asd.mail.yahoo.com
- [34.2.64.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC2410E9AF
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 21:20:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791062419; bh=yrmEhSQLlEG0ucgunfCQSW1C23MI635cvk0Jl+8/sTQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To;
- b=NRFZcNdSzBtp/nfZmy2kaHYsx77j5tBfv+oRavzaogk/EMXxGsHVKmljYpykNAU1+VC8E7FC1+9x0TiPXbpf+Fam8BAdUKNuo5b0/u8BCqUQR1HLADEjL1oG9EjUWBlTKwHemX32FR8F+ta8VR7up8K1dvTIPVI9fFObr8UM/mFeSqiaETStn5rrwrK++Ssq8On6rwFhJUlmuuSkvEBn+H2Q2W/rhJnzzQbQhITg9t/5HbRSfqL6Aubnv6eXwkPHDGeJ2ywFn+onL0yfAoDgF/ODwEHM0uCIj6uEFTUAtKWf7Khp3w1YU4xVneO3TsK1u2naFHWdZnUrp1UcegIRSQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1791062419; bh=yd89yWeabfBXt/YkKcGNZA7VNjdBP8ctf0Uvjrg1K27=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=OME95Cnn9zdfWNnHyn7ZKvOdoSQrwdgLpJsaiHpte5rnRLjHjiWpc+Vr5ssym2V2cWm0nYsnn/LoMrNvxeF0YFYT20QHcIfo/Adnabhf7XxxqtIYySG3i8xh6yi/zH702tqYVMb68qmsIfJRVFCN60D92tTErtJomPNMUhgH4tYlE53Ikmfnm29utRWKwuoM/UbuV/WlCd0LAnDhkUIX6WKdDWbsVqIDml2g/Fy/s9WKnfF4VtfDscwWvBF5unLBlvdLvSbuw7bG+c+bwiOrNwA79px76FOo2jWYKXx84HnyRKPnA7a+e53ukcq+w66RCqtMSRWkVBT9Mqy/RwQ7dw==
-X-YMail-OSG: GpNHSLIVM1kY6Zlo1PAip.jcrILvQttWOdrA4zB7vMcL4XTVY9x3i1wPTFeNIE6
- 9VDsoAOT9OmVzLbWpQxk93ggWbzekW9PlGI81c7KuBe38Pe82ZHqgDz0sMHlksN9VqV3OzNYXlYZ
- rnElfJeFhvnYUApCHOTNz7ZTMsvpeFR8063XhJVBPCTLOZ8vS3hlUlI4RGK0I0_yl4Qt3k6w7GK9
- t4pw2.axYgV4i6rZQ3LLAHNDD2OlmCVncT9RBYcxLxyYmCy6NTM3YRVWrj0gOTW5athEMLVDNHb6
- W6TYfGIfkM3w7cBQ77ZLlXfbZCmUaDFXj62NIKhFjHsfN55j8JxASu9_Lv0G1HnGqiBb8E3orqxf
- IE9X52HVlNYjBLiBdq3GkWnMk7JKpBqc.9tr8kTXntLuBL_pDx46WfEbIqdobZRiaApn37upkNzV
- b7Z6kDH0Gqul6CM2ERNZbvg_OtYi2ZS2XfPwWwEtfxO05n_VMVUCRtpYF_zSfpFkgF06QZ98LpQ.
- KOOoc1rN8YlFx9X_H5Z2BzklFqhC4FfSupG4g.GP0TaW0xVnuCGc6uhTaeCiKsER1KyLPhBMDuRF
- m9QGrlV2GeWVre9jaO.FYDHX3mnCk3SwvSudsqgxbRx8J9rzG.zTWH7rjBMONVPPTDX2x0MGE7lw
- HEn.khqvlf3OGxlZNESpcmhLS1FDpTnqpYFPXbFE0EBkANNQpbbS6O440WxNt.w8tgFNUwV8gsWR
- 7x0b0zNABqIYHsaa9ZXrvzMo.I.T2sPePtwohpukmlzKu3BJ0NVNMW_Dvfl7siO857H9km_wrzzE
- lgALzdl41xqSIMGB8Y3aGn5l_yJM7ldHxHXfvd.038qbie9e1d7QuriizZTDrulKQH8k4BmI4iaG
- vLcuJuyFWi4TLiw.QAtoLnp4xkonr.h0yW2DB5Prqrd6kLyNcperT64k4UO1iwJE0UjagFI2_7_U
- eWNyMUYeQioC3CdNYu5S25K.CD88uaE_4zjJJVOEscXcoNYmKRVQoTHmH2v55r1EUazWbi_lpeNN
- Nvc.jCilRucci6HNBHMURCBOi4F27rOmfm3685MrApR9NESG7r7r8IV9DVPvdJZ6wC7c1ILomriH
- 2.kUId6UryarkqTAqyS9JxVIeTqNwcFSX3sVSS0k5rFo9S6mVhCCpiP4GDSFSU1S_DVjndyLV1FD
- k460buE21poX1Plz7xiFJwGdMELk8iO3vKARjl0OgGWHrMo.uQZDqn1t.HXPh5tsh5ULuTAgd5h8
- 5fBimPkViJQCsuotyZpC2Mf7nVLFJcSPyP8lox_vKcMpETSfjWnBuAbLLwJBPul2oWPGJL_h4yMO
- _qFEFhPTbJV.ZMxOlnOsPMD2qA5uTWmqyKoGGxbrFiDaEDrK7AhL1LlMF36ynomCuh7NhNSVwPFx
- Ttzcp4VBGzg1beyMykcatVaKQZWWoc1Q7kR0fN0nZITDoVfBP22ncGv93VTPKIFFglS3OWtd.bIQ
- P6.CFJnRXsm4sZZqxs96h6XIiXGCeq0KqqPaPcnAY9oq7uRAsrKQEBjg7Dd1BMM1RzW10VMxA25z
- GVjK0DbMYiNeZOuWALC_hpuop.b0znYoUUfJ5dNKob2f7FjZ8NL7X2roxGaMRV0cIEk7SsvwHj4M
- 7wkNIylaSWt21_f.OtL_6XphFWCEyjwBXpXkaTK3N1z2p3CHVcfv6oqqZVuTxgd5GKWXXHO5vfw_
- rz1RpeThLUqGLpqMXtTpMt6Xo5OUs88LuwAuUuC7JKsCM1Ef6QxUqv0MC1zliIFdLYHK2Hfrj6zm
- xh5YfbxgWmUkCMpfoFRnxs1NoDS.kwIlASktcCp3a5uiumjf7n3ADRYA2R5TUcn2TIZLk.hJKjmD
- IHdNJrvIJPkay_CtAq2nlN._l6jiLGX5pS7i5R1TQPILilK5bkpbVGEBZ9wGXg9Lh1cviIfDZz6o
- bt.I6t6OU_U3UyD5kQ8Iinr6xXawGCdMN1KoQxF_0VknE5imTse9NsDA5DuNbKLetEDJPvtS.._.
- zoUvh26vq
-X-Sonic-MF: <Capitain_Jack@yahoo.com>
-X-Sonic-ID: 9f9fd89c-768c-4308-9788-2b2a9f654e0f
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-usea1-prod-sonicconsumer-svc-102 with HTTP;
- Sat, 3 Oct 2026 21:20:19 +0000
-Received: from dip28.lsn.bf1.yahoo.com ([67.195.177.37])
- by hello (SMTP) with SMTP ID acd1a88dad1bf88c6a89949334e77d37;
- Sat, 03 Oct 2026 21:20:15 +0000 (UTC)
-From: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-To: jim.cromie@gmail.com
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] nouveau: fix 3 null-ptr derefs
-Date: Sat,  3 Oct 2026 18:20:10 -0300
-Message-ID: <20261003212010.113714-1-Capitain_Jack@yahoo.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
-References: <20261002-my-fixups-v1-0-a83d20f9d3fe@gmail.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A507C10E173
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 22:20:38 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 693Kobr4312105
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 22:20:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ZDUY4/VeGKFBMA4JwOSyOd7J
+ xyUkDkfT0gF/JVIGPn4=; b=NQ4mZEd3FAsW2dkl8OqrjjtKWfP8wtAPIpaVmGly
+ Yp5EhqD8FO2JGnZmIzuwX6gvBFFohxXfxZMBD6fD75OF2U1q+LD0GTz1G8Ber3ek
+ NltrQakv+zZRMtlNxOUfSHu5GUYAeB6o+MMScpkwhVqvlqhfDGUtMCJy7qPnpnyl
+ whqGJErcCbJjqDFCBPiTtJDt5LbkDI/CsOwHPXrldej7y/iPTIKSQgMnNAkPGFob
+ QTwhoj/tfMueJh35z2l2zFe+XtMBoHOB1ztJxsIWL1MaTeoDuJTOxhi1CfS41bDo
+ Xb4dDAoaISke0Rv+DatI6ZbRXrjls9Vy76dLYO8AYxetCA==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2t36hwsb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 22:20:37 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-7bf45382794so598083137.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 15:20:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1791066036; x=1791670836;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZDUY4/VeGKFBMA4JwOSyOd7JxyUkDkfT0gF/JVIGPn4=;
+ b=EkBE/2jbb1fgeeCuEJRfdpJUx4w7HrupPBlj0S3wqaM6VZvXNy++2rk9gzpGmtloQL
+ GMgUOBkrNrxNf2Z43d/ZpwVuaZriPHHY59QmKg9oTa7fK53SaIXmeEgDvu90vWaqbhtK
+ fPrqJ6XU2zdkDQOe+p3s6Kx1vsDrDE8uUD7Qe7TNdTs2Pe4asQEjGL79eIHnbiIHVz4n
+ J8iKE02t87JAPMWDzK2LM93OZ64WEZwOnO6FS7fJRyMlNGrsgBtDu3gQ1YRaKxgXB4+A
+ ED/Gie1WhOX81/Tvb9Z3ZYC0Jk7bfsNy7uQgdSje/Su3d6IfRaBHJwTZKmcBvWxxxaLV
+ r5MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791066036; x=1791670836;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZDUY4/VeGKFBMA4JwOSyOd7JxyUkDkfT0gF/JVIGPn4=;
+ b=ibVLrNfoAFtdNWVJq6i+ExrfNjiUtuOV77hJ7Y8LxatQBiy6xC5msINyfmBYKXG3on
+ AbI65OO4f0Ol4/pctgnVpsgdemYPy1ttDcW01dR5E42G6MMTnmIY7g54PUainge9Dp4q
+ NWP9H2EqtmcI1rQ/jd2yVrasu072229fr3J8y130nmGfSXMyegT26d+5Zyu8UQsREWvt
+ iLL+EsU6Ds2PxdjCbV6woqslI0m36QJcYiEKxyselfJI5jN3S/dH5QzLthCF5dmy4hSD
+ aiSfH5e3WDnu6cLCPn5yzlYFbf0pJiDBdQ31Wk9YXrzl7NOQtVtDPqNRNuzU2eJ+RkUh
+ gllA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz/JW3uQ801Y45iRTR7jSeX9L+iB9/8gCneQ58M9No8Ql04WWYcICH+Ts125d6NiPp/pVkH4F2jCR8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI+eeoCRvStdhuNxSeHRgqL+ibEJA6s34EKxVn14KbJf8z6NGqm
+ rWH3+iKuLwnk5sAM6AnlHa0YE4dakMZsr5HjKTVUKvfbk8DdHzi5O2+2gJWntgPP5YOyd1pQTnf
+ 7+uqlt272dlZt7rcl6HWU3IOtiVZLdcTWP/9x2f1pK9w/n9AhhGabt7ve3Zq3YZHMo+6Bw/E=
+X-Gm-Gg: AYBFou0aGHz0ORnbzhz+0uUhsv1aySrqXW6xRUSeqno9gqKWpNvkys5NRYrc5iC8JRL
+ kugkBuRZloujOj+WbmYErMkOC8Ppk8cfGrbG5ICAwd8ZuGAHDfsdGGE04ZQlEVWn3mcpeQEP6Fy
+ IeUfDjJ5ImemsdK/wJwx7rEIa5IEmvkGfgpU2LRC6qUooPUMdkp9n6ck+rU0Emc75ht62OsKJcX
+ B5ZzzBCih+U9e50jlDkcf4/TWRZx3w0YKqNXzes1pd91N4wdqKEB2nWtHaM8knK89W02QVxtLhp
+ n5OkldtzuNgvjbOBuy1FaSWnVmYiTZ2zsN/Zfz5W/RBmzd1FgKQaU+2rVIeNKAJ9j6piLw9Z8F+
+ 4W5UhkdJulKalbN4nh0m3oBS7GWGwdTxB692JJj1TdFIJTDWeexl6lwtFTGn5PsvjUtrCC2dezV
+ U1lGbWs58WuExN
+X-Received: by 2002:a05:6102:3c89:b0:7c3:a114:99a7 with SMTP id
+ ada2fe7eead31-7c3a1149fd1mr157082137.14.1791066036412; 
+ Sat, 03 Oct 2026 15:20:36 -0700 (PDT)
+X-Received: by 2002:a05:6102:3c89:b0:7c3:a114:99a7 with SMTP id
+ ada2fe7eead31-7c3a1149fd1mr157066137.14.1791066035847; 
+ Sat, 03 Oct 2026 15:20:35 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3a87e333cf3sm24109191fa.39.2026.10.03.15.20.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 03 Oct 2026 15:20:34 -0700 (PDT)
+Date: Sun, 4 Oct 2026 01:20:31 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Nickolay Goppen <setotau@mainlining.org>
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, akhilpo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ jesszhan0024@gmail.com, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lumag@kernel.org, marijn.suijten@somainline.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch
+Subject: Re: [PATCH v2 3/3] drm/msm/a5xx: Add hangcheck progress detection
+Message-ID: <ffjwlr4kc4rxb5rktabvuplrz4kh4zrpki7ctz6mrkdtyjvk5f@r4easyboav2s>
+References: <20260930-adreno-progress-v2-3-3882f0fcd7b4@oss.qualcomm.com>
+ <41bbbfda-de3c-4ecd-87f5-cc784fd6483a@mainlining.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <41bbbfda-de3c-4ecd-87f5-cc784fd6483a@mainlining.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDA4OSBTYWx0ZWRfXz1UNlqCzAi0M
+ Gb4S6RXW6ibtTsMom0yxPd6/K16ZLk5EjNn528olhAnQLPpvPqmAiKX933yddgJWISFahBc1EIH
+ J9Ovl8QJW3dmx7a+ppqNcVSWPGkuGEM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDA4OSBTYWx0ZWRfX8p2RZ+7BUFud
+ tdVeSe8i/34IWPBVhGO3Vrg4m/92BEeXydNJnPdM2NOVkF1bbaCJcpYKopm7i1RHvz/rEKxjpz6
+ G0n0hPaM/ZH78TSGpPjg3tKz45NknE6N6T0Jl2Gr2vYCZHVumQL9eFCWrgbreV8LGuNFacxgiZ6
+ uKd/Yjl1nd0Sn2j5E2/Dh6CQ8yQIX4AGT7NVbGQKL+vdXnsiVAbHR9jRy1GK7/KijDllCIvQimX
+ p67nds+8ODS8hlGkfR4bCZQn4xMyMmDXFjMEkmfEw2xih1rW8OgFQ/b9jH9WzDjPLXpapzUV86L
+ 55gSFWhY8FyouFiDdgoxzL1If9rr9iO5Vlibx+OM9Mo12Cfki+/O167kXC9A5HKzXQcuKGzMuyy
+ 1UhXntWsHxPjSh67Z52F+v8jQwTkzjR5klkbWRzVw66bJoAPoVC7hfoM4e96K6ndghnp1kwqBx7
+ qwTM1ZFuuusE1gZ6oYw==
+X-Proofpoint-ORIG-GUID: i8fdJVp5iq8AQJuhFeu6YzKJNXjO9XDP
+X-Authority-Analysis: v=2.4 cv=UpH2pOwB c=1 sm=1 tr=0 ts=6ac17fb5 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8
+ a=TF15XWlp9_Q2BVNvarMA:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: i8fdJVp5iq8AQJuhFeu6YzKJNXjO9XDP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-03_04,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610030089
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,41 +149,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jim,
+On Sun, Oct 04, 2026 at 12:15:42AM +0300, Nickolay Goppen wrote:
+> Didn't solved hangs on sdm660, but I think that it isn't related to this.
+> However I've managed to get a command stream from hang_rd. How can I share
+> it?
 
-I tested patches 1/3 and 2/3 on 7.3.0-rc1, with an RTX 3060 (GA106)
-passed through to a VM (vfio-pci). Patch 3/3 does not apply on 7.3-rc1
-(nvkm_gsp_gcx_ready() is not there yet), so it is untested here.
+Open an issue at https://gitlab.freedesktop.org/mesa/mesa, tag robclark
+and lumag. Please note that for sdm660 you really need the patch at [1].
 
-Without firmware (the whole nvidia/ga106 folder removed and the
-initramfs rebuilt), nouveau reports acr, gr and sec2 "firmware
-unavailable", so there is no GR engine:
+There are also several known issues which affect SDM660, but they are
+mostly on the userspace side. I hope to submit and fix them one by one
+(e.g. on that chip there is an issue with the blitter programming).
 
-- GETPARAM with NOUVEAU_GETPARAM_GRAPH_UNITS returns -ENODEV and logs
-  "GETPARAM_GRAPH_UNITS: no gr engine or func"; the desktop session
-  already reached that path at boot.
-- DRM_IOCTL_NOUVEAU_GET_ZCULL_INFO returns -ENOTTY.
 
-I also called both ioctls directly from a small test program on the
-render node. No oops anywhere: KWin composites, NVK declines the device
-and zink falls back to llvmpipe.
+[1] https://patchwork.freedesktop.org/series/174541/
 
-With the firmware restored, GSP-RM 570.144 loads, there is no oops, and
-the card drives a Sony 3D TV in every HDMI 1.4 3D structure it declares,
-at 12 bpc.
-
-On your worry about firmware: the most "damaging" thing in all of this
-testing was the TV getting stuck on a corrupted signal during an earlier
-no-firmware run, solved by power-cycling it and feeding it a proper
-signal. No GPU firmware is ever written, and the firmware files in the
-VM are disposable.
-
-The kernel logs, the test program and its output are here:
-https://github.com/danielcamposramos/sony-bravia-linux/tree/main/docs/upstream/nouveau-null-v3-test-2026-10-03
-
-Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com> # 1/3 and 2/3, GA106
-
-The test was run with an AI assistant doing the legwork under my
-direction; the results above are what I saw on the hardware.
-
-Daniel
+-- 
+With best wishes
+Dmitry
