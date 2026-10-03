@@ -4,78 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1AA0CA5FE2
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 03:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA55CA5FE3
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 08:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0566A10E6F5;
-	Sat,  3 Oct 2026 03:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5853F10E04A;
+	Sat,  3 Oct 2026 08:20:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OkZQbj3y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lKxnvOI7";
 	dkim-atps=neutral
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52B7C10E6F5
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 03:04:48 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-93e50170ba7so13003585a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 20:04:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790996687; x=1791601487; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pbQpt4XN2R0/yiVPfAFgl5CdQcTGytdEwK5oHePqLiQ=;
- b=OkZQbj3yB8n/xuJvkXDRK22uPzcD+rjp27fECjlayWcQcualZeftk8SpEqc5Pfk/rM
- Fi0BLjxcgzXiNh4sID0achPa12kwpgBBGuCB7fHcXA3NpIz676RG8suDoE4lwBd3h5M9
- 2fHgXoFG/WUeXIMGyWwswvIYwo24CuU47QX2gXewY+po1qn/Ipd+2iP5vebMM9EIm4gn
- JoX0bc9eYXUph+KaS7yU72L5AMzfZQxuVSyCf/CeCWDfNVOpOMNt1NpzUKs6PVnHqbAO
- T6vvxZi7OY4KcBibpZAXelUornJsCRuar5+5h5vHtaSv/DSkcvUgvMk17P+qK5XnIAXl
- 4b3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790996687; x=1791601487;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pbQpt4XN2R0/yiVPfAFgl5CdQcTGytdEwK5oHePqLiQ=;
- b=L9Xy92VAu0rpJ0nBZzVXKlLlItPNEZB/ATU94p3q/dndWS+h1mSG3eSsNGjCoi7aYB
- 6dpaMXVGFSjESJI9MT8TNyRv/XwC//6/50C+vAL5nEMvEDQygPa+zhZRqcuQBiof+7sZ
- 2xUJLpnasBwPgBr3hPgQ2zQ4/AErpmon8+g4W0EGc6+pW8In+ZkuZZ21tcF31wFYiNmE
- gfDD36zjQdN6VZGtrxrxPWnOwc6QLTHG9PIL4DMFxq5MN9td1hnkTlmdhu8ghKJNycky
- cOgrsJpvMqr3gE52/zTQ2N3rZwmXAz07SRNCC97x5jFLqWZDuMaXKXAqfsG/PUxxwisk
- 63EQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzh5vtM2jwV9bM667P7apKxzZE6PnwK3DCo5GVxaU8QKgo4TRar386Mibpei/rfSgEtdyI106Taln8=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mUOKdnsbreSS1hdO73hcyNqu77n4rYbSyj0Gat5qVxyjWey5RY
- cCuo/3WBy7S2Aan5PHS8VdpM7W93olpNDX0fkFu0bLy4Ker7ic7GuS0=
-X-Gm-Gg: AYBFou12GchebsrIV/wz1+6HDdc0rImmnpHNC8o8yhdSwwZl8kxwTRqMFZaSjau0skN
- +UPFShPs7rhKiQgUW9FNxbaRDdigMfixueO7pRdf7UL37HnKd/WAqqQIwgJmpvyJpRNSKYYO9Xn
- 6xZW4P6Nq0v1T6GUYCa6fNaUBT/x3EhPXGTre3C/Avdnzft/6btOX3Y8zYWZWFYT3XdnB6RyjuN
- roRHs42bYq508N6KAdO9r8L6SvxN4MxDRUQVA6BZIq4wmLxqqrmjnSUWAbnRwxjceqU6ak+t+4T
- NYzneN/d51/0HVHY8BMFAwAhAS0jpZwN+SJchKO2q0DyVK+aQhYsYXP6+J5js1eqxDu0oIeI5/U
- Crcu4QAUjEIA9sOwThnSrjVCa5/7gn3U+alRMewYC+ZFa26iiMyAhmrd3pgX2txC7aRQNpKDoSa
- 6ihL49xxnRq4lP5hcUK5OHi5oXbgqLQhfvbkxGUgZxDmY3iSgARdZnZ3whq522W9R3UtbbdIhJ/
- +i11lYyUydxP5HBbF097aBBy7KRg6WafPL+cUkLPo8lz4tNk/W00VkfT22iWnUP/2lWnlIyDU1p
- kP1C4hdyfgYkG1gd/DY8N+XtxvrO
-X-Received: by 2002:a05:620a:2851:b0:93a:14c:32ad with SMTP id
- af79cd13be357-93e50bfed26mr274906285a.0.1790996687163; 
- Fri, 02 Oct 2026 20:04:47 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-917e0bc8faesm34443696d6.28.2026.10.02.20.04.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 20:04:46 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] backlight: lm3630a: Cancel delayed work before destroying
- workqueue
-Date: Fri,  2 Oct 2026 23:04:39 -0400
-Message-ID: <20261003030439.599330-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3D410E04A
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 08:20:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 07F7F4388F;
+ Sat,  3 Oct 2026 08:20:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36A21F0089B;
+ Sat,  3 Oct 2026 08:20:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791015651;
+ bh=xEP0HGuLEdqvHIz7JX+OumibFSBPQsMdFACoja808uU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lKxnvOI72cNHHCz1wIGkV85yHffu9cg1AboBTXbg83h+ixW+4ykW5DgX3FPre+PpQ
+ dRqNXT+4FPCBDwCavbWQMp6Vab3ZbF+kn+lJbmsz8pQMnHIpApP6Nk+J0QbnlGQHN8
+ PMZ+aA4a/Z7b+Ko3o2KMNc9J2oQHEkn3MVg3ACFPVoe7KyLchu+e5zVEqM137Htlle
+ 5j6qnIGVlhqC73jTxTogEnO4Eh6kWdcL4q+HlSlm8jGvIQzPDQ1EqfT27rtNav13q5
+ Z+g8lvrQ++Ea1k8/lMBjuB0T+akWtx+E/hTWCr604B2ZZ7in9fML/2jSVwJOhoXJUS
+ CjUHDhYBW1G7g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/msm/hdmi: handle runtime resume failure during
+ power on
+To: "Jiale Yao" <yaojiale02@163.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261003081109.432470-1-yaojiale02@163.com>
+References: <20261003081109.432470-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 03 Oct 2026 08:20:51 +0000
+Message-Id: <20261003082051.B36A21F0089B@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,44 +53,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The interrupt handler queues delayed work to read the interrupt status.
-After free_irq() stops the producer, this work can still be waiting on its
-timer. destroy_workqueue() cannot drain delayed work that has not yet been
-queued by its timer, so the timer can outlive both the workqueue and the
-devm-allocated chip containing the work.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/msm/hdmi: system crash in post_disable on unclocked MMIO due t=
+o pre_enable error path
+--
 
-Cancel the delayed work synchronously after freeing the IRQ and before
-destroying the workqueue. This also waits for any running status read to
-finish before the chip's resources are released.
+commit 15a43ff6d8f2324644d0916454344e0a91654014
+Author: Jiale Yao <yaojiale02@163.com>
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+drm/msm/hdmi: handle runtime resume failure during power on
 
-Fixes: 0c2a665a648e ("backlight: add Backlight driver for lm3630 chip")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/video/backlight/lm3630a_bl.c | 1 +
- 1 file changed, 1 insertion(+)
+This commit attempts to handle runtime PM failures in msm_hdmi_power_on() by
+returning errors to msm_hdmi_bridge_atomic_pre_enable(). It unwinds the PHY
+resources and aborts the sequence early if power-on or PHY resource enablem=
+ent
+fails.
 
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 8f49e59ce374..8ef8163c7fef 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -591,6 +591,7 @@ static void lm3630a_remove(struct i2c_client *client)
- 
- 	if (pchip->irq) {
- 		free_irq(pchip->irq, pchip);
-+		cancel_delayed_work_sync(&pchip->work);
- 		destroy_workqueue(pchip->irqthread);
- 	}
- }
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
+/hdmi/hdmi_bridge.c
+> index 157f19bd90b4e..7d88657be0473 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+[ ... ]
+> @@ -289,8 +294,16 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct=
+ drm_bridge *bridge,
+> =20
+>  	mutex_lock(&hdmi->state_mutex);
+>  	if (!hdmi->power_on) {
+> -		msm_hdmi_phy_resource_enable(phy);
+> -		msm_hdmi_power_on(bridge);
+> +		ret =3D msm_hdmi_phy_resource_enable(phy);
+> +		if (ret)
+> +			goto unlock;
+> +
+> +		ret =3D msm_hdmi_power_on(bridge);
+> +		if (ret) {
+> +			msm_hdmi_phy_resource_disable(phy);
+> +			goto unlock;
+> +		}
+> +
 
+[Severity: High]
+Does this error path lead to a system crash later during teardown?
+
+If msm_hdmi_power_on() fails, this new path turns off the PHY resources and
+jumps to the unlock label, leaving hdmi->power_on =3D false. However,
+msm_hdmi_bridge_atomic_pre_enable() returns void, so the DRM core is unaware
+of the failure and assumes the display pipeline was successfully enabled.
+
+When the DRM core later tears down the pipeline, it will call
+msm_hdmi_bridge_atomic_post_disable(). Looking at that function:
+
+drivers/gpu/drm/msm/hdmi/hdmi_bridge.c:msm_hdmi_bridge_atomic_post_disable(=
+) {
+	...
+	/* Keep the HDMI enabled if the HPD is enabled */
+	mutex_lock(&hdmi->state_mutex);
+	msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
+
+	msm_hdmi_phy_powerdown(phy);
+
+	if (hdmi->power_on) {
+	...
+}
+
+These MMIO writes in msm_hdmi_set_mode() and msm_hdmi_phy_powerdown() are
+executed unconditionally, before the hdmi->power_on check.
+
+Because the clocks were never enabled (or were disabled during this error
+unwind), will these unconditional MMIO writes cause a system crash
+(Synchronous External Abort) by accessing unclocked hardware?
+
+>  		hdmi->power_on =3D true;
+>  	}
+>  	mutex_unlock(&hdmi->state_mutex);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003081109.4324=
+70-1-yaojiale02@163.com?part=3D1
