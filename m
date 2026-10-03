@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB294CA5FE3
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 02:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1AA0CA5FE2
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 03:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B862110E64C;
-	Sat,  3 Oct 2026 02:55:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0566A10E6F5;
+	Sat,  3 Oct 2026 03:04:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kccTHx+c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OkZQbj3y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97A0910E64C
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 02:54:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5FC744191D;
- Sat,  3 Oct 2026 02:54:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB311F0089A;
- Sat,  3 Oct 2026 02:54:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790996099;
- bh=CBrjnXPKXFQu7lWRKTFgHjjbFmTIWKUeMTkXik5/Sy8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kccTHx+cxO3BLNx1W7aPOUSyhpRGIdoQFZ8WUXu9bddJFEUqpvpynNqhIEws0uKd7
- YDbqnakU0Vy27D8qqTnjPxq9wGhLUM32VCGU3Vk7KkBlS92z+spO5lQF4Sn/u7yGMZ
- gg+x10w1ri5rj5eJhSB/FK9YgTvvSCYHNFeELXPdq7/S5fs6j1M9I7S+KGUzTGblEv
- JwUDm25kflCpNG0C7T7Kij6FE95OIFwXdNWo2HBw1xcQaIZ9R82c4/Wpszny90gtQE
- QtlX/BEPYkivwJdx4tXjNSld8b/k24qf9Bi0dWgYXt+xfwT9m+XRIIN/OLHyRYgJ+h
- XGdsYt+VnbdUQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] accel/qaic: Replace transfer completion with dma-fence
-To: "Carl Vanderlip" <carl.vanderlip@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261003023818.1161666-3-carl.vanderlip@oss.qualcomm.com>
-References: <20261003023818.1161666-1-carl.vanderlip@oss.qualcomm.com>
- <20261003023818.1161666-3-carl.vanderlip@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 02:54:58 +0000
-Message-Id: <20261003025459.0AB311F0089A@smtp.kernel.org>
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52B7C10E6F5
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 03:04:48 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id
+ af79cd13be357-93e50170ba7so13003585a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 20:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1790996687; x=1791601487; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pbQpt4XN2R0/yiVPfAFgl5CdQcTGytdEwK5oHePqLiQ=;
+ b=OkZQbj3yB8n/xuJvkXDRK22uPzcD+rjp27fECjlayWcQcualZeftk8SpEqc5Pfk/rM
+ Fi0BLjxcgzXiNh4sID0achPa12kwpgBBGuCB7fHcXA3NpIz676RG8suDoE4lwBd3h5M9
+ 2fHgXoFG/WUeXIMGyWwswvIYwo24CuU47QX2gXewY+po1qn/Ipd+2iP5vebMM9EIm4gn
+ JoX0bc9eYXUph+KaS7yU72L5AMzfZQxuVSyCf/CeCWDfNVOpOMNt1NpzUKs6PVnHqbAO
+ T6vvxZi7OY4KcBibpZAXelUornJsCRuar5+5h5vHtaSv/DSkcvUgvMk17P+qK5XnIAXl
+ 4b3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1790996687; x=1791601487;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pbQpt4XN2R0/yiVPfAFgl5CdQcTGytdEwK5oHePqLiQ=;
+ b=L9Xy92VAu0rpJ0nBZzVXKlLlItPNEZB/ATU94p3q/dndWS+h1mSG3eSsNGjCoi7aYB
+ 6dpaMXVGFSjESJI9MT8TNyRv/XwC//6/50C+vAL5nEMvEDQygPa+zhZRqcuQBiof+7sZ
+ 2xUJLpnasBwPgBr3hPgQ2zQ4/AErpmon8+g4W0EGc6+pW8In+ZkuZZ21tcF31wFYiNmE
+ gfDD36zjQdN6VZGtrxrxPWnOwc6QLTHG9PIL4DMFxq5MN9td1hnkTlmdhu8ghKJNycky
+ cOgrsJpvMqr3gE52/zTQ2N3rZwmXAz07SRNCC97x5jFLqWZDuMaXKXAqfsG/PUxxwisk
+ 63EQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzh5vtM2jwV9bM667P7apKxzZE6PnwK3DCo5GVxaU8QKgo4TRar386Mibpei/rfSgEtdyI106Taln8=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mUOKdnsbreSS1hdO73hcyNqu77n4rYbSyj0Gat5qVxyjWey5RY
+ cCuo/3WBy7S2Aan5PHS8VdpM7W93olpNDX0fkFu0bLy4Ker7ic7GuS0=
+X-Gm-Gg: AYBFou12GchebsrIV/wz1+6HDdc0rImmnpHNC8o8yhdSwwZl8kxwTRqMFZaSjau0skN
+ +UPFShPs7rhKiQgUW9FNxbaRDdigMfixueO7pRdf7UL37HnKd/WAqqQIwgJmpvyJpRNSKYYO9Xn
+ 6xZW4P6Nq0v1T6GUYCa6fNaUBT/x3EhPXGTre3C/Avdnzft/6btOX3Y8zYWZWFYT3XdnB6RyjuN
+ roRHs42bYq508N6KAdO9r8L6SvxN4MxDRUQVA6BZIq4wmLxqqrmjnSUWAbnRwxjceqU6ak+t+4T
+ NYzneN/d51/0HVHY8BMFAwAhAS0jpZwN+SJchKO2q0DyVK+aQhYsYXP6+J5js1eqxDu0oIeI5/U
+ Crcu4QAUjEIA9sOwThnSrjVCa5/7gn3U+alRMewYC+ZFa26iiMyAhmrd3pgX2txC7aRQNpKDoSa
+ 6ihL49xxnRq4lP5hcUK5OHi5oXbgqLQhfvbkxGUgZxDmY3iSgARdZnZ3whq522W9R3UtbbdIhJ/
+ +i11lYyUydxP5HBbF097aBBy7KRg6WafPL+cUkLPo8lz4tNk/W00VkfT22iWnUP/2lWnlIyDU1p
+ kP1C4hdyfgYkG1gd/DY8N+XtxvrO
+X-Received: by 2002:a05:620a:2851:b0:93a:14c:32ad with SMTP id
+ af79cd13be357-93e50bfed26mr274906285a.0.1790996687163; 
+ Fri, 02 Oct 2026 20:04:47 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-917e0bc8faesm34443696d6.28.2026.10.02.20.04.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Oct 2026 20:04:46 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] backlight: lm3630a: Cancel delayed work before destroying
+ workqueue
+Date: Fri,  2 Oct 2026 23:04:39 -0400
+Message-ID: <20261003030439.599330-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,132 +88,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [Critical] dma-fence: Unsignaled dma-fences and leaked callbacks on the e=
-rror cleanup path
-- [Critical] qaic: Race condition in qaic_fence_sync_cb_func causes NULL po=
-inter dereference
-- [Critical] dma-fence: Reusing embedded dma_fence_cb corrupts callback lis=
-t pointers
-- [High] dma-mapping: Concurrent CPU and device SGT synchronization due to =
-fence signaling race
-- [High] uapi: QAIC_WAIT_BO ioctl returns -ENOENT for idle buffers
-- [High] dma-fence: Reused sequence numbers violate monotonically increasin=
-g API contract
-- [Medium] dma-mapping: Cancelled BO executions skip CPU DMA synchronization
-- [Medium] uapi: Overriding -ERESTARTSYS with -EINTR breaks syscall restart=
- ABI
---
+The interrupt handler queues delayed work to read the interrupt status.
+After free_irq() stops the producer, this work can still be waiting on its
+timer. destroy_workqueue() cannot drain delayed work that has not yet been
+queued by its timer, so the timer can outlive both the workqueue and the
+devm-allocated chip containing the work.
 
-commit cb1752759fe062100cc452aaddf96c2432a9f99c
-Author: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>
-accel/qaic: Replace transfer completion with dma-fence
+Cancel the delayed work synchronously after freeing the IRQ and before
+destroying the workqueue. This also waits for any running status read to
+finish before the chip's resources are released.
 
-This commit replaces completion mechanisms with dma-fences to signal finish=
-ed
-IRQ work. It integrates buffer synchronization with dma_resv and prepares f=
-or
-drm_sched support.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-[Severity: Critical]
-In drivers/accel/qaic/qaic_data.c, within the send_bo_list_to_device functi=
-on
-around line 1357, the error cleanup path removes previously queued buffer
-objects from the transfer list without calling dma_fence_signal or
-qaic_remove_bo_fence. Can this leak pending unsignaled fences into the
-dma_resv object? Because qaic_acquire_bo_fence already added the fence to t=
-he
-reservation object, it appears the unsignaled fence could remain there
-permanently. This might cause a deadlock for kernel or userspace components
-waiting on the buffer implicit sync barriers, and the embedded cb might
-remain registered to the leaked fence, resulting in a use-after-free when t=
-he
-buffer is destroyed.
+Fixes: 0c2a665a648e ("backlight: add Backlight driver for lm3630 chip")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/video/backlight/lm3630a_bl.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-[Severity: High]
-Looking at qaic_fence_sync_cb_func in drivers/accel/qaic/qaic_fence.c around
-line 42, the CPU DMA sync is performed asynchronously when the fence signal=
-s.
-However, in send_bo_list_to_device in drivers/accel/qaic/qaic_data.c around
-line 1338, the device DMA sync runs upon resubmission. Could this race if t=
-he
-previous fence callback has not finished? A concurrent qaic_execute_bo_ioctl
-could see bo_queued as false, acquire the lock, and resubmit the transfer.
-This would allow the scheduler to run dma_sync_sgtable_for_device while the
-IRQ thread is still executing dma_sync_sgtable_for_cpu, potentially violati=
-ng
-DMA API ownership rules and causing data corruption.
+diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
+index 8f49e59ce374..8ef8163c7fef 100644
+--- a/drivers/video/backlight/lm3630a_bl.c
++++ b/drivers/video/backlight/lm3630a_bl.c
+@@ -591,6 +591,7 @@ static void lm3630a_remove(struct i2c_client *client)
+ 
+ 	if (pchip->irq) {
+ 		free_irq(pchip->irq, pchip);
++		cancel_delayed_work_sync(&pchip->work);
+ 		destroy_workqueue(pchip->irqthread);
+ 	}
+ }
+-- 
+2.53.0
 
-[Severity: High]
-In the qaic_wait_bo_ioctl function in drivers/accel/qaic/qaic_data.c around
-line 1899, the code now returns -ENOENT if the fence is missing. Does this
-change break the userspace API behavior? Previously, a buffer with no pendi=
-ng
-operations returned 0 immediately because it waited on a pre-completed
-completion. Applications expecting success when waiting on an already-idle =
-or
-newly-mapped buffer might now fail when receiving this error code instead.
-
-[Severity: Medium]
-When operations are aborted, such as in empty_xfer_list in
-drivers/accel/qaic/qaic_data.c around line 2115, the fences are signaled wi=
-th
--ECANCELED. Then, in qaic_fence_sync_cb_func in drivers/accel/qaic/qaic_fen=
-ce.c
-around line 38, the callback explicitly checks the error status and returns
-early. Does this permanently skip the required CPU DMA sync for cancelled
-operations? If dma_sync_sgtable_for_cpu is skipped, the memory might be left
-indefinitely mapped in the device DMA domain, violating API ownership rules.
-
-[Severity: High]
-In drivers/accel/qaic/qaic_fence.c around line 77, qaic_create_fence
-initializes the dma_fence with a hardcoded sequence number of 1. The context
-is allocated once per buffer object in qaic_alloc_init_bo, located in
-drivers/accel/qaic/qaic_data.c around line 766. Is it correct to reuse the
-same sequence number on the same context for every submission? The dma-fence
-API requires sequence numbers on a given context to monotonically increase.
-Reusing sequence numbers could cause dma_fence_is_later to evaluate timelin=
-es
-incorrectly, potentially bypassing synchronization when buffers are shared.
-
-[Severity: Critical]
-There appears to be a race condition involving qaic_fence_sync_cb_func in
-drivers/accel/qaic/qaic_fence.c around line 41 and qaic_unprepare_bo in
-drivers/accel/qaic/qaic_data.c around line 994. The callback executes
-locklessly and accesses the device pointer and scatter-gather table.
-Concurrently, a thread calling qaic_detach_slice_bo_ioctl could see
-bo_queued return false, acquire the lock, and execute qaic_unprepare_bo.
-This tears down the DMA mappings and clears the channel pointer. Could the
-fence callback on another CPU dereference the newly cleared channel pointer
-and access the freed memory, leading to a null pointer dereference?
-
-[Severity: Critical]
-In qaic_set_bo_resv_fence in drivers/accel/qaic/qaic_fence.c around line 98,
-dma_fence_add_callback adds the embedded callback node to the new fence. Is
-it safe to reuse the embedded callback node for subsequent submissions? The
-bo_queued check evaluates to false immediately when the signaling thread se=
-ts
-the signaled bit, which could happen while it is still iterating over the o=
-ld
-fence callback list. If a concurrent submission thread allocates a new fence
-and adds the callback, it could overwrite the node pointers, corrupting the
-kernel linked lists.
-
-[Severity: Medium]
-In qaic_fence_wait in drivers/accel/qaic/qaic_fence.c around line 54, the
-function checks if timeout is less than 0 and sets the return value to -EIN=
-TR.
-Since dma_fence_wait_timeout typically returns -ERESTARTSYS when interrupted
-by a signal, does mapping this internal restart instruction to an explicit
-failure break the syscall restart ABI? This change seems to disable the
-kernel automatic VFS syscall restart mechanism for the ioctl, forcing
-userspace to handle interrupted waits manually.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003023818.1161=
-666-1-carl.vanderlip@oss.qualcomm.com?part=3D2
