@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EFECA5FED
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67297CA5FE6
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 17:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C619810E955;
-	Sat,  3 Oct 2026 17:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE36810E95A;
+	Sat,  3 Oct 2026 17:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CApnRc8t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DS4qz6P6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3E910E94B
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7509B10E951
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 17:56:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C0295600CB;
- Sat,  3 Oct 2026 17:56:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4ACD1F0089D;
- Sat,  3 Oct 2026 17:56:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F32641924;
+ Sat,  3 Oct 2026 17:56:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BA91F0089F;
+ Sat,  3 Oct 2026 17:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791050199;
- bh=guDK4ipqit1C8gOrnrgRAemtCZfSwKUDyfH3BgXFvz0=;
+ s=k20260515; t=1791050202;
+ bh=Qlw/6VopiASWFUc39bJ7XH+NISe/U4KYCR82r/LcIN0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CApnRc8tlNHkyKJVXjdW2Vf8xycjuADWDD+AZKenodzUWijzQmxz/GJpSLPCYA0Z5
- 2UQ1LCZGeNc/dG+FdF9RCC8yRXgXQ3PJLk8xW+7qS1mz1beo+O77bVjjjryen5TgM2
- PZmF8D11V2KnstGIfnfvnsY19K3cAS2m5C/s8U9/0J4cnPH2gUjCRNLva0hC8wIg81
- 5drQfXuO3+In0FhuwrfGyGyRtqBZZWAHlaDT8fZNGZaKdcPnHzz6vsIU4xd20ZoPIy
- m0TtjMz0fGqEoh6XlQvc91+qD5rfR71SO74t5ek0zf3OozIKsEzjOT4Jm3zmnP/ha2
- e8FUJLfVuziYA==
+ b=DS4qz6P6V6hUruZYG+z1kg2IvxXKDdUD+71B2y/D2P5zu9a6w9s4TStWnDhDQW+pj
+ x2uPwUW522e4ua5HOvit62HiYLLJcXjHTPfsQvC5l/ORN556P3wDrSgev6MWS19BSJ
+ DFNE57Z4SsRAehpdpeOnl0rFBb+pHwcpZdqteYogEqeKuGlCv87pT4c+/2A14ltLiJ
+ Byq3mjRn1rArBGA1/OlyODnmkohuZtiNmjme2cA0pqzZC4q/Q9NtRN9Qzm1Fthh0cG
+ QN66PWQsEeqjdUhoVc7VTsl1hdwF1Kff0F1J9ZyIE9+KehylgEuK5onlAZUFt/pJW9
+ k2ZL66B1D6tOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/38] mm/vma: introduce and use vma_[flags_]can_merge()
+Subject: Re: [PATCH v4 13/38] bpf: arena: mark arena_map_mmap() mappings
+ VM_MIXEDMAP
 To: =?utf-8?b?TG9yZW56byBTdG9ha2VzIChBUk0p?= <ljs@kernel.org>
-Cc: "Heiko Carstens" <hca@linux.ibm.com>, linux-rdma@vger.kernel.org, "Oliver
- Upton" <oupton@kernel.org>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-s390@vger.kernel.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, "Marc Zyngier" <maz@kernel.org>,
- kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, selinux@vger.kernel.org,
- linux-scsi@vger.kernel.org, bpf@vger.kernel.org
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-2-a1f052500fd7@kernel.org>
+Cc: "Oliver Upton" <oupton@kernel.org>, linux-trace-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>, linux-s390@vger.kernel.org, "Marc
+ Zyngier" <maz@kernel.org>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ selinux@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>
+In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-13-a1f052500fd7@kernel.org>
 References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
- <20261003-b4-mmap-prepare-vma-flag-sanify-v4-2-a1f052500fd7@kernel.org>
+ <20261003-b4-mmap-prepare-vma-flag-sanify-v4-13-a1f052500fd7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 17:56:38 +0000
-Message-Id: <20261003175638.A4ACD1F0089D@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 17:56:40 +0000
+Message-Id: <20261003175641.52BA91F0089F@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +66,43 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Replace the open-coded VMA_SPECIAL_FLAGS check in the VMA merge logic with
-> two new functions vma_flags_can_merge() and vma_can_merge() and update the
-> merge logic to use the former.
+> The bpf_map->ops->map_mmap callback invoked by bpf_map_mmap() can be set =
+to
+> one of ringbuf_map_mmap_kern(), ringbuf_map_mmap_user(), array_map_mmap()
+> or arena_map_mmap().
 >=20
-> This abstracts the check and expresses it in terms of the desired behavio=
-ur
-> rather than an arbitrary and confusing VMA flag.
+> It is convention in mm to mark mappings whose pages the kernel manages
+> itself with VM_MIXEDMAP, so core mm knows not to treat them as ordinary
+> page cache or anonymous memory.
 >=20
-> This also lays the groundwork for making further improvements in VMA flag
-> usage.
+> The map_mmap callbacks ringbuf_map_mmap_kern() and ringbuf_map_mmap_user()
+> use remap_vmalloc_range(), which ultimately invokes vm_insert_page() and =
+so
+> marks the ranges VM_MIXEDMAP, and array_map_mmap() sets VM_MIXEDMAP
+> explicitly.
 >=20
-> Also update the userland VMA tests to reflect the change.
+> However, the exception to this is arena_map_mmap(), which doesn't set the
+> flag.
 >=20
-> No functional change intended.
+> This patch corrects this and updates the comment to reflect it.
 >=20
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> The pages are refcounted and vm_normal_page() finds them regardless of the
+> flag, and VM_DONTEXPAND remains set (marking the memory as VM_SPECIAL and
+> thus unmergeable). The one effect is that NUMA balancing now skips these
+> VMAs, as it already does for the other bpf map mappings, which is the
+> reason array_map_mmap() gives for setting the flag.
+>=20
+> The intent of this patch is to be able to establish the invariant that on=
+ly
+> PFN-mapped or mixed map ranges may clear the VM_MAYWRITE flag, as is done
+> in bpf_map_mmap().
+>=20
+> Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-b4-mmap-pr=
-epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D2
+epare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org?part=3D13
 
