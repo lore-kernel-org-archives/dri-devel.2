@@ -4,75 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E75CECA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F3C9CA5FF7
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6BB10EAFB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2B510EAFC;
 	Sun,  4 Oct 2026 17:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nlp4mLGF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dPtFxPI0";
 	dkim-atps=neutral
-Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com
- [74.125.229.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A6B10E989
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 22:21:52 +0000 (UTC)
-Received: by mail-dl2-f40.google.com with SMTP id
- a92af1059eb24-14f7ea9bcb2so19014c88.1
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 15:21:52 -0700 (PDT)
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBFE10E2E0
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 09:35:02 +0000 (UTC)
+Received: by mail-pz2-f6.google.com with SMTP id
+ 41be03b00d2f7-cc75f2924abso329642a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 02:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791066112; x=1791670912; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1791020102; x=1791624902; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ld3yvAlH1ePbXKo85z4Wex4dRCKbfnZa0FcQVmSfj/w=;
- b=Nlp4mLGFQuWHTcSY1OHTRNsvW+PaKSpzs2ciIUSff0L8Dly0JeELRR80p+SJfDCaRP
- WKRHxzJVOdNaj+gLcDV01DMeFx1q2hnTwdlve4lEI4Ko031nuEDuizJ3IlXjexcOeO7z
- 4EbWhC/ITITt1DgykVkCz0TBN3seJpZ0nf+tiXvpU2xiK24mZylBhKhyV3iZrzR09StN
- Fh5x9qaYbMr0KREwF8Q/zqg/KLxFw6l15EPPbAqo1VBDfwrMkhEknqBnN0xm+DQfO50R
- yfzLq2GatmO00IJ7wGNVbNKWf/tpYt8fFchqfcJ8VlU2qaN3ua//N0ihA4ZhON33BK4s
- HTLg==
+ bh=rBI89OF+N0vXnxCESFaz463auJhNn0qQwp4320r4m4Q=;
+ b=dPtFxPI0XW4lfOnv4NXT93E3wf7QtME/wOetegol3+qFwBE1a8Ms8SmU31mdScmO6i
+ FWZiIQIzomgBNTocZtNvzldkA1LFx00OYHE6MjyTg780lIRs76Sbmkr2oTOY3Z5/JdHc
+ yYt5TUPxio3QLQZ8CsC/dpw4nbZqFPfFJ0lpcrB4cvrqNoIfRHJNpGVPf3RjjEyAR0gB
+ PWTFyU6kGN+3MxHGwcZh/wZ2InDLp0EkAmTuwW3qHVXY4vkYZe6K3AGhukDBv6R1sN/X
+ xD+0tTSuq3mx54gBwYyt+zvk56MWFpuZDTr6eO1oKqWlJYmc1l5zEJzgel2V5yCrLsPu
+ Lykg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791066112; x=1791670912;
+ d=1e100.net; s=20260707; t=1791020102; x=1791624902;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ld3yvAlH1ePbXKo85z4Wex4dRCKbfnZa0FcQVmSfj/w=;
- b=Cd73xcVezqLwWbLC7YCPGwO6nxYUKb1HjPJTcbs22yHXeeJn3KOtH9BBAfcfLLMF7G
- fTr3FVvrPiFtWAtD3Pi5cTfP4iL74xpVB1OdgIQsu4CVkPiMEo6ngXJR5qYcrIFhpU4E
- v1ztiJxPpLzHQRmY44kpqt1mMYlnk8K7l1IVdkciSZfXOAFWfZUZhtMWr1Sdj22x0jJc
- THzkIXi/lFXgmVuOZFiHOqxKExG+5AafaamEWwMcpbnopD3YJ8XWjcTK9tPX/0I8Gut+
- HiuyyGClGEBcSFEA87MiFuBteTWQROHTz2SvsbF3yk/NB5AJiBK+K+enu/+rjgmP/Ldu
- vM4Q==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzPxnQntUPNN5ywZsvO7XaT4Yxb5iK8Kf+0bYF5uwztZzmtsj7G8EMSxg2oL9/kT4JzhKx7FBh1v6A=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m35ZKvQpnUgdb+IIdBjsPx5ZSgK1QBRUwgamJmIZ5O3S0P3cO6
- 7sknadNLzqq00CEZrII9xNZPTILRsIwaFzhNXRS00c/oMxUxpVzhgY7a
-X-Gm-Gg: AYBFou1OyaEOr5P/0TgM92zGv8LNMvjnWtGRUl9FaiUbKYfe6GHDJS/e0FI5fEyCHut
- cq0Yu8SNnD0sxZi3/rTOkG19Btykkf47qH5KwpE9E9VrcDjQk7RuA03YFmi8+Ck8zyNsfHafLHM
- dGStXozOHzxrMz3yFuZtvbXvxq8fcmp+db3YUW6jhHJYZ7ZnegYQx6mg1Xf/h9dvPyAD5WcHa8u
- DcltCejGC86CjwrX+TECmZNW1eFwS3QcNZqTOaQHxnCnW2FmSgptRJslLhzc11wa1RGbHOQ6zar
- /LLjMuEBQVr2kT26W3qGRn+dvp4NvzOqBxLAvNQCe38cAqnumMt8kmySmnvOgbSsZNQA+GOw5Ya
- GAeT9x/B+PM6Y0K0GD1eyzOy1VDauv959Fg6vW+qP0pMHy65J5jg5Mr1oYtFQXVdW6MSqy1CJjE
- ykoE1v/OniQRstAV0zFvWMB+ax44INGlfv5Qsml74LTwcX7Aof6HNux6p5R0Q4aGOW1TCjZikp+
- G02va3YXaaDwD3fN9owqSm7dUiv73PpYqxmFlsAaOCwJeFbMXjSv3EEIDZuDy5guoWd4g+B1qdX
- PqG8ddZ3HoXrTO2UANA=
-X-Received: by 2002:a05:701b:4281:20b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-14f56160499mr12982269c88.0.1791066111712; 
- Sat, 03 Oct 2026 15:21:51 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-151fc87346bsm18452135c88.8.2026.10.03.15.21.48
+ bh=rBI89OF+N0vXnxCESFaz463auJhNn0qQwp4320r4m4Q=;
+ b=wjjoOBG9iieK+qaAxmpu43SCrDMf+OO5JR2Cs9HgFMJehrDas0fUaFILeyMQ9YdBll
+ /bAmqGJ7ZPkaQpbqRiYm2znFK87sNJfzU+UtHWzHrnCRDIveERutBDjWsWur7VSn6z/R
+ yihmlgzcA4YW4M4+mhhHndhG3x0U0AYbJRvO+2EYhpzvzMvEXADFifbpLtkbeRNxx5eg
+ WBuLZwrtBxrVCbL2G1PilspT098Ob/5iQ12jm8/oiH38KKo46dXXb1PKvzZSm589EvHW
+ HtCmJBGiZ/6GoqmQUWu/uahY8J9WRwT+2W7agw3WdSJKBixrrWrvGvQAWYBr8UzO0ECh
+ L9sA==
+X-Gm-Message-State: AFuF++nduLUh1vPt0Pzb77XGn84KC1RQdzbDLfrc5Pf771QDcFe8Qseh
+ 0nyyYZpBavNkUilue1Tp+WOXGVDrU3szqsmbCOaK/M+c3Xf88Zup8GkTYR3nacyNHUyCk3/b
+X-Gm-Gg: AYBFou2uLg7hdFcRAgiI5Cbsagq/3a4ciC+gqhdYzXOpjRvk9meq44aZVl+WObzBgES
+ eyKqc37iP2Rx0XPj+hC87QHtq6iGOCugnjps7jrsWVeKIaMJgWM5jOUHOqh/UIOx49r25XET5yg
+ tj6Gv3FLAZBRPIh1pGHBhVY0Fpi7l1y8ghbSE8YI74lfBU6Gm6B8CAPpA2FQ3332YSDEj1yL+LV
+ 3Of+sX385bghy6ph7juI5fpzpCjWwRHBWIwjib7pUaUowjrGUD4DKfGJhH09gT3z0Ueim4JJ2IA
+ pe9XWPzcBI6vdvhlFQH1WdsB7hyjAUbmMmfwq3+v9T2SSwSw53/ktEkLyoxsKHKkWkYFroj3mI8
+ hBjsFJbn/wRFuI3ZA+XJ/3xnHdzc3pdBP48z5SUWuEknCOsoMxAO/vZ08+/q7BHxGwopXXSdgRG
+ sV/UirlUPAcFaqpCvYETqUq26QjdN9eEnhfMs9dBnORN1sDxQayBrBD0p6jnJzxlU=
+X-Received: by 2002:a05:6a00:1d92:b0:881:2a66:405f with SMTP id
+ d2e1a72fcca58-88af6657eadmr5005327b3a.39.1791020101535; 
+ Sat, 03 Oct 2026 02:35:01 -0700 (PDT)
+Received: from localhost ([129.227.235.110]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-88d3b82bafesm46732b3a.13.2026.10.03.02.35.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 15:21:51 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/xe: Map Wa_22016122933 buffers WC on the CPU side
-Date: Sun,  4 Oct 2026 03:51:45 +0530
-Message-ID: <20261003222145.67240-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Sat, 03 Oct 2026 02:35:01 -0700 (PDT)
+From: Evanshenf <archwse@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Sui Jingfeng <suijingfeng@loongson.cn>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Evanshenf <archwse@gmail.com>
+Subject: [PATCH 1/2] drm/loongson: Fix double free on BO initialization failure
+Date: Sat,  3 Oct 2026 09:34:58 +0000
+Message-ID: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
@@ -91,75 +86,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe implements Wa_22016122933 by mapping the media GT's GuC-shared
-buffers uncached on the CPU side. i915 maps the same buffers WC on the
-CPU and UC on the GPU.
+If ttm_bo_init_validate() fails, it drops the buffer object's reference
+and cleans it up through the supplied destroy callback. lsdc_bo_destroy()
+releases the GEM object and frees the enclosing lsdc_bo, so freeing it
+again in lsdc_bo_create() causes a double free on a synchronous failure
+path.
 
-CPU writes through the uncached mapping are slow, and xe clears and
-refills the ADS on every GuC load, so probe and every resume pay for
-it. On ARL-H, xe probe takes 3.1 s with UC and 0.35 s with WC, the same
-as without the workaround.
+Let TTM own the cleanup after initialization has started and return the
+error directly. Keep the explicit free on drm_gem_object_init() failure,
+which occurs before ownership is passed to TTM.
 
-Keep XE_BO_FLAG_NEEDS_UC, which also selects XE_CACHE_NONE for the GGTT
-PTEs, and add XE_BO_FLAG_FORCE_WC, which now makes the CPU mapping
-write-combined when both flags are set.
+Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for one
+selected dumb-buffer creation. The error reached userspace, the destroy
+callback ran once, and no handle was published or tracked BO retained.
+Normal buffer creation, zeroing, mapping, readback and release passed.
 
-Fixes: d5b0bf3f37f1 ("drm/xe: Implement Wa_22016122933")
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+AI assistance was used for the ownership analysis, fix, fault-injection
+tools, build and test execution.
+
+Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Evanshenf <archwse@gmail.com>
 ---
-Tested on ARL-H 7d51 with this backported to 7.2.8. Probe time is dmesg
-"GT0: Using GuC firmware" to "Initialized xe": 3.10 and 3.15 s with UC,
-0.35-0.37 s with WC (3 boots), 0.35 s on stock Arch 7.2.8, which lacks
-the workaround.
+ drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-20 min of VAAPI decode with C-states 2/3 disabled (the reproducer from
-https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678): no TLB
-invalidation timeouts and no late acks, same as with UC.
-
- drivers/gpu/drm/xe/xe_bo.c  | 7 ++++++-
- drivers/gpu/drm/xe/xe_guc.c | 6 ++++--
- 2 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 6921b696733..763172b252f 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -533,7 +533,12 @@ static struct ttm_tt *xe_ttm_tt_create(struct ttm_buffer_object *ttm_bo,
- 		 * which cpu_caching is never initialized.
- 		 */
- 		xe_assert(xe, bo->cpu_caching == 0);
--		caching = ttm_uncached;
-+		/*
-+		 * With FORCE_WC also set, map WC on the CPU side. The GGTT PTEs
-+		 * stay XE_CACHE_NONE because they key off NEEDS_UC alone.
-+		 */
-+		caching = bo->flags & XE_BO_FLAG_FORCE_WC ? ttm_write_combined :
-+							    ttm_uncached;
- 	}
+diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
+index d7441d9..88536e2 100644
+--- a/drivers/gpu/drm/loongson/lsdc_ttm.c
++++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+@@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device *ddev,
  
- 	if (ttm_bo->type != ttm_bo_type_sg)
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index 3ab4cb9e496..a39a42bfd0b 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -1476,13 +1476,15 @@ int xe_guc_suspend(struct xe_guc *guc)
-  * Wa_22016122933: on the standalone media GT, memory shared between the
-  * CPU and the GuC must not be mapped cached on the CPU side, otherwise
-  * the CPU can read stale data written by the GuC (e.g. G2H CTB writes)
-- * for multiple seconds.
-+ * for multiple seconds. Map it WC on the CPU side and UC on the GPU side,
-+ * as i915 does.
-  *
-  * Return: additional XE_BO_FLAG_* to use when allocating GuC-shared memory
-  */
- u32 xe_guc_bo_wa_flags(struct xe_gt *gt)
- {
--	return XE_GT_WA(gt, 22016122933) ? XE_BO_FLAG_NEEDS_UC : 0;
-+	return XE_GT_WA(gt, 22016122933) ?
-+	       XE_BO_FLAG_NEEDS_UC | XE_BO_FLAG_FORCE_WC : 0;
+ 	ret = ttm_bo_init_validate(bdev, tbo, bo_type, &lbo->placement, 0,
+ 				   false, sg, resv, lsdc_bo_destroy);
+-	if (ret) {
+-		kfree(lbo);
++	if (ret)
+ 		return ERR_PTR(ret);
+-	}
+ 
+ 	return lbo;
  }
- 
- void xe_guc_notify(struct xe_guc *guc)
+
+base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 -- 
-2.56.0
+2.43.0
 
