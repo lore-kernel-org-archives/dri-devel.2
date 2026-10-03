@@ -4,102 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3A5CA5FE3
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:03:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441B6CA5FE6
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 00:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6677810E6D5;
-	Sat,  3 Oct 2026 00:03:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62C5510E6E9;
+	Sat,  3 Oct 2026 00:03:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jzlOieA2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LyrztWk1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="asQbKqKI";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="koC9QmCF";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 613B010E5EC
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:03:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 061CD10E6D6
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 00:03:06 +0000 (UTC)
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 692Ne6gE1503863
- for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:03:03 GMT
+ 692NeDlD1503926
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 00:03:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=UYl7rUnBPLsCQuW2++FZMG
- zexo3/dnPWluINOMY+sz8=; b=jzlOieA2zbTJCghbHSHqpALY/DXtNpO/Tv0UWm
- i/n5akSbkGhzui+kh+7HeCN6tR7G0a/+MrT3Uh7VacbtuaWiDfjrsoHLkqEpsVr5
- jiSUjpjMTDz4HhZofvIavTeFKVHVHFRqsKjO9fCpb/zLj5ulpwBoAnwzke/cFYbF
- /UzK6lJmGvy6vfULzKGxZGiPF9EN++UXiHwoxCxYNJkEZ/UTqOEWSfLZur2L+cTS
- UvDKWAGxnCH+qWDz53u2IPhVjARApOk9Zj+quXaaaL6iAvKJFgcXhS2j3zn4yNNs
- JWZiuPSrsLMR3VFVClaiGe+ciaIubLOpINGaH2l+dAmOLp1A==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2n2rrayt-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ YybtDh5zEBf5n1HBSnKt3zrXz3bWQXQ2umvjEfaI73I=; b=asQbKqKIh2o/8EDj
+ losj1YeP4jpp1AzPC1XXVAvhtttxsbWvJTTxb7vCNwzzCIqvA/Yz2ZFqkUqrMTEc
+ 9Tx3C1ZfkGS3O25dQWovIEdooc64/0FqW5IyATVTpdtGeXnaPhrdFjwWXZsPa8EF
+ xvJpJcMDNn1JzLdBPjJzeH34/MmO6EY1sNp6/n79CCDCxSoK9/Wl5w892op9yu5A
+ NLQ7fvODvevJD4cQCWWEjyhORJddj5YnXf//sz2r+fGwBv9INzXUOzFwAjNtds8f
+ WNogmy654UNjrfzu76dPd/N1g8gapksaCtz6d1fKR5vnCRHShcZv5OeYImQXjsGo
+ rDI7xw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2n2rrayx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:03:03 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-988bbb0ed9aso58452241.3
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:03:03 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 00:03:05 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93bfb2da664so25649985a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 17:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1790985783; x=1791590583;
+ d=oss.qualcomm.com; s=google; t=1790985784; x=1791590584;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=UYl7rUnBPLsCQuW2++FZMGzexo3/dnPWluINOMY+sz8=;
- b=LyrztWk15fKpYYn4bh6T2R2awkfVOuQD2wUF8DrgvYR0pq72lZUUDp4qc23XGqCrtw
- JPktK8OMhezWpeKmwQKe9z/MiOof89g6VSfsVFHm/yDV1XhyU4TZhqYzLMXlnzA7GRuB
- G+nzLTQ6M2nkZGgQ+sY567vAh2JqEBTtbMKdGT4mE7gjWTeo6nlnj4NHKQJ0th9p821q
- Wj6kUWewcAPl4DQJKu1RannrjcYcycX7so6I2iVj0D2rgmPlr85BzRt0TBaGGbuuNJ4+
- 3ZZqkXLRcdf/1kQIMRXJpUoXmpbIFrZjlF+D103rYIllg9Lq6r8tHGju9iYhfq2PeuUg
- AyYw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YybtDh5zEBf5n1HBSnKt3zrXz3bWQXQ2umvjEfaI73I=;
+ b=koC9QmCFWFepBa0bislNLaW2xSNZDhjJR/AnORWpLpZdMVzHKhhrw/GyLMi2AKnkbW
+ PS6fP4mQHO9thRLpvrLfvtNqnxqzk497eMFkBEKFYncRkxB7JKsgUsa1bC8JGJ7RsUaG
+ /DFX+lODHeCnzqEJr0Z5hE68T0Ws1HChK0hiHSInD7tZMdW1aMs3quXtb8/0L4OnfT67
+ j3zSrm+DS3yjQWALN5ZleUUhDVo29mZY/ymKFKZc+3m8Za2C1l6XqqXN6wW7RxtxGoPk
+ PMT9vBOpO4hpeT/CtLmI4XrRvplFS9CDfHKOu3moiDpuER+tTanuoD4/uDh4/P6e1fbr
+ Qkeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790985783; x=1791590583;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=UYl7rUnBPLsCQuW2++FZMGzexo3/dnPWluINOMY+sz8=;
- b=Xn8tk1yjVznQGXj9HxXPTbwycWLMfgUPqzO9u4mKgv1qG3wUY/oxQDDmPD4ZC10XoL
- f7Liglfa1n2u6eplg7FBfYc4DqKmjj8rnD8w9lKeKIO7DMTjFJKxP7TSE2XOAJEA0WHZ
- odvN6/bQ7Aa1EunbqxP08LYItayQ97LnC0y+eH+Cq8Rt3Kn8dIgcXhL1MrvjDal5AyID
- dVdrikRR/h24o21qI6NmUaanw1pJWYYLo47YBBBFYAZeqtwK/AwO0SmjbIz9Ep9MVG+/
- jxjVd6U709Izh8ectQA7JrfbQXa0/MYTbsnd4EkoiA8bEiM6vcv+S6LIMhT2k8uK+Gva
- w3tQ==
+ d=1e100.net; s=20260707; t=1790985784; x=1791590584;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YybtDh5zEBf5n1HBSnKt3zrXz3bWQXQ2umvjEfaI73I=;
+ b=EzMeONXzOusooZz+acSf3OJccidedPMtUsP2QXwvSQNEHhHt60huYgWrfKFZDpry9Y
+ EG1CvI5FwrCuAupjVSX50L7liECocHHSz+9iBl+OHUZ0VhrIftasf8nBfqX8YzjxHxxM
+ 63ilys6zZTqublgG9vwplCAvkwJWPYzNiWJd/w93hoWNnccQy9QGM1p8xtqWiVrO0DD4
+ VQ2YoqjKfql4JgltirC2eksLWR/dk3VkrHKJuqUVgGGG1G/cK3H7FR+TdmSoimZThcKI
+ oEJEbo9qXuoxzKYdKFjmjkjx5zF6PdmdxnWSDpcaBstBZtK60vvzlRpsbK8L7Luu/Gtk
+ 3BeQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxML7CiOj8dmUxvsnXKcazR7/IBb+xoKu2gWwNmPPCu+anz/Sf7bLSNU7LgRaKuvSxxNqXff/7L5dU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL5ZhVjN1sX5o6uOT9jg4ftQk15Zf/nR5OzlIWzyWIqx5LJ22AE
- Ke3Z//XCu2u8pqU0HN6Ggvq8ZYw5Dgpz2UNKnR5njzbuSP7Gs1Ul0d02NxqpYnpqX0c+qmJJZLs
- PLf7QdSRlhuk58HuHk1i5w2BnNlReEZPRWCQMsE/TDmljguPoy9T0qRLzZF7VDQag6NUk7ak=
-X-Gm-Gg: AYBFou0ZcrQ5byKx7FFl8i8y1aJregazhqtC03Xl1gl2zUevx1R4fSo/327lszbBGr1
- 3lyvRSGd2kn7pjVbQopVsusph+0AD30HVAACbINC9PxoBFfWvOtBb6XT7+QjogHtSmSW748Z03M
- 7N6h0BmlntDlGa1apswGDCLWaN3KQ5XYZoEkC9aBbRdFyQ/Qo7uEm/4Z1bRl5b82MBH3ssnjF9v
- eWkbI5ZP5K782XNjimMCk9Ib8JUWhq2VPzLIbZXi88dUdxaqKfNPpgN1B17HTqMyyXjU3Owu0Jh
- 9+5ZBwDdjAm8Zwv9FxRmegYYYhVV9hq3Em7eXC9yTquC9oC4Q4kVUSyUTlhPsX+WRHJSS886B+3
- MpBzEEYz2uOQGwEoHoOQYQPaTvl6n7SWqKQ66t8L4vShYmxm6PWs3lXMTTJWVi4Nu/MHFGIgRqy
- SHm0cdPVYAykdd
-X-Received: by 2002:a05:6102:418a:b0:7a7:ad9f:53e2 with SMTP id
- ada2fe7eead31-7c0f1adeaabmr1313728137.1.1790985782685; 
- Fri, 02 Oct 2026 17:03:02 -0700 (PDT)
-X-Received: by 2002:a05:6102:418a:b0:7a7:ad9f:53e2 with SMTP id
- ada2fe7eead31-7c0f1adeaabmr1313709137.1.1790985782097; 
- Fri, 02 Oct 2026 17:03:02 -0700 (PDT)
+ AKwUvByjJeLgrOTNax9tLcXEJ8gg6XsvTCk8PtLRpK/CRrv5Pxf2b+UMZt8BRVjqQULD79tU5L/H2GmVUyg=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kfM3wh5AsVIrIAXP/sME6/Hiz+822L3J7E2+b7e4pNn6dxXY9I
+ sUcRXkJRG63xgT5rhTgAMHB+FpSObVqW+nxLKnHmxzU6N0vf5pVwK3WFHFeewAIiZRCa3bleGGa
+ 28n3NofOOKIwSLYSn4gq/7HgUYInwdKRGZZSMqasjwtYwhn4HR+MEMJZcx+ck7PVSnHvJ0os=
+X-Gm-Gg: AYBFou2kY2+7U2Tnu5IeSqyNJ0LclPCcnwk6qRTQRx53NjscS0kDROMcvdtmvUsmWKs
+ cM/fkTaaFJq3w83IU/K7u0CTpi5LHmv4Jb4iLX9GTnRRbJPMCcBAqp7dEUCGmY90VWszoaW1N3m
+ 2idPcP7fhIxOlZ3cUaBZKn8N764nsXFXt4XNoKAgegDt26bzqnc/wqw7lTeMkqkD9v5yyGwZjSg
+ 8fdFAVEPhYbsPHUIr69p8+0Htkt0Cp3awKIJfqURx82/b41o8HD0TonQpj/iovQZ4AhVlDEb3GJ
+ 0d/tnJ9tJ+Br/MkmRrfsRJ06kdm1QBhTUUpuQ6KSRioWLnkVYIpqMniWNARmTi9npU6frDwOSPH
+ oF4Oma7s2y++umSGw0fZtnmUeMw4D/WVhlfzP/lG0XefDJ/iAHHD4/fbfFUvd0UAvhSn9+jPrO3
+ 04V692JdXm4QkT
+X-Received: by 2002:a05:620a:4589:b0:93c:779f:3e02 with SMTP id
+ af79cd13be357-93ce7c1229cmr768036185a.11.1790985784187; 
+ Fri, 02 Oct 2026 17:03:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:4589:b0:93c:779f:3e02 with SMTP id
+ af79cd13be357-93ce7c1229cmr768029685a.11.1790985783682; 
+ Fri, 02 Oct 2026 17:03:03 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3a87e2f7b4esm14234531fa.14.2026.10.02.17.03.00
+ 38308e7fff4ca-3a87e2f7b4esm14234531fa.14.2026.10.02.17.03.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Oct 2026 17:03:00 -0700 (PDT)
+ Fri, 02 Oct 2026 17:03:02 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH 0/5] drm/msm/dpu: enable quad-pipe for DSC and dual-DSI
- case
-Date: Sat, 03 Oct 2026 03:02:58 +0300
-Message-Id: <20261003-dpu-quad-pipe-fixed-v1-0-6a6a00917b71@oss.qualcomm.com>
+Date: Sat, 03 Oct 2026 03:02:59 +0300
+Subject: [PATCH 1/5] drm/msm/dpu: don't flush a legacy CTL after its
+ interface has stopped
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADJGwGoC/yXMwQqDMBCE4VeRPbsQrdjSVyke0uxotwebJqYUJ
- O9ugsePYf6dIoIi0r3ZKeCnUT9rQdc25F52XcAqxdSbfuyMubD4xN9khb168Kx/CA9W3A3DdXa
- wVJ4+oA61+phOx/R8w201RTkfL9NQiXcAAAA=
-X-Change-ID: 20261003-dpu-quad-pipe-fixed-4adc8e47fcea
+Message-Id: <20261003-dpu-quad-pipe-fixed-v1-1-6a6a00917b71@oss.qualcomm.com>
+References: <20261003-dpu-quad-pipe-fixed-v1-0-6a6a00917b71@oss.qualcomm.com>
+In-Reply-To: <20261003-dpu-quad-pipe-fixed-v1-0-6a6a00917b71@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -108,39 +108,38 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Jun Nie <jun.nie@linaro.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Vinod Polimera <quic_vpolimer@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1350;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1918;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=CB7TT1T8j14Q4FhQymiBR2ZXNhb0URD++uaqz/WDp0U=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqwEYzvoCt7nCZ6n0xqzTkFn31aUEGmgcqvVG2n
- VdWUhbxNniJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCasBGMwAKCRCLPIo+Aiko
- 1VFJB/0UOoeV+HtNAiE80sGXuK5ZPP407S9pJEHtD2lKLDH4sJRzX9MCfy/+0XnNTDyomYPY3Yz
- 2j2oxoaYoYMilCvr68ia8F0R/F+r6ai6zEaYhGTgElisQr10OahII9UjYNU5Al1M+13sP4wnZut
- 8E7X9+qaS4lrSf8XfLY2bCd1fazX29IRP9E4MRrWCKdCWfkDICK5NuZ/tdyrf24xfxkw+N60vA3
- 9jlYNS8HEGow1uIfZs1INsEyzfSMBYKdQdysAcXrwzEn1YSAeaqSFMIyNt3yGTjUzF9srBQgzfg
- 93k+24hh5E6yEWY9kSVtlBVl7KnCoWEPN7w0+uVOR5Qi05ke
+ bh=IRuLvmE0+tzW0ijRMXTcaAZ1rYCTxwdRidPidjqJ/0E=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqwEYzaPJb1yOKg749Bbkvh+Ud1a40lcWZEygV/
+ hLWhbmEXGWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCasBGMwAKCRCLPIo+Aiko
+ 1R4hB/0RnbaZnho6vaxm/YNE51kBpPHAIdL5cZyK1p1F0i+SD1gw2iMxinqP9K+G34fE4eLN0se
+ 8b9q+vzJ4qGOMxSXVs7LBrbGZuc1fM0HlVALedgw1mMaDOhNKoFL0xmaj1StBwzrCNfRC+YOYBP
+ u/m/hvCrNXjk7RC4wZLfUcFYd13VaagXGs6ZXAwtXamwmzvSZRr0RUP2BM/OgE8KTp4vWnsUxnQ
+ i/JJfCBI4sr5ixtjzKauayzimLoJtI7GUkfMsX8dIknXeoqPbvmYcAhcxYayEM2UAuKtNfUxblr
+ aUHrgVnlvnG4Yp8AwxkQeelgZelsKR5FtR3yPC801ELpAtco
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=d/VgWhjE c=1 sm=1 tr=0 ts=6ac04637 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=d/VgWhjE c=1 sm=1 tr=0 ts=6ac04639 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=0EwCbC_-MHmnvNcu6akA:9 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: 0QgJKIh_pQ5maBnGWV-M3CuYhRDOpm7k
-X-Proofpoint-GUID: 0QgJKIh_pQ5maBnGWV-M3CuYhRDOpm7k
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA5NSBTYWx0ZWRfX5VO0DvDBbblt
- MjyEF82Y5grr3Ip+4G70BT49RWAfCHbY8oUNqWubwZUegT1fwb6hJtedeNpHjF6MsYwtc+drFyf
- 5vQN0vnFz5tmh3jsGng5bw7a5LgT+KU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA5NSBTYWx0ZWRfX+KW7lR7AR2XA
- 3zv7uuUNO2MVVVE6HI1ueFwNhcDlJSL0MbqJTSPLjokjTTOldqZevGZgfbB9WfZy9lnMoCbO25n
- 1P86Isdk7pBk1rvTNTVp5dJhVo8Ni//aGYLf7HtkIbbPFWot2uJ1RFyJtABabk03NG5vRJhol6X
- VF+faIGvT8fz2ZlREisLA0eGcCav8/VoZjbEuYPzQMTXKsFnoTQlI9b/pDx6PqmU0KdVrDPLbTM
- QgsI30kz9pE7/xXb6EIfJy2aW3BuIs0lzkQnB7LP9hN1wnOiem9ArVnx5IOKU8LnMCwBI02Nq0r
- awhO2X3bbktKS+4Q+cLRb4WaVcBHoMH9z9L0ocfmFrDu8cPaRyGmq1SpYSMXE9GoWflqOyiDleg
- bAC7aKvF+RFY4MhxEOktCumSNWyBnPmfLU+hTsDW+FlvWHSCYnQBkcgvCo762/eR1rgMuzfMiPE
- ZPf9M9M0EJEsuULP+Bg==
+ a=EynL1qdohFGk3j19l_wA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 9j-jgTvFMynzp6xDOnqaHuKeMeVgg_Vk
+X-Proofpoint-GUID: 9j-jgTvFMynzp6xDOnqaHuKeMeVgg_Vk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA5NSBTYWx0ZWRfX/lagDhw3q496
+ 8N0fd5mqA1PDxkJn71M1l2R9PNNLA4WrEieER6ckK1jga2GXm9L1LMkSwxpHrf1yrITxX1HM8GV
+ lOm+P4YTm0A9Vwu9PtECQISEyCsZwec=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA5NSBTYWx0ZWRfXwHMrlRZDrZR2
+ 3V7j9Z3mDwLeFS+RYTDQlPKiY90KoRqyLeU8DV7Mi53K3YHqN41ObDEjKU9iMv0jr9bPNHCiajy
+ 0Odc/vyGkI3z7h+XqP9AIdbHIoH/SJ+JHJvHxCodQ8rxJpD7ANHST/gVdY7nobvsTFOBfbTQk6g
+ wfYFRD31zYrGzMkxFSWQSZNI5Ac130smpn2Of9wBb0idqvGsAIEAAOcaKWY2dpvubCzp8YfcnmX
+ 893wE7nWdbZy8SV8Pr5OY02heyZD0c1tHr/3S83BZCj5yH69VvQ2M9VgPd3oxTAoKJpJhY4/8kf
+ Xwiq7Jgymh2vf658EPHuNB2w4svHzdHdXLogeYv7sUAzLRYNKSwXl0E/dWBy4wbN6htrnHr00ZJ
+ ZrziVoZ4X1P073zMk8mOKJCS9J2tRTC5yRNRFRoXvNV8fxfCUT0khzoT/DLkCbEilzEhIAfYpf4
+ akALOz68NQIMsNUhN0A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
@@ -165,37 +164,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This feels bad, but I ended up picking Jun's last remaining patch and
-reworking it until it stopped producing issues in my hardware lab. This
-patchset is based on Jun's v21.
+On DPU < 5.0 the CTL latches a flush at the next vsync of the interface
+it drives.  dpu_encoder_helper_phys_cleanup() runs after the video
+encoder has switched the timing engine off, and still flushes the mixers
+it has just reset, so the flush is never taken: the bits stay pending in
+CTL_FLUSH, where a CTL soft reset doesn't clear them either.
 
-Jun thanks for your previous work.
+The next display on that CTL then waits for a flush which can't
+complete.  On SDA660, going back to fbcon from a two-mixer mode leaves
+the LM_1 bit pending, and every following frame of the single-mixer
+mode times out:
 
+  [dpu error]vblank timeout: 80
+  [dpu error]wait for commit done returned -110
+
+Only trigger the flush from the teardown on DPU >= 5.0.  The legacy CTL
+gets its registers flushed by its next user, as downstream does, which
+rewrites CTL_TOP without a flush when it stops a CTL.
+
+Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
+Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Dmitry Baryshkov (4):
-      drm/msm/dpu: don't flush a legacy CTL after its interface has stopped
-      drm/msm/dpu: don't count the cloned writeback as an interface
-      drm/msm/dpu: assign the mixers to the CTLs per interface
-      drm/msm/dpu: enable 3D merge when there are more mixers than interfaces
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Jun Nie (1):
-      drm/msm/dpu: enable quad-pipe for DSC and dual-DSI case
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1f20695f81e3..5a06a0fbc7e1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2339,8 +2339,11 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
+ 	if (ctl->ops.reset_intf_cfg)
+ 		ctl->ops.reset_intf_cfg(ctl, &intf_cfg);
+ 
+-	ctl->ops.trigger_flush(ctl);
+-	ctl->ops.trigger_start(ctl);
++	/* a legacy CTL latches its flush at the vsync of a stopped interface */
++	if (phys_enc->dpu_kms->catalog->mdss_ver->core_major_ver >= 5) {
++		ctl->ops.trigger_flush(ctl);
++		ctl->ops.trigger_start(ctl);
++	}
+ 	ctl->ops.clear_pending_flush(ctl);
+ }
+ 
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c         | 64 ++++++++++++++++--------
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h         |  6 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 43 ++++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h      |  2 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  7 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h   |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h      |  2 +-
- 7 files changed, 63 insertions(+), 63 deletions(-)
----
-base-commit: 820493753c467135a7083379f0d547a942b56db3
-change-id: 20261003-dpu-quad-pipe-fixed-4adc8e47fcea
-
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
