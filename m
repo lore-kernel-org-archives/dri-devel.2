@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4D05CA5FED
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 13:17:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58369CA5FEC
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 14:08:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A3110E0D1;
-	Sat,  3 Oct 2026 13:17:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F91010E0E2;
+	Sat,  3 Oct 2026 14:08:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CAN/rVvg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bif7+x+D";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B50110E011;
- Sat,  3 Oct 2026 13:17:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 490DF10E0D7;
+ Sat,  3 Oct 2026 14:08:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C0FAF60D82;
- Sat,  3 Oct 2026 13:17:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638301F0089B;
- Sat,  3 Oct 2026 13:17:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 010F6433BF;
+ Sat,  3 Oct 2026 14:08:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 000C81F0089C;
+ Sat,  3 Oct 2026 14:08:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791033465;
- bh=IzbNPOia8VMKvzs9m7iStPmTfA5edKy5GnhybPACNJg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=CAN/rVvgMSKtbA1KsHN4RGBkEoftMGFQkGSEnSQs+8AEVSkBCWecWeksf/WYsl1JG
- vex0FEYYejEF5KBKQs3a3h2WUWTGlrypAHO0jB7GcWDeXS+D/+znTX6DKUfidRG83X
- KItpx2EQPp7inJx6IFStH8dZ+eMtoE7P8nu9DjRFIQNUe6U/ssysH7A+cXRlIPm4Ai
- uS0zxXdr9FMT2JNfL9NgSa4w/DxjAmkHiv17gFyFjuKU7FUXI5TNUC3F06nl6tEBlE
- 3czGY7wygWYhTxNlVL3QeN/Tvv2nfFHUwj7QHwOyoenvU3RvYpzPX68Qt38Q5OaCdO
- N3Jr4jT5uXPxg==
-Message-ID: <d3d70595-4fa3-47d1-8f2c-aa44862cc242@kernel.org>
-Date: Sat, 3 Oct 2026 15:17:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] media: Consolidate AtomISP v2 PCI IDs in the
- pci_ids.h
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-pci@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261002094813.856439-1-andriy.shevchenko@linux.intel.com>
+ s=k20260515; t=1791036517;
+ bh=qEHnNgHl6Utuo0Yg67pBnePzE8jinMcZX2WPmLe8Mro=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=bif7+x+DqzNjs2X7CY/CPmtejxOgzW0Ng0gidGTZK5352SXDhtUoniF3Qxm+3XIFO
+ c5raHqQ36dZLbY2OLh2FNuKt0N4aE6Z3th+3vkZIUoObG0mEwPnPGhtpEpkIh/j7Yi
+ tWoaencFLhM7gNE4qTYmYj009CzKk7bz5+4pxJp6WuTiOjfqIqnpHXN32CRZYVwmsB
+ 5iFDr1uarqAMjJFaZ6IUmSjiUPYsu62hlAhRRrkWVKL6zLnGhITkYTrM9hNm/ywPvM
+ 2+jRvdRnUhMQF1PhUtOzT1pg/JI6RlTh9t+rgwpjyyRa7yTN5OabrmvdyExXWz4GHc
+ wEASpzmYEtLgA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Sat, 03 Oct 2026 16:08:34 +0200
+Message-Id: <DLV9GFX4NNUB.153H8Q8R27VVW@kernel.org>
+Subject: Re: [PATCH v3 0/3] drm, drm/xe: Protect against premature module
+ unloads
+Cc: <intel-xe@lists.freedesktop.org>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Alex Deucher"
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260925133335.149679-1-thomas.hellstrom@linux.intel.com>
+ <DLOJ7S2IZW0R.2BNLLO5M3YL7M@kernel.org>
+ <7fc614d0b666fb5ae9777c29ea2e79647030b198.camel@linux.intel.com>
+ <DLQVBJX4PK5G.2AK3E5K8U8UY7@kernel.org>
+ <fdbc3d2ed7b23b09216df023e2be9ed707820c75.camel@linux.intel.com>
+ <DLQYY4O71Q54.2FZ1ZV8G5ZZPN@kernel.org>
+ <3389776905c6ef2c20b2b3dd78041ea5db638a96.camel@linux.intel.com>
+In-Reply-To: <3389776905c6ef2c20b2b3dd78041ea5db638a96.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,146 +68,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon Sep 28, 2026 at 3:37 PM CEST, Thomas Hellstr=C3=B6m wrote:
+> It doesn't have to in a model where all users are removed before the
+> drm device is freed. Following your argument, shouldn't that drm_device
+> reference should also be accompanied by a module reference? Except that
+> will block rmmod?
 
-On 2-Oct-26 11:43, Andy Shevchenko wrote:
-> We have a few drivers using same pair of the PCI IDs across the kernel and
-> there seems more to go, consolidate AtomISP v2 PCI IDs in pci_ids.h database.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Yes, if we establish that a DRM device must outlive a GPUVM (which by conve=
+ntion
+we implicitly do by storing a pointer) then you don't need a reference coun=
+t.
 
-Thanks, patch looks good to me:
+However, there's nothing that ensures the caller sticks to the convention. =
+And
+given that the DRM device is reference counted already, taking the referenc=
+e
+count is the correct thing to do.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+(As a side note, in Rust you can actually model and enforce this lifetime
+relationship at compile time without a reference count. You can even establ=
+ish
+more granular lifetime relationships. For instance, you could have:
 
-Regards,
+	struct GpuVm<'a> {
+		drm: &'a drm::Device<Registered>,
+	}
 
-Hans
+and establish that a GPUVM can only ever live as long as the DRM device is
+registered and therefore implicitly also establish that the GPUVM can't out=
+live
+driver unbind, as a DRM device can't be registered beyond driver unbind and
+hence the lifetime 'a is guaranteed to end before driver unbind.
 
+In C you can only establish this by convention, and at least take the refer=
+ence
+count.)
 
-> ---
-> 
-> Assuming that media subsystem is the main beneficiary I think it is the best
-> to route it via that tree. For others (i915, PCI, PDx86), please Ack if you
-> are agree.
-> 
->  drivers/gpu/drm/i915/display/intel_display_power.c   |  6 +++---
->  drivers/platform/x86/intel/atomisp2/pm.c             |  6 +++---
->  drivers/staging/media/atomisp/pci/atomisp_internal.h |  2 --
->  drivers/staging/media/atomisp/pci/atomisp_v4l2.c     | 10 +++++-----
->  include/linux/pci_ids.h                              |  2 ++
->  5 files changed, 13 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index 2e534ddb7347..ee2c59b72b4a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -2086,9 +2086,9 @@ static void assert_ved_power_gated(struct intel_display *display)
->  static void assert_isp_power_gated(struct intel_display *display)
->  {
->  	static const struct pci_device_id isp_ids[] = {
-> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x0f38)},
-> -		{PCI_DEVICE(PCI_VENDOR_ID_INTEL, 0x22b8)},
-> -		{}
-> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-> +		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +		{ }
->  	};
->  
->  	drm_WARN(display->drm, !pci_dev_present(isp_ids) &&
-> diff --git a/drivers/platform/x86/intel/atomisp2/pm.c b/drivers/platform/x86/intel/atomisp2/pm.c
-> index ad1f99140962..f3dee0e58f62 100644
-> --- a/drivers/platform/x86/intel/atomisp2/pm.c
-> +++ b/drivers/platform/x86/intel/atomisp2/pm.c
-> @@ -121,9 +121,9 @@ static UNIVERSAL_DEV_PM_OPS(isp_pm_ops, isp_pci_suspend,
->  			    isp_pci_resume, NULL);
->  
->  static const struct pci_device_id isp_id_table[] = {
-> -	{ PCI_VDEVICE(INTEL, 0x0f38), },
-> -	{ PCI_VDEVICE(INTEL, 0x22b8), },
-> -	{ 0, }
-> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
-> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +	{ }
->  };
->  MODULE_DEVICE_TABLE(pci, isp_id_table);
->  
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_internal.h b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> index 5a69580b8251..1a05fc331557 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-> @@ -37,7 +37,6 @@
->  	(((isp)->media_dev.hw_revision & ATOMISP_HW_REVISION_MASK) == \
->  	 ((rev) << ATOMISP_HW_REVISION_SHIFT))
->  
-> -#define ATOMISP_PCI_DEVICE_SOC_BYT	0x0f38
->  /* MRFLD with 0x1178: ISP freq can burst to 457MHz */
->  #define ATOMISP_PCI_DEVICE_SOC_MRFLD	0x1178
->  /* MRFLD with 0x1179: max ISP freq limited to 400MHz */
-> @@ -45,7 +44,6 @@
->  /* MRFLD with 0x117a: max ISP freq is 400MHz and max freq at Vmin is 200MHz */
->  #define ATOMISP_PCI_DEVICE_SOC_MRFLD_117A	0x117a
->  #define ATOMISP_PCI_DEVICE_SOC_ANN	0x1478
-> -#define ATOMISP_PCI_DEVICE_SOC_CHT	0x22b8
->  
->  #define ATOMISP_PCI_REV_MRFLD_A0_MAX	0
->  #define ATOMISP_PCI_REV_BYT_A0_MAX	4
-> diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> index 476fe143a591..ab8727a806bf 100644
-> --- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-> @@ -1239,7 +1239,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  		}
->  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
->  		break;
-> -	case ATOMISP_PCI_DEVICE_SOC_BYT:
-> +	case PCI_DEVICE_ID_INTEL_ISP_BYT:
->  		isp->media_dev.hw_revision =
->  		    (ATOMISP_HW_REVISION_ISP2400
->  		     << ATOMISP_HW_REVISION_SHIFT) |
-> @@ -1284,7 +1284,7 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  		isp->dfs = &dfs_config_merr;
->  		isp->hpll_freq = HPLL_FREQ_1600MHZ;
->  		break;
-> -	case ATOMISP_PCI_DEVICE_SOC_CHT:
-> +	case PCI_DEVICE_ID_INTEL_ISP_BSW:
->  		isp->media_dev.hw_revision = (ATOMISP_HW_REVISION_ISP2401
->  						 << ATOMISP_HW_REVISION_SHIFT);
->  		isp->media_dev.hw_revision |= pdev->revision < 2 ?
-> @@ -1487,12 +1487,12 @@ static const struct pci_device_id atomisp_pci_tbl[] = {
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_1179)},
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_MRFLD_117A)},
->  	/* Baytrail */
-> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_BYT)},
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BYT) },
->  	/* Anniedale (Merrifield+ / Moorefield) */
->  	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_ANN)},
->  	/* Cherrytrail */
-> -	{PCI_DEVICE(PCI_VENDOR_ID_INTEL, ATOMISP_PCI_DEVICE_SOC_CHT)},
-> -	{0,}
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_ISP_BSW) },
-> +	{ }
->  };
->  MODULE_DEVICE_TABLE(pci, atomisp_pci_tbl);
->  
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 63774ae2bf71..0693e4532a68 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -2732,6 +2732,7 @@
->  #define PCI_DEVICE_ID_INTEL_HDA_HSW_3	0x0d0c
->  #define PCI_DEVICE_ID_INTEL_HDA_BYT	0x0f04
->  #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0f28
-> +#define PCI_DEVICE_ID_INTEL_ISP_BYT	0x0f38
->  #define PCI_DEVICE_ID_INTEL_8257X_SOL	0x1062
->  #define PCI_DEVICE_ID_INTEL_82573E_SOL	0x1085
->  #define PCI_DEVICE_ID_INTEL_82573L_SOL	0x108f
-> @@ -2787,6 +2788,7 @@
->  #define PCI_DEVICE_ID_INTEL_VMD_201D	0x201d
->  #define PCI_DEVICE_ID_INTEL_HDA_BSW	0x2284
->  #define PCI_DEVICE_ID_INTEL_SST_BSW	0x22a8
-> +#define PCI_DEVICE_ID_INTEL_ISP_BSW	0x22b8
->  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MIN	0x2310
->  #define PCI_DEVICE_ID_INTEL_DH89XXCC_LPC_MAX	0x231f
->  #define PCI_DEVICE_ID_INTEL_82801AA_0	0x2410
+The module reference seems orthogonal though, GPUVM is not actively emittin=
+g
+calls into anything (unlike a workqueue for instance), it's a passive data
+structure. So, there's no need for any defensive measure AFAICS.
 
+> Without knowing for sure, I think this was the route taken with
+> hotplugging.
+
+Sure, both approaches are there to cover hotplugging. Almost all class devi=
+ce
+implementations have to consider hotplugging as it is depends on the bus th=
+e
+physical device sits on whether hot(un)plug can happen.
+
+> But isn't essentially what you describe a design where we release all
+> dma_buf, file- and drm_pagemap references of struct drm_device at
+> module_unload time. That would replace their references with SRCU
+> protecting the drm_device pointer, falling back to a stub behaviour
+> when unbind has been called. So the "Can I access hardware?" would be
+> replaced by a "Can I access the DRM device?".
+
+I think the question is not "Can I access the DRM device?", the question is=
+ "Is
+the DRM device still registered?", or IOW, "Is the DRM device still backed =
+by a
+driver?".
+
+There's a bounded lifetime when a driver is allowed to operated a device, w=
+hich
+is between probe and remove. This is (typically) the same scope as the clas=
+s
+device (e.g. DRM) is registered.
+
+After the driver is unbound from it's (physical) bus device, there's no val=
+ue
+anymore in letting the driver operate the class device (which is exactly wh=
+at
+register() / unregister() describes) in the first place.
+
+There's nothing hardware specific left at this point, so it is not a driver=
+ job
+anymore; the lifetime decoupling can be at subsystem / component level (e.g=
+. DMA
+fence).
+
+> That's an interesting idea, but would probably need careful work so
+> fence waits etc. doesn't block the SRCU read sections. And ofc to avoid
+> user-space regressing.
+
+For the fence waits specifically, this can (or should) never happen. Driver
+fences must be signaled on driver unbind. The hardware is gone at this poin=
+t,
+there's nothing left that could signal them otherwise.
+
+> FWIW, IIRC that SRCU is only strictly needed when non-driver code
+> (pagemap, files and dma-buf) drops the last drm_device reference
+> without having a module reference. And there is no such code (yet)
+> AFAIK, so I can drop that patch to when we think it's necessary and we
+> have other driver buy-ins.
+
+I think those components should do the lifetime decoupling work instead. On=
+ce
+the driver is unbound, none of the driver callbacks are "special" anymore a=
+s
+there's nothing hardware specific left at this point.
