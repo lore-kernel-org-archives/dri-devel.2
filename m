@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06582CA5FE8
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 01:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4694CA5FE8
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 01:34:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5C110E71A;
-	Sat,  3 Oct 2026 01:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1950210E721;
+	Sat,  3 Oct 2026 01:34:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QWBVo5vz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jdupZsx6";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0B910E71A
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 01:34:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC08910E721
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 01:34:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1E4EA60D86;
- Sat,  3 Oct 2026 01:34:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF9B1F00893;
- Sat,  3 Oct 2026 01:34:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5F93F60DA0;
+ Sat,  3 Oct 2026 01:34:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7271F000FF;
+ Sat,  3 Oct 2026 01:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1790991245;
- bh=kiWlmf76r121G/pYU85rdFP9iRBT8FegZkXAbJdLH2Y=;
+ s=k20260515; t=1790991270;
+ bh=SU1fqTvptTyfGY5rpeVOWgHr8c/cH6hmCMMRBeq6R28=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QWBVo5vzkdSILk1ZBaWx3yXgQGE3oe7Esc/V/BxyUs9zwRejelSJpXVMwg4tOe+nT
- SRejc8k1fhpkCV4zXu6n/bs0li9hepZDP7q46Vn9+nKox17Zwe8wNsxbWSLDs0QD6A
- sAgET7UFribwAMLZgZLcAxtpnZph+844UcnzB2gEpxiZEu89RQXPPdN6hnNiVlDGas
- EmGGLpQXBchDu6aizSOckQjL5ThKDOYYW6m3CHBaRoM/w4DLR67vuzwUCfZOX/DYjE
- AGpKbRwbiMk7NTJo7sPwa0mBNZuP3BR/IUQOJTLD55yr+YDaYe6RqL9kf0UObplspm
- 7SAroYK2E9SUA==
+ b=jdupZsx62z1gPYSM5uvoXjPicQZI5OaKwAnHhIAdVmqNF2QoS0o71MxtNqlgewqq5
+ +86YP+iT9EmBubJh1deie6ySsnJFPZHAt74n/h7dXgnEPdUou/51EcW9njbGiFzN5I
+ fNVM9bj5OFykPAXY1Nek5vEI76yussoSe4nxsRg9afm1GyZOsp7ACr6QXCDp9gcaGI
+ zbR1ARUJazybB9mIA4YSJhZW9juWjqym9X8XIRkj34ZXaGtPE1D8JM0c5VD2Gm7rOg
+ aAuLzgsDAH1XOboa93+0aeKUgHx+qXBigcVJTiNg0SwpkGCdWCcEdzaiLdJB2L5fyk
+ QAa+ipvCy7Ewg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/panic: allow overriding panic QR code URL
-To: =?utf-8?b?57qz6KW/5aayIMK3IE5haGlkYQ==?= <me@nahida.im>
+Subject: Re: [PATCH v4 03/10] drm/msm: release scanout framebuffers only
+ after a vblank
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261002222021.149450-1-me@nahida.im>
-References: <20261002203140.121165-1-me@nahida.im>
- <20261002222021.149450-1-me@nahida.im>
+In-Reply-To: <20261003-fd-kms-fix-smmu-v4-3-2a44d4d8ac77@oss.qualcomm.com>
+References: <20261003-fd-kms-fix-smmu-v4-0-2a44d4d8ac77@oss.qualcomm.com>
+ <20261003-fd-kms-fix-smmu-v4-3-2a44d4d8ac77@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 01:34:05 +0000
-Message-Id: <20261003013405.9EF9B1F00893@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 01:34:29 +0000
+Message-Id: <20261003013429.DF7271F000FF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +60,94 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panic: OOB read due to missing null-termination on panic_qr_=
-url
+- [High] drm/msm: premature unpin of framebuffers causing IOMMU fault
 --
 
-commit 4020ffafa052ada60c700fa2d64b78e9eb01e839
-Author: =E7=BA=B3=E8=A5=BF=E5=A6=B2 =C2=B7 Nahida <me@nahida.im>
+commit 86394032733ab2293f0e387866c3cbd603bc3285
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: drm/msm: release scanout framebuffers only after a vblank
 
-drm/panic: allow overriding panic QR code URL
+This commit defers scanout framebuffer release until a vblank by handing th=
+em
+to a drm_vblank_work per CRTC. On CRTC disable, pending works are flushed a=
+nd
+framebuffers are unpinned directly from msm_crtc_vblank_off().
 
-This patch adds a module parameter to override the DRM panic QR code base U=
-RL
-at boot or module load time. It exposes a getter function for the DRM panic
-helper to retrieve and format the configured URL when generating the QR cod=
-e.
-
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index 9fe97c4eda6c8..463544f71c537 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index 7e1df472592d3..cb497d419ab83 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
 [ ... ]
-> @@ -49,6 +49,15 @@ MODULE_LICENSE("GPL");
->  static uint panic_qr_version =3D CONFIG_DRM_PANIC_SCREEN_QR_VERSION;
->  module_param(panic_qr_version, uint, 0644);
->  MODULE_PARM_DESC(panic_qr_version, "maximum version (size) of the QR cod=
-e");
-> +static char panic_qr_url[256] =3D CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL;
-
-[Severity: Medium]
-Will this array be null-terminated if CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL is
-exactly 256 bytes or longer?
-
-In C, initializing a fixed-size character array with a string literal of eq=
-ual
-or greater length does not append a null terminator.
-
+> +/*
+> + * The crtc stops fetching here, and with it the vblanks the pending wor=
+ks are
+> + * waiting for, so release the framebuffers directly.
+> + */
+> +static void msm_kms_fb_unpin_release_all(struct msm_kms_fb_unpin *pendin=
+g)
+> +{
 [ ... ]
-> diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_pan=
-ic_helper.c
-> index 8913c3d22e8d3..b0ea0b4e8edef 100644
-> --- a/drivers/gpu/drm/drm_panic_helper.c
-> +++ b/drivers/gpu/drm/drm_panic_helper.c
+> +		drm_vblank_work_cancel_sync(&unpin->base);
+> +		msm_kms_fb_unpin_release(unpin);
+> +	}
+> +}
+> +
+> +void msm_crtc_vblank_off(struct drm_crtc *crtc)
+> +{
+> +	struct msm_drm_private *priv =3D crtc->dev->dev_private;
+> +	struct msm_kms *kms =3D priv->kms;
+> +	unsigned int idx =3D drm_crtc_index(crtc);
+> +
+> +	if (kms && idx < ARRAY_SIZE(kms->fb_unpin))
+> +		msm_kms_fb_unpin_release_all(&kms->fb_unpin[idx]);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +}
 [ ... ]
-> @@ -609,17 +609,20 @@ static void drm_panic_helper_qr_exit(void)
->  	stream.workspace =3D NULL;
->  }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
+sm/disp/dpu1/dpu_crtc.c
+> index 77a2d1f6700d0..35daf46fc4257 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1213,7 +1213,7 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+>  	}
 > =20
-> -static int drm_panic_helper_get_qr_code_url(u8 **qr_image, unsigned int =
-qr_version)
-> +static int drm_panic_helper_get_qr_code_url(u8 **qr_image, unsigned int =
-qr_version,
-> +					    const char *qr_url)
->  {
->  	struct kmsg_dump_iter iter;
-> -	char url[256];
-> +	char url[512];
->  	size_t kmsg_len, max_kmsg_size;
->  	char *kmsg;
->  	int max_qr_data_size, url_len;
-> =20
->  	url_len =3D snprintf(url, sizeof(url), "%s?a=3D%s&v=3D%s&z=3D",
-> -			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
-> -			   utsname()->machine, utsname()->release);
-> +			   qr_url, utsname()->machine, utsname()->release);
+>  	/* Disable/save vblank irq handling */
+> -	drm_crtc_vblank_off(crtc);
+> +	msm_crtc_vblank_off(crtc);
 
-[Severity: Medium]
-Could this lead to an out-of-bounds memory read during a kernel panic?
+[Severity: High]
+Can this lead to an IOMMU context fault if the display hardware is still=20
+fetching the frame?
 
-If qr_url points to a panic_qr_url array that lacks a null terminator,
-snprintf() will read past the end of the array until it encounters a null
-byte in adjacent memory. This could potentially leak adjacent memory into t=
-he
-QR code URL or cause a secondary crash that prevents the panic screen from
-displaying.
+When a userspace application issues an async plane update followed closely =
+by=20
+a CRTC disable, the ongoing hardware fetch might hit an IOMMU fault because=
+=20
+the memory is unmapped immediately during the disable sequence.
+
+Because msm_crtc_vblank_off() now synchronously unpins and unmaps all pendi=
+ng=20
+framebuffers via msm_kms_fb_unpin_release_all(), executing this before the=
+=20
+hardware is done fetching creates a race window.
+
+Looking at dpu_crtc_disable(), we wait for the hardware to finish its curre=
+nt=20
+frame fetch much later in the function:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_disable() {
+    ...
+    msm_crtc_vblank_off(crtc);
+    ...
+    if (_dpu_crtc_wait_for_frame_done(crtc))
+        DPU_ERROR(...);
+    ...
+}
+
+Does this sequence leave a race window where the display is left reading=20
+unmapped memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002222021.1494=
-50-1-me@nahida.im?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-fd-kms-fix=
+-smmu-v4-0-2a44d4d8ac77@oss.qualcomm.com?part=3D3
