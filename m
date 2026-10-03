@@ -4,77 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7095CA5FF0
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD70ECA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3103110EAE9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A49B10EAEA;
 	Sun,  4 Oct 2026 17:18:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eJqcWv/J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AGKpocnz";
 	dkim-atps=neutral
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
- [74.125.227.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC9C10E2E0
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 09:35:05 +0000 (UTC)
-Received: by mail-pj2-f10.google.com with SMTP id
- d9443c01a7336-2e2f352108bso1400435ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 02:35:05 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61D9C10E155
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 21:15:36 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5bc18f54abbso502407e87.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 14:15:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791020104; x=1791624904; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
- b=eJqcWv/JDv4baf5F2ltm3pnlqFw2WQC+ZQqLVE1VCRRbqY/grDC05KUDkjh//JSA35
- VX5aOmoBTAJY3rEL1sosr85dr8J4XBxo35efSonGewoSGcmXEtTZNyOxA0vzTkYLWQPq
- CfvU0QQoxvayRP3BrtYKyufvFMA+rM0GFus/bY99n9LVcViHXUdPnJVf19WUDXFHBub5
- +gbXXGmbSzqbgT1ZYQqoM1Ipf6W+YcG50ntU4TZzQaWn4btYok/bqXRX6l4Z0z6RZIt2
- +XkeJcQ8Y48Q4hVPBSnifcK3p214WQgjufdSw2z/U69Vgixtq7m9sK9SGUXdxlSYuj6B
- arGA==
+ d=gmail.com; s=20251104; t=1791062134; x=1791666934; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:subject:references:cc:to:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=sYdrKmlcH/gFo4xN8pAi8w6DeNulYqQ/HX5EWjKFQ5k=;
+ b=AGKpocnzg8hruRXB1cU/R1uIoT1E7H99XqEzETrRxKceSAgmfXEx/hIJbXN3yANie+
+ +mjr3NHuJOoo41nIzC7vH9jtlnXBxc8HUHae3qY6XVxN54rrHKtkv+hYxwcRShmdHLZa
+ ogoWaH93u82vArs1/MjGhyjoc/GmAYISj5g9vgOjKpJv1BsUy2EAGYIKtxmgHXmWQ3oz
+ eu3SVkRIVYqdJ43vFFp1ozYBASn/mR5JB02JCPAZDaHzGWzGsj8OAhTHWcKL0oiXfLG3
+ nyqWhLLHoKBNLF2sH/qYKYtZXAnGgcje05z4lPSaWPY5A86rRRH9+70/qpvdov0rqLXs
+ a/5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791020104; x=1791624904;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=zWQSpGzLG7DWALbabuPoeKknlGH7FdAX1uCS5SSDZcY=;
- b=t6IHOJoHoSpzWRVONC/+AxM9Kp8eGwdK6Yc1A/bdQJipHj527Qykzfx+XbNPBJr6hT
- 15smaym7sftWfO6tBTkPvGVv1Mah7pDtECPvBNLgcHieJ2rUOdUZz7JYTBLmqAJXfHZv
- sSDXOTitcdk0jkCUROLXVxrtbkNmWyGd9zQisKS1p0u/vVNW8yfchrXaONmEApua2JGs
- DVjvDaJdlK8KZKkREv/ML+wJqSmU6aqgfNRDadnnVqvLutMrl/T12yrpODl6y5GGIgvW
- B/9xPgQwX9vSaMMeqAdn1CqdNIQe1yRR1J702WDCKiyCf6ytWiHS+ozjHoH03ISLDuNs
- vNsQ==
-X-Gm-Message-State: AFuF++lvfEzoFxPLZ+zLyjmypK6mHvLYHDuefHrGJujaG1ny0j6kt8px
- 7xcTF/VwWobidPi2UiJ782v0+5jUdgfUanh0xsx90fkBZENoPiRO9mAIUKf0+/24eG6scbOL
-X-Gm-Gg: AYBFou1fovhOmfUkraiI+LoQt63X0FtgTArLNOd88Wd6RsZUEqEhxfDvYzN6maVrgKx
- +zz5DzdEDtA2BxVoJaCk2y19g6rxT2bEkUEE5/2rh+eWthlA5tVi6qUjeQRumLQhtSlLHh7DBfM
- e8+pmtG5wllT9Nd6aShkE/F9jtZX56kecTOtwknmMsexp0Pg/JkUK8263kFNYUKDBBKouk21omP
- vcNk02MIqJ9qqdqLak5lxgkqtJGrAUowoUCLei4djEKv6z57OKJkHwi5WQSZdS0VeKLePHZmckx
- 5PGFWlei3qzAltdOTmNg38NtSqOIFr9pnSA0jbDzKverSiko3DlgAgIUhSSKrEEIZvdnyeVbUrw
- 5EXBdL9Knn9GrJ49ZLI31bUEB/Q71Kb4nK1vw/L3FjznlZMUByT/MrJAdwMsj5OX0jR7Rwt/Tio
- z6xrtyX1JXVfFzGKOT86pUIqFzyTjWF1CoQEwWNQeBRLLHxw56exvG+hnz/OBZYSKH
-X-Received: by 2002:a05:6a20:94ca:b0:3e0:b680:c3cd with SMTP id
- adf61e73a8af0-3e0bd2900d8mr5555662637.49.1791020104397; 
- Sat, 03 Oct 2026 02:35:04 -0700 (PDT)
-Received: from localhost ([129.227.235.110]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc9f739cba5sm1956261a12.28.2026.10.03.02.35.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 02:35:03 -0700 (PDT)
-From: Evanshenf <archwse@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Sui Jingfeng <suijingfeng@loongson.cn>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Evanshenf <archwse@gmail.com>
-Subject: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
- clearing a BO
-Date: Sat,  3 Oct 2026 09:34:59 +0000
-Message-ID: <20261003093415.902f89244043-2-archwse@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+ d=1e100.net; s=20260707; t=1791062134; x=1791666934;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:subject:references:cc:to:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sYdrKmlcH/gFo4xN8pAi8w6DeNulYqQ/HX5EWjKFQ5k=;
+ b=XQaVsiXJv7IMBljMKjE/hmOzLz/vh4xj5+SfjYK962oVcouvN0KHC6SAKF7kao4U9m
+ Wq8vzA7Nc7yfHsH6W9cPzCsWqgD1xTD+uMAB3ipQ3kuuS1JScgksI9HrGsNYyrWGBupj
+ djZ3lLMR9ulnDwCCECCDdGXCsbwiwyzxuMghjvlCaRug1xD24Y2LA2d2heQBCWYkye38
+ nDn8WC75ch+xs+fa2wXLx4DJNv0m1lUMEHua4cjdIZ8osga+6ZnBnX9oI3OzN1Fd6yEy
+ wVD0bN5iIzgOnMzBQE0WIPQ60IrsR66Y8/ZbPR17xKDUQellGUuRLg9VGDp2eHGN2dgK
+ fPmg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByV4/Ezag4psrKTS0xmNJg5OvRuVQ6LHhHjeYcwIqrFxQuDV8uVxftRHOFQRswJXlfoTzjaKpCk4uk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI84yXwtiHchYEiHlv7Q/Ox3zrcRuhIWZLOTSTiiSMwy5SOQtXx
+ /y5D11J513sTMbsg/aJ3dH9gMLZe0AAJkMm/0ESfgPriT3RbmwoJSt3T
+X-Gm-Gg: AYBFou1n5WL+oUa39Y1c54Z3SsK5sDpp+1HbbqyI8Fwwjjh/Z79ppXqJaUxvA/duw27
+ tBlL7Ay4Q9NMqBdTV/oNtQgBHoAovEKdq/dYT+D4tOofe9Amo4XPupOPMqcXV9gY9BzLbcnFmb0
+ L8AkyOEEshSQINQ9BbE5i/75zpdPPsc2vLoSeA01yRx7BfrhvoUna2dnAQWD8Ca/41I4OlVo4+g
+ YN+txMLF9HCKFqBBVu6cgI6qOLWaWQ1U/eVevIu8twD6pIzquAJnNvCFHUqTLRXSYCyaLIsfwn5
+ ZE25mmhUFSC/zyPcRdxvRcin9UJAwnPSgACcX2x/hj+KhN2U2RS/RGJG1JXZ8TiO9bDlo2+kXb5
+ FOLfprF7IWJKSnEEoS23Si9N23iA3RGvz0qLSUldDdkjYY/1EWWzID3AbO9KtO6AmgR3EkECDCb
+ vcZG4mDl2vFIDYW9UQ5Tz92CZYqvyxHdRerj+JCRrrXrEPDoUFaa0trt3KFA02G6Wn4OErPUJ8J
+ fEvAKYr4iQNk6xocd4CTbXEd5+EL4lIZ+SnJHp7A6AZTw5Kfr23LZaRyw==
+X-Received: by 2002:a05:6512:61c4:10b0:5b9:6603:d45f with SMTP id
+ 2adb3069b0e04-5bcb546bf56mr840472e87.55.1791062134218; 
+ Sat, 03 Oct 2026 14:15:34 -0700 (PDT)
+Received: from [192.168.1.152] (95-27-153-35.broadband.corbina.ru.
+ [95.27.153.35]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bb7c79dac1sm1820978e87.47.2026.10.03.14.15.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 03 Oct 2026 14:15:33 -0700 (PDT)
+Message-ID: <cee107e7-b747-488a-bc80-e0d99e9238ee@gmail.com>
+Date: Sun, 4 Oct 2026 00:15:28 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev, airlied@gmail.com, akhilpo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ jesszhan0024@gmail.com, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lumag@kernel.org, marijn.suijten@somainline.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run, simona@ffwll.ch
+References: <20260930-adreno-progress-v2-3-3882f0fcd7b4@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/3] drm/msm/a5xx: Add hangcheck progress detection
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <goppennick2004@gmail.com>
+In-Reply-To: <20260930-adreno-progress-v2-3-3882f0fcd7b4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,106 +98,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and writes
-to lbo->kptr unconditionally. When the first mapping of a newly allocated
-buffer fails, kptr is still NULL and the subsequent memset accesses it.
-
-Return the mapping error without touching the buffer and propagate it
-from lsdc_gem_object_create(). Install the GEM object functions before
-clearing so that drm_gem_object_put() can release the buffer correctly
-on failure. Do not add the failed object to the tracking list or return
-an uncleared buffer to the caller.
-
-Imported buffers still skip clearing, and successfully mapped buffers
-are cleared and unmapped as before.
-
-Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap(). Its
--EINVAL return reached userspace, the object was destroyed once, and
-no GEM handle was published. Normal create/map/zero/write/read/close
-cycles passed, with the tracked BO count and VRAM usage unchanged.
-
-AI assistance was used for the lifetime analysis, fix, fault-injection
-tools, build and test execution.
-
-Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Evanshenf <archwse@gmail.com>
----
- drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
- drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
- drivers/gpu/drm/loongson/lsdc_ttm.h |  2 +-
- 3 files changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-index 2fb0348..9eba4e1 100644
---- a/drivers/gpu/drm/loongson/lsdc_gem.c
-+++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-@@ -157,14 +157,18 @@ struct drm_gem_object *lsdc_gem_object_create(struct drm_device *ddev,
- 		return ERR_PTR(ret);
- 	}
- 
-+	gobj = &lbo->tbo.base;
-+	gobj->funcs = &lsdc_gem_object_funcs;
-+
- 	if (!sg) {
- 		/* VRAM is filled with random data */
--		lsdc_bo_clear(lbo);
-+		ret = lsdc_bo_clear(lbo);
-+		if (ret) {
-+			drm_gem_object_put(gobj);
-+			return ERR_PTR(ret);
-+		}
- 	}
- 
--	gobj = &lbo->tbo.base;
--	gobj->funcs = &lsdc_gem_object_funcs;
--
- 	/* tracking the BOs we created */
- 	mutex_lock(&ldev->gem.mutex);
- 	list_add_tail(&lbo->list, &ldev->gem.objects);
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongson/lsdc_ttm.c
-index 88536e2..7b30dea 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-@@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
- 	ttm_bo_kunmap(&lbo->kmap);
- }
- 
--void lsdc_bo_clear(struct lsdc_bo *lbo)
-+int lsdc_bo_clear(struct lsdc_bo *lbo)
- {
--	lsdc_bo_kmap(lbo);
-+	int ret;
-+
-+	ret = lsdc_bo_kmap(lbo);
-+	if (ret)
-+		return ret;
- 
- 	if (lbo->is_iomem)
- 		memset_io((void __iomem *)lbo->kptr, 0, lbo->size);
-@@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
- 		memset(lbo->kptr, 0, lbo->size);
- 
- 	lsdc_bo_kunmap(lbo);
-+
-+	return 0;
- }
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h b/drivers/gpu/drm/loongson/lsdc_ttm.h
-index 843e147..df47d9b 100644
---- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-+++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-@@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
- 
- int lsdc_bo_kmap(struct lsdc_bo *lbo);
- void lsdc_bo_kunmap(struct lsdc_bo *lbo);
--void lsdc_bo_clear(struct lsdc_bo *lbo);
-+int lsdc_bo_clear(struct lsdc_bo *lbo);
- 
- int lsdc_bo_evict_vram(struct drm_device *ddev);
- 
--- 
-2.43.0
+Didn't solved hangs on sdm660, but I think that it isn't related to 
+this. However I've managed to get a command stream from hang_rd. How can 
+I share it?
 
