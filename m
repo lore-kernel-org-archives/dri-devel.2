@@ -4,81 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB80DCA5FF6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85112CA5FF5
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA5510EACD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5CB10EACB;
 	Sun,  4 Oct 2026 17:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D/wgO1Nb";
+	dkim=pass (2048-bit key; secure) header.d=saltyming.net header.i=@saltyming.net header.b="asaUjwN6";
 	dkim-atps=neutral
-Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com
- [74.125.229.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6946910E954
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 19:45:56 +0000 (UTC)
-Received: by mail-dl2-f40.google.com with SMTP id
- a92af1059eb24-14c96a4b7c7so67221c88.2
- for <dri-devel@lists.freedesktop.org>; Sat, 03 Oct 2026 12:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791056755; x=1791661555; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ISE+mo7r1uUwttxvds437VY6sRXQ56bmLHvCs31sIMg=;
- b=D/wgO1Nb4Skfse6GPaEDtj1hjVqiVHC7pJ0royTAFEBTKs67tDwV7ZVxwlRPbU2o8H
- 6X0r1tAapIOlrDzh2fC/n08TMOJHxupZFe14RaQZMOrXTFqjVLz28DqhZfEaeXgYjvps
- +x3wCLqAin8LGlhuM6e0VPmagFD0lyALsEn1cDzrZ0HnpYOdexO8a6dyzpudWndKl6Y9
- 94LE8WKe0abR/uQgZPkBo06LekaWUBS+2pPh1eF5jp5pQ8bwwXhgt/tigQrNO2956rUn
- on5DpzzGWbrw0hOAftWOM8IBblGEfDOHcrGEwyEzRpJt+SzTVJLWjYUNyeIzu3JzlYni
- CerQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791056755; x=1791661555;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ISE+mo7r1uUwttxvds437VY6sRXQ56bmLHvCs31sIMg=;
- b=jMu3DJRIzUXBPO99M7Lhyj8mRmuJgyWxbOyAcbKKZIvnI0JZAIpPr47bD8D+upkoZy
- oVApOTxtdroePcp67Lo4FW7by58Uno621VqCnZxJySnvy3jaaNaAdFQiAFp5hmLvwgVU
- lAxlmA+K8YoFAfaK2HP31Z2Q1QjrPvepHjtVtbfgyPlszcjsnV4C5m/0U8EBFOLV1tbi
- CsyEdgmak+3eyKxyb6Lx6jKOXe5SMrphbS4QCztqdJ/XgsZ6/ClB19N9ALYyuggIxj8k
- nuXnRFw2ywxwZh2vh9ZT67eZSphhrEOrFDw+yapSQgJnb3GhzMSflnX57pt6gyNkoua6
- 6zXA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxcvOBGQanwHe32KnqdSSW89xEPVG7iCjZT6Fs06pJ1iAA7HKQpUI6MzwPCZ9+whtVPQBNR7R8sykU=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mLpzdqfVmGTUVtp6vBvkS19n8BugK2v3XyzOW9pw4lj4/ZP6K1
- 9PlU8bYpE50MyvphYoRXjCKkatagHcyl4QNR3gW0PHAFiYtF0nMKhz9G
-X-Gm-Gg: AYBFou12oG7szzSOMGT6B6Aa3KxR+/hKx6Huv+V5RB2l4C5xY6m9NcpdywS4TmgAUjJ
- QD7QrAdmOEoMQ1lP5746uvg+LL3RLoQ6yz6qQaefGove/kS6EMOP49yxUmgI2QRdfjMjdzzkHUz
- wSWKhIMIg2uzhQUiJmW6UpyjbwiHATIBnwawn4EBnJz1enIJ4IFHKcExqKtlwBN5FhpbX4/4mlh
- p5QG0+xWpyH3RFnkfHi43YcS6xehknOY05MrzwFVpd9nSkD6pScDCYfG6huM0mdWJJZAbY2umAa
- vyWxBtjuyrxXBBOtzxt7OBQDO6K1Oey4/rziRTdZ20oPwuXTQD6ExR2hHnKLhuMGJL40VVItap3
- VICTBi8mVq/JlX1WV6nB0IcU7uwFD+uJcP+Mz84SSq4EoJd5rtUHF4bfy5BAmJm68iAnloObJOG
- pLOb7vc5gxrsyem229HFLi5oQt11zdsaTj3p9XNdEMHxMRfUrs24h0UfuHxwTiypY3XKtOkQyix
- UMq+TsSBA4Sk8uxdYO6rKDpQaC14ILGI8cCrKqG7Be+yfmzAmzHsTT5NcW13kGztMB2CUPDGja8
- tePcu8dT6phLuXsuhRA=
-X-Received: by 2002:a05:7022:6896:b0:147:d430:7322 with SMTP id
- a92af1059eb24-14f5a646964mr15623345c88.1.1791056755448; 
- Sat, 03 Oct 2026 12:45:55 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.98]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-34f14f660f1sm17840932eec.13.2026.10.03.12.45.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2026 12:45:54 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, Matt Roper <matthew.d.roper@intel.com>
-Subject: Re: [PATCH v1 2/4] drm/xe/mcr: Sanitize steering semaphore on GT
- resume
-Date: Sun,  4 Oct 2026 01:15:48 +0530
-Message-ID: <20261003194548.14603-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260722004654.744249-3-talesam@gmail.com>
-References: <20260722004654.744249-1-talesam@gmail.com>
- <20260722004654.744249-3-talesam@gmail.com>
+Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1AE10E12C
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 23:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net;
+ c=relaxed/relaxed; 
+ h=MIME-Version:Message-ID:Date:Subject:To:From:Content-Type; t=1791071244;
+ x=1791676044; bh=SpMElC1YAVODIxrpp6eHGEleRiGF9sRORp3rjubAuCw=; b=asaUjwN6ph
+ YCfhM/yxvHK4/nebmDTchEw3sdMaee/NkFqjKV3Ne1z8m14jU+RriOoe5hw/3u+z6U+55qYc132
+ a8gfXlJSIE3IxoohNmxvWmZIpn1pFZikadbjQ3uAVFDuyMfy4RZAs6s/Qw+hcfT/pHF9po2JFjc
+ 3kEAk8HiRmz42VHyfSwm039lVHz1a/+zA+PBd5XQzxkjkvqr6UrB1R+Xx3r2PHwtLnwEsXRTbhJ
+ 1F1oMEvvZruMC+VwrAlSqYkd/dFMChGx2NLuY3dbG1vuozkcwZcO53yID1GEIzPvZZMEwTQCt/z
+ n0i7SWIuZySfopsozuJsElWBP0j0LWSA==;
+Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
+ (version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256)
+ (No client certificate requested)
+ id bde11831-9a86-4b42-81da-1d7ce2857e7d
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 23:47:18 +0000
+X-Virus-Status: Clean
+X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none,
+ av_clean, ham
+From: Hamin Sung <hamin@saltyming.net>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Aaron Kling <webgeek1234@gmail.com>, Hamin Sung <hamin@saltyming.net>
+Subject: [RFC PATCH 2/2] drm/nouveau: select GT21x performance levels by load
+ through devfreq
+Date: Sun,  4 Oct 2026 08:45:32 +0900
+Message-ID: <20261003234532.73345-1-hamin@saltyming.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003223420.77993-1-hamin@saltyming.net>
+References: <20261003223420.77993-1-hamin@saltyming.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,21 +66,509 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 21 Jul 2026 21:46:52 -0300, Tales A. Mendonça wrote:
-> Port that to xe: release the steering semaphore at the start of
-> xe_gt_resume(), before the first MCR access performed by
-> do_gt_restart().
+Booting with nouveau.config=NvClkMode=auto puts the clock subdev in its
+automatic ("perfmon") mode, in which nvkm_pstate_work() programs the
+pstate held in clk->astate.  Only the GK20A PMU code ever changes astate,
+so on GT21x automatic mode stays at the highest pstate, which
+nvkm_clk_init() selects.
 
-Tested on an ARL-H 7d51 (Lenovo Yoga Pro 7 14IAH10). Without this
-patch, 7.2.8 hits the drm_WARN_ON_ONCE in mcr_lock() on the first
-s2idle resume of every boot, lid open or closed.
+When automatic mode is selected and the PMU can measure graphics engine
+load, register a devfreq device with one OPP per pstate, keyed by its
+core clock, and let the simple_ondemand governor drive astate from the
+PMU counters added in the previous patch.  Moving astate rather than the
+user pstate keeps the existing precedence: a fixed pstate written to the
+debugfs pstate file still wins, because nvkm_pstate_work() only consults
+astate while the user state is automatic.
 
-With this patch on the same 7.2.8 build, without 1/4, the first
-resume no longer warns. Later resumes can't show the _ONCE WARN
-anyway, but a debug read of STEER_SEMAPHORE just before the release
-found GT1's semaphore held on both resumes of that boot and GT0's
-free, so the release is what fixes it. xe_gt_resume() already holds
-XE_FORCEWAKE_ALL at that point, so the forcewake in 1/4 isn't needed
-for this WARN.
+Each pstate change on these GPUs pauses PFIFO and may reclock memory, so
+the governor samples every 100 ms and keeps the current pstate while the
+load stays between 30% and 50%.  Above 50% it selects the highest pstate,
+at 30% or below the lowest one at which the load would be at most 40%.
+The frequency reported to it is the OPP closest to the measured core clock:
+simple_ondemand rounds its target up to the next OPP, so a PLL reading
+slightly above the vbios value would otherwise make it step up.  Sampling
+uses a delayed timer, because the 31-bit PMU counters could wrap while a
+deferrable one waits for an idle CPU.
 
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+devfreq_suspend_device() only stops the monitor, and sysfs or PM QoS
+requests can still run the callbacks while runtime PM or vga_switcheroo
+has powered the GPU down.  A mutex and a suspended flag keep them away
+from the hardware until the device has been resumed, and the cur_freq
+attribute, which is read without devfreq->lock, reports the pstate core
+clock cached at the last sample or pstate change.  The PMU counters are
+set up again on resume, after the object tree.
+
+The devfreq device is only registered at load time: selecting "auto"
+through debugfs later keeps running at the highest pstate, as before.
+Other NvClkMode settings are not affected, and without CONFIG_PM_DEVFREQ
+nothing changes.  Select the simple_ondemand governor whenever devfreq is
+enabled, so that a built-in nouveau does not have to load it as a module
+before the root filesystem is mounted; the Tegra devfreq code needs it
+too.
+
+Assisted-by: Claude:claude-opus-5-5 sparse # max effort
+Assisted-by: Claude:claude-fable-5-1 # max effort, review
+Signed-off-by: Hamin Sung <hamin@saltyming.net>
+---
+ drivers/gpu/drm/nouveau/Kbuild            |   1 +
+ drivers/gpu/drm/nouveau/Kconfig           |   1 +
+ drivers/gpu/drm/nouveau/nouveau_devfreq.c | 328 ++++++++++++++++++++++
+ drivers/gpu/drm/nouveau/nouveau_devfreq.h |  19 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c     |   7 +
+ drivers/gpu/drm/nouveau/nouveau_drv.h     |   1 +
+ 6 files changed, 357 insertions(+)
+ create mode 100644 drivers/gpu/drm/nouveau/nouveau_devfreq.c
+ create mode 100644 drivers/gpu/drm/nouveau/nouveau_devfreq.h
+
+diff --git a/drivers/gpu/drm/nouveau/Kbuild b/drivers/gpu/drm/nouveau/Kbuild
+index 385d24530d1e..3fb89452c6cb 100644
+--- a/drivers/gpu/drm/nouveau/Kbuild
++++ b/drivers/gpu/drm/nouveau/Kbuild
+@@ -20,6 +20,7 @@ ifdef CONFIG_X86
+ nouveau-$(CONFIG_ACPI) += nouveau_acpi.o
+ endif
+ nouveau-$(CONFIG_DEBUG_FS) += nouveau_debugfs.o
++nouveau-$(CONFIG_PM_DEVFREQ) += nouveau_devfreq.o
+ nouveau-y += nouveau_drm.o
+ nouveau-y += nouveau_hwmon.o
+ nouveau-$(CONFIG_COMPAT) += nouveau_ioc32.o
+diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
+index 3b5757aed9c8..7c57e50bf398 100644
+--- a/drivers/gpu/drm/nouveau/Kconfig
++++ b/drivers/gpu/drm/nouveau/Kconfig
+@@ -29,6 +29,7 @@ config DRM_NOUVEAU
+ 	select ACPI_VIDEO if ACPI && X86
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	select PM_DEVFREQ if ARCH_TEGRA
++	select DEVFREQ_GOV_SIMPLE_ONDEMAND if PM_DEVFREQ
+ 	help
+ 	  Choose this option for open-source NVIDIA support.
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_devfreq.c b/drivers/gpu/drm/nouveau/nouveau_devfreq.c
+new file mode 100644
+index 000000000000..7c999de16754
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nouveau_devfreq.c
+@@ -0,0 +1,328 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Load-based performance level selection through devfreq.
++ *
++ * In automatic ("perfmon") mode, nvkm_pstate_work() programs the pstate held
++ * in clk->astate.  This registers a devfreq device with one OPP per pstate,
++ * keyed by its core clock, and lets the simple_ondemand governor move astate
++ * according to the graphics engine load measured by the PMU.  A fixed pstate
++ * requested through debugfs keeps taking precedence, as it does over astate
++ * already.
++ */
++#include <linux/devfreq.h>
++#include <linux/math.h>
++#include <linux/math64.h>
++#include <linux/mutex.h>
++#include <linux/pm_opp.h>
++#include <linux/slab.h>
++#include <linux/units.h>
++
++#include <nvif/if0001.h>
++
++#include <subdev/clk.h>
++#include <subdev/pmu.h>
++
++#include "nouveau_devfreq.h"
++#include "nouveau_drv.h"
++
++/*
++ * Each pstate change pauses PFIFO, waits for the engines to go idle and may
++ * reclock memory, so sample at a moderate rate and keep the current pstate
++ * while the load stays between UPTHRESHOLD - DOWNDIFFERENTIAL and UPTHRESHOLD.
++ */
++#define NOUVEAU_DEVFREQ_POLL_MS			100
++#define NOUVEAU_DEVFREQ_UPTHRESHOLD		50
++#define NOUVEAU_DEVFREQ_DOWNDIFFERENTIAL	20
++
++struct nouveau_devfreq {
++	struct devfreq *devfreq;
++	struct devfreq_dev_profile profile;
++	struct devfreq_simple_ondemand_data gov_data;
++
++	/*
++	 * Serialises the devfreq callbacks with suspend and resume, so that
++	 * none of them touches the GPU while it may be powered down, and
++	 * protects the members below.
++	 */
++	struct mutex lock;
++	bool suspended;
++	ktime_t last_sample;
++	/* also read without the lock, see nouveau_devfreq_get_cur_freq() */
++	unsigned long cur_freq;
++};
++
++static unsigned long
++nouveau_devfreq_pstate_freq(const struct nvkm_pstate *pstate)
++{
++	return pstate->base.domain[nv_clk_src_core] * HZ_PER_KHZ;
++}
++
++/*
++ * Return the position in clk->states of the pstate whose core clock is closest
++ * to @freq, and store that core clock in @pfreq unless it is NULL.
++ */
++static int
++nouveau_devfreq_pstate(struct nvkm_clk *clk, unsigned long freq,
++		       unsigned long *pfreq)
++{
++	unsigned long best_diff = ULONG_MAX, best_freq = 0;
++	struct nvkm_pstate *pstate;
++	int i = 0, best = 0;
++
++	list_for_each_entry(pstate, &clk->states, head) {
++		unsigned long pstate_freq = nouveau_devfreq_pstate_freq(pstate);
++
++		if (abs_diff(pstate_freq, freq) < best_diff) {
++			best_diff = abs_diff(pstate_freq, freq);
++			best_freq = pstate_freq;
++			best = i;
++		}
++		i++;
++	}
++
++	if (pfreq)
++		*pfreq = best_freq;
++	return best;
++}
++
++/*
++ * Read the core clock and cache the frequency of the pstate it belongs to.  The
++ * PLLs do not always hit the vbios value exactly, and simple_ondemand rounds
++ * its target up to the next OPP, so a raw reading slightly above an OPP would
++ * make it step up.
++ */
++static int
++nouveau_devfreq_update_freq(struct nouveau_devfreq *ndf, struct nvkm_clk *clk)
++{
++	unsigned long freq;
++	int khz;
++
++	khz = nvkm_clk_read(clk, nv_clk_src_core);
++	if (khz < 0)
++		return khz;
++
++	nouveau_devfreq_pstate(clk, khz * HZ_PER_KHZ, &freq);
++	WRITE_ONCE(ndf->cur_freq, freq);
++	return 0;
++}
++
++static int
++nouveau_devfreq_target(struct device *dev, unsigned long *freq, u32 flags)
++{
++	struct nouveau_drm *drm = dev_get_drvdata(dev);
++	struct nouveau_devfreq *ndf = drm->devfreq;
++	struct nvkm_clk *clk = nvxx_clk(drm);
++	struct dev_pm_opp *opp;
++	int ret = 0;
++
++	opp = devfreq_recommended_opp(dev, freq, flags);
++	if (IS_ERR(opp))
++		return PTR_ERR(opp);
++	dev_pm_opp_put(opp);
++
++	mutex_lock(&ndf->lock);
++	/* Nothing to do while suspended: resuming selects the highest pstate. */
++	if (ndf->suspended) {
++		*freq = ndf->cur_freq;
++		goto out_unlock;
++	}
++
++	ret = nvkm_clk_astate(clk, nouveau_devfreq_pstate(clk, *freq, NULL), 0,
++			      true);
++	if (ret)
++		goto out_unlock;
++
++	/* Report the pstate in effect: a fixed one set through debugfs wins. */
++	ret = nouveau_devfreq_update_freq(ndf, clk);
++	if (!ret)
++		*freq = ndf->cur_freq;
++
++out_unlock:
++	mutex_unlock(&ndf->lock);
++	return ret;
++}
++
++static int
++nouveau_devfreq_get_dev_status(struct device *dev,
++			       struct devfreq_dev_status *stat)
++{
++	struct nouveau_drm *drm = dev_get_drvdata(dev);
++	struct nouveau_devfreq *ndf = drm->devfreq;
++	u32 busy, total;
++	ktime_t now;
++	int ret = 0;
++
++	mutex_lock(&ndf->lock);
++	now = ktime_get();
++	stat->total_time = ktime_to_ns(ktime_sub(now, ndf->last_sample));
++	stat->busy_time = 0;
++	ndf->last_sample = now;
++
++	if (ndf->suspended)
++		goto out_unlock;
++
++	ret = nvkm_pmu_perfmon_read(nvxx_device(drm)->pmu, &busy, &total);
++	if (ret)
++		goto out_unlock;
++
++	ret = nouveau_devfreq_update_freq(ndf, nvxx_clk(drm));
++	if (ret)
++		goto out_unlock;
++
++	/* Nothing counted, or a wrapped counter, gives no load: assume full. */
++	if (total && busy <= total)
++		stat->busy_time = mul_u64_u32_div(stat->total_time, busy, total);
++	else
++		stat->busy_time = stat->total_time;
++
++out_unlock:
++	stat->current_frequency = ndf->cur_freq;
++	mutex_unlock(&ndf->lock);
++	return ret;
++}
++
++/* The cur_freq sysfs attribute calls this without devfreq->lock. */
++static int
++nouveau_devfreq_get_cur_freq(struct device *dev, unsigned long *freq)
++{
++	struct nouveau_drm *drm = dev_get_drvdata(dev);
++
++	*freq = READ_ONCE(drm->devfreq->cur_freq);
++	return 0;
++}
++
++void
++nouveau_devfreq_init(struct nouveau_drm *drm)
++{
++	struct nvkm_device *device = nvxx_device(drm);
++	struct device *dev = drm->dev->dev;
++	struct nvkm_clk *clk = device->clk;
++	struct nouveau_devfreq *ndf;
++	struct nvkm_pstate *pstate;
++	unsigned long freq = 0;
++	int ret;
++
++	/*
++	 * Only take over the automatic mode selected through NvClkMode.  Both
++	 * NvClkMode=auto and the NVIF pstate method store this value for it.
++	 */
++	if (!clk || clk->state_nr < 2 ||
++	    (clk->ustate_ac != NVIF_CONTROL_PSTATE_USER_V0_STATE_PERFMON &&
++	     clk->ustate_dc != NVIF_CONTROL_PSTATE_USER_V0_STATE_PERFMON))
++		return;
++
++	/*
++	 * Check for the PMU counters before adding OPPs: on Tegra the OPP table
++	 * of this device belongs to gk20a_devfreq, and the error path below
++	 * would remove its OPPs.
++	 */
++	if (nvkm_pmu_perfmon_init(device->pmu))
++		return;
++
++	/* OPPs are looked up by frequency, pstates by position in the list. */
++	list_for_each_entry(pstate, &clk->states, head) {
++		if (nouveau_devfreq_pstate_freq(pstate) <= freq) {
++			NV_INFO(drm, "devfreq: pstate core clocks not increasing\n");
++			goto err_opp;
++		}
++		freq = nouveau_devfreq_pstate_freq(pstate);
++
++		ret = dev_pm_opp_add(dev, freq, 0);
++		if (ret) {
++			NV_ERROR(drm, "devfreq: failed to add OPP, %d\n", ret);
++			goto err_opp;
++		}
++	}
++
++	ndf = kzalloc_obj(*ndf);
++	if (!ndf)
++		goto err_opp;
++
++	mutex_init(&ndf->lock);
++	ret = nouveau_devfreq_update_freq(ndf, clk);
++	if (ret)
++		goto err_free;
++	ndf->last_sample = ktime_get();
++
++	/* A deferrable timer would let the 31-bit PMU counters wrap when idle. */
++	ndf->profile.timer = DEVFREQ_TIMER_DELAYED;
++	ndf->profile.polling_ms = NOUVEAU_DEVFREQ_POLL_MS;
++	ndf->profile.initial_freq = ndf->cur_freq;
++	ndf->profile.target = nouveau_devfreq_target;
++	ndf->profile.get_dev_status = nouveau_devfreq_get_dev_status;
++	ndf->profile.get_cur_freq = nouveau_devfreq_get_cur_freq;
++	ndf->gov_data.upthreshold = NOUVEAU_DEVFREQ_UPTHRESHOLD;
++	ndf->gov_data.downdifferential = NOUVEAU_DEVFREQ_DOWNDIFFERENTIAL;
++
++	drm->devfreq = ndf;
++	ndf->devfreq = devfreq_add_device(dev, &ndf->profile,
++					  DEVFREQ_GOV_SIMPLE_ONDEMAND,
++					  &ndf->gov_data);
++	if (IS_ERR(ndf->devfreq)) {
++		NV_ERROR(drm, "devfreq: failed to register, %ld\n",
++			 PTR_ERR(ndf->devfreq));
++		drm->devfreq = NULL;
++		goto err_free;
++	}
++
++	return;
++
++err_free:
++	mutex_destroy(&ndf->lock);
++	kfree(ndf);
++err_opp:
++	dev_pm_opp_remove_all_dynamic(dev);
++}
++
++void
++nouveau_devfreq_fini(struct nouveau_drm *drm)
++{
++	struct nouveau_devfreq *ndf = drm->devfreq;
++
++	if (!ndf)
++		return;
++
++	devfreq_remove_device(ndf->devfreq);
++	dev_pm_opp_remove_all_dynamic(drm->dev->dev);
++	drm->devfreq = NULL;
++	mutex_destroy(&ndf->lock);
++	kfree(ndf);
++}
++
++void
++nouveau_devfreq_suspend(struct nouveau_drm *drm)
++{
++	struct nouveau_devfreq *ndf = drm->devfreq;
++
++	if (!ndf)
++		return;
++
++	/*
++	 * devfreq_suspend_device() only stops the monitor; sysfs and PM QoS
++	 * requests still reach the callbacks, which check ->suspended.
++	 */
++	mutex_lock(&ndf->lock);
++	ndf->suspended = true;
++	mutex_unlock(&ndf->lock);
++
++	devfreq_suspend_device(ndf->devfreq);
++}
++
++void
++nouveau_devfreq_resume(struct nouveau_drm *drm)
++{
++	struct nouveau_devfreq *ndf = drm->devfreq;
++
++	if (!ndf)
++		return;
++
++	mutex_lock(&ndf->lock);
++	/* Resuming the PMU reset its counters, and nvkm_clk_init() the pstate. */
++	nvkm_pmu_perfmon_init(nvxx_device(drm)->pmu);
++	nouveau_devfreq_update_freq(ndf, nvxx_clk(drm));
++	ndf->last_sample = ktime_get();
++	ndf->suspended = false;
++	mutex_unlock(&ndf->lock);
++
++	devfreq_resume_device(ndf->devfreq);
++}
+diff --git a/drivers/gpu/drm/nouveau/nouveau_devfreq.h b/drivers/gpu/drm/nouveau/nouveau_devfreq.h
+new file mode 100644
+index 000000000000..a9c139c71b38
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nouveau_devfreq.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: MIT */
++#ifndef __NOUVEAU_DEVFREQ_H__
++#define __NOUVEAU_DEVFREQ_H__
++
++struct nouveau_drm;
++
++#if IS_ENABLED(CONFIG_PM_DEVFREQ)
++void nouveau_devfreq_init(struct nouveau_drm *drm);
++void nouveau_devfreq_fini(struct nouveau_drm *drm);
++void nouveau_devfreq_suspend(struct nouveau_drm *drm);
++void nouveau_devfreq_resume(struct nouveau_drm *drm);
++#else
++static inline void nouveau_devfreq_init(struct nouveau_drm *drm) {}
++static inline void nouveau_devfreq_fini(struct nouveau_drm *drm) {}
++static inline void nouveau_devfreq_suspend(struct nouveau_drm *drm) {}
++static inline void nouveau_devfreq_resume(struct nouveau_drm *drm) {}
++#endif
++
++#endif
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index b0f9fb10a74d..6ecb2dd997bc 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -60,6 +60,7 @@
+ #include "nouveau_vga.h"
+ #include "nouveau_led.h"
+ #include "nouveau_hwmon.h"
++#include "nouveau_devfreq.h"
+ #include "nouveau_acpi.h"
+ #include "nouveau_bios.h"
+ #include "nouveau_ioctl.h"
+@@ -587,6 +588,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
+ 		pm_runtime_forbid(dev->dev);
+ 	}
+ 
++	nouveau_devfreq_fini(drm);
+ 	nouveau_led_fini(dev);
+ 	nouveau_dmem_fini(drm);
+ 	nouveau_svm_fini(drm);
+@@ -679,6 +681,7 @@ nouveau_drm_device_init(struct nouveau_drm *drm)
+ 	nouveau_svm_init(drm);
+ 	nouveau_dmem_init(drm);
+ 	nouveau_led_init(dev);
++	nouveau_devfreq_init(drm);
+ 
+ 	if (nouveau_pmops_runtime()) {
+ 		pm_runtime_use_autosuspend(dev->dev);
+@@ -993,6 +996,7 @@ nouveau_do_suspend(struct nouveau_drm *drm, bool runtime)
+ 	}
+ 
+ 	NV_DEBUG(drm, "suspending object tree...\n");
++	nouveau_devfreq_suspend(drm);
+ 	ret = nvif_client_suspend(&drm->_client, runtime);
+ 	if (ret)
+ 		goto fail_client;
+@@ -1000,6 +1004,7 @@ nouveau_do_suspend(struct nouveau_drm *drm, bool runtime)
+ 	return 0;
+ 
+ fail_client:
++	nouveau_devfreq_resume(drm);
+ 	if (drm->fence && nouveau_fence(drm)->resume)
+ 		nouveau_fence(drm)->resume(drm);
+ 
+@@ -1024,6 +1029,8 @@ nouveau_do_resume(struct nouveau_drm *drm, bool runtime)
+ 		return ret;
+ 	}
+ 
++	nouveau_devfreq_resume(drm);
++
+ 	NV_DEBUG(drm, "resuming fence...\n");
+ 	if (drm->fence && nouveau_fence(drm)->resume)
+ 		nouveau_fence(drm)->resume(drm);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouveau/nouveau_drv.h
+index 5fc75dc750ed..226567a02d4c 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drv.h
++++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
+@@ -298,6 +298,7 @@ struct nouveau_drm {
+ 	/* power management */
+ 	struct nouveau_hwmon *hwmon;
+ 	struct nouveau_debugfs *debugfs;
++	struct nouveau_devfreq *devfreq;
+ 
+ 	/* led management */
+ 	struct nouveau_led *led;
+-- 
+2.55.0
+
+
