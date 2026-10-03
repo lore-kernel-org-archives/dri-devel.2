@@ -4,85 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0145ACA5FF6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0325DCA5FF5
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16B9510EB09;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24F1510EAFD;
 	Sun,  4 Oct 2026 17:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.b="j43R8RGX";
+	dkim=pass (2048-bit key; secure) header.d=saltyming.net header.i=@saltyming.net header.b="xUh3KfUZ";
 	dkim-atps=neutral
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com
- [74.125.229.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2814310F9FB
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 19:40:36 +0000 (UTC)
-Received: by mail-dl2-f43.google.com with SMTP id
- a92af1059eb24-1460bcc512eso4951862c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 02 Oct 2026 12:40:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=trailofbits.com; s=google; t=1790970035; x=1791574835;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/6OS7kHnRAUFDH89g48qhMuuszS5BgPSQDnnJTJS0d4=;
- b=j43R8RGXPCtuTLg6uZoXrx4LmV5X6J07MtjEEy1sGQOz+lVd98U8GzXzKXrQhSgE2N
- 5zbGJSPZOj8TGyhrtxJ6lb0bkRorXxOI1W6P2FKO8jBGFy3dDKu3qJtWoIAAwl7Qtdb5
- bJGYsZfNXOVrc8rdt9gx61Jgum04mBdQdlwYT7HYhJLKR3XUwUp8gidBTXLEwAQJjaFU
- sLnp8vKtyariFTaNrPF+1O6BxN3tt0Y5BtuS134wJbAgx+DeGk7vAqCdDvBDwu41eb8L
- zXA/W70FaLKP0+E56PgWEhJSsfNMqgbk+LGsDw2E1Nr/s/PADQov4KOsT6HapvQKN645
- uycA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790970035; x=1791574835;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/6OS7kHnRAUFDH89g48qhMuuszS5BgPSQDnnJTJS0d4=;
- b=q1EhlEevakuwT1mks6ZWx5sB2vwnADg7De3GAKGywjcSQfH7vcSEl/RTuxtBP07bjn
- LKbZOyxltker9qvxVNibPW+6e3sKRNY/kpItGeWmHM5aQwdPL366M2BxYQvK/QKpJ1vL
- 4AfyuiJ3xomM98kvr35VAglj1XW3NmWKBORxvmiCwq3gQ4ShfnarYela5ahSiZCuDTzk
- hFuFV/DMJMNFIAfLIXkrIiZj+yPrCtv+krTwO1gMGwiYSt2UwpA6x6LDcbDCvdTjTO9S
- RkKJutcFV1vR4kxFtDQhJWk4PFg9RAAlzRZXbsHhqeU7Id1pK7XMA/a76uxMkqZjsXAP
- iQYA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz+6wC2/wqQ2HPBuT4nbuVVycv3VJrCqDNojFT5RRbwyWzs3Fh+psTLycQ2rBsGM1JSuD24Cmxjgnw=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kMzEG+63bNDHeLdm2D2oP0ZTRUnqfe7rrX22/yTrOzcFtekleO
- PLCAj9SuMxI4zShHdrEcW5ktLv+++FcSl8tOuSXcdEt7JWLglPROM7RW07u+t53e1ds=
-X-Gm-Gg: AYBFou1IiBjMi0YYfSIoYp876o01HgnbLYPY8QWeT36iCTs9+f8dY7s2MYsFArLCnaL
- 6zxVcl1ojZY0XXFu87XW3NhHjPQgLVuXlzVMF/b2C/waxiG0gPRtSbtjj2eZWZ/R/XFXOgkRIOV
- R2lJ5ZLv54f1heejN4gPYM8VdDksu+DDUabRtmpuzTJYtw4xA7XGG4Yek1zsvZ3pcXlKAcjsmZu
- Dfhl+nYkBvhGa03n1tqQl1AwQ4b68LbE9gj853r91dKtlksX5Q0ZZr7JJWYU3J96AIL4R/2XwD8
- xegLIeCHJZ+O2bbsGwDaK6ZTmxil4VxFf44L4d025HDp3T0J8IG29NEQ+XI1bEXPL+l7nh7dBuM
- 24TdVqGAYJ4gvnDAcVj4ehQs7LAQrlAyBPlu9t/xVVn0elmfGFbNxv+jJiHLGem0/LxanP+CF/0
- wLWibWUgewrY2OO3I0BOFHQY75qYtbamKjkmJLYRdUZgdnrYPhSjM37IdFZukclmPwDiruiQDAb
- XT+AYF1nMWs4IrzHlqFbQfYOkjyiTm3d08AEFqNcAozDamdrHyBi6YUIgeDPneL3Wf93modOcPB
- gPl3dw==
-X-Received: by 2002:a05:701b:2610:b0:147:a685:9125 with SMTP id
- a92af1059eb24-14f58fd2a97mr3391373c88.2.1790970035055; 
- Fri, 02 Oct 2026 12:40:35 -0700 (PDT)
-Received: from localhost.localdomain
- ([2603:8001:5f01:8bab:bcf9:6140:24a9:d1e7])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14f47a57592sm7450113c88.17.2026.10.02.12.40.33
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 02 Oct 2026 12:40:34 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Suraj Kandpal <suraj.kandpal@intel.com>,
- Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org
-Subject: [PATCH 6.1.y 0/2] drm/i915/hdcp: guard both capability checks
-Date: Fri,  2 Oct 2026 15:40:25 -0400
-Message-ID: <20261002194030.20489-1-artem@trailofbits.com>
+Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2F6C10E2E5
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 23:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net;
+ c=relaxed/relaxed; 
+ h=MIME-Version:Message-ID:Date:Subject:To:From:Content-Type; t=1791071147;
+ x=1791675947; bh=hxN7kjCEhLnn1+Ezysc3TnjEFzT6AYEfF7E3Sz1y6Gg=; b=xUh3KfUZFx
+ DexYy5b1FZq7L+fk8wKQJALT7UNT+fhPEwDlM+9/hZRoux9A0vcZ+iFaWr+VNeZKtt4eLumMZeU
+ CM8zNuyMxq7gY4c8YRBUM793XvB6+YiYA4dBpIbdYn7Fw+v8ZgqIJnsDHLBXcANJZ7p1rJ6Mat3
+ R+CAEIL1X4/D9QsE2RGyL5oF5Ry4QU+93RAt9pMQ+UEroqtTZAXsXLAA4qyRPrufryKMWXdl5eR
+ ylyhRJhY894ZtaoqKs5pPf1bPfutWqMf+MDcnfSQtmyg+1eNTFOgIHwp52Spart6PSuJIjbVBzH
+ D28DEkVt9QC27FYbfgejMw24vhYqAUbQ==;
+Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
+ (version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256)
+ (No client certificate requested)
+ id 455f2149-f629-4f38-9c76-c196b5d4287d
+ for <dri-devel@lists.freedesktop.org>; Sat, 3 Oct 2026 23:45:31 +0000
+X-Virus-Status: Clean
+X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none,
+ av_clean, ham
+From: Hamin Sung <hamin@saltyming.net>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Aaron Kling <webgeek1234@gmail.com>, Hamin Sung <hamin@saltyming.net>
+Subject: [RFC PATCH 1/2] drm/nouveau/pmu/gt215: add graphics engine load
+ counters
+Date: Sun,  4 Oct 2026 08:45:20 +0900
+Message-ID: <20261003234520.69573-1-hamin@saltyming.net>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003223420.77993-1-hamin@saltyming.net>
+References: <20261003223420.77993-1-hamin@saltyming.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
@@ -101,24 +66,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Greg, Sasha, and i915 maintainers,
+The PDAEMON in GT215, GT216, GT218 and MCP89 has idle counters that
+count PMU clock cycles depending on the state of a selected set of
+engine idle signals.  Nothing in nouveau uses them on these GPUs;
+gk20a_devfreq.c drives the same counter block on Tegra.
 
-Patch 1 alone is not enough on 6.1.y: intel_hdcp_info() calls
-intel_hdcp_capable() and then intel_hdcp2_capable(), so the debugfs NULL
-dereference moves to the second call. Patch 2 is the companion fix that
-path needs, a backport of upstream commit d34f4f058edf ("drm/i915/hdcp:
-Add encoder check in hdcp2_get_capability") with the guard in the common
-intel_hdcp2_capable() helper, where 6.1.y still does the lookup. This
-mirrors the 2-patch series picked up for 6.6.y, and both fixes are
-already present in 6.12.y, 6.18.y, and 7.2.y. Could you please queue both
-patches for 6.1.y?
+Add nvkm_pmu_perfmon_init() and nvkm_pmu_perfmon_read() and implement
+them for these GPUs: one counter counts every cycle, a second one the
+cycles during which the graphics engine is not idle, and reading returns
+and clears both.  The counters are only programmed once
+nvkm_pmu_perfmon_init() is called, so nothing changes for existing
+users.
 
-AI assistance: An LLM helped adapt and validate both patches; I reviewed
-the resulting code and validation evidence.
+The next patch uses them to select performance levels through devfreq.
 
-Thanks,
-Artem Dinaburg
+Link: https://envytools.readthedocs.io/en/latest/hw/pm/pdaemon/counter.html
+Assisted-by: Claude:claude-opus-5-5 sparse # max effort
+Assisted-by: Claude:claude-fable-5-1 # max effort, review
+Signed-off-by: Hamin Sung <hamin@saltyming.net>
+---
+Sorry for the duplicate copies of the cover letter, and of the two
+nouveau fixes I sent with it: my mail server delivered each of them
+twice to most recipients.
 
-Series:
-  1. drm/i915/hdcp: Add encoder check in intel_hdcp_get_capability
-  2. drm/i915/hdcp: Add encoder check in hdcp2_get_capability
+ .../gpu/drm/nouveau/include/nvkm/subdev/pmu.h |  2 +
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/base.c    | 29 ++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c   | 40 +++++++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/pmu/priv.h    |  5 +++
+ 4 files changed, 76 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
+index f57a3a5a288d..de844e69a5e6 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pmu.h
+@@ -39,6 +39,8 @@ int nvkm_pmu_send(struct nvkm_pmu *, u32 reply[2], u32 process,
+ 		  u32 message, u32 data0, u32 data1);
+ void nvkm_pmu_pgob(struct nvkm_pmu *, bool enable);
+ bool nvkm_pmu_fan_controlled(struct nvkm_device *);
++int nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu);
++int nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
+ 
+ int gt215_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
+ int gf100_pmu_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pmu **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
+index e556b1905702..fb51db6a2ca3 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/base.c
+@@ -51,6 +51,35 @@ nvkm_pmu_pgob(struct nvkm_pmu *pmu, bool enable)
+ 		pmu->func->pgob(pmu, enable);
+ }
+ 
++/*
++ * Set up the PMU counters that nvkm_pmu_perfmon_read() samples.  PMU
++ * initialisation resets the PMU, so this has to be repeated after resume.
++ */
++int
++nvkm_pmu_perfmon_init(struct nvkm_pmu *pmu)
++{
++	if (!pmu || !pmu->func->perfmon.init)
++		return -ENODEV;
++
++	pmu->func->perfmon.init(pmu);
++	return 0;
++}
++
++/*
++ * Return the number of PMU clock cycles that passed, and how many of them the
++ * graphics engine was busy for, since the previous call or since
++ * nvkm_pmu_perfmon_init(), and restart counting.
++ */
++int
++nvkm_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
++{
++	if (!pmu || !pmu->func->perfmon.read)
++		return -ENODEV;
++
++	pmu->func->perfmon.read(pmu, busy, total);
++	return 0;
++}
++
+ static void
+ nvkm_pmu_recv(struct work_struct *work)
+ {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
+index 32cee21ed858..37310a8ebe81 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/gt215.c
+@@ -260,6 +260,44 @@ gt215_pmu_init(struct nvkm_pmu *pmu)
+ 	return 0;
+ }
+ 
++/*
++ * PDAEMON idle counters.  Each one has a mask of engine idle signals at
++ * 0x10a504, a cycle count at 0x10a508 (bit 31 clears it) and a mode at
++ * 0x10a50c: bit 0 counts cycles in which all masked signals are set, bit 1
++ * cycles in which they are all clear, and both together count every cycle.
++ * Idle signal bit 0 is the graphics engine.
++ */
++#define GT215_PMU_COUNTER_TOTAL 0
++#define GT215_PMU_COUNTER_GR    1
++
++static void
++gt215_pmu_perfmon_init(struct nvkm_pmu *pmu)
++{
++	struct nvkm_device *device = pmu->subdev.device;
++
++	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000000);
++	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_TOTAL * 0x10, 0x00000003);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
++
++	nvkm_wr32(device, 0x10a504 + GT215_PMU_COUNTER_GR * 0x10, 0x00000001);
++	nvkm_wr32(device, 0x10a50c + GT215_PMU_COUNTER_GR * 0x10, 0x00000002);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
++}
++
++static void
++gt215_pmu_perfmon_read(struct nvkm_pmu *pmu, u32 *busy, u32 *total)
++{
++	struct nvkm_device *device = pmu->subdev.device;
++
++	*busy = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10);
++	*total = nvkm_rd32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_GR * 0x10, 0x80000000);
++	nvkm_wr32(device, 0x10a508 + GT215_PMU_COUNTER_TOTAL * 0x10, 0x80000000);
++
++	*busy &= 0x7fffffff;
++	*total &= 0x7fffffff;
++}
++
+ const struct nvkm_falcon_func
+ gt215_pmu_flcn = {
+ };
+@@ -278,6 +316,8 @@ gt215_pmu = {
+ 	.intr = gt215_pmu_intr,
+ 	.send = gt215_pmu_send,
+ 	.recv = gt215_pmu_recv,
++	.perfmon.init = gt215_pmu_perfmon_init,
++	.perfmon.read = gt215_pmu_perfmon_read,
+ };
+ 
+ static const struct nvkm_pmu_fwif
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
+index 2d0a8fa6f196..880a7785589a 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pmu/priv.h
+@@ -30,6 +30,11 @@ struct nvkm_pmu_func {
+ 	void (*recv)(struct nvkm_pmu *);
+ 	int (*initmsg)(struct nvkm_pmu *);
+ 	void (*pgob)(struct nvkm_pmu *, bool);
++
++	struct {
++		void (*init)(struct nvkm_pmu *pmu);
++		void (*read)(struct nvkm_pmu *pmu, u32 *busy, u32 *total);
++	} perfmon;
+ };
+ 
+ extern const struct nvkm_falcon_func gt215_pmu_flcn;
+-- 
+2.55.0
+
+
