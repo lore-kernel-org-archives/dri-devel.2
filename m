@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1EFCA5FE6
-	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 20:10:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7632DCA5FE4
+	for <dri-devel@archiver.kernel.org>; Sat,  3 Oct 2026 20:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8C610E0AD;
-	Sat,  3 Oct 2026 20:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08EB10E58C;
+	Sat,  3 Oct 2026 20:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EFK8LsgS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q9hxfL4P";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0041310E0AD
- for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 20:10:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 424B210E58C
+ for <dri-devel@lists.freedesktop.org>; Sat,  3 Oct 2026 20:12:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 63B1840967;
- Sat,  3 Oct 2026 20:10:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C438D1F0089B;
- Sat,  3 Oct 2026 20:10:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4ED0A600CB;
+ Sat,  3 Oct 2026 20:12:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4A21F0089B;
+ Sat,  3 Oct 2026 20:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791058216;
- bh=vr4VxuY3j5kTfi3HwmBG3/nw0GpNnXp1kOORnsrxPAM=;
+ s=k20260515; t=1791058348;
+ bh=PETVYlALKVpYI3mZ6kwLDBMO2S9eWoODGUp/4KNKTeA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EFK8LsgSArG2c5TD1d2so39u4QeMXJjN9wnRpAedZLfqAnQZZgCVvj5FLPH6ASzgn
- SCMFqFSj61ZXfwWj6HwOYNG0OuWO36FGa7efXaEZUbQSWrB673KyOdnrdGgPDHYUuU
- YGyPXS3horcpa3ejlQqU+zICrvgeMs1y6lEf3cD7Q7nqx6ZT+I5oQCod9gg5xZqoeP
- ctYN5SP2ouBU5lVB0Ll2vK6d0JcfOqPsMkHNFLdhq4hNKpZ2/kNct22ZqnW2t/90Mz
- 5jTGj5xBdOJ7GO+Q9upjAyGllIwrtU2828KBy6bTWftkk2LXztmRYc+EpxSnKls+5T
- xZGLJeKN69ldA==
+ b=Q9hxfL4PvJjthTELW+6DEXd+Qd0x3NLqX8FbXmnPRh9IcZumW4rZ/KRkLQwmR6tdI
+ NZ1/YLiMio24cmxkfw+PWI+AlypJUYZGsshH183I23bNeH34Jv9dDAxzi0X4/wKr28
+ tVdOAM2jWBwkXFRMdL+J8ao6fMknUQQhx2lMb65S2C+NLTtTLrzJ7NLRZwdfbRGthv
+ Zi5+W3jR6XQxDoTd2OBcf4+QGiS7tIxY+pCxmxYS65Fo0kiDt0ZFupJF11J3f6dqp9
+ elgzOEGPuf9ac5ua6Vw2eq8uKph7D/Qw8tSEV87iDkyyYyDPdgo+OKL1Y7SNbdRUFT
+ x9UPJIoFBrpdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/panfrost: Enable the GPU timestamp counter on
- MT8188
+Subject: Re: [PATCH 3/3] arm64: dts: mediatek: mt8188: Add the MFGCFG
+ phandle to the GPU
 To: =?utf-8?b?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261003200132.866240-3-michal@nozomi.space>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20261003200132.866240-4-michal@nozomi.space>
 References: <20261003200132.866240-1-michal@nozomi.space>
- <20261003200132.866240-3-michal@nozomi.space>
+ <20261003200132.866240-4-michal@nozomi.space>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 20:10:15 +0000
-Message-Id: <20261003201015.C438D1F0089B@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 20:12:27 +0000
+Message-Id: <20261003201227.9D4A21F0089B@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,77 +61,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panfrost: missing error propagation for MFGCFG regmap preven=
-ts probe deferral
+- [Medium] drm/panfrost: missing GPU timestamp quirk on MT8370
 --
 
-commit 93148a7d7b8819bdd74ff76c5e5b0fcc15b88cbf
+commit ad326344199c9c294e6415c92318bcef828d8630
 Author: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
 
-drm/panfrost: Enable the GPU timestamp counter on MT8188
+arm64: dts: mediatek: mt8188: Add the MFGCFG phandle to the GPU
 
-This commit adds a vendor quirk to enable the GPU timestamp counter on
-MediaTek MT8188 SoCs. It looks up the MFGCFG block regmap from the device
-tree and sets the required enable bits on power-up to ensure timestamps
-are correctly reported.
+This commit adds the MFGCFG phandle to the GPU node in the MT8188 device
+tree. The GPU driver requires this configuration block to enable the GPU
+timestamp counter, which otherwise reads zero.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gpu.c
-> index 29ac0dce5ff89..971abc9cc222c 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-[ ... ]
-> +static void panfrost_gpu_get_mtk_mfgcfg(struct panfrost_device *pfdev)
-> +{
-> +	struct device_node *np;
-> +	struct regmap *regmap;
-> +
-> +	np =3D of_parse_phandle(pfdev->base.dev->of_node, "mediatek,mfgcfg", 0);
-> +	if (!np)
-> +		return;
-> +
-> +	regmap =3D device_node_to_regmap(np);
-> +	of_node_put(np);
-> +	if (IS_ERR(regmap)) {
-> +		dev_warn(pfdev->base.dev, "failed to get MFGCFG: %pe\n", regmap);
-> +		return;
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt8188.dtsi
+> index 14a320f0c70cb..b4be89bf55bf7 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
+> @@ -2266,6 +2266,7 @@ gpu: gpu@13000000 {
+>  				     <GIC_SPI 382 IRQ_TYPE_LEVEL_HIGH 0>,
+>  				     <GIC_SPI 381 IRQ_TYPE_LEVEL_HIGH 0>;
+>  			interrupt-names =3D "job", "mmu", "gpu";
+> +			mediatek,mfgcfg =3D <&mfgcfg>;
 
 [Severity: Medium]
-Should this function return the error code from device_node_to_regmap()
-instead of returning void?
+Since we are enabling the GPU timestamp counter via the MFG configuration
+block for the MT8188, does the MT8370 SoC also need its corresponding quirk
+updated in the panfrost driver to avoid breaking userspace timestamp querie=
+s?
 
-If device_node_to_regmap() returns an error pointer (for example, due to pr=
-obe
-deferral or memory allocation failure), the error is swallowed and the probe
-path continues without the regmap. This can cause the GPU timestamp counter=
- to
-break silently, leaving userspace queries reading zero.
+Looking at drivers/gpu/drm/panfrost/panfrost_drv.c, the mediatek_mt8370_data
+struct is defined as:
 
-> +	}
-> +
-> +	pfdev->mtk_mfgcfg =3D regmap;
-> +}
-[ ... ]
-> @@ -519,6 +556,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
->  {
->  	int err;
-> =20
-> +	panfrost_gpu_get_mtk_mfgcfg(pfdev);
-> +
+static const struct panfrost_compatible mediatek_mt8370_data =3D {
+	.num_supplies =3D ARRAY_SIZE(default_supplies) - 1,
+	.supply_names =3D default_supplies,
+	.num_pm_domains =3D 2,
+	.pm_domain_names =3D mediatek_pm_domains,
+	.pm_features =3D BIT(GPU_PM_CLK_DIS) | BIT(GPU_PM_VREG_OFF),
+	.gpu_quirks =3D BIT(GPU_QUIRK_FORCE_AARCH64_PGTABLE),
+};
 
-[Severity: Medium]
-Since panfrost_gpu_get_mtk_mfgcfg() doesn't return an error, panfrost_gpu_i=
-nit()
-proceeds despite the failure to acquire the MFGCFG regmap.
+This struct lacks .vendor_quirk =3D panfrost_gpu_mt8188_quirk.
 
-Would it be better to propagate the error here so that the driver can prope=
-rly
-defer probe or fail robustly when the necessary resources aren't available?
+When the driver probes on MT8370 using the mediatek,mt8370-mali compatible,
+the missing quirk means the MFG configuration block is never enabled. As a
+result, the GPU timestamp counter will read zero on the MT8370 SoC.
 
->  	err =3D panfrost_gpu_soft_reset(pfdev);
->  	if (err)
->  		return err;
+Could this be an omission, or is it intentional to skip the vendor quirk
+for MT8370?
+
+>  			nvmem-cells =3D <&gpu_speedbin>;
+>  			nvmem-cell-names =3D "speed-bin";
+>  			operating-points-v2 =3D <&gpu_opp_table>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003200132.8662=
-40-1-michal@nozomi.space?part=3D2
+40-1-michal@nozomi.space?part=3D3
