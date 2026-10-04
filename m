@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7003CA5FEF
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 16:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68237CA5FCE
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 16:41:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D3DB10E1B5;
-	Sun,  4 Oct 2026 16:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B44110EA96;
+	Sun,  4 Oct 2026 16:41:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JNpYfcNX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MUKNs7gK";
 	dkim-atps=neutral
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com
- [74.125.225.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8BC610E1B5
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 16:41:40 +0000 (UTC)
-Received: by mail-wr2-f33.google.com with SMTP id
- ffacd0b85a97d-48c54d65743so394802f8f.1
- for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 09:41:40 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67ABE10EA90
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 16:41:42 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-4a0280d4f56so6324835e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 09:41:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791132099; x=1791736899; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hI0d17TUb2l8DVdqo6tZX+Y2V30OOpneqbxvA1IJE7k=;
- b=JNpYfcNXJOviad2LORsUo8h38kDN6j1f1niVhDqarXb0+K0s1gGRP3Gwz6Xc1n5TDo
- rPGjGQrVlJoxe4Wqhxt99biN4EzAeFo1p34uuVplCptoSIv6AMisxVIFgXe9icV9qgXP
- ZOPxo7G0yL4lGBrYIno5dJu/BpS9mb9ZgYQ6fZNDRLK3gLigYJN3VgdGjRLOMXJ6X+nk
- 6EZM+bzaoHyyvom/rm8mqzhc7NT0qlbFeY5bAvv0e8B5m6HLhVL7zqcOpWzuTRzQh8Os
- /HAAHVpVHLob4Yse4UUAnKJeDxlraQ1znkhx1g0EyKG/OwfKRluXqDxH5iE6w6eXT2I7
- 0PRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791132099; x=1791736899;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1791132101; x=1791736901; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hI0d17TUb2l8DVdqo6tZX+Y2V30OOpneqbxvA1IJE7k=;
- b=H8wtWUITK9DwK7ID62otPRMu0o5Z3hvRwgFBA/pw76oFJMaHvdLZX2yamicnCc+Mr/
- vnaFus3zkf2KcGnRmVyQRr3Cl7KrBw8PbFuUrnKuYvIPYzMlN3JrtI/hic0WsmH3E85A
- nDiU5h4d5Zd3SpM7Cy2xziqsh6wc3SnYivm+ToRivpgvY+P7rXP5zKY55DvIPKkKOy1Q
- mAQa03n165I5PKI6s7s17jWARhtVyetVzcoanV2BFHmkdJyWJ6kR+2j+U5pzRX8MhUGf
- LI9o3rGwjAaTynnmVlM6cHFf7EtqMw51BR0+9NmPr5w426Z96VIcqRc7SqZzJZojkG2I
- BpSw==
+ bh=1oRhn0Uw3oG9VGKyBezr/4J0WUv4cf3LeMydSJnIiuw=;
+ b=MUKNs7gKOWwGhAfaGO7tUif/5pruLXXTUYexTGsSqqj2e0ahqH0oNsEVLDynKSAg/r
+ 73dUZBclliMLLk2NEjggyi1we7A7eoStIt9xrS5v04t8YRX7UzTeCmXQwyJUkBfX3XFI
+ wIX2pfKAeDiLw3Vq/sLMA2PwvyLDB431+4qhdNYW7ZTg6bbolsZfJg2NJvBXPp9NtkvZ
+ vShCt39al43AKrrGKGbxfN/jLTYuNrBiSjsfrIxOahs0TJpme87eOiA1u0oCaIUn+Oi4
+ PliESBoojjymJwItJi7OrR0cVC7USeUobmPCyoOKiJgmp1AshKNpEJhh0NMsNzZkE2rD
+ E6tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791132101; x=1791736901;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1oRhn0Uw3oG9VGKyBezr/4J0WUv4cf3LeMydSJnIiuw=;
+ b=zpSz34TJPjtWlRDvl4cqShvXEL7B6g4KBWgRUV7O4qGwQzE3y7D08AzDSAB9NxoN+X
+ l8olrksOY6fysYP26E8Y3Bj8QtaCsMOw6UM27j+tXg6kI8ebzXlbj4zV7x+7QZR6aBvw
+ Svvi3j3g3WM35yrMrMngqSEpCNtgiCIOqh8y4NEgIKJ/rh4A0N3t4s4+hbZcipAgL2R6
+ XaQ9X6MV4SqteJ9u7lXrPSyGKy3La5r6j6Br6uYgwE/O4rEUYBeBug6J0MaxrY1AiLlI
+ eZwSW6HB/lih3+09iox2voAoMgVecU2l6ii86KOMKlIOGDYPPAJeteZrztbiO51AlFfx
+ De0A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBys77nq5/QaB+eWoJV72KwuCkEOQj4w51hmJ93DBVIe26rnMJLu9jWtqV/aZaHha0o8GXX3KF5lf4Q=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIyEzef0x8Zq6dE499JBvXqoqwLVy0tKEHOTpzDV2ATUi8NYbmr
- y6upFiKSa1KEM+ExOvpVlMCFX9Yt4yXWGOCedla3OytLi2wha5HeK8uM
-X-Gm-Gg: AYBFou1UGVFZIAVeI1C2gW6Rbxhs7dX7VzRI//2B84Ov84x6Ir9Kg9qlh/A0ELrETQt
- cdQCedgFape5WSe4ltIzyQjwJrZB9UKrYTfCkaJwsSxFe1fGVegykjiQnkdHmNiHhbaEK4zEDO0
- I2j+Id29ifXm5UKHn1msncsGAbUolduEAamnIkoD56fv3Ca9xF3yBcG5Bl7IuCxncG7/SK5wD1O
- 86Ci3HUhBiF6h8zORRypIyJq1sOlGlzh8Pl/WnhRNMIaBc9/6ETtsf2SbA21ogb9ti6fR9Yc7aZ
- NukD5fIGNg5XnkqdJtei5Y00ah744dwniKJEOUMkXOdv6DSWl1SrkMrm/OfeDG4X6WeQPFkjN6/
- yvtiLW4arxcsOtjwT7hKg5kKeG44v5Tp2qMhv6A19HWMZY5sjtH03p0MIbg8Z6UgWmuZsoNhpdx
- 70AdmSZ1ihHKDDv4KQOWS79Gs1T7tn6uUuYXvOkCCRbMCel/KqSYC68jpWeosIV3x3srCpU5U/2
- GbcFta57BLnO8Aqjyg=
-X-Received: by 2002:a05:6000:40ce:b0:487:27f9:835 with SMTP id
- ffacd0b85a97d-48b1271ad90mr13914155f8f.42.1791132099009; 
- Sun, 04 Oct 2026 09:41:39 -0700 (PDT)
+ AKwUvBwU5Wh0cuxa4J2lszJFSUEwmYjo7EE3bGC2wseJ9aHAAeKcEpdRdomCwqUtU2IbbhbvE1psmdS2VvM=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++l5FSbRzAwF2Zrt5PI+zeGaXn0EXDCyo1Za0DExj4yFM3sVBEVg
+ EJKrdayboD/6BAHglueZj2hP2N2uFbr6AHasIh2UoXGl0UUkPENz7hOH
+X-Gm-Gg: AYBFou34kDy3jtkaqN7kVERnQhwcIrIK9AqLS6hZ8dpres+lWAUuYXjOyw9/sJHuz8A
+ wc8a2b/1HWkY5i75e7LCy0dt0SU6RzqQ9eO/qMsov10ywAgYYbvoLiJ949QL1Ynzr4lVxba3w4p
+ MNwsdkVvxw3MWVIyTquE7Ft+NHyT40N12Rxs41o/4oASkIA/68B3s68FeWHvKMNWBbY1h6xDO5k
+ GFQyPzGpDa2kYlGo4vsYt0YFVlB2UAyRGLb4iTJ9zpNnK0uF+5siKRYtxF0+tGbub2OwYFBg/0o
+ IV5RT+CbObGORdMzb58UPKSzxDkS7E5pIBc4Q5U+B8LCRhhWk6BWBFv5UNoJZeRqhdLShNLM8In
+ TLL4XiDlmrUnu7BUiPliHRD81cbka9oj8k1pwK9RuHdYR/sO0KWG0YM2cgo6f9UIOPOZo/7hl0p
+ +oELrkmEGzY6WkWcX+fDYw/bKQXrbVFR2+4eCZvVQqSjyPcPQZqxm2YTZDCJ71eq2JMo3laYiRh
+ xP351zVW0iDyEgPZwA=
+X-Received: by 2002:a05:600c:6085:b0:49e:6c11:c4fc with SMTP id
+ 5b1f17b1804b1-4a027575983mr125492155e9.7.1791132100715; 
+ Sun, 04 Oct 2026 09:41:40 -0700 (PDT)
 Received: from xeon ([188.163.112.76]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b380f07cdsm18765185f8f.10.2026.10.04.09.41.37
+ ffacd0b85a97d-48b380f07cdsm18765185f8f.10.2026.10.04.09.41.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Oct 2026 09:41:38 -0700 (PDT)
+ Sun, 04 Oct 2026 09:41:40 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,10 +71,12 @@ To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 0/3] mfd: aat2870: Convert to use OF bindings
-Date: Sun,  4 Oct 2026 19:41:18 +0300
-Message-ID: <20261004164121.193514-1-clamor95@gmail.com>
+Subject: [PATCH v2 1/3] dt-bindings: mfd: Document Skyworks AAT2870
+Date: Sun,  4 Oct 2026 19:41:19 +0300
+Message-ID: <20261004164121.193514-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261004164121.193514-1-clamor95@gmail.com>
+References: <20261004164121.193514-1-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,31 +94,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document Skyworks AAT2870 into schema, convert existing driver to
-use OF bindings and remove platform data, add support for
-in-supplies.
+Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
+Management Unit.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- fixed led-max-microamp scaling
-- fixed max_brightness parsing
-- fixed regulator init_data and of_node passing
-- of_platform_populate > devm_of_platform_populate
----
-
-Svyatoslav Ryhel (3):
-  dt-bindings: mfd: Document Skyworks AAT2870
-  mfd: aat2870: Convert to use OF bindings
-  mfd: aat2870: Add support for VIN and IN-LDO power supplies
-
  .../bindings/leds/skyworks,aat2870.yaml       | 127 ++++++++++++++++++
- drivers/mfd/aat2870-core.c                    | 120 +++++------------
- drivers/regulator/aat2870-regulator.c         |  77 ++++++++---
- drivers/video/backlight/aat2870_bl.c          |  55 ++++----
- include/linux/mfd/aat2870.h                   |  95 +------------
- 5 files changed, 244 insertions(+), 230 deletions(-)
+ 1 file changed, 127 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
+diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+new file mode 100644
+index 0000000000000..014678616076f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+@@ -0,0 +1,127 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/skyworks,aat2870.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AAT2870 LED Backlight Driver and Multiple LDO Lighting Management Unit
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: skyworks,aat2870
++
++  reg:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to EN pin.
++    maxItems: 1
++
++  vin-supply:
++    description: Regulator providing power to the "IN" pin.
++
++  backlight:
++    $ref: /schemas/leds/backlight/common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-backlight
++
++      led-max-microamp:
++        minimum: 450
++        maximum: 27900
++        default: 450
++
++      max-brightness:
++        default: 255
++
++      skyworks,channels:
++        description: layout of active channels, where each bit represents
++          one of 8 channels.
++        $ref: /schemas/types.yaml#/definitions/uint8
++        default: 0xff
++
++    required:
++      - compatible
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-regulator
++
++      in-ldo-supply:
++        description: Phandle to parent supply of regulators populated under
++          regulators node. They all share same parent.
++
++    patternProperties:
++      "^(ldo-(a|b|c|d))$":
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++    required:
++      - compatible
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        led-controller@60 {
++            compatible = "skyworks,aat2870";
++            reg = <0x60>;
++
++            enable-gpios = <&gpio 139 GPIO_ACTIVE_HIGH>;
++            vin-supply = <&vdd_3v3_vbat>;
++
++            backlight {
++                compatible = "skyworks,aat2870-backlight";
++
++                skyworks,channels = /bits/ 8 <0xff>;
++                led-max-microamp = <27900>;
++            };
++
++            regulators {
++                compatible = "skyworks,aat2870-regulator";
++
++                in-ldo-supply = <&vdd_3v3_vbat>;
++
++                ldo-a {
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                };
++
++                ldo-b {
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-always-on;
++                };
++
++                ldo-c {
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-boot-on;
++                };
++
++                ldo-d {
++                    regulator-min-microvolt = <2700000>;
++                    regulator-max-microvolt = <2800000>;
++                };
++            };
++        };
++    };
 -- 
 2.53.0
 
