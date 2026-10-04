@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A21BCA5FCE
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B74CA5FCE
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:42:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8413710E159;
-	Sun,  4 Oct 2026 15:42:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98FAF10E96F;
+	Sun,  4 Oct 2026 15:42:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cCKmS4Nq";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Kk7oWwcO";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDCB10E159
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E41BD10E96F
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=GiL6iXRQlAn7k07iDJpmMhMe/UWMauiAfzMX914rOrA=; b=cCKmS4NqVxJyQVSuP7pZhfkI+S
- O9WbeDie6WvJsnz0qi/bxTcHSqTdr6gHkvgw1K0afYXYkhYFiN+vKdabsRLi1ETtKPAuiOUTR3wSr
- 7xe4VnL6M0GrcHxbcd64HwoPtmSlIrm2Pk5VSlWVJw+MOW3D6WZWnbMy6mVtvSCKtP001zOMtJNp4
- hv5F3F/4aGKTosRSvs9R9TX7utETrionnSJzJ5YODegBZXtC+6dDXIM0TKDvKzK3yPNeVAMPKZ7wO
- z4yBylMFAibV9W8xQCnJ4bQDlMPJIovM8rhcfi3PmpRZutb06lPTJX+RBVWtpJg9ZAErBFEcNz0GK
- juFksnkA==;
+ bh=Yhy+FH8J31MnwKO6m1IHj5SGpY0qbx4cewtMUEdLMeM=; b=Kk7oWwcOVNTDI/Nf600WNuLr4B
+ mRNBo1IRK2lGkmG/uajGW8GgQu6exr+8wPs3ZXq6zXgtwUujV1g3UNGbikR2Yz5nc7Sa/QSza+qON
+ mLGVnEHVQKrHCNTob6Pg2ZKCV/VAJE8EJ735jUYaANzDYUGUYseUDTgw1e/wfBcHUqxC3l1UxaPU2
+ qbQnNLIn6Q2WU6vteEfXp879ODD5T1qE7TzQWtuCYUoSQRAcMDofaHHb95VtiV7CWq6NfGLVn+iMH
+ 4y71FhRhyvaLMxfra33LSnWMXnmWVul+VIdpvPtBQPjEf34VkHkgRpmHZpkh+kDh/51X6K0bG7BTY
+ U87bmVYw==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xDOMF-00BNsh-14; Sun, 04 Oct 2026 17:42:35 +0200
+ id 1xDOMI-00BNsh-Gc; Sun, 04 Oct 2026 17:42:38 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 04 Oct 2026 12:42:05 -0300
-Subject: [PATCH 05/11] drm/vc4: Attach the job fences outside of job_lock
+Date: Sun, 04 Oct 2026 12:42:06 -0300
+Subject: [PATCH 06/11] drm/vc4: Use the inline fence lock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261004-vc4-misc-fixes-v1-5-b763df9e33e1@igalia.com>
+Message-Id: <20261004-vc4-misc-fixes-v1-6-b763df9e33e1@igalia.com>
 References: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 In-Reply-To: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -45,15 +45,15 @@ To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2948; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=NX6Ac0LQk7p4C4UrVz5f4u7U8i9vlyN1NDHLrx+ibG8=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDFmHiq/bWhy5FB0lqGHbuVH1rK7c072KKk4urTHOi+87C
- apwht3pZDRmYWDkYpAVU2T58SS2llGsnF1zWflFmEGsTCBTGLg4BWAifIrsf6UntMo9b5j1NS8/
- Klh7nQjTHe3KDsdbJSs+J2mzlTNKnwopcbv2XjHqDf/F/IdP09cvM1+5qr89a/l8t53p3P87a91
- apXvO9O2eKxr0UVGivvdt7cWDC0S29hhtU3onOO1M+ULl+GrGOc+dOM4EuqzuXaBb0Sdy7eP5OF
- XV17M7Fv09qbekRsff76jJqe16lq0ex9vt/V45dt/0jDu7siZi33ffSb3iDbMc3FnXSRy2rPqVl
- hHvpb9u4wq/9sUyZhmBR/mdFdW1eRjc9kYmafJFvqxIO8zPOcc+iHW+DlfGT2PryIC/fBPbPsWr
- vf9SUC4ifWTfpMU+b522THTVYVn6W+3NTfX3W5/ne1wEAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1693; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=3s+187/jy6pzBIn9MFPQOokVEz57GlhG9Xe8lg35GV4=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqwnPXNmAsIxCsSOjLl+YmPYmmTc6rMY9wX9ZJa
+ hondBlALoGJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCasJz1wAKCRA/8w6Kdoj6
+ qjV8CAC3lHRinbug012tPWPdVHmllfOZDUADy/OlbvJq+drOSAnBi+Wl++Sd+cToztQ6PzgmCOY
+ ZUCc6dlKn7gDp9CpFJv5opBvTkX4f74JzTdtScBbtdydaL3g9PvAEOv2dBY1ZXAKdWuW5W8UWXd
+ 0Gf69lIFlc6vRs4g7UUdlwTXNcC8M+1FfmfUpdib8wIVXDKHs6zwPEU8YbU4bhAMS6QiaFs3UtP
+ boJDe69m3O4Y7IFWgimvX+b/5QS+GC1WvXAG3dy050PPB9xg5/FIoN9FbIS6pxau7TlIJLNVCT6
+ 069H/2kt6hID9BkYvY8k0ccxs5UHWlNIj1grKDZwZkCkIDjW
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,90 +71,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4_attach_fences() adds the job fence to the reservation of every BO the
-job touches, which is a O(bo_count) walk under job_lock. It was there
-because vc4_exec_info could be freed by the job done worker the moment the
-lock was dropped.
+Passing job_lock to dma_fence_init() ties every fence to a lock embedded
+in vc4_dev. A fence attached to an exported BO's reservation can be held
+by another driver after vc4 is gone, leaving fence->lock dangling, and it
+pulls DRM core paths such as dma_fence_add_callback() into the lock that
+serialises the job queues.
 
-As vc4_exec_info is refcounted now, hand the fences over after the unlock.
-
-Note that the render done handler dropped the fence as soon as the job
-completed, so the walk could find exec->fence already cleared. Leave the
-fence to be dropped by the release path. The submit path no longer needs
-a reference of its own to publish the fence through the sync object either.
+Take a NULL lock in dma_fence_init() and give it a lock of its own, which
+is what the external lock has been deprecated in favour of.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_gem.c | 23 ++++++-----------------
- drivers/gpu/drm/vc4/vc4_irq.c |  5 +----
- 2 files changed, 7 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/vc4/vc4_gem.c | 2 +-
+ drivers/gpu/drm/vc4/vc4_irq.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index 9cf343297f83..ae76868663ea 100644
+index ae76868663ea..b65b3f62b098 100644
 --- a/drivers/gpu/drm/vc4/vc4_gem.c
 +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -639,14 +639,6 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
+@@ -632,7 +632,7 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
  
- 	kref_get(&exec->refcount);
+ 	exec->seqno = ++vc4->emit_seqno;
  
--	/* The job can complete and drop exec->fence as soon as job_lock is
--	 * released, so hold our own reference.
--	 */
--	if (out_sync)
--		dma_fence_get(&fence->base);
--
--	vc4_attach_fences(exec);
--
- 	list_add_tail(&exec->head, &vc4->bin_job_list);
- 
- 	/* If no bin job was executing and if the render job (if any) has the
-@@ -663,12 +655,12 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
- 
- 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
- 
-+	vc4_attach_fences(exec);
-+
- 	drm_exec_fini(exec_ctx);
- 
--	if (out_sync) {
-+	if (out_sync)
- 		drm_syncobj_replace_fence(out_sync, &fence->base);
--		dma_fence_put(&fence->base);
--	}
- 
- 	return 0;
- }
-@@ -862,13 +854,10 @@ vc4_release_exec(struct kref *ref)
- 	unsigned long irqflags;
- 	unsigned i;
- 
--	/* If we got force-completed because of GPU reset rather than
--	 * through our IRQ handler, signal the fence now.
-+	/* The render done handler signals the fence, so only drop the
-+	 * reference here.
- 	 */
--	if (exec->fence) {
--		dma_fence_signal(exec->fence);
--		dma_fence_put(exec->fence);
--	}
-+	dma_fence_put(exec->fence);
- 
- 	if (exec->bo) {
- 		for (i = 0; i < exec->bo_count; i++) {
+-	dma_fence_init(&fence->base, &vc4_fence_ops, &vc4->job_lock,
++	dma_fence_init(&fence->base, &vc4_fence_ops, NULL,
+ 		       vc4->dma_fence_context, exec->seqno);
+ 	fence->seqno = exec->seqno;
+ 	exec->fence = &fence->base;
 diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index 6ced2835dfdc..241249b6582b 100644
+index 241249b6582b..f87550f3e55d 100644
 --- a/drivers/gpu/drm/vc4/vc4_irq.c
 +++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -193,11 +193,8 @@ vc4_irq_finish_render_job(struct drm_device *dev)
- 	else if (nextbin && nextbin->perfmon != exec->perfmon)
+@@ -194,7 +194,7 @@ vc4_irq_finish_render_job(struct drm_device *dev)
  		vc4_submit_next_bin_job(dev);
  
--	if (exec->fence) {
-+	if (exec->fence)
- 		dma_fence_signal_locked(exec->fence);
--		dma_fence_put(exec->fence);
--		exec->fence = NULL;
--	}
+ 	if (exec->fence)
+-		dma_fence_signal_locked(exec->fence);
++		dma_fence_signal(exec->fence);
  
  	wake_up_all(&vc4->job_wait_queue);
  	schedule_work(&vc4->job_done_work);
