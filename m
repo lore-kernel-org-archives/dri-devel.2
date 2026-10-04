@@ -4,96 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6378CA5FEF
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 16:17:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811BDCA5FCE
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 16:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0467710E192;
-	Sun,  4 Oct 2026 16:17:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3E4910E13D;
+	Sun,  4 Oct 2026 16:31:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Las41ME1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UXnGQf2c";
 	dkim-atps=neutral
-Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com
- [74.125.224.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6787E10E192
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 16:17:52 +0000 (UTC)
-Received: by mail-yx2-f38.google.com with SMTP id
- 956f58d0204a3-6768036283dso560967d50.0
- for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 09:17:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791130671; cv=none;
- d=google.com; s=arc-20260327;
- b=YBumdIqUYDhvDNfOxmk5GXBXSvv+OQoVF/Xw5np3fm7Uio+MGpMor03PFamk0huL+V
- SxNdF3EFx1nWMLsDXQmkLvG9tx+Tt9UJMI0RITEBkruL/suNvIjoakqfjb779TFiBZJg
- ItHhWWZCgJ0matGLCRbFh+cCHFH4c5NLMgZQkpfrUL5YVuDEzY9c4dwazovoEJ3vRDyY
- 3WJbcz7e0DNwYqivuCUhqCfs+YC7hkC9Js6QqoajO05vqirRLwCLZAIspDJqMansdX7C
- veB8sbNjhD/Z68FWN2kkUhOhjnNQgh75eQhK6DH48G6Bw5UNQt5H+2fYfqWBFJo4lXmC
- mquQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
- fh=CXWMrIYqruRLwOMDS8wnQgSPEXGT+97Y7U7NOJGFq8w=;
- b=VaxCInMWygnRmSIn0n14uyXHn+VyIPd3Pg4eZZ4JSOc9Gl8g3TraCnmiKOKRUc8iHK
- OeGKsEea3D3DtTVjW+YGQWDYqanbDC5fDfI5tCMqXCMM85BQAnvnOXUvrdnL/xzbbEPM
- O+i9pDAQjVM7W5GCWOZUZrsLFfyjGtCmeHdimkmz9AEMS1FHVpJvWkGp+7OnnkSf7P/d
- vRvzHacz/Dwu1nvjG2I7MvtDzyO4BDy8tvT0aZwkfsMg+y+4tYWt9vYsYWowsg0nWc8i
- 8nkpcd+73PDEiCVxGl6PbcwW2WQNY8/+S7G76M0uxhxEjgNBrZEebAeK+0Hx64/+rQTK
- VCIQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB32010E13D
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 16:31:29 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-49d1fb0cf5eso9515955e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 09:31:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1791130671; x=1791735471;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
- b=Las41ME1qFd1+3HfciH0RicqOuKJWAwbQVERAvEhQGfy4KYPSVqZxrI7Ru+0JLdFAV
- rfay5Q2EJaaPn09IKubUyjlHz6gbLj5WJepF5EjjFVQHULvaw9Q8FsynAWXrJJi9cPgn
- lLphtwUHW05Byd2PqUS8tRLNLdV/XrRxLDWmI=
+ d=gmail.com; s=20251104; t=1791131488; x=1791736288; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4K1u7HAUlwlZgokElVxrzMuDxi7Yuc8MTskvjYgWwtc=;
+ b=UXnGQf2cqcc647rrxWkmXQq8tL2zNePOiJdFdx33LjWnWSSYaqjZerjMd6YY+KKnmE
+ NWskaNn+Cb3+/OvMFGLsHTzVArr82p+Trpo0dtwFPtobjfSNzqodMOaOHWdHYd4woJDk
+ r3Nff84XiCYftfR8D1VhPmoOTXG/pFc7XAnofdzZBb/Jo37/nLuVFaGmqXyHs5XkMGex
+ kRGKsMPu/ez+SfOJ4vRzDGqHwrFH6eBUubdclqRzqL+/sfaPjNrj1oI8I/cDgHi8BGF/
+ L2DgGaLPNk3WFySK8TXrI0vPU2/xOYbG6x2cs7ia9Q3xzuTtOm+lOcXeHXnVnNe4fz+x
+ Ws9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791130671; x=1791735471;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
- b=0ZWf55pj1CUegYmxvYusfh1Q5NscieWhkp8MYDj/B+DpZvGw8Nzs3iSMvPj0ScI9rs
- h1tG7fFlF3RWv51z6e7S9OGA+Uy9TyMIvF6+acG0hc/qpGD9vFAcDX+ueXLphdEPB+pU
- aygQ3e0+DRwur96F5LLNxgTPjkRO6XbyV6zvSqgEikYO3Rj/pd4jiacPF5kY1ld0gfni
- FdDhBbjRt0GyJpODL93NSs7hl0Pyi1D/lMFG08mF5omGqT+G85J05VU2zFEZ290Cx5jr
- TvG85b1D9ltSfKhox/yq8mukrSazPAQ+dVaWh7cI6FlOhWh0C3kKM0k0+jEkN/VChkt+
- wb3w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxnkwQuMP8TBmIUm5MYUkcT8TbX0wJtO+h3/glEFYDtlzWrzshJcuKkEbeVMw2Cp2LCsXKue4CXhww=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK9YedlrQk1V4+GN+4LGQfOdehYQH7fjiJ3VH9MhrbiEqP84bAB
- tk+I0trtIvA/h8sF++BNHhQqT71i847E5Gxvb240KckQmG8835CbQI1XBeR03UVI9AdsuSTu07L
- NEgq2t5RaTSPA6LspJzKIYNhHu2/JUXMpotMGra4D
-X-Gm-Gg: AYBFou2D9hFBJm1tOpI0t0G5cE6fi1SU98wHmvHzqfjatxWpl9tQtmj50f5hxJDS19G
- xYpgmNCAGruMoj/Ol6q5K/6FgxbSu56WBdHCu8GhVYh1Qy8ymNgSbnlazH680RKzFDyaARDTiP6
- kU/XiLIingfZJimliSIiv3zkxH1kCd0bD7XXxlBQZVHqnYvSyB0rJZAr5IDcrR697PiNBHwh+rG
- e+KED97xCZfbYMyoo+prp6ToyR39atzx63R0jklCiWyaDQvZXVwp71/jt27sHNMMWUzThusx4S4
- tXCNGOLlHuygkcEsayQu91llHtYURa70Mn+Vq1Fs7r8kHqFwKZnPv61h
-X-Received: by 2002:a05:690e:168a:b0:677:af43:e268 with SMTP id
- 956f58d0204a3-677af43ef66mr2978859d50.113.1791130670771; Sun, 04 Oct 2026
- 09:17:50 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1791131488; x=1791736288;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4K1u7HAUlwlZgokElVxrzMuDxi7Yuc8MTskvjYgWwtc=;
+ b=TiqzSLejVFG14LFIQ8hMNdliYvdpH1GxQYGXGyw5RoXZBVTHayClz/DyS/tUQp6tnD
+ qDuh98AofytvdlZQheT5mY3Evrz/XP2O8InoAvp9Kh0nFs+EuaeilwSsA4SjpvJH+Nzp
+ dgXtVEm0z0ThbmQXWRDRIW8Xs6Sr1SXXzx2y3IJM44rK5IECFN1XXXhnH/kw54sDdFNb
+ EzaPowGHEN6rultKCICnyVPPhVCbpB0MIPU6X87wkcugVn5hI8BRX+Jz6+2NdOCegkou
+ P/SbbKW9K1x0hHSbkxcz6IIaLAoC+wpOUvys6tl8gKnXJLKWFbYmXaWmiBqRjuWaaX2o
+ Qgpw==
+X-Gm-Message-State: AFuF++meOI8JaeMaE9sreYAdPUkQOoR16qhT21H3mEChdfWFbTPnWSlt
+ 7gVgYFpEWuhidkCiBhWSXU/0vJC+k0om3ywlq/4pwGLRawk57RVIm+zk
+X-Gm-Gg: AYBFou1nYZwfBd/Ho6JhBY+wN7RhKjmfJ1VZmCnBCA1IuusXYxgHbIv2lXVBorFEkq6
+ 2COyGCiB5CktnagmRi0RuOduGwtUUjSGFPJ7gFsa3PhREMpcq0pHves3qsdm1FLYf+ti0AMTGqH
+ 0D3KHwxkpMGh08cctLaghbr+ciZ45OulvIFegSXe7o3zRS0ATsVKs0UapFSjqIZPa1G0kxzkyIG
+ VfP6kGuYk3vBYOGviYnrFc5XDn7h2cQphMPBddQTh2G4ttFwgpn3nzlJC47EIpWky0NTlLlB7g/
+ zIoDbFRozDbzRNSCZWnDWl0uQ3T7ufbjfr5gvvs4NR9DbB9xR4CS3EraE4nHRziwW58lSAcOAcU
+ qtCkEjHQnlKWsO2EoXEG3RR5DEhWhqa4RT/Oz56Qit3W78tgFcScMCqXz6RI6UX2wy8RCSJxhjA
+ 8B1vnCzVFYQknSlgL9WBs/OrXCmFKIQCRG4KDEnIsvPbKPd0JV0CI2awQpeaCDvrTHx35xJMSUI
+ kMXdmAm/eIMj+eFO+A=
+X-Received: by 2002:a05:600c:a011:b0:49d:17d4:aff2 with SMTP id
+ 5b1f17b1804b1-4a0275107e2mr140690815e9.1.1791131487995; 
+ Sun, 04 Oct 2026 09:31:27 -0700 (PDT)
+Received: from xeon ([188.163.112.76]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a0316b2524sm315365035e9.1.2026.10.04.09.31.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Oct 2026 09:31:27 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: [PATCH v2 0/7] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU
+ interface
+Date: Sun,  4 Oct 2026 19:31:07 +0300
+Message-ID: <20261004163114.181800-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260803135249.2898083-1-wenst@chromium.org>
-In-Reply-To: <20260803135249.2898083-1-wenst@chromium.org>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Sun, 4 Oct 2026 18:17:38 +0200
-X-Gm-Features: AclHuK8AbiOI1d3O1oMAtq-YB9tfgZCN1siOUfw9uTtQBVIHV68l-lLxUKSjvHc
-Message-ID: <CAGXv+5FS7gLB7-koaPKMqjtMPjOSWguW9NN_tS+8Wi2GTSHYEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: Set supported modifiers during plane init
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,153 +96,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'.
 
-On Mon, Aug 3, 2026 at 3:52=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> wr=
-ote:
->
-> The exynos driver currently checks the modifier in a helper called by
-> the plane atomic check helper callback. This check only concerns whether
-> the selected plane supports the tiled format or not. This is tied to
-> the plane's hardware capability.
->
-> Turns out the tiled support was added around the same time modifiers
-> were being plumbed through DRM planes. The latter provided a way to
-> describe per-plane modifier support.
->
-> Add a field to the hardware plane capability struct to allow adding
-> an optional list of supported modifiers. This is passed to
-> drm_universal_plane_init(). This also allows the core to generate
-> and pass to userspace a list of supported modifiers for each plane.
->
-> EXYNOS_DRM_PLANE_CAP_TILE and the existing helper are removed, as the
-> check is now down by the DRM atomic check.
->
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Add DC parametrization options needed for fine tuning by bridges.
+Add 8-bit CPU interface in form of a bridge linking to RGB port.
+Add 2 DBI Type B panels used in LG Optimus 2X which work with
+the 8-bit CPU interface.
 
-Any chance someone could take a look at this? This drops some redundant
-code.
+---
+Changes in v2:
+- convert enums in the dc header into definitions list
+- add check in RGB if bridge_state is not NULL, if yes, use default flags
+- inverted FLAG_PIXDATA_SAMPLE flag setup logic since default value is set to
+  be on NEGEDGE while v1 set default to be on POSEDGE
+- 8bit-cpu schema renamed to dbi, removed compaible and set as DC child
+- expanded list of required properties
+- 8bit-cpu bridge remodelled into dbi interface as DC child
+- improve gpio handling
+- rework attach to get drvdata from parent
+- add panel supplies description
+- split panel driver into per-panel drivers
+- get DBI interface from the patent directly
 
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_drv.h   |  2 +-
->  drivers/gpu/drm/exynos/exynos_drm_plane.c | 30 +----------------------
->  drivers/gpu/drm/exynos/exynos_mixer.c     |  8 +++++-
->  3 files changed, 9 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/ex=
-ynos/exynos_drm_drv.h
-> index b126cd129944..ab0edb826261 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> @@ -92,7 +92,6 @@ struct exynos_drm_plane {
->  #define EXYNOS_DRM_PLANE_CAP_DOUBLE    (1 << 0)
->  #define EXYNOS_DRM_PLANE_CAP_SCALE     (1 << 1)
->  #define EXYNOS_DRM_PLANE_CAP_ZPOS      (1 << 2)
-> -#define EXYNOS_DRM_PLANE_CAP_TILE      (1 << 3)
->  #define EXYNOS_DRM_PLANE_CAP_PIX_BLEND (1 << 4)
->  #define EXYNOS_DRM_PLANE_CAP_WIN_BLEND (1 << 5)
->
-> @@ -112,6 +111,7 @@ struct exynos_drm_plane_config {
->         const uint32_t *pixel_formats;
->         unsigned int num_pixel_formats;
->         unsigned int capabilities;
-> +       const uint64_t *modifiers;
->  };
->
->  /*
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/=
-exynos/exynos_drm_plane.c
-> index 5c04ef87e400..31f5f0941154 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
-> @@ -174,30 +174,6 @@ static struct drm_plane_funcs exynos_plane_funcs =3D=
- {
->         .atomic_destroy_state =3D exynos_drm_plane_destroy_state,
->  };
->
-> -static int
-> -exynos_drm_plane_check_format(const struct exynos_drm_plane_config *conf=
-ig,
-> -                             struct exynos_drm_plane_state *state)
-> -{
-> -       struct drm_framebuffer *fb =3D state->base.fb;
-> -       struct drm_device *dev =3D fb->dev;
-> -
-> -       switch (fb->modifier) {
-> -       case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
-> -               if (!(config->capabilities & EXYNOS_DRM_PLANE_CAP_TILE))
-> -                       return -ENOTSUPP;
-> -               break;
-> -
-> -       case DRM_FORMAT_MOD_LINEAR:
-> -               break;
-> -
-> -       default:
-> -               DRM_DEV_ERROR(dev->dev, "unsupported pixel format modifie=
-r");
-> -               return -ENOTSUPP;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
->  static int
->  exynos_drm_plane_check_size(const struct exynos_drm_plane_config *config=
-,
->                             struct exynos_drm_plane_state *state)
-> @@ -245,10 +221,6 @@ static int exynos_plane_atomic_check(struct drm_plan=
-e *plane,
->         /* translate state into exynos_state */
->         exynos_plane_mode_set(exynos_state);
->
-> -       ret =3D exynos_drm_plane_check_format(exynos_plane->config, exyno=
-s_state);
-> -       if (ret)
-> -               return ret;
-> -
->         ret =3D exynos_drm_plane_check_size(exynos_plane->config, exynos_=
-state);
->         return ret;
->  }
-> @@ -312,7 +284,7 @@ int exynos_plane_init(struct drm_device *dev,
->                                        &exynos_plane_funcs,
->                                        config->pixel_formats,
->                                        config->num_pixel_formats,
-> -                                      NULL, config->type, NULL);
-> +                                      config->modifiers, config->type, N=
-ULL);
->         if (err) {
->                 DRM_DEV_ERROR(dev->dev, "failed to initialize plane\n");
->                 return err;
-> diff --git a/drivers/gpu/drm/exynos/exynos_mixer.c b/drivers/gpu/drm/exyn=
-os/exynos_mixer.c
-> index 69dea5049309..d74e605a452b 100644
-> --- a/drivers/gpu/drm/exynos/exynos_mixer.c
-> +++ b/drivers/gpu/drm/exynos/exynos_mixer.c
-> @@ -93,6 +93,12 @@ static const uint32_t vp_formats[] =3D {
->         DRM_FORMAT_NV21,
->  };
->
-> +static const uint64_t vp_modifiers[] =3D {
-> +       DRM_FORMAT_MOD_LINEAR,
-> +       DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
-> +       DRM_FORMAT_MOD_INVALID
-> +};
-> +
->  struct mixer_context {
->         struct platform_device *pdev;
->         struct device           *dev;
-> @@ -148,8 +154,8 @@ static const struct exynos_drm_plane_config plane_con=
-figs[MIXER_WIN_NR] =3D {
->                 .num_pixel_formats =3D ARRAY_SIZE(vp_formats),
->                 .capabilities =3D EXYNOS_DRM_PLANE_CAP_SCALE |
->                                 EXYNOS_DRM_PLANE_CAP_ZPOS |
-> -                               EXYNOS_DRM_PLANE_CAP_TILE |
->                                 EXYNOS_DRM_PLANE_CAP_WIN_BLEND,
-> +               .modifiers =3D vp_modifiers,
->         },
->  };
->
-> --
-> 2.55.0.571.g244d577d93-goog
->
+I have deliberately left GPIO parsing from device tree since it seems to
+be the most convenient and mainstream method of working with GPIOs.
+---
+
+Svyatoslav Ryhel (7):
+  drm/tegra: dc: Expand available registers layouts
+  drm/tegra: rgb: Parameterize configuration based on bus flags
+  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
+  drm/tegra: Add support for 8-bit CPU interface
+  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
+    LH400WV3 panels
+  drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+  drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
+
+ .../display/panel/hit,tx10d07vm0baa.yaml      |  58 +++
+ .../display/tegra/nvidia,tegra-dbi.yaml       | 143 ++++++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |   3 +
+ drivers/gpu/drm/panel/Kconfig                 |  27 ++
+ drivers/gpu/drm/panel/Makefile                |   2 +
+ .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 297 +++++++++++++
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c     | 236 ++++++++++
+ drivers/gpu/drm/tegra/Kconfig                 |   7 +
+ drivers/gpu/drm/tegra/Makefile                |   1 +
+ drivers/gpu/drm/tegra/dbi.c                   | 416 ++++++++++++++++++
+ drivers/gpu/drm/tegra/dc.c                    |  24 +-
+ drivers/gpu/drm/tegra/dc.h                    |  50 ++-
+ drivers/gpu/drm/tegra/rgb.c                   |  41 +-
+ 13 files changed, 1293 insertions(+), 12 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+ create mode 100644 drivers/gpu/drm/tegra/dbi.c
+
+-- 
+2.53.0
+
