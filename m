@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE1C7CA5FF0
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7832CA5FCE
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 762BA10E04F;
-	Sun,  4 Oct 2026 15:42:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1793410E0F4;
+	Sun,  4 Oct 2026 15:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="G/FhnMeQ";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="j/elv+nm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC1D10E0F1
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B0110E04F
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=O3A0/hZA3eP1vShgDl2OQXZSmjkwJUaSn0OOcDnWYX0=; b=G/FhnMeQHTpwoCpwbqj7ZyEJV2
- Y+ZH4abK547bnkvX/r8bHm4+NfTjaVXWpY+2wR5CZ9kUMPYniz+1BOPP0vtjMFm9mFcMNnrTCTC0b
- 47GMKaxfdFVSjYex8wXMhV99bno/Um3T/yEkvtkuRUivck62woXpiHQBqntHsPH8OnYqQzhRmcRHq
- YQUTiDQJCd11Jx8FfFWhgBNsDBpmvDwXnt4pKWPr3JZtxljgl0+6cufjvq2dH3uSXu/eqnKi/Js5S
- +v4MkDdybC3lhwOhBCBmkubA6Xkb/5ynyIuMow3xdd6PtjejCY4U5zuyGedp/poFfyn8tYILZSMJ8
- vp3WY20w==;
+ bh=Ws61K1hcGdQpwbja0WY3ojBKo8oZhtPf9d5pv9XrkdY=; b=j/elv+nm7RxiOcQ8KBCWbmw/Jk
+ lzte3amZeH9mZVsqW4YJLmM+ZCHd8G2kQgwv6zKS72cFPOkCtNrj5BF3NGkItjG/AdG8hPXAy62WB
+ WYVFF8wBX+YX7URMfLBM+8PIvnJJkz1UMk032OgAmXXuvQtq5pz+ITWUqxsRzM78K803TD8mib97Y
+ 7nbTBCYlxWquq5vTKKXrnOM7GGk7m7RkJWrB8MMxgjP8gpUsPb8jAdmfcYYWrJw6dVjerQb/oSp0g
+ 87wo5PzfckIrLnqE36YMilUj5WIpgQqB1VcKoqRaeDzmqseRwFUBbbaqQ3/0as0hgh/NApZv/GdAG
+ yxpnCIWg==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xDOM2-00BNsh-6R; Sun, 04 Oct 2026 17:42:22 +0200
+ id 1xDOM8-00BNsh-N4; Sun, 04 Oct 2026 17:42:28 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 04 Oct 2026 12:42:01 -0300
-Subject: [PATCH 01/11] drm/vc4: Publish the output fence outside of
- job_lock
+Date: Sun, 04 Oct 2026 12:42:03 -0300
+Subject: [PATCH 03/11] drm/vc4: Refcount vc4_exec_info
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261004-vc4-misc-fixes-v1-1-b763df9e33e1@igalia.com>
+Message-Id: <20261004-vc4-misc-fixes-v1-3-b763df9e33e1@igalia.com>
 References: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 In-Reply-To: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -46,15 +45,15 @@ To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3018; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=2pG2I/lFnTQJeYLmCrcvedIba8zhyzU2yxVUVrTTuwQ=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqwnPWHkU8+hYCvAVHbPSnPjF0JmAryFUqg1eRK
- GUB/EXL1deJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCasJz1gAKCRA/8w6Kdoj6
- quxkCACsbTeCd1ilPlXvSP23XMbSykS2IZGVppgroy27dZCdIxaou2AXpwbCoAtTvzmT/upsrdp
- qO6Kv/3XstCHClMu3+GgbxnHK0byxm5GMJrFQKAZKsi6Na04kXxL6pZKiNJ2Dc0gE3FDg2QADvP
- XXyHD1mkC68tkjKtDgtvfnm+oifAnIQu6YxmXaRTqvRbXc1qAY/f/HXo1/sPkUxtG6VHUH5Rii3
- LKLAByMWvN+x1Wh/KIFHEhPIXuoNMt6CQGkDVpmEeHe0w12yry0rya55CT8KHHGkeInyDkD7XV/
- 4QL+/5A1XXNeYZJaaVrX9pbGfuQuqzsUGdR50In/e/+BYwnP
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3950; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=0kIuC94Jx4CFGfAmu9dQjFLeby5QV65JoIyH6Wt9wIM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqwnPWeAGq4dTE5ei+8Miz6nVG0hqn455RRspFF
+ 7V4CjrxZuGJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCasJz1gAKCRA/8w6Kdoj6
+ qh/wCADYqk1+Oa5kI+VfnM8TrpABf55YHJx0xWrr4FzuDZOd9K6KjXHHZlgHTuR+5UyW13IHw74
+ IKWs2tynZdlI3QHFSNj4iwNXWl0Bq2xY4aJPREb2AwQko68TMYLGGiHaz+C1Ey/73BaQHbj/6aK
+ CDSM+2qHXX2nTtO0RLe44eJU7dWK7Wl/ccuFbs+a1C5O8lyATJHA8B0s4XxJZCemeIQOXIvPQdF
+ L5rKoar9IQJseJEyoD6QxNqH6FK87b8T541JJDIx2OKG6y9nFic+W8gSSVfd2i7Jm7Hf21vzVRM
+ VnB+Wt78M+0VHxAktiSJF/01cShn308ULeKC/bWN1SiuA/2J
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,75 +71,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-job_lock is taken by the V3D interrupt handler, so nesting an IRQ-unsafe
-lock under it creates an inversion. drm_syncobj_replace_fence() takes
-drm_syncobj::lock, which other paths acquire with interrupts enabled. For
-example, a thread interrupted while holding it blocks the handler on
-job_lock, and the handler can only make progress once the submit path
-releases job_lock, which it cannot do while waiting for drm_syncobj::lock.
+A queued job is owned by whoever reaches it last: the submit ioctl hands
+it to the job lists and the job done worker frees it. This means that the
+ioctl cannot touch vc4_exec_info once job_lock is dropped. That forces
+everything that touches `exec` to sit inside the critical section, even
+work that has nothing to do with the job queues.
 
-This is reported by lockdep:
+Give the vc4_exec_info a refcount. The submit path holds one until it is
+done with the job and the job lists hold another from the moment the job is
+queued. The teardown happens when the last one goes away.
 
-[  188.139076] ========================================================
-[  188.139086] WARNING: possible irq lock inversion dependency detected
-[  188.139096] 7.3.0-rc3-00067-gc4f3feeaf60f #67 Tainted: G         C
-[  188.139108] --------------------------------------------------------
-[  188.139116] swapper/0/0 just changed the state of lock:
-[  188.139125] ffff0000054f8ff8 (&vc4->job_lock){-...}-{3:3}, at: vc4_irq+0xa8/0x28c [vc4]
-[  188.139234] but this lock took another, HARDIRQ-unsafe lock in the past:
-[  188.139242]  (&syncobj->lock){+.+.}-{3:3}
-[  188.139256] and interrupts could create inverse lock ordering between them.
-[  188.139267] other info that might help us debug this:
-[  188.139275]  Possible interrupt unsafe locking scenario:
-[  188.139284]        CPU0                    CPU1
-[  188.139291]        ----                    ----
-[  188.139299]   lock(&syncobj->lock);
-[  188.139312]                                local_irq_disable();
-[  188.139320]                                lock(&vc4->job_lock);
-[  188.139335]                                lock(&syncobj->lock);
-[  188.139350]   <Interrupt>
-[  188.139358]     lock(&vc4->job_lock);
-[  188.139372] *** DEADLOCK ***
-
-Hand the fence over after job_lock is dropped. The job can complete and
-drop exec->fence in that window, so take a reference first and publish
-through the local pointer, as exec may already be gone.
-
-Fixes: e84fcb95e074 ("drm/vc4: Export fence through syncobj")
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_gem.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vc4/vc4_drv.h |  2 ++
+ drivers/gpu/drm/vc4/vc4_gem.c | 30 ++++++++++++++++++++++--------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index b0e82c2dc1ba..d18a0fece93c 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -671,6 +671,8 @@ struct vc4_crtc_state {
+ struct vc4_exec_info {
+ 	struct vc4_dev *dev;
+ 
++	struct kref refcount;
++
+ 	/* Sequence number for this bin/render job. */
+ 	uint64_t seqno;
+ 
 diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index 6ee4bd77d433..f4be154d4eb0 100644
+index 0fef9b48d3c6..b56952bb6b97 100644
 --- a/drivers/gpu/drm/vc4/vc4_gem.c
 +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -639,8 +639,11 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
+@@ -639,6 +639,8 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
  	fence->seqno = exec->seqno;
  	exec->fence = &fence->base;
  
-+	/* The job can complete and drop exec->fence as soon as job_lock is
-+	 * released, so hold our own reference.
-+	 */
- 	if (out_sync)
--		drm_syncobj_replace_fence(out_sync, exec->fence);
-+		dma_fence_get(&fence->base);
- 
- 	vc4_attach_fences(exec);
- 
-@@ -662,6 +665,11 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
- 
- 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
- 
-+	if (out_sync) {
-+		drm_syncobj_replace_fence(out_sync, &fence->base);
-+		dma_fence_put(&fence->base);
-+	}
++	kref_get(&exec->refcount);
 +
- 	return 0;
+ 	/* The job can complete and drop exec->fence as soon as job_lock is
+ 	 * released, so hold our own reference.
+ 	 */
+@@ -719,11 +721,11 @@ vc4_cl_lookup_bos(struct drm_device *dev,
+ 
+ fail_dec_usecnt:
+ 	/* Decrease usecnt on acquired objects.
+-	 * We cannot rely on  vc4_complete_exec() to release resources here,
+-	 * because vc4_complete_exec() has no information about which BO has
+-	 * had its ->usecnt incremented.
++	 * We cannot rely on vc4_release_exec() to release resources here,
++	 * because it has no information about which BO has had its ->usecnt
++	 * incremented.
+ 	 * To make things easier we just free everything explicitly and set
+-	 * exec->bo to NULL so that vc4_complete_exec() skips the 'BO release'
++	 * exec->bo to NULL so that vc4_release_exec() skips the 'BO release'
+ 	 * step.
+ 	 */
+ 	for (i-- ; i >= 0; i--)
+@@ -854,9 +856,11 @@ vc4_get_bcl(struct drm_device *dev, struct vc4_exec_info *exec)
  }
  
+ static void
+-vc4_complete_exec(struct drm_device *dev, struct vc4_exec_info *exec)
++vc4_release_exec(struct kref *ref)
+ {
+-	struct vc4_dev *vc4 = to_vc4_dev(dev);
++	struct vc4_exec_info *exec = container_of(ref, struct vc4_exec_info,
++						  refcount);
++	struct vc4_dev *vc4 = exec->dev;
+ 	unsigned long irqflags;
+ 	unsigned i;
+ 
+@@ -908,6 +912,12 @@ vc4_complete_exec(struct drm_device *dev, struct vc4_exec_info *exec)
+ 	kfree(exec);
+ }
+ 
++static void
++vc4_exec_put(struct vc4_exec_info *exec)
++{
++	kref_put(&exec->refcount, vc4_release_exec);
++}
++
+ void
+ vc4_job_handle_completed(struct vc4_dev *vc4)
+ {
+@@ -924,7 +934,7 @@ vc4_job_handle_completed(struct vc4_dev *vc4)
+ 		list_del(&exec->head);
+ 
+ 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+-		vc4_complete_exec(&vc4->base, exec);
++		vc4_exec_put(exec);
+ 		spin_lock_irqsave(&vc4->job_lock, irqflags);
+ 	}
+ 
+@@ -1071,6 +1081,8 @@ vc4_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 		return ret;
+ 	}
+ 
++	kref_init(&exec->refcount);
++
+ 	exec->args = args;
+ 	INIT_LIST_HEAD(&exec->unref_list);
+ 
+@@ -1160,12 +1172,14 @@ vc4_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	/* Return the seqno for our job. */
+ 	args->seqno = vc4->emit_seqno;
+ 
++	vc4_exec_put(exec);
++
+ 	return 0;
+ 
+ fail_unreserve:
+ 	drm_exec_fini(&exec_ctx);
+ fail:
+-	vc4_complete_exec(&vc4->base, exec);
++	vc4_exec_put(exec);
+ 
+ 	return ret;
+ }
 
 -- 
 2.55.0
