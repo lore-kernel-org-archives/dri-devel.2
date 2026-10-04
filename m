@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7852CA5FEF
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:42:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED2FCA5FEF
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 15:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C90510EA75;
-	Sun,  4 Oct 2026 15:42:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDAD410EA56;
+	Sun,  4 Oct 2026 15:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PXsOUAlG";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iaU7+ebA";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7088410EA81
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C2C10EA63
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 15:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=VOWcRZ2k3vfo8YWEUinddli3Ux2thWuw7ko8c3iGf08=; b=PXsOUAlG4U7uL6/IQShu7NMESW
- ebn/7+zZwZcCQHS4plQwCVBvQdLutExDToq+JS4uNakldvt1aiHnViO9b8UuS88NnaJrjtqGoHdap
- chRhHh8qwB3G8wh8h6YSV5CpkvYFEzi1eOjy+aieVuMrCcbsWxZFZXdV2Hc7PEkMRpFNpP3/FIUa/
- 9rDTgU6TmjNIi1oVzSqEOryxQEc/BjHCH0QVlV/7CiJFUV1G+qI+1GyHZEUmcP68WiHJ9KWckUKeq
- ByA4+Iok3DyVPWYKA35/9E5MlNk1ocIphxpRGwN4HD5akUmGC8oLvCHS1cZEOL8yZBqXxQdINqtec
- W2ADZ8Mw==;
+ bh=iH4cPix+4PeS8SX+P1xZnkYEjhaX6dBLTAgF/w2nRzc=; b=iaU7+ebAdt8gS3hsd0X1mYxtmZ
+ S6Gv51n1CzJ8iHVrJKexrKDjknsJiatCaopFFyBgE2zg3fTpGg3L6arJvVxs5PGyC+9+5sJIwbx0p
+ Axuud5LbH66If7MtQ7tcXBe6MXcFu/B3jlqQmQjznliSVFKyzMWUuJX/ROloR6i9jL2Nvi0Ml6LG/
+ Xbfvzcg4ICYK8ZoCsoMO6hJicLjyIrsYogHRb+UnH3u6r9NmZ/TTO+BhPOxzVmv/2BkPSa3sK+g03
+ ifjch7ZvJeOUu6dEDhmsR9EKTI3J6CFwAAHLE73JFYosG6iys/47ZNKmiJjWQ5eaRrSCvhbgcrA3O
+ F5xujRjg==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xDOMW-00BNsh-0v; Sun, 04 Oct 2026 17:42:52 +0200
+ id 1xDOMZ-00BNsh-B7; Sun, 04 Oct 2026 17:42:55 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 04 Oct 2026 12:42:10 -0300
-Subject: [PATCH 10/11] drm/vc4: Protect the hang state with a dedicated
- lock
+Date: Sun, 04 Oct 2026 12:42:11 -0300
+Subject: [PATCH 11/11] drm/vc4: Split out bin_alloc_lock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261004-vc4-misc-fixes-v1-10-b763df9e33e1@igalia.com>
+Message-Id: <20261004-vc4-misc-fixes-v1-11-b763df9e33e1@igalia.com>
 References: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 In-Reply-To: <20261004-vc4-misc-fixes-v1-0-b763df9e33e1@igalia.com>
 To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
@@ -46,15 +45,15 @@ To: Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3624; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=R/Xl/kQoctXbrFz3Pf7OSzKyj2sXByaoiXdS+FqQdbM=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqwnPXORgZyh/xrLfP/5XmlZ5eBL1mICPM7zoiI
- ASsXrj5JeuJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCasJz1wAKCRA/8w6Kdoj6
- qiJqCACgWjYrpgyIAaOkdiwVNAILCd9Z4wOWvzHWt+TorGWPUyTN26TrTgkyjomnV5IbEC1LKJi
- DKE9decpwV1L8cvj5gbg6s+NwA6JkHgXjdRZ84KehSI2Mwker/xvp5avYTJx0ovyr3/Ap1IDpiu
- xuHPssEUvPDfQlB43VEcicGRq+I8X7GzujjQyyyYjlC9Tu+ZKx+ZfKfJJs3NnR84256w9hWeWKA
- IQjf/TgkgF1XdcIlsRDjnaLRmiyr0PJ1lyHolrmPJiHk5z5I5SrRpGxIP5sGL2ag4PBB/8ozoB/
- JLCDEPvz4fHYtpWh+0l/iL3N+VLBHik/x7MR5LZIIRFup44x
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6331; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=Untu7wtpvhNnqHerBaHaI8EQNcf8MO4VxuKLsF116dg=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqwnPXyrtsyzbDQSuO8EcZVP4DoufbB4TdbHPHO
+ PCfuzfZPXOJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCasJz1wAKCRA/8w6Kdoj6
+ qjnjB/4hKERKUDq/Liz3KZGB7EwO6to3R4sdgldCKX5GBhSXQnXDtY7OeNgU9UbVKDLJe7IqgwF
+ +Lr5PLRjGe22JmggnjMzB0Hs8aN62vLQFiGE06vmyH+6ict3TxFf6nmwW8lzJQEHfb145TcPBgy
+ c/r52818b6T9dHkrOVAeoDoODJmPHOm/zcPRiWk/3iqwSVlcum5frO4TNkG8u9PxFrAUmNPHT5j
+ kf03tpiDLPuhYU2GMv/FqdT+pP0wEXRwPLfeDUqrlEB84v9hc22E5B712BmZ+p678Ii6X5bCTCw
+ Ajs1CuGlh+IqPaAbhwFGydw1CeOEjKhBcxeN0U03HbKzAL3F
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,104 +71,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The saved GPU hang state is published by vc4_save_hang_state() and
-claimed by VC4_GET_HANG_STATE, and access to the pointer was serialized
-by job_lock. However, job_lock already has other attributions related
-with the jobs currently executed on hardware.
+The binner slot pool, tracked by bin_alloc_used and bin_alloc_overflow,
+is serialized by job_lock. The pool has a lifecycle of its own: slots are
+claimed by bin_slot_try_alloc(), which the submit path retries from a
+wait loop, and released from the render done handler, from
+vc4_release_exec() and from the overflow worker. Each of those takes the
+device-wide job lock to update the binner slot pool, contending the job
+queues.
 
-The hang state has no invariant in common with the jobs programmed into
-the hardware. vc4_save_hang_state() already drops job_lock between
-reading those jobs and publishing the dump, so the two critical sections
-are independent and nothing is made less atomic by separating them.
+Give the pool its own spinlock. Note that, as vc4_irq_finish_render_job()
+frees the finished job's slots and vc4_overflow_mem_work() hand slots over
+to a queued job, they hold both locks, nesting bin_alloc_lock inside
+job_lock. However, nothing takes them in the other order.
 
-Give the hang state its own spinlock. The two locks are never nested, so
-this introduces no ordering requirement, and neither hang state path has
-to disable interrupts any more.
+That leaves vc4_overflow_mem_work() holding job_lock over the binner
+overflow registers, which it never needed, as the only other writers of
+V3D_BPOA and V3D_BPOS are the bind and unbind paths, which run with the
+interrupt uninstalled. Write to them once the lock is dropped.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_drv.h |  2 ++
- drivers/gpu/drm/vc4/vc4_gem.c | 16 ++++++++--------
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vc4/vc4_drv.h |  3 +++
+ drivers/gpu/drm/vc4/vc4_gem.c |  7 +++----
+ drivers/gpu/drm/vc4/vc4_irq.c | 46 ++++++++++++++++++++++---------------------
+ drivers/gpu/drm/vc4/vc4_v3d.c |  2 +-
+ 4 files changed, 31 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 2fad8a489558..c6ae54d2e8b8 100644
+index c6ae54d2e8b8..e2cc5bb78791 100644
 --- a/drivers/gpu/drm/vc4/vc4_drv.h
 +++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -99,6 +99,8 @@ struct vc4_dev {
- 	struct vc4_hvs *hvs;
- 	struct vc4_v3d *v3d;
+@@ -204,6 +204,9 @@ struct vc4_dev {
+ 	/* Size of blocks allocated within bin_bo. */
+ 	uint32_t bin_alloc_size;
  
-+	/* Protects @hang_state. */
-+	spinlock_t hang_state_lock;
- 	struct vc4_hang_state *hang_state;
- 
- 	/* The kernel-space BO cache.  Tracks buffers that have been
++	/* Protects @bin_alloc_used and @bin_alloc_overflow. */
++	spinlock_t bin_alloc_lock;
++
+ 	/* Bitmask of the bin_alloc_size chunks in bin_bo that are
+ 	 * used.
+ 	 */
 diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index 1f3cb3c2c7fc..230558b3f684 100644
+index 230558b3f684..09aaa1b796ad 100644
 --- a/drivers/gpu/drm/vc4/vc4_gem.c
 +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -74,7 +74,6 @@ vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
- 	struct vc4_hang_state *kernel_state;
- 	struct drm_vc4_get_hang_state *state;
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+@@ -846,7 +846,6 @@ vc4_release_exec(struct kref *ref)
+ 	struct vc4_exec_info *exec = container_of(ref, struct vc4_exec_info,
+ 						  refcount);
+ 	struct vc4_dev *vc4 = exec->dev;
 -	unsigned long irqflags;
- 	u32 i;
- 	int ret = 0;
+ 	unsigned i;
  
-@@ -86,10 +85,10 @@ vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
- 		return -ENODEV;
- 	}
- 
--	spin_lock_irqsave(&vc4->job_lock, irqflags);
-+	spin_lock(&vc4->hang_state_lock);
- 	kernel_state = vc4->hang_state;
- 	if (!kernel_state) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+		spin_unlock(&vc4->hang_state_lock);
- 		return -ENOENT;
- 	}
- 	state = &kernel_state->user_state;
-@@ -99,12 +98,12 @@ vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
+ 	/* The render done handler signals the fence, so only drop the
+@@ -875,9 +874,8 @@ vc4_release_exec(struct kref *ref)
+ 	 * completion had their slots released in vc4_irq_finish_render_job().
+ 	 * Only jobs that never completed still have slots to be released here.
  	 */
- 	if (get_state->bo_count < state->bo_count) {
- 		get_state->bo_count = state->bo_count;
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+		spin_unlock(&vc4->hang_state_lock);
- 		return 0;
- 	}
- 
- 	vc4->hang_state = NULL;
--	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+	spin_unlock(&vc4->hang_state_lock);
- 
- 	/* Save the user's BO pointer, so we don't stomp it with the memcpy. */
- 	state->bo = get_state->bo;
-@@ -273,13 +272,13 @@ vc4_save_hang_state(struct drm_device *dev)
- 		mutex_unlock(&bo->madv_lock);
- 	}
- 
 -	spin_lock_irqsave(&vc4->job_lock, irqflags);
-+	spin_lock(&vc4->hang_state_lock);
- 	if (vc4->hang_state) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+		spin_unlock(&vc4->hang_state_lock);
- 		vc4_free_hang_state(dev, kernel_state);
- 	} else {
- 		vc4->hang_state = kernel_state;
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+		spin_unlock(&vc4->hang_state_lock);
- 	}
+-	vc4->bin_alloc_used &= ~exec->bin_slots;
+-	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
++	scoped_guard(spinlock_irqsave, &vc4->bin_alloc_lock)
++		vc4->bin_alloc_used &= ~exec->bin_slots;
  
- 	return;
-@@ -1177,6 +1176,7 @@ int vc4_gem_init(struct drm_device *dev)
+ 	/* Let anyone waiting on the binner pool retry. */
+ 	wake_up_all(&vc4->job_wait_queue);
+@@ -1176,6 +1174,7 @@ int vc4_gem_init(struct drm_device *dev)
  	INIT_LIST_HEAD(&vc4->render_job_list);
  	INIT_LIST_HEAD(&vc4->job_done_list);
  	spin_lock_init(&vc4->job_lock);
-+	spin_lock_init(&vc4->hang_state_lock);
++	spin_lock_init(&vc4->bin_alloc_lock);
+ 	spin_lock_init(&vc4->hang_state_lock);
  	spin_lock_init(&vc4->perfmon_state.lock);
  
- 	INIT_WORK(&vc4->hangcheck.reset_work, vc4_reset_work);
+diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
+index f8787d4169ef..2f3f6fbcedf3 100644
+--- a/drivers/gpu/drm/vc4/vc4_irq.c
++++ b/drivers/gpu/drm/vc4/vc4_irq.c
+@@ -64,8 +64,6 @@ vc4_overflow_mem_work(struct work_struct *work)
+ 		container_of(work, struct vc4_dev, overflow_mem_work);
+ 	struct vc4_bo *bo;
+ 	int bin_bo_slot;
+-	struct vc4_exec_info *exec;
+-	unsigned long irqflags;
+ 
+ 	mutex_lock(&vc4->bin_bo_lock);
+ 
+@@ -80,34 +78,37 @@ vc4_overflow_mem_work(struct work_struct *work)
+ 		goto complete;
+ 	}
+ 
+-	spin_lock_irqsave(&vc4->job_lock, irqflags);
++	scoped_guard(spinlock_irqsave, &vc4->job_lock) {
++		struct vc4_exec_info *exec;
+ 
+-	if (vc4->bin_alloc_overflow) {
+-		/* If we had overflow memory allocated previously,
+-		 * then that chunk will free when the current bin job
+-		 * is done.  If we don't have a bin job running, then
+-		 * the chunk will be done whenever the list of render
+-		 * jobs has drained.
+-		 */
+-		exec = vc4_first_bin_job(vc4);
+-		if (!exec)
+-			exec = vc4_last_render_job(vc4);
+-		if (exec) {
+-			exec->bin_slots |= vc4->bin_alloc_overflow;
+-		} else {
+-			/* There's nothing queued in the hardware, so
+-			 * the old slot is free immediately.
++		guard(spinlock)(&vc4->bin_alloc_lock);
++
++		if (vc4->bin_alloc_overflow) {
++			/* If we had overflow memory allocated previously,
++			 * then that chunk will free when the current bin job
++			 * is done.  If we don't have a bin job running, then
++			 * the chunk will be done whenever the list of render
++			 * jobs has drained.
+ 			 */
+-			vc4->bin_alloc_used &= ~vc4->bin_alloc_overflow;
++			exec = vc4_first_bin_job(vc4);
++			if (!exec)
++				exec = vc4_last_render_job(vc4);
++			if (exec) {
++				exec->bin_slots |= vc4->bin_alloc_overflow;
++			} else {
++				/* There's nothing queued in the hardware, so
++				 * the old slot is free immediately.
++				 */
++				vc4->bin_alloc_used &= ~vc4->bin_alloc_overflow;
++			}
+ 		}
++		vc4->bin_alloc_overflow = BIT(bin_bo_slot);
+ 	}
+-	vc4->bin_alloc_overflow = BIT(bin_bo_slot);
+ 
+ 	V3D_WRITE(V3D_BPOA, bo->base.dma_addr + bin_bo_slot * vc4->bin_alloc_size);
+ 	V3D_WRITE(V3D_BPOS, vc4->bin_alloc_size);
+ 	V3D_WRITE(V3D_INTCTL, V3D_INT_OUTOMEM);
+ 	V3D_WRITE(V3D_INTENA, V3D_INT_OUTOMEM);
+-	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 
+ complete:
+ 	mutex_unlock(&vc4->bin_bo_lock);
+@@ -165,7 +166,8 @@ vc4_irq_finish_render_job(struct drm_device *dev)
+ 
+ 	vc4->finished_seqno++;
+ 
+-	vc4->bin_alloc_used &= ~exec->bin_slots;
++	scoped_guard(spinlock, &vc4->bin_alloc_lock)
++		vc4->bin_alloc_used &= ~exec->bin_slots;
+ 	exec->bin_slots = 0;
+ 
+ 	list_move_tail(&exec->head, &vc4->job_done_list);
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index 8a3c90136506..b4bb90765795 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -177,7 +177,7 @@ static int bin_slot_try_alloc(struct vc4_dev *vc4)
+ {
+ 	int slot;
+ 
+-	guard(spinlock_irqsave)(&vc4->job_lock);
++	guard(spinlock_irqsave)(&vc4->bin_alloc_lock);
+ 
+ 	slot = ffs(~vc4->bin_alloc_used);
+ 	if (slot != 0) {
 
 -- 
 2.55.0
