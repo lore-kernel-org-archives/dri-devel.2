@@ -4,111 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5513CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 19:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F42CA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 19:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6609310E442;
-	Sun,  4 Oct 2026 19:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8822710E4EA;
+	Sun,  4 Oct 2026 19:57:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=reactivated.net header.i=@reactivated.net header.b="WHjMaIHr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qjGjAnlA";
 	dkim-atps=neutral
-Received: from out13-174.antispamcloud.com (out13-174.antispamcloud.com
- [185.201.17.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D45610E1D6
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 18:25:46 +0000 (UTC)
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
- by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <dan@reactivated.net>)
- id 1xDQtq-006hQt-GW; Sun, 04 Oct 2026 20:25:30 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=reactivated.net; s=default; h=Cc:To:Message-Id:Content-Transfer-Encoding:
- Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yHbOGaVl1vUCtGpoBWGwkPMnujnLEZApFP/YJcaW1LE=; b=WHjMaIHr2XUgJFLt9qDD+mGV5M
- 1+D7t8nDdhYA0JkrgvWmX3S2WzgHNRugM8RQxsDxvH4Iimf0UX/u7GBkaAT4YpHik9B4SCQDr4ans
- a/qhoNy+5e8O6Cq526TEG94YCwzxXE/08Ziru6W3fPUxkxEzP2ucAOnYh0edZ4cLOLFX3kB/K9+XX
- FmnCOCzZGkD5qC6QG02lIOnTiUYKMfprPa6y8aIrkyvaN8ThrNYKc2SHHgQguDM1pYOjcUYoguIdb
- 1GRupOOkgHeGggG/LGKjRJKpBDe/zA4tET8d/Sm4z34Cy/2bAir0yDUwYdgReUMOqL1IQfcmwyRTE
- Nm+byaiw==;
-Received: from [188.251.249.2] (port=51200 helo=[192.168.1.123])
- by s1041.use1.mysecurecloudhost.com with esmtpsa (TLS1.3) tls
- TLS_AES_256_GCM_SHA384 (Exim 4.100.1)
- (envelope-from <dan@reactivated.net>) id 1xDQtl-0000000EsQr-0agT;
- Sun, 04 Oct 2026 18:25:21 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Sun, 04 Oct 2026 19:24:45 +0100
-Subject: [PATCH v3] drm/vc4: Set DRM DMA device directly from HVS and V3D
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com
+ [74.125.225.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 158B810E559
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 19:57:03 +0000 (UTC)
+Received: by mail-wm2-f13.google.com with SMTP id
+ 5b1f17b1804b1-4a0977b9c20so16371495e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 12:57:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791143821; x=1791748621; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=O5urbuASrTI2Qi3GqFdYChxgSHqvyBkziCSsqy3qE2Y=;
+ b=qjGjAnlAR3VmdBCNLo0xqv2xT5GGr+L+5PIGqjG4t00ppstxAxiboFgDmsPJ4rM6tl
+ NcKCEbkSG6f5daBRc3xm/nr+hvg3Z2HweUFT80rjuOs1NX2CWB3GJz54q/zF2WB3pH6v
+ bndZEQgyYrxB+lhaba6/9rolWXWexbORpCPUO8I9DZ7xhhRRM9EsY1RO87mgFYMo1O6v
+ vJj8A4L4rhUBoyct7fpNajDT3HKe9vDy3241eb46y7VOVai2V36d9iQrtOmMoD2zGzcQ
+ ri2ObN2an5TceDOp3SngXrBhNePinH3hgXxffPo5p+6nItuB+iYWL0U2fRK6SCX2+pTb
+ BLUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791143821; x=1791748621;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=O5urbuASrTI2Qi3GqFdYChxgSHqvyBkziCSsqy3qE2Y=;
+ b=MQPNt6rsJB7wXyTT8k866vXuEZO58BskdiWLXuregV00p5X4241COzMXa2GtvSlO/D
+ Nvo2DrpSay+yq/lvDMQOv0LXk0YhAVSLeQ28uEh2leBaZseonVnlNTBC0dhObg8DFwlP
+ iAzCD9kdmwP8gGrCOaSTVcd3DevlpKTL6wxS7DQhzXa61zJ3RCCGEt9BUM+fZv1nzKAS
+ RF8rYu+NSmUtH3vGynlxbRPHJd0KDJka1bebRfKucxUit05D/AL4oTZKBJ40WmfQOqf9
+ Y8HLmFIuBaetA3VBUgoGNgQKZ9UXBlKH2r2qtGUCXeskndh8zqRABYPA4SXK4nMcMhl3
+ CCSw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByXARoOpJb5ZYyj3VcICqfZ4bsQVIcIBpH8mwf3zWyMoLfJsAQ1md2V+atWGmvJ6obgKUpG2ss6dBw=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m+VUS0S4zaLnwQ7UkHR0sPSM5ve2BI8iYBkM9GrwfL+W0CBnma
+ Ww3bQPxpoNbDgLGuzuIJmuPMmPZTMeaoQiaJA6WjlRBOBr8+viVTqaQ=
+X-Gm-Gg: AYBFou3kl1I2L/ibkiRVsywo4OdFxwdnBYj+SgjlekAkeqLcKgNObPaGXRmbFy7IECr
+ 0ZABw+H52fx3tsnsvxnv30wOafUFD4ZU5p85XlWsvv510yUpKOAh5t6g3J70a/rRUPXHYtpYVEX
+ I+6fDRvA7Ep2QusTl1fbFZ7H1+trwd0/vPcojqG9ucgTX/cqRvvTJYVZrOBrHKwGOhfx5y9UunS
+ hUyZv6NoIzVILffB+Rz6KDgsfovehEjg8N0EMnmYnAjiXOkW2V7b+zcxh8qQFjFfqVx0lh5Kg1K
+ mRp8b+a8elMGDj+Y7jmV67ln63nyX+a/31MbR+8A1D4YwSwOQ6jzYRgh4W88Xxq5gGEW5+cLCw/
+ TlA+zsW40ol9jXIFipV0sSj4iKfrsj9dnO0fli8+I6lsiJHBWssI9Svkkmnpy30dOV8jgMWT4HD
+ ZcdI0F900Vw4EL532d1M9jFESpBjfbIziC0q9iuqlQB/3dmgLEu8ea8dFR/fsCMrF3bSu66ym1R
+ PwrPnqclbe8uN7z/5TrVfru0nVS3KPt3qWrlfU3nQ8rAIM9bOkzaReN
+X-Received: by 2002:a05:600c:a30e:b0:4a0:b6:460f with SMTP id
+ 5b1f17b1804b1-4a0276ad71emr113509495e9.33.1791143821022; 
+ Sun, 04 Oct 2026 12:57:01 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
+ ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a0280d1e38sm234123285e9.13.2026.10.04.12.56.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 04 Oct 2026 12:56:59 -0700 (PDT)
+Message-ID: <f01c9fb5-7d1b-4bb1-9d90-d331c2aa3da1@gmail.com>
+Date: Sun, 4 Oct 2026 21:56:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-drm-dma-device-2-v3-1-45b121ab819f@reactivated.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NwQ6CMAyA4VchO1uzdRGGJ9/DeBhbkR0Asy2Lh
- vDuFk4eiMe/ab8uIlEMlMS1WkSkElKYJw59qoQb7PQkCJ5boMRattiAjyP40YLnZUeA0LhOSts
- 3KOtW8NkrUh/eO3l/cA8h5Tl+9g9FbdM/WFGgQKNm0HlnLuoWybocis3kzxNlsZEFfxlzwCAzh
- kxXozHO6wNmXdcvnSDOof0AAAA=
-X-Change-ID: 20260927-drm-dma-device-2-7cb00af72069
-To: Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Daniel Drake <dan@reactivated.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6110; i=dan@reactivated.net;
- h=from:subject:message-id; bh=OZ3oG6iH09Jix73aeJl43r0w6V/mHd7HgQnVqGacfPw=;
- b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBqwpoN/l376houhEBtKA6NrU5AFgm9Jo8IZz09x
- GeUL3LGxAeJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCasKaDQAKCRDD5o+xUxRH
- u3qnEACQXAqoX+3wbtIfNyS658AdfbKjO4iJhhkvRemzE3yapZu8pIll6gmLaftYeShVXOpxSKz
- M6i1yzjVTiGoy8KXBqjzSghujjdBGzQitS3xa088EihzrVho/K6w3shLSEI1yxw11Z8uoRoz2Jx
- AnNwK6XbVlG9JxwB4qZTrRaZHOnqH3E+Pag0pIcoP7Ah4a7WkzYajl5JbKF9XpxvqGWtmLWnYNE
- RWeH2cj5/V8ypitt7etkbsP6n+iAAXWX+ia+hU63s+gfMqpzWFa7izeyYdrGW3Ddbvpe74MhcqQ
- zsd3IaRTclUfXa4rCkswrt2AfY4+zP2fDZ4q0TdNsJsfS6suO8/ryb7LpXtRZnkyyK3/J5rSHiV
- bHLY8+nLA07Xm4/Me73ywj1aRNN5YLIsm984QQ9S9YdEsNBEK8WoiU++zgjN2xd3JCN9wg4/uu6
- 1o5jw5HDlYaKOF7icywmBULaKde272Ppqsw9Wu5ROXZLqdOYzvcbYcqo3pQdwCWA3CONFg1Dril
- gx55N9NBkbpLq14XeKAtAQuzGkQDvZXERLgphaLyZMyWMimdmSrqqIeSRIG4NdaqmCCmM0G79f3
- XkBgfUadOY5zDuzWLkG8jiMYQPk1EAp/FEI0987RhtSBb7HkMXXRVkpWg9UUfiPdHoUyR++PPsh
- VALrNan3ONJEvkg==
-X-Developer-Key: i=dan@reactivated.net; a=openpgp;
- fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id:
- dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Originating-IP: 192.250.231.249
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass
- smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.000100610566402)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuXO7nvTQ7yy9k7Unlg39gKNb1+nkUtl5LJx
- qh/lJIkflyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIOBmjaSCHoTrwQQ0dEVSPCXGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhbzM0MOKiGRkxO3FaI58br05WBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyKHa1tRM2
- MU++S1qmG33eyqfQ0CRf03ZVL8nj1p8+jZp97u2myWNKWrutk7qV7AtOkpZtNxry89swgsinGDHL
- Y/93lXcLjZIBgjNjkg38WlOarwwDJTRYznu0602gN4H9hZv0zCLEij/0AqtMgiDne6Vg56B8KEO7
- 8ArmTbU4AeRvs08d1ameATIctaL3Sq56xFfxiYEcAIg1a8j1Zik7vLK+lgGfV4Nw4Dyej6XrR3O3
- +9Jv3M1vFh0dedaFWq5OCCuV+S/+kUYBNmmWTS5W8LHjCgCvBtIx9tg0f8t8WKhLn/njN5eSj526
- f3kLYY1TkTsdNKe8xXkJ8GaBwxMdT6Pe4NwW4k31hVDWPTz0BYk1sEdzjJ1KtITTOeCJfzyYE00o
- 4HcXiVlmqq7rjtmnPPvgN0j5Zjdo7lug1QoDSvrYNiHnrwo3MxFvlFv7ce8Spf+GMZJk67EtLxTr
- EHBFDDaVxo8uvMBjbuQvf6VNVyYoAi8Uc2oZx8hUUuy5epJAJTBivmuTWFpVYNhpSn7kRHMcN6qo
- XPjenLhIOF1oeRb/UAjtSdLUCm4oBscLM8knFgqzU1XKd5949/0WFIkTx8Iip7Xtxa+Z/gH4HeQf
- wOk8fvDJlqs+4uVSxCZaxD168J7ArISHgc1ouiDb0lGY3htzeHnKxaPb82JYf6EvQqPTPpuFqUUQ
- z+mM8JAD4ECWUEmmlTt39YF6tMVf4ZbCsLPTDm9x1wcjenLcvy0+pYBTkP/qV+1a5UVM8nkKOUP3
- SMSeJeNXixEo1fdA8D3e7XPZw7Q4Udv5oqK+7o66I2dlE8tcUX6kZr3+Ob4JcQTWeXW8oEyu47TQ
- DqTi6GKwcPGM2dTl3QCYaxBp/L42XX16l+mke5pNa7TIOj7iFBj9MkiPhSHaQZlugDaDyn+fTA7j
- SeBK0owOZo/nKKA2Y8v1MU62oe4qNRYfW7XcddzgZJ0Q4x+0GOxZvoENDONKwfMsKvKUfj3CUGQZ
- VNqeRfoLADSib5OZB5Y+uxAGfYgWMkiPhSHaQZlugDaDyn+fTEvwYiZNmk2q0LoKDU23xXc=
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
-X-Mailman-Approved-At: Sun, 04 Oct 2026 19:36:32 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/8] drm/gpuvm: allow locking external objects in two
+ passes
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Alice Ryhl <aliceryhl@google.com>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Liviu Dudau <liviu.dudau@arm.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sean Paul <sean@poorly.run>,
+ Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
+ Steven Price <steven.price@arm.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+References: <20261001220632.3190896-1-matthew.brost@intel.com>
+ <20261001220632.3190896-2-matthew.brost@intel.com>
+Content-Language: en-US
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+In-Reply-To: <20261001220632.3190896-2-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,178 +112,1073 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vc4 uses of_dma_configure() during bind to set the DMA configuration of
-the drm device by borrowing the configuration of one of its component
-devices.
+On 10/2/26 12:06 AM, Matthew Brost wrote:
+> Today a driver locks every drm_gem_object its drm_gpuvm has mappings of
+> in a single drm_exec transaction, validates and rebinds whatever needs
+> it, submits and unlocks. The dma-resv lock of every mapped object is
+> therefore held for as long as the slowest validation in the transaction
+> takes.
+>
+> That is fine as long as the objects are private, but it is not fine for
+> objects shared between processes. The processes are of course related,
+> that is why they share a buffer, but the work which holds the lock is
+> not: a client stalls the compositor it is presenting to while it faults
+> in or migrates some large buffer of its own, one the compositor has no
+> interest in and will never touch. The deadline is missed because of a
+> non overlapping set of objects.
+>
+> Keeping the shared, about to be presented buffers resident is a
+> different problem, and one which already has its own answers: driver
+> side eviction heuristics which decline to evict shared objects, or a
+> compositor whose allocations simply outrank everyone else's. This is
+> what is left even once those work. The objects being held hostage are
+> not ones the transaction has anything slow to do on. Only the evicted
+> objects need validating; the rest are already resident, and holding
+> their dma-resv while some other object is migrated buys nothing. They
+> are worked on in the end, of course, having a fence attached and their
+> mappings rebound, but none of that has to wait on a migration.
+>
+> So let a driver set drm_gpuvm_exec::two_pass and have
+> drm_gpuvm_exec_lock() acquire its locks in two steps:
+>
+>    DRM_GPUVM_EXEC_PASS_EARLY validates what the transaction already
+>    holds. The GPUVM's own dma-resv is locked from the start, so that is
+>    every private object, and the driver validates the evicted ones. The
+>    pass also opportunistically locks the external objects which are
+>    evicted, since those need validating anyway, and the driver validates
+>    those too. The resident external objects are left unlocked, then
+>
+>    DRM_GPUVM_EXEC_PASS_LATE locks everything else, i.e. exactly what the
+>    early pass left out. The driver validates anything which raced with
+>    the early pass and does whatever needs every lock held, such as
+>    attaching its job's fence.
+>
+> Both passes share one drm_exec transaction. The early pass keeps
+> everything it locked and the late pass only ever adds to it, so there is
+> no window in which another thread can undo the early pass' work, and no
+> recheck or retry logic is needed. The extra.fn callback is invoked once
+> per pass, with drm_gpuvm_exec::pass telling it which one it is in.
+>
+> Only the external objects are divided up like this. The passes have to
+> agree on which objects belong to which, and the GPUVM's common dma-resv
+> is what gives that, so it is held throughout.
+>
+> Since the early pass leaves the objects it did not lock alone, they are
+> the late pass' problem, and drm_gpuvm_exec_pass_validate() must skip
+> them or it would validate an object the transaction does not hold the
+> dma-resv of. Such an object can be sitting on the evicted list while
+> that happens, which is why drm_gpuvm_exec_pass_has_evicted() exists: a
+> driver looping until nothing is evicted would otherwise spin in the
+> early pass on an object that pass is never going to validate. It keys
+> off drm_gpuvm_bo::lock_skipped, which the early pass latches, rather
+> than off drm_gpuvm_bo::evicted, which can change at any time. The late
+> pass consumes that same latched value to derive what to prepare, which
+> is what keeps the two passes an exact partition even if an object is
+> evicted in between; re-preparing an object the transaction already holds
+> would fail with -EALREADY.
+>
+> The early pass reads drm_gpuvm_bo::evicted without holding the object's
+> dma-resv, that being the lock it is trying not to take. The race is
+> benign: an object evicted just after being skipped is validated by the
+> late pass instead, exactly as if it had been evicted a moment later
+> still.
+>
+> Two pass locking requires a DRM_GPUVM_RESV_PROTECTED drm_gpuvm. The late
+> pass has to prepare precisely the complement of what the early pass
+> locked, and only the GPUVM's common dma-resv, which the transaction
+> holds across both passes, keeps the external object list from changing
+> underneath.
+>
+> Splitting the locking only pays off when there is validation to keep the
+> resident objects unlocked for. With nothing evicted it would just walk
+> the external object list a second time for nothing, so
+> drm_gpuvm_exec_pass_needs_split() is consulted once the VM resv is held
+> and the sequence collapses back to a single pass when it says no. That
+> check is advisory: both answers are functionally correct, so a stale one
+> only costs the optimization.
+>
+> Making it O(1) needs a count of the evicted external objects, since
+> those are the ones drm_gpuvm_bo_evict() cannot put on the evicted list,
+> lacking the GPUVM's common dma-resv to do it under. The object's own
+> dma-resv is held there, so the transition is stable and an atomic_t is
+> enough. It is decremented again wherever a drm_gpuvm_bo is taken off the
+> lists, including the deferred cleanup path used by immediate mode.
+>
+> DRM_GPUVM_EXEC_PASS_ALL is zero and two_pass defaults to false, so a
+> zero initialised drm_gpuvm_exec and the existing
+> drm_gpuvm_prepare_objects() and drm_gpuvm_validate() keep the
+> traditional behaviour, and no existing driver changes behaviour.
+Thanks for working on solving this problem, this looks cleaner than what 
+I had in my presentation!
+>
+> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+> Cc: Alice Ryhl <aliceryhl@google.com>
+> Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> Cc: Antonino Maniscalco <antomani103@gmail.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Jessica Zhang <jesszhan0024@gmail.com>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Assisted-by: LLM
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> ---
+> v3:
+>   - Pair the lockless READ_ONCE() of drm_gpuvm_bo::evicted with a
+>     WRITE_ONCE() in drm_gpuvm_bo_evict() and document why it is safe
+>     (Danilo)
+>   - Rename the DOC section to "GPUVM EXEC two-pass locking" and describe
+>     it in terms of preparing and validating objects (Danilo)
+>   - Use drm_WARN_ON_ONCE() (Danilo)
+>   - Consolidate the DRM_GPUVM_RESV_PROTECTED checks into
+>     drm_gpuvm_exec_pass_supported(); drm_gpuvm_exec_lock() now warns and
+>     falls back to a single pass rather than returning -EOPNOTSUPP (Danilo)
+>   - Use the drm_gpuvm_exec_pass_ prefix for all new functions (Danilo)
+> ---
+>   Documentation/gpu/drm-mm.rst |   6 +
+>   drivers/gpu/drm/drm_gpuvm.c  | 505 +++++++++++++++++++++++++++++++++--
+>   include/drm/drm_gpuvm.h      | 139 +++++++++-
+>   3 files changed, 629 insertions(+), 21 deletions(-)
+>
+> diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
+> index 2dea94f77d52..7eca0966448d 100644
+> --- a/Documentation/gpu/drm-mm.rst
+> +++ b/Documentation/gpu/drm-mm.rst
+> @@ -510,6 +510,12 @@ Locking
+>   .. kernel-doc:: drivers/gpu/drm/drm_gpuvm.c
+>      :doc: Locking
+>   
+> +GPUVM EXEC two-pass locking
+> +---------------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_gpuvm.c
+> +   :doc: GPUVM EXEC two-pass locking
+> +
+>   Examples
+>   --------
+>   
+> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> index d1c80ad3dead..6eaa4aef8093 100644
+> --- a/drivers/gpu/drm/drm_gpuvm.c
+> +++ b/drivers/gpu/drm/drm_gpuvm.c
+> @@ -527,6 +527,93 @@
+>    * hence do not require internal locking.
+>    */
+>   
+> +/**
+> + * DOC: GPUVM EXEC two-pass locking
+> + *
+> + * This is about how the &drm_gem_objects a &drm_gpuvm has mappings of are
+> + * prepared, i.e. have their dma-resv locked and fence slots reserved, through
+> + * drm_gpuvm_exec_lock() or drm_gpuvm_prepare_objects(), and how the evicted
+> + * ones among them are validated, through drm_gpuvm_validate(), within that
+> + * same &drm_exec transaction.
+> + *
+> + * By default a driver prepares every &drm_gem_object a &drm_gpuvm has
+> + * mappings of in a single &drm_exec transaction, validates and rebinds
+> + * whatever needs it, submits its job and unlocks. That is simple and correct,
+> + * but it means the dma-resv lock of every mapped object is held for as long
+> + * as the validation of the slowest object takes.
+> + *
+> + * That is a problem when some of those objects are shared with other
+> + * processes, for example the buffers a compositor is about to present. The
+> + * processes are of course related, that is why they share a buffer, but the
+> + * work holding the lock is not: a client stalls the compositor it presents
+> + * to while faulting in or migrating some large buffer of its own, one the
+> + * compositor will never touch.
+> + *
+> + * Keeping the shared buffers themselves resident is a separate problem with
+> + * separate answers, such as driver side heuristics which decline to evict
+> + * shared objects, or simply a compositor whose allocations outrank everyone
+> + * else's. What is left even once they work is this: a resident shared object
+> + * needs no validating, yet its dma-resv is held for the duration of the
+> + * validation of unrelated objects.
+> + *
+> + * The observation which fixes that is that only the evicted objects need any
+> + * work done on them. Everything else is already resident, so holding its
+> + * dma-resv throughout buys nothing. A driver can therefore set
+> + * &drm_gpuvm_exec.two_pass and have the single &drm_exec transaction acquire
+> + * its locks in two steps:
+> + *
+> + * 1) %DRM_GPUVM_EXEC_PASS_EARLY validates what the transaction already
+> + *    holds. The &drm_gpuvm's own dma-resv is locked from the start, so that
+> + *    is every private object, and the driver validates the evicted ones from
+> + *    its &drm_gpuvm_exec.extra callback. On top of that the pass
+> + *    opportunistically locks the external objects which are evicted, since
+> + *    those have to be validated anyway, and the callback validates them too.
+> + *    The resident external objects are left unlocked.
+> + *
+> + * 2) %DRM_GPUVM_EXEC_PASS_LATE locks everything else, i.e. exactly what the
+> + *    early pass left out. The callback runs again, now able to touch every
+> + *    mapped object, and validates anything which raced with the early pass
+> + *    before the driver submits.
+> + *
+> + * The important part is what does not happen in between: the early pass keeps
+> + * everything it locked, so there is no window in which another thread can
+> + * undo its work, and no recheck or retry logic is needed. The resident
+> + * objects are simply locked last, once the expensive work is already done.
+> + *
+> + * The late pass can still find something to validate, since an object it had
+> + * not locked yet may have been evicted while the early pass was running. That
+> + * is handled the way it is today, by validating it with every lock held; it
+> + * is just no longer the common case.
+> + *
+> + * Setting &drm_gpuvm_exec.two_pass only asks for two passes, it does not
+> + * force them. Splitting the transaction is pointless when nothing is evicted,
+> + * as the early pass would lock nothing and validate nothing, so
+> + * drm_gpuvm_exec_lock() consults drm_gpuvm_exec_pass_needs_split() once the
+> + * GPUVM's dma-resv is held and falls back to a single
+> + * %DRM_GPUVM_EXEC_PASS_ALL pass if there is no work for an early pass to do.
+> + * Drivers which drive the passes themselves rather than through
+> + * drm_gpuvm_exec_lock() should do the same.
+> + *
+> + * That check is advisory. An object may be evicted right after it answers
+> + * false, in which case the single pass validates it with every lock held,
+> + * exactly as it would have without two-pass locking. Both answers are always
+> + * correct; a stale one only costs the optimization.
+> + *
+> + * drm_gpuvm_exec_pass_validate() must be used instead of
+> + * drm_gpuvm_validate(), so that an object the early pass did not lock is not
+> + * validated behind its dma-resv lock's back. Such an object is simply left to
+> + * the late pass, which does hold it. It can still be sitting on the evicted
+> + * list while that happens, so the usual "loop until nothing is evicted"
+> + * termination condition must use drm_gpuvm_exec_pass_has_evicted() rather
+> + * than a plain emptiness test on the evicted list, or the early pass would
+> + * spin on an object it is never going to validate.
+> + *
+> + * Two-pass locking requires a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm. The late
+> + * pass has to prepare precisely the complement of what the early pass locked,
+> + * and only the GPUVM's common dma-resv, which the transaction holds across
+> + * both passes, keeps the external object list from changing underneath.
+> + */
+> +
+>   /**
+>    * DOC: Examples
+>    *
+> @@ -1104,6 +1191,7 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
+>   
+>   	INIT_LIST_HEAD(&gpuvm->extobj.list);
+>   	spin_lock_init(&gpuvm->extobj.lock);
+> +	atomic_set(&gpuvm->extobj.num_evicted, 0);
+>   
+>   	INIT_LIST_HEAD(&gpuvm->evict.list);
+>   	spin_lock_init(&gpuvm->evict.lock);
+> @@ -1220,16 +1308,105 @@ drm_gpuvm_prepare_vm(struct drm_gpuvm *gpuvm,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_vm);
+>   
+> +/*
+> + * Everything two-pass locking keys off is protected by the GPUVM's common
+> + * dma-resv: the external object list not changing between the passes, and
+> + * &drm_gpuvm_bo.lock_skipped being latched by one pass and consumed by the
+> + * next. That lock is held for the whole &drm_exec transaction, so assert it
+> + * wherever a pass is acted upon.
+> + *
+> + * %DRM_GPUVM_EXEC_PASS_ALL is exempt. It is the single pass behaviour which
+> + * predates this, and !%DRM_GPUVM_RESV_PROTECTED drivers legitimately reach it
+> + * without holding the common dma-resv, using the internal spinlocks instead.
+> + */
+> +#ifdef CONFIG_LOCKDEP
+> +static void
+> +drm_gpuvm_pass_assert_held(struct drm_gpuvm *gpuvm,
+> +			   enum drm_gpuvm_exec_pass pass)
+> +{
+> +	if (pass != DRM_GPUVM_EXEC_PASS_ALL)
+> +		drm_gpuvm_resv_assert_held(gpuvm);
+> +}
+> +#else
+> +static void
+> +drm_gpuvm_pass_assert_held(struct drm_gpuvm *gpuvm,
+> +			   enum drm_gpuvm_exec_pass pass)
+> +{
+> +}
+> +#endif
+> +
+> +/*
+> + * Two-pass locking requires a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm, see
+> + * "GPUVM EXEC two-pass locking". This is the one place checking for it, so
+> + * that it can simply go away once every &drm_gpuvm is.
+> + *
+> + * Returns: true if @pass can be used with @gpuvm. %DRM_GPUVM_EXEC_PASS_ALL
+> + * always can.
+> + */
+> +static bool
+> +drm_gpuvm_exec_pass_supported(struct drm_gpuvm *gpuvm,
+> +			      enum drm_gpuvm_exec_pass pass)
+> +{
+> +	if (pass == DRM_GPUVM_EXEC_PASS_ALL)
+> +		return true;
+> +
+> +	return !drm_WARN_ON_ONCE(gpuvm->drm, !drm_gpuvm_resv_protected(gpuvm));
+> +}
+> +
+> +/*
+> + * Decide whether @pass prepares @vm_bo, and maintain @vm_bo->lock_skipped,
+> + * which records whether the transaction is missing this object's dma-resv.
+> + *
+> + * The early pass latches its decision there so that
+> + * drm_gpuvm_exec_pass_validate() keys off a value which cannot change under
+> + * it, even though @vm_bo->evicted can. The late pass then consumes that
+> + * latched value rather than re-reading @vm_bo->evicted, which is what makes
+> + * it prepare exactly the objects the early pass left out, no more and no less.
+> + */
+> +static bool
+> +drm_gpuvm_prepare_skip(struct drm_gpuvm_bo *vm_bo,
+> +		       enum drm_gpuvm_exec_pass pass)
+> +{
+> +	drm_gpuvm_pass_assert_held(vm_bo->vm, pass);
+> +
+> +	switch (pass) {
+> +	case DRM_GPUVM_EXEC_PASS_EARLY:
+> +		/*
+> +		 * Lockless hint, pairs with WRITE_ONCE() in drm_gpuvm_bo_evict().
+> +		 * A stale value is harmless: the decision is latched in lock_skipped
+> +		 * and anything acting on evicted re-reads it under the object's resv.
+> +		 */
+> +		vm_bo->lock_skipped = !READ_ONCE(vm_bo->evicted);
+> +		break;
+> +	case DRM_GPUVM_EXEC_PASS_LATE:
+> +		/* Already locked by the early pass, must not lock it twice. */
+> +		if (!vm_bo->lock_skipped)
+> +			return true;
+> +
+> +		vm_bo->lock_skipped = false;
+> +		break;
+> +	case DRM_GPUVM_EXEC_PASS_ALL:
+> +		vm_bo->lock_skipped = false;
+> +		break;
+> +	}
+> +
+> +	return vm_bo->lock_skipped;
+> +}
+> +
+>   static int
+>   __drm_gpuvm_prepare_objects(struct drm_gpuvm *gpuvm,
+>   			    struct drm_exec *exec,
+> -			    unsigned int num_fences)
+> +			    unsigned int num_fences,
+> +			    enum drm_gpuvm_exec_pass pass)
+>   {
+>   	struct drm_gpuvm_bo *vm_bo;
+>   	LIST_HEAD(extobjs);
+>   	int ret = 0;
+>   
+>   	for_each_vm_bo_in_list(gpuvm, extobj, &extobjs, vm_bo) {
+> +		if (drm_gpuvm_prepare_skip(vm_bo, pass))
+> +			continue;
+> +
+>   		ret = exec_prepare_obj(exec, vm_bo->obj, num_fences);
+>   		if (ret)
+>   			break;
+> @@ -1244,7 +1421,8 @@ __drm_gpuvm_prepare_objects(struct drm_gpuvm *gpuvm,
+>   static int
+>   drm_gpuvm_prepare_objects_locked(struct drm_gpuvm *gpuvm,
+>   				 struct drm_exec *exec,
+> -				 unsigned int num_fences)
+> +				 unsigned int num_fences,
+> +				 enum drm_gpuvm_exec_pass pass)
+>   {
+>   	struct drm_gpuvm_bo *vm_bo;
+>   	int ret = 0;
+> @@ -1254,6 +1432,9 @@ drm_gpuvm_prepare_objects_locked(struct drm_gpuvm *gpuvm,
+>   		if (drm_gpuvm_bo_is_zombie(vm_bo))
+>   			continue;
+>   
+> +		if (drm_gpuvm_prepare_skip(vm_bo, pass))
+> +			continue;
+> +
+>   		ret = exec_prepare_obj(exec, vm_bo->obj, num_fences);
+>   		if (ret)
+>   			break;
+> @@ -1293,13 +1474,54 @@ drm_gpuvm_prepare_objects(struct drm_gpuvm *gpuvm,
+>   			  struct drm_exec *exec,
+>   			  unsigned int num_fences)
+>   {
+> +	return drm_gpuvm_exec_pass_prepare_objects(gpuvm, exec, num_fences,
+> +						   DRM_GPUVM_EXEC_PASS_ALL);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_objects);
+> +
+> +/**
+> + * drm_gpuvm_exec_pass_prepare_objects() - prepare the associated BOs of a pass
+> + * @gpuvm: the &drm_gpuvm
+> + * @exec: the &drm_exec locking context
+> + * @num_fences: the amount of &dma_fences to reserve
+> + * @pass: the &enum drm_gpuvm_exec_pass to prepare for
+> + *
+> + * Same as drm_gpuvm_prepare_objects(), except that @pass selects which
+> + * external objects are prepared. With %DRM_GPUVM_EXEC_PASS_EARLY the resident
+> + * &drm_gpuvm_bos are left alone, so that their dma-resv locks are only taken
+> + * by the %DRM_GPUVM_EXEC_PASS_LATE call which follows in the same &drm_exec
+> + * transaction.
+> + *
+> + * The two passes must be used as a pair and in that order, since the late one
+> + * derives what to prepare from what the early one recorded.
+> + *
+> + * Anything other than %DRM_GPUVM_EXEC_PASS_ALL requires a
+> + * %DRM_GPUVM_RESV_PROTECTED @gpuvm, whose common dma-resv, held across both
+> + * passes, is what keeps the external object list stable between them.
+> + *
+> + * Returns: 0 on success, negative error code on failure, -EOPNOTSUPP if @pass
+> + * is not %DRM_GPUVM_EXEC_PASS_ALL and @gpuvm is not
+> + * %DRM_GPUVM_RESV_PROTECTED.
+> + */
+> +int
+> +drm_gpuvm_exec_pass_prepare_objects(struct drm_gpuvm *gpuvm,
+> +				    struct drm_exec *exec,
+> +				    unsigned int num_fences,
+> +				    enum drm_gpuvm_exec_pass pass)
+> +{
+> +	if (!drm_gpuvm_exec_pass_supported(gpuvm, pass))
+> +		return -EOPNOTSUPP;
+> +
+> +	drm_gpuvm_pass_assert_held(gpuvm, pass);
+> +
+>   	if (drm_gpuvm_resv_protected(gpuvm))
+>   		return drm_gpuvm_prepare_objects_locked(gpuvm, exec,
+> -							num_fences);
+> +							num_fences, pass);
+>   	else
+> -		return __drm_gpuvm_prepare_objects(gpuvm, exec, num_fences);
+> +		return __drm_gpuvm_prepare_objects(gpuvm, exec, num_fences,
+> +						   pass);
+>   }
+> -EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_objects);
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_exec_pass_prepare_objects);
+>   
+>   /**
+>    * drm_gpuvm_prepare_range() - prepare all BOs mapped within a given range
+> @@ -1338,6 +1560,32 @@ drm_gpuvm_prepare_range(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_range);
+>   
+> +/*
+> + * Prepare the external objects belonging to @pass and let the driver do its
+> + * per pass work. Contention is left for the caller to act on, since only it
+> + * can restart the drm_exec transaction.
+> + */
+> +static int
+> +drm_gpuvm_exec_do_pass(struct drm_gpuvm_exec *vm_exec,
+> +		       enum drm_gpuvm_exec_pass pass)
+> +{
+> +	int ret;
+> +
+> +	drm_gpuvm_pass_assert_held(vm_exec->vm, pass);
+> +
+> +	vm_exec->pass = pass;
+> +
+> +	ret = drm_gpuvm_exec_pass_prepare_objects(vm_exec->vm, &vm_exec->exec,
+> +						  vm_exec->num_fences, pass);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (vm_exec->extra.fn)
+> +		return vm_exec->extra.fn(vm_exec);
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * drm_gpuvm_exec_lock() - lock all dma-resv of all associated BOs
+>    * @vm_exec: the &drm_gpuvm_exec wrapper
+> @@ -1350,6 +1598,24 @@ EXPORT_SYMBOL_GPL(drm_gpuvm_prepare_range);
+>    * dma-resv in the context of the &drm_gpuvm_exec instance. Typically, drivers
+>    * would call drm_exec_prepare_obj() from within this callback.
+>    *
+> + * If struct drm_gpuvm_exec::two_pass is set the locking may be split in two,
+> + * see &enum drm_gpuvm_exec_pass, and @fn is called once per pass with struct
+> + * drm_gpuvm_exec::pass telling it which one it is in. The split is skipped,
+> + * and @fn called once with %DRM_GPUVM_EXEC_PASS_ALL, when there is nothing
+> + * evicted for it to help with; see drm_gpuvm_exec_pass_needs_split(). A
+> + * driver setting two_pass therefore has to handle all three passes. Such a
+> + * callback has to be written with that in mind: preparing the same object in
+> + * both passes fails with -EALREADY. Both passes share the one &drm_exec
+> + * transaction, so the late pass only ever adds locks to what the early pass
+> + * already holds. This requires a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm, whose
+> + * common dma-resv keeps the external object list stable across the two
+> + * passes; on any other two_pass warns and a single pass is used.
+> + *
+> + * Note that ww_mutex backoff can still restart the whole transaction from the
+> + * early pass, in which case the contended object is locked up front and the
+> + * early pass does run holding it. That is a rare fallback, not the common
+> + * path it is trying to avoid.
+> + *
+>    * Returns: 0 on success, negative error code on failure.
+>    */
+>   int
+> @@ -1368,17 +1634,22 @@ drm_gpuvm_exec_lock(struct drm_gpuvm_exec *vm_exec)
+>   		if (ret)
+>   			goto err;
+>   
+> -		ret = drm_gpuvm_prepare_objects(gpuvm, exec, num_fences);
+> -		drm_exec_retry_on_contention(exec);
+> -		if (ret)
+> -			goto err;
+> -
+> -		if (vm_exec->extra.fn) {
+> -			ret = vm_exec->extra.fn(vm_exec);
+> +		if (vm_exec->two_pass && drm_gpuvm_exec_pass_needs_split(gpuvm)) {
+> +			ret = drm_gpuvm_exec_do_pass(vm_exec,
+> +						     DRM_GPUVM_EXEC_PASS_EARLY);
+>   			drm_exec_retry_on_contention(exec);
+>   			if (ret)
+>   				goto err;
+> +
+> +			ret = drm_gpuvm_exec_do_pass(vm_exec,
+> +						     DRM_GPUVM_EXEC_PASS_LATE);
+> +		} else {
+> +			ret = drm_gpuvm_exec_do_pass(vm_exec,
+> +						     DRM_GPUVM_EXEC_PASS_ALL);
+>   		}
+> +		drm_exec_retry_on_contention(exec);
+> +		if (ret)
+> +			goto err;
+>   	}
+>   
+>   	return 0;
+> @@ -1410,6 +1681,12 @@ fn_lock_array(struct drm_gpuvm_exec *vm_exec)
+>    * Acquires all dma-resv locks of all &drm_gem_objects the given &drm_gpuvm
+>    * contains mappings of, plus the ones given through @objs.
+>    *
+> + * Two-pass locking is not supported here: @objs are not tracked by the
+> + * &drm_gpuvm, so there is no way to tell which pass each of them belongs in.
+> + * A driver wanting both has to open code this using
+> + * drm_gpuvm_exec_lock() and a &drm_gpuvm_exec.extra callback which keys off
+> + * &drm_gpuvm_exec.pass.
+> + *
+>    * Returns: 0 on success, negative error code on failure.
+>    */
+>   int
+> @@ -1422,6 +1699,9 @@ drm_gpuvm_exec_lock_array(struct drm_gpuvm_exec *vm_exec,
+>   		unsigned int num_objs;
+>   	} args;
+>   
+> +	if (drm_WARN_ON_ONCE(vm_exec->vm->drm, vm_exec->two_pass))
+> +		return -EOPNOTSUPP;
+> +
+>   	args.objs = objs;
+>   	args.num_objs = num_objs;
+>   
+> @@ -1469,8 +1749,23 @@ drm_gpuvm_exec_lock_range(struct drm_gpuvm_exec *vm_exec,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gpuvm_exec_lock_range);
+>   
+> +/*
+> + * An object the current pass deliberately did not lock must not be validated,
+> + * it simply stays on the evicted list until a pass which does lock it comes
+> + * along.
+> + */
+> +static bool
+> +drm_gpuvm_validate_skip(struct drm_gpuvm_bo *vm_bo,
+> +			enum drm_gpuvm_exec_pass pass)
+> +{
+> +	drm_gpuvm_pass_assert_held(vm_bo->vm, pass);
+> +
+> +	return pass != DRM_GPUVM_EXEC_PASS_ALL && vm_bo->lock_skipped;
+> +}
+> +
+>   static int
+> -__drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+> +__drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
+> +		     enum drm_gpuvm_exec_pass pass)
+>   {
+>   	const struct drm_gpuvm_ops *ops = gpuvm->ops;
+>   	struct drm_gpuvm_bo *vm_bo;
+> @@ -1478,6 +1773,9 @@ __drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+>   	int ret = 0;
+>   
+>   	for_each_vm_bo_in_list(gpuvm, evict, &evict, vm_bo) {
+> +		if (drm_gpuvm_validate_skip(vm_bo, pass))
+> +			continue;
+> +
+>   		ret = ops->vm_bo_validate(vm_bo, exec);
+>   		if (ret)
+>   			break;
+> @@ -1490,7 +1788,8 @@ __drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+>   }
+>   
+>   static int
+> -drm_gpuvm_validate_locked(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+> +drm_gpuvm_validate_locked(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
+> +			  enum drm_gpuvm_exec_pass pass)
+>   {
+>   	const struct drm_gpuvm_ops *ops = gpuvm->ops;
+>   	struct drm_gpuvm_bo *vm_bo, *next;
+> @@ -1503,6 +1802,9 @@ drm_gpuvm_validate_locked(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+>   		if (drm_gpuvm_bo_is_zombie(vm_bo))
+>   			continue;
+>   
+> +		if (drm_gpuvm_validate_skip(vm_bo, pass))
+> +			continue;
+> +
+>   		ret = ops->vm_bo_validate(vm_bo, exec);
+>   		if (ret)
+>   			break;
+> @@ -1527,18 +1829,146 @@ drm_gpuvm_validate_locked(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+>    */
+>   int
+>   drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec)
+> +{
+> +	return drm_gpuvm_exec_pass_validate(gpuvm, exec, DRM_GPUVM_EXEC_PASS_ALL);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_validate);
+> +
+> +/**
+> + * drm_gpuvm_exec_pass_validate() - validate the BOs of a pass marked as evicted
+> + * @gpuvm: the &drm_gpuvm to validate evicted BOs
+> + * @exec: the &drm_exec instance used for locking the GPUVM
+> + * @pass: the &enum drm_gpuvm_exec_pass being validated
+> + *
+> + * Same as drm_gpuvm_validate(), except that the &drm_gpuvm_bos which the
+> + * matching drm_gpuvm_exec_pass_prepare_objects() call did not lock are left
+> + * alone. They stay on the evicted list for the %DRM_GPUVM_EXEC_PASS_LATE
+> + * pass, which locks them, to deal with.
+> + *
+> + * Anything other than %DRM_GPUVM_EXEC_PASS_ALL requires a
+> + * %DRM_GPUVM_RESV_PROTECTED @gpuvm, as for
+> + * drm_gpuvm_exec_pass_prepare_objects().
+> + *
+> + * Returns: 0 on success, negative error code on failure, -EOPNOTSUPP if @pass
+> + * is not %DRM_GPUVM_EXEC_PASS_ALL and @gpuvm is not
+> + * %DRM_GPUVM_RESV_PROTECTED.
+> + */
+> +int
+> +drm_gpuvm_exec_pass_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec,
+> +			     enum drm_gpuvm_exec_pass pass)
+>   {
+>   	const struct drm_gpuvm_ops *ops = gpuvm->ops;
+>   
+>   	if (unlikely(!ops || !ops->vm_bo_validate))
+>   		return -EOPNOTSUPP;
+>   
+> +	if (!drm_gpuvm_exec_pass_supported(gpuvm, pass))
+> +		return -EOPNOTSUPP;
+> +
+> +	drm_gpuvm_pass_assert_held(gpuvm, pass);
+> +
+>   	if (drm_gpuvm_resv_protected(gpuvm))
+> -		return drm_gpuvm_validate_locked(gpuvm, exec);
+> +		return drm_gpuvm_validate_locked(gpuvm, exec, pass);
+>   	else
+> -		return __drm_gpuvm_validate(gpuvm, exec);
+> +		return __drm_gpuvm_validate(gpuvm, exec, pass);
+>   }
+> -EXPORT_SYMBOL_GPL(drm_gpuvm_validate);
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_exec_pass_validate);
+> +
+> +/**
+> + * drm_gpuvm_exec_pass_needs_split() - whether splitting the locking is worth it
+> + * @gpuvm: the &drm_gpuvm to query
+> + *
+> + * Two-pass locking only pays off when there is validation to be done, since
+> + * the point of it is to keep the resident external objects unlocked while
+> + * that runs. If nothing is evicted there is no such work, and the split would
+> + * only walk the external object list a second time to no purpose.
+> + *
+> + * This is advisory and O(1). It does not hold the dma-resv of the external
+> + * objects, so the answer can be stale by the time the caller acts on it, and
+> + * a &drm_gpuvm_bo which is destroyed while evicted keeps it pessimistic
+> + * until then. That is fine, because both answers are correct: a
+> + * single pass behaves exactly as it did before two-pass locking existed, and
+> + * a two-pass sequence with nothing evicted simply finds nothing to do in its
+> + * early pass.
+> + *
+> + * Requires a %DRM_GPUVM_RESV_PROTECTED @gpuvm with its common dma-resv held,
+> + * i.e. call it after drm_gpuvm_prepare_vm().
+> + *
+> + * Returns: true if the caller should use %DRM_GPUVM_EXEC_PASS_EARLY and
+> + * %DRM_GPUVM_EXEC_PASS_LATE, false if it should use a single
+> + * %DRM_GPUVM_EXEC_PASS_ALL.
+> + */
+> +bool
+> +drm_gpuvm_exec_pass_needs_split(struct drm_gpuvm *gpuvm)
+> +{
+> +	drm_gpuvm_resv_assert_held(gpuvm);
+> +
+> +	if (!drm_gpuvm_exec_pass_supported(gpuvm, DRM_GPUVM_EXEC_PASS_EARLY))
+> +		return false;
+> +
+> +	/*
+> +	 * Evicted private objects are already on the evicted list, having the
+> +	 * GPUVM's common dma-resv to be added under. Evicted external objects
+> +	 * are not, drm_gpuvm_bo_evict() cannot put them there, so they are
+> +	 * counted instead.
+> +	 */
+> +	return !list_empty(&gpuvm->evict.list) ||
+> +	       atomic_read(&gpuvm->extobj.num_evicted);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_exec_pass_needs_split);
+So the idea is that this can return false positives but, since everything is
+done under the gpuvm lock which is taken by the shrinker as well, then 
+it should never
+return false negatives? Then I wonder why it mentions that running 
+single pass
+when two-pass should run will still be correct, it is obviously true but are
+there cases where it can happen?
 
-This violates driver model expectations that IOMMU probing and domain
-attachment occur before driver binding - see commit bcb81ac6ae3c ("iommu:
-Get DT/ACPI parsing into the proper probe path").
+Everything looks good otherwise so might be able to give my Rb.
 
-With the introduction of the bcm2712-iommu driver behind the vc4 hvs
-device, a warning is triggered:
+> +
+> +/**
+> + * drm_gpuvm_exec_pass_has_evicted() - whether a pass has evicted BOs left
+> + * @gpuvm: the &drm_gpuvm to query
+> + * @pass: the &enum drm_gpuvm_exec_pass being validated
+> + *
+> + * Drivers typically loop over validation and rebinding until nothing is
+> + * evicted anymore. Since drm_gpuvm_exec_pass_validate() leaves the objects it
+> + * did not lock on the evicted list, %DRM_GPUVM_EXEC_PASS_EARLY must not use a
+> + * plain emptiness test for that loop condition or it would never terminate.
+> + * %DRM_GPUVM_EXEC_PASS_LATE holds every lock the transaction will ever hold,
+> + * so it behaves like %DRM_GPUVM_EXEC_PASS_ALL here.
+> + *
+> + * This is more accurate than testing the evicted list for emptiness even for
+> + * %DRM_GPUVM_EXEC_PASS_ALL, since zombie &drm_gpuvm_bos sit on that list
+> + * without ever being validated.
+> + *
+> + * For a &DRM_GPUVM_RESV_PROTECTED GPUVM the caller must hold its common
+> + * dma-resv lock, otherwise the evicted list's internal lock is taken. As
+> + * everywhere else, anything other than %DRM_GPUVM_EXEC_PASS_ALL requires the
+> + * former.
+> + *
+> + * Return: true if @pass still has an evicted &drm_gpuvm_bo to validate.
+> + */
+> +bool
+> +drm_gpuvm_exec_pass_has_evicted(struct drm_gpuvm *gpuvm,
+> +				enum drm_gpuvm_exec_pass pass)
+> +{
+> +	struct drm_gpuvm_bo *vm_bo;
+> +	bool ret = false;
+> +
+> +	if (!drm_gpuvm_resv_protected(gpuvm))
+> +		spin_lock(&gpuvm->evict.lock);
+> +	else
+> +		drm_gpuvm_resv_assert_held(gpuvm);
+> +
+> +	list_for_each_entry(vm_bo, &gpuvm->evict.list, list.entry.evict) {
+> +		if (drm_gpuvm_bo_is_zombie(vm_bo))
+> +			continue;
+> +
+> +		if (drm_gpuvm_validate_skip(vm_bo, pass))
+> +			continue;
+> +
+> +		ret = true;
+> +		break;
+> +	}
+> +
+> +	if (!drm_gpuvm_resv_protected(gpuvm))
+> +		spin_unlock(&gpuvm->evict.lock);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpuvm_exec_pass_has_evicted);
+>   
+>   /**
+>    * drm_gpuvm_resv_add_fence - add fence to private and all extobj
+> @@ -1597,6 +2027,7 @@ drm_gpuvm_bo_create(struct drm_gpuvm *gpuvm,
+>   	drm_gem_object_get(obj);
+>   
+>   	kref_init(&vm_bo->kref);
+> +	vm_bo->lock_skipped = false;
+>   	INIT_LIST_HEAD(&vm_bo->list.gpuva);
+>   	INIT_LIST_HEAD(&vm_bo->list.entry.gem);
+>   
+> @@ -1644,6 +2075,21 @@ drm_gpuvm_bo_destroy_not_in_lists_kref(struct kref *kref)
+>   	drm_gpuvm_bo_destroy_not_in_lists(vm_bo);
+>   }
+>   
+> +/*
+> + * Drop a &drm_gpuvm_bo out of &drm_gpuvm.extobj.num_evicted, which counts the
+> + * evicted external objects for drm_gpuvm_exec_pass_needs_split(). Only those
+> + * are counted, everything else being discoverable from the evicted list.
+> + */
+> +static void
+> +drm_gpuvm_bo_uncount_evicted(struct drm_gpuvm_bo *vm_bo)
+> +{
+> +	struct drm_gpuvm *gpuvm = vm_bo->vm;
+> +
+> +	if (drm_gpuvm_resv_protected(gpuvm) && vm_bo->evicted &&
+> +	    drm_gpuvm_is_extobj(gpuvm, vm_bo->obj))
+> +		atomic_dec(&gpuvm->extobj.num_evicted);
+> +}
+> +
+>   static void
+>   drm_gpuvm_bo_destroy(struct kref *kref)
+>   {
+> @@ -1655,6 +2101,8 @@ drm_gpuvm_bo_destroy(struct kref *kref)
+>   	if (!lock)
+>   		drm_gpuvm_resv_assert_held(gpuvm);
+>   
+> +	drm_gpuvm_bo_uncount_evicted(vm_bo);
+> +
+>   	drm_gpuvm_bo_list_del(vm_bo, extobj, lock);
+>   	drm_gpuvm_bo_list_del(vm_bo, evict, lock);
+>   
+> @@ -1789,6 +2237,7 @@ drm_gpuvm_bo_deferred_cleanup(struct drm_gpuvm *gpuvm)
+>   	if (drm_gpuvm_resv_protected(gpuvm)) {
+>   		dma_resv_lock(drm_gpuvm_resv(gpuvm), NULL);
+>   		llist_for_each_entry(vm_bo, bo_defer, list.entry.bo_defer) {
+> +			drm_gpuvm_bo_uncount_evicted(vm_bo);
+>   			drm_gpuvm_bo_list_del(vm_bo, extobj, false);
+>   			drm_gpuvm_bo_list_del(vm_bo, evict, false);
+>   		}
+> @@ -1959,6 +2408,11 @@ EXPORT_SYMBOL_GPL(drm_gpuvm_bo_extobj_add);
+>    * @evict: indicates whether the object is evicted
+>    *
+>    * Adds a &drm_gpuvm_bo to or removes it from the &drm_gpuvm's evicted list.
+> + *
+> + * An external object of a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm is the
+> + * exception: the evicted list is protected by the GPUVM's common dma-resv
+> + * there, which this does not hold, so such an object is only accounted for
+> + * and is put on the list later, by drm_gpuvm_prepare_objects().
+>    */
+>   void
+>   drm_gpuvm_bo_evict(struct drm_gpuvm_bo *vm_bo, bool evict)
+> @@ -1966,16 +2420,29 @@ drm_gpuvm_bo_evict(struct drm_gpuvm_bo *vm_bo, bool evict)
+>   	struct drm_gpuvm *gpuvm = vm_bo->vm;
+>   	struct drm_gem_object *obj = vm_bo->obj;
+>   	bool lock = !drm_gpuvm_resv_protected(gpuvm);
+> +	bool was_evicted = vm_bo->evicted;
+>   
+>   	dma_resv_assert_held(obj->resv);
+> -	vm_bo->evicted = evict;
+> +	/*
+> +	 * Pairs with the READ_ONCE() in drm_gpuvm_prepare_skip(), which reads
+> +	 * this without the object's dma-resv held.
+> +	 */
+> +	WRITE_ONCE(vm_bo->evicted, evict);
+>   
+>   	/* Can't add external objects to the evicted list directly if not using
+>   	 * internal spinlocks, since in this case the evicted list is protected
+>   	 * with the VM's common dma-resv lock.
+>   	 */
+> -	if (drm_gpuvm_is_extobj(gpuvm, obj) && !lock)
+> +	if (drm_gpuvm_is_extobj(gpuvm, obj) && !lock) {
+> +		/*
+> +		 * Count them instead, so drm_gpuvm_exec_pass_needs_split() can tell
+> +		 * whether any are evicted without walking the list. The
+> +		 * object's dma-resv is held, so the transition is stable.
+> +		 */
+> +		if (evict != was_evicted)
+> +			atomic_add(evict ? 1 : -1, &gpuvm->extobj.num_evicted);
+>   		return;
+> +	}
+>   
+>   	if (evict)
+>   		drm_gpuvm_bo_list_add(vm_bo, evict, lock);
+> diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
+> index 38221d83285b..33a69d771eee 100644
+> --- a/include/drm/drm_gpuvm.h
+> +++ b/include/drm/drm_gpuvm.h
+> @@ -308,6 +308,18 @@ struct drm_gpuvm {
+>   		 * @extobj.lock: spinlock to protect the extobj list
+>   		 */
+>   		spinlock_t lock;
+> +
+> +		/**
+> +		 * @extobj.num_evicted: number of entries of the extobj list
+> +		 * which are evicted.
+> +		 *
+> +		 * Only maintained for a %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm,
+> +		 * where an evicted external object cannot be put on the
+> +		 * evicted list, and only so that drm_gpuvm_exec_pass_needs_split()
+> +		 * does not have to walk the list to find out. Never used to
+> +		 * decide anything that has to be exact.
+> +		 */
+> +		atomic_t num_evicted;
+>   	} extobj;
+>   
+>   	/**
+> @@ -521,6 +533,76 @@ __drm_gpuva_next(struct drm_gpuva *va)
+>   #define drm_gpuvm_for_each_va_safe(va__, next__, gpuvm__) \
+>   	list_for_each_entry_safe(va__, next__, &(gpuvm__)->rb.list, rb.entry)
+>   
+> +/**
+> + * enum drm_gpuvm_exec_pass - the pass of a &drm_gpuvm locking sequence
+> + *
+> + * Most drivers lock all the &drm_gem_objects a &drm_gpuvm has mappings of in
+> + * a single &drm_exec transaction and use %DRM_GPUVM_EXEC_PASS_ALL, which is
+> + * the default.
+> + *
+> + * A driver may instead ask for the locking to be split in two passes, by
+> + * setting &drm_gpuvm_exec.two_pass, in order to bound the time it holds the
+> + * dma-resv lock of objects it does not have to validate. Only the evicted
+> + * objects need that, so only those are locked by the early pass, and
+> + * everything else is locked by the late pass once the validation is already
+> + * done.
+> + *
+> + * The passes only divide up the external objects. The &drm_gpuvm's own
+> + * dma-resv is held for the whole transaction, so private objects, which share
+> + * it, are available to the driver in the early pass and are validated there.
+> + *
+> + * Both passes run inside a single &drm_exec transaction: the early pass keeps
+> + * everything it locked, and the late pass only ever adds to that. Nothing is
+> + * unlocked in between, so work done in the early pass is still valid when the
+> + * driver submits at the end of the late pass.
+> + */
+> +enum drm_gpuvm_exec_pass {
+> +	/**
+> +	 * @DRM_GPUVM_EXEC_PASS_ALL: Prepare every external object. This is the
+> +	 * behaviour of a single pass locking sequence. Its value is zero so
+> +	 * that a zero initialised &drm_gpuvm_exec keeps that behaviour.
+> +	 */
+> +	DRM_GPUVM_EXEC_PASS_ALL = 0,
+> +
+> +	/**
+> +	 * @DRM_GPUVM_EXEC_PASS_EARLY: Validate everything the transaction
+> +	 * already holds, and opportunistically take on the external objects
+> +	 * which are worth taking on.
+> +	 *
+> +	 * The &drm_gpuvm's dma-resv is held from the start of the transaction,
+> +	 * so every private object is locked before this pass begins. The
+> +	 * driver validates all of the evicted ones here.
+> +	 *
+> +	 * External objects are not locked yet, and this pass only prepares the
+> +	 * ones which are evicted, that is the ones which are going to need
+> +	 * validating anyway, for the driver to validate as well. The resident
+> +	 * ones are deliberately left for later: they are still worked on
+> +	 * before the transaction ends, having a fence attached or their
+> +	 * mappings rebound, but none of that has to wait behind a migration,
+> +	 * so there is no reason to hold their dma-resv while one is going on.
+> +	 */
+> +	DRM_GPUVM_EXEC_PASS_EARLY,
+> +
+> +	/**
+> +	 * @DRM_GPUVM_EXEC_PASS_LATE: Lock everything else, and pick up
+> +	 * whatever raced with the early pass.
+> +	 *
+> +	 * This prepares exactly the external objects the early pass left out,
+> +	 * so that the transaction ends up holding the same set of locks a
+> +	 * %DRM_GPUVM_EXEC_PASS_ALL one would have. That set is the complement
+> +	 * of what the early pass actually did, which is not the same thing as
+> +	 * whatever happens to be resident by now: an object can be evicted
+> +	 * while the early pass is doing its slow work, and re-preparing an
+> +	 * object the transaction already holds would fail with -EALREADY.
+> +	 *
+> +	 * The driver validates again here. Usually there is nothing left to
+> +	 * do, but an object which was resident when the early pass skipped it
+> +	 * may have been evicted since, and this is the pass which holds its
+> +	 * dma-resv and can deal with it.
+> +	 */
+> +	DRM_GPUVM_EXEC_PASS_LATE,
+> +};
+> +
+>   /**
+>    * struct drm_gpuvm_exec - &drm_gpuvm abstraction of &drm_exec
+>    *
+> @@ -544,6 +626,32 @@ struct drm_gpuvm_exec {
+>   	 */
+>   	struct drm_gpuvm *vm;
+>   
+> +	/**
+> +	 * @two_pass: split the locking into an early and a late pass; see
+> +	 * &enum drm_gpuvm_exec_pass. Only supported for a
+> +	 * %DRM_GPUVM_RESV_PROTECTED &drm_gpuvm, since the two passes have to
+> +	 * agree on which external objects exist and only the GPUVM's common
+> +	 * dma-resv, held across both, gives that. Setting it on any other
+> +	 * &drm_gpuvm warns, and a single pass is used.
+> +	 *
+> +	 * This is a request, not a guarantee: the split is skipped when
+> +	 * drm_gpuvm_exec_pass_needs_split() says it would not help, in which
+> +	 * case the callback sees a single %DRM_GPUVM_EXEC_PASS_ALL.
+> +	 *
+> +	 * Only drm_gpuvm_exec_lock() acts on this. drm_gpuvm_exec_lock_array()
+> +	 * rejects it and drm_gpuvm_exec_lock_range() ignores it, neither
+> +	 * having a way to assign the objects it is given to a pass.
+> +	 */
+> +	bool two_pass;
+> +
+> +	/**
+> +	 * @pass: the pass currently being prepared. Set by drm_gpuvm_exec_lock()
+> +	 * before each call to @extra.fn, so that the callback can tell which
+> +	 * objects it may touch. Always %DRM_GPUVM_EXEC_PASS_ALL unless
+> +	 * @two_pass is set.
+> +	 */
+> +	enum drm_gpuvm_exec_pass pass;
+> +
+>   	/**
+>   	 * @num_fences: the number of fences to reserve for the &dma_resv of the
+>   	 * locked &drm_gem_objects
+> @@ -576,6 +684,11 @@ int drm_gpuvm_prepare_objects(struct drm_gpuvm *gpuvm,
+>   			      struct drm_exec *exec,
+>   			      unsigned int num_fences);
+>   
+> +int drm_gpuvm_exec_pass_prepare_objects(struct drm_gpuvm *gpuvm,
+> +					struct drm_exec *exec,
+> +					unsigned int num_fences,
+> +					enum drm_gpuvm_exec_pass pass);
+> +
+>   int drm_gpuvm_prepare_range(struct drm_gpuvm *gpuvm,
+>   			    struct drm_exec *exec,
+>   			    u64 addr, u64 range,
+> @@ -606,6 +719,13 @@ drm_gpuvm_exec_unlock(struct drm_gpuvm_exec *vm_exec)
+>   }
+>   
+>   int drm_gpuvm_validate(struct drm_gpuvm *gpuvm, struct drm_exec *exec);
+> +int drm_gpuvm_exec_pass_validate(struct drm_gpuvm *gpuvm,
+> +				 struct drm_exec *exec,
+> +				 enum drm_gpuvm_exec_pass pass);
+> +bool drm_gpuvm_exec_pass_needs_split(struct drm_gpuvm *gpuvm);
+> +
+> +bool drm_gpuvm_exec_pass_has_evicted(struct drm_gpuvm *gpuvm,
+> +				     enum drm_gpuvm_exec_pass pass);
+>   void drm_gpuvm_resv_add_fence(struct drm_gpuvm *gpuvm,
+>   			      struct drm_exec *exec,
+>   			      struct dma_fence *fence,
+> @@ -642,7 +762,8 @@ drm_gpuvm_exec_resv_add_fence(struct drm_gpuvm_exec *vm_exec,
+>   static inline int
+>   drm_gpuvm_exec_validate(struct drm_gpuvm_exec *vm_exec)
+>   {
+> -	return drm_gpuvm_validate(vm_exec->vm, &vm_exec->exec);
+> +	return drm_gpuvm_exec_pass_validate(vm_exec->vm, &vm_exec->exec,
+> +					    vm_exec->pass);
+>   }
+>   
+>   /**
+> @@ -676,10 +797,24 @@ struct drm_gpuvm_bo {
+>   
+>   	/**
+>   	 * @evicted: Indicates whether the &drm_gem_object is evicted; field
+> -	 * protected by the &drm_gem_object's dma-resv lock.
+> +	 * protected by the &drm_gem_object's dma-resv lock. Only written
+> +	 * through drm_gpuvm_bo_evict(), with WRITE_ONCE(), since
+> +	 * %DRM_GPUVM_EXEC_PASS_EARLY reads it without that lock held.
+>   	 */
+>   	bool evicted;
+>   
+> +	/**
+> +	 * @lock_skipped: Indicates that the current &drm_exec transaction does
+> +	 * not hold this &drm_gpuvm_bo's dma-resv, because
+> +	 * %DRM_GPUVM_EXEC_PASS_EARLY skipped it as not needing validation.
+> +	 * Unlike @evicted this is stable for the duration of a locking
+> +	 * sequence, which is what makes it safe for
+> +	 * drm_gpuvm_exec_pass_validate() to key off, and what tells
+> +	 * %DRM_GPUVM_EXEC_PASS_LATE which objects are still missing. Field
+> +	 * protected the same way as the &drm_gpuvm's extobj list.
+> +	 */
+> +	bool lock_skipped;
+> +
+>   	/**
+>   	 * @kref: The reference count for this &drm_gpuvm_bo.
+>   	 */
 
-    vc4-drm gpu: late IOMMU probe at driver bind, something fishy here!
-
-Instead of configuring the virtual aggregate device, adopt the pattern
-used by sun4i/sun8i/exynos where candidate DMA-capable hardware components
-register themselves as the device to use for DRM allocations via
-drm_dev_set_dma_dev(), provided a DMA device has not already been
-assigned.
-
-HVS will typically bind first and claim the DMA device. The gen6 36-bit
-DMA mask configuration was moved into vc4_hvs_bind() accordingly. For
-older generations, vc4's v3d component continues to be available as a
-fallback, and the default platform bus 32-bit DMA mask is retained.
-
-Fixes: da8e393e23ef ("drm/vc4: drv: Adopt the dma configuration from the HVS or V3D component")
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
-Changes in v3:
-- Drop unused includes (of_device.h, dma-mapping.h, drm_drv.h)
-- Drop redundant comment on HVS DMA device setup
-- Link to v2: https://lore.kernel.org/r/20260928-drm-dma-device-2-v2-1-8e8b6288cd31@reactivated.net
-
-Changes in v2:
-- Fix vc4_bo_purge() to also use the selected DMA device for freeing
-  allocations
-- Link to v1: https://lore.kernel.org/r/20260927-drm-dma-device-2-v1-1-3230afcdc851@reactivated.net
----
- drivers/gpu/drm/vc4/vc4_bo.c  |  3 ++-
- drivers/gpu/drm/vc4/vc4_drv.c | 29 -----------------------------
- drivers/gpu/drm/vc4/vc4_hvs.c | 10 ++++++++++
- drivers/gpu/drm/vc4/vc4_v3d.c |  7 +++++++
- 4 files changed, 19 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 49ea2ed0996b..320c5a0c71ed 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -303,7 +303,8 @@ static void vc4_bo_purge(struct drm_gem_object *obj)
- 
- 	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
- 
--	dma_free_wc(dev->dev, obj->size, bo->base.vaddr, bo->base.dma_addr);
-+	dma_free_wc(drm_dev_dma_dev(dev), obj->size, bo->base.vaddr,
-+		    bo->base.dma_addr);
- 	bo->base.vaddr = NULL;
- 	bo->madv = __VC4_MADV_PURGED;
- }
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index 616caf9d9915..83a9443db98f 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -24,10 +24,8 @@
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/device.h>
--#include <linux/dma-mapping.h>
- #include <linux/io.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
-@@ -273,16 +271,6 @@ static void vc4_component_unbind_all(void *ptr)
- 	component_unbind_all(vc4->dev, &vc4->base);
- }
- 
--static const struct of_device_id vc4_dma_range_matches[] = {
--	{ .compatible = "brcm,bcm2711-hvs" },
--	{ .compatible = "brcm,bcm2712-hvs" },
--	{ .compatible = "brcm,bcm2835-hvs" },
--	{ .compatible = "brcm,bcm2835-v3d" },
--	{ .compatible = "brcm,cygnus-v3d" },
--	{ .compatible = "brcm,vc4-v3d" },
--	{}
--};
--
- static int vc4_drm_bind(struct device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev);
-@@ -295,8 +283,6 @@ static int vc4_drm_bind(struct device *dev)
- 	enum vc4_gen gen;
- 	int ret = 0;
- 
--	dev->coherent_dma_mask = DMA_BIT_MASK(32);
--
- 	gen = (enum vc4_gen)of_device_get_match_data(dev);
- 
- 	if (gen > VC4_GEN_4)
-@@ -304,21 +290,6 @@ static int vc4_drm_bind(struct device *dev)
- 	else
- 		driver = &vc4_drm_driver;
- 
--	if (gen >= VC4_GEN_6_C)
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
--	else
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
--
--	node = of_find_matching_node_and_match(NULL, vc4_dma_range_matches,
--					       NULL);
--	if (node) {
--		ret = of_dma_configure(dev, node, true);
--		of_node_put(node);
--
--		if (ret)
--			return ret;
--	}
--
- 	vc4 = devm_drm_dev_alloc(dev, driver, struct vc4_dev, base);
- 	if (IS_ERR(vc4))
- 		return PTR_ERR(vc4);
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index e715147d091c..b1fb096858cc 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -22,6 +22,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/component.h>
-+#include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -1662,6 +1663,15 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 		hvs->regset.nregs = ARRAY_SIZE(vc4_hvs_regs);
- 	}
- 
-+	if (vc4->gen >= VC4_GEN_6_C) {
-+		ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(36));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	if (vc4->gen >= VC4_GEN_5) {
- 		struct rpi_firmware *firmware;
- 		struct device_node *node;
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index f32410420d3e..345766ef353c 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -443,6 +443,13 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
- 	vc4->v3d = v3d;
- 	v3d->vc4 = vc4;
- 
-+	/*
-+	 * In headless setups where HVS is absent, use V3D as the fallback
-+	 * DMA controller for buffer allocations.
-+	 */
-+	if (drm_dev_dma_dev(drm) == drm->dev)
-+		drm_dev_set_dma_dev(drm, dev);
-+
- 	v3d->clk = devm_clk_get_optional(dev, NULL);
- 	if (IS_ERR(v3d->clk))
- 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
-
----
-base-commit: 16130ac7861fbbaef5564463a9f6be230e00fb24
-change-id: 20260927-drm-dma-device-2-7cb00af72069
 
 Best regards,
 -- 
-Daniel Drake <dan@reactivated.net>
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
