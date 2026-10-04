@@ -4,53 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A62ECA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 13:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B59A9CA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 13:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC31710E0EC;
-	Sun,  4 Oct 2026 13:39:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18D3910E395;
+	Sun,  4 Oct 2026 13:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rosenzweig.io header.i=@rosenzweig.io header.b="qpQ6O1f6";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QUDk6s5N";
 	dkim-atps=neutral
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Sun, 04 Oct 2026 13:38:59 UTC
-Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 822F610E0EC
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 13:38:59 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=1+k00O3LND89cQEhluXVGIxTtZ/cWD8RGcLFGETy+k0=; 
- c=simple/simple; d=rosenzweig.io;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791121137; v=1; x=1791725937;
- b=qpQ6O1f6muNtfJfXHl4FFaSKX5Fp/88FN7Ecu/KHd5it3t8rWGmmVFW7In53LrJ2zJgxcTw3
- 24o66EajxhouF7Y7GSYE9kR+4U4vMK8oLoHNbN+sJnWTCh/+w0EKy0zsv7LNryhRMOhCMhB0LBK
- 9qrEc0Qr2y71O17Igf9K6DSpidIZ6ksLfNx5sJ07rmo4hgFMn9OFxpUQ0QeQrycjAoZvWE7p0H2
- czH4SLw5E4T/YuDjULrhz0tH9gG0cX24n98vvbDE0Lz+odmrNh2DhS5ZFNQxUGb7AHrIi/x36fU
- UMLAowDAANoC3zwYOAZdknIr1PQqJWh8Y5pD0vHO+CLdQ==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 293fd97adc88c8a6;
- Sun, 04 Oct 2026 13:32:52 +0000
-X-Mizu-Trace-ID: 293fd97adc88c8a6
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 4 Oct 2026 09:32:48 -0400
-From: Alyssa Rosenzweig <alyssa@rosenzweig.io>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>,
- sofus <sofus.c@icloud.com>, Janne Grunau <j@jannau.net>
-Subject: Re: [PATCH v2] drm/fourcc: Add Apple Interchange layout format
- modifier
-Message-ID: <asJVgFVWYzG0frrM@fedora>
-References: <20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com>
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com
+ [74.125.224.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2916810E395
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 13:58:17 +0000 (UTC)
+Received: by mail-yx2-f39.google.com with SMTP id
+ 00721157ae682-8ac8e048735so4493857b3.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 06:58:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791122296; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ZsvqzY+A/d44CVD9FOMXkWL2D0VkagrbiIMFwuTUwVQx7cYMLXi+3QHKgAFsh7I+9g
+ 2IL2R4vS4O/PkF1l/GC6cVLjUT6UTsmnm7XEYPaytvzLbvBwONsh6g7FP74HAfGSwxIs
+ qUTw7YVdeZWRm5Z5Muw+K6xCtrNFByeGzl0xSXE5l2U6cGFzh735E51LDqdvOsC/fmxt
+ ZPzaxvRe36djlLFgsjMzPaIWzWwdVTXj2ceiL1+mFeYOwCWH2kg+mLTMMeiRxYsNl4Zb
+ M4PqY3Y4IWFzvBGSzv9Y9ttXfNmfOfkFW/QlgObmSYV0z8uE5udnyYafjpxl4HRSg9Ji
+ TOww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+ fh=x9quA3T4QcJMZokXOOfkSBvLfI9qivFd2yYj+saLl0w=;
+ b=e4aqD5JvtMWBEpLtwxAwATalc5Pu7lBgwQ5oDnh3njSp7WfjA6VvMKL8a4lWjbndbC
+ rV3kxfFhTNE+kfzP0XyLD3W7bB1RkK3C9e9Ko/4TyU1y1P3A+jd79s919wJsI7lwDeej
+ QeyiAM89cKfaR8knkY5aUAuJHMgkEKkL67kVpS5t3VSBogpmh/g2yZhWq4vTLhPmuvvJ
+ kkJNr9IZt3nU+wt+sC7/U3qRr6jL++I1ug0Qgfg0RFbBdlbMbF4cE4dbD7mIpjjUSRt3
+ dKqMW1wSQLNWV9OJ82ycybzF+fyXIhGnXD4to3s0koqAjGWB/IdQhYaYPyMLGo3SiaNh
+ A95w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1791122296; x=1791727096; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+ b=QUDk6s5NbwNJ6z3cVt46NVU0Lv2vwhjtOiMxW4C5ZKhQBzwi+l081Si5kcb1cd5tm+
+ LZ65+e3Ey3on/XRYtNB3tiEMOgGtmMMUWEz97Sx5vEWIzalkyfTfwRxbnwhUtb0X02t+
+ Bgn5Ss8XoA3xjPRmLB0FR2JG/pjKKqo6ne54tEt3h19RMknRryDvc5Q9/cuqpbYgtHv4
+ lS0brZ9YW/d+IkcUViUn2ylf4AXDDHFqsdxLymnurlLWc+W2MNBOdC1iM9nOpQy3jNqK
+ b156MmOaON29beDwGksJ2kkvA0o/lDy62mWI+PEbyz9cwFbBpNx7ULrYdhcDoNNQNfbD
+ AoKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791122296; x=1791727096;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+ b=DyEOCpr0RHwEzHDnop+WwdKu0V+7l5lo5WENFQOyMrtg42zR+BReNHDanoP1MTpqHn
+ fTdaMUBVKEYF5Jd5WyWDqRg0N9D/QWTWU4F74lGlSIKkVuWBPzp4NPpozJbsc15tiAB4
+ kXd5QyuEwCboYmOs/qHK5cZzzmWlYo5AaDN7Bc9qNQJ5T/TkaIg13dp7eeJaXZqdvjqW
+ XZRl5pXnB39gyabEGHqd0QuKA1+veiG/DV/e3xEF33BcExBYtY0O0vEX5b62FDLRL3CU
+ QjDfRV5rqIrSmXf6KjfIKMxk+rzAtkTrsg7JPR2geDMQ+hrO8JYEkfEWBiSyiju/3gqM
+ u3SQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwE2VKrk8SY0P8vkFW4rAKgMkSNTDmZ1HINBRvxFD1pEgT3uIYQt91JLt89OTyt2To+mtqJEoamjcQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKCURfgxGE6lmfwcVFxK4BBq1zpjKqc6k+PfIgJPfpJOO3RCt6X
+ mZsr24/nqk2aZpJvvW4R7bVnVqQDYbF2yYA7b6KFsU+wrIyWdr2F3AJHLp/XpswYDhBW9twjcq2
+ pxkDUvKxs+Y4hY1pdTc1cOP5FnKA3EpuFfA7CVBSm3w==
+X-Gm-Gg: AYBFou1gW+sDUP+bXip3HgpaCWj/H10rz7A+bLTOc1BU9weWwHtAMuNR6Ry36tY7dXh
+ Wc18Yd3V+UgM1Yw5lD6t2HbnSe8y0V3PBHnoB3huQE3OxM/j2Pdj7U50fVcgYxoEcnnn+aAIywH
+ F7fQOnijoRlc+5Y2tQqjcnTxx4KZrhVbYhpWb2oPsqWqP9vJXDG58x6pzf/jaoC2Xf2+mWXAX31
+ f/JbgvEu7cDKl3PTQTk+11bhrPnXIQ30iaEXQGh9ylUpUJXo6J6m0V4T2sl+T0MfLWRHvbx3bZa
+ vovxo9RjDms3jm3ZX90MipHNksG5RJbphZoXJLe0EkR0y21GyKr/22efR6a0xXTm
+X-Received: by 2002:a05:690c:c3ec:b0:8ac:b167:4877 with SMTP id
+ 00721157ae682-8ae39bbdff2mr22844037b3.36.1791122295720; Sun, 04 Oct 2026
+ 06:58:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
+ <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+ <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
+ <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
+In-Reply-To: <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Sun, 4 Oct 2026 21:58:04 +0800
+X-Gm-Features: AclHuK9hzkrn0hz5wdouvmEqGC_OxpKSvbDPHUzvFuTecXtty7kAzmgPFKXJfPw
+Message-ID: <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
+ configurations
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +123,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The one big missing piece here is how strides are defined. I assume from
-context it's the same convention as GPU_TILED_COMPRESSED but this should
-probably be spelled out.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+10=E6=9C=881=E6=97=A5=E5=91=A8=E5=9B=9B 03:43=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B49=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > >
+> > > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
+> > > > Some devices treat two independent physical DSI panels as a single
+> > > > logical panel from the CRTC's perspective. However, two separate DS=
+I
+> > > > hosts are still required to drive the panels individually.
+> > > >
+> > > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> > > > allows a panel driver to inform the DSI host that it is part of a
+> > > > dual-panel setup, enabling the host to coordinate both physical
+> > > > displays as one.
+> > > >
+> > > > This change does not force individual panel driver to manage
+> > > > system-level display topology if the driver does not intended to
+> > > > support dual panel topology. Only the driver that set the flag to
+> > > > true need to take care of panel topology.
+> > > >
+> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > > ---
+> > > >  include/drm/drm_mipi_dsi.h | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > >
+> > > Do you have a single MIPI DSI device, or are there two independent MI=
+PI
+> > > DSI devices? In the latter case, the flag is wrongly placed.
+> >
+> > Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
+> > mipi device
+> > to notify host they are one of dual panels, so that horizontal
+> > configuration(width)
+> > in mipi host can be handled correctly. Where do you suggest to put this=
+ flag?
+> > Thanks!
+>
+> Into the msm DSI structures. We already have several Qualcomm-specific
+> flags. I'm thinking from the 'generic device' point of view. The
+> 'dual_panel' doesn't mean anything if the device has more than two DSI
+> hosts. You need to specify which hosts are mapped to L or R channels, etc=
+.
 
-Just adding a sentence "Strides follow the same convention
-as DRM_FORMAT_MOD_APPLE_GPU_TILED." should be enough to define the uAPI
-unambiguously here. With that it will be
+How about to add below 3 members regarding multiple physical panels in
+single logic panel. We have h*v panels in a panel wall. The index start fro=
+m
+0 when we iterate panel from left to right of the top array of panel wall. =
+In
+XR case, we have num_panel_h =3D 2;  num_panel_v =3D 1; and
+panel_index =3D 0 for left channel, panel_index =3D 1 for right channel. Th=
+e
+original framebuffer is divided into width/num_panel_h and
+height/num_panel_v for each panel's DSI link.
 
-Reviewed-by: Alyssa Rosenzweig <alyssa@rosenz.ca>
+u32 num_panel_h;
+u32 num_panel_v;
+u32 panel_index;
 
-Le Sun, Oct 04, 2026 at 10:42:29PM +1000, James Calligeros a écrit :
-> Apple Interchange is a tiled and compressed image layout used
-> for buffer exchange between Apple hardware blocks. It is
-> similar to the already-supported GPU_TILED_COMPRESSED layout.
-> 
-> Add a format modifier for Apple Interchange so that it can be
-> used for buffer exchange.
-> 
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
-> Changes in v2:
-> - Fix typo
-> - Link to v1: https://patch.msgid.link/20260831-apple-interchange-modifier-v1-1-5d6e27f9f308@gmail.com
-> 
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  include/uapi/drm/drm_fourcc.h | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-> index a103fdc0b3a3..d304ee5c614c 100644
-> --- a/include/uapi/drm/drm_fourcc.h
-> +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -1626,6 +1626,26 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
->  #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
->  #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
->  
-> +/*
-> + * Apple Interchange layout
-> + *
-> + * Apple Interchange is a compressed framebuffer format used exclusively for
-> + * sharing buffers between hardware blocks (GPU, display controller, video
-> + * codecs) on Apple platforms. It is similar to and uses the same compression
-> + * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
-> + * of Apple Interchange.
-> + *
-> + * Unlike the GPU layouts, tile size is not dependent on bit depth. RGB
-> + * images and the chroma components of YUV images use 16x16 tiles. The
-> + * luma component of YUV images uses 32x32 tiles. Compression tiles
-> + * are once again 16x16 with 8 bytes of metadata per compression subtile.
-> + *
-> + * AGX has limited support for Apple Interchange. It cannot be used for Z/S
-> + * buffers or array images, for example. It is intended for scanout buffer
-> + * sharing only.
-> + */
-> +#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
-> +
->  /*
->   * AMD modifiers
->   *
-> 
-> ---
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-> change-id: 20260830-apple-interchange-modifier-cbcc311c835d
-> 
-> Best regards,
-> --  
-> James Calligeros <jcalligeros99@gmail.com>
-> 
+>
+> --
+> With best wishes
+> Dmitry
