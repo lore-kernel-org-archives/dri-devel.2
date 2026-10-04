@@ -4,61 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02FACA5FCE
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7017FCA5FCE
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 07:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 111B710E594;
-	Mon,  5 Oct 2026 07:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38CC10E9FC;
+	Mon,  5 Oct 2026 07:24:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cXSGsj+g";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e+ctMgOT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5142710E594
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 07:08:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1791184140; x=1822720140;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zWF7iaHlUi+g2LHIgaEMvTQKtRlI8B0ZJGX2nECp3iY=;
- b=cXSGsj+gwDeJgwKREOggyR0LG9AQZznPEkLYi4jr5qjcC0WocamQeDz8
- b1PasutMGDEWAimczQi2L5m56L1gzAvImbhYUVoV9XNJ5RpoZ4ggw7TYG
- 3XqZgbJS344NE1eeN4TglRK20xmdAgifvZK1Xvl7YFO/ZAiPMqgIgWZiA
- 8SdHjDotgkxECT3gCSTA7J69hkLA5MoYlcIlZmy2BhG75urNs3W1Yv0MW
- 3E5WHIz2fpCt/lPzFFZbuCt92h3Rwcl+ySIAk92W+NGdhlCJfTfBoN1ce
- Ujd5+KIqznFsiQS9RSLH3A+cC3MkMoyisVC47/vppQDvnbKJzkBLPvlQX A==;
-X-CSE-ConnectionGUID: MmKsFVuTSOeCjk1FFIq3EA==
-X-CSE-MsgGUID: M+VLOscwSpy2a4eV7cfCWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="108225221"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="108225221"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 00:08:59 -0700
-X-CSE-ConnectionGUID: 2bByORPmQN+fimoQkQEcXw==
-X-CSE-MsgGUID: qLiJvYR4RnOLOSg+wJQzGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; d="scan'208";a="273143290"
-Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.114])
- ([10.217.180.114])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2026 00:08:57 -0700
-Message-ID: <df9d2be3-6b75-4640-8a98-8a131889cc8d@linux.intel.com>
-Date: Mon, 5 Oct 2026 09:08:56 +0200
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+ [209.85.160.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D5810E08C
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 21:24:08 +0000 (UTC)
+Received: by mail-qt1-f175.google.com with SMTP id
+ d75a77b69052e-5351d76e1baso7024491cf.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 14:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791149048; x=1791753848; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
+ b=e+ctMgOTymF+Tscj1W1FIFRqI4Dwy+XM8Pk6k79X7E8/VxJvQOHYK1uR/bktDOSGwb
+ njE1y5c9Q/iv5GUGKQkTPB7hhccDliwgVaiZLJkNxQ/EYqWa9Pg6DlV8qfCj8BvPkUfk
+ KSqdy6kZ5uXdfedyqKLIE/hIFckfgS0L2UXTzf44/CsLe3nWMrVkCzWk9+8I4Sw3L153
+ 9JmaMMNyXEk1nzC206aO7ISquC4l1m+wV0KswhYJyFPKqMK+v+fFaVC8sWEuu58WkzDz
+ Md7N2CU+Q1lR2MeTBPbciEEzG9MpVYAktZTf+2zXfPFnSpAIjf9SdeqYfr+LftWIrkQi
+ ud7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791149048; x=1791753848;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
+ b=I6K/u4GqxuAMo5O7PAeKmKhlCrR7TEJNvttthmJme74R37+OHyu/paa+LVwfO3b+2M
+ R8ZD+2lttXiHZRW1oged8nXRxuEg0EEWTa+JhHX+J5CHWk5QABlP9Kbo9EGiermwEui5
+ 4JoBwyy3mLs0Z1mFhiDBR2UAhfG/sIHudrdb5MXn8e9QN0Uyga4KcY9s+Uz/HHboWTmF
+ P0iU92w3akOX84scSPcw66OAFk2VA96HNmujE1DU0LT6vPx/LO2y65wD3Fg5lwuj0iA0
+ YpZqW0jigqrf8znCSIxi7kRqvR+xOhnrj+ekJcRF/i98hQgaEnzY8NzlmntTSc6Nz0EN
+ C1Mw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwkSKUe1S7w8sfDYlvVWTooDTzV+paKZcYvZHtAp89doaV59AUf5f9S1htK/FePHxLtXg/n6+xtL+U=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++neoB7co8bKJ8y2sT90nIRFRwVItXaHY7wT54kLe+lxGkrZxRfQ
+ QeCqJOwn/M79RsHIZ629ykX+Vil3DlEmywDs+Oo2N4f3U9Whd016Wqzs
+X-Gm-Gg: AYBFou21g0QUWr9twkzx4Z0p2VRMk5mvrW+81UQFgpGRSemZLTdHizMt+caFDD125z5
+ bFTlYftWqw3geQq412uRetJ20zmPZiYHvEHWfZyMHA3Z4upDJYolzavLrPTHJ1RyuoHjU5vw7dB
+ PIeXAwmACH490kX9oxHu7bnnN5zB3PBvnbW72u6xa/Pax7upNjQdfYyhvwNTCjyiVu2b9wB0n2o
+ ZD94PA8RCqnARW4ZiugPAlOG0WWpef8hdNh1z+SgvF6aQTnAgBsqBonVDfV7tgT4rQwaNjYgNUE
+ mQ1yateYE4mtO2pfKenbjiWySVzGIKEtocdNRzEW8Fc6lwWSl8xZ7cNe9J1enTw9QE5geE2KuHX
+ cTpVJSkFQYCWvLokhuYIrffuXPn8/mRHsfvlACmwpit64QytqgyY2qqBZCk/rH5ZTGdA3AsyvYJ
+ qBfOZIpGYBco+MsBn6EFxSk2kVfLRBK6tJN9l+y6lyx6a8ySqlUAAq4EigIiBV2LszSVS8aylyU
+ YEjjJvqf///TlzS6YhkPQ==
+X-Received: by 2002:a05:622a:653:b0:535:1924:d211 with SMTP id
+ d75a77b69052e-5351924d301mr81314081cf.1.1791149047944; 
+ Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-5339883034csm81689241cf.3.2026.10.04.14.24.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Xiaolin Zhang <xiaolin.zhang@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yuho Choi <oss.patchbox@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is still in
+ use
+Date: Sun,  4 Oct 2026 17:22:39 -0400
+Message-ID: <20261004212403.208681-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] accel/ivpu: Rework HW IP generation detection and
- dispatch
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com
-References: <20261001110401.2866557-1-dawid.osuchowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20261001110401.2866557-1-dawid.osuchowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 05 Oct 2026 07:24:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +94,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01-Oct-26 13:03, Dawid Osuchowski wrote:
-> This series reworks how the driver determines the HW IP generation and
-> buttress version, and how it dispatches on them.
-> 
-> Today ivpu_hw_ip_gen() and ivpu_hw_btrs_gen() run a switch over the PCI
-> device ID on every call, and an unknown ID only triggers a WARN() while
-> probe continues with an undefined generation. Patch 1 resolves both
-> values once during device init and fails probe with -EINVAL on an
-> unrecognized device ID.
-> 
-> With that guarantee in place, patch 2 changes the stored values and their
-> accessors to the real enum types and drops the default: labels from the
-> switches that dispatch on them, so -Wswitch flags a generation that is
-> added later but not handled.
-> 
-> Patch 3 splits the remaining per-generation dispatch in
-> ivpu_hw_ip_soc_cpu_boot() and pwr_island_delay_set() into helpers that
-> return directly from each case, removing the locals that were left
-> uninitialized on the path past the last case.
-> 
-> No functional change is intended beyond failing probe on an unknown PCI
-> device ID and logging the SOC CPU boot mode even when the boot fails.
-> 
-> Andrzej Kacprowski (1):
->    accel/ivpu: Improve HW IP gen and buttress version checks
-> 
-> Dawid Osuchowski (1):
->    accel/ivpu: Convert hw_ip_gen/btrs_gen to enum types
-> 
-> Karol Wachowski (1):
->    accel/ivpu: Split HW IP generation dispatch into helpers
-> 
->   drivers/accel/ivpu/ivpu_drv.c   | 69 +++++++++++++++++++-------
->   drivers/accel/ivpu/ivpu_drv.h   | 65 +++++++++----------------
->   drivers/accel/ivpu/ivpu_hw.h    |  1 -
->   drivers/accel/ivpu/ivpu_hw_ip.c | 86 ++++++++++++++++-----------------
->   4 files changed, 117 insertions(+), 104 deletions(-)
-> 
+intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
+gfn when it is requested with a different size, and maps the page again.
+The entry is still referenced: shadow GTT entries and dma-bufs keep
+using its DMA address after the page is unpinned and the DMA mapping is
+torn down. When the new mapping gets the same DMA address, their later
+intel_gvt_dma_unmap_guest_page() calls also drop the references of the
+new entry.
 
-Applied to drm-misc-next.
+Keep the existing entry instead. A 2M mapping covers a 4K request for
+its first page, so take a reference on it. If the entry is smaller than
+the request, fail and let the caller split the 2M entry into 4K pages,
+as it already does when a 2M mapping cannot be set up.
+
+Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index ec62db5cc3675..9a3e305253469 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
+ 		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+ 		if (ret)
+ 			goto err_unmap;
+-	} else if (entry->size != size) {
+-		/* the same gfn with different size: unmap and re-map */
+-		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
+-		__gvt_cache_remove_entry(vgpu, entry);
+-
+-		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
+-		if (ret)
+-			goto err_unlock;
+-
+-		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+-		if (ret)
+-			goto err_unmap;
++	} else if (entry->size < size) {
++		/*
++		 * The smaller mapping may still be in use, so don't replace
++		 * it. Fail and let the caller map the range in smaller pages.
++		 */
++		ret = -EBUSY;
++		goto err_unlock;
+ 	} else {
++		/* A mapping of the same or a larger size covers the request */
+ 		kref_get(&entry->ref);
+ 		*dma_addr = entry->dma_addr;
+ 	}
+
+base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+-- 
+2.43.0
+
