@@ -4,76 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C787CA5FF5
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BAACA5FF0
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E939E10EAC3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED56F10EAC9;
 	Sun,  4 Oct 2026 17:18:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PchpSqVh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qOSkLJpq";
 	dkim-atps=neutral
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com
- [74.125.225.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F42D10E0A0
- for <dri-devel@lists.freedesktop.org>; Fri,  2 Oct 2026 02:18:02 +0000 (UTC)
-Received: by mail-wr2-f34.google.com with SMTP id
- ffacd0b85a97d-48b01fd0ff1so343308f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 01 Oct 2026 19:18:02 -0700 (PDT)
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com
+ [74.125.227.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D060B10E53D
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 12:42:59 +0000 (UTC)
+Received: by mail-pj2-f40.google.com with SMTP id
+ 98e67ed59e1d1-3a7d725ca09so110271a91.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 05:42:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1790907481; x=1791512281; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=K3VaIb3BtBdftLmeTIXBSMEw6OrRCg+sJcH/2TWbb2M=;
- b=PchpSqVhMDNMvnT2jyoCBoKAcihCJzRbwLyxMBBA8uRGM5eFH6AsawRfcdVAkA09ww
- CVG6FmvdSBRon0a9OoTwPophn9lATJWy3TL8wH121A9GbxZT4MGZ4NK2hozDn9pvQdi3
- Y2HqRCfOUTt7wiYB0MGuFXFcA4gDs45YXxf0W8pe+sKacq67TJIV9uPRyqhCYTHqwOzb
- NNU0rEGR7wHSKY9QBKBiskrn3WzJzqmMKdPNCbiHPxnUdhWKMojU346kpBKX96KWgCVk
- ja93wZCMeoE0QIRqbmGcT2uQNfKj1e2h9jbLcM7OXVY9kl1rnigi1bARd25txb8KjrCI
- 8ALQ==
+ d=gmail.com; s=20251104; t=1791117779; x=1791722579; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=96zU+qlaXFSgWiLmhC8ZDksn5OkhGICnqsZNjrDt1Ew=;
+ b=qOSkLJpqiF/ugKLMI/vThYNce7EinefzRFyAcUJXT3jVsFZOmzRmiPdPbiefww+6SK
+ zZ16Anrig4i62nfvIv7wLy10RE0vHI3Ysefr+bl53aNO+vkgc2U2xjX7l4DO84ze+a8k
+ LAoFiVi8/6si/K6YBqmYBj5H+QAMxop9P3SdSecsJkpeLs17DmbMB23BjNwJRWbU5Ubt
+ 1cOVQzm59Zef0iG+OB0FiaG6xOzcAAb02pqrY/HZ7b9Hj1d0XmD76daN+gk0RUYJpyFM
+ Xeyk5ELxH/3lIVeEw6m0v0DIGrECyxzNlcjtX1Qi7wKCKHanf6pKO/1w9JSlkKe57soY
+ TqFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1790907481; x=1791512281;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=K3VaIb3BtBdftLmeTIXBSMEw6OrRCg+sJcH/2TWbb2M=;
- b=Tg+HEQFiVbZn+gu/h0r/GsZ93GaYBdpU+JdPPdtUv92k8J1qHBtdOOyrKoFR1OB4kq
- uLG+OqyOr0OrLHOtmirLxO1iXCEHs51rM5jPF18lU3XfCqOiwELvd0aiBNygNFZ5pOtC
- aUPviGP6jQE0DkdtOR1t+TpDsWwUnb+jXYbUHYJN3CwGjOhAY9QTkg9dExfjqg7gbbAu
- TI3Yg+IBefI6NUkUkarobvJPvdugwNc7OIG51AmPLA/ylq1inZd7NbNKkmxfZ+jjamuR
- CP5KpAu/TZ2+PygMaw6bMmMA6oA1nS0uAcAXCBxvONG+o517rOx94dyWr8rdQuAXZWMQ
- jmCA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxJlFd/BpyNhVGNllpBvH8Fqkfbt+YW1Epk2o7PHdpkB7KLtr8h4loPkmORAbLFJTCBUuwXI7fcWZc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJNk7DndTkAdsWKg+2x+at6mLf8zl3WB8/DNPlsUVM2QZTkk6yu
- saSERvfdKbLT0ewjiRO3NOe2vZBxrhhR+bKbj5PD9FVp57oI038TWZ8v
-X-Gm-Gg: AYBFou3GDt81R7/EH4Ks1pxNFzo39QEbOXDOu88lhDS9R8HWTvA36HDt0p7hh5G1QY4
- 8iVfvwb+pfhfIP/SQ6ojWf619g/ijZCsvZUbzEUOzJiqZ5H6DryXT9/8YUrPFQ+nnF9JPh0T9U5
- xC+qamf6ZLHNr9sZExes/bgRg/FlmJi7ZsUkleGZMw6A+BewfGgXiM9DZ7jsz9CrxcHDBETjxp7
- 49XXOqzmB2tVLrQrfMrkSQgxpFnzn/0SGsoKUNvtrcZFAc/lcNCIUSZrNbp3Gu02G6qzGiVqtrf
- 2MsaCqFShbFvjBH/3MbwfjyOyumLOxibJ1PHLRUFvTfj1KcGLED3TVuI9+bgAiOdQocJv4ORWIX
- uFLGJGU0G/IEwZj+u3+A8dXrpUPJ8H6dk9Q+/LWGlYQmsijc1ESEv9Z0fI6N1X8l56aVhdb67hh
- xnyk9apIP1ocZ0uk4e0ri/CcmPvDVhM8bJqv9CLnQK3A0/DLyvvMbUaNEIbb5z86/n/Le7F19Ip
- 3cn9XuKdjvwFFvour8MpA==
-X-Received: by 2002:a05:6000:2007:b0:48a:f4c1:4301 with SMTP id
- ffacd0b85a97d-48b127206d0mr2096245f8f.6.1790907480475; 
- Thu, 01 Oct 2026 19:18:00 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.71.106])
+ d=1e100.net; s=20260707; t=1791117779; x=1791722579;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=96zU+qlaXFSgWiLmhC8ZDksn5OkhGICnqsZNjrDt1Ew=;
+ b=1NqPXttEaKCCTLks0PSMtw9HVBtNrpVQn7tdXXLQGmH3e+GOQet3nA3iS3PNvRL3LI
+ juVIAZyKDM6MprTvn3Aedm2JOtahddRpVAY4StUsY6YBWfnC8Ov4t2sTMeEU7aUQBVb7
+ CUL4bSp8xGf6JMOIulhsNWy12A6C8sy+XyfFBxXih9FnMXU4mbnTWOKYfuRA6xe+cG15
+ YzZwYEpxFzkpUPbLgFQ1P4TDT2UJRJBfC7m8RLcW1MVWES4d1S8jt35iRFcjPGrjXA2+
+ iDl9HDS4gWPu/33+s97tzN+H9WAnOm5wot4gCeFeJolWXZPTVTY5EZSvJx58Z1PzpsXO
+ MHQA==
+X-Gm-Message-State: AFq9FYLX/sJ28rX4zGieMXwN6WW74ut4fFY4bYyxRFOkymyrJF4nP4AN
+ q4Ii4OzzQoXd2aFywIClyauEFd/VnkRyM8n0STxAu/hmT1zhXY7pRgni
+X-Gm-Gg: AYBFou3umm/uRsY8z3ifCeiYKm6Lz8tjkhwEMgLWfYkYPpoZk7Mxnb6bNryboS/rGgn
+ vpw5oJTlV39OBYkWiTd5LlUNFnGGS8z19Hy8SUs3BzPzwSKW9SR73c/NnbXrM0mjpigaUcZTK7O
+ W318JcPTsgyt7Rv7ODoPIWwRwL4YnEyqL/e4OgF+JwgiK1hmCS8Qgl+uLdIjpEXdP0fq104egOe
+ I43C0Vxw4AvjFFC7N9tFGBBHkhwBfVrsWyG8APrYlBU6pJF+Q3iL/yr6RqN/ilspiBdbdNCJqlM
+ f0aln+c/Nx+llIipIlr6u+MI62X+43sd2A+adKVYW8nz4COANm2dw0bykHMb58O8Y21isHf7x6j
+ UmA5bb9Vs03afJOqDNUmqR27dtoIFNPo/Yv9vPTlQIiI2mC1QVIFONHJ7OSxTzN3cwxSkRonzqo
+ OhqzcqOwC6g11ShODbpfkyVTD7TQ6+ItKyYQSlgJOyTr8YA5jM4s72oxdP4aRb9014om57WBChq
+ KYh2nWaun2I7rSolK70dWQ5UFbEZpDg1TB/rvUdzaTa+xngD5LwLTxKfmV2vTfV+hu3gd1Sn/L8
+ eqyEAs/QqW4Hbf1YG2DwCY/eY+cFR/6LJxP4HWgTLBBU/j4=
+X-Received: by 2002:a17:90a:d64b:b0:3a0:c22d:fbe8 with SMTP id
+ 98e67ed59e1d1-3a6ce7cea97mr5790108a91.38.1791117779256; 
+ Sun, 04 Oct 2026 05:42:59 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48b82253e6bsm1605411f8f.6.2026.10.01.19.17.58
+ 98e67ed59e1d1-3a78d4a5150sm6599177a91.1.2026.10.04.05.42.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Oct 2026 19:18:00 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, emmaonana18@gmail.com, skhan@linuxfoundation.org
-Subject: [PATCH] drm/amd/display: fix kernel-doc warnings for cgs register
- typedefs
-Date: Fri,  2 Oct 2026 03:17:50 +0100
-Message-ID: <20261002021750.13596-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sun, 04 Oct 2026 05:42:58 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Sun, 04 Oct 2026 22:42:29 +1000
+Subject: [PATCH v2] drm/fourcc: Add Apple Interchange layout format
+ modifier
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2po+AqIr/8OwgHYKY4A2LRIN4
+ d8tqFuX5+bk3AUiBsIIl2yBgDNFcmMCechAd/XYIiOTGCSXBS8VZ7X3fRrHCcNXGJwhSxiYbrR
+ WQuhS5QZSwAe09Nzjt+rD8dHcUU9bcTM6ipMLr/19Fpv3OxL/jmbBBMtNgfJkz1bx8toONfVH7
+ Qao1nV9A+HaPonWAAAA
+X-Change-ID: 20260830-apple-interchange-modifier-cbcc311c835d
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>, 
+ sofus <sofus.c@icloud.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>, 
+ Janne Grunau <j@jannau.net>, James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2440;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=nlCjiAzhkYiQ1nYPrjHibWe7jNID9lKUBjiluobqAug=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFmHPE9PuJ/F/EJMgFuYfdPiDvPE3GuOx7PCrG+Yb+tW0
+ uQrj9XtmMjCIMbFYCmmyLKhSchjthHbzX6Ryr0wc1iZQIZIizQwAAELA19uYl6pkY6Rnqm2oZ6h
+ kY6xjhEDF6cATLW/CCPD6Xkfzy/7amBv+qe3oO+KQs8S+13n5dJW155a96lHXkL1PSPDw1kc4Zz
+ h942PObpoK8e+yIp62zmxYl1VO/+aFxMl7y3jAgA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,69 +108,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kernel-doc reports prototype mismatches for the cgs register accessor
-typedefs, whose comments do not use the documented typedef format, e.g.:
+Apple Interchange is a tiled and compressed image layout used
+for buffer exchange between Apple hardware blocks. It is
+similar to the already-supported GPU_TILED_COMPRESSED layout.
 
-  drivers/gpu/drm/amd/include/cgs_common.h:89 ... expecting prototype
-  for cgs_read_register(). Prototype was for uint32_t() instead
+Add a format modifier for Apple Interchange so that it can be
+used for buffer exchange.
 
-Use the typedef comment format for all four accessors (also restoring
-the dropped _t suffix) and replace the wrong @offset with the real
-@space/@index params in the two indirect-register comments.
-
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- drivers/gpu/drm/amd/include/cgs_common.h | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+Changes in v2:
+- Fix typo
+- Link to v1: https://patch.msgid.link/20260831-apple-interchange-modifier-v1-1-5d6e27f9f308@gmail.com
 
-diff --git a/drivers/gpu/drm/amd/include/cgs_common.h b/drivers/gpu/drm/amd/include/cgs_common.h
-index f40b6a03fe63..3a25c3c75a3a 100644
---- a/drivers/gpu/drm/amd/include/cgs_common.h
-+++ b/drivers/gpu/drm/amd/include/cgs_common.h
-@@ -81,7 +81,7 @@ struct cgs_firmware_info {
- typedef unsigned long cgs_handle_t;
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ include/uapi/drm/drm_fourcc.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index a103fdc0b3a3..d304ee5c614c 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -1626,6 +1626,26 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
+ #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
  
- /**
-- * cgs_read_register() - Read an MMIO register
-+ * typedef cgs_read_register_t - Read an MMIO register
-  * @cgs_device:	opaque device handle
-  * @offset:	register offset
++/*
++ * Apple Interchange layout
++ *
++ * Apple Interchange is a compressed framebuffer format used exclusively for
++ * sharing buffers between hardware blocks (GPU, display controller, video
++ * codecs) on Apple platforms. It is similar to and uses the same compression
++ * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
++ * of Apple Interchange.
++ *
++ * Unlike the GPU layouts, tile size is not dependent on bit depth. RGB
++ * images and the chroma components of YUV images use 16x16 tiles. The
++ * luma component of YUV images uses 32x32 tiles. Compression tiles
++ * are once again 16x16 with 8 bytes of metadata per compression subtile.
++ *
++ * AGX has limited support for Apple Interchange. It cannot be used for Z/S
++ * buffers or array images, for example. It is intended for scanout buffer
++ * sharing only.
++ */
++#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
++
+ /*
+  * AMD modifiers
   *
-@@ -90,7 +90,7 @@ typedef unsigned long cgs_handle_t;
- typedef uint32_t (*cgs_read_register_t)(struct cgs_device *cgs_device, unsigned offset);
- 
- /**
-- * cgs_write_register() - Write an MMIO register
-+ * typedef cgs_write_register_t - Write an MMIO register
-  * @cgs_device:	opaque device handle
-  * @offset:	register offset
-  * @value:	register value
-@@ -99,9 +99,10 @@ typedef void (*cgs_write_register_t)(struct cgs_device *cgs_device, unsigned off
- 				     uint32_t value);
- 
- /**
-- * cgs_read_ind_register() - Read an indirect register
-+ * typedef cgs_read_ind_register_t - Read an indirect register
-  * @cgs_device:	opaque device handle
-- * @offset:	register offset
-+ * @space:	indirect register space
-+ * @index:	register index
-  *
-  * Return:  register value
-  */
-@@ -109,9 +110,10 @@ typedef uint32_t (*cgs_read_ind_register_t)(struct cgs_device *cgs_device, enum
- 					    unsigned index);
- 
- /**
-- * cgs_write_ind_register() - Write an indirect register
-+ * typedef cgs_write_ind_register_t - Write an indirect register
-  * @cgs_device:	opaque device handle
-- * @offset:	register offset
-+ * @space:	indirect register space
-+ * @index:	register index
-  * @value:	register value
-  */
- typedef void (*cgs_write_ind_register_t)(struct cgs_device *cgs_device, enum cgs_ind_reg space,
--- 
-2.43.0
+
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+change-id: 20260830-apple-interchange-modifier-cbcc311c835d
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
