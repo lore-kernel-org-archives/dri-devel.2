@@ -4,56 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BA0CA5FF0
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C013CCA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 17:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311E010EAEB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD5910EAE8;
 	Sun,  4 Oct 2026 17:19:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=saltyming.net header.i=@saltyming.net header.b="ZAEh2sb1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XfpL6C0F";
 	dkim-atps=neutral
-Received: from smtp-sv1.saltyming.net (smtp-sv1.saltyming.net [152.53.31.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB28410E18C
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 00:27:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=saltyming-dkim-202512; d=saltyming.net;
- c=relaxed/relaxed; 
- h=To:Message-Id:Date:From:Subject:Mime-Version:Content-Type; t=1791073637;
- x=1791678437; bh=9y565mXmPk14OT+EJKpfLw7jDnD7lIoT4YWiqhVhvcA=; b=ZAEh2sb1Jx
- VWc0h0VmGgYpyzPwiFnRpxjxhRJs7szG3MJvSn/jmX0Y9wOjhIbGQVXaaJAOH0TsO3/bDE5VO41
- mjLcdOeOY9hhmAX2kq/BR/fmvO6gNah4kxHz9qvlmtV9WT5EQKYzfITNZGJ+oUZALdI1CPaSiES
- +dES/8jDNXr/GU7e9FEGa0qE38QU0ZuQYN4Mh+94EDca9GqiVCxYE1ils5Zx6qZA44E0HVALgKb
- rFj7KezvPAf8c8/avU5fCHuSlWte2ILprgJo9c7n4odPONezTfamIeKtuKRyIWQMuGxqo2IhXnN
- kDUHUzD1PwOAd3BmcTTcqXvMiL1a3Jhg==;
-Received: by smtp-sv1.saltyming.net (SaltyMail) with ESMTPSA
- (version=TLSv1.2 cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 bits=256/256)
- (No client certificate requested)
- id 2a469b8d-94dc-40e2-aedd-badbe8d016c7
- for <dri-devel@lists.freedesktop.org>; Sun, 4 Oct 2026 00:27:04 +0000
-X-Virus-Status: Clean
-X-Security-Tags: spf_none, dkim_none, dmarc_fail, dmarc_quarantine, arc_none,
- av_clean, ham
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.41\))
-Subject: Re: [PATCH] drm/nouveau: request a privileged CE channel only on
- Kepler and later
-From: Hamin Sung <hamin@saltyming.net>
-In-Reply-To: <cdc6f42770d824240a6d4474d090a9be8da7bc2a.camel@redhat.com>
-Date: Sun, 4 Oct 2026 09:26:47 +0900
-Cc: Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF16B10E113
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 09:35:05 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-3a0a911e8d6so338667a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 04 Oct 2026 02:35:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1791106505; x=1791711305; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ieoCN8zHQyjpKwxBxBu39ADqPAcaD3Ug1famBdxjyE0=;
+ b=XfpL6C0Fe0+p45S1K6pflXETK+mFjxyTe82U6y9NjkKDCEnMl9fajubgghCBbwQ0aS
+ N5CgdRiB5CSrHSA7XXdXMK4795lYcdiBKR445nDEeAwbVZFpxRrHDIYSu7DVWMYHwE4x
+ xzQtBsz1GiiAkxtPuGZeEh9FKquMHbaMUUvoJlZVMRwSeEwo7vkmUL/90F0zyV+9duWV
+ tLARMwtFzShnbnp/GxGDRTH3MNnIIJqbnS1ihOWciHbFMaCWBRET6couDfdxU3sjF2Sv
+ uw95GzRKXahqIGbC5YqNmL8PgPDRWLvc1JrcBA1IITwRpwvtjPDy7+5c+8iZeLLvVO7s
+ c5tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1791106505; x=1791711305;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ieoCN8zHQyjpKwxBxBu39ADqPAcaD3Ug1famBdxjyE0=;
+ b=LAFpS4HtzHk974hF4B2U4TZ6i8PlgV53yGG9uiS6kCzHtw9kwtwbBz78HpUN7gcXK5
+ GFWSLWmDURuRJQjWXg5/6oqGahCkPrLzdaGE03UHky9kt1c9PxChd+0dEjUNatRTS0aZ
+ zmBh0YKwp4rZURLs4+9VBS310kXZ0s29kMOlMxqKsUvyEIIV2Q3gCCiAk+1pEAUrNvFR
+ pZHmHyTyWHxWMA7XrMiPuhOCHEAJKYRrTL86GNVb6XNPKLoVTvRk/4lK415aSdDNog0E
+ BNwPMoysQ+vzS4148wbJa9fDNzm6BIqshyuT0icstLS4sqtBs6xkbfoLzPJVSjhV6lv9
+ CmBg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxAm8mRYjE9bHhUOoegkzv9bt4/RrQeuiRreZOP6RHKWX5yX0Sxi9fVoFNb2B02uOZ4kJNSs7ghifw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIcYNkRPFi2HqqKCyDKQlKu5T1SPIXUPPfmCrLw6xpuAHzhuA1P
+ K/gCWSoaJeOlGLnMIJ2DVvWdn11I4eqJMsWsGYy010vl3wIW+zmSS/jE
+X-Gm-Gg: AYBFou2piaFPNZY3GInbuhD2VA9ZqwuhAlVv1f/K/G2UqcpeUxjEBBJTXlsmDnopj8C
+ aW2JdPcZNfLDaolxuLEe1aXixbljk0Qm52uswRH/r2a9cFUXgxvGWQppMAMdhTVo74UisAUHt73
+ 0+5PKiNVzFyP9tNto7CGmSWgQV1cKiSmmZfFcjLi/LLVhuOZ5f9S7XouleZcCxJaB23Gs7BbybO
+ Xh52S1mot8Q/TR2jCq3I/sHJ5d4xN9pDZbhzYRQyDogT+3OHSuVXOCXaOnMRFWlfuakeTTLIJc7
+ e3bt7DfGVdXXQ3D6wTE/EZiMDmJL0qm6SU4OJmQziNymZCff7/hdQGJyylx4VBm60oaGo2aAz5y
+ AFnnqfS/KTBwQBkjf4X9kfNkHA1FOFXLjERAM+J6iTZEqdMHBZSXKmMhqBM3EWADuW1HVtJ/V4I
+ /eSiZARAQO5Vk2poOcgl4Ah02PGlYV3phLEi/bMeLt0/gfMO0qUA7pFCDKOzmyKXcirsgZpt64V
+ gDRLK9qF5D1ow==
+X-Received: by 2002:a17:90b:544b:b0:3a0:cb48:df6b with SMTP id
+ 98e67ed59e1d1-3a7873db380mr3330070a91.34.1791106505312; 
+ Sun, 04 Oct 2026 02:35:05 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cc9f7383535sm2682884a12.20.2026.10.04.02.35.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 04 Oct 2026 02:35:04 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Joonhoe Kim <26rote@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yonatan Maman <Ymaman@Nvidia.com>, Gal Shalom <GalShalom@Nvidia.com>,
- Ben Skeggs <bskeggs@nvidia.com>, stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F16C3327-4F6A-479E-B4D1-F8F2B1F55EF0@saltyming.net>
-References: <20261003223244.63133-1-hamin@saltyming.net>
- <cdc6f42770d824240a6d4474d090a9be8da7bc2a.camel@redhat.com>
-To: Lyude Paul <lyude@redhat.com>
-X-Mailer: Apple Mail (2.3901.200.41)
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] drm/msm/dpu: Add INT2 GDSC power domain support
+ for Kaanapali
+Date: Sun,  4 Oct 2026 18:35:01 +0900
+Message-ID: <20261004093501.74290-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
+References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 04 Oct 2026 17:18:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,28 +108,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-2026. 10. 4. 08:53, Lyude Paul <lyude@redhat.com> wrote:
-> The LLM didn't mention this (of course), but you need to increment the =
-version
-> of the patches that you send out when sending new versions along with =
-a list
-> of changes that were actually made to the patch since the previous =
-version
->
-> Also, while LLM generated patches are fine for fixes (to an extent) - =
-but
-> please at least make sure you write the changelog by hand to avoid =
-inevitable
-> mistakes
+On Tue, Sep 15, 2026 at 05:27:47PM +0800, Yongxing Mou wrote:
+> Kaanapali (SM8750) has an additional INT2 GDSC
 
-Sorry for noise from the sudden series of patches I sent using LLM. =
-These are my first kernel patches,
-and I just wanted to fix some issues with my old NVIDIA graphics card.
+(Nit: Kaanapali is SM8850.)
 
-Also, those weren=E2=80=99t new versions. My mail server had a bug =
-delivering most messages twice
-(I mentioned this in the devfreq RFC series). Sorry for the confusion, =
-it=E2=80=99s fixed now
+Tested on a Lenovo Legion Tab Y700 Gen 5 (SM8850), v7.3-rc4, bonded DSI
+panel with DSC plus DP over USB-C:
 
-I=E2=80=99ll keep about versioning and hand-written changlogs in mind.=
+ - without the series the INT2 GDSC stays off with no consumer; with it
+   the DPU holds it on while the display is on
+ - DPMS off turns INT2 and CORE off, DPMS on brings them back; s2idle
+   works
+ - with a DP monitor attached the cursor plane lands on DMA5 (sspp_13)
+   and scans out fine; VIG2/VIG3 were not exercised
 
+Tested-by: Joonhoe Kim <26rote@gmail.com>
