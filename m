@@ -4,43 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0998CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 12:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A62ECA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 13:39:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2154C10E0CF;
-	Sun,  4 Oct 2026 12:19:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC31710E0EC;
+	Sun,  4 Oct 2026 13:39:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eFZgM842";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rosenzweig.io header.i=@rosenzweig.io header.b="qpQ6O1f6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 942AA10E0CF
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 12:19:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1683041805;
- Sun,  4 Oct 2026 12:19:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE6A41F00893;
- Sun,  4 Oct 2026 12:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1791116352;
- bh=uH+iohQG5RvyjWKpd0GYgx+xVnXKDKzoFMGOOTgn6rk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eFZgM842jdJcvWp7v7GWtzAPt/Z5594+uLYX3mWaFN9t/Jq18+L2MiMWmcmge9DCB
- O4EQxL1Btw0Qkx1O8HHl7o+ww+yjCdRVqXNTAH0X5ekqDy+dseVq8+6JJg0xB3byYZ
- pTMDMAqa0fcXhjiGqJxsCkaH2h6HVXW+JO0KsJ1DT36oF0NQ4pokvhfotbASyu6qjl
- YQwPaD+l4tnPC1bA0SrQdU8JsRUJ9UX7Hhr9BvP7rFZ0EvPo8fNV8nPCK/GnyM15VE
- bNIojdK1iFq2z3ZwOp6GwbjRnbByFlA5HLGJYQsxmmh/alxQfSsLtm5C/YnRWM25Vz
- jnHSY8BNZVHug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
-To: "Aditya Garg" <aditya.garg@linux.dev>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
-References: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
- <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 04 Oct 2026 12:19:11 +0000
-Message-Id: <20261004121911.CE6A41F00893@smtp.kernel.org>
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Sun, 04 Oct 2026 13:38:59 UTC
+Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 822F610E0EC
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 13:38:59 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=1+k00O3LND89cQEhluXVGIxTtZ/cWD8RGcLFGETy+k0=; 
+ c=simple/simple; d=rosenzweig.io;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791121137; v=1; x=1791725937;
+ b=qpQ6O1f6muNtfJfXHl4FFaSKX5Fp/88FN7Ecu/KHd5it3t8rWGmmVFW7In53LrJ2zJgxcTw3
+ 24o66EajxhouF7Y7GSYE9kR+4U4vMK8oLoHNbN+sJnWTCh/+w0EKy0zsv7LNryhRMOhCMhB0LBK
+ 9qrEc0Qr2y71O17Igf9K6DSpidIZ6ksLfNx5sJ07rmo4hgFMn9OFxpUQ0QeQrycjAoZvWE7p0H2
+ czH4SLw5E4T/YuDjULrhz0tH9gG0cX24n98vvbDE0Lz+odmrNh2DhS5ZFNQxUGb7AHrIi/x36fU
+ UMLAowDAANoC3zwYOAZdknIr1PQqJWh8Y5pD0vHO+CLdQ==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 293fd97adc88c8a6;
+ Sun, 04 Oct 2026 13:32:52 +0000
+X-Mizu-Trace-ID: 293fd97adc88c8a6
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 4 Oct 2026 09:32:48 -0400
+From: Alyssa Rosenzweig <alyssa@rosenzweig.io>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, Oliver Bestmann <oliver.bestmann@googlemail.com>,
+ sofus <sofus.c@icloud.com>, Janne Grunau <j@jannau.net>
+Subject: Re: [PATCH v2] drm/fourcc: Add Apple Interchange layout format
+ modifier
+Message-ID: <asJVgFVWYzG0frrM@fedora>
+References: <20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261004-apple-interchange-modifier-v2-1-410a3d0541f6@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,97 +63,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/appletbdrm: memory leak of suspend_state on unbind
-- [Medium] drm/appletbdrm: missing reset_resume handler breaks reset recove=
-ry
---
+The one big missing piece here is how strides are defined. I assume from
+context it's the same convention as GPU_TILED_COMPRESSED but this should
+probably be spelled out.
 
-commit c3fac1e92efd5498a32a50fb4e9a862ae7b24e77
-Author: Vasilij Markin <vasilij.kernel@tototo.si>
+Just adding a sentence "Strides follow the same convention
+as DRM_FORMAT_MOD_APPLE_GPU_TILED." should be enough to define the uAPI
+unambiguously here. With that it will be
 
-drm/appletbdrm: Add suspend and resume support
+Reviewed-by: Alyssa Rosenzweig <alyssa@rosenz.ca>
 
-The driver has no USB power management callbacks, so the USB core
-unbinds it before system suspend and binds it again on resume. The DRM
-device is unregistered and registered again on every suspend and resume
-cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-loses its device, and the Touch Bar stays dark after resume.
-
-> Implement suspend and resume with drm_mode_config_helper_suspend() and
-> drm_mode_config_helper_resume(), so the device stays registered and the
-> last committed state is restored on resume. If the device was reset
-> while suspended, repeat the probe-time handshake first.
-
-[Severity: Medium]
-Will the device actually stay registered if it is reset while suspended?
-
-According to the Linux USB core logic, if a device is reset during suspend
-and the driver lacks a .reset_resume callback, the USB core sets
-needs_binding =3D 1, which forcefully unbinds and rebinds the driver.
-This fallback unbinds the DRM device, destroying the userspace connection
-and defeating the stated goal for the reset scenario.
-
-> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/app=
-letbdrm.c
-> index 4297d9c1125e4..919ca14181af3 100644
-> --- a/drivers/gpu/drm/tiny/appletbdrm.c
-> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
-[ ... ]
-> @@ -821,6 +822,20 @@ static void appletbdrm_shutdown(struct usb_interface=
- *intf)
->  	drm_atomic_helper_shutdown(&adev->drm);
->  }
-> =20
-> +static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t m=
-essage)
-> +{
-> +	struct appletbdrm_device *adev =3D usb_get_intfdata(intf);
+Le Sun, Oct 04, 2026 at 10:42:29PM +1000, James Calligeros a écrit :
+> Apple Interchange is a tiled and compressed image layout used
+> for buffer exchange between Apple hardware blocks. It is
+> similar to the already-supported GPU_TILED_COMPRESSED layout.
+> 
+> Add a format modifier for Apple Interchange so that it can be
+> used for buffer exchange.
+> 
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+> Changes in v2:
+> - Fix typo
+> - Link to v1: https://patch.msgid.link/20260831-apple-interchange-modifier-v1-1-5d6e27f9f308@gmail.com
+> 
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  include/uapi/drm/drm_fourcc.h | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> index a103fdc0b3a3..d304ee5c614c 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -1626,6 +1626,26 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 modifier)
+>  #define DRM_FORMAT_MOD_APPLE_GPU_TILED fourcc_mod_code(APPLE, 1)
+>  #define DRM_FORMAT_MOD_APPLE_GPU_TILED_COMPRESSED fourcc_mod_code(APPLE, 2)
+>  
+> +/*
+> + * Apple Interchange layout
+> + *
+> + * Apple Interchange is a compressed framebuffer format used exclusively for
+> + * sharing buffers between hardware blocks (GPU, display controller, video
+> + * codecs) on Apple platforms. It is similar to and uses the same compression
+> + * scheme as GPU_TILED_COMPRESSED. There is no known uncompressed variant
+> + * of Apple Interchange.
+> + *
+> + * Unlike the GPU layouts, tile size is not dependent on bit depth. RGB
+> + * images and the chroma components of YUV images use 16x16 tiles. The
+> + * luma component of YUV images uses 32x32 tiles. Compression tiles
+> + * are once again 16x16 with 8 bytes of metadata per compression subtile.
+> + *
+> + * AGX has limited support for Apple Interchange. It cannot be used for Z/S
+> + * buffers or array images, for example. It is intended for scanout buffer
+> + * sharing only.
+> + */
+> +#define DRM_FORMAT_MOD_APPLE_INTERCHANGE fourcc_mod_code(APPLE, 3)
 > +
-> +	return drm_mode_config_helper_suspend(&adev->drm);
-
-[Severity: Medium]
-Does this code leak adev->drm.mode_config.suspend_state if the device is
-unbound while suspended?
-
-drm_mode_config_helper_suspend() allocates an atomic state and stores it in
-adev->drm.mode_config.suspend_state.=20
-
-If the device is reset during suspend, the USB core forcefully unbinds the
-driver because it lacks a reset_resume handler. The unbind path calls
-appletbdrm_disconnect() and tears down the DRM device.
-
-Neither appletbdrm_disconnect() nor the DRM core cleanup routines free
-suspend_state. Does this cause a memory leak of the atomic commit object
-and all its duplicated plane/CRTC states on every suspend/reset cycle?
-
-> +}
-> +
-> +static int appletbdrm_resume(struct usb_interface *intf)
-[ ... ]
-> @@ -832,6 +847,8 @@ static struct usb_driver appletbdrm_usb_driver =3D {
->  	.probe		=3D appletbdrm_probe,
->  	.disconnect	=3D appletbdrm_disconnect,
->  	.shutdown	=3D appletbdrm_shutdown,
-> +	.suspend	=3D appletbdrm_suspend,
-> +	.resume		=3D appletbdrm_resume,
->  	.id_table	=3D appletbdrm_usb_id_table,
->  };
-
-[Severity: Medium]
-Is the .reset_resume callback missing here?
-
-The commit message states: "If the device was reset while suspended, repeat
-the probe-time handshake first" to ensure the device stays registered.
-
-However, intentionally omitting the .reset_resume callback causes the USB
-core to unbind the driver on reset instead of restoring the DRM state.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/586d0b39-40c8-4f3d-=
-a786-c1085f87b858@linux.dev?part=3D1
+>  /*
+>   * AMD modifiers
+>   *
+> 
+> ---
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> change-id: 20260830-apple-interchange-modifier-cbcc311c835d
+> 
+> Best regards,
+> --  
+> James Calligeros <jcalligeros99@gmail.com>
+> 
