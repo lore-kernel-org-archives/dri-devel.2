@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F473CA5FE6
-	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 12:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0998CA5FE6
+	for <dri-devel@archiver.kernel.org>; Sun,  4 Oct 2026 12:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C49910E064;
-	Sun,  4 Oct 2026 12:06:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2154C10E0CF;
+	Sun,  4 Oct 2026 12:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="xKmyoDQE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eFZgM842";
 	dkim-atps=neutral
-Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C99810E064
- for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 12:06:43 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=/wDs7AqCXjro1en1uYeNesaW+AzN410aG4sQHsUGAvU=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791115601; v=1; x=1791720401;
- b=xKmyoDQErtqdNVkOtN66A6MAWRuKHoEzsc/UURfgupf5OhObVMrv+dXPNL1dQ34ID+ycUuMf
- ujnGS+GWbXiQcqE0RF8ZIgl8os9oMP98C+BtSLQQ2PeFTLf6ax2X6YaeviW8/QDs3yEKeB2wfE1
- ULzuDxjokHdoiyjI/0KDUs2k=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 95ef59e2b8d83611;
- Sun, 04 Oct 2026 12:06:31 +0000
-X-Mizu-Trace-ID: 95ef59e2b8d83611
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
-Date: Sun, 4 Oct 2026 17:36:23 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2] drm/appletbdrm: Add suspend and resume support
-To: vasilij.kernel@tototo.si, Aun-Ali Zaidi <admin@kodeit.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kerem Karabay <kekrby@gmail.com>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 942AA10E0CF
+ for <dri-devel@lists.freedesktop.org>; Sun,  4 Oct 2026 12:19:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1683041805;
+ Sun,  4 Oct 2026 12:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE6A41F00893;
+ Sun,  4 Oct 2026 12:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1791116352;
+ bh=uH+iohQG5RvyjWKpd0GYgx+xVnXKDKzoFMGOOTgn6rk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eFZgM842jdJcvWp7v7GWtzAPt/Z5594+uLYX3mWaFN9t/Jq18+L2MiMWmcmge9DCB
+ O4EQxL1Btw0Qkx1O8HHl7o+ww+yjCdRVqXNTAH0X5ekqDy+dseVq8+6JJg0xB3byYZ
+ pTMDMAqa0fcXhjiGqJxsCkaH2h6HVXW+JO0KsJ1DT36oF0NQ4pokvhfotbASyu6qjl
+ YQwPaD+l4tnPC1bA0SrQdU8JsRUJ9UX7Hhr9BvP7rFZ0EvPo8fNV8nPCK/GnyM15VE
+ bNIojdK1iFq2z3ZwOp6GwbjRnbByFlA5HLGJYQsxmmh/alxQfSsLtm5C/YnRWM25Vz
+ jnHSY8BNZVHug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
+To: "Aditya Garg" <aditya.garg@linux.dev>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
 References: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
-Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 12:19:11 +0000
+Message-Id: <20261004121911.CE6A41F00893@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,10 +53,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vasilij Markin <vasilij.kernel@tototo.si>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] drm/appletbdrm: memory leak of suspend_state on unbind
+- [Medium] drm/appletbdrm: missing reset_resume handler breaks reset recove=
+ry
+--
+
+commit c3fac1e92efd5498a32a50fb4e9a862ae7b24e77
+Author: Vasilij Markin <vasilij.kernel@tototo.si>
+
+drm/appletbdrm: Add suspend and resume support
 
 The driver has no USB power management callbacks, so the USB core
 unbinds it before system suspend and binds it again on resume. The DRM
@@ -69,62 +75,75 @@ device is unregistered and registered again on every suspend and resume
 cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
 loses its device, and the Touch Bar stays dark after resume.
 
-Implement suspend and resume with drm_mode_config_helper_suspend() and
-drm_mode_config_helper_resume(), so the device stays registered and the
-last committed state is restored on resume. If the device was reset
-while suspended, repeat the probe-time handshake first.
+> Implement suspend and resume with drm_mode_config_helper_suspend() and
+> drm_mode_config_helper_resume(), so the device stays registered and the
+> last committed state is restored on resume. If the device was reset
+> while suspended, repeat the probe-time handshake first.
 
-Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
-Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
----
-v2: Remove reset_resume
+[Severity: Medium]
+Will the device actually stay registered if it is reset while suspended?
 
- drivers/gpu/drm/tiny/appletbdrm.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+According to the Linux USB core logic, if a device is reset during suspend
+and the driver lacks a .reset_resume callback, the USB core sets
+needs_binding =3D 1, which forcefully unbinds and rebinds the driver.
+This fallback unbinds the DRM device, destroying the userspace connection
+and defeating the stated goal for the reset scenario.
 
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index ef71b9957..c94ed1068 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_modeset_helper.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -821,6 +822,20 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
- 	drm_atomic_helper_shutdown(&adev->drm);
- }
- 
-+static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_suspend(&adev->drm);
-+}
-+
-+static int appletbdrm_resume(struct usb_interface *intf)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_resume(&adev->drm);
-+}
-+
- static const struct usb_device_id appletbdrm_usb_id_table[] = {
- 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
- 	{}
-@@ -832,6 +847,8 @@ static struct usb_driver appletbdrm_usb_driver = {
- 	.probe		= appletbdrm_probe,
- 	.disconnect	= appletbdrm_disconnect,
- 	.shutdown	= appletbdrm_shutdown,
-+	.suspend	= appletbdrm_suspend,
-+	.resume		= appletbdrm_resume,
- 	.id_table	= appletbdrm_usb_id_table,
- };
- module_usb_driver(appletbdrm_usb_driver);
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/app=
+letbdrm.c
+> index 4297d9c1125e4..919ca14181af3 100644
+> --- a/drivers/gpu/drm/tiny/appletbdrm.c
+> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
+[ ... ]
+> @@ -821,6 +822,20 @@ static void appletbdrm_shutdown(struct usb_interface=
+ *intf)
+>  	drm_atomic_helper_shutdown(&adev->drm);
+>  }
+> =20
+> +static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t m=
+essage)
+> +{
+> +	struct appletbdrm_device *adev =3D usb_get_intfdata(intf);
+> +
+> +	return drm_mode_config_helper_suspend(&adev->drm);
+
+[Severity: Medium]
+Does this code leak adev->drm.mode_config.suspend_state if the device is
+unbound while suspended?
+
+drm_mode_config_helper_suspend() allocates an atomic state and stores it in
+adev->drm.mode_config.suspend_state.=20
+
+If the device is reset during suspend, the USB core forcefully unbinds the
+driver because it lacks a reset_resume handler. The unbind path calls
+appletbdrm_disconnect() and tears down the DRM device.
+
+Neither appletbdrm_disconnect() nor the DRM core cleanup routines free
+suspend_state. Does this cause a memory leak of the atomic commit object
+and all its duplicated plane/CRTC states on every suspend/reset cycle?
+
+> +}
+> +
+> +static int appletbdrm_resume(struct usb_interface *intf)
+[ ... ]
+> @@ -832,6 +847,8 @@ static struct usb_driver appletbdrm_usb_driver =3D {
+>  	.probe		=3D appletbdrm_probe,
+>  	.disconnect	=3D appletbdrm_disconnect,
+>  	.shutdown	=3D appletbdrm_shutdown,
+> +	.suspend	=3D appletbdrm_suspend,
+> +	.resume		=3D appletbdrm_resume,
+>  	.id_table	=3D appletbdrm_usb_id_table,
+>  };
+
+[Severity: Medium]
+Is the .reset_resume callback missing here?
+
+The commit message states: "If the device was reset while suspended, repeat
+the probe-time handshake first" to ensure the device stays registered.
+
+However, intentionally omitting the .reset_resume callback causes the USB
+core to unbind the driver on reset instead of restoring the DRM state.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/586d0b39-40c8-4f3d-=
+a786-c1085f87b858@linux.dev?part=3D1
