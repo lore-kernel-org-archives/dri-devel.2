@@ -4,100 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67641CA5FFC
-	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 16:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE6BCA5FF0
+	for <dri-devel@archiver.kernel.org>; Mon,  5 Oct 2026 16:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C670C10E27C;
-	Mon,  5 Oct 2026 16:53:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C023810E322;
+	Mon,  5 Oct 2026 16:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TsaGlRur";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LgRgX9Av";
 	dkim-atps=neutral
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com
- [74.125.229.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F26310E27C
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 16:53:43 +0000 (UTC)
-Received: by mail-dy2-f41.google.com with SMTP id
- 5a478bee46e88-34c4a0870d2so1349011eec.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 09:53:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791219222; cv=none;
- d=google.com; s=arc-20260327;
- b=dH7wLX0mGWtRJlsWF1lBGBeKMJMHkyfcH9rTDR/1d5OdxUlkVZo9ZIBKAzKB+8VJZN
- J+MHUKUIMhSZhkjeQ89rIrHpf1ZbDe3N25zoTizbzMlKifgPqq0hZAKyC8mqtMazN/3u
- BnLIxk0GhMSvBW1ByrF+sIu/IVZuv9dpPq9CwACc8rj97nidB1hCKVnoQk6gy/e9of4P
- oW5+4WWfl6lmvMeUu2JOEA01z9uSALMvFFfLJq/yhNjSmDu61TZa1PJeslUK69sThU0M
- B1Hg0RR6U5Am6HEzfae+M7q2dbYQz+5KXFws3S9N+z6NsOLurwU7QlGIHn+TrqLTwGrV
- HfpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=z0gmFEDsIHtz0UHp2ElZOBRyG9knCsE2/mBdJQGZCe8=;
- fh=4yN2+KAN3UtF5eFJySLIDdagASToP1GtMUvF3yGuFgI=;
- b=BwJzHf71rOT45DptjsTscNC7bstHIUoJVs3RWfaAK8LHTiLRpRZl4kqbcO4U+2wFcL
- oDubpriqNbjDxJDVbFIhixu0GxqA0/FJP6eda4NmjIwQGfCSyAwQ9aKRQazfatHM4C/F
- Fmy92H4R+HrURfMhgX1e34WIdPEE9Duv+ZINmeOzePQD1ZckoyZk9xWMJfsJZi9Xrlx7
- GunSe0e1u7kVsQC6n6r/KB6miOzWCqMj0se0+lJ5CPYbOYqziw8j2i2hePKcC/gV6I70
- NslmAQ/I7GJFeZsIfe9a78i+UGmTt7baMnpiB/caFNz3QlaJvVOxlJ1YhtgkFIw6uQBT
- yh4A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791219222; x=1791824022; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=z0gmFEDsIHtz0UHp2ElZOBRyG9knCsE2/mBdJQGZCe8=;
- b=TsaGlRurzCCxQ23uAh22OWTAzpk/DQk2lUzT4b6mO9r/9Hg/3lqLA/SBCJYvzHyIMY
- 36wg4PjVxxwszCnukC+gm4uQKMXn0096Qj29AIolR0BD227Fy7O5sBUn7g6AH2VRQkkE
- XzSxSP8rdPqKGtu6VxDNAtZ7pZhpzeUChLl0DaJEzjzH74EhSzvqwHCOoh2y2ImUI09b
- WrLlebdknzXuyxPGWmYu0AKe4SPahncfpbh1ufHJpbvQaFCeF4Hh+6hyoTANRZ4gE7yP
- /MBhVxIr4quc12ezr7zspTsG1tp/uhGbpTU9KQBpiQqZZti3UYI6jE9xeKj9654hY9rP
- 5ssA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791219222; x=1791824022;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=z0gmFEDsIHtz0UHp2ElZOBRyG9knCsE2/mBdJQGZCe8=;
- b=Z9k2szaKXCyF6qyJU5OWyDmJ/5PBgMZGsbV6I459mIvo50ku7vl08HABB/Tadr2M+B
- Ru2KhVPbCSBzHP+yf9tGQlr9KesSYXe5u85WQot6Z6PkNUHx2WQJ8bpvycj8dxIgITo+
- aweGQj+iV8EesEIgRjDoJoELt2ACmFkxAC6I8vQKqORYscs/dtTEKHxjCmlHBuo1FyTZ
- +bEcVl336i7j/XRz3Ckj7PSb2Urkisj/5FJEaj+BxbhxyiAaM5I2aGHIG6e9Cv7U8xpE
- W/F7CvXyIMjq2tKjwrqVKEnkp5jS+uySCaVXJ93kfekwQrc8W1MS0aR0rLUej6JVxU1P
- P6Vg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwFygoKd8ZuzySc/8WPWdLZQXOBFt3YVoMcgA8EGgggNR+YmKYwActVqwrKK2Xi/6+vvz1+ANUkY6A=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m92f3MCh1ie+QtC+JuXJ+fQ8qIWDGCnJI+4KY1P63criw0H5aF
- 0u6niwc3Is5LxzIMvB+iIhS9E4bJ3iuq0cnK3cKwuykSCZOms7Un3Hqe3ki75z53lERSow2Kuvr
- 2ClxnWFVcdJEldNepO2ynAza96TJ07lA=
-X-Gm-Gg: AYBFou2nZisVjRRyZptSLrZA0/MiafeNYX8m0C20u3woKwXohMJH5HTX5rkplB5WgMP
- yR6MR0rQQaAQpE3X8bhXk+YwcPJukvOvLNpLOl46KGaxjJjd2ydKfPO6iepSv031owy+qZ8IMsE
- HEPHpKnqpbQjr/VF8bBAzvrRNZBG5coHlSC9RRhbVUyks4A2an6xLKPWgJ8eIZxCyDmjvCRsNZq
- J0gSzSQVioXYpDSCmskMAmza9MabXLN+q6eRhxo7708kwjlMX8w9kJsHBYEAgsVPPgjvC0AGkRP
- hZhDLDRPG2/WUb+pVmIynwUTgvLUm1jq/eI9BBJDOU5FnsKy3/rCzu6QCqhx/8YsVPeBdr864Ms
- BMd6Et25yZR5p
-X-Received: by 2002:a05:693c:8804:20b0:351:202c:c7a5 with SMTP id
- 5a478bee46e88-351202cdc40mr6426669eec.0.1791219222183; Mon, 05 Oct 2026
- 09:53:42 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B385510E322
+ for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 16:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1791219465;
+ bh=Ar2OHvmiUNMsM8DzKMRCZEqeFW06YtAaNc88vN1pBMs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=LgRgX9AvXNOJ7oWkwkGZy3DHgLwoi0tiDo3dr6QoWQ3qX3HzHnh7P1AMRui9oYE6M
+ +J0p4eyZ4VBaXJ9GwgSA1TTq8kI21qNJ5UqnBV0EJKMiO5gEYJnixzBJgyYJ72j8Tg
+ /g0TxvMUzuiAcDYh39VoRzjHxfzZosCQTRMfiBeTqZ2w5K4BPSneKojKSp7tedBR8K
+ DH1n503ZqrwM9AYo54D2dgiQk5bFgtR95rMUpChQ70RlZnfzBtsOK0ktAQxsFWqnby
+ pXDSdDxR3R26KoXPziWZmx7L5fi5EzNWmL2jm+WWL12hP2AJPFOEn1xozscW39E+Nz
+ 7UZf5Z/PEaIHQ==
+Received: from fedora-61.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 80BDE17E0088;
+ Mon, 05 Oct 2026 18:57:44 +0200 (CEST)
+Date: Mon, 5 Oct 2026 18:57:38 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
+ Herring <robh@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+Message-ID: <20261005185738.010bc483@fedora-61.home>
+In-Reply-To: <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+ <20261005173741.445715f0@fedora-61.home>
+ <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-References: <20261004164121.193514-1-clamor95@gmail.com>
- <20261004164121.193514-2-clamor95@gmail.com>
- <asPQ5FgHe87XQJBT@aspen.lan>
-In-Reply-To: <asPQ5FgHe87XQJBT@aspen.lan>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 5 Oct 2026 19:53:30 +0300
-X-Gm-Features: AclHuK80gf8oQpP3oXOiwBy9nGlcatk2lN-QYD_5rDpDvRkaMQwRh_t86WEgBCw
-Message-ID: <CAPVz0n1-v-AcKg8O66q074N3gOZQD1Z6k6O+ae6yJS_-NvT6UQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: mfd: Document Skyworks AAT2870
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,49 +78,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D0=BF=D0=BD, 5 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:31=
- Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, Oct 04, 2026 at 07:41:19PM +0300, Svyatoslav Ryhel wrote:
-> > Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lightin=
-g
-> > Management Unit.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../bindings/leds/skyworks,aat2870.yaml       | 127 ++++++++++++++++++
-> >  1 file changed, 127 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat=
-2870.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.ya=
-ml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-> > new file mode 100644
-> > index 0000000000000..014678616076f
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
-> > @@ -0,0 +1,127 @@
-> > [snip]
-> > +  backlight:
-> > +    $ref: /schemas/leds/backlight/common.yaml#
-> > +    unevaluatedProperties: false
-> > +
-> > +    properties:
-> > +      compatible:
-> > +        const: skyworks,aat2870-backlight
-> > +
-> > +      led-max-microamp:
-> > +        minimum: 450
-> > +        maximum: 27900
-> > +        default: 450
-> > +
-> > +      max-brightness:
-> > +        default: 255
->
-> Should there be a min/max here as well?
->
+On Mon, 5 Oct 2026 17:05:14 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Seems that you are correct. Thank you!
+> On 05/10/2026 16:37, Boris Brezillon wrote:
+> > On Mon, 5 Oct 2026 16:06:02 +0100
+> > Steven Price <steven.price@arm.com> wrote:
+> >  =20
+> >> On 05/10/2026 09:38, Boris Brezillon wrote: =20
+> >>> On Fri, 2 Oct 2026 16:14:38 +0100
+> >>> Steven Price <steven.price@arm.com> wrote:
+> >>>    =20
+> >>>> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote:   =20
+> >>>>> The GPU cache flush/invalidate operation is unnecessary. First off,=
+ the
+> >>>>> GPU doesn't read off the perfcnt sample buffer, only writes into it=
+, so     =20
+> >>>>
+> >>>> I don't think this is entirely true. The GPU performance counter unit
+> >>>> only writes the counters that are enabled, counters that share a cac=
+he
+> >>>> line but are not enabled are not written by the performance counter
+> >>>> unit, but if the L2 contains that cache line then the write can hit =
+in
+> >>>> the L2 and dirty the entire line including stale data where the
+> >>>> unwritten cache line is.   =20
+> >>>
+> >>> I don't think this can happen though, because _enable_locked() is
+> >>> creating a BO (and its GPU mapping) just before enabling the perfcnt
+> >>> block, meaning the buffer is known to have no dirty cacheline pointing
+> >>> to it until the first dump happens. And we do flush and invalidate GPU
+> >>> caches after each dump, so again, we should be covered.   =20
+> >>
+> >> The situation isn't actually a dirty cache line at the start, but a
+> >> stale one. We start off with the memory matching a clean line in the
+> >> GPU's cache. But because we don't have coherency the clean line can st=
+ay
+> >> even if it's inconsistent with everything else.
+> >>
+> >> CPU		|	GPU		| Memory
+> >> ----------------+-----------------------+--------------------
+> >>                 | clean line            | matches GPU cache
+> >> ----------------+-----------------------+--------------------
+> >>    CPU allocates new buffer and writes zeros
+> >> ----------------+-----------------------+--------------------
+> >> Dirty cache line| stale clean line      | unknown (cache line
+> >>                 |                       | might be evicted)
+> >> ----------------+-----------------------+--------------------
+> >>    CPU cleans its own cache to memory
+> >> ----------------+-----------------------+--------------------
+> >> Potential clean | stale clean line      | Matches CPU
+> >> cache line      |                       |
+> >> ----------------+-----------------------+--------------------
+> >>    Start dump without invaliding GPU
+> >> ----------------+-----------------------+--------------------
+> >> Potential clean | GPU writes data, and  | Unknown
+> >> cache line      | hits in the clean line|
+> >>                 | even though it's stale|
+> >> ----------------+-----------------------+--------------------
+> >>    CPU flushes the GPU's cache and invalidates it's own
+> >> ----------------+-----------------------+--------------------
+> >> No-cache line   | writes out clean line | Matches GPU
+> >>
+> >>
+> >> Of course for the GPU to have ended up with that stale clean cache line
+> >> means that the physical memory was previously used for something else =
+on
+> >> the GPU, so the newly allocated BO has to reuse memory from a previous
+> >> BO that the GPU has accessed. And it's all "unlikely" due to the small
+> >> size of the GPU's cache. =20
+> >=20
+> > Hm, I'd say it's actually impossible because every unmap operation is
+> > followed by a flush+inval of the GPU L2 and LSC, so for this stale
+> > clean line to exist on the GPU side when a physical page is GPU-mapped
+> > again, it would take a bug in the unmap logic or in the MMU HW, I
+> > think. Am I missing something? =20
+>=20
+> Ah, yes that's true :) Although there's no need for us to do an
+> invalidate on the unmap path...
 
->
-> Daniel.
+My bad, I'm confusing Panfrost and Panthor here. There's indeed no L2
+flush+inval on unmap in Panfrost. We do have an L2 flush+inval on map
+(FLUSH_PT) that should cover this case though.
