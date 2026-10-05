@@ -4,100 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17910CA5FFC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFCAECA5FFE
 	for <dri-devel@archiver.kernel.org>; Tue,  6 Oct 2026 07:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA3D10E0DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BECD10F1F6;
 	Tue,  6 Oct 2026 07:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EyHVC/RK";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="BGzERCUr";
 	dkim-atps=neutral
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com
- [74.125.228.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7493510EA1D
- for <dri-devel@lists.freedesktop.org>; Mon,  5 Oct 2026 13:20:50 +0000 (UTC)
-Received: by mail-ej2-f43.google.com with SMTP id
- a640c23a62f3a-c2a4fbc5586so307255966b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 05 Oct 2026 06:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1791206449; x=1791811249; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=h5zNn+04D/ADxwDdeMfBIdi2B0cMu31zTvDOOv1nE7U=;
- b=EyHVC/RKFMRfguOqzSCPeI5hheug16MVhhUlgw9H0UVXQosest2Xu7RqF2/VR+zxFH
- U3wmdmsqUflH8O1r/DTTgU2Tnxu6ZXcPVln1HKER1lMZN6TVOHEx6H6mM6cFj8GcBTHj
- dRY8OMxn+E3vUkFRfNWcvjEnFfMY5eVOvbREydF1KV4eYu5UgbOK7CeqogRDhnWVz084
- HyG0QDY181Z7p59BkBY74ST3D1dhyVvVwNipeq6lEXVQ2k0nqeZNR5ZugA4+MZVXx2vg
- hhxvhulAV7TyBjN9/UjkHUlxHEo7FukaeLX50PcTl4TbxQsYjCPSml0ku6DzO8l5+Qzv
- ifJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1791206449; x=1791811249;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=h5zNn+04D/ADxwDdeMfBIdi2B0cMu31zTvDOOv1nE7U=;
- b=kldhYSgoOdDqjTr+kajGOT297XFeRmj9YZAc7aV9NZq2Wr6p2cka/Lpj7VFt9pPa2Q
- A7hMARovQYtU0kQv/kFyu3410Ny/cjuTomFjIqbqk+FtgEUAYi+VPz97vXi1+fWCnW3F
- vo10vEb0CJ5bvb2YqGz7E5QYkj6ITvJ5CPhb6j2SB6+rmPu/iM6VrVec8xfvMJ4BQN/Q
- XGewoqZPe7U93xR6vLO6XlLuLQTzDeJJSXnmJs6F7kzUsTyWnXxY/iSkv8Cj1HHsQUby
- jueyEeeP+ilAdqdap96zcyjRdUQ2Oq+qWBU2tv7FeRs5iMIWiGMprwKVRgnyw7HrX25r
- roQg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzBtmHM5hE186iC/l6qEY95POTe6VMj19bLcuRz12Dv1asEYUEWDZgg05zwITbtlf0DJvMCXxVJ758=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l9gjO7CDKYiu/+r6ptFBrTiP2unQqd/lWm2mOuazOoliJGDIpi
- PRnHKXzRsfl4B9VGtNgVnq5wHo1poImMEDWoaDaUtJ+D8jdc4xVcjIha
-X-Gm-Gg: AYBFou0KGAyZwyA8CbpP4I76dupCsmaUBLCTClWM6BhregOlaxVi3teL1qSPk8i8f84
- 3QVcHzOuxzu9cmrTR92yIrefQauwqZWmH8qquR27HUdAo/AkfO/zyptor6WZMgP4i7jXvmKxztM
- rYl7hHpa6bsSqFDafmyicvZMufq2R2IZl7Y3d7RJ/1T55VWZtOf5lW1E+f5ZBTxND6TU19TK/BG
- VkIcFYffu/3+wL7k2iNg1bGNUtrE/sV98MlEUav8gTVg0HlmFjHrCV1qyXzg6hqnOTDfAYaqk6/
- LF89aYKVAvB4ywsaatGQVxCcAQMtXaKduvYl9HNIq8SUAXhOHECztU5o0yoQswDNiMOz4iyls+/
- q5KRzDC1faN0EBpdmW7JS2G+ylPdJnGkvEbru/6UaAqNWYBNEBMAFWxF3oMh6Pn6axVmnmgP9oa
- +37rJhdjCl1KKZN/h8PHR2aK0IkjEzvaFvFUru6GB0WtzGfuUB/6Ot862tW6SYsvv5k8IRMFyCM
- 9rHOgQmw5qXXQjY9If2AJ5Q2xTlZAu7KdAAnOalJOhHC9p2mYCaZmQpvDCeDwVwAJ5elrB3am9U
- G/0CKIMX30pCUhd+2WPE9/FwH1LglX9voMQ=
-X-Received: by 2002:a17:907:9614:b0:c25:8eb7:f388 with SMTP id
- a640c23a62f3a-c2e4ad13957mr911322366b.17.1791206448599; 
- Mon, 05 Oct 2026 06:20:48 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com
- (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c3156333a04sm79392466b.60.2026.10.05.06.20.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 05 Oct 2026 06:20:48 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>,
- Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, x86@kernel.org
-Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
-Date: Mon,  5 Oct 2026 13:20:46 +0000
-Message-ID: <20261005132046.30025-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
-References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3CB910E08F;
+ Mon,  5 Oct 2026 10:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=T7
+ WnC7MBfk9TVgPXsg1udDhs31Wk8ItwE10by3LqXXA=; b=BGzERCUrvKHFVstUXY
+ y/FK2XIlYse/f9RfEXejb2HJxB6ZyYau+lTX2wNoO392aAN9Er/NCQJ9xXsmKuA6
+ kKgXHlZPG2GwtAqyo4NkZ+gRSNKH/dMkJBn2dGlMqVq3Alye0sh9pFs/D0DIGPY8
+ R9FOcHHBXCLQuz7y1AnXyYHZY=
+Received: from 163.com (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgBnX6_tesNql_rOCg--.32055S3;
+ Mon, 05 Oct 2026 18:24:47 +0800 (CST)
+From: Xizhe Tang <xizheTang2005@163.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, ankit.k.nautiyal@intel.com, stable@vger.kernel.org
+Subject: [PATCH v3 1/3] drm/i915/dp: Reserve AS SDP guardband even when VRR is
+ off
+Date: Mon,  5 Oct 2026 18:24:43 +0800
+Message-ID: <20261005102445.12710-2-xizheTang2005@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261005102445.12710-1-xizheTang2005@163.com>
+References: <20260923195200.21362-1-xizheTang2005@163.com>
+ <20261005102445.12710-1-xizheTang2005@163.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PSgvCgBnX6_tesNql_rOCg--.32055S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWDWr1rZryxGF43CFyfJFb_yoW5JF1Upw
+ 4xWFyUKF1rJa4Sgry7JF1IyFy5W39Yk345Gwn8C3sIvayDZr98Jr9Yyay2gFyDursxAw1r
+ ArnrJrs0kw4qqrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn18PUUUUU=
+X-Originating-IP: [2001:250:20f:1:a533:cf01:13a0:45f8]
+X-CM-SenderInfo: x0l2xvpwdqwjqqqvqiywtou0bp/xtbC6hBmvWrDevAJTQAA3G
 X-Mailman-Approved-At: Tue, 06 Oct 2026 07:24:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,32 +62,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10/5/26 Christian König wrote:
-> Well filling page tables by the importer is an absolutely clear NO-GO
-> for the DMA-buf design, we have gotten down that path already and it
-> took us years to remove this functionality again.
+intel_vrr_compute_optimized_guardband() calls
+intel_dp_sdp_min_guardband(crtc_state, true) so that enabling an SDP
+later does not have to grow crtc_vblank_start and trigger a full
+modeset.
 
-Understood, thanks for the quick and clear answers on this patch and on
-patch 3.
+The Adaptive-Sync clause ignores assume_all_enabled and only looks at
+infoframes.enable. Toggling vrr.enable therefore changes the
+guardband, which is why sending AS SDP cannot currently follow
+vrr.enable.
 
-> The problem you are facing here is that dma_buf_mmap() doesn't work
-> because you don't have a VMA.
+Reserve the AS SDP lines whenever assume_all_enabled is set on a
+HAS_AS_SDP platform, same as the other SDP types in this function.
+The next patch can then gate transmission on vrr.enable without
+moving vblank.
 
-Right: the memory has no struct page and is deliberately not mapped in
-the host, so there is no VMA to hand to KVM.
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9252
+Cc: stable@vger.kernel.org # 7.2+
+Signed-off-by: Xizhe Tang <xizheTang2005@163.com>
+Tested-by: Xizhe Tang <xizheTang2005@163.com> # 7.2.8 xe.ko and drm-tip, PTL eDP; Never<->Always stays a fastset
+---
+Changes in v3:
+- New patch. Addresses Ville's review of v2: needs_as_sdp is also
+  how the optimized guardband is sized, so the send predicate must
+  not be tied to vrr.enable until this reservation is independent.
+- Hunks retargeted to drm-tip line numbers.
 
-I'll post a new version of this series. It drops get_phys(), the ranged
-invalidation and the guest_memfd dma-buf import (patches 2-5), and it
-does not touch drivers/dma-buf, as you suggested in the PAL discussion:
+ drivers/gpu/drm/i915/display/intel_dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-  https://lore.kernel.org/all/c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com/
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d8c0d93..7bfe796 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -7500,6 +7500,7 @@ int intel_dp_get_lines_for_sdp(const struct intel_crtc_state *crtc_state, u32 ty
+ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
+ 			       bool assume_all_enabled)
+ {
++	struct intel_display *display = to_intel_display(crtc_state);
+ 	int sdp_guardband = 0;
+ 
+ 	if (assume_all_enabled ||
+@@ -7514,7 +7515,9 @@ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
+ 		sdp_guardband = max(sdp_guardband,
+ 				    intel_dp_get_lines_for_sdp(crtc_state, DP_SDP_PPS));
+ 
+-	if (crtc_state->infoframes.enable &
++	/* Keep the VRR guardband independent of vrr.enable. */
++	if ((assume_all_enabled && HAS_AS_SDP(display)) ||
++	    crtc_state->infoframes.enable &
+ 	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
+ 		sdp_guardband = max(sdp_guardband,
+ 				    intel_dp_get_lines_for_sdp(crtc_state, DP_SDP_ADAPTIVE_SYNC));
+-- 
+2.55.0
 
-KVM gets its frames through the KVM-private guest_memfd provider
-interface from David's series. iommufd gets them through a private
-interface with the exporter, as it already does for vfio-pci. The new
-version adds a small registry in iommufd for that, which replaces the
-symbol_get() of the sample in David's series. The dma-buf is then only
-the handle and the existing revoke.
-
-Thanks,
-Fred
